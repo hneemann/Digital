@@ -1,16 +1,11 @@
 package de.neemann.digital.draw.graphics;
 
-import de.neemann.digital.draw.graphics.text.ParseException;
-import de.neemann.digital.draw.graphics.text.Parser;
 import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
-import de.neemann.digital.draw.graphics.text.text.Text;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
-
-import static de.neemann.digital.core.element.ElementAttributes.cleanLabel;
 
 /**
  * Used to draw on a {@link Graphics2D} instance.
@@ -114,13 +109,9 @@ public class GraphicSwing implements Graphic {
     @Override
     public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
         applyStyle(style); // sets also font size!
-        int height = gr.getFontMetrics().getHeight();
-        if (height > minFontSize) {
+        int fontHeight = gr.getFontMetrics().getHeight();
+        if (fontHeight > minFontSize) {
             if (text == null || text.length() == 0) return;
-
-            //GraphicMinMax.approxTextSize(this, p1, p2, text, orientation, style);
-
-            text = cleanLabel(text);
 
             boolean rotateText = false;
             if (p1.y == p2.y) {   // 0 and 180 deg
@@ -134,13 +125,7 @@ public class GraphicSwing implements Graphic {
                 rotateText = true;
             }
 
-            GraphicsFormatter.Fragment fragment = null;
-            try {
-                Text t = new Parser(text).parse();
-                fragment = GraphicsFormatter.createFragment(gr, t);
-            } catch (ParseException | GraphicsFormatter.FormatterException e) {
-                // on formatting errors show original text
-            }
+            GraphicsFormatter.Fragment fragment = GraphicsFormatter.createFragment(gr, text);
 
             AffineTransform old = null;
             if (rotateText) {
@@ -152,23 +137,17 @@ public class GraphicSwing implements Graphic {
 
             int xoff = 0;
             if (orientation.getX() != 0) {
-                int width;
-                if (fragment != null)
-                    width = fragment.getWidth();
-                else
-                    width = gr.getFontMetrics().stringWidth(text);
+                int width = fragment.getWidth();
                 xoff -= width * orientation.getX() / 2;
             }
 
             int yoff = 0;
             if (orientation.getY() != 0) {
+                int height = fragment.getHeight();
                 yoff += height * orientation.getY() / 3;
             }
 
-            if (fragment != null)
-                GraphicsFormatter.draw(gr, p1.x + xoff, p1.y + yoff, fragment);
-            else
-                gr.drawString(text, p1.x + xoff, p1.y + yoff);
+            fragment.draw(gr, p1.x + xoff, p1.y + yoff);
 
             if (rotateText)
                 gr.setTransform(old);

@@ -1,5 +1,7 @@
 package de.neemann.digital.draw.graphics.text.text;
 
+import de.neemann.digital.draw.graphics.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -48,8 +50,11 @@ public class Sentence implements Text, Iterable<Text> {
 
     /**
      * @return the last list element which is used to add an index
+     * @throws ParseException ParseException
      */
-    public Index getIndex() {
+    public Index getIndex() throws ParseException {
+        if (list.isEmpty())
+            throw new ParseException("no previous text element");
         Text last = list.get(list.size() - 1);
         if (last instanceof Index) {
             return (Index) last;

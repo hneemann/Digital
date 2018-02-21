@@ -1,9 +1,6 @@
 package de.neemann.digital.draw.graphics;
 
-import de.neemann.digital.draw.graphics.text.ParseException;
-import de.neemann.digital.draw.graphics.text.Parser;
 import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
-import de.neemann.digital.draw.graphics.text.text.Text;
 
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
@@ -133,17 +130,11 @@ public class GraphicMinMax implements Graphic {
      */
     public static int getTextWidth(String text, Style style) {
         final FontRenderContext fontRenderContext = new FontRenderContext(null, true, false);
-        try {
-            Text t = new Parser(text).parse();
-            GraphicsFormatter.Fragment f = GraphicsFormatter.createFragment((fragment, font, str) -> {
-                Rectangle2D rec = style.getFont().getStringBounds(str, fontRenderContext);
-                fragment.set((int) rec.getWidth(), (int) rec.getHeight(), 0);
-            }, style.getFont(), t);
-            return f.getWidth();
-        } catch (ParseException | GraphicsFormatter.FormatterException e) {
-            Rectangle2D rec = style.getFont().getStringBounds(text, fontRenderContext);
-            return (int) rec.getWidth();
-        }
+        GraphicsFormatter.Fragment f = GraphicsFormatter.createFragment((fragment, font, str) -> {
+            Rectangle2D rec = style.getFont().getStringBounds(str, fontRenderContext);
+            fragment.set((int) rec.getWidth(), (int) rec.getHeight(), 0);
+        }, style.getFont(), text);
+        return f.getWidth();
     }
 
     /**
