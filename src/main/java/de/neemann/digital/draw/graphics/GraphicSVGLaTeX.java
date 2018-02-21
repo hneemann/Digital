@@ -1,5 +1,12 @@
 package de.neemann.digital.draw.graphics;
 
+import de.neemann.digital.draw.graphics.text.ParseException;
+import de.neemann.digital.draw.graphics.text.Parser;
+import de.neemann.digital.draw.graphics.text.formatter.LaTeXFormatter;
+import de.neemann.digital.draw.graphics.text.text.Decorate;
+import de.neemann.digital.draw.graphics.text.text.Text;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -85,67 +92,22 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     }
 
     @Override
-    public String formatText(String text, int fontSize) {
-        text = formatIndex(text);
-        StringBuilder sb = new StringBuilder();
-        boolean inMath = false;
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-            switch (c) {
-                case '~':
-                case '\u00AC':
-                    sb.append(checkMath(inMath, "\\neg{}"));
-                    break;
-                case '\u2265':
-                    sb.append(checkMath(inMath, "\\geq\\!\\!{}"));
-                    break;
-                case '<':
-                    if (inMath)
-                        sb.append(c);
-                    else
-                        sb.append("\\textless{}");
-                    break;
-                case '>':
-                    if (inMath)
-                        sb.append(c);
-                    else
-                        sb.append("\\textgreater{}");
-                    break;
-                case '&':
-                    sb.append("\\&");
-                    break;
-                case '$':
-                    inMath = !inMath;
-                default:
-                    sb.append(c);
-            }
+    public String formatText(String text, Style style) {
+        try {
+            Text t = new Parser(text).parse();
+            if (style.getFontStyle() == Font.ITALIC)
+                t = Decorate.math(t);
+            text = LaTeXFormatter.format(t);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        text = sb.toString();
-        if (fontSize != Style.NORMAL.getFontSize()) {
-            final String fontSizeName = getFontSizeName(fontSize);
+        if (style.getFontSize() != Style.NORMAL.getFontSize()) {
+            final String fontSizeName = getFontSizeName(style.getFontSize());
             if (!fontSizeName.equals("normalsize"))
                 text = "{\\" + fontSizeName + " " + text + "}";
         }
         return escapeXML(text);
     }
-
-    private String checkMath(boolean inMath, String s) {
-        if (inMath)
-            return s;
-        else
-            return "$" + s + "$";
-    }
-
-    private String formatIndex(String text) {
-        if (text.indexOf('$') < 0) {
-            int p = text.lastIndexOf("_");
-            if (p > 0) {
-                text = text.substring(0, p) + "$_{" + text.substring(p + 1) + "}$";
-            }
-        }
-        return text;
-    }
-
 
     @Override
     public void drawCircle(Vector p1, Vector p2, Style style) {

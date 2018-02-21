@@ -85,7 +85,7 @@ public class OutputShape implements Shape {
             Vector center = new Vector(LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
             Vector textPos = new Vector(SIZE2 + LATEX_RAD.x, 0);
-            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.INOUT);
         } else {
             Style style = Style.NORMAL;
             if (value != null) {
@@ -100,7 +100,7 @@ public class OutputShape implements Shape {
             graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
             graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);
             Vector textPos = new Vector(SIZE * 3, 0);
-            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.INOUT);
         }
     }
 }

@@ -1360,7 +1360,8 @@ werden: "let U=A+B, let V=A*B"</string>
     <head><style>pre { background-color: #E0E0E0;}</style></head>
     <body>
 <p>Die erste Zeile muss, durch ein Leerzeichen getrennt, die
-Ein- und Ausgänge auflisten. In den folgenden Zeilen stehen dann die Sollwerte.
+Ein- und Ausgänge auflisten, die verwendet werden sollen.
+In den folgenden Zeilen stehen dann die Sollwerte.
 Dabei steht ein 'X' für Don't Care, und ein 'Z' für hochohmig.
 Wird der Wert 'C' verwendet, werden zunächst alle anderen Werte gesetzt, dann wird ein
 Taktzyklus durchgeführt, und erst daran anschließend werden die Werte verglichen.
@@ -1412,6 +1413,22 @@ loop(a,16)
   end loop
 end loop
 </pre>
+
+<p>Ein Eingang, welcher hochhomige Werte erlaubt, kann auch als Testausgang verwendet werden.
+In diesem Fall kann der Signalname mit einem nachgestellten '_out' verwendet werden, um den
+aktuellen Wert zurückzulesen und zu überprüfen. Dazu muss der entsprechende Eingang auf
+hochohmig ('Z') gesetzt sein.</p>
+
+<pre>OE CLK D D_out
+0   0  0 0
+0   C  1 1
+1   0  z 1
+0   C  0 0
+1   0  z 0
+</pre>
+
+<p>Die Schaltung zu diesem Test hat nur einen Eingang 'D', welcher aber hochohmig sein kann.
+Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert zu prüfen.</p>
 
 </body></html>]]></string>
 
