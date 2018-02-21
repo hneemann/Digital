@@ -27,6 +27,7 @@ public class SVGPolygon implements SVGFragment, SVGDrawable {
      */
     public SVGPolygon(Element element, boolean closed) {
         this.closed = closed;
+        corners=new ArrayList<Vector>();
         style = new SVGStyle(element.getAttribute("style"));
         String[] points = element.getAttribute("points").split(" ");
         for (String s : points) {
