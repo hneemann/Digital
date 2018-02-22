@@ -83,7 +83,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
         else
             translatedName = name;
 
-        isHidden = isLibrary && name.startsWith("_");
+        isHidden = isLibrary && name.endsWith("-inc.dig");
 
         this.file = file;
     }
