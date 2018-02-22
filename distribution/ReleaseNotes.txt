@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planed as v0.18
+- Added 74181, 7440, 7428
 - Added new text formatting engine which supports overline, super- and subscript.
   Try "~Q_{n+1}^1" as an output label.
 - It's possible to test circuits with a high-z input which can act as an output.
