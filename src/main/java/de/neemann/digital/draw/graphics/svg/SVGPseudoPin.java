@@ -13,18 +13,18 @@ import de.neemann.digital.draw.graphics.Vector;
 public class SVGPseudoPin implements SVGFragment, SVGPinnable {
 
     private Vector pos;
-    private int index;
     private boolean input;
     private Pins pins;
     private boolean descSet = false;
     private Vector originalPos;
+    private String label = "";
 
     /**
      * Creates a PseudoPin
      * @param pos
      *            Vector where the Pin is located (Center)
-     * @param index
-     *            Number of the Pin
+     * @param label
+     *            Name of the Pin
      * @param input
      *            if its a input Pin, false if its not
      * @param pins
@@ -32,8 +32,8 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
      * @param style
      *            style of the Pin
      */
-    public SVGPseudoPin(Vector pos, int index, boolean input, Pins pins, SVGStyle style) {
-        this.index = index;
+    public SVGPseudoPin(Vector pos, String label, boolean input, Pins pins, SVGStyle style) {
+        this.label = label;
         this.input = input;
         this.pins = pins;
         this.pos = applyVectorToGrid(pos.x, pos.y);
@@ -69,7 +69,13 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
      *            Pin Description
      */
     public void setPinDesc(PinDescriptions pinDesc) {
-        pins.add(new Pin(pos, pinDesc.get(index)));
+
+        for (int i = 0; i < pinDesc.size(); i++) {
+            if (label.equals(pinDesc.get(i).getName())) {
+                pins.add(new Pin(pos, pinDesc.get(i)));
+            }
+        }
+
         descSet = true;
     }
 
@@ -131,23 +137,6 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
         return originalPos;
     }
 
-    /**
-     * Gets the Number of the Pin
-     * @return index
-     */
-    public int getIndex() {
-        return index;
-    }
-
-    /**
-     * Sets the Index
-     * @param index
-     *            Index
-     */
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
     @Override
     public boolean isPin() {
         return true;
@@ -158,5 +147,21 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
         return new SVGPseudoPin[] {
                 this
         };
+    }
+
+    /**
+     * Getter for Name
+     * @return name
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Setter for Name
+     * @param label name
+     */
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

@@ -55,17 +55,17 @@ public class SVG {
      *            old position
      * @param fresh
      *            new Position
-     * @param id
-     *            id of the pin
+     * @param label
+     *            Name of the pin
      * @param input
      *            if its a inputpin
      * @return SVG
      */
-    public SVG transformPin(Vector old, Vector fresh, int id, boolean input) {
+    public SVG transformPin(Vector old, Vector fresh, String label, boolean input) {
         elements = elements.replaceAll(
                 "(<circle |<ellipse )[^\\/]*cx=\"" + old.x + "\"[^\\/]*cy=\"" + old.y + "\"[^\\/]*\\/>",
-                "<circle cx=\"" + fresh.x + "\" cy=\"" + fresh.y + "\" r=\"2\" id=\"" + (input ? "input" : "output")
-                        + id + "\"/>");
+                "<circle cx=\"" + fresh.x + "\" cy=\"" + fresh.y + "\" r=\"2\" id=\"" + (input ? "input:" : "output:")
+                        + label + "\"/>");
         return new SVG(elements);
     }
 
@@ -85,15 +85,15 @@ public class SVG {
      * Adds a new Pin
      * @param input
      *            Inputpin
-     * @param number
-     *            Number of the Pin
+     * @param label
+     *            Name of the Pin
      * @param pos
      *            Position of the Pin
      * @return SVG
      */
-    public SVG addPin(boolean input, int number, Vector pos) {
-        String pin = "<circle cx=\"" + pos.x + "\" cy=\"" + pos.y + "\" r=\"2\" id=\"" + (input ? "input" : "output")
-                + number + "\" />";
+    public SVG addPin(boolean input, String label, Vector pos) {
+        String pin = "<circle cx=\"" + pos.x + "\" cy=\"" + pos.y + "\" r=\"2\" id=\"" + (input ? "input:" : "output:")
+                + label + "\" />";
         elements = elements.replaceAll("</svg>", pin + "</svg>");
         return new SVG(elements);
     }

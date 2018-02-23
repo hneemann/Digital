@@ -259,15 +259,35 @@ public class SVGPath implements SVGFragment, SVGDrawable {
         for (String s : param) {
             p.add(getIntFromString(s));
         }
+        /**
+         * p0 = [0, radius] p1 = [radius * K, radius] p2 = [radius, radius * K] p3 =
+         * [radius, 0]
+         */
         for (int i = 0; i < p.size() - 6; i += 7) {
-            int rx = p.get(i);
-            int ry = p.get(i + 1);
-            int rot = p.get(i + 2);
+            int rx = Math.abs(p.get(i));
+            int ry = Math.abs(p.get(i + 1));
+            int rot = p.get(i + 2) % 360;
             boolean large = p.get(i + 3) == 1;
             boolean sweep = p.get(i + 4) == 1;
-            int x = p.get(i + 5);
-            int y = p.get(i + 6);
-            lineTo(x, y, abs);
+            Vector start = corners.get(corners.size() - 1);
+            Vector end = start.add(new Vector(p.get(i + 5), p.get(i + 6)));
+            if (end.x == start.x && end.y == start.y)
+                continue;
+            if (rx == 0 || ry == 0) {
+                lineTo(end.x, end.y, true);
+                continue;
+            }
+
+            if (!abs)
+                end = end.add(start);
+            Vector control1 = start.add(new Vector(rx, 0));
+            Vector control2 = end.add(new Vector(0, ry));
+            if (sweep) {
+                control1 = control1.mul(-1);
+                control2 = control2.mul(-1);
+            }
+            //bezierCurve(control1.x, control1.y, control2.x, control2.y, end.x, end.y, true);
+            lineTo(end.x, end.y, true);
         }
     }
 

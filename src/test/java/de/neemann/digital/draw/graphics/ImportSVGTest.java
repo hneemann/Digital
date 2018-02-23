@@ -28,8 +28,8 @@ public class ImportSVGTest extends TestCase {
         try {
             ImportSVG importer = new ImportSVG(svg, null, null);
             assertEquals(4, importer.getFragments().size());
-            svg = svg.addPin(true, 0, new Vector(0, 0));
-            svg = svg.addPin(false, 0, new Vector(100, 0));
+            svg = svg.addPin(true, "I", new Vector(0, 0));
+            svg = svg.addPin(false, "O", new Vector(100, 0));
             importer = new ImportSVG(svg, null, null);
             assertEquals(6, importer.getFragments().size());
             assertEquals(2, importer.getPseudoPins().size());
@@ -44,10 +44,10 @@ public class ImportSVGTest extends TestCase {
                         drawables.add(d);
             }
             /**
-             * 8 Drawables for the 8 SVG Elements, plus 1 Pin
+             * 8 Drawables for the 8 SVG Elements, plus 1 PseudoPin
              */
             assertEquals(9, drawables.size());
-            svg = svg.transformPin(new Vector(0, 0), new Vector(100, 0), 0, true);
+            svg = svg.transformPin(new Vector(0, 0), new Vector(100, 0), "I", true);
             importer = new ImportSVG(svg, null, null);
             assertEquals(5, importer.getFragments().size());
             assertEquals(1, importer.getPseudoPins().size());
