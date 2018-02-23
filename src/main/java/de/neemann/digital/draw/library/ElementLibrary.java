@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -511,7 +512,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             Circuit circuit;
             try {
                 circuit = Circuit.loadCircuit(file, shapeFactory);
-            } catch (IOException e) {
+            } catch (FileNotFoundException e) {
                 throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
             ElementTypeDescriptionCustom description =

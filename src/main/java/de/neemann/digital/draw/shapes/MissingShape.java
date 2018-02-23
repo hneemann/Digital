@@ -49,7 +49,10 @@ public class MissingShape implements Shape {
         int y = 4;
         while (c != null) {
             y += style.getFontSize();
-            graphic.drawText(new Vector(4, y), new Vector(5, y), c.getMessage(), Orientation.LEFTTOP, style);
+            String message = c.getMessage();
+            if (message.length() > 100)
+                message = message.substring(0, 100) + "...";
+            graphic.drawText(new Vector(4, y), new Vector(5, y), message, Orientation.LEFTTOP, style);
             c = c.getCause();
         }
     }
