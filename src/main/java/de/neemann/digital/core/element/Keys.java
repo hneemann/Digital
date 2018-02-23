@@ -9,6 +9,7 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
 
@@ -481,5 +482,12 @@ public final class Keys {
      */
     public static final Key<File> SETTINGS_JAR_PATH
             = new Key.KeyFile("jarPath", new File(""));
+
+
+    /**
+     * Shape used to represent a visual element
+     */
+    public static final Key<CustomShapeDescription> CUSTOM_SHAPE
+            = new Key<>("customShape", CustomShapeDescription.EMPTY);
 
 }

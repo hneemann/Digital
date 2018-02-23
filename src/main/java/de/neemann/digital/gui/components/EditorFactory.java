@@ -13,6 +13,7 @@ import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
@@ -63,6 +64,7 @@ public final class EditorFactory {
         add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
+        add(CustomShapeDescription.class, CustomShapeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -696,4 +698,36 @@ public final class EditorFactory {
             return ic;
         }
     }
+
+    private final static class CustomShapeEditor extends LabelEditor<CustomShapeDescription> {
+        private CustomShapeDescription customShapeDescription;
+
+        public CustomShapeEditor(CustomShapeDescription customShapeDescription, Key<DataField> key) {
+            this.customShapeDescription = customShapeDescription;
+        }
+
+        @Override
+        public JComponent getComponent(ElementAttributes attr) {
+            JPanel panel = new JPanel(new FlowLayout());
+            panel.add(new ToolTipAction(Lang.get("btn_clearData")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    customShapeDescription = CustomShapeDescription.EMPTY;
+                }
+            }.createJButton());
+            panel.add(new ToolTipAction(Lang.get("btn_load")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    customShapeDescription=CustomShapeDescription.createDummy();
+                }
+            }.createJButton());
+            return panel;
+        }
+
+        @Override
+        public CustomShapeDescription getValue() {
+            return customShapeDescription;
+        }
+    }
+
 }
