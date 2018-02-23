@@ -1212,7 +1212,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Schaltungen enthält.
         Die ZIP-Datei enthält damit alle Dateien, die für den Betrieb der Schaltung erforderlich sind.</string>
     <string name="menu_labelPins">Ein- und Ausgänge benennen</string>
-    <string name="menu_labelPins_tt">Für alle unbenannten Ein- und AUsgänge eine Bezeichnung setzen.</string>
+    <string name="menu_labelPins_tt">Für alle unbenannten Ein- und Ausgänge eine Bezeichnung setzen.</string>
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
