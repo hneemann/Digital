@@ -23,28 +23,6 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      */
     public static final CustomShapeDescription EMPTY = new CustomShapeDescription();
 
-    private static HashMap<String, Style> styleHashMap;
-
-    {
-        styleHashMap = new HashMap<>();
-        addStyle(Style.NORMAL);
-        addStyle(Style.THIN);
-        addStyle(Style.FILLED);
-        addStyle(Style.THIN_FILLED);
-        addStyle(Style.SHAPE_PIN);
-    }
-
-    private void addStyle(Style s) {
-        styleHashMap.put(s.getClass().getSimpleName(), s);
-    }
-
-    private static Style getStyleByName(String name) {
-        Style style = styleHashMap.get(name);
-        if (style == null) return Style.NORMAL;
-        return style;
-    }
-
-
     private HashMap<String, Vector> pins;
     private ArrayList<Drawable> drawables;
 
