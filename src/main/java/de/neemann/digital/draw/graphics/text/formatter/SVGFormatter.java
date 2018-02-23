@@ -37,7 +37,7 @@ public final class SVGFormatter {
                     else
                         return "<tspan style=\"font-style:italic\">" + format(d.getContent(), true) + "</tspan>";
                 case OVERLINE:
-                    return "<tspan style=\"text-decoration: overline\">" + format(d.getContent(), mathMode) + "</tspan>";
+                    return '\u00AC' + format(d.getContent(), mathMode);
                 default:
                     return format(d.getContent(), mathMode);
             }
