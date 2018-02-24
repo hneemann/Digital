@@ -127,6 +127,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Splitter.DESCRIPTION)
                         .add(Driver.DESCRIPTION)
                         .add(DriverInvSel.DESCRIPTION)
+                        .add(BusSplitter.DESCRIPTION)
                         .add(Delay.DESCRIPTION)
                         .add(PullUp.DESCRIPTION)
                         .add(PullDown.DESCRIPTION))

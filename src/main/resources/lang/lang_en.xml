@@ -242,6 +242,15 @@
     <string name="elem_Splitter_pin_in_one">The input bit {0}.</string>
     <string name="elem_Splitter_pin_out">The output bits {0}.</string>
     <string name="elem_Splitter_pin_out_one">The output bit {0}.</string>
+
+    <string name="elem_BusSplitter">Bidirectional Splitter</string>
+    <string name="elem_BusSplitter_tt">Can be used for data buses and simplifies especially the construction of
+        memory modules in a DIL package, as the implementation of the data bus is simplified.</string>
+    <string name="elem_BusSplitter_pin_OE">When set, the value at the common data terminal D is output to the bit
+        outputs D[i], if not, the bits D[i] are output to the common output D.</string>
+    <string name="elem_BusSplitter_pin_D">The common data connection.</string>
+    <string name="elem_BusSplitter_pin_D_N">The data bit {0} of the bus splitter.</string>
+
     <string name="elem_PullUp">Pull-Up Resistor</string>
     <string name="elem_PullUp_tt">If a net is in a HighZ state, this resistor pulls the net to high.
         In any other case this component has no effect.

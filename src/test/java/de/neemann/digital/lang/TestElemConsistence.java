@@ -4,10 +4,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.FanIn;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.memory.LookUpTable;
-import de.neemann.digital.core.wiring.Decoder;
-import de.neemann.digital.core.wiring.Demultiplexer;
-import de.neemann.digital.core.wiring.PriorityEncoder;
-import de.neemann.digital.core.wiring.Splitter;
+import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -64,6 +61,7 @@ public class TestElemConsistence extends TestCase {
                 || e instanceof Decoder
                 || e instanceof PriorityEncoder
                 || e instanceof Splitter
+                || e instanceof BusSplitter
                 || e instanceof LookUpTable);
     }
 

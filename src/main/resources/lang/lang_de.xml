@@ -239,6 +239,15 @@
     <string name="elem_Splitter_pin_in_one">Das Eingangsbit {0} des Splitters.</string>
     <string name="elem_Splitter_pin_out">Die Ausgangsbits {0} des Splitters.</string>
     <string name="elem_Splitter_pin_out_one">Das Ausgangsbit {0} des Splitters.</string>
+
+    <string name="elem_BusSplitter">Bidirektionaler Splitter</string>
+    <string name="elem_BusSplitter_tt">Kann für Datenbusse verwendet werden und erleichtert vor allem den Aufbau
+        von Speicherbausteinen im DIL-Gehäuse, da die Implementierung des Datenbusses erleichtert wird.</string>
+    <string name="elem_BusSplitter_pin_OE">Wenn gesetzt, wird der gemeinsame Datenanschluss D an den Bitausgängen D[i]
+        ausgegeben, wenn nicht, werden die Einzelbits D[i] am gemeinamen Ausgang D ausgegeben.</string>
+    <string name="elem_BusSplitter_pin_D">Der gemeinsame Datenanschluss.</string>
+    <string name="elem_BusSplitter_pin_D_N">Das Datenbit {0} des Bus-Splitters.</string>
+
     <string name="elem_PullUp">Pull-Up Widerstand</string>
     <string name="elem_PullUp_pin_out">Ein "Weak High".</string>
     <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.
