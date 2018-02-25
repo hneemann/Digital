@@ -21,7 +21,7 @@ public class VivadoTest extends TestCase {
 
         CodePrinterStr cp = new CodePrinterStr();
 
-        Vivado v = new Vivado("testType", "clockPin", 1, null);
+        Vivado v = new Vivado("testType", "clockPin", 1, null, "xc7a35ticpg236-1L");
         v.writeConstraints(cp, model);
 
         assertEquals(
