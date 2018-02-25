@@ -13,6 +13,7 @@ import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.core.flipflops.Monoflop;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
@@ -144,7 +145,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(FlipflopD.DESCRIPTION)
                         .add(FlipflopT.DESCRIPTION)
                         .add(FlipflopJKAsync.DESCRIPTION)
-                        .add(FlipflopDAsync.DESCRIPTION))
+                        .add(FlipflopDAsync.DESCRIPTION)
+                        .add(Monoflop.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_memory"))
                         .add(Register.DESCRIPTION)
                         .add(ROM.DESCRIPTION)

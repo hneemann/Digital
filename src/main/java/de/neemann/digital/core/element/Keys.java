@@ -63,6 +63,13 @@ public final class Keys {
             .setMax(20);
 
     /**
+     * the timer delay time
+     */
+    public static final Key.KeyInteger MONOFLOP_DELAY
+            = new Key.KeyInteger("timerDelay", 1)
+            .setMin(1);
+
+    /**
      * The elements label
      */
     public static final Key<String> LABEL
