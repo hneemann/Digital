@@ -4,7 +4,7 @@
   <attributes>
     <entry>
       <string>romContent</string>
-      <de.neemann.digital.core.memory.rom.ROMManger>
+      <storedRoms>
         <roms>
           <entry>
             <string>R3-B</string>
@@ -39,7 +39,7 @@
             <data size="4">9,a,b,c</data>
           </entry>
         </roms>
-      </de.neemann.digital.core.memory.rom.ROMManger>
+      </storedRoms>
     </entry>
   </attributes>
   <visualElements>

@@ -63,8 +63,7 @@ public class ROMEditorDialog extends JDialog {
             }
         });
 
-        JPanel buttons = new JPanel();
-        buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
+        JPanel buttons = new JPanel(new FlowLayout());
         buttons.add(new ToolTipAction(Lang.get("btn_edit")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,15 +82,14 @@ public class ROMEditorDialog extends JDialog {
         }.setToolTip(Lang.get("tt_deleteItem")).createJButton());
         getContentPane().add(buttons, BorderLayout.EAST);
 
-        JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
+        buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ok = true;
                 dispose();
             }
-        });
-        getContentPane().add(okButton, BorderLayout.SOUTH);
-
+        }));
+        getContentPane().add(buttons, BorderLayout.SOUTH);
 
         pack();
         setLocationRelativeTo(parent);

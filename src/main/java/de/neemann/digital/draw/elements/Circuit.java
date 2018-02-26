@@ -13,6 +13,7 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
+import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
@@ -84,6 +85,7 @@ public class Circuit {
         xStream.alias("testData", TestCaseDescription.class);
         xStream.alias("inverterConfig", InverterConfig.class);
         xStream.addImplicitCollection(InverterConfig.class, "inputs");
+        xStream.alias("storedRoms", ROMManger.class);
         xStream.ignoreUnknownElements();
         return xStream;
     }
