@@ -59,6 +59,7 @@ public class Splitter implements Element {
             .addAttribute(Keys.INPUT_SPLIT)
             .addAttribute(Keys.OUTPUT_SPLIT)
             .addAttribute(Keys.IS_HIGH_Z)
+            .addAttribute(Keys.SPLITTER_SPREADING)
             .setShortName("");
 
     private final ObservableValues outputs;

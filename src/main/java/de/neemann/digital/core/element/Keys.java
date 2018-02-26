@@ -131,6 +131,16 @@ public final class Keys {
             = new Key<>("Output Splitting", "8");
 
     /**
+     * The splitter spreading
+     */
+    public static final Key.KeyInteger SPLITTER_SPREADING
+            = new Key.KeyInteger("splitterSpreading", 1)
+            .setComboBoxValues(new Integer[]{1, 2, 3, 4})
+            .setMin(1)
+            .setMax(10);
+
+
+    /**
      * flag to enable realtime mode at a clock
      */
     public static final Key<Boolean> RUN_AT_REAL_TIME

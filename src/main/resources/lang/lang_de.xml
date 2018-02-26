@@ -1029,6 +1029,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_invertOutput_tt">Wenn gesetzt, wird der Ausgang invertiert.</string>
     <string name="key_timerDelay">Impulsdauer</string>
     <string name="key_timerDelay_tt">Die Impulsdauer wird in Taktzyklen angegeben.</string>
+    <string name="key_splitterSpreading">Spreizung</string>
+    <string name="key_splitterSpreading_tt">Bestimmt die Spreizung der Ein- und Ausgänge in der Schaltung.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

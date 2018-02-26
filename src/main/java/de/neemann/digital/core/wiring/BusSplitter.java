@@ -21,7 +21,8 @@ public class BusSplitter extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION =
             new ElementTypeDescription(BusSplitter.class, input("OE"))
                     .addAttribute(Keys.ROTATE)
-                    .addAttribute(Keys.BITS);
+                    .addAttribute(Keys.BITS)
+                    .addAttribute(Keys.SPLITTER_SPREADING);
 
     private final int bits;
     private final ObservableValue commonOut;

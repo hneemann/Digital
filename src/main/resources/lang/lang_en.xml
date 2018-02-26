@@ -1020,7 +1020,8 @@ The names of the variables may not be unique.</string>
     <string name="key_invertOutput_tt">If selected the output is inverted.</string>
     <string name="key_timerDelay">Pulse Width</string>
     <string name="key_timerDelay_tt">The puls width is measured in clock cycles.</string>
-
+    <string name="key_splitterSpreading">Spreading</string>
+    <string name="key_splitterSpreading_tt">Configures the spread of the inputs and outputs in the circuit.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
