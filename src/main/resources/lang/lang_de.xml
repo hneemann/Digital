@@ -1031,6 +1031,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_timerDelay_tt">Die Impulsdauer wird in Taktzyklen angegeben.</string>
     <string name="key_splitterSpreading">Spreizung</string>
     <string name="key_splitterSpreading_tt">Bestimmt die Spreizung der Ein- und Ausgänge in der Schaltung.</string>
+    <string name="key_romContent">ROM Inhalte</string>
+    <string name="key_romContent_tt">Inhalt aller ROM Bausteine</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1330,6 +1332,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
 Soll dennoch exportiert werden?</string>
     <string name="msg_circuitIsRequired">Um eine Hardwarebeschreibung zu erzeugen, muss zuvor eine Schaltung erstellt
         und analysiert werden. Aus nur einer Wahrheitstabelle kann keine Hardwarebeschreibung erzeugt werden.</string>
+    <string name="msg_noData">keine Daten</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
@@ -1354,6 +1357,7 @@ Soll dennoch exportiert werden?</string>
     <string name="win_itempicker_title">Auswahl</string>
     <string name="win_valueInputTitle_N">Eingabe {0}</string>
     <string name="win_karnaughMap">Karnaugh-Veitch Tafel</string>
+    <string name="win_romDialog">Vorhandene ROMs</string>
 
     <string name="btn_help">Hilfe</string>
 

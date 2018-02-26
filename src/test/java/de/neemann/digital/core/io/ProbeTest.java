@@ -18,8 +18,8 @@ public class ProbeTest extends TestCase {
         ArrayList<Signal> signals = m.getSignals();
         assertEquals(5, signals.size());
 
-        assertTrue(signals.contains(new Signal("M_Probe1", null)));
-        assertTrue(signals.contains(new Signal("M_Probe2", null)));
+        assertTrue(signals.contains(new Signal("M-Probe1", null)));
+        assertTrue(signals.contains(new Signal("M-Probe2", null)));
     }
 
     public void testProbeNesting() throws Exception {
@@ -27,8 +27,8 @@ public class ProbeTest extends TestCase {
         ArrayList<Signal> signals = m.getSignals();
         assertEquals(6, signals.size());
 
-        assertTrue(signals.contains(new Signal("M_Probe1", null)));
-        assertTrue(signals.contains(new Signal("M_Nest_Probe1", null)));
-        assertTrue(signals.contains(new Signal("M_Nest_Probe2", null)));
+        assertTrue(signals.contains(new Signal("M-Probe1", null)));
+        assertTrue(signals.contains(new Signal("M-Nest-Probe1", null)));
+        assertTrue(signals.contains(new Signal("M-Nest-Probe2", null)));
     }
 }

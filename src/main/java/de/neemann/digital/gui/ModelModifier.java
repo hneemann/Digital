@@ -8,7 +8,7 @@ import de.neemann.digital.core.NodeException;
  * <p>
  * Its used by the {@link de.neemann.digital.gui.remote.RemoteSever}. The remote server passes an instance to
  * the start method ({@link Main#createAndStartModel(boolean, ModelEvent, ModelModifier)}) to modify the model
- * after its generation. It modifies the ROM node by copying the program to execute to the programm memory.
+ * after its generation. It modifies the ROM node by copying the program to execute to the program memory.
  * <p>
  * Created by hneemann on 17.12.16.
  */

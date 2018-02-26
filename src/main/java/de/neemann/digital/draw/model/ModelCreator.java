@@ -7,6 +7,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
@@ -221,7 +222,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
     private String combineNames(String s1, String s2) {
         if (s1.length() > 0) {
             if (s2.length() > 0) {
-                return s1 + "_" + s2;
+                return s1 + "-" + s2;
             } else
                 return s1;
         } else {
@@ -280,6 +281,9 @@ public class ModelCreator implements Iterable<ModelEntry> {
             e.getElement().init(m);
             e.getVisualElement().getShape().registerModel(this, m, e);
         }
+
+        ROMManger romManager = circuit.getAttributes().get(Keys.ROMMANAGER);
+        romManager.applyTo(m);
 
         return m;
     }

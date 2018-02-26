@@ -1022,6 +1022,8 @@ The names of the variables may not be unique.</string>
     <string name="key_timerDelay_tt">The puls width is measured in clock cycles.</string>
     <string name="key_splitterSpreading">Spreading</string>
     <string name="key_splitterSpreading_tt">Configures the spread of the inputs and outputs in the circuit.</string>
+    <string name="key_romContent">Content of ROM's</string>
+    <string name="key_romContent_tt">Content of all used ROM's</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -1316,6 +1318,8 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
 Start export anyway?</string>
     <string name="msg_circuitIsRequired">To create a hardware description, a circuit must first be created and analyzed.
         A standalone truth table can not be used to generate a hardware description.</string>
+    <string name="win_romDialog">Used ROM's</string>
+    <string name="msg_noData">no data</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

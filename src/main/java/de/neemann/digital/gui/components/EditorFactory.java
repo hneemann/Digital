@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
@@ -10,9 +11,12 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.core.memory.rom.ROMManger;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
@@ -63,6 +67,7 @@ public final class EditorFactory {
         add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
+        add(ROMManger.class, ROMManagerEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -694,6 +699,47 @@ public final class EditorFactory {
                     ic.add(cb.getText());
             }
             return ic;
+        }
+    }
+
+    private static class ROMManagerEditor extends LabelEditor<ROMManger> {
+        private final JButton button;
+        private ROMManger romManager;
+
+        public ROMManagerEditor(ROMManger aRomManager, Key<ROMManger> key) {
+            this.romManager = aRomManager;
+            button = new JButton(new ToolTipAction(Lang.get("btn_edit")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Main main = getAttributeDialog().getMain();
+                    if (main != null) {
+                        final ROMEditorDialog romEditorDialog;
+                        try {
+                            CircuitComponent circuitComponent = main.getCircuitComponent();
+                            Model model = new ModelCreator(circuitComponent.getCircuit(), circuitComponent.getLibrary()).createModel(false);
+
+                            romEditorDialog = new ROMEditorDialog(
+                                    getAttributeDialog(),
+                                    model,
+                                    romManager);
+                            if (romEditorDialog.showDialog())
+                                romManager = romEditorDialog.getROMManager();
+                        } catch (ElementNotFoundException | PinException | NodeException e) {
+                            new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).show(getAttributeDialog());
+                        }
+                    }
+                }
+            });
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            return button;
+        }
+
+        @Override
+        public ROMManger getValue() {
+            return romManager;
         }
     }
 }
