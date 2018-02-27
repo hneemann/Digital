@@ -16,13 +16,16 @@ public class ImportSVGTest extends TestCase {
 
     public void testSVGImport() throws IOException {
         try {
-            ImportSVG importer = new ImportSVG(new File("test/resources/svg/test.svg"));
+            ImportSVG importer = new ImportSVG(new File("src/test/resources/svg/test.svg"));
             assertEquals(4, importer.getFragments().size());
             svg = svg.addPin("I", new Vector(0, 0),true);
             svg = svg.addPin("O", new Vector(100, 0),false);
-            importer = new ImportSVG(new File("test/resources/svg/test.svg"));
-            assertEquals(6, importer.getFragments().size());
-            assertEquals(2, importer.getPseudoPins().size());
+            importer = new ImportSVG(new File("src/test/resources/svg/test.svg"));
+            assertEquals(4, importer.getFragments().size());
+            assertEquals(0, importer.getPseudoPins().size());
+            importer = new ImportSVG(new File("src/test/resources/svg/test-with-pin.svg"));
+            assertEquals(5, importer.getFragments().size());
+            assertEquals(1, importer.getPseudoPins().size());
         } catch (NoParsableSVGException e) {
             fail("The SVG is not parsed correctly");
         }

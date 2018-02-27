@@ -69,7 +69,6 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.svg.ImportSVG;
 import de.neemann.digital.draw.graphics.svg.SVGDrawable;
 import de.neemann.digital.draw.graphics.svg.SVGEllipse;
-import de.neemann.digital.draw.graphics.svg.SVGFragment;
 import de.neemann.digital.draw.graphics.svg.SVGPseudoPin;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;

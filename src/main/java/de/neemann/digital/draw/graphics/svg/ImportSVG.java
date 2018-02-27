@@ -123,7 +123,7 @@ public class ImportSVG {
                 for (SVGDrawable d : f.getDrawables())
                     if (d != null)
                         d.draw(drawer);
-        for(SVGPseudoPin p : getPseudoPins())
+        for (SVGPseudoPin p : getPseudoPins())
             drawer.addPin(p);
         return drawer.getSvg();
     }

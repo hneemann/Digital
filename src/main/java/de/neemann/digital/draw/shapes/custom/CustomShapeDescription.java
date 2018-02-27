@@ -42,13 +42,21 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      *            the name of the pin
      * @param pos
      *            the pins position
+     * @param input
+     *            whether its an input Pin
      * @return this for chained calls
      */
     public CustomShapeDescription addPin(String name, Vector pos, boolean input) {
         pins.add(new SVGPseudoPin(pos, name, input, null));
         return this;
     }
-    
+
+    /**
+     * Adds a given Pin
+     * @param p
+     *            Pin
+     * @return this for chained calls
+     */
     public CustomShapeDescription addPin(SVGPseudoPin p) {
         pins.add(p);
         return this;
@@ -56,7 +64,7 @@ public class CustomShapeDescription implements Iterable<Drawable> {
 
     /**
      * Get the names of all integrated Pins
-     * @return
+     * @return list of Pins
      */
     public SVGPseudoPin[] getPinNames() {
         return pins.toArray(new SVGPseudoPin[pins.size()]);
@@ -68,10 +76,8 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      *            starting point of the line
      * @param p2
      *            ending point of the line
-     * @param thickness
-     *            the line thickness
-     * @param color
-     *            the color to use
+     * @param style
+     *            style
      * @return this for chained calls
      */
     public CustomShapeDescription addLine(Vector p1, Vector p2, Style style) {
@@ -85,12 +91,8 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      *            upper left corner of the circles bounding box
      * @param p2
      *            lower right corner of the circles bounding box
-     * @param thickness
-     *            the line thickness
-     * @param color
-     *            the color to use
-     * @param filled
-     *            true if filled
+     * @param style
+     *            style
      * @return this for chained calls
      */
     public CustomShapeDescription addCircle(Vector p1, Vector p2, Style style) {
@@ -102,12 +104,8 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      * Adds a polygon to the shape
      * @param poly
      *            the polygon to add
-     * @param thickness
-     *            the line thickness
-     * @param color
-     *            the color to use
-     * @param filled
-     *            true if filled
+     * @param style
+     *            style
      * @return this for chained calls
      */
     public CustomShapeDescription addPolygon(Polygon poly, Style style) {
@@ -125,10 +123,8 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      *            the text to draw
      * @param orientation
      *            the orientation of the text
-     * @param size
-     *            the font size
-     * @param color
-     *            the text color
+     * @param style
+     *            style
      * @return this for chained calls
      */
     public CustomShapeDescription addText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
@@ -157,7 +153,7 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      *            new Position
      * @param label
      *            Name of the Pin
-     * @return
+     * @return this for chained calls
      * @throws PinException
      *             if the Pin is not found
      */
@@ -178,8 +174,8 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      * @return the dummy shape
      */
     public static CustomShapeDescription createDummy() {
-        return new CustomShapeDescription().addPin("A", new Vector(0, 0), true).addPin("B", new Vector(0, SIZE * 2), true)
-                .addPin("Y", new Vector(SIZE * 3, SIZE), false)
+        return new CustomShapeDescription().addPin("A", new Vector(0, 0), true)
+                .addPin("B", new Vector(0, SIZE * 2), true).addPin("Y", new Vector(SIZE * 3, SIZE), false)
                 .addCircle(new Vector(0, -SIZE2), new Vector(SIZE * 3, SIZE * 3 - SIZE2), Style.NORMAL)
                 .addLine(new Vector(0, -SIZE2), new Vector(SIZE * 3, SIZE * 3 - SIZE2), Style.NORMAL);
     }

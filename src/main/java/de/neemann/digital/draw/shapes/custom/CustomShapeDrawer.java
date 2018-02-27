@@ -7,9 +7,13 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.svg.SVGPseudoPin;
 
+/**
+ * Draws a Graphic into a custom shape
+ * @author felix
+ */
 public class CustomShapeDrawer implements Graphic {
 
-    CustomShapeDescription svg = new CustomShapeDescription();
+    private CustomShapeDescription svg = new CustomShapeDescription();
 
     @Override
     public void drawLine(Vector p1, Vector p2, Style style) {

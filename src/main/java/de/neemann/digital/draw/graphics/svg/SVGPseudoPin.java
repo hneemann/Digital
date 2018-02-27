@@ -29,8 +29,6 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
      *            if its a input Pin, false if its not
      * @param pins
      *            Pins of the circuit
-     * @param style
-     *            style of the Pin
      */
     public SVGPseudoPin(Vector pos, String label, boolean input, Pins pins) {
         this.label = label;
@@ -159,7 +157,8 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
 
     /**
      * Setter for Name
-     * @param label name
+     * @param label
+     *            name
      */
     public void setLabel(String label) {
         this.label = label;
