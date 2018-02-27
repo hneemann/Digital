@@ -1,5 +1,7 @@
 package de.neemann.digital.draw.graphics.text.formatter;
 
+import de.neemann.digital.draw.graphics.text.ParseException;
+import de.neemann.digital.draw.graphics.text.Parser;
 import de.neemann.digital.draw.graphics.text.text.*;
 import de.neemann.digital.draw.graphics.text.text.Character;
 
@@ -16,31 +18,13 @@ public final class GraphicsFormatter {
     }
 
     /**
-     * Draws the given text.
-     *
-     * @param gr       the {@link Graphics2D} instance
-     * @param x        the x position
-     * @param y        the y position
-     * @param fragment the text fragment
-     */
-    public static void draw(Graphics2D gr, int x, int y, Fragment fragment) {
-        Font font = gr.getFont();
-        Stroke stroke = gr.getStroke();
-        fragment.draw(gr, x, y);
-        gr.setFont(font);
-        gr.setStroke(stroke);
-    }
-
-
-    /**
      * Creates the text fragments
      *
      * @param gr   the {@link Graphics2D} instance
      * @param text the text
      * @return the text fragment
-     * @throws FormatterException FormatterException
      */
-    public static Fragment createFragment(Graphics2D gr, Text text) throws FormatterException {
+    public static Fragment createFragment(Graphics2D gr, String text) {
         return createFragment((fragment, font, str) -> {
             final FontMetrics metrics = gr.getFontMetrics(font);
             Rectangle2D rec = metrics.getStringBounds(str, gr);
@@ -55,9 +39,30 @@ public final class GraphicsFormatter {
      * @param font  the font
      * @param text  the text
      * @return the fragment
+     */
+    public static Fragment createFragment(FontSizer sizer, Font font, String text) {
+        Fragment fragment;
+        try {
+            Text t = new Parser(text).parse();
+            fragment = createFragment(sizer, font, t);
+        } catch (ParseException | FormatterException e) {
+            // if there was an exception, return the complete raw text as a fragment
+            fragment = new TextFragment(sizer, font, text);
+        }
+        fragment.dx += font.getSize() / 10;
+        return fragment;
+    }
+
+    /**
+     * Creates the text fragments
+     *
+     * @param sizer the sizer instance
+     * @param font  the font
+     * @param text  the text
+     * @return the fragment
      * @throws FormatterException FormatterException
      */
-    public static Fragment createFragment(FontSizer sizer, Font font, Text text) throws FormatterException {
+    private static Fragment createFragment(FontSizer sizer, Font font, Text text) throws FormatterException {
         if (text instanceof Simple) {
             return new TextFragment(sizer, font, ((Simple) text).getText());
         } else if (text instanceof Character) {
@@ -90,7 +95,7 @@ public final class GraphicsFormatter {
                 case MATH:
                     return createFragment(sizer, font.deriveFont(Font.ITALIC), d.getContent());
                 case OVERLINE:
-                    return new OverlineFragment(createFragment(sizer, font, d.getContent()), font.getSize());
+                    return new OverlineFragment(createFragment(sizer, font, d.getContent()), font);
                 default:
                     return createFragment(sizer, font, d.getContent());
             }
@@ -101,7 +106,7 @@ public final class GraphicsFormatter {
     /**
      * Exception which indicates a formatter exception
      */
-    public static final class FormatterException extends Exception {
+    private static final class FormatterException extends Exception {
         FormatterException(String message) {
             super(message);
         }
@@ -135,17 +140,39 @@ public final class GraphicsFormatter {
             this.base = base;
         }
 
-        void draw(Graphics2D gr, int xOfs, int yOfs) {
+        void drawDirect(Graphics2D gr, int xOfs, int yOfs) {
 //            gr.setStroke(new BasicStroke());
 //            gr.drawRect(xOfs + x, yOfs + y + base - dy, dx, dy);
 //            gr.drawLine(xOfs + x, yOfs + y, xOfs + x + dx, yOfs + y);
         }
 
         /**
+         * Draws the given text.
+         *
+         * @param gr the {@link Graphics2D} instance
+         * @param x  the x position
+         * @param y  the y position
+         */
+        public void draw(Graphics2D gr, int x, int y) {
+            Font font = gr.getFont();
+            Stroke stroke = gr.getStroke();
+            drawDirect(gr, x, y);
+            gr.setFont(font);
+            gr.setStroke(stroke);
+        }
+
+        /**
          * @return the width of this fragment
          */
         public int getWidth() {
-            return dx + dy / 10;
+            return dx;
+        }
+
+        /**
+         * @return the height of this fragment
+         */
+        public int getHeight() {
+            return dy;
         }
     }
 
@@ -160,8 +187,8 @@ public final class GraphicsFormatter {
         }
 
         @Override
-        void draw(Graphics2D gr, int xOfs, int yOfs) {
-            super.draw(gr, xOfs, yOfs);
+        void drawDirect(Graphics2D gr, int xOfs, int yOfs) {
+            super.drawDirect(gr, xOfs, yOfs);
             gr.setFont(font);
             gr.drawString(text, x + xOfs, y + yOfs);
         }
@@ -180,10 +207,10 @@ public final class GraphicsFormatter {
         }
 
         @Override
-        void draw(Graphics2D gr, int xOfs, int yOfs) {
-            super.draw(gr, xOfs, yOfs);
+        void drawDirect(Graphics2D gr, int xOfs, int yOfs) {
+            super.drawDirect(gr, xOfs, yOfs);
             for (Fragment f : fragments)
-                f.draw(gr, x + xOfs, y + yOfs);
+                f.drawDirect(gr, x + xOfs, y + yOfs);
         }
 
         public Fragment setUp() {
@@ -246,37 +273,44 @@ public final class GraphicsFormatter {
         }
 
         @Override
-        void draw(Graphics2D gr, int xOfs, int yOfs) {
-            super.draw(gr, xOfs, yOfs);
-            var.draw(gr, xOfs + x, yOfs + y);
+        void drawDirect(Graphics2D gr, int xOfs, int yOfs) {
+            super.drawDirect(gr, xOfs, yOfs);
+            var.drawDirect(gr, xOfs + x, yOfs + y);
             if (superScript != null)
-                superScript.draw(gr, xOfs + x, yOfs + y);
+                superScript.drawDirect(gr, xOfs + x, yOfs + y);
             if (subScript != null)
-                subScript.draw(gr, xOfs + x, yOfs + y);
+                subScript.drawDirect(gr, xOfs + x, yOfs + y);
         }
     }
 
     private final static class OverlineFragment extends Fragment {
         private final Fragment fragment;
-        private final int indent;
         private final float fontSize;
+        private int dx1;
+        private int dx2;
 
-        private OverlineFragment(Fragment fragment, float fontSize) {
+        private OverlineFragment(Fragment fragment, Font font) {
             this.fragment = fragment;
-            this.fontSize = fontSize;
+            this.fontSize = font.getSize();
             this.dx = fragment.dx;
             this.dy = fragment.dy;
             this.base = fragment.base;
-            this.indent = dx < fontSize / 2 ? 0 : (int) fontSize / 10;
+            int indent = dx < fontSize / 2 ? 0 : (int) fontSize / 10;
+            dx1 = indent;
+            dx2 = indent / 2;
+            if (font.getStyle() == Font.ITALIC) {
+                dx1 += fontSize / 15;
+                dx2 -= fontSize / 15;
+            }
         }
 
         @Override
-        void draw(Graphics2D gr, int xOfs, int yOfs) {
-            super.draw(gr, xOfs, yOfs);
-            fragment.draw(gr, xOfs + x, yOfs + y);
+        void drawDirect(Graphics2D gr, int xOfs, int yOfs) {
+            super.drawDirect(gr, xOfs, yOfs);
+            fragment.drawDirect(gr, xOfs + x, yOfs + y);
             int yy = yOfs + y - dy + base;
             gr.setStroke(new BasicStroke(fontSize / 10f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
-            gr.drawLine(xOfs + x + indent, yy, xOfs + x + dx - indent / 2, yy);
+            gr.drawLine(xOfs + x + dx1, yy, xOfs + x + dx - dx2, yy);
         }
     }
 

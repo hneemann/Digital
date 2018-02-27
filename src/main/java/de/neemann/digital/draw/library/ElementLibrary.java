@@ -527,14 +527,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         }
 
         /**
-         * Defines, whether a CustomDescriptions owns a custom Shape
-         * @return isCustomShaped
-         */
-        public boolean isCustomShaped() {
-            return getAttributes().contains(Keys.SVG_SHAPE_PATH);
-        }
-
-        /**
          * Returns the filename The returned file is opened if the user wants to modify
          * the element
          * @return the filename

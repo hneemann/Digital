@@ -96,12 +96,12 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
             s = tmp[0].toLowerCase();
             String label = tmp[1];
             if (s.startsWith("input") || s.startsWith("i")) {
-                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), label, true, pins, style));
+                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), label, true, pins));
                 me = pseudoPins.get(pseudoPins.size() - 1);
                 return true;
             }
             if (s.startsWith("output") || s.startsWith("o")) {
-                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), label, false, pins, style));
+                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), label, false, pins));
                 me = pseudoPins.get(pseudoPins.size() - 1);
                 return true;
             }
@@ -134,11 +134,13 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
 
     @Override
     public void draw(Graphic graphic) {
-        if (style.getShallFilled()) {
-            graphic.drawCircle(oben, unten, style.getInnerStyle());
+        if (!isPin()) {
+            if (style.getShallFilled()) {
+                graphic.drawCircle(oben, unten, style.getInnerStyle());
+            }
+            if (style.getShallRanded())
+                graphic.drawCircle(oben, unten, style.getStyle());
         }
-        if (style.getShallRanded())
-            graphic.drawCircle(oben, unten, style.getStyle());
     }
 
     @Override

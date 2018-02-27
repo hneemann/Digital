@@ -2,7 +2,6 @@ package de.neemann.digital.core.element;
 
 import java.io.File;
 
-import de.neemann.digital.draw.graphics.svg.SVG;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -272,42 +271,6 @@ public class Key<VALUE> {
             setMax(64);
             setComboBoxValues(VALUES);
             allowGroupEdit();
-        }
-    }
-
-    /**
-     * Stores a file
-     */
-    public static final class KeySVG extends Key<SVG> {
-
-        private SVG svg;
-
-        /**
-         * Creates a new svg key
-         * @param key
-         *            the key
-         * @param def
-         *            the default svg
-         */
-        public KeySVG(String key, SVG def) {
-            super(key, def);
-        }
-
-        /**
-         * Getter
-         * @return svg
-         */
-        public SVG getSvg() {
-            return svg;
-        }
-
-        /**
-         * Setter
-         * @param svg
-         *            svg to set
-         */
-        public void setSvg(SVG svg) {
-            this.svg = svg;
         }
     }
 

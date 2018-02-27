@@ -2,6 +2,7 @@ package de.neemann.digital.gui.components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -35,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.JTextComponent;
 
@@ -58,22 +60,21 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.GraphicSwing;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.svg.ImportSVG;
-import de.neemann.digital.draw.graphics.svg.NoParsableSVGException;
-import de.neemann.digital.draw.graphics.svg.SVG;
 import de.neemann.digital.draw.graphics.svg.SVGDrawable;
 import de.neemann.digital.draw.graphics.svg.SVGEllipse;
 import de.neemann.digital.draw.graphics.svg.SVGFragment;
-import de.neemann.digital.draw.graphics.svg.SVGPinnable;
 import de.neemann.digital.draw.graphics.svg.SVGPseudoPin;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.shapes.custom.CustomShape;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
@@ -105,7 +106,7 @@ public final class EditorFactory {
         add(Long.class, LongEditor.class);
         add(InValue.class, InValueEditor.class);
         add(File.class, FileEditor.class);
-        add(SVG.class, SVGEditor.class);
+        add(CustomShapeDescription.class, CustomShapeEditor.class);
         add(Color.class, ColorEditor.class);
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
@@ -117,6 +118,7 @@ public final class EditorFactory {
         add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
+        // add(CustomShapeDescription.class, CustomShapeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -428,32 +430,32 @@ public final class EditorFactory {
     /**
      * @author felix
      */
-    private final static class SVGEditor extends LabelEditor<SVG> {
+    private final static class CustomShapeEditor extends LabelEditor<CustomShapeDescription> {
 
-        private final JPanel panel;
-        private final VPanel preview;
-        private SVG svg;
+        private VPanel preview = new VPanel();
+        // private SVG svg = new SVG();
         private ImportSVG importer;
+        private CustomShapeDescription svg;
+        private JDialog dialog;
+        private JPanel panel = new JPanel(new FlowLayout());
 
-        public SVGEditor(SVG value, Key<File> key) {
+        public CustomShapeEditor(CustomShapeDescription customShapeDescription, Key<DataField> key) {
+            this.svg = customShapeDescription;
+            dialog = new JDialog(getAttributeDialog(), Lang.get("btn_load"), ModalityType.APPLICATION_MODAL);
+            dialog.setLayout(new BorderLayout());
+            dialog.add(preview, BorderLayout.CENTER);
+            dialog.add(new ToolTipAction(Lang.get("btn_load")) {
 
-            panel = new JPanel(new BorderLayout());
-            preview = new VPanel();
-            preview.setPreferredSize(new Dimension(300, 300));
-            preview.setBackground(Color.WHITE);
-            this.svg = value;
-
-            JButton button = new JButton(new AbstractAction("...") {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser();
                     fc.setFileFilter(new FileNameExtensionFilter("SVG", "svg"));
                     if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
                         try {
-                            preview.setSVG(new ArrayList<SVGFragment>());
                             importer = new ImportSVG(fc.getSelectedFile());
                             svg = importer.getSVG();
-                            preview.setSVG(importer.getFragments());
+                            preview.initPins();
+                            preview.repaint();
                         } catch (Exception ex) {
                             new ErrorMessage("Beim Öffnen der SVG Datei ist ein Fehler aufgetreten (constStr)")
                                     .addCause(ex).show(panel);
@@ -461,14 +463,38 @@ public final class EditorFactory {
                         }
                     }
                 }
-            });
-            panel.add(button, BorderLayout.SOUTH);
-            panel.add(preview, BorderLayout.CENTER);
+
+            }.createJButton(), BorderLayout.NORTH);
+            dialog.add(new ToolTipAction(Lang.get("ok")) {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    dialog.dispose();
+                }
+            }.createJButton(), BorderLayout.SOUTH);
+            dialog.setSize(new Dimension(300, 300));
+            dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        }
+
+        @Override
+        public JComponent getComponent(ElementAttributes attr) {
+            panel.add(new ToolTipAction(Lang.get("btn_clearData")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    svg = CustomShapeDescription.EMPTY;
+                }
+            }.createJButton());
+            panel.add(new ToolTipAction(Lang.get("btn_load")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // customShapeDescription=CustomShapeDescription.createDummy();
+                    dialog.setVisible(true);
+                }
+            }.createJButton());
+            return panel;
         }
 
         private final class VPanel extends JPanel {
-            private ArrayList<SVGFragment> fragments;
-
             private double scale = 2.0;
             private double translateX = 10;
             private double translateY = 10;
@@ -477,20 +503,44 @@ public final class EditorFactory {
             private ArrayList<SVGPseudoPin> pins = new ArrayList<SVGPseudoPin>();
             private boolean drag = false;
             private int dragged;
-            private Vector old;
+
+            public void initPins() {
+                pins = new ArrayList<SVGPseudoPin>();
+                if (getAttributeDialog() != null) {
+                    Window p = getAttributeDialog().getDialogParent();
+                    if (p instanceof Main) {
+                        Circuit c = ((Main) p).getCircuitComponent().getCircuit();
+                        for (VisualElement ve : c.getElements()) {
+                            if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
+                                String label = ve.getElementAttributes().getLabel();
+                                addPin(true, label);
+                            } else if (ve.equalsDescription(Out.DESCRIPTION)) {
+                                String label = ve.getElementAttributes().getLabel();
+                                addPin(false, label);
+                            }
+                        }
+                    }
+                }
+                if (svg != null) {
+                    for (SVGPseudoPin p : svg.getPinNames()) {
+                        if (!isPinPresent(p.getLabel()))
+                            pins.add(p);
+                    }
+                }
+            }
 
             /**
              * Adds a new Pin
              * @param input
              *            Input or output
              */
-            private void addPin(boolean input, String label, int number) {
+            private void addPin(boolean input, String label) {
                 if (!isPinPresent(label)) {
-                    svg = svg.addPin(input, label, new Vector(lastPinX, lastPinY));
+                    svg = svg.addPin(label, new Vector(lastPinX, lastPinY), input);
                     while (isPinOnPosition(new Vector(lastPinX, lastPinY)) > 0) {
                         lastPinY += 20;
                     }
-                    SVGPseudoPin pseudoPin = new SVGPseudoPin(new Vector(lastPinX, lastPinY), label, input, null, null);
+                    SVGPseudoPin pseudoPin = new SVGPseudoPin(new Vector(lastPinX, lastPinY), label, input, null);
                     pins.add(pseudoPin);
                     lastPinX += 20;
                     if (lastPinX > 150) {
@@ -524,7 +574,6 @@ public final class EditorFactory {
              */
             private boolean isPinPresent(String label) {
                 for (SVGPseudoPin pin : pins) {
-                    System.out.println("Ist " + pin.getLabel() + " gleich " + label + "?");
                     if (pin.getLabel().equals(label)) {
                         return true;
                     }
@@ -537,39 +586,12 @@ public final class EditorFactory {
              * @param fragments
              *            parts of the svg
              */
-            public void setSVG(ArrayList<SVGFragment> fragments) {
+            public VPanel() {
                 lastPinX = 0;
                 lastPinY = 0;
                 scale = 2.0;
                 translateX = 10;
                 translateY = 10;
-                pins = new ArrayList<SVGPseudoPin>();
-                this.fragments = fragments;
-                for (SVGFragment f : fragments) {
-                    if (f != null && f.isPin()) {
-                        for (SVGPseudoPin p : ((SVGPinnable) f).getPin()) {
-                            pins.add(p);
-                            while (isPinOnPosition(p.getPos()) > 1) {
-                                p.setPos(p.getPos().add(new Vector(0, 20)));
-                            }
-                        }
-                    }
-                }
-                if (getAttributeDialog() != null) {
-                    Window p = getAttributeDialog().getDialogParent();
-                    if (p instanceof Main) {
-                        Circuit c = ((Main) p).getCircuitComponent().getCircuit();
-                        for (VisualElement ve : c.getElements()) {
-                            if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
-                                String label = ve.getElementAttributes().getLabel();
-                                addPin(true, label, ve.getElementAttributes().getIntPinNumber());
-                            } else if (ve.equalsDescription(Out.DESCRIPTION)) {
-                                String label = ve.getElementAttributes().getLabel();
-                                addPin(false, label, ve.getElementAttributes().getIntPinNumber());
-                            }
-                        }
-                    }
-                }
                 this.addMouseListener(new MouseListener() {
 
                     @Override
@@ -579,8 +601,11 @@ public final class EditorFactory {
                                     (int) (e.getY() / scale - translateY));
                             pins.get(dragged).setPos(fresh);
                             repaint();
-                            svg = svg.transformPin(old, fresh, pins.get(dragged).getLabel(),
-                                    pins.get(dragged).isInput());
+                            try {
+                                svg = svg.transformPin(fresh, pins.get(dragged).getLabel());
+                            } catch (PinException e1) {
+                                e1.printStackTrace();
+                            }
                         }
                         drag = false;
                     }
@@ -593,7 +618,6 @@ public final class EditorFactory {
                                     (int) (e.getY() / scale - translateY))) {
                                 drag = true;
                                 dragged = i;
-                                old = pins.get(i).getOriginalPos();
                                 break;
                             }
                         }
@@ -634,6 +658,7 @@ public final class EditorFactory {
                         repaint();
                     }
                 });
+                initPins();
                 repaint();
             }
 
@@ -643,17 +668,11 @@ public final class EditorFactory {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.scale(scale, scale);
                 g2d.translate(translateX, translateY);
-                Graphic graphic = new GraphicSwing(g2d);
-                if (fragments != null) {
-                    for (SVGFragment f : fragments) {
-                        if (f != null && f.getDrawables() != null) {
-                            for (SVGDrawable d : f.getDrawables()) {
-                                if (d != null) {
-                                    d.draw(graphic);
-                                }
-                            }
-                        }
-                    }
+                GraphicSwing graphic = new GraphicSwing(g2d);
+                try {
+                    new CustomShape(svg, null, null).drawTo(graphic, null);
+                } catch (PinException e1) {
+                    e1.printStackTrace();
                 }
                 for (SVGPseudoPin p : pins) {
                     if (p != null) {
@@ -671,28 +690,24 @@ public final class EditorFactory {
         }
 
         @Override
-        protected JComponent getComponent(ElementAttributes elementAttributes) {
-            return panel;
-        }
-
-        @Override
         public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
                 AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
             super.addToPanel(panel, key, elementAttributes, attributeDialog, constraints);
-            if (svg.isSet()) {
-                try {
-                    ImportSVG importer = new ImportSVG(svg, null, null);
-                    preview.setSVG(importer.getFragments());
-                } catch (NoParsableSVGException e1) {
-                    new ErrorMessage("Beim Öffnen der SVG Datei ist ein Fehler aufgetreten (constStr)").addCause(e1)
-                            .show(panel);
-                    e1.printStackTrace();
-                }
-            }
+            // if (svg.isSet()) {
+            // try {
+            // ImportSVG importer = new ImportSVG(svg, null, null);
+            // preview.setSVG(importer.getFragments());
+            // } catch (NoParsableSVGException e1) {
+            // new ErrorMessage("Beim Öffnen der SVG Datei ist ein Fehler aufgetreten
+            // (constStr)").addCause(e1)
+            // .show(panel);
+            // e1.printStackTrace();
+            // }
+            // }
         }
 
         @Override
-        public SVG getValue() {
+        public CustomShapeDescription getValue() {
             return svg;
         }
     }

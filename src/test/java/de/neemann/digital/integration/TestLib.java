@@ -33,7 +33,7 @@ public class TestLib extends TestCase {
 
     private void check(File dig) throws PinException, NodeException, ElementNotFoundException, IOException {
         Circuit circuit = new ToBreakRunner(dig).getCircuit();
-        boolean is74xx = dig.getPath().contains("74xx") && !dig.getName().startsWith("_");
+        boolean is74xx = dig.getPath().contains("74xx") && !dig.getName().endsWith("-inc.dig");
 
         if (is74xx) {
             assertTrue("is not DIL", circuit.getAttributes().get(Keys.IS_DIL));

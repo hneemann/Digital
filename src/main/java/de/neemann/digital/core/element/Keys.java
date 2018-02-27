@@ -11,9 +11,9 @@ import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.svg.SVG;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
 
@@ -484,9 +484,9 @@ public final class Keys {
             = new Key.KeyFile("jarPath", new File(""));
 
     /**
-     * A svg containing custom shapes
+     * Shape used to represent a visual element
      */
-    public static final Key<SVG> SVG_SHAPE_PATH
-            = new Key.KeySVG("svgPath", new SVG());
+    public static final Key<CustomShapeDescription> CUSTOM_SHAPE
+            = new Key<>("customShape", CustomShapeDescription.EMPTY);
 
 }

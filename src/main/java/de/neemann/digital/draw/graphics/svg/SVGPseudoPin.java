@@ -32,7 +32,7 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
      * @param style
      *            style of the Pin
      */
-    public SVGPseudoPin(Vector pos, String label, boolean input, Pins pins, SVGStyle style) {
+    public SVGPseudoPin(Vector pos, String label, boolean input, Pins pins) {
         this.label = label;
         this.input = input;
         this.pins = pins;

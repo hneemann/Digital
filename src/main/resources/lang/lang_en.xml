@@ -316,7 +316,7 @@
 
     <!-- flip flops-->
 
-    <string name="elem_RS_FF_AS">RS-FlipFlop</string>
+    <string name="elem_RS_FF_AS">RS-Flip-flop</string>
     <string name="elem_RS_FF_AS_short">RS</string>
     <string name="elem_RS_FF_AS_tt">A component to store a single bit.
         Provides the functions "set" and "reset" to set or reset the stored bit.
@@ -328,7 +328,7 @@
     <string name="elem_RS_FF_AS_pin_Q">Returns the stored value.</string>
     <string name="elem_RS_FF_AS_pin_~Q">Returns the inverted stored value.</string>
 
-    <string name="elem_RS_FF">RS-FlipFlop, clocked</string>
+    <string name="elem_RS_FF">RS-Flip-flop, clocked</string>
     <string name="elem_RS_FF_short">RS</string>
     <string name="elem_RS_FF_tt">A component to store a single bit.
         Provides the functions "set" and "reset" to set or reset the stored bit.
@@ -339,16 +339,16 @@
     <string name="elem_RS_FF_pin_R">The reset input.</string>
     <string name="elem_RS_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_RS_FF_pin_~Q">Returns the inverted stored value.</string>
-    <string name="elem_JK_FF">JK-Flipflop</string>
+    <string name="elem_JK_FF">JK-Flip-flop</string>
     <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value.
         A change of state takes place only at a rising edge at the clock input C.</string>
-    <string name="elem_JK_FF_pin_J">The set input of the flipflop.</string>
+    <string name="elem_JK_FF_pin_J">The set input of the flip-flop.</string>
     <string name="elem_JK_FF_pin_C">The clock input. A rising edge initiates a state change.</string>
-    <string name="elem_JK_FF_pin_K">The reset input of the flipflop.</string>
+    <string name="elem_JK_FF_pin_K">The reset input of the flip-flop.</string>
     <string name="elem_JK_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_JK_FF_pin_~Q">Returns the inverted stored value.</string>
-    <string name="elem_D_FF">D-FlipFlop</string>
+    <string name="elem_D_FF">D-Flip-flop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">A component used to store a value.
         The value on pin D is stored on a rising edge of the clock pin C.
@@ -359,27 +359,27 @@
         The value on input D is stored on a rising edge of this pin.</string>
     <string name="elem_D_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_D_FF_pin_~Q">Returns the inverted stored value.</string>
-    <string name="elem_T_FF">T-FlipFlop</string>
+    <string name="elem_T_FF">T-Flip-Flop</string>
     <string name="elem_T_FF_short">T</string>
     <string name="elem_T_FF_tt">Stores a single bit. Toggles the state on a rising edge at input C.</string>
     <string name="elem_T_FF_pin_T">Enables the toggle function.</string>
     <string name="elem_T_FF_pin_C">Clock input. A rising edge toggles the output, if input T is set to 1.</string>
     <string name="elem_T_FF_pin_Q">Returns the stored value.</string>
     <string name="elem_T_FF_pin_~Q">Returns the inverted stored value.</string>
-    <string name="elem_JK_FF_AS">JK-Flipflop, asynchronous</string>
+    <string name="elem_JK_FF_AS">JK-Flip-flop, asynchronous</string>
     <string name="elem_JK_FF_AS_short">JK-AS</string>
     <string name="elem_JK_FF_AS_tt">Has the possibility to store (J=K=0), set (J=1, K=0), reset (J=0, K=1) or toggle (J=K=1) the stored value.
         A change of state takes place only at a rising edge at the clock input C.
         There are two additional inputs which set or reset the state immediately without a clock signal.
     </string>
-    <string name="elem_JK_FF_AS_pin_J">The set input of the flipflop.</string>
+    <string name="elem_JK_FF_AS_pin_J">The set input of the flip-flop.</string>
     <string name="elem_JK_FF_AS_pin_C">The Clock input. A rising edge initiates a state change.</string>
-    <string name="elem_JK_FF_AS_pin_K">The reset input of the flipflop.</string>
+    <string name="elem_JK_FF_AS_pin_K">The reset input of the flip-flop.</string>
     <string name="elem_JK_FF_AS_pin_Q">Returns the stored value.</string>
     <string name="elem_JK_FF_AS_pin_~Q">Returns the inverted stored value.</string>
-    <string name="elem_JK_FF_AS_pin_Set">asynchronous set</string>
-    <string name="elem_JK_FF_AS_pin_Clr">asynchronous clear</string>
-    <string name="elem_D_FF_AS">D-FlipFlop, asynchronous</string>
+    <string name="elem_JK_FF_AS_pin_Set">asynchronous set. A high value at this input sets the flip-flop.</string>
+    <string name="elem_JK_FF_AS_pin_Clr">asynchronous clear. A high value at this input clears the flip-flop.</string>
+    <string name="elem_D_FF_AS">D-Flip-flop, asynchronous</string>
     <string name="elem_D_FF_AS_short">D-AS</string>
     <string name="elem_D_FF_AS_tt">A component used to store a value.
         The value on pin D is stored on a rising edge of the clock pin C.
@@ -390,8 +390,8 @@
     <string name="elem_D_FF_AS_pin_C">Control pin to store a bit. The bit on input D is stored on a rising edge of this pin.</string>
     <string name="elem_D_FF_AS_pin_Q">Returns the stored value.</string>
     <string name="elem_D_FF_AS_pin_~Q">Returns the inverted stored value.</string>
-    <string name="elem_D_FF_AS_pin_Set">asynchronous set</string>
-    <string name="elem_D_FF_AS_pin_Clr">asynchronous clear</string>
+    <string name="elem_D_FF_AS_pin_Set">asynchronous set. If set to one, all stored bits are set to one.</string>
+    <string name="elem_D_FF_AS_pin_Clr">asynchronous clear. If set to one, all stored bits are set to zero.</string>
 
 
     <!-- Memory -->
@@ -768,7 +768,7 @@ The names of the variables may not be unique.</string>
     <string name="err_diodeNeedsPullDownResistorAtOutput">Diode needs a pull down resistor at its output!</string>
     <string name="err_testSignal_N_notFound">Test signal {0} not found in the circuit!</string>
     <string name="err_toManyBits_Found_N0_maxIs_N1">Only {1} bits allowed, but {0} bits found!</string>
-    <string name="err_MultiBitFlipFlopFound">Flipflops with more then one bits are not allowed!</string>
+    <string name="err_MultiBitFlipFlopFound">Flip-flops with more then one bits are not allowed!</string>
     <string name="err_invalidTransmissionGateState">The two control inputs of a transmission gate must be inverted!</string>
     <string name="err_nameUsedTwice_N">Signal {0} is used twice!</string>
     <string name="err_errorParsingTestdata">Error parsing the test data.</string>
@@ -998,8 +998,8 @@ The names of the variables may not be unique.</string>
     <string name="key_delayTime_tt">Delay time in units of the common gate propagation delay.</string>
     <string name="key_invertOutput">inverted output</string>
     <string name="key_invertOutput_tt">If selected the output is inverted.</string>
-    <string name="key_svgPath">SVG-File</string>
-    <string name="key_svgPath_tt">Optional: SVG-File for a custom circuit presentation</string>
+    <string name="key_customShape">Custom Shape</string>
+    <string name="key_customShape_tt">Import of a SVG-file</string>
 
 
     <string name="mod_insertWire">Inserted wire.</string>
@@ -1024,7 +1024,7 @@ The names of the variables may not be unique.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>
-    <string name="lib_flipFlops">FlipFlops</string>
+    <string name="lib_flipFlops">Flip-Flops</string>
     <string name="lib_io">IO</string>
     <string name="lib_memory">Memory</string>
     <string name="lib_mux">Plexers</string>

@@ -14,6 +14,8 @@ import org.w3c.dom.NodeList;
 
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.Pins;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDrawer;
 
 /**
  * Main class for the SVG Import
@@ -25,7 +27,6 @@ public class ImportSVG {
     private PinDescriptions outputs;
     private Pins pins = new Pins();
     private ArrayList<SVGPseudoPin> pseudoPins = new ArrayList<SVGPseudoPin>();
-    private SVG objSVG;
 
     /**
      * Imports a given SVG OutputPins
@@ -48,7 +49,6 @@ public class ImportSVG {
         }
 
         ArrayList<Element> elements = getElements(svg);
-        objSVG = new SVG(elements);
         imp(elements);
     }
 
@@ -76,26 +76,6 @@ public class ImportSVG {
             }
         }
         return ret;
-    }
-
-    /**
-     * Creates a ImportSVG from a concrete svg, prefilled with Pin Descriptions
-     * @param svg
-     *            SVG
-     * @param inputs
-     *            Inputs
-     * @param outputs
-     *            Outputs
-     * @throws NoParsableSVGException
-     *             if the SVG is not valid
-     */
-    public ImportSVG(SVG svg, PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
-        if (inputs != null && outputs != null) {
-            this.inputs = inputs;
-            this.outputs = outputs;
-            setPinDescriptions(inputs, outputs);
-        }
-        imp(svg.getElements());
     }
 
     /**
@@ -136,8 +116,16 @@ public class ImportSVG {
      * Gets a created SVG Object
      * @return SVG
      */
-    public SVG getSVG() {
-        return objSVG;
+    public CustomShapeDescription getSVG() {
+        CustomShapeDrawer drawer = new CustomShapeDrawer();
+        for (SVGFragment f : fragments)
+            if (f != null)
+                for (SVGDrawable d : f.getDrawables())
+                    if (d != null)
+                        d.draw(drawer);
+        for(SVGPseudoPin p : getPseudoPins())
+            drawer.addPin(p);
+        return drawer.getSvg();
     }
 
     /**
