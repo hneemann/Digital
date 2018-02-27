@@ -5,40 +5,38 @@
     <entry>
       <string>romContent</string>
       <storedRoms>
-        <roms>
-          <entry>
-            <string>R3-B</string>
-            <data size="4">1d,1e,1f,20</data>
-          </entry>
-          <entry>
-            <string>R1-B</string>
-            <data size="4">d,e,f,10</data>
-          </entry>
-          <entry>
-            <string>R2-A</string>
-            <data size="4">11,12,13,14</data>
-          </entry>
-          <entry>
-            <string>R2-B</string>
-            <data size="4">15,16,17,18</data>
-          </entry>
-          <entry>
-            <string>R3-A</string>
-            <data size="4">19,1a,1b,1c</data>
-          </entry>
-          <entry>
-            <string>R0-A</string>
-            <data size="4">1,2,3,4</data>
-          </entry>
-          <entry>
-            <string>R0-B</string>
-            <data size="4">5,6,7,8</data>
-          </entry>
-          <entry>
-            <string>R1-A</string>
-            <data size="4">9,a,b,c</data>
-          </entry>
-        </roms>
+        <entry>
+          <string>R3-B</string>
+          <data size="4">1d,1e,1f,20</data>
+        </entry>
+        <entry>
+          <string>R1-B</string>
+          <data size="4">d,e,f,10</data>
+        </entry>
+        <entry>
+          <string>R2-A</string>
+          <data size="4">11,12,13,14</data>
+        </entry>
+        <entry>
+          <string>R2-B</string>
+          <data size="4">15,16,17,18</data>
+        </entry>
+        <entry>
+          <string>R3-A</string>
+          <data size="4">19,1a,1b,1c</data>
+        </entry>
+        <entry>
+          <string>R0-A</string>
+          <data size="4">1,2,3,4</data>
+        </entry>
+        <entry>
+          <string>R0-B</string>
+          <data size="4">5,6,7,8</data>
+        </entry>
+        <entry>
+          <string>R1-A</string>
+          <data size="4">9,a,b,c</data>
+        </entry>
       </storedRoms>
     </entry>
   </attributes>
@@ -274,4 +272,5 @@ end loop</dataString>
       <p2 x="460" y="520"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
