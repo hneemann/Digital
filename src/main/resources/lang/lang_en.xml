@@ -830,6 +830,7 @@ The names of the variables may not be unique.</string>
         Cycles arise if an output of a gate is fed back to one of the inputs of the same gate.
         The use of switches, FETs or relays also causes cycles.</string>
     <string name="err_monoflopRequiresOneClock">If a monoflop is used, there must be exactly one clock component!</string>
+    <string name="err_couldNotCreateElement_N">Could not create a component of type {0}!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
