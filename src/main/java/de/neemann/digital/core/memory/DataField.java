@@ -205,11 +205,21 @@ public class DataField {
      *
      * @param addr the address which value has changed
      */
-    public void fireChanged(int addr) {
+    private void fireChanged(int addr) {
         synchronized (listeners) {
             for (DataListener l : listeners)
                 l.valueChanged(addr);
         }
+    }
+
+    /**
+     * Sets the data from the given data field
+     *
+     * @param dataField the data to set to this data field
+     */
+    public void setDataFrom(DataField dataField) {
+        data = Arrays.copyOf(dataField.data, size);
+        fireChanged(-1);
     }
 
     /**

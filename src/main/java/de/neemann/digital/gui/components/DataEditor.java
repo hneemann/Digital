@@ -59,11 +59,7 @@ public class DataEditor extends JDialog {
         else
             localDataField = new DataField(dataField, size);
 
-        int cols = 16;
-        if (size <= 16) cols = 1;
-        else if (size <= 128) cols = 8;
-
-        if (dataBits > 20 && cols == 16) cols = 8;
+        final int cols = calcCols(size, dataBits);
 
         int tableWidth = 0;
         MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
@@ -115,7 +111,7 @@ public class DataEditor extends JDialog {
             getContentPane().add(buttons, BorderLayout.SOUTH);
 
             JMenuBar menuBar = new JMenuBar();
-            JMenu data = new JMenu(Lang.get("menu_data"));
+            JMenu data = new JMenu(Lang.get("menu_file"));
 
             data.add(new ToolTipAction(Lang.get("btn_clearData")) {
                 @Override
@@ -134,7 +130,8 @@ public class DataEditor extends JDialog {
                     if (fc.showOpenDialog(DataEditor.this) == JFileChooser.APPROVE_OPTION) {
                         fileName = fc.getSelectedFile();
                         try {
-                            localDataField = new DataField(fc.getSelectedFile());
+                            localDataField.setDataFrom(new DataField(fc.getSelectedFile()));
+                            dm.fireEvent(new TableModelEvent(dm));
                         } catch (IOException e1) {
                             new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(DataEditor.this);
                         }
@@ -168,6 +165,15 @@ public class DataEditor extends JDialog {
         if (getWidth() < 150)
             setSize(new Dimension(150, getHeight()));
         setLocationRelativeTo(parent);
+    }
+
+    private int calcCols(int size, int dataBits) {
+        int cols = 16;
+        if (size <= 16) cols = 1;
+        else if (size <= 128) cols = 8;
+
+        if (dataBits > 20 && cols == 16) cols = 8;
+        return cols;
     }
 
     /**

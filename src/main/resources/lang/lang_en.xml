@@ -1234,7 +1234,6 @@ The names of the variables may not be unique.</string>
         The ZIP file thus contains all the files that are necessary for the operation of the circuit.</string>
     <string name="menu_labelPins">Label Inputs and Outputs</string>
     <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
-    <string name="menu_data">Data</string>
 
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
@@ -1322,7 +1321,7 @@ an &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhanc
 Start export anyway?</string>
     <string name="msg_circuitIsRequired">To create a hardware description, a circuit must first be created and analyzed.
         A standalone truth table can not be used to generate a hardware description.</string>
-    <string name="win_romDialog">Used ROM's</string>
+    <string name="win_romDialog">Included ROM's</string>
     <string name="msg_noData">no data</string>
 
     <string name="ok">Ok</string>
