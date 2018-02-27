@@ -52,6 +52,7 @@ public class ROMEditorDialog extends JDialog {
         romModel.sort();
 
         final JList<RomHolder> list = new JList<>(romModel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         getContentPane().add(new JScrollPane(list));
 
         list.addMouseListener(new MouseAdapter() {
@@ -71,7 +72,7 @@ public class ROMEditorDialog extends JDialog {
                 if (i >= 0 && i < romModel.getSize())
                     romModel.edit(i);
             }
-        }.setToolTip(Lang.get("tt_deleteItem")).createJButton());
+        }.setToolTip(Lang.get("btn_editRom_tt")).createJButton());
         buttons.add(new ToolTipAction(Lang.get("btn_clearData")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,7 +80,7 @@ public class ROMEditorDialog extends JDialog {
                 if (i >= 0 && i < romModel.getSize())
                     romModel.delete(i);
             }
-        }.setToolTip(Lang.get("tt_deleteItem")).createJButton());
+        }.setToolTip(Lang.get("btn_clearRom_tt")).createJButton());
         getContentPane().add(buttons, BorderLayout.EAST);
 
         buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {

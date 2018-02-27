@@ -1,6 +1,7 @@
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.Ground;
 import de.neemann.digital.core.io.VDD;
@@ -85,6 +86,10 @@ public class VHDLGenerator implements Closeable {
         out.println("-- Any changes will be lost if this file is regenerated.\n");
 
         try {
+
+            if (!circuit.getAttributes().get(Keys.ROMMANAGER).isEmpty())
+                throw new HDLException(Lang.get("err_centralDefinedRomsAreNotSupported"));
+
             BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
 
             ModelList modelList = new ModelList(library);

@@ -40,6 +40,8 @@
     <string name="btn_saveAnyway">Save anyway</string>
     <string name="btn_overwrite">Overwrite</string>
     <string name="btn_apply">Apply</string>
+    <string name="btn_editRom_tt">Edits the content of the selected ROM/EEPROM</string>
+    <string name="btn_clearRom_tt">Removes the stored data for the selected ROM. The content which is stored in the ROM directly is used instead.</string>
     <string name="msg_warning">Warning</string>
     <string name="cancel">Cancel</string>
     <string name="digital">Digital</string>
@@ -830,6 +832,7 @@ The names of the variables may not be unique.</string>
         Cycles arise if an output of a gate is fed back to one of the inputs of the same gate.
         The use of switches, FETs or relays also causes cycles.</string>
     <string name="err_monoflopRequiresOneClock">If a monoflop is used, there must be exactly one clock component!</string>
+    <string name="err_centralDefinedRomsAreNotSupported">ROM's defined in the settings are not supported!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1231,6 +1234,7 @@ The names of the variables may not be unique.</string>
         The ZIP file thus contains all the files that are necessary for the operation of the circuit.</string>
     <string name="menu_labelPins">Label Inputs and Outputs</string>
     <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
+    <string name="menu_data">Data</string>
 
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
@@ -1346,6 +1350,31 @@ Start export anyway?</string>
     <string name="win_karnaughMap">Karnaugh Map</string>
 
     <string name="btn_help">Help</string>
+
+    <string name="win_romDialogHelpTitle">Central ROM Content</string>
+    <string name="msg_romDialogHelp"><![CDATA[
+        <html>
+        <h3>Motivation</h3>
+        When a circuit containing a ROM component is embedded multiple times, the contents of the ROM
+        is normally used for each instance of that circuit. Under certain circumstances,
+        however, it may be desirable for such a circuit to be embedded multiple times,
+        but different ROM contents are used for each instance.<br/>
+        This problem occurs e.g. if a 74xx ROM is used multiple times but with different
+        memory contents.<br/>
+        <h3>Function</h3>
+        At this location, therefore, contents can be defined for all ROM's in the circuit.
+        When the simulation model is generated, every ROM is initialized with the contents stored
+        directly in the respective ROM. Then it is checked whether an alternative content is
+        defined here. If this is the case, the content defined here is loaded into the corresponding ROM.
+        <h3>Usage</h3>
+        It should be noted that each ROM requires a unique name used to identify the ROM.
+        To do this, use the asterisk ('*') in the label of the ROM. The asterisk is then replaced by the complete
+        path constructed from the names of the embedded circuits.
+        If a circuit contains only one ROM component, it is sufficient to use only the asterisk as a label for it.
+        All embedded circuits must be named so that a unique name can be formed for each ROM component.
+        </html>
+        ]]>
+    </string>
 
     <string name="msg_newRelease_N"><![CDATA[
         <html>

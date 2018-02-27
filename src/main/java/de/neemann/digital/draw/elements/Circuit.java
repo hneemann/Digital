@@ -86,6 +86,7 @@ public class Circuit {
         xStream.alias("inverterConfig", InverterConfig.class);
         xStream.addImplicitCollection(InverterConfig.class, "inputs");
         xStream.alias("storedRoms", ROMManger.class);
+        xStream.addImplicitCollection(ROMManger.class, "roms");
         xStream.ignoreUnknownElements();
         return xStream;
     }

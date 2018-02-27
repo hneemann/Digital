@@ -68,4 +68,11 @@ public class ROMManger {
             return EMPTY;
         return this;
     }
+
+    /**
+     * @return true if no ROM's are stored
+     */
+    public boolean isEmpty() {
+        return roms.isEmpty();
+    }
 }
