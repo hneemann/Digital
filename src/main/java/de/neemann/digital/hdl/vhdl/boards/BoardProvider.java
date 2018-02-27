@@ -45,7 +45,11 @@ public final class BoardProvider {
             return null;
 
         if (board.equals("basys3"))
-            return new Vivado("LVCMOS33", "W5", 10, new ClockIntegratorARTIX7(10));
+            return new Vivado("LVCMOS33",
+                    "W5",
+                    10,
+                    new ClockIntegratorARTIX7(10),
+                    "xc7a35ticpg236-1L");
 
         return null;
     }

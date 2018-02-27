@@ -14,11 +14,11 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
- * The Splitter shape
+ * The Bus Splitter shape
  *
  * @author hneemann
  */
-public class SplitterShape implements Shape {
+public class BusSplitterShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final int length;
@@ -33,21 +33,21 @@ public class SplitterShape implements Shape {
      * @param outputs the outputs
      * @throws BitsException BitsException
      */
-    public SplitterShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) throws BitsException {
+    public BusSplitterShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) throws BitsException {
         this.inputs = inputs;
         this.outputs = outputs;
         spreading = attr.get(Keys.SPLITTER_SPREADING);
-        length = (Math.max(inputs.size(), outputs.size()) - 1) * spreading * SIZE + 2;
+        length = (Math.max(inputs.size() + 1, outputs.size() - 1) - 1) * spreading * SIZE + 2;
     }
 
     @Override
     public Pins getPins() {
         if (pins == null) {
             pins = new Pins();
-            for (int i = 0; i < inputs.size(); i++)
-                pins.add(new Pin(new Vector(0, i * spreading * SIZE), inputs.get(i)));
-            for (int i = 0; i < outputs.size(); i++)
-                pins.add(new Pin(new Vector(SIZE, i * spreading * SIZE), outputs.get(i)));
+            pins.add(new Pin(new Vector(0, 0), outputs.get(0)));
+            pins.add(new Pin(new Vector(0, SIZE), inputs.get(0)));
+            for (int i = 0; i < outputs.size() - 1; i++)
+                pins.add(new Pin(new Vector(SIZE, i * spreading * SIZE), outputs.get(i + 1)));
         }
         return pins;
     }
@@ -59,14 +59,16 @@ public class SplitterShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        for (int i = 0; i < inputs.size(); i++) {
-            Vector pos = new Vector(-2, i * spreading * SIZE - 3);
-            graphic.drawText(pos, pos.add(2, 0), inputs.get(i).getName(), Orientation.RIGHTBOTTOM, Style.SHAPE_SPLITTER);
-            graphic.drawLine(new Vector(0, i * spreading * SIZE), new Vector(SIZE2, i * spreading * SIZE), Style.NORMAL);
-        }
-        for (int i = 0; i < outputs.size(); i++) {
-            Vector pos = new Vector(SIZE + 2, i * spreading * SIZE - 3);
-            graphic.drawText(pos, pos.add(2, 0), outputs.get(i).getName(), Orientation.LEFTBOTTOM, Style.SHAPE_SPLITTER);
+        Vector pos = new Vector(-2, 0 - 3);
+        graphic.drawText(pos, pos.add(2, 0), outputs.get(0).getName(), Orientation.RIGHTBOTTOM, Style.SHAPE_SPLITTER);
+        graphic.drawLine(new Vector(0, 0), new Vector(SIZE2, 0), Style.NORMAL);
+        pos = new Vector(-2, SIZE - 3);
+        graphic.drawText(pos, pos.add(2, 0), inputs.get(0).getName(), Orientation.RIGHTBOTTOM, Style.SHAPE_SPLITTER);
+        graphic.drawLine(new Vector(0, SIZE), new Vector(SIZE2, SIZE), Style.NORMAL);
+
+        for (int i = 0; i < outputs.size() - 1; i++) {
+            pos = new Vector(SIZE + 2, i * spreading * SIZE - 3);
+            graphic.drawText(pos, pos.add(2, 0), outputs.get(i + 1).getName(), Orientation.LEFTBOTTOM, Style.SHAPE_SPLITTER);
             graphic.drawLine(new Vector(SIZE, i * spreading * SIZE), new Vector(SIZE2, i * spreading * SIZE), Style.NORMAL);
         }
 

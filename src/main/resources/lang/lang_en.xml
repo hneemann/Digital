@@ -242,6 +242,15 @@
     <string name="elem_Splitter_pin_in_one">The input bit {0}.</string>
     <string name="elem_Splitter_pin_out">The output bits {0}.</string>
     <string name="elem_Splitter_pin_out_one">The output bit {0}.</string>
+
+    <string name="elem_BusSplitter">Bidirectional Splitter</string>
+    <string name="elem_BusSplitter_tt">Can be used for data buses and simplifies especially the construction of
+        memory modules in a DIL package, as the implementation of the data bus is simplified.</string>
+    <string name="elem_BusSplitter_pin_OE">When set, the value at the common data terminal D is output to the bit
+        outputs D[i], if not, the bits D[i] are output to the common output D.</string>
+    <string name="elem_BusSplitter_pin_D">The common data connection.</string>
+    <string name="elem_BusSplitter_pin_D_N">The data bit {0} of the bus splitter.</string>
+
     <string name="elem_PullUp">Pull-Up Resistor</string>
     <string name="elem_PullUp_tt">If a net is in a HighZ state, this resistor pulls the net to high.
         In any other case this component has no effect.
@@ -393,6 +402,16 @@
     <string name="elem_D_FF_AS_pin_Set">asynchronous set. If set to one, all stored bits are set to one.</string>
     <string name="elem_D_FF_AS_pin_Clr">asynchronous clear. If set to one, all stored bits are set to zero.</string>
 
+    <string name="elem_Monoflop">Monoflop</string>
+    <string name="elem_Monoflop_short">Mono</string>
+    <string name="elem_Monoflop_tt">The monoflop is set at a rising edge at the clock input.
+        After a configurable delay time, the monoflop will be cleared automatically.
+        The monoflop is retriggerable. It can only be used if there is exactly one clock element in the circuit.
+    </string>
+    <string name="elem_Monoflop_pin_R">Reset Input. A high value clears the monoflop.</string>
+    <string name="elem_Monoflop_pin_C">The Clock input. A rising edge sets the monoflop.</string>
+    <string name="elem_Monoflop_pin_Q">output</string>
+    <string name="elem_Monoflop_pin_~Q">inverted output</string>
 
     <!-- Memory -->
 
@@ -810,6 +829,8 @@ The names of the variables may not be unique.</string>
     <string name="err_circuitHasCycles">The circuit contains cycles. It's not possible to analyze such a circuit.
         Cycles arise if an output of a gate is fed back to one of the inputs of the same gate.
         The use of switches, FETs or relays also causes cycles.</string>
+    <string name="err_monoflopRequiresOneClock">If a monoflop is used, there must be exactly one clock component!</string>
+    <string name="err_couldNotCreateElement_N">Could not create a component of type {0}!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1001,6 +1022,10 @@ The names of the variables may not be unique.</string>
     <string name="key_customShape">Custom Shape</string>
     <string name="key_customShape_tt">Import of a SVG-file</string>
 
+    <string name="key_timerDelay">Pulse Width</string>
+    <string name="key_timerDelay_tt">The puls width is measured in clock cycles.</string>
+    <string name="key_splitterSpreading">Spreading</string>
+    <string name="key_splitterSpreading_tt">Configures the spread of the inputs and outputs in the circuit.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

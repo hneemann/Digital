@@ -458,6 +458,11 @@
       <elementAttributes/>
       <pos x="980" y="280"/>
     </visualElement>
+    <visualElement>
+      <elementName>BusSplitter</elementName>
+      <elementAttributes/>
+      <pos x="140" y="440"/>
+    </visualElement>
   </visualElements>
   <wires/>
 </circuit>

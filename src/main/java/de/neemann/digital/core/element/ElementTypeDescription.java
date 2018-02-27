@@ -46,7 +46,7 @@ public class ElementTypeDescription {
                 Constructor<?> constructor = clazz.getConstructor(ElementAttributes.class);
                 return (Element) constructor.newInstance(attributes);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(Lang.get("err_couldNotCreateElement_N", name), e);
             }
         }, inputPins);
     }

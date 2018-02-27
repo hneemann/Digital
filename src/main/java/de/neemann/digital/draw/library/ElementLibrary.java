@@ -13,6 +13,7 @@ import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.core.flipflops.Monoflop;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
@@ -29,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -103,30 +105,70 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                                 .add(Out.SEVENHEXDESCRIPTION).add(LedMatrix.DESCRIPTION)
                                 .add(DummyElement.DATADESCRIPTION).add(RotEncoder.DESCRIPTION).add(Keyboard.DESCRIPTION)
                                 .add(Terminal.DESCRIPTION)))
-                .add(new LibraryNode(Lang.get("lib_wires")).add(Ground.DESCRIPTION).add(VDD.DESCRIPTION)
-                        .add(Const.DESCRIPTION).add(Tunnel.DESCRIPTION).add(Splitter.DESCRIPTION)
-                        .add(Driver.DESCRIPTION).add(DriverInvSel.DESCRIPTION).add(Delay.DESCRIPTION)
-                        .add(PullUp.DESCRIPTION).add(PullDown.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_mux")).add(Multiplexer.DESCRIPTION).add(Demultiplexer.DESCRIPTION)
-                        .add(Decoder.DESCRIPTION).add(BitSelector.DESCRIPTION).add(PriorityEncoder.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_flipFlops")).add(FlipflopRSAsync.DESCRIPTION)
-                        .add(FlipflopRS.DESCRIPTION).add(FlipflopJK.DESCRIPTION).add(FlipflopD.DESCRIPTION)
-                        .add(FlipflopT.DESCRIPTION).add(FlipflopJKAsync.DESCRIPTION).add(FlipflopDAsync.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_memory")).add(Register.DESCRIPTION).add(ROM.DESCRIPTION)
-                        .add(RAMDualPort.DESCRIPTION).add(RAMSinglePort.DESCRIPTION).add(RAMSinglePortSel.DESCRIPTION)
-                        .add(EEPROM.DESCRIPTION).add(GraphicCard.DESCRIPTION).add(RAMDualAccess.DESCRIPTION)
-                        .add(RegisterFile.DESCRIPTION).add(Counter.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_arithmetic")).add(Add.DESCRIPTION).add(Sub.DESCRIPTION)
-                        .add(Mul.DESCRIPTION).add(BarrelShifter.DESCRIPTION).add(Comparator.DESCRIPTION)
-                        .add(Neg.DESCRIPTION).add(BitExtender.DESCRIPTION).add(BitCount.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_wires"))
+                        .add(Ground.DESCRIPTION)
+                        .add(VDD.DESCRIPTION)
+                        .add(Const.DESCRIPTION)
+                        .add(Tunnel.DESCRIPTION)
+                        .add(Splitter.DESCRIPTION)
+                        .add(Driver.DESCRIPTION)
+                        .add(DriverInvSel.DESCRIPTION)
+                        .add(Delay.DESCRIPTION)
+                        .add(PullUp.DESCRIPTION)
+                        .add(PullDown.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_mux"))
+                        .add(Multiplexer.DESCRIPTION)
+                        .add(Demultiplexer.DESCRIPTION)
+                        .add(Decoder.DESCRIPTION)
+                        .add(BitSelector.DESCRIPTION)
+                        .add(PriorityEncoder.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_flipFlops"))
+                        .add(FlipflopRSAsync.DESCRIPTION)
+                        .add(FlipflopRS.DESCRIPTION)
+                        .add(FlipflopJK.DESCRIPTION)
+                        .add(FlipflopD.DESCRIPTION)
+                        .add(FlipflopT.DESCRIPTION)
+                        .add(FlipflopJKAsync.DESCRIPTION)
+                        .add(FlipflopDAsync.DESCRIPTION)
+                        .add(Monoflop.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_memory"))
+                        .add(Register.DESCRIPTION)
+                        .add(ROM.DESCRIPTION)
+                        .add(RAMDualPort.DESCRIPTION)
+                        .add(RAMSinglePort.DESCRIPTION)
+                        .add(RAMSinglePortSel.DESCRIPTION)
+                        .add(EEPROM.DESCRIPTION)
+                        .add(GraphicCard.DESCRIPTION)
+                        .add(RAMDualAccess.DESCRIPTION)
+                        .add(RegisterFile.DESCRIPTION)
+                        .add(Counter.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_arithmetic"))
+                        .add(Add.DESCRIPTION)
+                        .add(Sub.DESCRIPTION)
+                        .add(Mul.DESCRIPTION)
+                        .add(BarrelShifter.DESCRIPTION)
+                        .add(Comparator.DESCRIPTION)
+                        .add(Neg.DESCRIPTION)
+                        .add(BitExtender.DESCRIPTION)
+                        .add(BitCount.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_switching"))
-                        // .add(Diode.DESCRIPTION) // see class DiodeTest for further information
-                        .add(DiodeForward.DESCRIPTION).add(DiodeBackward.DESCRIPTION).add(Switch.DESCRIPTION)
-                        .add(Fuse.DESCRIPTION).add(Relay.DESCRIPTION).add(PFET.DESCRIPTION).add(NFET.DESCRIPTION)
-                        .add(FGPFET.DESCRIPTION).add(FGNFET.DESCRIPTION).add(TransGate.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_misc")).add(TestCaseElement.TESTCASEDESCRIPTION)
-                        .add(PowerSupply.DESCRIPTION).add(Reset.DESCRIPTION).add(Break.DESCRIPTION));
-
+                        //.add(Diode.DESCRIPTION) // see class DiodeTest for further information
+                        .add(DiodeForward.DESCRIPTION)
+                        .add(DiodeBackward.DESCRIPTION)
+                        .add(Switch.DESCRIPTION)
+                        .add(Fuse.DESCRIPTION)
+                        .add(Relay.DESCRIPTION)
+                        .add(PFET.DESCRIPTION)
+                        .add(NFET.DESCRIPTION)
+                        .add(FGPFET.DESCRIPTION)
+                        .add(FGNFET.DESCRIPTION)
+                        .add(TransGate.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_misc"))
+                        .add(TestCaseElement.TESTCASEDESCRIPTION)
+                        .add(PowerSupply.DESCRIPTION)
+                        .add(BusSplitter.DESCRIPTION)
+                        .add(Reset.DESCRIPTION)
+                        .add(Break.DESCRIPTION));
         addExternalJarComponents(jarFile);
 
         custom = new ElementLibraryFolder(root, Lang.get("menu_custom"));
@@ -463,7 +505,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             Circuit circuit;
             try {
                 circuit = Circuit.loadCircuit(file, shapeFactory);
-            } catch (IOException e) {
+            } catch (FileNotFoundException e) {
                 throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
             ElementTypeDescriptionCustom description = new ElementTypeDescriptionCustom(file,

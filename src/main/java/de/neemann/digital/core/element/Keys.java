@@ -64,6 +64,13 @@ public final class Keys {
             .setMax(20);
 
     /**
+     * the timer delay time
+     */
+    public static final Key.KeyInteger MONOFLOP_DELAY
+            = new Key.KeyInteger("timerDelay", 1)
+            .setMin(1);
+
+    /**
      * The elements label
      */
     public static final Key<String> LABEL
@@ -123,6 +130,16 @@ public final class Keys {
      */
     public static final Key<String> OUTPUT_SPLIT
             = new Key<>("Output Splitting", "8");
+
+    /**
+     * The splitter spreading
+     */
+    public static final Key.KeyInteger SPLITTER_SPREADING
+            = new Key.KeyInteger("splitterSpreading", 1)
+            .setComboBoxValues(new Integer[]{1, 2, 3, 4})
+            .setMin(1)
+            .setMax(10);
+
 
     /**
      * flag to enable realtime mode at a clock
