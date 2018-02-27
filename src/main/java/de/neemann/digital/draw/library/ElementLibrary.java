@@ -128,7 +128,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Splitter.DESCRIPTION)
                         .add(Driver.DESCRIPTION)
                         .add(DriverInvSel.DESCRIPTION)
-                        .add(BusSplitter.DESCRIPTION)
                         .add(Delay.DESCRIPTION)
                         .add(PullUp.DESCRIPTION)
                         .add(PullDown.DESCRIPTION))
@@ -182,6 +181,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 .add(new LibraryNode(Lang.get("lib_misc"))
                         .add(TestCaseElement.TESTCASEDESCRIPTION)
                         .add(PowerSupply.DESCRIPTION)
+                        .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION));
 
