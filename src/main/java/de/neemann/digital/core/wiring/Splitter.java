@@ -272,8 +272,11 @@ public class Splitter implements Element {
                         if (pos >= 0) {
                             int from = Integer.decode(strVal.substring(0, pos).trim());
                             int to = Integer.decode(strVal.substring(pos + 1).trim());
-                            if (to < from)
-                                throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition));
+                            if (to < from) {
+                                int z = to;
+                                to = from;
+                                from = z;
+                            }
                             add(new Port(from, to - from + 1));
                         } else
                             add(new Port(bits, Integer.decode(strVal)));
