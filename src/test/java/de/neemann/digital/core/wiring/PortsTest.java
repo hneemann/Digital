@@ -89,13 +89,11 @@ public class PortsTest extends TestCase {
     }
 
     public void testInputConsistency3() throws Exception {
-        Splitter.Ports p = new Splitter.Ports("4-7,4-4");
-        try {
-            p = new Splitter.Ports("4-7,4-3");
-            fail();
-        } catch (NodeException e) {
-            assertTrue(true);
-        }
+        Splitter.Ports p = new Splitter.Ports("7-4,4-4");
+        assertEquals(4, p.getPort(0).getPos());
+        assertEquals(4, p.getPort(0).getBits());
+        assertEquals(4, p.getPort(1).getPos());
+        assertEquals(1, p.getPort(1).getBits());
     }
 
 
