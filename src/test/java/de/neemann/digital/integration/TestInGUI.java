@@ -20,10 +20,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.NumberingWizard;
 import de.neemann.digital.gui.Settings;
-import de.neemann.digital.gui.components.AttributeDialog;
-import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.components.DataEditor;
-import de.neemann.digital.gui.components.ProbeDialog;
+import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapComponent;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
@@ -38,6 +35,7 @@ import de.neemann.gui.ErrorMessage;
 import junit.framework.TestCase;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.io.File;
@@ -763,6 +761,51 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void testRomDialog() {
+        new GuiTester("dig/test/romContent/rom.dig")
+                .press("F10")
+                .press("RIGHT", 2)
+                .press("DOWN", 1)
+                .press("ENTER", 1)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
+                        b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
+                .press("SPACE")
+                .delay(200)
+                .add(new GuiTester.CheckListRows<>(ROMEditorDialog.class, 8))
+                .press("DOWN")
+                .add(new GuiTester.SetFocusTo<>(ROMEditorDialog.class,
+                        b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.WindowCheck<>(DataEditor.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.SetFocusTo<>(ROMEditorDialog.class,
+                        b -> b instanceof JButton && Lang.get("btn_clearData").equals(((JButton) b).getText())))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(ROMEditorDialog.class,
+                        b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.ComponentTraverse<DataEditor>(DataEditor.class) {
+                    @Override
+                    public void visit(Component component) {
+                        if (component instanceof JTable) {
+                            TableModel model = ((JTable) component).getModel();
+                            assertEquals(4, model.getRowCount());
+                            for (int i = 0; i < 4; i++) {
+                                final Object valueAt = model.getValueAt(i, 1);
+                                assertEquals("0x0", valueAt.toString());
+                            }
+                            found();
+                        }
+                    }
+                })
+
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
 
     public static class CheckErrorDialog extends GuiTester.WindowCheck<ErrorMessage.ErrorDialog> {
         private final String[] expected;

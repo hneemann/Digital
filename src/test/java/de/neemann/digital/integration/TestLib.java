@@ -4,6 +4,8 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.memory.EEPROM;
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -58,6 +60,9 @@ public class TestLib extends TestCase {
                 pc.checkPin(e);
             if (e.equalsDescription(Clock.DESCRIPTION))
                 pc.checkPin(e);
+
+            if (e.equalsDescription(ROM.DESCRIPTION) || e.equalsDescription(EEPROM.DESCRIPTION))
+                assertEquals("*", e.getElementAttributes().getLabel());
         }
 
         if (is74xx) {

@@ -67,6 +67,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         ATTR_LIST.add(Keys.BACKGROUND_COLOR);
         ATTR_LIST.add(Keys.DESCRIPTION);
         ATTR_LIST.add(Keys.LOCKED_MODE);
+        ATTR_LIST.add(Keys.ROMMANAGER);
         ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
         ATTR_LIST.add(Keys.SHOW_DATA_GRAPH);
         ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);

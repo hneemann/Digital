@@ -4,13 +4,17 @@ import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.MyFileChooser;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -18,6 +22,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -28,9 +34,10 @@ import java.util.ArrayList;
  */
 public class DataEditor extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
-    private final DataField localDataField;
+    private DataField localDataField;
     private final JTable table;
     private boolean ok = false;
+    private File fileName;
 
     /**
      * Creates a new instance
@@ -52,11 +59,7 @@ public class DataEditor extends JDialog {
         else
             localDataField = new DataField(dataField, size);
 
-        int cols = 16;
-        if (size <= 16) cols = 1;
-        else if (size <= 128) cols = 8;
-
-        if (dataBits > 20 && cols == 16) cols = 8;
+        final int cols = calcCols(size, dataBits);
 
         int tableWidth = 0;
         MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
@@ -94,13 +97,6 @@ public class DataEditor extends JDialog {
             });
         } else {
             JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-            buttons.add(new ToolTipAction(Lang.get("btn_clearData")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    localDataField.clearAll();
-                    dm.fireEvent(new TableModelEvent(dm));
-                }
-            }.setToolTip(Lang.get("btn_clearData_tt")).createJButton());
             buttons.add(new JButton(new AbstractAction(Lang.get("ok")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -113,10 +109,71 @@ public class DataEditor extends JDialog {
                 }
             }));
             getContentPane().add(buttons, BorderLayout.SOUTH);
+
+            JMenuBar menuBar = new JMenuBar();
+            JMenu data = new JMenu(Lang.get("menu_file"));
+
+            data.add(new ToolTipAction(Lang.get("btn_clearData")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    localDataField.clearAll();
+                    dm.fireEvent(new TableModelEvent(dm));
+                }
+            }.setToolTip(Lang.get("btn_clearData_tt")).createJMenuItem());
+            data.add(new ToolTipAction(Lang.get("btn_load")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser fc = new MyFileChooser();
+                    if (fileName != null)
+                        fc.setSelectedFile(fileName);
+                    fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
+                    if (fc.showOpenDialog(DataEditor.this) == JFileChooser.APPROVE_OPTION) {
+                        fileName = fc.getSelectedFile();
+                        try {
+                            localDataField.setDataFrom(new DataField(fc.getSelectedFile()));
+                            dm.fireEvent(new TableModelEvent(dm));
+                        } catch (IOException e1) {
+                            new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(DataEditor.this);
+                        }
+                    }
+                }
+            }.createJMenuItem());
+            data.add(new ToolTipAction(Lang.get("btn_save")) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser fc = new MyFileChooser();
+                    if (fileName != null)
+                        fc.setSelectedFile(fileName);
+                    fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
+                    new SaveAsHelper(DataEditor.this, fc, "hex").checkOverwrite(
+                            file -> {
+                                fileName = fc.getSelectedFile();
+                                localDataField.saveTo(file);
+                            }
+                    );
+                }
+            }.createJMenuItem());
+
+
+            menuBar.add(data);
+
+
+            setJMenuBar(menuBar);
         }
 
         pack();
+        if (getWidth() < 150)
+            setSize(new Dimension(150, getHeight()));
         setLocationRelativeTo(parent);
+    }
+
+    private int calcCols(int size, int dataBits) {
+        int cols = 16;
+        if (size <= 16) cols = 1;
+        else if (size <= 128) cols = 8;
+
+        if (dataBits > 20 && cols == 16) cols = 8;
+        return cols;
     }
 
     /**
@@ -161,6 +218,22 @@ public class DataEditor extends JDialog {
         table.setForeground(Color.BLUE);
         table.setToolTipText(Lang.get("msg_dataNotUpdatedAnymore"));
         table.setEnabled(false);
+    }
+
+    /**
+     * Sets the filename to use
+     *
+     * @param fileName the filename
+     */
+    public void setFileName(File fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * @return the file name last used
+     */
+    public File getFileName() {
+        return fileName;
     }
 
     private final static class MyTableModel implements TableModel, DataField.DataListener {

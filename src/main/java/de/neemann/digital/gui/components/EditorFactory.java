@@ -2,19 +2,23 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.IntFormat;
+import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.core.memory.rom.ROMManger;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.gui.Main;
-import de.neemann.digital.gui.SaveAsHelper;
+import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
@@ -24,7 +28,6 @@ import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -63,6 +66,7 @@ public final class EditorFactory {
         add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
+        add(ROMManger.class, ROMManagerEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -430,27 +434,13 @@ public final class EditorFactory {
                         }
                         int size = 1 << addrBits;
                         DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
+                        de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
                             data = de.getModifiedDataField();
+                            attr.setFile(ROM.LAST_DATA_FILE_KEY, de.getFileName());
                         }
                     } catch (EditorParseException e1) {
                         new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
-                    }
-                }
-            }.createJButton());
-            panel.add(new ToolTipAction(Lang.get("btn_load")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JFileChooser fc = new MyFileChooser();
-                    fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
-                    fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
-                    if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
-                        attr.setFile(ROM.LAST_DATA_FILE_KEY, fc.getSelectedFile());
-                        try {
-                            data = new DataField(fc.getSelectedFile());
-                        } catch (IOException e1) {
-                            new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
-                        }
                     }
                 }
             }.createJButton());
@@ -468,20 +458,6 @@ public final class EditorFactory {
                             .setToolTip(Lang.get("btn_reload_tt"))
                             .createJButton()
             );
-            panel.add(new ToolTipAction(Lang.get("btn_save")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JFileChooser fc = new MyFileChooser();
-                    fc.setSelectedFile(attr.getFile(ROM.LAST_DATA_FILE_KEY));
-                    fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
-                    new SaveAsHelper(panel, fc, "hex").checkOverwrite(
-                            file -> {
-                                attr.setFile(ROM.LAST_DATA_FILE_KEY, file);
-                                data.saveTo(file);
-                            }
-                    );
-                }
-            }.createJButton());
             return panel;
         }
 
@@ -694,6 +670,58 @@ public final class EditorFactory {
                     ic.add(cb.getText());
             }
             return ic;
+        }
+    }
+
+    private static class ROMManagerEditor extends LabelEditor<ROMManger> {
+        private final JPanel buttons;
+        private ROMManger romManager;
+
+        public ROMManagerEditor(ROMManger aRomManager, Key<ROMManger> key) {
+            this.romManager = aRomManager;
+            buttons = new JPanel(new GridLayout(1, 2));
+            buttons.add(new ToolTipAction(Lang.get("btn_help")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    new ShowStringDialog(
+                            getAttributeDialog(),
+                            Lang.get("win_romDialogHelpTitle"),
+                            Lang.get("msg_romDialogHelp"), true)
+                            .setVisible(true);
+                }
+            }.createJButton());
+            buttons.add(new ToolTipAction(Lang.get("btn_edit")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Main main = getAttributeDialog().getMain();
+                    if (main != null) {
+                        final ROMEditorDialog romEditorDialog;
+                        try {
+                            CircuitComponent circuitComponent = main.getCircuitComponent();
+                            Model model = new ModelCreator(circuitComponent.getCircuit(), circuitComponent.getLibrary()).createModel(false);
+
+                            romEditorDialog = new ROMEditorDialog(
+                                    getAttributeDialog(),
+                                    model,
+                                    romManager);
+                            if (romEditorDialog.showDialog())
+                                romManager = romEditorDialog.getROMManager();
+                        } catch (ElementNotFoundException | PinException | NodeException e) {
+                            new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).show(getAttributeDialog());
+                        }
+                    }
+                }
+            }.createJButton());
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            return buttons;
+        }
+
+        @Override
+        public ROMManger getValue() {
+            return romManager;
         }
     }
 }

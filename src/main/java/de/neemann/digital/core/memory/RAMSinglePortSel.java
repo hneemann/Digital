@@ -37,9 +37,9 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     private final int bits;
     private final int addrBits;
     private final int size;
-    private final DataField memory;
     private final String label;
     private final ObservableValue dataOut;
+    private DataField memory;
     private ObservableValue addrIn;
     private ObservableValue csIn;
     private ObservableValue weIn;
@@ -98,7 +98,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
                 memory.setData(addr, data);
             }
         }
-        lastweIn=weIn;
+        lastweIn = weIn;
     }
 
     @Override
@@ -139,4 +139,14 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     public int getAddrBits() {
         return addrBits;
     }
+
+    /**
+     * Sets the rams data
+     *
+     * @param data the data to set
+     */
+    public void setData(DataField data) {
+        this.memory = data;
+    }
+
 }

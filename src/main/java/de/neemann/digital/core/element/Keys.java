@@ -6,6 +6,7 @@ import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
@@ -498,5 +499,11 @@ public final class Keys {
      */
     public static final Key<File> SETTINGS_JAR_PATH
             = new Key.KeyFile("jarPath", new File(""));
+
+    /**
+     * The manager which contains all the roms data
+     */
+    public static final Key<ROMManger> ROMMANAGER
+            = new Key<>("romContent", ROMManger.EMPTY);
 
 }

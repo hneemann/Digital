@@ -4,19 +4,22 @@
   <attributes/>
   <visualElements>
     <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes/>
-      <pos x="420" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
+      <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Y</string>
+          <string>*</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>Data</string>
+          <data size="4">1,2,3,4</data>
         </entry>
       </elementAttributes>
-      <pos x="540" y="180"/>
+      <pos x="460" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -25,54 +28,50 @@
           <string>Label</string>
           <string>A</string>
         </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
       </elementAttributes>
-      <pos x="380" y="160"/>
+      <pos x="440" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B</string>
+          <string>en</string>
         </entry>
       </elementAttributes>
-      <pos x="380" y="200"/>
+      <pos x="440" y="260"/>
     </visualElement>
     <visualElement>
-      <elementName>Probe</elementName>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>M-*</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
         </entry>
       </elementAttributes>
-      <pos x="520" y="140"/>
+      <pos x="540" y="240"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="520" y="140"/>
-      <p2 x="500" y="160"/>
+      <p1 x="520" y="240"/>
+      <p2 x="540" y="240"/>
     </wire>
     <wire>
-      <p1 x="380" y="160"/>
-      <p2 x="420" y="160"/>
+      <p1 x="440" y="260"/>
+      <p2 x="460" y="260"/>
     </wire>
     <wire>
-      <p1 x="480" y="180"/>
-      <p2 x="500" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="500" y="180"/>
-      <p2 x="540" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="200"/>
-      <p2 x="420" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="500" y="160"/>
-      <p2 x="500" y="180"/>
+      <p1 x="440" y="220"/>
+      <p2 x="460" y="220"/>
     </wire>
   </wires>
 </circuit>
