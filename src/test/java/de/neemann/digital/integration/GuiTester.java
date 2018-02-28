@@ -401,6 +401,8 @@ public class GuiTester {
      */
     public static abstract class ComponentTraverse<W extends Window> extends WindowCheck<W> {
 
+        private boolean found;
+
         /**
          * creates a new instance
          */
@@ -411,6 +413,7 @@ public class GuiTester {
         @Override
         public void checkWindow(GuiTester guiTester, W dialog) {
             traverseComponents(dialog);
+            assertTrue("no component found", found);
         }
 
         void traverseComponents(Container cp) {
@@ -421,6 +424,10 @@ public class GuiTester {
                     traverseComponents((Container) component);
                 }
             }
+        }
+
+        void found() {
+            found = true;
         }
 
         public abstract void visit(Component component);
@@ -443,8 +450,10 @@ public class GuiTester {
 
         @Override
         public void visit(Component component) {
-            if (filter.accept(component))
+            if (filter.accept(component)) {
                 component.requestFocus();
+                found();
+            }
         }
     }
 
@@ -488,18 +497,21 @@ public class GuiTester {
                 JTabbedPane t = ((JTabbedPane) component);
                 for (int j = 0; j < t.getTabCount(); j++)
                     text.append(t.getTitleAt(j));
+                found();
             } else if (component instanceof JLabel) {
                 text.append(((JLabel) component).getText());
+                found();
             } else if (component instanceof JTextComponent) {
                 text.append((((JTextComponent) component).getText()));
+                found();
             }
         }
     }
 
     public static class CheckTableRows<W extends Window> extends ComponentTraverse<W> {
         private final int expectedRows;
-        private int rows;
-        private int tableCount;
+        int rows;
+        int tableCount;
 
         public CheckTableRows(Class<W> expectedClass, int expectedRows) {
             super(expectedClass);
@@ -509,8 +521,8 @@ public class GuiTester {
         @Override
         public void checkWindow(GuiTester guiTester, W window) {
             super.checkWindow(guiTester, window);
-            assertEquals("row count does not match", expectedRows, rows);
             assertEquals("only one table allowed", 1, tableCount);
+            assertEquals("row count does not match", expectedRows, rows);
         }
 
         @Override
@@ -518,8 +530,26 @@ public class GuiTester {
             if (component instanceof JTable) {
                 rows = ((JTable) component).getModel().getRowCount();
                 tableCount++;
+                found();
             }
         }
+    }
+
+    public static class CheckListRows<W extends Window> extends CheckTableRows<W> {
+
+        public CheckListRows(Class<W> expectedClass, int expectedRows) {
+            super(expectedClass, expectedRows);
+        }
+
+        @Override
+        public void visit(Component component) {
+            if (component instanceof JList) {
+                rows = ((JList) component).getModel().getSize();
+                tableCount++;
+                found();
+            }
+        }
+
     }
 
     /**
@@ -553,7 +583,7 @@ public class GuiTester {
          */
         public ColorPicker(Class<? extends Component> target, int x, int y, Color expectedColor) {
             this(target, x, y, (c) -> {
-                boolean ok = (Math.abs (expectedColor.getRed() - c.getRed()) < 5)
+                boolean ok = (Math.abs(expectedColor.getRed() - c.getRed()) < 5)
                         && (Math.abs(expectedColor.getGreen() - c.getGreen()) < 5)
                         && (Math.abs(expectedColor.getBlue() - c.getBlue()) < 5);
                 assertTrue("expected:<" + expectedColor + "> but was:<" + c + ">", ok);
