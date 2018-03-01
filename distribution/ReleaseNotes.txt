@@ -5,7 +5,7 @@ HEAD, planed as v0.18
 - Added a simple bidirectional splitter.
 - Added a monoflop.
 - When a circuit containing a ROM/EEPROM is embedded multiple times, it is now possible
-  to define different contents in each embedded instance.
+  to define different ROM/EEPROM contents in each embedded instance.
 - Added new text formatting engine which supports overline, super- and subscript.
   Try "~Q_{n+1}^1" as an output label.
 - It's possible to test circuits with a high-z input which can act as an output.
