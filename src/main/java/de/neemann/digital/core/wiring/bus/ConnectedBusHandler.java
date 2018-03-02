@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.ObservableValue;
@@ -11,7 +16,6 @@ import java.util.List;
 /**
  * The ConnectedBusHandler calculates the state of net, which is formed by the single nets
  * connected by a closed switch.
- * Created by hneemann on 22.02.17.
  */
 public final class ConnectedBusHandler extends AbstractBusHandler {
     private PinDescription.PullResistor resistor = PinDescription.PullResistor.none;

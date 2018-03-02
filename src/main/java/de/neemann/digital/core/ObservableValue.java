@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -10,8 +15,6 @@ import de.neemann.digital.lang.Lang;
  * Only a complete bus can be set to high z state. It is not possible to set
  * a single bit of a bus to high z state.
  * Observers can observe this value to be notified if the value changes.
- *
- * @author hneemann
  */
 public class ObservableValue extends Observable implements PinDescription {
 

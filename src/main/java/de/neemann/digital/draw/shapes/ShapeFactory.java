@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.NodeException;
@@ -27,8 +32,6 @@ import java.util.HashMap;
 
 /**
  * Used to create a shape matching a given name
- *
- * @author hneemann
  */
 public final class ShapeFactory {
 

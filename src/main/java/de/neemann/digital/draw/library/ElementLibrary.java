@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.arithmetic.*;
@@ -43,8 +48,6 @@ import java.util.*;
  * When a file is selected it is loaded to the library. After that also an icon is available.
  * This is done because the loading of a circuit and the creation of an icon is very time consuming and should
  * be avoided if not necessary. It's a kind of lazy loading.
- *
- * @author hneemann
  */
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);

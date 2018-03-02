@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.builder.Gal16v8;
 
 import de.neemann.digital.analyse.expression.Expression;
@@ -23,8 +28,6 @@ import java.util.Map;
 /**
  * Creates a CUPL file.
  * The default setting is usable for GAL16V8 chips.
- *
- * @author hneemann
  */
 public class CuplExporter implements ExpressionExporter<CuplExporter> {
     private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");

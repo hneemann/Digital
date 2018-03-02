@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui;
 
 import de.neemann.digital.lang.Lang;
@@ -10,8 +15,6 @@ import java.awt.event.WindowEvent;
 /**
  * Frame needs to be set to DO_NOTHING_ON_CLOSE to work.
  * Closing should by done by the {@link GUICloser#closeGUI()}.
- *
- * @author hneemann
  */
 public class ClosingWindowListener extends WindowAdapter {
     private final static String SAVE_CHANGES_MESSAGE = Lang.get("win_saveChanges");

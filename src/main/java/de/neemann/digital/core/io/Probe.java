@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.*;
@@ -10,8 +15,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * The measurement Probe
- *
- * @author hneemann
  */
 public class Probe implements Element {
 

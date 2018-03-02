@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import de.neemann.digital.draw.graphics.text.ParseException;
@@ -20,8 +25,6 @@ import java.util.ArrayList;
  * Inkscape also creates a LaTeX overlay containing the text only. So you get best document quality:
  * All the graphics as included PDF, all the text set with LaTeX fonts matching the rest of your LaTeX document.
  * To run the transformation automatically by the LaTeX compiler see InkscapePDFLaTeX.pdf.
- *
- * @author hneemann
  * @see <a href="https://Inkscape.org">inkscape</a>
  * @see <a href="http://mirrors.ctan.org/info/svg-inkscape/InkscapePDFLaTeX.pdf">InkscapePDFLaTeX.pdf</a>
  */

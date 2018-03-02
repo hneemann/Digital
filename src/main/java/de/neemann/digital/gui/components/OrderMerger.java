@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import java.util.List;
@@ -8,7 +13,6 @@ import java.util.List;
  *
  * @param <O> type of old items
  * @param <N> type of new items
- * @author hneemann
  */
 public class OrderMerger<O, N> {
     private final List<O> oldOrdering;

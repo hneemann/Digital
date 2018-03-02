@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.lang;
 
 import de.neemann.gui.language.Bundle;
@@ -10,7 +15,6 @@ import java.util.Locale;
 import java.util.prefs.Preferences;
 
 /**
- * @author hneemann
  */
 public final class Lang {
     private static final Preferences PREFS = Preferences.userRoot().node("dig");

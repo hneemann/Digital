@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import org.slf4j.Logger;
@@ -9,7 +14,6 @@ import java.util.Arrays;
 
 /**
  * Handles a single folder
- * Created by hneemann on 17.07.17.
  */
 public class ElementLibraryFolder {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibraryFolder.class);

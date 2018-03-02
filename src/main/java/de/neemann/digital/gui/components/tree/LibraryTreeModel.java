@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.tree;
 
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -13,7 +18,6 @@ import java.util.HashMap;
 
 /**
  * TreeModel based on a {@link ElementLibrary}
- * Created by hneemann on 25.03.17.
  */
 public class LibraryTreeModel implements TreeModel, LibraryListener {
     private final LibraryNode root;

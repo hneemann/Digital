@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics.linemerger;
 
 import de.neemann.digital.draw.graphics.*;
@@ -5,8 +10,6 @@ import de.neemann.digital.draw.graphics.*;
 /**
  * Filters out all the lines.
  * All other drawing elements are delegated to the given class.
- *
- * @author hneemann
  */
 public class GraphicSkipLines implements Graphic {
 

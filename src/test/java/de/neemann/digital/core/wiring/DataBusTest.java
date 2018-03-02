@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.core.BurnException;
@@ -9,7 +14,6 @@ import de.neemann.digital.draw.elements.PinException;
 import junit.framework.TestCase;
 
 /**
- * @author hneemann
  */
 public class DataBusTest extends TestCase {
 

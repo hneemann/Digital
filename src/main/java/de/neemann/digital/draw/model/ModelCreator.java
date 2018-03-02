@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.Model;
@@ -23,8 +28,6 @@ import java.util.*;
 
 /**
  * Creates a {@link Model} from the given {@link Circuit} instance.
- *
- * @author hneemann
  */
 public class ModelCreator implements Iterable<ModelEntry> {
 

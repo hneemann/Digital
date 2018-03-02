@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.integration;
 
 import de.neemann.digital.TestExecuter;
@@ -15,7 +20,6 @@ import java.io.IOException;
 import static de.neemann.digital.TestExecuter.IGNORE;
 
 /**
- * @author hneemann
  */
 public class TestNesting extends TestCase {
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.Model;
@@ -13,8 +18,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * Allows a tunneling of wires to make the schematic more readable then drawing
  * long wires.
- *
- * @author hneemann
  */
 public class Tunnel implements Element {
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
@@ -9,8 +14,6 @@ import java.awt.geom.Path2D;
 
 /**
  * Used to draw on a {@link Graphics2D} instance.
- *
- * @author hneemann
  */
 public class GraphicSwing implements Graphic {
 

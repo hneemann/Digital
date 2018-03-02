@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.analyse.AnalyseException;
@@ -74,8 +79,6 @@ import static javax.swing.JOptionPane.showInputDialog;
 /**
  * The main frame of the Digital Simulator
  * Set log level: -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
- *
- * @author hneemann
  */
 public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, Circuit.ChangedListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.integration;
 
 import de.neemann.digital.core.Model;
@@ -12,7 +17,6 @@ import java.util.ArrayList;
 /**
  * Tests the handling of transparent circuits which only connect an input to an output.
  * <p>
- * Created by hneemann on 08.04.17.
  */
 public class TestTrans extends TestCase {
 

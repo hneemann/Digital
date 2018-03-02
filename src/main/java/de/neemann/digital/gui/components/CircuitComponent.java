@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.NodeException;
@@ -48,8 +53,6 @@ import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
  * Component which shows the circuit.
  * ToDo: refactoring of repaint logic. Its to complex now.
  * ToDo: class is to large, move the MouseController classes to their own package
- *
- * @author hneemann
  */
 public class CircuitComponent extends JComponent implements Circuit.ChangedListener, LibraryListener {
     /**

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.ModelEvent;
@@ -14,8 +19,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * It is registered to all elements which visual representation depends on a model value.
  * This listener method only sets a flag if there was a change.
  * For repainting it is also registered to the model to repaint the circuit if the step is complete.
- *
- * @author hneemann
  */
 public class GuiModelObserver implements Observer, ModelStateObserverTyped {
     private static final long TIMEOUT = 100;

@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
+
 /**
  * Classes used to select the necessary primes
- *
- * @author hneemann
  */
 package de.neemann.digital.analyse.quinemc.primeselector;

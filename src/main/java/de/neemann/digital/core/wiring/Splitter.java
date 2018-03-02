@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.core.*;
@@ -14,8 +19,6 @@ import java.util.StringTokenizer;
  * needs to be given to the {@link ObservableValue} constructor.
  * At this time I don't know if the input can became highZ. Because I need this information
  * before I can get it from the inputs, the user has to provide this information.
- *
- * @author hneemann
  */
 public class Splitter implements Element {
 

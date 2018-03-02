@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.data;
 
 import de.neemann.digital.data.DataPlotter;
@@ -11,8 +16,6 @@ import java.awt.*;
 /**
  * The component to show the trace window.
  * It shows the data in the given dataSet.
- *
- * @author hneemann
  */
 public class GraphComponent extends JComponent {
     private final DataPlotter plotter;

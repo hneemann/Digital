@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui;
 
 import de.neemann.digital.core.ExceptionWithOrigin;
@@ -10,8 +15,6 @@ import java.awt.event.ActionEvent;
 /**
  * Used to show error messages.
  * Implements runnable so you can apply this class directly to {@link SwingUtilities#invokeLater(Runnable)}
- *
- * @author hneemann on 09.02.14.
  */
 public class ErrorMessage implements Runnable {
 

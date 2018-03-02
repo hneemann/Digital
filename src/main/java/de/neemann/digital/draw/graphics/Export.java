@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import de.neemann.digital.draw.elements.Circuit;
@@ -10,8 +15,6 @@ import java.io.OutputStream;
 /**
  * Helper to export graphics files.
  * Sets the bounding box of the graphic and collects single lines to a long stroke
- *
- * @author hneemann
  */
 public class Export {
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import de.neemann.digital.draw.elements.VisualElement;
@@ -8,7 +13,6 @@ import java.util.Set;
 
 /**
  * A exception which has a set of files as an origin.
- * Created by hneemann on 16.06.17.
  */
 public class ExceptionWithOrigin extends Exception implements ExceptionWithOriginInterface {
     private File origin;

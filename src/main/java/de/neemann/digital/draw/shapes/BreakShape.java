@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
@@ -13,8 +18,6 @@ import de.neemann.digital.draw.graphics.Vector;
 
 /**
  * The Break shape
- *
- * @author hneemann
  */
 public class BreakShape implements Shape {
     private static final int SIZE = GenericShape.SIZE * 3 / 4;

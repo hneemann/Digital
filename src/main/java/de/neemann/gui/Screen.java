@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui;
 
 /*
@@ -16,7 +21,6 @@ import java.awt.geom.AffineTransform;
 /**
  * Class used to handle different screen resolution by defining a new default font
  * used by the GUI components. Also all the icons are scaled.
- * Created by hneemann on 09.05.17.
  */
 public final class Screen {
     private static final String OS = System.getProperty("os.name").toLowerCase();

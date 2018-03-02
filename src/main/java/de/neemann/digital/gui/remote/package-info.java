@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
+
 /**
  * Classes to implement a remote server for simulator control.
  * Is used to allow a assembly IDE to control the simulator.

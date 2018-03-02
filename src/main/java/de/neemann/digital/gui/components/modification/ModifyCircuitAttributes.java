@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -7,7 +12,6 @@ import de.neemann.digital.lang.Lang;
 
 /**
  * Sets all attributes of a circuit
- * Created by hneemann on 30.05.17.
  */
 public class ModifyCircuitAttributes implements Modification {
     private final ElementAttributes attributes;

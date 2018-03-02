@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
@@ -12,7 +17,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * FET shape.
- * Created by hneemann on 25.02.17.
  */
 public abstract class FETShape implements Shape {
     private final PinDescriptions inputs;

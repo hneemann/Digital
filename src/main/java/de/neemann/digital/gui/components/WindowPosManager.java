@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import javax.swing.*;
@@ -8,8 +13,6 @@ import java.util.Map;
 /**
  * Keeps positions of windows if it is necessary to replace a window by an other.
  * If a old window is found it is closed by calling dispose.
- *
- * @author hneemann
  */
 public class WindowPosManager {
     private final Map<String, Window> windows;

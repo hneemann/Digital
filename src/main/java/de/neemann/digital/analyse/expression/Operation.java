@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.expression;
 
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
@@ -9,8 +14,6 @@ import java.util.Comparator;
 /**
  * A operation
  * There are only two implementations: The AND and the OR operation
- *
- * @author hneemann
  */
 public abstract class Operation implements Expression {
     private static final Comparator<Expression> EXPRESSION_COMPARATOR

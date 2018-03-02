@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -7,7 +12,6 @@ import javax.swing.*;
 
 /**
  * @param <T> the type of the editor
- * @author hneemann
  */
 public interface Editor<T> {
 

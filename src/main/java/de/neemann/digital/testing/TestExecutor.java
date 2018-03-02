@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.testing;
 
 import de.neemann.digital.core.Model;
@@ -18,8 +23,6 @@ import java.util.HashSet;
 /**
  * Stores the test results created by a single {@link TestCaseDescription} instance.
  * The class also performs the tests.
- *
- * @author hneemann
  */
 public class TestExecutor {
     private static final int MAX_RESULTS = 1 << 10;

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.expression;
 
 import de.neemann.digital.lang.Lang;
@@ -6,8 +11,6 @@ import java.util.HashMap;
 
 /**
  * Simple {@link Context} based on a HashMap
- *
- * @author hneemann
  */
 public class ContextMap implements Context {
     private HashMap<Variable, Boolean> map;

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.lang.Lang;
@@ -16,7 +21,6 @@ import java.util.ArrayList;
  * The items are ordered in their container described by {@link ElementOrderer.OrderInterface}.
  *
  * @param <T> the element types to order
- * @author hneemann
  */
 public class ElementOrderer<T> extends JDialog {
 

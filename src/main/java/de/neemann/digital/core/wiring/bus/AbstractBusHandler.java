@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.BurnException;
@@ -14,7 +19,6 @@ import java.util.List;
  * The {@link AbstractBusHandler} calculates the state of a net with given inputs and pull resistors.
  * After the calculation of the state the method {@link AbstractBusHandler#set(long, boolean)} is called
  * to propagate the actual state.
- * Created by hneemann on 22.02.17.
  */
 public abstract class AbstractBusHandler {
 

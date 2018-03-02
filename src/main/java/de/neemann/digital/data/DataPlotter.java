@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.data;
 
 import de.neemann.digital.draw.graphics.Graphic;
@@ -11,8 +16,6 @@ import de.neemann.digital.gui.sync.Sync;
 /**
  * The dataSet stores the collected DataSamples.
  * Every DataSample contains the values of al signals at a given time.
- *
- * @author hneemann
  */
 public class DataPlotter implements Drawable {
     private final ValueTable dataOriginal;

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import java.io.*;
@@ -9,8 +14,6 @@ import static java.lang.System.out;
  * Used to create a SVG representation of the circuit.
  * Don't use this implementation directly. Use {@link GraphicSVGIndex} to create plain SVG or
  * {@link GraphicSVGLaTeX} if you want to include your SVG to LaTeX.
- *
- * @author hneemann
  */
 public class GraphicSVG implements Graphic {
     private static final int DEF_SCALE = 15;

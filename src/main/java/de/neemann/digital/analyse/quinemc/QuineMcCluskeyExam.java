@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.quinemc;
 
 import de.neemann.digital.analyse.expression.Variable;
@@ -17,7 +22,6 @@ import java.util.TreeSet;
  * which are necessary. So is is possible to find all possible solutions.
  * Works only if there are not more then 4 variables.
  * <p>
- * Created by hneemann on 13.03.17.
  */
 public class QuineMcCluskeyExam extends QuineMcCluskey {
     private static final Logger LOGGER = LoggerFactory.getLogger(QuineMcCluskeyExam.class);

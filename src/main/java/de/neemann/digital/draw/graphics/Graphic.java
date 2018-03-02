@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import java.io.Closeable;
@@ -7,8 +12,6 @@ import java.io.IOException;
  * Interface used to draw the circuit.
  * There are implementations to draw on a {@link java.awt.Graphics2D} instance ({@link GraphicSwing}) but also
  * implementations which create export formats like SVG ({@link GraphicSVG}).
- *
- * @author hneemann
  */
 public interface Graphic extends Closeable {
     /**

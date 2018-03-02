@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.DetermineJKStateMachine;
@@ -9,8 +14,6 @@ import de.neemann.digital.analyse.expression.format.FormatterException;
  * Expression listener which sends all result to its parent.
  * If the expression is a state expression it creates the J and K control equations
  * and also sends the calculated control expressions to its parent.
- *
- * @author hneemann
  */
 public class ExpressionListenerJK implements ExpressionListener {
     private final ExpressionListener parent;

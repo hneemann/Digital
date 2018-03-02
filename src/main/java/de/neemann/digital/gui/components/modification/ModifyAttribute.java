@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.core.element.Key;
@@ -8,7 +13,6 @@ import de.neemann.digital.lang.Lang;
 
 /**
  * Modifies an attribute.
- * Created by hneemann on 25.05.17.
  *
  * @param <VALUE> the used value type
  */

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics.linemerger;
 
 import de.neemann.digital.draw.graphics.*;
@@ -10,8 +15,6 @@ import java.util.Iterator;
  * Merges all single lines which are drawn to polygons.
  * Needed to create a nicer svg export because of the creation of longer strokes
  * instead of single lines.
- *
- * @author hneemann
  */
 public class GraphicLineCollector implements Graphic {
     private final HashMap<Style, PolygonSet> polys;

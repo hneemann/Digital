@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.Model;
@@ -9,7 +14,6 @@ import java.util.ArrayList;
 
 /**
  * Make sure that probes are correctly named and added to the list of signals.
- * Created by hneemann on 08.03.17.
  */
 public class ProbeTest extends TestCase {
 

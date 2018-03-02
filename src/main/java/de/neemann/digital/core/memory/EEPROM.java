@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -9,8 +14,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A EEPROM module.
- *
- * @author hneemann
  */
 public class EEPROM extends RAMSinglePortSel implements ROMInterface {
 

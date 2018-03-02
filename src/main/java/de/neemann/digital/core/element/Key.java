@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.lang.Lang;
@@ -8,7 +13,6 @@ import java.io.File;
  * Class is used to define the keys used to access the models attributes
  *
  * @param <VALUE> the keys value type
- * @author hneemann
  */
 public class Key<VALUE> {
     private final String key;

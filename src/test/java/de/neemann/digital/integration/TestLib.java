@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.integration;
 
 import de.neemann.digital.core.NodeException;
@@ -20,7 +25,6 @@ import java.util.HashSet;
 
 /**
  * Tests the files in the lib folder for consistency.
- * Created by hneemann on 13.05.17.
  */
 public class TestLib extends TestCase {
     private HashMap<String, File> descrMap;

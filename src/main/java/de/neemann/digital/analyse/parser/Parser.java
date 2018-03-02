@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.parser;
 
 import de.neemann.digital.analyse.expression.*;
@@ -12,8 +17,6 @@ import static de.neemann.digital.analyse.parser.Tokenizer.Token.*;
 
 /**
  * Class to parse a string to an expression
- *
- * @author hneemann
  */
 public class Parser {
 

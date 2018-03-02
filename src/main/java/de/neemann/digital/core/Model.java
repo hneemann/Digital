@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.io.Button;
@@ -36,8 +41,6 @@ import java.util.*;
  * call of the registerNodes method. These lists are necessary to keep track of all elements which are not a node like
  * inputs and outputs. All elements which are nodes can be obtained by {@link #findNode(Class, NodeFilter)} or
  * {@link #findNode(Class)}.
- *
- * @author hneemann
  * @see de.neemann.digital.core.element.Element#registerNodes(Model)
  */
 public class Model implements Iterable<Node> {

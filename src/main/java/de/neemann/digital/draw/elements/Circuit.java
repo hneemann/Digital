@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import com.thoughtworks.xstream.XStream;
@@ -38,8 +43,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * Such a Circuit instance is used by the {@link de.neemann.digital.draw.model.ModelCreator} to
  * create a runnable model representation (see {@link de.neemann.digital.core.Model}).
  * This class is also serialized to store a circuit on disk.
- *
- * @author hneemann
  */
 public class Circuit {
     private static final Set<Drawable> EMPTY_SET = Collections.emptySet();

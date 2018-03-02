@@ -1,10 +1,14 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.memory;
 
 import com.thoughtworks.xstream.XStream;
 import junit.framework.TestCase;
 
 /**
- * Created by hneemann on 14.12.16.
  */
 public class DataFieldConverterTest extends TestCase {
 
