@@ -117,15 +117,16 @@ public class TestLang extends TestCase {
             }
         }
 
-        if (f.getName().equals("GifSequenceWriter.java"))
+        // Do not add files without permission from Helmut Neemann!
+        if (f.getName().equals("GifSequenceWriter.java")) // Creative Commons Attribution 3.0 Unported License
             return;
 
         if (state != 2)
-            throw new IOException("found file without proper license notice: " + f+ "\n\n"
-                    +"Every java file must contain the lines\n\n"
-            +" * Use of this source code is governed by the GPL v3 license\n"
-            +" * that can be found in the LICENSE file.\n\n"
-            +"Add these lines only if you have the right to do that!");
+            throw new IOException("found java file without proper license notice: " + f + "\n\n"
+                    + "Every java file must contain the lines\n\n"
+                    + " * Use of this source code is governed by the GPL v3 license\n"
+                    + " * that can be found in the LICENSE file.\n\n"
+                    + "Add these lines only if you have the right to do that!");
     }
 
     private static final String PATTERN = "Lang.get(\"";
