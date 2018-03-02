@@ -47,14 +47,9 @@ public class TestLang extends TestCase {
      * @throws IOException IOException
      */
     public void testUsages() throws IOException {
-        String sources = System.getProperty("sources");
-        if (sources == null) {
-            System.out.println("environment variable sources not set!!!");
-            System.out.println("Try to use hardcoded " + SOURCEPATH);
-            sources = SOURCEPATH;
-        }
+        File sources = getSourceFiles();
         HashSet<String> keys = new HashSet<>();
-        parseTree(new File(sources), keys);
+        parseTree(sources, keys);
         // check also test code. Is needed because documentation generation uses language key also.
         parseTree(new File(Resources.getRoot(), "../java"), keys);
 
@@ -70,6 +65,16 @@ public class TestLang extends TestCase {
         }
         if (sb.length() > 0)
             fail("there are unused language keys: " + sb.toString());
+    }
+
+    public static File getSourceFiles() {
+        String sources = System.getProperty("sources");
+        if (sources == null) {
+            System.out.println("environment variable sources not set!!!");
+            System.out.println("Try to use hardcoded " + SOURCEPATH);
+            sources = SOURCEPATH;
+        }
+        return new File(sources);
     }
 
     private void parseTree(File file, HashSet<String> keys) throws IOException {
@@ -89,8 +94,6 @@ public class TestLang extends TestCase {
     }
 
     private void checkSourceFile(File f, HashSet<String> keys) throws IOException {
-        int state = 0;
-
         try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f), "utf-8"))) {
             int linecount = 0;
             String line;
@@ -101,32 +104,8 @@ public class TestLang extends TestCase {
                 } catch (AssertionFailedError e) {
                     throw new AssertionFailedError(e.getMessage() + " in line " + linecount);
                 }
-
-                switch (state) {
-                    case 0:
-                        if (line.trim().equals("* Use of this source code is governed by the GPL v3 license"))
-                            state = 1;
-                        break;
-                    case 1:
-                        if (line.trim().equals("* that can be found in the LICENSE file."))
-                            state = 2;
-                        else
-                            state = 0;
-                        break;
-                }
             }
         }
-
-        // Do not add files without permission from Helmut Neemann!
-        if (f.getName().equals("GifSequenceWriter.java")) // Creative Commons Attribution 3.0 Unported License
-            return;
-
-        if (state != 2)
-            throw new IOException("found java file without proper license notice: " + f + "\n\n"
-                    + "Every java file must contain the lines\n\n"
-                    + " * Use of this source code is governed by the GPL v3 license\n"
-                    + " * that can be found in the LICENSE file.\n\n"
-                    + "Add these lines only if you have the right to do that!");
     }
 
     private static final String PATTERN = "Lang.get(\"";
