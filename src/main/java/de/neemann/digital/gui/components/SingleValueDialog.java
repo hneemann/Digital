@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann, Rüdiger Heintz
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.*;
@@ -19,9 +24,6 @@ import java.util.Arrays;
 /**
  * Dialog to edit a single value.
  * Used to enter a multi bit input value.
- *
- * @author hneemann
- * @author Rüdiger Heintz
  */
 public final class SingleValueDialog extends JDialog implements ModelStateObserverTyped {
 
