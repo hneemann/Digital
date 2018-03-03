@@ -226,6 +226,19 @@ public class LibraryNode implements Iterable<LibraryNode> {
     }
 
     /**
+     * get the child with the given name
+     *
+     * @param name the name
+     * @return the child
+     */
+    public LibraryNode getChild(String name) {
+        for (LibraryNode n : children)
+            if (n.getName().equals(name))
+                return n;
+        return null;
+    }
+
+    /**
      * @return the number of children
      */
     public int size() {

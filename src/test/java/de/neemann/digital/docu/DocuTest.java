@@ -13,6 +13,9 @@ import de.neemann.digital.draw.graphics.GraphicMinMax;
 import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.graphics.GraphicSVGIndex;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.LibraryNode;
+import de.neemann.digital.draw.library.NumStringComparator;
+import de.neemann.digital.draw.library.Visitor;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.lang.Lang;
@@ -28,6 +31,8 @@ import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * This is not a real test case.
@@ -39,7 +44,7 @@ import java.io.*;
  */
 public class DocuTest extends TestCase {
 
-    private void writeXML(Writer w, File images, String language) throws IOException, NodeException, PinException {
+    private void writeXML(Writer w, File images, String language, File libFile) throws IOException, NodeException, PinException {
         w.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         w.append("<?xml-stylesheet type=\"text/xsl\" href=\"elem2html.xslt\"?>\n");
         w.append("<root titel=\"")
@@ -64,7 +69,10 @@ public class DocuTest extends TestCase {
                 .append(Lang.get("general"))
                 .append("\" components=\"")
                 .append(Lang.get("menu_elements"))
+                .append("\" lib=\"")
+                .append(Lang.get("menu_library"))
                 .append("\" static=\"").append(new File(Resources.getRoot(), "docu/static_" + language + ".xml").toURI().toString())
+                .append("\" library=\"").append(libFile.toURI().toString())
                 .append("\">\n");
         ElementLibrary library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library, language.equals("en"));
@@ -140,6 +148,43 @@ public class DocuTest extends TestCase {
             w.append("</pin>\n");
         }
     }
+
+    private void write74xx(File file) throws IOException {
+        TreeMap<String, String> map = new TreeMap<>(NumStringComparator.getInstance());
+        ElementLibrary library = new ElementLibrary();
+        LibraryNode node = library.getRoot().getChild(Lang.get("menu_library"));
+
+        if (node != null) {
+            node.traverse(libraryNode -> {
+                if (libraryNode.isLeaf()) {
+                    try {
+                        String key = libraryNode.getName();
+                        if (key.endsWith(".dig"))
+                            key = key.substring(0, key.length() - 4);
+                        if (!key.endsWith("-inc")) {
+                            String value = libraryNode.getDescription().getDescription(new ElementAttributes());
+                            map.put(key, value);
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            try (Writer w = new OutputStreamWriter(new FileOutputStream(file), "UTF-8")) {
+                w.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
+                w.append("<icRoot>\n");
+                for (Map.Entry<String, String> e : map.entrySet()) {
+                    w.append(" <ic name=\"");
+                    w.append(e.getKey());
+                    w.append("\">");
+                    w.append(e.getValue());
+                    w.append("</ic>\n");
+                }
+                w.append("</icRoot>");
+            }
+        }
+    }
+
 
     private static String escapeHTML(String text) {
         StringBuilder sb = new StringBuilder(text.length() * 2);
@@ -225,6 +270,10 @@ public class DocuTest extends TestCase {
 
         File maven = Resources.getRoot().getParentFile().getParentFile().getParentFile();
         File target = new File(maven, "target/docu");
+
+        final File library = new File(target, "library.xml");
+        write74xx(library);
+
         File images = new File(target, "img");
         images.mkdirs();
         for (Language l : Lang.getBundle().getSupportedLanguages()) {
@@ -234,7 +283,7 @@ public class DocuTest extends TestCase {
             // write xml
             File xml = new File(target, basename + ".xml");
             try (Writer w = new OutputStreamWriter(new FileOutputStream(xml), "UTF-8")) {
-                writeXML(w, images, l.getName());
+                writeXML(w, images, l.getName(), library);
             }
 
             // start xslt transformation
@@ -247,4 +296,5 @@ public class DocuTest extends TestCase {
             startFOP(fopFactory, xslFO, pdf);
         }
     }
+
 }

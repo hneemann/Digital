@@ -25,7 +25,7 @@ public final class NumStringComparator implements Comparator<String> {
      *
      * @return the singleton instance
      */
-    public NumStringComparator getInstance() {
+    public static NumStringComparator getInstance() {
         return InstanceHolder.INSTANCE;
     }
 

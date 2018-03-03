@@ -13,7 +13,7 @@
     <entry>
       <string>Description</string>
       <string>1-Megabit (128K x 8) Paged Parallel EEPROM;
-DATA Polling for End of Write Detection not implemented</string>
+DATA Polling for End of Write Detection not implemented!</string>
     </entry>
     <entry>
       <string>lockedMode</string>
