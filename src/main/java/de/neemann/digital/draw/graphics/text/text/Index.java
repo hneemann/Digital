@@ -20,8 +20,6 @@ public class Index implements Text {
      */
     public Index(Text var) {
         this.var = var;
-        this.superScript = superScript;
-        this.subScript = subScript;
     }
 
     /**

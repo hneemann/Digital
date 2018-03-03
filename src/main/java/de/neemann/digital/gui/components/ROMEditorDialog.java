@@ -22,13 +22,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * The editor to edit the roms
  */
 public class ROMEditorDialog extends JDialog {
-    private final ROMManger romManager;
     private final ROMModel romModel;
     private boolean ok = false;
 
@@ -41,7 +40,6 @@ public class ROMEditorDialog extends JDialog {
      */
     public ROMEditorDialog(JDialog parent, Model model, ROMManger romManager) {
         super(parent, Lang.get("win_romDialog"), true);
-        this.romManager = romManager;
 
         romModel = new ROMModel();
         for (Node n : model.findNode(n -> n instanceof ROMInterface)) {
@@ -118,7 +116,7 @@ public class ROMEditorDialog extends JDialog {
         return romModel.createRomManager();
     }
 
-    private static final class RomHolder implements Comparable<RomHolder> {
+    private static final class RomHolder {
         private final ROMInterface ri;
         private DataField data;
 
@@ -137,11 +135,6 @@ public class ROMEditorDialog extends JDialog {
 
         boolean hasData() {
             return data.getData().length > 0;
-        }
-
-        @Override
-        public int compareTo(RomHolder that) {
-            return ri.getLabel().compareTo(that.ri.getLabel());
         }
 
         public boolean edit(ROMEditorDialog romEditorDialog) {
@@ -187,7 +180,7 @@ public class ROMEditorDialog extends JDialog {
         }
 
         private void sort() {
-            Collections.sort(romlist);
+            romlist.sort(Comparator.comparing(r -> r.ri.getLabel()));
         }
 
         public void delete(int i) {
