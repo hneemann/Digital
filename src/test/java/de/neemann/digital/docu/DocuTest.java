@@ -271,11 +271,12 @@ public class DocuTest extends TestCase {
         File maven = Resources.getRoot().getParentFile().getParentFile().getParentFile();
         File target = new File(maven, "target/docu");
 
+        File images = new File(target, "img");
+        images.mkdirs();
+
         final File library = new File(target, "library.xml");
         write74xx(library);
 
-        File images = new File(target, "img");
-        images.mkdirs();
         for (Language l : Lang.getBundle().getSupportedLanguages()) {
             // set language
             Lang.setActualRuntimeLanguage(l);
