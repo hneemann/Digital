@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
@@ -9,8 +14,6 @@ import java.awt.geom.Rectangle2D;
  * This class is used to determine the size of shapes or the whole circuit.
  * You can draw the items to an instance of this class and then obtain the size
  * by the getters getMin() and getMax().
- *
- * @author hneemann
  */
 public class GraphicMinMax implements Graphic {
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import java.io.File;
@@ -13,8 +18,6 @@ import java.io.File;
  * After all {@link #readInputs()} methods of all nodes are called, the model executer {@link Model#doMicroStep(boolean)}
  * starts to call the {@link #writeOutputs()} methods of all nodes.
  * During this call the outputs have to be updated using the data stored and without reading the inputs again.
- *
- * @author hneemann
  */
 public abstract class Node implements NodeInterface {
 

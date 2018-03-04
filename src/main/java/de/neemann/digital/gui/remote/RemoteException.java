@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.remote;
 
 /**
  * Exception thrown by the RemoteInterface
- * Created by hneemann on 20.08.16.
  */
 public class RemoteException extends Exception {
     /**

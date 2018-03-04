@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.graphics;
 
 import javax.swing.*;
@@ -5,8 +10,6 @@ import java.awt.*;
 
 /**
  * The component to show the graphics.
- *
- * @author hneemann
  */
 public class GraphicComponent extends JComponent {
     private static final Color[] PALETTE = createPalette();

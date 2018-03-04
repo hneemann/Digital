@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.draw.elements.VisualElement;
@@ -16,7 +21,6 @@ import java.io.IOException;
 
 /**
  * Action to insert the given node to the given circuit
- * Created by hneemann on 25.03.17.
  */
 public final class InsertAction extends ToolTipAction {
     private final InsertHistory insertHistory;

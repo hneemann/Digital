@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.integration;
 
 import de.neemann.digital.core.io.Out;
@@ -8,7 +13,6 @@ import de.neemann.digital.gui.components.data.DummyElement;
 import junit.framework.TestCase;
 
 /**
- * @author hneemann
  */
 public class TestSelect extends TestCase {
 

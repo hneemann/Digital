@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.*;
@@ -5,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.memory.rom.ROMInterface;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +19,8 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A ROM module.
- *
- * @author hneemann
  */
-public class ROM extends Node implements Element {
+public class ROM extends Node implements Element, ROMInterface {
     /**
      * Key used to store the source file in the attribute set
      */
@@ -39,6 +43,7 @@ public class ROM extends Node implements Element {
     private DataField data;
     private final ObservableValue output;
     private final int addrBits;
+    private final int dataBits;
     private final File hexFile;
     private final boolean autoLoad;
     private final boolean isProgramMemory;
@@ -47,6 +52,7 @@ public class ROM extends Node implements Element {
     private int addr;
     private boolean sel;
     private int romAddr;
+    private String label;
 
     /**
      * Creates a new instance
@@ -54,11 +60,12 @@ public class ROM extends Node implements Element {
      * @param attr the elements attributes
      */
     public ROM(ElementAttributes attr) {
-        int bits = attr.get(Keys.BITS);
-        output = new ObservableValue("D", bits, true).setPinDescription(DESCRIPTION);
+        dataBits = attr.get(Keys.BITS);
+        output = new ObservableValue("D", dataBits, true).setPinDescription(DESCRIPTION);
         data = attr.get(Keys.DATA);
         addrBits = attr.get(Keys.ADDR_BITS);
         autoLoad = attr.get(Keys.AUTO_RELOAD_ROM);
+        label = attr.getCleanLabel();
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
         if (autoLoad) {
             hexFile = attr.getFile(LAST_DATA_FILE_KEY);
@@ -127,13 +134,23 @@ public class ROM extends Node implements Element {
         return isProgramMemory;
     }
 
-    /**
-     * Sets the data for this ROM element
-     *
-     * @param data data to use
-     */
+    @Override
     public void setData(DataField data) {
         this.data = data;
     }
 
+    @Override
+    public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public int getAddrBits() {
+        return addrBits;
+    }
+
+    @Override
+    public int getDataBits() {
+        return dataBits;
+    }
 }

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.expression.Expression;
@@ -14,7 +19,6 @@ import java.util.HashSet;
  * Helper to fill the a {@link BuilderInterface} with pre calculated expressions
  * stored in {@link ExpressionListenerStore} instance.
  * <p>
- * Created by hneemann on 02.04.17.
  */
 public class BuilderExpressionCreator {
     private final HashSet<String> contained;

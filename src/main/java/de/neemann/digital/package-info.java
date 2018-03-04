@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
+
 /**
  * Digital is build from several packages:
  * <p>
@@ -50,7 +56,5 @@
  * about changes and so on and so on. Every such iteration is called a micro step.
  * If this iteration stops because no new nodes have seen an input change, the model has stabilized again.
  * Now the model can handle a new clock change or a new user interaction.
- *
- * @author hneemann
  */
 package de.neemann.digital;

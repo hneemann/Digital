@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.flipflops;
 
 import de.neemann.digital.TestExecuter;
@@ -9,7 +14,6 @@ import junit.framework.TestCase;
 import static de.neemann.digital.core.ObservableValues.ovs;
 
 /**
- * @author hneemann
  */
 public class FlipflopDAsyncTest extends TestCase {
     public void testFlipFlop() throws Exception {

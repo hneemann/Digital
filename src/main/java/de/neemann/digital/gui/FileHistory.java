@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.gui.ToolTipAction;
@@ -10,8 +15,6 @@ import java.util.prefs.Preferences;
 
 /**
  * History of last opened files
- *
- * @author hneemann
  */
 public final class FileHistory {
     private static final Preferences PREFS = Preferences.userRoot().node("dig").node("hist");

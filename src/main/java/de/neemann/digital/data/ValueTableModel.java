@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.data;
 
 import de.neemann.digital.core.Observer;
@@ -12,7 +17,6 @@ import java.util.ArrayList;
 /**
  * The table model to represent a value table.
  * <p>
- * Created by hneemann on 24.08.16.
  */
 public class ValueTableModel implements TableModel, Observer {
 

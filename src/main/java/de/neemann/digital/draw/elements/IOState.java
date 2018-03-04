@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
@@ -7,8 +12,6 @@ import de.neemann.digital.core.element.Element;
 /**
  * Represents the state of the state of the inputs and outputs of a element.
  * It is a simple container bean.
- *
- * @author hneemann
  */
 public class IOState {
     private final ObservableValues inputs;

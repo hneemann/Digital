@@ -1,9 +1,12 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 /**
  * Implements a rotation and translation.
- *
- * @author hneemann
  */
 public class TransformRotate implements Transform {
 

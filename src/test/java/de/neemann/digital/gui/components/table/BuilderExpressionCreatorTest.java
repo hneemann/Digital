@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.table;
 
 
@@ -31,7 +36,6 @@ import static de.neemann.digital.analyse.expression.Variable.v;
 import static de.neemann.digital.analyse.expression.Variable.vars;
 
 /**
- * Created by hneemann on 02.04.17.
  */
 public class BuilderExpressionCreatorTest extends TestCase {
     private ElementLibrary libary = new ElementLibrary();

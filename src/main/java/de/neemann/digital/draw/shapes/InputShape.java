@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
@@ -26,8 +31,6 @@ import static de.neemann.digital.draw.shapes.OutputShape.*;
 
 /**
  * The input shape
- *
- * @author hneemann
  */
 public class InputShape implements Shape {
 

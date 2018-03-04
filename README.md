@@ -69,7 +69,7 @@ These are the main features of Digital:
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code.
-- Good test coverage (exclusive of GUI classes about 80%).
+- Good test coverage (about 80%).
   Almost all examples contain test cases which ensure that they work correctly.
 
 ## Documentation ##
@@ -213,6 +213,6 @@ If you want to build Digital from the source code:
   * A discussion should avoid duplicate or unnecessary work.  
   * Before you send a pull request, make sure that at least `mvn install` runs without errors.
 * Don't introduce new findbugs issues.
-* Try to keep the test coverage high. The target is 80% test coverage at all non GUI components.
+* Try to keep the test coverage high. The target is a minimum of 80% test coverage.
 * So far, there are only a few GUI tests, so that the overall test coverage is only slightly below 80%.
   Try to keep the amount of untested GUI code low.

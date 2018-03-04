@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
@@ -18,8 +23,6 @@ import java.awt.*;
 
 /**
  * The RAM shape
- *
- * @author hneemann
  */
 public class RAMShape extends GenericShape {
     private final int dataBits;

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.Node;
@@ -15,8 +20,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * RAM module with a single port to read and write data and a select input.
  * This allows to build a bigger RAM with smaller RAMS and an additional address decoder.
- *
- * @author hneemann
  */
 public class RAMSinglePortSel extends Node implements Element, RAMInterface {
 
@@ -37,9 +40,9 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     private final int bits;
     private final int addrBits;
     private final int size;
-    private final DataField memory;
     private final String label;
     private final ObservableValue dataOut;
+    private DataField memory;
     private ObservableValue addrIn;
     private ObservableValue csIn;
     private ObservableValue weIn;
@@ -98,7 +101,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
                 memory.setData(addr, data);
             }
         }
-        lastweIn=weIn;
+        lastweIn = weIn;
     }
 
     @Override
@@ -139,4 +142,14 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     public int getAddrBits() {
         return addrBits;
     }
+
+    /**
+     * Sets the rams data
+     *
+     * @param data the data to set
+     */
+    public void setData(DataField data) {
+        this.memory = data;
+    }
+
 }

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.integration;
 
 import de.neemann.digital.core.Model;
@@ -15,8 +20,6 @@ import java.io.File;
  * Reads all examples and tries to create the model.
  * Makes sure that all examples are creatable (one can build the model)
  * Does not ensure that they work correctly if no tests are present in the circuit!
- *
- * @author hneemann
  */
 public class TestExamples extends TestCase {
 
@@ -29,8 +32,8 @@ public class TestExamples extends TestCase {
      */
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
-        assertEquals(216, new FileScanner(this::check).scan(examples));
-        assertEquals(160, testCasesInFiles);
+        assertEquals(239, new FileScanner(this::check).scan(examples));
+        assertEquals(161, testCasesInFiles);
     }
 
     /**
@@ -40,10 +43,9 @@ public class TestExamples extends TestCase {
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(123, new FileScanner(this::check).scan(examples));
-        assertEquals(112, testCasesInFiles);
+        assertEquals(126, new FileScanner(this::check).scan(examples));
+        assertEquals(113, testCasesInFiles);
     }
-
 
     /**
      * Loads the model and initializes and test it if test cases are present

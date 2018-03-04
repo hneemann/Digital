@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.data;
 
 import de.neemann.digital.core.Model;
@@ -11,8 +16,6 @@ import de.neemann.digital.core.element.Keys;
 /**
  * Only a placeholder.
  * Has no connections to the model!
- *
- * @author hneemann
  */
 public class DummyElement implements Element {
 

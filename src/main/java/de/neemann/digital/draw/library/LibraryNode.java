@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -20,7 +25,6 @@ import java.util.Iterator;
 
 /**
  * A node in the components library
- * Created by hneemann on 25.03.17.
  */
 public class LibraryNode implements Iterable<LibraryNode> {
     private static final Logger LOGGER = LoggerFactory.getLogger(LibraryNode.class);
@@ -219,6 +223,19 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public LibraryNode getChild(int i) {
         return children.get(i);
+    }
+
+    /**
+     * get the child with the given name
+     *
+     * @param name the name
+     * @return the child
+     */
+    public LibraryNode getChild(String name) {
+        for (LibraryNode n : children)
+            if (n.getName().equals(name))
+                return n;
+        return null;
     }
 
     /**

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.AnalyseException;
@@ -60,7 +65,6 @@ import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
 /**
- * @author hneemann
  */
 public class TableDialog extends JDialog {
     private static final Preferences PREFS = Preferences.userRoot().node("dig").node("generator");

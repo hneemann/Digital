@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
@@ -7,7 +12,6 @@ import java.util.ArrayList;
 
 /**
  * A single modification which is build from a set of other modifications.
- * Created by hneemann on 25.05.17.
  */
 public final class Modifications implements Modification {
     private final ArrayList<Modification> modifications;

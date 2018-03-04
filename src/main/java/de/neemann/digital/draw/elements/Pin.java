@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
@@ -7,8 +12,6 @@ import de.neemann.digital.draw.graphics.Vector;
 
 /**
  * Puts the pins name and the pins x-y-position together!
- *
- * @author hneemann
  */
 public class Pin extends PinInfo {
 

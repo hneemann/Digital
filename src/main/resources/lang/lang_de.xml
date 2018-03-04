@@ -40,6 +40,8 @@
     <string name="btn_saveAnyway">Trotzdem speichern</string>
     <string name="btn_overwrite">Überschreiben</string>
     <string name="btn_apply">Setzen</string>
+    <string name="btn_editRom_tt">Bearbeitet den Inhalt des ausgewählten ROM/EEPROM.</string>
+    <string name="btn_clearRom_tt">Entfernt die hier gespeicherten Daten des ausgewählten ROM. Es wird stattdessen der direkt im ROM gespeicherte Inhalt verwendet.</string>
     <string name="msg_warning">Warnung</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
@@ -400,6 +402,7 @@
     <string name="elem_Monoflop_tt">Ein Monoflop wird bei einer steigenden Flanke am Takteingang gesetzt.
         Nach einer einstellbaren Verzögerungszeit wird das Monoflop automatisch wieder gelöscht.
         Das Monoflop ist retriggerbar. Es kann nur genutzt werden, wenn es genau ein Taktelement in der Schaltung gibt.
+        Dieses Taktelement wird dann für die Zeitbestimmung verwendet.
     </string>
     <string name="elem_Monoflop_pin_R">Reset Eingang. Eine Eins setzt das Monoflop auf Null zurück.</string>
     <string name="elem_Monoflop_pin_C">Eine steigende Flanke an diesem Eingang setzt das Monoflop. Der Ausgang Q wird auf
@@ -836,6 +839,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Die Verwendung von Schaltern, FETs oder Relais verursacht ebenfalls Zyklen.</string>
     <string name="err_monoflopRequiresOneClock">Wird ein Monoflop verwendet, muss es genau ein Taktelement geben!</string>
     <string name="err_couldNotCreateElement_N">Konnte kein Element vom Typ "{0}" erzeugen!</string>
+    <string name="err_centralDefinedRomsAreNotSupported">Zentral definierte ROM-Inhalte werden nicht unterstützt!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1034,6 +1038,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_timerDelay_tt">Die Impulsdauer wird in Taktzyklen angegeben.</string>
     <string name="key_splitterSpreading">Spreizung</string>
     <string name="key_splitterSpreading_tt">Bestimmt die Spreizung der Ein- und Ausgänge in der Schaltung.</string>
+    <string name="key_romContent">ROM Inhalte</string>
+    <string name="key_romContent_tt">Inhalt aller ROM Bausteine</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1333,6 +1339,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
 Soll dennoch exportiert werden?</string>
     <string name="msg_circuitIsRequired">Um eine Hardwarebeschreibung zu erzeugen, muss zuvor eine Schaltung erstellt
         und analysiert werden. Aus nur einer Wahrheitstabelle kann keine Hardwarebeschreibung erzeugt werden.</string>
+    <string name="msg_noData">keine Daten</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
@@ -1357,8 +1364,38 @@ Soll dennoch exportiert werden?</string>
     <string name="win_itempicker_title">Auswahl</string>
     <string name="win_valueInputTitle_N">Eingabe {0}</string>
     <string name="win_karnaughMap">Karnaugh-Veitch Tafel</string>
+    <string name="win_romDialog">Vorhandene ROMs</string>
 
     <string name="btn_help">Hilfe</string>
+
+    <string name="win_romDialogHelpTitle">Zentrale ROM Inhalte</string>
+    <string name="msg_romDialogHelp"><![CDATA[
+        <html>
+        <h3>Motivation</h3>
+        Wenn eine Schaltung, die einen ROM-Baustein enthält, mehrfach eingebettet wird,
+        wird im Normalfall dessen Inhalt für jede Instanz dieser Schaltung verwendet.
+        Unter Umständen kann es aber gewünscht sein, dass eine solche Schaltung zwar
+        mehrfach eingebettet wird, dass aber für jede Instanz unterschiedliche
+        ROM-Inhalte verwendet werden.<br/>
+        Dieses Problem tritt z.B. auf, wenn ein 74xx ROM mehrfach verwendet wird,
+        jedoch mit jeweils anderem Speicherinhalt.<br/>
+        <h3>Funktion</h3>
+        An dieser Stelle können daher für alle ROMs in der Schaltung Inhalte definiert werden.
+        Wenn das Simulationsmodel erzeugt wird, werden für die ROMs zunächst die Inhalte
+        verwendet, die direkt im jeweiligen ROM gespeichert sind. Dann wird überprüft, ob an
+        dieser Stelle ein alternativer Inhalt definiert ist. Ist dies der Fall, wird der hier
+        verwendete Inhalt in das entsprechende ROM geladen.
+        <h3>Verwendung</h3>
+        Zu beachten ist, dass jedes ROM einen eindeutigen Namen benötigt, über welchen der ROM-Inhalt
+        zugeordnet wird. Dazu verwendet man in der Bezeichnung des ROMs das Mal-Zeichen ('*')
+        Dieses wird dann durch den kompletten Pfad, aufgebaut aus den Bezeichnungen der eingebetteten
+        Schaltungen ersetzt. Enthält eine Schaltung nur einen ROM-Baustein, ist es ausreichend, nur
+        das Mal-Zeichen als Bezeichnung zu verwenden.
+        Alle eingebetteten Schaltungen müssen mit einem Namen versehen werden, damit ein eindeutiger
+        Name für jedes ROM gebildet werden kann.
+        </html>
+        ]]>
+    </string>
 
     <string name="msg_newRelease_N"><![CDATA[
         <html>

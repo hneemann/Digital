@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.graphics;
 
 import javax.swing.*;
@@ -5,7 +10,6 @@ import java.awt.*;
 
 /**
  * Component to visualize a LED matrix
- * Created by hneemann on 08.04.17.
  */
 public class LedMatrixComponent extends JComponent {
     private final int width;

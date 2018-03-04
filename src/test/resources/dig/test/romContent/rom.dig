@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>romContent</string>
+      <storedRoms>
+        <entry>
+          <string>R3-B</string>
+          <data size="4">1d,1e,1f,20</data>
+        </entry>
+        <entry>
+          <string>R1-B</string>
+          <data size="4">d,e,f,10</data>
+        </entry>
+        <entry>
+          <string>R2-A</string>
+          <data size="4">11,12,13,14</data>
+        </entry>
+        <entry>
+          <string>R2-B</string>
+          <data size="4">15,16,17,18</data>
+        </entry>
+        <entry>
+          <string>R3-A</string>
+          <data size="4">19,1a,1b,1c</data>
+        </entry>
+        <entry>
+          <string>R0-A</string>
+          <data size="4">1,2,3,4</data>
+        </entry>
+        <entry>
+          <string>R0-B</string>
+          <data size="4">5,6,7,8</data>
+        </entry>
+        <entry>
+          <string>R1-A</string>
+          <data size="4">9,a,b,c</data>
+        </entry>
+      </storedRoms>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>5</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>3,2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Decoder</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A D
+
+loop(n, 1&lt;&lt;5)
+  (n) (n+1)
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>rom-1-inc.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>rom-1-inc.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>rom-1-inc.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>rom-1-inc.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>R3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="480"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="440" y="160"/>
+      <p2 x="540" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="480"/>
+      <p2 x="540" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="260"/>
+      <p2 x="620" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="360"/>
+      <p2 x="540" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="200"/>
+      <p2 x="480" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="520"/>
+      <p2 x="540" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="140"/>
+      <p2 x="620" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="140"/>
+      <p2 x="420" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="140"/>
+      <p2 x="640" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="400"/>
+      <p2 x="540" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="240"/>
+      <p2 x="540" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="500"/>
+      <p2 x="620" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="180"/>
+      <p2 x="500" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="280"/>
+      <p2 x="540" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="120"/>
+      <p2 x="380" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="120"/>
+      <p2 x="520" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="120"/>
+      <p2 x="540" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="380"/>
+      <p2 x="620" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="220"/>
+      <p2 x="460" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="200"/>
+      <p2 x="480" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="140"/>
+      <p2 x="420" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="180"/>
+      <p2 x="500" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="120"/>
+      <p2 x="520" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="360"/>
+      <p2 x="520" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="240"/>
+      <p2 x="520" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="140"/>
+      <p2 x="620" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="380"/>
+      <p2 x="620" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="260"/>
+      <p2 x="620" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="220"/>
+      <p2 x="460" y="520"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

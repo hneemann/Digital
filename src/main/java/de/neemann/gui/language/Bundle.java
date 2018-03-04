@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui.language;
 
 import com.thoughtworks.xstream.XStream;
@@ -10,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author hneemann
  */
 public class Bundle {
 

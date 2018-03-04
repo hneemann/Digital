@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui;
 
 import org.slf4j.Logger;
@@ -13,7 +18,6 @@ import java.util.ArrayList;
 
 /**
  * Helper to create Images and Icons
- * Created by hneemann on 11.02.14.
  */
 public final class IconCreator {
     private static final Logger LOGGER = LoggerFactory.getLogger(IconCreator.class);

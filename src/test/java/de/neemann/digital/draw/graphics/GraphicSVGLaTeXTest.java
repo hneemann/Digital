@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -6,7 +11,6 @@ import junit.framework.TestCase;
 import java.io.IOException;
 
 /**
- * @author hneemann
  */
 public class GraphicSVGLaTeXTest extends TestCase {
     public void testFormatText() throws Exception {

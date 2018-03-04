@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.draw.graphics.Graphic;
@@ -5,8 +10,6 @@ import de.neemann.digital.draw.graphics.Style;
 
 /**
  * Interface implemented by the elements which can draw itself to a {@link Graphic} instance.
- *
- * @author hneemann
  */
 public interface Drawable {
     /**

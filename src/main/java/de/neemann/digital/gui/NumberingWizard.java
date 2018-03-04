@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.element.Keys;
@@ -17,7 +22,6 @@ import java.awt.event.WindowEvent;
 
 /**
  * Wizard for pin numbering
- * Created by hneemann on 14.05.17.
  */
 public class NumberingWizard extends JDialog implements CircuitComponent.WizardNotification {
     private final CircuitComponent circuitComponent;

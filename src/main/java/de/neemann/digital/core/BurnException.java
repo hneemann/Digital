@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import java.io.File;
@@ -6,8 +11,6 @@ import java.util.Set;
 
 /**
  * Is thrown if more then one output of a set of connected outputs becomes active
- *
- * @author hneemann
  */
 public class BurnException extends RuntimeException implements ExceptionWithOriginInterface {
     private final ObservableValues values;

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.builder.jedec;
 
 import de.neemann.digital.analyse.expression.Expression;
@@ -12,8 +17,6 @@ import java.util.HashMap;
  * Fills an equation into a fuse map
  * Assumes that all product terms follow each other directly in the fuse map.
  * Assumes that the fuse and not fuse follow each other.
- *
- * @author hneemann
  */
 public class FuseMapFiller {
 

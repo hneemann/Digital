@@ -10,6 +10,7 @@ import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
@@ -505,5 +506,11 @@ public final class Keys {
      */
     public static final Key<CustomShapeDescription> CUSTOM_SHAPE
             = new Key<>("customShape", CustomShapeDescription.EMPTY);
+
+    /**
+     * The manager which contains all the roms data
+     */
+    public static final Key<ROMManger> ROMMANAGER
+            = new Key<>("romContent", ROMManger.EMPTY);
 
 }

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
@@ -17,8 +22,6 @@ import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
  * The LED shape
- *
- * @author hneemann
  */
 public class LEDShape implements Shape {
     private final String label;

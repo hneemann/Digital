@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
@@ -20,8 +25,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * The rotary encoder shape
- *
- * @author hneemann
  */
 public class RotEncoderShape implements Shape {
     private static final Style KNOB = Style.NORMAL.deriveStyle(Style.MAXLINETHICK, true, Color.DARK_GRAY);

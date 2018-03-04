@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.arithmetic.*;
@@ -36,16 +41,13 @@ import java.net.URISyntaxException;
 import java.util.*;
 
 /**
- * The ElementLibrary is responsible for storing all the components which can be
- * used in a circuit. Also the import of nested circuits is handled in this
- * class. This import works in two steps: At first all the files in the same
- * directory as the root circuit are loaded. The file names are shown in the
- * components menu. From there you can pick a file to insert it to the circuit.
- * When a file is selected it is loaded to the library. After that also an icon
- * is available. This is done because the loading of a circuit and the creation
- * of an icon is very time consuming and should be avoided if not necessary.
- * It's a kind of lazy loading.
- * @author hneemann
+ * The ElementLibrary is responsible for storing all the components which can be used in a circuit.
+ * Also the import of nested circuits is handled in this class.
+ * This import works in two steps: At first all the files in the same directory as the root circuit are loaded.
+ * The file names are shown in the components menu. From there you can pick a file to insert it to the circuit.
+ * When a file is selected it is loaded to the library. After that also an icon is available.
+ * This is done because the loading of a circuit and the creation of an icon is very time consuming and should
+ * be avoided if not necessary. It's a kind of lazy loading.
  */
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);

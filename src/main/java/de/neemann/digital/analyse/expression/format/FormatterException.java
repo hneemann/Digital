@@ -1,9 +1,12 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.expression.format;
 
 /**
  * Error thrown if there is an formatting error
- *
- * @author hneemann
  */
 public class FormatterException extends Exception {
     /**

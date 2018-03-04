@@ -1,6 +1,12 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.Ground;
 import de.neemann.digital.core.io.VDD;
@@ -85,6 +91,10 @@ public class VHDLGenerator implements Closeable {
         out.println("-- Any changes will be lost if this file is regenerated.\n");
 
         try {
+
+            if (!circuit.getAttributes().get(Keys.ROMMANAGER).isEmpty())
+                throw new HDLException(Lang.get("err_centralDefinedRomsAreNotSupported"));
+
             BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
 
             ModelList modelList = new ModelList(library);

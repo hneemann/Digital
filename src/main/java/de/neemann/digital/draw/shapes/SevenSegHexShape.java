@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
@@ -13,8 +18,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
  * A seven segment shape with hex input
- *
- * @author hneemann
  */
 public class SevenSegHexShape extends SevenShape {
     private static final int[] TABLE = new int[]{0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71};

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.data;
 
 import de.neemann.digital.core.Observable;
@@ -9,7 +14,6 @@ import java.util.Iterator;
 
 /**
  * Stores values in a table
- * Created by hneemann on 03.07.17.
  */
 public class ValueTable extends Observable implements Iterable<Value[]> {
 

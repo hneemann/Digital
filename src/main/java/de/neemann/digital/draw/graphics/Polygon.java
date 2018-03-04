@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import java.util.ArrayList;
@@ -6,8 +11,6 @@ import java.util.Iterator;
 
 /**
  * A polygon representation used by the {@link Graphic} interface.
- *
- * @author hneemann
  */
 public class Polygon implements Iterable<Vector> {
 

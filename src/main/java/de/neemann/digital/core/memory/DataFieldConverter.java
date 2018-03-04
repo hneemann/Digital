@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.memory;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -12,7 +17,6 @@ import java.util.StringTokenizer;
 /**
  * Optimized converter for data fields
  * <p>
- * Created by hneemann on 14.12.16.
  */
 public class DataFieldConverter implements Converter {
     @Override

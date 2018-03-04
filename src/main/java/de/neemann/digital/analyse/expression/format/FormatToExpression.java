@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.expression.format;
 
 import de.neemann.digital.analyse.expression.*;
@@ -11,8 +16,6 @@ import static de.neemann.digital.analyse.expression.Variable.v;
 
 /**
  * Used to format an expression to a simple string
- *
- * @author hneemann
  */
 public class FormatToExpression implements Formatter {
 

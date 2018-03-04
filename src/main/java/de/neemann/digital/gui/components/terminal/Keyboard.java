@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.terminal;
 
 import de.neemann.digital.core.Node;
@@ -14,7 +19,6 @@ import javax.swing.*;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * @author hneemann
  */
 public class Keyboard extends Node implements Element {
 

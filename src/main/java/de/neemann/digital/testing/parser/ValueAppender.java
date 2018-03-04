@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.testing.parser;
 
 import de.neemann.digital.data.Value;
@@ -6,7 +11,6 @@ import java.util.ArrayList;
 
 /**
  * Used to append some values to a table row
- * Created by hneemann on 19.04.17.
  */
 public interface ValueAppender {
     /**

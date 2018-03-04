@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.lang.Lang;
@@ -15,7 +20,6 @@ import java.awt.event.MouseEvent;
  * to make no selection or move the cursor and select an item by pressing ENTER.
  *
  * @param <T> the type of the items
- * @author hneemann
  */
 public class ItemPicker<T> extends JDialog {
     private final JList<T> list;

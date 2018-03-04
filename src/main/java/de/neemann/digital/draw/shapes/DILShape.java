@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
@@ -19,7 +24,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * Shape of a DIL package
- * Created by hneemann on 12.05.17.
  */
 public class DILShape implements Shape {
     static final float CIRC = (float) (4 * (Math.sqrt(2) - 1) / 3);

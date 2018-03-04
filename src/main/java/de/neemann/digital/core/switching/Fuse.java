@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.switching;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -6,7 +11,6 @@ import de.neemann.digital.core.element.Keys;
 
 /**
  * A simple fuse.
- * Created by hneemann on 03.06.17.
  */
 public class Fuse extends Switch {
 

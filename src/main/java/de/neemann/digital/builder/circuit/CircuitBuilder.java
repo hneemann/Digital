@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.builder.circuit;
 
 import de.neemann.digital.analyse.DetermineJKStateMachine;
@@ -32,8 +37,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 /**
  * Builder to create a circuit from a set of expressions.
  * Is also able to create a finite state machine.
- *
- * @author hneemann
  */
 public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 

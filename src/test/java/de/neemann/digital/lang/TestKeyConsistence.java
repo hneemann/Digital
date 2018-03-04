@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.lang;
 
 import de.neemann.digital.core.NodeException;
@@ -15,7 +20,6 @@ import junit.framework.TestCase;
 import java.lang.reflect.Field;
 
 /**
- * Created by hneemann on 19.11.16.
  */
 public class TestKeyConsistence extends TestCase {
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.Model;
@@ -13,7 +18,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A light bulb
- * Created by hneemann on 19.05.17.
  */
 public class LightBulb implements Element {
 

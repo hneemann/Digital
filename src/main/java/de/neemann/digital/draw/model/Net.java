@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.Model;
@@ -20,8 +25,6 @@ import java.util.HashSet;
  * Contains all pins which are connected together.
  * Is created and filled by the ModelDescription constructor.
  * After creation all the ObservableValues belonging to the outputs are set.
- *
- * @author hneemann
  */
 public class Net {
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.NodeException;
@@ -11,8 +16,6 @@ import java.util.ArrayList;
  * One instance for an element, so there is only one ElementTypeDescription for an AND.
  * Regardless of how many of these elements are used in the circuit.
  * It has the possibility to create a concrete element by using the given factory
- *
- * @author hneemann
  */
 public class ElementTypeDescription {
     private static final String PINSEPARATOR = "_pin_";

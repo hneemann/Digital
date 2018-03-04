@@ -1,11 +1,14 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.lang.Lang;
 
 /**
  * A simple pin
- *
- * @author hneemann
  */
 public class PinInfo implements PinDescription {
 

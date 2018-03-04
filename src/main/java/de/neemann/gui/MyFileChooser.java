@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui;
 
 import javax.swing.*;
@@ -6,7 +11,6 @@ import java.io.File;
 
 /**
  * File chooser that fixes the window size issues.
- * Created by hneemann on 11.05.17.
  */
 public class MyFileChooser extends JFileChooser {
 

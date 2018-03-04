@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import com.thoughtworks.xstream.XStream;
@@ -13,6 +18,7 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
+import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
@@ -37,8 +43,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * Such a Circuit instance is used by the {@link de.neemann.digital.draw.model.ModelCreator} to
  * create a runnable model representation (see {@link de.neemann.digital.core.Model}).
  * This class is also serialized to store a circuit on disk.
- *
- * @author hneemann
  */
 public class Circuit {
     private static final Set<Drawable> EMPTY_SET = Collections.emptySet();
@@ -84,6 +88,8 @@ public class Circuit {
         xStream.alias("testData", TestCaseDescription.class);
         xStream.alias("inverterConfig", InverterConfig.class);
         xStream.addImplicitCollection(InverterConfig.class, "inputs");
+        xStream.alias("storedRoms", ROMManger.class);
+        xStream.addImplicitCollection(ROMManger.class, "roms");
         xStream.ignoreUnknownElements();
         return xStream;
     }

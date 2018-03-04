@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2015 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui;
 
 import de.neemann.digital.lang.Lang;
@@ -20,7 +25,6 @@ import java.util.jar.JarFile;
 /**
  * Helper to show the info dialog!
  * Reads Build-Version and Build-Date from the Manifest.
- * Created by hneemann on 23.03.15.
  */
 public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
     /**

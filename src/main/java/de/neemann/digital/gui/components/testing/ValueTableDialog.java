@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.Model;
@@ -27,8 +32,6 @@ import java.util.Collections;
 /**
  * Dialog to show the testing results.
  * ToDo: Sync of data access is missing!
- *
- * @author hneemann
  */
 public class ValueTableDialog extends JDialog {
     private static final Color FAILED_COLOR = new Color(255, 200, 200);
