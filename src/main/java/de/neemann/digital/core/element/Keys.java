@@ -505,12 +505,15 @@ public final class Keys {
             = new Key.KeyFile("jarPath", new File(""));
 
     /**
+<<<<<<< HEAD
      * Shape used to represent a visual element
      */
     public static final Key<CustomShapeDescription> CUSTOM_SHAPE
             = new Key<>("customShape", CustomShapeDescription.EMPTY);
 
     /**
+=======
+>>>>>>> c9113b3c3d8af77f33c3f44ad512fe37122e573e
      * The manager which contains all the roms data
      */
     public static final Key<ROMManger> ROMMANAGER
