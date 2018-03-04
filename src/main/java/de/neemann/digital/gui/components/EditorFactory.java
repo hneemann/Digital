@@ -89,13 +89,21 @@ import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.LineBreaker;
-import de.neemann.gui.MyFileChooser;
-import de.neemann.gui.Screen;
-import de.neemann.gui.ToolTipAction;
+import de.neemann.gui.*;
 import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
+
+
+import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  */
@@ -789,6 +797,7 @@ public final class EditorFactory {
                         }
                         int size = 1 << addrBits;
                         DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
+                        de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
                             data = de.getModifiedDataField();
                             attr.setFile(ROM.LAST_DATA_FILE_KEY, de.getFileName());
@@ -798,17 +807,21 @@ public final class EditorFactory {
                     }
                 }
             }.createJButton());
+
             panel.add(new ToolTipAction(Lang.get("btn_reload")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        data = new DataField(attr.getFile(ROM.LAST_DATA_FILE_KEY));
-                    } catch (IOException e1) {
-                        new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                data = new DataField(attr.getFile(ROM.LAST_DATA_FILE_KEY));
+                            } catch (IOException e1) {
+                                new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
+                            }
+                        }
                     }
-                }
-            }.setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null).setToolTip(Lang.get("btn_reload_tt"))
-                    .createJButton());
+                            .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
+                            .setToolTip(Lang.get("btn_reload_tt"))
+                            .createJButton()
+            );
             return panel;
         }
 
@@ -819,9 +832,7 @@ public final class EditorFactory {
     }
 
     private final static class RotationEditor extends LabelEditor<Rotation> {
-        private static final String[] LIST = new String[] {
-                Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")
-        };
+        private static final String[] LIST = new String[]{Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")};
 
         private final Rotation rotation;
         private JComboBox<String> comb;

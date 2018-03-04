@@ -25,8 +25,6 @@ import de.neemann.gui.language.Language;
 
 /**
  * Collection of key constants
- *
- * @author hneemann
  */
 public final class Keys {
 
