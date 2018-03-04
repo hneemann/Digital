@@ -402,6 +402,7 @@
     <string name="elem_Monoflop_tt">Ein Monoflop wird bei einer steigenden Flanke am Takteingang gesetzt.
         Nach einer einstellbaren Verzögerungszeit wird das Monoflop automatisch wieder gelöscht.
         Das Monoflop ist retriggerbar. Es kann nur genutzt werden, wenn es genau ein Taktelement in der Schaltung gibt.
+        Dieses Taktelement wird dann für die Zeitbestimmung verwendet.
     </string>
     <string name="elem_Monoflop_pin_R">Reset Eingang. Eine Eins setzt das Monoflop auf Null zurück.</string>
     <string name="elem_Monoflop_pin_C">Eine steigende Flanke an diesem Eingang setzt das Monoflop. Der Ausgang Q wird auf

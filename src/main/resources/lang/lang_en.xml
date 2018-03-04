@@ -408,7 +408,8 @@
     <string name="elem_Monoflop_short">Mono</string>
     <string name="elem_Monoflop_tt">The monoflop is set at a rising edge at the clock input.
         After a configurable delay time, the monoflop will be cleared automatically.
-        The monoflop is retriggerable. It can only be used if there is exactly one clock element in the circuit.
+        The monoflop is retriggerable. It can only be used if there is exactly one clock component present in the circuit.
+        This clock component is used as time base to measure the time delay.
     </string>
     <string name="elem_Monoflop_pin_R">Reset Input. A high value clears the monoflop.</string>
     <string name="elem_Monoflop_pin_C">The Clock input. A rising edge sets the monoflop.</string>
