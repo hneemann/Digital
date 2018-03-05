@@ -83,28 +83,24 @@ public abstract class AbstractBusHandler {
                 highz &= input.getHighZ();
                 value |= input.getValue();
             }
-            value &= ~highz;
 
-            // check for a burn!
+            // check for a burn condition!
             for (ObservableValue input : getInputs()) {
                 long bothDefine = ~(highz | input.getHighZ());
                 if ((value & bothDefine) != (input.getValue() & bothDefine))
                     burn = State.burn;
             }
 
-            if (highz != 0) {
-                switch (getResistor()) {
-                    case pullUp:
-                        set(value | highz, 0);
-                        break;
-                    case pullDown:
-                        set(value, 0);
-                        break;
-                    default:
-                        set(value, highz);
-                }
-            } else
-                set(value, 0);
+            switch (getResistor()) {
+                case pullUp:
+                    set(value | highz, 0);
+                    break;
+                case pullDown:
+                    set(value, 0);
+                    break;
+                default:
+                    set(value, highz);
+            }
         }
 
         // if burn condition and not yet added for post step check add for post step check
