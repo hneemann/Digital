@@ -32,8 +32,8 @@ public class ObservableValue extends Observable implements PinDescription {
     /**
      * Creates a new instance.
      *
-     * @param name  the name of this value
-     * @param bits  the number of bits
+     * @param name the name of this value
+     * @param bits the number of bits
      */
     public ObservableValue(String name, int bits) {
         this.name = name;
@@ -58,15 +58,14 @@ public class ObservableValue extends Observable implements PinDescription {
     }
 
     /**
-     * Sets the value and fires an event if value has changed.
-     * Also sets this value to low Z
+     * Sets the value and fires an event if the value has changed.
+     * Also sets all bits to low Z.
      *
      * @param value the new value
      * @return this for chained calls
      */
     public ObservableValue setValue(long value) {
-        set(value, 0);
-        return this;
+        return set(value, 0);
     }
 
     /**

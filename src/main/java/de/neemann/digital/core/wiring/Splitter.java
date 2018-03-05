@@ -129,7 +129,7 @@ public class Splitter implements Element {
                 inValue.addObserverToValue(new NodeWithoutDelay(outValue) {
                     @Override
                     public void hasChanged() {
-                        outValue.set(inValue.getValue() >> bitPos, inValue.getHighZ() >> bitPos);
+                        outValue.set(inValue.getValue() >>> bitPos, inValue.getHighZ() >>> bitPos);
                     }
                 });
                 break; // done!! out is completely filled!
@@ -138,7 +138,7 @@ public class Splitter implements Element {
             // complete in value needs to be copied to a part of the output
             if (out.getPos() <= in.getPos() && in.getPos() + in.getBits() <= out.getPos() + out.getBits()) {
                 final int bitPos = in.getPos() - out.getPos();
-                final long mask = ~(((1L << in.bits) - 1) << bitPos);
+                final long mask = ~Bits.up(Bits.mask(in.bits), bitPos);
                 final ObservableValue inValue = inputs.get(in.number);
                 final ObservableValue outValue = outputs.get(out.number);
                 inputs.get(in.number).addObserverToValue(new NodeWithoutDelay(outValue) {
@@ -159,7 +159,7 @@ public class Splitter implements Element {
             // upper part of input needs to be copied to the lower part of the output
             if (in.getPos() < out.getPos()) {
                 final int bitsToCopy = in.getPos() + in.getBits() - out.getPos();
-                final long mask = ~((1L << bitsToCopy) - 1);
+                final long mask = ~Bits.mask(bitsToCopy);
                 final int shift = out.getPos() - in.getPos();
                 final ObservableValue inValue = inputs.get(in.number);
                 final ObservableValue outValue = outputs.get(out.number);
@@ -170,7 +170,7 @@ public class Splitter implements Element {
                         long out12 = outValue.getValue();
                         long inz12 = inValue.getHighZ();
                         long outz12 = outValue.getHighZ();
-                        outValue.set((out12 & mask) | (in12 >> shift), (outz12 & mask) | (inz12 >> shift));
+                        outValue.set((out12 & mask) | (in12 >>> shift), (outz12 & mask) | (inz12 >>> shift));
                     }
                 });
                 continue;
@@ -179,7 +179,7 @@ public class Splitter implements Element {
             // lower part of input needs to be copied to the upper part of the output
             final int bitsToCopy = out.getPos() + out.getBits() - in.getPos();
             final int shift = in.getPos() - out.getPos();
-            final long mask = ~(((1L << bitsToCopy) - 1) << shift);
+            final long mask = ~Bits.up(Bits.mask(bitsToCopy), shift);
             final ObservableValue inValue = inputs.get(in.number);
             final ObservableValue outValue = outputs.get(out.number);
             inputs.get(in.number).addObserverToValue(new NodeWithoutDelay(outValue) {
