@@ -89,7 +89,7 @@ public class BusSplitter extends Node implements Element {
     @Override
     public void writeOutputs() throws NodeException {
         if (oe) {
-            commonOut.set(0, true);
+            commonOut.setToHighZ();
             long mask = 1;
             for (int i = 0; i < bits; i++) {
                 out[i].setBool((commonD & mask) != 0);
@@ -97,8 +97,8 @@ public class BusSplitter extends Node implements Element {
             }
         } else {
             for (int i = 0; i < bits; i++)
-                out[i].set(0, true);
-            commonOut.set(commonD, false);
+                out[i].setToHighZ();
+            commonOut.setValue(commonD);
         }
     }
 

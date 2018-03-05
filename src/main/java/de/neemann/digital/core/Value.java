@@ -78,7 +78,7 @@ public class Value {
     public String toString() {
         if (highZ != 0)
             if (highZ == Bits.mask(bits))
-                return "?";
+                return "Z";
             else {
                 return zMaskString(value, highZ, bits);
             }

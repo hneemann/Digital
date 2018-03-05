@@ -162,9 +162,9 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
     private void apply() {
         if (getSelectedFormat().equals(InMode.HIGHZ)) {
-            modelSync.access(() -> value.set(0, true));
+            modelSync.access(value::setToHighZ);
         } else {
-            modelSync.access(() -> value.set(editValue, false));
+            modelSync.access(() -> value.setValue(editValue));
         }
         circuitComponent.modelHasChanged();
     }

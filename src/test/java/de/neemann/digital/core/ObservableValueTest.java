@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
@@ -49,4 +50,52 @@ public class ObservableValueTest extends TestCase {
         assertEquals(-1, v.setValue(-1).getValueSigned());
     }
 
+    public void testHighZ() {
+        ObservableValue v = new ObservableValue("z", 4);
+        check(0, 15, v.set(15, 15));
+        check(14, 1, v.set(15, 1));
+        check(12, 3, v.set(15, 3));
+    }
+
+    private void check(long val, long z, ObservableValue v) {
+        assertEquals(val, v.getValue());
+        assertEquals(z, v.getHighZ());
+    }
+
+    public void testNoChange() {
+        ObservableValue v = new ObservableValue("z", 4, 3).addObserverToValue(Assert::fail);
+        v.set(0,3);
+        v.set(1,3);
+        v.set(2,3);
+        v.set(3,3);
+    }
+
+    public void testChange() {
+        ChangeDetector cd = new ChangeDetector();
+        ObservableValue v = new ObservableValue("z", 4, 3).addObserverToValue(cd);
+        v.set(0, 2);
+        assertTrue(cd.isChanged());
+        v.set(2, 2);
+        assertFalse(cd.isChanged());
+        v.set(0, 2);
+        assertFalse(cd.isChanged());
+        v.set(1, 2);
+        assertTrue(cd.isChanged());
+    }
+
+
+    private static class ChangeDetector implements Observer {
+        private boolean changed;
+
+        @Override
+        public void hasChanged() {
+            changed=true;
+        }
+
+        private boolean isChanged() {
+            final boolean c = changed;
+            changed=false;
+            return c;
+        }
+    }
 }

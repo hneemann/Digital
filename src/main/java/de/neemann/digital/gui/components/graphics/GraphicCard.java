@@ -141,9 +141,9 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     @Override
     public void writeOutputs() throws NodeException {
         if (ld) {
-            dataOut.set(memory.getDataWord(addr), false);
+            dataOut.setValue(memory.getDataWord(addr));
         } else {
-            dataOut.set(0, true);
+            dataOut.setToHighZ();
         }
     }
 

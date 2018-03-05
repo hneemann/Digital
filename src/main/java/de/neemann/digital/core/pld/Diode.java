@@ -61,13 +61,13 @@ public class Diode implements Element, NodeInterface {
     public void hasChanged() {
         if (!blown) {
             if (anodeIn.getBool() && !anodeIn.isHighZ())
-                cathode.set(1, false);
+                cathode.setValue(1);
             else
-                cathode.set(1, true);
+                cathode.setToHighZ();
             if (!cathodeIn.getBool() && !cathodeIn.isHighZ())
-                anode.set(0, false);
+                anode.setValue(0);
             else
-                anode.set(0, true);
+                anode.setToHighZ();
         }
     }
 

@@ -43,7 +43,7 @@ public enum IntFormat {
      */
     public String formatToView(Value inValue) {
         if (inValue.isHighZ())
-            return "?";
+            return inValue.toString();
 
         switch (this) {
             case dec:

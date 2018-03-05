@@ -10,7 +10,7 @@ import de.neemann.digital.core.ObservableValue;
 
 /**
  * A simple value.
- * <p>
+ * Used to store a default value in the attributes.
  */
 public class InValue {
 
@@ -30,16 +30,6 @@ public class InValue {
     /**
      * Creates a new value
      *
-     * @param highZ ht ehigh z state
-     */
-    public InValue(boolean highZ) {
-        this.value = 0;
-        this.highZ = true;
-    }
-
-    /**
-     * Creates a new value
-     *
      * @param value the value
      */
     public InValue(ObservableValue value) {
@@ -48,7 +38,7 @@ public class InValue {
             this.value = 0;
         } else {
             this.highZ = false;
-            this.value = value.getValueIgnoreHighZ();
+            this.value = value.getValue();
         }
     }
 

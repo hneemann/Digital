@@ -109,9 +109,9 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
     @Override
     public void writeOutputs() throws NodeException {
         if (ld) {
-            out1.set(memory.getDataWord(addr1), false);
+            out1.setValue(memory.getDataWord(addr1));
         } else {
-            out1.set(0, true);
+            out1.setToHighZ();
         }
         out2.setValue(memory.getDataWord(addr2));
     }

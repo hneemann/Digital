@@ -78,9 +78,9 @@ public class InputShape implements Shape {
                 if (value.getBits() == 1) {
                     modelSync.access(() -> {
                         if (isHighZ) {
-                            if (value.isHighZ()) value.set(0, false);
+                            if (value.isHighZ()) value.setValue(0);
                             else if (value.getValue() == 0) value.setValue(1);
-                            else value.set(0, true);
+                            else value.setToHighZ();
                         } else
                             value.setValue(1 - value.getValue());
                     });

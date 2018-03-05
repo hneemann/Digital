@@ -159,9 +159,9 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
     @Override
     public void writeOutputs() throws NodeException {
         if (ld) {
-            output.set(memory.getDataWord(addr), false);
+            output.setValue(memory.getDataWord(addr));
         } else {
-            output.set(0, true);
+            output.setToHighZ();
         }
     }
 

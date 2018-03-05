@@ -74,7 +74,10 @@ public class Keyboard extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        data.set(keyData, !sel);
+        if (sel)
+            data.setValue(keyData);
+        else
+            data.setToHighZ();
     }
 
     private KeyboardDialog getKeyboard() {

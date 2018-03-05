@@ -92,7 +92,10 @@ public class ROM extends Node implements Element, ROMInterface {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.set(data.getDataWord(addr), !sel);
+        if (sel)
+            output.setValue(data.getDataWord(addr));
+        else
+            output.setToHighZ();
     }
 
     /**

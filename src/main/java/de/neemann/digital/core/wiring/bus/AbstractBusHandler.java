@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * The {@link AbstractBusHandler} calculates the state of a net with given inputs and pull resistors.
- * After the calculation of the state the method {@link AbstractBusHandler#set(long, boolean)} is called
+ * After the calculation of the state the method {@link AbstractBusHandler#set(long, long)} is called
  * to propagate the actual state.
  */
 public abstract class AbstractBusHandler {
@@ -57,7 +57,7 @@ public abstract class AbstractBusHandler {
      * @param value the value
      * @param highz the highz state
      */
-    public abstract void set(long value, boolean highz);
+    public abstract void set(long value, long highz);
 
     /**
      * Returns all connected observable values
@@ -69,14 +69,14 @@ public abstract class AbstractBusHandler {
 
     /**
      * recalculates the state of the net
-     * Also calls {@link AbstractBusHandler#set(long, boolean)} with the new value.
+     * Also calls {@link AbstractBusHandler#set(long, long)} with the new value.
      */
     void recalculate() {
         long value = 0;
         burn = State.ok;
         if (getResistor().equals(PinDescription.PullResistor.both)) {
             burn = State.both;
-            set(0, true);
+            set(0, -1);
         } else {
             boolean highz = true;
             for (ObservableValue input : getInputs()) {
@@ -93,16 +93,16 @@ public abstract class AbstractBusHandler {
             if (highz) {
                 switch (getResistor()) {
                     case pullUp:
-                        set(-1, false);
+                        set(-1, 0);
                         break;
                     case pullDown:
-                        set(0, false);
+                        set(0, 0);
                         break;
                     default:
-                        set(value, true);
+                        set(value, -1);
                 }
             } else
-                set(value, false);
+                set(value, 0);
         }
 
         // if burn condition and not yet added for post step check add for post step check

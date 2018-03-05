@@ -55,7 +55,10 @@ public class In implements Element {
         boolean highZ = attributes.get(Keys.IS_HIGH_Z) || value.isHighZ();
         pinNumber = attributes.get(Keys.PINNUMBER);
         output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION).setPinNumber(pinNumber);
-        output.set(value.getValue(), value.isHighZ());
+        if (highZ)
+            output.setToHighZ();
+        else
+            output.setValue(value.getValue());
         if (highZ) output.setBidirectional();
         label = attributes.getCleanLabel();
         format = attributes.get(Keys.INT_FORMAT);
@@ -74,7 +77,12 @@ public class In implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addInput(new Signal(label, output, output::set)
+        model.addInput(new Signal(label, output, (value, highZ) -> {
+            if (highZ)
+                output.setToHighZ();
+            else
+                output.setValue(value);
+        })
                 .setPinNumber(pinNumber)
                 .setBidirectionalReader(input)
                 .setFormat(format));

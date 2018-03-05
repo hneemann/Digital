@@ -94,14 +94,12 @@ public class ObservableValue extends Observable implements PinDescription {
     }
 
     /**
-     * Sets the value and highZ state and fires an event if value has changed.
+     * Sets all bits to highZ state.
      *
-     * @param value the value
-     * @param highZ highZ state
      * @return this for chained calls
      */
-    public ObservableValue set(long value, boolean highZ) {
-        return set(value, highZ ? -1 : 0);
+    public ObservableValue setToHighZ() {
+        return set(0, -1);
     }
 
     /**
@@ -170,7 +168,7 @@ public class ObservableValue extends Observable implements PinDescription {
     public String getValueString() {
         if (highZ != 0)
             if (highZ == mask)
-                return "?";
+                return "Z";
             else {
                 return zMaskString(value, highZ, bits);
             }
@@ -270,7 +268,7 @@ public class ObservableValue extends Observable implements PinDescription {
     }
 
     /**
-     * @return true if this value is a high z value
+     * @return true if one of the bits is in high z state
      */
     public boolean isHighZ() {
         return highZ != 0;
@@ -289,17 +287,6 @@ public class ObservableValue extends Observable implements PinDescription {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Returns the value and does not throw a highZ exception.
-     * Should be used if the value is needed to create a graphical representation to
-     * avoid the graphical representation is causing exceptions.
-     *
-     * @return the actual value.
-     */
-    public long getValueIgnoreHighZ() {
-        return value;
     }
 
     /**

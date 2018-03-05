@@ -51,7 +51,7 @@ public class DiodeForward implements Element, NodeInterface {
         this.requiredResistor = requiredResistor;
         blown = attr.get(Keys.BLOWN);
         if (blown)
-            output.set(1, true);
+            output.setToHighZ();
     }
 
     @Override
@@ -84,7 +84,7 @@ public class DiodeForward implements Element, NodeInterface {
     public void hasChanged() {
         if (!blown) {
             if (input.isHighZ()) {
-                output.set(0, true);
+                output.setToHighZ();
             } else {
                 final boolean in = input.getBool();
                 setOutValue(output, in);
@@ -99,7 +99,7 @@ public class DiodeForward implements Element, NodeInterface {
      * @param in     the input value
      */
     protected void setOutValue(ObservableValue output, boolean in) {
-        output.set(in ? 1 : 0, !in);
+        output.set(in ? 1 : 0, in ? 0 : 1);
     }
 
     @Override
