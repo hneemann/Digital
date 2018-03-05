@@ -14,13 +14,14 @@ Digital is a simulator for digital circuits. It is designed for educational purp
 Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logisim/), developed by Carl Burch.
 If you are familiar with Logisim you will recognize the wire color scheme.
 
-Logisim is an excellent and proven tool for teaching purposes. Unfortunately, Carl Burch discontinued the development of 
-Logisim in 2014. Instead he has started the development of a new simulator called [Toves](http://www.toves.org/) in 2013. 
+Logisim is an excellent and proven tool for teaching purposes, that has been actively developed until 2011. 
+In 2013 Carl Burch has started the development of a new simulator called [Toves](http://www.toves.org/). 
 In his [blog](http://www.toves.org/blog/) he explained why he decided to develop a new simulator instead of improving Logisim. 
 In short: There are weaknesses in Logisims architecture which are too difficult to overcome.
 Unfortunately, the development of Toves was discontinued at a very early stage.
 
-Carl Burch has released Logisim as open source so there are a number of forks to continue the work on Logisim:
+In 2014, Carl Burch finally [discontinued](http://www.cburch.com/logisim/retire-note.html) the development of
+Logisim. Since Logisim was released as open source, there are a number of forks to continue the work on Logisim:
 
 - [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance at Wentworth Institute of Technology, Boston, MA 
