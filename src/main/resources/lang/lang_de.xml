@@ -746,7 +746,6 @@
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} von Element {1} wurde nicht gefunden</string>
     <string name="err_pin_N_notFound">Pin {0} wurde nicht gefunden.</string>
     <string name="err_pin_N_unknown">Pin {0} ist unbekannt</string>
-    <string name="err_readOfHighZ">Lesen einer hochohmigen Leitung</string>
     <string name="err_seemsToOscillate">Die Schaltung scheint zu oszillieren!
 Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_portIsInUse">Kann den Remote Port nicht öffnen! Läuft schon eine andere Instanz?</string>

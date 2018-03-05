@@ -741,8 +741,7 @@
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at component {1}</string>
     <string name="err_pin_N_notFound">Pin {0} not found</string>
     <string name="err_pin_N_unknown">Pin {0} unknown</string>
-    <string name="err_readOfHighZ">Read of high Z value</string>
-    <string name="err_seemsToOscillate">Logic seems to oscillate.
+     <string name="err_seemsToOscillate">Logic seems to oscillate.
 To analyse you can run the circuit in single gate step mode.</string>
     <string name="err_portIsInUse">The remote port is in use! Is there an other instance running?</string>
     <string name="err_selectorInputCountMismatch">Number of inputs does not match selector bit count</string>
