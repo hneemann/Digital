@@ -9,9 +9,8 @@ HEAD, planed as v0.18
 - Added new text formatting engine which supports overline, super- and subscript.
   Try "~Q_{n+1}^1" as an output label.
 - It's possible to test circuits with a high-z input which can act as an output.
-- A embedded circuits which is used in the library and which names ends with '-inc.dig'
-  is not shown in the components menu. They are usable but hidden in the menu and in
-  the tree view.
+- An embedded circuit that is used in the library and whose name ends with '-inc.dig'
+  is not shown in either the component menu or the tree view.
 
 v0.17, released on 19. Feb 2018
 - Added 64 bit support for Add and Sub components.

@@ -236,6 +236,8 @@
     <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.
         Mit Bussen wird es möglich z.B. 16 Bit Verbindungen zu erzeugen, ohne 16 einzelne Leitungen verlegen zu müssen.
         Alle 16 Verbindungen können zu einer Leitung zusammengefasst werden.
+        Zu beachten ist, dass wenn ein Splitter mehrere Eingänge hat, diese nicht hochohmig sein dürfen.
+        Um das zu verhindern, verwendet man am einfachsten einen Pull-Up oder Pull-Down Widerstand an jeder Eingangsleitung.
     </string>
     <string name="elem_Splitter_pin_in">Die Eingangsbits {0} des Splitters.</string>
     <string name="elem_Splitter_pin_in_one">Das Eingangsbit {0} des Splitters.</string>
