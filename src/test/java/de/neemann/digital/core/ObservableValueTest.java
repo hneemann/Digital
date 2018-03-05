@@ -63,16 +63,18 @@ public class ObservableValueTest extends TestCase {
     }
 
     public void testNoChange() {
-        ObservableValue v = new ObservableValue("z", 4, 3).addObserverToValue(Assert::fail);
-        v.set(0,3);
-        v.set(1,3);
-        v.set(2,3);
-        v.set(3,3);
+        ObservableValue v = new ObservableValue("z", 4)
+                .setToHighZ()
+                .addObserverToValue(Assert::fail);
+        v.set(0,15);
+        v.set(1,15);
+        v.set(2,15);
+        v.set(3,15);
     }
 
     public void testChange() {
         ChangeDetector cd = new ChangeDetector();
-        ObservableValue v = new ObservableValue("z", 4, 3).addObserverToValue(cd);
+        ObservableValue v = new ObservableValue("z", 4).addObserverToValue(cd);
         v.set(0, 2);
         assertTrue(cd.isChanged());
         v.set(2, 2);

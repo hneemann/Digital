@@ -22,7 +22,8 @@ import static de.neemann.digital.core.ObservableValues.ovs;
 public class SplitterHighZTest extends TestCase {
 
     public void testHighZError() throws NodeException, PinException {
-        ObservableValue a = new ObservableValue("a", 1, true);
+        ObservableValue a = new ObservableValue("a", 1)
+                .setToHighZ();
         ObservableValue b = new ObservableValue("b", 1);
 
         Splitter splitter = new Splitter(new ElementAttributes()
@@ -43,7 +44,8 @@ public class SplitterHighZTest extends TestCase {
     }
 
     public void testHighZEnabled() throws NodeException, PinException {
-        ObservableValue a = new ObservableValue("a", 2, true);
+        ObservableValue a = new ObservableValue("a", 2)
+                .setToHighZ();
 
         Splitter splitter = new Splitter(new ElementAttributes()
                 .set(Keys.INPUT_SPLIT, "2")

@@ -47,7 +47,10 @@ public class DiodeForward implements Element, NodeInterface {
      * @param requiredResistor resistor needed at the output net
      */
     protected DiodeForward(ElementAttributes attr, ElementTypeDescription description, PinDescription.PullResistor requiredResistor) {
-        output = new ObservableValue("out", 1, true).setPinDescription(description).setBidirectional();
+        output = new ObservableValue("out", 1)
+                .setToHighZ()
+                .setPinDescription(description)
+                .setBidirectional();
         this.requiredResistor = requiredResistor;
         blown = attr.get(Keys.BLOWN);
         if (blown)

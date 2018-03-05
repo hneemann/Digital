@@ -73,8 +73,8 @@ public class Switch implements Element, NodeInterface {
     public Switch(ElementAttributes attr, boolean closed, String out1, String out2) {
         bits = attr.getBits();
         this.closed = closed;
-        output1 = new ObservableValue(out1, bits, true).setBidirectional().setToHighZ();
-        output2 = new ObservableValue(out2, bits, true).setBidirectional().setToHighZ();
+        output1 = new ObservableValue(out1, bits).setBidirectional().setToHighZ();
+        output2 = new ObservableValue(out2, bits).setBidirectional().setToHighZ();
     }
 
     @Override

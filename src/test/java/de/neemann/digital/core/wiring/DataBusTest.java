@@ -18,8 +18,10 @@ import junit.framework.TestCase;
 public class DataBusTest extends TestCase {
 
     public void testSimple() throws PinException, NodeException {
-        ObservableValue a = new ObservableValue("a", 4, true);
-        ObservableValue b = new ObservableValue("b", 4, true);
+        ObservableValue a = new ObservableValue("a", 4)
+                .setToHighZ();
+        ObservableValue b = new ObservableValue("b", 4)
+                .setToHighZ();
 
         Model m = new Model();
 

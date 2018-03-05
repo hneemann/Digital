@@ -86,7 +86,8 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         addrBits = aBits;
         memory = new DataField(size);
 
-        dataOut = new ObservableValue("D", bits, true)
+        dataOut = new ObservableValue("D", bits)
+                .setToHighZ()
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional();
     }

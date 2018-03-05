@@ -68,7 +68,9 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      * @return the output value
      */
     protected ObservableValue createOutput() {
-        return new ObservableValue("D", bits, true).setPinDescription(DESCRIPTION);
+        return new ObservableValue("D", bits)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
     }
 
     @Override

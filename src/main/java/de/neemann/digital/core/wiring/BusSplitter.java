@@ -47,13 +47,15 @@ public class BusSplitter extends Node implements Element {
     public BusSplitter(ElementAttributes attr) {
         ObservableValues.Builder builder = new ObservableValues.Builder();
         bits = attr.getBits();
-        commonOut = new ObservableValue("D", bits, true)
+        commonOut = new ObservableValue("D", bits)
+                .setToHighZ()
                 .setBidirectional()
                 .setPinDescription(DESCRIPTION);
         builder.add(commonOut);
         out = new ObservableValue[bits];
         for (int i = 0; i < bits; i++) {
-            out[i] = new ObservableValue("D" + i, 1, true)
+            out[i] = new ObservableValue("D" + i, 1)
+                    .setToHighZ()
                     .setBidirectional()
                     .setDescription(Lang.get("elem_BusSplitter_pin_D_N", i));
             builder.add(out[i]);

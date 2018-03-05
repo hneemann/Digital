@@ -30,40 +30,16 @@ public class ObservableValue extends Observable implements PinDescription {
     private String pinNumber;
 
     /**
-     * Creates a new instance
+     * Creates a new instance.
      *
-     * @param name the name of this value
-     * @param bits the number of bits
+     * @param name  the name of this value
+     * @param bits  the number of bits
      */
     public ObservableValue(String name, int bits) {
-        this(name, bits, 0);
-    }
-
-    /**
-     * Creates a new instance.
-     *
-     * @param name  the name of this value
-     * @param bits  the number of bits
-     * @param highZ if true this value can be a high impedance value
-     */
-    public ObservableValue(String name, int bits, boolean highZ) {
-        this(name, bits, highZ ? -1 : 0);
-    }
-
-    /**
-     * Creates a new instance.
-     *
-     * @param name  the name of this value
-     * @param bits  the number of bits
-     * @param highZ if true this value can be a high impedance value
-     */
-    public ObservableValue(String name, int bits, long highZ) {
-        super();
+        this.name = name;
         this.bits = bits;
         mask = Bits.mask(bits);
-        this.highZ = highZ & mask;
         signedFlag = Bits.signedFlagMask(bits);
-        this.name = name;
     }
 
 

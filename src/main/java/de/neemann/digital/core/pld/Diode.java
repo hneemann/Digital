@@ -36,8 +36,12 @@ public class Diode implements Element, NodeInterface {
      * @param attr the elements attributes
      */
     public Diode(ElementAttributes attr) {
-        cathode = new ObservableValue("cathode", 1, true).setBidirectional();
-        anode = new ObservableValue("anode", 1, true).setBidirectional();
+        cathode = new ObservableValue("cathode", 1)
+                .setToHighZ()
+                .setBidirectional();
+        anode = new ObservableValue("anode", 1)
+                .setToHighZ()
+                .setBidirectional();
         blown = attr.get(Keys.BLOWN);
     }
 
