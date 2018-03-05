@@ -189,10 +189,10 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                     try {
                         final String str = aValue.toString();
                         if (str.equals("?") || str.equals("z") || str.equals("Z")) {
-                            modelSync.access(() -> s.set(0, true));
+                            modelSync.access(() -> s.set(0, -1));
                         } else {
                             long value = Bits.decode(str);
-                            modelSync.access(() -> s.set(value, false));
+                            modelSync.access(() -> s.set(value, 0));
                         }
                         circuitComponent.modelHasChanged();
                     } catch (Bits.NumberFormatException e) {

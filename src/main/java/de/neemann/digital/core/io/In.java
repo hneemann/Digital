@@ -77,12 +77,7 @@ public class In implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addInput(new Signal(label, output, (value, highZ) -> {
-            if (highZ)
-                output.setToHighZ();
-            else
-                output.setValue(value);
-        })
+        model.addInput(new Signal(label, output, output::set)
                 .setPinNumber(pinNumber)
                 .setBidirectionalReader(input)
                 .setFormat(format));

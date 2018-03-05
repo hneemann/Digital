@@ -15,10 +15,6 @@ import java.util.StringTokenizer;
 
 /**
  * The Splitter.
- * The highZ attribute is necessary because at the time the outputs are created the highZ flag
- * needs to be given to the {@link ObservableValue} constructor.
- * At this time I don't know if the input can became highZ. Because I need this information
- * before I can get it from the inputs, the user has to provide this information.
  */
 public class Splitter implements Element {
 

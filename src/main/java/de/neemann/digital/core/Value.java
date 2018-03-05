@@ -35,7 +35,7 @@ public class Value {
     }
 
     /**
-     * @return true if value is in high z state
+     * @return true if one of the bits is in high z state
      */
     public boolean isHighZ() {
         return highZ != 0;

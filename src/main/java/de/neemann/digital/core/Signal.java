@@ -171,8 +171,8 @@ public final class Signal implements Comparable<Signal> {
          * Has to modify the inner state and also has to update the outputs.
          *
          * @param value the value to set
-         * @param highZ true is value is in high z state
+         * @param highZ the high z bit mask
          */
-        void set(long value, boolean highZ);
+        void set(long value, long highZ);
     }
 }

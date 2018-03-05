@@ -11,9 +11,7 @@ import de.neemann.digital.lang.Lang;
 
 /**
  * Represents all signal values in the simulator.
- * There are some setters to set the value. A value can be set to high z state.
- * Only a complete bus can be set to high z state. It is not possible to set
- * a single bit of a bus to high z state.
+ * There are some setters to set the value. Each bit of a value can be set to high z state.
  * Observers can observe this value to be notified if the value changes.
  */
 public class ObservableValue extends Observable implements PinDescription {
@@ -22,7 +20,9 @@ public class ObservableValue extends Observable implements PinDescription {
     private final long mask;
     private final long signedFlag;
     private final int bits;
+    // the value, high z bits are always set to zero
     private long value;
+    // the high z state of each bit
     private long highZ;
     private boolean bidirectional;
     private boolean isConstant = false;

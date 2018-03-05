@@ -57,9 +57,7 @@ public class Pin extends PinInfo {
 
     /**
      * If the pin is bidirectional there are two values, one which can be used to read the pins state
-     * and one to write the pins state. The readers value is generated so that all the writers are checked to
-     * find and select the one writer which is not in high Z state. If more then one writer is in an not high Z
-     * state an exception is thrown.
+     * and one to write the pins state.
      *
      * @return returns the bidirectional reader
      */
