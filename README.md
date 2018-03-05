@@ -10,32 +10,8 @@ The most recent changes are listed in the [release notes](distribution/ReleaseNo
 
 ![screnshot2](screenshot2.png)
 
-Digital is a simulator for digital circuits. It is designed for educational purposes and I use it in my lectures.
-Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logisim/), developed by Carl Burch.
-If you are familiar with Logisim you will recognize the wire color scheme.
-
-Logisim is an excellent and proven tool for teaching purposes, that has been actively developed until 2011. 
-In 2013 Carl Burch has started the development of a new simulator called [Toves](http://www.toves.org/). 
-In his [blog](http://www.toves.org/blog/) he explained why he decided to develop a new simulator instead of improving Logisim. 
-In short: There are weaknesses in Logisims architecture which are too difficult to overcome.
-Unfortunately, the development of Toves was discontinued at a very early stage.
-
-In 2014, Carl Burch finally [discontinued](http://www.cburch.com/logisim/retire-note.html) the development of
-Logisim. Since Logisim was released as open source, there are a number of forks to continue the work on Logisim:
-
-- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
-- [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance at Wentworth Institute of Technology, Boston, MA 
-- [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
-- [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
-
-But as far as I know, these projects do not work on solving the architectural difficulties. 
-They are more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
-for example, a VHDL/Verilog export was added.
-
-So I decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
-In the meantime a development level has been reached which is comparable to Logisim.
-In some areas (performance, testing of circuits, circuit analysis, hardware support) Logisim has already been exceeded.
-  
+Digital is an easy-to-use digital circuit simulator. It is designed for educational purposes and I use it in my lectures.
+ 
 ## Features ##
 
 These are the main features of Digital:
@@ -83,6 +59,31 @@ This helps me to improve Digital, so do not hesitate.
 You can also send a private message to [digital-simulator@web.de](mailto:digital-simulator@web.de).
 
 ## Motivation ##
+
+Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logisim/), developed by Carl Burch.
+If you are familiar with Logisim you will recognize the wire color scheme.
+
+Logisim is an excellent and proven tool for teaching purposes, that has been actively developed until 2011. 
+In 2013 Carl Burch has started the development of a new simulator called [Toves](http://www.toves.org/). 
+In his [blog](http://www.toves.org/blog/) he explained why he decided to develop a new simulator instead of improving Logisim. 
+In short: There are weaknesses in Logisims architecture which are too difficult to overcome.
+Unfortunately, the development of Toves was discontinued at a very early stage.
+
+In 2014, Carl Burch finally [discontinued](http://www.cburch.com/logisim/retire-note.html) the development of
+Logisim. Since Logisim was released as open source, there are a number of forks to continue the work on Logisim:
+
+- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
+- [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance at Wentworth Institute of Technology, Boston, MA 
+- [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
+- [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
+
+But as far as I know, these projects do not work on solving the architectural difficulties. 
+They are more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
+for example, a VHDL/Verilog export was added.
+
+So I decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
+In the meantime a development level has been reached which is comparable to Logisim.
+In some areas (performance, testing of circuits, circuit analysis, hardware support) Logisim has already been exceeded.
 
 Below I would like to explain briefly the reasons which led me to start a new development:
 
