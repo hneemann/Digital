@@ -4,8 +4,8 @@ HEAD, planed as v0.18
 - Added ICs 74181, 74779, 7440 and 7428
 - Added a simple bidirectional splitter.
 - Added a monoflop.
-- Removed High-Z restrictions from the splitter
-  Now a bus can have different high z states for the different lines on a bus.
+- Removed high-z restrictions from the splitter
+  Now a bus can have different high z states for the different lines on the bus.
   In prior versions this was not possible.
 - When a circuit containing a ROM/EEPROM is embedded multiple times, it is now possible
   to define different ROM/EEPROM contents in each embedded instance.

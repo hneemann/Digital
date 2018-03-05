@@ -78,28 +78,30 @@ public abstract class AbstractBusHandler {
             burn = State.both;
             set(0, -1);
         } else {
-            boolean highz = true;
+            long highz = -1;
             for (ObservableValue input : getInputs()) {
-                if (!input.isHighZ()) {
-                    if (highz) {
-                        highz = false;
-                        value = input.getValue();
-                    } else {
-                        if (value != input.getValue())
-                            burn = State.burn;
-                    }
-                }
+                highz &= input.getHighZ();
+                value |= input.getValue();
             }
-            if (highz) {
+            value &= ~highz;
+
+            // check for a burn!
+            for (ObservableValue input : getInputs()) {
+                long bothDefine = ~(highz | input.getHighZ());
+                if ((value & bothDefine) != (input.getValue() & bothDefine))
+                    burn = State.burn;
+            }
+
+            if (highz != 0) {
                 switch (getResistor()) {
                     case pullUp:
-                        set(-1, 0);
+                        set(value | highz, 0);
                         break;
                     case pullDown:
-                        set(0, 0);
+                        set(value, 0);
                         break;
                     default:
-                        set(value, -1);
+                        set(value, highz);
                 }
             } else
                 set(value, 0);
