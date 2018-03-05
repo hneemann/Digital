@@ -236,8 +236,6 @@
     <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.
         Mit Bussen wird es möglich z.B. 16 Bit Verbindungen zu erzeugen, ohne 16 einzelne Leitungen verlegen zu müssen.
         Alle 16 Verbindungen können zu einer Leitung zusammengefasst werden.
-        Zu beachten ist, dass wenn ein Splitter mehrere Eingänge hat, diese nicht hochohmig sein dürfen.
-        Um das zu verhindern, verwendet man am einfachsten einen Pull-Up oder Pull-Down Widerstand an jeder Eingangsleitung.
     </string>
     <string name="elem_Splitter_pin_in">Die Eingangsbits {0} des Splitters.</string>
     <string name="elem_Splitter_pin_in_one">Das Eingangsbit {0} des Splitters.</string>
@@ -776,8 +774,6 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_remoteExecution">Fehler beim Ausführen eines Befehls</string>
     <string name="err_pullUpAndDownNotAllowed">Es können nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
     <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
-    <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge! Verwenden Sie einen PullUp- oder PullDown-Widerstand</string>
-    <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter, der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
     <string name="err_couldNotCreateFolder_N0">Konnte den Order &quot;{0}&quot; nicht erzeugen!</string>
     <string name="err_switchHasNoNet">Ein Schalter kann nicht nur mit Eingängen verbunden werden.</string>
     <string name="err_file_N0_ExistsTwiceBelow_N1">Die Datei {0} existiert mehrfach unter {1}</string>

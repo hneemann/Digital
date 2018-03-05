@@ -74,11 +74,13 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
      * @param pos              the position to pop up the dialog
      * @param label            the name of the value
      * @param value            the value to edit
+     * @param supportsHighZ    true is high z is supported
      * @param circuitComponent the component which contains the circuit
      * @param model            the model
      * @param modelSync        used to access the running model
      */
-    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, CircuitComponent circuitComponent, Model model, Sync modelSync) {
+    //CHECKSTYLE.OFF: ParameterNumberCheck
+    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, boolean supportsHighZ, CircuitComponent circuitComponent, Model model, Sync modelSync) {
         super(parent, Lang.get("win_valueInputTitle_N", label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.value = value;
@@ -86,7 +88,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         this.modelSync = modelSync;
 
         editValue = value.getValue();
-        supportsHighZ = value.supportsHighZ();
+        this.supportsHighZ = supportsHighZ;
         mask = (1L << value.getBits()) - 1;
 
         textField = new JTextField(10);
@@ -156,6 +158,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
     }
+    //CHECKSTYLE.ON: ParameterNumberCheck
 
     private void apply() {
         if (getSelectedFormat().equals(InMode.HIGHZ)) {

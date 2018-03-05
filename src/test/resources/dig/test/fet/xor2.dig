@@ -15,7 +15,12 @@
     </visualElement>
     <visualElement>
       <elementName>PFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="260" y="300"/>
     </visualElement>
     <visualElement>

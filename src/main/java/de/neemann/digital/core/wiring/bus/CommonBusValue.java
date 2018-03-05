@@ -85,19 +85,6 @@ public final class CommonBusValue extends ObservableValue implements NodeInterfa
         return null;
     }
 
-    /**
-     * Checks if this net is always defined.
-     * This means it can never be in a high z state.
-     *
-     * @return true if this net is always defined
-     */
-    public boolean isAlwaysDefined() {
-        for (ObservableValue i : inputs)
-            if (!i.supportsHighZ())
-                return true;
-        return false;
-    }
-
     @Override
     public String toString() {
         return "CommonBusValue{"

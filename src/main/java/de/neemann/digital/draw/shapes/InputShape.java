@@ -40,6 +40,7 @@ public class InputShape implements Shape {
     private IOState ioState;
     private SingleValueDialog dialog;
     private Value value;
+    private final boolean isHighZ;
 
     /**
      * Creates a new instance
@@ -57,6 +58,8 @@ public class InputShape implements Shape {
             this.label = attr.getLabel() + " (" + pinNumber + ")";
 
         format = attr.get(Keys.INT_FORMAT);
+
+        isHighZ = attr.get(Keys.INPUT_DEFAULT).isHighZ() || attr.get(Keys.IS_HIGH_Z);
     }
 
     @Override
@@ -74,7 +77,7 @@ public class InputShape implements Shape {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
                     modelSync.access(() -> {
-                        if (value.supportsHighZ()) {
+                        if (isHighZ) {
                             if (value.isHighZ()) value.set(0, false);
                             else if (value.getValue() == 0) value.setValue(1);
                             else value.set(0, true);
@@ -85,7 +88,7 @@ public class InputShape implements Shape {
                 } else {
                     if (dialog == null || !dialog.isVisible()) {
                         Model model = ((In) element).getModel();
-                        dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, cc, model, modelSync);
+                        dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, cc, model, modelSync);
                         dialog.setVisible(true);
                     } else
                         dialog.requestFocus();

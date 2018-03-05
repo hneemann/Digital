@@ -239,8 +239,6 @@
     <string name="elem_Splitter_tt">Splits or creates a wire bundle or a data bus with more than one bit.
         With a bus it is e.g. possible to generate 16-bit connections without having to route 16 individual wires.
         All 16 connections can be merged into one wire.
-        It should be noted that if a splitter has several inputs, these must not be high-impedance.
-        The easiest way to prevent this is to use a pull-up or pull-down resistor on each input line.
     </string>
     <string name="elem_Splitter_pin_in">The input bits {0}.</string>
     <string name="elem_Splitter_pin_in_one">The input bit {0}.</string>
@@ -771,8 +769,6 @@ allowed are {1} variables but {2} are found.</string>
     <string name="err_remoteExecution">Error during execution of a remote command</string>
     <string name="err_pullUpAndDownNotAllowed">It's not allowed to connect a pull up and a pull down resistor to a single wire.</string>
     <string name="err_openingDocumentation">Could not open the browser.</string>
-    <string name="err_splitterDoesNotSupportHighZInputs">The splitter does not support high z inputs! Use a pull up or pull down resistor.</string>
-    <string name="err_splitterAllowsOnlyOneHighZInput">A splitter which allows high z inputs can only have one input!</string>
     <string name="err_couldNotCreateFolder_N0">Could not create folder &quot;{0}&quot;!</string>
     <string name="err_switchHasNoNet">It is not allowed to connect only inputs to a switch.</string>
     <string name="err_file_N0_ExistsTwiceBelow_N1">The file {0} exists multiple times below {1}.</string>

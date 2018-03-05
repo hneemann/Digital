@@ -5,13 +5,15 @@
  */
 package de.neemann.digital.core;
 
+import static de.neemann.digital.core.ObservableValue.zMaskString;
+
 /**
  * Represents a copy of a value.
  * Call {@link ObservableValue#getCopy()} to obtain a value.
  */
 public class Value {
     private final long value;
-    private final boolean highZ;
+    private final long highZ;
     private final int bits;
 
     /**
@@ -23,12 +25,12 @@ public class Value {
     public Value(long value, int bits) {
         this.bits = bits;
         this.value = value & Bits.mask(bits);
-        this.highZ = false;
+        this.highZ = 0;
     }
 
     Value(ObservableValue observableValue) {
         value = observableValue.getValue();
-        highZ = observableValue.isHighZ();
+        highZ = observableValue.getHighZ();
         bits = observableValue.getBits();
     }
 
@@ -36,7 +38,7 @@ public class Value {
      * @return true if value is in high z state
      */
     public boolean isHighZ() {
-        return highZ;
+        return highZ != 0;
     }
 
     /**
@@ -74,8 +76,12 @@ public class Value {
      */
     @Override
     public String toString() {
-        if (highZ)
-            return "?";
+        if (highZ != 0)
+            if (highZ == Bits.mask(bits))
+                return "?";
+            else {
+                return zMaskString(value, highZ, bits);
+            }
         else {
             return IntFormat.toShortHex(value);
         }
@@ -91,6 +97,8 @@ public class Value {
         if (highZ != other.highZ)
             return false;
 
-        return highZ || value == other.value;
+        long m = ~highZ;
+
+        return (value & m) == (other.value & m);
     }
 }

@@ -21,10 +21,9 @@ public class ObservableValue extends Observable implements PinDescription {
     private final String name;
     private final long mask;
     private final long signedFlag;
-    private final boolean supportsHighZ;
     private final int bits;
     private long value;
-    private boolean highZ;
+    private long highZ;
     private boolean bidirectional;
     private boolean isConstant = false;
     private String description;
@@ -37,7 +36,7 @@ public class ObservableValue extends Observable implements PinDescription {
      * @param bits the number of bits
      */
     public ObservableValue(String name, int bits) {
-        this(name, bits, false);
+        this(name, bits, 0);
     }
 
     /**
@@ -48,13 +47,23 @@ public class ObservableValue extends Observable implements PinDescription {
      * @param highZ if true this value can be a high impedance value
      */
     public ObservableValue(String name, int bits, boolean highZ) {
+        this(name, bits, highZ ? -1 : 0);
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param name  the name of this value
+     * @param bits  the number of bits
+     * @param highZ if true this value can be a high impedance value
+     */
+    public ObservableValue(String name, int bits, long highZ) {
         super();
         this.bits = bits;
-        this.highZ = highZ;
         mask = Bits.mask(bits);
+        this.highZ = highZ & mask;
         signedFlag = Bits.signedFlagMask(bits);
         this.name = name;
-        supportsHighZ = highZ;
     }
 
 
@@ -80,7 +89,7 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return this for chained calls
      */
     public ObservableValue setValue(long value) {
-        set(value, false);
+        set(value, 0);
         return this;
     }
 
@@ -92,14 +101,26 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return this for chained calls
      */
     public ObservableValue set(long value, boolean highZ) {
+        return set(value, highZ ? -1 : 0);
+    }
+
+    /**
+     * Sets the value and highZ state and fires an event if value has changed.
+     *
+     * @param value the value
+     * @param highZ highZ state
+     * @return this for chained calls
+     */
+    public ObservableValue set(long value, long highZ) {
         value = getValueBits(value);
-        if (highZ != this.highZ || (!highZ && (value != this.value))) {
+        highZ = getValueBits(highZ);
+        if (highZ != this.highZ || ((~highZ & (value ^ this.value))) != 0) {
 
             if (isConstant)
                 throw new RuntimeException("tried to modify a constant value!");
 
             this.highZ = highZ;
-            this.value = value;
+            this.value = value & (~highZ);  // high Z bits are set to zero
             fireHasChanged();
         }
         return this;
@@ -129,10 +150,16 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return the value
      */
     public long getValue() {
-        if (highZ)      // ToDo: how to handle highZ read?
-            return 0;
-        else
-            return value;
+        return value;
+    }
+
+    /**
+     * returns the actual high z bit mask
+     *
+     * @return the high z bit mask
+     */
+    public long getHighZ() {
+        return highZ;
     }
 
     /**
@@ -141,11 +168,33 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return the value as string
      */
     public String getValueString() {
-        if (highZ)
-            return "?";
+        if (highZ != 0)
+            if (highZ == mask)
+                return "?";
+            else {
+                return zMaskString(value, highZ, bits);
+            }
         else {
             return IntFormat.toShortHex(value);
         }
+    }
+
+    static String zMaskString(long value, long highZ, int bits) {
+        StringBuilder sb = new StringBuilder();
+        long m = Bits.up(1, bits - 1);
+        for (int i = 0; i < bits; i++) {
+            if ((highZ & m) != 0) {
+                sb.append("z");
+            } else {
+                if ((value & m) != 0) {
+                    sb.append("1");
+                } else {
+                    sb.append("0");
+                }
+            }
+            m >>>= 1;
+        }
+        return sb.toString();
     }
 
     /**
@@ -224,7 +273,7 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return true if this value is a high z value
      */
     public boolean isHighZ() {
-        return highZ;
+        return highZ != 0;
     }
 
     @Override
@@ -240,13 +289,6 @@ public class ObservableValue extends Observable implements PinDescription {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * @return returns true if the value could become a highZ value
-     */
-    public boolean supportsHighZ() {
-        return supportsHighZ;
     }
 
     /**

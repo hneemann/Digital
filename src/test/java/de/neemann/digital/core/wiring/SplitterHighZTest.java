@@ -21,7 +21,7 @@ import static de.neemann.digital.core.ObservableValues.ovs;
  */
 public class SplitterHighZTest extends TestCase {
 
-    public void testHighZError() throws NodeException {
+    public void testHighZError() throws NodeException, PinException {
         ObservableValue a = new ObservableValue("a", 1, true);
         ObservableValue b = new ObservableValue("b", 1);
 
@@ -29,34 +29,23 @@ public class SplitterHighZTest extends TestCase {
                 .set(Keys.INPUT_SPLIT, "1,1")
                 .set(Keys.OUTPUT_SPLIT, "2"));
 
-        try {
-            splitter.setInputs(ovs(a, b));
-            fail("splitter high z input not detected!");
-        } catch (NodeException e) {
-            assertTrue(true);
-        }
-    }
+        splitter.setInputs(ovs(a, b));
 
-    public void testHighZNotEnabled() throws NodeException {
-        ObservableValue a = new ObservableValue("a", 2, true);
+        ObservableValues outputs = splitter.getOutputs();
+        assertEquals(1, outputs.size());
 
-        Splitter splitter = new Splitter(new ElementAttributes()
-                .set(Keys.INPUT_SPLIT, "2")
-                .set(Keys.OUTPUT_SPLIT, "1,1"));
-
-        try {
-            splitter.setInputs(ovs(a));
-            fail("splitter high z input not detected!");
-        } catch (NodeException e) {
-            assertTrue(true);
-        }
+        TestExecuter sc = new TestExecuter().setInputs(a, b).setOutputsOf(splitter);
+        sc.check(0, 0, 0);
+        sc.check(0, 1, 2);
+        sc.check(1, 0, 1);
+        sc.check(1, 1, 3);
+        sc.checkZ(HIGHZ, HIGHZ, HIGHZ);
     }
 
     public void testHighZEnabled() throws NodeException, PinException {
         ObservableValue a = new ObservableValue("a", 2, true);
 
         Splitter splitter = new Splitter(new ElementAttributes()
-                .set(Keys.IS_HIGH_Z, true)
                 .set(Keys.INPUT_SPLIT, "2")
                 .set(Keys.OUTPUT_SPLIT, "1,1"));
 
