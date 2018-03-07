@@ -9,15 +9,12 @@ import de.neemann.digital.core.extern.Port;
 import de.neemann.digital.core.extern.PortDefinition;
 
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * Creates a VHDL process
  */
 public class VHDLProcess extends StdIOProcess {
     private final File file;
-    private final ArrayList<File> createdFiles = new ArrayList<>();
-
 
     private static class InstanceHolder {
         private static final String TEMPLATE = loadTemplate();
@@ -52,11 +49,8 @@ public class VHDLProcess extends StdIOProcess {
     public VHDLProcess(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
         String t = InstanceHolder.TEMPLATE;
         t = t.replace("%name%", label);
-        final int inputsBits = inputs.getBits();
-        t = t.replace("%incount%", Integer.toString(inputsBits));
-        final int outputsBits = outputs.getBits();
-        t = t.replace("%outcount%", Integer.toString(outputsBits));
-        t = t.replace("%maxcount%", Integer.toString(Math.max(inputsBits, outputsBits)));
+        t = t.replace("%incount%", Integer.toString(inputs.getBits()));
+        t = t.replace("%outcount%", Integer.toString(outputs.getBits()));
         t = t.replace("%ports%", createPorts(inputs, outputs));
         t = t.replace("%signals%", createSignals(inputs, outputs));
         t = t.replace("%map%", createMap(inputs, outputs));
@@ -79,10 +73,17 @@ public class VHDLProcess extends StdIOProcess {
 
     private String createPorts(PortDefinition inputs, PortDefinition outputs) {
         StringBuilder sb = new StringBuilder();
-        for (Port p : inputs)
-            sb.append(p.getName()).append(":").append(" in ").append(vhdlType(p.getBits())).append(";\n");
-        for (Port p : outputs)
-            sb.append(p.getName()).append(":").append(" out ").append(vhdlType(p.getBits())).append(";\n");
+        boolean first = true;
+        for (Port p : inputs) {
+            if (first) first = false;
+            else sb.append(";\n");
+            sb.append(p.getName()).append(":").append(" in ").append(vhdlType(p.getBits()));
+        }
+        for (Port p : outputs) {
+            if (first) first = false;
+            else sb.append(";\n");
+            sb.append(p.getName()).append(":").append(" out ").append(vhdlType(p.getBits()));
+        }
         return sb.toString();
     }
 
@@ -115,12 +116,12 @@ public class VHDLProcess extends StdIOProcess {
         StringBuilder sb = new StringBuilder();
         int pos = 0;
         for (Port p : inputs) {
-            sb.append("in_").append(p.getName()).append(" <= Inl(").append(createIndex(pos, p)).append(");\n");
+            sb.append("in_").append(p.getName()).append(" <= mainIn(").append(createIndex(pos, p)).append(");\n");
             pos += p.getBits();
         }
         pos = 0;
         for (Port p : outputs) {
-            sb.append("Outl(").append(createIndex(pos, p)).append(")  <= ").append("out_").append(p.getName()).append(";\n");
+            sb.append("mainOut(").append(createIndex(pos, p)).append(")  <= ").append("out_").append(p.getName()).append(";\n");
             pos += p.getBits();
         }
         return sb.toString();
@@ -140,21 +141,10 @@ public class VHDLProcess extends StdIOProcess {
             return "std_logic_vector (" + (bits - 1) + " downto 0)";
     }
 
-    /**
-     * Mark a file as to be deleted if model is stopped
-     *
-     * @param file the file to delete
-     * @return the file to delete
-     */
-    public File delete(File file) {
-        createdFiles.add(file);
-        return file;
-    }
 
     @Override
     public void close() throws IOException {
         super.close();
-        for (File f : createdFiles)
-            f.delete();
+        //if (file != null) file.delete();
     }
 }
