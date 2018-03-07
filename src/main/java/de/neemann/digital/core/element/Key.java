@@ -371,6 +371,9 @@ public class Key<VALUE> {
      * A special string key to flag long multi line strings.
      */
     public static final class LongString extends Key<String> {
+        private int rows = 6;
+        private int columns = 30;
+
         /**
          * Creates a new Key
          *
@@ -378,6 +381,43 @@ public class Key<VALUE> {
          */
         public LongString(String key) {
             super(key, "");
+        }
+
+        /**
+         * @return the rows of the editor field
+         */
+        public int getRows() {
+            return rows;
+        }
+
+        /**
+         * Sets the rows in the editor
+         *
+         * @param rows the number ow rows
+         * @return this for chained calls
+         */
+        public LongString setRows(int rows) {
+            this.rows = rows;
+            return this;
+        }
+
+        /**
+         * @return the coloums of the editor field
+         */
+        public int getColumns() {
+            return columns;
+        }
+
+
+        /**
+         * Sets the columns in the editor
+         *
+         * @param columns the number ow rows
+         * @return this for chained calls
+         */
+        public LongString setColumns(int columns) {
+            this.columns = columns;
+            return this;
         }
     }
 }

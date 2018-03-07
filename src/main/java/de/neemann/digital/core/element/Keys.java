@@ -8,6 +8,7 @@ package de.neemann.digital.core.element;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
+import de.neemann.digital.core.extern.ProcessFactory;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
@@ -508,5 +509,32 @@ public final class Keys {
      */
     public static final Key<ROMManger> ROMMANAGER
             = new Key<>("romContent", ROMManger.EMPTY);
+
+
+    /**
+     * The type of the external process
+     */
+    public static final Key.KeyEnum<ProcessFactory.Type> PROCESS_TYPE
+            = new Key.KeyEnum<>("processType", ProcessFactory.Type.Generic, ProcessFactory.Type.values());
+    /**
+     * The inputs used by the external process
+     */
+    public static final Key<String> EXTERNAL_INPUTS
+            = new Key<>("externalInputs", "in");
+    /**
+     * The outputs used by the external process
+     */
+    public static final Key<String> EXTERNAL_OUTPUTS
+            = new Key<>("externalOutputs", "out");
+    /**
+     * The code to be executed by the external process
+     */
+    public static final Key.LongString EXTERNAL_CODE
+            = new Key.LongString("Code").setRows(20).setColumns(40);
+    /**
+     * The parameters to be used by the external process
+     */
+    public static final Key<String> EXTERNAL_PARAMETERS
+            = new Key<String>("externalParameters", "");
 
 }

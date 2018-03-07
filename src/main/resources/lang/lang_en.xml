@@ -692,6 +692,8 @@
         Then you can run a simulated processor until a BRK instruction is reached.
         Fast forward clocking can only be used if the real-time clock is disabled.</string>
 
+    <string name="elem_External">External</string>
+    <string name="elem_External_tt">Component to execute an external process to calculate the logic function.</string>
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR..
@@ -832,6 +834,11 @@ The names of the variables may not be unique.</string>
     <string name="err_monoflopRequiresOneClock">If a monoflop is used, there must be exactly one clock component!</string>
     <string name="err_centralDefinedRomsAreNotSupported">ROM's defined in the settings are not supported!</string>
     <string name="err_couldNotCreateElement_N">Could not create a component of type {0}!</string>
+
+    <string name="err_processType_N_notFound">Could not found process type {0}!</string>
+    <string name="err_errorWritingDataToProcess">Could not write values to the external process!</string>
+    <string name="err_errorReadingDataToProcess">Could not write values from the external process!</string>
+    <string name="err_errorCreatingProcess">Could not create the external process!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1026,6 +1033,19 @@ The names of the variables may not be unique.</string>
     <string name="key_splitterSpreading_tt">Configures the spread of the inputs and outputs in the circuit.</string>
     <string name="key_romContent">Content of ROM's</string>
     <string name="key_romContent_tt">Content of all used ROM's</string>
+
+    <string name="key_processType">Process Type</string>
+    <string name="key_processType_tt">Defines which kind of process to use.</string>
+    <string name="key_processType_Generic">Generic</string>
+    <string name="key_processType_GHDL">GHDL</string>
+    <string name="key_externalInputs">Inputs</string>
+    <string name="key_externalInputs_tt">The inputs of the external process.</string>
+    <string name="key_externalOutputs">Outputs</string>
+    <string name="key_externalOutputs_tt">The outputs of the external process.</string>
+    <string name="key_Code">Programcode</string>
+    <string name="key_Code_tt">The programm code to use with the external process.</string>
+    <string name="key_externalParameters">Parameters</string>
+    <string name="key_externalParameters_tt">Parameters to be used by the external process.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -1322,6 +1342,8 @@ Start export anyway?</string>
         A standalone truth table can not be used to generate a hardware description.</string>
     <string name="win_romDialog">Included ROM's</string>
     <string name="msg_noData">no data</string>
+
+    <string name="msg_errorClosingExternalProcess">Could not close external process!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

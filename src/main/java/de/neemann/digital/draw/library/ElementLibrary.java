@@ -9,6 +9,7 @@ import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.flipflops.*;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
@@ -186,7 +187,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(PowerSupply.DESCRIPTION)
                         .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
-                        .add(Break.DESCRIPTION));
+                        .add(Break.DESCRIPTION)
+                        .add(External.DESCRIPTION));
 
         addExternalJarComponents(jarFile);
 

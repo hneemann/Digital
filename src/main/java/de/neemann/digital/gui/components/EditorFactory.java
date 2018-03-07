@@ -13,6 +13,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.extern.ProcessFactory;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
@@ -71,6 +72,7 @@ public final class EditorFactory {
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
         add(ROMManger.class, ROMManagerEditor.class);
+        add(ProcessFactory.Type.class, ProcessFactoryTypeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -167,7 +169,8 @@ public final class EditorFactory {
 
         public StringEditor(String value, Key<String> key) {
             if (key instanceof Key.LongString) {
-                text = new JTextArea(6, 30);
+                Key.LongString k = (Key.LongString) key;
+                text = new JTextArea(k.getRows(), k.getColumns());
                 compToAdd = new JScrollPane(text);
                 setLabelAtTop(true);
             } else {
@@ -534,6 +537,12 @@ public final class EditorFactory {
 
     private static final class LeftRightFormatsEditor extends EnumEditor<LeftRightFormat> {
         public LeftRightFormatsEditor(LeftRightFormat value, Key<LeftRightFormat> key) {
+            super(value, key);
+        }
+    }
+
+    private static final class ProcessFactoryTypeEditor extends EnumEditor<ProcessFactory.Type> {
+        public ProcessFactoryTypeEditor(ProcessFactory.Type value, Key<ProcessFactory.Type> key) {
             super(value, key);
         }
     }
