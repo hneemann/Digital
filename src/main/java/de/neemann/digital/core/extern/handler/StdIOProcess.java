@@ -8,6 +8,7 @@ package de.neemann.digital.core.extern.handler;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.extern.ProcessHandler;
+import de.neemann.digital.lang.Lang;
 
 import java.io.*;
 
@@ -85,7 +86,7 @@ public class StdIOProcess implements ProcessHandler {
                     lock.wait(1000);
 
                 if (dataFound == null)
-                    throw new IOException("timeout");
+                    throw new IOException(Lang.get("err_timeoutReadingData"));
 
                 String line = dataFound;
                 dataFound = null;
@@ -131,7 +132,7 @@ public class StdIOProcess implements ProcessHandler {
                 final int bits = v.getBits();
 
                 if (pos + bits > len)
-                    throw new IOException("not enough data");
+                    throw new IOException(Lang.get("err_notEnoughDataReceived"));
 
                 long value = 0;
                 long highZ = 0;
@@ -153,7 +154,7 @@ public class StdIOProcess implements ProcessHandler {
                         case '0':
                             break;
                         default:
-                            throw new IOException("invalid character " + c);
+                            throw new IOException(Lang.get("err_invalidCharacterReceived_N", "" + c));
                     }
                     mask <<= 1;
                     pos++;
@@ -161,7 +162,7 @@ public class StdIOProcess implements ProcessHandler {
                 v.set(value, highZ);
             }
         } else
-            throw new IOException("process has stopped");
+            throw new IOException(Lang.get("err_processTerminatedUnexpected"));
     }
 
     @Override
@@ -173,10 +174,10 @@ public class StdIOProcess implements ProcessHandler {
         try {
             thread.join(1000);
         } catch (InterruptedException e) {
-            throw new IOException("thread was interrupted");
+            // its ok, I just want to terminate the process!
         }
 
         if (thread.isAlive())
-            throw new IOException("thread was not stopped");
+            throw new IOException(Lang.get("err_couldNotTerminateProcess"));
     }
 }

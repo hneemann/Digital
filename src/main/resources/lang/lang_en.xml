@@ -839,6 +839,11 @@ The names of the variables may not be unique.</string>
     <string name="err_errorWritingDataToProcess">Could not write values to the external process!</string>
     <string name="err_errorReadingDataToProcess">Could not write values from the external process!</string>
     <string name="err_errorCreatingProcess">Could not create the external process!</string>
+    <string name="err_timeoutReadingData">Timeout reading data from external process!</string>
+    <string name="err_notEnoughDataReceived">Not enough data received!</string>
+    <string name="err_invalidCharacterReceived_N">The received text contains an invalid character: {0}!</string>
+    <string name="err_processTerminatedUnexpected">The process has terminated unexpected!</string>
+    <string name="err_couldNotTerminateProcess">Could not terminate the process!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
