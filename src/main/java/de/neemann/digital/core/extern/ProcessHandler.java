@@ -29,6 +29,6 @@ public interface ProcessHandler extends Closeable {
      * @param values the values to write to
      * @throws IOException IOException
      */
-    void readValuesTo(ObservableValues values) throws IOException;
+    void readValues(ObservableValues values) throws IOException;
 
 }

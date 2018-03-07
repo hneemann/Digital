@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.extern;
 
+import de.neemann.digital.core.extern.handler.Generic;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
@@ -43,6 +44,8 @@ public final class ProcessFactory {
      */
     public static ProcessHandler create(Type type, String code, String params) throws IOException {
         switch (type) {
+            case Generic:
+                return new Generic(params);
             default:
                 throw new IOException(Lang.get("err_processType_N_notFound", type.name()));
         }

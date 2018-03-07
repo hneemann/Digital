@@ -10,24 +10,29 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.extern.ProcessHandler;
 
 import java.io.*;
-import java.util.StringTokenizer;
 
 /**
  * The generic process description
  */
-public abstract class StdIOProcess implements ProcessHandler {
+public class StdIOProcess implements ProcessHandler {
+    private static final String PREFIX = "digital:";
+    private Process process;
     private BufferedWriter writer;
-    private BufferedReader reader;
+    private Thread thread;
+
+    private final Object lock = new Object();
+    private String dataFound;
+
 
     /**
-     * Sets the reader and writer
+     * Set the already started process
      *
-     * @param reader the reader
-     * @param writer the writer
+     * @param process the process to use
      */
-    public void setReaderWriter(BufferedReader reader, BufferedWriter writer) {
-        this.reader = reader;
-        this.writer = writer;
+    public void setProcess(Process process) {
+        this.process = process;
+        setInputOutputStream(process.getInputStream(), process.getOutputStream());
+
     }
 
     /**
@@ -36,58 +41,142 @@ public abstract class StdIOProcess implements ProcessHandler {
      * @param in  the input stream
      * @param out the output stream
      */
-    public void setInputOutputStream(InputStream in, OutputStream out) {
+    private void setInputOutputStream(InputStream in, OutputStream out) {
         setReaderWriter(
                 new BufferedReader(new InputStreamReader(in)),
                 new BufferedWriter(new OutputStreamWriter(out)));
     }
 
+    /**
+     * Sets the reader and writer
+     *
+     * @param reader the reader
+     * @param writer the writer
+     */
+    private void setReaderWriter(BufferedReader reader, BufferedWriter writer) {
+        this.writer = writer;
+
+        thread = new Thread(() -> {
+            try {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith(PREFIX)) {
+                        synchronized (lock) {
+                            while (dataFound != null)
+                                lock.wait();
+                            dataFound = line;
+                            lock.notify();
+                        }
+                    }
+                }
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    private String readLine() throws IOException {
+        synchronized (lock) {
+            try {
+                long startTime = System.currentTimeMillis();
+                while (dataFound == null && (System.currentTimeMillis() - startTime) < 5000)
+                    lock.wait(1000);
+
+                if (dataFound == null)
+                    throw new IOException("timeout");
+
+                String line = dataFound;
+                dataFound = null;
+                lock.notify();
+
+                return line;
+            } catch (InterruptedException e) {
+                return null;
+            }
+        }
+    }
+
     @Override
     public void writeValues(ObservableValues values) throws IOException {
-        boolean first = true;
         for (ObservableValue v : values) {
-            if (first)
-                first = false;
-            else
-                writer.write(",");
-            writer.write(v.getName());
-            writer.write("=");
-            writer.write(Long.toHexString(v.getValue()));
+            final int bits = v.getBits();
+            final long value = v.getValue();
+            final long highZ = v.getHighZ();
+            long mask = 1;
+            for (int i = 0; i < bits; i++) {
+                if ((highZ & mask) != 0)
+                    writer.write('Z');
+                else {
+                    if ((value & mask) != 0)
+                        writer.write('1');
+                    else
+                        writer.write('0');
+                }
+                mask <<= 1;
+            }
         }
         writer.write("\n");
         writer.flush();
     }
 
     @Override
-    public void readValuesTo(ObservableValues values) throws IOException {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            if (line.startsWith("digital:")) {
-                StringTokenizer st = new StringTokenizer(line.substring(8), ",=", true);
-                for (ObservableValue v : values) {
-                    if (!st.hasMoreTokens())
-                        throw new IOException("not enough values received!");
+    public void readValues(ObservableValues values) throws IOException {
+        String line = readLine();
+        if (line != null) {
+            int pos = PREFIX.length();
+            int len = line.length();
+            for (ObservableValue v : values) {
+                final int bits = v.getBits();
 
-                    String name = st.nextToken().trim();
-                    if (name.equals(","))
-                        name = st.nextToken().trim();
+                if (pos + bits > len)
+                    throw new IOException("not enough data");
 
-                    if (!name.equals(v.getName()))
-                        throw new IOException("values in wrong order: expected " + v.getName() + " but found " + name);
-
-                    if (!st.nextToken().equals("="))
-                        throw new IOException("= expected");
-
-                    final String valStr = st.nextToken();
-                    if (valStr.equals("Z"))
-                        v.setToHighZ();
-                    else
-                        v.setValue(Long.parseLong(valStr, 16));
-
+                long value = 0;
+                long highZ = 0;
+                long mask = 1;
+                for (int i = 0; i < bits; i++) {
+                    char c = line.charAt(pos);
+                    switch (c) {
+                        case 'z':
+                        case 'Z':
+                            highZ |= mask;
+                            break;
+                        case 'h':
+                        case 'H':
+                        case '1':
+                            value |= mask;
+                            break;
+                        case 'l':
+                        case 'L':
+                        case '0':
+                            break;
+                        default:
+                            throw new IOException("invalid character " + c);
+                    }
+                    mask <<= 1;
+                    pos++;
                 }
-                return;
+                v.set(value, highZ);
             }
-        }
+        } else
+            throw new IOException("process has stopped");
     }
 
+    @Override
+    public void close() throws IOException {
+        process.destroy();
+
+        thread.interrupt();
+
+        try {
+            thread.join(1000);
+        } catch (InterruptedException e) {
+            throw new IOException("thread was interrupted");
+        }
+
+        if (thread.isAlive())
+            throw new IOException("thread was not stopped");
+    }
 }
