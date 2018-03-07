@@ -5,9 +5,11 @@
  */
 package de.neemann.digital.core.extern;
 
+import de.neemann.digital.core.extern.handler.GHDLProcess;
 import de.neemann.digital.core.extern.handler.Generic;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -36,16 +38,21 @@ public final class ProcessFactory {
     /**
      * Creates a new process
      *
-     * @param type   the type of the prosess
-     * @param code   the code to use
-     * @param params the parameters to use
+     * @param type       the type of the prosess
+     * @param label      the components label
+     * @param code       the code to use
+     * @param inputs     the inputs to use
+     * @param outputs    the outputs to use
+     * @param executable the parameters to use
      * @return the created process handler
      * @throws IOException IOException
      */
-    public static ProcessHandler create(Type type, String code, String params) throws IOException {
+    public static ProcessHandler create(Type type, String label, String code, PortDefinition inputs, PortDefinition outputs, File executable) throws IOException {
         switch (type) {
             case Generic:
-                return new Generic(params);
+                return new Generic(executable);
+            case GHDL:
+                return new GHDLProcess(executable, label, code, inputs, outputs);
             default:
                 throw new IOException(Lang.get("err_processType_N_notFound", type.name()));
         }

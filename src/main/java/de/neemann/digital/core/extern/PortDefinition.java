@@ -12,12 +12,13 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.element.PinInfo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
  * The list of ports used by an external component
  */
-public class PortDefinition {
+public class PortDefinition implements Iterable<Port> {
     private final ArrayList<Port> ports;
 
     /**
@@ -65,5 +66,20 @@ public class PortDefinition {
      */
     public Port getPort(int i) {
         return ports.get(i);
+    }
+
+    /**
+     * @return sum of all bits
+     */
+    public int getBits() {
+        int bits = 0;
+        for (Port p : ports)
+            bits += p.getBits();
+        return bits;
+    }
+
+    @Override
+    public Iterator<Port> iterator() {
+        return ports.iterator();
     }
 }

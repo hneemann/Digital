@@ -1049,8 +1049,8 @@ The names of the variables may not be unique.</string>
     <string name="key_externalOutputs_tt">The outputs of the external process.</string>
     <string name="key_Code">Programcode</string>
     <string name="key_Code_tt">The programm code to use with the external process.</string>
-    <string name="key_externalParameters">Parameters</string>
-    <string name="key_externalParameters_tt">Parameters to be used by the external process.</string>
+    <string name="key_externalExecutable">Executeable</string>
+    <string name="key_externalExecutable_tt">The programm which is to execute.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

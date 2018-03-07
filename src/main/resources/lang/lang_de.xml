@@ -1058,8 +1058,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_externalOutputs_tt">Die Ausgänge des externen Prozesses.</string>
     <string name="key_Code">Programmcode</string>
     <string name="key_Code_tt">Der Programmcode welcher ausgeführt werden soll.</string>
-    <string name="key_externalParameters">Parameter</string>
-    <string name="key_externalParameters_tt">Die Parameter, die an den externen Prozess übergeben werden sollen.</string>
+    <string name="key_externalExecutable">Ausfühbare Datei</string>
+    <string name="key_externalExecutable_tt">Die Datei, die ausgeführt werden soll!</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

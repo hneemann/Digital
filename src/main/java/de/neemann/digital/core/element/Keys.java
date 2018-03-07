@@ -534,7 +534,7 @@ public final class Keys {
     /**
      * The parameters to be used by the external process
      */
-    public static final Key<String> EXTERNAL_PARAMETERS
-            = new Key<String>("externalParameters", "");
+    public static final Key.KeyFile EXTERNAL_EXECUTABLE
+            = new Key.KeyFile("externalExecutable", new File(""));
 
 }

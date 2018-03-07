@@ -16,7 +16,7 @@ import java.io.*;
  * The generic process description
  */
 public class StdIOProcess implements ProcessHandler {
-    private static final String PREFIX = "digital:";
+    private static final String PREFIX = "Digital:";
     private Process process;
     private BufferedWriter writer;
     private Thread thread;
