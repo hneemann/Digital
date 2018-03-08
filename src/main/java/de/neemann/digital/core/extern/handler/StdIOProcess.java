@@ -19,6 +19,7 @@ import java.util.LinkedList;
 public class StdIOProcess implements ProcessHandler {
     private static final String PREFIX = "Digital:";
     private static final int MAX_CONSOLE_LINES = 30;
+    private static final long TIMEOUT = 5000;
     private Process process;
     private BufferedWriter writer;
     private Thread thread;
@@ -26,6 +27,7 @@ public class StdIOProcess implements ProcessHandler {
 
     private final Object lock = new Object();
     private String dataFound;
+    private boolean terminated = false;
 
 
     /**
@@ -60,6 +62,7 @@ public class StdIOProcess implements ProcessHandler {
     private void setReaderWriter(BufferedReader reader, BufferedWriter writer) {
         this.writer = writer;
         consoleOut = new LinkedList<>();
+        terminated = false;
         thread = new Thread(() -> {
             try {
                 String line;
@@ -79,6 +82,10 @@ public class StdIOProcess implements ProcessHandler {
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
+            synchronized (lock) {
+                terminated = true;
+                lock.notify();
+            }
         });
         thread.setDaemon(true);
         thread.start();
@@ -88,10 +95,13 @@ public class StdIOProcess implements ProcessHandler {
         synchronized (lock) {
             try {
                 long startTime = System.currentTimeMillis();
-                while (dataFound == null && (System.currentTimeMillis() - startTime) < 5000)
+                long time = 0;
+                while (dataFound == null && !terminated && (time - startTime) < TIMEOUT) {
                     lock.wait(1000);
+                    time = System.currentTimeMillis();
+                }
 
-                if (dataFound == null)
+                if (!((time - startTime) < TIMEOUT))
                     throw new IOException(Lang.get("err_timeoutReadingData_O", getConsoleOut()));
 
                 String line = dataFound;
@@ -168,7 +178,18 @@ public class StdIOProcess implements ProcessHandler {
                 v.set(value, highZ);
             }
         } else
-            throw new IOException(Lang.get("err_processTerminatedUnexpected_O", getConsoleOut()));
+            throw new IOException(Lang.get("err_processTerminatedUnexpected_O", getConsoleOutNoWarn(consoleOut)));
+    }
+
+    /**
+     * Returns the console out without warnings.
+     * Used to remove not needed content which obfuscates the real error cause.
+     *
+     * @param consoleOut the console out
+     * @return the clean error message
+     */
+    public String getConsoleOutNoWarn(LinkedList<String> consoleOut) {
+        return getConsoleOut();
     }
 
     private String getConsoleOut() {

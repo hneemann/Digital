@@ -44,7 +44,7 @@ end add;
 architecture add_arch of add is
    signal temp : std_logic_vector(4 downto 0);
 begin
-   temp &lt;= (&apos;0&apos; &amp; a) + (&apos;0&apos; &amp; b) + (&apos;0&apos; &amp; c_i);
+   temp &lt;= (&apos;0&apos; &amp; a) + b + c_i;
 
    s    &lt;= temp(3 downto 0);
    c_o  &lt;= temp(4);
@@ -69,7 +69,7 @@ end add_arch;</string>
           <value v="3" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="240" y="120"/>
+      <pos x="240" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -144,7 +144,7 @@ end loop
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="260" y="240"/>
+      <pos x="300" y="40"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -165,8 +165,8 @@ end loop
       <p2 x="380" y="180"/>
     </wire>
     <wire>
-      <p1 x="240" y="120"/>
-      <p2 x="260" y="120"/>
+      <p1 x="240" y="100"/>
+      <p2 x="260" y="100"/>
     </wire>
     <wire>
       <p1 x="240" y="200"/>
@@ -181,7 +181,7 @@ end loop
       <p2 x="280" y="140"/>
     </wire>
     <wire>
-      <p1 x="260" y="120"/>
+      <p1 x="260" y="100"/>
       <p2 x="260" y="140"/>
     </wire>
     <wire>

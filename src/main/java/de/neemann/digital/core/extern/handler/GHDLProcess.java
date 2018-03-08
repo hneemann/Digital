@@ -9,6 +9,7 @@ import de.neemann.digital.core.extern.PortDefinition;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  * Can use GHDL as VHDL simulator.
@@ -50,5 +51,15 @@ public class GHDLProcess extends VHDLProcess {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    @Override
+    public String getConsoleOutNoWarn(LinkedList<String> consoleOut) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : consoleOut) {
+            if (!s.contains("(assertion warning)"))
+                sb.append(s).append("\n");
+        }
+        return sb.toString();
     }
 }
