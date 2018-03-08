@@ -156,17 +156,16 @@ public class StdIOProcess implements ProcessHandler {
                 for (int i = 0; i < bits; i++) {
                     char c = line.charAt(pos);
                     switch (c) {
-                        case 'z':
                         case 'Z':
                             highZ |= mask;
                             break;
-                        case 'h':
                         case 'H':
                         case '1':
                             value |= mask;
                             break;
+                        case 'W':
+                        case 'X':
                         case 'U':
-                        case 'l':
                         case 'L':
                         case '0':
                             break;
@@ -202,17 +201,20 @@ public class StdIOProcess implements ProcessHandler {
 
     @Override
     public void close() throws IOException {
-        process.destroy();
+        if (process != null)
+            process.destroy();
 
-        thread.interrupt();
+        if (thread != null && thread.isAlive()) {
+            thread.interrupt();
 
-        try {
-            thread.join(1000);
-        } catch (InterruptedException e) {
-            // its ok, I just want to terminate the process!
+            try {
+                thread.join(1000);
+            } catch (InterruptedException e) {
+                // its ok, I just want to terminate the process!
+            }
+
+            if (thread.isAlive())
+                throw new IOException(Lang.get("err_couldNotTerminateProcess"));
         }
-
-        if (thread.isAlive())
-            throw new IOException(Lang.get("err_couldNotTerminateProcess"));
     }
 }

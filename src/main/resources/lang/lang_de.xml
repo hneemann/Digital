@@ -1055,8 +1055,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_romContent">ROM Inhalte</string>
     <string name="key_romContent_tt">Inhalt aller ROM Bausteine</string>
 
-    <string name="key_processType">Art des Prozesses</string>
-    <string name="key_processType_tt">Gibt an, was für ein Prozess gestartet werden soll, um den Code auszuführen.</string>
+    <string name="key_processType">Anwendung</string>
+    <string name="key_processType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
     <string name="key_processType_Generic">Generisch</string>
     <string name="key_processType_GHDL">GHDL</string>
     <string name="key_externalInputs">Eingänge</string>
@@ -1067,6 +1067,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Code_tt">Der Programmcode welcher ausgeführt werden soll.</string>
     <string name="key_externalExecutable">Ausfühbare Datei</string>
     <string name="key_externalExecutable_tt">Die Datei, die ausgeführt werden soll!</string>
+    <string name="key_ghdlPath">GHDL</string>
+    <string name="key_ghdlPath_tt">Pfad der Ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
+        VHDL-Code verwendet werden soll.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

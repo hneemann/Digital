@@ -185,7 +185,8 @@ public final class ShapeFactory {
                                 pt.getInputDescription(elementAttributes),
                                 pt.getOutputDescriptions(elementAttributes),
                                 elementAttributes.getLabel(),
-                                true)
+                                true,
+                                elementAttributes.get(Keys.WIDTH))
                                 .setInverterConfig(elementAttributes.get(Keys.INVERTER_CONFIG));
                     }
                 }

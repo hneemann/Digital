@@ -5,7 +5,9 @@
  */
 package de.neemann.digital.core.extern.handler;
 
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.PortDefinition;
+import de.neemann.digital.gui.Settings;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,18 +29,22 @@ public class GHDLProcess extends VHDLProcess {
      */
     public GHDLProcess(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
         super(label, code, inputs, outputs);
+        try {
+            String ghdl = getGhdlPath().getPath();
 
-        String ghdl = getGhdlPath();
-
-        File file = getVHDLFile();
-        ProcessStarter.start(file.getParentFile(), ghdl, "-a", "--ieee=synopsys", file.getName());
-        ProcessStarter.start(file.getParentFile(), ghdl, "-e", "--ieee=synopsys", "stdIOInterface");
-        ProcessBuilder pb = new ProcessBuilder(ghdl, "-r", "--ieee=synopsys", "stdIOInterface").redirectErrorStream(true).directory(file.getParentFile());
-        setProcess(pb.start());
+            File file = getVHDLFile();
+            ProcessStarter.start(file.getParentFile(), ghdl, "-a", "--ieee=synopsys", file.getName());
+            ProcessStarter.start(file.getParentFile(), ghdl, "-e", "--ieee=synopsys", "stdIOInterface");
+            ProcessBuilder pb = new ProcessBuilder(ghdl, "-r", "--ieee=synopsys", "stdIOInterface").redirectErrorStream(true).directory(file.getParentFile());
+            setProcess(pb.start());
+        } catch (IOException e) {
+            close();  // remove created files
+            throw e;
+        }
     }
 
-    private static String getGhdlPath() {
-        return "ghdl";
+    private static File getGhdlPath() {
+        return Settings.getInstance().get(Keys.SETTINGS_GHDL_PATH);
     }
 
     /**
@@ -46,7 +52,7 @@ public class GHDLProcess extends VHDLProcess {
      */
     public static boolean isInstalled() {
         try {
-            ProcessStarter.start(null, getGhdlPath(), "--help");
+            ProcessStarter.start(null, getGhdlPath().getPath(), "--help");
             return true;
         } catch (IOException e) {
             return false;

@@ -1047,8 +1047,8 @@ The names of the variables may not be unique.</string>
     <string name="key_romContent">Content of ROM's</string>
     <string name="key_romContent_tt">Content of all used ROM's</string>
 
-    <string name="key_processType">Process Type</string>
-    <string name="key_processType_tt">Defines which kind of process to use.</string>
+    <string name="key_processType">Application</string>
+    <string name="key_processType_tt">Defines which application to use.</string>
     <string name="key_processType_Generic">Generic</string>
     <string name="key_processType_GHDL">GHDL</string>
     <string name="key_externalInputs">Inputs</string>
@@ -1059,6 +1059,9 @@ The names of the variables may not be unique.</string>
     <string name="key_Code_tt">The programm code to use with the external process.</string>
     <string name="key_externalExecutable">Executeable</string>
     <string name="key_externalExecutable_tt">The programm which is to execute.</string>
+    <string name="key_ghdlPath">GHDL</string>
+    <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
+        components defined with vhdl.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

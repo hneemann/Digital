@@ -53,6 +53,7 @@ public final class Settings implements AttributeListener {
         intList.add(Keys.SETTINGS_LIBRARY_PATH);
         intList.add(Keys.SETTINGS_JAR_PATH);
         intList.add(Keys.SETTINGS_ATF1502_FITTER);
+        intList.add(Keys.SETTINGS_GHDL_PATH);
         intList.add(Keys.SETTINGS_FONT_SCALING);
 
         settingsKeys = Collections.unmodifiableList(intList);

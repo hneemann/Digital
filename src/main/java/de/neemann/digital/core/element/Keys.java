@@ -532,4 +532,10 @@ public final class Keys {
     public static final Key.LongString EXTERNAL_CODE
             = new Key.LongString("Code").setRows(20).setColumns(40).setLineNumbers(true);
 
+    /**
+     * Path to ghdl
+     */
+    public static final Key.KeyFile SETTINGS_GHDL_PATH
+            = new Key.KeyFile("ghdlPath", new File("ghdl"));
+
 }

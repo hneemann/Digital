@@ -34,6 +34,7 @@ public class External extends Node implements Element {
 
     }
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.WIDTH)
             .addAttribute(Keys.EXTERNAL_INPUTS)
             .addAttribute(Keys.EXTERNAL_OUTPUTS)
             .addAttribute(Keys.EXTERNAL_CODE)
