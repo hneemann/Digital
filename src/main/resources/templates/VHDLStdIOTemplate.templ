@@ -27,10 +27,10 @@ architecture top_sim_a of stdIOInterface is
      variable result : string (1 to slv'length);
      variable r : integer;
   begin
-     r := 1;
+     r := slv'length;
      for i in slv'range loop
         result(r) := chr(slv(i));
-        r := r + 1;
+        r := r - 1;
      end loop;
      return result;
   end str;

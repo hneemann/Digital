@@ -531,10 +531,5 @@ public final class Keys {
      */
     public static final Key.LongString EXTERNAL_CODE
             = new Key.LongString("Code").setRows(20).setColumns(40);
-    /**
-     * The parameters to be used by the external process
-     */
-    public static final Key.KeyFile EXTERNAL_EXECUTABLE
-            = new Key.KeyFile("externalExecutable", new File(""));
 
 }

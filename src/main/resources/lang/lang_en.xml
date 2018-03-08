@@ -842,8 +842,13 @@ The names of the variables may not be unique.</string>
     <string name="err_timeoutReadingData">Timeout reading data from external process!</string>
     <string name="err_notEnoughDataReceived">Not enough data received!</string>
     <string name="err_invalidCharacterReceived_N">The received text contains an invalid character: {0}!</string>
-    <string name="err_processTerminatedUnexpected">The process has terminated unexpected!</string>
+    <string name="err_processTerminatedUnexpected_O">The process has terminated unexpected!
+        {0}</string>
     <string name="err_couldNotTerminateProcess">Could not terminate the process!</string>
+    <string name="err_couldNotStartProcess_N">Could not start process: {0}</string>
+    <string name="err_exitValueNotNull_N_O">Result value was not 0 but {0}:
+        {1}</string>
+
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

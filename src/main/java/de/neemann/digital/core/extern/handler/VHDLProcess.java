@@ -9,12 +9,15 @@ import de.neemann.digital.core.extern.Port;
 import de.neemann.digital.core.extern.PortDefinition;
 
 import java.io.*;
+import java.nio.file.Files;
 
 /**
- * Creates a VHDL process
+ * Creates a VHDL file which is able to cummunicate via stdio.
+ * The given code is used as VHDL code.
  */
 public class VHDLProcess extends StdIOProcess {
     private final File file;
+    private final File dir;
 
     private static class InstanceHolder {
         private static final String TEMPLATE = loadTemplate();
@@ -49,14 +52,16 @@ public class VHDLProcess extends StdIOProcess {
     public VHDLProcess(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
         String t = InstanceHolder.TEMPLATE;
         t = t.replace("%name%", label);
-        t = t.replace("%incount%", Integer.toString(inputs.getBits()));
-        t = t.replace("%outcount%", Integer.toString(outputs.getBits()));
+        t = t.replace("%incount%", Integer.toString(inputs.getBits() - 1));
+        t = t.replace("%outcount%", Integer.toString(outputs.getBits() - 1));
         t = t.replace("%ports%", createPorts(inputs, outputs));
         t = t.replace("%signals%", createSignals(inputs, outputs));
         t = t.replace("%map%", createMap(inputs, outputs));
         t = t.replace("%inOutMapping%", createInOutMapping(inputs, outputs));
 
-        file = File.createTempFile(label, ".vhdl");
+        dir = Files.createTempDirectory("digital_vhdl_").toFile();
+
+        file = new File(dir, label + ".vhdl");
         try (Writer w = new FileWriter(file)) {
             w.write(code);
             w.write("\n\n\n");
@@ -67,7 +72,7 @@ public class VHDLProcess extends StdIOProcess {
     /**
      * @return the created vhdl file
      */
-    public File getFile() {
+    public File getVHDLFile() {
         return file;
     }
 
@@ -145,6 +150,20 @@ public class VHDLProcess extends StdIOProcess {
     @Override
     public void close() throws IOException {
         super.close();
-        //if (file != null) file.delete();
+        if (dir != null)
+            removeFolder(dir);
+    }
+
+    private static void removeFolder(File dir) {
+        File[] list = dir.listFiles();
+        if (list != null) {
+            for (File f : list) {
+                if (f.isDirectory())
+                    removeFolder(f);
+                else
+                    f.delete();
+            }
+        }
+        dir.delete();
     }
 }

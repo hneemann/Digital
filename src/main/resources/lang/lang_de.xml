@@ -846,9 +846,13 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_errorCreatingProcess">Der externe Prozess konnte nicht gestartet werden!</string>
     <string name="err_timeoutReadingData">Zeitüberschreitung beim Lesen von Daten!</string>
     <string name="err_notEnoughDataReceived">Es wurden nicht genug Daten empfangen!</string>
-    <string name="err_invalidCharacterReceived_N">Der empfangene Text enthielt ein ungültiges Zeichen: {0}!</string>
-    <string name="err_processTerminatedUnexpected">Der Prozess wurde unerwartet beendet!</string>
+    <string name="err_invalidCharacterReceived_N">Der Prozess sendete ein ungültiges Zeichen: {0}!</string>
+    <string name="err_processTerminatedUnexpected_O">Der Prozess wurde unerwartet beendet!
+        {0}</string>
     <string name="err_couldNotTerminateProcess">Der Prozess konnte nicht beendet werden!</string>
+    <string name="err_couldNotStartProcess_N">Prozess konnte nicht gestartet werden: {0}</string>
+    <string name="err_exitValueNotNull_N_O">Rückgabewert war nicht 0 sondern {0}:
+        {1}</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.core.extern.handler;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -18,8 +17,9 @@ public class Generic extends StdIOProcess {
      * @param file the name of the application to start
      * @throws IOException IOException
      */
-    public Generic(File file) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder(file.getPath());
+    public Generic(String file) throws IOException {
+        String[] args = file.split(" ");
+        ProcessBuilder pb = new ProcessBuilder(args).redirectErrorStream(true);
         setProcess(pb.start());
     }
 }

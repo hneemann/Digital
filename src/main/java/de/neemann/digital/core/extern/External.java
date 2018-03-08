@@ -11,7 +11,6 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -38,15 +37,13 @@ public class External extends Node implements Element {
             .addAttribute(Keys.EXTERNAL_INPUTS)
             .addAttribute(Keys.EXTERNAL_OUTPUTS)
             .addAttribute(Keys.EXTERNAL_CODE)
-            .addAttribute(Keys.PROCESS_TYPE)
-            .addAttribute(Keys.EXTERNAL_EXECUTABLE);
+            .addAttribute(Keys.PROCESS_TYPE);
 
     private final ProcessFactory.Type type;
     private final PortDefinition ins;
     private final PortDefinition outs;
     private final ObservableValues outputs;
     private final String code;
-    private final File executable;
     private final String label;
     private ObservableValues inputs;
     private ProcessHandler processHandler;
@@ -64,7 +61,6 @@ public class External extends Node implements Element {
         label = attr.getCleanLabel();
         type = attr.get(Keys.PROCESS_TYPE);
         code = attr.get(Keys.EXTERNAL_CODE);
-        executable = attr.get(Keys.EXTERNAL_EXECUTABLE);
     }
 
     @Override
@@ -101,7 +97,7 @@ public class External extends Node implements Element {
     @Override
     public void init(Model model) throws NodeException {
         try {
-            processHandler = ProcessFactory.create(type, label, code, ins, outs, executable);
+            processHandler = ProcessFactory.create(type, label, code, ins, outs);
         } catch (IOException e) {
             throw new NodeException(Lang.get("err_errorCreatingProcess"), this, -1, null, e);
         }

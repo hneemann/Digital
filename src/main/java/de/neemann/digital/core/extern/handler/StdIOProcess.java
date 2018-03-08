@@ -11,15 +11,18 @@ import de.neemann.digital.core.extern.ProcessHandler;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
+import java.util.LinkedList;
 
 /**
- * The generic process description
+ * Communicates with an external process by sending values and receiving results via the stdio.
  */
 public class StdIOProcess implements ProcessHandler {
     private static final String PREFIX = "Digital:";
+    private static final int MAX_CONSOLE_LINES = 30;
     private Process process;
     private BufferedWriter writer;
     private Thread thread;
+    private LinkedList<String> consoleOut;
 
     private final Object lock = new Object();
     private String dataFound;
@@ -56,11 +59,14 @@ public class StdIOProcess implements ProcessHandler {
      */
     private void setReaderWriter(BufferedReader reader, BufferedWriter writer) {
         this.writer = writer;
-
+        consoleOut = new LinkedList<>();
         thread = new Thread(() -> {
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {
+                    consoleOut.add(line);
+                    while (consoleOut.size() > MAX_CONSOLE_LINES)
+                        consoleOut.removeFirst();
                     if (line.startsWith(PREFIX)) {
                         synchronized (lock) {
                             while (dataFound != null)
@@ -161,8 +167,12 @@ public class StdIOProcess implements ProcessHandler {
                 }
                 v.set(value, highZ);
             }
-        } else
-            throw new IOException(Lang.get("err_processTerminatedUnexpected"));
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (String s : consoleOut)
+                sb.append(s).append("\n");
+            throw new IOException(Lang.get("err_processTerminatedUnexpected_O", sb.toString()));
+        }
     }
 
     @Override
