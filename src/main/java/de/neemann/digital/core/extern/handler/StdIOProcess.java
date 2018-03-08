@@ -92,7 +92,7 @@ public class StdIOProcess implements ProcessHandler {
                     lock.wait(1000);
 
                 if (dataFound == null)
-                    throw new IOException(Lang.get("err_timeoutReadingData"));
+                    throw new IOException(Lang.get("err_timeoutReadingData_O", getConsoleOut()));
 
                 String line = dataFound;
                 dataFound = null;
@@ -138,7 +138,7 @@ public class StdIOProcess implements ProcessHandler {
                 final int bits = v.getBits();
 
                 if (pos + bits > len)
-                    throw new IOException(Lang.get("err_notEnoughDataReceived"));
+                    throw new IOException(Lang.get("err_notEnoughDataReceived_O", getConsoleOut()));
 
                 long value = 0;
                 long highZ = 0;
@@ -160,19 +160,22 @@ public class StdIOProcess implements ProcessHandler {
                         case '0':
                             break;
                         default:
-                            throw new IOException(Lang.get("err_invalidCharacterReceived_N", "" + c));
+                            throw new IOException(Lang.get("err_invalidCharacterReceived_N_O", "" + c, getConsoleOut()));
                     }
                     mask <<= 1;
                     pos++;
                 }
                 v.set(value, highZ);
             }
-        } else {
-            StringBuilder sb = new StringBuilder();
-            for (String s : consoleOut)
-                sb.append(s).append("\n");
-            throw new IOException(Lang.get("err_processTerminatedUnexpected_O", sb.toString()));
-        }
+        } else
+            throw new IOException(Lang.get("err_processTerminatedUnexpected_O", getConsoleOut()));
+    }
+
+    private String getConsoleOut() {
+        StringBuilder sb = new StringBuilder();
+        for (String s : consoleOut)
+            sb.append(s).append("\n");
+        return sb.toString();
     }
 
     @Override

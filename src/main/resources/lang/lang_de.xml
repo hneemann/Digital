@@ -844,9 +844,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
     <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>
     <string name="err_errorCreatingProcess">Der externe Prozess konnte nicht gestartet werden!</string>
-    <string name="err_timeoutReadingData">Zeitüberschreitung beim Lesen von Daten!</string>
-    <string name="err_notEnoughDataReceived">Es wurden nicht genug Daten empfangen!</string>
-    <string name="err_invalidCharacterReceived_N">Der Prozess sendete ein ungültiges Zeichen: {0}!</string>
+    <string name="err_timeoutReadingData_O">Zeitüberschreitung beim Lesen von Daten!
+        {0}</string>
+    <string name="err_notEnoughDataReceived_O">Es wurden nicht genug Daten empfangen!
+        {0}</string>
+    <string name="err_invalidCharacterReceived_N_O">Der Prozess sendete ein ungültiges Zeichen: {0}!
+        {1}</string>
     <string name="err_processTerminatedUnexpected_O">Der Prozess wurde unerwartet beendet!
         {0}</string>
     <string name="err_couldNotTerminateProcess">Der Prozess konnte nicht beendet werden!</string>
