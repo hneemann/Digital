@@ -165,6 +165,7 @@ public class StdIOProcess implements ProcessHandler {
                         case '1':
                             value |= mask;
                             break;
+                        case 'U':
                         case 'l':
                         case 'L':
                         case '0':

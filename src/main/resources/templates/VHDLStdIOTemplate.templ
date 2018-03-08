@@ -4,7 +4,7 @@ use std.textio.all;
 
 entity stdIOInterface is end;
 
-architecture top_sim_a of stdIOInterface is
+architecture stdIOInterface_a of stdIOInterface is
 
   function chr(sl: std_logic) return character is
     variable c: character;
@@ -47,7 +47,7 @@ architecture top_sim_a of stdIOInterface is
   signal mainOut : std_logic_vector(%outcount% downto 0);
 
 begin
-	stdIOInterface_0: %name% port map (
+	UserCode: %name% port map (
        %map%
 	);
 
