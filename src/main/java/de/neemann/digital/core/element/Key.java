@@ -373,6 +373,7 @@ public class Key<VALUE> {
     public static final class LongString extends Key<String> {
         private int rows = 6;
         private int columns = 30;
+        private boolean lineNumbers = false;
 
         /**
          * Creates a new Key
@@ -418,6 +419,24 @@ public class Key<VALUE> {
         public LongString setColumns(int columns) {
             this.columns = columns;
             return this;
+        }
+
+        /**
+         * Sets the line numbers attribute
+         *
+         * @param lineNumbers true if line numbers should be visibla
+         * @return this for chained calls
+         */
+        public LongString setLineNumbers(boolean lineNumbers) {
+            this.lineNumbers = lineNumbers;
+            return this;
+        }
+
+        /**
+         * @return true if line numbers are visible
+         */
+        public boolean getLineNumbers() {
+            return lineNumbers;
         }
     }
 }

@@ -57,7 +57,8 @@ public class TestLicenseNotice extends TestCase {
         }
 
         // Do not add files without permission from the project owner!
-        if (f.getName().equals("GifSequenceWriter.java")) // Creative Commons Attribution 3.0 Unported License
+        if (f.getName().equals("GifSequenceWriter.java")      // Creative Commons Attribution 3.0 Unported License
+                || f.getName().equals("TextLineNumber.java")) // Seems to be public domain
             return;
 
         if (state != 2)

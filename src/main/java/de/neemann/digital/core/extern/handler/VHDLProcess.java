@@ -12,7 +12,7 @@ import java.io.*;
 import java.nio.file.Files;
 
 /**
- * Creates a VHDL file which is able to cummunicate via stdio.
+ * Creates a VHDL file which is able to communicate via stdio.
  * The given code is used as VHDL code.
  */
 public class VHDLProcess extends StdIOProcess {

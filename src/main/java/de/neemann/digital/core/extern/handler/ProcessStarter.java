@@ -31,7 +31,9 @@ public final class ProcessStarter {
      * @throws IOException IOException
      */
     public static String start(File dir, String... args) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder(args).redirectErrorStream(true).directory(dir);
+        ProcessBuilder pb = new ProcessBuilder(args).redirectErrorStream(true);
+        if (dir != null)
+            pb.directory(dir);
         Process p;
         try {
             p = pb.start();

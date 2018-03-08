@@ -171,7 +171,15 @@ public final class EditorFactory {
             if (key instanceof Key.LongString) {
                 Key.LongString k = (Key.LongString) key;
                 text = new JTextArea(k.getRows(), k.getColumns());
-                compToAdd = new JScrollPane(text);
+                final JScrollPane scrollPane = new JScrollPane(text);
+
+                if (k.getLineNumbers()) {
+                    final TextLineNumber textLineNumber = new TextLineNumber(text, 3);
+                    scrollPane.setRowHeaderView(textLineNumber);
+                }
+
+                this.compToAdd = scrollPane;
+
                 setLabelAtTop(true);
             } else {
                 text = new JTextField(10);
