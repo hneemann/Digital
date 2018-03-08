@@ -51,13 +51,13 @@ public class VHDLProcess extends StdIOProcess {
      */
     public VHDLProcess(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
         String t = InstanceHolder.TEMPLATE;
-        t = t.replace("%name%", label);
-        t = t.replace("%incount%", Integer.toString(inputs.getBits() - 1));
-        t = t.replace("%outcount%", Integer.toString(outputs.getBits() - 1));
-        t = t.replace("%ports%", createPorts(inputs, outputs));
-        t = t.replace("%signals%", createSignals(inputs, outputs));
-        t = t.replace("%map%", createMap(inputs, outputs));
-        t = t.replace("%inOutMapping%", createInOutMapping(inputs, outputs));
+        t = t.replace("{{name}}", label);
+        t = t.replace("{{incount}}", Integer.toString(inputs.getBits() - 1));
+        t = t.replace("{{outcount}}", Integer.toString(outputs.getBits() - 1));
+        t = t.replace("{{ports}}", createPorts(inputs, outputs));
+        t = t.replace("{{signals}}", createSignals(inputs, outputs));
+        t = t.replace("{{map}}", createMap(inputs, outputs));
+        t = t.replace("{{inOutMapping}}", createInOutMapping(inputs, outputs));
 
         dir = Files.createTempDirectory("digital_vhdl_").toFile();
 

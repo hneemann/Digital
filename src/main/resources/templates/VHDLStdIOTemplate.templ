@@ -35,23 +35,23 @@ architecture stdIOInterface_a of stdIOInterface is
      return result;
   end str;
 
-  component %name%
+  component {{name}}
     port (
-      %ports%
+      {{ports}}
     );
   end component;
 
-  %signals%
+  {{signals}}
 
-  signal mainIn : std_logic_vector(%incount% downto 0);
-  signal mainOut : std_logic_vector(%outcount% downto 0);
+  signal mainIn : std_logic_vector({{incount}} downto 0);
+  signal mainOut : std_logic_vector({{outcount}} downto 0);
 
 begin
-	UserCode: %name% port map (
-       %map%
+	UserCode: {{name}} port map (
+       {{map}}
 	);
 
-	%inOutMapping%
+	{{inOutMapping}}
 
 	process
 		variable ll: line;
