@@ -7,7 +7,9 @@ package de.neemann.digital.core.extern;
 
 import de.neemann.digital.core.extern.handler.ProcessInterface;
 import de.neemann.digital.core.extern.handler.StdIOInterface;
+import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -19,5 +21,22 @@ public class ApplicationGeneric implements Application {
         String[] args = code.split(" ");
         ProcessBuilder pb = new ProcessBuilder(args).redirectErrorStream(true);
         return new StdIOInterface(pb.start());
+    }
+
+    @Override
+    public boolean checkSupported() {
+        return true;
+    }
+
+    @Override
+    public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+        String[] args = code.split(" ");
+        if (args.length == 0)
+            return Lang.get("msg_applicationFileNotFound", code);
+        File f = new File(args[0]);
+        if (!f.exists())
+            return Lang.get("msg_applicationFileNotFound", args[0]);
+
+        return null;
     }
 }
