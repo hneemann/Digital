@@ -41,7 +41,7 @@ public final class ProcessStarter {
         try {
             p = pb.start();
         } catch (IOException e) {
-            throw new CouldNotStartProcessException(Lang.get("err_couldNotStartProcess_N", Arrays.toString(args)));
+            throw new CouldNotStartProcessException(Lang.get("err_couldNotStartProcess_N", Arrays.toString(args)), e);
         }
         ReaderThread rt = new ReaderThread(p.getInputStream());
         rt.start();
@@ -137,8 +137,8 @@ public final class ProcessStarter {
      * Thrown if process could not be started
      */
     public static final class CouldNotStartProcessException extends IOException {
-        private CouldNotStartProcessException(String message) {
-            super(message);
+        private CouldNotStartProcessException(String message, IOException cause) {
+            super(message, cause);
         }
     }
 }
