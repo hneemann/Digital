@@ -8,6 +8,8 @@ package de.neemann.digital.core.extern.handler;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -22,6 +24,7 @@ import java.util.LinkedList;
  * The last bit needs to be followed by an end of line character.
  */
 public class StdIOInterface implements ProcessInterface {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StdIOInterface.class);
     private static final String PREFIX = "Digital:";
     private static final int MAX_CONSOLE_LINES = 30;
     private static final long TIMEOUT = 5000;
@@ -69,6 +72,7 @@ public class StdIOInterface implements ProcessInterface {
         consoleOut = new LinkedList<>();
         terminated = false;
         thread = new Thread(() -> {
+            LOGGER.debug("reader-thread started");
             try {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -91,6 +95,7 @@ public class StdIOInterface implements ProcessInterface {
                 terminated = true;
                 lock.notify();
             }
+            LOGGER.debug("reader-thread terminated");
         });
         thread.setDaemon(true);
         thread.start();

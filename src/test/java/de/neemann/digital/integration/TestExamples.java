@@ -65,35 +65,43 @@ public class TestExamples extends TestCase {
             } else
                 throw e;
         }
-
-        boolean isLib = dig.getPath().replace('\\', '/').contains("/lib/");
-
-        assertTrue("wrong locked mode", isLib == br.getCircuit().getAttributes().get(Keys.LOCKED_MODE));
-
         try {
-            for (VisualElement el : br.getCircuit().getElements())
-                if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
 
-                    String label = el.getElementAttributes().getCleanLabel();
-                    TestCaseDescription td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+            boolean isLib = dig.getPath().replace('\\', '/').contains("/lib/");
 
-                    Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
-                    TestExecutor tr = new TestExecutor(td).create(model);
+            assertTrue("wrong locked mode", isLib == br.getCircuit().getAttributes().get(Keys.LOCKED_MODE));
 
-                    if (label.contains("Failing"))
-                        assertFalse(dig.getName() + ":" + label, tr.allPassed());
-                    else
-                        assertTrue(dig.getName() + ":" + label, tr.allPassed());
+            try {
+                for (VisualElement el : br.getCircuit().getElements())
+                    if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
 
-                    testCasesInFiles++;
-                }
-        } catch (Exception e) {
-            if (shouldFail) {
-                return;
-            } else
-                throw e;
+                        String label = el.getElementAttributes().getCleanLabel();
+                        TestCaseDescription td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+
+                        Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
+                        try {
+                            TestExecutor tr = new TestExecutor(td).create(model);
+
+                            if (label.contains("Failing"))
+                                assertFalse(dig.getName() + ":" + label, tr.allPassed());
+                            else
+                                assertTrue(dig.getName() + ":" + label, tr.allPassed());
+
+                            testCasesInFiles++;
+                        } finally {
+                            model.close();
+                        }
+                    }
+            } catch (Exception e) {
+                if (shouldFail) {
+                    return;
+                } else
+                    throw e;
+            }
+
+            assertFalse("File should fail but doesn't!", shouldFail);
+        } finally {
+            br.close();
         }
-
-        assertFalse("File should fail but doesn't!", shouldFail);
     }
 }

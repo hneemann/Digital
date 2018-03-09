@@ -139,4 +139,9 @@ public class ToBreakRunner {
     public ElementLibrary getLibrary() {
         return library;
     }
+
+    public void close() {
+        if (model != null)
+            model.close();
+    }
 }

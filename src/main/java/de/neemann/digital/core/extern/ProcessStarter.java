@@ -6,6 +6,8 @@
 package de.neemann.digital.core.extern;
 
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -17,6 +19,7 @@ import java.util.Arrays;
  * Helper to start and wait for a process.
  */
 public final class ProcessStarter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessStarter.class);
 
     private ProcessStarter() {
     }
@@ -38,7 +41,7 @@ public final class ProcessStarter {
         try {
             p = pb.start();
         } catch (IOException e) {
-            throw new IOException(Lang.get("err_couldNotStartProcess_N", Arrays.toString(args)));
+            throw new CouldNotStartProcessException(Lang.get("err_couldNotStartProcess_N", Arrays.toString(args)));
         }
         ReaderThread rt = new ReaderThread(p.getInputStream());
         rt.start();
@@ -99,11 +102,10 @@ public final class ProcessStarter {
             for (File f : list) {
                 if (f.isDirectory())
                     removeFolder(f);
-                else
-                    f.delete();
+                else if (!f.delete()) LOGGER.warn("file " + f + " could not be deleted!");
             }
         }
-        dir.delete();
+        if (!dir.delete()) LOGGER.warn("dir " + dir + " could not be deleted!");
     }
 
     /**
@@ -131,4 +133,12 @@ public final class ProcessStarter {
             return null;
     }
 
+    /**
+     * Thrown if process could not be started
+     */
+    public static final class CouldNotStartProcessException extends IOException {
+        private CouldNotStartProcessException(String message) {
+            super(message);
+        }
+    }
 }

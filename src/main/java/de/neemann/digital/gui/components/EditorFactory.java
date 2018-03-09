@@ -787,13 +787,16 @@ public final class EditorFactory {
                         try {
                             CircuitComponent circuitComponent = main.getCircuitComponent();
                             Model model = new ModelCreator(circuitComponent.getCircuit(), circuitComponent.getLibrary()).createModel(false);
-
-                            romEditorDialog = new ROMEditorDialog(
-                                    getAttributeDialog(),
-                                    model,
-                                    romManager);
-                            if (romEditorDialog.showDialog())
-                                romManager = romEditorDialog.getROMManager();
+                            try {
+                                romEditorDialog = new ROMEditorDialog(
+                                        getAttributeDialog(),
+                                        model,
+                                        romManager);
+                                if (romEditorDialog.showDialog())
+                                    romManager = romEditorDialog.getROMManager();
+                            } finally {
+                                model.close();
+                            }
                         } catch (ElementNotFoundException | PinException | NodeException e) {
                             new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).show(getAttributeDialog());
                         }

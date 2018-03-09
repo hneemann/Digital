@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.extern.ProcessStarter;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.HDLException;
@@ -96,19 +97,18 @@ public class TestInSimulator extends TestCase {
     private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);
         File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
-        File vhdlFile = new File(dir, file.getName().replace('.', '_') + ".vhdl");
-        CodePrinter out = new CodePrinter(vhdlFile);
-        try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
-            vhdl.omitClockDividers().export(br.getCircuit());
-            VHDLTestBenchCreator tb = vhdl.getTestBenches();
-            out.close();
-            runGHDL(vhdlFile, tb.getTestFileWritten());
+        try {
+            File vhdlFile = new File(dir, file.getName().replace('.', '_') + ".vhdl");
+            CodePrinter out = new CodePrinter(vhdlFile);
+            try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
+                vhdl.omitClockDividers().export(br.getCircuit());
+                VHDLTestBenchCreator tb = vhdl.getTestBenches();
+                out.close();
+                runGHDL(vhdlFile, tb.getTestFileWritten());
+            }
+        } finally {
+            ProcessStarter.removeFolder(dir);
         }
-        File[] filesInDir = dir.listFiles();
-        if (filesInDir != null)
-            for (File f : filesInDir)
-                if (!f.delete()) LOGGER.warn("file " + f + " could not be deleted!");
-        if (!dir.delete()) LOGGER.warn("dir " + dir + " could not be deleted!");
     }
 
     private void runGHDL(File vhdlFile, ArrayList<File> testFileWritten) throws IOException, FileScanner.SkipAllException, HDLException {
@@ -135,65 +135,16 @@ public class TestInSimulator extends TestCase {
     }
 
     private String startProcess(File dir, String... args) throws IOException, FileScanner.SkipAllException {
-        //System.out.println("start " + Arrays.toString(args));
-        ProcessBuilder pb = new ProcessBuilder(args).redirectErrorStream(true).directory(dir);
-        Process p;
         try {
-            p = pb.start();
-        } catch (IOException e) {
+            return ProcessStarter.start(dir, args);
+        } catch (ProcessStarter.CouldNotStartProcessException e) {
             throw new FileScanner.SkipAllException("ghdl (https://github.com/tgingold/ghdl) is not installed! Add ghdl binary to the system path or set system property 'ghdl' to ghdl binary");
-        }
-        ReaderThread rt = new ReaderThread(p.getInputStream());
-        rt.start();
-        try {
-            int exitValue = p.waitFor();
-            rt.join();
-
-            String output = rt.toString();
-
-            if (exitValue != 0)
-                throw new IOException("exit value not null: " + exitValue + "\n" + output);
-
-            return output;
-        } catch (InterruptedException e) {
-            throw new IOException(e);
         }
     }
 
     private String getTime() {
         DateFormat f = new SimpleDateFormat("YY-MM-dd_HH-mm_ss");
         return f.format(new Date());
-    }
-
-    private static final class ReaderThread extends Thread {
-        private final ByteArrayOutputStream baos;
-        private final InputStream in;
-
-        private ReaderThread(InputStream in) {
-            this.in = in;
-            baos = new ByteArrayOutputStream();
-        }
-
-        @Override
-        public void run() {
-            try {
-                try {
-                    byte[] buffer = new byte[4096];
-                    int len;
-                    while ((len = in.read(buffer)) > 0)
-                        baos.write(buffer, 0, len);
-                } finally {
-                    in.close();
-                }
-            } catch (IOException e) {
-                // do nothing, simply end the thread
-            }
-        }
-
-        @Override
-        public String toString() {
-            return baos.toString();
-        }
     }
 
 }

@@ -72,6 +72,7 @@ public class BuilderExpressionCreatorTest extends TestCase {
 
     private void check(Model m) throws AnalyseException, NodeException, BacktrackException, PinException {
         TruthTable tt = new ModelAnalyser(m).analyse();
+        m.close();
         assertEquals(1,tt.getResultCount());
         BoolTable r = tt.getResult(0);
         assertEquals(4, r.size());
@@ -79,6 +80,7 @@ public class BuilderExpressionCreatorTest extends TestCase {
         assertEquals(ThreeStateValue.one ,r.get(1));
         assertEquals(ThreeStateValue.one ,r.get(2));
         assertEquals(ThreeStateValue.zero ,r.get(3));
+
     }
 
     private Model create(ExpressionListenerStore els, ExpressionModifier modifier) throws ExpressionException, FormatterException, ElementNotFoundException, PinException, NodeException {
