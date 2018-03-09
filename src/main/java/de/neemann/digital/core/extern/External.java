@@ -100,6 +100,9 @@ public class External extends Node implements Element {
     public void init(Model model) throws NodeException {
         try {
             Application app = Application.create(type);
+            if (app == null)
+                throw new NodeException(Lang.get("err_errorCreatingProcess"), this, -1, null);
+
             processInterface = app.start(label, code, ins, outs);
         } catch (IOException e) {
             throw new NodeException(Lang.get("err_errorCreatingProcess"), this, -1, null, e);

@@ -7,12 +7,13 @@ package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.ProcessStarter;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
@@ -21,10 +22,8 @@ import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -85,16 +84,20 @@ public class TestInSimulator extends TestCase {
     }
 
     public void testGHDLInSimulator() throws Exception {
-        File file = new File(Resources.getRoot(), "dig/external/ghdl.dig");
         try {
-            check(file);
-            TestExamples.check(file);
-        } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
-        } catch (Exception e) {
-            System.out.println(ExceptionWithOrigin.getOriginOf(e));
-            throw e;
+            ProcessStarter.start(null, GHDL, "--help");
+        } catch (IOException e) {
+            // ghdl is not installed, Ignore Test
+            return;
         }
+
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_GHDL_PATH, new File(GHDL));
+
+        File file = new File(Resources.getRoot(), "dig/external/ghdl.dig");
+        // check VHDL export
+        check(file);
+        // check simulation in Digital
+        TestExamples.check(file);
     }
 
     /*
