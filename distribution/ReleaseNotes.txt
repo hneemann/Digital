@@ -13,6 +13,8 @@ HEAD, planed as v0.18
 - It's possible to test circuits with a high-z input which can act as an output.
 - An embedded circuit that is used in the library and whose name ends with '-inc.dig'
   is not shown in either the component menu or the tree view.
+- Its possible to define the behaviour of a component by vhdl.
+  The vhdl simulator ghdl needs to be installed.
 
 v0.17, released on 19. Feb 2018
 - Added 64 bit support for Add and Sub components.

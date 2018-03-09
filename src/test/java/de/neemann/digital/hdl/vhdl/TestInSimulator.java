@@ -15,6 +15,7 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
+import de.neemann.digital.integration.TestExamples;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 import org.slf4j.Logger;
@@ -75,6 +76,19 @@ public class TestInSimulator extends TestCase {
         File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
         try {
             check(file);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        } catch (Exception e) {
+            System.out.println(ExceptionWithOrigin.getOriginOf(e));
+            throw e;
+        }
+    }
+
+    public void testGHDLInSimulator() throws Exception {
+        File file = new File(Resources.getRoot(), "dig/external/ghdl.dig");
+        try {
+            check(file);
+            TestExamples.check(file);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         } catch (Exception e) {

@@ -35,6 +35,8 @@ These are the main features of Digital:
   but sufficient for beginners exercises, easy to understand and well documented. Also the
   [ATF150x](https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family) chips are 
   supported which offer up to 128 macro-cells and in system programming. See the documentation for details.
+- Components can be described by VHDL. The open source VHDL simulator [ghdl](http://ghdl.free.fr/) is required to 
+  simulate a VHDL defined component. The ghdl source code is also available at [GitHub](https://github.com/ghdl/ghdl).  
 - Export to VHDL: A circuit can be exported to VHDL. There is also support for the 
   [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
   for details. The examples folder contains a variant of the simple CPU, which runs on a BASYS3 board.
