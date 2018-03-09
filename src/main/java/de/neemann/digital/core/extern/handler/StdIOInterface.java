@@ -14,6 +14,12 @@ import java.util.LinkedList;
 
 /**
  * Communicates with an external process by sending values and receiving results via the stdio.
+ * All bits of all values are send as a stream of '0', '1' or 'Z'. The lsb is send first.
+ * The last bit is followed by an end of line character.
+ * <p>
+ * If the application wants to send values back, a new line needs to start with the string "Digital:".
+ * After that all bit of all values needs to be send. The lsb needs to be send first.
+ * The last bit needs to be followed by an end of line character.
  */
 public class StdIOInterface implements ProcessInterface {
     private static final String PREFIX = "Digital:";
