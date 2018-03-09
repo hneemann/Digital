@@ -43,7 +43,7 @@ public class TestInSimulator extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::check).noOutput().scan(examples);
-            assertEquals(27, tested);
+            assertEquals(28, tested);
             assertEquals(tested, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok

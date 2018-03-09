@@ -12,7 +12,7 @@ import java.nio.file.Files;
  * Base class of applications which are able to interprete VHDL-Code.
  * The generated vhdl code is able to operate with the {@link de.neemann.digital.core.extern.handler.StdIOInterface}.
  */
-abstract class ApplicationVHDLStdIO implements Application {
+public abstract class ApplicationVHDLStdIO implements Application {
 
     private static class InstanceHolder {
         private static final String TEMPLATE = loadTemplate();

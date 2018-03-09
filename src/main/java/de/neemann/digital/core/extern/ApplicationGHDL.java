@@ -63,18 +63,6 @@ public class ApplicationGHDL extends ApplicationVHDLStdIO {
         return Settings.getInstance().get(Keys.SETTINGS_GHDL_PATH);
     }
 
-    /**
-     * @return true if ghdl is installed!
-     */
-    public static boolean isInstalled() {
-        try {
-            ProcessStarter.start(null, getGhdlPath().getPath(), "--help");
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
     private static final class GHDLProcessInterface extends StdIOInterface {
         private final File folder;
 
