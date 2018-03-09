@@ -107,6 +107,7 @@ public class TestInSimulator extends TestCase {
                 runGHDL(vhdlFile, tb.getTestFileWritten());
             }
         } finally {
+            br.close();
             ProcessStarter.removeFolder(dir);
         }
     }
