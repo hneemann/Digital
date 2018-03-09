@@ -82,4 +82,33 @@ public class PortDefinition implements Iterable<Port> {
     public Iterator<Port> iterator() {
         return ports.iterator();
     }
+
+    /**
+     * Adds a port to this description
+     *
+     * @param name the name
+     * @param bits the number of bits
+     */
+    public void addPort(String name, int bits) {
+        ports.add(new Port(name, bits));
+    }
+
+    /**
+     * @return the number of ports
+     */
+    public int size() {
+        return ports.size();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Port p : ports) {
+            if (sb.length() > 0)
+                sb.append(",");
+            sb.append(p.toString());
+        }
+
+        return sb.toString();
+    }
 }

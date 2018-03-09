@@ -14,6 +14,18 @@ public class Port {
     private final int bits;
     private final String name;
 
+
+    /**
+     * Creates a new port
+     *
+     * @param name the name
+     * @param bits the number of bits
+     */
+    public Port(String name, int bits) {
+        this.name = name;
+        this.bits = bits;
+    }
+
     /**
      * Creates a new port
      *
@@ -48,5 +60,13 @@ public class Port {
      */
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        if (bits == 1)
+            return name;
+        else
+            return name + ":" + bits;
     }
 }

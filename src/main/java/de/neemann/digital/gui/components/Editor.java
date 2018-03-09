@@ -22,6 +22,13 @@ public interface Editor<T> {
     T getValue() throws EditorParseException;
 
     /**
+     * Sets the value to the gui
+     *
+     * @param value the value to set
+     */
+    void setValue(T value);
+
+    /**
      * Adds the components of the editor to the panel
      *
      * @param panel             the panel to add the components to

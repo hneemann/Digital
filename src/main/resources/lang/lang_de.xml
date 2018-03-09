@@ -697,7 +697,11 @@
         Der schnelle Simulationslauf kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!</string>
 
     <string name="elem_External">Extern</string>
-    <string name="elem_External_tt">Element zur Anbindung von externen Programmen zur Berechnung der Logik.</string>
+    <string name="elem_External_tt">Element zur Anbindung von externen Programmen zur Berechnung der Logik.
+        Wird verwendet, um das Verhalten eines Elements mit einer Hardwarebeschreibungssprache wie VHDL oder
+        Verilog zu beschreiben. Die eigentliche Simulation des Verhaltens muss mit einem externen Simulator erfolgen.
+        Zur Zeit wird nur der VHDL-Simulator ghdl unterstützt.
+    </string>
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Echt bidirektionale Diode.
@@ -1060,15 +1064,17 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_applicationType_Generic">Generisch</string>
     <string name="key_applicationType_GHDL">GHDL</string>
     <string name="key_externalInputs">Eingänge</string>
-    <string name="key_externalInputs_tt">Die Eingänge des externen Prozesses.</string>
+    <string name="key_externalInputs_tt">Die Eingänge des externen Prozesses. Es handelt sich um eine kommaseparierte
+        Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
+        Die Eingänge eines 8-Bit Addierers könnten also mit "a:8,b:8,c_in" beschrieben werden.</string>
     <string name="key_externalOutputs">Ausgänge</string>
-    <string name="key_externalOutputs_tt">Die Ausgänge des externen Prozesses.</string>
+    <string name="key_externalOutputs_tt">Die Ausgänge des externen Prozesses. Es handelt sich um eine kommaseparierte
+        Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
+        Die Ausgänge eines 8-Bit Addierers könnten also mit "s:8,c_out" beschrieben werden.</string>
     <string name="key_Code">Programmcode</string>
     <string name="key_Code_tt">Der Programmcode welcher ausgeführt werden soll.</string>
-    <string name="key_externalExecutable">Ausfühbare Datei</string>
-    <string name="key_externalExecutable_tt">Die Datei, die ausgeführt werden soll!</string>
     <string name="key_ghdlPath">GHDL</string>
-    <string name="key_ghdlPath_tt">Pfad der Ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
+    <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
         VHDL-Code verwendet werden soll.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>

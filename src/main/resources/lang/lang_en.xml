@@ -693,7 +693,11 @@
         Fast forward clocking can only be used if the real-time clock is disabled.</string>
 
     <string name="elem_External">External</string>
-    <string name="elem_External_tt">Component to execute an external process to calculate the logic function.</string>
+    <string name="elem_External_tt">Component to execute an external process to calculate the logic function.
+        Is used to specify the behaviour of a component by VHDL or Verilog.
+        The actual simulation of the behavior must be done with an external simulator.
+        At present only the VHDL simulator ghdl is supported.
+    </string>
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR..
@@ -1052,13 +1056,15 @@
     <string name="key_applicationType_Generic">Generic</string>
     <string name="key_applicationType_GHDL">GHDL</string>
     <string name="key_externalInputs">Inputs</string>
-    <string name="key_externalInputs_tt">The inputs of the external process.</string>
+    <string name="key_externalInputs_tt">The inputs of the external process.
+        It is a comma-separated list of signal names. For each signal name, with a colon separated, a number of bits
+        can be specified. The inputs of an 8-bit adder could thus be described as "a:8,b:8,c_in".</string>
     <string name="key_externalOutputs">Outputs</string>
-    <string name="key_externalOutputs_tt">The outputs of the external process.</string>
+    <string name="key_externalOutputs_tt">The outputs of the external process.
+        It is a comma-separated list of signal names. For each signal name, with a colon separated, a number of bits
+        can be specified. The outputs of an 8-bit adder could thus be described as "s:8,c_out".</string>
     <string name="key_Code">Programcode</string>
-    <string name="key_Code_tt">The programm code to use with the external process.</string>
-    <string name="key_externalExecutable">Executeable</string>
-    <string name="key_externalExecutable_tt">The programm which is to execute.</string>
+    <string name="key_Code_tt">The programm code to be executed by the external application.</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
         components defined with vhdl.</string>

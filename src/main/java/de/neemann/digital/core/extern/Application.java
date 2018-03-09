@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.extern;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.extern.handler.ProcessInterface;
 
 import java.io.IOException;
@@ -58,6 +59,18 @@ public interface Application {
      * @throws IOException IOException
      */
     ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException;
+
+    /**
+     * Used to make the component consistent.
+     * Could extract the label and the input and output configuration from the code or vice versa.
+     * If this is not supported, nothing is done.
+     *
+     * @param attributes the attributed of this component
+     * @return true if attributes are modified
+     */
+    default boolean ensureConsistency(ElementAttributes attributes) {
+        return false;
+    }
 
     /**
      * @return true if the code check function is supported

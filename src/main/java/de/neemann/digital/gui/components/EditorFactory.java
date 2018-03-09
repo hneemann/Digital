@@ -199,6 +199,11 @@ public final class EditorFactory {
             return text.getText().trim();
         }
 
+        @Override
+        public void setValue(String value) {
+            text.setText(value);
+        }
+
         public JTextComponent getTextComponent() {
             return text;
         }
@@ -252,6 +257,11 @@ public final class EditorFactory {
 
             return value;
         }
+
+        @Override
+        public void setValue(Integer value) {
+            comboBox.setSelectedItem(value);
+        }
     }
 
     private final static class LongEditor extends LabelEditor<Long> {
@@ -284,6 +294,11 @@ public final class EditorFactory {
             }
             return value;
         }
+
+        @Override
+        public void setValue(Long value) {
+            comboBox.setSelectedItem(value.toString());
+        }
     }
 
     private final static class InValueEditor extends LabelEditor<InValue> {
@@ -309,6 +324,11 @@ public final class EditorFactory {
             } catch (Bits.NumberFormatException e) {
                 throw new EditorParseException(e);
             }
+        }
+
+        @Override
+        public void setValue(InValue value) {
+            comboBox.setSelectedItem(value.toString());
         }
     }
 
@@ -338,6 +358,11 @@ public final class EditorFactory {
 
         JCheckBox getCheckBox() {
             return bool;
+        }
+
+        @Override
+        public void setValue(Boolean value) {
+            bool.setEnabled(value);
         }
     }
 
@@ -378,6 +403,12 @@ public final class EditorFactory {
         public Color getValue() {
             return color;
         }
+
+        @Override
+        public void setValue(Color value) {
+            this.color = value;
+            button.setBackground(color);
+        }
     }
 
     private final static class FileEditor extends LabelEditor<File> {
@@ -416,6 +447,11 @@ public final class EditorFactory {
         @Override
         public File getValue() {
             return new File(textField.getText());
+        }
+
+        @Override
+        public void setValue(File value) {
+            textField.setText(value.getPath());
         }
     }
 
@@ -481,6 +517,11 @@ public final class EditorFactory {
         public DataField getValue() {
             return data.getMinimized();
         }
+
+        @Override
+        public void setValue(DataField value) {
+            this.data = value;
+        }
     }
 
     private final static class RotationEditor extends LabelEditor<Rotation> {
@@ -503,6 +544,11 @@ public final class EditorFactory {
         @Override
         public Rotation getValue() {
             return new Rotation(comb.getSelectedIndex());
+        }
+
+        @Override
+        public void setValue(Rotation value) {
+            comb.setSelectedIndex(value.getRotation());
         }
     }
 
@@ -529,6 +575,11 @@ public final class EditorFactory {
         @Override
         public E getValue() {
             return values[comboBox.getSelectedIndex()];
+        }
+
+        @Override
+        public void setValue(E value) {
+            comboBox.setSelectedIndex(value.ordinal());
         }
     }
 
@@ -573,7 +624,8 @@ public final class EditorFactory {
                         if (app != null) {
                             try {
                                 getAttributeDialog().storeEditedValues();
-                                Application.create(elementAttributes.get(key));
+                                if (app.ensureConsistency(elementAttributes))
+                                    getAttributeDialog().updateEditedValues();
 
                                 PortDefinition ins = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_INPUTS));
                                 PortDefinition outs = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
@@ -641,6 +693,11 @@ public final class EditorFactory {
         public Language getValue() {
             return (Language) comb.getSelectedItem();
         }
+
+        @Override
+        public void setValue(Language value) {
+            comb.setSelectedItem(value);
+        }
     }
 
     private static class FormatEditor extends LabelEditor<FormatToExpression> {
@@ -660,6 +717,11 @@ public final class EditorFactory {
         @Override
         public FormatToExpression getValue() {
             return (FormatToExpression) comb.getSelectedItem();
+        }
+
+        @Override
+        public void setValue(FormatToExpression value) {
+            comb.setSelectedItem(value);
         }
     }
 
@@ -711,6 +773,12 @@ public final class EditorFactory {
         protected JComponent getComponent(ElementAttributes elementAttributes) {
             this.elementAttributes = elementAttributes;
             return button;
+        }
+
+        @Override
+        public void setValue(InverterConfig value) {
+            inverterConfig = value;
+            button.setText(getButtonText());
         }
     }
 
@@ -813,6 +881,11 @@ public final class EditorFactory {
         @Override
         public ROMManger getValue() {
             return romManager;
+        }
+
+        @Override
+        public void setValue(ROMManger value) {
+            romManager=value;
         }
     }
 }
