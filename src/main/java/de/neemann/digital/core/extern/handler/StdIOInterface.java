@@ -7,7 +7,6 @@ package de.neemann.digital.core.extern.handler;
 
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
-import de.neemann.digital.core.extern.ProcessHandler;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
@@ -16,11 +15,11 @@ import java.util.LinkedList;
 /**
  * Communicates with an external process by sending values and receiving results via the stdio.
  */
-public class StdIOProcess implements ProcessHandler {
+public class StdIOInterface implements ProcessInterface {
     private static final String PREFIX = "Digital:";
     private static final int MAX_CONSOLE_LINES = 30;
     private static final long TIMEOUT = 5000;
-    private Process process;
+    private final Process process;
     private BufferedWriter writer;
     private Thread thread;
     private LinkedList<String> consoleOut;
@@ -35,7 +34,7 @@ public class StdIOProcess implements ProcessHandler {
      *
      * @param process the process to use
      */
-    public void setProcess(Process process) {
+    public StdIOInterface(Process process) {
         this.process = process;
         setInputOutputStream(process.getInputStream(), process.getOutputStream());
 

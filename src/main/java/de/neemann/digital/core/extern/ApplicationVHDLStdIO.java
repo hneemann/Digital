@@ -3,21 +3,16 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.core.extern.handler;
-
-import de.neemann.digital.core.extern.Port;
-import de.neemann.digital.core.extern.PortDefinition;
+package de.neemann.digital.core.extern;
 
 import java.io.*;
 import java.nio.file.Files;
 
 /**
- * Creates a VHDL file which is able to communicate via stdio.
- * The given code is used as VHDL code.
+ * Base class of applications which are able to interprete VHDL-Code.
+ * The generated vhdl code is able to operate with the {@link de.neemann.digital.core.extern.handler.StdIOInterface}.
  */
-public class VHDLProcess extends StdIOProcess {
-    private final File file;
-    private final File dir;
+abstract class ApplicationVHDLStdIO implements Application {
 
     private static class InstanceHolder {
         private static final String TEMPLATE = loadTemplate();
@@ -39,18 +34,42 @@ public class VHDLProcess extends StdIOProcess {
         }
     }
 
-
     /**
-     * Creates a new instance
+     * Creates a vhdl file in a temp directory.
      *
      * @param label   the name of the vhdl code
      * @param code    the vhdl code
      * @param inputs  the inputs
      * @param outputs the outputs
+     * @return the vhdl file
      * @throws IOException IOException
      */
-    public VHDLProcess(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    public File createVHDLFile(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+        File dir = Files.createTempDirectory("digital_vhdl_").toFile();
+
+        File file = new File(dir, label + ".vhdl");
+        try (Writer w = new FileWriter(file)) {
+            w.write(createVHDL(label, code, inputs, outputs));
+        }
+
+        return file;
+    }
+
+    /**
+     * Creates vhdl code
+     *
+     * @param label   the name of the vhdl code
+     * @param code    the vhdl code
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     * @return the vhdl code
+     * @throws IOException IOException
+     */
+    public String createVHDL(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
         String t = InstanceHolder.TEMPLATE;
+        if (t == null)
+            throw new IOException("vhdl template not found!");
+
         t = t.replace("{{name}}", label);
         t = t.replace("{{incount}}", Integer.toString(inputs.getBits() - 1));
         t = t.replace("{{outcount}}", Integer.toString(outputs.getBits() - 1));
@@ -59,21 +78,7 @@ public class VHDLProcess extends StdIOProcess {
         t = t.replace("{{map}}", createMap(inputs, outputs));
         t = t.replace("{{inOutMapping}}", createInOutMapping(inputs, outputs));
 
-        dir = Files.createTempDirectory("digital_vhdl_").toFile();
-
-        file = new File(dir, label + ".vhdl");
-        try (Writer w = new FileWriter(file)) {
-            w.write(code);
-            w.write("\n\n\n");
-            w.write(t);
-        }
-    }
-
-    /**
-     * @return the created vhdl file
-     */
-    public File getVHDLFile() {
-        return file;
+        return code + "\n\n\n" + t;
     }
 
     private String createPorts(PortDefinition inputs, PortDefinition outputs) {
@@ -146,24 +151,4 @@ public class VHDLProcess extends StdIOProcess {
             return "std_logic_vector (" + (bits - 1) + " downto 0)";
     }
 
-
-    @Override
-    public void close() throws IOException {
-        super.close();
-        if (dir != null)
-            removeFolder(dir);
-    }
-
-    private static void removeFolder(File dir) {
-        File[] list = dir.listFiles();
-        if (list != null) {
-            for (File f : list) {
-                if (f.isDirectory())
-                    removeFolder(f);
-                else
-                    f.delete();
-            }
-        }
-        dir.delete();
-    }
 }

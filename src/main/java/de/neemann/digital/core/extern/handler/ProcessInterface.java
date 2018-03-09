@@ -3,7 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.core.extern;
+package de.neemann.digital.core.extern.handler;
 
 import de.neemann.digital.core.ObservableValues;
 
@@ -11,9 +11,11 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * A process handler implementation
+ * A process interface.
+ * Used to pass values to an external process.
+ * Created by the {@link de.neemann.digital.core.extern.Application} interface.
  */
-public interface ProcessHandler extends Closeable {
+public interface ProcessInterface extends Closeable {
 
     /**
      * Transfers the given values to the external process

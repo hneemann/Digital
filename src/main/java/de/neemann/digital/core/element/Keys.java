@@ -8,7 +8,7 @@ package de.neemann.digital.core.element;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
-import de.neemann.digital.core.extern.ProcessFactory;
+import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
@@ -514,8 +514,8 @@ public final class Keys {
     /**
      * The type of the external process
      */
-    public static final Key.KeyEnum<ProcessFactory.Type> PROCESS_TYPE
-            = new Key.KeyEnum<>("processType", ProcessFactory.Type.Generic, ProcessFactory.Type.values());
+    public static final Key.KeyEnum<Application.Type> APPLICATION_TYPE
+            = new Key.KeyEnum<>("applicationType", Application.Type.Generic, Application.Type.values());
     /**
      * The inputs used by the external process
      */

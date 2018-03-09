@@ -835,7 +835,6 @@ The names of the variables may not be unique.</string>
     <string name="err_centralDefinedRomsAreNotSupported">ROM's defined in the settings are not supported!</string>
     <string name="err_couldNotCreateElement_N">Could not create a component of type {0}!</string>
 
-    <string name="err_processType_N_notFound">Could not found process type {0}!</string>
     <string name="err_errorWritingDataToProcess">Could not write values to the external process!</string>
     <string name="err_errorReadingDataToProcess">Could not write values from the external process!</string>
     <string name="err_errorCreatingProcess">Could not create the external process!</string>
@@ -849,7 +848,7 @@ The names of the variables may not be unique.</string>
         {0}</string>
     <string name="err_couldNotTerminateProcess">Could not terminate the process!</string>
     <string name="err_couldNotStartProcess_N">Could not start process: {0}</string>
-    <string name="err_exitValueNotNull_N_O">Result value was not 0 but {0}:
+    <string name="err_exitValueNotNull_N_O">Application exit status was not 0 but {0}:
         {1}</string>
 
 
@@ -1047,10 +1046,10 @@ The names of the variables may not be unique.</string>
     <string name="key_romContent">Content of ROM's</string>
     <string name="key_romContent_tt">Content of all used ROM's</string>
 
-    <string name="key_processType">Application</string>
-    <string name="key_processType_tt">Defines which application to use.</string>
-    <string name="key_processType_Generic">Generic</string>
-    <string name="key_processType_GHDL">GHDL</string>
+    <string name="key_applicationType">Application</string>
+    <string name="key_applicationType_tt">Defines which application to use.</string>
+    <string name="key_applicationType_Generic">Generic</string>
+    <string name="key_applicationType_GHDL">GHDL</string>
     <string name="key_externalInputs">Inputs</string>
     <string name="key_externalInputs_tt">The inputs of the external process.</string>
     <string name="key_externalOutputs">Outputs</string>
@@ -1360,6 +1359,10 @@ Start export anyway?</string>
     <string name="msg_noData">no data</string>
 
     <string name="msg_errorClosingExternalProcess">Could not close external process!</string>
+
+    <string name="msg_checkResult">Check Resukt:</string>
+    <string name="btn_checkCode">Check</string>
+
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

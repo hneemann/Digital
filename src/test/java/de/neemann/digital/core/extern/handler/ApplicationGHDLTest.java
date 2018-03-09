@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.extern.handler;
 
+import de.neemann.digital.core.extern.ApplicationGHDL;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
 import junit.framework.TestCase;
@@ -13,11 +14,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-public class GHDLProcessTest extends TestCase {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GHDLProcessTest.class);
+public class ApplicationGHDLTest extends TestCase {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationGHDLTest.class);
 
     public void testGHDLIntegration() throws Exception {
-        if (GHDLProcess.isInstalled()) {
+        if (ApplicationGHDL.isInstalled()) {
             File f = new File(Resources.getRoot(), "dig/external/ghdl.dig");
             TestExamples.check(f);
         } else {

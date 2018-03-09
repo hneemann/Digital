@@ -7,6 +7,10 @@
       <elementName>External</elementName>
       <elementAttributes>
         <entry>
+          <string>applicationType</string>
+          <appType>GHDL</appType>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>add</string>
         </entry>
@@ -16,7 +20,7 @@
         </entry>
         <entry>
           <string>processType</string>
-          <de.neemann.digital.core.extern.ProcessFactory_-Type>GHDL</de.neemann.digital.core.extern.ProcessFactory_-Type>
+          <appType>GHDL</appType>
         </entry>
         <entry>
           <string>externalInputs</string>

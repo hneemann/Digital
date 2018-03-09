@@ -840,7 +840,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_couldNotCreateElement_N">Konnte kein Element vom Typ "{0}" erzeugen!</string>
     <string name="err_centralDefinedRomsAreNotSupported">Zentral definierte ROM-Inhalte werden nicht unterstützt!</string>
 
-    <string name="err_processType_N_notFound">Prozesstyp {0} wurde nicht gefunden!</string>
     <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
     <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>
     <string name="err_errorCreatingProcess">Der externe Prozess konnte nicht gestartet werden!</string>
@@ -854,7 +853,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         {0}</string>
     <string name="err_couldNotTerminateProcess">Der Prozess konnte nicht beendet werden!</string>
     <string name="err_couldNotStartProcess_N">Prozess konnte nicht gestartet werden: {0}</string>
-    <string name="err_exitValueNotNull_N_O">Rückgabewert war nicht 0 sondern {0}:
+    <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
         {1}</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
@@ -1055,10 +1054,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_romContent">ROM Inhalte</string>
     <string name="key_romContent_tt">Inhalt aller ROM Bausteine</string>
 
-    <string name="key_processType">Anwendung</string>
-    <string name="key_processType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
-    <string name="key_processType_Generic">Generisch</string>
-    <string name="key_processType_GHDL">GHDL</string>
+    <string name="key_applicationType">Anwendung</string>
+    <string name="key_applicationType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
+    <string name="key_applicationType_Generic">Generisch</string>
+    <string name="key_applicationType_GHDL">GHDL</string>
     <string name="key_externalInputs">Eingänge</string>
     <string name="key_externalInputs_tt">Die Eingänge des externen Prozesses.</string>
     <string name="key_externalOutputs">Ausgänge</string>
@@ -1372,6 +1371,9 @@ Soll dennoch exportiert werden?</string>
     <string name="msg_noData">keine Daten</string>
 
     <string name="msg_errorClosingExternalProcess">Konnte externen Prozess nicht beenden!</string>
+    <string name="msg_checkResult">Ergebnis der Überprüfung:</string>
+    <string name="btn_checkCode">Prüfen</string>
+
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

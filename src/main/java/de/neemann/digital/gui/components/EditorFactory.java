@@ -13,7 +13,8 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
-import de.neemann.digital.core.extern.ProcessFactory;
+import de.neemann.digital.core.extern.Application;
+import de.neemann.digital.core.extern.PortDefinition;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
@@ -72,7 +73,7 @@ public final class EditorFactory {
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
         add(ROMManger.class, ROMManagerEditor.class);
-        add(ProcessFactory.Type.class, ProcessFactoryTypeEditor.class);
+        add(Application.Type.class, ApplicationTypeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -549,9 +550,75 @@ public final class EditorFactory {
         }
     }
 
-    private static final class ProcessFactoryTypeEditor extends EnumEditor<ProcessFactory.Type> {
-        public ProcessFactoryTypeEditor(ProcessFactory.Type value, Key<ProcessFactory.Type> key) {
+    private static final class ApplicationTypeEditor extends EnumEditor<Application.Type> {
+        private final Key<Application.Type> key;
+        private JComboBox combo;
+        private JButton checkButton;
+
+        public ApplicationTypeEditor(Application.Type value, Key<Application.Type> key) {
             super(value, key);
+            this.key = key;
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            combo = (JComboBox) super.getComponent(elementAttributes);
+            checkButton = new JButton(new AbstractAction(Lang.get("btn_checkCode")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    int n = combo.getSelectedIndex();
+                    if (n >= 0) {
+                        Application.Type appType = Application.Type.values()[n];
+                        Application app = Application.create(appType);
+                        if (app != null) {
+                            try {
+                                getAttributeDialog().storeEditedValues();
+                                Application.create(elementAttributes.get(key));
+
+                                PortDefinition ins = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_INPUTS));
+                                PortDefinition outs = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
+                                String label = elementAttributes.getCleanLabel();
+                                String code = elementAttributes.get(Keys.EXTERNAL_CODE);
+
+                                try {
+                                    String message = app.checkCode(label, code, ins, outs);
+                                    if (message != null)
+                                        new ErrorMessage(Lang.get("msg_checkResult") + "\n\n" + message).show(getAttributeDialog());
+                                } catch (IOException e) {
+                                    new ErrorMessage(Lang.get("msg_checkResult")).addCause(e).show(getAttributeDialog());
+                                }
+                            } catch (EditorParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            });
+            combo.addActionListener(new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    enableButton();
+                }
+            });
+
+
+            JPanel p = new JPanel(new BorderLayout());
+            p.add(combo);
+            p.add(checkButton, BorderLayout.EAST);
+
+            enableButton();
+
+            return p;
+        }
+
+        void enableButton() {
+            int n = combo.getSelectedIndex();
+            if (n >= 0) {
+                Application.Type appType = Application.Type.values()[n];
+                Application app = Application.create(appType);
+                if (app != null)
+                    checkButton.setEnabled(app.checkSupported());
+            }
         }
     }
 

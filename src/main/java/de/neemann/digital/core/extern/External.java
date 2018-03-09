@@ -7,6 +7,7 @@ package de.neemann.digital.core.extern;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.extern.handler.ProcessInterface;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 
@@ -38,16 +39,16 @@ public class External extends Node implements Element {
             .addAttribute(Keys.EXTERNAL_INPUTS)
             .addAttribute(Keys.EXTERNAL_OUTPUTS)
             .addAttribute(Keys.EXTERNAL_CODE)
-            .addAttribute(Keys.PROCESS_TYPE);
+            .addAttribute(Keys.APPLICATION_TYPE);
 
-    private final ProcessFactory.Type type;
+    private final Application.Type type;
     private final PortDefinition ins;
     private final PortDefinition outs;
     private final ObservableValues outputs;
     private final String code;
     private final String label;
     private ObservableValues inputs;
-    private ProcessHandler processHandler;
+    private ProcessInterface processInterface;
 
     /**
      * Creates a new instance
@@ -60,7 +61,7 @@ public class External extends Node implements Element {
         outs = new PortDefinition(attr.get(Keys.EXTERNAL_OUTPUTS));
         outputs = outs.createOutputs();
         label = attr.getCleanLabel();
-        type = attr.get(Keys.PROCESS_TYPE);
+        type = attr.get(Keys.APPLICATION_TYPE);
         code = attr.get(Keys.EXTERNAL_CODE);
     }
 
@@ -75,7 +76,7 @@ public class External extends Node implements Element {
     @Override
     public void readInputs() throws NodeException {
         try {
-            processHandler.writeValues(inputs);
+            processInterface.writeValues(inputs);
         } catch (IOException e) {
             throw new NodeException(Lang.get("err_errorWritingDataToProcess"), this, -1, inputs, e);
         }
@@ -84,7 +85,7 @@ public class External extends Node implements Element {
     @Override
     public void writeOutputs() throws NodeException {
         try {
-            processHandler.readValues(outputs);
+            processInterface.readValues(outputs);
         } catch (IOException e) {
             throw new NodeException(Lang.get("err_errorReadingDataToProcess"), this, -1, outputs, e);
         }
@@ -98,7 +99,8 @@ public class External extends Node implements Element {
     @Override
     public void init(Model model) throws NodeException {
         try {
-            processHandler = ProcessFactory.create(type, label, code, ins, outs);
+            Application app = Application.create(type);
+            processInterface = app.start(label, code, ins, outs);
         } catch (IOException e) {
             throw new NodeException(Lang.get("err_errorCreatingProcess"), this, -1, null, e);
         }
@@ -106,7 +108,7 @@ public class External extends Node implements Element {
         model.addObserver(event -> {
             if (event.equals(ModelEvent.STOPPED)) {
                 try {
-                    processHandler.close();
+                    processInterface.close();
                 } catch (IOException e) {
                     SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorClosingExternalProcess")).addCause(e));
                 }

@@ -3,7 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.core.extern.handler;
+package de.neemann.digital.core.extern;
 
 import de.neemann.digital.lang.Lang;
 
@@ -87,4 +87,48 @@ public final class ProcessStarter {
             return baos.toString();
         }
     }
+
+    /**
+     * Removes a folder inclusive the contents
+     *
+     * @param dir the folder to remove
+     */
+    public static void removeFolder(File dir) {
+        File[] list = dir.listFiles();
+        if (list != null) {
+            for (File f : list) {
+                if (f.isDirectory())
+                    removeFolder(f);
+                else
+                    f.delete();
+            }
+        }
+        dir.delete();
+    }
+
+    /**
+     * Merges the given string.
+     * If all strings are null or empty, null is returned
+     *
+     * @param strings the strings to join
+     * @return the joined string or null
+     */
+    public static String joinStrings(String... strings) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : strings) {
+            if (s != null) {
+                String str = s.trim();
+                if (str.length() > 0) {
+                    if (sb.length() > 0)
+                        sb.append("\n");
+                    sb.append(str);
+                }
+            }
+        }
+        if (sb.length() > 0)
+            return sb.toString();
+        else
+            return null;
+    }
+
 }
