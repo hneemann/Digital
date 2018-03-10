@@ -35,7 +35,7 @@ public abstract class VHDLEntityDelegate implements VHDLEntity {
     }
 
     @Override
-    public boolean needsOutput(HDLNode node) {
+    public boolean needsOutput(HDLNode node) throws HDLException {
         return getDelegate(node).needsOutput(node);
     }
 

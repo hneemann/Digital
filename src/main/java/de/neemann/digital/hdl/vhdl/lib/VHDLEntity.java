@@ -40,8 +40,9 @@ public interface VHDLEntity {
      *
      * @param node the node
      * @return true if entity needs to be written
+     * @throws HDLException HDLException
      */
-    boolean needsOutput(HDLNode node);
+    boolean needsOutput(HDLNode node) throws HDLException;
 
     /**
      * Writes the declaration

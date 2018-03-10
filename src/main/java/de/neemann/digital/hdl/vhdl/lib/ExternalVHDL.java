@@ -17,6 +17,7 @@ import de.neemann.digital.hdl.vhdl.Separator;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import static de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple.getType;
 
@@ -25,11 +26,11 @@ import static de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple.getType;
  * Works only if the external component uses VHDL to define its behaviour.
  */
 public class ExternalVHDL implements VHDLEntity {
-    private boolean first = true;
+    private HashMap<String, String> codeMap = new HashMap<>();
 
     @Override
     public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
-        out.print(node.getAttributes().get(Keys.EXTERNAL_CODE));
+        out.print(node.get(Keys.EXTERNAL_CODE));
     }
 
     @Override
@@ -43,12 +44,20 @@ public class ExternalVHDL implements VHDLEntity {
     }
 
     @Override
-    public boolean needsOutput(HDLNode node) {
-        if (first) {
-            first = false;
+    public boolean needsOutput(HDLNode node) throws HDLException {
+        String label = node.getAttributes().getCleanLabel();
+        String code = node.get(Keys.EXTERNAL_CODE);
+
+        String oldCode = codeMap.get(label);
+        if (oldCode == null) {
+            codeMap.put(label, code);
             return true;
         }
-        return false;
+
+        if (oldCode.equals(code))
+            return false;
+
+        throw new HDLException(Lang.get("err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical"));
     }
 
     @Override

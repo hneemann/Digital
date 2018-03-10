@@ -855,7 +855,7 @@
     <string name="err_exitValueNotNull_N_O">Application exit status was not 0 but {0}:
         {1}</string>
     <string name="err_canOnlyExportExtrnalVHDL">External code can only be exported if it is VHDL!</string>
-
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical">If an external component is used multiple times, the code must be identical!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

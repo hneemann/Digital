@@ -42,7 +42,7 @@ public class TestInSimulator extends TestCase {
     public void testInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
-            int tested = new FileScanner(this::check).noOutput().scan(examples);
+            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
             assertEquals(27, tested);
             assertEquals(tested, testBenches);
         } catch (FileScanner.SkipAllException e) {
@@ -53,7 +53,7 @@ public class TestInSimulator extends TestCase {
     public void testInSimulator2() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
         try {
-            int tested = new FileScanner(this::check).noOutput().scan(examples);
+            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
             assertEquals(28, tested);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
@@ -63,7 +63,7 @@ public class TestInSimulator extends TestCase {
     public void testDistributedInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
         try {
-            int tested = new FileScanner(this::check).noOutput().scan(examples);
+            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
             assertEquals(1, tested);
             assertEquals(1, testBenches);
         } catch (FileScanner.SkipAllException e) {
@@ -74,7 +74,7 @@ public class TestInSimulator extends TestCase {
     public void testProcessorInSimulator() throws Exception {
         File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
         try {
-            check(file);
+            checkVHDLExport(file);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         } catch (Exception e) {
@@ -93,11 +93,14 @@ public class TestInSimulator extends TestCase {
 
         Settings.getInstance().getAttributes().set(Keys.SETTINGS_GHDL_PATH, new File(GHDL));
 
-        File file = new File(Resources.getRoot(), "dig/external/ghdl.dig");
-        // check VHDL export
-        check(file);
-        // check simulation in Digital
-        TestExamples.check(file);
+        File source = new File(Resources.getRoot(), "dig/external/ghdl");
+
+        int tested = new FileScanner(f -> {
+            checkVHDLExport(f);
+            // check simulation in Digital
+            TestExamples.check(f);
+        }).noOutput().scan(source);
+        assertEquals(4, tested);
     }
 
     /*
@@ -111,7 +114,7 @@ public class TestInSimulator extends TestCase {
     } /* */
 
 
-    private void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
+    private void checkVHDLExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);
         File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
         try {
