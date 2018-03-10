@@ -177,6 +177,7 @@ public final class EditorFactory {
                 if (k.getLineNumbers()) {
                     final TextLineNumber textLineNumber = new TextLineNumber(text, 3);
                     scrollPane.setRowHeaderView(textLineNumber);
+                    text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, Screen.getInstance().getFontSize()));
                 }
 
                 this.compToAdd = scrollPane;
@@ -886,7 +887,7 @@ public final class EditorFactory {
 
         @Override
         public void setValue(ROMManger value) {
-            romManager=value;
+            romManager = value;
         }
     }
 }

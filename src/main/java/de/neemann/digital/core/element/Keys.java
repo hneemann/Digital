@@ -530,7 +530,7 @@ public final class Keys {
      * The code to be executed by the external process
      */
     public static final Key.LongString EXTERNAL_CODE
-            = new Key.LongString("Code").setRows(20).setColumns(40).setLineNumbers(true);
+            = new Key.LongString("Code").setRows(30).setColumns(80).setLineNumbers(true);
 
     /**
      * Path to ghdl
