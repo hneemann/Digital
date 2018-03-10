@@ -809,7 +809,7 @@ public class TestInGUI extends TestCase {
     }
 
     public void testGhdlCheckCode() {
-        new GuiTester("dig/external/ghdl.dig")
+        new GuiTester("dig/external/ghdl/ghdl.dig")
                 .add(new SetMouseToElement(v -> v.equalsDescription(External.DESCRIPTION)))
                 .mouseClick(InputEvent.BUTTON3_MASK)
                 .delay(500)
@@ -817,7 +817,16 @@ public class TestInGUI extends TestCase {
                         c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_checkCode"))))
                 .press("SPACE")
                 .delay(1000)
-                .add(new GuiTester.WindowCheck<>(AttributeDialog.class))
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class, c -> c instanceof JTextArea))
+                .delay(100)
+                .type("\b")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_checkCode"))))
+                .press("SPACE")
+                .delay(1000)
+                .add(new GuiTester.WindowCheck<>(ErrorMessage.ErrorDialog.class))
+                .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
