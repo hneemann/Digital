@@ -616,7 +616,7 @@ public final class EditorFactory {
         @Override
         protected JComponent getComponent(ElementAttributes elementAttributes) {
             combo = (JComboBox) super.getComponent(elementAttributes);
-            checkButton = new JButton(new AbstractAction(Lang.get("btn_checkCode")) {
+            checkButton = new ToolTipAction(Lang.get("btn_checkCode")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     int n = combo.getSelectedIndex();
@@ -647,7 +647,7 @@ public final class EditorFactory {
                         }
                     }
                 }
-            });
+            }.setToolTip(Lang.get("btn_checkCode_tt")).createJButton();
             combo.addActionListener(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {

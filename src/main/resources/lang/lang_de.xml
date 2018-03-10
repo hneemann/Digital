@@ -1381,6 +1381,9 @@ Soll dennoch exportiert werden?</string>
     <string name="msg_errorClosingExternalProcess">Konnte externen Prozess nicht beenden!</string>
     <string name="msg_checkResult">Ergebnis der Überprüfung:</string>
     <string name="btn_checkCode">Prüfen</string>
+    <string name="btn_checkCode_tt">Startet die Anwendung um zu prüfen, ob der eingegebene Code korrekt ist. Falls das
+        nicht der Fall ist, wird die Fehlermeldung der externen Anwendung angezeigt. Wenn es möglich ist, werden zudem
+        die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
     <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
 
     <string name="ok">Ok</string>
