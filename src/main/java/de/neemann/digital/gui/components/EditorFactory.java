@@ -201,7 +201,8 @@ public final class EditorFactory {
 
         @Override
         public void setValue(String value) {
-            text.setText(value);
+            if (!text.getText().equals(value))
+                text.setText(value);
         }
 
         public JTextComponent getTextComponent() {

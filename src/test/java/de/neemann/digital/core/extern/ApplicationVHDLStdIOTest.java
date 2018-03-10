@@ -93,13 +93,34 @@ public class ApplicationVHDLStdIOTest extends TestCase {
                 "\tsignal ALUOut : unsigned(7 downto 0);  -- internal\n" +
                 "\tsignal ALUIn : unsigned(7 downto 0);  -- internal\n" +
                 "begin\n" +
-                "\tend process;\n" +
                 "end nBitZaehlerRTL;", true);
 
         assertEquals("nBitZaehler", attr.getCleanLabel());
         assertEquals("LoadIn:8,load,reset,clk", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("CountOut:8", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
+
+    public void testExtractionComment() {
+        ElementAttributes attr = extractParameters("-- comment at start\n"+
+                "library IEEE;\n" +
+                "use IEEE.std_logic_1164.all;\n" +
+                "use IEEE.numeric_std.all;\n" +
+                "\n" +
+                "\n" +
+                "entity nBitZaehler is -- commnet\n" +
+                "\tport (LoadIn : in std_logic_vector (7 downto 0);--comment \n" +
+                "\tload,reset,clk : in std_logic; CountOut : out std_logic_vector (7 downto 0));--comment\n" +
+                "end nBitZaehler;\n" +
+                "\n" +
+                "architecture nBitZaehlerRTL of nBitZaehler is\n" +
+                "begin\n" +
+                "end nBitZaehlerRTL;", true);
+
+        assertEquals("nBitZaehler", attr.getCleanLabel());
+        assertEquals("LoadIn:8,load,reset,clk", attr.get(Keys.EXTERNAL_INPUTS));
+        assertEquals("CountOut:8", attr.get(Keys.EXTERNAL_OUTPUTS));
+    }
+
 
     public void testExtractionFail() {
         extractParameters("library IEEE;\n" +

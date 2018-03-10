@@ -12,7 +12,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
+
+import static de.neemann.digital.core.extern.VHDLTokenizer.Token.*;
 
 /**
  * Base class of applications which are able to interprete VHDL-Code.
@@ -160,90 +161,94 @@ public abstract class ApplicationVHDLStdIO implements Application {
     @Override
     public boolean ensureConsistency(ElementAttributes attributes) {
         String code = attributes.get(Keys.EXTERNAL_CODE);
-        StringTokenizer st = new StringTokenizer(code, "(), :;\t\n\r");
+        VHDLTokenizer st = new VHDLTokenizer(new StringReader(code));
         try {
-            while (st.hasMoreTokens()) {
-                if (st.nextToken().toLowerCase().equals("entity"))
+            while (!st.value().equalsIgnoreCase("entity"))
+                st.next();
+
+            String label = st.consumeIdent();
+
+            st.consumeIdent("is");
+            st.consumeIdent("port");
+            st.consume(OPEN);
+
+            PortDefinition in = new PortDefinition("");
+            PortDefinition out = new PortDefinition("");
+            while (true) {
+                scanPorts(st, in, out);
+                if (st.peek() != SEMICOLON)
                     break;
+                st.consume(SEMICOLON);
             }
+            st.consume(CLOSE);
 
-            String label = st.nextToken();
+            if (in.size() > 0 && out.size() > 0) {
+                attributes.set(Keys.LABEL, label);
+                attributes.set(Keys.EXTERNAL_INPUTS, in.toString());
+                attributes.set(Keys.EXTERNAL_OUTPUTS, out.toString());
+                return true;
+            } else
+                return false;
 
-            while (st.hasMoreTokens()) {
-                String tok = st.nextToken().toLowerCase();
-                if (tok.equals("end"))
-                    return false;
-                else if (tok.equals("port")) {
-                    PortDefinition in = new PortDefinition("");
-                    PortDefinition out = new PortDefinition("");
-                    scanPorts(st, in, out);
-                    if (in.size() > 0 && out.size() > 0) {
-                        attributes.set(Keys.LABEL, label);
-                        attributes.set(Keys.EXTERNAL_INPUTS, in.toString());
-                        attributes.set(Keys.EXTERNAL_OUTPUTS, out.toString());
-                        return true;
-                    } else
-                        return false;
-                }
-            }
-            return false;
-        } catch (NoSuchElementException | ParseException e) {
+        } catch (NoSuchElementException | ParseException | VHDLTokenizer.TokenizerException | IOException e) {
             return false;
         }
     }
 
-    private void scanPorts(StringTokenizer st, PortDefinition in, PortDefinition out) throws ParseException {
+    private void scanPorts(VHDLTokenizer st, PortDefinition in, PortDefinition out) throws ParseException, IOException, VHDLTokenizer.TokenizerException {
         ArrayList<String> vars = new ArrayList<>();
-        while (st.hasMoreTokens()) {
-            String tok = st.nextToken();
-            switch (tok.toLowerCase()) {
-                case "in":
-                    scanPort(st, vars, in);
-                    vars.clear();
-                    break;
-                case "out":
-                    scanPort(st, vars, out);
-                    vars.clear();
-                    break;
-                case "end":
+        vars.add(st.consumeIdent());
+        while (true) {
+            switch (st.next()) {
+                case COLON:
+                    switch (st.consumeIdent().toLowerCase()) {
+                        case "in":
+                            scanPort(st, vars, in);
+                            break;
+                        case "out":
+                            scanPort(st, vars, out);
+                            break;
+                        default:
+                            throw new ParseException("unexpected token " + st);
+                    }
                     return;
+                case COMMA:
+                    vars.add(st.consumeIdent());
+                    break;
                 default:
-                    vars.add(tok);
+                    throw new ParseException("unexpected token " + st);
             }
         }
     }
 
-    private void scanPort(StringTokenizer st, ArrayList<String> vars, PortDefinition port) throws ParseException {
-        switch (st.nextToken().toLowerCase()) {
+    private void scanPort(VHDLTokenizer st, ArrayList<String> vars, PortDefinition port) throws ParseException, IOException, VHDLTokenizer.TokenizerException {
+        switch (st.consumeIdent().toLowerCase()) {
             case "std_logic":
                 for (String var : vars)
                     port.addPort(var, 1);
                 break;
             case "std_logic_vector":
-                int upper = getNumber(st);
-                if (!st.nextToken().toLowerCase().equals("downto"))
-                    throw new ParseException();
-                int lower = getNumber(st);
+                st.consume(OPEN);
+                int upper = st.consumeNumber();
+                st.consumeIdent("downto");
+                int lower = st.consumeNumber();
+                st.consume(CLOSE);
 
                 if (lower != 0)
-                    throw new ParseException();
+                    throw new ParseException("lower is not zero");
 
                 for (String var : vars)
                     port.addPort(var, upper + 1);
                 break;
             default:
-                throw new ParseException();
-        }
-    }
-
-    private int getNumber(StringTokenizer st) throws ParseException {
-        try {
-            return Integer.parseInt(st.nextToken());
-        } catch (NumberFormatException e) {
-            throw new ParseException();
+                throw new ParseException("unexpected token " + st);
         }
     }
 
     private static final class ParseException extends Exception {
+        private ParseException(String message) {
+            super(message);
+        }
     }
+
 }
