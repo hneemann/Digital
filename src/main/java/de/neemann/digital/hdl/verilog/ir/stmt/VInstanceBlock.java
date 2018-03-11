@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * Represents a verilog component instantiation
- * 
+ *
  * @author ideras
  */
 public class VInstanceBlock  extends VStatement {
