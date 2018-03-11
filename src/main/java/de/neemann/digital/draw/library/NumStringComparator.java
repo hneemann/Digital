@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import java.util.Comparator;
@@ -8,7 +13,6 @@ import static java.lang.Character.isDigit;
  * String comparator.
  * If the string contains a digit, the numbers are taken to compare the two strings.
  * Used to ensure the 74xx components appear in the correct numerical order instead of lexical order.
- * Created by hneemann on 15.05.17.
  */
 public final class NumStringComparator implements Comparator<String> {
 
@@ -21,7 +25,7 @@ public final class NumStringComparator implements Comparator<String> {
      *
      * @return the singleton instance
      */
-    public NumStringComparator getInstance() {
+    public static NumStringComparator getInstance() {
         return InstanceHolder.INSTANCE;
     }
 

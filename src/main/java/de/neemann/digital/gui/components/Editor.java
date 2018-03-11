@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -7,7 +12,6 @@ import javax.swing.*;
 
 /**
  * @param <T> the type of the editor
- * @author hneemann
  */
 public interface Editor<T> {
 
@@ -16,6 +20,13 @@ public interface Editor<T> {
      * @throws EditorParseException Value in editor field is not valid
      */
     T getValue() throws EditorParseException;
+
+    /**
+     * Sets the value to the gui
+     *
+     * @param value the value to set
+     */
+    void setValue(T value);
 
     /**
      * Adds the components of the editor to the panel

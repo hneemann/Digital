@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2018 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 /**
- * @author hneemann
  */
 public enum IntFormat {
     /**
@@ -39,7 +43,7 @@ public enum IntFormat {
      */
     public String formatToView(Value inValue) {
         if (inValue.isHighZ())
-            return "?";
+            return inValue.toString();
 
         switch (this) {
             case dec:

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.NodeException;
@@ -27,8 +32,6 @@ import java.util.HashMap;
 
 /**
  * Used to create a shape matching a given name
- *
- * @author hneemann
  */
 public final class ShapeFactory {
 
@@ -123,6 +126,7 @@ public final class ShapeFactory {
         map.put(Splitter.DESCRIPTION.getName(), SplitterShape::new);
         map.put(Driver.DESCRIPTION.getName(), DriverShape::new);
         map.put(DriverInvSel.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new DriverShape(attributes, inputs, outputs, true));
+        map.put(BusSplitter.DESCRIPTION.getName(), BusSplitterShape::new);
         map.put(Tunnel.DESCRIPTION.getName(), TunnelShape::new);
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
@@ -181,7 +185,8 @@ public final class ShapeFactory {
                                 pt.getInputDescription(elementAttributes),
                                 pt.getOutputDescriptions(elementAttributes),
                                 elementAttributes.getLabel(),
-                                true)
+                                true,
+                                elementAttributes.get(Keys.WIDTH))
                                 .setInverterConfig(elementAttributes.get(Keys.INVERTER_CONFIG));
                     }
                 }

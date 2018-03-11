@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.analyse.AnalyseException;
@@ -75,8 +80,6 @@ import static javax.swing.JOptionPane.showInputDialog;
 /**
  * The main frame of the Digital Simulator
  * Set log level: -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
- *
- * @author hneemann
  */
 public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, Circuit.ChangedListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -543,7 +546,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
                 // check model for errors
                 try {
-                    new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
+                    new ModelCreator(circuitComponent.getCircuit(), library).createModel(false).close();
                 } catch (PinException | NodeException | ElementNotFoundException e) {
                     showErrorWithoutARunningModel(Lang.get("msg_modelHasErrors"), e);
                     return;
@@ -958,14 +961,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-                    model.setWindowPosManager(windowPosManager);
-                    SpeedTest speedTest = new SpeedTest(model);
-                    String frequency = format.format(speedTest.calculate() / 1000);
-                    circuitComponent.getCircuit().clearState();
-                    SwingUtilities.invokeLater(() -> {
-                        windowPosManager.closeAll();
-                        JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
-                    });
+                    try {
+                        model.setWindowPosManager(windowPosManager);
+                        SpeedTest speedTest = new SpeedTest(model);
+                        String frequency = format.format(speedTest.calculate() / 1000);
+                        circuitComponent.getCircuit().clearState();
+                        SwingUtilities.invokeLater(() -> {
+                            windowPosManager.closeAll();
+                            JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
+                        });
+                    } finally {
+                        model.close();
+                    }
                 } catch (Exception e1) {
                     showErrorWithoutARunningModel(Lang.get("msg_speedTestError"), e1);
                 }
@@ -1070,17 +1077,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-
-                    if (model.isInvalidSignal())
-                        new ErrorMessage(Lang.get("msg_invalidSignalsAnalysed")).show(Main.this);
-                    else
-                        new TableDialog(Main.this,
-                                new ModelAnalyser(model).analyse(),
-                                library,
-                                shapeFactory,
-                                getBaseFileName())
-                                .setVisible(true);
-                    ensureModelIsStopped();
+                    try {
+                        if (model.isInvalidSignal())
+                            new ErrorMessage(Lang.get("msg_invalidSignalsAnalysed")).show(Main.this);
+                        else
+                            new TableDialog(Main.this,
+                                    new ModelAnalyser(model).analyse(),
+                                    library,
+                                    shapeFactory,
+                                    getBaseFileName())
+                                    .setVisible(true);
+                        ensureModelIsStopped();
+                    } finally {
+                        model.close();
+                    }
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | BacktrackException | RuntimeException e1) {
                     showErrorWithoutARunningModel(Lang.get("msg_analyseErr"), e1);
                 }
@@ -1115,16 +1125,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private void orderMeasurements() {
         try {
             Model m = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-            ensureModelIsStopped();
-            ArrayList<String> names = new ArrayList<>();
-            for (Signal s : m.getSignals())
-                names.add(s.getName());
-            new OrderMerger<String, String>(circuitComponent.getCircuit().getMeasurementOrdering()).order(names);
-            ElementOrderer.ListOrder<String> o = new ElementOrderer.ListOrder<>(names);
-            if (new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o)
-                    .addOkButton()
-                    .showDialog()) {
-                circuitComponent.modify(new ModifyMeasurementOrdering(names));
+            try {
+                ensureModelIsStopped();
+                ArrayList<String> names = new ArrayList<>();
+                for (Signal s : m.getSignals())
+                    names.add(s.getName());
+                new OrderMerger<String, String>(circuitComponent.getCircuit().getMeasurementOrdering()).order(names);
+                ElementOrderer.ListOrder<String> o = new ElementOrderer.ListOrder<>(names);
+                if (new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o)
+                        .addOkButton()
+                        .showDialog()) {
+                    circuitComponent.modify(new ModifyMeasurementOrdering(names));
+                }
+            } finally {
+                m.close();
             }
         } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
             showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);

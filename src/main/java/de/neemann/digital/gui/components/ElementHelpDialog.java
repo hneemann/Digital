@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.NodeException;
@@ -26,7 +31,6 @@ import java.util.HashMap;
 /**
  * Simple Dialog to show an elements help text.
  * <p/>
- * Created by hneemann on 25.10.16.
  */
 public class ElementHelpDialog extends JDialog {
     private static final int IMAGE_SCALE = 2;

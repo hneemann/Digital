@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import junit.framework.TestCase;
 
 /**
- * Created by hneemann on 15.05.17.
  */
 public class NumStringComparatorTest extends TestCase {
 

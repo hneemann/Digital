@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.Observer;
@@ -18,8 +23,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 /**
  * This class is used to store the visual representation of an element.
  * Instances of this class are also used to store a circuit to disk.
- *
- * @author hneemann
  */
 public class VisualElement implements Drawable, Movable, AttributeListener {
     private static final int PIN = 2;

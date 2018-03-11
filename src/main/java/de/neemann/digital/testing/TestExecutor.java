@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.testing;
 
 import de.neemann.digital.core.Model;
@@ -18,8 +23,6 @@ import java.util.HashSet;
 /**
  * Stores the test results created by a single {@link TestCaseDescription} instance.
  * The class also performs the tests.
- *
- * @author hneemann
  */
 public class TestExecutor {
     private static final int MAX_RESULTS = 1 << 10;
@@ -59,13 +62,24 @@ public class TestExecutor {
         HashSet<String> usedSignals = new HashSet<>();
 
         inputs = new ArrayList<>();
+        outputs = new ArrayList<>();
         for (Signal s : model.getInputs()) {
             final int index = getIndexOf(s.getName());
             if (index >= 0) {
                 inputs.add(new TestSignal(index, s.getValue()));
                 addTo(usedSignals, s.getName());
             }
+            ObservableValue outValue = s.getBidirectionalReader();
+            if (outValue != null) {
+                final String outName = s.getName() + "_out";
+                final int inIndex = getIndexOf(outName);
+                if (inIndex >= 0) {
+                    outputs.add(new TestSignal(inIndex, outValue));
+                    addTo(usedSignals, outName);
+                }
+            }
         }
+
         for (Clock c : model.getClocks()) {
             final int index = getIndexOf(c.getLabel());
             if (index >= 0) {
@@ -74,7 +88,6 @@ public class TestExecutor {
             }
         }
 
-        outputs = new ArrayList<>();
         for (Signal s : model.getOutputs()) {
             final int index = getIndexOf(s.getName());
             if (index >= 0) {

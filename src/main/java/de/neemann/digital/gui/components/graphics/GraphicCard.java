@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.graphics;
 
 import de.neemann.digital.core.Node;
@@ -21,8 +26,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * Graphic card.
  * Mostly a RAM module with an additional input bit which selects the visible bank.
  * So you can use double buffering.
- *
- * @author hneemann
  */
 public class GraphicCard extends Node implements Element, RAMInterface {
 
@@ -83,7 +86,8 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         addrBits = aBits;
         memory = new DataField(size);
 
-        dataOut = new ObservableValue("D", bits, true)
+        dataOut = new ObservableValue("D", bits)
+                .setToHighZ()
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional();
     }
@@ -138,9 +142,9 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     @Override
     public void writeOutputs() throws NodeException {
         if (ld) {
-            dataOut.set(memory.getDataWord(addr), false);
+            dataOut.setValue(memory.getDataWord(addr));
         } else {
-            dataOut.set(0, true);
+            dataOut.setToHighZ();
         }
     }
 

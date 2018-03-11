@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -13,8 +18,6 @@ import java.util.*;
  * This exception is thrown if there was a problem creating or running the model.
  * Call one of the constructors with as much information as possible to create
  * a useful error message.
- *
- * @author hneemann
  */
 public class NodeException extends ExceptionWithOrigin {
     private final ArrayList<Node> nodes;
@@ -50,7 +53,20 @@ public class NodeException extends ExceptionWithOrigin {
      * @param values  the values affected by this exception
      */
     public NodeException(String message, Node node, int input, ImmutableList<ObservableValue> values) {
-        super(message);
+        this(message, node, input, values, null);
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param message the message
+     * @param node    the nod effected by tis exception
+     * @param input   the affected nodes input
+     * @param values  the values affected by this exception
+     * @param cause   the cause
+     */
+    public NodeException(String message, Node node, int input, ImmutableList<ObservableValue> values, Exception cause) {
+        super(message, cause);
         this.input = input;
         this.nodes = new ArrayList<>();
         if (node != null)

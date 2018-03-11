@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.hdl.vhdl.boards;
 
 import de.neemann.digital.core.element.Keys;
@@ -45,7 +50,11 @@ public final class BoardProvider {
             return null;
 
         if (board.equals("basys3"))
-            return new Vivado("LVCMOS33", "W5", 10, new ClockIntegratorARTIX7(10));
+            return new Vivado("LVCMOS33",
+                    "W5",
+                    10,
+                    new ClockIntegratorARTIX7(10),
+                    "xc7a35ticpg236-1L");
 
         return null;
     }

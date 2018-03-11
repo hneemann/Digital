@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.expression;
 
 import java.util.ArrayList;
@@ -6,8 +11,6 @@ import java.util.Collection;
 /**
  * Checks if two expressions are equal.
  * Is an expensive operation with O(2^numVars). Use with care!
- *
- * @author hneemann
  */
 public class Equals {
 

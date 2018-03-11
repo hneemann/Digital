@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.arithmetic;
 
 import de.neemann.digital.core.Node;
@@ -13,8 +18,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * Negation, twos complement
- *
- * @author hneemann
  */
 public class Neg extends Node implements Element {
 

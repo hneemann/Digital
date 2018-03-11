@@ -87,6 +87,11 @@
 						B <fo:inline padding-left="1mm"><xsl:value-of select="@components"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="toc"/>
+					<fo:block margin-top="2mm" margin-bottom="2mm" font-weight="bold">
+						<fo:basic-link show-destination="replace" internal-destination="chap_library">
+							C <fo:inline padding-left="2mm"><xsl:value-of select="@lib"/></fo:inline>
+						</fo:basic-link>
+					</fo:block>
 					<fo:block page-break-before="always"/>
                     <!-- the content -->
 					<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
@@ -97,6 +102,10 @@
 						B <fo:inline padding-left="2mm"><xsl:value-of select="@components"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="full"/>
+					<fo:block page-break-before="always" margin-bottom="4mm" font-size="16pt" font-weight="bold" id="chap_library">
+					    C <fo:inline padding-left="2mm"><xsl:value-of select="@lib"/></fo:inline>
+					</fo:block>
+					<xsl:apply-templates select="document(@library)/*"/>
 					<fo:block id="LastPage"/>
 				</fo:flow>
 			</fo:page-sequence>
@@ -320,5 +329,16 @@
 			</fo:block>
 		</fo:block>
   	</xsl:template>
+
+	<!-- Creation of the library list -->
+	<xsl:template match="ic">
+		<fo:block keep-together.within-page="always" start-indent="8mm" text-indent="-8mm">
+			<fo:inline  font-weight="bold">
+				<xsl:value-of select="@name"/>:
+			</fo:inline>
+			<xsl:text> </xsl:text>
+			<xsl:value-of select="."/>
+		</fo:block>
+	</xsl:template>
 
 </xsl:stylesheet>

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import java.io.IOException;
@@ -5,8 +10,6 @@ import java.io.OutputStream;
 
 /**
  * Factory to create a {@link Graphic} instance suited to create a file.
- *
- * @author hneemann
  */
 public interface ExportFactory {
     /**

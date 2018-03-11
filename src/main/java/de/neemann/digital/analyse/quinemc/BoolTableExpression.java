@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.quinemc;
 
 
@@ -7,8 +12,6 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 
 /**
  * Creates a bool table from the given expression
- *
- * @author hneemann
  */
 public class BoolTableExpression implements BoolTable {
     private final Expression expression;

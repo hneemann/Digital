@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.builder.tt2;
 
 import de.neemann.digital.analyse.expression.*;
@@ -12,7 +17,6 @@ import java.util.*;
 
 /**
  * Exporter for the tt2 format needed by the ATF15xx fitters from ATMEL.
- * Created by hneemann on 03.03.17.
  */
 public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     private final BuilderCollector builder;

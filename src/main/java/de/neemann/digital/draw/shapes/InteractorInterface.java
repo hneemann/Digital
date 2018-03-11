@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.element.Element;
@@ -13,8 +18,6 @@ import java.awt.*;
  * The {@link de.neemann.digital.draw.elements.VisualElement}s InteractorInterface instance is called
  * if the element is clicked during execution. So the User can interact with the element.
  * Example usage at the {@link InputShape} to let the user toggle the inputs state.
- *
- * @author hneemann
  * @see InputShape
  */
 public interface InteractorInterface {

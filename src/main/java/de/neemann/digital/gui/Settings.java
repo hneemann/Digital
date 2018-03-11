@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import com.thoughtworks.xstream.XStream;
@@ -48,6 +53,7 @@ public final class Settings implements AttributeListener {
         intList.add(Keys.SETTINGS_LIBRARY_PATH);
         intList.add(Keys.SETTINGS_JAR_PATH);
         intList.add(Keys.SETTINGS_ATF1502_FITTER);
+        intList.add(Keys.SETTINGS_GHDL_PATH);
         intList.add(Keys.SETTINGS_FONT_SCALING);
 
         settingsKeys = Collections.unmodifiableList(intList);

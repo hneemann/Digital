@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.quinemc;
 
 import de.neemann.digital.analyse.expression.ContextFiller;
@@ -11,7 +16,6 @@ import java.util.List;
 import static de.neemann.digital.analyse.expression.Operation.and;
 
 /**
- * Created by hneemann on 12.03.17.
  */
 public class TableReducerTest extends TestCase {
     private Variable a = new Variable("A");

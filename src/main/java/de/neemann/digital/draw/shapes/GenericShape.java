@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
@@ -14,8 +19,6 @@ import java.awt.*;
 /**
  * Universal Shape. Used for most components.
  * Shows a simple Box with inputs at the left and outputs at the right.
- *
- * @author hneemann
  */
 public class GenericShape implements Shape {
     /**

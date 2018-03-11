@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
@@ -7,8 +12,6 @@ import de.neemann.digital.draw.graphics.Vector;
 
 /**
  * Puts the pins name and the pins x-y-position together!
- *
- * @author hneemann
  */
 public class Pin extends PinInfo {
 
@@ -54,9 +57,7 @@ public class Pin extends PinInfo {
 
     /**
      * If the pin is bidirectional there are two values, one which can be used to read the pins state
-     * and one to write the pins state. The readers value is generated so that all the writers are checked to
-     * find and select the one writer which is not in high Z state. If more then one writer is in an not high Z
-     * state an exception is thrown.
+     * and one to write the pins state.
      *
      * @return returns the bidirectional reader
      */

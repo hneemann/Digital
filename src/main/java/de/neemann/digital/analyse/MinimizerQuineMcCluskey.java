@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.expression.Expression;
@@ -16,7 +21,6 @@ import java.util.List;
 
 /**
  * The normal QMC minimizer.
- * Created by hneemann on 13.03.17.
  */
 public class MinimizerQuineMcCluskey implements MinimizerInterface {
     @Override

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.expression.*;
@@ -15,8 +20,6 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 
 /**
  * Creates the expressions to create a JK-FF state machine
- *
- * @author hneemann
  */
 public class DetermineJKStateMachine {
     private Expression j = null;

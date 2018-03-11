@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.Model;
@@ -27,8 +32,6 @@ import java.util.Collections;
 /**
  * Dialog to show the testing results.
  * ToDo: Sync of data access is missing!
- *
- * @author hneemann
  */
 public class ValueTableDialog extends JDialog {
     private static final Color FAILED_COLOR = new Color(255, 200, 200);
@@ -112,30 +115,34 @@ public class ValueTableDialog extends JDialog {
         int errorTabIndex = -1;
         for (TestSet ts : tsl) {
             Model model = new ModelCreator(circuit, library).createModel(false);
+            try {
 
-            TestExecutor testExecutor = new TestExecutor(ts.data).create(model);
+                TestExecutor testExecutor = new TestExecutor(ts.data).create(model);
 
-            if (testExecutor.getException() != null)
-                SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorWhileExecutingTests_N0", ts.name)).addCause(testExecutor.getException()).setComponent(this));
+                if (testExecutor.getException() != null)
+                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorWhileExecutingTests_N0", ts.name)).addCause(testExecutor.getException()).setComponent(this));
 
-            String tabName;
-            Icon tabIcon;
-            if (testExecutor.allPassed()) {
-                tabName = Lang.get("msg_test_N_Passed", ts.name);
-                tabIcon = ICON_PASSED;
-            } else {
-                tabName = Lang.get("msg_test_N_Failed", ts.name);
-                tabIcon = ICON_FAILED;
-                errorTabIndex = i;
+                String tabName;
+                Icon tabIcon;
+                if (testExecutor.allPassed()) {
+                    tabName = Lang.get("msg_test_N_Passed", ts.name);
+                    tabIcon = ICON_PASSED;
+                } else {
+                    tabName = Lang.get("msg_test_N_Failed", ts.name);
+                    tabIcon = ICON_FAILED;
+                    errorTabIndex = i;
+                }
+                if (testExecutor.toManyResults())
+                    tabName += " " + Lang.get("msg_test_missingLines");
+
+                tp.addTab(tabName, tabIcon, new JScrollPane(createTable(testExecutor.getResult())));
+                if (testExecutor.toManyResults())
+                    tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
+                resultTableData.add(testExecutor.getResult());
+                i++;
+            } finally {
+                model.close();
             }
-            if (testExecutor.toManyResults())
-                tabName += " " + Lang.get("msg_test_missingLines");
-
-            tp.addTab(tabName, tabIcon, new JScrollPane(createTable(testExecutor.getResult())));
-            if (testExecutor.toManyResults())
-                tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
-            resultTableData.add(testExecutor.getResult());
-            i++;
         }
         if (errorTabIndex >= 0)
             tp.setSelectedIndex(errorTabIndex);

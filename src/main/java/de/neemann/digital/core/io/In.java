@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.*;
@@ -5,12 +10,9 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 /**
  * The Input
- *
- * @author hneemann
  */
 public class In implements Element {
 
@@ -41,6 +43,7 @@ public class In implements Element {
     private final String pinNumber;
     private final IntFormat format;
     private Model model;
+    private ObservableValue input;
 
     /**
      * Create a new instance
@@ -49,17 +52,23 @@ public class In implements Element {
      */
     public In(ElementAttributes attributes) {
         InValue value = attributes.get(Keys.INPUT_DEFAULT);
-        boolean highZ = attributes.get(Keys.IS_HIGH_Z) || value.isHighZ();
         pinNumber = attributes.get(Keys.PINNUMBER);
-        output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION).setPinNumber(pinNumber);
-        output.set(value.getValue(), value.isHighZ());
+        output = new ObservableValue("out", attributes.get(Keys.BITS))
+                .setPinDescription(DESCRIPTION)
+                .setPinNumber(pinNumber);
+        boolean highZ = attributes.get(Keys.IS_HIGH_Z) || value.isHighZ();
+        if (highZ)
+            output.setToHighZ().setBidirectional();
+        else
+            output.setValue(value.getValue());
         label = attributes.getCleanLabel();
         format = attributes.get(Keys.INT_FORMAT);
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        throw new NodeException(Lang.get("err_noInputsAvailable"));
+        // if input is bidirectional the value is given to read the pins state!
+        input = inputs.get(0);
     }
 
     @Override
@@ -71,6 +80,7 @@ public class In implements Element {
     public void registerNodes(Model model) {
         model.addInput(new Signal(label, output, output::set)
                 .setPinNumber(pinNumber)
+                .setBidirectionalReader(input)
                 .setFormat(format));
         this.model = model;
     }

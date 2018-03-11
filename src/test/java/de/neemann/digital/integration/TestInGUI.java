@@ -1,10 +1,17 @@
+/*
+ * Copyright (c) 2018 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.integration;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.basic.And;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.ROM;
@@ -18,10 +25,8 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.NumberingWizard;
-import de.neemann.digital.gui.components.AttributeDialog;
-import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.components.DataEditor;
-import de.neemann.digital.gui.components.ProbeDialog;
+import de.neemann.digital.gui.Settings;
+import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapComponent;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
@@ -30,13 +35,16 @@ import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.gui.ErrorMessage;
 import junit.framework.TestCase;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +52,7 @@ import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
 
 /**
  * These tests are excluded from the maven build because gui tests are sometimes fragile.
@@ -51,6 +60,13 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * Run this tests directly from your IDE.
  */
 public class TestInGUI extends TestCase {
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_DEFAULT_TREESELECT, false);
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_JAR_PATH, new File(""));
+    }
 
     public void testErrorAtStart1() {
         new GuiTester("dig/manualError/01_fastRuntime.dig")
@@ -134,6 +150,22 @@ public class TestInGUI extends TestCase {
                 .add(new CheckColorInCircuit(Driver.DESCRIPTION, 0, SIZE + SIZE2, (c) -> assertEquals(Style.ERROR.getColor(), c)))
 //                .ask("Is the driver output colored red?")
                 .add(new GuiTester.WindowCheck<>(Main.class))
+                .execute();
+    }
+
+    public void testTreeView() {
+        new GuiTester()
+                .delay(500)
+                .press("F5")
+                .mouseMove(100, 100)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .mouseMove(400, 200)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
+                    Circuit c = main.getCircuitComponent().getCircuit();
+                    assertEquals(1, c.getElements().size());
+                }))
                 .execute();
     }
 
@@ -267,6 +299,21 @@ public class TestInGUI extends TestCase {
             .add(new GuiTester.WindowCheck<>(AllSolutionsDialog.class, (gt, asd) -> asd.getParent().requestFocus()))
             .delay(500);
 
+    // constant is not possible because of language access
+    private GuiTester createCheck4BitCounterCircuit() {
+        return new GuiTester()
+                .add(new AddTestCaseToCircuit(
+                        "C Q_3 Q_2 Q_1 Q_0\n" +
+                                "repeat(32) C bits(4,n+1)"))
+                .press("F8")
+                .delay(500)
+                .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
+                .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 32))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost());
+    }
+
     public void testCounterJK() {
         new GuiTester()
                 .use(create4BitCounterTruthTable)
@@ -275,11 +322,7 @@ public class TestInGUI extends TestCase {
                 .press("DOWN", 2)
                 .press("ENTER")
                 .delay(500)
-                .press("SPACE")
-                .delay(500)
-                .add(new GuiTester.WindowCheck<>(Main.class))
-                .ask("Does the 4 bit counter run correctly?")
-                .add(new GuiTester.CloseTopMost())
+                .use(createCheck4BitCounterCircuit())
                 .execute();
     }
 
@@ -287,11 +330,8 @@ public class TestInGUI extends TestCase {
         new GuiTester()
                 .use(create4BitCounterTruthTable)
                 .press("F2")
-                .press("SPACE")
                 .delay(500)
-                .add(new GuiTester.WindowCheck<>(Main.class))
-                .ask("Does the 4 bit counter run correctly?")
-                .add(new GuiTester.CloseTopMost())
+                .use(createCheck4BitCounterCircuit())
                 .execute();
     }
 
@@ -583,13 +623,7 @@ public class TestInGUI extends TestCase {
         new GuiTester("dig/manualError/13_singleValueDialog.dig")
                 .press("SPACE")
                 .delay(500)
-                .add(new GuiTester.WindowCheck<>(Main.class, (guiTester, main) -> {
-                    final CircuitComponent cc = main.getCircuitComponent();
-                    Vector p = cc.getCircuit().getElements().get(0).getPos();
-                    Point sp = cc.transform(p.add(-SIZE, 0));
-                    SwingUtilities.convertPointToScreen(sp, cc);
-                    guiTester.getRobot().mouseMove(sp.x, sp.y);
-                }))
+                .add(new SetMouseToElement(v -> v.equalsDescription(In.DESCRIPTION)))
 
                 .mouseClick(InputEvent.BUTTON1_MASK)
                 .delay(500)
@@ -724,6 +758,75 @@ public class TestInGUI extends TestCase {
                 .press("F8")
                 .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
                 .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 8))
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+    public void testRomDialog() {
+        new GuiTester("dig/test/romContent/rom.dig")
+                .press("F10")
+                .press("RIGHT", 2)
+                .press("DOWN", 1)
+                .press("ENTER", 1)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
+                        b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
+                .press("SPACE")
+                .delay(200)
+                .add(new GuiTester.CheckListRows<>(ROMEditorDialog.class, 8))
+                .press("DOWN")
+                .add(new GuiTester.SetFocusTo<>(ROMEditorDialog.class,
+                        b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.WindowCheck<>(DataEditor.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.SetFocusTo<>(ROMEditorDialog.class,
+                        b -> b instanceof JButton && Lang.get("btn_clearData").equals(((JButton) b).getText())))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(ROMEditorDialog.class,
+                        b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.ComponentTraverse<DataEditor>(DataEditor.class) {
+                    @Override
+                    public void visit(Component component) {
+                        if (component instanceof JTable) {
+                            TableModel model = ((JTable) component).getModel();
+                            assertEquals(4, model.getRowCount());
+                            for (int i = 0; i < 4; i++) {
+                                final Object valueAt = model.getValueAt(i, 1);
+                                assertEquals("0x0", valueAt.toString());
+                            }
+                            found();
+                        }
+                    }
+                })
+
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+    public void testGhdlCheckCode() {
+        new GuiTester("dig/external/ghdl/ghdl.dig")
+                .add(new SetMouseToElement(v -> v.equalsDescription(External.DESCRIPTION)))
+                .mouseClick(InputEvent.BUTTON3_MASK)
+                .delay(500)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_checkCode"))))
+                .press("SPACE")
+                .delay(1000)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class, c -> c instanceof JTextArea))
+                .delay(100)
+                .type("\b")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_checkCode"))))
+                .press("SPACE")
+                .delay(1000)
+                .add(new GuiTester.WindowCheck<>(ErrorMessage.ErrorDialog.class))
+                .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
@@ -968,6 +1071,23 @@ public class TestInGUI extends TestCase {
             final ArrayList<Signal> outputs = main.getModel().getOutputs();
             assertEquals(1, outputs.size());
             assertEquals(val, outputs.get(0).getValue().getValue());
+        }
+    }
+
+    private class AddTestCaseToCircuit extends GuiTester.WindowCheck<Main> {
+        private final String testdata;
+
+        private AddTestCaseToCircuit(String testdata) {
+            super(Main.class);
+            this.testdata = testdata;
+        }
+
+        @Override
+        public void checkWindow(GuiTester gt, Main main) throws Exception {
+            main.getCircuitComponent().getCircuit().add(
+                    new VisualElement(TestCaseElement.TESTCASEDESCRIPTION.getName())
+                            .setAttribute(TESTDATA, new TestCaseDescription(testdata))
+                            .setShapeFactory(main.getCircuitComponent().getLibrary().getShapeFactory()));
         }
     }
 }

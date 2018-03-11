@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.terminal;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -13,8 +18,6 @@ import java.awt.event.ActionEvent;
 
 /**
  * The dialog which shows the terminal
- *
- * @author hneemann
  */
 public class TerminalDialog extends JDialog {
     private final JTextArea textArea;

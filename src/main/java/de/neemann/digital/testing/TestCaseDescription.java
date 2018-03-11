@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.testing;
 
 import de.neemann.digital.lang.Lang;
@@ -10,8 +15,6 @@ import java.util.ArrayList;
 
 /**
  * The test data.
- *
- * @author hneemann
  */
 public class TestCaseDescription {
 
@@ -24,7 +27,12 @@ public class TestCaseDescription {
     private transient LineEmitter lines;
     private transient ArrayList<String> names;
 
-    TestCaseDescription(String data) {
+    /**
+     * creates a new instance
+     *
+     * @param data the test case description
+     */
+    public TestCaseDescription(String data) {
         this.dataString = data;
     }
 

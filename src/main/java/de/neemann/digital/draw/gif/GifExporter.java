@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.gif;
 
 import de.neemann.digital.core.*;
@@ -30,7 +35,6 @@ import java.io.IOException;
  * You can attach it to a model and then every modification
  * of the running circuit is reordered as a new frame in the
  * GIF file.
- * Created by hneemann on 17.05.17.
  */
 public class GifExporter extends JDialog implements ModelStateObserverTyped, ModelModifier {
     private static final Logger LOGGER = LoggerFactory.getLogger(GifExporter.class);

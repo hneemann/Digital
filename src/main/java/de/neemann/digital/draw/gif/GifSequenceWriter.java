@@ -18,7 +18,7 @@ import java.util.Iterator;
  * http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
  * Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
  * <p>
- * Minor modifications made be hneemann, 2011-05-17
+ * Minor modifications made by hneemann, 2017-05-17
  */
 public class GifSequenceWriter implements AutoCloseable {
     private ImageWriter gifWriter;

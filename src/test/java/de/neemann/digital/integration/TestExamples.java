@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.integration;
 
 import de.neemann.digital.core.Model;
@@ -15,12 +20,10 @@ import java.io.File;
  * Reads all examples and tries to create the model.
  * Makes sure that all examples are creatable (one can build the model)
  * Does not ensure that they work correctly if no tests are present in the circuit!
- *
- * @author hneemann
  */
 public class TestExamples extends TestCase {
 
-    private int testCasesInFiles = 0;
+    private static int testCasesInFiles;
 
     /**
      * Tests the examples which are distributed
@@ -29,8 +32,9 @@ public class TestExamples extends TestCase {
      */
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
-        assertEquals(210, new FileScanner(this::check).scan(examples));
-        assertEquals(126, testCasesInFiles);
+        testCasesInFiles = 0;
+        assertEquals(239, new FileScanner(TestExamples::check).scan(examples));
+        assertEquals(161, testCasesInFiles);
     }
 
     /**
@@ -40,17 +44,17 @@ public class TestExamples extends TestCase {
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(121, new FileScanner(this::check).scan(examples));
-        assertEquals(110, testCasesInFiles);
+        testCasesInFiles = 0;
+        assertEquals(127, new FileScanner(TestExamples::check).scan(examples));
+        assertEquals(117, testCasesInFiles);
     }
-
 
     /**
      * Loads the model and initializes and test it if test cases are present
      *
      * @param dig the model file
      */
-    private void check(File dig) throws Exception {
+    public static void check(File dig) throws Exception {
         boolean shouldFail = dig.getName().endsWith("Error.dig");
         ToBreakRunner br;
         try {
@@ -61,35 +65,43 @@ public class TestExamples extends TestCase {
             } else
                 throw e;
         }
-
-        boolean isLib = dig.getPath().replace('\\', '/').contains("/lib/");
-
-        assertTrue("wrong locked mode", isLib == br.getCircuit().getAttributes().get(Keys.LOCKED_MODE));
-
         try {
-            for (VisualElement el : br.getCircuit().getElements())
-                if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
 
-                    String label = el.getElementAttributes().getCleanLabel();
-                    TestCaseDescription td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+            boolean isLib = dig.getPath().replace('\\', '/').contains("/lib/");
 
-                    Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
-                    TestExecutor tr = new TestExecutor(td).create(model);
+            assertTrue("wrong locked mode", isLib == br.getCircuit().getAttributes().get(Keys.LOCKED_MODE));
 
-                    if (label.contains("Failing"))
-                        assertFalse(dig.getName() + ":" + label, tr.allPassed());
-                    else
-                        assertTrue(dig.getName() + ":" + label, tr.allPassed());
+            try {
+                for (VisualElement el : br.getCircuit().getElements())
+                    if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
 
-                    testCasesInFiles++;
-                }
-        } catch (Exception e) {
-            if (shouldFail) {
-                return;
-            } else
-                throw e;
+                        String label = el.getElementAttributes().getCleanLabel();
+                        TestCaseDescription td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+
+                        Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
+                        try {
+                            TestExecutor tr = new TestExecutor(td).create(model);
+
+                            if (label.contains("Failing"))
+                                assertFalse(dig.getName() + ":" + label, tr.allPassed());
+                            else
+                                assertTrue(dig.getName() + ":" + label, tr.allPassed());
+
+                            testCasesInFiles++;
+                        } finally {
+                            model.close();
+                        }
+                    }
+            } catch (Exception e) {
+                if (shouldFail) {
+                    return;
+                } else
+                    throw e;
+            }
+
+            assertFalse("File should fail but doesn't!", shouldFail);
+        } finally {
+            br.close();
         }
-
-        assertFalse("File should fail but doesn't!", shouldFail);
     }
 }

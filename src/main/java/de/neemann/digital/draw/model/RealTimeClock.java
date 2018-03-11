@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.*;
@@ -18,8 +23,6 @@ import java.util.concurrent.TimeUnit;
  * The real time clock which is used to fire the models clocks with real time signals
  * If the maximum frequency is selected a dedicated thread is started which runs the model.
  * So you get the highest speed but no real time. The model runs as fast as possible.
- *
- * @author hneemann
  */
 public class RealTimeClock implements ModelStateObserverTyped {
     private static final Logger LOGGER = LoggerFactory.getLogger(RealTimeClock.class);

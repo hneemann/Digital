@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.basic;
 
 import de.neemann.digital.TestExecuter;
@@ -9,7 +14,6 @@ import de.neemann.digital.core.wiring.Delay;
 import junit.framework.TestCase;
 
 /**
- * @author hneemann
  */
 public class DelayTest extends TestCase {
 

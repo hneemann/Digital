@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.testing.parser;
 
 import de.neemann.digital.lang.Lang;
@@ -7,7 +12,6 @@ import java.util.ArrayList;
 
 /**
  * Line emitter to create a simple row of values.
- * Created by hneemann on 19.04.17.
  */
 public class LineEmitterSimple implements LineEmitter {
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.lang.Lang;
@@ -8,7 +13,6 @@ import java.io.File;
  * Class is used to define the keys used to access the models attributes
  *
  * @param <VALUE> the keys value type
- * @author hneemann
  */
 public class Key<VALUE> {
     private final String key;
@@ -367,6 +371,10 @@ public class Key<VALUE> {
      * A special string key to flag long multi line strings.
      */
     public static final class LongString extends Key<String> {
+        private int rows = 6;
+        private int columns = 30;
+        private boolean lineNumbers = false;
+
         /**
          * Creates a new Key
          *
@@ -374,6 +382,61 @@ public class Key<VALUE> {
          */
         public LongString(String key) {
             super(key, "");
+        }
+
+        /**
+         * @return the rows of the editor field
+         */
+        public int getRows() {
+            return rows;
+        }
+
+        /**
+         * Sets the rows in the editor
+         *
+         * @param rows the number ow rows
+         * @return this for chained calls
+         */
+        public LongString setRows(int rows) {
+            this.rows = rows;
+            return this;
+        }
+
+        /**
+         * @return the coloums of the editor field
+         */
+        public int getColumns() {
+            return columns;
+        }
+
+
+        /**
+         * Sets the columns in the editor
+         *
+         * @param columns the number ow rows
+         * @return this for chained calls
+         */
+        public LongString setColumns(int columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        /**
+         * Sets the line numbers attribute
+         *
+         * @param lineNumbers true if line numbers should be visibla
+         * @return this for chained calls
+         */
+        public LongString setLineNumbers(boolean lineNumbers) {
+            this.lineNumbers = lineNumbers;
+            return this;
+        }
+
+        /**
+         * @return true if line numbers are visible
+         */
+        public boolean getLineNumbers() {
+            return lineNumbers;
         }
     }
 }

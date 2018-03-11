@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -15,8 +20,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 /**
  * The shape to show a seven seg display.
  * The state of the different segments is requested by calling {@link SevenShape#getStyle(int)}.
- *
- * @author hneemann
  */
 public abstract class SevenShape implements Shape {
 

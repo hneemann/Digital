@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.hdl.vhdl.boards;
 
 import de.neemann.digital.core.NodeException;
@@ -21,7 +26,7 @@ public class VivadoTest extends TestCase {
 
         CodePrinterStr cp = new CodePrinterStr();
 
-        Vivado v = new Vivado("testType", "clockPin", 1, null);
+        Vivado v = new Vivado("testType", "clockPin", 1, null, "xc7a35ticpg236-1L");
         v.writeConstraints(cp, model);
 
         assertEquals(

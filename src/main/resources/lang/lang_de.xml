@@ -40,6 +40,8 @@
     <string name="btn_saveAnyway">Trotzdem speichern</string>
     <string name="btn_overwrite">Überschreiben</string>
     <string name="btn_apply">Setzen</string>
+    <string name="btn_editRom_tt">Bearbeitet den Inhalt des ausgewählten ROM/EEPROM.</string>
+    <string name="btn_clearRom_tt">Entfernt die hier gespeicherten Daten des ausgewählten ROM. Es wird stattdessen der direkt im ROM gespeicherte Inhalt verwendet.</string>
     <string name="msg_warning">Warnung</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
@@ -239,6 +241,15 @@
     <string name="elem_Splitter_pin_in_one">Das Eingangsbit {0} des Splitters.</string>
     <string name="elem_Splitter_pin_out">Die Ausgangsbits {0} des Splitters.</string>
     <string name="elem_Splitter_pin_out_one">Das Ausgangsbit {0} des Splitters.</string>
+
+    <string name="elem_BusSplitter">Bidirektionaler Splitter</string>
+    <string name="elem_BusSplitter_tt">Kann für Datenbusse verwendet werden und erleichtert vor allem den Aufbau
+        von Speicherbausteinen im DIL-Gehäuse, da die Implementierung des Datenbusses erleichtert wird.</string>
+    <string name="elem_BusSplitter_pin_OE">Wenn gesetzt, wird der gemeinsame Datenanschluss D an den Bitausgängen D[i]
+        ausgegeben, wenn nicht, werden die Einzelbits D[i] am gemeinamen Ausgang D ausgegeben.</string>
+    <string name="elem_BusSplitter_pin_D">Der gemeinsame Datenanschluss.</string>
+    <string name="elem_BusSplitter_pin_D_N">Das Datenbit {0} des Bus-Splitters.</string>
+
     <string name="elem_PullUp">Pull-Up Widerstand</string>
     <string name="elem_PullUp_pin_out">Ein "Weak High".</string>
     <string name="elem_PullUp_tt">Ist eine Leitung hochohmig, zieht sie ein Pull-Up Widerstand zu High.
@@ -316,7 +327,7 @@
     <string name="elem_RS_FF_AS_pin_S">Der Setzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit gesetzt.</string>
     <string name="elem_RS_FF_AS_pin_R">Der Rücksetzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit zurückgesetzt.</string>
     <string name="elem_RS_FF_AS_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_RS_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_RS_FF_AS_pin_~Q">Gibt den gespeicherten Wert negiert zurück.</string>
 
     <string name="elem_RS_FF">RS-FlipFlop, getaktet</string>
     <string name="elem_RS_FF_short">RS</string>
@@ -329,7 +340,7 @@
     <string name="elem_RS_FF_pin_C">Der Takteingang. Eine steigende Flanke veranlasst die Zustandsänderung.</string>
     <string name="elem_RS_FF_pin_R">Der Rücksetzen-Eingang. Mit diesem Eingang wird das gespeicherte Bit zurückgesetzt.</string>
     <string name="elem_RS_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_RS_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_RS_FF_pin_~Q">Gibt den gespeicherten Wert negiert zurück.</string>
     <string name="elem_JK_FF">JK-FlipFlop</string>
     <string name="elem_JK_FF_short">JK</string>
     <string name="elem_JK_FF_tt">Bietet die Funktionen zum
@@ -339,7 +350,7 @@
     <string name="elem_JK_FF_pin_C">Takteingang. Eine steigende Flanke initiiert den Zustandswechsel.</string>
     <string name="elem_JK_FF_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
     <string name="elem_JK_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_JK_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_JK_FF_pin_~Q">Gibt den gespeicherten Wert negiert aus.</string>
     <string name="elem_D_FF">D-FlipFlop</string>
     <string name="elem_D_FF_short">D</string>
     <string name="elem_D_FF_tt">Ein Baustein zum Speichern eines Bits.
@@ -349,7 +360,7 @@
     <string name="elem_D_FF_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
     <string name="elem_D_FF_pin_Q">Gibt den gespeicherten Wert zurück.</string>
-    <string name="elem_D_FF_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_D_FF_pin_~Q">Gibt den gespeicherten Wert negiert zurück.</string>
     <string name="elem_T_FF">T-FlipFlop</string>
     <string name="elem_T_FF_short">T</string>
     <string name="elem_T_FF_tt">Speichert ein Bit, welches sich mit einem Eingang umschalten lässt.</string>
@@ -357,7 +368,7 @@
     <string name="elem_T_FF_pin_C">Dieser Eingang schaltet das Flipflop um.
         Wenn ein T-Eingang vorhanden ist, passiert das nur, wenn T auf 1 gesetzt ist.</string>
     <string name="elem_T_FF_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_T_FF_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_T_FF_pin_~Q">Gibt den gespeicherten Wert negiert aus.</string>
     <string name="elem_JK_FF_AS">JK-FlipFlop, asynchron</string>
     <string name="elem_JK_FF_AS_short">JK-AS</string>
     <string name="elem_JK_FF_AS_tt">Bietet die Funktionen zum
@@ -369,9 +380,9 @@
     <string name="elem_JK_FF_AS_pin_C">Takteingang. Eine steigende Flanke initiiert den Zustandswechsel.</string>
     <string name="elem_JK_FF_AS_pin_K">Der Rücksetzen-Eingang des Flipflops.</string>
     <string name="elem_JK_FF_AS_pin_Q">Gibt den gespeicherten Wert aus.</string>
-    <string name="elem_JK_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert aus.</string>
-    <string name="elem_JK_FF_AS_pin_Set">asynchrones Setzen</string>
-    <string name="elem_JK_FF_AS_pin_Clr">asynchrones Löschen</string>
+    <string name="elem_JK_FF_AS_pin_~Q">Gibt den gespeicherten Wert negiert aus.</string>
+    <string name="elem_JK_FF_AS_pin_Set">asynchrones Setzen. Eine Eins an diesem Eingang setzt das Flipflop auf Eins.</string>
+    <string name="elem_JK_FF_AS_pin_Clr">asynchrones Löschen. Eine Eins an diesem Eingang setzt das Flipflop auf Null.</string>
     <string name="elem_D_FF_AS">D-FlipFlop, asynchron</string>
     <string name="elem_D_FF_AS_short">D-AS</string>
     <string name="elem_D_FF_AS_tt">Ein Baustein zum Speichern eines Bits.
@@ -382,10 +393,22 @@
     <string name="elem_D_FF_AS_pin_D">Das zu speichernde Bit.</string>
     <string name="elem_D_FF_AS_pin_C">Takt des Flipflops. Wechselt dieser Wert auf 1, wird der an D anliegende Wert abgespeichert.</string>
     <string name="elem_D_FF_AS_pin_Q">Gibt den gespeicherten Wert zurück.</string>
-    <string name="elem_D_FF_AS_pin_¬Q">Gibt den gespeicherten Wert negiert zurück.</string>
-    <string name="elem_D_FF_AS_pin_Set">asynchrones Setzen</string>
-    <string name="elem_D_FF_AS_pin_Clr">asynchrones Löschen</string>
+    <string name="elem_D_FF_AS_pin_~Q">Gibt den gespeicherten Wert negiert zurück.</string>
+    <string name="elem_D_FF_AS_pin_Set">asynchrones Setzen. Eine Eins an diesem Eingang setzt alle gespeicherten Bits auf Eins.</string>
+    <string name="elem_D_FF_AS_pin_Clr">asynchrones Löschen. Eine Eins an diesem Eingang setzt alle gespeicherten Bits auf Null.</string>
 
+    <string name="elem_Monoflop">Monoflop</string>
+    <string name="elem_Monoflop_short">Mono</string>
+    <string name="elem_Monoflop_tt">Ein Monoflop wird bei einer steigenden Flanke am Takteingang gesetzt.
+        Nach einer einstellbaren Verzögerungszeit wird das Monoflop automatisch wieder gelöscht.
+        Das Monoflop ist retriggerbar. Es kann nur genutzt werden, wenn es genau ein Taktelement in der Schaltung gibt.
+        Dieses Taktelement wird dann für die Zeitbestimmung verwendet.
+    </string>
+    <string name="elem_Monoflop_pin_R">Reset Eingang. Eine Eins setzt das Monoflop auf Null zurück.</string>
+    <string name="elem_Monoflop_pin_C">Eine steigende Flanke an diesem Eingang setzt das Monoflop. Der Ausgang Q wird auf
+        Eins gesetzt. Nach Ablauf der Verzögerungszeit fällt Q wieder auf Null zurück.</string>
+    <string name="elem_Monoflop_pin_Q">Ausgang des Monoflops</string>
+    <string name="elem_Monoflop_pin_~Q">Invertierter Ausgang</string>
 
     <!-- Speicher -->
 
@@ -411,7 +434,7 @@
         Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen bzw. geschrieben wird.</string>
     <string name="elem_RAMDualPort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_RAMDualPort_pin_D_in">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualPort_pin_Din">Die Daten, die gespeichert werden sollen.</string>
     <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
@@ -469,7 +492,7 @@
     <string name="elem_RAMDualAccess_pin_1A">Die Adresse, an der über Port 1 gelesen bzw. geschrieben wird.</string>
     <string name="elem_RAMDualAccess_pin_2A">Die Adresse, an der über Port 2 gelesen wird.</string>
     <string name="elem_RAMDualAccess_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
-    <string name="elem_RAMDualAccess_pin_1D_in">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualAccess_pin_1Din">Die Daten, die gespeichert werden sollen.</string>
     <string name="elem_RAMDualAccess_pin_ld">Ist diese Leitung high, wird der Ausgang D1 aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualAccess_pin_str">Ist diese Leitung high, wird das Datenwort an D1 gespeichert, wenn der Takt ansteigt.</string>
 
@@ -697,6 +720,12 @@
         Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.
         Der schnelle Simulationslauf kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!</string>
 
+    <string name="elem_External">Extern</string>
+    <string name="elem_External_tt">Element zur Anbindung von externen Programmen zur Berechnung der Logik.
+        Wird verwendet, um das Verhalten eines Elements mit einer Hardwarebeschreibungssprache wie VHDL oder
+        Verilog zu beschreiben. Die eigentliche Simulation des Verhaltens muss mit einem externen Simulator erfolgen.
+        Zur Zeit wird nur der VHDL-Simulator ghdl unterstützt.
+    </string>
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Echt bidirektionale Diode.
@@ -747,12 +776,11 @@
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} von Element {1} wurde nicht gefunden</string>
     <string name="err_pin_N_notFound">Pin {0} wurde nicht gefunden.</string>
     <string name="err_pin_N_unknown">Pin {0} ist unbekannt</string>
-    <string name="err_readOfHighZ">Lesen einer hochohmigen Leitung</string>
     <string name="err_seemsToOscillate">Die Schaltung scheint zu oszillieren!
 Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_portIsInUse">Kann den Remote Port nicht öffnen! Läuft schon eine andere Instanz?</string>
     <string name="err_selectorInputCountMismatch">Die Zahl der Eingänge passt nicht zur Bitbreite der Auswahlleitung.</string>
-    <string name="err_spitterDefSyntaxError">Fehler in der Definition {0} eines Splitters</string>
+    <string name="err_spitterDefSyntaxError">Fehler in der Portdefinition "{0}" eines Splitters</string>
     <string name="err_splitterBitsMismatch">Die Bitzahl am Spiltter passt nicht</string>
     <string name="err_splitterNotAllBitsDefined">Es sind nicht alle Eingangsbits definiert!</string>
     <string name="err_splitterNotUnambiguously">Es sind Eingangsbits mehrfach definiert!</string>
@@ -775,8 +803,6 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_remoteExecution">Fehler beim Ausführen eines Befehls</string>
     <string name="err_pullUpAndDownNotAllowed">Es können nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
     <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
-    <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge! Verwenden Sie einen PullUp- oder PullDown-Widerstand</string>
-    <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter, der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
     <string name="err_couldNotCreateFolder_N0">Konnte den Order &quot;{0}&quot; nicht erzeugen!</string>
     <string name="err_switchHasNoNet">Ein Schalter kann nicht nur mit Eingängen verbunden werden.</string>
     <string name="err_file_N0_ExistsTwiceBelow_N1">Die Datei {0} existiert mehrfach unter {1}</string>
@@ -840,6 +866,27 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_circuitHasCycles">Die Schaltung enthält Zyklen und kann daher nicht analysiert werden.
         Zyklen entstehen, wenn ein Ausgang eines Gatters auf einen der Eingänge des selben Gatters zurück geführt wird.
         Die Verwendung von Schaltern, FETs oder Relais verursacht ebenfalls Zyklen.</string>
+    <string name="err_monoflopRequiresOneClock">Wird ein Monoflop verwendet, muss es genau ein Taktelement geben!</string>
+    <string name="err_couldNotCreateElement_N">Konnte kein Element vom Typ "{0}" erzeugen!</string>
+    <string name="err_centralDefinedRomsAreNotSupported">Zentral definierte ROM-Inhalte werden nicht unterstützt!</string>
+
+    <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
+    <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>
+    <string name="err_errorCreatingProcess">Der externe Prozess konnte nicht gestartet werden!</string>
+    <string name="err_timeoutReadingData_O">Zeitüberschreitung beim Lesen von Daten!
+        {0}</string>
+    <string name="err_notEnoughDataReceived_O">Es wurden nicht genug Daten empfangen!
+        {0}</string>
+    <string name="err_invalidCharacterReceived_N_O">Der Prozess sendete ein ungültiges Zeichen: {0}!
+        {1}</string>
+    <string name="err_processTerminatedUnexpected_O">Der Prozess wurde unerwartet beendet!
+        {0}</string>
+    <string name="err_couldNotTerminateProcess">Der Prozess konnte nicht beendet werden!</string>
+    <string name="err_couldNotStartProcess_N">Prozess konnte nicht gestartet werden: {0}</string>
+    <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
+        {1}</string>
+    <string name="err_canOnlyExportExtrnalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1032,6 +1079,30 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_delayTime_tt">Dauer der Verzögerung in Gatterlaufzeiten.</string>
     <string name="key_invertOutput">invertierter Ausgang</string>
     <string name="key_invertOutput_tt">Wenn gesetzt, wird der Ausgang invertiert.</string>
+    <string name="key_timerDelay">Impulsdauer</string>
+    <string name="key_timerDelay_tt">Die Impulsdauer wird in Taktzyklen angegeben.</string>
+    <string name="key_splitterSpreading">Spreizung</string>
+    <string name="key_splitterSpreading_tt">Bestimmt die Spreizung der Ein- und Ausgänge in der Schaltung.</string>
+    <string name="key_romContent">ROM Inhalte</string>
+    <string name="key_romContent_tt">Inhalt aller ROM Bausteine</string>
+
+    <string name="key_applicationType">Anwendung</string>
+    <string name="key_applicationType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
+    <string name="key_applicationType_Generic">Generisch</string>
+    <string name="key_applicationType_GHDL">GHDL</string>
+    <string name="key_externalInputs">Eingänge</string>
+    <string name="key_externalInputs_tt">Die Eingänge des externen Prozesses. Es handelt sich um eine kommaseparierte
+        Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
+        Die Eingänge eines 8-Bit Addierers könnten also mit "a:8,b:8,c_in" beschrieben werden.</string>
+    <string name="key_externalOutputs">Ausgänge</string>
+    <string name="key_externalOutputs_tt">Die Ausgänge des externen Prozesses. Es handelt sich um eine kommaseparierte
+        Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
+        Die Ausgänge eines 8-Bit Addierers könnten also mit "s:8,c_out" beschrieben werden.</string>
+    <string name="key_Code">Programmcode</string>
+    <string name="key_Code_tt">Der Programmcode welcher ausgeführt werden soll.</string>
+    <string name="key_ghdlPath">GHDL</string>
+    <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
+        VHDL-Code verwendet werden soll.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1240,7 +1311,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Schaltungen enthält.
         Die ZIP-Datei enthält damit alle Dateien, die für den Betrieb der Schaltung erforderlich sind.</string>
     <string name="menu_labelPins">Ein- und Ausgänge benennen</string>
-    <string name="menu_labelPins_tt">Für alle unbenannten Ein- und AUsgänge eine Bezeichnung setzen.</string>
+    <string name="menu_labelPins_tt">Für alle unbenannten Ein- und Ausgänge eine Bezeichnung setzen.</string>
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
@@ -1333,6 +1404,15 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
 Soll dennoch exportiert werden?</string>
     <string name="msg_circuitIsRequired">Um eine Hardwarebeschreibung zu erzeugen, muss zuvor eine Schaltung erstellt
         und analysiert werden. Aus nur einer Wahrheitstabelle kann keine Hardwarebeschreibung erzeugt werden.</string>
+    <string name="msg_noData">keine Daten</string>
+
+    <string name="msg_errorClosingExternalProcess">Konnte externen Prozess nicht beenden!</string>
+    <string name="msg_checkResult">Ergebnis der Überprüfung:</string>
+    <string name="btn_checkCode">Prüfen</string>
+    <string name="btn_checkCode_tt">Startet die Anwendung um zu prüfen, ob der eingegebene Code korrekt ist. Falls das
+        nicht der Fall ist, wird die Fehlermeldung der externen Anwendung angezeigt. Wenn es möglich ist, werden zudem
+        die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
+    <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
@@ -1357,8 +1437,38 @@ Soll dennoch exportiert werden?</string>
     <string name="win_itempicker_title">Auswahl</string>
     <string name="win_valueInputTitle_N">Eingabe {0}</string>
     <string name="win_karnaughMap">Karnaugh-Veitch Tafel</string>
+    <string name="win_romDialog">Vorhandene ROMs</string>
 
     <string name="btn_help">Hilfe</string>
+
+    <string name="win_romDialogHelpTitle">Zentrale ROM Inhalte</string>
+    <string name="msg_romDialogHelp"><![CDATA[
+        <html>
+        <h3>Motivation</h3>
+        Wenn eine Schaltung, die einen ROM-Baustein enthält, mehrfach eingebettet wird,
+        wird im Normalfall dessen Inhalt für jede Instanz dieser Schaltung verwendet.
+        Unter Umständen kann es aber gewünscht sein, dass eine solche Schaltung zwar
+        mehrfach eingebettet wird, dass aber für jede Instanz unterschiedliche
+        ROM-Inhalte verwendet werden.<br/>
+        Dieses Problem tritt z.B. auf, wenn ein 74xx ROM mehrfach verwendet wird,
+        jedoch mit jeweils anderem Speicherinhalt.<br/>
+        <h3>Funktion</h3>
+        An dieser Stelle können daher für alle ROMs in der Schaltung Inhalte definiert werden.
+        Wenn das Simulationsmodel erzeugt wird, werden für die ROMs zunächst die Inhalte
+        verwendet, die direkt im jeweiligen ROM gespeichert sind. Dann wird überprüft, ob an
+        dieser Stelle ein alternativer Inhalt definiert ist. Ist dies der Fall, wird der hier
+        verwendete Inhalt in das entsprechende ROM geladen.
+        <h3>Verwendung</h3>
+        Zu beachten ist, dass jedes ROM einen eindeutigen Namen benötigt, über welchen der ROM-Inhalt
+        zugeordnet wird. Dazu verwendet man in der Bezeichnung des ROMs das Mal-Zeichen ('*')
+        Dieses wird dann durch den kompletten Pfad, aufgebaut aus den Bezeichnungen der eingebetteten
+        Schaltungen ersetzt. Enthält eine Schaltung nur einen ROM-Baustein, ist es ausreichend, nur
+        das Mal-Zeichen als Bezeichnung zu verwenden.
+        Alle eingebetteten Schaltungen müssen mit einem Namen versehen werden, damit ein eindeutiger
+        Name für jedes ROM gebildet werden kann.
+        </html>
+        ]]>
+    </string>
 
     <string name="msg_newRelease_N"><![CDATA[
         <html>
@@ -1388,7 +1498,8 @@ werden: "let U=A+B, let V=A*B"</string>
     <head><style>pre { background-color: #E0E0E0;}</style></head>
     <body>
 <p>Die erste Zeile muss, durch ein Leerzeichen getrennt, die
-Ein- und Ausgänge auflisten. In den folgenden Zeilen stehen dann die Sollwerte.
+Ein- und Ausgänge auflisten, die verwendet werden sollen.
+In den folgenden Zeilen stehen dann die Sollwerte.
 Dabei steht ein 'X' für Don't Care, und ein 'Z' für hochohmig.
 Wird der Wert 'C' verwendet, werden zunächst alle anderen Werte gesetzt, dann wird ein
 Taktzyklus durchgeführt, und erst daran anschließend werden die Werte verglichen.
@@ -1440,6 +1551,22 @@ loop(a,16)
   end loop
 end loop
 </pre>
+
+<p>Ein Eingang, welcher hochhomige Werte erlaubt, kann auch als Testausgang verwendet werden.
+In diesem Fall kann der Signalname mit einem nachgestellten '_out' verwendet werden, um den
+aktuellen Wert zurückzulesen und zu überprüfen. Dazu muss der entsprechende Eingang auf
+hochohmig ('Z') gesetzt sein.</p>
+
+<pre>OE CLK D D_out
+0   0  0 0
+0   C  1 1
+1   0  z 1
+0   C  0 0
+1   0  z 0
+</pre>
+
+<p>Die Schaltung zu diesem Test hat nur einen Eingang 'D', welcher aber hochohmig sein kann.
+Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert zu prüfen.</p>
 
 </body></html>]]></string>
 

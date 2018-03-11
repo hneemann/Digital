@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.draw.graphics.Vector;
@@ -8,8 +13,6 @@ import java.util.HashSet;
 /**
  * Used to reduce the wires found in the circuit.
  * So multiple linear connected wires a replaced by a single wire.
- *
- * @author hneemann
  */
 public class WireConsistencyChecker {
     private ArrayList<Wire> wires;

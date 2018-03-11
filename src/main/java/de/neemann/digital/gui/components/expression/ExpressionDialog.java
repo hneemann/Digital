@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.expression;
 
 import de.neemann.digital.analyse.expression.Expression;
@@ -22,8 +27,6 @@ import java.util.ArrayList;
 /**
  * Dialog to enter an expression.
  * Creates a new frame with a circuit generated from the entered expression.
- *
- * @author hneemann
  */
 public class ExpressionDialog extends JDialog {
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.ObservableValue;
@@ -9,7 +14,6 @@ import java.util.List;
 
 /**
  * The SingleBusHandler is used for a simple isolated net.
- * Created by hneemann on 22.02.17.
  */
 public final class SingleBusHandler extends AbstractBusHandler {
     private final ObservableValue output;
@@ -42,7 +46,7 @@ public final class SingleBusHandler extends AbstractBusHandler {
     }
 
     @Override
-    public void set(long value, boolean highz) {
+    public void set(long value, long highz) {
         output.set(value, highz);
     }
 

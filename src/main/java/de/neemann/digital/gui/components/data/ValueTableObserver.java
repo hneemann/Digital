@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.data;
 
 import de.neemann.digital.core.ModelEvent;
@@ -10,8 +15,6 @@ import java.util.ArrayList;
 
 /**
  * Observer to create measurement data
- *
- * @author hneemann
  */
 public class ValueTableObserver implements ModelStateObserverTyped {
 

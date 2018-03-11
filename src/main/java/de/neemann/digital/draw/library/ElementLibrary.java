@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.flipflops.*;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
@@ -13,6 +19,7 @@ import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.*;
+import de.neemann.digital.core.flipflops.Monoflop;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
@@ -29,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -41,8 +49,6 @@ import java.util.*;
  * When a file is selected it is loaded to the library. After that also an icon is available.
  * This is done because the loading of a circuit and the creation of an icon is very time consuming and should
  * be avoided if not necessary. It's a kind of lazy loading.
- *
- * @author hneemann
  */
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);
@@ -142,7 +148,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(FlipflopD.DESCRIPTION)
                         .add(FlipflopT.DESCRIPTION)
                         .add(FlipflopJKAsync.DESCRIPTION)
-                        .add(FlipflopDAsync.DESCRIPTION))
+                        .add(FlipflopDAsync.DESCRIPTION)
+                        .add(Monoflop.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_memory"))
                         .add(Register.DESCRIPTION)
                         .add(ROM.DESCRIPTION)
@@ -178,8 +185,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 .add(new LibraryNode(Lang.get("lib_misc"))
                         .add(TestCaseElement.TESTCASEDESCRIPTION)
                         .add(PowerSupply.DESCRIPTION)
+                        .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
-                        .add(Break.DESCRIPTION));
+                        .add(Break.DESCRIPTION)
+                        .add(External.DESCRIPTION));
 
         addExternalJarComponents(jarFile);
 
@@ -187,7 +196,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         File libPath = Settings.getInstance().get(Keys.SETTINGS_LIBRARY_PATH);
         if (libPath != null && libPath.exists())
-            new ElementLibraryFolder(root, Lang.get("menu_library")).scanFolder(libPath);
+            new ElementLibraryFolder(root, Lang.get("menu_library")).scanFolder(libPath, true);
 
         populateNodeMap();
 
@@ -398,7 +407,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void rescanFolder() throws IOException {
         LOGGER.debug("rescan folder");
-        LibraryNode cn = custom.scanFolder(rootLibraryPath);
+        LibraryNode cn = custom.scanFolder(rootLibraryPath, false);
 
         populateNodeMap();
 
@@ -511,7 +520,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             Circuit circuit;
             try {
                 circuit = Circuit.loadCircuit(file, shapeFactory);
-            } catch (IOException e) {
+            } catch (FileNotFoundException e) {
                 throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
             ElementTypeDescriptionCustom description =

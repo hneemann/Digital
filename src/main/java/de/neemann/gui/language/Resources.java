@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui.language;
 
 import com.thoughtworks.xstream.XStream;
@@ -13,7 +18,6 @@ import java.io.*;
 import java.util.*;
 
 /**
- * @author hneemann
  */
 public class Resources {
 

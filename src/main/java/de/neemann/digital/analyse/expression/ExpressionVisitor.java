@@ -1,9 +1,12 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.expression;
 
 /**
  * Visitor used the visit all sub expressions of the expression tree
- *
- * @author hneemann
  */
 public interface ExpressionVisitor {
 

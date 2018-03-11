@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.switching;
 
 import de.neemann.digital.core.*;
@@ -68,8 +73,8 @@ public class Switch implements Element, NodeInterface {
     public Switch(ElementAttributes attr, boolean closed, String out1, String out2) {
         bits = attr.getBits();
         this.closed = closed;
-        output1 = new ObservableValue(out1, bits, true).setBidirectional().set(0, true);
-        output2 = new ObservableValue(out2, bits, true).setBidirectional().set(0, true);
+        output1 = new ObservableValue(out1, bits).setBidirectional().setToHighZ();
+        output2 = new ObservableValue(out2, bits).setBidirectional().setToHighZ();
     }
 
     @Override
@@ -89,23 +94,11 @@ public class Switch implements Element, NodeInterface {
                             constant = in2.searchConstant();
                             if (constant != null)
                                 switchModel = new SimpleSwitch(constant, output1);
-                            else {
-                                // not a constant
-                                boolean def1 = in1.isAlwaysDefined();
-                                boolean def2 = in2.isAlwaysDefined();
-                                if (def1 == def2)
-                                    switchModel = new RealSwitch(in1, in2);
-                                else {
-                                    if (def1)
-                                        switchModel = new SimpleSwitch(input1, output2);
-                                    else
-                                        switchModel = new SimpleSwitch(input2, output1);
-                                }
-                            }
+                            else
+                                switchModel = new RealSwitch(in1, in2);
                         }
-                    } else {
+                    } else
                         switchModel = new SimpleSwitch(input1, output2);
-                    }
                 } else {
                     if (input2 instanceof CommonBusValue) {
                         switchModel = new SimpleSwitch(input2, output1);
@@ -199,9 +192,9 @@ public class Switch implements Element, NodeInterface {
         @Override
         public void propagate() {
             if (closed) {
-                output.set(input.getValue(), input.isHighZ());
+                output.set(input.getValue(), input.getHighZ());
             } else {
-                output.set(0, true);
+                output.setToHighZ();
             }
         }
 

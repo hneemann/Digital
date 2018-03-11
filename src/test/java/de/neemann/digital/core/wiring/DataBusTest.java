@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.core.BurnException;
@@ -9,24 +14,25 @@ import de.neemann.digital.draw.elements.PinException;
 import junit.framework.TestCase;
 
 /**
- * @author hneemann
  */
 public class DataBusTest extends TestCase {
 
     public void testSimple() throws PinException, NodeException {
-        ObservableValue a = new ObservableValue("a", 4, true);
-        ObservableValue b = new ObservableValue("b", 4, true);
+        ObservableValue a = new ObservableValue("a", 4)
+                .setToHighZ();
+        ObservableValue b = new ObservableValue("b", 4)
+                .setToHighZ();
 
         Model m = new Model();
 
         ObservableValue out = new DataBus(null, m, a, b).getReadableOutput();
 
-        a.set(1, false);
+        a.setValue(1);
         assertEquals(1, out.getValue());
-        a.set(1, true);
-        b.set(2, false);
+        a.setToHighZ();
+        b.setValue(2);
         assertEquals(2, out.getValue());
-        b.set(1, true);
+        b.setToHighZ();
 
 //        try {  ToDo HighZ
 //            out.getValue();
@@ -35,16 +41,16 @@ public class DataBusTest extends TestCase {
 //            assertTrue(true);
 //        }
 
-        a.set(1, false);
-        b.set(1, false);
+        a.setValue(1);
+        b.setValue(1);
         m.doStep();
 
-        a.set(0, false);
-        b.set(0, false);
+        a.setValue(0);
+        b.setValue(0);
         m.doStep();
 
-        a.set(1, false);
-        b.set(0, false);
+        a.setValue(1);
+        b.setValue(0);
         try {
             m.doStep();
             assertTrue(true);

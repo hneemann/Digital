@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.testing;
 
 import de.neemann.digital.core.element.PinDescription;
@@ -11,7 +16,6 @@ import java.util.ArrayList;
 
 /**
  * Helper to create all possible transitions between states.
- * Created by hneemann on 24.02.17.
  */
 public class Transitions {
 

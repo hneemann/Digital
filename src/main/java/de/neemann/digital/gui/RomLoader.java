@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.Model;
@@ -12,7 +17,6 @@ import java.util.List;
 
 /**
  * A Modifier that loads a given rom file to the program memory of the model.
- * Created by hneemann on 17.12.16.
  */
 public class RomLoader implements ModelModifier {
     private final File romHex;

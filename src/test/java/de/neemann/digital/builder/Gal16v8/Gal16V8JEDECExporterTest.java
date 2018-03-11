@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.builder.Gal16v8;
 
 import de.neemann.digital.analyse.expression.Expression;
@@ -12,7 +17,6 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 import static de.neemann.digital.analyse.expression.Variable.v;
 
 /**
- * @author hneemann
  */
 public class Gal16V8JEDECExporterTest extends TestCase {
 

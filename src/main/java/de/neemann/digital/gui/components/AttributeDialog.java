@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -23,8 +28,6 @@ import java.util.HashMap;
  * {@link ElementAttributes} which is a mostly a observable hash map.
  * This class is used to create the dialogs used to edit the element attributes but also to edit the
  * system settings, the model settings and the models attributes,
- *
- * @author hneemann
  */
 public class AttributeDialog extends JDialog {
     private final java.util.List<EditorHolder> editors;
@@ -202,6 +205,16 @@ public class AttributeDialog extends JDialog {
     }
 
     /**
+     * update gui fields with attributes
+     *
+     * @throws Editor.EditorParseException Editor.EditorParseException
+     */
+    public void updateEditedValues() throws Editor.EditorParseException {
+        for (EditorHolder e : editors)
+            e.getFrom(modifiedAttributes);
+    }
+
+    /**
      * Shows the dialog
      *
      * @return the new attributes of null if nothing has changed
@@ -278,6 +291,11 @@ public class AttributeDialog extends JDialog {
         public void setTo(ElementAttributes attr) throws Editor.EditorParseException {
             T value = e.getValue();
             attr.set(key, value);
+        }
+
+        public void getFrom(ElementAttributes attr) throws Editor.EditorParseException {
+            T value = attr.get(key);
+            e.setValue(value);
         }
 
         void setDependantEditor(Editor editor, boolean inverted) {

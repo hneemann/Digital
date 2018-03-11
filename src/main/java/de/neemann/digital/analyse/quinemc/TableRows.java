@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.quinemc;
 
 import java.util.ArrayList;
@@ -7,8 +12,6 @@ import java.util.TreeMap;
 
 /**
  * Set of rows stored in a special way to make comparisons faster
- *
- * @author hneemann
  */
 public final class TableRows implements Iterable<TableRow> {
     private final TreeMap<Long, InnerList> rows;

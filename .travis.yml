@@ -9,8 +9,8 @@ deploy:
     secure: jhBDJzb7WKIAHIrRqHBVfckMpn/gRwMaLgT2dswjCzn2UAevmzHYfYO4nWN1pUbkkMMc16nYK5mdGat5scD/+z7lc5WcycX1CzNyyUFxLO7McAfE0uBYcST0Asi0QILwa/WbsswYtzO0UsrlgR8y55HhMefaNBgZemBvB0E3ArfdBQVdLLwyoF0KM2SHigH9s+/VcmrdwC/23PSg/qJSKjNGJKNj835aI+VMJg3Zx0v9nDiXeU7YX3DmZSLrLlwQEa95qDM03buNQTVXEvmafm+eip5Cdze6/ZEAvIYMS/zt9XYJDxRlwB26u4uTvurRgZGMM+gxzzE4UJRcObwboGMQGiiPuRedv6xBGQWXEiFGqUdB5rS+FxZKLiCZUgDRYwL7MHi0blskRuQ0AWdcI0DEvzlwZBMQHSf8Pvc/VSKYYulIvIUQF2RbYmWp4sfkT0A0aTrrHxxZEicsRtslt05G7H2CMc961ZEP57Nsb58sApxxTnHguX3cKQi/kdHjm4vV9zsRgsTIe1xSCXfwMk7wC3we+1GCF1sX0JFxAhYGKX5SvxVO7ioPUOVW3pptkFxGkffBpEYElskBnv8A863EHzXCMHLqglQHHTY7CK2DOEdQFrnpj8M57GSkt4D0tjIumU8UGSNAogzhomuUoxEoCSdFoK4s7TGv8T95Fqw=
   file:
     - target/Digital.zip
-    - target/docu/Documentation_de.pdf
-    - target/docu/Documentation_en.pdf
+    - target/docuDist/Doc_English.pdf
+    - target/docuDist/Doc_Deutsch.pdf
   skip_cleanup: true
   on:
     tags: true

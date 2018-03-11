@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.element;
 
 import java.io.File;
@@ -8,8 +13,6 @@ import java.util.Map;
 /**
  * Describes one concrete Part.
  * Its a Key value list, which is used to store the diferent elements attributes.
- *
- * @author hneemann
  */
 public class ElementAttributes {
     private HashMap<String, Object> attributes;

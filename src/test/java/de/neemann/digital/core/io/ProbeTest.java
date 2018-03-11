@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.Model;
@@ -9,7 +14,6 @@ import java.util.ArrayList;
 
 /**
  * Make sure that probes are correctly named and added to the list of signals.
- * Created by hneemann on 08.03.17.
  */
 public class ProbeTest extends TestCase {
 
@@ -18,8 +22,8 @@ public class ProbeTest extends TestCase {
         ArrayList<Signal> signals = m.getSignals();
         assertEquals(5, signals.size());
 
-        assertTrue(signals.contains(new Signal("M_Probe1", null)));
-        assertTrue(signals.contains(new Signal("M_Probe2", null)));
+        assertTrue(signals.contains(new Signal("M-Probe1", null)));
+        assertTrue(signals.contains(new Signal("M-Probe2", null)));
     }
 
     public void testProbeNesting() throws Exception {
@@ -27,8 +31,8 @@ public class ProbeTest extends TestCase {
         ArrayList<Signal> signals = m.getSignals();
         assertEquals(6, signals.size());
 
-        assertTrue(signals.contains(new Signal("M_Probe1", null)));
-        assertTrue(signals.contains(new Signal("M_Nest_Probe1", null)));
-        assertTrue(signals.contains(new Signal("M_Nest_Probe2", null)));
+        assertTrue(signals.contains(new Signal("M-Probe1", null)));
+        assertTrue(signals.contains(new Signal("M-Nest-Probe1", null)));
+        assertTrue(signals.contains(new Signal("M-Nest-Probe2", null)));
     }
 }

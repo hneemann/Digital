@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.*;
@@ -11,8 +16,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * RAM module with different ports to read and write the data
  * and an additional read port. Used to implement graphic card memory.
- *
- * @author hneemann
  */
 public class RAMDualAccess extends Node implements Element, RAMInterface {
 
@@ -24,7 +27,7 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
             input("C").setClock(),
             input("ld"),
             input("1A"),
-            input("1D_in"),
+            input("1Din"),
             input("2A"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
@@ -57,8 +60,11 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
     public RAMDualAccess(ElementAttributes attr) {
         super(true);
         bits = attr.get(Keys.BITS);
-        out1 = new ObservableValue("1D", bits, true).setPinDescription(DESCRIPTION);
-        out2 = new ObservableValue("2D", bits).setPinDescription(DESCRIPTION);
+        out1 = new ObservableValue("1D", bits)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
+        out2 = new ObservableValue("2D", bits)
+                .setPinDescription(DESCRIPTION);
         addrBits = attr.get(Keys.ADDR_BITS);
         size = 1 << addrBits;
         memory = new DataField(size);
@@ -106,9 +112,9 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
     @Override
     public void writeOutputs() throws NodeException {
         if (ld) {
-            out1.set(memory.getDataWord(addr1), false);
+            out1.setValue(memory.getDataWord(addr1));
         } else {
-            out1.set(0, true);
+            out1.setToHighZ();
         }
         out2.setValue(memory.getDataWord(addr2));
     }

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -15,8 +20,6 @@ import java.io.IOException;
 
 /**
  * The LibrarySelector is responsible for building the menu used to select items for adding them to the circuit.
- *
- * @author hneemann
  */
 public class LibrarySelector implements LibraryListener {
     private final ElementLibrary library;
@@ -83,7 +86,8 @@ public class LibrarySelector implements LibraryListener {
 
     private void addComponents(JMenu parts, LibraryNode node) {
         if (node.isLeaf()) {
-            parts.add(new InsertAction(node, insertHistory, circuitComponent, shapeFactory).createJMenuItem());
+            if (!node.isHidden())
+                parts.add(new InsertAction(node, insertHistory, circuitComponent, shapeFactory).createJMenuItem());
         } else {
             JMenu subMenu = new JMenu(node.getName());
             for (LibraryNode child : node)

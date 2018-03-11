@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.NodeException;
@@ -19,8 +24,6 @@ import java.util.HashMap;
  * The ModelEntry is used to generate the model.
  * It holds the element which is able to register nodes to the model and the visual element which is
  * the visual representation of the circuits.
- *
- * @author hneemann
  */
 public class ModelEntry {
     private final Element element;

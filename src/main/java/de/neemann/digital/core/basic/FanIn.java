@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.basic;
 
 import de.neemann.digital.core.Node;
@@ -13,8 +18,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A fan in. Used as base class for the simple bool operations
- *
- * @author hneemann
  */
 public abstract class FanIn extends Node implements Element {
 
@@ -84,7 +87,7 @@ public abstract class FanIn extends Node implements Element {
             int count = elementAttributes.get(Keys.INPUT_COUNT);
             PinDescription[] names = new PinDescription[count];
             for (int i = 0; i < count; i++)
-                names[i] = input(PREFIX + (i+1), Lang.get("elem_Basic_In", i));
+                names[i] = input(PREFIX + (i + 1), Lang.get("elem_Basic_In", i + 1));
             return new PinDescriptions(names);
         }
     }

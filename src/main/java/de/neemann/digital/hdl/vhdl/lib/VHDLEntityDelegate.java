@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.hdl.model.HDLException;
@@ -30,7 +35,7 @@ public abstract class VHDLEntityDelegate implements VHDLEntity {
     }
 
     @Override
-    public boolean needsOutput(HDLNode node) {
+    public boolean needsOutput(HDLNode node) throws HDLException {
         return getDelegate(node).needsOutput(node);
     }
 

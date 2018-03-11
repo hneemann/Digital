@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import org.slf4j.Logger;
@@ -9,7 +14,6 @@ import java.util.Arrays;
 
 /**
  * Handles a single folder
- * Created by hneemann on 17.07.17.
  */
 public class ElementLibraryFolder {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibraryFolder.class);
@@ -41,10 +45,11 @@ public class ElementLibraryFolder {
     /**
      * scans the given folder
      *
-     * @param path the path to scan
+     * @param path      the path to scan
+     * @param isLibrary true if this is the library
      * @return the node which has changed
      */
-    public LibraryNode scanFolder(File path) {
+    public LibraryNode scanFolder(File path, boolean isLibrary) {
         LibraryNode changedNode = null;
         if (path != null) {
             if (node == null) {
@@ -56,7 +61,7 @@ public class ElementLibraryFolder {
                 changedNode = node;
             }
             final ScanCounter scanCounter = new ScanCounter();
-            scanFolder(path, node, scanCounter);
+            scanFolder(path, node, scanCounter, isLibrary);
             LOGGER.debug("found " + scanCounter.getCircuitCounter() + " files in " + path);
         } else if (node != null) {
             root.remove(node);
@@ -66,7 +71,7 @@ public class ElementLibraryFolder {
         return changedNode;
     }
 
-    private static void scanFolder(File path, LibraryNode node, ScanCounter scanCounter) {
+    private static void scanFolder(File path, LibraryNode node, ScanCounter scanCounter, boolean isLibrary) {
         File[] list = path.listFiles();
         if (list != null && scanCounter.getFileCounter() < MAX_FILES_TO_SCAN) {
             ArrayList<File> orderedList = new ArrayList<>(Arrays.asList(list));
@@ -74,7 +79,7 @@ public class ElementLibraryFolder {
             for (File f : orderedList) {
                 if (f.isDirectory() && !f.isHidden()) {
                     LibraryNode n = new LibraryNode(f.getName());
-                    scanFolder(f, n, scanCounter);
+                    scanFolder(f, n, scanCounter, isLibrary);
                     if (!n.isEmpty())
                         node.add(n);
                 }
@@ -83,7 +88,7 @@ public class ElementLibraryFolder {
                 scanCounter.incFile();
                 final String name = f.getName();
                 if (f.isFile() && name.endsWith(".dig")) {
-                    node.add(new LibraryNode(f));
+                    node.add(new LibraryNode(f, isLibrary));
                     scanCounter.incCircuit();
                 }
             }

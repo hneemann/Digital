@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.table;
 
 
@@ -31,7 +36,6 @@ import static de.neemann.digital.analyse.expression.Variable.v;
 import static de.neemann.digital.analyse.expression.Variable.vars;
 
 /**
- * Created by hneemann on 02.04.17.
  */
 public class BuilderExpressionCreatorTest extends TestCase {
     private ElementLibrary libary = new ElementLibrary();
@@ -68,6 +72,7 @@ public class BuilderExpressionCreatorTest extends TestCase {
 
     private void check(Model m) throws AnalyseException, NodeException, BacktrackException, PinException {
         TruthTable tt = new ModelAnalyser(m).analyse();
+        m.close();
         assertEquals(1,tt.getResultCount());
         BoolTable r = tt.getResult(0);
         assertEquals(4, r.size());
@@ -75,6 +80,7 @@ public class BuilderExpressionCreatorTest extends TestCase {
         assertEquals(ThreeStateValue.one ,r.get(1));
         assertEquals(ThreeStateValue.one ,r.get(2));
         assertEquals(ThreeStateValue.zero ,r.get(3));
+
     }
 
     private Model create(ExpressionListenerStore els, ExpressionModifier modifier) throws ExpressionException, FormatterException, ElementNotFoundException, PinException, NodeException {

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.Model;
@@ -17,8 +22,6 @@ import java.util.ArrayList;
  * created by this bus. If more then one output becomes low Z and the values are not equal then
  * a {@link de.neemann.digital.core.BurnException} is thrown after the models step is completed.
  * During the calculation of of a single step a temporary burn condition is allowed.
- *
- * @author hneemann
  */
 public class DataBus {
     private final CommonBusValue commonBusValue;

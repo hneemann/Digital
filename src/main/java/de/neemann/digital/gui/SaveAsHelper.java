@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.lang.Lang;
@@ -11,7 +16,6 @@ import java.io.IOException;
 /**
  * Helper to handle the overwrite conformation
  * <p>
- * Created by hneemann on 04.04.17.
  */
 public final class SaveAsHelper {
     private final Component parent;

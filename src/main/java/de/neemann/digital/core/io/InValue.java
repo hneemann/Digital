@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.Bits;
@@ -5,8 +10,7 @@ import de.neemann.digital.core.ObservableValue;
 
 /**
  * A simple value.
- * <p>
- * Created by hneemann on 19.06.17.
+ * Used to store a default value in the attributes.
  */
 public class InValue {
 
@@ -26,16 +30,6 @@ public class InValue {
     /**
      * Creates a new value
      *
-     * @param highZ ht ehigh z state
-     */
-    public InValue(boolean highZ) {
-        this.value = 0;
-        this.highZ = true;
-    }
-
-    /**
-     * Creates a new value
-     *
      * @param value the value
      */
     public InValue(ObservableValue value) {
@@ -44,7 +38,7 @@ public class InValue {
             this.value = 0;
         } else {
             this.highZ = false;
-            this.value = value.getValueIgnoreHighZ();
+            this.value = value.getValue();
         }
     }
 

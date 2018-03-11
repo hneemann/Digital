@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.testing;
 
 import de.neemann.digital.data.Value;
@@ -7,7 +12,6 @@ import java.util.ArrayList;
 
 /**
  * Resolves don't cares in the inputs list
- * Created by hneemann on 19.04.17.
  */
 public class LineListenerResolveDontCare implements LineListener {
 

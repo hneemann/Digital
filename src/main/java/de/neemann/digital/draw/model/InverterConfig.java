@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.NodeWithoutDelay;
@@ -7,7 +12,6 @@ import java.util.HashSet;
 
 /**
  * Manages the input inverting of a component
- * Created by hneemann on 28.05.17.
  */
 public class InverterConfig {
 
@@ -55,10 +59,10 @@ public class InverterConfig {
         orig.addObserver(new NodeWithoutDelay(out) {
             @Override
             public void hasChanged() {
-                out.set(~orig.getValue(), orig.isHighZ());
+                out.set(~orig.getValue(), orig.getHighZ());
             }
         });
-        out.set(~orig.getValue(), orig.isHighZ());
+        out.set(~orig.getValue(), orig.getHighZ());
         return out;
     }
 

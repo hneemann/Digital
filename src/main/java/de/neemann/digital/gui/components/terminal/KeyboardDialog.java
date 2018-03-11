@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.terminal;
 
 import de.neemann.digital.lang.Lang;
@@ -9,8 +14,6 @@ import java.awt.event.KeyEvent;
 
 /**
  * A simple keyboard implementation
- *
- * @author hneemann
  */
 public class KeyboardDialog extends JDialog {
     private final JLabel textLabel;

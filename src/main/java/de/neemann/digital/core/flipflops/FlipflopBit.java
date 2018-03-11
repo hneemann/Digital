@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.flipflops;
 
 import de.neemann.digital.core.*;
@@ -28,7 +33,7 @@ abstract class FlipflopBit extends Node implements Element {
     FlipflopBit(ElementAttributes attributes, ElementTypeDescription description) {
         super(true);
         this.q = new ObservableValue("Q", 1).setPinDescription(description);
-        this.qn = new ObservableValue("\u00ACQ", 1).setPinDescription(description);
+        this.qn = new ObservableValue("~Q", 1).setPinDescription(description);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getCleanLabel();
 

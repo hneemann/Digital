@@ -8,8 +8,7 @@
     </entry>
     <entry>
       <string>Description</string>
-      <string>presettable synchronous BCD decade
-counter, synchronous reset</string>
+      <string>decimal synchronous counter, real gates</string>
     </entry>
     <entry>
       <string>Color</string>

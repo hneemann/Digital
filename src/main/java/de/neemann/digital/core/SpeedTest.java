@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.wiring.Clock;
@@ -9,8 +14,6 @@ import java.util.ArrayList;
  * This class performs a speed test to determine how fast the model can run.
  * Gives only a rough estimation. Speed depends also on overall system load,
  * garbage collector and so on.
- *
- * @author hneemann
  */
 public class SpeedTest {
     private static final int LOOPCOUNTER = 10000;

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import de.neemann.digital.lang.Lang;
@@ -158,31 +163,32 @@ public final class Bits {
             return 0;
 
         int radix;
-        switch (str.charAt(p)) {
-            case 'x':
-            case 'X':
+        if (wasZero) {
+            if (neg) throw new NumberFormatException(str, p);
+            switch (str.charAt(p)) {
+                case 'x':
+                case 'X':
+                    radix = 16;
+                    p++;
+                    if (p == str.length()) throw new NumberFormatException(str, p);
+                    break;
+                case 'b':
+                case 'B':
+                    radix = 2;
+                    p++;
+                    if (p == str.length()) throw new NumberFormatException(str, p);
+                    break;
+                default:
+                    radix = 8;
+            }
+        } else {
+            if (str.charAt(p) == '\'') {
                 if (neg) throw new NumberFormatException(str, p);
-                radix = 16;
-                p++;
-                if (p == str.length()) throw new NumberFormatException(str, p);
-                break;
-            case 'b':
-            case 'B':
-                if (neg) throw new NumberFormatException(str, p);
-                radix = 2;
-                p++;
-                if (p == str.length()) throw new NumberFormatException(str, p);
-                break;
-            case '\'':
                 p++;
                 if (p == str.length()) throw new NumberFormatException(str, p);
                 return str.charAt(p);
-            default:
-                if (wasZero) {
-                    if (neg) throw new NumberFormatException(str, p);
-                    radix = 8;
-                } else
-                    radix = 10;
+            } else
+                radix = 10;
         }
 
         long val = decode(str, p, radix);

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.docu;
 
 import de.neemann.digital.core.element.Keys;
@@ -37,6 +42,7 @@ public class ScreenShots {
     private static GraphicDialog graphic;
 
     public static void main(String[] args) {
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_DEFAULT_TREESELECT, false);
 //        mainScreenShot();
 //        firstSteps();
 //        hierarchicalDesign();
@@ -47,7 +53,6 @@ public class ScreenShots {
         // english
         Lang.setActualRuntimeLanguage(new Language("en"));
         Settings.getInstance().getAttributes()
-                .set(Keys.SETTINGS_DEFAULT_TREESELECT, false)
                 .set(Keys.SETTINGS_GRID, true)
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         mainScreenShot();

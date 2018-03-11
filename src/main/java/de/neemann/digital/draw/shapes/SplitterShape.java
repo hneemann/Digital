@@ -1,8 +1,14 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -14,13 +20,12 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * The Splitter shape
- *
- * @author hneemann
  */
 public class SplitterShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final int length;
+    private final int spreading;
     private Pins pins;
 
     /**
@@ -34,7 +39,8 @@ public class SplitterShape implements Shape {
     public SplitterShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) throws BitsException {
         this.inputs = inputs;
         this.outputs = outputs;
-        length = (Math.max(inputs.size(), outputs.size()) - 1) * SIZE + 2;
+        spreading = attr.get(Keys.SPLITTER_SPREADING);
+        length = (Math.max(inputs.size(), outputs.size()) - 1) * spreading * SIZE + 2;
     }
 
     @Override
@@ -42,9 +48,9 @@ public class SplitterShape implements Shape {
         if (pins == null) {
             pins = new Pins();
             for (int i = 0; i < inputs.size(); i++)
-                pins.add(new Pin(new Vector(0, i * SIZE), inputs.get(i)));
+                pins.add(new Pin(new Vector(0, i * spreading * SIZE), inputs.get(i)));
             for (int i = 0; i < outputs.size(); i++)
-                pins.add(new Pin(new Vector(SIZE, i * SIZE), outputs.get(i)));
+                pins.add(new Pin(new Vector(SIZE, i * spreading * SIZE), outputs.get(i)));
         }
         return pins;
     }
@@ -57,14 +63,14 @@ public class SplitterShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
         for (int i = 0; i < inputs.size(); i++) {
-            Vector pos = new Vector(-2, i * SIZE - 3);
+            Vector pos = new Vector(-2, i * spreading * SIZE - 3);
             graphic.drawText(pos, pos.add(2, 0), inputs.get(i).getName(), Orientation.RIGHTBOTTOM, Style.SHAPE_SPLITTER);
-            graphic.drawLine(new Vector(0, i * SIZE), new Vector(SIZE2, i * SIZE), Style.NORMAL);
+            graphic.drawLine(new Vector(0, i * spreading * SIZE), new Vector(SIZE2, i * spreading * SIZE), Style.NORMAL);
         }
         for (int i = 0; i < outputs.size(); i++) {
-            Vector pos = new Vector(SIZE + 2, i * SIZE - 3);
+            Vector pos = new Vector(SIZE + 2, i * spreading * SIZE - 3);
             graphic.drawText(pos, pos.add(2, 0), outputs.get(i).getName(), Orientation.LEFTBOTTOM, Style.SHAPE_SPLITTER);
-            graphic.drawLine(new Vector(SIZE, i * SIZE), new Vector(SIZE2, i * SIZE), Style.NORMAL);
+            graphic.drawLine(new Vector(SIZE, i * spreading * SIZE), new Vector(SIZE2, i * spreading * SIZE), Style.NORMAL);
         }
 
         graphic.drawPolygon(new Polygon(true)

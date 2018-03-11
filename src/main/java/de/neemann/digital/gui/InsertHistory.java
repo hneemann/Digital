@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -12,8 +17,6 @@ import java.util.Iterator;
 /**
  * The InsertHistory puts the most frequently used elements to the toolbar of the main window.
  * So its easier to build circuits.
- *
- * @author hneemann
  */
 public class InsertHistory implements LibraryListener {
     private static final int MAX_ICONS = 6;

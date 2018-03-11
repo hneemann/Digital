@@ -1,6 +1,13 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.Ground;
 import de.neemann.digital.core.io.VDD;
@@ -9,6 +16,7 @@ import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.*;
@@ -85,6 +93,10 @@ public class VHDLGenerator implements Closeable {
         out.println("-- Any changes will be lost if this file is regenerated.\n");
 
         try {
+
+            if (!circuit.getAttributes().get(Keys.ROMMANAGER).isEmpty())
+                throw new HDLException(Lang.get("err_centralDefinedRomsAreNotSupported"));
+
             BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
 
             ModelList modelList = new ModelList(library);
@@ -255,12 +267,21 @@ public class VHDLGenerator implements Closeable {
     }
 
     private void writePortMap(HDLNode node) throws HDLException, IOException {
+        boolean useOrigNames = false;
+        final VisualElement visualElement = node.getVisualElement();
+        if (visualElement != null)
+            useOrigNames = visualElement.equalsDescription(External.DESCRIPTION);
+
         out.println("port map (").inc();
         Separator comma = new Separator(",\n");
         for (Port p : node.getPorts()) {
             if (p.getSignal() != null) {
                 comma.check(out);
-                out.print(p.getName() + " => " + p.getSignal().getName());
+                if (useOrigNames)
+                    out.print(p.getOrigName());
+                else
+                    out.print(p.getName());
+                out.print(" => " + p.getSignal().getName());
                 if (p.getDirection() == Port.Direction.out)
                     p.getSignal().setIsWritten();
             }

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.*;
@@ -20,8 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Used to generate the expressions belonging to the given truth table
- *
- * @author hneemann
  */
 public class ExpressionCreator {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExpressionCreator.class);

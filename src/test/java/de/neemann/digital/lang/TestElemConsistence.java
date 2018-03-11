@@ -1,20 +1,22 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.lang;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.FanIn;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.memory.LookUpTable;
-import de.neemann.digital.core.wiring.Decoder;
-import de.neemann.digital.core.wiring.Demultiplexer;
-import de.neemann.digital.core.wiring.PriorityEncoder;
-import de.neemann.digital.core.wiring.Splitter;
+import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.library.ElementLibrary;
 import junit.framework.TestCase;
 
 /**
- * Created by hneemann on 19.11.16.
  */
 public class TestElemConsistence extends TestCase {
 
@@ -64,6 +66,8 @@ public class TestElemConsistence extends TestCase {
                 || e instanceof Decoder
                 || e instanceof PriorityEncoder
                 || e instanceof Splitter
+                || e instanceof BusSplitter
+                || e instanceof External
                 || e instanceof LookUpTable);
     }
 

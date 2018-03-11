@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui;
 
 import javax.swing.*;
@@ -5,7 +10,6 @@ import java.awt.*;
 
 /**
  * Action to handle tool tips.
- * C@author hneemann on 06.03.15.
  */
 public abstract class ToolTipAction extends AbstractAction {
     private Icon icon;

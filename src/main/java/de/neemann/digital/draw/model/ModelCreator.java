@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.Model;
@@ -7,6 +12,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
@@ -22,8 +28,6 @@ import java.util.*;
 
 /**
  * Creates a {@link Model} from the given {@link Circuit} instance.
- *
- * @author hneemann
  */
 public class ModelCreator implements Iterable<ModelEntry> {
 
@@ -221,7 +225,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
     private String combineNames(String s1, String s2) {
         if (s1.length() > 0) {
             if (s2.length() > 0) {
-                return s1 + "_" + s2;
+                return s1 + "-" + s2;
             } else
                 return s1;
         } else {
@@ -280,6 +284,9 @@ public class ModelCreator implements Iterable<ModelEntry> {
             e.getElement().init(m);
             e.getVisualElement().getShape().registerModel(this, m, e);
         }
+
+        ROMManger romManager = circuit.getAttributes().get(Keys.ROMMANAGER);
+        romManager.applyTo(m);
 
         return m;
     }

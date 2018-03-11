@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.quinemc.primeselector;
 
 
@@ -8,7 +13,6 @@ import java.util.Collections;
 import java.util.TreeSet;
 
 /**
- * @author hneemann
  */
 public class BruteForceGetAll implements PrimeSelector {
 

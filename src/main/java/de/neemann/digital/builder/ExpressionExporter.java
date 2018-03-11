@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.builder;
 
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
@@ -10,7 +15,6 @@ import java.io.OutputStream;
  * Every supported device implements this interface.
  *
  * @param <T> concrete type of {@link ExpressionExporter}
- * @author hneemann
  */
 public interface ExpressionExporter<T extends ExpressionExporter> {
 

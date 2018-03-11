@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.hdl.vhdl.boards;
 
 import de.neemann.digital.analyse.SplitPinString;
@@ -7,9 +12,7 @@ import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.lang.Lang;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Creates the needed vivado files.
@@ -21,6 +24,7 @@ public class Vivado implements BoardInterface {
     private final String clockPin;
     private final int periodns;
     private final ClockIntegrator clockIntegrator;
+    private final String device;
 
     /**
      * Creates a new instance
@@ -29,20 +33,26 @@ public class Vivado implements BoardInterface {
      * @param clockPin        the pin the clock is connected to
      * @param periodns        the clock period in nano seconds
      * @param clockIntegrator the clock integrator to use
+     * @param device          the xilinx device code
      */
-    public Vivado(String pinIoType, String clockPin, int periodns, ClockIntegrator clockIntegrator) {
+    public Vivado(String pinIoType, String clockPin, int periodns, ClockIntegrator clockIntegrator, String device) {
         this.pinIoType = pinIoType;
         this.clockPin = clockPin;
         this.periodns = periodns;
         this.clockIntegrator = clockIntegrator;
+        this.device = device;
     }
 
     @Override
     public void writeFiles(File path, HDLModel model) throws IOException {
-        File f = new File(path.getParentFile(), path.getName().replace('.', '_') + "_constraints.xdc");
-        try (CodePrinter out = new CodePrinter(new FileOutputStream(f))) {
+        String projectName = path.getName();
+        if (projectName.endsWith(".vhdl"))
+            projectName = projectName.substring(0, projectName.length() - 5);
+        File constraints = new File(path.getParentFile(), projectName.replace('.', '_') + "_constraints.xdc");
+        try (CodePrinter out = new CodePrinter(new FileOutputStream(constraints))) {
             writeConstraints(out, model);
         }
+        createVivadoProject(path.getParentFile(), projectName, path, constraints);
     }
 
     void writeConstraints(CodePrinter out, HDLModel model) throws IOException {
@@ -81,6 +91,60 @@ public class Vivado implements BoardInterface {
     @Override
     public ClockIntegrator getClockIntegrator() {
         return clockIntegrator;
+    }
+
+    private void createVivadoProject(File path, String projectName, File vhdl, File constraints) throws IOException {
+        String projectDir = projectName + "_vivado";
+        File projectPath = new File(path, projectDir);
+        // don't overwrite existing projects!
+        if (!projectPath.exists()) {
+            if (projectPath.mkdirs()) {
+                File projectFile = new File(projectPath, projectName + ".xpr");
+                try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(projectFile), "utf-8"))) {
+                    writeVivadoProject(w, projectFile, vhdl, constraints);
+                }
+            }
+        }
+    }
+
+    private void writeVivadoProject(BufferedWriter w, File project, File vhdl, File constraints) throws IOException {
+        w.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<!-- Created by Digital -->\n"
+                + "\n"
+                + "<Project Version=\"7\" Minor=\"20\" Path=\"" + project.getPath() + "\">\n"
+                + "  <DefaultLaunch Dir=\"$PRUNDIR\"/>\n"
+                + "  <Configuration>\n"
+                + "    <Option Name=\"Part\" Val=\"" + device + "\"/>\n"
+                + "  </Configuration>\n"
+                + "  <FileSets Version=\"1\" Minor=\"31\">\n"
+                + "    <FileSet Name=\"sources_1\" Type=\"DesignSrcs\" RelSrcDir=\"$PSRCDIR/sources_1\">\n"
+                + "      <Filter Type=\"Srcs\"/>\n"
+                + "      <File Path=\"$PPRDIR/../" + vhdl.getName() + "\">\n"
+                + "        <FileInfo>\n"
+                + "          <Attr Name=\"UsedIn\" Val=\"synthesis\"/>\n"
+                + "          <Attr Name=\"UsedIn\" Val=\"simulation\"/>\n"
+                + "        </FileInfo>\n"
+                + "      </File>\n"
+                + "      <Config>\n"
+                + "        <Option Name=\"DesignMode\" Val=\"RTL\"/>\n"
+                + "        <Option Name=\"TopModule\" Val=\"main\"/>\n"
+                + "        <Option Name=\"TopAutoSet\" Val=\"TRUE\"/>\n"
+                + "      </Config>\n"
+                + "    </FileSet>\n"
+                + "    <FileSet Name=\"constrs_1\" Type=\"Constrs\" RelSrcDir=\"$PSRCDIR/constrs_1\">\n"
+                + "      <Filter Type=\"Constrs\"/>\n"
+                + "      <File Path=\"$PPRDIR/../" + constraints.getName() + "\">\n"
+                + "        <FileInfo>\n"
+                + "          <Attr Name=\"UsedIn\" Val=\"synthesis\"/>\n"
+                + "          <Attr Name=\"UsedIn\" Val=\"implementation\"/>\n"
+                + "        </FileInfo>\n"
+                + "      </File>\n"
+                + "      <Config>\n"
+                + "        <Option Name=\"ConstrsType\" Val=\"XDC\"/>\n"
+                + "      </Config>\n"
+                + "    </FileSet>\n"
+                + "  </FileSets>\n"
+                + "</Project>");
     }
 
 }

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.ObservableValue;
@@ -17,8 +22,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * A simple wire described by two points.
- *
- * @author hneemann
  */
 public class Wire implements Drawable, Movable, ObservableValueReader {
     private static final int MIN_LABEL_WIRE_LEN = SIZE * 4;

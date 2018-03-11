@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.*;
@@ -10,8 +15,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * RAM module with different ports to read and write the data.
- *
- * @author hneemann
  */
 public class RAMDualPort extends Node implements Element, RAMInterface {
 
@@ -20,7 +23,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPort.class,
             input("A"),
-            input("D_in"),
+            input("Din"),
             input("str"),
             input("C").setClock(),
             input("ld"))
@@ -65,7 +68,9 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
      * @return the output value
      */
     protected ObservableValue createOutput() {
-        return new ObservableValue("D", bits, true).setPinDescription(DESCRIPTION);
+        return new ObservableValue("D", bits)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
     }
 
     @Override
@@ -156,9 +161,9 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
     @Override
     public void writeOutputs() throws NodeException {
         if (ld) {
-            output.set(memory.getDataWord(addr), false);
+            output.setValue(memory.getDataWord(addr));
         } else {
-            output.set(0, true);
+            output.setToHighZ();
         }
     }
 

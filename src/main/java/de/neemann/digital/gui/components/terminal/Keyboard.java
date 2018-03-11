@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.terminal;
 
 import de.neemann.digital.core.Node;
@@ -14,7 +19,6 @@ import javax.swing.*;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * @author hneemann
  */
 public class Keyboard extends Node implements Element {
 
@@ -41,7 +45,9 @@ public class Keyboard extends Node implements Element {
      * @param attributes the attributes
      */
     public Keyboard(ElementAttributes attributes) {
-        data = new ObservableValue("D", 16, true).setPinDescription(DESCRIPTION);
+        data = new ObservableValue("D", 16)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
         label = attributes.getCleanLabel();
     }
 
@@ -70,7 +76,10 @@ public class Keyboard extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        data.set(keyData, !sel);
+        if (sel)
+            data.setValue(keyData);
+        else
+            data.setToHighZ();
     }
 
     private KeyboardDialog getKeyboard() {

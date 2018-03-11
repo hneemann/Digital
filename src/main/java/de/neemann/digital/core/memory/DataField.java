@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.Bits;
@@ -8,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * @author hneemann
  */
 public class DataField {
 
@@ -205,11 +209,21 @@ public class DataField {
      *
      * @param addr the address which value has changed
      */
-    public void fireChanged(int addr) {
+    private void fireChanged(int addr) {
         synchronized (listeners) {
             for (DataListener l : listeners)
                 l.valueChanged(addr);
         }
+    }
+
+    /**
+     * Sets the data from the given data field
+     *
+     * @param dataField the data to set to this data field
+     */
+    public void setDataFrom(DataField dataField) {
+        data = Arrays.copyOf(dataField.data, size);
+        fireChanged(-1);
     }
 
     /**

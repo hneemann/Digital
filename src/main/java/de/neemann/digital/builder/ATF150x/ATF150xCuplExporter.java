@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.builder.ATF150x;
 
 import de.neemann.digital.builder.Gal16v8.CuplExporter;
@@ -9,8 +14,6 @@ import java.util.Date;
 
 /**
  * Creates a CUPL file
- *
- * @author hneemann
  */
 public class ATF150xCuplExporter extends CuplExporter {
 

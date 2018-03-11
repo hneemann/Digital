@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.builder.Gal22v10;
 
 import de.neemann.digital.analyse.expression.Expression;
@@ -12,7 +17,6 @@ import static de.neemann.digital.analyse.expression.Operation.and;
 import static de.neemann.digital.analyse.expression.Operation.or;
 
 /**
- * @author hneemann
  */
 public class Gal22V10CuplExporterTest extends TestCase {
 

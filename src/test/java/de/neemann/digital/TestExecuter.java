@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital;
 
 import de.neemann.digital.core.*;
@@ -21,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author hneemann
  */
 public class TestExecuter {
     public static final Object IGNORE = new Object();
@@ -132,9 +136,9 @@ public class TestExecuter {
     public void checkZ(Object... val) throws NodeException {
         for (int i = 0; i < inputs.size(); i++) {
             if (val[i] == HIGHZ)
-                inputs.get(i).set(0, true);
+                inputs.get(i).setToHighZ();
             else
-                inputs.get(i).set(((Number) val[i]).longValue(), false);
+                inputs.get(i).setValue(((Number) val[i]).longValue());
         }
         if (model != null)
             model.doStep();
@@ -154,7 +158,7 @@ public class TestExecuter {
 
     public void check(long... val) throws NodeException {
         for (int i = 0; i < inputs.size(); i++)
-            inputs.get(i).set(val[i], false);
+            inputs.get(i).setValue(val[i]);
         if (model != null)
             model.doStep();
 

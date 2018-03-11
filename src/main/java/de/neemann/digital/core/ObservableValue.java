@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -6,52 +11,35 @@ import de.neemann.digital.lang.Lang;
 
 /**
  * Represents all signal values in the simulator.
- * There are some setters to set the value. A value can be set to high z state.
- * Only a complete bus can be set to high z state. It is not possible to set
- * a single bit of a bus to high z state.
+ * There are some setters to set the value. Each bit of a value can be set to high z state.
  * Observers can observe this value to be notified if the value changes.
- *
- * @author hneemann
  */
 public class ObservableValue extends Observable implements PinDescription {
 
     private final String name;
     private final long mask;
     private final long signedFlag;
-    private final boolean supportsHighZ;
     private final int bits;
+    // the value, high z bits are always set to zero
     private long value;
-    private boolean highZ;
+    // the high z state of each bit
+    private long highZ;
     private boolean bidirectional;
     private boolean isConstant = false;
     private String description;
     private String pinNumber;
 
     /**
-     * Creates a new instance
+     * Creates a new instance.
      *
      * @param name the name of this value
      * @param bits the number of bits
      */
     public ObservableValue(String name, int bits) {
-        this(name, bits, false);
-    }
-
-    /**
-     * Creates a new instance.
-     *
-     * @param name  the name of this value
-     * @param bits  the number of bits
-     * @param highZ if true this value can be a high impedance value
-     */
-    public ObservableValue(String name, int bits, boolean highZ) {
-        super();
+        this.name = name;
         this.bits = bits;
-        this.highZ = highZ;
         mask = Bits.mask(bits);
         signedFlag = Bits.signedFlagMask(bits);
-        this.name = name;
-        supportsHighZ = highZ;
     }
 
 
@@ -70,15 +58,23 @@ public class ObservableValue extends Observable implements PinDescription {
     }
 
     /**
-     * Sets the value and fires an event if value has changed.
-     * Also sets this value to low Z
+     * Sets the value and fires an event if the value has changed.
+     * Also sets all bits to low Z.
      *
      * @param value the new value
      * @return this for chained calls
      */
     public ObservableValue setValue(long value) {
-        set(value, false);
-        return this;
+        return set(value, 0);
+    }
+
+    /**
+     * Sets all bits to highZ state.
+     *
+     * @return this for chained calls
+     */
+    public ObservableValue setToHighZ() {
+        return set(0, -1);
     }
 
     /**
@@ -88,15 +84,16 @@ public class ObservableValue extends Observable implements PinDescription {
      * @param highZ highZ state
      * @return this for chained calls
      */
-    public ObservableValue set(long value, boolean highZ) {
+    public ObservableValue set(long value, long highZ) {
         value = getValueBits(value);
-        if (highZ != this.highZ || (!highZ && (value != this.value))) {
+        highZ = getValueBits(highZ);
+        if (highZ != this.highZ || ((~highZ & (value ^ this.value))) != 0) {
 
             if (isConstant)
                 throw new RuntimeException("tried to modify a constant value!");
 
             this.highZ = highZ;
-            this.value = value;
+            this.value = value & (~highZ);  // high Z bits are set to zero
             fireHasChanged();
         }
         return this;
@@ -126,10 +123,16 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return the value
      */
     public long getValue() {
-        if (highZ)      // ToDo: how to handle highZ read?
-            return 0;
-        else
-            return value;
+        return value;
+    }
+
+    /**
+     * returns the actual high z bit mask
+     *
+     * @return the high z bit mask
+     */
+    public long getHighZ() {
+        return highZ;
     }
 
     /**
@@ -138,11 +141,33 @@ public class ObservableValue extends Observable implements PinDescription {
      * @return the value as string
      */
     public String getValueString() {
-        if (highZ)
-            return "?";
+        if (highZ != 0)
+            if (highZ == mask)
+                return "Z";
+            else {
+                return zMaskString(value, highZ, bits);
+            }
         else {
             return IntFormat.toShortHex(value);
         }
+    }
+
+    static String zMaskString(long value, long highZ, int bits) {
+        StringBuilder sb = new StringBuilder();
+        long m = Bits.up(1, bits - 1);
+        for (int i = 0; i < bits; i++) {
+            if ((highZ & m) != 0) {
+                sb.append("z");
+            } else {
+                if ((value & m) != 0) {
+                    sb.append("1");
+                } else {
+                    sb.append("0");
+                }
+            }
+            m >>>= 1;
+        }
+        return sb.toString();
     }
 
     /**
@@ -218,10 +243,10 @@ public class ObservableValue extends Observable implements PinDescription {
     }
 
     /**
-     * @return true if this value is a high z value
+     * @return true if one of the bits is in high z state
      */
     public boolean isHighZ() {
-        return highZ;
+        return highZ != 0;
     }
 
     @Override
@@ -237,24 +262,6 @@ public class ObservableValue extends Observable implements PinDescription {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * @return returns true if the value could become a highZ value
-     */
-    public boolean supportsHighZ() {
-        return supportsHighZ;
-    }
-
-    /**
-     * Returns the value and does not throw a highZ exception.
-     * Should be used if the value is needed to create a graphical representation to
-     * avoid the graphical representation is causing exceptions.
-     *
-     * @return the actual value.
-     */
-    public long getValueIgnoreHighZ() {
-        return value;
     }
 
     /**

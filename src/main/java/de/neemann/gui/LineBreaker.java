@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.gui;
 
 /**
  * Used to break lines.
- * Created by hneemann on 29.04.17.
  */
 public class LineBreaker {
     private static final int DEF_COLS = 70;

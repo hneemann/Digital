@@ -1,10 +1,13 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.state;
 
 /**
  * Organizes the state switches.
  * Simply holds the actual state, so that if can be disabled by a new state.
- *
- * @author hneemann
  */
 public class StateManager {
 

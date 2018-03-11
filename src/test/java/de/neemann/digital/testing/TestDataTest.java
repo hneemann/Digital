@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.testing;
 
 import de.neemann.digital.testing.parser.LineCollector;
@@ -7,7 +12,6 @@ import junit.framework.TestCase;
 import java.io.IOException;
 
 /**
- * @author hneemann
  */
 public class TestDataTest extends TestCase {
     private static final String DATA1 = "A B\n0 0\n0 1\n1 0\n1 1";

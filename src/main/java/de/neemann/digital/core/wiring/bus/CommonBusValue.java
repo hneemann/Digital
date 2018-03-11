@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.NodeInterface;
@@ -24,7 +29,9 @@ public final class CommonBusValue extends ObservableValue implements NodeInterfa
     }
 
     CommonBusValue(int bits, BusModelStateObserver obs, PullResistor resistor, ObservableValue[] inputs, File origin) {
-        super("commonBusOut", bits, resistor.equals(PullResistor.none));
+        super("commonBusOut", bits);
+        if (resistor.equals(PullResistor.none))
+            setToHighZ();
         this.obs = obs;
         this.resistor = resistor;
         this.inputs = inputs;
@@ -78,19 +85,6 @@ public final class CommonBusValue extends ObservableValue implements NodeInterfa
             if (i.isConstant())
                 return i;
         return null;
-    }
-
-    /**
-     * Checks if this net is always defined.
-     * This means it can never be in a high z state.
-     *
-     * @return true if this net is always defined
-     */
-    public boolean isAlwaysDefined() {
-        for (ObservableValue i : inputs)
-            if (!i.supportsHighZ())
-                return true;
-        return false;
     }
 
     @Override

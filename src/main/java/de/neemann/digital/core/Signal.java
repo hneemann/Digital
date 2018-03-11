@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core;
 
 /**
@@ -9,6 +14,7 @@ public final class Signal implements Comparable<Signal> {
     private final Setter setter;
     private IntFormat format = IntFormat.def;
     private String pinNumber;
+    private ObservableValue bidirectionalReader;
 
     /**
      * Creates a new Instance
@@ -139,6 +145,24 @@ public final class Signal implements Comparable<Signal> {
     }
 
     /**
+     * If a signal is bidirectional the input is set.
+     *
+     * @param bidirectionalReader the corresponding input value
+     * @return this for chained calls
+     */
+    public Signal setBidirectionalReader(ObservableValue bidirectionalReader) {
+        this.bidirectionalReader = bidirectionalReader;
+        return this;
+    }
+
+    /**
+     * @return the bidirectional reader, maybe null
+     */
+    public ObservableValue getBidirectionalReader() {
+        return bidirectionalReader;
+    }
+
+    /**
      * Setter interface to set a value
      */
     public interface Setter {
@@ -147,8 +171,8 @@ public final class Signal implements Comparable<Signal> {
          * Has to modify the inner state and also has to update the outputs.
          *
          * @param value the value to set
-         * @param highZ true is value is in high z state
+         * @param highZ the high z bit mask
          */
-        void set(long value, boolean highZ);
+        void set(long value, long highZ);
     }
 }

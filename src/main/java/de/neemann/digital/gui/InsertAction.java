@@ -1,8 +1,14 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui;
 
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.LibraryNode;
+import de.neemann.digital.draw.shapes.MissingShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.lang.Lang;
@@ -15,7 +21,6 @@ import java.io.IOException;
 
 /**
  * Action to insert the given node to the given circuit
- * Created by hneemann on 25.03.17.
  */
 public final class InsertAction extends ToolTipAction {
     private final InsertHistory insertHistory;
@@ -44,7 +49,6 @@ public final class InsertAction extends ToolTipAction {
     public void actionPerformed(ActionEvent e) {
         if (node.isUnique()) {
             VisualElement visualElement = new VisualElement(node.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
-            circuitComponent.setPartToInsert(visualElement);
             if (getIcon() == null) {
                 try {
                     node.getDescription();
@@ -53,6 +57,9 @@ public final class InsertAction extends ToolTipAction {
                     SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel_N0", node.getName())).addCause(ex));
                 }
             }
+            if (visualElement.getShape() instanceof MissingShape)
+                return;
+            circuitComponent.setPartToInsert(visualElement);
             insertHistory.add(this);
         }
     }

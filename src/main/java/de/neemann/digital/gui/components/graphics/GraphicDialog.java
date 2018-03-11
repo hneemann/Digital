@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.gui.components.graphics;
 
 import de.neemann.digital.core.memory.DataField;
@@ -8,8 +13,6 @@ import java.awt.*;
 
 /**
  * The dialog used to show the graphics
- *
- * @author hneemann
  */
 public class GraphicDialog extends JDialog {
     private final GraphicComponent graphicComponent;

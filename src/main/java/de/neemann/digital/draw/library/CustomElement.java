@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.Model;
@@ -15,8 +20,6 @@ import de.neemann.digital.lang.Lang;
  * This class represents a custom, nested element.
  * So it is possible to use an element in the circuit witch is made from an
  * existing circuit. So you can build hierarchical circuits.
- *
- * @author hneemann
  */
 public class CustomElement implements Element {
     private static final int MAX_DEPTH = 30;

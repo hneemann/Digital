@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
+
 /**
  * Model to create a hierarchical hdl file.
  * In difference to the model used by the simulator ({@link de.neemann.digital.core.Model})

@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.hdl.vhdl;
 
 import de.neemann.digital.core.arithmetic.BitExtender;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -58,6 +64,7 @@ public class VHDLLibrary {
         put(Comparator.DESCRIPTION, new ComparatorVHDL());
         put(BitExtender.DESCRIPTION, new BitExtenderVHDL());
         put(PriorityEncoder.DESCRIPTION, new PriorityEncoderVHDL());
+        put(External.DESCRIPTION, new ExternalVHDL());
 
         put(ROM.DESCRIPTION, new ROMVHDL());
     }
@@ -119,6 +126,10 @@ public class VHDLLibrary {
             VHDLGenerator.writeComment(out, e.getDescription(node), node);
 
             e.writeHeader(out, node);
+
+            if (e instanceof ExternalVHDL)
+                return;
+
             out.println();
             out.println("entity " + node.getHDLName() + " is").inc();
             e.writeDeclaration(out, node);

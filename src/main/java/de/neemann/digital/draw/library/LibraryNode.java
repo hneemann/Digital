@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.element.ElementAttributes;
@@ -20,7 +25,6 @@ import java.util.Iterator;
 
 /**
  * A node in the components library
- * Created by hneemann on 25.03.17.
  */
 public class LibraryNode implements Iterable<LibraryNode> {
     private static final Logger LOGGER = LoggerFactory.getLogger(LibraryNode.class);
@@ -30,6 +34,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     private final String translatedName;
     private final String name;
     private final File file;
+    private final boolean isHidden;
     private ElementTypeDescription description;
     private String toolTipText;
     private ImageIcon icon;
@@ -51,6 +56,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
         this.description = null;
         this.toolTipText = null;
         this.file = null;
+        this.isHidden = false;
     }
 
     /**
@@ -65,6 +71,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
         this.name = description.getName();
         this.translatedName = description.getTranslatedName();
         this.file = null;
+        this.isHidden = false;
     }
 
     /**
@@ -72,13 +79,16 @@ public class LibraryNode implements Iterable<LibraryNode> {
      *
      * @param file the file containing the leaf
      */
-    LibraryNode(File file) {
+    LibraryNode(File file, boolean isLibrary) {
         children = null;
         name = file.getName();
         if (name.toLowerCase().endsWith(".dig"))
             translatedName = name.substring(0, name.length() - 4);
         else
             translatedName = name;
+
+        isHidden = isLibrary && name.endsWith("-inc.dig");
+
         this.file = file;
     }
 
@@ -213,6 +223,19 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public LibraryNode getChild(int i) {
         return children.get(i);
+    }
+
+    /**
+     * get the child with the given name
+     *
+     * @param name the name
+     * @return the child
+     */
+    public LibraryNode getChild(String name) {
+        for (LibraryNode n : children)
+            if (n.getName().equals(name))
+                return n;
+        return null;
     }
 
     /**
@@ -365,6 +388,15 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public File getFile() {
         return file;
+    }
+
+    /**
+     * If the hidden flag is set, this circuit should not appear in the select menus
+     *
+     * @return the hidden flag
+     */
+    public boolean isHidden() {
+        return isHidden;
     }
 
     /**

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.wiring;
 
 import de.neemann.digital.core.Node;
@@ -13,8 +18,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * The Driver
- *
- * @author hneemann
  */
 public class Driver extends Node implements Element {
 
@@ -42,7 +45,9 @@ public class Driver extends Node implements Element {
      */
     public Driver(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        output = new ObservableValue("out", bits, true).setPinDescription(DESCRIPTION);
+        output = new ObservableValue("out", bits)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
     }
 
     @Override
@@ -53,7 +58,10 @@ public class Driver extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.set(value, isOutHigh(sel));
+        if (isOutHighZ(sel))
+            output.setToHighZ();
+        else
+            output.setValue(value);
     }
 
     /**
@@ -62,7 +70,7 @@ public class Driver extends Node implements Element {
      * @param sel the selected input
      * @return the highZ state
      */
-    protected boolean isOutHigh(boolean sel) {
+    protected boolean isOutHighZ(boolean sel) {
         return !sel;
     }
 

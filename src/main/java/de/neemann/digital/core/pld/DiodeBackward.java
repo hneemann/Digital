@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.core.pld;
 
 import de.neemann.digital.core.ObservableValue;
@@ -33,7 +38,7 @@ public class DiodeBackward extends DiodeForward {
 
     @Override
     protected void setOutValue(ObservableValue output, boolean in) {
-        output.set(in ? 1 : 0, in);
+        output.set(in ? 1 : 0, in ? 1 : 0);
     }
 
 }

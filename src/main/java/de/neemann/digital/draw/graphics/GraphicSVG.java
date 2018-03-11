@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics;
 
 import java.io.*;
@@ -9,8 +14,6 @@ import static java.lang.System.out;
  * Used to create a SVG representation of the circuit.
  * Don't use this implementation directly. Use {@link GraphicSVGIndex} to create plain SVG or
  * {@link GraphicSVGLaTeX} if you want to include your SVG to LaTeX.
- *
- * @author hneemann
  */
 public class GraphicSVG implements Graphic {
     private static final int DEF_SCALE = 15;
@@ -156,7 +159,7 @@ public class GraphicSVG implements Graphic {
         if (text == null || text.length() == 0) return;
 
         try {
-            text = formatText(text, style.getFontSize());
+            text = formatText(text, style);
 
             boolean rotateText = false;
             if (p1.y == p2.y) {   // 0 and 180 deg
@@ -196,11 +199,11 @@ public class GraphicSVG implements Graphic {
      * Is used by drawText to format the given text to SVG.
      * This implementation only calls escapeXML(text).
      *
-     * @param text     the text
-     * @param fontSize the fontsize
-     * @return the formated text
+     * @param text  the text
+     * @param style the text style
+     * @return the formatted text
      */
-    public String formatText(String text, int fontSize) {
+    public String formatText(String text, Style style) {
         return escapeXML(text);
     }
 
