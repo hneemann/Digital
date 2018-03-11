@@ -643,7 +643,30 @@
     <string name="elem_TransGate_pin_B">input B</string>
     <string name="elem_TransGate_pin_S">control input.</string>
     <string name="elem_TransGate_pin_~S">inverted control input</string>
-
+    
+    <!-- HDL Gen -->
+    <string name="errMsgWithLine">Line {0} : {1}</string>
+    <string name="notClosedBlockComment">Unterminated block comment</string>
+    <string name="invalidCharacter">Invalid character ''{0}''</string>
+    <string name="missingDoubleQuote">Missing double quote in string literal</string>
+    <string name="invalidHexConstant">Invalid hex constant</string>
+    <string name="unexpectedStartOfStatement">Unexpected token ''{0}''. Expected '{', if, while, for, printf, output literal or identifier.</string>
+    <string name="unexpectedToken">Unexpected token ''{0}'', expected ''{1}''</string>
+    <string name="unpextedTokenInChangeStmt">Unexpected token ''{0}'', expected =, ++, --</string>
+    <string name="unexpectedTokenInPrimaryExpr">Unexpected ''{0}'', expected +, -, ~, !, constant, string literal or identifier</string>
+    <string name="invalidBinaryOperator">Invalid binary operator ''{0}''</string>
+    <string name="tkIdentDesc">identifier</string>
+    <string name="invalidIndexInArrayAccess">Negative index in array access is not allowed</string>
+    <string name="variableNotDefined">Variable ''{0}'' is not defined.</string>
+    <string name="lvalueNotArray">Expression ''{0}'' is not an array</string>
+    <string name="arrayIndexNotInt">Array index should be integer</string>
+    <string name="lvalueNotStruct">Expression ''{0}'' is not a structure</string>
+    <string name="genericVarNotArray">Variable ''generics'' should be defined as array</string>
+    <string name="genericElemNotString">Elements in ''generics'' should be string</string>
+    <string name="moduleNameVarNotString">Variable ''moduleName'' should be string</string>
+    <string name="firstArgFormatNotString">First argument of ''format'' function should be string</string>
+    <string name="invalidArgInFormatFn">Invalid argument in ''format'' function. Only integer and string allowed</string>
+    <string name="invalidFunction">Invalid function ''{0}''</string>
 
     <!-- Misc -->
 
@@ -788,6 +811,8 @@ The names of the variables may not be unique.</string>
     <string name="err_vhdlRomLabel_N_notUnique">Rom name {0} is not unique!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
     <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a name?</string>
+    <string name="err_verilogExporting">Error during export to Verilog.</string>
+    <string name="err_verilogNoElement_N">No Verilog code for {0} available!</string>
     <string name="err_toManyVars">To many variables!</string>
     <string name="err_invalidExpression">Invalid expression!</string>
     <string name="err_function_N0_notFoundInLine_N1">Function {0} not found in line {1}!</string>
@@ -1193,6 +1218,8 @@ The names of the variables may not be unique.</string>
     <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
     <string name="menu_exportVHDL">Export to VHDL</string>
     <string name="menu_exportVHDL_tt">Exports the circuit to VHDL</string>
+    <string name="menu_exportVerilog">Export to Verilog</string>
+    <string name="menu_exportVerilog_tt">Exports the circuit to Verilog</string>    
     <string name="menu_pdfDocumentation">Documentation</string>
     <string name="menu_openPdfDocumentation">Open {0}</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>

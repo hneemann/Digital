@@ -69,6 +69,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import de.neemann.digital.hdl.verilog.VerilogGenerator;
 import static javax.swing.JOptionPane.showInputDialog;
 
 /**
@@ -514,6 +515,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         export.add(new ExportZipAction(this).createJMenuItem());
 
         export.add(createVHDLExportAction().createJMenuItem());
+        export.add(createVerilogExportAction().createJMenuItem());
 
         JMenu file = new JMenu(Lang.get("menu_file"));
         menuBar.add(file);
@@ -567,6 +569,41 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 );
             }
         }.setToolTip(Lang.get("menu_exportVHDL_tt"));
+    }
+
+    private ToolTipAction createVerilogExportAction() {
+        return new ToolTipAction(Lang.get("menu_exportVerilog")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                // check model for errors
+                try {
+                    new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
+                } catch (PinException | NodeException | ElementNotFoundException e) {
+                    showErrorWithoutARunningModel(Lang.get("msg_modelHasErrors"), e);
+                    return;
+                }
+
+                JFileChooser fc = new MyFileChooser();
+                if (filename != null)
+                    fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, "v"));
+
+                ElementAttributes settings = Settings.getInstance().getAttributes();
+                File exportDir = settings.getFile("exportDirectory");
+                if (exportDir != null)
+                    fc.setCurrentDirectory(exportDir);
+
+                fc.addChoosableFileFilter(new FileNameExtensionFilter("Verilog", "v"));
+                new SaveAsHelper(Main.this, fc, "v").checkOverwrite(
+                        file -> {
+                            settings.setFile("exportDirectory", file.getParentFile());
+                            try (VerilogGenerator vlog = new VerilogGenerator(library, new CodePrinter(file))) {
+                                vlog.export(circuitComponent.getCircuit());
+                            }
+                        }
+                );
+            }
+        }.setToolTip(Lang.get("menu_exportVerilog_tt"));
     }
 
     /**

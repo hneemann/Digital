@@ -647,7 +647,31 @@
     <string name="elem_TransGate_pin_S">Steuereingang</string>
     <string name="elem_TransGate_pin_~S">Steuereingang, invertiert</string>
 
+    <!-- HDL Gen -->
+    <!-- TODO: translate this -->
 
+    <string name="errMsgWithLine">Line {0} : {1}</string>
+    <string name="notClosedBlockComment">Nicht abgeschlossener Blockkommentar</string>
+    <string name="invalidCharacter">Ungültiges Zeichen ''{0}''</string>
+    <string name="missingDoubleQuote">Fehlendes Doppelzitat im String-Literal</string>
+    <string name="invalidHexConstant">Ungültige hexadezimale Konstante</string>
+    <string name="unexpectedStartOfStatement">Unerwartetes Token ''{0}''. Erwartet '{', if, while, for, printf, output literal or identifier.</string>
+    <string name="unexpectedToken">Unerwartetes Token ''{0}'', erwartet ''{1}''</string>
+    <string name="unpextedTokenInChangeStmt">Unerwartetes Token ''{0}'', erwartet =, ++, --</string>
+    <string name="unexpectedTokenInPrimaryExpr">Unerwartetes ''{0}'', erwartet +, -, ~, !, numerische Konstante, Zeichenfolgenliteral oder Kennung</string>
+    <string name="invalidBinaryOperator">Ungültiger binärer Operator ''{0}''</string>
+    <string name="tkIdentDesc">Kennung</string>
+    <string name="invalidIndexInArrayAccess">Ein negativer Index im Array-Zugriff ist nicht zulässig</string>
+    <string name="variableNotDefined">Variable ''{0}'' ist nicht definiert</string>
+    <string name="lvalueNotArray">Ausdruck ''{0}'' ist kein Array</string>
+    <string name="arrayIndexNotInt">Array-Index sollte Integer sein</string>
+    <string name="lvalueNotStruct">Ausdruck ''{0}'' ist keine Struktur</string>
+    <string name="genericVarNotArray">Variable ''generics'' sollte als Array definiert werden</string>
+    <string name="genericElemNotString">Elemente im ''generics''-Array sollten string sein</string>
+    <string name="moduleNameVarNotString">Die Variable ''modulName'' sollte eine Zeichenfolge sein</string>
+    <string name="firstArgFormatNotString">Das erste Argument der ''format'' Funktion sollte string sein</string>
+    <string name="invalidArgInFormatFn">Ungültiges Argument in der ''format'' Funktion.</string>
+    <string name="invalidFunction">Ungültige Funktion ''{0}''</string>
 
     <!-- Sonstige -->
 
@@ -792,6 +816,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_vhdlRomLabel_N_notUnique">ROM Name {0} ist nicht eindeutig!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
     <string name="err_vhdlANameIsMissing">Es fehlt ein Name. Sind z.B. alle Pins benannt?</string>
+    <string name="err_verilogExporting">Fehler beim Export nach Verilog.</string>
+    <string name="err_verilogNoElement_N">Kein Verilog Code für {0} verfügbar!</string>
     <string name="err_toManyVars">Zu viele Variablen!</string>
     <string name="err_invalidExpression">Ungültiger Ausdruck!</string>
     <string name="err_function_N0_notFoundInLine_N1">Funktion {0} nicht gefunden in Zeile {1}!</string>
@@ -1199,6 +1225,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_addPowerSupply_tt">Erweitert die Schaltung um eine Spannungsversorung.</string>
     <string name="menu_exportVHDL">Export zu VHDL</string>
     <string name="menu_exportVHDL_tt">Exportiert die Schaltung zu VHDL</string>
+    <string name="menu_exportVerilog">Export zu Verilog</string>
+    <string name="menu_exportVerilog_tt">Exportiert die Schaltung zu Verilog</string>
     <string name="menu_karnaughMap">KV-Tafel</string>
     <string name="menu_karnaughMap_tt">Zeigt eine KV-Tafel der Tabelle an.</string>
     <string name="menu_pdfDocumentation">Dokumentation</string>
