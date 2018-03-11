@@ -6,13 +6,13 @@ The most recent changes are listed in the [release notes](distribution/ReleaseNo
 
 # Digital #
 
+Digital is an easy-to-use digital circuit simulator. 
+It's designed for educational purposes, and I use it in my lectures to illustrate digital electronics.
+
 ![screnshot](screenshot.png)
 
 ![screnshot2](screenshot2.png)
 
-Digital is an easy-to-use digital circuit simulator. 
-It's designed for educational purposes, and I use it in my lectures to illustrate digital electronics.
- 
 ## Features ##
 
 These are the main features of Digital:
