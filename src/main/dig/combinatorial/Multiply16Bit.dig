@@ -609,13 +609,11 @@ werden durch die Und-Gatter implementiert. </string>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>       A       B        Y
-loop(i,10)
-  loop(a,1&lt;&lt;7)
-    loop(b,1&lt;&lt;7)
-       (a&lt;&lt;i)  (b&lt;&lt;i)   ((a&lt;&lt;i)*(b&lt;&lt;i))
-    end loop
-  end loop
+            <dataString>   A    B      Y
+loop(i,100000)
+  let a = random(1&lt;&lt;16);
+  let b = random(1&lt;&lt;16);
+  (a)  (b)   (a*b)
 end loop
 </dataString>
           </testData>

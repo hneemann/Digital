@@ -1524,6 +1524,21 @@ loop(a,16)
 end loop
 </pre>
 
+<p>Unter Umständen ist die Erzeugung von Zufallszahlen in Testfällen hilfreich.
+Diese können mit der Funktion 'random([n])' erzeugt werden. Die erzeugte Zahl ist
+größer gleich Null und kleiner als [n]. Betrachtet man einen 16-Bit Multiplikator als Beispiel,
+kann kein vollständiger Test durchgeführt werden, da dieser 2^32 Eingangskombinationen hätte.
+Ein Regressionstest, welcher 100000 zufällige Zahlen multipliziert, könnte daher wie folgt aussehen:</p>
+
+<pre>
+   A    B      Y
+loop(i,100000)
+  let a = random(1&lt;&lt;16);
+  let b = random(1&lt;&lt;16);
+  (a)  (b)   (a*b)
+end loop
+</pre>
+
 <p>Ein Eingang, welcher hochhomige Werte erlaubt, kann auch als Testausgang verwendet werden.
 In diesem Fall kann der Signalname mit einem nachgestellten '_out' verwendet werden, um den
 aktuellen Wert zurückzulesen und zu überprüfen. Dazu muss der entsprechende Eingang auf

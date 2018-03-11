@@ -1505,6 +1505,21 @@ loop(a,16)
 end loop
 </pre>
 
+<p>It may be helpful to generate random numbers in test cases.
+These can be created with the function 'random([n])'. The generated number is greater
+than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
+a full test can not be performed since it would have 2^32 input combinations.
+A regression test that multiplies 100000 random numbers might look like this:</p>
+
+<pre>
+   A    B      Y
+loop(i,100000)
+  let a = random(1&lt;&lt;16);
+  let b = random(1&lt;&lt;16);
+  (a)  (b)   (a*b)
+end loop
+</pre>
+
 <p>An input that allows high impedance as a value can also be used as a test output.
 In this case, the signal name can be used with a trailing "_out" to read back and check the current value.
 For this, the corresponding input must be set to high impedance ('Z').</p>
