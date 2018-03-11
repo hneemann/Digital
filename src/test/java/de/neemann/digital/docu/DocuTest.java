@@ -270,9 +270,11 @@ public class DocuTest extends TestCase {
 
         File maven = Resources.getRoot().getParentFile().getParentFile().getParentFile();
         File target = new File(maven, "target/docu");
+        File target2 = new File(maven, "target/docuDist");
 
         File images = new File(target, "img");
         images.mkdirs();
+        target2.mkdirs();
 
         final File library = new File(target, "library.xml");
         write74xx(library);
@@ -295,6 +297,19 @@ public class DocuTest extends TestCase {
             // write pdf
             File pdf = new File(target, basename + ".pdf");
             startFOP(fopFactory, xslFO, pdf);
+
+            copy(pdf, new File(target2, "Doc_" + l + ".pdf"));
+        }
+    }
+
+    private void copy(File source, File dest) throws IOException {
+        try (InputStream in = new FileInputStream(source)) {
+            try (OutputStream out = new FileOutputStream(dest)) {
+                byte[] buffer = new byte[4096];
+                int len;
+                while ((len = in.read(buffer)) >= 0)
+                    out.write(buffer, 0, len);
+            }
         }
     }
 
