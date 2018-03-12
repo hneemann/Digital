@@ -32,10 +32,36 @@ public class SplitterVerilog extends VerilogElement {
 
     @Override
     public void buildCodeIr(VerilogCodeBuilder vcBuilder, HDLNode node) throws HDLException {
-        if (node.getPorts().getInputs().size() == 1) {
+        VExpr inExpr;
+
+        if (node.getPorts().getInputs().size() != 1) {
+            ArrayList<VExpr> exprList = new ArrayList<>();
+
+            int totalBits = 0;
+            for (Port p : node.getPorts().getInputs()) {
+                VIRNode inCodeIrNode = vcBuilder.getSignalCodeIr(p.getSignal());
+
+                exprList.add(0, inCodeIrNode.resolveToExpr(vcBuilder));
+                totalBits += p.getBits();
+            }
+            Signal s = vcBuilder.getModel().createSignal().setBits(totalBits);
+            inExpr = new VConcatExpr(exprList).setSignal(s);
+        } else {
             Signal inSignal = node.getPorts().getInputs().get(0).getSignal();
             VIRNode inCodeIr = vcBuilder.getSignalCodeIr(inSignal);
-            VExpr inExpr = inCodeIr.resolveToExpr(vcBuilder);
+            inExpr = inCodeIr.resolveToExpr(vcBuilder);
+        }
+
+        if (node.getPorts().getOutputs().size() == 1
+            && node.getPorts().getOutputs().get(0).getBits() == inExpr.getSignal().getBits()) {
+            Port outPort = node.getPorts().getOutputs().get(0);
+            Signal outSignal = outPort.getSignal();
+
+            if (outSignal != null) {
+                inExpr.setSignal(outSignal);
+                vcBuilder.setCodeIrForSignal(outSignal, inExpr);
+            }
+        } else {
             inExpr = inExpr.resolveToIdExpr(vcBuilder);
 
             for (Port p : node.getPorts().getOutputs()) {
@@ -61,23 +87,6 @@ public class SplitterVerilog extends VerilogElement {
                 expr.setSignal(p.getSignal());
                 vcBuilder.setCodeIrForSignal(p.getSignal(), expr);
             }
-        } else { // Assumes one output signal
-            Port outPort = node.getPorts().getOutputs().get(0);
-            Signal outSignal = outPort.getSignal();
-
-            ArrayList<VExpr> exprList = new ArrayList<>();
-
-            for (Port p : node.getPorts().getInputs()) {
-                VIRNode inCodeIrNode = vcBuilder.getSignalCodeIr(p.getSignal());
-                VExpr inExpr = inCodeIrNode.resolveToExpr(vcBuilder);
-
-                exprList.add(0, inExpr);
-            }
-            VExpr expr = new VConcatExpr(exprList);
-
-            expr.setSignal(outSignal);
-            vcBuilder.setCodeIrForSignal(outSignal, expr);
         }
     }
-
 }

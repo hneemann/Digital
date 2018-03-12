@@ -41,9 +41,6 @@ public class CustomElemVerilog extends VerilogElement {
             VIRNode irnode = vcBuilder.getSignalCodeIr(p.getSignal());
             VExpr inExpr = irnode.resolveToExpr(vcBuilder);
 
-            if (p.getSignal().getName().equals("S25")) {
-                System.out.println("buildCodeIr");
-            }
             signalMappings.add(new VInstanceMapping(p.getName(), inExpr));
         }
 

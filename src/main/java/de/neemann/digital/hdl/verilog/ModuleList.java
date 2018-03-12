@@ -63,4 +63,13 @@ public class ModuleList {
     public boolean isEmpty() {
         return moduleNameList.isEmpty();
     }
+
+    /**
+     * Returns the number of registered modules
+     *
+     * @return the number of registered modules
+     */
+    public int size() {
+        return moduleCodeList.size();
+    }
 }

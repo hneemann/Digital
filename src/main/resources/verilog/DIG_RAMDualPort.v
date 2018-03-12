@@ -10,7 +10,7 @@ generics[1] = "AddrBits";
 )
 (
   input [(AddrBits-1):0] PORT_A,
-  input [(Bits-1):0] PORT_D_in,
+  input [(Bits-1):0] PORT_Din,
   input PORT_str,
   input PORT_C,
   input PORT_ld,
@@ -22,6 +22,6 @@ generics[1] = "AddrBits";
 
   always @ (posedge PORT_C) begin
     if (PORT_str)
-      memory[PORT_A] <= PORT_D_in;
+      memory[PORT_A] <= PORT_Din;
   end
 endmodule

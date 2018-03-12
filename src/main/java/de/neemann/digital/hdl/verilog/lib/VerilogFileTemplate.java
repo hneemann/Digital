@@ -161,7 +161,14 @@ public class VerilogFileTemplate extends VerilogElement {
                     // ensures the usage of the correct default value
                     key = findKey(keyName);
                 }
-                genericMappings.add(new VGenericMapping(keyName, node.get(key).toString()));
+                Object keyVal = node.get(key);
+                String kvs;
+                if (keyVal instanceof Boolean) {
+                    kvs = ((Boolean) keyVal)? "1" : "0";
+                } else {
+                    kvs = keyVal.toString();
+                }
+                genericMappings.add(new VGenericMapping(keyName, kvs));
             }
 
         }

@@ -75,6 +75,17 @@ public class VerilogGenerator implements Closeable {
     }
 
     /**
+     * If called the integration of clock dividers and so on is omitted.
+     * Mainly used for tests.
+     *
+     * @return this for chained calls
+     */
+    public VerilogGenerator omitClockDividers() {
+        this.omitClockDividers = true;
+        return this;
+    }
+
+    /**
      * Writes the file to the given stream
      *
      * @param circuit the circuit to export
@@ -91,7 +102,7 @@ public class VerilogGenerator implements Closeable {
             BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
 
             ModelList modelList = new ModelList(library);
-            File f = circuit.getOrigin();
+            File f = out.getFile();
             String moduleName = getBaseName(f.getName());
             HDLModel model = new HDLModel(circuit, library, modelList).setName(moduleName);
             ModuleList moduleSet = new ModuleList();
@@ -120,7 +131,7 @@ public class VerilogGenerator implements Closeable {
                 out.print(m).println();
             }
 
-            //nodesWritten += vhdlLibrary.finish(out);
+            nodesWritten += moduleSet.size();
 
             File outFile = out.getFile();
             if (board != null && outFile != null)
@@ -368,6 +379,13 @@ public class VerilogGenerator implements Closeable {
         }
 
         return baseName;
+    }
+
+    /**
+     * @return the test bench creator
+     */
+    public VerilogTestBenchCreator getTestBenches() {
+        return testBenches;
     }
 
     @Override

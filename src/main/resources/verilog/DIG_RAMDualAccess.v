@@ -12,8 +12,8 @@ generics[1] = "AddrBits";
     input PORT_C, // Clock signal
     input PORT_ld, 
     input [(AddrBits-1):0] PORT_1A,
-    input [(Bits-1):0] PORT_1D_in,
     input [(AddrBits-1):0] PORT_2A,
+    input [(Bits-1):0] PORT_1Din,
     input PORT_str,
     output [(Bits-1):0] PORT_1D,
     output [(Bits-1):0] PORT_2D
@@ -25,7 +25,7 @@ generics[1] = "AddrBits";
     
     always @ (posedge PORT_C) begin
         if (PORT_str)
-            memory[PORT_1A] <= PORT_1D_in;
+            memory[PORT_1A] <= PORT_1Din;
     end
   
 endmodule

@@ -665,7 +665,7 @@
     <string name="elem_TransGate_pin_B">input B</string>
     <string name="elem_TransGate_pin_S">control input.</string>
     <string name="elem_TransGate_pin_~S">inverted control input</string>
-    
+
     <!-- HDL Gen -->
     <string name="errMsgWithLine">Line {0} : {1}</string>
     <string name="notClosedBlockComment">Unterminated block comment</string>
@@ -1093,6 +1093,9 @@
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
         components defined with vhdl.</string>
+    <string name="key_iverilogPath">iverilog</string>
+    <string name="key_iverilogPath_tt">Path to the executable iverilog file. Only necessary if you want to use iverilog to simulate
+        components defined with verilog.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -1288,7 +1291,7 @@
     <string name="menu_exportVHDL">Export to VHDL</string>
     <string name="menu_exportVHDL_tt">Exports the circuit to VHDL</string>
     <string name="menu_exportVerilog">Export to Verilog</string>
-    <string name="menu_exportVerilog_tt">Exports the circuit to Verilog</string>    
+    <string name="menu_exportVerilog_tt">Exports the circuit to Verilog</string>
     <string name="menu_pdfDocumentation">Documentation</string>
     <string name="menu_openPdfDocumentation">Open {0}</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>

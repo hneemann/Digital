@@ -95,6 +95,15 @@ public class VerilogCodeBuilder {
     }
 
     /**
+     * Return the HDL model associated with the builder
+     *
+     * @return the HDL model
+     */
+    public HDLModel getModel() {
+        return model;
+    }
+
+    /**
      * Return the HDL node associated with the signal.
      *
      * @param outs the output signal.
@@ -169,19 +178,12 @@ public class VerilogCodeBuilder {
      * @param codeIr the code IR
      */
     public void setCodeIrForSignal(String signalName, VIRNode codeIr) {
-        if (signalName.equals("S25")) {
-            System.out.println("S25");
-        }
         if (codeIrMap.containsKey(signalName)) {
             // The signal has been registered already, this can happen when
             // there is a loop between components
             VIRNode n = getSignalCodeIr(signalName);
 
-            if (n instanceof VEmptyStatement) {
-                VEmptyStatement dstmt = (VEmptyStatement) n;
-
-
-            } else if (n instanceof VDelegatedExpr) {
+            if (n instanceof VDelegatedExpr) {
                 VDelegatedExpr dexpr = (VDelegatedExpr) n;
 
                 statements.remove(dexpr.getStatement());
@@ -205,7 +207,7 @@ public class VerilogCodeBuilder {
                 } else {
                     throw new RuntimeException("BUG in the machine: Invalid code IR node '" + codeIr.getClass().toString() + "'");
                 }
-            } else {
+            } else if (!(n instanceof VEmptyStatement)) {
                 throw new RuntimeException("BUG in the machine: Called twice to setCodeIR");
             }
         }

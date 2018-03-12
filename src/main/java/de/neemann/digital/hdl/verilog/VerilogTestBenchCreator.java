@@ -220,7 +220,7 @@ public class VerilogTestBenchCreator {
                         out.inc();
                         out.print("$display(\"")
                            .print(line).print(": ")
-                           .print(p.getName()).print(": Assert failed. Expected %h, found %h\", ")
+                           .print(p.getName()).print(": (assertion error). Expected %h, found %h\", ")
                            .print(valStr).print(", ").print(p.getName()).print(");").println();
                         out.println("$finish;");
                         out.dec().println("end");

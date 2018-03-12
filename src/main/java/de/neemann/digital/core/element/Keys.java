@@ -537,5 +537,10 @@ public final class Keys {
      */
     public static final Key.KeyFile SETTINGS_GHDL_PATH
             = new Key.KeyFile("ghdlPath", new File("ghdl"));
+    /**
+     * Path to iverilog
+     */
+    public static final Key.KeyFile SETTINGS_IVERILOG_PATH
+            = new Key.KeyFile("iverilogPath", new File("iverilog"));
 
 }

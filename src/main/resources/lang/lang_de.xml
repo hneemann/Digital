@@ -1103,6 +1103,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
         VHDL-Code verwendet werden soll.</string>
+    <string name="key_iverilogPath">GHDL</string>
+    <string name="key_iverilogPath_tt">Pfad der ausführbaren iverilog-Datei. Nur wichtig, wenn ghdl zur Interpretation von
+        Verilog-Code verwendet werden soll.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
