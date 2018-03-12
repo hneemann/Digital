@@ -31,7 +31,7 @@ public class ReferenceToStruct implements Reference {
                     Key key = (Key) k.get(null);
                     KEY_MAP.put(key.getKey(), key);
                 } catch (IllegalAccessException e) {
-                    throw new RuntimeException("error ecessing the Keys");
+                    throw new RuntimeException("error accessing the Keys");
                 }
             }
         }
@@ -54,7 +54,7 @@ public class ReferenceToStruct implements Reference {
         if (m instanceof Map)
             ((Map) m).put(name, value);
         else
-            throw new EvalException("not a map");
+            throw new EvalException("not a map: " + m);
     }
 
     @Override
@@ -62,13 +62,13 @@ public class ReferenceToStruct implements Reference {
         Object m = parent.get(context);
         if (m instanceof Map)
             return ((Map) m).get(name);
-        if (m instanceof ElementAttributes) {
+        else if (m instanceof ElementAttributes) {
             Key key = KEY_MAP.get(name);
             if (key == null)
-                throw new EvalException("invallid key: " + name);
+                throw new EvalException("invalid key: " + name);
             return ((ElementAttributes) m).get(key);
         } else
-            throw new EvalException("not a map");
+            throw new EvalException("not a map: " + m);
     }
 
 

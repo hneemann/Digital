@@ -29,6 +29,7 @@ public class Parser {
 
     private final Tokenizer tok;
     private HashMap<String, Function> functions;
+    private Context staticContext;
 
     /**
      * Create a new instance
@@ -47,23 +48,37 @@ public class Parser {
     public Parser(Reader reader) {
         tok = new Tokenizer(reader);
         functions = new HashMap<>();
-        functions.put("format", new FunctionFormat());
+        addFunction("format", new FunctionFormat());
 
-        functions.put("isset", new FunctionIsSet());
+        addFunction("isset", new FunctionIsSet());
 
-        functions.put("newList", new Function(0) {
+        addFunction("newList", new Function(0) {
             @Override
             public Object calcValue(Context c, ArrayList<Expression> args) {
                 return new ArrayList<>();
             }
         });
 
-        functions.put("newMap", new Function(0) {
+        addFunction("newMap", new Function(0) {
             @Override
             public Object calcValue(Context c, ArrayList<Expression> args) {
                 return new HashMap<>();
             }
         });
+
+        staticContext = new Context();
+    }
+
+    /**
+     * Adds a new function to the parser
+     *
+     * @param name     the name
+     * @param function the function
+     * @return this for chained calls
+     */
+    public Parser addFunction(String name, Function function) {
+        functions.put(name, function);
+        return this;
     }
 
     /**
@@ -78,10 +93,25 @@ public class Parser {
         String text = tok.readText();
         if (text.length() > 0)
             s.add(c -> c.print(text));
-        while (!isToken(EOF))
-            s.add(parseStatement());
-
+        while (!isToken(EOF)) {
+            if (isToken(STATIC)) {
+                Statement stat = parseStatements();
+                try {
+                    stat.execute(staticContext);
+                } catch (EvalException e) {
+                    throw newParserException("error evaluating static code: " + e.getMessage());
+                }
+            } else
+                s.add(parseStatement());
+        }
         return s.optimize();
+    }
+
+    /**
+     * @return the static context of this template
+     */
+    public Context getStaticContext() {
+        return staticContext;
     }
 
     private Statement parseStatements() throws IOException, ParserException {

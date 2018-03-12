@@ -42,7 +42,7 @@ public class Context {
      *
      * @param name the name
      * @return the value
-     * @throws EvalException {@link EvalException
+     * @throws EvalException EvalException
      */
     public Object getVar(String name) throws EvalException {
         Object v = map.get(name);

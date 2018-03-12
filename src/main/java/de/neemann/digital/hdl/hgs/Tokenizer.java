@@ -17,7 +17,7 @@ public class Tokenizer {
     enum Token {
         UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, SMALER, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
-        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, PRINT, PRINTF
+        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, PRINT, STATIC, PRINTF
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -111,6 +111,9 @@ public class Tokenizer {
                     break;
                 case '.':
                     token = Token.DOT;
+                    break;
+                case '@':
+                    token = Token.STATIC;
                     break;
                 case ';':
                     token = Token.SEMICOLON;

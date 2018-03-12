@@ -32,23 +32,29 @@ public class ReferenceToArray implements Reference {
 
     @Override
     public void set(Context context, Object value) throws EvalException {
-        Object ar = parent.get(context);
-        if (ar instanceof List) {
-            final List list = (List) ar;
-            final int index = Expression.toInt(this.index.value(context));
-            while (list.size() <= index)
+        Object listObj = parent.get(context);
+        if (listObj instanceof List) {
+            final List list = (List) listObj;
+            final int i = Expression.toInt(index.value(context));
+            if (i < 0)
+                throw new EvalException("index out of bounds: " + i);
+            while (list.size() <= i)
                 list.add(null);
-            list.set(index, value);
+            list.set(i, value);
         } else
-            throw new EvalException("not an array: " + ar);
+            throw new EvalException("not an array: " + listObj);
     }
 
     @Override
     public Object get(Context context) throws EvalException {
-        Object ar = parent.get(context);
-        if (ar instanceof List)
-            return ((List) ar).get(Expression.toInt(index.value(context)));
-        else
-            throw new EvalException("not an array: " + ar);
+        Object listObj = parent.get(context);
+        if (listObj instanceof List) {
+            final List list = (List) listObj;
+            final int i = Expression.toInt(index.value(context));
+            if (i >= list.size() || i < 0)
+                throw new EvalException("index out of bounds: " + i);
+            return list.get(i);
+        } else
+            throw new EvalException("not an array: " + listObj);
     }
 }

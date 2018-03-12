@@ -84,7 +84,7 @@ public interface Expression {
     static Object add(Object a, Object b) throws EvalException {
         if (a instanceof Number && b instanceof Number)
             return ((Number) a).longValue() + ((Number) b).longValue();
-        if (a instanceof String && b instanceof String)
+        if (a instanceof String || b instanceof String)
             return a.toString() + b.toString();
         throw new EvalException("arguments must be int or string, not " + a.getClass().getSimpleName() + "+" + b.getClass().getSimpleName());
     }
