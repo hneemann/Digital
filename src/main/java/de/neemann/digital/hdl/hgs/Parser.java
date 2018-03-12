@@ -415,13 +415,13 @@ public class Parser {
                 }
             case NUMBER:
                 long num = convToLong(tok.getIdent());
-                return (c) -> num;
+                return c -> num;
             case STRING:
                 String s = tok.getIdent();
-                return (c) -> s;
+                return c -> s;
             case SUB:
                 Expression negExp = parseIdent();
-                return (c) -> -Expression.toLong(negExp.value(c));
+                return c -> -Expression.toLong(negExp.value(c));
             case NOT:
                 Expression notExp = parseIdent();
                 return (c) -> Expression.not(notExp.value(c));
@@ -429,19 +429,45 @@ public class Parser {
                 Expression exp = parseExpression();
                 expect(Tokenizer.Token.CLOSE);
                 return exp;
+            case FUNC:
+                FirstClassFunction func = parseFunction();
+                return c -> func;
             default:
                 throw newUnexpectedToken(t);
         }
     }
 
+    private FirstClassFunction parseFunction() throws IOException, ParserException {
+        expect(OPEN);
+        ArrayList<String> args = new ArrayList<>();
+        if (!isToken(CLOSE)) {
+            expect(IDENT);
+            args.add(tok.getIdent());
+            while (!isToken(CLOSE)) {
+                expect(COMMA);
+                expect(IDENT);
+                args.add(tok.getIdent());
+            }
+        }
+        Statement st = parseStatements();
+        return new FirstClassFunction(args, st);
+    }
+
     private Expression findFunction(String name, ArrayList<Expression> args) throws ParserException {
         Function f = functions.get(name);
-        if (f == null)
-            throw newParserException("function " + name + " not found");
-        if (f.getArgCount() != args.size() && f.getArgCount() >= 0)
-            throw newParserException("function " + name + " needs " + f.getArgCount() + "arguments, but found " + args.size());
-
-        return (c) -> f.calcValue(c, args);
+        if (f != null) {
+            if (f.getArgCount() != args.size() && f.getArgCount() >= 0)
+                throw newParserException("function " + name + " needs " + f.getArgCount() + "arguments, but found " + args.size());
+            return c -> f.calcValue(c, args);
+        } else {
+            return c -> {
+                Object func = c.getVar(name);
+                if (func instanceof FirstClassFunction)
+                    return ((FirstClassFunction) func).calcValue(c, args);
+                else
+                    throw new EvalException("first class function " + name + " not found");
+            };
+        }
     }
 
 }

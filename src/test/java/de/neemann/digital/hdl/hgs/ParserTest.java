@@ -182,7 +182,7 @@ public class ParserTest extends TestCase {
 
     public void testParseTemplateMapError() throws IOException, ParserException {
         try {
-            Context c = exec("<? m=1; m.test=2; ?>;");
+            exec("<? m=1; m.test=2; ?>;");
             fail();
         } catch (EvalException e) {
             assertTrue(true);
@@ -191,7 +191,7 @@ public class ParserTest extends TestCase {
 
     public void testParseTemplateArrayError() throws IOException, ParserException {
         try {
-            Context c = exec("<? m=1; m[0]=2; ?>;");
+            exec("<? m=1; m[0]=2; ?>;");
             fail();
         } catch (EvalException e) {
             assertTrue(true);
@@ -239,13 +239,29 @@ public class ParserTest extends TestCase {
         assertEquals("a", generics.get(0));
     }
 
+    public void testFirstClassFunctionStatic() throws IOException, ParserException, EvalException {
+        Parser p = new Parser("<? @f=func(a){return=a*a+2;};  print(f(4));?>");
+        p.parse();
+        Object fObj = p.getStaticContext().getVar("f");
+        assertTrue(fObj instanceof FirstClassFunction);
+        FirstClassFunction f = (FirstClassFunction) fObj;
+        assertEquals(11L, f.evaluate(3));
+    }
+
+    public void testFirstClassFunction() throws IOException, ParserException, EvalException {
+        assertEquals("18", exec("<? f=func(a){return=a*a+2;};  print(f(4));?>").toString());
+        assertEquals("5", exec("<? f=func(a,b){return=a+2*b;};  print(f(1,2));?>").toString());
+        assertEquals("13", exec("<? f=func(a,b){return=a+2*b;};  print(f(1,a*2));?>",
+                new Context().setVar("a", 3)).toString());
+    }
+
 
 //    public void testCode() throws IOException, ParserException {
 //        File dir = new File("/home/hneemann/temp/Digital/ideras/Digital/src/main/resources/verilog");
 //        for (File f : dir.listFiles()) {
 //            try (Reader r = new FileReader(f)) {
 //                System.out.println(f);
-//                new Template(r);
+//                new Parser(r).parse();
 //            }
 //        }
 //    }

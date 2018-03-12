@@ -17,7 +17,7 @@ public class Tokenizer {
     enum Token {
         UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, SMALER, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
-        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, PRINT, STATIC, PRINTF
+        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, PRINT, STATIC, FUNC, PRINTF
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -29,6 +29,7 @@ public class Tokenizer {
         statementMap.put("while", Token.FOR);
         statementMap.put("print", Token.PRINT);
         statementMap.put("printf", Token.PRINTF);
+        statementMap.put("func", Token.FUNC);
     }
 
     private final Reader in;
