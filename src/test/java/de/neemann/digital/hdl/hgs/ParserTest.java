@@ -104,8 +104,18 @@ public class ParserTest extends TestCase {
         return c;
     }
 
+    public void testParseTemplateTextOnly() throws IOException, ParserException, EvalException {
+        assertEquals("Hello World!", exec("Hello World!").toString());
+        assertEquals("Hello < < World!", exec("Hello < < World!").toString());
+    }
+
     public void testParseTemplateVariable() throws IOException, ParserException, EvalException {
         Context c = exec("Hello <? =a ?> World!", new Context().setVar("a", "My"));
+        assertEquals("Hello My World!", c.toString());
+    }
+
+    public void testParseTemplateVariableEscape() throws IOException, ParserException, EvalException {
+        Context c = exec("Hello <? ='a a' ?> World!", new Context().setVar("a a", "My"));
         assertEquals("Hello My World!", c.toString());
     }
 

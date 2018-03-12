@@ -183,6 +183,12 @@ public class Tokenizer {
                     while ((c = readChar()) != '"')
                         builder.append((char) c);
                     break;
+                case '\'':
+                    token = Token.IDENT;
+                    builder.setLength(0);
+                    while ((c = readChar()) != '\'')
+                        builder.append((char) c);
+                    break;
                 case '?':
                     if (isNextChar('>'))
                         token = Token.CODEEND;
@@ -326,11 +332,12 @@ public class Tokenizer {
         int c;
         while ((c = in.read()) > 0) {
             if (c == '<') {
-                c = in.read();
-                if (c == '?') {
+                int cc = in.read();
+                if (cc == '?') {
                     return sb.toString();
                 } else {
                     sb.append((char) c);
+                    sb.append((char) cc);
                 }
             } else {
                 if (c == '\n')
