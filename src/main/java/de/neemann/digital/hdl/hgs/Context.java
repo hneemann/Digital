@@ -14,6 +14,7 @@ public class Context {
     private final Context parent;
     private final StringBuilder code;
     private HashMap<String, Object> map;
+    private int recordStart = 0;
 
     /**
      * Creates a new context
@@ -38,6 +39,23 @@ public class Context {
     }
 
     /**
+     * Returns true if this context contains a mapping for the specified key.
+     *
+     * @param name the key
+     * @return true if value is present
+     */
+    public boolean contains(String name) {
+        if (map.containsKey(name))
+            return true;
+        else {
+            if (parent != null)
+                return parent.contains(name);
+            else
+                return false;
+        }
+    }
+
+    /**
      * Get a variable
      *
      * @param name the name
@@ -47,6 +65,13 @@ public class Context {
     public Object getVar(String name) throws EvalException {
         Object v = map.get(name);
         if (v == null) {
+
+            if (name.equals("output"))
+                return code.toString();
+
+            if (name.equals("fraction"))
+                return code.subSequence(recordStart, code.length()).toString();
+
             if (parent == null)
                 throw new EvalException("variable not found: " + name);
             else
@@ -76,8 +101,9 @@ public class Context {
     public Context print(String str) {
         if (parent != null)
             parent.print(str);
-        else
+        else {
             code.append(str);
+        }
         return this;
     }
 
@@ -87,5 +113,12 @@ public class Context {
             return code.toString();
         else
             return map.toString();
+    }
+
+    /**
+     * resets the record position
+     */
+    public void resetRecorder() {
+        recordStart = code.length();
     }
 }

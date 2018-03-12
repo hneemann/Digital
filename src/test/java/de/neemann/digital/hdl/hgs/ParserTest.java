@@ -255,6 +255,11 @@ public class ParserTest extends TestCase {
                 new Context().setVar("a", 3)).toString());
     }
 
+    public void testFirstClassFunctionOutput() throws IOException, ParserException, EvalException {
+        assertEquals("testtext12testtext15",
+                exec("<? f=func(a){  ?>testtext<? print(a*3); return=output; };  print(f(4),f(5));?>").toString());
+    }
+
 
 //    public void testCode() throws IOException, ParserException {
 //        File dir = new File("/home/hneemann/temp/Digital/ideras/Digital/src/main/resources/verilog");

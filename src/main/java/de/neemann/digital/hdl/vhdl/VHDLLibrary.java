@@ -127,7 +127,7 @@ public class VHDLLibrary {
 
             e.writeHeader(out, node);
 
-            if (e instanceof ExternalVHDL)
+            if (e instanceof ExternalVHDL || e instanceof VHDLTemplate)
                 return;
 
             out.println();
