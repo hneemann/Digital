@@ -861,6 +861,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         {1}</string>
     <string name="err_canOnlyExportExtrnalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
     <string name="err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein!</string>
+    <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
+        {0}</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
