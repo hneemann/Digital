@@ -9,7 +9,7 @@ import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.EvalException;
 
 /**
- * A reference to a variable
+ * A reference to a value
  */
 public interface Reference {
     /**

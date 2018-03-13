@@ -5,6 +5,11 @@
  */
 package de.neemann.digital.hdl.hgs;
 
+import de.neemann.digital.hdl.hgs.function.Func;
+import de.neemann.digital.hdl.hgs.function.FunctionFormat;
+import de.neemann.digital.hdl.hgs.function.FunctionIsSet;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -14,13 +19,12 @@ public class Context {
     private final Context parent;
     private final StringBuilder code;
     private HashMap<String, Object> map;
-    private int recordStart = 0;
 
     /**
      * Creates a new context
      */
     public Context() {
-        this(null, new StringBuilder());
+        this(null, true);
     }
 
     /**
@@ -29,19 +33,27 @@ public class Context {
      * @param parent the parent context
      */
     public Context(Context parent) {
-        this(parent, null);
+        this(parent, true);
     }
 
     /**
      * Creates a new context
      *
-     * @param parent the parent context
-     * @param code   the code
+     * @param parent      the parent context
+     * @param enablePrint enables the print, if false, the printing goes to the parent of this context
      */
-    public Context(Context parent, StringBuilder code) {
+    public Context(Context parent, boolean enablePrint) {
         this.parent = parent;
-        this.code = code;
+        if (enablePrint)
+            this.code = new StringBuilder();
+        else
+            this.code = null;
         map = new HashMap<>();
+        // some function which are always present
+        map.put("format", new FunctionFormat());
+        map.put("isset", new FunctionIsSet());
+        map.put("newMap", new Func(0, args -> new HashMap()));
+        map.put("newList", new Func(0, args -> new ArrayList()));
     }
 
     /**
@@ -104,9 +116,8 @@ public class Context {
     public Context print(String str) {
         if (code != null)
             code.append(str);
-        else {
+        else
             parent.print(str);
-        }
         return this;
     }
 
@@ -115,7 +126,7 @@ public class Context {
         if (code != null)
             return code.toString();
         else
-            return map.toString();
+            return parent.toString();
     }
 
     /**

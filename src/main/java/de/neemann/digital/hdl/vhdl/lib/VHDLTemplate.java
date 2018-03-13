@@ -8,6 +8,7 @@ package de.neemann.digital.hdl.vhdl.lib;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.hgs.*;
+import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
 import de.neemann.digital.hdl.hgs.function.FuncAdapter;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.model.HDLException;
@@ -49,17 +50,20 @@ public class VHDLTemplate implements VHDLEntity {
         if (inputStream == null)
             throw new IOException("file not present: " + createFileName(entityName));
         try (Reader in = new InputStreamReader(inputStream, "utf-8")) {
-            Parser p = new Parser(in)
-                    .addFunction("type", new FunctionType())
-                    .addFunction("value", new FunctionValue())
-                    .addFunction("beginGenericPort", new Function(0) {
+            Parser p = new Parser(in);
+            statements = p.parse();
+            staticContext = p.getStaticContext();
+            staticContext
+                    .setVar("type", new FunctionType())
+                    .setVar("value", new FunctionValue())
+                    .setVar("beginGenericPort", new Function(0) {
                         @Override
                         public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
                             c.setVar("portStartPos", c.length());
                             return null;
                         }
                     })
-                    .addFunction("endGenericPort", new Function(0) {
+                    .setVar("endGenericPort", new Function(0) {
                         @Override
                         public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
                             int start = Expression.toInt(c.getVar("portStartPos"));
@@ -68,7 +72,7 @@ public class VHDLTemplate implements VHDLEntity {
                             return null;
                         }
                     })
-                    .addFunction("registerGeneric", new Function(1) {
+                    .setVar("registerGeneric", new Function(1) {
                         @Override
                         public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
                             List<String> generics;
@@ -83,8 +87,7 @@ public class VHDLTemplate implements VHDLEntity {
                             return null;
                         }
                     });
-            statements = p.parse();
-            staticContext = p.getStaticContext();
+
         } catch (ParserException e) {
             throw new IOException("error parsing template", e);
         }
@@ -180,7 +183,7 @@ public class VHDLTemplate implements VHDLEntity {
         if (staticContext.contains("entityName")) {
             Object funcObj = staticContext.getVar("entityName");
             if (funcObj instanceof FirstClassFunction)
-                name = ((FirstClassFunction) funcObj).evaluate(node.getAttributes()).toString();
+                name = ((FirstClassFunction) funcObj).f(node.getAttributes()).toString();
             else
                 name = funcObj.toString();
         }
@@ -208,7 +211,7 @@ public class VHDLTemplate implements VHDLEntity {
 
         private Entity(HDLNode node, String name) throws EvalException {
             this.name = name;
-            final Context c = new Context(staticContext, new StringBuilder())
+            final Context c = new Context(staticContext)
                     .setVar("elem", node.getAttributes());
             statements.execute(c);
             code = c.toString();
@@ -248,13 +251,20 @@ public class VHDLTemplate implements VHDLEntity {
     }
 
     private final static class FunctionType extends FuncAdapter {
+
+        private FunctionType() {
+            super(1);
+        }
+
         @Override
-        protected Object f(long n) {
+        protected Object f(Object... args) throws EvalException {
+            int n = Expression.toInt(args[0]);
             if (n == 1)
                 return "std_logic";
             else
                 return "std_logic_vector (" + (n - 1) + " downto 0)";
         }
+
     }
 
     private final class FunctionValue extends Function {

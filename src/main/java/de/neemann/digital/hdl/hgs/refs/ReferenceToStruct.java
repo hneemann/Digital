@@ -54,5 +54,4 @@ public class ReferenceToStruct implements Reference {
             throw new EvalException("not a map: " + m);
     }
 
-
 }

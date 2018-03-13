@@ -7,11 +7,17 @@ package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
 import de.neemann.digital.hdl.hgs.function.FuncAdapter;
+import de.neemann.digital.hdl.hgs.function.Function;
 import junit.framework.TestCase;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -222,40 +228,40 @@ public class ParserTest extends TestCase {
     }
 
     public void testAddFunction() throws IOException, ParserException, EvalException {
-        Statement s = new Parser("a : in <?=type(elem.Bits)?>;")
-                .addFunction("type", new FuncAdapter() {
-                    @Override
-                    protected Object f(long n) {
-                        if (n == 1)
-                            return "std_logic";
-                        else
-                            return "std_logic_vector(" + (n - 1) + " downto 0)";
-                    }
-                })
-                .parse();
+        Statement s = new Parser("a : in <?=type(elem.Bits)?>;").parse();
+        Context funcs = new Context().setVar("type", new FuncAdapter(1) {
+            @Override
+            protected Object f(Object... args) throws EvalException {
+                int n = Expression.toInt(args[0]);
+                if (n == 1)
+                    return "std_logic";
+                else
+                    return "std_logic_vector(" + (n - 1) + " downto 0)";
+            }
+        });
         assertEquals("a : in std_logic;",
-                exec(s, new Context()
+                exec(s, new Context(funcs)
                         .setVar("elem", new ElementAttributes())).toString());
         assertEquals("a : in std_logic_vector(5 downto 0);",
-                exec(s, new Context()
+                exec(s, new Context(funcs)
                         .setVar("elem", new ElementAttributes().setBits(6))).toString());
     }
 
-    long flag = 0;
+    int flag = 0;
 
     public void testFunctionAsStatement() throws IOException, ParserException, EvalException {
         flag = 0;
-        Statement s = new Parser("a : in <? type(7); ?>;")
-                .addFunction("type", new FuncAdapter() {
-                    @Override
-                    protected Object f(long n) {
-                        flag = n;
-                        return null;
-                    }
-                })
-                .parse();
-        assertEquals("a : in ;", exec(s).toString());
-        assertEquals(7L, flag);
+        Statement s = new Parser("a : in <? type(7); ?>;").parse();
+
+        Context c = new Context().setVar("type", new FuncAdapter(1) {
+            @Override
+            protected Object f(Object... args) throws EvalException {
+                flag = Expression.toInt(args[0]);
+                return null;
+            }
+        });
+        assertEquals("a : in ;", exec(s, c).toString());
+        assertEquals(7, flag);
     }
 
     public void testStatic() throws IOException, ParserException {
@@ -274,7 +280,7 @@ public class ParserTest extends TestCase {
         Object fObj = p.getStaticContext().getVar("f");
         assertTrue(fObj instanceof FirstClassFunction);
         FirstClassFunction f = (FirstClassFunction) fObj;
-        assertEquals(11L, f.evaluate(3));
+        assertEquals(11L, f.f(3));
     }
 
     public void testFirstClassFunction() throws IOException, ParserException, EvalException {
@@ -282,6 +288,9 @@ public class ParserTest extends TestCase {
         assertEquals("5", exec("<? f=func(a,b){return=a+2*b;};  print(f(1,2));?>").toString());
         assertEquals("13", exec("<? f=func(a,b){return=a+2*b;};  print(f(1,a*2));?>",
                 new Context().setVar("a", 3)).toString());
+
+        assertEquals("18", exec("<? m=newMap(); m.f=func(a){return=newMap(); return.v=a*a+2;};  print(m.f(4).v);?>").toString());
+
     }
 
     public void testFirstClassFunctionOutput() throws IOException, ParserException, EvalException {

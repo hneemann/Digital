@@ -5,7 +5,7 @@
  */
 
 /**
- * Simple parser to parse text templates.
+ * Classes to parse HG Script (HDL Generator Scripting language).
  * The user should not see any error messages from this template engine.
  * Therefore a translation of error messages is not necessary!
  */

@@ -6,19 +6,13 @@
 package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.core.Bits;
-import de.neemann.digital.hdl.hgs.function.Function;
-import de.neemann.digital.hdl.hgs.function.FunctionFormat;
-import de.neemann.digital.hdl.hgs.function.FunctionIsSet;
-import de.neemann.digital.hdl.hgs.refs.Reference;
-import de.neemann.digital.hdl.hgs.refs.ReferenceToArray;
-import de.neemann.digital.hdl.hgs.refs.ReferenceToStruct;
-import de.neemann.digital.hdl.hgs.refs.ReferenceToVar;
+import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
+import de.neemann.digital.hdl.hgs.refs.*;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static de.neemann.digital.hdl.hgs.Tokenizer.Token.*;
 
@@ -28,7 +22,6 @@ import static de.neemann.digital.hdl.hgs.Tokenizer.Token.*;
 public class Parser {
 
     private final Tokenizer tok;
-    private HashMap<String, Function> functions;
     private Context staticContext;
 
     /**
@@ -47,44 +40,13 @@ public class Parser {
      */
     public Parser(Reader reader) {
         tok = new Tokenizer(reader);
-        functions = new HashMap<>();
-        addFunction("format", new FunctionFormat());
-
-        addFunction("isset", new FunctionIsSet());
-
-        addFunction("newList", new Function(0) {
-            @Override
-            public Object calcValue(Context c, ArrayList<Expression> args) {
-                return new ArrayList<>();
-            }
-        });
-
-        addFunction("newMap", new Function(0) {
-            @Override
-            public Object calcValue(Context c, ArrayList<Expression> args) {
-                return new HashMap<>();
-            }
-        });
-
         staticContext = new Context();
-    }
-
-    /**
-     * Adds a new function to the parser
-     *
-     * @param name     the name
-     * @param function the function
-     * @return this for chained calls
-     */
-    public Parser addFunction(String name, Function function) {
-        functions.put(name, function);
-        return this;
     }
 
     /**
      * Parses the given template source
      *
-     * @return the Statemant to execute
+     * @return the Statement to execute
      * @throws IOException     IOException
      * @throws ParserException ParserException
      */
@@ -136,13 +98,8 @@ public class Parser {
             } else if (isToken(ADD)) {
                 expect(ADD);
                 return c -> ref.set(c, Expression.add(ref.get(c), 1));
-            } else if (isToken(OPEN)) {
-                ArrayList<Expression> args = parseArgList();
-                expect(SEMICOLON);
-                if (ref instanceof ReferenceToVar) {
-                    return findFunctionStatement(((ReferenceToVar) ref).getName(), args);
-                } else
-                    throw newParserException("method call on composite var");
+            } else if (isToken(SEMICOLON)) {
+                return ref::get;
             } else
                 throw newUnexpectedToken(tok.next());
         } else if (isToken(CODEEND)) {
@@ -223,6 +180,9 @@ public class Parser {
                 Expression index = parseExpression();
                 expect(CLOSEDSQUARE);
                 r = new ReferenceToArray(r, index);
+            } else if (isToken(OPEN)) {
+                ArrayList<Expression> args = parseArgList();
+                r = new ReferenceToFunc(r, args);
             } else if (isToken(DOT)) {
                 expect(IDENT);
                 r = new ReferenceToStruct(r, tok.getIdent());
@@ -414,13 +374,8 @@ public class Parser {
         switch (t) {
             case IDENT:
                 String name = tok.getIdent();
-                if (isToken(OPEN)) {
-                    ArrayList<Expression> args = parseArgList();
-                    return findFunction(name, args);
-                } else {
-                    Reference r = parseReference(name);
-                    return r::get;
-                }
+                Reference r = parseReference(name);
+                return r::get;
             case NUMBER:
                 long num = convToLong(tok.getIdent());
                 return c -> num;
@@ -459,40 +414,6 @@ public class Parser {
         }
         Statement st = parseStatements();
         return new FirstClassFunction(args, st);
-    }
-
-    private Expression findFunction(String name, ArrayList<Expression> args) throws ParserException {
-        Function f = functions.get(name);
-        if (f != null) {
-            if (f.getArgCount() != args.size() && f.getArgCount() >= 0)
-                throw newParserException("function " + name + " needs " + f.getArgCount() + "arguments, but found " + args.size());
-            return c -> f.calcValue(c, args);
-        } else {
-            return c -> {
-                Object func = c.getVar(name);
-                if (func instanceof FirstClassFunction)
-                    return ((FirstClassFunction) func).calcValue(c, args);
-                else
-                    throw new EvalException("first class function " + name + " not found");
-            };
-        }
-    }
-
-    private Statement findFunctionStatement(String name, ArrayList<Expression> args) throws ParserException {
-        Function f = functions.get(name);
-        if (f != null) {
-            if (f.getArgCount() != args.size() && f.getArgCount() >= 0)
-                throw newParserException("function " + name + " needs " + f.getArgCount() + "arguments, but found " + args.size());
-            return c -> f.calcValue(c, args);
-        } else {
-            return c -> {
-                Object func = c.getVar(name);
-                if (func instanceof FirstClassFunction)
-                    ((FirstClassFunction) func).calcValue(c, args);
-                else
-                    throw new EvalException("first class function " + name + " not found");
-            };
-        }
     }
 
 }

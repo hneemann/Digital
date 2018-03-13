@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.hdl.hgs;
 
+import de.neemann.digital.hdl.hgs.function.Function;
+
 /**
  * Simple expression
  * Created by Helmut.Neemann on 02.12.2016.
@@ -71,6 +73,19 @@ public interface Expression {
         if (value instanceof String)
             return value.toString();
         throw new EvalException("must be a string, is a " + value.getClass().getSimpleName());
+    }
+
+    /**
+     * Converts the given value to a function
+     *
+     * @param value the value to convert
+     * @return the function
+     * @throws EvalException EvalException
+     */
+    static Function toFunc(Object value) throws EvalException {
+        if (value instanceof Function)
+            return (Function) value;
+        throw new EvalException("must be a function, is a " + value.getClass().getSimpleName());
     }
 
     /**

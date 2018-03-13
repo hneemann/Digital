@@ -3,14 +3,18 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.hdl.hgs;
+package de.neemann.digital.hdl.hgs.function;
+
+import de.neemann.digital.hdl.hgs.Context;
+import de.neemann.digital.hdl.hgs.EvalException;
+import de.neemann.digital.hdl.hgs.Statement;
 
 import java.util.ArrayList;
 
 /**
  * callable first class function
  */
-public class FirstClassFunction {
+public class FirstClassFunction extends FuncAdapter {
     private final ArrayList<String> args;
     private final Statement st;
 
@@ -21,6 +25,7 @@ public class FirstClassFunction {
      * @param st   the function body
      */
     public FirstClassFunction(ArrayList<String> args, Statement st) {
+        super(args.size());
         this.args = args;
         this.st = st;
     }
@@ -32,30 +37,16 @@ public class FirstClassFunction {
      * @return the result
      * @throws EvalException EvalException
      */
-    public Object evaluate(Object... args) throws EvalException {
-        if (args.length != this.args.size())
-            throw new EvalException("wrong number of arguments! found: " + args.length + ", expected: " + this.args.size());
-
+    @Override
+    public Object f(Object... args) throws EvalException {
         Context c = new Context();
         for (int i = 0; i < args.length; i++)
             c.setVar(this.args.get(i), args[i]);
         st.execute(c);
-        return c.getVar("return");
+        if (c.contains("return"))
+            return c.getVar("return");
+        else
+            throw new EvalException("A function must define the variable 'return'.");
     }
 
-    /**
-     * Calls a first class function
-     *
-     * @param context the context
-     * @param args    the arguments
-     * @return the result
-     * @throws EvalException EvalException
-     */
-    public Object calcValue(Context context, ArrayList<Expression> args) throws EvalException {
-        Object[] data = new Object[args.size()];
-        for (int i = 0; i < args.size(); i++)
-            data[i] = args.get(i).value(context);
-
-        return evaluate(data);
-    }
 }

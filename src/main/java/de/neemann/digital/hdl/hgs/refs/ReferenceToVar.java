@@ -32,11 +32,4 @@ public class ReferenceToVar implements Reference {
     public Object get(Context context) throws EvalException {
         return context.getVar(name);
     }
-
-    /**
-     * @return the name of the variable
-     */
-    public String getName() {
-        return name;
-    }
 }
