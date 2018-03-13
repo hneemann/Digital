@@ -136,6 +136,12 @@ public class Parser {
             } else if (isToken(ADD)) {
                 expect(ADD);
                 return c -> ref.set(c, Expression.add(ref.get(c), 1));
+            } else if (isToken(OPEN)) {
+                ArrayList<Expression> args = parseArgList();
+                if (ref instanceof ReferenceToVar) {
+                    return findFunctionStatement(((ReferenceToVar) ref).getName(), args);
+                } else
+                    throw newParserException("method call on composite var");
             } else
                 throw newUnexpectedToken(tok.next());
         } else if (isToken(CODEEND)) {
@@ -145,6 +151,7 @@ public class Parser {
             Expression exp = parseExpression();
             return c -> c.print(exp.value(c).toString());
         } else if (isToken(PRINT)) {
+            expect(OPEN);
             ArrayList<Expression> args = parseArgList();
             expect(SEMICOLON);
             return c -> {
@@ -152,6 +159,7 @@ public class Parser {
                     c.print(e.value(c).toString());
             };
         } else if (isToken(PRINTF)) {
+            expect(OPEN);
             ArrayList<Expression> args = parseArgList();
             expect(SEMICOLON);
             return c -> {
@@ -197,7 +205,6 @@ public class Parser {
     }
 
     private ArrayList<Expression> parseArgList() throws IOException, ParserException {
-        expect(OPEN);
         ArrayList<Expression> args = new ArrayList<>();
         if (!isToken(CLOSE)) {
             args.add(parseExpression());
@@ -266,7 +273,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SMALER)) {
             Expression a = ac;
             Expression b = parseGreater();
-            ac = (c) -> Expression.toLong(a.value(c)) < Expression.toLong(b.value(c));
+            ac = c -> Expression.toLong(a.value(c)) < Expression.toLong(b.value(c));
         }
         return ac;
     }
@@ -276,7 +283,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.GREATER)) {
             Expression a = ac;
             Expression b = parseEquals();
-            ac = (c) -> Expression.toLong(a.value(c)) > Expression.toLong(b.value(c));
+            ac = c -> Expression.toLong(a.value(c)) > Expression.toLong(b.value(c));
         }
         return ac;
     }
@@ -286,7 +293,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.EQUAL)) {
             Expression a = ac;
             Expression b = parseNotEquals();
-            ac = (c) -> a.value(c).equals(b.value(c));
+            ac = c -> Expression.equals(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -296,7 +303,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.NOTEQUAL)) {
             Expression a = ac;
             Expression b = parseOR();
-            ac = (c) -> !a.value(c).equals(b.value(c));
+            ac = c -> !Expression.equals(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -306,7 +313,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.OR)) {
             Expression a = ac;
             Expression b = parseXOR();
-            ac = (c) -> Expression.or(a.value(c), b.value(c));
+            ac = c -> Expression.or(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -316,7 +323,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.XOR)) {
             Expression a = ac;
             Expression b = parseAND();
-            ac = (c) -> Expression.xor(a.value(c), b.value(c));
+            ac = c -> Expression.xor(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -326,7 +333,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.AND)) {
             Expression a = ac;
             Expression b = parseShiftRight();
-            ac = (c) -> Expression.and(a.value(c), b.value(c));
+            ac = c -> Expression.and(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -336,7 +343,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SHIFTRIGHT)) {
             Expression a = ac;
             Expression b = parseShiftLeft();
-            ac = (c) -> Expression.toLong(a.value(c)) >> Expression.toLong(b.value(c));
+            ac = c -> Expression.toLong(a.value(c)) >> Expression.toLong(b.value(c));
         }
         return ac;
     }
@@ -346,7 +353,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SHIFTLEFT)) {
             Expression a = ac;
             Expression b = parseAdd();
-            ac = (c) -> Expression.toLong(a.value(c)) << Expression.toLong(b.value(c));
+            ac = c -> Expression.toLong(a.value(c)) << Expression.toLong(b.value(c));
         }
         return ac;
     }
@@ -356,7 +363,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.ADD)) {
             Expression a = ac;
             Expression b = parseSub();
-            ac = (c) -> Expression.add(a.value(c), b.value(c));
+            ac = c -> Expression.add(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -366,7 +373,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SUB)) {
             Expression a = ac;
             Expression b = parseMul();
-            ac = (c) -> Expression.toLong(a.value(c)) - Expression.toLong(b.value(c));
+            ac = c -> Expression.toLong(a.value(c)) - Expression.toLong(b.value(c));
         }
         return ac;
     }
@@ -376,7 +383,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.MUL)) {
             Expression a = ac;
             Expression b = parseDiv();
-            ac = (c) -> Expression.toLong(a.value(c)) * Expression.toLong(b.value(c));
+            ac = c -> Expression.toLong(a.value(c)) * Expression.toLong(b.value(c));
         }
         return ac;
     }
@@ -386,7 +393,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.DIV)) {
             Expression a = ac;
             Expression b = parseMod();
-            ac = (c) -> Expression.toLong(a.value(c)) / Expression.toLong(b.value(c));
+            ac = c -> Expression.toLong(a.value(c)) / Expression.toLong(b.value(c));
         }
         return ac;
     }
@@ -396,7 +403,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.MOD)) {
             Expression a = ac;
             Expression b = parseIdent();
-            ac = (c) -> Expression.toLong(a.value(c)) % Expression.toLong(b.value(c));
+            ac = c -> Expression.toLong(a.value(c)) % Expression.toLong(b.value(c));
         }
         return ac;
     }
@@ -406,7 +413,7 @@ public class Parser {
         switch (t) {
             case IDENT:
                 String name = tok.getIdent();
-                if (tok.peek() == Tokenizer.Token.OPEN) {
+                if (isToken(OPEN)) {
                     ArrayList<Expression> args = parseArgList();
                     return findFunction(name, args);
                 } else {
@@ -424,7 +431,7 @@ public class Parser {
                 return c -> -Expression.toLong(negExp.value(c));
             case NOT:
                 Expression notExp = parseIdent();
-                return (c) -> Expression.not(notExp.value(c));
+                return c -> Expression.not(notExp.value(c));
             case OPEN:
                 Expression exp = parseExpression();
                 expect(Tokenizer.Token.CLOSE);
@@ -464,6 +471,23 @@ public class Parser {
                 Object func = c.getVar(name);
                 if (func instanceof FirstClassFunction)
                     return ((FirstClassFunction) func).calcValue(c, args);
+                else
+                    throw new EvalException("first class function " + name + " not found");
+            };
+        }
+    }
+
+    private Statement findFunctionStatement(String name, ArrayList<Expression> args) throws ParserException {
+        Function f = functions.get(name);
+        if (f != null) {
+            if (f.getArgCount() != args.size() && f.getArgCount() >= 0)
+                throw newParserException("function " + name + " needs " + f.getArgCount() + "arguments, but found " + args.size());
+            return c -> f.calcValue(c, args);
+        } else {
+            return c -> {
+                Object func = c.getVar(name);
+                if (func instanceof FirstClassFunction)
+                    ((FirstClassFunction) func).calcValue(c, args);
                 else
                     throw new EvalException("first class function " + name + " not found");
             };

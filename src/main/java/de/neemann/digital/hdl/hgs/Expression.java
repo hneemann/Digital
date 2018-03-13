@@ -74,6 +74,20 @@ public interface Expression {
     }
 
     /**
+     * Compares two values
+     *
+     * @param a a value
+     * @param b a value
+     * @return true if both values are equal
+     */
+    static boolean equals(Object a, Object b) {
+        if (a instanceof Number && b instanceof Number)
+            return ((Number) a).longValue() == ((Number) b).longValue();
+        else
+            return a.equals(b);
+    }
+
+    /**
      * Adds two values
      *
      * @param a a value
