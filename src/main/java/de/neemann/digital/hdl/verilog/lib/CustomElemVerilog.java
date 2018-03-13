@@ -34,8 +34,9 @@ public class CustomElemVerilog extends VerilogElement {
     @Override
     public void buildCodeIr(VerilogCodeBuilder vcBuilder, HDLNode node) throws HDLException {
         ArrayList<VInstanceMapping> signalMappings = new ArrayList<>();
+        String instName = vcBuilder.getNextName(node.getHDLName());
 
-        VInstanceBlock stmt = new VInstanceBlock(node.getHDLName(), node.getHDLName(), signalMappings);
+        VInstanceBlock stmt = new VInstanceBlock(node.getHDLName(), instName, signalMappings);
 
         for (Port p : node.getPorts().getInputs()) {
             VIRNode irnode = vcBuilder.getSignalCodeIr(p.getSignal());
@@ -50,11 +51,10 @@ public class CustomElemVerilog extends VerilogElement {
             }
             Signal s = p.getSignal();
             String signalName = s.getName();
-            VExpr expr = new VIdExpr(signalName);
+            VExpr expr = new VIdExpr(signalName).setSignal(s);
 
             signalMappings.add(new VInstanceMapping(p.getName(), expr));
             vcBuilder.registerAndAddSignalDecl(s, VSignalDecl.Type.WIRE);
-            expr.setSignal(s);
             vcBuilder.setCodeIrForSignal(signalName, expr);
         }
 

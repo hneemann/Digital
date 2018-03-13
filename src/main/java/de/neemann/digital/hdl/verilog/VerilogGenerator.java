@@ -35,6 +35,8 @@ import de.neemann.gui.LineBreaker;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +53,23 @@ public class VerilogGenerator implements Closeable {
     private VerilogTestBenchCreator testBenches;
     private int nodesWritten;
     private boolean omitClockDividers = false;
+    private static final HashSet<String> RESERVED_WORDS = new HashSet<>(Arrays.asList("always",
+            "and", "assign", "automatic", "begin", "buf", "bufif0", "bufif1", "case", "casex",
+            "casez", "cell", "cmos", "config", "deassign", "default", "defparam", "design",
+            "disable", "edge", "else", "end", "endcase", "endconfig", "endfunction", "endgenerate",
+            "endmodule", "endprimitive", "endspecify", "endtable", "endtask", "event", "for",
+            "force", "forever", "fork", "function", "generate", "genvar", "highz0", "highz1",
+            "if", "ifnone", "incdir", "include", "initial", "inout", "input", "instance", "integer",
+            "join", "large", "liblist", "library", "localparam", "macromodule", "medium", "module",
+            "nand", "negedge", "nmos", "nor", "noshowcancelledno", "not", "notif0", "notif1",
+            "or", "output", "parameter", "pmos", "posedge", "primitive", "pull0", "pull1",
+            "pulldown", "pullup", "pulsestyle_oneventglitch", "pulsestyle_ondetectglitch",
+            "remos", "real", "realtime", "reg", "release", "repeat", "rnmos", "rpmos", "rtran",
+            "rtranif0", "rtranif1", "scalared", "showcancelled", "signed", "small", "specify",
+            "specparam", "strong0", "strong1", "supply0", "supply1", "table", "task", "time",
+            "tran", "tranif0", "tranif1", "tri", "tri0", "tri1", "triand", "trior", "trireg",
+            "unsigned", "use", "vectored", "wait", "wand", "weak0", "weak1", "while", "wire",
+            "wor", "xnor", "xor"));
 
     /**
      * Creates a new exporter
@@ -102,8 +121,8 @@ public class VerilogGenerator implements Closeable {
             BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
 
             ModelList modelList = new ModelList(library);
-            File f = out.getFile();
-            String moduleName = getBaseName(f.getName());
+            File f = out.getFile() != null? out.getFile() : circuit.getOrigin();
+            String moduleName = getModuleName(f.getName());
             HDLModel model = new HDLModel(circuit, library, modelList).setName(moduleName);
             ModuleList moduleSet = new ModuleList();
 
@@ -186,9 +205,11 @@ public class VerilogGenerator implements Closeable {
                 Signal s = p.getSignal();
                 VIRNode codeIr = vcb.getSignalCodeIr(s);
                 VExpr expr = codeIr.resolveToExpr(vcb);
-                String exprCode = expr.getSourceCode(vcb);
+                String code = "assign " + p.getName() + " = " + expr.getSourceCode(vcb) + ";";
 
-                out.print("assign ").print(p.getName()).print(" = ").print(exprCode).print(";").println();
+                VStatement stmt = new VSCStatement(code, null);
+                vcb.registerStatement(stmt, null);
+                //out.print("assign ").print(p.getName()).print(" = ").print(exprCode).print(";").println();
 
                 /*if (codeIr.isExpr()) {
                     String exprCode = ((VExpr) codeIr).getSourceCode(vcb);
@@ -363,22 +384,30 @@ public class VerilogGenerator implements Closeable {
     }
 
     /**
-     * Returns the base name for a file
+     * Returns the verilog module name from a file name
      *
      * @param fileName the file name
-     * @return the base name
+     * @return the module name
      */
-    public static String getBaseName(String fileName) {
+    public static String getModuleName(String fileName) {
         int index = fileName.lastIndexOf('.');
-        String baseName;
+        String moduleName;
 
         if (index == -1) {
-            baseName = fileName;
+            moduleName = fileName;
         } else {
-            baseName = fileName.substring(0, index);
+            moduleName = fileName.substring(0, index);
+        }
+        if (RESERVED_WORDS.contains(moduleName)) {
+            moduleName = moduleName + "Dig";
         }
 
-        return baseName;
+        return moduleName;
+    }
+
+    @Override
+    public String toString() {
+        return out.toString();
     }
 
     /**

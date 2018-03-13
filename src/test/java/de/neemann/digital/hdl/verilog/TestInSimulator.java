@@ -87,7 +87,7 @@ public class TestInSimulator extends TestCase {
 
     private void checkVerilogExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);
-        File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
+        File dir = Files.createTempDirectory("digital_verilog_" + getTime() + "_").toFile();
         try {
             File sourceFile = new File(dir, file.getName().replace('.', '_') + ".v");
             CodePrinter out = new CodePrinter(sourceFile);

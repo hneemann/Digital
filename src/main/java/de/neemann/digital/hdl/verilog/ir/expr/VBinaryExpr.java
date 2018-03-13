@@ -68,7 +68,7 @@ public class VBinaryExpr extends VExpr {
             rightCode = "(" + rightCode + ")";
         }
 
-        String resultCode = leftCode + oper.getSymbol() + rightCode;
+        String resultCode = leftCode + " " + oper.getSymbol() + " " + rightCode;
 
         if (oper.isInverted()) {
             if (oper.getPrecedence() < VOperator.NOT.getPrecedence()) {

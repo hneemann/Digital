@@ -91,6 +91,7 @@ public class VerilogCodeBuilder {
             VExpr expr = new VIdExpr(p.getName());
             expr.setSignal(s);
             setCodeIrForSignal(p.getName(), expr);
+            declaredSignals.add(p.getName());
         }
     }
 
@@ -229,7 +230,7 @@ public class VerilogCodeBuilder {
      * Register a statement with the builder
      *
      * @param statement the statement
-     * @param signal the signal associated with the statement
+     * @param signal the signal associated with the statement. This can be null.
      */
     public void registerStatement(VStatement statement, Signal signal) {
         if (!statements.contains(statement)) {
