@@ -54,7 +54,7 @@ public class VHDLLibrary {
         put(XNOr.DESCRIPTION, new OperateVHDL("XOR", true, XNOr.DESCRIPTION));
         put(Not.DESCRIPTION, new NotVHDL());
 
-        put(Multiplexer.DESCRIPTION, new MultiplexerVHDL());
+        //put(Multiplexer.DESCRIPTION, new MultiplexerVHDL());
         put(Decoder.DESCRIPTION, new DecoderVHDL());
         put(Demultiplexer.DESCRIPTION, new DemultiplexerVHDL());
         put(BitSelector.DESCRIPTION, new BitSelectorVHDL());
@@ -88,11 +88,16 @@ public class VHDLLibrary {
                 map.put(elementName, e);
             } catch (IOException e1) {
                 try {
-                    e1.printStackTrace();
-                    LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName) + "'");
-                    LOGGER.info("VHDL template:\n\n" + VHDLFile.getVHDLTemplate(node));
-                } catch (IOException e2) {
-                    e2.printStackTrace();
+                    e = new VHDLTemplate(elementName);
+                    map.put(elementName, e);
+                } catch (IOException ex) {
+                    try {
+                        ex.printStackTrace();
+                        LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName) + "'");
+                        LOGGER.info("VHDL template:\n\n" + VHDLFile.getVHDLTemplate(node));
+                    } catch (IOException e2) {
+                        e2.printStackTrace();
+                    }
                 }
             }
         }

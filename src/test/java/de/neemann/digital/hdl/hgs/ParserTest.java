@@ -80,6 +80,8 @@ public class ParserTest extends TestCase {
 
         assertEquals("true", exec("<? if (1) print(\"true\"); ?>").toString());
         assertEquals("", exec("<? if (0) print(\"true\"); ?>").toString());
+        assertEquals("true", exec("<? if (1=1) print(\"true\"); ?>").toString());
+        assertEquals("", exec("<? if (0=1) print(\"true\"); ?>").toString());
     }
 
     private Context exec(String code) throws IOException, ParserException, EvalException {
@@ -237,6 +239,23 @@ public class ParserTest extends TestCase {
         assertEquals("a : in std_logic_vector(5 downto 0);",
                 exec(s, new Context()
                         .setVar("elem", new ElementAttributes().setBits(6))).toString());
+    }
+
+    long flag = 0;
+
+    public void testFunctionAsStatement() throws IOException, ParserException, EvalException {
+        flag = 0;
+        Statement s = new Parser("a : in <? type(7) ?>;")
+                .addFunction("type", new FuncAdapter() {
+                    @Override
+                    protected Object f(long n) {
+                        flag = n;
+                        return null;
+                    }
+                })
+                .parse();
+        assertEquals("a : in ;", exec(s).toString());
+        assertEquals(7L, flag);
     }
 
     public void testStatic() throws IOException, ParserException {

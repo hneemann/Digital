@@ -32,7 +32,13 @@ public class Context {
         this(parent, null);
     }
 
-    private Context(Context parent, StringBuilder code) {
+    /**
+     * Creates a new context
+     *
+     * @param parent the parent context
+     * @param code   the code
+     */
+    public Context(Context parent, StringBuilder code) {
         this.parent = parent;
         this.code = code;
         map = new HashMap<>();
@@ -69,9 +75,6 @@ public class Context {
             if (name.equals("output"))
                 return code.toString();
 
-            if (name.equals("fraction"))
-                return code.subSequence(recordStart, code.length()).toString();
-
             if (parent == null)
                 throw new EvalException("variable not found: " + name);
             else
@@ -99,10 +102,10 @@ public class Context {
      * @return this for chained calls
      */
     public Context print(String str) {
-        if (parent != null)
-            parent.print(str);
-        else {
+        if (code != null)
             code.append(str);
+        else {
+            parent.print(str);
         }
         return this;
     }
@@ -116,9 +119,10 @@ public class Context {
     }
 
     /**
-     * resets the record position
+     * @return the output length
      */
-    public void resetRecorder() {
-        recordStart = code.length();
+    public int length() {
+        return code.length();
     }
+
 }
