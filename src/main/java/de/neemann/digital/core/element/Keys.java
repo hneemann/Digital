@@ -21,12 +21,46 @@ import de.neemann.gui.language.Language;
 
 import java.awt.*;
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
  * Collection of key constants
  */
 public final class Keys {
+
+    private static final class InstanceHolder {
+        private static final HashMap<String, Key> INSTANCE = createMap();
+
+        private static HashMap<String, Key> createMap() {
+            HashMap<String, Key> map = new HashMap<>();
+            for (Field k : Keys.class.getDeclaredFields()) {
+                if (Modifier.isStatic(k.getModifiers()) && Key.class.isAssignableFrom(k.getType())) {
+                    try {
+                        Key key = (Key) k.get(null);
+                        map.put(key.getKey(), key);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException("error accessing the Keys");
+                    }
+                }
+            }
+            return map;
+        }
+    }
+
+    /**
+     * Returns the key of the given name.
+     * If key does not exist, nul is returned.
+     *
+     * @param name the name of the key
+     * @return the key or null
+     */
+    public static Key getKeyByName(String name) {
+        return InstanceHolder.INSTANCE.get(name);
+    }
+
 
     private Keys() {
     }

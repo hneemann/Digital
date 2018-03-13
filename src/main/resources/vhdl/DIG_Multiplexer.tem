@@ -14,18 +14,21 @@ inputs=1<<elem.'Selector Bits';
 if (elem.Bits=1)
     dataType=type(elem.Bits);
 else
-    dataType="std_logic_vector ((bitCount-1) downto 0)";
+    dataType="std_logic_vector ((Bits-1) downto 0)";
 
 ?>
 
 entity <?=name?> is
-  <? beginGenericPort()?>
+<? beginGenericPort();?>
+  <? if (elem.Bits>1) { ?>
+  generic ( Bits : integer ); <? registerGeneric("Bits");?>
+  <? } ?>
   port (
     PORT_out: out <?=dataType?>;
     PORT_sel: in <?=type(elem.'Selector Bits')?>;
     <? for (n=0;n<inputs;n++) { ?>
     PORT_in_<?=n?>: in <?=dataType if (n<inputs-1) print(";"); }?> );
-  <? endGenericPort()?>
+  <? endGenericPort();?>
 end <?=name?>;
 
 architecture <?=name?>_arch of <?=name?> is
@@ -34,6 +37,10 @@ begin
     PORT_out <=
       <? for (n=0;n<inputs;n++) { ?>
       PORT_in_<?=n?> when <?=value(n, elem.'Selector Bits') ?>,
-      <? } ?>
-      <?=value(0, elem.Bits) ?> when others;
+      <? }
+      if (elem.Bits>1)
+        print("(others => '0')");
+      else
+        print(value(0, elem.Bits));
+      ?> when others;
 end <?=name?>_arch;

@@ -11,9 +11,6 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.EvalException;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,20 +19,6 @@ import java.util.Map;
 public class ReferenceToStruct implements Reference {
     private final Reference parent;
     private final String name;
-    private static final HashMap<String, Key> KEY_MAP = new HashMap<>();
-
-    static {
-        for (Field k : Keys.class.getDeclaredFields()) {
-            if (Modifier.isStatic(k.getModifiers()) && Key.class.isAssignableFrom(k.getType())) {
-                try {
-                    Key key = (Key) k.get(null);
-                    KEY_MAP.put(key.getKey(), key);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException("error accessing the Keys");
-                }
-            }
-        }
-    }
 
     /**
      * Creates a new struct access
@@ -63,7 +46,7 @@ public class ReferenceToStruct implements Reference {
         if (m instanceof Map)
             return ((Map) m).get(name);
         else if (m instanceof ElementAttributes) {
-            Key key = KEY_MAP.get(name);
+            Key key = Keys.getKeyByName(name);
             if (key == null)
                 throw new EvalException("invalid key: " + name);
             return ((ElementAttributes) m).get(key);

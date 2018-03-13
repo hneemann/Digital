@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.hdl.vhdl.lib;
 
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.hgs.function.FuncAdapter;
 import de.neemann.digital.hdl.hgs.function.Function;
@@ -20,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple.writePort;
 
@@ -64,6 +67,21 @@ public class VHDLTemplate implements VHDLEntity {
                             c.setVar("portDecl", portDecl);
                             return null;
                         }
+                    })
+                    .addFunction("registerGeneric", new Function(1) {
+                        @Override
+                        public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
+                            List<String> generics;
+                            if (c.contains("generics"))
+                                generics = (List<String>) c.getVar("generics");
+                            else {
+                                generics = new ArrayList<>();
+                                c.setVar("generics", generics);
+                            }
+                            String name = Expression.toString(args.get(0).value(c));
+                            generics.add(name);
+                            return null;
+                        }
                     });
             statements = p.parse();
             staticContext = p.getStaticContext();
@@ -80,7 +98,7 @@ public class VHDLTemplate implements VHDLEntity {
     public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
         try {
             Entity e = getEntity(node);
-            out.print(e.code);
+            out.print(e.getCode());
             e.setWritten(true);
         } catch (EvalException e) {
             throw new IOException("error evaluating the template", e);
@@ -126,13 +144,31 @@ public class VHDLTemplate implements VHDLEntity {
     }
 
     @Override
-    public void writeArchitecture(CodePrinter out, HDLNode node) {
+    public void writeGenericMap(CodePrinter out, HDLNode node) throws HDLException, IOException {
+        try {
+            final Entity e = getEntity(node);
+            if (e.getGenerics() != null) {
+                out.println("generic map (").inc();
+                Separator semic = new Separator(",\n");
+                for (String name : e.getGenerics()) {
+                    Key key = Keys.getKeyByName(name);
+                    if (key != null) {
+                        semic.check(out);
+                        out.print(name).print(" => ").print(node.get(key).toString());
+                    } else
+                        throw new HDLException("unknown generic key: " + name);
+                }
+                out.println(")").dec();
+            }
+        } catch (EvalException e) {
+            throw new IOException("error evaluating the template", e);
+        }
     }
 
     @Override
-    public void writeGenericMap(CodePrinter out, HDLNode node) {
-
+    public void writeArchitecture(CodePrinter out, HDLNode node) {
     }
+
 
     @Override
     public String getDescription(HDLNode node) {
@@ -167,6 +203,7 @@ public class VHDLTemplate implements VHDLEntity {
         private final String code;
         private final String portDecl;
         private final String name;
+        private final List<String> generics;
         private boolean isWritten = false;
 
         private Entity(HDLNode node, String name) throws EvalException {
@@ -179,6 +216,10 @@ public class VHDLTemplate implements VHDLEntity {
                 portDecl = c.getVar("portDecl").toString();
             else
                 portDecl = null;
+            if (c.contains("generics"))
+                generics = (List<String>) c.getVar("generics");
+            else
+                generics = null;
         }
 
         private String getCode() {
@@ -199,6 +240,10 @@ public class VHDLTemplate implements VHDLEntity {
 
         private String getName() {
             return name;
+        }
+
+        public List<String> getGenerics() {
+            return generics;
         }
     }
 

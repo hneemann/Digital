@@ -138,6 +138,7 @@ public class Parser {
                 return c -> ref.set(c, Expression.add(ref.get(c), 1));
             } else if (isToken(OPEN)) {
                 ArrayList<Expression> args = parseArgList();
+                expect(SEMICOLON);
                 if (ref instanceof ReferenceToVar) {
                     return findFunctionStatement(((ReferenceToVar) ref).getName(), args);
                 } else

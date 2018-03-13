@@ -245,7 +245,7 @@ public class ParserTest extends TestCase {
 
     public void testFunctionAsStatement() throws IOException, ParserException, EvalException {
         flag = 0;
-        Statement s = new Parser("a : in <? type(7) ?>;")
+        Statement s = new Parser("a : in <? type(7); ?>;")
                 .addFunction("type", new FuncAdapter() {
                     @Override
                     protected Object f(long n) {
