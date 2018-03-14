@@ -86,7 +86,7 @@ public final class Value {
     }
 
     /**
-     * Converts the given value to an array
+     * Converts the given value to a map
      *
      * @param value the value to convert
      * @return the function
@@ -141,9 +141,7 @@ public final class Value {
     public static Object or(Object a, Object b) throws HGSEvalException {
         if (a instanceof Number && b instanceof Number)
             return ((Number) a).longValue() | ((Number) b).longValue();
-        if (a instanceof Boolean && b instanceof Boolean)
-            return ((Boolean) a) || ((Boolean) b);
-        throw new HGSEvalException("arguments must be int or bool, not " + a.getClass().getSimpleName() + "+" + b.getClass().getSimpleName());
+        return toBool(a) || toBool(b);
     }
 
     /**
@@ -157,9 +155,7 @@ public final class Value {
     public static Object xor(Object a, Object b) throws HGSEvalException {
         if (a instanceof Number && b instanceof Number)
             return ((Number) a).longValue() ^ ((Number) b).longValue();
-        if (a instanceof Boolean && b instanceof Boolean)
-            return !a.equals(b);
-        throw new HGSEvalException("arguments must be int or bool, not " + a.getClass().getSimpleName() + "+" + b.getClass().getSimpleName());
+        return toBool(a) ^ toBool(b);
     }
 
     /**
@@ -173,9 +169,7 @@ public final class Value {
     public static Object and(Object a, Object b) throws HGSEvalException {
         if (a instanceof Number && b instanceof Number)
             return ((Number) a).longValue() & ((Number) b).longValue();
-        if (a instanceof Boolean && b instanceof Boolean)
-            return ((Boolean) a) && ((Boolean) b);
-        throw new HGSEvalException("arguments must be int or bool, not " + a.getClass().getSimpleName() + "+" + b.getClass().getSimpleName());
+        return toBool(a) && toBool(b);
     }
 
     /**
@@ -188,9 +182,7 @@ public final class Value {
     public static Object not(Object value) throws HGSEvalException {
         if (value instanceof Number)
             return ~((Number) value).longValue();
-        if (value instanceof Boolean)
-            return !((Boolean) value);
-        throw new HGSEvalException("argument must be int or bool, is " + value.getClass().getSimpleName());
+        return !toBool(value);
     }
 
     private static final class HGSArrayList implements HGSArray {
