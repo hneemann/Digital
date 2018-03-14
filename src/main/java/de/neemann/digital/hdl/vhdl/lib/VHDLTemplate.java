@@ -34,6 +34,7 @@ public class VHDLTemplate implements VHDLEntity {
     private final static String ENTITY_PREFIX = "DIG_";
     private final Context staticContext;
     private final Statement statements;
+    private FirstClassFunction entityNameFunc;
     private String entityName;
     private HashMap<String, Entity> entities;
 
@@ -52,29 +53,39 @@ public class VHDLTemplate implements VHDLEntity {
         try (Reader in = new InputStreamReader(inputStream, "utf-8")) {
             Parser p = new Parser(in);
             statements = p.parse();
+
             staticContext = p.getStaticContext();
+
+            if (staticContext.contains("entityName")) {
+                Object funcObj = staticContext.getVar("entityName");
+                if (funcObj instanceof FirstClassFunction)
+                    entityNameFunc = ((FirstClassFunction) funcObj);
+                else
+                    entityName = funcObj.toString();
+            }
+
             staticContext
-                    .setVar("type", new FunctionType())
-                    .setVar("value", new FunctionValue())
-                    .setVar("beginGenericPort", new Function(0) {
+                    .addFunc("type", new FunctionType())
+                    .addFunc("value", new FunctionValue())
+                    .addFunc("beginGenericPort", new Function(0) {
                         @Override
-                        public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
+                        public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
                             c.setVar("portStartPos", c.length());
                             return null;
                         }
                     })
-                    .setVar("endGenericPort", new Function(0) {
+                    .addFunc("endGenericPort", new Function(0) {
                         @Override
-                        public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
-                            int start = Expression.toInt(c.getVar("portStartPos"));
+                        public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
+                            int start = Value.toInt(c.getVar("portStartPos"));
                             String portDecl = c.toString().substring(start);
                             c.setVar("portDecl", portDecl);
                             return null;
                         }
                     })
-                    .setVar("registerGeneric", new Function(1) {
+                    .addFunc("registerGeneric", new Function(1) {
                         @Override
-                        public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
+                        public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
                             List<String> generics;
                             if (c.contains("generics"))
                                 generics = (List<String>) c.getVar("generics");
@@ -82,13 +93,13 @@ public class VHDLTemplate implements VHDLEntity {
                                 generics = new ArrayList<>();
                                 c.setVar("generics", generics);
                             }
-                            String name = Expression.toString(args.get(0).value(c));
+                            String name = Value.toString(args.get(0).value(c));
                             generics.add(name);
                             return null;
                         }
                     });
 
-        } catch (ParserException e) {
+        } catch (ParserException | HGSEvalException e) {
             throw new IOException("error parsing template", e);
         }
     }
@@ -103,7 +114,7 @@ public class VHDLTemplate implements VHDLEntity {
             Entity e = getEntity(node);
             out.print(e.getCode());
             e.setWritten(true);
-        } catch (EvalException e) {
+        } catch (HGSEvalException e) {
             throw new IOException("error evaluating the template", e);
         }
     }
@@ -112,7 +123,7 @@ public class VHDLTemplate implements VHDLEntity {
     public String getName(HDLNode node) throws HDLException {
         try {
             return getEntity(node).getName();
-        } catch (EvalException e) {
+        } catch (HGSEvalException e) {
             throw new HDLException("error requesting the entities name", e);
         }
     }
@@ -121,7 +132,7 @@ public class VHDLTemplate implements VHDLEntity {
     public boolean needsOutput(HDLNode node) throws HDLException {
         try {
             return !getEntity(node).isWritten();
-        } catch (EvalException e) {
+        } catch (HGSEvalException e) {
             throw new HDLException("error requesting the entities name", e);
         }
     }
@@ -141,7 +152,7 @@ public class VHDLTemplate implements VHDLEntity {
                 }
                 out.println(" );").dec();
             }
-        } catch (EvalException e) {
+        } catch (HGSEvalException e) {
             throw new IOException("error evaluating the template", e);
         }
     }
@@ -163,7 +174,7 @@ public class VHDLTemplate implements VHDLEntity {
                 }
                 out.println(")").dec();
             }
-        } catch (EvalException e) {
+        } catch (HGSEvalException e) {
             throw new IOException("error evaluating the template", e);
         }
     }
@@ -172,26 +183,16 @@ public class VHDLTemplate implements VHDLEntity {
     public void writeArchitecture(CodePrinter out, HDLNode node) {
     }
 
-
     @Override
     public String getDescription(HDLNode node) {
         return null;
     }
 
-    private String getEntityName(HDLNode node) throws EvalException {
+    private Entity getEntity(HDLNode node) throws HGSEvalException {
         String name = entityName;
-        if (staticContext.contains("entityName")) {
-            Object funcObj = staticContext.getVar("entityName");
-            if (funcObj instanceof FirstClassFunction)
-                name = ((FirstClassFunction) funcObj).f(node.getAttributes()).toString();
-            else
-                name = funcObj.toString();
-        }
-        return name;
-    }
+        if (entityNameFunc != null)
+            name = entityNameFunc.f(node.getAttributes()).toString();
 
-    private Entity getEntity(HDLNode node) throws EvalException {
-        String name = getEntityName(node);
         Entity e = entities.get(name);
         if (e == null) {
             e = new Entity(node, name);
@@ -209,7 +210,7 @@ public class VHDLTemplate implements VHDLEntity {
         private final List<String> generics;
         private boolean isWritten = false;
 
-        private Entity(HDLNode node, String name) throws EvalException {
+        private Entity(HDLNode node, String name) throws HGSEvalException {
             this.name = name;
             final Context c = new Context(staticContext)
                     .setVar("elem", node.getAttributes());
@@ -257,8 +258,8 @@ public class VHDLTemplate implements VHDLEntity {
         }
 
         @Override
-        protected Object f(Object... args) throws EvalException {
-            int n = Expression.toInt(args[0]);
+        protected Object f(Object... args) throws HGSEvalException {
+            int n = Value.toInt(args[0]);
             if (n == 1)
                 return "std_logic";
             else
@@ -276,9 +277,9 @@ public class VHDLTemplate implements VHDLEntity {
         }
 
         @Override
-        public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
-            int val = Expression.toInt(args.get(0).value(c));
-            int bits = Expression.toInt(args.get(1).value(c));
+        public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
+            int val = Value.toInt(args.get(0).value(c));
+            int bits = Value.toInt(args.get(1).value(c));
             return MultiplexerVHDL.getBin(val, bits);
         }
     }

@@ -5,6 +5,9 @@
  */
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.hdl.hgs.HGSEvalException;
+import de.neemann.digital.hdl.hgs.HGSMap;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +17,7 @@ import java.util.Map;
  * Describes one concrete Part.
  * Its a Key value list, which is used to store the diferent elements attributes.
  */
-public class ElementAttributes {
+public class ElementAttributes implements HGSMap {
     private HashMap<String, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
 
@@ -306,5 +309,19 @@ public class ElementAttributes {
         } catch (NumberFormatException e) {
             return 0;
         }
+    }
+
+    @Override
+    public void hgsMapPut(String key, Object val) throws HGSEvalException {
+        throw new HGSEvalException("It's not allowed to set a value to this map!");
+    }
+
+    @Override
+    public Object hgsMapGet(String key) throws HGSEvalException {
+        Key k = Keys.getKeyByName(key);
+        if (k == null)
+            throw new HGSEvalException("key " + key + " not available!");
+        else
+            return get(k);
     }
 }

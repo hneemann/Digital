@@ -8,13 +8,13 @@ package de.neemann.digital.hdl.hgs;
 /**
  * Exception thrown during evaluation of the template
  */
-public class EvalException extends Exception {
+public class HGSEvalException extends Exception {
     /**
      * Creates a new instance
      *
      * @param message the message
      */
-    public EvalException(String message) {
+    public HGSEvalException(String message) {
         super(message);
     }
 }

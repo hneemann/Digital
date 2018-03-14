@@ -6,7 +6,7 @@
 package de.neemann.digital.hdl.hgs.refs;
 
 import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Expression;
 import de.neemann.digital.hdl.hgs.function.Function;
 
@@ -31,15 +31,15 @@ public class ReferenceToFunc implements Reference {
     }
 
     @Override
-    public void set(Context context, Object value) throws EvalException {
-        throw new EvalException("set to function is not possible");
+    public void set(Context context, Object value) throws HGSEvalException {
+        throw new HGSEvalException("set to function is not possible");
     }
 
     @Override
-    public Object get(Context context) throws EvalException {
+    public Object get(Context context) throws HGSEvalException {
         Object funcObj = parent.get(context);
         if (funcObj instanceof Function)
             return ((Function) funcObj).calcValue(context, args);
-        throw new EvalException("value is not a function");
+        throw new HGSEvalException("value is not a function");
     }
 }

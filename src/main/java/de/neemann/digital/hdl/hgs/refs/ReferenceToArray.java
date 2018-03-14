@@ -5,11 +5,7 @@
  */
 package de.neemann.digital.hdl.hgs.refs;
 
-import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
-import de.neemann.digital.hdl.hgs.Expression;
-
-import java.util.List;
+import de.neemann.digital.hdl.hgs.*;
 
 /**
  * Handles the access to arrays
@@ -31,30 +27,20 @@ public class ReferenceToArray implements Reference {
     }
 
     @Override
-    public void set(Context context, Object value) throws EvalException {
-        Object listObj = parent.get(context);
-        if (listObj instanceof List) {
-            final List list = (List) listObj;
-            final int i = Expression.toInt(index.value(context));
-            if (i < 0)
-                throw new EvalException("index out of bounds: " + i);
-            while (list.size() <= i)
-                list.add(null);
-            list.set(i, value);
-        } else
-            throw new EvalException("not an array: " + listObj);
+    public void set(Context context, Object value) throws HGSEvalException {
+        final int i = Value.toInt(index.value(context));
+        if (i < 0)
+            throw new HGSEvalException("index out of bounds: " + i);
+
+        Value.toArray(parent.get(context)).hgsArraySet(i, value);
     }
 
     @Override
-    public Object get(Context context) throws EvalException {
-        Object listObj = parent.get(context);
-        if (listObj instanceof List) {
-            final List list = (List) listObj;
-            final int i = Expression.toInt(index.value(context));
-            if (i >= list.size() || i < 0)
-                throw new EvalException("index out of bounds: " + i);
-            return list.get(i);
-        } else
-            throw new EvalException("not an array: " + listObj);
+    public Object get(Context context) throws HGSEvalException {
+        final int i = Value.toInt(index.value(context));
+        final HGSArray array = Value.toArray(parent.get(context));
+        if (i < 0 || i >= array.hgsArraySize())
+            throw new HGSEvalException("index out of bounds: " + i);
+        return array.hgsArrayGet(i);
     }
 }

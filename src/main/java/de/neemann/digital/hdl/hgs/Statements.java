@@ -10,13 +10,13 @@ import java.util.ArrayList;
 /**
  * A list of statements.
  */
-public class Statements implements Statement {
+class Statements implements Statement {
     private final ArrayList<Statement> statements;
 
     /**
      * Create a new statement list
      */
-    public Statements() {
+    Statements() {
         this.statements = new ArrayList<>();
     }
 
@@ -32,7 +32,7 @@ public class Statements implements Statement {
     }
 
     @Override
-    public void execute(Context context) throws EvalException {
+    public void execute(Context context) throws HGSEvalException {
         for (Statement s : statements)
             s.execute(context);
     }

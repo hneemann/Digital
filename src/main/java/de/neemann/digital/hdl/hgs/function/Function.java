@@ -6,7 +6,7 @@
 package de.neemann.digital.hdl.hgs.function;
 
 import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Expression;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public abstract class Function {
      * @param c    the context
      * @param args the arguments
      * @return the value
-     * @throws EvalException EvalException
+     * @throws HGSEvalException HGSEvalException
      */
-    public abstract Object calcValue(Context c, ArrayList<Expression> args) throws EvalException;
+    public abstract Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException;
 }

@@ -5,7 +5,7 @@
  */
 package de.neemann.digital.hdl.hgs.function;
 
-import de.neemann.digital.hdl.hgs.EvalException;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
 
 /**
  * A function.
@@ -26,7 +26,7 @@ public class Func extends FuncAdapter {
     }
 
     @Override
-    protected Object f(Object... args) throws EvalException {
+    protected Object f(Object... args) throws HGSEvalException {
         return func.f(args);
     }
 
@@ -39,8 +39,8 @@ public class Func extends FuncAdapter {
          *
          * @param args the arguments
          * @return the result
-         * @throws EvalException EvalException
+         * @throws HGSEvalException HGSEvalException
          */
-        Object f(Object... args) throws EvalException;
+        Object f(Object... args) throws HGSEvalException;
     }
 }

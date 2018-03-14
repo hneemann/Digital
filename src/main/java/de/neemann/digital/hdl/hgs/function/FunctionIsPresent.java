@@ -6,7 +6,7 @@
 package de.neemann.digital.hdl.hgs.function;
 
 import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Expression;
 
 import java.util.ArrayList;
@@ -14,12 +14,12 @@ import java.util.ArrayList;
 /**
  * Check if access to a variable is possible without an error.
  */
-public class FunctionIsSet extends Function {
+public class FunctionIsPresent extends Function {
 
     /**
      * Creates a new function
      */
-    public FunctionIsSet() {
+    public FunctionIsPresent() {
         super(1);
     }
 
@@ -28,7 +28,7 @@ public class FunctionIsSet extends Function {
         try {
             args.get(0).value(c);
             return true;
-        } catch (EvalException e) {
+        } catch (HGSEvalException e) {
             return false;
         }
     }

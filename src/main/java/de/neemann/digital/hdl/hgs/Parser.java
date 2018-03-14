@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
+import de.neemann.digital.hdl.hgs.function.FunctionFormat;
 import de.neemann.digital.hdl.hgs.refs.*;
 
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class Parser {
                 Statement stat = parseStatements();
                 try {
                     stat.execute(staticContext);
-                } catch (EvalException e) {
+                } catch (HGSEvalException e) {
                     throw newParserException("error evaluating static code: " + e.getMessage());
                 }
             } else
@@ -97,7 +98,7 @@ public class Parser {
                 return c -> ref.set(c, val.value(c));
             } else if (isToken(ADD)) {
                 expect(ADD);
-                return c -> ref.set(c, Expression.add(ref.get(c), 1));
+                return c -> ref.set(c, Value.add(ref.get(c), 1));
             } else if (isToken(SEMICOLON)) {
                 return ref::get;
             } else
@@ -120,10 +121,7 @@ public class Parser {
             expect(OPEN);
             ArrayList<Expression> args = parseArgList();
             expect(SEMICOLON);
-            return c -> {
-                for (Expression e : args)
-                    c.print(e.value(c).toString());
-            };
+            return c -> c.print(FunctionFormat.format(c, args));
         } else if (isToken(IF)) {
             expect(OPEN);
             Expression cond = parseExpression();
@@ -132,14 +130,14 @@ public class Parser {
             if (isToken(ELSE)) {
                 Statement elsePart = parseStatements();
                 return c -> {
-                    if (Expression.toBool(cond.value(c)))
+                    if (Value.toBool(cond.value(c)))
                         ifPart.execute(c);
                     else
                         elsePart.execute(c);
                 };
             } else
                 return c -> {
-                    if (Expression.toBool(cond.value(c)))
+                    if (Value.toBool(cond.value(c)))
                         ifPart.execute(c);
                 };
 
@@ -153,7 +151,7 @@ public class Parser {
             Statement inner = parseStatements();
             return c -> {
                 init.execute(c);
-                while (Expression.toBool(cond.value(c))) {
+                while (Value.toBool(cond.value(c))) {
                     inner.execute(c);
                     inc.execute(c);
                 }
@@ -234,7 +232,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SMALER)) {
             Expression a = ac;
             Expression b = parseGreater();
-            ac = c -> Expression.toLong(a.value(c)) < Expression.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) < Value.toLong(b.value(c));
         }
         return ac;
     }
@@ -244,7 +242,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.GREATER)) {
             Expression a = ac;
             Expression b = parseEquals();
-            ac = c -> Expression.toLong(a.value(c)) > Expression.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) > Value.toLong(b.value(c));
         }
         return ac;
     }
@@ -254,7 +252,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.EQUAL)) {
             Expression a = ac;
             Expression b = parseNotEquals();
-            ac = c -> Expression.equals(a.value(c), b.value(c));
+            ac = c -> Value.equals(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -264,7 +262,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.NOTEQUAL)) {
             Expression a = ac;
             Expression b = parseOR();
-            ac = c -> !Expression.equals(a.value(c), b.value(c));
+            ac = c -> !Value.equals(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -274,7 +272,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.OR)) {
             Expression a = ac;
             Expression b = parseXOR();
-            ac = c -> Expression.or(a.value(c), b.value(c));
+            ac = c -> Value.or(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -284,7 +282,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.XOR)) {
             Expression a = ac;
             Expression b = parseAND();
-            ac = c -> Expression.xor(a.value(c), b.value(c));
+            ac = c -> Value.xor(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -294,7 +292,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.AND)) {
             Expression a = ac;
             Expression b = parseShiftRight();
-            ac = c -> Expression.and(a.value(c), b.value(c));
+            ac = c -> Value.and(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -304,7 +302,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SHIFTRIGHT)) {
             Expression a = ac;
             Expression b = parseShiftLeft();
-            ac = c -> Expression.toLong(a.value(c)) >> Expression.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) >> Value.toLong(b.value(c));
         }
         return ac;
     }
@@ -314,7 +312,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SHIFTLEFT)) {
             Expression a = ac;
             Expression b = parseAdd();
-            ac = c -> Expression.toLong(a.value(c)) << Expression.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) << Value.toLong(b.value(c));
         }
         return ac;
     }
@@ -324,7 +322,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.ADD)) {
             Expression a = ac;
             Expression b = parseSub();
-            ac = c -> Expression.add(a.value(c), b.value(c));
+            ac = c -> Value.add(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -334,7 +332,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SUB)) {
             Expression a = ac;
             Expression b = parseMul();
-            ac = c -> Expression.toLong(a.value(c)) - Expression.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) - Value.toLong(b.value(c));
         }
         return ac;
     }
@@ -344,7 +342,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.MUL)) {
             Expression a = ac;
             Expression b = parseDiv();
-            ac = c -> Expression.toLong(a.value(c)) * Expression.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) * Value.toLong(b.value(c));
         }
         return ac;
     }
@@ -354,7 +352,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.DIV)) {
             Expression a = ac;
             Expression b = parseMod();
-            ac = c -> Expression.toLong(a.value(c)) / Expression.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) / Value.toLong(b.value(c));
         }
         return ac;
     }
@@ -364,7 +362,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.MOD)) {
             Expression a = ac;
             Expression b = parseIdent();
-            ac = c -> Expression.toLong(a.value(c)) % Expression.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) % Value.toLong(b.value(c));
         }
         return ac;
     }
@@ -384,10 +382,10 @@ public class Parser {
                 return c -> s;
             case SUB:
                 Expression negExp = parseIdent();
-                return c -> -Expression.toLong(negExp.value(c));
+                return c -> -Value.toLong(negExp.value(c));
             case NOT:
                 Expression notExp = parseIdent();
-                return c -> Expression.not(notExp.value(c));
+                return c -> Value.not(notExp.value(c));
             case OPEN:
                 Expression exp = parseExpression();
                 expect(Tokenizer.Token.CLOSE);

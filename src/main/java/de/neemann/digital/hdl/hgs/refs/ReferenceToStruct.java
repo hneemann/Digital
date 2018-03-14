@@ -5,13 +5,9 @@
  */
 package de.neemann.digital.hdl.hgs.refs;
 
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
-
-import java.util.Map;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
+import de.neemann.digital.hdl.hgs.Value;
 
 /**
  * Handles the access to a struct
@@ -32,26 +28,15 @@ public class ReferenceToStruct implements Reference {
     }
 
     @Override
-    public void set(Context context, Object value) throws EvalException {
-        Object m = parent.get(context);
-        if (m instanceof Map)
-            ((Map) m).put(name, value);
-        else
-            throw new EvalException("not a map: " + m);
+    public void set(Context context, Object value) throws HGSEvalException {
+        if (value == null)
+            throw new HGSEvalException("Its not allowed to store a null value in a map");
+        Value.toMap(parent.get(context)).hgsMapPut(name, value);
     }
 
     @Override
-    public Object get(Context context) throws EvalException {
-        Object m = parent.get(context);
-        if (m instanceof Map)
-            return ((Map) m).get(name);
-        else if (m instanceof ElementAttributes) {
-            Key key = Keys.getKeyByName(name);
-            if (key == null)
-                throw new EvalException("invalid key: " + name);
-            return ((ElementAttributes) m).get(key);
-        } else
-            throw new EvalException("not a map: " + m);
+    public Object get(Context context) throws HGSEvalException {
+        return Value.toMap(parent.get(context)).hgsMapGet(name);
     }
 
 }

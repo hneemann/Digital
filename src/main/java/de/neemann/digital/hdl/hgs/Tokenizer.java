@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Simple tokenizer to tokenize boolean expressions.
  */
-public class Tokenizer {
+class Tokenizer {
 
     enum Token {
         UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
@@ -45,7 +45,7 @@ public class Tokenizer {
      *
      * @param in the reader
      */
-    public Tokenizer(Reader in) {
+    Tokenizer(Reader in) {
         this.in = in;
         token = Token.UNKNOWN;
         isToken = false;
@@ -180,14 +180,20 @@ public class Tokenizer {
                 case '"':
                     token = Token.STRING;
                     builder.setLength(0);
-                    while ((c = readChar()) != '"')
+                    while ((c = readChar()) != '"') {
                         builder.append((char) c);
+                        if (c < 0)
+                            throw new IOException("EOF detected while scanning a string");
+                    }
                     break;
                 case '\'':
                     token = Token.IDENT;
                     builder.setLength(0);
-                    while ((c = readChar()) != '\'')
+                    while ((c = readChar()) != '\'') {
                         builder.append((char) c);
+                        if (c < 0)
+                            throw new IOException("EOF detected while scanning escaped var name");
+                    }
                     break;
                 case '?':
                     if (isNextChar('>'))

@@ -6,8 +6,9 @@
 package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.hdl.hgs.function.Func;
+import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.FunctionFormat;
-import de.neemann.digital.hdl.hgs.function.FunctionIsSet;
+import de.neemann.digital.hdl.hgs.function.FunctionIsPresent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,11 +50,13 @@ public class Context {
         else
             this.code = null;
         map = new HashMap<>();
+
         // some function which are always present
-        map.put("format", new FunctionFormat());
-        map.put("isset", new FunctionIsSet());
-        map.put("newMap", new Func(0, args -> new HashMap()));
-        map.put("newList", new Func(0, args -> new ArrayList()));
+        addFunc("format", new FunctionFormat());
+        addFunc("isPresent", new FunctionIsPresent());
+        addFunc("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
+        addFunc("newMap", new Func(0, args -> new HashMap()));
+        addFunc("newList", new Func(0, args -> new ArrayList()));
     }
 
     /**
@@ -78,9 +81,9 @@ public class Context {
      *
      * @param name the name
      * @return the value
-     * @throws EvalException EvalException
+     * @throws HGSEvalException HGSEvalException
      */
-    public Object getVar(String name) throws EvalException {
+    public Object getVar(String name) throws HGSEvalException {
         Object v = map.get(name);
         if (v == null) {
 
@@ -88,7 +91,7 @@ public class Context {
                 return code.toString();
 
             if (parent == null)
-                throw new EvalException("variable not found: " + name);
+                throw new HGSEvalException("variable not found: " + name);
             else
                 return parent.getVar(name);
         } else
@@ -105,6 +108,18 @@ public class Context {
     public Context setVar(String name, Object val) {
         map.put(name, val);
         return this;
+    }
+
+    /**
+     * Adds a function to the context.
+     * Only needed for type checking. Calls setVar().
+     *
+     * @param name the name
+     * @param func the function
+     * @return this for chained calls
+     */
+    public Context addFunc(String name, Function func) {
+        return setVar(name, func);
     }
 
     /**

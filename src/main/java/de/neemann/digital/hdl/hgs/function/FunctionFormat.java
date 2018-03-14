@@ -6,8 +6,9 @@
 package de.neemann.digital.hdl.hgs.function;
 
 import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
 import de.neemann.digital.hdl.hgs.Expression;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
+import de.neemann.digital.hdl.hgs.Value;
 
 import java.util.ArrayList;
 
@@ -24,14 +25,26 @@ public class FunctionFormat extends Function {
     }
 
     @Override
-    public Object calcValue(Context c, ArrayList<Expression> args) throws EvalException {
+    public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
+        return format(c, args);
+    }
+
+    /**
+     * Formats the gicen string like printf does
+     *
+     * @param c    the context
+     * @param args the arbuments
+     * @return the formatted string
+     * @throws HGSEvalException HGSEvalException
+     */
+    public static String format(Context c, ArrayList<Expression> args) throws HGSEvalException {
         if (args.size() < 1)
-            throw new EvalException("format needs at least one argument");
+            throw new HGSEvalException("format needs at least one argument");
 
         ArrayList<Object> eval = new ArrayList<>(args.size() - 1);
         for (int i = 1; i < args.size(); i++)
             eval.add(args.get(i).value(c));
 
-        return String.format(Expression.toString(args.get(0).value(c)), eval.toArray());
+        return String.format(Value.toString(args.get(0).value(c)), eval.toArray());
     }
 }

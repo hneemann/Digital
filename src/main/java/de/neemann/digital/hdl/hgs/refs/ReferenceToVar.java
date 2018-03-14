@@ -6,7 +6,7 @@
 package de.neemann.digital.hdl.hgs.refs;
 
 import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
 
 /**
  * Handles the access to a simple variable
@@ -29,7 +29,7 @@ public class ReferenceToVar implements Reference {
     }
 
     @Override
-    public Object get(Context context) throws EvalException {
+    public Object get(Context context) throws HGSEvalException {
         return context.getVar(name);
     }
 }

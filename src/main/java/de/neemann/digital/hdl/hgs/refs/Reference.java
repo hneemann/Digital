@@ -6,7 +6,7 @@
 package de.neemann.digital.hdl.hgs.refs;
 
 import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
 
 /**
  * A reference to a value
@@ -17,16 +17,16 @@ public interface Reference {
      *
      * @param context the context of the operation
      * @param value   the value to set
-     * @throws EvalException EvalException
+     * @throws HGSEvalException HGSEvalException
      */
-    void set(Context context, Object value) throws EvalException;
+    void set(Context context, Object value) throws HGSEvalException;
 
     /**
      * Returns the value
      *
      * @param context the context of the operation
      * @return the value
-     * @throws EvalException EvalException
+     * @throws HGSEvalException HGSEvalException
      */
-    Object get(Context context) throws EvalException;
+    Object get(Context context) throws HGSEvalException;
 }

@@ -14,7 +14,7 @@ public interface Statement {
      * Executes the statement
      *
      * @param context the context of the execution
-     * @throws EvalException EvalException
+     * @throws HGSEvalException HGSEvalException
      */
-    void execute(Context context) throws EvalException;
+    void execute(Context context) throws HGSEvalException;
 }

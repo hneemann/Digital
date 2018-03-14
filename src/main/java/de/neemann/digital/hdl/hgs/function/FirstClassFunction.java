@@ -6,7 +6,7 @@
 package de.neemann.digital.hdl.hgs.function;
 
 import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.EvalException;
+import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Statement;
 
 import java.util.ArrayList;
@@ -35,10 +35,10 @@ public class FirstClassFunction extends FuncAdapter {
      *
      * @param args the arguments
      * @return the result
-     * @throws EvalException EvalException
+     * @throws HGSEvalException HGSEvalException
      */
     @Override
-    public Object f(Object... args) throws EvalException {
+    public Object f(Object... args) throws HGSEvalException {
         Context c = new Context();
         for (int i = 0; i < args.length; i++)
             c.setVar(this.args.get(i), args[i]);
@@ -46,7 +46,7 @@ public class FirstClassFunction extends FuncAdapter {
         if (c.contains("return"))
             return c.getVar("return");
         else
-            throw new EvalException("A function must define the variable 'return'.");
+            throw new HGSEvalException("A function must define the variable 'return'.");
     }
 
 }
