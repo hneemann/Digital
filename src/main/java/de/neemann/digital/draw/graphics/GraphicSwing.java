@@ -84,7 +84,8 @@ public class GraphicSwing implements Graphic {
 
         if (style.isFilled() && p.isClosed())
             gr.fill(path);
-        gr.draw(path);
+        if (style.getThickness() > 0)
+            gr.draw(path);
     }
 
     @Override

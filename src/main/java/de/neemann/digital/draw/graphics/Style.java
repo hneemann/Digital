@@ -287,7 +287,7 @@ public final class Style {
      */
     public Style deriveFillStyle(Color color) {
         return new Builder(this)
-                .setThickness(1)
+                .setThickness(0)
                 .setFilled(true)
                 .setColor(color)
                 .build();

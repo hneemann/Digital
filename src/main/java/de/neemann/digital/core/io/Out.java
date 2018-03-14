@@ -59,6 +59,14 @@ public class Out implements Element {
             attributes -> new Out(4, 1), input("d"), input("dp"))
             .addAttribute(Keys.COLOR);
 
+    /**
+     * Sixteen Segment Display
+     */
+    public static final ElementTypeDescription SIXTEENDESCRIPTION
+            = new ElementTypeDescription("SixteenSeg",
+            attributes -> new Out(16, 1), input("led"), input("dp"))
+            .addAttribute(Keys.COLOR);
+
     private final int[] bits;
     private final String label;
     private final String pinNumber;

@@ -188,6 +188,12 @@
     <string name="elem_Seven-Seg-Hex_tt">Seven Segment Display with a 4 bit hex input</string>
     <string name="elem_Seven-Seg-Hex_pin_d">The value at this input is visualized at the display.</string>
     <string name="elem_Seven-Seg-Hex_pin_dp">This input controls the decimal point.</string>
+
+    <string name="elem_SixteenSeg">16-Segement Display</string>
+    <string name="elem_SixteenSeg_tt">The LED input has 16 bits which control the segments. The second input controls the decimal point.</string>
+    <string name="elem_SixteenSeg_pin_led">16-bit bus for driving the LEDs.</string>
+    <string name="elem_SixteenSeg_pin_dp">This input controls the decimal point.</string>
+
     <string name="elem_LedMatrix">LED-Matrix</string>
     <string name="elem_LedMatrix_tt">A matrix of LEDs. The LEDs are shown in a separate window.
         The LEDs of a column of the display are controlled by a data word. At another input, the current column is

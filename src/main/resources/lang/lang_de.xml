@@ -183,6 +183,12 @@
     <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
     <string name="elem_Seven-Seg-Hex_pin_d">Der 4-Bit-Wert dieses Eingangs wird als Hex-Ziffer dargestellt.</string>
     <string name="elem_Seven-Seg-Hex_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+
+    <string name="elem_SixteenSeg">16-Segement Anzeige</string>
+    <string name="elem_SixteenSeg_tt">Der LED Eingang verfügt über 16 Bits welche die Segmente steuern. Der zweite Eingang steuert den Dezimalpunkt.</string>
+    <string name="elem_SixteenSeg_pin_led">Bus mit 16-Bits zur Ansteuerung der LEDs.</string>
+    <string name="elem_SixteenSeg_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+
     <string name="elem_LedMatrix">LED-Matrix</string>
     <string name="elem_LedMatrix_tt">Eine Matrix aus LEDs. Die LEDs werden in einem eigenen Fenster dargestellt.
         Die LEDs einer Spalte der Anzeige werden durch ein Datenwort gesteuert.

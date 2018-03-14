@@ -119,6 +119,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                                 .add(LightBulb.DESCRIPTION)
                                 .add(Out.SEVENDESCRIPTION)
                                 .add(Out.SEVENHEXDESCRIPTION)
+                                .add(Out.SIXTEENDESCRIPTION)
                                 .add(LedMatrix.DESCRIPTION)
                                 .add(DummyElement.DATADESCRIPTION)
                                 .add(RotEncoder.DESCRIPTION)

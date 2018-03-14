@@ -8,6 +8,7 @@ package de.neemann.digital.draw.graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 /**
  * A polygon representation used by the {@link Graphic} interface.
@@ -203,4 +204,106 @@ public class Polygon implements Iterable<Vector> {
         p.isBezierStart.addAll(isBezierStart);
         return p;
     }
+
+    /**
+     * Creates a polygon from a SVG path
+     *
+     * @param path the svg path
+     * @return the polygon or null if there was an error
+     */
+    public static Polygon createFromPath(String path) {
+        StringTokenizer tok = new StringTokenizer(path, " ,");
+        int x = 0;
+        int y = 0;
+        boolean closed = false;
+        ArrayList<Vector> list = new ArrayList<>();
+        String lastTok = null;
+        while (tok.hasMoreTokens()) {
+            final String t = tok.nextToken();
+            switch (t) {
+                case "M":
+                    x = Integer.parseInt(tok.nextToken());
+                    y = Integer.parseInt(tok.nextToken());
+                    list.add(new Vector(x, y));
+                    lastTok = t;
+                    break;
+                case "m":
+                    x += Integer.parseInt(tok.nextToken());
+                    y += Integer.parseInt(tok.nextToken());
+                    list.add(new Vector(x, y));
+                    lastTok = t;
+                    break;
+                case "V":
+                    y = Integer.parseInt(tok.nextToken());
+                    list.add(new Vector(x, y));
+                    lastTok = t;
+                    break;
+                case "v":
+                    y += Integer.parseInt(tok.nextToken());
+                    list.add(new Vector(x, y));
+                    lastTok = t;
+                    break;
+                case "H":
+                    x = Integer.parseInt(tok.nextToken());
+                    list.add(new Vector(x, y));
+                    lastTok = t;
+                    break;
+                case "h":
+                    x += Integer.parseInt(tok.nextToken());
+                    list.add(new Vector(x, y));
+                    lastTok = t;
+                    break;
+                case "l":
+                    x += Integer.parseInt(tok.nextToken());
+                    y += Integer.parseInt(tok.nextToken());
+                    list.add(new Vector(x, y));
+                    lastTok = t;
+                    break;
+                case "L":
+                    x = Integer.parseInt(tok.nextToken());
+                    y = Integer.parseInt(tok.nextToken());
+                    list.add(new Vector(x, y));
+                    lastTok = t;
+                    break;
+                case "Z":
+                case "z":
+                    closed = true;
+                    break;
+                default:
+                    switch (lastTok) {
+                        case "V":
+                            y = Integer.parseInt(t);
+                            list.add(new Vector(x, y));
+                            break;
+                        case "v":
+                            y += Integer.parseInt(t);
+                            list.add(new Vector(x, y));
+                            break;
+                        case "H":
+                            x = Integer.parseInt(t);
+                            list.add(new Vector(x, y));
+                            break;
+                        case "h":
+                            x += Integer.parseInt(t);
+                            list.add(new Vector(x, y));
+                            break;
+                        case "l":
+                            x += Integer.parseInt(t);
+                            y += Integer.parseInt(tok.nextToken());
+                            list.add(new Vector(x, y));
+                            break;
+                        case "L":
+                            x = Integer.parseInt(t);
+                            y = Integer.parseInt(tok.nextToken());
+                            list.add(new Vector(x, y));
+                            break;
+                        default:
+                            return null;
+                    }
+                    break;
+            }
+        }
+        return new Polygon(list, closed);
+    }
+
 }
