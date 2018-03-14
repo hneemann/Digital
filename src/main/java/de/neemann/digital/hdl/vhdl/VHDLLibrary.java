@@ -12,7 +12,6 @@ import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -77,26 +76,15 @@ public class VHDLLibrary {
         VHDLEntity e = map.get(elementName);
         if (e == null) {
             try {
-                ElementTypeDescription description = null;
-                try {
-                    description = elementLibrary.getElementType(elementName);
-                } catch (ElementNotFoundException e1) {
-                    // does not matter, affects only comments in the vhdl file
-                }
-                e = new VHDLFile(elementName, description);
+                e = new VHDLTemplate(elementName);
                 map.put(elementName, e);
-            } catch (IOException e1) {
+            } catch (IOException ex) {
                 try {
-                    e = new VHDLTemplate(elementName);
-                    map.put(elementName, e);
-                } catch (IOException ex) {
-                    try {
-                        ex.printStackTrace();
-                        LOGGER.info("could not load '" + VHDLFile.neededFileName(elementName) + "'");
-                        LOGGER.info("VHDL template:\n\n" + VHDLFile.getVHDLTemplate(node));
-                    } catch (IOException e2) {
-                        e2.printStackTrace();
-                    }
+                    ex.printStackTrace();
+                    LOGGER.info("could not load '" + VHDLTemplate.neededFileName(elementName) + "'");
+                    LOGGER.info("VHDL template:\n\n" + VHDLTemplate.getVHDLTemplate(node));
+                } catch (IOException e2) {
+                    e2.printStackTrace();
                 }
             }
         }
