@@ -106,7 +106,7 @@ public class TestInSimulator extends TestCase {
         assertEquals(4, tested);
     }
 
-    //*
+    /*
     public void testInSimulatorDebug() throws Exception {
         File file = new File(Resources.getRoot(),"dig/test/vhdl/BitSelect.dig");
 
