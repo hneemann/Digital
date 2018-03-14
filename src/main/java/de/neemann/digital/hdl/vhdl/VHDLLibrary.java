@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.hdl.vhdl;
 
-import de.neemann.digital.core.arithmetic.BitExtender;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -62,7 +61,7 @@ public class VHDLLibrary {
         put(DriverInvSel.DESCRIPTION, new DriverVHDL(true));
 
         put(Comparator.DESCRIPTION, new ComparatorVHDL());
-        put(BitExtender.DESCRIPTION, new BitExtenderVHDL());
+//        put(BitExtender.DESCRIPTION, new BitExtenderVHDL());
         put(PriorityEncoder.DESCRIPTION, new PriorityEncoderVHDL());
         put(External.DESCRIPTION, new ExternalVHDL());
 

@@ -30,6 +30,19 @@ public final class Value {
     }
 
     /**
+     * Converts the given value to a double
+     *
+     * @param value the value to convert
+     * @return the long
+     * @throws HGSEvalException HGSEvalException
+     */
+    public static double toDouble(Object value) throws HGSEvalException {
+        if (value instanceof Number)
+            return ((Number) value).doubleValue();
+        throw new HGSEvalException("not a number: " + value.toString());
+    }
+
+    /**
      * Converts the given value to an int
      *
      * @param value the value to convert

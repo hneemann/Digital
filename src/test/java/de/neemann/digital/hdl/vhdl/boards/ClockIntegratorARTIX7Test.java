@@ -57,7 +57,7 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "      D_PARAM => 1,\n" +
                 "      M_PARAM => 12.0,\n" +
                 "      DIV_PARAM => 120.0,\n" +
-                "      PERIOD_PARAM => 10.0 )\n" +
+                "      PERIOD_PARAM => 10.0)\n" +
                 "    port map (\n" +
                 "      PORT_in => PORT_Clk,\n" +
                 "      PORT_out => S1 );\n" +
@@ -79,14 +79,14 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "Library UNISIM;\n" +
                 "use UNISIM.vcomponents.all;\n" +
                 "entity DIG_MMCME2_BASE is\n" +
-                "    generic (\n" +
-                "      D_PARAM : integer;\n" +
-                "      M_PARAM : real;\n" +
-                "      DIV_PARAM : real;\n" +
-                "      PERIOD_PARAM: real);\n" +
-                "    port (\n" +
-                "      PORT_in: in std_logic;\n" +
-                "      PORT_out: out std_logic );\n" +
+                "  generic (\n" +
+                "    D_PARAM : integer;\n" +
+                "    M_PARAM : real;\n" +
+                "    DIV_PARAM : real;\n" +
+                "    PERIOD_PARAM: real);\n" +
+                "  port (\n" +
+                "    PORT_in: in std_logic;\n" +
+                "    PORT_out: out std_logic );\n" +
                 "end DIG_MMCME2_BASE;\n" +
                 "architecture DIG_MMCME2_BASE_arch of DIG_MMCME2_BASE is\n" +
                 "    signal DEV_NULL: std_logic;\n" +
@@ -155,7 +155,7 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "      PORT_out: out std_logic;\n" +
                 "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
-                "  component DIG_MMCME2_BASE_CC\n" +
+                "  component DIG_MMCME2_BASE\n" +
                 "      generic (\n" +
                 "        D_PARAM : integer;\n" +
                 "        M_PARAM : real;\n" +
@@ -173,13 +173,13 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "    port map (\n" +
                 "      PORT_out => S0,\n" +
                 "      PORT_in => S1 );\n" +
-                "  gate1 : DIG_MMCME2_BASE_CC\n" +
+                "  gate1 : DIG_MMCME2_BASE\n" +
                 "    generic map (\n" +
                 "      D_PARAM => 2,\n" +
                 "      M_PARAM => 12.0,\n" +
                 "      DIV_PARAM => 127,\n" +
                 "      DIV4_PARAM => 128,\n" +
-                "      PERIOD_PARAM => 10.0 )\n" +
+                "      PERIOD_PARAM => 10.0)\n" +
                 "    port map (\n" +
                 "      PORT_in => PORT_Clk,\n" +
                 "      PORT_out => S1 );\n" +
@@ -200,18 +200,18 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "USE ieee.std_logic_1164.all;\n" +
                 "Library UNISIM;\n" +
                 "use UNISIM.vcomponents.all;\n" +
-                "entity DIG_MMCME2_BASE_CC is\n" +
-                "    generic (\n" +
-                "      D_PARAM : integer;\n" +
-                "      M_PARAM : real;\n" +
-                "      DIV_PARAM : integer;\n" +
-                "      DIV4_PARAM : integer;\n" +
-                "      PERIOD_PARAM: real);\n" +
-                "    port (\n" +
-                "      PORT_in: in std_logic;\n" +
-                "      PORT_out: out std_logic );\n" +
-                "end DIG_MMCME2_BASE_CC;\n" +
-                "architecture DIG_MMCME2_BASE_CC_arch of DIG_MMCME2_BASE_CC is\n" +
+                "entity DIG_MMCME2_BASE is\n" +
+                "  generic (\n" +
+                "    D_PARAM : integer;\n" +
+                "    M_PARAM : real;\n" +
+                "    DIV_PARAM : integer;\n" +
+                "    DIV4_PARAM : integer;\n" +
+                "    PERIOD_PARAM: real);\n" +
+                "  port (\n" +
+                "    PORT_in: in std_logic;\n" +
+                "    PORT_out: out std_logic );\n" +
+                "end DIG_MMCME2_BASE;\n" +
+                "architecture DIG_MMCME2_BASE_arch of DIG_MMCME2_BASE is\n" +
                 "    signal DEV_NULL: std_logic;\n" +
                 "    signal feedback: std_logic;\n" +
                 "begin\n" +
@@ -256,7 +256,7 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "RST => DEV_NULL,\n" +
                 "CLKFBIN => feedback\n" +
                 ");\n" +
-                "end DIG_MMCME2_BASE_CC_arch;" , TestHelper.removeCommentLines(vhdl));
+                "end DIG_MMCME2_BASE_arch;" , TestHelper.removeCommentLines(vhdl));
     }
 
 

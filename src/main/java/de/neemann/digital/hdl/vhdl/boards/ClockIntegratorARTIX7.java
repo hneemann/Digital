@@ -58,16 +58,14 @@ public class ClockIntegratorARTIX7 implements ClockIntegrator {
         oldSig.addPort(cIn);
 
         ElementAttributes attr = new ElementAttributes()
+                .set(new Key<>("cascading", 0), p.isCascading())
                 .set(new Key<>("D_PARAM", 0), p.d)
                 .set(new Key<>("M_PARAM", 0), p.m)
                 .set(new Key<>("DIV_PARAM", 0), p.divider)
                 .set(new Key<>("DIV4_PARAM", 0), p.divider4)
                 .set(new Key<>("PERIOD_PARAM", 0.0), clkInPeriod);
 
-        if (p.isCascading())
-            model.addNode(new HDLNode(new Ports().add(cIn).add(cOut), "MMCME2_BASE_CC", attr));
-        else
-            model.addNode(new HDLNode(new Ports().add(cIn).add(cOut), "MMCME2_BASE", attr));
+        model.addNode(new HDLNode(new Ports().add(cIn).add(cOut), "MMCME2_BASE", attr));
     }
 
     static final class Parameters {

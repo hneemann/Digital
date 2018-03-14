@@ -4,19 +4,25 @@ USE ieee.std_logic_1164.all;
 Library UNISIM;
 use UNISIM.vcomponents.all;
 
-entity DIG_MMCME2_BASE_CC is
+entity DIG_MMCME2_BASE is
+  <?beginGenericPort();?>
   generic (
-    D_PARAM : integer;
-    M_PARAM : real;
-    DIV_PARAM : integer;
-    DIV4_PARAM : integer;
-    PERIOD_PARAM: real);
+    D_PARAM : integer;<?   registerGeneric("D_PARAM");?>
+    M_PARAM : real;<?      registerGeneric("M_PARAM","real");?>
+<? if (elem.cascading) {?>
+    DIV_PARAM : integer;<? registerGeneric("DIV_PARAM");?>
+    DIV4_PARAM : integer;<?registerGeneric("DIV4_PARAM");?>
+<? } else { ?>
+    DIV_PARAM : real;<?    registerGeneric("DIV_PARAM","real");?>
+<? } ?>
+    PERIOD_PARAM: real);<? registerGeneric("PERIOD_PARAM","real");?>
   port (
     PORT_in: in std_logic;
     PORT_out: out std_logic );
-end DIG_MMCME2_BASE_CC;
+<?endGenericPort();?>
+end DIG_MMCME2_BASE;
 
-architecture DIG_MMCME2_BASE_CC_arch of DIG_MMCME2_BASE_CC is
+architecture DIG_MMCME2_BASE_arch of DIG_MMCME2_BASE is
 
     signal DEV_NULL: std_logic;
     signal feedback: std_logic;
@@ -42,10 +48,17 @@ CLKIN1_PERIOD => PERIOD_PARAM,
 CLKOUT1_DIVIDE => 1,
 CLKOUT2_DIVIDE => 1,
 CLKOUT3_DIVIDE => 1,
+<? if (elem.cascading) {?>
 CLKOUT4_DIVIDE => DIV4_PARAM,
 CLKOUT5_DIVIDE => 1,
 CLKOUT6_DIVIDE => DIV_PARAM,
 CLKOUT0_DIVIDE_F => 1.0,
+<? } else { ?>
+CLKOUT4_DIVIDE => 1,
+CLKOUT5_DIVIDE => 1,
+CLKOUT6_DIVIDE => 1,
+CLKOUT0_DIVIDE_F => DIV_PARAM,
+<? } ?>
 -- Divide amount for CLKOUT0 (1.000-128.000).
 -- CLKOUT0_DUTY_CYCLE - CLKOUT6_DUTY_CYCLE: Duty cycle for each CLKOUT (0.01-0.99).
 CLKOUT0_DUTY_CYCLE => 0.5,
@@ -63,7 +76,11 @@ CLKOUT3_PHASE => 0.0,
 CLKOUT4_PHASE => 0.0,
 CLKOUT5_PHASE => 0.0,
 CLKOUT6_PHASE => 0.0,
+<? if (elem.cascading) {?>
 CLKOUT4_CASCADE => true, -- Cascade CLKOUT4 counter with CLKOUT6 (FALSE, TRUE)
+<? } else { ?>
+CLKOUT4_CASCADE => FALSE, -- Cascade CLKOUT4 counter with CLKOUT6 (FALSE, TRUE)
+<? } ?>
 REF_JITTER1 => 0.0,
 -- Reference input jitter in UI (0.000-0.999).
 STARTUP_WAIT => TRUE
@@ -71,7 +88,11 @@ STARTUP_WAIT => TRUE
 )
 port map (
 -- Clock Outputs: 1-bit (each) output: User configurable clock outputs
+<? if (elem.cascading) {?>
 CLKOUT4 => PORT_out,
+<? } else { ?>
+CLKOUT0 => PORT_out,
+<? } ?>
 -- 1-bit output: CLKOUT6
 -- Feedback Clocks: 1-bit (each) output: Clock feedback ports
 CLKFBOUT => feedback,
@@ -93,4 +114,4 @@ CLKFBIN => feedback
 -- 1-bit input: Feedback clock
 );
 
-end DIG_MMCME2_BASE_CC_arch;
+end DIG_MMCME2_BASE_arch;

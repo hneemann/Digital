@@ -5,8 +5,6 @@
  */
 package de.neemann.digital.hdl.vhdl.lib;
 
-import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.hgs.function.FuncAdapter;
 import de.neemann.digital.hdl.hgs.function.Function;
@@ -159,12 +157,9 @@ public class VHDLTemplate implements VHDLEntity {
                 out.println("generic map (").inc();
                 Separator semic = new Separator(",\n");
                 for (Generic gen : e.getGenerics()) {
-                    Key key = Keys.getKeyByName(gen.name);
-                    if (key != null) {
-                        semic.check(out);
-                        out.print(gen.name).print(" => ").print(gen.format(node.get(key)));
-                    } else
-                        throw new HDLException("unknown generic key: " + gen.name);
+                    semic.check(out);
+                    final Object value = node.getAttributes().hgsMapGet(gen.name);
+                    out.print(gen.name).print(" => ").print(gen.format(value));
                 }
                 out.println(")").dec();
             }
@@ -328,12 +323,13 @@ public class VHDLTemplate implements VHDLEntity {
         }
 
         public String format(Object o) throws HGSEvalException {
-            long v = Value.toLong(o);
             switch (type) {
                 case "integer":
-                    return Long.toString(v);
+                    return Long.toString(Value.toLong(o));
+                case "real":
+                    return Double.toString(Value.toDouble(o));
                 case "std_logic":
-                    return "'" + (v & 1) + "'";
+                    return "'" + (Value.toBool(o) ? 1 : 0) + "'";
                 default:
                     throw new HGSEvalException("type " + type + " not allowed as generic");
             }
