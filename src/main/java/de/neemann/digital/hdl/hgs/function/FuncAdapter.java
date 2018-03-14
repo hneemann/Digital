@@ -27,7 +27,7 @@ public abstract class FuncAdapter extends Function {
     @Override
     public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
         if (getArgCount() != args.size())
-            throw new HGSEvalException("wrong number of arguments! found: " + args.size() + ", expected: " + args.size());
+            throw new HGSEvalException("wrong number of arguments! found: " + args.size() + ", expected: " + getArgCount());
 
         Object[] data = new Object[args.size()];
         for (int i = 0; i < args.size(); i++)

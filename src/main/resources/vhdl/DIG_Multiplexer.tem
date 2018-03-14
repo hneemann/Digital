@@ -2,45 +2,32 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
 <?
-@entityName=func(elem) {
-    if (elem.Bits=1)
-        return="MUX_GATE_"+elem.'Selector Bits';
-    else
-        return="MUX_GATE_BUS_"+elem.'Selector Bits';
-};
-name=entityName(elem);
-inputs=1<<elem.'Selector Bits';
+  if (elem.Bits=1)
+      entityName="MUX_GATE_"+elem.'Selector Bits';
+  else
+      entityName="MUX_GATE_BUS_"+elem.'Selector Bits';
 
-if (elem.Bits=1)
-    dataType=type(elem.Bits);
-else
-    dataType="std_logic_vector ((Bits-1) downto 0)";
-
+  inputs=1<<elem.'Selector Bits';
 ?>
 
-entity <?=name?> is
+entity <?=entityName?> is
 <? beginGenericPort();?>
   <? if (elem.Bits>1) { ?>
   generic ( Bits : integer ); <? registerGeneric("Bits");?>
   <? } ?>
   port (
-    PORT_out: out <?=dataType?>;
+    PORT_out: out <?=genericType(elem.Bits)?>;
     PORT_sel: in <?=type(elem.'Selector Bits')?>;
     <? for (n=0;n<inputs;n++) { ?>
-    PORT_in_<?=n?>: in <?=dataType if (n<inputs-1) print(";"); }?> );
+    PORT_in_<?=n?>: in <?=genericType(elem.Bits) if (n<inputs-1) print(";"); }?> );
   <? endGenericPort();?>
-end <?=name?>;
+end <?=entityName?>;
 
-architecture <?=name?>_arch of <?=name?> is
+architecture <?=entityName?>_arch of <?=entityName?> is
 begin
   with PORT_sel select
     PORT_out <=
       <? for (n=0;n<inputs;n++) { ?>
       PORT_in_<?=n?> when <?=value(n, elem.'Selector Bits') ?>,
-      <? }
-      if (elem.Bits>1)
-        print("(others => '0')");
-      else
-        print(value(0, elem.Bits));
-      ?> when others;
-end <?=name?>_arch;
+      <? } print(zero(elem.Bits));?> when others;
+end <?=entityName?>_arch;

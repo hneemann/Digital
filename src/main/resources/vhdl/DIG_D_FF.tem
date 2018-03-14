@@ -1,0 +1,33 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+<?
+  if (elem.Bits=1)
+      entityName="DIG_D_FF";
+  else
+      entityName="DIG_D_FF_BUS";
+?>
+
+entity <?=entityName?> is
+  <?beginGenericPort();?>
+  <?if (elem.Bits>1) {?>generic ( Bits: integer ); <?registerGeneric("Bits"); }?>
+  port ( PORT_D  : in <?=genericType(elem.Bits)?>;
+         PORT_C  : in std_logic;
+         PORT_Q  : out <?=genericType(elem.Bits)?>;
+         PORT_notQ : out <?=genericType(elem.Bits)?> );
+  <?endGenericPort();?>
+end <?=entityName?>;
+
+architecture <?=entityName?>_arch of <?=entityName?> is
+   signal state : <?=genericType(elem.Bits)?> := <?=zero(elem.Bits)?>;
+begin
+   PORT_Q    <= state;
+   PORT_notQ <= NOT( state );
+
+   process(PORT_C)
+   begin
+      if rising_edge(PORT_C) then
+        state  <= PORT_D;
+      end if;
+   end process;
+end <?=entityName?>_arch;

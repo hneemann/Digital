@@ -3,9 +3,10 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
 entity DIG_RegisterFile is
+  <?beginGenericPort();?>
   generic (
-    Bits : integer;
-    AddrBits : integer );
+    Bits : integer;       <?registerGeneric("Bits");?>
+    AddrBits : integer ); <?registerGeneric("AddrBits");?>
   port (
     PORT_Da: out std_logic_vector ((Bits-1) downto 0);
     PORT_Db: out std_logic_vector ((Bits-1) downto 0);
@@ -15,6 +16,7 @@ entity DIG_RegisterFile is
     PORT_C: in std_logic;
     PORT_Ra: in std_logic_vector ((AddrBits-1) downto 0);
     PORT_Rb: in std_logic_vector ((AddrBits-1) downto 0) );
+  <?endGenericPort();?>
 end DIG_RegisterFile;
 
 architecture DIG_RegisterFile_arch of DIG_RegisterFile is

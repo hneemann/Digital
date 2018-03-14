@@ -118,7 +118,6 @@ public class VHDLLibrary {
         if (!nodeList.contains(node)) {
             nodeList.add(node);
             node.setHDLName(getEntity(node).getName(node));
-
         }
         return node.getHDLName();
     }
