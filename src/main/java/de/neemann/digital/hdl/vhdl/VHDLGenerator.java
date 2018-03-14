@@ -67,7 +67,7 @@ public class VHDLGenerator implements Closeable {
     public VHDLGenerator(ElementLibrary library, CodePrinter out) throws IOException {
         this.library = library;
         this.out = out;
-        vhdlLibrary = new VHDLLibrary(library);
+        vhdlLibrary = new VHDLLibrary();
     }
 
     /**

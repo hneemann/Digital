@@ -98,7 +98,10 @@ public class Parser {
                 return c -> ref.set(c, val.value(c));
             } else if (isToken(ADD)) {
                 expect(ADD);
-                return c -> ref.set(c, Value.add(ref.get(c), 1));
+                return c -> ref.set(c, Value.toLong(ref.get(c)) + 1);
+            } else if (isToken(SUB)) {
+                expect(SUB);
+                return c -> ref.set(c, Value.toLong(ref.get(c)) - 1);
             } else if (isToken(SEMICOLON)) {
                 return ref::get;
             } else
@@ -155,6 +158,14 @@ public class Parser {
                     inner.execute(c);
                     inc.execute(c);
                 }
+            };
+        } else if (isToken(PANIC)) {
+            expect(OPEN);
+            Expression message = parseExpression();
+            expect(CLOSE);
+            expect(SEMICOLON);
+            return c -> {
+                throw new HGSEvalException(message.value(c).toString());
             };
         } else
             throw newUnexpectedToken(tok.next());
@@ -227,22 +238,48 @@ public class Parser {
      * @throws IOException     IOException
      * @throws ParserException IOException
      */
-    public Expression parseExpression() throws IOException, ParserException {
-        Expression ac = parseGreater();
-        while (isToken(Tokenizer.Token.SMALER)) {
+    public Expression parseExp() throws IOException, ParserException {
+        Expression ex = parseExpression();
+        expect(EOF);
+        return ex;
+    }
+
+    private Expression parseExpression() throws IOException, ParserException {
+        Expression ac = parseLessEquals();
+        while (isToken(Tokenizer.Token.LESS)) {
             Expression a = ac;
-            Expression b = parseGreater();
+            Expression b = parseLessEquals();
             ac = c -> Value.toLong(a.value(c)) < Value.toLong(b.value(c));
         }
         return ac;
     }
 
+    private Expression parseLessEquals() throws IOException, ParserException {
+        Expression ac = parseGreater();
+        while (isToken(Tokenizer.Token.LESSEQUAL)) {
+            Expression a = ac;
+            Expression b = parseGreater();
+            ac = c -> Value.toLong(a.value(c)) <= Value.toLong(b.value(c));
+        }
+        return ac;
+    }
+
     private Expression parseGreater() throws IOException, ParserException {
-        Expression ac = parseEquals();
+        Expression ac = parseGreaterEquals();
         while (isToken(Tokenizer.Token.GREATER)) {
             Expression a = ac;
-            Expression b = parseEquals();
+            Expression b = parseGreaterEquals();
             ac = c -> Value.toLong(a.value(c)) > Value.toLong(b.value(c));
+        }
+        return ac;
+    }
+
+    private Expression parseGreaterEquals() throws IOException, ParserException {
+        Expression ac = parseEquals();
+        while (isToken(Tokenizer.Token.GREATEREQUAL)) {
+            Expression a = ac;
+            Expression b = parseEquals();
+            ac = c -> Value.toLong(a.value(c)) >= Value.toLong(b.value(c));
         }
         return ac;
     }

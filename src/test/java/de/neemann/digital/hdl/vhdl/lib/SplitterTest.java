@@ -94,10 +94,10 @@ public class SplitterTest extends TestCase {
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
                 "  component NOT_GATE_BUS\n" +
-                "    generic ( bitCount : integer );\n" +
+                "    generic ( Bits : integer );\n" +
                 "    port (\n" +
-                "      PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
-                "      PORT_in: in std_logic_vector ((bitCount-1) downto 0) );\n" +
+                "      PORT_out: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "      PORT_in: in std_logic_vector ((Bits-1) downto 0) );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic_vector (7 downto 0);\n" +
                 "  signal S1: std_logic_vector (7 downto 0);\n" +
@@ -107,7 +107,8 @@ public class SplitterTest extends TestCase {
                 "  S2(7 downto 4) <= PORT_B;\n" +
                 "  S0 <= S2(7 downto 0);\n" +
                 "  gate0 : NOT_GATE_BUS\n" +
-                "    generic map ( bitCount => 8)\n" +
+                "    generic map (\n" +
+                "      Bits => 8)\n" +
                 "    port map (\n" +
                 "      PORT_out => S1,\n" +
                 "      PORT_in => S0 );\n" +
@@ -117,10 +118,10 @@ public class SplitterTest extends TestCase {
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
                 "entity NOT_GATE_BUS is\n" +
-                "  generic ( bitCount : integer );\n" +
+                "  generic ( Bits : integer );\n" +
                 "  port (\n" +
-                "    PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
-                "    PORT_in: in std_logic_vector ((bitCount-1) downto 0) );\n" +
+                "    PORT_out: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "    PORT_in: in std_logic_vector ((Bits-1) downto 0) );\n" +
                 "end NOT_GATE_BUS;\n" +
                 "architecture NOT_GATE_BUS_arch of NOT_GATE_BUS is\n" +
                 "begin\n" +

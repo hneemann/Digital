@@ -71,18 +71,18 @@ public class ConstantTest extends TestCase {
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
                 "  component XOR_GATE_BUS_2\n" +
-                "    generic ( bitCount : integer );\n" +
+                "    generic ( Bits : integer );\n" +
                 "    port (\n" +
-                "      PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
-                "      PORT_In_1: in std_logic_vector ((bitCount-1) downto 0);\n" +
-                "      PORT_In_2: in std_logic_vector ((bitCount-1) downto 0) );\n" +
+                "      PORT_out: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "      PORT_In_1: in std_logic_vector ((Bits-1) downto 0);\n" +
+                "      PORT_In_2: in std_logic_vector ((Bits-1) downto 0) );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic_vector (2 downto 0);\n" +
                 "  signal S1: std_logic_vector (2 downto 0);\n" +
                 "begin\n" +
                 "  S1 <= \"000\";\n" +
                 "  gate0 : XOR_GATE_BUS_2\n" +
-                "    generic map ( bitCount => 3)\n" +
+                "    generic map ( Bits => 3)\n" +
                 "    port map (\n" +
                 "      PORT_out => S0,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
@@ -92,11 +92,11 @@ public class ConstantTest extends TestCase {
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
                 "entity XOR_GATE_BUS_2 is\n" +
-                "  generic ( bitCount : integer );\n" +
+                "  generic ( Bits : integer );\n" +
                 "  port (\n" +
-                "    PORT_out: out std_logic_vector ((bitCount-1) downto 0);\n" +
-                "    PORT_In_1: in std_logic_vector ((bitCount-1) downto 0);\n" +
-                "    PORT_In_2: in std_logic_vector ((bitCount-1) downto 0) );\n" +
+                "    PORT_out: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "    PORT_In_1: in std_logic_vector ((Bits-1) downto 0);\n" +
+                "    PORT_In_2: in std_logic_vector ((Bits-1) downto 0) );\n" +
                 "end XOR_GATE_BUS_2;\n" +
                 "architecture XOR_GATE_BUS_2_arch of XOR_GATE_BUS_2 is\n" +
                 "begin\n" +

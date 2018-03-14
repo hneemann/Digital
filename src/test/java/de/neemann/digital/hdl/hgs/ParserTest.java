@@ -19,64 +19,72 @@ import java.util.Map;
 
 public class ParserTest extends TestCase {
 
-    public void testParseExpressionArith() throws IOException, ParserException, HGSEvalException {
-        assertEquals(3L, new Parser("1+2").parseExpression().value(new Context()));
-        assertEquals("HelloWorld", new Parser("\"Hello\"+\"World\"").parseExpression().value(new Context()));
-        assertEquals(3L, new Parser("5-2").parseExpression().value(new Context()));
-        assertEquals(10L, new Parser("5*2").parseExpression().value(new Context()));
-        assertEquals(2L, new Parser("6/3").parseExpression().value(new Context()));
-        assertEquals(8L, new Parser("1<<3").parseExpression().value(new Context()));
-        assertEquals(2L, new Parser("16>>3").parseExpression().value(new Context()));
-        assertEquals(4L, new Parser("9%5").parseExpression().value(new Context()));
+    public void testparseExpArith() throws IOException, ParserException, HGSEvalException {
+        assertEquals(3L, new Parser("1+2").parseExp().value(new Context()));
+        assertEquals("HelloWorld", new Parser("\"Hello\"+\"World\"").parseExp().value(new Context()));
+        assertEquals(3L, new Parser("5-2").parseExp().value(new Context()));
+        assertEquals(10L, new Parser("5*2").parseExp().value(new Context()));
+        assertEquals(2L, new Parser("6/3").parseExp().value(new Context()));
+        assertEquals(8L, new Parser("1<<3").parseExp().value(new Context()));
+        assertEquals(2L, new Parser("16>>3").parseExp().value(new Context()));
+        assertEquals(4L, new Parser("9%5").parseExp().value(new Context()));
 
-        assertEquals(-5L, new Parser("-5").parseExpression().value(new Context()));
-        assertEquals(6L, new Parser("2*(1+2)").parseExpression().value(new Context()));
+        assertEquals(-5L, new Parser("-5").parseExp().value(new Context()));
+        assertEquals(6L, new Parser("2*(1+2)").parseExp().value(new Context()));
 
         try {
-            new Parser("1+").parseExpression().value(new Context());
+            new Parser("1+").parseExp().value(new Context());
             fail();
         } catch (ParserException e) {
             assertTrue(true);
         }
 
-        assertEquals("Hallo4", new Parser("\"Hallo\" + (2*2)").parseExpression().value(new Context()));
-        assertEquals("Hallo_true", new Parser("\"Hallo_\" + (1<2)").parseExpression().value(new Context()));
+        assertEquals("Hallo4", new Parser("\"Hallo\" + (2*2)").parseExp().value(new Context()));
+        assertEquals("Hallo_true", new Parser("\"Hallo_\" + (1<2)").parseExp().value(new Context()));
     }
 
-    public void testParseExpressionCompare() throws IOException, ParserException, HGSEvalException {
-        assertEquals(true, new Parser("5=5").parseExpression().value(new Context()));
-        assertEquals(true, new Parser("\"Hello\"=\"Hello\"").parseExpression().value(new Context()));
-        assertEquals(false, new Parser("\"Hello\"=\"World\"").parseExpression().value(new Context()));
-        assertEquals(false, new Parser("5!=5").parseExpression().value(new Context()));
-        assertEquals(false, new Parser("\"Hello\"!=\"Hello\"").parseExpression().value(new Context()));
-        assertEquals(true, new Parser("\"Hello\"!=\"World\"").parseExpression().value(new Context()));
+    public void testparseExpCompare() throws IOException, ParserException, HGSEvalException {
+        assertEquals(true, new Parser("5=5").parseExp().value(new Context()));
+        assertEquals(true, new Parser("\"Hello\"=\"Hello\"").parseExp().value(new Context()));
+        assertEquals(false, new Parser("\"Hello\"=\"World\"").parseExp().value(new Context()));
+        assertEquals(false, new Parser("5!=5").parseExp().value(new Context()));
+        assertEquals(false, new Parser("\"Hello\"!=\"Hello\"").parseExp().value(new Context()));
+        assertEquals(true, new Parser("\"Hello\"!=\"World\"").parseExp().value(new Context()));
 
-        assertEquals(false, new Parser("5<5").parseExpression().value(new Context()));
-        assertEquals(true, new Parser("4<5").parseExpression().value(new Context()));
-        assertEquals(false, new Parser("5>5").parseExpression().value(new Context()));
-        assertEquals(false, new Parser("4>5").parseExpression().value(new Context()));
+        assertEquals(false, new Parser("5<5").parseExp().value(new Context()));
+        assertEquals(true, new Parser("4<5").parseExp().value(new Context()));
+        assertEquals(false, new Parser("5>5").parseExp().value(new Context()));
+        assertEquals(false, new Parser("4>5").parseExp().value(new Context()));
+
+        assertEquals(false, new Parser("4>=5").parseExp().value(new Context()));
+        assertEquals(true, new Parser("5>=5").parseExp().value(new Context()));
+        assertEquals(true, new Parser("6>=5").parseExp().value(new Context()));
+
+        assertEquals(true, new Parser("4<=5").parseExp().value(new Context()));
+        assertEquals(true, new Parser("5<=5").parseExp().value(new Context()));
+        assertEquals(false, new Parser("6<=5").parseExp().value(new Context()));
     }
 
 
-    public void testParseExpressionBool() throws IOException, ParserException, HGSEvalException {
-        assertEquals(3L, new Parser("1|2").parseExpression().value(new Context()));
-        assertEquals(true, new Parser("a|b").parseExpression()
+    public void testparseExpBool() throws IOException, ParserException, HGSEvalException {
+        assertEquals(3L, new Parser("1|2").parseExp().value(new Context()));
+        assertEquals(true, new Parser("a|b").parseExp()
                 .value(new Context()
                         .setVar("a", true)
                         .setVar("b", false)));
-        assertEquals(0L, new Parser("1&2").parseExpression().value(new Context()));
-        assertEquals(false, new Parser("a&b").parseExpression()
+        assertEquals(0L, new Parser("1&2").parseExp().value(new Context()));
+        assertEquals(false, new Parser("a&b").parseExp()
                 .value(new Context()
                         .setVar("a", true)
                         .setVar("b", false)));
-        assertEquals(3L, new Parser("1^2").parseExpression()
+        assertEquals(3L, new Parser("1^2").parseExp()
                 .value(new Context()));
-        assertEquals(true, new Parser("a^b").parseExpression()
+        assertEquals(true, new Parser("a^b").parseExp()
                 .value(new Context()
                         .setVar("a", true)
                         .setVar("b", false)));
-        assertEquals(-2L, new Parser("~1").parseExpression().value(new Context()));
-        assertEquals(false, new Parser("~a").parseExpression()
+        assertEquals(-2L, new Parser("~1").parseExp().value(new Context()));
+        assertEquals(false, new Parser("~a").parseExp()
                 .value(new Context()
                         .setVar("a", true)));
 
@@ -308,6 +316,20 @@ public class ParserTest extends TestCase {
     public void testFirstClassFunctionOutput() throws IOException, ParserException, HGSEvalException {
         assertEquals("testtext12testtext15",
                 exec("<? f=func(a){  ?>testtext<? print(a*3); return=output; };  print(f(4),f(5));?>").toString());
+    }
+
+    public void testPanic() throws IOException, ParserException, HGSEvalException {
+        Statement s = new Parser("<? if (i>1) panic(\"myError\"); ?>").parse();
+
+        exec(s, new Context().setVar("i", 0));
+        exec(s, new Context().setVar("i", 1));
+
+        try {
+            exec(s, new Context().setVar("i", 2));
+            fail();
+        } catch (HGSEvalException e) {
+            assertEquals("myError", e.getMessage());
+        }
     }
 
 }

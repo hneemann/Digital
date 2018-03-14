@@ -14,6 +14,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
@@ -30,6 +31,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static de.neemann.digital.integration.TestExamples.check;
+
 /**
  * Test vhdl files in ghdl simulator
  */
@@ -43,7 +46,7 @@ public class TestInSimulator extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(27, tested);
+            assertEquals(28, tested);
             assertEquals(tested, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
@@ -98,14 +101,14 @@ public class TestInSimulator extends TestCase {
         int tested = new FileScanner(f -> {
             checkVHDLExport(f);
             // check simulation in Digital
-            TestExamples.check(f);
+            check(f);
         }).noOutput().scan(source);
         assertEquals(4, tested);
     }
 
-    /*
+    //*
     public void testInSimulatorDebug() throws Exception {
-        File file = new File(Resources.getRoot(),"dig/test/vhdl/registerFile.dig");
+        File file = new File(Resources.getRoot(),"dig/test/vhdl/BitSelect.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));

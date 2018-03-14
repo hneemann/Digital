@@ -30,7 +30,7 @@ public class DecoderVHDLTest extends TestCase {
                 "    PORT_B: out std_logic );\n" +
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
-                "  component MUX_GATE_1\n" +
+                "  component DECODER_1\n" +
                 "    port (\n" +
                 "      PORT_out_0: out std_logic;\n" +
                 "      PORT_out_1: out std_logic;\n" +
@@ -39,7 +39,7 @@ public class DecoderVHDLTest extends TestCase {
                 "  signal S0: std_logic;\n" +
                 "  signal S1: std_logic;\n" +
                 "begin\n" +
-                "  gate0 : MUX_GATE_1\n" +
+                "  gate0 : DECODER_1\n" +
                 "    port map (\n" +
                 "      PORT_out_0 => S0,\n" +
                 "      PORT_out_1 => S1,\n" +
@@ -49,17 +49,17 @@ public class DecoderVHDLTest extends TestCase {
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
-                "entity MUX_GATE_1 is\n" +
+                "entity DECODER_1 is\n" +
                 "  port (\n" +
                 "    PORT_out_0: out std_logic;\n" +
                 "    PORT_out_1: out std_logic;\n" +
                 "    PORT_sel: in std_logic );\n" +
-                "end MUX_GATE_1;\n" +
-                "architecture MUX_GATE_1_arch of MUX_GATE_1 is\n" +
+                "end DECODER_1;\n" +
+                "architecture DECODER_1_arch of DECODER_1 is\n" +
                 "begin\n" +
                 "  PORT_out_0 <= '1' when PORT_sel = '0' else '0';\n" +
                 "  PORT_out_1 <= '1' when PORT_sel = '1' else '0';\n" +
-                "end MUX_GATE_1_arch;", TestHelper.removeCommentLines(vhdl));
+                "end DECODER_1_arch;", TestHelper.removeCommentLines(vhdl));
     }
 
     public void testSimple2() throws IOException, ElementNotFoundException, PinException, NodeException {
@@ -77,7 +77,7 @@ public class DecoderVHDLTest extends TestCase {
                 "    PORT_D: out std_logic );\n" +
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
-                "  component MUX_GATE_2\n" +
+                "  component DECODER_2\n" +
                 "    port (\n" +
                 "      PORT_out_0: out std_logic;\n" +
                 "      PORT_out_1: out std_logic;\n" +
@@ -90,7 +90,7 @@ public class DecoderVHDLTest extends TestCase {
                 "  signal S2: std_logic;\n" +
                 "  signal S3: std_logic;\n" +
                 "begin\n" +
-                "  gate0 : MUX_GATE_2\n" +
+                "  gate0 : DECODER_2\n" +
                 "    port map (\n" +
                 "      PORT_out_0 => S0,\n" +
                 "      PORT_out_1 => S1,\n" +
@@ -104,21 +104,21 @@ public class DecoderVHDLTest extends TestCase {
                 "end main_arch;\n" +
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
-                "entity MUX_GATE_2 is\n" +
+                "entity DECODER_2 is\n" +
                 "  port (\n" +
                 "    PORT_out_0: out std_logic;\n" +
                 "    PORT_out_1: out std_logic;\n" +
                 "    PORT_out_2: out std_logic;\n" +
                 "    PORT_out_3: out std_logic;\n" +
                 "    PORT_sel: in std_logic_vector (1 downto 0) );\n" +
-                "end MUX_GATE_2;\n" +
-                "architecture MUX_GATE_2_arch of MUX_GATE_2 is\n" +
+                "end DECODER_2;\n" +
+                "architecture DECODER_2_arch of DECODER_2 is\n" +
                 "begin\n" +
                 "  PORT_out_0 <= '1' when PORT_sel = \"00\" else '0';\n" +
                 "  PORT_out_1 <= '1' when PORT_sel = \"01\" else '0';\n" +
                 "  PORT_out_2 <= '1' when PORT_sel = \"10\" else '0';\n" +
                 "  PORT_out_3 <= '1' when PORT_sel = \"11\" else '0';\n" +
-                "end MUX_GATE_2_arch;", TestHelper.removeCommentLines(vhdl));
+                "end DECODER_2_arch;", TestHelper.removeCommentLines(vhdl));
     }
 
 

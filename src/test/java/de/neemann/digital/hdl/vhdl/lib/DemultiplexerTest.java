@@ -81,18 +81,19 @@ public class DemultiplexerTest extends TestCase {
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
                 "  component DEMUX_GATE_BUS_1\n" +
-                "    generic ( bitCount : integer );\n" +
+                "    generic ( Bits : integer );\n" +
                 "    port (\n" +
+                "      PORT_out_0: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "      PORT_out_1: out std_logic_vector ((Bits-1) downto 0);\n" +
                 "      PORT_sel: in std_logic;\n" +
-                "      PORT_in: in std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "      PORT_out_0: out std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "      PORT_out_1: out std_logic_vector ( (bitCount-1)  downto 0) );\n" +
+                "      PORT_in: in std_logic_vector ((Bits-1) downto 0) );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic_vector (7 downto 0);\n" +
                 "  signal S1: std_logic_vector (7 downto 0);\n" +
                 "begin\n" +
                 "  gate0 : DEMUX_GATE_BUS_1\n" +
-                "    generic map ( bitCount => 8)\n" +
+                "    generic map (\n" +
+                "      Bits => 8)\n" +
                 "    port map (\n" +
                 "      PORT_out_0 => S0,\n" +
                 "      PORT_out_1 => S1,\n" +
@@ -104,12 +105,12 @@ public class DemultiplexerTest extends TestCase {
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
                 "entity DEMUX_GATE_BUS_1 is\n" +
-                "  generic ( bitCount : integer );\n" +
+                "  generic ( Bits : integer );\n" +
                 "  port (\n" +
+                "    PORT_out_0: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "    PORT_out_1: out std_logic_vector ((Bits-1) downto 0);\n" +
                 "    PORT_sel: in std_logic;\n" +
-                "    PORT_in: in std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "    PORT_out_0: out std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "    PORT_out_1: out std_logic_vector ( (bitCount-1)  downto 0) );\n" +
+                "    PORT_in: in std_logic_vector ((Bits-1) downto 0) );\n" +
                 "end DEMUX_GATE_BUS_1;\n" +
                 "architecture DEMUX_GATE_BUS_1_arch of DEMUX_GATE_BUS_1 is\n" +
                 "begin\n" +
@@ -135,14 +136,14 @@ public class DemultiplexerTest extends TestCase {
                 "end main;\n" +
                 "architecture main_arch of main is\n" +
                 "  component DEMUX_GATE_BUS_2\n" +
-                "    generic ( bitCount : integer );\n" +
+                "    generic ( Bits : integer );\n" +
                 "    port (\n" +
+                "      PORT_out_0: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "      PORT_out_1: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "      PORT_out_2: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "      PORT_out_3: out std_logic_vector ((Bits-1) downto 0);\n" +
                 "      PORT_sel: in std_logic_vector (1 downto 0);\n" +
-                "      PORT_in: in std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "      PORT_out_0: out std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "      PORT_out_1: out std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "      PORT_out_2: out std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "      PORT_out_3: out std_logic_vector ( (bitCount-1)  downto 0) );\n" +
+                "      PORT_in: in std_logic_vector ((Bits-1) downto 0) );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic_vector (7 downto 0);\n" +
                 "  signal S1: std_logic_vector (7 downto 0);\n" +
@@ -150,7 +151,8 @@ public class DemultiplexerTest extends TestCase {
                 "  signal S3: std_logic_vector (7 downto 0);\n" +
                 "begin\n" +
                 "  gate0 : DEMUX_GATE_BUS_2\n" +
-                "    generic map ( bitCount => 8)\n" +
+                "    generic map (\n" +
+                "      Bits => 8)\n" +
                 "    port map (\n" +
                 "      PORT_out_0 => S0,\n" +
                 "      PORT_out_1 => S1,\n" +
@@ -166,14 +168,14 @@ public class DemultiplexerTest extends TestCase {
                 "LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
                 "entity DEMUX_GATE_BUS_2 is\n" +
-                "  generic ( bitCount : integer );\n" +
+                "  generic ( Bits : integer );\n" +
                 "  port (\n" +
+                "    PORT_out_0: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "    PORT_out_1: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "    PORT_out_2: out std_logic_vector ((Bits-1) downto 0);\n" +
+                "    PORT_out_3: out std_logic_vector ((Bits-1) downto 0);\n" +
                 "    PORT_sel: in std_logic_vector (1 downto 0);\n" +
-                "    PORT_in: in std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "    PORT_out_0: out std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "    PORT_out_1: out std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "    PORT_out_2: out std_logic_vector ( (bitCount-1)  downto 0);\n" +
-                "    PORT_out_3: out std_logic_vector ( (bitCount-1)  downto 0) );\n" +
+                "    PORT_in: in std_logic_vector ((Bits-1) downto 0) );\n" +
                 "end DEMUX_GATE_BUS_2;\n" +
                 "architecture DEMUX_GATE_BUS_2_arch of DEMUX_GATE_BUS_2 is\n" +
                 "begin\n" +

@@ -170,7 +170,7 @@ public class VHDLTemplate implements VHDLEntity {
         try {
             String port = getEntity(node).getPortDecl();
             if (port != null) {
-                out.print(port);
+                out.dec().print(port).inc();
             } else {
                 out.println("port (").inc();
                 Separator semic = new Separator(";\n");
@@ -351,7 +351,7 @@ public class VHDLTemplate implements VHDLEntity {
 
     }
 
-    private final static class FunctionValue extends Function {
+    private final static class FunctionValue extends FuncAdapter {
         /**
          * Creates a new function
          */
@@ -360,11 +360,25 @@ public class VHDLTemplate implements VHDLEntity {
         }
 
         @Override
-        public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
-            int val = Value.toInt(args.get(0).value(c));
-            int bits = Value.toInt(args.get(1).value(c));
-            return MultiplexerVHDL.getBin(val, bits);
+        protected Object f(Object... args) throws HGSEvalException {
+            int val = Value.toInt(args[0]);
+            int bits = Value.toInt(args[1]);
+            return getBin(val, bits);
         }
+
+        private static String getBin(int val, int bits) {
+            String s = Integer.toBinaryString(val);
+            while (s.length() < bits)
+                s = "0" + s;
+
+            if (bits > 1)
+                s = "\"" + s + "\"";
+            else
+                s = "'" + s + "'";
+
+            return s;
+        }
+
     }
 
     private static final class Generic {

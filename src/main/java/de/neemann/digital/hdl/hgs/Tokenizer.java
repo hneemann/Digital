@@ -16,8 +16,8 @@ class Tokenizer {
 
     enum Token {
         UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
-        ADD, SUB, MUL, GREATER, SMALER, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
-        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, PRINT, STATIC, FUNC, PRINTF
+        ADD, SUB, MUL, GREATER, LESS, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
+        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, PRINT, STATIC, FUNC, PRINTF, GREATEREQUAL, LESSEQUAL, PANIC
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -30,6 +30,7 @@ class Tokenizer {
         statementMap.put("print", Token.PRINT);
         statementMap.put("printf", Token.PRINTF);
         statementMap.put("func", Token.FUNC);
+        statementMap.put("panic", Token.PANIC);
     }
 
     private final Reader in;
@@ -150,13 +151,17 @@ class Tokenizer {
                 case '<':
                     if (isNextChar('<')) {
                         token = Token.SHIFTLEFT;
+                    } else if (isNextChar('=')) {
+                        token = Token.LESSEQUAL;
                     } else {
-                        token = Token.SMALER;
+                        token = Token.LESS;
                     }
                     break;
                 case '>':
                     if (isNextChar('>')) {
                         token = Token.SHIFTRIGHT;
+                    } else if (isNextChar('=')) {
+                        token = Token.GREATEREQUAL;
                     } else {
                         token = Token.GREATER;
                     }

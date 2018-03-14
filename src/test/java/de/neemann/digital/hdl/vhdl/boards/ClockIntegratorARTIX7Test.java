@@ -36,14 +36,14 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "  component DIG_MMCME2_BASE\n" +
-                "      generic (\n" +
-                "        D_PARAM : integer;\n" +
-                "        M_PARAM : real;\n" +
-                "        DIV_PARAM : real;\n" +
-                "        PERIOD_PARAM: real);\n" +
-                "      port (\n" +
-                "        PORT_in: in std_logic;\n" +
-                "        PORT_out: out std_logic );\n" +
+                "    generic (\n" +
+                "      D_PARAM : integer;\n" +
+                "      M_PARAM : real;\n" +
+                "      DIV_PARAM : real;\n" +
+                "      PERIOD_PARAM: real);\n" +
+                "    port (\n" +
+                "      PORT_in: in std_logic;\n" +
+                "      PORT_out: out std_logic );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
                 "  signal S1: std_logic;\n" +
@@ -156,15 +156,15 @@ public class ClockIntegratorARTIX7Test extends TestCase {
                 "      PORT_in: in std_logic );\n" +
                 "  end component;\n" +
                 "  component DIG_MMCME2_BASE\n" +
-                "      generic (\n" +
-                "        D_PARAM : integer;\n" +
-                "        M_PARAM : real;\n" +
-                "        DIV_PARAM : integer;\n" +
-                "        DIV4_PARAM : integer;\n" +
-                "        PERIOD_PARAM: real);\n" +
-                "      port (\n" +
-                "        PORT_in: in std_logic;\n" +
-                "        PORT_out: out std_logic );\n" +
+                "    generic (\n" +
+                "      D_PARAM : integer;\n" +
+                "      M_PARAM : real;\n" +
+                "      DIV_PARAM : integer;\n" +
+                "      DIV4_PARAM : integer;\n" +
+                "      PERIOD_PARAM: real);\n" +
+                "    port (\n" +
+                "      PORT_in: in std_logic;\n" +
+                "      PORT_out: out std_logic );\n" +
                 "  end component;\n" +
                 "  signal S0: std_logic;\n" +
                 "  signal S1: std_logic;\n" +

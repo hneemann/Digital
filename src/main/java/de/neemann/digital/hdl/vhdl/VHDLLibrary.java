@@ -10,8 +10,6 @@ import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.memory.ROM;
-import de.neemann.digital.core.wiring.*;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -32,17 +30,14 @@ public class VHDLLibrary {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VHDLLibrary.class);
     private final HashMap<String, VHDLEntity> map;
-    private final ElementLibrary elementLibrary;
     private ArrayList<HDLNode> nodeList = new ArrayList<>();
 
     /**
      * Creates a new instance
      *
-     * @param elementLibrary the elements library
      * @throws IOException IOException
      */
-    public VHDLLibrary(ElementLibrary elementLibrary) throws IOException {
-        this.elementLibrary = elementLibrary;
+    public VHDLLibrary() throws IOException {
         map = new HashMap<>();
         put(And.DESCRIPTION, new OperateVHDL("AND", false, And.DESCRIPTION));
         put(NAnd.DESCRIPTION, new OperateVHDL("AND", true, NAnd.DESCRIPTION));
@@ -50,18 +45,8 @@ public class VHDLLibrary {
         put(NOr.DESCRIPTION, new OperateVHDL("OR", true, NOr.DESCRIPTION));
         put(XOr.DESCRIPTION, new OperateVHDL("XOR", false, XOr.DESCRIPTION));
         put(XNOr.DESCRIPTION, new OperateVHDL("XOR", true, XNOr.DESCRIPTION));
-        put(Not.DESCRIPTION, new NotVHDL());
-
-        //put(Multiplexer.DESCRIPTION, new MultiplexerVHDL());
-        put(Decoder.DESCRIPTION, new DecoderVHDL());
-        put(Demultiplexer.DESCRIPTION, new DemultiplexerVHDL());
-        put(BitSelector.DESCRIPTION, new BitSelectorVHDL());
-        put(Driver.DESCRIPTION, new DriverVHDL(false));
-        put(DriverInvSel.DESCRIPTION, new DriverVHDL(true));
 
         put(Comparator.DESCRIPTION, new ComparatorVHDL());
-//        put(BitExtender.DESCRIPTION, new BitExtenderVHDL());
-        put(PriorityEncoder.DESCRIPTION, new PriorityEncoderVHDL());
         put(External.DESCRIPTION, new ExternalVHDL());
 
         put(ROM.DESCRIPTION, new ROMVHDL());
