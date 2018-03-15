@@ -8,7 +8,6 @@ package de.neemann.digital.hdl.vhdl;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.extern.External;
-import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -60,8 +59,6 @@ public class VHDLLibrary {
                 .put("inv", true)));
 
         put(External.DESCRIPTION, new ExternalVHDL());
-
-        put(ROM.DESCRIPTION, new ROMVHDL());
     }
 
     private void put(ElementTypeDescription description, VHDLEntity entity) {

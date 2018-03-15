@@ -37,7 +37,13 @@ public class DataField implements HGSArray {
         this(new long[size], size);
     }
 
-    private DataField(long[] data, int size) {
+    /**
+     * Creates a new data field
+     *
+     * @param data the data
+     * @param size the size
+     */
+    public DataField(long[] data, int size) {
         this.size = size;
         this.data = data;
     }
@@ -232,7 +238,7 @@ public class DataField implements HGSArray {
 
     @Override
     public int hgsArraySize() {
-        return size;
+        return data.length;
     }
 
     @Override

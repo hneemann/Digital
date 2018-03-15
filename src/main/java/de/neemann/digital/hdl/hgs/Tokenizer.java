@@ -184,12 +184,7 @@ class Tokenizer {
                     break;
                 case '"':
                     token = Token.STRING;
-                    builder.setLength(0);
-                    while ((c = readChar()) != '"') {
-                        builder.append((char) c);
-                        if (c < 0)
-                            throw new IOException("EOF detected while scanning a string");
-                    }
+                    readString();
                     break;
                 case '\'':
                     token = Token.IDENT;
@@ -221,6 +216,35 @@ class Tokenizer {
                 isToken = true;
                 return token;
             }
+        }
+    }
+
+    private void readString() throws IOException {
+        int c;
+        builder.setLength(0);
+        while ((c = readChar()) != '"') {
+            if (c == '\\') {
+                c = readChar();
+                switch (c) {
+                    case '\\':
+                        c = '\\';
+                        break;
+                    case 'n':
+                        c = '\n';
+                        break;
+                    case 'r':
+                        c = '\r';
+                        break;
+                    case 't':
+                        c = '\t';
+                        break;
+                    default:
+                        throw new IOException("not allowed in string: \\" + (char) c);
+                }
+            }
+            builder.append((char) c);
+            if (c < 0)
+                throw new IOException("EOF detected while scanning a string");
         }
     }
 
