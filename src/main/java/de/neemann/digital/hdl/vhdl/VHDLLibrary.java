@@ -39,22 +39,22 @@ public class VHDLLibrary {
         map = new HashMap<>();
 
         VHDLTemplate operate = new VHDLTemplate("Operate");
-        put(And.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+        put(And.DESCRIPTION, new VHDLEntityParam(operate, new TempParameter()
                 .put("op", "AND")
                 .put("inv", false)));
-        put(NAnd.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+        put(NAnd.DESCRIPTION, new VHDLEntityParam(operate, new TempParameter()
                 .put("op", "AND")
                 .put("inv", true)));
-        put(Or.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+        put(Or.DESCRIPTION, new VHDLEntityParam(operate, new TempParameter()
                 .put("op", "OR")
                 .put("inv", false)));
-        put(NOr.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+        put(NOr.DESCRIPTION, new VHDLEntityParam(operate, new TempParameter()
                 .put("op", "OR")
                 .put("inv", true)));
-        put(XOr.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+        put(XOr.DESCRIPTION, new VHDLEntityParam(operate, new TempParameter()
                 .put("op", "XOR")
                 .put("inv", false)));
-        put(XNOr.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+        put(XNOr.DESCRIPTION, new VHDLEntityParam(operate, new TempParameter()
                 .put("op", "XOR")
                 .put("inv", true)));
 
@@ -96,14 +96,6 @@ public class VHDLLibrary {
             node.setHDLName(getEntity(node).getName(node));
         }
         return node.getHDLName();
-    }
-
-    private void printTo(CodePrinter out, HDLNode node) throws HDLException, IOException {
-        VHDLEntity e = getEntity(node);
-        if (e.needsOutput(node)) {
-            out.println("\n-- " + node.getHDLName() + "\n");
-            e.writeEntity(out, node);
-        }
     }
 
     /**
@@ -151,8 +143,10 @@ public class VHDLLibrary {
      */
     public int finish(CodePrinter out) throws HDLException, IOException {
         out.println("\n-- library components");
-        for (HDLNode n : nodeList)
-            printTo(out, n);
+        for (HDLNode n : nodeList) {
+            getEntity(n).writeEntity(out, n);
+            out.println();
+        }
         return nodeList.size();
     }
 

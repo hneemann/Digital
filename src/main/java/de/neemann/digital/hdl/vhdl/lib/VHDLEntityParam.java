@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * A parameterized template.
  */
-public class VHDLTemplateParam implements VHDLEntity {
+public class VHDLEntityParam implements VHDLEntity {
 
     private final VHDLEntity template;
     private final TempParameter param;
@@ -26,7 +26,7 @@ public class VHDLTemplateParam implements VHDLEntity {
      * @param template the templates to use
      * @param param    the parameters to pass to the template
      */
-    public VHDLTemplateParam(VHDLEntity template, TempParameter param) {
+    public VHDLEntityParam(VHDLEntity template, TempParameter param) {
         this.template = template;
         this.param = param;
     }
@@ -36,7 +36,7 @@ public class VHDLTemplateParam implements VHDLEntity {
     }
 
     @Override
-    public void writeEntity(CodePrinter out, HDLNode node) throws IOException {
+    public void writeEntity(CodePrinter out, HDLNode node) throws IOException, HDLException {
         setParam(node);
         template.writeEntity(out, node);
     }
@@ -45,12 +45,6 @@ public class VHDLTemplateParam implements VHDLEntity {
     public String getName(HDLNode node) throws HDLException {
         setParam(node);
         return template.getName(node);
-    }
-
-    @Override
-    public boolean needsOutput(HDLNode node) throws HDLException {
-        setParam(node);
-        return template.needsOutput(node);
     }
 
     @Override

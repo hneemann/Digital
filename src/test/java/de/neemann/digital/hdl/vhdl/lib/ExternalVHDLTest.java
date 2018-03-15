@@ -31,7 +31,7 @@ public class ExternalVHDLTest extends TestCase {
             fail();
         } catch (IOException e) {
             String message = e.getCause().getMessage();
-            assertEquals(Lang.get("err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical"), message);
+            assertEquals(Lang.get("err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical"), message);
         }
     }
 }

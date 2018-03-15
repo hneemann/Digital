@@ -114,8 +114,10 @@ public class VHDLTemplate implements VHDLEntity {
     public void writeEntity(CodePrinter out, HDLNode node) throws IOException {
         try {
             Entity e = getEntity(node);
-            out.print(e.getCode());
-            e.setWritten(true);
+            if (!e.isWritten()) {
+                out.print(e.getCode());
+                e.setWritten(true);
+            }
         } catch (HGSEvalException e) {
             throw new IOException("error evaluating the template", e);
         }
@@ -125,15 +127,6 @@ public class VHDLTemplate implements VHDLEntity {
     public String getName(HDLNode node) throws HDLException {
         try {
             return getEntity(node).getName();
-        } catch (HGSEvalException e) {
-            throw new HDLException("Error requesting the entities name!", e);
-        }
-    }
-
-    @Override
-    public boolean needsOutput(HDLNode node) throws HDLException {
-        try {
-            return !getEntity(node).isWritten();
         } catch (HGSEvalException e) {
             throw new HDLException("Error requesting the entities name!", e);
         }

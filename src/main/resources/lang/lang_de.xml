@@ -857,8 +857,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_couldNotStartProcess_N">Prozess konnte nicht gestartet werden: {0}</string>
     <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
         {1}</string>
-    <string name="err_canOnlyExportExtrnalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
-    <string name="err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein!</string>
+    <string name="err_canOnlyExportExternalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein!</string>
     <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
         {0}</string>
 

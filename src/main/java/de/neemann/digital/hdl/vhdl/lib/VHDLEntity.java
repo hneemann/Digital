@@ -21,9 +21,10 @@ public interface VHDLEntity {
      *
      * @param out  the code printer
      * @param node the node
-     * @throws IOException IOException
+     * @throws IOException  IOException
+     * @throws HDLException HDLException
      */
-    void writeEntity(CodePrinter out, HDLNode node) throws IOException;
+    void writeEntity(CodePrinter out, HDLNode node) throws IOException, HDLException;
 
     /**
      * Gets the name of the entity.
@@ -34,15 +35,6 @@ public interface VHDLEntity {
      * @throws HDLException HDLException
      */
     String getName(HDLNode node) throws HDLException;
-
-    /**
-     * Returns true if this node needs to create an entity
-     *
-     * @param node the node
-     * @return true if entity needs to be written
-     * @throws HDLException HDLException
-     */
-    boolean needsOutput(HDLNode node) throws HDLException;
 
     /**
      * Writes the declaration.

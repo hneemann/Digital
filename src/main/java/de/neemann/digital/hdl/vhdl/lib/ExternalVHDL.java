@@ -29,22 +29,12 @@ public class ExternalVHDL implements VHDLEntity {
     private HashMap<String, String> codeMap = new HashMap<>();
 
     @Override
-    public void writeEntity(CodePrinter out, HDLNode node) throws IOException {
-        out.print(node.get(Keys.EXTERNAL_CODE));
+    public void writeEntity(CodePrinter out, HDLNode node) throws IOException, HDLException {
+        if (needsOutput(node))
+            out.print(node.get(Keys.EXTERNAL_CODE));
     }
 
-    @Override
-    public String getName(HDLNode node) throws HDLException {
-        Application.Type t = node.getAttributes().get(Keys.APPLICATION_TYPE);
-        Application app = Application.create(t);
-        if (!(app instanceof ApplicationVHDLStdIO))
-            throw new HDLException(Lang.get("err_canOnlyExportExtrnalVHDL"));
-
-        return node.getAttributes().getCleanLabel();
-    }
-
-    @Override
-    public boolean needsOutput(HDLNode node) throws HDLException {
+    private boolean needsOutput(HDLNode node) throws HDLException {
         String label = node.getAttributes().getCleanLabel();
         String code = node.get(Keys.EXTERNAL_CODE);
 
@@ -57,7 +47,17 @@ public class ExternalVHDL implements VHDLEntity {
         if (oldCode.equals(code))
             return false;
 
-        throw new HDLException(Lang.get("err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical"));
+        throw new HDLException(Lang.get("err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical"));
+    }
+
+    @Override
+    public String getName(HDLNode node) throws HDLException {
+        Application.Type t = node.getAttributes().get(Keys.APPLICATION_TYPE);
+        Application app = Application.create(t);
+        if (!(app instanceof ApplicationVHDLStdIO))
+            throw new HDLException(Lang.get("err_canOnlyExportExternalVHDL"));
+
+        return node.getAttributes().getCleanLabel();
     }
 
     @Override
