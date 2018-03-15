@@ -26,7 +26,7 @@ class Tokenizer {
         statementMap.put("if", Token.IF);
         statementMap.put("else", Token.ELSE);
         statementMap.put("for", Token.FOR);
-        statementMap.put("while", Token.FOR);
+        statementMap.put("while", Token.WHILE);
         statementMap.put("print", Token.PRINT);
         statementMap.put("printf", Token.PRINTF);
         statementMap.put("func", Token.FUNC);

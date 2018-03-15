@@ -5,9 +5,6 @@
  */
 package de.neemann.digital.hdl.hgs;
 
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
 import de.neemann.digital.hdl.hgs.function.FuncAdapter;
 import de.neemann.digital.integration.FileScanner;
@@ -150,6 +147,8 @@ public class ParserTest extends TestCase {
         assertEquals("Hello -4-5- World!", c.toString());
     }
 
+    //   for statement
+
     public void testParseTemplateFor() throws IOException, ParserException, HGSEvalException {
         Context c = exec("Hello <? for (i=0;i<10;i++) print(i); ?> World!");
         assertEquals("Hello 0123456789 World!", c.toString());
@@ -178,30 +177,11 @@ public class ParserTest extends TestCase {
         assertEquals("Hello (12)(24)(36) World!", c.toString());
     }
 
+    //   while statement
 
-    public void testParseTemplateElementAttibutes() throws IOException, ParserException, HGSEvalException {
-        ElementAttributes attr = new ElementAttributes().set(Keys.BITS, 5);
-        Context c = exec("bits=<?=elem.Bits?>;", new Context().setVar("elem", attr));
-        assertEquals("bits=5;", c.toString());
-    }
-
-    public void testParseTemplateDataField() throws IOException, ParserException, HGSEvalException {
-        DataField d = new DataField(5)
-                .setData(0, 1)
-                .setData(1, 7)
-                .setData(2, 4)
-                .setData(3, 8)
-                .setData(4, 2);
-        Context c = exec("(<? for(i=0;i<sizeOf(d);i++) { if (i>0) print(\"-\"); print(d[i]);} ?>)",
-                new Context().setVar("d", d));
-        assertEquals("(1-7-4-8-2)", c.toString());
-    }
-
-    public void testParseTemplateFormat() throws IOException, ParserException, HGSEvalException {
-        ElementAttributes attr = new ElementAttributes().set(Keys.BITS, 17);
-        Context c = new Context().setVar("elem", attr);
-        exec("<? a=format(\"hex=%x;\",elem.Bits); print(a);?>", c);
-        assertEquals("hex=11;", c.toString());
+    public void testParseTemplateWhile() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("Hello <? i=0; while (i<=9) { =i; i++; } ?> World!");
+        assertEquals("Hello 0123456789 World!", c.toString());
     }
 
     public void testParseTemplateArray() throws IOException, ParserException, HGSEvalException {
@@ -249,13 +229,19 @@ public class ParserTest extends TestCase {
         assertEquals("4;", exec(t, new Context().setVar("m", 4)).toString());
     }
 
+    public void testParseTemplateFormat() throws IOException, ParserException, HGSEvalException {
+        Context c = new Context().setVar("Bits", 17);
+        exec("<? a=format(\"hex=%x;\",Bits); print(a);?>", c);
+        assertEquals("hex=11;", c.toString());
+    }
+
     public void testComment() throws IOException, ParserException, HGSEvalException {
         Context c = exec("<? // comment\nprint(\"false\"); // zzz\n ?>;");
         assertEquals("false;", c.toString());
     }
 
     public void testAddFunction() throws IOException, ParserException, HGSEvalException {
-        Statement s = new Parser("a : in <?=type(elem.Bits)?>;").parse();
+        Statement s = new Parser("a : in <?=type(Bits)?>;").parse();
         Context funcs = new Context().setVar("type", new FuncAdapter(1) {
             @Override
             protected Object f(Object... args) throws HGSEvalException {
@@ -268,10 +254,10 @@ public class ParserTest extends TestCase {
         });
         assertEquals("a : in std_logic;",
                 exec(s, new Context(funcs)
-                        .setVar("elem", new ElementAttributes())).toString());
+                        .setVar("Bits", 1)).toString());
         assertEquals("a : in std_logic_vector(5 downto 0);",
                 exec(s, new Context(funcs)
-                        .setVar("elem", new ElementAttributes().setBits(6))).toString());
+                        .setVar("Bits", 6)).toString());
     }
 
     int flag = 0;
@@ -339,10 +325,11 @@ public class ParserTest extends TestCase {
         }
     }
 
+    // checks the available VHDL templates
     public void testVHDLTemplates() throws Exception {
         final File path = new File(Resources.getRoot(), "../../main/resources/vhdl");
-        int n=new FileScanner(f -> new Parser(new FileReader(f)).parse()).setSuffix(".tem").scan(path);
-        assertTrue(n>10);
+        int n = new FileScanner(f -> new Parser(new FileReader(f)).parse()).setSuffix(".tem").scan(path);
+        assertTrue(n > 10);
     }
 
 }

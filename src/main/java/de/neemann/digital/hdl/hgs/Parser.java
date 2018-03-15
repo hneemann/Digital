@@ -56,8 +56,8 @@ public class Parser {
         String text = tok.readText();
         if (text.length() > 0)
             s.add(c -> c.print(text));
-        while (!isToken(EOF)) {
-            if (isToken(STATIC)) {
+        while (!nextIs(EOF)) {
+            if (nextIs(STATIC)) {
                 Statement stat = parseStatement();
                 try {
                     stat.execute(staticContext);
@@ -81,51 +81,57 @@ public class Parser {
         return parseStatement(true);
     }
 
-    private Statement parseStatement(boolean semicolon) throws IOException, ParserException {
-        if (isToken(IDENT)) {
+    /**
+     * If 'isRealStatement' is false, the statement is parsed like an expression.
+     * This mode is needed to implement the 'for' loop. In a C style for loop the pre and the
+     * post code are expressions, which modify state, which is not supported by HGS. In the HGS
+     * for loop the pre and the post code are statements where the semicolon at the end is omitted.
+     */
+    private Statement parseStatement(boolean isRealStatement) throws IOException, ParserException {
+        if (nextIs(IDENT)) {
             Reference ref = parseReference(tok.getIdent());
-            if (isToken(EQUAL)) {
+            if (nextIs(EQUAL)) {
                 Expression val = parseExpression();
-                if (semicolon) expect(SEMICOLON);
+                if (isRealStatement) expect(SEMICOLON);
                 return c -> ref.set(c, val.value(c));
-            } else if (isToken(ADD)) {
+            } else if (nextIs(ADD)) {
                 expect(ADD);
-                if (semicolon) expect(SEMICOLON);
+                if (isRealStatement) expect(SEMICOLON);
                 return c -> ref.set(c, Value.toLong(ref.get(c)) + 1);
-            } else if (isToken(SUB)) {
+            } else if (nextIs(SUB)) {
                 expect(SUB);
-                if (semicolon) expect(SEMICOLON);
+                if (isRealStatement) expect(SEMICOLON);
                 return c -> ref.set(c, Value.toLong(ref.get(c)) - 1);
-            } else if (isToken(SEMICOLON)) {
+            } else if (nextIs(SEMICOLON)) {
                 return ref::get;
             } else
                 throw newUnexpectedToken(tok.next());
-        } else if (isToken(CODEEND)) {
+        } else if (nextIs(CODEEND)) {
             String str = tok.readText();
             return c -> c.print(str);
-        } else if (isToken(EQUAL)) {
+        } else if (nextIs(EQUAL)) {
             Expression exp = parseExpression();
             if (tok.peek() != CODEEND) expect(SEMICOLON);
             return c -> c.print(exp.value(c).toString());
-        } else if (isToken(PRINT)) {
+        } else if (nextIs(PRINT)) {
             expect(OPEN);
             ArrayList<Expression> args = parseArgList();
-            if (semicolon) expect(SEMICOLON);
+            if (isRealStatement) expect(SEMICOLON);
             return c -> {
                 for (Expression e : args)
                     c.print(e.value(c).toString());
             };
-        } else if (isToken(PRINTF)) {
+        } else if (nextIs(PRINTF)) {
             expect(OPEN);
             ArrayList<Expression> args = parseArgList();
-            if (semicolon) expect(SEMICOLON);
+            if (isRealStatement) expect(SEMICOLON);
             return c -> c.print(FunctionFormat.format(c, args));
-        } else if (isToken(IF)) {
+        } else if (nextIs(IF)) {
             expect(OPEN);
             Expression cond = parseExpression();
             expect(CLOSE);
             Statement ifPart = parseStatement();
-            if (isToken(ELSE)) {
+            if (nextIs(ELSE)) {
                 Statement elsePart = parseStatement();
                 return c -> {
                     if (Value.toBool(cond.value(c)))
@@ -138,14 +144,13 @@ public class Parser {
                     if (Value.toBool(cond.value(c)))
                         ifPart.execute(c);
                 };
-
-        } else if (isToken(FOR)) {
+        } else if (nextIs(FOR)) {
             expect(OPEN);
-            Statement init = parseStatement(false);
+            Statement init = parseStatement(false); // parse like an expression
             expect(SEMICOLON);
             Expression cond = parseExpression();
             expect(SEMICOLON);
-            Statement inc = parseStatement(false);
+            Statement inc = parseStatement(false); // parse like an expression
             expect(CLOSE);
             Statement inner = parseStatement();
             return c -> {
@@ -155,16 +160,24 @@ public class Parser {
                     inc.execute(c);
                 }
             };
-        } else if (isToken(OPENBRACE)) {
+        } else if (nextIs(WHILE)) {
+            expect(OPEN);
+            Expression cond = parseExpression();
+            expect(CLOSE);
+            Statement inner = parseStatement();
+            return c -> {
+                while (Value.toBool(cond.value(c))) inner.execute(c);
+            };
+        } else if (nextIs(OPENBRACE)) {
             Statements s = new Statements();
-            while (!isToken(CLOSEDBRACE))
+            while (!nextIs(CLOSEDBRACE))
                 s.add(parseStatement());
             return s.optimize();
-        } else if (isToken(PANIC)) {
+        } else if (nextIs(PANIC)) {
             expect(OPEN);
             Expression message = parseExpression();
             expect(CLOSE);
-            if (semicolon) expect(SEMICOLON);
+            if (isRealStatement) expect(SEMICOLON);
             return c -> {
                 throw new HGSEvalException(message.value(c).toString());
             };
@@ -174,9 +187,9 @@ public class Parser {
 
     private ArrayList<Expression> parseArgList() throws IOException, ParserException {
         ArrayList<Expression> args = new ArrayList<>();
-        if (!isToken(CLOSE)) {
+        if (!nextIs(CLOSE)) {
             args.add(parseExpression());
-            while (isToken(COMMA))
+            while (nextIs(COMMA))
                 args.add(parseExpression());
             expect(CLOSE);
         }
@@ -186,14 +199,14 @@ public class Parser {
     private Reference parseReference(String var) throws IOException, ParserException {
         Reference r = new ReferenceToVar(var);
         while (true) {
-            if (isToken(OPENSQUARE)) {
+            if (nextIs(OPENSQUARE)) {
                 Expression index = parseExpression();
                 expect(CLOSEDSQUARE);
                 r = new ReferenceToArray(r, index);
-            } else if (isToken(OPEN)) {
+            } else if (nextIs(OPEN)) {
                 ArrayList<Expression> args = parseArgList();
                 r = new ReferenceToFunc(r, args);
-            } else if (isToken(DOT)) {
+            } else if (nextIs(DOT)) {
                 expect(IDENT);
                 r = new ReferenceToStruct(r, tok.getIdent());
             } else
@@ -201,7 +214,7 @@ public class Parser {
         }
     }
 
-    private boolean isToken(Tokenizer.Token t) throws IOException {
+    private boolean nextIs(Tokenizer.Token t) throws IOException {
         if (tok.peek() == t) {
             tok.next();
             return true;
@@ -247,7 +260,7 @@ public class Parser {
 
     private Expression parseExpression() throws IOException, ParserException {
         Expression ac = parseLessEquals();
-        while (isToken(Tokenizer.Token.LESS)) {
+        while (nextIs(Tokenizer.Token.LESS)) {
             Expression a = ac;
             Expression b = parseLessEquals();
             ac = c -> Value.toLong(a.value(c)) < Value.toLong(b.value(c));
@@ -257,7 +270,7 @@ public class Parser {
 
     private Expression parseLessEquals() throws IOException, ParserException {
         Expression ac = parseGreater();
-        while (isToken(Tokenizer.Token.LESSEQUAL)) {
+        while (nextIs(Tokenizer.Token.LESSEQUAL)) {
             Expression a = ac;
             Expression b = parseGreater();
             ac = c -> Value.toLong(a.value(c)) <= Value.toLong(b.value(c));
@@ -267,7 +280,7 @@ public class Parser {
 
     private Expression parseGreater() throws IOException, ParserException {
         Expression ac = parseGreaterEquals();
-        while (isToken(Tokenizer.Token.GREATER)) {
+        while (nextIs(Tokenizer.Token.GREATER)) {
             Expression a = ac;
             Expression b = parseGreaterEquals();
             ac = c -> Value.toLong(a.value(c)) > Value.toLong(b.value(c));
@@ -277,7 +290,7 @@ public class Parser {
 
     private Expression parseGreaterEquals() throws IOException, ParserException {
         Expression ac = parseEquals();
-        while (isToken(Tokenizer.Token.GREATEREQUAL)) {
+        while (nextIs(Tokenizer.Token.GREATEREQUAL)) {
             Expression a = ac;
             Expression b = parseEquals();
             ac = c -> Value.toLong(a.value(c)) >= Value.toLong(b.value(c));
@@ -287,7 +300,7 @@ public class Parser {
 
     private Expression parseEquals() throws IOException, ParserException {
         Expression ac = parseNotEquals();
-        while (isToken(Tokenizer.Token.EQUAL)) {
+        while (nextIs(Tokenizer.Token.EQUAL)) {
             Expression a = ac;
             Expression b = parseNotEquals();
             ac = c -> Value.equals(a.value(c), b.value(c));
@@ -297,7 +310,7 @@ public class Parser {
 
     private Expression parseNotEquals() throws IOException, ParserException {
         Expression ac = parseOR();
-        while (isToken(Tokenizer.Token.NOTEQUAL)) {
+        while (nextIs(Tokenizer.Token.NOTEQUAL)) {
             Expression a = ac;
             Expression b = parseOR();
             ac = c -> !Value.equals(a.value(c), b.value(c));
@@ -307,7 +320,7 @@ public class Parser {
 
     private Expression parseOR() throws IOException, ParserException {
         Expression ac = parseXOR();
-        while (isToken(Tokenizer.Token.OR)) {
+        while (nextIs(Tokenizer.Token.OR)) {
             Expression a = ac;
             Expression b = parseXOR();
             ac = c -> Value.or(a.value(c), b.value(c));
@@ -317,7 +330,7 @@ public class Parser {
 
     private Expression parseXOR() throws IOException, ParserException {
         Expression ac = parseAND();
-        while (isToken(Tokenizer.Token.XOR)) {
+        while (nextIs(Tokenizer.Token.XOR)) {
             Expression a = ac;
             Expression b = parseAND();
             ac = c -> Value.xor(a.value(c), b.value(c));
@@ -327,7 +340,7 @@ public class Parser {
 
     private Expression parseAND() throws IOException, ParserException {
         Expression ac = parseShiftRight();
-        while (isToken(Tokenizer.Token.AND)) {
+        while (nextIs(Tokenizer.Token.AND)) {
             Expression a = ac;
             Expression b = parseShiftRight();
             ac = c -> Value.and(a.value(c), b.value(c));
@@ -337,7 +350,7 @@ public class Parser {
 
     private Expression parseShiftRight() throws IOException, ParserException {
         Expression ac = parseShiftLeft();
-        while (isToken(Tokenizer.Token.SHIFTRIGHT)) {
+        while (nextIs(Tokenizer.Token.SHIFTRIGHT)) {
             Expression a = ac;
             Expression b = parseShiftLeft();
             ac = c -> Value.toLong(a.value(c)) >> Value.toLong(b.value(c));
@@ -347,7 +360,7 @@ public class Parser {
 
     private Expression parseShiftLeft() throws IOException, ParserException {
         Expression ac = parseAdd();
-        while (isToken(Tokenizer.Token.SHIFTLEFT)) {
+        while (nextIs(Tokenizer.Token.SHIFTLEFT)) {
             Expression a = ac;
             Expression b = parseAdd();
             ac = c -> Value.toLong(a.value(c)) << Value.toLong(b.value(c));
@@ -357,7 +370,7 @@ public class Parser {
 
     private Expression parseAdd() throws IOException, ParserException {
         Expression ac = parseSub();
-        while (isToken(Tokenizer.Token.ADD)) {
+        while (nextIs(Tokenizer.Token.ADD)) {
             Expression a = ac;
             Expression b = parseSub();
             ac = c -> Value.add(a.value(c), b.value(c));
@@ -367,7 +380,7 @@ public class Parser {
 
     private Expression parseSub() throws IOException, ParserException {
         Expression ac = parseMul();
-        while (isToken(Tokenizer.Token.SUB)) {
+        while (nextIs(Tokenizer.Token.SUB)) {
             Expression a = ac;
             Expression b = parseMul();
             ac = c -> Value.toLong(a.value(c)) - Value.toLong(b.value(c));
@@ -377,7 +390,7 @@ public class Parser {
 
     private Expression parseMul() throws IOException, ParserException {
         Expression ac = parseDiv();
-        while (isToken(Tokenizer.Token.MUL)) {
+        while (nextIs(Tokenizer.Token.MUL)) {
             Expression a = ac;
             Expression b = parseDiv();
             ac = c -> Value.toLong(a.value(c)) * Value.toLong(b.value(c));
@@ -387,7 +400,7 @@ public class Parser {
 
     private Expression parseDiv() throws IOException, ParserException {
         Expression ac = parseMod();
-        while (isToken(Tokenizer.Token.DIV)) {
+        while (nextIs(Tokenizer.Token.DIV)) {
             Expression a = ac;
             Expression b = parseMod();
             ac = c -> Value.toLong(a.value(c)) / Value.toLong(b.value(c));
@@ -397,7 +410,7 @@ public class Parser {
 
     private Expression parseMod() throws IOException, ParserException {
         Expression ac = parseIdent();
-        while (isToken(Tokenizer.Token.MOD)) {
+        while (nextIs(Tokenizer.Token.MOD)) {
             Expression a = ac;
             Expression b = parseIdent();
             ac = c -> Value.toLong(a.value(c)) % Value.toLong(b.value(c));
@@ -439,10 +452,10 @@ public class Parser {
     private FirstClassFunction parseFunction() throws IOException, ParserException {
         expect(OPEN);
         ArrayList<String> args = new ArrayList<>();
-        if (!isToken(CLOSE)) {
+        if (!nextIs(CLOSE)) {
             expect(IDENT);
             args.add(tok.getIdent());
-            while (!isToken(CLOSE)) {
+            while (!nextIs(CLOSE)) {
                 expect(COMMA);
                 expect(IDENT);
                 args.add(tok.getIdent());
