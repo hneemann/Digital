@@ -69,6 +69,8 @@ import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.core.memory.rom.ROMManger;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.GraphicSwing;
 import de.neemann.digital.draw.graphics.Orientation;
@@ -83,6 +85,7 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.custom.CustomShape;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
@@ -799,7 +802,6 @@ public final class EditorFactory {
                     }
                 }
             }.createJButton());
-
             panel.add(new ToolTipAction(Lang.get("btn_reload")) {
                         @Override
                         public void actionPerformed(ActionEvent e) {
