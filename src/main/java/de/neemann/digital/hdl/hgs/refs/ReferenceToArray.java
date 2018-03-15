@@ -30,7 +30,7 @@ public class ReferenceToArray implements Reference {
     public void set(Context context, Object value) throws HGSEvalException {
         final int i = Value.toInt(index.value(context));
         if (i < 0)
-            throw new HGSEvalException("index out of bounds: " + i);
+            throw new HGSEvalException("Index out of bounds: " + i);
 
         Value.toArray(parent.get(context)).hgsArraySet(i, value);
     }
@@ -40,7 +40,7 @@ public class ReferenceToArray implements Reference {
         final int i = Value.toInt(index.value(context));
         final HGSArray array = Value.toArray(parent.get(context));
         if (i < 0 || i >= array.hgsArraySize())
-            throw new HGSEvalException("index out of bounds: " + i);
+            throw new HGSEvalException("Index out of bounds: " + i);
         return array.hgsArrayGet(i);
     }
 }

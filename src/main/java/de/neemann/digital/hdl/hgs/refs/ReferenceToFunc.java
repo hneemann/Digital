@@ -32,7 +32,7 @@ public class ReferenceToFunc implements Reference {
 
     @Override
     public void set(Context context, Object value) throws HGSEvalException {
-        throw new HGSEvalException("set to function is not possible");
+        throw new HGSEvalException("It's not possible to write to a function!");
     }
 
     @Override
@@ -40,6 +40,6 @@ public class ReferenceToFunc implements Reference {
         Object funcObj = parent.get(context);
         if (funcObj instanceof Function)
             return ((Function) funcObj).calcValue(context, args);
-        throw new HGSEvalException("value is not a function");
+        throw new HGSEvalException("Value is not a function!");
     }
 }

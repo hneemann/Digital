@@ -39,7 +39,7 @@ public class FunctionFormat extends Function {
      */
     public static String format(Context c, ArrayList<Expression> args) throws HGSEvalException {
         if (args.size() < 1)
-            throw new HGSEvalException("format needs at least one argument");
+            throw new HGSEvalException("Format needs at least one argument!");
 
         ArrayList<Object> eval = new ArrayList<>(args.size() - 1);
         for (int i = 1; i < args.size(); i++)

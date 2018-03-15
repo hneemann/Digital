@@ -10,7 +10,7 @@ package de.neemann.digital.hdl.hgs;
  */
 public interface Expression {
     /**
-     * calculates the value
+     * Calculates the value
      *
      * @param c the context of the calculation
      * @return the result of the evaluation

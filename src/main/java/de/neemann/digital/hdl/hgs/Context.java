@@ -91,7 +91,7 @@ public class Context {
                 return code.toString();
 
             if (parent == null)
-                throw new HGSEvalException("variable not found: " + name);
+                throw new HGSEvalException("Variable not found: " + name);
             else
                 return parent.getVar(name);
         } else

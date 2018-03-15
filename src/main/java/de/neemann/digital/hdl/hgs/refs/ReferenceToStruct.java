@@ -29,8 +29,6 @@ public class ReferenceToStruct implements Reference {
 
     @Override
     public void set(Context context, Object value) throws HGSEvalException {
-        if (value == null)
-            throw new HGSEvalException("Its not allowed to store a null value in a map");
         Value.toMap(parent.get(context)).hgsMapPut(name, value);
     }
 
@@ -38,7 +36,7 @@ public class ReferenceToStruct implements Reference {
     public Object get(Context context) throws HGSEvalException {
         final Object value = Value.toMap(parent.get(context)).hgsMapGet(name);
         if (value == null)
-            throw new HGSEvalException("Value '" + name + "' is not stored in the struct!");
+            throw new HGSEvalException("Value '" + name + "' is not available in the struct!");
         return value;
     }
 

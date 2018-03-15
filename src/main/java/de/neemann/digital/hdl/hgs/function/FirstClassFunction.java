@@ -46,7 +46,7 @@ public class FirstClassFunction extends FuncAdapter {
         if (c.contains("return"))
             return c.getVar("return");
         else
-            throw new HGSEvalException("A function must define the variable 'return'.");
+            throw new HGSEvalException("A function must define the variable 'return'!");
     }
 
 }

@@ -17,7 +17,7 @@ import java.io.IOException;
 public class ElementAttributesTest extends TestCase {
 
     /**
-     * Ensures that the ElementAtributes is accessible from within the template engine
+     * Ensures that the ElementAttributes is accessible from within the template engine
      */
     public void testElementAttibutes() throws IOException, ParserException, HGSEvalException {
         ElementAttributes attr = new ElementAttributes().set(Keys.BITS, 5);

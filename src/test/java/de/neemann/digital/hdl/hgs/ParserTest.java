@@ -304,6 +304,11 @@ public class ParserTest extends TestCase {
 
         assertEquals("18", exec("<? m=newMap(); m.f=func(a){return=newMap(); return.v=a*a+2;};  print(m.f(4).v);?>").toString());
 
+        try {
+            assertEquals("18", exec("<? f=func(a){return=a;}; f(1)=5; ?>").toString());
+            fail();
+        } catch (HGSEvalException e) {
+        }
     }
 
     public void testFirstClassFunctionOutput() throws IOException, ParserException, HGSEvalException {

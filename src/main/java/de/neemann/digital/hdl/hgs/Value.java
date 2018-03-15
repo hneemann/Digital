@@ -199,9 +199,9 @@ public final class Value {
     }
 
     private static final class HGSArrayList implements HGSArray {
-        private final List list;
+        private final List<Object> list;
 
-        private HGSArrayList(List list) {
+        private HGSArrayList(List<Object> list) {
             this.list = list;
         }
 
@@ -224,9 +224,9 @@ public final class Value {
     }
 
     private static final class HGSMapMap implements HGSMap {
-        private final Map map;
+        private final Map<String, Object> map;
 
-        private HGSMapMap(Map map) {
+        private HGSMapMap(Map<String, Object> map) {
             this.map = map;
         }
 
