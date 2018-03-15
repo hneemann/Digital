@@ -184,6 +184,11 @@ public class ParserTest extends TestCase {
         assertEquals("Hello 0123456789 World!", c.toString());
     }
 
+    public void testParseTemplateRepeat() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("Hello <? i=0; repeat { =i; i++; } until i=10; ?> World!");
+        assertEquals("Hello 0123456789 World!", c.toString());
+    }
+
     public void testParseTemplateArray() throws IOException, ParserException, HGSEvalException {
         Context c = exec("<? a=newList(); a[0]=1; a[1]=7; print(a[1], \",\" ,sizeOf(a)); ?>;");
         assertEquals("7,2;", c.toString());

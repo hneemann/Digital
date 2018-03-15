@@ -168,6 +168,16 @@ public class Parser {
             return c -> {
                 while (Value.toBool(cond.value(c))) inner.execute(c);
             };
+        } else if (nextIs(REPEAT)) {
+            Statement inner = parseStatement();
+            expect(UNTIL);
+            Expression cond = parseExpression();
+            if (isRealStatement) expect(SEMICOLON);
+            return c -> {
+                do {
+                    inner.execute(c);
+                } while (!Value.toBool(cond.value(c)));
+            };
         } else if (nextIs(OPENBRACE)) {
             Statements s = new Statements();
             while (!nextIs(CLOSEDBRACE))
