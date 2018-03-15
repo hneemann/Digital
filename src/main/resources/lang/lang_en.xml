@@ -809,8 +809,6 @@
     <string name="err_vhdlUnknownConstantType_N">Constant has a invalid type Typ {0}!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Pin {0} has no number!</string>
     <string name="err_vhdlErrorWritingTestBench">Error creating a test bench!</string>
-    <string name="err_vhdlRomHasNoValidLabel">A rom has a invalid or missing name!</string>
-    <string name="err_vhdlRomLabel_N_notUnique">Rom name {0} is not unique!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
     <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a name?</string>
     <string name="err_toManyVars">To many variables!</string>

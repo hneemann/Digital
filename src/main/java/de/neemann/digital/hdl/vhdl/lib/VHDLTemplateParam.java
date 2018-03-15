@@ -36,9 +36,9 @@ public class VHDLTemplateParam implements VHDLEntity {
     }
 
     @Override
-    public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
+    public void writeEntity(CodePrinter out, HDLNode node) throws IOException {
         setParam(node);
-        template.writeHeader(out, node);
+        template.writeEntity(out, node);
     }
 
     @Override
@@ -60,20 +60,9 @@ public class VHDLTemplateParam implements VHDLEntity {
     }
 
     @Override
-    public void writeArchitecture(CodePrinter out, HDLNode node) throws IOException, HDLException {
-        setParam(node);
-        template.writeArchitecture(out, node);
-    }
-
-    @Override
     public void writeGenericMap(CodePrinter out, HDLNode node) throws IOException, HDLException {
         setParam(node);
         template.writeGenericMap(out, node);
     }
 
-    @Override
-    public String getDescription(HDLNode node) {
-        setParam(node);
-        return template.getDescription(node);
-    }
 }

@@ -102,25 +102,7 @@ public class VHDLLibrary {
         VHDLEntity e = getEntity(node);
         if (e.needsOutput(node)) {
             out.println("\n-- " + node.getHDLName() + "\n");
-
-            VHDLGenerator.writeComment(out, e.getDescription(node), node);
-
-            e.writeHeader(out, node);
-
-            if (e instanceof ExternalVHDL || e instanceof VHDLTemplate || e instanceof VHDLTemplateParam)
-                return;
-
-            out.println();
-            out.println("entity " + node.getHDLName() + " is").inc();
-            e.writeDeclaration(out, node);
-            out.dec().println("end " + node.getHDLName() + ";\n");
-            out.println("architecture " + node.getHDLName() + "_arch of " + node.getHDLName() + " is");
-            if (!e.createsSignals(node))
-                out.println("begin").inc();
-            e.writeArchitecture(out, node);
-            if (!e.createsSignals(node))
-                out.dec();
-            out.println("end " + node.getHDLName() + "_arch;");
+            e.writeEntity(out, node);
         }
     }
 
@@ -138,13 +120,25 @@ public class VHDLLibrary {
             Separator semic = new Separator(";\n");
             for (Port p : node.getPorts()) {
                 semic.check(out);
-                VHDLEntitySimple.writePort(out, p);
+                writePort(out, p);
             }
             out.println(" );").dec();
         } else {
             VHDLEntity e = getEntity(node);
             e.writeDeclaration(out, node);
         }
+    }
+
+    /**
+     * Writes a simple port declaration.
+     *
+     * @param out the output stream
+     * @param p   the port
+     * @throws IOException  IOException
+     * @throws HDLException HDLException
+     */
+    public static void writePort(CodePrinter out, Port p) throws IOException, HDLException {
+        out.print(p.getName()).print(": ").print(VHDLGenerator.getDirection(p)).print(" ").print(VHDLGenerator.getType(p.getBits()));
     }
 
     /**

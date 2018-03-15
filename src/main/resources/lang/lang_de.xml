@@ -814,8 +814,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_vhdlUnknownConstantType_N">Die Konstante hat einen ungültigen Typ {0}!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Der Pin {0} hat keine Nummer!</string>
     <string name="err_vhdlErrorWritingTestBench">Fehler beim erzeugen des Testfalls!</string>
-    <string name="err_vhdlRomHasNoValidLabel">Ein ROM hat einen ungültigen oder fehlenden Namen!</string>
-    <string name="err_vhdlRomLabel_N_notUnique">ROM Name {0} ist nicht eindeutig!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
     <string name="err_vhdlANameIsMissing">Es fehlt ein Name. Sind z.B. alle Pins benannt?</string>
     <string name="err_toManyVars">Zu viele Variablen!</string>

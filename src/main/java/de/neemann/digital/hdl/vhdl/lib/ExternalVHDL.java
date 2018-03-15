@@ -19,17 +19,17 @@ import de.neemann.digital.lang.Lang;
 import java.io.IOException;
 import java.util.HashMap;
 
-import static de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple.getType;
+import static de.neemann.digital.hdl.vhdl.VHDLGenerator.getType;
 
 /**
- * Creates the vhdl code if a extranel component is used.
+ * Creates the vhdl code if a extrenal component is used.
  * Works only if the external component uses VHDL to define its behaviour.
  */
 public class ExternalVHDL implements VHDLEntity {
     private HashMap<String, String> codeMap = new HashMap<>();
 
     @Override
-    public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
+    public void writeEntity(CodePrinter out, HDLNode node) throws IOException {
         out.print(node.get(Keys.EXTERNAL_CODE));
     }
 
@@ -76,17 +76,7 @@ public class ExternalVHDL implements VHDLEntity {
     }
 
     @Override
-    public void writeArchitecture(CodePrinter out, HDLNode node) {
-
-    }
-
-    @Override
     public void writeGenericMap(CodePrinter out, HDLNode node) {
-
     }
 
-    @Override
-    public String getDescription(HDLNode node) {
-        return "";
-    }
 }

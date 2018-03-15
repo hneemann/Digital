@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple.writePort;
+import static de.neemann.digital.hdl.vhdl.VHDLLibrary.writePort;
 
 /**
  * Reads a file with the vhdl code to create the entity
@@ -111,7 +111,7 @@ public class VHDLTemplate implements VHDLEntity {
     }
 
     @Override
-    public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
+    public void writeEntity(CodePrinter out, HDLNode node) throws IOException {
         try {
             Entity e = getEntity(node);
             out.print(e.getCode());
@@ -126,7 +126,7 @@ public class VHDLTemplate implements VHDLEntity {
         try {
             return getEntity(node).getName();
         } catch (HGSEvalException e) {
-            throw new HDLException("error requesting the entities name", e);
+            throw new HDLException("Error requesting the entities name!", e);
         }
     }
 
@@ -135,7 +135,7 @@ public class VHDLTemplate implements VHDLEntity {
         try {
             return !getEntity(node).isWritten();
         } catch (HGSEvalException e) {
-            throw new HDLException("error requesting the entities name", e);
+            throw new HDLException("Error requesting the entities name!", e);
         }
     }
 
@@ -178,15 +178,6 @@ public class VHDLTemplate implements VHDLEntity {
         }
     }
 
-    @Override
-    public void writeArchitecture(CodePrinter out, HDLNode node) {
-    }
-
-    @Override
-    public String getDescription(HDLNode node) {
-        return null;
-    }
-
     private Entity getEntity(HDLNode node) throws HGSEvalException {
         Entity newGenerated = new Entity(node, entityName);
 
@@ -196,7 +187,7 @@ public class VHDLTemplate implements VHDLEntity {
             return newGenerated;
         } else {
             if (!(newGenerated.code.equals(e.code)))
-                throw new HGSEvalException("multiple entities with same name " + newGenerated.name);
+                throw new HGSEvalException("Multiple entities with same name '" + newGenerated.name+"'!");
             else
                 return e;
         }
@@ -263,11 +254,13 @@ public class VHDLTemplate implements VHDLEntity {
 
         @Override
         protected Object f(Object... args) throws HGSEvalException {
-            int n = Value.toInt(args[0]);
-            if (n == 1)
+            int bits = Value.toInt(args[0]);
+            if (bits == 0)
+                throw new HGSEvalException("zero bits is not allowed!");
+            if (bits == 1)
                 return "std_logic";
             else
-                return "std_logic_vector (" + (n - 1) + " downto 0)";
+                return "std_logic_vector (" + (bits - 1) + " downto 0)";
         }
 
     }

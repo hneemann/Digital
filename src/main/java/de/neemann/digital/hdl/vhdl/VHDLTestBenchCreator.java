@@ -14,7 +14,6 @@ import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLModel;
 import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
@@ -109,7 +108,7 @@ public class VHDLTestBenchCreator {
         out.dec().println("end component;");
         out.println();
         for (Port p : model.getPorts())
-            out.print("signal ").print(p.getName()).print(" : ").print(VHDLEntitySimple.getType(p.getBits())).println(";");
+            out.print("signal ").print(p.getName()).print(" : ").print(VHDLGenerator.getType(p.getBits())).println(";");
         out.dec().println("begin").inc();
 
         out.println("main_0 : main port map (").inc();
@@ -130,7 +129,7 @@ public class VHDLTestBenchCreator {
             boolean found = false;
             for (Port p : model.getPorts())
                 if (p.getOrigName().equals(name)) {
-                    out.print(p.getName()).print(" : ").print(VHDLEntitySimple.getType(p.getBits())).println(";");
+                    out.print(p.getName()).print(" : ").print(VHDLGenerator.getType(p.getBits())).println(";");
                     dataOrder.add(p);
                     found = true;
                     break;

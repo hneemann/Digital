@@ -24,7 +24,6 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.hdl.vhdl.boards.BoardInterface;
 import de.neemann.digital.hdl.vhdl.boards.BoardProvider;
-import de.neemann.digital.hdl.vhdl.lib.VHDLEntitySimple;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.LineBreaker;
 import org.slf4j.Logger;
@@ -143,7 +142,7 @@ public class VHDLGenerator implements Closeable {
         return this;
     }
 
-    private void export(HDLModel model) throws PinException, HDLException, ElementNotFoundException, NodeException, IOException {
+    private void export(HDLModel model) throws HDLException, NodeException, IOException {
         try {
             SplitterHandler splitterHandler = new SplitterHandler(model, out);
 
@@ -176,7 +175,7 @@ public class VHDLGenerator implements Closeable {
                     out.print("signal ");
                     out.print(sig.getName());
                     out.print(": ");
-                    out.print(VHDLEntitySimple.getType(sig.getBits()));
+                    out.print(getType(sig.getBits()));
                     out.println(";");
                 }
             }
@@ -209,13 +208,13 @@ public class VHDLGenerator implements Closeable {
                 out.print(p.getName()).print(" <= ").print(p.getSignal().getName()).println(";");
 
             out.dec().print("end ").print(model.getName()).println("_arch;");
-        } catch (HDLException | PinException | NodeException e) {
+        } catch (HDLException | NodeException e) {
             e.setOrigin(model.getOrigin());
             throw e;
         }
     }
 
-    static void writeComment(CodePrinter out, String descr, HDLInterface entity) throws IOException {
+    private static void writeComment(CodePrinter out, String descr, HDLInterface entity) throws IOException {
         if (descr != null && descr.length() > 0)
             out.print("-- ").print(new LineBreaker().setLineBreak("\n-- ").breakLines(descr)).eol();
 
@@ -296,7 +295,7 @@ public class VHDLGenerator implements Closeable {
             return vhdlLibrary.getName(node);
     }
 
-    private void writeComponent(HDLNode node) throws ElementNotFoundException, NodeException, PinException, HDLException, IOException {
+    private void writeComponent(HDLNode node) throws HDLException, IOException {
         out.println().inc();
         out.print("component ").println(getVhdlEntityName(node)).inc();
         vhdlLibrary.writeDeclaration(out, node);
@@ -319,11 +318,45 @@ public class VHDLGenerator implements Closeable {
             out.print("  ");
             out.print(p.getName());
             out.print(": ");
-            out.print(VHDLEntitySimple.getDirection(p));
+            out.print(getDirection(p));
             out.print(" ");
-            out.print(VHDLEntitySimple.getType(p.getBits()));
+            out.print(getType(p.getBits()));
         }
         out.println(" );");
+    }
+
+    /**
+     * returns the vhdl type
+     *
+     * @param bits the number of bits
+     * @return the type
+     * @throws HDLException HDLException
+     */
+    public static String getType(int bits) throws HDLException {
+        if (bits == 0)
+            throw new HDLException(Lang.get("err_vhdlBitNumberNotAvailable"));
+        if (bits == 1)
+            return "std_logic";
+        else
+            return "std_logic_vector (" + (bits - 1) + " downto 0)";
+    }
+
+    /**
+     * Returns the VHDL direction qualifier
+     *
+     * @param p the port
+     * @return the direction
+     * @throws HDLException HDLException
+     */
+    public static String getDirection(Port p) throws HDLException {
+        switch (p.getDirection()) {
+            case in:
+                return "in";
+            case out:
+                return "out";
+            default:
+                throw new HDLException(Lang.get("err_vhdlUnknownPortType_N", p.getDirection().toString()));
+        }
     }
 
     @Override
