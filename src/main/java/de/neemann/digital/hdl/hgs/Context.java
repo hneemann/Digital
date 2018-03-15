@@ -6,9 +6,8 @@
 package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.hdl.hgs.function.Func;
+import de.neemann.digital.hdl.hgs.function.FuncAdapter;
 import de.neemann.digital.hdl.hgs.function.Function;
-import de.neemann.digital.hdl.hgs.function.FunctionFormat;
-import de.neemann.digital.hdl.hgs.function.FunctionIsPresent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,9 +50,12 @@ public class Context {
             this.code = null;
         map = new HashMap<>();
 
-        // some function which are always present
+        // some functions which are always present
+        addFunc("print", new FunctionPrint());
+        addFunc("printf", new FunctionPrintf());
         addFunc("format", new FunctionFormat());
         addFunc("isPresent", new FunctionIsPresent());
+        addFunc("panic", new FunctionPanic());
         addFunc("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
         addFunc("newMap", new Func(0, args -> new HashMap()));
         addFunc("newList", new Func(0, args -> new ArrayList()));
@@ -151,4 +153,81 @@ public class Context {
         return code.length();
     }
 
+    private static final class FunctionPrint extends Function {
+
+        private FunctionPrint() {
+            super(-1);
+        }
+
+        @Override
+        public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
+            for (Expression arg : args)
+                c.print(arg.value(c).toString());
+            return null;
+        }
+    }
+
+    private static final class FunctionPrintf extends Function {
+
+        private FunctionPrintf() {
+            super(-1);
+        }
+
+        @Override
+        public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
+            c.print(format(c, args));
+            return null;
+        }
+    }
+
+    private static final class FunctionFormat extends Function {
+
+        private FunctionFormat() {
+            super(-1);
+        }
+
+        @Override
+        public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
+            return format(c, args);
+        }
+    }
+
+    private static String format(Context c, ArrayList<Expression> args) throws HGSEvalException {
+        if (args.size() < 2)
+            throw new HGSEvalException("format/printf needs at least two arguments!");
+
+        ArrayList<Object> eval = new ArrayList<>(args.size() - 1);
+        for (int i = 1; i < args.size(); i++)
+            eval.add(args.get(i).value(c));
+
+        return String.format(Value.toString(args.get(0).value(c)), eval.toArray());
+    }
+
+    private static final class FunctionIsPresent extends Function {
+
+        private FunctionIsPresent() {
+            super(1);
+        }
+
+        @Override
+        public Object calcValue(Context c, ArrayList<Expression> args) {
+            try {
+                args.get(0).value(c);
+                return true;
+            } catch (HGSEvalException e) {
+                return false;
+            }
+        }
+    }
+
+    private static final class FunctionPanic extends FuncAdapter {
+        private FunctionPanic() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            throw new HGSEvalException(args[0].toString());
+        }
+    }
 }

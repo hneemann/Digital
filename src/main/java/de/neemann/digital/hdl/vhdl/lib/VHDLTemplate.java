@@ -180,7 +180,7 @@ public class VHDLTemplate implements VHDLEntity {
             return newGenerated;
         } else {
             if (!(newGenerated.code.equals(e.code)))
-                throw new HGSEvalException("Multiple entities with same name '" + newGenerated.name+"'!");
+                throw new HGSEvalException("Multiple entities with same name '" + newGenerated.name + "'!");
             else
                 return e;
         }

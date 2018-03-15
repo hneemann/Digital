@@ -140,6 +140,13 @@ public class ParserTest extends TestCase {
     public void testParseTemplatePrint() throws IOException, ParserException, HGSEvalException {
         Context c = exec("Hello <? print(\"My\"); ?> World!");
         assertEquals("Hello My World!", c.toString());
+
+        try {
+            exec("Hello <? a=print(\"My\"); ?> World!");
+            fail();
+        } catch (HGSEvalException e) {
+            assertTrue(true);
+        }
     }
 
     public void testParseTemplatePrintf() throws IOException, ParserException, HGSEvalException {

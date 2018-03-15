@@ -7,7 +7,6 @@ package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
-import de.neemann.digital.hdl.hgs.function.FunctionFormat;
 import de.neemann.digital.hdl.hgs.refs.*;
 
 import java.io.IOException;
@@ -84,115 +83,105 @@ public class Parser {
     /**
      * If 'isRealStatement' is false, the statement is parsed like an expression.
      * This mode is needed to implement the 'for' loop. In a C style for loop the pre and the
-     * post code are expressions, which modify state, which is not supported by HGS. In the HGS
+     * post code are expressions which modify state. This is not supported by HGS. In the HGS
      * for loop the pre and the post code are statements where the semicolon at the end is omitted.
      */
     private Statement parseStatement(boolean isRealStatement) throws IOException, ParserException {
-        if (nextIs(IDENT)) {
-            Reference ref = parseReference(tok.getIdent());
-            if (nextIs(EQUAL)) {
-                Expression val = parseExpression();
-                if (isRealStatement) expect(SEMICOLON);
-                return c -> ref.set(c, val.value(c));
-            } else if (nextIs(ADD)) {
-                expect(ADD);
-                if (isRealStatement) expect(SEMICOLON);
-                return c -> ref.set(c, Value.toLong(ref.get(c)) + 1);
-            } else if (nextIs(SUB)) {
-                expect(SUB);
-                if (isRealStatement) expect(SEMICOLON);
-                return c -> ref.set(c, Value.toLong(ref.get(c)) - 1);
-            } else if (nextIs(SEMICOLON)) {
-                return ref::get;
-            } else
-                throw newUnexpectedToken(tok.next());
-        } else if (nextIs(CODEEND)) {
-            String str = tok.readText();
-            return c -> c.print(str);
-        } else if (nextIs(EQUAL)) {
-            Expression exp = parseExpression();
-            if (tok.peek() != CODEEND) expect(SEMICOLON);
-            return c -> c.print(exp.value(c).toString());
-        } else if (nextIs(PRINT)) {
-            expect(OPEN);
-            ArrayList<Expression> args = parseArgList();
-            if (isRealStatement) expect(SEMICOLON);
-            return c -> {
-                for (Expression e : args)
-                    c.print(e.value(c).toString());
-            };
-        } else if (nextIs(PRINTF)) {
-            expect(OPEN);
-            ArrayList<Expression> args = parseArgList();
-            if (isRealStatement) expect(SEMICOLON);
-            return c -> c.print(FunctionFormat.format(c, args));
-        } else if (nextIs(IF)) {
-            expect(OPEN);
-            Expression cond = parseExpression();
-            expect(CLOSE);
-            Statement ifPart = parseStatement();
-            if (nextIs(ELSE)) {
-                Statement elsePart = parseStatement();
-                return c -> {
-                    if (Value.toBool(cond.value(c)))
-                        ifPart.execute(c);
-                    else
-                        elsePart.execute(c);
-                };
-            } else
-                return c -> {
-                    if (Value.toBool(cond.value(c)))
-                        ifPart.execute(c);
-                };
-        } else if (nextIs(FOR)) {
-            expect(OPEN);
-            Statement init = parseStatement(false); // parse like an expression
-            expect(SEMICOLON);
-            Expression cond = parseExpression();
-            expect(SEMICOLON);
-            Statement inc = parseStatement(false); // parse like an expression
-            expect(CLOSE);
-            Statement inner = parseStatement();
-            return c -> {
-                init.execute(c);
-                while (Value.toBool(cond.value(c))) {
-                    inner.execute(c);
-                    inc.execute(c);
+        final Tokenizer.Token token = tok.next();
+        switch (token) {
+            case IDENT:
+                final Reference ref = parseReference(tok.getIdent());
+                Tokenizer.Token refToken = tok.next();
+                switch (refToken) {
+                    case EQUAL:
+                        final Expression val = parseExpression();
+                        if (isRealStatement) expect(SEMICOLON);
+                        return c -> {
+                            final Object value = val.value(c);
+                            if (value == null)
+                                throw new HGSEvalException("There is no value to assign!");
+                            ref.set(c, value);
+                        };
+                    case ADD:
+                        expect(ADD);
+                        if (isRealStatement) expect(SEMICOLON);
+                        return c -> ref.set(c, Value.toLong(ref.get(c)) + 1);
+                    case SUB:
+                        expect(SUB);
+                        if (isRealStatement) expect(SEMICOLON);
+                        return c -> ref.set(c, Value.toLong(ref.get(c)) - 1);
+                    case SEMICOLON:
+                        return ref::get;
+                    default:
+                        throw newUnexpectedToken(refToken);
                 }
-            };
-        } else if (nextIs(WHILE)) {
-            expect(OPEN);
-            Expression cond = parseExpression();
-            expect(CLOSE);
-            Statement inner = parseStatement();
-            return c -> {
-                while (Value.toBool(cond.value(c))) inner.execute(c);
-            };
-        } else if (nextIs(REPEAT)) {
-            Statement inner = parseStatement();
-            expect(UNTIL);
-            Expression cond = parseExpression();
-            if (isRealStatement) expect(SEMICOLON);
-            return c -> {
-                do {
-                    inner.execute(c);
-                } while (!Value.toBool(cond.value(c)));
-            };
-        } else if (nextIs(OPENBRACE)) {
-            Statements s = new Statements();
-            while (!nextIs(CLOSEDBRACE))
-                s.add(parseStatement());
-            return s.optimize();
-        } else if (nextIs(PANIC)) {
-            expect(OPEN);
-            Expression message = parseExpression();
-            expect(CLOSE);
-            if (isRealStatement) expect(SEMICOLON);
-            return c -> {
-                throw new HGSEvalException(message.value(c).toString());
-            };
-        } else
-            throw newUnexpectedToken(tok.next());
+            case CODEEND:
+                final String str = tok.readText();
+                return c -> c.print(str);
+            case EQUAL:
+                final Expression exp = parseExpression();
+                if (tok.peek() != CODEEND) expect(SEMICOLON);
+                return c -> c.print(exp.value(c).toString());
+            case IF:
+                expect(OPEN);
+                final Expression ifCond = parseExpression();
+                expect(CLOSE);
+                final Statement ifStatement = parseStatement();
+                if (nextIs(ELSE)) {
+                    final Statement elseStatement = parseStatement();
+                    return c -> {
+                        if (Value.toBool(ifCond.value(c)))
+                            ifStatement.execute(c);
+                        else
+                            elseStatement.execute(c);
+                    };
+                } else
+                    return c -> {
+                        if (Value.toBool(ifCond.value(c)))
+                            ifStatement.execute(c);
+                    };
+            case FOR:
+                expect(OPEN);
+                Statement init = parseStatement(false); // parse like an expression
+                expect(SEMICOLON);
+                final Expression forCond = parseExpression();
+                expect(SEMICOLON);
+                Statement inc = parseStatement(false); // parse like an expression
+                expect(CLOSE);
+                Statement inner = parseStatement();
+                return c -> {
+                    init.execute(c);
+                    while (Value.toBool(forCond.value(c))) {
+                        inner.execute(c);
+                        inc.execute(c);
+                    }
+                };
+            case WHILE:
+                expect(OPEN);
+                final Expression whileCond = parseExpression();
+                expect(CLOSE);
+                inner = parseStatement();
+                return c -> {
+                    while (Value.toBool(whileCond.value(c))) inner.execute(c);
+                };
+            case REPEAT:
+                final Statement repeatInner = parseStatement();
+                expect(UNTIL);
+                final Expression repeatCond = parseExpression();
+                if (isRealStatement) expect(SEMICOLON);
+                return c -> {
+                    do {
+                        repeatInner.execute(c);
+                    } while (!Value.toBool(repeatCond.value(c)));
+                };
+            case OPENBRACE:
+                Statements s = new Statements();
+                while (!nextIs(CLOSEDBRACE))
+                    s.add(parseStatement());
+                return s.optimize();
+            default:
+                throw newUnexpectedToken(token);
+        }
     }
 
     private ArrayList<Expression> parseArgList() throws IOException, ParserException {
@@ -210,12 +199,10 @@ public class Parser {
         Reference r = new ReferenceToVar(var);
         while (true) {
             if (nextIs(OPENSQUARE)) {
-                Expression index = parseExpression();
+                r = new ReferenceToArray(r, parseExpression());
                 expect(CLOSEDSQUARE);
-                r = new ReferenceToArray(r, index);
             } else if (nextIs(OPEN)) {
-                ArrayList<Expression> args = parseArgList();
-                r = new ReferenceToFunc(r, args);
+                r = new ReferenceToFunc(r, parseArgList());
             } else if (nextIs(DOT)) {
                 expect(IDENT);
                 r = new ReferenceToStruct(r, tok.getIdent());

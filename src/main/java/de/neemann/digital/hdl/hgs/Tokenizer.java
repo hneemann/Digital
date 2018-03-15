@@ -17,8 +17,8 @@ class Tokenizer {
     enum Token {
         UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, LESS, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
-        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, PRINT, STATIC, FUNC, PRINTF,
-        GREATEREQUAL, LESSEQUAL, REPEAT, UNTIL, PANIC
+        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, STATIC, FUNC, GREATEREQUAL, LESSEQUAL,
+        REPEAT, UNTIL
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -28,10 +28,7 @@ class Tokenizer {
         statementMap.put("else", Token.ELSE);
         statementMap.put("for", Token.FOR);
         statementMap.put("while", Token.WHILE);
-        statementMap.put("print", Token.PRINT);
-        statementMap.put("printf", Token.PRINTF);
         statementMap.put("func", Token.FUNC);
-        statementMap.put("panic", Token.PANIC);
         statementMap.put("repeat", Token.REPEAT);
         statementMap.put("until", Token.UNTIL);
     }
