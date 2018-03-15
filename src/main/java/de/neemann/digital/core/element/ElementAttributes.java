@@ -317,13 +317,10 @@ public class ElementAttributes implements HGSMap {
     }
 
     @Override
-    public Object hgsMapGet(String key) throws HGSEvalException {
+    public Object hgsMapGet(String key) {
         Key k = Keys.getKeyByName(key);
         if (k == null) {
-            if (attributes.containsKey(key))
-                return attributes.get(key);
-            else
-                throw new HGSEvalException("key " + key + " not available!");
+            return attributes.get(key);
         } else
             return get(k);
     }

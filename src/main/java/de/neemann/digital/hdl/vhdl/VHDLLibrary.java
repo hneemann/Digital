@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.hdl.vhdl;
 
-import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.extern.External;
@@ -39,14 +38,27 @@ public class VHDLLibrary {
      */
     public VHDLLibrary() throws IOException {
         map = new HashMap<>();
-        put(And.DESCRIPTION, new OperateVHDL("AND", false, And.DESCRIPTION));
-        put(NAnd.DESCRIPTION, new OperateVHDL("AND", true, NAnd.DESCRIPTION));
-        put(Or.DESCRIPTION, new OperateVHDL("OR", false, Or.DESCRIPTION));
-        put(NOr.DESCRIPTION, new OperateVHDL("OR", true, NOr.DESCRIPTION));
-        put(XOr.DESCRIPTION, new OperateVHDL("XOR", false, XOr.DESCRIPTION));
-        put(XNOr.DESCRIPTION, new OperateVHDL("XOR", true, XNOr.DESCRIPTION));
 
-        put(Comparator.DESCRIPTION, new ComparatorVHDL());
+        VHDLTemplate operate = new VHDLTemplate("Operate");
+        put(And.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+                .put("op", "AND")
+                .put("inv", false)));
+        put(NAnd.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+                .put("op", "AND")
+                .put("inv", true)));
+        put(Or.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+                .put("op", "OR")
+                .put("inv", false)));
+        put(NOr.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+                .put("op", "OR")
+                .put("inv", true)));
+        put(XOr.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+                .put("op", "XOR")
+                .put("inv", false)));
+        put(XNOr.DESCRIPTION, new VHDLTemplateParam(operate, new TempParameter()
+                .put("op", "XOR")
+                .put("inv", true)));
+
         put(External.DESCRIPTION, new ExternalVHDL());
 
         put(ROM.DESCRIPTION, new ROMVHDL());
@@ -64,13 +76,8 @@ public class VHDLLibrary {
                 e = new VHDLTemplate(elementName);
                 map.put(elementName, e);
             } catch (IOException ex) {
-                try {
-                    ex.printStackTrace();
-                    LOGGER.info("could not load '" + VHDLTemplate.neededFileName(elementName) + "'");
-                    LOGGER.info("VHDL template:\n\n" + VHDLTemplate.getVHDLTemplate(node));
-                } catch (IOException e2) {
-                    e2.printStackTrace();
-                }
+                ex.printStackTrace();
+                LOGGER.info("could not load '" + VHDLTemplate.neededFileName(elementName) + "'");
             }
         }
 
@@ -103,7 +110,7 @@ public class VHDLLibrary {
 
             e.writeHeader(out, node);
 
-            if (e instanceof ExternalVHDL || e instanceof VHDLTemplate)
+            if (e instanceof ExternalVHDL || e instanceof VHDLTemplate || e instanceof VHDLTemplateParam)
                 return;
 
             out.println();

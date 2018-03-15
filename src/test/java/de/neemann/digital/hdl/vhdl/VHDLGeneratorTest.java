@@ -352,19 +352,22 @@ public class VHDLGeneratorTest extends TestCase {
                 "  signal PORT_B_Neg: std_logic_vector (1 downto 0);\n" +
                 "begin\n" +
                 "  gate0 : AND_GATE_BUS_2\n" +
-                "    generic map ( Bits => 2)\n" +
+                "    generic map (\n" +
+                "      Bits => 2)\n" +
                 "    port map (\n" +
                 "      PORT_out => S1,\n" +
                 "      PORT_In_1 => PORT_A_Neg,\n" +
                 "      PORT_In_2 => PORT_B );\n" +
                 "  gate1 : AND_GATE_BUS_2\n" +
-                "    generic map ( Bits => 2)\n" +
+                "    generic map (\n" +
+                "      Bits => 2)\n" +
                 "    port map (\n" +
                 "      PORT_out => S2,\n" +
                 "      PORT_In_1 => PORT_A,\n" +
                 "      PORT_In_2 => PORT_B_Neg );\n" +
                 "  gate2 : OR_GATE_BUS_2\n" +
-                "    generic map ( Bits => 2)\n" +
+                "    generic map (\n" +
+                "      Bits => 2)\n" +
                 "    port map (\n" +
                 "      PORT_out => S0,\n" +
                 "      PORT_In_1 => S1,\n" +

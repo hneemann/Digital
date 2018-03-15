@@ -12,7 +12,6 @@ import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.hdl.vhdl.Separator;
 
 import java.io.IOException;
@@ -111,31 +110,6 @@ public class VHDLTemplate implements VHDLEntity {
         return createFileName(ENTITY_PREFIX + elementName);
     }
 
-    /**
-     * Creates the needed vhdl interface for the given node
-     *
-     * @param node the node
-     * @return the interface
-     * @throws IOException  IOException
-     * @throws HDLException HDLException
-     */
-    public static String getVHDLTemplate(HDLNode node) throws IOException, HDLException {
-        Dummy d = new Dummy();
-        CodePrinterStr out = new CodePrinterStr();
-        d.writeHeader(out, node);
-        out.println();
-        String name = ENTITY_PREFIX + node.getHDLName();
-        out.println("entity " + name + " is").inc();
-        d.writeDeclaration(out, node);
-        out.dec().println("end " + name + ";");
-        out.println();
-        out.println("architecture " + name + "_arch of " + name + " is");
-        out.println("begin");
-        out.println();
-        out.println("end " + name + "_arch;");
-        return out.toString();
-    }
-
     @Override
     public void writeHeader(CodePrinter out, HDLNode node) throws IOException {
         try {
@@ -186,7 +160,7 @@ public class VHDLTemplate implements VHDLEntity {
     }
 
     @Override
-    public void writeGenericMap(CodePrinter out, HDLNode node) throws HDLException, IOException {
+    public void writeGenericMap(CodePrinter out, HDLNode node) throws IOException {
         try {
             final Entity e = getEntity(node);
             if (e.getGenerics() != null) {
@@ -225,25 +199,6 @@ public class VHDLTemplate implements VHDLEntity {
                 throw new HGSEvalException("multiple entities with same name " + newGenerated.name);
             else
                 return e;
-        }
-    }
-
-    private static final class Dummy extends VHDLEntitySimple {
-
-        /**
-         * Creates a new instance
-         */
-        Dummy() {
-            super(null);
-        }
-
-        @Override
-        public String getName(HDLNode node) {
-            return node.getVisualElement().getElementName();
-        }
-
-        @Override
-        public void writeArchitecture(CodePrinter out, HDLNode node) {
         }
     }
 

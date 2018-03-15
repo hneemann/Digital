@@ -82,7 +82,8 @@ public class ConstantTest extends TestCase {
                 "begin\n" +
                 "  S1 <= \"000\";\n" +
                 "  gate0 : XOR_GATE_BUS_2\n" +
-                "    generic map ( Bits => 3)\n" +
+                "    generic map (\n" +
+                "      Bits => 3)\n" +
                 "    port map (\n" +
                 "      PORT_out => S0,\n" +
                 "      PORT_In_1 => PORT_A,\n" +

@@ -36,7 +36,10 @@ public class ReferenceToStruct implements Reference {
 
     @Override
     public Object get(Context context) throws HGSEvalException {
-        return Value.toMap(parent.get(context)).hgsMapGet(name);
+        final Object value = Value.toMap(parent.get(context)).hgsMapGet(name);
+        if (value == null)
+            throw new HGSEvalException("Value '" + name + "' is not stored in the struct!");
+        return value;
     }
 
 }

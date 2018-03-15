@@ -236,11 +236,8 @@ public final class Value {
         }
 
         @Override
-        public Object hgsMapGet(String key) throws HGSEvalException {
-            final Object val = map.get(key);
-            if (val == null)
-                throw new HGSEvalException("key " + key + " not found in map");
-            return val;
+        public Object hgsMapGet(String key) {
+            return map.get(key);
         }
     }
 

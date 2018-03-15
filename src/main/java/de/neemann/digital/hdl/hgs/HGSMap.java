@@ -21,9 +21,10 @@ public interface HGSMap {
 
     /**
      * Gets a value from the map.
+     * This function returns null, if key is not present.
      *
      * @param key the key
-     * @return the value
+     * @return the value, maybe null if not present
      * @throws HGSEvalException HGSEvalException
      */
     Object hgsMapGet(String key) throws HGSEvalException;

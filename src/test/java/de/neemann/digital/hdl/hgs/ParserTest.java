@@ -149,6 +149,9 @@ public class ParserTest extends TestCase {
     public void testParseTemplateFor() throws IOException, ParserException, HGSEvalException {
         Context c = exec("Hello <? for (i=0;i<10;i++) print(i); ?> World!");
         assertEquals("Hello 0123456789 World!", c.toString());
+
+        c = exec("Hello <? for (i=9;i>=0;i--) print(i); ?> World!");
+        assertEquals("Hello 9876543210 World!", c.toString());
     }
 
     public void testParseTemplateForStatements() throws IOException, ParserException, HGSEvalException {
