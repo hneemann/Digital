@@ -89,21 +89,13 @@ import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.gui.*;
+import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.LineBreaker;
+import de.neemann.gui.MyFileChooser;
+import de.neemann.gui.Screen;
+import de.neemann.gui.ToolTipAction;
 import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
-
-
-import javax.swing.*;
-import javax.swing.text.JTextComponent;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  */
