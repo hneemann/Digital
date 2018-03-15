@@ -303,6 +303,7 @@ public class ParserTest extends TestCase {
                 new Context().setVar("a", 3)).toString());
 
         assertEquals("18", exec("<? m=newMap(); m.f=func(a){return=newMap(); return.v=a*a+2;};  print(m.f(4).v);?>").toString());
+        assertEquals("18", exec("<? m=newList(); m[0]=func(a){ l=newList(); l[0]=a*a+2; return=l;};  print(m[0](4)[0]);?>").toString());
 
         try {
             assertEquals("18", exec("<? f=func(a){return=a;}; f(1)=5; ?>").toString());
