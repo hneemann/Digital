@@ -27,7 +27,7 @@ architecture <?=entityName?>_arch of <?=entityName?> is
         if (i<len-1) {
             print(", ");
         }
-        col++
+        col++;
         if (col=6) {
           col=0;
           print("\n    ");

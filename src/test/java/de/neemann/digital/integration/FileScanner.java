@@ -6,7 +6,6 @@
 package de.neemann.digital.integration;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +16,7 @@ public class FileScanner {
     private ArrayList<Error> errors;
     private int pos;
     private boolean output = true;
+    private String suffix=".dig";
 
     public FileScanner(Interface test) {
         this.test = test;
@@ -24,6 +24,11 @@ public class FileScanner {
 
     public FileScanner noOutput() {
         output = false;
+        return this;
+    }
+
+    public FileScanner setSuffix(String suffix) {
+        this.suffix = suffix;
         return this;
     }
 
@@ -63,7 +68,7 @@ public class FileScanner {
                     }
                 } else {
                     String name = f.getName();
-                    if (name.endsWith(".dig")) {
+                    if (name.endsWith(suffix)) {
                         if (output) {
                             if (pos + name.length() >= 78) {
                                 System.out.println();

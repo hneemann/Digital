@@ -10,8 +10,12 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
 import de.neemann.digital.hdl.hgs.function.FuncAdapter;
+import de.neemann.digital.integration.FileScanner;
+import de.neemann.digital.integration.Resources;
 import junit.framework.TestCase;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -333,6 +337,12 @@ public class ParserTest extends TestCase {
         } catch (HGSEvalException e) {
             assertEquals("myError", e.getMessage());
         }
+    }
+
+    public void testVHDLTemplates() throws Exception {
+        final File path = new File(Resources.getRoot(), "../../main/resources/vhdl");
+        int n=new FileScanner(f -> new Parser(new FileReader(f)).parse()).setSuffix(".tem").scan(path);
+        assertTrue(n>10);
     }
 
 }

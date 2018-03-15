@@ -58,7 +58,7 @@ public class Parser {
             s.add(c -> c.print(text));
         while (!isToken(EOF)) {
             if (isToken(STATIC)) {
-                Statement stat = parseStatements();
+                Statement stat = parseStatement();
                 try {
                     stat.execute(staticContext);
                 } catch (HGSEvalException e) {
@@ -77,30 +77,24 @@ public class Parser {
         return staticContext;
     }
 
-    private Statement parseStatements() throws IOException, ParserException {
-        if (isToken(OPENBRACE)) {
-            Statements s = new Statements();
-
-            while (!isToken(CLOSEDBRACE))
-                s.add(parseStatement());
-
-            return s.optimize();
-        } else
-            return parseStatement();
+    private Statement parseStatement() throws IOException, ParserException {
+        return parseStatement(true);
     }
 
-    private Statement parseStatement() throws IOException, ParserException {
+    private Statement parseStatement(boolean semicolon) throws IOException, ParserException {
         if (isToken(IDENT)) {
             Reference ref = parseReference(tok.getIdent());
             if (isToken(EQUAL)) {
                 Expression val = parseExpression();
-                expect(SEMICOLON);
+                if (semicolon) expect(SEMICOLON);
                 return c -> ref.set(c, val.value(c));
             } else if (isToken(ADD)) {
                 expect(ADD);
+                if (semicolon) expect(SEMICOLON);
                 return c -> ref.set(c, Value.toLong(ref.get(c)) + 1);
             } else if (isToken(SUB)) {
                 expect(SUB);
+                if (semicolon) expect(SEMICOLON);
                 return c -> ref.set(c, Value.toLong(ref.get(c)) - 1);
             } else if (isToken(SEMICOLON)) {
                 return ref::get;
@@ -111,11 +105,12 @@ public class Parser {
             return c -> c.print(str);
         } else if (isToken(EQUAL)) {
             Expression exp = parseExpression();
+            if (tok.peek() != CODEEND) expect(SEMICOLON);
             return c -> c.print(exp.value(c).toString());
         } else if (isToken(PRINT)) {
             expect(OPEN);
             ArrayList<Expression> args = parseArgList();
-            expect(SEMICOLON);
+            if (semicolon) expect(SEMICOLON);
             return c -> {
                 for (Expression e : args)
                     c.print(e.value(c).toString());
@@ -123,15 +118,15 @@ public class Parser {
         } else if (isToken(PRINTF)) {
             expect(OPEN);
             ArrayList<Expression> args = parseArgList();
-            expect(SEMICOLON);
+            if (semicolon) expect(SEMICOLON);
             return c -> c.print(FunctionFormat.format(c, args));
         } else if (isToken(IF)) {
             expect(OPEN);
             Expression cond = parseExpression();
             expect(CLOSE);
-            Statement ifPart = parseStatements();
+            Statement ifPart = parseStatement();
             if (isToken(ELSE)) {
-                Statement elsePart = parseStatements();
+                Statement elsePart = parseStatement();
                 return c -> {
                     if (Value.toBool(cond.value(c)))
                         ifPart.execute(c);
@@ -146,12 +141,13 @@ public class Parser {
 
         } else if (isToken(FOR)) {
             expect(OPEN);
-            Statement init = parseStatement();
+            Statement init = parseStatement(false);
+            expect(SEMICOLON);
             Expression cond = parseExpression();
             expect(SEMICOLON);
-            Statement inc = parseStatement();
+            Statement inc = parseStatement(false);
             expect(CLOSE);
-            Statement inner = parseStatements();
+            Statement inner = parseStatement();
             return c -> {
                 init.execute(c);
                 while (Value.toBool(cond.value(c))) {
@@ -159,11 +155,16 @@ public class Parser {
                     inc.execute(c);
                 }
             };
+        } else if (isToken(OPENBRACE)) {
+            Statements s = new Statements();
+            while (!isToken(CLOSEDBRACE))
+                s.add(parseStatement());
+            return s.optimize();
         } else if (isToken(PANIC)) {
             expect(OPEN);
             Expression message = parseExpression();
             expect(CLOSE);
-            expect(SEMICOLON);
+            if (semicolon) expect(SEMICOLON);
             return c -> {
                 throw new HGSEvalException(message.value(c).toString());
             };
@@ -447,7 +448,7 @@ public class Parser {
                 args.add(tok.getIdent());
             }
         }
-        Statement st = parseStatements();
+        Statement st = parseStatement();
         return new FirstClassFunction(args, st);
     }
 

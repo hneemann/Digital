@@ -19,7 +19,7 @@ entity <?=entityName?> is
     PORT_out: out <?=genericType(elem.Bits)?>;
     PORT_sel: in <?=type(elem.'Selector Bits')?>;
     <? for (n=0;n<inputs;n++) { ?>
-    PORT_in_<?=n?>: in <?=genericType(elem.Bits) if (n<inputs-1) print(";"); }?> );
+    PORT_in_<?=n?>: in <?=genericType(elem.Bits); if (n<inputs-1) print(";"); }?> );
   <? endGenericPort();?>
 end <?=entityName?>;
 
