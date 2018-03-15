@@ -90,7 +90,7 @@ public class Context {
         if (v == null) {
 
             if (name.equals("output"))
-                return code.toString();
+                return toString();
 
             if (parent == null)
                 throw new HGSEvalException("Variable not found: " + name);
@@ -150,7 +150,10 @@ public class Context {
      * @return the output length
      */
     public int length() {
-        return code.length();
+        if (code != null)
+            return code.length();
+        else
+            return parent.length();
     }
 
     private static final class FunctionPrint extends Function {
