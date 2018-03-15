@@ -119,18 +119,8 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
     @Override
     public SVGDrawable[] getDrawables() {
         if (pin) {
-            ArrayList<SVGDrawable> list = new ArrayList<SVGDrawable>();
-            if (me != null && !me.descSet()) {
-                String styleString;
-                if (me.isInput())
-                    styleString = "fill:#0000ff";
-                else
-                    styleString = "fill:#dd0000";
-                SVGEllipse ellipse = new SVGEllipse(me.getPos().sub(new Vector(2, 2)),
-                        me.getPos().add(new Vector(2, 2)), new SVGStyle(styleString));
-                list.add(ellipse);
-            }
-            return list.toArray(new SVGDrawable[list.size()]);
+            return new SVGDrawable[] {
+            };
         }
         return new SVGDrawable[] {
                 this

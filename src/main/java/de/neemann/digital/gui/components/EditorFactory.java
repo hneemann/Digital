@@ -443,7 +443,6 @@ public final class EditorFactory {
     private final static class CustomShapeEditor extends LabelEditor<CustomShapeDescription> {
 
         private VPanel preview = new VPanel();
-        // private SVG svg = new SVG();
         private ImportSVG importer;
         private CustomShapeDescription svg;
         private JDialog dialog;
@@ -516,6 +515,12 @@ public final class EditorFactory {
 
             public void initPins() {
                 pins = new ArrayList<SVGPseudoPin>();
+                if (svg != null) {
+                    for (SVGPseudoPin p : svg.getPinNames()) {
+                        if (!isPinPresent(p.getLabel()))
+                            pins.add(p);
+                    }
+                }
                 if (getAttributeDialog() != null) {
                     Window p = getAttributeDialog().getDialogParent();
                     if (p instanceof Main) {
@@ -529,12 +534,6 @@ public final class EditorFactory {
                                 addPin(false, label);
                             }
                         }
-                    }
-                }
-                if (svg != null) {
-                    for (SVGPseudoPin p : svg.getPinNames()) {
-                        if (!isPinPresent(p.getLabel()))
-                            pins.add(p);
                     }
                 }
             }
