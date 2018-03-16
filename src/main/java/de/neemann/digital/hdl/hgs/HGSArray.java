@@ -17,8 +17,19 @@ public interface HGSArray {
     int hgsArraySize() throws HGSEvalException;
 
     /**
+     * Adds a value to the array
+     *
+     * @param initial value
+     * @throws HGSEvalException HGSEvalException
+     */
+    default void hgsArrayAdd(Object initial) throws HGSEvalException {
+        throw new HGSEvalException("Array growth is not supported!");
+    }
+
+
+    /**
      * Sets a value to the array.
-     * Index may be greater than the size to allow the implementation of an growing array.
+     * Index will never exceed the array bounds!
      *
      * @param i   index
      * @param val value

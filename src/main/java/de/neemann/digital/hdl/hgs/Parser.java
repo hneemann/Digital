@@ -94,6 +94,11 @@ public class Parser {
                 final Reference ref = parseReference(tok.getIdent());
                 Tokenizer.Token refToken = tok.next();
                 switch (refToken) {
+                    case COLON:
+                        expect(EQUAL);
+                        final Expression initVal = parseExpression();
+                        if (isRealStatement) expect(SEMICOLON);
+                        return c -> ref.declareVar(c, initVal.value(c));
                     case EQUAL:
                         final Expression val = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);

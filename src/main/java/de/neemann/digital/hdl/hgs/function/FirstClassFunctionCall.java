@@ -31,7 +31,7 @@ public final class FirstClassFunctionCall extends Function {
     protected Object f(Object... args) throws HGSEvalException {
         Context c = new Context(capturedContext);
         for (int i = 0; i < args.length; i++)
-            c.setVar(func.getArgs().get(i), args[i]);
+            c.declareVar(func.getArgs().get(i), args[i]);
         try {
             func.getStatement().execute(c);
             return null;

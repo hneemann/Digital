@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
 <? if (elem.inputBits>1) {
-     entityName="DIG_BitExtender";?>
+     entityName:="DIG_BitExtender";?>
 
 entity DIG_BitExtender is
   <?beginGenericPort();?>
@@ -21,7 +21,7 @@ begin
 end DIG_BitExtender_arch;
 <?
    } else {
-      entityName="DIG_BitExtenderSingle";
+      entityName:="DIG_BitExtenderSingle";
 ?>
 entity DIG_BitExtenderSingle is
   <?beginGenericPort();?>

@@ -30,6 +30,12 @@ public class ReferenceToFunc implements Reference {
         this.args = args;
     }
 
+
+    @Override
+    public void declareVar(Context context, Object initial) throws HGSEvalException {
+        set(context, initial);
+    }
+
     @Override
     public void set(Context context, Object value) throws HGSEvalException {
         throw new HGSEvalException("It's not possible to write to a function!");
@@ -44,6 +50,6 @@ public class ReferenceToFunc implements Reference {
                 throw new HGSEvalException("wrong number of arguments! found: " + args.size() + ", expected: " + func.getArgCount());
             return func.call(context, args);
         }
-        throw new HGSEvalException("Value is not a function!");
+        throw new HGSEvalException("Value '"+funcObj+"' is not a function!");
     }
 }

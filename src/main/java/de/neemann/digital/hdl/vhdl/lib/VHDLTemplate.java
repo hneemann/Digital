@@ -30,27 +30,27 @@ import static de.neemann.digital.hdl.vhdl.VHDLLibrary.writePort;
 public class VHDLTemplate implements VHDLEntity {
 
     private static final Context VHDLCONTEXT = new Context()
-            .addFunc("zero", new FunctionZero())
-            .addFunc("type", new FunctionType())
-            .addFunc("genericType", new FunctionGenericType())
-            .addFunc("value", new FunctionValue())
-            .addFunc("beginGenericPort", new InnerFunction(0) {
+            .declareFunc("zero", new FunctionZero())
+            .declareFunc("type", new FunctionType())
+            .declareFunc("genericType", new FunctionGenericType())
+            .declareFunc("value", new FunctionValue())
+            .declareFunc("beginGenericPort", new InnerFunction(0) {
                 @Override
                 public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
-                    c.setVar("portStartPos", c.length());
+                    c.declareVar("portStartPos", c.length());
                     return null;
                 }
             })
-            .addFunc("endGenericPort", new InnerFunction(0) {
+            .declareFunc("endGenericPort", new InnerFunction(0) {
                 @Override
                 public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
                     int start = Value.toInt(c.getVar("portStartPos"));
                     String portDecl = c.toString().substring(start);
-                    c.setVar("portDecl", portDecl);
+                    c.declareVar("portDecl", portDecl);
                     return null;
                 }
             })
-            .addFunc("registerGeneric", new InnerFunction(-1) {
+            .declareFunc("registerGeneric", new InnerFunction(-1) {
                 @Override
                 public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
                     List<Generic> generics;
@@ -58,7 +58,7 @@ public class VHDLTemplate implements VHDLEntity {
                         generics = (List<Generic>) c.getVar("generics");
                     else {
                         generics = new ArrayList<>();
-                        c.setVar("generics", generics);
+                        c.declareVar("generics", generics);
                     }
                     String name = Value.toString(args.get(0).value(c));
                     if (args.size() == 1)
@@ -73,7 +73,7 @@ public class VHDLTemplate implements VHDLEntity {
 
     private final static String ENTITY_PREFIX = "DIG_";
     private final Statement statements;
-    private String entityName;
+    private final String entityName;
     private HashMap<String, Entity> entities;
 
     /**
@@ -119,7 +119,7 @@ public class VHDLTemplate implements VHDLEntity {
                 e.setWritten(true);
             }
         } catch (HGSEvalException e) {
-            throw new IOException("error evaluating the template", e);
+            throw new IOException("error evaluating the template " + createFileName(entityName), e);
         }
     }
 
@@ -128,7 +128,7 @@ public class VHDLTemplate implements VHDLEntity {
         try {
             return getEntity(node).getName();
         } catch (HGSEvalException e) {
-            throw new HDLException("Error requesting the entities name!", e);
+            throw new HDLException("Error requesting the entities name of " + createFileName(entityName), e);
         }
     }
 
@@ -148,7 +148,7 @@ public class VHDLTemplate implements VHDLEntity {
                 out.println(" );").dec();
             }
         } catch (HGSEvalException e) {
-            throw new IOException("error evaluating the template", e);
+            throw new IOException("error evaluating the template " + createFileName(entityName), e);
         }
     }
 
@@ -167,7 +167,7 @@ public class VHDLTemplate implements VHDLEntity {
                 out.println(")").dec();
             }
         } catch (HGSEvalException e) {
-            throw new IOException("error evaluating the template", e);
+            throw new IOException("error evaluating the template " + createFileName(entityName), e);
         }
     }
 
@@ -196,7 +196,7 @@ public class VHDLTemplate implements VHDLEntity {
 
         private Entity(HDLNode node, String name) throws HGSEvalException {
             final Context c = new Context(VHDLCONTEXT)
-                    .setVar("elem", node.getAttributes());
+                    .declareVar("elem", node.getAttributes());
             statements.execute(c);
             code = c.toString();
             if (c.contains("portDecl"))

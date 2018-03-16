@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.hgs.refs;
 
 import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
+import de.neemann.digital.hdl.hgs.HGSMap;
 import de.neemann.digital.hdl.hgs.Value;
 
 /**
@@ -28,8 +29,20 @@ public class ReferenceToStruct implements Reference {
     }
 
     @Override
+    public void declareVar(Context context, Object initial) throws HGSEvalException {
+        final HGSMap hgsMap = Value.toMap(parent.get(context));
+        if (hgsMap.hgsMapContains(name))
+            throw new HGSEvalException("Value '" + name + "' redeclared in struct!");
+
+        hgsMap.hgsMapPut(name, initial);
+    }
+
+    @Override
     public void set(Context context, Object value) throws HGSEvalException {
-        Value.toMap(parent.get(context)).hgsMapPut(name, value);
+        final HGSMap hgsMap = Value.toMap(parent.get(context));
+        if (!hgsMap.hgsMapContains(name))
+            throw new HGSEvalException("Value '" + name + "' not declared in struct!");
+        hgsMap.hgsMapPut(name, value);
     }
 
     @Override

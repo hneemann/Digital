@@ -3,11 +3,11 @@ USE ieee.std_logic_1164.all;
 
 <?
   if (elem.Bits=1)
-      entityName="MUX_GATE_"+elem.'Selector Bits';
+      entityName:="MUX_GATE_"+elem.'Selector Bits';
   else
-      entityName="MUX_GATE_BUS_"+elem.'Selector Bits';
+      entityName:="MUX_GATE_BUS_"+elem.'Selector Bits';
 
-  inputs=1<<elem.'Selector Bits';
+  inputs:=1<<elem.'Selector Bits';
 ?>
 
 entity <?=entityName?> is
@@ -18,7 +18,7 @@ entity <?=entityName?> is
   port (
     PORT_out: out <?=genericType(elem.Bits)?>;
     PORT_sel: in <?=type(elem.'Selector Bits')?>;
-    <? for (n=0;n<inputs;n++) { ?>
+    <? for (n:=0;n<inputs;n++) { ?>
     PORT_in_<?=n?>: in <?=genericType(elem.Bits); if (n<inputs-1) print(";"); }?> );
   <? endGenericPort();?>
 end <?=entityName?>;
@@ -27,7 +27,7 @@ architecture <?=entityName?>_arch of <?=entityName?> is
 begin
   with PORT_sel select
     PORT_out <=
-      <? for (n=0;n<inputs;n++) { ?>
+      <? for (n:=0;n<inputs;n++) { ?>
       PORT_in_<?=n?> when <?=value(n, elem.'Selector Bits') ?>,
       <? } print(zero(elem.Bits));?> when others;
 end <?=entityName?>_arch;

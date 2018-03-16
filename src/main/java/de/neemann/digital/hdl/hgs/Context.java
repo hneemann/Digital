@@ -16,6 +16,21 @@ import java.util.HashMap;
  * The evaluation context
  */
 public class Context {
+    // declare some functions which are always present
+    private static final HashMap<String, InnerFunction> BUILT_IN = new HashMap<>();
+
+    static {
+        BUILT_IN.put("print", new FunctionPrint());
+        BUILT_IN.put("printf", new FunctionPrintf());
+        BUILT_IN.put("format", new FunctionFormat());
+        BUILT_IN.put("isPresent", new FunctionIsPresent());
+        BUILT_IN.put("panic", new FunctionPanic());
+        BUILT_IN.put("output", new FunctionOutput());
+        BUILT_IN.put("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
+        BUILT_IN.put("newMap", new Func(0, args -> new HashMap()));
+        BUILT_IN.put("newList", new Func(0, args -> new ArrayList()));
+    }
+
     private final Context parent;
     private final StringBuilder code;
     private HashMap<String, Object> map;
@@ -49,16 +64,6 @@ public class Context {
         else
             this.code = null;
         map = new HashMap<>();
-
-        // some functions which are always present
-        addFunc("print", new FunctionPrint());
-        addFunc("printf", new FunctionPrintf());
-        addFunc("format", new FunctionFormat());
-        addFunc("isPresent", new FunctionIsPresent());
-        addFunc("panic", new FunctionPanic());
-        addFunc("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
-        addFunc("newMap", new Func(0, args -> new HashMap()));
-        addFunc("newList", new Func(0, args -> new ArrayList()));
     }
 
     /**
@@ -88,13 +93,13 @@ public class Context {
     public Object getVar(String name) throws HGSEvalException {
         Object v = map.get(name);
         if (v == null) {
+            if (parent == null) {
+                InnerFunction builtIn = BUILT_IN.get(name);
+                if (builtIn != null)
+                    return builtIn;
 
-            if (name.equals("output"))
-                return toString();
-
-            if (parent == null)
                 throw new HGSEvalException("Variable not found: " + name);
-            else
+            } else
                 return parent.getVar(name);
         } else
             return v;
@@ -106,9 +111,29 @@ public class Context {
      * @param name name
      * @param val  value
      * @return this for chained calls
+     * @throws HGSEvalException HGSEvalException
      */
-    public Context setVar(String name, Object val) {
-        map.put(name, val);
+    public Context setVar(String name, Object val) throws HGSEvalException {
+        if (map.containsKey(name))
+            map.put(name, val);
+        else {
+            if (parent != null)
+                parent.setVar(name, val);
+            else
+                throw new HGSEvalException("Variable '" + name + "' not declared!");
+        }
+        return this;
+    }
+
+    /**
+     * Declares a new variable
+     *
+     * @param name  the name of the variable
+     * @param value the value of the variable
+     * @return this for chained calls
+     */
+    public Context declareVar(String name, Object value) {
+        map.put(name, value);
         return this;
     }
 
@@ -120,8 +145,8 @@ public class Context {
      * @param func the function
      * @return this for chained calls
      */
-    public Context addFunc(String name, InnerFunction func) {
-        return setVar(name, func);
+    public Context declareFunc(String name, InnerFunction func) {
+        return declareVar(name, func);
     }
 
     /**
@@ -172,7 +197,6 @@ public class Context {
     }
 
     private static final class FunctionPrint extends InnerFunction {
-
         private FunctionPrint() {
             super(-1);
         }
@@ -186,7 +210,6 @@ public class Context {
     }
 
     private static final class FunctionPrintf extends InnerFunction {
-
         private FunctionPrintf() {
             super(-1);
         }
@@ -199,7 +222,6 @@ public class Context {
     }
 
     private static final class FunctionFormat extends InnerFunction {
-
         private FunctionFormat() {
             super(-1);
         }
@@ -222,7 +244,6 @@ public class Context {
     }
 
     private static final class FunctionIsPresent extends InnerFunction {
-
         private FunctionIsPresent() {
             super(1);
         }
@@ -246,6 +267,17 @@ public class Context {
         @Override
         protected Object f(Object... args) throws HGSEvalException {
             throw new HGSEvalException(args[0].toString());
+        }
+    }
+
+    private static final class FunctionOutput extends InnerFunction {
+        private FunctionOutput() {
+            super(0);
+        }
+
+        @Override
+        public Object call(Context c, ArrayList<Expression> args) {
+            return c.toString();
         }
     }
 }

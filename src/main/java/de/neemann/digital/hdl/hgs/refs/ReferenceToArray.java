@@ -27,12 +27,25 @@ public class ReferenceToArray implements Reference {
     }
 
     @Override
+    public void declareVar(Context context, Object initial) throws HGSEvalException {
+        final int i = Value.toInt(index.value(context));
+        final HGSArray array = Value.toArray(parent.get(context));
+        if (i < 0 || i > array.hgsArraySize())
+            throw new HGSEvalException("Index out of bounds: " + i);
+        if (i < array.hgsArraySize())
+            throw new HGSEvalException("Array field redeclared: " + i);
+
+        array.hgsArrayAdd(initial);
+    }
+
+    @Override
     public void set(Context context, Object value) throws HGSEvalException {
         final int i = Value.toInt(index.value(context));
-        if (i < 0)
+        final HGSArray array = Value.toArray(parent.get(context));
+        if (i < 0 || i >= array.hgsArraySize())
             throw new HGSEvalException("Index out of bounds: " + i);
 
-        Value.toArray(parent.get(context)).hgsArraySet(i, value);
+        array.hgsArraySet(i, value);
     }
 
     @Override
@@ -41,6 +54,7 @@ public class ReferenceToArray implements Reference {
         final HGSArray array = Value.toArray(parent.get(context));
         if (i < 0 || i >= array.hgsArraySize())
             throw new HGSEvalException("Index out of bounds: " + i);
+
         return array.hgsArrayGet(i);
     }
 }

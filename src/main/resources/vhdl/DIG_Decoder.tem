@@ -1,13 +1,13 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 <?
-   entityName="DECODER_"+elem.'Selector Bits';
-   outputs=1<<elem.'Selector Bits';
+   entityName:="DECODER_"+elem.'Selector Bits';
+   outputs:=1<<elem.'Selector Bits';
 ?>
 
 entity <?=entityName?> is
   port (
-    <? for (i=0;i<outputs;i++) {?>
+    <? for (i:=0;i<outputs;i++) {?>
     PORT_out_<?=i?>: out std_logic;
     <? } ?>
     PORT_sel: in <?=type(elem.'Selector Bits')?> );
@@ -15,7 +15,7 @@ end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is
 begin
-<? for (i=0;i<outputs;i++) {?>
+<? for (i:=0;i<outputs;i++) {?>
   PORT_out_<?=i?> <= '1' when PORT_sel = <?=value(i,elem.'Selector Bits')?> else '0';
 <? } ?>
 end <?=entityName?>_arch;

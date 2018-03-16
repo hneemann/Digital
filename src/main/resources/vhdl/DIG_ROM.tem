@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
     if (elem.Label="")
         panic("Every ROM needs a unique label!");
 
-    entityName="DIG_ROM_"+elem.Label;
+    entityName:="DIG_ROM_"+elem.Label;
 ?>
 
 entity <?=entityName?> is
@@ -20,9 +20,9 @@ architecture <?=entityName?>_arch of <?=entityName?> is
   constant my_Rom : mem := (
     <?
 
-    len=sizeOf(elem.Data);
-    col=0;
-    for (i=0;i<len;i++) {
+    len:=sizeOf(elem.Data);
+    col:=0;
+    for (i:=0;i<len;i++) {
         print(value(elem.Data[i],elem.Bits));
         if (i<len-1) {
             print(", ");

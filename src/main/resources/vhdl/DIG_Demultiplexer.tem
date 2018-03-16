@@ -2,11 +2,11 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 <?
   if (elem.Bits=1)
-      entityName="DEMUX_GATE_"+elem.'Selector Bits';
+      entityName:="DEMUX_GATE_"+elem.'Selector Bits';
   else
-      entityName="DEMUX_GATE_BUS_"+elem.'Selector Bits';
+      entityName:="DEMUX_GATE_BUS_"+elem.'Selector Bits';
 
-  outputs=1<<elem.'Selector Bits';
+  outputs:=1<<elem.'Selector Bits';
 ?>
 
 entity <?=entityName?> is
@@ -15,7 +15,7 @@ entity <?=entityName?> is
   generic ( Bits : integer );<? registerGeneric("Bits");?>
   <? } ?>
   port (
-    <? for (i=0;i<outputs;i++) {?>
+    <? for (i:=0;i<outputs;i++) {?>
     PORT_out_<?=i?>: out <?=genericType(elem.Bits)?>;
     <? } ?>
     PORT_sel: in <?=type(elem.'Selector Bits')?>;
@@ -25,7 +25,7 @@ end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is
 begin
-<? for (i=0;i<outputs;i++) {?>
+<? for (i:=0;i<outputs;i++) {?>
     PORT_out_<?=i?> <= PORT_in when PORT_sel = <?=value(i,elem.'Selector Bits')?> else <?=zero(elem.Bits)?>;
 <? } ?>
 end <?=entityName?>_arch;

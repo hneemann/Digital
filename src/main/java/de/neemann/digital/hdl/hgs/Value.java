@@ -211,9 +211,12 @@ public final class Value {
         }
 
         @Override
+        public void hgsArrayAdd(Object initial) {
+            list.add(initial);
+        }
+
+        @Override
         public void hgsArraySet(int i, Object val) {
-            while (list.size() <= i)
-                list.add(null);
             list.set(i, val);
         }
 
@@ -228,6 +231,11 @@ public final class Value {
 
         private HGSMapMap(Map<String, Object> map) {
             this.map = map;
+        }
+
+        @Override
+        public boolean hgsMapContains(String key) {
+            return map.containsKey(key);
         }
 
         @Override

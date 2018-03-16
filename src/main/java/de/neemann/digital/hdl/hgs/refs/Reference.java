@@ -12,6 +12,16 @@ import de.neemann.digital.hdl.hgs.HGSEvalException;
  * A reference to a value
  */
 public interface Reference {
+
+    /**
+     * Declares a new variable
+     *
+     * @param context the context of the operation
+     * @param initial the initial value
+     * @throws HGSEvalException HGSEvalException
+     */
+    void declareVar(Context context, Object initial) throws HGSEvalException;
+
     /**
      * Sets a value
      *

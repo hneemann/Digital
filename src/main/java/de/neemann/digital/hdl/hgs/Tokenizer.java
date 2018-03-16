@@ -18,7 +18,7 @@ class Tokenizer {
         UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, LESS, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
         OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, STATIC, FUNC, GREATEREQUAL, LESSEQUAL,
-        REPEAT, RETURN, UNTIL
+        REPEAT, RETURN, COLON, UNTIL
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -117,6 +117,9 @@ class Tokenizer {
                     break;
                 case '@':
                     token = Token.STATIC;
+                    break;
+                case ':':
+                    token = Token.COLON;
                     break;
                 case ';':
                     token = Token.SEMICOLON;

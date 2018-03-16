@@ -3,9 +3,9 @@ USE ieee.std_logic_1164.all;
 
 <?
   if (elem.Bits=1)
-      entityName="DIG_D_FF_AS";
+      entityName:="DIG_D_FF_AS";
   else
-      entityName="DIG_D_FF_AS_BUS";
+      entityName:="DIG_D_FF_AS_BUS";
 ?>
 
 entity <?=entityName?> is

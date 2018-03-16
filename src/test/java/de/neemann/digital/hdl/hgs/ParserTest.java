@@ -70,23 +70,23 @@ public class ParserTest extends TestCase {
         assertEquals(3L, new Parser("1|2").parseExp().value(new Context()));
         assertEquals(true, new Parser("a|b").parseExp()
                 .value(new Context()
-                        .setVar("a", true)
-                        .setVar("b", false)));
+                        .declareVar("a", true)
+                        .declareVar("b", false)));
         assertEquals(0L, new Parser("1&2").parseExp().value(new Context()));
         assertEquals(false, new Parser("a&b").parseExp()
                 .value(new Context()
-                        .setVar("a", true)
-                        .setVar("b", false)));
+                        .declareVar("a", true)
+                        .declareVar("b", false)));
         assertEquals(3L, new Parser("1^2").parseExp()
                 .value(new Context()));
         assertEquals(true, new Parser("a^b").parseExp()
                 .value(new Context()
-                        .setVar("a", true)
-                        .setVar("b", false)));
+                        .declareVar("a", true)
+                        .declareVar("b", false)));
         assertEquals(-2L, new Parser("~1").parseExp().value(new Context()));
         assertEquals(false, new Parser("~a").parseExp()
                 .value(new Context()
-                        .setVar("a", true)));
+                        .declareVar("a", true)));
 
         assertEquals("true", exec("<? if (1) print(\"true\"); ?>").toString());
         assertEquals("", exec("<? if (0) print(\"true\"); ?>").toString());
@@ -122,17 +122,17 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseTemplateVariable() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? =a ?> World!", new Context().setVar("a", "My"));
+        Context c = exec("Hello <? =a ?> World!", new Context().declareVar("a", "My"));
         assertEquals("Hello My World!", c.toString());
     }
 
     public void testParseTemplateVariableEscape() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? ='a a' ?> World!", new Context().setVar("a a", "My"));
+        Context c = exec("Hello <? ='a a' ?> World!", new Context().declareVar("a a", "My"));
         assertEquals("Hello My World!", c.toString());
     }
 
     public void testParseTemplateCodeOnly() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? =a ?>", new Context().setVar("a", "My"));
+        Context c = exec("<? =a ?>", new Context().declareVar("a", "My"));
         assertEquals("My", c.toString());
     }
 
@@ -156,47 +156,47 @@ public class ParserTest extends TestCase {
     //   for statement
 
     public void testParseTemplateFor() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? for (i=0;i<10;i++) print(i); ?> World!");
+        Context c = exec("Hello <? for (i:=0;i<10;i++) print(i); ?> World!");
         assertEquals("Hello 0123456789 World!", c.toString());
 
-        c = exec("Hello <? for (i=9;i>=0;i--) print(i); ?> World!");
+        c = exec("Hello <? for (i:=9;i>=0;i--) print(i); ?> World!");
         assertEquals("Hello 9876543210 World!", c.toString());
     }
 
     public void testParseTemplateForStatements() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? for (i=0;i<10;i++) { print(i, 9-i); } ?>");
+        Context c = exec("<? for (i:=0;i<10;i++) { print(i, 9-i); } ?>");
         assertEquals("09182736455463728190", c.toString());
     }
 
     public void testParseTemplateForNested() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? for (i=0;i<10;i++) { ?>n<? } ?> World!");
+        Context c = exec("Hello <? for (i:=0;i<10;i++) { ?>n<? } ?> World!");
         assertEquals("Hello nnnnnnnnnn World!", c.toString());
     }
 
     public void testParseTemplateForNested2() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? for (i=0;i<3;i++) { ?>(<? for(j=0;j<2;j++) { ?>:<? } ?>)<? } ?> World!");
+        Context c = exec("Hello <? for (i:=0;i<3;i++) { ?>(<? for(j:=0;j<2;j++) { ?>:<? } ?>)<? } ?> World!");
         assertEquals("Hello (::)(::)(::) World!", c.toString());
     }
 
     public void testParseTemplateForNested3() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? for (i=1;i<4;i++) { ?>(<? for(j=1;j<3;j++) { print(i*j); } ?>)<? } ?> World!");
+        Context c = exec("Hello <? for (i:=1;i<4;i++) { ?>(<? for(j:=1;j<3;j++) { print(i*j); } ?>)<? } ?> World!");
         assertEquals("Hello (12)(24)(36) World!", c.toString());
     }
 
     //   while statement
 
     public void testParseTemplateWhile() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? i=0; while (i<=9) { =i; i++; } ?> World!");
+        Context c = exec("Hello <? i:=0; while (i<=9) { =i; i++; } ?> World!");
         assertEquals("Hello 0123456789 World!", c.toString());
     }
 
     public void testParseTemplateRepeat() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? i=0; repeat { =i; i++; } until i=10; ?> World!");
+        Context c = exec("Hello <? i:=0; repeat { =i; i++; } until i=10; ?> World!");
         assertEquals("Hello 0123456789 World!", c.toString());
     }
 
     public void testParseTemplateArray() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? a=newList(); a[0]=1; a[1]=7; print(a[1], \",\" ,sizeOf(a)); ?>;");
+        Context c = exec("<? a:=newList(); a[0]:=1; a[1]:=7; print(a[1], \",\" ,sizeOf(a)); ?>;");
         assertEquals("7,2;", c.toString());
         Object lo = c.getVar("a");
         assertTrue(lo instanceof List);
@@ -207,7 +207,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseTemplateMap() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? m=newMap(); m.test=newMap(); m.test.val=7; print(m.test.val); ?>;");
+        Context c = exec("<? m:=newMap(); m.test:=newMap(); m.test.val:=7; print(m.test.val); ?>;");
         assertEquals("7;", c.toString());
         Object mo = c.getVar("m");
         assertTrue(mo instanceof Map);
@@ -237,12 +237,12 @@ public class ParserTest extends TestCase {
     public void testParseTemplateIsSet() throws IOException, ParserException, HGSEvalException {
         Statement t = new Parser("<? if (isPresent(m)) print(m); else print(\"false\"); ?>;").parse();
         assertEquals("false;", exec(t).toString());
-        assertEquals("4;", exec(t, new Context().setVar("m", 4)).toString());
+        assertEquals("4;", exec(t, new Context().declareVar("m", 4)).toString());
     }
 
     public void testParseTemplateFormat() throws IOException, ParserException, HGSEvalException {
-        Context c = new Context().setVar("Bits", 17);
-        exec("<? a=format(\"hex=%x;\",Bits); print(a);?>", c);
+        Context c = new Context().declareVar("Bits", 17);
+        exec("<? a:=format(\"hex=%x;\",Bits); print(a);?>", c);
         assertEquals("hex=11;", c.toString());
     }
 
@@ -253,7 +253,7 @@ public class ParserTest extends TestCase {
 
     public void testAddFunction() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("a : in <?=type(Bits)?>;").parse();
-        Context funcs = new Context().setVar("type", new Function(1) {
+        Context funcs = new Context().declareVar("type", new Function(1) {
             @Override
             protected Object f(Object... args) throws HGSEvalException {
                 int n = Value.toInt(args[0]);
@@ -265,10 +265,10 @@ public class ParserTest extends TestCase {
         });
         assertEquals("a : in std_logic;",
                 exec(s, new Context(funcs)
-                        .setVar("Bits", 1)).toString());
+                        .declareVar("Bits", 1)).toString());
         assertEquals("a : in std_logic_vector(5 downto 0);",
                 exec(s, new Context(funcs)
-                        .setVar("Bits", 6)).toString());
+                        .declareVar("Bits", 6)).toString());
     }
 
     int flag = 0;
@@ -277,7 +277,7 @@ public class ParserTest extends TestCase {
         flag = 0;
         Statement s = new Parser("a : in <? type(7); ?>;").parse();
 
-        Context c = new Context().addFunc("type", new Function(1) {
+        Context c = new Context().declareFunc("type", new Function(1) {
             @Override
             protected Object f(Object... args) throws HGSEvalException {
                 flag = Value.toInt(args[0]);
@@ -289,9 +289,9 @@ public class ParserTest extends TestCase {
     }
 
     public void testStatic() throws IOException, ParserException {
-        Parser p = new Parser("generic a; <? @gen[0]=\"a\"; ?>");
+        Parser p = new Parser("generic a; <? @gen[0]:=\"a\"; ?>");
         final ArrayList<Object> generics = new ArrayList<>();
-        p.getStaticContext().setVar("gen", generics);
+        p.getStaticContext().declareVar("gen", generics);
         p.parse();
 
         assertEquals(1, generics.size());
@@ -299,7 +299,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testFirstClassFunctionStatic() throws IOException, ParserException, HGSEvalException {
-        Parser p = new Parser("<? @f=func(a){return a*a+2;};  print(f(4));?>");
+        Parser p = new Parser("<? @f:=func(a){return a*a+2;};  print(f(4));?>");
         p.parse();
         Object fObj = p.getStaticContext().getVar("f");
         assertTrue(fObj instanceof Function);
@@ -308,13 +308,13 @@ public class ParserTest extends TestCase {
     }
 
     public void testFirstClassFunction() throws IOException, ParserException, HGSEvalException {
-        assertEquals("18", exec("<? f=func(a){return a*a+2;};  print(f(4));?>").toString());
-        assertEquals("5", exec("<? f=func(a,b){return a+2*b;};  print(f(1,2));?>").toString());
-        assertEquals("13", exec("<? f=func(a,b){return a+2*b;};  print(f(1,a*2));?>",
-                new Context().setVar("a", 3)).toString());
+        assertEquals("18", exec("<? f:=func(a){return a*a+2;};  print(f(4));?>").toString());
+        assertEquals("5", exec("<? f:=func(a,b){return a+2*b;};  print(f(1,2));?>").toString());
+        assertEquals("13", exec("<? f:=func(a,b){return a+2*b;};  print(f(1,a*2));?>",
+                new Context().declareVar("a", 3)).toString());
 
-        assertEquals("18", exec("<? m=newMap(); m.f=func(a){m=newMap(); m.v=a*a+2; return m;};  print(m.f(4).v);?>").toString());
-        assertEquals("18", exec("<? m=newList(); m[0]=func(a){ l=newList(); l[0]=a*a+2; return l;};  print(m[0](4)[0]);?>").toString());
+        assertEquals("18", exec("<? m:=newMap(); m.f:=func(a){m:=newMap(); m.v:=a*a+2; return m;};  print(m.f(4).v);?>").toString());
+        assertEquals("18", exec("<? m:=newList(); m[0]:=func(a){ l:=newList(); l[0]:=a*a+2; return l;};  print(m[0](4)[0]);?>").toString());
 
         try {
             exec("<? f=func(a){return a;}; f(1)=5; ?>");
@@ -331,16 +331,16 @@ public class ParserTest extends TestCase {
 
     public void testFirstClassFunctionOutput() throws IOException, ParserException, HGSEvalException {
         assertEquals("testtext12testtext15",
-                exec("<? f=func(a){  ?>testtext<? print(a*3); return output; };  print(f(4),f(5));?>").toString());
+                exec("<? f:=func(a){  ?>testtext<? print(a*3); return output(); };  print(f(4),f(5));?>").toString());
     }
 
     public void testFirstClassFunctionLambda() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? outer=5; f=func(x) {return x+outer;}; ?>");
+        Context c = exec("<? outer:=5; f:=func(x) {return x+outer;}; ?>");
         Function f = c.getFunction("f");
         assertEquals(6L,f.call(1));
         assertEquals(7L,f.call(2));
 
-        c = exec("<? f=func(x){ return func(u){return u*x;};}; a=f(2); b=f(5); ?>");
+        c = exec("<? f:=func(x){ return func(u){return u*x;};}; a:=f(2); b:=f(5); ?>");
         Function a = c.getFunction("a");
         Function b = c.getFunction("b");
         assertEquals(4L,a.call(2));
@@ -349,15 +349,27 @@ public class ParserTest extends TestCase {
         assertEquals(15L,b.call(3));
     }
 
+    public void testFirstClassFunctionClosure() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("<? inner:=0; inc:=func(){inner++; return inner;}; dec:=func(){inner--; return inner;};?>");
+        Function inc = c.getFunction("inc");
+        Function dec = c.getFunction("dec");
+        assertEquals(1L,inc.call());
+        assertEquals(2L,inc.call());
+        assertEquals(3L,inc.call());
+        assertEquals(2L,dec.call());
+        assertEquals(1L,dec.call());
+        assertEquals(0L,dec.call());
+        assertEquals(1L,inc.call());
+    }
 
     public void testPanic() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("<? if (i>1) panic(\"myError\"); ?>").parse();
 
-        exec(s, new Context().setVar("i", 0));
-        exec(s, new Context().setVar("i", 1));
+        exec(s, new Context().declareVar("i", 0));
+        exec(s, new Context().declareVar("i", 1));
 
         try {
-            exec(s, new Context().setVar("i", 2));
+            exec(s, new Context().declareVar("i", 2));
             fail();
         } catch (HGSEvalException e) {
             assertEquals("myError", e.getMessage());
