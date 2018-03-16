@@ -106,14 +106,14 @@ public class Context {
     }
 
     /**
-     * Set a variable
+     * Set a variable.
+     * This method is not able to create a new variable.
      *
      * @param name name
      * @param val  value
-     * @return this for chained calls
      * @throws HGSEvalException HGSEvalException
      */
-    public Context setVar(String name, Object val) throws HGSEvalException {
+    public void setVar(String name, Object val) throws HGSEvalException {
         if (map.containsKey(name))
             map.put(name, val);
         else {
@@ -122,7 +122,6 @@ public class Context {
             else
                 throw new HGSEvalException("Variable '" + name + "' not declared!");
         }
-        return this;
     }
 
     /**
@@ -131,8 +130,11 @@ public class Context {
      * @param name  the name of the variable
      * @param value the value of the variable
      * @return this for chained calls
+     * @throws HGSEvalException HGSEvalException
      */
-    public Context declareVar(String name, Object value) {
+    public Context declareVar(String name, Object value) throws HGSEvalException {
+        if (map.containsKey(name))
+            throw new HGSEvalException("Variable '" + name + "' already declared!");
         map.put(name, value);
         return this;
     }
@@ -144,8 +146,9 @@ public class Context {
      * @param name the name
      * @param func the function
      * @return this for chained calls
+     * @throws HGSEvalException HGSEvalException
      */
-    public Context declareFunc(String name, InnerFunction func) {
+    public Context declareFunc(String name, InnerFunction func) throws HGSEvalException {
         return declareVar(name, func);
     }
 

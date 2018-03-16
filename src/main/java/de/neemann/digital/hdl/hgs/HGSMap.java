@@ -13,7 +13,7 @@ public interface HGSMap {
     /**
      * Returns true if the map contains the key.
      * If this method always returns true, it's not possible to write new
-     * values in the map. In this case you can only overwrite existing values.
+     * values to the map. In this case you can only overwrite existing values.
      *
      * @param key the key
      * @return true if contained in the map

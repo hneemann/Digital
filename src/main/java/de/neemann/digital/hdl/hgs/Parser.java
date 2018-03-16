@@ -156,10 +156,11 @@ public class Parser {
                 expect(CLOSE);
                 Statement inner = parseStatement();
                 return c -> {
-                    init.execute(c);
-                    while (Value.toBool(forCond.value(c))) {
-                        inner.execute(c);
-                        inc.execute(c);
+                    Context iC = new Context(c, false);
+                    init.execute(iC);
+                    while (Value.toBool(forCond.value(iC))) {
+                        inner.execute(iC);
+                        inc.execute(iC);
                     }
                 };
             case WHILE:
@@ -168,7 +169,8 @@ public class Parser {
                 expect(CLOSE);
                 inner = parseStatement();
                 return c -> {
-                    while (Value.toBool(whileCond.value(c))) inner.execute(c);
+                    Context iC = new Context(c, false);
+                    while (Value.toBool(whileCond.value(iC))) inner.execute(iC);
                 };
             case REPEAT:
                 final Statement repeatInner = parseStatement();
@@ -176,9 +178,10 @@ public class Parser {
                 final Expression repeatCond = parseExpression();
                 if (isRealStatement) expect(SEMICOLON);
                 return c -> {
+                    Context iC = new Context(c, false);
                     do {
-                        repeatInner.execute(c);
-                    } while (!Value.toBool(repeatCond.value(c)));
+                        repeatInner.execute(iC);
+                    } while (!Value.toBool(repeatCond.value(iC)));
                 };
             case OPENBRACE:
                 Statements s = new Statements();
@@ -189,6 +192,11 @@ public class Parser {
                 Expression retExp = parseExpression();
                 expect(SEMICOLON);
                 return c -> FirstClassFunctionCall.returnFromFunc(retExp.value(c));
+            case FUNC:
+                expect(IDENT);
+                String funcName = tok.getIdent();
+                FirstClassFunction funcDecl = parseFunction();
+                return c -> c.declareVar(funcName, new FirstClassFunctionCall(funcDecl, c));
             default:
                 throw newUnexpectedToken(token);
         }

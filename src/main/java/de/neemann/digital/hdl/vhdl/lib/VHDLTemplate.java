@@ -29,47 +29,55 @@ import static de.neemann.digital.hdl.vhdl.VHDLLibrary.writePort;
  */
 public class VHDLTemplate implements VHDLEntity {
 
-    private static final Context VHDLCONTEXT = new Context()
-            .declareFunc("zero", new FunctionZero())
-            .declareFunc("type", new FunctionType())
-            .declareFunc("genericType", new FunctionGenericType())
-            .declareFunc("value", new FunctionValue())
-            .declareFunc("beginGenericPort", new InnerFunction(0) {
-                @Override
-                public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
-                    c.declareVar("portStartPos", c.length());
-                    return null;
-                }
-            })
-            .declareFunc("endGenericPort", new InnerFunction(0) {
-                @Override
-                public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
-                    int start = Value.toInt(c.getVar("portStartPos"));
-                    String portDecl = c.toString().substring(start);
-                    c.declareVar("portDecl", portDecl);
-                    return null;
-                }
-            })
-            .declareFunc("registerGeneric", new InnerFunction(-1) {
-                @Override
-                public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
-                    List<Generic> generics;
-                    if (c.contains("generics"))
-                        generics = (List<Generic>) c.getVar("generics");
-                    else {
-                        generics = new ArrayList<>();
-                        c.declareVar("generics", generics);
-                    }
-                    String name = Value.toString(args.get(0).value(c));
-                    if (args.size() == 1)
-                        generics.add(new Generic(name, "Integer"));
-                    else if (args.size() == 2)
-                        generics.add(new Generic(name, Value.toString(args.get(1).value(c))));
-                    else
-                        throw new HGSEvalException("registerGeneric needs one or two arguments!");
-                    return null;
-                }
-            });
+    private static Context createBuitInContext() {
+        try {
+            return new Context()
+                    .declareFunc("zero", new FunctionZero())
+                    .declareFunc("type", new FunctionType())
+                    .declareFunc("genericType", new FunctionGenericType())
+                    .declareFunc("value", new FunctionValue())
+                    .declareFunc("beginGenericPort", new InnerFunction(0) {
+                        @Override
+                        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
+                            c.declareVar("portStartPos", c.length());
+                            return null;
+                        }
+                    })
+                    .declareFunc("endGenericPort", new InnerFunction(0) {
+                        @Override
+                        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
+                            int start = Value.toInt(c.getVar("portStartPos"));
+                            String portDecl = c.toString().substring(start);
+                            c.declareVar("portDecl", portDecl);
+                            return null;
+                        }
+                    })
+                    .declareFunc("registerGeneric", new InnerFunction(-1) {
+                        @Override
+                        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
+                            List<Generic> generics;
+                            if (c.contains("generics"))
+                                generics = (List<Generic>) c.getVar("generics");
+                            else {
+                                generics = new ArrayList<>();
+                                c.declareVar("generics", generics);
+                            }
+                            String name = Value.toString(args.get(0).value(c));
+                            if (args.size() == 1)
+                                generics.add(new Generic(name, "Integer"));
+                            else if (args.size() == 2)
+                                generics.add(new Generic(name, Value.toString(args.get(1).value(c))));
+                            else
+                                throw new HGSEvalException("registerGeneric needs one or two arguments!");
+                            return null;
+                        }
+                    });
+        } catch (HGSEvalException e) {
+            throw new RuntimeException("error creating templöate built-in's!");
+        }
+    }
+
+    private static final Context VHDLCONTEXT = createBuitInContext();
 
     private final static String ENTITY_PREFIX = "DIG_";
     private final Statement statements;
