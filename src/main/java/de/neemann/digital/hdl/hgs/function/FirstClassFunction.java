@@ -5,48 +5,33 @@
  */
 package de.neemann.digital.hdl.hgs.function;
 
-import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Statement;
 
 import java.util.ArrayList;
 
 /**
- * callable first class function
+ * Description of a first class function.
  */
-public class FirstClassFunction extends FuncAdapter {
+public class FirstClassFunction {
     private final ArrayList<String> args;
-    private final Statement st;
+    private final Statement statement;
 
     /**
      * Creates a new instance
      *
-     * @param args the names of the arguments
-     * @param st   the function body
+     * @param args      the names of the arguments
+     * @param statement the function body
      */
-    public FirstClassFunction(ArrayList<String> args, Statement st) {
-        super(args.size());
+    public FirstClassFunction(ArrayList<String> args, Statement statement) {
         this.args = args;
-        this.st = st;
+        this.statement = statement;
     }
 
-    /**
-     * Evaluates this function
-     *
-     * @param args the arguments
-     * @return the result
-     * @throws HGSEvalException HGSEvalException
-     */
-    @Override
-    public Object f(Object... args) throws HGSEvalException {
-        Context c = new Context();
-        for (int i = 0; i < args.length; i++)
-            c.setVar(this.args.get(i), args[i]);
-        st.execute(c);
-        if (c.contains("return"))
-            return c.getVar("return");
-        else
-            throw new HGSEvalException("A function must define the variable 'return'!");
+    ArrayList<String> getArgs() {
+        return args;
     }
 
+    Statement getStatement() {
+        return statement;
+    }
 }

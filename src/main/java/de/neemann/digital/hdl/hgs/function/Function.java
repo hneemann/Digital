@@ -42,5 +42,5 @@ public abstract class Function {
      * @return the value
      * @throws HGSEvalException HGSEvalException
      */
-    public abstract Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException;
+    public abstract Object callWithExpressions(Context c, ArrayList<Expression> args) throws HGSEvalException;
 }

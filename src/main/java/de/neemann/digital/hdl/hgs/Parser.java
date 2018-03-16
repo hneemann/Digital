@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
+import de.neemann.digital.hdl.hgs.function.FirstClassFunctionCall;
 import de.neemann.digital.hdl.hgs.refs.*;
 
 import java.io.IOException;
@@ -179,6 +180,10 @@ public class Parser {
                 while (!nextIs(CLOSEDBRACE))
                     s.add(parseStatement());
                 return s.optimize();
+            case RETURN:
+                Expression retExp = parseExpression();
+                expect(SEMICOLON);
+                return c -> c.returnFromFunc(retExp.value(c));
             default:
                 throw newUnexpectedToken(token);
         }
@@ -413,7 +418,7 @@ public class Parser {
                 return exp;
             case FUNC:
                 FirstClassFunction func = parseFunction();
-                return c -> func;
+                return c -> new FirstClassFunctionCall(func, c);
             default:
                 throw newUnexpectedToken(t);
         }

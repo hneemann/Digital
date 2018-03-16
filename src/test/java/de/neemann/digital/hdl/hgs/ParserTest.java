@@ -300,25 +300,25 @@ public class ParserTest extends TestCase {
     }
 
     public void testFirstClassFunctionStatic() throws IOException, ParserException, HGSEvalException {
-        Parser p = new Parser("<? @f=func(a){return=a*a+2;};  print(f(4));?>");
+        Parser p = new Parser("<? @f=func(a){return a*a+2;};  print(f(4));?>");
         p.parse();
         Object fObj = p.getStaticContext().getVar("f");
-        assertTrue(fObj instanceof FirstClassFunction);
-        FirstClassFunction f = (FirstClassFunction) fObj;
-        assertEquals(11L, f.f(3));
+        assertTrue(fObj instanceof FuncAdapter);
+        FuncAdapter f = (FuncAdapter) fObj;
+        assertEquals(11L, f.call(3));
     }
 
     public void testFirstClassFunction() throws IOException, ParserException, HGSEvalException {
-        assertEquals("18", exec("<? f=func(a){return=a*a+2;};  print(f(4));?>").toString());
-        assertEquals("5", exec("<? f=func(a,b){return=a+2*b;};  print(f(1,2));?>").toString());
-        assertEquals("13", exec("<? f=func(a,b){return=a+2*b;};  print(f(1,a*2));?>",
+        assertEquals("18", exec("<? f=func(a){return a*a+2;};  print(f(4));?>").toString());
+        assertEquals("5", exec("<? f=func(a,b){return a+2*b;};  print(f(1,2));?>").toString());
+        assertEquals("13", exec("<? f=func(a,b){return a+2*b;};  print(f(1,a*2));?>",
                 new Context().setVar("a", 3)).toString());
 
-        assertEquals("18", exec("<? m=newMap(); m.f=func(a){return=newMap(); return.v=a*a+2;};  print(m.f(4).v);?>").toString());
-        assertEquals("18", exec("<? m=newList(); m[0]=func(a){ l=newList(); l[0]=a*a+2; return=l;};  print(m[0](4)[0]);?>").toString());
+        assertEquals("18", exec("<? m=newMap(); m.f=func(a){m=newMap(); m.v=a*a+2; return m;};  print(m.f(4).v);?>").toString());
+        assertEquals("18", exec("<? m=newList(); m[0]=func(a){ l=newList(); l[0]=a*a+2; return l;};  print(m[0](4)[0]);?>").toString());
 
         try {
-            assertEquals("18", exec("<? f=func(a){return=a;}; f(1)=5; ?>").toString());
+            assertEquals("18", exec("<? f=func(a){return a;}; f(1)=5; ?>").toString());
             fail();
         } catch (HGSEvalException e) {
         }
@@ -326,8 +326,24 @@ public class ParserTest extends TestCase {
 
     public void testFirstClassFunctionOutput() throws IOException, ParserException, HGSEvalException {
         assertEquals("testtext12testtext15",
-                exec("<? f=func(a){  ?>testtext<? print(a*3); return=output; };  print(f(4),f(5));?>").toString());
+                exec("<? f=func(a){  ?>testtext<? print(a*3); return output; };  print(f(4),f(5));?>").toString());
     }
+
+    public void testFirstClassFunctionLambda() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("<? outer=5; f=func(x) {return x+outer;}; ?>");
+        FuncAdapter f = c.getFunction("f");
+        assertEquals(6L,f.call(1));
+        assertEquals(7L,f.call(2));
+
+        c = exec("<? f=func(x){ return func(u){return u*x;};}; a=f(2); b=f(5); ?>");
+        FuncAdapter a = c.getFunction("a");
+        FuncAdapter b = c.getFunction("b");
+        assertEquals(4L,a.call(2));
+        assertEquals(6L,a.call(3));
+        assertEquals(10L,b.call(2));
+        assertEquals(15L,b.call(3));
+    }
+
 
     public void testPanic() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("<? if (i>1) panic(\"myError\"); ?>").parse();

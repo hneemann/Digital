@@ -38,8 +38,12 @@ public class ReferenceToFunc implements Reference {
     @Override
     public Object get(Context context) throws HGSEvalException {
         Object funcObj = parent.get(context);
-        if (funcObj instanceof Function)
-            return ((Function) funcObj).calcValue(context, args);
+        if (funcObj instanceof Function) {
+            final Function func = (Function) funcObj;
+            if (func.getArgCount() >= 0 && func.getArgCount() != args.size())
+                throw new HGSEvalException("wrong number of arguments! found: " + args.size() + ", expected: " + func.getArgCount());
+            return func.callWithExpressions(context, args);
+        }
         throw new HGSEvalException("Value is not a function!");
     }
 }

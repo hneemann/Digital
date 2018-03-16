@@ -25,10 +25,7 @@ public abstract class FuncAdapter extends Function {
     }
 
     @Override
-    public Object calcValue(Context c, ArrayList<Expression> args) throws HGSEvalException {
-        if (getArgCount() != args.size())
-            throw new HGSEvalException("wrong number of arguments! found: " + args.size() + ", expected: " + getArgCount());
-
+    public Object callWithExpressions(Context c, ArrayList<Expression> args) throws HGSEvalException {
         Object[] data = new Object[args.size()];
         for (int i = 0; i < args.size(); i++)
             data[i] = args.get(i).value(c);
@@ -36,11 +33,25 @@ public abstract class FuncAdapter extends Function {
     }
 
     /**
-     * The function
+     * Evaluates this function.
      *
-     * @param args the evaluated arguments
+     * @param args the arguments
      * @return the result
      * @throws HGSEvalException HGSEvalException
      */
     protected abstract Object f(Object... args) throws HGSEvalException;
+
+    /**
+     * Use this method to call the function from your java code.
+     *
+     * @param args the arguments of this function
+     * @return the function result
+     * @throws HGSEvalException HGSEvalException
+     */
+    public Object call(Object... args) throws HGSEvalException {
+        if (getArgCount() >= 0 && getArgCount() != args.length)
+            throw new HGSEvalException("wrong number of arguments! found: " + args.length + ", expected: " + getArgCount());
+        return f(args);
+    }
+
 }
