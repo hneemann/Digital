@@ -29,14 +29,38 @@ public final class FirstClassFunctionCall extends Function {
 
     @Override
     protected Object f(Object... args) throws HGSEvalException {
-        Context c = new Context(capturedContext).isFunctionContext();
+        Context c = new Context(capturedContext);
         for (int i = 0; i < args.length; i++)
             c.setVar(func.getArgs().get(i), args[i]);
         try {
             func.getStatement().execute(c);
             return null;
-        } catch (Context.ReturnException e) {
+        } catch (ReturnException e) {
             return e.getReturnValue();
         }
     }
+
+    /**
+     * Returns from a function call.
+     *
+     * @param returnValue the return value
+     * @throws HGSEvalException HGSEvalException
+     */
+    public static void returnFromFunc(Object returnValue) throws HGSEvalException {
+        throw new ReturnException(returnValue);
+    }
+
+    private static final class ReturnException extends HGSEvalException {
+        private final Object returnValue;
+
+        private ReturnException(Object returnValue) {
+            super("The return statement is allowed only in a function!");
+            this.returnValue = returnValue;
+        }
+
+        private Object getReturnValue() {
+            return returnValue;
+        }
+    }
+
 }

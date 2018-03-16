@@ -23,7 +23,7 @@ public abstract class InnerFunction {
     /**
      * Creates a new function
      *
-     * @param argCount the number of arguments
+     * @param argCount the number of arguments, The value -1 means any number is allowed!
      */
     public InnerFunction(int argCount) {
         this.argCount = argCount;

@@ -183,7 +183,7 @@ public class Parser {
             case RETURN:
                 Expression retExp = parseExpression();
                 expect(SEMICOLON);
-                return c -> c.returnFromFunc(retExp.value(c));
+                return c -> FirstClassFunctionCall.returnFromFunc(retExp.value(c));
             default:
                 throw newUnexpectedToken(token);
         }

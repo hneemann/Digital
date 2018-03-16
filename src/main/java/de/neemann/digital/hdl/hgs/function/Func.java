@@ -17,7 +17,7 @@ public class Func extends Function {
     /**
      * Creates a new function
      *
-     * @param argCount the number of arguments
+     * @param argCount the number of arguments, The value -1 means any number is allowed!
      * @param func     the function
      */
     public Func(int argCount, Interface func) {

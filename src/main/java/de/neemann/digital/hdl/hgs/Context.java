@@ -19,7 +19,6 @@ public class Context {
     private final Context parent;
     private final StringBuilder code;
     private HashMap<String, Object> map;
-    private boolean functionContext = false;
 
     /**
      * Creates a new context
@@ -158,30 +157,6 @@ public class Context {
     }
 
     /**
-     * Flags this context as context belonging to a function call.
-     * This allows to use the return statement.
-     *
-     * @return this for chained calls
-     */
-    public Context isFunctionContext() {
-        functionContext = true;
-        return this;
-    }
-
-    /**
-     * Returns from a function call.
-     *
-     * @param returnValue the return value
-     * @throws HGSEvalException HGSEvalException
-     */
-    public void returnFromFunc(Object returnValue) throws HGSEvalException {
-        if (!functionContext)
-            throw new HGSEvalException("The return statement is allowed only in a function!");
-
-        throw new ReturnException(returnValue);
-    }
-
-    /**
      * Returns a function from this context
      *
      * @param funcName the functions name
@@ -271,30 +246,6 @@ public class Context {
         @Override
         protected Object f(Object... args) throws HGSEvalException {
             throw new HGSEvalException(args[0].toString());
-        }
-    }
-
-    /**
-     * Exception used to return a value from a function
-     */
-    public static final class ReturnException extends HGSEvalException {
-        private final Object returnValue;
-
-        /**
-         * Creates a new instance
-         *
-         * @param returnValue the return value
-         */
-        ReturnException(Object returnValue) {
-            super("return");
-            this.returnValue = returnValue;
-        }
-
-        /**
-         * @return the return value
-         */
-        public Object getReturnValue() {
-            return returnValue;
         }
     }
 }

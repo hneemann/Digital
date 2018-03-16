@@ -33,7 +33,7 @@ public class ParserTest extends TestCase {
         assertEquals(6L, new Parser("2*(1+2)").parseExp().value(new Context()));
 
         try {
-            new Parser("1+").parseExp().value(new Context());
+            new Parser("1+").parseExp();
             fail();
         } catch (ParserException e) {
             assertTrue(true);
@@ -317,7 +317,13 @@ public class ParserTest extends TestCase {
         assertEquals("18", exec("<? m=newList(); m[0]=func(a){ l=newList(); l[0]=a*a+2; return l;};  print(m[0](4)[0]);?>").toString());
 
         try {
-            assertEquals("18", exec("<? f=func(a){return a;}; f(1)=5; ?>").toString());
+            exec("<? f=func(a){return a;}; f(1)=5; ?>");
+            fail();
+        } catch (HGSEvalException e) {
+        }
+
+        try {
+            exec("<? return 1; ?>");
             fail();
         } catch (HGSEvalException e) {
         }

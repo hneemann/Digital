@@ -20,7 +20,7 @@ public abstract class Function extends InnerFunction {
     /**
      * Creates a new function
      *
-     * @param argCount the number of arguments
+     * @param argCount the number of arguments, The value -1 means any number is allowed!
      */
     public Function(int argCount) {
         super(argCount);
@@ -49,6 +49,8 @@ public abstract class Function extends InnerFunction {
 
     /**
      * Evaluates this function.
+     * If you did not use -1 as the argument number, you don't have to check the argument count.
+     * If you used -1 as the argument number, you have!
      *
      * @param args the arguments
      * @return the result
