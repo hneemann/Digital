@@ -8,7 +8,7 @@ package de.neemann.digital.hdl.hgs.refs;
 import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Expression;
-import de.neemann.digital.hdl.hgs.function.Function;
+import de.neemann.digital.hdl.hgs.function.InnerFunction;
 
 import java.util.ArrayList;
 
@@ -38,11 +38,11 @@ public class ReferenceToFunc implements Reference {
     @Override
     public Object get(Context context) throws HGSEvalException {
         Object funcObj = parent.get(context);
-        if (funcObj instanceof Function) {
-            final Function func = (Function) funcObj;
+        if (funcObj instanceof InnerFunction) {
+            final InnerFunction func = (InnerFunction) funcObj;
             if (func.getArgCount() >= 0 && func.getArgCount() != args.size())
                 throw new HGSEvalException("wrong number of arguments! found: " + args.size() + ", expected: " + func.getArgCount());
-            return func.callWithExpressions(context, args);
+            return func.call(context, args);
         }
         throw new HGSEvalException("Value is not a function!");
     }

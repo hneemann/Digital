@@ -6,8 +6,8 @@
 package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.hdl.hgs.function.Func;
-import de.neemann.digital.hdl.hgs.function.FuncAdapter;
 import de.neemann.digital.hdl.hgs.function.Function;
+import de.neemann.digital.hdl.hgs.function.InnerFunction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,7 +121,7 @@ public class Context {
      * @param func the function
      * @return this for chained calls
      */
-    public Context addFunc(String name, Function func) {
+    public Context addFunc(String name, InnerFunction func) {
         return setVar(name, func);
     }
 
@@ -188,49 +188,49 @@ public class Context {
      * @return the function
      * @throws HGSEvalException HGSEvalException
      */
-    public FuncAdapter getFunction(String funcName) throws HGSEvalException {
+    public Function getFunction(String funcName) throws HGSEvalException {
         Object fObj = getVar(funcName);
-        if (fObj instanceof FuncAdapter)
-            return (FuncAdapter) fObj;
+        if (fObj instanceof Function)
+            return (Function) fObj;
         else
             throw new HGSEvalException("Variable '" + funcName + "' is not a function");
     }
 
-    private static final class FunctionPrint extends Function {
+    private static final class FunctionPrint extends InnerFunction {
 
         private FunctionPrint() {
             super(-1);
         }
 
         @Override
-        public Object callWithExpressions(Context c, ArrayList<Expression> args) throws HGSEvalException {
+        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
             for (Expression arg : args)
                 c.print(arg.value(c).toString());
             return null;
         }
     }
 
-    private static final class FunctionPrintf extends Function {
+    private static final class FunctionPrintf extends InnerFunction {
 
         private FunctionPrintf() {
             super(-1);
         }
 
         @Override
-        public Object callWithExpressions(Context c, ArrayList<Expression> args) throws HGSEvalException {
+        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
             c.print(format(c, args));
             return null;
         }
     }
 
-    private static final class FunctionFormat extends Function {
+    private static final class FunctionFormat extends InnerFunction {
 
         private FunctionFormat() {
             super(-1);
         }
 
         @Override
-        public Object callWithExpressions(Context c, ArrayList<Expression> args) throws HGSEvalException {
+        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
             return format(c, args);
         }
     }
@@ -246,14 +246,14 @@ public class Context {
         return String.format(Value.toString(args.get(0).value(c)), eval.toArray());
     }
 
-    private static final class FunctionIsPresent extends Function {
+    private static final class FunctionIsPresent extends InnerFunction {
 
         private FunctionIsPresent() {
             super(1);
         }
 
         @Override
-        public Object callWithExpressions(Context c, ArrayList<Expression> args) {
+        public Object call(Context c, ArrayList<Expression> args) {
             try {
                 args.get(0).value(c);
                 return true;
@@ -263,7 +263,7 @@ public class Context {
         }
     }
 
-    private static final class FunctionPanic extends FuncAdapter {
+    private static final class FunctionPanic extends Function {
         private FunctionPanic() {
             super(1);
         }

@@ -9,9 +9,9 @@ import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 
 /**
- * A call to a first class function
+ * A call to a first class function.
  */
-public final class FirstClassFunctionCall extends FuncAdapter {
+public final class FirstClassFunctionCall extends Function {
     private final FirstClassFunction func;
     private final Context capturedContext;
 

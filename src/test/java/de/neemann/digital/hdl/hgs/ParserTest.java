@@ -5,8 +5,7 @@
  */
 package de.neemann.digital.hdl.hgs;
 
-import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
-import de.neemann.digital.hdl.hgs.function.FuncAdapter;
+import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import junit.framework.TestCase;
@@ -254,7 +253,7 @@ public class ParserTest extends TestCase {
 
     public void testAddFunction() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("a : in <?=type(Bits)?>;").parse();
-        Context funcs = new Context().setVar("type", new FuncAdapter(1) {
+        Context funcs = new Context().setVar("type", new Function(1) {
             @Override
             protected Object f(Object... args) throws HGSEvalException {
                 int n = Value.toInt(args[0]);
@@ -278,7 +277,7 @@ public class ParserTest extends TestCase {
         flag = 0;
         Statement s = new Parser("a : in <? type(7); ?>;").parse();
 
-        Context c = new Context().addFunc("type", new FuncAdapter(1) {
+        Context c = new Context().addFunc("type", new Function(1) {
             @Override
             protected Object f(Object... args) throws HGSEvalException {
                 flag = Value.toInt(args[0]);
@@ -303,8 +302,8 @@ public class ParserTest extends TestCase {
         Parser p = new Parser("<? @f=func(a){return a*a+2;};  print(f(4));?>");
         p.parse();
         Object fObj = p.getStaticContext().getVar("f");
-        assertTrue(fObj instanceof FuncAdapter);
-        FuncAdapter f = (FuncAdapter) fObj;
+        assertTrue(fObj instanceof Function);
+        Function f = (Function) fObj;
         assertEquals(11L, f.call(3));
     }
 
@@ -331,13 +330,13 @@ public class ParserTest extends TestCase {
 
     public void testFirstClassFunctionLambda() throws IOException, ParserException, HGSEvalException {
         Context c = exec("<? outer=5; f=func(x) {return x+outer;}; ?>");
-        FuncAdapter f = c.getFunction("f");
+        Function f = c.getFunction("f");
         assertEquals(6L,f.call(1));
         assertEquals(7L,f.call(2));
 
         c = exec("<? f=func(x){ return func(u){return u*x;};}; a=f(2); b=f(5); ?>");
-        FuncAdapter a = c.getFunction("a");
-        FuncAdapter b = c.getFunction("b");
+        Function a = c.getFunction("a");
+        Function b = c.getFunction("b");
         assertEquals(4L,a.call(2));
         assertEquals(6L,a.call(3));
         assertEquals(10L,b.call(2));

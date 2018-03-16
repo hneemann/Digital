@@ -6,8 +6,8 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.hdl.hgs.*;
-import de.neemann.digital.hdl.hgs.function.FuncAdapter;
 import de.neemann.digital.hdl.hgs.function.Function;
+import de.neemann.digital.hdl.hgs.function.InnerFunction;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -34,25 +34,25 @@ public class VHDLTemplate implements VHDLEntity {
             .addFunc("type", new FunctionType())
             .addFunc("genericType", new FunctionGenericType())
             .addFunc("value", new FunctionValue())
-            .addFunc("beginGenericPort", new Function(0) {
+            .addFunc("beginGenericPort", new InnerFunction(0) {
                 @Override
-                public Object callWithExpressions(Context c, ArrayList<Expression> args) throws HGSEvalException {
+                public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
                     c.setVar("portStartPos", c.length());
                     return null;
                 }
             })
-            .addFunc("endGenericPort", new Function(0) {
+            .addFunc("endGenericPort", new InnerFunction(0) {
                 @Override
-                public Object callWithExpressions(Context c, ArrayList<Expression> args) throws HGSEvalException {
+                public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
                     int start = Value.toInt(c.getVar("portStartPos"));
                     String portDecl = c.toString().substring(start);
                     c.setVar("portDecl", portDecl);
                     return null;
                 }
             })
-            .addFunc("registerGeneric", new Function(-1) {
+            .addFunc("registerGeneric", new InnerFunction(-1) {
                 @Override
-                public Object callWithExpressions(Context c, ArrayList<Expression> args) throws HGSEvalException {
+                public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
                     List<Generic> generics;
                     if (c.contains("generics"))
                         generics = (List<Generic>) c.getVar("generics");
@@ -239,7 +239,7 @@ public class VHDLTemplate implements VHDLEntity {
         }
     }
 
-    private final static class FunctionType extends FuncAdapter {
+    private final static class FunctionType extends Function {
 
         private FunctionType() {
             super(1);
@@ -258,7 +258,7 @@ public class VHDLTemplate implements VHDLEntity {
 
     }
 
-    private final static class FunctionGenericType extends FuncAdapter {
+    private final static class FunctionGenericType extends Function {
 
         private FunctionGenericType() {
             super(1);
@@ -275,7 +275,7 @@ public class VHDLTemplate implements VHDLEntity {
 
     }
 
-    private final static class FunctionZero extends FuncAdapter {
+    private final static class FunctionZero extends Function {
 
         private FunctionZero() {
             super(1);
@@ -292,7 +292,7 @@ public class VHDLTemplate implements VHDLEntity {
 
     }
 
-    private final static class FunctionValue extends FuncAdapter {
+    private final static class FunctionValue extends Function {
         /**
          * Creates a new function
          */

@@ -11,7 +11,7 @@ import de.neemann.digital.hdl.hgs.HGSEvalException;
  * A function.
  * Can be used to define a function by a lambda expression.
  */
-public class Func extends FuncAdapter {
+public class Func extends Function {
     private final Interface func;
 
     /**
