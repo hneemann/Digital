@@ -73,7 +73,7 @@ public class VHDLTemplate implements VHDLEntity {
                         }
                     });
         } catch (HGSEvalException e) {
-            throw new RuntimeException("error creating templöate built-in's!");
+            throw new RuntimeException("error creating template built-in's!");
         }
     }
 
@@ -195,7 +195,6 @@ public class VHDLTemplate implements VHDLEntity {
     }
 
     private final class Entity {
-
         private final String code;
         private final String portDecl;
         private final String name;
@@ -242,7 +241,7 @@ public class VHDLTemplate implements VHDLEntity {
             return name;
         }
 
-        public List<Generic> getGenerics() {
+        private List<Generic> getGenerics() {
             return generics;
         }
     }
@@ -327,11 +326,9 @@ public class VHDLTemplate implements VHDLEntity {
 
             return s;
         }
-
     }
 
     private static final class Generic {
-
         private final String name;
         private final String type;
 
