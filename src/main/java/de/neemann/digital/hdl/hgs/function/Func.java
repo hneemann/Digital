@@ -8,7 +8,6 @@ package de.neemann.digital.hdl.hgs.function;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 
 /**
- * A function.
  * Can be used to define a function by a lambda expression.
  */
 public class Func extends Function {
@@ -31,7 +30,7 @@ public class Func extends Function {
     }
 
     /**
-     * A fimple function
+     * A simple function
      */
     public interface Interface {
         /**
