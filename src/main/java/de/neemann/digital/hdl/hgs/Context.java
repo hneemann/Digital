@@ -8,6 +8,7 @@ package de.neemann.digital.hdl.hgs;
 import de.neemann.digital.hdl.hgs.function.Func;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.InnerFunction;
+import de.neemann.digital.hdl.hgs.function.JavaMethod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -150,6 +151,32 @@ public class Context {
      */
     public Context declareFunc(String name, InnerFunction func) throws HGSEvalException {
         return declareVar(name, func);
+    }
+
+    /**
+     * Adds a static java method to the context.
+     * The method can then be called from the template code.
+     *
+     * @param name  the name
+     * @param clazz the class of the method
+     * @return this for chained calls
+     * @throws HGSEvalException HGSEvalException
+     */
+    public Context declareStaticMethod(String name, Class clazz) throws HGSEvalException {
+        return declareFunc(name, JavaMethod.create(clazz, name));
+    }
+
+    /**
+     * Adds a non static java method to the context.
+     * The method can then be called from the template code.
+     *
+     * @param name     the name
+     * @param instance the instance to call the method on
+     * @return this for chained calls
+     * @throws HGSEvalException HGSEvalException
+     */
+    public Context declareMethod(String name, Object instance) throws HGSEvalException {
+        return declareFunc(name, JavaMethod.create(instance, name));
     }
 
     /**

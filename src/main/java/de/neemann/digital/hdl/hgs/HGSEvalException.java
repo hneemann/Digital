@@ -17,4 +17,14 @@ public class HGSEvalException extends Exception {
     public HGSEvalException(String message) {
         super(message);
     }
+
+    /**
+     * Creates a new instance
+     *
+     * @param message the message
+     * @param cause   the cause
+     */
+    public HGSEvalException(String message, Exception cause) {
+        super(message, cause);
+    }
 }

@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.hgs;
 
+import de.neemann.digital.hdl.hgs.function.JavaMethod;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
@@ -395,6 +396,53 @@ public class ParserTest extends TestCase {
         assertEquals(1L, dec.call());
         assertEquals(0L, dec.call());
         assertEquals(1L, inc.call());
+    }
+
+    public String javaFunc(Long n, String text) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++)
+            sb.append(text);
+        return sb.toString();
+    }
+
+    private int inner = 0;
+
+    public void javaFunc2() {
+        inner = 5;
+    }
+
+    public static String javaFunc3(String text) {
+        return text + text;
+    }
+
+    public static String javaFunc4(Context c, String text) {
+        return text + c.toString();
+    }
+
+    public static String javaFunc5(Context c) {
+        return c.toString();
+    }
+
+    public void testJavaMethod() throws ParserException, IOException, HGSEvalException {
+        Context c = exec("<? print(javaFunc(2,\"Test\"),\"-\",javaFunc(5,\"a\"));?>",
+                new Context().declareMethod("javaFunc", this));
+        assertEquals("TestTest-aaaaa", c.toString());
+
+        c = exec("<? print(javaFunc3(\"Test\"));?>",
+                new Context().declareStaticMethod("javaFunc3", ParserTest.class));
+        assertEquals("TestTest", c.toString());
+
+        exec("<? javaFunc2();?>",
+                new Context().declareMethod("javaFunc2", this));
+        assertEquals(5, inner);
+
+        c = exec("Hello World!<? print(javaFunc4(\"-Test-\"));?>",
+                new Context().declareStaticMethod("javaFunc4", ParserTest.class));
+        assertEquals("Hello World!-Test-Hello World!", c.toString());
+
+        c = exec("Hello World!<? print(javaFunc5());?>",
+                new Context().declareStaticMethod("javaFunc5", ParserTest.class));
+        assertEquals("Hello World!Hello World!", c.toString());
     }
 
     public void testPanic() throws IOException, ParserException, HGSEvalException {
