@@ -9,28 +9,28 @@ USE ieee.std_logic_1164.all;
 ?>
 
 entity <?=entityName?> is
-  <?beginGenericPort();?>
-  <?if (elem.Bits>1) {?>generic ( Bits: integer ); <?registerGeneric("Bits"); }?>
+  <? vhdl.beginGenericPort();?>
+  <?if (elem.Bits>1) {?>generic ( Bits: integer ); <? vhdl.registerGeneric("Bits"); }?>
   port (
-    PORT_Q: out <?=genericType(elem.Bits)?>;
-    PORT_notQ: out <?=genericType(elem.Bits)?>;
+    PORT_Q: out <?= vhdl.genericType(elem.Bits)?>;
+    PORT_notQ: out <?= vhdl.genericType(elem.Bits)?>;
     PORT_Set: in std_logic;
-    PORT_D: in <?=genericType(elem.Bits)?>;
+    PORT_D: in <?= vhdl.genericType(elem.Bits)?>;
     PORT_C: in std_logic;
     PORT_Clr: in std_logic );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is
-   signal state : <?=genericType(elem.Bits)?> := <?=zero(elem.Bits)?>;
+   signal state : <?= vhdl.genericType(elem.Bits)?> := <?= vhdl.zero(elem.Bits)?>;
 begin
 
     process ( PORT_Set, PORT_Clr, PORT_C )
     begin
         if (PORT_Set='1') then
-            state <= NOT(<?=zero(elem.Bits)?>);
+            state <= NOT(<?= vhdl.zero(elem.Bits)?>);
         elsif (PORT_Clr='1') then
-            state <= <?=zero(elem.Bits)?>;
+            state <= <?= vhdl.zero(elem.Bits)?>;
         elsif rising_edge(PORT_C) then
             state <= PORT_D;
         end if;

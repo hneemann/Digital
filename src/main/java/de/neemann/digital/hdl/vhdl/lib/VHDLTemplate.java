@@ -6,8 +6,7 @@
 package de.neemann.digital.hdl.vhdl.lib;
 
 import de.neemann.digital.hdl.hgs.*;
-import de.neemann.digital.hdl.hgs.function.Function;
-import de.neemann.digital.hdl.hgs.function.InnerFunction;
+import de.neemann.digital.hdl.hgs.function.JavaClass;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.model.Port;
@@ -20,7 +19,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static de.neemann.digital.hdl.vhdl.VHDLLibrary.writePort;
 
@@ -28,58 +26,10 @@ import static de.neemann.digital.hdl.vhdl.VHDLLibrary.writePort;
  * Reads a file with the vhdl code to create the entity
  */
 public class VHDLTemplate implements VHDLEntity {
+    private static final JavaClass<VHDLTemplateFunctions> TEMP_FUNCTIONS_CLASS
+            = new JavaClass<>(VHDLTemplateFunctions.class);
+    private static final String ENTITY_PREFIX = "DIG_";
 
-    private static Context createBuitInContext() {
-        try {
-            return new Context()
-                    .declareFunc("zero", new FunctionZero())
-                    .declareFunc("type", new FunctionType())
-                    .declareFunc("genericType", new FunctionGenericType())
-                    .declareFunc("value", new FunctionValue())
-                    .declareFunc("beginGenericPort", new InnerFunction(0) {
-                        @Override
-                        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
-                            c.declareVar("portStartPos", c.length());
-                            return null;
-                        }
-                    })
-                    .declareFunc("endGenericPort", new InnerFunction(0) {
-                        @Override
-                        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
-                            int start = Value.toInt(c.getVar("portStartPos"));
-                            String portDecl = c.toString().substring(start);
-                            c.declareVar("portDecl", portDecl);
-                            return null;
-                        }
-                    })
-                    .declareFunc("registerGeneric", new InnerFunction(-1) {
-                        @Override
-                        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
-                            List<Generic> generics;
-                            if (c.contains("generics"))
-                                generics = (List<Generic>) c.getVar("generics");
-                            else {
-                                generics = new ArrayList<>();
-                                c.declareVar("generics", generics);
-                            }
-                            String name = Value.toString(args.get(0).value(c));
-                            if (args.size() == 1)
-                                generics.add(new Generic(name, "Integer"));
-                            else if (args.size() == 2)
-                                generics.add(new Generic(name, Value.toString(args.get(1).value(c))));
-                            else
-                                throw new HGSEvalException("registerGeneric needs one or two arguments!");
-                            return null;
-                        }
-                    });
-        } catch (HGSEvalException e) {
-            throw new RuntimeException("error creating template built-in's!");
-        }
-    }
-
-    private static final Context VHDLCONTEXT = createBuitInContext();
-
-    private final static String ENTITY_PREFIX = "DIG_";
     private final Statement statements;
     private final String entityName;
     private HashMap<String, Entity> entities;
@@ -124,7 +74,7 @@ public class VHDLTemplate implements VHDLEntity {
             Entity e = getEntity(node);
             if (!e.isWritten()) {
                 out.print(e.getCode());
-                e.setWritten(true);
+                e.setWritten();
             }
         } catch (HGSEvalException e) {
             throw new IOException("error evaluating the template " + createFileName(entityName), e);
@@ -164,13 +114,13 @@ public class VHDLTemplate implements VHDLEntity {
     public void writeGenericMap(CodePrinter out, HDLNode node) throws IOException {
         try {
             final Entity e = getEntity(node);
-            if (e.getGenerics() != null) {
+            if (!e.getGenerics().isEmpty()) {
                 out.println("generic map (").inc();
                 Separator semic = new Separator(",\n");
-                for (Generic gen : e.getGenerics()) {
+                for (VHDLTemplateFunctions.Generic gen : e.getGenerics()) {
                     semic.check(out);
-                    final Object value = node.getAttributes().hgsMapGet(gen.name);
-                    out.print(gen.name).print(" => ").print(gen.format(value));
+                    final Object value = node.getAttributes().hgsMapGet(gen.getName());
+                    out.print(gen.getName()).print(" => ").print(gen.format(value));
                 }
                 out.println(")").dec();
             }
@@ -196,24 +146,17 @@ public class VHDLTemplate implements VHDLEntity {
 
     private final class Entity {
         private final String code;
-        private final String portDecl;
         private final String name;
-        private final List<Generic> generics;
+        private final VHDLTemplateFunctions helper;
         private boolean isWritten = false;
 
         private Entity(HDLNode node, String name) throws HGSEvalException {
-            final Context c = new Context(VHDLCONTEXT)
-                    .declareVar("elem", node.getAttributes());
+            helper = new VHDLTemplateFunctions();
+            final Context c = new Context()
+                    .declareVar("elem", node.getAttributes())
+                    .declareVar("vhdl", TEMP_FUNCTIONS_CLASS.createMap(helper));
             statements.execute(c);
             code = c.toString();
-            if (c.contains("portDecl"))
-                portDecl = c.getVar("portDecl").toString();
-            else
-                portDecl = null;
-            if (c.contains("generics"))
-                generics = (List<Generic>) c.getVar("generics");
-            else
-                generics = null;
 
             if (c.contains("entityName"))
                 this.name = c.getVar("entityName").toString();
@@ -226,129 +169,25 @@ public class VHDLTemplate implements VHDLEntity {
         }
 
         private String getPortDecl() {
-            return portDecl;
+            return helper.getPortDecl();
         }
 
         private boolean isWritten() {
             return isWritten;
         }
 
-        private void setWritten(boolean written) {
-            isWritten = written;
+        private void setWritten() {
+            isWritten = true;
         }
 
         private String getName() {
             return name;
         }
 
-        private List<Generic> getGenerics() {
-            return generics;
+        private ArrayList<VHDLTemplateFunctions.Generic> getGenerics() {
+            return helper.getGenerics();
         }
     }
 
-    private final static class FunctionType extends Function {
-
-        private FunctionType() {
-            super(1);
-        }
-
-        @Override
-        protected Object f(Object... args) throws HGSEvalException {
-            int bits = Value.toInt(args[0]);
-            if (bits == 0)
-                throw new HGSEvalException("zero bits is not allowed!");
-            if (bits == 1)
-                return "std_logic";
-            else
-                return "std_logic_vector (" + (bits - 1) + " downto 0)";
-        }
-
-    }
-
-    private final static class FunctionGenericType extends Function {
-
-        private FunctionGenericType() {
-            super(1);
-        }
-
-        @Override
-        protected Object f(Object... args) throws HGSEvalException {
-            int n = Value.toInt(args[0]);
-            if (n == 1)
-                return "std_logic";
-            else
-                return "std_logic_vector ((Bits-1) downto 0)";
-        }
-
-    }
-
-    private final static class FunctionZero extends Function {
-
-        private FunctionZero() {
-            super(1);
-        }
-
-        @Override
-        protected Object f(Object... args) throws HGSEvalException {
-            int n = Value.toInt(args[0]);
-            if (n == 1)
-                return "'0'";
-            else
-                return "(others => '0')";
-        }
-
-    }
-
-    private final static class FunctionValue extends Function {
-        /**
-         * Creates a new function
-         */
-        private FunctionValue() {
-            super(2);
-        }
-
-        @Override
-        protected Object f(Object... args) throws HGSEvalException {
-            int val = Value.toInt(args[0]);
-            int bits = Value.toInt(args[1]);
-            return getBin(val, bits);
-        }
-
-        private static String getBin(int val, int bits) {
-            String s = Integer.toBinaryString(val);
-            while (s.length() < bits)
-                s = "0" + s;
-
-            if (bits > 1)
-                s = "\"" + s + "\"";
-            else
-                s = "'" + s + "'";
-
-            return s;
-        }
-    }
-
-    private static final class Generic {
-        private final String name;
-        private final String type;
-
-        private Generic(String name, String type) {
-            this.name = name;
-            this.type = type.toLowerCase();
-        }
-
-        public String format(Object o) throws HGSEvalException {
-            switch (type) {
-                case "integer":
-                    return Long.toString(Value.toLong(o));
-                case "real":
-                    return Double.toString(Value.toDouble(o));
-                case "std_logic":
-                    return "'" + (Value.toBool(o) ? 1 : 0) + "'";
-                default:
-                    throw new HGSEvalException("type " + type + " not allowed as generic");
-            }
-        }
-    }
 }
 

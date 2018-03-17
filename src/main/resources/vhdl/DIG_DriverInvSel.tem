@@ -9,13 +9,13 @@ USE ieee.std_logic_1164.all;
 ?>
 
 entity <?=entityName?> is
-  <?beginGenericPort();?>
-  <?if (elem.Bits>1) {?>generic ( Bits : integer ); <?registerGeneric("Bits"); }?>
+  <? vhdl.beginGenericPort();?>
+  <?if (elem.Bits>1) {?>generic ( Bits : integer ); <? vhdl.registerGeneric("Bits"); }?>
   port (
-    PORT_out: out <?=genericType(elem.Bits)?>;
-    PORT_in: in <?=genericType(elem.Bits)?>;
+    PORT_out: out <?= vhdl.genericType(elem.Bits)?>;
+    PORT_in: in <?= vhdl.genericType(elem.Bits)?>;
     PORT_sel: in std_logic );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is

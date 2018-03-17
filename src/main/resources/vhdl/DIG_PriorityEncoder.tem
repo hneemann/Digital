@@ -8,7 +8,7 @@ USE ieee.std_logic_1164.all;
 
 entity <?=entityName?> is
   port (
-    PORT_num: out <?=type(elem.'Selector Bits')?>;
+    PORT_num: out <?= vhdl.type(elem.'Selector Bits')?>;
     PORT_any: out std_logic;
     <? for (n:=0;n<inputs;n++) { ?>
     PORT_in<?=n?>: in std_logic<?if (n=inputs-1) print(" )"); ?>;
@@ -19,9 +19,9 @@ architecture <?=entityName?>_arch of <?=entityName?> is
 begin
   PORT_num <=
     <? for (n:=inputs-1;n>0;n--) { ?>
-    <?=value(n,elem.'Selector Bits')?> when PORT_in<?=n?> = '1' else
+    <?= vhdl.value(n,elem.'Selector Bits')?> when PORT_in<?=n?> = '1' else
     <? } ?>
-    <?=value(0,elem.'Selector Bits')?> ;
+    <?= vhdl.value(0,elem.'Selector Bits')?> ;
   PORT_any <= <?
       for (n:=0;n<inputs;n++) {
         print("PORT_in",n);

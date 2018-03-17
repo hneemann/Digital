@@ -3,13 +3,13 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
 entity DIG_Mul is
-  <?beginGenericPort();?>
-  generic ( Bits: integer ); <?registerGeneric("Bits");?>
+  <? vhdl.beginGenericPort();?>
+  generic ( Bits: integer ); <? vhdl.registerGeneric("Bits");?>
   port (
     PORT_a: in std_logic_vector ((Bits-1) downto 0);
     PORT_b: in std_logic_vector ((Bits-1) downto 0);
     PORT_mul: out std_logic_vector ((Bits*2-1) downto 0) );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end DIG_Mul;
 
 architecture DIG_Mul_arch of DIG_Mul is

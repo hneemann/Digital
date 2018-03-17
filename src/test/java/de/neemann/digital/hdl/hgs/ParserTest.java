@@ -5,7 +5,7 @@
  */
 package de.neemann.digital.hdl.hgs;
 
-import de.neemann.digital.hdl.hgs.function.JavaMethod;
+import de.neemann.digital.hdl.hgs.function.JavaClass;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
@@ -405,45 +405,59 @@ public class ParserTest extends TestCase {
         return sb.toString();
     }
 
-    private int inner = 0;
+    public static final class TestClass {
+        private long inner;
 
-    public void javaFunc2() {
-        inner = 5;
+        public void add(long n) {
+            inner += n;
+        }
+
+        public void sub(long n) {
+            inner -= n;
+        }
     }
 
-    public static String javaFunc3(String text) {
-        return text + text;
+    public static final class TestClassStatic {
+        private static long inner;
+
+        public static void set(long n) {
+            inner = n;
+        }
+
+        public static void add(long n) {
+            inner += n;
+        }
+
+        public static void sub(long n) {
+            inner -= n;
+        }
+
+        public static String mean(String... value) {
+            String sum = "";
+            for (int i = 0; i < value.length; i++)
+                sum += value[i];
+            return sum;
+        }
     }
 
-    public static String javaFunc4(Context c, String text) {
-        return text + c.toString();
+    public void testJavaClass() throws ParserException, IOException, HGSEvalException {
+        JavaClass<TestClass> jc = new JavaClass<>(TestClass.class);
+        TestClass t = new TestClass();
+        exec("<? z.add(6);z.sub(3); ?>",
+                new Context().declareVar("z", jc.createMap(t)));
+        assertEquals(3L, t.inner);
+
+        JavaClass<TestClassStatic> jcs = new JavaClass<>(TestClassStatic.class);
+        exec("<? z.set(0);z.add(6);z.sub(3); ?>",
+                new Context().declareVar("z", jcs.createMap(null)));
+        assertEquals(3L, TestClassStatic.inner);
+
+
+        Context c = exec("<? print(z.mean(\"a\"), z.mean(\"a\",\"b\"), z.mean(\"a\",\"b\",\"c\")); ?>",
+                new Context().declareVar("z", jcs.createMap(null)));
+        assertEquals("aababc",c.toString());
     }
 
-    public static String javaFunc5(Context c) {
-        return c.toString();
-    }
-
-    public void testJavaMethod() throws ParserException, IOException, HGSEvalException {
-        Context c = exec("<? print(javaFunc(2,\"Test\"),\"-\",javaFunc(5,\"a\"));?>",
-                new Context().declareMethod("javaFunc", this));
-        assertEquals("TestTest-aaaaa", c.toString());
-
-        c = exec("<? print(javaFunc3(\"Test\"));?>",
-                new Context().declareStaticMethod("javaFunc3", ParserTest.class));
-        assertEquals("TestTest", c.toString());
-
-        exec("<? javaFunc2();?>",
-                new Context().declareMethod("javaFunc2", this));
-        assertEquals(5, inner);
-
-        c = exec("Hello World!<? print(javaFunc4(\"-Test-\"));?>",
-                new Context().declareStaticMethod("javaFunc4", ParserTest.class));
-        assertEquals("Hello World!-Test-Hello World!", c.toString());
-
-        c = exec("Hello World!<? print(javaFunc5());?>",
-                new Context().declareStaticMethod("javaFunc5", ParserTest.class));
-        assertEquals("Hello World!Hello World!", c.toString());
-    }
 
     public void testPanic() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("<? if (i>1) panic(\"myError\"); ?>").parse();

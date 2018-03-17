@@ -4,13 +4,13 @@ USE ieee.numeric_std.all;
 USE ieee.std_logic_unsigned.all;
 
 entity DIG_simpleClockDivider is
-  <?beginGenericPort();?>
+  <? vhdl.beginGenericPort();?>
   generic (
-    maxCounter : integer );  <?registerGeneric("maxCounter");?>
+    maxCounter : integer );  <? vhdl.registerGeneric("maxCounter");?>
   port (
     PORT_out: out std_logic;
     PORT_in: in std_logic );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end DIG_simpleClockDivider;
 
 architecture DIG_simpleClockDivider_arch of DIG_simpleClockDivider is

@@ -11,16 +11,16 @@ USE ieee.std_logic_1164.all;
 ?>
 
 entity <?=entityName?> is
-<? beginGenericPort();?>
+<? vhdl.beginGenericPort();?>
   <? if (elem.Bits>1) { ?>
-  generic ( Bits : integer ); <? registerGeneric("Bits");?>
+  generic ( Bits : integer ); <? vhdl.registerGeneric("Bits");?>
   <? } ?>
   port (
-    PORT_out: out <?=genericType(elem.Bits)?>;
-    PORT_sel: in <?=type(elem.'Selector Bits')?>;
+    PORT_out: out <?= vhdl.genericType(elem.Bits)?>;
+    PORT_sel: in <?= vhdl.type(elem.'Selector Bits')?>;
     <? for (n:=0;n<inputs;n++) { ?>
-    PORT_in_<?=n?>: in <?=genericType(elem.Bits); if (n<inputs-1) print(";"); }?> );
-  <? endGenericPort();?>
+    PORT_in_<?=n?>: in <?= vhdl.genericType(elem.Bits); if (n<inputs-1) print(";"); }?> );
+  <? vhdl.endGenericPort();?>
 end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is
@@ -28,6 +28,6 @@ begin
   with PORT_sel select
     PORT_out <=
       <? for (n:=0;n<inputs;n++) { ?>
-      PORT_in_<?=n?> when <?=value(n, elem.'Selector Bits') ?>,
-      <? } print(zero(elem.Bits));?> when others;
+      PORT_in_<?=n?> when <?= vhdl.value(n, elem.'Selector Bits') ?>,
+      <? } print( vhdl.zero(elem.Bits));?> when others;
 end <?=entityName?>_arch;

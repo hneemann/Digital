@@ -9,18 +9,18 @@ USE ieee.std_logic_1164.all;
 ?>
 
 entity <?=entityName?> is
-  <?beginGenericPort();?>
-  <?if (elem.Bits>1) {?>generic ( Bits: integer ); <?registerGeneric("Bits"); }?>
+  <? vhdl.beginGenericPort();?>
+  <?if (elem.Bits>1) {?>generic ( Bits: integer ); <? vhdl.registerGeneric("Bits"); }?>
   port (
-    PORT_Q: out <?=genericType(elem.Bits)?>;
-    PORT_D: in <?=genericType(elem.Bits)?>;
+    PORT_Q: out <?= vhdl.genericType(elem.Bits)?>;
+    PORT_D: in <?= vhdl.genericType(elem.Bits)?>;
     PORT_C: in std_logic;
     PORT_en: in std_logic );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is
-  signal state : <?=genericType(elem.Bits)?> := <?=zero(elem.Bits)?>;
+  signal state : <?= vhdl.genericType(elem.Bits)?> := <?= vhdl.zero(elem.Bits)?>;
 begin
    PORT_Q <= state;
 

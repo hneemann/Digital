@@ -3,10 +3,10 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
 entity DIG_RAMDualAccess is
-  <?beginGenericPort();?>
+  <? vhdl.beginGenericPort();?>
   generic (
-    Bits : integer;       <?registerGeneric("Bits");?>
-    AddrBits : integer ); <?registerGeneric("AddrBits");?>
+    Bits : integer;       <? vhdl.registerGeneric("Bits");?>
+    AddrBits : integer ); <? vhdl.registerGeneric("AddrBits");?>
   port (
     PORT_1D: out std_logic_vector ((Bits-1) downto 0);
     PORT_2D: out std_logic_vector ((Bits-1) downto 0);
@@ -16,7 +16,7 @@ entity DIG_RAMDualAccess is
     PORT_1A: in std_logic_vector ((AddrBits-1) downto 0);
     PORT_1Din: in std_logic_vector ((Bits-1) downto 0);
     PORT_2A: in std_logic_vector ((AddrBits-1) downto 0) );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end DIG_RAMDualAccess;
 
 architecture DIG_RAMDualAccess_arch of DIG_RAMDualAccess is

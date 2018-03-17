@@ -5,21 +5,21 @@ Library UNISIM;
 use UNISIM.vcomponents.all;
 
 entity DIG_MMCME2_BASE is
-  <?beginGenericPort();?>
+  <? vhdl.beginGenericPort();?>
   generic (
-    D_PARAM : integer;<?   registerGeneric("D_PARAM");?>
-    M_PARAM : real;<?      registerGeneric("M_PARAM","real");?>
+    D_PARAM : integer;<?   vhdl.registerGeneric("D_PARAM");?>
+    M_PARAM : real;<?      vhdl.registerGeneric("M_PARAM","real");?>
 <? if (elem.cascading) {?>
-    DIV_PARAM : integer;<? registerGeneric("DIV_PARAM");?>
-    DIV4_PARAM : integer;<?registerGeneric("DIV4_PARAM");?>
+    DIV_PARAM : integer;<? vhdl.registerGeneric("DIV_PARAM");?>
+    DIV4_PARAM : integer;<?vhdl.registerGeneric("DIV4_PARAM");?>
 <? } else { ?>
-    DIV_PARAM : real;<?    registerGeneric("DIV_PARAM","real");?>
+    DIV_PARAM : real;<?    vhdl.registerGeneric("DIV_PARAM","real");?>
 <? } ?>
-    PERIOD_PARAM: real);<? registerGeneric("PERIOD_PARAM","real");?>
+    PERIOD_PARAM: real);<? vhdl.registerGeneric("PERIOD_PARAM","real");?>
   port (
     PORT_in: in std_logic;
     PORT_out: out std_logic );
-<?endGenericPort();?>
+<? vhdl.endGenericPort();?>
 end DIG_MMCME2_BASE;
 
 architecture DIG_MMCME2_BASE_arch of DIG_MMCME2_BASE is

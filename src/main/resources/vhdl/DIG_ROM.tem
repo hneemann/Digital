@@ -10,20 +10,20 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity <?=entityName?> is
   port (
-    PORT_D: out <?=type(elem.Bits)?>;
-    PORT_A: in <?=type(elem.AddrBits)?>;
+    PORT_D: out <?= vhdl.type(elem.Bits)?>;
+    PORT_A: in <?= vhdl.type(elem.AddrBits)?>;
     PORT_sel: in std_logic );
 end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is
-  type mem is array ( 0 to <?=sizeOf(elem.Data)-1?>) of <?=type(elem.Bits)?>;
+  type mem is array ( 0 to <?=sizeOf(elem.Data)-1?>) of <?= vhdl.type(elem.Bits)?>;
   constant my_Rom : mem := (
     <?
 
     len:=sizeOf(elem.Data);
     col:=0;
     for (i:=0;i<len;i++) {
-        print(value(elem.Data[i],elem.Bits));
+        print( vhdl.value(elem.Data[i],elem.Bits));
         if (i<len-1) {
             print(", ");
         }
@@ -40,8 +40,8 @@ begin
   begin
     if PORT_sel='0' then
       PORT_D <= <? if (elem.Bits>1) {?>(others => 'Z')<? } else {?>'Z'<? } ?>;
-    elsif PORT_A > <?=value(sizeOf(elem.Data)-1,elem.AddrBits)?> then
-      PORT_D <= <?=zero(elem.Bits)?>;
+    elsif PORT_A > <?= vhdl.value(sizeOf(elem.Data)-1,elem.AddrBits)?> then
+      PORT_D <= <?= vhdl.zero(elem.Bits)?>;
     else
       PORT_D <= my_rom(to_integer(unsigned(PORT_A)));
     end if;

@@ -10,22 +10,22 @@ USE ieee.std_logic_1164.all;
 ?>
 
 entity <?=entityName?> is
-<? beginGenericPort();?>
+<? vhdl.beginGenericPort();?>
   <? if (elem.Bits>1) { ?>
-  generic ( Bits : integer );<? registerGeneric("Bits");?>
+  generic ( Bits : integer );<?  vhdl.registerGeneric("Bits");?>
   <? } ?>
   port (
     <? for (i:=0;i<outputs;i++) {?>
-    PORT_out_<?=i?>: out <?=genericType(elem.Bits)?>;
+    PORT_out_<?=i?>: out <?= vhdl.genericType(elem.Bits)?>;
     <? } ?>
-    PORT_sel: in <?=type(elem.'Selector Bits')?>;
-    PORT_in: in <?=genericType(elem.Bits)?> );
-<? endGenericPort();?>
+    PORT_sel: in <?= vhdl.type(elem.'Selector Bits')?>;
+    PORT_in: in <?= vhdl.genericType(elem.Bits)?> );
+<? vhdl.endGenericPort();?>
 end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is
 begin
 <? for (i:=0;i<outputs;i++) {?>
-    PORT_out_<?=i?> <= PORT_in when PORT_sel = <?=value(i,elem.'Selector Bits')?> else <?=zero(elem.Bits)?>;
+    PORT_out_<?=i?> <= PORT_in when PORT_sel = <?= vhdl.value(i,elem.'Selector Bits')?> else <?= vhdl.zero(elem.Bits)?>;
 <? } ?>
 end <?=entityName?>_arch;

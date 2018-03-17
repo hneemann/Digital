@@ -3,15 +3,15 @@ USE ieee.std_logic_1164.all;
 USE ieee.std_logic_unsigned.all;
 
 entity DIG_Counter is
-  <?beginGenericPort();?>
-  generic ( Bits: integer ); <?registerGeneric("Bits");?>
+  <? vhdl.beginGenericPort();?>
+  generic ( Bits: integer ); <? vhdl.registerGeneric("Bits");?>
   port (
     PORT_out: out std_logic_vector((Bits-1) downto 0);
     PORT_ovf: out std_logic;
     PORT_C: in std_logic;
     PORT_en: in std_logic;
     PORT_clr: in std_logic );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end DIG_Counter;
 
 architecture DIG_Counter_arch of DIG_Counter is

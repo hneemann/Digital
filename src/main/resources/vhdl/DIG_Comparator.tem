@@ -10,15 +10,15 @@ USE ieee.std_logic_1164.all;
 
 ?>
 entity <?=entityName?> is
-  <?beginGenericPort();?>
-  generic ( Bits : integer );<?registerGeneric("Bits");?>
+  <? vhdl.beginGenericPort();?>
+  generic ( Bits : integer );<? vhdl.registerGeneric("Bits");?>
   port (
     PORT_gr: out std_logic;
     PORT_eq: out std_logic;
     PORT_le: out std_logic;
-    PORT_a: in <?=genericType(elem.Bits)?>;
-    PORT_b: in <?=genericType(elem.Bits)?> );
-<?endGenericPort();?>
+    PORT_a: in <?= vhdl.genericType(elem.Bits)?>;
+    PORT_b: in <?= vhdl.genericType(elem.Bits)?> );
+<? vhdl.endGenericPort();?>
 end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is

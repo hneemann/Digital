@@ -3,15 +3,15 @@ USE ieee.std_logic_1164.all;
 USE ieee.std_logic_unsigned.all;
 
 entity DIG_Add is
-  <?beginGenericPort();?>
-  generic ( Bits: integer ); <?registerGeneric("Bits");?>
+  <? vhdl.beginGenericPort();?>
+  generic ( Bits: integer ); <? vhdl.registerGeneric("Bits");?>
   port (
     PORT_s: out std_logic_vector((Bits-1) downto 0);
     PORT_c_o: out std_logic;
     PORT_a: in std_logic_vector((Bits-1) downto 0);
     PORT_b: in std_logic_vector((Bits-1) downto 0);
     PORT_c_i: in std_logic );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end DIG_Add;
 
 architecture DIG_Add_arch of DIG_Add is

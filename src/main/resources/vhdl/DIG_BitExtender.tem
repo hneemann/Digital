@@ -5,13 +5,13 @@ USE ieee.std_logic_1164.all;
      entityName:="DIG_BitExtender";?>
 
 entity DIG_BitExtender is
-  <?beginGenericPort();?>
-  generic ( inputBits  : integer;  <?registerGeneric("inputBits");?>
-            outputBits : integer); <?registerGeneric("outputBits");?>
+  <? vhdl.beginGenericPort();?>
+  generic ( inputBits  : integer;  <? vhdl.registerGeneric("inputBits");?>
+            outputBits : integer); <? vhdl.registerGeneric("outputBits");?>
   port (
     PORT_in: in std_logic_vector ((inputBits-1) downto 0);
     PORT_out: out std_logic_vector ((outputBits-1) downto 0) );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end DIG_BitExtender;
 
 architecture DIG_BitExtender_arch of DIG_BitExtender is
@@ -24,12 +24,12 @@ end DIG_BitExtender_arch;
       entityName:="DIG_BitExtenderSingle";
 ?>
 entity DIG_BitExtenderSingle is
-  <?beginGenericPort();?>
-  generic ( outputBits : integer); <?registerGeneric("outputBits");?>
+  <? vhdl.beginGenericPort();?>
+  generic ( outputBits : integer); <? vhdl.registerGeneric("outputBits");?>
   port (
     PORT_in: in std_logic;
     PORT_out: out std_logic_vector ((outputBits-1) downto 0) );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end DIG_BitExtenderSingle;
 
 architecture DIG_BitExtenderSingle_arch of DIG_BitExtenderSingle is

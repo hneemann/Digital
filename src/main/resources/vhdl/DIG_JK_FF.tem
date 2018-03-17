@@ -2,15 +2,15 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
 entity DIG_JK_FF is
-  <?beginGenericPort();?>
-  generic (Default : std_logic);  <?registerGeneric("Default", "std_logic");?>
+  <? vhdl.beginGenericPort();?>
+  generic (Default : std_logic);  <? vhdl.registerGeneric("Default", "std_logic");?>
   port (
     PORT_Q: out std_logic;
     PORT_notQ: out std_logic;
     PORT_J: in std_logic;
     PORT_C: in std_logic;
     PORT_K: in std_logic );
-  <?endGenericPort();?>
+  <? vhdl.endGenericPort();?>
 end DIG_JK_FF;
 
 architecture DIG_JK_FF_arch of DIG_JK_FF is
