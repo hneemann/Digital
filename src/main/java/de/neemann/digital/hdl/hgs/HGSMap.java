@@ -11,26 +11,15 @@ package de.neemann.digital.hdl.hgs;
 public interface HGSMap {
 
     /**
-     * Returns true if the map contains the key.
-     * If this method always returns true, it's not possible to write new
-     * values to the map. In this case you can only overwrite existing values.
-     *
-     * @param key the key
-     * @return true if contained in the map
-     * @throws HGSEvalException HGSEvalException
-     */
-    default boolean hgsMapContains(String key) throws HGSEvalException {
-        return true;
-    }
-
-    /**
      * Sets a value to the map.
      *
      * @param key the key
      * @param val value
      * @throws HGSEvalException HGSEvalException
      */
-    void hgsMapPut(String key, Object val) throws HGSEvalException;
+    default void hgsMapPut(String key, Object val) throws HGSEvalException {
+        throw new HGSEvalException("It's not allowed to set a value to this map!");
+    }
 
     /**
      * Gets a value from the map.

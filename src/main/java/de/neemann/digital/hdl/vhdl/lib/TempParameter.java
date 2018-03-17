@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.hdl.vhdl.lib;
 
-import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.HGSMap;
 
 import java.util.HashMap;
@@ -34,11 +33,6 @@ public class TempParameter implements HGSMap {
     public TempParameter put(String name, Object value) {
         map.put(name, value);
         return this;
-    }
-
-    @Override
-    public void hgsMapPut(String key, Object val) throws HGSEvalException {
-        throw new HGSEvalException("it's not allowed to write to the parameters");
     }
 
     @Override

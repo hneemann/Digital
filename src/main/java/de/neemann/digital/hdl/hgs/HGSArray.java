@@ -35,7 +35,9 @@ public interface HGSArray {
      * @param val value
      * @throws HGSEvalException HGSEvalException
      */
-    void hgsArraySet(int i, Object val) throws HGSEvalException;
+    default void hgsArraySet(int i, Object val) throws HGSEvalException {
+        throw new HGSEvalException("It's not allowed to set a value to this array");
+    };
 
     /**
      * Gets a value from the array.

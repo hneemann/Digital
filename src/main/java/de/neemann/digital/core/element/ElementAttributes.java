@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.core.element;
 
-import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.HGSMap;
 
 import java.io.File;
@@ -309,11 +308,6 @@ public class ElementAttributes implements HGSMap {
         } catch (NumberFormatException e) {
             return 0;
         }
-    }
-
-    @Override
-    public void hgsMapPut(String key, Object val) throws HGSEvalException {
-        throw new HGSEvalException("It's not allowed to set a value to this map!");
     }
 
     @Override

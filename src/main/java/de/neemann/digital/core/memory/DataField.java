@@ -7,7 +7,6 @@ package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.HGSArray;
-import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
@@ -239,11 +238,6 @@ public class DataField implements HGSArray {
     @Override
     public int hgsArraySize() {
         return data.length;
-    }
-
-    @Override
-    public void hgsArraySet(int i, Object val) throws HGSEvalException {
-        throw new HGSEvalException("It's not allowed to set a value to this array");
     }
 
     @Override

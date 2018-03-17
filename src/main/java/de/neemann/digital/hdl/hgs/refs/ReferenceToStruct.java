@@ -31,7 +31,7 @@ public class ReferenceToStruct implements Reference {
     @Override
     public void declareVar(Context context, Object initial) throws HGSEvalException {
         final HGSMap hgsMap = Value.toMap(parent.get(context));
-        if (hgsMap.hgsMapContains(name))
+        if (hgsMap.hgsMapGet(name) != null)
             throw new HGSEvalException("Value '" + name + "' redeclared in struct!");
 
         hgsMap.hgsMapPut(name, initial);
@@ -40,7 +40,7 @@ public class ReferenceToStruct implements Reference {
     @Override
     public void set(Context context, Object value) throws HGSEvalException {
         final HGSMap hgsMap = Value.toMap(parent.get(context));
-        if (!hgsMap.hgsMapContains(name))
+        if (hgsMap.hgsMapGet(name) == null)
             throw new HGSEvalException("Value '" + name + "' not declared in struct!");
         hgsMap.hgsMapPut(name, value);
     }

@@ -175,6 +175,17 @@ public class Context {
     }
 
     /**
+     * Clears the output of this context.
+     */
+    public void clearOutput() {
+        if (code != null)
+            code.setLength(0);
+        else
+            parent.clearOutput();
+
+    }
+
+    /**
      * @return the output length
      */
     public int length() {
@@ -185,7 +196,8 @@ public class Context {
     }
 
     /**
-     * Returns a function from this context
+     * Returns a function from this context.
+     * A helper function to obtain a function from java code.
      *
      * @param funcName the functions name
      * @return the function

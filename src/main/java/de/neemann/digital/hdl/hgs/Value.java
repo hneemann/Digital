@@ -234,11 +234,6 @@ public final class Value {
         }
 
         @Override
-        public boolean hgsMapContains(String key) {
-            return map.containsKey(key);
-        }
-
-        @Override
         public void hgsMapPut(String key, Object val) {
             map.put(key, val);
         }
