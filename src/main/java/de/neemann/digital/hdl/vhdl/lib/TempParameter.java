@@ -17,14 +17,14 @@ public class TempParameter implements HGSMap {
     private HashMap<String, Object> map;
 
     /**
-     * creates an empty instance.
+     * Creates an empty instance.
      */
     public TempParameter() {
         this.map = new HashMap<>();
     }
 
     /**
-     * Adds avalue to this map
+     * Adds a value to this map
      *
      * @param name  the name
      * @param value the value
