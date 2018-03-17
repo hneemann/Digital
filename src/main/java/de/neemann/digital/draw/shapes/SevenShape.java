@@ -27,13 +27,13 @@ public abstract class SevenShape implements Shape {
      */
     public static final Polygon FRAME = Polygon.createFromPath("m -10,1 L 70,1 70,139 -10,139 z");
     private static final Polygon[] POLYGONS = new Polygon[]{
-            Polygon.createFromPath("m 9,5 L 55,5 60,11 55,18 8,18 4,12 z"), // A
-            Polygon.createFromPath("m 53,64 L 55,18 60,11 64,18 62,63 57,70 z"), // B
-            Polygon.createFromPath("m 50,122 L 52,77 57,70 61,76 59,122 54,128 z"), // C
-            Polygon.createFromPath("m 3,122 L 50,122 54,128 49,135 3,135 -1,129 z"), // D
-            Polygon.createFromPath("m -5,122 L -3,76 1,70 5,77 3,122 -1,129 z"), // E
-            Polygon.createFromPath("m -2,63 L 0,18 4,12 8,18 6,64 1,70 z"),  // F
-            Polygon.createFromPath("m 6,64 L 53,64 57,70 52,77 5,77 1,70 z"), // G
+            Polygon.createFromPath("m 57,14 L 62,10 57,5 10,5 5,10 9,14 z"), // 0,
+            Polygon.createFromPath("m 53,65 L 57,14 62,10 66,14 63,65 57,70 z"), // 1,
+            Polygon.createFromPath("m 49,126 L 52,75 57,70 62,75 58,126 53,130 z"), // 2,
+            Polygon.createFromPath("m 48,135 L 53,130 49,126 1,126 -3,130 1,135 z"), // 3,
+            Polygon.createFromPath("m -7,126 L -4,75 1,70 5,75 1,126 -3,130 z"), // 4,
+            Polygon.createFromPath("m -3,65 L 0,14 5,10 9,14 6,65 1,70 z"), // 5,
+            Polygon.createFromPath("m 52,75 L 57,70 53,65 6,65 1,70 5,75 z"), // 6,
     };
     private static final Vector DOT = new Vector(58, 127);
 
