@@ -49,7 +49,7 @@ public final class JavaClass<T> {
     }
 
     /**
-     * Creates the method map
+     * Creates the method map.
      *
      * @param instance the instance to call
      * @return the method map
@@ -65,7 +65,7 @@ public final class JavaClass<T> {
         private final int argCount;
         private final int javaArgCount;
         private final boolean isVarArgs;
-        private Class<?> compType;
+        private final Class<?> compType;
 
         private MyMethod(Method method) {
             this.method = method;
@@ -84,6 +84,7 @@ public final class JavaClass<T> {
                     argCount = argTypes.length - 1;
                 else
                     argCount = argTypes.length;
+                compType = null;
             }
         }
 
