@@ -31,7 +31,11 @@ public interface VectorInterface {
     float getYFloat();
 
     /**
-     * @return this vector as a {@link VectorFloat} instance
+     * Transforms the vector with the given transformation.
+     *
+     * @param tr the transformation to use
+     * @return the transformed vector
      */
-    VectorFloat getVectorFloat();
+    VectorInterface transform(Transform tr);
+
 }

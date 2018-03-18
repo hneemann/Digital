@@ -245,7 +245,7 @@ public class Vector implements VectorInterface {
     }
 
     @Override
-    public VectorFloat getVectorFloat() {
-        return new VectorFloat(x, y);
+    public VectorInterface transform(Transform tr) {
+        return tr.transform(this);
     }
 }

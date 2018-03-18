@@ -47,8 +47,8 @@ public class VectorFloat implements VectorInterface {
     }
 
     @Override
-    public VectorFloat getVectorFloat() {
-        return this;
+    public VectorInterface transform(Transform tr) {
+        return tr.transform(this);
     }
 
     /**

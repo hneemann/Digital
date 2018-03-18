@@ -8,7 +8,7 @@ package de.neemann.digital.draw.graphics;
 /**
  * A translation
  */
-public class TransformTranslate extends Transform {
+public class TransformTranslate implements Transform {
     private final VectorInterface trans;
 
     /**

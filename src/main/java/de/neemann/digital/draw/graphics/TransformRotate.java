@@ -8,7 +8,7 @@ package de.neemann.digital.draw.graphics;
 /**
  * Implements a rotation and translation.
  */
-public class TransformRotate extends Transform {
+public class TransformRotate implements Transform {
 
     private final int sin;
     private final int cos;

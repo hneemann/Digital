@@ -8,7 +8,7 @@ package de.neemann.digital.draw.graphics;
 /**
  * A simple transformation to a given vector
  */
-public abstract class Transform {
+public interface Transform {
 
     /**
      * Transforms an integer vector
@@ -16,7 +16,7 @@ public abstract class Transform {
      * @param v the vector to transform
      * @return the transformed vector
      */
-    public abstract Vector transform(Vector v);
+    Vector transform(Vector v);
 
     /**
      * Transforms an float vector
@@ -24,19 +24,6 @@ public abstract class Transform {
      * @param v the vector to transform
      * @return the transformed vector
      */
-    public abstract VectorFloat transform(VectorFloat v);
-
-    /**
-     * Transforms an vector interface
-     *
-     * @param v the vector to transform
-     * @return the transformed vector
-     */
-    public VectorInterface transform(VectorInterface v) {
-        if (v instanceof Vector)
-            return transform((Vector) v);
-        else
-            return transform(v.getVectorFloat());
-    }
+    VectorFloat transform(VectorFloat v);
 
 }

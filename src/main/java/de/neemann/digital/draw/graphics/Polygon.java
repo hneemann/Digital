@@ -200,7 +200,7 @@ public class Polygon implements Iterable<VectorInterface> {
     public Polygon transform(Transform transform) {
         Polygon p = new Polygon(closed);
         for (VectorInterface v : points)
-            p.add(transform.transform(v));
+            p.add(v.transform(transform));
         p.isBezierStart.addAll(isBezierStart);
         return p;
     }
