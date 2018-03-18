@@ -6,7 +6,7 @@
 package de.neemann.digital.draw.graphics;
 
 /**
- * The bas class of all vectors
+ * The base interface of all vectors
  */
 public interface VectorInterface {
 
@@ -31,7 +31,7 @@ public interface VectorInterface {
     float getYFloat();
 
     /**
-     * @return this vactor as a {@link VectorFloat} instance
+     * @return this vector as a {@link VectorFloat} instance
      */
     VectorFloat getVectorFloat();
 }

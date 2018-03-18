@@ -42,20 +42,6 @@ public class Vector implements VectorInterface {
         this(pos.x, pos.y);
     }
 
-
-    /**
-     * Returns a new vector
-     * shorthand for new Vector(x,y)
-     *
-     * @param x x
-     * @param y y
-     * @return the vector
-     */
-    public static Vector vec(int x, int y) {
-        return new Vector(x, y);
-    }
-
-
     /**
      * returns the minimum vector from the given vectors.
      *
@@ -198,8 +184,7 @@ public class Vector implements VectorInterface {
 
         Vector vector = (Vector) o;
 
-        if (x != vector.x) return false;
-        return y == vector.y;
+        return x == vector.x && y == vector.y;
 
     }
 

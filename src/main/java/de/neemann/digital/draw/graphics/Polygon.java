@@ -217,7 +217,7 @@ public class Polygon implements Iterable<VectorInterface> {
         float y = 0;
         boolean closed = false;
         ArrayList<VectorInterface> list = new ArrayList<>();
-        String lastTok = null;
+        String lastTok = "";
         while (tok.hasMoreTokens()) {
             final String t = tok.nextToken();
             switch (t) {
