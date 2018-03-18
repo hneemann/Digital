@@ -10,6 +10,7 @@ import de.neemann.digital.hdl.hgs.Expression;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.HGSMap;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -56,6 +57,7 @@ public final class JavaClass<T> {
         private final int argCount;
         private final int javaArgCount;
         private final boolean isVarArgs;
+        private Class<?> compType;
 
         private MyMethod(Method method, boolean isStatic) {
             this.method = method;
@@ -68,6 +70,7 @@ public final class JavaClass<T> {
             isVarArgs = method.isVarArgs();
             if (isVarArgs) {
                 argCount = -1;
+                compType = argTypes[argTypes.length - 1].getComponentType();
             } else {
                 if (addContext)
                     argCount = argTypes.length - 1;
@@ -95,18 +98,24 @@ public final class JavaClass<T> {
                     i++;
                 }
             } else {
-                // ellipse
-                int fixed = javaArgCount - i - 1;
-                for (int n = 0; n < fixed; n++) {
-                    a[i] = args.get(n).value(c);
-                    i++;
-                }
-                final int numVarArgs = args.size() - fixed;
-                String[] varArgs = new String[numVarArgs];
-                for (int n = fixed; n < args.size(); n++)
-                    varArgs[n - fixed] = args.get(n).value(c).toString();
+                try {
+                    // ellipse
+                    int fixed = javaArgCount - i - 1;
+                    for (int n = 0; n < fixed; n++) {
+                        a[i] = args.get(n).value(c);
+                        i++;
+                    }
+                    final int numVarArgs = args.size() - fixed;
+                    Object varArgs = Array.newInstance(compType, numVarArgs);
+                    for (int n = fixed; n < args.size(); n++)
+                        Array.set(varArgs, n - fixed, args.get(n).value(c));
 
-                a[i] = varArgs;
+                    a[i] = varArgs;
+                } catch (RuntimeException e) {
+                    throw new HGSEvalException("type error assigning value to var array in "
+                            + method.getName() + ". Type "
+                            + compType.getSimpleName() + " is required.");
+                }
             }
 
             try {

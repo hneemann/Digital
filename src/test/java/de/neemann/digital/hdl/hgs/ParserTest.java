@@ -432,11 +432,18 @@ public class ParserTest extends TestCase {
             inner -= n;
         }
 
-        public static String mean(String... value) {
+        public static String concat(String... value) {
             String sum = "";
             for (int i = 0; i < value.length; i++)
                 sum += value[i];
             return sum;
+        }
+
+        public static long mean(long... value) {
+            long sum = 0;
+            for (int i = 0; i < value.length; i++)
+                sum += value[i];
+            return sum / value.length;
         }
     }
 
@@ -453,9 +460,13 @@ public class ParserTest extends TestCase {
         assertEquals(3L, TestClassStatic.inner);
 
 
-        Context c = exec("<? print(z.mean(\"a\"), z.mean(\"a\",\"b\"), z.mean(\"a\",\"b\",\"c\")); ?>",
+        Context c = exec("<? print(z.concat(\"a\"), z.concat(\"a\",\"b\"), z.concat(\"a\",\"b\",\"c\")); ?>",
                 new Context().declareVar("z", jcs.createMap(null)));
-        assertEquals("aababc",c.toString());
+        assertEquals("aababc", c.toString());
+
+        c = exec("<? print(z.mean(1),\",\",z.mean(3,5),\",\",z.mean(3,4,5)); ?>",
+                new Context().declareVar("z", jcs.createMap(null)));
+        assertEquals("1,4,4", c.toString());
     }
 
 
