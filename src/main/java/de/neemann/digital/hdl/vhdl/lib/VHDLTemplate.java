@@ -23,7 +23,7 @@ import java.util.HashMap;
 import static de.neemann.digital.hdl.vhdl.VHDLLibrary.writePort;
 
 /**
- * Reads a file with the vhdl code to create the entity
+ * Reads a file with the vhdl code to create the entity.
  */
 public class VHDLTemplate implements VHDLEntity {
     private static final JavaClass<VHDLTemplateFunctions> TEMP_FUNCTIONS_CLASS

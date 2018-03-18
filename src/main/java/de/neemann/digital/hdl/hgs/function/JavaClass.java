@@ -19,7 +19,10 @@ import java.util.HashMap;
 
 /**
  * Used to call a java function from the template code.
- * Uses reflection to invoke the method;
+ * Uses reflection to invoke the methods.
+ * All public methods which are declared in the given class are available via a
+ * {@link HGSMap} instance obtained by calling {@link JavaClass#createMap(Object)}.
+ * See {@link de.neemann.digital.hdl.vhdl.lib.VHDLTemplate} as an example.
  *
  * @param <T> the type of the instance
  */
@@ -40,7 +43,7 @@ public final class JavaClass<T> {
                 if (methods.containsKey(name))
                     throw new RuntimeException("Method overloading ("
                             + name + ") is not supported! Try to use the ellipsis (...) instead.");
-                methods.put(name, new MyMethod<>(m, Modifier.isStatic(mod)));
+                methods.put(name, new MyMethod<>(m));
             }
         }
     }
@@ -64,9 +67,9 @@ public final class JavaClass<T> {
         private final boolean isVarArgs;
         private Class<?> compType;
 
-        private MyMethod(Method method, boolean isStatic) {
+        private MyMethod(Method method) {
             this.method = method;
-            this.isStatic = isStatic;
+            this.isStatic = Modifier.isStatic(method.getModifiers());
 
             Class<?>[] argTypes = method.getParameterTypes();
             javaArgCount = argTypes.length;
@@ -151,7 +154,6 @@ public final class JavaClass<T> {
             if (m == null) return null;
             return new MethodCall<>(m, instance);
         }
-
     }
 
     private static final class MethodCall<T> extends InnerFunction {
