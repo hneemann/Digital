@@ -208,7 +208,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         if (transform == null) {
             int rotate = getRotate();
             if (rotate == 0)
-                transform = v -> v.add(pos);
+                transform = new TransformTranslate(pos);
             else
                 transform = new TransformRotate(pos, rotate);
         }

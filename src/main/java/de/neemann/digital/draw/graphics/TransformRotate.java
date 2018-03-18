@@ -8,11 +8,11 @@ package de.neemann.digital.draw.graphics;
 /**
  * Implements a rotation and translation.
  */
-public class TransformRotate implements Transform {
+public class TransformRotate extends Transform {
 
     private final int sin;
     private final int cos;
-    private final Vector translation;
+    private final VectorInterface translation;
 
     /**
      * Creates a new instance
@@ -20,7 +20,7 @@ public class TransformRotate implements Transform {
      * @param translation the translation
      * @param rot         the rotation
      */
-    public TransformRotate(Vector translation, int rot) {
+    public TransformRotate(VectorInterface translation, int rot) {
         this.translation = translation;
         switch (rot) {
             case 1:
@@ -44,6 +44,13 @@ public class TransformRotate implements Transform {
 
     @Override
     public Vector transform(Vector v) {
-        return new Vector(v.x * cos + v.y * sin, -v.x * sin + v.y * cos).add(translation);
+        return new Vector(v.getX() * cos + v.getY() * sin + translation.getX(),
+                -v.getX() * sin + v.getY() * cos + translation.getY());
+    }
+
+    @Override
+    public VectorFloat transform(VectorFloat v) {
+        return new VectorFloat(v.getXFloat() * cos + v.getYFloat() * sin + translation.getXFloat(),
+                -v.getXFloat() * sin + v.getYFloat() * cos + translation.getYFloat());
     }
 }

@@ -13,9 +13,9 @@ import java.util.StringTokenizer;
 /**
  * A polygon representation used by the {@link Graphic} interface.
  */
-public class Polygon implements Iterable<Vector> {
+public class Polygon implements Iterable<VectorInterface> {
 
-    private final ArrayList<Vector> points;
+    private final ArrayList<VectorInterface> points;
     private final HashSet<Integer> isBezierStart;
     private final boolean closed;
 
@@ -41,7 +41,7 @@ public class Polygon implements Iterable<Vector> {
      * @param points the polygons points
      * @param closed true if polygon is closed
      */
-    public Polygon(ArrayList<Vector> points, boolean closed) {
+    public Polygon(ArrayList<VectorInterface> points, boolean closed) {
         this.points = points;
         this.closed = closed;
         isBezierStart = new HashSet<>();
@@ -71,7 +71,7 @@ public class Polygon implements Iterable<Vector> {
      * @param p the point to add
      * @return this for chained calls
      */
-    public Polygon add(Vector p) {
+    public Polygon add(VectorInterface p) {
         points.add(p);
         return this;
     }
@@ -115,12 +115,12 @@ public class Polygon implements Iterable<Vector> {
      * @param i the index
      * @return the i'th point
      */
-    public Vector get(int i) {
+    public VectorInterface get(int i) {
         return points.get(i);
     }
 
     @Override
-    public Iterator<Vector> iterator() {
+    public Iterator<VectorInterface> iterator() {
         return points.iterator();
     }
 
@@ -152,14 +152,14 @@ public class Polygon implements Iterable<Vector> {
     /**
      * @return the first point of the polygon
      */
-    public Vector getFirst() {
+    public VectorInterface getFirst() {
         return points.get(0);
     }
 
     /**
      * @return the last point of the polygon
      */
-    public Vector getLast() {
+    public VectorInterface getLast() {
         return points.get(points.size() - 1);
     }
 
@@ -199,7 +199,7 @@ public class Polygon implements Iterable<Vector> {
      */
     public Polygon transform(Transform transform) {
         Polygon p = new Polygon(closed);
-        for (Vector v : points)
+        for (VectorInterface v : points)
             p.add(transform.transform(v));
         p.isBezierStart.addAll(isBezierStart);
         return p;
@@ -213,56 +213,56 @@ public class Polygon implements Iterable<Vector> {
      */
     public static Polygon createFromPath(String path) {
         StringTokenizer tok = new StringTokenizer(path, " ,");
-        int x = 0;
-        int y = 0;
+        float x = 0;
+        float y = 0;
         boolean closed = false;
-        ArrayList<Vector> list = new ArrayList<>();
+        ArrayList<VectorInterface> list = new ArrayList<>();
         String lastTok = null;
         while (tok.hasMoreTokens()) {
             final String t = tok.nextToken();
             switch (t) {
                 case "M":
-                    x = Integer.parseInt(tok.nextToken());
-                    y = Integer.parseInt(tok.nextToken());
-                    list.add(new Vector(x, y));
+                    x = Float.parseFloat(tok.nextToken());
+                    y = Float.parseFloat(tok.nextToken());
+                    list.add(new VectorFloat(x, y));
                     lastTok = t;
                     break;
                 case "m":
-                    x += Integer.parseInt(tok.nextToken());
-                    y += Integer.parseInt(tok.nextToken());
-                    list.add(new Vector(x, y));
+                    x += Float.parseFloat(tok.nextToken());
+                    y += Float.parseFloat(tok.nextToken());
+                    list.add(new VectorFloat(x, y));
                     lastTok = t;
                     break;
                 case "V":
-                    y = Integer.parseInt(tok.nextToken());
-                    list.add(new Vector(x, y));
+                    y = Float.parseFloat(tok.nextToken());
+                    list.add(new VectorFloat(x, y));
                     lastTok = t;
                     break;
                 case "v":
-                    y += Integer.parseInt(tok.nextToken());
-                    list.add(new Vector(x, y));
+                    y += Float.parseFloat(tok.nextToken());
+                    list.add(new VectorFloat(x, y));
                     lastTok = t;
                     break;
                 case "H":
-                    x = Integer.parseInt(tok.nextToken());
-                    list.add(new Vector(x, y));
+                    x = Float.parseFloat(tok.nextToken());
+                    list.add(new VectorFloat(x, y));
                     lastTok = t;
                     break;
                 case "h":
-                    x += Integer.parseInt(tok.nextToken());
-                    list.add(new Vector(x, y));
+                    x += Float.parseFloat(tok.nextToken());
+                    list.add(new VectorFloat(x, y));
                     lastTok = t;
                     break;
                 case "l":
-                    x += Integer.parseInt(tok.nextToken());
-                    y += Integer.parseInt(tok.nextToken());
-                    list.add(new Vector(x, y));
+                    x += Float.parseFloat(tok.nextToken());
+                    y += Float.parseFloat(tok.nextToken());
+                    list.add(new VectorFloat(x, y));
                     lastTok = t;
                     break;
                 case "L":
-                    x = Integer.parseInt(tok.nextToken());
-                    y = Integer.parseInt(tok.nextToken());
-                    list.add(new Vector(x, y));
+                    x = Float.parseFloat(tok.nextToken());
+                    y = Float.parseFloat(tok.nextToken());
+                    list.add(new VectorFloat(x, y));
                     lastTok = t;
                     break;
                 case "Z":
@@ -272,30 +272,30 @@ public class Polygon implements Iterable<Vector> {
                 default:
                     switch (lastTok) {
                         case "V":
-                            y = Integer.parseInt(t);
-                            list.add(new Vector(x, y));
+                            y = Float.parseFloat(t);
+                            list.add(new VectorFloat(x, y));
                             break;
                         case "v":
-                            y += Integer.parseInt(t);
-                            list.add(new Vector(x, y));
+                            y += Float.parseFloat(t);
+                            list.add(new VectorFloat(x, y));
                             break;
                         case "H":
-                            x = Integer.parseInt(t);
-                            list.add(new Vector(x, y));
+                            x = Float.parseFloat(t);
+                            list.add(new VectorFloat(x, y));
                             break;
                         case "h":
-                            x += Integer.parseInt(t);
-                            list.add(new Vector(x, y));
+                            x += Float.parseFloat(t);
+                            list.add(new VectorFloat(x, y));
                             break;
                         case "l":
-                            x += Integer.parseInt(t);
-                            y += Integer.parseInt(tok.nextToken());
-                            list.add(new Vector(x, y));
+                            x += Float.parseFloat(t);
+                            y += Float.parseFloat(tok.nextToken());
+                            list.add(new VectorFloat(x, y));
                             break;
                         case "L":
-                            x = Integer.parseInt(t);
-                            y = Integer.parseInt(tok.nextToken());
-                            list.add(new Vector(x, y));
+                            x = Float.parseFloat(t);
+                            y = Float.parseFloat(tok.nextToken());
+                            list.add(new VectorFloat(x, y));
                             break;
                         default:
                             return null;

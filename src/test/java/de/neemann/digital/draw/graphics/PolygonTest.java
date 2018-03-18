@@ -18,9 +18,9 @@ public class PolygonTest extends TestCase {
 
     private void check(Polygon p) {
         assertEquals(4, p.size());
-        assertEquals(new Vector(10, 10), p.get(0));
-        assertEquals(new Vector(20, 10), p.get(1));
-        assertEquals(new Vector(20, 20), p.get(2));
-        assertEquals(new Vector(10, 20), p.get(3));
+        assertEquals(new VectorFloat(10, 10), p.get(0));
+        assertEquals(new VectorFloat(20, 10), p.get(1));
+        assertEquals(new VectorFloat(20, 20), p.get(2));
+        assertEquals(new VectorFloat(10, 20), p.get(3));
     }
 }

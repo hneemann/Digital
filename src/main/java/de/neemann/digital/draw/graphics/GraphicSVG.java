@@ -296,8 +296,8 @@ public class GraphicSVG implements Graphic {
         }
     }
 
-    private String str(Vector p) {
-        return p.x + "," + p.y;
+    private String str(VectorInterface p) {
+        return p.getXFloat() + "," + p.getYFloat();
     }
 
 }

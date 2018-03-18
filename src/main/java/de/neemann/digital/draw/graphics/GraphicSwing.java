@@ -68,13 +68,15 @@ public class GraphicSwing implements Graphic {
         //CHECKSTYLE.OFF: ModifiedControlVariable
         for (int i = 0; i < p.size(); i++) {
             if (i == 0) {
-                path.moveTo(p.get(i).x, p.get(i).y);
+                path.moveTo(p.get(i).getXFloat(), p.get(i).getYFloat());
             } else {
                 if (p.isBezierStart(i)) {
-                    path.curveTo(p.get(i).x, p.get(i).y, p.get(i + 1).x, p.get(i + 1).y, p.get(i + 2).x, p.get(i + 2).y);
+                    path.curveTo(p.get(i).getXFloat(), p.get(i).getYFloat(),
+                            p.get(i + 1).getXFloat(), p.get(i + 1).getYFloat(),
+                            p.get(i + 2).getXFloat(), p.get(i + 2).getYFloat());
                     i += 2;
                 } else
-                    path.lineTo(p.get(i).x, p.get(i).y);
+                    path.lineTo(p.get(i).getXFloat(), p.get(i).getYFloat());
             }
         }
         //CHECKSTYLE.ON: ModifiedControlVariable

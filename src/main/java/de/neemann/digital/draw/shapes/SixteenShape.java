@@ -29,22 +29,22 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 public class SixteenShape implements Shape {
 
     private static final Polygon[] POLYGONS = new Polygon[]{
-            Polygon.createFromPath("m 10,5 L 29,5 33,10 28,14 9,14 5,10 z"), // 0,
-            Polygon.createFromPath("m 38,5 L 57,5 62,10 57,14 38,14 33,10 z"), // 1,
-            Polygon.createFromPath("m 53,65 L 57,14 62,10 66,14 63,65 57,70 z"), // 2,
-            Polygon.createFromPath("m 49,126 L 52,75 57,70 62,75 58,126 53,130 z"), // 3,
-            Polygon.createFromPath("m 30,126 L 49,126 53,130 48,135 29,135 25,130 z"), // 4,
-            Polygon.createFromPath("m 1,126 L 20,126 25,130 20,135 1,135 -3,130 z"), // 5,
-            Polygon.createFromPath("m -7,126 L -4,75 1,70 5,75 1,126 -3,130 z"), // 6,
-            Polygon.createFromPath("m -3,65 L 0,14 5,10 9,14 6,65 1,70 z"), // 7,
-            Polygon.createFromPath("m 6,65 L 25,65 29,70 24,75 5,75 1,70 z"), // 8,
-            Polygon.createFromPath("m 34,65 L 53,65 57,70 52,75 33,75 29,70 z"), // 9,
-            Polygon.createFromPath("m 14,14 L 26,56 25,65 20,65 8,24 9,14 z"), // 10,
-            Polygon.createFromPath("m 25,65 L 28,14 33,10 38,14 34,65 29,70 z"), // 11,
-            Polygon.createFromPath("m 52,14 L 35,56 34,65 39,65 56,24 57,14 z"), // 12,
-            Polygon.createFromPath("m 44,126 L 32,84 33,75 38,75 50,116 49,126 z"), // 13,
-            Polygon.createFromPath("m 20,126 L 24,75 29,70 33,75 30,126 25,130 z"), // 14,
-            Polygon.createFromPath("m 6,126 L 23,84 24,75 19,75 2,116 1,126 z"), // 15,
+            Polygon.createFromPath("m 12.04,5.0 L 25.41,5.0 30.76,10.61 24.89,16.22 11.52,16.22 6.17,10.61 z"), // 0,
+            Polygon.createFromPath("m 39.43,5.0 L 52.8,5.0 58.15,10.61 52.28,16.22 38.91,16.22 33.56,10.61 z"), // 1,
+            Polygon.createFromPath("m 59.49,12.01 L 64.84,17.62 62.74,62.99 56.87,68.6 51.52,62.99 53.62,17.62 z"), // 2,
+            Polygon.createFromPath("m 56.74,71.4 L 62.09,77.01 60.0,122.38 54.13,127.99 48.78,122.38 50.88,77.01 z"), // 3,
+            Polygon.createFromPath("m 33.94,123.78 L 47.32,123.78 52.67,129.39 46.8,135.0 33.43,135.0 28.08,129.39 z"), // 4,
+            Polygon.createFromPath("m 6.55,123.78 L 19.93,123.78 25.28,129.39 19.41,135.0 6.04,135.0 0.69,129.39 z"), // 5,
+            Polygon.createFromPath("m 1.96,71.4 L 7.31,77.01 5.22,122.38 -0.64,127.99 -5.99,122.38 -3.9,77.01 z"), // 6,
+            Polygon.createFromPath("m 4.7,12.01 L 10.05,17.62 7.96,62.99 2.09,68.6 -3.25,62.99 -1.15,17.62 z"), // 7,
+            Polygon.createFromPath("m 9.29,64.39 L 22.67,64.39 28.02,70.0 22.15,75.61 8.78,75.61 3.43,70.0 z"), // 8,
+            Polygon.createFromPath("m 36.69,64.39 L 50.06,64.39 55.41,70.0 49.54,75.61 36.17,75.61 30.82,70.0 z"), // 9,
+            Polygon.createFromPath("m 12.01,18.2 L 17.06,18.2 22.73,50.48 22.18,62.41 17.13,62.41 11.46,30.13 z"), // 10,
+            Polygon.createFromPath("m 32.09,12.01 L 37.44,17.62 35.35,62.99 29.48,68.6 24.13,62.99 26.23,17.62 z"), // 11,
+            Polygon.createFromPath("m 46.56,18.2 L 51.61,18.2 51.06,30.13 42.41,62.41 37.36,62.41 37.91,50.48 z"), // 12,
+            Polygon.createFromPath("m 36.66,77.59 L 41.7,77.59 47.38,109.87 46.83,121.8 41.78,121.8 36.11,89.52 z"), // 13,
+            Polygon.createFromPath("m 29.35,71.4 L 34.7,77.01 32.61,122.38 26.74,127.99 21.39,122.38 23.49,77.01 z"), // 14,
+            Polygon.createFromPath("m 16.43,77.59 L 21.48,77.59 20.93,89.52 12.27,121.8 7.22,121.8 7.78,109.87 z"), // 15,
     };
     private static final Vector DOT = new Vector(58, 127);
 
