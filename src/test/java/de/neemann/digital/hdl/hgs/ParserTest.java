@@ -445,6 +445,13 @@ public class ParserTest extends TestCase {
                 sum += value[i];
             return sum / value.length;
         }
+
+        public static String zzz(Context c, String name, long... value) {
+            long sum = 0;
+            for (int i = 0; i < value.length; i++)
+                sum += value[i];
+            return c.toString() + name + (sum / value.length);
+        }
     }
 
     public void testJavaClass() throws ParserException, IOException, HGSEvalException {
@@ -467,6 +474,10 @@ public class ParserTest extends TestCase {
         c = exec("<? print(z.mean(1),\",\",z.mean(3,5),\",\",z.mean(3,4,5)); ?>",
                 new Context().declareVar("z", jcs.createMap(null)));
         assertEquals("1,4,4", c.toString());
+
+        c = exec("Hello <? print(z.zzz(\"World \",5,7,9)); ?>",
+                new Context().declareVar("z", jcs.createMap(null)));
+        assertEquals("Hello Hello World 7", c.toString());
     }
 
 

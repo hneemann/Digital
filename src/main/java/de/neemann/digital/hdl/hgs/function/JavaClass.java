@@ -35,8 +35,13 @@ public final class JavaClass<T> {
         methods = new HashMap<>();
         for (Method m : clazz.getDeclaredMethods()) {
             int mod = m.getModifiers();
-            if (Modifier.isPublic(mod))
-                methods.put(m.getName(), new MyMethod<>(m, Modifier.isStatic(mod)));
+            if (Modifier.isPublic(mod)) {
+                final String name = m.getName();
+                if (methods.containsKey(name))
+                    throw new RuntimeException("Method overloading ("
+                            + name + ") is not supported! Try to use the ellipsis (...) instead.");
+                methods.put(name, new MyMethod<>(m, Modifier.isStatic(mod)));
+            }
         }
     }
 
@@ -81,10 +86,11 @@ public final class JavaClass<T> {
 
         private Object call(T instance, Context c, ArrayList<Expression> args) throws HGSEvalException {
             if (instance == null && !isStatic)
-                throw new HGSEvalException("function " + method.getName() + " is not static!");
+                throw new HGSEvalException("Function " + method.getName() + " is not static!");
 
             if (argCount >= 0 && argCount != args.size())
-                throw new HGSEvalException("wrong number of arguments! expected: " + argCount + ", but found:" + args.size());
+                throw new HGSEvalException("Wrong number of arguments! expected: "
+                        + argCount + ", but found:" + args.size());
 
             Object[] a = new Object[javaArgCount];
             int i = 0;
@@ -92,24 +98,28 @@ public final class JavaClass<T> {
                 a[0] = c;
                 i++;
             }
+
             if (!isVarArgs) {
                 for (Expression exp : args) {
                     a[i] = exp.value(c);
                     i++;
                 }
             } else {
+                // ellipsis
                 try {
-                    // ellipse
+                    // the fixed args
                     int fixed = javaArgCount - i - 1;
                     for (int n = 0; n < fixed; n++) {
                         a[i] = args.get(n).value(c);
                         i++;
                     }
+                    // put the var args to an array
                     final int numVarArgs = args.size() - fixed;
                     Object varArgs = Array.newInstance(compType, numVarArgs);
                     for (int n = fixed; n < args.size(); n++)
                         Array.set(varArgs, n - fixed, args.get(n).value(c));
 
+                    // and pass the array
                     a[i] = varArgs;
                 } catch (RuntimeException e) {
                     throw new HGSEvalException("type error assigning value to var array in "
