@@ -46,8 +46,8 @@ public class TestInSimulator extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(28, tested);
-            assertEquals(tested, testBenches);
+            assertEquals(30, tested);
+            assertEquals(tested+2, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }
@@ -108,12 +108,12 @@ public class TestInSimulator extends TestCase {
 
     /*
     public void testInSimulatorDebug() throws Exception {
-        File file = new File(Resources.getRoot(),"dig/test/vhdl/BitSelect.dig");
+        File file = new File(Resources.getRoot(),"dig/test/vhdl/counterPre.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
 
-        check(file);
+        checkVHDLExport(file);
     } /* */
 
 

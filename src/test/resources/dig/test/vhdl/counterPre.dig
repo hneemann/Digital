@@ -67,28 +67,28 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk clr en out ov
- 0   1   0  0  0
+            <dataString>clk clr dir in ld  en out ov
+ 0   1 0 0 0  0  0  0
 # not counting if clr is high
- C   1   1  0  0
- C   1   1  0  0
+ C   1 0 0 0  1  0  0
+ C   1 0 0 0  1  0  0
 
 # not counting if en is low
- C   0   0  0  0
- C   0   0  0  0
+ C   0 0 0 0  0  0  0
+ C   0 0 0 0  0  0  0
 
 # normal operation
-repeat(14) C   0   1  (n+1)  0
+repeat(14) C   0 0 0 0  1  (n+1)  0
 
- C   0   1  15  1
- C   0   1  0  0
- C   0   0  0  0
+ C   0 0 0 0  1  15  1
+ C   0 0 0 0  1  0  0
+ C   0 0 0 0  0  0  0
 
 #sync clr
- C   0   1  1  0
- 0   0   0  1  0
- 0   1   0  1  0
- C   1   0  0  0
+ C   0 0 0 0  1  1  0
+ 0   0 0 0 0  0  1  0
+ 0   1 0 0 0  0  1  0
+ C   1 0 0 0  0  0  0
 </dataString>
           </testData>
         </entry>
@@ -150,10 +150,10 @@ repeat(14) C   0   1  (n+1)  0
           <string>Testdata</string>
           <testData>
             <dataString>#preset
-clk clr en ld in out ov
- 0   0  0  0  0   0  0
- c   1  1  1  5   0  0
- c   0  1  1  5   5  0
+clk clr dir en ld in out ov
+ 0   0 0 0  0  0   0  0
+ c   1 0 1  1  5   0  0
+ c   0 0 1  1  5   5  0
 </dataString>
           </testData>
         </entry>
@@ -170,13 +170,13 @@ clk clr en ld in out ov
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk clr dir en out ov
+            <dataString>clk clr dir ld in en out ov
 
 # normal operation up
-repeat(31) C   0   0  1  ((n+1)&amp;0xf)  (((n+1)&amp;0xf)=15)
+repeat(31) C   0   0 0 0 1  ((n+1)&amp;0xf)  (((n+1)&amp;0xf)=15)
 
 # normal operation down
-repeat(32) C   0   1  1  ((0xe-n)&amp;0xf)  (((0xe-n)&amp;0xf)=0)
+repeat(32) C   0   1 0 0 1  ((0xe-n)&amp;0xf)  (((0xe-n)&amp;0xf)=0)
 
 </dataString>
           </testData>

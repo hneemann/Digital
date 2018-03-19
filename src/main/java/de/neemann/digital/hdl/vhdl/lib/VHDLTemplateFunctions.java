@@ -62,7 +62,7 @@ public final class VHDLTemplateFunctions {
     }
 
     /**
-     * Creats the code for a generic type
+     * Creates the code for a generic type
      *
      * @param n the number of bits
      * @return the type

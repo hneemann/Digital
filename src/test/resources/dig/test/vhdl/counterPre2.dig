@@ -61,12 +61,12 @@
       <elementName>CounterPreset</elementName>
       <elementAttributes>
         <entry>
-          <string>Bits</string>
-          <int>4</int>
-        </entry>
-        <entry>
           <string>maxValue</string>
           <int>9</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
         </entry>
       </elementAttributes>
       <pos x="300" y="200"/>
@@ -115,13 +115,13 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk clr dir en out ov
+            <dataString>clk clr ld in dir en out ov
 
 # normal operation up
-repeat(30) C   0   0  1  ((n+1)%10)  (((n+1)%10)=9)
+repeat(30) C 0 0 0  0  1  ((n+1)%10)  (((n+1)%10)=9)
 
 # normal operation down
-repeat(32) C   0   1  1  ((39-n)%10)  ((39-n)%10=0)
+repeat(32) C 0 0 0  1  1  ((39-n)%10)  ((39-n)%10=0)
 
 </dataString>
           </testData>
