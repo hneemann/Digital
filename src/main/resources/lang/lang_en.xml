@@ -526,9 +526,22 @@
     <string name="elem_Counter_pin_C">The clock input. A rising edge increases the counter.</string>
     <string name="elem_Counter_pin_clr">Synchronous reset of the counter if set to 1.</string>
     <string name="elem_Counter_pin_out">Returns the counted value.</string>
-    <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter is on its maximal value and the en input is set to 1.</string>
+    <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter is on its maximal value
+        and the en input is set to 1.</string>
     <string name="elem_Counter_pin_en">If set to 1 the counter is enabled!</string>
 
+    <string name="elem_CounterPreset">Counter with preset</string>
+    <string name="elem_CounterPreset_tt">Counter with preset.</string>
+    <string name="elem_CounterPreset_short">Counter</string>
+    <string name="elem_CounterPreset_pin_out">Returns the counted value.</string>
+    <string name="elem_CounterPreset_pin_ovf">Overflow output. It is set to 1 if the 'en' input is set to 1 and if the
+    counter reaches its maximum value when counting up, or has reached 0 when counting down.</string>
+    <string name="elem_CounterPreset_pin_C">The clock input. A rising edge increases the counter.</string>
+    <string name="elem_CounterPreset_pin_clr">Synchronous reset of the counter if set to 1.</string>
+    <string name="elem_CounterPreset_pin_en">If set to 1 the counter is enabled!</string>
+    <string name="elem_CounterPreset_pin_dir">Specifies the counting direction. A 0 means upwards.</string>
+    <string name="elem_CounterPreset_pin_ld">If set, the value at input 'in' is stored in the counter at the next clock signal.</string>
+    <string name="elem_CounterPreset_pin_in">This data word is stored in the counter when ld  is set.</string>
 
 
     <!--Arithmetic -->
@@ -1076,6 +1089,8 @@
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
         components defined with vhdl.</string>
+    <string name="key_maxValue">Maximum Value</string>
+    <string name="key_maxValue_tt">If a zero is entered, the maximum possible value is used (all bits are one).</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

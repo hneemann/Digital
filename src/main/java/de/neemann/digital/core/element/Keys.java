@@ -59,6 +59,14 @@ public final class Keys {
 
 
     /**
+     * The counter max value
+     */
+    public static final Key.KeyInteger MAX_VALUE
+            = new Key.KeyInteger("maxValue", 0)
+            .setMin(0);
+
+
+    /**
      * the delay time used by the delay component
      */
     public static final Key.KeyInteger DELAY_TIME

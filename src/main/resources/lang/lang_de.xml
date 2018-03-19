@@ -527,6 +527,19 @@
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
     <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
 
+    <string name="elem_CounterPreset">Zähler, beschreibbar</string>
+    <string name="elem_CounterPreset_tt">Zähler, dessen Wert gesetzt werden kann.</string>
+    <string name="elem_CounterPreset_short">Zähler</string>
+    <string name="elem_CounterPreset_pin_out">Gibt den gezählten Wert aus.</string>
+    <string name="elem_CounterPreset_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, der 'en' Eingang auf 1 gesetzt ist
+        und wenn der Zähler beim Aufwärtszählen seinen Maximalwert erreicht, bzw. beim Abwärtszählen die 0 erreicht hat.</string>
+    <string name="elem_CounterPreset_pin_C">Eingang des Taktsignals.</string>
+    <string name="elem_CounterPreset_pin_clr">Setzt den Zähler synchron auf 0 zurück, wenn dieser Eingang auf 1 gesetzt wird.</string>
+    <string name="elem_CounterPreset_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
+    <string name="elem_CounterPreset_pin_dir">Gibt die Zählrichtung an. Eine 0 bedeutet aufwärts.</string>
+    <string name="elem_CounterPreset_pin_ld">Wenn gesetzt wird beim nächsten Taktsignal der Wert am Eingang 'in' in den Zähler übernommen.</string>
+    <string name="elem_CounterPreset_pin_in">Dieses Datenwort wird im Zähler gespeichert, wenn ld=1 gesetzt ist.</string>
+
 
 
     <!--Arithmetik -->
@@ -1085,6 +1098,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
         VHDL-Code verwendet werden soll.</string>
+    <string name="key_maxValue">Maximalwert</string>
+    <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits sind Eins).</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
