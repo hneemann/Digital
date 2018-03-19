@@ -28,12 +28,12 @@ public class VectorFloat implements VectorInterface {
 
     @Override
     public int getX() {
-        return (int) x;
+        return Math.round(x);
     }
 
     @Override
     public int getY() {
-        return (int) y;
+        return Math.round(y);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class VectorFloat implements VectorInterface {
     /**
      * Subtracts the given vector
      *
-     * @param sub the vector zo subtract
+     * @param sub the vector to subtract
      * @return the new vector
      */
     public VectorFloat sub(VectorInterface sub) {
