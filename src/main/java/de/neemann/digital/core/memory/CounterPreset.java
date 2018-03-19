@@ -117,7 +117,7 @@ public class CounterPreset extends Node implements Element {
     public void setInputs(ObservableValues inputs) throws BitsException {
         enable = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
         clockIn = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
-        dir = inputs.get(2).checkBits(1, this, 2);
+        dir = inputs.get(2).addObserverToValue(this).checkBits(1, this, 2);
         in = inputs.get(3).checkBits(bits, this, 3);
         ld = inputs.get(4).checkBits(1, this, 4);
         clrIn = inputs.get(5).checkBits(1, this, 5);
