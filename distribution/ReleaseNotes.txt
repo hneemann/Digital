@@ -4,7 +4,8 @@ HEAD, planed as v0.18
 - Added ICs 74181, 74779, 7440 and 7428
 - Added a simple bidirectional splitter.
 - Added a monoflop.
-- Added a 16 Segment display
+- Added a 16 Segment display.
+- Added a counter with preset.
 - Removed high-z restrictions from the splitter.
   Now a bus can have different high z states for the different lines on the bus.
 - When a circuit containing a ROM/EEPROM is embedded multiple times, it is now possible
