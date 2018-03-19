@@ -1,0 +1,35 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+
+  if (elem.Bits=1)
+      entityName:=elem.param.op+"_GATE_"+elem.Inputs;
+  else
+      entityName:=elem.param.op+"_GATE_BUS_"+elem.Inputs;
+
+?>
+entity <?=entityName?> is
+  <?vhdl.beginGenericPort();?>
+  <?if (elem.Bits>1) {?>generic ( Bits : integer );<?vhdl.registerGeneric("Bits"); }?>
+  port (
+    PORT_out: out <?=vhdl.genericType(elem.Bits)?>;
+    <? for (i:=0;i<elem.Inputs;i++) { ?>
+    PORT_In_<?=i+1?>: in <?
+      print(vhdl.genericType(elem.Bits));
+      if (i=elem.Inputs-1) print(" )");
+    ?>;
+    <? } ?>
+<?vhdl.endGenericPort();?>
+end <?=entityName?>;
+architecture <?=entityName?>_arch of <?=entityName?> is
+begin
+  PORT_out <= <?
+
+    for (i:=0;i<elem.Inputs;i++) {
+        print("PORT_In_",i+1);
+        if (i<elem.Inputs-1)
+            print(" ",elem.param.op," ");
+    }
+
+  ?>;
+end <?=entityName?>_arch;

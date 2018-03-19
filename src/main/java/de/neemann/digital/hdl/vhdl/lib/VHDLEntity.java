@@ -17,16 +17,17 @@ import java.io.IOException;
 public interface VHDLEntity {
 
     /**
-     * Writes the header
+     * Writes the entity to the vhdl file.
      *
      * @param out  the code printer
      * @param node the node
-     * @throws IOException IOException
+     * @throws IOException  IOException
+     * @throws HDLException HDLException
      */
-    void writeHeader(CodePrinter out, HDLNode node) throws IOException;
+    void writeEntity(CodePrinter out, HDLNode node) throws IOException, HDLException;
 
     /**
-     * Gets the nema of the entity.
+     * Gets the name of the entity.
      * The name may depend on the node.
      *
      * @param node the node
@@ -36,16 +37,7 @@ public interface VHDLEntity {
     String getName(HDLNode node) throws HDLException;
 
     /**
-     * Returns true if this node needs to create a entity
-     *
-     * @param node the node
-     * @return true if entity needs to be written
-     * @throws HDLException HDLException
-     */
-    boolean needsOutput(HDLNode node) throws HDLException;
-
-    /**
-     * Writes the declaration
+     * Writes the declaration.
      *
      * @param out  the code printer
      * @param node the node
@@ -53,16 +45,6 @@ public interface VHDLEntity {
      * @throws HDLException HDLException
      */
     void writeDeclaration(CodePrinter out, HDLNode node) throws IOException, HDLException;
-
-    /**
-     * Writes the architecture
-     *
-     * @param out  the code printer
-     * @param node the node
-     * @throws IOException  IOException
-     * @throws HDLException HDLException
-     */
-    void writeArchitecture(CodePrinter out, HDLNode node) throws IOException, HDLException;
 
     /**
      * Writes the generic map of this node.
@@ -75,21 +57,4 @@ public interface VHDLEntity {
      */
     void writeGenericMap(CodePrinter out, HDLNode node) throws IOException, HDLException;
 
-    /**
-     * Returns true if this entity creates signals in the architecture
-     *
-     * @param node the node
-     * @return true if this entity creates signals in the architecture
-     */
-    default boolean createsSignals(HDLNode node) {
-        return false;
-    }
-
-    /**
-     * The descriptiob of this entity
-     *
-     * @param node the node
-     * @return the description
-     */
-    String getDescription(HDLNode node);
 }

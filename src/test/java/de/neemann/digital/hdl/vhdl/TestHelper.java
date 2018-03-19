@@ -10,6 +10,10 @@ import java.util.StringTokenizer;
 public class TestHelper {
 
     static public String removeCommentLines(String code) {
+        return removeCommentLines(code, false);
+    }
+
+    static public String removeCommentLines(String code, boolean normalizeWhiteSpace) {
         StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(code, "\n");
         while (st.hasMoreTokens()) {
@@ -18,10 +22,29 @@ public class TestHelper {
             if (!(testLine.length() == 0 || (testLine.length() >= 2 && testLine.startsWith("--")))) {
                 if (sb.length() > 0)
                     sb.append("\n");
-                sb.append(line);
+                if (normalizeWhiteSpace)
+                    normalizeWhiteSpaces(sb, line);
+                else
+                    sb.append(line);
             }
         }
         return sb.toString();
+    }
+
+    private static void normalizeWhiteSpaces(StringBuilder sb, String line) {
+        boolean wasBlank = true;
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (c == ' ' || c == '\t') {
+                wasBlank = true;
+            } else {
+                if (wasBlank) {
+                    sb.append(' ');
+                    wasBlank = false;
+                }
+                sb.append(c);
+            }
+        }
     }
 
 }

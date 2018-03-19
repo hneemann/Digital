@@ -22,7 +22,7 @@ public class ClockTest extends TestCase {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/Clock.dig");
         String vhdl = new VHDLGenerator(br.getLibrary()).export(br.getCircuit()).toString();
 
-        assertEquals("LIBRARY ieee;\n" +
+        assertEquals(TestHelper.removeCommentLines("LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
                 "USE ieee.numeric_std.all;\n" +
                 "entity main is\n" +
@@ -52,7 +52,7 @@ public class ClockTest extends TestCase {
                 "      PORT_in => S1 );\n" +
                 "  gate1 : DIG_simpleClockDivider\n" +
                 "    generic map (\n" +
-                "      maxCounter => 2500000 )\n" +
+                "      maxCounter => 2500000)\n" +
                 "    port map (\n" +
                 "      PORT_in => PORT_Clk,\n" +
                 "      PORT_out => S1 );\n" +
@@ -96,7 +96,7 @@ public class ClockTest extends TestCase {
                 "    end if;\n" +
                 "  end process;\n" +
                 "  PORT_out <= state;\n" +
-                "end DIG_simpleClockDivider_arch;", TestHelper.removeCommentLines(vhdl));
+                "end DIG_simpleClockDivider_arch;",true), TestHelper.removeCommentLines(vhdl,true));
     }
 
 
@@ -104,7 +104,7 @@ public class ClockTest extends TestCase {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/Clock2.dig");
         String vhdl = new VHDLGenerator(br.getLibrary()).export(br.getCircuit()).toString();
 
-        assertEquals("LIBRARY ieee;\n" +
+        assertEquals(TestHelper.removeCommentLines("LIBRARY ieee;\n" +
                 "USE ieee.std_logic_1164.all;\n" +
                 "USE ieee.numeric_std.all;\n" +
                 "entity main is\n" +
@@ -137,7 +137,7 @@ public class ClockTest extends TestCase {
                 "      PORT_In_2 => S1 );\n" +
                 "  gate1 : DIG_simpleClockDivider\n" +
                 "    generic map (\n" +
-                "      maxCounter => 2500000 )\n" +
+                "      maxCounter => 2500000)\n" +
                 "    port map (\n" +
                 "      PORT_in => PORT_Clk,\n" +
                 "      PORT_out => S1 );\n" +
@@ -182,7 +182,7 @@ public class ClockTest extends TestCase {
                 "    end if;\n" +
                 "  end process;\n" +
                 "  PORT_out <= state;\n" +
-                "end DIG_simpleClockDivider_arch;", TestHelper.removeCommentLines(vhdl));
+                "end DIG_simpleClockDivider_arch;",true), TestHelper.removeCommentLines(vhdl, true));
     }
 
 

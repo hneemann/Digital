@@ -6,6 +6,7 @@
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.hdl.hgs.HGSArray;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
@@ -14,7 +15,7 @@ import java.util.Arrays;
 
 /**
  */
-public class DataField {
+public class DataField implements HGSArray {
 
     /***
      * Simple default data field
@@ -35,7 +36,13 @@ public class DataField {
         this(new long[size], size);
     }
 
-    private DataField(long[] data, int size) {
+    /**
+     * Creates a new data field
+     *
+     * @param data the data
+     * @param size the size
+     */
+    public DataField(long[] data, int size) {
         this.size = size;
         this.data = data;
     }
@@ -132,8 +139,9 @@ public class DataField {
      *
      * @param addr  the address
      * @param value the value
+     * @return this for chained calls
      */
-    public void setData(int addr, long value) {
+    public DataField setData(int addr, long value) {
         if (addr < size) {
             if (addr >= data.length)
                 data = Arrays.copyOf(data, size);
@@ -143,6 +151,7 @@ public class DataField {
                 fireChanged(addr);
             }
         }
+        return this;
     }
 
     /**
@@ -224,6 +233,16 @@ public class DataField {
     public void setDataFrom(DataField dataField) {
         data = Arrays.copyOf(dataField.data, size);
         fireChanged(-1);
+    }
+
+    @Override
+    public int hgsArraySize() {
+        return data.length;
+    }
+
+    @Override
+    public Object hgsArrayGet(int i) {
+        return getDataWord(i);
     }
 
     /**
