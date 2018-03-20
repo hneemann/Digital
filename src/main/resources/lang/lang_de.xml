@@ -880,6 +880,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein!</string>
     <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
         {0}</string>
+    <string name="err_ghdlNotInstalled">
+        Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
+    </string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

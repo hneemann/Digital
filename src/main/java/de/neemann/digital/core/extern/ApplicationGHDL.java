@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.handler.ProcessInterface;
 import de.neemann.digital.core.extern.handler.StdIOInterface;
 import de.neemann.digital.gui.Settings;
+import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,8 +35,20 @@ public class ApplicationGHDL extends ApplicationVHDLStdIO {
         } catch (IOException e) {
             if (file != null)
                 ProcessStarter.removeFolder(file.getParentFile());
-            throw e;
+            if (ghdlNotFound(e))
+                throw new IOException(Lang.get("err_ghdlNotInstalled"));
+            else
+                throw e;
         }
+    }
+
+    private boolean ghdlNotFound(Throwable e) {
+        while (e != null) {
+            if (e instanceof ProcessStarter.CouldNotStartProcessException)
+                return true;
+            e = e.getCause();
+        }
+        return false;
     }
 
     @Override
@@ -53,6 +66,11 @@ public class ApplicationGHDL extends ApplicationVHDLStdIO {
             String m1 = ProcessStarter.start(file.getParentFile(), ghdl, "-a", "--ieee=synopsys", file.getName());
             String m2 = ProcessStarter.start(file.getParentFile(), ghdl, "-e", "--ieee=synopsys", "stdIOInterface");
             return ProcessStarter.joinStrings(m1, m2);
+        } catch (IOException e) {
+            if (ghdlNotFound(e))
+                throw new IOException(Lang.get("err_ghdlNotInstalled"));
+            else
+                throw e;
         } finally {
             if (file != null)
                 ProcessStarter.removeFolder(file.getParentFile());
