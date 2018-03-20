@@ -151,9 +151,15 @@ repeat(14) C   0 0 0 0  1  (n+1)  0
           <testData>
             <dataString>#preset
 clk clr dir en ld in out ov
- 0   0 0 0  0  0   0  0
- c   1 0 1  1  5   0  0
- c   0 0 1  1  5   5  0
+ 0   0   0  0  0  0   0  0
+ c   1   0  1  1  5   0  0
+ c   0   0  1  1  5   5  0
+
+ c   0   0  1  1  15 15  1
+ 0   0   0  1  0  15 15  1
+ 0   0   0  0  0  15 15  0
+ 0   0   1  1  0  15 15  0
+ 0   0   0  1  0  15 15  1
 </dataString>
           </testData>
         </entry>
