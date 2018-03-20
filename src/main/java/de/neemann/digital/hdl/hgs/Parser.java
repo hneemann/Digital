@@ -10,9 +10,7 @@ import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunctionCall;
 import de.neemann.digital.hdl.hgs.refs.*;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.*;
 import java.util.ArrayList;
 
 import static de.neemann.digital.hdl.hgs.Tokenizer.Token.*;
@@ -21,6 +19,40 @@ import static de.neemann.digital.hdl.hgs.Tokenizer.Token.*;
  * Parser to evaluate text templates
  */
 public class Parser {
+
+    /**
+     * Creates a statement from the jar file using ClassLoader.getSystemResourceAsStream(path).
+     *
+     * @param path the path of the file to load
+     * @return the statement
+     * @throws IOException     IOException
+     * @throws ParserException ParserException
+     */
+    public static Statement createFromJar(String path) throws IOException, ParserException {
+        InputStream in = ClassLoader.getSystemResourceAsStream(path);
+        if (in == null)
+            throw new FileNotFoundException("file not found: " + path);
+        try (Reader r = new InputStreamReader(in, "utf-8")) {
+            Parser p = new Parser(r);
+            return p.parse();
+        }
+    }
+
+    /**
+     * Creates a statement from the jar file using ClassLoader.getSystemResourceAsStream(path).
+     * Throws only a RuntimeExcaption so use with care!
+     *
+     * @param path the path of the file to load
+     * @return the statement
+     */
+    public static Statement createFromJarStatic(String path) {
+        try {
+            return createFromJar(path);
+        } catch (IOException | ParserException e) {
+            throw new RuntimeException("could not parse: " + path, e);
+        }
+    }
+
 
     private final Tokenizer tok;
     private Context staticContext;

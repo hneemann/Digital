@@ -14,9 +14,6 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl.Separator;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -43,12 +40,8 @@ public class VHDLTemplate implements VHDLEntity {
     public VHDLTemplate(String name) throws IOException {
         entityName = ENTITY_PREFIX + name;
         this.entities = new HashMap<>();
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(createFileName(entityName));
-        if (inputStream == null)
-            throw new IOException("file not present: " + createFileName(entityName));
-        try (Reader in = new InputStreamReader(inputStream, "utf-8")) {
-            Parser p = new Parser(in);
-            statements = p.parse();
+        try {
+            statements = Parser.createFromJar(createFileName(entityName));
         } catch (ParserException e) {
             throw new IOException("error parsing template " + createFileName(entityName), e);
         }

@@ -10,6 +10,7 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.element.PinInfo;
+import de.neemann.digital.hdl.hgs.HGSArray;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,7 +19,7 @@ import java.util.StringTokenizer;
 /**
  * The list of ports used by an external component
  */
-public class PortDefinition implements Iterable<Port> {
+public class PortDefinition implements Iterable<Port>, HGSArray {
     private final ArrayList<Port> ports;
 
     /**
@@ -110,5 +111,15 @@ public class PortDefinition implements Iterable<Port> {
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public int hgsArraySize() {
+        return ports.size();
+    }
+
+    @Override
+    public Object hgsArrayGet(int i) {
+        return ports.get(i);
     }
 }
