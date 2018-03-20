@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.hdl.vhdl.lib;
 
-import de.neemann.digital.core.element.Key;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.model.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -15,47 +14,44 @@ import java.io.IOException;
 /**
  * A parameterized template.
  */
-public class VHDLEntityParam implements VHDLEntity {
-
-    private final VHDLEntity template;
+public class VHDLTemplateParam implements VHDLEntity {
+    private final VHDLTemplate template;
     private final TempParameter param;
 
     /**
-     * creates a new template with parameters
+     * Creates a new template with parameters.
+     * For code generation the given template is used, with the given
+     * parameters applied to the entity node.
      *
      * @param template the templates to use
      * @param param    the parameters to pass to the template
      */
-    public VHDLEntityParam(VHDLEntity template, TempParameter param) {
+    public VHDLTemplateParam(VHDLTemplate template, TempParameter param) {
         this.template = template;
         this.param = param;
     }
 
-    private void setParam(HDLNode node) {
-        node.getAttributes().set(new Key<>("param", 0), param);
-    }
-
     @Override
-    public void writeEntity(CodePrinter out, HDLNode node) throws IOException, HDLException {
-        setParam(node);
+    public void writeEntity(CodePrinter out, HDLNode node) throws IOException {
+        template.setParameter(param);
         template.writeEntity(out, node);
     }
 
     @Override
     public String getName(HDLNode node) throws HDLException {
-        setParam(node);
+        template.setParameter(param);
         return template.getName(node);
     }
 
     @Override
     public void writeDeclaration(CodePrinter out, HDLNode node) throws IOException, HDLException {
-        setParam(node);
+        template.setParameter(param);
         template.writeDeclaration(out, node);
     }
 
     @Override
-    public void writeGenericMap(CodePrinter out, HDLNode node) throws IOException, HDLException {
-        setParam(node);
+    public void writeGenericMap(CodePrinter out, HDLNode node) throws IOException {
+        template.setParameter(param);
         template.writeGenericMap(out, node);
     }
 

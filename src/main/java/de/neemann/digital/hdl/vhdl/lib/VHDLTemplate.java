@@ -30,6 +30,7 @@ public class VHDLTemplate implements VHDLEntity {
     private final Statement statements;
     private final String entityName;
     private HashMap<String, Entity> entities;
+    private TempParameter parameter;
 
     /**
      * Creates a new instance
@@ -59,6 +60,16 @@ public class VHDLTemplate implements VHDLEntity {
      */
     public static String neededFileName(String elementName) {
         return createFileName(ENTITY_PREFIX + elementName);
+    }
+
+    /**
+     * Sets the parameters for the template execution if there are some.
+     * The given struct is set to the templates context as "param" map.
+     *
+     * @param parameter the parameters to use
+     */
+    public void setParameter(TempParameter parameter) {
+        this.parameter = parameter;
     }
 
     @Override
@@ -148,6 +159,9 @@ public class VHDLTemplate implements VHDLEntity {
             final Context c = new Context()
                     .declareVar("elem", node.getAttributes())
                     .declareVar("vhdl", TEMP_FUNCTIONS_CLASS.createMap(helper));
+            if (parameter != null)
+                c.declareVar("param", parameter);
+
             statements.execute(c);
             code = c.toString();
 

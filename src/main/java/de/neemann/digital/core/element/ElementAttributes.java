@@ -314,7 +314,10 @@ public class ElementAttributes implements HGSMap {
     public Object hgsMapGet(String key) {
         Key k = Keys.getKeyByName(key);
         if (k == null) {
-            return attributes.get(key);
+            if (attributes == null)
+                return null;
+            else
+                return attributes.get(key);
         } else
             return get(k);
     }

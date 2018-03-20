@@ -2,10 +2,15 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 <?
 
-  if (elem.Bits=1)
-      entityName:=elem.param.op+"_GATE_"+elem.Inputs;
+  if (param.inv)
+     entityName:="N"+param.op;
   else
-      entityName:=elem.param.op+"_GATE_BUS_"+elem.Inputs;
+     entityName:=param.op;
+
+  if (elem.Bits=1)
+      entityName=entityName+"_GATE_"+elem.Inputs;
+  else
+      entityName=entityName+"_GATE_BUS_"+elem.Inputs;
 
 ?>
 entity <?=entityName?> is
@@ -25,11 +30,17 @@ architecture <?=entityName?>_arch of <?=entityName?> is
 begin
   PORT_out <= <?
 
+    if (param.inv)
+        print("NOT (");
+
     for (i:=0;i<elem.Inputs;i++) {
         print("PORT_In_",i+1);
         if (i<elem.Inputs-1)
-            print(" ",elem.param.op," ");
+            print(" ",param.op," ");
     }
+
+    if (param.inv)
+        print(" )");
 
   ?>;
 end <?=entityName?>_arch;
