@@ -99,12 +99,15 @@ public class CounterPreset extends Node implements Element {
                 counter = in.getValue();
         }
 
-        if (dir)
-            ovfOut = (counter == 0) && enable;
-        else
-            ovfOut = (counter == maxValue) && enable;
-
+        ovfOut = getOvfValue(counter, dir, enable);
         lastClock = clock;
+    }
+
+    private boolean getOvfValue(long counter, boolean dir, boolean enable) {
+        if (dir)
+            return (counter == 0) && enable;
+        else
+            return (counter == maxValue) && enable;
     }
 
     @Override
@@ -135,7 +138,7 @@ public class CounterPreset extends Node implements Element {
         if (probe)
             model.addSignal(new Signal(label, out, (v, z) -> {
                 counter = v;
-                boolean o = (counter == maxValue) && enable.getBool();
+                boolean o = getOvfValue(counter, dir.getBool(), enable.getBool());
                 out.setValue(counter);
                 ovf.setBool(o);
             }));

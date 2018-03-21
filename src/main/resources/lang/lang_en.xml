@@ -531,7 +531,7 @@
     <string name="elem_Counter_pin_en">If set to 1 the counter is enabled!</string>
 
     <string name="elem_CounterPreset">Counter with preset</string>
-    <string name="elem_CounterPreset_tt">Counter with preset.</string>
+    <string name="elem_CounterPreset_tt">A counter whose value can be set. In addition, a maximum value and a counting direction can be specified.</string>
     <string name="elem_CounterPreset_short">Counter</string>
     <string name="elem_CounterPreset_pin_out">Returns the counted value.</string>
     <string name="elem_CounterPreset_pin_ovf">Overflow output. It is set to 1 if the 'en' input is set to 1 and if the

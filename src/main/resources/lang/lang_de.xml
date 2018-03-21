@@ -528,7 +528,7 @@
     <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
 
     <string name="elem_CounterPreset">Zähler, beschreibbar</string>
-    <string name="elem_CounterPreset_tt">Zähler, dessen Wert gesetzt werden kann.</string>
+    <string name="elem_CounterPreset_tt">Zähler, dessen Wert gesetzt werden kann. Zudem kann ein Maximalwert und eine Zählrichtung vorgegeben werden.</string>
     <string name="elem_CounterPreset_short">Zähler</string>
     <string name="elem_CounterPreset_pin_out">Gibt den gezählten Wert aus.</string>
     <string name="elem_CounterPreset_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, der 'en' Eingang auf 1 gesetzt ist
