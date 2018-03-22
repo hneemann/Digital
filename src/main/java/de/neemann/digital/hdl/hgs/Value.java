@@ -67,7 +67,7 @@ public final class Value {
             return ((Number) value).longValue() != 0;
         if (value instanceof Boolean)
             return ((Boolean) value);
-        throw new HGSEvalException("must be an integer or a bool, is: " + value.getClass().getSimpleName());
+        throw new HGSEvalException("Must be an integer or a bool, is: " + value.getClass().getSimpleName() + "=" + value);
     }
 
     /**
