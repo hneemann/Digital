@@ -491,7 +491,7 @@ public class ParserTest extends TestCase {
             exec(s, new Context().declareVar("i", 2));
             fail();
         } catch (HGSEvalException e) {
-            assertEquals("myError", e.getMessage());
+            assertEquals("myError; line 1", e.getMessage());
         }
     }
 

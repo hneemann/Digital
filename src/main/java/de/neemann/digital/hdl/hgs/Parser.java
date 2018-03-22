@@ -76,6 +76,20 @@ public class Parser {
         staticContext = new Context();
     }
 
+    private Statement lino(Statement statement) {
+        if (statement instanceof StatementWithLine)
+            return statement;
+        else
+            return new StatementWithLine(statement, tok.getLine());
+    }
+
+    private Expression linoE(Expression expression) {
+        if (expression instanceof ExpressionWithLine)
+            return expression;
+        else
+            return new ExpressionWithLine(expression, tok.getLine());
+    }
+
     /**
      * Parses the given template source
      *
@@ -128,28 +142,28 @@ public class Parser {
                 switch (refToken) {
                     case COLON:
                         expect(EQUAL);
-                        final Expression initVal = parseExpression();
+                        final Expression initVal = linoE(parseExpression());
                         if (isRealStatement) expect(SEMICOLON);
-                        return c -> ref.declareVar(c, initVal.value(c));
+                        return lino(c -> ref.declareVar(c, initVal.value(c)));
                     case EQUAL:
-                        final Expression val = parseExpression();
+                        final Expression val = linoE(parseExpression());
                         if (isRealStatement) expect(SEMICOLON);
-                        return c -> {
+                        return lino(c -> {
                             final Object value = val.value(c);
                             if (value == null)
                                 throw new HGSEvalException("There is no value to assign!");
                             ref.set(c, value);
-                        };
+                        });
                     case ADD:
                         expect(ADD);
                         if (isRealStatement) expect(SEMICOLON);
-                        return c -> ref.set(c, Value.toLong(ref.get(c)) + 1);
+                        return lino(c -> ref.set(c, Value.toLong(ref.get(c)) + 1));
                     case SUB:
                         expect(SUB);
                         if (isRealStatement) expect(SEMICOLON);
-                        return c -> ref.set(c, Value.toLong(ref.get(c)) - 1);
+                        return lino(c -> ref.set(c, Value.toLong(ref.get(c)) - 1));
                     case SEMICOLON:
-                        return ref::get;
+                        return lino(ref::get);
                     default:
                         throw newUnexpectedToken(refToken);
                 }
@@ -157,12 +171,12 @@ public class Parser {
                 final String str = tok.readText();
                 return c -> c.print(str);
             case EQUAL:
-                final Expression exp = parseExpression();
+                final Expression exp = linoE(parseExpression());
                 if (tok.peek() != CODEEND) expect(SEMICOLON);
-                return c -> c.print(exp.value(c).toString());
+                return lino(c -> c.print(exp.value(c).toString()));
             case IF:
                 expect(OPEN);
-                final Expression ifCond = parseExpression();
+                final Expression ifCond = linoE(parseExpression());
                 expect(CLOSE);
                 final Statement ifStatement = parseStatement();
                 if (nextIs(ELSE)) {
@@ -182,7 +196,7 @@ public class Parser {
                 expect(OPEN);
                 Statement init = parseStatement(false); // parse like an expression
                 expect(SEMICOLON);
-                final Expression forCond = parseExpression();
+                final Expression forCond = linoE(parseExpression());
                 expect(SEMICOLON);
                 Statement inc = parseStatement(false); // parse like an expression
                 expect(CLOSE);
@@ -197,7 +211,7 @@ public class Parser {
                 };
             case WHILE:
                 expect(OPEN);
-                final Expression whileCond = parseExpression();
+                final Expression whileCond = linoE(parseExpression());
                 expect(CLOSE);
                 inner = parseStatement();
                 return c -> {
@@ -207,7 +221,7 @@ public class Parser {
             case REPEAT:
                 final Statement repeatInner = parseStatement();
                 expect(UNTIL);
-                final Expression repeatCond = parseExpression();
+                final Expression repeatCond = linoE(parseExpression());
                 if (isRealStatement) expect(SEMICOLON);
                 return c -> {
                     Context iC = new Context(c, false);
@@ -221,14 +235,14 @@ public class Parser {
                     s.add(parseStatement());
                 return s.optimize();
             case RETURN:
-                Expression retExp = parseExpression();
+                Expression retExp = linoE(parseExpression());
                 expect(SEMICOLON);
-                return c -> FirstClassFunctionCall.returnFromFunc(retExp.value(c));
+                return lino(c -> FirstClassFunctionCall.returnFromFunc(retExp.value(c)));
             case FUNC:
                 expect(IDENT);
                 String funcName = tok.getIdent();
                 FirstClassFunction funcDecl = parseFunction();
-                return c -> c.declareVar(funcName, new FirstClassFunctionCall(funcDecl, c));
+                return lino(c -> c.declareVar(funcName, new FirstClassFunctionCall(funcDecl, c)));
             default:
                 throw newUnexpectedToken(token);
         }
@@ -483,6 +497,46 @@ public class Parser {
         }
         Statement st = parseStatement();
         return new FirstClassFunction(args, st);
+    }
+
+    private static final class StatementWithLine implements Statement {
+        private final Statement statement;
+        private final int line;
+
+        private StatementWithLine(Statement statement, int line) {
+            this.statement = statement;
+            this.line = line;
+        }
+
+        @Override
+        public void execute(Context context) throws HGSEvalException {
+            try {
+                statement.execute(context);
+            } catch (HGSEvalException e) {
+                e.setLinNum(line);
+                throw e;
+            }
+        }
+    }
+
+    private static final class ExpressionWithLine implements Expression {
+        private final Expression expression;
+        private final int line;
+
+        private ExpressionWithLine(Expression expression, int line) {
+            this.expression = expression;
+            this.line = line;
+        }
+
+        @Override
+        public Object value(Context c) throws HGSEvalException {
+            try {
+                return expression.value(c);
+            } catch (HGSEvalException e) {
+                e.setLinNum(line);
+                throw e;
+            }
+        }
     }
 
 }

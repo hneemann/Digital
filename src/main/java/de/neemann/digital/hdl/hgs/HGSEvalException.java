@@ -9,6 +9,8 @@ package de.neemann.digital.hdl.hgs;
  * Exception thrown during evaluation of the template
  */
 public class HGSEvalException extends Exception {
+    private int linNum;
+
     /**
      * Creates a new instance
      *
@@ -26,5 +28,23 @@ public class HGSEvalException extends Exception {
      */
     public HGSEvalException(String message, Exception cause) {
         super(message, cause);
+    }
+
+    /**
+     * Sets the line number to this expression
+     *
+     * @param linNum line number
+     */
+    public void setLinNum(int linNum) {
+        if (this.linNum == 0)
+            this.linNum = linNum;
+    }
+
+    @Override
+    public String getMessage() {
+        if (linNum == 0)
+            return super.getMessage();
+        else
+            return super.getMessage() + "; line " + linNum;
     }
 }
