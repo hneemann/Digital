@@ -276,4 +276,8 @@ public class Net {
     public VisualElement getVisualElement() {
         return visualElement;
     }
+
+    public HashSet<String> getLabels() {
+        return labelSet;
+    }
 }
