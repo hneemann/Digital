@@ -6,9 +6,14 @@
 package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.hdl.printer.CodePrinter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * A node which represents a built-in component
+ */
 public class HDLNode {
     private final String elementName;
     private final ElementAttributes elementAttributes;
@@ -16,6 +21,13 @@ public class HDLNode {
     private final ArrayList<HDLPort> inputs;
     private final ArrayList<HDLPort> outputs;
 
+    /**
+     * Creates e new intance
+     *
+     * @param elementName       the instances name
+     * @param elementAttributes the attributes
+     * @param bitProvider       the bit provider which provides the outputs bit width
+     */
     public HDLNode(String elementName, ElementAttributes elementAttributes, HDLContext.BitProvider bitProvider) {
         this.elementName = elementName;
         this.elementAttributes = elementAttributes;
@@ -24,14 +36,12 @@ public class HDLNode {
         outputs = new ArrayList<>();
     }
 
-    public void addInput(HDLPort port) {
+    void addInput(HDLPort port) {
         inputs.add(port);
-        port.setNode(this);
     }
 
-    public void addOutput(HDLPort port) {
+    void addOutput(HDLPort port) {
         outputs.add(port);
-        port.setNode(this);
     }
 
     @Override
@@ -39,27 +49,99 @@ public class HDLNode {
         return elementName + " " + inputs + " " + outputs;
     }
 
+    /**
+     * @return the elements name
+     */
     public String getElementName() {
         return elementName;
     }
 
+    /**
+     * @return the elements attributes
+     */
     public ElementAttributes getElementAttributes() {
         return elementAttributes;
     }
 
+    /**
+     * @return the nodes inputs
+     */
     public ArrayList<HDLPort> getInputs() {
         return inputs;
     }
 
+    /**
+     * @return the nodes single outputs
+     */
+    public HDLPort getOutput() {
+        return outputs.get(0);
+    }
+
+    /**
+     * @return the list of outputs
+     */
     public ArrayList<HDLPort> getOutputs() {
         return outputs;
     }
 
+    /**
+     * Traverses all the nodes
+     *
+     * @param visitor the visitor to use
+     */
     public void traverse(HDLVisitor visitor) {
         visitor.visit(this);
     }
 
-    public int getBits(String name) {
+    int getBits(String name) {
         return bitProvider.getBits(name);
+    }
+
+    /**
+     * Prints a simple text representation of the node
+     *
+     * @param out the CondePrinter to print to
+     * @throws IOException IOException
+     */
+    public void print(CodePrinter out) throws IOException {
+        out.print("in");
+        printWithLocal(out, inputs);
+        out.print("out");
+        printWithLocal(out, outputs);
+    }
+
+    private void printWithLocal(CodePrinter out, ArrayList<HDLPort> ports) throws IOException {
+        boolean first = true;
+        for (HDLPort p : ports) {
+            if (first) {
+                first = false;
+                out.print("(");
+            } else
+                out.print(", ");
+            p.print(out);
+            if (p.getNet() == null)
+                out.print(" is not used");
+            else {
+                out.print(" is ");
+                p.getNet().print(out);
+            }
+        }
+        if (first)
+            out.println("(");
+
+        out.println(")");
+    }
+
+    /**
+     * Returns true if the node has the given port as an input
+     *
+     * @param i the port to search for
+     * @return true if the given port is a input of this node
+     */
+    public boolean hasInput(HDLPort i) {
+        for (HDLPort p : inputs)
+            if (p.getNet() == i.getNet())
+                return true;
+        return false;
     }
 }

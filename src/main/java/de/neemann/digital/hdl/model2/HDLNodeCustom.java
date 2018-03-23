@@ -7,9 +7,19 @@ package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.element.ElementAttributes;
 
+/**
+ * Represents a node which is build from a circuit.
+ */
 public class HDLNodeCustom extends HDLNode {
     private final HDLCircuit hdlCircuit;
 
+    /**
+     * Creates a new instance
+     *
+     * @param elementName       the elements name
+     * @param elementAttributes the attributes
+     * @param hdlCircuit        the circuit to use to create this node
+     */
     public HDLNodeCustom(String elementName, ElementAttributes elementAttributes, HDLCircuit hdlCircuit) {
         super(elementName, elementAttributes, hdlCircuit);
         this.hdlCircuit = hdlCircuit;

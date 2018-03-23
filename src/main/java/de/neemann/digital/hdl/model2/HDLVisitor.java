@@ -5,6 +5,14 @@
  */
 package de.neemann.digital.hdl.model2;
 
+/**
+ * Visitor to visit the nodes.
+ */
 public interface HDLVisitor {
+    /**
+     * Visits a node
+     *
+     * @param hdlNode the node to visit
+     */
     void visit(HDLNode hdlNode);
 }

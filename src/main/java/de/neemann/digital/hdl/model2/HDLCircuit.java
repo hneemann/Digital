@@ -9,7 +9,6 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.Not;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.io.PowerSupply;
@@ -23,22 +22,34 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.testing.TestCaseElement;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.io.IOException;
+import java.util.*;
 
-public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider {
+/**
+ * The representation of a circuit
+ */
+public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Printable {
     private final String elementName;
     private final ArrayList<HDLPort> outputs;
     private final ArrayList<HDLPort> inputs;
+    private final ArrayList<HDLNet> listOfNets;
     private NetList netList;
     private ArrayList<HDLNode> nodes;
     private HashMap<Net, HDLNet> nets;
-    private int netNumber;
 
+    /**
+     * Creates a new instance
+     *
+     * @param circuit     the circuit
+     * @param elementName the name of the circuit
+     * @param c           the context to create the circuits
+     * @throws PinException  PinException
+     * @throws HDLException  HDLException
+     * @throws NodeException NodeException
+     */
     public HDLCircuit(Circuit circuit, String elementName, HDLContext c) throws PinException, HDLException, NodeException {
         this.elementName = elementName;
         inputs = new ArrayList<>();
@@ -64,7 +75,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider {
                             v.getElementAttributes().getBits())
                             .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER)));
                 else if (isRealElement(v))
-                    addNode(v, c);
+                    nodes.add(c.createNode(v, this));
             }
         } catch (HDLException e) {
             throw new HDLException("error parsing " + circuit.getOrigin(), e);
@@ -89,6 +100,19 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider {
         }
 
         nodes.addAll(newNodes);
+
+        listOfNets = new ArrayList<>();
+        listOfNets.addAll(nets.values());
+
+        nets = null;
+
+        for (HDLPort i : inputs)
+            i.getNet().setIsInput(i.getName());
+
+        for (HDLPort o : outputs)
+            if (o.getNet().needsVariable())
+                o.getNet().setIsOutput(o.getName(), o.getNet().getInputs().size() == 1);
+
     }
 
     private HDLNode createNot(HDLPort p) throws HDLException, NodeException, PinException {
@@ -126,7 +150,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider {
                 && !v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION);
     }
 
-    private HDLNet getNetOfPin(Pin pin) {
+    HDLNet getNetOfPin(Pin pin) {
         Net n = netList.getNetOfPos(pin.getPos());
         if (n == null)
             return null;
@@ -139,19 +163,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider {
         if (labels.size() == 1)
             return labels.iterator().next();
         else
-            return Integer.toString(netNumber++);
-    }
-
-    private void addNode(VisualElement v, HDLContext c) throws HDLException {
-        final HDLNode node = c.createNode(v);
-        for (Pin p : v.getPins()) {
-            HDLNet net = getNetOfPin(p);
-            if (p.getDirection().equals(PinDescription.Direction.input))
-                node.addInput(new HDLPort(p.getName(), net, HDLPort.Direction.IN, 0));
-            else
-                node.addOutput(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
-        }
-        nodes.add(node);
+            return null;
     }
 
     @Override
@@ -167,18 +179,32 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider {
         return 0;
     }
 
+    /**
+     * @return the elements name
+     */
     public String getElementName() {
         return elementName;
     }
 
+    /**
+     * @return the circuits outputs
+     */
     public ArrayList<HDLPort> getOutputs() {
         return outputs;
     }
 
+    /**
+     * @return the circuits inputs
+     */
     public ArrayList<HDLPort> getInputs() {
         return inputs;
     }
 
+    /**
+     * Traverses all the nodes
+     *
+     * @param visitor the visitor to use
+     */
     public void traverse(HDLVisitor visitor) {
         for (HDLNode n : nodes)
             n.traverse(visitor);
@@ -187,5 +213,110 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider {
     @Override
     public String toString() {
         return "HDLCircuit{elementName='" + elementName + "'}";
+    }
+
+    /**
+     * Merges logcal operations if possible
+     *
+     * @return this for chained calls
+     * @throws HDLException HDLException
+     */
+    public HDLCircuit mergeOperations() throws HDLException {
+        nodes = new OperationMerger(nodes, this).merge();
+        return this;
+    }
+
+    /**
+     * Name the unnamed nets
+     *
+     * @param netNamer the net naming algorithm
+     * @return this for chained calls
+     */
+    public HDLCircuit nameNets(NetNamer netNamer) {
+        for (HDLNet n : listOfNets)
+            if (n.getName() == null)
+                n.setName(netNamer.createName(n));
+        return this;
+    }
+
+
+    @Override
+    public void print(CodePrinter out) throws IOException {
+        out.print("circuit ").println(elementName).inc();
+        out.print("in");
+        printList(out, inputs);
+        out.print("out");
+        printList(out, outputs);
+        out.print("sig");
+        printList(out, listOfNets);
+
+        out.println();
+        for (HDLNode n : nodes) {
+            out.print("node ").println(n.getElementName()).inc();
+            n.print(out);
+            out.dec();
+        }
+        out.println();
+        for (HDLPort p : outputs) {
+            final HDLNet net = p.getNet();
+            if (net.needsVariable() || net.isInput()) {
+                p.print(out);
+                out.print(" := ");
+                net.print(out);
+                out.println();
+            }
+        }
+
+        out.dec().print("end circuit ").println(elementName);
+    }
+
+    private void printList(CodePrinter out, Collection<? extends Printable> ports) throws IOException {
+        boolean first = true;
+        for (Printable p : ports) {
+            if (first) {
+                first = false;
+                out.print("(");
+            } else
+                out.print(", ");
+            p.print(out);
+        }
+        out.println(")");
+    }
+
+    private void printList(CodePrinter out, ArrayList<HDLNet> nets) throws IOException {
+        boolean first = true;
+        for (HDLNet net : nets) {
+            if (net.needsVariable()) {
+                if (first) {
+                    first = false;
+                    out.print("(");
+                } else
+                    out.print(", ");
+                net.print(out);
+            }
+        }
+        out.println(")");
+    }
+
+    /**
+     * Removed an obsolete net
+     *
+     * @param net the net to remove
+     */
+    public void removeNet(HDLNet net) {
+        listOfNets.remove(net);
+    }
+
+    /**
+     * The net naming algorithm
+     */
+    public interface NetNamer {
+        /**
+         * Returns a nem for the given net
+         *
+         * @param n the net to name
+         * @return the name to use
+         */
+        String createName(HDLNet n);
     }
 }
