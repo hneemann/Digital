@@ -100,8 +100,13 @@ public class Parser {
     public Statement parse() throws IOException, ParserException {
         Statements s = new Statements();
         String text = tok.readText();
-        if (text.length() > 0)
-            s.add(c -> c.print(text));
+        if (nextIs(SUB))
+            text = Value.trimRight(text);
+
+        if (text.length() > 0) {
+            String t = text;
+            s.add(c -> c.print(t));
+        }
         while (!nextIs(EOF)) {
             if (nextIs(STATIC)) {
                 Statement stat = parseStatement();
@@ -170,6 +175,10 @@ public class Parser {
             case CODEEND:
                 final String str = tok.readText();
                 return c -> c.print(str);
+            case SUB:
+                expect(CODEEND);
+                final String strt = Value.trimLeft(tok.readText());
+                return c -> c.print(strt);
             case EQUAL:
                 final Expression exp = parseExpression();
                 if (tok.peek() != CODEEND) expect(SEMICOLON);

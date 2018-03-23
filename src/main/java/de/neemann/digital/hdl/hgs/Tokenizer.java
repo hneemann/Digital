@@ -340,7 +340,13 @@ class Tokenizer {
         return (c >= '0' && c <= '9');
     }
 
-    private boolean isWhiteSpace(int c) {
+    /**
+     * Returns true if the given character is a white space.
+     *
+     * @param c the character to test
+     * @return true in c is a white space
+     */
+    public static boolean isWhiteSpace(int c) {
         return c == ' ' || c == '\t' || c == '\n' || c == '\r';
     }
 

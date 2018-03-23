@@ -495,6 +495,13 @@ public class ParserTest extends TestCase {
         }
     }
 
+    public void testTrim() throws IOException, ParserException, HGSEvalException {
+        assertEquals(" 5", exec(" <?=5;-?> ").toString());
+        assertEquals("5 ", exec(" <?-=5?> ").toString());
+        assertEquals("5", exec("\n\n  <?-=5;-?>\n\n").toString());
+        assertEquals("\n 5 \n", exec("\n <?=5?> \n").toString());
+    }
+
     // checks the available VHDL templates
     public void testVHDLTemplates() throws Exception {
         final File path = new File(Resources.getRoot(), "../../main/resources/vhdl");
