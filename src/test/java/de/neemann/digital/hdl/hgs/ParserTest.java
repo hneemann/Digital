@@ -500,6 +500,13 @@ public class ParserTest extends TestCase {
         assertEquals("5 ", exec(" <?-=5?> ").toString());
         assertEquals("5", exec("\n\n  <?-=5;-?>\n\n").toString());
         assertEquals("\n 5 \n", exec("\n <?=5?> \n").toString());
+        assertEquals("5", exec("\n\n  <?- print(5);-?>\n\n").toString());
+
+        assertEquals(" 5", exec("<??> <?=5;-?> ").toString());
+        assertEquals("5 ", exec("<??> <?-=5?> ").toString());
+        assertEquals("5", exec("<??>\n\n  <?-=5;-?>\n\n").toString());
+        assertEquals("\n 5 \n", exec("<??>\n <?=5?> \n").toString());
+        assertEquals("5", exec("<??>\n\n  <?- print(5);-?>\n\n").toString());
     }
 
     // checks the available VHDL templates

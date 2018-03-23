@@ -173,8 +173,11 @@ public class Parser {
                         throw newUnexpectedToken(refToken);
                 }
             case CODEEND:
-                final String str = tok.readText();
-                return c -> c.print(str);
+                String str = tok.readText();
+                if (nextIs(SUB))
+                    str = Value.trimRight(str);
+                final String strc = str;
+                return c -> c.print(strc);
             case SUB:
                 expect(CODEEND);
                 final String strt = Value.trimLeft(tok.readText());

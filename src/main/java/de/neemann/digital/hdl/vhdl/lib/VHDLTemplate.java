@@ -99,7 +99,7 @@ public class VHDLTemplate implements VHDLEntity {
         try {
             String port = getEntity(node).getPortDecl();
             if (port != null) {
-                out.dec().print(port).inc();
+                out.dec().print(Value.trimRight(port)).println().inc();
             } else {
                 out.println("port (").inc();
                 Separator semic = new Separator(";\n");
