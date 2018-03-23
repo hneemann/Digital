@@ -49,17 +49,19 @@ class OperationMerger {
 
     private HDLNodeExpression merge(HDLNodeExpression host, HDLNodeExpression include) throws HDLException {
         final Expression expression = host.getExpression();
-        expression.replace(include.getOutput().getNet(), include.getExpression());
+        final HDLNet obsoleteNet = include.getOutput().getNet();
+        expression.replace(obsoleteNet, include.getExpression());
 
         HDLNodeExpression node = new HDLNodeExpression("merged expression",
                 null, name -> host.getOutput().getBits());
         node.setExpression(expression);
 
-        circuit.removeNet(include.getOutput().getNet());
+        circuit.removeNet(obsoleteNet);
 
         node.addOutput(host.getOutput());
         for (HDLPort i : host.getInputs())
-            node.addInput(i);
+            if (i.getNet() != obsoleteNet)
+                node.addInput(i);
 
         for (HDLPort i : include.getInputs())
             if (!node.hasInput(i))

@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.model2;
 
 
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.hdl.model2.expression.ExprVar;
 import de.neemann.digital.hdl.model2.expression.Expression;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
@@ -47,10 +48,16 @@ public class HDLNodeExpression extends HDLNode {
 
     @Override
     public void print(CodePrinter out) throws IOException {
+        super.print(out);
         getOutput().getNet().print(out);
         out.print(" := ");
         expression.print(out);
         out.println();
     }
 
+    @Override
+    public void replaceNet(HDLNet oldNet, HDLNet newNet) {
+        super.replaceNet(oldNet, newNet);
+        expression.replace(oldNet, new ExprVar(newNet));
+    }
 }

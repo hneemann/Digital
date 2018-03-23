@@ -22,6 +22,8 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.hdl.model2.expression.ExprNot;
+import de.neemann.digital.hdl.model2.expression.ExprVar;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.testing.TestCaseElement;
 
@@ -57,6 +59,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
 
         nodes = new ArrayList<>();
         nets = new HashMap<>();
+        listOfNets = new ArrayList<>();
         netList = new NetList(circuit);
         try {
             for (VisualElement v : circuit.getElements()) {
@@ -82,29 +85,22 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
         }
 
         netList = null;
+        nets = null;
 
-        for (HDLNet n : nets.values())
+        for (HDLNet n : listOfNets)
             n.fixBits();
 
-
-        ArrayList<HDLNode> newNodes = new ArrayList<>();
-
         // fix inverted inputs
+        ArrayList<HDLNode> newNodes = new ArrayList<>();
         for (HDLNode n : nodes) {
             InverterConfig iv = n.getElementAttributes().get(Keys.INVERTER_CONFIG);
             if (!iv.isEmpty()) {
                 for (HDLPort p : n.getInputs())
                     if (iv.contains(p.getName()))
-                        newNodes.add(createNot(p));
+                        newNodes.add(createNot(p, n));
             }
         }
-
         nodes.addAll(newNodes);
-
-        listOfNets = new ArrayList<>();
-        listOfNets.addAll(nets.values());
-
-        nets = null;
 
         for (HDLPort i : inputs)
             i.getNet().setIsInput(i.getName());
@@ -115,10 +111,11 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
 
     }
 
-    private HDLNode createNot(HDLPort p) throws HDLException, NodeException, PinException {
+    private HDLNode createNot(HDLPort p, HDLNode node) throws HDLException, NodeException, PinException {
         final ElementAttributes attr = new ElementAttributes().setBits(p.getBits());
-        HDLNode n = new HDLNode(Not.DESCRIPTION.getName(), attr, name -> p.getBits());
-        HDLNet outNet = new HDLNet(p.getName() + "_invert");
+        HDLNodeExpression n = new HDLNodeExpression(Not.DESCRIPTION.getName(), attr, name -> p.getBits());
+        HDLNet outNet = new HDLNet(null);
+        listOfNets.add(outNet);
         HDLNet inNet = p.getNet();
         inNet.remove(p);
 
@@ -126,6 +123,9 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
         n.addOutput(new HDLPort(Not.DESCRIPTION.getOutputDescriptions(attr).get(0).getName(), outNet, HDLPort.Direction.OUT, p.getBits()));
 
         p.setNet(outNet);
+        node.replaceNet(inNet, outNet);
+
+        n.setExpression(new ExprNot(new ExprVar(n.getInputs().get(0).getNet())));
 
         return n;
     }
@@ -155,7 +155,11 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
         if (n == null)
             return null;
 
-        return nets.computeIfAbsent(n, net -> new HDLNet(createNetName(net)));
+        return nets.computeIfAbsent(n, net -> {
+            final HDLNet hdlNet = new HDLNet(createNetName(net));
+            listOfNets.add(hdlNet);
+            return hdlNet;
+        });
     }
 
     private String createNetName(Net net) {
@@ -280,6 +284,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
                 out.print(", ");
             p.print(out);
         }
+        if (first)
+            out.print("(");
         out.println(")");
     }
 
@@ -295,6 +301,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
                 net.print(out);
             }
         }
+        if (first)
+            out.print("(");
         out.println(")");
     }
 
@@ -318,5 +326,17 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
          * @return the name to use
          */
         String createName(HDLNet n);
+    }
+
+    /**
+     * Simple naming algorithm. Numbers all nets beginning with zero.
+     */
+    public static class SimpleNaming implements NetNamer {
+        private int num = 0;
+
+        @Override
+        public String createName(HDLNet n) {
+            return "s" + (num++);
+        }
     }
 }

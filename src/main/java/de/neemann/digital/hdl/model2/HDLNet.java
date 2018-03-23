@@ -78,7 +78,10 @@ public class HDLNet implements Printable {
     }
 
     void remove(HDLPort p) {
-        inputs.remove(p);
+        if (p == output)
+            output = null;
+        else
+            inputs.remove(p);
     }
 
     @Override

@@ -127,7 +127,7 @@ public class HDLNode {
             }
         }
         if (first)
-            out.println("(");
+            out.print("(");
 
         out.println(")");
     }
@@ -143,5 +143,14 @@ public class HDLNode {
             if (p.getNet() == i.getNet())
                 return true;
         return false;
+    }
+
+    /**
+     * Replaces a net in this node
+     *
+     * @param oldNet the old net
+     * @param newNet the new net
+     */
+    public void replaceNet(HDLNet oldNet, HDLNet newNet) {
     }
 }

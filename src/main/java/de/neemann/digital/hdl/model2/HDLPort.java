@@ -78,6 +78,8 @@ public class HDLPort implements Printable {
      * @throws HDLException HDLException
      */
     public void setNet(HDLNet net) throws HDLException {
+        if (this.net != null)
+            this.net.remove(this);
         this.net = net;
         net.addPort(this);
     }
