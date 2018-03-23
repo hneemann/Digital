@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.model2;
 
+import de.neemann.digital.core.BitsException;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.Not;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -17,6 +18,7 @@ import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.Net;
@@ -77,6 +79,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
                             HDLPort.Direction.IN,
                             v.getElementAttributes().getBits())
                             .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER)));
+                else if (v.equalsDescription(Splitter.DESCRIPTION))
+                    handleSplitter(c.createNode(v, this));
                 else if (isRealElement(v))
                     nodes.add(c.createNode(v, this));
             }
@@ -109,6 +113,37 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
             if (o.getNet().needsVariable())
                 o.getNet().setIsOutput(o.getName(), o.getNet().getInputs().size() == 1);
 
+    }
+
+    private void handleSplitter(HDLNode node) throws BitsException, HDLException {
+        Splitter.Ports inputSplit = new Splitter.Ports(node.getElementAttributes().get(Keys.INPUT_SPLIT));
+        Splitter.Ports outputSplit = new Splitter.Ports(node.getElementAttributes().get(Keys.OUTPUT_SPLIT));
+        if (node.getInputs().size() == 1) {
+            nodes.add(new HDLNodeSplitterOneToMany(node, outputSplit));
+            return;
+        }
+        if (node.getOutputs().size() == 1 && node.getOutput().getBits() == inputSplit.getBits()) {
+            nodes.add(new HDLNodeSplitterManyToOne(node, inputSplit));
+            return;
+        }
+
+        int bits = inputSplit.getBits();
+        HDLNet net = new HDLNet(null);
+        listOfNets.add(net);
+        HDLPort left = new HDLPort("single", net, HDLPort.Direction.OUT, bits);
+        HDLPort right = new HDLPort("single", net, HDLPort.Direction.IN, bits);
+
+        HDLNodeSplitterManyToOne manyToOne = new HDLNodeSplitterManyToOne(node, inputSplit);
+        HDLNodeSplitterOneToMany oneToMany = new HDLNodeSplitterOneToMany(node, outputSplit);
+
+        manyToOne.getOutputs().clear();
+        manyToOne.addOutput(left);
+
+        oneToMany.getInputs().clear();
+        oneToMany.addInput(right);
+
+        nodes.add(manyToOne);
+        nodes.add(oneToMany);
     }
 
     private HDLNode createNot(HDLPort p, HDLNode node) throws HDLException, NodeException, PinException {

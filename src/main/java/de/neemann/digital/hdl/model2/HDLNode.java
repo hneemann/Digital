@@ -22,7 +22,7 @@ public class HDLNode {
     private final ArrayList<HDLPort> outputs;
 
     /**
-     * Creates e new intance
+     * Creates e new instance
      *
      * @param elementName       the instances name
      * @param elementAttributes the attributes
