@@ -27,8 +27,7 @@ public class HDLCircuitTest extends TestCase {
         ShapeFactory shapeFactory = new ShapeFactory(library);
         Circuit c = Circuit.loadCircuit(file, shapeFactory);
 
-        HDLCircuit hdl = new HDLCircuit(c, "main", new HDLContext(library));
-        return hdl;
+        return new HDLCircuit(c, "main", new HDLContext(library));
     }
 
     public void testSimple() throws IOException, PinException, HDLException, NodeException {
