@@ -40,25 +40,25 @@ public class HDLCircuitTest extends TestCase {
                 "  out(X:1, Y:1, Z:1, Aident:1)\n" +
                 "  sig(Y_temp:1, s0:1, Z_temp:1, s1:1)\n" +
                 "\n" +
-                "  node merged expression\n" +
-                "    in(In_5:1 is Y_temp:1, In_1:1 is A:1, In_2:1 is C:1, In_1:1 is Z_temp:1, In_1:1 is B:1)\n" +
-                "    out(out:1 is s0:1)\n" +
-                "    s0:1 := ((A:1 OR C:1) AND (Z_temp:1 OR C:1) AND 1:1 AND NOT (B:1 OR C:1) AND Y_temp:1)\n" +
-                "  node merged expression\n" +
-                "    in(In_1:1 is B:1, in:1 is C:1)\n" +
-                "    out(out:1 is Y_temp:1)\n" +
-                "    Y_temp:1 := (B:1 OR NOT C:1)\n" +
-                "  node Not\n" +
-                "    in(in:1 is A:1)\n" +
-                "    out(out:1 is Z_temp:1)\n" +
-                "    Z_temp:1 := NOT A:1\n" +
-                "  node D_FF\n" +
-                "    in(D:1 is s0:1, C:1 is s1:1)\n" +
-                "    out(Q:1 is X:1, ~Q:1 is not used)\n" +
                 "  node Const\n" +
                 "    in()\n" +
                 "    out(out:1 is s1:1)\n" +
                 "    s1:1 := 1:1\n" +
+                "  node Not\n" +
+                "    in(in:1 is A:1)\n" +
+                "    out(out:1 is Z_temp:1)\n" +
+                "    Z_temp:1 := NOT A:1\n" +
+                "  node merged expression\n" +
+                "    in(In_1:1 is B:1, in:1 is C:1)\n" +
+                "    out(out:1 is Y_temp:1)\n" +
+                "    Y_temp:1 := (B:1 OR NOT C:1)\n" +
+                "  node merged expression\n" +
+                "    in(In_5:1 is Y_temp:1, In_1:1 is A:1, In_2:1 is C:1, In_1:1 is Z_temp:1, In_1:1 is B:1)\n" +
+                "    out(out:1 is s0:1)\n" +
+                "    s0:1 := ((A:1 OR C:1) AND (Z_temp:1 OR C:1) AND 1:1 AND NOT (B:1 OR C:1) AND Y_temp:1)\n" +
+                "  node D_FF\n" +
+                "    in(D:1 is s0:1, C:1 is s1:1)\n" +
+                "    out(Q:1 is X:1, ~Q:1 is not used)\n" +
                 "\n" +
                 "  Y:1 := Y_temp:1\n" +
                 "  Z:1 := Z_temp:1\n" +

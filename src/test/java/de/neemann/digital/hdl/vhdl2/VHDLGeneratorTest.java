@@ -40,7 +40,7 @@ public class VHDLGeneratorTest extends TestCase {
 
     /*
     public void testDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "dig/hdl/splitter2.dig");
+        File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));

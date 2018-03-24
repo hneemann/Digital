@@ -122,6 +122,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
             if (o.getNet().needsVariable())
                 o.getNet().setIsOutput(o.getName(), o.getNet().getInputs().size() == 1);
 
+        nodes = new NodeSorter(inputs, nodes).sort();
     }
 
     private void handleSplitter(HDLNode node) throws BitsException, HDLException {
