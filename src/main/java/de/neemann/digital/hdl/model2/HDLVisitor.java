@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.hdl.model2;
 
+import java.io.IOException;
+
 /**
  * Visitor to visit the nodes.
  */
@@ -14,5 +16,5 @@ public interface HDLVisitor {
      *
      * @param hdlNode the node to visit
      */
-    void visit(HDLNode hdlNode);
+    void visit(HDLNode hdlNode) throws IOException;
 }

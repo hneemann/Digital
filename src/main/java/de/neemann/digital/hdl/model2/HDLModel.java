@@ -12,6 +12,8 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.io.Const;
+import de.neemann.digital.core.io.Ground;
+import de.neemann.digital.core.io.VDD;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
@@ -28,16 +30,17 @@ import java.util.Iterator;
  * The context of creating nodes and circuits.
  * Ensures that every circuit is only processed one time.
  */
-public class HDLContext implements Iterable<HDLCircuit> {
+public class HDLModel implements Iterable<HDLCircuit> {
     private ElementLibrary elementLibrary;
     private HashMap<Circuit, HDLCircuit> circuitMap;
+    private HDLCircuit main;
 
     /**
      * Creates a new instance
      *
      * @param elementLibrary the element library
      */
-    public HDLContext(ElementLibrary elementLibrary) {
+    public HDLModel(ElementLibrary elementLibrary) {
         this.elementLibrary = elementLibrary;
         circuitMap = new HashMap<>();
     }
@@ -70,6 +73,14 @@ public class HDLContext implements Iterable<HDLCircuit> {
                 final HDLNodeExpression node = createExpression(v, parent, td);
                 node.setExpression(new ExprConstant(node.getElementAttributes().get(Keys.VALUE), node.getOutput().getBits()));
                 return node;
+            } else if (v.equalsDescription(Ground.DESCRIPTION)) {
+                final HDLNodeExpression node = createExpression(v, parent, td);
+                node.setExpression(new ExprConstant(0, node.getOutput().getBits()));
+                return node;
+            } else if (v.equalsDescription(VDD.DESCRIPTION)) {
+                final HDLNodeExpression node = createExpression(v, parent, td);
+                node.setExpression(new ExprConstant(-1, node.getOutput().getBits()));
+                return node;
             } else if (v.equalsDescription(Not.DESCRIPTION)) {
                 final HDLNodeExpression node = createExpression(v, parent, td);
                 node.setExpression(new ExprNot(new ExprVar(node.getInputs().get(0).getNet())));
@@ -100,7 +111,7 @@ public class HDLContext implements Iterable<HDLCircuit> {
                 return node;
             } else
                 return addInputsOutputs(
-                        new HDLNode(v.getElementName(),
+                        new HDLNodeBuildIn(v.getElementName(),
                                 v.getElementAttributes(),
                                 new ObservableValuesBitsProvider(
                                         td.createElement(v.getElementAttributes()).getOutputs())),
@@ -146,9 +157,68 @@ public class HDLContext implements Iterable<HDLCircuit> {
     }
 
     /**
+     * Analyses the given circuit
+     *
+     * @param circuit the circuit
+     * @return this for chained calls
+     * @throws PinException  PinException
+     * @throws HDLException  HDLException
+     * @throws NodeException NodeException
+     */
+    public HDLModel create(Circuit circuit) throws PinException, HDLException, NodeException {
+        main = new HDLCircuit(circuit, "main", this);
+        circuitMap.put(circuit, main);
+        return this;
+    }
+
+    public void rename(Renaming renaming) {
+        Renaming r = new RenameContext(renaming);
+        for (HDLCircuit c : circuitMap.values())
+            c.rename(r);
+    }
+
+    public interface Renaming {
+        String checkName(String name);
+    }
+
+    static final class RenameContext implements Renaming {
+        private final Renaming parent;
+        private final HashMap<String, String> map;
+
+        private RenameContext(Renaming parent) {
+            this.parent = parent;
+            map = new HashMap<>();
+        }
+
+        @Override
+        public String checkName(String name) {
+            String n = map.get(name);
+            if (n == null) {
+                n = parent.checkName(name);
+                map.put(name, n);
+            }
+            return n;
+        }
+    }
+
+    /**
+     * @return the main node
+     */
+    public HDLCircuit getMain() {
+        return main;
+    }
+
+    public HDLCircuit getCustomCircuit(String elementName) {
+        for (HDLCircuit c : circuitMap.values())
+            if (c.getElementName().equals(elementName))
+                return c;
+        return null;
+    }
+
+    /**
      * The bit provider interface
      */
-    public interface BitProvider {
+    interface BitProvider {
         /**
          * Returns the number of bits of the signal with the given name
          *

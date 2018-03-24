@@ -35,7 +35,7 @@ import java.util.*;
 /**
  * The representation of a circuit
  */
-public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Printable {
+public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Printable {
     private final String elementName;
     private final ArrayList<HDLPort> outputs;
     private final ArrayList<HDLPort> inputs;
@@ -43,6 +43,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
     private NetList netList;
     private ArrayList<HDLNode> nodes;
     private HashMap<Net, HDLNet> nets;
+    private String specializedName;
 
     /**
      * Creates a new instance
@@ -54,8 +55,14 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
      * @throws HDLException  HDLException
      * @throws NodeException NodeException
      */
-    public HDLCircuit(Circuit circuit, String elementName, HDLContext c) throws PinException, HDLException, NodeException {
+    public HDLCircuit(Circuit circuit, String elementName, HDLModel c) throws PinException, HDLException, NodeException {
         this.elementName = elementName;
+
+        if (elementName.toLowerCase().endsWith(".dig"))
+            specializedName = elementName.substring(0, elementName.length() - 4);
+        else
+            specializedName = elementName;
+
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
 
@@ -239,16 +246,6 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
         return inputs;
     }
 
-    /**
-     * Traverses all the nodes
-     *
-     * @param visitor the visitor to use
-     */
-    public void traverse(HDLVisitor visitor) {
-        for (HDLNode n : nodes)
-            n.traverse(visitor);
-    }
-
     @Override
     public String toString() {
         return "HDLCircuit{elementName='" + elementName + "'}";
@@ -348,6 +345,31 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLContext.BitProvider, Pr
      */
     public void removeNet(HDLNet net) {
         listOfNets.remove(net);
+    }
+
+    /**
+     * @return the list of nets
+     */
+    public ArrayList<HDLNet> getNets() {
+        return listOfNets;
+    }
+
+    public void rename(HDLModel.Renaming renaming) {
+        for (HDLPort p : outputs)
+            p.rename(renaming);
+        for (HDLPort p : inputs)
+            p.rename(renaming);
+        for (HDLNet p : listOfNets)
+            p.rename(renaming);
+
+        for (HDLNode n : nodes)
+            n.rename(renaming);
+
+        specializedName = renaming.checkName(specializedName);
+    }
+
+    public String getSpecializedName() {
+        return specializedName;
     }
 
     /**

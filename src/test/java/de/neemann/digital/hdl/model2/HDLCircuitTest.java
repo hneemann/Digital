@@ -10,7 +10,6 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.Resources;
 import junit.framework.TestCase;
@@ -27,7 +26,7 @@ public class HDLCircuitTest extends TestCase {
         ShapeFactory shapeFactory = new ShapeFactory(library);
         Circuit c = Circuit.loadCircuit(file, shapeFactory);
 
-        return new HDLCircuit(c, "main", new HDLContext(library));
+        return new HDLCircuit(c, "main", new HDLModel(library));
     }
 
     public void testSimple() throws IOException, PinException, HDLException, NodeException {

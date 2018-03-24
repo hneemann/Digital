@@ -26,7 +26,7 @@ public class HDLNodeExpression extends HDLNode {
      * @param elementAttributes the attributes
      * @param bitProvider       the bit provider which provides the outputs bit width
      */
-    public HDLNodeExpression(String elementName, ElementAttributes elementAttributes, HDLContext.BitProvider bitProvider) {
+    public HDLNodeExpression(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
         super(elementName, elementAttributes, bitProvider);
     }
 
@@ -59,5 +59,9 @@ public class HDLNodeExpression extends HDLNode {
     public void replaceNet(HDLNet oldNet, HDLNet newNet) {
         super.replaceNet(oldNet, newNet);
         expression.replace(oldNet, new ExprVar(newNet));
+    }
+
+    public String getTargetSignal() {
+        return getOutput().getNet().getName();
     }
 }

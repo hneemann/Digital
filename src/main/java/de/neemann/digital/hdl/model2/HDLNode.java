@@ -12,14 +12,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * A node which represents a built-in component
+ * The base class of all nodes
  */
 public class HDLNode {
     private final String elementName;
     private final ElementAttributes elementAttributes;
-    private final HDLContext.BitProvider bitProvider;
+    private final HDLModel.BitProvider bitProvider;
     private final ArrayList<HDLPort> inputs;
     private final ArrayList<HDLPort> outputs;
+    private String specializedName;
 
     /**
      * Creates e new instance
@@ -28,7 +29,7 @@ public class HDLNode {
      * @param elementAttributes the attributes
      * @param bitProvider       the bit provider which provides the outputs bit width
      */
-    public HDLNode(String elementName, ElementAttributes elementAttributes, HDLContext.BitProvider bitProvider) {
+    public HDLNode(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
         this.elementName = elementName;
         this.elementAttributes = elementAttributes;
         this.bitProvider = bitProvider;
@@ -82,15 +83,6 @@ public class HDLNode {
      */
     public ArrayList<HDLPort> getOutputs() {
         return outputs;
-    }
-
-    /**
-     * Traverses all the nodes
-     *
-     * @param visitor the visitor to use
-     */
-    public void traverse(HDLVisitor visitor) {
-        visitor.visit(this);
     }
 
     int getBits(String name) {
@@ -152,5 +144,20 @@ public class HDLNode {
      * @param newNet the new net
      */
     public void replaceNet(HDLNet oldNet, HDLNet newNet) {
+    }
+
+    public void setSpecializedName(String specializedName) {
+        this.specializedName = specializedName;
+    }
+
+    public String getSpecializedName() {
+        return specializedName;
+    }
+
+    public void rename(HDLModel.Renaming renaming) {
+        for (HDLPort p : outputs)
+            p.rename(renaming);
+        for (HDLPort p : inputs)
+            p.rename(renaming);
     }
 }

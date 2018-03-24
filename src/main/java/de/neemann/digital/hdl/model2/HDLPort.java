@@ -28,7 +28,7 @@ public class HDLPort implements Printable {
         OUT
     }
 
-    private final String name;
+    private String name;
     private final Direction direction;
     private int bits;
     private HDLNet net;
@@ -130,4 +130,9 @@ public class HDLPort implements Printable {
     public void print(CodePrinter out) throws IOException {
         out.print(name).print(":").print(bits);
     }
+
+    public void rename(HDLModel.Renaming renaming) {
+        name = renaming.checkName(name);
+    }
+
 }

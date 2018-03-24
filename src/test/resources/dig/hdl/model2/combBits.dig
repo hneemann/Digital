@@ -11,6 +11,10 @@
           <string>X</string>
         </entry>
         <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
           <string>Inputs</string>
           <int>1</int>
         </entry>
@@ -21,6 +25,10 @@
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
           <string>Inputs</string>
           <int>5</int>
         </entry>
@@ -29,17 +37,32 @@
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
       <pos x="20" y="0"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
       <pos x="20" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
       <pos x="20" y="240"/>
     </visualElement>
     <visualElement>
@@ -53,6 +76,10 @@
           <string>Label</string>
           <string>A</string>
         </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
       </elementAttributes>
       <pos x="-120" y="-100"/>
     </visualElement>
@@ -62,6 +89,10 @@
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
         </entry>
       </elementAttributes>
       <pos x="-100" y="-60"/>
@@ -77,6 +108,10 @@
           <string>Label</string>
           <string>B</string>
         </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
       </elementAttributes>
       <pos x="-80" y="-100"/>
     </visualElement>
@@ -91,6 +126,10 @@
           <string>Label</string>
           <string>C</string>
         </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
       </elementAttributes>
       <pos x="-40" y="-100"/>
     </visualElement>
@@ -101,12 +140,21 @@
           <string>rotation</string>
           <rotation rotation="3"/>
         </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
       </elementAttributes>
       <pos x="-20" y="-60"/>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
       <pos x="20" y="160"/>
     </visualElement>
     <visualElement>
@@ -115,6 +163,10 @@
         <entry>
           <string>Label</string>
           <string>Y</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
         </entry>
       </elementAttributes>
       <pos x="360" y="260"/>
@@ -126,17 +178,31 @@
           <string>Label</string>
           <string>Z</string>
         </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
       </elementAttributes>
       <pos x="360" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
       <pos x="140" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
       <pos x="280" y="140"/>
     </visualElement>
     <visualElement>
@@ -150,6 +216,10 @@
         <entry>
           <string>Label</string>
           <string>Aident</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
         </entry>
       </elementAttributes>
       <pos x="360" y="340"/>

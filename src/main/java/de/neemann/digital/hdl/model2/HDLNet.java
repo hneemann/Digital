@@ -132,4 +132,12 @@ public class HDLNet implements Printable {
         } else
             this.name = name + "_temp";
     }
+
+    public int getBits() {
+        return output.getBits();
+    }
+
+    public void rename(HDLModel.Renaming renaming) {
+        name = renaming.checkName(name);
+    }
 }

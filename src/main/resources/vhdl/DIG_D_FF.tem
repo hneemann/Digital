@@ -6,7 +6,6 @@ USE ieee.std_logic_1164.all;
   else
       entityName:="DIG_D_FF_BUS";
 ?>
-
 entity <?=entityName?> is
   <? vhdl.beginGenericPort();?>
   <?if (elem.Bits>1) {?>generic ( Bits: integer ); <? vhdl.registerGeneric("Bits"); }?>

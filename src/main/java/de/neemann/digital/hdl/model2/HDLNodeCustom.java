@@ -7,6 +7,8 @@ package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.element.ElementAttributes;
 
+import java.io.IOException;
+
 /**
  * Represents a node which is build from a circuit.
  */
@@ -25,9 +27,20 @@ public class HDLNodeCustom extends HDLNode {
         this.hdlCircuit = hdlCircuit;
     }
 
+    /**
+     * @return the circuit
+     */
+    public HDLCircuit getCircuit() {
+        return hdlCircuit;
+    }
+
     @Override
-    public void traverse(HDLVisitor visitor) {
-        hdlCircuit.traverse(visitor);
-        visitor.visit(this);
+    public void setSpecializedName(String specializedName) {
+        throw new RuntimeException("call not supported!");
+    }
+
+    @Override
+    public String getSpecializedName() {
+        return hdlCircuit.getSpecializedName();
     }
 }
