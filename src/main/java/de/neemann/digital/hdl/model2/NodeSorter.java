@@ -22,7 +22,7 @@ public class NodeSorter {
      * @param inputs the initial inputs
      * @param nodes  the nodes to sort
      */
-    public NodeSorter(ArrayList<HDLPort> inputs, ArrayList<HDLNode> nodes) {
+    NodeSorter(ArrayList<HDLPort> inputs, ArrayList<HDLNode> nodes) {
         this.inputs = inputs;
         this.nodes = nodes;
     }

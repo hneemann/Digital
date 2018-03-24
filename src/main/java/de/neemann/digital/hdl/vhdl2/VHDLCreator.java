@@ -28,9 +28,8 @@ public class VHDLCreator {
      * Creates a new instance
      *
      * @param out   the output stream
-     * @param model the model to export
      */
-    public VHDLCreator(CodePrinter out, HDLModel model) {
+    VHDLCreator(CodePrinter out) {
         this.out = out;
         library = new VHDLLibrary();
         customPrinted = new HashSet<>();
@@ -71,8 +70,8 @@ public class VHDLCreator {
 
     private void printNodeBuiltIn(HDLNodeBuildIn node) throws HDLException, IOException, HGSEvalException {
         VHDLEntity entity = library.getEntity(node);
-        String specializedName = entity.print(out, node);
-        node.setSpecializedName(specializedName);
+        String hdlEntityName = entity.print(out, node);
+        node.setHdlEntityName(hdlEntityName);
     }
 
     private void printNodeCustom(HDLNodeCustom node) throws HDLException, IOException, HGSEvalException {
@@ -105,12 +104,12 @@ public class VHDLCreator {
                 .println("USE ieee.numeric_std.all;")
                 .println();
 
-        out.print("entity ").print(circuit.getSpecializedName()).println(" is").inc();
+        out.print("entity ").print(circuit.getHdlEntityName()).println(" is").inc();
         writePorts(out, circuit);
         out.dec();
-        out.print("end ").print(circuit.getSpecializedName()).println(";");
+        out.print("end ").print(circuit.getHdlEntityName()).println(";");
         out.println();
-        out.print("architecture Behavioral of " + circuit.getSpecializedName()).println(" is").inc();
+        out.print("architecture Behavioral of " + circuit.getHdlEntityName()).println(" is").inc();
 
         for (HDLNet net : circuit.getNets())
             if (net.needsVariable())
@@ -199,7 +198,7 @@ public class VHDLCreator {
     }
 
     private void printEntityInstantiation(HDLNode node, int num) throws IOException, HDLException {
-        String entityName = node.getSpecializedName();
+        String entityName = node.getHdlEntityName();
 
         out.print("gate").print(num).print(": entity work.").println(entityName).inc();
         if (!(node instanceof HDLNodeCustom))

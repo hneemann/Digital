@@ -12,6 +12,7 @@ import java.io.IOException;
 
 /**
  * A One to Many splitter
+ * A Many to Many splitter is build with a ManyToOne and a OneToMany splitter.
  */
 public class HDLNodeSplitterOneToMany extends HDLNode {
     private final Splitter.Ports outputSplit;

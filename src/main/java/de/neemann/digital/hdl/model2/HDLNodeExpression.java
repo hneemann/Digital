@@ -26,7 +26,7 @@ public class HDLNodeExpression extends HDLNode {
      * @param elementAttributes the attributes
      * @param bitProvider       the bit provider which provides the outputs bit width
      */
-    public HDLNodeExpression(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
+    HDLNodeExpression(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
         super(elementName, elementAttributes, bitProvider);
     }
 

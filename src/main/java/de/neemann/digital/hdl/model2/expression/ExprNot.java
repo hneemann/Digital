@@ -55,7 +55,7 @@ public class ExprNot implements Expression {
      * @param net  the net
      * @return true if the expression is a reference to the given net
      */
-    public static boolean isVar(Expression expr, HDLNet net) {
+    static boolean isVar(Expression expr, HDLNet net) {
         return expr instanceof ExprVar && ((ExprVar) expr).getNet() == net;
     }
 }

@@ -11,8 +11,8 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import java.io.IOException;
 
 /**
- * The splitter.
- * Either the output split or the input split is always one!
+ * The Many to One splitter.
+ * A Many to Many splitter is build with a ManyToOne and a OneToMany splitter.
  */
 public class HDLNodeSplitterManyToOne extends HDLNode {
     private final Splitter.Ports inputSplit;

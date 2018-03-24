@@ -31,7 +31,7 @@ public class HDLCircuitTest extends TestCase {
 
     public void testSimple() throws IOException, PinException, HDLException, NodeException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb.dig");
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNaming());
+        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -68,7 +68,7 @@ public class HDLCircuitTest extends TestCase {
 
     public void testSimple2() throws IOException, PinException, HDLException, NodeException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb2.dig");
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNaming());
+        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -87,7 +87,7 @@ public class HDLCircuitTest extends TestCase {
 
     public void testInputInvert() throws IOException, PinException, HDLException, NodeException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert.dig");
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNaming());
+        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -106,7 +106,7 @@ public class HDLCircuitTest extends TestCase {
 
     public void testInputInvert2() throws IOException, PinException, HDLException, NodeException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert2.dig");
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNaming());
+        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -125,7 +125,7 @@ public class HDLCircuitTest extends TestCase {
 
     public void testSplitter() throws IOException, PinException, HDLException, NodeException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter.dig");
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNaming());
+        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -149,7 +149,7 @@ public class HDLCircuitTest extends TestCase {
 
     public void testSplitter2() throws IOException, PinException, HDLException, NodeException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter2.dig");
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNaming());
+        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);

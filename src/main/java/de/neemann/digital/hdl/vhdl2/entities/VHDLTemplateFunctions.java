@@ -5,9 +5,9 @@
  */
 package de.neemann.digital.hdl.vhdl2.entities;
 
-import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Value;
+import de.neemann.digital.hdl.vhdl2.VHDLCreator;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public final class VHDLTemplateFunctions {
     /**
      * Creates a new instance
      */
-    public VHDLTemplateFunctions() {
+    VHDLTemplateFunctions() {
         generics = new ArrayList<>();
     }
 
@@ -47,16 +47,7 @@ public final class VHDLTemplateFunctions {
      * @return the value as vhdl code
      */
     public static String value(long val, long bits) {
-        String s = Long.toBinaryString(val);
-        while (s.length() < bits)
-            s = "0" + s;
-
-        if (bits > 1)
-            s = "\"" + s + "\"";
-        else
-            s = "'" + s + "'";
-
-        return s;
+        return VHDLCreator.value(val, (int) bits);
     }
 
     /**
@@ -83,22 +74,6 @@ public final class VHDLTemplateFunctions {
             return "std_logic";
         else
             return "std_logic_vector (" + (n - 1) + " downto 0)";
-    }
-
-    /**
-     * Begins the generic port definition.
-     *
-     * @param c the context
-     */
-    public void beginGenericPort(Context c) {
-    }
-
-    /**
-     * Ends the generic port definition.
-     *
-     * @param c the context
-     */
-    public void endGenericPort(Context c) {
     }
 
     /**

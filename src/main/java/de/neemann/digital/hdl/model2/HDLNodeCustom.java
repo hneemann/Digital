@@ -20,7 +20,7 @@ public class HDLNodeCustom extends HDLNode {
      * @param elementAttributes the attributes
      * @param hdlCircuit        the circuit to use to create this node
      */
-    public HDLNodeCustom(String elementName, ElementAttributes elementAttributes, HDLCircuit hdlCircuit) {
+    HDLNodeCustom(String elementName, ElementAttributes elementAttributes, HDLCircuit hdlCircuit) {
         super(elementName, elementAttributes, hdlCircuit);
         this.hdlCircuit = hdlCircuit;
     }
@@ -33,12 +33,12 @@ public class HDLNodeCustom extends HDLNode {
     }
 
     @Override
-    public void setSpecializedName(String specializedName) {
+    public void setHdlEntityName(String hdlEntityName) {
         throw new RuntimeException("call not supported!");
     }
 
     @Override
-    public String getSpecializedName() {
-        return hdlCircuit.getSpecializedName();
+    public String getHdlEntityName() {
+        return hdlCircuit.getHdlEntityName();
     }
 }

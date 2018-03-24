@@ -20,6 +20,8 @@ architecture Behavioral of <?=entityName?> is
     <?
 
     len:=sizeOf(elem.Data);
+    maxCol:=76/(elem.Bits+4);
+
     col:=0;
     for (i:=0;i<len;i++) {
         print( vhdl.value(elem.Data[i],elem.Bits));
@@ -27,7 +29,7 @@ architecture Behavioral of <?=entityName?> is
             print(", ");
         }
         col++;
-        if (col=6) {
+        if (col=maxCol) {
           col=0;
           print("\n    ");
         }

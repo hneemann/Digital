@@ -232,19 +232,6 @@ public class HDLModel implements Iterable<HDLCircuit> {
     }
 
     /**
-     * Returns the circuit with the given name.
-     *
-     * @param elementName the name of the circuit
-     * @return the circuit or null if not found
-     */
-    public HDLCircuit getCustomCircuit(String elementName) {
-        for (HDLCircuit c : circuitMap.values())
-            if (c.getElementName().equals(elementName))
-                return c;
-        return null;
-    }
-
-    /**
      * The bit provider interface
      */
     interface BitProvider {

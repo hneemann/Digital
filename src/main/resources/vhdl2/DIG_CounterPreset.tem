@@ -4,7 +4,6 @@ USE ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
 
 entity DIG_CounterPreset is
-  <? vhdl.beginGenericPort();?>
   generic ( Bits: integer;<?       vhdl.registerGeneric("Bits");?>
             maxValue: integer );<? vhdl.registerGeneric("maxValue");?>
   port (
@@ -16,7 +15,6 @@ entity DIG_CounterPreset is
     dir : in std_logic;
     p_in  : in std_logic_vector((Bits-1) downto 0);
     ld  : in std_logic );
-  <? vhdl.endGenericPort();?>
 end DIG_CounterPreset;
 
 architecture Behavioral of DIG_CounterPreset is

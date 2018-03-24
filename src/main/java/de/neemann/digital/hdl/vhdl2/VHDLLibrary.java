@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * The tamplate library
+ * The template library.
+ * Ensures that every template is only loaded once.
  */
 public class VHDLLibrary {
     private static final Logger LOGGER = LoggerFactory.getLogger(VHDLLibrary.class);
@@ -27,7 +28,7 @@ public class VHDLLibrary {
     /**
      * Creates a new library
      */
-    public VHDLLibrary() {
+    VHDLLibrary() {
         map = new HashMap<>();
     }
 

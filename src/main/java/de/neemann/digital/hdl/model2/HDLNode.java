@@ -20,7 +20,7 @@ public class HDLNode {
     private final HDLModel.BitProvider bitProvider;
     private final ArrayList<HDLPort> inputs;
     private final ArrayList<HDLPort> outputs;
-    private String specializedName;
+    private String hdlEntityName;
 
     /**
      * Creates e new instance
@@ -149,17 +149,17 @@ public class HDLNode {
     /**
      * Sets the name to use in the target language
      *
-     * @param specializedName the name of the node in the target hdl
+     * @param hdlEntityName the name of the node in the target hdl
      */
-    public void setSpecializedName(String specializedName) {
-        this.specializedName = specializedName;
+    public void setHdlEntityName(String hdlEntityName) {
+        this.hdlEntityName = hdlEntityName;
     }
 
     /**
      * @return the name of the node in the target hdl
      */
-    public String getSpecializedName() {
-        return specializedName;
+    public String getHdlEntityName() {
+        return hdlEntityName;
     }
 
     /**

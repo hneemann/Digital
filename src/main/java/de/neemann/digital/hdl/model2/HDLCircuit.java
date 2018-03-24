@@ -44,7 +44,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     private NetList netList;
     private ArrayList<HDLNode> nodes;
     private HashMap<Net, HDLNet> nets;
-    private String specializedName;
+    private String hdlEntityName;
 
     /**
      * Creates a new instance
@@ -56,13 +56,13 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      * @throws HDLException  HDLException
      * @throws NodeException NodeException
      */
-    public HDLCircuit(Circuit circuit, String elementName, HDLModel c) throws PinException, HDLException, NodeException {
+    HDLCircuit(Circuit circuit, String elementName, HDLModel c) throws PinException, HDLException, NodeException {
         this.elementName = elementName;
 
         if (elementName.toLowerCase().endsWith(".dig"))
-            specializedName = elementName.substring(0, elementName.length() - 4);
+            hdlEntityName = elementName.substring(0, elementName.length() - 4);
         else
-            specializedName = elementName;
+            hdlEntityName = elementName;
 
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
@@ -272,23 +272,22 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      * Merges logcal operations if possible
      *
      * @return this for chained calls
-     * @throws HDLException HDLException
      */
-    public HDLCircuit mergeOperations() throws HDLException {
+    public HDLCircuit mergeOperations() {
         nodes = new OperationMerger(nodes, this).merge();
         return this;
     }
 
     /**
-     * Name the unnamed nets
+     * Name the unnamed nets.
      *
-     * @param netNamer the net naming algorithm
+     * @param netNaming the net naming algorithm
      * @return this for chained calls
      */
-    public HDLCircuit nameNets(NetNamer netNamer) {
+    public HDLCircuit nameNets(NetNaming netNaming) {
         for (HDLNet n : listOfNets)
             if (n.getName() == null)
-                n.setName(netNamer.createName(n));
+                n.setName(netNaming.createName(n));
         return this;
     }
 
@@ -387,7 +386,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         for (HDLNode n : nodes)
             n.rename(renaming);
 
-        specializedName = renaming.checkName(specializedName);
+        hdlEntityName = renaming.checkName(hdlEntityName);
     }
 
     /**
@@ -395,14 +394,14 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      *
      * @return the name
      */
-    public String getSpecializedName() {
-        return specializedName;
+    public String getHdlEntityName() {
+        return hdlEntityName;
     }
 
     /**
      * The net naming algorithm
      */
-    public interface NetNamer {
+    public interface NetNaming {
         /**
          * Returns a nem for the given net
          *
@@ -415,7 +414,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     /**
      * Simple naming algorithm. Numbers all nets beginning with zero.
      */
-    public static class SimpleNaming implements NetNamer {
+    public static class SimpleNetNaming implements NetNaming {
         private int num = 0;
 
         @Override

@@ -18,7 +18,7 @@ public class HDLNodeBuildIn extends HDLNode {
      * @param elementAttributes the attributes
      * @param bitProvider       the bit provider which provides the outputs bit width
      */
-    public HDLNodeBuildIn(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
+    HDLNodeBuildIn(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
         super(elementName, elementAttributes, bitProvider);
     }
 }

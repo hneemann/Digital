@@ -22,12 +22,10 @@ end DIG_BitExtender_arch;
       entityName:="DIG_BitExtenderSingle";
 ?>
 entity DIG_BitExtenderSingle is
-  <? vhdl.beginGenericPort();?>
   generic ( outputBits : integer); <? vhdl.registerGeneric("outputBits");?>
   port (
     p_in: in std_logic;
     p_out: out std_logic_vector ((outputBits-1) downto 0) );
-  <? vhdl.endGenericPort();?>
 end DIG_BitExtenderSingle;
 
 architecture Behavioral of DIG_BitExtenderSingle is

@@ -30,7 +30,7 @@ import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
 
 /**
  * Creates a test bench for a model.
- * The needed test date is taken from the test cases in the circuit
+ * The needed test data is taken from the test cases in the circuit
  */
 public class VHDLTestBenchCreator {
     private final ArrayList<ElementAttributes> testCases;
@@ -44,7 +44,7 @@ public class VHDLTestBenchCreator {
      * @param circuit the circuit
      * @param model   the model
      */
-    public VHDLTestBenchCreator(Circuit circuit, HDLModel model) {
+    VHDLTestBenchCreator(Circuit circuit, HDLModel model) {
         this.main = model.getMain();
         this.renaming = model.getRenaming();
         testCases = new ArrayList<>();
@@ -95,7 +95,7 @@ public class VHDLTestBenchCreator {
         return testFileWritten;
     }
 
-    private void writeTestBench(CodePrinter out, String testName, ElementAttributes tc) throws IOException, HDLException, TestingDataException, ParserException {
+    private void writeTestBench(CodePrinter out, String testName, ElementAttributes tc) throws IOException, TestingDataException, ParserException {
         out.print("--  A testbench for ").println(testName);
         out.println("LIBRARY ieee;");
         out.println("USE ieee.std_logic_1164.all;");
@@ -248,12 +248,12 @@ public class VHDLTestBenchCreator {
                 }
                 lineSep.check(out);
                 writeValues(values, false, 0);
-            } catch (IOException | HDLException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        private void writeValues(Value[] values, boolean isClock, int clock) throws IOException, HDLException {
+        private void writeValues(Value[] values, boolean isClock, int clock) throws IOException {
             out.print("(");
             Separator sep = new Separator(", ");
             for (int i = 0; i < values.length; i++) {

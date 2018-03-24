@@ -21,7 +21,7 @@ class OperationMerger {
         this.circuit = circuit;
     }
 
-    ArrayList<HDLNode> merge() throws HDLException {
+    ArrayList<HDLNode> merge() {
         boolean wasOptimization;
         do {
             wasOptimization = false;
@@ -47,7 +47,7 @@ class OperationMerger {
         return nodes;
     }
 
-    private HDLNodeExpression merge(HDLNodeExpression host, HDLNodeExpression include) throws HDLException {
+    private HDLNodeExpression merge(HDLNodeExpression host, HDLNodeExpression include) {
         final Expression expression = host.getExpression();
         final HDLNet obsoleteNet = include.getOutput().getNet();
         expression.replace(obsoleteNet, include.getExpression());
