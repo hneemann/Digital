@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.hdl.vhdl2;
 
+import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.*;
 import de.neemann.digital.hdl.model2.expression.*;
@@ -54,8 +56,8 @@ public class VHDLCreator {
      * @param bits the bit number
      * @return the value as vhdl code
      */
-    public static String value(long val, long bits) {
-        String s = Long.toBinaryString(val);
+    public static String value(long val, int bits) {
+        String s = Long.toBinaryString(val & Bits.mask(bits));
         while (s.length() < bits)
             s = "0" + s;
 
@@ -164,12 +166,34 @@ public class VHDLCreator {
         out.println(");").dec();
     }
 
-    private void printManyToOne(HDLNodeSplitterManyToOne node) {
-
+    private void printManyToOne(HDLNodeSplitterManyToOne node) throws IOException {
+        String target = node.getTargetSignal();
+        Splitter.Ports is = node.getInputSplit();
+        int i = 0;
+        for (HDLPort in : node.getInputs()) {
+            Splitter.Port sp = is.getPort(i++);
+            out.print(target).print("(");
+            if (in.getBits() == 1)
+                out.print(sp.getPos());
+            else
+                out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
+            out.print(") <= ").print(in.getNet().getName()).println(";");
+        }
     }
 
-    private void printOneToMany(HDLNodeSplitterOneToMany node) {
-
+    private void printOneToMany(HDLNodeSplitterOneToMany node) throws IOException {
+        String source = node.getSourceSignal();
+        Splitter.Ports is = node.getOutputSplit();
+        int i = 0;
+        for (HDLPort outPort : node.getOutputs()) {
+            Splitter.Port sp = is.getPort(i++);
+            out.print(outPort.getNet().getName()).print(" <= ").print(source).print("(");
+            if (outPort.getBits() == 1)
+                out.print(sp.getPos());
+            else
+                out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
+            out.println(");");
+        }
     }
 
     private void printEntityInstantiation(HDLNode node, int num) throws IOException, HDLException {

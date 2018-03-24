@@ -90,8 +90,9 @@ public class VHDLGenerator implements Closeable {
 
         File outFile = out.getFile();
         if (outFile != null)
-            testBenches = new VHDLTestBenchCreator(circuit, model.getMain()).write(outFile).getTestFileWritten();
-
+            testBenches = new VHDLTestBenchCreator(circuit, model)
+                    .write(outFile)
+                    .getTestFileWritten();
 
         return this;
     }

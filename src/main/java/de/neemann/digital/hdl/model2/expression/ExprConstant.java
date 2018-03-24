@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.model2.expression;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.model2.HDLNet;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
@@ -24,8 +25,8 @@ public class ExprConstant implements Expression {
      * @param bits the number of bits
      */
     public ExprConstant(long value, int bits) {
-        this.value = value;
         this.bits = bits;
+        this.value = value & Bits.mask(bits);
     }
 
     /**

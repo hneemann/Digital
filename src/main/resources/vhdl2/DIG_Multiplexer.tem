@@ -25,5 +25,6 @@ begin
     p_out <=
       <?- for (n:=0;n<inputs;n++) { ?>
       in_<?=n?> when <?= vhdl.value(n, elem.'Selector Bits') ?>,
-      <?- } print( vhdl.zero(elem.Bits));?> when others;
+      <?- } ?>
+      <?=vhdl.zero(elem.Bits)?> when others;
 end Behavioral;

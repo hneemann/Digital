@@ -47,4 +47,11 @@ public class HDLNodeSplitterOneToMany extends HDLNode {
                     .print("(").print(sp.getPos()).print("-").print(sp.getPos() + sp.getBits() - 1).println(")");
         }
     }
+
+    /**
+     * @return the source signals name
+     */
+    public String getSourceSignal() {
+        return getInputs().get(0).getNet().getName();
+    }
 }

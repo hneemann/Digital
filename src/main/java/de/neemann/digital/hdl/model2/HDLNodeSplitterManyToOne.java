@@ -37,6 +37,13 @@ public class HDLNodeSplitterManyToOne extends HDLNode {
         return inputSplit;
     }
 
+    /**
+     * @return the targets signal name
+     */
+    public String getTargetSignal() {
+        return getOutput().getNet().getName();
+    }
+
     @Override
     public void print(CodePrinter out) throws IOException {
         super.print(out);
@@ -49,5 +56,6 @@ public class HDLNodeSplitterManyToOne extends HDLNode {
                     .print(" := ").println(p.getNet().getName());
         }
     }
+
 
 }

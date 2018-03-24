@@ -11,6 +11,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLException;
+import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.HDLPort;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.lang.Lang;
@@ -34,16 +35,18 @@ import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
 public class VHDLTestBenchCreator {
     private final ArrayList<ElementAttributes> testCases;
     private final HDLCircuit main;
+    private final HDLModel.Renaming renaming;
     private ArrayList<File> testFileWritten;
 
     /**
      * Creates a new instance
      *
      * @param circuit the circuit
-     * @param main    the model
+     * @param model   the model
      */
-    public VHDLTestBenchCreator(Circuit circuit, HDLCircuit main) {
-        this.main = main;
+    public VHDLTestBenchCreator(Circuit circuit, HDLModel model) {
+        this.main = model.getMain();
+        this.renaming = model.getRenaming();
         testCases = new ArrayList<>();
         for (VisualElement ve : circuit.getElements())
             if (ve.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
@@ -131,9 +134,10 @@ public class VHDLTestBenchCreator {
         ArrayList<HDLPort> dataOrder = new ArrayList<>();
         out.println("type pattern_type is record").inc();
         for (String name : testdata.getNames()) {
+            String saveName = renaming.checkName(name);
             boolean found = false;
             for (HDLPort p : main.getPorts()) {
-                if (p.getName().equals(name)) {
+                if (p.getName().equals(saveName)) {
                     out.print(p.getName()).print(" : ").print(VHDLCreator.getType(p.getBits())).println(";");
                     dataOrder.add(p);
                     found = true;
@@ -153,22 +157,28 @@ public class VHDLTestBenchCreator {
 
         out.println(");").dec();
 
+
+        String loopVar = "i";
+        int lv = 0;
+        while (loopVarExists(loopVar, main.getPorts()))
+            loopVar = "i" + (lv++);
+
         out.dec().println("begin").inc();
-        out.println("for i in patterns'range loop").inc();
+        out.print("for ").print(loopVar).println(" in patterns'range loop").inc();
 
         for (HDLPort p : main.getInputs())
-            out.print(p.getName()).print(" <= patterns(i).").print(p.getName()).println(";");
+            out.print(p.getName()).print(" <= patterns(").print(loopVar).print(").").print(p.getName()).println(";");
         out.println("wait for 10 ns;");
         for (HDLPort p : main.getOutputs()) {
-            out.print("assert std_match(").print(p.getName()).print(", patterns(i).").print(p.getName()).print(")");
+            out.print("assert std_match(").print(p.getName()).print(", patterns(").print(loopVar).print(").").print(p.getName()).print(")");
             out.print(" OR (")
                     .print(p.getName())
                     .print(" = ")
                     .print(getSimpleValue(p.getBits(), 'Z'))
-                    .print(" AND patterns(i).").print(p.getName()).print(" = ")
+                    .print(" AND patterns(").print(loopVar).print(").").print(p.getName()).print(" = ")
                     .print(getSimpleValue(p.getBits(), 'Z'))
                     .print(")").eol();
-            out.inc().print("report \"wrong value for ").print(p.getName()).println(" i=\" & integer'image(i) severity error;").dec();
+            out.inc().print("report \"wrong value for ").print(p.getName()).print(" ").print(loopVar).print("=\" & integer'image(").print(loopVar).println(") severity error;").dec();
         }
 
         out.dec().println("end loop;");
@@ -177,13 +187,20 @@ public class VHDLTestBenchCreator {
         out.dec().println("end behav;");
     }
 
+    private boolean loopVarExists(String loopVar, ArrayList<HDLPort> ports) {
+        for (HDLPort p : ports)
+            if (p.getName().equalsIgnoreCase(loopVar))
+                return true;
+        return false;
+    }
+
     private static String getSimpleValue(int bits, char c) {
         if (bits == 1)
             return "'" + c + "'";
 
         StringBuilder sb = new StringBuilder("\"");
         for (int i = 0; i < bits; i++)
-            sb.append('z');
+            sb.append(c);
 
         return sb.append('"').toString();
     }
@@ -245,7 +262,7 @@ public class VHDLTestBenchCreator {
                 int bits = dataOrder.get(i).getBits();
                 switch (val.getType()) {
                     case NORMAL:
-                        if (isClock && dataOrder.get(i).getDirection() == HDLPort.Direction.OUT)
+                        if (isClock && dataOrder.get(i).getDirection() == HDLPort.Direction.IN)
                             out.print(getSimpleValue(bits, '-'));
                         else
                             out.print(VHDLCreator.value(val.getValue(), bits));

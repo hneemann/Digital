@@ -1,41 +1,36 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
-
 <?
   if (elem.Bits=1)
       entityName:="DIG_D_FF_AS";
   else
       entityName:="DIG_D_FF_AS_BUS";
 ?>
-
 entity <?=entityName?> is
-  <? vhdl.beginGenericPort();?>
   <?if (elem.Bits>1) {?>generic ( Bits: integer ); <? vhdl.registerGeneric("Bits"); }?>
   port (
-    PORT_Q: out <?= vhdl.genericType(elem.Bits)?>;
-    PORT_notQ: out <?= vhdl.genericType(elem.Bits)?>;
-    PORT_Set: in std_logic;
-    PORT_D: in <?= vhdl.genericType(elem.Bits)?>;
-    PORT_C: in std_logic;
-    PORT_Clr: in std_logic );
-  <? vhdl.endGenericPort();?>
+    Q: out <?= vhdl.genericType(elem.Bits)?>;
+    notQ: out <?= vhdl.genericType(elem.Bits)?>;
+    Set: in std_logic;
+    D: in <?= vhdl.genericType(elem.Bits)?>;
+    C: in std_logic;
+    Clr: in std_logic );
 end <?=entityName?>;
 
-architecture <?=entityName?>_arch of <?=entityName?> is
+architecture Behavioral of <?=entityName?> is
    signal state : <?= vhdl.genericType(elem.Bits)?> := <?= vhdl.zero(elem.Bits)?>;
 begin
-
-    process ( PORT_Set, PORT_Clr, PORT_C )
+    process (Set, Clr, C)
     begin
-        if (PORT_Set='1') then
+        if (Set='1') then
             state <= NOT(<?= vhdl.zero(elem.Bits)?>);
-        elsif (PORT_Clr='1') then
+        elsif (Clr='1') then
             state <= <?= vhdl.zero(elem.Bits)?>;
-        elsif rising_edge(PORT_C) then
-            state <= PORT_D;
+        elsif rising_edge(C) then
+            state <= D;
         end if;
     end process;
 
-    PORT_Q <= state;
-    PORT_notQ <= NOT( state );
-end <?=entityName?>_arch;
+    Q <= state;
+    notQ <= NOT( state );
+end Behavioral;

@@ -37,7 +37,7 @@ public class VHDLGeneratorTest extends TestCase {
     private int testBenches;
 
     public void testSimple() throws Exception {
-        File file = new File(Resources.getRoot(), "dig/hdl/model2/comb2.dig");
+        File file = new File(Resources.getRoot(), "dig/test/vhdl/reset.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
@@ -52,11 +52,37 @@ public class VHDLGeneratorTest extends TestCase {
         }
     }
 
+    public void testInSimulator() throws Exception {
+        File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
+        try {
+            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
+            assertEquals(32, tested);
+            assertEquals(tested+2, testBenches);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        }
+    }
+
+    public void testInSimulator2() throws Exception {
+        File examples = new File(Resources.getRoot(), "/dig/hdl");
+        try {
+            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
+            assertEquals(35, tested);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        }
+    }
+
+
+
+
     private void checkVHDLExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException, de.neemann.digital.hdl.model2.HDLException, HGSEvalException {
         ToBreakRunner br = new ToBreakRunner(file);
         File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
         try {
-            File vhdlFile = new File(dir, file.getName().replace('.', '_') + ".vhdl");
+            File vhdlFile = new File(dir, file.getName()
+                    .replace('.', '_')
+                    .replace('-', '_')+ ".vhdl");
             CodePrinter out = new CodePrinter(vhdlFile);
             try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
                 vhdl.export(br.getCircuit());

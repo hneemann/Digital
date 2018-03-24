@@ -34,6 +34,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
     private ElementLibrary elementLibrary;
     private HashMap<Circuit, HDLCircuit> circuitMap;
     private HDLCircuit main;
+    private Renaming renaming;
 
     /**
      * Creates a new instance
@@ -177,9 +178,16 @@ public class HDLModel implements Iterable<HDLCircuit> {
      * @param renaming the renaming algorithm
      */
     public void rename(Renaming renaming) {
-        Renaming r = new RenameContext(renaming);
+        this.renaming = new RenameContext(renaming);
         for (HDLCircuit c : circuitMap.values())
-            c.rename(r);
+            c.rename(this.renaming);
+    }
+
+    /**
+     * @return the used renaming
+     */
+    public Renaming getRenaming() {
+        return renaming;
     }
 
     /**
