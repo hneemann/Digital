@@ -8,24 +8,21 @@ USE ieee.std_logic_1164.all;
 
   outputs:=1<<elem.'Selector Bits';
 ?>
-
 entity <?=entityName?> is
-<? vhdl.beginGenericPort();?>
-  <? if (elem.Bits>1) { ?>
+  <?- if (elem.Bits>1) { ?>
   generic ( Bits : integer );<?  vhdl.registerGeneric("Bits");?>
-  <? } ?>
+  <?- } ?>
   port (
-    <? for (i:=0;i<outputs;i++) {?>
-    PORT_out_<?=i?>: out <?= vhdl.genericType(elem.Bits)?>;
-    <? } ?>
-    PORT_sel: in <?= vhdl.type(elem.'Selector Bits')?>;
-    PORT_in: in <?= vhdl.genericType(elem.Bits)?> );
-<? vhdl.endGenericPort();?>
+    <?- for (i:=0;i<outputs;i++) {?>
+    out_<?=i?>: out <?= vhdl.genericType(elem.Bits)?>;
+    <?- } ?>
+    sel: in <?= vhdl.type(elem.'Selector Bits')?>;
+    p_in: in <?= vhdl.genericType(elem.Bits)?> );
 end <?=entityName?>;
 
 architecture <?=entityName?>_arch of <?=entityName?> is
 begin
-<? for (i:=0;i<outputs;i++) {?>
-    PORT_out_<?=i?> <= PORT_in when PORT_sel = <?= vhdl.value(i,elem.'Selector Bits')?> else <?= vhdl.zero(elem.Bits)?>;
-<? } ?>
+<?- for (i:=0;i<outputs;i++) {?>
+    out_<?=i?> <= p_in when sel = <?= vhdl.value(i,elem.'Selector Bits')?> else <?= vhdl.zero(elem.Bits)?>;
+<?- } ?>
 end <?=entityName?>_arch;

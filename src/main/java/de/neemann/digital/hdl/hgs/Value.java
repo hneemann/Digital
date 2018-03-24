@@ -125,6 +125,8 @@ public final class Value {
     public static boolean equals(Object a, Object b) {
         if (a instanceof Number && b instanceof Number)
             return ((Number) a).longValue() == ((Number) b).longValue();
+        else if (a instanceof String || b instanceof String)
+            return a.toString().equals(b.toString());
         else
             return a.equals(b);
     }

@@ -187,12 +187,14 @@ public class VHDLCreator {
         int i = 0;
         for (HDLPort outPort : node.getOutputs()) {
             Splitter.Port sp = is.getPort(i++);
-            out.print(outPort.getNet().getName()).print(" <= ").print(source).print("(");
-            if (outPort.getBits() == 1)
-                out.print(sp.getPos());
-            else
-                out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
-            out.println(");");
+            if (outPort.getNet() != null) {
+                out.print(outPort.getNet().getName()).print(" <= ").print(source).print("(");
+                if (outPort.getBits() == 1)
+                    out.print(sp.getPos());
+                else
+                    out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
+                out.println(");");
+            }
         }
     }
 

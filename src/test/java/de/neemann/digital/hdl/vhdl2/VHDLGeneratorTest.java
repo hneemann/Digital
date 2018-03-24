@@ -32,25 +32,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static de.neemann.digital.integration.TestExamples.check;
+
 public class VHDLGeneratorTest extends TestCase {
     private static final String GHDL = System.getProperty("ghdl", "ghdl");
     private int testBenches;
 
-    public void testSimple() throws Exception {
-        File file = new File(Resources.getRoot(), "dig/test/vhdl/reset.dig");
+    /*
+    public void testDebug() throws Exception {
+        File file = new File(Resources.getRoot(), "dig/hdl/splitter2.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
 
-        try {
-            checkVHDLExport(file);
-        } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
-        } catch (Exception e) {
-            System.out.println(ExceptionWithOrigin.getOriginOf(e));
-            throw e;
-        }
-    }
+        checkVHDLExport(file);
+    }/**/
 
     public void testInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
@@ -73,7 +69,48 @@ public class VHDLGeneratorTest extends TestCase {
         }
     }
 
+    public void testDistributedInSimulator() throws Exception {
+        File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
+        try {
+            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
+            assertEquals(1, tested);
+            assertEquals(1, testBenches);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        }
+    }
 
+    public void testProcessorInSimulator() throws Exception {
+        File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
+        try {
+            checkVHDLExport(file);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        } catch (Exception e) {
+            System.out.println(ExceptionWithOrigin.getOriginOf(e));
+            throw e;
+        }
+    }
+
+    public void testGHDLInSimulator() throws Exception {
+        try {
+            ProcessStarter.start(null, GHDL, "--help");
+        } catch (IOException e) {
+            // ghdl is not installed, Ignore Test
+            return;
+        }
+
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_GHDL_PATH, new File(GHDL));
+
+        File source = new File(Resources.getRoot(), "dig/external/ghdl");
+
+        int tested = new FileScanner(f -> {
+            checkVHDLExport(f);
+            // check simulation in Digital
+            check(f);
+        }).noOutput().scan(source);
+        assertEquals(4, tested);
+    }
 
 
     private void checkVHDLExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException, de.neemann.digital.hdl.model2.HDLException, HGSEvalException {
