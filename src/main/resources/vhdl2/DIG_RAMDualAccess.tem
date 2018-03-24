@@ -17,7 +17,7 @@ entity DIG_RAMDualAccess is
     n2A: in std_logic_vector ((AddrBits-1) downto 0) );
 end DIG_RAMDualAccess;
 
-architecture DIG_RAMDualAccess_arch of DIG_RAMDualAccess is
+architecture Behavioral of DIG_RAMDualAccess is
     -- CAUTION: uses distributed RAM
     type memoryType is array(0 to (2**AddrBits)-1) of STD_LOGIC_VECTOR((Bits-1) downto 0);
     signal memory : memoryType;
@@ -30,4 +30,4 @@ begin
   end process;
   n1D <= memory(to_integer(unsigned(n1A))) when ld='1' else (others => 'Z');
   n2D <= memory(to_integer(unsigned(n2A)));
-end DIG_RAMDualAccess_arch;
+end Behavioral;

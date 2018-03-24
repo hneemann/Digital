@@ -20,9 +20,9 @@ entity <?=entityName?> is
     p_in: in <?= vhdl.genericType(elem.Bits)?> );
 end <?=entityName?>;
 
-architecture <?=entityName?>_arch of <?=entityName?> is
+architecture Behavioral of <?=entityName?> is
 begin
 <?- for (i:=0;i<outputs;i++) {?>
     out_<?=i?> <= p_in when sel = <?= vhdl.value(i,elem.'Selector Bits')?> else <?= vhdl.zero(elem.Bits)?>;
 <?- } ?>
-end <?=entityName?>_arch;
+end Behavioral;

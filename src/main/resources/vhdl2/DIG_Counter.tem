@@ -12,7 +12,7 @@ entity DIG_Counter is
     clr: in std_logic );
 end DIG_Counter;
 
-architecture DIG_Counter_arch of DIG_Counter is
+architecture Behavioral of DIG_Counter is
    signal count : std_logic_vector((Bits-1) downto 0) := (others => '0');
 begin
     process (C, clr, en)
@@ -28,4 +28,4 @@ begin
 
     p_out <= count;
     ovf <= en when count = ((2**Bits)-1) else '0';
-end DIG_Counter_arch;
+end Behavioral;
