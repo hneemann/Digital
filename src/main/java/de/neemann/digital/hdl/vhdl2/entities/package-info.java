@@ -5,6 +5,6 @@
  */
 
 /**
- * The vhdl exporter
+ * The entities used to create the vhdl output
  */
-package de.neemann.digital.hdl.vhdl2;
+package de.neemann.digital.hdl.vhdl2.entities;

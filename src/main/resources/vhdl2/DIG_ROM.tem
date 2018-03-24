@@ -7,15 +7,14 @@ use IEEE.NUMERIC_STD.ALL;
 
     entityName:="DIG_ROM_"+elem.Label;
 ?>
-
 entity <?=entityName?> is
   port (
-    PORT_D: out <?= vhdl.type(elem.Bits)?>;
-    PORT_A: in <?= vhdl.type(elem.AddrBits)?>;
-    PORT_sel: in std_logic );
+    D: out <?= vhdl.type(elem.Bits)?>;
+    A: in <?= vhdl.type(elem.AddrBits)?>;
+    sel: in std_logic );
 end <?=entityName?>;
 
-architecture <?=entityName?>_arch of <?=entityName?> is
+architecture Behavioral of <?=entityName?> is
   type mem is array ( 0 to <?=sizeOf(elem.Data)-1?>) of <?= vhdl.type(elem.Bits)?>;
   constant my_Rom : mem := (
     <?
@@ -36,14 +35,14 @@ architecture <?=entityName?>_arch of <?=entityName?> is
 
   ?>);
 begin
-  process (PORT_A, PORT_sel)
+  process (A, sel)
   begin
-    if PORT_sel='0' then
-      PORT_D <= <? if (elem.Bits>1) {?>(others => 'Z')<? } else {?>'Z'<? } ?>;
-    elsif PORT_A > <?= vhdl.value(sizeOf(elem.Data)-1,elem.AddrBits)?> then
-      PORT_D <= <?= vhdl.zero(elem.Bits)?>;
+    if sel='0' then
+      D <= <? if (elem.Bits>1) {?>(others => 'Z')<? } else {?>'Z'<? } ?>;
+    elsif A > <?= vhdl.value(sizeOf(elem.Data)-1,elem.AddrBits)?> then
+      D <= <?= vhdl.zero(elem.Bits)?>;
     else
-      PORT_D <= my_rom(to_integer(unsigned(PORT_A)));
+      D <= my_rom(to_integer(unsigned(A)));
     end if;
   end process;
-end <?=entityName?>_arch;
+end Behavioral;

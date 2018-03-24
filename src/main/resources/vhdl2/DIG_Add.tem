@@ -15,7 +15,7 @@ end DIG_Add;
 architecture Behavioral of DIG_Add is
    signal temp : std_logic_vector(Bits downto 0);
 begin
-   temp <= ('0' & a) + ('0' & b)  + ('0' & c_i);
+   temp <= ('0' & a) + b + c_i;
 
    s    <= temp((Bits-1) downto 0);
    c_o  <= temp(Bits);

@@ -133,10 +133,18 @@ public class HDLNet implements Printable {
             this.name = name + "_temp";
     }
 
+    /**
+     * @return the number of bits on this net
+     */
     public int getBits() {
         return output.getBits();
     }
 
+    /**
+     * Renames this net.
+     *
+     * @param renaming the renaming algorithm
+     */
     public void rename(HDLModel.Renaming renaming) {
         name = renaming.checkName(name);
     }

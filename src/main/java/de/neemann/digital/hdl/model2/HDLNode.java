@@ -146,14 +146,27 @@ public class HDLNode {
     public void replaceNet(HDLNet oldNet, HDLNet newNet) {
     }
 
+    /**
+     * Sets the name to use in the target language
+     *
+     * @param specializedName the name of the node in the target hdl
+     */
     public void setSpecializedName(String specializedName) {
         this.specializedName = specializedName;
     }
 
+    /**
+     * @return the name of the node in the target hdl
+     */
     public String getSpecializedName() {
         return specializedName;
     }
 
+    /**
+     * Renames the signals in this node.
+     *
+     * @param renaming the renaming algorithm
+     */
     public void rename(HDLModel.Renaming renaming) {
         for (HDLPort p : outputs)
             p.rename(renaming);

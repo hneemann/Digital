@@ -21,13 +21,13 @@ end <?=entityName?>;
 
 architecture Behavioral of <?=entityName?> is
 begin
-  process(PORT_a,PORT_b)
+  process(a, b)
   begin
     <?- if (elem.Signed) { ?>
     if (signed(a) > signed(b)) then
     <?- } else { ?>
     if (a > b ) then
-    <? } ?>
+    <?- } ?>
       le <= '0';
       eq <= '0';
       gr <= '1';
@@ -35,7 +35,7 @@ begin
     elsif (signed(a) < signed(b)) then
     <?- } else { ?>
     elsif (a < b) then
-    <? } ?>
+    <?- } ?>
       le <= '1';
       eq <= '0';
       gr <= '0';

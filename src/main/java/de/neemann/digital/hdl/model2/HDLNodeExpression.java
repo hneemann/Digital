@@ -61,6 +61,9 @@ public class HDLNodeExpression extends HDLNode {
         expression.replace(oldNet, new ExprVar(newNet));
     }
 
+    /**
+     * @return the target signal of this expression.
+     */
     public String getTargetSignal() {
         return getOutput().getNet().getName();
     }

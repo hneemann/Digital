@@ -61,7 +61,7 @@ public class VHDLTemplate implements VHDLEntity {
     public String print(CodePrinter out, HDLNode node) throws HGSEvalException, IOException {
         Entity e = getEntity(node);
         if (!e.isWritten()) {
-            out.println(e.getCode()).println();
+            out.println().println(Value.trimRight(e.getCode())).println();
             e.setWritten();
         }
         return e.getName();

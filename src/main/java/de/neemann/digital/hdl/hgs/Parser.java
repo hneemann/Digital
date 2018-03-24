@@ -100,8 +100,13 @@ public class Parser {
     public Statement parse() throws IOException, ParserException {
         Statements s = new Statements();
         String text = tok.readText();
-        if (text.length() > 0)
-            s.add(c -> c.print(text));
+        if (nextIs(SUB))
+            text = Value.trimRight(text);
+
+        if (text.length() > 0) {
+            String t = text;
+            s.add(c -> c.print(t));
+        }
         while (!nextIs(EOF)) {
             if (nextIs(STATIC)) {
                 Statement stat = parseStatement();
@@ -142,11 +147,11 @@ public class Parser {
                 switch (refToken) {
                     case COLON:
                         expect(EQUAL);
-                        final Expression initVal = linoE(parseExpression());
+                        final Expression initVal = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.declareVar(c, initVal.value(c)));
                     case EQUAL:
-                        final Expression val = linoE(parseExpression());
+                        final Expression val = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> {
                             final Object value = val.value(c);
@@ -168,35 +173,42 @@ public class Parser {
                         throw newUnexpectedToken(refToken);
                 }
             case CODEEND:
-                final String str = tok.readText();
-                return c -> c.print(str);
+                String str = tok.readText();
+                if (nextIs(SUB))
+                    str = Value.trimRight(str);
+                final String strc = str;
+                return c -> c.print(strc);
+            case SUB:
+                expect(CODEEND);
+                final String strt = Value.trimLeft(tok.readText());
+                return c -> c.print(strt);
             case EQUAL:
-                final Expression exp = linoE(parseExpression());
+                final Expression exp = parseExpression();
                 if (tok.peek() != CODEEND) expect(SEMICOLON);
                 return lino(c -> c.print(exp.value(c).toString()));
             case IF:
                 expect(OPEN);
-                final Expression ifCond = linoE(parseExpression());
+                final Expression ifCond = toBool(parseExpression());
                 expect(CLOSE);
                 final Statement ifStatement = parseStatement();
                 if (nextIs(ELSE)) {
                     final Statement elseStatement = parseStatement();
                     return c -> {
-                        if (Value.toBool(ifCond.value(c)))
+                        if ((boolean) ifCond.value(c))
                             ifStatement.execute(c);
                         else
                             elseStatement.execute(c);
                     };
                 } else
                     return c -> {
-                        if (Value.toBool(ifCond.value(c)))
+                        if ((boolean) ifCond.value(c))
                             ifStatement.execute(c);
                     };
             case FOR:
                 expect(OPEN);
                 Statement init = parseStatement(false); // parse like an expression
                 expect(SEMICOLON);
-                final Expression forCond = linoE(parseExpression());
+                final Expression forCond = toBool(parseExpression());
                 expect(SEMICOLON);
                 Statement inc = parseStatement(false); // parse like an expression
                 expect(CLOSE);
@@ -204,30 +216,30 @@ public class Parser {
                 return c -> {
                     Context iC = new Context(c, false);
                     init.execute(iC);
-                    while (Value.toBool(forCond.value(iC))) {
+                    while ((boolean) forCond.value(iC)) {
                         inner.execute(iC);
                         inc.execute(iC);
                     }
                 };
             case WHILE:
                 expect(OPEN);
-                final Expression whileCond = linoE(parseExpression());
+                final Expression whileCond = toBool(parseExpression());
                 expect(CLOSE);
                 inner = parseStatement();
                 return c -> {
                     Context iC = new Context(c, false);
-                    while (Value.toBool(whileCond.value(iC))) inner.execute(iC);
+                    while ((boolean) whileCond.value(iC)) inner.execute(iC);
                 };
             case REPEAT:
                 final Statement repeatInner = parseStatement();
                 expect(UNTIL);
-                final Expression repeatCond = linoE(parseExpression());
+                final Expression repeatCond = toBool(parseExpression());
                 if (isRealStatement) expect(SEMICOLON);
                 return c -> {
                     Context iC = new Context(c, false);
                     do {
                         repeatInner.execute(iC);
-                    } while (!Value.toBool(repeatCond.value(iC)));
+                    } while (!(boolean) repeatCond.value(iC));
                 };
             case OPENBRACE:
                 Statements s = new Statements();
@@ -235,7 +247,7 @@ public class Parser {
                     s.add(parseStatement());
                 return s.optimize();
             case RETURN:
-                Expression retExp = linoE(parseExpression());
+                Expression retExp = parseExpression();
                 expect(SEMICOLON);
                 return lino(c -> FirstClassFunctionCall.returnFromFunc(retExp.value(c)));
             case FUNC:
@@ -246,6 +258,10 @@ public class Parser {
             default:
                 throw newUnexpectedToken(token);
         }
+    }
+
+    private Expression toBool(Expression expression) {
+        return linoE(c -> Value.toBool(expression.value(c)));
     }
 
     private ArrayList<Expression> parseArgList() throws IOException, ParserException {

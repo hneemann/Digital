@@ -171,13 +171,28 @@ public class HDLModel implements Iterable<HDLCircuit> {
         return this;
     }
 
+    /**
+     * Renames the signals in this model
+     *
+     * @param renaming the renaming algorithm
+     */
     public void rename(Renaming renaming) {
         Renaming r = new RenameContext(renaming);
         for (HDLCircuit c : circuitMap.values())
             c.rename(r);
     }
 
+    /**
+     * The renaming algorithm
+     */
     public interface Renaming {
+        /**
+         * If the given name is a valid you can return the name unchanged.
+         * If not, return an appropriate name.
+         *
+         * @param name the original name
+         * @return the modified name
+         */
         String checkName(String name);
     }
 
@@ -208,6 +223,12 @@ public class HDLModel implements Iterable<HDLCircuit> {
         return main;
     }
 
+    /**
+     * Returns the circuit with the given name.
+     *
+     * @param elementName the name of the circuit
+     * @return the circuit or null if not found
+     */
     public HDLCircuit getCustomCircuit(String elementName) {
         for (HDLCircuit c : circuitMap.values())
             if (c.getElementName().equals(elementName))

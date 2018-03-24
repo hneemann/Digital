@@ -14,18 +14,33 @@ import de.neemann.digital.hdl.vhdl2.entities.VHDLEntity;
 import java.io.IOException;
 import java.util.HashSet;
 
+/**
+ * Create the vhdl output
+ */
 public class VHDLCreator {
     private final CodePrinter out;
     private final VHDLLibrary library;
     private HashSet<String> customPrinted;
 
+    /**
+     * Creates a new instance
+     *
+     * @param out   the output stream
+     * @param model the model to export
+     */
     public VHDLCreator(CodePrinter out, HDLModel model) {
         this.out = out;
-        library = new VHDLLibrary(model);
+        library = new VHDLLibrary();
         customPrinted = new HashSet<>();
     }
 
-    private String getType(int bits) {
+    /**
+     * Returns the vhdl type name
+     *
+     * @param bits the number of bits
+     * @return the types name
+     */
+    public static String getType(int bits) {
         if (bits == 1)
             return "std_logic";
         else
@@ -63,6 +78,15 @@ public class VHDLCreator {
             printHDLCircuit(node.getCircuit());
     }
 
+    /**
+     * Prints the given circuit to the output.
+     * Also all needed entities are printed.
+     *
+     * @param circuit the circuit to print
+     * @throws IOException      IOException
+     * @throws HDLException     HDLException
+     * @throws HGSEvalException HGSEvalException
+     */
     public void printHDLCircuit(HDLCircuit circuit) throws IOException, HDLException, HGSEvalException {
         // at first print all used entities to maintain the correct order
         for (HDLNode node : circuit)
@@ -73,26 +97,14 @@ public class VHDLCreator {
 
         // after that print this entity
 
-        out
+        out.println()
                 .println("LIBRARY ieee;")
                 .println("USE ieee.std_logic_1164.all;")
                 .println("USE ieee.numeric_std.all;")
                 .println();
 
         out.print("entity ").print(circuit.getSpecializedName()).println(" is").inc();
-        out.println("port (").inc();
-
-        Separator sep = new Separator(";\n");
-
-        for (HDLPort i : circuit.getInputs()) {
-            sep.check(out);
-            out.print(i.getName()).print(": in ").print(getType(i.getBits()));
-        }
-        for (HDLPort o : circuit.getOutputs()) {
-            sep.check(out);
-            out.print(o.getName()).print(": out ").print(getType(o.getBits()));
-        }
-        out.println(");").dec();
+        writePorts(out, circuit);
         out.dec();
         out.print("end ").print(circuit.getSpecializedName()).println(";");
         out.println();
@@ -127,6 +139,29 @@ public class VHDLCreator {
         }
 
         out.dec().println("end Behavioral;");
+    }
+
+    /**
+     * Writes the ports of the given circuit
+     *
+     * @param out     the stream to write to
+     * @param circuit the circuit
+     * @throws IOException IOException
+     */
+    public static void writePorts(CodePrinter out, HDLCircuit circuit) throws IOException {
+        out.println("port (").inc();
+
+        Separator sep = new Separator(";\n");
+
+        for (HDLPort i : circuit.getInputs()) {
+            sep.check(out);
+            out.print(i.getName()).print(": in ").print(getType(i.getBits()));
+        }
+        for (HDLPort o : circuit.getOutputs()) {
+            sep.check(out);
+            out.print(o.getName()).print(": out ").print(getType(o.getBits()));
+        }
+        out.println(");").dec();
     }
 
     private void printManyToOne(HDLNodeSplitterManyToOne node) {
@@ -182,13 +217,13 @@ public class VHDLCreator {
             String op;
             switch (operate.getOperation()) {
                 case OR:
-                    op = " or ";
+                    op = " OR ";
                     break;
                 case AND:
-                    op = " and ";
+                    op = " AND ";
                     break;
                 case XOR:
-                    op = " xor ";
+                    op = " XOR ";
                     break;
                 default:
                     throw new HDLException("unknown operation " + operate.getOperation());

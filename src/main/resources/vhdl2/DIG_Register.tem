@@ -1,33 +1,29 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
-
 <?
   if (elem.Bits=1)
       entityName:="DIG_Register";
   else
       entityName:="DIG_Register_BUS";
 ?>
-
 entity <?=entityName?> is
-  <? vhdl.beginGenericPort();?>
-  <?if (elem.Bits>1) {?>generic ( Bits: integer ); <? vhdl.registerGeneric("Bits"); }?>
+  <? if (elem.Bits>1) {?>generic ( Bits: integer ); <? vhdl.registerGeneric("Bits"); }?>
   port (
-    PORT_Q: out <?= vhdl.genericType(elem.Bits)?>;
-    PORT_D: in <?= vhdl.genericType(elem.Bits)?>;
-    PORT_C: in std_logic;
-    PORT_en: in std_logic );
-  <? vhdl.endGenericPort();?>
+    Q: out <?= vhdl.genericType(elem.Bits)?>;
+    D: in <?= vhdl.genericType(elem.Bits)?>;
+    C: in std_logic;
+    en: in std_logic );
 end <?=entityName?>;
 
-architecture <?=entityName?>_arch of <?=entityName?> is
+architecture Behavioral of <?=entityName?> is
   signal state : <?= vhdl.genericType(elem.Bits)?> := <?= vhdl.zero(elem.Bits)?>;
 begin
-   PORT_Q <= state;
+   Q <= state;
 
-   process ( PORT_C )
+   process ( C )
    begin
-      if rising_edge(PORT_C) and (PORT_en='1') then
-        state <= PORT_D;
+      if rising_edge(C) and (en='1') then
+        state <= D;
       end if;
    end process;
-end <?=entityName?>_arch;
+end Behavioral;

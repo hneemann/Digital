@@ -105,4 +105,5 @@
       <p2 x="-80" y="20"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

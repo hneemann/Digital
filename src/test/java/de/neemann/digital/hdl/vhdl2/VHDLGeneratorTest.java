@@ -37,12 +37,10 @@ public class VHDLGeneratorTest extends TestCase {
     private int testBenches;
 
     public void testSimple() throws Exception {
-        File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
+        File file = new File(Resources.getRoot(), "dig/hdl/model2/comb2.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
-
-
 
         try {
             checkVHDLExport(file);
@@ -62,10 +60,9 @@ public class VHDLGeneratorTest extends TestCase {
             CodePrinter out = new CodePrinter(vhdlFile);
             try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
                 vhdl.export(br.getCircuit());
-//                vhdl.omitClockDividers().export(br.getCircuit());
-//                VHDLTestBenchCreator tb = vhdl.getTestBenches();
+                ArrayList<File> testFiles = vhdl.getTestBenches();
                 out.close();
-                runGHDL(vhdlFile, new ArrayList<>());
+                runGHDL(vhdlFile, testFiles);
             }
             ProcessStarter.removeFolder(dir);
         } finally {

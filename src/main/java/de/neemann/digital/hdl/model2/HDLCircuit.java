@@ -40,6 +40,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     private final ArrayList<HDLPort> outputs;
     private final ArrayList<HDLPort> inputs;
     private final ArrayList<HDLNet> listOfNets;
+    private ArrayList<HDLPort> ports;
     private NetList netList;
     private ArrayList<HDLNode> nodes;
     private HashMap<Net, HDLNet> nets;
@@ -174,10 +175,12 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
 
     private void addOutput(HDLPort port) {
         outputs.add(port);
+        ports = null;
     }
 
     private void addInput(HDLPort port) {
         inputs.add(port);
+        ports = null;
     }
 
     private boolean isRealElement(VisualElement v) {
@@ -244,6 +247,18 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      */
     public ArrayList<HDLPort> getInputs() {
         return inputs;
+    }
+
+    /**
+     * @return a list containing input and output ports
+     */
+    public ArrayList<HDLPort> getPorts() {
+        if (ports == null) {
+            ports = new ArrayList<>();
+            ports.addAll(inputs);
+            ports.addAll(outputs);
+        }
+        return ports;
     }
 
     @Override
@@ -354,6 +369,11 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         return listOfNets;
     }
 
+    /**
+     * Renames the names in this model to satisfy constrains of the final target language.
+     *
+     * @param renaming the renaming algorithm
+     */
     public void rename(HDLModel.Renaming renaming) {
         for (HDLPort p : outputs)
             p.rename(renaming);
@@ -368,6 +388,11 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         specializedName = renaming.checkName(specializedName);
     }
 
+    /**
+     * The entity name which should be used in the target language.
+     *
+     * @return the name
+     */
     public String getSpecializedName() {
         return specializedName;
     }

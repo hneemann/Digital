@@ -7,8 +7,6 @@ package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.element.ElementAttributes;
 
-import java.io.IOException;
-
 /**
  * Represents a node which is build from a circuit.
  */

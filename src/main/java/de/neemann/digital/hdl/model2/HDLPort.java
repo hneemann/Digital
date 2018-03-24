@@ -131,6 +131,11 @@ public class HDLPort implements Printable {
         out.print(name).print(":").print(bits);
     }
 
+    /**
+     * Renames this port
+     *
+     * @param renaming the renaming algorithm
+     */
     public void rename(HDLModel.Renaming renaming) {
         name = renaming.checkName(name);
     }

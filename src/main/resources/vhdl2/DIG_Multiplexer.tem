@@ -1,6 +1,5 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
-
 <?
   if (elem.Bits=1)
       entityName:="MUX_GATE_"+elem.'Selector Bits';
@@ -9,25 +8,22 @@ USE ieee.std_logic_1164.all;
 
   inputs:=1<<elem.'Selector Bits';
 ?>
-
 entity <?=entityName?> is
-<? vhdl.beginGenericPort();?>
-  <? if (elem.Bits>1) { ?>
+  <?- if (elem.Bits>1) { ?>
   generic ( Bits : integer ); <? vhdl.registerGeneric("Bits");?>
-  <? } ?>
+  <?- } ?>
   port (
-    PORT_out: out <?= vhdl.genericType(elem.Bits)?>;
-    PORT_sel: in <?= vhdl.type(elem.'Selector Bits')?>;
+    p_out: out <?= vhdl.genericType(elem.Bits)?>;
+    sel: in <?= vhdl.type(elem.'Selector Bits')?>;
     <? for (n:=0;n<inputs;n++) { ?>
-    PORT_in_<?=n?>: in <?= vhdl.genericType(elem.Bits); if (n<inputs-1) print(";"); }?> );
-  <? vhdl.endGenericPort();?>
+    in_<?=n?>: in <?= vhdl.genericType(elem.Bits); if (n<inputs-1) print(";"); }?> );
 end <?=entityName?>;
 
-architecture <?=entityName?>_arch of <?=entityName?> is
+architecture Behavioral of <?=entityName?> is
 begin
-  with PORT_sel select
-    PORT_out <=
-      <? for (n:=0;n<inputs;n++) { ?>
-      PORT_in_<?=n?> when <?= vhdl.value(n, elem.'Selector Bits') ?>,
-      <? } print( vhdl.zero(elem.Bits));?> when others;
-end <?=entityName?>_arch;
+  with sel select
+    p_out <=
+      <?- for (n:=0;n<inputs;n++) { ?>
+      in_<?=n?> when <?= vhdl.value(n, elem.'Selector Bits') ?>,
+      <?- } print( vhdl.zero(elem.Bits));?> when others;
+end Behavioral;

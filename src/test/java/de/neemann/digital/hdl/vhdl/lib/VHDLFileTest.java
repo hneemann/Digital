@@ -39,14 +39,14 @@ public class VHDLFileTest extends TestCase {
                 "           PORT_C  : in std_logic;\n" +
                 "           PORT_Q  : out std_logic;\n" +
                 "           PORT_notQ : out std_logic );\n" +
-                "    end component;\n" +
+                "  end component;\n" +
                 "  component DIG_D_FF_BUS\n" +
                 "    generic ( Bits: integer ); \n" +
                 "    port ( PORT_D  : in std_logic_vector ((Bits-1) downto 0);\n" +
                 "           PORT_C  : in std_logic;\n" +
                 "           PORT_Q  : out std_logic_vector ((Bits-1) downto 0);\n" +
                 "           PORT_notQ : out std_logic_vector ((Bits-1) downto 0) );\n" +
-                "    end component;\n" +
+                "  end component;\n" +
                 "  signal S0: std_logic;\n" +
                 "  signal S1: std_logic;\n" +
                 "  signal S2: std_logic_vector (2 downto 0);\n" +

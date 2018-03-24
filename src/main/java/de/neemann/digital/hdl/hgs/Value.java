@@ -8,6 +8,8 @@ package de.neemann.digital.hdl.hgs;
 import java.util.List;
 import java.util.Map;
 
+import static de.neemann.digital.hdl.hgs.Tokenizer.isWhiteSpace;
+
 /**
  * Helpers for values
  */
@@ -67,7 +69,7 @@ public final class Value {
             return ((Number) value).longValue() != 0;
         if (value instanceof Boolean)
             return ((Boolean) value);
-        throw new HGSEvalException("must be an integer or a bool, is: " + value.getClass().getSimpleName());
+        throw new HGSEvalException("Must be an integer or a bool, is: " + value.getClass().getSimpleName() + "=" + value);
     }
 
     /**
@@ -196,6 +198,39 @@ public final class Value {
         if (value instanceof Number)
             return ~((Number) value).longValue();
         return !toBool(value);
+    }
+
+    /**
+     * Trims spaces at the right side of the string.
+     *
+     * @param str the string
+     * @return the trimmed string
+     */
+    public static String trimRight(String str) {
+        int initial = str.length() - 1;
+        int pos = initial;
+        while (pos >= 0 && isWhiteSpace(str.charAt(pos)))
+            pos--;
+        if (pos == initial)
+            return str;
+        else
+            return str.substring(0, pos + 1);
+    }
+
+    /**
+     * Trims spaces at the left side of the string.
+     *
+     * @param str the string
+     * @return the trimmed string
+     */
+    public static String trimLeft(String str) {
+        int pos = 0;
+        while (pos < str.length() && isWhiteSpace(str.charAt(pos)))
+            pos++;
+        if (pos == 0)
+            return str;
+        else
+            return str.substring(pos);
     }
 
     private static final class HGSArrayList implements HGSArray {
