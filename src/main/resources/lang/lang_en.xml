@@ -820,12 +820,7 @@
     <string name="err_errorInPowerSupply">Error in wiring of power supply at {0}.</string>
     <string name="err_pinIsNotANumber_N">The pin nummer {0} is not a integer!</string>
     <string name="err_vhdlExporting">Error during export to VHDL.</string>
-    <string name="err_vhdlUnknownPortType_N">Unknown type of port.</string>
     <string name="err_vhdlNoEntity_N">No VHDL code for {0} available!</string>
-    <string name="err_vhdlClockOnlyAllowedInRoot">A clock is only allowed in the topmost circuit!</string>
-    <string name="err_vhdlNotAValidName">The name {0} is not valid!</string>
-    <string name="err_vhdlBitNumberNotAvailable">The bit count is not available!</string>
-    <string name="err_vhdlUnknownConstantType_N">Constant has a invalid type Typ {0}!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Pin {0} has no number!</string>
     <string name="err_vhdlErrorWritingTestBench">Error creating a test bench!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
