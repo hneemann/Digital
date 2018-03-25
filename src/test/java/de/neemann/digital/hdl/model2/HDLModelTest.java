@@ -25,7 +25,7 @@ public class HDLModelTest extends TestCase {
 
     public void testSimple() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb.dig", null);
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
+        hdl.mergeOperations().nameNets();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -62,7 +62,7 @@ public class HDLModelTest extends TestCase {
 
     public void testSimple2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb2.dig", null);
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
+        hdl.mergeOperations().nameNets();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -81,7 +81,7 @@ public class HDLModelTest extends TestCase {
 
     public void testInputInvert() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert.dig", null);
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
+        hdl.mergeOperations().nameNets();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -100,7 +100,7 @@ public class HDLModelTest extends TestCase {
 
     public void testInputInvert2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert2.dig", null);
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
+        hdl.mergeOperations().nameNets();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -119,7 +119,7 @@ public class HDLModelTest extends TestCase {
 
     public void testSplitter() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter.dig", null);
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
+        hdl.mergeOperations().nameNets();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -143,7 +143,7 @@ public class HDLModelTest extends TestCase {
 
     public void testSplitter2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter2.dig", null);
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
+        hdl.mergeOperations().nameNets();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -168,7 +168,7 @@ public class HDLModelTest extends TestCase {
 
     public void testClock() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/clock.dig", new ClockIntegratorGeneric(10));
-        hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
+        hdl.mergeOperations().nameNets();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -183,6 +183,33 @@ public class HDLModelTest extends TestCase {
                 "  node D_FF\n" +
                 "    in(D:1 reads (A->1), C:1 reads (s0->1))\n" +
                 "    out(Q:1 defines (X->1), ~Q:1 is not used)\n" +
+                "\n" +
+                "end circuit main\n", cp.toString());
+    }
+
+    public void testNaming() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+        HDLCircuit hdl = getCircuit("dig/hdl/model2/naming.dig", null);
+        hdl.mergeOperations().nameNets();
+
+        CodePrinterStr cp = new CodePrinterStr();
+        hdl.print(cp);
+        assertEquals("circuit main\n" +
+                "  in(S0:1 defines (S0->2), S1:1 defines (S1->2))\n" +
+                "  out(S2:1 reads (S2->1), S3:1 reads (S3->1))\n" +
+                "  sig(s4->2)\n" +
+                "\n" +
+                "  node NOr\n" +
+                "    in(In_1:1 reads (S0->2), In_2:1 reads (S1->2))\n" +
+                "    out(out:1 defines (s4->2))\n" +
+                "    s4->2 := NOT (S0 OR S1)\n" +
+                "  node XOr\n" +
+                "    in(In_1:1 reads (S0->2), In_2:1 reads (s4->2))\n" +
+                "    out(out:1 defines (S2->1))\n" +
+                "    S2->1 := (S0 XOR s4)\n" +
+                "  node XOr\n" +
+                "    in(In_1:1 reads (s4->2), In_2:1 reads (S1->2))\n" +
+                "    out(out:1 defines (S3->1))\n" +
+                "    S3->1 := (s4 XOR S1)\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }

@@ -317,6 +317,15 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         return this;
     }
 
+    /**
+     * Names the nets with the default naming algorithm
+     *
+     * @return this for chained calls
+     */
+    public HDLCircuit nameNets() {
+        return nameNets(new DefaultNetNaming());
+    }
+
 
     @Override
     public void print(CodePrinter out) throws IOException {
@@ -458,15 +467,26 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         String createName(HDLNet n);
     }
 
-    /**
-     * Simple naming algorithm. Numbers all nets beginning with zero.
-     */
-    public static class SimpleNetNaming implements NetNaming {
+    private class DefaultNetNaming implements NetNaming {
         private int num = 0;
 
         @Override
         public String createName(HDLNet n) {
-            return "s" + (num++);
+            String name;
+            do {
+                name = "s" + (num++);
+            } while (isDuplicate(name));
+            return name;
+        }
+
+        private boolean isDuplicate(String name) {
+            for (HDLPort p : inputs)
+                if (p.getName().equalsIgnoreCase(name))
+                    return true;
+            for (HDLPort p : outputs)
+                if (p.getName().equalsIgnoreCase(name))
+                    return true;
+            return false;
         }
     }
 }

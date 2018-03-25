@@ -180,7 +180,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
      * @param renaming the renaming algorithm
      */
     public void rename(Renaming renaming) {
-        this.renaming = new RenameContext(renaming);
+        this.renaming = new RenameSingleCheck(renaming);
         for (HDLCircuit c : circuitMap.values())
             c.rename(this.renaming);
     }
@@ -206,11 +206,11 @@ public class HDLModel implements Iterable<HDLCircuit> {
         String checkName(String name);
     }
 
-    static final class RenameContext implements Renaming {
+    static final class RenameSingleCheck implements Renaming {
         private final Renaming parent;
         private final HashMap<String, String> map;
 
-        private RenameContext(Renaming parent) {
+        private RenameSingleCheck(Renaming parent) {
             this.parent = parent;
             map = new HashMap<>();
         }

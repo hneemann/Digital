@@ -74,7 +74,7 @@ public class VHDLGenerator implements Closeable {
         try {
             HDLModel model = new HDLModel(library).create(circuit, clockIntegrator);
             for (HDLCircuit c : model)
-                c.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
+                c.mergeOperations().nameNets();
 
             model.rename(name -> {
                 if (VHDLKeywords.isKeyword(name))
