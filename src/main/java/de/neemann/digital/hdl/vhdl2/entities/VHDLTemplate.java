@@ -9,7 +9,7 @@ import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.hgs.function.JavaClass;
 import de.neemann.digital.hdl.model2.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.vhdl.Separator;
+import de.neemann.digital.hdl.vhdl2.Separator;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -6,25 +6,19 @@
 package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
-import de.neemann.digital.integration.Resources;
-import de.neemann.digital.integration.TestRunToBreak;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
-import java.io.File;
 import java.io.IOException;
 
 public class HDLModelTest extends TestCase {
 
-    HDLCircuit getCircuit(String filename, HDLClockIntegrator ci) throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    private HDLCircuit getCircuit(String filename, HDLClockIntegrator ci) throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         ToBreakRunner br = new ToBreakRunner(filename);
         return new HDLCircuit(br.getCircuit(), "main", new HDLModel(br.getLibrary()), ci);
     }

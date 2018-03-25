@@ -13,7 +13,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
-import de.neemann.digital.hdl.model.HDLException;
+import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
