@@ -29,6 +29,7 @@ import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.ExprNot;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 
 import java.io.IOException;
@@ -116,7 +117,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                     nodes.add(c.createNode(v, this));
             }
         } catch (HDLException e) {
-            throw new HDLException("error parsing " + circuit.getOrigin(), e);
+            throw new HDLException(Lang.get("err_errorAnalysingCircuit_N", circuit.getOrigin()), e);
         }
 
         netList = null;

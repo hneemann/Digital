@@ -6,6 +6,7 @@
 package de.neemann.digital.hdl.vhdl2;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -64,14 +65,17 @@ public class VHDLGenerator implements Closeable {
      * @throws IOException IOException
      */
     public VHDLGenerator export(Circuit circuit) throws IOException {
-
-        BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
-
-        HDLClockIntegrator clockIntegrator = null;
-        if (board != null && useClockIntegration)
-            clockIntegrator = board.getClockIntegrator();
-
         try {
+
+            if (!circuit.getAttributes().get(Keys.ROMMANAGER).isEmpty())
+                throw new HDLException(Lang.get("err_centralDefinedRomsAreNotSupported"));
+
+            BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
+
+            HDLClockIntegrator clockIntegrator = null;
+            if (board != null && useClockIntegration)
+                clockIntegrator = board.getClockIntegrator();
+
             HDLModel model = new HDLModel(library).create(circuit, clockIntegrator);
             for (HDLCircuit c : model)
                 c.mergeOperations().nameNets();

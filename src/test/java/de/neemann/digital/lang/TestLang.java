@@ -53,6 +53,9 @@ public class TestLang extends TestCase {
         // check also test code. Is needed because documentation generation uses language key also.
         parseTree(new File(Resources.getRoot(), "../java"), keys);
 
+        // check templates for error messages
+        parseTree(new File(sources, "../resources"), keys);
+
         StringBuilder sb = new StringBuilder();
         for (String key : map.keySet()) {
             if (!keys.contains(key)) {
@@ -77,15 +80,21 @@ public class TestLang extends TestCase {
         return new File(sources);
     }
 
+    private static final String PATTERN = "Lang.get(\"";
+    private static final String TEM_PATTERN = "panic(\"";
+
     private void parseTree(File file, HashSet<String> keys) throws IOException {
         File[] files = file.listFiles();
         if (files != null)
             for (File f : files) {
                 if (f.isDirectory() && f.getName().charAt(0) != '.')
                     parseTree(f, keys);
-                if (f.isFile() && f.getName().endsWith(".java")) {
+                if (f.isFile()) {
                     try {
-                        checkSourceFile(f, keys);
+                        if (f.getName().endsWith(".java"))
+                            checkSourceFile(f, keys, PATTERN);
+                        if (f.getName().endsWith(".tem"))
+                            checkSourceFile(f, keys, TEM_PATTERN);
                     } catch (AssertionFailedError e) {
                         throw new AssertionFailedError(e.getMessage() + " in file " + f);
                     }
@@ -93,14 +102,14 @@ public class TestLang extends TestCase {
             }
     }
 
-    private void checkSourceFile(File f, HashSet<String> keys) throws IOException {
+    private void checkSourceFile(File f, HashSet<String> keys, String pattern) throws IOException {
         try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f), "utf-8"))) {
             int linecount = 0;
             String line;
             while ((line = r.readLine()) != null) {
                 linecount++;
                 try {
-                    checkSourceLine(line, keys);
+                    checkSourceLine(line, keys, pattern);
                 } catch (AssertionFailedError e) {
                     throw new AssertionFailedError(e.getMessage() + " in line " + linecount);
                 }
@@ -108,9 +117,7 @@ public class TestLang extends TestCase {
         }
     }
 
-    private static final String PATTERN = "Lang.get(\"";
-
-    private void checkSourceLine(String line, HashSet<String> keys) {
+    private void checkSourceLine(String line, HashSet<String> keys, String PATTERN) {
         if (line.contains(PATTERN)) {
             int pos = line.indexOf(PATTERN, 0);
             while (pos >= 0) {

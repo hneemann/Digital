@@ -877,12 +877,14 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
         {1}</string>
     <string name="err_canOnlyExportExternalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
-    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein!</string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein! Betrifft {0}</string>
     <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
         {0}</string>
     <string name="err_ghdlNotInstalled">
         Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
     </string>
+    <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
+    <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

@@ -3,6 +3,6 @@
   entityName:=elem.Label;
 
   if (elem.applicationType!="GHDL")
-    panic("only GHDL components are supported for VHDL export! Found: "+elem.applicationType);
+    panic("err_canOnlyExportExternalVHDL");
 
 ?>

@@ -6,6 +6,7 @@
 package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 
@@ -48,7 +49,9 @@ public class HDLPort implements Printable {
      * @throws HDLException HDLException
      */
     public HDLPort(String name, HDLNet net, Direction direction, int bits) throws HDLException {
-        this.name = name;
+        this.name = name.trim();
+        if (this.name.length() == 0)
+            throw new HDLException(Lang.get("err_vhdlANameIsMissing"));
         this.net = net;
         this.direction = direction;
         this.bits = bits;

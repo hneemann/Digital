@@ -47,7 +47,7 @@ public class ExternalVHDL implements VHDLEntity {
         if (oldCode.equals(code))
             return false;
 
-        throw new HDLException(Lang.get("err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical"));
+        throw new HDLException(Lang.get("err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N", label));
     }
 
     @Override

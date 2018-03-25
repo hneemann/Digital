@@ -8,6 +8,7 @@ package de.neemann.digital.hdl.hgs;
 import de.neemann.digital.hdl.hgs.function.Func;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.InnerFunction;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -276,12 +277,27 @@ public class Context {
 
     private static final class FunctionPanic extends Function {
         private FunctionPanic() {
-            super(1);
+            super(-1);
         }
 
         @Override
         protected Object f(Object... args) throws HGSEvalException {
-            throw new HGSEvalException(args[0].toString());
+            if (args.length == 0)
+                throw new HGSEvalException("panic");
+
+            String message = args[0].toString();
+            if (message.startsWith("err_")) {
+                if (args.length == 1)
+                    message = Lang.get(message);
+                else {
+                    String[] ar = new String[args.length - 1];
+                    for (int i = 0; i < args.length - 1; i++)
+                        ar[i] = args[i + 1].toString();
+                    message = Lang.get(message, ar);
+                }
+            }
+
+            throw new HGSEvalException(message);
         }
     }
 

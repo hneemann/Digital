@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.all;
 use IEEE.NUMERIC_STD.ALL;
 <?
     if (elem.Label="")
-        panic("Every ROM needs a unique label!");
+        panic("err_romNeedsALabelToBeExported");
 
     entityName:="DIG_ROM_"+elem.Label;
 ?>

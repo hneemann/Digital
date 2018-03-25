@@ -10,6 +10,7 @@ import de.neemann.digital.hdl.hgs.function.JavaClass;
 import de.neemann.digital.hdl.model2.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl2.Separator;
+import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class VHDLTemplate implements VHDLEntity {
             return newGenerated;
         } else {
             if (!(newGenerated.code.equals(e.code)))
-                throw new HGSEvalException("Multiple entities with same name '" + newGenerated.name + "'!");
+                throw new HGSEvalException(Lang.get("err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N", newGenerated.name));
             else
                 return e;
         }
