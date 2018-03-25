@@ -2,7 +2,10 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
-
+<?
+    if (elem.Bits<2)
+      panic("err_counterNeedsMoreBits");
+?>
 entity DIG_CounterPreset is
   generic ( Bits: integer;<?       vhdl.registerGeneric("Bits");?>
             maxValue: integer );<? vhdl.registerGeneric("maxValue");?>

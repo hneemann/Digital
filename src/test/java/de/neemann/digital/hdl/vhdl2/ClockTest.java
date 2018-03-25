@@ -290,7 +290,7 @@ public class ClockTest extends TestCase {
                 new HDLModel(br.getLibrary()),
                 ci);
 
-        c.mergeOperations().nameNets();
+        c.mergeExpressions().nameNets();
 
         CodePrinter out = new CodePrinterStr();
         new VHDLCreator(out).printHDLCircuit(c);

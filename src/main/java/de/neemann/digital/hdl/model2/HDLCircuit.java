@@ -300,8 +300,19 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      *
      * @return this for chained calls
      */
-    public HDLCircuit mergeOperations() {
-        nodes = new OperationMerger(nodes, this).merge();
+    public HDLCircuit mergeExpressions() {
+        nodes = new MergeExpressions(nodes, this).merge();
+        return this;
+    }
+
+    /**
+     * Merges the constants
+     *
+     * @return this for chained calls
+     * @throws HDLException HDLException
+     */
+    public HDLCircuit mergeConstants() throws HDLException {
+        nodes = new MergeConstants(nodes, this).merge();
         return this;
     }
 

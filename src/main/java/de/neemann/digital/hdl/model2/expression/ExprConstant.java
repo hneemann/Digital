@@ -21,8 +21,9 @@ public class ExprConstant implements Expression {
 
     /**
      * Creates a new constant
+     *
      * @param value the value
-     * @param bits the number of bits
+     * @param bits  the number of bits
      */
     public ExprConstant(long value, int bits) {
         this.bits = bits;
@@ -50,5 +51,15 @@ public class ExprConstant implements Expression {
 
     @Override
     public void replace(HDLNet net, Expression expression) {
+    }
+
+    /**
+     * Returns true if this constant is equal to the given constant.
+     *
+     * @param other the given constant
+     * @return true if both constants are equal
+     */
+    public boolean isEqualTo(ExprConstant other) {
+        return bits == other.bits && value == other.value;
     }
 }

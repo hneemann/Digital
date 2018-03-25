@@ -290,7 +290,7 @@ public class Context {
                 if (args.length == 1)
                     message = Lang.get(message);
                 else {
-                    String[] ar = new String[args.length - 1];
+                    Object[] ar = new String[args.length - 1];
                     for (int i = 0; i < args.length - 1; i++)
                         ar[i] = args[i + 1].toString();
                     message = Lang.get(message, ar);

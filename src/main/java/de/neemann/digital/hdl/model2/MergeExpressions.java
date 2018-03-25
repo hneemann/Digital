@@ -12,11 +12,11 @@ import java.util.ArrayList;
 /**
  * Helper to merge expressions
  */
-class OperationMerger {
+class MergeExpressions {
     private final ArrayList<HDLNode> nodes;
     private final HDLCircuit circuit;
 
-    OperationMerger(ArrayList<HDLNode> nodes, HDLCircuit circuit) {
+    MergeExpressions(ArrayList<HDLNode> nodes, HDLCircuit circuit) {
         this.nodes = nodes;
         this.circuit = circuit;
     }
