@@ -63,16 +63,17 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     }
 
     /**
-     * Creates a new instance
+     * Creates a new instance.
      *
-     * @param circuit     the circuit
-     * @param elementName the name of the circuit
-     * @param c           the context to create the circuits
+     * @param circuit         the circuit
+     * @param elementName     the name of the circuit
+     * @param c               the context to create the circuits
+     * @param clockIntegrator the clock integrator
      * @throws PinException  PinException
      * @throws HDLException  HDLException
      * @throws NodeException NodeException
      */
-    HDLCircuit(Circuit circuit, String elementName, HDLModel c, HDLClockIntegrator clockIntegrator) throws PinException, HDLException, NodeException {
+    public HDLCircuit(Circuit circuit, String elementName, HDLModel c, HDLClockIntegrator clockIntegrator) throws PinException, HDLException, NodeException {
         this.elementName = elementName;
 
         if (elementName.toLowerCase().endsWith(".dig"))

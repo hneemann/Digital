@@ -106,7 +106,7 @@ public class VHDLGenerator implements Closeable {
                         .getTestFileWritten();
 
                 if (board != null)
-                    board.writeFiles(outFile.getParentFile(), model);
+                    board.writeFiles(outFile, model);
             }
 
             return this;

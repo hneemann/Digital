@@ -4,24 +4,22 @@ USE ieee.numeric_std.all;
 USE ieee.std_logic_unsigned.all;
 
 entity DIG_simpleClockDivider is
-  <? vhdl.beginGenericPort();?>
   generic (
     maxCounter : integer );  <? vhdl.registerGeneric("maxCounter");?>
   port (
-    PORT_out: out std_logic;
-    PORT_in: in std_logic );
-  <? vhdl.endGenericPort();?>
+    cout: out std_logic;
+    cin: in std_logic );
 end DIG_simpleClockDivider;
 
-architecture DIG_simpleClockDivider_arch of DIG_simpleClockDivider is
+architecture Behavioral of DIG_simpleClockDivider is
   -- Don't use a logic signal as clock source in a real world application!
   -- Use the on chip clock resources instead!
   signal counter: integer range 0 to maxCounter := 0;
   signal state: std_logic;
 begin
-  process (PORT_in)
+  process (cin)
   begin
-    if rising_edge(PORT_in) then
+    if rising_edge(cin) then
        if counter = maxCounter then
           counter <= 0;
           state <= NOT (state);
@@ -30,5 +28,5 @@ begin
        end if;
     end if;
   end process;
-  PORT_out <= state;
-end DIG_simpleClockDivider_arch;
+  cout <= state;
+end Behavioral;

@@ -18,7 +18,7 @@ public interface BoardInterface {
     /**
      * Writes additional files
      *
-     * @param path  the target path
+     * @param path  the full path of the created vhdl file
      * @param model the model
      * @throws IOException IOException
      */

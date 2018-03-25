@@ -5,7 +5,6 @@ Library UNISIM;
 use UNISIM.vcomponents.all;
 
 entity DIG_MMCME2_BASE is
-  <? vhdl.beginGenericPort();?>
   generic (
     D_PARAM : integer;<?   vhdl.registerGeneric("D_PARAM");?>
     M_PARAM : real;<?      vhdl.registerGeneric("M_PARAM","real");?>
@@ -17,9 +16,8 @@ entity DIG_MMCME2_BASE is
 <? } ?>
     PERIOD_PARAM: real);<? vhdl.registerGeneric("PERIOD_PARAM","real");?>
   port (
-    PORT_in: in std_logic;
-    PORT_out: out std_logic );
-<? vhdl.endGenericPort();?>
+    cin: in std_logic;
+    cout: out std_logic );
 end DIG_MMCME2_BASE;
 
 architecture DIG_MMCME2_BASE_arch of DIG_MMCME2_BASE is
@@ -89,9 +87,9 @@ STARTUP_WAIT => TRUE
 port map (
 -- Clock Outputs: 1-bit (each) output: User configurable clock outputs
 <? if (elem.cascading) {?>
-CLKOUT4 => PORT_out,
+CLKOUT4 => cout,
 <? } else { ?>
-CLKOUT0 => PORT_out,
+CLKOUT0 => cout,
 <? } ?>
 -- 1-bit output: CLKOUT6
 -- Feedback Clocks: 1-bit (each) output: Clock feedback ports
@@ -102,7 +100,7 @@ CLKFBOUT => feedback,
 --LOCKED => LOCKED,
 -- 1-bit output: LOCK
 -- Clock Inputs: 1-bit (each) input: Clock input
-CLKIN1 => PORT_in,
+CLKIN1 => cin,
 -- 1-bit input: Clock
 -- Control Ports: 1-bit (each) input: MMCM control ports
 PWRDWN => DEV_NULL,

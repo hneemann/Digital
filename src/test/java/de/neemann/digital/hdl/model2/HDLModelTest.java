@@ -9,29 +9,27 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.Resources;
+import de.neemann.digital.integration.TestRunToBreak;
+import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
 import java.io.File;
 import java.io.IOException;
 
-public class HDLCircuitTest extends TestCase {
+public class HDLModelTest extends TestCase {
 
-    HDLCircuit getCircuit(String filename, HDLClockIntegrator ci) throws IOException, PinException, HDLException, NodeException {
-        File file = new File(Resources.getRoot(), filename);
-        ElementLibrary library = new ElementLibrary();
-        library.setRootFilePath(file.getParentFile());
-        ShapeFactory shapeFactory = new ShapeFactory(library);
-        Circuit c = Circuit.loadCircuit(file, shapeFactory);
-
-        return new HDLCircuit(c, "main", new HDLModel(library), ci);
+    HDLCircuit getCircuit(String filename, HDLClockIntegrator ci) throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+        ToBreakRunner br = new ToBreakRunner(filename);
+        return new HDLCircuit(br.getCircuit(), "main", new HDLModel(br.getLibrary()), ci);
     }
 
-    public void testSimple() throws IOException, PinException, HDLException, NodeException {
+    public void testSimple() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb.dig", null);
         hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
@@ -68,7 +66,7 @@ public class HDLCircuitTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testSimple2() throws IOException, PinException, HDLException, NodeException {
+    public void testSimple2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb2.dig", null);
         hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
@@ -87,7 +85,7 @@ public class HDLCircuitTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testInputInvert() throws IOException, PinException, HDLException, NodeException {
+    public void testInputInvert() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert.dig", null);
         hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
@@ -106,7 +104,7 @@ public class HDLCircuitTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testInputInvert2() throws IOException, PinException, HDLException, NodeException {
+    public void testInputInvert2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert2.dig", null);
         hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
@@ -125,7 +123,7 @@ public class HDLCircuitTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testSplitter() throws IOException, PinException, HDLException, NodeException {
+    public void testSplitter() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter.dig", null);
         hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
@@ -149,7 +147,7 @@ public class HDLCircuitTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testSplitter2() throws IOException, PinException, HDLException, NodeException {
+    public void testSplitter2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter2.dig", null);
         hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
@@ -174,7 +172,7 @@ public class HDLCircuitTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testClock() throws IOException, PinException, HDLException, NodeException {
+    public void testClock() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/clock.dig", new ClockIntegratorGeneric(10));
         hdl.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 

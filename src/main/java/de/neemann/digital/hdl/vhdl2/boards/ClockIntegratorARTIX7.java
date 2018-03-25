@@ -33,7 +33,7 @@ public class ClockIntegratorARTIX7 implements HDLClockIntegrator {
      *
      * @param clkInPeriod clock in period in ns
      */
-    ClockIntegratorARTIX7(double clkInPeriod) {
+    public ClockIntegratorARTIX7(double clkInPeriod) {
         this.clkInPeriod = clkInPeriod;
     }
 
