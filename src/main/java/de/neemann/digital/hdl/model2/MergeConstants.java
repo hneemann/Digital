@@ -39,6 +39,8 @@ public class MergeConstants {
             final HDLNode node1 = nodes.get(n1);
             ExprConstant con1 = getConstant(node1);
             if (con1 != null) {
+                //modification of loop variable n2 is intended!
+                //CHECKSTYLE.OFF: ModifiedControlVariable
                 for (int n2 = n1 + 1; n2 < nodes.size(); n2++) {
                     final HDLNode node2 = nodes.get(n2);
                     ExprConstant con2 = getConstant(node2);
@@ -46,9 +48,11 @@ public class MergeConstants {
                         if (con1.isEqualTo(con2)) {
                             merge(node1, node2);
                             nodes.remove(n2);
+                            n2--;
                         }
                     }
                 }
+                //CHECKSTYLE.ON: ModifiedControlVariable
             }
 
             n1++;
