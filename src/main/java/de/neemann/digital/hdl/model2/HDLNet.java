@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Represents a net.
  * A net can have only one input and several outputs.
  */
-public class HDLNet implements Printable {
+public class HDLNet implements Printable, HasName {
     private String name;
     private ArrayList<HDLPort> inputs;
     private HDLPort output;
@@ -89,9 +89,7 @@ public class HDLNet implements Printable {
         out.print(name).print("->").print(inputs.size());
     }
 
-    /**
-     * @return the name of the net
-     */
+    @Override
     public String getName() {
         return name;
     }

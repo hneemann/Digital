@@ -178,8 +178,9 @@ public class HDLModel implements Iterable<HDLCircuit> {
      * Renames the signals in this model
      *
      * @param renaming the renaming algorithm
+     * @throws HDLException HDLException
      */
-    public void rename(Renaming renaming) {
+    public void renameLabels(Renaming renaming) throws HDLException {
         this.renaming = new RenameSingleCheck(renaming);
         for (HDLCircuit c : circuitMap.values())
             c.rename(this.renaming);

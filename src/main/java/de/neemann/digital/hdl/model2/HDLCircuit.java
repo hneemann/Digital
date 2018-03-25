@@ -421,8 +421,9 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      * Renames the names in this model to satisfy constrains of the final target language.
      *
      * @param renaming the renaming algorithm
+     * @throws HDLException HDLException
      */
-    public void rename(HDLModel.Renaming renaming) {
+    public void rename(HDLModel.Renaming renaming) throws HDLException {
         for (HDLPort p : outputs)
             p.rename(renaming);
         for (HDLPort p : inputs)
@@ -434,6 +435,20 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
             n.rename(renaming);
 
         hdlEntityName = renaming.checkName(hdlEntityName);
+
+        checkUnique(getPorts());
+        checkUnique(listOfNets);
+    }
+
+    private void checkUnique(Collection<? extends HasName> names) throws HDLException {
+        HashSet<String> set = new HashSet<>();
+        for (HasName hn : names) {
+            String name = hn.getName();
+            if (set.contains(name))
+                throw new HDLException(Lang.get("err_namesAreNotUnique_N", name));
+            else
+                set.add(name);
+        }
     }
 
     /**

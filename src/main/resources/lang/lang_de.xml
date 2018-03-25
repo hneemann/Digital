@@ -860,6 +860,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_monoflopRequiresOneClock">Wird ein Monoflop verwendet, muss es genau ein Taktelement geben!</string>
     <string name="err_couldNotCreateElement_N">Konnte kein Element vom Typ "{0}" erzeugen!</string>
     <string name="err_centralDefinedRomsAreNotSupported">Zentral definierte ROM-Inhalte werden nicht unterstützt!</string>
+    <string name="err_namesAreNotUnique_N">Der Name "{0}" ist nicht eindeutig!</string>
 
     <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
     <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>

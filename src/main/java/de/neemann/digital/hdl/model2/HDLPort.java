@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * A port
  */
-public class HDLPort implements Printable {
+public class HDLPort implements Printable, HasName {
 
     /**
      * The ports direction
@@ -92,9 +92,7 @@ public class HDLPort implements Printable {
             net.addPort(this);
     }
 
-    /**
-     * @return the name of this port
-     */
+    @Override
     public String getName() {
         return name;
     }
