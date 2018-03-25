@@ -511,7 +511,7 @@ public class ParserTest extends TestCase {
 
     // checks the available VHDL templates
     public void testVHDLTemplates() throws Exception {
-        final File path = new File(Resources.getRoot(), "../../main/resources/vhdl");
+        final File path = new File(Resources.getRoot(), "../../main/resources/vhdl2");
         int n = new FileScanner(f -> new Parser(new FileReader(f)).parse()).setSuffix(".tem").scan(path);
         assertTrue(n > 10);
     }
