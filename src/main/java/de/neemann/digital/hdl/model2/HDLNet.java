@@ -86,7 +86,7 @@ public class HDLNet implements Printable {
 
     @Override
     public void print(CodePrinter out) throws IOException {
-        out.print(name).print(":").print(output.getBits());
+        out.print(name).print("->").print(inputs.size());
     }
 
     /**
@@ -141,6 +141,14 @@ public class HDLNet implements Printable {
     }
 
     /**
+     * resets the output of this net
+     */
+    public void resetOutput() {
+        output = null;
+        name = null;
+    }
+
+    /**
      * Renames this net.
      *
      * @param renaming the renaming algorithm
@@ -148,4 +156,5 @@ public class HDLNet implements Printable {
     public void rename(HDLModel.Renaming renaming) {
         name = renaming.checkName(name);
     }
+
 }

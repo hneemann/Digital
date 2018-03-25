@@ -20,10 +20,14 @@ public class HDLPort implements Printable {
     public enum Direction {
         /**
          * input
+         * Caution: a circuits output components port has type IN because it reads the value to
+         * output, seen from inside the node.
          */
         IN,
         /**
          * output
+         * Caution: a circuits input components port has type OUT because it defines a value,
+         * seen from inside the node.
          */
         OUT
     }
@@ -81,7 +85,8 @@ public class HDLPort implements Printable {
         if (this.net != null)
             this.net.remove(this);
         this.net = net;
-        net.addPort(this);
+        if (net != null)
+            net.addPort(this);
     }
 
     /**
@@ -129,6 +134,15 @@ public class HDLPort implements Printable {
     @Override
     public void print(CodePrinter out) throws IOException {
         out.print(name).print(":").print(bits);
+        if (net != null) {
+            if (net.getOutput() == this)
+                out.print(" defines (");
+            else
+                out.print(" reads (");
+            net.print(out);
+            out.print(")");
+        } else
+            out.print(" is not used");
     }
 
     /**

@@ -11,13 +11,18 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.HDLCircuit;
-import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.HDLException;
+import de.neemann.digital.hdl.model2.HDLModel;
+import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
+import de.neemann.digital.hdl.vhdl2.boards.BoardInterface;
+import de.neemann.digital.hdl.vhdl2.boards.BoardProvider;
 import de.neemann.digital.lang.Lang;
 
-import java.io.*;
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +33,7 @@ public class VHDLGenerator implements Closeable {
     private final ElementLibrary library;
     private final CodePrinter out;
     private ArrayList<File> testBenches;
+    private boolean useClockIntegration = true;
 
     /**
      * Creates a new exporter
@@ -58,8 +64,15 @@ public class VHDLGenerator implements Closeable {
      * @throws IOException IOException
      */
     public VHDLGenerator export(Circuit circuit) throws IOException {
+
+        BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
+
+        HDLClockIntegrator clockIntegrator = null;
+        if (board != null && useClockIntegration)
+            clockIntegrator = board.getClockIntegrator();
+
         try {
-            HDLModel model = new HDLModel(library).create(circuit);
+            HDLModel model = new HDLModel(library).create(circuit, clockIntegrator);
             for (HDLCircuit c : model)
                 c.mergeOperations().nameNets(new HDLCircuit.SimpleNetNaming());
 
@@ -87,10 +100,14 @@ public class VHDLGenerator implements Closeable {
             new VHDLCreator(out).printHDLCircuit(model.getMain());
 
             File outFile = out.getFile();
-            if (outFile != null)
+            if (outFile != null) {
                 testBenches = new VHDLTestBenchCreator(circuit, model)
                         .write(outFile)
                         .getTestFileWritten();
+
+                if (board != null)
+                    board.writeFiles(outFile.getParentFile(), model);
+            }
 
             return this;
         } catch (PinException | NodeException | HDLException | HGSEvalException e) {
@@ -113,5 +130,16 @@ public class VHDLGenerator implements Closeable {
     @Override
     public void close() throws IOException {
         out.close();
+    }
+
+    /**
+     * Disables the clock integration.
+     * Used only for the tests.
+     *
+     * @return this for chained calls
+     */
+    public VHDLGenerator disableClockIntegration() {
+        useClockIntegration = false;
+        return this;
     }
 }

@@ -34,7 +34,7 @@ public class ExprVar implements Expression {
 
     @Override
     public void print(CodePrinter out) throws IOException {
-        net.print(out);
+        out.print(net.getName());
     }
 
     @Override

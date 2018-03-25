@@ -37,12 +37,18 @@ public class HDLNode {
         outputs = new ArrayList<>();
     }
 
-    void addInput(HDLPort port) {
-        inputs.add(port);
-    }
-
-    void addOutput(HDLPort port) {
-        outputs.add(port);
+    /**
+     * Adds a port to this node
+     *
+     * @param port the port to add
+     * @return this for chained calls
+     */
+    public HDLNode addPort(HDLPort port) {
+        if (port.getDirection().equals(HDLPort.Direction.OUT))
+            outputs.add(port);
+        else
+            inputs.add(port);
+        return this;
     }
 
     @Override
@@ -111,12 +117,6 @@ public class HDLNode {
             } else
                 out.print(", ");
             p.print(out);
-            if (p.getNet() == null)
-                out.print(" is not used");
-            else {
-                out.print(" is ");
-                p.getNet().print(out);
-            }
         }
         if (first)
             out.print("(");

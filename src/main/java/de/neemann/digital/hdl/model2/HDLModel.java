@@ -20,6 +20,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.*;
 
 import java.util.ArrayList;
@@ -144,9 +145,9 @@ public class HDLModel implements Iterable<HDLCircuit> {
         for (Pin p : v.getPins()) {
             HDLNet net = c.getNetOfPin(p);
             if (p.getDirection().equals(PinDescription.Direction.input))
-                node.addInput(new HDLPort(p.getName(), net, HDLPort.Direction.IN, 0));
+                node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.IN, 0));
             else
-                node.addOutput(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
+                node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
         }
         return node;
     }
@@ -160,14 +161,15 @@ public class HDLModel implements Iterable<HDLCircuit> {
     /**
      * Analyses the given circuit
      *
-     * @param circuit the circuit
+     * @param circuit         the circuit
+     * @param clockIntegrator the clock integrator. Meybe null
      * @return this for chained calls
      * @throws PinException  PinException
      * @throws HDLException  HDLException
      * @throws NodeException NodeException
      */
-    public HDLModel create(Circuit circuit) throws PinException, HDLException, NodeException {
-        main = new HDLCircuit(circuit, "main", this);
+    public HDLModel create(Circuit circuit, HDLClockIntegrator clockIntegrator) throws PinException, HDLException, NodeException {
+        main = new HDLCircuit(circuit, "main", this, clockIntegrator);
         circuitMap.put(circuit, main);
         return this;
     }
@@ -234,7 +236,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
     /**
      * The bit provider interface
      */
-    interface BitProvider {
+    public interface BitProvider {
         /**
          * Returns the number of bits of the signal with the given name
          *

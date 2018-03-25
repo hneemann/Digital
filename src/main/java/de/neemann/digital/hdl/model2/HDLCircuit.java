@@ -24,6 +24,8 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.hdl.model2.clock.ClockInfo;
+import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.ExprNot;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -57,6 +59,20 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      * @throws NodeException NodeException
      */
     HDLCircuit(Circuit circuit, String elementName, HDLModel c) throws PinException, HDLException, NodeException {
+        this(circuit, elementName, c, null);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param circuit     the circuit
+     * @param elementName the name of the circuit
+     * @param c           the context to create the circuits
+     * @throws PinException  PinException
+     * @throws HDLException  HDLException
+     * @throws NodeException NodeException
+     */
+    HDLCircuit(Circuit circuit, String elementName, HDLModel c, HDLClockIntegrator clockIntegrator) throws PinException, HDLException, NodeException {
         this.elementName = elementName;
 
         if (elementName.toLowerCase().endsWith(".dig"))
@@ -71,20 +87,26 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         nets = new HashMap<>();
         listOfNets = new ArrayList<>();
         netList = new NetList(circuit);
+
+        ArrayList<ClockInfo> clocks = new ArrayList<>();
+
         try {
             for (VisualElement v : circuit.getElements()) {
-                if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Clock.DESCRIPTION))
-                    addInput(new HDLPort(
+                if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Clock.DESCRIPTION)) {
+                    final HDLPort port = new HDLPort(
                             v.getElementAttributes().getCleanLabel(),
                             getNetOfPin(v.getPins().get(0)),
-                            HDLPort.Direction.OUT,
+                            HDLPort.Direction.OUT,  // from inside the node this is an output because it defines a value
                             v.getElementAttributes().getBits())
-                            .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER)));
-                else if (v.equalsDescription(Out.DESCRIPTION))
+                            .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER));
+                    addInput(port);
+                    if (v.equalsDescription(Clock.DESCRIPTION))
+                        clocks.add(new ClockInfo(port, v.getElementAttributes().get(Keys.FREQUENCY)));
+                } else if (v.equalsDescription(Out.DESCRIPTION))
                     addOutput(new HDLPort(
                             v.getElementAttributes().getCleanLabel(),
                             getNetOfPin(v.getPins().get(0)),
-                            HDLPort.Direction.IN,
+                            HDLPort.Direction.IN,  // from inside the node this is an input because it reads the value to output
                             v.getElementAttributes().getBits())
                             .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER)));
                 else if (v.equalsDescription(Splitter.DESCRIPTION))
@@ -98,6 +120,9 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
 
         netList = null;
         nets = null;
+
+        if (clockIntegrator != null && !clocks.isEmpty())
+            clockIntegrator.integrateClocks(this, clocks);
 
         for (HDLNet n : listOfNets)
             n.fixBits();
@@ -147,10 +172,10 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         HDLNodeSplitterOneToMany oneToMany = new HDLNodeSplitterOneToMany(node, outputSplit);
 
         manyToOne.getOutputs().clear();
-        manyToOne.addOutput(left);
+        manyToOne.addPort(left);
 
         oneToMany.getInputs().clear();
-        oneToMany.addInput(right);
+        oneToMany.addPort(right);
 
         nodes.add(manyToOne);
         nodes.add(oneToMany);
@@ -164,8 +189,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         HDLNet inNet = p.getNet();
         inNet.remove(p);
 
-        n.addInput(new HDLPort(Not.DESCRIPTION.getInputDescription(attr).get(0).getName(), inNet, HDLPort.Direction.IN, p.getBits()));
-        n.addOutput(new HDLPort(Not.DESCRIPTION.getOutputDescriptions(attr).get(0).getName(), outNet, HDLPort.Direction.OUT, p.getBits()));
+        n.addPort(new HDLPort(Not.DESCRIPTION.getInputDescription(attr).get(0).getName(), inNet, HDLPort.Direction.IN, p.getBits()));
+        n.addPort(new HDLPort(Not.DESCRIPTION.getOutputDescriptions(attr).get(0).getName(), outNet, HDLPort.Direction.OUT, p.getBits()));
 
         p.setNet(outNet);
         node.replaceNet(inNet, outNet);
@@ -269,7 +294,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     }
 
     /**
-     * Merges logcal operations if possible
+     * Merges logical operations if possible
      *
      * @return this for chained calls
      */
@@ -396,6 +421,27 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      */
     public String getHdlEntityName() {
         return hdlEntityName;
+    }
+
+    /**
+     * Integrates a clock node.
+     *
+     * @param clock     the clock port
+     * @param clockNode the new clock node
+     * @throws HDLException HDLException
+     */
+    public void integrateClockNode(HDLPort clock, HDLNodeBuildIn clockNode) throws HDLException {
+        HDLNet outNet = clock.getNet();
+        HDLNet inNet = new HDLNet(null);
+        outNet.resetOutput();
+        clock.setNet(inNet);
+        listOfNets.add(inNet);
+
+        clockNode
+                .addPort(new HDLPort("cout", outNet, HDLPort.Direction.OUT, 1))
+                .addPort(new HDLPort("cin", inNet, HDLPort.Direction.IN, 1));
+
+        nodes.add(clockNode);
     }
 
     /**

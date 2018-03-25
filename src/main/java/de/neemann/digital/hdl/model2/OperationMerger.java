@@ -58,14 +58,14 @@ class OperationMerger {
 
         circuit.removeNet(obsoleteNet);
 
-        node.addOutput(host.getOutput());
+        node.addPort(host.getOutput());
         for (HDLPort i : host.getInputs())
             if (i.getNet() != obsoleteNet)
-                node.addInput(i);
+                node.addPort(i);
 
         for (HDLPort i : include.getInputs())
             if (!node.hasInput(i))
-                node.addInput(i);
+                node.addPort(i);
 
         return node;
     }

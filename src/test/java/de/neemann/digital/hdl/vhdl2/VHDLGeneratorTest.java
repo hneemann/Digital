@@ -9,16 +9,12 @@ import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.ProcessStarter;
-import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
@@ -63,7 +59,7 @@ public class VHDLGeneratorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(35, tested);
+            assertEquals(36, tested);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }
@@ -122,7 +118,7 @@ public class VHDLGeneratorTest extends TestCase {
                     .replace('-', '_')+ ".vhdl");
             CodePrinter out = new CodePrinter(vhdlFile);
             try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
-                vhdl.export(br.getCircuit());
+                vhdl.disableClockIntegration().export(br.getCircuit());
                 ArrayList<File> testFiles = vhdl.getTestBenches();
                 out.close();
                 runGHDL(vhdlFile, testFiles);
