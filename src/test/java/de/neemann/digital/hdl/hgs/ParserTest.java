@@ -495,6 +495,18 @@ public class ParserTest extends TestCase {
         }
     }
 
+    public void testPanic2() throws IOException, ParserException, HGSEvalException {
+        Statement s = new Parser("<? panic(\"err_varNotDefined_N\",\"hello\"); ?>").parse();
+
+        try {
+            exec(s);
+            fail();
+        } catch (HGSEvalException e) {
+            assertTrue(e.getMessage().contains("hello"));
+            assertFalse(e.getMessage().contains("err_"));
+        }
+    }
+
     public void testTrim() throws IOException, ParserException, HGSEvalException {
         assertEquals(" 5", exec(" <?=5;-?> ").toString());
         assertEquals("5 ", exec(" <?-=5?> ").toString());
