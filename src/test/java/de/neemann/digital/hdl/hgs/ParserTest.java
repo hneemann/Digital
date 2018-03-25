@@ -495,7 +495,7 @@ public class ParserTest extends TestCase {
         }
     }
 
-    public void testPanic2() throws IOException, ParserException, HGSEvalException {
+    public void testPanic2() throws IOException, ParserException {
         Statement s = new Parser("<? panic(\"err_varNotDefined_N\",\"hello\"); ?>").parse();
 
         try {
