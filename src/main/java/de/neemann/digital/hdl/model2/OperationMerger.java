@@ -66,6 +66,8 @@ class OperationMerger {
         for (HDLPort i : include.getInputs())
             if (!node.hasInput(i))
                 node.addPort(i);
+            else
+                i.getNet().remove(i);
 
         return node;
     }

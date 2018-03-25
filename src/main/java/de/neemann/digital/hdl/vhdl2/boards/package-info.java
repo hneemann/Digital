@@ -5,8 +5,8 @@
  */
 
 /**
- * Support fpr different boards.
- * The classes in this package are able to create the files neede
+ * Support for different boards.
+ * The classes in this package are able to create the files needed
  * to run a vhdl file on a board.
  */
 package de.neemann.digital.hdl.vhdl2.boards;

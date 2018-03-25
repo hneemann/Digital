@@ -75,14 +75,14 @@ public class HDLCircuitTest extends TestCase {
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
         assertEquals("circuit main\n" +
-                "  in(A:1, B:1, C:1)\n" +
-                "  out(Y:1)\n" +
+                "  in(A:1 defines (A->1), B:1 defines (B->1), C:1 defines (C->1))\n" +
+                "  out(Y:1 reads (Y->1))\n" +
                 "  sig()\n" +
                 "\n" +
                 "  node merged expression\n" +
-                "    in(In_2:1 is C:1, In_1:1 is A:1, In_2:1 is B:1)\n" +
-                "    out(out:1 is Y:1)\n" +
-                "    Y:1 := ((A:1 AND B:1) OR C:1)\n" +
+                "    in(In_2:1 reads (C->1), In_1:1 reads (A->1), In_2:1 reads (B->1))\n" +
+                "    out(out:1 defines (Y->1))\n" +
+                "    Y->1 := ((A AND B) OR C)\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }
@@ -94,14 +94,14 @@ public class HDLCircuitTest extends TestCase {
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
         assertEquals("circuit main\n" +
-                "  in(A:1, B:1, C:1)\n" +
-                "  out(Y:1)\n" +
+                "  in(A:1 defines (A->1), B:1 defines (B->1), C:1 defines (C->1))\n" +
+                "  out(Y:1 reads (Y->1))\n" +
                 "  sig()\n" +
                 "\n" +
                 "  node merged expression\n" +
-                "    in(In_2:1 is B:1, In_3:1 is C:1, In_1:1 is A:1)\n" +
-                "    out(out:1 is Y:1)\n" +
-                "    Y:1 := ((A:1 AND NOT B:1) OR B:1 OR C:1)\n" +
+                "    in(In_2:1 reads (B->1), In_3:1 reads (C->1), In_1:1 reads (A->1))\n" +
+                "    out(out:1 defines (Y->1))\n" +
+                "    Y->1 := ((A AND NOT B) OR B OR C)\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }
@@ -113,14 +113,14 @@ public class HDLCircuitTest extends TestCase {
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
         assertEquals("circuit main\n" +
-                "  in(A:1, B:1, C:1)\n" +
-                "  out(Y:1)\n" +
+                "  in(A:1 defines (A->1), B:1 defines (B->1), C:1 defines (C->1))\n" +
+                "  out(Y:1 reads (Y->1))\n" +
                 "  sig()\n" +
                 "\n" +
                 "  node merged expression\n" +
-                "    in(In_2:1 is C:1, In_1:1 is A:1, In_2:1 is B:1)\n" +
-                "    out(out:1 is Y:1)\n" +
-                "    Y:1 := (NOT (A:1 AND B:1) OR C:1)\n" +
+                "    in(In_2:1 reads (C->1), In_1:1 reads (A->1), In_2:1 reads (B->1))\n" +
+                "    out(out:1 defines (Y->1))\n" +
+                "    Y->1 := (NOT (A AND B) OR C)\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }
@@ -132,19 +132,19 @@ public class HDLCircuitTest extends TestCase {
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
         assertEquals("circuit main\n" +
-                "  in(A:4)\n" +
-                "  out(X:2)\n" +
-                "  sig(s0:2, s1:2)\n" +
+                "  in(A:4 defines (A->1))\n" +
+                "  out(X:2 reads (X->1))\n" +
+                "  sig(s0->1, s1->1)\n" +
                 "\n" +
                 "  node Splitter\n" +
-                "    in(0-3:4 is A:4)\n" +
-                "    out(0,1:2 is s0:2, 2,3:2 is s1:2)\n" +
+                "    in(0-3:4 reads (A->1))\n" +
+                "    out(0,1:2 defines (s0->1), 2,3:2 defines (s1->1))\n" +
                 "    s0 := A(0-1)\n" +
                 "    s1 := A(2-3)\n" +
                 "  node merged expression\n" +
-                "    in(In_1:2 is s0:2, in:2 is s1:2)\n" +
-                "    out(out:2 is X:2)\n" +
-                "    X:2 := (s0:2 AND NOT s1:2)\n" +
+                "    in(In_1:2 reads (s0->1), in:2 reads (s1->1))\n" +
+                "    out(out:2 defines (X->1))\n" +
+                "    X->1 := (s0 AND NOT s1)\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }
@@ -156,18 +156,18 @@ public class HDLCircuitTest extends TestCase {
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
         assertEquals("circuit main\n" +
-                "  in(A:2, B:2)\n" +
-                "  out(X:1, Y:3)\n" +
-                "  sig(s0:4)\n" +
+                "  in(A:2 defines (A->1), B:2 defines (B->1))\n" +
+                "  out(X:1 reads (X->1), Y:3 reads (Y->1))\n" +
+                "  sig(s0->1)\n" +
                 "\n" +
                 "  node Splitter\n" +
-                "    in(0,1:2 is A:2, 2,3:2 is B:2)\n" +
-                "    out(single:4 is s0:4)\n" +
+                "    in(0,1:2 reads (A->1), 2,3:2 reads (B->1))\n" +
+                "    out(single:4 defines (s0->1))\n" +
                 "    s0(0-1) := A\n" +
                 "    s0(2-3) := B\n" +
                 "  node Splitter\n" +
-                "    in(single:4 is s0:4)\n" +
-                "    out(0:1 is X:1, 1-3:3 is Y:3)\n" +
+                "    in(single:4 reads (s0->1))\n" +
+                "    out(0:1 defines (X->1), 1-3:3 defines (Y->1))\n" +
                 "    X := s0(0-0)\n" +
                 "    Y := s0(1-3)\n" +
                 "\n" +
