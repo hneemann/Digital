@@ -104,9 +104,11 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                             v.getElementAttributes().getBits())
                             .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER))
                             .setDescription(v.getElementAttributes().get(Keys.DESCRIPTION));
-                    addInput(port);
-                    if (v.equalsDescription(Clock.DESCRIPTION))
+                    if (v.equalsDescription(Clock.DESCRIPTION)) {
                         clocks.add(new ClockInfo(port, v.getElementAttributes().get(Keys.FREQUENCY)));
+                        port.setIsClock();
+                    }
+                    addInput(port);
                 } else if (v.equalsDescription(Out.DESCRIPTION))
                     addOutput(new HDLPort(
                             v.getElementAttributes().getCleanLabel(),

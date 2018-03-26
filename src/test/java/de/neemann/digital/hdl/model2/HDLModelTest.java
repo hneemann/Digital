@@ -250,4 +250,40 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
+    public void testCircular() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+        HDLCircuit hdl = getCircuit("dig/hdl/model2/circular.dig", null);
+        hdl.mergeExpressions().mergeConstants().nameNets();
+
+        CodePrinterStr cp = new CodePrinterStr();
+        hdl.print(cp);
+        assertEquals("circuit main\n" +
+                "  in(A:1 defines (A->1), C:1 defines (C->3))\n" +
+                "  out(X:1 reads (X->1))\n" +
+                "  sig(s0->1, s1->1, Q_B->1, s2->1, s3->1, Q_A->1, s4->1, s5->1)\n" +
+                "\n" +
+                "  node XOr\n" +
+                "    in(In_1:1 reads (s5->1), In_2:1 reads (A->1))\n" +
+                "    out(out:1 defines (s4->1))\n" +
+                "    s4->1 := (s5 XOR A)\n" +
+                "  node D_FF\n" +
+                "    in(D:1 reads (s4->1), C:1 reads (C->3))\n" +
+                "    out(Q:1 defines (Q_A->1), ~Q:1 defines (s5->1))\n" +
+                "  node XOr\n" +
+                "    in(In_1:1 reads (s3->1), In_2:1 reads (Q_A->1))\n" +
+                "    out(out:1 defines (s2->1))\n" +
+                "    s2->1 := (s3 XOR Q_A)\n" +
+                "  node D_FF\n" +
+                "    in(D:1 reads (s2->1), C:1 reads (C->3))\n" +
+                "    out(Q:1 defines (Q_B->1), ~Q:1 defines (s3->1))\n" +
+                "  node XOr\n" +
+                "    in(In_1:1 reads (s1->1), In_2:1 reads (Q_B->1))\n" +
+                "    out(out:1 defines (s0->1))\n" +
+                "    s0->1 := (s1 XOR Q_B)\n" +
+                "  node D_FF\n" +
+                "    in(D:1 reads (s0->1), C:1 reads (C->3))\n" +
+                "    out(Q:1 defines (X->1), ~Q:1 defines (s1->1))\n" +
+                "\n" +
+                "end circuit main\n", cp.toString());
+    }
+
 }

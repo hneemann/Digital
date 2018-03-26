@@ -57,6 +57,13 @@ public class NodeSorter {
                     layer.add(n);
             }
 
+            if (layer.isEmpty()) {
+                // circular dependency detected
+                for (HDLNode n : nodes)
+                    if (dependsAtLeastAtOne(n, nets))
+                        layer.add(n);
+            }
+
             if (layer.isEmpty())
                 break;
 
@@ -78,8 +85,15 @@ public class NodeSorter {
 
     private boolean dependsOnlyOn(HDLNode n, HashSet<HDLNet> nets) {
         for (HDLPort p : n.getInputs())
-            if (!nets.contains(p.getNet()))
+            if (!p.getNet().isClock() && !nets.contains(p.getNet()))
                 return false;
         return true;
+    }
+
+    private boolean dependsAtLeastAtOne(HDLNode n, HashSet<HDLNet> nets) {
+        for (HDLPort p : n.getInputs())
+            if (!p.getNet().isClock() && nets.contains(p.getNet()))
+                return true;
+        return false;
     }
 }

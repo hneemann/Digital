@@ -87,7 +87,7 @@ public class Separator {
     /**
      * If there is a finalizer, this finalizer method is called
      * instead of calling printSeparator.
-     * A finerlizer is used only one time.
+     * A finalizer is used only once.
      */
     public interface LineFinalizer {
         /**

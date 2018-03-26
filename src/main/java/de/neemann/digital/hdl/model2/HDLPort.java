@@ -15,7 +15,6 @@ import java.io.IOException;
  */
 public class HDLPort implements Printable, HasName {
 
-    private String description;
 
     /**
      * The ports direction
@@ -38,6 +37,8 @@ public class HDLPort implements Printable, HasName {
     private String name;
     private final Direction direction;
     private int bits;
+    private String description;
+    private boolean isClock;
     private HDLNet net;
     private String pinNumber;
 
@@ -152,6 +153,20 @@ public class HDLPort implements Printable, HasName {
      */
     public String getPinNumber() {
         return pinNumber;
+    }
+
+    /**
+     * Sets the clock port flag
+     */
+    public void setIsClock() {
+        isClock = true;
+    }
+
+    /**
+     * @return true if this is a clock port
+     */
+    public boolean isClock() {
+        return isClock;
     }
 
     @Override

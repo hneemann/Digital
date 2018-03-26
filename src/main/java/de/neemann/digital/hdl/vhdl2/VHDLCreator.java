@@ -75,8 +75,10 @@ public class VHDLCreator {
     }
 
     private void printNodeCustom(HDLNodeCustom node) throws HDLException, IOException, HGSEvalException {
-        if (!customPrinted.contains(node.getElementName()))
+        if (!customPrinted.contains(node.getElementName())) {
             printHDLCircuit(node.getCircuit());
+            customPrinted.add(node.getElementName());
+        }
     }
 
     /**
@@ -125,9 +127,7 @@ public class VHDLCreator {
         for (HDLNode node : circuit)
             if (node instanceof HDLNodeExpression)
                 printExpression((HDLNodeExpression) node);
-            else if (node instanceof HDLNodeBuildIn)
-                printEntityInstantiation(node, num++);
-            else if (node instanceof HDLNodeCustom)
+            else if (node instanceof HDLNodeBuildIn || node instanceof HDLNodeCustom)
                 printEntityInstantiation(node, num++);
             else if (node instanceof HDLNodeSplitterOneToMany)
                 printOneToMany((HDLNodeSplitterOneToMany) node);
@@ -206,7 +206,13 @@ public class VHDLCreator {
     private void printEntityInstantiation(HDLNode node, int num) throws IOException, HDLException {
         String entityName = node.getHdlEntityName();
 
-        out.print("gate").print(num).print(": entity work.").println(entityName).inc();
+        out.print("gate").print(num).print(": entity work.").print(entityName);
+
+        final String label = node.getElementAttributes().getCleanLabel();
+        if (label != null && label.length() > 0)
+            out.print(" -- ").print(label.replace('\n', ' '));
+
+        out.println().inc();
         if (!(node instanceof HDLNodeCustom))
             library.getEntity(node).writeGenericMap(out, node);
         out.println("port map (").inc();

@@ -139,12 +139,20 @@ public class HDLNet implements Printable, HasName {
     }
 
     /**
+     * @return true if this is a clock net
+     */
+    public boolean isClock() {
+        return output.isClock();
+    }
+
+    /**
      * resets the output of this net
      */
     public void resetOutput() {
         output = null;
         name = null;
     }
+
 
     /**
      * Renames this net.
