@@ -52,6 +52,16 @@ public class VHDLCreator {
     /**
      * Creates a vhdl value
      *
+     * @param con the constant
+     * @return the value as vhdl code
+     */
+    public static String value(ExprConstant con) {
+        return value(con.getValue(), con.getBits());
+    }
+
+    /**
+     * Creates a vhdl value
+     *
      * @param val  the value
      * @param bits the bit number
      * @return the value as vhdl code
@@ -184,8 +194,18 @@ public class VHDLCreator {
                 out.print(sp.getPos());
             else
                 out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
-            out.print(") <= ").print(in.getNet().getName()).println(";");
+            out.print(") <= ");
+            printInlineConstant(in);
+            out.println(";");
         }
+    }
+
+    private void printInlineConstant(HDLPort in) throws IOException {
+        ExprConstant con = ExprConstant.isConstant(in.getNet().getOutput().getParent());
+        if (con == null)
+            out.print(in.getNet().getName());
+        else
+            out.print(VHDLCreator.value(con));
     }
 
     private void printOneToMany(HDLNodeSplitterOneToMany node) throws IOException {
@@ -222,7 +242,8 @@ public class VHDLCreator {
         for (HDLPort i : node.getInputs())
             if (i.getNet() != null) {
                 sep.check();
-                out.print(i.getName()).print(" => ").print(i.getNet().getName());
+                out.print(i.getName()).print(" => ");
+                printInlineConstant(i);
             }
 
         for (HDLPort o : node.getOutputs())
@@ -234,7 +255,7 @@ public class VHDLCreator {
     }
 
     private void printExpression(HDLNodeExpression node) throws IOException, HDLException {
-        out.print(node.getTargetSignal()).print(" <= ");
+        out.print(node.getTargetNet().getName()).print(" <= ");
         printExpression(node.getExpression());
         out.println(";");
     }
@@ -244,7 +265,7 @@ public class VHDLCreator {
             out.print(((ExprVar) expression).getNet().getName());
         else if (expression instanceof ExprConstant) {
             final ExprConstant constant = (ExprConstant) expression;
-            out.print(value(constant.getValue(), constant.getBits()));
+            out.print(value(constant));
         } else if (expression instanceof ExprNot) {
             out.print("NOT ");
             printExpression(((ExprNot) expression).getExpression());

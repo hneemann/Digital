@@ -48,6 +48,9 @@ public class HDLNode {
             outputs.add(port);
         else
             inputs.add(port);
+
+        port.setParent(this);
+
         return this;
     }
 

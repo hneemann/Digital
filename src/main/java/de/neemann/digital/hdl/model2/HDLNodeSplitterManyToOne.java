@@ -26,8 +26,10 @@ public class HDLNodeSplitterManyToOne extends HDLNode {
     HDLNodeSplitterManyToOne(HDLNode node, Splitter.Ports inputSplit) {
         super(node.getElementName(), node.getElementAttributes(), null);
         this.inputSplit = inputSplit;
-        getInputs().addAll(node.getInputs());
-        getOutputs().addAll(node.getOutputs());
+        for (HDLPort p : node.getInputs())
+            addPort(p);
+        for (HDLPort p : node.getOutputs())
+            addPort(p);
     }
 
     /**

@@ -28,6 +28,7 @@ import de.neemann.digital.hdl.model2.clock.ClockInfo;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.ExprNot;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
+import de.neemann.digital.hdl.model2.optimizations.Optimization;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
@@ -302,33 +303,12 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     }
 
     /**
-     * Merges logical operations if possible
-     *
-     * @return this for chained calls
-     */
-    public HDLCircuit mergeExpressions() {
-        nodes = new MergeExpressions(nodes, this).merge();
-        return this;
-    }
-
-    /**
-     * Merges the constants
-     *
-     * @return this for chained calls
-     * @throws HDLException HDLException
-     */
-    public HDLCircuit mergeConstants() throws HDLException {
-        nodes = new MergeConstants(nodes, this).merge();
-        return this;
-    }
-
-    /**
      * Name the unnamed nets.
      *
      * @param netNaming the net naming algorithm
      * @return this for chained calls
      */
-    public HDLCircuit nameNets(NetNaming netNaming) {
+    public HDLCircuit nameUnnamedSignals(NetNaming netNaming) {
         for (HDLNet n : listOfNets)
             if (n.getName() == null)
                 n.setName(netNaming.createName(n));
@@ -340,8 +320,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      *
      * @return this for chained calls
      */
-    public HDLCircuit nameNets() {
-        return nameNets(new DefaultNetNaming());
+    public HDLCircuit nameUnnamedSignals() {
+        return nameUnnamedSignals(new DefaultNetNaming());
     }
 
 
@@ -499,6 +479,24 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                 .addPort(new HDLPort("cin", inNet, HDLPort.Direction.IN, 1));
 
         nodes.add(clockNode);
+    }
+
+    /**
+     * @return the list of nodes
+     */
+    public ArrayList<HDLNode> getNodes() {
+        return nodes;
+    }
+
+    /**
+     * Applyse the gicen optimization to this circuit
+     * @param optimization the optimization
+     * @return this for chained calls
+     * @throws HDLException HDLException
+     */
+    public HDLCircuit apply(Optimization optimization) throws HDLException {
+        optimization.optimize(this);
+        return this;
     }
 
     /**

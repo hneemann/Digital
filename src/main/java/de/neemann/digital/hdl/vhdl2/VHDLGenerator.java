@@ -15,6 +15,10 @@ import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
+import de.neemann.digital.hdl.model2.optimizations.MergeConstants;
+import de.neemann.digital.hdl.model2.optimizations.MergeExpressions;
+import de.neemann.digital.hdl.model2.optimizations.NameConstantSignals;
+import de.neemann.digital.hdl.model2.optimizations.RemoveConstantSignals;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl2.boards.BoardInterface;
 import de.neemann.digital.hdl.vhdl2.boards.BoardProvider;
@@ -68,9 +72,11 @@ public class VHDLGenerator implements Closeable {
             HDLModel model = new HDLModel(library).create(circuit, clockIntegrator);
             for (HDLCircuit hdlCircuit : model)
                 hdlCircuit
-                        .mergeConstants()
-                        .mergeExpressions()
-                        .nameNets();
+                        .apply(new MergeExpressions())
+                        .apply(new RemoveConstantSignals())
+                        .apply(new MergeConstants())  // under certain circumstances there are constants left
+                        .apply(new NameConstantSignals())
+                        .nameUnnamedSignals();
 
             model.renameLabels(new VHDLRenaming());
 

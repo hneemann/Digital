@@ -15,7 +15,6 @@ import java.io.IOException;
  */
 public class HDLPort implements Printable, HasName {
 
-
     /**
      * The ports direction
      */
@@ -41,6 +40,7 @@ public class HDLPort implements Printable, HasName {
     private boolean isClock;
     private HDLNet net;
     private String pinNumber;
+    private HDLNode parent;
 
     /**
      * Creates a new instance
@@ -167,6 +167,22 @@ public class HDLPort implements Printable, HasName {
      */
     public boolean isClock() {
         return isClock;
+    }
+
+    /**
+     * Sets the parent node
+     *
+     * @param parent the parent node
+     */
+    public void setParent(HDLNode parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * @return the parent node
+     */
+    public HDLNode getParent() {
+        return parent;
     }
 
     @Override

@@ -3,25 +3,25 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.hdl.model2;
+package de.neemann.digital.hdl.model2.optimizations;
 
+import de.neemann.digital.hdl.model2.*;
 import de.neemann.digital.hdl.model2.expression.Expression;
 
 import java.util.ArrayList;
 
 /**
- * Helper to merge expressions
+ * Merges the bool expression by inlining nodes which also represent a bool expression.
  */
-class MergeExpressions {
-    private final ArrayList<HDLNode> nodes;
-    private final HDLCircuit circuit;
+public class MergeExpressions implements Optimization {
+    private HDLCircuit circuit;
+    private ArrayList<HDLNode> nodes;
 
-    MergeExpressions(ArrayList<HDLNode> nodes, HDLCircuit circuit) {
-        this.nodes = nodes;
+    @Override
+    public void optimize(HDLCircuit circuit) {
         this.circuit = circuit;
-    }
+        this.nodes = circuit.getNodes();
 
-    ArrayList<HDLNode> merge() {
         boolean wasOptimization;
         do {
             wasOptimization = false;
@@ -43,8 +43,6 @@ class MergeExpressions {
                 }
             }
         } while (wasOptimization);
-
-        return nodes;
     }
 
     private HDLNodeExpression merge(HDLNodeExpression host, HDLNodeExpression include) {

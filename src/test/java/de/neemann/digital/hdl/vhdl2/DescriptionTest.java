@@ -12,6 +12,8 @@ import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
+import de.neemann.digital.hdl.model2.optimizations.MergeConstants;
+import de.neemann.digital.hdl.model2.optimizations.MergeExpressions;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
@@ -27,9 +29,9 @@ public class DescriptionTest extends TestCase {
                 "main"
                 , new HDLModel(br.getLibrary()),
                 null)
-                .mergeConstants()
-                .mergeExpressions()
-                .nameNets();
+                .apply(new MergeConstants())
+                .apply(new MergeExpressions())
+                .nameUnnamedSignals();
         CodePrinterStr out = new CodePrinterStr();
         new VHDLCreator(out).printHDLCircuit(circuit);
 
@@ -39,7 +41,7 @@ public class DescriptionTest extends TestCase {
                 "USE ieee.numeric_std.all;\n" +
                 "\n" +
                 "-- Simple test circuit\n" +
-                "-- used to test comments.\n"+
+                "-- used to test comments.\n" +
                 "entity main is\n" +
                 "  port (\n" +
                 "    S0: in std_logic; -- First input\n" +

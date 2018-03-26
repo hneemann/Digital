@@ -26,7 +26,7 @@ public class HDLNodeExpression extends HDLNode {
      * @param elementAttributes the attributes
      * @param bitProvider       the bit provider which provides the outputs bit width
      */
-    HDLNodeExpression(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
+    public HDLNodeExpression(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
         super(elementName, elementAttributes, bitProvider);
     }
 
@@ -62,9 +62,9 @@ public class HDLNodeExpression extends HDLNode {
     }
 
     /**
-     * @return the target signal of this expression.
+     * @return the target net of this expression.
      */
-    public String getTargetSignal() {
-        return getOutput().getNet().getName();
+    public HDLNet getTargetNet() {
+        return getOutput().getNet();
     }
 }

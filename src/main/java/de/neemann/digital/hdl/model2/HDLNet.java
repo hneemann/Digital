@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.model2;
 
+import de.neemann.digital.hdl.model2.expression.ExprConstant;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
 import java.io.IOException;
@@ -77,10 +78,22 @@ public class HDLNet implements Printable, HasName {
 
     }
 
-    void remove(HDLPort p) {
-        if (p == output)
+    /**
+     * @return the constant if this net is a constant, null otherwise
+     */
+    public ExprConstant isConstant() {
+        return ExprConstant.isConstant(output.getParent());
+    }
+
+    /**
+     * Removes the given port from this net.
+     *
+     * @param p the port to remove
+     */
+    public void remove(HDLPort p) {
+        if (p == output) {
             output = null;
-        else
+        } else
             inputs.remove(p);
     }
 
