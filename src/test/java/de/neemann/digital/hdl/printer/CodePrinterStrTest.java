@@ -23,6 +23,20 @@ public class CodePrinterStrTest extends TestCase {
                 .dec()
                 .println("test")
                 .toString());
+
+        assertEquals("test;\n" +
+                " -- Hello\n" +
+                " -- World\n" +
+                " -- Long text\n" +
+                "test",new CodePrinterStr()
+                .println("test;")
+                .printComment(" -- ","Hello\nWorld\nLong text").print("test").toString());
+        assertEquals("test; -- Hello\n" +
+                "      -- World\n" +
+                "      -- Long text\n" +
+                "test",new CodePrinterStr()
+                .print("test;")
+                .printComment(" -- ","Hello\nWorld\nLong text").print("test").toString());
     }
 
 }

@@ -116,13 +116,13 @@ public class VHDLTestBenchCreator {
         out.dec().println("begin").inc();
 
         out.println("main_0 : main port map (").inc();
-        Separator comma = new Separator(",\n");
+        Separator comma = new Separator(out, ",\n");
         for (HDLPort p : main.getInputs()) {
-            comma.check(out);
+            comma.check();
             out.print(p.getName() + " => " + p.getName());
         }
         for (HDLPort p : main.getOutputs()) {
-            comma.check(out);
+            comma.check();
             out.print(p.getName() + " => " + p.getName());
         }
         out.println(" );").dec();
@@ -225,10 +225,10 @@ public class VHDLTestBenchCreator {
         private LineListenerVHDL(CodePrinter out, ArrayList<HDLPort> dataOrder) {
             this.out = out;
             this.dataOrder = dataOrder;
-            lineSep = new Separator("") {
+            lineSep = new Separator(out, "") {
                 @Override
-                public String getSeperator() {
-                    return ", -- i=" + (line++) + "\n";
+                public void printSeparator(CodePrinter out) throws IOException {
+                    out.print(", -- i=").print((line++)).print("\n");
                 }
             };
         }
@@ -241,12 +241,12 @@ public class VHDLTestBenchCreator {
                     if (v.getType() == Value.Type.CLOCK)
                         containsClock = true;
                 if (containsClock) {
-                    lineSep.check(out);
+                    lineSep.check();
                     writeValues(values, true, 0);
-                    lineSep.check(out);
+                    lineSep.check();
                     writeValues(values, true, 1);
                 }
-                lineSep.check(out);
+                lineSep.check();
                 writeValues(values, false, 0);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -255,9 +255,9 @@ public class VHDLTestBenchCreator {
 
         private void writeValues(Value[] values, boolean isClock, int clock) throws IOException {
             out.print("(");
-            Separator sep = new Separator(", ");
+            Separator sep = new Separator(out, ", ");
             for (int i = 0; i < values.length; i++) {
-                sep.check(out);
+                sep.check();
                 Value val = values[i];
                 int bits = dataOrder.get(i).getBits();
                 switch (val.getType()) {

@@ -15,6 +15,8 @@ import java.io.IOException;
  */
 public class HDLPort implements Printable, HasName {
 
+    private String description;
+
     /**
      * The ports direction
      */
@@ -69,6 +71,31 @@ public class HDLPort implements Printable, HasName {
     public HDLPort setPinNumber(String pinNumber) {
         this.pinNumber = pinNumber;
         return this;
+    }
+
+    /**
+     * Sets the description of this port.
+     *
+     * @param description the description
+     * @return this for chained calls
+     */
+    public HDLPort setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * @return the ports description.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return true if this port has a description
+     */
+    public boolean hasDescription() {
+        return description != null && description.trim().length() > 0;
     }
 
     /**

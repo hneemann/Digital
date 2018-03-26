@@ -43,6 +43,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     private final ArrayList<HDLPort> outputs;
     private final ArrayList<HDLPort> inputs;
     private final ArrayList<HDLNet> listOfNets;
+    private final String description;
     private ArrayList<HDLPort> ports;
     private NetList netList;
     private ArrayList<HDLNode> nodes;
@@ -89,6 +90,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         nets = new HashMap<>();
         listOfNets = new ArrayList<>();
         netList = new NetList(circuit);
+        description = circuit.getAttributes().get(Keys.DESCRIPTION);
 
         ArrayList<ClockInfo> clocks = new ArrayList<>();
 
@@ -100,7 +102,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                             getNetOfPin(v.getPins().get(0)),
                             HDLPort.Direction.OUT,  // from inside the node this is an output because it defines a value
                             v.getElementAttributes().getBits())
-                            .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER));
+                            .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER))
+                            .setDescription(v.getElementAttributes().get(Keys.DESCRIPTION));
                     addInput(port);
                     if (v.equalsDescription(Clock.DESCRIPTION))
                         clocks.add(new ClockInfo(port, v.getElementAttributes().get(Keys.FREQUENCY)));
@@ -110,7 +113,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                             getNetOfPin(v.getPins().get(0)),
                             HDLPort.Direction.IN,  // from inside the node this is an input because it reads the value to output
                             v.getElementAttributes().getBits())
-                            .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER)));
+                            .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER))
+                            .setDescription(v.getElementAttributes().get(Keys.DESCRIPTION)));
                 else if (v.equalsDescription(Splitter.DESCRIPTION))
                     handleSplitter(c.createNode(v, this));
                 else if (isRealElement(v))
@@ -458,6 +462,20 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      */
     public String getHdlEntityName() {
         return hdlEntityName;
+    }
+
+    /**
+     * @return the description of this circuit
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return true if the circuit has a description
+     */
+    public boolean hasDescription() {
+        return description != null && description.trim().length() > 0;
     }
 
     /**

@@ -74,9 +74,9 @@ public class VHDLTemplate implements VHDLEntity {
             final Entity e = getEntity(node);
             if (!e.getGenerics().isEmpty()) {
                 out.println("generic map (").inc();
-                Separator semic = new Separator(",\n");
+                Separator semic = new Separator(out, ",\n");
                 for (VHDLTemplateFunctions.Generic gen : e.getGenerics()) {
-                    semic.check(out);
+                    semic.check();
                     final Object value = node.getElementAttributes().hgsMapGet(gen.getName());
                     out.print(gen.getName()).print(" => ").print(gen.format(value));
                 }

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Simple test circuit
+used to test comments.</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>first output</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S2</string>
@@ -21,6 +31,11 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>First input
+This is a far longer text.</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>S0</string>
         </entry>
@@ -30,6 +45,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Second input</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S1</string>
@@ -55,6 +74,11 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>second output
+also with a longer text</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>S3</string>

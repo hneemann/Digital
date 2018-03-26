@@ -27,7 +27,7 @@ public class VHDLCreator {
     /**
      * Creates a new instance
      *
-     * @param out   the output stream
+     * @param out the output stream
      */
     VHDLCreator(CodePrinter out) {
         this.out = out;
@@ -104,6 +104,9 @@ public class VHDLCreator {
                 .println("USE ieee.numeric_std.all;")
                 .println();
 
+        if (circuit.hasDescription())
+            out.printComment("-- ", circuit.getDescription());
+
         out.print("entity ").print(circuit.getHdlEntityName()).println(" is").inc();
         writePorts(out, circuit);
         out.dec();
@@ -152,16 +155,19 @@ public class VHDLCreator {
     public static void writePorts(CodePrinter out, HDLCircuit circuit) throws IOException {
         out.println("port (").inc();
 
-        Separator sep = new Separator(";\n");
+        Separator sep = new Separator(out, ";\n");
 
         for (HDLPort i : circuit.getInputs()) {
-            sep.check(out);
+            sep.check();
             out.print(i.getName()).print(": in ").print(getType(i.getBits()));
+            if (i.hasDescription()) sep.setLineFinalizer(ou -> ou.printComment(" -- ", i.getDescription()));
         }
         for (HDLPort o : circuit.getOutputs()) {
-            sep.check(out);
+            sep.check();
             out.print(o.getName()).print(": out ").print(getType(o.getBits()));
+            if (o.hasDescription()) sep.setLineFinalizer(ou -> ou.printComment(" -- ", o.getDescription()));
         }
+        sep.close();
         out.println(");").dec();
     }
 
@@ -204,16 +210,16 @@ public class VHDLCreator {
         if (!(node instanceof HDLNodeCustom))
             library.getEntity(node).writeGenericMap(out, node);
         out.println("port map (").inc();
-        Separator sep = new Separator(",\n");
+        Separator sep = new Separator(out, ",\n");
         for (HDLPort i : node.getInputs())
             if (i.getNet() != null) {
-                sep.check(out);
+                sep.check();
                 out.print(i.getName()).print(" => ").print(i.getNet().getName());
             }
 
         for (HDLPort o : node.getOutputs())
             if (o.getNet() != null) {
-                sep.check(out);
+                sep.check();
                 out.print(o.getName()).print(" => ").print(o.getNet().getName());
             }
         out.println(");").dec().dec();

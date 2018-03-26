@@ -14,34 +14,88 @@ import java.io.IOException;
  */
 public class Separator {
     private final String sep;
+    private final CodePrinter out;
+    private final String finalizerSeparator;
     private boolean first = true;
+    private LineFinalizer lineFinalizer;
 
     /**
      * Creates a new instance
      *
+     * @param out the print stream
      * @param sep The separator
      */
-    public Separator(String sep) {
+    public Separator(CodePrinter out, String sep) {
         this.sep = sep;
+        this.out = out;
+        if (sep.length() > 0 && sep.charAt(sep.length() - 1) == '\n')
+            finalizerSeparator = sep.substring(0, sep.length() - 1);
+        else
+            finalizerSeparator = sep;
     }
 
     /**
      * Inserts the separator
      *
-     * @param out the print stream
      * @throws IOException IOException
      */
-    public void check(CodePrinter out) throws IOException {
+    public void check() throws IOException {
         if (first)
             first = false;
-        else
-            out.print(getSeperator());
+        else {
+            if (lineFinalizer == null)
+                printSeparator(out);
+            else {
+                out.print(finalizerSeparator);
+                lineFinalizer.finalizeLine(out);
+                lineFinalizer = null;
+            }
+        }
     }
 
     /**
-     * @return the separator
+     * prints the separator
+     *
+     * @param out the print stream
+     * @throws IOException IOException
      */
-    public String getSeperator() {
-        return sep;
+    public void printSeparator(CodePrinter out) throws IOException {
+        out.print(sep);
+    }
+
+    /**
+     * Sets the line finalizer
+     * This finalizer is only used once at the next line ending.
+     *
+     * @param lineFinalizer thi file finalizer
+     */
+    public void setLineFinalizer(LineFinalizer lineFinalizer) {
+        this.lineFinalizer = lineFinalizer;
+    }
+
+    /**
+     * Closes this Separator.
+     * If there is a pending line separator, it's printed.
+     *
+     * @throws IOException IOException
+     */
+    public void close() throws IOException {
+        if (lineFinalizer != null)
+            lineFinalizer.finalizeLine(out);
+    }
+
+    /**
+     * If there is a finalizer, this finalizer method is called
+     * instead of calling printSeparator.
+     * A finerlizer is used only one time.
+     */
+    public interface LineFinalizer {
+        /**
+         * Prints the line ending
+         *
+         * @param out the stream to print to
+         * @throws IOException IOException
+         */
+        void finalizeLine(CodePrinter out) throws IOException;
     }
 }
