@@ -22,7 +22,7 @@ public class MergeConstants {
      * @param nodes   the node to simplify
      * @param circuit the circuit
      */
-    public MergeConstants(ArrayList<HDLNode> nodes, HDLCircuit circuit) {
+    MergeConstants(ArrayList<HDLNode> nodes, HDLCircuit circuit) {
         this.nodes = nodes;
         this.circuit = circuit;
     }

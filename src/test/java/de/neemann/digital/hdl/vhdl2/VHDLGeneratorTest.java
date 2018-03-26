@@ -12,7 +12,6 @@ import de.neemann.digital.core.extern.ProcessStarter;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.gui.Settings;
-import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.integration.FileScanner;
@@ -109,7 +108,7 @@ public class VHDLGeneratorTest extends TestCase {
     }
 
 
-    private void checkVHDLExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException, de.neemann.digital.hdl.model2.HDLException, HGSEvalException {
+    private void checkVHDLExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);
         File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
         try {

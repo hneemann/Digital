@@ -16,7 +16,6 @@ import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.hdl.vhdl2.boards.BoardInterface;
 import de.neemann.digital.hdl.vhdl2.boards.BoardProvider;
 import de.neemann.digital.lang.Lang;
@@ -35,16 +34,6 @@ public class VHDLGenerator implements Closeable {
     private final CodePrinter out;
     private ArrayList<File> testBenches;
     private boolean useClockIntegration = true;
-
-    /**
-     * Creates a new exporter
-     *
-     * @param library the library
-     * @throws IOException IOException
-     */
-    public VHDLGenerator(ElementLibrary library) throws IOException {
-        this(library, new CodePrinterStr());
-    }
 
     /**
      * Creates a new exporter

@@ -174,25 +174,10 @@ public class ClockIntegratorARTIX7 implements HDLClockIntegrator {
                     + '}';
         }
 
-        public int getD() {
-            return d;
-        }
-
-        public int getM() {
-            return m;
-        }
-
-        public int getDivider() {
-            return divider;
-        }
-
-        public boolean isCascading() {
+        private boolean isCascading() {
             return divider4 != 0;
         }
 
-        public int getDivider4() {
-            return divider4;
-        }
     }
 
 }

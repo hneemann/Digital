@@ -20,6 +20,7 @@ import java.util.HashSet;
  * Create the vhdl output
  */
 public class VHDLCreator {
+    private static final String ZEROS = "0000000000000000000000000000000000000000000000000000000000000000";
     private final CodePrinter out;
     private final VHDLLibrary library;
     private HashSet<String> customPrinted;
@@ -57,8 +58,9 @@ public class VHDLCreator {
      */
     public static String value(long val, int bits) {
         String s = Long.toBinaryString(val & Bits.mask(bits));
-        while (s.length() < bits)
-            s = "0" + s;
+        int missing = bits - s.length();
+        if (missing > 0)
+            s = ZEROS.substring(0, missing) + s;
 
         if (bits > 1)
             s = "\"" + s + "\"";
