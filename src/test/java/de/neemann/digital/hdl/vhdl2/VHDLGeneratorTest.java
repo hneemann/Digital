@@ -5,163 +5,83 @@
  */
 package de.neemann.digital.hdl.vhdl2;
 
-import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.extern.ProcessStarter;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.gui.Settings;
-import de.neemann.digital.hdl.model2.HDLException;
-import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.integration.FileScanner;
-import de.neemann.digital.integration.Resources;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import static de.neemann.digital.integration.TestExamples.check;
 
 public class VHDLGeneratorTest extends TestCase {
-    private static final String GHDL = System.getProperty("ghdl", "ghdl");
-    private int testBenches;
 
-    /*
-    public void testDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
+    public void testComb() throws PinException, NodeException, ElementNotFoundException, IOException {
+        ToBreakRunner br = new ToBreakRunner("dig/hdl/model2/comb.dig");
+        CodePrinterStr out = new CodePrinterStr();
+        VHDLGenerator gen = new VHDLGenerator(br.getLibrary(), out).export(br.getCircuit());
 
-        ToBreakRunner br = new ToBreakRunner(file);
-        System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
-
-        checkVHDLExport(file);
-    }/**/
-
-    public void testInSimulator() throws Exception {
-        File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
-        try {
-            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(32, tested);
-            assertEquals(tested+2, testBenches);
-        } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
-        }
-    }
-
-    public void testInSimulator2() throws Exception {
-        File examples = new File(Resources.getRoot(), "/dig/hdl");
-        try {
-            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(39, tested);
-        } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
-        }
-    }
-
-    public void testDistributedInSimulator() throws Exception {
-        File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
-        try {
-            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(1, tested);
-            assertEquals(1, testBenches);
-        } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
-        }
-    }
-
-    public void testProcessorInSimulator() throws Exception {
-        File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
-        try {
-            checkVHDLExport(file);
-        } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
-        } catch (Exception e) {
-            System.out.println(ExceptionWithOrigin.getOriginOf(e));
-            throw e;
-        }
-    }
-
-    public void testGHDLInSimulator() throws Exception {
-        try {
-            ProcessStarter.start(null, GHDL, "--help");
-        } catch (IOException e) {
-            // ghdl is not installed, Ignore Test
-            return;
-        }
-
-        Settings.getInstance().getAttributes().set(Keys.SETTINGS_GHDL_PATH, new File(GHDL));
-
-        File source = new File(Resources.getRoot(), "dig/external/ghdl");
-
-        int tested = new FileScanner(f -> {
-            checkVHDLExport(f);
-            // check simulation in Digital
-            check(f);
-        }).noOutput().scan(source);
-        assertEquals(4, tested);
-    }
-
-
-    private void checkVHDLExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
-        ToBreakRunner br = new ToBreakRunner(file);
-        File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
-        try {
-            File vhdlFile = new File(dir, file.getName()
-                    .replace('.', '_')
-                    .replace('-', '_')+ ".vhdl");
-            CodePrinter out = new CodePrinter(vhdlFile);
-            try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
-                vhdl.disableClockIntegration().export(br.getCircuit());
-                ArrayList<File> testFiles = vhdl.getTestBenches();
-                out.close();
-                runGHDL(vhdlFile, testFiles);
-            }
-            ProcessStarter.removeFolder(dir);
-        } finally {
-            br.close();
-        }
-    }
-
-    private void runGHDL(File vhdlFile, ArrayList<File> testFileWritten) throws IOException, FileScanner.SkipAllException, HDLException {
-        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--ieee=synopsys", vhdlFile.getName()));
-        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--ieee=synopsys", "main"));
-        for (File testbench : testFileWritten) {
-            String name = testbench.getName();
-            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--ieee=synopsys", name));
-            String module = name.substring(0, name.length() - 5);
-            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--ieee=synopsys", module));
-            String result = startProcess(vhdlFile.getParentFile(), GHDL, "-r", "--ieee=synopsys", module, "--vcd=" + module + ".vcd");
-            if (result.contains("(assertion error)"))
-                throw new HDLException("test bench " + name + " failed:\n" + result);
-            checkWarn(testbench, result);
-            testBenches++;
-        }
-    }
-
-    private void checkWarn(File file, String result) {
-        if (result.contains("warning")) {
-            System.out.println(file);
-            System.out.println(result);
-        }
-    }
-
-    private String startProcess(File dir, String... args) throws IOException, FileScanner.SkipAllException {
-        try {
-            return ProcessStarter.start(dir, args);
-        } catch (ProcessStarter.CouldNotStartProcessException e) {
-            throw new FileScanner.SkipAllException("ghdl (https://github.com/tgingold/ghdl) is not installed! Add ghdl binary to the system path or set system property 'ghdl' to ghdl binary");
-        }
-    }
-
-    private String getTime() {
-        DateFormat f = new SimpleDateFormat("YY-MM-dd_HH-mm_ss");
-        return f.format(new Date());
+        assertEquals("-- generated by Digital. Don't modify this file!\n" +
+                "-- Any changes will be lost if this file is regenerated.\n" +
+                "\n" +
+                "LIBRARY ieee;\n" +
+                "USE ieee.std_logic_1164.all;\n" +
+                "\n" +
+                "entity DIG_D_FF is\n" +
+                "  \n" +
+                "  port ( D  : in std_logic;\n" +
+                "         C  : in std_logic;\n" +
+                "         Q  : out std_logic;\n" +
+                "         notQ : out std_logic );\n" +
+                "end DIG_D_FF;\n" +
+                "\n" +
+                "architecture Behavioral of DIG_D_FF is\n" +
+                "   signal state : std_logic := '0';\n" +
+                "begin\n" +
+                "   Q    <= state;\n" +
+                "   notQ <= NOT( state );\n" +
+                "\n" +
+                "   process(C)\n" +
+                "   begin\n" +
+                "      if rising_edge(C) then\n" +
+                "        state  <= D;\n" +
+                "      end if;\n" +
+                "   end process;\n" +
+                "end Behavioral;\n" +
+                "\n" +
+                "\n" +
+                "LIBRARY ieee;\n" +
+                "USE ieee.std_logic_1164.all;\n" +
+                "USE ieee.numeric_std.all;\n" +
+                "\n" +
+                "entity main is\n" +
+                "  port (\n" +
+                "    A: in std_logic;\n" +
+                "    B: in std_logic;\n" +
+                "    C: in std_logic;\n" +
+                "    X: out std_logic;\n" +
+                "    Y: out std_logic;\n" +
+                "    Z: out std_logic;\n" +
+                "    Aident: out std_logic);\n" +
+                "end main;\n" +
+                "\n" +
+                "architecture Behavioral of main is\n" +
+                "  signal Y_temp: std_logic;\n" +
+                "  signal s0: std_logic;\n" +
+                "  signal Z_temp: std_logic;\n" +
+                "begin\n" +
+                "  Z_temp <= NOT A;\n" +
+                "  Y_temp <= (B OR NOT C);\n" +
+                "  s0 <= ((A OR C) AND (Z_temp OR C) AND '1' AND NOT (B OR C) AND Y_temp);\n" +
+                "  gate0: entity work.DIG_D_FF\n" +
+                "    port map (\n" +
+                "      D => s0,\n" +
+                "      C => '1',\n" +
+                "      Q => X);\n" +
+                "  Y <= Y_temp;\n" +
+                "  Z <= Z_temp;\n" +
+                "  Aident <= A;\n" +
+                "end Behavioral;\n",out.toString());
     }
 
 }

@@ -239,12 +239,13 @@ public class VHDLCreator {
             library.getEntity(node).writeGenericMap(out, node);
         out.println("port map (").inc();
         Separator sep = new Separator(out, ",\n");
-        for (HDLPort i : node.getInputs())
-            if (i.getNet() != null) {
-                sep.check();
-                out.print(i.getName()).print(" => ");
-                printInlineConstant(i);
-            }
+        for (HDLPort i : node.getInputs()) {
+            if (i.getNet() == null)
+                throw new HDLException("A input port without a net: " + i.getName() + " in " + entityName);
+            sep.check();
+            out.print(i.getName()).print(" => ");
+            printInlineConstant(i);
+        }
 
         for (HDLPort o : node.getOutputs())
             if (o.getNet() != null) {
