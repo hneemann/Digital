@@ -1,0 +1,15 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+entity DIG_Reset is
+  generic (
+    invertOutput : std_logic );<? vhdl.registerGeneric("invertOutput","std_logic");?>
+  port (
+    Reset: out std_logic );
+end DIG_Reset;
+
+architecture Behavioral of DIG_Reset is
+begin
+    -- ToDo: how to deal with the reset pin?
+    Reset <= invertOutput;
+end Behavioral;

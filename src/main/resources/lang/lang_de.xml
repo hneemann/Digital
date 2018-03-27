@@ -825,12 +825,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_errorInPowerSupply">Fehler in der Stromversorgung an {0}.</string>
     <string name="err_pinIsNotANumber_N">Die Pinnummer {0} ist keine Zahl!</string>
     <string name="err_vhdlExporting">Fehler beim Export zu VHDL.</string>
-    <string name="err_vhdlUnknownPortType_N">Unbekannter Porttyp.</string>
     <string name="err_vhdlNoEntity_N">Kein VHDL Code für {0} verfügbar!</string>
-    <string name="err_vhdlClockOnlyAllowedInRoot">Ein Taktelement ist nur im Hauptmodell erlaubt!</string>
-    <string name="err_vhdlNotAValidName">Der Name {0} ist nicht erlaubt!</string>
-    <string name="err_vhdlBitNumberNotAvailable">Kein Bitanzahl verfügbar!</string>
-    <string name="err_vhdlUnknownConstantType_N">Die Konstante hat einen ungültigen Typ {0}!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Der Pin {0} hat keine Nummer!</string>
     <string name="err_vhdlErrorWritingTestBench">Fehler beim erzeugen des Testfalls!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
@@ -860,6 +855,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_monoflopRequiresOneClock">Wird ein Monoflop verwendet, muss es genau ein Taktelement geben!</string>
     <string name="err_couldNotCreateElement_N">Konnte kein Element vom Typ "{0}" erzeugen!</string>
     <string name="err_centralDefinedRomsAreNotSupported">Zentral definierte ROM-Inhalte werden nicht unterstützt!</string>
+    <string name="err_namesAreNotUnique_N">Der Name "{0}" ist nicht eindeutig!</string>
 
     <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
     <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>
@@ -877,12 +873,15 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
         {1}</string>
     <string name="err_canOnlyExportExternalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
-    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein!</string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein! Betrifft {0}</string>
     <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
         {0}</string>
     <string name="err_ghdlNotInstalled">
         Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
     </string>
+    <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
+    <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
+    <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

@@ -1,0 +1,20 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+  if (elem.Bits=1)
+      entityName:="DRIVER_INV_GATE";
+  else
+      entityName:="DRIVER_INV_GATE_BUS";
+?>
+entity <?=entityName?> is
+  <?if (elem.Bits>1) {?>generic ( Bits : integer ); <? vhdl.registerGeneric("Bits"); }?>
+  port (
+    p_out: out <?= vhdl.genericType(elem.Bits)?>;
+    p_in: in <?= vhdl.genericType(elem.Bits)?>;
+    sel: in std_logic );
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+begin
+  p_out <= p_in when sel = '1' else <? if (elem.Bits=1) { ?>'Z'<?} else {?>(others => 'Z')<? } ?>;
+end Behavioral;

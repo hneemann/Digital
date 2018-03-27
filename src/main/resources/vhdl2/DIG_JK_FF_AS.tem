@@ -1,0 +1,38 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+entity DIG_JK_FF_AS is
+  generic (Default : std_logic);  <? vhdl.registerGeneric("Default", "std_logic");?>
+  port (
+    Q: out std_logic;
+    notQ: out std_logic;
+    Set: in std_logic;
+    J: in std_logic;
+    C: in std_logic;
+    K: in std_logic;
+    Clr: in std_logic );
+end DIG_JK_FF_AS;
+
+architecture Behavioral of DIG_JK_FF_AS is
+  signal state: std_logic := Default;
+begin
+    process (C, Clr, Set)
+    begin
+        if (Set='1') then
+            state <= '1';
+        elsif (Clr='1') then
+            state <= '0';
+        elsif rising_edge(C) then
+          if (J='0' and K='1') then
+             state <= '0';
+          elsif (J='1' and K='0') then
+             state <= '1';
+          elsif (J='1' and K='1') then
+             state <= not (state);
+          end if;
+        end if;
+    end process;
+
+    Q <= state;
+    notQ <= NOT( state );
+end Behavioral;

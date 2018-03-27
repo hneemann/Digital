@@ -18,6 +18,7 @@ public class CodePrinter implements Closeable {
     private File file;
     private int ident = 0;
     private boolean newLine = true;
+    private int pos;
 
     /**
      * Creates a new instance
@@ -139,7 +140,7 @@ public class CodePrinter implements Closeable {
      */
     public CodePrinter print(char c) throws IOException {
         if (newLine && c != '\n') {
-            int pos = ident * indentWidth;
+            pos = ident * indentWidth;
             for (int i = 0; i < pos; i++)
                 out.write(' ');
             newLine = false;
@@ -148,6 +149,8 @@ public class CodePrinter implements Closeable {
             out.write(c);
         else
             out.write(("" + c).getBytes(CHARSET));
+        pos++;
+
         if (c == '\n') {
             newLine = true;
             eolIsWritten();
@@ -190,5 +193,39 @@ public class CodePrinter implements Closeable {
      */
     public File getFile() {
         return file;
+    }
+
+
+    /**
+     * Pronts a comment to the target file
+     *
+     * @param singleLineComment the string which opens a single line comment (-- in VHDL)
+     * @param comment           the comment to print
+     * @return this for chained calls
+     * @throws IOException IOException
+     */
+    public CodePrinter printComment(String singleLineComment, String comment) throws IOException {
+        if (comment == null || comment.length() == 0)
+            return this;
+
+
+        int startPos = pos;
+        if (newLine)
+            startPos = ident * indentWidth;
+
+        print(singleLineComment);
+        for (int i = 0; i < comment.length(); i++) {
+            char c = comment.charAt(i);
+            print(c);
+            if (c == '\n') {
+                int spaceCount = startPos - ident * indentWidth;
+                for (int j = 0; j < spaceCount; j++)
+                    print(' ');
+                print(singleLineComment);
+            }
+        }
+        println();
+
+        return this;
     }
 }

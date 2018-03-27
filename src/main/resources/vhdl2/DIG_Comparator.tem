@@ -1,0 +1,48 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+  if (elem.Signed) {
+      entityName:="COMP_GATE_SIGNED";
+      print("USE ieee.numeric_std.all;");
+  } else
+      entityName:="COMP_GATE_UNSIGNED";
+
+
+?>
+entity <?=entityName?> is
+  generic ( Bits : integer );<? vhdl.registerGeneric("Bits");?>
+  port (
+    gr: out std_logic;
+    eq: out std_logic;
+    le: out std_logic;
+    a: in <?= vhdl.genericType(elem.Bits)?>;
+    b: in <?= vhdl.genericType(elem.Bits)?> );
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+begin
+  process(a, b)
+  begin
+    <?- if (elem.Signed) { ?>
+    if (signed(a) > signed(b)) then
+    <?- } else { ?>
+    if (a > b ) then
+    <?- } ?>
+      le <= '0';
+      eq <= '0';
+      gr <= '1';
+    <?- if (elem.Signed) { ?>
+    elsif (signed(a) < signed(b)) then
+    <?- } else { ?>
+    elsif (a < b) then
+    <?- } ?>
+      le <= '1';
+      eq <= '0';
+      gr <= '0';
+    else
+      le <= '0';
+      eq <= '1';
+      gr <= '0';
+    end if;
+  end process;
+end Behavioral;

@@ -1,0 +1,30 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+  if (elem.Bits=1)
+      entityName:="MUX_GATE_"+elem.'Selector Bits';
+  else
+      entityName:="MUX_GATE_BUS_"+elem.'Selector Bits';
+
+  inputs:=1<<elem.'Selector Bits';
+?>
+entity <?=entityName?> is
+  <?- if (elem.Bits>1) { ?>
+  generic ( Bits : integer ); <? vhdl.registerGeneric("Bits");?>
+  <?- } ?>
+  port (
+    p_out: out <?= vhdl.genericType(elem.Bits)?>;
+    sel: in <?= vhdl.type(elem.'Selector Bits')?>;
+    <? for (n:=0;n<inputs;n++) { ?>
+    in_<?=n?>: in <?= vhdl.genericType(elem.Bits); if (n<inputs-1) print(";"); }?> );
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+begin
+  with sel select
+    p_out <=
+      <?- for (n:=0;n<inputs;n++) { ?>
+      in_<?=n?> when <?= vhdl.value(n, elem.'Selector Bits') ?>,
+      <?- } ?>
+      <?=vhdl.zero(elem.Bits)?> when others;
+end Behavioral;
