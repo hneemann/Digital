@@ -1,22 +1,23 @@
 Release Notes
 
 HEAD, planed as v0.18
+- Significant improvement in the quality of the generated vhdl code.
+- Its possible to define the behaviour of a component by vhdl.
+  The vhdl simulator ghdl needs to be installed.
+- Removed high-z restrictions from the splitter.
+  Now a bus can have different high z states for the different lines on the bus.
+- Added new text formatting engine which supports overline, super- and subscript.
+  Try "~Q_{n+1}^1" as an output label.
+- When a circuit containing a ROM/EEPROM is embedded multiple times, it is now possible
+  to define different ROM/EEPROM contents in each embedded instance.
+- It's possible to test circuits with a high-z input which can act as an output.
+- An embedded circuit that is used in the library and whose name ends with '-inc.dig'
+  is not shown in either the component menu or the tree view.
 - Added ICs 74181, 74779, 7440 and 7428
 - Added a simple bidirectional splitter.
 - Added a monoflop.
 - Added a 16 Segment display.
 - Added a counter with preset.
-- Removed high-z restrictions from the splitter.
-  Now a bus can have different high z states for the different lines on the bus.
-- When a circuit containing a ROM/EEPROM is embedded multiple times, it is now possible
-  to define different ROM/EEPROM contents in each embedded instance.
-- Added new text formatting engine which supports overline, super- and subscript.
-  Try "~Q_{n+1}^1" as an output label.
-- It's possible to test circuits with a high-z input which can act as an output.
-- An embedded circuit that is used in the library and whose name ends with '-inc.dig'
-  is not shown in either the component menu or the tree view.
-- Its possible to define the behaviour of a component by vhdl.
-  The vhdl simulator ghdl needs to be installed.
 
 v0.17, released on 19. Feb 2018
 - Added 64 bit support for Add and Sub components.
