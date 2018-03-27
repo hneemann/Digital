@@ -489,7 +489,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     }
 
     /**
-     * Applyse the gicen optimization to this circuit
+     * Applies the given optimization to this circuit
      *
      * @param optimization the optimization
      * @return this for chained calls
@@ -505,7 +505,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      */
     public interface NetNaming {
         /**
-         * Returns a nem for the given net
+         * Returns a name for the given net
          *
          * @param n the net to name
          * @return the name to use
