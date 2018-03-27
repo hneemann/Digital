@@ -490,6 +490,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
 
     /**
      * Applyse the gicen optimization to this circuit
+     *
      * @param optimization the optimization
      * @return this for chained calls
      * @throws HDLException HDLException
@@ -512,8 +513,20 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         String createName(HDLNet n);
     }
 
-    private class DefaultNetNaming implements NetNaming {
+    private final class DefaultNetNaming implements NetNaming {
+        private final HashSet<String> map;
         private int num = 0;
+
+        private DefaultNetNaming() {
+            this.map = new HashSet<>();
+            for (HDLPort p : inputs)
+                map.add(p.getName().toLowerCase());
+            for (HDLPort p : outputs)
+                map.add(p.getName().toLowerCase());
+            for (HDLNet n : listOfNets)
+                if (n.getName() != null)
+                    map.add(n.getName().toLowerCase());
+        }
 
         @Override
         public String createName(HDLNet n) {
@@ -525,13 +538,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         }
 
         private boolean isDuplicate(String name) {
-            for (HDLPort p : inputs)
-                if (p.getName().equalsIgnoreCase(name))
-                    return true;
-            for (HDLPort p : outputs)
-                if (p.getName().equalsIgnoreCase(name))
-                    return true;
-            return false;
+            return map.contains(name.toLowerCase());
         }
     }
 }
