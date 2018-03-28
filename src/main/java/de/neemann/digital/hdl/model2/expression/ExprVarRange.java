@@ -11,18 +11,24 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import java.io.IOException;
 
 /**
- * A reference to a net
+ * A reference to a net slice
  */
-public class ExprVar implements Expression {
+public class ExprVarRange implements Expression {
     private HDLNet net;
+    private final int msb;
+    private final int lsb;
 
     /**
      * creates a new net reference
      *
      * @param net the net
+     * @param msb most significant bit to use
+     * @param lsb least significant bit to use
      */
-    public ExprVar(HDLNet net) {
+    public ExprVarRange(HDLNet net, int msb, int lsb) {
         this.net = net;
+        this.msb = msb;
+        this.lsb = lsb;
     }
 
     /**
@@ -32,9 +38,23 @@ public class ExprVar implements Expression {
         return net;
     }
 
+    /**
+     * @return the msb
+     */
+    public int getMsb() {
+        return msb;
+    }
+
+    /**
+     * @return the lsb
+     */
+    public int getLsb() {
+        return lsb;
+    }
+
     @Override
     public void print(CodePrinter out) throws IOException {
-        out.print(net.getName());
+        out.print(net.getName()).print("(").print(msb).print("-").print(lsb).print(")");
     }
 
     @Override
@@ -45,6 +65,6 @@ public class ExprVar implements Expression {
 
     @Override
     public boolean inliningPossible(HDLNet net) {
-        return true;
+        return net != this.net;
     }
 }

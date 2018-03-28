@@ -33,16 +33,25 @@ public class MergeExpressions implements Optimization {
                         HDLNode n2 = searchCreator(p.getNet());
                         if (n2 != null && n2 instanceof HDLNodeExpression) {
                             if (n2.getOutputs().size() == 1 && n2.getOutput().getNet().getInputs().size() == 1) {
-                                nodes.set(i, merge((HDLNodeExpression) n1, (HDLNodeExpression) n2));
-                                nodes.remove(n2);
-                                wasOptimization = true;
-                                break outer;
+                                if (inlinePossible(n2.getOutput().getNet())) {
+                                    nodes.set(i, merge((HDLNodeExpression) n1, (HDLNodeExpression) n2));
+                                    nodes.remove(n2);
+                                    wasOptimization = true;
+                                    break outer;
+                                }
                             }
                         }
                     }
                 }
             }
         } while (wasOptimization);
+    }
+
+    private boolean inlinePossible(HDLNet net) {
+        for (HDLNode n : circuit.getNodes())
+            if (!n.inliningPossible(net))
+                return false;
+        return true;
     }
 
     private HDLNodeExpression merge(HDLNodeExpression host, HDLNodeExpression include) {

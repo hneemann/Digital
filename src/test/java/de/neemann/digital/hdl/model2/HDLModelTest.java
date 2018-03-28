@@ -13,6 +13,7 @@ import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.optimizations.MergeConstants;
 import de.neemann.digital.hdl.model2.optimizations.MergeExpressions;
 import de.neemann.digital.hdl.model2.optimizations.NameConstantSignals;
+import de.neemann.digital.hdl.model2.optimizations.ReplaceOneToMany;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
@@ -66,8 +67,7 @@ public class HDLModelTest extends TestCase {
 
     public void testSimple2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb2.dig", null)
-                .apply(new MergeExpressions())
-                .nameUnnamedSignals();
+                .applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -86,8 +86,7 @@ public class HDLModelTest extends TestCase {
 
     public void testInputInvert() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert.dig", null)
-                .apply(new MergeExpressions())
-                .nameUnnamedSignals();
+                .applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -106,8 +105,7 @@ public class HDLModelTest extends TestCase {
 
     public void testInputInvert2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert2.dig", null)
-                .apply(new MergeExpressions())
-                .nameUnnamedSignals();
+                .applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -126,59 +124,53 @@ public class HDLModelTest extends TestCase {
 
     public void testSplitter() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter.dig", null)
-                .apply(new MergeExpressions())
-                .nameUnnamedSignals();
+                .applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
         assertEquals("circuit main\n" +
                 "  in(A:4 defines (A->1))\n" +
                 "  out(X:2 reads (X->1))\n" +
-                "  sig(s0->1, s1->1)\n" +
+                "  sig()\n" +
                 "\n" +
-                "  node Splitter\n" +
-                "    in(0-3:4 reads (A->1))\n" +
-                "    out(0,1:2 defines (s0->1), 2,3:2 defines (s1->1))\n" +
-                "    s0 := A(0-1)\n" +
-                "    s1 := A(2-3)\n" +
                 "  node merged expression\n" +
-                "    in(In_1:2 reads (s0->1), in:2 reads (s1->1))\n" +
+                "    in(in:4 reads (A->1))\n" +
                 "    out(out:2 defines (X->1))\n" +
-                "    X->1 := (s0 AND NOT s1)\n" +
+                "    X->1 := (A(1-0) AND NOT A(3-2))\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }
 
     public void testSplitter2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter2.dig", null)
-                .apply(new MergeExpressions())
-                .nameUnnamedSignals();
+                .applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
         assertEquals("circuit main\n" +
                 "  in(A:2 defines (A->1), B:2 defines (B->1))\n" +
                 "  out(X:1 reads (X->1), Y:3 reads (Y->1))\n" +
-                "  sig(s0->1)\n" +
+                "  sig(s0->2)\n" +
                 "\n" +
                 "  node Splitter\n" +
                 "    in(0,1:2 reads (A->1), 2,3:2 reads (B->1))\n" +
-                "    out(single:4 defines (s0->1))\n" +
+                "    out(single:4 defines (s0->2))\n" +
                 "    s0(0-1) := A\n" +
                 "    s0(2-3) := B\n" +
-                "  node Splitter\n" +
-                "    in(single:4 reads (s0->1))\n" +
-                "    out(0:1 defines (X->1), 1-3:3 defines (Y->1))\n" +
-                "    X := s0(0-0)\n" +
-                "    Y := s0(1-3)\n" +
+                "  node splitter\n" +
+                "    in(in:4 reads (s0->2))\n" +
+                "    out(0:1 defines (X->1))\n" +
+                "    X->1 := s0(0-0)\n" +
+                "  node splitter\n" +
+                "    in(in:4 reads (s0->2))\n" +
+                "    out(1-3:3 defines (Y->1))\n" +
+                "    Y->1 := s0(3-1)\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }
 
     public void testClock() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
-        HDLCircuit hdl = getCircuit("dig/hdl/model2/clock.dig", new ClockIntegratorGeneric(10))
-                .apply(new MergeExpressions())
-                .nameUnnamedSignals();
+        HDLCircuit hdl = getCircuit("dig/hdl/model2/clock.dig", new ClockIntegratorGeneric(10)).applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -198,9 +190,7 @@ public class HDLModelTest extends TestCase {
     }
 
     public void testNaming() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
-        HDLCircuit hdl = getCircuit("dig/hdl/model2/naming.dig", null)
-                .apply(new MergeExpressions())
-                .nameUnnamedSignals();
+        HDLCircuit hdl = getCircuit("dig/hdl/model2/naming.dig", null).applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -265,9 +255,7 @@ public class HDLModelTest extends TestCase {
     }
 
     public void testCircular() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
-        HDLCircuit hdl = getCircuit("dig/hdl/model2/circular.dig", null)
-                .apply(new MergeExpressions())
-                .nameUnnamedSignals();
+        HDLCircuit hdl = getCircuit("dig/hdl/model2/circular.dig", null).applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
         hdl.print(cp);
@@ -297,6 +285,65 @@ public class HDLModelTest extends TestCase {
                 "  node D_FF\n" +
                 "    in(D:1 reads (s0->1), C:1 reads (C->3))\n" +
                 "    out(Q:1 defines (X->1), ~Q:1 defines (s1->1))\n" +
+                "\n" +
+                "end circuit main\n", cp.toString());
+    }
+
+
+    public void testSplitter3() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+        HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter3.dig", null)
+                .apply(new ReplaceOneToMany())
+                .apply(new MergeExpressions())
+                .nameUnnamedSignals();
+
+        CodePrinterStr cp = new CodePrinterStr();
+        hdl.print(cp);
+        assertEquals("circuit main\n" +
+                "  in(A:4 defines (A->2), B:4 defines (B->2))\n" +
+                "  out(S:4 reads (S->1))\n" +
+                "  sig(s0->1, s1->1)\n" +
+                "\n" +
+                "  node merged expression\n" +
+                "    in(in:4 reads (A->2), in:4 reads (B->2))\n" +
+                "    out(out:2 defines (s0->1))\n" +
+                "    s0->1 := (A(1-0) AND B(1-0))\n" +
+                "  node merged expression\n" +
+                "    in(in:4 reads (A->2), in:4 reads (B->2))\n" +
+                "    out(out:2 defines (s1->1))\n" +
+                "    s1->1 := (A(3-2) OR B(3-2))\n" +
+                "  node Splitter\n" +
+                "    in(0,1:2 reads (s0->1), 2,3:2 reads (s1->1))\n" +
+                "    out(0-3:4 defines (S->1))\n" +
+                "    S(0-1) := s0\n" +
+                "    S(2-3) := s1\n" +
+                "\n" +
+                "end circuit main\n", cp.toString());
+    }
+
+    public void testSplitter4() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+        HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter4.dig", null)
+                .apply(new ReplaceOneToMany())
+                .apply(new MergeExpressions())
+                .nameUnnamedSignals();
+
+        CodePrinterStr cp = new CodePrinterStr();
+        hdl.print(cp);
+        assertEquals("circuit main\n" +
+                "  in(A:4 defines (A->2))\n" +
+                "  out(S:2 reads (S->1))\n" +
+                "  sig(s0->1, s1->1)\n" +
+                "\n" +
+                "  node splitter\n" +
+                "    in(in:4 reads (A->2))\n" +
+                "    out(0,1:2 defines (s0->1))\n" +
+                "    s0->1 := A(1-0)\n" +
+                "  node splitter\n" +
+                "    in(in:4 reads (A->2))\n" +
+                "    out(2,3:2 defines (s1->1))\n" +
+                "    s1->1 := A(3-2)\n" +
+                "  node s-inc.dig\n" +
+                "    in(A:2 reads (s0->1), B:2 reads (s1->1))\n" +
+                "    out(C:2 defines (S->1))\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }

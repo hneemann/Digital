@@ -67,4 +67,9 @@ public class HDLNodeExpression extends HDLNode {
     public HDLNet getTargetNet() {
         return getOutput().getNet();
     }
+
+    @Override
+    public boolean inliningPossible(HDLNet net) {
+        return expression.inliningPossible(net);
+    }
 }

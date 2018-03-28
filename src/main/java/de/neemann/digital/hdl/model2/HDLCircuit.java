@@ -28,7 +28,7 @@ import de.neemann.digital.hdl.model2.clock.ClockInfo;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.ExprNot;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
-import de.neemann.digital.hdl.model2.optimizations.Optimization;
+import de.neemann.digital.hdl.model2.optimizations.*;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
@@ -156,6 +156,13 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
             if (o.getNet().needsVariable())
                 o.getNet().setIsOutput(o.getName(), o.getNet().getInputs().size() == 1);
 
+        sortNodes();
+    }
+
+    /**
+     * Sorts the nodes
+     */
+    public void sortNodes() {
         nodes = new NodeSorter(inputs, nodes).sort();
     }
 
@@ -312,6 +319,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         for (HDLNet n : listOfNets)
             if (n.getName() == null)
                 n.setName(netNaming.createName(n));
+        sortNodes();
         return this;
     }
 
@@ -498,6 +506,22 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     public HDLCircuit apply(Optimization optimization) throws HDLException {
         optimization.optimize(this);
         return this;
+    }
+
+    /**
+     * Applies the default optimizations to the model.
+     * Should be sufficient for VHDL and Verilog.
+     *
+     * @return this for chained calls
+     * @throws HDLException HDLException
+     */
+    public HDLCircuit applyDefaultOptimizations() throws HDLException {
+        apply(new ReplaceOneToMany());
+        apply(new MergeExpressions());
+        apply(new RemoveConstantSignals());
+        apply(new MergeConstants());  // under certain circumstances there are still constants
+        apply(new NameConstantSignals());
+        return nameUnnamedSignals();
     }
 
     /**

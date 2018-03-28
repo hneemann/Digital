@@ -89,4 +89,12 @@ public class ExprOperate implements Expression {
         }
     }
 
+    @Override
+    public boolean inliningPossible(HDLNet net) {
+        for (Expression e : operands)
+            if (!e.inliningPossible(net))
+                return false;
+        return true;
+    }
+
 }

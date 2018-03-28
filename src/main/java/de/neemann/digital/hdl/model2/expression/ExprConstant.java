@@ -55,6 +55,11 @@ public class ExprConstant implements Expression {
     public void replace(HDLNet net, Expression expression) {
     }
 
+    @Override
+    public boolean inliningPossible(HDLNet net) {
+        return true;
+    }
+
     /**
      * Returns true if this constant is equal to the given constant.
      *

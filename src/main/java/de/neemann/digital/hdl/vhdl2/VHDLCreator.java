@@ -141,8 +141,8 @@ public class VHDLCreator {
                 printExpression((HDLNodeExpression) node);
             else if (node instanceof HDLNodeBuildIn || node instanceof HDLNodeCustom)
                 printEntityInstantiation(node, num++);
-            else if (node instanceof HDLNodeSplitterOneToMany)
-                printOneToMany((HDLNodeSplitterOneToMany) node);
+//            else if (node instanceof HDLNodeSplitterOneToMany)
+//                printOneToMany((HDLNodeSplitterOneToMany) node);
             else if (node instanceof HDLNodeSplitterManyToOne)
                 printManyToOne((HDLNodeSplitterManyToOne) node);
             else
@@ -208,22 +208,24 @@ public class VHDLCreator {
             out.print(VHDLCreator.value(con));
     }
 
-    private void printOneToMany(HDLNodeSplitterOneToMany node) throws IOException {
-        String source = node.getSourceSignal();
-        Splitter.Ports is = node.getOutputSplit();
-        int i = 0;
-        for (HDLPort outPort : node.getOutputs()) {
-            Splitter.Port sp = is.getPort(i++);
-            if (outPort.getNet() != null) {
-                out.print(outPort.getNet().getName()).print(" <= ").print(source).print("(");
-                if (outPort.getBits() == 1)
-                    out.print(sp.getPos());
-                else
-                    out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
-                out.println(");");
-            }
-        }
-    }
+//    After ReplaceOneToMany optimization there are no such nodes in the model.
+//
+//    private void printOneToMany(HDLNodeSplitterOneToMany node) throws IOException {
+//        String source = node.getSourceSignal();
+//        Splitter.Ports is = node.getOutputSplit();
+//        int i = 0;
+//        for (HDLPort outPort : node.getOutputs()) {
+//            Splitter.Port sp = is.getPort(i++);
+//            if (outPort.getNet() != null) {
+//                out.print(outPort.getNet().getName()).print(" <= ").print(source).print("(");
+//                if (outPort.getBits() == 1)
+//                    out.print(sp.getPos());
+//                else
+//                    out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
+//                out.println(");");
+//            }
+//        }
+//    }
 
     private void printEntityInstantiation(HDLNode node, int num) throws IOException, HDLException {
         String entityName = node.getHdlEntityName();
@@ -264,7 +266,15 @@ public class VHDLCreator {
     private void printExpression(Expression expression) throws IOException, HDLException {
         if (expression instanceof ExprVar)
             out.print(((ExprVar) expression).getNet().getName());
-        else if (expression instanceof ExprConstant) {
+        else if (expression instanceof ExprVarRange) {
+            final ExprVarRange evr = (ExprVarRange) expression;
+            out.print(evr.getNet().getName()).print("(");
+            if (evr.getMsb() == evr.getLsb())
+                out.print(evr.getMsb());
+            else
+                out.print(evr.getMsb()).print(" downto ").print(evr.getLsb());
+            out.print(")");
+        } else if (expression instanceof ExprConstant) {
             final ExprConstant constant = (ExprConstant) expression;
             out.print(value(constant));
         } else if (expression instanceof ExprNot) {
@@ -297,6 +307,7 @@ public class VHDLCreator {
                 printExpression(exp);
             }
             out.print(")");
-        }
+        } else
+            throw new HDLException("expression type " + expression.getClass().getSimpleName() + " unknown");
     }
 }

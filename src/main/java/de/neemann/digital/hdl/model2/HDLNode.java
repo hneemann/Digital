@@ -166,6 +166,16 @@ public class HDLNode {
     }
 
     /**
+     * Checks is inlining is possible
+     *
+     * @param net the net which should be inlined
+     * @return true if inlining of the given net is possible
+     */
+    public boolean inliningPossible(HDLNet net) {
+        return true;
+    }
+
+    /**
      * Renames the signals in this node.
      *
      * @param renaming the renaming algorithm

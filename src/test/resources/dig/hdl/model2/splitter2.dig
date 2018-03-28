@@ -81,6 +81,24 @@
       </elementAttributes>
       <pos x="0" y="100"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A B X Y
+
+loop(a,4)
+loop(b,4)
+(a) (b) (a&amp;1) ((a&gt;&gt;1)|(b&lt;&lt;1))
+end loop
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="120"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
