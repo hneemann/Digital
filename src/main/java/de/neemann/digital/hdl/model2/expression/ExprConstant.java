@@ -8,7 +8,7 @@ package de.neemann.digital.hdl.model2.expression;
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.model2.HDLNet;
 import de.neemann.digital.hdl.model2.HDLNode;
-import de.neemann.digital.hdl.model2.HDLNodeExpression;
+import de.neemann.digital.hdl.model2.HDLNodeAssignment;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
 import java.io.IOException;
@@ -55,11 +55,6 @@ public class ExprConstant implements Expression {
     public void replace(HDLNet net, Expression expression) {
     }
 
-    @Override
-    public boolean inliningPossible(HDLNet net) {
-        return true;
-    }
-
     /**
      * Returns true if this constant is equal to the given constant.
      *
@@ -77,8 +72,8 @@ public class ExprConstant implements Expression {
      * @return the constant of null if node is not a constant
      */
     public static ExprConstant isConstant(HDLNode node) {
-        if (node instanceof HDLNodeExpression) {
-            HDLNodeExpression expr = (HDLNodeExpression) node;
+        if (node instanceof HDLNodeAssignment) {
+            HDLNodeAssignment expr = (HDLNodeAssignment) node;
             if (expr.getExpression() instanceof ExprConstant) {
                 return (ExprConstant) expr.getExpression();
             }

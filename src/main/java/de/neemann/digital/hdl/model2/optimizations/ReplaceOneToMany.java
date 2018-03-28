@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Replace {@link HDLNodeSplitterOneToMany} by several {@link HDLNodeExpression} instances.
+ * Replace {@link HDLNodeSplitterOneToMany} by several {@link HDLNodeAssignment} instances.
  */
 public class ReplaceOneToMany implements Optimization {
 
     @Override
     public void optimize(HDLCircuit circuit) throws HDLException {
-        ArrayList<HDLNodeExpression> newNodes = new ArrayList<>();
+        ArrayList<HDLNodeAssignment> newNodes = new ArrayList<>();
 
         Iterator<HDLNode> it = circuit.getNodes().iterator();
         while (it.hasNext()) {
@@ -33,7 +33,7 @@ public class ReplaceOneToMany implements Optimization {
         circuit.getNodes().addAll(newNodes);
     }
 
-    private void replace(HDLNodeSplitterOneToMany n, ArrayList<HDLNodeExpression> newNodes) throws HDLException {
+    private void replace(HDLNodeSplitterOneToMany n, ArrayList<HDLNodeAssignment> newNodes) throws HDLException {
         final HDLPort inPort = n.getInputs().get(0);
         HDLNet inNet = inPort.getNet();
         inPort.setNet(null);
@@ -43,7 +43,7 @@ public class ReplaceOneToMany implements Optimization {
             final HDLPort outPort = n.getOutputs().get(i);
             if (outPort.getNet()!=null) {
                 ExprVarRange exp = new ExprVarRange(inNet, p.getPos() + p.getBits() - 1, p.getPos());
-                HDLNodeExpression node = new HDLNodeExpression("splitter", null, null);
+                HDLNodeAssignment node = new HDLNodeAssignment("splitter", null, null);
                 node.setExpression(exp);
 
                 node.addPort(new HDLPort("in", inNet, HDLPort.Direction.IN, inPort.getBits()));

@@ -21,11 +21,4 @@ public interface Expression extends Printable {
      */
     void replace(HDLNet net, Expression expression);
 
-    /**
-     * Returns true if it is possible to replace the given net by an expression.
-     *
-     * @param net the net to replace
-     * @return true if replace is possible.
-     */
-    boolean inliningPossible(HDLNet net);
 }

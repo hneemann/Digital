@@ -62,9 +62,4 @@ public class ExprVarRange implements Expression {
         if (net == this.net)
             throw new RuntimeException("should not happen!");
     }
-
-    @Override
-    public boolean inliningPossible(HDLNet net) {
-        return net != this.net;
-    }
 }

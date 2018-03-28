@@ -199,7 +199,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
 
     private HDLNode createNot(HDLPort p, HDLNode node) throws HDLException, NodeException, PinException {
         final ElementAttributes attr = new ElementAttributes().setBits(p.getBits());
-        HDLNodeExpression n = new HDLNodeExpression(Not.DESCRIPTION.getName(), attr, name -> p.getBits());
+        HDLNodeAssignment n = new HDLNodeAssignment(Not.DESCRIPTION.getName(), attr, name -> p.getBits());
         HDLNet outNet = new HDLNet(null);
         listOfNets.add(outNet);
         HDLNet inNet = p.getNet();
@@ -517,7 +517,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      */
     public HDLCircuit applyDefaultOptimizations() throws HDLException {
         apply(new ReplaceOneToMany());
-        apply(new MergeExpressions());
+        apply(new MergeAssignements());
         apply(new RemoveConstantSignals());
         apply(new MergeConstants());  // under certain circumstances there are still constants
         apply(new NameConstantSignals());

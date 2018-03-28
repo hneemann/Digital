@@ -72,43 +72,43 @@ public class HDLModel implements Iterable<HDLCircuit> {
                         v, parent);
 
             } else if (v.equalsDescription(Const.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(new ExprConstant(node.getElementAttributes().get(Keys.VALUE), node.getOutput().getBits()));
                 return node;
             } else if (v.equalsDescription(Ground.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(new ExprConstant(0, node.getOutput().getBits()));
                 return node;
             } else if (v.equalsDescription(VDD.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(new ExprConstant(-1, node.getOutput().getBits()));
                 return node;
             } else if (v.equalsDescription(Not.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(new ExprNot(new ExprVar(node.getInputs().get(0).getNet())));
                 return node;
             } else if (v.equalsDescription(Or.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(createOperation(node.getInputs(), ExprOperate.Operation.OR));
                 return node;
             } else if (v.equalsDescription(And.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(createOperation(node.getInputs(), ExprOperate.Operation.AND));
                 return node;
             } else if (v.equalsDescription(XOr.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(createOperation(node.getInputs(), ExprOperate.Operation.XOR));
                 return node;
             } else if (v.equalsDescription(NOr.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(new ExprNot(createOperation(node.getInputs(), ExprOperate.Operation.OR)));
                 return node;
             } else if (v.equalsDescription(NAnd.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(new ExprNot(createOperation(node.getInputs(), ExprOperate.Operation.AND)));
                 return node;
             } else if (v.equalsDescription(XNOr.DESCRIPTION)) {
-                final HDLNodeExpression node = createExpression(v, parent, td);
+                final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(new ExprNot(createOperation(node.getInputs(), ExprOperate.Operation.XOR)));
                 return node;
             } else
@@ -133,8 +133,8 @@ public class HDLModel implements Iterable<HDLCircuit> {
         return new ExprOperate(op, list);
     }
 
-    private HDLNodeExpression createExpression(VisualElement v, HDLCircuit parent, ElementTypeDescription td) throws HDLException, PinException {
-        return addInputsOutputs(new HDLNodeExpression(v.getElementName(),
+    private HDLNodeAssignment createExpression(VisualElement v, HDLCircuit parent, ElementTypeDescription td) throws HDLException, PinException {
+        return addInputsOutputs(new HDLNodeAssignment(v.getElementName(),
                         v.getElementAttributes(),
                         new ObservableValuesBitsProvider(
                                 td.createElement(v.getElementAttributes()).getOutputs())),

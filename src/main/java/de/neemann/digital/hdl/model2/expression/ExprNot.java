@@ -48,11 +48,6 @@ public class ExprNot implements Expression {
             expr.replace(net, expression);
     }
 
-    @Override
-    public boolean inliningPossible(HDLNet net) {
-        return expr.inliningPossible(net);
-    }
-
     /**
      * Help er to check if a expression is a net reference
      *

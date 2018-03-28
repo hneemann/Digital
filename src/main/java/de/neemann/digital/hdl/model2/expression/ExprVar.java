@@ -43,8 +43,4 @@ public class ExprVar implements Expression {
             throw new RuntimeException("should not happen!");
     }
 
-    @Override
-    public boolean inliningPossible(HDLNet net) {
-        return true;
-    }
 }

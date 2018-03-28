@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * A node which represents a simple expression
  */
-public class HDLNodeExpression extends HDLNode {
+public class HDLNodeAssignment extends HDLNode {
     private Expression expression;
 
     /**
@@ -26,7 +26,7 @@ public class HDLNodeExpression extends HDLNode {
      * @param elementAttributes the attributes
      * @param bitProvider       the bit provider which provides the outputs bit width
      */
-    public HDLNodeExpression(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
+    public HDLNodeAssignment(String elementName, ElementAttributes elementAttributes, HDLModel.BitProvider bitProvider) {
         super(elementName, elementAttributes, bitProvider);
     }
 
@@ -68,8 +68,4 @@ public class HDLNodeExpression extends HDLNode {
         return getOutput().getNet();
     }
 
-    @Override
-    public boolean inliningPossible(HDLNet net) {
-        return expression.inliningPossible(net);
-    }
 }

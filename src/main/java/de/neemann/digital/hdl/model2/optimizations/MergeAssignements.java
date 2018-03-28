@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Merges the bool expression by inlining nodes which also represent a bool expression.
  */
-public class MergeExpressions implements Optimization {
+public class MergeAssignements implements Optimization {
     private HDLCircuit circuit;
     private ArrayList<HDLNode> nodes;
 
@@ -28,17 +28,15 @@ public class MergeExpressions implements Optimization {
             outer:
             for (int i = 0; i < nodes.size(); i++) {
                 HDLNode n1 = nodes.get(i);
-                if (n1 instanceof HDLNodeExpression) {
+                if (n1 instanceof HDLNodeAssignment) {
                     for (HDLPort p : n1.getInputs()) {
                         HDLNode n2 = searchCreator(p.getNet());
-                        if (n2 != null && n2 instanceof HDLNodeExpression) {
+                        if (n2 != null && n2 instanceof HDLNodeAssignment) {
                             if (n2.getOutputs().size() == 1 && n2.getOutput().getNet().getInputs().size() == 1) {
-                                if (inlinePossible(n2.getOutput().getNet())) {
-                                    nodes.set(i, merge((HDLNodeExpression) n1, (HDLNodeExpression) n2));
-                                    nodes.remove(n2);
-                                    wasOptimization = true;
-                                    break outer;
-                                }
+                                nodes.set(i, merge((HDLNodeAssignment) n1, (HDLNodeAssignment) n2));
+                                nodes.remove(n2);
+                                wasOptimization = true;
+                                break outer;
                             }
                         }
                     }
@@ -47,19 +45,12 @@ public class MergeExpressions implements Optimization {
         } while (wasOptimization);
     }
 
-    private boolean inlinePossible(HDLNet net) {
-        for (HDLNode n : circuit.getNodes())
-            if (!n.inliningPossible(net))
-                return false;
-        return true;
-    }
-
-    private HDLNodeExpression merge(HDLNodeExpression host, HDLNodeExpression include) {
+    private HDLNodeAssignment merge(HDLNodeAssignment host, HDLNodeAssignment include) {
         final Expression expression = host.getExpression();
         final HDLNet obsoleteNet = include.getOutput().getNet();
         expression.replace(obsoleteNet, include.getExpression());
 
-        HDLNodeExpression node = new HDLNodeExpression("merged expression",
+        HDLNodeAssignment node = new HDLNodeAssignment("merged expression",
                 null, name -> host.getOutput().getBits());
         node.setExpression(expression);
 

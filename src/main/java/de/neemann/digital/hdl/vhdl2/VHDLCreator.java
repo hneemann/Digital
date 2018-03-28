@@ -137,8 +137,8 @@ public class VHDLCreator {
 
         int num = 0;
         for (HDLNode node : circuit)
-            if (node instanceof HDLNodeExpression)
-                printExpression((HDLNodeExpression) node);
+            if (node instanceof HDLNodeAssignment)
+                printExpression((HDLNodeAssignment) node);
             else if (node instanceof HDLNodeBuildIn || node instanceof HDLNodeCustom)
                 printEntityInstantiation(node, num++);
 //            else if (node instanceof HDLNodeSplitterOneToMany)
@@ -257,7 +257,7 @@ public class VHDLCreator {
         out.println(");").dec().dec();
     }
 
-    private void printExpression(HDLNodeExpression node) throws IOException, HDLException {
+    private void printExpression(HDLNodeAssignment node) throws IOException, HDLException {
         out.print(node.getTargetNet().getName()).print(" <= ");
         printExpression(node.getExpression());
         out.println(";");

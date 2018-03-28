@@ -18,7 +18,7 @@ public class NameConstantSignals implements Optimization {
         for (HDLNode n : circuit.getNodes()) {
             ExprConstant con = ExprConstant.isConstant(n);
             if (con != null) {
-                HDLNet net = ((HDLNodeExpression) n).getTargetNet();
+                HDLNet net = ((HDLNodeAssignment) n).getTargetNet();
                 if (net.getName() == null)
                     net.setName("const" + con.getBits() + "b" + con.getValue());
             }

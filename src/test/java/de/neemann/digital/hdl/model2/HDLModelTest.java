@@ -11,7 +11,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.optimizations.MergeConstants;
-import de.neemann.digital.hdl.model2.optimizations.MergeExpressions;
+import de.neemann.digital.hdl.model2.optimizations.MergeAssignements;
 import de.neemann.digital.hdl.model2.optimizations.NameConstantSignals;
 import de.neemann.digital.hdl.model2.optimizations.ReplaceOneToMany;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
@@ -29,7 +29,7 @@ public class HDLModelTest extends TestCase {
 
     public void testSimple() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb.dig", null)
-                .apply(new MergeExpressions())
+                .apply(new MergeAssignements())
                 .nameUnnamedSignals();
 
         CodePrinterStr cp = new CodePrinterStr();
@@ -217,7 +217,7 @@ public class HDLModelTest extends TestCase {
 
     public void testConstantMerge() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/constMerge.dig", null)
-                .apply(new MergeExpressions())
+                .apply(new MergeAssignements())
                 .apply(new MergeConstants())
                 .apply(new NameConstantSignals())
                 .nameUnnamedSignals();
@@ -293,7 +293,7 @@ public class HDLModelTest extends TestCase {
     public void testSplitter3() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter3.dig", null)
                 .apply(new ReplaceOneToMany())
-                .apply(new MergeExpressions())
+                .apply(new MergeAssignements())
                 .nameUnnamedSignals();
 
         CodePrinterStr cp = new CodePrinterStr();
@@ -323,7 +323,7 @@ public class HDLModelTest extends TestCase {
     public void testSplitter4() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter4.dig", null)
                 .apply(new ReplaceOneToMany())
-                .apply(new MergeExpressions())
+                .apply(new MergeAssignements())
                 .nameUnnamedSignals();
 
         CodePrinterStr cp = new CodePrinterStr();

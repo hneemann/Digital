@@ -13,7 +13,7 @@ import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.optimizations.MergeConstants;
-import de.neemann.digital.hdl.model2.optimizations.MergeExpressions;
+import de.neemann.digital.hdl.model2.optimizations.MergeAssignements;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
@@ -30,7 +30,7 @@ public class DescriptionTest extends TestCase {
                 , new HDLModel(br.getLibrary()),
                 null)
                 .apply(new MergeConstants())
-                .apply(new MergeExpressions())
+                .apply(new MergeAssignements())
                 .nameUnnamedSignals();
         CodePrinterStr out = new CodePrinterStr();
         new VHDLCreator(out).printHDLCircuit(circuit);
