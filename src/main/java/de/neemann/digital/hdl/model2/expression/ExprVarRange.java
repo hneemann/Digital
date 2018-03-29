@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * A reference to a net slice
  */
-public class ExprVarRange implements Expression {
+public class ExprVarRange implements Expression, ExprUsingNet {
     private HDLNet net;
     private final int msb;
     private final int lsb;
@@ -31,9 +31,7 @@ public class ExprVarRange implements Expression {
         this.lsb = lsb;
     }
 
-    /**
-     * @return the net
-     */
+    @Override
     public HDLNet getNet() {
         return net;
     }

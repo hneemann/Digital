@@ -10,10 +10,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
-import de.neemann.digital.hdl.model2.optimizations.MergeConstants;
-import de.neemann.digital.hdl.model2.optimizations.MergeAssignements;
-import de.neemann.digital.hdl.model2.optimizations.NameConstantSignals;
-import de.neemann.digital.hdl.model2.optimizations.ReplaceOneToMany;
+import de.neemann.digital.hdl.model2.optimizations.*;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
@@ -30,6 +27,7 @@ public class HDLModelTest extends TestCase {
     public void testSimple() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb.dig", null)
                 .apply(new MergeAssignements())
+                .apply(new NodeSorterExpressionBased())
                 .nameUnnamedSignals();
 
         CodePrinterStr cp = new CodePrinterStr();
@@ -43,14 +41,14 @@ public class HDLModelTest extends TestCase {
                 "    in()\n" +
                 "    out(out:1 defines (s1->1))\n" +
                 "    s1->1 := 1:1\n" +
-                "  node Not\n" +
-                "    in(in:1 reads (A->3))\n" +
-                "    out(out:1 defines (Z_temp->2))\n" +
-                "    Z_temp->2 := NOT A\n" +
                 "  node merged expression\n" +
                 "    in(In_1:1 reads (B->2), in:1 reads (C->2))\n" +
                 "    out(out:1 defines (Y_temp->2))\n" +
                 "    Y_temp->2 := (B OR NOT C)\n" +
+                "  node Not\n" +
+                "    in(in:1 reads (A->3))\n" +
+                "    out(out:1 defines (Z_temp->2))\n" +
+                "    Z_temp->2 := NOT A\n" +
                 "  node merged expression\n" +
                 "    in(In_5:1 reads (Y_temp->2), In_1:1 reads (A->3), In_2:1 reads (C->2), In_1:1 reads (Z_temp->2), In_1:1 reads (B->2))\n" +
                 "    out(out:1 defines (s0->1))\n" +
@@ -220,6 +218,7 @@ public class HDLModelTest extends TestCase {
                 .apply(new MergeAssignements())
                 .apply(new MergeConstants())
                 .apply(new NameConstantSignals())
+                .apply(new NodeSorterExpressionBased())
                 .nameUnnamedSignals();
 
         CodePrinterStr cp = new CodePrinterStr();
@@ -294,6 +293,7 @@ public class HDLModelTest extends TestCase {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter3.dig", null)
                 .apply(new ReplaceOneToMany())
                 .apply(new MergeAssignements())
+                .apply(new NodeSorterExpressionBased())
                 .nameUnnamedSignals();
 
         CodePrinterStr cp = new CodePrinterStr();
@@ -324,6 +324,7 @@ public class HDLModelTest extends TestCase {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter4.dig", null)
                 .apply(new ReplaceOneToMany())
                 .apply(new MergeAssignements())
+                .apply(new NodeSorterExpressionBased())
                 .nameUnnamedSignals();
 
         CodePrinterStr cp = new CodePrinterStr();

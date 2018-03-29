@@ -29,9 +29,7 @@ public class DescriptionTest extends TestCase {
                 "main"
                 , new HDLModel(br.getLibrary()),
                 null)
-                .apply(new MergeConstants())
-                .apply(new MergeAssignements())
-                .nameUnnamedSignals();
+                .applyDefaultOptimizations();
         CodePrinterStr out = new CodePrinterStr();
         new VHDLCreator(out).printHDLCircuit(circuit);
 

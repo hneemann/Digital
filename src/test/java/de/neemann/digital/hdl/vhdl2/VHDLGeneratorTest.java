@@ -70,8 +70,8 @@ public class VHDLGeneratorTest extends TestCase {
                 "  signal s0: std_logic;\n" +
                 "  signal Z_temp: std_logic;\n" +
                 "begin\n" +
-                "  Z_temp <= NOT A;\n" +
                 "  Y_temp <= (B OR NOT C);\n" +
+                "  Z_temp <= NOT A;\n"+
                 "  s0 <= ((A OR C) AND (Z_temp OR C) AND '1' AND NOT (B OR C) AND Y_temp);\n" +
                 "  gate0: entity work.DIG_D_FF\n" +
                 "    port map (\n" +

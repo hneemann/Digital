@@ -157,14 +157,6 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
             if (o.getNet().needsVariable())
                 o.getNet().setIsOutput(o.getName(), o.getNet().getInputs().size() == 1);
 
-        sortNodes();
-    }
-
-    /**
-     * Sorts the nodes
-     */
-    public void sortNodes() {
-        nodes = new NodeSorter(inputs, nodes).sort();
     }
 
     private void handleSplitter(HDLNode node) throws BitsException, HDLException {
@@ -320,7 +312,6 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         for (HDLNet n : listOfNets)
             if (n.getName() == null)
                 n.setName(netNaming.createName(n));
-        sortNodes();
         return this;
     }
 
@@ -525,6 +516,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         apply(new RemoveConstantSignals());
         apply(new MergeConstants());  // under certain circumstances there are still constants
         apply(new NameConstantSignals());
+        apply(new NodeSorterExpressionBased());
         return nameUnnamedSignals();
     }
 

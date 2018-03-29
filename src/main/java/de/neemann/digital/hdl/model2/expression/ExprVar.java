@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * A reference to a net
  */
-public class ExprVar implements Expression {
+public class ExprVar implements Expression, ExprUsingNet {
     private HDLNet net;
 
     /**
@@ -27,9 +27,7 @@ public class ExprVar implements Expression {
         this.net = net;
     }
 
-    /**
-     * @return the net
-     */
+    @Override
     public HDLNet getNet() {
         return net;
     }
