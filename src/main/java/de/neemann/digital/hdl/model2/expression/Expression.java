@@ -21,4 +21,15 @@ public interface Expression extends Printable {
      */
     void replace(HDLNet net, Expression expression);
 
+    /**
+     * Help er to check if a expression is a net reference
+     *
+     * @param expr the expression to check
+     * @param net  the net
+     * @return true if the expression is a reference to the given net
+     */
+    static boolean isVar(Expression expr, HDLNet net) {
+        return expr instanceof ExprVar && ((ExprVar) expr).getNet() == net;
+    }
+
 }

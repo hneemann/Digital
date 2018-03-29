@@ -12,8 +12,6 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static de.neemann.digital.hdl.model2.expression.ExprNot.isVar;
-
 /**
  * Represenst a operation
  */
@@ -82,7 +80,7 @@ public class ExprOperate implements Expression {
     public void replace(HDLNet net, Expression expression) {
         for (int i = 0; i < operands.size(); i++) {
             final Expression op = operands.get(i);
-            if (isVar(op, net))
+            if (Expression.isVar(op, net))
                 operands.set(i, expression);
             else
                 op.replace(net, expression);

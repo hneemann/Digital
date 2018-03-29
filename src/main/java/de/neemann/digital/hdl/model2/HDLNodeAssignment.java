@@ -61,6 +61,11 @@ public class HDLNodeAssignment extends HDLNode {
         expression.replace(oldNet, new ExprVar(newNet));
     }
 
+    @Override
+    public void replaceNetByExpression(HDLNet net, Expression expression) {
+        expression.replace(net, expression);
+    }
+
     /**
      * @return the target net of this expression.
      */

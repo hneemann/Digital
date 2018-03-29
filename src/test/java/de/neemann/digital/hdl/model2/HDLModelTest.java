@@ -155,8 +155,8 @@ public class HDLModelTest extends TestCase {
                 "  node Splitter\n" +
                 "    in(0,1:2 reads (A->1), 2,3:2 reads (B->1))\n" +
                 "    out(single:4 defines (s0->2))\n" +
-                "    s0(0-1) := A\n" +
-                "    s0(2-3) := B\n" +
+                "    s0(1-0) := A\n" +
+                "    s0(3-2) := B\n" +
                 "  node splitter\n" +
                 "    in(in:4 reads (s0->2))\n" +
                 "    out(0:1 defines (X->1))\n" +
@@ -314,8 +314,8 @@ public class HDLModelTest extends TestCase {
                 "  node Splitter\n" +
                 "    in(0,1:2 reads (s0->1), 2,3:2 reads (s1->1))\n" +
                 "    out(0-3:4 defines (S->1))\n" +
-                "    S(0-1) := s0\n" +
-                "    S(2-3) := s1\n" +
+                "    S(1-0) := s0\n" +
+                "    S(3-2) := s1\n" +
                 "\n" +
                 "end circuit main\n", cp.toString());
     }

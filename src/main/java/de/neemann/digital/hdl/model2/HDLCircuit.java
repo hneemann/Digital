@@ -28,6 +28,7 @@ import de.neemann.digital.hdl.model2.clock.ClockInfo;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.ExprNot;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
+import de.neemann.digital.hdl.model2.expression.Expression;
 import de.neemann.digital.hdl.model2.optimizations.*;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.lang.Lang;
@@ -486,6 +487,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                 .addPort(new HDLPort("cout", outNet, HDLPort.Direction.OUT, 1))
                 .addPort(new HDLPort("cin", inNet, HDLPort.Direction.IN, 1));
 
+        clockNode.createExpressions();
+
         nodes.add(clockNode);
     }
 
@@ -522,6 +525,17 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         apply(new MergeConstants());  // under certain circumstances there are still constants
         apply(new NameConstantSignals());
         return nameUnnamedSignals();
+    }
+
+    /**
+     * Called to replace a net by an expression
+     *
+     * @param net        the net to replace
+     * @param expression the expression to use instead
+     */
+    public void replaceNetByExpression(HDLNet net, Expression expression) {
+        for (HDLNode n : nodes)
+            n.replaceNetByExpression(net, expression);
     }
 
     /**

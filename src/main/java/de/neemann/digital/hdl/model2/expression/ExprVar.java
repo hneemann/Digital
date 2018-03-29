@@ -22,6 +22,8 @@ public class ExprVar implements Expression {
      * @param net the net
      */
     public ExprVar(HDLNet net) {
+        if (net == null)
+            throw new NullPointerException("net is null");
         this.net = net;
     }
 

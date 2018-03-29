@@ -6,6 +6,7 @@
 package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.hdl.model2.expression.Expression;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 /**
  * The base class of all nodes
  */
-public class HDLNode {
+public abstract class HDLNode {
     private final String elementName;
     private final ElementAttributes elementAttributes;
     private final HDLModel.BitProvider bitProvider;
@@ -166,16 +167,6 @@ public class HDLNode {
     }
 
     /**
-     * Checks is inlining is possible
-     *
-     * @param net the net which should be inlined
-     * @return true if inlining of the given net is possible
-     */
-    public boolean inliningPossible(HDLNet net) {
-        return true;
-    }
-
-    /**
      * Renames the signals in this node.
      *
      * @param renaming the renaming algorithm
@@ -186,4 +177,12 @@ public class HDLNode {
         for (HDLPort p : inputs)
             p.rename(renaming);
     }
+
+    /**
+     * Called to replace a net by an expression.
+     *
+     * @param net        the net to replace
+     * @param expression the expression to use instead
+     */
+    public abstract void replaceNetByExpression(HDLNet net, Expression expression);
 }

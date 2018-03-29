@@ -6,6 +6,7 @@
 package de.neemann.digital.hdl.model2.optimizations;
 
 import de.neemann.digital.hdl.model2.*;
+import de.neemann.digital.hdl.model2.expression.ExprConstant;
 
 import java.util.Iterator;
 
@@ -21,10 +22,11 @@ public class RemoveConstantSignals implements Optimization {
         Iterator<HDLNet> it = circuit.getNets().iterator();
         while (it.hasNext()) {
             HDLNet net = it.next();
-            if (net.isConstant() != null && isOnlyUsedInSupportedNodes(net)) {
+            final ExprConstant constant = net.isConstant();
+            if (constant != null && isOnlyUsedInSupportedNodes(net)) {
                 circuit.getNodes().remove(net.getOutput().getParent());
                 it.remove();
-                // keep net in ports to allow the nodes to access the constant for inlining.
+                circuit.replaceNetByExpression(net, new ExprConstant(constant));
             }
         }
     }

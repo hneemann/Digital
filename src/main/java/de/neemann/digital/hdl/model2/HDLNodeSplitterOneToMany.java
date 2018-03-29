@@ -6,6 +6,7 @@
 package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.wiring.Splitter;
+import de.neemann.digital.hdl.model2.expression.Expression;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
 import java.io.IOException;
@@ -49,6 +50,10 @@ public class HDLNodeSplitterOneToMany extends HDLNode {
             out.print(p.getNet().getName()).print(" := ").print(in.getNet().getName())
                     .print("(").print(sp.getPos()).print("-").print(sp.getPos() + sp.getBits() - 1).println(")");
         }
+    }
+
+    @Override
+    public void replaceNetByExpression(HDLNet net, Expression expression) {
     }
 
     /**

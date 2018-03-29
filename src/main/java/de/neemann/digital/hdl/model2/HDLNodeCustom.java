@@ -10,7 +10,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 /**
  * Represents a node which is build from a circuit.
  */
-public class HDLNodeCustom extends HDLNode {
+public class HDLNodeCustom extends HDLNodeBuildIn {
     private final HDLCircuit hdlCircuit;
 
     /**

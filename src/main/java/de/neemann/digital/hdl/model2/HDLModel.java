@@ -69,7 +69,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
 
                 return addInputsOutputs(
                         new HDLNodeCustom(v.getElementName(), v.getElementAttributes(), c),
-                        v, parent);
+                        v, parent).createExpressions();
 
             } else if (v.equalsDescription(Const.DESCRIPTION)) {
                 final HDLNodeAssignment node = createExpression(v, parent, td);
@@ -117,7 +117,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
                                 v.getElementAttributes(),
                                 new ObservableValuesBitsProvider(
                                         td.createElement(v.getElementAttributes()).getOutputs())),
-                        v, parent);
+                        v, parent).createExpressions();
 
 
         } catch (ElementNotFoundException | PinException | NodeException e) {

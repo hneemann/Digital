@@ -12,6 +12,8 @@ import de.neemann.digital.hdl.model2.*;
 import de.neemann.digital.hdl.model2.expression.*;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl2.entities.VHDLEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -20,6 +22,7 @@ import java.util.HashSet;
  * Create the vhdl output
  */
 public class VHDLCreator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(VHDLCreator.class);
     private static final String ZEROS = "0000000000000000000000000000000000000000000000000000000000000000";
     private final CodePrinter out;
     private final VHDLLibrary library;
@@ -105,13 +108,14 @@ public class VHDLCreator {
     public void printHDLCircuit(HDLCircuit circuit) throws IOException, HDLException, HGSEvalException {
         // at first print all used entities to maintain the correct order
         for (HDLNode node : circuit)
-            if (node instanceof HDLNodeBuildIn)
-                printNodeBuiltIn((HDLNodeBuildIn) node);
-            else if (node instanceof HDLNodeCustom)
+            if (node instanceof HDLNodeCustom)
                 printNodeCustom((HDLNodeCustom) node);
+            else if (node instanceof HDLNodeBuildIn)
+                printNodeBuiltIn((HDLNodeBuildIn) node);
+
+        LOGGER.info("export " + circuit.getElementName());
 
         // after that print this entity
-
         out.println()
                 .println("LIBRARY ieee;")
                 .println("USE ieee.std_logic_1164.all;")
@@ -139,10 +143,10 @@ public class VHDLCreator {
         for (HDLNode node : circuit)
             if (node instanceof HDLNodeAssignment)
                 printExpression((HDLNodeAssignment) node);
-            else if (node instanceof HDLNodeBuildIn || node instanceof HDLNodeCustom)
-                printEntityInstantiation(node, num++);
-//            else if (node instanceof HDLNodeSplitterOneToMany)
-//                printOneToMany((HDLNodeSplitterOneToMany) node);
+            else if (node instanceof HDLNodeBuildIn)
+                printEntityInstantiation((HDLNodeBuildIn) node, num++);
+            else if (node instanceof HDLNodeSplitterOneToMany)
+                printOneToMany((HDLNodeSplitterOneToMany) node);
             else if (node instanceof HDLNodeSplitterManyToOne)
                 printManyToOne((HDLNodeSplitterManyToOne) node);
             else
@@ -183,51 +187,42 @@ public class VHDLCreator {
         out.println(");").dec();
     }
 
-    private void printManyToOne(HDLNodeSplitterManyToOne node) throws IOException {
+    private void printManyToOne(HDLNodeSplitterManyToOne node) throws IOException, HDLException {
         String target = node.getTargetSignal();
-        Splitter.Ports is = node.getInputSplit();
-        int i = 0;
-        for (HDLPort in : node.getInputs()) {
-            Splitter.Port sp = is.getPort(i++);
+
+        for (HDLNodeSplitterManyToOne.SplitterAssignment in : node) {
             out.print(target).print("(");
-            if (in.getBits() == 1)
-                out.print(sp.getPos());
+            if (in.getLsb() == in.getMsb())
+                out.print(in.getLsb());
             else
-                out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
+                out.print(in.getMsb()).print(" downto ").print(in.getLsb());
             out.print(") <= ");
-            printInlineConstant(in);
+            printExpression(in.getExpression());
             out.println(";");
         }
     }
 
-    private void printInlineConstant(HDLPort in) throws IOException {
-        ExprConstant con = ExprConstant.isConstant(in.getNet().getOutput().getParent());
-        if (con == null)
-            out.print(in.getNet().getName());
-        else
-            out.print(VHDLCreator.value(con));
+    /**
+     * After ReplaceOneToMany optimization there are no such nodes in the model!
+     */
+    private void printOneToMany(HDLNodeSplitterOneToMany node) throws IOException {
+        String source = node.getSourceSignal();
+        Splitter.Ports is = node.getOutputSplit();
+        int i = 0;
+        for (HDLPort outPort : node.getOutputs()) {
+            Splitter.Port sp = is.getPort(i++);
+            if (outPort.getNet() != null) {
+                out.print(outPort.getNet().getName()).print(" <= ").print(source).print("(");
+                if (outPort.getBits() == 1)
+                    out.print(sp.getPos());
+                else
+                    out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
+                out.println(");");
+            }
+        }
     }
 
-//    After ReplaceOneToMany optimization there are no such nodes in the model.
-//
-//    private void printOneToMany(HDLNodeSplitterOneToMany node) throws IOException {
-//        String source = node.getSourceSignal();
-//        Splitter.Ports is = node.getOutputSplit();
-//        int i = 0;
-//        for (HDLPort outPort : node.getOutputs()) {
-//            Splitter.Port sp = is.getPort(i++);
-//            if (outPort.getNet() != null) {
-//                out.print(outPort.getNet().getName()).print(" <= ").print(source).print("(");
-//                if (outPort.getBits() == 1)
-//                    out.print(sp.getPos());
-//                else
-//                    out.print(sp.getPos() + sp.getBits() - 1).print(" downto ").print(sp.getPos());
-//                out.println(");");
-//            }
-//        }
-//    }
-
-    private void printEntityInstantiation(HDLNode node, int num) throws IOException, HDLException {
+    private void printEntityInstantiation(HDLNodeBuildIn node, int num) throws IOException, HDLException {
         String entityName = node.getHdlEntityName();
 
         out.print("gate").print(num).print(": entity work.").print(entityName);
@@ -241,12 +236,10 @@ public class VHDLCreator {
             library.getEntity(node).writeGenericMap(out, node);
         out.println("port map (").inc();
         Separator sep = new Separator(out, ",\n");
-        for (HDLPort i : node.getInputs()) {
-            if (i.getNet() == null)
-                throw new HDLException("A input port without a net: " + i.getName() + " in " + entityName);
+        for (HDLNodeBuildIn.InputAssignment i : node) {
             sep.check();
-            out.print(i.getName()).print(" => ");
-            printInlineConstant(i);
+            out.print(i.getTargetName()).print(" => ");
+            printExpression(i.getExpression());
         }
 
         for (HDLPort o : node.getOutputs())

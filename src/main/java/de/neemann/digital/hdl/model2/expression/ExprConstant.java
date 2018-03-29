@@ -24,6 +24,15 @@ public class ExprConstant implements Expression {
     /**
      * Creates a new constant
      *
+     * @param constant the constant
+     */
+    public ExprConstant(ExprConstant constant) {
+        this(constant.getValue(), constant.getBits());
+    }
+
+    /**
+     * Creates a new constant
+     *
      * @param value the value
      * @param bits  the number of bits
      */
