@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.hdl.model2.expression.Expression;
+import de.neemann.digital.hdl.model2.expression.Visitor;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
 import java.io.IOException;
@@ -54,6 +55,11 @@ public class HDLNodeSplitterOneToMany extends HDLNode {
 
     @Override
     public void replaceNetByExpression(HDLNet net, Expression expression) {
+    }
+
+    @Override
+    public <V extends Visitor> V traverseExpressions(V visitor) {
+        throw new RuntimeException("HDLNodeSplitterOneToMany is not expression based!");
     }
 
     /**

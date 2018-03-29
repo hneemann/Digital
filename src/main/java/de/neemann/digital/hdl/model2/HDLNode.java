@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.hdl.model2.expression.Expression;
+import de.neemann.digital.hdl.model2.expression.Visitor;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
 import java.io.IOException;
@@ -185,4 +186,13 @@ public abstract class HDLNode {
      * @param expression the expression to use instead
      */
     public abstract void replaceNetByExpression(HDLNet net, Expression expression);
+
+    /**
+     * Traverses all expressions
+     *
+     * @param visitor the visitor
+     * @param <V>     the type of the visitor
+     * @return the visitor for chained calls
+     */
+    public abstract <V extends Visitor> V traverseExpressions(V visitor);
 }

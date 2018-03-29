@@ -8,6 +8,7 @@ package de.neemann.digital.hdl.model2;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
 import de.neemann.digital.hdl.model2.expression.Expression;
+import de.neemann.digital.hdl.model2.expression.Visitor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +35,13 @@ public class HDLNodeBuildIn extends HDLNode implements Iterable<HDLNodeBuildIn.I
     public void replaceNetByExpression(HDLNet net, Expression expression) {
         for (InputAssignment ia : inputAssignement)
             ia.replaceNetByExpression(net, expression);
+    }
+
+    @Override
+    public <V extends Visitor> V traverseExpressions(V visitor) {
+        for (InputAssignment ia : this)
+            ia.traverseExpressions(visitor);
+        return visitor;
     }
 
     HDLNode createExpressions() {
@@ -94,6 +102,10 @@ public class HDLNodeBuildIn extends HDLNode implements Iterable<HDLNodeBuildIn.I
 
         private void rename(HDLModel.Renaming renaming) {
             name = renaming.checkName(name);
+        }
+
+        private  <V extends Visitor> void traverseExpressions(V visitor) {
+            expression.traverse(visitor);
         }
     }
 }

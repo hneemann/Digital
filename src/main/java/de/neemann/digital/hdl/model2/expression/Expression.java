@@ -22,6 +22,15 @@ public interface Expression extends Printable {
     void replace(HDLNet net, Expression expression);
 
     /**
+     * Traverses all expressions
+     *
+     * @param visitor the visitor
+     */
+    default void traverse(Visitor visitor) {
+        visitor.visit(this);
+    }
+
+    /**
      * Help er to check if a expression is a net reference
      *
      * @param expr the expression to check

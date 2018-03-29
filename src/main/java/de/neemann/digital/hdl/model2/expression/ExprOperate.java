@@ -87,4 +87,10 @@ public class ExprOperate implements Expression {
         }
     }
 
+    @Override
+    public void traverse(Visitor visitor) {
+        visitor.visit(this);
+        for (Expression o : operands)
+            o.traverse(visitor);
+    }
 }

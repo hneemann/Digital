@@ -9,6 +9,7 @@ package de.neemann.digital.hdl.model2;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
 import de.neemann.digital.hdl.model2.expression.Expression;
+import de.neemann.digital.hdl.model2.expression.Visitor;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
 import java.io.IOException;
@@ -59,6 +60,12 @@ public class HDLNodeAssignment extends HDLNode {
     public void replaceNet(HDLNet oldNet, HDLNet newNet) {
         super.replaceNet(oldNet, newNet);
         expression.replace(oldNet, new ExprVar(newNet));
+    }
+
+    @Override
+    public <V extends Visitor> V traverseExpressions(V visitor) {
+        expression.traverse(visitor);
+        return visitor;
     }
 
     @Override

@@ -8,6 +8,7 @@ package de.neemann.digital.hdl.model2;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
 import de.neemann.digital.hdl.model2.expression.Expression;
+import de.neemann.digital.hdl.model2.expression.Visitor;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
 import java.io.IOException;
@@ -72,6 +73,13 @@ public class HDLNodeSplitterManyToOne extends HDLNode implements Iterable<HDLNod
     }
 
     @Override
+    public <V extends Visitor> V traverseExpressions(V visitor) {
+        for (SplitterAssignment p : this)
+            p.traverseExpressions(visitor);
+        return visitor;
+    }
+
+    @Override
     public Iterator<SplitterAssignment> iterator() {
         return outputs.iterator();
     }
@@ -122,6 +130,10 @@ public class HDLNodeSplitterManyToOne extends HDLNode implements Iterable<HDLNod
                 expression = expr;
             else
                 expression.replace(net, expr);
+        }
+
+        private void traverseExpressions(Visitor visitor) {
+            expression.traverse(visitor);
         }
     }
 }

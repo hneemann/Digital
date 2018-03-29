@@ -48,4 +48,9 @@ public class ExprNot implements Expression {
             expr.replace(net, expression);
     }
 
+    @Override
+    public void traverse(Visitor visitor) {
+        visitor.visit(this);
+        expr.traverse(visitor);
+    }
 }
