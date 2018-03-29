@@ -104,13 +104,9 @@ public class VHDLGeneratorTest extends TestCase {
                 "end main;\n" +
                 "\n" +
                 "architecture Behavioral of main is\n" +
-                "  signal s0: std_logic_vector(1 downto 0);\n" +
-                "  signal s1: std_logic_vector(1 downto 0);\n" +
                 "begin\n" +
-                "  s0 <= (A(1 downto 0) AND B(1 downto 0));\n" +
-                "  s1 <= (A(3 downto 2) OR B(3 downto 2));\n" +
-                "  S(1 downto 0) <= s0;\n" +
-                "  S(3 downto 2) <= s1;\n" +
+                "  S(1 downto 0) <= (A(1 downto 0) AND B(1 downto 0));\n" +
+                "  S(3 downto 2) <= (A(3 downto 2) OR B(3 downto 2));\n" +
                 "end Behavioral;\n",out.toString());
     }
 
@@ -163,20 +159,18 @@ public class VHDLGeneratorTest extends TestCase {
                 "end main;\n" +
                 "\n" +
                 "architecture Behavioral of main is\n" +
-                "  signal s0: std_logic_vector(7 downto 0);\n" +
-                "  signal s1: std_logic;\n" +
+                "  signal s0: std_logic;\n" +
                 "begin\n" +
-                "  s0 <= inst(7 downto 0);\n" +
-                "  s1 <= inst(8);\n" +
-                "  n9SD(7 downto 0) <= s0;\n" +
-                "  n9SD(8) <= s1;\n" +
-                "  n9SD(9) <= s1;\n" +
-                "  n9SD(10) <= s1;\n" +
-                "  n9SD(11) <= s1;\n" +
-                "  n9SD(12) <= s1;\n" +
-                "  n9SD(13) <= s1;\n" +
-                "  n9SD(14) <= s1;\n" +
-                "  n9SD(15) <= s1;\n" +
+                "  s0 <= inst(8);\n" +
+                "  n9SD(7 downto 0) <= inst(7 downto 0);\n" +
+                "  n9SD(8) <= s0;\n" +
+                "  n9SD(9) <= s0;\n" +
+                "  n9SD(10) <= s0;\n" +
+                "  n9SD(11) <= s0;\n" +
+                "  n9SD(12) <= s0;\n" +
+                "  n9SD(13) <= s0;\n" +
+                "  n9SD(14) <= s0;\n" +
+                "  n9SD(15) <= s0;\n" +
                 "end Behavioral;\n",out.toString());
     }
 
