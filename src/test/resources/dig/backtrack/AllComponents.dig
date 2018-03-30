@@ -534,6 +534,11 @@
       </elementAttributes>
       <pos x="800" y="860"/>
     </visualElement>
+    <visualElement>
+      <elementName>RealLED</elementName>
+      <elementAttributes/>
+      <pos x="1200" y="420"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -637,12 +642,16 @@
       <p2 x="1100" y="520"/>
     </wire>
     <wire>
+      <p1 x="580" y="520"/>
+      <p2 x="640" y="520"/>
+    </wire>
+    <wire>
       <p1 x="1140" y="520"/>
       <p2 x="1160" y="520"/>
     </wire>
     <wire>
-      <p1 x="580" y="520"/>
-      <p2 x="640" y="520"/>
+      <p1 x="1160" y="520"/>
+      <p2 x="1200" y="520"/>
     </wire>
     <wire>
       <p1 x="240" y="780"/>
@@ -697,16 +706,20 @@
       <p2 x="800" y="400"/>
     </wire>
     <wire>
-      <p1 x="1080" y="400"/>
-      <p2 x="1120" y="400"/>
-    </wire>
-    <wire>
       <p1 x="600" y="400"/>
       <p2 x="620" y="400"/>
     </wire>
     <wire>
+      <p1 x="1080" y="400"/>
+      <p2 x="1120" y="400"/>
+    </wire>
+    <wire>
       <p1 x="400" y="400"/>
       <p2 x="440" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="400"/>
+      <p2 x="1200" y="400"/>
     </wire>
     <wire>
       <p1 x="1120" y="400"/>
@@ -1491,6 +1504,14 @@
     <wire>
       <p1 x="880" y="840"/>
       <p2 x="880" y="880"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="400"/>
+      <p2 x="1200" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="500"/>
+      <p2 x="1200" y="520"/>
     </wire>
     <wire>
       <p1 x="500" y="740"/>

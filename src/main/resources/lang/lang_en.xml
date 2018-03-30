@@ -132,6 +132,13 @@
     <string name="elem_LED_tt">A LED can be used to visualize an output value. Accepts a single bit.
         Lights up if the input is set to 1.</string>
     <string name="elem_LED_pin_in">LED Input. LED lights up if the input is set to 1.</string>
+
+    <string name="elem_RealLED">LED with two connections.</string>
+    <string name="elem_RealLED_tt">LED with connections for the cathode and the anode. The LED lights up,
+        if the anode is connected to high and the cathode is connected to low.</string>
+    <string name="elem_RealLED_pin_A">The anode connection of the LED.</string>
+    <string name="elem_RealLED_pin_C">The cathode connection of the LED.</string>
+
     <string name="elem_In">Input</string>
     <string name="elem_In_tt">Can be used to interactively manipulate an input signal in a circuit with the
         mouse. This element is also used to connect a circuit to an embedding circuit.

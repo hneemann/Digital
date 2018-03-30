@@ -90,6 +90,7 @@ public final class ShapeFactory {
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(LightBulb.DESCRIPTION.getName(), LightBulbShape::new);
+        map.put(RealLED.DESCRIPTION.getName(), RealLEDShape::new);
         map.put(Button.DESCRIPTION.getName(), ButtonShape::new);
         map.put(Probe.DESCRIPTION.getName(), ProbeShape::new);
         map.put(Clock.DESCRIPTION.getName(), ClockShape::new);

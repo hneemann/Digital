@@ -96,17 +96,17 @@
     <visualElement>
       <elementName>Seven-Seg</elementName>
       <elementAttributes/>
-      <pos x="200" y="160"/>
+      <pos x="240" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg-Hex</elementName>
       <elementAttributes/>
-      <pos x="300" y="160"/>
+      <pos x="340" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
       <elementAttributes/>
-      <pos x="500" y="160"/>
+      <pos x="520" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -406,7 +406,7 @@
     <visualElement>
       <elementName>RotEncoder</elementName>
       <elementAttributes/>
-      <pos x="780" y="180"/>
+      <pos x="760" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>RAMSinglePortSel</elementName>
@@ -466,7 +466,12 @@
     <visualElement>
       <elementName>SixteenSeg</elementName>
       <elementAttributes/>
-      <pos x="400" y="160"/>
+      <pos x="440" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RealLED</elementName>
+      <elementAttributes/>
+      <pos x="200" y="160"/>
     </visualElement>
   </visualElements>
   <wires/>
