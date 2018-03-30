@@ -23,7 +23,7 @@ import static de.neemann.digital.draw.shapes.PullDownShape.HEIGHT;
 import static de.neemann.digital.draw.shapes.PullDownShape.WIDTH2;
 
 /**
- * The light bulb shape
+ * The real LED shape
  */
 public class RealLEDShape implements Shape {
     private static final int RAD = SIZE * 3 / 4;
@@ -45,7 +45,11 @@ public class RealLEDShape implements Shape {
     public RealLEDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         style = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
-        label = attr.getLabel();
+        String l = attr.getLabel();
+        if (l == null || l.trim().length() == 0)
+            label = null;
+        else
+            label = l;
     }
 
     @Override
@@ -82,8 +86,10 @@ public class RealLEDShape implements Shape {
                 Style.NORMAL
         );
         graphic.drawLine(new Vector(0, SIZE * 4 - SIZE2), new Vector(0, SIZE * 4), Style.NORMAL);
-        Vector textPos = new Vector(SIZE + SIZE2, SIZE);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+        if (label != null) {
+            Vector textPos = new Vector(SIZE + SIZE2, SIZE);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+        }
 
         if (a == null || c == null) {
             graphic.drawPolygon(
