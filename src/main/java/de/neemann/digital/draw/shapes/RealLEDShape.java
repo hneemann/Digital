@@ -110,7 +110,10 @@ public class RealLEDShape implements Shape {
             graphic.drawLine(new Vector(0, SIZE * 4 - SIZE2 - HEIGHT), new Vector(0, 0), Style.NORMAL);
             graphic.drawCircle(center.sub(rad), center.add(rad), Style.FILLED);
 
-            if (a.getBool() && !c.getBool()) {
+            boolean aActive = a.getBool() && !a.isHighZ();
+            boolean cActive = !c.getBool() && !c.isHighZ();
+
+            if (aActive && cActive) {
                 Vector radL = new Vector(RAD - 2, RAD - 2);
                 graphic.drawCircle(center.sub(radL), center.add(radL), style);
             }
