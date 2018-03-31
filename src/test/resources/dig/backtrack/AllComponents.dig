@@ -539,6 +539,11 @@
       <elementAttributes/>
       <pos x="1200" y="420"/>
     </visualElement>
+    <visualElement>
+      <elementName>DipSwitch</elementName>
+      <elementAttributes/>
+      <pos x="180" y="680"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

@@ -160,6 +160,13 @@ public final class Keys {
             = new Key<>("InDefault", new InValue(0)).allowGroupEdit();
 
     /**
+     * The default value of the dip switch
+     */
+    public static final Key<Boolean> DIP_DEFAULT
+            = new Key<>("dipDefault", false);
+
+
+    /**
      * Color of LEDs
      */
     public static final Key<java.awt.Color> COLOR

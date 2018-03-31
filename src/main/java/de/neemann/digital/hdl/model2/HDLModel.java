@@ -12,6 +12,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.io.Const;
+import de.neemann.digital.core.io.DipSwitch;
 import de.neemann.digital.core.io.Ground;
 import de.neemann.digital.core.io.VDD;
 import de.neemann.digital.draw.elements.Circuit;
@@ -74,6 +75,10 @@ public class HDLModel implements Iterable<HDLCircuit> {
             } else if (v.equalsDescription(Const.DESCRIPTION)) {
                 final HDLNodeAssignment node = createExpression(v, parent, td);
                 node.setExpression(new ExprConstant(node.getElementAttributes().get(Keys.VALUE), node.getOutput().getBits()));
+                return node;
+            } else if (v.equalsDescription(DipSwitch.DESCRIPTION)) {
+                final HDLNodeAssignment node = createExpression(v, parent, td);
+                node.setExpression(new ExprConstant(node.getElementAttributes().get(Keys.DIP_DEFAULT) ? 1 : 0, node.getOutput().getBits()));
                 return node;
             } else if (v.equalsDescription(Ground.DESCRIPTION)) {
                 final HDLNodeAssignment node = createExpression(v, parent, td);

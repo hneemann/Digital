@@ -99,6 +99,7 @@ public final class ShapeFactory {
         map.put(Out.SIXTEENDESCRIPTION.getName(), SixteenShape::new);
         map.put(DummyElement.DATADESCRIPTION.getName(), DataShape::new);
         map.put(RotEncoder.DESCRIPTION.getName(), RotEncoderShape::new);
+        map.put(DipSwitch.DESCRIPTION.getName(), DipSwitchShape::new);
 
         map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
         map.put(Fuse.DESCRIPTION.getName(), FuseShape::new);

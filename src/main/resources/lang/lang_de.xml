@@ -134,6 +134,11 @@
         herzustellen. In diesem Fall ist der Anschluss bidirektional.
         Wird zudem verwendet, um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
     <string name="elem_In_pin_out">An diesem Ausgang wird der anliegende Wert ausgegeben.</string>
+
+    <string name="elem_DipSwitch">DIP-Schalter</string>
+    <string name="elem_DipSwitch_tt">Einfacher Schiebeschalter, der High oder Low ausgeben kann.</string>
+    <string name="elem_DipSwitch_pin_out">Der Ausgabewert des Schalters.</string>
+
     <string name="elem_Clock">Takteingang</string>
     <string name="elem_Clock_tt">Ein Taktsignal. Dieses Taktsignal kann über die Echtzeituhr gesteuert werden.
         Abhängig von der Komplexität der Schaltung kann die erreichte Taktfrequenz geringer sein als der vorgegebene
@@ -1107,6 +1112,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         VHDL-Code verwendet werden soll.</string>
     <string name="key_maxValue">Maximalwert</string>
     <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits sind Eins).</string>
+
+    <string name="key_dipDefault">Ausgabe ist High</string>
+    <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

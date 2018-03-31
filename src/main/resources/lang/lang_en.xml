@@ -146,6 +146,11 @@
         Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
     </string>
     <string name="elem_In_pin_out">Gives the value which is connected to this input.</string>
+
+    <string name="elem_DipSwitch">DIP Switch</string>
+    <string name="elem_DipSwitch_tt">Simple DIP switch that can output either high or low.</string>
+    <string name="elem_DipSwitch_pin_out">The output value of the switch.</string>
+
     <string name="elem_Clock">Clock Input</string>
     <string name="elem_Clock_tt">A clock signal. Its possible to control it by a real-time clock.
         Depending on the complexity of the circuit, the clock frequency achieved may be less than the selected value.
@@ -1098,6 +1103,9 @@
         components defined with vhdl.</string>
     <string name="key_maxValue">Maximum Value</string>
     <string name="key_maxValue_tt">If a zero is entered, the maximum possible value is used (all bits are one).</string>
+
+    <string name="key_dipDefault">Output is High</string>
+    <string name="key_dipDefault_tt">The default output value of the DIP switch.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

@@ -115,6 +115,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(In.DESCRIPTION)
                         .add(Clock.DESCRIPTION)
                         .add(Button.DESCRIPTION)
+                        .add(DipSwitch.DESCRIPTION)
                         .add(DummyElement.TEXTDESCRIPTION)
                         .add(Probe.DESCRIPTION)
                         .add(new LibraryNode(Lang.get("lib_more"))
