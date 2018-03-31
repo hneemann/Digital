@@ -168,11 +168,11 @@
     <string name="elem_LightBulb_pin_A">Anschluss</string>
     <string name="elem_LightBulb_pin_B">Anschluss</string>
 
-    <string name="elem_RealLED">LED mit zwei Anschlüssen</string>
-    <string name="elem_RealLED_tt">LED mit zwei Anschlüssen für die Kathode und die Anode. Die LED leuchtet
+    <string name="elem_PolarityAwareLED">LED mit zwei Anschlüssen</string>
+    <string name="elem_PolarityAwareLED_tt">LED mit zwei Anschlüssen für die Kathode und die Anode. Die LED leuchtet
         nur, wenn die Anode auf High und die Kathode auf Low gelegt wird.</string>
-    <string name="elem_RealLED_pin_A">Die Anode der LED.</string>
-    <string name="elem_RealLED_pin_C">Die Kathode der LED.</string>
+    <string name="elem_PolarityAwareLED_pin_A">Die Anode der LED.</string>
+    <string name="elem_PolarityAwareLED_pin_C">Die Kathode der LED.</string>
 
     <string name="elem_Seven-Seg">Siebensegmentanzeige</string>
     <string name="elem_Seven-Seg_tt">Siebensegmentanzeige, bei der jedes Segment über einen eigenen Eingang gesteuert

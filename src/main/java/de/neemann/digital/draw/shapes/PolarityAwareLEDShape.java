@@ -23,9 +23,9 @@ import static de.neemann.digital.draw.shapes.PullDownShape.HEIGHT;
 import static de.neemann.digital.draw.shapes.PullDownShape.WIDTH2;
 
 /**
- * The real LED shape
+ * The polarity aware LED shape
  */
-public class RealLEDShape implements Shape {
+public class PolarityAwareLEDShape implements Shape {
     private static final int RAD = SIZE * 3 / 4;
     private final PinDescriptions inputs;
     private final Style style;
@@ -42,7 +42,7 @@ public class RealLEDShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public RealLEDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
+    public PolarityAwareLEDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         style = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
         String l = attr.getLabel();

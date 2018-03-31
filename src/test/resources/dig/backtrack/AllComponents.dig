@@ -535,7 +535,7 @@
       <pos x="800" y="860"/>
     </visualElement>
     <visualElement>
-      <elementName>RealLED</elementName>
+      <elementName>PolarityAwareLED</elementName>
       <elementAttributes/>
       <pos x="1200" y="420"/>
     </visualElement>

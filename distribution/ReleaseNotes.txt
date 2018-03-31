@@ -17,6 +17,7 @@ HEAD, planed as v0.18
 - Added a simple bidirectional splitter.
 - Added a monoflop.
 - Added a 16 Segment display.
+- Added a polarity aware LED.
 - Added a counter with preset.
 
 v0.17, released on 19. Feb 2018
