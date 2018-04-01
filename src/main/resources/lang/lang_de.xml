@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="addr">Adresse</string>
-    <string name="name">Name</string>
     <string name="tableOfContent">Inhaltsverzeichnis</string>
     <string name="general">Allgemein</string>
     <string name="revision">Version</string>
