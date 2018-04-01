@@ -3,7 +3,7 @@ Release Notes
 HEAD, planed as v0.18
 - Significant improvement in the quality of the generated vhdl code.
 - Its possible to define the behaviour of a component by vhdl.
-  The vhdl simulator ghdl needs to be installed.
+  The vhdl simulator ghdl needs to be installed, to use a vhdl defined component.
 - Removed high-z restrictions from the splitter.
   Now a bus can have different high z states for the different lines on the bus.
 - Added new text formatting engine which supports overline, super- and subscript.

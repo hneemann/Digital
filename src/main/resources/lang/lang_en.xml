@@ -1104,7 +1104,7 @@
     <string name="key_maxValue_tt">If a zero is entered, the maximum possible value is used (all bits are one).</string>
 
     <string name="key_dipDefault">Output is High</string>
-    <string name="key_dipDefault_tt">The default output value of the DIP switch.</string>
+    <string name="key_dipDefault_tt">The default output value of the DIP switch when the simulation starts.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
