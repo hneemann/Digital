@@ -137,12 +137,16 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 dispose();
             }
         });
-        JButton applyButton = new JButton(new AbstractAction(Lang.get("btn_apply")) {
+        final AbstractAction applyAction = new AbstractAction(Lang.get("btn_apply")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 apply();
             }
-        });
+        };
+        JButton applyButton = new JButton(applyAction);
+        textField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, KeyEvent.SHIFT_DOWN_MASK, true), applyAction);
+        textField.getActionMap().put(applyAction, applyAction);
+
         JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
         buttonPanel.add(okButton);
         buttonPanel.add(applyButton);
