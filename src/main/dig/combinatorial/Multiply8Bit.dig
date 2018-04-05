@@ -612,7 +612,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>12,1,4</string>
+          <string>12,1,3</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -635,7 +635,7 @@ werden durch die Und-Gatter implementiert. </string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>4</int>
+          <int>3</int>
         </entry>
       </elementAttributes>
       <pos x="1080" y="480"/>
@@ -663,7 +663,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>4,12,1</string>
+          <string>4,12</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -881,10 +881,6 @@ end loop</dataString>
     <wire>
       <p1 x="940" y="780"/>
       <p2 x="980" y="780"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="780"/>
-      <p2 x="1100" y="780"/>
     </wire>
     <wire>
       <p1 x="940" y="460"/>
