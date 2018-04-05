@@ -45,20 +45,10 @@ public enum IntFormat {
         if (inValue.isHighZ())
             return inValue.toString();
 
-        switch (this) {
-            case dec:
-                return Long.toString(inValue.getValue());
-            case decSigned:
-                return Long.toString(inValue.getValueSigned());
-            case hex:
-                return toHex(inValue);
-            case bin:
-                return toBin(inValue);
-            case ascii:
-                return "" + (char) inValue.getValue();
-            default:
-                return toShortHex(inValue.getValue(), false);
-        }
+        if (this.equals(def))
+            return toShortHex(inValue.getValue(), false);
+
+        return formatToEdit(inValue);
     }
 
     /**
@@ -87,7 +77,7 @@ public enum IntFormat {
             default:
                 final long value = inValue.getValue();
                 if (value >= 0 && value < 10)
-                    return toShortHex(value, true);
+                    return Long.toString(value);
                 else
                     return "0x" + toShortHex(value, true);
         }
