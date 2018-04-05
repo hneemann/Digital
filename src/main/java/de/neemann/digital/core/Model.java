@@ -6,6 +6,7 @@
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.io.Button;
+import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Reset;
@@ -41,6 +42,7 @@ import java.util.*;
  * call of the registerNodes method. These lists are necessary to keep track of all elements which are not a node like
  * inputs and outputs. All elements which are nodes can be obtained by {@link #findNode(Class, NodeFilter)} or
  * {@link #findNode(Class)}.
+ *
  * @see de.neemann.digital.core.element.Element#registerNodes(Model)
  */
 public class Model implements Iterable<Node> {
@@ -71,6 +73,7 @@ public class Model implements Iterable<Node> {
     private WindowPosManager windowPosManager;
     private HashSet<Node> oscillatingNodes;
     private boolean isInvalidSignal = false;
+    private AsyncSeq asyncInfos;
 
     private final ArrayList<ModelStateObserver> observers;
     private ArrayList<ModelStateObserver> observersStep;
@@ -714,5 +717,22 @@ public class Model implements Iterable<Node> {
             if (i.getName().equals(name))
                 return i.getValue();
         return null;
+    }
+
+
+    /**
+     * Sets async execution infos
+     *
+     * @param asyncInfos manly the frequency
+     */
+    public void setAsyncInfos(AsyncSeq asyncInfos) {
+        this.asyncInfos = asyncInfos;
+    }
+
+    /**
+     * @return the infos uset for async execution
+     */
+    public AsyncSeq getAsyncInfos() {
+        return asyncInfos;
     }
 }

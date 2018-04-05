@@ -15,6 +15,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.gif.GifExporter;
@@ -22,6 +23,7 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.model.AsyncSequentialClock;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -1188,6 +1190,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (threadRunnerCount > 1)
                     throw new RuntimeException(Lang.get("err_moreThanOneFastClock"));
             }
+            if (!realTimeClockRunning && updateEvent == ModelEvent.MICROSTEP) {
+                // no real clock
+                AsyncSeq ai = model.getAsyncInfos();
+                if (ai != null && ai.getFrequency() > 0) {
+                    modelSync = new LockSync();
+                    model.addObserver(
+                            new AsyncSequentialClock(model, ai, timerExecutor, this, modelSync));
+                    realTimeClockRunning = true;
+                }
+            }
+
+
             if (modelSync == null)
                 modelSync = NoSync.INST;
 
@@ -1429,10 +1443,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void hasChanged() {
-            modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+            if (!realTimeClockRunning)
+                modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             model.fireManualChangeEvent();
             circuitComponent.repaintNeeded();
-            doStep.setEnabled(model.needsUpdate());
+            if (!realTimeClockRunning)
+                doStep.setEnabled(model.needsUpdate());
         }
     }
 
