@@ -102,6 +102,9 @@ public class CodePrinter implements Closeable {
      * @throws IOException IOException
      */
     public CodePrinter print(String str) throws IOException {
+        if (str == null)
+            str = "null";
+
         for (int i = 0; i < str.length(); i++)
             print(str.charAt(i));
         return this;

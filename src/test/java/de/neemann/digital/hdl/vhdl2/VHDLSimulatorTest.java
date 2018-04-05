@@ -88,6 +88,18 @@ public class VHDLSimulatorTest extends TestCase {
         }
     }
 
+    public void testMultiplierInSimulator() throws Exception {
+        File file = new File(Resources.getRoot(), "../../main/dig/combinatorial/Multiply8Bit.dig");
+        try {
+            checkVHDLExport(file);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        } catch (Exception e) {
+            System.out.println(ExceptionWithOrigin.getOriginOf(e));
+            throw e;
+        }
+    }
+
     public void testGHDLInSimulator() throws Exception {
         try {
             ProcessStarter.start(null, GHDL, "--help");

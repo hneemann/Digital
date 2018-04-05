@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.model2.optimizations;
 
 import de.neemann.digital.hdl.model2.*;
 import de.neemann.digital.hdl.model2.expression.ExprConstant;
+import de.neemann.digital.hdl.model2.expression.ExprVar;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,8 @@ public class MergeConstants implements Optimization {
         final ArrayList<HDLPort> ins = obsoleteNet.getInputs();
         for (HDLPort p : ins.toArray(new HDLPort[ins.size()]))
             p.setNet(usedNet);
+
+        circuit.replaceNetByExpression(obsoleteNet, new ExprVar(usedNet));
 
         circuit.removeNet(obsoleteNet);
     }
