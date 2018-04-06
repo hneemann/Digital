@@ -730,7 +730,7 @@ public class Model implements Iterable<Node> {
     }
 
     /**
-     * @return the infos uset for async execution
+     * @return the infos used for async execution
      */
     public AsyncSeq getAsyncInfos() {
         return asyncInfos;

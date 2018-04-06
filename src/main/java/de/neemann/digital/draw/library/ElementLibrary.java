@@ -190,11 +190,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(TransGate.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_misc"))
                         .add(TestCaseElement.TESTCASEDESCRIPTION)
-                        .add(AsyncSeq.DESCRIPTION)
                         .add(PowerSupply.DESCRIPTION)
                         .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION)
+                        .add(AsyncSeq.DESCRIPTION)
                         .add(External.DESCRIPTION));
 
         addExternalJarComponents(jarFile);

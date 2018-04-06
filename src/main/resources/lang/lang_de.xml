@@ -708,6 +708,10 @@
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
         dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.</string>
+    <string name="elem_AsyncSeq">Asynchrones Timing</string>
+    <string name="elem_AsyncSeq_tt">Erlaubt die Konfiguration des Timings eines asynchronen Automaten wie z.B einer
+        Muller-Pipeline. Die Schaltung muss im Gatterschrittmodus gestartet werden und muss zunächst einen stabilen Zustand
+        einnehmen. Interaktiv kann dann der Automat gestartet werden.</string>
     <string name="elem_PowerSupply">Versorgung</string>
     <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen sind.
         Kann im Zusammenhang mit den 74xx Bausteinen verwendet werden, um Anschlüsse für die Spannungsversorgung

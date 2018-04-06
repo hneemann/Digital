@@ -705,6 +705,10 @@
         behavior of the circuit actually corresponds to this description. If this is not the case, an
         error message is shown.
     </string>
+    <string name="elem_AsyncSeq">Asynchronous Timing</string>
+    <string name="elem_AsyncSeq_tt">Allows configuration of the timing of an asynchronous sequential circuit such as a
+        Muller pipeline. The circuit must be started in single gate step mode and must be able to reach a stable state
+        at startup. The automat can then be started interactively.</string>
     <string name="elem_PowerSupply">Power</string>
     <string name="elem_PowerSupply_tt">Has no function. Makes sure that VDD and GND are connected.
         Can be used in 74xx circuits to generate the pins for the voltage supply, which are tested for correct wiring.</string>

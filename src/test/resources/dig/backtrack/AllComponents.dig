@@ -544,6 +544,11 @@
       <elementAttributes/>
       <pos x="180" y="680"/>
     </visualElement>
+    <visualElement>
+      <elementName>AsyncSeq</elementName>
+      <elementAttributes/>
+      <pos x="100" y="820"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

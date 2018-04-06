@@ -53,8 +53,8 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
         switch (event) {
             case STARTED:
                 int delayMuS = 1000000 / frequency;
-                if (delayMuS < 50)
-                    delayMuS = 50;
+                if (delayMuS < 100)
+                    delayMuS = 100;
                 runner = new RealTimeRunner(delayMuS);
                 break;
             case STOPPED:
