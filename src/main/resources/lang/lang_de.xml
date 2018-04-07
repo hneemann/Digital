@@ -711,7 +711,8 @@
     <string name="elem_AsyncSeq">Asynchrones Timing</string>
     <string name="elem_AsyncSeq_tt">Erlaubt die Konfiguration des Timings eines asynchronen Automaten wie z.B einer
         Muller-Pipeline. Die Schaltung muss im Gatterschrittmodus gestartet werden und muss zunächst einen stabilen Zustand
-        einnehmen. Interaktiv kann dann der Automat gestartet werden.</string>
+        einnehmen. Interaktiv oder mit einem Reset-Element kann dann der Automat gestartet werden.
+        Die Taktelemente können in diesem Modus nicht verwendet werden.</string>
     <string name="elem_PowerSupply">Versorgung</string>
     <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen sind.
         Kann im Zusammenhang mit den 74xx Bausteinen verwendet werden, um Anschlüsse für die Spannungsversorgung
