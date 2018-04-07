@@ -892,6 +892,7 @@
     <string name="err_romNeedsALabelToBeExported">Every ROM needs a unique label to be exported!</string>
     <string name="err_counterNeedsMoreBits">The counter needs at least two bits.</string>
     <string name="err_namesAreNotUnique_N">The name "{0}" is  not unique!</string>
+    <string name="err_clocksNotAllowedInAsyncMode">Clock elements can not be used in asynchronous mode.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

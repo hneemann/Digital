@@ -74,6 +74,7 @@ public class Model implements Iterable<Node> {
     private HashSet<Node> oscillatingNodes;
     private boolean isInvalidSignal = false;
     private AsyncSeq asyncInfos;
+    private boolean asyncMode = false;
 
     private final ArrayList<ModelStateObserver> observers;
     private ArrayList<ModelStateObserver> observersStep;
@@ -94,6 +95,17 @@ public class Model implements Iterable<Node> {
         this.nodesToUpdateAct = new ArrayList<>();
         this.nodesToUpdateNext = new ArrayList<>();
         this.observers = new ArrayList<>();
+    }
+
+    /**
+     * Sets this model to async mode.
+     * Async mode means that the circuit is not able to reach a stable state once the reset gates are released.
+     *
+     * @return this for chained calls
+     */
+    public Model setAsyncMode() {
+        this.asyncMode = true;
+        return this;
     }
 
     /**
@@ -168,7 +180,8 @@ public class Model implements Iterable<Node> {
         if (!resets.isEmpty()) {
             for (Reset reset : resets)
                 reset.clearReset();
-            doStep(false);
+            if (!asyncMode)
+                doStep(false);
         }
         LOGGER.debug("stabilizing took " + version + " micro steps");
         state = State.RUNNING;
