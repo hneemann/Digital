@@ -1,7 +1,8 @@
 Release Notes
 
 HEAD, planned as v0.19
-- Added support for asynchronous sequential circuits such as the Muller pipeline.
+- Added support for asynchronous sequential circuits such as the Muller-pipeline.
+  Take a look at the new asynchronous examples for illustration.
 
 v0.18, released on 02. Apr 2018
 - Significant improvement in the quality of the generated vhdl code.
