@@ -226,13 +226,10 @@ public final class TableRow implements Comparable<TableRow> {
      * @return the matching literal or -1
      */
     public int checkCompatible(TableRow r2) {
-        if (optimizedFlags != r2.optimizedFlags)
+        if (optimizedFlags != r2.optimizedFlags || Long.bitCount(state ^ r2.state) != 1) {
             return -1;
-
-        long v = state ^ r2.state;
-        if (Long.bitCount(v) != 1)
-            return -1;
-
-        return Long.numberOfTrailingZeros(v);
+        } else {
+            return Long.numberOfTrailingZeros(v);
+        }
     }
 }
