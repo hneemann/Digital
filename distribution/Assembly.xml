@@ -55,14 +55,7 @@
             <directory>${basedir}/src/main/dig/sequential</directory>
             <outputDirectory>/examples/sequential/</outputDirectory>
             <includes>
-                <include>*.dig</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>${basedir}/src/main/dig/sequential/conway</directory>
-            <outputDirectory>/examples/sequential/conway/</outputDirectory>
-            <includes>
-                <include>*.dig</include>
+                <include>**/*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
@@ -100,13 +93,13 @@
                 <include>*.dig</include>
             </includes>
         </fileSet>
-        <fileSet>
+        <!--fileSet>
             <directory>${basedir}/src/main/dig/test</directory>
             <outputDirectory>/examples/test/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
-        </fileSet>
+        </fileSet-->
         <fileSet>
             <directory>${basedir}/src/main/dig/vhdl</directory>
             <outputDirectory>/examples/vhdl/</outputDirectory>
