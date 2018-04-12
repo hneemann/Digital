@@ -53,7 +53,20 @@ public class NodeException extends ExceptionWithOrigin {
      * @param values  the values affected by this exception
      */
     public NodeException(String message, Node node, int input, ImmutableList<ObservableValue> values) {
-        super(message);
+        this(message, node, input, values, null);
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param message the message
+     * @param node    the nod effected by tis exception
+     * @param input   the affected nodes input
+     * @param values  the values affected by this exception
+     * @param cause   the cause
+     */
+    public NodeException(String message, Node node, int input, ImmutableList<ObservableValue> values, Exception cause) {
+        super(message, cause);
         this.input = input;
         this.nodes = new ArrayList<>();
         if (node != null)

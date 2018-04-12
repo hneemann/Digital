@@ -136,9 +136,9 @@ public class TestExecuter {
     public void checkZ(Object... val) throws NodeException {
         for (int i = 0; i < inputs.size(); i++) {
             if (val[i] == HIGHZ)
-                inputs.get(i).set(0, true);
+                inputs.get(i).setToHighZ();
             else
-                inputs.get(i).set(((Number) val[i]).longValue(), false);
+                inputs.get(i).setValue(((Number) val[i]).longValue());
         }
         if (model != null)
             model.doStep();
@@ -158,7 +158,7 @@ public class TestExecuter {
 
     public void check(long... val) throws NodeException {
         for (int i = 0; i < inputs.size(); i++)
-            inputs.get(i).set(val[i], false);
+            inputs.get(i).setValue(val[i]);
         if (model != null)
             model.doStep();
 

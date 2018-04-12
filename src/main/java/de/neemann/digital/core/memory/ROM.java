@@ -61,7 +61,9 @@ public class ROM extends Node implements Element, ROMInterface {
      */
     public ROM(ElementAttributes attr) {
         dataBits = attr.get(Keys.BITS);
-        output = new ObservableValue("D", dataBits, true).setPinDescription(DESCRIPTION);
+        output = new ObservableValue("D", dataBits)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
         data = attr.get(Keys.DATA);
         addrBits = attr.get(Keys.ADDR_BITS);
         autoLoad = attr.get(Keys.AUTO_RELOAD_ROM);
@@ -92,7 +94,10 @@ public class ROM extends Node implements Element, ROMInterface {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.set(data.getDataWord(addr), !sel);
+        if (sel)
+            output.setValue(data.getDataWord(addr));
+        else
+            output.setToHighZ();
     }
 
     /**

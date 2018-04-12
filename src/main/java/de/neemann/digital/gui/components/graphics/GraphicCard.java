@@ -86,7 +86,8 @@ public class GraphicCard extends Node implements Element, RAMInterface {
         addrBits = aBits;
         memory = new DataField(size);
 
-        dataOut = new ObservableValue("D", bits, true)
+        dataOut = new ObservableValue("D", bits)
+                .setToHighZ()
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional();
     }
@@ -141,9 +142,9 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     @Override
     public void writeOutputs() throws NodeException {
         if (ld) {
-            dataOut.set(memory.getDataWord(addr), false);
+            dataOut.setValue(memory.getDataWord(addr));
         } else {
-            dataOut.set(0, true);
+            dataOut.setToHighZ();
         }
     }
 

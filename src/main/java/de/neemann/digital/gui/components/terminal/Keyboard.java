@@ -45,7 +45,9 @@ public class Keyboard extends Node implements Element {
      * @param attributes the attributes
      */
     public Keyboard(ElementAttributes attributes) {
-        data = new ObservableValue("D", 16, true).setPinDescription(DESCRIPTION);
+        data = new ObservableValue("D", 16)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
         label = attributes.getCleanLabel();
     }
 
@@ -74,7 +76,10 @@ public class Keyboard extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        data.set(keyData, !sel);
+        if (sel)
+            data.setValue(keyData);
+        else
+            data.setToHighZ();
     }
 
     private KeyboardDialog getKeyboard() {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="addr">Adresse</string>
-    <string name="name">Name</string>
     <string name="tableOfContent">Inhaltsverzeichnis</string>
     <string name="general">Allgemein</string>
     <string name="revision">Version</string>
@@ -134,6 +133,11 @@
         herzustellen. In diesem Fall ist der Anschluss bidirektional.
         Wird zudem verwendet, um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
     <string name="elem_In_pin_out">An diesem Ausgang wird der anliegende Wert ausgegeben.</string>
+
+    <string name="elem_DipSwitch">DIP-Schalter</string>
+    <string name="elem_DipSwitch_tt">Einfacher Schiebeschalter, der High oder Low ausgeben kann.</string>
+    <string name="elem_DipSwitch_pin_out">Der Ausgabewert des Schalters.</string>
+
     <string name="elem_Clock">Takteingang</string>
     <string name="elem_Clock_tt">Ein Taktsignal. Dieses Taktsignal kann über die Echtzeituhr gesteuert werden.
         Abhängig von der Komplexität der Schaltung kann die erreichte Taktfrequenz geringer sein als der vorgegebene
@@ -167,6 +171,13 @@
     </string>
     <string name="elem_LightBulb_pin_A">Anschluss</string>
     <string name="elem_LightBulb_pin_B">Anschluss</string>
+
+    <string name="elem_PolarityAwareLED">LED mit zwei Anschlüssen</string>
+    <string name="elem_PolarityAwareLED_tt">LED mit zwei Anschlüssen für die Kathode und die Anode. Die LED leuchtet
+        nur, wenn die Anode auf High und die Kathode auf Low gelegt wird.</string>
+    <string name="elem_PolarityAwareLED_pin_A">Die Anode der LED.</string>
+    <string name="elem_PolarityAwareLED_pin_C">Die Kathode der LED.</string>
+
     <string name="elem_Seven-Seg">Siebensegmentanzeige</string>
     <string name="elem_Seven-Seg_tt">Siebensegmentanzeige, bei der jedes Segment über einen eigenen Eingang gesteuert
         werden kann.</string>
@@ -183,6 +194,12 @@
     <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
     <string name="elem_Seven-Seg-Hex_pin_d">Der 4-Bit-Wert dieses Eingangs wird als Hex-Ziffer dargestellt.</string>
     <string name="elem_Seven-Seg-Hex_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+
+    <string name="elem_SixteenSeg">16-Segement Anzeige</string>
+    <string name="elem_SixteenSeg_tt">Der LED Eingang verfügt über 16 Bits welche die Segmente steuern. Der zweite Eingang steuert den Dezimalpunkt.</string>
+    <string name="elem_SixteenSeg_pin_led">Bus mit 16-Bits zur Ansteuerung der LEDs.</string>
+    <string name="elem_SixteenSeg_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+
     <string name="elem_LedMatrix">LED-Matrix</string>
     <string name="elem_LedMatrix_tt">Eine Matrix aus LEDs. Die LEDs werden in einem eigenen Fenster dargestellt.
         Die LEDs einer Spalte der Anzeige werden durch ein Datenwort gesteuert.
@@ -521,6 +538,19 @@
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
     <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
 
+    <string name="elem_CounterPreset">Zähler, beschreibbar</string>
+    <string name="elem_CounterPreset_tt">Zähler, dessen Wert gesetzt werden kann. Zudem kann ein Maximalwert und eine Zählrichtung vorgegeben werden.</string>
+    <string name="elem_CounterPreset_short">Zähler</string>
+    <string name="elem_CounterPreset_pin_out">Gibt den gezählten Wert aus.</string>
+    <string name="elem_CounterPreset_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, der 'en' Eingang auf 1 gesetzt ist
+        und wenn der Zähler beim Aufwärtszählen seinen Maximalwert erreicht, bzw. beim Abwärtszählen die 0 erreicht hat.</string>
+    <string name="elem_CounterPreset_pin_C">Eingang des Taktsignals.</string>
+    <string name="elem_CounterPreset_pin_clr">Setzt den Zähler synchron auf 0 zurück, wenn dieser Eingang auf 1 gesetzt wird.</string>
+    <string name="elem_CounterPreset_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
+    <string name="elem_CounterPreset_pin_dir">Gibt die Zählrichtung an. Eine 0 bedeutet aufwärts.</string>
+    <string name="elem_CounterPreset_pin_ld">Wenn gesetzt wird beim nächsten Taktsignal der Wert am Eingang 'in' in den Zähler übernommen.</string>
+    <string name="elem_CounterPreset_pin_in">Dieses Datenwort wird im Zähler gespeichert, wenn ld=1 gesetzt ist.</string>
+
 
 
     <!--Arithmetik -->
@@ -678,6 +708,11 @@
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
         dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.</string>
+    <string name="elem_AsyncSeq">Asynchrones Timing</string>
+    <string name="elem_AsyncSeq_tt">Erlaubt die Konfiguration des Timings eines asynchronen Automaten wie z.B einer
+        Muller-Pipeline. Die Schaltung muss im Gatterschrittmodus gestartet werden und muss zunächst einen stabilen Zustand
+        einnehmen. Interaktiv oder mit einem Reset-Element kann dann der Automat gestartet werden.
+        Die Taktelemente können in diesem Modus nicht verwendet werden.</string>
     <string name="elem_PowerSupply">Versorgung</string>
     <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen sind.
         Kann im Zusammenhang mit den 74xx Bausteinen verwendet werden, um Anschlüsse für die Spannungsversorgung
@@ -696,6 +731,12 @@
         Es kann dann ein Programm bis zum nächsten BRK-Befehl ausgeführt werden.
         Der schnelle Simulationslauf kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!</string>
 
+    <string name="elem_External">Extern</string>
+    <string name="elem_External_tt">Element zur Anbindung von externen Programmen zur Berechnung der Logik.
+        Wird verwendet, um das Verhalten eines Elements mit einer Hardwarebeschreibungssprache wie VHDL oder
+        Verilog zu beschreiben. Die eigentliche Simulation des Verhaltens muss mit einem externen Simulator erfolgen.
+        Zur Zeit wird nur der VHDL-Simulator ghdl unterstützt.
+    </string>
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Echt bidirektionale Diode.
@@ -746,7 +787,6 @@
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} von Element {1} wurde nicht gefunden</string>
     <string name="err_pin_N_notFound">Pin {0} wurde nicht gefunden.</string>
     <string name="err_pin_N_unknown">Pin {0} ist unbekannt</string>
-    <string name="err_readOfHighZ">Lesen einer hochohmigen Leitung</string>
     <string name="err_seemsToOscillate">Die Schaltung scheint zu oszillieren!
 Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>
     <string name="err_portIsInUse">Kann den Remote Port nicht öffnen! Läuft schon eine andere Instanz?</string>
@@ -774,8 +814,6 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_remoteExecution">Fehler beim Ausführen eines Befehls</string>
     <string name="err_pullUpAndDownNotAllowed">Es können nicht ein Pull-Up-Widerstand und ein Pull-Down-Widerstand auf eine Leitung geschaltet werden.</string>
     <string name="err_openingDocumentation">Browser konnte nicht geöffnet werden.</string>
-    <string name="err_splitterDoesNotSupportHighZInputs">Der Splitter unterstützt keine HighZ Eingänge! Verwenden Sie einen PullUp- oder PullDown-Widerstand</string>
-    <string name="err_splitterAllowsOnlyOneHighZInput">Ein Splitter, der hochohmige Eingänge erlaubt, kann nur einen Eingang haben!</string>
     <string name="err_couldNotCreateFolder_N0">Konnte den Order &quot;{0}&quot; nicht erzeugen!</string>
     <string name="err_switchHasNoNet">Ein Schalter kann nicht nur mit Eingängen verbunden werden.</string>
     <string name="err_file_N0_ExistsTwiceBelow_N1">Die Datei {0} existiert mehrfach unter {1}</string>
@@ -803,16 +841,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_errorInPowerSupply">Fehler in der Stromversorgung an {0}.</string>
     <string name="err_pinIsNotANumber_N">Die Pinnummer {0} ist keine Zahl!</string>
     <string name="err_vhdlExporting">Fehler beim Export zu VHDL.</string>
-    <string name="err_vhdlUnknownPortType_N">Unbekannter Porttyp.</string>
     <string name="err_vhdlNoEntity_N">Kein VHDL Code für {0} verfügbar!</string>
-    <string name="err_vhdlClockOnlyAllowedInRoot">Ein Taktelement ist nur im Hauptmodell erlaubt!</string>
-    <string name="err_vhdlNotAValidName">Der Name {0} ist nicht erlaubt!</string>
-    <string name="err_vhdlBitNumberNotAvailable">Kein Bitanzahl verfügbar!</string>
-    <string name="err_vhdlUnknownConstantType_N">Die Konstante hat einen ungültigen Typ {0}!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Der Pin {0} hat keine Nummer!</string>
     <string name="err_vhdlErrorWritingTestBench">Fehler beim erzeugen des Testfalls!</string>
-    <string name="err_vhdlRomHasNoValidLabel">Ein ROM hat einen ungültigen oder fehlenden Namen!</string>
-    <string name="err_vhdlRomLabel_N_notUnique">ROM Name {0} ist nicht eindeutig!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
     <string name="err_vhdlANameIsMissing">Es fehlt ein Name. Sind z.B. alle Pins benannt?</string>
     <string name="err_toManyVars">Zu viele Variablen!</string>
@@ -840,6 +871,34 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_monoflopRequiresOneClock">Wird ein Monoflop verwendet, muss es genau ein Taktelement geben!</string>
     <string name="err_couldNotCreateElement_N">Konnte kein Element vom Typ "{0}" erzeugen!</string>
     <string name="err_centralDefinedRomsAreNotSupported">Zentral definierte ROM-Inhalte werden nicht unterstützt!</string>
+    <string name="err_namesAreNotUnique_N">Der Name "{0}" ist nicht eindeutig!</string>
+
+    <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
+    <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>
+    <string name="err_errorCreatingProcess">Der externe Prozess konnte nicht gestartet werden!</string>
+    <string name="err_timeoutReadingData_O">Zeitüberschreitung beim Lesen von Daten!
+        {0}</string>
+    <string name="err_notEnoughDataReceived_O">Es wurden nicht genug Daten empfangen!
+        {0}</string>
+    <string name="err_invalidCharacterReceived_N_O">Der Prozess sendete ein ungültiges Zeichen: {0}!
+        {1}</string>
+    <string name="err_processTerminatedUnexpected_O">Der Prozess wurde unerwartet beendet!
+        {0}</string>
+    <string name="err_couldNotTerminateProcess">Der Prozess konnte nicht beendet werden!</string>
+    <string name="err_couldNotStartProcess_N">Prozess konnte nicht gestartet werden: {0}</string>
+    <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
+        {1}</string>
+    <string name="err_canOnlyExportExternalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein! Betrifft {0}</string>
+    <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
+        {0}</string>
+    <string name="err_ghdlNotInstalled">
+        Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
+    </string>
+    <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
+    <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
+    <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
+    <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1040,6 +1099,29 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_splitterSpreading_tt">Bestimmt die Spreizung der Ein- und Ausgänge in der Schaltung.</string>
     <string name="key_romContent">ROM Inhalte</string>
     <string name="key_romContent_tt">Inhalt aller ROM Bausteine</string>
+
+    <string name="key_applicationType">Anwendung</string>
+    <string name="key_applicationType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
+    <string name="key_applicationType_Generic">Generisch</string>
+    <string name="key_applicationType_GHDL">GHDL</string>
+    <string name="key_externalInputs">Eingänge</string>
+    <string name="key_externalInputs_tt">Die Eingänge des externen Prozesses. Es handelt sich um eine kommaseparierte
+        Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
+        Die Eingänge eines 8-Bit Addierers könnten also mit "a:8,b:8,c_in" beschrieben werden.</string>
+    <string name="key_externalOutputs">Ausgänge</string>
+    <string name="key_externalOutputs_tt">Die Ausgänge des externen Prozesses. Es handelt sich um eine kommaseparierte
+        Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
+        Die Ausgänge eines 8-Bit Addierers könnten also mit "s:8,c_out" beschrieben werden.</string>
+    <string name="key_Code">Programmcode</string>
+    <string name="key_Code_tt">Der Programmcode welcher ausgeführt werden soll.</string>
+    <string name="key_ghdlPath">GHDL</string>
+    <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
+        VHDL-Code verwendet werden soll.</string>
+    <string name="key_maxValue">Maximalwert</string>
+    <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits sind Eins).</string>
+
+    <string name="key_dipDefault">Ausgabe ist High</string>
+    <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters, wenn die Simulation gestartet wird.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1341,6 +1423,14 @@ Soll dennoch exportiert werden?</string>
         und analysiert werden. Aus nur einer Wahrheitstabelle kann keine Hardwarebeschreibung erzeugt werden.</string>
     <string name="msg_noData">keine Daten</string>
 
+    <string name="msg_errorClosingExternalProcess">Konnte externen Prozess nicht beenden!</string>
+    <string name="msg_checkResult">Ergebnis der Überprüfung:</string>
+    <string name="btn_checkCode">Prüfen</string>
+    <string name="btn_checkCode_tt">Startet die Anwendung um zu prüfen, ob der eingegebene Code korrekt ist. Falls das
+        nicht der Fall ist, wird die Fehlermeldung der externen Anwendung angezeigt. Wenn es möglich ist, werden zudem
+        die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
+    <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
+
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
@@ -1476,6 +1566,21 @@ loop(a,16)
              0    bits(4,a)        bits(4,b)        bits(5,a+b)
              1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
   end loop
+end loop
+</pre>
+
+<p>Unter Umständen ist die Erzeugung von Zufallszahlen in Testfällen hilfreich.
+Diese können mit der Funktion 'random([n])' erzeugt werden. Die erzeugte Zahl ist
+größer gleich Null und kleiner als [n]. Betrachtet man einen 16-Bit Multiplikator als Beispiel,
+kann kein vollständiger Test durchgeführt werden, da dieser 2^32 Eingangskombinationen hätte.
+Ein Regressionstest, welcher 100000 zufällige Zahlen multipliziert, könnte daher wie folgt aussehen:</p>
+
+<pre>
+   A    B      Y
+loop(i,100000)
+  let a = random(1&lt;&lt;16);
+  let b = random(1&lt;&lt;16);
+  (a)  (b)   (a*b)
 end loop
 </pre>
 

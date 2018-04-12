@@ -66,22 +66,22 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes/>
-      <pos x="80" y="200"/>
+      <pos x="80" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="60" y="260"/>
+      <pos x="60" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
       <elementAttributes/>
-      <pos x="120" y="200"/>
+      <pos x="120" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Button</elementName>
       <elementAttributes/>
-      <pos x="240" y="200"/>
+      <pos x="80" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Probe</elementName>
@@ -91,22 +91,22 @@
           <string>MW</string>
         </entry>
       </elementAttributes>
-      <pos x="220" y="260"/>
+      <pos x="120" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg</elementName>
       <elementAttributes/>
-      <pos x="300" y="160"/>
+      <pos x="240" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Seven-Seg-Hex</elementName>
       <elementAttributes/>
-      <pos x="400" y="160"/>
+      <pos x="340" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
       <elementAttributes/>
-      <pos x="500" y="160"/>
+      <pos x="520" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -406,7 +406,7 @@
     <visualElement>
       <elementName>RotEncoder</elementName>
       <elementAttributes/>
-      <pos x="780" y="180"/>
+      <pos x="760" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>RAMSinglePortSel</elementName>
@@ -431,7 +431,7 @@
     <visualElement>
       <elementName>LightBulb</elementName>
       <elementAttributes/>
-      <pos x="140" y="240"/>
+      <pos x="140" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>JK_FF_AS</elementName>
@@ -462,6 +462,16 @@
       <elementName>BusSplitter</elementName>
       <elementAttributes/>
       <pos x="140" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>SixteenSeg</elementName>
+      <elementAttributes/>
+      <pos x="440" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PolarityAwareLED</elementName>
+      <elementAttributes/>
+      <pos x="200" y="180"/>
     </visualElement>
   </visualElements>
   <wires/>

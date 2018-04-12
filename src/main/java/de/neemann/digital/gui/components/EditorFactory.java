@@ -7,19 +7,13 @@ package de.neemann.digital.gui.components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -42,8 +36,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.JTextComponent;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
@@ -60,28 +52,18 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.element.Rotation;
-import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.extern.Application;
+import de.neemann.digital.core.extern.PortDefinition;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.memory.rom.ROMManger;
-import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.graphics.GraphicSwing;
-import de.neemann.digital.draw.graphics.Orientation;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.graphics.svg.ImportSVG;
-import de.neemann.digital.draw.graphics.svg.SVGDrawable;
-import de.neemann.digital.draw.graphics.svg.SVGEllipse;
-import de.neemann.digital.draw.graphics.svg.SVGPseudoPin;
+import de.neemann.digital.draw.graphics.svg.CustomShapeEditor;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.draw.shapes.custom.CustomShape;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
@@ -126,6 +108,7 @@ public final class EditorFactory {
         add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
         add(ROMManger.class, ROMManagerEditor.class);
+        add(Application.Type.class, ApplicationTypeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -226,8 +209,18 @@ public final class EditorFactory {
 
         public StringEditor(String value, Key<String> key) {
             if (key instanceof Key.LongString) {
-                text = new JTextArea(6, 30);
-                compToAdd = new JScrollPane(text);
+                Key.LongString k = (Key.LongString) key;
+                text = new JTextArea(k.getRows(), k.getColumns());
+                final JScrollPane scrollPane = new JScrollPane(text);
+
+                if (k.getLineNumbers()) {
+                    final TextLineNumber textLineNumber = new TextLineNumber(text, 3);
+                    scrollPane.setRowHeaderView(textLineNumber);
+                    text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, Screen.getInstance().getFontSize()));
+                }
+
+                this.compToAdd = scrollPane;
+
                 setLabelAtTop(true);
             } else {
                 text = new JTextField(10);
@@ -244,6 +237,12 @@ public final class EditorFactory {
         @Override
         public String getValue() {
             return text.getText().trim();
+        }
+
+        @Override
+        public void setValue(String value) {
+            if (!text.getText().equals(value))
+                text.setText(value);
         }
 
         public JTextComponent getTextComponent() {
@@ -301,6 +300,11 @@ public final class EditorFactory {
 
             return value;
         }
+
+        @Override
+        public void setValue(Integer value) {
+            comboBox.setSelectedItem(value);
+        }
     }
 
     private final static class LongEditor extends LabelEditor<Long> {
@@ -335,6 +339,11 @@ public final class EditorFactory {
             }
             return value;
         }
+
+        @Override
+        public void setValue(Long value) {
+            comboBox.setSelectedItem(value.toString());
+        }
     }
 
     private final static class InValueEditor extends LabelEditor<InValue> {
@@ -362,6 +371,11 @@ public final class EditorFactory {
             } catch (Bits.NumberFormatException e) {
                 throw new EditorParseException(e);
             }
+        }
+
+        @Override
+        public void setValue(InValue value) {
+            comboBox.setSelectedItem(value.toString());
         }
     }
 
@@ -392,6 +406,11 @@ public final class EditorFactory {
 
         JCheckBox getCheckBox() {
             return bool;
+        }
+
+        @Override
+        public void setValue(Boolean value) {
+            bool.setEnabled(value);
         }
     }
 
@@ -432,289 +451,11 @@ public final class EditorFactory {
         public Color getValue() {
             return color;
         }
-    }
-
-    /**
-     * @author felix
-     */
-    private final static class CustomShapeEditor extends LabelEditor<CustomShapeDescription> {
-
-        private VPanel preview = new VPanel();
-        private ImportSVG importer;
-        private CustomShapeDescription svg;
-        private JDialog dialog;
-        private JPanel panel = new JPanel(new FlowLayout());
-
-        public CustomShapeEditor(CustomShapeDescription customShapeDescription, Key<DataField> key) {
-            this.svg = customShapeDescription;
-            dialog = new JDialog(getAttributeDialog(), Lang.get("btn_load"), ModalityType.APPLICATION_MODAL);
-            dialog.setLayout(new BorderLayout());
-            dialog.add(preview, BorderLayout.CENTER);
-            dialog.add(new ToolTipAction(Lang.get("btn_load")) {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JFileChooser fc = new MyFileChooser();
-                    fc.setFileFilter(new FileNameExtensionFilter("SVG", "svg"));
-                    if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
-                        try {
-                            importer = new ImportSVG(fc.getSelectedFile());
-                            svg = importer.getSVG();
-                            preview.initPins();
-                            preview.repaint();
-                        } catch (Exception ex) {
-                            new ErrorMessage("Beim Öffnen der SVG Datei ist ein Fehler aufgetreten (constStr)")
-                                    .addCause(ex).show(panel);
-                            ex.printStackTrace();
-                        }
-                    }
-                }
-
-            }.createJButton(), BorderLayout.NORTH);
-            dialog.add(new ToolTipAction(Lang.get("ok")) {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    dialog.dispose();
-                }
-            }.createJButton(), BorderLayout.SOUTH);
-            dialog.setSize(new Dimension(300, 300));
-            dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        }
 
         @Override
-        public JComponent getComponent(ElementAttributes attr) {
-            panel.add(new ToolTipAction(Lang.get("btn_clearData")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    svg = CustomShapeDescription.EMPTY;
-                }
-            }.createJButton());
-            panel.add(new ToolTipAction(Lang.get("btn_load")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // customShapeDescription=CustomShapeDescription.createDummy();
-                    dialog.setVisible(true);
-                }
-            }.createJButton());
-            return panel;
-        }
-
-        private final class VPanel extends JPanel {
-            private double scale = 2.0;
-            private double translateX = 10;
-            private double translateY = 10;
-            private int lastPinX = 0;
-            private int lastPinY = 0;
-            private ArrayList<SVGPseudoPin> pins = new ArrayList<SVGPseudoPin>();
-            private boolean drag = false;
-            private int dragged;
-
-            public void initPins() {
-                pins = new ArrayList<SVGPseudoPin>();
-                if (svg != null) {
-                    for (SVGPseudoPin p : svg.getPinNames()) {
-                        if (!isPinPresent(p.getLabel()))
-                            pins.add(p);
-                    }
-                }
-                if (getAttributeDialog() != null) {
-                    Window p = getAttributeDialog().getDialogParent();
-                    if (p instanceof Main) {
-                        Circuit c = ((Main) p).getCircuitComponent().getCircuit();
-                        for (VisualElement ve : c.getElements()) {
-                            if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
-                                String label = ve.getElementAttributes().getLabel();
-                                addPin(true, label);
-                            } else if (ve.equalsDescription(Out.DESCRIPTION)) {
-                                String label = ve.getElementAttributes().getLabel();
-                                addPin(false, label);
-                            }
-                        }
-                    }
-                }
-            }
-
-            /**
-             * Adds a new Pin
-             * @param input
-             *            Input or output
-             */
-            private void addPin(boolean input, String label) {
-                if (!isPinPresent(label)) {
-                    svg = svg.addPin(label, new Vector(lastPinX, lastPinY), input);
-                    while (isPinOnPosition(new Vector(lastPinX, lastPinY)) > 0) {
-                        lastPinY += 20;
-                    }
-                    SVGPseudoPin pseudoPin = new SVGPseudoPin(new Vector(lastPinX, lastPinY), label, input, null);
-                    pins.add(pseudoPin);
-                    lastPinX += 20;
-                    if (lastPinX > 150) {
-                        lastPinX = 0;
-                        lastPinY += 20;
-                    }
-                }
-                repaint();
-            }
-
-            /**
-             * Counts the Pins on Position pos
-             * @param pos
-             *            Position
-             * @return Number of Pins on this Position
-             */
-            private int isPinOnPosition(Vector pos) {
-                int ret = 0;
-                for (SVGPseudoPin p : pins) {
-                    if (p.getPos().equals(pos))
-                        ret++;
-                }
-                return ret;
-            }
-
-            /**
-             * Checks, if a Pin is already on stage
-             * @param label
-             *            Name of the Pin
-             * @return true or false
-             */
-            private boolean isPinPresent(String label) {
-                for (SVGPseudoPin pin : pins) {
-                    if (pin.getLabel().equals(label)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            /**
-             * Sets the fragments for displaying
-             * @param fragments
-             *            parts of the svg
-             */
-            public VPanel() {
-                lastPinX = 0;
-                lastPinY = 0;
-                scale = 2.0;
-                translateX = 10;
-                translateY = 10;
-                this.addMouseListener(new MouseListener() {
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                        if (drag) {
-                            Vector fresh = new Vector((int) (e.getX() / scale - translateX),
-                                    (int) (e.getY() / scale - translateY));
-                            pins.get(dragged).setPos(fresh);
-                            repaint();
-                            try {
-                                svg = svg.transformPin(fresh, pins.get(dragged).getLabel());
-                            } catch (PinException e1) {
-                                e1.printStackTrace();
-                            }
-                        }
-                        drag = false;
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        drag = false;
-                        for (int i = 0; i < pins.size(); i++) {
-                            if (pins.get(i).contains((int) (e.getX() / scale - translateX),
-                                    (int) (e.getY() / scale - translateY))) {
-                                drag = true;
-                                dragged = i;
-                                break;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                    }
-                });
-                this.addMouseMotionListener(new MouseMotionListener() {
-
-                    @Override
-                    public void mouseMoved(MouseEvent e) {
-                    }
-
-                    @Override
-                    public void mouseDragged(MouseEvent e) {
-                        if (drag) {
-                            pins.get(dragged).setPos(new Vector((int) (e.getX() / scale - translateX),
-                                    (int) (e.getY() / scale - translateY)));
-                            repaint();
-                        }
-                    }
-                });
-                this.addMouseWheelListener(new MouseWheelListener() {
-
-                    @Override
-                    public void mouseWheelMoved(MouseWheelEvent e) {
-                        scale = scale - 0.1 * e.getWheelRotation();
-                        repaint();
-                    }
-                });
-                initPins();
-                repaint();
-            }
-
-            @Override
-            public void paint(Graphics g) {
-                super.paint(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.scale(scale, scale);
-                g2d.translate(translateX, translateY);
-                GraphicSwing graphic = new GraphicSwing(g2d);
-                try {
-                    new CustomShape(svg, null, null).drawTo(graphic, null);
-                } catch (PinException e1) {
-                    e1.printStackTrace();
-                }
-                for (SVGPseudoPin p : pins) {
-                    if (p != null) {
-                        for (SVGDrawable d : p.getDrawables()) {
-                            d.draw(graphic);
-                            SVGEllipse e = (SVGEllipse) d;
-                            graphic.drawText(e.getPos(), e.getPos(), "(" + p.getLabel() + ")",
-                                    p.isInput() ? Orientation.RIGHTTOP : Orientation.LEFTTOP,
-                                    Style.NORMAL.deriveFontStyle(12, true)
-                                            .deriveFillStyle(p.isInput() ? Color.blue : Color.red));
-                        }
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
-                AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
-            super.addToPanel(panel, key, elementAttributes, attributeDialog, constraints);
-            // if (svg.isSet()) {
-            // try {
-            // ImportSVG importer = new ImportSVG(svg, null, null);
-            // preview.setSVG(importer.getFragments());
-            // } catch (NoParsableSVGException e1) {
-            // new ErrorMessage("Beim Öffnen der SVG Datei ist ein Fehler aufgetreten
-            // (constStr)").addCause(e1)
-            // .show(panel);
-            // e1.printStackTrace();
-            // }
-            // }
-        }
-
-        @Override
-        public CustomShapeDescription getValue() {
-            return svg;
+        public void setValue(Color value) {
+            this.color = value;
+            button.setBackground(color);
         }
     }
 
@@ -754,6 +495,11 @@ public final class EditorFactory {
         @Override
         public File getValue() {
             return new File(textField.getText());
+        }
+
+        @Override
+        public void setValue(File value) {
+            textField.setText(value.getPath());
         }
     }
 
@@ -819,6 +565,11 @@ public final class EditorFactory {
         public DataField getValue() {
             return data.getMinimized();
         }
+
+        @Override
+        public void setValue(DataField value) {
+            this.data = value;
+        }
     }
 
     private final static class RotationEditor extends LabelEditor<Rotation> {
@@ -841,6 +592,11 @@ public final class EditorFactory {
         @Override
         public Rotation getValue() {
             return new Rotation(comb.getSelectedIndex());
+        }
+
+        @Override
+        public void setValue(Rotation value) {
+            comb.setSelectedIndex(value.getRotation());
         }
     }
 
@@ -868,6 +624,11 @@ public final class EditorFactory {
         public E getValue() {
             return values[comboBox.getSelectedIndex()];
         }
+
+        @Override
+        public void setValue(E value) {
+            comboBox.setSelectedIndex(value.ordinal());
+        }
     }
 
     private static final class IntFormatsEditor extends EnumEditor<IntFormat> {
@@ -885,6 +646,79 @@ public final class EditorFactory {
     private static final class LeftRightFormatsEditor extends EnumEditor<LeftRightFormat> {
         public LeftRightFormatsEditor(LeftRightFormat value, Key<LeftRightFormat> key) {
             super(value, key);
+        }
+    }
+
+    private static final class ApplicationTypeEditor extends EnumEditor<Application.Type> {
+        private final Key<Application.Type> key;
+        private JComboBox combo;
+        private JButton checkButton;
+
+        public ApplicationTypeEditor(Application.Type value, Key<Application.Type> key) {
+            super(value, key);
+            this.key = key;
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            combo = (JComboBox) super.getComponent(elementAttributes);
+            checkButton = new ToolTipAction(Lang.get("btn_checkCode")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    int n = combo.getSelectedIndex();
+                    if (n >= 0) {
+                        Application.Type appType = Application.Type.values()[n];
+                        Application app = Application.create(appType);
+                        if (app != null) {
+                            try {
+                                getAttributeDialog().storeEditedValues();
+                                if (app.ensureConsistency(elementAttributes))
+                                    getAttributeDialog().updateEditedValues();
+
+                                PortDefinition ins = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_INPUTS));
+                                PortDefinition outs = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
+                                String label = elementAttributes.getCleanLabel();
+                                String code = elementAttributes.get(Keys.EXTERNAL_CODE);
+
+                                try {
+                                    String message = app.checkCode(label, code, ins, outs);
+                                    if (message != null)
+                                        new ErrorMessage(Lang.get("msg_checkResult") + "\n\n" + message).show(getAttributeDialog());
+                                } catch (IOException e) {
+                                    new ErrorMessage(Lang.get("msg_checkResult")).addCause(e).show(getAttributeDialog());
+                                }
+                            } catch (EditorParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }.setToolTip(Lang.get("btn_checkCode_tt")).createJButton();
+            combo.addActionListener(new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    enableButton();
+                }
+            });
+
+
+            JPanel p = new JPanel(new BorderLayout());
+            p.add(combo);
+            p.add(checkButton, BorderLayout.EAST);
+
+            enableButton();
+
+            return p;
+        }
+
+        void enableButton() {
+            int n = combo.getSelectedIndex();
+            if (n >= 0) {
+                Application.Type appType = Application.Type.values()[n];
+                Application app = Application.create(appType);
+                if (app != null)
+                    checkButton.setEnabled(app.checkSupported());
+            }
         }
     }
 
@@ -907,6 +741,11 @@ public final class EditorFactory {
         public Language getValue() {
             return (Language) comb.getSelectedItem();
         }
+
+        @Override
+        public void setValue(Language value) {
+            comb.setSelectedItem(value);
+        }
     }
 
     private static class FormatEditor extends LabelEditor<FormatToExpression> {
@@ -926,6 +765,11 @@ public final class EditorFactory {
         @Override
         public FormatToExpression getValue() {
             return (FormatToExpression) comb.getSelectedItem();
+        }
+
+        @Override
+        public void setValue(FormatToExpression value) {
+            comb.setSelectedItem(value);
         }
     }
 
@@ -978,6 +822,12 @@ public final class EditorFactory {
         protected JComponent getComponent(ElementAttributes elementAttributes) {
             this.elementAttributes = elementAttributes;
             return button;
+        }
+
+        @Override
+        public void setValue(InverterConfig value) {
+            inverterConfig = value;
+            button.setText(getButtonText());
         }
     }
 
@@ -1052,10 +902,16 @@ public final class EditorFactory {
                             CircuitComponent circuitComponent = main.getCircuitComponent();
                             Model model = new ModelCreator(circuitComponent.getCircuit(), circuitComponent.getLibrary())
                                     .createModel(false);
-
-                            romEditorDialog = new ROMEditorDialog(getAttributeDialog(), model, romManager);
-                            if (romEditorDialog.showDialog())
-                                romManager = romEditorDialog.getROMManager();
+                            try {
+                                romEditorDialog = new ROMEditorDialog(
+                                        getAttributeDialog(),
+                                        model,
+                                        romManager);
+                                if (romEditorDialog.showDialog())
+                                    romManager = romEditorDialog.getROMManager();
+                            } finally {
+                                model.close();
+                            }
                         } catch (ElementNotFoundException | PinException | NodeException e) {
                             new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).show(getAttributeDialog());
                         }
@@ -1072,6 +928,11 @@ public final class EditorFactory {
         @Override
         public ROMManger getValue() {
             return romManager;
+        }
+
+        @Override
+        public void setValue(ROMManger value) {
+            romManager = value;
         }
     }
 }

@@ -47,6 +47,16 @@ public class Out implements Element {
             .addAttribute(Keys.COLOR);
 
     /**
+     * The polarity aware LED description
+     */
+    public static final ElementTypeDescription POLARITYAWARELEDDESCRIPTION
+            = new ElementTypeDescription("PolarityAwareLED",
+            attributes -> new Out(1, 1), input("A"), input("C"))
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.COLOR);
+
+    /**
      * The seven segment display description
      */
     public static final ElementTypeDescription SEVENDESCRIPTION = new SevenSegTypeDescription();
@@ -57,6 +67,14 @@ public class Out implements Element {
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> new Out(4, 1), input("d"), input("dp"))
+            .addAttribute(Keys.COLOR);
+
+    /**
+     * Sixteen Segment Display
+     */
+    public static final ElementTypeDescription SIXTEENDESCRIPTION
+            = new ElementTypeDescription("SixteenSeg",
+            attributes -> new Out(16, 1), input("led"), input("dp"))
             .addAttribute(Keys.COLOR);
 
     private final int[] bits;

@@ -46,7 +46,7 @@ public final class SingleBusHandler extends AbstractBusHandler {
     }
 
     @Override
-    public void set(long value, boolean highz) {
+    public void set(long value, long highz) {
         output.set(value, highz);
     }
 

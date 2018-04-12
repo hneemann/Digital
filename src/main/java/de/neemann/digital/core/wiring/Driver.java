@@ -45,7 +45,9 @@ public class Driver extends Node implements Element {
      */
     public Driver(ElementAttributes attributes) {
         bits = attributes.get(Keys.BITS);
-        output = new ObservableValue("out", bits, true).setPinDescription(DESCRIPTION);
+        output = new ObservableValue("out", bits)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
     }
 
     @Override
@@ -56,7 +58,10 @@ public class Driver extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        output.set(value, isOutHigh(sel));
+        if (isOutHighZ(sel))
+            output.setToHighZ();
+        else
+            output.setValue(value);
     }
 
     /**
@@ -65,7 +70,7 @@ public class Driver extends Node implements Element {
      * @param sel the selected input
      * @return the highZ state
      */
-    protected boolean isOutHigh(boolean sel) {
+    protected boolean isOutHighZ(boolean sel) {
         return !sel;
     }
 

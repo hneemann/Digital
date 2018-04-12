@@ -92,13 +92,16 @@ public final class ShapeFactory {
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(LightBulb.DESCRIPTION.getName(), LightBulbShape::new);
+        map.put(Out.POLARITYAWARELEDDESCRIPTION.getName(), PolarityAwareLEDShape::new);
         map.put(Button.DESCRIPTION.getName(), ButtonShape::new);
         map.put(Probe.DESCRIPTION.getName(), ProbeShape::new);
         map.put(Clock.DESCRIPTION.getName(), ClockShape::new);
         map.put(Out.SEVENDESCRIPTION.getName(), SevenSegShape::new);
         map.put(Out.SEVENHEXDESCRIPTION.getName(), SevenSegHexShape::new);
+        map.put(Out.SIXTEENDESCRIPTION.getName(), SixteenShape::new);
         map.put(DummyElement.DATADESCRIPTION.getName(), DataShape::new);
         map.put(RotEncoder.DESCRIPTION.getName(), RotEncoderShape::new);
+        map.put(DipSwitch.DESCRIPTION.getName(), DipSwitchShape::new);
 
         map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
         map.put(Fuse.DESCRIPTION.getName(), FuseShape::new);
@@ -133,6 +136,7 @@ public final class ShapeFactory {
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
         map.put(TestCaseElement.TESTCASEDESCRIPTION.getName(), TestCaseShape::new);
+        map.put(AsyncSeq.DESCRIPTION.getName(), AsyncClockShape::new);
 
         map.put(Diode.DESCRIPTION.getName(), DiodeShape::new);
         map.put(DiodeForward.DESCRIPTION.getName(), DiodeForewardShape::new);
@@ -192,7 +196,8 @@ public final class ShapeFactory {
                                 pt.getInputDescription(elementAttributes),
                                 pt.getOutputDescriptions(elementAttributes),
                                 elementAttributes.getLabel(),
-                                true)
+                                true,
+                                elementAttributes.get(Keys.WIDTH))
                                 .setInverterConfig(elementAttributes.get(Keys.INVERTER_CONFIG));
                     }
                 }

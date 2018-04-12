@@ -205,6 +205,16 @@ public class AttributeDialog extends JDialog {
     }
 
     /**
+     * update gui fields with attributes
+     *
+     * @throws Editor.EditorParseException Editor.EditorParseException
+     */
+    public void updateEditedValues() throws Editor.EditorParseException {
+        for (EditorHolder e : editors)
+            e.getFrom(modifiedAttributes);
+    }
+
+    /**
      * Shows the dialog
      *
      * @return the new attributes of null if nothing has changed
@@ -281,6 +291,11 @@ public class AttributeDialog extends JDialog {
         public void setTo(ElementAttributes attr) throws Editor.EditorParseException {
             T value = e.getValue();
             attr.set(key, value);
+        }
+
+        public void getFrom(ElementAttributes attr) throws Editor.EditorParseException {
+            T value = attr.get(key);
+            e.setValue(value);
         }
 
         void setDependantEditor(Editor editor, boolean inverted) {

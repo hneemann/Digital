@@ -1,0 +1,16 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+entity DIG_Mul is
+  generic ( Bits: integer ); <? vhdl.registerGeneric("Bits");?>
+  port (
+    a: in std_logic_vector ((Bits-1) downto 0);
+    b: in std_logic_vector ((Bits-1) downto 0);
+    mul: out std_logic_vector ((Bits*2-1) downto 0) );
+end DIG_Mul;
+
+architecture Behavioral of DIG_Mul is
+begin
+    mul <= std_logic_vector(unsigned(a) * unsigned(b));
+end Behavioral;

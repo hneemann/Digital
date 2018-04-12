@@ -1,0 +1,50 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+use IEEE.NUMERIC_STD.ALL;
+<?
+    if (elem.Label="")
+        panic("err_romNeedsALabelToBeExported");
+
+    entityName:="DIG_ROM_"+elem.Label;
+?>
+entity <?=entityName?> is
+  port (
+    D: out <?= vhdl.type(elem.Bits)?>;
+    A: in <?= vhdl.type(elem.AddrBits)?>;
+    sel: in std_logic );
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+  type mem is array ( 0 to <?=sizeOf(elem.Data)-1?>) of <?= vhdl.type(elem.Bits)?>;
+  constant my_Rom : mem := (
+    <?
+
+    len:=sizeOf(elem.Data);
+    maxCol:=76/(elem.Bits+4);
+
+    col:=0;
+    for (i:=0;i<len;i++) {
+        print( vhdl.value(elem.Data[i],elem.Bits));
+        if (i<len-1) {
+            print(", ");
+        }
+        col++;
+        if (col=maxCol) {
+          col=0;
+          print("\n    ");
+        }
+    }
+
+  ?>);
+begin
+  process (A, sel)
+  begin
+    if sel='0' then
+      D <= <? if (elem.Bits>1) {?>(others => 'Z')<? } else {?>'Z'<? } ?>;
+    elsif A > <?= vhdl.value(sizeOf(elem.Data)-1,elem.AddrBits)?> then
+      D <= <?= vhdl.zero(elem.Bits)?>;
+    else
+      D <= my_rom(to_integer(unsigned(A)));
+    end if;
+  end process;
+end Behavioral;

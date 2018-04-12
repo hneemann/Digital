@@ -11,6 +11,7 @@ import de.neemann.digital.core.basic.And;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.ROM;
@@ -43,6 +44,7 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -621,13 +623,7 @@ public class TestInGUI extends TestCase {
         new GuiTester("dig/manualError/13_singleValueDialog.dig")
                 .press("SPACE")
                 .delay(500)
-                .add(new GuiTester.WindowCheck<>(Main.class, (guiTester, main) -> {
-                    final CircuitComponent cc = main.getCircuitComponent();
-                    Vector p = cc.getCircuit().getElements().get(0).getPos();
-                    Point sp = cc.transform(p.add(-SIZE, 0));
-                    SwingUtilities.convertPointToScreen(sp, cc);
-                    guiTester.getRobot().mouseMove(sp.x, sp.y);
-                }))
+                .add(new SetMouseToElement(v -> v.equalsDescription(In.DESCRIPTION)))
 
                 .mouseClick(InputEvent.BUTTON1_MASK)
                 .delay(500)
@@ -811,6 +807,30 @@ public class TestInGUI extends TestCase {
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
+
+    public void testGhdlCheckCode() {
+        new GuiTester("dig/external/ghdl/ghdl.dig")
+                .add(new SetMouseToElement(v -> v.equalsDescription(External.DESCRIPTION)))
+                .mouseClick(InputEvent.BUTTON3_MASK)
+                .delay(500)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_checkCode"))))
+                .press("SPACE")
+                .delay(1000)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class, c -> c instanceof JTextArea))
+                .delay(100)
+                .type("\b")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_checkCode"))))
+                .press("SPACE")
+                .delay(1000)
+                .add(new GuiTester.WindowCheck<>(ErrorMessage.ErrorDialog.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
 
     public static class CheckErrorDialog extends GuiTester.WindowCheck<ErrorMessage.ErrorDialog> {
         private final String[] expected;

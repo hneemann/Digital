@@ -214,6 +214,9 @@ public class Value {
      * @param ov the ObservableValue to update
      */
     public void copyTo(ObservableValue ov) {
-        ov.set(value, isHighZ());
+        if (isHighZ())
+            ov.setToHighZ();
+        else
+            ov.setValue(value);
     }
 }

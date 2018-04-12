@@ -29,7 +29,9 @@ public final class CommonBusValue extends ObservableValue implements NodeInterfa
     }
 
     CommonBusValue(int bits, BusModelStateObserver obs, PullResistor resistor, ObservableValue[] inputs, File origin) {
-        super("commonBusOut", bits, resistor.equals(PullResistor.none));
+        super("commonBusOut", bits);
+        if (resistor.equals(PullResistor.none))
+            setToHighZ();
         this.obs = obs;
         this.resistor = resistor;
         this.inputs = inputs;
@@ -83,19 +85,6 @@ public final class CommonBusValue extends ObservableValue implements NodeInterfa
             if (i.isConstant())
                 return i;
         return null;
-    }
-
-    /**
-     * Checks if this net is always defined.
-     * This means it can never be in a high z state.
-     *
-     * @return true if this net is always defined
-     */
-    public boolean isAlwaysDefined() {
-        for (ObservableValue i : inputs)
-            if (!i.supportsHighZ())
-                return true;
-        return false;
     }
 
     @Override

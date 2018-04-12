@@ -117,7 +117,7 @@ zusammen mit Bit 8 des Befehlswortes)</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -177,7 +177,7 @@ zusammen mit Bit 8 des Befehlswortes)</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -203,16 +203,6 @@ zusammen mit Bit 8 des Befehlswortes)</string>
         </entry>
       </elementAttributes>
       <pos x="500" y="360"/>
-    </visualElement>
-    <visualElement>
-      <elementName>PullDown</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="220" y="440"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -315,10 +305,6 @@ zusammen mit Bit 8 des Befehlswortes)</string>
     <wire>
       <p1 x="220" y="140"/>
       <p2 x="220" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="420"/>
-      <p2 x="220" y="440"/>
     </wire>
     <wire>
       <p1 x="220" y="340"/>

@@ -25,12 +25,22 @@
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="260" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>NFET</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>unidirectional</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="300" y="160"/>
     </visualElement>
     <visualElement>

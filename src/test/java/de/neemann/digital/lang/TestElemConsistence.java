@@ -8,6 +8,7 @@ package de.neemann.digital.lang;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.basic.FanIn;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
@@ -66,6 +67,7 @@ public class TestElemConsistence extends TestCase {
                 || e instanceof PriorityEncoder
                 || e instanceof Splitter
                 || e instanceof BusSplitter
+                || e instanceof External
                 || e instanceof LookUpTable);
     }
 

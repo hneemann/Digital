@@ -1,0 +1,32 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+entity DIG_RegisterFile is
+  generic (
+    Bits : integer;       <? vhdl.registerGeneric("Bits");?>
+    AddrBits : integer ); <? vhdl.registerGeneric("AddrBits");?>
+  port (
+    Da: out std_logic_vector ((Bits-1) downto 0);
+    Db: out std_logic_vector ((Bits-1) downto 0);
+    Din: in std_logic_vector ((Bits-1) downto 0);
+    we: in std_logic;
+    Rw: in std_logic_vector ((AddrBits-1) downto 0);
+    C: in std_logic;
+    Ra: in std_logic_vector ((AddrBits-1) downto 0);
+    Rb: in std_logic_vector ((AddrBits-1) downto 0) );
+end DIG_RegisterFile;
+
+architecture Behavioral of DIG_RegisterFile is
+    type memoryType is array(0 to (2**AddrBits)-1) of STD_LOGIC_VECTOR((Bits-1) downto 0);
+    signal memory : memoryType;
+begin
+  process ( C )
+  begin
+    if rising_edge(C) AND (we='1') then
+      memory(to_integer(unsigned(Rw))) <= Din;
+    end if;
+  end process;
+  Da <= memory(to_integer(unsigned(Ra)));
+  Db <= memory(to_integer(unsigned(Rb)));
+end Behavioral;

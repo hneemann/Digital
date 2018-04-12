@@ -36,7 +36,7 @@ public class DriverInvSel extends Driver {
     }
 
     @Override
-    protected boolean isOutHigh(boolean sel) {
+    protected boolean isOutHighZ(boolean sel) {
         return sel;
     }
 }

@@ -47,13 +47,15 @@ public class BusSplitter extends Node implements Element {
     public BusSplitter(ElementAttributes attr) {
         ObservableValues.Builder builder = new ObservableValues.Builder();
         bits = attr.getBits();
-        commonOut = new ObservableValue("D", bits, true)
+        commonOut = new ObservableValue("D", bits)
+                .setToHighZ()
                 .setBidirectional()
                 .setPinDescription(DESCRIPTION);
         builder.add(commonOut);
         out = new ObservableValue[bits];
         for (int i = 0; i < bits; i++) {
-            out[i] = new ObservableValue("D" + i, 1, true)
+            out[i] = new ObservableValue("D" + i, 1)
+                    .setToHighZ()
                     .setBidirectional()
                     .setDescription(Lang.get("elem_BusSplitter_pin_D_N", i));
             builder.add(out[i]);
@@ -89,7 +91,7 @@ public class BusSplitter extends Node implements Element {
     @Override
     public void writeOutputs() throws NodeException {
         if (oe) {
-            commonOut.set(0, true);
+            commonOut.setToHighZ();
             long mask = 1;
             for (int i = 0; i < bits; i++) {
                 out[i].setBool((commonD & mask) != 0);
@@ -97,8 +99,8 @@ public class BusSplitter extends Node implements Element {
             }
         } else {
             for (int i = 0; i < bits; i++)
-                out[i].set(0, true);
-            commonOut.set(commonD, false);
+                out[i].setToHighZ();
+            commonOut.setValue(commonD);
         }
     }
 

@@ -5,7 +5,7 @@
  */
 package de.neemann.digital.draw.graphics.svg;
 
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorInterface;
 
 /**
  * Interface of all representations of SVG-Elements
@@ -31,5 +31,5 @@ public interface SVGFragment {
      * Gets the Pos-Vector
      * @return Position
      */
-    Vector getPos();
+    VectorInterface getPos();
 }

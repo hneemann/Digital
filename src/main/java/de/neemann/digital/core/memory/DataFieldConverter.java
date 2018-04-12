@@ -12,6 +12,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import de.neemann.digital.core.Bits;
 
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -70,14 +71,14 @@ public class DataFieldConverter implements Converter {
             try {
                 // new type
                 int size = Integer.parseInt(reader.getAttribute("size"));
-                DataField df = new DataField(size);
+                long[] data = new long[size];
                 StringTokenizer st = new StringTokenizer(reader.getValue(), ",");
                 int i = 0;
                 while (st.hasMoreTokens()) {
-                    df.setData(i, Bits.decode(st.nextToken().trim(), 0, 16));
+                    data[i] = Bits.decode(st.nextToken().trim(), 0, 16);
                     i++;
                 }
-                return df;
+                return new DataField(Arrays.copyOf(data, i), size);
             } catch (Bits.NumberFormatException e) {
                 throw new RuntimeException(e);
             }

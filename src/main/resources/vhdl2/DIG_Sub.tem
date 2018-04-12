@@ -1,0 +1,22 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_unsigned.all;
+
+entity DIG_Sub is
+  generic ( Bits: integer ); <? vhdl.registerGeneric("Bits");?>
+  port (
+    s: out std_logic_vector((Bits-1) downto 0);
+    c_o: out std_logic;
+    a: in std_logic_vector((Bits-1) downto 0);
+    b: in std_logic_vector((Bits-1) downto 0);
+    c_i: in std_logic );
+end DIG_Sub;
+
+architecture Behavioral of DIG_Sub is
+   signal temp : std_logic_vector(Bits downto 0);
+begin
+   temp <= ('0' & a) - b - c_i;
+
+   s    <= temp((Bits-1) downto 0);
+   c_o  <= temp(Bits);
+end Behavioral;

@@ -66,7 +66,10 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
         size = 1 << addrBits;
         memory = createDataField(attr, size);
         label = attr.getCleanLabel();
-        dataOut = new ObservableValue("D", bits, true).setPinDescription(DESCRIPTION).setBidirectional();
+        dataOut = new ObservableValue("D", bits)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION)
+                .setBidirectional();
     }
 
     /**
@@ -107,9 +110,9 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     @Override
     public void writeOutputs() throws NodeException {
         if (cs && oe) {
-            dataOut.set(memory.getDataWord(addr), false);
+            dataOut.setValue(memory.getDataWord(addr));
         } else {
-            dataOut.set(0, true);
+            dataOut.setToHighZ();
         }
     }
 

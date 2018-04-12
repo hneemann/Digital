@@ -71,4 +71,8 @@ public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCas
 
         return panel;
     }
+
+    @Override
+    public void setValue(TestCaseDescription value) {
+    }
 }

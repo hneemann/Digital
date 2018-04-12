@@ -9,11 +9,21 @@ package de.neemann.digital.draw.graphics;
  * A simple transformation to a given vector
  */
 public interface Transform {
+
     /**
-     * Transforms a vector
+     * Transforms an integer vector
      *
      * @param v the vector to transform
      * @return the transformed vector
      */
     Vector transform(Vector v);
+
+    /**
+     * Transforms an float vector
+     *
+     * @param v the vector to transform
+     * @return the transformed vector
+     */
+    VectorFloat transform(VectorFloat v);
+
 }

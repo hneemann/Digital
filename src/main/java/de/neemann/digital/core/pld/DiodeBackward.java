@@ -38,7 +38,7 @@ public class DiodeBackward extends DiodeForward {
 
     @Override
     protected void setOutValue(ObservableValue output, boolean in) {
-        output.set(in ? 1 : 0, in);
+        output.set(in ? 1 : 0, in ? 1 : 0);
     }
 
 }

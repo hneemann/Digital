@@ -52,11 +52,15 @@ public class In implements Element {
      */
     public In(ElementAttributes attributes) {
         InValue value = attributes.get(Keys.INPUT_DEFAULT);
-        boolean highZ = attributes.get(Keys.IS_HIGH_Z) || value.isHighZ();
         pinNumber = attributes.get(Keys.PINNUMBER);
-        output = new ObservableValue("out", attributes.get(Keys.BITS), highZ).setPinDescription(DESCRIPTION).setPinNumber(pinNumber);
-        output.set(value.getValue(), value.isHighZ());
-        if (highZ) output.setBidirectional();
+        output = new ObservableValue("out", attributes.get(Keys.BITS))
+                .setPinDescription(DESCRIPTION)
+                .setPinNumber(pinNumber);
+        boolean highZ = attributes.get(Keys.IS_HIGH_Z) || value.isHighZ();
+        if (highZ)
+            output.setToHighZ().setBidirectional();
+        else
+            output.setValue(value.getValue());
         label = attributes.getCleanLabel();
         format = attributes.get(Keys.INT_FORMAT);
     }

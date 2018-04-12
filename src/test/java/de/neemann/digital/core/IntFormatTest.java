@@ -10,28 +10,28 @@ import junit.framework.TestCase;
 public class IntFormatTest extends TestCase {
 
     public void testHex() throws Exception {
-        assertEquals("1", IntFormat.hex.formatToView(new Value(1, 1)));
-        assertEquals("1", IntFormat.hex.formatToView(new Value(1, 2)));
-        assertEquals("1", IntFormat.hex.formatToView(new Value(1, 3)));
-        assertEquals("1", IntFormat.hex.formatToView(new Value(1, 4)));
-        assertEquals("F", IntFormat.hex.formatToView(new Value(-1, 4)));
-        assertEquals("01", IntFormat.hex.formatToView(new Value(1, 5)));
-        assertEquals("1F", IntFormat.hex.formatToView(new Value(-1, 5)));
-        assertEquals("FFF", IntFormat.hex.formatToView(new Value(-1, 12)));
-        assertEquals("1FFF", IntFormat.hex.formatToView(new Value(-1, 13)));
-        assertEquals("3FFF", IntFormat.hex.formatToView(new Value(-1, 14)));
-        assertEquals("7FFF", IntFormat.hex.formatToView(new Value(-1, 15)));
-        assertEquals("FFFF", IntFormat.hex.formatToView(new Value(-1, 16)));
-        assertEquals("FEDCBA9876543210", IntFormat.hex.formatToView(new Value(0xFEDCBA9876543210L, 64)));
+        assertEquals("0x1", IntFormat.hex.formatToView(new Value(1, 1)));
+        assertEquals("0x1", IntFormat.hex.formatToView(new Value(1, 2)));
+        assertEquals("0x1", IntFormat.hex.formatToView(new Value(1, 3)));
+        assertEquals("0x1", IntFormat.hex.formatToView(new Value(1, 4)));
+        assertEquals("0xF", IntFormat.hex.formatToView(new Value(-1, 4)));
+        assertEquals("0x01", IntFormat.hex.formatToView(new Value(1, 5)));
+        assertEquals("0x1F", IntFormat.hex.formatToView(new Value(-1, 5)));
+        assertEquals("0xFFF", IntFormat.hex.formatToView(new Value(-1, 12)));
+        assertEquals("0x1FFF", IntFormat.hex.formatToView(new Value(-1, 13)));
+        assertEquals("0x3FFF", IntFormat.hex.formatToView(new Value(-1, 14)));
+        assertEquals("0x7FFF", IntFormat.hex.formatToView(new Value(-1, 15)));
+        assertEquals("0xFFFF", IntFormat.hex.formatToView(new Value(-1, 16)));
+        assertEquals("0xFEDCBA9876543210", IntFormat.hex.formatToView(new Value(0xFEDCBA9876543210L, 64)));
     }
 
     public void testBin() {
-        assertEquals("1", IntFormat.bin.formatToView(new Value(1, 1)));
-        assertEquals("01", IntFormat.bin.formatToView(new Value(1, 2)));
-        assertEquals("001", IntFormat.bin.formatToView(new Value(1, 3)));
-        assertEquals("111", IntFormat.bin.formatToView(new Value(-1, 3)));
-        assertEquals("1111111111111111111111111111111111111111111111111111111111111111", IntFormat.bin.formatToView(new Value(-1, 64)));
-        assertEquals("1000111111111111111111111111111111111111111111111111111111111111", IntFormat.bin.formatToView(new Value(0x8fffffffffffffffL, 64)));
+        assertEquals("0b1", IntFormat.bin.formatToView(new Value(1, 1)));
+        assertEquals("0b01", IntFormat.bin.formatToView(new Value(1, 2)));
+        assertEquals("0b001", IntFormat.bin.formatToView(new Value(1, 3)));
+        assertEquals("0b111", IntFormat.bin.formatToView(new Value(-1, 3)));
+        assertEquals("0b1111111111111111111111111111111111111111111111111111111111111111", IntFormat.bin.formatToView(new Value(-1, 64)));
+        assertEquals("0b1000111111111111111111111111111111111111111111111111111111111111", IntFormat.bin.formatToView(new Value(0x8fffffffffffffffL, 64)));
     }
 
     public void testDec() throws Exception {

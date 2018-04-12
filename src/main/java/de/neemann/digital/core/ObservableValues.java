@@ -139,4 +139,17 @@ public class ObservableValues extends ImmutableList<ObservableValue> {
         return names;
     }
 
+    /**
+     * Returns the {@link ObservableValue} with the given name.
+     *
+     * @param name the name
+     * @return the {@link ObservableValue} of null if not found
+     */
+    public ObservableValue get(String name) {
+        for (ObservableValue o : this)
+            if (o.getName().equalsIgnoreCase(name))
+                return o;
+        return null;
+    }
+
 }

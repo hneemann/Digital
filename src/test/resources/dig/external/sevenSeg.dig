@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>External</elementName>
+      <elementAttributes>
+        <entry>
+          <string>applicationType</string>
+          <appType>GHDL</appType>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>sevenSeg</string>
+        </entry>
+        <entry>
+          <string>externalParameters</string>
+          <string>/home/hneemann/temp/Digital/go/go</string>
+        </entry>
+        <entry>
+          <string>processType</string>
+          <appType>GHDL</appType>
+        </entry>
+        <entry>
+          <string>externalInputs</string>
+          <string>d:4</string>
+        </entry>
+        <entry>
+          <string>externalOutputs</string>
+          <string>led:7</string>
+        </entry>
+        <entry>
+          <string>Code</string>
+          <string>LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+entity sevenSeg is
+  port (
+    d  : in  std_logic_vector(3 downto 0);
+    led: out std_logic_vector(6 downto 0) 
+  );
+end sevenSeg;
+
+architecture Behavioral of sevenSeg is
+begin
+  led &lt;= &quot;1111110&quot; when d=&quot;0000&quot; else -- &quot;0&quot;     
+         &quot;0110000&quot; when d=&quot;0001&quot; else -- &quot;1&quot; 
+         &quot;1101101&quot; when d=&quot;0010&quot; else -- &quot;2&quot; 
+         &quot;1111001&quot; when d=&quot;0011&quot; else -- &quot;3&quot; 
+         &quot;0110011&quot; when d=&quot;0100&quot; else -- &quot;4&quot; 
+         &quot;1011011&quot; when d=&quot;0101&quot; else -- &quot;5&quot; 
+         &quot;1011111&quot; when d=&quot;0110&quot; else -- &quot;6&quot; 
+         &quot;1110000&quot; when d=&quot;0111&quot; else -- &quot;7&quot; 
+         &quot;1111111&quot; when d=&quot;1000&quot; else -- &quot;8&quot;     
+         &quot;1111011&quot; when d=&quot;1001&quot; else -- &quot;9&quot; 
+         &quot;1110111&quot; when d=&quot;1010&quot; else -- &quot;A&quot;
+         &quot;0011111&quot; when d=&quot;1011&quot; else -- &quot;b&quot;
+         &quot;1001110&quot; when d=&quot;1100&quot; else -- &quot;C&quot;
+         &quot;0111101&quot; when d=&quot;1101&quot; else -- &quot;d&quot;
+         &quot;1001111&quot; when d=&quot;1110&quot; else -- &quot;E&quot;
+         &quot;1000111&quot; when d=&quot;1111&quot; else -- &quot;F&quot;
+         &quot;0000000&quot;; -- off
+end Behavioral;</string>
+        </entry>
+        <entry>
+          <string>Width</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>7</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>3-3,4-4,5-5,6-6,2-2,1-1,0-0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg</elementName>
+      <elementAttributes/>
+      <pos x="460" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="520" y="300"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="380" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="320"/>
+      <p2 x="480" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="100"/>
+      <p2 x="480" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="260"/>
+      <p2 x="380" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="200"/>
+      <p2 x="420" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="140"/>
+      <p2 x="360" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="140"/>
+      <p2 x="200" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="140"/>
+      <p2 x="320" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="300"/>
+      <p2 x="460" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="80"/>
+      <p2 x="500" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="240"/>
+      <p2 x="400" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="180"/>
+      <p2 x="400" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="340"/>
+      <p2 x="500" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="120"/>
+      <p2 x="460" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="60"/>
+      <p2 x="520" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="220"/>
+      <p2 x="420" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="100"/>
+      <p2 x="400" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="240"/>
+      <p2 x="400" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="100"/>
+      <p2 x="480" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="280"/>
+      <p2 x="480" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="120"/>
+      <p2 x="420" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="220"/>
+      <p2 x="420" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="80"/>
+      <p2 x="500" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="280"/>
+      <p2 x="500" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="60"/>
+      <p2 x="360" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="60"/>
+      <p2 x="520" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="280"/>
+      <p2 x="520" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="120"/>
+      <p2 x="460" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="280"/>
+      <p2 x="460" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="80"/>
+      <p2 x="380" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="260"/>
+      <p2 x="380" y="340"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

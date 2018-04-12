@@ -78,7 +78,7 @@ public final class ConnectedBusHandler extends AbstractBusHandler {
     }
 
     @Override
-    public void set(long value, boolean highz) {
+    public void set(long value, long highz) {
         for (ObservableValue val : values)
             val.set(value, highz);
     }

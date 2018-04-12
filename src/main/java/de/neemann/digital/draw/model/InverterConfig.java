@@ -59,10 +59,10 @@ public class InverterConfig {
         orig.addObserver(new NodeWithoutDelay(out) {
             @Override
             public void hasChanged() {
-                out.set(~orig.getValue(), orig.isHighZ());
+                out.set(~orig.getValue(), orig.getHighZ());
             }
         });
-        out.set(~orig.getValue(), orig.isHighZ());
+        out.set(~orig.getValue(), orig.getHighZ());
         return out;
     }
 

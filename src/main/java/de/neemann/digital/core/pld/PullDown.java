@@ -57,7 +57,8 @@ public class PullDown implements Element {
         private final PullResistor res;
 
         PullObservableValue(int bits, PullResistor res) {
-            super("out", bits, true);
+            super("out", bits);
+            setToHighZ();
             this.res = res;
         }
 

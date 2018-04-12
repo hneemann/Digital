@@ -13,6 +13,7 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
@@ -90,6 +91,7 @@ public class Circuit {
         xStream.addImplicitCollection(InverterConfig.class, "inputs");
         xStream.alias("storedRoms", ROMManger.class);
         xStream.addImplicitCollection(ROMManger.class, "roms");
+        xStream.alias("appType", Application.Type.class);
         xStream.ignoreUnknownElements();
         return xStream;
     }

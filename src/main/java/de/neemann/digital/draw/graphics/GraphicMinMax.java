@@ -57,7 +57,7 @@ public class GraphicMinMax implements Graphic {
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
-        for (Vector v : p)
+        for (VectorInterface v : p)
             check(v);
     }
 
@@ -72,10 +72,10 @@ public class GraphicMinMax implements Graphic {
      *
      * @param p the point to check
      */
-    public void check(Vector p) {
+    public void check(VectorInterface p) {
         if (min == null || max == null) {
-            min = new Vector(p.x, p.y);
-            max = new Vector(p.x, p.y);
+            min = new Vector(p.getX(), p.getY());
+            max = new Vector(p.getX(), p.getY());
         } else {
             min = Vector.min(min, p);
             max = Vector.max(max, p);

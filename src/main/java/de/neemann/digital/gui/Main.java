@@ -15,6 +15,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.gif.GifExporter;
@@ -22,6 +23,7 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.model.AsyncSequentialClock;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -46,7 +48,7 @@ import de.neemann.digital.gui.sync.LockSync;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.vhdl.VHDLGenerator;
+import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
@@ -544,7 +546,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
                 // check model for errors
                 try {
-                    new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
+                    new ModelCreator(circuitComponent.getCircuit(), library).createModel(false).close();
                 } catch (PinException | NodeException | ElementNotFoundException e) {
                     showErrorWithoutARunningModel(Lang.get("msg_modelHasErrors"), e);
                     return;
@@ -924,14 +926,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-                    model.setWindowPosManager(windowPosManager);
-                    SpeedTest speedTest = new SpeedTest(model);
-                    String frequency = format.format(speedTest.calculate() / 1000);
-                    circuitComponent.getCircuit().clearState();
-                    SwingUtilities.invokeLater(() -> {
-                        windowPosManager.closeAll();
-                        JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
-                    });
+                    try {
+                        model.setWindowPosManager(windowPosManager);
+                        SpeedTest speedTest = new SpeedTest(model);
+                        String frequency = format.format(speedTest.calculate() / 1000);
+                        circuitComponent.getCircuit().clearState();
+                        SwingUtilities.invokeLater(() -> {
+                            windowPosManager.closeAll();
+                            JOptionPane.showMessageDialog(Main.this, Lang.get("msg_frequency_N", frequency));
+                        });
+                    } finally {
+                        model.close();
+                    }
                 } catch (Exception e1) {
                     showErrorWithoutARunningModel(Lang.get("msg_speedTestError"), e1);
                 }
@@ -1036,17 +1042,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-
-                    if (model.isInvalidSignal())
-                        new ErrorMessage(Lang.get("msg_invalidSignalsAnalysed")).show(Main.this);
-                    else
-                        new TableDialog(Main.this,
-                                new ModelAnalyser(model).analyse(),
-                                library,
-                                shapeFactory,
-                                getBaseFileName())
-                                .setVisible(true);
-                    ensureModelIsStopped();
+                    try {
+                        if (model.isInvalidSignal())
+                            new ErrorMessage(Lang.get("msg_invalidSignalsAnalysed")).show(Main.this);
+                        else
+                            new TableDialog(Main.this,
+                                    new ModelAnalyser(model).analyse(),
+                                    library,
+                                    shapeFactory,
+                                    getBaseFileName())
+                                    .setVisible(true);
+                        ensureModelIsStopped();
+                    } finally {
+                        model.close();
+                    }
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | BacktrackException | RuntimeException e1) {
                     showErrorWithoutARunningModel(Lang.get("msg_analyseErr"), e1);
                 }
@@ -1081,16 +1090,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private void orderMeasurements() {
         try {
             Model m = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
-            ensureModelIsStopped();
-            ArrayList<String> names = new ArrayList<>();
-            for (Signal s : m.getSignals())
-                names.add(s.getName());
-            new OrderMerger<String, String>(circuitComponent.getCircuit().getMeasurementOrdering()).order(names);
-            ElementOrderer.ListOrder<String> o = new ElementOrderer.ListOrder<>(names);
-            if (new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o)
-                    .addOkButton()
-                    .showDialog()) {
-                circuitComponent.modify(new ModifyMeasurementOrdering(names));
+            try {
+                ensureModelIsStopped();
+                ArrayList<String> names = new ArrayList<>();
+                for (Signal s : m.getSignals())
+                    names.add(s.getName());
+                new OrderMerger<String, String>(circuitComponent.getCircuit().getMeasurementOrdering()).order(names);
+                ElementOrderer.ListOrder<String> o = new ElementOrderer.ListOrder<>(names);
+                if (new ElementOrderer<>(Main.this, Lang.get("menu_orderMeasurements"), o)
+                        .addOkButton()
+                        .showDialog()) {
+                    circuitComponent.modify(new ModifyMeasurementOrdering(names));
+                }
+            } finally {
+                m.close();
             }
         } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
             showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
@@ -1177,6 +1190,23 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (threadRunnerCount > 1)
                     throw new RuntimeException(Lang.get("err_moreThanOneFastClock"));
             }
+            if (!realTimeClockRunning && updateEvent == ModelEvent.MICROSTEP) {
+                // no real clock
+                AsyncSeq ai = model.getAsyncInfos();
+                if (ai != null && ai.getFrequency() > 0) {
+
+                    if (!model.getClocks().isEmpty())
+                        throw new RuntimeException(Lang.get("err_clocksNotAllowedInAsyncMode"));
+
+                    modelSync = new LockSync();
+                    model.addObserver(
+                            new AsyncSequentialClock(model, ai, timerExecutor, this, modelSync));
+                    realTimeClockRunning = true;
+                    model.setAsyncMode();
+                }
+            }
+
+
             if (modelSync == null)
                 modelSync = NoSync.INST;
 
@@ -1210,9 +1240,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             return true;
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
-            if (model != null)
+            if (model != null) {
+                if (modelSync == null)
+                    modelSync = NoSync.INST;
                 showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
-            else
+            } else
                 showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
@@ -1418,10 +1450,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void hasChanged() {
-            modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+            if (!realTimeClockRunning)
+                modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             model.fireManualChangeEvent();
             circuitComponent.repaintNeeded();
-            doStep.setEnabled(model.needsUpdate());
+            if (!realTimeClockRunning)
+                doStep.setEnabled(model.needsUpdate());
         }
     }
 

@@ -17,12 +17,12 @@ public class ParserExpressionTest extends TestCase {
     public void testParseExpression() throws Exception {
         assertEquals(7, new Parser("2+5").getValue());
         assertEquals(7, new Parser("9-2").getValue());
-        assertEquals(6, new Parser("2*n").getValue(new ContextWithVar("n").setValue(3)));
-        assertEquals(7, new Parser("2*n+1").getValue(new ContextWithVar("n").setValue(3)));
-        assertEquals(7, new Parser("1+2*n").getValue(new ContextWithVar("n").setValue(3)));
-        assertEquals(8, new Parser("2*(1+n)").getValue(new ContextWithVar("n").setValue(3)));
-        assertEquals(4, new Parser("2*(n-1)").getValue(new ContextWithVar("n").setValue(3)));
-        assertEquals(2, new Parser("(2*n)/3").getValue(new ContextWithVar("n").setValue(3)));
+        assertEquals(6, new Parser("2*n").getValue(new Context().setVar("n", 3)));
+        assertEquals(7, new Parser("2*n+1").getValue(new Context().setVar("n", 3)));
+        assertEquals(7, new Parser("1+2*n").getValue(new Context().setVar("n", 3)));
+        assertEquals(8, new Parser("2*(1+n)").getValue(new Context().setVar("n", 3)));
+        assertEquals(4, new Parser("2*(n-1)").getValue(new Context().setVar("n", 3)));
+        assertEquals(2, new Parser("(2*n)/3").getValue(new Context().setVar("n", 3)));
         assertEquals(-1, new Parser("-1").getValue());
         assertEquals(-2, new Parser("-1-1").getValue());
 
@@ -47,12 +47,15 @@ public class ParserExpressionTest extends TestCase {
 
         assertEquals(-1, new Parser("~0").getValue());
 
-        assertEquals(1, new Parser("(n>>8)*(n&255)").getValue(new ContextWithVar("n").setValue(257)));
+        assertEquals(1, new Parser("(n>>8)*(n&255)").getValue(new Context().setVar("n", 257)));
 
         assertEquals(0x11, new Parser("0x10+1").getValue());
         assertEquals(0b11, new Parser("0b10+1").getValue());
 
-        assertEquals(6, new Parser("a*b").getValue(new ContextWithVar(new ContextWithVar("a").setValue(2), "b").setValue(3)));
+        assertEquals(6, new Parser("a*b").getValue(
+                new Context()
+                        .setVar("a", 2)
+                        .setVar("b", 3)));
 
         assertEquals(-1, new Parser("signExt(4,15)").getValue());
         assertEquals(-2, new Parser("signExt(4,14)").getValue());
@@ -72,7 +75,7 @@ public class ParserExpressionTest extends TestCase {
 
     public void testInvalidExpressionClose() throws IOException {
         try {
-            new Parser("n*3)").getValue(new ContextWithVar("n").setValue(2));
+            new Parser("n*3)").getValue(new Context().setVar("n", 2));
             fail();
         } catch (ParserException e) {
             assertTrue(true);

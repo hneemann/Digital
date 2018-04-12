@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * The {@link AbstractBusHandler} calculates the state of a net with given inputs and pull resistors.
- * After the calculation of the state the method {@link AbstractBusHandler#set(long, boolean)} is called
+ * After the calculation of the state the method {@link AbstractBusHandler#set(long, long)} is called
  * to propagate the actual state.
  */
 public abstract class AbstractBusHandler {
@@ -57,7 +57,7 @@ public abstract class AbstractBusHandler {
      * @param value the value
      * @param highz the highz state
      */
-    public abstract void set(long value, boolean highz);
+    public abstract void set(long value, long highz);
 
     /**
      * Returns all connected observable values
@@ -69,40 +69,38 @@ public abstract class AbstractBusHandler {
 
     /**
      * recalculates the state of the net
-     * Also calls {@link AbstractBusHandler#set(long, boolean)} with the new value.
+     * Also calls {@link AbstractBusHandler#set(long, long)} with the new value.
      */
     void recalculate() {
         long value = 0;
         burn = State.ok;
         if (getResistor().equals(PinDescription.PullResistor.both)) {
             burn = State.both;
-            set(0, true);
+            set(0, -1);
         } else {
-            boolean highz = true;
+            long highz = -1;
             for (ObservableValue input : getInputs()) {
-                if (!input.isHighZ()) {
-                    if (highz) {
-                        highz = false;
-                        value = input.getValue();
-                    } else {
-                        if (value != input.getValue())
-                            burn = State.burn;
-                    }
-                }
+                highz &= input.getHighZ();
+                value |= input.getValue();
             }
-            if (highz) {
-                switch (getResistor()) {
-                    case pullUp:
-                        set(-1, false);
-                        break;
-                    case pullDown:
-                        set(0, false);
-                        break;
-                    default:
-                        set(value, true);
-                }
-            } else
-                set(value, false);
+
+            // check for a burn condition!
+            for (ObservableValue input : getInputs()) {
+                long bothDefine = ~(highz | input.getHighZ());
+                if ((value & bothDefine) != (input.getValue() & bothDefine))
+                    burn = State.burn;
+            }
+
+            switch (getResistor()) {
+                case pullUp:
+                    set(value | highz, 0);
+                    break;
+                case pullDown:
+                    set(value, 0);
+                    break;
+                default:
+                    set(value, highz);
+            }
         }
 
         // if burn condition and not yet added for post step check add for post step check

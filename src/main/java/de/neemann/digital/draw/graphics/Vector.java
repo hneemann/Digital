@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represents a 2D Vector
  */
-public class Vector {
+public class Vector implements VectorInterface {
 
     /**
      * the x coordinate
@@ -62,12 +62,12 @@ public class Vector {
      * @param p the vectors to evaluate
      * @return the minimum
      */
-    public static Vector min(Vector... p) {
-        int x = p[0].x;
-        int y = p[0].y;
+    public static Vector min(VectorInterface... p) {
+        int x = p[0].getX();
+        int y = p[0].getY();
         for (int i = 1; i < p.length; i++) {
-            if (p[i].x < x) x = p[i].x;
-            if (p[i].y < y) y = p[i].y;
+            if (p[i].getX() < x) x = p[i].getX();
+            if (p[i].getY() < y) y = p[i].getY();
         }
         return new Vector(x, y);
     }
@@ -78,12 +78,12 @@ public class Vector {
      * @param p the vectors to evaluate
      * @return the maximum
      */
-    public static Vector max(Vector... p) {
-        int x = p[0].x;
-        int y = p[0].y;
+    public static Vector max(VectorInterface... p) {
+        int x = p[0].getX();
+        int y = p[0].getY();
         for (int i = 1; i < p.length; i++) {
-            if (p[i].x > x) x = p[i].x;
-            if (p[i].y > y) y = p[i].y;
+            if (p[i].getX() > x) x = p[i].getX();
+            if (p[i].getY() > y) y = p[i].getY();
         }
         return new Vector(x, y);
     }
@@ -198,8 +198,7 @@ public class Vector {
 
         Vector vector = (Vector) o;
 
-        if (x != vector.x) return false;
-        return y == vector.y;
+        return x == vector.x && y == vector.y;
 
     }
 
@@ -225,4 +224,28 @@ public class Vector {
         return new Vector(Math.round(x * 128 / l), Math.round(y * 128 / l));
     }
 
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public float getXFloat() {
+        return x;
+    }
+
+    @Override
+    public float getYFloat() {
+        return y;
+    }
+
+    @Override
+    public VectorInterface transform(Transform tr) {
+        return tr.transform(this);
+    }
 }
