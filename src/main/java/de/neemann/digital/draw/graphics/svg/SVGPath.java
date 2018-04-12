@@ -327,6 +327,9 @@ public class SVGPath implements SVGFragment, SVGDrawable {
 
 	@Override
 	public SVGDrawable[] getDrawables() {
+		for (VectorFloat v : corners) {
+			System.out.println(v.getXFloat() + " " + v.getYFloat());
+		}
 		return new SVGDrawable[] { this };
 	}
 
