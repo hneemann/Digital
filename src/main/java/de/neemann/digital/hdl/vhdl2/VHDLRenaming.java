@@ -56,6 +56,8 @@ public class VHDLRenaming implements HDLModel.Renaming {
                 sb.append(c);
             else {
                 switch (c) {
+                    case '/':
+                    case '!':
                     case '~':
                     case '\u00AC':
                         sb.append("not");

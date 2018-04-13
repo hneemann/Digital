@@ -5,10 +5,12 @@
  */
 package de.neemann.digital.hdl.model2;
 
+import de.neemann.digital.core.ExceptionWithOrigin;
+
 /**
  * Exception thrown during model building
  */
-public class HDLException extends Exception {
+public class HDLException extends ExceptionWithOrigin {
     /**
      * Creates a new instance
      *

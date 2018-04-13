@@ -34,6 +34,7 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -46,6 +47,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     private final ArrayList<HDLPort> inputs;
     private final ArrayList<HDLNet> listOfNets;
     private final String description;
+    private final File origin;
     private ArrayList<HDLPort> ports;
     private NetList netList;
     private ArrayList<HDLNode> nodes;
@@ -93,6 +95,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         listOfNets = new ArrayList<>();
         netList = new NetList(circuit);
         description = circuit.getAttributes().get(Keys.DESCRIPTION);
+        this.origin = circuit.getOrigin();
 
         ArrayList<ClockInfo> clocks = new ArrayList<>();
 
@@ -410,20 +413,25 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      * @throws HDLException HDLException
      */
     public void rename(HDLModel.Renaming renaming) throws HDLException {
-        for (HDLPort p : outputs)
-            p.rename(renaming);
-        for (HDLPort p : inputs)
-            p.rename(renaming);
-        for (HDLNet p : listOfNets)
-            p.rename(renaming);
+        try {
+            for (HDLPort p : outputs)
+                p.rename(renaming);
+            for (HDLPort p : inputs)
+                p.rename(renaming);
+            for (HDLNet p : listOfNets)
+                p.rename(renaming);
 
-        for (HDLNode n : nodes)
-            n.rename(renaming);
+            for (HDLNode n : nodes)
+                n.rename(renaming);
 
-        hdlEntityName = renaming.checkName(hdlEntityName);
+            hdlEntityName = renaming.checkName(hdlEntityName);
 
-        checkUnique(getPorts());
-        checkUnique(listOfNets);
+            checkUnique(getPorts());
+            checkUnique(listOfNets);
+        } catch (HDLException e) {
+            e.setOrigin(origin);
+            throw e;
+        }
     }
 
     private void checkUnique(Collection<? extends HasName> names) throws HDLException {
@@ -498,7 +506,12 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      * @throws HDLException HDLException
      */
     public HDLCircuit apply(Optimization optimization) throws HDLException {
-        optimization.optimize(this);
+        try {
+            optimization.optimize(this);
+        } catch (HDLException e) {
+            e.setOrigin(origin);
+            throw e;
+        }
         return this;
     }
 
