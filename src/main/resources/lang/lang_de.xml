@@ -1240,7 +1240,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_exportHex">Erzeuge HEX</string>
     <string name="menu_table_exportHex_tt">Die HEX-Datei kann in ein ROM oder eine LUT geladen werden.</string>
     <string name="menu_table_new">Neu</string>
-    <string name="menu_table_new_combinatorial">Kombintorisch</string>
+    <string name="menu_table_new_combinatorial">Kombinatorisch</string>
     <string name="menu_table_new_sequential">Automat</string>
     <string name="menu_table_new_sequential_bidir">Automat bidirektional</string>
     <string name="menu_table_columns">Spalten</string>
