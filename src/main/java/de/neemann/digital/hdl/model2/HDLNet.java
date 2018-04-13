@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * A net can have only one input and several outputs.
  */
 public class HDLNet implements Printable, HasName {
+    private final boolean userNamed;
     private String name;
     private ArrayList<HDLPort> inputs;
     private HDLPort output;
@@ -30,6 +31,14 @@ public class HDLNet implements Printable, HasName {
     public HDLNet(String name) {
         this.name = name;
         inputs = new ArrayList<>();
+        userNamed = name != null;
+    }
+
+    /**
+     * @return true if this net is named by a tunnel
+     */
+    public boolean isUserNamed() {
+        return userNamed;
     }
 
     /**

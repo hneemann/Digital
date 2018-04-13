@@ -36,7 +36,7 @@ public class VHDLSimulatorTest extends TestCase {
 
     /*
     public void testDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "/dig/hdl/adder4b.dig");
+        File file = new File(Resources.getRoot(), "dig/hdl/model2/naming2.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
@@ -59,7 +59,7 @@ public class VHDLSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(44, tested);
+            assertEquals(45, tested);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }

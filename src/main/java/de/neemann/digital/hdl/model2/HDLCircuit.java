@@ -545,6 +545,13 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     }
 
     /**
+     * @return the origin of this HDLCircuit
+     */
+    public File getOrigin() {
+        return origin;
+    }
+
+    /**
      * The net naming algorithm
      */
     public interface NetNaming {
