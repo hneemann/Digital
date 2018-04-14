@@ -26,7 +26,7 @@ public class HDLModelTest extends TestCase {
 
     public void testSimple() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb.dig", null)
-                .apply(new MergeAssignements())
+                .apply(new MergeAssignments())
                 .apply(new NodeSorterExpressionBased())
                 .nameUnnamedSignals();
 
@@ -215,7 +215,7 @@ public class HDLModelTest extends TestCase {
 
     public void testConstantMerge() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/constMerge.dig", null)
-                .apply(new MergeAssignements())
+                .apply(new MergeAssignments())
                 .apply(new MergeConstants())
                 .apply(new NameConstantSignals())
                 .apply(new NodeSorterExpressionBased())
@@ -292,7 +292,7 @@ public class HDLModelTest extends TestCase {
     public void testSplitter3() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter3.dig", null)
                 .apply(new ReplaceOneToMany())
-                .apply(new MergeAssignements())
+                .apply(new MergeAssignments())
                 .apply(new NodeSorterExpressionBased())
                 .nameUnnamedSignals();
 
@@ -323,7 +323,7 @@ public class HDLModelTest extends TestCase {
     public void testSplitter4() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter4.dig", null)
                 .apply(new ReplaceOneToMany())
-                .apply(new MergeAssignements())
+                .apply(new MergeAssignments())
                 .apply(new NodeSorterExpressionBased())
                 .nameUnnamedSignals();
 

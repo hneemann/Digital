@@ -14,7 +14,6 @@ import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
-import de.neemann.digital.hdl.model2.optimizations.MergeAssignements;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.hdl.vhdl2.boards.ClockIntegratorARTIX7;
