@@ -84,7 +84,7 @@ public class Polygon implements Iterable<VectorInterface> {
      * @param p  the end point to add
      * @return this for chained calls
      */
-    public Polygon add(Vector c1, Vector c2, Vector p) {
+    public Polygon add(VectorInterface c1, VectorInterface c2, VectorInterface p) {
         isBezierStart.add(points.size());
         points.add(c1);
         points.add(c2);

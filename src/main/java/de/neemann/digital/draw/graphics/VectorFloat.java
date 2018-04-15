@@ -52,6 +52,16 @@ public class VectorFloat implements VectorInterface {
     }
 
     /**
+     * Creates a new vector which has the value this+a
+     *
+     * @param a a
+     * @return this+a
+     */
+    public VectorFloat add(VectorInterface a) {
+        return new VectorFloat(x + a.getXFloat(), y + a.getYFloat());
+    }
+
+    /**
      * Subtracts the given vector
      *
      * @param sub the vector to subtract
@@ -59,6 +69,26 @@ public class VectorFloat implements VectorInterface {
      */
     public VectorFloat sub(VectorInterface sub) {
         return new VectorFloat(x - sub.getXFloat(), y - sub.getYFloat());
+    }
+
+    /**
+     * Creates a new vector which has the value this*a
+     *
+     * @param a a
+     * @return this*a
+     */
+    public VectorFloat mul(int a) {
+        return new VectorFloat(x * a, y * a);
+    }
+
+    /**
+     * Creates a new vector which has the value this/d
+     *
+     * @param d a
+     * @return this/d
+     */
+    public VectorFloat div(int d) {
+        return new VectorFloat(x / d, y / d);
     }
 
     @Override
