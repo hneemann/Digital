@@ -231,6 +231,7 @@
         Öffnet ein eigenes Fenster, um die Ausgabe anzuzeigen.</string>
     <string name="elem_Terminal_pin_C">Takteingang. Eine steigende Flanke gibt das anliegende Datenwort auf dem Terminal aus.</string>
     <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
+    <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
 
     <!-- Leitungen -->

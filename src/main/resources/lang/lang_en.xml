@@ -235,6 +235,7 @@
         The terminal opens its own window to visualize the output.</string>
     <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.</string>
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
+    <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
 
 
     <!-- Wires -->

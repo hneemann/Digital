@@ -3,6 +3,11 @@ Release Notes
 HEAD, planned as v0.19
 - Added support for asynchronous sequential circuits such as the Muller-pipeline.
   Take a look at the new asynchronous examples for illustration.
+- Braking changes:
+  - Added an enable input to the terminal component.
+- Bug fixes
+  - Fixed a bug in the VHDL export concerning an invalid optimization of a
+    std_logic_vector access.
 
 v0.18, released on 02. Apr 2018
 - Significant improvement in the quality of the generated vhdl code.
