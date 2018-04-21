@@ -224,8 +224,13 @@
         Dieses Element puffert die Eingaben, welche dann ausgelesen werden können.
         Es wird ein eigenes Fenster für die Eingabe geöffnet.
     </string>
-    <string name="elem_Keyboard_pin_sel">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
+    <string name="elem_Keyboard_pin_C">Takt. Eine steigende Flanke entfernt das älteste Zeichen aus dem Buffer.</string>
+    <string name="elem_Keyboard_pin_en">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.
+        Ist gleichzeitig die freigabe für den Takt.</string>
     <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
+    <string name="elem_Keyboard_pin_av">Dieser Ausgang zeigt an, dass Zeichen vorhanden sind.
+        Er kann genutzt werden, um einen Interrupt auszulösen.</string>
+
     <string name="elem_Terminal">Terminal</string>
     <string name="elem_Terminal_tt">Ein Terminal, auf dem ASCII-Zeichen ausgegeben werden können.
         Öffnet ein eigenes Fenster, um die Ausgabe anzuzeigen.</string>
@@ -1429,6 +1434,7 @@ Soll dennoch exportiert werden?</string>
         nicht der Fall ist, wird die Fehlermeldung der externen Anwendung angezeigt. Wenn es möglich ist, werden zudem
         die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
     <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
+    <string name="msg_enterText">Text eingeben!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

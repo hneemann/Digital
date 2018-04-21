@@ -3,8 +3,9 @@ Release Notes
 HEAD, planned as v0.19
 - Added support for asynchronous sequential circuits such as the Muller-pipeline.
   Take a look at the new asynchronous examples for illustration.
-- Braking changes:
+- Breaking changes:
   - Added an enable input to the terminal component.
+  - Added a clock input to the keyboard component.
 - Bug fixes
   - Fixed a bug in the VHDL export concerning an invalid optimization of a
     std_logic_vector access.

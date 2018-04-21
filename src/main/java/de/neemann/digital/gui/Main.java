@@ -35,6 +35,8 @@ import de.neemann.digital.gui.components.modification.Modifications;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.gui.components.modification.ModifyMeasurementOrdering;
 import de.neemann.digital.gui.components.table.TableDialog;
+import de.neemann.digital.gui.components.terminal.Keyboard;
+import de.neemann.digital.gui.components.terminal.KeyboardDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
 import de.neemann.digital.gui.components.tree.SelectTree;
@@ -1221,6 +1223,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 // all repainting is initiated by user actions!
                 modelCreator.connectToGui(null);
 
+            handleKeyboardComponent(updateEvent, modelSync);
+
             doStep.setEnabled(false);
             runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
 
@@ -1248,6 +1252,37 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
+    }
+
+    private void handleKeyboardComponent(ModelEvent updateEvent, Sync modelSync) {
+        KeyboardDialog.KeyPressedHandler handler = null;
+        for (Keyboard k : model.findNode(Keyboard.class)) {
+            if (handler == null)
+                if (updateEvent == ModelEvent.MICROSTEP)
+                    handler = keyboard -> {
+                        keyboard.hasChanged();
+                        modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+                        model.fireManualChangeEvent();
+                        doStep.setEnabled(model.needsUpdate());
+                        circuitComponent.repaintNeeded();
+                    };
+                else
+                    handler = keyboard -> {
+                        try {
+                            modelSync.accessNEx(() -> {
+                                keyboard.hasChanged();
+                                model.fireManualChangeEvent();
+                                model.doStep();
+                            });
+                            circuitComponent.repaintNeeded();
+                        } catch (NodeException | RuntimeException e) {
+                            showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
+                        }
+                    };
+
+
+            windowPosManager.register("keyboard_" + k.getLabel(), new KeyboardDialog(this, k, handler));
+        }
     }
 
     private void showMeasurementGraph(ModelEvent updateEvent) {

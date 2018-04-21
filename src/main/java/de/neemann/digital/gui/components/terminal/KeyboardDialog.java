@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 /**
  * A simple keyboard implementation
  */
-public class KeyboardDialog extends JDialog {
+public class KeyboardDialog extends JDialog implements Keyboard.KeyboardInterface {
     private final JLabel textLabel;
     private final Object textLock = new Object();
     private String text;
@@ -23,13 +23,15 @@ public class KeyboardDialog extends JDialog {
     /**
      * Create a new Instance
      *
-     * @param owner the owner frame
+     * @param owner             the owner frame
+     * @param keyboard          the keyboard node which has opened this dialog
+     * @param keyPressedHandler handler called every time a key is typed
      */
-    public KeyboardDialog(Frame owner) {
-        super(owner, Lang.get("elem_Keyboard"), false);
+    public KeyboardDialog(Frame owner, Keyboard keyboard, KeyPressedHandler keyPressedHandler) {
+        super(owner, Lang.get("elem_Keyboard") + " " + keyboard.getLabel(), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        textLabel = new JLabel("Enter Text       ");
+        textLabel = new JLabel(Lang.get("msg_enterText") + "          ");
         textLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         getContentPane().add(textLabel);
         text = "";
@@ -43,6 +45,7 @@ public class KeyboardDialog extends JDialog {
                     text += e.getKeyChar();
                     t = text;
                 }
+                keyPressedHandler.keyPressed(keyboard);
                 textLabel.setText(t);
             }
         });
@@ -50,24 +53,47 @@ public class KeyboardDialog extends JDialog {
         pack();
         setLocationRelativeTo(owner);
         setVisible(true);
+
+        keyboard.setKeyboardDialog(this);
     }
 
-    /**
-     * @return the oldest char
-     */
+    @Override
     public int getChar() {
         synchronized (textLock) {
             if (text.length() == 0)
                 return 0;
-            else {
-                int c = text.charAt(0);
-                String t;
+            else
+                return text.charAt(0);
+        }
+    }
+
+    @Override
+    public boolean isChar() {
+        synchronized (textLock) {
+            return text.length() > 0;
+        }
+    }
+
+    @Override
+    public void removeChar() {
+        synchronized (textLock) {
+            if (text.length() > 0) {
                 text = text.substring(1);
-                t = text;
+                final String t = text;
                 SwingUtilities.invokeLater(() -> textLabel.setText(t));
-                return c;
             }
         }
     }
 
+    /**
+     * The handler called if a key is typed.
+     */
+    public interface KeyPressedHandler {
+        /**
+         * Called if a key is typed
+         *
+         * @param keyboard the keyboard used
+         */
+        void keyPressed(Keyboard keyboard);
+    }
 }
