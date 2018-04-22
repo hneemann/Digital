@@ -12,8 +12,6 @@ import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
-import de.neemann.digital.hdl.model2.optimizations.MergeConstants;
-import de.neemann.digital.hdl.model2.optimizations.MergeAssignements;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;

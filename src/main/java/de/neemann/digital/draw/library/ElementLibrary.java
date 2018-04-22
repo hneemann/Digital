@@ -9,6 +9,7 @@ import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.flipflops.*;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
@@ -51,6 +52,7 @@ import java.util.*;
  */
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);
+    private static final long MIN_RESCAN_INTERVAL = 5000;
 
     /**
      * @return the additional library path
@@ -82,6 +84,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private ElementLibraryFolder custom;
     private File rootLibraryPath;
     private Exception exception;
+    private long lastRescanTime;
 
     /**
      * Creates a new instance.
@@ -171,7 +174,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(GraphicCard.DESCRIPTION)
                         .add(RAMDualAccess.DESCRIPTION)
                         .add(RegisterFile.DESCRIPTION)
-                        .add(Counter.DESCRIPTION))
+                        .add(Counter.DESCRIPTION)
+                        .add(CounterPreset.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_arithmetic"))
                         .add(Add.DESCRIPTION)
                         .add(Sub.DESCRIPTION)
@@ -198,7 +202,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(PowerSupply.DESCRIPTION)
                         .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
-                        .add(Break.DESCRIPTION))));
+                        .add(Break.DESCRIPTION)
+                        .add(AsyncSeq.DESCRIPTION)
+                        .add(External.DESCRIPTION))));
+
         addExternalJarComponents(jarFile);
 
         custom = new ElementLibraryFolder(root, Lang.get("menu_custom"));
@@ -405,11 +412,15 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             if (rootLibraryPath == null)
                 throw new ElementNotFoundException(Lang.get("err_fileNeedsToBeSaved"));
 
-            rescanFolder();
+            LOGGER.debug("could not find " + elementName);
 
-            node = map.get(elementName);
-            if (node != null)
-                return node.getDescription();
+            if (System.currentTimeMillis() - lastRescanTime > MIN_RESCAN_INTERVAL) {
+                rescanFolder();
+
+                node = map.get(elementName);
+                if (node != null)
+                    return node.getDescription();
+            }
         } catch (IOException e) {
             throw new ElementNotFoundException(Lang.get("msg_errorImportingModel_N0", elementName), e);
         }
@@ -417,7 +428,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         throw new ElementNotFoundException(Lang.get("err_element_N_notFound", elementName));
     }
 
-    private void rescanFolder() throws IOException {
+    private void rescanFolder() {
         LOGGER.debug("rescan folder");
         LibraryNode cn = custom.scanFolder(rootLibraryPath, false);
 
@@ -425,6 +436,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         if (cn != null)
             fireLibraryChanged(cn);
+        lastRescanTime = System.currentTimeMillis();
     }
 
     /**

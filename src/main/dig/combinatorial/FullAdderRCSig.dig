@@ -55,6 +55,10 @@ Volladdierern.</string>
           <string>Default</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="-260" y="260"/>
     </visualElement>
@@ -124,6 +128,10 @@ Volladdierern.</string>
           <string>Default</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="-260" y="80"/>
     </visualElement>
@@ -168,6 +176,10 @@ Volladdierern.</string>
         <entry>
           <string>Label</string>
           <string>A_2</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="-260" y="-340"/>
@@ -251,6 +263,10 @@ Volladdierern.</string>
         <entry>
           <string>Label</string>
           <string>B_3</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="-260" y="-520"/>

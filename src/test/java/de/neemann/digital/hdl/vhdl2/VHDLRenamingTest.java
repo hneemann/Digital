@@ -19,6 +19,8 @@ public class VHDLRenamingTest extends TestCase {
         assertEquals("a_o_o", r.checkName("a\"o\"o"));
         assertEquals("o", r.checkName("\"o\""));
         assertEquals("o", r.checkName("_o_"));
+        assertEquals("notQ", r.checkName("/Q"));
+        assertEquals("notQ", r.checkName("!Q"));
         assertEquals("notQ", r.checkName("~Q"));
         assertEquals("aleb", r.checkName("a<b"));
         assertEquals("agrb", r.checkName("a>b"));

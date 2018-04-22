@@ -54,6 +54,8 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.extern.PortDefinition;
+import de.neemann.digital.core.extern.Application;
+import de.neemann.digital.core.extern.PortDefinition;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
@@ -900,8 +902,7 @@ public final class EditorFactory {
                         final ROMEditorDialog romEditorDialog;
                         try {
                             CircuitComponent circuitComponent = main.getCircuitComponent();
-                            Model model = new ModelCreator(circuitComponent.getCircuit(), circuitComponent.getLibrary())
-                                    .createModel(false);
+                            Model model = new ModelCreator(circuitComponent.getCircuit(), circuitComponent.getLibrary()).createModel(false);
                             try {
                                 romEditorDialog = new ROMEditorDialog(
                                         getAttributeDialog(),

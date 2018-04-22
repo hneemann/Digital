@@ -12,103 +12,96 @@ import java.util.Objects;
  */
 public class VectorFloat implements VectorInterface {
 
-	private final float x;
-	private final float y;
+    private final float x;
+    private final float y;
 
-	/**
-	 * Creates a new vector
-	 *
-	 * @param x
-	 *            the x coordinate
-	 * @param y
-	 *            the x coordinate
-	 */
-	public VectorFloat(float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
+    /**
+     * Creates a new vector
+     *
+     * @param x the x coordinate
+     * @param y the x coordinate
+     */
+    public VectorFloat(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 
-	@Override
-	public int getX() {
-		return Math.round(x);
-	}
+    @Override
+    public int getX() {
+        return Math.round(x);
+    }
 
-	@Override
-	public int getY() {
-		return Math.round(y);
-	}
+    @Override
+    public int getY() {
+        return Math.round(y);
+    }
 
-	@Override
-	public float getXFloat() {
-		return x;
-	}
+    @Override
+    public float getXFloat() {
+        return x;
+    }
 
-	@Override
-	public float getYFloat() {
-		return y;
-	}
+    @Override
+    public float getYFloat() {
+        return y;
+    }
 
-	@Override
-	public VectorInterface transform(Transform tr) {
-		return tr.transform(this);
-	}
+    @Override
+    public VectorInterface transform(Transform tr) {
+        return tr.transform(this);
+    }
 
-	/**
-	 * Subtracts the given vector
-	 *
-	 * @param sub
-	 *            the vector to subtract
-	 * @return the new vector
-	 */
-	public VectorFloat sub(VectorInterface sub) {
-		return new VectorFloat(x - sub.getXFloat(), y - sub.getYFloat());
-	}
+    /**
+     * Creates a new vector which has the value this+a
+     *
+     * @param a a
+     * @return this+a
+     */
+    public VectorFloat add(VectorInterface a) {
+        return new VectorFloat(x + a.getXFloat(), y + a.getYFloat());
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		VectorFloat that = (VectorFloat) o;
-		return Float.compare(that.x, x) == 0 && Float.compare(that.y, y) == 0;
-	}
+    /**
+     * Subtracts the given vector
+     *
+     * @param sub the vector to subtract
+     * @return the new vector
+     */
+    public VectorFloat sub(VectorInterface sub) {
+        return new VectorFloat(x - sub.getXFloat(), y - sub.getYFloat());
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(x, y);
-	}
+    /**
+     * Creates a new vector which has the value this*a
+     *
+     * @param a a
+     * @return this*a
+     */
+    public VectorFloat mul(int a) {
+        return new VectorFloat(x * a, y * a);
+    }
 
-	/**
-	 * Creates a new vector which has the value this*a
-	 *
-	 * @param a
-	 *            a
-	 * @return this*a
-	 */
-	public VectorFloat mul(int a) {
-		return new VectorFloat(x * a, y * a);
-	}
+    /**
+     * Creates a new vector which has the value this/d
+     *
+     * @param d a
+     * @return this/d
+     */
+    public VectorFloat div(int d) {
+        return new VectorFloat(x / d, y / d);
+    }
 
-	/**
-	 * Creates a new vector which has the value this/d
-	 *
-	 * @param d
-	 *            a
-	 * @return this/d
-	 */
-	public VectorFloat div(int d) {
-		return new VectorFloat(x / d, y / d);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VectorFloat that = (VectorFloat) o;
+        return Float.compare(that.x, x) == 0
+                && Float.compare(that.y, y) == 0;
+    }
 
-	/**
-	 * Creates a new vector which has the value this+a
-	 *
-	 * @param a
-	 *            a
-	 * @return this+a
-	 */
-	public VectorFloat add(VectorInterface a) {
-		return new VectorFloat(x + a.getXFloat(), y + a.getYFloat());
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }

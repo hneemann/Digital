@@ -6,11 +6,19 @@ The most recent changes are listed in the [release notes](distribution/ReleaseNo
 
 # Digital #
 
+<<<<<<< HEAD
 ## PLEASE USE THE ORIGINAL VERSION FROM "hneemann" ##
+=======
+Digital is an easy-to-use digital circuit simulator. 
+It's designed for educational purposes, and I use it in my lectures to illustrate digital electronics.
+
+![screnshot](screenshot.png)
+>>>>>>> b94f3dadbc6943183a8d0e690a86aeec07279575
 
 ![screnshot3](screenshot3.png)
 Demo of a custom shaped circuit
 
+<<<<<<< HEAD
 Digital is an easy-to-use digital circuit simulator. 
 It's designed for educational purposes, and I use it in my lectures to illustrate digital electronics.
 
@@ -18,6 +26,8 @@ It's designed for educational purposes, and I use it in my lectures to illustrat
 
 ![screnshot2](screenshot2.png)
 
+=======
+>>>>>>> b94f3dadbc6943183a8d0e690a86aeec07279575
 ## Features ##
 
 These are the main features of Digital:

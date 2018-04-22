@@ -14,7 +14,7 @@ import de.neemann.digital.hdl.model2.Printable;
 public interface Expression extends Printable {
 
     /**
-     * Replaces a net with and expression
+     * Replaces a net with an expression
      *
      * @param net        the net to replace
      * @param expression the expression to use instead ot the net
@@ -31,7 +31,7 @@ public interface Expression extends Printable {
     }
 
     /**
-     * Help er to check if a expression is a net reference
+     * Helper to check if an expression is a net reference
      *
      * @param expr the expression to check
      * @param net  the net

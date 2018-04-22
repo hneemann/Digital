@@ -224,13 +224,19 @@
         Dieses Element puffert die Eingaben, welche dann ausgelesen werden können.
         Es wird ein eigenes Fenster für die Eingabe geöffnet.
     </string>
-    <string name="elem_Keyboard_pin_sel">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
+    <string name="elem_Keyboard_pin_C">Takt. Eine steigende Flanke entfernt das älteste Zeichen aus dem Buffer.</string>
+    <string name="elem_Keyboard_pin_en">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.
+        Ist gleichzeitig die Freigabe für den Takt.</string>
     <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
+    <string name="elem_Keyboard_pin_av">Dieser Ausgang zeigt an, dass Zeichen vorhanden sind.
+        Er kann genutzt werden, um einen Interrupt auszulösen.</string>
+
     <string name="elem_Terminal">Terminal</string>
     <string name="elem_Terminal_tt">Ein Terminal, auf dem ASCII-Zeichen ausgegeben werden können.
         Öffnet ein eigenes Fenster, um die Ausgabe anzuzeigen.</string>
     <string name="elem_Terminal_pin_C">Takteingang. Eine steigende Flanke gibt das anliegende Datenwort auf dem Terminal aus.</string>
     <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
+    <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
 
     <!-- Leitungen -->
@@ -900,6 +906,33 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
     <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
 
+    <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
+    <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>
+    <string name="err_errorCreatingProcess">Der externe Prozess konnte nicht gestartet werden!</string>
+    <string name="err_timeoutReadingData_O">Zeitüberschreitung beim Lesen von Daten!
+        {0}</string>
+    <string name="err_notEnoughDataReceived_O">Es wurden nicht genug Daten empfangen!
+        {0}</string>
+    <string name="err_invalidCharacterReceived_N_O">Der Prozess sendete ein ungültiges Zeichen: {0}!
+        {1}</string>
+    <string name="err_processTerminatedUnexpected_O">Der Prozess wurde unerwartet beendet!
+        {0}</string>
+    <string name="err_couldNotTerminateProcess">Der Prozess konnte nicht beendet werden!</string>
+    <string name="err_couldNotStartProcess_N">Prozess konnte nicht gestartet werden: {0}</string>
+    <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
+        {1}</string>
+    <string name="err_canOnlyExportExternalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein! Betrifft {0}</string>
+    <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
+        {0}</string>
+    <string name="err_ghdlNotInstalled">
+        Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
+    </string>
+    <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
+    <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
+    <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
+    <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
+
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
     <string name="key_Bits">Daten-Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
@@ -1122,6 +1155,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_dipDefault">Ausgabe ist High</string>
     <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters, wenn die Simulation gestartet wird.</string>
+    <string name="key_macMouse">Die MacOS Mausklicks verwenden.</string>
+    <string name="key_macMouse_tt">Das unter MacOS übliche STRG-Klick anstelle von Rechtsklick verwenden.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1242,7 +1277,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_exportHex">Erzeuge HEX</string>
     <string name="menu_table_exportHex_tt">Die HEX-Datei kann in ein ROM oder eine LUT geladen werden.</string>
     <string name="menu_table_new">Neu</string>
-    <string name="menu_table_new_combinatorial">Kombintorisch</string>
+    <string name="menu_table_new_combinatorial">Kombinatorisch</string>
     <string name="menu_table_new_sequential">Automat</string>
     <string name="menu_table_new_sequential_bidir">Automat bidirektional</string>
     <string name="menu_table_columns">Spalten</string>
@@ -1430,6 +1465,7 @@ Soll dennoch exportiert werden?</string>
         nicht der Fall ist, wird die Fehlermeldung der externen Anwendung angezeigt. Wenn es möglich ist, werden zudem
         die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
     <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
+    <string name="msg_enterText">Text eingeben!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
