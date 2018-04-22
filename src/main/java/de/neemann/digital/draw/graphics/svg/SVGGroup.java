@@ -74,4 +74,11 @@ public class SVGGroup implements SVGFragment, SVGPinnable {
         return pins.toArray(new SVGPseudoPin[pins.size()]);
     }
 
+	@Override
+	public void move(Vector diff) {
+		for (SVGFragment f : list) {
+            f.move(diff);
+        }
+	}
+
 }

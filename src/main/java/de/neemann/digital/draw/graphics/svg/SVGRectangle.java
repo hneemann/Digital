@@ -90,4 +90,10 @@ public class SVGRectangle implements SVGFragment {
 	public VectorInterface getPos() {
 		return new VectorFloat(x, y);
 	}
+
+	@Override
+	public void move(Vector diff) {
+		x-=diff.getX();
+		y-=diff.getY();
+	}
 }

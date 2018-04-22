@@ -154,4 +154,10 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
                 me
         };
     }
+
+	@Override
+	public void move(Vector diff) {
+		oben=oben.sub(diff);
+		unten=unten.sub(diff);
+	}
 }

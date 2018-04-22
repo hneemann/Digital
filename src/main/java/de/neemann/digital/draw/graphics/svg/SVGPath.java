@@ -12,7 +12,9 @@ import org.w3c.dom.Element;
 
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
+import de.neemann.digital.draw.graphics.VectorInterface;
 
 /**
  * Representation of a SVG- Path
@@ -327,9 +329,6 @@ public class SVGPath implements SVGFragment, SVGDrawable {
 
 	@Override
 	public SVGDrawable[] getDrawables() {
-		for (VectorFloat v : corners) {
-			System.out.println(v.getXFloat() + " " + v.getYFloat());
-		}
 		return new SVGDrawable[] { this };
 	}
 
@@ -358,5 +357,14 @@ public class SVGPath implements SVGFragment, SVGDrawable {
 	@Override
 	public VectorFloat getPos() {
 		return corners.get(0);
+	}
+
+	@Override
+	public void move(Vector diff) {
+		ArrayList<VectorFloat> tmp = new ArrayList<VectorFloat>();
+		for (VectorInterface v : corners) {
+			tmp.add(new VectorFloat(v.getXFloat() - diff.getX(), v.getYFloat() - diff.getY()));
+		}
+		corners = tmp;
 	}
 }

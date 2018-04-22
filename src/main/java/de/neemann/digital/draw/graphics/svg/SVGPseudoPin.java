@@ -168,4 +168,9 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
     public void setLabel(String label) {
         this.label = label;
     }
+
+	@Override
+	public void move(Vector diff) {
+		pos=pos.sub(diff);
+	}
 }

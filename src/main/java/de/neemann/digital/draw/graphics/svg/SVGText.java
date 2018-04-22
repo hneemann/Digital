@@ -131,4 +131,10 @@ public class SVGText implements SVGFragment, SVGDrawable {
     public Vector getPos() {
         return p1;
     }
+
+	@Override
+	public void move(Vector diff) {
+		p1=p1.sub(diff);
+		p2=p2.sub(diff);
+	}
 }
