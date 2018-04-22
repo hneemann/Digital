@@ -125,6 +125,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private int undoPosition;
     private int savedUndoPosition;
     private Style highLightStyle = Style.HIGHLIGHT;
+    private Mouse mouse = Mouse.getMouse();
 
 
     /**
@@ -1336,7 +1337,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private final class MouseControllerNormal extends MouseController {
         private Vector pos;
-        private int downButton;
+        private MouseEvent downButton;
 
         private MouseControllerNormal(Cursor cursor) {
             super(cursor);
@@ -1346,21 +1347,21 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         void clicked(MouseEvent e) {
             Vector pos = getPosVector(e);
 
-            if (e.getButton() == MouseEvent.BUTTON3) {
+            if (mouse.isSecondaryClick(e)) {
                 if (!isLocked()) {
                     VisualElement vp = getVisualElement(pos, true);
                     if (vp != null)
                         editAttributes(vp, e);
                 }
-            } else if (e.getButton() == MouseEvent.BUTTON1) {
+            } else if (mouse.isPrimaryClick(e)) {
                 VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
-                    if (circuit.isPinPos(raster(pos), vp) && !e.isControlDown()) {
+                    if (circuit.isPinPos(raster(pos), vp) && !mouse.isClickModifier(e)) {
                         if (!isLocked()) mouseWireRect.activate(pos);
                     } else
                         mouseMoveElement.activate(vp, pos);
                 } else if (!isLocked()) {
-                    if (e.isControlDown()) {
+                    if (mouse.isClickModifier(e)) {
                         Wire wire = circuit.getWireAt(pos, SIZE2);
                         if (wire != null)
                             mouseMoveWire.activate(wire, pos);
@@ -1378,13 +1379,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void pressed(MouseEvent e) {
-            downButton = e.getButton();
+            downButton = e;
             pos = getPosVector(e);
         }
 
         @Override
         boolean dragged(MouseEvent e) {
-            if (downButton == MouseEvent.BUTTON1) {
+            if (mouse.isPrimaryClick(downButton)) {
                 mouseSelect.activate(pos, getPosVector(e));
                 return true;
             }
@@ -1436,7 +1437,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1 && !isLocked())
+            if (mouse.isPrimaryClick(e) && !isLocked())
                 modify(new ModifyInsertElement(element));
             mouseNormal.activate();
             focusWasLost = false;
@@ -1634,13 +1635,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.isControlDown()) {
+            if (mouse.isClickModifier(e)) {
                 Vector pos = raster(getPosVector(e));
                 Wire wire = circuit.getWireAt(pos, SIZE2);
                 if (wire != null)
                     mouseMoveWire.activate(wire, pos);
             } else {
-                if (e.getButton() == MouseEvent.BUTTON3)
+                if (mouse.isSecondaryClick(e))
                     mouseNormal.activate();
                 else {
                     modify(new ModifyInsertWire(wire).checkIfLenZero());
@@ -1724,13 +1725,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.isControlDown()) {
+            if (mouse.isClickModifier(e)) {
                 Vector pos = raster(getPosVector(e));
                 Wire wire = circuit.getWireAt(pos, SIZE2);
                 if (wire != null)
                     mouseMoveWire.activate(wire, pos);
             } else {
-                if (e.getButton() == MouseEvent.BUTTON3)
+                if (mouse.isSecondaryClick(e))
                     mouseNormal.activate();
                 else {
                     modify(new Modifications.Builder(Lang.get("mod_insertWire"))
@@ -1807,7 +1808,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
+            if (mouse.isPrimaryClick(e)) {
                 addModificationAlreadyMade(
                         new ModifySplitWire(origWire, newPosition));
                 circuit.elementsMoved();
@@ -1855,10 +1856,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
+            if (mouse.isPrimaryClick(e)) {
                 mouseNormal.activate();
                 removeHighLighted();
-            } else if (e.getButton() == MouseEvent.BUTTON3) {
+            } else if (mouse.isSecondaryClick(e)) {
                 editGroup(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
                 mouseNormal.activate();
                 removeHighLighted();
@@ -2088,7 +2089,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (elements != null && e.getButton() == 1) {
+            if (elements != null && mouse.isPrimaryClick(e)) {
                 Modifications.Builder builder = new Modifications.Builder(Lang.get("mod_insertCopied"));
                 for (Movable m : elements) {
                     if (m instanceof Wire)

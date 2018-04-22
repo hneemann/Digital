@@ -648,6 +648,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_FONT_SCALING, modified)
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_MAC_MOUSE, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_JAR_PATH, modified)) {
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));

@@ -191,6 +191,13 @@ public final class Screen {
     }
 
     /**
+     * @return true if running on a mac
+     */
+    public static boolean isMac() {
+        return IS_MAC;
+    }
+
+    /**
      * Sets the location of a window.
      * Ensures that the window is completely visible on the screen the given position belongs to.
      * The window is centered relative to the given position.

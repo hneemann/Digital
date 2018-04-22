@@ -1119,6 +1119,10 @@
     <string name="key_dipDefault">Output is High</string>
     <string name="key_dipDefault_tt">The default output value of the DIP switch when the simulation starts.</string>
 
+    <string name="key_macMouse">Use MacOS mouse clicks.</string>
+    <string name="key_macMouse_tt">Uses CTRL-click instead of right-click.</string>
+
+
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
     <string name="mod_setKey_N0_in_element_N1">Value ''{0}'' in component ''{1}'' modified.</string>

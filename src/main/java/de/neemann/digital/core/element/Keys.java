@@ -396,6 +396,12 @@ public final class Keys {
             = new Key<>("showWireBits", false);
 
     /**
+     * enables the MAC mouse mode
+     */
+    public static final Key<Boolean> SETTINGS_MAC_MOUSE
+            = new Key<>("macMouse", Screen.isMac());
+
+    /**
      * output format for numbers
      */
     public static final Key.KeyEnum<IntFormat> INT_FORMAT
