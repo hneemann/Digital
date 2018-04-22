@@ -237,7 +237,7 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
 		}
 
 		/**
-		 * Moves the circuit, for the firts Pin to be on 0/0
+		 * Moves the circuit, for the first Pin to be on 0/0
 		 */
 		private void applyToZero() {
 			if (pins.size() > 0 && pins.get(0) != null) {
