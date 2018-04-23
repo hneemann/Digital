@@ -12,6 +12,7 @@ import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.switching.Switch;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Vector;
@@ -313,9 +314,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             @Override
             public void actionPerformed(ActionEvent e) { // is allowed also if locked!
                 VisualElement ve = getActualVisualElement();
-                if (ve != null && CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
-                    boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
-                    modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
+                if (ve != null) {
+                    if (CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
+                        boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
+                        modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
+                    } else if (ve.equalsDescription(Switch.DESCRIPTION)) {
+                        boolean closed = ve.getElementAttributes().get(Keys.CLOSED);
+                        modify(new ModifyAttribute<>(ve, Keys.CLOSED, !closed));
+                    }
                 }
             }
         }.setAccelerator("P").enableAcceleratorIn(this);
