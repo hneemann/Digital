@@ -13,18 +13,18 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.*;
-import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.shapes.InputShape;
-import de.neemann.digital.gui.Settings;
-import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryListener;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.Settings;
+import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
@@ -47,7 +47,6 @@ import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
 /**
  * Component which shows the circuit.
@@ -1389,7 +1388,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                 mouseSelect.activate(pos, getPosVector(e));
                 return true;
             }
-            return false;
+            return !mouse.isSecondaryClick(downButton);
         }
 
     }
@@ -1643,7 +1642,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             } else {
                 if (mouse.isSecondaryClick(e))
                     mouseNormal.activate();
-                else {
+                else if (mouse.isPrimaryClick(e)) {
                     modify(new ModifyInsertWire(wire).checkIfLenZero());
                     if (circuit.isPinPos(wire.p2))
                         mouseNormal.activate();
@@ -1733,7 +1732,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             } else {
                 if (mouse.isSecondaryClick(e))
                     mouseNormal.activate();
-                else {
+                else if (mouse.isPrimaryClick(e)) {
                     modify(new Modifications.Builder(Lang.get("mod_insertWire"))
                             .add(new ModifyInsertWire(wire1).checkIfLenZero())
                             .add(new ModifyInsertWire(wire2).checkIfLenZero())
@@ -1813,7 +1812,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                         new ModifySplitWire(origWire, newPosition));
                 circuit.elementsMoved();
                 mouseNormal.activate();
-            } else
+            } else if (mouse.isSecondaryClick(e))
                 escapePressed();
         }
 
@@ -1885,7 +1884,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
             } else {
                 corner2 = getPosVector(e);
-                if ((e.getModifiersEx() & CTRL_DOWN_MASK) != 0) {
+                if (mouse.isClickModifier(e)) {
                     Vector dif = corner2.sub(corner1);
                     int dx = dif.x;
                     int dy = dif.y;
