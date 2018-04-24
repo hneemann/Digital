@@ -54,8 +54,6 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.extern.PortDefinition;
-import de.neemann.digital.core.extern.Application;
-import de.neemann.digital.core.extern.PortDefinition;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
