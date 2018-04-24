@@ -68,7 +68,7 @@ public class SVGPolygon implements SVGFragment, SVGDrawable {
 
     @Override
     public SVGDrawable[] getDrawables() {
-        return new SVGPolygon[] { this };
+        return new SVGPolygon[] {this};
     }
 
     @Override

@@ -91,7 +91,7 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
             styleString = "fill:#dd0000";
         SVGEllipse ellipse = new SVGEllipse(getPos().sub(new Vector(2, 2)),
                 getPos().add(new Vector(2, 2)), new SVGStyle(styleString));
-        return new SVGDrawable[] { ellipse };
+        return new SVGDrawable[] {ellipse};
     }
 
     /**
@@ -145,7 +145,7 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
 
     @Override
     public SVGPseudoPin[] getPin() {
-        return new SVGPseudoPin[] { this };
+        return new SVGPseudoPin[] {this};
     }
 
     /**

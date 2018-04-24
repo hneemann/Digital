@@ -593,7 +593,7 @@ public final class Keys {
      */
     public static final Key.KeyFile SETTINGS_GHDL_PATH
             = new Key.KeyFile("ghdlPath", new File("ghdl"));
-            
+
      /**
      * Shape used to represent a visual element
      */

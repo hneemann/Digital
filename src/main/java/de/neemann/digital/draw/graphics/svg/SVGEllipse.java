@@ -122,7 +122,7 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
         if (pin) {
             return new SVGDrawable[] {};
         }
-        return new SVGDrawable[] { this };
+        return new SVGDrawable[] {this};
     }
 
     @Override
@@ -148,7 +148,7 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
 
     @Override
     public SVGPseudoPin[] getPin() {
-        return new SVGPseudoPin[] { me };
+        return new SVGPseudoPin[] {me};
     }
 
     @Override

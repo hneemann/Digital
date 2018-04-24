@@ -56,7 +56,7 @@ public class SVGLine implements SVGFragment, SVGDrawable {
 
     @Override
     public SVGDrawable[] getDrawables() {
-        return new SVGDrawable[] { this };
+        return new SVGDrawable[] {this};
     }
 
     @Override

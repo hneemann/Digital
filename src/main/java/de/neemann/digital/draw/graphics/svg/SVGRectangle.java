@@ -80,7 +80,7 @@ public class SVGRectangle implements SVGFragment {
 
     @Override
     public SVGPolygon[] getDrawables() {
-        return new SVGPolygon[] { calculatePolygon() };
+        return new SVGPolygon[] {calculatePolygon()};
     }
 
     @Override
