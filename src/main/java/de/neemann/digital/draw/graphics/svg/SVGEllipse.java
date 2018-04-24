@@ -38,7 +38,8 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
      * @throws NoParsableSVGException
      *             if the SVG's not valid
      */
-    public SVGEllipse(Element element, Pins pins, ArrayList<SVGPseudoPin> pseudoPins) throws NoParsableSVGException {
+    public SVGEllipse(Element element, Pins pins, ArrayList<SVGPseudoPin> pseudoPins)
+            throws NoParsableSVGException {
         this.pins = pins;
         this.pseudoPins = pseudoPins;
         try {
@@ -83,8 +84,8 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
     }
 
     /**
-     * Checks, if a circle appears to be a Pin and appends a new Pin to the circuit,
-     * if thats the case
+     * Checks, if a circle appears to be a Pin and appends a new Pin to the circuit, if thats the
+     * case
      * @param s
      *            String "id" from the SVG
      * @param x
@@ -119,12 +120,9 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
     @Override
     public SVGDrawable[] getDrawables() {
         if (pin) {
-            return new SVGDrawable[] {
-            };
+            return new SVGDrawable[] {};
         }
-        return new SVGDrawable[] {
-                this
-        };
+        return new SVGDrawable[] { this };
     }
 
     @Override
@@ -150,14 +148,12 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
 
     @Override
     public SVGPseudoPin[] getPin() {
-        return new SVGPseudoPin[] {
-                me
-        };
+        return new SVGPseudoPin[] { me };
     }
 
-	@Override
-	public void move(Vector diff) {
-		oben=oben.sub(diff);
-		unten=unten.sub(diff);
-	}
+    @Override
+    public void move(Vector diff) {
+        oben = oben.sub(diff);
+        unten = unten.sub(diff);
+    }
 }

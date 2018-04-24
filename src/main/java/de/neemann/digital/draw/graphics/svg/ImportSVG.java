@@ -108,7 +108,8 @@ public class ImportSVG {
      * @throws NoParsableSVGException
      *             if the SVG is not valid
      */
-    public void setPinDescriptions(PinDescriptions inputs, PinDescriptions outputs) throws NoParsableSVGException {
+    public void setPinDescriptions(PinDescriptions inputs, PinDescriptions outputs)
+            throws NoParsableSVGException {
         for (SVGPseudoPin pin : pseudoPins) {
             if (pin.isInput())
                 pin.setPinDesc(inputs);

@@ -112,9 +112,7 @@ public class SVGText implements SVGFragment, SVGDrawable {
     @Override
     public SVGDrawable[] getDrawables() {
         if (texts == null)
-            return new SVGDrawable[] {
-                    this
-            };
+            return new SVGDrawable[] { this };
         return texts;
     }
 
@@ -132,9 +130,9 @@ public class SVGText implements SVGFragment, SVGDrawable {
         return p1;
     }
 
-	@Override
-	public void move(Vector diff) {
-		p1=p1.sub(diff);
-		p2=p2.sub(diff);
-	}
+    @Override
+    public void move(Vector diff) {
+        p1 = p1.sub(diff);
+        p2 = p2.sub(diff);
+    }
 }
