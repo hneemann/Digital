@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.graphics.svg;
 
 import java.awt.BorderLayout;
@@ -58,6 +63,13 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
     private JDialog dialog;
     private JPanel panel = new JPanel(new FlowLayout());
 
+    /**
+     * Editor for the import of a SVG File
+     * @param customShapeDescription
+     *            Description of a custom shape
+     * @param key
+     *            Corresponding key
+     */
     public CustomShapeEditor(CustomShapeDescription customShapeDescription, Key<DataField> key) {
         this.svg = customShapeDescription;
         dialog = new JDialog(getAttributeDialog(), Lang.get("btn_load"),
@@ -130,7 +142,7 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
          * @param fragments
          *            parts of the svg
          */
-        public VPanel() {
+        VPanel() {
             lastPinX = 0;
             lastPinY = 0;
             scale = 2.0;

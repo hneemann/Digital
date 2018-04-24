@@ -11,7 +11,6 @@ import org.w3c.dom.Element;
 
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Transform;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.draw.graphics.VectorInterface;

@@ -906,33 +906,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
     <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
 
-    <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
-    <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>
-    <string name="err_errorCreatingProcess">Der externe Prozess konnte nicht gestartet werden!</string>
-    <string name="err_timeoutReadingData_O">Zeitüberschreitung beim Lesen von Daten!
-        {0}</string>
-    <string name="err_notEnoughDataReceived_O">Es wurden nicht genug Daten empfangen!
-        {0}</string>
-    <string name="err_invalidCharacterReceived_N_O">Der Prozess sendete ein ungültiges Zeichen: {0}!
-        {1}</string>
-    <string name="err_processTerminatedUnexpected_O">Der Prozess wurde unerwartet beendet!
-        {0}</string>
-    <string name="err_couldNotTerminateProcess">Der Prozess konnte nicht beendet werden!</string>
-    <string name="err_couldNotStartProcess_N">Prozess konnte nicht gestartet werden: {0}</string>
-    <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
-        {1}</string>
-    <string name="err_canOnlyExportExternalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
-    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein! Betrifft {0}</string>
-    <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
-        {0}</string>
-    <string name="err_ghdlNotInstalled">
-        Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
-    </string>
-    <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
-    <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
-    <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
-    <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
-
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
     <string name="key_Bits">Daten-Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
@@ -1124,14 +1097,14 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_delayTime_tt">Dauer der Verzögerung in Gatterlaufzeiten.</string>
     <string name="key_invertOutput">invertierter Ausgang</string>
     <string name="key_invertOutput_tt">Wenn gesetzt, wird der Ausgang invertiert.</string>
-    <string name="key_customShape">Benutzerdefinierte Form</string>
-    <string name="key_customShape_tt">Importieren einer SVG-Datei</string>
     <string name="key_timerDelay">Impulsdauer</string>
     <string name="key_timerDelay_tt">Die Impulsdauer wird in Taktzyklen angegeben.</string>
     <string name="key_splitterSpreading">Spreizung</string>
     <string name="key_splitterSpreading_tt">Bestimmt die Spreizung der Ein- und Ausgänge in der Schaltung.</string>
     <string name="key_romContent">ROM Inhalte</string>
     <string name="key_romContent_tt">Inhalt aller ROM Bausteine</string>
+    <string name="key_customShape">Individuelle Form</string>
+    <string name="key_customShape_tt">Import einer SVG-Datei</string>
 
     <string name="key_applicationType">Anwendung</string>
     <string name="key_applicationType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
