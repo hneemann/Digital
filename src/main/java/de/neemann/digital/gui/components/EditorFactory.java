@@ -253,8 +253,8 @@ public final class EditorFactory {
     }
 
     private final static class IntegerEditor extends LabelEditor<Integer> {
-        private static final Integer[] DEFAULTS = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
-                14, 15, 16 };
+        private static final Integer[] DEFAULTS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                15, 16};
         private final JComboBox<Integer> comboBox;
         private final Key<Integer> key;
 
@@ -309,8 +309,8 @@ public final class EditorFactory {
     }
 
     private final static class LongEditor extends LabelEditor<Long> {
-        private static final Long[] DEFAULTS = { 0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L,
-                12L, 13L, 14L, 15L, 16L };
+        private static final Long[] DEFAULTS = {0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L,
+                12L, 13L, 14L, 15L, 16L};
         private final JComboBox<Long> comboBox;
 
         public LongEditor(Long value, Key<Long> key) {
@@ -347,8 +347,8 @@ public final class EditorFactory {
     }
 
     private final static class InValueEditor extends LabelEditor<InValue> {
-        private static final String[] DEFAULTS = { "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8",
-                "9", "10", "11", "12", "13", "14", "15", "16" };
+        private static final String[] DEFAULTS = {"Z", "0", "1", "2", "3", "4", "5", "6", "7", "8",
+                "9", "10", "11", "12", "13", "14", "15", "16"};
         private final JComboBox<String> comboBox;
 
         public InValueEditor(InValue value, Key<Integer> key) {
@@ -572,8 +572,8 @@ public final class EditorFactory {
     }
 
     private final static class RotationEditor extends LabelEditor<Rotation> {
-        private static final String[] LIST = new String[] { Lang.get("rot_0"), Lang.get("rot_90"),
-                Lang.get("rot_180"), Lang.get("rot_270") };
+        private static final String[] LIST = new String[] {Lang.get("rot_0"), Lang.get("rot_90"),
+                Lang.get("rot_180"), Lang.get("rot_270")};
 
         private final Rotation rotation;
         private JComboBox<String> comb;

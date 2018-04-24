@@ -112,7 +112,7 @@ public class SVGText implements SVGFragment, SVGDrawable {
     @Override
     public SVGDrawable[] getDrawables() {
         if (texts == null)
-            return new SVGDrawable[] { this };
+            return new SVGDrawable[] {this};
         return texts;
     }
 
