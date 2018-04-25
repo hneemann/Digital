@@ -14,10 +14,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatToTableLatex;
 import de.neemann.digital.analyse.expression.format.FormatterException;
-import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
-import de.neemann.digital.analyse.expression.modify.NAnd;
-import de.neemann.digital.analyse.expression.modify.NOr;
-import de.neemann.digital.analyse.expression.modify.TwoInputs;
+import de.neemann.digital.analyse.expression.modify.*;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.builder.ATF150x.ATFDevice;
@@ -404,6 +401,13 @@ public class TableDialog extends JDialog {
                 createCircuit(new TwoInputs());
             }
         }.setToolTip(Lang.get("menu_table_createTwo_tt")).createJMenuItem());
+
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_createThree")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCircuit(new ThreeInputs());
+            }
+        }.setToolTip(Lang.get("menu_table_createThree_tt")).createJMenuItem());
 
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
             @Override
