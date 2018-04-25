@@ -12,6 +12,7 @@ import org.w3c.dom.Element;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 
 /**
  * Representation of the SVG-Ellipse
@@ -19,8 +20,8 @@ import de.neemann.digital.draw.graphics.Vector;
  */
 public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
 
-    private Vector oben;
-    private Vector unten;
+    private VectorFloat oben;
+    private VectorFloat unten;
     private SVGStyle style;
     private Pins pins;
     private boolean pin;
@@ -56,12 +57,16 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
                 rx = r;
                 ry = r;
             }
-            int cx = (int) Double.parseDouble(element.getAttribute("cx"));
-            int cy = (int) Double.parseDouble(element.getAttribute("cy"));
+            int cx = 0;
+            int cy = 0;
+            if (!element.getAttribute("cx").isEmpty())
+                cx = (int) Double.parseDouble(element.getAttribute("cx"));
+            if (!element.getAttribute("cx").isEmpty())
+                cy = (int) Double.parseDouble(element.getAttribute("cy"));
             style = new SVGStyle(element.getAttribute("style"));
             pin = checkAndInsertPins(element.getAttribute("id"), cx, cy);
-            oben = new Vector(cx - rx, cy - ry);
-            unten = new Vector(cx + rx, cy + ry);
+            oben = new VectorFloat(cx - rx, cy - ry);
+            unten = new VectorFloat(cx + rx, cy + ry);
         } catch (Exception e) {
             e.printStackTrace();
             throw new NoParsableSVGException();
@@ -77,10 +82,24 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
      * @param style
      *            Style of the Ellipse
      */
-    public SVGEllipse(Vector oben, Vector unten, SVGStyle style) {
+    public SVGEllipse(VectorFloat oben, VectorFloat unten, SVGStyle style) {
         this.oben = oben;
         this.unten = unten;
         this.style = style;
+    }
+
+    /**
+     * Ellipse with Legacy Vectors
+     * @param oben
+     *            Upper Left
+     * @param unten
+     *            Lower Right
+     * @param svgStyle
+     *            Style
+     */
+    public SVGEllipse(Vector oben, Vector unten, SVGStyle svgStyle) {
+        this(new VectorFloat(oben.getX(), oben.getY()), new VectorFloat(unten.getX(), unten.getY()),
+                svgStyle);
     }
 
     /**
@@ -129,15 +148,17 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
     public void draw(Graphic graphic) {
         if (!isPin()) {
             if (style.getShallFilled()) {
-                graphic.drawCircle(oben, unten, style.getInnerStyle());
+                graphic.drawCircle(ImportSVG.toOldschoolVector(oben),
+                        ImportSVG.toOldschoolVector(unten), style.getInnerStyle());
             }
             if (style.getShallRanded())
-                graphic.drawCircle(oben, unten, style.getStyle());
+                graphic.drawCircle(ImportSVG.toOldschoolVector(oben),
+                        ImportSVG.toOldschoolVector(unten), style.getStyle());
         }
     }
 
     @Override
-    public Vector getPos() {
+    public VectorFloat getPos() {
         return oben;
     }
 
@@ -152,8 +173,14 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
     }
 
     @Override
-    public void move(Vector diff) {
+    public void move(VectorFloat diff) {
         oben = oben.sub(diff);
         unten = unten.sub(diff);
+    }
+
+    @Override
+    public void scale(double faktor) {
+        oben = oben.mul((float) faktor);
+        unten = unten.mul((float) faktor);
     }
 }

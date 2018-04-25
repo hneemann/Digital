@@ -5,7 +5,7 @@
  */
 package de.neemann.digital.draw.graphics.svg;
 
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.draw.graphics.VectorInterface;
 
 /**
@@ -39,5 +39,12 @@ public interface SVGFragment {
      * @param diff
      *            Vector to subtract
      */
-    void move(Vector diff);
+    void move(VectorFloat diff);
+
+    /**
+     * Scales a fragment
+     * @param faktor
+     *            Faktor to scale while 1 is no scale
+     */
+    void scale(double faktor);
 }

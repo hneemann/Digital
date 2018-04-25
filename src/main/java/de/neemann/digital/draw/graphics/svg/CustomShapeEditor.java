@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -21,6 +22,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -41,6 +43,7 @@ import de.neemann.digital.draw.graphics.GraphicSwing;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.draw.shapes.custom.CustomShape;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
@@ -70,6 +73,7 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
      * @param key
      *            Corresponding key
      */
+    @SuppressWarnings("serial")
     public CustomShapeEditor(CustomShapeDescription customShapeDescription, Key<DataField> key) {
         this.svg = customShapeDescription;
         dialog = new JDialog(getAttributeDialog(), Lang.get("btn_load"),
@@ -98,17 +102,80 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
             }
 
         }.createJButton(), BorderLayout.NORTH);
-        dialog.add(new ToolTipAction(Lang.get("ok")) {
+        JPanel sizeButtons = new JPanel();
+        sizeButtons.setLayout(new BorderLayout());
+        sizeButtons.add(new ToolTipAction(Lang.get("ok")) {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 dialog.dispose();
             }
         }.createJButton(), BorderLayout.SOUTH);
+
+        JButton sizeDown = new JButton("-");
+        JButton sizeUp = new JButton("+");
+        sizeDown.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                preview.scale(0.9);
+            }
+        });
+        sizeUp.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                preview.scale(1.1);
+
+            }
+        });
+        sizeButtons.add(sizeDown, BorderLayout.WEST);
+        sizeButtons.add(sizeUp, BorderLayout.EAST);
+        JButton moveUp = new JButton("ʌ");
+        JButton moveDown = new JButton("v");
+        JButton moveLeft = new JButton("<");
+        JButton moveRight = new JButton(">");
+        moveUp.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                preview.move(0.0, 0.3);
+            }
+        });
+        moveDown.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                preview.move(0.0, -0.3);
+            }
+        });
+        moveLeft.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                preview.move(0.3, 0.0);
+            }
+        });
+        moveRight.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                preview.move(-0.3, 0.0);
+            }
+        });
+        JPanel dpad = new JPanel();
+        dpad.setLayout(new BorderLayout());
+        dpad.add(moveUp, BorderLayout.NORTH);
+        dpad.add(moveDown, BorderLayout.SOUTH);
+        dpad.add(moveLeft, BorderLayout.WEST);
+        dpad.add(moveRight, BorderLayout.EAST);
+        sizeButtons.add(dpad, BorderLayout.CENTER);
+        dialog.add(sizeButtons, BorderLayout.SOUTH);
         dialog.setSize(new Dimension(300, 300));
         dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
+    @SuppressWarnings("serial")
     @Override
     public JComponent getComponent(ElementAttributes attr) {
         panel.add(new ToolTipAction(Lang.get("btn_clearData")) {
@@ -128,6 +195,7 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
     }
 
     private final class VPanel extends JPanel {
+        private static final long serialVersionUID = -8300408021826103824L;
         private double scale = 2.0;
         private double translateX = 10;
         private double translateY = 10;
@@ -219,6 +287,28 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
             repaint();
         }
 
+        public void scale(double faktor) {
+            if (importer != null) {
+                for (SVGFragment f : importer.getFragments()) {
+                    if (f != null) {
+                        f.scale(faktor);
+                    }
+                }
+            }
+            preview.repaint();
+        }
+
+        public void move(double v, double h) {
+            if (importer != null) {
+                for (SVGFragment f : importer.getFragments()) {
+                    if (f != null) {
+                        f.move(new VectorFloat((float) v, (float) h));
+                    }
+                }
+            }
+            preview.repaint();
+        }
+
         private Vector getPosition(MouseEvent e) {
             return new Vector((int) ((e.getX() - translateX) / scale),
                     (int) ((e.getY() - translateY) / scale));
@@ -259,12 +349,12 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                 int diffY = pins.get(0).getPos().getY();
                 for (SVGFragment f : importer.getFragments()) {
                     if (f != null) {
-                        f.move(new Vector(diffX, diffY));
+                        f.move(new VectorFloat(diffX, diffY));
                     }
                 }
                 for (SVGPseudoPin p : pins) {
                     if (p != null) {
-                        p.move(new Vector(diffX, diffY));
+                        p.move(new VectorFloat(diffX, diffY));
                     }
                 }
             }
@@ -349,7 +439,8 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                     for (SVGDrawable d : p.getDrawables()) {
                         d.draw(graphic);
                         SVGEllipse e = (SVGEllipse) d;
-                        graphic.drawText(e.getPos(), e.getPos(), p.getLabel(),
+                        graphic.drawText(ImportSVG.toOldschoolVector(e.getPos()),
+                                ImportSVG.toOldschoolVector(e.getPos()), p.getLabel(),
                                 p.isInput() ? Orientation.RIGHTTOP : Orientation.LEFTTOP,
                                 Style.NORMAL.deriveFontStyle(12, true)
                                         .deriveFillStyle(p.isInput() ? Color.blue : Color.red));
@@ -359,21 +450,11 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
         }
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
             AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
         super.addToPanel(panel, key, elementAttributes, attributeDialog, constraints);
-        // if (svg.isSet()) {
-        // try {
-        // ImportSVG importer = new ImportSVG(svg, null, null);
-        // preview.setSVG(importer.getFragments());
-        // } catch (NoParsableSVGException e1) {
-        // new ErrorMessage("Beim Öffnen der SVG Datei ist ein Fehler aufgetreten
-        // (constStr)").addCause(e1)
-        // .show(panel);
-        // e1.printStackTrace();
-        // }
-        // }
     }
 
     @Override

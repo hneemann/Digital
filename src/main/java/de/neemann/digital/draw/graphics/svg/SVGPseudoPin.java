@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 
 /**
  * Is used to define a Pin or, if the PinsDescriptions are not available, draw a circle which looks
@@ -166,7 +167,12 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
     }
 
     @Override
-    public void move(Vector diff) {
-        pos = pos.sub(diff);
+    public void move(VectorFloat diff) {
+        pos = pos.sub(new Vector(diff.getX(), diff.getY()));
+    }
+
+    @Override
+    public void scale(double faktor) {
+        pos = pos.mul((int) faktor);
     }
 }

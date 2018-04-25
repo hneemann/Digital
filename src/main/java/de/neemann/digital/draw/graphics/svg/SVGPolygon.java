@@ -11,7 +11,6 @@ import org.w3c.dom.Element;
 
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.draw.graphics.VectorInterface;
 
@@ -86,10 +85,21 @@ public class SVGPolygon implements SVGFragment, SVGDrawable {
     }
 
     @Override
-    public void move(Vector diff) {
+    public void move(VectorFloat diff) {
         ArrayList<VectorInterface> tmp = new ArrayList<VectorInterface>();
         for (VectorInterface v : corners) {
-            tmp.add(new VectorFloat(v.getXFloat() - diff.getX(), v.getYFloat() - diff.getY()));
+            tmp.add(new VectorFloat(v.getXFloat() - diff.getXFloat(),
+                    v.getYFloat() - diff.getYFloat()));
+        }
+        corners = tmp;
+    }
+
+    @Override
+    public void scale(double faktor) {
+        ArrayList<VectorInterface> tmp = new ArrayList<VectorInterface>();
+        for (VectorInterface v : corners) {
+            tmp.add(new VectorFloat((float) (v.getXFloat() * faktor),
+                    (float) (v.getYFloat() * faktor)));
         }
         corners = tmp;
     }

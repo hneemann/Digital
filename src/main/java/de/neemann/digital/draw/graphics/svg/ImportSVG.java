@@ -19,6 +19,8 @@ import org.w3c.dom.NodeList;
 
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.Pins;
+import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDrawer;
 
@@ -192,5 +194,15 @@ public class ImportSVG {
      */
     public ArrayList<SVGPseudoPin> getPseudoPins() {
         return pseudoPins;
+    }
+
+    /**
+     * Dirty Hack, but needed as long as the graphics interface don't take VectorFloats
+     * @param v
+     *            VectorFloat
+     * @return Vector
+     */
+    public static Vector toOldschoolVector(VectorFloat v) {
+        return new Vector(v.getX(), v.getY());
     }
 }

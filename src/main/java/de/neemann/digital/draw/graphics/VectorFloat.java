@@ -77,7 +77,7 @@ public class VectorFloat implements VectorInterface {
      * @param a a
      * @return this*a
      */
-    public VectorFloat mul(int a) {
+    public VectorFloat mul(float a) {
         return new VectorFloat(x * a, y * a);
     }
 
@@ -87,7 +87,7 @@ public class VectorFloat implements VectorInterface {
      * @param d a
      * @return this/d
      */
-    public VectorFloat div(int d) {
+    public VectorFloat div(float d) {
         return new VectorFloat(x / d, y / d);
     }
 

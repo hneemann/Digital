@@ -13,14 +13,15 @@ import org.w3c.dom.NodeList;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 
 /**
  * Representation of a SVG Text
  * @author felix
  */
 public class SVGText implements SVGFragment, SVGDrawable {
-    private Vector p1;
-    private Vector p2;
+    private VectorFloat p1;
+    private VectorFloat p2;
     private String text;
     private Orientation orientation;
     private SVGStyle style;
@@ -48,8 +49,8 @@ public class SVGText implements SVGFragment, SVGDrawable {
      */
     public SVGText(Element element, SVGStyle style) throws NoParsableSVGException {
         try {
-            p1 = new Vector((int) Double.parseDouble(element.getAttribute("x")),
-                    (int) Double.parseDouble(element.getAttribute("y")));
+            p1 = new VectorFloat(Float.parseFloat(element.getAttribute("x")),
+                    Float.parseFloat(element.getAttribute("y")));
             p2 = p1.sub(new Vector(1, 0));
             if (style == null) {
                 this.style = new SVGStyle();
@@ -83,8 +84,8 @@ public class SVGText implements SVGFragment, SVGDrawable {
      * @param pos
      *            Vector to add
      */
-    public void setPos(Vector pos) {
-        pos = new Vector(pos.x, 0);
+    public void setPos(VectorFloat pos) {
+        pos = new VectorFloat(pos.getXFloat(), 0);
         p1 = p1.add(pos);
         p2 = p2.add(pos);
     }
@@ -119,20 +120,28 @@ public class SVGText implements SVGFragment, SVGDrawable {
     @Override
     public void draw(Graphic graphic) {
         if (style.getShallFilled()) {
-            graphic.drawText(p1, p2, text, orientation, style.getInnerStyle());
+            graphic.drawText(ImportSVG.toOldschoolVector(p1), ImportSVG.toOldschoolVector(p2), text,
+                    orientation, style.getInnerStyle());
         }
         if (style.getShallRanded())
-            graphic.drawText(p1, p2, text, orientation, style.getStyle());
+            graphic.drawText(ImportSVG.toOldschoolVector(p1), ImportSVG.toOldschoolVector(p2), text,
+                    orientation, style.getStyle());
     }
 
     @Override
-    public Vector getPos() {
+    public VectorFloat getPos() {
         return p1;
     }
 
     @Override
-    public void move(Vector diff) {
+    public void move(VectorFloat diff) {
         p1 = p1.sub(diff);
         p2 = p2.sub(diff);
+    }
+
+    @Override
+    public void scale(double faktor) {
+        p1 = p1.mul((float) faktor);
+        p2 = p2.mul((float) faktor);
     }
 }

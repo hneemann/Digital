@@ -8,15 +8,15 @@ package de.neemann.digital.draw.graphics.svg;
 import org.w3c.dom.Element;
 
 import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 
 /**
  * Representation of a SVG-Line
  * @author felix
  */
 public class SVGLine implements SVGFragment, SVGDrawable {
-    private Vector a;
-    private Vector b;
+    private VectorFloat a;
+    private VectorFloat b;
     private SVGStyle style;
 
     /**
@@ -28,10 +28,10 @@ public class SVGLine implements SVGFragment, SVGDrawable {
      */
     public SVGLine(Element element) throws NoParsableSVGException {
         try {
-            a = new Vector((int) Double.parseDouble(element.getAttribute("x1")),
-                    (int) Double.parseDouble(element.getAttribute("y1")));
-            b = new Vector((int) Double.parseDouble(element.getAttribute("x2")),
-                    (int) Double.parseDouble(element.getAttribute("y2")));
+            a = new VectorFloat(Float.parseFloat(element.getAttribute("x1")),
+                    Float.parseFloat(element.getAttribute("y1")));
+            b = new VectorFloat(Float.parseFloat(element.getAttribute("x2")),
+                    Float.parseFloat(element.getAttribute("y2")));
             style = new SVGStyle(element.getAttribute("style"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class SVGLine implements SVGFragment, SVGDrawable {
      * @param style
      *            Style of the Line
      */
-    public SVGLine(Vector a, Vector b, SVGStyle style) {
+    public SVGLine(VectorFloat a, VectorFloat b, SVGStyle style) {
         this.a = a;
         this.b = b;
         this.style = style;
@@ -61,17 +61,24 @@ public class SVGLine implements SVGFragment, SVGDrawable {
 
     @Override
     public void draw(Graphic graphic) {
-        graphic.drawLine(a, b, style.getStyle());
+        graphic.drawLine(ImportSVG.toOldschoolVector(a), ImportSVG.toOldschoolVector(b),
+                style.getStyle());
     }
 
     @Override
-    public Vector getPos() {
+    public VectorFloat getPos() {
         return a;
     }
 
     @Override
-    public void move(Vector diff) {
+    public void move(VectorFloat diff) {
         a = a.sub(diff);
         b = b.sub(diff);
+    }
+
+    @Override
+    public void scale(double faktor) {
+        a = a.mul((float) faktor);
+        b = b.mul((float) faktor);
     }
 }

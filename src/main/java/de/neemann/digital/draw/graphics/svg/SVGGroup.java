@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 
 /**
  * A Group of fragments
@@ -75,9 +76,18 @@ public class SVGGroup implements SVGFragment, SVGPinnable {
     }
 
     @Override
-    public void move(Vector diff) {
+    public void move(VectorFloat diff) {
         for (SVGFragment f : list) {
-            f.move(diff);
+            if (f != null)
+                f.move(diff);
+        }
+    }
+
+    @Override
+    public void scale(double faktor) {
+        for (SVGFragment f : list) {
+            if (f != null)
+                f.scale(faktor);
         }
     }
 

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Element;
 
-import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.draw.graphics.VectorInterface;
 
@@ -18,12 +17,12 @@ import de.neemann.digital.draw.graphics.VectorInterface;
  * @author felix
  */
 public class SVGRectangle implements SVGFragment {
-    private int x = 0;
-    private int y = 0;
-    private int rx = 0;
-    private int ry = 0;
-    private int width = 0;
-    private int height = 0;
+    private float x = 0;
+    private float y = 0;
+    private float rx = 0;
+    private float ry = 0;
+    private float width = 0;
+    private float height = 0;
     private SVGStyle style;
 
     /**
@@ -35,14 +34,18 @@ public class SVGRectangle implements SVGFragment {
      */
     public SVGRectangle(Element element) throws NoParsableSVGException {
         try {
-            width = (int) Double.parseDouble(element.getAttribute("width"));
-            height = (int) Double.parseDouble(element.getAttribute("height"));
-            x = (int) Double.parseDouble(element.getAttribute("x"));
-            y = (int) Double.parseDouble(element.getAttribute("y"));
+            if (!element.getAttribute("width").isEmpty())
+                width = Float.parseFloat(element.getAttribute("width"));
+            if (!element.getAttribute("height").isEmpty())
+                height = Float.parseFloat(element.getAttribute("height"));
+            if (!element.getAttribute("x").isEmpty())
+                x = Float.parseFloat(element.getAttribute("x"));
+            if (!element.getAttribute("y").isEmpty())
+                y = Float.parseFloat(element.getAttribute("y"));
             if (!element.getAttribute("rx").isEmpty())
-                rx = (int) Double.parseDouble(element.getAttribute("rx"));
+                rx = Float.parseFloat(element.getAttribute("rx"));
             if (!element.getAttribute("ry").isEmpty())
-                ry = (int) Double.parseDouble(element.getAttribute("ry"));
+                ry = Float.parseFloat(element.getAttribute("ry"));
             style = new SVGStyle(element.getAttribute("style"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,8 +62,8 @@ public class SVGRectangle implements SVGFragment {
     private SVGPolygon calculatePolygon() {
         ArrayList<VectorInterface> corners = new ArrayList<VectorInterface>();
         if (rx * ry != 0) {
-            int w = width - 2 * rx;
-            int h = height - 2 * ry;
+            float w = width - 2 * rx;
+            float h = height - 2 * ry;
             corners.add(new VectorFloat(x + rx, y));
             corners.add(new VectorFloat(x + rx + w, y));
             corners.add(new VectorFloat(x + width, y + ry));
@@ -89,8 +92,20 @@ public class SVGRectangle implements SVGFragment {
     }
 
     @Override
-    public void move(Vector diff) {
-        x -= diff.getX();
-        y -= diff.getY();
+    public void move(VectorFloat diff) {
+        x -= diff.getXFloat();
+        y -= diff.getYFloat();
+        rx -= diff.getXFloat();
+        ry -= diff.getYFloat();
+    }
+
+    @Override
+    public void scale(double faktor) {
+        x *= faktor;
+        y *= faktor;
+        rx *= faktor;
+        ry *= faktor;
+        width*=faktor;
+        height*=faktor;
     }
 }
