@@ -201,6 +201,8 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
         private double translateY = 10;
         private int lastPinX = 0;
         private int lastPinY = 0;
+        private float circuitX = 0;
+        private float circuitY = 0;
         private ArrayList<SVGPseudoPin> pins = new ArrayList<SVGPseudoPin>();
         private boolean drag = false;
         private int dragged;
@@ -244,6 +246,9 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                             break;
                         }
                     }
+                    VectorFloat pos = getPositionFloat(e);
+                    circuitX = pos.getXFloat();
+                    circuitY = pos.getYFloat();
                 }
 
                 @Override
@@ -269,7 +274,15 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                     if (drag) {
                         pins.get(dragged).setPos(getPosition(e));
                         repaint();
+                    } else {
+                        VectorFloat pos = getPositionFloat(e);
+                        float diffX = circuitX - pos.getXFloat();
+                        float diffY = circuitY - pos.getYFloat();
+                        move(diffX, diffY);
+                        circuitX = pos.getXFloat();
+                        circuitY = pos.getYFloat();
                     }
+
                 }
             });
             this.addMouseWheelListener(new MouseWheelListener() {
@@ -310,8 +323,13 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
         }
 
         private Vector getPosition(MouseEvent e) {
-            return new Vector((int) ((e.getX() - translateX) / scale),
-                    (int) ((e.getY() - translateY) / scale));
+            VectorFloat v = getPositionFloat(e);
+            return new Vector(v.getX(), v.getY());
+        }
+
+        private VectorFloat getPositionFloat(MouseEvent e) {
+            return new VectorFloat((float) ((e.getX() - translateX) / scale),
+                    (float) ((e.getY() - translateY) / scale));
         }
 
         public void initPins() {
@@ -372,15 +390,15 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
             if (!isPinPresent(label)) {
                 svg = svg.addPin(label, new Vector(lastPinX, lastPinY), input);
                 while (isPinOnPosition(new Vector(lastPinX, lastPinY)) > 0) {
-                    lastPinY += 20;
+                    lastPinX += 20;
                 }
                 SVGPseudoPin pseudoPin = new SVGPseudoPin(new Vector(lastPinX, lastPinY), label,
                         input, null);
                 pins.add(pseudoPin);
-                lastPinX += 20;
-                if (lastPinX > 150) {
-                    lastPinX = 0;
-                    lastPinY += 20;
+                lastPinY += 20;
+                if (lastPinY > 150) {
+                    lastPinY = 0;
+                    lastPinX += 20;
                 }
             }
             repaint();
