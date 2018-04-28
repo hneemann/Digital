@@ -59,7 +59,7 @@ public class GraphicSVG implements Graphic {
     }
 
     @Override
-    public Graphic setBoundingBox(Vector min, Vector max) {
+    public Graphic setBoundingBox(VectorInterface min, VectorInterface max) {
         try {
             w = new BufferedWriter(new OutputStreamWriter(out, "utf-8"));
             w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
@@ -72,14 +72,17 @@ public class GraphicSVG implements Graphic {
                     + "<svg\n"
                     + "   xmlns:svg=\"http://www.w3.org/2000/svg\"\n"
                     + "   xmlns=\"http://www.w3.org/2000/svg\"\n");
-            double width = (max.x - min.x + Style.MAXLINETHICK) * svgScale / 100.0;
-            double height = (max.y - min.y + Style.MAXLINETHICK) * svgScale / 100.0;
+            double width = (max.getXFloat() - min.getXFloat() + Style.MAXLINETHICK) * svgScale / 100.0;
+            double height = (max.getYFloat() - min.getYFloat() + Style.MAXLINETHICK) * svgScale / 100.0;
 
             final int lineCorr = Style.MAXLINETHICK / 2;
 
             w.write("   width=\"" + width + "mm\"\n"
                     + "   height=\"" + height + "mm\"\n"
-                    + "   viewBox=\"" + (min.x - lineCorr) + " " + (min.y - lineCorr) + " " + (max.x - min.x + Style.MAXLINETHICK) + " " + (max.y - min.y + Style.MAXLINETHICK) + "\">\n");
+                    + "   viewBox=\"" + (min.getX() - lineCorr)
+                    + " " + (min.getY() - lineCorr)
+                    + " " + (max.getX() - min.getX() + Style.MAXLINETHICK)
+                    + " " + (max.getY() - min.getY() + Style.MAXLINETHICK) + "\">\n");
             w.write("<g stroke-linecap=\"square\">\n");
             return this;
         } catch (IOException e) {
@@ -95,9 +98,11 @@ public class GraphicSVG implements Graphic {
     }
 
     @Override
-    public void drawLine(Vector p1, Vector p2, Style style) {
+    public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
         try {
-            w.write("<line x1=\"" + p1.x + "\" y1=\"" + p1.y + "\" x2=\"" + p2.x + "\" y2=\"" + p2.y + "\" stroke=\"" + getColor(style) + "\" stroke-linecap=\"square\" stroke-width=\"" + getStrokeWidth(style) + "\"");
+            w.write("<line x1=\"" + p1.getXFloat() + "\" y1=\"" + p1.getYFloat()
+                    + "\" x2=\"" + p2.getXFloat() + "\" y2=\"" + p2.getYFloat()
+                    + "\" stroke=\"" + getColor(style) + "\" stroke-linecap=\"square\" stroke-width=\"" + getStrokeWidth(style) + "\"");
             addStrokeDash(w, style.getDash());
             w.write(" />\n");
         } catch (IOException e) {
@@ -138,14 +143,14 @@ public class GraphicSVG implements Graphic {
     }
 
     @Override
-    public void drawCircle(Vector p1, Vector p2, Style style) {
+    public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
         try {
-            Vector c = p1.add(p2).div(2);
-            double r = Math.abs(p2.sub(p1).x) / 2.0;
+            VectorInterface c = p1.add(p2).div(2);
+            double r = Math.abs(p2.sub(p1).getXFloat()) / 2.0;
             if (style.isFilled())
-                w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" />\n");
+                w.write("<circle cx=\"" + c.getXFloat() + "\" cy=\"" + c.getYFloat() + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" />\n");
             else {
-                w.write("<circle cx=\"" + c.x + "\" cy=\"" + c.y + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"");
+                w.write("<circle cx=\"" + c.getXFloat() + "\" cy=\"" + c.getYFloat() + "\" r=\"" + r + "\" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"none\"");
                 addStrokeDash(w, style.getDash());
                 w.write(" />\n");
             }
@@ -155,31 +160,31 @@ public class GraphicSVG implements Graphic {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
         if (text == null || text.length() == 0) return;
 
         try {
             text = formatText(text, style);
 
             boolean rotateText = false;
-            if (p1.y == p2.y) {   // 0 and 180 deg
-                if (p1.x > p2.x)   // 180
+            if (p1.getY() == p2.getY()) {   // 0 and 180 deg
+                if (p1.getX() > p2.getX())   // 180
                     orientation = orientation.rot(2);
             } else {
-                if (p1.y < p2.y) // 270
+                if (p1.getY() < p2.getY()) // 270
                     orientation = orientation.rot(2);
                 else            // 90
                     orientation = orientation.rot(0);
                 rotateText = true;
             }
 
-            Vector p = new Vector(p1);
+            VectorFloat p = new VectorFloat(p1);
             switch (orientation.getY()) {
                 case 1:
-                    p = p.add(0, style.getFontSize() / 2 - style.getFontSize() / 8);
+                    p = p.add(new VectorFloat(0, style.getFontSize() / 2f - style.getFontSize() / 8f));
                     break;
                 case 2:
-                    p = p.add(0, style.getFontSize() * 3 / 4);
+                    p = p.add(new VectorFloat(0, style.getFontSize() * 3 / 4f));
                     break;
                 case 0:
                     //p = p.add(0, -style.getFontSize() / 4);
@@ -187,9 +192,9 @@ public class GraphicSVG implements Graphic {
             }
 
             if (rotateText)
-                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\" transform=\"rotate(-90," + str(p1) + ")\" >" + text + "</text>\n");
+                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.getXFloat() + "\" y=\"" + p.getYFloat() + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\" transform=\"rotate(-90," + str(p1) + ")\" >" + text + "</text>\n");
             else
-                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.x + "\" y=\"" + p.y + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\">" + text + "</text>\n");
+                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.getXFloat() + "\" y=\"" + p.getYFloat() + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\">" + text + "</text>\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -26,6 +26,16 @@ public class VectorFloat implements VectorInterface {
         this.y = y;
     }
 
+    /**
+     * Creates a new vector which is a copy of the given vector.
+     *
+     * @param v the vector to copy
+     */
+    public VectorFloat(VectorInterface v) {
+        this.x = v.getXFloat();
+        this.y = v.getYFloat();
+    }
+
     @Override
     public int getX() {
         return Math.round(x);
@@ -71,13 +81,19 @@ public class VectorFloat implements VectorInterface {
         return new VectorFloat(x - sub.getXFloat(), y - sub.getYFloat());
     }
 
+    @Override
+    public VectorFloat norm() {
+        float l = (float) Math.sqrt(x * x + y * y);
+        return new VectorFloat(x / l, y / l);
+    }
+
     /**
      * Creates a new vector which has the value this*a
      *
      * @param a a
      * @return this*a
      */
-    public VectorFloat mul(int a) {
+    public VectorFloat mul(float a) {
         return new VectorFloat(x * a, y * a);
     }
 

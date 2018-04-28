@@ -38,4 +38,32 @@ public interface VectorInterface {
      */
     VectorInterface transform(Transform tr);
 
+    /**
+     * Creates a new vector which has the value this+a
+     *
+     * @param a a
+     * @return this+a
+     */
+    VectorInterface add(VectorInterface a);
+
+    /**
+     * Creates a new vector which has the value this/d
+     *
+     * @param d d
+     * @return this/d
+     */
+    VectorInterface div(int d);
+
+    /**
+     * Creates a new vector which has the value this-a
+     *
+     * @param a a
+     * @return this-a
+     */
+    VectorInterface sub(VectorInterface a);
+
+    /**
+     * @return the norm of this vector
+     */
+    VectorFloat norm();
 }

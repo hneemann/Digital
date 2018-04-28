@@ -25,8 +25,8 @@ public class GraphicTransform implements Graphic {
     }
 
     @Override
-    public void drawLine(Vector p1, Vector p2, Style style) {
-        parent.drawLine(transform(p1), transform(p2), style);
+    public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
+        parent.drawLine(p1.transform(transform), p2.transform(transform), style);
     }
 
     @Override
@@ -35,17 +35,13 @@ public class GraphicTransform implements Graphic {
     }
 
     @Override
-    public void drawCircle(Vector p1, Vector p2, Style style) {
-        parent.drawCircle(transform(p1), transform(p2), style);
+    public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
+        parent.drawCircle(p1.transform(transform), p2.transform(transform), style);
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
-        parent.drawText(transform(p1), transform(p2), text, orientation, style);
-    }
-
-    private Vector transform(Vector v) {
-        return transform.transform(v);
+    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+        parent.drawText(p1.transform(transform), p2.transform(transform), text, orientation, style);
     }
 
     @Override

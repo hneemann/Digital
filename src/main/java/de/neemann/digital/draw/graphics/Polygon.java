@@ -134,11 +134,11 @@ public class Polygon implements Iterable<VectorInterface> {
      * @param p2 second point of the line
      * @return true if line was added
      */
-    public boolean addLine(Vector p1, Vector p2) {
+    public boolean addLine(VectorInterface p1, VectorInterface p2) {
         return check(p1, p2) || check(p2, p1);
     }
 
-    private boolean check(Vector p1, Vector p2) {
+    private boolean check(VectorInterface p1, VectorInterface p2) {
         if (p1.equals(getFirst())) {
             points.add(0, p2);
             return true;
