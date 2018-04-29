@@ -533,6 +533,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (p != null)
                 return createPinToolTip(p);
 
+            if (Settings.getInstance().get(Keys.SETTINGS_NOTOOLTIPS))
+                return null;
+
             try {
                 ElementTypeDescription etd = library.getElementType(ve.getElementName());
                 String tt = etd.getDescription(ve.getElementAttributes());

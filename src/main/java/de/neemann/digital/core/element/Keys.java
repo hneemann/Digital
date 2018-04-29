@@ -593,4 +593,11 @@ public final class Keys {
     public static final Key.KeyFile SETTINGS_GHDL_PATH
             = new Key.KeyFile("ghdlPath", new File("ghdl"));
 
+    /**
+     * Avoid component tooltips in the main panel
+     */
+    public static final Key<Boolean> SETTINGS_NOTOOLTIPS =
+            new Key<>("noComponentToolTips", false);
+
+
 }

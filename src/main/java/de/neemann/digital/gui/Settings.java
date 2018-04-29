@@ -50,6 +50,7 @@ public final class Settings implements AttributeListener {
         intList.add(Keys.SETTINGS_DEFAULT_TREESELECT);
         intList.add(Keys.SETTINGS_GRID);
         intList.add(Keys.SETTINGS_SHOW_WIRE_BITS);
+        intList.add(Keys.SETTINGS_NOTOOLTIPS);
         intList.add(Keys.SETTINGS_LIBRARY_PATH);
         intList.add(Keys.SETTINGS_JAR_PATH);
         intList.add(Keys.SETTINGS_ATF1502_FITTER);

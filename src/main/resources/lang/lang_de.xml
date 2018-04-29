@@ -1128,6 +1128,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters, wenn die Simulation gestartet wird.</string>
     <string name="key_macMouse">Die MacOS Mausklicks verwenden.</string>
     <string name="key_macMouse_tt">Das unter MacOS übliche STRG-Klick anstelle von Rechtsklick verwenden.</string>
+    <string name="key_noComponentToolTips">Keine ToolTips für Bauteile auf der Arbeitsfläche.</string>
+    <string name="key_noComponentToolTips_tt">Wenn gesetzt, werden keine ToolTips für die Bauteile auf der Arbeitsfläche angezeigt.
+        Vor allem in einer Präsentation können diese ToolTips sehr störend sein.</string>
+
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
