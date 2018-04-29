@@ -28,8 +28,6 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.language.Language;
@@ -213,7 +211,7 @@ public class Circuit {
      * @param graphic the graphic instance used
      */
     public void drawTo(Graphic graphic) {
-        drawTo(graphic, EMPTY_SET, null, NoSync.INST);
+        drawTo(graphic, EMPTY_SET, null, SyncAccess.NOSYNC);
     }
 
     /**
@@ -224,12 +222,13 @@ public class Circuit {
      * @param highlight   style used to draw the highlighted elements
      * @param modelSync   sync interface to access the model. Is locked while drawing circuit
      */
-    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, Sync modelSync) {
+    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, SyncAccess modelSync) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
             dotsPresent = true;
         }
 
+        // reads the models state which is a fast operation
         modelSync.access(() -> {
             for (Wire w : wires)
                 w.readObservableValues();
@@ -237,6 +236,7 @@ public class Circuit {
                 p.getShape().readObservableValues();
         });
 
+        // after that draw the model which is rather slow
         graphic.openGroup();
         for (Wire w : wires)
             w.drawTo(graphic, highLighted.contains(w) ? highlight : null);

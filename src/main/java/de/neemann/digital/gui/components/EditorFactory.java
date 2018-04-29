@@ -6,10 +6,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.core.Bits;
-import de.neemann.digital.core.IntFormat;
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
@@ -27,7 +24,6 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
-import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.*;
@@ -487,7 +483,7 @@ public final class EditorFactory {
                             addrBits = attr.get(Keys.ADDR_BITS);
                         }
                         int size = 1 << addrBits;
-                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
+                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, SyncAccess.NOSYNC);
                         de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
                             data = de.getModifiedDataField();

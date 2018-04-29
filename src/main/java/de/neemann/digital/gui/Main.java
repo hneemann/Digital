@@ -46,9 +46,6 @@ import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.gui.remote.RemoteSever;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
-import de.neemann.digital.gui.sync.LockSync;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
 import de.neemann.digital.lang.Lang;
@@ -135,7 +132,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private FileHistory fileHistory;
     private boolean modifiedPrefixVisible = false;
 
-    private Sync modelSync;
     private Model model;
 
     private ModelCreator modelCreator;
@@ -1119,7 +1115,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void enter() {
                 super.enter();
                 clearModelDescription();
-                circuitComponent.setModeAndReset(false, NoSync.INST);
+                circuitComponent.setModeAndReset(false, SyncAccess.NOSYNC);
                 doStep.setEnabled(false);
                 stoppedState.getAction().setEnabled(false);
                 showMeasurementDialog.setEnabled(false);
@@ -1148,7 +1144,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void clearModelDescription() {
         if (model != null)
-            modelSync.access(() -> model.close());
+            model.access(() -> model.close());
 
         modelCreator = null;
         model = null;
@@ -1163,7 +1159,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
             if (model != null) {
-                modelSync.access(() -> model.close());
+                model.access(() -> model.close());
                 circuitComponent.getCircuit().clearState();
                 model = null;
             }
@@ -1178,14 +1174,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
             realTimeClockRunning = false;
-            modelSync = null;
             if (globalRunClock) {
                 int threadRunnerCount = 0;
                 for (Clock c : model.getClocks())
                     if (c.getFrequency() > 0) {
-                        if (modelSync == null)
-                            modelSync = new LockSync();
-                        final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this, modelSync, this);
+                        final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this, this);
                         model.addObserver(realTimeClock);
                         if (realTimeClock.isThreadRunner()) threadRunnerCount++;
                         realTimeClockRunning = true;
@@ -1201,19 +1194,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     if (!model.getClocks().isEmpty())
                         throw new RuntimeException(Lang.get("err_clocksNotAllowedInAsyncMode"));
 
-                    modelSync = new LockSync();
                     model.addObserver(
-                            new AsyncSequentialClock(model, ai, timerExecutor, this, modelSync));
+                            new AsyncSequentialClock(model, ai, timerExecutor, this));
                     realTimeClockRunning = true;
                     model.setAsyncMode();
                 }
             }
 
-
-            if (modelSync == null)
-                modelSync = NoSync.INST;
-
-            circuitComponent.setModeAndReset(true, modelSync);
+            circuitComponent.setModeAndReset(true, model);
 
             if (realTimeClockRunning) {
                 // if clock is running, enable automatic update of gui
@@ -1224,7 +1212,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 // all repainting is initiated by user actions!
                 modelCreator.connectToGui(null);
 
-            handleKeyboardComponent(updateEvent, modelSync);
+            handleKeyboardComponent(updateEvent);
 
             doStep.setEnabled(false);
             runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
@@ -1246,8 +1234,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             return true;
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
             if (model != null) {
-                if (modelSync == null)
-                    modelSync = NoSync.INST;
                 showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
             } else
                 showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
@@ -1255,7 +1241,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         return false;
     }
 
-    private void handleKeyboardComponent(ModelEvent updateEvent, Sync modelSync) {
+    private void handleKeyboardComponent(ModelEvent updateEvent) {
         KeyboardDialog.KeyPressedHandler handler = null;
         for (Keyboard k : model.findNode(Keyboard.class)) {
             if (handler == null)
@@ -1270,7 +1256,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     handler = keyboard -> {
                         try {
-                            modelSync.accessNEx(() -> {
+                            model.accessNEx(() -> {
                                 keyboard.hasChanged();
                                 model.fireManualChangeEvent();
                                 model.doStep();
@@ -1288,12 +1274,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void showMeasurementGraph(ModelEvent updateEvent) {
         List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
+        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering)).setVisible(true);
     }
 
     private void showMeasurementDialog(ModelEvent updateEvent) {
         List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-        windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync, circuitComponent)).setVisible(true);
+        windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, circuitComponent)).setVisible(true);
     }
 
     /**
@@ -1312,7 +1298,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         // To avoid such problems a lock is used.
         synchronized (modelLock) {
             if (model != null) {
-                modelSync.access(() -> model.close());
+                model.access(() -> model.close());
                 model = null;
                 SwingUtilities.invokeLater(() -> showErrorWithoutARunningModel(message, cause));
             }
@@ -1466,7 +1452,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         @Override
         public void hasChanged() {
             try {
-                modelSync.accessNEx(() -> {
+                model.accessNEx(() -> {
                     model.fireManualChangeEvent();
                     model.doStep();
                 });
@@ -1824,7 +1810,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (model != null && keyCode != KeyEvent.VK_UNDEFINED) {
                 Button b = model.getButtonToMap(keyCode);
                 if (b != null) {
-                    modelSync.access(() -> b.setPressed(pressed));
+                    model.access(() -> b.setPressed(pressed));
                     circuitComponent.modelHasChanged();
                 }
             }

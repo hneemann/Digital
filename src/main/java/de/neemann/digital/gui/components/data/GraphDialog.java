@@ -13,8 +13,6 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.IconCreator;
 import de.neemann.gui.MyFileChooser;
@@ -51,10 +49,9 @@ public class GraphDialog extends JDialog implements Observer {
      * @param model     the model
      * @param microStep stepping mode
      * @param ordering  the ordering to use
-     * @param modelSync the lock to access the model
      * @return the created instance
      */
-    public static GraphDialog createLiveDialog(JFrame owner, Model model, boolean microStep, List<String> ordering, Sync modelSync) {
+    public static GraphDialog createLiveDialog(JFrame owner, Model model, boolean microStep, List<String> ordering) {
         String title;
         if (microStep)
             title = Lang.get("win_measures_microstep");
@@ -71,17 +68,17 @@ public class GraphDialog extends JDialog implements Observer {
 
         ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, MAX_SAMPLE_SIZE);
 
-        GraphDialog graphDialog = new GraphDialog(owner, title, valueTableObserver.getLogData(), modelSync);
+        GraphDialog graphDialog = new GraphDialog(owner, title, valueTableObserver.getLogData(), model);
 
         graphDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                modelSync.access(() -> model.addObserver(valueTableObserver));
+                model.access(() -> model.addObserver(valueTableObserver));
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                modelSync.access(() -> model.removeObserver(valueTableObserver));
+                model.access(() -> model.removeObserver(valueTableObserver));
             }
         });
 
@@ -96,7 +93,7 @@ public class GraphDialog extends JDialog implements Observer {
      * @param logData the data to visualize
      */
     public GraphDialog(Window owner, String title, ValueTable logData) {
-        this(owner, title, logData, NoSync.INST);
+        this(owner, title, logData, SyncAccess.NOSYNC);
     }
 
     /**
@@ -107,7 +104,7 @@ public class GraphDialog extends JDialog implements Observer {
      * @param logData   the data to visualize
      * @param modelSync used to access the running model
      */
-    private GraphDialog(Window owner, String title, ValueTable logData, Sync modelSync) {
+    private GraphDialog(Window owner, String title, ValueTable logData, SyncAccess modelSync) {
         super(owner, title, ModalityType.MODELESS);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 

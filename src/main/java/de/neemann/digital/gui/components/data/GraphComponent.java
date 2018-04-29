@@ -5,10 +5,10 @@
  */
 package de.neemann.digital.gui.components.data;
 
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.data.DataPlotter;
 import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.draw.graphics.GraphicSwing;
-import de.neemann.digital.gui.sync.Sync;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +31,7 @@ public class GraphComponent extends JComponent {
      * @param dataSet   the dataSet to paint
      * @param modelSync lock to access the model
      */
-    public GraphComponent(ValueTable dataSet, Sync modelSync) {
+    public GraphComponent(ValueTable dataSet, SyncAccess modelSync) {
         plotter = new DataPlotter(dataSet).setModelSync(modelSync);
         addMouseWheelListener(e -> {
             double f = Math.pow(0.9, e.getWheelRotation());

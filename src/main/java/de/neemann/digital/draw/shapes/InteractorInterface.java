@@ -5,12 +5,12 @@
  */
 package de.neemann.digital.draw.shapes;
 
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.graphics.Transform;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -31,7 +31,7 @@ public interface InteractorInterface {
      * @param modelSync used to sync model access
      * @return true if model is changed
      */
-    boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync);
+    boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
      * Called mouse is pressed on running model
@@ -43,7 +43,7 @@ public interface InteractorInterface {
      * @param modelSync used to sync model access
      * @return true if model is changed
      */
-    boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync);
+    boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
      * Called mouse is released on running model
@@ -55,7 +55,7 @@ public interface InteractorInterface {
      * @param modelSync used to sync model access
      * @return true if model is changed
      */
-    boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync);
+    boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
      * Called mouse is dragged on running model
@@ -68,6 +68,6 @@ public interface InteractorInterface {
      * @param modelSync used to sync model access
      * @return true if model is changed
      */
-    boolean dragged(CircuitComponent cc, Vector pos, Transform transform, IOState ioState, Element element, Sync modelSync);
+    boolean dragged(CircuitComponent cc, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync);
 
 }

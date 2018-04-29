@@ -8,6 +8,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
@@ -26,8 +27,6 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.modification.*;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
 
@@ -113,7 +112,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
     private Vector lastMousePos;
-    private Sync modelSync;
+    private SyncAccess modelSync;
     private boolean isManualScale;
     private boolean graphicsHasChanged = true;
     private boolean focusWasLost = false;
@@ -627,7 +626,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param runMode   true if running, false if editing
      * @param modelSync used to access the running model
      */
-    public void setModeAndReset(boolean runMode, Sync modelSync) {
+    public void setModeAndReset(boolean runMode, SyncAccess modelSync) {
         this.modelSync = modelSync;
         if (runMode)
             mouseRun.activate();
@@ -930,7 +929,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         redoAction.setEnabled(false);
 
         fitCircuit();
-        setModeAndReset(false, NoSync.INST);
+        setModeAndReset(false, SyncAccess.NOSYNC);
     }
 
     /**
@@ -2126,7 +2125,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
 
     private interface Actor {
-        boolean interact(CircuitComponent cc, Point p, Vector posInComponent, Sync modelSync);
+        boolean interact(CircuitComponent cc, Point p, Vector posInComponent, SyncAccess modelSync);
     }
 
     private final class MouseControllerRun extends MouseController {
