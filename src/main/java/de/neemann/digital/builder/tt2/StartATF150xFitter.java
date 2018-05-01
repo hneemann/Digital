@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.builder.tt2;
 
+import de.neemann.digital.builder.ATF150x.ATFDialog;
 import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.gui.SaveAsHelper;
@@ -22,8 +23,8 @@ import static de.neemann.gui.Screen.isLinux;
  * Starts a fitter to create a JEDEC file.
  */
 public class StartATF150xFitter implements ExpressionToFileExporter.PostProcess {
-    private final JDialog parent;
     private final File fitterExe;
+    private final ATFDialog atfDialog;
 
     private static File getFitterExe(String fitterName) {
         File fitter = Settings.getInstance().get(Keys.SETTINGS_ATF1502_FITTER);
@@ -33,21 +34,21 @@ public class StartATF150xFitter implements ExpressionToFileExporter.PostProcess 
     /**
      * Creates a new instance
      *
-     * @param parent       the parent dialog
+     * @param atfDialog    the dialog to show the result
      * @param deviceNumber number of the device
      */
-    public StartATF150xFitter(JDialog parent, int deviceNumber) {
-        this(parent, getFitterExe("fit" + deviceNumber + ".exe"));
+    public StartATF150xFitter(ATFDialog atfDialog, int deviceNumber) {
+        this(atfDialog, getFitterExe("fit" + deviceNumber + ".exe"));
     }
 
     /**
      * Creates a new instance
      *
-     * @param parent    the parent dialog
+     * @param atfDialog the dialog to show the result
      * @param fitterExe fitter executable
      */
-    private StartATF150xFitter(JDialog parent, File fitterExe) {
-        this.parent = parent;
+    private StartATF150xFitter(ATFDialog atfDialog, File fitterExe) {
+        this.atfDialog = atfDialog;
         this.fitterExe = fitterExe;
     }
 
@@ -70,7 +71,7 @@ public class StartATF150xFitter implements ExpressionToFileExporter.PostProcess 
 
             String message = execute.start();
 
-            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(parent, message, Lang.get("msg_fitterResult"), JOptionPane.INFORMATION_MESSAGE));
+            SwingUtilities.invokeLater(() -> atfDialog.setFitterResult(message));
 
             return SaveAsHelper.checkSuffix(file, "jed");
         } catch (IOException e) {

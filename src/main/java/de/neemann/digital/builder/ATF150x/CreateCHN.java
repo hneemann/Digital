@@ -9,6 +9,7 @@ import de.neemann.digital.builder.ExpressionToFileExporter;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.lang.Lang;
 
+import javax.swing.*;
 import java.io.*;
 
 /**
@@ -18,14 +19,17 @@ import java.io.*;
 public class CreateCHN implements ExpressionToFileExporter.PostProcess {
 
     private final String device;
+    private final ATFDialog atfDialog;
 
     /**
      * create a new instance
      *
-     * @param device the device name used in the chn file
+     * @param device    the device name used in the chn file
+     * @param atfDialog the dialog used to show the results
      */
-    public CreateCHN(String device) {
+    public CreateCHN(String device, ATFDialog atfDialog) {
         this.device = device;
+        this.atfDialog = atfDialog;
     }
 
     @Override
@@ -41,6 +45,7 @@ public class CreateCHN implements ExpressionToFileExporter.PostProcess {
             chn.write(file.getPath());
             chn.write("\r\n");
         }
+        SwingUtilities.invokeLater(() -> atfDialog.setChnFile(chnFile));
 
         return chnFile;
     }

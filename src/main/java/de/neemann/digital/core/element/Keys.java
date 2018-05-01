@@ -458,10 +458,16 @@ public final class Keys {
             = new Key<>("ledPersistence", false).allowGroupEdit();
 
     /**
-     * Fitter for the atf1502
+     * Fitter for the atf15xx
      */
     public static final Key<File> SETTINGS_ATF1502_FITTER
             = new Key.KeyFile("atf1502Fitter", new File("c:/Wincupl/WinCupl/Fitters")).setDirectoryOnly(true);
+
+    /**
+     * Flash software for the atf15xx
+     */
+    public static final Key<File> SETTINGS_ATMISP
+            = new Key.KeyFile("ATMISP", new File("c:/ATMISP7/atmisp.exe"));
 
     /**
      * row bits in led matrix

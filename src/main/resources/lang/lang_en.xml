@@ -1125,6 +1125,9 @@
     <string name="key_noComponentToolTips_tt">If set, no tool tips for the components on the main panel are displayed.
         Especially in a presentation, these tool tips can be very annoying.</string>
 
+    <string name="key_ATMISP">ATMISP</string>
+    <string name="key_ATMISP_tt">Path to the executable file ATMISP.exe. If set, the ATMISP software can be started automatically!</string>
+
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -1433,6 +1436,10 @@
         If possible, the input and output definitions are also adapted to the current code.</string>
     <string name="msg_applicationFileNotFound">Executable file "{0}" not found!</string>
     <string name="msg_enterText">Enter Text!</string>
+
+    <string name="btn_startATMISP">Start ATMISP</string>
+    <string name="btn_startATMISP_tt">Starts the external program ATMISP. This must have been previously installed.</string>
+    <string name="msg_errorStartingATMISP">Error while starting ATMISP!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

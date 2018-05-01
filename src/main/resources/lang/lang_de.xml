@@ -1132,6 +1132,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_noComponentToolTips_tt">Wenn gesetzt, werden keine ToolTips für die Bauteile auf der Arbeitsfläche angezeigt.
         Vor allem in einer Präsentation können diese ToolTips sehr störend sein.</string>
 
+    <string name="key_ATMISP">ATMISP</string>
+    <string name="key_ATMISP_tt">Pfad zur ausführbaren Datei ATMISP.exe. Wenn gesetzt, kann die Software ATMISP automatisch gestartet werden!</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1443,6 +1445,9 @@ Soll dennoch exportiert werden?</string>
         die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
     <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
     <string name="msg_enterText">Text eingeben!</string>
+    <string name="btn_startATMISP">Starte ATMISP</string>
+    <string name="btn_startATMISP_tt">Startet das externe Programm ATMISP. Dieses muss zuvor installiert worden sein.</string>
+    <string name="msg_errorStartingATMISP">Fehler beim Starten von ATMISP!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
