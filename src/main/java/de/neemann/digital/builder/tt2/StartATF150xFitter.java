@@ -65,11 +65,10 @@ public class StartATF150xFitter implements ExpressionToFileExporter.PostProcess 
         args.add(tt2Name);
 
         try {
-            OSExecute execute = new OSExecute(args);
-            execute.setEnvVar("FITTERDIR", fitterExe.getParentFile().getPath());
-            execute.setWorkingDir(file.getParentFile());
-
-            String message = execute.startAndWait();
+            String message = new OSExecute(args)
+                    .setEnvVar("FITTERDIR", fitterExe.getParentFile().getPath())
+                    .setWorkingDir(file.getParentFile())
+                    .startAndWait();
 
             SwingUtilities.invokeLater(() -> atfDialog.setFitterResult(message));
 

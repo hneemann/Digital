@@ -22,7 +22,6 @@ public class OSExecute {
 
     private final ProcessBuilder processBuilder;
     private int timeOutSec = 30;
-    private StreamReader consoleReader;
     private Process process;
     private boolean ignoreReturnCode = false;
 
@@ -85,42 +84,14 @@ public class OSExecute {
      * @throws IOException IOException
      */
     public String startAndWait() throws IOException {
-        startProcess();
-        return waitForProcess();
-    }
-
-    /**
-     * Starts the process.
-     *
-     * @throws IOException IOException
-     */
-    public void startProcess() throws IOException {
         processBuilder.redirectErrorStream(true);
 
         process = processBuilder.start();
 
         InputStream console = process.getInputStream();
-        consoleReader = new StreamReader(console);
+        StreamReader consoleReader = new StreamReader(console);
         consoleReader.start();
-    }
 
-    /**
-     * Sends a terminate signal to the running process.
-     */
-    public void terminate() {
-        if (process.isAlive()) {
-            process.destroy();
-            ignoreReturnCode = true;
-        }
-    }
-
-    /**
-     * waits for the process to terminate
-     *
-     * @return the console output of the started process
-     * @throws IOException IOException
-     */
-    public String waitForProcess() throws IOException {
         try {
             process.waitFor(timeOutSec, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -146,7 +117,16 @@ public class OSExecute {
             throw consoleReader.getException();
 
         return consoleReader.toString();
+    }
 
+    /**
+     * Sends a terminate signal to the running process.
+     */
+    public void terminate() {
+        if (process.isAlive()) {
+            ignoreReturnCode = true;
+            process.destroy();
+        }
     }
 
     /**
@@ -154,6 +134,17 @@ public class OSExecute {
      */
     public boolean isAlive() {
         return process.isAlive();
+    }
+
+    /**
+     * Start process in its own thread.
+     *
+     * @param callback the callback functions
+     * @return this for chained calls
+     */
+    public OSExecute startInThread(ProcessCallback callback) {
+        new WaitThread(this, callback).start();
+        return this;
     }
 
     private static final class StreamReader extends Thread {
@@ -188,5 +179,45 @@ public class OSExecute {
         public String toString() {
             return baos.toString();
         }
+    }
+
+    private static final class WaitThread extends Thread {
+        private final OSExecute os;
+        private final ProcessCallback callback;
+
+        private WaitThread(OSExecute os, ProcessCallback callback) {
+            this.os = os;
+            this.callback = callback;
+            setDaemon(true);
+        }
+
+        @Override
+        public void run() {
+            try {
+                String result = os.startAndWait();
+                callback.processTerminated(result);
+            } catch (Exception e) {
+                callback.exception(e);
+            }
+        }
+    }
+
+    /**
+     * Process callback functions
+     */
+    public interface ProcessCallback {
+        /**
+         * The console out after process is terminated
+         *
+         * @param consoleOut the console output
+         */
+        void processTerminated(String consoleOut);
+
+        /**
+         * Called if an exception is thrown
+         *
+         * @param e the exception
+         */
+        void exception(Exception e);
     }
 }

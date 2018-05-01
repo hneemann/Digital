@@ -1441,8 +1441,8 @@
     <string name="btn_startATMISP_tt">Starts the external program ATMISP. This must have been previously installed.</string>
     <string name="msg_errorStartingATMISP">Error while starting ATMISP!</string>
     <string name="msg_ATMISPIsStillRunning">ATMISP is still running!
-If you press 'Ok', ATMISP will exit!
-Do this only when the flash process is complete!</string>
+When this dialog is closed, ATMISP is terminated!
+Make sure the flash process is complete before closing this dialog!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
