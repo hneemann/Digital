@@ -69,7 +69,7 @@ public class StartATF150xFitter implements ExpressionToFileExporter.PostProcess 
             execute.setEnvVar("FITTERDIR", fitterExe.getParentFile().getPath());
             execute.setWorkingDir(file.getParentFile());
 
-            String message = execute.start();
+            String message = execute.startAndWait();
 
             SwingUtilities.invokeLater(() -> atfDialog.setFitterResult(message));
 

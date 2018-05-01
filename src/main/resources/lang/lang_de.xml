@@ -1448,6 +1448,9 @@ Soll dennoch exportiert werden?</string>
     <string name="btn_startATMISP">Starte ATMISP</string>
     <string name="btn_startATMISP_tt">Startet das externe Programm ATMISP. Dieses muss zuvor installiert worden sein.</string>
     <string name="msg_errorStartingATMISP">Fehler beim Starten von ATMISP!</string>
+    <string name="msg_ATMISPIsStillRunning">ATMISP läuft noch!
+Wenn Sie 'Ok' drücken, wird ATMISP beendet!
+Tun Sie das erst, wenn der Flash-Vorgang abgeschlossen ist!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

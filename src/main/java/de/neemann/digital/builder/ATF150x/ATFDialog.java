@@ -16,6 +16,8 @@ import de.neemann.gui.ToolTipAction;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class ATFDialog extends JDialog {
 
     ATFDialog(JDialog parent) {
         super(parent, Lang.get("msg_fitterResult"), true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.parent = parent;
 
         label = new JLabel();
@@ -45,22 +48,44 @@ public class ATFDialog extends JDialog {
         startATMISP = new ToolTipAction(Lang.get("btn_startATMISP")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                File atmisp = Settings.getInstance().get(Keys.SETTINGS_ATMISP);
-
-                ArrayList<String> args = new ArrayList<>();
-                if (isLinux())
-                    args.add("wine");
-                args.add(atmisp.getPath());
-                args.add(chnFile.getName());
-
-                OSExecute os = new OSExecute(args);
-                os.setWorkingDir(chnFile.getParentFile());
+                startATMISP.setEnabled(false);
                 try {
-                    os.start();
-                } catch (IOException e) {
-                    new ErrorMessage(Lang.get("msg_errorStartingATMISP")).addCause(e).show(ATFDialog.this);
+                    File atmisp = Settings.getInstance().get(Keys.SETTINGS_ATMISP);
+
+                    ArrayList<String> args = new ArrayList<>();
+                    if (isLinux())
+                        args.add("wine");
+                    args.add(atmisp.getPath());
+                    args.add(chnFile.getName());
+
+                    OSExecute os = new OSExecute(args)
+                            .setWorkingDir(chnFile.getParentFile())
+                            .setTimeOutSec(600);
+                    try {
+                        os.startProcess();
+                        addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosed(WindowEvent e) {
+                                if (os.isAlive()) {
+                                    JOptionPane.showMessageDialog(ATFDialog.this,
+                                            Lang.get("msg_ATMISPIsStillRunning"));
+                                }
+
+                                os.terminate();
+
+                                try {
+                                    os.waitForProcess();
+                                } catch (IOException e1) {
+                                    new ErrorMessage(Lang.get("msg_errorStartingATMISP")).addCause(e1).show(ATFDialog.this);
+                                }
+                            }
+                        });
+                    } catch (IOException e) {
+                        new ErrorMessage(Lang.get("msg_errorStartingATMISP")).addCause(e).show(ATFDialog.this);
+                    }
+                } finally {
+                    startATMISP.setEnabled(true);
                 }
-                dispose();
             }
         }.setToolTip(Lang.get("btn_startATMISP_tt")).setEnabledChain(false);
         buttons.add(startATMISP.createJButton());
