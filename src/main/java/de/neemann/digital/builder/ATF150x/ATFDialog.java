@@ -66,7 +66,7 @@ public class ATFDialog extends JDialog {
                     public void windowClosed(WindowEvent e) {
                         if (atmisp.isAlive()) {
                             SwingUtilities.invokeLater(() -> {
-                                JOptionPane.showMessageDialog(null,
+                                JOptionPane.showMessageDialog(parent,
                                         Lang.get("msg_ATMISPIsStillRunning"));
                                 atmisp.terminate();
                             });
