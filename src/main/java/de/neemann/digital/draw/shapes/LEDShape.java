@@ -18,6 +18,7 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
 
 /**
@@ -41,7 +42,8 @@ public class LEDShape implements Shape {
     public LEDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
-        this.size = attr.get(Keys.SIZE) * SIZE;
+        final int s = attr.get(Keys.LED_SIZE);
+        this.size = s > 0 ? s * SIZE : SIZE2;
         onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
     }
 
