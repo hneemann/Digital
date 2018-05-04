@@ -1447,7 +1447,8 @@ Soll dennoch exportiert werden?</string>
     <string name="msg_enterText">Text eingeben!</string>
     <string name="btn_startATMISP">Starte ATMISP</string>
     <string name="btn_startATMISP_tt">Startet das externe Programm ATMISP. Dieses muss zuvor installiert worden sein.</string>
-    <string name="msg_errorStartingATMISP">Fehler beim Starten von ATMISP!</string>
+    <string name="msg_errorStartingATMISP">Fehler beim Starten von ATMISP!
+Ist in den Einstellungen der korrekte Pfad zur ausführbaren Datei ATMISP.exe angegeben?</string>
     <string name="msg_ATMISPIsStillRunning">ATMISP läuft noch!
 Wenn dieser Dialog geschlossen wird, wird ATMISP beendet!
 Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen Dialog schließen!</string>
