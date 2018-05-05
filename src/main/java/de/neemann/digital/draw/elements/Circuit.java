@@ -21,13 +21,12 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.language.Language;
@@ -91,6 +90,13 @@ public class Circuit {
         xStream.addImplicitCollection(ROMManger.class, "roms");
         xStream.alias("appType", Application.Type.class);
         xStream.ignoreUnknownElements();
+        xStream.alias("shape", CustomShapeDescription.class);
+        xStream.alias("circle", CustomShapeDescription.CircleHolder.class);
+        xStream.alias("line", CustomShapeDescription.LineHolder.class);
+        xStream.alias("poly", CustomShapeDescription.PolygonHolder.class);
+        xStream.alias("text", CustomShapeDescription.TextHolder.class);
+        xStream.alias("polygon", Polygon.class);
+        xStream.registerConverter(new PolygonConverter());
         return xStream;
     }
 

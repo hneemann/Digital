@@ -20,6 +20,8 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.JarComponentManager;
+import de.neemann.digital.draw.shapes.custom.CustomShape;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.draw.shapes.ieee.IEEEAndShape;
 import de.neemann.digital.draw.shapes.ieee.IEEENotShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
@@ -166,7 +168,12 @@ public final class ShapeFactory {
                     ElementTypeDescription pt = library.getElementType(elementName);
                     if (pt instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                         ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
-                        if (customDescr.getAttributes().get(Keys.IS_DIL)) {
+                        final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
+                        if (customShapeDescription != CustomShapeDescription.EMPTY)
+                            return new CustomShape(customShapeDescription,
+                                    pt.getInputDescription(elementAttributes),
+                                    pt.getOutputDescriptions(elementAttributes));
+                        else if (customDescr.getAttributes().get(Keys.IS_DIL)) {
                             return new DILShape(
                                     pt.getShortName(),
                                     pt.getInputDescription(elementAttributes),
