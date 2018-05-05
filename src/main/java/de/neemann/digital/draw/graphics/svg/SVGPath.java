@@ -136,7 +136,8 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                 ellipse(b, abs);
                 return;
             default:
-                throw new NoParsableSVGException();
+                System.err
+                        .println("Unknown Control Sequence: " + statement.toLowerCase().charAt(0));
             }
         } catch (Exception e) {
             e.printStackTrace();

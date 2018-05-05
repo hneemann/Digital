@@ -137,11 +137,20 @@ public class SVGText implements SVGFragment, SVGDrawable {
     public void move(VectorFloat diff) {
         p1 = p1.sub(diff);
         p2 = p2.sub(diff);
+        if (texts != null)
+            for (SVGText t : texts) {
+                if (t != null)
+                    t.move(diff);
+            }
     }
 
     @Override
     public void scale(double faktor) {
-        p1 = p1.mul((float) faktor);
-        p2 = p2.mul((float) faktor);
+        style.setFontSize(style.getFontSize() * faktor);
+        if (texts != null)
+            for (SVGText t : texts) {
+                if (t != null)
+                    t.scale(faktor);
+            }
     }
 }

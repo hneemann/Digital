@@ -20,7 +20,7 @@ public class SVGStyle {
     private Color color = Color.BLACK;
     private Color fill = Color.WHITE;
     private int thickness = 1;
-    private int fontSize = 14;
+    private float fontSize = 14;
 
     /**
      * Empty Constructor
@@ -79,10 +79,20 @@ public class SVGStyle {
      * @return corresponding int
      */
     private int getIntFromString(String inp) {
+        return (int) getFloatFromString(inp);
+    }
+    
+    /**
+     * Turns a String into a float
+     * @param inp
+     *            input String
+     * @return corresponding float
+     */
+    private float getFloatFromString(String inp) {
         inp = inp.replaceAll("[^0-9.]", "");
         if (inp.isEmpty())
             return 1;
-        return (int) Double.parseDouble(inp);
+        return Float.parseFloat(inp);
     }
 
     /**
@@ -124,7 +134,24 @@ public class SVGStyle {
      *            Size String
      */
     public void setFontSize(String s) {
-        fontSize = (int) getIntFromString(s);
+        fontSize = getFloatFromString(s);
+    }
+    
+    /**
+     * Sets the font size
+     * @param s
+     *            Size int
+     */
+    public void setFontSize(double s) {
+        fontSize = (float)s;
+    }
+    
+    /**
+     * gets the font size
+     * @return font size
+     */
+    public float getFontSize() {
+        return fontSize;
     }
 
     /**
@@ -171,7 +198,7 @@ public class SVGStyle {
     public Style getStyle() {
         Style s = Style.NORMAL;
         s = s.deriveStyle(thickness, false, color);
-        s = s.deriveFontStyle(fontSize, true);
+        s = s.deriveFontStyle((int)fontSize, true);
         return s;
     }
 
@@ -182,7 +209,7 @@ public class SVGStyle {
     public Style getInnerStyle() {
         Style s = Style.NORMAL;
         s = s.deriveStyle(thickness, true, fill);
-        s = s.deriveFontStyle(fontSize, true);
+        s = s.deriveFontStyle((int)fontSize, true);
         return s;
     }
 }
