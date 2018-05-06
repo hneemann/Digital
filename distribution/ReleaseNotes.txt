@@ -3,6 +3,9 @@ Release Notes
 HEAD, planned as v0.19
 - Added support for asynchronous sequential circuits such as the Muller-pipeline.
   Take a look at the new asynchronous examples for illustration.
+- Very basic support for custom shapes added.
+  You must manually edit the *.dig file to add a custom shape to a circuit, so
+  this is only an option for advanced users.
 - Breaking changes:
   - Added an enable input to the terminal component.
   - Added a clock input to the keyboard component.
