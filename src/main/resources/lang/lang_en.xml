@@ -1388,7 +1388,13 @@
     <string name="msg_startExternalFitter">Execution of external fitter</string>
     <string name="msg_actualCircuit">Actual Circuit</string>
     <string name="msg_fileNotAccessible">The selected file name is not importable from the actual project!</string>
-    <string name="msg_fileIsNotUnique">The file name is not unique!</string>
+    <string name="msg_fileIsNotUnique">The file name is not unique!
+        All files in the working directory and all subdirectories must have unique file names. This also applies to the
+        library folder. If your work directory has a 7400.dig file, you can not use this file or the 7400.dig file from
+        the library.
+        If there is a 7400.dig file in your working directory, you can not use this file or the 7400.dig file from the
+        library, because this file name can no longer be uniquely assigned.
+    </string>
     <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
     <string name="msg_fileExists">The file {0} already exists! Do you want to overwrite the file?</string>
     <string name="msg_test_missingLines">(To many entries!)</string>

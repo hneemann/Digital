@@ -362,7 +362,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
                 } else
                     return new LineBreaker().toHTML().breakLines(description.getDescription(new ElementAttributes()));
             } else
-                return Lang.get("msg_fileIsNotUnique");
+                return new LineBreaker().toHTML().breakLines(Lang.get("msg_fileIsNotUnique"));
         } else
             return new LineBreaker().toHTML().breakLines(Lang.getNull("elem_" + getName() + "_tt"));
     }

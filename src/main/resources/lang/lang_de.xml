@@ -1401,7 +1401,12 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_startExternalFitter">Starten des externen Fitters</string>
     <string name="msg_actualCircuit">Aktuelle Schaltung</string>
     <string name="msg_fileNotAccessible">Dieser Dateiname ist nicht aus dem aktuellen Projekt importierbar!</string>
-    <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!</string>
+    <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!
+        Alle Dateinamen im Arbeitsverzeichniss und allen Unterverzeichnissen müssen eindeutig sein. Dies gilt
+        auch für den Bibliotheksordner. Wenn es in Ihrem Arbeitsverzeichniss eine Datei 7400.dig gibt, können Sie weder
+        diese noch die Datei 7400.dig aus der Bibliothek verwenden, da sich dieser Dateiname nun nicht mehr eindeutig
+        zuordnen lässt.
+    </string>
     <string name="msg_fileNotImportedYet">Die Datei wurde noch nicht importiert.</string>
     <string name="msg_fileExists">Die Datei {0} existiert schon! Soll die Datei überschrieben werden?</string>
     <string name="msg_isLocked">Die Bearbeitung der Schaltung ist gesperrt. Sie können die Sperrung unter
