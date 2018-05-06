@@ -266,6 +266,18 @@ public final class Style {
     /**
      * Creates a new style, based on this style.
      *
+     * @param color the new color
+     * @return Style the derived style with the given color set.
+     */
+    public Style deriveColor(Color color) {
+        return new Builder(this)
+                .setColor(color)
+                .build();
+    }
+
+    /**
+     * Creates a new style, based on this style.
+     *
      * @param thickness the line thickness
      * @param filled    filled flag for polygons
      * @param color     the color

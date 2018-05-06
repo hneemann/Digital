@@ -28,7 +28,7 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      */
     public static final CustomShapeDescription EMPTY = new CustomShapeDescription();
 
-    private HashMap<String, Vector> pins;
+    private HashMap<String, Pin> pins;
     private ArrayList<Drawable> drawables;
 
     /**
@@ -42,12 +42,13 @@ public class CustomShapeDescription implements Iterable<Drawable> {
     /**
      * Adds a pin to this shape description
      *
-     * @param name the name of the pin
-     * @param pos  the pins position
+     * @param name      the name of the pin
+     * @param pos       the pins position
+     * @param showLabel if true the label of the pin is shown
      * @return this for chained calls
      */
-    public CustomShapeDescription addPin(String name, Vector pos) {
-        pins.put(name, pos);
+    public CustomShapeDescription addPin(String name, Vector pos, boolean showLabel) {
+        pins.put(name, new Pin(pos, showLabel));
         return this;
     }
 
@@ -118,11 +119,11 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      * @return the position of the pin
      * @throws PinException thrown if pin is not found
      */
-    Vector getPinPos(String name) throws PinException {
-        final Vector pos = pins.get(name);
-        if (pos == null)
+    Pin getPin(String name) throws PinException {
+        final Pin pin = pins.get(name);
+        if (pin == null)
             throw new PinException(Lang.get("err_pin_N_notFound", name));
-        return pos;
+        return pin;
     }
 
     @Override
@@ -137,12 +138,13 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      */
     public static CustomShapeDescription createDummy() {
         return new CustomShapeDescription()
-                .addPin("A", new Vector(0, 0))
-                .addPin("B", new Vector(0, SIZE * 2))
-                .addPin("Y", new Vector(SIZE * 3, SIZE))
+                .addPin("A", new Vector(0, 0), true)
+                .addPin("B", new Vector(0, SIZE * 2), true)
+                .addPin("Y", new Vector(SIZE * 3, SIZE), true)
                 .addCircle(new Vector(0, -SIZE2), new Vector(SIZE * 3, SIZE * 3 - SIZE2), Style.NORMAL.getThickness(), Color.BLACK, false)
                 .addPolygon(Polygon.createFromPath("m 20,5 c 30 0 0 30 -30 0 z"), Style.NORMAL.getThickness(), Color.BLACK, false)
-                .addLine(new Vector(0, -SIZE2), new Vector(SIZE * 3, SIZE * 3 - SIZE2), Style.NORMAL.getThickness(), Color.BLACK);
+                .addLine(new Vector(0, -SIZE2), new Vector(SIZE * 3, SIZE * 3 - SIZE2), Style.NORMAL.getThickness(), Color.BLACK)
+                .addText(new Vector(20, -25), new Vector(21, -25), "Hi!", Orientation.LEFTCENTER, 20, Color.BLACK);
     }
 
     /**
@@ -236,7 +238,31 @@ public class CustomShapeDescription implements Iterable<Drawable> {
 
         @Override
         public void drawTo(Graphic graphic, Style highLight) {
-            graphic.drawText(p1, p2, text, orientation, Style.NORMAL.deriveFontStyle(size, true));
+            graphic.drawText(p1, p2, text, orientation,
+                    Style.NORMAL
+                            .deriveFontStyle(size, true)
+                            .deriveColor(color));
+        }
+    }
+
+    /**
+     * Describes a pin position
+     */
+    public static final class Pin {
+        private Vector pos;
+        private boolean showLabel;
+
+        private Pin(Vector pos, boolean showLabel) {
+            this.pos = pos;
+            this.showLabel = showLabel;
+        }
+
+        boolean isShowLabel() {
+            return showLabel;
+        }
+
+        Vector getPos() {
+            return pos;
         }
     }
 }

@@ -13,6 +13,7 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.InteractorInterface;
@@ -46,9 +47,9 @@ public class CustomShape implements Shape {
     private void initPins() throws PinException {
         pins = new Pins();
         for (PinDescription p : outputs)
-            pins.add(new Pin(shapeDescription.getPinPos(p.getName()), p));
+            pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
         for (PinDescription p : inputs)
-            pins.add(new Pin(shapeDescription.getPinPos(p.getName()), p));
+            pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
     }
 
     @Override
@@ -65,5 +66,20 @@ public class CustomShape implements Shape {
     public void drawTo(Graphic graphic, Style highLight) {
         for (Drawable d : shapeDescription)
             d.drawTo(graphic, highLight);
+
+        for (Pin p : getPins()) {
+            try {
+                CustomShapeDescription.Pin cp = shapeDescription.getPin(p.getName());
+                if (cp != null && cp.isShowLabel()) {
+                    if (p.getDirection() == Pin.Direction.input) {
+                        graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
+                    } else
+                        graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
+
+                }
+            } catch (PinException e) {
+                // do nothing on an error
+            }
+        }
     }
 }

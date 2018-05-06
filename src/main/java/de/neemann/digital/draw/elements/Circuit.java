@@ -91,6 +91,7 @@ public class Circuit {
         xStream.alias("appType", Application.Type.class);
         xStream.ignoreUnknownElements();
         xStream.alias("shape", CustomShapeDescription.class);
+        xStream.alias("pin", CustomShapeDescription.Pin.class);
         xStream.alias("circle", CustomShapeDescription.CircleHolder.class);
         xStream.alias("line", CustomShapeDescription.LineHolder.class);
         xStream.alias("poly", CustomShapeDescription.PolygonHolder.class);

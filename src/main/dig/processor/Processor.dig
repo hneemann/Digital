@@ -23,7 +23,7 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>Register.dig</elementName>
       <elementAttributes/>
-      <pos x="660" y="120"/>
+      <pos x="660" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -33,7 +33,7 @@ Single-Cycle CPU.</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="840" y="120"/>
+      <pos x="840" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -59,7 +59,7 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -73,7 +73,7 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>255</int>
+          <long>255</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -87,7 +87,7 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>4095</int>
+          <long>4095</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -104,7 +104,7 @@ Single-Cycle CPU.</string>
     <visualElement>
       <elementName>ALU.dig</elementName>
       <elementAttributes/>
-      <pos x="1080" y="140"/>
+      <pos x="1080" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -122,7 +122,7 @@ Single-Cycle CPU.</string>
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="1180" y="40"/>
+      <pos x="1180" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>Branch.dig</elementName>
@@ -205,12 +205,12 @@ Single-Cycle CPU.</string>
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="520" y="40"/>
+      <pos x="520" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>PC.dig</elementName>
       <elementAttributes/>
-      <pos x="400" y="120"/>
+      <pos x="400" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -246,7 +246,7 @@ Single-Cycle CPU.</string>
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="800" y="40"/>
+      <pos x="800" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>RAMSinglePort</elementName>
@@ -264,7 +264,7 @@ Single-Cycle CPU.</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="1360" y="140"/>
+      <pos x="1360" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Flags.dig</elementName>
@@ -494,7 +494,7 @@ Single-Cycle CPU.</string>
           <string>stPC</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="40"/>
+      <pos x="560" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -508,7 +508,7 @@ Single-Cycle CPU.</string>
           <string>WE</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="200"/>
+      <pos x="640" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -536,7 +536,7 @@ Single-Cycle CPU.</string>
           <string>abs</string>
         </entry>
       </elementAttributes>
-      <pos x="380" y="160"/>
+      <pos x="380" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -560,7 +560,7 @@ Single-Cycle CPU.</string>
           <string>src2D</string>
         </entry>
       </elementAttributes>
-      <pos x="840" y="40"/>
+      <pos x="840" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -574,7 +574,7 @@ Single-Cycle CPU.</string>
           <string>muxA</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="180"/>
+      <pos x="860" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -584,7 +584,7 @@ Single-Cycle CPU.</string>
           <string>ALU2D</string>
         </entry>
       </elementAttributes>
-      <pos x="1220" y="40"/>
+      <pos x="1220" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -598,7 +598,7 @@ Single-Cycle CPU.</string>
           <string>ALUop</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="180"/>
+      <pos x="1140" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -632,7 +632,7 @@ Single-Cycle CPU.</string>
           <string>st</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="160"/>
+      <pos x="1340" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -646,7 +646,7 @@ Single-Cycle CPU.</string>
           <string>ld</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="220"/>
+      <pos x="1340" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -670,7 +670,7 @@ Single-Cycle CPU.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="380" y="140"/>
+      <pos x="380" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -698,7 +698,7 @@ Single-Cycle CPU.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="140"/>
+      <pos x="640" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -722,7 +722,7 @@ Single-Cycle CPU.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="200"/>
+      <pos x="1340" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Graphics.dig</elementName>
@@ -774,6 +774,14 @@ Single-Cycle CPU.</string>
   </visualElements>
   <wires>
     <wire>
+      <p1 x="1160" y="160"/>
+      <p2 x="1200" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="1340" y="160"/>
+      <p2 x="1360" y="160"/>
+    </wire>
+    <wire>
       <p1 x="380" y="320"/>
       <p2 x="940" y="320"/>
     </wire>
@@ -790,48 +798,32 @@ Single-Cycle CPU.</string>
       <p2 x="1360" y="320"/>
     </wire>
     <wire>
-      <p1 x="520" y="0"/>
-      <p2 x="640" y="0"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="0"/>
-      <p2 x="800" y="0"/>
-    </wire>
-    <wire>
-      <p1 x="800" y="0"/>
-      <p2 x="1180" y="0"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="0"/>
-      <p2 x="1440" y="0"/>
-    </wire>
-    <wire>
-      <p1 x="800" y="160"/>
-      <p2 x="840" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="900" y="160"/>
-      <p2 x="1080" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="160"/>
-      <p2 x="1240" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="1340" y="160"/>
-      <p2 x="1360" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="540" y="160"/>
-      <p2 x="660" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="160"/>
-      <p2 x="400" y="160"/>
-    </wire>
-    <wire>
       <p1 x="740" y="480"/>
       <p2 x="840" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="100"/>
+      <p2 x="840" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="100"/>
+      <p2 x="660" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="100"/>
+      <p2 x="400" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="100"/>
+      <p2 x="1180" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="100"/>
+      <p2 x="1280" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="100"/>
+      <p2 x="1360" y="100"/>
     </wire>
     <wire>
       <p1 x="1220" y="580"/>
@@ -840,6 +832,10 @@ Single-Cycle CPU.</string>
     <wire>
       <p1 x="820" y="420"/>
       <p2 x="840" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="200"/>
+      <p2 x="1080" y="200"/>
     </wire>
     <wire>
       <p1 x="1420" y="360"/>
@@ -866,34 +862,6 @@ Single-Cycle CPU.</string>
       <p2 x="660" y="360"/>
     </wire>
     <wire>
-      <p1 x="1160" y="200"/>
-      <p2 x="1200" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="200"/>
-      <p2 x="1080" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="200"/>
-      <p2 x="660" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="1340" y="200"/>
-      <p2 x="1360" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="820" y="40"/>
-      <p2 x="840" y="40"/>
-    </wire>
-    <wire>
-      <p1 x="1200" y="40"/>
-      <p2 x="1220" y="40"/>
-    </wire>
-    <wire>
-      <p1 x="540" y="40"/>
-      <p2 x="560" y="40"/>
-    </wire>
-    <wire>
       <p1 x="460" y="460"/>
       <p2 x="580" y="460"/>
     </wire>
@@ -906,44 +874,24 @@ Single-Cycle CPU.</string>
       <p2 x="660" y="460"/>
     </wire>
     <wire>
-      <p1 x="380" y="140"/>
-      <p2 x="400" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="500" y="140"/>
-      <p2 x="520" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="880" y="140"/>
-      <p2 x="1080" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="760" y="140"/>
-      <p2 x="800" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="140"/>
-      <p2 x="660" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="140"/>
-      <p2 x="1180" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="1280" y="140"/>
-      <p2 x="1360" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="140"/>
-      <p2 x="1280" y="140"/>
-    </wire>
-    <wire>
       <p1 x="1000" y="300"/>
       <p2 x="1060" y="300"/>
     </wire>
     <wire>
       <p1 x="1140" y="300"/>
       <p2 x="1160" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="140"/>
+      <p2 x="660" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="1420" y="140"/>
+      <p2 x="1440" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="140"/>
+      <p2 x="1220" y="140"/>
     </wire>
     <wire>
       <p1 x="640" y="400"/>
@@ -966,36 +914,40 @@ Single-Cycle CPU.</string>
       <p2 x="360" y="400"/>
     </wire>
     <wire>
-      <p1 x="340" y="240"/>
-      <p2 x="520" y="240"/>
+      <p1 x="380" y="80"/>
+      <p2 x="400" y="80"/>
     </wire>
     <wire>
-      <p1 x="380" y="80"/>
-      <p2 x="1180" y="80"/>
+      <p1 x="500" y="80"/>
+      <p2 x="520" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="80"/>
+      <p2 x="1080" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="760" y="80"/>
+      <p2 x="800" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="80"/>
+      <p2 x="660" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="-20"/>
+      <p2 x="840" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="-20"/>
+      <p2 x="1220" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="-20"/>
+      <p2 x="560" y="-20"/>
     </wire>
     <wire>
       <p1 x="740" y="500"/>
       <p2 x="840" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="180"/>
-      <p2 x="400" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="1420" y="180"/>
-      <p2 x="1440" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="180"/>
-      <p2 x="1220" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="180"/>
-      <p2 x="1080" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="560" y="180"/>
-      <p2 x="660" y="180"/>
     </wire>
     <wire>
       <p1 x="1340" y="340"/>
@@ -1010,6 +962,22 @@ Single-Cycle CPU.</string>
       <p2 x="1220" y="340"/>
     </wire>
     <wire>
+      <p1 x="900" y="180"/>
+      <p2 x="1080" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="180"/>
+      <p2 x="520" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="1340" y="180"/>
+      <p2 x="1360" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="20"/>
+      <p2 x="1180" y="20"/>
+    </wire>
+    <wire>
       <p1 x="500" y="440"/>
       <p2 x="620" y="440"/>
     </wire>
@@ -1022,28 +990,44 @@ Single-Cycle CPU.</string>
       <p2 x="840" y="440"/>
     </wire>
     <wire>
-      <p1 x="500" y="120"/>
-      <p2 x="520" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="120"/>
-      <p2 x="400" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="760" y="120"/>
-      <p2 x="840" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="120"/>
-      <p2 x="660" y="120"/>
-    </wire>
-    <wire>
       <p1 x="1140" y="280"/>
       <p2 x="1160" y="280"/>
     </wire>
     <wire>
       <p1 x="1000" y="280"/>
       <p2 x="1020" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="120"/>
+      <p2 x="1240" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="1340" y="120"/>
+      <p2 x="1360" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="120"/>
+      <p2 x="400" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="120"/>
+      <p2 x="660" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="-60"/>
+      <p2 x="640" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="-60"/>
+      <p2 x="1180" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="-60"/>
+      <p2 x="1440" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="-60"/>
+      <p2 x="800" y="-60"/>
     </wire>
     <wire>
       <p1 x="740" y="380"/>
@@ -1070,16 +1054,28 @@ Single-Cycle CPU.</string>
       <p2 x="480" y="380"/>
     </wire>
     <wire>
-      <p1 x="1340" y="220"/>
-      <p2 x="1360" y="220"/>
+      <p1 x="500" y="60"/>
+      <p2 x="520" y="60"/>
     </wire>
     <wire>
-      <p1 x="1280" y="140"/>
+      <p1 x="380" y="60"/>
+      <p2 x="400" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="760" y="60"/>
+      <p2 x="840" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="60"/>
+      <p2 x="660" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="100"/>
       <p2 x="1280" y="320"/>
     </wire>
     <wire>
-      <p1 x="640" y="0"/>
-      <p2 x="640" y="120"/>
+      <p1 x="640" y="-60"/>
+      <p2 x="640" y="60"/>
     </wire>
     <wire>
       <p1 x="580" y="360"/>
@@ -1090,24 +1086,24 @@ Single-Cycle CPU.</string>
       <p2 x="580" y="600"/>
     </wire>
     <wire>
-      <p1 x="900" y="160"/>
+      <p1 x="900" y="180"/>
       <p2 x="900" y="440"/>
     </wire>
     <wire>
-      <p1 x="1220" y="180"/>
+      <p1 x="1220" y="140"/>
       <p2 x="1220" y="340"/>
     </wire>
     <wire>
-      <p1 x="520" y="140"/>
-      <p2 x="520" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="60"/>
-      <p2 x="520" y="120"/>
+      <p1 x="520" y="80"/>
+      <p2 x="520" y="180"/>
     </wire>
     <wire>
       <p1 x="520" y="0"/>
-      <p2 x="520" y="20"/>
+      <p2 x="520" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="-60"/>
+      <p2 x="520" y="-40"/>
     </wire>
     <wire>
       <p1 x="520" y="580"/>
@@ -1126,7 +1122,7 @@ Single-Cycle CPU.</string>
       <p2 x="400" y="600"/>
     </wire>
     <wire>
-      <p1 x="340" y="240"/>
+      <p1 x="340" y="180"/>
       <p2 x="340" y="360"/>
     </wire>
     <wire>
@@ -1138,23 +1134,23 @@ Single-Cycle CPU.</string>
       <p2 x="600" y="600"/>
     </wire>
     <wire>
-      <p1 x="1240" y="160"/>
+      <p1 x="1240" y="120"/>
       <p2 x="1240" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="60"/>
-      <p2 x="1180" y="80"/>
     </wire>
     <wire>
       <p1 x="1180" y="0"/>
       <p2 x="1180" y="20"/>
     </wire>
     <wire>
-      <p1 x="1180" y="80"/>
-      <p2 x="1180" y="140"/>
+      <p1 x="1180" y="-60"/>
+      <p2 x="1180" y="-40"/>
     </wire>
     <wire>
-      <p1 x="540" y="160"/>
+      <p1 x="1180" y="20"/>
+      <p2 x="1180" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="100"/>
       <p2 x="540" y="380"/>
     </wire>
     <wire>
@@ -1162,19 +1158,19 @@ Single-Cycle CPU.</string>
       <p2 x="540" y="600"/>
     </wire>
     <wire>
-      <p1 x="860" y="160"/>
-      <p2 x="860" y="180"/>
+      <p1 x="860" y="100"/>
+      <p2 x="860" y="120"/>
     </wire>
     <wire>
       <p1 x="860" y="520"/>
       <p2 x="860" y="540"/>
     </wire>
     <wire>
-      <p1 x="1440" y="0"/>
-      <p2 x="1440" y="180"/>
+      <p1 x="1440" y="-60"/>
+      <p2 x="1440" y="140"/>
     </wire>
     <wire>
-      <p1 x="1440" y="180"/>
+      <p1 x="1440" y="140"/>
       <p2 x="1440" y="360"/>
     </wire>
     <wire>
@@ -1182,19 +1178,19 @@ Single-Cycle CPU.</string>
       <p2 x="480" y="600"/>
     </wire>
     <wire>
-      <p1 x="800" y="60"/>
-      <p2 x="800" y="140"/>
-    </wire>
-    <wire>
       <p1 x="800" y="0"/>
-      <p2 x="800" y="20"/>
+      <p2 x="800" y="80"/>
     </wire>
     <wire>
-      <p1 x="800" y="140"/>
-      <p2 x="800" y="160"/>
+      <p1 x="800" y="-60"/>
+      <p2 x="800" y="-40"/>
     </wire>
     <wire>
-      <p1 x="800" y="160"/>
+      <p1 x="800" y="80"/>
+      <p2 x="800" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="100"/>
       <p2 x="800" y="360"/>
     </wire>
     <wire>
@@ -1226,12 +1222,16 @@ Single-Cycle CPU.</string>
       <p2 x="560" y="600"/>
     </wire>
     <wire>
-      <p1 x="560" y="180"/>
+      <p1 x="560" y="120"/>
       <p2 x="560" y="400"/>
     </wire>
     <wire>
-      <p1 x="1200" y="200"/>
+      <p1 x="1200" y="160"/>
       <p2 x="1200" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="180"/>
+      <p2 x="1140" y="220"/>
     </wire>
     <wire>
       <p1 x="500" y="580"/>
@@ -1242,12 +1242,12 @@ Single-Cycle CPU.</string>
       <p2 x="440" y="600"/>
     </wire>
     <wire>
-      <p1 x="380" y="180"/>
+      <p1 x="380" y="120"/>
       <p2 x="380" y="320"/>
     </wire>
     <wire>
-      <p1 x="380" y="80"/>
-      <p2 x="380" y="120"/>
+      <p1 x="380" y="20"/>
+      <p2 x="380" y="60"/>
     </wire>
     <wire>
       <p1 x="380" y="580"/>

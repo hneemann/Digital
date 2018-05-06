@@ -11,8 +11,91 @@ als auch für die Berechnung der Adressen
 bei der Speicheradressierung verwendet.</string>
     </entry>
     <entry>
-      <string>Width</string>
-      <int>4</int>
+      <string>customShape</string>
+      <shape>
+        <pins>
+          <entry>
+            <string>A</string>
+            <pin>
+              <pos x="0" y="0"/>
+              <showLabel>true</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>Neg</string>
+            <pin>
+              <pos x="80" y="60"/>
+              <showLabel>true</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>Op</string>
+            <pin>
+              <pos x="60" y="100"/>
+              <showLabel>false</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>B</string>
+            <pin>
+              <pos x="0" y="100"/>
+              <showLabel>true</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>Zero</string>
+            <pin>
+              <pos x="80" y="40"/>
+              <showLabel>true</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>Ci</string>
+            <pin>
+              <pos x="0" y="120"/>
+              <showLabel>true</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>Carry</string>
+            <pin>
+              <pos x="80" y="80"/>
+              <showLabel>true</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>Y</string>
+            <pin>
+              <pos x="80" y="20"/>
+              <showLabel>true</showLabel>
+            </pin>
+          </entry>
+        </pins>
+        <drawables>
+          <poly>
+            <poly path="M 0.0 -30.0 L 80.0 10.0 L 80.0 90.0 L 0.0 130.0 L 0.0 65.0 L 30.0 50.0 L 0.0 35.0 z"/>
+            <thickness>1</thickness>
+            <filled>true</filled>
+            <color>
+              <red>255</red>
+              <green>255</green>
+              <blue>180</blue>
+              <alpha>200</alpha>
+            </color>
+          </poly>
+          <poly>
+            <poly path="M 0.0 -30.0 L 80.0 10.0 L 80.0 90.0 L 0.0 130.0 L 0.0 65.0 L 30.0 50.0 L 0.0 35.0 z"/>
+            <thickness>4</thickness>
+            <filled>false</filled>
+            <color>
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+              <alpha>255</alpha>
+            </color>
+          </poly>
+        </drawables>
+      </shape>
     </entry>
   </attributes>
   <visualElements>
@@ -142,7 +225,7 @@ bei der Speicheradressierung verwendet.</string>
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="1100"/>
+      <pos x="-20" y="1080"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -153,10 +236,10 @@ bei der Speicheradressierung verwendet.</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>4,1</string>
+          <string>4-4,0-3</string>
         </entry>
       </elementAttributes>
-      <pos x="20" y="1100"/>
+      <pos x="20" y="1080"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -200,7 +283,7 @@ bei der Speicheradressierung verwendet.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -291,7 +374,7 @@ bei der Speicheradressierung verwendet.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -333,7 +416,7 @@ bei der Speicheradressierung verwendet.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="680" y="440"/>
@@ -387,10 +470,6 @@ bei der Speicheradressierung verwendet.</string>
     <wire>
       <p1 x="500" y="200"/>
       <p2 x="880" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="-20" y="1100"/>
-      <p2 x="20" y="1100"/>
     </wire>
     <wire>
       <p1 x="40" y="1100"/>
@@ -521,10 +600,6 @@ bei der Speicheradressierung verwendet.</string>
       <p2 x="1100" y="220"/>
     </wire>
     <wire>
-      <p1 x="40" y="1120"/>
-      <p2 x="80" y="1120"/>
-    </wire>
-    <wire>
       <p1 x="300" y="800"/>
       <p2 x="560" y="800"/>
     </wire>
@@ -637,6 +712,14 @@ bei der Speicheradressierung verwendet.</string>
       <p2 x="720" y="500"/>
     </wire>
     <wire>
+      <p1 x="40" y="1080"/>
+      <p2 x="80" y="1080"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="1080"/>
+      <p2 x="20" y="1080"/>
+    </wire>
+    <wire>
       <p1 x="680" y="440"/>
       <p2 x="700" y="440"/>
     </wire>
@@ -722,7 +805,7 @@ bei der Speicheradressierung verwendet.</string>
     </wire>
     <wire>
       <p1 x="80" y="1060"/>
-      <p2 x="80" y="1120"/>
+      <p2 x="80" y="1080"/>
     </wire>
     <wire>
       <p1 x="400" y="120"/>

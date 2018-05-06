@@ -6,7 +6,7 @@
 package de.neemann.digital.core.element;
 
 /**
- * Warapper for the elements rotation
+ * Wrapper for the elements rotation
  */
 public class Rotation {
     /**
