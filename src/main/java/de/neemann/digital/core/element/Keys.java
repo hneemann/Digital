@@ -5,19 +5,12 @@
  */
 package de.neemann.digital.core.element;
 
-import java.awt.Color;
-import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Locale;
-
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.graphics.Style;
@@ -26,6 +19,14 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
+
+
+import java.awt.*;
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Collection of key constants
@@ -136,10 +137,10 @@ public final class Keys {
     /**
      * The size of a LED
      */
-    public static final Key<Integer> SIZE
+    public static final Key<Integer> LED_SIZE
             = new Key.KeyInteger("Size", 1)
-            .setComboBoxValues(new Integer[]{1, 2, 3, 4, 5})
-            .setMin(1)
+            .setComboBoxValues(new Integer[]{0, 1, 2, 3, 4, 5})
+            .setMin(0)
             .allowGroupEdit();
 
     /**
@@ -459,10 +460,16 @@ public final class Keys {
             = new Key<>("ledPersistence", false).allowGroupEdit();
 
     /**
-     * Fitter for the atf1502
+     * Fitter for the atf15xx
      */
     public static final Key<File> SETTINGS_ATF1502_FITTER
             = new Key.KeyFile("atf1502Fitter", new File("c:/Wincupl/WinCupl/Fitters")).setDirectoryOnly(true);
+
+    /**
+     * Flash software for the atf15xx
+     */
+    public static final Key<File> SETTINGS_ATMISP
+            = new Key.KeyFile("ATMISP", new File("c:/ATMISP7/ATMISP.exe"));
 
     /**
      * row bits in led matrix
@@ -594,9 +601,16 @@ public final class Keys {
     public static final Key.KeyFile SETTINGS_GHDL_PATH
             = new Key.KeyFile("ghdlPath", new File("ghdl"));
 
-     /**
+    /**
+     * Avoid component tooltips in the main panel
+     */
+    public static final Key<Boolean> SETTINGS_NOTOOLTIPS =
+            new Key<>("noComponentToolTips", false);
+
+    /**
      * Shape used to represent a visual element
      */
-    public static final Key<CustomShapeDescription> CUSTOM_SHAPE = new Key<>("customShape",
-            CustomShapeDescription.EMPTY);
+    public static final Key<CustomShapeDescription> CUSTOM_SHAPE
+            = new Key<>("customShape", CustomShapeDescription.EMPTY);
+
 }

@@ -81,7 +81,7 @@ public class SVGStyle {
     private int getIntFromString(String inp) {
         return (int) getFloatFromString(inp);
     }
-    
+
     /**
      * Turns a String into a float
      * @param inp
@@ -136,16 +136,16 @@ public class SVGStyle {
     public void setFontSize(String s) {
         fontSize = getFloatFromString(s);
     }
-    
+
     /**
      * Sets the font size
      * @param s
      *            Size int
      */
     public void setFontSize(double s) {
-        fontSize = (float)s;
+        fontSize = (float) s;
     }
-    
+
     /**
      * gets the font size
      * @return font size
@@ -198,7 +198,7 @@ public class SVGStyle {
     public Style getStyle() {
         Style s = Style.NORMAL;
         s = s.deriveStyle(thickness, false, color);
-        s = s.deriveFontStyle((int)fontSize, true);
+        s = s.deriveFontStyle((int) fontSize, true);
         return s;
     }
 
@@ -209,7 +209,7 @@ public class SVGStyle {
     public Style getInnerStyle() {
         Style s = Style.NORMAL;
         s = s.deriveStyle(thickness, true, fill);
-        s = s.deriveFontStyle((int)fontSize, true);
+        s = s.deriveFontStyle((int) fontSize, true);
         return s;
     }
 }

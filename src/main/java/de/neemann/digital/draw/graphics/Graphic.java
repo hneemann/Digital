@@ -28,7 +28,7 @@ public interface Graphic extends Closeable {
      * @param max lower right corner
      * @return this for chained calls
      */
-    default Graphic setBoundingBox(Vector min, Vector max) {
+    default Graphic setBoundingBox(VectorInterface min, VectorInterface max) {
         return this;
     }
 
@@ -39,7 +39,7 @@ public interface Graphic extends Closeable {
      * @param p2    second point
      * @param style the line style
      */
-    void drawLine(Vector p1, Vector p2, Style style);
+    void drawLine(VectorInterface p1, VectorInterface p2, Style style);
 
     /**
      * Draws a polygon
@@ -56,7 +56,7 @@ public interface Graphic extends Closeable {
      * @param p2    lower right corner of outer rectangle containing the circle
      * @param style the style
      */
-    void drawCircle(Vector p1, Vector p2, Style style);
+    void drawCircle(VectorInterface p1, VectorInterface p2, Style style);
 
     /**
      * Draws text
@@ -67,7 +67,7 @@ public interface Graphic extends Closeable {
      * @param orientation the text orientation
      * @param style       the text style
      */
-    void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style);
+    void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style);
 
     /**
      * opens a new group, used to create SVG grouping

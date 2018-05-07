@@ -9,7 +9,7 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorInterface;
 import de.neemann.digital.draw.graphics.svg.SVGPseudoPin;
 
 /**
@@ -21,7 +21,7 @@ public class CustomShapeDrawer implements Graphic {
     private CustomShapeDescription svg = new CustomShapeDescription();
 
     @Override
-    public void drawLine(Vector p1, Vector p2, Style style) {
+    public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
         svg = svg.addLine(p1, p2, style);
     }
 
@@ -31,12 +31,12 @@ public class CustomShapeDrawer implements Graphic {
     }
 
     @Override
-    public void drawCircle(Vector p1, Vector p2, Style style) {
+    public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
         svg = svg.addCircle(p1, p2, style);
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
         svg = svg.addText(p1, p2, text, orientation, style);
     }
 

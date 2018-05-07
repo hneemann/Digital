@@ -1130,6 +1130,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters, wenn die Simulation gestartet wird.</string>
     <string name="key_macMouse">Die MacOS Mausklicks verwenden.</string>
     <string name="key_macMouse_tt">Das unter MacOS übliche STRG-Klick anstelle von Rechtsklick verwenden.</string>
+    <string name="key_noComponentToolTips">Keine ToolTips für Bauteile auf der Arbeitsfläche.</string>
+    <string name="key_noComponentToolTips_tt">Wenn gesetzt, werden keine ToolTips für die Bauteile auf der Arbeitsfläche angezeigt.
+        Vor allem in einer Präsentation können diese ToolTips sehr störend sein.</string>
+
+    <string name="key_ATMISP">ATMISP</string>
+    <string name="key_ATMISP_tt">Pfad zur ausführbaren Datei ATMISP.exe. Wenn gesetzt, kann die Software ATMISP automatisch gestartet werden!</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1244,6 +1250,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_createNOr_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht nur mit NOr-Gattern.</string>
     <string name="menu_table_createTwo">Schaltung mit Gattern mit zwei Eingängen</string>
     <string name="menu_table_createTwo_tt">Erzeugt eine Schaltung und verwendet nur Gatter mit zwei Eingängen.</string>
+    <string name="menu_table_createThree">Schaltung mit Gattern mit drei Eingängen</string>
+    <string name="menu_table_createThree_tt">Erzeugt eine Schaltung und verwendet nur Gatter mit maximal drei Eingängen.</string>
     <string name="menu_table_create_hardware">Bausteine</string>
     <string name="menu_table_create_jedec_tt">Erzeugt eine JEDEC Datei für den Baustein</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
@@ -1392,7 +1400,12 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_startExternalFitter">Starten des externen Fitters</string>
     <string name="msg_actualCircuit">Aktuelle Schaltung</string>
     <string name="msg_fileNotAccessible">Dieser Dateiname ist nicht aus dem aktuellen Projekt importierbar!</string>
-    <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!</string>
+    <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!
+        Alle Dateinamen im Arbeitsverzeichniss und allen Unterverzeichnissen müssen eindeutig sein. Dies gilt
+        auch für den Bibliotheksordner. Wenn es in Ihrem Arbeitsverzeichniss eine Datei 7400.dig gibt, können Sie weder
+        diese noch die Datei 7400.dig aus der Bibliothek verwenden, da sich dieser Dateiname nun nicht mehr eindeutig
+        zuordnen lässt.
+    </string>
     <string name="msg_fileNotImportedYet">Die Datei wurde noch nicht importiert.</string>
     <string name="msg_fileExists">Die Datei {0} existiert schon! Soll die Datei überschrieben werden?</string>
     <string name="msg_isLocked">Die Bearbeitung der Schaltung ist gesperrt. Sie können die Sperrung unter
@@ -1439,6 +1452,13 @@ Soll dennoch exportiert werden?</string>
         die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
     <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
     <string name="msg_enterText">Text eingeben!</string>
+    <string name="btn_startATMISP">Starte ATMISP</string>
+    <string name="btn_startATMISP_tt">Startet das externe Programm ATMISP. Dieses muss zuvor installiert worden sein.</string>
+    <string name="msg_errorStartingATMISP">Fehler beim Starten von ATMISP!
+Ist in den Einstellungen der korrekte Pfad zur ausführbaren Datei ATMISP.exe angegeben?</string>
+    <string name="msg_ATMISPIsStillRunning">ATMISP läuft noch!
+Wenn dieser Dialog geschlossen wird, wird ATMISP beendet!
+Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen Dialog schließen!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

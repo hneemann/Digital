@@ -11,6 +11,7 @@ import de.neemann.digital.analyse.expression.Operation;
 import java.util.ArrayList;
 
 /**
+ * uses only gates with three inputs
  */
 public class ThreeInputs implements ExpressionModifier {
     @Override
@@ -49,26 +50,16 @@ public class ThreeInputs implements ExpressionModifier {
 
         private Expression gen(int a, int b) {
             int num = b - a + 1;
-            System.out.println(num);
             if (num == 1)
                 return expressions.get(a);
             else if (num == 2)
                 return opGen.op(expressions.get(a), expressions.get(b));
             else {
-                int d = 1;
-                while (d * 3 * 2 < num)
-                    d *= 3;
-
-                if (d * 3 * 2 == num) {
-                    return opGen.op(
-                            gen(a, a + d * 3 - 1),
-                            gen(a + d * 3, b));
-                } else {
-                    return opGen.op(
-                            gen(a, a + d - 1),
-                            gen(a + d, a + d * 2 - 1),
-                            gen(a + d * 2, b));
-                }
+                int d = num / 3;
+                return opGen.op(
+                        gen(a, a + d - 1),
+                        gen(a + d, a + d * 2 - 1),
+                        gen(a + d * 2, b));
             }
         }
     }

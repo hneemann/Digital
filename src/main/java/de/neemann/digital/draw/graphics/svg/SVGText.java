@@ -146,8 +146,8 @@ public class SVGText implements SVGFragment, SVGDrawable {
 
     @Override
     public void scale(double faktor) {
-        p1 = p1.mul((float)faktor);
-        p2 = p2.mul((float)faktor);
+        p1 = p1.mul((float) faktor);
+        p2 = p2.mul((float) faktor);
         style.setFontSize(style.getFontSize() * Math.sqrt(faktor));
         if (texts != null)
             for (SVGText t : texts) {

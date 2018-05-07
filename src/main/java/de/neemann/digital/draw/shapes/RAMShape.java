@@ -8,6 +8,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.RAMInterface;
@@ -17,7 +18,6 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.DataEditor;
-import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -71,7 +71,7 @@ public class RAMShape extends GenericShape {
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         return new Interactor() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 if (element instanceof RAMInterface) {
                     DataField dataField = ((RAMInterface) element).getMemory();
                     DataEditor dataEditor = new DataEditor(cc, dataField, size, dataBits, addrBits, true, modelSync);

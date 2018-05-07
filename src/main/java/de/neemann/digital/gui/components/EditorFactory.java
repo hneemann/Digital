@@ -43,6 +43,7 @@ import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -68,7 +69,6 @@ import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
-import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.ErrorMessage;
@@ -95,8 +95,8 @@ public final class EditorFactory {
         add(Long.class, LongEditor.class);
         add(InValue.class, InValueEditor.class);
         add(File.class, FileEditor.class);
-        add(CustomShapeDescription.class, CustomShapeEditor.class);
         add(Color.class, ColorEditor.class);
+        add(CustomShapeDescription.class, CustomShapeEditor.class);
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
         add(Rotation.class, RotationEditor.class);
@@ -117,19 +117,16 @@ public final class EditorFactory {
 
     /**
      * Creates a new Editor
-     * @param key
-     *            the key
-     * @param value
-     *            the value
-     * @param <T>
-     *            the type of the value
+     *
+     * @param key   the key
+     * @param value the value
+     * @param <T>   the type of the value
      * @return the editor
      */
     public <T> Editor<T> create(Key<T> key, T value) {
         Class<? extends Editor> fac = map.get(key.getValueClass());
         if (fac == null)
-            throw new RuntimeException(
-                    "no editor found for " + key.getValueClass().getSimpleName());
+            throw new RuntimeException("no editor found for " + key.getValueClass().getSimpleName());
 
         try {
             Constructor<? extends Editor> c = fac.getConstructor(value.getClass(), Key.class);
@@ -141,8 +138,8 @@ public final class EditorFactory {
 
     /**
      * Simple single component editor
-     * @param <T>
-     *            the type to edit
+     *
+     * @param <T> the type to edit
      */
     public static abstract class LabelEditor<T> implements Editor<T> {
         private AttributeDialog attributeDialog;
@@ -151,8 +148,7 @@ public final class EditorFactory {
         private JLabel label;
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
-                AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
             this.attributeDialog = attributeDialog;
             label = new JLabel(key.getName() + ":  ");
             final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
@@ -178,8 +174,8 @@ public final class EditorFactory {
 
         /**
          * returns the editor component
-         * @param elementAttributes
-         *            the elements attributes
+         *
+         * @param elementAttributes the elements attributes
          * @return the component
          */
         protected abstract JComponent getComponent(ElementAttributes elementAttributes);
@@ -192,17 +188,16 @@ public final class EditorFactory {
 
         /**
          * Sets the position of the label
-         * @param labelAtTop
-         *            if true the label is placed at the top of the editing component.
+         *
+         * @param labelAtTop if true the label is placed at the top of the editing component.
          */
         void setLabelAtTop(boolean labelAtTop) {
             this.labelAtTop = labelAtTop;
         }
     }
 
-    // Checkstyle flags redundant modifiers, which are not redundant. Maybe a bug in
-    // checkstyle?
-    // CHECKSTYLE.OFF: RedundantModifier
+    //Checkstyle flags redundant modifiers, which are not redundant. Maybe a bug in checkstyle?
+    //CHECKSTYLE.OFF: RedundantModifier
     final static class StringEditor extends LabelEditor<String> {
 
         private final JTextComponent text;
@@ -217,8 +212,7 @@ public final class EditorFactory {
                 if (k.getLineNumbers()) {
                     final TextLineNumber textLineNumber = new TextLineNumber(text, 3);
                     scrollPane.setRowHeaderView(textLineNumber);
-                    text.setFont(new Font(Font.MONOSPACED, Font.PLAIN,
-                            Screen.getInstance().getFontSize()));
+                    text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, Screen.getInstance().getFontSize()));
                 }
 
                 this.compToAdd = scrollPane;
@@ -253,8 +247,7 @@ public final class EditorFactory {
     }
 
     private final static class IntegerEditor extends LabelEditor<Integer> {
-        private static final Integer[] DEFAULTS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-                15, 16};
+        private static final Integer[] DEFAULTS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
         private final JComboBox<Integer> comboBox;
         private final Key<Integer> key;
 
@@ -309,8 +302,7 @@ public final class EditorFactory {
     }
 
     private final static class LongEditor extends LabelEditor<Long> {
-        private static final Long[] DEFAULTS = {0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L,
-                12L, 13L, 14L, 15L, 16L};
+        private static final Long[] DEFAULTS = {0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L, 16L};
         private final JComboBox<Long> comboBox;
 
         public LongEditor(Long value, Key<Long> key) {
@@ -347,8 +339,7 @@ public final class EditorFactory {
     }
 
     private final static class InValueEditor extends LabelEditor<InValue> {
-        private static final String[] DEFAULTS = {"Z", "0", "1", "2", "3", "4", "5", "6", "7", "8",
-                "9", "10", "11", "12", "13", "14", "15", "16"};
+        private static final String[] DEFAULTS = {"Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
         private final JComboBox<String> comboBox;
 
         public InValueEditor(InValue value, Key<Integer> key) {
@@ -393,8 +384,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes,
-                AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
+        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
             panel.add(bool, constraints.width(2));
         }
 
@@ -522,8 +512,7 @@ public final class EditorFactory {
                         int addrBits;
 
                         // INPUT_COUNT and ADDR_BITS must have the same default value!!!
-                        // If INPUT_COUNT is not present (default value is used) the default value
-                        // of
+                        // If INPUT_COUNT is not present (default value is used) the default value of
                         // ADDR_BITS is used. This works only if both have the same default value!!!
                         if (attr.contains(Keys.INPUT_COUNT)) {
                             // used to handle the LUT
@@ -533,30 +522,31 @@ public final class EditorFactory {
                             addrBits = attr.get(Keys.ADDR_BITS);
                         }
                         int size = 1 << addrBits;
-                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false,
-                                NoSync.INST);
+                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, SyncAccess.NOSYNC);
                         de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
                             data = de.getModifiedDataField();
                             attr.setFile(ROM.LAST_DATA_FILE_KEY, de.getFileName());
                         }
                     } catch (EditorParseException e1) {
-                        new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1)
-                                .show(panel);
+                        new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
                     }
                 }
             }.createJButton());
             panel.add(new ToolTipAction(Lang.get("btn_reload")) {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        data = new DataField(attr.getFile(ROM.LAST_DATA_FILE_KEY));
-                    } catch (IOException e1) {
-                        new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                data = new DataField(attr.getFile(ROM.LAST_DATA_FILE_KEY));
+                            } catch (IOException e1) {
+                                new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
+                            }
+                        }
                     }
-                }
-            }.setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
-                    .setToolTip(Lang.get("btn_reload_tt")).createJButton());
+                            .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
+                            .setToolTip(Lang.get("btn_reload_tt"))
+                            .createJButton()
+            );
             return panel;
         }
 
@@ -572,8 +562,7 @@ public final class EditorFactory {
     }
 
     private final static class RotationEditor extends LabelEditor<Rotation> {
-        private static final String[] LIST = new String[] {Lang.get("rot_0"), Lang.get("rot_90"),
-                Lang.get("rot_180"), Lang.get("rot_270")};
+        private static final String[] LIST = new String[]{Lang.get("rot_0"), Lang.get("rot_90"), Lang.get("rot_180"), Lang.get("rot_270")};
 
         private final Rotation rotation;
         private JComboBox<String> comb;
@@ -675,22 +664,17 @@ public final class EditorFactory {
                                 if (app.ensureConsistency(elementAttributes))
                                     getAttributeDialog().updateEditedValues();
 
-                                PortDefinition ins = new PortDefinition(
-                                        elementAttributes.get(Keys.EXTERNAL_INPUTS));
-                                PortDefinition outs = new PortDefinition(
-                                        elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
+                                PortDefinition ins = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_INPUTS));
+                                PortDefinition outs = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
                                 String label = elementAttributes.getCleanLabel();
                                 String code = elementAttributes.get(Keys.EXTERNAL_CODE);
 
                                 try {
                                     String message = app.checkCode(label, code, ins, outs);
                                     if (message != null)
-                                        new ErrorMessage(
-                                                Lang.get("msg_checkResult") + "\n\n" + message)
-                                                        .show(getAttributeDialog());
+                                        new ErrorMessage(Lang.get("msg_checkResult") + "\n\n" + message).show(getAttributeDialog());
                                 } catch (IOException e) {
-                                    new ErrorMessage(Lang.get("msg_checkResult")).addCause(e)
-                                            .show(getAttributeDialog());
+                                    new ErrorMessage(Lang.get("msg_checkResult")).addCause(e).show(getAttributeDialog());
                                 }
                             } catch (EditorParseException e) {
                                 e.printStackTrace();
@@ -705,6 +689,7 @@ public final class EditorFactory {
                     enableButton();
                 }
             });
+
 
             JPanel p = new JPanel(new BorderLayout());
             p.add(combo);
@@ -793,21 +778,17 @@ public final class EditorFactory {
                     if (ve != null && p instanceof Main) {
                         try {
                             getAttributeDialog().storeEditedValues();
-                            ElementTypeDescription d = ((Main) p).getCircuitComponent().getLibrary()
-                                    .getElementType(ve.getElementName());
+                            ElementTypeDescription d = ((Main) p).getCircuitComponent().getLibrary().getElementType(ve.getElementName());
                             PinDescriptions in = d.getInputDescription(elementAttributes);
-                            InputSelectDialog dialog = new InputSelectDialog(getAttributeDialog(),
-                                    in, inverterConfig);
+                            InputSelectDialog dialog = new InputSelectDialog(getAttributeDialog(), in, inverterConfig);
                             if (dialog.showDialog()) {
                                 inverterConfig = dialog.getInverterConfig();
                                 button.setText(getButtonText());
                             }
                         } catch (ElementNotFoundException | NodeException e) {
-                            new ErrorMessage(Lang.get("msg_errGettingPinNames")).addCause(e)
-                                    .show(getAttributeDialog());
+                            new ErrorMessage(Lang.get("msg_errGettingPinNames")).addCause(e).show(getAttributeDialog());
                         } catch (EditorParseException e) {
-                            new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e)
-                                    .show(getAttributeDialog());
+                            new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e).show(getAttributeDialog());
                         }
                     }
                 }
@@ -842,8 +823,7 @@ public final class EditorFactory {
         private final ArrayList<JCheckBox> boxes;
         private boolean ok = false;
 
-        private InputSelectDialog(JDialog parent, PinDescriptions pins,
-                InverterConfig inverterConfig) {
+        private InputSelectDialog(JDialog parent, PinDescriptions pins, InverterConfig inverterConfig) {
             super(parent, Lang.get("msg_inputsToInvert"), true);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -896,8 +876,11 @@ public final class EditorFactory {
             buttons.add(new ToolTipAction(Lang.get("btn_help")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    new ShowStringDialog(getAttributeDialog(), Lang.get("win_romDialogHelpTitle"),
-                            Lang.get("msg_romDialogHelp"), true).setVisible(true);
+                    new ShowStringDialog(
+                            getAttributeDialog(),
+                            Lang.get("win_romDialogHelpTitle"),
+                            Lang.get("msg_romDialogHelp"), true)
+                            .setVisible(true);
                 }
             }.createJButton());
             buttons.add(new ToolTipAction(Lang.get("btn_edit")) {
@@ -908,10 +891,11 @@ public final class EditorFactory {
                         final ROMEditorDialog romEditorDialog;
                         try {
                             CircuitComponent circuitComponent = main.getCircuitComponent();
-                            Model model = new ModelCreator(circuitComponent.getCircuit(),
-                                    circuitComponent.getLibrary()).createModel(false);
+                            Model model = new ModelCreator(circuitComponent.getCircuit(), circuitComponent.getLibrary()).createModel(false);
                             try {
-                                romEditorDialog = new ROMEditorDialog(getAttributeDialog(), model,
+                                romEditorDialog = new ROMEditorDialog(
+                                        getAttributeDialog(),
+                                        model,
                                         romManager);
                                 if (romEditorDialog.showDialog())
                                     romManager = romEditorDialog.getROMManager();
@@ -919,8 +903,7 @@ public final class EditorFactory {
                                 model.close();
                             }
                         } catch (ElementNotFoundException | PinException | NodeException e) {
-                            new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e)
-                                    .show(getAttributeDialog());
+                            new ErrorMessage(Lang.get("msg_errorCreatingModel")).addCause(e).show(getAttributeDialog());
                         }
                     }
                 }

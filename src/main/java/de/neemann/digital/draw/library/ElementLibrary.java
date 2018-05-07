@@ -60,8 +60,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     public static File getLibPath() {
         String path;
         try {
-            path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
-                    .replace('\\', '/');
+            path = ElementLibrary.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replace('\\', '/');
         } catch (URISyntaxException e) {
             return new File("noLibFound");
         }
@@ -95,20 +94,12 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Creates a new instance.
-     * @param jarFile
-     *            the jar file to load
+     *
+     * @param jarFile the jar file to load
      */
     public ElementLibrary(File jarFile) {
-        root = new LibraryNode(Lang.get("menu_elements")).setLibrary(this)
-                .add(new LibraryNode(Lang.get("lib_Logic")).add(And.DESCRIPTION).add(NAnd.DESCRIPTION)
-                        .add(Or.DESCRIPTION).add(NOr.DESCRIPTION).add(XOr.DESCRIPTION).add(XNOr.DESCRIPTION)
-                        .add(Not.DESCRIPTION).add(LookUpTable.DESCRIPTION))
-                .add(new LibraryNode(Lang.get("lib_io")).add(Out.DESCRIPTION).add(Out.LEDDESCRIPTION)
-                        .add(In.DESCRIPTION).add(Clock.DESCRIPTION).add(Button.DESCRIPTION)
-                        .add(DummyElement.TEXTDESCRIPTION).add(Probe.DESCRIPTION)
-                        .add(new LibraryNode(Lang.get("lib_more")).add(LightBulb.DESCRIPTION).add(Out.SEVENDESCRIPTION)
-                                .add(Out.SEVENHEXDESCRIPTION).add(LedMatrix.DESCRIPTION)
-                                .add(DummyElement.DATADESCRIPTION).add(RotEncoder.DESCRIPTION).add(Keyboard.DESCRIPTION)
+        root = new LibraryNode(Lang.get("menu_elements"))
+                .setLibrary(this)
                 .add(new LibraryNode(Lang.get("lib_Logic"))
                         .add(And.DESCRIPTION)
                         .add(NAnd.DESCRIPTION)
@@ -204,7 +195,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION)
                         .add(AsyncSeq.DESCRIPTION)
-                        .add(External.DESCRIPTION))));
+                        .add(External.DESCRIPTION));
 
         addExternalJarComponents(jarFile);
 

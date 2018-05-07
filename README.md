@@ -31,7 +31,7 @@ These are the main features of Digital:
 - Good performance: The example processor can be clocked at 120 kHz.
 - Supports large circuits: The "Conway's Game of Life" example consists of about 2400 active components
   and works just fine.
-- Its possible to use custom components which are implemented in Java and packed in a jar file. 
+- It is possible to use custom components which are implemented in Java and packed in a jar file. 
   See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
 - Simple remote TCP interface which e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
   the simulator.
@@ -97,7 +97,7 @@ Below I would like to explain briefly the reasons which led me to start a new de
 ### Switch On ###
 
 In Logisim there is no real "switching on" of a circuit. The simulation is running also while you are modifying it. 
-This causes sometimes an unexpected behaviour. So its possible to build a simple master-slave flip-flop
+This causes sometimes an unexpected behaviour. So it is possible to build a simple master-slave flip-flop
 which works fine. But after a circuit reset the flip-flop does not work anymore.  
 Since the circuit is not switched on, there is no
 settling time to bring the circuit to a stable condition after its completion.

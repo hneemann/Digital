@@ -10,6 +10,7 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
+import de.neemann.digital.draw.graphics.VectorInterface;
 
 /**
  * Is used to define a Pin or, if the PinsDescriptions are not available, draw a circle which looks
@@ -27,7 +28,7 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
 
     /**
      * Creates a PseudoPin
-     * @param pos
+     * @param pos2
      *            Vector where the Pin is located (Center)
      * @param label
      *            Name of the Pin
@@ -36,11 +37,11 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
      * @param pins
      *            Pins of the circuit
      */
-    public SVGPseudoPin(Vector pos, String label, boolean input, Pins pins) {
+    public SVGPseudoPin(VectorInterface pos2, String label, boolean input, Pins pins) {
         this.label = label;
         this.input = input;
         this.pins = pins;
-        this.pos = applyVectorToGrid(pos.x, pos.y);
+        this.pos = applyVectorToGrid(pos2.getX(), pos2.getY());
     }
 
     /**

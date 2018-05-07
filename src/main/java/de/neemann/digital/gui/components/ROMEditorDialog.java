@@ -7,10 +7,10 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMInterface;
 import de.neemann.digital.core.memory.rom.ROMManger;
-import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ToolTipAction;
 
@@ -138,7 +138,7 @@ public class ROMEditorDialog extends JDialog {
         }
 
         public boolean edit(ROMEditorDialog romEditorDialog) {
-            DataEditor de = new DataEditor(romEditorDialog, data, 1 << ri.getAddrBits(), ri.getDataBits(), ri.getAddrBits(), false, NoSync.INST);
+            DataEditor de = new DataEditor(romEditorDialog, data, 1 << ri.getAddrBits(), ri.getDataBits(), ri.getAddrBits(), false, SyncAccess.NOSYNC);
             if (de.showDialog()) {
                 data = de.getModifiedDataField();
                 return true;

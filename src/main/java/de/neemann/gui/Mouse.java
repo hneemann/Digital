@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2018 Helmut Neemann.
  * Use of this source code is governed by the GPL v3 license
@@ -25,7 +26,7 @@ public interface Mouse {
             return new Mouse() {
                 @Override
                 public boolean isPrimaryClick(MouseEvent e) {
-                    return e.getButton() == MouseEvent.BUTTON1;
+                    return e.getButton() == MouseEvent.BUTTON1 && !e.isControlDown();
                 }
 
                 @Override

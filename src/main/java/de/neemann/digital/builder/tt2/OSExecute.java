@@ -17,11 +17,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * OSExecute is used to start external programs
  * It is used to start external fitters like fit1502.exe
- * <p>
  */
 public class OSExecute {
 
-    private final ProcessBuilder procesBuilder;
+    private final ProcessBuilder processBuilder;
+    private int timeOutSec = 30;
+    private Process process;
+    private boolean ignoreReturnCode = false;
 
     /**
      * Creates a new instance
@@ -29,7 +31,7 @@ public class OSExecute {
      * @param args the program to start
      */
     public OSExecute(String... args) {
-        procesBuilder = new ProcessBuilder(args);
+        processBuilder = new ProcessBuilder(args);
     }
 
     /**
@@ -38,16 +40,18 @@ public class OSExecute {
      * @param args the program to start
      */
     public OSExecute(List<String> args) {
-        procesBuilder = new ProcessBuilder(args);
+        processBuilder = new ProcessBuilder(args);
     }
 
     /**
      * Sets the working directory
      *
      * @param workingDir the working directory
+     * @return this for chained calls
      */
-    public void setWorkingDir(File workingDir) {
-        procesBuilder.directory(workingDir);
+    public OSExecute setWorkingDir(File workingDir) {
+        processBuilder.directory(workingDir);
+        return this;
     }
 
     /**
@@ -55,9 +59,22 @@ public class OSExecute {
      *
      * @param key   the key
      * @param value the value
+     * @return this for chained calls
      */
-    public void setEnvVar(String key, String value) {
-        procesBuilder.environment().put(key, value);
+    public OSExecute setEnvVar(String key, String value) {
+        processBuilder.environment().put(key, value);
+        return this;
+    }
+
+    /**
+     * Sets the time out period.
+     *
+     * @param timeOutSec time out in seconds
+     * @return this for chained calls
+     */
+    public OSExecute setTimeOutSec(int timeOutSec) {
+        this.timeOutSec = timeOutSec;
+        return this;
     }
 
     /**
@@ -66,40 +83,68 @@ public class OSExecute {
      * @return the console output of the started process
      * @throws IOException IOException
      */
-    public String start() throws IOException {
-        procesBuilder.redirectErrorStream(true);
+    public String startAndWait() throws IOException {
+        processBuilder.redirectErrorStream(true);
 
-        Process p = procesBuilder.start();
+        process = processBuilder.start();
 
-        InputStream console = p.getInputStream();
-        StreamReader sr = new StreamReader(console);
-        sr.start();
+        InputStream console = process.getInputStream();
+        StreamReader consoleReader = new StreamReader(console);
+        consoleReader.start();
 
         try {
-            p.waitFor(30, TimeUnit.SECONDS);
+            process.waitFor(timeOutSec, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        if (p.isAlive()) {
-            p.destroy();
-            sr.interrupt();
-            throw new IOException(Lang.get("err_processDoesNotTerminate_N", procesBuilder.command()));
+        if (process.isAlive()) {
+            process.destroy();
+            consoleReader.interrupt();
+            throw new IOException(Lang.get("err_processDoesNotTerminate_N", processBuilder.command()));
         }
 
-        if (p.exitValue() != 0)
-            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", p.exitValue(), "\n" + sr.toString()));
+        if (process.exitValue() != 0 && !ignoreReturnCode)
+            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", process.exitValue(), "\n" + consoleReader.toString()));
 
         try {
-            sr.join();
+            consoleReader.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        if (sr.getException() != null)
-            throw sr.getException();
+        if (consoleReader.getException() != null)
+            throw consoleReader.getException();
 
-        return sr.toString();
+        return consoleReader.toString();
+    }
+
+    /**
+     * Sends a terminate signal to the running process.
+     */
+    public void terminate() {
+        if (process.isAlive()) {
+            ignoreReturnCode = true;
+            process.destroy();
+        }
+    }
+
+    /**
+     * @return true if process is alive.
+     */
+    public boolean isAlive() {
+        return process.isAlive();
+    }
+
+    /**
+     * Start process in its own thread.
+     *
+     * @param callback the callback functions
+     * @return this for chained calls
+     */
+    public OSExecute startInThread(ProcessCallback callback) {
+        new WaitThread(this, callback).start();
+        return this;
     }
 
     private static final class StreamReader extends Thread {
@@ -134,5 +179,45 @@ public class OSExecute {
         public String toString() {
             return baos.toString();
         }
+    }
+
+    private static final class WaitThread extends Thread {
+        private final OSExecute os;
+        private final ProcessCallback callback;
+
+        private WaitThread(OSExecute os, ProcessCallback callback) {
+            this.os = os;
+            this.callback = callback;
+            setDaemon(true);
+        }
+
+        @Override
+        public void run() {
+            try {
+                String result = os.startAndWait();
+                callback.processTerminated(result);
+            } catch (Exception e) {
+                callback.exception(e);
+            }
+        }
+    }
+
+    /**
+     * Process callback functions
+     */
+    public interface ProcessCallback {
+        /**
+         * The console out after process is terminated
+         *
+         * @param consoleOut the console output
+         */
+        void processTerminated(String consoleOut);
+
+        /**
+         * Called if an exception is thrown
+         *
+         * @param e the exception
+         */
+        void exception(Exception e);
     }
 }

@@ -45,7 +45,7 @@ import java.util.*;
  *
  * @see de.neemann.digital.core.element.Element#registerNodes(Model)
  */
-public class Model implements Iterable<Node> {
+public class Model implements Iterable<Node>, SyncAccess {
     private static final Logger LOGGER = LoggerFactory.getLogger(Model.class);
     /**
      * Maximal number of calculation loops before oscillating behaviour is detected
@@ -736,7 +736,7 @@ public class Model implements Iterable<Node> {
     /**
      * Sets async execution infos
      *
-     * @param asyncInfos manly the frequency
+     * @param asyncInfos essentially the frequency
      */
     public void setAsyncInfos(AsyncSeq asyncInfos) {
         this.asyncInfos = asyncInfos;
@@ -748,4 +748,17 @@ public class Model implements Iterable<Node> {
     public AsyncSeq getAsyncInfos() {
         return asyncInfos;
     }
+
+    @Override
+    public synchronized <A extends Runnable> A access(A run) {
+        run.run();
+        return run;
+    }
+
+    @Override
+    public synchronized <A extends ModelRun> A accessNEx(A run) throws NodeException {
+        run.run();
+        return run;
+    }
+
 }

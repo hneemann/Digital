@@ -6,7 +6,6 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
 
@@ -29,7 +28,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
     private final ObservableValue value;
     private final CircuitComponent circuitComponent;
-    private final Sync modelSync;
+    private final SyncAccess model;
 
     private enum InMode {
         HEX(Lang.get("attr_dialogHex")),
@@ -77,15 +76,14 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
      * @param supportsHighZ    true is high z is supported
      * @param circuitComponent the component which contains the circuit
      * @param model            the model
-     * @param modelSync        used to access the running model
      */
     //CHECKSTYLE.OFF: ParameterNumberCheck
-    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, boolean supportsHighZ, CircuitComponent circuitComponent, Model model, Sync modelSync) {
+    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, boolean supportsHighZ, CircuitComponent circuitComponent, Model model) {
         super(parent, Lang.get("win_valueInputTitle_N", label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.value = value;
         this.circuitComponent = circuitComponent;
-        this.modelSync = modelSync;
+        this.model = model;
 
         editValue = value.getValue();
         this.supportsHighZ = supportsHighZ;
@@ -100,11 +98,11 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 setLongToDialog(editValue);
         });
 
-        modelSync.access(() -> model.addObserver(this));
+        model.access(() -> model.addObserver(this));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-                modelSync.access(() -> model.removeObserver(SingleValueDialog.this));
+                model.access(() -> model.removeObserver(SingleValueDialog.this));
             }
         });
 
@@ -166,9 +164,9 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
     private void apply() {
         if (getSelectedFormat().equals(InMode.HIGHZ)) {
-            modelSync.access(value::setToHighZ);
+            model.access(value::setToHighZ);
         } else {
-            modelSync.access(() -> value.setValue(editValue));
+            model.access(() -> value.setValue(editValue));
         }
         circuitComponent.modelHasChanged();
     }

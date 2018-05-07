@@ -1,5 +1,6 @@
+
 /*
- * Copyright (c) 2016 Helmut Neemann
+ * Copyright (c) 2018 Helmut Neemann
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
@@ -13,6 +14,7 @@ import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.InteractorInterface;
@@ -38,8 +40,8 @@ public class CustomShape implements Shape {
      * @throws PinException
      *             thrown if a pin is not found
      */
-    public CustomShape(CustomShapeDescription shapeDescription, PinDescriptions inputs, PinDescriptions outputs)
-            throws PinException {
+    public CustomShape(CustomShapeDescription shapeDescription, PinDescriptions inputs,
+            PinDescriptions outputs) throws PinException {
         this.shapeDescription = shapeDescription;
         this.inputs = inputs;
         this.outputs = outputs;
@@ -48,12 +50,12 @@ public class CustomShape implements Shape {
     }
 
     private void initPins() throws PinException {
+        pins = new Pins();
         if (inputs != null && outputs != null) {
-            pins = new Pins();
             for (PinDescription p : outputs)
-                pins.add(new Pin(shapeDescription.getPinPos(p.getName()), p));
+                pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
             for (PinDescription p : inputs)
-                pins.add(new Pin(shapeDescription.getPinPos(p.getName()), p));
+                pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
         }
     }
 
@@ -71,5 +73,22 @@ public class CustomShape implements Shape {
     public void drawTo(Graphic graphic, Style highLight) {
         for (Drawable d : shapeDescription)
             d.drawTo(graphic, highLight);
+
+        for (Pin p : getPins()) {
+            try {
+                CustomShapeDescription.Pin cp = shapeDescription.getPin(p.getName());
+                if (cp != null && cp.isShowLabel()) {
+                    if (p.getDirection() == Pin.Direction.input) {
+                        graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(),
+                                Orientation.LEFTCENTER, Style.SHAPE_PIN);
+                    } else
+                        graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(),
+                                Orientation.RIGHTCENTER, Style.SHAPE_PIN);
+
+                }
+            } catch (PinException e) {
+                // do nothing on an error
+            }
+        }
     }
 }

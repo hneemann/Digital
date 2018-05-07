@@ -43,7 +43,7 @@ public class Out implements Element {
             = new ElementTypeDescription("LED", Out.class, input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.SIZE)
+            .addAttribute(Keys.LED_SIZE)
             .addAttribute(Keys.COLOR);
 
     /**

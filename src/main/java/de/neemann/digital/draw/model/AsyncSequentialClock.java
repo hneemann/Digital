@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2016 Helmut Neemann
  * Use of this source code is governed by the GPL v3 license
@@ -11,7 +12,6 @@ import de.neemann.digital.core.ModelStateObserverTyped;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.gui.ErrorStopper;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 
 import java.util.concurrent.ScheduledFuture;
@@ -25,7 +25,6 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
     private final Model model;
     private final ScheduledThreadPoolExecutor executor;
     private final ErrorStopper stopper;
-    private final Sync modelSync;
     private final int frequency;
     private RealTimeRunner runner;
 
@@ -36,13 +35,11 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
      * @param asyncSeq  the infos used to cofigure the clock
      * @param executor  the executor used to schedule the update
      * @param stopper   used to stop the model if an error is detected
-     * @param modelSync used to access a running model
      */
-    public AsyncSequentialClock(Model model, AsyncSeq asyncSeq, ScheduledThreadPoolExecutor executor, ErrorStopper stopper, Sync modelSync) {
+    public AsyncSequentialClock(Model model, AsyncSeq asyncSeq, ScheduledThreadPoolExecutor executor, ErrorStopper stopper) {
         this.model = model;
         this.executor = executor;
         this.stopper = stopper;
-        this.modelSync = modelSync;
         int f = asyncSeq.getFrequency();
         if (f < 1) f = 1;
         this.frequency = f;
@@ -81,7 +78,7 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
                 @Override
                 public void run() {
                     try {
-                        modelSync.accessNEx(() -> model.doMicroStep(false));
+                        model.accessNEx(() -> model.doMicroStep(false));
                     } catch (NodeException | RuntimeException e) {
                         stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
                         timer.cancel(false);

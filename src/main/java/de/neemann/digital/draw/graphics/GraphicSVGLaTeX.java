@@ -113,8 +113,8 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     }
 
     @Override
-    public void drawCircle(Vector p1, Vector p2, Style style) {
-        if ((style != Style.WIRE && style != Style.WIRE_OUT) || Math.abs(p1.x - p2.x) > 4)
+    public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
+        if ((style != Style.WIRE && style != Style.WIRE_OUT) || Math.abs(p1.getX() - p2.getX()) > 4)
             super.drawCircle(p1, p2, style);
     }
 
