@@ -82,27 +82,32 @@ public class SVGPath implements SVGFragment, SVGDrawable {
         try {
             switch (statement.toLowerCase().charAt(0)) {
             case 'm':
-                setMoveTo(getIntFromString(b.get(0)), getIntFromString(b.get(1)));
+                setMoveTo(getFloatFromString(b.get(0)), getFloatFromString(b.get(1)));
+                if (b.size() < 4)
+                    return;
+                else {
+                    b.remove(0);
+                    b.remove(0);
+                }
+            case 'l':
+                for (int i = 0; i < b.size() - 1; i += 2) {
+                    lineTo(getFloatFromString(b.get(i)), getFloatFromString(b.get(i + 1)), abs);
+                }
                 return;
             case 'z':
                 closePath();
                 return;
-            case 'l':
-                for (int i = 0; i < b.size() - 1; i += 2) {
-                    lineTo(getIntFromString(b.get(i)), getIntFromString(b.get(i + 1)), abs);
-                }
-                return;
             case 'h':
-                horizontalLine(getIntFromString(b.get(0)), abs);
+                horizontalLine(getFloatFromString(b.get(0)), abs);
                 return;
             case 'v':
-                verticalLine(getIntFromString(b.get(0)), abs);
+                verticalLine(getFloatFromString(b.get(0)), abs);
                 return;
             case 'c':
                 for (int i = 0; i < b.size() - 5; i += 6) {
-                    bezierCurve(getIntFromString(b.get(i)), getIntFromString(b.get(i + 1)),
-                            getIntFromString(b.get(i + 2)), getIntFromString(b.get(i + 3)),
-                            getIntFromString(b.get(i + 4)), getIntFromString(b.get(i + 5)), abs);
+                    bezierCurve(getFloatFromString(b.get(i)), getFloatFromString(b.get(i + 1)),
+                            getFloatFromString(b.get(i + 2)), getFloatFromString(b.get(i + 3)),
+                            getFloatFromString(b.get(i + 4)), getFloatFromString(b.get(i + 5)), abs);
                 }
                 return;
             case 's':
@@ -112,14 +117,14 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                                     - corners.get(corners.size() - 2).getXFloat(),
                             2 * corners.get(corners.size() - 1).getYFloat()
                                     - corners.get(corners.size() - 2).getYFloat(),
-                            getIntFromString(b.get(i + 0)), getIntFromString(b.get(i + 1)),
-                            getIntFromString(b.get(i + 2)), getIntFromString(b.get(i + 3)), abs);
+                            getFloatFromString(b.get(i + 0)), getFloatFromString(b.get(i + 1)),
+                            getFloatFromString(b.get(i + 2)), getFloatFromString(b.get(i + 3)), abs);
                 }
                 return;
             case 'q':
                 for (int i = 0; i < b.size() - 3; i += 4) {
-                    bezierCurve(getIntFromString(b.get(i + 0)), getIntFromString(b.get(i + 1)),
-                            getIntFromString(b.get(i + 2)), getIntFromString(b.get(i + 3)), abs);
+                    bezierCurve(getFloatFromString(b.get(i + 0)), getFloatFromString(b.get(i + 1)),
+                            getFloatFromString(b.get(i + 2)), getFloatFromString(b.get(i + 3)), abs);
                 }
                 return;
             case 't':
@@ -129,7 +134,7 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                                     - corners.get(corners.size() - 2).getXFloat(),
                             2 * corners.get(corners.size() - 1).getYFloat()
                                     - corners.get(corners.size() - 2).getYFloat(),
-                            getIntFromString(b.get(i + 0)), getIntFromString(b.get(i + 1)), abs);
+                            getFloatFromString(b.get(i + 0)), getFloatFromString(b.get(i + 1)), abs);
                 }
                 return;
             case 'a':
@@ -272,7 +277,7 @@ public class SVGPath implements SVGFragment, SVGDrawable {
         System.out.println("Zeichne Ellipse: " + param);
         ArrayList<Float> p = new ArrayList<Float>();
         for (String s : param) {
-            p.add(getIntFromString(s));
+            p.add(getFloatFromString(s));
         }
         /**
          * p0 = [0, radius] p1 = [radius * K, radius] p2 = [radius, radius * K] p3 = [radius, 0]
@@ -312,8 +317,8 @@ public class SVGPath implements SVGFragment, SVGDrawable {
      *            input String
      * @return corresponding int
      */
-    private float getIntFromString(String inp) {
-        return (float) Double.parseDouble(inp);
+    private float getFloatFromString(String inp) {
+        return Float.parseFloat(inp);
     }
 
     @Override

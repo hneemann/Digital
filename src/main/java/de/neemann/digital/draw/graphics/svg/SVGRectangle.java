@@ -95,8 +95,6 @@ public class SVGRectangle implements SVGFragment {
     public synchronized void move(VectorFloat diff) {
         x -= diff.getXFloat();
         y -= diff.getYFloat();
-//        rx -= diff.getXFloat();
-//        ry -= diff.getYFloat();
     }
 
     @Override
