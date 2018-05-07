@@ -24,7 +24,7 @@ public class ImportSVGTest extends TestCase {
             ImportSVG importer = new ImportSVG(new File("src/test/resources/svg/test.svg"));
             assertEquals(4, importer.getFragments().size());
             svg = svg.addPin("I", new Vector(0, 0),true);
-            svg = svg.addPin("O", new Vector(100, 0),false);
+            svg = svg.addPin("O", new Vector(100, 0),true);
             importer = new ImportSVG(new File("src/test/resources/svg/test.svg"));
             assertEquals(4, importer.getFragments().size());
             assertEquals(0, importer.getPseudoPins().size());

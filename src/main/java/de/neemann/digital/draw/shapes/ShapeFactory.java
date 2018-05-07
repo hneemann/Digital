@@ -181,11 +181,13 @@ public final class ShapeFactory {
                         ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
                         final CustomShapeDescription customShapeDescription = customDescr
                                 .getAttributes().get(Keys.CUSTOM_SHAPE);
-                        if (customShapeDescription != CustomShapeDescription.EMPTY)
+                        System.out.println("Inputs: "+pt.getInputDescription(elementAttributes));
+                        System.out.println("Outputs: "+pt.getOutputDescriptions(elementAttributes));
+                        if (customShapeDescription != CustomShapeDescription.EMPTY) {
                             return new CustomShape(customShapeDescription,
                                     pt.getInputDescription(elementAttributes),
                                     pt.getOutputDescriptions(elementAttributes));
-                        else if (customDescr.getAttributes().get(Keys.IS_DIL)) {
+                        } else if (customDescr.getAttributes().get(Keys.IS_DIL)) {
                             return new DILShape(pt.getShortName(),
                                     pt.getInputDescription(elementAttributes),
                                     pt.getOutputDescriptions(elementAttributes),
@@ -213,6 +215,7 @@ public final class ShapeFactory {
                         pt.getOutputDescriptions(elementAttributes));
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return new MissingShape(elementName, e);
         }
     }

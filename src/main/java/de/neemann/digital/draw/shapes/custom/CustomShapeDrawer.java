@@ -10,6 +10,7 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.VectorInterface;
+import de.neemann.digital.draw.graphics.svg.ImportSVG;
 import de.neemann.digital.draw.graphics.svg.SVGPseudoPin;
 
 /**
@@ -22,22 +23,26 @@ public class CustomShapeDrawer implements Graphic {
 
     @Override
     public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
-        svg = svg.addLine(p1, p2, style);
+        svg = svg.addLine(ImportSVG.toOldschoolVector(p1), ImportSVG.toOldschoolVector(p1),
+                (int) style.getThickness(), style.getColor());
     }
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
-        svg = svg.addPolygon(p, style);
+        svg = svg.addPolygon(p, style.getThickness(), style.getColor(), style.isFilled());
     }
 
     @Override
     public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
-        svg = svg.addCircle(p1, p2, style);
+        svg = svg.addCircle(ImportSVG.toOldschoolVector(p1), ImportSVG.toOldschoolVector(p1),
+                style.getThickness(), style.getColor(), style.isFilled());
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
-        svg = svg.addText(p1, p2, text, orientation, style);
+    public void drawText(VectorInterface p1, VectorInterface p2, String text,
+            Orientation orientation, Style style) {
+        svg = svg.addText(ImportSVG.toOldschoolVector(p1), ImportSVG.toOldschoolVector(p1), text,
+                orientation, style.getFontSize(), style.getColor());
     }
 
     /**
@@ -46,7 +51,7 @@ public class CustomShapeDrawer implements Graphic {
      *            Pseudopin
      */
     public void addPin(SVGPseudoPin p) {
-        svg = svg.addPin(p);
+        svg = svg.addPin(p.getLabel(), p.getPos(), true);
     }
 
     /**

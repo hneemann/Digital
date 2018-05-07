@@ -6,8 +6,9 @@
  */
 package de.neemann.digital.draw.shapes.custom;
 
+import java.util.HashMap;
+
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -51,16 +52,22 @@ public class CustomShape implements Shape {
 
     private void initPins() throws PinException {
         pins = new Pins();
+        System.out.println("Anzahl Pins bei Init: "+shapeDescription.getPinNames().size());
+        System.out.println(inputs);
+        System.out.println(outputs);
         if (inputs != null && outputs != null) {
-            for (PinDescription p : outputs)
+            for (PinDescription p : outputs) {
                 pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
-            for (PinDescription p : inputs)
+            }
+            for (PinDescription p : inputs) {
                 pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
+            }
         }
     }
 
     @Override
     public Pins getPins() {
+        System.out.println("Anzahl Pins: "+pins.size());
         return pins;
     }
 
@@ -75,20 +82,12 @@ public class CustomShape implements Shape {
             d.drawTo(graphic, highLight);
 
         for (Pin p : getPins()) {
-            try {
-                CustomShapeDescription.Pin cp = shapeDescription.getPin(p.getName());
-                if (cp != null && cp.isShowLabel()) {
-                    if (p.getDirection() == Pin.Direction.input) {
-                        graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(),
-                                Orientation.LEFTCENTER, Style.SHAPE_PIN);
-                    } else
-                        graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(),
-                                Orientation.RIGHTCENTER, Style.SHAPE_PIN);
-
-                }
-            } catch (PinException e) {
-                // do nothing on an error
-            }
+            if (p.getDirection() == Pin.Direction.input) {
+                graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(),
+                        Orientation.LEFTCENTER, Style.SHAPE_PIN);
+            } else
+                graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(),
+                        Orientation.RIGHTCENTER, Style.SHAPE_PIN);
         }
     }
 }

@@ -179,7 +179,7 @@ public final class Style {
     /**
      * @return true if polygons and circles are filled
      */
-    boolean isFilled() {
+    public boolean isFilled() {
         return filled;
     }
 
