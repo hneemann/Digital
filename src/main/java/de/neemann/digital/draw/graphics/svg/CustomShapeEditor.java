@@ -20,6 +20,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -65,6 +66,7 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
     private CustomShapeDescription svg;
     private JDialog dialog;
     private JPanel panel = new JPanel(new FlowLayout());
+    private static File chooserRoot = new File(System.getProperty("user.home"));
 
     /**
      * Editor for the import of a SVG File
@@ -85,9 +87,11 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new MyFileChooser();
+                fc.setCurrentDirectory(chooserRoot);
                 fc.setFileFilter(new FileNameExtensionFilter("SVG", "svg"));
                 if (fc.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {
                     try {
+                        chooserRoot = fc.getCurrentDirectory();
                         importer = new ImportSVG(fc.getSelectedFile());
                         svg = importer.getSVG();
                         preview.initPins();
