@@ -131,7 +131,6 @@ public class ImportSVG {
                 for (SVGDrawable d : f.getDrawables())
                     if (d != null)
                         d.draw(drawer);
-        System.out.println("Größe der Pseudopins: " + getPseudoPins().size());
         for (SVGPseudoPin p : getPseudoPins())
             drawer.addPin(p);
         return drawer.getSvg();

@@ -54,7 +54,6 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      */
     public CustomShapeDescription addPin(String name, Vector pos, boolean showLabel) {
         pins.put(name, new Pin(pos, showLabel));
-        System.out.println("Anzahl Pins nach Put: "+pins.size());
         return this;
     }
 
@@ -63,8 +62,6 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      * @return pins
      */
     public HashMap<String, Pin> getPinNames() {
-        System.out.println("Anzahl Pins bei getPinNames: "+pins.size());
-        System.out.println("Anzahl Drawables bei getPinNames: "+drawables.size());
         HashMap<String, Pin> pinCopy = new HashMap<>();
         for (String s : pins.keySet()) {
             pinCopy.put(s, pins.get(s));
@@ -173,7 +170,6 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      *             thrown if pin is not found
      */
     Pin getPin(String name) throws PinException {
-        System.out.println("Anzahl Pins bei Get: "+pins.size());
         final Pin pin = pins.get(name);
         if (pin == null)
             throw new PinException(Lang.get("err_pin_N_notFound", name));

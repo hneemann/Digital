@@ -6,9 +6,8 @@
  */
 package de.neemann.digital.draw.shapes.custom;
 
-import java.util.HashMap;
-
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -52,9 +51,6 @@ public class CustomShape implements Shape {
 
     private void initPins() throws PinException {
         pins = new Pins();
-        System.out.println("Anzahl Pins bei Init: "+shapeDescription.getPinNames().size());
-        System.out.println(inputs);
-        System.out.println(outputs);
         if (inputs != null && outputs != null) {
             for (PinDescription p : outputs) {
                 pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
@@ -67,7 +63,6 @@ public class CustomShape implements Shape {
 
     @Override
     public Pins getPins() {
-        System.out.println("Anzahl Pins: "+pins.size());
         return pins;
     }
 

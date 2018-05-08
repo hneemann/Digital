@@ -337,7 +337,6 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
             pins = new ArrayList<SVGPseudoPin>();
             if (svg != null) {
                 for (String s : svg.getPinNames().keySet()) {
-                    System.out.println("Teste Pin " + s);
                     Pin p = svg.getPinNames().get(s);
                     if (!isPinPresent(s))
                         pins.add(new SVGPseudoPin(p.getPos(), s, true, null));

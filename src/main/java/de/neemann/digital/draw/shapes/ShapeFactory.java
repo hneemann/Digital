@@ -181,8 +181,6 @@ public final class ShapeFactory {
                         ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
                         final CustomShapeDescription customShapeDescription = customDescr
                                 .getAttributes().get(Keys.CUSTOM_SHAPE);
-                        System.out.println("Inputs: "+pt.getInputDescription(elementAttributes));
-                        System.out.println("Outputs: "+pt.getOutputDescriptions(elementAttributes));
                         if (customShapeDescription != CustomShapeDescription.EMPTY) {
                             return new CustomShape(customShapeDescription,
                                     pt.getInputDescription(elementAttributes),
