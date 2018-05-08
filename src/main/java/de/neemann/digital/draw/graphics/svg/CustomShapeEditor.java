@@ -338,8 +338,11 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
             if (svg != null) {
                 for (String s : svg.getPinNames().keySet()) {
                     Pin p = svg.getPinNames().get(s);
-                    if (!isPinPresent(s))
-                        pins.add(new SVGPseudoPin(p.getPos(), s, true, null));
+                    if (!isPinPresent(s)) {
+                        pins.add(new SVGPseudoPin(p.getPos(), s,
+                                svg.getInOut().containsKey(s) ? svg.getInOut().get(s) : true,
+                                null));
+                    }
                 }
             }
             if (getAttributeDialog() != null) {
@@ -392,6 +395,7 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
         private void addPin(boolean input, String label) {
             if (!isPinPresent(label)) {
                 svg = svg.addPin(label, new Vector(lastPinX, lastPinY), true);
+                svg.getInOut().put(label, input);
                 while (isPinOnPosition(new Vector(lastPinX, lastPinY)) > 0) {
                     lastPinX += 20;
                 }

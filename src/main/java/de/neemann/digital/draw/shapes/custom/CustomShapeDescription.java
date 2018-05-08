@@ -33,6 +33,7 @@ public class CustomShapeDescription implements Iterable<Drawable> {
 
     private HashMap<String, Pin> pins;
     private ArrayList<Drawable> drawables;
+    private transient HashMap<String, Boolean> inout = new HashMap<>();
 
     /**
      * Creates a new instance
@@ -55,6 +56,14 @@ public class CustomShapeDescription implements Iterable<Drawable> {
     public CustomShapeDescription addPin(String name, Vector pos, boolean showLabel) {
         pins.put(name, new Pin(pos, showLabel));
         return this;
+    }
+
+    /**
+     * Gets the information, whether a pin is in or output
+     * @return map of in/output
+     */
+    public HashMap<String, Boolean> getInOut() {
+        return inout;
     }
 
     /**
