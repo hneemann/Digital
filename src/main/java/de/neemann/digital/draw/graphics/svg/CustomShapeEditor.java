@@ -340,8 +340,8 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                     Pin p = svg.getPinNames().get(s);
                     if (!isPinPresent(s)) {
                         pins.add(new SVGPseudoPin(p.getPos(), s,
-                                svg.getInOut().containsKey(s) ? svg.getInOut().get(s) : true,
-                                null));
+                                svg.getInOut().containsKey(s) ? svg.getInOut().get(s) : true, null,
+                                p.isShowLabel()));
                     }
                 }
             }
@@ -353,10 +353,10 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                         if (ve.equalsDescription(In.DESCRIPTION)
                                 || ve.equalsDescription(Clock.DESCRIPTION)) {
                             String label = ve.getElementAttributes().getLabel();
-                            addPin(true, label);
+                            addPin(true, label, true);
                         } else if (ve.equalsDescription(Out.DESCRIPTION)) {
                             String label = ve.getElementAttributes().getLabel();
-                            addPin(false, label);
+                            addPin(false, label, true);
                         }
                     }
                 }
@@ -392,15 +392,15 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
          * @param input
          *            Input or output
          */
-        private void addPin(boolean input, String label) {
+        private void addPin(boolean input, String label, boolean showLabel) {
             if (!isPinPresent(label)) {
-                svg = svg.addPin(label, new Vector(lastPinX, lastPinY), true);
+                svg = svg.addPin(label, new Vector(lastPinX, lastPinY), showLabel);
                 svg.getInOut().put(label, input);
                 while (isPinOnPosition(new Vector(lastPinX, lastPinY)) > 0) {
                     lastPinX += 20;
                 }
                 SVGPseudoPin pseudoPin = new SVGPseudoPin(new Vector(lastPinX, lastPinY), label,
-                        input, null);
+                        input, null, showLabel);
                 pins.add(pseudoPin);
                 lastPinY += 20;
                 if (lastPinY > 150) {
@@ -464,6 +464,7 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                     for (SVGDrawable d : p.getDrawables()) {
                         d.draw(graphic);
                         SVGEllipse e = (SVGEllipse) d;
+                        if(p.isShowLabel())
                         graphic.drawText(ImportSVG.toOldschoolVector(e.getPos()),
                                 ImportSVG.toOldschoolVector(e.getPos()), p.getLabel(),
                                 p.isInput() ? Orientation.RIGHTTOP : Orientation.LEFTTOP,

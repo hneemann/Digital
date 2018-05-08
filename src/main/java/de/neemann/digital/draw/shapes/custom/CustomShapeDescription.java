@@ -316,7 +316,11 @@ public class CustomShapeDescription implements Iterable<Drawable> {
             this.showLabel = showLabel;
         }
 
-        boolean isShowLabel() {
+        /**
+         * Gets the neccessarity to draw the name next to the Pin
+         * @return showLabel
+         */
+        public boolean isShowLabel() {
             return showLabel;
         }
 

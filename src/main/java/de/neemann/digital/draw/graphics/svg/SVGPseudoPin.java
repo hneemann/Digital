@@ -25,6 +25,7 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
     private boolean descSet = false;
     private Vector originalPos;
     private String label = "";
+    private boolean showLabel;
 
     /**
      * Creates a PseudoPin
@@ -37,11 +38,13 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
      * @param pins
      *            Pins of the circuit
      */
-    public SVGPseudoPin(VectorInterface pos2, String label, boolean input, Pins pins) {
+    public SVGPseudoPin(VectorInterface pos2, String label, boolean input, Pins pins,
+            boolean showLabel) {
         this.label = label;
         this.input = input;
         this.pins = pins;
         this.pos = applyVectorToGrid(pos2.getX(), pos2.getY());
+        this.showLabel = showLabel;
     }
 
     /**
@@ -66,6 +69,14 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
      */
     public boolean isInput() {
         return input;
+    }
+
+    /**
+     * Checks, if the label should be drawn
+     * @return showLabel
+     */
+    public boolean isShowLabel() {
+        return showLabel;
     }
 
     /**

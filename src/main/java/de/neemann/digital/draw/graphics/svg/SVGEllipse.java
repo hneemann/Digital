@@ -117,16 +117,21 @@ public class SVGEllipse implements SVGFragment, SVGDrawable, SVGPinnable {
      */
     private boolean checkAndInsertPins(String s, int x, int y) throws NoParsableSVGException {
         try {
-            String[] tmp = s.split(":", 2);
+            String[] tmp = s.split(":", 3);
             s = tmp[0].toLowerCase();
-            String label = tmp[1];
+            boolean showLabel = true;
+            String showString = tmp[1].toLowerCase();
+            if (tmp.length > 2 && (showString.startsWith("f") || showString.startsWith("n"))) {
+                showLabel = false;
+            }
+            String label = tmp[tmp.length - 1];
             if (s.startsWith("input") || s.startsWith("i")) {
-                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), label, true, pins));
+                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), label, true, pins, showLabel));
                 me = pseudoPins.get(pseudoPins.size() - 1);
                 return true;
             }
             if (s.startsWith("output") || s.startsWith("o")) {
-                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), label, false, pins));
+                pseudoPins.add(new SVGPseudoPin(new Vector(x, y), label, false, pins, showLabel));
                 me = pseudoPins.get(pseudoPins.size() - 1);
                 return true;
             }

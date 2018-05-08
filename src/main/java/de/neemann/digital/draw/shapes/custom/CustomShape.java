@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2018 Helmut Neemann
  * Use of this source code is governed by the GPL v3 license
@@ -31,17 +30,13 @@ public class CustomShape implements Shape {
 
     /**
      * Creates a new instance
-     * @param shapeDescription
-     *            the description of the shape
-     * @param inputs
-     *            the inputs of the component
-     * @param outputs
-     *            the inputs of the component
-     * @throws PinException
-     *             thrown if a pin is not found
+     *
+     * @param shapeDescription the description of the shape
+     * @param inputs           the inputs of the component
+     * @param outputs          the inputs of the component
+     * @throws PinException thrown if a pin is not found
      */
-    public CustomShape(CustomShapeDescription shapeDescription, PinDescriptions inputs,
-            PinDescriptions outputs) throws PinException {
+    public CustomShape(CustomShapeDescription shapeDescription, PinDescriptions inputs, PinDescriptions outputs) throws PinException {
         this.shapeDescription = shapeDescription;
         this.inputs = inputs;
         this.outputs = outputs;
@@ -51,14 +46,10 @@ public class CustomShape implements Shape {
 
     private void initPins() throws PinException {
         pins = new Pins();
-        if (inputs != null && outputs != null) {
-            for (PinDescription p : outputs) {
-                pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
-            }
-            for (PinDescription p : inputs) {
-                pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
-            }
-        }
+        for (PinDescription p : outputs)
+            pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
+        for (PinDescription p : inputs)
+            pins.add(new Pin(shapeDescription.getPin(p.getName()).getPos(), p));
     }
 
     @Override
@@ -77,12 +68,18 @@ public class CustomShape implements Shape {
             d.drawTo(graphic, highLight);
 
         for (Pin p : getPins()) {
-            if (p.getDirection() == Pin.Direction.input) {
-                graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(),
-                        Orientation.LEFTCENTER, Style.SHAPE_PIN);
-            } else
-                graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(),
-                        Orientation.RIGHTCENTER, Style.SHAPE_PIN);
+            try {
+                CustomShapeDescription.Pin cp = shapeDescription.getPin(p.getName());
+                if (cp != null && cp.isShowLabel()) {
+                    if (p.getDirection() == Pin.Direction.input) {
+                        graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
+                    } else
+                        graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
+
+                }
+            } catch (PinException e) {
+                // do nothing on an error
+            }
         }
     }
 }

@@ -51,7 +51,7 @@ public class CustomShapeDrawer implements Graphic {
      *            Pseudopin
      */
     public void addPin(SVGPseudoPin p) {
-        svg = svg.addPin(p.getLabel(), p.getPos(), true);
+        svg = svg.addPin(p.getLabel(), p.getPos(), p.isShowLabel());
         svg.getInOut().put(p.getLabel(), p.isInput());
     }
 
