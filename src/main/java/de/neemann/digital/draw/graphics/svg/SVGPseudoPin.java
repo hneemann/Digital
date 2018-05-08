@@ -78,6 +78,13 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
     public boolean isShowLabel() {
         return showLabel;
     }
+    
+    /**
+     * Toggles, if the label should be drawn
+     */
+    public void toggleShowLabel() {
+        showLabel=!showLabel;
+    }
 
     /**
      * Sets the Pin Description

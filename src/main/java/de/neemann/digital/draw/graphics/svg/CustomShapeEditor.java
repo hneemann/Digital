@@ -242,8 +242,13 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                     for (int i = 0; i < pins.size(); i++) {
                         Vector v = getPosition(e);
                         if (pins.get(i).contains(v.getX(), v.getY())) {
-                            drag = true;
-                            dragged = i;
+                            if (e.getButton() == MouseEvent.BUTTON3) {
+                                pins.get(i).toggleShowLabel();
+                                repaint();
+                            } else {
+                                drag = true;
+                                dragged = i;
+                            }
                             break;
                         }
                     }
@@ -464,12 +469,12 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                     for (SVGDrawable d : p.getDrawables()) {
                         d.draw(graphic);
                         SVGEllipse e = (SVGEllipse) d;
-                        if(p.isShowLabel())
-                        graphic.drawText(ImportSVG.toOldschoolVector(e.getPos()),
-                                ImportSVG.toOldschoolVector(e.getPos()), p.getLabel(),
-                                p.isInput() ? Orientation.RIGHTTOP : Orientation.LEFTTOP,
-                                Style.NORMAL.deriveFontStyle(12, true)
-                                        .deriveFillStyle(p.isInput() ? Color.blue : Color.red));
+                        if (p.isShowLabel())
+                            graphic.drawText(ImportSVG.toOldschoolVector(e.getPos()),
+                                    ImportSVG.toOldschoolVector(e.getPos()), p.getLabel(),
+                                    p.isInput() ? Orientation.RIGHTTOP : Orientation.LEFTTOP,
+                                    Style.NORMAL.deriveFontStyle(12, true)
+                                            .deriveFillStyle(p.isInput() ? Color.blue : Color.red));
                     }
                 }
             }
