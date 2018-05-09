@@ -84,6 +84,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private File rootLibraryPath;
     private Exception exception;
     private long lastRescanTime;
+    private StringBuilder warningMessage;
 
     /**
      * Creates a new instance.
@@ -317,7 +318,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void populateNodeMap() {
         map.clear();
-        root.traverse(new PopulateMapVisitor(map));
+        final PopulateMapVisitor populateMapVisitor = new PopulateMapVisitor(map);
+        root.traverse(populateMapVisitor);
+        warningMessage = populateMapVisitor.getWarningMessage();
+    }
+
+    /**
+     * @return the warning message or null if there is none
+     */
+    public StringBuilder getWarningMessage() {
+        return warningMessage;
     }
 
     /**
@@ -669,6 +679,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private static final class PopulateMapVisitor implements Visitor {
         private final HashMap<String, LibraryNode> map;
+        private StringBuilder warningMessage;
 
         private PopulateMapVisitor(HashMap<String, LibraryNode> map) {
             this.map = map;
@@ -689,9 +700,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                     else {
                         presentNode.setUnique(false); // ToDo does not work if there are more than two duplicates and
                         libraryNode.setUnique(false); // some of the duplicates point to the same file
+                        if (warningMessage == null)
+                            warningMessage = new StringBuilder(Lang.get("msg_duplicateLibraryFiles"));
+                        warningMessage.append("\n\n").append(presentNode.getFile()).append("\n").append(libraryNode.getFile());
                     }
                 }
             }
+        }
+
+        private StringBuilder getWarningMessage() {
+            return warningMessage;
         }
     }
 }

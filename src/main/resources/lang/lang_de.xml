@@ -1407,6 +1407,8 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
         diese noch die Datei 7400.dig aus der Bibliothek verwenden, da sich dieser Dateiname nun nicht mehr eindeutig
         zuordnen lässt.
     </string>
+    <string name="msg_duplicateLibraryFiles">Es gibt mehrere Dateien mit identischen Dateinamen, welche nicht eindeutig
+        zugeordnet werden können! Betroffen sind:</string>
     <string name="msg_fileNotImportedYet">Die Datei wurde noch nicht importiert.</string>
     <string name="msg_fileExists">Die Datei {0} existiert schon! Soll die Datei überschrieben werden?</string>
     <string name="msg_isLocked">Die Bearbeitung der Schaltung ist gesperrt. Sie können die Sperrung unter
