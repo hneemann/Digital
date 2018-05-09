@@ -5,7 +5,9 @@
  */
 package de.neemann.digital.builder.tt2;
 
+import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
+import de.neemann.digital.core.io.Const;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
@@ -98,6 +100,54 @@ public class TT2ExporterTest extends TestCase {
                 "--1-- 001001\r\n" +
                 "---0- 000100\r\n" +
                 "----- 000000\r\n" +
+                ".e\r\n", baos.toString());
+    }
+
+    public void testConstantsSeq() throws Exception {
+        TT2Exporter tt2 = new TT2Exporter("unknown");
+        tt2.getPinMapping().setAvailBidirectional(4, 5, 6, 8, 20, 21);
+        tt2.getBuilder().addSequential("Yn", Constant.ONE);
+        tt2.getBuilder().addSequential("Xn", Constant.ZERO);
+        tt2.getPinMapping().parseString("Xn=8;Yn=6");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        tt2.writeTo(baos);
+        assertEquals("#$ TOOL CUPL\r\n" +
+                "# Berkeley PLA format generated using Digital\r\n" +
+                "#$ TITLE  unknown\r\n" +
+                "#$ DEVICE  f1502ispplcc44\r\n" +
+                "#$ PINS 3 CLK+:43 Yn+:6 Xn+:8\r\n" +
+                ".i 3\r\n" +
+                ".o 6\r\n" +
+                ".type f\r\n" +
+                ".ilb CLK Xn.Q Yn.Q\r\n" +
+                ".ob Yn.REG Yn.AR Yn.C Xn.REG Xn.AR Xn.C\r\n" +
+                ".phase 111111\r\n" +
+                ".p 2\r\n" +
+                "1-- 001001\r\n" +
+                "--- 100000\r\n" +
+                ".e\r\n", baos.toString());
+    }
+
+    public void testConstantsComb() throws Exception {
+        TT2Exporter tt2 = new TT2Exporter("unknown");
+        tt2.getPinMapping().setAvailBidirectional(4, 5, 6, 8, 20, 21);
+        tt2.getBuilder().addCombinatorial("Yn", Constant.ZERO);
+        tt2.getBuilder().addCombinatorial("Xn", Constant.ONE);
+        tt2.getPinMapping().parseString("Xn=8;Yn=6");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        tt2.writeTo(baos);
+        assertEquals("#$ TOOL CUPL\r\n" +
+                "# Berkeley PLA format generated using Digital\r\n" +
+                "#$ TITLE  unknown\r\n" +
+                "#$ DEVICE  f1502ispplcc44\r\n" +
+                "#$ PINS 2 Yn+:6 Xn+:8\r\n" +
+                ".i 0\r\n" +
+                ".o 2\r\n" +
+                ".type f\r\n" +
+                ".ob Yn Xn\r\n" +
+                ".phase 11\r\n" +
+                ".p 1\r\n" +
+                " 01\r\n" +
                 ".e\r\n", baos.toString());
     }
 
