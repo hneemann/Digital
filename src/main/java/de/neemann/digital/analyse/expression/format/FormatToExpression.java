@@ -30,7 +30,7 @@ public class FormatToExpression implements Formatter {
     /**
      * Creates a string compatible to WinCUPL
      */
-    public static final FormatToExpression FORMATTER_CUPL = new FormatToExpression("#", "&", "$", "!", "0", "1");
+    public static final FormatToExpression FORMATTER_CUPL = new FormatToExpression("#", "&", "$", "!", "'b'0", "'b'1");
     /**
      * Creates a string compatible to Logisim
      */
