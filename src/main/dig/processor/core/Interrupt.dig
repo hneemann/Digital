@@ -4,11 +4,15 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Interrupt-Controller.
+      <string>Simple interrupt controller.
+If an interrupt is triggered, the controller is disabled: no 
+further interrupts can be triggered. Setting the input reti 
+releases the interrupt controller.
+{{de Einfacher Interrupt-Controller.
 Wird ein Interrupt ausgelöst, wird der Controller
 gesperrt: Es können keine weiteren Interrupts
 ausgelöst werden. Erst der Eingang reti gibt den 
-Interrupt-Controller wieder frei.</string>
+Interrupt-Controller wieder frei.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -21,7 +25,7 @@ Interrupt-Controller wieder frei.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Return Address</string>
+          <string>Return Address {{de Return Adresse}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -100,7 +104,8 @@ Interrupt-Controller wieder frei.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Interrupt-Freigabe für PC</string>
+          <string>interrupt trigger used by the PC
+{{de Interrupt-Freigabe für PC}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -114,7 +119,10 @@ Interrupt-Controller wieder frei.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Der nächste Befehl, also die Rücksprungadresse.</string>
+          <string>The next commands address, that 
+is the return address.
+{{de Der nächste Befehl, also die 
+Rücksprungadresse.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -132,8 +140,10 @@ Interrupt-Controller wieder frei.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>relativer Sprung: 
-Wenn gesetzt, wird Interrupt verhindert.</string>
+          <string>relative jump
+If set, an interrupt is blocked.
+{{de relativer Sprung: 
+Wenn gesetzt, wird Interrupt verhindert.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -152,8 +162,10 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Immediate Register:
-Wenn gesetzt, wird Interrupt verhindert.</string>
+          <string>immediate register:
+If set, an interrupt is blocked.
+{{de Immediate Register:
+Wenn gesetzt, wird Interrupt verhindert.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -172,8 +184,10 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Absoluter Sprung:
-Wenn gesetzt, wird Interrupt verhindert.</string>
+          <string>absoluite jump
+If set, an interrupt is blocked.
+{{de Absoluter Sprung:
+Wenn gesetzt, wird Interrupt verhindert.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -254,9 +268,10 @@ Wenn gesetzt, wird Interrupt verhindert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>return from interrupt. Über dieses Signal werden
-die Interrupts wieder freigegeben.
-</string>
+          <string>return from interrupt. This signal is used to 
+release the interrupt controller.
+{{de return from interrupt. Über dieses Signal werden
+die Interrupts wieder freigegeben.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -274,7 +289,7 @@ die Interrupts wieder freigegeben.
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Interrupt Anforderung</string>
+          <string>interrupt trigger {{de Interrupt Anforderung}}</string>
         </entry>
         <entry>
           <string>Label</string>

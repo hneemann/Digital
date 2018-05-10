@@ -3,10 +3,6 @@
   <version>1</version>
   <attributes>
     <entry>
-      <string>Description</string>
-      <string>FullSub</string>
-    </entry>
-    <entry>
       <string>Width</string>
       <int>4</int>
     </entry>

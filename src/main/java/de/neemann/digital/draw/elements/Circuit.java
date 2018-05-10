@@ -599,7 +599,7 @@ public class Circuit {
                 if (ve.equalsDescription(Clock.DESCRIPTION))
                     pin = input(name, Lang.get("elem_Clock")).setClock();
                 else
-                    pin = input(name, attr.get(Keys.DESCRIPTION));
+                    pin = input(name, Lang.evalMultilingualContent(attr.get(Keys.DESCRIPTION)));
                 pinList.add(pin.setPinNumber(attr.get(Keys.PINNUMBER)));
             }
         }
@@ -626,7 +626,7 @@ public class Circuit {
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                String descr = attr.get(Keys.DESCRIPTION);
+                String descr = Lang.evalMultilingualContent(attr.get(Keys.DESCRIPTION));
                 pinList.add(new ObservableValue(name, 0) {
                     @Override
                     public long getValue() {

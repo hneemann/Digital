@@ -4,9 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Prozessor, der an die MIPS-Architektur 
-angelehnt ist. Es handelt sich um eine Harvard 
-Single-Cycle CPU.</string>
+      <string>Example of a processor that can be exported to VHDL.
+{{de Beispiel für einen Prozessor, der zu VHDL exportiert werden kann.}}</string>
     </entry>
   </attributes>
   <visualElements>

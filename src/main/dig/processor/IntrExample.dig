@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Beispielschaltung incl. Prozessor</string>
+      <string>Example circuit including the processor.
+{{de Beispielschaltung incl. Prozessor}}</string>
     </entry>
   </attributes>
   <visualElements>

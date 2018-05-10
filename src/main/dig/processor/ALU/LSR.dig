@@ -4,10 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Rechts schieben. Also eine Division durch Zwei.
+      <string>Shift right. So a division by two.
+The carry bit is inserted at the top. And the least 
+significant bit is output as a new carry bit.
+{{de Rechts schieben. Also eine Division durch Zwei.
 Das Carry-Bit wird dabei oben eingeschoben. Und
 das niederwertigste Bit wird als neues Carry-Bit 
-Ausgegeben.</string>
+Ausgegeben.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -16,7 +19,8 @@ Ausgegeben.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Dateneingang</string>
+          <string>data input
+{{de Dateneingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -34,7 +38,8 @@ Ausgegeben.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Carry-Eingang</string>
+          <string>carry input
+{{de Carry-Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -76,7 +81,8 @@ Ausgegeben.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenausgang</string>
+          <string>data output
+{{de Datenausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -94,7 +100,8 @@ Ausgegeben.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Carry-Ausgang</string>
+          <string>carry output
+{{de Carry-Ausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>

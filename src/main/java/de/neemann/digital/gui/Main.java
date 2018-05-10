@@ -344,7 +344,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                     attributes -> new CustomElement(circuit, library),
                                     circuit);
                     description.setShortName(name);
-                    description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));
+                    description.setDescription(Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION)));
                     new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);
                 } catch (PinException | NodeException e1) {
                     new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(Main.this);

@@ -4,13 +4,16 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>4-Bit Vergleicher der nach dem ripple-carry Prinzip
-Aufgebaut ist. Jedoch wird hier das Enable-Bit
+      <string>4-bit comparator built according to the ripple-carry principle. 
+However, here the Enable bit is passed down from the 
+higher-order bit to the lower-order bit, ie in the reverse 
+direction as the carry bit of the ripple-carry adder.
+{{de 4-Bit Vergleicher der nach dem ripple-carry Prinzip
+aufgebaut ist. Jedoch wird hier das Enable-Bit
 vom höher wertigem Bit an das niederwertige Bit
 herabgereicht wird, also in der umgekehrten 
 Richtung wie das Carry-Bit des ripple-carry 
-Addierers.
-</string>
+Addierers.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -148,7 +151,8 @@ Addierers.
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&lt;Q gilt.</string>
+          <string>This output is high, if P&lt;Q is valid.
+{{de Das Bit ist Eins, wenn P&lt;Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -162,7 +166,8 @@ Addierers.
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P=Q gilt.</string>
+          <string>This output is high, if P=Q is valid.
+{{de Das Bit ist Eins, wenn P=Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -176,7 +181,8 @@ Addierers.
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&gt;Q gilt.</string>
+          <string>This output is high, if P&gt;Q is valid.
+{{de Das Bit ist Eins, wenn P&gt;Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>

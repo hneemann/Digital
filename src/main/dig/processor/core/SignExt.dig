@@ -4,11 +4,16 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Extrahiert kleine Konstanten aus dem Befehlswort.
+      <string>Extracts small constants from the instruction word.
+There can be two 5-bit constants (the 4 bits of a register 
+together with bit 8 of the instruction word) and a 9-bit 
+constant (the 8 bits of both registers together with 
+bit 8 of the instruction word)
+{{de Extrahiert kleine Konstanten aus dem Befehlswort.
 Es können zwei 5-Bit Konstanten (Die 4 Bits eines 
 Registers zusammen mit Bit 8 des Befehlswortes)
 und eine 9-Bit Konstante (Die 8 Bits beider Register
-zusammen mit Bit 8 des Befehlswortes)</string>
+zusammen mit Bit 8 des Befehlswortes)}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -21,7 +26,8 @@ zusammen mit Bit 8 des Befehlswortes)</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Befehlswort</string>
+          <string>instruction word
+{{de Das Befehlswort}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -71,7 +77,8 @@ zusammen mit Bit 8 des Befehlswortes)</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Die fünf Bit aus Rs und Bit 8</string>
+          <string>The five bits taken from Rs and bit 8.
+{{de Die fünf Bit aus Rs und Bit 8}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -131,7 +138,8 @@ zusammen mit Bit 8 des Befehlswortes)</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Die neun Bit aus Rs,Rd und Bit 8</string>
+          <string>The nine bits taken from Rs,Rd and bit 8.
+{{de Die neun Bit aus Rs,Rd und Bit 8}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -191,7 +199,8 @@ zusammen mit Bit 8 des Befehlswortes)</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Die fünf Bit aus Rd und Bit 8</string>
+          <string>The five bits taken from Rd and bit 8.
+{{de Die fünf Bit aus Rd und Bit 8}}</string>
         </entry>
         <entry>
           <string>Label</string>

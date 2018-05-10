@@ -4,13 +4,19 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Prozessor, der an die MIPS-Architektur 
+      <string>Simple processor based on the MIPS architecture. 
+It is a Harvard single-cycle CPU.
+It has an interrupt controller: A rising edge at the 
+input intr triggers an interrupt. The fixed address 0x1000 
+is called. The ISR must be at this address.
+
+{{de Einfacher Prozessor, der an die MIPS-Architektur 
 angelehnt ist. Es handelt sich um eine Harvard 
 Single-Cycle CPU. Er verfügt über einen Interrupt 
 Controller: Durch eine steigende Flanke am Eingang intr 
 wird ein Interrupt ausgelöst. Dabei wird die feste 
 Adresse 0x1000 angesprungen.
-An dieser Adresse muss sich die ISR befinden.</string>
+An dieser Adresse muss sich die ISR befinden.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -1045,7 +1051,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenbus</string>
+          <string>data bus {{de Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1063,7 +1069,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Adressbus</string>
+          <string>address bus {{de Adressbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1081,7 +1087,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>io Read</string>
+          <string>io read {{de io read}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1123,7 +1129,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>io Write</string>
+          <string>io write {{de io write}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1137,9 +1143,11 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Interrupt Eingang. Geht diese Leitung auf high wird ein
+          <string>Interrupt input. If this line goes high, an interrupt 
+is triggered. The ISR must be at address 0x1000.
+{{de Interrupt Eingang. Geht diese Leitung auf high wird ein
 Interrupt ausgelöst. Die ISR muss sich an Adresse 
-0x1000 befinden.</string>
+0x1000 befinden.}}</string>
         </entry>
         <entry>
           <string>Label</string>

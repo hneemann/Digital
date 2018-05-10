@@ -8,7 +8,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenbus</string>
+          <string>data bus {{de Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -26,7 +26,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Addressbus</string>
+          <string>address bus {{de Adressbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -174,7 +174,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Write Enable</string>
+          <string>Write Enable {{de Schreibfreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>

@@ -4,10 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Schiebt das Datenwort nach Links zu höheren Bits, 
+      <string>Moves the data word to the left to higher bits, so it multiplies 
+by two. The current carry bit is pushed in at the bottom, and 
+the most significant bit is output as a carry bit.
+{{de Schiebt das Datenwort nach Links zu höheren Bits, 
 multipliziert also mit zwei. Dabei wird das aktuelle
 Carry-Bit unten hineingeschoben, und das 
-höchstwertige Bit als Carry-Bit wieder ausgegeben.</string>
+höchstwertige Bit als Carry-Bit wieder ausgegeben.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -16,7 +19,8 @@ höchstwertige Bit als Carry-Bit wieder ausgegeben.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Dateneingang</string>
+          <string>data input
+{{de Dateneingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -34,7 +38,8 @@ höchstwertige Bit als Carry-Bit wieder ausgegeben.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Carry-Eingang</string>
+          <string>carry input
+{{de Carry-Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -76,7 +81,8 @@ höchstwertige Bit als Carry-Bit wieder ausgegeben.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenausgang</string>
+          <string>data output
+{{de Datenausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -94,7 +100,8 @@ höchstwertige Bit als Carry-Bit wieder ausgegeben.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Carry-Ausgang</string>
+          <string>carry output
+{{de Carry-Ausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>

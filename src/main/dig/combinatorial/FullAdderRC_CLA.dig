@@ -4,8 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfaches Beispiel um RC- und CLA-Addierer zu 
-vergleichen.</string>
+      <string>Example to compare RC and CLA adders.
+{{de Beispiel um RC- und CLA-Addierer zu vergleichen.}}</string>
     </entry>
   </attributes>
   <visualElements>

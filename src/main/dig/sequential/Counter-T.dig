@@ -170,7 +170,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Asynchroner Zähler mit T-Flipflops</string>
+          <string>Asynchronous counter built with T flip-flops
+{{de Asynchroner Zähler aufgebaut mit T-Flipflops}}</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="80"/>

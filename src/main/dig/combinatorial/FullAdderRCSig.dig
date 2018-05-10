@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>4-Bit Ripple-Carry addierer bestehend aus vier 
-Volladdierern.</string>
+      <string>4-bit ripple carry adder, consisting of four full adders.
+{{de 4-Bit Ripple-Carry addierer bestehend aus vier 
+Volladdierern.}}</string>
     </entry>
   </attributes>
   <visualElements>

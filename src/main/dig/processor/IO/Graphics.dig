@@ -5,12 +5,16 @@
     <entry>
       <string>Description</string>
       <string>Eine einfache &quot;Grafikkarte&quot;. 
-Sie enthält ein Grafik-RAM um die eigentliche 
+Contains a graphics RAM to display the actual graphics. 
+This graphics RAM is configured to display 20x20 pixels. 
+The required 800 bytes of memory are maped to the 
+address 0x8000 in the address space.
+{{de Enthält ein Grafik-RAM um die eigentliche 
 Grafik anzuzeigen. Dieses Grafik-RAM ist auf die 
 Darstellung von 20x20 Pixel konfiguriert. 
 Die erforderlichen 800 Bytes Speicher  werden 
 ab Adresse 0x8000 in den Adressbereich 
-eingeblendet.</string>
+eingeblendet.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -19,7 +23,7 @@ eingeblendet.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Adresse</string>
+          <string>address {{de Adresse}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -37,7 +41,7 @@ eingeblendet.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Read enable</string>
+          <string>Read enable {{de Lesefreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -230,7 +234,8 @@ eingeblendet.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Bidirektionaler Datenanschluss</string>
+          <string>bidirectional data port
+{{de Bidirektionaler Datenanschluss}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -262,7 +267,7 @@ eingeblendet.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Write enable</string>
+          <string>Write enable {{de Schreibfreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>

@@ -551,7 +551,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                             circuit);
             description.setShortName(createShortName(file));
 
-            String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
+            String descriptionText = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
             if (descriptionText != null && descriptionText.length() > 0) {
                 description.setDescription(descriptionText);
             }

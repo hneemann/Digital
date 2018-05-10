@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>In diesem Block befinden sich die 16 
-Prozessorregister.</string>
+      <string>This block contains the 16 processor registers.
+{{de In diesem Block befinden sich die 16 
+Prozessorregister.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -36,9 +37,11 @@ Prozessorregister.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Daten die gespeichert werden sollen.
+          <string>Data to be stored.
+The value applied here is stored when the input WE is set to 1.
+{{de Daten die gespeichert werden sollen.
 Der hier anliegende Wert wird gespeichert, wenn 
-der Eingang WE auf 1 geschaltet wird.</string>
+der Eingang WE auf 1 geschaltet wird.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -374,8 +377,10 @@ der Eingang WE auf 1 geschaltet wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Nummer des Source Registers. Legt fest, welches 
-Register an Rsrc ausgegeben werden soll.</string>
+          <string>Number of the source register. 
+Defines which register is to be output to Rsrc.
+{{de Nummer des Source Registers. Legt fest, welches 
+Register an Rsrc ausgegeben werden soll.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -397,10 +402,13 @@ Register an Rsrc ausgegeben werden soll.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Nummer des Destignation Registers. Legt fest, 
+          <string>Number of the destignation register. 
+Defines which register is to be output to Rdest. In 
+addition, this register will be overwritten if WE is set to 1.
+{{de Nummer des Destignation Registers. Legt fest, 
 welches Register an Rdest ausgegeben werden soll.
 Zudem wird dieses Register beschrieben, wenn
-WE auf 1 gesetzt wird.</string>
+WE auf 1 gesetzt wird.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -418,9 +426,12 @@ WE auf 1 gesetzt wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Inhalt des Destignation Registers.
+          <string>Contents of the Destignation Register.
+Which register is output is determined by 
+the input dest.
+{{de  Inhalt des Destignation Registers.
 Welches Register ausgegeben wird, wird mittels 
-des Eingangs dest festgelegt.</string>
+des Eingangs dest festgelegt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -438,9 +449,11 @@ des Eingangs dest festgelegt.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Inhalt des Source Registers. Welches Register
+          <string>Contents of the Source Register.
+Which register is output is determined by the input src.
+{{de Inhalt des Source Registers. Welches Register
 ausgegeben wird, wird mittels des Einganges src
-festgelegt.</string>
+festgelegt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -458,9 +471,11 @@ festgelegt.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Speichern aktivieren. Wenn dieser Eingang auf 
+          <string>Activate storing. When this input is high, the value at WD is 
+stored in the register specified in dest at the next clock signal.
+{{de Das Speichern aktivieren. Wenn dieser Eingang auf 
 High geht, wird der Wert an WD in dem Register 
-gespeichert, welches in dest angegeben ist.</string>
+gespeichert, welches in dest angegeben ist.}}</string>
         </entry>
         <entry>
           <string>Label</string>

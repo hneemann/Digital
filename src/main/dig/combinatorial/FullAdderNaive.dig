@@ -4,8 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Naive Umsetzung eines Volladdierers. Benötigt nur 
-drei Gatterlaufzeiten.</string>
+      <string>Naive implementation of a full adder.
+{{de Naive Umsetzung eines Volladdierers.}}</string>
     </entry>
     <entry>
       <string>Width</string>

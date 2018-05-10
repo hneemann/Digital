@@ -94,7 +94,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         nets = new HashMap<>();
         listOfNets = new ArrayList<>();
         netList = new NetList(circuit);
-        description = circuit.getAttributes().get(Keys.DESCRIPTION);
+        description = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
         this.origin = circuit.getOrigin();
 
         ArrayList<ClockInfo> clocks = new ArrayList<>();
@@ -108,7 +108,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                             HDLPort.Direction.OUT,  // from inside the node this is an output because it defines a value
                             v.getElementAttributes().getBits())
                             .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER))
-                            .setDescription(v.getElementAttributes().get(Keys.DESCRIPTION));
+                            .setDescription(Lang.evalMultilingualContent(v.getElementAttributes().get(Keys.DESCRIPTION)));
                     if (v.equalsDescription(Clock.DESCRIPTION)) {
                         clocks.add(new ClockInfo(port, v.getElementAttributes().get(Keys.FREQUENCY)));
                         port.setIsClock();
@@ -121,7 +121,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                             HDLPort.Direction.IN,  // from inside the node this is an input because it reads the value to output
                             v.getElementAttributes().getBits())
                             .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER))
-                            .setDescription(v.getElementAttributes().get(Keys.DESCRIPTION)));
+                            .setDescription(Lang.evalMultilingualContent(v.getElementAttributes().get(Keys.DESCRIPTION))));
                 else if (v.equalsDescription(Splitter.DESCRIPTION))
                     handleSplitter(c.createNode(v, this));
                 else if (isRealElement(v))

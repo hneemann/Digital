@@ -4,8 +4,10 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Frequenzteiler. Möglich sind die 
-Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.</string>
+      <string>Simple frequency divider. The divider ratios 
+are 1/2, 1/4, 1/8 and 1/16.
+{{de Einfacher Frequenzteiler. Möglich sind die 
+Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -72,7 +74,8 @@ Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>0. Bit der Frequenzwahl</string>
+          <string>First bit of frequency selection
+{{de Erstes Bit der Frequenzwahl}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -91,7 +94,8 @@ Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>1. Bit der Frequenzwahl</string>
+          <string>Second bit of frequency selection
+{{de zweites Bit der Frequenzwahl}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -176,7 +180,8 @@ Teilerverhältnisse 1/2, 1/4, 1/8 und 1/16.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Prescaler Out</string>
+          <string>Prescaler output
+{{de Prescaler Ausgabe}}</string>
         </entry>
         <entry>
           <string>Label</string>

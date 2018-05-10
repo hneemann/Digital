@@ -4,10 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Komparator welcher der Funktion eines
+      <string>Comparator which corresponds to the function of a 74x85. 
+The three inputs with the Compare bits are output directly 
+if the P and Q bits are equal.
+{{de Komparator welcher der Funktion eines
 74x85 entspricht. Die drei Eingänge mit den
 Vergleichsbits werden direkt wieder ausgegeben,
-wenn die jeweiligen P und Q-Bits übereinstimmen.</string>
+wenn die jeweiligen P und Q-Bits übereinstimmen.}}</string>
     </entry>
     <entry>
       <string>Width</string>

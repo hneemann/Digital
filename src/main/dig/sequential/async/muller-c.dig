@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>A classic muller-C-element</string>
+      <string>A classic muller-C-element
+{{de Ein klassisches muller-c Element.}}</string>
     </entry>
   </attributes>
   <visualElements>

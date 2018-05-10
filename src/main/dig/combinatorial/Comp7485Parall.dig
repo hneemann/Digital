@@ -383,7 +383,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P=Q gilt.</string>
+          <string>Is set to one if P=Q is valid.
+{{de Das Bit ist Eins, wenn P=Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -397,7 +398,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&lt;Q gilt.</string>
+          <string>Is set to one if P&lt;Q is valid.
+{{de Das Bit ist Eins, wenn P&lt;Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -411,7 +413,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&gt;Q gilt.</string>
+          <string>Is set to one if P&gt;Q is valid.
+{{de Das Bit ist Eins, wenn P&gt;Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>

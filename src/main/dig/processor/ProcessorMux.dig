@@ -4,9 +4,12 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Prozessor, der an die MIPS-Architektur 
+      <string>Simple processor based on the MIPS architecture. 
+It is a Harvard single-cycle CPU.
+
+{{de Einfacher Prozessor, der an die MIPS-Architektur 
 angelehnt ist. Es handelt sich um eine Harvard 
-Single-Cycle CPU.</string>
+Single-Cycle CPU.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -171,10 +174,6 @@ Single-Cycle CPU.</string>
         <entry>
           <string>Frequency</string>
           <int>200</int>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <string>W5</string>
         </entry>
       </elementAttributes>
       <pos x="1140" y="600"/>
@@ -556,15 +555,11 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>reset input</string>
+          <string>reset input {{de Reset Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
           <string>reset</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <string>U18</string>
         </entry>
         <entry>
           <string>InDefault</string>
@@ -709,7 +704,8 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>the data input for io reads</string>
+          <string>the data input for io reads
+{{de Datenbus für IO Leseoperationen.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -727,7 +723,8 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>the data output for io writes</string>
+          <string>the data output for io writes
+{{de Datenbus für IO Ausgaben}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -745,7 +742,8 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>the address output used for io read and write</string>
+          <string>the address output used for io read and write
+{{de Adresse für IO Operationen.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -777,7 +775,8 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>if high, a io read is performed</string>
+          <string>if high, a io read is performed 
+{{de IO Lesefreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -805,7 +804,8 @@ Single-Cycle CPU.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>if high, a io write is perfromed</string>
+          <string>if high, a io write is perfromed
+{{de IO Schreibfreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>

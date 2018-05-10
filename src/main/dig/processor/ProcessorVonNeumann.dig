@@ -4,9 +4,11 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Prozessor, der an die MIPS-Architektur 
+      <string>Simple processor based on the MIPS architecture. 
+It is a Von Neumann Two-Cycle CPU.
+{{de Einfacher Prozessor, der an die MIPS-Architektur 
 angelehnt ist. Es handelt sich um eine 
-Von Neumann Two-Cycle CPU.</string>
+Von Neumann Two-Cycle CPU.}}</string>
     </entry>
   </attributes>
   <visualElements>

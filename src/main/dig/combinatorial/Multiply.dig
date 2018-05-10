@@ -4,9 +4,11 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher 4-Bit Multiplikator aufgebaut aus drei 4-Bit
+      <string>Simple 4-bit multiplier built from three 4-bit adders. 
+The actual 1-bit multiplications are implemented by the AND gates.
+{{de Einfacher 4-Bit Multiplikator aufgebaut aus drei 4-Bit
 Addierern. Die eigentlichen 1-Bit Multiplikationen 
-werden durch die Und-Gatter implementiert. </string>
+werden durch die Und-Gatter implementiert.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -19,7 +21,8 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erste zu multiplizierende 4 Bit Zahl.</string>
+          <string>First number to multiply.
+{{de Erste zu multiplizierende 4 Bit Zahl.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -83,7 +86,8 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweite zu multiplizierende 4 Bit Zahl.</string>
+          <string>Second number to multiply.
+{{de Zweite zu multiplizierende 4 Bit Zahl.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -97,7 +101,8 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 8-Bit Ergebnis der Multiplikation</string>
+          <string>The result of the multiply operation.
+{{de Das 8-Bit Ergebnis der Multiplikation}}</string>
         </entry>
         <entry>
           <string>Label</string>
