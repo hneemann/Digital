@@ -4,9 +4,11 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Sogenanntes Wired-AND. Ein Und-Gatter welches 
+      <string>So-called Wired-AND. An AND gate which is constructed 
+with diodes and a pull-up resistor.
+{{de Sogenanntes Wired-AND. Ein Und-Gatter welches 
 mit Dioden und einem Pull-Up Widerstand 
-aufgebaut ist.</string>
+aufgebaut ist.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -15,7 +17,8 @@ aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erster Eingang des AND-Gatters.</string>
+          <string>First input of the AND gate.
+{{de Erster Eingang des AND-Gatters.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -29,7 +32,8 @@ aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweiter Eingang des AND-Gatters.</string>
+          <string>Second input of the AND gate.
+{{de Zweiter Eingang des AND-Gatters.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -63,7 +67,8 @@ aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Ergebnis der Und-Verknüpfung.</string>
+          <string>The output of the AND gate.
+{{de Das Ergebnis der Und-Verknüpfung.}}</string>
         </entry>
         <entry>
           <string>Label</string>

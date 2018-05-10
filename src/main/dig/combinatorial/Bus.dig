@@ -4,18 +4,26 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfache Schaltung die eine Adressdecodierung 
-zeigt. Der Zähler erzeugt eine 5-Bit Zahl.
-Die unteren drei Bit werden als Adresse an alle 
-ROM-Bausteine ausgegeben. Die oberen zwei Bits
-werden verwendet um über den Adressdecoder 
-einen der vier ROM-Bausteine auszuwählen, welcher dann
-sein Datenwort an den Datenbus legt. Durch den 
-Adressdecoder verhalten sich die vier ROM-Bausteine wie
-ein einziger viermal so großer ROM-Baustein.
-Alle Ausgänge der ROMs liegen auf einem Datenbus. Dies ist
-möglich, da immer nur der Ausgang eines der vier ROMs aktiv 
-ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
+      <string>Simple circuit showing address decoding. The lower three bits 
+of the 5-bit number are output as an address to all ROM components. 
+The upper two bits are used to select one of the four ROM components 
+via the address decoder. The selected ROM then places its data word 
+on the data bus. Through the address decoder, the four ROM 
+components behave like a single four times as large ROM component. 
+All outputs of the ROMs are connected to the same data bus. 
+This is possible because only the output of one of the four ROMs 
+is active. The other outputs are in high-impedance state.
+
+{{de Einfache Schaltung die eine Adressdecodierung zeigt. 
+Die unteren drei Bit der 5 Bit Zahl werden als Adresse an alle 
+ROM-Bausteine ausgegeben. Die oberen zwei Bits werden 
+verwendet um über den Adressdecoder einen der vier 
+ROM-Bausteine auszuwählen, welcher dann sein Datenwort 
+an den Datenbus legt. Durch den Adressdecoder verhalten 
+sich die vier ROM-Bausteine wie ein einziger viermal so großer 
+ROM-Baustein. Alle Ausgänge der ROMs liegen auf einem 
+Datenbus. Dies ist möglich, da immer nur der Ausgang eines 
+der vier ROMs aktiv ist. Die jeweils anderen Ausgänge sind hochohmig.}}</string>
     </entry>
   </attributes>
   <visualElements>

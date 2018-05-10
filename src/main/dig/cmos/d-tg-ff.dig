@@ -8,7 +8,11 @@
 necessary in this simulation because no body diodes 
 are simulated.
 In order to be compatible with the literature, two FETs 
-are also used in the simulation.</string>
+are also used in the simulation.
+{{de Die beiden FETs im Transmission Gate sind in dieser 
+Simulation nicht notwendig, da keine Body-Dioden simuliert 
+werden. Um mit der Literatur kompatibel zu sein, werden 
+auch hier zwei FETs in der Simulation verwendet.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -36,10 +40,6 @@ are also used in the simulation.</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>not Out</string>
-        </entry>
-        <entry>
           <string>Label</string>
           <string>~Q</string>
         </entry>
@@ -49,10 +49,6 @@ are also used in the simulation.</string>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Out</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>Q</string>
@@ -85,7 +81,7 @@ are also used in the simulation.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Data In</string>
+          <string>Data In {{de Dateneingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -114,7 +110,7 @@ are also used in the simulation.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Clock In</string>
+          <string>Clock In {{de Takteingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -409,4 +405,5 @@ are also used in the simulation.</string>
       <p2 x="520" y="300"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

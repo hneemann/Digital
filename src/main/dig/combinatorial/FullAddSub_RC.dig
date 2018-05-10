@@ -176,8 +176,10 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Eingang mit welchem zwischen Addition (S=0) und 
-Subtraction (S=1) umgeschaltet werden kann.</string>
+          <string>Input with which you can toggle between 
+addition (S = 0) and subtraction (S = 1).
+{{de Eingang mit welchem zwischen Addition (S=0) und 
+Subtraktion (S=1) umgeschaltet werden kann.}}</string>
         </entry>
         <entry>
           <string>Label</string>

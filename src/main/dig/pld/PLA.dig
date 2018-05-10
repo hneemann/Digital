@@ -4,13 +4,18 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Typischer PLA Baustein mit einer UND und einer 
+      <string>Typical PLA device with an AND and an OR matrix.
+The component is programmed via the diodes, which 
+can be burned or programmed. For simplicity, the 
+diodes can be programmed with the [P] key.
+
+{{de Typischer PLA Baustein mit einer UND und einer 
 ODER Matrix.
 Programmiert wird der Baustein
 über die Dioden, die &quot;durchgebrannt&quot; bzw. 
 Programmiert werden können. Zur Vereinfachung 
 können die Dioden mit der Taste [P] programmiert 
-werden.</string>
+werden.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -59,7 +64,8 @@ werden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erster frei konfigurierbarer Eingang.</string>
+          <string>First freely configurable input.
+{{de Erster frei konfigurierbarer Eingang.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -77,7 +83,8 @@ werden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweiter frei konfigurierbarer Eingang.</string>
+          <string>Second freely configurable input.
+{{de Zweiter frei konfigurierbarer Eingang.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -95,7 +102,8 @@ werden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Dritter frei konfigurierbarer Eingang.</string>
+          <string>Third freely configurable input.
+{{de Dritter frei konfigurierbarer Eingang.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -113,7 +121,8 @@ werden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Vierter frei konfigurierbarer Eingang.</string>
+          <string>Fourth freely configurable input.
+{{de Vierter frei konfigurierbarer Eingang.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -664,7 +673,8 @@ A B C D  Y_3
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Ausgangsbit.</string>
+          <string>output bit 0
+{{de Das 0. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -687,7 +697,8 @@ A B C D  Y_3
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Ausgangsbit.</string>
+          <string>output bit 1
+{{de Das 1. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -710,7 +721,8 @@ A B C D  Y_3
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Ausgangsbit.</string>
+          <string>output bit 2
+{{de Das 2. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -733,7 +745,8 @@ A B C D  Y_3
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Ausgangsbit.</string>
+          <string>output bit 3
+{{de Das 3. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -968,7 +981,7 @@ A B C D  Y_3
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>AND Matrix</string>
+          <string>AND Matrix {{de UND matrix}}</string>
         </entry>
       </elementAttributes>
       <pos x="520" y="680"/>
@@ -978,7 +991,7 @@ A B C D  Y_3
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>OR Matrix</string>
+          <string>OR Matrix {{de ODER Matrix}}</string>
         </entry>
       </elementAttributes>
       <pos x="1120" y="100"/>

@@ -4,10 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>16-Bit Statisches RAM.
-Unter der Speichermatrix findet sich die 
+      <string>16-bit static RAM.
+Below the memory matrix, the write logic is found 
+once for each column in the memory matrix.
+16-Bit Statisches RAM.
+{{de Unter der Speichermatrix findet sich die 
 Schreiblogik jeweils einmal für jede Spalte in der 
-Speichermatrix.</string>
+Speichermatrix.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -256,7 +259,8 @@ Speichermatrix.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Dateneingang zum Schreiben der Bits.</string>
+          <string>Data input to write the bits.
+{{de Dateneingang zum Schreiben der Bits.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1014,7 +1018,8 @@ Speichermatrix.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zeilenleitung Bit 0</string>
+          <string>Row input 0
+{{de Zeilenleitung Bit 0}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1028,7 +1033,8 @@ Speichermatrix.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zeilenleitung Bit 1</string>
+          <string>Row input 1
+{{de Zeilenleitung Bit 1}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1056,7 +1062,8 @@ Speichermatrix.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenausgang zum Lesen der Bits.</string>
+          <string>Data output to read the bits.
+{{de Datenausgang zum Lesen der Bits.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1084,7 +1091,8 @@ Speichermatrix.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Spaltenleitung Bit 0</string>
+          <string>column input 0
+{{de Spaltenleitung Bit 0}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1098,7 +1106,8 @@ Speichermatrix.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Spaltenleitung Bit 1</string>
+          <string>column input 0
+{{de Spaltenleitung Bit 1}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1127,8 +1136,11 @@ Speichermatrix.</string>
         <entry>
           <string>Description</string>
           <string>Write-Enable.
+If this input goes to one, the data input is 
+stored in the memory matrix.
+{{de Schreibfreigabe
 Geht diese Leitung auf Eins, wird der Dateneingang
-in der Speichermatrix gespeichert.</string>
+in der Speichermatrix gespeichert.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1350,7 +1362,7 @@ repeat(16) bits(4,n)    0  x    0
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>16-Bit SRAM</string>
+          <string>16-Bit SRAM {{de 16-Bit SRAM}}</string>
         </entry>
       </elementAttributes>
       <pos x="120" y="-500"/>

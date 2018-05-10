@@ -28,7 +28,8 @@ public class TestExamplesLanguage extends TestCase {
     }
 
     private static void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException {
-        if (file.getPath().contains("74xx"))
+        if (file.getPath().contains("74xx")
+                || file.getPath().contains("EPROMs"))
             return;
 
         Circuit circuit = new ToBreakRunner(file).getCircuit();
@@ -45,9 +46,10 @@ public class TestExamplesLanguage extends TestCase {
         }
     }
 
+    /*
     public void testCopy() throws PinException, NodeException, ElementNotFoundException, IOException {
-        File source = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/processor/IO/GPI.dig");
-        File dest = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/processor/IO/GPI_VHDL.dig");
+        File source = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/cmos/d-tg-ff.dig");
+        File dest = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig/cmos/d-tg-ff2.dig");
         copy(source, dest);
     }
 
@@ -73,7 +75,7 @@ public class TestExamplesLanguage extends TestCase {
             }
         }
 
-        //destCircuit.save(destCircuit.getOrigin());
-    }
+        destCircuit.save(destCircuit.getOrigin());
+    }*/
 
 }

@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Ein Addierer der nach den carry-look-ahead 
-Verfahren implementiert ist.</string>
+      <string>An adder implemented according to the carry-look-ahead method.
+{{de Ein Addierer der nach dem carry-look-ahead 
+Verfahren implementiert ist.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -18,10 +19,12 @@ Verfahren implementiert ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Der Übetrag vom Addierer welcher die 
+          <string>The carry of adding the low order bits. If the 
+least significant bits are added, this input is zero.
+{{de Der Übetrag vom Addierer welcher die 
 niederwertigeren Bits addiert. Werden die 
 niederwertigsten Bits addiert, ist dieser Eingang 
-Null.</string>
+Null.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -35,7 +38,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Bit des ersten zu addierenden Wertes.</string>
+          <string>The 0. bit of the first value to add.
+{{de Das 0. Bit des ersten zu addierenden Wertes.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -73,7 +77,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Bit des ersten zu addierenden Wertes.</string>
+          <string>The 1. bit of the first value to add.
+{{de Das 1. Bit des ersten zu addierenden Wertes.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -87,7 +92,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Bit der Summe.</string>
+          <string>The 0. bit of the sum.
+{{de Das 0. Bit der Summe.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -101,7 +107,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Bit des ersten zu addierenden Wertes.</string>
+          <string>The 2. bit of the first value to add.
+{{de Das 2. Bit des ersten zu addierenden Wertes.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -115,7 +122,9 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Bit des ersten zu addierenden Wertes.</string>
+          <string>The 3. bit of the first value to add.
+{{de Das 3. Bit des ersten zu addierenden 
+Wertes.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -163,7 +172,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Bit der Summe.</string>
+          <string>The 1. bit of the sum.
+{{de Das 1. Bit der Summe.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -207,7 +217,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Bit der Summe.</string>
+          <string>The 2. bit of the sum.
+{{de Das 2. Bit der Summe.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -221,7 +232,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Bit des zweiten zu addierenden Wertes.</string>
+          <string>The 0. bit of the second value to add.
+{{de Das 0. Bit des zweiten zu addierenden Wertes.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -235,7 +247,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Bit des zweiten zu addierenden Wertes.</string>
+          <string>The 1. bit of the second value to add.
+{{de Das 1. Bit des zweiten zu addierenden Wertes.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -303,7 +316,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Bit des zweiten zu addierenden Wertes.</string>
+          <string>The 2. bit of the second value to add.
+{{de Das 2. Bit des zweiten zu addierenden Wertes.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -321,7 +335,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Bit des zweiten zu addierenden Wertes.</string>
+          <string>The 3. bit of the second value to add.
+{{de Das 3. Bit des zweiten zu addierenden Wertes.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -355,7 +370,8 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Bit der Summe.</string>
+          <string>The 3. bit of the sum.
+{{de Das 3. Bit der Summe.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -384,8 +400,10 @@ Null.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Übertragsbit, welches an den Adiierer für die
-nächst höherwertigen Bits weitergegeben wird.</string>
+          <string>The carry bit, which is passed to the adiator for the 
+next most significant bits.
+{{de Das Übertragsbit, welches an den Adiierer für die
+nächst höherwertigen Bits weitergegeben wird.}}</string>
         </entry>
         <entry>
           <string>Label</string>
