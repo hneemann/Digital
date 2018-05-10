@@ -469,12 +469,13 @@ public final class CustomShapeEditor extends LabelEditor<CustomShapeDescription>
                     for (SVGDrawable d : p.getDrawables()) {
                         d.draw(graphic);
                         SVGEllipse e = (SVGEllipse) d;
-                        if (p.isShowLabel())
-                            graphic.drawText(ImportSVG.toOldschoolVector(e.getPos()),
-                                    ImportSVG.toOldschoolVector(e.getPos()), p.getLabel(),
-                                    p.isInput() ? Orientation.RIGHTTOP : Orientation.LEFTTOP,
-                                    Style.NORMAL.deriveFontStyle(12, true)
-                                            .deriveFillStyle(p.isInput() ? Color.blue : Color.red));
+                        graphic.drawText(ImportSVG.toOldschoolVector(e.getPos()),
+                                ImportSVG.toOldschoolVector(e.getPos()),
+                                (p.isShowLabel() ? "" : "(") + p.getLabel()
+                                        + (p.isShowLabel() ? "" : ")"),
+                                p.isInput() ? Orientation.RIGHTTOP : Orientation.LEFTTOP,
+                                Style.NORMAL.deriveFontStyle(12, true)
+                                        .deriveFillStyle(p.isInput() ? Color.blue : Color.red));
                     }
                 }
             }

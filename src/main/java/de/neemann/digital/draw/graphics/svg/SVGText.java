@@ -85,9 +85,11 @@ public class SVGText implements SVGFragment, SVGDrawable {
      *            Vector to add
      */
     public void setPos(VectorFloat pos) {
-        pos = new VectorFloat(pos.getXFloat(), 0);
-        p1 = p1.add(pos);
-        p2 = p2.add(pos);
+        // pos = new VectorFloat(pos.getXFloat(), 0);
+        // p1 = p1.add(pos);
+        // p2 = p2.add(pos);
+        p1 = new VectorFloat(pos);
+        p2 = p1.sub(new Vector(1, 0));
     }
 
     /**

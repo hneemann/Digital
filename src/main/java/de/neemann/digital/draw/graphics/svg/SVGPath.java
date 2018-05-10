@@ -44,7 +44,7 @@ public class SVGPath implements SVGFragment, SVGDrawable {
             tmp = tmp.replaceAll("([a-zA-Z]) ([0-9])", "$1$2");
             tmp = tmp.replaceAll("([a-zA-Z]) -([0-9])", "$1-$2");
             tmp = tmp.replaceAll(",", " ");
-            d = tmp.split(" ");
+            d = tmp.split("[ ]+");
             ArrayList<String> part = new ArrayList<String>();
             for (String s : d) {
                 if (!s.isEmpty()) {
@@ -107,7 +107,8 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                 for (int i = 0; i < b.size() - 5; i += 6) {
                     bezierCurve(getFloatFromString(b.get(i)), getFloatFromString(b.get(i + 1)),
                             getFloatFromString(b.get(i + 2)), getFloatFromString(b.get(i + 3)),
-                            getFloatFromString(b.get(i + 4)), getFloatFromString(b.get(i + 5)), abs);
+                            getFloatFromString(b.get(i + 4)), getFloatFromString(b.get(i + 5)),
+                            abs);
                 }
                 return;
             case 's':
@@ -118,13 +119,15 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                             2 * corners.get(corners.size() - 1).getYFloat()
                                     - corners.get(corners.size() - 2).getYFloat(),
                             getFloatFromString(b.get(i + 0)), getFloatFromString(b.get(i + 1)),
-                            getFloatFromString(b.get(i + 2)), getFloatFromString(b.get(i + 3)), abs);
+                            getFloatFromString(b.get(i + 2)), getFloatFromString(b.get(i + 3)),
+                            abs);
                 }
                 return;
             case 'q':
                 for (int i = 0; i < b.size() - 3; i += 4) {
                     bezierCurve(getFloatFromString(b.get(i + 0)), getFloatFromString(b.get(i + 1)),
-                            getFloatFromString(b.get(i + 2)), getFloatFromString(b.get(i + 3)), abs);
+                            getFloatFromString(b.get(i + 2)), getFloatFromString(b.get(i + 3)),
+                            abs);
                 }
                 return;
             case 't':
@@ -134,7 +137,8 @@ public class SVGPath implements SVGFragment, SVGDrawable {
                                     - corners.get(corners.size() - 2).getXFloat(),
                             2 * corners.get(corners.size() - 1).getYFloat()
                                     - corners.get(corners.size() - 2).getYFloat(),
-                            getFloatFromString(b.get(i + 0)), getFloatFromString(b.get(i + 1)), abs);
+                            getFloatFromString(b.get(i + 0)), getFloatFromString(b.get(i + 1)),
+                            abs);
                 }
                 return;
             case 'a':
@@ -274,14 +278,10 @@ public class SVGPath implements SVGFragment, SVGDrawable {
      *            absolute values
      */
     private void ellipse(ArrayList<String> param, boolean abs) {
-        System.out.println("Zeichne Ellipse: " + param);
         ArrayList<Float> p = new ArrayList<Float>();
         for (String s : param) {
             p.add(getFloatFromString(s));
         }
-        /**
-         * p0 = [0, radius] p1 = [radius * K, radius] p2 = [radius, radius * K] p3 = [radius, 0]
-         */
         for (int i = 0; i < p.size() - 6; i += 7) {
             float rx = Math.abs(p.get(i));
             float ry = Math.abs(p.get(i + 1));
@@ -289,26 +289,37 @@ public class SVGPath implements SVGFragment, SVGDrawable {
             boolean large = p.get(i + 3) == 1;
             boolean sweep = p.get(i + 4) == 1;
             VectorFloat start = corners.get(corners.size() - 1);
-            VectorFloat end = start.add(new VectorFloat(p.get(i + 5), p.get(i + 6)));
-            if (end.getXFloat() == start.getXFloat() && end.getYFloat() == start.getYFloat())
-                continue;
-            if (rx == 0 || ry == 0) {
-                lineTo(end.getXFloat(), end.getYFloat(), true);
-                continue;
-            }
-
-            if (!abs)
-                end = end.add(start);
-            VectorFloat control1 = start.add(new VectorFloat(rx, 0));
-            VectorFloat control2 = end.add(new VectorFloat(0, ry));
-            if (sweep) {
-                control1 = control1.mul(-1);
-                control2 = control2.mul(-1);
-            }
-            // bezierCurve(control1.x, control1.y, control2.x, control2.y, end.x, end.y,
-            // true);
-            lineTo(end.getXFloat(), end.getYFloat(), true);
+            VectorFloat end = new VectorFloat(p.get(i + 5), p.get(i + 6));
+            ellipse(rx, ry, rot, large, sweep, end, start, abs);
         }
+    }
+
+    /**
+     * Approximation of an ellipse. Skips the ellipse
+     * @param rx
+     *            radius x
+     * @param ry
+     *            radius y
+     * @param rot
+     *            rotation
+     * @param large
+     *            Flag for a large arc
+     * @param sweep
+     *            Flag for Sweep
+     * @param end
+     *            Endpoint
+     * @param start
+     *            Startpoint
+     * @param abs
+     *            Absolute Position
+     */
+    private void ellipse(float rx, float ry, float rot, boolean large, boolean sweep,
+            VectorFloat end, VectorFloat start, boolean abs) {
+        if (end.getXFloat() == start.getXFloat() && end.getYFloat() == start.getYFloat())
+            return;
+        if(!abs)
+            end= end.add(start);
+        corners.add(end);
     }
 
     /**
