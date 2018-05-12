@@ -592,8 +592,12 @@ public class Circuit {
             if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
                 final ElementAttributes attr = ve.getElementAttributes();
                 String name = attr.getLabel();
-                if (name == null || name.length() == 0)
-                    throw new PinException(Lang.get("err_pinWithoutName"));
+                if (name == null || name.length() == 0) {
+                    if (ve.equalsDescription(Clock.DESCRIPTION))
+                        throw new PinException(Lang.get("err_clockWithoutName"));
+                    else
+                        throw new PinException(Lang.get("err_pinWithoutName"));
+                }
 
                 PinInfo pin;
                 if (ve.equalsDescription(Clock.DESCRIPTION))
