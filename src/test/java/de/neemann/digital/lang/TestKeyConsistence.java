@@ -25,14 +25,9 @@ public class TestKeyConsistence extends TestCase {
 
     /**
      * Checks if key descriptions are complete
-     *
-     * @throws NodeException
-     * @throws PinException
-     * @throws IllegalAccessException
      */
-    public void testConsistence() throws NodeException, PinException, IllegalAccessException {
-        for (Field f : Keys.class.getDeclaredFields()) {
-            Key key = ((Key) f.get(null));
+    public void testConsistence() {
+        for (Key key : Keys.getKeys()) {
             checkKey(key.getLangKey());
             checkKey(key.getLangKey() + "_tt");
 
