@@ -9,8 +9,8 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestCaseDescription;
+import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestExecutor;
 import junit.framework.TestCase;
 

@@ -23,6 +23,7 @@ import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.gui.language.Language;
 
 import javax.imageio.ImageIO;
+import javax.swing.FocusManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;

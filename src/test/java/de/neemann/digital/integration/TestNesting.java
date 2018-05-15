@@ -10,8 +10,6 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.LibrarySelector;
 import junit.framework.TestCase;
 
 import java.io.File;

@@ -7,7 +7,6 @@ package de.neemann.digital.builder.tt2;
 
 import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
-import de.neemann.digital.core.io.Const;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;

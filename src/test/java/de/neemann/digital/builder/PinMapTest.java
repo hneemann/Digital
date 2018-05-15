@@ -6,9 +6,6 @@
 package de.neemann.digital.builder;
 
 import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Signal;
 import junit.framework.TestCase;
 
 /**

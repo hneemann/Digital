@@ -15,7 +15,6 @@ import de.neemann.digital.draw.graphics.GraphicSVGIndex;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.library.NumStringComparator;
-import de.neemann.digital.draw.library.Visitor;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.lang.Lang;

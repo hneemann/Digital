@@ -5,8 +5,8 @@
  */
 package de.neemann.digital.hdl.hgs;
 
-import de.neemann.digital.hdl.hgs.function.JavaClass;
 import de.neemann.digital.hdl.hgs.function.Function;
+import de.neemann.digital.hdl.hgs.function.JavaClass;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import junit.framework.TestCase;

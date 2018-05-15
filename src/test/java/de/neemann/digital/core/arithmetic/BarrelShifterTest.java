@@ -5,8 +5,6 @@
  */
 package de.neemann.digital.core.arithmetic;
 
-import static de.neemann.digital.core.ObservableValues.ovs;
-
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
@@ -14,6 +12,8 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
+
+import static de.neemann.digital.core.ObservableValues.ovs;
 
 /**
  * Created by heintz on 05.07.17.

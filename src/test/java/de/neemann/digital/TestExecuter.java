@@ -5,7 +5,10 @@
  */
 package de.neemann.digital;
 
-import de.neemann.digital.core.*;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
