@@ -178,7 +178,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             setFilename(builder.fileToOpen, false);
         } else {
             if (builder.fileToOpen != null) {
-                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, false));
+                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, builder.library == null));
             } else {
                 File name = fileHistory.getMostRecent();
                 if (name != null) {
