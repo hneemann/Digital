@@ -34,7 +34,7 @@ public class TestExamples extends TestCase {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
         testCasesInFiles = 0;
         assertEquals(241, new FileScanner(TestExamples::check).scan(examples));
-        assertEquals(161, testCasesInFiles);
+        assertEquals(164, testCasesInFiles);
     }
 
     /**

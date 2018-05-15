@@ -42,7 +42,7 @@
           <string>4</string>
         </entry>
       </elementAttributes>
-      <pos x="360" y="480"/>
+      <pos x="300" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -53,10 +53,10 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>23</int>
+          <string>23</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="480"/>
+      <pos x="140" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -67,10 +67,10 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>21</int>
+          <string>21</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="520"/>
+      <pos x="140" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -81,10 +81,10 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>22</int>
+          <string>22</string>
         </entry>
       </elementAttributes>
-      <pos x="340" y="500"/>
+      <pos x="280" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -95,10 +95,10 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>20</int>
+          <string>20</string>
         </entry>
       </elementAttributes>
-      <pos x="340" y="540"/>
+      <pos x="280" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -109,7 +109,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>1</int>
+          <string>1</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="140"/>
@@ -123,7 +123,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>2</int>
+          <string>2</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="160"/>
@@ -137,7 +137,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>3</int>
+          <string>3</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="180"/>
@@ -151,7 +151,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>4</int>
+          <string>4</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="200"/>
@@ -165,7 +165,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>5</int>
+          <string>5</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="220"/>
@@ -179,7 +179,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>6</int>
+          <string>6</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="240"/>
@@ -193,7 +193,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>7</int>
+          <string>7</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="260"/>
@@ -207,7 +207,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>8</int>
+          <string>8</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="280"/>
@@ -221,7 +221,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>9</int>
+          <string>9</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="300"/>
@@ -235,7 +235,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>10</int>
+          <string>10</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="320"/>
@@ -249,7 +249,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>11</int>
+          <string>11</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="340"/>
@@ -263,7 +263,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>13</int>
+          <string>13</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="360"/>
@@ -277,7 +277,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>14</int>
+          <string>14</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="380"/>
@@ -291,7 +291,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>15</int>
+          <string>15</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="400"/>
@@ -305,7 +305,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>16</int>
+          <string>16</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="420"/>
@@ -319,7 +319,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>17</int>
+          <string>17</string>
         </entry>
       </elementAttributes>
       <pos x="660" y="440"/>
@@ -338,7 +338,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>18</int>
+          <string>18</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="280"/>
@@ -352,7 +352,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>19</int>
+          <string>19</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="320"/>
@@ -371,7 +371,7 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>24</int>
+          <string>24</string>
         </entry>
         <entry>
           <string>InDefault</string>
@@ -389,19 +389,33 @@
         </entry>
         <entry>
           <string>pinNumber</string>
-          <int>12</int>
+          <string>12</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="180"/>
     </visualElement>
+    <visualElement>
+      <elementName>Delay</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="480"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="380" y="480"/>
+      <p1 x="400" y="480"/>
       <p2 x="420" y="480"/>
     </wire>
     <wire>
-      <p1 x="200" y="480"/>
+      <p1 x="140" y="480"/>
+      <p2 x="300" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="480"/>
       <p2 x="360" y="480"/>
     </wire>
     <wire>
@@ -429,8 +443,8 @@
       <p2 x="460" y="420"/>
     </wire>
     <wire>
-      <p1 x="200" y="520"/>
-      <p2 x="360" y="520"/>
+      <p1 x="140" y="520"/>
+      <p2 x="300" y="520"/>
     </wire>
     <wire>
       <p1 x="440" y="200"/>
@@ -465,8 +479,8 @@
       <p2 x="660" y="400"/>
     </wire>
     <wire>
-      <p1 x="340" y="500"/>
-      <p2 x="360" y="500"/>
+      <p1 x="280" y="500"/>
+      <p2 x="300" y="500"/>
     </wire>
     <wire>
       <p1 x="440" y="180"/>
@@ -493,8 +507,8 @@
       <p2 x="660" y="440"/>
     </wire>
     <wire>
-      <p1 x="340" y="540"/>
-      <p2 x="360" y="540"/>
+      <p1 x="280" y="540"/>
+      <p2 x="300" y="540"/>
     </wire>
     <wire>
       <p1 x="440" y="220"/>
