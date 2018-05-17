@@ -102,12 +102,12 @@ public class SVGText implements SVGFragment, SVGDrawable {
      */
     private Orientation getOrientation(String translate) throws NoParsableSVGException {
         if (translate.isEmpty()) {
-            return Orientation.RIGHTTOP;
+            return Orientation.LEFTBOTTOM;
         }
         if (translate.matches("rotate\\([0-9]*( [0-9]+,[0-9]+)?\\)")) {
             translate = translate.substring(7, translate.length() - 1);
             String[] tmp = translate.split(" ");
-            return Orientation.RIGHTTOP.rot(Integer.parseInt(tmp[0]));
+            return Orientation.LEFTBOTTOM.rot(Integer.parseInt(tmp[0]));
         }
         throw new NoParsableSVGException();
     }
