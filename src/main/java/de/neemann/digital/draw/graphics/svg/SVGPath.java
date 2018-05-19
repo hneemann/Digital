@@ -290,16 +290,13 @@ public class SVGPath implements SVGFragment, SVGDrawable {
             boolean sweep = p.get(i + 4) == 1;
             VectorFloat start = corners.get(corners.size() - 1);
             VectorFloat end = new VectorFloat(p.get(i + 5), p.get(i + 6));
-            ellipse(rx, ry, rot, large, sweep, end, start, abs);
+            ellipse(new VectorFloat(rx, ry), rot, large, sweep, end, start, abs);
         }
     }
 
     /**
      * Approximation of an ellipse. Skips the ellipse
-     * @param rx
-     *            radius x
-     * @param ry
-     *            radius y
+     * @param radius
      * @param rot
      *            rotation
      * @param large
@@ -313,12 +310,12 @@ public class SVGPath implements SVGFragment, SVGDrawable {
      * @param abs
      *            Absolute Position
      */
-    private void ellipse(float rx, float ry, float rot, boolean large, boolean sweep,
+    private void ellipse(VectorFloat radius, float rot, boolean large, boolean sweep,
             VectorFloat end, VectorFloat start, boolean abs) {
         if (end.getXFloat() == start.getXFloat() && end.getYFloat() == start.getYFloat())
             return;
-        if(!abs)
-            end= end.add(start);
+        if (!abs)
+            end = end.add(start);
         corners.add(end);
     }
 

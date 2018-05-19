@@ -37,6 +37,8 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
      *            if its a input Pin, false if its not
      * @param pins
      *            Pins of the circuit
+     * @param showLabel
+     *            if the Pins name should be displayed
      */
     public SVGPseudoPin(VectorInterface pos2, String label, boolean input, Pins pins,
             boolean showLabel) {
@@ -78,12 +80,12 @@ public class SVGPseudoPin implements SVGFragment, SVGPinnable {
     public boolean isShowLabel() {
         return showLabel;
     }
-    
+
     /**
      * Toggles, if the label should be drawn
      */
     public void toggleShowLabel() {
-        showLabel=!showLabel;
+        showLabel = !showLabel;
     }
 
     /**
