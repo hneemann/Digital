@@ -15,6 +15,10 @@ als auch für die Berechnung der Adressen
 bei der Speicheradressierung verwendet.}}</string>
     </entry>
     <entry>
+      <string>Width</string>
+      <int>4</int>
+    </entry>
+    <entry>
       <string>customShape</string>
       <shape>
         <pins>

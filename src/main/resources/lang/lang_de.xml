@@ -1139,6 +1139,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_customShape">Benutzerdefinierte Form</string>
     <string name="key_customShape_tt">Importieren einer SVG-Datei</string>
 
+    <string name="key_useDefShape">Verwende einfache Form</string>
+    <string name="key_useDefShape_tt">Verwendet die einfache Form zur Darstellung. Hat nur einen Effekt, wenn die
+        Schaltung eine Benutzerdefinierte Form oder eine DIL Form verwendet.</string>
+
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
     <string name="mod_setKey_N0_in_element_N1">Wert ''{0}'' in Element ''{1}'' verändert.</string>

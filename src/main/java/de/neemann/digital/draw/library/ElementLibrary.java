@@ -24,6 +24,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
@@ -640,6 +641,19 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 return description;
             else
                 return super.getDescription(elementAttributes);
+        }
+
+        @Override
+        public ArrayList<Key> getAttributeList() {
+            final ArrayList<Key> list = super.getAttributeList();
+            if (getAttributes().get(Keys.IS_DIL)
+                    || getAttributes().get(Keys.CUSTOM_SHAPE) != CustomShapeDescription.EMPTY) {
+
+                ArrayList<Key> li = new ArrayList<>(list);
+                li.add(Keys.USE_DEFAULT_SHAPE);
+                return li;
+            }
+            return list;
         }
     }
 

@@ -607,6 +607,12 @@ public final class Keys {
             new Key<>("noComponentToolTips", false);
 
     /**
+     * Used to show the default shape also if the circuit defines a DIL.
+     */
+    public static final Key<Boolean> USE_DEFAULT_SHAPE
+            = new Key<Boolean>("useDefShape", false);
+
+    /**
      * Shape used to represent a visual element
      */
     public static final Key<CustomShapeDescription> CUSTOM_SHAPE
