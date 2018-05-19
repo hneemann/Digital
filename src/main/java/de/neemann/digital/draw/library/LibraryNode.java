@@ -353,7 +353,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
                         try {
                             LOGGER.debug("load tooltip from " + file);
                             Circuit c = Circuit.loadCircuit(file, null);
-                            toolTipText = new LineBreaker().toHTML().breakLines(c.getAttributes().get(Keys.DESCRIPTION));
+                            toolTipText = new LineBreaker().toHTML().breakLines(Lang.evalMultilingualContent(c.getAttributes().get(Keys.DESCRIPTION)));
                         } catch (Exception e) {
                             toolTipText = Lang.get("msg_fileNotImportedYet");
                         }
@@ -362,7 +362,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
                 } else
                     return new LineBreaker().toHTML().breakLines(description.getDescription(new ElementAttributes()));
             } else
-                return Lang.get("msg_fileIsNotUnique");
+                return new LineBreaker().toHTML().breakLines(Lang.get("msg_fileIsNotUnique"));
         } else
             return new LineBreaker().toHTML().breakLines(Lang.getNull("elem_" + getName() + "_tt"));
     }

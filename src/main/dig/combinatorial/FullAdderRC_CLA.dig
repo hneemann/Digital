@@ -4,8 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfaches Beispiel um RC- und CLA-Addierer zu 
-vergleichen.</string>
+      <string>Example to compare RC and CLA adders.
+{{de Beispiel um RC- und CLA-Addierer zu vergleichen.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -54,6 +54,10 @@ vergleichen.</string>
         <entry>
           <string>Default</string>
           <int>1</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="-260" y="260"/>
@@ -124,6 +128,10 @@ vergleichen.</string>
           <string>Default</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="-260" y="80"/>
     </visualElement>
@@ -182,6 +190,10 @@ vergleichen.</string>
         <entry>
           <string>Default</string>
           <int>1</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="-260" y="-220"/>
@@ -242,6 +254,10 @@ vergleichen.</string>
           <string>Default</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="-260" y="-640"/>
     </visualElement>
@@ -275,6 +291,10 @@ vergleichen.</string>
         <entry>
           <string>Default</string>
           <int>1</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="440" y="300"/>
@@ -349,6 +369,10 @@ vergleichen.</string>
         <entry>
           <string>Default</string>
           <int>1</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="440" y="220"/>
@@ -454,6 +478,10 @@ vergleichen.</string>
           <string>Default</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="440" y="-60"/>
     </visualElement>
@@ -517,6 +545,10 @@ vergleichen.</string>
         <entry>
           <string>Default</string>
           <int>1</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="440" y="-580"/>

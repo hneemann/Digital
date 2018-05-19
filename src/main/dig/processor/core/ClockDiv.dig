@@ -4,11 +4,15 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Taktteiler. Hier wird der Takt durch zwei geteilt, und 
+      <string>Clock divider. Here the clock is divided by two, and the 
+memory access signals of the instruction register are generated. 
+A instruction word is alternately read et first and then executed.
+
+{{de Taktteiler. Hier wird der Takt durch zwei geteilt, und 
 es werden die Signale für den Speicherzugriff des 
 InstructionRegisters erzeugt. Jeweils abwechselnd 
 wird ein Befehlswort gelesen und dieses Befehlswort
-dann ausgeführt.</string>
+dann ausgeführt.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -56,8 +60,10 @@ dann ausgeführt.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Signal welches den Prozessor für das Lesen eines
-Befehlswortes konfiguriert.</string>
+          <string>Signal to configure the processor for reading 
+the next instruction.
+{{de Signal welches den Prozessor für das Lesen 
+eines Befehlswortes konfiguriert.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -71,7 +77,8 @@ Befehlswortes konfiguriert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Taktsignal für das Lesen eines Befehlswortes</string>
+          <string>Clock signal to read the next instruction.
+{{de Taktsignal für das Lesen eines Befehlswortes}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -85,8 +92,9 @@ Befehlswortes konfiguriert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Takt der das Ausführen eines Befehlswortes 
-steuert.</string>
+          <string>Clock used to execute an instruction.
+{{de Takt der das Ausführen eines Befehlswortes 
+steuert.}}</string>
         </entry>
         <entry>
           <string>Label</string>

@@ -21,15 +21,12 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.language.Language;
@@ -93,6 +90,14 @@ public class Circuit {
         xStream.addImplicitCollection(ROMManger.class, "roms");
         xStream.alias("appType", Application.Type.class);
         xStream.ignoreUnknownElements();
+        xStream.alias("shape", CustomShapeDescription.class);
+        xStream.alias("pin", CustomShapeDescription.Pin.class);
+        xStream.alias("circle", CustomShapeDescription.CircleHolder.class);
+        xStream.alias("line", CustomShapeDescription.LineHolder.class);
+        xStream.alias("poly", CustomShapeDescription.PolygonHolder.class);
+        xStream.alias("text", CustomShapeDescription.TextHolder.class);
+        xStream.alias("polygon", Polygon.class);
+        xStream.registerConverter(new PolygonConverter());
         return xStream;
     }
 
@@ -213,7 +218,7 @@ public class Circuit {
      * @param graphic the graphic instance used
      */
     public void drawTo(Graphic graphic) {
-        drawTo(graphic, EMPTY_SET, null, NoSync.INST);
+        drawTo(graphic, EMPTY_SET, null, SyncAccess.NOSYNC);
     }
 
     /**
@@ -224,12 +229,13 @@ public class Circuit {
      * @param highlight   style used to draw the highlighted elements
      * @param modelSync   sync interface to access the model. Is locked while drawing circuit
      */
-    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, Sync modelSync) {
+    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, SyncAccess modelSync) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
             dotsPresent = true;
         }
 
+        // reads the models state which is a fast operation
         modelSync.access(() -> {
             for (Wire w : wires)
                 w.readObservableValues();
@@ -237,6 +243,7 @@ public class Circuit {
                 p.getShape().readObservableValues();
         });
 
+        // after that draw the model which is rather slow
         graphic.openGroup();
         for (Wire w : wires)
             w.drawTo(graphic, highLighted.contains(w) ? highlight : null);
@@ -585,14 +592,18 @@ public class Circuit {
             if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
                 final ElementAttributes attr = ve.getElementAttributes();
                 String name = attr.getLabel();
-                if (name == null || name.length() == 0)
-                    throw new PinException(Lang.get("err_pinWithoutName"));
+                if (name == null || name.length() == 0) {
+                    if (ve.equalsDescription(Clock.DESCRIPTION))
+                        throw new PinException(Lang.get("err_clockWithoutName"));
+                    else
+                        throw new PinException(Lang.get("err_pinWithoutName"));
+                }
 
                 PinInfo pin;
                 if (ve.equalsDescription(Clock.DESCRIPTION))
                     pin = input(name, Lang.get("elem_Clock")).setClock();
                 else
-                    pin = input(name, attr.get(Keys.DESCRIPTION));
+                    pin = input(name, Lang.evalMultilingualContent(attr.get(Keys.DESCRIPTION)));
                 pinList.add(pin.setPinNumber(attr.get(Keys.PINNUMBER)));
             }
         }
@@ -619,7 +630,7 @@ public class Circuit {
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                String descr = attr.get(Keys.DESCRIPTION);
+                String descr = Lang.evalMultilingualContent(attr.get(Keys.DESCRIPTION));
                 pinList.add(new ObservableValue(name, 0) {
                     @Override
                     public long getValue() {

@@ -127,25 +127,29 @@ public class StdIOInterface implements ProcessInterface {
 
     @Override
     public void writeValues(ObservableValues values) throws IOException {
-        for (ObservableValue v : values) {
-            final int bits = v.getBits();
-            final long value = v.getValue();
-            final long highZ = v.getHighZ();
-            long mask = 1;
-            for (int i = 0; i < bits; i++) {
-                if ((highZ & mask) != 0)
-                    writer.write('Z');
-                else {
-                    if ((value & mask) != 0)
-                        writer.write('1');
-                    else
-                        writer.write('0');
+        try {
+            for (ObservableValue v : values) {
+                final int bits = v.getBits();
+                final long value = v.getValue();
+                final long highZ = v.getHighZ();
+                long mask = 1;
+                for (int i = 0; i < bits; i++) {
+                    if ((highZ & mask) != 0)
+                        writer.write('Z');
+                    else {
+                        if ((value & mask) != 0)
+                            writer.write('1');
+                        else
+                            writer.write('0');
+                    }
+                    mask <<= 1;
                 }
-                mask <<= 1;
             }
+            writer.write("\n");
+            writer.flush();
+        } catch (IOException e) {
+            throw new IOException(Lang.get("err_writingToStdOut_O", getConsoleOut()), e);
         }
-        writer.write("\n");
-        writer.flush();
     }
 
     @Override

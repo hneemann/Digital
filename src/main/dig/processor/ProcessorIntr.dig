@@ -4,13 +4,19 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Prozessor, der an die MIPS-Architektur 
+      <string>Simple processor based on the MIPS architecture. 
+It is a Harvard single-cycle CPU.
+It has an interrupt controller: A rising edge at the 
+input intr triggers an interrupt. The fixed address 0x1000 
+is called. The ISR must be at this address.
+
+{{de Einfacher Prozessor, der an die MIPS-Architektur 
 angelehnt ist. Es handelt sich um eine Harvard 
 Single-Cycle CPU. Er verfügt über einen Interrupt 
 Controller: Durch eine steigende Flanke am Eingang intr 
 wird ein Interrupt ausgelöst. Dabei wird die feste 
 Adresse 0x1000 angesprungen.
-An dieser Adresse muss sich die ISR befinden.</string>
+An dieser Adresse muss sich die ISR befinden.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -41,47 +47,19 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="840" y="460"/>
+      <pos x="840" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>ImReg.dig</elementName>
       <elementAttributes/>
-      <pos x="680" y="460"/>
+      <pos x="680" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="820" y="500"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <int>255</int>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="820" y="520"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <int>4095</int>
+          <long>0</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -91,14 +69,42 @@ An dieser Adresse muss sich die ISR befinden.</string>
       <pos x="820" y="540"/>
     </visualElement>
     <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>255</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="820" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>4095</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="820" y="580"/>
+    </visualElement>
+    <visualElement>
       <elementName>SignExt.dig</elementName>
       <elementAttributes/>
-      <pos x="680" y="560"/>
+      <pos x="680" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>ALU.dig</elementName>
       <elementAttributes/>
-      <pos x="1080" y="140"/>
+      <pos x="1100" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -116,7 +122,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="1240" y="40"/>
+      <pos x="1200" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Branch.dig</elementName>
@@ -126,7 +132,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <rotation rotation="2"/>
         </entry>
       </elementAttributes>
-      <pos x="1000" y="440"/>
+      <pos x="1000" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -140,7 +146,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>4,4,1,7</string>
         </entry>
       </elementAttributes>
-      <pos x="480" y="460"/>
+      <pos x="480" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -277,12 +283,12 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>/home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/asm/hexoutIntr.hex</string>
         </entry>
       </elementAttributes>
-      <pos x="360" y="440"/>
+      <pos x="360" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
-      <pos x="340" y="480"/>
+      <pos x="340" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -314,7 +320,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <int>500000</int>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="720"/>
+      <pos x="1040" y="760"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -350,7 +356,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="140"/>
+      <pos x="1340" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -364,7 +370,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>stPC</string>
         </entry>
       </elementAttributes>
-      <pos x="620" y="700"/>
+      <pos x="620" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -378,7 +384,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>WE</string>
         </entry>
       </elementAttributes>
-      <pos x="600" y="700"/>
+      <pos x="600" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -392,7 +398,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="700"/>
+      <pos x="580" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -406,7 +412,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>abs</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="700"/>
+      <pos x="560" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -420,7 +426,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>muxB</string>
         </entry>
       </elementAttributes>
-      <pos x="540" y="700"/>
+      <pos x="540" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -434,7 +440,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>src2D</string>
         </entry>
       </elementAttributes>
-      <pos x="520" y="700"/>
+      <pos x="520" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -448,7 +454,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>muxA</string>
         </entry>
       </elementAttributes>
-      <pos x="500" y="700"/>
+      <pos x="500" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -462,7 +468,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ALU2D</string>
         </entry>
       </elementAttributes>
-      <pos x="480" y="700"/>
+      <pos x="480" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -476,7 +482,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ALUop</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="700"/>
+      <pos x="460" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -490,7 +496,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>sf</string>
         </entry>
       </elementAttributes>
-      <pos x="440" y="700"/>
+      <pos x="440" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -504,7 +510,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>br</string>
         </entry>
       </elementAttributes>
-      <pos x="420" y="700"/>
+      <pos x="420" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -518,7 +524,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>st</string>
         </entry>
       </elementAttributes>
-      <pos x="400" y="700"/>
+      <pos x="400" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -532,7 +538,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ld</string>
         </entry>
       </elementAttributes>
-      <pos x="380" y="700"/>
+      <pos x="380" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -546,7 +552,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ioW</string>
         </entry>
       </elementAttributes>
-      <pos x="360" y="700"/>
+      <pos x="360" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -560,7 +566,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ioR</string>
         </entry>
       </elementAttributes>
-      <pos x="340" y="700"/>
+      <pos x="340" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -602,7 +608,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="660" y="480"/>
+      <pos x="660" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -630,7 +636,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>muxB</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="640"/>
+      <pos x="860" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -664,7 +670,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ALU2D</string>
         </entry>
       </elementAttributes>
-      <pos x="1280" y="40"/>
+      <pos x="1240" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -678,7 +684,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ALUop</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="180"/>
+      <pos x="1160" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -688,7 +694,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>sf</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="360"/>
+      <pos x="1160" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -698,7 +704,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>br</string>
         </entry>
       </elementAttributes>
-      <pos x="1020" y="360"/>
+      <pos x="1020" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -712,7 +718,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>st</string>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="160"/>
+      <pos x="1320" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -726,7 +732,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ld</string>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="220"/>
+      <pos x="1320" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -736,7 +742,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="720"/>
+      <pos x="1060" y="760"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -764,7 +770,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="660" y="500"/>
+      <pos x="660" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -788,7 +794,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="380"/>
+      <pos x="1160" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -802,12 +808,12 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="200"/>
+      <pos x="1320" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Interrupt.dig</elementName>
       <elementAttributes/>
-      <pos x="1080" y="500"/>
+      <pos x="1080" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -821,7 +827,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="500"/>
+      <pos x="1060" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -835,7 +841,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="560"/>
+      <pos x="1060" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -849,7 +855,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>next</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="520"/>
+      <pos x="1060" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -873,7 +879,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>iEn</string>
         </entry>
       </elementAttributes>
-      <pos x="1200" y="520"/>
+      <pos x="1200" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -901,7 +907,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>abs</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="580"/>
+      <pos x="1060" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>FlagsRW.dig</elementName>
@@ -911,7 +917,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <rotation rotation="2"/>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="440"/>
+      <pos x="1140" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -921,7 +927,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ioW</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="300"/>
+      <pos x="1160" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -931,7 +937,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>ioR</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="320"/>
+      <pos x="1160" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>PCintr.dig</elementName>
@@ -946,7 +952,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>D</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="280"/>
+      <pos x="1160" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -956,7 +962,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="340"/>
+      <pos x="1160" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -970,7 +976,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>reti</string>
         </entry>
       </elementAttributes>
-      <pos x="320" y="700"/>
+      <pos x="320" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -980,7 +986,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>retAddr</string>
         </entry>
       </elementAttributes>
-      <pos x="1200" y="500"/>
+      <pos x="1200" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -994,7 +1000,7 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <string>reti</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="600"/>
+      <pos x="1060" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -1038,14 +1044,14 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <rotation rotation="3"/>
         </entry>
       </elementAttributes>
-      <pos x="620" y="580"/>
+      <pos x="620" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenbus</string>
+          <string>data bus {{de Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1056,14 +1062,14 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="580"/>
+      <pos x="1320" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Adressbus</string>
+          <string>address bus {{de Adressbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1074,21 +1080,21 @@ An dieser Adresse muss sich die ISR befinden.</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="640"/>
+      <pos x="1320" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>io Read</string>
+          <string>io read {{de io read}}</string>
         </entry>
         <entry>
           <string>Label</string>
           <string>ioR</string>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="680"/>
+      <pos x="1320" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1100,53 +1106,55 @@ An dieser Adresse muss sich die ISR befinden.</string>
         <entry>
           <string>NetName</string>
           <string>ioW</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1300" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ioR</string>
         </entry>
       </elementAttributes>
       <pos x="1300" y="720"/>
     </visualElement>
     <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>ioR</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1300" y="680"/>
-    </visualElement>
-    <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>io Write</string>
+          <string>io write {{de io write}}</string>
         </entry>
         <entry>
           <string>Label</string>
           <string>ioW</string>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="720"/>
+      <pos x="1320" y="760"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Interrupt Eingang. Geht diese Leitung auf high wird ein
+          <string>Interrupt input. If this line goes high, an interrupt 
+is triggered. The ISR must be at address 0x1000.
+{{de Interrupt Eingang. Geht diese Leitung auf high wird ein
 Interrupt ausgelöst. Die ISR muss sich an Adresse 
-0x1000 befinden.</string>
+0x1000 befinden.}}</string>
         </entry>
         <entry>
           <string>Label</string>
           <string>intr</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="660"/>
+      <pos x="1040" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1170,7 +1178,7 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="1280" y="80"/>
+      <pos x="1240" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1184,7 +1192,7 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
           <string>D</string>
         </entry>
       </elementAttributes>
-      <pos x="1300" y="580"/>
+      <pos x="1300" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1198,7 +1206,7 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="1300" y="640"/>
+      <pos x="1300" y="680"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -1207,96 +1215,88 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="800" y="0"/>
     </wire>
     <wire>
-      <p1 x="1240" y="0"/>
+      <p1 x="1200" y="0"/>
       <p2 x="1420" y="0"/>
     </wire>
     <wire>
       <p1 x="800" y="0"/>
-      <p2 x="1240" y="0"/>
+      <p2 x="1200" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="760" y="640"/>
+      <p2 x="840" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="640"/>
+      <p2 x="1080" y="640"/>
     </wire>
     <wire>
       <p1 x="1140" y="320"/>
       <p2 x="1160" y="320"/>
     </wire>
     <wire>
-      <p1 x="1300" y="640"/>
-      <p2 x="1320" y="640"/>
-    </wire>
-    <wire>
-      <p1 x="760" y="580"/>
-      <p2 x="840" y="580"/>
-    </wire>
-    <wire>
-      <p1 x="1300" y="580"/>
-      <p2 x="1320" y="580"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="580"/>
+      <p1 x="920" y="580"/>
       <p2 x="1080" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="580"/>
+      <p2 x="900" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="580"/>
+      <p2 x="840" y="580"/>
     </wire>
     <wire>
       <p1 x="320" y="260"/>
       <p2 x="480" y="260"/>
     </wire>
     <wire>
-      <p1 x="500" y="520"/>
-      <p2 x="620" y="520"/>
+      <p1 x="1060" y="260"/>
+      <p2 x="1100" y="260"/>
     </wire>
     <wire>
-      <p1 x="820" y="520"/>
+      <p1 x="760" y="520"/>
       <p2 x="840" y="520"/>
     </wire>
     <wire>
-      <p1 x="1060" y="520"/>
-      <p2 x="1080" y="520"/>
+      <p1 x="660" y="520"/>
+      <p2 x="680" y="520"/>
     </wire>
     <wire>
-      <p1 x="1180" y="520"/>
-      <p2 x="1200" y="520"/>
+      <p1 x="500" y="520"/>
+      <p2 x="560" y="520"/>
     </wire>
     <wire>
-      <p1 x="1160" y="200"/>
-      <p2 x="1220" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="200"/>
-      <p2 x="1080" y="200"/>
+      <p1 x="340" y="520"/>
+      <p2 x="360" y="520"/>
     </wire>
     <wire>
       <p1 x="640" y="200"/>
       <p2 x="660" y="200"/>
     </wire>
     <wire>
-      <p1 x="1320" y="200"/>
-      <p2 x="1340" y="200"/>
-    </wire>
-    <wire>
       <p1 x="340" y="200"/>
       <p2 x="360" y="200"/>
     </wire>
     <wire>
-      <p1 x="500" y="460"/>
-      <p2 x="540" y="460"/>
+      <p1 x="1400" y="200"/>
+      <p2 x="1420" y="200"/>
     </wire>
     <wire>
-      <p1 x="800" y="460"/>
-      <p2 x="840" y="460"/>
+      <p1 x="1180" y="200"/>
+      <p2 x="1240" y="200"/>
     </wire>
     <wire>
-      <p1 x="580" y="460"/>
-      <p2 x="680" y="460"/>
+      <p1 x="1000" y="460"/>
+      <p2 x="1080" y="460"/>
     </wire>
     <wire>
-      <p1 x="420" y="460"/>
-      <p2 x="460" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="460" y="460"/>
-      <p2 x="480" y="460"/>
+      <p1 x="1140" y="460"/>
+      <p2 x="1240" y="460"/>
     </wire>
     <wire>
       <p1 x="880" y="140"/>
-      <p2 x="1080" y="140"/>
+      <p2 x="1100" y="140"/>
     </wire>
     <wire>
       <p1 x="760" y="140"/>
@@ -1315,12 +1315,16 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="480" y="140"/>
     </wire>
     <wire>
-      <p1 x="1160" y="140"/>
-      <p2 x="1240" y="140"/>
+      <p1 x="1300" y="720"/>
+      <p2 x="1320" y="720"/>
     </wire>
     <wire>
-      <p1 x="1240" y="140"/>
-      <p2 x="1340" y="140"/>
+      <p1 x="1140" y="400"/>
+      <p2 x="1160" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="400"/>
+      <p2 x="1020" y="400"/>
     </wire>
     <wire>
       <p1 x="1400" y="80"/>
@@ -1328,35 +1332,15 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     </wire>
     <wire>
       <p1 x="360" y="80"/>
+      <p2 x="1200" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="80"/>
       <p2 x="1240" y="80"/>
     </wire>
     <wire>
-      <p1 x="1240" y="80"/>
-      <p2 x="1280" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="400"/>
-      <p2 x="920" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="400"/>
-      <p2 x="1080" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="400"/>
-      <p2 x="1220" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="920" y="400"/>
-      <p2 x="940" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="1300" y="720"/>
-      <p2 x="1320" y="720"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="720"/>
-      <p2 x="1060" y="720"/>
+      <p1 x="1060" y="660"/>
+      <p2 x="1080" y="660"/>
     </wire>
     <wire>
       <p1 x="1140" y="340"/>
@@ -1367,84 +1351,88 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="380" y="20"/>
     </wire>
     <wire>
-      <p1 x="1040" y="660"/>
-      <p2 x="1060" y="660"/>
+      <p1 x="1060" y="600"/>
+      <p2 x="1080" y="600"/>
     </wire>
     <wire>
       <p1 x="760" y="600"/>
       <p2 x="840" y="600"/>
     </wire>
     <wire>
-      <p1 x="1060" y="600"/>
-      <p2 x="1080" y="600"/>
+      <p1 x="460" y="600"/>
+      <p2 x="580" y="600"/>
     </wire>
     <wire>
-      <p1 x="1140" y="280"/>
-      <p2 x="1160" y="280"/>
+      <p1 x="580" y="600"/>
+      <p2 x="680" y="600"/>
     </wire>
     <wire>
-      <p1 x="920" y="540"/>
+      <p1 x="1180" y="540"/>
+      <p2 x="1200" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="540"/>
       <p2 x="1080" y="540"/>
     </wire>
     <wire>
-      <p1 x="880" y="540"/>
-      <p2 x="900" y="540"/>
+      <p1 x="660" y="540"/>
+      <p2 x="680" y="540"/>
     </wire>
     <wire>
       <p1 x="820" y="540"/>
       <p2 x="840" y="540"/>
     </wire>
     <wire>
+      <p1 x="1180" y="220"/>
+      <p2 x="1220" y="220"/>
+    </wire>
+    <wire>
       <p1 x="1320" y="220"/>
       <p2 x="1340" y="220"/>
     </wire>
     <wire>
-      <p1 x="760" y="480"/>
-      <p2 x="840" y="480"/>
+      <p1 x="1000" y="480"/>
+      <p2 x="1080" y="480"/>
     </wire>
     <wire>
-      <p1 x="660" y="480"/>
-      <p2 x="680" y="480"/>
+      <p1 x="1140" y="480"/>
+      <p2 x="1260" y="480"/>
     </wire>
     <wire>
-      <p1 x="500" y="480"/>
-      <p2 x="560" y="480"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="480"/>
+      <p1 x="320" y="480"/>
       <p2 x="360" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="160"/>
+      <p2 x="1200" y="160"/>
     </wire>
     <wire>
       <p1 x="800" y="160"/>
       <p2 x="840" y="160"/>
     </wire>
     <wire>
-      <p1 x="900" y="160"/>
-      <p2 x="1080" y="160"/>
-    </wire>
-    <wire>
       <p1 x="340" y="160"/>
       <p2 x="360" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="160"/>
-      <p2 x="1260" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="1320" y="160"/>
-      <p2 x="1340" y="160"/>
     </wire>
     <wire>
       <p1 x="540" y="160"/>
       <p2 x="660" y="160"/>
     </wire>
     <wire>
+      <p1 x="1200" y="160"/>
+      <p2 x="1340" y="160"/>
+    </wire>
+    <wire>
       <p1 x="1000" y="420"/>
-      <p2 x="1080" y="420"/>
+      <p2 x="1060" y="420"/>
     </wire>
     <wire>
       <p1 x="1140" y="420"/>
-      <p2 x="1240" y="420"/>
+      <p2 x="1160" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="360"/>
+      <p2 x="1160" y="360"/>
     </wire>
     <wire>
       <p1 x="1300" y="680"/>
@@ -1459,68 +1447,72 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="840" y="40"/>
     </wire>
     <wire>
-      <p1 x="1260" y="40"/>
-      <p2 x="1280" y="40"/>
+      <p1 x="1220" y="40"/>
+      <p2 x="1240" y="40"/>
     </wire>
     <wire>
-      <p1 x="1140" y="360"/>
-      <p2 x="1160" y="360"/>
+      <p1 x="760" y="620"/>
+      <p2 x="840" y="620"/>
     </wire>
     <wire>
-      <p1 x="1000" y="360"/>
-      <p2 x="1020" y="360"/>
+      <p1 x="1300" y="620"/>
+      <p2 x="1320" y="620"/>
     </wire>
     <wire>
       <p1 x="1060" y="620"/>
       <p2 x="1080" y="620"/>
     </wire>
     <wire>
-      <p1 x="1140" y="300"/>
-      <p2 x="1160" y="300"/>
+      <p1 x="500" y="560"/>
+      <p2 x="620" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="560"/>
+      <p2 x="840" y="560"/>
     </wire>
     <wire>
       <p1 x="1060" y="560"/>
       <p2 x="1080" y="560"/>
     </wire>
     <wire>
-      <p1 x="760" y="560"/>
-      <p2 x="840" y="560"/>
+      <p1 x="1180" y="560"/>
+      <p2 x="1200" y="560"/>
     </wire>
     <wire>
-      <p1 x="460" y="560"/>
-      <p2 x="580" y="560"/>
+      <p1 x="900" y="240"/>
+      <p2 x="1100" y="240"/>
     </wire>
     <wire>
-      <p1 x="580" y="560"/>
-      <p2 x="680" y="560"/>
+      <p1 x="1320" y="240"/>
+      <p2 x="1340" y="240"/>
     </wire>
     <wire>
-      <p1 x="1180" y="500"/>
-      <p2 x="1200" y="500"/>
+      <p1 x="500" y="500"/>
+      <p2 x="540" y="500"/>
     </wire>
     <wire>
-      <p1 x="1060" y="500"/>
-      <p2 x="1080" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="660" y="500"/>
-      <p2 x="680" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="820" y="500"/>
+      <p1 x="800" y="500"/>
       <p2 x="840" y="500"/>
     </wire>
     <wire>
-      <p1 x="1400" y="180"/>
-      <p2 x="1420" y="180"/>
+      <p1 x="580" y="500"/>
+      <p2 x="680" y="500"/>
     </wire>
     <wire>
-      <p1 x="1160" y="180"/>
-      <p2 x="1240" y="180"/>
+      <p1 x="420" y="500"/>
+      <p2 x="460" y="500"/>
     </wire>
     <wire>
-      <p1 x="1060" y="180"/>
-      <p2 x="1080" y="180"/>
+      <p1 x="460" y="500"/>
+      <p2 x="480" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="180"/>
+      <p2 x="1260" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="1320" y="180"/>
+      <p2 x="1340" y="180"/>
     </wire>
     <wire>
       <p1 x="560" y="180"/>
@@ -1531,16 +1523,28 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="360" y="180"/>
     </wire>
     <wire>
-      <p1 x="1000" y="440"/>
+      <p1 x="340" y="440"/>
+      <p2 x="920" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="440"/>
       <p2 x="1080" y="440"/>
     </wire>
     <wire>
       <p1 x="1140" y="440"/>
-      <p2 x="1260" y="440"/>
+      <p2 x="1220" y="440"/>
     </wire>
     <wire>
-      <p1 x="320" y="440"/>
-      <p2 x="360" y="440"/>
+      <p1 x="920" y="440"/>
+      <p2 x="940" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1300" y="760"/>
+      <p2 x="1320" y="760"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="760"/>
+      <p2 x="1060" y="760"/>
     </wire>
     <wire>
       <p1 x="540" y="120"/>
@@ -1567,12 +1571,12 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="660" y="120"/>
     </wire>
     <wire>
-      <p1 x="1000" y="380"/>
-      <p2 x="1060" y="380"/>
-    </wire>
-    <wire>
       <p1 x="1140" y="380"/>
       <p2 x="1160" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="700"/>
+      <p2 x="1060" y="700"/>
     </wire>
     <wire>
       <p1 x="300" y="60"/>
@@ -1580,43 +1584,47 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     </wire>
     <wire>
       <p1 x="320" y="260"/>
-      <p2 x="320" y="440"/>
+      <p2 x="320" y="480"/>
     </wire>
     <wire>
-      <p1 x="320" y="680"/>
-      <p2 x="320" y="700"/>
+      <p1 x="320" y="720"/>
+      <p2 x="320" y="740"/>
     </wire>
     <wire>
-      <p1 x="580" y="460"/>
-      <p2 x="580" y="560"/>
+      <p1 x="580" y="500"/>
+      <p2 x="580" y="600"/>
     </wire>
     <wire>
-      <p1 x="580" y="680"/>
-      <p2 x="580" y="700"/>
+      <p1 x="580" y="720"/>
+      <p2 x="580" y="740"/>
     </wire>
     <wire>
-      <p1 x="900" y="160"/>
-      <p2 x="900" y="540"/>
+      <p1 x="900" y="240"/>
+      <p2 x="900" y="580"/>
     </wire>
     <wire>
-      <p1 x="1220" y="200"/>
-      <p2 x="1220" y="400"/>
+      <p1 x="1220" y="220"/>
+      <p2 x="1220" y="440"/>
     </wire>
     <wire>
       <p1 x="520" y="140"/>
       <p2 x="520" y="160"/>
     </wire>
     <wire>
-      <p1 x="520" y="680"/>
-      <p2 x="520" y="700"/>
+      <p1 x="520" y="720"/>
+      <p2 x="520" y="740"/>
     </wire>
     <wire>
-      <p1 x="460" y="460"/>
-      <p2 x="460" y="560"/>
+      <p1 x="1160" y="240"/>
+      <p2 x="1160" y="280"/>
     </wire>
     <wire>
-      <p1 x="460" y="680"/>
-      <p2 x="460" y="700"/>
+      <p1 x="460" y="500"/>
+      <p2 x="460" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="720"/>
+      <p2 x="460" y="740"/>
     </wire>
     <wire>
       <p1 x="1420" y="0"/>
@@ -1624,11 +1632,11 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     </wire>
     <wire>
       <p1 x="1420" y="80"/>
-      <p2 x="1420" y="180"/>
+      <p2 x="1420" y="200"/>
     </wire>
     <wire>
-      <p1 x="400" y="680"/>
-      <p2 x="400" y="700"/>
+      <p1 x="400" y="720"/>
+      <p2 x="400" y="740"/>
     </wire>
     <wire>
       <p1 x="340" y="20"/>
@@ -1636,63 +1644,51 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     </wire>
     <wire>
       <p1 x="340" y="200"/>
-      <p2 x="340" y="400"/>
+      <p2 x="340" y="440"/>
     </wire>
     <wire>
-      <p1 x="340" y="680"/>
-      <p2 x="340" y="700"/>
+      <p1 x="340" y="720"/>
+      <p2 x="340" y="740"/>
     </wire>
     <wire>
-      <p1 x="920" y="400"/>
-      <p2 x="920" y="540"/>
+      <p1 x="920" y="440"/>
+      <p2 x="920" y="580"/>
     </wire>
     <wire>
-      <p1 x="1240" y="60"/>
-      <p2 x="1240" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="1240" y="0"/>
-      <p2 x="1240" y="20"/>
-    </wire>
-    <wire>
-      <p1 x="1240" y="180"/>
-      <p2 x="1240" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="1240" y="80"/>
-      <p2 x="1240" y="140"/>
+      <p1 x="1240" y="200"/>
+      <p2 x="1240" y="460"/>
     </wire>
     <wire>
       <p1 x="600" y="0"/>
       <p2 x="600" y="120"/>
     </wire>
     <wire>
-      <p1 x="600" y="680"/>
-      <p2 x="600" y="700"/>
+      <p1 x="600" y="720"/>
+      <p2 x="600" y="740"/>
     </wire>
     <wire>
       <p1 x="540" y="160"/>
-      <p2 x="540" y="460"/>
+      <p2 x="540" y="500"/>
     </wire>
     <wire>
-      <p1 x="540" y="680"/>
-      <p2 x="540" y="700"/>
+      <p1 x="540" y="720"/>
+      <p2 x="540" y="740"/>
     </wire>
     <wire>
       <p1 x="860" y="160"/>
       <p2 x="860" y="180"/>
     </wire>
     <wire>
-      <p1 x="860" y="620"/>
-      <p2 x="860" y="640"/>
+      <p1 x="860" y="660"/>
+      <p2 x="860" y="680"/>
     </wire>
     <wire>
       <p1 x="480" y="140"/>
       <p2 x="480" y="260"/>
     </wire>
     <wire>
-      <p1 x="480" y="680"/>
-      <p2 x="480" y="700"/>
+      <p1 x="480" y="720"/>
+      <p2 x="480" y="740"/>
     </wire>
     <wire>
       <p1 x="480" y="100"/>
@@ -1712,63 +1708,75 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     </wire>
     <wire>
       <p1 x="800" y="160"/>
-      <p2 x="800" y="460"/>
+      <p2 x="800" y="500"/>
     </wire>
     <wire>
-      <p1 x="1060" y="620"/>
-      <p2 x="1060" y="660"/>
+      <p1 x="1060" y="660"/>
+      <p2 x="1060" y="700"/>
     </wire>
     <wire>
-      <p1 x="1060" y="200"/>
-      <p2 x="1060" y="380"/>
+      <p1 x="1060" y="260"/>
+      <p2 x="1060" y="420"/>
     </wire>
     <wire>
-      <p1 x="1060" y="380"/>
-      <p2 x="1060" y="400"/>
+      <p1 x="1060" y="420"/>
+      <p2 x="1060" y="440"/>
     </wire>
     <wire>
-      <p1 x="420" y="680"/>
-      <p2 x="420" y="700"/>
+      <p1 x="420" y="720"/>
+      <p2 x="420" y="740"/>
     </wire>
     <wire>
-      <p1 x="360" y="680"/>
-      <p2 x="360" y="700"/>
+      <p1 x="360" y="720"/>
+      <p2 x="360" y="740"/>
     </wire>
     <wire>
-      <p1 x="1260" y="160"/>
-      <p2 x="1260" y="440"/>
+      <p1 x="1260" y="180"/>
+      <p2 x="1260" y="480"/>
     </wire>
     <wire>
-      <p1 x="620" y="520"/>
-      <p2 x="620" y="580"/>
+      <p1 x="620" y="560"/>
+      <p2 x="620" y="620"/>
     </wire>
     <wire>
-      <p1 x="620" y="680"/>
-      <p2 x="620" y="700"/>
+      <p1 x="620" y="720"/>
+      <p2 x="620" y="740"/>
     </wire>
     <wire>
       <p1 x="300" y="60"/>
       <p2 x="300" y="120"/>
     </wire>
     <wire>
-      <p1 x="560" y="680"/>
-      <p2 x="560" y="700"/>
+      <p1 x="1200" y="60"/>
+      <p2 x="1200" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="0"/>
+      <p2 x="1200" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="80"/>
+      <p2 x="1200" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="720"/>
+      <p2 x="560" y="740"/>
     </wire>
     <wire>
       <p1 x="560" y="180"/>
-      <p2 x="560" y="480"/>
+      <p2 x="560" y="520"/>
     </wire>
     <wire>
-      <p1 x="500" y="680"/>
-      <p2 x="500" y="700"/>
+      <p1 x="500" y="720"/>
+      <p2 x="500" y="740"/>
     </wire>
     <wire>
-      <p1 x="440" y="680"/>
-      <p2 x="440" y="700"/>
+      <p1 x="440" y="720"/>
+      <p2 x="440" y="740"/>
     </wire>
     <wire>
-      <p1 x="380" y="680"/>
-      <p2 x="380" y="700"/>
+      <p1 x="380" y="720"/>
+      <p2 x="380" y="740"/>
     </wire>
   </wires>
   <measurementOrdering>

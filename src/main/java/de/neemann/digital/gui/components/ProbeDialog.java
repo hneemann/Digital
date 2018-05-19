@@ -7,7 +7,6 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.memory.RAMInterface;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ToolTipAction;
 
@@ -38,10 +37,9 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
      * @param model            the model to run
      * @param type             the event type which fires a dialog repaint
      * @param ordering         the names list used to order the measurement values
-     * @param modelSync        used to access the running model
      * @param circuitComponent used to update the circuit if signal values are changed
      */
-    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering, Sync modelSync, CircuitComponent circuitComponent) {
+    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering, CircuitComponent circuitComponent) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.type = type;
@@ -54,7 +52,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
             }
         }.order(signals);
 
-        tableModel = new SignalTableModel(signals, modelSync, circuitComponent);
+        tableModel = new SignalTableModel(signals, model, circuitComponent);
         JTable list = new JTable(tableModel);
         list.setRowHeight(list.getFont().getSize() * 6 / 5);
         getContentPane().add(new JScrollPane(list), BorderLayout.CENTER);
@@ -62,12 +60,12 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                modelSync.access(() -> model.addObserver(ProbeDialog.this));
+                model.access(() -> model.addObserver(ProbeDialog.this));
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                modelSync.access(() -> model.removeObserver(ProbeDialog.this));
+                model.access(() -> model.removeObserver(ProbeDialog.this));
             }
         });
 
@@ -91,7 +89,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                                     ram.getDataBits(),
                                     ram.getAddrBits(),
                                     true,
-                                    modelSync).showDialog(ram.getLabel(), model);
+                                    model).showDialog(ram.getLabel(), model);
                         }
                     }));
                 }
@@ -139,11 +137,11 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     private static class SignalTableModel implements TableModel {
         private final ArrayList<Signal> signals;
-        private final Sync modelSync;
+        private final SyncAccess modelSync;
         private final CircuitComponent circuitComponent;
         private ArrayList<TableModelListener> listeners = new ArrayList<>();
 
-        SignalTableModel(ArrayList<Signal> signals, Sync modelSync, CircuitComponent circuitComponent) {
+        SignalTableModel(ArrayList<Signal> signals, SyncAccess modelSync, CircuitComponent circuitComponent) {
             this.signals = signals;
             this.modelSync = modelSync;
             this.circuitComponent = circuitComponent;

@@ -4,10 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einheit für bedingte Verzweigungen. 
+      <string>Unit for conditional branches.
+Depending on the state of the flags and the ctrl 
+input, a conditional jump is triggered or not.
+{{de Einheit für bedingte Verzweigungen. 
 Je nach Zustand der Flags und des ctrl-Eingangs 
 wird ein bedingter Sprung ausgelößt oder eben 
-nicht.</string>
+nicht.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -16,7 +19,7 @@ nicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>zero</string>
+          <string>zero {{de zero}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -30,7 +33,7 @@ nicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>negative</string>
+          <string>negative {{de negative}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -44,7 +47,7 @@ nicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>carry</string>
+          <string>carry {{de carry}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -58,7 +61,7 @@ nicht.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>0</int>
+          <long>0</long>
         </entry>
       </elementAttributes>
       <pos x="500" y="100"/>
@@ -83,7 +86,10 @@ nicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Ist dieser Ausgang High, soll ein bedingter relativer Sprung ausgeführt werden.</string>
+          <string>If this output is high, a conditional relative jump 
+should be executed.
+{{de Ist dieser Ausgang High, soll ein bedingter 
+relativer Sprung ausgeführt werden.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -97,7 +103,8 @@ nicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Art des Sprungs wählen</string>
+          <string>Selects the kind of the branch.
+{{de Art des Sprungs wählen}}</string>
         </entry>
         <entry>
           <string>Label</string>

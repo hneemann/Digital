@@ -6,10 +6,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.core.Bits;
-import de.neemann.digital.core.IntFormat;
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
@@ -24,10 +21,10 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
-import de.neemann.digital.gui.sync.NoSync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.*;
@@ -74,6 +71,7 @@ public final class EditorFactory {
         add(InverterConfig.class, InverterConfigEditor.class);
         add(ROMManger.class, ROMManagerEditor.class);
         add(Application.Type.class, ApplicationTypeEditor.class);
+        add(CustomShapeDescription.class, CustomShapeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -467,7 +465,7 @@ public final class EditorFactory {
 
         @Override
         public JComponent getComponent(ElementAttributes attr) {
-            JPanel panel = new JPanel(new FlowLayout());
+            JPanel panel = new JPanel(new GridLayout(1, 2));
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -487,7 +485,7 @@ public final class EditorFactory {
                             addrBits = attr.get(Keys.ADDR_BITS);
                         }
                         int size = 1 << addrBits;
-                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, NoSync.INST);
+                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, SyncAccess.NOSYNC);
                         de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
                             data = de.getModifiedDataField();

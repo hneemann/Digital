@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Ein 16-Bit Demultiplexer der aus fünf 4-Bit 
-Demultiplexern aufgebaut ist.</string>
+      <string>A 16-bit demultiplexer made up of five 4-bit demultiplexers.
+{{de Ein 16-Bit Demultiplexer der aus fünf 4-Bit 
+Demultiplexern aufgebaut ist.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -19,8 +20,10 @@ Demultiplexern aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Eingangsbit welches auf einen der 16
-Ausgänge ausgegeben wird.</string>
+          <string>The input bit which is output to one of the 16 
+outputs.
+{{de Das Eingangsbit welches auf einen der 16
+Ausgänge ausgegeben wird.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -34,7 +37,8 @@ Ausgänge ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Auswahlbit.</string>
+          <string>select input bit 0
+{{de Das 0. Auswahlbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -48,7 +52,8 @@ Ausgänge ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Auswahlbit.</string>
+          <string>select input bit 1
+{{de Das 1. Auswahlbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -82,7 +87,8 @@ Ausgänge ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Auswahlbit.</string>
+          <string>select input bit 2
+{{de Das 2. Auswahlbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -96,7 +102,8 @@ Ausgänge ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Auswahlbit.</string>
+          <string>select input bit 3
+{{de Das 3. Auswahlbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>

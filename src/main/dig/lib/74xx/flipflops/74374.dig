@@ -14,6 +14,10 @@
       <string>lockedMode</string>
       <boolean>true</boolean>
     </entry>
+    <entry>
+      <string>Width</string>
+      <int>5</int>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>
@@ -40,16 +44,16 @@
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
+          <string>splitterSpreading</string>
+          <int>2</int>
+        </entry>
+        <entry>
           <string>Input Splitting</string>
           <string>8</string>
         </entry>
         <entry>
           <string>isHighZ</string>
           <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>splitterSpreading</string>
-          <int>2</int>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -122,12 +126,12 @@
           <string>~OC</string>
         </entry>
         <entry>
-          <string>InDefault</string>
-          <value v="1" z="false"/>
-        </entry>
-        <entry>
           <string>pinNumber</string>
           <string>1</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="200" y="180"/>
@@ -150,12 +154,12 @@
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <string>Input Splitting</string>
-          <string>1*8</string>
-        </entry>
-        <entry>
           <string>splitterSpreading</string>
           <int>2</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1*8</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="240"/>

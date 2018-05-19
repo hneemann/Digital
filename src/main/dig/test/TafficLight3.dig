@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>JK_FF</elementName>
@@ -44,7 +45,7 @@
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="260" y="260"/>
+      <pos x="300" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -54,7 +55,7 @@
           <string>F</string>
         </entry>
       </elementAttributes>
-      <pos x="260" y="400"/>
+      <pos x="300" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
@@ -87,13 +88,15 @@
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>In_2</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
       <pos x="340" y="360"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="280" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>LED</elementName>
@@ -153,12 +156,8 @@ C 0  1 1 0
       <p2 x="480" y="400"/>
     </wire>
     <wire>
-      <p1 x="260" y="400"/>
-      <p2 x="280" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="320" y="400"/>
-      <p2 x="340" y="400"/>
+      <p1 x="300" y="400"/>
+      <p2 x="320" y="400"/>
     </wire>
     <wire>
       <p1 x="320" y="320"/>
@@ -173,7 +172,7 @@ C 0  1 1 0
       <p2 x="580" y="240"/>
     </wire>
     <wire>
-      <p1 x="260" y="260"/>
+      <p1 x="300" y="260"/>
       <p2 x="440" y="260"/>
     </wire>
     <wire>

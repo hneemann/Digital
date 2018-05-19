@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>NFET</elementName>
@@ -77,7 +78,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>out</string>
+          <string>~out</string>
         </entry>
       </elementAttributes>
       <pos x="300" y="480"/>
@@ -108,7 +109,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>out en Y
+            <dataString>~out en Y
  0  0  z
  1  0  z
  0  1  1

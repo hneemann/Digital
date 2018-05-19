@@ -4,12 +4,17 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Diskret aufgebautes Master-Slave JK-Flipflop.
+      <string>Discrete Master-Slave JK flip-flop.
+The master flip-flop stores at a high at the clock signal, 
+the slave flip-flop at low at the clock signal. 
+The two feedback lines prevent the &quot;not allowed&quot; condition 
+on the master flip-flop.
+{{de Diskret aufgebautes Master-Slave JK-Flipflop.
 Das Master-Flipflop speichert bei einem High am 
 Taktsignal, das Slave-Flipflop bei Low am Taktsignal.
 Die obere und untere Rückkoppelleitung verhindern,
 das der verbotenen Zustand am Master-Flipflop
-auftritt..</string>
+auftritt.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -43,7 +48,8 @@ auftritt..</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Eingang zum Setzen des Flipflops.</string>
+          <string>Input to set the flip-flop.
+{{de Eingang zum Setzen des Flipflops.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -61,7 +67,8 @@ auftritt..</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Takteingang</string>
+          <string>Clock input
+{{de Takteingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -105,7 +112,8 @@ auftritt..</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das im Flipflop gespeicherte Bit.</string>
+          <string>The stored bit.
+{{de Das gespeicherte Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -119,7 +127,8 @@ auftritt..</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das inverse gespeicherte Bit.</string>
+          <string>The inverted stored bit.
+{{de Das Inverse des gespeicherten Bits.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -133,7 +142,8 @@ auftritt..</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Eingang zum Löschen des Flipflops.</string>
+          <string>Input to clear the flip-flop.
+{{de Eingang zum Löschen des Flipflops.}}</string>
         </entry>
         <entry>
           <string>Label</string>

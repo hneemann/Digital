@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.builder.Gal16v8;
 
+import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
@@ -64,6 +65,39 @@ public class Gal16V8CuplExporterTest extends TestCase {
                 "/* combinatorial logic */\r\n" +
                 "A = Y_0 & Y_1;\r\n", baos.toString());
     }
+
+    public void testCUPLExporterConst() throws Exception {
+        CuplExporter ce = new CuplExporter("user", null)
+                .setProjectName("test");
+        ce.getPinMapping().parseString("A=14;B=15");
+        ce.getBuilder()
+                .addCombinatorial("A", Constant.ONE)
+                .addCombinatorial("B", Constant.ZERO);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ce.writeTo(baos);
+
+        assertEquals("Name     test ;\r\n" +
+                "PartNo   00 ;\r\n" +
+                "Date     unknownDate ;\r\n" +
+                "Revision 01 ;\r\n" +
+                "Designer user ;\r\n" +
+                "Company  unknown ;\r\n" +
+                "Assembly None ;\r\n" +
+                "Location unknown ;\r\n" +
+                "Device   g16v8a ;\r\n" +
+                "\r\n" +
+                "/* inputs */\r\n" +
+                "\r\n" +
+                "/* outputs */\r\n" +
+                "PIN 14 = A;\r\n" +
+                "PIN 15 = B;\r\n" +
+                "\r\n" +
+                "/* combinatorial logic */\r\n" +
+                "A = 'b'1;\r\n" +
+                "B = 'b'0;\r\n", baos.toString());
+    }
+
 
     public void testCUPLBuilderInvalidVars() throws Exception {
         Variable y0 = new Variable("D");  // D is not allowed in CUPL

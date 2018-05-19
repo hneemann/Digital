@@ -7,6 +7,7 @@ package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -22,7 +23,7 @@ public class Out implements Element {
             = new ElementTypeDescription(Out.class, input("in")) {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
-            String d = elementAttributes.get(Keys.DESCRIPTION);
+            String d = Lang.evalMultilingualContent(elementAttributes.get(Keys.DESCRIPTION));
             if (d.length() > 0)
                 return d;
             else
@@ -43,7 +44,17 @@ public class Out implements Element {
             = new ElementTypeDescription("LED", Out.class, input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.SIZE)
+            .addAttribute(Keys.LED_SIZE)
+            .addAttribute(Keys.COLOR);
+
+    /**
+     * The polarity aware LED description
+     */
+    public static final ElementTypeDescription POLARITYAWARELEDDESCRIPTION
+            = new ElementTypeDescription("PolarityAwareLED",
+            attributes -> new Out(1, 1), input("A"), input("C"))
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.LABEL)
             .addAttribute(Keys.COLOR);
 
     /**
@@ -57,6 +68,14 @@ public class Out implements Element {
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> new Out(4, 1), input("d"), input("dp"))
+            .addAttribute(Keys.COLOR);
+
+    /**
+     * Sixteen Segment Display
+     */
+    public static final ElementTypeDescription SIXTEENDESCRIPTION
+            = new ElementTypeDescription("SixteenSeg",
+            attributes -> new Out(16, 1), input("led"), input("dp"))
             .addAttribute(Keys.COLOR);
 
     private final int[] bits;

@@ -14,11 +14,19 @@
       <string>lockedMode</string>
       <boolean>true</boolean>
     </entry>
+    <entry>
+      <string>Width</string>
+      <int>5</int>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>
       <elementName>Splitter</elementName>
       <elementAttributes>
+        <entry>
+          <string>splitterSpreading</string>
+          <int>2</int>
+        </entry>
         <entry>
           <string>Input Splitting</string>
           <string>4</string>
@@ -26,10 +34,6 @@
         <entry>
           <string>isHighZ</string>
           <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>splitterSpreading</string>
-          <int>2</int>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -98,12 +102,12 @@
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <string>Input Splitting</string>
-          <string>1*4</string>
-        </entry>
-        <entry>
           <string>splitterSpreading</string>
           <int>2</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1*4</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -172,12 +176,12 @@
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <string>Input Splitting</string>
-          <string>1,1</string>
-        </entry>
-        <entry>
           <string>splitterSpreading</string>
           <int>2</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1,1</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -300,12 +304,12 @@
       <elementName>Multiplexer</elementName>
       <elementAttributes>
         <entry>
-          <string>Bits</string>
-          <int>4</int>
-        </entry>
-        <entry>
           <string>Selector Bits</string>
           <int>2</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
         </entry>
       </elementAttributes>
       <pos x="640" y="340"/>
@@ -334,12 +338,12 @@
       <elementName>DriverInvSel</elementName>
       <elementAttributes>
         <entry>
-          <string>flipSelPos</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
           <string>Bits</string>
           <int>4</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="720" y="380"/>

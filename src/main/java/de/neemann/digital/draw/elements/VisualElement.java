@@ -6,12 +6,12 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.draw.shapes.Shape;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.gui.Screen;
 
 import javax.swing.*;
@@ -208,7 +208,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         if (transform == null) {
             int rotate = getRotate();
             if (rotate == 0)
-                transform = v -> v.add(pos);
+                transform = new TransformTranslate(pos);
             else
                 transform = new TransformRotate(pos, rotate);
         }
@@ -326,7 +326,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @param modelSync      used to access the running model
      * @return true if model is changed
      */
-    public boolean elementClicked(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
+    public boolean elementClicked(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
             return interactor.clicked(cc, pos, ioState, element, modelSync);
         else
@@ -343,7 +343,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @param modelSync      used to access the running model
      * @return true if model is changed
      */
-    public boolean elementPressed(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
+    public boolean elementPressed(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
             return interactor.pressed(cc, pos, ioState, element, modelSync);
         else
@@ -360,7 +360,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @param modelSync      used to access the running model
      * @return true if model is changed
      */
-    public boolean elementReleased(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
+    public boolean elementReleased(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
             return interactor.released(cc, pos, ioState, element, modelSync);
         else
@@ -377,7 +377,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @param modelSync      used to access the running model
      * @return true if model is changed
      */
-    public boolean elementDragged(CircuitComponent cc, Point pos, Vector posInComponent, Sync modelSync) {
+    public boolean elementDragged(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
             return interactor.dragged(cc, posInComponent, transform, ioState, element, modelSync);
         else

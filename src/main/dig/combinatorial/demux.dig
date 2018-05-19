@@ -4,10 +4,12 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Ein 4-Bit Demultiplexer. Die zwei Eingangsbits A_0 
+      <string>A 4-bit demultiplexer. The two input bits A_0 and A_1 specify 
+on which of the 4 output lines Y_0 to Y_3 the input D is output.
+{{de Ein 4-Bit Demultiplexer. Die zwei Eingangsbits A_0 
 und A_1 legen fest, auf welche der 4 
 Ausgangsleitungen Y_0 bis Y_3  der Eingang D 
-ausgegeben wird.</string>
+ausgegeben wird.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -20,7 +22,8 @@ ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Auswahlbit.</string>
+          <string>selection bit 0
+{{de Das 0. Auswahlbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -34,7 +37,8 @@ ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Auswahlbit.</string>
+          <string>election bit 1
+{{de Das 1. Auswahlbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -78,8 +82,10 @@ ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Datenbit welches auf einen der vier Ausgänge
-ausgegeben wird.</string>
+          <string>The data bit which is output to one of the four 
+outputs.
+{{de Das Datenbit welches auf einen der vier 
+Ausgänge ausgegeben wird.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -123,7 +129,8 @@ ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Ausgangsbit.</string>
+          <string>output bit 0
+{{de Das 0. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -137,7 +144,8 @@ ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Ausgangsbit.</string>
+          <string>output bit 1
+{{de Das 1. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -151,7 +159,8 @@ ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Ausgangsbit.</string>
+          <string>output bit 2
+{{de Das 2. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -165,7 +174,8 @@ ausgegeben wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 3. Ausgangsbit.</string>
+          <string>output bit 3
+{{de Das 3. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>

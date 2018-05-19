@@ -23,6 +23,7 @@ import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.gui.language.Language;
 
 import javax.imageio.ImageIO;
+import javax.swing.FocusManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
@@ -43,6 +44,7 @@ public class ScreenShots {
 
     public static void main(String[] args) {
         Settings.getInstance().getAttributes().set(Keys.SETTINGS_DEFAULT_TREESELECT, false);
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_GRID, true);
 //        mainScreenShot();
 //        firstSteps();
 //        hierarchicalDesign();

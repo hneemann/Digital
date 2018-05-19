@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>Simple GAL with two inputs and three macrocells. 
+Each cell can be combinatorial or used as a flip-flop 
+buffered (combinatorial, registered). The component 
+is programmed via the FG-Fets, which can be 
+programmed. For simplicity, the FG-Fets can be 
+programmed with the [P] key.
+
+{{de Einfaches GAL mit zwei Eingängen und drei
+Makrozellen. Jede Zelle kann kombinatorisch oder
+als mit Flip-Flop gepuffert (combinatorial, registered)
+verwendet werden. Programmiert wird der Baustein
+über die FG-Fets, die Programmiert werden können. 
+Zur Vereinfachung können die FG-Fets mit der Taste 
+[P] programmiert werden.}}</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Ground</elementName>
@@ -20,6 +39,11 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>First freely configurable input.
+{{de Erster frei konfigurierbarer Eingang.}}</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -84,6 +108,11 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Second freely configurable input.
+{{de Zweiter frei konfigurierbarer Eingang.}}</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="3"/>
@@ -707,7 +736,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 0. Ausgangsbit.</string>
+          <string>output bit 0
+{{de Das 0. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1408,7 +1438,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 1. Ausgangsbit.</string>
+          <string>output bit 1
+{{de Das 1. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -2126,7 +2157,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das 2. Ausgangsbit.</string>
+          <string>output bit 2
+{{de Das 2. Ausgangsbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>

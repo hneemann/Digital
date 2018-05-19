@@ -1,0 +1,22 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+  entityName:="BIT_SEL_"+elem.'Selector Bits';
+  Bits:=1<<elem.'Selector Bits';
+?>
+entity <?=entityName?> is
+  port (
+    p_out: out std_logic;
+    p_in: in <?= vhdl.type(Bits)?>;
+    sel: in <?= vhdl.type(elem.'Selector Bits')?> );
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+begin
+  with sel select
+    p_out <=
+      <?- for (n:=0;n<Bits;n++) { ?>
+      p_in(<?=n?>) when <?= vhdl.value(n, elem.'Selector Bits') ?>,
+      <?- } ?>
+      <?=vhdl.zero(elem.Bits)?> when others;
+end Behavioral;

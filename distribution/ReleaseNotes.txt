@@ -1,20 +1,44 @@
 Release Notes
 
-HEAD, planed as v0.18
-- Added ICs 74181, 74779, 7440 and 7428
-- Added a simple bidirectional splitter.
-- Added a monoflop.
-- Removed high-z restrictions from the splitter.
+HEAD, planned as v0.19
+- Added a tabbed pane to the attributes dialog to make it more beginner friendly.
+- Added support for asynchronous sequential circuits such as the Muller-pipeline.
+  Take a look at the new asynchronous examples for illustration.
+- All examples are translated to english.
+- Very basic support for custom shapes added.
+  You must manually edit the *.dig file to add a custom shape to a circuit, so
+  this is only an option for advanced users.
+- It is possible to use the 74xx chips with a more schematic shape, making it
+  easier to build a circuit.
+- Breaking changes:
+  - Added an enable input to the terminal component.
+  - Added a clock input to the keyboard component.
+  - In your own DIL chips, you must correct the width attribute.
+    The new value can be calculated as follows: new = (old*2)-1
+- Bug fixes
+  - Fixed a bug in the VHDL export concerning an invalid optimization of a
+    std_logic_vector access.
+
+v0.18, released on 02. Apr 2018
+- Significant improvement in the quality of the generated vhdl code.
+- Its possible to define the behaviour of a component using vhdl.
+  The vhdl simulator ghdl needs to be installed to use a vhdl defined component.
+- Removed the high-z restrictions from the splitter.
   Now a bus can have different high z states for the different lines on the bus.
-- When a circuit containing a ROM/EEPROM is embedded multiple times, it is now possible
-  to define different ROM/EEPROM contents in each embedded instance.
 - Added new text formatting engine which supports overline, super- and subscript.
   Try "~Q_{n+1}^1" as an output label.
+- When a circuit containing a ROM/EEPROM is embedded multiple times, it is now
+  possible to define different ROM/EEPROM contents in each embedded instance.
 - It's possible to test circuits with a high-z input which can act as an output.
-- An embedded circuit that is used in the library and whose name ends with '-inc.dig'
-  is not shown in either the component menu or the tree view.
-- Its possible to define the behaviour of a component by vhdl.
-  The vhdl simulator ghdl needs to be installed.
+- An embedded circuit that is used in the library and whose name ends with
+  '-inc.dig' is shown neither in the component menu nor in the tree view.
+- Added a improved counter with preset.
+- Added a monoflop. Needs a clock in the circuit in order to work.
+- Added a 16 segment display.
+- Added a polarity aware LED.
+- Added a DIP switch.
+- Added a simple bidirectional splitter.
+- Added ICs 74181, 74779, 7440 and 7428
 
 v0.17, released on 19. Feb 2018
 - Added 64 bit support for Add and Sub components.

@@ -5,16 +5,12 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.Value;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.In;
-import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -22,7 +18,6 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.SingleValueDialog;
-import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -74,7 +69,7 @@ public class InputShape implements Shape {
         ioState.getOutput(0).addObserverToValue(guiObserver);
         return new Interactor() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
                     modelSync.access(() -> {
@@ -89,7 +84,7 @@ public class InputShape implements Shape {
                 } else {
                     if (dialog == null || !dialog.isVisible()) {
                         Model model = ((In) element).getModel();
-                        dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, cc, model, modelSync);
+                        dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, cc, model);
                         dialog.setVisible(true);
                     } else
                         dialog.requestFocus();

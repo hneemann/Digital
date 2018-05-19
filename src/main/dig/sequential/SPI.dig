@@ -250,7 +250,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Master</string>
+          <string>Master {{de Master}}</string>
         </entry>
       </elementAttributes>
       <pos x="200" y="-100"/>
@@ -260,7 +260,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Slave</string>
+          <string>Slave {{de Slave}}</string>
         </entry>
       </elementAttributes>
       <pos x="200" y="320"/>

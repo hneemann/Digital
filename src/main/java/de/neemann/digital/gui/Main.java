@@ -15,6 +15,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.gif.GifExporter;
@@ -22,6 +23,7 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.model.AsyncSequentialClock;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -33,6 +35,8 @@ import de.neemann.digital.gui.components.modification.Modifications;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.gui.components.modification.ModifyMeasurementOrdering;
 import de.neemann.digital.gui.components.table.TableDialog;
+import de.neemann.digital.gui.components.terminal.Keyboard;
+import de.neemann.digital.gui.components.terminal.KeyboardDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
 import de.neemann.digital.gui.components.tree.SelectTree;
@@ -42,11 +46,8 @@ import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.gui.remote.RemoteSever;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
-import de.neemann.digital.gui.sync.LockSync;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.vhdl.VHDLGenerator;
+import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
@@ -132,7 +133,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private FileHistory fileHistory;
     private boolean modifiedPrefixVisible = false;
 
-    private Sync modelSync;
     private Model model;
 
     private ModelCreator modelCreator;
@@ -179,7 +179,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             setFilename(builder.fileToOpen, false);
         } else {
             if (builder.fileToOpen != null) {
-                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, false));
+                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, builder.library == null));
             } else {
                 File name = fileHistory.getMostRecent();
                 if (name != null) {
@@ -345,7 +345,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                     attributes -> new CustomElement(circuit, library),
                                     circuit);
                     description.setShortName(name);
-                    description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));
+                    description.setDescription(Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION)));
                     new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);
                 } catch (PinException | NodeException e1) {
                     new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(Main.this);
@@ -485,6 +485,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                     case 0:
                                         saveFile(file, true);
                                         library.setRootFilePath(file.getParentFile());
+                                        if (library.getWarningMessage() != null)
+                                            SwingUtilities.invokeLater(new ErrorMessage(library.getWarningMessage().toString()).setComponent(Main.this));
                                         break;
                                     case 1:
                                         saveAsHelper.retryFileSelect();
@@ -681,6 +683,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_FONT_SCALING, modified)
+                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_MAC_MOUSE, modified)
                             || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_JAR_PATH, modified)) {
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
@@ -1151,7 +1154,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void enter() {
                 super.enter();
                 clearModelDescription();
-                circuitComponent.setModeAndReset(false, NoSync.INST);
+                circuitComponent.setModeAndReset(false, SyncAccess.NOSYNC);
                 doStep.setEnabled(false);
                 stoppedState.getAction().setEnabled(false);
                 showMeasurementDialog.setEnabled(false);
@@ -1180,7 +1183,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void clearModelDescription() {
         if (model != null)
-            modelSync.access(() -> model.close());
+            model.access(() -> model.close());
 
         modelCreator = null;
         model = null;
@@ -1195,7 +1198,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
             if (model != null) {
-                modelSync.access(() -> model.close());
+                model.access(() -> model.close());
                 circuitComponent.getCircuit().clearState();
                 model = null;
             }
@@ -1210,14 +1213,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
             realTimeClockRunning = false;
-            modelSync = null;
             if (globalRunClock) {
                 int threadRunnerCount = 0;
                 for (Clock c : model.getClocks())
                     if (c.getFrequency() > 0) {
-                        if (modelSync == null)
-                            modelSync = new LockSync();
-                        final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this, modelSync, this);
+                        final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this, this);
                         model.addObserver(realTimeClock);
                         if (realTimeClock.isThreadRunner()) threadRunnerCount++;
                         realTimeClockRunning = true;
@@ -1225,10 +1225,22 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (threadRunnerCount > 1)
                     throw new RuntimeException(Lang.get("err_moreThanOneFastClock"));
             }
-            if (modelSync == null)
-                modelSync = NoSync.INST;
+            if (!realTimeClockRunning && updateEvent == ModelEvent.MICROSTEP) {
+                // no real clock
+                AsyncSeq ai = model.getAsyncInfos();
+                if (ai != null && ai.getFrequency() > 0) {
 
-            circuitComponent.setModeAndReset(true, modelSync);
+                    if (!model.getClocks().isEmpty())
+                        throw new RuntimeException(Lang.get("err_clocksNotAllowedInAsyncMode"));
+
+                    model.addObserver(
+                            new AsyncSequentialClock(model, ai, timerExecutor, this));
+                    realTimeClockRunning = true;
+                    model.setAsyncMode();
+                }
+            }
+
+            circuitComponent.setModeAndReset(true, model);
 
             if (realTimeClockRunning) {
                 // if clock is running, enable automatic update of gui
@@ -1238,6 +1250,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             } else
                 // all repainting is initiated by user actions!
                 modelCreator.connectToGui(null);
+
+            handleKeyboardComponent(updateEvent);
 
             doStep.setEnabled(false);
             runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
@@ -1258,22 +1272,53 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             return true;
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
-            if (model != null)
+            if (model != null) {
                 showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
-            else
+            } else
                 showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
         }
         return false;
     }
 
+    private void handleKeyboardComponent(ModelEvent updateEvent) {
+        KeyboardDialog.KeyPressedHandler handler = null;
+        for (Keyboard k : model.findNode(Keyboard.class)) {
+            if (handler == null)
+                if (updateEvent == ModelEvent.MICROSTEP)
+                    handler = keyboard -> {
+                        keyboard.hasChanged();
+                        modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+                        model.fireManualChangeEvent();
+                        doStep.setEnabled(model.needsUpdate());
+                        circuitComponent.repaintNeeded();
+                    };
+                else
+                    handler = keyboard -> {
+                        try {
+                            model.accessNEx(() -> {
+                                keyboard.hasChanged();
+                                model.fireManualChangeEvent();
+                                model.doStep();
+                            });
+                            circuitComponent.repaintNeeded();
+                        } catch (NodeException | RuntimeException e) {
+                            showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
+                        }
+                    };
+
+
+            windowPosManager.register("keyboard_" + k.getLabel(), new KeyboardDialog(this, k, handler));
+        }
+    }
+
     private void showMeasurementGraph(ModelEvent updateEvent) {
         List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering, modelSync)).setVisible(true);
+        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering)).setVisible(true);
     }
 
     private void showMeasurementDialog(ModelEvent updateEvent) {
         List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-        windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, modelSync, circuitComponent)).setVisible(true);
+        windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering, circuitComponent)).setVisible(true);
     }
 
     /**
@@ -1292,7 +1337,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         // To avoid such problems a lock is used.
         synchronized (modelLock) {
             if (model != null) {
-                modelSync.access(() -> model.close());
+                model.access(() -> model.close());
                 model = null;
                 SwingUtilities.invokeLater(() -> showErrorWithoutARunningModel(message, cause));
             }
@@ -1366,7 +1411,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void loadFile(File filename, boolean setLibraryRoot, boolean toPref) {
         try {
-            if (setLibraryRoot) library.setRootFilePath(filename.getParentFile());
+            if (setLibraryRoot) {
+                library.setRootFilePath(filename.getParentFile());
+                if (library.getWarningMessage() != null)
+                    SwingUtilities.invokeLater(new ErrorMessage(library.getWarningMessage().toString()).setComponent(this));
+            }
             Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circuit);
 
@@ -1391,8 +1440,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             library.invalidateElement(filename);
 
-            if (library.getRootFilePath() == null)
+            if (library.getRootFilePath() == null) {
                 library.setRootFilePath(filename.getParentFile());
+                if (library.getWarningMessage() != null)
+                    SwingUtilities.invokeLater(new ErrorMessage(library.getWarningMessage().toString()).setComponent(this));
+            }
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show(this);
         }
@@ -1446,7 +1498,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         @Override
         public void hasChanged() {
             try {
-                modelSync.accessNEx(() -> {
+                model.accessNEx(() -> {
                     model.fireManualChangeEvent();
                     model.doStep();
                 });
@@ -1466,10 +1518,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void hasChanged() {
-            modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+            if (!realTimeClockRunning)
+                modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             model.fireManualChangeEvent();
             circuitComponent.repaintNeeded();
-            doStep.setEnabled(model.needsUpdate());
+            if (!realTimeClockRunning)
+                doStep.setEnabled(model.needsUpdate());
         }
     }
 
@@ -1802,7 +1856,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (model != null && keyCode != KeyEvent.VK_UNDEFINED) {
                 Button b = model.getButtonToMap(keyCode);
                 if (b != null) {
-                    modelSync.access(() -> b.setPressed(pressed));
+                    model.access(() -> b.setPressed(pressed));
                     circuitComponent.modelHasChanged();
                 }
             }

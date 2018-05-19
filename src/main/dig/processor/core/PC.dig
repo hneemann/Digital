@@ -4,11 +4,16 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Der Programmzähler. 
+      <string>The program counter.
+Here the current program counter is stored.
+The various inputs can be used to influence how the 
+program counter is modified if a clock signal happens.
+
+{{de Der Programmzähler. 
 Hier wird der aktuelle Programmzähler gespeichert. 
 Über die verschiedenen Eingänge kann beeinflußt 
 werden, auf welche Weise der Programmzähler mit 
-dem Takt weiter geschaltet wird.</string>
+dem Takt weiter geschaltet wird.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -45,7 +50,8 @@ dem Takt weiter geschaltet wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Aktueller ALU-Inhalt</string>
+          <string>current ALU output
+{{de Aktuelle ALU Ausgabe}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -97,7 +103,8 @@ dem Takt weiter geschaltet wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Adresse des nächsten auszuführenden Befehls</string>
+          <string>Address of the next instruction to execute.
+{{de Adresse des nächsten auszuführenden Befehls.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -115,7 +122,8 @@ dem Takt weiter geschaltet wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Programm Counter</string>
+          <string>Programm Counter
+{{de Programmzähler}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -191,7 +199,8 @@ dem Takt weiter geschaltet wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>absoluten Sprung auslösen</string>
+          <string>Triggers a absolute jump.
+{{de absoluten Sprung auslösen}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -219,7 +228,8 @@ dem Takt weiter geschaltet wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>relativen Spung auslösen</string>
+          <string>Triggers a relative jump.
+{{de relativen Spung auslösen}}</string>
         </entry>
         <entry>
           <string>rotation</string>

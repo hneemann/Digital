@@ -6,11 +6,12 @@
 package de.neemann.digital.core.extern;
 
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.hdl.hgs.HGSMap;
 
 /**
  * A port for external access
  */
-public class Port {
+public class Port implements HGSMap {
     private final int bits;
     private final String name;
 
@@ -68,5 +69,17 @@ public class Port {
             return name;
         else
             return name + ":" + bits;
+    }
+
+    @Override
+    public Object hgsMapGet(String key) {
+        switch (key) {
+            case "name":
+                return name;
+            case "bits":
+                return bits;
+            default:
+                return null;
+        }
     }
 }

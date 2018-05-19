@@ -8,25 +8,25 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.switching.Switch;
 import de.neemann.digital.draw.elements.*;
-import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.shapes.InputShape;
-import de.neemann.digital.gui.Settings;
-import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryListener;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
+import de.neemann.digital.gui.Settings;
+import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
 
@@ -47,7 +47,6 @@ import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
 /**
  * Component which shows the circuit.
@@ -68,6 +67,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         ATTR_LIST.add(Keys.IS_DIL);
         ATTR_LIST.add(Keys.PINCOUNT);
         ATTR_LIST.add(Keys.BACKGROUND_COLOR);
+        if (Main.isExperimentalMode())
+            ATTR_LIST.add(Keys.CUSTOM_SHAPE);
         ATTR_LIST.add(Keys.DESCRIPTION);
         ATTR_LIST.add(Keys.LOCKED_MODE);
         ATTR_LIST.add(Keys.ROMMANAGER);
@@ -113,7 +114,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
     private Vector lastMousePos;
-    private Sync modelSync;
+    private SyncAccess modelSync;
     private boolean isManualScale;
     private boolean graphicsHasChanged = true;
     private boolean focusWasLost = false;
@@ -125,6 +126,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     private int undoPosition;
     private int savedUndoPosition;
     private Style highLightStyle = Style.HIGHLIGHT;
+    private Mouse mouse = Mouse.getMouse();
 
 
     /**
@@ -313,9 +315,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             @Override
             public void actionPerformed(ActionEvent e) { // is allowed also if locked!
                 VisualElement ve = getActualVisualElement();
-                if (ve != null && CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
-                    boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
-                    modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
+                if (ve != null) {
+                    if (CircuitComponent.this.library.isProgrammable(ve.getElementName())) {
+                        boolean blown = ve.getElementAttributes().get(Keys.BLOWN);
+                        modify(new ModifyAttribute<>(ve, Keys.BLOWN, !blown));
+                    } else if (ve.equalsDescription(Switch.DESCRIPTION)) {
+                        boolean closed = ve.getElementAttributes().get(Keys.CLOSED);
+                        modify(new ModifyAttribute<>(ve, Keys.CLOSED, !closed));
+                    }
                 }
             }
         }.setAccelerator("P").enableAcceleratorIn(this);
@@ -527,6 +534,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (p != null)
                 return createPinToolTip(p);
 
+            if (Settings.getInstance().get(Keys.SETTINGS_NOTOOLTIPS))
+                return null;
+
             try {
                 ElementTypeDescription etd = library.getElementType(ve.getElementName());
                 String tt = etd.getDescription(ve.getElementAttributes());
@@ -618,7 +628,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * @param runMode   true if running, false if editing
      * @param modelSync used to access the running model
      */
-    public void setModeAndReset(boolean runMode, Sync modelSync) {
+    public void setModeAndReset(boolean runMode, SyncAccess modelSync) {
         this.modelSync = modelSync;
         if (runMode)
             mouseRun.activate();
@@ -921,7 +931,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         redoAction.setEnabled(false);
 
         fitCircuit();
-        setModeAndReset(false, NoSync.INST);
+        setModeAndReset(false, SyncAccess.NOSYNC);
     }
 
     /**
@@ -1336,7 +1346,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private final class MouseControllerNormal extends MouseController {
         private Vector pos;
-        private int downButton;
+        private MouseEvent downButton;
 
         private MouseControllerNormal(Cursor cursor) {
             super(cursor);
@@ -1346,21 +1356,21 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         void clicked(MouseEvent e) {
             Vector pos = getPosVector(e);
 
-            if (e.getButton() == MouseEvent.BUTTON3) {
+            if (mouse.isSecondaryClick(e)) {
                 if (!isLocked()) {
                     VisualElement vp = getVisualElement(pos, true);
                     if (vp != null)
                         editAttributes(vp, e);
                 }
-            } else if (e.getButton() == MouseEvent.BUTTON1) {
+            } else if (mouse.isPrimaryClick(e)) {
                 VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
-                    if (circuit.isPinPos(raster(pos), vp) && !e.isControlDown()) {
+                    if (circuit.isPinPos(raster(pos), vp) && !mouse.isClickModifier(e)) {
                         if (!isLocked()) mouseWireRect.activate(pos);
                     } else
                         mouseMoveElement.activate(vp, pos);
                 } else if (!isLocked()) {
-                    if (e.isControlDown()) {
+                    if (mouse.isClickModifier(e)) {
                         Wire wire = circuit.getWireAt(pos, SIZE2);
                         if (wire != null)
                             mouseMoveWire.activate(wire, pos);
@@ -1378,17 +1388,17 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void pressed(MouseEvent e) {
-            downButton = e.getButton();
+            downButton = e;
             pos = getPosVector(e);
         }
 
         @Override
         boolean dragged(MouseEvent e) {
-            if (downButton == MouseEvent.BUTTON1) {
+            if (mouse.isPrimaryClick(downButton)) {
                 mouseSelect.activate(pos, getPosVector(e));
                 return true;
             }
-            return false;
+            return !mouse.isSecondaryClick(downButton);
         }
 
     }
@@ -1436,7 +1446,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1 && !isLocked())
+            if (mouse.isPrimaryClick(e) && !isLocked())
                 modify(new ModifyInsertElement(element));
             mouseNormal.activate();
             focusWasLost = false;
@@ -1634,15 +1644,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.isControlDown()) {
+            if (mouse.isClickModifier(e)) {
                 Vector pos = raster(getPosVector(e));
                 Wire wire = circuit.getWireAt(pos, SIZE2);
                 if (wire != null)
                     mouseMoveWire.activate(wire, pos);
             } else {
-                if (e.getButton() == MouseEvent.BUTTON3)
+                if (mouse.isSecondaryClick(e))
                     mouseNormal.activate();
-                else {
+                else if (mouse.isPrimaryClick(e)) {
                     modify(new ModifyInsertWire(wire).checkIfLenZero());
                     if (circuit.isPinPos(wire.p2))
                         mouseNormal.activate();
@@ -1724,15 +1734,15 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.isControlDown()) {
+            if (mouse.isClickModifier(e)) {
                 Vector pos = raster(getPosVector(e));
                 Wire wire = circuit.getWireAt(pos, SIZE2);
                 if (wire != null)
                     mouseMoveWire.activate(wire, pos);
             } else {
-                if (e.getButton() == MouseEvent.BUTTON3)
+                if (mouse.isSecondaryClick(e))
                     mouseNormal.activate();
-                else {
+                else if (mouse.isPrimaryClick(e)) {
                     modify(new Modifications.Builder(Lang.get("mod_insertWire"))
                             .add(new ModifyInsertWire(wire1).checkIfLenZero())
                             .add(new ModifyInsertWire(wire2).checkIfLenZero())
@@ -1807,12 +1817,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
+            if (mouse.isPrimaryClick(e)) {
                 addModificationAlreadyMade(
                         new ModifySplitWire(origWire, newPosition));
                 circuit.elementsMoved();
                 mouseNormal.activate();
-            } else
+            } else if (mouse.isSecondaryClick(e))
                 escapePressed();
         }
 
@@ -1855,10 +1865,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
+            if (mouse.isPrimaryClick(e)) {
                 mouseNormal.activate();
                 removeHighLighted();
-            } else if (e.getButton() == MouseEvent.BUTTON3) {
+            } else if (mouse.isSecondaryClick(e)) {
                 editGroup(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
                 mouseNormal.activate();
                 removeHighLighted();
@@ -1884,7 +1894,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
             } else {
                 corner2 = getPosVector(e);
-                if ((e.getModifiersEx() & CTRL_DOWN_MASK) != 0) {
+                if (mouse.isClickModifier(e)) {
                     Vector dif = corner2.sub(corner1);
                     int dx = dif.x;
                     int dy = dif.y;
@@ -2088,7 +2098,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (elements != null && e.getButton() == 1) {
+            if (elements != null && mouse.isPrimaryClick(e)) {
                 Modifications.Builder builder = new Modifications.Builder(Lang.get("mod_insertCopied"));
                 for (Movable m : elements) {
                     if (m instanceof Wire)
@@ -2117,7 +2127,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
 
     private interface Actor {
-        boolean interact(CircuitComponent cc, Point p, Vector posInComponent, Sync modelSync);
+        boolean interact(CircuitComponent cc, Point p, Vector posInComponent, SyncAccess modelSync);
     }
 
     private final class MouseControllerRun extends MouseController {

@@ -231,7 +231,11 @@ public class ElementHelpDialog extends JDialog {
         if (et.getAttributeList().size() > 0) {
             w.append("<h4>").append(Lang.get("elem_Help_attributes")).append(":</h4>\n<dl>\n");
             for (Key k : et.getAttributeList())
-                writeEntry(w, k.getName(), k.getDescription());
+                if (!k.isSecondary())
+                    writeEntry(w, k.getName(), k.getDescription());
+            for (Key k : et.getAttributeList())
+                if (k.isSecondary())
+                    writeEntry(w, k.getName(), k.getDescription());
             w.append("</dl>\n");
         }
     }

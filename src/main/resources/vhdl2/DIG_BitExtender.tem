@@ -1,0 +1,36 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+<? if (elem.inputBits>1) {
+     entityName:="DIG_BitExtender";?>
+
+entity DIG_BitExtender is
+  generic ( inputBits  : integer;  <? vhdl.registerGeneric("inputBits");?>
+            outputBits : integer); <? vhdl.registerGeneric("outputBits");?>
+  port (
+    p_in: in std_logic_vector ((inputBits-1) downto 0);
+    p_out: out std_logic_vector ((outputBits-1) downto 0) );
+end DIG_BitExtender;
+
+architecture DIG_BitExtender_arch of DIG_BitExtender is
+begin
+    p_out((inputBits-2) downto 0) <= p_in((inputBits-2) downto 0);
+    p_out((outputBits-1) downto (inputBits-1)) <= (others => p_in(inputBits-1));
+end DIG_BitExtender_arch;
+<?
+   } else {
+      entityName:="DIG_BitExtenderSingle";
+?>
+entity DIG_BitExtenderSingle is
+  generic ( outputBits : integer); <? vhdl.registerGeneric("outputBits");?>
+  port (
+    p_in: in std_logic;
+    p_out: out std_logic_vector ((outputBits-1) downto 0) );
+end DIG_BitExtenderSingle;
+
+architecture Behavioral of DIG_BitExtenderSingle is
+begin
+    p_out((outputBits-1) downto 0) <= (others => p_in);
+end Behavioral;
+<? } ?>
+

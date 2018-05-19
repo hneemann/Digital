@@ -23,24 +23,23 @@ These are the main features of Digital:
 - Simple testing of circuits: You can create test cases and execute them to verify your design.
 - Many examples: From a transmission gate D-flip-flop to a complete (simple) MIPS-like single cycle CPU.
 - Contains a library with the most commonly used 74xx series integrated circuits. 
-- Fast-run mode to perform a simulation without updating the GUI.
-  A simple processor can be clocked at 100kHz.
+- Good performance: The example processor can be clocked at 120 kHz.
 - Supports large circuits: The "Conway's Game of Life" example consists of about 2400 active components
   and works just fine.
-- Its possible to use custom components which are implemented in Java and packed in a jar file. 
+- It is possible to use custom components which are implemented in Java and packed in a jar file. 
   See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
 - Simple remote TCP interface which e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
   the simulator.
+- Components can be described using VHDL. The open source VHDL simulator [ghdl](http://ghdl.free.fr/) is required to 
+  simulate a VHDL defined component. The ghdl source code is also available at [GitHub](https://github.com/ghdl/ghdl).  
+- Export to VHDL: A circuit can be exported to VHDL. There is also support for the 
+  [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
+  for details. The examples folder contains a variant of the example CPU, which runs on a BASYS3 board.
 - Direct export of JEDEC files which you can flash to a [GAL16v8](https://www.microchip.com/wwwproducts/en/ATF16V8C) 
   or a [GAL22v10](https://www.microchip.com/wwwproducts/en/ATF22V10C). These chips are somewhat outdated (introduced in 1985!) 
   but sufficient for beginners exercises, easy to understand and well documented. Also the
   [ATF150x](https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family) chips are 
   supported which offer up to 128 macro-cells and in system programming. See the documentation for details.
-- Components can be described by VHDL. The open source VHDL simulator [ghdl](http://ghdl.free.fr/) is required to 
-  simulate a VHDL defined component. The ghdl source code is also available at [GitHub](https://github.com/ghdl/ghdl).  
-- Export to VHDL: A circuit can be exported to VHDL. There is also support for the 
-  [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
-  for details. The examples folder contains a variant of the simple CPU, which runs on a BASYS3 board.
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code.
@@ -49,9 +48,9 @@ These are the main features of Digital:
 
 ## Documentation ##
 
-A [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English and German.
+The [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English and German.
 It is still very incomplete but it contains a chapter "First Steps" which explains the basic usage of Digital.
-The documentation also contains a list of available keyboard shortcuts. 
+The documentation also contains a list of available 74xx chips and a list of available keyboard shortcuts. 
 
 ## Comments ##
 
@@ -59,14 +58,14 @@ If you want to send a bug report or feature request please use the GitHub
 [issue tracker](https://github.com/hneemann/Digital/issues/new). 
 This helps me to improve Digital, so do not hesitate.
 
-You can also send a private message to [digital-simulator@web.de](mailto:digital-simulator@web.de).
+It's also possible to send a private message to [digital-simulator@web.de](mailto:digital-simulator@web.de).
 
 ## Motivation ##
 
 Prior to the development of Digital, I used [Logisim](http://www.cburch.com/logisim/), developed by Carl Burch.
 If you are familiar with Logisim you will recognize the wire color scheme.
 
-Logisim is an excellent and proven tool for teaching purposes, that has been actively developed until 2011. 
+Logisim is a excellent and proven tool for teaching purposes, that has been actively developed until 2011. 
 In 2013 Carl Burch has started the development of a new simulator called [Toves](http://www.toves.org/). 
 In his [blog](http://www.toves.org/blog/) he explained why he decided to develop a new simulator instead of improving Logisim. 
 In short: There are weaknesses in Logisims architecture which are too difficult to overcome.
@@ -84,7 +83,7 @@ But as far as I know, these projects do not work on solving the architectural di
 They are more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
 for example, a VHDL/Verilog export was added.
 
-So I decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
+So I also decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
 In the meantime a development level has been reached which is comparable to Logisim.
 In some areas (performance, testing of circuits, circuit analysis, hardware support) Logisim has already been exceeded.
 
@@ -93,7 +92,7 @@ Below I would like to explain briefly the reasons which led me to start a new de
 ### Switch On ###
 
 In Logisim there is no real "switching on" of a circuit. The simulation is running also while you are modifying it. 
-This causes sometimes an unexpected behaviour. So its possible to build a simple master-slave flip-flop
+This causes sometimes an unexpected behaviour. So it is possible to build a simple master-slave flip-flop
 which works fine. But after a circuit reset the flip-flop does not work anymore.  
 Since the circuit is not switched on, there is no
 settling time to bring the circuit to a stable condition after its completion.

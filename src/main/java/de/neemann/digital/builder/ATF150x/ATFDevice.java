@@ -85,7 +85,7 @@ public enum ATFDevice {
         return tt2;
     }
 
-    private StartATF150xFitter getStartFitter(JDialog dialog) {
+    private StartATF150xFitter getStartFitter(ATFDialog dialog) {
         return new StartATF150xFitter(dialog, deviceNumber);
     }
 
@@ -117,8 +117,9 @@ public enum ATFDevice {
      * @return the exporter
      */
     public ExpressionToFileExporter createExpressionToFileExporter(JDialog dialog, String projectName) {
+        ATFDialog d = new ATFDialog(dialog);
         return new ExpressionToFileExporter(getTT2Exporter(projectName))
-                .addProcessingStep(getStartFitter(dialog))
-                .addProcessingStep(new CreateCHN("ATF" + deviceNumber + "AS"));
+                .addProcessingStep(getStartFitter(d))
+                .addProcessingStep(new CreateCHN("ATF" + deviceNumber + "AS", d));
     }
 }

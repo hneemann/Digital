@@ -12,6 +12,7 @@ import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Transform;
 import de.neemann.digital.draw.graphics.TransformRotate;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
 
@@ -68,6 +69,11 @@ public class ModifyMoveSelected implements Modification {
         Transform transform = new TransformRotate(center, 1) {
             @Override
             public Vector transform(Vector v) {
+                return super.transform(v.sub(center));
+            }
+
+            @Override
+            public VectorFloat transform(VectorFloat v) {
                 return super.transform(v.sub(center));
             }
         };

@@ -4,18 +4,26 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfache Schaltung die eine Adressdecodierung 
-zeigt. Der Zähler erzeugt eine 5-Bit Zahl.
-Die unteren drei Bit werden als Adresse an alle 
-ROM-Bausteine ausgegeben. Die oberen zwei Bits
-werden verwendet um über den Adressdecoder 
-einen der vier ROM-Bausteine auszuwählen, welcher dann
-sein Datenwort an den Datenbus legt. Durch den 
-Adressdecoder verhalten sich die vier ROM-Bausteine wie
-ein einziger viermal so großer ROM-Baustein.
-Alle Ausgänge der ROMs liegen auf einem Datenbus. Dies ist
-möglich, da immer nur der Ausgang eines der vier ROMs aktiv 
-ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
+      <string>Simple circuit showing address decoding. The lower three bits 
+of the 5-bit number are output as an address to all ROM components. 
+The upper two bits are used to select one of the four ROM components 
+via the address decoder. The selected ROM then places its data word 
+on the data bus. Through the address decoder, the four ROM 
+components behave like a single four times as large ROM component. 
+All outputs of the ROMs are connected to the same data bus. 
+This is possible because only the output of one of the four ROMs 
+is active. The other outputs are in high-impedance state.
+
+{{de Einfache Schaltung die eine Adressdecodierung zeigt. 
+Die unteren drei Bit der 5 Bit Zahl werden als Adresse an alle 
+ROM-Bausteine ausgegeben. Die oberen zwei Bits werden 
+verwendet um über den Adressdecoder einen der vier 
+ROM-Bausteine auszuwählen, welcher dann sein Datenwort 
+an den Datenbus legt. Durch den Adressdecoder verhalten 
+sich die vier ROM-Bausteine wie ein einziger viermal so großer 
+ROM-Baustein. Alle Ausgänge der ROMs liegen auf einem 
+Datenbus. Dies ist möglich, da immer nur der Ausgang eines 
+der vier ROMs aktiv ist. Die jeweils anderen Ausgänge sind hochohmig.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -75,7 +83,7 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
           <string>3,2</string>
         </entry>
       </elementAttributes>
-      <pos x="420" y="140"/>
+      <pos x="400" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>Decoder</elementName>
@@ -136,89 +144,47 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <pos x="660" y="440"/>
     </visualElement>
     <visualElement>
-      <elementName>Counter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>Address</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>5</int>
-        </entry>
-      </elementAttributes>
-      <pos x="280" y="140"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Clock</elementName>
-      <elementAttributes>
-        <entry>
-          <string>runRealTime</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Clock</string>
-        </entry>
-        <entry>
-          <string>Frequency</string>
-          <int>2</int>
-        </entry>
-      </elementAttributes>
-      <pos x="240" y="160"/>
-    </visualElement>
-    <visualElement>
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>Clock Data
+            <dataString>Addr   Data
   0    0x44
-  c    0x69
-  c    0x65
-  c    0x73
-  c    0x20
-  c    0x69
-  c    0x73
-  c    0x74
+  1    0x69
+  2    0x65
+  3    0x73
+  4    0x20
+  5    0x69
+  6    0x73
+  7    0x74
 
-  c    0x20
-  c    0x65
-  c    0x69
-  c    0x6E
-  c    0x20
-  c    0x6C
-  c    0x61
-  c    0x6E
+  8    0x20
+  9    0x65
+ 10    0x69
+ 11    0x6E
+ 12    0x20
+ 13    0x6C
+ 14    0x61
+ 15    0x6E
 
-  c    0x67
-  c    0x65
-  c    0x72
-  c    0x20
-  c    0x54
-  c    0x65
-  c    0x73
-  c    0x74
+ 16    0x67
+ 17    0x65
+ 18    0x72
+ 19    0x20
+ 20    0x54
+ 21    0x65
+ 22    0x73
+ 23    0x74
 
-  c    0x74
-  c    0x65
-  c    0x78
-  c    0x74
-  c    0x2E
-  c    0x20
-  c    0x20
-  c    0x20
-
-# repeat first block
-  c    0x44
-  c    0x69
-  c    0x65
-  c    0x73
-  c    0x20
-  c    0x69
-  c    0x73
-  c    0x74
+ 24    0x74
+ 25    0x65
+ 26    0x78
+ 27    0x74
+ 28    0x2E
+ 29    0x20
+ 30    0x20
+ 31    0x20
 </dataString>
           </testData>
         </entry>
@@ -240,28 +206,28 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <pos x="780" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="260" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes/>
-      <pos x="260" y="140"/>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Addr</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="140"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="440" y="160"/>
+      <p1 x="420" y="160"/>
       <p2 x="540" y="160"/>
     </wire>
     <wire>
       <p1 x="720" y="160"/>
       <p2 x="740" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="240" y="160"/>
-      <p2 x="280" y="160"/>
     </wire>
     <wire>
       <p1 x="740" y="160"/>
@@ -284,16 +250,12 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
       <p2 x="740" y="360"/>
     </wire>
     <wire>
-      <p1 x="260" y="140"/>
-      <p2 x="280" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="140"/>
+      <p1 x="420" y="140"/>
       <p2 x="640" y="140"/>
     </wire>
     <wire>
-      <p1 x="340" y="140"/>
-      <p2 x="420" y="140"/>
+      <p1 x="360" y="140"/>
+      <p2 x="400" y="140"/>
     </wire>
     <wire>
       <p1 x="640" y="140"/>
@@ -314,10 +276,6 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
     <wire>
       <p1 x="560" y="180"/>
       <p2 x="660" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="180"/>
-      <p2 x="280" y="180"/>
     </wire>
     <wire>
       <p1 x="640" y="340"/>
@@ -366,10 +324,6 @@ ist. Die jeweils anderen Ausgänge sind hochohmig.</string>
     <wire>
       <p1 x="580" y="240"/>
       <p2 x="580" y="480"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="180"/>
-      <p2 x="260" y="200"/>
     </wire>
     <wire>
       <p1 x="600" y="220"/>

@@ -29,6 +29,8 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     private TreeMap<ProdInput, StateSet> termMap;
     private ArrayList<String> inputs;
     private ArrayList<String> outputs;
+    private StateSet constants;
+    private boolean constantsUsed = false;
 
     /**
      * Creates a new instance
@@ -82,7 +84,8 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         line(".i " + inputs.size());
         line(".o " + outputs.size());
         line(".type f");
-        line(".ilb " + strList(inputs));
+        if (inputs.size() > 0)
+            line(".ilb " + strList(inputs));
         line(".ob " + strList(outputs));
         line(".phase " + getPhase());
 
@@ -146,16 +149,21 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             for (int c : clkInList)
                 clk.set(c, 1);
             termMap.put(clkIn, clk);
-
-            // AR
-            termMap.put(new ProdInput(inputs.size()), new StateSet(outputs.size()));
+            constantsUsed = true;
         }
+
+        constants = new StateSet(outputs.size());
+        final ProdInput constProdInput = new ProdInput(inputs.size());
+        termMap.put(constProdInput, constants);
 
         for (Map.Entry<String, Expression> e : builder.getCombinatorial().entrySet())
             addExpression(e.getKey(), e.getValue());
 
         for (Map.Entry<String, Expression> e : builder.getRegistered().entrySet())
             addExpression(e.getKey() + ".REG", e.getValue());
+
+        if (!constantsUsed)
+            termMap.remove(constProdInput);
     }
 
     static void checkName(String name) throws FuseMapFillerException {
@@ -182,6 +190,10 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
             Operation.Or or = (Operation.Or) expression;
             for (Expression e : or.getExpressions())
                 addProdFor(name, e);
+        } else if (expression instanceof Constant) {
+            constantsUsed = true;
+            if (expression == Constant.ONE)
+                constants.set(getOutNum(name));
         } else
             addProdFor(name, expression);
     }

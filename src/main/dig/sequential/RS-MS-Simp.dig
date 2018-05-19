@@ -4,9 +4,11 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Master Slave RS-Flipflop. 
+      <string>Master Slave RS flip-flop.
+Built from two simple RS flip-flops and an inverter.
+{{de Master Slave RS-Flipflop. 
 Aufgebaut aus zwei einfachen RS-Flipflops und einem 
-Inverter.</string>
+Inverter.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -15,7 +17,8 @@ Inverter.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Reset Eingang</string>
+          <string>reset input
+{{de Reset Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -29,7 +32,7 @@ Inverter.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Clock</string>
+          <string>Clock {{de Takteingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -43,7 +46,8 @@ Inverter.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das gespeicherte Bit.</string>
+          <string>The stored bit.
+{{de Das gespeicherte Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -57,7 +61,8 @@ Inverter.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Inverse des gespeicherten Bits.</string>
+          <string>The inverted stored bit.
+{{de Das Inverse des gespeicherten Bits.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -71,7 +76,8 @@ Inverter.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Set Eingang</string>
+          <string>set input
+{{de Set Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>

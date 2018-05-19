@@ -20,12 +20,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Dialog used to edit Attributes.
  * The Dialog is configured by a list of {@link Key} instances, which are defined in the
  * {@link de.neemann.digital.core.element.Keys} class. The values are stored in an instance of
- * {@link ElementAttributes} which is a mostly a observable hash map.
+ * {@link ElementAttributes} which is a essentially a observable hash map.
  * This class is used to create the dialogs used to edit the element attributes but also to edit the
  * system settings, the model settings and the models attributes,
  */
@@ -85,16 +86,31 @@ public class AttributeDialog extends JDialog {
 
         panel = new JPanel(new GridBagLayout());
 
-        getContentPane().add(new JScrollPane(panel));
-
         editors = new ArrayList<>();
 
         topMostTextComponent = null;
         constraints = new ConstraintsBuilder().inset(3).fill();
+
+        JPanel secondaryPanel = null;
+        ConstraintsBuilder secondaryConstraints = null;
+
+        boolean enableTwoTabs = !addCheckBoxes && enableTwoTabs(list);
+
+        if (enableTwoTabs) {
+            secondaryPanel = new JPanel(new GridBagLayout());
+            secondaryConstraints = new ConstraintsBuilder().inset(3).fill();
+        }
+
+        boolean isSecondary = false;
         for (Key key : list) {
             Editor e = EditorFactory.INSTANCE.create(key, modifiedAttributes.get(key));
             editors.add(new EditorHolder(e, key));
-            e.addToPanel(panel, key, modifiedAttributes, this, constraints);
+            if (key.isSecondary() && enableTwoTabs) {
+                e.addToPanel(secondaryPanel, key, modifiedAttributes, this, secondaryConstraints);
+                isSecondary = true;
+            } else
+                e.addToPanel(panel, key, modifiedAttributes, this, constraints);
+
             if (addCheckBoxes) {
                 if (checkBoxes == null)
                     checkBoxes = new HashMap<>();
@@ -105,7 +121,11 @@ public class AttributeDialog extends JDialog {
                 panel.add(checkBox, constraints.x(2));
                 checkBox.addChangeListener(event -> e.setEnabled(checkBox.isSelected()));
             }
-            constraints.nextRow();
+
+            if (key.isSecondary() && enableTwoTabs)
+                secondaryConstraints.nextRow();
+            else
+                constraints.nextRow();
 
             if (topMostTextComponent == null && e instanceof EditorFactory.StringEditor)
                 topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
@@ -120,6 +140,15 @@ public class AttributeDialog extends JDialog {
             }
 
         }
+
+        if (isSecondary) {
+            JTabbedPane tp = new JTabbedPane(JTabbedPane.TOP);
+            tp.addTab(Lang.get("attr_primary"), new JScrollPane(panel));
+            tp.addTab(Lang.get("attr_secondary"), new JScrollPane(secondaryPanel));
+            getContentPane().add(tp);
+        } else
+            getContentPane().add(new JScrollPane(panel));
+
 
         JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
             @Override
@@ -149,6 +178,25 @@ public class AttributeDialog extends JDialog {
         getRootPane().registerKeyboardAction(cancel,
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
+    }
+
+    /**
+     * Returns true if two tabs are to be used.
+     *
+     * @param list the list a keys
+     * @return true if two tabs are to be used.
+     */
+    public boolean enableTwoTabs(List<Key> list) {
+        int secCount = 0;
+        int primCount = 0;
+        for (Key k : list) {
+            if (k.isSecondary())
+                secCount++;
+            else
+                primCount++;
+        }
+
+        return (primCount > 1) && (secCount > 1);
     }
 
     /**

@@ -4,13 +4,19 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Register zum Speichern von großen Konstanten.
+      <string>Register for storing large constants.
+There is a 1-bit command describing this register. 
+In this way, 15 bits can be stored (the 16th bit 
+activates the writing of this register and therefore 
+is always one). To store the missing 16th bit, a special 
+bit is available in each instruction word.
+{{de Register zum Speichern von großen Konstanten.
 Es existiert ein 1-Bit Befehl, welcher dieses Register
 beschreibt. Auf diese Weise können 15 Bits 
 gespeichert werden (das 16. Bit aktiviert das 
 Beschreiben dieses Registers und ist daher immer 
 Eins) Um das fehlende 16. Bit zu speichern, steht ein 
-spezielles Bit in jedem Befehlswort zur Verfügung.</string>
+spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -23,7 +29,8 @@ spezielles Bit in jedem Befehlswort zur Verfügung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Der aktuelle Befehl</string>
+          <string>the current instruction
+{{de Der aktuelle Befehl}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -101,7 +108,8 @@ spezielles Bit in jedem Befehlswort zur Verfügung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Die Konstante aus Registerinhalt und Bit 8</string>
+          <string>The constant of register contents and bit 8.
+{{de Die Konstante aus Registerinhalt und Bit 8.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -119,7 +127,8 @@ spezielles Bit in jedem Befehlswort zur Verfügung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Speichern aktivieren</string>
+          <string>enables storage
+{{de Speichern aktivieren}}</string>
         </entry>
         <entry>
           <string>Label</string>

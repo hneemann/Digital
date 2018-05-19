@@ -37,11 +37,11 @@ public final class GraphicsImage extends GraphicSwing implements Closeable {
     }
 
     @Override
-    public Graphic setBoundingBox(Vector min, Vector max) {
+    public Graphic setBoundingBox(VectorInterface min, VectorInterface max) {
         int thickness = Style.MAXLINETHICK;
         bi = new BufferedImage(
-                Math.round((max.x - min.x + thickness * 2) * scale),
-                Math.round((max.y - min.y + thickness * 2) * scale),
+                Math.round((max.getXFloat() - min.getXFloat() + thickness * 2) * scale),
+                Math.round((max.getYFloat() - min.getYFloat() + thickness * 2) * scale),
                 BufferedImage.TYPE_INT_ARGB);
         Graphics2D gr = bi.createGraphics();
         gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
@@ -53,7 +53,7 @@ public final class GraphicsImage extends GraphicSwing implements Closeable {
         gr.fillRect(0, 0, bi.getWidth(), bi.getHeight());
 
         gr.scale(scale, scale);
-        gr.translate(thickness - min.x, thickness - min.y);
+        gr.translate(thickness - min.getXFloat(), thickness - min.getYFloat());
         setGraphics2D(gr);
         return this;
     }

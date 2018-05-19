@@ -87,6 +87,12 @@
 repeat(14) C   0   1  (n+1)  0
 
  C   0   1  15  1
+
+# combinatorial ov output
+ 0   0   0  15  0
+ 0   0   1  15  1
+
+# overflow
  C   0   1  0  0
  C   0   0  0  0
 

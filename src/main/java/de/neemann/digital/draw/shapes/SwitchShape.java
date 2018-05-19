@@ -6,6 +6,7 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
@@ -19,7 +20,6 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -59,7 +59,7 @@ public class SwitchShape implements Shape {
     public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
         return new Interactor() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 closed = !closed;
                 if (ioState != null) {
                     modelSync.access(() -> ((Switch) element).setClosed(closed));

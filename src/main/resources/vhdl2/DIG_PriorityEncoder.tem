@@ -1,0 +1,28 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+  entityName:="PRIORITY_GATE_"+elem.'Selector Bits';
+  inputs:=1<<elem.'Selector Bits';
+?>
+entity <?=entityName?> is
+  port (
+    num: out <?= vhdl.type(elem.'Selector Bits')?>;
+    any: out std_logic;
+    <?- for (n:=0;n<inputs;n++) { ?>
+    in<?=n?>: in std_logic<?if (n=inputs-1) print(" )"); ?>;
+    <?- } ?>
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+begin
+  num <=
+    <?- for (n:=inputs-1;n>0;n--) { ?>
+    <?= vhdl.value(n,elem.'Selector Bits')?> when in<?=n?> = '1' else
+    <?- } ?>
+    <?= vhdl.value(0,elem.'Selector Bits')?> ;
+  any <= <?
+      for (n:=0;n<inputs;n++) {
+        print("in",n);
+        if (n<inputs-1) print(" OR ");
+      }?>;
+end Behavioral;

@@ -12,7 +12,6 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import junit.framework.TestCase;
 
-import static de.neemann.digital.TestExecuter.HIGHZ;
 import static de.neemann.digital.core.ObservableValues.ovs;
 
 /**

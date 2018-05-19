@@ -24,6 +24,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
@@ -52,6 +53,7 @@ import java.util.*;
  */
 public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);
+    private static final long MIN_RESCAN_INTERVAL = 5000;
 
     /**
      * @return the additional library path
@@ -82,6 +84,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private ElementLibraryFolder custom;
     private File rootLibraryPath;
     private Exception exception;
+    private long lastRescanTime;
+    private StringBuilder warningMessage;
 
     /**
      * Creates a new instance.
@@ -113,12 +117,15 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(In.DESCRIPTION)
                         .add(Clock.DESCRIPTION)
                         .add(Button.DESCRIPTION)
+                        .add(DipSwitch.DESCRIPTION)
                         .add(DummyElement.TEXTDESCRIPTION)
                         .add(Probe.DESCRIPTION)
                         .add(new LibraryNode(Lang.get("lib_more"))
                                 .add(LightBulb.DESCRIPTION)
+                                .add(Out.POLARITYAWARELEDDESCRIPTION)
                                 .add(Out.SEVENDESCRIPTION)
                                 .add(Out.SEVENHEXDESCRIPTION)
+                                .add(Out.SIXTEENDESCRIPTION)
                                 .add(LedMatrix.DESCRIPTION)
                                 .add(DummyElement.DATADESCRIPTION)
                                 .add(RotEncoder.DESCRIPTION)
@@ -160,7 +167,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(GraphicCard.DESCRIPTION)
                         .add(RAMDualAccess.DESCRIPTION)
                         .add(RegisterFile.DESCRIPTION)
-                        .add(Counter.DESCRIPTION))
+                        .add(Counter.DESCRIPTION)
+                        .add(CounterPreset.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_arithmetic"))
                         .add(Add.DESCRIPTION)
                         .add(Sub.DESCRIPTION)
@@ -188,6 +196,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION)
+                        .add(AsyncSeq.DESCRIPTION)
                         .add(External.DESCRIPTION));
 
         addExternalJarComponents(jarFile);
@@ -310,7 +319,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void populateNodeMap() {
         map.clear();
-        root.traverse(new PopulateMapVisitor(map));
+        final PopulateMapVisitor populateMapVisitor = new PopulateMapVisitor(map);
+        root.traverse(populateMapVisitor);
+        warningMessage = populateMapVisitor.getWarningMessage();
+    }
+
+    /**
+     * @return the warning message or null if there is none
+     */
+    public StringBuilder getWarningMessage() {
+        return warningMessage;
     }
 
     /**
@@ -393,11 +411,15 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             if (rootLibraryPath == null)
                 throw new ElementNotFoundException(Lang.get("err_fileNeedsToBeSaved"));
 
-            rescanFolder();
+            LOGGER.debug("could not find " + elementName);
 
-            node = map.get(elementName);
-            if (node != null)
-                return node.getDescription();
+            if (System.currentTimeMillis() - lastRescanTime > MIN_RESCAN_INTERVAL) {
+                rescanFolder();
+
+                node = map.get(elementName);
+                if (node != null)
+                    return node.getDescription();
+            }
         } catch (IOException e) {
             throw new ElementNotFoundException(Lang.get("msg_errorImportingModel_N0", elementName), e);
         }
@@ -405,7 +427,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         throw new ElementNotFoundException(Lang.get("err_element_N_notFound", elementName));
     }
 
-    private void rescanFolder() throws IOException {
+    private void rescanFolder() {
         LOGGER.debug("rescan folder");
         LibraryNode cn = custom.scanFolder(rootLibraryPath, false);
 
@@ -413,6 +435,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         if (cn != null)
             fireLibraryChanged(cn);
+        lastRescanTime = System.currentTimeMillis();
     }
 
     /**
@@ -529,7 +552,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                             circuit);
             description.setShortName(createShortName(file));
 
-            String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
+            String descriptionText = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
             if (descriptionText != null && descriptionText.length() > 0) {
                 description.setDescription(descriptionText);
             }
@@ -619,6 +642,19 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             else
                 return super.getDescription(elementAttributes);
         }
+
+        @Override
+        public ArrayList<Key> getAttributeList() {
+            final ArrayList<Key> list = super.getAttributeList();
+            if (getAttributes().get(Keys.IS_DIL)
+                    || getAttributes().get(Keys.CUSTOM_SHAPE) != CustomShapeDescription.EMPTY) {
+
+                ArrayList<Key> li = new ArrayList<>(list);
+                li.add(Keys.USE_DEFAULT_SHAPE);
+                return li;
+            }
+            return list;
+        }
     }
 
 
@@ -657,6 +693,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private static final class PopulateMapVisitor implements Visitor {
         private final HashMap<String, LibraryNode> map;
+        private StringBuilder warningMessage;
 
         private PopulateMapVisitor(HashMap<String, LibraryNode> map) {
             this.map = map;
@@ -677,9 +714,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                     else {
                         presentNode.setUnique(false); // ToDo does not work if there are more than two duplicates and
                         libraryNode.setUnique(false); // some of the duplicates point to the same file
+                        if (warningMessage == null)
+                            warningMessage = new StringBuilder(Lang.get("msg_duplicateLibraryFiles"));
+                        warningMessage.append("\n\n").append(presentNode.getFile()).append("\n").append(libraryNode.getFile());
                     }
                 }
             }
+        }
+
+        private StringBuilder getWarningMessage() {
+            return warningMessage;
         }
     }
 }

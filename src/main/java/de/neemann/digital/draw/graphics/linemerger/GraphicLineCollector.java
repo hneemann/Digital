@@ -27,7 +27,7 @@ public class GraphicLineCollector implements Graphic {
     }
 
     @Override
-    public void drawLine(Vector p1, Vector p2, Style style) {
+    public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
         PolygonSet polyList = polys.get(style);
         if (polyList == null) {
             polyList = new PolygonSet(style);
@@ -41,11 +41,11 @@ public class GraphicLineCollector implements Graphic {
     }
 
     @Override
-    public void drawCircle(Vector p1, Vector p2, Style style) {
+    public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
     }
 
     private static final class PolygonSet implements Iterable<Polygon> {
@@ -57,7 +57,7 @@ public class GraphicLineCollector implements Graphic {
             this.polyList = new ArrayList<>();
         }
 
-        private void add(Vector p1, Vector p2) {
+        private void add(VectorInterface p1, VectorInterface p2) {
             for (Polygon p : polyList) {
                 if (p.addLine(p1, p2)) {
                     tryMerge(p);

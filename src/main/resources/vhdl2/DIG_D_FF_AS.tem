@@ -1,0 +1,36 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+  if (elem.Bits=1)
+      entityName:="DIG_D_FF_AS";
+  else
+      entityName:="DIG_D_FF_AS_BUS";
+?>
+entity <?=entityName?> is
+  <?if (elem.Bits>1) {?>generic ( Bits: integer ); <? vhdl.registerGeneric("Bits"); }?>
+  port (
+    Q: out <?= vhdl.genericType(elem.Bits)?>;
+    notQ: out <?= vhdl.genericType(elem.Bits)?>;
+    Set: in std_logic;
+    D: in <?= vhdl.genericType(elem.Bits)?>;
+    C: in std_logic;
+    Clr: in std_logic );
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+   signal state : <?= vhdl.genericType(elem.Bits)?> := <?= vhdl.zero(elem.Bits)?>;
+begin
+    process (Set, Clr, C)
+    begin
+        if (Set='1') then
+            state <= NOT(<?= vhdl.zero(elem.Bits)?>);
+        elsif (Clr='1') then
+            state <= <?= vhdl.zero(elem.Bits)?>;
+        elsif rising_edge(C) then
+            state <= D;
+        end if;
+    end process;
+
+    Q <= state;
+    notQ <= NOT( state );
+end Behavioral;

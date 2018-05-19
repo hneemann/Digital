@@ -6,6 +6,7 @@
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.io.Button;
+import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Reset;
@@ -41,9 +42,10 @@ import java.util.*;
  * call of the registerNodes method. These lists are necessary to keep track of all elements which are not a node like
  * inputs and outputs. All elements which are nodes can be obtained by {@link #findNode(Class, NodeFilter)} or
  * {@link #findNode(Class)}.
+ *
  * @see de.neemann.digital.core.element.Element#registerNodes(Model)
  */
-public class Model implements Iterable<Node> {
+public class Model implements Iterable<Node>, SyncAccess {
     private static final Logger LOGGER = LoggerFactory.getLogger(Model.class);
     /**
      * Maximal number of calculation loops before oscillating behaviour is detected
@@ -71,6 +73,8 @@ public class Model implements Iterable<Node> {
     private WindowPosManager windowPosManager;
     private HashSet<Node> oscillatingNodes;
     private boolean isInvalidSignal = false;
+    private AsyncSeq asyncInfos;
+    private boolean asyncMode = false;
 
     private final ArrayList<ModelStateObserver> observers;
     private ArrayList<ModelStateObserver> observersStep;
@@ -91,6 +95,17 @@ public class Model implements Iterable<Node> {
         this.nodesToUpdateAct = new ArrayList<>();
         this.nodesToUpdateNext = new ArrayList<>();
         this.observers = new ArrayList<>();
+    }
+
+    /**
+     * Sets this model to async mode.
+     * Async mode means that the circuit is not able to reach a stable state once the reset gates are released.
+     *
+     * @return this for chained calls
+     */
+    public Model setAsyncMode() {
+        this.asyncMode = true;
+        return this;
     }
 
     /**
@@ -165,7 +180,8 @@ public class Model implements Iterable<Node> {
         if (!resets.isEmpty()) {
             for (Reset reset : resets)
                 reset.clearReset();
-            doStep(false);
+            if (!asyncMode)
+                doStep(false);
         }
         LOGGER.debug("stabilizing took " + version + " micro steps");
         state = State.RUNNING;
@@ -715,4 +731,34 @@ public class Model implements Iterable<Node> {
                 return i.getValue();
         return null;
     }
+
+
+    /**
+     * Sets async execution infos
+     *
+     * @param asyncInfos essentially the frequency
+     */
+    public void setAsyncInfos(AsyncSeq asyncInfos) {
+        this.asyncInfos = asyncInfos;
+    }
+
+    /**
+     * @return the infos used for async execution
+     */
+    public AsyncSeq getAsyncInfos() {
+        return asyncInfos;
+    }
+
+    @Override
+    public synchronized <A extends Runnable> A access(A run) {
+        run.run();
+        return run;
+    }
+
+    @Override
+    public synchronized <A extends ModelRun> A accessNEx(A run) throws NodeException {
+        run.run();
+        return run;
+    }
+
 }

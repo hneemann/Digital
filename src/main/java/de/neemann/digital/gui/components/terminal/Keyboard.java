@@ -14,8 +14,6 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
-import javax.swing.*;
-
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
@@ -27,17 +25,20 @@ public class Keyboard extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Keyboard.class,
-            input("sel"))
+            input("C").setClock(),
+            input("en"))
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INVERTER_CONFIG);
 
     private final String label;
-    private KeyboardDialog keyboardDialog;
-    private ObservableValue data;
-    private ObservableValue select;
-    private boolean sel;
-    private boolean lastSel = false;
-    private int keyData;
+    private final ObservableValue data;
+    private final ObservableValue isKeyOut;
+    private KeyboardInterface keyboardInterface;
+    private ObservableValue clock;
+    private ObservableValue enable;
+    private boolean enableVal;
+    private boolean lastClock = false;
 
     /**
      * Creates a new terminal instance
@@ -48,49 +49,83 @@ public class Keyboard extends Node implements Element {
         data = new ObservableValue("D", 16)
                 .setToHighZ()
                 .setPinDescription(DESCRIPTION);
+        isKeyOut = new ObservableValue("av", 1)
+                .setPinDescription(DESCRIPTION);
         label = attributes.getCleanLabel();
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        select = inputs.get(0).addObserverToValue(this).checkBits(1, this);
+        clock = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
+        enable = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
     }
 
     @Override
     public ObservableValues getOutputs() {
-        return data.asList();
+        return new ObservableValues(data, isKeyOut);
     }
 
     @Override
     public void readInputs() throws NodeException {
-        sel = select.getBool();
-        if (!lastSel && sel) {
-            KeyboardDialog kbd = getKeyboard();
-            if (kbd != null)
-                keyData = kbd.getChar();
-            else
-                keyData = 0;
-        }
-        lastSel = sel;
+        enableVal = enable.getBool();
+        boolean nowClock = clock.getBool();
+
+        if (keyboardInterface != null && nowClock && !lastClock && enableVal)
+            keyboardInterface.removeChar();
+
+        lastClock = nowClock;
     }
 
     @Override
     public void writeOutputs() throws NodeException {
-        if (sel)
-            data.setValue(keyData);
-        else
-            data.setToHighZ();
+        if (keyboardInterface != null) {
+            if (enableVal)
+                data.setValue(keyboardInterface.getChar());
+            else
+                data.setToHighZ();
+            isKeyOut.setBool(keyboardInterface.isChar());
+        } else {
+            if (enableVal)
+                data.setValue(0);
+            else
+                data.setToHighZ();
+            isKeyOut.setBool(false);
+        }
     }
 
-    private KeyboardDialog getKeyboard() {
-        if (keyboardDialog == null || !keyboardDialog.isVisible()) {
-            SwingUtilities.invokeLater(() -> {
-                if (keyboardDialog == null || !keyboardDialog.isVisible()) {
-                    keyboardDialog = new KeyboardDialog(getModel().getWindowPosManager().getMainFrame());
-                    getModel().getWindowPosManager().register("keyboard_" + label, keyboardDialog);
-                }
-            });
-        }
-        return keyboardDialog;
+    /**
+     * Sets the keyboard interface
+     *
+     * @param keyboardInterface the keyboard interface
+     */
+    public void setKeyboardDialog(KeyboardInterface keyboardInterface) {
+        this.keyboardInterface = keyboardInterface;
+    }
+
+    /**
+     * @return the keyboard label
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * The keyboard interface
+     */
+    public interface KeyboardInterface {
+        /**
+         * @return a char or 0 if no char available
+         */
+        int getChar();
+
+        /**
+         * @return true if there is a char
+         */
+        boolean isChar();
+
+        /**
+         * removes the first character
+         */
+        void removeChar();
     }
 }

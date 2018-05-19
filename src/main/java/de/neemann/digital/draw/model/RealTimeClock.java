@@ -10,7 +10,6 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.gui.ErrorStopper;
 import de.neemann.digital.gui.GuiModelObserver;
 import de.neemann.digital.gui.StatusInterface;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,6 @@ public class RealTimeClock implements ModelStateObserverTyped {
     private final Model model;
     private final ScheduledThreadPoolExecutor executor;
     private final ErrorStopper stopper;
-    private final Sync modelSync;
     private final StatusInterface status;
     private final int frequency;
     private final ObservableValue output;
@@ -44,14 +42,12 @@ public class RealTimeClock implements ModelStateObserverTyped {
      * @param clock     the clock element which is modify
      * @param executor  the executor used to schedule the update
      * @param stopper   used to stop the model if an error is detected
-     * @param modelSync used to access a running model
      * @param status    allows sending messages to the status line
      */
-    public RealTimeClock(Model model, Clock clock, ScheduledThreadPoolExecutor executor, ErrorStopper stopper, Sync modelSync, StatusInterface status) {
+    public RealTimeClock(Model model, Clock clock, ScheduledThreadPoolExecutor executor, ErrorStopper stopper, StatusInterface status) {
         this.model = model;
         this.executor = executor;
         this.stopper = stopper;
-        this.modelSync = modelSync;
         this.status = status;
         int f = clock.getFrequency();
         if (f < 1) f = 1;
@@ -64,7 +60,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
         switch (event) {
             case STARTED:
                 if (frequency > 50)  // if frequency is high it is not necessary to update the GUI at every clock change
-                    modelSync.access(() -> output.removeObserver(GuiModelObserver.class));
+                    model.access(() -> output.removeObserver(GuiModelObserver.class));
 
                 int delayMuS = 500000 / frequency;
                 if (delayMuS < THREAD_RUNNER_DELAY)
@@ -108,7 +104,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 @Override
                 public void run() {
                     try {
-                        modelSync.accessNEx(() -> {
+                        model.accessNEx(() -> {
                             output.setValue(1 - output.getValue());
                             model.doStep();
                         });
@@ -140,7 +136,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 FrequencyCalculator frequency = new FrequencyCalculator(status);
                 try {
                     while (!Thread.interrupted()) {
-                        modelSync.accessNEx(() -> {
+                        model.accessNEx(() -> {
                             output.setValue(1 - output.getValue());
                             model.doStep();
                         });

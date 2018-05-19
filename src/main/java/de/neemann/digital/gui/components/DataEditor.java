@@ -8,9 +8,9 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.gui.SaveAsHelper;
-import de.neemann.digital.gui.sync.Sync;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.MyFileChooser;
@@ -53,7 +53,7 @@ public class DataEditor extends JDialog {
      * @param modelIsRunning true if model is running
      * @param modelSync      used to access the running model
      */
-    public DataEditor(Component parent, DataField dataField, int size, int dataBits, int addrBits, boolean modelIsRunning, Sync modelSync) {
+    public DataEditor(Component parent, DataField dataField, int size, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -242,11 +242,11 @@ public class DataEditor extends JDialog {
     private final static class MyTableModel implements TableModel, DataField.DataListener {
         private final DataField dataField;
         private final int cols;
-        private final Sync modelSync;
+        private final SyncAccess modelSync;
         private final int rows;
         private ArrayList<TableModelListener> listener = new ArrayList<>();
 
-        private MyTableModel(DataField dataField, int cols, Sync modelSync) {
+        private MyTableModel(DataField dataField, int cols, SyncAccess modelSync) {
             this.dataField = dataField;
             this.cols = cols;
             this.modelSync = modelSync;

@@ -44,7 +44,7 @@ public class TextShape implements Shape {
 
         if (text.length() == 0)
             text = Lang.get("elem_Text");
-        this.text = text;
+        this.text = Lang.evalMultilingualContent(text);
 
         fontSize = attr.get(Keys.FONT_SIZE);
     }

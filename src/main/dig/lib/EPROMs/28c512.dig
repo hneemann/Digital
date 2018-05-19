@@ -21,7 +21,7 @@ DATA Polling for End of Write Detection not implemented!</string>
     </entry>
     <entry>
       <string>Width</string>
-      <int>6</int>
+      <int>11</int>
     </entry>
   </attributes>
   <visualElements>

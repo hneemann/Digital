@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>NFET</elementName>
@@ -118,7 +119,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>$R$</string>
+          <string>$R$ {{de $R$}}</string>
         </entry>
       </elementAttributes>
       <pos x="380" y="340"/>

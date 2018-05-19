@@ -24,7 +24,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * Graphic card.
- * Mostly a RAM module with an additional input bit which selects the visible bank.
+ * Essentially a RAM module with an additional input bit which selects the visible bank.
  * So you can use double buffering.
  */
 public class GraphicCard extends Node implements Element, RAMInterface {

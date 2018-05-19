@@ -1,0 +1,20 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+   entityName:="DECODER_"+elem.'Selector Bits';
+   outputs:=1<<elem.'Selector Bits';
+?>
+entity <?=entityName?> is
+  port (
+    <?- for (i:=0;i<outputs;i++) {?>
+    out_<?=i?>: out std_logic;
+    <?- } ?>
+    sel: in <?= vhdl.type(elem.'Selector Bits')?> );
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+begin
+<?- for (i:=0;i<outputs;i++) {?>
+  out_<?=i?> <= '1' when sel = <?= vhdl.value(i,elem.'Selector Bits')?> else '0';
+<?- } ?>
+end Behavioral;

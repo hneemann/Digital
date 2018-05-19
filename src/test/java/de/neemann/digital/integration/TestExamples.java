@@ -9,8 +9,8 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestCaseDescription;
+import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestExecutor;
 import junit.framework.TestCase;
 
@@ -33,8 +33,8 @@ public class TestExamples extends TestCase {
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
         testCasesInFiles = 0;
-        assertEquals(239, new FileScanner(TestExamples::check).scan(examples));
-        assertEquals(161, testCasesInFiles);
+        assertEquals(241, new FileScanner(TestExamples::check).scan(examples));
+        assertEquals(164, testCasesInFiles);
     }
 
     /**
@@ -45,8 +45,8 @@ public class TestExamples extends TestCase {
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
         testCasesInFiles = 0;
-        assertEquals(127, new FileScanner(TestExamples::check).scan(examples));
-        assertEquals(117, testCasesInFiles);
+        assertEquals(132, new FileScanner(TestExamples::check).scan(examples));
+        assertEquals(124, testCasesInFiles);
     }
 
     /**

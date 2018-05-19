@@ -25,7 +25,7 @@ public class GraphicSkipLines implements Graphic {
     }
 
     @Override
-    public void drawLine(Vector p1, Vector p2, Style style) {
+    public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
         // lines are skipped
     }
 
@@ -35,12 +35,12 @@ public class GraphicSkipLines implements Graphic {
     }
 
     @Override
-    public void drawCircle(Vector p1, Vector p2, Style style) {
+    public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
         delegate.drawCircle(p1, p2, style);
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
         delegate.drawText(p1, p2, text, orientation, style);
     }
 

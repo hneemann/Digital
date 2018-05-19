@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represents a 2D Vector
  */
-public class Vector {
+public class Vector implements VectorInterface {
 
     /**
      * the x coordinate
@@ -38,8 +38,8 @@ public class Vector {
      *
      * @param pos the vector to copy
      */
-    public Vector(Vector pos) {
-        this(pos.x, pos.y);
+    public Vector(VectorInterface pos) {
+        this(pos.getX(), pos.getY());
     }
 
 
@@ -62,12 +62,12 @@ public class Vector {
      * @param p the vectors to evaluate
      * @return the minimum
      */
-    public static Vector min(Vector... p) {
-        int x = p[0].x;
-        int y = p[0].y;
+    public static Vector min(VectorInterface... p) {
+        int x = p[0].getX();
+        int y = p[0].getY();
         for (int i = 1; i < p.length; i++) {
-            if (p[i].x < x) x = p[i].x;
-            if (p[i].y < y) y = p[i].y;
+            if (p[i].getX() < x) x = p[i].getX();
+            if (p[i].getY() < y) y = p[i].getY();
         }
         return new Vector(x, y);
     }
@@ -78,12 +78,12 @@ public class Vector {
      * @param p the vectors to evaluate
      * @return the maximum
      */
-    public static Vector max(Vector... p) {
-        int x = p[0].x;
-        int y = p[0].y;
+    public static Vector max(VectorInterface... p) {
+        int x = p[0].getX();
+        int y = p[0].getY();
         for (int i = 1; i < p.length; i++) {
-            if (p[i].x > x) x = p[i].x;
-            if (p[i].y > y) y = p[i].y;
+            if (p[i].getX() > x) x = p[i].getX();
+            if (p[i].getY() > y) y = p[i].getY();
         }
         return new Vector(x, y);
     }
@@ -94,28 +94,23 @@ public class Vector {
      * @param p the vectors
      * @return max(p)-min(p)
      */
-    public static Vector width(Vector... p) {
-        int x1 = p[0].x;
-        int y1 = p[0].y;
+    public static Vector width(VectorInterface... p) {
+        int x1 = p[0].getX();
+        int y1 = p[0].getY();
         int x2 = x1;
         int y2 = y1;
         for (int i = 1; i < p.length; i++) {
-            if (p[i].x < x1) x1 = p[i].x;
-            if (p[i].y < y1) y1 = p[i].y;
-            if (p[i].x > x2) x2 = p[i].x;
-            if (p[i].y > y2) y2 = p[i].y;
+            if (p[i].getX() < x1) x1 = p[i].getX();
+            if (p[i].getY() < y1) y1 = p[i].getY();
+            if (p[i].getX() > x2) x2 = p[i].getX();
+            if (p[i].getY() > y2) y2 = p[i].getY();
         }
         return new Vector(x2 - x1, y2 - y1);
     }
 
-    /**
-     * Creates a new vector which has the value this+a
-     *
-     * @param a a
-     * @return this+a
-     */
-    public Vector add(Vector a) {
-        return new Vector(x + a.x, y + a.y);
+    @Override
+    public Vector add(VectorInterface a) {
+        return new Vector(x + a.getX(), y + a.getY());
     }
 
     /**
@@ -143,14 +138,9 @@ public class Vector {
         return newVec;
     }
 
-    /**
-     * Creates a new vector which has the value this-a
-     *
-     * @param a a
-     * @return this-a
-     */
-    public Vector sub(Vector a) {
-        return new Vector(x - a.x, y - a.y);
+    @Override
+    public Vector sub(VectorInterface a) {
+        return new Vector(x - a.getX(), y - a.getY());
     }
 
     /**
@@ -163,12 +153,7 @@ public class Vector {
         return new Vector(x * a, y * a);
     }
 
-    /**
-     * Creates a new vector which has the value this/d
-     *
-     * @param d a
-     * @return this/d
-     */
+    @Override
     public Vector div(int d) {
         return new Vector(x / d, y / d);
     }
@@ -198,8 +183,7 @@ public class Vector {
 
         Vector vector = (Vector) o;
 
-        if (x != vector.x) return false;
-        return y == vector.y;
+        return x == vector.x && y == vector.y;
 
     }
 
@@ -217,12 +201,34 @@ public class Vector {
         return x == 0 && y == 0;
     }
 
-    /**
-     * @return the norm multiplied by 128
-     */
-    public Vector norm128() {
+    @Override
+    public VectorFloat norm() {
         float l = (float) Math.sqrt(x * x + y * y);
-        return new Vector(Math.round(x * 128 / l), Math.round(y * 128 / l));
+        return new VectorFloat(x / l, y / l);
     }
 
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public float getXFloat() {
+        return x;
+    }
+
+    @Override
+    public float getYFloat() {
+        return y;
+    }
+
+    @Override
+    public VectorInterface transform(Transform tr) {
+        return tr.transform(this);
+    }
 }

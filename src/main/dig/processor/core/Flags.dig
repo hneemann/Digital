@@ -4,11 +4,15 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Speichert die Prozessor-Flags. 
+      <string>Stores the processor flags.
+Via the store input, the current state of the flags can 
+be stored. The carry flag can then be used for 
+arithmetic function, all flags for a conditional branch.
+{{de Speichert die Prozessor-Flags. 
 Über den store-Eingang, kann der aktuelle Zustand
 der Flags gespeichert werden. Das Carry-Flag kann 
 dann für arithmetische Funktion genutzt werden,
-alle Flags für eine bedingte Verzweigung.</string>
+alle Flags für eine bedingte Verzweigung.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -17,7 +21,8 @@ alle Flags für eine bedingte Verzweigung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Zero-Flag welches gespeichert werden soll.</string>
+          <string>The zero flag which should be stored.
+{{de Das Zero-Flag welches gespeichert werden soll.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -31,7 +36,8 @@ alle Flags für eine bedingte Verzweigung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Gibt das gespeicherte Zero-Flag aus.</string>
+          <string>Returns the stored zero flag.
+{{de Gibt das gespeicherte Zero-Flag aus.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -45,7 +51,8 @@ alle Flags für eine bedingte Verzweigung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Negative-Flag welches gespeichert werden soll.</string>
+          <string>The negative flag which should be stored.
+{{de Das Negative-Flag welches gespeichert werden soll.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -59,7 +66,8 @@ alle Flags für eine bedingte Verzweigung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Gibt das gespeicherte Negative-Flag aus.</string>
+          <string>Returns the stored negative flag.
+{{de Gibt das gespeicherte Negative-Flag aus.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -73,7 +81,8 @@ alle Flags für eine bedingte Verzweigung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Carry-Flag welches gespeichert werden soll.</string>
+          <string>The carry flag which should be stored.
+{{de Das Carry-Flag welches gespeichert werden soll.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -87,7 +96,8 @@ alle Flags für eine bedingte Verzweigung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Gibt das gespeicherte Carry-Flag aus.</string>
+          <string>Returns the stored carry flag.
+{{de Gibt das gespeicherte Carry-Flag aus.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -153,7 +163,11 @@ alle Flags für eine bedingte Verzweigung.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Der Eingang welcher das Speichern aktiviert. Es wird auf Eins gesetzt, wenn eine arithmetische Operation ausgeführt wird.</string>
+          <string>The input which activates storing.
+It is set to one when performing an arithmetic operation.
+{{de Der Eingang welcher das Speichern aktiviert. 
+Es wird auf Eins gesetzt, wenn eine arithmetische 
+Operation ausgeführt wird.}}</string>
         </entry>
         <entry>
           <string>Label</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>NFET</elementName>
@@ -77,7 +78,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Wortleitung 1</string>
+          <string>row line 1
+{{de Wortleitung 1}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -115,7 +117,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Write Enable</string>
+          <string>Write Enable
+{{de Schreibfreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -129,7 +132,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Data Input</string>
+          <string>Data Input {{de Dateneingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -153,7 +156,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Data Output</string>
+          <string>Data Output {{de Datenausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -237,7 +240,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Wortleitung 0</string>
+          <string>row line 0
+{{de Wortleitung 0}}</string>
         </entry>
         <entry>
           <string>Label</string>

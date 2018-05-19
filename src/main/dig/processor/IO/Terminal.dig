@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Terminal. Die Adresse ist 0x1F.</string>
+      <string>Terminal. The used address is 0x1F.
+{{de Terminal. Die Adresse ist 0x1F.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -13,7 +14,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenbus</string>
+          <string>data bus {{de Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -24,14 +25,14 @@
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="360" y="120"/>
+      <pos x="420" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Addressbus</string>
+          <string>address {{de Adressbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -42,7 +43,7 @@
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="360" y="160"/>
+      <pos x="420" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Comparator</elementName>
@@ -52,7 +53,7 @@
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="440" y="160"/>
+      <pos x="480" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -66,7 +67,7 @@
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="420" y="180"/>
+      <pos x="460" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Terminal</elementName>
@@ -75,13 +76,8 @@
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Inputs</string>
-          <int>3</int>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="180"/>
+      <elementAttributes/>
+      <pos x="560" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -91,67 +87,67 @@
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="360" y="260"/>
+      <pos x="420" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Write Enable</string>
+          <string>Write Enable {{de Schreibfreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>
           <string>W</string>
         </entry>
       </elementAttributes>
-      <pos x="360" y="220"/>
+      <pos x="420" y="260"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="360" y="160"/>
-      <p2 x="440" y="160"/>
+      <p1 x="620" y="240"/>
+      <p2 x="640" y="240"/>
     </wire>
     <wire>
-      <p1 x="360" y="260"/>
-      <p2 x="540" y="260"/>
+      <p1 x="640" y="160"/>
+      <p2 x="660" y="160"/>
     </wire>
     <wire>
-      <p1 x="500" y="180"/>
-      <p2 x="560" y="180"/>
+      <p1 x="420" y="160"/>
+      <p2 x="540" y="160"/>
     </wire>
     <wire>
-      <p1 x="420" y="180"/>
-      <p2 x="440" y="180"/>
+      <p1 x="420" y="260"/>
+      <p2 x="560" y="260"/>
     </wire>
     <wire>
-      <p1 x="620" y="200"/>
-      <p2 x="640" y="200"/>
+      <p1 x="420" y="200"/>
+      <p2 x="480" y="200"/>
     </wire>
     <wire>
-      <p1 x="540" y="200"/>
-      <p2 x="560" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="120"/>
+      <p1 x="420" y="120"/>
       <p2 x="660" y="120"/>
     </wire>
     <wire>
-      <p1 x="640" y="140"/>
+      <p1 x="540" y="140"/>
       <p2 x="660" y="140"/>
     </wire>
     <wire>
-      <p1 x="360" y="220"/>
+      <p1 x="540" y="220"/>
       <p2 x="560" y="220"/>
     </wire>
     <wire>
-      <p1 x="640" y="140"/>
-      <p2 x="640" y="200"/>
+      <p1 x="460" y="220"/>
+      <p2 x="480" y="220"/>
     </wire>
     <wire>
-      <p1 x="540" y="200"/>
-      <p2 x="540" y="260"/>
+      <p1 x="640" y="160"/>
+      <p2 x="640" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="140"/>
+      <p2 x="540" y="160"/>
     </wire>
   </wires>
 </circuit>

@@ -10,7 +10,6 @@ import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
-import java.util.GregorianCalendar;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;

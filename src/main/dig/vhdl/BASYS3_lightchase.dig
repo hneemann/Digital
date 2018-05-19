@@ -76,7 +76,7 @@
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>15</int>
+          <long>15</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -120,10 +120,15 @@ repeat(16) C bits(16,1&lt;&lt;n)
           <string>Export this file to VHDL and use Xilinx Vivado to create the bitstream.
 
 Also add the created constraints file to the vivado project to assign
-the pins correctly.</string>
+the pins correctly.
+{{de Exportieren Sie diese Datei zu VHDL und verwenden Sie Xilinx Vivado, 
+um den Bitstream zu erstellen.
+
+Fügen Sie auch die erstellte Constraint-Datei dem Vivado-Projekt hinzu, um 
+die Pins korrekt zuzuordnen.}}</string>
         </entry>
       </elementAttributes>
-      <pos x="400" y="-300"/>
+      <pos x="400" y="-340"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>

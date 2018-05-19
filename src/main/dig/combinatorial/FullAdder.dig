@@ -33,7 +33,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erstes zu addierendes Bit.</string>
+          <string>first bit to add
+{{de Erstes zu addierendes Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -52,7 +53,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweites zu addierendes Bit.</string>
+          <string>second bit to add
+{{de Zweites zu addierendes Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -66,7 +68,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Übertragsbit der Vorgängerschaltung.</string>
+          <string>carry in
+{{de Übertragsbit der Vorgängerschaltung.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -80,7 +83,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Übertragsbit</string>
+          <string>carry bit
+{{de Übertragsbit}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -94,7 +98,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Summe</string>
+          <string>sum {{de Summe}}</string>
         </entry>
         <entry>
           <string>Label</string>

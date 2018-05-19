@@ -50,7 +50,7 @@ public class DILShape implements Shape {
     public DILShape(String shortName, PinDescriptions inputs, PinDescriptions outputs, String label, ElementAttributes attr) {
         this.shortName = shortName;
         this.label = label;
-        this.width = attr.get(Keys.WIDTH) * SPACING;
+        this.width = attr.get(Keys.WIDTH)+1;
         map = new ShapePinMap(this.width, attr.get(Keys.PINCOUNT));
         map.addAll(inputs);
         map.addAll(outputs);
@@ -72,7 +72,7 @@ public class DILShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        int dp = SPACING * SIZE;
+        int dp = 2 * SIZE;
         int pin = dp / 4;
         int x = width * SIZE;
         int h = (pinCount / 2) * dp - SIZE;

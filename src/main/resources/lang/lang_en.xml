@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="addr">Address</string>
-    <string name="name">Name</string>
     <string name="tableOfContent">Table of Contents</string>
     <string name="general">General</string>
     <string name="revision">Revision</string>
@@ -19,6 +18,8 @@
     <string name="attr_dialogHighz">HighZ</string>
     <string name="attr_dialogOctal">Octal</string>
     <string name="attr_dialogBinary">Binary</string>
+    <string name="attr_primary">Basic</string>
+    <string name="attr_secondary">Advanced</string>
     <string name="btn_discard">Discard Changes</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_editFurther">Continue editing</string>
@@ -132,6 +133,13 @@
     <string name="elem_LED_tt">A LED can be used to visualize an output value. Accepts a single bit.
         Lights up if the input is set to 1.</string>
     <string name="elem_LED_pin_in">LED Input. LED lights up if the input is set to 1.</string>
+
+    <string name="elem_PolarityAwareLED">LED with two connections.</string>
+    <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up,
+        if the anode is connected to high and the cathode is connected to low.</string>
+    <string name="elem_PolarityAwareLED_pin_A">The anode connection of the LED.</string>
+    <string name="elem_PolarityAwareLED_pin_C">The cathode connection of the LED.</string>
+
     <string name="elem_In">Input</string>
     <string name="elem_In_tt">Can be used to interactively manipulate an input signal in a circuit with the
         mouse. This element is also used to connect a circuit to an embedding circuit.
@@ -139,6 +147,11 @@
         Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
     </string>
     <string name="elem_In_pin_out">Gives the value which is connected to this input.</string>
+
+    <string name="elem_DipSwitch">DIP Switch</string>
+    <string name="elem_DipSwitch_tt">Simple DIP switch that can output either high or low.</string>
+    <string name="elem_DipSwitch_pin_out">The output value of the switch.</string>
+
     <string name="elem_Clock">Clock Input</string>
     <string name="elem_Clock_tt">A clock signal. Its possible to control it by a real-time clock.
         Depending on the complexity of the circuit, the clock frequency achieved may be less than the selected value.
@@ -188,6 +201,12 @@
     <string name="elem_Seven-Seg-Hex_tt">Seven Segment Display with a 4 bit hex input</string>
     <string name="elem_Seven-Seg-Hex_pin_d">The value at this input is visualized at the display.</string>
     <string name="elem_Seven-Seg-Hex_pin_dp">This input controls the decimal point.</string>
+
+    <string name="elem_SixteenSeg">16-Segement Display</string>
+    <string name="elem_SixteenSeg_tt">The LED input has 16 bits which control the segments. The second input controls the decimal point.</string>
+    <string name="elem_SixteenSeg_pin_led">16-bit bus for driving the LEDs.</string>
+    <string name="elem_SixteenSeg_pin_dp">This input controls the decimal point.</string>
+
     <string name="elem_LedMatrix">LED-Matrix</string>
     <string name="elem_LedMatrix_tt">A matrix of LEDs. The LEDs are shown in a separate window.
         The LEDs of a column of the display are controlled by a data word. At another input, the current column is
@@ -206,18 +225,25 @@
     <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder. Used to detect rotational movements.</string>
     <string name="elem_RotEncoder_pin_A">encoder signal A</string>
     <string name="elem_RotEncoder_pin_B">encoder signal B</string>
+
     <string name="elem_Keyboard">Keyboard</string>
     <string name="elem_Keyboard_tt">A keyboard that can be used to enter text.
-        This component buffers the inputs, which can then be read out.
+        This component buffers the input, which can then be read out.
         A separate window is opened for the text input.
     </string>
-    <string name="elem_Keyboard_pin_sel">If high the output D is active and one keystroke is output.</string>
-    <string name="elem_Keyboard_pin_D">The last pressed key, or zero if no key is typed.</string>
+    <string name="elem_Keyboard_pin_C">Clock. A rising edge removes the oldest character from the buffer.</string>
+    <string name="elem_Keyboard_pin_en">If high the output D is active and one character is output.
+        It also enables the clock input.</string>
+    <string name="elem_Keyboard_pin_D">The last typed character, or zero if no character is available.</string>
+    <string name="elem_Keyboard_pin_av">This output indicates that characters are available.
+        It can be used to trigger an interrupt.</string>
+
     <string name="elem_Terminal">Terminal</string>
     <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
         The terminal opens its own window to visualize the output.</string>
     <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.</string>
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
+    <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
 
 
     <!-- Wires -->
@@ -520,9 +546,22 @@
     <string name="elem_Counter_pin_C">The clock input. A rising edge increases the counter.</string>
     <string name="elem_Counter_pin_clr">Synchronous reset of the counter if set to 1.</string>
     <string name="elem_Counter_pin_out">Returns the counted value.</string>
-    <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter is on its maximal value and the en input is set to 1.</string>
+    <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter is on its maximal value
+        and the en input is set to 1.</string>
     <string name="elem_Counter_pin_en">If set to 1 the counter is enabled!</string>
 
+    <string name="elem_CounterPreset">Counter with preset</string>
+    <string name="elem_CounterPreset_tt">A counter whose value can be set. In addition, a maximum value and a counting direction can be specified.</string>
+    <string name="elem_CounterPreset_short">Counter</string>
+    <string name="elem_CounterPreset_pin_out">Returns the counted value.</string>
+    <string name="elem_CounterPreset_pin_ovf">Overflow output. It is set to 1 if the 'en' input is set to 1 and if the
+    counter reaches its maximum value when counting up, or has reached 0 when counting down.</string>
+    <string name="elem_CounterPreset_pin_C">The clock input. A rising edge increases the counter.</string>
+    <string name="elem_CounterPreset_pin_clr">Synchronous reset of the counter if set to 1.</string>
+    <string name="elem_CounterPreset_pin_en">If set to 1 the counter is enabled!</string>
+    <string name="elem_CounterPreset_pin_dir">Specifies the counting direction. A 0 means upwards.</string>
+    <string name="elem_CounterPreset_pin_ld">If set, the value at input 'in' is stored in the counter at the next clock signal.</string>
+    <string name="elem_CounterPreset_pin_in">This data word is stored in the counter when ld  is set.</string>
 
 
     <!--Arithmetic -->
@@ -666,29 +705,6 @@
     <string name="elem_TransGate_pin_S">control input.</string>
     <string name="elem_TransGate_pin_~S">inverted control input</string>
 
-    <!-- HDL Gen -->
-    <string name="errMsgWithLine">Line {0} : {1}</string>
-    <string name="notClosedBlockComment">Unterminated block comment</string>
-    <string name="invalidCharacter">Invalid character ''{0}''</string>
-    <string name="missingDoubleQuote">Missing double quote in string literal</string>
-    <string name="invalidHexConstant">Invalid hex constant</string>
-    <string name="unexpectedStartOfStatement">Unexpected token ''{0}''. Expected '{', if, while, for, printf, output literal or identifier.</string>
-    <string name="unexpectedToken">Unexpected token ''{0}'', expected ''{1}''</string>
-    <string name="unpextedTokenInChangeStmt">Unexpected token ''{0}'', expected =, ++, --</string>
-    <string name="unexpectedTokenInPrimaryExpr">Unexpected ''{0}'', expected +, -, ~, !, constant, string literal or identifier</string>
-    <string name="invalidBinaryOperator">Invalid binary operator ''{0}''</string>
-    <string name="tkIdentDesc">identifier</string>
-    <string name="invalidIndexInArrayAccess">Negative index in array access is not allowed</string>
-    <string name="variableNotDefined">Variable ''{0}'' is not defined.</string>
-    <string name="lvalueNotArray">Expression ''{0}'' is not an array</string>
-    <string name="arrayIndexNotInt">Array index should be integer</string>
-    <string name="lvalueNotStruct">Expression ''{0}'' is not a structure</string>
-    <string name="genericVarNotArray">Variable ''generics'' should be defined as array</string>
-    <string name="genericElemNotString">Elements in ''generics'' should be string</string>
-    <string name="moduleNameVarNotString">Variable ''moduleName'' should be string</string>
-    <string name="firstArgFormatNotString">First argument of ''format'' function should be string</string>
-    <string name="invalidArgInFormatFn">Invalid argument in ''format'' function. Only integer and string allowed</string>
-    <string name="invalidFunction">Invalid function ''{0}''</string>
 
     <!-- Misc -->
 
@@ -698,6 +714,11 @@
         behavior of the circuit actually corresponds to this description. If this is not the case, an
         error message is shown.
     </string>
+    <string name="elem_AsyncSeq">Asynchronous Timing</string>
+    <string name="elem_AsyncSeq_tt">Allows configuration of the timing of an asynchronous sequential circuit such as a
+        Muller-pipeline. The circuit must be started in single gate step mode and must be able to reach a stable state
+        at startup. The sequential circuit can then be started interactively or with a reset gate.
+        It is not allowed to use a regular clock component in this mode.</string>
     <string name="elem_PowerSupply">Power</string>
     <string name="elem_PowerSupply_tt">Has no function. Makes sure that VDD and GND are connected.
         Can be used in 74xx circuits to generate the pins for the voltage supply, which are tested for correct wiring.</string>
@@ -758,7 +779,7 @@
     <string name="err_noOutConnectedToWire">No output connected to a wire: {0}</string>
     <string name="err_oneResultIsRequired">Table to small: One result is required!</string>
     <string name="err_output_N_notDefined">Output {0} not defined</string>
-    <string name="err_pinMap_NoNameForPin_N">No Name for pin {0}</string>
+    <string name="err_pinMap_NoNameForPin_N">No label for pin {0}</string>
     <string name="err_pinMap_Pin_N_AssignedTwicePin">Pin {0} assigned twice!</string>
     <string name="err_pinMap_noEqualsfound">No = found!</string>
     <string name="err_pinMap_pin_N0_isNotAnInput">Pin {0} is not an input!</string>
@@ -766,7 +787,8 @@
     <string name="err_pinMap_toMannyInputsDefined">To many inputs used!</string>
     <string name="err_pinMap_toMannyOutputsDefined">To many outputs used!</string>
     <string name="err_pinNotPresent">Pin not present</string>
-    <string name="err_pinWithoutName">Found a pin without a name.</string>
+    <string name="err_pinWithoutName">Found a pin without a label.</string>
+    <string name="err_clockWithoutName">Found a clock without a label. If a clock is embedded also the clock needs a label.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at component {1}</string>
     <string name="err_pin_N_notFound">Pin {0} not found</string>
     <string name="err_pin_N_unknown">Pin {0} unknown</string>
@@ -824,20 +846,11 @@
     <string name="err_errorInPowerSupply">Error in wiring of power supply at {0}.</string>
     <string name="err_pinIsNotANumber_N">The pin nummer {0} is not a integer!</string>
     <string name="err_vhdlExporting">Error during export to VHDL.</string>
-    <string name="err_vhdlUnknownPortType_N">Unknown type of port.</string>
     <string name="err_vhdlNoEntity_N">No VHDL code for {0} available!</string>
-    <string name="err_vhdlClockOnlyAllowedInRoot">A clock is only allowed in the topmost circuit!</string>
-    <string name="err_vhdlNotAValidName">The name {0} is not valid!</string>
-    <string name="err_vhdlBitNumberNotAvailable">The bit count is not available!</string>
-    <string name="err_vhdlUnknownConstantType_N">Constant has a invalid type Typ {0}!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Pin {0} has no number!</string>
     <string name="err_vhdlErrorWritingTestBench">Error creating a test bench!</string>
-    <string name="err_vhdlRomHasNoValidLabel">A rom has a invalid or missing name!</string>
-    <string name="err_vhdlRomLabel_N_notUnique">Rom name {0} is not unique!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
-    <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a name?</string>
-    <string name="err_verilogExporting">Error during export to Verilog.</string>
-    <string name="err_verilogNoElement_N">No Verilog code for {0} available!</string>
+    <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a label set?</string>
     <string name="err_toManyVars">To many variables!</string>
     <string name="err_invalidExpression">Invalid expression!</string>
     <string name="err_function_N0_notFoundInLine_N1">Function {0} not found in line {1}!</string>
@@ -879,8 +892,18 @@
     <string name="err_couldNotStartProcess_N">Could not start process: {0}</string>
     <string name="err_exitValueNotNull_N_O">Application exit status was not 0 but {0}:
         {1}</string>
-    <string name="err_canOnlyExportExtrnalVHDL">External code can only be exported if it is VHDL!</string>
-    <string name="err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical">If an external component is used multiple times, the code must be identical!</string>
+    <string name="err_canOnlyExportExternalVHDL">External code can only be exported if it is VHDL!</string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">If an external component is used multiple times, the code must be identical! Effects: {0}</string>
+    <string name="err_writingToStdOut_O">Could not write to stdOut:
+        {0}</string>
+    <string name="err_ghdlNotInstalled">
+        The VHDL simulator ghdl does not seem to be installed. Install ghdl (http://ghdl.free.fr/) and try again. If there are still problems, check the path to the ghdl executable in the Digital settings.
+    </string>
+    <string name="err_errorAnalysingCircuit_N">Error analysing the circuit: {0}</string>
+    <string name="err_romNeedsALabelToBeExported">Every ROM needs a unique label to be exported!</string>
+    <string name="err_counterNeedsMoreBits">The counter needs at least two bits.</string>
+    <string name="err_namesAreNotUnique_N">The name "{0}" is  not unique!</string>
+    <string name="err_clocksNotAllowedInAsyncMode">Clock elements can not be used in asynchronous mode.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1093,9 +1116,26 @@
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
         components defined with vhdl.</string>
-    <string name="key_iverilogPath">iverilog</string>
-    <string name="key_iverilogPath_tt">Path to the executable iverilog file. Only necessary if you want to use iverilog to simulate
-        components defined with verilog.</string>
+    <string name="key_maxValue">Maximum Value</string>
+    <string name="key_maxValue_tt">If a zero is entered, the maximum possible value is used (all bits are one).</string>
+
+    <string name="key_dipDefault">Output is High</string>
+    <string name="key_dipDefault_tt">The default output value of the DIP switch when the simulation starts.</string>
+
+    <string name="key_macMouse">Use MacOS mouse clicks.</string>
+    <string name="key_macMouse_tt">Uses CTRL-click instead of right-click.</string>
+    <string name="key_noComponentToolTips">No tool tips for components on the main panel.</string>
+    <string name="key_noComponentToolTips_tt">If set, no tool tips for the components on the main panel are displayed.
+        Especially in a presentation, these tool tips can be very annoying.</string>
+
+    <string name="key_ATMISP">ATMISP</string>
+    <string name="key_ATMISP_tt">Path to the executable file ATMISP.exe. If set, the ATMISP software can be started automatically!</string>
+
+    <string name="key_customShape">Custom Shape</string>
+    <string name="key_customShape_tt">Import of a SVG-file</string>
+
+    <string name="key_useDefShape">Use Default Shape</string>
+    <string name="key_useDefShape_tt">Use the default shape instead of using the DIL or custom shape configured in the circuit.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -1212,6 +1252,8 @@
     <string name="menu_table_createNOr_tt">Creates a circuit which reproduces the truth table only with NOr gates.</string>
     <string name="menu_table_createTwo">Circuit with two input gates</string>
     <string name="menu_table_createTwo_tt">create circuit, use only gates with two inputs</string>
+    <string name="menu_table_createThree">Circuit with three input gates</string>
+    <string name="menu_table_createThree_tt">create circuit, use only gates with a maximum of three inputs</string>
     <string name="menu_table_create_hardware">Device</string>
     <string name="menu_table_create_jedec_tt">Creates a JEDEC file for the device</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
@@ -1290,8 +1332,6 @@
     <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
     <string name="menu_exportVHDL">Export to VHDL</string>
     <string name="menu_exportVHDL_tt">Exports the circuit to VHDL</string>
-    <string name="menu_exportVerilog">Export to Verilog</string>
-    <string name="menu_exportVerilog_tt">Exports the circuit to Verilog</string>
     <string name="menu_pdfDocumentation">Documentation</string>
     <string name="menu_openPdfDocumentation">Open {0}</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
@@ -1354,7 +1394,15 @@
     <string name="msg_startExternalFitter">Execution of external fitter</string>
     <string name="msg_actualCircuit">Actual Circuit</string>
     <string name="msg_fileNotAccessible">The selected file name is not importable from the actual project!</string>
-    <string name="msg_fileIsNotUnique">The file name is not unique!</string>
+    <string name="msg_fileIsNotUnique">The file name is not unique!
+        All files in the working directory and all subdirectories must have unique file names. This also applies to the
+        library folder. If your work directory has a 7400.dig file, you can not use this file or the 7400.dig file from
+        the library.
+        If there is a 7400.dig file in your working directory, you can not use this file or the 7400.dig file from the
+        library, because this file name can no longer be uniquely assigned.
+    </string>
+    <string name="msg_duplicateLibraryFiles">There are several files with identical file names, which can not be
+        uniquely assigned! Affected are:</string>
     <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
     <string name="msg_fileExists">The file {0} already exists! Do you want to overwrite the file?</string>
     <string name="msg_test_missingLines">(To many entries!)</string>
@@ -1403,6 +1451,15 @@
         If this is not the case, the error message of the external application is displayed.
         If possible, the input and output definitions are also adapted to the current code.</string>
     <string name="msg_applicationFileNotFound">Executable file "{0}" not found!</string>
+    <string name="msg_enterText">Enter Text!</string>
+
+    <string name="btn_startATMISP">Start ATMISP</string>
+    <string name="btn_startATMISP_tt">Starts the external program ATMISP. This must have been previously installed.</string>
+    <string name="msg_errorStartingATMISP">Error while starting ATMISP!
+Is the correct path to the executable ATMISP.exe specified in the settings?</string>
+    <string name="msg_ATMISPIsStillRunning">ATMISP is still running!
+When this dialog is closed, ATMISP is terminated!
+Make sure the flash process is complete before closing this dialog!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
@@ -1532,6 +1589,21 @@ loop(a,16)
              0    bits(4,a)        bits(4,b)        bits(5,a+b)
              1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
   end loop
+end loop
+</pre>
+
+<p>It may be helpful to generate random numbers in test cases.
+These can be created with the function 'random([n])'. The generated number is greater
+than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
+a full test can not be performed since it would have 2^32 input combinations.
+A regression test that multiplies 100000 random numbers might look like this:</p>
+
+<pre>
+   A    B      Y
+loop(i,100000)
+  let a = random(1&lt;&lt;16);
+  let b = random(1&lt;&lt;16);
+  (a)  (b)   (a*b)
 end loop
 </pre>
 

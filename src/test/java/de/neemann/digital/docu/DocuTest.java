@@ -15,7 +15,6 @@ import de.neemann.digital.draw.graphics.GraphicSVGIndex;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.library.NumStringComparator;
-import de.neemann.digital.draw.library.Visitor;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.lang.Lang;
@@ -117,9 +116,18 @@ public class DocuTest extends TestCase {
             if (etd.getAttributeList().size() > 0) {
                 w.append("      <attributes name=\"").append(Lang.get("elem_Help_attributes")).append("\">\n");
                 for (Key k : etd.getAttributeList()) {
-                    w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">");
-                    w.append(escapeHTML(k.getDescription()));
-                    w.append("</attr>\n");
+                    if (!k.isSecondary()) {
+                        w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">");
+                        w.append(escapeHTML(k.getDescription()));
+                        w.append("</attr>\n");
+                    }
+                }
+                for (Key k : etd.getAttributeList()) {
+                    if (k.isSecondary()) {
+                        w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">");
+                        w.append(escapeHTML(k.getDescription()));
+                        w.append("</attr>\n");
+                    }
                 }
                 w.append("      </attributes>\n");
             }

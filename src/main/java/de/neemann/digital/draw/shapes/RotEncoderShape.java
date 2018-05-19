@@ -6,6 +6,7 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -15,7 +16,6 @@ import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.sync.Sync;
 
 import java.awt.*;
 
@@ -62,23 +62,23 @@ public class RotEncoderShape implements Shape {
             private boolean initial;
 
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
+            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 return false;
             }
 
             @Override
-            public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
+            public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 initial = true;
                 return false;
             }
 
             @Override
-            public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, Sync modelSync) {
+            public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 return false;
             }
 
             @Override
-            public boolean dragged(CircuitComponent cc, Vector pos, Transform trans, IOState ioState, Element element, Sync modelSync) {
+            public boolean dragged(CircuitComponent cc, Vector pos, Transform trans, IOState ioState, Element element, SyncAccess modelSync) {
                 if (ioState != null) {
                     Vector p = pos.sub(trans.transform(CENTER));
                     final int dist = p.x * p.x + p.y * p.y;

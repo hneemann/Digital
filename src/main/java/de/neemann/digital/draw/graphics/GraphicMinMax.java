@@ -50,19 +50,19 @@ public class GraphicMinMax implements Graphic {
     }
 
     @Override
-    public void drawLine(Vector p1, Vector p2, Style style) {
+    public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
         check(p1);
         check(p2);
     }
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
-        for (Vector v : p)
+        for (VectorInterface v : p)
             check(v);
     }
 
     @Override
-    public void drawCircle(Vector p1, Vector p2, Style style) {
+    public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
         check(p1);
         check(p2);
     }
@@ -72,10 +72,10 @@ public class GraphicMinMax implements Graphic {
      *
      * @param p the point to check
      */
-    public void check(Vector p) {
+    public void check(VectorInterface p) {
         if (min == null || max == null) {
-            min = new Vector(p.x, p.y);
-            max = new Vector(p.x, p.y);
+            min = new Vector(p.getX(), p.getY());
+            max = new Vector(p.getX(), p.getY());
         } else {
             min = Vector.min(min, p);
             max = Vector.max(max, p);
@@ -83,7 +83,7 @@ public class GraphicMinMax implements Graphic {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
         if (includeText || style.mattersAlwaysForSize())
             approxTextSize(this, p1, p2, text, orientation, style);
     }
@@ -98,15 +98,15 @@ public class GraphicMinMax implements Graphic {
      * @param orientation the texts orientation
      * @param style       the text style
      */
-    public static void approxTextSize(Graphic gr, Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public static void approxTextSize(Graphic gr, VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
         if (text != null && text.length() > 0) {
-            Vector delta = p2.sub(p1).norm128();
-            Vector height = new Vector(delta.y, -delta.x).mul(style.getFontSize()).div(128);
+            VectorFloat delta = p2.sub(p1).norm();
+            VectorFloat height = new VectorFloat(delta.getYFloat(), -delta.getXFloat()).mul(style.getFontSize());
 
             int textWidth = getTextWidth(text, style);
-            Vector width = delta.mul(textWidth).div(128);
+            VectorFloat width = delta.mul(textWidth);
 
-            Vector p = p1;
+            VectorInterface p = p1;
             if (orientation.getX() != 0) {
                 p = p.sub(width.mul(orientation.getX()).div(2));
             }

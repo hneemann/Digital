@@ -79,8 +79,11 @@ public class ToBreakRunner {
 
         ModelCreator md = new ModelCreator(circuit, library);
         model = md.createModel(false);
-        if (doInit)
+        if (doInit) {
+            if (model.getAsyncInfos() != null)
+                model.setAsyncMode();
             model.init(true);
+        }
     }
 
     /**

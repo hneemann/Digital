@@ -55,9 +55,9 @@ public class GraphicSwing implements Graphic {
     }
 
     @Override
-    public void drawLine(Vector p1, Vector p2, Style style) {
+    public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
         applyStyle(style);
-        gr.drawLine(p1.x, p1.y, p2.x, p2.y);
+        gr.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 
     @Override
@@ -68,13 +68,15 @@ public class GraphicSwing implements Graphic {
         //CHECKSTYLE.OFF: ModifiedControlVariable
         for (int i = 0; i < p.size(); i++) {
             if (i == 0) {
-                path.moveTo(p.get(i).x, p.get(i).y);
+                path.moveTo(p.get(i).getXFloat(), p.get(i).getYFloat());
             } else {
                 if (p.isBezierStart(i)) {
-                    path.curveTo(p.get(i).x, p.get(i).y, p.get(i + 1).x, p.get(i + 1).y, p.get(i + 2).x, p.get(i + 2).y);
+                    path.curveTo(p.get(i).getXFloat(), p.get(i).getYFloat(),
+                            p.get(i + 1).getXFloat(), p.get(i + 1).getYFloat(),
+                            p.get(i + 2).getXFloat(), p.get(i + 2).getYFloat());
                     i += 2;
                 } else
-                    path.lineTo(p.get(i).x, p.get(i).y);
+                    path.lineTo(p.get(i).getXFloat(), p.get(i).getYFloat());
             }
         }
         //CHECKSTYLE.ON: ModifiedControlVariable
@@ -84,11 +86,12 @@ public class GraphicSwing implements Graphic {
 
         if (style.isFilled() && p.isClosed())
             gr.fill(path);
-        gr.draw(path);
+        if (style.getThickness() > 0)
+            gr.draw(path);
     }
 
     @Override
-    public void drawCircle(Vector p1, Vector p2, Style style) {
+    public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
         Vector w = Vector.width(p1, p2);
         if (w.x > pixelSize || w.y > pixelSize) {
             applyStyle(style);
@@ -110,18 +113,18 @@ public class GraphicSwing implements Graphic {
     }
 
     @Override
-    public void drawText(Vector p1, Vector p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
         applyStyle(style); // sets also font size!
         int fontHeight = gr.getFontMetrics().getHeight();
         if (fontHeight > minFontSize) {
             if (text == null || text.length() == 0) return;
 
             boolean rotateText = false;
-            if (p1.y == p2.y) {   // 0 and 180 deg
-                if (p1.x > p2.x)   // 180
+            if (p1.getY() == p2.getY()) {   // 0 and 180 deg
+                if (p1.getX() > p2.getX())   // 180
                     orientation = orientation.rot(2);
             } else {
-                if (p1.y < p2.y) // 270
+                if (p1.getY() < p2.getY()) // 270
                     orientation = orientation.rot(2);
                 else            // 90
                     orientation = orientation.rot(0);
@@ -133,9 +136,9 @@ public class GraphicSwing implements Graphic {
             AffineTransform old = null;
             if (rotateText) {
                 old = gr.getTransform();
-                gr.translate(p1.x, p1.y);
+                gr.translate(p1.getXFloat(), p1.getYFloat());
                 gr.rotate(-Math.PI / 2);
-                gr.translate(-p1.x, -p1.y);
+                gr.translate(-p1.getXFloat(), -p1.getYFloat());
             }
 
             int xoff = 0;
@@ -150,7 +153,7 @@ public class GraphicSwing implements Graphic {
                 yoff += height * orientation.getY() / 3;
             }
 
-            fragment.draw(gr, p1.x + xoff, p1.y + yoff);
+            fragment.draw(gr, p1.getX() + xoff, p1.getY() + yoff);
 
             if (rotateText)
                 gr.setTransform(old);

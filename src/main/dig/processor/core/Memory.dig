@@ -4,11 +4,16 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Ein Speicher kombiniert aus ROM und RAM.
+      <string>A memory combining ROM and RAM.
+The addresses 0-0x7FFF are mapped to a ROM, the 
+addresses 0x8000-0xFFFF to a RAM component. 
+Thus, ROM and RAM can be found in the same 
+address space.
+{{de Ein Speicher kombiniert aus ROM und RAM.
 Die Adressen 0-0x7FFF werden auf ein ROM 
 abgebildet, die Adressen 0x8000-0xFFFF auf einen
 RAM-Baustein. Somit finden sich ROM und RAM im
-selben Adressraum.</string>
+selben Adressraum.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -114,7 +119,8 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Der bidirektionelle Datenbus</string>
+          <string>bidirectional data bus
+{{de Der bidirektionelle Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -132,7 +138,8 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Der Adressbus</string>
+          <string>address bus
+{{de Der Adressbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -175,7 +182,8 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Daten speichern</string>
+          <string>store data
+{{de Daten speichern}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -194,7 +202,8 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Speicher lesen</string>
+          <string>read memory
+{{de Speicher lesen}}</string>
         </entry>
         <entry>
           <string>Label</string>

@@ -5,8 +5,6 @@
  */
 package de.neemann.digital.draw.graphics.text.formatter;
 
-import de.neemann.digital.draw.graphics.text.text.Simple;
-import de.neemann.digital.draw.graphics.text.text.Text;
 import junit.framework.TestCase;
 
 import java.awt.*;

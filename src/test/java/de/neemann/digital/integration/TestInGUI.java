@@ -8,7 +8,6 @@ package de.neemann.digital.integration;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.basic.And;
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.External;
@@ -44,7 +43,6 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -399,7 +397,7 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .press("F10")
                 .press("RIGHT", 4)
-                .press("DOWN", 5)
+                .press("DOWN", 6)
                 .press("RIGHT")
                 .press("DOWN", 2)
                 .press("RIGHT")
@@ -768,6 +766,8 @@ public class TestInGUI extends TestCase {
                 .press("RIGHT", 2)
                 .press("DOWN", 1)
                 .press("ENTER", 1)
+                .press("control TAB", 4)
+                .press("RIGHT", 1)
                 .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
                         b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
                 .press("SPACE")

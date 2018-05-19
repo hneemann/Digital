@@ -28,7 +28,8 @@ public class Terminal extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Terminal.class,
             input("D"),
-            input("C").setClock())
+            input("C").setClock(),
+            input("en"))
             .addAttribute(Keys.TERM_WIDTH)
             .addAttribute(Keys.TERM_HEIGHT)
             .addAttribute(Keys.ROTATE)
@@ -40,6 +41,7 @@ public class Terminal extends Node implements Element {
     private ObservableValue data;
     private ObservableValue clock;
     private boolean lastClock;
+    private ObservableValue en;
 
     /**
      * Creates a new terminal instance
@@ -55,6 +57,7 @@ public class Terminal extends Node implements Element {
     public void setInputs(ObservableValues inputs) throws NodeException {
         data = inputs.get(0);
         clock = inputs.get(1).addObserverToValue(this).checkBits(1, this);
+        en = inputs.get(2).addObserverToValue(this).checkBits(1, this);
     }
 
     @Override
@@ -65,7 +68,7 @@ public class Terminal extends Node implements Element {
     @Override
     public void readInputs() throws NodeException {
         boolean clockVal = clock.getBool();
-        if (!lastClock && clockVal) {
+        if (!lastClock && clockVal && en.getBool()) {
             long value = data.getValue();
             if (value != 0)
                 SwingUtilities.invokeLater(() -> {

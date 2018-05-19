@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>4-Bit Ripple-Carry addierer bestehend aus vier 
-Volladdierern.</string>
+      <string>4-bit ripple carry adder, consisting of four full adders.
+{{de 4-Bit Ripple-Carry addierer bestehend aus vier 
+Volladdierern.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -54,6 +55,10 @@ Volladdierern.</string>
         <entry>
           <string>Default</string>
           <int>1</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="-260" y="260"/>
@@ -124,6 +129,10 @@ Volladdierern.</string>
           <string>Default</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="-260" y="80"/>
     </visualElement>
@@ -168,6 +177,10 @@ Volladdierern.</string>
         <entry>
           <string>Label</string>
           <string>A_2</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="-260" y="-340"/>
@@ -251,6 +264,10 @@ Volladdierern.</string>
         <entry>
           <string>Label</string>
           <string>B_3</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="-260" y="-520"/>

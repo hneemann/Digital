@@ -5,13 +5,12 @@
  */
 package de.neemann.digital.data;
 
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
-import de.neemann.digital.gui.sync.NoSync;
-import de.neemann.digital.gui.sync.Sync;
 
 /**
  * The dataSet stores the collected DataSamples.
@@ -21,7 +20,7 @@ public class DataPlotter implements Drawable {
     private final ValueTable dataOriginal;
     private final int maxTextLength;
     private double size = SIZE;
-    private Sync modelSync = NoSync.INST;
+    private SyncAccess modelSync = SyncAccess.NOSYNC;
 
     /**
      * Creates a new instance
@@ -70,7 +69,7 @@ public class DataPlotter implements Drawable {
     @Override
     public void drawTo(Graphic g, Style highLight) {
         ValueTable data;
-        if (modelSync == NoSync.INST) {
+        if (modelSync == SyncAccess.NOSYNC) {
             data = dataOriginal;
         } else {
             data = modelSync.access(new Runnable() {
@@ -165,7 +164,7 @@ public class DataPlotter implements Drawable {
      * @param modelSync the lock
      * @return this for chained calls
      */
-    public DataPlotter setModelSync(Sync modelSync) {
+    public DataPlotter setModelSync(SyncAccess modelSync) {
         this.modelSync = modelSync;
         return this;
     }

@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.hdl.hgs.HGSMap;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +16,7 @@ import java.util.Map;
  * Describes one concrete Part.
  * Its a Key value list, which is used to store the diferent elements attributes.
  */
-public class ElementAttributes {
+public class ElementAttributes implements HGSMap {
     private HashMap<String, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
 
@@ -306,5 +308,17 @@ public class ElementAttributes {
         } catch (NumberFormatException e) {
             return 0;
         }
+    }
+
+    @Override
+    public Object hgsMapGet(String key) {
+        Key k = Keys.getKeyByName(key);
+        if (k == null) {
+            if (attributes == null)
+                return null;
+            else
+                return attributes.get(key);
+        } else
+            return get(k);
     }
 }

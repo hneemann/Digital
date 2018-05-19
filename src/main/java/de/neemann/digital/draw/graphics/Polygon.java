@@ -8,15 +8,16 @@ package de.neemann.digital.draw.graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 /**
  * A polygon representation used by the {@link Graphic} interface.
  */
-public class Polygon implements Iterable<Vector> {
+public class Polygon implements Iterable<VectorInterface> {
 
-    private final ArrayList<Vector> points;
+    private final ArrayList<VectorInterface> points;
     private final HashSet<Integer> isBezierStart;
-    private final boolean closed;
+    private boolean closed;
 
     /**
      * Creates e new closed polygon
@@ -40,7 +41,7 @@ public class Polygon implements Iterable<Vector> {
      * @param points the polygons points
      * @param closed true if polygon is closed
      */
-    public Polygon(ArrayList<Vector> points, boolean closed) {
+    public Polygon(ArrayList<VectorInterface> points, boolean closed) {
         this.points = points;
         this.closed = closed;
         isBezierStart = new HashSet<>();
@@ -70,7 +71,7 @@ public class Polygon implements Iterable<Vector> {
      * @param p the point to add
      * @return this for chained calls
      */
-    public Polygon add(Vector p) {
+    public Polygon add(VectorInterface p) {
         points.add(p);
         return this;
     }
@@ -83,7 +84,7 @@ public class Polygon implements Iterable<Vector> {
      * @param p  the end point to add
      * @return this for chained calls
      */
-    public Polygon add(Vector c1, Vector c2, Vector p) {
+    public Polygon add(VectorInterface c1, VectorInterface c2, VectorInterface p) {
         isBezierStart.add(points.size());
         points.add(c1);
         points.add(c2);
@@ -114,12 +115,12 @@ public class Polygon implements Iterable<Vector> {
      * @param i the index
      * @return the i'th point
      */
-    public Vector get(int i) {
+    public VectorInterface get(int i) {
         return points.get(i);
     }
 
     @Override
-    public Iterator<Vector> iterator() {
+    public Iterator<VectorInterface> iterator() {
         return points.iterator();
     }
 
@@ -133,11 +134,11 @@ public class Polygon implements Iterable<Vector> {
      * @param p2 second point of the line
      * @return true if line was added
      */
-    public boolean addLine(Vector p1, Vector p2) {
+    public boolean addLine(VectorInterface p1, VectorInterface p2) {
         return check(p1, p2) || check(p2, p1);
     }
 
-    private boolean check(Vector p1, Vector p2) {
+    private boolean check(VectorInterface p1, VectorInterface p2) {
         if (p1.equals(getFirst())) {
             points.add(0, p2);
             return true;
@@ -151,14 +152,14 @@ public class Polygon implements Iterable<Vector> {
     /**
      * @return the first point of the polygon
      */
-    public Vector getFirst() {
+    public VectorInterface getFirst() {
         return points.get(0);
     }
 
     /**
      * @return the last point of the polygon
      */
-    public Vector getLast() {
+    public VectorInterface getLast() {
         return points.get(points.size() - 1);
     }
 
@@ -198,9 +199,153 @@ public class Polygon implements Iterable<Vector> {
      */
     public Polygon transform(Transform transform) {
         Polygon p = new Polygon(closed);
-        for (Vector v : points)
-            p.add(transform.transform(v));
+        for (VectorInterface v : points)
+            p.add(v.transform(transform));
         p.isBezierStart.addAll(isBezierStart);
         return p;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("M ");
+        VectorInterface v = points.get(0);
+        sb.append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+        //modification of loop variable i is intended!
+        //CHECKSTYLE.OFF: ModifiedControlVariable
+        for (int i = 1; i < points.size(); i++) {
+            v = points.get(i);
+            if (isBezierStart.contains(i)) {
+                sb.append("C ").append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+                v = points.get(i + 1);
+                sb.append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+                v = points.get(i + 2);
+                sb.append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+                i += 2;
+            } else
+                sb.append("L ").append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+        }
+        //CHECKSTYLE.ON: ModifiedControlVariable
+        if (closed)
+            sb.append("z");
+        return sb.toString();
+    }
+
+    /**
+     * Creates a polygon from a SVG path
+     *
+     * @param path the svg path
+     * @return the polygon or null if there was an error
+     */
+    public static Polygon createFromPath(String path) {
+        StringTokenizer tok = new StringTokenizer(path, " ,");
+        float x = 0;
+        float y = 0;
+        Polygon p = new Polygon();
+        String lastTok = "";
+        while (tok.hasMoreTokens()) {
+            final String t = tok.nextToken();
+            switch (t) {
+                case "M":
+                    x = Float.parseFloat(tok.nextToken());
+                    y = Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x, y));
+                    lastTok = t;
+                    break;
+                case "m":
+                    x += Float.parseFloat(tok.nextToken());
+                    y += Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x, y));
+                    lastTok = t;
+                    break;
+                case "V":
+                    y = Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x, y));
+                    lastTok = t;
+                    break;
+                case "v":
+                    y += Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x, y));
+                    lastTok = t;
+                    break;
+                case "H":
+                    x = Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x, y));
+                    lastTok = t;
+                    break;
+                case "h":
+                    x += Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x, y));
+                    lastTok = t;
+                    break;
+                case "l":
+                    x += Float.parseFloat(tok.nextToken());
+                    y += Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x, y));
+                    lastTok = t;
+                    break;
+                case "L":
+                    x = Float.parseFloat(tok.nextToken());
+                    y = Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x, y));
+                    lastTok = t;
+                    break;
+                case "c":
+                    float x1 = x + Float.parseFloat(tok.nextToken());
+                    float y1 = y + Float.parseFloat(tok.nextToken());
+                    float x2 = x1 + Float.parseFloat(tok.nextToken());
+                    float y2 = y1 + Float.parseFloat(tok.nextToken());
+                    x = x2 + Float.parseFloat(tok.nextToken());
+                    y = y2 + Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x1, y1), new VectorFloat(x2, y2), new VectorFloat(x, y));
+                    break;
+                case "C":
+                    x1 = Float.parseFloat(tok.nextToken());
+                    y1 = Float.parseFloat(tok.nextToken());
+                    x2 = Float.parseFloat(tok.nextToken());
+                    y2 = Float.parseFloat(tok.nextToken());
+                    x = Float.parseFloat(tok.nextToken());
+                    y = Float.parseFloat(tok.nextToken());
+                    p.add(new VectorFloat(x1, y1), new VectorFloat(x2, y2), new VectorFloat(x, y));
+                    break;
+                case "Z":
+                case "z":
+                    p.closed = true;
+                    break;
+                default:
+                    switch (lastTok) {
+                        case "V":
+                            y = Float.parseFloat(t);
+                            p.add(new VectorFloat(x, y));
+                            break;
+                        case "v":
+                            y += Float.parseFloat(t);
+                            p.add(new VectorFloat(x, y));
+                            break;
+                        case "H":
+                            x = Float.parseFloat(t);
+                            p.add(new VectorFloat(x, y));
+                            break;
+                        case "h":
+                            x += Float.parseFloat(t);
+                            p.add(new VectorFloat(x, y));
+                            break;
+                        case "l":
+                            x += Float.parseFloat(t);
+                            y += Float.parseFloat(tok.nextToken());
+                            p.add(new VectorFloat(x, y));
+                            break;
+                        case "L":
+                            x = Float.parseFloat(t);
+                            y = Float.parseFloat(tok.nextToken());
+                            p.add(new VectorFloat(x, y));
+                            break;
+                        default:
+                            return null;
+                    }
+                    break;
+            }
+        }
+        return p;
+    }
+
 }

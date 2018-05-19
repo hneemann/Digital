@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="addr">Adresse</string>
-    <string name="name">Name</string>
     <string name="tableOfContent">Inhaltsverzeichnis</string>
     <string name="general">Allgemein</string>
     <string name="revision">Version</string>
@@ -19,6 +18,8 @@
     <string name="attr_dialogHighz">HighZ</string>
     <string name="attr_dialogOctal">Oktal</string>
     <string name="attr_dialogBinary">Binär</string>
+    <string name="attr_primary">Standard</string>
+    <string name="attr_secondary">Erweitert</string>
     <string name="btn_discard">Verwerfen</string>
     <string name="btn_edit">Bearbeiten</string>
     <string name="btn_editFurther">Weiter bearbeiten</string>
@@ -134,6 +135,11 @@
         herzustellen. In diesem Fall ist der Anschluss bidirektional.
         Wird zudem verwendet, um einen Hardware Pin zuzuordnen, wenn Code für ein CPLD oder FPGA erzeugt wird.</string>
     <string name="elem_In_pin_out">An diesem Ausgang wird der anliegende Wert ausgegeben.</string>
+
+    <string name="elem_DipSwitch">DIP-Schalter</string>
+    <string name="elem_DipSwitch_tt">Einfacher Schiebeschalter, der High oder Low ausgeben kann.</string>
+    <string name="elem_DipSwitch_pin_out">Der Ausgabewert des Schalters.</string>
+
     <string name="elem_Clock">Takteingang</string>
     <string name="elem_Clock_tt">Ein Taktsignal. Dieses Taktsignal kann über die Echtzeituhr gesteuert werden.
         Abhängig von der Komplexität der Schaltung kann die erreichte Taktfrequenz geringer sein als der vorgegebene
@@ -167,6 +173,13 @@
     </string>
     <string name="elem_LightBulb_pin_A">Anschluss</string>
     <string name="elem_LightBulb_pin_B">Anschluss</string>
+
+    <string name="elem_PolarityAwareLED">LED mit zwei Anschlüssen</string>
+    <string name="elem_PolarityAwareLED_tt">LED mit zwei Anschlüssen für die Kathode und die Anode. Die LED leuchtet
+        nur, wenn die Anode auf High und die Kathode auf Low gelegt wird.</string>
+    <string name="elem_PolarityAwareLED_pin_A">Die Anode der LED.</string>
+    <string name="elem_PolarityAwareLED_pin_C">Die Kathode der LED.</string>
+
     <string name="elem_Seven-Seg">Siebensegmentanzeige</string>
     <string name="elem_Seven-Seg_tt">Siebensegmentanzeige, bei der jedes Segment über einen eigenen Eingang gesteuert
         werden kann.</string>
@@ -183,6 +196,12 @@
     <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
     <string name="elem_Seven-Seg-Hex_pin_d">Der 4-Bit-Wert dieses Eingangs wird als Hex-Ziffer dargestellt.</string>
     <string name="elem_Seven-Seg-Hex_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+
+    <string name="elem_SixteenSeg">16-Segement Anzeige</string>
+    <string name="elem_SixteenSeg_tt">Der LED Eingang verfügt über 16 Bits welche die Segmente steuern. Der zweite Eingang steuert den Dezimalpunkt.</string>
+    <string name="elem_SixteenSeg_pin_led">Bus mit 16-Bits zur Ansteuerung der LEDs.</string>
+    <string name="elem_SixteenSeg_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
+
     <string name="elem_LedMatrix">LED-Matrix</string>
     <string name="elem_LedMatrix_tt">Eine Matrix aus LEDs. Die LEDs werden in einem eigenen Fenster dargestellt.
         Die LEDs einer Spalte der Anzeige werden durch ein Datenwort gesteuert.
@@ -207,13 +226,19 @@
         Dieses Element puffert die Eingaben, welche dann ausgelesen werden können.
         Es wird ein eigenes Fenster für die Eingabe geöffnet.
     </string>
-    <string name="elem_Keyboard_pin_sel">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.</string>
+    <string name="elem_Keyboard_pin_C">Takt. Eine steigende Flanke entfernt das älteste Zeichen aus dem Buffer.</string>
+    <string name="elem_Keyboard_pin_en">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.
+        Ist gleichzeitig die Freigabe für den Takt.</string>
     <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
+    <string name="elem_Keyboard_pin_av">Dieser Ausgang zeigt an, dass Zeichen vorhanden sind.
+        Er kann genutzt werden, um einen Interrupt auszulösen.</string>
+
     <string name="elem_Terminal">Terminal</string>
     <string name="elem_Terminal_tt">Ein Terminal, auf dem ASCII-Zeichen ausgegeben werden können.
         Öffnet ein eigenes Fenster, um die Ausgabe anzuzeigen.</string>
     <string name="elem_Terminal_pin_C">Takteingang. Eine steigende Flanke gibt das anliegende Datenwort auf dem Terminal aus.</string>
     <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
+    <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
 
     <!-- Leitungen -->
@@ -521,6 +546,19 @@
     <string name="elem_Counter_pin_out">Gibt den gezählten Wert aus.</string>
     <string name="elem_Counter_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
 
+    <string name="elem_CounterPreset">Zähler, beschreibbar</string>
+    <string name="elem_CounterPreset_tt">Zähler, dessen Wert gesetzt werden kann. Zudem kann ein Maximalwert und eine Zählrichtung vorgegeben werden.</string>
+    <string name="elem_CounterPreset_short">Zähler</string>
+    <string name="elem_CounterPreset_pin_out">Gibt den gezählten Wert aus.</string>
+    <string name="elem_CounterPreset_pin_ovf">Overflow Ausgang. Wird auf 1 gesetzt, der 'en' Eingang auf 1 gesetzt ist
+        und wenn der Zähler beim Aufwärtszählen seinen Maximalwert erreicht, bzw. beim Abwärtszählen die 0 erreicht hat.</string>
+    <string name="elem_CounterPreset_pin_C">Eingang des Taktsignals.</string>
+    <string name="elem_CounterPreset_pin_clr">Setzt den Zähler synchron auf 0 zurück, wenn dieser Eingang auf 1 gesetzt wird.</string>
+    <string name="elem_CounterPreset_pin_en">Der Zähler zählt nur, wenn dieser Eingang auf 1 gesetzt ist.</string>
+    <string name="elem_CounterPreset_pin_dir">Gibt die Zählrichtung an. Eine 0 bedeutet aufwärts.</string>
+    <string name="elem_CounterPreset_pin_ld">Wenn gesetzt wird beim nächsten Taktsignal der Wert am Eingang 'in' in den Zähler übernommen.</string>
+    <string name="elem_CounterPreset_pin_in">Dieses Datenwort wird im Zähler gespeichert, wenn ld=1 gesetzt ist.</string>
+
 
 
     <!--Arithmetik -->
@@ -670,31 +708,7 @@
     <string name="elem_TransGate_pin_S">Steuereingang</string>
     <string name="elem_TransGate_pin_~S">Steuereingang, invertiert</string>
 
-    <!-- HDL Gen -->
-    <!-- TODO: translate this -->
 
-    <string name="errMsgWithLine">Line {0} : {1}</string>
-    <string name="notClosedBlockComment">Nicht abgeschlossener Blockkommentar</string>
-    <string name="invalidCharacter">Ungültiges Zeichen ''{0}''</string>
-    <string name="missingDoubleQuote">Fehlendes Doppelzitat im String-Literal</string>
-    <string name="invalidHexConstant">Ungültige hexadezimale Konstante</string>
-    <string name="unexpectedStartOfStatement">Unerwartetes Token ''{0}''. Erwartet '{', if, while, for, printf, output literal or identifier.</string>
-    <string name="unexpectedToken">Unerwartetes Token ''{0}'', erwartet ''{1}''</string>
-    <string name="unpextedTokenInChangeStmt">Unerwartetes Token ''{0}'', erwartet =, ++, --</string>
-    <string name="unexpectedTokenInPrimaryExpr">Unerwartetes ''{0}'', erwartet +, -, ~, !, numerische Konstante, Zeichenfolgenliteral oder Kennung</string>
-    <string name="invalidBinaryOperator">Ungültiger binärer Operator ''{0}''</string>
-    <string name="tkIdentDesc">Kennung</string>
-    <string name="invalidIndexInArrayAccess">Ein negativer Index im Array-Zugriff ist nicht zulässig</string>
-    <string name="variableNotDefined">Variable ''{0}'' ist nicht definiert</string>
-    <string name="lvalueNotArray">Ausdruck ''{0}'' ist kein Array</string>
-    <string name="arrayIndexNotInt">Array-Index sollte Integer sein</string>
-    <string name="lvalueNotStruct">Ausdruck ''{0}'' ist keine Struktur</string>
-    <string name="genericVarNotArray">Variable ''generics'' sollte als Array definiert werden</string>
-    <string name="genericElemNotString">Elemente im ''generics''-Array sollten string sein</string>
-    <string name="moduleNameVarNotString">Die Variable ''modulName'' sollte eine Zeichenfolge sein</string>
-    <string name="firstArgFormatNotString">Das erste Argument der ''format'' Funktion sollte string sein</string>
-    <string name="invalidArgInFormatFn">Ungültiges Argument in der ''format'' Funktion.</string>
-    <string name="invalidFunction">Ungültige Funktion ''{0}''</string>
 
     <!-- Sonstige -->
 
@@ -702,6 +716,11 @@
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
         dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.</string>
+    <string name="elem_AsyncSeq">Asynchrones Timing</string>
+    <string name="elem_AsyncSeq_tt">Erlaubt die Konfiguration des Timings eines asynchronen Automaten wie z.B einer
+        Muller-Pipeline. Die Schaltung muss im Gatterschrittmodus gestartet werden und muss zunächst einen stabilen Zustand
+        einnehmen. Interaktiv oder mit einem Reset-Element kann dann der Automat gestartet werden.
+        Die Taktelemente können in diesem Modus nicht verwendet werden.</string>
     <string name="elem_PowerSupply">Versorgung</string>
     <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen sind.
         Kann im Zusammenhang mit den 74xx Bausteinen verwendet werden, um Anschlüsse für die Spannungsversorgung
@@ -773,6 +792,7 @@
     <string name="err_pinMap_toMannyOutputsDefined">Zu viele Ausgänge verwendet!</string>
     <string name="err_pinNotPresent">Pin nicht vorhanden</string>
     <string name="err_pinWithoutName">Es gibt einen Pin ohne einen Namen.</string>
+    <string name="err_clockWithoutName">Es gibt ein Taktelement ohne einen Namen. Wenn ein Taktelement eingebettet wird, benötigt auch dieses eine Bezeichnung.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} von Element {1} wurde nicht gefunden</string>
     <string name="err_pin_N_notFound">Pin {0} wurde nicht gefunden.</string>
     <string name="err_pin_N_unknown">Pin {0} ist unbekannt</string>
@@ -830,20 +850,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_errorInPowerSupply">Fehler in der Stromversorgung an {0}.</string>
     <string name="err_pinIsNotANumber_N">Die Pinnummer {0} ist keine Zahl!</string>
     <string name="err_vhdlExporting">Fehler beim Export zu VHDL.</string>
-    <string name="err_vhdlUnknownPortType_N">Unbekannter Porttyp.</string>
     <string name="err_vhdlNoEntity_N">Kein VHDL Code für {0} verfügbar!</string>
-    <string name="err_vhdlClockOnlyAllowedInRoot">Ein Taktelement ist nur im Hauptmodell erlaubt!</string>
-    <string name="err_vhdlNotAValidName">Der Name {0} ist nicht erlaubt!</string>
-    <string name="err_vhdlBitNumberNotAvailable">Kein Bitanzahl verfügbar!</string>
-    <string name="err_vhdlUnknownConstantType_N">Die Konstante hat einen ungültigen Typ {0}!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Der Pin {0} hat keine Nummer!</string>
     <string name="err_vhdlErrorWritingTestBench">Fehler beim erzeugen des Testfalls!</string>
-    <string name="err_vhdlRomHasNoValidLabel">Ein ROM hat einen ungültigen oder fehlenden Namen!</string>
-    <string name="err_vhdlRomLabel_N_notUnique">ROM Name {0} ist nicht eindeutig!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
     <string name="err_vhdlANameIsMissing">Es fehlt ein Name. Sind z.B. alle Pins benannt?</string>
-    <string name="err_verilogExporting">Fehler beim Export nach Verilog.</string>
-    <string name="err_verilogNoElement_N">Kein Verilog Code für {0} verfügbar!</string>
     <string name="err_toManyVars">Zu viele Variablen!</string>
     <string name="err_invalidExpression">Ungültiger Ausdruck!</string>
     <string name="err_function_N0_notFoundInLine_N1">Funktion {0} nicht gefunden in Zeile {1}!</string>
@@ -869,6 +880,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_monoflopRequiresOneClock">Wird ein Monoflop verwendet, muss es genau ein Taktelement geben!</string>
     <string name="err_couldNotCreateElement_N">Konnte kein Element vom Typ "{0}" erzeugen!</string>
     <string name="err_centralDefinedRomsAreNotSupported">Zentral definierte ROM-Inhalte werden nicht unterstützt!</string>
+    <string name="err_namesAreNotUnique_N">Der Name "{0}" ist nicht eindeutig!</string>
 
     <string name="err_errorWritingDataToProcess">Es konnten keine Werte an den externen Prozess übergeben werden!</string>
     <string name="err_errorReadingDataToProcess">Es konnten keine Werte vom externen Prozess gelesen werden!</string>
@@ -885,8 +897,17 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_couldNotStartProcess_N">Prozess konnte nicht gestartet werden: {0}</string>
     <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
         {1}</string>
-    <string name="err_canOnlyExportExtrnalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
-    <string name="err_ifExternalComponentIsUsedTwiceCodeMutBeIdentical">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein!</string>
+    <string name="err_canOnlyExportExternalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein! Betrifft {0}</string>
+    <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
+        {0}</string>
+    <string name="err_ghdlNotInstalled">
+        Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
+    </string>
+    <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
+    <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
+    <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
+    <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1103,9 +1124,26 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
         VHDL-Code verwendet werden soll.</string>
-    <string name="key_iverilogPath">GHDL</string>
-    <string name="key_iverilogPath_tt">Pfad der ausführbaren iverilog-Datei. Nur wichtig, wenn ghdl zur Interpretation von
-        Verilog-Code verwendet werden soll.</string>
+    <string name="key_maxValue">Maximalwert</string>
+    <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits sind Eins).</string>
+
+    <string name="key_dipDefault">Ausgabe ist High</string>
+    <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters, wenn die Simulation gestartet wird.</string>
+    <string name="key_macMouse">Die MacOS Mausklicks verwenden.</string>
+    <string name="key_macMouse_tt">Das unter MacOS übliche STRG-Klick anstelle von Rechtsklick verwenden.</string>
+    <string name="key_noComponentToolTips">Keine ToolTips für Bauteile auf der Arbeitsfläche.</string>
+    <string name="key_noComponentToolTips_tt">Wenn gesetzt, werden keine ToolTips für die Bauteile auf der Arbeitsfläche angezeigt.
+        Vor allem in einer Präsentation können diese ToolTips sehr störend sein.</string>
+
+    <string name="key_ATMISP">ATMISP</string>
+    <string name="key_ATMISP_tt">Pfad zur ausführbaren Datei ATMISP.exe. Wenn gesetzt, kann die Software ATMISP automatisch gestartet werden!</string>
+
+    <string name="key_customShape">Benutzerdefinierte Form</string>
+    <string name="key_customShape_tt">Importieren einer SVG-Datei</string>
+
+    <string name="key_useDefShape">Verwende einfache Form</string>
+    <string name="key_useDefShape_tt">Verwendet die einfache Form zur Darstellung. Hat nur einen Effekt, wenn die
+        Schaltung eine Benutzerdefinierte Form oder eine DIL Form verwendet.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1220,13 +1258,15 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_createNOr_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht nur mit NOr-Gattern.</string>
     <string name="menu_table_createTwo">Schaltung mit Gattern mit zwei Eingängen</string>
     <string name="menu_table_createTwo_tt">Erzeugt eine Schaltung und verwendet nur Gatter mit zwei Eingängen.</string>
+    <string name="menu_table_createThree">Schaltung mit Gattern mit drei Eingängen</string>
+    <string name="menu_table_createThree_tt">Erzeugt eine Schaltung und verwendet nur Gatter mit maximal drei Eingängen.</string>
     <string name="menu_table_create_hardware">Bausteine</string>
     <string name="menu_table_create_jedec_tt">Erzeugt eine JEDEC Datei für den Baustein</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
     <string name="menu_table_exportHex">Erzeuge HEX</string>
     <string name="menu_table_exportHex_tt">Die HEX-Datei kann in ein ROM oder eine LUT geladen werden.</string>
     <string name="menu_table_new">Neu</string>
-    <string name="menu_table_new_combinatorial">Kombintorisch</string>
+    <string name="menu_table_new_combinatorial">Kombinatorisch</string>
     <string name="menu_table_new_sequential">Automat</string>
     <string name="menu_table_new_sequential_bidir">Automat bidirektional</string>
     <string name="menu_table_columns">Spalten</string>
@@ -1299,8 +1339,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_addPowerSupply_tt">Erweitert die Schaltung um eine Spannungsversorung.</string>
     <string name="menu_exportVHDL">Export zu VHDL</string>
     <string name="menu_exportVHDL_tt">Exportiert die Schaltung zu VHDL</string>
-    <string name="menu_exportVerilog">Export zu Verilog</string>
-    <string name="menu_exportVerilog_tt">Exportiert die Schaltung zu Verilog</string>
     <string name="menu_karnaughMap">KV-Tafel</string>
     <string name="menu_karnaughMap_tt">Zeigt eine KV-Tafel der Tabelle an.</string>
     <string name="menu_pdfDocumentation">Dokumentation</string>
@@ -1370,7 +1408,14 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
     <string name="msg_startExternalFitter">Starten des externen Fitters</string>
     <string name="msg_actualCircuit">Aktuelle Schaltung</string>
     <string name="msg_fileNotAccessible">Dieser Dateiname ist nicht aus dem aktuellen Projekt importierbar!</string>
-    <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!</string>
+    <string name="msg_fileIsNotUnique">Der Dateiname ist nicht eindeutig!
+        Alle Dateinamen im Arbeitsverzeichniss und allen Unterverzeichnissen müssen eindeutig sein. Dies gilt
+        auch für den Bibliotheksordner. Wenn es in Ihrem Arbeitsverzeichniss eine Datei 7400.dig gibt, können Sie weder
+        diese noch die Datei 7400.dig aus der Bibliothek verwenden, da sich dieser Dateiname nun nicht mehr eindeutig
+        zuordnen lässt.
+    </string>
+    <string name="msg_duplicateLibraryFiles">Es gibt mehrere Dateien mit identischen Dateinamen, welche nicht eindeutig
+        zugeordnet werden können! Betroffen sind:</string>
     <string name="msg_fileNotImportedYet">Die Datei wurde noch nicht importiert.</string>
     <string name="msg_fileExists">Die Datei {0} existiert schon! Soll die Datei überschrieben werden?</string>
     <string name="msg_isLocked">Die Bearbeitung der Schaltung ist gesperrt. Sie können die Sperrung unter
@@ -1416,6 +1461,14 @@ Soll dennoch exportiert werden?</string>
         nicht der Fall ist, wird die Fehlermeldung der externen Anwendung angezeigt. Wenn es möglich ist, werden zudem
         die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
     <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
+    <string name="msg_enterText">Text eingeben!</string>
+    <string name="btn_startATMISP">Starte ATMISP</string>
+    <string name="btn_startATMISP_tt">Startet das externe Programm ATMISP. Dieses muss zuvor installiert worden sein.</string>
+    <string name="msg_errorStartingATMISP">Fehler beim Starten von ATMISP!
+Ist in den Einstellungen der korrekte Pfad zur ausführbaren Datei ATMISP.exe angegeben?</string>
+    <string name="msg_ATMISPIsStillRunning">ATMISP läuft noch!
+Wenn dieser Dialog geschlossen wird, wird ATMISP beendet!
+Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen Dialog schließen!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
@@ -1552,6 +1605,21 @@ loop(a,16)
              0    bits(4,a)        bits(4,b)        bits(5,a+b)
              1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
   end loop
+end loop
+</pre>
+
+<p>Unter Umständen ist die Erzeugung von Zufallszahlen in Testfällen hilfreich.
+Diese können mit der Funktion 'random([n])' erzeugt werden. Die erzeugte Zahl ist
+größer gleich Null und kleiner als [n]. Betrachtet man einen 16-Bit Multiplikator als Beispiel,
+kann kein vollständiger Test durchgeführt werden, da dieser 2^32 Eingangskombinationen hätte.
+Ein Regressionstest, welcher 100000 zufällige Zahlen multipliziert, könnte daher wie folgt aussehen:</p>
+
+<pre>
+   A    B      Y
+loop(i,100000)
+  let a = random(1&lt;&lt;16);
+  let b = random(1&lt;&lt;16);
+  (a)  (b)   (a*b)
 end loop
 </pre>
 

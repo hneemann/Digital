@@ -4,9 +4,11 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Sogenanntes Wired-OR. Ein Oder-Gatter welches 
+      <string>So-called Wired OR. An OR gate which is constructed with 
+diodes and a pull-down resistor.
+{{de Sogenanntes Wired-OR. Ein Oder-Gatter welches 
 mit Dioden und einem Pull-Down Widerstand 
-aufgebaut ist.</string>
+aufgebaut ist.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -15,7 +17,8 @@ aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erster Eingang des OR-Gatters.</string>
+          <string>First input of the OR gate.
+{{de Erster Eingang des OR-Gatters.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -29,7 +32,8 @@ aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweiter Eingang des OR-Gatters.</string>
+          <string>Second input of the OR gate.
+{{de Zweiter Eingang des OR-Gatters.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -43,7 +47,8 @@ aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Ergebnis der OR-Verknüpfung.</string>
+          <string>The output of the OR gate.
+{{de Das Ergebnis der OR-Verknüpfung.}}</string>
         </entry>
         <entry>
           <string>Label</string>

@@ -4,9 +4,12 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Eine einfache Look Up Table. Je nach Stellung der 
+      <string>A simple look up table. Depending on the position 
+of the four switches, this circuit can emulate any 
+two-input logic function.
+{{de Eine einfache Look Up Table. Je nach Stellung der 
 vier Schalter kann diese Schaltung jede mögliche 
-logische Funktion mit zwei Eingängen nachbilden.</string>
+logische Funktion mit zwei Eingängen nachbilden.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -15,7 +18,8 @@ logische Funktion mit zwei Eingängen nachbilden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erstes Eingangsbit</string>
+          <string>first input bit
+{{de Erstes Eingangsbit}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -29,7 +33,8 @@ logische Funktion mit zwei Eingängen nachbilden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweites Eingangsbit.</string>
+          <string>second input bit
+{{de Zweites Eingangsbit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -147,9 +152,11 @@ logische Funktion mit zwei Eingängen nachbilden.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Ausgangsbit der Schaltung. Die Funktion die
+          <string>Output bit of the circuit. The function that is 
+output is defined by the four switches.
+{{de Ausgangsbit der Schaltung. Die Funktion die
 ausgegeben wird, wird über die vier Schalter
-definiert.</string>
+definiert.}}</string>
         </entry>
         <entry>
           <string>Label</string>

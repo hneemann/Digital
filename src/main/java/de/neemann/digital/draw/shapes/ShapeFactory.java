@@ -20,6 +20,8 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.JarComponentManager;
+import de.neemann.digital.draw.shapes.custom.CustomShape;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.draw.shapes.ieee.IEEEAndShape;
 import de.neemann.digital.draw.shapes.ieee.IEEENotShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
@@ -90,13 +92,16 @@ public final class ShapeFactory {
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(LightBulb.DESCRIPTION.getName(), LightBulbShape::new);
+        map.put(Out.POLARITYAWARELEDDESCRIPTION.getName(), PolarityAwareLEDShape::new);
         map.put(Button.DESCRIPTION.getName(), ButtonShape::new);
         map.put(Probe.DESCRIPTION.getName(), ProbeShape::new);
         map.put(Clock.DESCRIPTION.getName(), ClockShape::new);
         map.put(Out.SEVENDESCRIPTION.getName(), SevenSegShape::new);
         map.put(Out.SEVENHEXDESCRIPTION.getName(), SevenSegHexShape::new);
+        map.put(Out.SIXTEENDESCRIPTION.getName(), SixteenShape::new);
         map.put(DummyElement.DATADESCRIPTION.getName(), DataShape::new);
         map.put(RotEncoder.DESCRIPTION.getName(), RotEncoderShape::new);
+        map.put(DipSwitch.DESCRIPTION.getName(), DipSwitchShape::new);
 
         map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
         map.put(Fuse.DESCRIPTION.getName(), FuseShape::new);
@@ -131,6 +136,7 @@ public final class ShapeFactory {
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
         map.put(TestCaseElement.TESTCASEDESCRIPTION.getName(), TestCaseShape::new);
+        map.put(AsyncSeq.DESCRIPTION.getName(), AsyncClockShape::new);
 
         map.put(Diode.DESCRIPTION.getName(), DiodeShape::new);
         map.put(DiodeForward.DESCRIPTION.getName(), DiodeForewardShape::new);
@@ -162,23 +168,29 @@ public final class ShapeFactory {
                     ElementTypeDescription pt = library.getElementType(elementName);
                     if (pt instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                         ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
-                        if (customDescr.getAttributes().get(Keys.IS_DIL)) {
-                            return new DILShape(
-                                    pt.getShortName(),
-                                    pt.getInputDescription(elementAttributes),
-                                    pt.getOutputDescriptions(elementAttributes),
-                                    elementAttributes.getLabel(),
-                                    customDescr.getAttributes());
-                        } else {
-                            return new GenericShape(
-                                    pt.getShortName(),
-                                    pt.getInputDescription(elementAttributes),
-                                    pt.getOutputDescriptions(elementAttributes),
-                                    elementAttributes.getLabel(),
-                                    true,
-                                    customDescr.getAttributes().get(Keys.WIDTH))
-                                    .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
+                        if (!elementAttributes.get(Keys.USE_DEFAULT_SHAPE)) {
+                            final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
+                            if (customShapeDescription != CustomShapeDescription.EMPTY)
+                                return new CustomShape(customShapeDescription,
+                                        pt.getInputDescription(elementAttributes),
+                                        pt.getOutputDescriptions(elementAttributes));
+                            else if (customDescr.getAttributes().get(Keys.IS_DIL)) {
+                                return new DILShape(
+                                        pt.getShortName(),
+                                        pt.getInputDescription(elementAttributes),
+                                        pt.getOutputDescriptions(elementAttributes),
+                                        elementAttributes.getLabel(),
+                                        customDescr.getAttributes());
+                            }
                         }
+                        return new GenericShape(
+                                pt.getShortName(),
+                                pt.getInputDescription(elementAttributes),
+                                pt.getOutputDescriptions(elementAttributes),
+                                elementAttributes.getLabel(),
+                                true,
+                                customDescr.getAttributes().get(Keys.WIDTH))
+                                .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
                     } else {
                         return new GenericShape(
                                 pt.getShortName(),
