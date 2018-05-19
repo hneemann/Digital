@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.19
+- Added a tabbed pane to the attributes dialog to make it more beginner friendly.
 - Added support for asynchronous sequential circuits such as the Muller-pipeline.
   Take a look at the new asynchronous examples for illustration.
 - All examples are translated to english.

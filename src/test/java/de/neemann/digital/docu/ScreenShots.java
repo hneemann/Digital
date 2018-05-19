@@ -44,6 +44,7 @@ public class ScreenShots {
 
     public static void main(String[] args) {
         Settings.getInstance().getAttributes().set(Keys.SETTINGS_DEFAULT_TREESELECT, false);
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_GRID, true);
 //        mainScreenShot();
 //        firstSteps();
 //        hierarchicalDesign();

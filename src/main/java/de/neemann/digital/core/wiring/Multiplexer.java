@@ -40,8 +40,8 @@ public class Multiplexer extends FanIn {
     }
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.FLIP_SEL_POSITON)
-            .addAttribute(Keys.SELECTOR_BITS);
+            .addAttribute(Keys.SELECTOR_BITS)
+            .addAttribute(Keys.FLIP_SEL_POSITON);
 
     /**
      * Creates a new instance

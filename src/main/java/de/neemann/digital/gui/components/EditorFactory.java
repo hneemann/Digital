@@ -465,7 +465,7 @@ public final class EditorFactory {
 
         @Override
         public JComponent getComponent(ElementAttributes attr) {
-            JPanel panel = new JPanel(new FlowLayout());
+            JPanel panel = new JPanel(new GridLayout(1, 2));
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {

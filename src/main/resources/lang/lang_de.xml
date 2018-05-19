@@ -18,6 +18,8 @@
     <string name="attr_dialogHighz">HighZ</string>
     <string name="attr_dialogOctal">Oktal</string>
     <string name="attr_dialogBinary">Binär</string>
+    <string name="attr_primary">Standard</string>
+    <string name="attr_secondary">Erweitert</string>
     <string name="btn_discard">Verwerfen</string>
     <string name="btn_edit">Bearbeiten</string>
     <string name="btn_editFurther">Weiter bearbeiten</string>
