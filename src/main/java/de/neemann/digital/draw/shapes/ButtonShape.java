@@ -20,14 +20,14 @@ import de.neemann.digital.gui.components.CircuitComponent;
 
 import java.awt.*;
 
-import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
+import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
 
 /**
  * The Button shape
  */
 public class ButtonShape implements Shape {
 
-    private static final int HEIGHT = SIZE / 2;
+    private static final int HEIGHT = OUT_SIZE / 2;
 
     private final String label;
     private final PinDescriptions outputs;
@@ -86,27 +86,27 @@ public class ButtonShape implements Shape {
 
         if (isPressed) {
             graphic.drawPolygon(new Polygon(true)
-                    .add(-SIZE * 2 - 1, -SIZE)
-                    .add(-1, -SIZE)
-                    .add(-1, SIZE)
-                    .add(-SIZE * 2 - 1, SIZE), Style.NORMAL);
+                    .add(-OUT_SIZE * 2 - 1, -OUT_SIZE)
+                    .add(-1, -OUT_SIZE)
+                    .add(-1, OUT_SIZE)
+                    .add(-OUT_SIZE * 2 - 1, OUT_SIZE), Style.NORMAL);
         } else {
             int t = Style.NORMAL.getThickness() / 4;
             graphic.drawPolygon(new Polygon(true)
-                    .add(-SIZE * 2 - 1 - HEIGHT, -SIZE - HEIGHT)
-                    .add(-1 - HEIGHT, -SIZE - HEIGHT)
-                    .add(-1, -SIZE)
-                    .add(-1, SIZE)
-                    .add(-SIZE * 2 - 1, SIZE)
-                    .add(-SIZE * 2 - 1 - HEIGHT, SIZE - HEIGHT), Style.NORMAL);
+                    .add(-OUT_SIZE * 2 - 1 - HEIGHT, -OUT_SIZE - HEIGHT)
+                    .add(-1 - HEIGHT, -OUT_SIZE - HEIGHT)
+                    .add(-1, -OUT_SIZE)
+                    .add(-1, OUT_SIZE)
+                    .add(-OUT_SIZE * 2 - 1, OUT_SIZE)
+                    .add(-OUT_SIZE * 2 - 1 - HEIGHT, OUT_SIZE - HEIGHT), Style.NORMAL);
             graphic.drawPolygon(new Polygon(false)
-                    .add(-1 - HEIGHT, -SIZE + t - HEIGHT)
-                    .add(-1 - HEIGHT, SIZE - HEIGHT)
-                    .add(t - SIZE * 2 - 1 - HEIGHT, SIZE - HEIGHT), Style.NORMAL);
-            graphic.drawLine(new Vector(-1 - HEIGHT, SIZE - HEIGHT), new Vector(-1 - t, SIZE - t), Style.NORMAL);
+                    .add(-1 - HEIGHT, -OUT_SIZE + t - HEIGHT)
+                    .add(-1 - HEIGHT, OUT_SIZE - HEIGHT)
+                    .add(t - OUT_SIZE * 2 - 1 - HEIGHT, OUT_SIZE - HEIGHT), Style.NORMAL);
+            graphic.drawLine(new Vector(-1 - HEIGHT, OUT_SIZE - HEIGHT), new Vector(-1 - t, OUT_SIZE - t), Style.NORMAL);
         }
 
-        Vector textPos = new Vector(-SIZE * 3, -4);
+        Vector textPos = new Vector(-OUT_SIZE * 3, -4);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
     }
 }

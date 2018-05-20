@@ -19,7 +19,7 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
+import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
 
 /**
  * The LED shape
@@ -43,7 +43,7 @@ public class LEDShape implements Shape {
         this.inputs = inputs;
         this.label = attr.getLabel();
         final int s = attr.get(Keys.LED_SIZE);
-        this.size = s > 0 ? s * SIZE : SIZE2;
+        this.size = s > 0 ? s * OUT_SIZE : SIZE2;
         onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
     }
 
@@ -82,7 +82,7 @@ public class LEDShape implements Shape {
         graphic.drawCircle(center.sub(radL), center.add(radL), Style.FILLED);
         if (fill)
             graphic.drawCircle(center.sub(rad), center.add(rad), onStyle);
-        Vector textPos = new Vector(2 * size + SIZE, 0);
+        Vector textPos = new Vector(2 * size + OUT_SIZE, 0);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
     }
 }

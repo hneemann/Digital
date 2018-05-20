@@ -123,11 +123,11 @@ public class InputShape implements Shape {
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.INOUT);
         } else {
             Style style = Style.NORMAL;
-            final Polygon box = new Polygon(true).add(-SIZE * 2 - 1, -SIZE).add(-1, -SIZE).add(-1, SIZE).add(-SIZE * 2 - 1, SIZE);
+            final Polygon box = new Polygon(true).add(-OUT_SIZE * 2 - 1, -OUT_SIZE).add(-1, -OUT_SIZE).add(-1, OUT_SIZE).add(-OUT_SIZE * 2 - 1, OUT_SIZE);
             if (value != null) {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
-                    Vector textPos = new Vector(-1 - SIZE, -4 - SIZE);
+                    Vector textPos = new Vector(-1 - OUT_SIZE, -4 - OUT_SIZE);
                     graphic.drawText(textPos, textPos.add(1, 0), format.formatToView(value), Orientation.CENTERBOTTOM, Style.NORMAL);
                 } else {
                     if (inValue != null && !inValue.isEqual(value))
@@ -137,10 +137,10 @@ public class InputShape implements Shape {
 
             graphic.drawPolygon(box, Style.NORMAL);
 
-            Vector center = new Vector(-1 - SIZE, 0);
+            Vector center = new Vector(-1 - OUT_SIZE, 0);
             graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
 
-            Vector textPos = new Vector(-SIZE * 3, 0);
+            Vector textPos = new Vector(-OUT_SIZE * 3, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.INOUT);
         }
     }

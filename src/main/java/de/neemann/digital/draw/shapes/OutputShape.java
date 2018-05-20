@@ -28,18 +28,18 @@ public class OutputShape implements Shape {
     /**
      * The size of the used grid
      */
-    public static final int SIZE = GenericShape.SIZE * 3 / 4;
+    public static final int OUT_SIZE = GenericShape.SIZE * 3 / 4;
     /**
      * Inner circle size used for inputs and outputs
      */
-    public static final Vector RAD = new Vector(SIZE - 6, SIZE - 6);
+    public static final Vector RAD = new Vector(OUT_SIZE - 6, OUT_SIZE - 6);
 
 
     static final Vector LATEX_RAD = new Vector(Style.MAXLINETHICK, Style.MAXLINETHICK);
     /**
      * Outer circle size used for inputs and outputs
      */
-    public static final Vector RADL = new Vector(SIZE, SIZE);
+    public static final Vector RADL = new Vector(OUT_SIZE, OUT_SIZE);
     private final String label;
     private final PinDescriptions inputs;
     private final IntFormat format;
@@ -94,15 +94,15 @@ public class OutputShape implements Shape {
             if (value != null) {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
-                    Vector textPos = new Vector(1 + SIZE, -4 - SIZE);
+                    Vector textPos = new Vector(1 + OUT_SIZE, -4 - OUT_SIZE);
                     graphic.drawText(textPos, textPos.add(1, 0), format.formatToView(value), Orientation.CENTERBOTTOM, Style.NORMAL);
                 }
             }
 
-            Vector center = new Vector(1 + SIZE, 0);
+            Vector center = new Vector(1 + OUT_SIZE, 0);
             graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
             graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);
-            Vector textPos = new Vector(SIZE * 3, 0);
+            Vector textPos = new Vector(OUT_SIZE * 3, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.INOUT);
         }
     }

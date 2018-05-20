@@ -92,7 +92,7 @@ public class GenericShape implements Shape {
 
     /**
      * Sets the invert flag.
-     * If set true a little circle at the putput is shown.
+     * If set to true a little circle at the output is shown.
      *
      * @param invert true is output is inverted
      * @return this for chaind calls
@@ -246,8 +246,6 @@ public class GenericShape implements Shape {
         }
 
         drawInputInvert(graphic, inverterConfig, getPins());
-
-
     }
 
     /**

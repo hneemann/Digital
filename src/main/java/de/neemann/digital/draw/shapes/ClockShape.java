@@ -21,14 +21,14 @@ import de.neemann.digital.gui.components.CircuitComponent;
 
 import java.awt.*;
 
-import static de.neemann.digital.draw.shapes.OutputShape.SIZE;
+import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
 
 /**
  * The Clock shape
  */
 public class ClockShape implements Shape {
-    private static final int WI = SIZE / 3;
-    private static final Vector POS = new Vector(-SIZE - WI * 2, WI);
+    private static final int WI = OUT_SIZE / 3;
+    private static final Vector POS = new Vector(-OUT_SIZE - WI * 2, WI);
 
     private final String label;
     private final PinDescriptions outputs;
@@ -75,10 +75,10 @@ public class ClockShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
         graphic.drawPolygon(new Polygon(true)
-                .add(-SIZE * 2 - 1, -SIZE)
-                .add(-1, -SIZE)
-                .add(-1, SIZE)
-                .add(-SIZE * 2 - 1, SIZE), Style.NORMAL);
+                .add(-OUT_SIZE * 2 - 1, -OUT_SIZE)
+                .add(-1, -OUT_SIZE)
+                .add(-1, OUT_SIZE)
+                .add(-OUT_SIZE * 2 - 1, OUT_SIZE), Style.NORMAL);
 
         graphic.drawPolygon(new Polygon(false)
                 .add(POS)
@@ -90,7 +90,7 @@ public class ClockShape implements Shape {
                 .add(POS.add(3 * WI, -WI * 2))
                 .add(POS.add(4 * WI, -WI * 2)), Style.THIN);
 
-        Vector textPos = new Vector(-SIZE * 3, 0);
+        Vector textPos = new Vector(-OUT_SIZE * 3, 0);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
     }
 }

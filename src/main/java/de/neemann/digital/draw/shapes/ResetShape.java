@@ -60,15 +60,15 @@ public class ResetShape implements Shape {
         }
 
         graphic.drawPolygon(new Polygon(true)
-                .add(x - OutputShape.SIZE * 2 - 2, -OutputShape.SIZE)
-                .add(x - 2, -OutputShape.SIZE)
-                .add(x - 2, OutputShape.SIZE)
-                .add(x - OutputShape.SIZE * 2 - 2, OutputShape.SIZE), Style.NORMAL);
+                .add(x - OutputShape.OUT_SIZE * 2 - 2, -OutputShape.OUT_SIZE)
+                .add(x - 2, -OutputShape.OUT_SIZE)
+                .add(x - 2, OutputShape.OUT_SIZE)
+                .add(x - OutputShape.OUT_SIZE * 2 - 2, OutputShape.OUT_SIZE), Style.NORMAL);
 
-        Vector textPos = new Vector(x - OutputShape.SIZE * 2 + 2, -OutputShape.SIZE + 2);
+        Vector textPos = new Vector(x - OutputShape.OUT_SIZE * 2 + 2, -OutputShape.OUT_SIZE + 2);
         graphic.drawText(textPos, textPos.add(1, 0), "R", Orientation.LEFTTOP, Style.SHAPE_PIN);
 
-        textPos = new Vector(x - OutputShape.SIZE * 3, 0);
+        textPos = new Vector(x - OutputShape.OUT_SIZE * 3, 0);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
     }
 }
