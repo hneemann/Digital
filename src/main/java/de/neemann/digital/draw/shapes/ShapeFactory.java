@@ -167,6 +167,7 @@ public final class ShapeFactory {
                 else {
                     ElementTypeDescription pt = library.getElementType(elementName);
                     if (pt instanceof ElementLibrary.ElementTypeDescriptionCustom) {
+                        // Custom component
                         ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
                         if (!elementAttributes.get(Keys.USE_DEFAULT_SHAPE)) {
                             final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
@@ -183,6 +184,7 @@ public final class ShapeFactory {
                                         customDescr.getAttributes());
                             }
                         }
+                        // Neither DIL nor custom shape.
                         return new GenericShape(
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),
@@ -192,6 +194,7 @@ public final class ShapeFactory {
                                 customDescr.getAttributes().get(Keys.WIDTH))
                                 .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
                     } else {
+                        // Internal component without own shape.
                         return new GenericShape(
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),
@@ -203,6 +206,7 @@ public final class ShapeFactory {
                     }
                 }
             } else {
+                // Internal component with own shape.
                 ElementTypeDescription pt = library.getElementType(elementName);
                 return cr.create(elementAttributes,
                         pt.getInputDescription(elementAttributes),
