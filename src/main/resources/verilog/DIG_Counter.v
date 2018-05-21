@@ -1,11 +1,11 @@
 <?
     if (elem.bits > 1) {
-        generics[0] = "Bits";
+        generics[0] := "Bits";
         moduleName = format("%s_Nbit", elem.name);
-        bitRange = "[(Bits-1):0] ";
+        bitRange := "[(Bits-1):0] ";
     }
     else {
-        bitRange = "";
+        bitRange := "";
         moduleName = format("%s_1bit", elem.name);
     }
 ?>

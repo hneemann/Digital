@@ -1,5 +1,5 @@
 <?
-    generics[0] = "maxCounter";
+    generics[0] := "maxCounter";
 ?>
 module DIG_simpleClockDivider
 #(
@@ -15,17 +15,17 @@ module DIG_simpleClockDivider
   */
   reg [31:0] counter;
   reg state;
-  
+
   assign PORT_out = state;
 
   always @ (posedge PORT_in) begin
        if (counter == maxCounter) begin
             counter <= 0;
             state <= ~state;
-       end          
+       end
        else begin
           counter <= counter + 1;
        end
   end
-  
+
 endmodule

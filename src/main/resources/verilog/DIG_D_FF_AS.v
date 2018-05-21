@@ -1,16 +1,16 @@
 <?
     if (elem.bits > 1) {
-        generics[0] = "Bits";
-        generics[1] = "Default";
+        generics[0] := "Bits";
+        generics[1] := "Default";
         moduleName = format("%s_Nbit", elem.name);
-        bitRange = "[(Bits-1):0] ";
-        setExpr = "{Bits{1'b1}}";
+        bitRange := "[(Bits-1):0] ";
+        setExpr := "{Bits{1'b1}}";
     }
     else {
-        generics[0] = "Default";
+        generics[0] := "Default";
         moduleName = format("%s_1bit", elem.name);
-        bitRange = "";
-        setExpr = "1'b1";
+        bitRange := "";
+        setExpr := "1'b1";
     }
 ?>
 module <?= moduleName ?>
@@ -32,7 +32,7 @@ if (elem.bits > 1) { ?>
 
     assign PORT_Q = state;
     assign PORT_notQ = ~state;
-    
+
     always @ (posedge PORT_C or posedge PORT_Clr or posedge PORT_Set)
     begin
         if (PORT_Set)

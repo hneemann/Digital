@@ -1,7 +1,7 @@
 <?
 // Module instantiation parameters
-generics[0] = "Bits";
-generics[1] = "AddrBits";
+generics[0] := "Bits";
+generics[1] := "AddrBits";
 
 ?>module <?= elem.name ?>
 #(

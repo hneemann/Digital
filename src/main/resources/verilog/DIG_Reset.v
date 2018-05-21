@@ -1,5 +1,5 @@
 <?
-    generics[0] = "invertOutput";
+    generics[0] := "invertOutput";
 ?>
 module <?= elem.name ?>
 #(

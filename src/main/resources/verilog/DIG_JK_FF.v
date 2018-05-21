@@ -1,5 +1,5 @@
 <?
-generics[0] = "Default";
+generics[0] := "Default";
 
 if (isset(elem.description)) {
 ?>/*
@@ -22,7 +22,7 @@ if (isset(elem.description)) {
 
     assign PORT_Q = state;
     assign PORT_notQ = ~state;
-    
+
     always @ (posedge PORT_C) begin
         if (~PORT_J & PORT_K)
             state <= 1'b0;

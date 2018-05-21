@@ -1,7 +1,7 @@
 <?
 // Module instantiation parameters
-generics[0] = "Bits";
-generics[1] = "AddrBits";
+generics[0] := "Bits";
+generics[1] := "AddrBits";
 
 ?>module <?= elem.name ?>
 #(
@@ -20,10 +20,10 @@ generics[1] = "AddrBits";
 );
 
     reg [(Bits-1):0] memory[0:((1 << AddrBits)-1)];
-    
+
     assign PORT_Da = memory[PORT_Ra];
     assign PORT_Db = memory[PORT_Rb];
-    
+
     always @ (posedge PORT_C) begin
         if (PORT_we)
             memory[PORT_Rw] <= PORT_Din;

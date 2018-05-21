@@ -1,14 +1,14 @@
 <?
     if (elem.bits > 1) {
-        generics[0] = "Bits";
-        generics[1] = "Default";
+        generics[0] := "Bits";
+        generics[1] := "Default";
         moduleName = format("%s_Nbit", elem.name);
-        bitRange = "[(Bits-1):0] ";
+        bitRange := "[(Bits-1):0] ";
     }
     else {
-        generics[0] = "Default";
+        generics[0] := "Default";
         moduleName = format("%s_1bit", elem.name);
-        bitRange = "";
+        bitRange := "";
     }
 ?>module <?= moduleName ?>
 #(<?
@@ -27,7 +27,7 @@ if (elem.bits > 1) { ?>
 
     assign PORT_Q = state;
     assign PORT_notQ = ~state;
-    
+
     always @ (posedge PORT_C) begin
         state <= PORT_D;
     end
