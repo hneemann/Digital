@@ -21,6 +21,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.jar.JarFile;
+import java.util.prefs.Preferences;
 
 /**
  * Helper to show the info dialog!
@@ -102,8 +103,11 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
                 Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
                 if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
                     try {
+                        String name = Preferences.userRoot().node("dig").get("newname", "Digital");
                         URL url = hyperlinkEvent.getURL();
-                        url = new URL(url.toString().replace("{{version}}", revision));
+                        url = new URL(url.toString()
+                                .replace("[[version]]", revision)
+                                .replace("[[name]]", name));
                         desktop.browse(url.toURI());
                     } catch (IOException | URISyntaxException e) {
                         e.printStackTrace();

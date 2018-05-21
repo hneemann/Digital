@@ -1361,12 +1361,12 @@ Geschrieben von H. Neemann 2016-2018
 
 Die Icons stammen aus dem &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
 
-Besuche das Projekt auf &lt;a href=&quot;https://github.com/hneemann/Digital&quot;&gt;GitHub&lt;/a&gt;.
+Besuche das Projekt auf &lt;a href=&quot;https://github.com/hneemann/[[name]]&quot;&gt;GitHub&lt;/a&gt;.
 Die jeweils neueste Version steht dort ebenfalls zum
-&lt;a href=&quot;https://github.com/hneemann/Digital/releases/latest&quot;&gt;Download&lt;/a&gt; bereit.
+&lt;a href=&quot;https://github.com/hneemann/[[name]]/releases/latest&quot;&gt;Download&lt;/a&gt; bereit.
 
-Per GitHub kann auch ein &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?body=version:%20{{version}}&amp;labels=bug&quot;&gt;Fehler&lt;/a&gt; gemeldet oder
-eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enhancement&quot;&gt;Verbesserung&lt;/a&gt; vorgeschlagen werden.
+Per GitHub kann auch ein &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug&quot;&gt;Fehler&lt;/a&gt; gemeldet oder
+eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enhancement&quot;&gt;Verbesserung&lt;/a&gt; vorgeschlagen werden.
     </string>
     <string name="msg_N_nodes">{0} aktive Elemente</string>
     <string name="msg_analyseErr">Fehler bei der Analyse der Schaltung.</string>
@@ -1530,9 +1530,9 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
         <html>
         <h1>Neue Version {0} verfügbar</h1>
         <p>Es ist eine neue Version des Simulators verfügbar.</p>
-        <p>In den <a href="https://github.com/hneemann/Digital/releases/latest">Release Notes</a>
+        <p>In den <a href="https://github.com/hneemann/[[name]]/releases/latest">Release Notes</a>
         können Sie nachlesen, was sich in der Version {0} verändert hat.</p>
-        <p>Hier geht es zum <a href="https://github.com/hneemann/Digital/releases/latest">Download</a>.</p>
+        <p>Hier geht es zum <a href="https://github.com/hneemann/[[name]]/releases/latest">Download</a>.</p>
         </html>
     ]]></string>
 
