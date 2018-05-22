@@ -40,7 +40,7 @@ public final class CheckForNewRelease {
 
         Thread thread = new Thread(() -> {
             String runningRev = InfoDialog.getInstance().getRevision();
-            if (runningRev.equals(InfoDialog.UNKNOWN)) return;
+            if (runningRev.equals(InfoDialog.UNKNOWN) || runningRev.length() > 7) return;
 
             try {
                 ReleaseInfo info = new ReleaseInfo();
