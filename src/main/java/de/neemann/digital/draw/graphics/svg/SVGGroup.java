@@ -33,16 +33,30 @@ public class SVGGroup implements SVGFragment, SVGPinnable {
     public SVGGroup(Element n, ImportSVG imp) throws NoParsableSVGException {
         float repairX = 0;
         float repairY = 0;
+        double scale = 1;
         if (!n.getAttribute("transform").isEmpty()) {
             String trans = n.getAttribute("transform");
-            trans = trans.replaceAll("[^0-9.,-]", "");
-            String[] parts = trans.split(",");
-            if (parts.length == 2) {
-                try {
-                    repairX = Float.parseFloat(parts[0]);
-                    repairY = Float.parseFloat(parts[1]);
-                } catch (Exception e) {
-                    // Do nothing, if not correct
+            String[] transformations = trans.split(" ");
+            for (String s : transformations) {
+                String type = s.replaceAll("[^a-z]", "");
+                String[] parts = s.replaceAll("[^0-9.,-]", "").split(",");
+                if (type.equals("translate")) {
+                    if (parts.length == 2) {
+                        try {
+                            repairX = Float.parseFloat(parts[0]);
+                            repairY = Float.parseFloat(parts[1]);
+                        } catch (Exception e) {
+                            // Do nothing, if not correct
+                        }
+                    }
+                } else if (type.equals("scale")) {
+                    if (parts.length == 1) {
+                        try {
+                            scale = Double.parseDouble(parts[0]);
+                        } catch (Exception e) {
+                            // Do nothing, if not correct
+                        }
+                    }
                 }
             }
         }
@@ -53,8 +67,10 @@ public class SVGGroup implements SVGFragment, SVGPinnable {
         }
         VectorFloat diff = new VectorFloat(repairX, repairY).mul(-1);
         for (SVGFragment frag : list) {
-            if (frag != null)
+            if (frag != null) {
                 frag.move(diff);
+                frag.scale(scale);
+            }
         }
     }
 
