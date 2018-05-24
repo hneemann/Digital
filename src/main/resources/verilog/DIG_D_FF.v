@@ -1,35 +1,35 @@
 <?
-    if (elem.bits > 1) {
+    if (elem.Bits > 1) {
         generics[0] := "Bits";
         generics[1] := "Default";
-        moduleName = format("%s_Nbit", elem.name);
+        moduleName = format("%s_Nbit", moduleName);
         bitRange := "[(Bits-1):0] ";
     }
     else {
         generics[0] := "Default";
-        moduleName = format("%s_1bit", elem.name);
+        moduleName = format("%s_1bit", moduleName);
         bitRange := "";
     }
 ?>module <?= moduleName ?>
 #(<?
-if (elem.bits > 1) { ?>
+if (elem.Bits > 1) { ?>
     parameter Bits = 2,<?
 } ?>
     parameter Default = 0
 )
 (
-   input <?= bitRange ?>PORT_D,
-   input PORT_C,
-   output <?= bitRange ?>PORT_Q,
-   output <?= bitRange ?>PORT_notQ
+   input <?= bitRange ?>D,
+   input C,
+   output <?= bitRange ?>Q,
+   output <?= bitRange ?>\~Q
 );
     reg <?= bitRange ?>state;
 
-    assign PORT_Q = state;
-    assign PORT_notQ = ~state;
+    assign Q = state;
+    assign \~Q = ~state;
 
-    always @ (posedge PORT_C) begin
-        state <= PORT_D;
+    always @ (posedge C) begin
+        state <= D;
     end
 
     initial begin

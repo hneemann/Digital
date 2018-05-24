@@ -11,7 +11,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -105,7 +105,7 @@ public class Gal16V8CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
 
         try {
-            new CuplExporter("user", new GregorianCalendar(1970, 0, 1).getTime())
+            new CuplExporter("user", new Date(0))
                     .setProjectName("test")
                     .getBuilder()
                     .addSequential("Y_0", y0s);
@@ -122,7 +122,7 @@ public class Gal16V8CuplExporterTest extends TestCase {
         Expression y0s = not(y0);
 
         try {
-            new CuplExporter("user", new GregorianCalendar(1970, 0, 1).getTime())
+            new CuplExporter("user", new Date(0))
                     .setProjectName("test")
                     .getBuilder()
                     .addCombinatorial("D", y0s);

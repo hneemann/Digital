@@ -33,7 +33,7 @@ public class Parser {
         if (in == null)
             throw new FileNotFoundException("file not found: " + path);
         try (Reader r = new InputStreamReader(in, "utf-8")) {
-            Parser p = new Parser(r);
+            Parser p = new Parser(r, path);
             return p.parse();
         }
     }
@@ -63,16 +63,17 @@ public class Parser {
      * @param code the code to parse
      */
     public Parser(String code) {
-        this(new StringReader(code));
+        this(new StringReader(code), "");
     }
 
     /**
      * Creates a new instance
      *
      * @param reader the reader to parse
+     * @param srcFile the source file name if any
      */
-    public Parser(Reader reader) {
-        tok = new Tokenizer(reader);
+    public Parser(Reader reader, String srcFile) {
+        tok = new Tokenizer(reader, srcFile);
         staticContext = new Context();
     }
 
@@ -327,7 +328,7 @@ public class Parser {
     }
 
     private ParserException newParserException(String s) {
-        return new ParserException(s + " (" + tok.getLine() + ")");
+        return new ParserException(s + " (" + tok.getSrcFile() + ":" + tok.getLine() + ")");
     }
 
     /**

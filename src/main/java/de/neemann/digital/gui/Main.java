@@ -75,7 +75,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
-import de.neemann.digital.hdl.verilog.VerilogGenerator;
+import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import static javax.swing.JOptionPane.showInputDialog;
 
 /**

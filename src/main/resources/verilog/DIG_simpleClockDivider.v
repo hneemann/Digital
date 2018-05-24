@@ -6,8 +6,8 @@ module DIG_simpleClockDivider
     parameter maxCounter = 1
 )
 (
-    input PORT_in,
-    output PORT_out
+    input cin,
+    output cout
 );
  /*
   * Don't use a logic signal as clock source in a real world application!
@@ -16,9 +16,9 @@ module DIG_simpleClockDivider
   reg [31:0] counter;
   reg state;
 
-  assign PORT_out = state;
+  assign cout = state;
 
-  always @ (posedge PORT_in) begin
+  always @ (posedge cin) begin
        if (counter == maxCounter) begin
             counter <= 0;
             state <= ~state;

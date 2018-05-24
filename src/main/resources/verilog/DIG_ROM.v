@@ -1,33 +1,34 @@
 <?
-    romSize := 1 << elem.addr_bits;
-    moduleName = format("%s_%dX%d", elem.name, romSize, elem.bits);
-    dBitRange := format("[%d:0]", elem.bits - 1);
-    aBitRange := format("[%d:0]", elem.addr_bits - 1);
+    romMaxSize := 1 << elem.AddrBits;
+    romSize := sizeOf(elem.Data);
+    moduleName = format("%s_%dX%d", moduleName, romMaxSize, elem.Bits);
+    dBitRange := format("[%d:0]", elem.Bits - 1);
+    aBitRange := format("[%d:0]", elem.AddrBits - 1);
 
 ?>module <?= moduleName ?> (
-    input <?= aBitRange ?> PORT_A,
-    input PORT_sel,
-    output <?= dBitRange ?> PORT_D
+    input <?= aBitRange ?> A,
+    input sel,
+    output <?= dBitRange ?> D
 );
     reg <?= dBitRange ?> my_rom [0:<?= (romSize - 1) ?>];
-    reg PORT_D;
+    reg D;
 
-    always @ (PORT_A or PORT_sel) begin
-        if (~PORT_sel)
-            PORT_D = <?= elem.bits ?>'hz;<?
-        if (elem.data.size < romSize) {
-            lastAddr := format("%d'h%x", elem.addr_bits, elem.data.size - 1); ?>
-        else if (PORT_A > <?= lastAddr ?>)
-            PORT_D = <?= elem.bits ?>'h0;<?
+    always @ (A or sel) begin
+        if (~sel)
+            D = <?= elem.Bits ?>'hz;<?
+        if (romSize < romMaxSize) {
+            lastAddr := format("%d'h%x", elem.AddrBits, romSize - 1); ?>
+        else if (A > <?= lastAddr ?>)
+            D = <?= elem.Bits ?>'h0;<?
         } ?>
         else
-            PORT_D = my_rom[PORT_A];
+            D = my_rom[A];
     end
 
     initial begin<?
 
-    for (i := 0; i < elem.data.size; i++) { ?>
-        my_rom[<?= i ?>] = <?= format("%d'h%x", elem.bits, elem.data[i]) ?>;<?
+    for (i := 0; i < romSize; i++) { ?>
+        my_rom[<?= i ?>] = <?= format("%d'h%x", elem.Bits, elem.Data[i]) ?>;<?
     } ?>
     end
 endmodule

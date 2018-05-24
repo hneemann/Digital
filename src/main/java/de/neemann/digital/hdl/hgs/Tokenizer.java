@@ -40,6 +40,7 @@ class Tokenizer {
     private StringBuilder builder;
     private boolean isUnreadChar = false;
     private int unreadChar;
+    private String srcFile;
     private int line = 1;
 
     /**
@@ -47,8 +48,9 @@ class Tokenizer {
      *
      * @param in the reader
      */
-    Tokenizer(Reader in) {
+    Tokenizer(Reader in, String srcFile) {
         this.in = in;
+        this.srcFile = srcFile;
         token = Token.UNKNOWN;
         isToken = false;
         builder = new StringBuilder();
@@ -71,6 +73,15 @@ class Tokenizer {
      */
     public void consume() {
         isToken = false;
+    }
+
+    /**
+     * Returns the source file name if any
+     *
+     * @return the source file name
+     */
+    public String getSrcFile() {
+        return srcFile;
     }
 
     /**

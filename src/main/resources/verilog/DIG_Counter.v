@@ -1,39 +1,39 @@
 <?
-    if (elem.bits > 1) {
+    if (elem.Bits > 1) {
         generics[0] := "Bits";
-        moduleName = format("%s_Nbit", elem.name);
+        moduleName = format("%s_Nbit", moduleName);
         bitRange := "[(Bits-1):0] ";
     }
     else {
         bitRange := "";
-        moduleName = format("%s_1bit", elem.name);
+        moduleName = format("%s_1bit", moduleName);
     }
 ?>
 module <?
 printf("%s", moduleName);
 
-if (elem.bits > 1) { ?>
+if (elem.Bits > 1) { ?>
 #(
     parameter Bits = 2
 )
 <? } ?>(
-    output <?= bitRange ?>PORT_out,
-    output PORT_ovf,
-    input PORT_C,
-    input PORT_en,
-    input PORT_clr
+    output <?= bitRange ?>out,
+    output ovf,
+    input C,
+    input en,
+    input clr
 );
     reg <?= bitRange ?>count;
 
-    always @ (posedge PORT_C) begin
-        if (PORT_clr)
+    always @ (posedge C) begin
+        if (clr)
           count <= 'h0;
-        else if (PORT_en)
+        else if (en)
           count <= count + 1'b1;
     end
 
-    assign PORT_out = count;
-    assign PORT_ovf = PORT_en? &count : 1'b0;
+    assign out = count;
+    assign ovf = en? &count : 1'b0;
 
     initial begin
         count = 'h0;

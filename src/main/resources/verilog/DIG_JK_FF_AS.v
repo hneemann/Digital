@@ -1,40 +1,34 @@
 <?
 generics[0] := "Default";
 
-if (isset(elem.description)) {
-?>/*
-<?= elem.description ?>
-*/
-<?
-}
-?>module <?= elem.name ?>
+?>module <?= moduleName ?>
 #(
     parameter Default = 1'b0
 )
 (
-   input PORT_Set,
-   input PORT_J,
-   input PORT_C,
-   input PORT_K,
-   input PORT_Clr,
-   output PORT_Q,
-   output PORT_notQ
+   input Set,
+   input J,
+   input C,
+   input K,
+   input Clr,
+   output Q,
+   output \~Q
 );
     reg state;
 
-    assign PORT_Q = state;
-    assign PORT_notQ = ~state;
+    assign Q = state;
+    assign \~Q = ~state;
 
-    always @ (posedge PORT_C or posedge PORT_Clr or posedge PORT_Set) begin
-        if (PORT_Set)
+    always @ (posedge C or posedge Clr or posedge Set) begin
+        if (Set)
             state <= 1'b1;
-        else if (PORT_Clr)
+        else if (Clr)
             state <= 1'b0;
-        else if (~PORT_J & PORT_K)
+        else if (~J & K)
             state <= 1'b0;
-        else if (PORT_J & ~PORT_K)
+        else if (J & ~K)
             state <= 1'b1;
-        else if (PORT_J & PORT_K)
+        else if (J & K)
             state <= ~state;
     end
 

@@ -1,46 +1,46 @@
 <?
-    if (elem.bits > 1) {
+    if (elem.Bits > 1) {
         generics[0] := "Bits";
         generics[1] := "Default";
-        moduleName = format("%s_Nbit", elem.name);
+        moduleName = format("%s_Nbit", moduleName);
         bitRange := "[(Bits-1):0] ";
         setExpr := "{Bits{1'b1}}";
     }
     else {
         generics[0] := "Default";
-        moduleName = format("%s_1bit", elem.name);
+        moduleName = format("%s_1bit", moduleName);
         bitRange := "";
         setExpr := "1'b1";
     }
 ?>
 module <?= moduleName ?>
 #(<?
-if (elem.bits > 1) { ?>
-    parameter Bits = 2,<?
-} ?>
+if (elem.Bits > 1) { ?>
+    parameter Bits = 2,
+<?- } ?>
     parameter Default = 0
 )
 (
-   input PORT_Set,
-   input <?= bitRange ?>PORT_D,
-   input PORT_C,
-   input PORT_Clr,
-   output <?= bitRange ?>PORT_Q,
-   output <?= bitRange ?>PORT_notQ
+   input Set,
+   input <?= bitRange ?>D,
+   input C,
+   input Clr,
+   output <?= bitRange ?>Q,
+   output <?= bitRange ?>\~Q
 );
     reg <?= bitRange ?>state;
 
-    assign PORT_Q = state;
-    assign PORT_notQ = ~state;
+    assign Q = state;
+    assign \~Q  = ~state;
 
-    always @ (posedge PORT_C or posedge PORT_Clr or posedge PORT_Set)
+    always @ (posedge C or posedge Clr or posedge Set)
     begin
-        if (PORT_Set)
+        if (Set)
             state <= <?= setExpr ?>;
-        else if (PORT_Clr)
+        else if (Clr)
             state <= 'h0;
         else
-            state <= PORT_D;
+            state <= D;
     end
 
     initial begin
