@@ -20,6 +20,9 @@ import java.util.HashSet;
  * Helper to check a circuit for cycles.
  * A cycle is a situation where a gate input depends somehow on one of its outputs.
  * If a cycle is detected an exception is thrown.
+ * A cycle is no problem during simulation due to the gate delay.
+ * However, when analyzing a circuit with an unbuffered cycle, erroneous truth tables
+ * may result. Therefore, an exception is thrown when such a circuit is analyzed.
  */
 public final class CycleDetector {
 
