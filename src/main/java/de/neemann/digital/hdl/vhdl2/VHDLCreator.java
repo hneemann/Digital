@@ -19,7 +19,9 @@ import java.io.IOException;
 import java.util.HashSet;
 
 /**
- * Create the vhdl output
+ * Create the vhdl output.
+ * Used to print a optimized {@link de.neemann.digital.hdl.model2.HDLModel} as VHDL
+ * code to a {@link CodePrinter} instance.
  */
 public class VHDLCreator {
     private static final Logger LOGGER = LoggerFactory.getLogger(VHDLCreator.class);

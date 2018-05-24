@@ -27,7 +27,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Used to create the vhdl output
+ * Used to create the vhdl output.
+ * Takes the circuit, generates the hdl model ({@link de.neemann.digital.hdl.model2.HDLModel}.
+ * After that the clocks are handled for the specific board.
+ * And after that the {@link de.neemann.digital.hdl.vhdl2.VHDLCreator} is used to write the model
+ * to a {@link CodePrinter} instance.
  */
 public class VHDLGenerator implements Closeable {
 
