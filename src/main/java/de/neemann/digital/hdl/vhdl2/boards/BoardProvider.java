@@ -9,6 +9,10 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
+import de.neemann.digital.hdl.verilog2.boards.ISE;
+import de.neemann.digital.hdl.verilog2.boards.MimasV1PinWriter;
+import de.neemann.digital.hdl.verilog2.boards.MimasV2PinWriter;
 
 /**
  * Provides additional information for a specific board
@@ -55,6 +59,19 @@ public final class BoardProvider {
                     10,
                     new ClockIntegratorARTIX7(10),
                     "xc7a35ticpg236-1L");
+        else if (board.equals("mimasv1")) {
+            return new ISE(new MimasV1PinWriter(),
+                    10,
+                    new ClockIntegratorGeneric(10),
+                    "xc6slx9",
+                    "tqg144");
+        } else if (board.equals("mimasv2")) {
+            return new ISE(new MimasV2PinWriter(),
+                    10,
+                    new ClockIntegratorGeneric(10),
+                    "xc6slx9",
+                    "csg324");
+        }
 
         return null;
     }
