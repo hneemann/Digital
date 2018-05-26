@@ -14,6 +14,10 @@
       <string>lockedMode</string>
       <boolean>true</boolean>
     </entry>
+    <entry>
+      <string>Width</string>
+      <int>5</int>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>
@@ -95,12 +99,12 @@
           <string>RES</string>
         </entry>
         <entry>
-          <string>InDefault</string>
-          <value v="1" z="false"/>
-        </entry>
-        <entry>
           <string>pinNumber</string>
           <string>15</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="-60" y="860"/>

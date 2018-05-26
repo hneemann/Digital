@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.lang.Lang;
 
 /**
  * The Input
@@ -22,7 +23,7 @@ public class In implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(In.class) {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
-            String d = elementAttributes.get(Keys.DESCRIPTION);
+            String d = Lang.evalMultilingualContent(elementAttributes.get(Keys.DESCRIPTION));
             if (d.length() > 0)
                 return d;
             else

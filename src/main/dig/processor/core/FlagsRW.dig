@@ -4,10 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Speichert die Prozessorflags. Im Gegensatz zur 
+      <string>Stores the processor flags. In contrast to the simple 
+variant, the flags can be read and written via IO operations. 
+The flags can be found at IO address 0.
+{{de Speichert die Prozessorflags. Im Gegensatz zur 
 einfachen Variante können bei diesem Modul
 die Flags per IO Operation gelesen und geschrieben
-werden. Die Flags finden sich an IO Adresse 0.</string>
+werden. Die Flags finden sich an IO Adresse 0.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -16,7 +19,7 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zero In</string>
+          <string>Zero In {{de Zero EIngang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -30,7 +33,7 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zero Out</string>
+          <string>Zero Out {{de Zero Ausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -44,7 +47,7 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Negative In</string>
+          <string>Negative In {{de negative Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -58,7 +61,7 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Negative Out</string>
+          <string>Negative Out {{de negative Ausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -72,7 +75,7 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Carry In</string>
+          <string>Carry In {{de Carry EIngang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -86,7 +89,7 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Carry Out</string>
+          <string>Carry Out {{de Carry Ausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -124,11 +127,11 @@ werden. Die Flags finden sich an IO Adresse 0.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Speicherfreigabe für die Flags. Geht auf High, wenn
-eine arithmetische Funktion in der ALU ausgeführt
-wird. Nur diese setzen die Flags. Wird die ALU für
-die Adressbildung verwendet, werden die Flags nicht
-gespeichert.</string>
+          <string>The input which activates storing.
+It is set to one when performing an arithmetic operation.
+{{de Der Eingang welcher das Speichern aktiviert. 
+Es wird auf Eins gesetzt, wenn eine arithmetische 
+Operation ausgeführt wird.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -185,7 +188,7 @@ gespeichert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Adresse</string>
+          <string>address {{de Adresse}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -203,7 +206,7 @@ gespeichert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>IO Read</string>
+          <string>IO Read {{de Lesen von der IO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -255,7 +258,7 @@ gespeichert.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>IO Write</string>
+          <string>IO Write {{de Schreiben auf die IO}}</string>
         </entry>
         <entry>
           <string>Label</string>

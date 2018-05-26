@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>Out</elementName>
@@ -158,7 +159,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Synchroner Zähler mit JK-Flipflops</string>
+          <string>Asynchronous counter built with JK flip-flops
+{{de Synchroner Zähler aufgebaut mit JK-Flipflops}}</string>
         </entry>
       </elementAttributes>
       <pos x="140" y="-80"/>

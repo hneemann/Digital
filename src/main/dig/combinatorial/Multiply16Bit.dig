@@ -4,9 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher 4-Bit Multiplikator aufgebaut aus drei 4-Bit
-Addierern. Die eigentlichen 1-Bit Multiplikationen 
-werden durch die Und-Gatter implementiert. </string>
+      <string>O(ln n) 16 bit multiplyer
+{{de O(ln n) 16 Bit Multiplizierer}}</string>
     </entry>
     <entry>
       <string>Width</string>

@@ -158,7 +158,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Run circuit in single gate step mode</string>
+          <string>Run circuit in single gate step mode.
+{{de Starte die Schaltung im Gatterschrittmodus.}}</string>
         </entry>
       </elementAttributes>
       <pos x="200" y="60"/>

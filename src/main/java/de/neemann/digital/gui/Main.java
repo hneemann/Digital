@@ -178,7 +178,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             setFilename(builder.fileToOpen, false);
         } else {
             if (builder.fileToOpen != null) {
-                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, false));
+                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, builder.library == null));
             } else {
                 File name = fileHistory.getMostRecent();
                 if (name != null) {
@@ -344,7 +344,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                     attributes -> new CustomElement(circuit, library),
                                     circuit);
                     description.setShortName(name);
-                    description.setDescription(circuit.getAttributes().get(Keys.DESCRIPTION));
+                    description.setDescription(Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION)));
                     new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);
                 } catch (PinException | NodeException e1) {
                     new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(Main.this);
@@ -484,6 +484,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                     case 0:
                                         saveFile(file, true);
                                         library.setRootFilePath(file.getParentFile());
+                                        if (library.getWarningMessage() != null)
+                                            SwingUtilities.invokeLater(new ErrorMessage(library.getWarningMessage().toString()).setComponent(Main.this));
                                         break;
                                     case 1:
                                         saveAsHelper.retryFileSelect();
@@ -1372,7 +1374,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void loadFile(File filename, boolean setLibraryRoot, boolean toPref) {
         try {
-            if (setLibraryRoot) library.setRootFilePath(filename.getParentFile());
+            if (setLibraryRoot) {
+                library.setRootFilePath(filename.getParentFile());
+                if (library.getWarningMessage() != null)
+                    SwingUtilities.invokeLater(new ErrorMessage(library.getWarningMessage().toString()).setComponent(this));
+            }
             Circuit circuit = Circuit.loadCircuit(filename, shapeFactory);
             circuitComponent.setCircuit(circuit);
 
@@ -1397,8 +1403,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             library.invalidateElement(filename);
 
-            if (library.getRootFilePath() == null)
+            if (library.getRootFilePath() == null) {
                 library.setRootFilePath(filename.getParentFile());
+                if (library.getWarningMessage() != null)
+                    SwingUtilities.invokeLater(new ErrorMessage(library.getWarningMessage().toString()).setComponent(this));
+            }
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e).show(this);
         }

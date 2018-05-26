@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Ein 8-Bit Addierer, welcher aus zwei 4-Bit 
-CLA-Addierern aufgebaut ist.</string>
+      <string>An 8-bit adder made up of two 4-bit CLA adders.
+{{de Ein 8-Bit Addierer, welcher aus zwei 4-Bit 
+CLA-Addierern aufgebaut ist.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -28,7 +29,8 @@ CLA-Addierern aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erstes zu addierendes 8-Bit Wort.</string>
+          <string>First 8-bit word to be added.
+{{de Erstes zu addierendes 8-Bit Wort.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -74,7 +76,8 @@ CLA-Addierern aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweites zu addierendes 8-Bit Wort.</string>
+          <string>Second 8-bit word to be added.
+{{de Zweites zu addierendes 8-Bit Wort.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -110,7 +113,8 @@ CLA-Addierern aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Die 8-Bit der Summe.</string>
+          <string>The 8 bit sum.
+{{de Die 8-Bit der Summe.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -128,7 +132,8 @@ CLA-Addierern aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Übertrag der Addition</string>
+          <string>The carry output.
+{{de Übertrag der Addition}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -142,7 +147,8 @@ CLA-Addierern aufgebaut ist.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Übertrag aus dem vorhergehenden Addierer.</string>
+          <string>Carry from the previous adder.
+{{de Übertrag aus dem vorhergehenden Addierer.}}</string>
         </entry>
         <entry>
           <string>Label</string>

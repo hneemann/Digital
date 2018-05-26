@@ -24,6 +24,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
@@ -84,6 +85,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private File rootLibraryPath;
     private Exception exception;
     private long lastRescanTime;
+    private StringBuilder warningMessage;
 
     /**
      * Creates a new instance.
@@ -229,8 +231,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * registers a component source to Digital
-     * @param source
-     *            the source
+     *
+     * @param source the source
      * @return this for chained calls
      */
     public ElementLibrary registerComponentSource(ComponentSource source) {
@@ -284,8 +286,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Returns true if element is programmable
-     * @param name
-     *            the name
+     *
+     * @param name the name
      * @return true if it is programmable
      */
     public boolean isProgrammable(String name) {
@@ -294,8 +296,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Sets the shape factory used to import sub circuits
-     * @param shapeFactory
-     *            the shape factory
+     *
+     * @param shapeFactory the shape factory
      */
     public void setShapeFactory(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
@@ -317,15 +319,23 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private void populateNodeMap() {
         map.clear();
-        root.traverse(new PopulateMapVisitor(map));
+        final PopulateMapVisitor populateMapVisitor = new PopulateMapVisitor(map);
+        root.traverse(populateMapVisitor);
+        warningMessage = populateMapVisitor.getWarningMessage();
+    }
+
+    /**
+     * @return the warning message or null if there is none
+     */
+    public StringBuilder getWarningMessage() {
+        return warningMessage;
     }
 
     /**
      * sets the root library path
-     * @param rootLibraryPath
-     *            the path
-     * @throws IOException
-     *             IOException
+     *
+     * @param rootLibraryPath the path
+     * @throws IOException IOException
      */
     public void setRootFilePath(File rootLibraryPath) throws IOException {
         if (rootLibraryPath == null) {
@@ -348,13 +358,12 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Checks if the given file is accessible from the actual library.
-     * @param file
-     *            the file to check
+     *
+     * @param file the file to check
      * @return true if given file is importable
      */
     public boolean isFileAccessible(File file) {
-        if (rootLibraryPath == null)
-            return true;
+        if (rootLibraryPath == null) return true;
 
         try {
             String root = rootLibraryPath.getCanonicalPath();
@@ -367,8 +376,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Returns the node or null if node not present.
-     * @param elementName
-     *            the name
+     *
+     * @param elementName the name
      * @return the node or null
      */
     public LibraryNode getElementNodeOrNull(String elementName) {
@@ -376,13 +385,12 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     /**
-     * Returns a {@link ElementTypeDescription} by a given name. If not found its
-     * tried to load it.
-     * @param elementName
-     *            the elements name
+     * Returns a {@link ElementTypeDescription} by a given name.
+     * If not found its tried to load it.
+     *
+     * @param elementName the elements name
      * @return the {@link ElementTypeDescription}
-     * @throws ElementNotFoundException
-     *             ElementNotFoundException
+     * @throws ElementNotFoundException ElementNotFoundException
      */
     public ElementTypeDescription getElementType(String elementName) throws ElementNotFoundException {
         try {
@@ -432,8 +440,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Fires a library event
-     * @param node
-     *            the node changed
+     *
+     * @param node the node changed
      */
     void fireLibraryChanged(LibraryNode node) {
         for (LibraryListener l : listeners)
@@ -442,25 +450,24 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Adds a listener to this library
-     * @param listener
-     *            the listener to add
+     *
+     * @param listener the listener to add
      */
     public void addListener(LibraryListener listener) {
         listeners.add(listener);
-        LOGGER.debug(
-                "added library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
+        LOGGER.debug("added library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
     }
 
     /**
      * Removes a listener from this library
-     * @param listener
-     *            the listener to remove
+     *
+     * @param listener the listener to remove
      */
     public void removeListener(LibraryListener listener) {
         listeners.remove(listener);
-        LOGGER.debug(
-                "removed library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
+        LOGGER.debug("removed library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
     }
+
 
     @Override
     public Iterator<ElementContainer> iterator() {
@@ -493,10 +500,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Removes an element from the library to enforce a reload
-     * @param name
-     *            the elements name
-     * @throws IOException
-     *             IOException
+     *
+     * @param name the elements name
+     * @throws IOException IOException
      */
     public void invalidateElement(File name) throws IOException {
         LibraryNode n = map.get(name.getName());
@@ -510,8 +516,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Updates all entries
-     * @throws IOException
-     *             IOException
+     *
+     * @throws IOException IOException
      */
     public void updateEntries() throws IOException {
         rescanFolder();
@@ -526,11 +532,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     /**
      * Imports the given file
-     * @param file
-     *            the file to load
+     *
+     * @param file the file to load
      * @return the description
-     * @throws IOException
-     *             IOException
+     * @throws IOException IOException
      */
     ElementTypeDescription importElement(File file) throws IOException {
         try {
@@ -541,11 +546,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             } catch (FileNotFoundException e) {
                 throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
-            ElementTypeDescriptionCustom description = new ElementTypeDescriptionCustom(file,
-                    attributes -> new CustomElement(circuit, ElementLibrary.this), circuit);
+            ElementTypeDescriptionCustom description =
+                    new ElementTypeDescriptionCustom(file,
+                            attributes -> new CustomElement(circuit, ElementLibrary.this),
+                            circuit);
             description.setShortName(createShortName(file));
 
-            String descriptionText = circuit.getAttributes().get(Keys.DESCRIPTION);
+            String descriptionText = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
             if (descriptionText != null && descriptionText.length() > 0) {
                 description.setDescription(descriptionText);
             }
@@ -560,8 +567,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     private String createShortName(String name) {
-        if (name.endsWith(".dig"))
-            return name.substring(0, name.length() - 4);
+        if (name.endsWith(".dig")) return name.substring(0, name.length() - 4);
 
         String transName = Lang.getNull("elem_" + name);
         if (transName == null)
@@ -571,8 +577,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     /**
-     * The description of a nested element. This is a complete circuit which is used
-     * as a element.
+     * The description of a nested element.
+     * This is a complete circuit which is used as a element.
      */
     public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
         private final File file;
@@ -581,18 +587,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         /**
          * Creates a new element
-         * @param file
-         *            the file which is loaded
-         * @param elementFactory
-         *            a element factory which is used to create concrete elements if
-         *            needed
-         * @param circuit
-         *            the circuit
-         * @throws PinException
-         *             PinException
+         *
+         * @param file           the file which is loaded
+         * @param elementFactory a element factory which is used to create concrete elements if needed
+         * @param circuit        the circuit
+         * @throws PinException PinException
          */
-        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, Circuit circuit)
-                throws PinException {
+        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, Circuit circuit) throws PinException {
             super(file.getName(), elementFactory, circuit.getInputNames());
             this.file = file;
             this.circuit = circuit;
@@ -602,8 +603,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         }
 
         /**
-         * Returns the filename The returned file is opened if the user wants to modify
-         * the element
+         * Returns the filename
+         * The returned file is opened if the user wants to modify the element
+         *
          * @return the filename
          */
         public File getFile() {
@@ -626,8 +628,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         /**
          * Sets a custom description for this field
-         * @param description
-         *            the description
+         *
+         * @param description the description
          */
         public void setDescription(String description) {
             this.description = description;
@@ -640,7 +642,21 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             else
                 return super.getDescription(elementAttributes);
         }
+
+        @Override
+        public ArrayList<Key> getAttributeList() {
+            final ArrayList<Key> list = super.getAttributeList();
+            if (getAttributes().get(Keys.IS_DIL)
+                    || getAttributes().get(Keys.CUSTOM_SHAPE) != CustomShapeDescription.EMPTY) {
+
+                ArrayList<Key> li = new ArrayList<>(list);
+                li.add(Keys.USE_DEFAULT_SHAPE);
+                return li;
+            }
+            return list;
+        }
     }
+
 
     /**
      * Used to store a elements name and its position in the elements menu.
@@ -651,10 +667,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         /**
          * Creates anew instance
-         * @param typeDescription
-         *            the elements typeDescription
-         * @param treePath
-         *            the elements menu path
+         *
+         * @param typeDescription the elements typeDescription
+         * @param treePath        the elements menu path
          */
         ElementContainer(ElementTypeDescription typeDescription, String treePath) {
             this.name = typeDescription;
@@ -678,6 +693,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private static final class PopulateMapVisitor implements Visitor {
         private final HashMap<String, LibraryNode> map;
+        private StringBuilder warningMessage;
 
         private PopulateMapVisitor(HashMap<String, LibraryNode> map) {
             this.map = map;
@@ -698,9 +714,16 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                     else {
                         presentNode.setUnique(false); // ToDo does not work if there are more than two duplicates and
                         libraryNode.setUnique(false); // some of the duplicates point to the same file
+                        if (warningMessage == null)
+                            warningMessage = new StringBuilder(Lang.get("msg_duplicateLibraryFiles"));
+                        warningMessage.append("\n\n").append(presentNode.getFile()).append("\n").append(libraryNode.getFile());
                     }
                 }
             }
+        }
+
+        private StringBuilder getWarningMessage() {
+            return warningMessage;
         }
     }
 }

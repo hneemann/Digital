@@ -4,13 +4,18 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Leitwerk für einen einfachen Prozessor.
+      <string>Control unit for a simple processor.
+It works purely combinatorial.
+Since it is relatively complex (24 output bits), it is 
+implemented by a corresponding ROM component, 
+and not by 24 individual combinatorial circuits.
+{{de Leitwerk für einen einfachen Prozessor.
 Es arbeitet rein kombinatorisch, es handelt sich 
-also um ein einfaches Schaltwerk. 
+also um ein einfaches Schaltnetz. 
 Da es vergleichsweise komplex ist (24 
 Ausgangsbits), wird es durch einen 
 entsprechenden ROM-Baustein 
-realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
+realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -23,7 +28,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Der Opcode incl. Immediate Bit</string>
+          <string>The obcode and the immediate bit.
+{{de Der Opcode incl. Immediate Bit}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -120,7 +126,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Programm Counter in Register Speichern</string>
+          <string>The programm counter is stored in a register.
+{{de Programm Counter in Register Speichern}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -148,7 +155,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Wert am Datenbus in Register speichern</string>
+          <string>The data bus value ist stored in a register.
+{{de Wert am Datenbus in Register speichern}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -162,7 +170,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Aktiviert das Speichern der Konstanten</string>
+          <string>Enables the storage of a constant value.
+{{de Aktiviert das Speichern der Konstanten}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -180,7 +189,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>absoluten Sprung auslösen</string>
+          <string>triggers a absolute jump
+{{de absoluten Sprung auslösen}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -194,7 +204,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Selektor für Mux B</string>
+          <string>selector for mux B
+{{de Selektor für Mux B}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -212,7 +223,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>SourceRegister auf Datenbus legen</string>
+          <string>Put source register to data bus
+{{de SourceRegister auf Datenbus legen}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -226,7 +238,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Selector für Mux A</string>
+          <string>selector for mux A
+{{de Selector für Mux A}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -240,7 +253,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>ALU auf den Datenbus legen</string>
+          <string>ALU value is put on the data bus.
+{{de ALU auf den Datenbus legen}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -254,7 +268,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Operation der ALU</string>
+          <string>the operation of the ALU
+{{de Operation der ALU}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -272,7 +287,10 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Wenn gesetzt führt die ALU eine arithmetische Operation aus, so dass die Flags gespeichert werden müssen.</string>
+          <string>If set, the ALU performs an arithmetic operation so that the 
+flags must be stored.
+{{de Wenn gesetzt führt die ALU eine arithmetische Operation 
+aus, so dass die Flags gespeichert werden müssen.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -286,7 +304,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Art des bedingten Sprunges</string>
+          <string>kind of branch
+{{de Art des bedingten Sprunges}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -304,7 +323,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Ram speichert Daten vom Datenbus</string>
+          <string>The RAM stores the data on the data bus.
+{{de Ram speichert Daten vom Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -318,7 +338,9 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Ram gibt Daten auf den Datenbus</string>
+          <string>The RAM component puts its content to the 
+data bus.
+{{de Ram gibt Daten auf den Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -346,7 +368,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Es wird auf die IO geschrieben</string>
+          <string>write to IO
+{{de Es wird auf die IO geschrieben}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -360,7 +383,8 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Es wird IO gelesen</string>
+          <string>read from IO
+{{de Es wird IO gelesen}}</string>
         </entry>
         <entry>
           <string>Label</string>

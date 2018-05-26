@@ -8,7 +8,6 @@ package de.neemann.digital.gui.components;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -96,7 +95,6 @@ public final class EditorFactory {
         add(InValue.class, InValueEditor.class);
         add(File.class, FileEditor.class);
         add(Color.class, ColorEditor.class);
-        add(CustomShapeDescription.class, CustomShapeEditor.class);
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
         add(Rotation.class, RotationEditor.class);
@@ -109,6 +107,7 @@ public final class EditorFactory {
         add(InverterConfig.class, InverterConfigEditor.class);
         add(ROMManger.class, ROMManagerEditor.class);
         add(Application.Type.class, ApplicationTypeEditor.class);
+        add(CustomShapeDescription.class, CustomShapeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -502,7 +501,7 @@ public final class EditorFactory {
 
         @Override
         public JComponent getComponent(ElementAttributes attr) {
-            JPanel panel = new JPanel(new FlowLayout());
+            JPanel panel = new JPanel(new GridLayout(1, 2));
             panel.add(new ToolTipAction(Lang.get("btn_edit")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {

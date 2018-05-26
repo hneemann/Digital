@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfache Schaltung um den Multiplikator
-auszuprobieren.</string>
+      <string>Circuit to test the 4 bit multiplyer.
+{{de Schaltung, um den 4 Bit Multiplikator
+auszuprobieren.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -39,7 +40,8 @@ auszuprobieren.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erste zu multiplizierende 4-Bit Zahl.</string>
+          <string>First 4 bit number to multiply.
+{{de Erste zu multiplizierende 4-Bit Zahl.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -89,7 +91,8 @@ auszuprobieren.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweite zu multiplizierende 4-Bit Zahl.</string>
+          <string>Second 4 bit number to multiply.
+{{de Zweite zu multiplizierende 4-Bit Zahl.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -139,7 +142,7 @@ auszuprobieren.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>*</string>
+          <string>* {{de *}}</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="-20"/>
@@ -149,7 +152,7 @@ auszuprobieren.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>=</string>
+          <string>= {{de =}}</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="-20"/>

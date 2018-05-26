@@ -42,7 +42,7 @@ public final class Constant implements Expression {
     }
 
     /**
-     * Retorns the constants value
+     * Returns the constant value
      *
      * @return the value
      */
@@ -57,6 +57,6 @@ public final class Constant implements Expression {
 
     @Override
     public Expression copy() {
-        return new Constant(value);
+        return this;
     }
 }

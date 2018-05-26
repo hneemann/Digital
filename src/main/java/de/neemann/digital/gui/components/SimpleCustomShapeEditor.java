@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
  * Editor used to define a custom shape.
  * The actual implementation is only able to create a simple dummy shape.
  */
-public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDescription> {
+public class SimpleCustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDescription> {
     private CustomShapeDescription customShapeDescription;
 
     /**
@@ -28,13 +28,13 @@ public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDesc
      * @param customShapeDescription the shape to edit
      * @param key                    the used key
      */
-    public CustomShapeEditor(CustomShapeDescription customShapeDescription, Key<CustomShapeDescription> key) {
+    public SimpleCustomShapeEditor(CustomShapeDescription customShapeDescription, Key<CustomShapeDescription> key) {
         this.customShapeDescription = customShapeDescription;
     }
 
     @Override
     public JComponent getComponent(ElementAttributes attr) {
-        JPanel panel = new JPanel(new FlowLayout());
+        JPanel panel = new JPanel(new GridLayout(1, 2));
         panel.add(new ToolTipAction(Lang.get("btn_clearData")) {
             @Override
             public void actionPerformed(ActionEvent e) {

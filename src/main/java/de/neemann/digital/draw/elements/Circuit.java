@@ -5,39 +5,14 @@
  */
 package de.neemann.digital.draw.elements;
 
-import static de.neemann.digital.core.element.PinInfo.input;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-
-import de.neemann.digital.core.IntFormat;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
-import de.neemann.digital.core.element.PinInfo;
-import de.neemann.digital.core.element.Rotation;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
@@ -46,10 +21,7 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.PolygonConverter;
-import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -58,6 +30,11 @@ import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.language.Language;
+
+import java.io.*;
+import java.util.*;
+
+import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * This class contains all the visual elements which form the visual representation of a circuit.
@@ -615,14 +592,18 @@ public class Circuit {
             if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
                 final ElementAttributes attr = ve.getElementAttributes();
                 String name = attr.getLabel();
-                if (name == null || name.length() == 0)
-                    throw new PinException(Lang.get("err_pinWithoutName"));
+                if (name == null || name.length() == 0) {
+                    if (ve.equalsDescription(Clock.DESCRIPTION))
+                        throw new PinException(Lang.get("err_clockWithoutName"));
+                    else
+                        throw new PinException(Lang.get("err_pinWithoutName"));
+                }
 
                 PinInfo pin;
                 if (ve.equalsDescription(Clock.DESCRIPTION))
                     pin = input(name, Lang.get("elem_Clock")).setClock();
                 else
-                    pin = input(name, attr.get(Keys.DESCRIPTION));
+                    pin = input(name, Lang.evalMultilingualContent(attr.get(Keys.DESCRIPTION)));
                 pinList.add(pin.setPinNumber(attr.get(Keys.PINNUMBER)));
             }
         }
@@ -649,7 +630,7 @@ public class Circuit {
                 if (name == null || name.length() == 0)
                     throw new PinException(Lang.get("err_pinWithoutName"));
 
-                String descr = attr.get(Keys.DESCRIPTION);
+                String descr = Lang.evalMultilingualContent(attr.get(Keys.DESCRIPTION));
                 pinList.add(new ObservableValue(name, 0) {
                     @Override
                     public long getValue() {

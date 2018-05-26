@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Gate Diffusion Input (GDI) xor</string>
+      <string>Gate Diffusion Input (GDI) xor
+{{de Gate Diffusion Input (GDI) xor}}</string>
     </entry>
   </attributes>
   <visualElements>

@@ -26,6 +26,7 @@ public class Key<VALUE> {
     // Both are only used within a custom implemented component.
     private String name;
     private String description;
+    private boolean isSecondary;
 
     /**
      * Creates a new Key
@@ -180,6 +181,23 @@ public class Key<VALUE> {
     public Key<VALUE> setDependsOn(Key key, boolean invert) {
         this.dependsOn = key;
         this.dependsOnInvert = invert;
+        return this;
+    }
+
+    /**
+     * @return true is this is a secondary attribute
+     */
+    public boolean isSecondary() {
+        return isSecondary;
+    }
+
+    /**
+     * Makes this attribute to be a secondary attribute
+     *
+     * @return this for chained calls
+     */
+    public Key<VALUE> setSecondary() {
+        isSecondary = true;
         return this;
     }
 

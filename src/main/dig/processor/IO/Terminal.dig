@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Terminal. Die Adresse ist 0x1F.</string>
+      <string>Terminal. The used address is 0x1F.
+{{de Terminal. Die Adresse ist 0x1F.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -13,7 +14,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenbus</string>
+          <string>data bus {{de Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -31,7 +32,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Addressbus</string>
+          <string>address {{de Adressbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -93,7 +94,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Write Enable</string>
+          <string>Write Enable {{de Schreibfreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>

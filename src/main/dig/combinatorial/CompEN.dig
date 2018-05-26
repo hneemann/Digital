@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Vergleicht zwei Bit miteinander. Besitzt einen 
-zusätzlichen Enable Eingang.</string>
+      <string>Compares two bits. Has an additional enable input.
+{{de Vergleicht zwei Bit miteinander. Besitzt einen 
+zusätzlichen Enable Eingang.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -38,7 +39,8 @@ zusätzlichen Enable Eingang.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&lt;Q gilt.</string>
+          <string>Is set to one if P&lt;Q is valid.
+{{de Das Bit ist Eins, wenn P&lt;Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -52,7 +54,8 @@ zusätzlichen Enable Eingang.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P=Q gilt.</string>
+          <string>Is set to one if P=Q is valid.
+{{de Das Bit ist Eins, wenn P=Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -66,7 +69,8 @@ zusätzlichen Enable Eingang.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&gt;Q gilt.</string>
+          <string>Is set to one if P&gt;Q is valid.
+{{de Das Bit ist Eins, wenn P&gt;Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -80,10 +84,13 @@ zusätzlichen Enable Eingang.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Enable Eingang. Geht dieser Eingang auf Null, sind 
+          <string>Enable input. If this input goes to zero, all three output 
+bits are also zero. If this input is one, the comparator 
+has its normal function.
+{{de Enable Eingang. Geht dieser Eingang auf Null, sind 
 alle drei Ausgangsbit auch Null. Ist dieser Eingang 
-auf EIns, hat der Komparator seine normale 
-Funktion.</string>
+auf Eins, hat der Komparator seine normale 
+Funktion.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -97,7 +104,8 @@ Funktion.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erstes zu vergleichendes Bit.</string>
+          <string>First bit to compare.
+{{de Erstes zu vergleichendes Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -111,7 +119,8 @@ Funktion.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweites zu vergleichendes Bit.</string>
+          <string>Second bit to compare.
+{{de Zweites zu vergleichendes Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>

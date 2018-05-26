@@ -20,7 +20,6 @@ import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
 
-
 import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Field;
@@ -141,7 +140,8 @@ public final class Keys {
             = new Key.KeyInteger("Size", 1)
             .setComboBoxValues(new Integer[]{0, 1, 2, 3, 4, 5})
             .setMin(0)
-            .allowGroupEdit();
+            .allowGroupEdit()
+            .setSecondary();
 
     /**
      * The value of constants
@@ -153,19 +153,19 @@ public final class Keys {
      * The default value of elements
      */
     public static final Key<Integer> DEFAULT
-            = new Key<>("Default", 0).allowGroupEdit();
+            = new Key<>("Default", 0).allowGroupEdit().setSecondary();
 
     /**
      * The default value of inputs
      */
     public static final Key<InValue> INPUT_DEFAULT
-            = new Key<>("InDefault", new InValue(0)).allowGroupEdit();
+            = new Key<>("InDefault", new InValue(0)).allowGroupEdit().setSecondary();
 
     /**
      * The default value of the dip switch
      */
     public static final Key<Boolean> DIP_DEFAULT
-            = new Key<>("dipDefault", false);
+            = new Key<>("dipDefault", false).allowGroupEdit().setSecondary();
 
 
     /**
@@ -189,11 +189,12 @@ public final class Keys {
     /**
      * The splitter spreading
      */
-    public static final Key.KeyInteger SPLITTER_SPREADING
+    public static final Key<Integer> SPLITTER_SPREADING
             = new Key.KeyInteger("splitterSpreading", 1)
             .setComboBoxValues(new Integer[]{1, 2, 3, 4})
             .setMin(1)
-            .setMax(10);
+            .setMax(10)
+            .setSecondary();
 
 
     /**
@@ -263,7 +264,7 @@ public final class Keys {
      * the rotation of the elements
      */
     public static final Key<Rotation> ROTATE
-            = new Key<>("rotation", new Rotation(0)).allowGroupEdit();
+            = new Key<>("rotation", new Rotation(0)).allowGroupEdit().setSecondary();
 
     /**
      * the width of an element if it is included as nested element
@@ -297,37 +298,37 @@ public final class Keys {
      * flag to make a value a probe
      */
     public static final Key<Boolean> VALUE_IS_PROBE
-            = new Key<>("valueIsProbe", false).allowGroupEdit();
+            = new Key<>("valueIsProbe", false).allowGroupEdit().setSecondary();
 
     /**
      * flag to set a ROM as program memory
      */
     public static final Key<Boolean> IS_PROGRAM_MEMORY
-            = new Key<>("isProgramMemory", false);
+            = new Key<>("isProgramMemory", false).setSecondary();
 
     /**
      * flag to enable the ROMs auto load function
      */
     public static final Key<Boolean> AUTO_RELOAD_ROM
-            = new Key<>("autoReload", false);
+            = new Key<>("autoReload", false).setSecondary();
 
     /**
      * flag to show the data table window
      */
     public static final Key<Boolean> SHOW_DATA_TABLE
-            = new Key<>("showDataTable", false);
+            = new Key<>("showDataTable", false).setSecondary();
 
     /**
      * flag to show the data graph window
      */
     public static final Key<Boolean> SHOW_DATA_GRAPH
-            = new Key<>("showDataGraph", false);
+            = new Key<>("showDataGraph", false).setSecondary();
 
     /**
      * flag to show the data graph window in single gate mode
      */
     public static final Key<Boolean> SHOW_DATA_GRAPH_MICRO
-            = new Key<>("showDataGraphMicro", false);
+            = new Key<>("showDataGraphMicro", false).setSecondary();
 
     /**
      * flag to enable the single gate mode in the embedded data view
@@ -346,7 +347,7 @@ public final class Keys {
      * flag to enable high z mode at an input
      */
     public static final Key<Boolean> IS_HIGH_Z
-            = new Key<>("isHighZ", false).allowGroupEdit();
+            = new Key<>("isHighZ", false).allowGroupEdit().setSecondary();
 
     /**
      * the description of an element
@@ -406,8 +407,8 @@ public final class Keys {
     /**
      * output format for numbers
      */
-    public static final Key.KeyEnum<IntFormat> INT_FORMAT
-            = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values());
+    public static final Key<IntFormat> INT_FORMAT
+            = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values()).setSecondary();
 
     /**
      * width of the terminal
@@ -463,13 +464,13 @@ public final class Keys {
      * Fitter for the atf15xx
      */
     public static final Key<File> SETTINGS_ATF1502_FITTER
-            = new Key.KeyFile("atf1502Fitter", new File("c:/Wincupl/WinCupl/Fitters")).setDirectoryOnly(true);
+            = new Key.KeyFile("atf1502Fitter", new File("c:/Wincupl/WinCupl/Fitters")).setDirectoryOnly(true).setSecondary();
 
     /**
      * Flash software for the atf15xx
      */
     public static final Key<File> SETTINGS_ATMISP
-            = new Key.KeyFile("ATMISP", new File("c:/ATMISP7/ATMISP.exe"));
+            = new Key.KeyFile("ATMISP", new File("c:/ATMISP7/ATMISP.exe")).setSecondary();
 
     /**
      * row bits in led matrix
@@ -493,20 +494,21 @@ public final class Keys {
      * the pin number
      */
     public static final Key<String> PINNUMBER =
-            new Key<>("pinNumber", "");
+            new Key<>("pinNumber", "").setSecondary();
 
     /**
      * true if shape is a dil shape
      */
     public static final Key<Boolean> IS_DIL
-            = new Key<>("isDIL", false);
+            = new Key<>("isDIL", false).setSecondary();
     /**
      * the pin count
      */
     public static final Key<Integer> PINCOUNT =
             new Key.KeyInteger("pinCount", 0)
                     .setMin(0)
-                    .setDependsOn(IS_DIL);
+                    .setDependsOn(IS_DIL)
+            .setSecondary();
 
 
     /**
@@ -559,19 +561,19 @@ public final class Keys {
      * Fitter for the atf1502
      */
     public static final Key<File> SETTINGS_LIBRARY_PATH
-            = new Key.KeyFile("libraryPath", ElementLibrary.getLibPath()).setDirectoryOnly(true);
+            = new Key.KeyFile("libraryPath", ElementLibrary.getLibPath()).setDirectoryOnly(true).setSecondary();
 
     /**
      * A jar containing custom java components
      */
     public static final Key<File> SETTINGS_JAR_PATH
-            = new Key.KeyFile("jarPath", new File(""));
+            = new Key.KeyFile("jarPath", new File("")).setSecondary();
 
     /**
      * The manager which contains all the roms data
      */
     public static final Key<ROMManger> ROMMANAGER
-            = new Key<>("romContent", ROMManger.EMPTY);
+            = new Key<>("romContent", ROMManger.EMPTY).setSecondary();
 
 
     /**
@@ -598,8 +600,8 @@ public final class Keys {
     /**
      * Path to ghdl
      */
-    public static final Key.KeyFile SETTINGS_GHDL_PATH
-            = new Key.KeyFile("ghdlPath", new File("ghdl"));
+    public static final Key<File> SETTINGS_GHDL_PATH
+            = new Key.KeyFile("ghdlPath", new File("ghdl")).setSecondary();
 
     /**
      * Avoid component tooltips in the main panel
@@ -608,9 +610,15 @@ public final class Keys {
             new Key<>("noComponentToolTips", false);
 
     /**
+     * Used to show the default shape also if the circuit defines a DIL.
+     */
+    public static final Key<Boolean> USE_DEFAULT_SHAPE
+            = new Key<Boolean>("useDefShape", false);
+
+    /**
      * Shape used to represent a visual element
      */
     public static final Key<CustomShapeDescription> CUSTOM_SHAPE
-            = new Key<>("customShape", CustomShapeDescription.EMPTY);
+            = new Key<>("customShape", CustomShapeDescription.EMPTY).setSecondary();
 
 }

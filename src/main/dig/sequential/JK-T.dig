@@ -4,10 +4,13 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Taktflanken gesteuerters JK-Flipflop. Eine steigende
+      <string>Clock edges triggert JK flip-flop. 
+A rising edge at the clock input is converted into a pulse 
+whose duration is just sufficient to switch the flip-flop.
+{{de Taktflanken gesteuerters JK-Flipflop. Eine steigende
 Flanke am Takteingang wird in einem Impuls 
 umgeformt, der gerade ausreicht, um das Flipflop
-umzuschalten.</string>
+umzuschalten.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -56,7 +59,8 @@ umzuschalten.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Eingang zum Setzen des Flipflops.</string>
+          <string>Input to set the flip-flop
+{{de Eingang zum Setzen des Flipflops.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -74,7 +78,8 @@ umzuschalten.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das im Flipflop gespeicherte Bit.</string>
+          <string>The bit stored in the flip-flop.
+{{de Das im Flipflop gespeicherte Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -88,7 +93,8 @@ umzuschalten.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das inverse gespeicherte Bit.</string>
+          <string>The inverted stored bit.
+{{de Das inverse gespeicherte Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -107,9 +113,12 @@ umzuschalten.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Taktsignal. Bei einer steigenden Flanke wird ein 
+          <string>Clock signal. On a rising edge, a short pulse is 
+generated on the flip-flop, which is just enough to 
+switch the Flopflop.
+{{de Taktsignal. Bei einer steigenden Flanke wird ein 
 kurzer Impuls am Flipflop erzeugt, der gerade 
-ausreicht, um das Flopflop umzuschalten.</string>
+ausreicht, um das Flopflop umzuschalten.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -123,7 +132,8 @@ ausreicht, um das Flopflop umzuschalten.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Eingang zum Löschen des Flipflops.</string>
+          <string>Input to clear the flip-flop.
+{{de Eingang zum Löschen des Flipflops.}}</string>
         </entry>
         <entry>
           <string>Label</string>

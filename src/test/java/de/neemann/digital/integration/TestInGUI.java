@@ -8,7 +8,6 @@ package de.neemann.digital.integration;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.basic.And;
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.External;
@@ -768,6 +767,8 @@ public class TestInGUI extends TestCase {
                 .press("RIGHT", 2)
                 .press("DOWN", 1)
                 .press("ENTER", 1)
+                .press("control TAB", 4)
+                .press("RIGHT", 1)
                 .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
                         b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
                 .press("SPACE")

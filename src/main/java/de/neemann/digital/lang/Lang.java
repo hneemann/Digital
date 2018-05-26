@@ -92,7 +92,7 @@ public final class Lang {
             localeBundle = bundle.getResources(lang);
         } catch (Exception e) {
             localeBundle = null;
-            System.err.println("error reading translation for "+lang);
+            System.err.println("error reading translation for " + lang);
             e.printStackTrace();
         }
 
@@ -100,6 +100,40 @@ public final class Lang {
             currentLanguage = new Language(lang);
         else
             currentLanguage = new Language("en");
+    }
+
+    /**
+     * Resolves a multilingual user defined string.
+     * Allows the user to define multilingual content by using a simple syntax:
+     * You can enter strings like "Word! {{de Welt!}} {{fr Monde!}}". This method extracts
+     * the appropriate string for the current language.
+     *
+     * @param text the complete text description
+     * @return the evaluated text.
+     */
+    public static String evalMultilingualContent(String text) {
+        return evalMultilingualContent(text, currentLanguage());
+    }
+
+    static String evalMultilingualContent(String text, Language currentLanguage) {
+        int pos = text.indexOf("{{");
+        if (pos < 0) return text;
+
+        String def = text.substring(0, pos).trim();
+
+        do {
+            int p2 = text.indexOf("}}", pos);
+            if (p2 > pos + 3) {
+                String l = text.substring(pos + 2, pos + 4);
+                if (l.equalsIgnoreCase(currentLanguage.getName()))
+                    return text.substring(pos + 4, p2).trim();
+
+                pos = text.indexOf("{{", p2);
+            } else
+                return def;
+        } while (pos > 0);
+
+        return def;
     }
 
     /**

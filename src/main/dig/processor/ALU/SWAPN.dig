@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Tauscht im High-Byte und im Low-Byte die beiden 
-4-Bit Nibble.</string>
+      <string>Swaps the 4-bit nibble in the high- and the low-byte.
+{{de Tauscht im High-Byte und im Low-Byte die beiden 
+4-Bit Nibble.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -14,7 +15,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Dateneingang</string>
+          <string>Data input
+{{de Dateneingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -64,7 +66,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenausgang</string>
+          <string>Data output
+{{de Datenausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>

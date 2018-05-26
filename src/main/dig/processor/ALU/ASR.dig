@@ -4,10 +4,14 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Arithmetisches schieben. Ein vorzeichenrichtige 
+      <string>Arithmetic shift right. An unsigned division by two. 
+The lower bit is output as the carry bit, while the 
+uppermost bit remains unchanged in order to 
+obtain the sign.
+{{de Arithmetisches schieben. Ein vorzeichenrichtige 
 Division durch Zwei. Dabei wird das untere Bit als 
 Carry-Bit ausgegeben, während das oberste Bit 
-unverändert bleibt, um das Vorzeichen zu erhalten.</string>
+unverändert bleibt, um das Vorzeichen zu erhalten.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -16,7 +20,8 @@ unverändert bleibt, um das Vorzeichen zu erhalten.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Dateneingang</string>
+          <string>data input
+{{de Dateneingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -48,7 +53,8 @@ unverändert bleibt, um das Vorzeichen zu erhalten.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Carry-Ausgang</string>
+          <string>carry output
+{{de Carry-Ausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -76,7 +82,8 @@ unverändert bleibt, um das Vorzeichen zu erhalten.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenausgang</string>
+          <string>data output
+{{de Datenausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>

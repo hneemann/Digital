@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher Vergleicher, welcher zwei Bits miteinander 
-vergleicht.</string>
+      <string>Simple comparator, which compares two bits.
+{{de Einfacher Vergleicher, welcher zwei Bits 
+miteinander vergleicht.}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -18,7 +19,8 @@ vergleicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Erstes zu vergleichendes Bit.</string>
+          <string>First bit to compare.
+{{de Erstes zu vergleichendes Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -32,7 +34,8 @@ vergleicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Zweites zu vergleichendes Bit.</string>
+          <string>Second bit to compare.
+{{de Zweites zu vergleichendes Bit.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -71,7 +74,8 @@ vergleicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&lt;Q gilt.</string>
+          <string>This output is one if P&lt;Q is true.
+{{de Das Bit ist Eins, wenn P&lt;Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -85,7 +89,8 @@ vergleicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P=Q gilt.</string>
+          <string>This output is one if P=Q is true.
+{{de Das Bit ist Eins, wenn P=Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -99,7 +104,8 @@ vergleicht.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das Bit ist Eins, wenn P&gt;Q gilt.</string>
+          <string>This output is one if P&gt;Q is true.
+{{de Das Bit ist Eins, wenn P&gt;Q gilt.}}</string>
         </entry>
         <entry>
           <string>Label</string>

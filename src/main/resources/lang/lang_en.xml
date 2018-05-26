@@ -18,6 +18,8 @@
     <string name="attr_dialogHighz">HighZ</string>
     <string name="attr_dialogOctal">Octal</string>
     <string name="attr_dialogBinary">Binary</string>
+    <string name="attr_primary">Basic</string>
+    <string name="attr_secondary">Advanced</string>
     <string name="btn_discard">Discard Changes</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_editFurther">Continue editing</string>
@@ -777,7 +779,7 @@
     <string name="err_noOutConnectedToWire">No output connected to a wire: {0}</string>
     <string name="err_oneResultIsRequired">Table to small: One result is required!</string>
     <string name="err_output_N_notDefined">Output {0} not defined</string>
-    <string name="err_pinMap_NoNameForPin_N">No Name for pin {0}</string>
+    <string name="err_pinMap_NoNameForPin_N">No label for pin {0}</string>
     <string name="err_pinMap_Pin_N_AssignedTwicePin">Pin {0} assigned twice!</string>
     <string name="err_pinMap_noEqualsfound">No = found!</string>
     <string name="err_pinMap_pin_N0_isNotAnInput">Pin {0} is not an input!</string>
@@ -785,7 +787,8 @@
     <string name="err_pinMap_toMannyInputsDefined">To many inputs used!</string>
     <string name="err_pinMap_toMannyOutputsDefined">To many outputs used!</string>
     <string name="err_pinNotPresent">Pin not present</string>
-    <string name="err_pinWithoutName">Found a pin without a name.</string>
+    <string name="err_pinWithoutName">Found a pin without a label.</string>
+    <string name="err_clockWithoutName">Found a clock without a label. If a clock is embedded also the clock needs a label.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at component {1}</string>
     <string name="err_pin_N_notFound">Pin {0} not found</string>
     <string name="err_pin_N_unknown">Pin {0} unknown</string>
@@ -847,7 +850,7 @@
     <string name="err_vhdlPin_N_hasNoNumber">Pin {0} has no number!</string>
     <string name="err_vhdlErrorWritingTestBench">Error creating a test bench!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
-    <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a name?</string>
+    <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a label set?</string>
     <string name="err_toManyVars">To many variables!</string>
     <string name="err_invalidExpression">Invalid expression!</string>
     <string name="err_function_N0_notFoundInLine_N1">Function {0} not found in line {1}!</string>
@@ -1095,8 +1098,6 @@
     <string name="key_splitterSpreading_tt">Configures the spread of the inputs and outputs in the circuit.</string>
     <string name="key_romContent">Content of ROM's</string>
     <string name="key_romContent_tt">Content of all used ROM's</string>
-    <string name="key_customShape">Custom Shape</string>
-    <string name="key_customShape_tt">Import of a SVG-file</string>
 
     <string name="key_applicationType">Application</string>
     <string name="key_applicationType_tt">Defines which application to use.</string>
@@ -1129,6 +1130,12 @@
 
     <string name="key_ATMISP">ATMISP</string>
     <string name="key_ATMISP_tt">Path to the executable file ATMISP.exe. If set, the ATMISP software can be started automatically!</string>
+
+    <string name="key_customShape">Custom Shape</string>
+    <string name="key_customShape_tt">Import of a SVG-file</string>
+
+    <string name="key_useDefShape">Use Default Shape</string>
+    <string name="key_useDefShape_tt">Use the default shape instead of using the DIL or custom shape configured in the circuit.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -1394,6 +1401,8 @@
         If there is a 7400.dig file in your working directory, you can not use this file or the 7400.dig file from the
         library, because this file name can no longer be uniquely assigned.
     </string>
+    <string name="msg_duplicateLibraryFiles">There are several files with identical file names, which can not be
+        uniquely assigned! Affected are:</string>
     <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
     <string name="msg_fileExists">The file {0} already exists! Do you want to overwrite the file?</string>
     <string name="msg_test_missingLines">(To many entries!)</string>

@@ -4,11 +4,15 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Ein Baustein zum asynchronen Speichern.
+      <string>A block for asynchronous storage.
+As soon as the set input goes to 1, the output 
+is switched to 1. The output does not return 
+to 0 until Reset is set to 1.
+{{de Ein Baustein zum asynchronen Speichern.
 Sobald der Set Eingang auf 1 geht, wird der 
 Ausgang auf 1 geschaltet. Der Ausgang geht 
 erst wieder auf 0 zurück, wenn Reset auf 1 
-gesetzt wird.</string>
+gesetzt wird.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -22,7 +26,8 @@ gesetzt wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Setzt den Ausgang zurück auf 0.</string>
+          <string>Sets the output back to zero.
+{{de Setzt den Ausgang zurück auf 0.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -41,7 +46,8 @@ gesetzt wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Setzt den Ausgang auf 1.</string>
+          <string>Sets the output to 1.
+{{de Setzt den Ausgang auf 1.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -60,7 +66,8 @@ gesetzt wird.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Wechselt auf 1 sobald Set auf 1 wechselt.</string>
+          <string>Switches to high as soon as the Set input goes to high.
+{{de Wechselt auf 1 sobald Set auf 1 wechselt.}}</string>
         </entry>
         <entry>
           <string>Label</string>

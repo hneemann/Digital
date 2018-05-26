@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2016 Helmut Neemann
  * Use of this source code is governed by the GPL v3 license

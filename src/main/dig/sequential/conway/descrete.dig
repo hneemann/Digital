@@ -8,7 +8,12 @@
 life&quot;. This circuit is analyzed to create the truth table
 with 11 inputs and one output. Then the truth table 
 is exported to a hex file, and this hex file is imported
-into a LUT to speedup the cellular automaton.</string>
+into a LUT to speedup the cellular automaton.
+{{de Implementierung einer einzelnen Zelle von &quot;Conways game of 
+life&quot;. Diese Schaltung wurde analysiert, um eine Wahrheitstabelle mit 11
+Eingängen und einem Ausgang zu erstellen. Diese wurde dann als 
+Hex-Datei exportiert und in eine LUT importiert, um den zellularen 
+Automaten zu beschleunigen.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -35,10 +40,6 @@ into a LUT to speedup the cellular automaton.</string>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>neighbour</string>
-        </entry>
         <entry>
           <string>Label</string>
           <string>n1</string>
@@ -121,7 +122,8 @@ into a LUT to speedup the cellular automaton.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>state of the cell, alive (HIGH) or dead (LOW)</string>
+          <string>state of the cell, alive (HIGH) or dead (LOW)
+{{de Der aktuelle Zustand der Zelle.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -150,7 +152,7 @@ into a LUT to speedup the cellular automaton.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>3</int>
+          <long>3</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -169,7 +171,8 @@ into a LUT to speedup the cellular automaton.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>State of cell in the next generation.</string>
+          <string>State of cell in the next generation.
+{{de Zustand der Zelle in der nächsten Generation}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -183,7 +186,7 @@ into a LUT to speedup the cellular automaton.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>birth</string>
+          <string>birth {{de Geburt}}</string>
         </entry>
       </elementAttributes>
       <pos x="700" y="160"/>
@@ -203,7 +206,7 @@ into a LUT to speedup the cellular automaton.</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <int>2</int>
+          <long>2</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -227,7 +230,7 @@ into a LUT to speedup the cellular automaton.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>survive</string>
+          <string>survive {{de überleben}}</string>
         </entry>
       </elementAttributes>
       <pos x="680" y="280"/>
@@ -248,7 +251,10 @@ into a LUT to speedup the cellular automaton.</string>
         <entry>
           <string>Description</string>
           <string>If high, the value given in input init is used as the
-next state. Is used to initialize the cell.</string>
+next state. Is used to initialize the cell.
+{{de Wenn dieser Eingang auf high gesetzt wird,
+wird der init-Eingang verwendet um die Zelle zu
+initialisieren.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -262,7 +268,9 @@ next state. Is used to initialize the cell.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>The initial value of the cell. Is used if sel is high.</string>
+          <string>The initial value of the cell. Is used if sel is high.
+{{de Der Anfangszustand der Zelle.
+Wird nur verwendet, wenn sel auf high gesetzt ist.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -276,7 +284,7 @@ next state. Is used to initialize the cell.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>neighbours</string>
+          <string>neighbours {{de Nachbarn}}</string>
         </entry>
       </elementAttributes>
       <pos x="120" y="480"/>

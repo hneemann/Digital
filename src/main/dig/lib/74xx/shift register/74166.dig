@@ -14,6 +14,10 @@
       <string>lockedMode</string>
       <boolean>true</boolean>
     </entry>
+    <entry>
+      <string>Width</string>
+      <int>5</int>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>
@@ -80,16 +84,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>INH</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <string>6</string>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
         </entry>
       </elementAttributes>
       <pos x="2060" y="520"/>
@@ -98,16 +102,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>CLK</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <string>7</string>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
         </entry>
       </elementAttributes>
       <pos x="2100" y="520"/>
@@ -116,16 +120,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>SER</string>
         </entry>
         <entry>
           <string>pinNumber</string>
           <string>1</string>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
         </entry>
       </elementAttributes>
       <pos x="320" y="520"/>
@@ -345,12 +349,12 @@
           <string>~CLR</string>
         </entry>
         <entry>
-          <string>InDefault</string>
-          <value v="1" z="false"/>
-        </entry>
-        <entry>
           <string>pinNumber</string>
           <string>9</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="300" y="120"/>

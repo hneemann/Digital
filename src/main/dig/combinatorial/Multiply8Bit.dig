@@ -4,9 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfacher 4-Bit Multiplikator aufgebaut aus drei 4-Bit
-Addierern. Die eigentlichen 1-Bit Multiplikationen 
-werden durch die Und-Gatter implementiert. </string>
+      <string>O(ln n) 8 bit multiplyer
+{{de O(ln n) 8 Bit Multiplizierer}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -752,7 +751,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>9 bit,</string>
+          <string>9 bit, {{de 9 Bit,}}</string>
         </entry>
       </elementAttributes>
       <pos x="760" y="260"/>
@@ -762,7 +761,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>12 bit,</string>
+          <string>12 bit, {{de 12 Bit,}}</string>
         </entry>
       </elementAttributes>
       <pos x="980" y="260"/>
@@ -772,7 +771,7 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>16 bit adders</string>
+          <string>16 bit adders {{de 16 Bit Addierer}}</string>
         </entry>
       </elementAttributes>
       <pos x="1200" y="260"/>
@@ -782,7 +781,8 @@ werden durch die Und-Gatter implementiert. </string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>8 bit inputs</string>
+          <string>8 bit inputs
+{{de 8 Bit Eingänge}}</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="260"/>

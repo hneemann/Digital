@@ -5,22 +5,19 @@
  */
 package de.neemann.digital.draw.shapes.custom;
 
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.lang.Lang;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Orientation;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.shapes.Drawable;
-import de.neemann.digital.lang.Lang;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * Is intended to be stored in a file.

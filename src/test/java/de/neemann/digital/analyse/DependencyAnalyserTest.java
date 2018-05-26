@@ -5,18 +5,17 @@
  */
 package de.neemann.digital.analyse;
 
-import de.neemann.digital.core.*;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Node;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;

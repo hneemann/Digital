@@ -4,8 +4,9 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Element für ein allgemeines Ausgaberegister.
-Seine Adresse ist 0x15</string>
+      <string>Component contaning a general purpose output.
+{{de Element für ein allgemeines Ausgaberegister.
+Seine Adresse ist 0x15}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -14,7 +15,7 @@ Seine Adresse ist 0x15</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenbus</string>
+          <string>data bus {{de Datenbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -32,7 +33,7 @@ Seine Adresse ist 0x15</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Addressbus</string>
+          <string>address bus {{de Adressbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -273,7 +274,7 @@ Seine Adresse ist 0x15</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Write Enable</string>
+          <string>Write Enable {{de Schreibfreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>

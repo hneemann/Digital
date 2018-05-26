@@ -17,10 +17,9 @@ public class VectorFloat implements VectorInterface {
 
     /**
      * Creates a new vector
-     * @param x
-     *            the x coordinate
-     * @param y
-     *            the x coordinate
+     *
+     * @param x the x coordinate
+     * @param y the x coordinate
      */
     public VectorFloat(float x, float y) {
         this.x = x;
@@ -29,8 +28,8 @@ public class VectorFloat implements VectorInterface {
 
     /**
      * Creates a new vector which is a copy of the given vector.
-     * @param v
-     *            the vector to copy
+     *
+     * @param v the vector to copy
      */
     public VectorFloat(VectorInterface v) {
         this.x = v.getXFloat();
@@ -64,8 +63,8 @@ public class VectorFloat implements VectorInterface {
 
     /**
      * Creates a new vector which has the value this+a
-     * @param a
-     *            a
+     *
+     * @param a a
      * @return this+a
      */
     public VectorFloat add(VectorInterface a) {
@@ -74,8 +73,8 @@ public class VectorFloat implements VectorInterface {
 
     /**
      * Subtracts the given vector
-     * @param sub
-     *            the vector to subtract
+     *
+     * @param sub the vector to subtract
      * @return the new vector
      */
     public VectorFloat sub(VectorInterface sub) {
@@ -90,8 +89,8 @@ public class VectorFloat implements VectorInterface {
 
     /**
      * Creates a new vector which has the value this*a
-     * @param a
-     *            a
+     *
+     * @param a a
      * @return this*a
      */
     public VectorFloat mul(float a) {
@@ -100,18 +99,8 @@ public class VectorFloat implements VectorInterface {
 
     /**
      * Creates a new vector which has the value this/d
-     * @param d
-     *            a
-     * @return this/d
-     */
-    public VectorFloat div(float d) {
-        return new VectorFloat(x / d, y / d);
-    }
-
-    /**
-     * Creates a new vector which has the value this/d
-     * @param d
-     *            a
+     *
+     * @param d a
      * @return this/d
      */
     public VectorFloat div(int d) {
@@ -120,12 +109,11 @@ public class VectorFloat implements VectorInterface {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         VectorFloat that = (VectorFloat) o;
-        return Float.compare(that.x, x) == 0 && Float.compare(that.y, y) == 0;
+        return Float.compare(that.x, x) == 0
+                && Float.compare(that.y, y) == 0;
     }
 
     @Override

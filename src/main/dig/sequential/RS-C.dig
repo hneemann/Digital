@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Einfaches NOR RS-Flipflop mit Freigabeeingang. </string>
+      <string>A gated NOR SR latch.
+{{de Einfaches NOR RS-Flipflop mit Freigabeeingang.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -23,7 +24,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Set Eingang</string>
+          <string>Set input
+{{de Set Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -37,7 +39,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Freigabeeingang</string>
+          <string>gate input
+{{de Freigabeeingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -51,7 +54,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das gespeicherte Bit</string>
+          <string>The stored bit.
+{{de Das gespeicherte Bit}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -65,7 +69,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Das inverse des gespeicherten Bits</string>
+          <string>The inverted stored bit.
+{{de Das inverse des gespeicherten Bits}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -89,7 +94,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Reset Eingang</string>
+          <string>Reset input
+{{de Reset Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>

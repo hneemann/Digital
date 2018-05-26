@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Tauscht High-Byte und Low-Byte.</string>
+      <string>Swaps the high-byte and the low-byte.
+{{de Tauscht High-Byte und Low-Byte.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -13,7 +14,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Dateneingang</string>
+          <string>data input
+{{de Dateneingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -63,7 +65,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Datenausgang</string>
+          <string>data output
+{{de Datenausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>

@@ -7,6 +7,7 @@ package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -22,7 +23,7 @@ public class Out implements Element {
             = new ElementTypeDescription(Out.class, input("in")) {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
-            String d = elementAttributes.get(Keys.DESCRIPTION);
+            String d = Lang.evalMultilingualContent(elementAttributes.get(Keys.DESCRIPTION));
             if (d.length() > 0)
                 return d;
             else

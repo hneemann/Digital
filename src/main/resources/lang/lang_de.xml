@@ -18,6 +18,8 @@
     <string name="attr_dialogHighz">HighZ</string>
     <string name="attr_dialogOctal">Oktal</string>
     <string name="attr_dialogBinary">Binär</string>
+    <string name="attr_primary">Standard</string>
+    <string name="attr_secondary">Erweitert</string>
     <string name="btn_discard">Verwerfen</string>
     <string name="btn_edit">Bearbeiten</string>
     <string name="btn_editFurther">Weiter bearbeiten</string>
@@ -790,6 +792,7 @@
     <string name="err_pinMap_toMannyOutputsDefined">Zu viele Ausgänge verwendet!</string>
     <string name="err_pinNotPresent">Pin nicht vorhanden</string>
     <string name="err_pinWithoutName">Es gibt einen Pin ohne einen Namen.</string>
+    <string name="err_clockWithoutName">Es gibt ein Taktelement ohne einen Namen. Wenn ein Taktelement eingebettet wird, benötigt auch dieses eine Bezeichnung.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} von Element {1} wurde nicht gefunden</string>
     <string name="err_pin_N_notFound">Pin {0} wurde nicht gefunden.</string>
     <string name="err_pin_N_unknown">Pin {0} ist unbekannt</string>
@@ -1103,8 +1106,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_splitterSpreading_tt">Bestimmt die Spreizung der Ein- und Ausgänge in der Schaltung.</string>
     <string name="key_romContent">ROM Inhalte</string>
     <string name="key_romContent_tt">Inhalt aller ROM Bausteine</string>
-    <string name="key_customShape">Individuelle Form</string>
-    <string name="key_customShape_tt">Import einer SVG-Datei</string>
 
     <string name="key_applicationType">Anwendung</string>
     <string name="key_applicationType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
@@ -1136,6 +1137,13 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_ATMISP">ATMISP</string>
     <string name="key_ATMISP_tt">Pfad zur ausführbaren Datei ATMISP.exe. Wenn gesetzt, kann die Software ATMISP automatisch gestartet werden!</string>
+
+    <string name="key_customShape">Benutzerdefinierte Form</string>
+    <string name="key_customShape_tt">Importieren einer SVG-Datei</string>
+
+    <string name="key_useDefShape">Verwende einfache Form</string>
+    <string name="key_useDefShape_tt">Verwendet die einfache Form zur Darstellung. Hat nur einen Effekt, wenn die
+        Schaltung eine Benutzerdefinierte Form oder eine DIL Form verwendet.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1406,6 +1414,8 @@ eine &lt;a href=&quot;https://github.com/hneemann/Digital/issues/new?labels=enha
         diese noch die Datei 7400.dig aus der Bibliothek verwenden, da sich dieser Dateiname nun nicht mehr eindeutig
         zuordnen lässt.
     </string>
+    <string name="msg_duplicateLibraryFiles">Es gibt mehrere Dateien mit identischen Dateinamen, welche nicht eindeutig
+        zugeordnet werden können! Betroffen sind:</string>
     <string name="msg_fileNotImportedYet">Die Datei wurde noch nicht importiert.</string>
     <string name="msg_fileExists">Die Datei {0} existiert schon! Soll die Datei überschrieben werden?</string>
     <string name="msg_isLocked">Die Bearbeitung der Schaltung ist gesperrt. Sie können die Sperrung unter

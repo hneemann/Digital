@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Element für ein allgemeines EIngaberegister.</string>
+      <string>Component for a general purpose input.
+{{de Element für ein allgemeines EIngaberegister.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -13,7 +14,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Output</string>
+          <string>Output {{de Ausgabe}}</string>
         </entry>
         <entry>
           <string>Label</string>
