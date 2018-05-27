@@ -137,14 +137,11 @@ public class ImportSVG {
     }
 
     /**
-     * Creates a SVGFragment from a XML Node
      * @param n
-     *            Node to parse
-     * @return SVGFragment
-     * @throws NoSuchSVGElementException
-     *             if the node is not valid
+     *            Node to create Element from
+     * @return a fragment of a SVG
      * @throws NoParsableSVGException
-     *             if the svg is not parsable
+     *             if the SVG is not correct
      */
     public SVGFragment createElement(Node n) throws NoParsableSVGException {
         if (n.getNodeType() == Node.ELEMENT_NODE) {
