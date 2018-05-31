@@ -32,10 +32,15 @@ public class ExceptionWithOrigin extends Exception implements ExceptionWithOrigi
                 if (origins != null && origins.size() > 0) {
                     StringBuilder sb = new StringBuilder();
                     for (File o : origins) {
-                        if (sb.length() > 0) sb.append(", ");
-                        sb.append(o.getName());
+                        if (o != null) {
+                            if (sb.length() > 0) sb.append(", ");
+                            sb.append(o.getName());
+                        }
                     }
-                    return sb.toString();
+                    if (sb.length() > 0)
+                        return sb.toString();
+                    else
+                        return null;
                 }
             }
             e = e.getCause();
