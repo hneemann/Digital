@@ -120,7 +120,10 @@ public class DataPlotter implements Drawable {
                 if (width == 0) width = 1;
                 int ry;
                 ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
-                g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
+
+                if (!s[i].getType().equals(Value.Type.HIGHZ))
+                    g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
+
                 if (!first && ry != lastRy[i])
                     g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
 
