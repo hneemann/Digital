@@ -1616,10 +1616,14 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         public void escapePressed() {
+            deactivate();
+            mouseNormal.activate();
+        }
+
+        @Override
+        void deactivate() {
             wire.move(initialPos.sub(pos));
             removeHighLighted();
-            circuit.elementsMoved();
-            mouseNormal.activate();
         }
     }
 
@@ -1787,6 +1791,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Wire wire2;
         private Vector newPosition;
         private Wire origWire;
+        private boolean splitDone = false;
 
         private MouseControllerWireSplit(Cursor cursor) {
             super(cursor);
@@ -1820,10 +1825,20 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (mouse.isPrimaryClick(e)) {
                 addModificationAlreadyMade(
                         new ModifySplitWire(origWire, newPosition));
+                splitDone = true;
                 circuit.elementsMoved();
                 mouseNormal.activate();
             } else if (mouse.isSecondaryClick(e))
                 escapePressed();
+        }
+
+        @Override
+        void deactivate() {
+            if (!splitDone) {
+                wire1.setP2(origWire.p2);
+                circuit.getWires().remove(wire2);
+                circuitHasChanged();
+            }
         }
 
         @Override
@@ -2018,6 +2033,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         @Override
         void released(MouseEvent e) {
             if (wasMoved) {
+                wasMoved = false;
                 addModificationAlreadyMade(new ModifyMoveSelected(min, max, accumulatedDelta, accumulatedRotate, center));
                 circuit.elementsMoved();
             }
@@ -2026,9 +2042,23 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
         @Override
+        void deactivate() {
+            if (wasMoved) {
+                wasMoved = false;
+                new ModifyMoveSelected(min, max, accumulatedDelta, accumulatedRotate, center).revert(elements);
+            }
+        }
+
+        @Override
+        public void escapePressed() {
+            deactivate();
+            removeHighLighted();
+            mouseNormal.activate();
+        }
+
+        @Override
         public void rotate() {
             ModifyMoveSelected.rotateElements(elements, center);
-            circuit.modified();
             repaintNeeded();
             accumulatedRotate++;
         }
