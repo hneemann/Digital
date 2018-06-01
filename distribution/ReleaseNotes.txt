@@ -5,6 +5,8 @@ HEAD, planned as v0.19
 - Added support for asynchronous sequential circuits such as the Muller-pipeline.
   Take a look at the new asynchronous examples for illustration.
 - All examples are translated to english.
+- A "test all" function has been added to start all tests in all circuits in
+  the current folder.
 - Very basic support for custom shapes added.
   You must manually edit the *.dig file to add a custom shape to a circuit, so
   this is only an option for advanced users.

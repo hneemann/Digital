@@ -1461,6 +1461,11 @@ Is the correct path to the executable ATMISP.exe specified in the settings?</str
 When this dialog is closed, ATMISP is terminated!
 Make sure the flash process is complete before closing this dialog!</string>
 
+    <string name="menu_runAllTests">Run all Tests</string>
+    <string name="menu_runAllTests_tt">Executes all tests in the current folder.</string>
+    <string name="msg_testPassed_N">{0} test rows passed</string>
+    <string name="msg_testFile">File Tested</string>
+
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>

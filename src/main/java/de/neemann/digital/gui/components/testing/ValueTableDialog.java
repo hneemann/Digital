@@ -34,8 +34,14 @@ import java.util.Collections;
  * ToDo: Sync of data access is missing!
  */
 public class ValueTableDialog extends JDialog {
-    private static final Color FAILED_COLOR = new Color(255, 200, 200);
-    private static final Color PASSED_COLOR = new Color(200, 255, 200);
+    /**
+     * Background color for failed tests
+     */
+    static final Color FAILED_COLOR = new Color(255, 200, 200);
+    /**
+     * Background color for passed tests
+     */
+    static final Color PASSED_COLOR = new Color(200, 255, 200);
     private static final Icon ICON_FAILED = IconCreator.create("testFailed.png");
     private static final Icon ICON_PASSED = IconCreator.create("testPassed.png");
     private static final Icon ICON_GRAPH = IconCreator.create("measurement-graph.png");

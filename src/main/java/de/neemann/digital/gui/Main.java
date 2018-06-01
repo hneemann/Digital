@@ -37,6 +37,7 @@ import de.neemann.digital.gui.components.modification.ModifyMeasurementOrdering;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.KeyboardDialog;
+import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
 import de.neemann.digital.gui.components.tree.SelectTree;
@@ -920,6 +921,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_runTests_tt")).setAccelerator("F8");
 
+        ToolTipAction runAllTests = new ToolTipAction(Lang.get("menu_runAllTests")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (filename != null)
+                    new TestAllDialog(Main.this, filename.getParentFile(), shapeFactory, library).setVisible(true);
+            }
+        }.setToolTip(Lang.get("menu_runAllTests_tt")).setAccelerator("F11");
+
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
             private NumberFormat format = new DecimalFormat("0.0");
 
@@ -991,6 +1000,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         run.add(runToBreakAction.createJMenuItem());
         run.add(stoppedStateAction.createJMenuItem());
         run.add(runTests.createJMenuItem());
+        run.add(runAllTests.createJMenuItem());
         run.addSeparator();
         run.add(speedTest.createJMenuItem());
         doStep.setEnabled(false);

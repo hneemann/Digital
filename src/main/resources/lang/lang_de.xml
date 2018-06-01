@@ -1470,6 +1470,11 @@ Ist in den Einstellungen der korrekte Pfad zur ausführbaren Datei ATMISP.exe an
 Wenn dieser Dialog geschlossen wird, wird ATMISP beendet!
 Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen Dialog schließen!</string>
 
+    <string name="menu_runAllTests">Starte alle Tests</string>
+    <string name="menu_runAllTests_tt">Führt alle Tests im aktuellen Verzeichnis aus.</string>
+    <string name="msg_testPassed_N">{0} Testzeilen überprüft</string>
+    <string name="msg_testFile">Testdatei</string>
+
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
