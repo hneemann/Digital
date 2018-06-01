@@ -6,11 +6,11 @@
 package de.neemann.digital.core.element;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.graphics.Style;
@@ -53,13 +53,20 @@ public final class Keys {
 
     /**
      * Returns the key of the given name.
-     * If key does not exist, nul is returned.
+     * If key does not exist, null is returned.
      *
      * @param name the name of the key
      * @return the key or null
      */
     public static Key getKeyByName(String name) {
         return InstanceHolder.INSTANCE.get(name);
+    }
+
+    /**
+     * @return all available keys
+     */
+    public static Iterable<Key> getKeys() {
+        return InstanceHolder.INSTANCE.values();
     }
 
 
