@@ -2,7 +2,11 @@ language: java
 jdk:
   - oraclejdk8
 sudo: false
-script: mvn clean install
+script:
+  - "mvn clean install"
+  - "mvn jacoco:report -Dcode-coverage-format=xml"
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
   api_key:
