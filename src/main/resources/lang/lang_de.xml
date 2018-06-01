@@ -905,6 +905,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_ghdlNotInstalled">
         Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
     </string>
+    <string name="err_iverilogNotInstalled">
+        Der Verilog Simulator Icarus scheint nicht installiert zu sein. Installieren Sie Icarus (http://iverilog.icarus.com/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren iverilog-Datei in den Digital-Einstellungen.
+    </string>
     <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
     <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
@@ -1112,6 +1115,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_applicationType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
     <string name="key_applicationType_Generic">Generisch</string>
     <string name="key_applicationType_GHDL">GHDL</string>
+    <string name="key_applicationType_IVERILOG">IVerilog</string>
     <string name="key_externalInputs">Eingänge</string>
     <string name="key_externalInputs_tt">Die Eingänge des externen Prozesses. Es handelt sich um eine kommaseparierte
         Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
@@ -1125,6 +1129,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
         VHDL-Code verwendet werden soll.</string>
+    <string name="key_iverilogDirInstFolder">IVerilog</string>
+    <string name="key_iverilogDirInstFolder_tt">Pfad zum Icarus-Verilog-Installationsordner. Nur notwendig, wenn Sie iverilog
+        verwenden möchten, um mit Verilog definierte Komponenten zu simulieren.</string>
     <string name="key_maxValue">Maximalwert</string>
     <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits sind Eins).</string>
 

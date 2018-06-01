@@ -634,7 +634,7 @@ public final class EditorFactory {
 
                                 try {
                                     String message = app.checkCode(label, code, ins, outs);
-                                    if (message != null)
+                                    if (message != null && !message.isEmpty())
                                         new ErrorMessage(Lang.get("msg_checkResult") + "\n\n" + message).show(getAttributeDialog());
                                 } catch (IOException e) {
                                     new ErrorMessage(Lang.get("msg_checkResult")).addCause(e).show(getAttributeDialog());

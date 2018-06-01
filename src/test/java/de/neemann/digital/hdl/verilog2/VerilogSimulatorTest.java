@@ -45,7 +45,7 @@ public class VerilogSimulatorTest extends TestCase {
             assertEquals(32, tested);
             assertEquals(tested+2, testBenches);
         } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
+            // if iverilog is not installed its also ok
         }
     }
 
@@ -55,7 +55,7 @@ public class VerilogSimulatorTest extends TestCase {
             int tested = new FileScanner(this::checkVerilogExport).noOutput().scan(examples);
             assertEquals(46, tested);
         } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
+            // if iverilog is not installed its also ok
         }
     }
 
@@ -66,7 +66,7 @@ public class VerilogSimulatorTest extends TestCase {
             assertEquals(1, tested);
             assertEquals(1, testBenches);
         } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
+            // if iverilog is not installed its also ok
         }
     }
 
@@ -75,7 +75,7 @@ public class VerilogSimulatorTest extends TestCase {
         try {
             checkVerilogExport(file);
         } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
+            // if iverilog is not installed its also ok
         } catch (Exception e) {
             System.out.println(ExceptionWithOrigin.getOriginOf(e));
             throw e;
@@ -87,33 +87,12 @@ public class VerilogSimulatorTest extends TestCase {
         try {
             checkVerilogExport(file);
         } catch (FileScanner.SkipAllException e) {
-            // if ghdl is not installed its also ok
+            // if iverilog is not installed its also ok
         } catch (Exception e) {
             System.out.println(ExceptionWithOrigin.getOriginOf(e));
             throw e;
         }
     }
-
-    /*public void testGHDLInSimulator() throws Exception {
-        try {
-            ProcessStarter.start(null, GHDL, "--help");
-        } catch (IOException e) {
-            // ghdl is not installed, Ignore Test
-            return;
-        }
-
-        Settings.getInstance().getAttributes().set(Keys.SETTINGS_GHDL_PATH, new File(GHDL));
-
-        File source = new File(Resources.getRoot(), "dig/external/ghdl");
-
-        int tested = new FileScanner(f -> {
-            checkVerilogExport(f);
-            // check simulation in Digital
-            check(f);
-        }).noOutput().scan(source);
-        assertEquals(4, tested);
-    }*/
-
 
     private void checkVerilogExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);
@@ -163,7 +142,7 @@ public class VerilogSimulatorTest extends TestCase {
         try {
             return ProcessStarter.start(dir, args);
         } catch (ProcessStarter.CouldNotStartProcessException e) {
-            throw new FileScanner.SkipAllException("ghdl (https://github.com/tgingold/ghdl) is not installed! Add ghdl binary to the system path or set system property 'ghdl' to ghdl binary");
+            throw new FileScanner.SkipAllException("iverilog (https://github.com/steveicarus/iverilog) is not installed! Add iverilog binary to the system path or set system property 'iverilog' to iverilog binary");
         }
     }
 

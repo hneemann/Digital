@@ -171,6 +171,7 @@ public class StdIOInterface implements ProcessInterface {
                     char c = line.charAt(pos);
                     switch (c) {
                         case 'Z':
+                        case 'z':
                             highZ |= mask;
                             break;
                         case 'H':
@@ -179,6 +180,7 @@ public class StdIOInterface implements ProcessInterface {
                             break;
                         case 'W':
                         case 'X':
+                        case 'x':
                         case 'U':
                         case 'L':
                         case '0':
