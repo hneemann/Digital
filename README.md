@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/hneemann/Digital.svg?branch=master)](https://travis-ci.org/hneemann/Digital)
+[![codecov](https://codecov.io/gh/hneemann/Digital/branch/master/graph/badge.svg)](https://codecov.io/gh/hneemann/Digital)
 
 [Download latest Release](https://github.com/hneemann/Digital/releases/latest)
 
@@ -43,7 +44,7 @@ These are the main features of Digital:
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code.
-- Good test coverage (about 80%).
+- Good test coverage (about 80%; The GUI tests are not running on Travis-CI, so CodeCov measures only about 50%).
   Almost all examples contain test cases which ensure that they work correctly.
 
 ## Documentation ##
