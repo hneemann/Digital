@@ -815,7 +815,7 @@
     <string name="err_variable_N0_notFound">Variable {0} not found!</string>
     <string name="err_noTestInputSignalsDefined">No input signals defined in test vector!</string>
     <string name="err_noTestOutputSignalsDefined">No output signals defined in test vector!</string>
-    <string name="err_noTestData">Not test data found.</string>
+    <string name="err_noTestData">No test data found.</string>
     <string name="err_remoteExecution">Error during execution of a remote command</string>
     <string name="err_pullUpAndDownNotAllowed">It's not allowed to connect a pull up and a pull down resistor to a single wire.</string>
     <string name="err_openingDocumentation">Could not open the browser.</string>
