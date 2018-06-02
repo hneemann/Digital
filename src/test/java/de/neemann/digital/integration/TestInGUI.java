@@ -32,6 +32,7 @@ import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.AllSolutionsDialog;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.gui.components.table.TableDialog;
+import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
@@ -826,6 +827,29 @@ public class TestInGUI extends TestCase {
                 .press("SPACE")
                 .delay(1000)
                 .add(new GuiTester.WindowCheck<>(ErrorMessage.ErrorDialog.class))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+    public void testTestAll() {
+        new GuiTester("dig/test/arith/FullSub.dig")
+                .press("F10")
+                .press("F11")
+                .add(new GuiTester.ComponentTraverse<TestAllDialog>(TestAllDialog.class) {
+                    @Override
+                    public void visit(Component component) throws InterruptedException {
+                        if (component instanceof JTable) {
+                            getWindow().getFolderTestRunner().waitUntilFinished();
+                            JTable table = (JTable) component;
+                            assertEquals(5, table.getModel().getRowCount());
+                            found();
+                        }
+                    }
+                })
+                .press("DOWN")
+                .press("SPACE")
+                .add(new GuiTester.WindowCheck<>(Main.class))
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .execute();

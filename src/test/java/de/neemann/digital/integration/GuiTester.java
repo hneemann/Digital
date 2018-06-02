@@ -405,6 +405,7 @@ public class GuiTester {
     public static abstract class ComponentTraverse<W extends Window> extends WindowCheck<W> {
 
         private boolean found;
+        private W dialog;
 
         /**
          * creates a new instance
@@ -414,12 +415,13 @@ public class GuiTester {
         }
 
         @Override
-        public void checkWindow(GuiTester guiTester, W dialog) {
+        public void checkWindow(GuiTester guiTester, W dialog) throws Exception {
+            this.dialog = dialog;
             traverseComponents(dialog);
             assertTrue("no component found", found);
         }
 
-        void traverseComponents(Container cp) {
+        void traverseComponents(Container cp) throws Exception {
             for (int i = 0; i < cp.getComponentCount(); i++) {
                 Component component = cp.getComponent(i);
                 visit(component);
@@ -433,7 +435,11 @@ public class GuiTester {
             found = true;
         }
 
-        public abstract void visit(Component component);
+        public W getWindow() {
+            return dialog;
+        }
+
+        public abstract void visit(Component component) throws Exception;
     }
 
     public static class SetFocusTo<W extends Window> extends ComponentTraverse<W> {
@@ -487,7 +493,7 @@ public class GuiTester {
         }
 
         @Override
-        public void checkWindow(GuiTester guiTester, W window) {
+        public void checkWindow(GuiTester guiTester, W window) throws Exception {
             super.checkWindow(guiTester, window);
             String t = text.toString();
             for (String e : expected)
@@ -522,7 +528,7 @@ public class GuiTester {
         }
 
         @Override
-        public void checkWindow(GuiTester guiTester, W window) {
+        public void checkWindow(GuiTester guiTester, W window) throws Exception {
             super.checkWindow(guiTester, window);
             assertEquals("only one table allowed", 1, tableCount);
             assertEquals("row count does not match", expectedRows, rows);

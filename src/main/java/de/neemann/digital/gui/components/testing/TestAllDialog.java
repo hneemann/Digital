@@ -17,6 +17,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -26,6 +28,8 @@ import java.util.ArrayList;
  * Tests all the files in a given folder
  */
 public class TestAllDialog extends JDialog {
+
+    private final FolderTestRunner folderTestRunner;
 
     /**
      * Creates a new dialog and starts the test execution.
@@ -37,10 +41,12 @@ public class TestAllDialog extends JDialog {
      */
     public TestAllDialog(Frame frame, File folder, ShapeFactory shapeFactory, ElementLibrary library) {
         super(frame, Lang.get("msg_testResult"), false);
-        FolderTestRunner folderTestRunner = new FolderTestRunner(folder);
+        folderTestRunner = new FolderTestRunner(folder);
 
         final FileModel tableModel = new FileModel(folderTestRunner.getFiles());
         JTable table = new JTable(tableModel);
+        table.setRowSelectionAllowed(true);
+
         table.getColumnModel().getColumn(1).setCellRenderer(new StateRenderer());
         getContentPane().add(new JScrollPane(table));
         pack();
@@ -49,18 +55,16 @@ public class TestAllDialog extends JDialog {
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
-                if (mouseEvent.getClickCount() == 2) {
-                    int row = table.getSelectedRow();
-                    if (row >= 0) {
-                        File f = folderTestRunner.getFiles().get(row).getFile();
-                        new Main.MainBuilder()
-                                .setParent(frame)
-                                .setFileToOpen(f)
-                                .setLibrary(library)
-                                .keepPrefMainFile()
-                                .openLater();
-                    }
-                }
+                if (mouseEvent.getClickCount() == 2)
+                    openCircuit(table, frame, library);
+            }
+        });
+
+        table.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+                if (keyEvent.getKeyChar() == ' ')
+                    openCircuit(table, frame, library);
             }
         });
 
@@ -70,6 +74,25 @@ public class TestAllDialog extends JDialog {
                 library);
     }
 
+    private void openCircuit(JTable table, Frame frame, ElementLibrary library) {
+        int row = table.getSelectedRow();
+        if (row >= 0) {
+            File f = folderTestRunner.getFiles().get(row).getFile();
+            new Main.MainBuilder()
+                    .setParent(frame)
+                    .setFileToOpen(f)
+                    .setLibrary(library)
+                    .keepPrefMainFile()
+                    .openLater();
+        }
+    }
+
+    /**
+     * @return the used folder test runner.
+     */
+    public FolderTestRunner getFolderTestRunner() {
+        return folderTestRunner;
+    }
 
     private final static class FileModel implements TableModel {
         private final ArrayList<FolderTestRunner.FileToTest> files;
@@ -145,24 +168,28 @@ public class TestAllDialog extends JDialog {
     private static final class StateRenderer extends DefaultTableCellRenderer {
 
         @Override
-        public Component getTableCellRendererComponent(JTable jTable, Object o, boolean b, boolean b1, int row, int i1) {
-            final JLabel tc = (JLabel) super.getTableCellRendererComponent(jTable, o, b, b1, row, i1);
+        public Component getTableCellRendererComponent(JTable jTable, Object o, boolean sel, boolean b1, int row, int i1) {
+            final JLabel tc = (JLabel) super.getTableCellRendererComponent(jTable, o, sel, b1, row, i1);
 
             FolderTestRunner.FileToTest f = (FolderTestRunner.FileToTest) o;
+            Color color;
             switch (f.getStatus()) {
                 case error:
-                    tc.setBackground(Color.LIGHT_GRAY);
-                    break;
-                case unknown:
-                    tc.setBackground(Color.WHITE);
+                    color = Color.LIGHT_GRAY;
                     break;
                 case passed:
-                    tc.setBackground(ValueTableDialog.PASSED_COLOR);
+                    color = ValueTableDialog.PASSED_COLOR;
                     break;
                 case failed:
-                    tc.setBackground(ValueTableDialog.FAILED_COLOR);
+                    color = ValueTableDialog.FAILED_COLOR;
+                    break;
+                default:
+                    color = Color.WHITE;
                     break;
             }
+            if (sel)
+                color = color.darker();
+            tc.setBackground(color);
             tc.setText(f.getMessage());
 
             return tc;
