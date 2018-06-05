@@ -101,7 +101,7 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
 
     private boolean findIVerilog() {
         Path ivp = null;
-        File ivDir = Settings.getInstance().get(Keys.SETTINGS_IVERILOG_INSTALL);
+        File ivDir = Settings.getInstance().get(Keys.SETTINGS_IVERILOG_PATH);
 
         if (ivDir != null) {
             Path p = Paths.get(ivDir.getAbsolutePath());
