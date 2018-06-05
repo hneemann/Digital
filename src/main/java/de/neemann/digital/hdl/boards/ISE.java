@@ -1,13 +1,11 @@
 /*
- * Copyright (c) 2017 Helmut Neemann
+ * Copyright (c) 2018 Ivan Deras. Adapted from the Vivado exporter.
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.hdl.verilog2.boards;
+package de.neemann.digital.hdl.boards;
 
-import de.neemann.digital.hdl.vhdl2.boards.*;
 import de.neemann.digital.analyse.SplitPinString;
-import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.HDLPort;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -15,38 +13,18 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import java.io.*;
 
 /**
- * Creates the needed vivado files.
- * Up to now only the constraints file containing the pin assignments is created
+ * Creates the needed ISE files.
+ * Up to now only the constraints files containing the pin assignments and project file is created
  */
-public class ISE implements BoardInterface {
-    private final int periodns;
-    private final HDLClockIntegrator clockIntegrator;
-    private final String devCode;
-    private final String devPkg;
-    private final UCFPinWriter ucfWriter;
-
-    /**
-     * Creates a new instance
-     *
-     * @param ucfWriter       the UCF pin writer
-     * @param periodns        the clock period in nano seconds
-     * @param clockIntegrator the clock integrator to use
-     * @param devCode         the xilinx device code
-     * @param devPkg          the device package
-     */
-    public ISE(UCFPinWriter ucfWriter, int periodns, HDLClockIntegrator clockIntegrator, String devCode, String devPkg) {
-        this.ucfWriter = ucfWriter;
-        this.periodns = periodns;
-        this.clockIntegrator = clockIntegrator;
-        this.devCode = devCode;
-        this.devPkg = devPkg;
-    }
+public abstract class ISE implements BoardInterface {
 
     @Override
     public void writeFiles(File path, HDLModel model) throws IOException {
         String projectName = path.getName();
         if (projectName.endsWith(".v"))
             projectName = projectName.substring(0, projectName.length() - 2);
+        else if (projectName.endsWith(".vhdl"))
+            projectName = projectName.substring(0, projectName.length() - 5);
         File constraints = new File(path.getParentFile(), projectName.replace('.', '_') + "_constraints.ucf");
         try (CodePrinter out = new CodePrinter(new FileOutputStream(constraints))) {
             writeConstraints(out, model);
@@ -57,11 +35,11 @@ public class ISE implements BoardInterface {
     private void writeConstraints(CodePrinter out, HDLModel model) throws IOException {
         for (HDLPort p : model.getMain().getPorts()) {
             if (p.getBits() == 1) {
-                ucfWriter.writePin(out, p.getName(), p.getPinNumber());
+                writePin(out, p.getName(), p.getPinNumber());
             } else {
                 SplitPinString pins = SplitPinString.create(p.getPinNumber());
                 for (int i = 0; i < p.getBits(); i++) {
-                    ucfWriter.writePin(out, p.getName() + "[" + i + "]", pins.getPin(i));
+                    writePin(out, p.getName() + "[" + i + "]", pins.getPin(i));
                     out.println();
                 }
             }
@@ -70,10 +48,22 @@ public class ISE implements BoardInterface {
         }
     }
 
-    @Override
-    public HDLClockIntegrator getClockIntegrator() {
-        return clockIntegrator;
-    }
+    /**
+     * Write the pin information to a Xilinx UCF (User Constraints File)
+     *
+     * @param out          the code printer
+     * @param name         the signal name
+     * @param pinNumber    the pin name
+     * @throws IOException IOException
+     */
+    abstract void writePin(CodePrinter out, String name, String pinNumber) throws IOException;
+
+    /**
+     * Returns the FPGA board information (Family, Code and Package in that order)
+     *
+     * @return The board information
+     */
+    abstract BoardInformation getBoardInfo();
 
     private void createISEProject(File path, String projectName, File srcFile, File constraints) throws IOException {
         String projectDir = projectName + "_ise";
@@ -101,7 +91,7 @@ public class ISE implements BoardInterface {
         String str;
 
         while ((str = r.readLine()) != null) {
-                sb.append(str).append("\n");
+            sb.append(str).append("\n");
         }
 
         return sb.toString();
@@ -109,8 +99,33 @@ public class ISE implements BoardInterface {
 
     private void writeISEProject(BufferedWriter w, File project, File srcFile, File constraints) throws IOException {
         String iseProjectTplt = loadISEProjectTemplate();
+        BoardInformation bi = getBoardInfo();
 
         w.write(String.format(iseProjectTplt, "../" + srcFile.getName(),
-                "../" + constraints.getName(), "Spartan6", devCode, devPkg));
+                "../" + constraints.getName(), bi.getFamily(), bi.getCode(), bi.getPkg()));
+    }
+
+    static class BoardInformation {
+        private final String family;
+        private final String code;
+        private final String pkg;
+
+        BoardInformation(String family, String code, String pkg) {
+            this.family = family;
+            this.code = code;
+            this.pkg = pkg;
+        }
+
+        public String getFamily() {
+            return family;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public String getPkg() {
+            return pkg;
+        }
     }
 }

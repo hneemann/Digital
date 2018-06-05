@@ -17,8 +17,8 @@ import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.HDLNet;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.vhdl2.boards.BoardInterface;
-import de.neemann.digital.hdl.vhdl2.boards.BoardProvider;
+import de.neemann.digital.hdl.boards.BoardInterface;
+import de.neemann.digital.hdl.boards.BoardProvider;
 import de.neemann.digital.lang.Lang;
 
 import java.io.Closeable;

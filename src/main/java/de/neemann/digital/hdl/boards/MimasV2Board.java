@@ -3,26 +3,30 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.hdl.verilog2.boards;
+package de.neemann.digital.hdl.boards;
 
+import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.lang.Lang;
 import java.io.IOException;
 
 /**
- *
- * @author ideras
+ * Mimas Board Version 2
  */
-public class MimasV2PinWriter implements UCFPinWriter {
-
+public class MimasV2Board extends ISE {
+    private static final BoardInformation BOARD_INFO = new BoardInformation("Spartan6", "xc6slx9", "csg324");
+    private static final BoardClockInfo[] BOARD_CLOCKPINS = {
+                                            new BoardClockInfo("V10", 10),
+                                            new BoardClockInfo("D9", 83.33)
+                                           };
     /**
-     * Creates a new instance.
+     * Initialize a new instance
      */
-    public MimasV2PinWriter() {
+    public MimasV2Board() {
     }
 
     @Override
-    public void writePin(CodePrinter out, String name, String pinNumber) throws IOException {
+    void writePin(CodePrinter out, String name, String pinNumber) throws IOException {
         if (pinNumber == null || pinNumber.length() == 0)
             throw new IOException(Lang.get("err_vhdlPin_N_hasNoNumber", name));
 
@@ -60,4 +64,13 @@ public class MimasV2PinWriter implements UCFPinWriter {
         out.print(line);
     }
 
+    @Override
+    BoardInformation getBoardInfo() {
+        return BOARD_INFO;
+    }
+
+    @Override
+    public HDLClockIntegrator getClockIntegrator() {
+        return new ClockIntegratorSpartan6(BOARD_CLOCKPINS);
+    }
 }
