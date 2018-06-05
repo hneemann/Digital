@@ -17,6 +17,35 @@ import java.io.*;
  * Up to now only the constraints files containing the pin assignments and project file is created
  */
 public abstract class ISE implements BoardInterface {
+    private static final String ISE_PROJECT_TPLT =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\n"
+            + "<project xmlns=\"http://www.xilinx.com/XMLSchema\" xmlns:xil_pn=\"http://www.xilinx.com/XMLSchema\">\n"
+            + "  <header>\n"
+            + "  </header>\n"
+            + "  <version xil_pn:ise_version=\"14.7\" xil_pn:schema_version=\"2\"/>\n"
+            + "  <files>\n"
+            + "    <file xil_pn:name=\"%1$s\" xil_pn:type=\"FILE_VERILOG\">\n"
+            + "      <association xil_pn:name=\"BehavioralSimulation\" xil_pn:seqID=\"2\"/>\n"
+            + "      <association xil_pn:name=\"Implementation\" xil_pn:seqID=\"2\"/>\n"
+            + "    </file>\n"
+            + "    <file xil_pn:name=\"%2$s\" xil_pn:type=\"FILE_UCF\">\n"
+            + "      <association xil_pn:name=\"Implementation\" xil_pn:seqID=\"0\"/>\n"
+            + "    </file>\n"
+            + "  </files>\n"
+            + "  <autoManagedFiles>\n"
+            + "  </autoManagedFiles>\n"
+            + "  <properties>\n"
+            + "    <property xil_pn:name=\"Create Binary Configuration File\" xil_pn:value=\"true\" xil_pn:valueState=\"non-default\"/>\n"
+            + "    <property xil_pn:name=\"Create Bit File\" xil_pn:value=\"true\" xil_pn:valueState=\"default\"/>\n"
+            + "    <property xil_pn:name=\"Device Family\" xil_pn:value=\"%3$s\" xil_pn:valueState=\"non-default\"/>\n"
+            + "    <property xil_pn:name=\"Device\" xil_pn:value=\"%4$s\" xil_pn:valueState=\"non-default\"/>\n"
+            + "    <property xil_pn:name=\"Package\" xil_pn:value=\"%5$s\" xil_pn:valueState=\"non-default\"/>\n"
+            + "    <property xil_pn:name=\"Implementation Top File\" xil_pn:value=\"%1$s\" xil_pn:valueState=\"non-default\"/>\n"
+            + "    <property xil_pn:name=\"Working Directory\" xil_pn:value=\".\" xil_pn:valueState=\"non-default\"/>\n"
+            + "  </properties>\n"
+            + "  <bindings/>\n"
+            + "  <libraries/>\n"
+            + "</project>\n";
 
     @Override
     public void writeFiles(File path, HDLModel model) throws IOException {
@@ -79,29 +108,10 @@ public abstract class ISE implements BoardInterface {
         }
     }
 
-    private String loadISEProjectTemplate() throws IOException {
-        String fileName = "boards/ISEProjectTplt.xml";
-        InputStream in = getClass().getClassLoader().getResourceAsStream(fileName);
-        if (in == null) {
-            throw new IOException("file not present: " + fileName);
-        }
-
-        BufferedReader r = new BufferedReader(new InputStreamReader(in));
-        StringBuilder sb = new StringBuilder();
-        String str;
-
-        while ((str = r.readLine()) != null) {
-            sb.append(str).append("\n");
-        }
-
-        return sb.toString();
-    }
-
     private void writeISEProject(BufferedWriter w, File project, File srcFile, File constraints) throws IOException {
-        String iseProjectTplt = loadISEProjectTemplate();
         BoardInformation bi = getBoardInfo();
 
-        w.write(String.format(iseProjectTplt, "../" + srcFile.getName(),
+        w.write(String.format(ISE_PROJECT_TPLT, "../" + srcFile.getName(),
                 "../" + constraints.getName(), bi.getFamily(), bi.getCode(), bi.getPkg()));
     }
 
