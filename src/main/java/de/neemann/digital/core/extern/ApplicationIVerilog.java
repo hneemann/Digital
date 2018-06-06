@@ -56,7 +56,7 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
             if (file != null)
                 ProcessStarter.removeFolder(file.getParentFile());
             if (iverilogNotFound(e))
-                throw new IOException(Lang.get("err_ghdlNotInstalled"));
+                throw new IOException(Lang.get("err_iverilogNotInstalled"));
             else
                 throw e;
         }
