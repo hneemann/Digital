@@ -3,7 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.hdl.vhdl2.boards;
+package de.neemann.digital.hdl.boards;
 
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
@@ -30,7 +30,7 @@ public final class BoardProvider {
     }
 
     /**
-     * Returns a spscific board
+     * Returns a specific board
      *
      * @param circuit the circuit
      * @return the board or null
@@ -49,13 +49,20 @@ public final class BoardProvider {
         if (board == null)
             return null;
 
-        if (board.equals("basys3"))
-            return new Vivado("LVCMOS33",
-                    "W5",
-                    10,
-                    new ClockIntegratorARTIX7(10),
-                    "xc7a35ticpg236-1L");
+        switch (board) {
+            case "basys3":
+                return new Vivado("LVCMOS33",
+                        "W5",
+                        10,
+                        new ClockIntegratorARTIX7(10),
+                        "xc7a35ticpg236-1L");
+            case "mimasv1":
+                return new MimasV1Board();
+            case "mimasv2":
+                return new MimasV2Board();
+            default:
+                return null;
+        }
 
-        return null;
     }
 }

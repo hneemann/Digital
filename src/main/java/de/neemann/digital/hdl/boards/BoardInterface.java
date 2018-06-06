@@ -3,7 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.hdl.vhdl2.boards;
+package de.neemann.digital.hdl.boards;
 
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.HDLModel;

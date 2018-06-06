@@ -847,6 +847,7 @@
     <string name="err_pinIsNotANumber_N">The pin nummer {0} is not a integer!</string>
     <string name="err_vhdlExporting">Error during export to VHDL.</string>
     <string name="err_vhdlNoEntity_N">No VHDL code for {0} available!</string>
+    <string name="err_verilogNoElement_N">No Verilog code for {0} available!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Pin {0} has no number!</string>
     <string name="err_vhdlErrorWritingTestBench">Error creating a test bench!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
@@ -898,6 +899,9 @@
         {0}</string>
     <string name="err_ghdlNotInstalled">
         The VHDL simulator ghdl does not seem to be installed. Install ghdl (http://ghdl.free.fr/) and try again. If there are still problems, check the path to the ghdl executable in the Digital settings.
+    </string>
+    <string name="err_iverilogNotInstalled">
+        The Verilog simulator Icarus does not seem to be installed. Install ghdl (http://iverilog.icarus.com/) and try again. If there are still problems, check the path to the iverilog executable in the Digital settings.
     </string>
     <string name="err_errorAnalysingCircuit_N">Error analysing the circuit: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Every ROM needs a unique label to be exported!</string>
@@ -1103,6 +1107,7 @@
     <string name="key_applicationType_tt">Defines which application to use.</string>
     <string name="key_applicationType_Generic">Generic</string>
     <string name="key_applicationType_GHDL">GHDL</string>
+    <string name="key_applicationType_IVERILOG">IVerilog</string>
     <string name="key_externalInputs">Inputs</string>
     <string name="key_externalInputs_tt">The inputs of the external process.
         It is a comma-separated list of signal names. For each signal name, with a colon separated, a number of bits
@@ -1116,6 +1121,9 @@
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
         components defined with vhdl.</string>
+    <string name="key_iverilogDirInstFolder">IVerilog</string>
+    <string name="key_iverilogDirInstFolder_tt">Path to the Icarus verilog installation folder. Only necessary if you want to use iverilog to simulate
+        components defined with verilog.</string>
     <string name="key_maxValue">Maximum Value</string>
     <string name="key_maxValue_tt">If a zero is entered, the maximum possible value is used (all bits are one).</string>
 
@@ -1332,6 +1340,8 @@
     <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
     <string name="menu_exportVHDL">Export to VHDL</string>
     <string name="menu_exportVHDL_tt">Exports the circuit to VHDL</string>
+    <string name="menu_exportVerilog">Export to Verilog</string>
+    <string name="menu_exportVerilog_tt">Exports the circuit to Verilog</string>
     <string name="menu_pdfDocumentation">Documentation</string>
     <string name="menu_openPdfDocumentation">Open {0}</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>

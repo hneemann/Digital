@@ -611,6 +611,12 @@ public final class Keys {
             = new Key.KeyFile("ghdlPath", new File("ghdl")).setSecondary();
 
     /**
+     * Path to iverilog installation directory
+     */
+    public static final Key<File> SETTINGS_IVERILOG_PATH
+            = new Key.KeyFile("iverilogDirInstFolder", new File("iverilog")).setSecondary();
+
+    /**
      * Avoid component tooltips in the main panel
      */
     public static final Key<Boolean> SETTINGS_NOTOOLTIPS =

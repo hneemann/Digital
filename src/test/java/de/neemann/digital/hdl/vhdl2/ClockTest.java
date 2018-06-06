@@ -16,7 +16,7 @@ import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
-import de.neemann.digital.hdl.vhdl2.boards.ClockIntegratorARTIX7;
+import de.neemann.digital.hdl.boards.ClockIntegratorARTIX7;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 

@@ -7,6 +7,6 @@
 /**
  * Support for different boards.
  * The classes in this package are able to create the files needed
- * to run a vhdl file on a board.
+ * to run a vhdl or verilog file on a board.
  */
-package de.neemann.digital.hdl.vhdl2.boards;
+package de.neemann.digital.hdl.boards;
