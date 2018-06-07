@@ -8,12 +8,11 @@
 ?>module <?= moduleName ?> (
     input <?= aBitRange ?> A,
     input sel,
-    output <?= dBitRange ?> D
+    output reg <?= dBitRange ?> D
 );
     reg <?= dBitRange ?> my_rom [0:<?= (romSize - 1) ?>];
-    reg D;
 
-    always @ (A or sel) begin
+    always @ (*) begin
         if (~sel)
             D = <?= elem.Bits ?>'hz;<?
         if (romSize < romMaxSize) {
