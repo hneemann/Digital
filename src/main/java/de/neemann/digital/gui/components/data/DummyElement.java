@@ -32,6 +32,7 @@ public class DummyElement implements Element {
     public static final ElementTypeDescription TEXTDESCRIPTION = new ElementTypeDescription("Text", DummyElement.class)
             .addAttribute(Keys.DESCRIPTION)
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.TEXT_ORIENTATION)
             .addAttribute(Keys.FONT_SIZE);
 
     /**

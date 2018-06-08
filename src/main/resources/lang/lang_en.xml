@@ -1137,6 +1137,18 @@
     <string name="key_useDefShape">Use Default Shape</string>
     <string name="key_useDefShape_tt">Use the default shape instead of using the DIL or custom shape configured in the circuit.</string>
 
+    <string name="key_textOrientation">Orientation</string>
+    <string name="key_textOrientation_tt">Position of the coordinate relative to the text.</string>
+    <string name="key_textOrientation_LEFTBOTTOM">left bottom</string>
+    <string name="key_textOrientation_CENTERBOTTOM">center bottom</string>
+    <string name="key_textOrientation_RIGHTBOTTOM">right bottom</string>
+    <string name="key_textOrientation_RIGHTCENTER">right center</string>
+    <string name="key_textOrientation_RIGHTTOP">right top</string>
+    <string name="key_textOrientation_CENTERTOP">center top</string>
+    <string name="key_textOrientation_LEFTTOP">left top</string>
+    <string name="key_textOrientation_LEFTCENTER">left center</string>
+    <string name="key_textOrientation_CENTERCENTER">center center</string>
+
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
     <string name="mod_setKey_N0_in_element_N1">Value ''{0}'' in component ''{1}'' modified.</string>

@@ -18,6 +18,7 @@ import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.ModelCreator;
@@ -65,6 +66,7 @@ public final class EditorFactory {
         add(BarrelShifterMode.class, BarrelShifterModeEditor.class);
         add(LeftRightFormat.class, LeftRightFormatsEditor.class);
         add(IntFormat.class, IntFormatsEditor.class);
+        add(Orientation.class, OrientationEditor.class);
         add(Language.class, LanguageEditor.class);
         add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
@@ -585,6 +587,12 @@ public final class EditorFactory {
 
     private static final class IntFormatsEditor extends EnumEditor<IntFormat> {
         public IntFormatsEditor(IntFormat value, Key<IntFormat> key) {
+            super(value, key);
+        }
+    }
+
+    private static final class OrientationEditor extends EnumEditor<Orientation> {
+        public OrientationEditor(Orientation value, Key<Orientation> key) {
             super(value, key);
         }
     }

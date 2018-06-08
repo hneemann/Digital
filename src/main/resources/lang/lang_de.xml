@@ -1145,6 +1145,18 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_useDefShape_tt">Verwendet die einfache Form zur Darstellung. Hat nur einen Effekt, wenn die
         Schaltung eine Benutzerdefinierte Form oder eine DIL Form verwendet.</string>
 
+    <string name="key_textOrientation">Ausrichtung</string>
+    <string name="key_textOrientation_tt">Lage der Koordinate relativ zum Text.</string>
+    <string name="key_textOrientation_LEFTBOTTOM">links unten</string>
+    <string name="key_textOrientation_CENTERBOTTOM">mitte unten</string>
+    <string name="key_textOrientation_RIGHTBOTTOM">rechts unten</string>
+    <string name="key_textOrientation_RIGHTCENTER">rechts mitte</string>
+    <string name="key_textOrientation_RIGHTTOP">rechts oben</string>
+    <string name="key_textOrientation_CENTERTOP">mitte oben</string>
+    <string name="key_textOrientation_LEFTTOP">links oben</string>
+    <string name="key_textOrientation_LEFTCENTER">links mitte</string>
+    <string name="key_textOrientation_CENTERCENTER">mitte mitte</string>
+
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
     <string name="mod_setKey_N0_in_element_N1">Wert ''{0}'' in Element ''{1}'' verändert.</string>

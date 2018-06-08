@@ -23,6 +23,7 @@ import de.neemann.digital.lang.Lang;
 public class TextShape implements Shape {
     private final String text;
     private final int fontSize;
+    private Orientation orientation;
 
     /**
      * Create a new instance
@@ -47,6 +48,7 @@ public class TextShape implements Shape {
         this.text = Lang.evalMultilingualContent(text);
 
         fontSize = attr.get(Keys.FONT_SIZE);
+        orientation = attr.get(Keys.TEXT_ORIENTATION);
     }
 
     @Override
@@ -61,6 +63,7 @@ public class TextShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
+
         StringBuilder sb = new StringBuilder();
         Style style = Style.NORMAL.deriveFontStyle(fontSize, true);
         Vector pos = new Vector(0, 0);
@@ -69,7 +72,7 @@ public class TextShape implements Shape {
             char c = text.charAt(i);
             if (c == '\n') {
                 if (sb.length() > 0) {
-                    graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, style);
+                    graphic.drawText(pos, pos.add(1, 0), sb.toString(), orientation, style);
                     sb.setLength(0);
                 }
                 pos = pos.add(0, dy);
@@ -77,6 +80,6 @@ public class TextShape implements Shape {
                 sb.append(c);
         }
         if (sb.length() > 0)
-            graphic.drawText(pos, pos.add(1, 0), sb.toString(), Orientation.LEFTTOP, style);
+            graphic.drawText(pos, pos.add(1, 0), sb.toString(), orientation, style);
     }
 }

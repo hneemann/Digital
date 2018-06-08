@@ -13,6 +13,7 @@ import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManger;
+import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
@@ -139,6 +140,13 @@ public final class Keys {
                     .setComboBoxValues(new Integer[]{14, 17, 20, 24, 36, 48, 60})
                     .setMin(10)
                     .setMax(70);
+
+    /**
+     * text orientation
+     */
+    public static final Key<Orientation> TEXT_ORIENTATION
+            = new Key.KeyEnum<>("textOrientation", Orientation.LEFTTOP, Orientation.values()).setSecondary();
+
 
     /**
      * The size of a LED
@@ -515,7 +523,7 @@ public final class Keys {
             new Key.KeyInteger("pinCount", 0)
                     .setMin(0)
                     .setDependsOn(IS_DIL)
-            .setSecondary();
+                    .setSecondary();
 
 
     /**
