@@ -614,7 +614,7 @@ public final class Keys {
      * Path to iverilog installation directory
      */
     public static final Key<File> SETTINGS_IVERILOG_PATH
-            = new Key.KeyFile("iverilogDirInstFolder", new File("iverilog")).setSecondary();
+            = new Key.KeyFile("iverilogPath", new File("iverilog")).setSecondary();
 
     /**
      * Avoid component tooltips in the main panel

@@ -1129,8 +1129,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
         VHDL-Code verwendet werden soll.</string>
-    <string name="key_iverilogDirInstFolder">IVerilog</string>
-    <string name="key_iverilogDirInstFolder_tt">Pfad zum Icarus-Verilog-Installationsordner. Nur notwendig, wenn Sie iverilog
+    <string name="key_iverilogPath">IVerilog</string>
+    <string name="key_iverilogPath_tt">Pfad zum Icarus-Verilog-Installationsordner. Nur notwendig, wenn Sie iverilog
         verwenden möchten, um mit Verilog definierte Komponenten zu simulieren.</string>
     <string name="key_maxValue">Maximalwert</string>
     <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits sind Eins).</string>

@@ -32,7 +32,6 @@ public class VerilogTemplate implements VerilogElement {
     private final static String MODULE_PREFIX = "DIG_";
 
     private final String moduleBaseName;
-    private String moduleName;
     private final Statement statements;
     private HashMap<String, Module> modules;
 
