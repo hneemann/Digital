@@ -33,8 +33,8 @@ These are the main features of Digital:
   the simulator.
 - Components can be described using VHDL. The open source VHDL simulator [ghdl](http://ghdl.free.fr/) is required to
   simulate a VHDL defined component. The ghdl source code is also available at [GitHub](https://github.com/ghdl/ghdl).  
-- Components can be described using Verilog. The open source Verilog simulator [iVerilog](http://iverilog.icarus.com/) is required to
-  simulate a Verilog defined component. The IVerilog source code is also available at [GitHub](https://github.com/steveicarus/iverilog).
+- Components can be described using Verilog. The open source Verilog simulator [Icarus Verilog](http://iverilog.icarus.com/) is required to
+  simulate a Verilog defined component. The Icarus Verilog source code is also available at [GitHub](https://github.com/steveicarus/iverilog).
 - Export to VHDL: A circuit can be exported to VHDL. There is also support for the
   [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
   for details. The examples folder contains a variant of the example CPU, which runs on a BASYS3 board.
