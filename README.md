@@ -33,13 +33,13 @@ These are the main features of Digital:
   the simulator.
 - Components can be described using VHDL. The open source VHDL simulator [ghdl](http://ghdl.free.fr/) is required to
   simulate a VHDL defined component. The ghdl source code is also available at [GitHub](https://github.com/ghdl/ghdl).  
-- Components can be described using Verilog. The open source Verilog simulator [Icarus Verilog](http://iverilog.icarus.com/) is required to
-  simulate a Verilog defined component. The Icarus Verilog source code is also available at [GitHub](https://github.com/steveicarus/iverilog).
 - Export to VHDL: A circuit can be exported to VHDL. There is also support for the
   [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start). See the documentation 
   for details. The examples folder contains a variant of the example CPU, which runs on a BASYS3 board.
-- Export to Verilog is also possible: Special thanks to Ivan de Jesus Deras, who has implemented the Verilog code generator
-  and all the necessary Verilog templates!
+- Components can be described using Verilog. The open source Verilog simulator [Icarus Verilog](http://iverilog.icarus.com/) is required to
+  simulate a Verilog defined component. The Icarus Verilog source code is also available at [GitHub](https://github.com/steveicarus/iverilog).
+- Exporting a circuit to Verilog is also possible. Special thanks to Ivan de Jesus Deras Tabora, who has
+  implemented the Verilog code generator and all the necessary Verilog templates!
 - Direct export of JEDEC files which you can flash to a [GAL16v8](https://www.microchip.com/wwwproducts/en/ATF16V8C)
   or a [GAL22v10](https://www.microchip.com/wwwproducts/en/ATF22V10C). These chips are somewhat outdated (introduced in 1985!) 
   but sufficient for beginners exercises, easy to understand and well documented. Also the
