@@ -7,9 +7,11 @@ package de.neemann.digital.hdl.verilog2;
 
 import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.ProcessStarter;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.integration.FileScanner;
@@ -29,6 +31,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static de.neemann.digital.integration.TestExamples.check;
 
 public class VerilogSimulatorTest extends TestCase {
     private static final Logger LOGGER = LoggerFactory.getLogger(VerilogSimulatorTest.class);
@@ -93,6 +97,22 @@ public class VerilogSimulatorTest extends TestCase {
             throw e;
         }
     }
+
+    public void testIVERILOGInSimulator() throws Exception {
+        if (foundIVerilog) {
+            Settings.getInstance().getAttributes().set(Keys.SETTINGS_GHDL_PATH, new File(IVERILOG));
+
+            File source = new File(Resources.getRoot(), "dig/external/verilog");
+
+            int tested = new FileScanner(f -> {
+                checkVerilogExport(f);
+                // check simulation in Digital
+                check(f);
+            }).scan(source);
+            assertEquals(4, tested);
+        }
+    }
+
 
     private void checkVerilogExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
         ToBreakRunner br = new ToBreakRunner(file);

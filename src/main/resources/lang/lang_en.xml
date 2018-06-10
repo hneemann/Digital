@@ -894,6 +894,7 @@
     <string name="err_exitValueNotNull_N_O">Application exit status was not 0 but {0}:
         {1}</string>
     <string name="err_canOnlyExportExternalVHDL">External code can only be exported if it is VHDL!</string>
+    <string name="err_canOnlyExportExternalVerilog">External code can only be exported if it is Verilog!</string>
     <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">If an external component is used multiple times, the code must be identical! Effects: {0}</string>
     <string name="err_writingToStdOut_O">Could not write to stdOut:
         {0}</string>
