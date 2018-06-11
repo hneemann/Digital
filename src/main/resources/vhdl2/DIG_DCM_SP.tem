@@ -1,0 +1,53 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+Library UNISIM;
+use UNISIM.vcomponents.all;
+
+entity DIG_DCM_SP is
+  generic (
+    CLKFX_DIVIDE : integer;<?   vhdl.registerGeneric("CLKFX_DIVIDE");?>
+    CLKFX_MULTIPLY : integer;<?      vhdl.registerGeneric("CLKFX_MULTIPLY","integer");?>
+    CLKIN_PERIOD: real);<? vhdl.registerGeneric("CLKIN_PERIOD","real");?>
+  port (
+    cin: in std_logic;
+    cout: out std_logic );
+end DIG_DCM_SP;
+
+architecture DIG_DCM_SP_arch of DIG_DCM_SP is
+
+begin
+
+    -- DCM_SP: Digital Clock Manager
+    -- Spartan-6
+    -- Xilinx HDL Libraries Guide, version 14.1
+
+    DCM_SP_int : DCM_SP
+    generic map (
+        CLKDV_DIVIDE => 2.0,    -- CLKDV divide value
+                                -- (1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,9,10,11,12,13,14,15,16).
+        CLKFX_DIVIDE => CLKFX_DIVIDE,       -- Divide value on CLKFX outputs - D - (1-32)
+        CLKFX_MULTIPLY => CLKFX_MULTIPLY,   -- Multiply value on CLKFX outputs - M - (2-32)
+        CLKIN_DIVIDE_BY_2 => FALSE,         -- CLKIN divide by two (TRUE/FALSE)
+        CLKIN_PERIOD => CLKIN_PERIOD,       -- Input clock period specified in nS
+        CLKOUT_PHASE_SHIFT => "NONE",       --Output phase shift (NONE, FIXED, VARIABLE)
+        CLK_FEEDBACK => "1X",         -- Feedback source (NONE, 1X, 2X)
+        DESKEW_ADJUST => "SYSTEM_SYNCHRONOUS", -- SYSTEM_SYNCHRNOUS or SOURCE_SYNCHRONOUS
+        DFS_FREQUENCY_MODE => "LOW", -- Unsupported - Do not change value
+        DLL_FREQUENCY_MODE => "LOW", -- Unsupported - Do not change value
+        DSS_MODE => "NONE",          -- Unsupported - Do not change value
+        DUTY_CYCLE_CORRECTION => TRUE, -- Unsupported - Do not change value
+        FACTORY_JF => X"c080",         -- Unsupported - Do not change value
+        PHASE_SHIFT => 0, -- Amount of fixed phase shift (-255 to 255)
+        STARTUP_WAIT => FALSE -- Delay config DONE until DCM_SP LOCKED (TRUE/FALSE)
+    )
+    port map (
+        CLKFX => cout, -- 1-bit output: Digital Frequency Synthesizer output (DFS)
+        CLKIN => cin, -- 1-bit input: Clock input
+        DSSEN => '0', -- 1-bit input: Unsupported, specify to GND.
+        PSCLK => '0', -- 1-bit input: Phase shift clock input
+        PSEN => '0', -- 1-bit input: Phase shift enable
+        RST => '0' -- 1-bit input: Active high reset input
+    );
+
+end DIG_DCM_SP_arch;

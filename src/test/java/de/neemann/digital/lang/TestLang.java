@@ -93,7 +93,7 @@ public class TestLang extends TestCase {
                     try {
                         if (f.getName().endsWith(".java"))
                             checkSourceFile(f, keys, PATTERN);
-                        if (f.getName().endsWith(".tem"))
+                        if (f.getName().endsWith(".tem") || f.getName().endsWith(".v"))
                             checkSourceFile(f, keys, TEM_PATTERN);
                     } catch (AssertionFailedError e) {
                         throw new AssertionFailedError(e.getMessage() + " in file " + f);

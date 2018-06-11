@@ -26,7 +26,11 @@ public interface Application {
         /**
          * ghdl vhdl interpreter
          */
-        GHDL
+        GHDL,
+        /**
+         * Icarus verilog interpreter
+         */
+        IVERILOG
     }
 
     /**
@@ -41,6 +45,8 @@ public interface Application {
                 return new ApplicationGeneric();
             case GHDL:
                 return new ApplicationGHDL();
+            case IVERILOG:
+                return new ApplicationIVerilog();
             default:
                 return null;
         }

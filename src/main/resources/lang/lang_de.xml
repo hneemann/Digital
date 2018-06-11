@@ -851,6 +851,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_pinIsNotANumber_N">Die Pinnummer {0} ist keine Zahl!</string>
     <string name="err_vhdlExporting">Fehler beim Export zu VHDL.</string>
     <string name="err_vhdlNoEntity_N">Kein VHDL Code für {0} verfügbar!</string>
+    <string name="err_verilogNoElement_N">Kein Verilog Code für {0} verfügbar!</string>
     <string name="err_vhdlPin_N_hasNoNumber">Der Pin {0} hat keine Nummer!</string>
     <string name="err_vhdlErrorWritingTestBench">Fehler beim erzeugen des Testfalls!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
@@ -898,11 +899,15 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_exitValueNotNull_N_O">Rückgabewert der Anwendung war nicht 0 sondern {0}:
         {1}</string>
     <string name="err_canOnlyExportExternalVHDL">Externer Code kann nur exportiert werden, wenn es sich um VHDL handelt!</string>
+    <string name="err_canOnlyExportExternalVerilog">Externer Code kann nur exportiert werden, wenn es sich um Verilog handelt!</string>
     <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">Wird eine externes Element mehrfach verwendet, muss der Code identisch sein! Betrifft {0}</string>
     <string name="err_writingToStdOut_O">Konnte nicht auf stdOut schreiben:
         {0}</string>
     <string name="err_ghdlNotInstalled">
         Der VHDL Simulator ghdl scheint nicht installiert zu sein. Installieren Sie ghdl (http://ghdl.free.fr/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren ghdl-Datei in den Digital-Einstellungen.
+    </string>
+    <string name="err_iverilogNotInstalled">
+        Der Verilog Simulator Icarus scheint nicht installiert zu sein. Installieren Sie Icarus (http://iverilog.icarus.com/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren iverilog-Datei in den Digital-Einstellungen.
     </string>
     <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
@@ -1111,6 +1116,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_applicationType_tt">Gibt an, welche Anwendung gestartet werden soll, um den Code auszuführen.</string>
     <string name="key_applicationType_Generic">Generisch</string>
     <string name="key_applicationType_GHDL">GHDL</string>
+    <string name="key_applicationType_IVERILOG">IVerilog</string>
     <string name="key_externalInputs">Eingänge</string>
     <string name="key_externalInputs_tt">Die Eingänge des externen Prozesses. Es handelt sich um eine kommaseparierte
         Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
@@ -1124,6 +1130,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
         VHDL-Code verwendet werden soll.</string>
+    <string name="key_iverilogPath">IVerilog</string>
+    <string name="key_iverilogPath_tt">Pfad zum Icarus-Verilog-Installationsordner. Nur notwendig, wenn Sie iverilog
+        verwenden möchten, um mit Verilog definierte Komponenten zu simulieren.</string>
     <string name="key_maxValue">Maximalwert</string>
     <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits sind Eins).</string>
 
@@ -1351,6 +1360,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_addPowerSupply_tt">Erweitert die Schaltung um eine Spannungsversorung.</string>
     <string name="menu_exportVHDL">Export zu VHDL</string>
     <string name="menu_exportVHDL_tt">Exportiert die Schaltung zu VHDL</string>
+    <string name="menu_exportVerilog">Export zu Verilog</string>
+    <string name="menu_exportVerilog_tt">Exportiert die Schaltung zu Verilog</string>
     <string name="menu_karnaughMap">KV-Tafel</string>
     <string name="menu_karnaughMap_tt">Zeigt eine KV-Tafel der Tabelle an.</string>
     <string name="menu_pdfDocumentation">Dokumentation</string>

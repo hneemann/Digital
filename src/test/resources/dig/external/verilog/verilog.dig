@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>External</elementName>
+      <elementAttributes>
+        <entry>
+          <string>applicationType</string>
+          <appType>IVERILOG</appType>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>add</string>
+        </entry>
+        <entry>
+          <string>externalParameters</string>
+          <string>/home/hneemann/temp/Digital/go/go</string>
+        </entry>
+        <entry>
+          <string>processType</string>
+          <appType>GHDL</appType>
+        </entry>
+        <entry>
+          <string>externalInputs</string>
+          <string>a:4,b:4,c_i</string>
+        </entry>
+        <entry>
+          <string>externalOutputs</string>
+          <string>s:4,c_o</string>
+        </entry>
+        <entry>
+          <string>Code</string>
+          <string>module add
+(
+    input [3:0] a,
+    input [3:0] b,
+    input c_i,
+    output [3:0] s,
+    output c_o
+);
+   wire [4:0] temp;
+
+   assign temp = a + b + c_i;
+   assign s = temp [3:0];
+   assign c_o = temp[4];
+endmodule</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="3" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="4" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>S</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C_i</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="4" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C_o</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A B C_i C_o S 
+
+loop(a,16)
+loop(b,16)
+  (a) (b) 0 ((a+b)&gt;&gt;4) (a+b)
+end loop
+end loop
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="40"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="240" y="160"/>
+      <p2 x="280" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="360" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="180"/>
+      <p2 x="280" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="180"/>
+      <p2 x="380" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="100"/>
+      <p2 x="260" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="200"/>
+      <p2 x="260" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="140"/>
+      <p2 x="380" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="140"/>
+      <p2 x="280" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="100"/>
+      <p2 x="260" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="180"/>
+      <p2 x="260" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="160"/>
+      <p2 x="360" y="180"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
