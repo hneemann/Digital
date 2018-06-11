@@ -338,32 +338,38 @@
                 On Linux systems, the fitters can also be executed by Digital if <e>wine</e> is installed.
             </par>
         </subchapter>
-        <subchapter name="VHDL">
+        <subchapter name="Export to VHDL or Verilog">
             <par>
-                A circuit can be exported to VHDL. A file is generated which contains the complete description of the
-                circuit. The generated VHDL code was tested with
+                A circuit can be exported to VHDL or Verilog. A file is generated which contains the complete description
+                of the circuit. The generated VHDL code was tested with
                 <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
                 and the open source VHDL simulator <a href="http://ghdl.free.fr/">ghdl</a>.
+                The Verilog code is tested with the Verilog simulator <a href="http://iverilog.icarus.com/">Icarus Verilog</a>.
             </par>
             <par>
-                If a circuit contains test cases, the test data is used to generate a VHDL test bench. This can be used
-                to check the correct function of the circuit in a VHDL simulation.
+                If a circuit contains test cases, the test data is used to generate a HDL test bench. This can be used
+                to check the correct function of the circuit in a HDL simulation.
             </par>
             <par>
                 Additional files which are needed by special boards can be created. At present only the
                 <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
-                board is supported.
+                board and the Mimas boards <a href="https://numato.com/product/mimas-spartan-6-fpga-development-board">Mimas</a>
+                and <a href="https://numato.com/product/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram">Mimas V2</a>
+                are supported.
                 A constraints file is created, which contains the assignment of the pins. The description of the pins can
-                be found in the BASYS3 data sheet, and must be entered as a pin number for the inputs and outputs.
+                be found in the boards data sheet, and must be entered as a pin number for the inputs and outputs.
             </par>
             <par>
-                If the circuit clock frequency is low, a frequency divider is integrated into the VHDL code to divide
-                the board clock accordingly.
+                At a BASYS3 board, if the circuit clock frequency is low, a frequency divider is integrated into the HDL
+                code to divide the board clock accordingly.
                 If the clock frequency selected in the circuit exceeds 37kHz, the MMCM unit of the
                 Artix-7 is used for clock generation.
                 This ensures that the FPGA resources provided for the clock distribution are used.
                 This allows the included example processor to run at 20MHz, and if you can do without the
                 multiplier, 30HMz is also possible.
+            </par>
+            <par>
+                Also at the Mimas-Boards the Spartan 6 DCM is utilized for the clock generation.
             </par>
             <par>
                 If a circuit is to run on a BASYS3 board, a new project can be created in Vivado.
@@ -372,8 +378,8 @@
                 to program a BASYS3 board.
             </par>
             <par>
-                To create the required constraints file, the circuit must contain a text field with the text "Board:
-                BASYS3".
+                To create the required constraints file, the circuit must contain a text field with the text
+                "Board: BASYS3", "Board: MimasV1" or "Board: MimasV2".
             </par>
         </subchapter>
     </chapter>
