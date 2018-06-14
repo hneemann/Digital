@@ -75,7 +75,7 @@ public class VerilogSimulatorTest extends TestCase {
     }
 
     public void testProcessorInSimulator() throws Exception {
-        File file = new File(Resources.getRoot(), "../../main/dig/processor/VHDLExample.dig");
+        File file = new File(Resources.getRoot(), "../../main/dig/processor/HDLExample.dig");
         try {
             checkVerilogExport(file);
         } catch (FileScanner.SkipAllException e) {

@@ -100,7 +100,7 @@ public class VerilogGenerator implements Closeable {
 
             return this;
         } catch (PinException | NodeException | HDLException | HGSEvalException e) {
-            throw new IOException(Lang.get("err_vhdlExporting"), e);
+            throw new IOException(Lang.get("err_verilogExporting"), e);
         }
     }
 

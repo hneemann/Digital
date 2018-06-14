@@ -913,6 +913,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
     <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
     <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
+    <string name="err_verilogExporting">Fehler beim Export zu Verilog.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
