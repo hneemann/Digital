@@ -1490,7 +1490,7 @@ Make sure the flash process is complete before closing this dialog!</string>
     <string name="msg_testPassed_N">{0} test rows passed</string>
     <string name="msg_testFile">File Tested</string>
 
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
     <string name="rot_270">270°</string>
