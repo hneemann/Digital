@@ -100,7 +100,7 @@ public class VerilogSimulatorTest extends TestCase {
 
     public void testIVERILOGInSimulator() throws Exception {
         if (foundIVerilog) {
-            Settings.getInstance().getAttributes().set(Keys.SETTINGS_GHDL_PATH, new File(IVERILOG));
+            Settings.getInstance().getAttributes().set(Keys.SETTINGS_IVERILOG_PATH, new File(IVERILOG));
 
             File source = new File(Resources.getRoot(), "dig/external/verilog");
 
