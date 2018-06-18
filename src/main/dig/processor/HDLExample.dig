@@ -439,7 +439,7 @@ end loop
       <pos x="600" y="340"/>
     </visualElement>
     <visualElement>
-      <elementName>GPI_VHDL.dig</elementName>
+      <elementName>GPI-HDL.dig</elementName>
       <elementAttributes/>
       <pos x="800" y="300"/>
     </visualElement>

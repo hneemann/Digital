@@ -695,7 +695,7 @@ Single-Cycle CPU.}}</string>
       <pos x="1260" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>PC_VHDL.dig</elementName>
+      <elementName>PC-HDL.dig</elementName>
       <elementAttributes/>
       <pos x="400" y="140"/>
     </visualElement>
