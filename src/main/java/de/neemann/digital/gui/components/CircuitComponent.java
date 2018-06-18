@@ -1562,6 +1562,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Vector pos;
         private Vector initialPos;
         private Vector initialWirePos;
+        private boolean isMoved = false;
 
         private MouseControllerMoveWire(Cursor cursor) {
             super(cursor);
@@ -1591,6 +1592,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             Vector pos = raster(getPosVector(e));
             final Vector delta = pos.sub(this.pos);
             if (!delta.isZero()) {
+                isMoved = true;
                 wire.move(delta);
                 wire.noDot();
                 isManualScale = true;
@@ -1622,7 +1624,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void deactivate() {
-            wire.move(initialPos.sub(pos));
+            if (isMoved) {
+                wire.move(initialPos.sub(pos));
+                isMoved = false;
+            }
             removeHighLighted();
         }
     }
