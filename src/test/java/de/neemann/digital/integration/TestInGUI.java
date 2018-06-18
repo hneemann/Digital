@@ -543,6 +543,84 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void testSaveDialog() {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 5)
+                .press("DOWN", "RIGHT", "ENTER")
+                .mouseMove(100, 150)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(100)
+
+                // aboard with escape
+                .press("control typed n")
+                .delay(100)
+                .add(new GuiTester.WindowCheck<>(JDialog.class,
+                        (guiTester, window) -> assertEquals(Lang.get("win_stateChanged"), window.getTitle())))
+                .press("ESCAPE")
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(1, main.getCircuitComponent().getCircuit().getElements().size())))
+
+                // press edit further
+                .press("control typed n")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(JDialog.class,
+                        c -> c instanceof JButton && ((JButton)c).getText().equals(Lang.get("btn_editFurther"))))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(1, main.getCircuitComponent().getCircuit().getElements().size())))
+
+                // press save and the escape the save dialog (JFileChooser)
+                .press("control typed n")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(JDialog.class,
+                        c -> c instanceof JButton && ((JButton)c).getText().equals(Lang.get("btn_save"))))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.WindowCheck<>(JDialog.class))
+                .press("ESCAPE")
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(1, main.getCircuitComponent().getCircuit().getElements().size())))
+
+                // press save and save the file
+                .press("control typed n")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(JDialog.class,
+                        c -> c instanceof JButton && ((JButton)c).getText().equals(Lang.get("btn_save"))))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.WindowCheck<>(JDialog.class))
+                .typeTempFile("save.dig")
+                .press("ENTER")
+                .delay(100)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(0, main.getCircuitComponent().getCircuit().getElements().size())))
+
+                .execute();
+    }
+
+    public void testSaveDialog2() {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 5)
+                .press("DOWN", "RIGHT", "ENTER")
+                .mouseMove(100, 150)
+                .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(100)
+
+                // discard changes
+                .press("control typed n")
+                .delay(100)
+                .add(new GuiTester.SetFocusTo<>(JDialog.class,
+                        c -> c instanceof JButton && ((JButton)c).getText().equals(Lang.get("btn_discard"))))
+                .press("SPACE")
+                .delay(100)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals(0, main.getCircuitComponent().getCircuit().getElements().size())))
+                .execute();
+    }
+
 
     public void test74xxFunctions() {
         new GuiTester("dig/manualError/10_74xx.dig")

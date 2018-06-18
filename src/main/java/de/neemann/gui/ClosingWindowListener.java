@@ -43,7 +43,7 @@ public class ClosingWindowListener extends WindowAdapter {
      * @param confirmSave the ConfirmSave interface
      * @param doExit      if true the parent JFrame is disposed by this listener
      */
-    public ClosingWindowListener(final JFrame parent, final ConfirmSave confirmSave, final boolean doExit) {
+    private ClosingWindowListener(final JFrame parent, final ConfirmSave confirmSave, final boolean doExit) {
         this((Component) parent, new GUICloser() {
             @Override
             public void closeGUI() {
@@ -80,14 +80,14 @@ public class ClosingWindowListener extends WindowAdapter {
                     .setCancleOption(CANCEL_MESSAGE)
                     .show(parent);
 
-            if (r != JOptionPane.CANCEL_OPTION) {
+            if (r == JOptionPane.YES_OPTION || r == JOptionPane.NO_OPTION) {
                 if (r == JOptionPane.YES_OPTION) {
                     confirmSave.saveChanges();
-                }
-                return true;
-            } else {
+                    return !confirmSave.isStateChanged();
+                } else
+                    return true;
+            } else
                 return false;
-            }
         }
         return true;
     }
@@ -98,7 +98,7 @@ public class ClosingWindowListener extends WindowAdapter {
      * @param parent    the parent component of the confirm dialog
      * @param guiCloser the guiCloser
      */
-    public ClosingWindowListener(Component parent, GUICloser guiCloser) {
+    private ClosingWindowListener(Component parent, GUICloser guiCloser) {
         this.parent = parent;
         this.guiCloser = guiCloser;
     }
