@@ -1498,6 +1498,7 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="menu_runAllTests_tt">Führt alle Tests im aktuellen Verzeichnis aus.</string>
     <string name="msg_testPassed_N">{0} Testzeilen überprüft</string>
     <string name="msg_testFile">Testdatei</string>
+    <string name="msg_truthTable">Wahrheitstabelle</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

@@ -47,6 +47,7 @@ import de.neemann.gui.ToolTipAction;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -267,6 +268,7 @@ public class TableDialog extends JDialog {
                 JFileChooser fc = new MyFileChooser();
                 if (TableDialog.this.filename != null)
                     fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "tru"));
+                fc.setFileFilter(new FileNameExtensionFilter(Lang.get("msg_truthTable"), "tru"));
                 if (fc.showOpenDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
                     try {
                         File file = fc.getSelectedFile();
@@ -286,7 +288,7 @@ public class TableDialog extends JDialog {
                 JFileChooser fc = new MyFileChooser();
                 if (TableDialog.this.filename != null)
                     fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "tru"));
-
+                fc.setFileFilter(new FileNameExtensionFilter(Lang.get("msg_truthTable"), "tru"));
                 new SaveAsHelper(TableDialog.this, fc, "tru").checkOverwrite(
                         file -> {
                             model.getTable().save(file);

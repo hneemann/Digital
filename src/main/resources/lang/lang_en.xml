@@ -1489,6 +1489,7 @@ Make sure the flash process is complete before closing this dialog!</string>
     <string name="menu_runAllTests_tt">Executes all tests in the current folder.</string>
     <string name="msg_testPassed_N">{0} test rows passed</string>
     <string name="msg_testFile">File Tested</string>
+    <string name="msg_truthTable">Truth Table</string>
 
     <string name="ok">OK</string>
     <string name="rot_0">0°</string>
