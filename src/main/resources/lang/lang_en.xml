@@ -1427,6 +1427,7 @@
     </string>
     <string name="msg_duplicateLibraryFiles">There are several files with identical file names, which can not be
         uniquely assigned! Affected are:</string>
+    <string name="msg_and_N_More">and {0} more.</string>
     <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
     <string name="msg_fileExists">The file {0} already exists! Do you want to overwrite the file?</string>
     <string name="msg_test_missingLines">(To many entries!)</string>

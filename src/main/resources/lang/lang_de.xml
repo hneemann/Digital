@@ -1440,6 +1440,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enh
     </string>
     <string name="msg_duplicateLibraryFiles">Es gibt mehrere Dateien mit identischen Dateinamen, welche nicht eindeutig
         zugeordnet werden können! Betroffen sind:</string>
+    <string name="msg_and_N_More">und {0} weitere.</string>
     <string name="msg_fileNotImportedYet">Die Datei wurde noch nicht importiert.</string>
     <string name="msg_fileExists">Die Datei {0} existiert schon! Soll die Datei überschrieben werden?</string>
     <string name="msg_isLocked">Die Bearbeitung der Schaltung ist gesperrt. Sie können die Sperrung unter

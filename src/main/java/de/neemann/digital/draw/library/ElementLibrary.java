@@ -692,8 +692,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     private static final class PopulateMapVisitor implements Visitor {
+        private static final int MAX_WARNING_ENTRIES = 15;
         private final HashMap<String, LibraryNode> map;
         private StringBuilder warningMessage;
+        private int warningEntries = 0;
 
         private PopulateMapVisitor(HashMap<String, LibraryNode> map) {
             this.map = map;
@@ -716,13 +718,19 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         libraryNode.setUnique(false); // some of the duplicates point to the same file
                         if (warningMessage == null)
                             warningMessage = new StringBuilder(Lang.get("msg_duplicateLibraryFiles"));
-                        warningMessage.append("\n\n").append(presentNode.getFile()).append("\n").append(libraryNode.getFile());
+                        if (warningEntries <= MAX_WARNING_ENTRIES)
+                            warningMessage.append("\n\n").append(presentNode.getFile()).append("\n").append(libraryNode.getFile());
+                        warningEntries++;
                     }
                 }
             }
         }
 
         private StringBuilder getWarningMessage() {
+            if (warningEntries >= MAX_WARNING_ENTRIES) {
+                warningMessage.append("\n\n").append(Lang.get("msg_and_N_More", warningEntries - MAX_WARNING_ENTRIES));
+                warningEntries = 0;
+            }
             return warningMessage;
         }
     }
