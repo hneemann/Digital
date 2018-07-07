@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.data;
 
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
@@ -96,7 +97,9 @@ public class DataPlotter implements Drawable {
         g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * data.getRows()), y - SEP2), Style.DASH);
 
 
-        int[] lastRy = new int[signals];
+        LastState[] last = new LastState[signals];
+        for (int i = 0; i < signals; i++) last[i] = new LastState();
+
         boolean first = true;
         double pos = 0;
         for (Value[] s : data) {
@@ -119,15 +122,31 @@ public class DataPlotter implements Drawable {
                 long width = data.getMax(i);
                 if (width == 0) width = 1;
                 int ry;
-                ry = (int) (SIZE - (SIZE * s[i].getValue()) / width);
+                final long value = s[i].getValue();
+                ry = (int) (SIZE - (SIZE * value) / width);
+
+                if (ry != last[i].y)
+                    last[i].hasChanged = true;
+
+                if (width > 4 && last[i].textWidth == 0 && last[i].hasChanged) {
+                    final String text = IntFormat.toShortHex(value);
+                    last[i].textWidth = text.length() * SIZE / 2;
+                    if (value < width / 2)
+                        g.drawText(new Vector(xx+1, y - SEP2 + 1), new Vector(xx + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
+                    else
+                        g.drawText(new Vector(xx+1, y + SIZE + SEP2 - 1), new Vector(xx + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+                    last[i].hasChanged = false;
+                }
 
                 if (!s[i].getType().equals(Value.Type.HIGHZ))
                     g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
 
-                if (!first && ry != lastRy[i])
-                    g.drawLine(new Vector(xx, y + lastRy[i]), new Vector(xx, y + ry), style);
+                if (!first && ry != last[i].y)
+                    g.drawLine(new Vector(xx, y + last[i].y), new Vector(xx, y + ry), style);
 
-                lastRy[i] = ry;
+                last[i].y = ry;
+                last[i].decTextWidth(size);
+
                 y += SIZE + SEP;
             }
             first = false;
@@ -170,5 +189,19 @@ public class DataPlotter implements Drawable {
     public DataPlotter setModelSync(SyncAccess modelSync) {
         this.modelSync = modelSync;
         return this;
+    }
+
+    private static final class LastState {
+        private int y;
+        private int textWidth;
+        private boolean hasChanged;
+
+        private void decTextWidth(double size) {
+            if (textWidth > 0) {
+                textWidth -= size;
+                if (textWidth < 0)
+                    textWidth = 0;
+            }
+        }
     }
 }
