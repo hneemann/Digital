@@ -36,8 +36,9 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -164,9 +165,11 @@ public final class EditorFactory {
     //Checkstyle flags redundant modifiers, which are not redundant. Maybe a bug in checkstyle?
     //CHECKSTYLE.OFF: RedundantModifier
     final static class StringEditor extends LabelEditor<String> {
+        private static final String FILE_KEY = "_File";
 
         private final JTextComponent text;
         private final JComponent compToAdd;
+        private JPopupMenu popup;
 
         public StringEditor(String value, Key<String> key) {
             if (key instanceof Key.LongString) {
@@ -180,6 +183,26 @@ public final class EditorFactory {
                     text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, Screen.getInstance().getFontSize()));
                 }
 
+                text.addMouseListener(new MouseAdapter() {
+                    public void mousePressed(MouseEvent e) {
+                        checkPopup(e);
+                    }
+
+                    public void mouseClicked(MouseEvent e) {
+                        checkPopup(e);
+                    }
+
+                    public void mouseReleased(MouseEvent e) {
+                        checkPopup(e);
+                    }
+
+                    private void checkPopup(MouseEvent e) {
+                        if (e.isPopupTrigger()) {
+                            getPopupMenu(key.getKey()).show(text, e.getX(), e.getY());
+                        }
+                    }
+                });
+
                 this.compToAdd = scrollPane;
 
                 setLabelAtTop(true);
@@ -188,6 +211,59 @@ public final class EditorFactory {
                 compToAdd = text;
             }
             text.setText(value);
+        }
+
+        JPopupMenu getPopupMenu(String keyName) {
+            if (popup == null) {
+                final String fileKey = keyName + FILE_KEY;
+                popup = new JPopupMenu();
+                popup.add(new ToolTipAction(Lang.get("btn_load")) {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        ElementAttributes attr = getAttributeDialog().getModifiedAttributes();
+                        JFileChooser fc = new MyFileChooser();
+                        fc.setSelectedFile(attr.getFile(fileKey));
+                        if (fc.showOpenDialog(getAttributeDialog()) == JFileChooser.APPROVE_OPTION) {
+                            File f = fc.getSelectedFile();
+                            attr.setFile(fileKey, f);
+                            try (InputStream in = new FileInputStream(f)) {
+                                StringBuilder sb = new StringBuilder();
+                                byte[] data = new byte[4096];
+                                int len;
+                                while ((len = in.read(data)) > 0)
+                                    sb.append(new String(data, 0, len));
+
+                                text.setText(sb.toString());
+                            } catch (IOException e) {
+                                new ErrorMessage(Lang.get("msg_errorReadingFile"))
+                                        .addCause(e)
+                                        .show(getAttributeDialog());
+                            }
+                        }
+                    }
+                }.createJMenuItem());
+                popup.add(new ToolTipAction(Lang.get("btn_save")) {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        ElementAttributes attr = getAttributeDialog().getModifiedAttributes();
+                        JFileChooser fc = new MyFileChooser();
+                        fc.setSelectedFile(attr.getFile(fileKey));
+                        if (fc.showSaveDialog(getAttributeDialog()) == JFileChooser.APPROVE_OPTION) {
+                            File f = fc.getSelectedFile();
+                            attr.setFile(fileKey, f);
+                            try (OutputStream out = new FileOutputStream(f)) {
+                                String s = text.getText();
+                                out.write(s.getBytes());
+                            } catch (IOException e) {
+                                new ErrorMessage(Lang.get("msg_errorWritingFile"))
+                                        .addCause(e)
+                                        .show(getAttributeDialog());
+                            }
+                        }
+                    }
+                }.createJMenuItem());
+            }
+            return popup;
         }
 
         @Override

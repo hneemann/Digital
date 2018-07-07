@@ -263,6 +263,13 @@ public class AttributeDialog extends JDialog {
     }
 
     /**
+     * @return the modified attributes
+     */
+    public ElementAttributes getModifiedAttributes() {
+        return modifiedAttributes;
+    }
+
+    /**
      * Shows the dialog
      *
      * @return the new attributes of null if nothing has changed
