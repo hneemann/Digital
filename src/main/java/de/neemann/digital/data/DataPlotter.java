@@ -15,12 +15,15 @@ import de.neemann.digital.draw.shapes.Drawable;
 
 /**
  * The dataSet stores the collected DataSamples.
- * Every DataSample contains the values of al signals at a given time.
+ * Every DataSample contains the values of all signals at a given time.
  */
 public class DataPlotter implements Drawable {
     private final ValueTable dataOriginal;
     private final int maxTextLength;
     private double size = SIZE;
+    private int offset = 0;
+    private int width = 0;
+    private boolean manualScaling = false;
     private SyncAccess modelSync = SyncAccess.NOSYNC;
 
     /**
@@ -46,25 +49,39 @@ public class DataPlotter implements Drawable {
 
     /**
      * Fits the data in the visible area
-     *
-     * @param width width of the frame
      */
-    public void fitInside(int width) {
+    public void fitInside() {
         modelSync.access(() -> size = ((double) (width - getTextBorder())) / dataOriginal.getRows());
+        offset = 0;
+        manualScaling = false;
     }
 
     /**
      * Apply a scaling factor
      *
-     * @param f the factor
-     * @return the scaling factor really applied
+     * @param f    the factor
+     * @param xPos actual mouse position
      */
-    public double scale(double f) {
-        double oldSize = size;
+    public void scale(double f, int xPos) {
+        double p = (xPos - getTextBorder() + offset) / size;
+
         size *= f;
         if (size < Style.NORMAL.getThickness()) size = Style.NORMAL.getThickness();
         if (size > SIZE * 4) size = SIZE * 4;
-        return size / oldSize;
+
+        offset = (int) (p * size - xPos + getTextBorder());
+
+        manualScaling = true;
+    }
+
+    /**
+     * Moves the plot
+     *
+     * @param dx the displacement
+     */
+    public void move(int dx) {
+        offset -= dx;
+        manualScaling = true;
     }
 
     @Override
@@ -83,18 +100,30 @@ public class DataPlotter implements Drawable {
             }).data;
         }
 
-        int x = getTextBorder();
+        int textWidth = getTextBorder();
+        int availDataWidth = width - textWidth;
+
+        final int preferredDataWidth = (int) (size * data.getRows());
+        if (!manualScaling && width > 0) {
+            if (preferredDataWidth < availDataWidth)
+                offset = 0;
+            else
+                offset = (int) ((int) ((preferredDataWidth - availDataWidth) / size + 1) * size);
+        }
 
         int yOffs = SIZE / 2;
         int y = BORDER;
         int signals = data.getColumns();
+        int textPos = textWidth;
+        if (offset < 0)
+            textPos = textWidth - offset;
         for (int i = 0; i < signals; i++) {
             String text = data.getColumnName(i);
-            g.drawText(new Vector(x - 2, y + yOffs), new Vector(x + 1, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
-            g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * data.getRows()), y - SEP2), Style.DASH);
+            g.drawText(new Vector(textPos - 2, y + yOffs), new Vector(textPos + 1, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
+            g.drawLine(new Vector(textPos, y - SEP2), new Vector(textWidth + preferredDataWidth - offset, y - SEP2), Style.DASH);
             y += SIZE + SEP;
         }
-        g.drawLine(new Vector(x, y - SEP2), new Vector(x + (int) (size * data.getRows()), y - SEP2), Style.DASH);
+        g.drawLine(new Vector(textPos, y - SEP2), new Vector(textWidth + preferredDataWidth - offset, y - SEP2), Style.DASH);
 
 
         LastState[] last = new LastState[signals];
@@ -103,60 +132,69 @@ public class DataPlotter implements Drawable {
         boolean first = true;
         double pos = 0;
         for (Value[] s : data) {
-            int xx = (int) (pos + x);
-            g.drawLine(new Vector(xx, BORDER - SEP2), new Vector(xx, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
-            y = BORDER;
-            for (int i = 0; i < signals; i++) {
-                Style style;
-                switch (s[i].getState()) {
-                    case FAIL:
-                        style = Style.FAILED;
-                        break;
-                    case PASS:
-                        style = Style.PASS;
-                        break;
-                    default:
-                        style = Style.NORMAL;
+            int xx = (int) (pos + textWidth - offset);
+
+            if (xx >= textWidth) {
+
+                g.drawLine(new Vector(xx, BORDER - SEP2), new Vector(xx, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
+                y = BORDER;
+                for (int i = 0; i < signals; i++) {
+                    Style style;
+                    switch (s[i].getState()) {
+                        case FAIL:
+                            style = Style.FAILED;
+                            break;
+                        case PASS:
+                            style = Style.PASS;
+                            break;
+                        default:
+                            style = Style.NORMAL;
+                    }
+
+                    long width = data.getMax(i);
+                    if (width == 0) width = 1;
+                    int ry;
+                    final long value = s[i].getValue();
+                    ry = (int) (SIZE - (SIZE * value) / width);
+
+                    if (value != last[i].value)
+                        last[i].hasChanged = true;
+
+                    if (width > 4 && last[i].textWidth == 0 && last[i].hasChanged) {
+                        final String text = IntFormat.toShortHex(value);
+                        last[i].textWidth = text.length() * SIZE / 2;
+                        if (value < width / 2)
+                            g.drawText(new Vector(xx + 1, y - SEP2 + 1), new Vector(xx + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
+                        else
+                            g.drawText(new Vector(xx + 1, y + SIZE + SEP2 - 1), new Vector(xx + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+                        last[i].hasChanged = false;
+                    }
+
+                    if (!s[i].getType().equals(Value.Type.HIGHZ))
+                        g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
+
+                    if (!first && ry != last[i].y)
+                        g.drawLine(new Vector(xx, y + last[i].y), new Vector(xx, y + ry), style);
+
+                    if (!first && value != last[i].value && Math.abs(ry - last[i].y) < SEP2)
+                        g.drawLine(new Vector(xx, y + ry - SEP2), new Vector(xx, y + ry + SEP2), Style.NORMAL);
+
+                    last[i].y = ry;
+                    last[i].value = value;
+                    last[i].decTextWidth(size);
+
+                    y += SIZE + SEP;
                 }
-
-                long width = data.getMax(i);
-                if (width == 0) width = 1;
-                int ry;
-                final long value = s[i].getValue();
-                ry = (int) (SIZE - (SIZE * value) / width);
-
-                if (value != last[i].value)
-                    last[i].hasChanged = true;
-
-                if (width > 4 && last[i].textWidth == 0 && last[i].hasChanged) {
-                    final String text = IntFormat.toShortHex(value);
-                    last[i].textWidth = text.length() * SIZE / 2;
-                    if (value < width / 2)
-                        g.drawText(new Vector(xx + 1, y - SEP2 + 1), new Vector(xx + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
-                    else
-                        g.drawText(new Vector(xx + 1, y + SIZE + SEP2 - 1), new Vector(xx + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
-                    last[i].hasChanged = false;
-                }
-
-                if (!s[i].getType().equals(Value.Type.HIGHZ))
-                    g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
-
-                if (!first && ry != last[i].y)
-                    g.drawLine(new Vector(xx, y + last[i].y), new Vector(xx, y + ry), style);
-
-                if (!first && value != last[i].value && Math.abs(ry - last[i].y) < SEP2)
-                    g.drawLine(new Vector(xx, y + ry - SEP2), new Vector(xx, y + ry + SEP2), Style.NORMAL);
-
-                last[i].y = ry;
-                last[i].value = value;
-                last[i].decTextWidth(size);
-
-                y += SIZE + SEP;
+                first = false;
             }
-            first = false;
+
+            if (width > 0 && xx > width)
+                break;
+
             pos += size;
+
         }
-        g.drawLine(new Vector((int) (pos + x), BORDER - SEP2), new Vector((int) (pos + x), (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
+        g.drawLine(new Vector((int) (pos + textWidth - offset), BORDER - SEP2), new Vector((int) (pos + textWidth - offset), (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
     }
 
     private int getTextBorder() {
@@ -193,6 +231,15 @@ public class DataPlotter implements Drawable {
     public DataPlotter setModelSync(SyncAccess modelSync) {
         this.modelSync = modelSync;
         return this;
+    }
+
+    /**
+     * Sets the width of the parents container
+     *
+     * @param width the component width
+     */
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     private static final class LastState {

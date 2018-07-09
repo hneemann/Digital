@@ -34,8 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class GraphDialog extends JDialog implements Observer {
     private static final int MAX_SAMPLE_SIZE = 1000;
-    private final GraphComponent dsc;
-    private final JScrollPane scrollPane;
+    private final GraphComponent graphComponent;
     private final ToolTipAction showTable;
 
     private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
@@ -108,10 +107,8 @@ public class GraphDialog extends JDialog implements Observer {
         super(owner, title, ModalityType.MODELESS);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        dsc = new GraphComponent(logData, modelSync);
-        scrollPane = new JScrollPane(dsc);
-        getContentPane().add(scrollPane);
-        dsc.setScrollPane(scrollPane);
+        graphComponent = new GraphComponent(logData, modelSync);
+        getContentPane().add(graphComponent);
 
         logData.addObserver(this);
 
@@ -119,21 +116,19 @@ public class GraphDialog extends JDialog implements Observer {
         ToolTipAction maximize = new ToolTipAction(Lang.get("menu_maximize"), ICON_EXPAND) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dsc.fitData(scrollPane.getWidth() - scrollPane.getInsets().left - scrollPane.getInsets().right);
+                graphComponent.fitData();
             }
         }.setAccelerator("F1");
         ToolTipAction zoomIn = new ToolTipAction(Lang.get("menu_zoomIn"), ICON_ZOOM_IN) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Rectangle r = scrollPane.getViewport().getViewRect();
-                dsc.scale(1.25f, r.x + r.width / 2);
+                graphComponent.scale(1.25f, getWidth() / 2);
             }
         }.setAccelerator("control PLUS");
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Rectangle r = scrollPane.getViewport().getViewRect();
-                dsc.scale(0.8f, r.x + r.width / 2);
+                graphComponent.scale(0.8f, getWidth() / 2);
             }
         }.setAccelerator("control MINUS");
 
@@ -153,8 +148,6 @@ public class GraphDialog extends JDialog implements Observer {
 
         getContentPane().add(toolBar, BorderLayout.NORTH);
         pack();
-
-        scrollPane.getViewport().setPreferredSize(dsc.getPreferredSize());
 
         JMenuBar bar = new JMenuBar();
         JMenu file = new JMenu(Lang.get("menu_file"));
@@ -190,13 +183,9 @@ public class GraphDialog extends JDialog implements Observer {
     public void hasChanged() {
         if (paintPending.compareAndSet(false, true)) {
             SwingUtilities.invokeLater(() -> {
-                dsc.revalidate();
-                dsc.repaint();
-                SwingUtilities.invokeLater(() -> {
-                    JScrollBar bar = scrollPane.getHorizontalScrollBar();
-                    bar.setValue(bar.getMaximum());
-                    paintPending.set(false);
-                });
+                graphComponent.revalidate();
+                graphComponent.repaint();
+                paintPending.set(false);
             });
         }
     }
@@ -235,9 +224,9 @@ public class GraphDialog extends JDialog implements Observer {
                         settings.setFile("exportDirectory", file.getParentFile());
                         try (Graphic gr = factory.create(new FileOutputStream(file))) {
                             GraphicMinMax minMax = new GraphicMinMax();
-                            dsc.getPlotter().drawTo(minMax, null);
+                            graphComponent.getPlotter().drawTo(minMax, null);
                             gr.setBoundingBox(minMax.getMin(), minMax.getMax());
-                            dsc.getPlotter().drawTo(gr, null);
+                            graphComponent.getPlotter().drawTo(gr, null);
                         }
                     });
         }

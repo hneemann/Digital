@@ -12,6 +12,10 @@ import de.neemann.digital.draw.graphics.GraphicSwing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * The component to show the trace window.
@@ -19,11 +23,6 @@ import java.awt.*;
  */
 public class GraphComponent extends JComponent {
     private final DataPlotter plotter;
-    /**
-     * The data stored in the plotter needs to be seen as part of the model.
-     * So a lock is necessary to access the data.
-     */
-    private JScrollPane scrollPane;
 
     /**
      * Creates a new dataSet
@@ -36,6 +35,31 @@ public class GraphComponent extends JComponent {
         addMouseWheelListener(e -> {
             double f = Math.pow(0.9, e.getWheelRotation());
             scale(f, e.getX());
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            private int lastPos;
+
+            @Override
+            public void mouseMoved(MouseEvent mouseEvent) {
+                lastPos = mouseEvent.getX();
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent mouseEvent) {
+                int pos = mouseEvent.getX();
+                plotter.move(pos - lastPos);
+                lastPos = pos;
+                repaint();
+            }
+
+        });
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent componentEvent) {
+                plotter.setWidth(getWidth());
+            }
         });
     }
 
@@ -62,33 +86,16 @@ public class GraphComponent extends JComponent {
      * @param xPos fixed position
      */
     public void scale(double f, int xPos) {
-        revalidate();
+        plotter.scale(f, xPos);
         repaint();
-        f = plotter.scale(f);
-        // keep relative mouse position
-        int x = (int) (xPos * f) - (xPos - (int) scrollPane.getViewport().getViewRect().getX());
-        if (x < 0) x = 0;
-        scrollPane.getViewport().setViewPosition(new Point(x, 0));
     }
 
     /**
      * Fits the data to the visible area
-     *
-     * @param width the clients width
      */
-    public void fitData(int width) {
-        plotter.fitInside(width);
-        revalidate();
+    public void fitData() {
+        plotter.fitInside();
         repaint();
-    }
-
-    /**
-     * Sets the used scroll pane
-     *
-     * @param scrollPane the scroll pane witch contains this component
-     */
-    public void setScrollPane(JScrollPane scrollPane) {
-        this.scrollPane = scrollPane;
     }
 
     /**
