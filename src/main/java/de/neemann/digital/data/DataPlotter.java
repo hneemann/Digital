@@ -125,16 +125,16 @@ public class DataPlotter implements Drawable {
                 final long value = s[i].getValue();
                 ry = (int) (SIZE - (SIZE * value) / width);
 
-                if (ry != last[i].y)
+                if (value != last[i].value)
                     last[i].hasChanged = true;
 
                 if (width > 4 && last[i].textWidth == 0 && last[i].hasChanged) {
                     final String text = IntFormat.toShortHex(value);
                     last[i].textWidth = text.length() * SIZE / 2;
                     if (value < width / 2)
-                        g.drawText(new Vector(xx+1, y - SEP2 + 1), new Vector(xx + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
+                        g.drawText(new Vector(xx + 1, y - SEP2 + 1), new Vector(xx + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
                     else
-                        g.drawText(new Vector(xx+1, y + SIZE + SEP2 - 1), new Vector(xx + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+                        g.drawText(new Vector(xx + 1, y + SIZE + SEP2 - 1), new Vector(xx + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
                     last[i].hasChanged = false;
                 }
 
@@ -144,7 +144,11 @@ public class DataPlotter implements Drawable {
                 if (!first && ry != last[i].y)
                     g.drawLine(new Vector(xx, y + last[i].y), new Vector(xx, y + ry), style);
 
+                if (!first && value != last[i].value && Math.abs(ry - last[i].y) < SEP2)
+                    g.drawLine(new Vector(xx, y + ry - SEP2), new Vector(xx, y + ry + SEP2), Style.NORMAL);
+
                 last[i].y = ry;
+                last[i].value = value;
                 last[i].decTextWidth(size);
 
                 y += SIZE + SEP;
@@ -192,9 +196,10 @@ public class DataPlotter implements Drawable {
     }
 
     private static final class LastState {
+        private long value;
         private int y;
         private int textWidth;
-        private boolean hasChanged;
+        private boolean hasChanged = true;
 
         private void decTextWidth(double size) {
             if (textWidth > 0) {
