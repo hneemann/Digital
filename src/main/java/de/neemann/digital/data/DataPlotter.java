@@ -67,7 +67,7 @@ public class DataPlotter implements Drawable {
 
         size *= f;
         if (size < Style.NORMAL.getThickness()) size = Style.NORMAL.getThickness();
-        if (size > SIZE * 4) size = SIZE * 4;
+        if (size > SIZE * 6) size = SIZE * 6;
 
         offset = (int) (p * size - xPos + getTextBorder());
 
@@ -132,11 +132,14 @@ public class DataPlotter implements Drawable {
         boolean first = true;
         double pos = 0;
         for (Value[] s : data) {
-            int xx = (int) (pos + textWidth - offset);
+            int x1 = (int) (pos + textWidth - offset);
+            int x2 = (int) (pos + textWidth - offset + size);
 
-            if (xx >= textWidth) {
+            if (x2 > textWidth) {
+                if (x1 < textWidth)
+                    x1 = textWidth;
 
-                g.drawLine(new Vector(xx, BORDER - SEP2), new Vector(xx, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
+                g.drawLine(new Vector(x1, BORDER - SEP2), new Vector(x1, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
                 y = BORDER;
                 for (int i = 0; i < signals; i++) {
                     Style style;
@@ -164,31 +167,31 @@ public class DataPlotter implements Drawable {
                         final String text = IntFormat.toShortHex(value);
                         last[i].textWidth = text.length() * SIZE / 2;
                         if (value < width / 2)
-                            g.drawText(new Vector(xx + 1, y - SEP2 + 1), new Vector(xx + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
+                            g.drawText(new Vector(x1 + 1, y - SEP2 + 1), new Vector(x1 + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
                         else
-                            g.drawText(new Vector(xx + 1, y + SIZE + SEP2 - 1), new Vector(xx + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+                            g.drawText(new Vector(x1 + 1, y + SIZE + SEP2 - 1), new Vector(x1 + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
                         last[i].hasChanged = false;
                     }
 
                     if (!s[i].getType().equals(Value.Type.HIGHZ))
-                        g.drawLine(new Vector(xx, y + ry), new Vector((int) (xx + size), y + ry), style);
+                        g.drawLine(new Vector(x1, y + ry), new Vector((int) (x2), y + ry), style);
 
                     if (!first && ry != last[i].y)
-                        g.drawLine(new Vector(xx, y + last[i].y), new Vector(xx, y + ry), style);
+                        g.drawLine(new Vector(x1, y + last[i].y), new Vector(x1, y + ry), style);
 
                     if (!first && value != last[i].value && Math.abs(ry - last[i].y) < SEP2)
-                        g.drawLine(new Vector(xx, y + ry - SEP2), new Vector(xx, y + ry + SEP2), Style.NORMAL);
+                        g.drawLine(new Vector(x1, y + ry - SEP2), new Vector(x1, y + ry + SEP2), Style.NORMAL);
 
                     last[i].y = ry;
                     last[i].value = value;
-                    last[i].decTextWidth(size);
+                    last[i].decTextWidth(x2 - x1);
 
                     y += SIZE + SEP;
                 }
                 first = false;
             }
 
-            if (width > 0 && xx > width)
+            if (width > 0 && x1 > width)
                 break;
 
             pos += size;
@@ -217,7 +220,7 @@ public class DataPlotter implements Drawable {
 
             @Override
             public void run() {
-                r = DataPlotter.this.getTextBorder() + (int) (dataOriginal.getRows() * size);
+                r = DataPlotter.this.getTextBorder() + (int) ((dataOriginal.getRows() + 1) * size);
             }
         }).r;
     }
@@ -248,7 +251,7 @@ public class DataPlotter implements Drawable {
         private int textWidth;
         private boolean hasChanged = true;
 
-        private void decTextWidth(double size) {
+        private void decTextWidth(int size) {
             if (textWidth > 0) {
                 textWidth -= size;
                 if (textWidth < 0)
