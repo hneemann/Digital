@@ -63,7 +63,7 @@ public class DataPlotter implements Drawable {
         double oldSize = size;
         size *= f;
         if (size < Style.NORMAL.getThickness()) size = Style.NORMAL.getThickness();
-        if (size > SIZE) size = SIZE;
+        if (size > SIZE * 4) size = SIZE * 4;
         return size / oldSize;
     }
 
