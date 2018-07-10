@@ -274,7 +274,7 @@ public class DataPlotter implements Drawable {
     public boolean setNewOffset(int value) {
         if (offset != value) {
             offset = value;
-            manualScaling = true;
+            manualScaling = scrollBar == null || scrollBar.getMaximum() - scrollBar.getVisibleAmount() != offset;
             return true;
         }
         return false;
