@@ -30,7 +30,7 @@ public class GraphComponent extends JComponent {
      * @param dataSet   the dataSet to paint
      * @param modelSync lock to access the model
      */
-    public GraphComponent(ValueTable dataSet, SyncAccess modelSync) {
+    GraphComponent(ValueTable dataSet, SyncAccess modelSync) {
         plotter = new DataPlotter(dataSet).setModelSync(modelSync);
         addMouseWheelListener(e -> {
             double f = Math.pow(0.9, e.getWheelRotation());
@@ -93,7 +93,7 @@ public class GraphComponent extends JComponent {
     /**
      * Fits the data to the visible area
      */
-    public void fitData() {
+    void fitData() {
         plotter.fitInside();
         repaint();
     }
@@ -101,7 +101,20 @@ public class GraphComponent extends JComponent {
     /**
      * @return the data plotter
      */
-    public DataPlotter getPlotter() {
+    DataPlotter getPlotter() {
         return plotter;
+    }
+
+    /**
+     * Sets the scroll bar to use
+     *
+     * @param scrollBar the scroll bar
+     */
+    void setScrollBar(JScrollBar scrollBar) {
+        plotter.setScrollBar(scrollBar);
+        scrollBar.addAdjustmentListener(adjustmentEvent -> {
+            if (plotter.setNewOffset(adjustmentEvent.getValue()))
+                repaint();
+        });
     }
 }

@@ -13,18 +13,21 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
 
+import javax.swing.*;
+
 /**
  * The dataSet stores the collected DataSamples.
  * Every DataSample contains the values of all signals at a given time.
  */
 public class DataPlotter implements Drawable {
     private final ValueTable dataOriginal;
-    private final int maxTextLength;
+    private final int textWidth;
     private double size = SIZE;
     private int offset = 0;
     private int width = 0;
     private boolean manualScaling = false;
     private SyncAccess modelSync = SyncAccess.NOSYNC;
+    private JScrollBar scrollBar;
 
     /**
      * Creates a new instance
@@ -39,7 +42,7 @@ public class DataPlotter implements Drawable {
             int w = text.length();
             if (w > tl) tl = w;
         }
-        maxTextLength = tl;
+        textWidth = tl * Style.NORMAL.getFontSize() / 2 + BORDER + SEP;
     }
 
     private static final int BORDER = 10;
@@ -52,7 +55,7 @@ public class DataPlotter implements Drawable {
      * Fits the data in the visible area
      */
     public void fitInside() {
-        modelSync.access(() -> size = ((double) (width - getTextBorder())) / dataOriginal.getRows());
+        modelSync.access(() -> size = ((double) (width - textWidth)) / dataOriginal.getRows());
         offset = 0;
         manualScaling = false;
     }
@@ -64,13 +67,13 @@ public class DataPlotter implements Drawable {
      * @param xPos actual mouse position
      */
     public void scale(double f, int xPos) {
-        double p = (xPos - getTextBorder() + offset) / size;
+        double p = (xPos - textWidth + offset) / size;
 
         size *= f;
         if (size < Style.NORMAL.getThickness()) size = Style.NORMAL.getThickness();
         if (size > SIZE * 6) size = SIZE * 6;
 
-        offset = (int) (p * size - xPos + getTextBorder());
+        offset = (int) (p * size - xPos + textWidth);
 
         manualScaling = true;
     }
@@ -102,7 +105,6 @@ public class DataPlotter implements Drawable {
             }).data;
         }
 
-        int textWidth = getTextBorder();
         int availDataWidth = width - textWidth;
 
         final int preferredDataWidth = (int) (size * data.getRows());
@@ -112,6 +114,9 @@ public class DataPlotter implements Drawable {
             else
                 offset = (int) ((int) ((preferredDataWidth - availDataWidth) / size + 1) * size);
         }
+
+        if (scrollBar != null)
+            scrollBar.setValues(offset, availDataWidth, 0, preferredDataWidth);
 
         int yOffs = SIZE / 2;
         int y = BORDER;
@@ -181,7 +186,7 @@ public class DataPlotter implements Drawable {
                     }
 
                     if (!s[i].getType().equals(Value.Type.HIGHZ))
-                        g.drawLine(new Vector(x1, y + ry), new Vector((int) (x2), y + ry), style);
+                        g.drawLine(new Vector(x1, y + ry), new Vector(x2, y + ry), style);
 
                     if (!first && ry != last[i].y)
                         g.drawLine(new Vector(x1, y + last[i].y), new Vector(x1, y + ry), style);
@@ -207,10 +212,6 @@ public class DataPlotter implements Drawable {
         g.drawLine(new Vector((int) (pos + textWidth - offset), BORDER - SEP2), new Vector((int) (pos + textWidth - offset), (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
     }
 
-    private int getTextBorder() {
-        return maxTextLength * Style.NORMAL.getFontSize() / 2 + BORDER + SEP;
-    }
-
     /**
      * @return the preferred height of the graphical representation
      */
@@ -227,7 +228,7 @@ public class DataPlotter implements Drawable {
 
             @Override
             public void run() {
-                r = DataPlotter.this.getTextBorder() + (int) ((dataOriginal.getRows() + 1) * size);
+                r = DataPlotter.this.textWidth + (int) ((dataOriginal.getRows() + 1) * size);
             }
         }).r;
     }
@@ -250,6 +251,33 @@ public class DataPlotter implements Drawable {
      */
     public void setWidth(int width) {
         this.width = width;
+        if (scrollBar != null)
+            scrollBar.setVisibleAmount(width - textWidth);
+    }
+
+    /**
+     * Sets the scroll bar to use
+     *
+     * @param scrollBar the scroll bar
+     */
+    public void setScrollBar(JScrollBar scrollBar) {
+        this.scrollBar = scrollBar;
+    }
+
+    /**
+     * Sets the new offset.
+     * Is called by the scrollbar.
+     *
+     * @param value the new offset
+     * @return true if there was a change
+     */
+    public boolean setNewOffset(int value) {
+        if (offset != value) {
+            offset = value;
+            manualScaling = true;
+            return true;
+        }
+        return false;
     }
 
     private static final class LastState {

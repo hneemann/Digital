@@ -110,6 +110,10 @@ public class GraphDialog extends JDialog implements Observer {
         graphComponent = new GraphComponent(logData, modelSync);
         getContentPane().add(graphComponent);
 
+        final JScrollBar scrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
+        getContentPane().add(scrollBar, BorderLayout.SOUTH);
+        graphComponent.setScrollBar(scrollBar);
+
         logData.addObserver(this);
 
         JToolBar toolBar = new JToolBar();
