@@ -87,7 +87,8 @@ public class DataPlotter implements Drawable {
     @Override
     public void drawTo(Graphic g, Style highLight) {
         ValueTable data;
-        if (modelSync == SyncAccess.NOSYNC) {
+        final boolean staticData = modelSync == SyncAccess.NOSYNC;
+        if (staticData) {
             data = dataOriginal;
         } else {
             data = modelSync.access(new Runnable() {
@@ -104,7 +105,7 @@ public class DataPlotter implements Drawable {
         int availDataWidth = width - textWidth;
 
         final int preferredDataWidth = (int) (size * data.getRows());
-        if (!manualScaling && width > 0) {
+        if (!manualScaling && width > 0 && !staticData) {
             if (preferredDataWidth < availDataWidth)
                 offset = 0;
             else
