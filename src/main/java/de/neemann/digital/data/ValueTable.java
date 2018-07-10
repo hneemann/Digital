@@ -115,7 +115,7 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
 
     private void checkMax(Value[] row) {
         for (int i = 0; i < row.length; i++)
-            if (max[i] < row[i].getValue()) max[i] = row[i].getValue();
+            if (Long.compareUnsigned(max[i], row[i].getValue()) < 0) max[i] = row[i].getValue();
     }
 
     /**

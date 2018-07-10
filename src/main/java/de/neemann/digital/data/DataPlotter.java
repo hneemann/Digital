@@ -44,6 +44,7 @@ public class DataPlotter implements Drawable {
 
     private static final int BORDER = 10;
     private static final int SIZE = 25;
+    private static final int CENTER = SIZE / 2;
     private static final int SEP2 = 5;
     private static final int SEP = SEP2 * 2;
 
@@ -157,9 +158,14 @@ public class DataPlotter implements Drawable {
 
                     long width = data.getMax(i);
                     if (width == 0) width = 1;
+                    long value = s[i].getValue();
                     int ry;
-                    final long value = s[i].getValue();
-                    ry = (int) (SIZE - (SIZE * value) / width);
+                    if (Math.abs(width >>> 1) < Integer.MAX_VALUE) {
+                        ry = (int) (SIZE - (SIZE * value) / width);
+                    } else {
+                        width = (width >>> 32);
+                        ry = (int) (SIZE - (SIZE * (value >>> 32)) / width);
+                    }
 
                     if (value != last[i].value)
                         last[i].hasChanged = true;
@@ -167,7 +173,7 @@ public class DataPlotter implements Drawable {
                     if (width > 4 && last[i].textWidth == 0 && last[i].hasChanged) {
                         final String text = IntFormat.toShortHex(value);
                         last[i].textWidth = text.length() * SIZE / 2;
-                        if (value < width / 2)
+                        if (ry > CENTER)
                             g.drawText(new Vector(x1 + 1, y - SEP2 + 1), new Vector(x1 + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
                         else
                             g.drawText(new Vector(x1 + 1, y + SIZE + SEP2 - 1), new Vector(x1 + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
