@@ -28,6 +28,7 @@ public class DataPlotter implements Drawable {
     private boolean manualScaling = false;
     private SyncAccess modelSync = SyncAccess.NOSYNC;
     private JScrollBar scrollBar;
+    private int autoScaleOffset;
 
     /**
      * Creates a new instance
@@ -85,7 +86,7 @@ public class DataPlotter implements Drawable {
      */
     public void move(int dx) {
         offset -= dx;
-        manualScaling = true;
+        manualScaling = dx >= 0 || offset < autoScaleOffset;
     }
 
     @Override
@@ -105,15 +106,12 @@ public class DataPlotter implements Drawable {
             }).data;
         }
 
-        int availDataWidth = width - textWidth;
-
+        final int availDataWidth = width - textWidth;
         final int preferredDataWidth = (int) (size * data.getRows());
-        if (!manualScaling && width > 0 && !staticData) {
-            if (preferredDataWidth < availDataWidth)
-                offset = 0;
-            else
-                offset = (int) ((int) ((preferredDataWidth - availDataWidth) / size + 1) * size);
-        }
+
+        autoScaleOffset = preferredDataWidth - availDataWidth + 2;
+        if (!manualScaling && width > 0 && !staticData && autoScaleOffset > 0)
+            offset = autoScaleOffset;
 
         if (scrollBar != null)
             scrollBar.setValues(offset, availDataWidth, 0, preferredDataWidth);
