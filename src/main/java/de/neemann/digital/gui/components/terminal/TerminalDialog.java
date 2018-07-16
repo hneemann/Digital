@@ -66,16 +66,28 @@ public class TerminalDialog extends JDialog {
      * @param value the character
      */
     public void addChar(char value) {
-        if (value == 13 || value == 10) {
-            pos = 0;
-            textArea.append("\n");
-        } else {
-            textArea.append("" + value);
-            pos++;
-            if (pos == width) {
+        switch (value) {
+            case 13:
+            case 10:
                 pos = 0;
                 textArea.append("\n");
-            }
+                break;
+            case 8:
+                CharDeleter cd = new CharDeleter(textArea.getText(), pos).delete();
+                textArea.setText(cd.getText());
+                pos = cd.getPos();
+                break;
+            case 12:
+                pos = 0;
+                textArea.setText("");
+                break;
+            default:
+                textArea.append("" + value);
+                pos++;
+                if (pos == width) {
+                    pos = 0;
+                    textArea.append("\n");
+                }
         }
     }
 }
