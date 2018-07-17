@@ -6,10 +6,7 @@
 package de.neemann.digital.core.switching;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.element.Element;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -103,8 +100,8 @@ public class RelayDT extends Node implements Element {
 
 
         private Pole(int bits, int num) {
-            outputAB = new ObservableValue("AB" + num, bits).setBidirectional().setToHighZ();
-            outputAC = new ObservableValue("AC" + num, bits).setBidirectional().setToHighZ();
+            outputAB = new ObservableValue("A" + num, bits).setBidirectional().setToHighZ();
+            outputAC = new ObservableValue("AC" + num, bits).setBidirectional().setToHighZ().setDescription(PinDescription.IGNORE);
             outputB = new ObservableValue("B" + num, bits).setBidirectional().setToHighZ();
             outputC = new ObservableValue("C" + num, bits).setBidirectional().setToHighZ();
             s1 = new Switch(outputAB, outputB, false);

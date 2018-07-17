@@ -151,9 +151,12 @@ public class DocuTest extends TestCase {
 
     private void writePins(Writer w, PinDescriptions pinDescriptions) throws IOException {
         for (PinDescription p : pinDescriptions) {
-            w.append("        <pin name=\"").append(escapeHTML(p.getName())).append("\">");
-            w.append(escapeHTML(p.getDescription()));
-            w.append("</pin>\n");
+            final String description = p.getDescription();
+            if (description != PinDescription.IGNORE) {
+                w.append("        <pin name=\"").append(escapeHTML(p.getName())).append("\">");
+                w.append(escapeHTML(description));
+                w.append("</pin>\n");
+            }
         }
     }
 

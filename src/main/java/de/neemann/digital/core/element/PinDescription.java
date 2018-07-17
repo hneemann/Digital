@@ -11,6 +11,11 @@ package de.neemann.digital.core.element;
 public interface PinDescription {
 
     /**
+     * If the description is set to this value, the pin is ignored in the documentation.
+     */
+    String IGNORE = "ignore";
+
+    /**
      * The possible pull resistor configurations
      * "both" is an error condition which can happen if nets are merged
      */

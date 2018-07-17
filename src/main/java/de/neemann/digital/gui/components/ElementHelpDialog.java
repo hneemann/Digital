@@ -223,8 +223,11 @@ public class ElementHelpDialog extends JDialog {
         PinDescriptions outputs = et.getOutputDescriptions(elementAttributes);
         if (outputs != null && outputs.size() > 0) {
             w.append("<h4>").append(Lang.get("elem_Help_outputs")).append(":</h4>\n<dl>\n");
-            for (PinDescription i : outputs)
-                writeEntry(w, ElementAttributes.cleanLabel(i.getName()), i.getDescription());
+            for (PinDescription i : outputs) {
+                final String description = i.getDescription();
+                if (description != PinDescription.IGNORE)
+                    writeEntry(w, ElementAttributes.cleanLabel(i.getName()), description);
+            }
             w.append("</dl>\n");
         }
 
