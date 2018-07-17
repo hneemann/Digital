@@ -61,8 +61,8 @@ public class RelayDT extends Node implements Element {
         input2 = inputs.get(1).checkBits(1, this).addObserverToValue(this);
         int i = 2;
         for (Pole p : poles) {
-            p.setInputs(inputs.get(i), inputs.get(i + 1), inputs.get(i + 2));
-            i += 3;
+            p.setInputs(inputs.get(i), inputs.get(i + 1), inputs.get(i + 2), inputs.get(i + 3));
+            i += 4;
         }
     }
 
@@ -96,26 +96,28 @@ public class RelayDT extends Node implements Element {
     private static final class Pole {
         private final Switch s1;
         private final Switch s2;
-        private final ObservableValue outputA;
+        private final ObservableValue outputAB;
+        private final ObservableValue outputAC;
         private final ObservableValue outputB;
         private final ObservableValue outputC;
 
 
         private Pole(int bits, int num) {
-            outputA = new ObservableValue("A" + num, bits).setBidirectional().setToHighZ();
+            outputAB = new ObservableValue("AB" + num, bits).setBidirectional().setToHighZ();
+            outputAC = new ObservableValue("AC" + num, bits).setBidirectional().setToHighZ();
             outputB = new ObservableValue("B" + num, bits).setBidirectional().setToHighZ();
             outputC = new ObservableValue("C" + num, bits).setBidirectional().setToHighZ();
-            s1 = new Switch(outputA, outputB, false);
-            s2 = new Switch(outputA, outputC, true);
+            s1 = new Switch(outputAB, outputB, false);
+            s2 = new Switch(outputAC, outputC, true);
         }
 
         private void addOutputs(ObservableValues.Builder ov) {
-            ov.add(outputA, outputB, outputC);
+            ov.add(outputAB, outputAC, outputB, outputC);
         }
 
-        public void setInputs(ObservableValue inA, ObservableValue inB, ObservableValue inC) throws NodeException {
-            s1.setInputs(new ObservableValues(inA, inB));
-            s2.setInputs(new ObservableValues(inA, inC));
+        public void setInputs(ObservableValue inAB, ObservableValue inAC, ObservableValue inB, ObservableValue inC) throws NodeException {
+            s1.setInputs(new ObservableValues(inAB, inB));
+            s2.setInputs(new ObservableValues(inAC, inC));
         }
 
         public void init(Model model) {

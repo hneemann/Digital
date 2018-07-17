@@ -54,9 +54,10 @@ public class RelayDTShape implements Shape {
 
             for (int p = 0; p < poles; p++)
                 pins
-                        .add(new Pin(new Vector(0, p * SIZE * 2), outputs.get(p * 3)))
-                        .add(new Pin(new Vector(SIZE * 2, p * SIZE * 2), outputs.get(p * 3 + 1)))
-                        .add(new Pin(new Vector(SIZE * 2, p * SIZE * 2 - SIZE), outputs.get(p * 3 + 2)));
+                        .add(new Pin(new Vector(0, p * SIZE * 2), outputs.get(p * 4)))
+                        .add(new Pin(new Vector(0, p * SIZE * 2), outputs.get(p * 4 + 1)))
+                        .add(new Pin(new Vector(SIZE * 2, p * SIZE * 2), outputs.get(p * 4 + 2)))
+                        .add(new Pin(new Vector(SIZE * 2, p * SIZE * 2 - SIZE), outputs.get(p * 4 + 3)));
 
         }
         return pins;
