@@ -78,7 +78,7 @@ public class RelayShape implements Shape {
             yOffs = SIZE2 / 2;
             graphic.drawLine(new Vector(0, 0), new Vector(SIZE * 2 - 4, -yOffs * 2), Style.NORMAL);
         }
-        graphic.drawLine(new Vector(SIZE, -yOffs), new Vector(SIZE, 1 - SIZE), Style.THIN);
+        graphic.drawLine(new Vector(SIZE, -yOffs), new Vector(SIZE, 1 - SIZE), Style.DASH);
 
         graphic.drawPolygon(new Polygon(true)
                 .add(SIZE2, -SIZE)

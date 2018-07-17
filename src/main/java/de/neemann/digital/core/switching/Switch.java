@@ -52,17 +52,6 @@ public class Switch implements Element, NodeInterface {
     }
 
     /**
-     * Sets this switch to unidirectional
-     *
-     * @param unidirectional the state
-     * @return this for chained calls
-     */
-    public Switch setUnidirectional(Unidirectional unidirectional) {
-        this.unidirectional = unidirectional;
-        return this;
-    }
-
-    /**
      * Creates a new instance
      *
      * @param attr   the elements attributes
@@ -75,6 +64,31 @@ public class Switch implements Element, NodeInterface {
         this.closed = closed;
         output1 = new ObservableValue(out1, bits).setBidirectional().setToHighZ();
         output2 = new ObservableValue(out2, bits).setBidirectional().setToHighZ();
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param closed  initial state
+     * @param output1 first output
+     * @param output2 second output
+     */
+    public Switch(ObservableValue output1, ObservableValue output2, boolean closed) {
+        this.bits = output1.getBits();
+        this.closed = closed;
+        this.output1 = output1;
+        this.output2 = output2;
+    }
+
+    /**
+     * Sets this switch to unidirectional
+     *
+     * @param unidirectional the state
+     * @return this for chained calls
+     */
+    public Switch setUnidirectional(Unidirectional unidirectional) {
+        this.unidirectional = unidirectional;
+        return this;
     }
 
     @Override

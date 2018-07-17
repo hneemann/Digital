@@ -185,6 +185,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Switch.DESCRIPTION)
                         .add(Fuse.DESCRIPTION)
                         .add(Relay.DESCRIPTION)
+                        .add(RelayDT.DESCRIPTION)
                         .add(PFET.DESCRIPTION)
                         .add(NFET.DESCRIPTION)
                         .add(FGPFET.DESCRIPTION)

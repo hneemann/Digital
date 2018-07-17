@@ -10,7 +10,6 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.draw.elements.PinException;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -33,8 +32,7 @@ public class Relay extends Node implements Element {
     private final Switch s;
     private ObservableValue input1;
     private ObservableValue input2;
-    private boolean state;
-    private boolean stateHighZ;
+    private boolean isClosed;
 
     /**
      * Create a new instance
@@ -57,7 +55,7 @@ public class Relay extends Node implements Element {
     }
 
     @Override
-    public ObservableValues getOutputs() throws PinException {
+    public ObservableValues getOutputs() {
         return s.getOutputs();
     }
 
@@ -69,21 +67,20 @@ public class Relay extends Node implements Element {
     }
 
     @Override
-    public void readInputs() throws NodeException {
-        state = input1.getBool() ^ input2.getBool();
-        stateHighZ = input1.isHighZ() || input2.isHighZ();
-    }
-
-    @Override
-    public void writeOutputs() throws NodeException {
-        if (stateHighZ)
-            s.setClosed(invers);
+    public void readInputs() {
+        if (input1.isHighZ() || input2.isHighZ())
+            isClosed = invers;
         else
-            s.setClosed(state ^ invers);
+            isClosed = (input1.getBool() ^ input2.getBool()) ^ invers;
     }
 
     @Override
-    public void init(Model model) throws NodeException {
+    public void writeOutputs() {
+        s.setClosed(isClosed);
+    }
+
+    @Override
+    public void init(Model model) {
         s.init(model);
     }
 
@@ -91,6 +88,6 @@ public class Relay extends Node implements Element {
      * @return true if closed
      */
     public boolean isClosed() {
-        return s.isClosed();
+        return isClosed;
     }
 }

@@ -445,6 +445,16 @@ public final class Keys {
     public static final Key<Boolean> RELAY_NORMALLY_CLOSED
             = new Key<>("relayNormallyClosed", false).allowGroupEdit();
 
+
+    /**
+     * Number of poles in the double throw relay
+     */
+    public static final Key<Integer> POLES
+            = new Key.KeyInteger("poles", 1)
+            .setComboBoxValues(new Integer[]{1, 2, 3, 4})
+            .setMin(1).allowGroupEdit();
+
+
     /**
      * flag used by a barrel shifter to select the shift mode
      */
