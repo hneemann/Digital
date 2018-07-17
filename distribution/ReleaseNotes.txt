@@ -1,7 +1,8 @@
 Release Notes
 
 HEAD, planned as v0.20
-- improved zooming and navigating in the measurement graph
+- Improved zooming and navigating in the measurement graph.
+- Added multi pole double-throw relays.
 
 v0.19, released on 14. June 2018
 - Added a tabbed pane to the attributes dialog to make it more beginner friendly.
