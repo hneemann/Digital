@@ -89,29 +89,29 @@ public class Switch implements Element, NodeInterface {
                         final CommonBusValue in2 = (CommonBusValue) input2;
                         ObservableValue constant = in1.searchConstant();
                         if (constant != null)
-                            switchModel = new SimpleSwitch(constant, output2);
+                            switchModel = new UniDirectionalSwitch(constant, output2);
                         else {
                             constant = in2.searchConstant();
                             if (constant != null)
-                                switchModel = new SimpleSwitch(constant, output1);
+                                switchModel = new UniDirectionalSwitch(constant, output1);
                             else
                                 switchModel = new RealSwitch(in1, in2);
                         }
                     } else
-                        switchModel = new SimpleSwitch(input1, output2);
+                        switchModel = new UniDirectionalSwitch(input1, output2);
                 } else {
                     if (input2 instanceof CommonBusValue) {
-                        switchModel = new SimpleSwitch(input2, output1);
+                        switchModel = new UniDirectionalSwitch(input2, output1);
                     } else {
                         throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
                     }
                 }
                 break;
             case FROM1TO2:
-                switchModel = new SimpleSwitch(input1, output2);
+                switchModel = new UniDirectionalSwitch(input1, output2);
                 break;
             case FROM2TO1:
-                switchModel = new SimpleSwitch(input2, output1);
+                switchModel = new UniDirectionalSwitch(input2, output1);
                 break;
         }
     }
@@ -126,7 +126,7 @@ public class Switch implements Element, NodeInterface {
     }
 
     @Override
-    public void init(Model model) throws NodeException {
+    public void init(Model model) {
         switchModel.setModel(model);
         switchModel.setClosed(closed);
         hasChanged();
@@ -179,12 +179,17 @@ public class Switch implements Element, NodeInterface {
         void setModel(Model model);
     }
 
-    private static final class SimpleSwitch implements SwitchModel {
+    /**
+     * A simple unidirectional switch.
+     * Works like a driver: When the switch is closed, the signal value at the input
+     * is forwarded to the output. When the switch is open, the output is set to HighZ.
+     */
+    private static final class UniDirectionalSwitch implements SwitchModel {
         private final ObservableValue input;
         private final ObservableValue output;
         private boolean closed;
 
-        SimpleSwitch(ObservableValue input, ObservableValue output) {
+        UniDirectionalSwitch(ObservableValue input, ObservableValue output) {
             this.input = input;
             this.output = output;
         }
@@ -209,7 +214,7 @@ public class Switch implements Element, NodeInterface {
     }
 
     /**
-     * represents a switch
+     * Represents a real bidirectional switch.
      */
     public static final class RealSwitch implements SwitchModel {
         private final CommonBusValue input1;

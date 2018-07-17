@@ -15,8 +15,8 @@ import java.util.HashSet;
 
 /**
  * Checks if a temporary burn condition is still present after the step is completed.
- * If so an exception is thrown.
- * Handles also the reconfiguration of the nets if a switches has changed.
+ * If so, an exception is thrown.
+ * Handles also the reconfiguration of the nets if a switch has changed.
  */
 public final class BusModelStateObserver implements ModelStateObserverTyped {
     private final ArrayList<AbstractBusHandler> busList;
