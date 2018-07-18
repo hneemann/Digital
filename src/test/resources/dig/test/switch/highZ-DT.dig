@@ -86,12 +86,12 @@ z z  z   z
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="300" y="300"/>
+      <pos x="280" y="300"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="300" y="240"/>
+      <p1 x="280" y="240"/>
       <p2 x="320" y="240"/>
     </wire>
     <wire>
@@ -100,10 +100,10 @@ z z  z   z
     </wire>
     <wire>
       <p1 x="240" y="320"/>
-      <p2 x="300" y="320"/>
+      <p2 x="280" y="320"/>
     </wire>
     <wire>
-      <p1 x="280" y="200"/>
+      <p1 x="300" y="200"/>
       <p2 x="320" y="200"/>
     </wire>
     <wire>
@@ -119,15 +119,15 @@ z z  z   z
       <p2 x="240" y="320"/>
     </wire>
     <wire>
-      <p1 x="280" y="200"/>
+      <p1 x="280" y="240"/>
       <p2 x="280" y="260"/>
     </wire>
     <wire>
-      <p1 x="300" y="300"/>
-      <p2 x="300" y="320"/>
+      <p1 x="280" y="300"/>
+      <p2 x="280" y="320"/>
     </wire>
     <wire>
-      <p1 x="300" y="240"/>
+      <p1 x="300" y="200"/>
       <p2 x="300" y="260"/>
     </wire>
   </wires>
