@@ -26,9 +26,10 @@ public class RelayShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
     private final String label;
-    private boolean invers;
+    private final int poles;
     private Relay relay;
     private boolean relayIsClosed;
+    private Pins pins;
 
     /**
      * Creates a new instance
@@ -43,15 +44,25 @@ public class RelayShape implements Shape {
         invers = attributes.get(Keys.RELAY_NORMALLY_CLOSED);
         relayIsClosed = invers;
         label = attributes.getCleanLabel();
+        poles = attributes.get(Keys.POLES);
     }
 
     @Override
     public Pins getPins() {
-        return new Pins()
-                .add(new Pin(new Vector(0, -SIZE * 2), inputs.get(0)))
-                .add(new Pin(new Vector(SIZE * 2, -SIZE * 2), inputs.get(1)))
-                .add(new Pin(new Vector(0, 0), outputs.get(0)))
-                .add(new Pin(new Vector(SIZE * 2, 0), outputs.get(1)));
+        if (pins == null) {
+            pins = new Pins()
+                    .add(new Pin(new Vector(0, -SIZE * 2), inputs.get(0)))
+                    .add(new Pin(new Vector(SIZE * 2, -SIZE * 2), inputs.get(1)));
+            final int relayStepY = 2 * SIZE;
+            int relayBaseY = 0;
+            for (int p = 0; p < poles; p++) {
+                pins
+                        .add(new Pin(new Vector(0, relayBaseY), outputs.get(p * 2)))
+                        .add(new Pin(new Vector(SIZE * 2, relayBaseY), outputs.get(p * 2 + 1)));
+                relayBaseY += relayStepY;
+            }
+        }
+        return pins;
     }
 
     @Override
@@ -70,16 +81,28 @@ public class RelayShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        int yOffs = 0;
-
+        final int relayTipY;
+        final int relayTipX;
         if (relayIsClosed) {
-            graphic.drawLine(new Vector(0, 0), new Vector(SIZE * 2, 0), Style.NORMAL);
+            relayTipX = SIZE * 2;
+            relayTipY = 0;
         } else {
-            yOffs = SIZE2 / 2;
-            graphic.drawLine(new Vector(0, 0), new Vector(SIZE * 2 - 4, -yOffs * 2), Style.NORMAL);
+            relayTipX = (SIZE * 2) - 4;
+            relayTipY = SIZE2;
         }
-        graphic.drawLine(new Vector(SIZE, -yOffs), new Vector(SIZE, 1 - SIZE), Style.DASH);
 
+        final int relayStepY = 2 * SIZE;
+        int relayBaseY = 0;
+        for (int p = 0; p < poles; p++) {
+            graphic.drawLine(new Vector(0, relayBaseY), new Vector(relayTipX, relayBaseY - relayTipY), Style.NORMAL);
+            relayBaseY += relayStepY;
+        }
+
+        final int yOffs = (SIZE / 4) + (relayTipY / 2);
+        graphic.drawLine(new Vector(SIZE, (poles - 1) * SIZE * 2 - yOffs), new Vector(SIZE, 1 - SIZE), Style.DASH);
+
+
+        // the coil
         graphic.drawPolygon(new Polygon(true)
                 .add(SIZE2, -SIZE)
                 .add(SIZE2, -SIZE * 3)

@@ -668,8 +668,6 @@
         The relay behaves similar to an XOr gate.</string>
     <string name="elem_Relay_pin_in1">On of the inputs to control the relay.</string>
     <string name="elem_Relay_pin_in2">On of the inputs to control the relay.</string>
-    <string name="elem_Relay_pin_out1">One of the switch outputs.</string>
-    <string name="elem_Relay_pin_out2">One of the switch outputs.</string>
     <string name="elem_RelayDT">Double Throw Relay</string>
     <string name="elem_RelayDT_tt">A relay is a switch which can be controlled by a coil.
         If a current flows through the coil, the switch is closed or opened.

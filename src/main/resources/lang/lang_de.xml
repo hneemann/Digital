@@ -670,8 +670,6 @@
         Das Relais verhält sich damit ähnlich wie ein XOr Gatter.</string>
     <string name="elem_Relay_pin_in1">Ein Steuereingang des Relais.</string>
     <string name="elem_Relay_pin_in2">Ein Steuereingang des Relais.</string>
-    <string name="elem_Relay_pin_out1">Einer der Ausgänge des gesteuerten Schalters.</string>
-    <string name="elem_Relay_pin_out2">Einer der Ausgänge des gesteuerten Schalters.</string>
     <string name="elem_RelayDT">Relais mit Wechselkontakt</string>
     <string name="elem_RelayDT_tt">Ein Relais ist ein Schalter, welcher über eine Spule umgeschaltet werden kann.
         Wenn ein Strom durch das Relais fließt, wird der Schalter geöffnet bzw. geschlossen.
