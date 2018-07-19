@@ -1581,9 +1581,12 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            removeHighLighted();
-            addModificationAlreadyMade(new ModifyMoveWire(wire, initialWirePos));
-            circuit.elementsMoved();
+            if (isMoved) {
+                removeHighLighted();
+                addModificationAlreadyMade(new ModifyMoveWire(wire, initialWirePos));
+                circuit.elementsMoved();
+                isMoved = false;
+            }
             mouseNormal.activate();
         }
 
