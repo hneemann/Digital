@@ -70,6 +70,19 @@ public interface Graphic extends Closeable {
     void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style);
 
     /**
+     * Helper to draw a horizontal left to right text
+     *
+     * @param g           the Graphic instance to draw to
+     * @param pos         the text position
+     * @param text        the text
+     * @param orientation the text orientation
+     * @param style       the text style
+     */
+    static void drawText(Graphic g, VectorInterface pos, String text, Orientation orientation, Style style) {
+        g.drawText(pos, pos.add(new Vector(1, 0)), text, orientation, style);
+    }
+
+    /**
      * opens a new group, used to create SVG grouping
      */
     default void openGroup() {
@@ -90,7 +103,6 @@ public interface Graphic extends Closeable {
     default boolean isFlagSet(String name) {
         return false;
     }
-
 
     /**
      * closes the graphics instance

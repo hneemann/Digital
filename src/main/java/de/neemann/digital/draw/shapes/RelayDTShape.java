@@ -111,6 +111,6 @@ public class RelayDTShape implements Shape {
         graphic.drawLine(new Vector(SIZE + SIZE2, -SIZE * 2), new Vector(SIZE * 2, -SIZE * 2), Style.NORMAL);
 
         if (label != null && label.length() > 0)
-            graphic.drawText(new Vector(SIZE, 4), new Vector(SIZE * 2, 4), label, Orientation.CENTERTOP, Style.SHAPE_PIN);
+            Graphic.drawText(graphic, new Vector(SIZE, -SIZE * 3 - 4), label, Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
     }
 }
