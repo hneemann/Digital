@@ -41,8 +41,7 @@ public class RelayShape implements Shape {
     public RelayShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
-        invers = attributes.get(Keys.RELAY_NORMALLY_CLOSED);
-        relayIsClosed = invers;
+        relayIsClosed = attributes.get(Keys.RELAY_NORMALLY_CLOSED);
         label = attributes.getCleanLabel();
         poles = attributes.get(Keys.POLES);
     }
