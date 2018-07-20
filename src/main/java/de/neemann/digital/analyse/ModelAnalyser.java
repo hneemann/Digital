@@ -15,6 +15,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.flipflops.FlipflopD;
 import de.neemann.digital.core.flipflops.FlipflopJK;
 import de.neemann.digital.core.flipflops.FlipflopT;
+import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.PinException;
@@ -361,7 +362,7 @@ public class ModelAnalyser {
         for (Signal s : inputs)
             tt.addVariable(s.getName());
 
-        if (!Main.isExperimentalMode())
+        if (!Main.isExperimentalMode() && !modelContainsSwitches())
             CycleDetector.checkForCycles(inputs);
 
         DependencyAnalyser da = new DependencyAnalyser(this);
@@ -382,6 +383,14 @@ public class ModelAnalyser {
         LOGGER.debug("model analysis: " + time / 1000.0 + " sec");
 
         return tt;
+    }
+
+    private boolean modelContainsSwitches() {
+        for (Node n : model)
+            if (n instanceof Relay
+                    || n instanceof RelayDT
+                    || n instanceof NFET) return true;
+        return false;
     }
 
     private void simpleFiller(TruthTable tt) throws NodeException, AnalyseException {
