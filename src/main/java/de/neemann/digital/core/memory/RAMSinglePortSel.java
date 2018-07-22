@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.core.memory;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -35,6 +32,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.INVERTER_CONFIG);
 
     private final int bits;
@@ -42,6 +40,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     private final int size;
     private final String label;
     private final ObservableValue dataOut;
+    private final boolean isProgramMemory;
     private DataField memory;
     private ObservableValue addrIn;
     private ObservableValue csIn;
@@ -70,6 +69,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
                 .setToHighZ()
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional();
+        isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
     }
 
     /**
@@ -155,4 +155,13 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
         this.memory = data;
     }
 
+    @Override
+    public boolean isProgramMemory() {
+        return isProgramMemory;
+    }
+
+    @Override
+    public void setProgramMemory(DataField dataField) {
+        memory.setDataFrom(dataField);
+    }
 }

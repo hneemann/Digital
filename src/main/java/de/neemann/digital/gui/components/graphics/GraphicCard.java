@@ -187,4 +187,14 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     public int getAddrBits() {
         return addrBits;
     }
+
+    @Override
+    public boolean isProgramMemory() {
+        return false;
+    }
+
+    @Override
+    public void setProgramMemory(DataField dataField) {
+        memory.setDataFrom(dataField);
+    }
 }

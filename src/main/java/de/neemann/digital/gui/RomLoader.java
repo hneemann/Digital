@@ -6,13 +6,15 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.memory.DataField;
-import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.core.memory.ProgramMemory;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,15 +34,20 @@ public class RomLoader implements ModelModifier {
 
     @Override
     public void preInit(Model model) throws NodeException {
-        List<ROM> roms = model.findNode(ROM.class, ROM::isProgramMemory);
+        List<ProgramMemory> roms = new ArrayList<>();
+        for (Node n : model)
+            if (n instanceof ProgramMemory) {
+                ProgramMemory pr = (ProgramMemory) n;
+                if (pr.isProgramMemory())
+                    roms.add(pr);
+            }
         if (roms.isEmpty())
             throw new NodeException(Lang.get("msg_noRomFound"));
         if (roms.size() > 1)
             throw new NodeException(Lang.get("msg_moreThenOneRomFound"));
 
         try {
-            roms.get(0).setData(new DataField(romHex));
-            roms.get(0).provideRomAdress(model);
+            roms.get(0).setProgramMemory(new DataField(romHex));
         } catch (IOException e) {
             throw new NodeException(e.getMessage());
         }

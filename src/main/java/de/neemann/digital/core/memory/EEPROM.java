@@ -29,6 +29,7 @@ public class EEPROM extends RAMSinglePortSel implements ROMInterface {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.DATA);
 

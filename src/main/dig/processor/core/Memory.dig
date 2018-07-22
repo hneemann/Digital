@@ -33,7 +33,7 @@ selben Adressraum.}}</string>
           <int>15</int>
         </entry>
       </elementAttributes>
-      <pos x="640" y="220"/>
+      <pos x="600" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -98,7 +98,7 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
           <string>/home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/asm/scrolling.hex</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="120"/>
+      <pos x="600" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -131,7 +131,7 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="740" y="140"/>
+      <pos x="700" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -153,19 +153,14 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
       <pos x="360" y="120"/>
     </visualElement>
     <visualElement>
-      <elementName>Not</elementName>
+      <elementName>And</elementName>
       <elementAttributes/>
-      <pos x="480" y="140"/>
+      <pos x="500" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
-      <pos x="540" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes/>
-      <pos x="540" y="300"/>
+      <pos x="500" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -194,8 +189,15 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
-      <elementAttributes/>
-      <pos x="540" y="140"/>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>In_1</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -215,28 +217,28 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
   </visualElements>
   <wires>
     <wire>
-      <p1 x="600" y="160"/>
-      <p2 x="640" y="160"/>
+      <p1 x="560" y="160"/>
+      <p2 x="600" y="160"/>
     </wire>
     <wire>
-      <p1 x="600" y="240"/>
-      <p2 x="640" y="240"/>
+      <p1 x="560" y="240"/>
+      <p2 x="600" y="240"/>
     </wire>
     <wire>
-      <p1 x="600" y="320"/>
-      <p2 x="620" y="320"/>
+      <p1 x="560" y="320"/>
+      <p2 x="580" y="320"/>
     </wire>
     <wire>
       <p1 x="420" y="180"/>
-      <p2 x="540" y="180"/>
+      <p2 x="500" y="180"/>
     </wire>
     <wire>
-      <p1 x="700" y="260"/>
-      <p2 x="720" y="260"/>
+      <p1 x="660" y="260"/>
+      <p2 x="680" y="260"/>
     </wire>
     <wire>
       <p1 x="460" y="260"/>
-      <p2 x="540" y="260"/>
+      <p2 x="500" y="260"/>
     </wire>
     <wire>
       <p1 x="360" y="340"/>
@@ -244,75 +246,71 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
     </wire>
     <wire>
       <p1 x="420" y="340"/>
-      <p2 x="540" y="340"/>
+      <p2 x="500" y="340"/>
     </wire>
     <wire>
       <p1 x="360" y="280"/>
-      <p2 x="640" y="280"/>
+      <p2 x="600" y="280"/>
     </wire>
     <wire>
       <p1 x="440" y="120"/>
-      <p2 x="620" y="120"/>
+      <p2 x="580" y="120"/>
     </wire>
     <wire>
       <p1 x="360" y="120"/>
       <p2 x="420" y="120"/>
     </wire>
     <wire>
-      <p1 x="620" y="120"/>
-      <p2 x="640" y="120"/>
+      <p1 x="580" y="120"/>
+      <p2 x="600" y="120"/>
     </wire>
     <wire>
       <p1 x="360" y="220"/>
-      <p2 x="540" y="220"/>
+      <p2 x="500" y="220"/>
     </wire>
     <wire>
-      <p1 x="620" y="220"/>
-      <p2 x="640" y="220"/>
+      <p1 x="580" y="220"/>
+      <p2 x="600" y="220"/>
     </wire>
     <wire>
-      <p1 x="620" y="300"/>
-      <p2 x="640" y="300"/>
+      <p1 x="580" y="300"/>
+      <p2 x="600" y="300"/>
     </wire>
     <wire>
       <p1 x="460" y="300"/>
-      <p2 x="540" y="300"/>
+      <p2 x="500" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="140"/>
+      <p2 x="680" y="140"/>
     </wire>
     <wire>
       <p1 x="440" y="140"/>
       <p2 x="460" y="140"/>
     </wire>
     <wire>
-      <p1 x="700" y="140"/>
-      <p2 x="720" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="140"/>
-      <p2 x="540" y="140"/>
-    </wire>
-    <wire>
       <p1 x="460" y="140"/>
       <p2 x="480" y="140"/>
     </wire>
     <wire>
-      <p1 x="720" y="140"/>
-      <p2 x="740" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="720" y="140"/>
-      <p2 x="720" y="260"/>
+      <p1 x="680" y="140"/>
+      <p2 x="700" y="140"/>
     </wire>
     <wire>
       <p1 x="420" y="180"/>
       <p2 x="420" y="340"/>
     </wire>
     <wire>
-      <p1 x="620" y="120"/>
-      <p2 x="620" y="220"/>
+      <p1 x="580" y="120"/>
+      <p2 x="580" y="220"/>
     </wire>
     <wire>
-      <p1 x="620" y="300"/>
-      <p2 x="620" y="320"/>
+      <p1 x="580" y="300"/>
+      <p2 x="580" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="140"/>
+      <p2 x="680" y="260"/>
     </wire>
     <wire>
       <p1 x="460" y="140"/>

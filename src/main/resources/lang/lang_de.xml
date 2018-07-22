@@ -1038,6 +1038,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_isProgramMemory">Programmspeicher</string><!-- ROM -->
     <string name="key_isProgramMemory_tt">Zeichnet dieses ROM als Programmspeicher aus.
         Es kann damit von einer externen IDE beschrieben werden.</string>
+    <string name="key_isProgramCounter">Programmzähler</string>
+    <string name="key_isProgramCounter_tt">Weist dieses Register als Programmzähler aus. Der Wert dieses Registers wird
+        an die externe Assembler-IDE zurückgegeben, um während des Debuggings die aktuelle Codezeile zu markieren.</string>
     <string name="key_Blown">Programmiert</string><!-- DiodeForward, DiodeBackward, Fuse, FGPFET, FGNFET -->
     <string name="key_Blown_tt">Wenn gesetzt, ist die Diode "durchgebrannt" bzw "programmiert".
         Bei Floating Gate FETs wird das Gate geladen. Diese Einstellung kann direkt über die Taste 'P' verändert werden.</string>

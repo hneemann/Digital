@@ -14,7 +14,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.io.*;
-import de.neemann.digital.core.memory.ROM;
+import de.neemann.digital.core.memory.Register;
 import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
@@ -48,6 +48,7 @@ import de.neemann.digital.gui.remote.RemoteSever;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
@@ -76,7 +77,6 @@ import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
-import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import static javax.swing.JOptionPane.showInputDialog;
 
 /**
@@ -1629,9 +1629,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private long address;
 
         private void getProgramROMAddress(Model model) {
-            List<ROM> roms = model.findNode(ROM.class, ROM::isProgramMemory);
+            List<Register> roms = model.findNode(Register.class, Register::isProgramCounter);
             if (roms.size() == 1)
-                address = roms.get(0).getRomAddress();
+                address = roms.get(0).getValue();
             else
                 address = -1;
         }

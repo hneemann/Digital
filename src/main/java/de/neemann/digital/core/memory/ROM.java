@@ -20,7 +20,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * A ROM module.
  */
-public class ROM extends Node implements Element, ROMInterface {
+public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
     /**
      * Key used to store the source file in the attribute set
      */
@@ -51,7 +51,6 @@ public class ROM extends Node implements Element, ROMInterface {
     private ObservableValue selIn;
     private int addr;
     private boolean sel;
-    private int romAddr;
     private String label;
 
     /**
@@ -100,13 +99,6 @@ public class ROM extends Node implements Element, ROMInterface {
             output.setToHighZ();
     }
 
-    /**
-     * @return the last used input address
-     */
-    public long getRomAddress() {
-        return romAddr;
-    }
-
     @Override
     public void init(Model model) throws NodeException {
         if (autoLoad) {
@@ -118,23 +110,16 @@ public class ROM extends Node implements Element, ROMInterface {
         }
     }
 
-    /**
-     * Called if the the last ROM address is needed by the remote interface
-     *
-     * @param model the model
-     */
-    public void provideRomAdress(Model model) {
-        if (isProgramMemory)
-            model.addObserver(event -> {
-                if (event == ModelEvent.STEP && sel)
-                    romAddr = addr;
-            }, ModelEvent.STEP);
-    }
 
+    @Override
+    public void setProgramMemory(DataField dataField) {
+        setData(dataField);
+    }
 
     /**
      * @return true if this is program memory
      */
+    @Override
     public boolean isProgramMemory() {
         return isProgramMemory;
     }

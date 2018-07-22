@@ -322,6 +322,12 @@ public final class Keys {
             = new Key<>("isProgramMemory", false).setSecondary();
 
     /**
+     * flag to set a ROM as program memory
+     */
+    public static final Key<Boolean> IS_PROGRAM_COUNTER
+            = new Key<>("isProgramCounter", false).setSecondary();
+
+    /**
      * flag to enable the ROMs auto load function
      */
     public static final Key<Boolean> AUTO_RELOAD_ROM

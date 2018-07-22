@@ -32,6 +32,7 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
+            .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.LABEL);
 
     private final DataField memory;
@@ -41,6 +42,7 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
     private final int bits;
     private final String label;
     private final int size;
+    private final boolean isProgramMemory;
     private ObservableValue addr1In;
     private ObservableValue data1In;
     private ObservableValue str1In;
@@ -69,6 +71,7 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
         size = 1 << addrBits;
         memory = new DataField(size);
         label = attr.getCleanLabel();
+        isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
     }
 
     @Override
@@ -142,5 +145,15 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
     @Override
     public int getAddrBits() {
         return addrBits;
+    }
+
+    @Override
+    public boolean isProgramMemory() {
+        return isProgramMemory;
+    }
+
+    @Override
+    public void setProgramMemory(DataField dataField) {
+        memory.setDataFrom(dataField);
     }
 }

@@ -27,11 +27,13 @@ public class Register extends Node implements Element {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.INVERTER_CONFIG)
+            .addAttribute(Keys.IS_PROGRAM_COUNTER)
             .addAttribute(Keys.VALUE_IS_PROBE);
 
     private final int bits;
     private final boolean isProbe;
     private final String label;
+    private final boolean isProgramCounter;
     private ObservableValue dVal;
     private ObservableValue clockVal;
     private ObservableValue enableVal;
@@ -50,6 +52,7 @@ public class Register extends Node implements Element {
         this.q = new ObservableValue("Q", bits).setPinDescription(DESCRIPTION);
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.get(Keys.LABEL);
+        isProgramCounter = attributes.get(Keys.IS_PROGRAM_COUNTER);
     }
 
     @Override
@@ -86,5 +89,19 @@ public class Register extends Node implements Element {
                 value = v;
                 q.setValue(value);
             }));
+    }
+
+    /**
+     * @return true if this register is the program counter
+     */
+    public boolean isProgramCounter() {
+        return isProgramCounter;
+    }
+
+    /**
+     * @return the value of this register
+     */
+    public long getValue() {
+        return value;
     }
 }

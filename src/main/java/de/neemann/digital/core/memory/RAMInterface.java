@@ -8,7 +8,7 @@ package de.neemann.digital.core.memory;
 /**
  * Interface to get access to the rams data.
  */
-public interface RAMInterface {
+public interface RAMInterface extends ProgramMemory {
     /**
      * @return the {@link DataField} containing the RAMs data
      */

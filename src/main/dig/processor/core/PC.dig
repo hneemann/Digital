@@ -37,6 +37,10 @@ dem Takt weiter geschaltet wird.}}</string>
           <int>16</int>
         </entry>
         <entry>
+          <string>isProgramCounter</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
           <string>inverterConfig</string>
           <inverterConfig>
             <string>C</string>

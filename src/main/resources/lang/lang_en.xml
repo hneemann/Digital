@@ -1032,6 +1032,9 @@
     <string name="key_graphicHeight_tt">The screen height in pixels.</string>
     <string name="key_isProgramMemory">Program Memory</string><!-- ROM -->
     <string name="key_isProgramMemory_tt">Makes this ROM to program memory. So it can be accessed by an external IDE.</string>
+    <string name="key_isProgramCounter">Program Counter</string>
+    <string name="key_isProgramCounter_tt">Makes this register a program counter. The value of this register is returned
+        to the external assembler IDE to mark the current line of code during debugging.</string>
     <string name="key_Blown">Programmed</string><!-- DiodeForward, DiodeBackward, Fuse, FGPFET, FGNFET -->
     <string name="key_Blown_tt">If set a diode is "blown" or "programmed".
         At a floating gate FET the floating gate is charged.
