@@ -934,6 +934,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_counterNeedsMoreBits">Der Zähler benötigt mindestens zwei Bits.</string>
     <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
     <string name="err_verilogExporting">Fehler beim Export zu Verilog.</string>
+    <string name="err_noRomFound">Kein Programmspeicher im Modell gefunden! Ein Programmspeicher muss gewählt werden!</string>
+    <string name="err_moreThenOneRomFound">Mehr als einen Programmspeicher gefunden. Es darf nur einen Programmspeicher geben.</string>
+    <string name="err_errorLoadingRomData">Fehler beim Laden des Programmspeichers.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1448,8 +1451,6 @@ eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enh
     <string name="msg_pins">Pinbelegung</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">Die Änderung der Einstellung erfordert einen Neustart!</string>
-    <string name="msg_noRomFound">Kein ROM im Modell gefunden! Ein ROM muss als Programmspeicher gewählt werden!</string>
-    <string name="msg_moreThenOneRomFound">Mehr als einen Programmspeicher gefunden. Es darf nur einen Programmspeicher geben.</string>
     <string name="msg_enterAnExpression">Geben Sie einen Ausdruck ein:</string>
     <string name="msg_runningTestError">Fehler bei der Ausführung der Tests:</string>
     <string name="msg_testResult">Testergebnis</string>

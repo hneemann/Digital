@@ -42,14 +42,14 @@ public class RomLoader implements ModelModifier {
                     roms.add(pr);
             }
         if (roms.isEmpty())
-            throw new NodeException(Lang.get("msg_noRomFound"));
+            throw new NodeException(Lang.get("err_noRomFound"));
         if (roms.size() > 1)
-            throw new NodeException(Lang.get("msg_moreThenOneRomFound"));
+            throw new NodeException(Lang.get("err_moreThenOneRomFound"));
 
         try {
             roms.get(0).setProgramMemory(new DataField(romHex));
         } catch (IOException e) {
-            throw new NodeException(e.getMessage());
+            throw new NodeException(Lang.get("err_errorLoadingRomData"), e);
         }
     }
 }

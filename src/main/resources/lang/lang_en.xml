@@ -928,6 +928,9 @@
     <string name="err_namesAreNotUnique_N">The name "{0}" is  not unique!</string>
     <string name="err_clocksNotAllowedInAsyncMode">Clock elements can not be used in asynchronous mode.</string>
     <string name="err_verilogExporting">Error during export to Verilog.</string>
+    <string name="err_noRomFound">No program memory found! The program memory needs to be flagged as such.</string>
+    <string name="err_moreThenOneRomFound">More then one program memories found! Only one program memory must be flages as such.</string>
+    <string name="err_errorLoadingRomData">Error loading the program memory.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1435,8 +1438,6 @@
     <string name="msg_pins">Pin assignment</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">A restart is required for the changes to take effect!</string>
-    <string name="msg_noRomFound">No ROM found! ROM needs to be set to be program memory.</string>
-    <string name="msg_moreThenOneRomFound">More then one ROM found! Only one ROM must be set to be program memory.</string>
     <string name="msg_remoteUnknownCommand">Command {0} unknown!</string>
     <string name="msg_enterAnExpression">Enter an expression:</string>
     <string name="msg_runningTestError">Error running the tests:</string>
