@@ -164,6 +164,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(RAMSinglePort.DESCRIPTION)
                         .add(RAMSinglePortSel.DESCRIPTION)
                         .add(EEPROM.DESCRIPTION)
+                        .add(EEPROMDualPort.DESCRIPTION)
                         .add(GraphicCard.DESCRIPTION)
                         .add(RAMDualAccess.DESCRIPTION)
                         .add(RegisterFile.DESCRIPTION)

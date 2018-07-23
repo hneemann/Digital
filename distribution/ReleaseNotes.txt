@@ -3,6 +3,7 @@ Release Notes
 HEAD, planned as v0.20
 - Improved zooming and navigating in the measurement graph.
 - Added multi pole double-throw relays.
+- Added EEPROM with separate ports for reading and writing.
 - The external assembly IDE is able to preload also RAMs with executable code.
   The register representing the program counter must be marked as such.
 

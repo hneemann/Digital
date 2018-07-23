@@ -33,7 +33,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.LABEL);
 
-    private final DataField memory;
+    private DataField memory;
     private final ObservableValue output;
     private final int addrBits;
     private final int bits;
@@ -60,7 +60,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
         output = createOutput();
         addrBits = attr.get(Keys.ADDR_BITS);
         size = 1 << addrBits;
-        memory = new DataField(size);
+        memory = createDataField(attr, size);
         label = attr.getCleanLabel();
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
     }
@@ -83,6 +83,17 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
         setStrIn(inputs.get(2));
         setClkIn(inputs.get(3));
         setLdIn(inputs.get(4));
+    }
+
+    /**
+     * creates the data field to use
+     *
+     * @param attr the elements attributes
+     * @param size the size of the memory
+     * @return the memory to use
+     */
+    protected DataField createDataField(ElementAttributes attr, int size) {
+        return new DataField(size);
     }
 
     /**
@@ -168,6 +179,15 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
         } else {
             output.setToHighZ();
         }
+    }
+
+    /**
+     * Sets the used memory field
+     *
+     * @param data the memory to use
+     */
+    public void setData(DataField data) {
+        memory = data;
     }
 
     @Override

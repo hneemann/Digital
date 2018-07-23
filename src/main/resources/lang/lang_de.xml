@@ -453,6 +453,7 @@
     <string name="elem_ROM_pin_A">Dieser Eingang bestimmt die Speicheradresse des Datenwortes, welches ausgegeben werden soll.</string>
     <string name="elem_ROM_pin_D">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang eine 1 anliegt.</string>
     <string name="elem_ROM_pin_sel">Ist dieser Pin high (1), ist der Ausgang aktiviert. Ist er low (0), ist der Ausgang hochohmig.</string>
+
     <string name="elem_RAMDualPort">RAM, getrennte Ports</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
@@ -463,6 +464,19 @@
     <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
+
+    <string name="elem_EEPROMDualPort">EEPROM, getrennte Ports</string>
+    <string name="elem_EEPROMDualPort_short">EEPROM</string>
+    <string name="elem_EEPROMDualPort_tt">Ein EEPROM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
+        Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
+    <string name="elem_EEPROMDualPort_pin_A">Die Adresse, an der gelesen bzw. geschrieben wird.</string>
+    <string name="elem_EEPROMDualPort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_EEPROMDualPort_pin_Din">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_EEPROMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
+    <string name="elem_EEPROMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
+    <string name="elem_EEPROMDualPort_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
+
+
     <string name="elem_RAMSinglePort">RAM, bidirektionaler Port</string>
     <string name="elem_RAMSinglePort_short">RAM</string>
     <string name="elem_RAMSinglePort_tt">Ein RAM Module mit einem bidirektionalem Anschluss für das Lesen und Schreiben von Daten.</string>
