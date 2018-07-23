@@ -1277,6 +1277,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             if (modelModifier != null)
                 modelModifier.preInit(model);
+            else {
+                if (settings.get(Keys.PRELOAD_PROGRAM))
+                    new RomLoader(settings.get(Keys.PROGRAM_TO_PRELOAD)).preInit(model);
+            }
 
             model.init();
 

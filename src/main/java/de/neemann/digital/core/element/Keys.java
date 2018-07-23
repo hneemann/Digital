@@ -658,4 +658,16 @@ public final class Keys {
     public static final Key<CustomShapeDescription> CUSTOM_SHAPE
             = new Key<>("customShape", CustomShapeDescription.EMPTY).setSecondary();
 
+    /**
+     * True if a program is loaded to the simulator at startup
+     */
+    public static final Key<Boolean> PRELOAD_PROGRAM
+            = new Key<Boolean>("preloadProgram", false).setSecondary();
+
+    /**
+     * The file to preload as a program at startup
+     */
+    public static final Key<File> PROGRAM_TO_PRELOAD
+            = new Key.KeyFile("preloadProgramFile", new File("")).setSecondary();
+
 }

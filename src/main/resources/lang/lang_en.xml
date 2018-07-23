@@ -1170,6 +1170,17 @@
     <string name="key_useDefShape">Use Default Shape</string>
     <string name="key_useDefShape_tt">Use the default shape instead of using the DIL or custom shape configured in the circuit.</string>
 
+    <string name="key_preloadProgram">Preload program memory at startup.</string>
+    <string name="key_preloadProgram_tt">When simulating a processor that uses a RAM device as the program memory,
+        it is difficult to start this processor because the RAM contents are always initialized with zeros at the start
+        of the simulation. This setting allows loading data into the program memory at startup.
+        The program memory in the simulation must be marked as such.
+    </string>
+    <string name="key_preloadProgramFile">Program file</string>
+    <string name="key_preloadProgramFile_tt">File which should be loaded into the program memory at the start of the
+        simulation.
+    </string>
+
     <string name="key_textOrientation">Orientation</string>
     <string name="key_textOrientation_tt">Position of the coordinate relative to the text.</string>
     <string name="key_textOrientation_LEFTBOTTOM">left bottom</string>

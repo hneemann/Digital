@@ -1180,6 +1180,17 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_useDefShape_tt">Verwendet die einfache Form zur Darstellung. Hat nur einen Effekt, wenn die
         Schaltung eine Benutzerdefinierte Form oder eine DIL Form verwendet.</string>
 
+    <string name="key_preloadProgram">Datei beim Start in den Programmspeicher laden.</string>
+    <string name="key_preloadProgram_tt">Wird ein Prozessor simuliert, der einen RAM-Baustein als Programmspeicher
+        verwendet, ist es schwierig, diesen Prozessor zu starten, da der RAM Inhalt beim Start der Simulation immer mit
+        Nullen initialisiert wird. Diese Einstellung erlaubt das Laden von Daten in den Programmspeicher.
+        Der Programmspeicher in der Simulation muss als solcher markiert sein.
+    </string>
+    <string name="key_preloadProgramFile">Programdatei</string>
+    <string name="key_preloadProgramFile_tt">Datei welche beim Start der Simulation in den Programspeicher geladen werden
+        soll.
+    </string>
+
     <string name="key_textOrientation">Ausrichtung</string>
     <string name="key_textOrientation_tt">Lage der Koordinate relativ zum Text.</string>
     <string name="key_textOrientation_LEFTBOTTOM">links unten</string>
