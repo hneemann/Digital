@@ -1657,7 +1657,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         SwingUtilities.invokeLater(() -> {
             runModelState.enter(false, new RomLoader(romHex));
             circuitComponent.repaintNeeded();
-            showMeasurementDialog(ModelEvent.STEP);
+            if (model != null)
+                showMeasurementDialog(ModelEvent.STEP);
         });
     }
 
