@@ -560,7 +560,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>st</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="240"/>
+      <pos x="1400" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -654,12 +654,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Memory.dig</elementName>
-      <elementAttributes/>
-      <pos x="1420" y="180"/>
+      <pos x="1400" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -798,6 +793,11 @@ Von Neumann Two-Cycle CPU.}}</string>
       <elementAttributes/>
       <pos x="660" y="120"/>
     </visualElement>
+    <visualElement>
+      <elementName>Memory.dig</elementName>
+      <elementAttributes/>
+      <pos x="1420" y="180"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -837,16 +837,16 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="660" y="200"/>
     </wire>
     <wire>
-      <p1 x="1400" y="200"/>
-      <p2 x="1420" y="200"/>
-    </wire>
-    <wire>
       <p1 x="1180" y="200"/>
       <p2 x="1220" y="200"/>
     </wire>
     <wire>
       <p1 x="1300" y="200"/>
       <p2 x="1320" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="1400" y="200"/>
+      <p2 x="1420" y="200"/>
     </wire>
     <wire>
       <p1 x="500" y="520"/>
