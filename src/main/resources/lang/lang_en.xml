@@ -1232,8 +1232,6 @@
     <string name="menu_analyse_tt">Analyses the actual circuit</string>
     <string name="menu_createSimpleCustomShape">Create Simple Custom Shape</string>
     <string name="menu_createSimpleCustomShape_tt">Creates a simple rectangular custom shape for this circuit, based on the position of all the input or output pins</string>
-    <string name="menu_orderMeasurements">Order measurement values</string>
-    <string name="menu_orderMeasurements_tt">Orders the measurement values in the graphical and table view</string>
     <string name="menu_cut">Cut</string>
     <string name="menu_copy">Copy</string>
     <string name="menu_custom">Custom</string>
