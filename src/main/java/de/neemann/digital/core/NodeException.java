@@ -28,6 +28,16 @@ public class NodeException extends ExceptionWithOrigin {
      * Creates a new instance.
      *
      * @param message the message
+     * @param cause   the cause of this exception
+     */
+    public NodeException(String message, Exception cause) {
+        this(message, null, -1, null, cause);
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param message the message
      * @param values  the values affected by this exception
      */
     public NodeException(String message, ObservableValue... values) {

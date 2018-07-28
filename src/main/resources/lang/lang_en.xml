@@ -459,6 +459,7 @@
     <string name="elem_ROM_pin_A">This pin defines the address of data word to be output.</string>
     <string name="elem_ROM_pin_D">The selected data word if the sel input is high.</string>
     <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
+
     <string name="elem_RAMDualPort">RAM, separated Ports</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_tt">A RAM module with separate inputs for storing and output for reading the stored data.</string>
@@ -468,6 +469,17 @@
     <string name="elem_RAMDualPort_pin_D">The data output pin</string>
     <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMDualPort_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
+
+    <string name="elem_EEPROMDualPort">EEPROM, separated Ports</string>
+    <string name="elem_EEPROMDualPort_short">EEPROM</string>
+    <string name="elem_EEPROMDualPort_tt">A EEPROM module with separate inputs for storing and output for reading the stored data.</string>
+    <string name="elem_EEPROMDualPort_pin_A">The address to read from or write to.</string>
+    <string name="elem_EEPROMDualPort_pin_C">Clock input</string>
+    <string name="elem_EEPROMDualPort_pin_Din">The data to be stored in the RAM.</string>
+    <string name="elem_EEPROMDualPort_pin_D">The data output pin</string>
+    <string name="elem_EEPROMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
+    <string name="elem_EEPROMDualPort_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
+
     <string name="elem_RAMSinglePort">RAM, bidirectional Port</string>
     <string name="elem_RAMSinglePort_short">RAM</string>
     <string name="elem_RAMSinglePort_tt">A RAM module with a bidirectional pin for reading and writing the data.</string>
@@ -916,6 +928,9 @@
     <string name="err_namesAreNotUnique_N">The name "{0}" is  not unique!</string>
     <string name="err_clocksNotAllowedInAsyncMode">Clock elements can not be used in asynchronous mode.</string>
     <string name="err_verilogExporting">Error during export to Verilog.</string>
+    <string name="err_noRomFound">No program memory found! The program memory needs to be flagged as such.</string>
+    <string name="err_moreThenOneRomFound">More then one program memories found! Only one program memory must be flages as such.</string>
+    <string name="err_errorLoadingRomData">Error loading the program memory.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1157,6 +1172,17 @@
 
     <string name="key_useDefShape">Use Default Shape</string>
     <string name="key_useDefShape_tt">Use the default shape instead of using the DIL or custom shape configured in the circuit.</string>
+
+    <string name="key_preloadProgram">Preload program memory at startup.</string>
+    <string name="key_preloadProgram_tt">When simulating a processor that uses a RAM device as the program memory,
+        it is difficult to start this processor because the RAM contents are always initialized with zeros at the start
+        of the simulation. This setting allows loading data into the program memory at startup.
+        The program memory in the simulation must be marked as such.
+    </string>
+    <string name="key_preloadProgramFile">Program file</string>
+    <string name="key_preloadProgramFile_tt">File which should be loaded into the program memory at the start of the
+        simulation.
+    </string>
 
     <string name="key_textOrientation">Orientation</string>
     <string name="key_textOrientation_tt">Position of the coordinate relative to the text.</string>
@@ -1419,8 +1445,6 @@
     <string name="msg_pins">Pin assignment</string>
     <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
     <string name="msg_restartNeeded">A restart is required for the changes to take effect!</string>
-    <string name="msg_noRomFound">No ROM found! ROM needs to be set to be program memory.</string>
-    <string name="msg_moreThenOneRomFound">More then one ROM found! Only one ROM must be set to be program memory.</string>
     <string name="msg_remoteUnknownCommand">Command {0} unknown!</string>
     <string name="msg_enterAnExpression">Enter an expression:</string>
     <string name="msg_runningTestError">Error running the tests:</string>

@@ -14,13 +14,12 @@ import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A Modifier that loads a given rom file to the program memory of the model.
  */
-public class RomLoader implements ModelModifier {
+public class ProgramMemoryRomLoader implements ModelModifier {
     private final File romHex;
 
     /**
@@ -28,28 +27,22 @@ public class RomLoader implements ModelModifier {
      *
      * @param romHex the file to load
      */
-    RomLoader(File romHex) {
+    ProgramMemoryRomLoader(File romHex) {
         this.romHex = romHex;
     }
 
     @Override
     public void preInit(Model model) throws NodeException {
-        List<ProgramMemory> roms = new ArrayList<>();
-        for (Node n : model)
-            if (n instanceof ProgramMemory) {
-                ProgramMemory pr = (ProgramMemory) n;
-                if (pr.isProgramMemory())
-                    roms.add(pr);
-            }
-        if (roms.isEmpty())
-            throw new NodeException(Lang.get("msg_noRomFound"));
-        if (roms.size() > 1)
-            throw new NodeException(Lang.get("msg_moreThenOneRomFound"));
+        List<Node> progMem = model.findNode(n -> n instanceof ProgramMemory && ((ProgramMemory) n).isProgramMemory());
+        if (progMem.isEmpty())
+            throw new NodeException(Lang.get("err_noRomFound"));
+        if (progMem.size() > 1)
+            throw new NodeException(Lang.get("err_moreThenOneRomFound"));
 
         try {
-            roms.get(0).setProgramMemory(new DataField(romHex));
+            ((ProgramMemory) progMem.get(0)).setProgramMemory(new DataField(romHex));
         } catch (IOException e) {
-            throw new NodeException(e.getMessage());
+            throw new NodeException(Lang.get("err_errorLoadingRomData"), e);
         }
     }
 }

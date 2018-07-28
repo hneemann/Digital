@@ -1299,6 +1299,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             if (modelModifier != null)
                 modelModifier.preInit(model);
+            else {
+                if (settings.get(Keys.PRELOAD_PROGRAM))
+                    new ProgramMemoryRomLoader(settings.get(Keys.PROGRAM_TO_PRELOAD)).preInit(model);
+            }
 
             model.init();
 
@@ -1669,7 +1673,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     @Override
     public void start(File romHex) {
         SwingUtilities.invokeLater(() -> {
-            runModelState.enter(true, new RomLoader(romHex));
+            runModelState.enter(true, new ProgramMemoryRomLoader(romHex));
             circuitComponent.repaintNeeded();
         });
     }
@@ -1677,9 +1681,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     @Override
     public void debug(File romHex) {
         SwingUtilities.invokeLater(() -> {
-            runModelState.enter(false, new RomLoader(romHex));
+            runModelState.enter(false, new ProgramMemoryRomLoader(romHex));
             circuitComponent.repaintNeeded();
-            showMeasurementDialog(ModelEvent.STEP);
+            if (model != null)
+                showMeasurementDialog(ModelEvent.STEP);
         });
     }
 

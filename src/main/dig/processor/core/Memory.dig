@@ -163,16 +163,6 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
       <pos x="500" y="300"/>
     </visualElement>
     <visualElement>
-      <elementName>Clock</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="360" y="280"/>
-    </visualElement>
-    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -186,6 +176,16 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
         </entry>
       </elementAttributes>
       <pos x="360" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
