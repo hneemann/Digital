@@ -428,8 +428,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * Vertical or horizontal alignment of I/Os is preserved for the pins in the
      * shape but distances between pins are reduced to a uniform minimum.
      *
-     * @throws de.neemann.digital.draw.elements.PinException This indicates a
-     * pin is missing a label.
+     * @throws PinException This indicates an IO is missing a label.
      */
     public void createSimpleCustomShape() throws PinException {
 
