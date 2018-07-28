@@ -47,6 +47,7 @@ import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 
 /**
  * Component which shows the circuit.
@@ -417,6 +418,203 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         ElementAttributes modifiedAttributes = new AttributeDialog(parent, attrList, circuit.getAttributes()).showDialog();
         if (modifiedAttributes != null)
             modify(new ModifyCircuitAttributes(modifiedAttributes));
+    }
+
+    /**
+     * Creates a simple rectangular custom shape for this circuit with pins
+     * positions derived from the layout of the inputs and outputs in the actual
+     * circuit. Pins can appear anywhere in the custom shape. Their positions
+     * are a compressed version of the inputs and outputs in the actual circuit.
+     * Vertical or horizontal alignment of I/Os is preserved for the pins in the
+     * shape but distances between pins are reduced to a uniform minimum.
+     *
+     * @throws de.neemann.digital.draw.elements.PinException This indicates a
+     * pin is missing a label.
+     */
+    public void createSimpleCustomShape() throws PinException {
+
+        ElementAttributes attr = new ElementAttributes(circuit.getAttributes());
+
+        // The custom shape being generated
+        CustomShapeDescription csd = new CustomShapeDescription();
+
+        // Maps from circuit input and output x and y cordinates to custom
+        // shape pin coordinates.
+        TreeMap<Integer, Integer> xMap = new TreeMap<>();
+        TreeMap<Integer, Integer> yMap = new TreeMap<>();
+
+        // List of all inputs and outputs in the circuit.
+        ArrayList<VisualElement> inOuts = new ArrayList<>();
+
+        // Min and Max X and Y coords of the inputs and outputs in the circuit.
+        int minInOutX = Integer.MAX_VALUE;
+        int maxInOutX = Integer.MIN_VALUE;
+        int minInOutY = Integer.MAX_VALUE;
+        int maxInOutY = Integer.MIN_VALUE;
+
+        // Flags indicating which corners of the circuit are occupied by inputs
+        // or outputs and which edges have inputs or outputs other than at the
+        // the corners. These are used later to decide whether to expand the
+        // shape in either direction to try and avoid having pins at the corners.
+        boolean neOccupied = false;
+        boolean nwOccupied = false;
+        boolean seOccupied = false;
+        boolean swOccupied = false;
+        boolean northEdge = false;
+        boolean eastEdge = false;
+        boolean southEdge = false;
+        boolean westEdge = false;
+
+        // Scan through all the visual elements looking for inputs or outputs;
+        // Check each for a label and position relative to edges and corners.
+        for (VisualElement ve : getCircuit().getElements()) {
+            if (ve.equalsDescription(Out.DESCRIPTION) || ve.equalsDescription(In.DESCRIPTION)) {
+                ElementAttributes veAttr = ve.getElementAttributes();
+                if (veAttr != null) {
+                    String name = veAttr.getLabel();
+                    if (name != null && name.length() > 0) {
+                        inOuts.add(ve);
+                        Vector v = ve.getPos();
+                        int x = v.getX();
+                        int y = v.getY();
+
+                        if (x < minInOutX) {
+                            // New leftmost edge
+                            nwOccupied = (y <= minInOutY);
+                            swOccupied = (y >= maxInOutY);
+                            westEdge = y > minInOutY && y < maxInOutY;
+                            minInOutX = x;
+                        } else if (x == minInOutX) {
+                            // On leftmost edge
+                            nwOccupied = nwOccupied || (y <= minInOutY);
+                            swOccupied = swOccupied || (y >= maxInOutY);
+                            westEdge = westEdge || (y > minInOutY && y < maxInOutY);
+                        }
+                        if (x > maxInOutX) {
+                            // New rightmost edge
+                            neOccupied = (y <= minInOutY);
+                            seOccupied = (y >= maxInOutY);
+                            eastEdge = y > minInOutY && y < maxInOutY;
+                            maxInOutX = x;
+                        } else if (x == maxInOutX) {
+                            // On rightmost edge
+                            neOccupied = nwOccupied || (y <= minInOutY);
+                            seOccupied = swOccupied || (y >= maxInOutY);
+                            eastEdge = eastEdge || (y > minInOutY && y < maxInOutY);
+                        }
+                        if (y < minInOutY) {
+                            // New topmost edge
+                            nwOccupied = (x <= minInOutX);
+                            neOccupied = (x >= maxInOutX);
+                            northEdge = x > minInOutX && x < maxInOutX;
+                            minInOutY = y;
+                        } else if (y == minInOutY) {
+                            // On topmost edge
+                            nwOccupied = nwOccupied || (x <= minInOutX);
+                            neOccupied = neOccupied || (x >= maxInOutX);
+                            northEdge = northEdge || (x > minInOutX && x < maxInOutX);
+                        }
+                        if (y > maxInOutY) {
+                            // New bottommost edge
+                            swOccupied = (x <= minInOutX);
+                            seOccupied = (x >= maxInOutX);
+                            southEdge = x > minInOutX && x < maxInOutX;
+                            maxInOutY = y;
+                        } else if (y == maxInOutY) {
+                            // On bottommost edge
+                            swOccupied = swOccupied || (x <= minInOutX);
+                            seOccupied = seOccupied || (x >= maxInOutX);
+                            southEdge = southEdge || (x > minInOutX && x < maxInOutX);
+                        }
+                        // Record the x and y cordinates for later mapping.
+                        xMap.put(x, 0);
+                        yMap.put(y, 0);
+                    } else {
+                         // No label. In a custom shape, All pins must have labels
+                        throw new PinException(Lang.get("err_pinWithoutName"));
+                    }
+                }
+            }
+        }
+        // Did we find any inputs or outputs?
+        if (inOuts.size() > 0) {
+            // Was a corner occupied?
+            boolean cornerOccupied = (neOccupied || seOccupied || nwOccupied || swOccupied);
+            // If yes, try extending, first in Y then in X.
+            boolean extendY = cornerOccupied && !(northEdge || southEdge);
+            boolean extendX = !extendY && cornerOccupied && !(westEdge || eastEdge);
+
+            // If we are extending in X, leave a margin, otherwise start at 0.
+            int minX = extendX ? SIZE2 : 0;
+            int x = extendX ? SIZE : 0;
+
+            // Step through all the X values, mapping to a uniform minimally
+            // spaced grid.
+            for (Integer k : xMap.keySet()) {
+                xMap.put(k, x);
+                x += SIZE;
+            }
+            int maxX = (extendX) ? (x - SIZE2) : (x - SIZE);
+
+            // Step through all the Y values, mapping to a uniform minimally
+            // spaced grid.
+            int minY = extendY ? SIZE2 : 0;
+            int y = extendY ? SIZE : 0;
+            for (Integer k : yMap.keySet()) {
+                yMap.put(k, y);
+                y += SIZE;
+            }
+            int maxY = (extendY) ? (y - SIZE2) : (y - SIZE);
+
+            // For each input or output, add a pin at the mapped position.
+            for (VisualElement ve : inOuts) {
+                Vector pos = ve.getPos();
+                csd.addPin(ve.getElementAttributes().getLabel(), new Vector(xMap.get(pos.getX()), yMap.get(pos.getY())), true);
+            }
+
+            // Ensure the shape is at least SIZE x SIZE
+            if (maxX - minX < SIZE) {
+                maxX += SIZE;
+            }
+            if (maxY - minY < SIZE) {
+                maxY += SIZE;
+            }
+
+            // Create the vertices of the rectangle:
+            ArrayList<VectorInterface> rectPoints = new ArrayList<>();
+            rectPoints.add(new Vector(minX, minY));
+            rectPoints.add(new Vector(minX, maxY));
+            rectPoints.add(new Vector(maxX, maxY));
+            rectPoints.add(new Vector(maxX, minY));
+
+            // Determine the color, based on the shape attributes:
+            Color bg;
+            if (attr.contains(Keys.BACKGROUND_COLOR)) {
+                bg = attr.get(Keys.BACKGROUND_COLOR);
+            } else {
+                bg = Keys.BACKGROUND_COLOR.getDefault();
+            }
+
+            // Add the rectangle - opaque, bordered in black and filled in the
+            // chosen color:
+            csd.addPolygon(new de.neemann.digital.draw.graphics.Polygon(rectPoints, true), Style.NORMAL.getThickness(), bg, true);
+            csd.addPolygon(new de.neemann.digital.draw.graphics.Polygon(rectPoints, true), Style.NORMAL.getThickness(), Color.BLACK, false);
+
+            // Update the attributes and apply to the current circuit.
+            attr.set(Keys.CUSTOM_SHAPE, csd);
+            modify(new ModifyCircuitAttributes(attr));
+        }
+    }
+
+    /**
+     * Delete any custom shape from the attributes of this circuit.
+     */
+    public void deleteShape() {
+        ElementAttributes attr = circuit.getAttributes();
+        if (attr.contains(Keys.CUSTOM_SHAPE)) {
+            attr.set(Keys.CUSTOM_SHAPE, Keys.CUSTOM_SHAPE.getDefault());
+            modify(new ModifyCircuitAttributes(attr));
+        }
     }
 
     /**

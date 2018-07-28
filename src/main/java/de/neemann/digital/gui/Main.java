@@ -668,6 +668,25 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }.setToolTip(Lang.get("menu_orderMeasurements_tt"));
 
 
+        ToolTipAction createCustomShape = new ToolTipAction(Lang.get("menu_createSimpleCustomShape")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    circuitComponent.createSimpleCustomShape();
+                } catch (PinException pe) {
+                    new ErrorMessage(Lang.get("msg_errorCreatingSimpleCustomShape")).addCause(pe).show(Main.this);
+                    return;
+                }
+            }
+        }.setToolTip(Lang.get("menu_createSimpleCustomShape_tt"));
+
+        ToolTipAction deleteCustomShape = new ToolTipAction(Lang.get("menu_deleteCustomShape")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.deleteShape();
+            }
+        }.setToolTip(Lang.get("menu_deleteCustomShape_tt"));
+
         ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -765,6 +784,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
+        edit.addSeparator();
+        edit.add(createCustomShape.createJMenuItem());
+        edit.add(deleteCustomShape.createJMenuItem());
         edit.addSeparator();
 
         edit.add(circuitComponent.getCutAction().createJMenuItem());
