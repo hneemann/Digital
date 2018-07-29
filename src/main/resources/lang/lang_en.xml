@@ -1180,8 +1180,12 @@
 
     <string name="key_shapeType">Shape</string>
     <string name="key_shapeType_tt">The shape to be used for the representation of the circuit in an embedding circuit.
+        In the "Simple" mode, the inputs are displayed on the left and the outputs on the right side of a simple rectangle.
         With "Layout", the position of the inputs and outputs and and their orientation in the circuit determines
-        the position of the pins.</string>
+        the position of the pins. Here are also pins at the top or bottom possible.
+        When selecting "DIL-Chip", a DIL housing is used to display the circuit. The pin numbers of the inputs and outputs
+        determine the position of the pins in this case.
+    </string>
     <string name="key_shapeType_DEFAULT">Default</string>
     <string name="key_shapeType_SIMPLE">Simple</string>
     <string name="key_shapeType_DIL">DIL-Chip</string>

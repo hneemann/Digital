@@ -9,8 +9,9 @@ HEAD, planned as v0.20
 - Allows the pre-loading of program memory if a RAM is used as such.
 - Added a new more flexible shape for embedded circuits.
 - Breaking changes:
-  - In your own DIL circuits you have to reselect the DIL-Shape in the
-    circuit settings.
+  - In your own DIL circuits you have to reselect the DIL shape in the
+    circuit settings. If you have build a custom shape, you also have to
+    reselect it.
 
 v0.19, released on 14. June 2018
 - Added a tabbed pane to the attributes dialog to make it more beginner friendly.

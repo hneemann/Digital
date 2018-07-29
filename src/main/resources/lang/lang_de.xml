@@ -1189,8 +1189,13 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_shapeType">Form</string>
     <string name="key_shapeType_tt">Die Form, welche für die Repräsentation der Schaltung in einer einbettenden
-        Schaltung verwendet werden soll. Bei "Layout" bestimmt die Lage und Orientierung der Ein- und Ausgänge in
-        der Schaltung die Position der Pins.</string>
+        Schaltung verwendet werden soll. Bei der Form "Einfach" werden die Eingänge auf der linken und die Ausgänge auf
+        der rechten Seite eines einfachen Rechtecks angezeigt.
+        Bei "Layout" bestimmt die Lage und Orientierung der Ein- und Ausgänge in
+        der Schaltung die Position der Pins. Hier sind auch Pins oben und unten möglich.
+        Bei der Wahl von "DIL-Gehäuse" wird ein DIL-Gehäuse zur Darstellung verwendet. Die Pin-Nummern der Ein- und
+        Ausgänge bestimmen hier die Position der Pins.
+    </string>
     <string name="key_shapeType_DEFAULT">Vorgabe</string>
     <string name="key_shapeType_SIMPLE">Einfach</string>
     <string name="key_shapeType_DIL">DIL-Gehäuse</string>
