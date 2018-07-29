@@ -1085,9 +1085,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_colAddrBits_tt">Adressiert die einzelnen Spalten. Drei Bits bedeuten also acht Spalten.</string>
     <string name="key_lockedMode">Bearbeitung gesperrt</string>
     <string name="key_lockedMode_tt">Die Schaltung ist für die Bearbeitung gesperrt. Dioden und FG-FETs können jedoch konfiguriert werden.</string>
-    <string name="key_isDIL">DIL-Gehäuse verwenden</string>
-    <string name="key_isDIL_tt">Wird diese Schaltung eingebettet, wird sie in einem DIL-Gehäuse angezeigt.
-        Um die Pins korrekt zuordnen zu können, ist an den Eingängen und Ausgängen die Pinnummer anzugeben.</string>
     <string name="key_pinNumber">Pinnummer</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Nummer dieses Pins. Wird für die Darstellung einer Schaltung als DIL-Gehäuse und die
         Pinzuordnung bei der Programmierung eines CPLD verwendet.
@@ -1179,10 +1176,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_customShape">Benutzerdefinierte Form</string>
     <string name="key_customShape_tt">Importieren einer SVG-Datei</string>
 
-    <string name="key_useDefShape">Verwende einfache Form</string>
-    <string name="key_useDefShape_tt">Verwendet die einfache Form zur Darstellung. Hat nur einen Effekt, wenn die
-        Schaltung eine Benutzerdefinierte Form oder eine DIL Form verwendet.</string>
-
     <string name="key_preloadProgram">Datei beim Start in den Programmspeicher laden.</string>
     <string name="key_preloadProgram_tt">Wird ein Prozessor simuliert, der einen RAM-Baustein als Programmspeicher
         verwendet, ist es schwierig, diesen Prozessor zu starten, da der RAM Inhalt beim Start der Simulation immer mit
@@ -1193,6 +1186,15 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_preloadProgramFile_tt">Datei welche beim Start der Simulation in den Programspeicher geladen werden
         soll.
     </string>
+
+    <string name="key_shapeType">Form</string>
+    <string name="key_shapeType_tt">Die Form, welche für die Repräsentation der Schaltung in einer einbettenden
+        Schaltung verwendet werden soll. Bei "Layout" bestimmt die Lage der Ein- und Ausgänge in der Schaltung die
+        Position der Pins.</string>
+    <string name="key_shapeType_DEFAULT">Standard</string>
+    <string name="key_shapeType_DIL">DIL-Gehäuse</string>
+    <string name="key_shapeType_LAYOUT">Layout</string>
+    <string name="key_shapeType_CUSTOM">Benutzerdefiniert</string>
 
     <string name="key_textOrientation">Ausrichtung</string>
     <string name="key_textOrientation_tt">Lage der Koordinate relativ zum Text.</string>

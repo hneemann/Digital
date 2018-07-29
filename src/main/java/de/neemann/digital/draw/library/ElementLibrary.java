@@ -8,7 +8,10 @@ package de.neemann.digital.draw.library;
 import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
-import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementFactory;
+import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.flipflops.*;
 import de.neemann.digital.core.io.*;
@@ -19,12 +22,10 @@ import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.*;
-import de.neemann.digital.core.flipflops.Monoflop;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
@@ -602,6 +603,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             setShortName(file.getName());
             addAttribute(Keys.ROTATE);
             addAttribute(Keys.LABEL);
+            addAttribute(Keys.SHAPE_TYPE);
         }
 
         /**
@@ -645,18 +647,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 return super.getDescription(elementAttributes);
         }
 
-        @Override
-        public ArrayList<Key> getAttributeList() {
-            final ArrayList<Key> list = super.getAttributeList();
-            if (getAttributes().get(Keys.IS_DIL)
-                    || getAttributes().get(Keys.CUSTOM_SHAPE) != CustomShapeDescription.EMPTY) {
-
-                ArrayList<Key> li = new ArrayList<>(list);
-                li.add(Keys.USE_DEFAULT_SHAPE);
-                return li;
-            }
-            return list;
-        }
     }
 
 

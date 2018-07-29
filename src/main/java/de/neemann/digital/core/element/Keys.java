@@ -17,6 +17,7 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
@@ -528,17 +529,11 @@ public final class Keys {
             new Key<>("pinNumber", "").setSecondary();
 
     /**
-     * true if shape is a dil shape
-     */
-    public static final Key<Boolean> IS_DIL
-            = new Key<>("isDIL", false).setSecondary();
-    /**
      * the pin count
      */
     public static final Key<Integer> PINCOUNT =
             new Key.KeyInteger("pinCount", 0)
                     .setMin(0)
-                    .setDependsOn(IS_DIL)
                     .setSecondary();
 
 
@@ -552,8 +547,7 @@ public final class Keys {
      * Background Color of nested circuits
      */
     public static final Key<java.awt.Color> BACKGROUND_COLOR
-            = new Key<>("backgroundColor", new Color(255, 255, 180, 200))
-            .setDependsOn(IS_DIL, true);
+            = new Key<>("backgroundColor", new Color(255, 255, 180, 200));
 
     /**
      * the screen resolution
@@ -647,10 +641,10 @@ public final class Keys {
             new Key<>("noComponentToolTips", false);
 
     /**
-     * Used to show the default shape also if the circuit defines a DIL.
+     * defines the shape type of the custom circuit
      */
-    public static final Key<Boolean> USE_DEFAULT_SHAPE
-            = new Key<Boolean>("useDefShape", false);
+    public static final Key<CustomCircuitShapeType> SHAPE_TYPE
+            = new Key.KeyEnum<>("shapeType", CustomCircuitShapeType.DEFAULT, CustomCircuitShapeType.values()).setSecondary();
 
     /**
      * Shape used to represent a visual element

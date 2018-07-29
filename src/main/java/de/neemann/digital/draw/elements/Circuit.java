@@ -24,6 +24,7 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
@@ -97,6 +98,7 @@ public class Circuit {
         xStream.alias("poly", CustomShapeDescription.PolygonHolder.class);
         xStream.alias("text", CustomShapeDescription.TextHolder.class);
         xStream.alias("polygon", Polygon.class);
+        xStream.alias("shapeType", CustomCircuitShapeType.class);
         xStream.registerConverter(new PolygonConverter());
         return xStream;
     }

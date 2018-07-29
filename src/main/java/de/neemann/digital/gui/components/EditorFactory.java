@@ -22,6 +22,7 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
@@ -75,6 +76,7 @@ public final class EditorFactory {
         add(ROMManger.class, ROMManagerEditor.class);
         add(Application.Type.class, ApplicationTypeEditor.class);
         add(CustomShapeDescription.class, CustomShapeEditor.class);
+        add(CustomCircuitShapeType.class, CustomCircuitShapeTypeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -681,6 +683,12 @@ public final class EditorFactory {
 
     private static final class LeftRightFormatsEditor extends EnumEditor<LeftRightFormat> {
         public LeftRightFormatsEditor(LeftRightFormat value, Key<LeftRightFormat> key) {
+            super(value, key);
+        }
+    }
+
+    private static final class CustomCircuitShapeTypeEditor extends EnumEditor<CustomCircuitShapeType> {
+        public CustomCircuitShapeTypeEditor(CustomCircuitShapeType value, Key<CustomCircuitShapeType> key) {
             super(value, key);
         }
     }

@@ -3,6 +3,10 @@
   <version>1</version>
   <attributes>
     <entry>
+      <string>shapeType</string>
+      <de.neemann.digital.draw.shapes.CustomCircuitShapeType>CUSTOM</de.neemann.digital.draw.shapes.CustomCircuitShapeType>
+    </entry>
+    <entry>
       <string>Description</string>
       <string>Arithmetic Logical unit.
 Performs all arithmetic operations.

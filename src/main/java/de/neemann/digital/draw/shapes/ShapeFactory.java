@@ -170,32 +170,37 @@ public final class ShapeFactory {
                     if (pt instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                         // Custom component
                         ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
-                        if (!elementAttributes.get(Keys.USE_DEFAULT_SHAPE)) {
-                            final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
-                            if (customShapeDescription != CustomShapeDescription.EMPTY)
-                                return new CustomShape(customShapeDescription,
-                                        pt.getInputDescription(elementAttributes),
-                                        pt.getOutputDescriptions(elementAttributes));
-                            else if (customDescr.getAttributes().get(Keys.IS_DIL)) {
+                        CustomCircuitShapeType shapeType = customDescr.getAttributes().get(Keys.SHAPE_TYPE);
+                        final CustomCircuitShapeType localShapeType = elementAttributes.get(Keys.SHAPE_TYPE);
+                        if (!localShapeType.equals(CustomCircuitShapeType.DEFAULT))
+                            shapeType = localShapeType;
+
+                        switch (shapeType) {
+                            case DIL:
                                 return new DILShape(
                                         pt.getShortName(),
                                         pt.getInputDescription(elementAttributes),
                                         pt.getOutputDescriptions(elementAttributes),
                                         elementAttributes.getLabel(),
                                         customDescr.getAttributes());
-                            }
+                            case CUSTOM:
+                                final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
+                                if (customShapeDescription != CustomShapeDescription.EMPTY)
+                                    return new CustomShape(customShapeDescription,
+                                            pt.getInputDescription(elementAttributes),
+                                            pt.getOutputDescriptions(elementAttributes));
+                            default:
+                                return new GenericShape(
+                                        pt.getShortName(),
+                                        pt.getInputDescription(elementAttributes),
+                                        pt.getOutputDescriptions(elementAttributes),
+                                        elementAttributes.getLabel(),
+                                        true,
+                                        customDescr.getAttributes().get(Keys.WIDTH))
+                                        .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
                         }
-                        // Neither DIL nor custom shape.
-                        return new GenericShape(
-                                pt.getShortName(),
-                                pt.getInputDescription(elementAttributes),
-                                pt.getOutputDescriptions(elementAttributes),
-                                elementAttributes.getLabel(),
-                                true,
-                                customDescr.getAttributes().get(Keys.WIDTH))
-                                .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
                     } else {
-                        // Internal component without own shape.
+                        // Internal component without it's own shape.
                         return new GenericShape(
                                 pt.getShortName(),
                                 pt.getInputDescription(elementAttributes),
@@ -207,7 +212,7 @@ public final class ShapeFactory {
                     }
                 }
             } else {
-                // Internal component with own shape.
+                // Internal component with it's own shape.
                 ElementTypeDescription pt = library.getElementType(elementName);
                 return cr.create(elementAttributes,
                         pt.getInputDescription(elementAttributes),
@@ -247,7 +252,7 @@ public final class ShapeFactory {
         }
 
         @Override
-        public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException {
+        public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
             return new GenericShape(name, inputs, outputs)
                     .invert(invers)
                     .setInverterConfig(attributes.get(Keys.INVERTER_CONFIG));

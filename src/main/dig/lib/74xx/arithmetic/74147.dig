@@ -3,8 +3,8 @@
   <version>1</version>
   <attributes>
     <entry>
-      <string>isDIL</string>
-      <boolean>true</boolean>
+      <string>shapeType</string>
+      <shapeType>DIL</shapeType>
     </entry>
     <entry>
       <string>pinCount</string>
