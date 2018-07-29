@@ -632,10 +632,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    circuitComponent.createSimpleCustomShape();
+                    File bn = getBaseFileName();
+                    String labelText = bn == null || bn.getName() == null ? 
+                                null
+                            : bn.getName().replaceAll("\\.dig$","");
+                    circuitComponent.createSimpleCustomShape(labelText);
                 } catch (PinException pe) {
                     new ErrorMessage(Lang.get("msg_errorCreatingSimpleCustomShape")).addCause(pe).show(Main.this);
-                    return;
                 }
             }
         }.setToolTip(Lang.get("menu_createSimpleCustomShape_tt"));

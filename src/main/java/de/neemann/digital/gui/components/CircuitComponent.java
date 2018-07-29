@@ -431,20 +431,18 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      *
      * @throws PinException This indicates an IO is missing a label.
      */
-    public void createSimpleCustomShape() throws PinException {
+    public void createSimpleCustomShape(String labelText) throws PinException {
 
         Circuit c = getCircuit();
         ArrayList<VisualElement> inputsAndOutputs
                 = c.getAndCheckInputsAndOutputs(true, true);
 
-        if (inputsAndOutputs.size() > 0) {
-            SimpleCustomShapeGenerator scsg
-                    = new SimpleCustomShapeGenerator(
-                            inputsAndOutputs,
-                            c.getAttributes(), "");
-            ElementAttributes newAttr = scsg.getNewAttributes();
-            modify(new ModifyCircuitAttributes(newAttr));
-        }
+        SimpleCustomShapeGenerator scsg
+                = new SimpleCustomShapeGenerator(
+                        inputsAndOutputs,
+                        c.getAttributes(), labelText);
+        ElementAttributes newAttr = scsg.getNewAttributes();
+        modify(new ModifyCircuitAttributes(newAttr));
     }
 
     /**

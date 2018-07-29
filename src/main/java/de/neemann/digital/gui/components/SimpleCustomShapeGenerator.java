@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorInterface;
@@ -419,6 +420,13 @@ public class SimpleCustomShapeGenerator {
         csd.addPolygon(
                 new de.neemann.digital.draw.graphics.Polygon(rectPoints, true),
                 Style.NORMAL.getThickness(), Color.BLACK, false);
+        if (labelText != null && labelText.length() > 0) {
+            int labelY = rectP2.getY() + SIZE2 + 8;
+            Vector p1 = new Vector(rectP1.getX() + rectP2.getX() / 2, labelY);
+            Vector p2 = new Vector(rectP2.getX(), labelY);
+            csd.addText(p1, p2, labelText, Orientation.CENTERBOTTOM,
+                    Style.NORMAL.getFontSize(), Color.BLACK);
+        }
 
         // Return the final shape:
         return csd;
