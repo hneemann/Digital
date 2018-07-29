@@ -428,6 +428,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
      * are a compressed version of the inputs and outputs in the actual circuit.
      * Vertical or horizontal alignment of I/Os is preserved for the pins in the
      * shape but distances between pins are reduced to a uniform minimum.
+     * @param labelText text to use for the shape's label.
      *
      * @throws PinException This indicates an IO is missing a label.
      */

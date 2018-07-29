@@ -633,9 +633,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     File bn = getBaseFileName();
-                    String labelText = bn == null || bn.getName() == null ? 
-                                null
-                            : bn.getName().replaceAll("\\.dig$","");
+                    String labelText = bn == null || bn.getName() == null
+                            ? null
+                            : bn.getName().replaceAll("\\.dig$", "");
                     circuitComponent.createSimpleCustomShape(labelText);
                 } catch (PinException pe) {
                     new ErrorMessage(Lang.get("msg_errorCreatingSimpleCustomShape")).addCause(pe).show(Main.this);
