@@ -10,9 +10,14 @@ package de.neemann.digital.draw.shapes;
  */
 public enum CustomCircuitShapeType {
     /**
-     * The default shape. inputs at the left, outputs at the right
+     * Uses the shape specified in the circuit itself
      */
     DEFAULT,
+
+    /**
+     * The default shape. inputs at the left, outputs at the right
+     */
+    SIMPLE,
 
     /**
      * A DIL shape

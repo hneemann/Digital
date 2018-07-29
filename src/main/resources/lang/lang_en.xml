@@ -1180,8 +1180,10 @@
 
     <string name="key_shapeType">Shape</string>
     <string name="key_shapeType_tt">The shape to be used for the representation of the circuit in an embedding circuit.
-        With "Layout", the position of the inputs and outputs in the circuit determines the position of the pins.</string>
+        With "Layout", the position of the inputs and outputs and and their orientation in the circuit determines
+        the position of the pins.</string>
     <string name="key_shapeType_DEFAULT">Default</string>
+    <string name="key_shapeType_SIMPLE">Simple</string>
     <string name="key_shapeType_DIL">DIL-Chip</string>
     <string name="key_shapeType_LAYOUT">Layout</string>
     <string name="key_shapeType_CUSTOM">User defined</string>

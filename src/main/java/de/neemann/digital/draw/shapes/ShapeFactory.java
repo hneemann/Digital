@@ -183,6 +183,8 @@ public final class ShapeFactory {
                                         pt.getOutputDescriptions(elementAttributes),
                                         elementAttributes.getLabel(),
                                         customDescr.getAttributes());
+                            case LAYOUT:
+                                return new LayoutShape(customDescr, elementAttributes);
                             case CUSTOM:
                                 final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
                                 if (customShapeDescription != CustomShapeDescription.EMPTY)

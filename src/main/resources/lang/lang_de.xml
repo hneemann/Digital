@@ -1189,9 +1189,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_shapeType">Form</string>
     <string name="key_shapeType_tt">Die Form, welche für die Repräsentation der Schaltung in einer einbettenden
-        Schaltung verwendet werden soll. Bei "Layout" bestimmt die Lage der Ein- und Ausgänge in der Schaltung die
-        Position der Pins.</string>
-    <string name="key_shapeType_DEFAULT">Standard</string>
+        Schaltung verwendet werden soll. Bei "Layout" bestimmt die Lage und Orientierung der Ein- und Ausgänge in
+        der Schaltung die Position der Pins.</string>
+    <string name="key_shapeType_DEFAULT">Vorgabe</string>
+    <string name="key_shapeType_SIMPLE">Einfach</string>
     <string name="key_shapeType_DIL">DIL-Gehäuse</string>
     <string name="key_shapeType_LAYOUT">Layout</string>
     <string name="key_shapeType_CUSTOM">Benutzerdefiniert</string>
