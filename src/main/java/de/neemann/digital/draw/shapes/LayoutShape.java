@@ -21,6 +21,7 @@ import de.neemann.digital.lang.Lang;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -199,6 +200,7 @@ public class LayoutShape implements Shape {
         }
 
         private void createPosition(HashMap<String, PinPos> map, Vector pos) {
+            Collections.sort(pins);
             for (PinPos pp : pins) {
                 map.put(pp.label, pp);
                 pp.pos = pos;
