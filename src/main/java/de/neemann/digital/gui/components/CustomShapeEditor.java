@@ -21,6 +21,8 @@ import java.awt.event.ActionEvent;
  */
 public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDescription> {
     private CustomShapeDescription customShapeDescription;
+    private ToolTipAction clear;
+    private ToolTipAction load;
 
     /**
      * Creates a new instance
@@ -35,19 +37,28 @@ public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDesc
     @Override
     public JComponent getComponent(ElementAttributes attr) {
         JPanel panel = new JPanel(new GridLayout(1, 2));
-        panel.add(new ToolTipAction(Lang.get("btn_clearData")) {
+        clear = new ToolTipAction(Lang.get("btn_clearData")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 customShapeDescription = CustomShapeDescription.EMPTY;
             }
-        }.createJButton());
-        panel.add(new ToolTipAction(Lang.get("btn_load")) {
+        };
+        panel.add(clear.createJButton());
+        load = new ToolTipAction(Lang.get("btn_load")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 customShapeDescription = CustomShapeDescription.createDummy();
             }
-        }.createJButton());
+        };
+        panel.add(load.createJButton());
         return panel;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        load.setEnabled(enabled);
+        clear.setEnabled(enabled);
     }
 
     @Override

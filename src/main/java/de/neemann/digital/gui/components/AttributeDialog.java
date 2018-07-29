@@ -134,7 +134,7 @@ public class AttributeDialog extends JDialog {
             if (dependsOn != null) {
                 for (EditorHolder ed : editors) {
                     if (ed.key.getKey().equals(dependsOn.getKey())) {
-                        ed.setDependantEditor(e, key.isDependsOnInverted());
+                        ed.setDependantEditor(e, key.getCheckEnabled());
                     }
                 }
             }
@@ -186,7 +186,7 @@ public class AttributeDialog extends JDialog {
      * @param list the list a keys
      * @return true if two tabs are to be used.
      */
-    public boolean enableTwoTabs(List<Key> list) {
+    private boolean enableTwoTabs(List<Key> list) {
         int secCount = 0;
         int primCount = 0;
         for (Key k : list) {
@@ -213,7 +213,7 @@ public class AttributeDialog extends JDialog {
     /**
      * @return the keys check boxes
      */
-    public HashMap<Key, JCheckBox> getCheckBoxes() {
+    HashMap<Key, JCheckBox> getCheckBoxes() {
         return checkBoxes;
     }
 
@@ -224,7 +224,7 @@ public class AttributeDialog extends JDialog {
      * @param action the action
      * @return this for chained calls
      */
-    public AttributeDialog addButton(String label, ToolTipAction action) {
+    AttributeDialog addButton(String label, ToolTipAction action) {
         panel.add(new JLabel(label), constraints);
         panel.add(action.createJButton(), constraints.x(1));
         constraints.nextRow();
@@ -237,7 +237,7 @@ public class AttributeDialog extends JDialog {
      * @param action the action
      * @return this for chained calls
      */
-    public AttributeDialog addButton(ToolTipAction action) {
+    AttributeDialog addButton(ToolTipAction action) {
         buttonPanel.add(action.createJButton(), 0);
         return this;
     }
@@ -247,7 +247,7 @@ public class AttributeDialog extends JDialog {
      *
      * @throws Editor.EditorParseException Editor.EditorParseException
      */
-    public void storeEditedValues() throws Editor.EditorParseException {
+    void storeEditedValues() throws Editor.EditorParseException {
         for (EditorHolder e : editors)
             e.setTo(modifiedAttributes);
     }
@@ -257,7 +257,7 @@ public class AttributeDialog extends JDialog {
      *
      * @throws Editor.EditorParseException Editor.EditorParseException
      */
-    public void updateEditedValues() throws Editor.EditorParseException {
+    void updateEditedValues() throws Editor.EditorParseException {
         for (EditorHolder e : editors)
             e.getFrom(modifiedAttributes);
     }
@@ -265,7 +265,7 @@ public class AttributeDialog extends JDialog {
     /**
      * @return the modified attributes
      */
-    public ElementAttributes getModifiedAttributes() {
+    ElementAttributes getModifiedAttributes() {
         return modifiedAttributes;
     }
 
@@ -295,7 +295,7 @@ public class AttributeDialog extends JDialog {
     /**
      * @return the dialogs parent
      */
-    public Window getDialogParent() {
+    Window getDialogParent() {
         return parent;
     }
 
@@ -303,7 +303,7 @@ public class AttributeDialog extends JDialog {
     /**
      * @return true if ok is pressed
      */
-    public boolean isOkPressed() {
+    boolean isOkPressed() {
         return okPressed;
     }
 
@@ -348,19 +348,26 @@ public class AttributeDialog extends JDialog {
             attr.set(key, value);
         }
 
-        public void getFrom(ElementAttributes attr) throws Editor.EditorParseException {
+        void getFrom(ElementAttributes attr) {
             T value = attr.get(key);
             e.setValue(value);
         }
 
-        void setDependantEditor(Editor editor, boolean inverted) {
-            if (key.getValueClass() != Boolean.class)
-                throw new RuntimeException("key " + key.getName() + " is not a bool key");
+        void setDependantEditor(Editor editor, Key.CheckEnabled<T> checkEnabled) {
+            try {
+                editor.setEnabled(checkEnabled.isEnabled(e.getValue()));
+            } catch (Editor.EditorParseException e1) {
+                e1.printStackTrace();
+            }
 
-            EditorFactory.BooleanEditor bool = (EditorFactory.BooleanEditor) e;
-            editor.setEnabled(bool.getValue() ^ inverted);
-
-            bool.getCheckBox().addActionListener(actionEvent -> editor.setEnabled(bool.getValue() ^ inverted));
+            e.addActionListener(actionEvent -> {
+                        try {
+                            editor.setEnabled(checkEnabled.isEnabled(e.getValue()));
+                        } catch (Editor.EditorParseException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+            );
         }
     }
 

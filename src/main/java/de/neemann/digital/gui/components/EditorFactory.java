@@ -37,6 +37,7 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -444,6 +445,11 @@ public final class EditorFactory {
         public void setValue(Boolean value) {
             bool.setEnabled(value);
         }
+
+        @Override
+        public void addActionListener(ActionListener al) {
+            bool.addActionListener(al);
+        }
     }
 
     private final static class ColorEditor extends LabelEditor<Color> {
@@ -496,6 +502,7 @@ public final class EditorFactory {
         private final JPanel panel;
         private final JTextField textField;
         private final boolean directoryOnly;
+        private final JButton button;
 
         public FileEditor(File value, Key<File> key) {
             if (key instanceof Key.KeyFile)
@@ -505,7 +512,7 @@ public final class EditorFactory {
 
             panel = new JPanel(new BorderLayout());
             textField = new JTextField(value.getPath(), 20);
-            JButton button = new JButton(new AbstractAction("...") {
+            button = new JButton(new AbstractAction("...") {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser(FileEditor.this.getValue());
@@ -532,6 +539,13 @@ public final class EditorFactory {
         @Override
         public void setValue(File value) {
             textField.setText(value.getPath());
+        }
+
+        @Override
+        public void setEnabled(boolean enabled) {
+            super.setEnabled(enabled);
+            textField.setEnabled(enabled);
+            button.setEnabled(enabled);
         }
     }
 
@@ -660,6 +674,11 @@ public final class EditorFactory {
         @Override
         public void setValue(E value) {
             comboBox.setSelectedIndex(value.ordinal());
+        }
+
+        @Override
+        public void addActionListener(ActionListener actionListener) {
+            comboBox.addActionListener(actionListener);
         }
     }
 

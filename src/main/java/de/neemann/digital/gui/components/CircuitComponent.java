@@ -65,6 +65,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     static {
         ATTR_LIST.add(Keys.WIDTH);
         ATTR_LIST.add(Keys.SHAPE_TYPE);
+        if (Main.isExperimentalMode())
+            ATTR_LIST.add(Keys.CUSTOM_SHAPE);
         ATTR_LIST.add(Keys.PINCOUNT);
         ATTR_LIST.add(Keys.BACKGROUND_COLOR);
         ATTR_LIST.add(Keys.DESCRIPTION);

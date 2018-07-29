@@ -529,12 +529,19 @@ public final class Keys {
             new Key<>("pinNumber", "").setSecondary();
 
     /**
+     * defines the shape type of the custom circuit
+     */
+    public static final Key<CustomCircuitShapeType> SHAPE_TYPE
+            = new Key.KeyEnum<>("shapeType", CustomCircuitShapeType.DEFAULT, CustomCircuitShapeType.values()).setSecondary();
+
+    /**
      * the pin count
      */
     public static final Key<Integer> PINCOUNT =
             new Key.KeyInteger("pinCount", 0)
                     .setMin(0)
-                    .setSecondary();
+                    .setSecondary()
+                    .setDependsOn(SHAPE_TYPE, st -> st.equals(CustomCircuitShapeType.DIL));
 
 
     /**
@@ -641,16 +648,12 @@ public final class Keys {
             new Key<>("noComponentToolTips", false);
 
     /**
-     * defines the shape type of the custom circuit
-     */
-    public static final Key<CustomCircuitShapeType> SHAPE_TYPE
-            = new Key.KeyEnum<>("shapeType", CustomCircuitShapeType.DEFAULT, CustomCircuitShapeType.values()).setSecondary();
-
-    /**
      * Shape used to represent a visual element
      */
     public static final Key<CustomShapeDescription> CUSTOM_SHAPE
-            = new Key<>("customShape", CustomShapeDescription.EMPTY).setSecondary();
+            = new Key<>("customShape", CustomShapeDescription.EMPTY)
+            .setSecondary()
+            .setDependsOn(SHAPE_TYPE, st -> st.equals(CustomCircuitShapeType.CUSTOM));
 
     /**
      * True if a program is loaded to the simulator at startup
@@ -662,6 +665,6 @@ public final class Keys {
      * The file to preload as a program at startup
      */
     public static final Key<File> PROGRAM_TO_PRELOAD
-            = new Key.KeyFile("preloadProgramFile", new File("")).setSecondary();
+            = new Key.KeyFile("preloadProgramFile", new File("")).setSecondary().setDependsOn(PRELOAD_PROGRAM);
 
 }
