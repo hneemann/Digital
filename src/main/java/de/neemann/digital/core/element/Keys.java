@@ -290,6 +290,21 @@ public final class Keys {
             .setMin(2);
 
     /**
+     * defines the shape type of the custom circuit
+     */
+    public static final Key<CustomCircuitShapeType> SHAPE_TYPE
+            = new Key.KeyEnum<>("shapeType", CustomCircuitShapeType.DEFAULT, CustomCircuitShapeType.values()).setSecondary();
+
+    /**
+     * the width of an element if it is included as nested element
+     */
+    public static final Key<Integer> HEIGHT
+            = new Key.KeyInteger("Height", 3)
+            .setMin(2)
+            .setSecondary()
+            .setDependsOn(SHAPE_TYPE, cst -> cst.equals(CustomCircuitShapeType.LAYOUT));
+
+    /**
      * width of the terminal
      */
     public static final Key.KeyInteger TERM_WIDTH
@@ -527,12 +542,6 @@ public final class Keys {
      */
     public static final Key<String> PINNUMBER =
             new Key<>("pinNumber", "").setSecondary();
-
-    /**
-     * defines the shape type of the custom circuit
-     */
-    public static final Key<CustomCircuitShapeType> SHAPE_TYPE
-            = new Key.KeyEnum<>("shapeType", CustomCircuitShapeType.DEFAULT, CustomCircuitShapeType.values()).setSecondary();
 
     /**
      * the pin count

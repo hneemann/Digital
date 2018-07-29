@@ -992,6 +992,8 @@
     <string name="key_Value_tt">The value of the constant.</string>
     <string name="key_Width">Width</string>
     <string name="key_Width_tt">With of symbol if this circuit is used as an component in an other circuit.</string>
+    <string name="key_Height">Height</string>
+    <string name="key_Height_tt">Height of symbol if this circuit is used as an component in an other circuit.</string>
     <string name="key_autoReload">Reload at model start</string><!-- ROM -->
     <string name="key_autoReload_tt">Reloads the hex file every time the model is started.</string>
     <string name="key_flipSelPos">Flip selector position</string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->

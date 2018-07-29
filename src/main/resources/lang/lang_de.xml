@@ -1000,6 +1000,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Value_tt">Der Wert der Konstanten.</string>
     <string name="key_Width">Breite</string>
     <string name="key_Width_tt">Breite des Symbols, wenn diese Schaltung in eine andere eingefügt wird.</string>
+    <string name="key_Height">Höhe</string>
+    <string name="key_Height_tt">Höhe des Symbols, wenn diese Schaltung in eine andere eingefügt wird.</string>
     <string name="key_autoReload">Bei jedem Start automatisch neu laden.</string><!-- ROM -->
     <string name="key_autoReload_tt">Lädt das HEX-File bei jedem Modelstart neu.</string>
     <string name="key_flipSelPos">Tausche Selektorposition</string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->

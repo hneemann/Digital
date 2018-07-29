@@ -21,7 +21,6 @@ import de.neemann.digital.lang.Lang;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -34,12 +33,11 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
  */
 public class LayoutShape implements Shape {
 
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     private final Pins pins;
     private final Color color;
     private final String name;
-    private final String label;
     private final PinList left;
     private final PinList right;
     private final PinList top;
@@ -94,16 +92,14 @@ public class LayoutShape implements Shape {
             }
         }
 
-        height = Math.max(right.size(), left.size()) + 1;
-        final int w = Math.max(top.size(), bottom.size()) + 1;
-        width = Math.max(w, custom.getAttributes().get(Keys.WIDTH));
-
+        height = Math.max(Math.max(right.size(), left.size()) + 1, custom.getAttributes().get(Keys.HEIGHT));
+        width = Math.max(Math.max(top.size(), bottom.size()) + 1, custom.getAttributes().get(Keys.WIDTH));
 
         HashMap<String, PinPos> map = new HashMap<>();
         top.createPosition(map, new Vector(((width - top.size()) / 2 + 1) * SIZE, 0));
         bottom.createPosition(map, new Vector(((width - bottom.size()) / 2 + 1) * SIZE, SIZE * height));
-        left.createPosition(map, new Vector(0, SIZE));
-        right.createPosition(map, new Vector(SIZE * width, SIZE));
+        left.createPosition(map, new Vector(0, ((height - left.size()) / 2 + 1) * SIZE));
+        right.createPosition(map, new Vector(SIZE * width, ((height - right.size()) / 2 + 1) * SIZE));
 
         pins = new Pins();
         for (PinDescription p : custom.getInputDescription(elementAttributes))
@@ -112,8 +108,12 @@ public class LayoutShape implements Shape {
             pins.add(createPin(map, p));
 
         color = custom.getCircuit().getAttributes().get(Keys.BACKGROUND_COLOR);
-        label = elementAttributes.getCleanLabel();
-        name = custom.getShortName();
+
+        String l = elementAttributes.getCleanLabel();
+        if (l != null && l.length() > 0)
+            name = l;
+        else
+            name = custom.getShortName();
     }
 
     private Pin createPin(HashMap<String, PinPos> map, PinDescription p) throws PinException {
@@ -144,9 +144,12 @@ public class LayoutShape implements Shape {
         graphic.drawPolygon(poly, Style.NORMAL.deriveFillStyle(color));
         graphic.drawPolygon(poly, Style.NORMAL);
 
-        Vector center = new Vector(width * SIZE / 2, height * SIZE / 2);
-        Graphic.drawText(graphic, center.add(0, -2), name, Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
-        Graphic.drawText(graphic, center.add(0, 2), label, Orientation.CENTERTOP, Style.SHAPE_PIN);
+        if (top.size() == 0)
+            Graphic.drawText(graphic, new Vector(width * SIZE / 2, -4), name, Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
+        else if (bottom.size() == 0)
+            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE + 4), name, Orientation.CENTERTOP, Style.SHAPE_PIN);
+        else
+            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE /2), name, Orientation.CENTERCENTER, Style.SHAPE_PIN);
 
         for (PinPos p : left)
             Graphic.drawText(graphic, p.pos.add(4, 0), p.label, Orientation.LEFTCENTER, Style.SHAPE_PIN);
@@ -196,7 +199,6 @@ public class LayoutShape implements Shape {
         }
 
         private void createPosition(HashMap<String, PinPos> map, Vector pos) {
-            Collections.sort(pins);
             for (PinPos pp : pins) {
                 map.put(pp.label, pp);
                 pp.pos = pos;
