@@ -87,7 +87,7 @@ public class External extends Node implements Element {
         try {
             processInterface.readValues(outputs);
         } catch (IOException e) {
-            throw new NodeException(Lang.get("err_errorReadingDataToProcess"), this, -1, outputs, e);
+            throw new NodeException(Lang.get("err_errorReadingDataFromProcess"), this, -1, outputs, e);
         }
     }
 
