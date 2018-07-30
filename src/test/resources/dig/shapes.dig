@@ -473,6 +473,16 @@
       <elementAttributes/>
       <pos x="200" y="180"/>
     </visualElement>
+    <visualElement>
+      <elementName>MS-JK-DIL.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>shapeType</string>
+          <shapeType>LAYOUT</shapeType>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="640"/>
+    </visualElement>
   </visualElements>
   <wires/>
 </circuit>

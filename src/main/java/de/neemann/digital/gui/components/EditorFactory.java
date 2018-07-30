@@ -22,6 +22,7 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
@@ -36,6 +37,7 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -75,6 +77,7 @@ public final class EditorFactory {
         add(ROMManger.class, ROMManagerEditor.class);
         add(Application.Type.class, ApplicationTypeEditor.class);
         add(CustomShapeDescription.class, CustomShapeEditor.class);
+        add(CustomCircuitShapeType.class, CustomCircuitShapeTypeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -442,6 +445,11 @@ public final class EditorFactory {
         public void setValue(Boolean value) {
             bool.setEnabled(value);
         }
+
+        @Override
+        public void addActionListener(ActionListener al) {
+            bool.addActionListener(al);
+        }
     }
 
     private final static class ColorEditor extends LabelEditor<Color> {
@@ -494,6 +502,7 @@ public final class EditorFactory {
         private final JPanel panel;
         private final JTextField textField;
         private final boolean directoryOnly;
+        private final JButton button;
 
         public FileEditor(File value, Key<File> key) {
             if (key instanceof Key.KeyFile)
@@ -503,7 +512,7 @@ public final class EditorFactory {
 
             panel = new JPanel(new BorderLayout());
             textField = new JTextField(value.getPath(), 20);
-            JButton button = new JButton(new AbstractAction("...") {
+            button = new JButton(new AbstractAction("...") {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser(FileEditor.this.getValue());
@@ -530,6 +539,13 @@ public final class EditorFactory {
         @Override
         public void setValue(File value) {
             textField.setText(value.getPath());
+        }
+
+        @Override
+        public void setEnabled(boolean enabled) {
+            super.setEnabled(enabled);
+            textField.setEnabled(enabled);
+            button.setEnabled(enabled);
         }
     }
 
@@ -659,6 +675,11 @@ public final class EditorFactory {
         public void setValue(E value) {
             comboBox.setSelectedIndex(value.ordinal());
         }
+
+        @Override
+        public void addActionListener(ActionListener actionListener) {
+            comboBox.addActionListener(actionListener);
+        }
     }
 
     private static final class IntFormatsEditor extends EnumEditor<IntFormat> {
@@ -681,6 +702,12 @@ public final class EditorFactory {
 
     private static final class LeftRightFormatsEditor extends EnumEditor<LeftRightFormat> {
         public LeftRightFormatsEditor(LeftRightFormat value, Key<LeftRightFormat> key) {
+            super(value, key);
+        }
+    }
+
+    private static final class CustomCircuitShapeTypeEditor extends EnumEditor<CustomCircuitShapeType> {
+        public CustomCircuitShapeTypeEditor(CustomCircuitShapeType value, Key<CustomCircuitShapeType> key) {
             super(value, key);
         }
     }

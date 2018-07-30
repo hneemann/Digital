@@ -17,6 +17,7 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
+import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
@@ -289,6 +290,21 @@ public final class Keys {
             .setMin(2);
 
     /**
+     * defines the shape type of the custom circuit
+     */
+    public static final Key<CustomCircuitShapeType> SHAPE_TYPE
+            = new Key.KeyEnum<>("shapeType", CustomCircuitShapeType.DEFAULT, CustomCircuitShapeType.values()).setSecondary();
+
+    /**
+     * the width of an element if it is included as nested element
+     */
+    public static final Key<Integer> HEIGHT
+            = new Key.KeyInteger("Height", 3)
+            .setMin(2)
+            .setSecondary()
+            .setDependsOn(SHAPE_TYPE, cst -> cst.equals(CustomCircuitShapeType.LAYOUT));
+
+    /**
      * width of the terminal
      */
     public static final Key.KeyInteger TERM_WIDTH
@@ -528,18 +544,13 @@ public final class Keys {
             new Key<>("pinNumber", "").setSecondary();
 
     /**
-     * true if shape is a dil shape
-     */
-    public static final Key<Boolean> IS_DIL
-            = new Key<>("isDIL", false).setSecondary();
-    /**
      * the pin count
      */
     public static final Key<Integer> PINCOUNT =
             new Key.KeyInteger("pinCount", 0)
                     .setMin(0)
-                    .setDependsOn(IS_DIL)
-                    .setSecondary();
+                    .setSecondary()
+                    .setDependsOn(SHAPE_TYPE, st -> st.equals(CustomCircuitShapeType.DIL));
 
 
     /**
@@ -552,8 +563,7 @@ public final class Keys {
      * Background Color of nested circuits
      */
     public static final Key<java.awt.Color> BACKGROUND_COLOR
-            = new Key<>("backgroundColor", new Color(255, 255, 180, 200))
-            .setDependsOn(IS_DIL, true);
+            = new Key<>("backgroundColor", new Color(255, 255, 180, 200));
 
     /**
      * the screen resolution
@@ -647,16 +657,12 @@ public final class Keys {
             new Key<>("noComponentToolTips", false);
 
     /**
-     * Used to show the default shape also if the circuit defines a DIL.
-     */
-    public static final Key<Boolean> USE_DEFAULT_SHAPE
-            = new Key<Boolean>("useDefShape", false);
-
-    /**
      * Shape used to represent a visual element
      */
     public static final Key<CustomShapeDescription> CUSTOM_SHAPE
-            = new Key<>("customShape", CustomShapeDescription.EMPTY).setSecondary();
+            = new Key<>("customShape", CustomShapeDescription.EMPTY)
+            .setSecondary()
+            .setDependsOn(SHAPE_TYPE, st -> st.equals(CustomCircuitShapeType.CUSTOM));
 
     /**
      * True if a program is loaded to the simulator at startup
@@ -668,6 +674,6 @@ public final class Keys {
      * The file to preload as a program at startup
      */
     public static final Key<File> PROGRAM_TO_PRELOAD
-            = new Key.KeyFile("preloadProgramFile", new File("")).setSecondary();
+            = new Key.KeyFile("preloadProgramFile", new File("")).setSecondary().setDependsOn(PRELOAD_PROGRAM);
 
 }

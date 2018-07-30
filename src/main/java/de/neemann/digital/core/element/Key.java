@@ -20,7 +20,7 @@ public class Key<VALUE> {
     private final String langKey;
     private boolean groupEditAllowed = false;
     private Key dependsOn;
-    private boolean dependsOnInvert;
+    private CheckEnabled checkEnabled;
 
     // Both values are always null in digital.
     // Both are only used within a custom implemented component.
@@ -157,30 +157,31 @@ public class Key<VALUE> {
     /**
      * @return true if dependency is inverted
      */
-    public boolean isDependsOnInverted() {
-        return dependsOnInvert;
+    public CheckEnabled getCheckEnabled() {
+        return checkEnabled;
+    }
+
+    /**
+     * Sets a bool dependency for this key
+     *
+     * @param key the key which this key depends on
+     * @return this for chained calls
+     */
+    public Key<VALUE> setDependsOn(Key<Boolean> key) {
+        return setDependsOn(key, o -> o);
     }
 
     /**
      * Sets the key this key depends on.
      *
-     * @param key the key where this key depends on
+     * @param key          the key where this key depends on
+     * @param checkEnabled function which determines if the editor is enabled or not
+     * @param <KV>         type of key which this key depends on
      * @return this for chained calls
      */
-    public Key<VALUE> setDependsOn(Key key) {
-        return setDependsOn(key, false);
-    }
-
-    /**
-     * Sets the key this key depends on.
-     *
-     * @param key    the key where this key depends on
-     * @param invert if true dependency is inverted
-     * @return this for chained calls
-     */
-    public Key<VALUE> setDependsOn(Key key, boolean invert) {
+    public <KV> Key<VALUE> setDependsOn(Key<KV> key, CheckEnabled<KV> checkEnabled) {
         this.dependsOn = key;
-        this.dependsOnInvert = invert;
+        this.checkEnabled = checkEnabled;
         return this;
     }
 
@@ -456,5 +457,20 @@ public class Key<VALUE> {
         public boolean getLineNumbers() {
             return lineNumbers;
         }
+    }
+
+    /**
+     * Interface to define a dependancy of a key from an other key
+     *
+     * @param <T> the type of the key
+     */
+    public interface CheckEnabled<T> {
+        /**
+         * Returns true if editor is enabled
+         *
+         * @param t the value the editor depends on
+         * @return true if editor is enabled
+         */
+        boolean isEnabled(T t);
     }
 }

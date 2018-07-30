@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * @param <T> the type of the editor
@@ -45,6 +46,14 @@ public interface Editor<T> {
      * @param enabled true enables the component
      */
     void setEnabled(boolean enabled);
+
+    /**
+     * Adds an ectionListener to the component
+     *
+     * @param actionListener the actionListener to add
+     */
+    default void addActionListener(ActionListener actionListener) {
+    }
 
     /**
      * Indicates a invalid value in a input field

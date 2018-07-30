@@ -992,6 +992,8 @@
     <string name="key_Value_tt">The value of the constant.</string>
     <string name="key_Width">Width</string>
     <string name="key_Width_tt">With of symbol if this circuit is used as an component in an other circuit.</string>
+    <string name="key_Height">Height</string>
+    <string name="key_Height_tt">Height of symbol if this circuit is used as an component in an other circuit.</string>
     <string name="key_autoReload">Reload at model start</string><!-- ROM -->
     <string name="key_autoReload_tt">Reloads the hex file every time the model is started.</string>
     <string name="key_flipSelPos">Flip selector position</string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->
@@ -1077,9 +1079,6 @@
     <string name="key_colAddrBits_tt">Addresses the individual columns. Three bits means eight columns.</string>
     <string name="key_lockedMode">Modification locked</string>
     <string name="key_lockedMode_tt">The circuit is locked. It is possible to configure diodes and FGF-FETs.</string>
-    <string name="key_isDIL">DIL package</string>
-    <string name="key_isDIL_tt">If set, this circuit is shown in a DIL package.
-        To assign the pins correctly, the pin numbers must be set on all inputs and outputs.</string>
     <string name="key_pinNumber">Pin number</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Number of this pin. Used for the representation of a circuit as a DIL package and
         the pin assignment when programming a CPLD.
@@ -1170,9 +1169,6 @@
     <string name="key_customShape">Custom Shape</string>
     <string name="key_customShape_tt">Import of a SVG-file</string>
 
-    <string name="key_useDefShape">Use Default Shape</string>
-    <string name="key_useDefShape_tt">Use the default shape instead of using the DIL or custom shape configured in the circuit.</string>
-
     <string name="key_preloadProgram">Preload program memory at startup.</string>
     <string name="key_preloadProgram_tt">When simulating a processor that uses a RAM device as the program memory,
         it is difficult to start this processor because the RAM contents are always initialized with zeros at the start
@@ -1183,6 +1179,20 @@
     <string name="key_preloadProgramFile_tt">File which should be loaded into the program memory at the start of the
         simulation.
     </string>
+
+    <string name="key_shapeType">Shape</string>
+    <string name="key_shapeType_tt">The shape to be used for the representation of the circuit in an embedding circuit.
+        In the "Simple" mode, the inputs are displayed on the left and the outputs on the right side of a simple rectangle.
+        With "Layout", the position of the inputs and outputs and and their orientation in the circuit determines
+        the position of the pins. Here are also pins at the top or bottom possible.
+        When selecting "DIL-Chip", a DIL housing is used to display the circuit. The pin numbers of the inputs and outputs
+        determine the position of the pins in this case.
+    </string>
+    <string name="key_shapeType_DEFAULT">Default</string>
+    <string name="key_shapeType_SIMPLE">Simple</string>
+    <string name="key_shapeType_DIL">DIL-Chip</string>
+    <string name="key_shapeType_LAYOUT">Layout</string>
+    <string name="key_shapeType_CUSTOM">User defined</string>
 
     <string name="key_textOrientation">Orientation</string>
     <string name="key_textOrientation_tt">Position of the coordinate relative to the text.</string>
