@@ -485,6 +485,7 @@
     <chapter name="Keyboard Shortcuts" newpage="true">
         <shortcuts>
             <shortcut key="Space">Starts or stops the simulation.</shortcut>
+            <shortcut key="F6">Opens the measurement table dialog.</shortcut>
             <shortcut key="F7">Run to Break</shortcut>
             <shortcut key="F8">Execute test cases</shortcut>
             <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single

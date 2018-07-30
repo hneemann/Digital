@@ -1001,7 +1001,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     showMeasurementDialog(event);
                 }
             }
-        }.setToolTip(Lang.get("menu_showDataTable_tt")).setEnabledChain(false);
+        }.setToolTip(Lang.get("menu_showDataTable_tt")).setEnabledChain(false).setAccelerator("F6");
 
         showMeasurementGraph = new ToolTipAction(Lang.get("menu_showDataGraph")) {
             @Override
