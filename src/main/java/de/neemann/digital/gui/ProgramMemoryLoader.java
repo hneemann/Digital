@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * A Modifier that loads a given rom file to the program memory of the model.
  */
-public class ProgramMemoryRomLoader implements ModelModifier {
+public class ProgramMemoryLoader implements ModelModifier {
     private final File romHex;
 
     /**
@@ -27,7 +27,7 @@ public class ProgramMemoryRomLoader implements ModelModifier {
      *
      * @param romHex the file to load
      */
-    ProgramMemoryRomLoader(File romHex) {
+    ProgramMemoryLoader(File romHex) {
         this.romHex = romHex;
     }
 
