@@ -1236,6 +1236,8 @@
     <string name="lib_switching">Switches</string>
     <string name="lib_misc">Misc.</string>
     <string name="lib_more">more</string>
+    <string name="lib_ram">RAM</string>
+    <string name="lib_eeprom">EEPROM</string>
 
     <string name="menu_about">About</string>
     <string name="menu_analyse">Analysis</string>

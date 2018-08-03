@@ -1246,6 +1246,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="lib_switching">Schalter</string>
     <string name="lib_misc">Sonstige</string>
     <string name="lib_more">mehr</string>
+    <string name="lib_ram">RAM</string>
+    <string name="lib_eeprom">EEPROM</string>
 
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>
