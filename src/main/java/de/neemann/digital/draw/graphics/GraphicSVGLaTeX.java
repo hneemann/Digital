@@ -25,6 +25,7 @@ import java.util.ArrayList;
  * Inkscape also creates a LaTeX overlay containing the text only. So you get best document quality:
  * All the graphics as included PDF, all the text set with LaTeX fonts matching the rest of your LaTeX document.
  * To run the transformation automatically by the LaTeX compiler see InkscapePDFLaTeX.pdf.
+ *
  * @see <a href="https://Inkscape.org">inkscape</a>
  * @see <a href="http://mirrors.ctan.org/info/svg-inkscape/InkscapePDFLaTeX.pdf">InkscapePDFLaTeX.pdf</a>
  */
@@ -114,7 +115,8 @@ public class GraphicSVGLaTeX extends GraphicSVG {
 
     @Override
     public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
-        if ((style != Style.WIRE && style != Style.WIRE_OUT) || Math.abs(p1.getX() - p2.getX()) > 4)
+        if (!isFlagSet(LATEX)
+                || (style != Style.WIRE && style != Style.WIRE_OUT) || Math.abs(p1.getX() - p2.getX()) > 4)
             super.drawCircle(p1, p2, style);
     }
 
@@ -124,8 +126,10 @@ public class GraphicSVGLaTeX extends GraphicSVG {
         else if (style == Style.WIRE_OUT) return super.getColor(Style.NORMAL);
         else if (style == Style.WIRE_BITS) return super.getColor(Style.NORMAL);
         else if (style == Style.WIRE_BUS) return super.getColor(Style.NORMAL);
-        else if (style == Style.SHAPE_PIN) return super.getColor(Style.NORMAL);
-        else if (style == Style.SHAPE_SPLITTER) return super.getColor(Style.NORMAL);
-        else return super.getColor(style);
+        else if (isFlagSet(LATEX)) {
+            if (style == Style.SHAPE_PIN) return super.getColor(Style.NORMAL);
+            else if (style == Style.SHAPE_SPLITTER) return super.getColor(Style.NORMAL);
+        }
+        return super.getColor(style);
     }
 }
