@@ -74,10 +74,9 @@ public class GraphicComponent extends JComponent {
     }
 
     private static Color[] createPalette() {
-        Color[] col = new Color[64 + 16 + 32];
+        Color[] col = new Color[0x10000];
         for (int i = 0; i < col.length; i++)
             col[i] = Color.BLACK;
-
         col[0] = Color.WHITE;
         col[1] = Color.BLACK;
         col[2] = Color.RED;
@@ -90,22 +89,30 @@ public class GraphicComponent extends JComponent {
         col[9] = Color.PINK;
 
         for (int g = 0; g < 32; g++) {
-            int in = (255 * (31 - g)) / 31;
-            col[10 + g] = new Color(in, in, in);
+            int in = 255 - getComp(g, 32);
+            col[32 + g] = new Color(in, in, in);
         }
 
-        int index = 42;
+        int index = 64;
         for (int r = 0; r < 4; r++)
             for (int g = 0; g < 4; g++)
                 for (int b = 0; b < 4; b++) {
-                    col[index] = new Color(getComp(r), getComp(g), getComp(b));
+                    col[index] = new Color(getComp(r, 4), getComp(g, 4), getComp(b, 4));
+                    index++;
+                }
+
+        index = 0x8000;
+        for (int r = 0; r < 32; r++)
+            for (int g = 0; g < 32; g++)
+                for (int b = 0; b < 32; b++) {
+                    col[index] = new Color(getComp(r, 32), getComp(g, 32), getComp(b, 32));
                     index++;
                 }
 
         return col;
     }
 
-    private static int getComp(int c) {
-        return (255 * c) / 3;
+    private static int getComp(int c, int values) {
+        return (255 * c) / (values - 1);
     }
 }

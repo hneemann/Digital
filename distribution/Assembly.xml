@@ -93,16 +93,16 @@
                 <include>*.dig</include>
             </includes>
         </fileSet>
-        <!--fileSet>
-            <directory>${basedir}/src/main/dig/test</directory>
-            <outputDirectory>/examples/test/</outputDirectory>
+        <fileSet>
+            <directory>${basedir}/src/main/dig/graphicRam</directory>
+            <outputDirectory>/examples/graphicRam/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
-        </fileSet-->
+        </fileSet>
         <fileSet>
-            <directory>${basedir}/src/main/dig/vhdl</directory>
-            <outputDirectory>/examples/vhdl/</outputDirectory>
+            <directory>${basedir}/src/main/dig/hdl</directory>
+            <outputDirectory>/examples/hdl/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
