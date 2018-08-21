@@ -65,7 +65,7 @@ public class VHDLSimulatorTest extends TestCase {
     }
 
     public void testDistributedInSimulator() throws Exception {
-        File examples = new File(Resources.getRoot(), "../../main/dig/vhdl");
+        File examples = new File(Resources.getRoot(), "../../main/dig/hdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
             assertEquals(1, tested);
