@@ -4,11 +4,15 @@ HEAD, planned as v0.20
 - Improved zooming and navigating in the measurement graph.
 - Added multi pole double-throw relays.
 - Added EEPROM with separate ports for reading and writing.
+- Added a hi-color mode (5 bits per color channel) to the graphic RAM.
 - The external assembly IDE is able to preload also RAMs with executable code.
   The register representing the program counter must be marked as such.
-- Allows the pre-loading of program memory if a RAM is used as such.
+- Allows the pre-loading of program memory if a RAM is used as such, via the
+  circuit settings.
 - Added a new more flexible shape for embedded circuits.
 - Breaking changes:
+  - If you have used the 74xx library components with the schematic shape, you
+    have to reselect the shape.
   - In your own DIL circuits you have to reselect the DIL shape in the
     circuit settings. If you have build a custom shape, you also have to
     reselect it.
