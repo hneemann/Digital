@@ -613,6 +613,37 @@ public class Circuit {
     }
 
     /**
+     * Get a list of inputs and/or outputs from this circuit, checking whether
+     * each has a label.
+     * @param returnInputs return inputs?.
+     * @param returnOutputs return outputs?.
+     * @return The list of inputs and/or outputs.
+     * @throws PinException One of the in/outputs was missing a label.
+     */
+    public ArrayList<VisualElement> getAndCheckInputsAndOutputs(
+            boolean returnInputs,
+            boolean returnOutputs) throws PinException {
+        ArrayList<VisualElement> inputsAndOutputs = new ArrayList<>();
+        for (VisualElement ve : getElements()) {
+            if ((returnOutputs && ve.equalsDescription(Out.DESCRIPTION))
+                    || (returnInputs && ve.equalsDescription(In.DESCRIPTION))) {
+                ElementAttributes veAttr = ve.getElementAttributes();
+                String label = null;
+                if (veAttr != null) {
+                    label = veAttr.getLabel();
+                    if (label != null && label.length() > 0) {
+                        inputsAndOutputs.add(ve);
+                    }
+                }
+                if (label == null || label.length() == 0) {
+                    throw new PinException(Lang.get("err_pinWithoutName"));
+                }
+            }
+        }
+        return inputsAndOutputs;
+    }
+
+    /**
      * Returns a list of all output ObservableNames.
      * The ObservableValue is not connected to a model! Its just a wrapper for the outputs name.
      * This method is used to create dummy outputs for a nested element.

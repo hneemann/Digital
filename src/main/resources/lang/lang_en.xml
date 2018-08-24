@@ -1242,12 +1242,16 @@
     <string name="menu_about">About</string>
     <string name="menu_analyse">Analysis</string>
     <string name="menu_analyse_tt">Analyses the actual circuit</string>
+    <string name="menu_createSimpleCustomShape">Create Simple Custom Shape</string>
+    <string name="menu_createSimpleCustomShape_tt">Creates a simple rectangular custom shape for this circuit, based on the position of all the input or output pins</string>
     <string name="menu_cut">Cut</string>
     <string name="menu_copy">Copy</string>
     <string name="menu_custom">Custom</string>
     <string name="menu_library">Library</string>
     <string name="menu_delete">Delete components</string>
     <string name="menu_delete_tt">Delete selected single component or group of components.</string>
+    <string name="menu_deleteCustomShape">Delete Custom Shape</string>
+    <string name="menu_deleteCustomShape_tt">Deletes any custom shape assigned to this circuit.</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_editAttributes">Edit circuit attributes</string>
     <string name="menu_editAttributes_tt">These attributes effect the behavior if the circuit is included in other circuits.</string>
@@ -1437,6 +1441,7 @@
     <string name="msg_color">Color</string>
     <string name="msg_errorCalculatingStep">Error calculating a step</string>
     <string name="msg_errorCreatingModel">Error creating the circuit</string>
+    <string name="msg_errorCreatingSimpleCustomShape">Error creating simple custom shape</string>
     <string name="msg_errorDuringCalculation">Error during simplification</string>
     <string name="msg_errorDuringHardwareExport">Error during creation of hardware configuration.</string>
     <string name="msg_errorEditingValue">Error editing a attribute value</string>

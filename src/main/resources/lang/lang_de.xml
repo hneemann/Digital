@@ -1252,12 +1252,16 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>
     <string name="menu_analyse_tt">Analyse der aktuellen Schaltung</string>
+    <string name="menu_createSimpleCustomShape">Erzeugen einfacher benutzerdefinierte Form</string>
+    <string name="menu_createSimpleCustomShape_tt">Erzeugt eine einfache rechteckige benutzerdefinierte Form für diese Schaltung basierend auf der Position aller Eingangs- oder Ausgangspins</string>
     <string name="menu_cut">Ausschneiden</string>
     <string name="menu_copy">Kopieren</string>
     <string name="menu_custom">Benutzerdefiniert</string>
     <string name="menu_library">Bibliothek</string>
     <string name="menu_delete">Löschen</string>
     <string name="menu_delete_tt">Löscht ausgewählte Elemente</string>
+    <string name="menu_deleteCustomShape">Löschen benutzerdefinierte Form</string>
+    <string name="menu_deleteCustomShape_tt">Löscht eine benutzerdefinierte Form, die dieser Schaltung zugewiesen ist.</string>
     <string name="menu_edit">Bearbeiten</string>
     <string name="menu_editAttributes">Schaltungsattribute bearbeiten</string>
     <string name="menu_editAttributes_tt">Diese Attribute beeinflussen die Schaltung, wenn sie in andere Schaltungen eingebettet wird.</string>
@@ -1449,6 +1453,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enh
     <string name="msg_color">Farbe</string>
     <string name="msg_errorCalculatingStep">Fehler beim Berechnen eines Schrittes.</string>
     <string name="msg_errorCreatingModel">Fehler beim Erzeugen der Schaltung.</string>
+    <string name="msg_errorCreatingSimpleCustomShape">Fehler beim Erzeugen einer einfachen benutzerdefinierten Form</string>
     <string name="msg_errorDuringCalculation">Fehler während der Vereinfachung.</string>
     <string name="msg_errorDuringHardwareExport">Fehler bei der Erzeugung der Hardware-Konfiguration.</string>
     <string name="msg_errorEditingValue">Fehler bei der Eingabe eines Wertes.</string>

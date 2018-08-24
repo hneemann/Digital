@@ -627,6 +627,31 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         return circuitComponent;
     }
 
+    private ToolTipAction createCreateSimpleCustomShapeMenuEntry() {
+        return new ToolTipAction(Lang.get("menu_createSimpleCustomShape")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File bn = getBaseFileName();
+                    String labelText = bn == null || bn.getName() == null
+                            ? null
+                            : bn.getName().replaceAll("\\.dig$", "");
+                    circuitComponent.createSimpleCustomShape(labelText);
+                } catch (PinException pe) {
+                    new ErrorMessage(Lang.get("msg_errorCreatingSimpleCustomShape")).addCause(pe).show(Main.this);
+                }
+            }
+        }.setToolTip(Lang.get("menu_createSimpleCustomShape_tt"));
+    }
+
+    private ToolTipAction createDeleteCustomShapeMenuEntry() {
+        return new ToolTipAction(Lang.get("menu_deleteCustomShape")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                circuitComponent.deleteShape();
+            }
+        }.setToolTip(Lang.get("menu_deleteCustomShape_tt"));
+    }
     /**
      * Creates the edit menu
      *
@@ -667,6 +692,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_orderMeasurements_tt"));
 
+        ToolTipAction createCustomShape
+                = createCreateSimpleCustomShapeMenuEntry();
+        ToolTipAction deleteCustomShape
+                = createDeleteCustomShapeMenuEntry();
 
         ToolTipAction editAttributes = new ToolTipAction(Lang.get("menu_editAttributes")) {
             @Override
@@ -765,6 +794,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
         edit.add(orderMeasurements.createJMenuItem());
+        edit.addSeparator();
+        edit.add(createCustomShape.createJMenuItem());
+        edit.add(deleteCustomShape.createJMenuItem());
         edit.addSeparator();
 
         edit.add(circuitComponent.getCutAction().createJMenuItem());

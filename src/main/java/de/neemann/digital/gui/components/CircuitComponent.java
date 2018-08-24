@@ -423,6 +423,42 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
     }
 
     /**
+     * Creates a simple rectangular custom shape for this circuit with pins
+     * positions derived from the layout of the inputs and outputs in the actual
+     * circuit. Pins can appear anywhere in the custom shape. Their positions
+     * are a compressed version of the inputs and outputs in the actual circuit.
+     * Vertical or horizontal alignment of I/Os is preserved for the pins in the
+     * shape but distances between pins are reduced to a uniform minimum.
+     * @param labelText text to use for the shape's label.
+     *
+     * @throws PinException This indicates an IO is missing a label.
+     */
+    public void createSimpleCustomShape(String labelText) throws PinException {
+
+        Circuit c = getCircuit();
+        ArrayList<VisualElement> inputsAndOutputs
+                = c.getAndCheckInputsAndOutputs(true, true);
+
+        SimpleCustomShapeGenerator scsg
+                = new SimpleCustomShapeGenerator(
+                        inputsAndOutputs,
+                        c.getAttributes(), labelText);
+        ElementAttributes newAttr = scsg.getNewAttributes();
+        modify(new ModifyCircuitAttributes(newAttr));
+    }
+
+    /**
+     * Delete any custom shape from the attributes of this circuit.
+     */
+    public void deleteShape() {
+        ElementAttributes attr = circuit.getAttributes();
+        if (attr.contains(Keys.CUSTOM_SHAPE)) {
+            attr.set(Keys.CUSTOM_SHAPE, Keys.CUSTOM_SHAPE.getDefault());
+            modify(new ModifyCircuitAttributes(attr));
+        }
+    }
+
+    /**
      * Apply a modification
      *
      * @param modification the modification
