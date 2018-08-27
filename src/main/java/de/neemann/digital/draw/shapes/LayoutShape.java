@@ -97,10 +97,10 @@ public class LayoutShape implements Shape {
         width = Math.max(Math.max(top.size(), bottom.size()) + 1, custom.getAttributes().get(Keys.WIDTH));
 
         HashMap<String, PinPos> map = new HashMap<>();
-        top.createPosition(map, new Vector(((width - top.size()) / 2 + 1) * SIZE, 0));
-        bottom.createPosition(map, new Vector(((width - bottom.size()) / 2 + 1) * SIZE, SIZE * height));
-        left.createPosition(map, new Vector(0, ((height - left.size()) / 2 + 1) * SIZE));
-        right.createPosition(map, new Vector(SIZE * width, ((height - right.size()) / 2 + 1) * SIZE));
+        top.createPosition(map, new Vector(((width - top.size() - 1) / 2 + 1) * SIZE, 0));
+        bottom.createPosition(map, new Vector(((width - bottom.size() - 1) / 2 + 1) * SIZE, SIZE * height));
+        left.createPosition(map, new Vector(0, ((height - left.size() - 1) / 2 + 1) * SIZE));
+        right.createPosition(map, new Vector(SIZE * width, ((height - right.size() - 1) / 2 + 1) * SIZE));
 
         pins = new Pins();
         for (PinDescription p : custom.getInputDescription(elementAttributes))
@@ -150,7 +150,7 @@ public class LayoutShape implements Shape {
         else if (bottom.size() == 0)
             Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE + 4), name, Orientation.CENTERTOP, Style.SHAPE_PIN);
         else
-            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE /2), name, Orientation.CENTERCENTER, Style.SHAPE_PIN);
+            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE / 2), name, Orientation.CENTERCENTER, Style.SHAPE_PIN);
 
         for (PinPos p : left)
             Graphic.drawText(graphic, p.pos.add(4, 0), p.label, Orientation.LEFTCENTER, Style.SHAPE_PIN);
