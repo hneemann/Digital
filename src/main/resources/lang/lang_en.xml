@@ -758,7 +758,7 @@
     <string name="elem_External_tt">Component to execute an external process to calculate the logic function.
         Is used to specify the behaviour of a component by VHDL or Verilog.
         The actual simulation of the behavior must be done with an external simulator.
-        At present only the VHDL simulator ghdl is supported.
+        At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.
     </string>
 
     <string name="elem_Diode">Diode</string>
