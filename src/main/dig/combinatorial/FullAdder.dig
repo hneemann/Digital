@@ -113,7 +113,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>  A_i B_i C_i-1 C_i S_i
+            <dataString>  A_i B_i C_{i-1} C_i S_i
 
 loop (A,2)
   loop (B,2)
