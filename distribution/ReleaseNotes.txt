@@ -11,6 +11,8 @@ HEAD, planned as v0.20
   circuit settings.
 - Added a new more flexible shape for embedded circuits.
 - Breaking changes:
+  - If you have build a processor and are using the simulators tcp interface,
+    you have to flag the register which represents the program counter as such.
   - If you have used the 74xx library components with the schematic shape, you
     have to reselect the shape.
   - In your own DIL circuits you have to reselect the DIL shape in the

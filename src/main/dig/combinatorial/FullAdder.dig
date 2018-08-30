@@ -73,7 +73,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>C_i-1</string>
+          <string>C_{i-1}</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="460"/>
