@@ -1,6 +1,6 @@
 Release Notes
 
-HEAD, planned as v0.20
+v0.20, released on 03. Sep 2018
 - Improved zooming and navigating in the measurement graph.
 - Added multi pole double-throw relays.
 - Added EEPROM with separate ports for reading and writing.
