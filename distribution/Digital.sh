@@ -1,2 +1,3 @@
 #!/bin/bash
-java -jar Digital.jar "$1"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+java -jar $DIR/Digital.jar "$1"
