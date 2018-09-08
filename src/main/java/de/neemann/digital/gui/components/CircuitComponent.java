@@ -2072,6 +2072,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             ModifyMoveSelected.rotateElements(elements, center);
             repaintNeeded();
             accumulatedRotate++;
+            wasMoved = true;
         }
     }
 
