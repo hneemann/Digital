@@ -1308,7 +1308,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_saveData_tt">Speichert die Daten als CSV Datei</string>
     <string name="menu_speedTest">Geschwindigkeitstest</string>
     <string name="menu_speedTest_tt">Führt einen Geschwindigkeitstest durch. Es wird die maximal mögliche Taktfrequenz ermittelt</string>
-    <string name="menu_step">Schritt</string>
+    <string name="menu_step">Gatterschritt</string>
     <string name="menu_step_tt">Führt einen Einzelgatterschritt aus</string>
     <string name="menu_synthesise">Synthese</string>
     <string name="menu_synthesise_tt">Erzeugt minimale boolsche Ausdrücke, welche durch eine Wahrheitstabelle beschrieben werden.</string>
@@ -1447,7 +1447,7 @@ eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enh
     <string name="msg_analyseErr">Fehler bei der Analyse der Schaltung.</string>
     <string name="msg_clockError">Fehler bei der Berechnung einer Taktänderung.</string>
     <string name="msg_color">Farbe</string>
-    <string name="msg_errorCalculatingStep">Fehler beim Berechnen eines Schrittes.</string>
+    <string name="msg_errorCalculatingStep">Fehler beim Berechnen eines Simulationsschrittes.</string>
     <string name="msg_errorCreatingModel">Fehler beim Erzeugen der Schaltung.</string>
     <string name="msg_errorDuringCalculation">Fehler während der Vereinfachung.</string>
     <string name="msg_errorDuringHardwareExport">Fehler bei der Erzeugung der Hardware-Konfiguration.</string>
