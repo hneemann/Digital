@@ -57,20 +57,21 @@ public class GraphicComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        for (int x = 0; x < width; x++) {
-            int xPos = x * getWidth() / width;
-            int dx = (x + 1) * getWidth() / width - xPos;
-            for (int y = 0; y < height; y++) {
-                int p = (int) data[offs + y * width + x];
-                if (p >= PALETTE.length) p = 1;
-                g.setColor(PALETTE[p]);
+        if (data != null)
+            for (int x = 0; x < width; x++) {
+                int xPos = x * getWidth() / width;
+                int dx = (x + 1) * getWidth() / width - xPos;
+                for (int y = 0; y < height; y++) {
+                    int p = (int) data[offs + y * width + x];
+                    if (p >= PALETTE.length) p = 1;
+                    g.setColor(PALETTE[p]);
 
-                int ypos = y * getHeight() / height;
-                int dy = (y + 1) * getHeight() / height - ypos;
+                    int ypos = y * getHeight() / height;
+                    int dy = (y + 1) * getHeight() / height - ypos;
 
-                g.fillRect(xPos, ypos, dx, dy);
+                    g.fillRect(xPos, ypos, dx, dy);
+                }
             }
-        }
     }
 
     private static Color[] createPalette() {
