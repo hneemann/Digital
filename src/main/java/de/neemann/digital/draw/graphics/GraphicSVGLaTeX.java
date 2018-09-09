@@ -99,7 +99,7 @@ public class GraphicSVGLaTeX extends GraphicSVG {
     public String formatText(String text, Style style) {
         try {
             Text t = new Parser(text).parse();
-            if (style.getFontStyle() == Font.ITALIC)
+            if (style.getFontStyle() == Font.ITALIC && isFlagSet(LATEX))
                 t = Decorate.math(t);
             text = LaTeXFormatter.format(t);
         } catch (ParseException e) {
