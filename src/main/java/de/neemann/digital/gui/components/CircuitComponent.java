@@ -1995,7 +1995,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         private Vector center;
         private Vector accumulatedDelta;
         private int accumulatedRotate;
-        private boolean wasMoved;
+        private boolean hasChangedCircuit;
         private Vector min;
         private Vector max;
 
@@ -2008,7 +2008,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             rotateAction.setEnabled(true);
             lastPos = pos;
             center = raster(corner1.add(corner2).div(2));
-            wasMoved = false;
+            hasChangedCircuit = false;
             accumulatedDelta = new Vector(0, 0);
             accumulatedRotate = 0;
             min = Vector.min(corner1, corner2);
@@ -2031,7 +2031,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
                     for (Movable m : elements)
                         m.move(delta);
                     accumulatedDelta = accumulatedDelta.add(delta);
-                    wasMoved = true;
+                    hasChangedCircuit = true;
 
                     repaintNeeded();
                     lastPos = lastPos.add(delta);
@@ -2043,8 +2043,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void released(MouseEvent e) {
-            if (wasMoved) {
-                wasMoved = false;
+            if (hasChangedCircuit) {
+                hasChangedCircuit = false;
                 addModificationAlreadyMade(new ModifyMoveSelected(min, max, accumulatedDelta, accumulatedRotate, center));
                 circuit.elementsMoved();
             }
@@ -2054,8 +2054,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void deactivate() {
-            if (wasMoved) {
-                wasMoved = false;
+            if (hasChangedCircuit) {
+                hasChangedCircuit = false;
                 new ModifyMoveSelected(min, max, accumulatedDelta, accumulatedRotate, center).revert(elements);
             }
         }
@@ -2072,7 +2072,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             ModifyMoveSelected.rotateElements(elements, center);
             repaintNeeded();
             accumulatedRotate++;
-            wasMoved = true;
+            hasChangedCircuit = true;
         }
     }
 
