@@ -108,8 +108,8 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${basedir}/src/test/resources/dig/vhdl_distributable</directory>
-            <outputDirectory>/examples/vhdl/</outputDirectory>
+            <directory>${basedir}/src/test/resources/dig/hdl_distributable</directory>
+            <outputDirectory>/examples/hdl/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
