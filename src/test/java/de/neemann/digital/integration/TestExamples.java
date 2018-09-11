@@ -23,29 +23,27 @@ import java.io.File;
  */
 public class TestExamples extends TestCase {
 
-    private static int testCasesInFiles;
+    private int testCasesInFiles;
 
     /**
      * Tests the examples which are distributed
      *
-     * @throws Exception
+     * @throws Exception Exception
      */
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
-        testCasesInFiles = 0;
-        assertEquals(246, new FileScanner(TestExamples::check).scan(examples));
+        assertEquals(246, new FileScanner(this::check).scan(examples));
         assertEquals(165, testCasesInFiles);
     }
 
     /**
      * Tests the examples which are only test cases
      *
-     * @throws Exception
+     * @throws Exception Exception
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        testCasesInFiles = 0;
-        assertEquals(139, new FileScanner(TestExamples::check).scan(examples));
+        assertEquals(139, new FileScanner(this::check).scan(examples));
         assertEquals(131, testCasesInFiles);
     }
 
@@ -54,7 +52,7 @@ public class TestExamples extends TestCase {
      *
      * @param dig the model file
      */
-    public static void check(File dig) throws Exception {
+    public void check(File dig) throws Exception {
         boolean shouldFail = dig.getName().endsWith("Error.dig");
         ToBreakRunner br;
         try {
@@ -69,7 +67,7 @@ public class TestExamples extends TestCase {
 
             boolean isLib = dig.getPath().replace('\\', '/').contains("/lib/");
 
-            assertTrue("wrong locked mode", isLib == br.getCircuit().getAttributes().get(Keys.LOCKED_MODE));
+            assertEquals("wrong locked mode", isLib, (boolean) br.getCircuit().getAttributes().get(Keys.LOCKED_MODE));
 
             try {
                 for (VisualElement el : br.getCircuit().getElements())

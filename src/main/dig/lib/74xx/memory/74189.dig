@@ -15,6 +15,10 @@
       <string>64-Bit Random Access Memory with 3-STATE Outputs</string>
     </entry>
     <entry>
+      <string>lockedMode</string>
+      <boolean>true</boolean>
+    </entry>
+    <entry>
       <string>Width</string>
       <int>5</int>
     </entry>

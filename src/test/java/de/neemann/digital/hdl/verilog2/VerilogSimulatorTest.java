@@ -16,6 +16,7 @@ import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
+import de.neemann.digital.integration.TestExamples;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
@@ -31,8 +32,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static de.neemann.digital.integration.TestExamples.check;
 
 public class VerilogSimulatorTest extends TestCase {
     private static final Logger LOGGER = LoggerFactory.getLogger(VerilogSimulatorTest.class);
@@ -107,7 +106,7 @@ public class VerilogSimulatorTest extends TestCase {
             int tested = new FileScanner(f -> {
                 checkVerilogExport(f);
                 // check simulation in Digital
-                check(f);
+                new TestExamples().check(f);
             }).scan(source);
             assertEquals(4, tested);
         }

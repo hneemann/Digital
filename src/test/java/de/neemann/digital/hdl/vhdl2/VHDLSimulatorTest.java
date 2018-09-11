@@ -16,6 +16,7 @@ import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
+import de.neemann.digital.integration.TestExamples;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
@@ -26,8 +27,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static de.neemann.digital.integration.TestExamples.check;
 
 public class VHDLSimulatorTest extends TestCase {
     private static final String GHDL = System.getProperty("ghdl", "ghdl");
@@ -114,7 +113,7 @@ public class VHDLSimulatorTest extends TestCase {
         int tested = new FileScanner(f -> {
             checkVHDLExport(f);
             // check simulation in Digital
-            check(f);
+            new TestExamples().check(f);
         }).noOutput().scan(source);
         assertEquals(4, tested);
     }
