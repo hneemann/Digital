@@ -275,11 +275,22 @@ public class Parser {
     }
 
     private Expression parseEquals() throws IOException, ParserException {
-        Expression ac = parseOR();
+        Expression ac = parseNotEquals();
         while (isToken(Tokenizer.Token.EQUAL)) {
             Expression a = ac;
-            Expression b = parseOR();
+            Expression b = parseNotEquals();
             ac = (c) -> a.value(c) == b.value(c) ? 1 : 0;
+        }
+        return ac;
+    }
+
+    private Expression parseNotEquals() throws IOException, ParserException {
+        Expression ac = parseOR();
+        while (isToken(Tokenizer.Token.LOG_NOT)) {
+            expect(Tokenizer.Token.EQUAL);
+            Expression a = ac;
+            Expression b = parseOR();
+            ac = (c) -> a.value(c) == b.value(c) ? 0 : 1;
         }
         return ac;
     }

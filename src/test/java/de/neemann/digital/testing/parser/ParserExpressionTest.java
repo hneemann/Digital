@@ -39,6 +39,8 @@ public class ParserExpressionTest extends TestCase {
         assertEquals(0, new Parser("1>3").getValue());
         assertEquals(0, new Parser("1=3").getValue());
         assertEquals(1, new Parser("3=3").getValue());
+        assertEquals(1, new Parser("1!=2").getValue());
+        assertEquals(0, new Parser("2!=2").getValue());
 
 
         assertEquals(7, new Parser("3|4").getValue());
@@ -46,6 +48,11 @@ public class ParserExpressionTest extends TestCase {
         assertEquals(5, new Parser("7^2").getValue());
 
         assertEquals(-1, new Parser("~0").getValue());
+        assertEquals(-2, new Parser("~1").getValue());
+
+        assertEquals(1, new Parser("!0").getValue());
+        assertEquals(0, new Parser("!1").getValue());
+        assertEquals(0, new Parser("!2").getValue());
 
         assertEquals(1, new Parser("(n>>8)*(n&255)").getValue(new Context().setVar("n", 257)));
 
@@ -67,11 +74,6 @@ public class ParserExpressionTest extends TestCase {
         assertEquals(2, new Parser("ite(1<1,8,2)").getValue());
         assertEquals(8, new Parser("ite(1>0,8,2)").getValue());
 
-        assertEquals(-1, new Parser("~0").getValue());
-        assertEquals(-2, new Parser("~1").getValue());
-        assertEquals(1, new Parser("!0").getValue());
-        assertEquals(0, new Parser("!1").getValue());
-        assertEquals(0, new Parser("!2").getValue());
     }
 
     public void testVarNotFound() throws IOException {
