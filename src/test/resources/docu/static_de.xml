@@ -146,6 +146,12 @@
                 per Mausklick selektiert wird, wird nur das Bauteil allein - also ohne die angeschlossenen Leitungen
                 mitzunehmen - verschoben.
             </par>
+            <par>
+                Mit STRG-Click kann ein einzelner Leitungsabschnitt selektiert werden, um diesen zu verschieben oder zu
+                löschen.
+                Wird beim Zeichnen einer Leitung die Taste D gedrückt, kann eine diagonale Leitung gezogen werden.
+                Die Taste S erlaubt das aufsplitten eines Leitungssegments in zwei Segmente.
+            </par>
         </subchapter>
         <subchapter name="Hierarchisches Design">
             <par>

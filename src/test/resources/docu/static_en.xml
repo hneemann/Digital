@@ -136,6 +136,11 @@
                 including the connected wires. For moving a component without the connected wires,
                 select the component using a mouse click.
             </par>
+            <par>
+                With CTRL-Click a single wire section can be selected to move or delete it.
+                If the D key is pressed while drawing a wire, a diagonal wire can be drawn.
+                The key S allows the splitting of a line segment into two segments.
+            </par>
         </subchapter>
         <subchapter name="Hierarchical Design">
             <par>
