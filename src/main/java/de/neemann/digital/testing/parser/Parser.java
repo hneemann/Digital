@@ -405,9 +405,12 @@ public class Parser {
             case SUB:
                 Expression negExp = parseIdent();
                 return (c) -> -negExp.value(c);
-            case NOT:
+            case BIN_NOT:
                 Expression notExp = parseIdent();
                 return (c) -> ~notExp.value(c);
+            case LOG_NOT:
+                Expression boolNotExp = parseIdent();
+                return (c) -> boolNotExp.value(c)==0?1:0;
             case OPEN:
                 Expression exp = parseExpression();
                 expect(Tokenizer.Token.CLOSE);
