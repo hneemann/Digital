@@ -9,6 +9,7 @@ import de.neemann.digital.core.Bits;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.testing.parser.functions.Function;
+import de.neemann.digital.testing.parser.functions.IfThenElse;
 import de.neemann.digital.testing.parser.functions.Random;
 import de.neemann.digital.testing.parser.functions.SignExtend;
 
@@ -43,6 +44,7 @@ public class Parser {
     public Parser(String data) {
         functions.put("signExt", new SignExtend());
         functions.put("random", new Random());
+        functions.put("ite", new IfThenElse());
         names = new ArrayList<>();
         tok = new Tokenizer(new BufferedReader(new StringReader(data)));
     }

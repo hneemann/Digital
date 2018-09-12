@@ -62,6 +62,10 @@ public class ParserExpressionTest extends TestCase {
         assertEquals(1, new Parser("signExt(4,1)").getValue());
         assertEquals(2, new Parser("signExt(4,2)").getValue());
 
+        assertEquals(8, new Parser("ite(1=1,8,0)").getValue());
+        assertEquals(2, new Parser("ite(1=0,8,2)").getValue());
+        assertEquals(2, new Parser("ite(1<1,8,2)").getValue());
+        assertEquals(8, new Parser("ite(1>0,8,2)").getValue());
     }
 
     public void testVarNotFound() throws IOException {
