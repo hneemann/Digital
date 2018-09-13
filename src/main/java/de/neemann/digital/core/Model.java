@@ -182,6 +182,8 @@ public class Model implements Iterable<Node>, SyncAccess {
                 reset.clearReset();
             if (!asyncMode)
                 doStep(false);
+            else
+                doMicroStep(false);
         }
         LOGGER.debug("stabilizing took " + version + " micro steps");
         state = State.RUNNING;

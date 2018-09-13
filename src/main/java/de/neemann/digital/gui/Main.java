@@ -1238,14 +1238,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (!realTimeClockRunning && updateEvent == ModelEvent.MICROSTEP) {
                 // no real clock
                 AsyncSeq ai = model.getAsyncInfos();
-                if (ai != null && ai.getFrequency() > 0) {
-
-                    if (!model.getClocks().isEmpty())
-                        throw new RuntimeException(Lang.get("err_clocksNotAllowedInAsyncMode"));
-
-                    model.addObserver(
-                            new AsyncSequentialClock(model, ai, timerExecutor, this));
-                    realTimeClockRunning = true;
+                if (ai != null) {
+                    if (ai.getFrequency() > 0) {
+                        if (!model.getClocks().isEmpty())
+                            throw new RuntimeException(Lang.get("err_clocksNotAllowedInAsyncMode"));
+                        model.addObserver(
+                                new AsyncSequentialClock(model, ai, timerExecutor, this));
+                        realTimeClockRunning = true;
+                    }
                     model.setAsyncMode();
                 }
             }
@@ -1283,6 +1283,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
 
             model.init();
+
+            if (updateEvent == ModelEvent.MICROSTEP)
+                doStep.setEnabled(model.needsUpdate());
 
             return true;
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
