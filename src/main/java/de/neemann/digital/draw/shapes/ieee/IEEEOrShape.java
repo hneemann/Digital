@@ -42,7 +42,8 @@ public class IEEEOrShape extends IEEEGenericShape {
 
     /**
      * Creates a new instance
-     *  @param inputs  inputs
+     *
+     * @param inputs  inputs
      * @param outputs outputs
      * @param invert  true if NOr
      * @param attr    the elements attributes

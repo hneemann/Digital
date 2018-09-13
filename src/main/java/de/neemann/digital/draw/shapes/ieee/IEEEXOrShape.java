@@ -45,6 +45,8 @@ public class IEEEXOrShape extends IEEEGenericShape {
                         new Vector(0, -SIZE2));
     }
 
+    private final boolean center;
+
     /**
      * Creates a new instance
      *
@@ -55,12 +57,15 @@ public class IEEEXOrShape extends IEEEGenericShape {
      */
     public IEEEXOrShape(PinDescriptions inputs, PinDescriptions outputs, boolean invert, ElementAttributes attr) {
         super(inputs, outputs, invert, attr);
+        center = (inputs.size() & 1) != 0;
     }
 
     @Override
     protected void drawIEEE(Graphic graphic) {
         graphic.drawLine(new Vector(0, 0), new Vector(5 + SIZE2, 0), Style.WIRE);
         graphic.drawLine(new Vector(0, SIZE * 2), new Vector(5 + SIZE2, SIZE * 2), Style.WIRE);
+        if (center)
+            graphic.drawLine(new Vector(0, SIZE), new Vector(7 + SIZE2, SIZE), Style.WIRE);
         graphic.drawPolygon(POLYGON, Style.NORMAL);
         graphic.drawPolygon(POLYGON2, Style.NORMAL);
     }
