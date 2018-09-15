@@ -338,7 +338,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_n_+_z</string>
+          <string>C_{n+z}</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -352,7 +352,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_n_+_y</string>
+          <string>C_{n+y}</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -366,7 +366,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_n_+_x</string>
+          <string>C_{n+x}</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -418,7 +418,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>C_n ~G0 ~P0 ~G1 ~P1 ~G2 ~P2 ~G3 ~P3 C_n_+_x C_n_+_y C_n_+_z ~G ~P
+            <dataString>C_n ~G0 ~P0 ~G1 ~P1 ~G2 ~P2 ~G3 ~P3 C_{n+x} C_{n+y} C_{n+z} ~G ~P
 #
 X   1   1   X   X   X   X   X   X   0       X       X       X  X
 0   1   X   X   X   X   X   X   X   0       X       X       X  X
