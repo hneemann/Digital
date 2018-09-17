@@ -57,6 +57,14 @@ The [documentation](https://github.com/hneemann/Digital/releases/latest) is avai
 It is still very incomplete but it contains a chapter "First Steps" which explains the basic usage of Digital.
 The documentation also contains a list of available 74xx chips and a list of available keyboard shortcuts. 
 
+## Translations ##
+
+So far Digital is available in English and German. If someone wants to add a new translation, please check out this
+[file](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang/lang.xml).
+Adding a new language by adding these XML entries / files does not require a rebuild.
+But manually adding the XML files to the jar file is a bit tedious.
+It's easier to rebuild Digital by running `mvn install`.
+
 ## Comments ##
 
 If you want to send a bug report or feature request please use the GitHub 
