@@ -207,11 +207,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         save = createFileMenu(menuBar, toolBar, builder.allowAllFileActions);
         toolBar.addSeparator();
 
+        createEditMenu(menuBar);
         createViewMenu(menuBar, toolBar);
 
         toolBar.addSeparator();
-
-        createEditMenu(menuBar);
 
         toolBar.add(circuitComponent.getUndoAction().createJButtonNoText());
         toolBar.add(circuitComponent.getRedoAction().createJButtonNoText());
