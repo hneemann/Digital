@@ -129,6 +129,12 @@
     <string name="elem_LED_tt">Eine Leuchtdiode, welche beispielsweise zur Visualisierung eines Ausgangswertes verwendet
         werden kann. Nimmt ein Bit entgegen. Leuchtet, wenn der Eingang auf 1 gesetzt ist.</string>
     <string name="elem_LED_pin_in">LED Eingang. LED leuchtet, wenn Eingang auf 1 gesetzt ist.</string>
+    <string name="elem_RGBLED">RGB-LED</string>
+    <string name="elem_RGBLED_tt">Eine RGB-Leuchtdiode dessen Farbe über drei Eingänge kontrolliert werden kann.
+        An jedem der drei Eingängen wird ein Farbkanal angeschlossen.</string>
+    <string name="elem_RGBLED_pin_R">Der rote Farbkanal.</string>
+    <string name="elem_RGBLED_pin_G">Der grüne Farbkanal.</string>
+    <string name="elem_RGBLED_pin_B">Der blaue Farbkanal.</string>
     <string name="elem_In">Eingang</string>
     <string name="elem_In_tt">Kann genutzt werden, um ein Eingangssignal in einer Schaltung interaktiv per Maus zu
         verändern. Dieses Element wird auch genutzt, um eine Verbindung zu einer einbettenden Schaltung

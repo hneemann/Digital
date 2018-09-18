@@ -93,6 +93,7 @@ public final class ShapeFactory {
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(LightBulb.DESCRIPTION.getName(), LightBulbShape::new);
+        map.put(RGBLED.DESCRIPTION.getName(), RGBLEDShape::new);
         map.put(Out.POLARITYAWARELEDDESCRIPTION.getName(), PolarityAwareLEDShape::new);
         map.put(Button.DESCRIPTION.getName(), ButtonShape::new);
         map.put(Probe.DESCRIPTION.getName(), ProbeShape::new);

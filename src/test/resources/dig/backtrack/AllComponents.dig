@@ -554,6 +554,11 @@
       <elementAttributes/>
       <pos x="1100" y="480"/>
     </visualElement>
+    <visualElement>
+      <elementName>RGBLED</elementName>
+      <elementAttributes/>
+      <pos x="1200" y="500"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -671,6 +676,10 @@
     <wire>
       <p1 x="580" y="520"/>
       <p2 x="640" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="520"/>
+      <p2 x="1200" y="520"/>
     </wire>
     <wire>
       <p1 x="240" y="780"/>
@@ -877,6 +886,10 @@
       <p2 x="1100" y="480"/>
     </wire>
     <wire>
+      <p1 x="1160" y="480"/>
+      <p2 x="1200" y="480"/>
+    </wire>
+    <wire>
       <p1 x="380" y="160"/>
       <p2 x="700" y="160"/>
     </wire>
@@ -1049,6 +1062,10 @@
       <p2 x="260" y="500"/>
     </wire>
     <wire>
+      <p1 x="1160" y="500"/>
+      <p2 x="1200" y="500"/>
+    </wire>
+    <wire>
       <p1 x="380" y="820"/>
       <p2 x="520" y="820"/>
     </wire>
@@ -1218,6 +1235,10 @@
     </wire>
     <wire>
       <p1 x="1160" y="500"/>
+      <p2 x="1160" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="520"/>
       <p2 x="1160" y="540"/>
     </wire>
     <wire>

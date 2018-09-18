@@ -134,6 +134,13 @@
         Lights up if the input is set to 1.</string>
     <string name="elem_LED_pin_in">LED Input. LED lights up if the input is set to 1.</string>
 
+    <string name="elem_RGBLED">RGB-LED</string>
+    <string name="elem_RGBLED_tt">An RGB LED whose color can be controlled via three inputs.
+        At each of the three inputs, a color channel is connected.</string>
+    <string name="elem_RGBLED_pin_R">The red color channel.</string>
+    <string name="elem_RGBLED_pin_G">The green color channel.</string>
+    <string name="elem_RGBLED_pin_B">The blue color channel.</string>
+
     <string name="elem_PolarityAwareLED">LED with two connections.</string>
     <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up,
         if the anode is connected to high and the cathode is connected to low.</string>

@@ -5,8 +5,8 @@
  */
 package de.neemann.digital.draw.shapes;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -18,19 +18,23 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import java.awt.*;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
 
 /**
  * The LED shape
  */
-public class LEDShape implements Shape {
+public class RGBLEDShape implements Shape {
+    private static final int D = SIZE / 3;
     private final String label;
     private final PinDescriptions inputs;
+    private final long max;
     private final int size;
-    private Style onStyle;
     private IOState ioState;
-    private Value value;
+    private Color color;
 
     /**
      * Creates a new instance
@@ -39,48 +43,55 @@ public class LEDShape implements Shape {
      * @param inputs  the inputs
      * @param outputs the outputs
      */
-    public LEDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
+    public RGBLEDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
+        max = Bits.mask(attr.getBits());
         final int s = attr.get(Keys.LED_SIZE);
         this.size = s > 0 ? s * OUT_SIZE : SIZE2;
-        onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
     }
 
     @Override
     public Pins getPins() {
-        return new Pins().add(new Pin(new Vector(0, 0), inputs.get(0)));
+        return new Pins()
+                .add(new Pin(new Vector(0, -SIZE), inputs.get(0)))
+                .add(new Pin(new Vector(0, 0), inputs.get(1)))
+                .add(new Pin(new Vector(0, SIZE), inputs.get(2)));
     }
 
     @Override
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         this.ioState = ioState;
         ioState.getInput(0).addObserverToValue(guiObserver);
+        ioState.getInput(1).addObserverToValue(guiObserver);
+        ioState.getInput(2).addObserverToValue(guiObserver);
         return null;
     }
 
     @Override
     public void readObservableValues() {
-        if (ioState != null)
-            value = ioState.getInput(0).getCopy();
+        if (ioState != null) {
+            long r = ioState.getInput(0).getValue() * 255 / max;
+            long g = ioState.getInput(1).getValue() * 255 / max;
+            long b = ioState.getInput(2).getValue() * 255 / max;
+            color = new Color((int) r, (int) g, (int) b);
+        }
     }
 
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        boolean fill = true;
-        if (value != null) {
-            fill = false;
-            if (!value.isHighZ() && (value.getValue() != 0))
-                fill = true;
-        }
+        if (color == null)
+            color = Color.RED;
 
         Vector rad = new Vector(size - 2, size - 2);
         Vector radL = new Vector(size, size);
 
+        graphic.drawLine(new Vector(0, -SIZE), new Vector(D, -SIZE + D), Style.NORMAL);
+        graphic.drawLine(new Vector(0, SIZE), new Vector(D, SIZE - D), Style.NORMAL);
+
         Vector center = new Vector(1 + size, 0);
         graphic.drawCircle(center.sub(radL), center.add(radL), Style.FILLED);
-        if (fill)
-            graphic.drawCircle(center.sub(rad), center.add(rad), onStyle);
+        graphic.drawCircle(center.sub(rad), center.add(rad), Style.FILLED.deriveColor(color));
         Vector textPos = new Vector(2 * size + OUT_SIZE, 0);
         graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
     }
