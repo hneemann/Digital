@@ -1,5 +1,11 @@
 Release Notes
 
+HEAD, planned as v0.21
+
+- Added a RGB-LED.
+- Added IC 74189 and IC 74382 to the Library.
+- Small improvements at the test case parser.
+
 v0.20, released on 03. Sep 2018
 - Improved zooming and navigating in the measurement graph.
 - Added multi pole double-throw relays.
