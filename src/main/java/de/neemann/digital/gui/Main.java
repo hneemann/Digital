@@ -1734,6 +1734,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     public static void main(String[] args) {
         Thread.setDefaultUncaughtExceptionHandler(new DigitalUncaughtExceptionHandler());
 
+        /*
+        The Apple look an feel, which can be enabled by choosing the UIManager.getSystemLookAndFeelClassName()
+        on MacOS has problems with the component tree view because it does not support different item heights.
+        Also, the HTML rendering does not seem to be supported. See GitHub #190.
+        Therefore also on MosOS the MetalLookAndFeel is used.
+         */
         try { // enforce MetalLookAndFeel
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
