@@ -9,6 +9,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class XNOr extends XOr {
     /**
      * The XNOr description
      */
-    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(XNOr.class);
+    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(XNOr.class).addAttribute(Keys.WIDE_SHAPE);
 
     /**
      * Creates a new instance

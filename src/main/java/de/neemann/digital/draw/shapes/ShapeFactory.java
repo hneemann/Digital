@@ -65,7 +65,7 @@ public final class ShapeFactory {
             map.put(NOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEOrShape(inputs, outputs, true, attributes));
             map.put(XOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, false, attributes));
             map.put(XNOr.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEEXOrShape(inputs, outputs, true, attributes));
-            map.put(Not.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEENotShape(inputs, outputs));
+            map.put(Not.DESCRIPTION.getName(), (attributes, inputs, outputs) -> new IEEENotShape(inputs, outputs, attributes));
         } else {
             map.put(And.DESCRIPTION.getName(), new CreatorSimple("&", false));
             map.put(Or.DESCRIPTION.getName(), new CreatorSimple("\u22651", false));
@@ -259,6 +259,7 @@ public final class ShapeFactory {
         public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
             return new GenericShape(name, inputs, outputs)
                     .invert(invers)
+                    .setWide(attributes.get(Keys.WIDE_SHAPE))
                     .setInverterConfig(attributes.get(Keys.INVERTER_CONFIG));
         }
     }

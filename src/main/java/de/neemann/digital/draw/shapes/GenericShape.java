@@ -33,7 +33,7 @@ public class GenericShape implements Shape {
     private final String name;
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
-    private final int width;
+    private int width;
     private final boolean symmetric;
     private final String label;
 
@@ -125,14 +125,15 @@ public class GenericShape implements Shape {
     /**
      * Creates pins
      *
-     * @param inputs  the inputs
-     * @param outputs the outputs
-     * @param invert  true if invert output
-     * @param ic      iput inverter configuration
+     * @param inputs    the inputs
+     * @param outputs   the outputs
+     * @param invert    true if invert output
+     * @param ic        input inverter configuration
+     * @param wideShape true if a wide shape is selected
      * @return the pins
      */
-    public static Pins createPins(PinDescriptions inputs, PinDescriptions outputs, boolean invert, InverterConfig ic) {
-        return createPins(inputs, outputs, invert, 3, true, ic);
+    public static Pins createPins(PinDescriptions inputs, PinDescriptions outputs, boolean invert, InverterConfig ic, boolean wideShape) {
+        return createPins(inputs, outputs, invert, wideShape ? 4 : 3, true, ic);
     }
 
     /**
@@ -278,6 +279,18 @@ public class GenericShape implements Shape {
             this.inverterConfig = null;
         else
             this.inverterConfig = inverterConfig;
+        return this;
+    }
+
+    /**
+     * Selects a wide shape.
+     *
+     * @param wideShape true is a wide shape is selected
+     * @return this for chained calls
+     */
+    public GenericShape setWide(boolean wideShape) {
+        if (wideShape)
+            width += 1;
         return this;
     }
 }

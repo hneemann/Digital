@@ -668,12 +668,18 @@ public final class Keys {
      * True if a program is loaded to the simulator at startup
      */
     public static final Key<Boolean> PRELOAD_PROGRAM
-            = new Key<Boolean>("preloadProgram", false).setSecondary();
+            = new Key<>("preloadProgram", false).setSecondary();
 
     /**
      * The file to preload as a program at startup
      */
     public static final Key<File> PROGRAM_TO_PRELOAD
             = new Key.KeyFile("preloadProgramFile", new File("")).setSecondary().setDependsOn(PRELOAD_PROGRAM);
+
+    /**
+     * Selects a wide shape
+     */
+    public static final Key<Boolean> WIDE_SHAPE
+            = new Key<>("wideShape", false).setSecondary().allowGroupEdit();
 
 }

@@ -21,6 +21,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 public class IEEEOrShape extends IEEEGenericShape {
 
     private static final Polygon POLYGON = createPoly();
+    private static final Polygon POLYGON_WIDE = createPolyWide();
 
     private static Polygon createPoly() {
         return new Polygon(true)
@@ -36,6 +37,22 @@ public class IEEEOrShape extends IEEEGenericShape {
                 .add(new Vector(SIZE * 2, SIZE * 2),
                         new Vector(SIZE, SIZE * 2 + SIZE2),
                         new Vector(SIZE2, SIZE * 2 + SIZE2));
+    }
+
+    private static Polygon createPolyWide() {
+        return new Polygon(true)
+                .add(SIZE + SIZE2, SIZE * 2 + SIZE2)
+                .add(0, SIZE * 2 + SIZE2)
+                .add(new Vector(SIZE2, SIZE2 * 3 + 4),
+                        new Vector(SIZE2, 6),
+                        new Vector(0, -SIZE2))
+                .add(SIZE, -SIZE2)
+                .add(new Vector(SIZE * 2 + SIZE2, -SIZE2),
+                        new Vector(SIZE * 3 + SIZE2, 0),
+                        new Vector(SIZE * 4, SIZE))
+                .add(new Vector(SIZE * 3 + SIZE2, SIZE * 2),
+                        new Vector(SIZE * 2 + SIZE2, SIZE * 2 + SIZE2),
+                        new Vector(SIZE + SIZE2, SIZE * 2 + SIZE2));
     }
 
     private final boolean center;
@@ -59,6 +76,9 @@ public class IEEEOrShape extends IEEEGenericShape {
         graphic.drawLine(new Vector(0, SIZE * 2), new Vector(4, SIZE * 2), Style.WIRE);
         if (center)
             graphic.drawLine(new Vector(0, SIZE), new Vector(7, SIZE), Style.WIRE);
-        graphic.drawPolygon(POLYGON, Style.NORMAL);
+        if (isWideShape())
+            graphic.drawPolygon(POLYGON_WIDE, Style.NORMAL);
+        else
+            graphic.drawPolygon(POLYGON, Style.NORMAL);
     }
 }

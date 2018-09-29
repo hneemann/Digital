@@ -21,7 +21,7 @@ public class And extends Function {
     /**
      * The And description
      */
-    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(And.class);
+    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(And.class).addAttribute(Keys.WIDE_SHAPE);
 
     /**
      * Creates a new instance

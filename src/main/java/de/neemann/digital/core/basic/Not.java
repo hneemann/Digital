@@ -26,6 +26,7 @@ public class Not extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, input("in"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.WIDE_SHAPE)
             .addAttribute(Keys.BITS);
 
     private final ObservableValue output;

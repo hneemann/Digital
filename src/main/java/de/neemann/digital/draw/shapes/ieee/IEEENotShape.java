@@ -6,6 +6,8 @@
 package de.neemann.digital.draw.shapes.ieee;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -26,17 +28,20 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 public class IEEENotShape implements Shape {
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
+    private final boolean wideShape;
     private Pins pins;
 
     /**
      * Creates a new instance
      *
-     * @param inputs  the inputs
-     * @param outputs the outputs
+     * @param inputs     the inputs
+     * @param outputs    the outputs
+     * @param attributes the elements attributes
      */
-    public IEEENotShape(PinDescriptions inputs, PinDescriptions outputs) {
+    public IEEENotShape(PinDescriptions inputs, PinDescriptions outputs, ElementAttributes attributes) {
         this.inputs = inputs;
         this.outputs = outputs;
+        wideShape = attributes.get(Keys.WIDE_SHAPE);
     }
 
     @Override
@@ -44,7 +49,10 @@ public class IEEENotShape implements Shape {
         if (pins == null) {
             pins = new Pins();
             pins.add(new Pin(new Vector(0, 0), inputs.get(0)));
-            pins.add(new Pin(new Vector(SIZE * 2, 0), outputs.get(0)));
+            int width = SIZE * 2;
+            if (wideShape)
+                width += SIZE;
+            pins.add(new Pin(new Vector(width, 0), outputs.get(0)));
         }
         return pins;
     }
@@ -56,13 +64,24 @@ public class IEEENotShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        graphic.drawPolygon(
-                new Polygon(true)
-                        .add(1, -SIZE2 - 2)
-                        .add(SIZE - 1, 0)
-                        .add(1, SIZE2 + 2), Style.NORMAL
-        );
-        graphic.drawCircle(new Vector(SIZE + 1, -SIZE2 + 1),
-                new Vector(SIZE * 2 - 1, SIZE2 - 1), Style.NORMAL);
+        if (wideShape) {
+            graphic.drawPolygon(
+                    new Polygon(true)
+                            .add(1, -SIZE - 2)
+                            .add(SIZE * 2 - 1, 0)
+                            .add(1, SIZE + 2), Style.NORMAL
+            );
+            graphic.drawCircle(new Vector(SIZE * 2 + 1, -SIZE2 + 1),
+                    new Vector(SIZE * 3 - 1, SIZE2 - 1), Style.NORMAL);
+        } else {
+            graphic.drawPolygon(
+                    new Polygon(true)
+                            .add(1, -SIZE2 - 2)
+                            .add(SIZE - 1, 0)
+                            .add(1, SIZE2 + 2), Style.NORMAL
+            );
+            graphic.drawCircle(new Vector(SIZE + 1, -SIZE2 + 1),
+                    new Vector(SIZE * 2 - 1, SIZE2 - 1), Style.NORMAL);
+        }
     }
 }

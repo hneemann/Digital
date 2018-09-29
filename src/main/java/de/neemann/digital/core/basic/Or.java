@@ -21,7 +21,7 @@ public class Or extends Function {
     /**
      * The And description
      */
-    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(Or.class);
+    public static final ElementTypeDescription DESCRIPTION = new FanInDescription(Or.class).addAttribute(Keys.WIDE_SHAPE);
 
     /**
      * Creates a new instance

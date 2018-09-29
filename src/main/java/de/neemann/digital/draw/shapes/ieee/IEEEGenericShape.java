@@ -29,6 +29,7 @@ public abstract class IEEEGenericShape implements Shape {
     private final PinDescriptions outputs;
     private final boolean invert;
     private final InverterConfig inverterConfig;
+    private final boolean wideShape;
 
     private Pins pins;
 
@@ -44,13 +45,14 @@ public abstract class IEEEGenericShape implements Shape {
         this.inputs = inputs;
         this.outputs = outputs;
         this.invert = invert;
+        this.wideShape = attr.get(Keys.WIDE_SHAPE);
         inverterConfig = attr.get(Keys.INVERTER_CONFIG);
     }
 
     @Override
     public Pins getPins() {
         if (pins == null)
-            pins = GenericShape.createPins(inputs, outputs, invert, inverterConfig);
+            pins = GenericShape.createPins(inputs, outputs, invert, inverterConfig, wideShape);
         return pins;
     }
 
@@ -74,9 +76,12 @@ public abstract class IEEEGenericShape implements Shape {
 
         if (invert) {
             int o = inputs.size() / 2 * SIZE;
+            int pos = 3;
+            if (wideShape)
+                pos++;
             for (int i = 0; i < outputs.size(); i++)
-                graphic.drawCircle(new Vector(SIZE * 3 + 1, i * SIZE - SIZE2 + 1 + o),
-                        new Vector(SIZE * 4 - 1, i * SIZE + SIZE2 - 1 + o), Style.NORMAL);
+                graphic.drawCircle(new Vector(SIZE * pos + 1, i * SIZE - SIZE2 + 1 + o),
+                        new Vector(SIZE * (pos + 1) - 1, i * SIZE + SIZE2 - 1 + o), Style.NORMAL);
         }
     }
 
@@ -87,4 +92,10 @@ public abstract class IEEEGenericShape implements Shape {
      */
     protected abstract void drawIEEE(Graphic graphic);
 
+    /**
+     * @return true is a wide shape is selected
+     */
+    public boolean isWideShape() {
+        return wideShape;
+    }
 }
