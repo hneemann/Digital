@@ -2,6 +2,7 @@ Release Notes
 
 HEAD, planned as v0.21
 
+- Wider shapes were enabled, to better match the IEEE shapes to the standard.
 - Added a RGB-LED.
 - Added IC 74189 and IC 74382 to the Library.
 - Small improvements at the test case parser.
