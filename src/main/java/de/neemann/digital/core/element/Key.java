@@ -27,6 +27,7 @@ public class Key<VALUE> {
     private String name;
     private String description;
     private boolean isSecondary;
+    private boolean requiresRestart = false;
 
     /**
      * Creates a new Key
@@ -200,6 +201,23 @@ public class Key<VALUE> {
     public Key<VALUE> setSecondary() {
         isSecondary = true;
         return this;
+    }
+
+    /**
+     * Called if this setting needs a restart.
+     *
+     * @return this for chained calls
+     */
+    public Key<VALUE> setRequiresRestart() {
+        requiresRestart = true;
+        return this;
+    }
+
+    /**
+     * @return true if changing this value needs a restart
+     */
+    public boolean getRequiresRestart() {
+        return requiresRestart;
     }
 
     /**

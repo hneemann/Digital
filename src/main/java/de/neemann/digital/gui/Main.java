@@ -680,16 +680,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 ElementAttributes modified = new AttributeDialog(Main.this, Settings.getInstance().getKeys(), Settings.getInstance().getAttributes()).showDialog();
                 if (modified != null) {
                     FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
-                    if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_LANGUAGE, modified)
-                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_IEEE_SHAPES, modified)
-                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_FONT_SCALING, modified)
-                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_MAC_MOUSE, modified)
-                            || !Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_JAR_PATH, modified)) {
+
+                    if (Settings.getInstance().requiresRestart(modified)) {
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_GRID, modified))
                         circuitComponent.repaintNeeded();
+
                     Settings.getInstance().getAttributes().getValuesFrom(modified);
                 }
             }

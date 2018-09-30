@@ -402,13 +402,13 @@ public final class Keys {
      * shape setting
      */
     public static final Key<Boolean> SETTINGS_IEEE_SHAPES
-            = new Key<>("IEEEShapes", Locale.getDefault().getLanguage().equals(Locale.US.getLanguage()));
+            = new Key<>("IEEEShapes", Locale.getDefault().getLanguage().equals(Locale.US.getLanguage())).setRequiresRestart();
 
     /**
      * The GUI Language
      */
     public static final Key<Language> SETTINGS_LANGUAGE
-            = new Key<>("Language", new Language());
+            = new Key<>("Language", new Language()).setRequiresRestart();
 
 
     /**
@@ -439,7 +439,7 @@ public final class Keys {
      * enables the MAC mouse mode
      */
     public static final Key<Boolean> SETTINGS_MAC_MOUSE
-            = new Key<>("macMouse", Screen.isMac());
+            = new Key<>("macMouse", Screen.isMac()).setRequiresRestart();
 
     /**
      * output format for numbers
@@ -572,7 +572,8 @@ public final class Keys {
             new Key.KeyInteger("fontSize", Screen.getDefaultFontScaling())
                     .setComboBoxValues(new Integer[]{100, 120, 150, 180, 200, 250, 300})
                     .setMin(50)
-                    .setMax(400);
+                    .setMax(400)
+                    .setRequiresRestart();
 
     /**
      * true if a enable input is needed
@@ -608,7 +609,7 @@ public final class Keys {
      * A jar containing custom java components
      */
     public static final Key<File> SETTINGS_JAR_PATH
-            = new Key.KeyFile("jarPath", new File("")).setSecondary();
+            = new Key.KeyFile("jarPath", new File("")).setSecondary().setRequiresRestart();
 
     /**
      * The manager which contains all the roms data
@@ -686,7 +687,7 @@ public final class Keys {
      * Selects the wide shapes as the default
      */
     public static final Key<Boolean> SETTINGS_USE_WIDE_SHAPES
-            = new Key<>("wideShapeAsDefault", false).setSecondary();
+            = new Key<>("wideShapeAsDefault", false).setSecondary().setRequiresRestart();
 
 
 }
