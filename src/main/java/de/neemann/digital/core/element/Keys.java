@@ -682,4 +682,11 @@ public final class Keys {
     public static final Key<Boolean> WIDE_SHAPE
             = new Key<>("wideShape", false).setSecondary().allowGroupEdit();
 
+    /**
+     * Selects the wide shapes as the default
+     */
+    public static final Key<Boolean> SETTINGS_USE_WIDE_SHAPES
+            = new Key<>("wideShapeAsDefault", false).setSecondary();
+
+
 }

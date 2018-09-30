@@ -1196,7 +1196,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     </string>
     <string name="key_wideShape">Breites Symbol</string>
     <string name="key_wideShape_tt">Verwendet ein breiteres Symbol zur Darstellung des Gatters.</string>
-
+    <string name="key_wideShapeAsDefault">Standardmäßig breites Symbol verwenden.</string>
+    <string name="key_wideShapeAsDefault_tt">Werden neue Gatter eingefügt, wird standardmäßig die breite Variante gewählt.</string>
 
     <string name="key_shapeType">Form</string>
     <string name="key_shapeType_tt">Die Form, welche für die Repräsentation der Schaltung in einer einbettenden

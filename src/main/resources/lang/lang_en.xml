@@ -1188,6 +1188,8 @@
     </string>
     <string name="key_wideShape">Wide Shape</string>
     <string name="key_wideShape_tt">Uses a wider shape to visualize the gate.</string>
+    <string name="key_wideShapeAsDefault">Use wider shapes by default.</string>
+    <string name="key_wideShapeAsDefault_tt">If new gates are inserted, the wide variant is selected by default.</string>
 
     <string name="key_shapeType">Shape</string>
     <string name="key_shapeType_tt">The shape to be used for the representation of the circuit in an embedding circuit.
