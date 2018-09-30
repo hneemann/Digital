@@ -1084,7 +1084,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_atf1502Fitter">ATF15xx Fitter</string>
     <string name="key_atf1502Fitter_tt">Pfad zum Fitter für den ATF15xx.
         Geben Sie hier das Verzeichnis an, welches die Dateien fit15xx.exe enthält.
-        Diese Datei wird von ATMEL zu Verfügung gestellt.</string>
+        Diese Datei wird von Microchip (früher ATMEL) zur Verfügung gestellt.</string>
     <string name="key_pin">Pinnummer</string>
     <string name="key_pin_tt">Ist das Feld leer, bedeutet das, dass dieses Signal keinem Pin zugewiesen ist.</string>
     <string name="key_rowDataBits">Zeilen</string><!-- LedMatrix -->

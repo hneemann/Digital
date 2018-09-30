@@ -1077,7 +1077,7 @@
         This simulates a frequency above the critical flicker fusion frequency.</string>
     <string name="key_atf1502Fitter">ATF15xx Fitter</string>
     <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF15xx.
-        Enter the directory which countains the fit15xx.exe files provided by ATMEL.</string>
+        Enter the directory which contains the fit15xx.exe files provided by Microchip (former ATMEL).</string>
     <string name="key_pin">Pin number</string>
     <string name="key_pin_tt">An empty field means this signal is not assigned to a pin.</string>
     <string name="key_rowDataBits">Rows</string><!-- LedMatrix -->
