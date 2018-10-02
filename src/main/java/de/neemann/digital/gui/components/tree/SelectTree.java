@@ -6,11 +6,13 @@
 package de.neemann.digital.gui.components.tree;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.InsertAction;
 import de.neemann.digital.gui.InsertHistory;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
@@ -51,7 +53,18 @@ public class SelectTree extends JTree {
                     if (node.isLeaf() && node.isUnique()) {
                         try {
                             ElementTypeDescription d = node.getDescription();
-                            component.setPartToInsert(new VisualElement(d.getName()).setShapeFactory(shapeFactory));
+                            final VisualElement element = new VisualElement(d.getName()).setShapeFactory(shapeFactory);
+
+                            // set the wide shape option to the new element
+                            try {
+                                if (Settings.getInstance().get(Keys.SETTINGS_USE_WIDE_SHAPES)
+                                        && node.getDescription().hasAttribute(Keys.WIDE_SHAPE))
+                                    element.setAttribute(Keys.WIDE_SHAPE, true);
+                            } catch (IOException e1) {
+                                // do nothing on error
+                            }
+
+                            component.setPartToInsert(element);
                             insertHistory.add(new InsertAction(node, insertHistory, component, shapeFactory));
                         } catch (IOException e) {
                             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel_N0", node.getName())).addCause(e));
