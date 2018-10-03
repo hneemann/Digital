@@ -89,7 +89,7 @@
 						</fo:basic-link>
 					</fo:block>
 					<fo:block margin-top="2mm" margin-bottom="2mm" font-weight="bold">
-						C <fo:inline padding-left="1mm"><xsl:value-of select="@components"/></fo:inline>
+						C <fo:inline padding-left="2mm"><xsl:value-of select="@components"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="toc"/>
 					<fo:block margin-top="2mm" margin-bottom="2mm" font-weight="bold">
@@ -104,7 +104,7 @@
 					</fo:block>
 					<xsl:apply-templates select="document(@static)/*" mode="full"/>
 
-					<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold" id="chap_settings">
+					<fo:block page-break-before="always" margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold" id="chap_settings">
 						B <fo:inline padding-left="2mm"><xsl:value-of select="settings/@name"/></fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="settings" mode="full"/>
@@ -267,6 +267,9 @@
 	</xsl:template>
 
 	<xsl:template match="settings" mode="full">
+		<fo:block>
+			<xsl:value-of select="@descr"/>
+		</fo:block>
 		<fo:block margin-top="4mm" margin-bottom="4mm" font-size="12pt" font-weight="bold">
 			<xsl:value-of select="main/@name"/>
 		</fo:block>

@@ -78,7 +78,7 @@ public class DocuTest extends TestCase {
                 .append("\" library=\"").append(libFile.toURI().toString())
                 .append("\">\n");
 
-        w.append("  <settings name=\"").append(Lang.get("menu_editSettings")).append("\">\n");
+        w.append("  <settings name=\"").append(Lang.get("menu_editSettings")).append("\" descr=\"").append(Lang.get("settings")).append("\">\n");
         w.append("    <main name=\"").append(Lang.get("menu_editSettings")).append("\" descr=\"").append(Lang.get("menu_editSettings_tt")).append("\">\n");
         writeAttributes(w, Settings.getInstance().getKeys());
         w.append("    </main>\n");

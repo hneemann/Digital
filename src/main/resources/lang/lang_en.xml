@@ -6,6 +6,7 @@
     <string name="revision">Revision</string>
     <string name="date">Date</string>
     <string name="number">No.</string>
+    <string name="settings">The following describes the available settings of the simulator.</string>
     <string name="attr_dialogTitle">Attributes</string>
     <string name="attr_openCircuit">Open Circuit</string>
     <string name="attr_openCircuitLabel">Included circuit:</string>
@@ -1262,13 +1263,13 @@
     <string name="menu_delete_tt">Delete selected single component or group of components.</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_editAttributes">Circuit specific settings</string>
-    <string name="menu_editAttributes_tt">These settings affect the behavior of the current circuit.
-        Thus, e.g. the appearance shape which the circuit assumes when embedded in other circuits.
-        These settings are stored in the current circuit.</string>
+    <string name="menu_editAttributes_tt">The circuit specific settings affect the behavior of the
+        currently open circuit.
+        Thus, e.g. the shape that represents the circuit when it is embedded in other circuits.
+        These settings are stored together with the circuit.</string>
     <string name="menu_editSettings">Settings</string>
-    <string name="menu_editSettings_tt">Edits the global settings of the simulator.
-        Among other things, language, the symbol form to be used or the paths of external tools can be
-        specified here.</string>
+    <string name="menu_editSettings_tt">The global settings of the simulator specify, among other
+        things, the language, the symbol form to be used or the paths of external tools.</string>
     <string name="menu_element">Stop Simulation</string>
     <string name="menu_element_tt">Stops the simulation and allows to edits the circuit.</string>
     <string name="menu_elements">Components</string>
