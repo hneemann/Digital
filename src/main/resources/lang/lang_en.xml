@@ -1110,7 +1110,8 @@
     <string name="key_libraryPath">Library</string>
     <string name="key_libraryPath_tt">Folder which contains the library with predefined sub circuits.
         Contains, for example, the components of the 74xx series. You also can add your own circuits by storing
-        them at this location.</string>
+        them at this location.
+        It must be ensured that the name of all files in this folder and all subfolders is unique.</string>
     <string name="key_grid">Show Grid</string>
     <string name="key_grid_tt">Shows a grid in the main window.</string>
     <string name="key_mapToKey">Map to keyboard</string><!-- Button -->

@@ -1118,7 +1118,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_libraryPath">Bibliothek</string>
     <string name="key_libraryPath_tt">Ordner, in welchem sich die Bibliothek mit vordefinierten Schaltungen befindet.
         Enthält z.B. die ICs der 74xx Reihe. Es können auch eigene Schaltungen hinzugefügt werden, indem diese
-        hier gespeichert werden.</string>
+        hier gespeichert werden.
+        Es muss darauf geachtet werden, dass der Name aller Dateien in diesem Ordner und allen Unterordnern eindeutig ist.
+    </string>
     <string name="key_grid">Raster anzeigen</string>
     <string name="key_grid_tt">Zeigt im Hauptfenster ein Raster an, um das platzieren der Elemente zu erleichtern.</string>
     <string name="key_mapToKey">Auf Tastatur legen</string><!-- Button -->
