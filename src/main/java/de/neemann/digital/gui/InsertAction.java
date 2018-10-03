@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.gui;
 
-import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.LibraryNode;
@@ -49,7 +48,7 @@ public final class InsertAction extends ToolTipAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (node.isUnique()) {
-            VisualElement visualElement = new VisualElement(node.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory);
+            VisualElement visualElement = node.setWideShapeFlagTo(new VisualElement(node.getName()).setPos(new Vector(10, 10)).setShapeFactory(shapeFactory));
             if (getIcon() == null) {
                 try {
                     node.getDescription();
@@ -57,15 +56,6 @@ public final class InsertAction extends ToolTipAction {
                 } catch (IOException ex) {
                     SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorImportingModel_N0", node.getName())).addCause(ex));
                 }
-            }
-
-            // set the wide shape option to the new element
-            try {
-                if (Settings.getInstance().get(Keys.SETTINGS_USE_WIDE_SHAPES)
-                        && node.getDescription().hasAttribute(Keys.WIDE_SHAPE))
-                    visualElement.setAttribute(Keys.WIDE_SHAPE, true);
-            } catch (IOException e1) {
-                // do nothing on error
             }
 
             if (visualElement.getShape() instanceof MissingShape)
