@@ -1271,10 +1271,15 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_delete">Löschen</string>
     <string name="menu_delete_tt">Löscht ausgewählte Elemente</string>
     <string name="menu_edit">Bearbeiten</string>
-    <string name="menu_editAttributes">Schaltungsattribute bearbeiten</string>
-    <string name="menu_editAttributes_tt">Diese Attribute beeinflussen die Schaltung, wenn sie in andere Schaltungen eingebettet wird.</string>
+    <string name="menu_editAttributes">Einstellungen der Schaltung</string>
+    <string name="menu_editAttributes_tt">Diese Attribute beeinflussen das Verhalten der aktuellen Schaltung.
+        So kann z.B. das Erscheiningsbild festgelegt werden, welche die Schaltung annimmt, wenn sie in andere
+        Schaltungen eingebettet wird. Diese Einstellungen werden in der aktuellen Schaltung gespeichert.
+    </string>
     <string name="menu_editSettings">Einstellungen</string>
-    <string name="menu_editSettings_tt">Bearbeitet die globalen Einstellungen</string>
+    <string name="menu_editSettings_tt">Bearbeitet die globalen Einstellungen des Simulators. Hier können u.a.
+        Sprache, die zu verwendende Symbolform oder die Pfade externer Tools vorgegeben werden.
+    </string>
     <string name="menu_element">Stoppen der Simulation</string>
     <string name="menu_element_tt">Stoppt die Simulation und erlaubt das Bearbeiten der Schaltung.</string>
     <string name="menu_elements">Bauteile</string>

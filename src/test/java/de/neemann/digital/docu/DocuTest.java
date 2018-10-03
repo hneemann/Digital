@@ -16,6 +16,8 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.draw.library.NumStringComparator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.Settings;
+import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.language.Language;
@@ -30,6 +32,8 @@ import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -73,6 +77,17 @@ public class DocuTest extends TestCase {
                 .append("\" static=\"").append(new File(Resources.getRoot(), "docu/static_" + language + ".xml").toURI().toString())
                 .append("\" library=\"").append(libFile.toURI().toString())
                 .append("\">\n");
+
+        w.append("  <settings name=\"").append(Lang.get("menu_editSettings")).append("\">\n");
+        w.append("    <main name=\"").append(Lang.get("menu_editSettings")).append("\" descr=\"").append(Lang.get("menu_editSettings_tt")).append("\">\n");
+        writeAttributes(w, Settings.getInstance().getKeys());
+        w.append("    </main>\n");
+
+        w.append("    <circuit name=\"").append(Lang.get("menu_editAttributes")).append("\" descr=\"").append(Lang.get("menu_editAttributes_tt")).append("\">\n");
+        writeAttributes(w, CircuitComponent.getAttrList());
+        w.append("    </circuit>\n");
+        w.append("  </settings>\n");
+
         ElementLibrary library = new ElementLibrary();
         ShapeFactory shapeFactory = new ShapeFactory(library, language.equals("en"));
         String actPath = null;
@@ -114,28 +129,32 @@ public class DocuTest extends TestCase {
             }
 
             if (etd.getAttributeList().size() > 0) {
-                w.append("      <attributes name=\"").append(Lang.get("elem_Help_attributes")).append("\">\n");
-                for (Key k : etd.getAttributeList()) {
-                    if (!k.isSecondary()) {
-                        w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">");
-                        w.append(escapeHTML(k.getDescription()));
-                        w.append("</attr>\n");
-                    }
-                }
-                for (Key k : etd.getAttributeList()) {
-                    if (k.isSecondary()) {
-                        w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">");
-                        w.append(escapeHTML(k.getDescription()));
-                        w.append("</attr>\n");
-                    }
-                }
-                w.append("      </attributes>\n");
+                writeAttributes(w, etd.getAttributeList());
             }
 
             w.append("    </element>\n");
         }
         w.append("  </lib>\n");
         w.append("</root>");
+    }
+
+    private void writeAttributes(Writer w, List<Key> keyList) throws IOException {
+        w.append("      <attributes name=\"").append(Lang.get("elem_Help_attributes")).append("\">\n");
+        for (Key k : keyList) {
+            if (!k.isSecondary()) {
+                w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">");
+                w.append(escapeHTML(k.getDescription()));
+                w.append("</attr>\n");
+            }
+        }
+        for (Key k : keyList) {
+            if (k.isSecondary()) {
+                w.append("        <attr name=\"").append(escapeHTML(k.getName())).append("\">");
+                w.append(escapeHTML(k.getDescription()));
+                w.append("</attr>\n");
+            }
+        }
+        w.append("      </attributes>\n");
     }
 
     private void writeSVG(File imageFile, VisualElement ve) throws IOException {

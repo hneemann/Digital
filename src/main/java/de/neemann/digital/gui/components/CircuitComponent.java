@@ -80,6 +80,13 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         ATTR_LIST.add(Keys.PROGRAM_TO_PRELOAD);
     }
 
+    /**
+     * @return returns the list of circuit attributes
+     */
+    public static ArrayList<Key> getAttrList() {
+        return ATTR_LIST;
+    }
+
     private static final String DEL_ACTION = "myDelAction";
     private static final int MOUSE_BORDER_SMALL = 10;
     private static final int MOUSE_BORDER_LARGE = 50;
