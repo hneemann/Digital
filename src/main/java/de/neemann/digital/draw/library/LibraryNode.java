@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.IconCreator;
 import de.neemann.gui.LineBreaker;
@@ -285,8 +286,20 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public Icon getIconOrNull(ShapeFactory shapeFactory) {
         if (unique) {
-            if (icon == null && description != null)
-                icon = new VisualElement(description.getName()).setShapeFactory(shapeFactory).createIcon(75);
+            if (icon == null && description != null) {
+                final VisualElement visualElement = new VisualElement(description.getName()).setShapeFactory(shapeFactory);
+
+                // set the wide shape option to the element
+                try {
+                    if (Settings.getInstance().get(Keys.SETTINGS_USE_WIDE_SHAPES)
+                            && getDescription().hasAttribute(Keys.WIDE_SHAPE))
+                        visualElement.setAttribute(Keys.WIDE_SHAPE, true);
+                } catch (IOException e1) {
+                    // do nothing on error
+                }
+
+                icon = visualElement.createIcon(75);
+            }
             return icon;
         } else
             return ICON_NOT_UNIQUE;
