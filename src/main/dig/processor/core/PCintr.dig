@@ -289,6 +289,25 @@ dem Takt weiter geschaltet wird.}}</string>
       </elementAttributes>
       <pos x="700" y="480"/>
     </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Address of the instruction to return to after an interrupt.
+{{de Die Adresse an die nach einem Interrupt zurückgekehrt werden muss.}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>intRet</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="840" y="260"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -321,7 +340,35 @@ dem Takt weiter geschaltet wird.}}</string>
     </wire>
     <wire>
       <p1 x="800" y="320"/>
+      <p2 x="820" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="320"/>
       <p2 x="920" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="260"/>
+      <p2 x="840" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="200"/>
+      <p2 x="420" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="360"/>
+      <p2 x="580" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="360"/>
+      <p2 x="920" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="300"/>
+      <p2 x="760" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="140"/>
+      <p2 x="260" y="140"/>
     </wire>
     <wire>
       <p1 x="240" y="80"/>
@@ -356,28 +403,8 @@ dem Takt weiter geschaltet wird.}}</string>
       <p2 x="580" y="340"/>
     </wire>
     <wire>
-      <p1 x="400" y="200"/>
-      <p2 x="420" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="560" y="360"/>
-      <p2 x="580" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="900" y="360"/>
-      <p2 x="920" y="360"/>
-    </wire>
-    <wire>
       <p1 x="540" y="280"/>
       <p2 x="680" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="720" y="300"/>
-      <p2 x="760" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="240" y="140"/>
-      <p2 x="260" y="140"/>
     </wire>
     <wire>
       <p1 x="220" y="220"/>
@@ -406,6 +433,10 @@ dem Takt weiter geschaltet wird.}}</string>
     <wire>
       <p1 x="980" y="80"/>
       <p2 x="980" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="260"/>
+      <p2 x="820" y="320"/>
     </wire>
     <wire>
       <p1 x="780" y="340"/>
