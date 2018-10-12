@@ -21,24 +21,6 @@ Interrupt-Controller wieder frei.}}</string>
   </attributes>
   <visualElements>
     <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Return Address {{de Return Adresse}}</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>retAddr</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="640" y="-100"/>
-    </visualElement>
-    <visualElement>
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
@@ -62,25 +44,7 @@ Interrupt-Controller wieder frei.}}</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Register</elementName>
-      <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>retAddr</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="540" y="-120"/>
+      <pos x="220" y="-40"/>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
@@ -92,6 +56,12 @@ Interrupt-Controller wieder frei.}}</string>
         <entry>
           <string>Label</string>
           <string>intLock</string>
+        </entry>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>C</string>
+          </inverterConfig>
         </entry>
       </elementAttributes>
       <pos x="300" y="-20"/>
@@ -109,28 +79,7 @@ Interrupt-Controller wieder frei.}}</string>
           <string>iEn</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="80"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>The next commands address, that 
-is the return address.
-{{de Der nächste Befehl, also die 
-Rücksprungadresse.}}</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Next</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="-120"/>
+      <pos x="520" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -147,73 +96,7 @@ Wenn gesetzt, wird Interrupt verhindert.}}</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="80"/>
-    </visualElement>
-    <visualElement>
-      <elementName>D_FF</elementName>
-      <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>iEn</string>
-        </entry>
-      </elementAttributes>
-      <pos x="540" y="80"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="220" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="520" y="-100"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="280" y="0"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="520" y="100"/>
+      <pos x="220" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -230,7 +113,7 @@ die Interrupts wieder freigegeben.}}</string>
           <string>reti</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="20"/>
+      <pos x="220" y="20"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -244,7 +127,7 @@ die Interrupts wieder freigegeben.}}</string>
           <string>intr</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="160"/>
+      <pos x="220" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
@@ -257,22 +140,14 @@ die Interrupts wieder freigegeben.}}</string>
           <string>Label</string>
           <string>intReq</string>
         </entry>
-      </elementAttributes>
-      <pos x="300" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>C</string>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>C</string>
+          </inverterConfig>
         </entry>
       </elementAttributes>
-      <pos x="280" y="180"/>
+      <pos x="300" y="140"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -281,47 +156,11 @@ die Interrupts wieder freigegeben.}}</string>
       <p2 x="380" y="0"/>
     </wire>
     <wire>
-      <p1 x="280" y="0"/>
-      <p2 x="300" y="0"/>
+      <p1 x="260" y="0"/>
+      <p2 x="280" y="0"/>
     </wire>
     <wire>
-      <p1 x="360" y="160"/>
-      <p2 x="380" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="200" y="160"/>
-      <p2 x="300" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="-100"/>
-      <p2 x="640" y="-100"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="-100"/>
-      <p2 x="540" y="-100"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="100"/>
-      <p2 x="540" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="100"/>
-      <p2 x="400" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="200"/>
-      <p2 x="300" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="-80"/>
-      <p2 x="480" y="-80"/>
-    </wire>
-    <wire>
-      <p1 x="480" y="-80"/>
-      <p2 x="540" y="-80"/>
-    </wire>
-    <wire>
-      <p1 x="200" y="80"/>
+      <p1 x="220" y="80"/>
       <p2 x="380" y="80"/>
     </wire>
     <wire>
@@ -329,64 +168,80 @@ die Interrupts wieder freigegeben.}}</string>
       <p2 x="480" y="80"/>
     </wire>
     <wire>
-      <p1 x="600" y="80"/>
-      <p2 x="620" y="80"/>
-    </wire>
-    <wire>
       <p1 x="480" y="80"/>
-      <p2 x="540" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="620" y="80"/>
-      <p2 x="640" y="80"/>
+      <p2 x="520" y="80"/>
     </wire>
     <wire>
       <p1 x="280" y="240"/>
-      <p2 x="620" y="240"/>
+      <p2 x="480" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="160"/>
+      <p2 x="280" y="160"/>
     </wire>
     <wire>
       <p1 x="280" y="-20"/>
       <p2 x="300" y="-20"/>
     </wire>
     <wire>
+      <p1 x="380" y="100"/>
+      <p2 x="400" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="20"/>
+      <p2 x="300" y="20"/>
+    </wire>
+    <wire>
       <p1 x="280" y="180"/>
       <p2 x="300" y="180"/>
     </wire>
     <wire>
-      <p1 x="200" y="20"/>
-      <p2 x="300" y="20"/>
+      <p1 x="220" y="-40"/>
+      <p2 x="260" y="-40"/>
     </wire>
     <wire>
-      <p1 x="200" y="-120"/>
-      <p2 x="540" y="-120"/>
+      <p1 x="360" y="140"/>
+      <p2 x="380" y="140"/>
     </wire>
     <wire>
-      <p1 x="200" y="220"/>
-      <p2 x="220" y="220"/>
+      <p1 x="220" y="140"/>
+      <p2 x="300" y="140"/>
     </wire>
     <wire>
       <p1 x="380" y="60"/>
       <p2 x="400" y="60"/>
     </wire>
     <wire>
+      <p1 x="280" y="-80"/>
+      <p2 x="480" y="-80"/>
+    </wire>
+    <wire>
       <p1 x="480" y="-80"/>
       <p2 x="480" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="80"/>
+      <p2 x="480" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="-40"/>
+      <p2 x="260" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="0"/>
+      <p2 x="260" y="160"/>
     </wire>
     <wire>
       <p1 x="280" y="-80"/>
       <p2 x="280" y="-20"/>
     </wire>
     <wire>
-      <p1 x="280" y="200"/>
+      <p1 x="280" y="180"/>
       <p2 x="280" y="240"/>
     </wire>
     <wire>
-      <p1 x="620" y="80"/>
-      <p2 x="620" y="240"/>
-    </wire>
-    <wire>
       <p1 x="380" y="100"/>
-      <p2 x="380" y="160"/>
+      <p2 x="380" y="140"/>
     </wire>
     <wire>
       <p1 x="380" y="0"/>
