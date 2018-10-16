@@ -1,2 +1,3 @@
 *.java text eol=lf
 *.xml text eol=lf
+*.dig text eol=lf
