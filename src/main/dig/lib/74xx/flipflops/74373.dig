@@ -104,7 +104,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>CLK</string>
+          <string>C</string>
         </entry>
         <entry>
           <string>pinNumber</string>
