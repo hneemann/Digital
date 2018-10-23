@@ -7,6 +7,7 @@
     <string name="date">Datum</string>
     <string name="number">Nr.</string>
     <string name="settings">Im Folgenden werden die vorhandenen Einstellungen des Simulators beschrieben.</string>
+    <string name="maxValue">Maximalwert</string>
     <string name="attr_dialogTitle">Eigenschaften</string>
     <string name="attr_openCircuit">Anzeigen</string>
     <string name="attr_openCircuitLabel">Enthaltene Schaltung:</string>

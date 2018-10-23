@@ -291,21 +291,29 @@ public final class EditorFactory {
     }
 
     private final static class IntegerEditor extends LabelEditor<Integer> {
-        private static final Integer[] DEFAULTS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-        private final JComboBox<Integer> comboBox;
+        private static final IntegerValue[] DEFAULTS = createIntegerValues(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+        private static IntegerValue[] createIntegerValues(int... values) {
+            IntegerValue[] v = new IntegerValue[values.length];
+            for (int i = 0; i < v.length; i++)
+                v[i] = new IntegerValue(values[i]);
+            return v;
+        }
+
+        private final JComboBox<IntegerValue> comboBox;
         private final Key<Integer> key;
 
         public IntegerEditor(Integer value, Key<Integer> key) {
             this.key = key;
-            Integer[] selects = null;
+            IntegerValue[] selects = null;
             if (key instanceof Key.KeyInteger) {
-                selects = ((Key.KeyInteger) key).getComboBoxValues();
+                selects = createIntegerValues(((Key.KeyInteger) key).getComboBoxValues());
             }
             if (selects == null)
                 selects = DEFAULTS;
             comboBox = new JComboBox<>(selects);
             comboBox.setEditable(true);
-            comboBox.setSelectedItem(value);
+            comboBox.setSelectedItem(new IntegerValue(value));
         }
 
         @Override
@@ -319,6 +327,8 @@ public final class EditorFactory {
             int value = 0;
             if (item instanceof Number)
                 value = ((Number) item).intValue();
+            else if (item instanceof IntegerValue)
+                value = ((IntegerValue) item).getValue();
             else {
                 try {
                     value = (int) Bits.decode(item.toString());
@@ -341,7 +351,27 @@ public final class EditorFactory {
 
         @Override
         public void setValue(Integer value) {
-            comboBox.setSelectedItem(value);
+            comboBox.setSelectedItem(new IntegerValue(value));
+        }
+
+        private static final class IntegerValue {
+            private final int value;
+
+            private IntegerValue(int value) {
+                this.value = value;
+            }
+
+            private Integer getValue() {
+                return value;
+            }
+
+            @Override
+            public String toString() {
+                if (value == Integer.MAX_VALUE)
+                    return Lang.get("maxValue");
+                else
+                    return Integer.toString(value);
+            }
         }
     }
 

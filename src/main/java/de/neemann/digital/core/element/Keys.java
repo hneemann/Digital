@@ -98,7 +98,7 @@ public final class Keys {
      */
     public static final Key.KeyInteger INPUT_COUNT  // needs to have the same default value as ADDR_BITS!!!  see de.neemann.digital.gui.components.EditorFactory#DataFieldEditor
             = new Key.KeyInteger("Inputs", 2)
-            .setComboBoxValues(new Integer[]{2, 3, 4, 5})
+            .setComboBoxValues(2, 3, 4, 5)
             .setMin(2);
 
 
@@ -115,7 +115,7 @@ public final class Keys {
      */
     public static final Key.KeyInteger DELAY_TIME
             = new Key.KeyInteger("delayTime", 1)
-            .setComboBoxValues(new Integer[]{1, 2, 3, 4, 5})
+            .setComboBoxValues(1, 2, 3, 4, 5)
             .setMin(1)
             .setMax(20);
 
@@ -138,7 +138,7 @@ public final class Keys {
      */
     public static final Key<Integer> FONT_SIZE =
             new Key.KeyInteger("textFontSize", Style.NORMAL.getFontSize())
-                    .setComboBoxValues(new Integer[]{14, 17, 20, 24, 36, 48, 60})
+                    .setComboBoxValues(14, 17, 20, 24, 36, 48, 60)
                     .setMin(10)
                     .setMax(70);
 
@@ -154,7 +154,7 @@ public final class Keys {
      */
     public static final Key<Integer> LED_SIZE
             = new Key.KeyInteger("Size", 1)
-            .setComboBoxValues(new Integer[]{0, 1, 2, 3, 4, 5})
+            .setComboBoxValues(0, 1, 2, 3, 4, 5)
             .setMin(0)
             .allowGroupEdit()
             .setSecondary();
@@ -207,7 +207,7 @@ public final class Keys {
      */
     public static final Key<Integer> SPLITTER_SPREADING
             = new Key.KeyInteger("splitterSpreading", 1)
-            .setComboBoxValues(new Integer[]{1, 2, 3, 4})
+            .setComboBoxValues(1, 2, 3, 4)
             .setMin(1)
             .setMax(10)
             .setSecondary();
@@ -230,7 +230,7 @@ public final class Keys {
      */
     public static final Key<Integer> FREQUENCY
             = new Key.KeyInteger("Frequency", 1)
-            .setComboBoxValues(new Integer[]{1, 2, 5, 10, 20, 50, 100, 200, 500, 5000, 50000, 500000})
+            .setComboBoxValues(1, 2, 5, 10, 20, 50, 100, 200, 500, 5000, 50000, Integer.MAX_VALUE)
             .setMin(1)
             .setDependsOn(RUN_AT_REAL_TIME);
 
@@ -323,7 +323,7 @@ public final class Keys {
      */
     public static final Key.KeyInteger CYCLES
             = new Key.KeyInteger("Cycles", 100000)
-            .setComboBoxValues(new Integer[]{1000, 10000, 100000, 1000000});
+            .setComboBoxValues(1000, 10000, 100000, 1000000);
 
     /**
      * flag to make a value a probe
@@ -473,7 +473,7 @@ public final class Keys {
      */
     public static final Key<Integer> POLES
             = new Key.KeyInteger("poles", 1)
-            .setComboBoxValues(new Integer[]{1, 2, 3, 4})
+            .setComboBoxValues(1, 2, 3, 4)
             .setMin(1).allowGroupEdit();
 
 
@@ -570,7 +570,7 @@ public final class Keys {
      */
     public static final Key<Integer> SETTINGS_FONT_SCALING =
             new Key.KeyInteger("fontSize", Screen.getDefaultFontScaling())
-                    .setComboBoxValues(new Integer[]{100, 120, 150, 180, 200, 250, 300})
+                    .setComboBoxValues(100, 120, 150, 180, 200, 250, 300)
                     .setMin(50)
                     .setMax(400)
                     .setRequiresRestart();

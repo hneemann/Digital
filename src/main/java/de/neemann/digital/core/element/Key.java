@@ -225,7 +225,7 @@ public class Key<VALUE> {
      * Stores additional combo box values
      */
     public static class KeyInteger extends Key<Integer> {
-        private Integer[] values;
+        private int[] values;
         private int min = Integer.MIN_VALUE;
         private int max = Integer.MAX_VALUE;
 
@@ -245,7 +245,7 @@ public class Key<VALUE> {
          * @param values the values
          * @return this for chained calls
          */
-        public KeyInteger setComboBoxValues(Integer[] values) {
+        public KeyInteger setComboBoxValues(int... values) {
             this.values = values;
             return this;
         }
@@ -275,7 +275,7 @@ public class Key<VALUE> {
         /**
          * @return the values to show in the combo box
          */
-        public Integer[] getComboBoxValues() {
+        public int[] getComboBoxValues() {
             return values;
         }
 
@@ -299,7 +299,6 @@ public class Key<VALUE> {
      * Stores additional combo box values
      */
     public static final class KeyBits extends KeyInteger {
-        private static final Integer[] VALUES = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32};
 
         /**
          * Creates a new bits key
@@ -311,7 +310,7 @@ public class Key<VALUE> {
             super(key, def);
             setMin(1);
             setMax(64);
-            setComboBoxValues(VALUES);
+            setComboBoxValues(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32);
             allowGroupEdit();
         }
     }
