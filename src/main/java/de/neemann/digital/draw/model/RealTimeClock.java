@@ -37,11 +37,11 @@ public class RealTimeClock implements ModelStateObserverTyped {
     /**
      * Creates a new real time clock
      *
-     * @param model     the model
-     * @param clock     the clock element which is modify
-     * @param executor  the executor used to schedule the update
-     * @param stopper   used to stop the model if an error is detected
-     * @param status    allows sending messages to the status line
+     * @param model    the model
+     * @param clock    the clock element which is modify
+     * @param executor the executor used to schedule the update
+     * @param stopper  used to stop the model if an error is detected
+     * @param status   allows sending messages to the status line
      */
     public RealTimeClock(Model model, Clock clock, ScheduledThreadPoolExecutor executor, ErrorStopper stopper, StatusInterface status) {
         this.model = model;
@@ -99,6 +99,11 @@ public class RealTimeClock implements ModelStateObserverTyped {
         private final ScheduledFuture<?> timer;
 
         RealTimeRunner(int delay) {
+            FrequencyCalculator frequencyCalculator;
+            if (frequency > 2000)
+                frequencyCalculator = new FrequencyCalculator(status, frequency);
+            else
+                frequencyCalculator = null;
             timer = executor.scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {
@@ -107,6 +112,8 @@ public class RealTimeClock implements ModelStateObserverTyped {
                             output.setValue(1 - output.getValue());
                             model.doStep();
                         });
+                        if (frequencyCalculator != null)
+                            frequencyCalculator.calc();
                     } catch (NodeException | RuntimeException e) {
                         stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
                         timer.cancel(false);
@@ -132,14 +139,14 @@ public class RealTimeClock implements ModelStateObserverTyped {
         ThreadRunner() {
             thread = new Thread(() -> {
                 LOGGER.debug("thread start");
-                FrequencyCalculator frequency = new FrequencyCalculator(status);
+                FrequencyCalculator frequencyCalculator = new FrequencyCalculator(status, frequency);
                 try {
                     while (!Thread.interrupted()) {
                         model.accessNEx(() -> {
                             output.setValue(1 - output.getValue());
                             model.doStep();
                         });
-                        frequency.calc();
+                        frequencyCalculator.calc();
                     }
                 } catch (NodeException | RuntimeException e) {
                     stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
@@ -156,17 +163,18 @@ public class RealTimeClock implements ModelStateObserverTyped {
     }
 
     private static final class FrequencyCalculator {
-        private static final long MIN_COUNTER = 50000;
         private final StatusInterface status;
+        private long minCounter;
         private long checkCounter;
         private int counter;
         private long time;
 
-        private FrequencyCalculator(StatusInterface status) {
+        private FrequencyCalculator(StatusInterface status, int frequency) {
             this.status = status;
             time = System.currentTimeMillis();
             counter = 0;
-            checkCounter = MIN_COUNTER;
+            minCounter = Math.min(frequency, 50000);
+            checkCounter = minCounter;
         }
 
         private void calc() {
@@ -178,9 +186,9 @@ public class RealTimeClock implements ModelStateObserverTyped {
                     status.setStatus(l + " kHz");
                     time = t;
                     counter = 0;
-                    checkCounter = MIN_COUNTER;
+                    checkCounter = minCounter;
                 } else {
-                    checkCounter += MIN_COUNTER;
+                    checkCounter += minCounter;
                 }
             }
         }

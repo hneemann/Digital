@@ -228,7 +228,7 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>500000</int>
+          <int>2147483647</int>
         </entry>
       </elementAttributes>
       <pos x="1220" y="580"/>
