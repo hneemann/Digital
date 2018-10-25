@@ -294,6 +294,9 @@ public final class EditorFactory {
         private static final IntegerValue[] DEFAULTS = createIntegerValues(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
         private static IntegerValue[] createIntegerValues(int... values) {
+            if (values == null)
+                return null;
+
             IntegerValue[] v = new IntegerValue[values.length];
             for (int i = 0; i < v.length; i++)
                 v[i] = new IntegerValue(values[i]);
