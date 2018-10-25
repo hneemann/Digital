@@ -611,11 +611,21 @@
     <string name="elem_Mul_short">Mul</string>
     <string name="elem_Mul_tt">A component for multiplication.
         Multiplies the integer numbers on input pin a and input pin b.
-        An unsigned multiplication is performed.
     </string>
     <string name="elem_Mul_pin_a">Input a for multiplication.</string>
     <string name="elem_Mul_pin_b">Input b for multiplication.</string>
     <string name="elem_Mul_pin_mul">Output for the result of the multiplication.</string>
+    <string name="elem_Div">Division</string>
+    <string name="elem_Div_short">Div</string>
+    <string name="elem_Div_tt">A component for division.
+        Divides the integer applied to input a by the integer applied to input b.
+        If the divisor is zero, it is divided by one instead.
+        In signed division, the remainder is always positive.
+    </string>
+    <string name="elem_Div_pin_a">dividend</string>
+    <string name="elem_Div_pin_b">divisor</string>
+    <string name="elem_Div_pin_q">quotient</string>
+    <string name="elem_Div_pin_r">remainder</string>
     <string name="elem_BarrelShifter">Barrel shifter</string>
     <string name="elem_BarrelShifter_short">shift</string>
     <string name="elem_BarrelShifter_tt">A component for bit shifting.
@@ -993,8 +1003,8 @@
         Output bits can also be output several times: "0-7,1-6,4-7"</string>
     <string name="key_SelectorBits">Number of Selector Bits</string><!-- Multiplexer, Demultiplexer, Decoder -->
     <string name="key_SelectorBits_tt">Number of bits used for the selector input.</string>
-    <string name="key_Signed">Signed</string><!-- Comparator -->
-    <string name="key_Signed_tt">If selected the comparison is performed with signed (2th complement) values.</string>
+    <string name="key_Signed">Signed Operation</string><!-- Comparator, Div -->
+    <string name="key_Signed_tt">If selected the operation is performed with signed (2th complement) values.</string>
     <string name="key_Closed">Closed</string><!-- Switch -->
     <string name="key_Closed_tt">Sets the initial state of the switch.</string>
     <string name="key_Value">Value</string><!-- Const -->

@@ -178,6 +178,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Add.DESCRIPTION)
                         .add(Sub.DESCRIPTION)
                         .add(Mul.DESCRIPTION)
+                        .add(Div.DESCRIPTION)
                         .add(BarrelShifter.DESCRIPTION)
                         .add(Comparator.DESCRIPTION)
                         .add(Neg.DESCRIPTION)

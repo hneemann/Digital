@@ -610,11 +610,21 @@
     <string name="elem_Mul_short">Mult</string>
     <string name="elem_Mul_tt">Ein Baustein für Multiplikation.
         Multipliziert die an Eingang a und Eingang b anliegenden Ganzzahlen.
-        Es wird eine vorzeichenlose Multiplikation durchgeführt.
     </string>
     <string name="elem_Mul_pin_a">Eingang a für Multiplikation.</string>
     <string name="elem_Mul_pin_b">Eingang b für Multiplikation.</string>
     <string name="elem_Mul_pin_mul">Ausgang mit dem Ergebnis der Multiplikation.</string>
+    <string name="elem_Div">Dividierer</string>
+    <string name="elem_Div_short">Div</string>
+    <string name="elem_Div_tt">Ein Baustein für Divisionen.
+        Dividiert die an Eingang a anliegende Ganzzahl durch die an Eingang b anliegenden Ganzzahl.
+        Ist der Divisor Null, wird stattdessen durch Eins geteilt.
+        Bei vorzeichenbehafteter Division ist der Rest der Division immer positiv.
+    </string>
+    <string name="elem_Div_pin_a">Der Dividend</string>
+    <string name="elem_Div_pin_b">Der Divisor</string>
+    <string name="elem_Div_pin_q">Der ganzzahlige Quotient.</string>
+    <string name="elem_Div_pin_r">Der Rest der Division.</string>
     <string name="elem_BarrelShifter">Bit-Schieber</string>
     <string name="elem_BarrelShifter_short">shift</string>
     <string name="elem_BarrelShifter_tt">Ein Baustein zum Schieben von Bits.
@@ -1000,8 +1010,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Ausgangsbits können auch mehrfach ausgegeben werden: "0-7,1-6,4-7"</string>
     <string name="key_SelectorBits">Anzahl der Auswahlbits</string><!-- Multiplexer, Demultiplexer, Decoder -->
     <string name="key_SelectorBits_tt">Anzahl der Bits, die in der Auswahlleitung vorhanden sind.</string>
-    <string name="key_Signed">Vorzeichen</string><!-- Comparator -->
-    <string name="key_Signed_tt">Wenn gesetzt, findet der Vergleich vorzeichenrichtig (2-er Komplement) statt.</string>
+    <string name="key_Signed">Operation mit Vorzeichen</string><!-- Comparator, Div -->
+    <string name="key_Signed_tt">Wenn gesetzt, findet die Operation vorzeichenrichtig (2-er Komplement) statt.</string>
     <string name="key_Closed">Geschlossen</string><!-- Switch -->
     <string name="key_Closed_tt">Gibt an, ob der Schalter bei Modelstart offen oder geschlossen ist.</string>
     <string name="key_Value">Wert</string><!-- Const -->
