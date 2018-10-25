@@ -45,7 +45,7 @@ public class VerilogSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::checkVerilogExport).noOutput().scan(examples);
-            assertEquals(32, tested);
+            assertEquals(33, tested);
             assertEquals(tested+2, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if iverilog is not installed its also ok
