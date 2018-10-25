@@ -26,10 +26,12 @@ public class Mul extends Node implements Element {
             = new ElementTypeDescription(Mul.class, input("a"), input("b"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.SIGNED)
             .addAttribute(Keys.BITS);
 
     private final ObservableValue mul;
     private final int bits;
+    private final boolean signed;
     private ObservableValue a;
     private ObservableValue b;
     private long value;
@@ -40,6 +42,7 @@ public class Mul extends Node implements Element {
      * @param attributes the attributes
      */
     public Mul(ElementAttributes attributes) {
+        signed = attributes.get(Keys.SIGNED);
         bits = attributes.get(Keys.BITS);
         int outBits = this.bits * 2;
         if (outBits > 64)  // used to avoid strange error conditions. The init method throws the exception
@@ -49,7 +52,10 @@ public class Mul extends Node implements Element {
 
     @Override
     public void readInputs() throws NodeException {
-        value = a.getValue() * b.getValue();
+        if (signed)
+            value = a.getValueSigned() * b.getValueSigned();
+        else
+            value = a.getValue() * b.getValue();
     }
 
     @Override
