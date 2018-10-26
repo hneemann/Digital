@@ -62,8 +62,13 @@ public class KeyboardDialog extends JDialog implements Keyboard.KeyboardInterfac
         synchronized (textLock) {
             if (text.length() == 0)
                 return 0;
-            else
-                return text.charAt(0);
+            else {
+                final char c = text.charAt(0);
+                text = text.substring(1);
+                final String t = text;
+                SwingUtilities.invokeLater(() -> textLabel.setText(t));
+                return c;
+            }
         }
     }
 
@@ -71,17 +76,6 @@ public class KeyboardDialog extends JDialog implements Keyboard.KeyboardInterfac
     public boolean isChar() {
         synchronized (textLock) {
             return text.length() > 0;
-        }
-    }
-
-    @Override
-    public void removeChar() {
-        synchronized (textLock) {
-            if (text.length() > 0) {
-                text = text.substring(1);
-                final String t = text;
-                SwingUtilities.invokeLater(() -> textLabel.setText(t));
-            }
         }
     }
 

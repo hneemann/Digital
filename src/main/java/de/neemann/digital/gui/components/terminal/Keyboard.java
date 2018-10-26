@@ -39,6 +39,7 @@ public class Keyboard extends Node implements Element {
     private ObservableValue enable;
     private boolean enableVal;
     private boolean lastClock = false;
+    private int nextChar;
 
     /**
      * Creates a new terminal instance
@@ -71,7 +72,7 @@ public class Keyboard extends Node implements Element {
         boolean nowClock = clock.getBool();
 
         if (keyboardInterface != null && nowClock && !lastClock && enableVal)
-            keyboardInterface.removeChar();
+            nextChar = keyboardInterface.getChar();
 
         lastClock = nowClock;
     }
@@ -80,10 +81,10 @@ public class Keyboard extends Node implements Element {
     public void writeOutputs() throws NodeException {
         if (keyboardInterface != null) {
             if (enableVal)
-                data.setValue(keyboardInterface.getChar());
+                data.setValue(nextChar);
             else
                 data.setToHighZ();
-            isKeyOut.setBool(keyboardInterface.isChar());
+            isKeyOut.setBool(keyboardInterface.isChar() || nextChar != 0);
         } else {
             if (enableVal)
                 data.setValue(0);
@@ -123,9 +124,5 @@ public class Keyboard extends Node implements Element {
          */
         boolean isChar();
 
-        /**
-         * removes the first character
-         */
-        void removeChar();
     }
 }
