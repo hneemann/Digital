@@ -56,6 +56,12 @@ public final class BoardProvider {
                         10,
                         new ClockIntegratorARTIX7(10),
                         "xc7a35ticpg236-1L");
+			case "nexys4ddr":
+                return new Vivado("LVCMOS33",
+                        "E3",
+                        10,
+                        new ClockIntegratorARTIX7(10),
+                        "xc7a100tcsg324-1L");			
             case "mimasv1":
                 return new MimasV1Board();
             case "mimasv2":
