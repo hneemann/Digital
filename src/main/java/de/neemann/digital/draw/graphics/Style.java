@@ -10,6 +10,7 @@ import de.neemann.digital.core.Value;
 import java.awt.*;
 
 /**
+ * Defines the styles (color, line thickness, font size and style) which are used to draw the circuit.
  */
 public final class Style {
     /**
@@ -19,7 +20,7 @@ public final class Style {
     /**
      * thickness of thin lines
      */
-    public static final int LINETHIN = MAXLINETHICK / 2;
+    private static final int LINETHIN = MAXLINETHICK / 2;
 
     private static final int WIRETHICK = MAXLINETHICK;
     private static final int LINETHICK = MAXLINETHICK;
