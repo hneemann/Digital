@@ -160,6 +160,15 @@ public final class Keys {
             .setSecondary();
 
     /**
+     * The size of a seven seg display
+     */
+    public static final Key<Integer> SEVEN_SEG_SIZE
+            = new Key.KeyInteger("Size", 2)
+            .setComboBoxValues(0, 1, 2, 3, 4, 5)
+            .setMin(0)
+            .allowGroupEdit();
+
+    /**
      * The value of constants
      */
     public static final Key<Long> VALUE

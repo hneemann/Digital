@@ -68,7 +68,8 @@ public class Out implements Element {
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
             attributes -> new Out(4, 1), input("d"), input("dp"))
-            .addAttribute(Keys.COLOR);
+            .addAttribute(Keys.COLOR)
+            .addAttribute(Keys.SEVEN_SEG_SIZE);
 
     /**
      * Sixteen Segment Display
@@ -76,7 +77,8 @@ public class Out implements Element {
     public static final ElementTypeDescription SIXTEENDESCRIPTION
             = new ElementTypeDescription("SixteenSeg",
             attributes -> new Out(16, 1), input("led"), input("dp"))
-            .addAttribute(Keys.COLOR);
+            .addAttribute(Keys.COLOR)
+            .addAttribute(Keys.SEVEN_SEG_SIZE);
 
     private final int[] bits;
     private final String label;

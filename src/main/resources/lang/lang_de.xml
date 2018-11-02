@@ -986,8 +986,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Inputs_tt">Legt die Anzahl der Eingänge fest. Alle Eingänge müssen beschaltet werden.</string>
     <string name="key_Label">Bezeichnung</string><!-- Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Switch, Relay, PFET, NFET, FGPFET, FGNFET, Testcase, PowerSupply, Reset, Break -->
     <string name="key_Label_tt">Die Bezeichnung dieses Elementes.</string>
-    <string name="key_Size">Größe</string><!-- LED -->
-    <string name="key_Size_tt">Die Größe der LED in der Schaltung.</string>
+    <string name="key_Size">Größe</string><!-- LED, SevenSeg -->
+    <string name="key_Size_tt">Die Größe der Darstellung in der Schaltung.</string>
     <string name="key_Language">Sprache</string>
     <string name="key_Language_tt">Sprache der Oberfläche. Wird erst nach einem Neustart wirksam.</string>
     <string name="key_NetName">Netzname</string><!-- Tunnel -->

@@ -53,4 +53,9 @@ public class TransformRotate implements Transform {
         return new VectorFloat(v.getXFloat() * cos + v.getYFloat() * sin + translation.getXFloat(),
                 -v.getXFloat() * sin + v.getYFloat() * cos + translation.getYFloat());
     }
+
+    @Override
+    public TransformMatrix getMatrix() {
+        return new TransformMatrix(cos, sin, -sin, cos, translation.getXFloat(), translation.getYFloat());
+    }
 }

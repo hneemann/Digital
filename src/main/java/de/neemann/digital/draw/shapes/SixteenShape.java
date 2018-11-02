@@ -14,10 +14,8 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
 
 import java.awt.*;
 
@@ -54,6 +52,7 @@ public class SixteenShape implements Shape {
     private final Style onStyle;
     private final Style offStyle;
     private final PinDescriptions pins;
+    private final int size;
     private ObservableValue input;
     private ObservableValue dp;
     private Value inValue;
@@ -70,6 +69,7 @@ public class SixteenShape implements Shape {
         pins = inputs;
         onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
         offStyle = Style.NORMAL.deriveFillStyle(new Color(230, 230, 230));
+        size = attr.get(Keys.SEVEN_SEG_SIZE);
     }
 
     @Override
@@ -96,7 +96,8 @@ public class SixteenShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        graphic.drawPolygon(SevenShape.FRAME, Style.NORMAL);
+        Transform tr = SevenShape.createTransform(size);
+        graphic.drawPolygon(SevenShape.FRAME.transform(tr), Style.NORMAL);
 
         int bits = -1;
         if (inValue != null)
@@ -106,13 +107,13 @@ public class SixteenShape implements Shape {
         for (Polygon p : POLYGONS) {
             Style s = onStyle;
             if ((bits & mask) == 0) s = offStyle;
-            graphic.drawPolygon(p, s);
+            graphic.drawPolygon(p.transform(tr), s);
             mask <<= 1;
         }
 
         Style s = onStyle;
         if (dpValue != null && !dpValue.getBool()) s = offStyle;
-        graphic.drawCircle(DOT, DOT.add(8, 8), s);
+        graphic.drawCircle(DOT.transform(tr), DOT.add(8, 8).transform(tr), s);
     }
 
 }

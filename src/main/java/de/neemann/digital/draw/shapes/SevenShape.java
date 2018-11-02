@@ -7,10 +7,8 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
 
 import java.awt.*;
 
@@ -39,6 +37,7 @@ public abstract class SevenShape implements Shape {
 
     private final Style onStyle;
     private final Style offStyle;
+    private final int size;
 
     /**
      * Creates a new instance
@@ -48,16 +47,29 @@ public abstract class SevenShape implements Shape {
     public SevenShape(ElementAttributes attr) {
         onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
         offStyle = Style.NORMAL.deriveFillStyle(new Color(230, 230, 230));
+        size = attr.get(Keys.SEVEN_SEG_SIZE);
     }
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        graphic.drawPolygon(FRAME, Style.NORMAL);
-
+        Transform tr = createTransform(size);
+        graphic.drawPolygon(FRAME.transform(tr), Style.NORMAL);
         for (int i = 0; i < 7; i++)
-            graphic.drawPolygon(POLYGONS[i], getStyleInt(i));
+            graphic.drawPolygon(POLYGONS[i].transform(tr), getStyleInt(i));
 
-        graphic.drawCircle(DOT, DOT.add(8, 8), getStyleInt(7));
+        graphic.drawCircle(DOT.transform(tr), DOT.add(8, 8).transform(tr), getStyleInt(7));
+    }
+
+    static Transform createTransform(int size) {
+        if (size == 2)
+            return Transform.IDENTITY;
+        else {
+            final TransformTranslate tr1 = new TransformTranslate(-70, -139);
+            final TransformTranslate tr2 = new TransformTranslate(70, 139);
+            float s = (2 + size) / 4f;
+            final TransformMatrix trm = new TransformMatrix(s, 0, 0, s, 0, 0);
+            return Transform.mul(Transform.mul(tr2, trm), tr1);
+        }
     }
 
     private Style getStyleInt(int i) {

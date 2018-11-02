@@ -120,4 +120,10 @@ public class VectorFloat implements VectorInterface {
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+
+    @Override
+    public Vector round() {
+        return new Vector(getX(), getY());
+    }
 }

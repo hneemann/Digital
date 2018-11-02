@@ -8,7 +8,6 @@ package de.neemann.digital.draw.graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.StringTokenizer;
 
 /**
  * A polygon representation used by the {@link Graphic} interface.
@@ -198,6 +197,9 @@ public class Polygon implements Iterable<VectorInterface> {
      * @return the transformed polygon
      */
     public Polygon transform(Transform transform) {
+        if (transform == Transform.IDENTITY)
+            return this;
+
         Polygon p = new Polygon(closed);
         for (VectorInterface v : points)
             p.add(v.transform(transform));
@@ -237,115 +239,14 @@ public class Polygon implements Iterable<VectorInterface> {
      * @return the polygon or null if there was an error
      */
     public static Polygon createFromPath(String path) {
-        StringTokenizer tok = new StringTokenizer(path, " ,");
-        float x = 0;
-        float y = 0;
-        Polygon p = new Polygon();
-        String lastTok = "";
-        while (tok.hasMoreTokens()) {
-            final String t = tok.nextToken();
-            switch (t) {
-                case "M":
-                    x = Float.parseFloat(tok.nextToken());
-                    y = Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x, y));
-                    lastTok = t;
-                    break;
-                case "m":
-                    x += Float.parseFloat(tok.nextToken());
-                    y += Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x, y));
-                    lastTok = t;
-                    break;
-                case "V":
-                    y = Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x, y));
-                    lastTok = t;
-                    break;
-                case "v":
-                    y += Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x, y));
-                    lastTok = t;
-                    break;
-                case "H":
-                    x = Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x, y));
-                    lastTok = t;
-                    break;
-                case "h":
-                    x += Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x, y));
-                    lastTok = t;
-                    break;
-                case "l":
-                    x += Float.parseFloat(tok.nextToken());
-                    y += Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x, y));
-                    lastTok = t;
-                    break;
-                case "L":
-                    x = Float.parseFloat(tok.nextToken());
-                    y = Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x, y));
-                    lastTok = t;
-                    break;
-                case "c":
-                    float x1 = x + Float.parseFloat(tok.nextToken());
-                    float y1 = y + Float.parseFloat(tok.nextToken());
-                    float x2 = x1 + Float.parseFloat(tok.nextToken());
-                    float y2 = y1 + Float.parseFloat(tok.nextToken());
-                    x = x2 + Float.parseFloat(tok.nextToken());
-                    y = y2 + Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x1, y1), new VectorFloat(x2, y2), new VectorFloat(x, y));
-                    break;
-                case "C":
-                    x1 = Float.parseFloat(tok.nextToken());
-                    y1 = Float.parseFloat(tok.nextToken());
-                    x2 = Float.parseFloat(tok.nextToken());
-                    y2 = Float.parseFloat(tok.nextToken());
-                    x = Float.parseFloat(tok.nextToken());
-                    y = Float.parseFloat(tok.nextToken());
-                    p.add(new VectorFloat(x1, y1), new VectorFloat(x2, y2), new VectorFloat(x, y));
-                    break;
-                case "Z":
-                case "z":
-                    p.closed = true;
-                    break;
-                default:
-                    switch (lastTok) {
-                        case "V":
-                            y = Float.parseFloat(t);
-                            p.add(new VectorFloat(x, y));
-                            break;
-                        case "v":
-                            y += Float.parseFloat(t);
-                            p.add(new VectorFloat(x, y));
-                            break;
-                        case "H":
-                            x = Float.parseFloat(t);
-                            p.add(new VectorFloat(x, y));
-                            break;
-                        case "h":
-                            x += Float.parseFloat(t);
-                            p.add(new VectorFloat(x, y));
-                            break;
-                        case "l":
-                            x += Float.parseFloat(t);
-                            y += Float.parseFloat(tok.nextToken());
-                            p.add(new VectorFloat(x, y));
-                            break;
-                        case "L":
-                            x = Float.parseFloat(t);
-                            y = Float.parseFloat(tok.nextToken());
-                            p.add(new VectorFloat(x, y));
-                            break;
-                        default:
-                            return null;
-                    }
-                    break;
-            }
+        try {
+            return new PolygonParser(path).create();
+        } catch (PolygonParser.ParserException e) {
+            return null;
         }
-        return p;
     }
 
+    void setClosed(boolean closed) {
+        this.closed = closed;
+    }
 }

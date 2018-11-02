@@ -20,6 +20,16 @@ public class TransformTranslate implements Transform {
         this.trans = trans;
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param x the x translation
+     * @param y the y translation
+     */
+    public TransformTranslate(float x, float y) {
+        this(new VectorFloat(x, y));
+    }
+
     @Override
     public Vector transform(Vector v) {
         return v.add(trans.getX(), trans.getY());
@@ -28,5 +38,10 @@ public class TransformTranslate implements Transform {
     @Override
     public VectorFloat transform(VectorFloat v) {
         return new VectorFloat(v.getXFloat() + trans.getXFloat(), v.getYFloat() + trans.getYFloat());
+    }
+
+    @Override
+    public TransformMatrix getMatrix() {
+        return new TransformMatrix(1, 0, 0, 1, trans.getXFloat(), trans.getYFloat());
     }
 }

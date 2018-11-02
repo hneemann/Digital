@@ -231,4 +231,9 @@ public class Vector implements VectorInterface {
     public VectorInterface transform(Transform tr) {
         return tr.transform(this);
     }
+
+    @Override
+    public Vector round() {
+        return this;
+    }
 }
