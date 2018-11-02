@@ -26,6 +26,16 @@ public class TransformTranslate implements Transform {
      * @param x the x translation
      * @param y the y translation
      */
+    public TransformTranslate(int x, int y) {
+        this(new Vector(x, y));
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param x the x translation
+     * @param y the y translation
+     */
     public TransformTranslate(float x, float y) {
         this(new VectorFloat(x, y));
     }
