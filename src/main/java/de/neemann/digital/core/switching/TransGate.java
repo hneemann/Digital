@@ -26,7 +26,7 @@ public class TransGate extends Node implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS);
 
-    private final Switch aSwitch;
+    private final PlainSwitch aSwitch;
     private ObservableValue s;
     private ObservableValue ns;
     private boolean closed;
@@ -37,7 +37,7 @@ public class TransGate extends Node implements Element {
      * @param attr the attributes
      */
     public TransGate(ElementAttributes attr) {
-        aSwitch = new Switch(attr, false, "A", "B");
+        aSwitch = new PlainSwitch(attr, false, "A", "B");
         aSwitch.getOutput1().setPinDescription(DESCRIPTION);
         aSwitch.getOutput2().setPinDescription(DESCRIPTION);
 
@@ -47,7 +47,7 @@ public class TransGate extends Node implements Element {
     public void setInputs(ObservableValues inputs) throws NodeException {
         s = inputs.get(0).checkBits(1, this, 0).addObserverToValue(this);
         ns = inputs.get(1).checkBits(1, this, 1).addObserverToValue(this);
-        aSwitch.setInputs(new ObservableValues(inputs.get(2), inputs.get(3)));
+        aSwitch.setInputs(inputs.get(2), inputs.get(3));
     }
 
     @Override

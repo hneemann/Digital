@@ -11,12 +11,13 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.core.switching.Switch;
+import de.neemann.digital.core.switching.SwitchDT;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
+import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.gui.components.CircuitComponent;
@@ -29,7 +30,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 /**
  * The switch shape
  */
-public class SwitchShape implements Shape {
+public class SwitchDTShape implements Shape {
 
     private final PinDescriptions outputs;
     private final String label;
@@ -43,7 +44,7 @@ public class SwitchShape implements Shape {
      * @param inputs     the inputs
      * @param outputs    the outputs
      */
-    public SwitchShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
+    public SwitchDTShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
         closed = attributes.get(Keys.CLOSED);
         poles = attributes.get(Keys.POLES);
@@ -55,9 +56,10 @@ public class SwitchShape implements Shape {
         Pins pins = new Pins();
         for (int p = 0; p < poles; p++) {
             pins
-                    .add(new Pin(new Vector(0, SIZE * 2 * p), outputs.get(p * 2)))
-                    .add(new Pin(new Vector(SIZE * 2, SIZE * 2 * p), outputs.get(p * 2 + 1)));
-
+                    .add(new Pin(new Vector(0, SIZE * 2 * p), outputs.get(p * 4)))
+                    .add(new Pin(new Vector(0, SIZE * 2 * p), outputs.get(p * 4 + 1)))
+                    .add(new Pin(new Vector(SIZE * 2, SIZE * 2 * p), outputs.get(p * 4 + 2)))
+                    .add(new Pin(new Vector(SIZE * 2, SIZE + SIZE * 2 * p), outputs.get(p * 4 + 3)));
         }
         return pins;
     }
@@ -69,7 +71,7 @@ public class SwitchShape implements Shape {
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 closed = !closed;
                 if (ioState != null) {
-                    modelSync.access(() -> ((Switch) element).setClosed(closed));
+                    modelSync.access(() -> ((SwitchDT) element).setClosed(closed));
                 }
                 return true;
             }
@@ -79,13 +81,20 @@ public class SwitchShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         int yOffs = 0;
+
+        for (int p = 0; p < poles; p++)
+            graphic.drawPolygon(new Polygon(false)
+                    .add(SIZE * 2, p * SIZE * 2 + SIZE)
+                    .add(SIZE * 2 - SIZE2 / 2, p * SIZE * 2 + SIZE)
+                    .add(SIZE * 2 - SIZE2 / 2, p * SIZE * 2 + SIZE2 + 2), Style.NORMAL);
+
         if (closed) {
             for (int p = 0; p < poles; p++)
                 graphic.drawLine(
                         new Vector(0, 2 * SIZE * p),
                         new Vector(SIZE * 2, 2 * SIZE * p), Style.NORMAL);
         } else {
-            yOffs = SIZE2 / 2;
+            yOffs = -SIZE2 / 2;
             for (int p = 0; p < poles; p++)
                 graphic.drawLine(
                         new Vector(0, 2 * SIZE * p),
@@ -100,8 +109,8 @@ public class SwitchShape implements Shape {
 
         if (label != null && label.length() > 0)
             graphic.drawText(
-                    new Vector(SIZE, 4 + (poles - 1) * 2 * SIZE),
-                    new Vector(SIZE * 2, 4 + (poles - 1) * 2 * SIZE),
+                    new Vector(SIZE, 4 + (poles - 1) * 2 * SIZE + SIZE),
+                    new Vector(SIZE * 2, 4 + (poles - 1) * 2 * SIZE + SIZE),
                     label, Orientation.CENTERTOP, Style.SHAPE_PIN);
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -33,6 +34,10 @@
           <rotation rotation="1"/>
         </entry>
         <entry>
+          <string>Label</string>
+          <string>R1</string>
+        </entry>
+        <entry>
           <string>relayNormallyClosed</string>
           <boolean>true</boolean>
         </entry>
@@ -46,6 +51,10 @@
           <string>rotation</string>
           <rotation rotation="1"/>
         </entry>
+        <entry>
+          <string>Label</string>
+          <string>R2</string>
+        </entry>
       </elementAttributes>
       <pos x="340" y="360"/>
     </visualElement>
@@ -55,6 +64,10 @@
         <entry>
           <string>rotation</string>
           <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>R3</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="360"/>

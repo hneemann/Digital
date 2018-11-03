@@ -7,7 +7,7 @@ package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.ModelStateObserverTyped;
-import de.neemann.digital.core.switching.Switch;
+import de.neemann.digital.core.switching.PlainSwitch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.HashSet;
  */
 public final class BusModelStateObserver implements ModelStateObserverTyped {
     private final ArrayList<AbstractBusHandler> busList;
-    private final HashSet<Switch.RealSwitch> closedSwitches;
+    private final HashSet<PlainSwitch.RealSwitch> closedSwitches;
     private int version;
 
     BusModelStateObserver() {
@@ -67,7 +67,7 @@ public final class BusModelStateObserver implements ModelStateObserverTyped {
      * @param realSwitch the switch
      * @param closed     true if switch is closed
      */
-    public void setClosed(Switch.RealSwitch realSwitch, boolean closed) {
+    public void setClosed(PlainSwitch.RealSwitch realSwitch, boolean closed) {
         if (closed) {
             closedSwitches.add(realSwitch);
         } else {
@@ -88,7 +88,7 @@ public final class BusModelStateObserver implements ModelStateObserverTyped {
         busList.removeIf(abstractBusHandler -> abstractBusHandler instanceof ConnectedBusHandler);
         HashMap<CommonBusValue, ConnectedBusHandler> netMap = new HashMap<>();
         ArrayList<ConnectedBusHandler> createdHandlers = new ArrayList<>();
-        for (Switch.RealSwitch s : closedSwitches) {
+        for (PlainSwitch.RealSwitch s : closedSwitches) {
             ConnectedBusHandler h1 = netMap.get(s.getInput1());
             ConnectedBusHandler h2 = netMap.get(s.getInput2());
             if (h1 == null) {

@@ -189,6 +189,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(DiodeForward.DESCRIPTION)
                         .add(DiodeBackward.DESCRIPTION)
                         .add(Switch.DESCRIPTION)
+                        .add(SwitchDT.DESCRIPTION)
                         .add(Fuse.DESCRIPTION)
                         .add(Relay.DESCRIPTION)
                         .add(RelayDT.DESCRIPTION)

@@ -686,9 +686,11 @@
     <string name="elem_DiodeBackward_pin_in">Ist der Eingang 0, ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_DiodeBackward_pin_out">Ist der Eingang 0, ist auch der Ausgang 0. In allen anderen Fällen ist der Ausgang hochohmig.</string>
     <string name="elem_Switch">Schalter</string>
-    <string name="elem_Switch_pin_out1">Einer der Anschlüsse des Schalters.</string>
-    <string name="elem_Switch_pin_out2">Einer der Anschlüsse des Schalters.</string>
+    <string name="elem_Switch_pin">Einer der Anschlüsse des Schalters.</string>
     <string name="elem_Switch_tt">Einfacher Schalter. Der Schalter hat keine Gatterlaufzeit.
+        Eine Signaländerung wird instantan von einem Ende des Schalters zum anderen propagiert.</string>
+    <string name="elem_SwitchDT">Wechselschalter</string>
+    <string name="elem_SwitchDT_tt">Einfacher Wechselschalter. Der Schalter hat keine Gatterlaufzeit.
         Eine Signaländerung wird instantan von einem Ende des Schalters zum anderen propagiert.</string>
     <string name="elem_Fuse">Fuse</string>
     <string name="elem_Fuse_tt">Eine Sicherung, die verwendet werden kann, um einen einmal programmierbaren Speicher aufzubauen.</string>

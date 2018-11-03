@@ -12,6 +12,8 @@ import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.core.switching.RelayDT;
 import de.neemann.digital.core.switching.Relay;
+import de.neemann.digital.core.switching.Switch;
+import de.neemann.digital.core.switching.SwitchDT;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.GraphicSVG;
@@ -72,7 +74,9 @@ public class TestElemConsistence extends TestCase {
                 || e instanceof External
                 || e instanceof LookUpTable
                 || e instanceof Relay
-                || e instanceof RelayDT);
+                || e instanceof RelayDT
+                || e instanceof Switch
+                || e instanceof SwitchDT);
     }
 
 }

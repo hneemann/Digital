@@ -12,21 +12,20 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
 /**
- * A simple manually controlled switch
+ * A simple double throw switch
  */
-public class Switch implements Element, NodeInterface {
+public class SwitchDT implements Element, NodeInterface {
 
     /**
      * The switch description
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Switch.class)
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(SwitchDT.class)
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.POLES)
-            .addAttribute(Keys.CLOSED);
+            .addAttribute(Keys.POLES);
 
-    private final PlainSwitch[] poles;
+    private final PlainSwitchDT[] poles;
     private boolean closed;
 
     /**
@@ -34,29 +33,18 @@ public class Switch implements Element, NodeInterface {
      *
      * @param attr the attributes
      */
-    public Switch(ElementAttributes attr) {
-        this(attr, attr.get(Keys.CLOSED));
-    }
-
-    /**
-     * Create a new instance
-     *
-     * @param attr   the attributes
-     * @param closed initial state
-     */
-    public Switch(ElementAttributes attr, boolean closed) {
-        this.closed = closed;
+    public SwitchDT(ElementAttributes attr) {
         int bits = attr.getBits();
         int poleCount = attr.get(Keys.POLES);
-        poles = new PlainSwitch[poleCount];
+        poles = new PlainSwitchDT[poleCount];
         for (int i = 0; i < poleCount; i++)
-            poles[i] = new PlainSwitch(bits, closed, "A" + (i + 1), "B" + (i + 1));
+            poles[i] = new PlainSwitchDT(bits, i + 1);
     }
 
     @Override
     public ObservableValues getOutputs() {
         ObservableValues.Builder ov = new ObservableValues.Builder();
-        for (PlainSwitch p : poles)
+        for (PlainSwitchDT p : poles)
             p.addOutputsTo(ov);
         return ov.build();
     }
@@ -64,26 +52,26 @@ public class Switch implements Element, NodeInterface {
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
         int i = 0;
-        for (PlainSwitch p : poles) {
-            p.setInputs(inputs.get(i), inputs.get(i + 1));
-            i += 2;
+        for (PlainSwitchDT p : poles) {
+            p.setInputs(inputs.get(i), inputs.get(i + 1), inputs.get(i + 2), inputs.get(i + 3));
+            i += 4;
         }
     }
 
     @Override
     public void init(Model model) {
-        for (PlainSwitch p : poles)
+        for (PlainSwitchDT p : poles)
             p.init(model);
     }
 
     @Override
-    public void registerNodes(Model model) {
+    public void hasChanged() {
+        for (PlainSwitchDT p : poles)
+            p.hashChanged();
     }
 
     @Override
-    public void hasChanged() {
-        for (PlainSwitch p : poles)
-            p.hasChanged();
+    public void registerNodes(Model model) {
     }
 
     /**
@@ -93,12 +81,12 @@ public class Switch implements Element, NodeInterface {
      */
     public void setClosed(boolean closed) {
         this.closed = closed;
-        for (PlainSwitch p : poles)
+        for (PlainSwitchDT p : poles)
             p.setClosed(closed);
     }
 
     /**
-     * @return the state
+     * @return the state of the switch
      */
     public boolean isClosed() {
         return closed;

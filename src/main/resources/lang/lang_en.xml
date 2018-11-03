@@ -685,8 +685,12 @@
     <string name="elem_Switch">Switch</string>
     <string name="elem_Switch_tt">Simple switch.
         There is no gate delay: A signal change is propagated immediately.</string>
-    <string name="elem_Switch_pin_out1">One of the connections of the switch.</string>
-    <string name="elem_Switch_pin_out2">One of the connections of the switch.</string>
+    <string name="elem_Switch_pin">One of the connections of the switch.</string>
+
+    <string name="elem_SwitchDT">Double Throw Switch</string>
+    <string name="elem_SwitchDT_tt">Double Throw Switch.
+        There is no gate delay: A signal change is propagated immediately.</string>
+
     <string name="elem_Fuse">Fuse</string>
     <string name="elem_Fuse_tt">A fuse used to build a one time programmable memory.</string>
     <string name="elem_Fuse_pin_out1">One of the connections of the fuse.</string>

@@ -27,7 +27,7 @@ public class NFET extends Node implements Element {
             .addAttribute(Keys.FET_UNIDIRECTIONAL)
             .addAttribute(Keys.LABEL);
 
-    private final Switch s;
+    private final PlainSwitch s;
     private ObservableValue input;
     private boolean closed;
 
@@ -45,18 +45,18 @@ public class NFET extends Node implements Element {
     NFET(ElementAttributes attr, boolean pChan) {
         boolean uniDir = attr.get(Keys.FET_UNIDIRECTIONAL);
         if (pChan) {
-            s = new Switch(attr, false, "S", "D");
-            if (uniDir) s.setUnidirectional(Switch.Unidirectional.FROM1TO2);
+            s = new PlainSwitch(attr, false, "S", "D");
+            if (uniDir) s.setUnidirectional(PlainSwitch.Unidirectional.FROM1TO2);
         } else {
-            s = new Switch(attr, false, "D", "S");
-            if (uniDir) s.setUnidirectional(Switch.Unidirectional.FROM2TO1);
+            s = new PlainSwitch(attr, false, "D", "S");
+            if (uniDir) s.setUnidirectional(PlainSwitch.Unidirectional.FROM2TO1);
         }
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
         input = inputs.get(0).checkBits(1, this, 0).addObserverToValue(this);
-        s.setInputs(new ObservableValues(inputs.get(1), inputs.get(2)));
+        s.setInputs(inputs.get(1), inputs.get(2));
 
     }
 
