@@ -64,4 +64,9 @@ public interface PinDescription {
      * @return true if this pin is a clock input
      */
     boolean isClock();
+
+    /**
+     * @return true if this pin is a switch pin
+     */
+    boolean isSwitchPin();
 }

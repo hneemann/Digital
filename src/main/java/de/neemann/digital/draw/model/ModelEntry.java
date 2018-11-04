@@ -88,7 +88,7 @@ public class ModelEntry {
                     if (bidirect == null)
                         bidirect = new ArrayList<>();
                     final ObservableValue readerValue = p.getReaderValue();
-                    if (readerValue == null)
+                    if (readerValue == null && !p.isSwitchPin())
                         throw new PinException(Lang.get("err_noValueSetFor_N0_atElement_N1", p.getName(), visualElement), containingVisualElement);
                     bidirect.add(readerValue);
                 }

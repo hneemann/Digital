@@ -28,6 +28,7 @@ public class ObservableValue extends Observable implements PinDescription {
     private boolean isConstant = false;
     private String description;
     private String pinNumber;
+    private boolean isSwitchPin;
 
     /**
      * Creates a new instance.
@@ -330,6 +331,22 @@ public class ObservableValue extends Observable implements PinDescription {
     @Override
     public boolean isClock() {
         return false;  // output pins are never clock pins
+    }
+
+    @Override
+    public boolean isSwitchPin() {
+        return isSwitchPin;
+    }
+
+    /**
+     * Flags this output value as a switch output
+     *
+     * @param switchPin true is switch pin
+     * @return this for chained calls
+     */
+    public ObservableValue setSwitchPin(boolean switchPin) {
+        isSwitchPin = switchPin;
+        return this;
     }
 
     /**

@@ -39,8 +39,8 @@ public final class PlainSwitch implements NodeInterface {
     PlainSwitch(ElementAttributes attr, boolean closed, String out1, String out2) {
         bits = attr.getBits();
         this.closed = closed;
-        output1 = new ObservableValue(out1, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin"));
-        output2 = new ObservableValue(out2, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin"));
+        output1 = new ObservableValue(out1, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
+        output2 = new ObservableValue(out2, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
     }
 
     /**
@@ -54,8 +54,8 @@ public final class PlainSwitch implements NodeInterface {
     PlainSwitch(int bits, boolean closed, String out1, String out2) {
         this.bits = bits;
         this.closed = closed;
-        output1 = new ObservableValue(out1, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin"));
-        output2 = new ObservableValue(out2, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin"));
+        output1 = new ObservableValue(out1, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
+        output2 = new ObservableValue(out2, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
     }
 
     /**
@@ -91,40 +91,43 @@ public final class PlainSwitch implements NodeInterface {
      * @throws NodeException NodeException
      */
     public void setInputs(ObservableValue input1, ObservableValue input2) throws NodeException {
-        input1.addObserverToValue(this).checkBits(bits, null);
-        input2.addObserverToValue(this).checkBits(bits, null);
-        switch (unidirectional) {
-            case NO:
-                if (input1 instanceof CommonBusValue) {
-                    if (input2 instanceof CommonBusValue) {
-                        final CommonBusValue in1 = (CommonBusValue) input1;
-                        final CommonBusValue in2 = (CommonBusValue) input2;
-                        ObservableValue constant = in1.searchConstant();
-                        if (constant != null)
-                            switchModel = new UniDirectionalSwitch(constant, output2);
-                        else {
-                            constant = in2.searchConstant();
+        // create a switch only if both sides are connected. null means pin is not connected
+        if (input1 != null && input2 != null) {
+            input1.addObserverToValue(this).checkBits(bits, null);
+            input2.addObserverToValue(this).checkBits(bits, null);
+            switch (unidirectional) {
+                case NO:
+                    if (input1 instanceof CommonBusValue) {
+                        if (input2 instanceof CommonBusValue) {
+                            final CommonBusValue in1 = (CommonBusValue) input1;
+                            final CommonBusValue in2 = (CommonBusValue) input2;
+                            ObservableValue constant = in1.searchConstant();
                             if (constant != null)
-                                switchModel = new UniDirectionalSwitch(constant, output1);
-                            else
-                                switchModel = new RealSwitch(in1, in2);
-                        }
-                    } else
-                        switchModel = new UniDirectionalSwitch(input1, output2);
-                } else {
-                    if (input2 instanceof CommonBusValue) {
-                        switchModel = new UniDirectionalSwitch(input2, output1);
+                                switchModel = new UniDirectionalSwitch(constant, output2);
+                            else {
+                                constant = in2.searchConstant();
+                                if (constant != null)
+                                    switchModel = new UniDirectionalSwitch(constant, output1);
+                                else
+                                    switchModel = new RealSwitch(in1, in2);
+                            }
+                        } else
+                            switchModel = new UniDirectionalSwitch(input1, output2);
                     } else {
-                        throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
+                        if (input2 instanceof CommonBusValue) {
+                            switchModel = new UniDirectionalSwitch(input2, output1);
+                        } else {
+                            throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
+                        }
                     }
-                }
-                break;
-            case FROM1TO2:
-                switchModel = new UniDirectionalSwitch(input1, output2);
-                break;
-            case FROM2TO1:
-                switchModel = new UniDirectionalSwitch(input2, output1);
-                break;
+                    break;
+                case FROM1TO2:
+                    switchModel = new UniDirectionalSwitch(input1, output2);
+                    break;
+                case FROM2TO1:
+                    switchModel = new UniDirectionalSwitch(input2, output1);
+                    break;
+            }
         }
     }
 
@@ -148,9 +151,11 @@ public final class PlainSwitch implements NodeInterface {
      * @param model the model
      */
     public void init(Model model) {
-        switchModel.setModel(model);
-        switchModel.setClosed(closed);
-        hasChanged();
+        if (switchModel != null) {
+            switchModel.setModel(model);
+            switchModel.setClosed(closed);
+            hasChanged();
+        }
     }
 
     @Override
@@ -164,10 +169,12 @@ public final class PlainSwitch implements NodeInterface {
      * @param closed true if closed
      */
     public void setClosed(boolean closed) {
-        if (this.closed != closed) {
-            this.closed = closed;
-            switchModel.setClosed(closed);
-            hasChanged();
+        if (switchModel != null) {
+            if (this.closed != closed) {
+                this.closed = closed;
+                switchModel.setClosed(closed);
+                hasChanged();
+            }
         }
     }
 

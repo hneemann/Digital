@@ -50,6 +50,7 @@ public class PinInfo implements PinDescription {
     private PullResistor pullResistor;
     private String pinNumber;
     private boolean isClock; // Is used only to draw the small triangle in front of the pins label.
+    private boolean isSwitchPin;
 
     /**
      * Creates a copy of the given {@link PinDescription}
@@ -60,6 +61,7 @@ public class PinInfo implements PinDescription {
         this(description.getName(), description.getDescription(), description.getDirection(), description.getPullResistor());
         this.pinNumber = description.getPinNumber();
         this.isClock=description.isClock();
+        this.isSwitchPin=description.isSwitchPin();
     }
 
     /**
@@ -170,5 +172,10 @@ public class PinInfo implements PinDescription {
     public PinInfo setClock() {
         isClock = true;
         return this;
+    }
+
+    @Override
+    public boolean isSwitchPin() {
+        return isSwitchPin;
     }
 }
