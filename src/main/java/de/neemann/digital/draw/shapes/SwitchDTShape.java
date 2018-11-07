@@ -56,10 +56,9 @@ public class SwitchDTShape implements Shape {
         Pins pins = new Pins();
         for (int p = 0; p < poles; p++) {
             pins
-                    .add(new Pin(new Vector(0, SIZE * 2 * p), outputs.get(p * 4)))
-                    .add(new Pin(new Vector(0, SIZE * 2 * p), outputs.get(p * 4 + 1)))
-                    .add(new Pin(new Vector(SIZE * 2, SIZE * 2 * p), outputs.get(p * 4 + 2)))
-                    .add(new Pin(new Vector(SIZE * 2, SIZE + SIZE * 2 * p), outputs.get(p * 4 + 3)));
+                    .add(new Pin(new Vector(0, SIZE * 2 * p), outputs.get(p * 3)))
+                    .add(new Pin(new Vector(SIZE * 2, SIZE * 2 * p), outputs.get(p * 3 + 1)))
+                    .add(new Pin(new Vector(SIZE * 2, SIZE + SIZE * 2 * p), outputs.get(p * 3 + 2)));
         }
         return pins;
     }

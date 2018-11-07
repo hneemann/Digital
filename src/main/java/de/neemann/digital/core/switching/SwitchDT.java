@@ -53,8 +53,8 @@ public class SwitchDT implements Element, NodeInterface {
     public void setInputs(ObservableValues inputs) throws NodeException {
         int i = 0;
         for (PlainSwitchDT p : poles) {
-            p.setInputs(inputs.get(i), inputs.get(i + 1), inputs.get(i + 2), inputs.get(i + 3));
-            i += 4;
+            p.setInputs(inputs.get(i), inputs.get(i + 1), inputs.get(i + 2));
+            i += 3;
         }
     }
 

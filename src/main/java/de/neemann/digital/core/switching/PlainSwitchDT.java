@@ -9,7 +9,6 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
-import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -18,19 +17,17 @@ import de.neemann.digital.lang.Lang;
 public final class PlainSwitchDT {
     private final PlainSwitch s1;
     private final PlainSwitch s2;
-    private final ObservableValue outputAB;
-    private final ObservableValue outputAC;
+    private final ObservableValue outputA;
     private final ObservableValue outputB;
     private final ObservableValue outputC;
 
 
     PlainSwitchDT(int bits, int num) {
-        outputAB = new ObservableValue("A" + num, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
-        outputAC = new ObservableValue("AC" + num, bits).setBidirectional().setToHighZ().setDescription(PinDescription.IGNORE).setSwitchPin(true);
+        outputA = new ObservableValue("A" + num, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
         outputB = new ObservableValue("B" + num, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
         outputC = new ObservableValue("C" + num, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
-        s1 = new PlainSwitch(outputAB, outputB, false);
-        s2 = new PlainSwitch(outputAC, outputC, true);
+        s1 = new PlainSwitch(outputA, outputB, false);
+        s2 = new PlainSwitch(outputA, outputC, true);
     }
 
     /**
@@ -39,21 +36,20 @@ public final class PlainSwitchDT {
      * @param ov the builder to use
      */
     public void addOutputs(ObservableValues.Builder ov) {
-        ov.add(outputAB, outputAC, outputB, outputC);
+        ov.add(outputA, outputB, outputC);
     }
 
     /**
      * Sets the inputs of this switch
      *
-     * @param inAB first input of pin A
-     * @param inAC second input of pin A
-     * @param inB  pin B
-     * @param inC  Pin C
+     * @param inA first input, the DT switch anchor
+     * @param inB pin B
+     * @param inC Pin C
      * @throws NodeException NodeException
      */
-    public void setInputs(ObservableValue inAB, ObservableValue inAC, ObservableValue inB, ObservableValue inC) throws NodeException {
-        s1.setInputs(inAB, inB);
-        s2.setInputs(inAC, inC);
+    public void setInputs(ObservableValue inA, ObservableValue inB, ObservableValue inC) throws NodeException {
+        s1.setInputs(inA, inB);
+        s2.setInputs(inA, inC);
     }
 
     /**
@@ -90,6 +86,6 @@ public final class PlainSwitchDT {
      * @param ov the builder
      */
     public void addOutputsTo(ObservableValues.Builder ov) {
-        ov.add(outputAB, outputAC, outputB, outputC);
+        ov.add(outputA, outputB, outputC);
     }
 }
