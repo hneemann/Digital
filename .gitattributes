@@ -1,3 +1,5 @@
 *.java text eol=lf
 *.xml text eol=lf
 *.dig text eol=lf
+*.tem text eol=lf
+*.v text eol=lf
