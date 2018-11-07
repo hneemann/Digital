@@ -42,11 +42,11 @@ public final class PlainSwitchDT implements NodeInterface {
 
         if (inA != null && inB != null) {
             inB.addObserverToValue(this).checkBits(bits, null);
-            s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB, true);
+            s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB, inC == null);
         }
         if (inA != null && inC != null) {
             inC.addObserverToValue(this).checkBits(bits, null);
-            s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC, true);
+            s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC, inB == null);
         }
     }
 
@@ -70,7 +70,7 @@ public final class PlainSwitchDT implements NodeInterface {
     /**
      * Sets the state of the switch
      *
-     * @param isClosed true is A-B is closed and A-C is open
+     * @param isClosed true means A-B is closed and A-C is open
      */
     public void setClosed(boolean isClosed) {
         if (this.closed != isClosed) {
@@ -79,12 +79,6 @@ public final class PlainSwitchDT implements NodeInterface {
                 s1.setClosed(closed);
             if (s2 != null)
                 s2.setClosed(!closed);
-
-            // correction of unconnected connections
-            if ((s1 == null && closed && s2 instanceof PlainSwitch.UniDirectionalSwitch)
-                    || (s2 == null && !closed && s1 instanceof PlainSwitch.UniDirectionalSwitch))
-                outputA.setToHighZ();
-
             hasChanged();
         }
     }

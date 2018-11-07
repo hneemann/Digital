@@ -67,7 +67,7 @@ public final class PlainSwitch implements NodeInterface {
             input2.addObserverToValue(this).checkBits(bits, null);
             switch (unidirectional) {
                 case NO:
-                    switchModel = createSwitchModel(input1, input2, output1, output2, false);
+                    switchModel = createSwitchModel(input1, input2, output1, output2, true);
                     break;
                 case FROM1TO2:
                     switchModel = new UniDirectionalSwitch(input1, output2);
@@ -82,7 +82,7 @@ public final class PlainSwitch implements NodeInterface {
     static SwitchModel createSwitchModel(
             ObservableValue input1, ObservableValue input2,
             ObservableValue output1, ObservableValue output2,
-            boolean isTDSwitch) throws NodeException {
+            boolean setOpenPinToHigh) throws NodeException {
 
         if (input1 instanceof CommonBusValue) {
             if (input2 instanceof CommonBusValue) {
@@ -94,7 +94,7 @@ public final class PlainSwitch implements NodeInterface {
                 else {
                     constant = in2.searchConstant();
                     if (constant != null)
-                        return new UniDirectionalSwitch(constant, output1, !isTDSwitch);
+                        return new UniDirectionalSwitch(constant, output1, setOpenPinToHigh);
                     else
                         return new RealSwitch(in1, in2);
                 }
@@ -102,7 +102,7 @@ public final class PlainSwitch implements NodeInterface {
                 return new UniDirectionalSwitch(input1, output2);
         } else {
             if (input2 instanceof CommonBusValue) {
-                return new UniDirectionalSwitch(input2, output1, !isTDSwitch);
+                return new UniDirectionalSwitch(input2, output1, setOpenPinToHigh);
             } else {
                 throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
             }
@@ -190,20 +190,20 @@ public final class PlainSwitch implements NodeInterface {
      * Works like a driver: When the switch is closed, the signal value at the input
      * is forwarded to the output. When the switch is open, the output is set to HighZ.
      */
-    static final class UniDirectionalSwitch implements SwitchModel {
+    private static final class UniDirectionalSwitch implements SwitchModel {
         private final ObservableValue input;
         private final ObservableValue output;
-        private final boolean setOpenToHighZ;
+        private final boolean setOpenPinToHighZ;
         private boolean closed;
 
         UniDirectionalSwitch(ObservableValue input, ObservableValue output) {
             this(input, output, true);
         }
 
-        UniDirectionalSwitch(ObservableValue input, ObservableValue output, boolean setOpenToHighZ) {
+        UniDirectionalSwitch(ObservableValue input, ObservableValue output, boolean setOpenPinToHigh) {
             this.input = input;
             this.output = output;
-            this.setOpenToHighZ = setOpenToHighZ;
+            this.setOpenPinToHighZ = setOpenPinToHigh;
         }
 
         @Override
@@ -211,7 +211,7 @@ public final class PlainSwitch implements NodeInterface {
             if (closed) {
                 output.set(input.getValue(), input.getHighZ());
             } else {
-                if (setOpenToHighZ)
+                if (setOpenPinToHighZ)
                     output.setToHighZ();
             }
         }
