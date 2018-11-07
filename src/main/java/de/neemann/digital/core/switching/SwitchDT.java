@@ -38,7 +38,7 @@ public class SwitchDT implements Element, NodeInterface {
         int poleCount = attr.get(Keys.POLES);
         poles = new PlainSwitchDT[poleCount];
         for (int i = 0; i < poleCount; i++)
-            poles[i] = new PlainSwitchDT(bits, i + 1, attr.getCleanLabel());
+            poles[i] = new PlainSwitchDT(bits, i + 1);
     }
 
     @Override

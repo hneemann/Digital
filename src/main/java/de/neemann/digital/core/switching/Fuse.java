@@ -34,7 +34,7 @@ public class Fuse implements Element, NodeInterface {
      * @param attr the attributes
      */
     public Fuse(ElementAttributes attr) {
-        s = new PlainSwitch(attr, !attr.get(Keys.BLOWN), "out1", "out2");
+        s = new PlainSwitch(attr.getBits(), !attr.get(Keys.BLOWN), "out1", "out2");
     }
 
     @Override

@@ -45,10 +45,10 @@ public class NFET extends Node implements Element {
     NFET(ElementAttributes attr, boolean pChan) {
         boolean uniDir = attr.get(Keys.FET_UNIDIRECTIONAL);
         if (pChan) {
-            s = new PlainSwitch(attr, false, "S", "D");
+            s = new PlainSwitch(attr.getBits(), false, "S", "D");
             if (uniDir) s.setUnidirectional(PlainSwitch.Unidirectional.FROM1TO2);
         } else {
-            s = new PlainSwitch(attr, false, "D", "S");
+            s = new PlainSwitch(attr.getBits(), false, "D", "S");
             if (uniDir) s.setUnidirectional(PlainSwitch.Unidirectional.FROM2TO1);
         }
     }

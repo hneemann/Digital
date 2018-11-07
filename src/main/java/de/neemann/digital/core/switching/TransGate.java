@@ -37,7 +37,7 @@ public class TransGate extends Node implements Element {
      * @param attr the attributes
      */
     public TransGate(ElementAttributes attr) {
-        aSwitch = new PlainSwitch(attr, false, "A", "B");
+        aSwitch = new PlainSwitch(attr.getBits(), false, "A", "B");
         aSwitch.getOutput1().setPinDescription(DESCRIPTION);
         aSwitch.getOutput2().setPinDescription(DESCRIPTION);
 

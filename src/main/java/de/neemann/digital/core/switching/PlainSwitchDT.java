@@ -16,15 +16,13 @@ public final class PlainSwitchDT implements NodeInterface {
     private final ObservableValue outputB;
     private final ObservableValue outputC;
     private final int bits;
-    private final String name;
     private PlainSwitch.SwitchModel s1;
     private PlainSwitch.SwitchModel s2;
     private boolean closed = false;
 
 
-    PlainSwitchDT(int bits, int num, String name) {
+    PlainSwitchDT(int bits, int num) {
         this.bits = bits;
-        this.name = name;
         outputA = new ObservableValue("A" + num, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
         outputB = new ObservableValue("B" + num, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
         outputC = new ObservableValue("C" + num, bits).setBidirectional().setToHighZ().setDescription(Lang.get("elem_Switch_pin")).setSwitchPin(true);
@@ -44,11 +42,11 @@ public final class PlainSwitchDT implements NodeInterface {
 
         if (inA != null && inB != null) {
             inB.addObserverToValue(this).checkBits(bits, null);
-            s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB, true, name + "-A-B");
+            s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB, true);
         }
         if (inA != null && inC != null) {
             inC.addObserverToValue(this).checkBits(bits, null);
-            s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC, true, name + "-A-C");
+            s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC, true);
         }
     }
 
@@ -81,6 +79,12 @@ public final class PlainSwitchDT implements NodeInterface {
                 s1.setClosed(closed);
             if (s2 != null)
                 s2.setClosed(!closed);
+
+            // correction of unconnected connections
+            if ((s1 == null && closed && s2 instanceof PlainSwitch.UniDirectionalSwitch)
+                    || (s2 == null && !closed && s1 instanceof PlainSwitch.UniDirectionalSwitch))
+                outputA.setToHighZ();
+
             hasChanged();
         }
     }
@@ -103,7 +107,7 @@ public final class PlainSwitchDT implements NodeInterface {
      *
      * @param ov the builder
      */
-    public void addOutputsTo(ObservableValues.Builder ov) {
+    void addOutputsTo(ObservableValues.Builder ov) {
         ov.add(outputA, outputB, outputC);
     }
 }
