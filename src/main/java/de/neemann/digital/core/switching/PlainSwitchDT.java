@@ -44,11 +44,11 @@ public final class PlainSwitchDT implements NodeInterface {
 
         if (inA != null && inB != null) {
             inB.addObserverToValue(this).checkBits(bits, null);
-            s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB, true, name+"-A-B");
+            s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB, true, name + "-A-B");
         }
         if (inA != null && inC != null) {
             inC.addObserverToValue(this).checkBits(bits, null);
-            s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC, true, name+"-A-C");
+            s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC, true, name + "-A-C");
         }
     }
 
@@ -77,12 +77,10 @@ public final class PlainSwitchDT implements NodeInterface {
     public void setClosed(boolean isClosed) {
         if (this.closed != isClosed) {
             this.closed = isClosed;
-            if (closed) {
-                if (s1 != null)
-                    s1.setClosed(closed);
-                if (s2 != null)
-                    s2.setClosed(!closed);
-            }
+            if (s1 != null)
+                s1.setClosed(closed);
+            if (s2 != null)
+                s2.setClosed(!closed);
             hasChanged();
         }
     }
