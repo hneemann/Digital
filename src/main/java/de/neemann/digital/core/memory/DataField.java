@@ -89,6 +89,10 @@ public class DataField implements HGSArray {
                         line = line.substring(0, p).trim();
                     else
                         line = line.trim();
+
+                    if (line.length() > 2 && line.charAt(0) == '0' && (line.charAt(1) == 'x' || line.charAt(1) == 'X'))
+                        line = line.substring(2);
+
                     if (line.length() > 0) {
                         long v = Bits.decode(line, 0, 16);
                         if (pos == data.length)
