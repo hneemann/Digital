@@ -528,4 +528,11 @@ public class ParserTest extends TestCase {
         assertTrue(n > 10);
     }
 
+    // checks the available verilog templates
+    public void testVerilogTemplates() throws Exception {
+        final File path = new File(Resources.getRoot(), "../../main/resources/verilog");
+        int n = new FileScanner(f -> new Parser(new FileReader(f), f.getName()).parse()).setSuffix(".v").scan(path);
+        assertTrue(n > 10);
+    }
+
 }
