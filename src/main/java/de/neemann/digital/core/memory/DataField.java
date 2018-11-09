@@ -87,6 +87,8 @@ public class DataField implements HGSArray {
                     int p = line.indexOf('#');
                     if (p >= 0)
                         line = line.substring(0, p).trim();
+                    else if (line.startsWith("0x"))
+                        line = line.substring(2).trim();
                     else
                         line = line.trim();
                     if (line.length() > 0) {

@@ -60,4 +60,14 @@ public class DataFieldTest extends TestCase {
         assertEquals(0xAA, df.getDataWord(2));
         assertEquals(0xFF, df.getDataWord(3));
     }
+
+    public void testLoadHexPrefix() throws Exception {
+        String data = "v2.0 raw\n0x0\n0x10\n0xAA\n0xFF";
+        DataField df = new DataField(new StringReader(data));
+        assertEquals(4, df.size());
+        assertEquals(0x00, df.getDataWord(0));
+        assertEquals(0x10, df.getDataWord(1));
+        assertEquals(0xAA, df.getDataWord(2));
+        assertEquals(0xFF, df.getDataWord(3));
+    }
 }
