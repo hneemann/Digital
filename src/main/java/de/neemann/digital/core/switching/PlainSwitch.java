@@ -82,7 +82,7 @@ public final class PlainSwitch implements NodeInterface {
     static SwitchModel createSwitchModel(
             ObservableValue input1, ObservableValue input2,
             ObservableValue output1, ObservableValue output2,
-            boolean setOpenPinToHigh) throws NodeException {
+            boolean setOpenContactToHighZ) throws NodeException {
 
         if (input1 instanceof CommonBusValue) {
             if (input2 instanceof CommonBusValue) {
@@ -94,7 +94,7 @@ public final class PlainSwitch implements NodeInterface {
                 else {
                     constant = in2.searchConstant();
                     if (constant != null)
-                        return new UniDirectionalSwitch(constant, output1, setOpenPinToHigh);
+                        return new UniDirectionalSwitch(constant, output1, setOpenContactToHighZ);
                     else
                         return new RealSwitch(in1, in2);
                 }
@@ -102,7 +102,7 @@ public final class PlainSwitch implements NodeInterface {
                 return new UniDirectionalSwitch(input1, output2);
         } else {
             if (input2 instanceof CommonBusValue) {
-                return new UniDirectionalSwitch(input2, output1, setOpenPinToHigh);
+                return new UniDirectionalSwitch(input2, output1, setOpenContactToHighZ);
             } else {
                 throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
             }
@@ -193,17 +193,17 @@ public final class PlainSwitch implements NodeInterface {
     private static final class UniDirectionalSwitch implements SwitchModel {
         private final ObservableValue input;
         private final ObservableValue output;
-        private final boolean setOpenPinToHighZ;
+        private final boolean setOpenContactToHighZ;
         private boolean closed;
 
         UniDirectionalSwitch(ObservableValue input, ObservableValue output) {
             this(input, output, true);
         }
 
-        UniDirectionalSwitch(ObservableValue input, ObservableValue output, boolean setOpenPinToHigh) {
+        UniDirectionalSwitch(ObservableValue input, ObservableValue output, boolean setOpenContactToHighZ) {
             this.input = input;
             this.output = output;
-            this.setOpenPinToHighZ = setOpenPinToHigh;
+            this.setOpenContactToHighZ = setOpenContactToHighZ;
         }
 
         @Override
@@ -211,7 +211,7 @@ public final class PlainSwitch implements NodeInterface {
             if (closed) {
                 output.set(input.getValue(), input.getHighZ());
             } else {
-                if (setOpenPinToHighZ)
+                if (setOpenContactToHighZ)
                     output.setToHighZ();
             }
         }
