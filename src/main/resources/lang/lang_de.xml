@@ -817,10 +817,10 @@
     <string name="err_noClockFound">Kein Taktgeber in der Schaltung gefunden</string>
     <string name="err_noInputsAvailable">Es sind keine Eingänge vorhanden</string>
     <string name="err_noShapeFoundFor_N">Es wurde kein Diagramm für {0} gefunden.</string>
-    <string name="err_noValueSetFor_N0_atElement_N1">Kein Wert gesetzt für {0} an Element {1}</string>
+    <string name="err_noValueSetFor_N0_atElement_N1">Mit dem Eingang ''{0}'' an Element ''{1}'' ist nichts verbunden. Offene Eingänge sind nicht erlaubt.</string>
     <string name="err_notAllOutputsSameBits">Es haben nicht alle Ausgänge die gleiche Bitbreite</string>
     <string name="err_notAllOutputsSupportHighZ">Wenn mehrere Ausgänge verbunden sind, müssen alle Ausgänge Tri-State Ausgänge sein.</string>
-    <string name="err_noOutConnectedToWire">Kein Ausgang mit der Leitung verbunden: {0}</string>
+    <string name="err_noOutConnectedToWire">Es ist kein Ausgang mit der Leitung verbunden ({0}). Der Zustand der Leitung ist undefiniert.</string>
     <string name="err_oneResultIsRequired">Tabelle zu klein: Mindestens ein Ergebnis ist erforderlich!</string>
     <string name="err_output_N_notDefined">Ausgang {0} ist nicht definiert</string>
     <string name="err_pinMap_NoNameForPin_N">Kein Name für Pin {0}</string>

@@ -814,10 +814,10 @@
     <string name="err_noClockFound">No clock found in logic</string>
     <string name="err_noInputsAvailable">No inputs available to set</string>
     <string name="err_noShapeFoundFor_N">No shape found for component {0}</string>
-    <string name="err_noValueSetFor_N0_atElement_N1">No value set for {0} at component {1}</string>
+    <string name="err_noValueSetFor_N0_atElement_N1">Nothing connected to input ''{0}'' at component ''{1}''. Open inputs are not allowed.</string>
     <string name="err_notAllOutputsSameBits">Not all connected outputs have the same bit count</string>
     <string name="err_notAllOutputsSupportHighZ">If multiple outputs are connected together, all of them have to be three-state outputs.</string>
-    <string name="err_noOutConnectedToWire">No output connected to a wire: {0}</string>
+    <string name="err_noOutConnectedToWire">No output connected to a wire ({0}). The state of the wire is undefined.</string>
     <string name="err_oneResultIsRequired">Table to small: One result is required!</string>
     <string name="err_output_N_notDefined">Output {0} not defined</string>
     <string name="err_pinMap_NoNameForPin_N">No label for pin {0}</string>
