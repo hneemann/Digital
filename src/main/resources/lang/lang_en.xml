@@ -560,7 +560,7 @@
     <string name="elem_RegisterFile_pin_Din">The data to be stored in the register Rw.</string>
 
     <string name="elem_Counter">Counter</string>
-    <string name="elem_Counter_short">count</string>
+    <string name="elem_Counter_short">Counter</string>
     <string name="elem_Counter_tt">A simple counter component. The clock input increases the counter.
         Can be reset back to 0 with the clr input.
         The number of bits can be set in the attribute dialog.</string>

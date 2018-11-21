@@ -141,7 +141,9 @@ end add_arch;</string>
 
 loop(a,16)
 loop(b,16)
-  (a) (b) 0 ((a+b)&gt;&gt;4) (a+b)
+  let sum=a+b;
+  (a) (b) 0 (sum&gt;&gt;4) (sum)
+  (a) (b) 1 ((sum+1)&gt;&gt;4) (sum+1)
 end loop
 end loop
 </dataString>
