@@ -126,4 +126,9 @@ public class VectorFloat implements VectorInterface {
     public Vector round() {
         return new Vector(getX(), getY());
     }
+
+    @Override
+    public float len() {
+        return (float) Math.sqrt(x * x + y * y);
+    }
 }

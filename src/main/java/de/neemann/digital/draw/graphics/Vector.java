@@ -153,6 +153,16 @@ public class Vector implements VectorInterface {
         return new Vector(x * a, y * a);
     }
 
+    /**
+     * Creates a new vector which has the value this*a
+     *
+     * @param a a
+     * @return this*a
+     */
+    public VectorFloat mul(float a) {
+        return new VectorFloat(x * a, y * a);
+    }
+
     @Override
     public Vector div(int d) {
         return new Vector(x / d, y / d);
@@ -236,4 +246,10 @@ public class Vector implements VectorInterface {
     public Vector round() {
         return this;
     }
+
+    @Override
+    public float len() {
+        return (float) Math.sqrt(x * x + y * y);
+    }
+
 }

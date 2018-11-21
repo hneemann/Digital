@@ -73,4 +73,9 @@ public interface VectorInterface {
      * @return a int vector
      */
     Vector round();
+
+    /**
+     * @return the length of the vector
+     */
+    float len();
 }
