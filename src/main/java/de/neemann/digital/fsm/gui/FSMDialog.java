@@ -116,7 +116,7 @@ public class FSMDialog extends JDialog {
      */
     public static void main(String[] args) {
 
-        FSM fsm = FSMDemos.stepperMedwedew();
+        FSM fsm = FSMDemos.createRotDecoder();
 
         ElementLibrary library = new ElementLibrary();
         new ShapeFactory(library);

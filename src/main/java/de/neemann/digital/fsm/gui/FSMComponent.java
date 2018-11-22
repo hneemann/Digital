@@ -78,6 +78,8 @@ public class FSMComponent extends JComponent {
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
+                if (elementMoved instanceof State)
+                    ((State) elementMoved).toRaster();
                 elementMoved = null;
             }
 
@@ -132,7 +134,7 @@ public class FSMComponent extends JComponent {
         SwingUtilities.convertPointToScreen(point, this);
         AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this), point, list, attr);
         ElementAttributes newAttr = ad.showDialog();
-        if (newAttr!=null) {
+        if (newAttr != null) {
             State s = new State(newAttr.get(Keys.LABEL))
                     .setPosition(posVector.toFloat())
                     .setNumber(newAttr.get(number));

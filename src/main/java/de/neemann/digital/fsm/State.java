@@ -11,10 +11,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+
 /**
  * Represents a state
  */
 public class State extends Movable {
+    private static final int SIZE = 80;
+
     private static final int RAD = 70;
     private static final float REACH = 2000;
 
@@ -154,5 +158,14 @@ public class State extends Movable {
             return name + " (" + number + ")";
         else
             return Integer.toString(number);
+    }
+
+    /**
+     * Sets state to raster
+     */
+    public void toRaster() {
+        setPosition(new VectorFloat(
+                Math.round(getPos().getXFloat() / SIZE) * SIZE,
+                Math.round(getPos().getYFloat() / SIZE) * SIZE));
     }
 }

@@ -76,7 +76,7 @@ public class Transition extends Movable {
 
         for (Transition t : transitions)
             if (t != this)
-                addRepulsive(t.getPos(), 400);
+                addRepulsive(t.getPos(), 800);
     }
 
     @Override

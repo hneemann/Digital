@@ -16,8 +16,6 @@ import de.neemann.digital.lang.Lang;
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
-
 /**
  * A simple finite state machine
  */
@@ -223,7 +221,6 @@ public class FSM {
      */
     public void toRaster() {
         for (State s : states)
-            s.setPosition(new VectorFloat((int) Math.round((double) s.getPos().getX() / SIZE) * SIZE,
-                    (int) Math.round((double) s.getPos().getY() / SIZE) * SIZE));
+            s.toRaster();
     }
 }
