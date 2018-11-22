@@ -8,11 +8,13 @@ package de.neemann.digital.fsm;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -42,7 +44,8 @@ public class FSM {
      * @return this for chained calls
      */
     public FSM add(State state) {
-        state.setNumber(states.size());
+        if (state.getNumber() < 0)
+            state.setNumber(states.size());
         states.add(state);
         return this;
     }
@@ -101,14 +104,14 @@ public class FSM {
         for (State s : states)
             if (s.getName().equals(name))
                 return s;
-        throw new FinitStateMachineException("State " + name + " not found!");
+        throw new FinitStateMachineException(Lang.get("err_fsmState_N_notFound!", name));
     }
 
     private State findState(int number) throws FinitStateMachineException {
         for (State s : states)
             if (s.getNumber() == number)
                 return s;
-        throw new FinitStateMachineException("State " + number + " not found!");
+        throw new FinitStateMachineException(Lang.get("err_fsmState_N_notFound!", number));
     }
 
     /**
@@ -122,6 +125,13 @@ public class FSM {
         for (Transition t : transitions)
             t.calcForce(states, transitions);
         return this;
+    }
+
+    /**
+     * @return the states
+     */
+    public List<State> getStates() {
+        return states;
     }
 
     /**
@@ -139,14 +149,19 @@ public class FSM {
     /**
      * Moved the elements
      *
-     * @param dt the time step
+     * @param dt         the time step
+     * @param moveStates if true also states are moved
+     * @param except     element which is fixed
      */
-    public void move(int dt) {
-        for (State s : states)
-            s.move(dt);
+    public void move(int dt, boolean moveStates, Movable except) {
+        calculateForces();
+        if (moveStates)
+            for (State s : states)
+                if (s != except)
+                    s.move(dt);
         for (Transition t : transitions)
-            t.move(dt);
-
+            if (t != except)
+                t.move(dt);
     }
 
     /**
@@ -286,5 +301,22 @@ public class FSM {
         int n = 1;
         while ((1 << n) <= maxNumber) n++;
         return n;
+    }
+
+    /**
+     * Returns the element at the given position
+     * @param pos the position
+     * @return the element or null
+     */
+    public Movable getMovable(Vector pos) {
+        for (State s : states)
+            if (s.matches(pos))
+                return s;
+
+        for (Transition t : transitions)
+            if (t.matches(pos))
+                return t;
+
+        return null;
     }
 }

@@ -75,6 +75,11 @@ public interface VectorInterface {
     Vector round();
 
     /**
+     * @return returns a float vector
+     */
+    VectorFloat toFloat();
+
+    /**
      * @return the length of the vector
      */
     float len();

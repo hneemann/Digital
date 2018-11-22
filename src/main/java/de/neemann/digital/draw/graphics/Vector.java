@@ -252,4 +252,8 @@ public class Vector implements VectorInterface {
         return (float) Math.sqrt(x * x + y * y);
     }
 
+    @Override
+    public VectorFloat toFloat() {
+        return new VectorFloat(x, y);
+    }
 }

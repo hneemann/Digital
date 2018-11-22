@@ -96,13 +96,12 @@ public class TableDialog extends JDialog {
      * @param parent       the parent frame
      * @param truthTable   the table to show
      * @param library      the library to use
-     * @param shapeFactory the shape factory
      * @param filename     the file name used to create the names of the created files
      */
-    public TableDialog(JFrame parent, TruthTable truthTable, ElementLibrary library, ShapeFactory shapeFactory, File filename) {
+    public TableDialog(Window parent, TruthTable truthTable, ElementLibrary library, File filename) {
         super(parent, Lang.get("win_table"));
         this.library = library;
-        this.shapeFactory = shapeFactory;
+        this.shapeFactory = library.getShapeFactory();
         this.filename = filename;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         kvMap = new KarnaughMapDialog(this, (boolTable, row) -> model.incValue(boolTable, row));

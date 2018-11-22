@@ -58,12 +58,14 @@ public class Transition extends Movable {
      */
     public void calcForce(float preferredDist, List<State> states, List<Transition> transitions) {
 
-        VectorFloat dir = fromState.getPos().sub(toState.getPos());
-        float len = dir.len();
-        float d = len - preferredDist;
-        dir = dir.mul(EXPANSION_TRANS * d);
-        toState.addToForce(dir);
-        fromState.addToForce(dir.mul(-1));
+        if (fromState != toState) {
+            VectorFloat dir = fromState.getPos().sub(toState.getPos());
+            float len = dir.len();
+            float d = len - preferredDist;
+            dir = dir.mul(EXPANSION_TRANS * d);
+            toState.addToForce(dir);
+            fromState.addToForce(dir.mul(-1));
+        }
 
         resetForce();
         VectorFloat center = fromState.getPos().add(toState.getPos()).mul(0.5f);
@@ -74,8 +76,19 @@ public class Transition extends Movable {
 
         for (Transition t : transitions)
             if (t != this)
-                addRepulsiveInv(t.getPos(), 1000);
+                addRepulsive(t.getPos(), 400);
+    }
 
+    @Override
+    public void setPos(VectorFloat position) {
+        if (fromState != toState) {
+            VectorFloat dist = fromState.getPos().sub(toState.getPos());
+            VectorFloat p = position.sub(fromState.getPos());
+            VectorFloat n = new VectorFloat(dist.getYFloat(), -dist.getXFloat()).norm();
+            float l = p.mul(n);
+            super.setPos(fromState.getPos().sub(dist.mul(0.5f)).add(n.mul(l)));
+        } else
+            super.setPos(position);
     }
 
     /**
@@ -84,11 +97,13 @@ public class Transition extends Movable {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
-        VectorFloat difFrom = getPos().sub(fromState.getPos()).norm().mul(fromState.getRadius());
-        VectorFloat difTo = getPos().sub(toState.getPos()).norm().mul(toState.getRadius());
+        VectorFloat difFrom = getPos().sub(fromState.getPos()).norm().mul(fromState.getRadius() + Style.MAXLINETHICK);
+        VectorFloat difTo = getPos().sub(toState.getPos()).norm().mul(toState.getRadius() + Style.MAXLINETHICK + 2);
+        VectorFloat difToTip = getPos().sub(toState.getPos()).norm().mul(toState.getRadius() + Style.MAXLINETHICK);
 
         final VectorFloat start = fromState.getPos().add(difFrom);
         final VectorFloat end = toState.getPos().add(difTo);
+        final VectorFloat arrowTip = toState.getPos().add(difToTip);
 
         Polygon p = new Polygon(false)
                 .add(start)
@@ -96,13 +111,12 @@ public class Transition extends Movable {
         final Style arrowStyle = Style.SHAPE_PIN;
         gr.drawPolygon(p, arrowStyle);
 
-//        gr.drawLine(start, getPos(), Style.THIN);
-//        gr.drawLine(getPos(), end, Style.THIN);
-
         // arrow
         VectorFloat lot = new VectorFloat(difTo.getYFloat(), -difTo.getXFloat()).mul(0.5f);
-        gr.drawLine(end, end.add(difTo.add(lot).mul(0.2f)), arrowStyle);
-        gr.drawLine(end, end.add(difTo.sub(lot).mul(0.2f)), arrowStyle);
+        gr.drawPolygon(new Polygon(false)
+                .add(end.add(difTo.add(lot).mul(0.2f)))
+                .add(arrowTip)
+                .add(end.add(difTo.sub(lot).mul(0.2f))), arrowStyle);
         if (condition != null) {
             String format;
             try {
@@ -141,5 +155,15 @@ public class Transition extends Movable {
      */
     public State getTargetState() {
         return toState;
+    }
+
+    /**
+     * Gives true if the position matches the transition.
+     *
+     * @param pos the position
+     * @return true if pos matches the transition
+     */
+    public boolean matches(Vector pos) {
+        return pos.sub(getPos()).len() < 50;
     }
 }

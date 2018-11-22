@@ -117,8 +117,8 @@ public class Movable {
      * @param dt the time step
      */
     public void move(int dt) {
-        speed = speed.add(force.mul(0.2f));
-        position = position.add(speed);
+        speed = speed.add(force.mul(dt / 200f));
+        setPos(position.add(speed.mul(dt / 1000f)));
         speed = speed.mul(0.7f);
     }
 

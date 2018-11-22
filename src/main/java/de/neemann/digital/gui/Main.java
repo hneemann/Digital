@@ -28,6 +28,7 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.fsm.gui.FSMDialog;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
@@ -1094,7 +1095,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             new TableDialog(Main.this,
                                     new ModelAnalyser(model).analyse(),
                                     library,
-                                    shapeFactory,
                                     getBaseFileName())
                                     .setVisible(true);
                         ensureModelIsStopped();
@@ -1114,7 +1114,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 TruthTable tt = new TruthTable(3).addResult();
-                new TableDialog(Main.this, tt, library, shapeFactory, getBaseFileName()).setVisible(true);
+                new TableDialog(Main.this, tt, library, getBaseFileName()).setVisible(true);
                 ensureModelIsStopped();
             }
         }
@@ -1128,6 +1128,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }
                 .setToolTip(Lang.get("menu_expression_tt"))
+                .createJMenuItem());
+
+        analyse.add(new ToolTipAction(Lang.get("menu_fsm")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FSMDialog(Main.this, null, library).setVisible(true);
+            }
+        }
+                .setToolTip(Lang.get("menu_fsm_tt"))
                 .createJMenuItem());
 
     }

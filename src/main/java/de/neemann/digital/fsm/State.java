@@ -16,9 +16,9 @@ import java.util.TreeMap;
  */
 public class State extends Movable {
     private static final int RAD = 70;
-    private static final float REACH = 500;
+    private static final float REACH = 2000;
 
-    private int number;
+    private int number = -1;
     private String name;
     private int radius;
     private TreeMap<String, Long> values;
@@ -86,6 +86,10 @@ public class State extends Movable {
     public void drawTo(Graphic gr) {
         VectorInterface rad = new Vector(RAD, RAD);
         gr.drawCircle(getPos().sub(rad), getPos().add(rad), Style.NORMAL);
+        if (number == 0) {
+            VectorInterface rad2 = new Vector(RAD - Style.MAXLINETHICK * 2, RAD - Style.MAXLINETHICK * 2);
+            gr.drawCircle(getPos().sub(rad2), getPos().add(rad2), Style.THIN);
+        }
 
         Vector delta = new Vector(0, Style.NORMAL.getFontSize());
         VectorFloat pos = getPos().add(delta.mul(-1));
@@ -113,9 +117,11 @@ public class State extends Movable {
      * Sets the number of the state
      *
      * @param number the number
+     * @return this for chained calls
      */
-    public void setNumber(int number) {
+    public State setNumber(int number) {
         this.number = number;
+        return this;
     }
 
     /**
@@ -130,5 +136,15 @@ public class State extends Movable {
      */
     public TreeMap<String, Long> getValues() {
         return values;
+    }
+
+    /**
+     * Returns true if the position matches the state
+     *
+     * @param pos the position
+     * @return true if pos inside of the state
+     */
+    public boolean matches(Vector pos) {
+        return pos.sub(getPos()).len() <= radius;
     }
 }

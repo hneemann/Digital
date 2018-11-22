@@ -98,6 +98,16 @@ public class VectorFloat implements VectorInterface {
     }
 
     /**
+     * Returns the sclar product
+     *
+     * @param p the other vector
+     * @return the scalar procuct
+     */
+    public float mul(VectorFloat p) {
+        return x * p.x + y * p.y;
+    }
+
+    /**
      * Creates a new vector which has the value this/d
      *
      * @param d a
@@ -130,5 +140,10 @@ public class VectorFloat implements VectorInterface {
     @Override
     public float len() {
         return (float) Math.sqrt(x * x + y * y);
+    }
+
+    @Override
+    public VectorFloat toFloat() {
+        return this;
     }
 }
