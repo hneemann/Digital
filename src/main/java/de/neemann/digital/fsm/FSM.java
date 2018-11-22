@@ -121,12 +121,11 @@ public class FSM {
      *
      * @return this for chained calls
      */
-    public FSM calculateForces() {
+    private void calculateForces() {
         for (State s : states)
             s.calcExpansionForce(states);
         for (Transition t : transitions)
             t.calcForce(states, transitions);
-        return this;
     }
 
     /**
@@ -195,7 +194,7 @@ public class FSM {
      * @throws FinitStateMachineException FinitStateMachineException
      */
     public TruthTable createTruthTable() throws ExpressionException, FinitStateMachineException {
-        return new TransitionTableCreator(states, transitions).create();
+        return new TransitionTableCreator(this).create();
     }
 
     /**
@@ -222,5 +221,12 @@ public class FSM {
     public void toRaster() {
         for (State s : states)
             s.toRaster();
+    }
+
+    /**
+     * @return the transitions
+     */
+    public List<Transition> getTransitions() {
+        return transitions;
     }
 }

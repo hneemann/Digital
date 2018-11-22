@@ -32,6 +32,22 @@ public class FSMDialog extends JDialog {
     private boolean moveStates = false;
 
     /**
+     * Use only for tests!
+     *
+     * @param givenFsm the fsm to visualize
+     */
+    public FSMDialog(FSM givenFsm) {
+        this(null, givenFsm, createLibrary());
+    }
+
+    private static ElementLibrary createLibrary() {
+        ElementLibrary library = new ElementLibrary();
+        new ShapeFactory(library);
+        return library;
+    }
+
+
+    /**
      * Creates a new instance
      *
      * @param frame    the parents frame

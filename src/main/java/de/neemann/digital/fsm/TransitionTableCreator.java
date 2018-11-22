@@ -14,14 +14,15 @@ import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TreeSet;
 
 /**
  * Creates a transition table from given states and transitions
  */
 public class TransitionTableCreator {
-    private final ArrayList<State> states;
-    private final ArrayList<Transition> transitions;
+    private final List<State> states;
+    private final List<Transition> transitions;
     private TruthTable truthTable;
     private int rowsPerState;
     private ArrayList<Variable> inVars;
@@ -31,12 +32,11 @@ public class TransitionTableCreator {
     /**
      * Creates a new instance
      *
-     * @param states      the states
-     * @param transitions the transitions
+     * @param fsm the fsm
      */
-    public TransitionTableCreator(ArrayList<State> states, ArrayList<Transition> transitions) {
-        this.states = states;
-        this.transitions = transitions;
+    public TransitionTableCreator(FSM fsm) {
+        this.states = fsm.getStates();
+        this.transitions = fsm.getTransitions();
     }
 
     /**
@@ -52,13 +52,13 @@ public class TransitionTableCreator {
         // create state variables
         ArrayList<Variable> vars = new ArrayList<>();
         for (int i = stateBits - 1; i >= 0; i--)
-            vars.add(new Variable("Q^" + i + "_n"));
+            vars.add(new Variable("Q" + i + "_n"));
 
         truthTable = new TruthTable(vars);
 
         // create the next state result variables
         for (int i = stateBits - 1; i >= 0; i--)
-            truthTable.addResult("Q^" + i + "_n+1");
+            truthTable.addResult("Q" + i + "_n+1");
 
         // add the output variables
         TreeSet<String> results = new TreeSet<>();
