@@ -94,6 +94,10 @@ public class FSMDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 moveStates = moveCheck.isSelected();
+                if (!moveStates) {
+                    fsm.toRaster();
+                    repaint();
+                }
             }
         });
         moveCheck.setSelected(moveStates);
@@ -112,7 +116,7 @@ public class FSMDialog extends JDialog {
      */
     public static void main(String[] args) {
 
-        FSM fsm = FSMDemos.selCounter();
+        FSM fsm = FSMDemos.stepperMedwedew();
 
         ElementLibrary library = new ElementLibrary();
         new ShapeFactory(library);

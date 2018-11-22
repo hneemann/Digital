@@ -147,4 +147,12 @@ public class State extends Movable {
     public boolean matches(Vector pos) {
         return pos.sub(getPos()).len() <= radius;
     }
+
+    @Override
+    public String toString() {
+        if (name != null && name.length() > 0)
+            return name + " (" + number + ")";
+        else
+            return Integer.toString(number);
+    }
 }

@@ -97,9 +97,20 @@ public class Transition extends Movable {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
-        VectorFloat difFrom = getPos().sub(fromState.getPos()).norm().mul(fromState.getRadius() + Style.MAXLINETHICK);
-        VectorFloat difTo = getPos().sub(toState.getPos()).norm().mul(toState.getRadius() + Style.MAXLINETHICK + 2);
-        VectorFloat difToTip = getPos().sub(toState.getPos()).norm().mul(toState.getRadius() + Style.MAXLINETHICK);
+
+        VectorFloat anchorFrom = getPos();
+        VectorFloat anchorTo = getPos();
+
+        if (fromState == toState) {
+            VectorFloat dif = anchorFrom.sub(fromState.getPos());
+            dif = new VectorFloat(dif.getYFloat(), -dif.getXFloat()).mul(0.3f);
+            anchorFrom = anchorFrom.add(dif);
+            anchorTo = anchorTo.sub(dif);
+        }
+
+        VectorFloat difFrom = anchorFrom.sub(fromState.getPos()).norm().mul(fromState.getRadius() + Style.MAXLINETHICK);
+        VectorFloat difTo = anchorTo.sub(toState.getPos()).norm().mul(toState.getRadius() + Style.MAXLINETHICK + 2);
+        VectorFloat difToTip = anchorTo.sub(toState.getPos()).norm().mul(toState.getRadius() + Style.MAXLINETHICK);
 
         final VectorFloat start = fromState.getPos().add(difFrom);
         final VectorFloat end = toState.getPos().add(difTo);
@@ -107,7 +118,7 @@ public class Transition extends Movable {
 
         Polygon p = new Polygon(false)
                 .add(start)
-                .add(getPos(), getPos(), end);
+                .add(anchorFrom, anchorTo, end);
         final Style arrowStyle = Style.SHAPE_PIN;
         gr.drawPolygon(p, arrowStyle);
 
@@ -165,5 +176,12 @@ public class Transition extends Movable {
      */
     public boolean matches(Vector pos) {
         return pos.sub(getPos()).len() < 50;
+    }
+
+    /**
+     * @return true if this transition has a condition
+     */
+    public boolean hasCondition() {
+        return condition != null;
     }
 }

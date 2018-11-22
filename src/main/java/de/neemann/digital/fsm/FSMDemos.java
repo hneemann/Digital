@@ -108,7 +108,7 @@ public final class FSMDemos {
      *
      * @return the fsm
      */
-    public static FSM trafficLightMedwedev() {
+    public static FSM trafficLightMedwedew() {
         State init = new State("init").setNumber(0);
         State red = new State("red").setNumber(1).val("R", 1);
         State redYellow = new State("red/yellow").setNumber(3).val("R", 1).val("Y", 1);
@@ -140,5 +140,49 @@ public final class FSMDemos {
                 .transition(s2, s3, null)
                 .transition(s2, s0, e("!T0 T1"))
                 .transition(s3, s0, null);
+    }
+
+    /**
+     * Creates a stepper controller
+     *
+     * @return the fsm
+     */
+    public static FSM stepper() {
+        State s0 = new State("s0").setNumber(0).val("P0", 1).val("P1", 1);
+        State s1 = new State("s1").setNumber(1).val("P1", 1).val("P2", 1);
+        State s2 = new State("s2").setNumber(2).val("P2", 1).val("P3", 1);
+        State s3 = new State("s3").setNumber(3).val("P3", 1).val("P0", 1);
+        return new FSM(s0, s1, s2, s3)
+                .transition(s0, s1, v("D"))
+                .transition(s1, s2, v("D"))
+                .transition(s2, s3, v("D"))
+                .transition(s3, s0, v("D"))
+                .transition(s1, s0, not(v("D")))
+                .transition(s2, s1, not(v("D")))
+                .transition(s3, s2, not(v("D")))
+                .transition(s0, s3, not(v("D")));
+    }
+
+    /**
+     * Creates a stepper controller
+     *
+     * @return the fsm
+     */
+    public static FSM stepperMedwedew() {
+        State init = new State("init").setNumber(0);
+        State s0 = new State("s0").setNumber(3).val("P0", 1).val("P1", 1);
+        State s1 = new State("s1").setNumber(6).val("P1", 1).val("P2", 1);
+        State s2 = new State("s2").setNumber(12).val("P2", 1).val("P3", 1);
+        State s3 = new State("s3").setNumber(9).val("P3", 1).val("P0", 1);
+        return new FSM(init, s0, s1, s2, s3)
+                .transition(init, s0, null)
+                .transition(s0, s1, v("D"))
+                .transition(s1, s2, v("D"))
+                .transition(s2, s3, v("D"))
+                .transition(s3, s0, v("D"))
+                .transition(s1, s0, not(v("D")))
+                .transition(s2, s1, not(v("D")))
+                .transition(s3, s2, not(v("D")))
+                .transition(s0, s3, not(v("D")));
     }
 }
