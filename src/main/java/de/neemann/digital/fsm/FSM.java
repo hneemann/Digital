@@ -5,11 +5,15 @@
  */
 package de.neemann.digital.fsm;
 
-import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.TruthTable;
+import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.VectorFloat;
+import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  * A simple finite state machine
@@ -164,5 +168,123 @@ public class FSM {
 
         for (Transition t : transitions)
             t.initPos();
+    }
+
+    /**
+     * Creates the truth table which is defined by this finite state machine
+     *
+     * @return the truth table
+     * @throws ExpressionException        ExpressionException
+     * @throws FinitStateMachineException FinitStateMachineException
+     */
+    public TruthTable createTruthTable() throws ExpressionException, FinitStateMachineException {
+        int stateBits = getStateVarBits();
+
+        // create state variables
+        ArrayList<Variable> vars = new ArrayList<>();
+        for (int i = stateBits - 1; i >= 0; i--)
+            vars.add(new Variable("Q^" + i + "_n"));
+
+        TruthTable truthTable = new TruthTable(vars);
+
+        // create the next state result variables
+        for (int i = stateBits - 1; i >= 0; i--)
+            truthTable.addResult("Q^" + i + "_n+1");
+
+        // add the output variables
+        TreeSet<String> results = new TreeSet<>();
+        for (State s : states)
+            results.addAll(s.getValues().keySet());
+
+        for (String name : results)
+            truthTable.addResult(name);
+
+        // set all to dc
+        truthTable.setAllTo(2);
+
+        // set output variables
+        for (State s : states) {
+            int row = s.getNumber();
+            int col = stateBits * 2;
+            for (String name : results) {
+                Long val = s.getValues().get(name);
+                long v = val == null ? 0 : val;
+                truthTable.setValue(row, col, (int) v);
+                col++;
+            }
+        }
+
+
+        // set all next state variables to "stay is state"
+        for (State s : states) {
+            int c = stateBits * 2;
+            int row = s.getNumber();
+            int m = row;
+            for (int j = 0; j < stateBits; j++) {
+                c--;
+                truthTable.setValue(row, c, m & 1);
+                m >>= 1;
+            }
+        }
+
+        // add the additional input variables
+        VariableVisitor vv = new VariableVisitor();
+        for (Transition t : transitions)
+            if (t.getCondition() != null)
+                t.getCondition().traverse(vv);
+        ArrayList<Variable> inVars = new ArrayList<>(vv.getVariables());
+
+        for (Variable v : inVars)
+            truthTable.addVariable(v);
+
+        int rowsPerState = 1 << inVars.size();
+
+        // fill in the transitions
+        for (Transition t : transitions) {
+            int startState = t.getStartState().getNumber();
+            int startRow = startState * rowsPerState;
+            ContextMap c = new ContextMap();
+            for (int r = 0; r < rowsPerState; r++) {
+                int m = 1 << (inVars.size() - 1);
+                for (Variable v : inVars) {
+                    c.set(v, (r & m) != 0);
+                    m >>= 1;
+                }
+                if (t.getCondition() == null || t.getCondition().calculate(c)) {
+                    int col = stateBits * 2 + inVars.size();
+                    int row = startRow + r;
+                    int mask = t.getTargetState().getNumber();
+                    for (int j = 0; j < stateBits; j++) {
+                        col--;
+                        truthTable.setValue(row, col, mask & 1);
+                        mask >>= 1;
+                    }
+                }
+            }
+        }
+
+        return truthTable;
+
+    }
+
+    private int getStateVarBits() throws FinitStateMachineException {
+        HashSet<Integer> numbers = new HashSet<>();
+        int maxNumber = 0;
+        for (State s : states) {
+            final int n = s.getNumber();
+            if (n > maxNumber)
+                maxNumber = n;
+
+            if (numbers.contains(n))
+                throw new FinitStateMachineException(Lang.get("err_fsmNumberUsedTwice_N", n));
+            numbers.add(n);
+        }
+
+        if (!numbers.contains(0))
+            throw new FinitStateMachineException(Lang.get("err_fsmNoInitialState"));
+
+        int n = 1;
+        while ((1 << n) <= maxNumber) n++;
+        return n;
     }
 }

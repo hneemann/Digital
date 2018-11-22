@@ -124,4 +124,11 @@ public class State extends Movable {
     public int getNumber() {
         return number;
     }
+
+    /**
+     * @return the state value map
+     */
+    public TreeMap<String, Long> getValues() {
+        return values;
+    }
 }

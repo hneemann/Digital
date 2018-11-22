@@ -8,8 +8,11 @@ package de.neemann.digital.fsm.gui;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.parser.ParseException;
 import de.neemann.digital.analyse.parser.Parser;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.fsm.FSM;
 import de.neemann.digital.fsm.State;
+import de.neemann.digital.gui.components.table.TableDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +40,6 @@ public class FSMDialog extends JDialog {
         super(frame, "FSM");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.fsm = fsm;
-
 
         fsmComponent = new FSMComponent(fsm);
         getContentPane().add(fsmComponent);
@@ -72,49 +74,43 @@ public class FSMDialog extends JDialog {
      * @throws Exception Exception
      */
     public static void main(String[] args) throws Exception {
-        /*
-        FSM fsm = new FSM()
-                .add(new State("initial").val("Y", 0))
-                .add(new State("1 match").val("Y", 0))
-                .add(new State("2 matches").val("Y", 0))
-                .add(new State("found").val("Y", 1))
-                .transition(0, 1, new Parser("!E").parse().get(0))
-                .transition(1, 2, new Parser("!E").parse().get(0))
-                .transition(2, 3, new Parser("E").parse().get(0))
-
-                .transition(1, 0, new Parser("E").parse().get(0))
-                .transition(3, 0, new Parser("E").parse().get(0))
-                .transition(3, 1, new Parser("!E").parse().get(0));*/
-
         State top = new State("top");
-        State topSet = new State("topSet").val("Y", 1);
+        State topSetLeft = new State("topSetLeft").val("L", 1);
+        State topSetRight = new State("topSetRight").val("R", 1);
         State leftA = new State("leftA");
         State leftB = new State("leftB");
         State bottom = new State("bottom");
-        State bottomSet = new State("bottomSet").val("Y", 1);
+        State bottomSetLeft = new State("bottomSetRight").val("R", 1);
+        State bottomSetRight = new State("bottomSetLeft").val("L", 1);
         State rightA = new State("rightA");
         State rightB = new State("rightB");
-        FSM fsm = new FSM(top, topSet, leftA, leftB, bottom, bottomSet, rightA, rightB)
+        FSM fsm = new FSM(top, topSetLeft, leftA, leftB, bottomSetLeft, bottom, bottomSetRight, rightB, rightA, topSetRight)
                 .transition(top, leftA, e("A & !B"))
                 .transition(top, rightA, e("!A & B"))
-                .transition(topSet, top, null)
+                .transition(topSetLeft, top, null)
+                .transition(topSetRight, top, null)
 
                 .transition(rightA, top, e("!A & !B"))
-                .transition(rightB, topSet, e("!A & !B"))
+                .transition(rightB, topSetRight, e("!A & !B"))
                 .transition(leftA, top, e("!A & !B"))
-                .transition(leftB, topSet, e("!A & !B"))
+                .transition(leftB, topSetLeft, e("!A & !B"))
 
                 .transition(bottom, leftB, e("A & !B"))
                 .transition(bottom, rightB, e("!A & B"))
-                .transition(bottomSet, bottom, null)
+                .transition(bottomSetLeft, bottom, null)
+                .transition(bottomSetRight, bottom, null)
 
                 .transition(rightB, bottom, e("A & B"))
-                .transition(rightA, bottomSet, e("A & B"))
+                .transition(rightA, bottomSetRight, e("A & B"))
                 .transition(leftB, bottom, e("A & B"))
-                .transition(leftA, bottomSet, e("A & B"));
+                .transition(leftA, bottomSetLeft, e("A & B"));
 
 
-        new FSMDialog(null, fsm).setVisible(true);
+        ElementLibrary lib = new ElementLibrary();
+        ShapeFactory shapeFactory = new ShapeFactory(lib);
+        new TableDialog(null, fsm.createTruthTable(), lib, shapeFactory, null).setVisible(true);
+
+        //new FSMDialog(null, fsm).setVisible(true);
 
     }
 

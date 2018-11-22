@@ -121,4 +121,25 @@ public class Transition extends Movable {
         setPos(fromState.getPos().add(toState.getPos()).mul(0.5f)
                 .add(new VectorFloat((float) Math.random() - 0.5f, (float) Math.random() - 0.5f).mul(30)));
     }
+
+    /**
+     * @return the condition
+     */
+    public Expression getCondition() {
+        return condition;
+    }
+
+    /**
+     * @return the starting state
+     */
+    public State getStartState() {
+        return fromState;
+    }
+
+    /**
+     * @return the target state
+     */
+    public State getTargetState() {
+        return toState;
+    }
 }
