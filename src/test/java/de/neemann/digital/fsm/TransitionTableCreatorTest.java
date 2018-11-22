@@ -7,8 +7,6 @@ import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import junit.framework.TestCase;
 
-import static de.neemann.digital.analyse.expression.Variable.v;
-
 public class TransitionTableCreatorTest extends TestCase {
 
     public void testBlink() throws ExpressionException, FinitStateMachineException, FormatterException {
@@ -32,8 +30,8 @@ public class TransitionTableCreatorTest extends TestCase {
         State a = new State("a");
         State b = new State("b");
         FSM fsm = new FSM(a, b)
-                .transition(a, b, v("Run"))
-                .transition(b, a, v("Run"));
+                .transition(a, b, "Run")
+                .transition(b, a, "Run");
         TruthTable tt = new TransitionTableCreator(fsm).create();
         assertEquals(4, tt.getRows());
         assertEquals(1, tt.getResultCount());
@@ -46,8 +44,8 @@ public class TransitionTableCreatorTest extends TestCase {
     }
 
     public void testBlinkResult() throws ExpressionException, FinitStateMachineException, FormatterException {
-        State a = new State("a").val("y",0);
-        State b = new State("b").val("y",1);
+        State a = new State("a").val("y", 0);
+        State b = new State("b").val("y", 1);
         FSM fsm = new FSM(a, b)
                 .transition(a, b, null)
                 .transition(b, a, null);
@@ -73,8 +71,8 @@ public class TransitionTableCreatorTest extends TestCase {
         State b = new State("b");
         State c = new State("c");
         FSM fsm = new FSM(a, b, c)
-                .transition(a, b, v("Run"))
-                .transition(a, c, v("Run"));
+                .transition(a, b, "Run")
+                .transition(a, c, "Run");
         try {
             new TransitionTableCreator(fsm).create();
             fail();
@@ -88,8 +86,8 @@ public class TransitionTableCreatorTest extends TestCase {
         State b = new State("b").setNumber(1);
         State c = new State("c").setNumber(1);
         FSM fsm = new FSM(a, b, c)
-                .transition(a, b, v("Run"))
-                .transition(b, c, v("Run"));
+                .transition(a, b, "Run")
+                .transition(b, c, "Run");
         try {
             new TransitionTableCreator(fsm).create();
             fail();
@@ -103,8 +101,8 @@ public class TransitionTableCreatorTest extends TestCase {
         State b = new State("b").setNumber(2);
         State c = new State("c").setNumber(3);
         FSM fsm = new FSM(a, b, c)
-                .transition(a, b, v("Run"))
-                .transition(b, c, v("Run"));
+                .transition(a, b, "Run")
+                .transition(b, c, "Run");
         try {
             new TransitionTableCreator(fsm).create();
             fail();

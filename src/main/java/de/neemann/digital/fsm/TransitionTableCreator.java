@@ -98,8 +98,8 @@ public class TransitionTableCreator {
         // add the additional input variables
         VariableVisitor vv = new VariableVisitor();
         for (Transition t : transitions)
-            if (t.getCondition() != null)
-                t.getCondition().traverse(vv);
+            if (t.hasCondition())
+                t.getConditionExpression().traverse(vv);
         inVars = new ArrayList<>(vv.getVariables());
 
         for (Variable v : inVars)
@@ -132,7 +132,7 @@ public class TransitionTableCreator {
                 c.set(v, (r & m) != 0);
                 m >>= 1;
             }
-            if (!t.hasCondition() || t.getCondition().calculate(c)) {
+            if (!t.hasCondition() || t.getConditionExpression().calculate(c)) {
                 int col = stateBits * 2 + inVars.size();
                 int row = startRow + r;
 

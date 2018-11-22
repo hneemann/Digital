@@ -6,22 +6,26 @@
 package de.neemann.digital.fsm;
 
 import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.analyse.expression.format.FormatterException;
+import de.neemann.digital.analyse.parser.ParseException;
+import de.neemann.digital.analyse.parser.Parser;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.lang.Lang;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a transition
  */
 public class Transition extends Movable {
-    private static final FormatToExpression FORMAT = FormatToExpression.FORMATTER_UNICODE;
     private static final float EXPANSION_TRANS = 0.001f;
 
     private final State fromState;
     private final State toState;
-    private final Expression condition;
+    private String condition;
+    private transient Expression conditionExpression;
+
 
     /**
      * Creates a new transition
@@ -30,7 +34,7 @@ public class Transition extends Movable {
      * @param toState   the state to enter
      * @param condition the condition
      */
-    public Transition(State fromState, State toState, Expression condition) {
+    public Transition(State fromState, State toState, String condition) {
         super();
         this.fromState = fromState;
         this.toState = toState;
@@ -128,14 +132,8 @@ public class Transition extends Movable {
                 .add(end.add(difTo.add(lot).mul(0.2f)))
                 .add(arrowTip)
                 .add(end.add(difTo.sub(lot).mul(0.2f))), arrowStyle);
-        if (condition != null) {
-            String format;
-            try {
-                format = FORMAT.format(condition);
-            } catch (FormatterException e) {
-                format = "error";
-            }
-            gr.drawText(getPos(), getPos().add(new Vector(1, 0)), format, Orientation.CENTERCENTER, Style.NORMAL);
+        if (condition != null && condition.length() > 0) {
+            gr.drawText(getPos(), getPos().add(new Vector(1, 0)), condition, Orientation.CENTERCENTER, Style.NORMAL);
         }
     }
 
@@ -148,10 +146,48 @@ public class Transition extends Movable {
     }
 
     /**
-     * @return the condition
+     * Sets the condition
+     *
+     * @param condition the condition
      */
-    public Expression getCondition() {
+    public void setCondition(String condition) {
+        this.condition = condition;
+        conditionExpression = null;
+    }
+
+    /**
+     * @return returns the condition
+     */
+    public String getCondition() {
         return condition;
+    }
+
+    /**
+     * @return the condition
+     * @throws FinitStateMachineException FinitStateMachineException
+     */
+    public Expression getConditionExpression() throws FinitStateMachineException {
+        if (conditionExpression == null) {
+            if (condition != null && condition.trim().length() > 0)
+                try {
+                    ArrayList<Expression> ex = new Parser(condition).parse();
+                    if (ex.size() != 1)
+                        throw new FinitStateMachineException(Lang.get("err_fsmErrorInCondition_N", condition));
+
+                    this.conditionExpression = ex.get(0);
+                } catch (IOException | ParseException e) {
+                    throw new FinitStateMachineException(Lang.get("err_fsmErrorInCondition_N", condition), e);
+                }
+        }
+        return conditionExpression;
+    }
+
+    /**
+     * @return true if this transition has a condition
+     * @throws FinitStateMachineException FinitStateMachineException
+     */
+    public boolean hasCondition() throws FinitStateMachineException {
+        return getConditionExpression() != null;
     }
 
     /**
@@ -178,10 +214,4 @@ public class Transition extends Movable {
         return pos.sub(getPos()).len() < 50;
     }
 
-    /**
-     * @return true if this transition has a condition
-     */
-    public boolean hasCondition() {
-        return condition != null;
-    }
 }

@@ -5,26 +5,12 @@
  */
 package de.neemann.digital.fsm;
 
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.parser.Parser;
-
-import static de.neemann.digital.analyse.expression.Not.not;
-import static de.neemann.digital.analyse.expression.Variable.v;
-
 /**
  * Provides some demo fsm's
  */
 public final class FSMDemos {
 
     private FSMDemos() {
-    }
-
-    private static Expression e(String s) {
-        try {
-            return new Parser(s).parse().get(0);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -44,25 +30,25 @@ public final class FSMDemos {
         State rightA = new State("rightA");
         State rightB = new State("rightB");
         return new FSM(top, topSetLeft, leftA, leftB, bottomSetLeft, bottom, bottomSetRight, rightB, rightA, topSetRight)
-                .transition(top, leftA, e("A & !B"))
-                .transition(top, rightA, e("!A & B"))
+                .transition(top, leftA, "A & !B")
+                .transition(top, rightA, "!A & B")
                 .transition(topSetLeft, top, null)
                 .transition(topSetRight, top, null)
 
-                .transition(rightA, top, e("!A & !B"))
-                .transition(rightB, topSetRight, e("!A & !B"))
-                .transition(leftA, top, e("!A & !B"))
-                .transition(leftB, topSetLeft, e("!A & !B"))
+                .transition(rightA, top, "!A & !B")
+                .transition(rightB, topSetRight, "!A & !B")
+                .transition(leftA, top, "!A & !B")
+                .transition(leftB, topSetLeft, "!A & !B")
 
-                .transition(bottom, leftB, e("A & !B"))
-                .transition(bottom, rightB, e("!A & B"))
+                .transition(bottom, leftB, "A & !B")
+                .transition(bottom, rightB, "!A & B")
                 .transition(bottomSetLeft, bottom, null)
                 .transition(bottomSetRight, bottom, null)
 
-                .transition(rightB, bottom, e("A & B"))
-                .transition(rightA, bottomSetRight, e("A & B"))
-                .transition(leftB, bottom, e("A & B"))
-                .transition(leftA, bottomSetLeft, e("A & B"));
+                .transition(rightB, bottom, "A & B")
+                .transition(rightA, bottomSetRight, "A & B")
+                .transition(leftB, bottom, "A & B")
+                .transition(leftA, bottomSetLeft, "A & B");
     }
 
     /**
@@ -97,7 +83,7 @@ public final class FSMDemos {
         State green = new State("green").setNumber(2).val("G", 1);
         State yellow = new State("yellow").setNumber(3).val("Y", 1);
         return new FSM(red, redYellow, green, yellow)
-                .transition(red, redYellow, not(v("Stop")))
+                .transition(red, redYellow, "!Stop")
                 .transition(redYellow, green, null)
                 .transition(green, yellow, null)
                 .transition(yellow, red, null);
@@ -116,7 +102,7 @@ public final class FSMDemos {
         State yellow = new State("yellow").setNumber(2).val("Y", 1);
         return new FSM(init, red, redYellow, green, yellow)
                 .transition(init, red, null)
-                .transition(red, redYellow, not(v("Stop")))
+                .transition(red, redYellow, "!Stop")
                 .transition(redYellow, green, null)
                 .transition(green, yellow, null)
                 .transition(yellow, red, null);
@@ -134,11 +120,11 @@ public final class FSMDemos {
         State s3 = new State("s3").setNumber(3);
         return new FSM(s0, s1, s2, s3)
                 .transition(s0, s1, null)
-                .transition(s0, s0, e("!T0  !T1"))
+                .transition(s0, s0, "!T0  !T1")
                 .transition(s1, s2, null)
-                .transition(s1, s0, e("T0 !T1"))
+                .transition(s1, s0, "T0 !T1")
                 .transition(s2, s3, null)
-                .transition(s2, s0, e("!T0 T1"))
+                .transition(s2, s0, "!T0 T1")
                 .transition(s3, s0, null);
     }
 
@@ -153,14 +139,14 @@ public final class FSMDemos {
         State s2 = new State("s2").setNumber(2).val("P2", 1).val("P3", 1);
         State s3 = new State("s3").setNumber(3).val("P3", 1).val("P0", 1);
         return new FSM(s0, s1, s2, s3)
-                .transition(s0, s1, v("D"))
-                .transition(s1, s2, v("D"))
-                .transition(s2, s3, v("D"))
-                .transition(s3, s0, v("D"))
-                .transition(s1, s0, not(v("D")))
-                .transition(s2, s1, not(v("D")))
-                .transition(s3, s2, not(v("D")))
-                .transition(s0, s3, not(v("D")));
+                .transition(s0, s1, "D")
+                .transition(s1, s2, "D")
+                .transition(s2, s3, "D")
+                .transition(s3, s0, "D")
+                .transition(s1, s0, "!D")
+                .transition(s2, s1, "!D")
+                .transition(s3, s2, "!D")
+                .transition(s0, s3, "!D");
     }
 
     /**
@@ -176,13 +162,13 @@ public final class FSMDemos {
         State s3 = new State("s3").setNumber(9).val("P3", 1).val("P0", 1);
         return new FSM(init, s0, s1, s2, s3)
                 .transition(init, s0, null)
-                .transition(s0, s1, v("D"))
-                .transition(s1, s2, v("D"))
-                .transition(s2, s3, v("D"))
-                .transition(s3, s0, v("D"))
-                .transition(s1, s0, not(v("D")))
-                .transition(s2, s1, not(v("D")))
-                .transition(s3, s2, not(v("D")))
-                .transition(s0, s3, not(v("D")));
+                .transition(s0, s1, "D")
+                .transition(s1, s2, "D")
+                .transition(s2, s3, "D")
+                .transition(s3, s0, "D")
+                .transition(s1, s0, "!D")
+                .transition(s2, s1, "!D")
+                .transition(s3, s2, "!D")
+                .transition(s0, s3, "!D");
     }
 }

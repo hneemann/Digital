@@ -12,9 +12,19 @@ public class FinitStateMachineException extends Exception {
     /**
      * Creates a new exception
      *
-     * @param message ther message
+     * @param message the message
      */
     public FinitStateMachineException(String message) {
         super(message);
+    }
+
+    /**
+     * Creates a new exception
+     *
+     * @param message the message
+     * @param cause   the cause
+     */
+    public FinitStateMachineException(String message, Exception cause) {
+        super(message, cause);
     }
 }

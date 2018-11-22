@@ -6,7 +6,6 @@
 package de.neemann.digital.fsm;
 
 import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
@@ -69,7 +68,7 @@ public class FSM {
      * @return this for chained calls
      * @throws FinitStateMachineException FinitStateMachineException
      */
-    public FSM transition(String from, String to, Expression condition) throws FinitStateMachineException {
+    public FSM transition(String from, String to, String condition) throws FinitStateMachineException {
         return transition(findState(from), findState(to), condition);
     }
 
@@ -82,7 +81,7 @@ public class FSM {
      * @return this for chained calls
      * @throws FinitStateMachineException FinitStateMachineException
      */
-    public FSM transition(int from, int to, Expression condition) throws FinitStateMachineException {
+    public FSM transition(int from, int to, String condition) throws FinitStateMachineException {
         return transition(findState(from), findState(to), condition);
     }
 
@@ -94,7 +93,7 @@ public class FSM {
      * @param condition the condition
      * @return this for chained calls
      */
-    public FSM transition(State from, State to, Expression condition) {
+    public FSM transition(State from, State to, String condition) {
         if (!states.contains(from))
             states.add(from);
         if (!states.contains(to))
