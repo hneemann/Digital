@@ -44,6 +44,15 @@ public class ParserTest extends TestCase {
     public void testParseXOr() throws Exception {
         assertTrue(createSingle("a^b") instanceof Operation.XOr);
         assertTrue(createSingle("a⊻b") instanceof Operation.XOr);
+
+        assertEquals("not(a)", createSingle("a^1").toString());
+        assertEquals("a", createSingle("a^0").toString());
+        assertEquals("not(a)", createSingle("1^a").toString());
+        assertEquals("a", createSingle("0^a").toString());
+        assertEquals("false", createSingle("0^0").toString());
+        assertEquals("false", createSingle("1^1").toString());
+        assertEquals("true", createSingle("1^0").toString());
+        assertEquals("true", createSingle("0^1").toString());
     }
 
     public void testParseAnd() throws Exception {
@@ -73,6 +82,20 @@ public class ParserTest extends TestCase {
         assertTrue(((Not) exp).getExpression() instanceof Variable);
         assertTrue(createSingle("~a") instanceof Not);
         assertTrue(createSingle("¬a") instanceof Not);
+    }
+
+    public void testParseEqual() throws Exception {
+        assertEquals("not(xor(a,b))", createSingle("a=b").toString());
+        assertEquals("xor(a,b)", createSingle("a!=b").toString());
+        assertEquals("xor(a,b)", createSingle("!(a=b)").toString());
+        assertEquals("and(not(xor(a,b)),not(xor(a,c)))", createSingle("(a=b)&(a=c)").toString());
+        assertEquals("and(not(xor(a,b)),not(xor(a,c)))", createSingle("a=b & a=c").toString());
+        assertEquals("a", createSingle("a=1").toString());
+        assertEquals("not(a)", createSingle("a=0").toString());
+        assertEquals("a", createSingle("a!=0").toString());
+        assertEquals("not(a)", createSingle("a!=1").toString());
+        assertEquals("and(a,not(b))", createSingle("a=1 & b=0").toString());
+        assertEquals("and(a,not(b))", createSingle("a=1  b=0").toString());
     }
 
     public void testParseLet() throws Exception {

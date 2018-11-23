@@ -49,7 +49,16 @@ public abstract class Operation implements Expression {
      * @return the created expression
      */
     public static Expression xor(Expression a, Expression b) {
-        return simplify(new XOr(a, b));
+        if (b == Constant.ONE) {
+            return Not.not(a);
+        } else if (b == Constant.ZERO) {
+            return a;
+        } else if (a == Constant.ONE) {
+            return Not.not(b);
+        } else if (a == Constant.ZERO) {
+            return b;
+        } else
+            return simplify(new XOr(a, b));
     }
 
 
