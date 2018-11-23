@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -65,6 +66,18 @@ public class AttributeDialog extends JDialog {
      */
     public AttributeDialog(Window parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes) {
         this(parent, pos, list, elementAttributes, false);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param parent            the parent
+     * @param pos               the position to pop up the dialog
+     * @param elementAttributes the data stored
+     * @param keys              the list of keys which are to edit
+     */
+    public AttributeDialog(Window parent, Point pos, ElementAttributes elementAttributes, Key... keys) {
+        this(parent, pos, Arrays.asList(keys), elementAttributes, false);
     }
 
     /**

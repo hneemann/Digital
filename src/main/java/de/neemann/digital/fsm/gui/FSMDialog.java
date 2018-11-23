@@ -28,7 +28,6 @@ public class FSMDialog extends JDialog {
     private final FSM fsm;
     private final FSMComponent fsmComponent;
     private final Timer timer;
-    private final ElementLibrary library;
     private boolean moveStates = false;
 
     /**
@@ -57,9 +56,8 @@ public class FSMDialog extends JDialog {
     public FSMDialog(Frame frame, FSM givenFsm, ElementLibrary library) {
         super(frame, Lang.get("fsm_title"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.library = library;
         if (givenFsm == null)
-            givenFsm = FSMDemos.createRotDecoder();
+            givenFsm = FSMDemos.rotDecoder();
 
         this.fsm = givenFsm;
 
@@ -132,7 +130,7 @@ public class FSMDialog extends JDialog {
      */
     public static void main(String[] args) {
 
-        FSM fsm = FSMDemos.createRotDecoder();
+        FSM fsm = FSMDemos.rotDecoder();
 
         ElementLibrary library = new ElementLibrary();
         new ShapeFactory(library);

@@ -8,13 +8,13 @@ package de.neemann.digital.fsm;
 /**
  * Esxeption thrown if there is a problem delaing with the FSM
  */
-public class FinitStateMachineException extends Exception {
+public class FiniteStateMachineException extends Exception {
     /**
      * Creates a new exception
      *
      * @param message the message
      */
-    public FinitStateMachineException(String message) {
+    public FiniteStateMachineException(String message) {
         super(message);
     }
 
@@ -24,7 +24,7 @@ public class FinitStateMachineException extends Exception {
      * @param message the message
      * @param cause   the cause
      */
-    public FinitStateMachineException(String message, Exception cause) {
+    public FiniteStateMachineException(String message, Exception cause) {
         super(message, cause);
     }
 }

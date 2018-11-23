@@ -22,6 +22,7 @@ public class FSM {
 
     private ArrayList<State> states;
     private ArrayList<Transition> transitions;
+    private transient boolean initChecked;
 
     /**
      * Creates a new FSM containing the given states
@@ -66,9 +67,9 @@ public class FSM {
      * @param to        the to state
      * @param condition the condition
      * @return this for chained calls
-     * @throws FinitStateMachineException FinitStateMachineException
+     * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public FSM transition(String from, String to, String condition) throws FinitStateMachineException {
+    public FSM transition(String from, String to, String condition) throws FiniteStateMachineException {
         return transition(findState(from), findState(to), condition);
     }
 
@@ -79,9 +80,9 @@ public class FSM {
      * @param to        the to state
      * @param condition the condition
      * @return this for chained calls
-     * @throws FinitStateMachineException FinitStateMachineException
+     * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public FSM transition(int from, int to, String condition) throws FinitStateMachineException {
+    public FSM transition(int from, int to, String condition) throws FiniteStateMachineException {
         return transition(findState(from), findState(to), condition);
     }
 
@@ -101,18 +102,18 @@ public class FSM {
         return add(new Transition(from, to, condition));
     }
 
-    private State findState(String name) throws FinitStateMachineException {
+    private State findState(String name) throws FiniteStateMachineException {
         for (State s : states)
             if (s.getName().equals(name))
                 return s;
-        throw new FinitStateMachineException(Lang.get("err_fsmState_N_notFound!", name));
+        throw new FiniteStateMachineException(Lang.get("err_fsmState_N_notFound!", name));
     }
 
-    private State findState(int number) throws FinitStateMachineException {
+    private State findState(int number) throws FiniteStateMachineException {
         for (State s : states)
             if (s.getNumber() == number)
                 return s;
-        throw new FinitStateMachineException(Lang.get("err_fsmState_N_notFound!", number));
+        throw new FiniteStateMachineException(Lang.get("err_fsmState_N_notFound!", number));
     }
 
     /**
@@ -140,10 +141,33 @@ public class FSM {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
+        if (!initChecked) {
+            checkInitState();
+            initChecked = true;
+        }
         for (State s : states)
             s.drawTo(gr);
         for (Transition t : transitions)
             t.drawTo(gr);
+    }
+
+    private void checkInitState() {
+        int count = 0;
+        Transition found = null;
+        for (Transition t : transitions) {
+            if (t.getStartState().getNumber() == 0) {
+                count++;
+                found = t;
+            }
+        }
+        try {
+            if (count == 1 && !found.hasCondition()) {
+                found.getStartState().setInitial();
+                found.setInitial();
+            }
+        } catch (FiniteStateMachineException e) {
+            // ignore
+        }
     }
 
     /**
@@ -189,10 +213,10 @@ public class FSM {
      * Creates the truth table which is defined by this finite state machine
      *
      * @return the truth table
-     * @throws ExpressionException        ExpressionException
-     * @throws FinitStateMachineException FinitStateMachineException
+     * @throws ExpressionException         ExpressionException
+     * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public TruthTable createTruthTable() throws ExpressionException, FinitStateMachineException {
+    public TruthTable createTruthTable() throws ExpressionException, FiniteStateMachineException {
         return new TransitionTableCreator(this).create();
     }
 
@@ -227,5 +251,24 @@ public class FSM {
      */
     public List<Transition> getTransitions() {
         return transitions;
+    }
+
+    /**
+     * Removes the given transition
+     *
+     * @param transition the transition to remove
+     */
+    public void remove(Transition transition) {
+        transitions.remove(transition);
+    }
+
+    /**
+     * Removes the given state
+     *
+     * @param state the state to remove
+     */
+    public void remove(State state) {
+        states.remove(state);
+        transitions.removeIf(t -> t.getStartState() == state || t.getTargetState() == state);
     }
 }

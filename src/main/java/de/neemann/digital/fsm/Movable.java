@@ -55,8 +55,6 @@ public class Movable {
             addToForce(new VectorFloat((float) Math.random() - 0.5f, (float) Math.random() - 0.5f).mul(2));
         } else {
             float f = reach * reach / (dist * dist) / 2;
-            if (f > 100)
-                f = 100;
             addToForce(dif.norm().mul(f));
         }
     }

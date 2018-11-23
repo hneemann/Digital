@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 public class TransitionTableCreatorTest extends TestCase {
 
-    public void testBlink() throws ExpressionException, FinitStateMachineException, FormatterException {
+    public void testBlink() throws ExpressionException, FiniteStateMachineException, FormatterException {
         State a = new State("a");
         State b = new State("b");
         FSM fsm = new FSM(a, b)
@@ -26,7 +26,7 @@ public class TransitionTableCreatorTest extends TestCase {
         assertEquals("not(Q0_n)", el.getFirst().toString());
     }
 
-    public void testBlinkOnOff() throws ExpressionException, FinitStateMachineException, FormatterException {
+    public void testBlinkOnOff() throws ExpressionException, FiniteStateMachineException, FormatterException {
         State a = new State("a");
         State b = new State("b");
         FSM fsm = new FSM(a, b)
@@ -43,9 +43,9 @@ public class TransitionTableCreatorTest extends TestCase {
         assertEquals("or(and(not(Q0_n),Run),and(Q0_n,not(Run)))", el.getFirst().toString());
     }
 
-    public void testBlinkResult() throws ExpressionException, FinitStateMachineException, FormatterException {
-        State a = new State("a").val("y", 0);
-        State b = new State("b").val("y", 1);
+    public void testBlinkResult() throws ExpressionException, FiniteStateMachineException, FormatterException {
+        State a = new State("a").setValues("y=0");
+        State b = new State("b").setValues("y=1");
         FSM fsm = new FSM(a, b)
                 .transition(a, b, null)
                 .transition(b, a, null);
@@ -76,7 +76,22 @@ public class TransitionTableCreatorTest extends TestCase {
         try {
             new TransitionTableCreator(fsm).create();
             fail();
-        } catch (FinitStateMachineException e) {
+        } catch (FiniteStateMachineException e) {
+            assertTrue(true);
+        }
+    }
+
+    public void testBlinkNotDeterministicDef() throws ExpressionException {
+        State a = new State("a");
+        State b = new State("b");
+        State c = new State("c");
+        FSM fsm = new FSM(a, b, c)
+                .transition(a, b, null)
+                .transition(a, c, null);
+        try {
+            new TransitionTableCreator(fsm).create();
+            fail();
+        } catch (FiniteStateMachineException e) {
             assertTrue(true);
         }
     }
@@ -91,7 +106,7 @@ public class TransitionTableCreatorTest extends TestCase {
         try {
             new TransitionTableCreator(fsm).create();
             fail();
-        } catch (FinitStateMachineException e) {
+        } catch (FiniteStateMachineException e) {
             assertTrue(true);
         }
     }
@@ -106,7 +121,7 @@ public class TransitionTableCreatorTest extends TestCase {
         try {
             new TransitionTableCreator(fsm).create();
             fail();
-        } catch (FinitStateMachineException e) {
+        } catch (FiniteStateMachineException e) {
             assertTrue(true);
         }
     }

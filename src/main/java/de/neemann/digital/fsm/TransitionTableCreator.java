@@ -43,10 +43,10 @@ public class TransitionTableCreator {
      * Creates the transition table
      *
      * @return the transition table
-     * @throws FinitStateMachineException FinitStateMachineException
+     * @throws FiniteStateMachineException FiniteStateMachineException
      * @throws ExpressionException        ExpressionException
      */
-    public TruthTable create() throws FinitStateMachineException, ExpressionException {
+    public TruthTable create() throws FiniteStateMachineException, ExpressionException {
         stateBits = getStateVarBits();
 
         // create state variables
@@ -63,7 +63,7 @@ public class TransitionTableCreator {
         // add the output variables
         TreeSet<String> results = new TreeSet<>();
         for (State s : states)
-            results.addAll(s.getValues().keySet());
+            results.addAll(s.getValueMap().keySet());
 
         for (String name : results)
             truthTable.addResult(name);
@@ -76,7 +76,7 @@ public class TransitionTableCreator {
             int row = s.getNumber();
             int col = stateBits * 2;
             for (String name : results) {
-                Long val = s.getValues().get(name);
+                Long val = s.getValueMap().get(name);
                 long v = val == null ? 0 : val;
                 truthTable.setValue(row, col, (int) v);
                 col++;
@@ -107,6 +107,8 @@ public class TransitionTableCreator {
 
         rowsPerState = 1 << inVars.size();
 
+        transitionSet = new boolean[truthTable.getRows()];
+
         // fill in the unconditional transitions
         for (Transition t : transitions)
             if (!t.hasCondition())
@@ -122,7 +124,7 @@ public class TransitionTableCreator {
         return truthTable;
     }
 
-    private void fillInTransition(Transition t) throws ExpressionException, FinitStateMachineException {
+    private void fillInTransition(Transition t) throws ExpressionException, FiniteStateMachineException {
         int startState = t.getStartState().getNumber();
         int startRow = startState * rowsPerState;
         ContextMap c = new ContextMap();
@@ -148,15 +150,15 @@ public class TransitionTableCreator {
         }
     }
 
-    private void checkRow(int row, Transition t) throws FinitStateMachineException {
+    private void checkRow(int row, Transition t) throws FiniteStateMachineException {
         if (transitionSet != null) {
             if (transitionSet[row])
-                throw new FinitStateMachineException(Lang.get("err_notDeterministic_N_N", t.getStartState(), t.getTargetState()));
+                throw new FiniteStateMachineException(Lang.get("err_notDeterministic_N", t.toString()));
             transitionSet[row] = true;
         }
     }
 
-    private int getStateVarBits() throws FinitStateMachineException {
+    private int getStateVarBits() throws FiniteStateMachineException {
         HashSet<Integer> numbers = new HashSet<>();
         int maxNumber = 0;
         for (State s : states) {
@@ -165,12 +167,12 @@ public class TransitionTableCreator {
                 maxNumber = n;
 
             if (numbers.contains(n))
-                throw new FinitStateMachineException(Lang.get("err_fsmNumberUsedTwice_N", n));
+                throw new FiniteStateMachineException(Lang.get("err_fsmNumberUsedTwice_N", n));
             numbers.add(n);
         }
 
         if (!numbers.contains(0))
-            throw new FinitStateMachineException(Lang.get("err_fsmNoInitialState"));
+            throw new FiniteStateMachineException(Lang.get("err_fsmNoInitialState"));
 
         int n = 1;
         while ((1 << n) <= maxNumber) n++;

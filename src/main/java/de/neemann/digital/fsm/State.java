@@ -6,12 +6,11 @@
 package de.neemann.digital.fsm;
 
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.lang.Lang;
 
 import java.util.List;
-import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
-
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
  * Represents a state
@@ -23,9 +22,12 @@ public class State extends Movable {
     private static final float REACH = 2000;
 
     private int number = -1;
-    private String name;
+    private String name="";
     private int radius;
-    private TreeMap<String, Long> values;
+    private String values="";
+
+    private transient TreeMap<String, Long> valueMap;
+    private transient boolean isInitial;
 
     /**
      * Creates a new state
@@ -36,19 +38,53 @@ public class State extends Movable {
         super();
         this.name = name;
         this.radius = RAD;
-        values = new TreeMap<>();
     }
 
     /**
-     * Adds a outputvalue to the state
+     * Sets the values to define as a comma separated string with assignments: 'A=0,B=1'
      *
-     * @param name the name
-     * @param val  the value
+     * @param values the assignments
      * @return this for chained calls
      */
-    public State val(String name, long val) {
-        values.put(name, val);
+    public State setValues(String values) {
+        this.values = values;
+        valueMap = null;
         return this;
+    }
+
+    /**
+     * @return the state value map
+     */
+    public String getValues() {
+        return values;
+    }
+
+    /**
+     * @return the state value map
+     * @throws FiniteStateMachineException FiniteStateMachineException
+     */
+    public TreeMap<String, Long> getValueMap() throws FiniteStateMachineException {
+        if (valueMap == null) {
+            valueMap = new TreeMap<>();
+            if (values != null) {
+                StringTokenizer st = new StringTokenizer(values, ";,");
+                while (st.hasMoreTokens()) {
+                    String tok = st.nextToken();
+                    int p = tok.indexOf('=');
+                    if (p < 0)
+                        throw new FiniteStateMachineException(Lang.get("err_fsmInvalidOutputAssignment_N", values));
+                    String key = tok.substring(0, p).trim();
+                    String valStr = tok.substring(p + 1).trim();
+                    try {
+                        long val = Long.parseLong(valStr);
+                        valueMap.put(key, val);
+                    } catch (NumberFormatException e) {
+                        throw new FiniteStateMachineException(Lang.get("err_fsmInvalidOutputAssignment_N", valStr), e);
+                    }
+                }
+            }
+        }
+        return valueMap;
     }
 
     /**
@@ -56,6 +92,15 @@ public class State extends Movable {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Sets the name.
+     *
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -88,26 +133,29 @@ public class State extends Movable {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
-        VectorInterface rad = new Vector(RAD, RAD);
-        gr.drawCircle(getPos().sub(rad), getPos().add(rad), Style.NORMAL);
-        if (number == 0) {
-            VectorInterface rad2 = new Vector(RAD - Style.MAXLINETHICK * 2, RAD - Style.MAXLINETHICK * 2);
-            gr.drawCircle(getPos().sub(rad2), getPos().add(rad2), Style.THIN);
-        }
+        if (isInitial) {
+            VectorInterface rad = new Vector(radius, radius);
+            gr.drawCircle(getPos().sub(rad), getPos().add(rad), Style.FILLED);
+        } else {
+            VectorInterface rad = new Vector(radius, radius);
+            gr.drawCircle(getPos().sub(rad), getPos().add(rad), Style.NORMAL);
+            if (number == 0) {
+                VectorInterface rad2 = new Vector(radius - Style.MAXLINETHICK * 2, radius - Style.MAXLINETHICK * 2);
+                gr.drawCircle(getPos().sub(rad2), getPos().add(rad2), Style.THIN);
+            }
 
-        Vector delta = new Vector(0, Style.NORMAL.getFontSize());
-        VectorFloat pos = getPos().add(delta.mul(-1));
+            Vector delta = new Vector(0, Style.NORMAL.getFontSize());
+            VectorFloat pos = getPos().add(delta.mul(-1));
 
-        gr.drawText(pos, pos.add(new Vector(1, 0)), Integer.toString(number), Orientation.CENTERCENTER, Style.NORMAL);
-        pos = pos.add(delta);
-        gr.drawText(pos, pos.add(new Vector(1, 0)), name, Orientation.CENTERCENTER, Style.NORMAL);
-
-        for (Map.Entry<String, Long> v : values.entrySet()) {
+            gr.drawText(pos, pos.add(new Vector(1, 0)), Integer.toString(number), Orientation.CENTERCENTER, Style.NORMAL);
             pos = pos.add(delta);
-            String str = v.getKey() + "->" + v.getValue();
-            gr.drawText(pos, pos.add(new Vector(1, 0)), str, Orientation.CENTERCENTER, Style.NORMAL);
-        }
+            gr.drawText(pos, pos.add(new Vector(1, 0)), name, Orientation.CENTERCENTER, Style.NORMAL);
 
+            if (values != null) {
+                pos = pos.add(delta);
+                gr.drawText(pos, pos.add(new Vector(1, 0)), values, Orientation.CENTERCENTER, Style.NORMAL);
+            }
+        }
     }
 
     /**
@@ -136,13 +184,6 @@ public class State extends Movable {
     }
 
     /**
-     * @return the state value map
-     */
-    public TreeMap<String, Long> getValues() {
-        return values;
-    }
-
-    /**
      * Returns true if the position matches the state
      *
      * @param pos the position
@@ -155,7 +196,7 @@ public class State extends Movable {
     @Override
     public String toString() {
         if (name != null && name.length() > 0)
-            return name + " (" + number + ")";
+            return name;
         else
             return Integer.toString(number);
     }
@@ -167,5 +208,13 @@ public class State extends Movable {
         setPosition(new VectorFloat(
                 Math.round(getPos().getXFloat() / SIZE) * SIZE,
                 Math.round(getPos().getYFloat() / SIZE) * SIZE));
+    }
+
+    /**
+     * Makes this state the initial state
+     */
+    public void setInitial() {
+        isInitial = true;
+        radius = 20;
     }
 }

@@ -4,6 +4,7 @@ import de.neemann.digital.draw.graphics.VectorFloat;
 import junit.framework.TestCase;
 
 import java.util.Arrays;
+import java.util.TreeMap;
 
 public class StateTest extends TestCase {
 
@@ -21,6 +22,17 @@ public class StateTest extends TestCase {
         final float far = a.getForce().getXFloat();
         assertTrue(far <= 0);
         assertTrue(Math.abs(far) < Math.abs(near));
+    }
 
+    public void testValues() throws FiniteStateMachineException {
+        State s = new State("s");
+        TreeMap<String, Long> v = s.setValues("A=1").getValueMap();
+        assertEquals(1, v.size());
+        assertEquals(1, (long) v.get("A"));
+
+        v = s.setValues("A=1, B=2").getValueMap();
+        assertEquals(2, v.size());
+        assertEquals(1, (long) v.get("A"));
+        assertEquals(2, (long) v.get("B"));
     }
 }

@@ -15,24 +15,28 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.fsm.FSM;
 import de.neemann.digital.fsm.Movable;
 import de.neemann.digital.fsm.State;
+import de.neemann.digital.fsm.Transition;
 import de.neemann.digital.gui.components.AttributeDialog;
+import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Mouse;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
+
+import static de.neemann.digital.gui.components.CircuitComponent.ICON_DELETE;
 
 /**
  * The component to show the fsm
  */
 public class FSMComponent extends JComponent {
+    private static final Key<Integer> KEY_NUMBER = new Key.KeyInteger("stateNum", 0);
+    private static final Key<String> KEY_VALUES = new Key<>("stateValues", "");
+    private static final String DEL_ACTION = "myDelAction";
 
     private Mouse mouse = Mouse.getMouse();
 
@@ -40,6 +44,7 @@ public class FSMComponent extends JComponent {
     private AffineTransform transform = new AffineTransform();
     private Movable elementMoved;
     private FSM fsm;
+    private Vector lastMousePos;
 
     /**
      * Creates a new component
@@ -90,7 +95,14 @@ public class FSMComponent extends JComponent {
                     Movable elementClicked = fsm.getMovable(posVector);
                     if (elementClicked == null)
                         createNewState(posVector, new Point(mouseEvent.getX(), mouseEvent.getY()));
+                    else if (elementClicked instanceof State)
+                        editState((State) elementClicked, new Point(mouseEvent.getX(), mouseEvent.getY()));
                 }
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent mouseEvent) {
+                lastMousePos = getPosVector(mouseEvent);
             }
 
             @Override
@@ -111,6 +123,20 @@ public class FSMComponent extends JComponent {
         addMouseMotionListener(mouseListener);
         addMouseListener(mouseListener);
 
+        ToolTipAction deleteAction = new ToolTipAction(Lang.get("menu_delete"), ICON_DELETE) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Movable element = fsm.getMovable(lastMousePos);
+                if (element instanceof State)
+                    fsm.remove((State) element);
+                else if (element instanceof Transition)
+                    fsm.remove((Transition) element);
+            }
+        }.setToolTip(Lang.get("menu_delete_tt"));
+
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DEL_ACTION);
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), DEL_ACTION);
+        getActionMap().put(DEL_ACTION, deleteAction);
 
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -120,25 +146,38 @@ public class FSMComponent extends JComponent {
             }
         });
 
+        setFocusable(true);
         setPreferredSize(new Dimension(600, 600));
     }
 
     private void createNewState(Vector posVector, Point point) {
-        Key<Integer> number = new Key.KeyInteger("stateNum", 0);
-        Key values = new Key<>("stateValues", "");
-        ArrayList<Key> list = new ArrayList<Key>();
-        list.add(Keys.LABEL);
-        list.add(number);
-        list.add(values);
         ElementAttributes attr = new ElementAttributes();
         SwingUtilities.convertPointToScreen(point, this);
-        AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this), point, list, attr);
+        AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this), point, attr, Keys.LABEL, KEY_NUMBER, KEY_VALUES);
         ElementAttributes newAttr = ad.showDialog();
         if (newAttr != null) {
             State s = new State(newAttr.get(Keys.LABEL))
                     .setPosition(posVector.toFloat())
-                    .setNumber(newAttr.get(number));
+                    .setNumber(newAttr.get(KEY_NUMBER))
+                    .setValues(newAttr.get(KEY_VALUES));
             fsm.add(s);
+            repaint();
+        }
+    }
+
+    private void editState(State state, Point point) {
+        ElementAttributes attr = new ElementAttributes()
+                .set(KEY_NUMBER, state.getNumber())
+                .set(KEY_VALUES, state.getValues())
+                .set(Keys.LABEL, state.getName());
+        SwingUtilities.convertPointToScreen(point, this);
+        AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
+                point, attr, Keys.LABEL, KEY_NUMBER, KEY_VALUES);
+        ElementAttributes newAttr = ad.showDialog();
+        if (newAttr != null) {
+            state.setNumber(newAttr.get(KEY_NUMBER));
+            state.setValues(newAttr.get(KEY_VALUES));
+            state.setName(newAttr.get(Keys.LABEL));
             repaint();
         }
     }

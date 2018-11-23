@@ -25,6 +25,7 @@ public class Transition extends Movable {
     private final State toState;
     private String condition;
     private transient Expression conditionExpression;
+    private transient boolean isInitial;
 
 
     /**
@@ -49,8 +50,10 @@ public class Transition extends Movable {
      * @param transitions the transitions
      */
     public void calcForce(List<State> states, List<Transition> transitions) {
-        float preferredLen = Math.max(fromState.getRadius(), toState.getRadius()) * 5;
-        calcForce(preferredLen, states, transitions);
+        float preferredDist = 20;
+        if (!isInitial)
+            preferredDist = Math.max(fromState.getRadius(), toState.getRadius()) * 5;
+        calcForce(preferredDist, states, transitions);
     }
 
     /**
@@ -75,12 +78,14 @@ public class Transition extends Movable {
         VectorFloat center = fromState.getPos().add(toState.getPos()).mul(0.5f);
         addAttractiveTo(center, 1);
 
-        for (State s : states)
-            addRepulsive(s.getPos(), 2000);
+        if (!isInitial) {
+            for (State s : states)
+                addRepulsive(s.getPos(), 2000);
 
-        for (Transition t : transitions)
-            if (t != this)
-                addRepulsive(t.getPos(), 800);
+            for (Transition t : transitions)
+                if (t != this)
+                    addRepulsive(t.getPos(), 800);
+        }
     }
 
     @Override
@@ -164,19 +169,19 @@ public class Transition extends Movable {
 
     /**
      * @return the condition
-     * @throws FinitStateMachineException FinitStateMachineException
+     * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public Expression getConditionExpression() throws FinitStateMachineException {
+    public Expression getConditionExpression() throws FiniteStateMachineException {
         if (conditionExpression == null) {
             if (condition != null && condition.trim().length() > 0)
                 try {
                     ArrayList<Expression> ex = new Parser(condition).parse();
                     if (ex.size() != 1)
-                        throw new FinitStateMachineException(Lang.get("err_fsmErrorInCondition_N", condition));
+                        throw new FiniteStateMachineException(Lang.get("err_fsmErrorInCondition_N", condition));
 
                     this.conditionExpression = ex.get(0);
                 } catch (IOException | ParseException e) {
-                    throw new FinitStateMachineException(Lang.get("err_fsmErrorInCondition_N", condition), e);
+                    throw new FiniteStateMachineException(Lang.get("err_fsmErrorInCondition_N", condition), e);
                 }
         }
         return conditionExpression;
@@ -184,9 +189,9 @@ public class Transition extends Movable {
 
     /**
      * @return true if this transition has a condition
-     * @throws FinitStateMachineException FinitStateMachineException
+     * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public boolean hasCondition() throws FinitStateMachineException {
+    public boolean hasCondition() throws FiniteStateMachineException {
         return getConditionExpression() != null;
     }
 
@@ -214,4 +219,15 @@ public class Transition extends Movable {
         return pos.sub(getPos()).len() < 50;
     }
 
+    @Override
+    public String toString() {
+        return fromState + " --[" + condition + "]-> " + toState;
+    }
+
+    /**
+     * Mark this transition as initial transition
+     */
+    public void setInitial() {
+        isInitial = true;
+    }
 }
