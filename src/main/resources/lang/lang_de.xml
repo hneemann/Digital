@@ -1291,6 +1291,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Mit einfachen Zuweisungen wie "A=1, B=0" können Ausgänge gesetzt werden.
     </string>
     <string name="msg_fsmCantCreateTable">Zustandsübergangstabelle kann nicht erzeugt werden.</string>
+    <string name="key_transCond">Bedingung</string>
+    <string name="key_transCond_tt">Ein boolscher Ausdruck.</string>
+    <string name="msg_fsmNewState">Neuer Zustand</string>
 
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>

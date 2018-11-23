@@ -23,7 +23,7 @@ public class Transition extends Movable {
 
     private final State fromState;
     private final State toState;
-    private String condition;
+    private String condition = "";
     private transient Expression conditionExpression;
     private transient boolean isInitial;
 

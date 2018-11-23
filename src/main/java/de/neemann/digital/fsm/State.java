@@ -16,15 +16,15 @@ import java.util.TreeMap;
  * Represents a state
  */
 public class State extends Movable {
-    private static final int SIZE = 80;
+    private static final int RASTER = 60;
 
     private static final int RAD = 70;
     private static final float REACH = 2000;
 
     private int number = -1;
-    private String name="";
+    private String name = "";
     private int radius;
-    private String values="";
+    private String values = "";
 
     private transient TreeMap<String, Long> valueMap;
     private transient boolean isInitial;
@@ -206,8 +206,8 @@ public class State extends Movable {
      */
     public void toRaster() {
         setPosition(new VectorFloat(
-                Math.round(getPos().getXFloat() / SIZE) * SIZE,
-                Math.round(getPos().getYFloat() / SIZE) * SIZE));
+                Math.round(getPos().getXFloat() / RASTER) * RASTER,
+                Math.round(getPos().getYFloat() / RASTER) * RASTER));
     }
 
     /**

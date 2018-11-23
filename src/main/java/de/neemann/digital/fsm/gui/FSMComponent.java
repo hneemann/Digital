@@ -36,6 +36,7 @@ import static de.neemann.digital.gui.components.CircuitComponent.ICON_DELETE;
 public class FSMComponent extends JComponent {
     private static final Key<Integer> KEY_NUMBER = new Key.KeyInteger("stateNum", 0);
     private static final Key<String> KEY_VALUES = new Key<>("stateValues", "");
+    private static final Key<String> KEY_CONDITION = new Key<>("transCond", "");
     private static final String DEL_ACTION = "myDelAction";
 
     private Mouse mouse = Mouse.getMouse();
@@ -45,6 +46,7 @@ public class FSMComponent extends JComponent {
     private Movable elementMoved;
     private FSM fsm;
     private Vector lastMousePos;
+    private State newTransitionFromState;
 
     /**
      * Creates a new component
@@ -67,17 +69,25 @@ public class FSMComponent extends JComponent {
         });
 
         MouseAdapter mouseListener = new MouseAdapter() {
+            private Vector newTransitionStartPos;
             private Vector delta;
             private Vector pos;
 
             @Override
             public void mousePressed(MouseEvent e) {
                 pos = new Vector(e.getX(), e.getY());
+                final Vector posVector = getPosVector(e);
                 if (mouse.isPrimaryClick(e)) {
-                    final Vector posVector = getPosVector(e);
                     elementMoved = fsm.getMovable(posVector);
                     if (elementMoved != null)
                         delta = posVector.sub(elementMoved.getPos());
+                } else if (mouse.isSecondaryClick(e)) {
+                    Movable st = fsm.getMovable(posVector);
+                    if (st instanceof State) {
+                        newTransitionStartPos = posVector;
+                        newTransitionFromState = (State) st;
+                        repaint();
+                    }
                 }
             }
 
@@ -86,17 +96,29 @@ public class FSMComponent extends JComponent {
                 if (elementMoved instanceof State)
                     ((State) elementMoved).toRaster();
                 elementMoved = null;
+                if (newTransitionFromState != null) {
+                    final Vector posVector = getPosVector(mouseEvent);
+                    if (newTransitionStartPos.sub(posVector).len() > 10) {
+                        Movable target = fsm.getMovable(posVector);
+                        if (target instanceof State)
+                            fsm.add(new Transition(newTransitionFromState, (State) target, ""));
+                    }
+                    newTransitionFromState = null;
+                    repaint();
+                }
             }
 
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
+                final Vector posVector = getPosVector(mouseEvent);
+                Movable elementClicked = fsm.getMovable(posVector);
                 if (mouse.isSecondaryClick(mouseEvent)) {
-                    final Vector posVector = getPosVector(mouseEvent);
-                    Movable elementClicked = fsm.getMovable(posVector);
                     if (elementClicked == null)
                         createNewState(posVector, new Point(mouseEvent.getX(), mouseEvent.getY()));
                     else if (elementClicked instanceof State)
                         editState((State) elementClicked, new Point(mouseEvent.getX(), mouseEvent.getY()));
+                    else if (elementClicked instanceof Transition)
+                        editTransition((Transition) elementClicked, new Point(mouseEvent.getX(), mouseEvent.getY()));
                 }
             }
 
@@ -107,7 +129,8 @@ public class FSMComponent extends JComponent {
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (elementMoved == null) {
+                lastMousePos = getPosVector(e);
+                if (elementMoved == null && newTransitionFromState == null) {
                     Vector newPos = new Vector(e.getX(), e.getY());
                     Vector delta = newPos.sub(pos);
                     double s = transform.getScaleX();
@@ -115,9 +138,11 @@ public class FSMComponent extends JComponent {
                     pos = newPos;
                     isManualScale = true;
                     repaint();
-                } else {
-                    elementMoved.setPos(getPosVector(e).sub(delta).toFloat());
                 }
+                if (elementMoved != null)
+                    elementMoved.setPos(getPosVector(e).sub(delta).toFloat());
+                if (newTransitionFromState != null)
+                    repaint();
             }
         };
         addMouseMotionListener(mouseListener);
@@ -154,6 +179,7 @@ public class FSMComponent extends JComponent {
         ElementAttributes attr = new ElementAttributes();
         SwingUtilities.convertPointToScreen(point, this);
         AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this), point, attr, Keys.LABEL, KEY_NUMBER, KEY_VALUES);
+        ad.setTitle(Lang.get("msg_fsmNewState"));
         ElementAttributes newAttr = ad.showDialog();
         if (newAttr != null) {
             State s = new State(newAttr.get(Keys.LABEL))
@@ -178,6 +204,19 @@ public class FSMComponent extends JComponent {
             state.setNumber(newAttr.get(KEY_NUMBER));
             state.setValues(newAttr.get(KEY_VALUES));
             state.setName(newAttr.get(Keys.LABEL));
+            repaint();
+        }
+    }
+
+    private void editTransition(Transition transition, Point point) {
+        ElementAttributes attr = new ElementAttributes()
+                .set(KEY_CONDITION, transition.getCondition());
+        SwingUtilities.convertPointToScreen(point, this);
+        AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
+                point, attr, KEY_CONDITION);
+        ElementAttributes newAttr = ad.showDialog();
+        if (newAttr != null) {
+            transition.setCondition(newAttr.get(KEY_CONDITION));
             repaint();
         }
     }
@@ -250,5 +289,8 @@ public class FSMComponent extends JComponent {
         gr2.transform(transform);
         GraphicSwing gr = new GraphicSwing(gr2, 1);
         fsm.drawTo(gr);
+
+        if (newTransitionFromState != null)
+            gr.drawLine(newTransitionFromState.getPos(), lastMousePos, Style.NORMAL);
     }
 }

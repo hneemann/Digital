@@ -28,7 +28,8 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.fsm.gui.FSMDialog;
+import de.neemann.digital.fsm.FSM;
+import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
@@ -1134,7 +1135,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             analyse.add(new ToolTipAction(Lang.get("menu_fsm")) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new FSMDialog(Main.this, null, library).setVisible(true);
+                    new FSMFrame(Main.this, new FSM(), library).setVisible(true);
                 }
             }
                     .setToolTip(Lang.get("menu_fsm_tt"))

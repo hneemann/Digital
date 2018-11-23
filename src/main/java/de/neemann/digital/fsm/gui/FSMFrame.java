@@ -23,7 +23,7 @@ import java.awt.event.WindowEvent;
 /**
  * The dialog to show the FSM
  */
-public class FSMDialog extends JDialog {
+public class FSMFrame extends JFrame {
 
     private final FSM fsm;
     private final FSMComponent fsmComponent;
@@ -35,7 +35,7 @@ public class FSMDialog extends JDialog {
      *
      * @param givenFsm the fsm to visualize
      */
-    public FSMDialog(FSM givenFsm) {
+    public FSMFrame(FSM givenFsm) {
         this(null, givenFsm, createLibrary());
     }
 
@@ -49,12 +49,12 @@ public class FSMDialog extends JDialog {
     /**
      * Creates a new instance
      *
-     * @param frame    the parents frame
+     * @param parent   the parents frame
      * @param givenFsm the fsm to visualize
      * @param library  the library used to show the table
      */
-    public FSMDialog(Frame frame, FSM givenFsm, ElementLibrary library) {
-        super(frame, Lang.get("fsm_title"));
+    public FSMFrame(JFrame parent, FSM givenFsm, ElementLibrary library) {
+        super(Lang.get("fsm_title"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         if (givenFsm == null)
             givenFsm = FSMDemos.rotDecoder();
@@ -63,10 +63,6 @@ public class FSMDialog extends JDialog {
 
         fsmComponent = new FSMComponent(fsm);
         getContentPane().add(fsmComponent, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(frame);
-
-        fsmComponent.fitFSM();
 
         timer = new Timer(100, new AbstractAction() {
             @Override
@@ -94,9 +90,9 @@ public class FSMDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    new TableDialog(FSMDialog.this, fsm.createTruthTable(), library, null).setVisible(true);
+                    new TableDialog(FSMFrame.this, fsm.createTruthTable(), library, null).setVisible(true);
                 } catch (Exception e) {
-                    new ErrorMessage(Lang.get("msg_fsmCantCreateTable")).addCause(e).show(FSMDialog.this);
+                    new ErrorMessage(Lang.get("msg_fsmCantCreateTable")).addCause(e).show(FSMFrame.this);
                 }
             }
         }.createJMenuItem());
@@ -121,6 +117,9 @@ public class FSMDialog extends JDialog {
 
         setJMenuBar(bar);
 
+        pack();
+        fsmComponent.fitFSM();
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -135,7 +134,7 @@ public class FSMDialog extends JDialog {
         ElementLibrary library = new ElementLibrary();
         new ShapeFactory(library);
 
-        new FSMDialog(null, fsm, library).setVisible(true);
+        new FSMFrame(null, fsm, library).setVisible(true);
 
     }
 }
