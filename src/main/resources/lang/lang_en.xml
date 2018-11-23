@@ -1734,4 +1734,28 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
 
 </body></html>]]></string>
 
+
+    <string name="menu_fsm">Finite State Machine</string>
+    <string name="menu_fsm_tt">Opens a Dialog to Edit a Finite State Machine.</string>
+    <string name="fsm_title">Finite State Machine</string>
+    <string name="menu_fsm_create">Create</string>
+    <string name="menu_fsm_create_table">State Transition Table</string>
+    <string name="fsm_move">Move</string>
+    <string name="err_notDeterministic_N">The FSM is not deterministic: {0}</string>
+    <string name="err_fsmNumberUsedTwice_N">State Number {0} used twice.</string>
+    <string name="err_fsmNoInitialState">There is no initial state (state number zero).</string>
+    <string name="err_fsmState_N_notFound">State ''{0}'' not found!</string>
+    <string name="err_fsmInvalidOutputAssignment_N">Wrong  assignment to output (''{0}'')!</string>
+    <string name="err_fsmErrorInCondition_N">Error in condition ''{0}''!</string>
+    <string name="key_stateNum">State Number</string>
+    <string name="key_stateNum_tt">The number which represents this state.</string>
+    <string name="key_stateValues">Outputs</string>
+    <string name="key_stateValues_tt">Defines the output values. If nothing is specified, all values are set to zero.
+        With simple assignments like "A=1, B=0" outputs can be set.
+    </string>
+    <string name="msg_fsmCantCreateTable">Can not create state transition table.</string>
+    <string name="key_transCond">Condition</string>
+    <string name="key_transCond_tt">A boolean expression.</string>
+    <string name="msg_fsmNewState">New State</string>
+
 </resources>

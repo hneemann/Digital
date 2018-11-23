@@ -106,14 +106,14 @@ public class FSM {
         for (State s : states)
             if (s.getName().equals(name))
                 return s;
-        throw new FiniteStateMachineException(Lang.get("err_fsmState_N_notFound!", name));
+        throw new FiniteStateMachineException(Lang.get("err_fsmState_N_notFound", name));
     }
 
     private State findState(int number) throws FiniteStateMachineException {
         for (State s : states)
             if (s.getNumber() == number)
                 return s;
-        throw new FiniteStateMachineException(Lang.get("err_fsmState_N_notFound!", number));
+        throw new FiniteStateMachineException(Lang.get("err_fsmState_N_notFound", number));
     }
 
     /**

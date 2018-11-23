@@ -1275,26 +1275,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
 
-    <string name="menu_fsm">Endlicher Automat</string>
-    <string name="menu_fsm_tt">Dialog für die Erstellung endlicher Automaten.</string>
-    <string name="fsm_title">Endlicher Automat</string>
-    <string name="menu_fsm_create">Erzeugen</string>
-    <string name="menu_fsm_create_table">Zustandsübergangstabelle</string>
-    <string name="fsm_move">Bewegen</string>
-    <string name="err_notDeterministic_N">Der Automat ist nicht deterministisch: {0}</string>
-    <string name="err_fsmNumberUsedTwice_N">Zustandsnummer {0} ist nicht eindeutig.</string>
-    <string name="err_fsmNoInitialState">Es gibt keinen Initialzustand.</string>
-    <string name="key_stateNum">Zustandsnummer</string>
-    <string name="key_stateNum_tt">Die Nummer welche diesen Zustand representiert.</string>
-    <string name="key_stateValues">Ausgänge</string>
-    <string name="key_stateValues_tt">Legt Ausgangswerte fest. Wird nichts angegeben, werden alle Werte auf Null gesetzt.
-        Mit einfachen Zuweisungen wie "A=1, B=0" können Ausgänge gesetzt werden.
-    </string>
-    <string name="msg_fsmCantCreateTable">Zustandsübergangstabelle kann nicht erzeugt werden.</string>
-    <string name="key_transCond">Bedingung</string>
-    <string name="key_transCond_tt">Ein boolscher Ausdruck.</string>
-    <string name="msg_fsmNewState">Neuer Zustand</string>
-
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>
     <string name="menu_analyse_tt">Analyse der aktuellen Schaltung</string>
@@ -1773,5 +1753,29 @@ hochohmig ('Z') gesetzt sein.</p>
 Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert zu prüfen.</p>
 
 </body></html>]]></string>
+
+
+    <string name="menu_fsm">Endlicher Automat</string>
+    <string name="menu_fsm_tt">Dialog für die Erstellung endlicher Automaten.</string>
+    <string name="fsm_title">Endlicher Automat</string>
+    <string name="menu_fsm_create">Erzeugen</string>
+    <string name="menu_fsm_create_table">Zustandsübergangstabelle</string>
+    <string name="fsm_move">Bewegen</string>
+    <string name="err_notDeterministic_N">Der Automat ist nicht deterministisch: {0}</string>
+    <string name="err_fsmNumberUsedTwice_N">Zustandsnummer {0} ist nicht eindeutig.</string>
+    <string name="err_fsmNoInitialState">Es gibt keinen Initialzustand.</string>
+    <string name="err_fsmState_N_notFound">Zustand ''{0}'' nicht gefunden!</string>
+    <string name="err_fsmInvalidOutputAssignment_N">Falsche Zuweisung an einen Ausgang (''{0}'')!</string>
+    <string name="err_fsmErrorInCondition_N">Fehler in Bedingung ''{0}''!</string>
+    <string name="key_stateNum">Zustandsnummer</string>
+    <string name="key_stateNum_tt">Die Nummer welche diesen Zustand representiert.</string>
+    <string name="key_stateValues">Ausgänge</string>
+    <string name="key_stateValues_tt">Legt Ausgangswerte fest. Wird nichts angegeben, werden alle Werte auf Null gesetzt.
+        Mit einfachen Zuweisungen wie "A=1, B=0" können Ausgänge gesetzt werden.
+    </string>
+    <string name="msg_fsmCantCreateTable">Zustandsübergangstabelle kann nicht erzeugt werden.</string>
+    <string name="key_transCond">Bedingung</string>
+    <string name="key_transCond_tt">Ein boolscher Ausdruck.</string>
+    <string name="msg_fsmNewState">Neuer Zustand</string>
 
 </resources>
