@@ -26,9 +26,10 @@ public class FSM {
 
     private ArrayList<State> states;
     private ArrayList<Transition> transitions;
-    private transient boolean initChecked;
     private transient boolean modified;
     private transient ModifiedListener modifiedListener;
+    private transient boolean isInitialChecked;
+    private transient Transition initialTransition;
 
     /**
      * Creates a proper configured XStream instance
@@ -134,6 +135,7 @@ public class FSM {
             state.setNumber(states.size());
         state.setFSM(this);
         states.add(state);
+        resetInitInitialization();
         return this;
     }
 
@@ -146,6 +148,7 @@ public class FSM {
     public FSM add(Transition transition) {
         transitions.add(transition);
         transition.setFSM(this);
+        resetInitInitialization();
         return this;
     }
 
@@ -230,10 +233,6 @@ public class FSM {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
-        if (!initChecked) {
-            checkInitState();
-            initChecked = true;
-        }
         for (State s : states)
             s.drawTo(gr);
         for (Transition t : transitions)
@@ -241,6 +240,9 @@ public class FSM {
     }
 
     private void checkInitState() {
+        initialTransition = null;
+        isInitialChecked = true;
+
         int count = 0;
         Transition found = null;
         for (Transition t : transitions) {
@@ -248,15 +250,31 @@ public class FSM {
                 count++;
                 found = t;
             }
+            if (t.getTargetState().getNumber() == 0)
+                return;
         }
         try {
-            if (count == 1 && !found.hasCondition()) {
-                found.getStartState().setInitial();
-                found.setInitial();
-            }
+            if (count == 1 && !found.hasCondition())
+                initialTransition = found;
         } catch (FiniteStateMachineException e) {
             // ignore
         }
+    }
+
+    void resetInitInitialization() {
+        isInitialChecked = false;
+    }
+
+    boolean isInitial(State state) {
+        if (!isInitialChecked)
+            checkInitState();
+        return initialTransition != null && state.getNumber() == 0;
+    }
+
+    boolean isInitial(Transition transition) {
+        if (!isInitialChecked)
+            checkInitState();
+        return transition == initialTransition;
     }
 
     /**
@@ -286,8 +304,8 @@ public class FSM {
         double delta = 2 * Math.PI / states.size();
         double rad = 0;
         for (State s : states)
-            if (s.getRadius() > rad)
-                rad = s.getRadius();
+            if (s.getVisualRadius() > rad)
+                rad = s.getVisualRadius();
 
         rad *= 4;
         double phi = 0;
@@ -354,6 +372,7 @@ public class FSM {
     public void remove(Transition transition) {
         transitions.remove(transition);
         wasModified();
+        resetInitInitialization();
     }
 
     /**
@@ -365,6 +384,7 @@ public class FSM {
         states.remove(state);
         transitions.removeIf(t -> t.getStartState() == state || t.getTargetState() == state);
         wasModified();
+        resetInitInitialization();
     }
 
     /**

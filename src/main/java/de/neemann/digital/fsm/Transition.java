@@ -27,7 +27,6 @@ public class Transition extends Movable {
     private String condition = "";
     private String values = "";
     private transient Expression conditionExpression;
-    private transient boolean isInitial;
     private transient TreeMap<String, Integer> valuesMap;
 
 
@@ -53,9 +52,7 @@ public class Transition extends Movable {
      * @param transitions the transitions
      */
     public void calcForce(List<State> states, List<Transition> transitions) {
-        float preferredDist = 20;
-        if (!isInitial)
-            preferredDist = Math.max(fromState.getRadius(), toState.getRadius()) * 5;
+        float preferredDist = Math.max(fromState.getVisualRadius(), toState.getVisualRadius()) * 5;
         calcForce(preferredDist, states, transitions);
     }
 
@@ -81,7 +78,7 @@ public class Transition extends Movable {
         VectorFloat center = fromState.getPos().add(toState.getPos()).mul(0.5f);
         addAttractiveTo(center, 1);
 
-        if (!isInitial) {
+        if (!isInitialTransition()) {
             for (State s : states)
                 addRepulsive(s.getPos(), 2000);
 
@@ -89,6 +86,10 @@ public class Transition extends Movable {
                 if (t != this)
                     addRepulsive(t.getPos(), 800);
         }
+    }
+
+    private boolean isInitialTransition() {
+        return getFsm() != null && getFsm().isInitial(this);
     }
 
     @Override
@@ -120,9 +121,9 @@ public class Transition extends Movable {
             anchorTo = anchorTo.sub(dif);
         }
 
-        VectorFloat difFrom = anchorFrom.sub(fromState.getPos()).norm().mul(fromState.getRadius() + Style.MAXLINETHICK);
-        VectorFloat difTo = anchorTo.sub(toState.getPos()).norm().mul(toState.getRadius() + Style.MAXLINETHICK + 2);
-        VectorFloat difToTip = anchorTo.sub(toState.getPos()).norm().mul(toState.getRadius() + Style.MAXLINETHICK);
+        VectorFloat difFrom = anchorFrom.sub(fromState.getPos()).norm().mul(fromState.getVisualRadius() + Style.MAXLINETHICK);
+        VectorFloat difTo = anchorTo.sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK + 2);
+        VectorFloat difToTip = anchorTo.sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK);
 
         final VectorFloat start = fromState.getPos().add(difFrom);
         final VectorFloat end = toState.getPos().add(difTo);
@@ -167,6 +168,8 @@ public class Transition extends Movable {
             this.condition = condition;
             wasModified();
             conditionExpression = null;
+            if (getFsm()!=null)
+                getFsm().resetInitInitialization();
         }
     }
 
@@ -268,10 +271,4 @@ public class Transition extends Movable {
         return fromState + " --[" + condition + "]-> " + toState;
     }
 
-    /**
-     * Mark this transition as initial transition
-     */
-    public void setInitial() {
-        isInitial = true;
-    }
 }

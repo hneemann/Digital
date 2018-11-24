@@ -263,6 +263,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             moveControl.setSelectedIndex(0);
             setFSM(FSM.loadFSM(file));
             setFilename(file);
+            lastModified=fsm.isModified();
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_fsm_errorLoadingFile")).addCause(e).show(this);
         }
@@ -273,6 +274,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             fsm.save(file);
             setFilename(file);
             save.setEnabled(false);
+            lastModified=fsm.isModified();
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_fsm_errorStoringFile")).addCause(e).show(this);
         }

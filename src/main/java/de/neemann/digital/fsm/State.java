@@ -18,6 +18,7 @@ public class State extends Movable {
 
     private static final int RAD = 70;
     private static final float REACH = 2000;
+    private static final int INIT_RADIUS = 20;
 
     private int number = -1;
     private String name;
@@ -25,7 +26,6 @@ public class State extends Movable {
     private String values = "";
 
     private transient TreeMap<String, Integer> valueMap;
-    private transient boolean isInitial;
 
     /**
      * Creates a new state
@@ -119,8 +119,8 @@ public class State extends Movable {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
-        if (isInitial) {
-            VectorInterface rad = new Vector(radius, radius);
+        if (isInitialState()) {
+            VectorInterface rad = new Vector(INIT_RADIUS, INIT_RADIUS);
             gr.drawCircle(getPos().sub(rad), getPos().add(rad), Style.FILLED);
         } else {
             VectorInterface rad = new Vector(radius, radius);
@@ -144,6 +144,20 @@ public class State extends Movable {
         }
     }
 
+    private boolean isInitialState() {
+        return getFsm() != null && getFsm().isInitial(this);
+    }
+
+    /**
+     * @return the radius of the state
+     */
+    float getVisualRadius() {
+        if (isInitialState())
+            return INIT_RADIUS;
+        else
+            return radius;
+    }
+
     /**
      * @return the radius of the state
      */
@@ -161,6 +175,8 @@ public class State extends Movable {
         if (this.number != number) {
             this.number = number;
             wasModified();
+            if (getFsm() != null)
+                getFsm().resetInitInitialization();
         }
         return this;
     }
@@ -202,11 +218,4 @@ public class State extends Movable {
         return this;
     }
 
-    /**
-     * Makes this state the initial state
-     */
-    public void setInitial() {
-        isInitial = true;
-        radius = 20;
-    }
 }
