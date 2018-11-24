@@ -93,7 +93,7 @@ public class Transition extends Movable {
         if (fromState != toState) {
             VectorFloat dist = fromState.getPos().sub(toState.getPos());
             VectorFloat p = position.sub(fromState.getPos());
-            VectorFloat n = new VectorFloat(dist.getYFloat(), -dist.getXFloat()).norm();
+            VectorFloat n = dist.getOrthogonal().norm();
             float l = p.mul(n);
             super.setPos(fromState.getPos().sub(dist.mul(0.5f)).add(n.mul(l)));
         } else
@@ -132,7 +132,7 @@ public class Transition extends Movable {
         gr.drawPolygon(p, arrowStyle);
 
         // arrow
-        VectorFloat lot = new VectorFloat(difTo.getYFloat(), -difTo.getXFloat()).mul(0.5f);
+        VectorFloat lot = difTo.getOrthogonal().mul(0.5f);
         gr.drawPolygon(new Polygon(false)
                 .add(end.add(difTo.add(lot).mul(0.2f)))
                 .add(arrowTip)
@@ -156,8 +156,11 @@ public class Transition extends Movable {
      * @param condition the condition
      */
     public void setCondition(String condition) {
-        this.condition = condition;
-        conditionExpression = null;
+        if (!this.condition.equals(condition)) {
+            this.condition = condition;
+            wasModified();
+            conditionExpression = null;
+        }
     }
 
     /**

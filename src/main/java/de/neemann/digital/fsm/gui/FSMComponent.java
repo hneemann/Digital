@@ -8,10 +8,8 @@ package de.neemann.digital.fsm.gui;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.draw.graphics.GraphicMinMax;
-import de.neemann.digital.draw.graphics.GraphicSwing;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.fsm.FSM;
 import de.neemann.digital.fsm.Movable;
 import de.neemann.digital.fsm.State;
@@ -50,14 +48,8 @@ public class FSMComponent extends JComponent {
 
     /**
      * Creates a new component
-     *
-     * @param fsm the fsm to visualize
      */
-    public FSMComponent(FSM fsm) {
-        this.fsm = fsm;
-
-        fsm.circle();
-
+    public FSMComponent() {
         addMouseWheelListener(e -> {
             Vector pos = getPosVector(e);
             double f = Math.pow(0.9, e.getWheelRotation());
@@ -69,6 +61,7 @@ public class FSMComponent extends JComponent {
         });
 
         MouseAdapter mouseListener = new MouseAdapter() {
+            private boolean screenDrag;
             private Vector newTransitionStartPos;
             private Vector delta;
             private Vector pos;
@@ -77,6 +70,7 @@ public class FSMComponent extends JComponent {
             public void mousePressed(MouseEvent e) {
                 pos = new Vector(e.getX(), e.getY());
                 final Vector posVector = getPosVector(e);
+                screenDrag=false;
                 if (mouse.isPrimaryClick(e)) {
                     elementMoved = fsm.getMovable(posVector);
                     if (elementMoved != null)
@@ -88,13 +82,16 @@ public class FSMComponent extends JComponent {
                         newTransitionFromState = (State) st;
                         repaint();
                     }
+                    screenDrag=true;
                 }
             }
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-                if (elementMoved instanceof State)
+                if (elementMoved instanceof State) {
                     ((State) elementMoved).toRaster();
+                    repaint();
+                }
                 elementMoved = null;
                 if (newTransitionFromState != null) {
                     final Vector posVector = getPosVector(mouseEvent);
@@ -130,7 +127,7 @@ public class FSMComponent extends JComponent {
             @Override
             public void mouseDragged(MouseEvent e) {
                 lastMousePos = getPosVector(e);
-                if (elementMoved == null && newTransitionFromState == null) {
+                if (elementMoved == null && newTransitionFromState == null && screenDrag) {
                     Vector newPos = new Vector(e.getX(), e.getY());
                     Vector delta = newPos.sub(pos);
                     double s = transform.getScaleX();
@@ -139,8 +136,10 @@ public class FSMComponent extends JComponent {
                     isManualScale = true;
                     repaint();
                 }
-                if (elementMoved != null)
+                if (elementMoved != null) {
                     elementMoved.setPos(getPosVector(e).sub(delta).toFloat());
+                    repaint();
+                }
                 if (newTransitionFromState != null)
                     repaint();
             }
@@ -177,6 +176,7 @@ public class FSMComponent extends JComponent {
 
     private void createNewState(Vector posVector, Point point) {
         ElementAttributes attr = new ElementAttributes();
+        attr.set(KEY_NUMBER, fsm.getStates().size());
         SwingUtilities.convertPointToScreen(point, this);
         AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this), point, attr, Keys.LABEL, KEY_NUMBER, KEY_VALUES);
         ad.setTitle(Lang.get("msg_fsmNewState"));
@@ -239,32 +239,48 @@ public class FSMComponent extends JComponent {
      * Fits the FSM to the window
      */
     public void fitFSM() {
-        GraphicMinMax gr = new GraphicMinMax();
-        fsm.drawTo(gr);
+        if (fsm != null) {
+            GraphicMinMax gr = new GraphicMinMax();
+            fsm.drawTo(gr);
 
-        AffineTransform newTrans = new AffineTransform();
-        if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
-            Vector delta = gr.getMax().sub(gr.getMin());
-            double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 2);
-            double sy = ((double) getHeight()) / (delta.y + Style.NORMAL.getThickness() * 2);
-            double s = Math.min(sx, sy);
+            AffineTransform newTrans = new AffineTransform();
+            if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
+                Vector delta = gr.getMax().sub(gr.getMin());
+                double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 2);
+                double sy = ((double) getHeight()) / (delta.y + Style.NORMAL.getThickness() * 2);
+                double s = Math.min(sx, sy);
 
 
-            newTrans.setToScale(s, s);  // set Scaling
+                newTrans.setToScale(s, s);  // set Scaling
 
-            Vector center = gr.getMin().add(gr.getMax()).div(2);
-            newTrans.translate(-center.x, -center.y);  // move drawing center to (0,0)
+                Vector center = gr.getMin().add(gr.getMax()).div(2);
+                newTrans.translate(-center.x, -center.y);  // move drawing center to (0,0)
 
-            Vector dif = new Vector(getWidth(), getHeight()).div(2);
-            newTrans.translate(dif.x / s, dif.y / s);  // move drawing center to frame center
-            isManualScale = false;
-        } else {
-            isManualScale = true;
+                Vector dif = new Vector(getWidth(), getHeight()).div(2);
+                newTrans.translate(dif.x / s, dif.y / s);  // move drawing center to frame center
+                isManualScale = false;
+            } else {
+                isManualScale = true;
+            }
+            if (!newTrans.equals(transform)) {
+                transform = newTrans;
+                repaint();
+            }
         }
-        if (!newTrans.equals(transform)) {
-            transform = newTrans;
-            repaint();
-        }
+    }
+
+    /**
+     * scales the fsm
+     *
+     * @param f factor to scale
+     */
+    public void scaleCircuit(double f) {
+        Vector dif = getPosVector(getWidth() / 2, getHeight() / 2);
+        transform.translate(dif.x, dif.y);
+        transform.scale(f, f);
+        transform.translate(-dif.x, -dif.y);
+        isManualScale = true;
+        repaint();
     }
 
     /**
@@ -290,7 +306,25 @@ public class FSMComponent extends JComponent {
         GraphicSwing gr = new GraphicSwing(gr2, 1);
         fsm.drawTo(gr);
 
-        if (newTransitionFromState != null)
-            gr.drawLine(newTransitionFromState.getPos(), lastMousePos, Style.NORMAL);
+        if (newTransitionFromState != null) {
+            VectorFloat d = lastMousePos.sub(newTransitionFromState.getPos()).norm().mul(16f);
+            VectorFloat a = d.getOrthogonal().norm().mul(8f);
+            gr.drawPolygon(new Polygon(false)
+                    .add(lastMousePos.sub(d).add(a))
+                    .add(lastMousePos)
+                    .add(lastMousePos.sub(d).sub(a)), Style.NORMAL);
+            gr.drawLine(newTransitionFromState.getPos(), lastMousePos.sub(d.mul(0.2f)), Style.NORMAL);
+        }
+    }
+
+    /**
+     * Sets the fsm to show
+     *
+     * @param fsm the fsm to show
+     */
+    public void setFSM(FSM fsm) {
+        this.fsm = fsm;
+        fitFSM();
+        repaint();
     }
 }

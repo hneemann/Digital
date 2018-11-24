@@ -12,8 +12,9 @@ import de.neemann.digital.draw.graphics.VectorFloat;
  */
 public class Movable {
     private VectorFloat position;
-    private VectorFloat speed;
-    private VectorFloat force;
+    private transient VectorFloat speed;
+    private transient VectorFloat force;
+    private transient FSM fsm;
 
     /**
      * Creates a new instance
@@ -30,7 +31,15 @@ public class Movable {
      * @param position the position
      */
     public void setPos(VectorFloat position) {
-        this.position = position;
+        if (!this.position.equals(position)) {
+            this.position = position;
+            wasModified();
+        }
+    }
+
+    void wasModified() {
+        if (fsm != null)
+            fsm.wasModified();
     }
 
     /**
@@ -39,7 +48,10 @@ public class Movable {
      * @param df the force to add
      */
     public void addToForce(VectorFloat df) {
-        force = force.add(df);
+        if (force == null)
+            force = df;
+        else
+            force = force.add(df);
     }
 
     /**
@@ -92,6 +104,8 @@ public class Movable {
      * @return the force
      */
     public VectorFloat getForce() {
+        if (force == null)
+            resetForce();
         return force;
     }
 
@@ -115,9 +129,19 @@ public class Movable {
      * @param dt the time step
      */
     public void move(int dt) {
-        speed = speed.add(force.mul(dt / 200f));
+        if (speed == null)
+            speed = force.mul(dt / 200f);
+        else
+            speed = speed.add(force.mul(dt / 200f));
         setPos(position.add(speed.mul(dt / 1000f)));
         speed = speed.mul(0.7f);
     }
 
+    void setFSM(FSM fsm) {
+        this.fsm = fsm;
+    }
+
+    FSM getFsm() {
+        return fsm;
+    }
 }

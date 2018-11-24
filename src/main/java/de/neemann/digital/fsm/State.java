@@ -47,8 +47,11 @@ public class State extends Movable {
      * @return this for chained calls
      */
     public State setValues(String values) {
-        this.values = values;
-        valueMap = null;
+        if (!this.values.equals(values)) {
+            this.values = values;
+            valueMap = null;
+            wasModified();
+        }
         return this;
     }
 
@@ -100,7 +103,10 @@ public class State extends Movable {
      * @param name the name to set
      */
     public void setName(String name) {
-        this.name = name;
+        if (!this.name.equals(name)) {
+            this.name = name;
+            wasModified();
+        }
     }
 
     /**
@@ -172,7 +178,10 @@ public class State extends Movable {
      * @return this for chained calls
      */
     public State setNumber(int number) {
-        this.number = number;
+        if (this.number!=number) {
+            this.number = number;
+            wasModified();
+        }
         return this;
     }
 

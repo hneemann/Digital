@@ -146,4 +146,13 @@ public class VectorFloat implements VectorInterface {
     public VectorFloat toFloat() {
         return this;
     }
+
+    /**
+     * Creates vector which is orthogonal to this one.
+     *
+     * @return the orthogonal vector
+     */
+    public VectorFloat getOrthogonal() {
+        return new VectorFloat(y, -x);
+    }
 }
