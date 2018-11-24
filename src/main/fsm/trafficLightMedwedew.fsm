@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fsm>
+  <states>
+    <state>
+      <position x="600.0" y="180.0"/>
+      <number>1</number>
+      <name>Red</name>
+      <radius>70</radius>
+      <values>R=1</values>
+    </state>
+    <state>
+      <position x="780.0" y="360.0"/>
+      <number>3</number>
+      <name>Red/Yellow</name>
+      <radius>70</radius>
+      <values>R=1,Y=1</values>
+    </state>
+    <state>
+      <position x="600.0" y="540.0"/>
+      <number>4</number>
+      <name>Green</name>
+      <radius>70</radius>
+      <values>G=1</values>
+    </state>
+    <state>
+      <position x="420.0" y="360.0"/>
+      <number>2</number>
+      <name>Yellow</name>
+      <radius>70</radius>
+      <values>Y=1</values>
+    </state>
+    <state>
+      <position x="420.0" y="120.0"/>
+      <number>0</number>
+      <name>init</name>
+      <radius>70</radius>
+      <values></values>
+    </state>
+  </states>
+  <transitions>
+    <transition>
+      <position x="743.5" y="216.5"/>
+      <fromState reference="../../../states/state"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition></condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="742.5" y="502.5"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition></condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="459.0" y="501.0"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition></condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="463.5" y="223.5"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state"/>
+      <condition></condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="510.5" y="148.5"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state"/>
+      <condition></condition>
+      <values></values>
+    </transition>
+  </transitions>
+</fsm>

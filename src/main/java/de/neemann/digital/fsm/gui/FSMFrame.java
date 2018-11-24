@@ -28,11 +28,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.prefs.Preferences;
 
 /**
  * The dialog to show the FSM
  */
 public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSave, FSM.ModifiedListener {
+    private static final Preferences PREFS = Preferences.userRoot().node("dig").node("fsm");
+    private static final String PREF_FOLDER = "folder";
     private static final Icon ICON_NEW = IconCreator.create("document-new.png");
     private static final Icon ICON_OPEN = IconCreator.create("document-open.png");
     private static final Icon ICON_SAVE = IconCreator.create("document-save.png");
@@ -219,6 +222,11 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         File folder = null;
         if (filename != null)
             folder = filename.getParentFile();
+        if (folder == null) {
+            String folderStr = PREFS.get(PREF_FOLDER, null);
+            if (folderStr != null)
+                folder = new File(folderStr);
+        }
 
         JFileChooser fileChooser = new MyFileChooser(folder);
         fileChooser.setFileFilter(new FileNameExtensionFilter("FSM", "fsm"));
@@ -263,7 +271,8 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             moveControl.setSelectedIndex(0);
             setFSM(FSM.loadFSM(file));
             setFilename(file);
-            lastModified=fsm.isModified();
+            lastModified = fsm.isModified();
+            PREFS.put(PREF_FOLDER, file.getParent());
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_fsm_errorLoadingFile")).addCause(e).show(this);
         }
@@ -274,7 +283,8 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             fsm.save(file);
             setFilename(file);
             save.setEnabled(false);
-            lastModified=fsm.isModified();
+            lastModified = fsm.isModified();
+            PREFS.put(PREF_FOLDER, file.getParent());
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_fsm_errorStoringFile")).addCause(e).show(this);
         }

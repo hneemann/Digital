@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fsm>
+  <states>
+    <state>
+      <position x="0.0" y="0.0"/>
+      <number>0</number>
+      <name>S0</name>
+      <radius>70</radius>
+      <values>P=1100</values>
+    </state>
+    <state>
+      <position x="240.0" y="240.0"/>
+      <number>1</number>
+      <name>S2</name>
+      <radius>70</radius>
+      <values>P=0110</values>
+    </state>
+    <state>
+      <position x="0.0" y="480.0"/>
+      <number>2</number>
+      <name>S4</name>
+      <radius>70</radius>
+      <values>P=0011</values>
+    </state>
+    <state>
+      <position x="-240.0" y="240.0"/>
+      <number>3</number>
+      <name>S6</name>
+      <radius>70</radius>
+      <values>P=1001</values>
+    </state>
+  </states>
+  <transitions>
+    <transition>
+      <position x="199.9632" y="40.03681"/>
+      <fromState reference="../../../states/state"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>D</condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="199.96738" y="439.96738"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition>D</condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="-199.96794" y="439.96796"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>D</condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="-199.94647" y="40.05352"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state"/>
+      <condition>D</condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="-131.07336" y="108.926636"/>
+      <fromState reference="../../../states/state"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>!D</condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="-131.10211" y="371.1021"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition>!D</condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="131.10098" y="371.10098"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>!D</condition>
+      <values></values>
+    </transition>
+    <transition>
+      <position x="131.0957" y="108.9043"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state"/>
+      <condition>!D</condition>
+      <values></values>
+    </transition>
+  </transitions>
+</fsm>
