@@ -6,10 +6,8 @@
 package de.neemann.digital.fsm;
 
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.lang.Lang;
 
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 /**
@@ -26,7 +24,7 @@ public class State extends Movable {
     private int radius;
     private String values = "";
 
-    private transient TreeMap<String, Long> valueMap;
+    private transient TreeMap<String, Integer> valueMap;
     private transient boolean isInitial;
 
     /**
@@ -66,27 +64,9 @@ public class State extends Movable {
      * @return the state value map
      * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public TreeMap<String, Long> getValueMap() throws FiniteStateMachineException {
-        if (valueMap == null) {
-            valueMap = new TreeMap<>();
-            if (values != null) {
-                StringTokenizer st = new StringTokenizer(values, ";,");
-                while (st.hasMoreTokens()) {
-                    String tok = st.nextToken();
-                    int p = tok.indexOf('=');
-                    if (p < 0)
-                        throw new FiniteStateMachineException(Lang.get("err_fsmInvalidOutputAssignment_N", values));
-                    String key = tok.substring(0, p).trim();
-                    String valStr = tok.substring(p + 1).trim();
-                    try {
-                        long val = Long.parseLong(valStr);
-                        valueMap.put(key, val);
-                    } catch (NumberFormatException e) {
-                        throw new FiniteStateMachineException(Lang.get("err_fsmInvalidOutputAssignment_N", valStr), e);
-                    }
-                }
-            }
-        }
+    public TreeMap<String, Integer> getValueMap() throws FiniteStateMachineException {
+        if (valueMap == null)
+            valueMap = new ValueParser(values).parse();
         return valueMap;
     }
 
@@ -178,7 +158,7 @@ public class State extends Movable {
      * @return this for chained calls
      */
     public State setNumber(int number) {
-        if (this.number!=number) {
+        if (this.number != number) {
             this.number = number;
             wasModified();
         }

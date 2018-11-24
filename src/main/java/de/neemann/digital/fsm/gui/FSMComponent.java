@@ -210,13 +210,15 @@ public class FSMComponent extends JComponent {
 
     private void editTransition(Transition transition, Point point) {
         ElementAttributes attr = new ElementAttributes()
-                .set(KEY_CONDITION, transition.getCondition());
+                .set(KEY_CONDITION, transition.getCondition())
+                .set(KEY_VALUES, transition.getValues());
         SwingUtilities.convertPointToScreen(point, this);
         AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
-                point, attr, KEY_CONDITION);
+                point, attr, KEY_CONDITION, KEY_VALUES);
         ElementAttributes newAttr = ad.showDialog();
         if (newAttr != null) {
             transition.setCondition(newAttr.get(KEY_CONDITION));
+            transition.setValues(newAttr.get(KEY_VALUES));
             repaint();
         }
     }

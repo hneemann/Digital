@@ -131,4 +131,29 @@ public class TransitionTableCreatorTest extends TestCase {
         }
     }
 
+    public void testMealy() throws Exception {
+        State a = new State("a").setNumber(0);
+        State b = new State("b").setNumber(1);
+        FSM fsm = new FSM(a, b)
+                .add(new Transition(a,b,"R").setValues("Y=1"))
+                .transition(b, a, "");
+
+        TruthTable tt = new TransitionTableCreator(fsm).create();
+        assertEquals(4, tt.getRows());
+        assertEquals(2, tt.getResultCount());
+
+        ExpressionListenerStore el = new ExpressionListenerStore(null);
+        new MinimizerQuineMcCluskey().minimize(tt.getVars(), tt.getResult(0), "Y", el);
+
+        assertEquals(1, el.getResults().size());
+        assertEquals("and(not(Q0_n),R)", el.getFirst().toString());
+
+        el = new ExpressionListenerStore(null);
+        new MinimizerQuineMcCluskey().minimize(tt.getVars(), tt.getResult(1), "Y", el);
+
+        assertEquals(1, el.getResults().size());
+        assertEquals("and(not(Q0_n),R)", el.getFirst().toString());
+
+    }
+
 }

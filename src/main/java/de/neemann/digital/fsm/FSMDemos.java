@@ -19,6 +19,7 @@ public final class FSMDemos {
      * @return the fsm
      */
     public static FSM rotDecoder() {
+        State init = new State("init");
         State top = new State("top");
         State topSetLeft = new State("topSetLeft").setValues("L=1");
         State topSetRight = new State("topSetRight").setValues("R=1");
@@ -29,7 +30,10 @@ public final class FSMDemos {
         State bottomSetRight = new State("bottomSetLeft").setValues("L=1");
         State rightTop = new State("rightTop");
         State rightBottom = new State("rightBottom");
-        return new FSM(top, topSetLeft, leftTop, leftBottom, bottomSetLeft, bottom, bottomSetRight, rightBottom, rightTop, topSetRight)
+        return new FSM(init, top, topSetLeft, leftTop, leftBottom, bottomSetLeft, bottom, bottomSetRight, rightBottom, rightTop, topSetRight)
+                .transition(init, top, "A=0 & B=0")
+                .transition(init, bottom, "A=1 & B=1")
+
                 .transition(top, leftTop, "A=1 & B=0")
                 .transition(top, rightTop, "A=0 & B=1")
                 .transition(topSetLeft, top, null)

@@ -12,10 +12,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.VariableVisitor;
 import de.neemann.digital.lang.Lang;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Creates a transition table from given states and transitions
@@ -44,7 +41,7 @@ public class TransitionTableCreator {
      *
      * @return the transition table
      * @throws FiniteStateMachineException FiniteStateMachineException
-     * @throws ExpressionException        ExpressionException
+     * @throws ExpressionException         ExpressionException
      */
     public TruthTable create() throws FiniteStateMachineException, ExpressionException {
         stateBits = getStateVarBits();
@@ -64,6 +61,8 @@ public class TransitionTableCreator {
         TreeSet<String> results = new TreeSet<>();
         for (State s : states)
             results.addAll(s.getValueMap().keySet());
+        for (Transition t : transitions)
+            results.addAll(t.getValueMap().keySet());
 
         for (String name : results)
             truthTable.addResult(name);
@@ -71,14 +70,14 @@ public class TransitionTableCreator {
         // set all to dc
         truthTable.setAllTo(2);
 
-        // set output variables
+        // set state output variables
         for (State s : states) {
             int row = s.getNumber();
             int col = stateBits * 2;
             for (String name : results) {
-                Long val = s.getValueMap().get(name);
-                long v = val == null ? 0 : val;
-                truthTable.setValue(row, col, (int) v);
+                Integer val = s.getValueMap().get(name);
+                int v = val == null ? 0 : val;
+                truthTable.setValue(row, col, v);
                 col++;
             }
         }
@@ -112,19 +111,19 @@ public class TransitionTableCreator {
         // fill in the unconditional transitions
         for (Transition t : transitions)
             if (!t.hasCondition())
-                fillInTransition(t);
+                fillInTransition(t, results);
 
         transitionSet = new boolean[truthTable.getRows()];
 
         // fill in the conditional transitions
         for (Transition t : transitions)
             if (t.hasCondition())
-                fillInTransition(t);
+                fillInTransition(t, results);
 
         return truthTable;
     }
 
-    private void fillInTransition(Transition t) throws ExpressionException, FiniteStateMachineException {
+    private void fillInTransition(Transition t, TreeSet<String> results) throws ExpressionException, FiniteStateMachineException {
         int startState = t.getStartState().getNumber();
         int startRow = startState * rowsPerState;
         ContextMap c = new ContextMap();
@@ -140,11 +139,24 @@ public class TransitionTableCreator {
 
                 checkRow(row, t);
 
+                // fill in transition
                 int mask = t.getTargetState().getNumber();
                 for (int j = 0; j < stateBits; j++) {
                     col--;
                     truthTable.setValue(row, col, mask & 1);
                     mask >>= 1;
+                }
+
+                // fill in output state, if any
+                final TreeMap<String, Integer> valueMap = t.getValueMap();
+                if (!valueMap.isEmpty()) {
+                    col = stateBits * 2 + results.size();
+                    for (String name : results) {
+                        Integer val = valueMap.get(name);
+                        if (val != null)
+                            truthTable.setValue(row, col, val);
+                        col++;
+                    }
                 }
             }
         }

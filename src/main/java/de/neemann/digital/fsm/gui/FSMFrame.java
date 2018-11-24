@@ -129,6 +129,8 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
                         fsmComponent.repaint();
                         break;
                     case 1:
+                        if (moveStates)
+                            fsm.toRaster();
                         moveStates = false;
                         timer.start();
                         break;

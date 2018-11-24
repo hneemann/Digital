@@ -14,6 +14,7 @@ import de.neemann.digital.lang.Lang;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Represents a transition
@@ -24,8 +25,10 @@ public class Transition extends Movable {
     private final State fromState;
     private final State toState;
     private String condition = "";
+    private String values = "";
     private transient Expression conditionExpression;
     private transient boolean isInitial;
+    private transient TreeMap<String, Integer> valuesMap;
 
 
     /**
@@ -140,6 +143,10 @@ public class Transition extends Movable {
         if (condition != null && condition.length() > 0) {
             gr.drawText(getPos(), getPos().add(new Vector(1, 0)), condition, Orientation.CENTERCENTER, Style.NORMAL);
         }
+        if (values != null && values.length() > 0) {
+            VectorFloat pos = getPos().add(new VectorFloat(0, Style.NORMAL.getFontSize()));
+            gr.drawText(pos, pos.add(new Vector(1, 0)), values, Orientation.CENTERCENTER, Style.NORMAL);
+        }
     }
 
     /**
@@ -196,6 +203,40 @@ public class Transition extends Movable {
      */
     public boolean hasCondition() throws FiniteStateMachineException {
         return getConditionExpression() != null;
+    }
+
+    /**
+     * @return the transitions values
+     */
+    public String getValues() {
+        return values;
+    }
+
+    /**
+     * Sets the values
+     *
+     * @param values the values to use
+     * @return this for chained calls
+     */
+    public Transition setValues(String values) {
+        if (!this.values.equals(values)) {
+            this.values = values;
+            valuesMap = null;
+            wasModified();
+        }
+        return this;
+    }
+
+    /**
+     * Returns the values map
+     *
+     * @return the values
+     * @throws FiniteStateMachineException FiniteStateMachineException
+     */
+    public TreeMap<String, Integer> getValueMap() throws FiniteStateMachineException {
+        if (valuesMap == null)
+            valuesMap = new ValueParser(values).parse();
+        return valuesMap;
     }
 
     /**
