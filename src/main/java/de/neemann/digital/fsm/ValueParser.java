@@ -15,6 +15,7 @@ import java.util.TreeMap;
  */
 public class ValueParser {
     private final String values;
+    private TreeMap<String, Integer> valueMap;
 
     /**
      * Create a new instance
@@ -23,6 +24,7 @@ public class ValueParser {
      */
     public ValueParser(String values) {
         this.values = values;
+        valueMap = new TreeMap<>();
     }
 
     /**
@@ -32,9 +34,8 @@ public class ValueParser {
      * @throws FiniteStateMachineException FiniteStateMachineException
      */
     public TreeMap<String, Integer> parse() throws FiniteStateMachineException {
-        TreeMap<String, Integer> valueMap = new TreeMap<>();
         if (values != null) {
-            StringTokenizer st = new StringTokenizer(values, ";,");
+            final StringTokenizer st = new StringTokenizer(values, ";,");
             while (st.hasMoreTokens()) {
                 String tok = st.nextToken();
                 int p = tok.indexOf('=');
@@ -42,21 +43,31 @@ public class ValueParser {
                     throw new FiniteStateMachineException(Lang.get("err_fsmInvalidOutputAssignment_N", values));
                 String key = tok.substring(0, p).trim();
                 String valStr = tok.substring(p + 1).trim().toLowerCase();
-                switch (valStr) {
-                    case "0":
-                        valueMap.put(key, 0);
-                        break;
-                    case "1":
-                        valueMap.put(key, 1);
-                        break;
-                    case "x":
-                        valueMap.put(key, 2);
-                        break;
-                    default:
-                        throw new FiniteStateMachineException(Lang.get("err_fsmInvalidOutputAssignment_N", valStr));
+                int len = valStr.length();
+                if (len == 1)
+                    setVarByChar(key, valStr.charAt(0));
+                else {
+                    for (int i = 0; i < len; i++)
+                        setVarByChar(key + i, valStr.charAt(len - i - 1));
                 }
             }
         }
         return valueMap;
+    }
+
+    private void setVarByChar(String key, char valStr) throws FiniteStateMachineException {
+        switch (valStr) {
+            case '0':
+                valueMap.put(key, 0);
+                break;
+            case '1':
+                valueMap.put(key, 1);
+                break;
+            case 'x':
+                valueMap.put(key, 2);
+                break;
+            default:
+                throw new FiniteStateMachineException(Lang.get("err_fsmInvalidOutputAssignment_N", valStr));
+        }
     }
 }

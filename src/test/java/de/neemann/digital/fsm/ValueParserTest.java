@@ -22,5 +22,14 @@ public class ValueParserTest extends TestCase {
         assertEquals(2, (long) v.get("B"));
     }
 
+    public void testMultiBitValues() throws FiniteStateMachineException {
+        TreeMap<String, Integer> v = new ValueParser("A=1101").parse();
+        assertEquals(4, v.size());
+        assertEquals(1, (long) v.get("A0"));
+        assertEquals(0, (long) v.get("A1"));
+        assertEquals(1, (long) v.get("A2"));
+        assertEquals(1, (long) v.get("A3"));
+    }
+
 
 }
