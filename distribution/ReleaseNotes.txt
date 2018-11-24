@@ -2,6 +2,8 @@ Release Notes
 
 HEAD, planned as v0.21
 
+- Added an FSM editor, which allows to input a fsm, creating a associated
+  truth table and finally allows to create a circuit which implements the FSM.
 - Added a divider component.
 - Added signed multiplications.
 - Wider shapes were enabled, to better match the IEEE shapes to the standard.
