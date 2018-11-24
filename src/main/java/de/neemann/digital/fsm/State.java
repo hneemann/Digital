@@ -192,11 +192,14 @@ public class State extends Movable {
 
     /**
      * Sets state to raster
+     *
+     * @return this for chained calls
      */
-    public void toRaster() {
+    public State toRaster() {
         setPosition(new VectorFloat(
                 Math.round(getPos().getXFloat() / RASTER) * RASTER,
                 Math.round(getPos().getYFloat() / RASTER) * RASTER));
+        return this;
     }
 
     /**

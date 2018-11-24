@@ -182,11 +182,11 @@ public class FSMComponent extends JComponent {
         ad.setTitle(Lang.get("msg_fsmNewState"));
         ElementAttributes newAttr = ad.showDialog();
         if (newAttr != null) {
-            State s = new State(newAttr.get(Keys.LABEL))
-                    .setPosition(posVector.toFloat())
+            fsm.add(new State(newAttr.get(Keys.LABEL))
                     .setNumber(newAttr.get(KEY_NUMBER))
-                    .setValues(newAttr.get(KEY_VALUES));
-            fsm.add(s);
+                    .setValues(newAttr.get(KEY_VALUES))
+                    .setPosition(posVector.toFloat())
+                    .toRaster());
             repaint();
         }
     }

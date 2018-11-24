@@ -5,11 +5,14 @@
  */
 package de.neemann.digital.fsm.gui;
 
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.fsm.FSM;
 import de.neemann.digital.fsm.FSMDemos;
 import de.neemann.digital.gui.SaveAsHelper;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
@@ -22,7 +25,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * The dialog to show the FSM
@@ -69,7 +74,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
      */
     public FSMFrame(JFrame parent, FSM givenFsm, ElementLibrary library) {
         super(Lang.get("fsm_title"));
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         if (givenFsm == null) {
             givenFsm = FSMDemos.rotDecoder();
             givenFsm.circle();
@@ -87,6 +92,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             }
         });
 
+        addWindowListener(new ClosingWindowListener(this, this));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
@@ -200,12 +206,18 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             }
         }.setAcceleratorCTRLplus('S').setEnabledChain(false);
 
+        JMenu export = new JMenu(Lang.get("menu_export"));
+        export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
+        export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
+
+
         JMenu file = new JMenu(Lang.get("menu_file"));
         bar.add(file);
         file.add(newFile.createJMenuItem());
         file.add(open.createJMenuItem());
         file.add(save.createJMenuItem());
         file.add(saveAs.createJMenuItem());
+        file.add(export);
 
         toolBar.add(newFile.createJButtonNoText());
         toolBar.add(open.createJButtonNoText());
@@ -235,7 +247,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         else
             fsmTitle = filename.toString() + " - " + Lang.get("fsm_title");
 
-        if (fsm.hasChanged())
+        if (fsm.isModified())
             fsmTitle = "*" + fsmTitle;
         setTitle(fsmTitle);
 
@@ -244,7 +256,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
 
     @Override
     public boolean isStateChanged() {
-        return fsm.hasChanged();
+        return fsm.isModified();
     }
 
     @Override
@@ -320,6 +332,46 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         view.add(zoomIn.createJMenuItem());
     }
 
+    private class ExportAction extends ToolTipAction {
+        private final String name;
+        private final String suffix;
+        private final ExportFactory exportFactory;
+
+        ExportAction(String name, String suffix, ExportFactory exportFactory) {
+            super(name);
+            this.name = name;
+            this.suffix = suffix;
+            this.exportFactory = exportFactory;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fc = new MyFileChooser();
+            if (filename != null)
+                fc.setSelectedFile(SaveAsHelper.checkSuffix(filename, suffix));
+
+            ElementAttributes settings = Settings.getInstance().getAttributes();
+            File exportDir = settings.getFile("exportDirectory");
+            if (exportDir != null)
+                fc.setCurrentDirectory(exportDir);
+
+            fc.addChoosableFileFilter(new FileNameExtensionFilter(name, suffix));
+            new SaveAsHelper(FSMFrame.this, fc, suffix).checkOverwrite(
+                    file -> {
+                        settings.setFile("exportDirectory", file.getParentFile());
+                        try (OutputStream out = new FileOutputStream(file)) {
+                            try (Graphic gr = exportFactory.create(out)) {
+                                GraphicMinMax minMax = new GraphicMinMax(gr);
+                                fsm.drawTo(minMax);
+
+                                gr.setBoundingBox(minMax.getMin(), minMax.getMax());
+                                fsm.drawTo(gr);
+                            }
+                        }
+                    }
+            );
+        }
+    }
 
     /**
      * A simple test method
@@ -332,7 +384,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         ElementLibrary library = new ElementLibrary();
         new ShapeFactory(library);
 
-        new FSMFrame(null, fsm.circle(), library).setVisible(true);
+        new FSMFrame(null, fsm.circle().setModified(false), library).setVisible(true);
     }
 
 }

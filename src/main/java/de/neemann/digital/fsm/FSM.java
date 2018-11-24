@@ -388,8 +388,21 @@ public class FSM {
     /**
      * @return true if fsm has changed
      */
-    public boolean hasChanged() {
+    public boolean isModified() {
         return modified;
+    }
+
+    /**
+     * Sets the modified flag
+     *
+     * @param modified the modified flag
+     * @return this for chained calls
+     */
+    public FSM setModified(boolean modified) {
+        if (modifiedListener != null)
+            throw new RuntimeException("call not allowed");
+        this.modified = modified;
+        return this;
     }
 
     /**
