@@ -49,7 +49,7 @@ public class FSMComponent extends JComponent {
     /**
      * Creates a new component
      */
-    public FSMComponent() {
+    FSMComponent() {
         addMouseWheelListener(e -> {
             Vector pos = getPosVector(e);
             double f = Math.pow(0.9, e.getWheelRotation());
@@ -70,7 +70,7 @@ public class FSMComponent extends JComponent {
             public void mousePressed(MouseEvent e) {
                 pos = new Vector(e.getX(), e.getY());
                 final Vector posVector = getPosVector(e);
-                screenDrag=false;
+                screenDrag = false;
                 if (mouse.isPrimaryClick(e)) {
                     elementMoved = fsm.getMovable(posVector);
                     if (elementMoved != null)
@@ -82,7 +82,7 @@ public class FSMComponent extends JComponent {
                         newTransitionFromState = (State) st;
                         repaint();
                     }
-                    screenDrag=true;
+                    screenDrag = true;
                 }
             }
 
@@ -151,10 +151,13 @@ public class FSMComponent extends JComponent {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Movable element = fsm.getMovable(lastMousePos);
-                if (element instanceof State)
+                if (element instanceof State) {
                     fsm.remove((State) element);
-                else if (element instanceof Transition)
+                    repaint();
+                } else if (element instanceof Transition) {
                     fsm.remove((Transition) element);
+                    repaint();
+                }
             }
         }.setToolTip(Lang.get("menu_delete_tt"));
 
@@ -240,7 +243,7 @@ public class FSMComponent extends JComponent {
     /**
      * Fits the FSM to the window
      */
-    public void fitFSM() {
+    void fitFSM() {
         if (fsm != null) {
             GraphicMinMax gr = new GraphicMinMax();
             fsm.drawTo(gr);
@@ -276,7 +279,7 @@ public class FSMComponent extends JComponent {
      *
      * @param f factor to scale
      */
-    public void scaleCircuit(double f) {
+    void scaleCircuit(double f) {
         Vector dif = getPosVector(getWidth() / 2, getHeight() / 2);
         transform.translate(dif.x, dif.y);
         transform.scale(f, f);
@@ -288,7 +291,7 @@ public class FSMComponent extends JComponent {
     /**
      * @return the element picked by the mouse
      */
-    public Movable getElementMoved() {
+    Movable getElementMoved() {
         return elementMoved;
     }
 

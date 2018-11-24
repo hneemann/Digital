@@ -20,7 +20,7 @@ public class State extends Movable {
     private static final float REACH = 2000;
 
     private int number = -1;
-    private String name = "";
+    private String name;
     private int radius;
     private String values = "";
 

@@ -31,7 +31,7 @@ public class TransitionTableCreator {
      *
      * @param fsm the fsm
      */
-    public TransitionTableCreator(FSM fsm) {
+    TransitionTableCreator(FSM fsm) {
         this.states = fsm.getStates();
         this.transitions = fsm.getTransitions();
     }

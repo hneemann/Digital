@@ -51,21 +51,6 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private boolean lastModified;
 
     /**
-     * Use only for tests!
-     *
-     * @param givenFsm the fsm to visualize
-     */
-    public FSMFrame(FSM givenFsm) {
-        this(null, givenFsm, createLibrary());
-    }
-
-    private static ElementLibrary createLibrary() {
-        ElementLibrary library = new ElementLibrary();
-        new ShapeFactory(library);
-        return library;
-    }
-
-    /**
      * Creates a new instance
      *
      * @param parent   the parents frame
