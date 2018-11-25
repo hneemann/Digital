@@ -16,7 +16,7 @@ public class State extends Movable<State> {
     /**
      * The default state radius
      */
-    public static final int DEFAULT_RAD = 70;
+    static final int DEFAULT_RAD = 70;
 
     private static final int RASTER = 60;
     private static final float REACH = 2000;
@@ -72,7 +72,7 @@ public class State extends Movable<State> {
      *
      * @param states the states to take into account
      */
-    public void calcExpansionForce(List<State> states) {
+    void calcExpansionForce(List<State> states) {
         resetForce();
         for (State s : states)
             if (s != this)

@@ -48,7 +48,7 @@ public class Transition extends Movable<Transition> {
      * @param states      the states
      * @param transitions the transitions
      */
-    public void calcForce(List<State> states, List<Transition> transitions) {
+    void calcForce(List<State> states, List<Transition> transitions) {
         float preferredDist = Math.max(fromState.getVisualRadius(), toState.getVisualRadius()) * 5;
         calcForce(preferredDist, states, transitions);
     }
@@ -60,7 +60,7 @@ public class Transition extends Movable<Transition> {
      * @param states        the states
      * @param transitions   the transitions
      */
-    public void calcForce(float preferredDist, List<State> states, List<Transition> transitions) {
+    void calcForce(float preferredDist, List<State> states, List<Transition> transitions) {
 
         if (fromState != toState) {
             VectorFloat dir = fromState.getPos().sub(toState.getPos());
@@ -150,7 +150,7 @@ public class Transition extends Movable<Transition> {
     /**
      * Initializes the position of the transition
      */
-    public void initPos() {
+    void initPos() {
         setPos(fromState.getPos().add(toState.getPos()).mul(0.5f)
                 .add(new VectorFloat((float) Math.random() - 0.5f, (float) Math.random() - 0.5f).mul(30)));
     }
@@ -181,7 +181,7 @@ public class Transition extends Movable<Transition> {
      * @return the condition
      * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public Expression getConditionExpression() throws FiniteStateMachineException {
+    Expression getConditionExpression() throws FiniteStateMachineException {
         if (conditionExpression == null) {
             if (condition != null && condition.trim().length() > 0)
                 try {
@@ -201,21 +201,21 @@ public class Transition extends Movable<Transition> {
      * @return true if this transition has a condition
      * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public boolean hasCondition() throws FiniteStateMachineException {
+    boolean hasCondition() throws FiniteStateMachineException {
         return getConditionExpression() != null;
     }
 
     /**
      * @return the starting state
      */
-    public State getStartState() {
+    State getStartState() {
         return fromState;
     }
 
     /**
      * @return the target state
      */
-    public State getTargetState() {
+    State getTargetState() {
         return toState;
     }
 
