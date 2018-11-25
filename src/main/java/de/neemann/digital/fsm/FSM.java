@@ -339,13 +339,13 @@ public class FSM {
      * @return the element or null
      */
     public Movable getMovable(Vector pos) {
-        for (State s : states)
-            if (s.matches(pos))
-                return s;
-
         for (Transition t : transitions)
             if (t.matches(pos))
                 return t;
+
+        for (State s : states)
+            if (s.matches(pos))
+                return s;
 
         return null;
     }
