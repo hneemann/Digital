@@ -9,8 +9,11 @@ import de.neemann.digital.draw.graphics.VectorFloat;
 
 /**
  * A movable element.
+ *
+ * @param <A> the type of the implementing class
  */
-public abstract class Movable {
+public class Movable<A extends Movable> {
+    private String values = "";
     private VectorFloat position;
     private transient VectorFloat speed;
     private transient VectorFloat force;
@@ -47,7 +50,7 @@ public abstract class Movable {
      *
      * @param df the force to add
      */
-    public void addToForce(VectorFloat df) {
+    void addToForce(VectorFloat df) {
         if (force == null)
             force = df;
         else
@@ -60,7 +63,7 @@ public abstract class Movable {
      * @param pos   the position of the causer of the force
      * @param reach the reach of the force
      */
-    public void addRepulsive(VectorFloat pos, float reach) {
+    void addRepulsive(VectorFloat pos, float reach) {
         final VectorFloat dif = position.sub(pos);
         float dist = dif.len();
         if (dist == 0) {
@@ -96,14 +99,14 @@ public abstract class Movable {
      * @param target the targe
      * @param scale  a scaling factor
      */
-    public void addAttractiveTo(VectorFloat target, float scale) {
+    void addAttractiveTo(VectorFloat target, float scale) {
         addToForce(target.sub(position).mul(scale));
     }
 
     /**
      * @return the force
      */
-    public VectorFloat getForce() {
+    VectorFloat getForce() {
         if (force == null)
             resetForce();
         return force;
@@ -112,7 +115,7 @@ public abstract class Movable {
     /**
      * Sets the force to zero
      */
-    public void resetForce() {
+    void resetForce() {
         this.force = new VectorFloat(0, 0);
     }
 
@@ -146,7 +149,23 @@ public abstract class Movable {
     }
 
     /**
-     * @return the output values of this moveable
+     * Sets the values to define as a comma separated string with assignments: 'A=0,B=1'
+     *
+     * @param values the assignments
+     * @return this for chained calls
      */
-    abstract public String getValues();
+    public A setValues(String values) {
+        if (!this.values.equals(values)) {
+            this.values = values;
+            wasModified();
+        }
+        return (A) this;
+    }
+
+    /**
+     * @return the state value map
+     */
+    public String getValues() {
+        return values;
+    }
 }

@@ -18,13 +18,12 @@ import java.util.List;
 /**
  * Represents a transition
  */
-public class Transition extends Movable {
+public class Transition extends Movable<Transition> {
     private static final float EXPANSION_TRANS = 0.001f;
 
     private final State fromState;
     private final State toState;
     private String condition;
-    private String values = "";
     private transient Expression conditionExpression;
 
 
@@ -142,9 +141,9 @@ public class Transition extends Movable {
         if (condition != null && condition.length() > 0) {
             gr.drawText(getPos(), getPos().add(new Vector(1, 0)), condition, Orientation.CENTERCENTER, Style.NORMAL);
         }
-        if (values != null && values.length() > 0) {
+        if (getValues() != null && getValues().length() > 0) {
             VectorFloat pos = getPos().add(new VectorFloat(0, Style.NORMAL.getFontSize()));
-            gr.drawText(pos, pos.add(new Vector(1, 0)), values, Orientation.CENTERCENTER, Style.NORMAL);
+            gr.drawText(pos, pos.add(new Vector(1, 0)), getValues(), Orientation.CENTERCENTER, Style.NORMAL);
         }
     }
 
@@ -204,27 +203,6 @@ public class Transition extends Movable {
      */
     public boolean hasCondition() throws FiniteStateMachineException {
         return getConditionExpression() != null;
-    }
-
-    /**
-     * @return the transitions values
-     */
-    public String getValues() {
-        return values;
-    }
-
-    /**
-     * Sets the values
-     *
-     * @param values the values to use
-     * @return this for chained calls
-     */
-    public Transition setValues(String values) {
-        if (!this.values.equals(values)) {
-            this.values = values;
-            wasModified();
-        }
-        return this;
     }
 
     /**

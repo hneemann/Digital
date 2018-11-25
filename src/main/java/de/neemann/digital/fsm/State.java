@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Represents a state
  */
-public class State extends Movable {
+public class State extends Movable<State> {
     /**
      * The default state radius
      */
@@ -25,7 +25,6 @@ public class State extends Movable {
     private int number = -1;
     private String name;
     private int radius;
-    private String values = "";
 
     /**
      * Creates a new state
@@ -36,27 +35,6 @@ public class State extends Movable {
         super();
         this.name = name;
         this.radius = DEFAULT_RAD;
-    }
-
-    /**
-     * Sets the values to define as a comma separated string with assignments: 'A=0,B=1'
-     *
-     * @param values the assignments
-     * @return this for chained calls
-     */
-    public State setValues(String values) {
-        if (!this.values.equals(values)) {
-            this.values = values;
-            wasModified();
-        }
-        return this;
-    }
-
-    /**
-     * @return the state value map
-     */
-    public String getValues() {
-        return values;
     }
 
     /**
@@ -126,9 +104,9 @@ public class State extends Movable {
             pos = pos.add(delta);
             gr.drawText(pos, pos.add(new Vector(1, 0)), name, Orientation.CENTERCENTER, Style.NORMAL);
 
-            if (values != null) {
+            if (getValues() != null && getValues().length() > 0) {
                 pos = pos.add(delta);
-                gr.drawText(pos, pos.add(new Vector(1, 0)), values, Orientation.CENTERCENTER, Style.NORMAL);
+                gr.drawText(pos, pos.add(new Vector(1, 0)), getValues(), Orientation.CENTERCENTER, Style.NORMAL);
             }
         }
     }
