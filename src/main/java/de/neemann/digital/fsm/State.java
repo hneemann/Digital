@@ -8,7 +8,6 @@ package de.neemann.digital.fsm;
 import de.neemann.digital.draw.graphics.*;
 
 import java.util.List;
-import java.util.TreeMap;
 
 /**
  * Represents a state
@@ -27,8 +26,6 @@ public class State extends Movable {
     private String name;
     private int radius;
     private String values = "";
-
-    private transient TreeMap<String, Integer> valueMap;
 
     /**
      * Creates a new state
@@ -50,7 +47,6 @@ public class State extends Movable {
     public State setValues(String values) {
         if (!this.values.equals(values)) {
             this.values = values;
-            valueMap = null;
             wasModified();
         }
         return this;
@@ -61,16 +57,6 @@ public class State extends Movable {
      */
     public String getValues() {
         return values;
-    }
-
-    /**
-     * @return the state value map
-     * @throws FiniteStateMachineException FiniteStateMachineException
-     */
-    public TreeMap<String, Integer> getValueMap() throws FiniteStateMachineException {
-        if (valueMap == null)
-            valueMap = new ValueParser(values).parse();
-        return valueMap;
     }
 
     /**

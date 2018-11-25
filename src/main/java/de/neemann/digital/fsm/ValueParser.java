@@ -5,8 +5,10 @@
  */
 package de.neemann.digital.fsm;
 
+import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.lang.Lang;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
@@ -16,6 +18,7 @@ import java.util.TreeMap;
 public class ValueParser {
     private final String values;
     private TreeMap<String, Integer> valueMap;
+    private ModelAnalyserInfo modelAnalyzerInfo;
 
     /**
      * Create a new instance
@@ -25,6 +28,17 @@ public class ValueParser {
     public ValueParser(String values) {
         this.values = values;
         valueMap = new TreeMap<>();
+    }
+
+    /**
+     * Sets the {@link ModelAnalyserInfo} which is used to collect the output bus info.
+     *
+     * @param modelAnalyzerInfo the instance to use
+     * @return this for chained calls
+     */
+    public ValueParser setModelAnalyzerInfo(ModelAnalyserInfo modelAnalyzerInfo) {
+        this.modelAnalyzerInfo = modelAnalyzerInfo;
+        return this;
     }
 
     /**
@@ -47,8 +61,14 @@ public class ValueParser {
                 if (len == 1)
                     setVarByChar(key, valStr.charAt(0));
                 else {
-                    for (int i = 0; i < len; i++)
-                        setVarByChar(key + i, valStr.charAt(len - i - 1));
+                    ArrayList<String> names = new ArrayList<>();
+                    for (int i = 0; i < len; i++) {
+                        final String name = key + i;
+                        names.add(name);
+                        setVarByChar(name, valStr.charAt(len - i - 1));
+                    }
+                    if (modelAnalyzerInfo != null)
+                        modelAnalyzerInfo.addOutputBus(key, names);
                 }
             }
         }

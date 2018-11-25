@@ -29,8 +29,8 @@ public class ModelAnalyserInfo {
      *
      * @param model the model used
      */
-    ModelAnalyserInfo(Model model) {
-        if (model.getClocks().size() == 1)
+    public ModelAnalyserInfo(Model model) {
+        if (model != null && model.getClocks().size() == 1)
             clockPin = model.getClocks().get(0).getClockPin();
         else
             clockPin = null;
@@ -39,7 +39,13 @@ public class ModelAnalyserInfo {
         outputBusMap = new HashMap<>();
     }
 
-    void setInOut(ArrayList<Signal> inputs, ArrayList<Signal> outputs) {
+    /**
+     * Sets the inputs and outputs
+     *
+     * @param inputs  the inputs
+     * @param outputs the outputs
+     */
+    public void setInOut(ArrayList<Signal> inputs, ArrayList<Signal> outputs) {
         this.inputs = new ArrayList<>(inputs);
         this.outputs = new ArrayList<>(outputs);
     }
@@ -97,7 +103,13 @@ public class ModelAnalyserInfo {
         inputBusMap.put(name, names);
     }
 
-    void addOutputBus(String name, ArrayList<String> names) {
+    /**
+     * Adds an output bus.
+     *
+     * @param name  the bus name
+     * @param names the individual names in the truth table
+     */
+    public void addOutputBus(String name, ArrayList<String> names) {
         outputBusMap.put(name, names);
     }
 

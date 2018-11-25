@@ -5,11 +5,13 @@
  */
 package de.neemann.digital.fsm;
 
+import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ContextMap;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.VariableVisitor;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -20,11 +22,15 @@ import java.util.*;
 public class TransitionTableCreator {
     private final List<State> states;
     private final List<Transition> transitions;
+    private final HashMap<Movable, TreeMap<String, Integer>> outputValues;
+    private final ArrayList<Signal> inputSignals;
+    private final ArrayList<Signal> outputSignals;
     private TruthTable truthTable;
     private int rowsPerState;
     private ArrayList<Variable> inVars;
     private int stateBits;
     private boolean[] transitionSet;
+    private ModelAnalyserInfo modelAnalyserInfo;
 
     /**
      * Creates a new instance
@@ -34,6 +40,19 @@ public class TransitionTableCreator {
     TransitionTableCreator(FSM fsm) {
         this.states = fsm.getStates();
         this.transitions = fsm.getTransitions();
+        outputValues = new HashMap<>();
+        modelAnalyserInfo = new ModelAnalyserInfo(null);
+        inputSignals = new ArrayList<>();
+        outputSignals = new ArrayList<>();
+    }
+
+    private TreeMap<String, Integer> getValues(Movable m) throws FiniteStateMachineException {
+        TreeMap<String, Integer> values = outputValues.get(m);
+        if (values == null) {
+            values = new ValueParser(m.getValues()).setModelAnalyzerInfo(modelAnalyserInfo).parse();
+            outputValues.put(m, values);
+        }
+        return values;
     }
 
     /**
@@ -60,12 +79,14 @@ public class TransitionTableCreator {
         // add the output variables
         TreeSet<String> results = new TreeSet<>();
         for (State s : states)
-            results.addAll(s.getValueMap().keySet());
+            results.addAll(getValues(s).keySet());
         for (Transition t : transitions)
-            results.addAll(t.getValueMap().keySet());
+            results.addAll(getValues(t).keySet());
 
-        for (String name : results)
+        for (String name : results) {
             truthTable.addResult(name);
+            outputSignals.add(new Signal(name, null));
+        }
 
         // set all to dc
         truthTable.setAllTo(2);
@@ -75,7 +96,7 @@ public class TransitionTableCreator {
             int row = s.getNumber();
             int col = stateBits * 2;
             for (String name : results) {
-                Integer val = s.getValueMap().get(name);
+                Integer val = getValues(s).get(name);
                 int v = val == null ? 0 : val;
                 truthTable.setValue(row, col, v);
                 col++;
@@ -101,8 +122,10 @@ public class TransitionTableCreator {
                 t.getConditionExpression().traverse(vv);
         inVars = new ArrayList<>(vv.getVariables());
 
-        for (Variable v : inVars)
+        for (Variable v : inVars) {
             truthTable.addVariable(v);
+            inputSignals.add(new Signal(v.getIdentifier(), null));
+        }
 
         rowsPerState = 1 << inVars.size();
 
@@ -120,6 +143,8 @@ public class TransitionTableCreator {
             if (t.hasCondition())
                 fillInTransition(t, results);
 
+        modelAnalyserInfo.setInOut(inputSignals, outputSignals);
+        truthTable.setModelAnalyzerInfo(modelAnalyserInfo);
         return truthTable;
     }
 
@@ -148,7 +173,7 @@ public class TransitionTableCreator {
                 }
 
                 // fill in output state, if any
-                final TreeMap<String, Integer> valueMap = t.getValueMap();
+                final TreeMap<String, Integer> valueMap = getValues(t);
                 if (!valueMap.isEmpty()) {
                     col = stateBits * 2 + inVars.size();
                     for (String name : results) {

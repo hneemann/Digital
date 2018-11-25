@@ -14,7 +14,6 @@ import de.neemann.digital.lang.Lang;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 /**
  * Represents a transition
@@ -27,7 +26,6 @@ public class Transition extends Movable {
     private String condition;
     private String values = "";
     private transient Expression conditionExpression;
-    private transient TreeMap<String, Integer> valuesMap;
 
 
     /**
@@ -224,22 +222,9 @@ public class Transition extends Movable {
     public Transition setValues(String values) {
         if (!this.values.equals(values)) {
             this.values = values;
-            valuesMap = null;
             wasModified();
         }
         return this;
-    }
-
-    /**
-     * Returns the values map
-     *
-     * @return the values
-     * @throws FiniteStateMachineException FiniteStateMachineException
-     */
-    public TreeMap<String, Integer> getValueMap() throws FiniteStateMachineException {
-        if (valuesMap == null)
-            valuesMap = new ValueParser(values).parse();
-        return valuesMap;
     }
 
     /**

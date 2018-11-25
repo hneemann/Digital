@@ -10,7 +10,7 @@ import de.neemann.digital.draw.graphics.VectorFloat;
 /**
  * A movable element.
  */
-public class Movable {
+public abstract class Movable {
     private VectorFloat position;
     private transient VectorFloat speed;
     private transient VectorFloat force;
@@ -144,4 +144,9 @@ public class Movable {
     FSM getFsm() {
         return fsm;
     }
+
+    /**
+     * @return the output values of this moveable
+     */
+    abstract public String getValues();
 }

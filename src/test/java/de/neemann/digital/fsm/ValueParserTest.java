@@ -5,8 +5,11 @@
  */
 package de.neemann.digital.fsm;
 
+import de.neemann.digital.analyse.ModelAnalyserInfo;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeMap;
 
 public class ValueParserTest extends TestCase {
@@ -29,6 +32,21 @@ public class ValueParserTest extends TestCase {
         assertEquals(0, (long) v.get("A1"));
         assertEquals(1, (long) v.get("A2"));
         assertEquals(1, (long) v.get("A3"));
+    }
+
+    public void testMultiBitValuesMAI() throws FiniteStateMachineException {
+        ModelAnalyserInfo mai = new ModelAnalyserInfo(null);
+        TreeMap<String, Integer> v = new ValueParser("A=1101").setModelAnalyzerInfo(mai).parse();
+        assertEquals(4, v.size());
+        HashMap<String, ArrayList<String>> om = mai.getOutputBusMap();
+        assertEquals(1, om.size());
+        ArrayList<String> list = om.get("A");
+        assertNotNull(list);
+        assertEquals(4, list.size());
+        assertEquals("A0", list.get(0));
+        assertEquals("A1", list.get(1));
+        assertEquals("A2", list.get(2));
+        assertEquals("A3", list.get(3));
     }
 
 
