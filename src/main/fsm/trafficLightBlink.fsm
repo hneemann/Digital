@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fsm>
+  <states>
+    <state>
+      <values>R=1</values>
+      <position x="600.0" y="180.0"/>
+      <number>0</number>
+      <name>Red</name>
+      <radius>70</radius>
+    </state>
+    <state>
+      <values>R=1,Y=1</values>
+      <position x="780.0" y="360.0"/>
+      <number>1</number>
+      <name>Red/Yellow</name>
+      <radius>70</radius>
+    </state>
+    <state>
+      <values>G=1</values>
+      <position x="600.0" y="540.0"/>
+      <number>2</number>
+      <name>Green</name>
+      <radius>70</radius>
+    </state>
+    <state>
+      <values>Y=1</values>
+      <position x="420.0" y="360.0"/>
+      <number>3</number>
+      <name>Yellow</name>
+      <radius>70</radius>
+    </state>
+    <state>
+      <values></values>
+      <position x="120.0" y="360.0"/>
+      <number>4</number>
+      <name>Off</name>
+      <radius>70</radius>
+    </state>
+  </states>
+  <transitions>
+    <transition>
+      <values></values>
+      <position x="777.1327" y="182.86734"/>
+      <fromState reference="../../../states/state"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition></condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="777.13477" y="537.13477"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition></condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="428.74414" y="531.25586"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition></condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="428.7441" y="188.74411"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state"/>
+      <condition></condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="270.0" y="280.53717"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state[5]"/>
+      <condition>Blk</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="270.0" y="439.46304"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition></condition>
+    </transition>
+  </transitions>
+</fsm>

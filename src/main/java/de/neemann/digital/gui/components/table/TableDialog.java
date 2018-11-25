@@ -525,6 +525,13 @@ public class TableDialog extends JDialog {
         else return filename.getName();
     }
 
+    /**
+     * @return the all solutions dialog
+     */
+    public AllSolutionsDialog getAllSolutionsDialog() {
+        return allSolutionsDialog;
+    }
+
     private void setLastUsedGenerator(HardwareDescriptionGenerator generator) {
         if (lastUsedGenratorMenuItem != null)
             hardwareMenu.remove(lastUsedGenratorMenuItem);

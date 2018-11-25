@@ -254,7 +254,12 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         }
     }
 
-    private void loadFile(File file) {
+    /**
+     * Loads a file.
+     *
+     * @param file the file to load
+     */
+    public void loadFile(File file) {
         try {
             moveControl.setSelectedIndex(0);
             setFSM(FSM.loadFSM(file));

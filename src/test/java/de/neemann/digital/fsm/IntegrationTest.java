@@ -17,7 +17,7 @@ public class IntegrationTest extends TestCase {
 
     public void testExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/fsm");
-        assertEquals(7, new FileScanner(this::check).setSuffix("fsm").scan(examples));
+        assertEquals(8, new FileScanner(this::check).setSuffix("fsm").scan(examples));
 
     }
 
