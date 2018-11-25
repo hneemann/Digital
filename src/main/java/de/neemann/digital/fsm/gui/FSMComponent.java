@@ -35,6 +35,8 @@ public class FSMComponent extends JComponent {
     private static final Key<Integer> KEY_NUMBER = new Key.KeyInteger("stateNum", 0);
     private static final Key<String> KEY_VALUES = new Key<>("stateValues", "");
     private static final Key<String> KEY_CONDITION = new Key<>("transCond", "");
+    private static final Key<Integer> KEY_RADIUS = new Key.KeyInteger("transRad", 70)
+            .setComboBoxValues(50, 70, 90);
     private static final String DEL_ACTION = "myDelAction";
 
     private Mouse mouse = Mouse.getMouse();
@@ -198,14 +200,16 @@ public class FSMComponent extends JComponent {
         ElementAttributes attr = new ElementAttributes()
                 .set(KEY_NUMBER, state.getNumber())
                 .set(KEY_VALUES, state.getValues())
+                .set(KEY_RADIUS, state.getVisualRadius())
                 .set(Keys.LABEL, state.getName());
         SwingUtilities.convertPointToScreen(point, this);
         AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
-                point, attr, Keys.LABEL, KEY_NUMBER, KEY_VALUES);
+                point, attr, Keys.LABEL, KEY_NUMBER, KEY_VALUES, KEY_RADIUS);
         ElementAttributes newAttr = ad.showDialog();
         if (newAttr != null) {
             state.setNumber(newAttr.get(KEY_NUMBER));
             state.setValues(newAttr.get(KEY_VALUES));
+            state.setRadius(newAttr.get(KEY_RADIUS));
             state.setName(newAttr.get(Keys.LABEL));
             repaint();
         }

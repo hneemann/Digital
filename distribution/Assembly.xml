@@ -115,6 +115,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${basedir}/src/main/fsm</directory>
+            <outputDirectory>/examples/fsm/</outputDirectory>
+            <includes>
+                <include>*.fsm</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${basedir}/target/docu</directory>
             <outputDirectory>/docu/</outputDirectory>
             <includes>

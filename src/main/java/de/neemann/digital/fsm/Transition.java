@@ -24,7 +24,7 @@ public class Transition extends Movable {
 
     private final State fromState;
     private final State toState;
-    private String condition = "";
+    private String condition;
     private String values = "";
     private transient Expression conditionExpression;
     private transient TreeMap<String, Integer> valuesMap;
@@ -41,7 +41,7 @@ public class Transition extends Movable {
         super();
         this.fromState = fromState;
         this.toState = toState;
-        this.condition = condition;
+        this.condition = condition == null ? "" : condition;
         initPos();
     }
 
@@ -168,7 +168,7 @@ public class Transition extends Movable {
             this.condition = condition;
             wasModified();
             conditionExpression = null;
-            if (getFsm()!=null)
+            if (getFsm() != null)
                 getFsm().resetInitInitialization();
         }
     }

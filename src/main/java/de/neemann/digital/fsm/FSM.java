@@ -302,12 +302,13 @@ public class FSM {
      */
     public FSM circle() {
         double delta = 2 * Math.PI / states.size();
-        double rad = 0;
+        double circumference = 0;
         for (State s : states)
-            if (s.getVisualRadius() > rad)
-                rad = s.getVisualRadius();
+            circumference += s.getVisualRadius() * 2;
 
-        rad *= 4;
+        circumference += states.size() * State.DEFAULT_RAD * 2;
+        double rad = circumference / Math.PI / 2;
+
         double phi = 0;
         for (State s : states) {
             s.setPosition(new VectorFloat((float) (Math.sin(phi) * rad), (float) (-Math.cos(phi) * rad)));

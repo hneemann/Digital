@@ -95,19 +95,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         toolBar.addSeparator();
         createViewMenu(bar, toolBar);
         toolBar.addSeparator();
-
-        JMenu create = new JMenu(Lang.get("menu_fsm_create"));
-        bar.add(create);
-        create.add(new ToolTipAction(Lang.get("menu_fsm_create_table")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    new TableDialog(FSMFrame.this, fsm.createTruthTable(), library, null).setVisible(true);
-                } catch (Exception e) {
-                    new ErrorMessage(Lang.get("msg_fsmCantCreateTable")).addCause(e).show(FSMFrame.this);
-                }
-            }
-        }.createJMenuItem());
+        createCreateMenu(bar, library);
 
 
         moveControl = new JComboBox<>(new String[]{
@@ -280,6 +268,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
 
     private void saveFile(File file) {
         try {
+            moveControl.setSelectedIndex(0);
             fsm.save(file);
             setFilename(file);
             save.setEnabled(false);
@@ -327,6 +316,36 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         view.add(maximize.createJMenuItem());
         view.add(zoomOut.createJMenuItem());
         view.add(zoomIn.createJMenuItem());
+    }
+
+    private void createCreateMenu(JMenuBar bar, ElementLibrary library) {
+        JMenu create = new JMenu(Lang.get("menu_fsm_create"));
+        bar.add(create);
+        create.add(new ToolTipAction(Lang.get("menu_fsm_create_table")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    new TableDialog(FSMFrame.this, fsm.createTruthTable(), library, null).setVisible(true);
+                } catch (Exception e) {
+                    new ErrorMessage(Lang.get("msg_fsmCantCreateTable")).addCause(e).show(FSMFrame.this);
+                }
+            }
+        }.createJMenuItem());
+
+        JMenu counter = new JMenu(Lang.get("menu_fsm_create_counter"));
+        create.add(counter);
+        int[] counterValues = new int[]{4, 5, 6, 7, 8, 10, 16};
+        for (int n : counterValues) {
+            counter.add(new ToolTipAction(Lang.get("menu_fsm_create_counter_N", n)) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    if (ClosingWindowListener.checkForSave(FSMFrame.this, FSMFrame.this)) {
+                        setFSM(FSMDemos.counter(n).circle().setModified(false));
+                        setFilename(null);
+                    }
+                }
+            });
+        }
     }
 
     private class ExportAction extends ToolTipAction {

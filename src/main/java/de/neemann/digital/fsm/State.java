@@ -14,9 +14,12 @@ import java.util.TreeMap;
  * Represents a state
  */
 public class State extends Movable {
-    private static final int RASTER = 60;
+    /**
+     * The default state radius
+     */
+    public static final int DEFAULT_RAD = 70;
 
-    private static final int RAD = 70;
+    private static final int RASTER = 60;
     private static final float REACH = 2000;
     private static final int INIT_RADIUS = 20;
 
@@ -35,7 +38,7 @@ public class State extends Movable {
     public State(String name) {
         super();
         this.name = name;
-        this.radius = RAD;
+        this.radius = DEFAULT_RAD;
     }
 
     /**
@@ -151,7 +154,7 @@ public class State extends Movable {
     /**
      * @return the radius of the state
      */
-    float getVisualRadius() {
+    public int getVisualRadius() {
         if (isInitialState())
             return INIT_RADIUS;
         else
@@ -163,6 +166,15 @@ public class State extends Movable {
      */
     public float getRadius() {
         return radius;
+    }
+
+    /**
+     * Sets the radius of the state
+     *
+     * @param radius the radius
+     */
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 
     /**

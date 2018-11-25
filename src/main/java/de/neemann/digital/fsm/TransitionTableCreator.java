@@ -82,7 +82,7 @@ public class TransitionTableCreator {
             }
         }
 
-        // set all next state variables to "stay is state"
+        // set all next state results to "stay is state"
         for (State s : states) {
             int c = stateBits * 2;
             int row = s.getNumber();
@@ -137,7 +137,7 @@ public class TransitionTableCreator {
                 int col = stateBits * 2 + inVars.size();
                 int row = startRow + r;
 
-                checkRow(row, t);
+                checkRow(row, t);  // allow only deterministic transitions
 
                 // fill in transition
                 int mask = t.getTargetState().getNumber();
@@ -150,7 +150,7 @@ public class TransitionTableCreator {
                 // fill in output state, if any
                 final TreeMap<String, Integer> valueMap = t.getValueMap();
                 if (!valueMap.isEmpty()) {
-                    col = stateBits * 2 + results.size();
+                    col = stateBits * 2 + inVars.size();
                     for (String name : results) {
                         Integer val = valueMap.get(name);
                         if (val != null)
@@ -163,11 +163,9 @@ public class TransitionTableCreator {
     }
 
     private void checkRow(int row, Transition t) throws FiniteStateMachineException {
-        if (transitionSet != null) {
-            if (transitionSet[row])
-                throw new FiniteStateMachineException(Lang.get("err_notDeterministic_N", t.toString()));
-            transitionSet[row] = true;
-        }
+        if (transitionSet[row])
+            throw new FiniteStateMachineException(Lang.get("err_notDeterministic_N", t.toString()));
+        transitionSet[row] = true;
     }
 
     private int getStateVarBits() throws FiniteStateMachineException {
