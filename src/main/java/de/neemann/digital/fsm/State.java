@@ -106,7 +106,7 @@ public class State extends Movable<State> {
 
             if (getValues() != null && getValues().length() > 0) {
                 pos = pos.add(delta);
-                gr.drawText(pos, pos.add(new Vector(1, 0)), getValues(), Orientation.CENTERCENTER, Style.NORMAL);
+                gr.drawText(pos, pos.add(new Vector(1, 0)), getValues(), Orientation.CENTERCENTER, Style.INOUT);
             }
         }
     }

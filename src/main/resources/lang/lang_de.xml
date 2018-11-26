@@ -1759,6 +1759,7 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="fsm_noMove">keine Bewegung</string>
     <string name="fsm_moveTrans">Übergänge</string>
     <string name="fsm_moveStates">Übergänge+Zustände</string>
+    <string name="fsm_set_N">setze {0}</string>
     <string name="menu_fsm">Endlicher Automat</string>
     <string name="menu_fsm_tt">Dialog für die Erstellung endlicher Automaten.</string>
     <string name="menu_fsm_create">Erzeugen</string>

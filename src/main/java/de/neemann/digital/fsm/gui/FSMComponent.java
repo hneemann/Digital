@@ -38,6 +38,7 @@ public class FSMComponent extends JComponent {
     private static final Key<Integer> KEY_RADIUS = new Key.KeyInteger("transRad", 70)
             .setComboBoxValues(50, 70, 90);
     private static final String DEL_ACTION = "myDelAction";
+    private static final int MIN_NEW_TRANS_DIST = 10;
 
     private Mouse mouse = Mouse.getMouse();
 
@@ -47,6 +48,7 @@ public class FSMComponent extends JComponent {
     private FSM fsm;
     private Vector lastMousePos;
     private State newTransitionFromState;
+    private Vector newTransitionStartPos;
 
     /**
      * Creates a new component
@@ -64,7 +66,6 @@ public class FSMComponent extends JComponent {
 
         MouseAdapter mouseListener = new MouseAdapter() {
             private boolean screenDrag;
-            private Vector newTransitionStartPos;
             private Vector delta;
             private Vector pos;
 
@@ -97,7 +98,7 @@ public class FSMComponent extends JComponent {
                 elementMoved = null;
                 if (newTransitionFromState != null) {
                     final Vector posVector = getPosVector(mouseEvent);
-                    if (newTransitionStartPos.sub(posVector).len() > 10) {
+                    if (newTransitionStartPos.sub(posVector).len() > MIN_NEW_TRANS_DIST) {
                         Movable target = fsm.getMovable(posVector);
                         if (target instanceof State)
                             fsm.add(new Transition(newTransitionFromState, (State) target, ""));
@@ -316,13 +317,17 @@ public class FSMComponent extends JComponent {
         fsm.drawTo(gr);
 
         if (newTransitionFromState != null) {
-            VectorFloat d = lastMousePos.sub(newTransitionFromState.getPos()).norm().mul(16f);
-            VectorFloat a = d.getOrthogonal().norm().mul(8f);
-            gr.drawPolygon(new Polygon(false)
-                    .add(lastMousePos.sub(d).add(a))
-                    .add(lastMousePos)
-                    .add(lastMousePos.sub(d).sub(a)), Style.NORMAL);
-            gr.drawLine(newTransitionFromState.getPos(), lastMousePos.sub(d.mul(0.2f)), Style.NORMAL);
+            final Vector dif = lastMousePos.sub(newTransitionStartPos);
+            int max = Math.max(Math.abs(dif.x), Math.abs(dif.y));
+            if (max > MIN_NEW_TRANS_DIST) {
+                VectorFloat d = lastMousePos.sub(newTransitionFromState.getPos()).norm().mul(16f);
+                VectorFloat a = d.getOrthogonal().norm().mul(8f);
+                gr.drawPolygon(new Polygon(false)
+                        .add(lastMousePos.sub(d).add(a))
+                        .add(lastMousePos)
+                        .add(lastMousePos.sub(d).sub(a)), Style.SHAPE_PIN);
+                gr.drawLine(newTransitionFromState.getPos(), lastMousePos.sub(d.mul(0.2f)), Style.SHAPE_PIN);
+            }
         }
     }
 

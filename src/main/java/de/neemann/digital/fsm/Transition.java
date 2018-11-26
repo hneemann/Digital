@@ -139,11 +139,11 @@ public class Transition extends Movable<Transition> {
                 .add(arrowTip)
                 .add(end.add(difTo.sub(lot).mul(0.2f))), arrowStyle);
         if (condition != null && condition.length() > 0) {
-            gr.drawText(getPos(), getPos().add(new Vector(1, 0)), condition, Orientation.CENTERCENTER, Style.NORMAL);
+            gr.drawText(getPos(), getPos().add(new Vector(1, 0)), condition, Orientation.CENTERCENTER, Style.INOUT);
         }
         if (getValues() != null && getValues().length() > 0) {
             VectorFloat pos = getPos().add(new VectorFloat(0, Style.NORMAL.getFontSize()));
-            gr.drawText(pos, pos.add(new Vector(1, 0)), getValues(), Orientation.CENTERCENTER, Style.NORMAL);
+            gr.drawText(pos, pos.add(new Vector(1, 0)), Lang.get("fsm_set_N", getValues()), Orientation.CENTERCENTER, Style.INOUT);
         }
     }
 

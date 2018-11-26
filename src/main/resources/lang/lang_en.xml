@@ -1738,6 +1738,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="fsm_noMove">no movement</string>
     <string name="fsm_moveTrans">Transitions</string>
     <string name="fsm_moveStates">Transitions+States</string>
+    <string name="fsm_set_N">set {0}</string>
     <string name="menu_fsm">Finite State Machine</string>
     <string name="menu_fsm_tt">Opens a Dialog to Edit a Finite State Machine.</string>
     <string name="menu_fsm_create">Create</string>
