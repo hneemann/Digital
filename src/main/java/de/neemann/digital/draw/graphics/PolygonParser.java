@@ -102,6 +102,10 @@ public class PolygonParser {
         return new VectorFloat(x, y);
     }
 
+    private VectorFloat nextVectorRel() throws ParserException {
+        return new VectorFloat(x + nextValue(), y + nextValue());
+    }
+
     /**
      * Creates a polygon from the given path.
      *
@@ -149,7 +153,7 @@ public class PolygonParser {
                     p.add(nextVector());
                     break;
                 case 'c':
-                    p.add(nextVectorInc(), nextVectorInc(), nextVectorInc());
+                    p.add(nextVectorRel(), nextVectorRel(), nextVectorInc());
                     break;
                 case 'C':
                     p.add(nextVector(), nextVector(), nextVector());
