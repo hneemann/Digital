@@ -93,12 +93,15 @@ public class Transition extends Movable<Transition> {
     public void setPos(VectorFloat position) {
         if (fromState != toState) {
             VectorFloat dist = fromState.getPos().sub(toState.getPos());
-            VectorFloat p = position.sub(fromState.getPos());
-            VectorFloat n = dist.getOrthogonal().norm();
-            float l = p.mul(n);
-            super.setPos(fromState.getPos().sub(dist.mul(0.5f)).add(n.mul(l)));
-        } else
-            super.setPos(position);
+            if (dist.getXFloat() != 0 || dist.getYFloat() != 0) {
+                VectorFloat p = position.sub(fromState.getPos());
+                VectorFloat n = dist.getOrthogonal().norm();
+                float l = p.mul(n);
+                super.setPos(fromState.getPos().sub(dist.mul(0.5f)).add(n.mul(l)));
+                return;
+            }
+        }
+        super.setPos(position);
     }
 
     /**
@@ -152,7 +155,7 @@ public class Transition extends Movable<Transition> {
      */
     void initPos() {
         setPos(fromState.getPos().add(toState.getPos()).mul(0.5f)
-                .add(new VectorFloat((float) Math.random() - 0.5f, (float) Math.random() - 0.5f).mul(30)));
+                .add(new VectorFloat((float) Math.random() - 0.5f, (float) Math.random() - 0.5f).mul(2)));
     }
 
     /**

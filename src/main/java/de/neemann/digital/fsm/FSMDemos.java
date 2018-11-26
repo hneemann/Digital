@@ -13,6 +13,20 @@ public final class FSMDemos {
     private FSMDemos() {
     }
 
+
+    /**
+     * Blink
+     *
+     * @return the fsm
+     */
+    public static FSM blink() {
+        State off = new State("off");
+        State on = new State("on");
+        return new FSM(off, on)
+                .transition(on, off, null)
+                .transition(off, on, null);
+    }
+
     /**
      * Creates a debounced rotary switch decoder
      *

@@ -13,6 +13,11 @@ import de.neemann.digital.draw.graphics.VectorFloat;
  * @param <A> the type of the implementing class
  */
 public class Movable<A extends Movable> {
+    private static final float MASS = 50f;
+    private static final float FRICTION = 0.8f;
+    private static final float MAX_FORCE = 100000f;
+    private static final float MAX_FORCE_CHECK = (float) (MAX_FORCE / Math.sqrt(2));
+
     private String values = "";
     private VectorFloat position;
     private transient VectorFloat speed;
@@ -25,7 +30,7 @@ public class Movable<A extends Movable> {
     public Movable() {
         force = new VectorFloat(0, 0);
         speed = new VectorFloat(0, 0);
-        position = new VectorFloat((float) Math.random() - 0.5f, (float) Math.random() - 0.5f).mul(100);
+        position = new VectorFloat(0, 0);
     }
 
     /**
@@ -129,15 +134,20 @@ public class Movable<A extends Movable> {
     /**
      * Moves the element
      *
-     * @param dt the time step
+     * @param dt the time step in ms
      */
     public void move(int dt) {
+        if (Math.abs(force.getXFloat()) > MAX_FORCE_CHECK || Math.abs(force.getYFloat()) > MAX_FORCE_CHECK) {
+            double len = force.len();
+            if (len > MAX_FORCE)
+                force = force.norm().mul(MAX_FORCE);
+        }
         if (speed == null)
-            speed = force.mul(dt / 200f);
+            speed = force.mul(dt / MASS);
         else
-            speed = speed.add(force.mul(dt / 200f));
+            speed = speed.add(force.mul(dt / MASS));
         setPos(position.add(speed.mul(dt / 1000f)));
-        speed = speed.mul(0.7f);
+        speed = speed.mul(FRICTION);
     }
 
     void setFSM(FSM fsm) {
