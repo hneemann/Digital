@@ -36,6 +36,6 @@ public class PolygonTest extends TestCase {
 
     public void testBezierPath() {
         checkBezier(Polygon.createFromPath("m 10,10 C 20 10 20 20 10 20 z"));
-        checkBezier(Polygon.createFromPath("m 10,10 c 10 0 0 10 -10 0 z"));
+        checkBezier(Polygon.createFromPath("m 10,10 c 10 0 10 10 0 10 z"));
     }
 }
