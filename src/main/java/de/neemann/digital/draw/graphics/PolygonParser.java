@@ -117,6 +117,7 @@ public class PolygonParser {
     public Polygon create() throws ParserException {
         Polygon p = new Polygon(false);
         Token tok;
+        boolean closedPending = false;
         while ((tok = next()) != Token.EOF) {
             if (tok == Token.NUMBER) {
                 unreadToken();
@@ -127,11 +128,19 @@ public class PolygonParser {
             }
             switch (command) {
                 case 'M':
-                    p.add(nextVector());
+                    if (closedPending) {
+                        closedPending = false;
+                        p.addClosePath();
+                    }
+                    p.addMoveTo(nextVector());
                     clearControl();
                     break;
                 case 'm':
-                    p.add(nextVectorInc());
+                    if (closedPending) {
+                        closedPending = false;
+                        p.addClosePath();
+                    }
+                    p.addMoveTo(nextVectorInc());
                     clearControl();
                     break;
                 case 'V':
@@ -196,13 +205,15 @@ public class PolygonParser {
                     break;
                 case 'Z':
                 case 'z':
-                    p.setClosed(true);
+                    closedPending = true;
                     clearControl();
                     break;
                 default:
                     throw new ParserException("unsupported path command " + command);
             }
         }
+        if (closedPending)
+            p.setClosed(true);
         return p;
     }
 

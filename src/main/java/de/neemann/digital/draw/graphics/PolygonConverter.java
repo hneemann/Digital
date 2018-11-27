@@ -25,12 +25,17 @@ public class PolygonConverter implements Converter {
     public void marshal(Object o, HierarchicalStreamWriter writer, MarshallingContext marshallingContext) {
         Polygon p = (Polygon) o;
         writer.addAttribute("path", p.toString());
+        writer.addAttribute("evenOdd", Boolean.toString(p.getEvenOdd()));
     }
 
     @Override
     public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext unmarshallingContext) {
         String path = reader.getAttribute("path");
-        return Polygon.createFromPath(path);
+        boolean evenOdd = Boolean.parseBoolean(reader.getAttribute("evenOdd"));
+        final Polygon polygon = Polygon.createFromPath(path);
+        if (polygon != null)
+            polygon.setEvenOdd(evenOdd);
+        return polygon;
     }
 
 }

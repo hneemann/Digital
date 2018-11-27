@@ -57,8 +57,13 @@ public class GraphicMinMax implements Graphic {
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
-        for (VectorInterface v : p)
-            check(v);
+        for (Polygon.PathElement v : p) {
+            if (v==null)
+                System.out.println(v);
+            final VectorInterface point = v.getPoint();
+            if (point != null)
+                check(point);
+        }
     }
 
     @Override
