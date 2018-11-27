@@ -18,7 +18,7 @@ public class PolygonTest extends TestCase {
 
     private void checkLine(Polygon p) {
         checkCoor(p);
-        assertEquals("M 10.0 10.0 L 20.0 10.0 L 20.0 20.0 L 10.0 20.0 z", p.toString());
+        assertEquals("M 10,10 L 20,10 L 20,20 L 10,20 z", p.toString());
     }
 
     private void checkCoor(Polygon p) {
@@ -31,11 +31,21 @@ public class PolygonTest extends TestCase {
 
     private void checkBezier(Polygon p) {
         checkCoor(p);
-        assertEquals("M 10.0 10.0 C 20.0 10.0 20.0 20.0 10.0 20.0 z", p.toString());
+        assertEquals("M 10,10 C 20,10 20,20 10,20 z", p.toString());
     }
 
     public void testBezierPath() {
         checkBezier(Polygon.createFromPath("m 10,10 C 20 10 20 20 10 20 z"));
         checkBezier(Polygon.createFromPath("m 10,10 c 10 0 10 10 0 10 z"));
+    }
+
+    public void testCubicReflect() {
+        assertEquals("M 0,0 C 0,10 10,10 10,0 C 10,-10 20,-10 20,0 C 20,10 30,10 30,0 z",
+                Polygon.createFromPath("m 0,0 c 0,10 10,10 10,0 s 10,-10 10,0 s 10,10 10,0 z").toString());
+    }
+
+    public void testQuadraticReflect() {
+        assertEquals("M 0,0 C 20,20 40,20 60,0 C 80,-20 100,-20 120,0 C 140,20 160,20 180,0 C 200,-20 220,-20 240,0 ",
+                Polygon.createFromPath("m 0,0 Q 30,30 60,0 t 60,0 t 60,0 t 60,0").toString());
     }
 }

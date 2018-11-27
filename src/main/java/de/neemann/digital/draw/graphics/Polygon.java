@@ -213,25 +213,32 @@ public class Polygon implements Iterable<VectorInterface> {
     public String toString() {
         StringBuilder sb = new StringBuilder("M ");
         VectorInterface v = points.get(0);
-        sb.append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+        sb.append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
         //modification of loop variable i is intended!
         //CHECKSTYLE.OFF: ModifiedControlVariable
         for (int i = 1; i < points.size(); i++) {
             v = points.get(i);
             if (isBezierStart.contains(i)) {
-                sb.append("C ").append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+                sb.append("C ").append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
                 v = points.get(i + 1);
-                sb.append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+                sb.append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
                 v = points.get(i + 2);
-                sb.append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+                sb.append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
                 i += 2;
             } else
-                sb.append("L ").append(v.getXFloat()).append(" ").append(v.getYFloat()).append(" ");
+                sb.append("L ").append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
         }
         //CHECKSTYLE.ON: ModifiedControlVariable
         if (closed)
             sb.append("z");
         return sb.toString();
+    }
+
+    private static String str(float f) {
+        if (f == Math.round(f))
+            return Integer.toString(Math.round(f));
+        else
+            return Float.toString(f);
     }
 
     /**

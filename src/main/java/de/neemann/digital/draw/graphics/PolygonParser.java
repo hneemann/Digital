@@ -175,10 +175,10 @@ public class PolygonParser {
                     addQuadratic(p, getCurrent(), setLastC2(nextVector()), nextVector());
                     break;
                 case 's':
-                    addCubicWithReflect(p, getCurrent(), setLastC3(nextVectorRel()), nextVectorInc());
+                    addCubicWithReflect(p, getCurrent(), nextVectorRel(), nextVectorInc());
                     break;
                 case 'S':
-                    addCubicWithReflect(p, getCurrent(), setLastC3(nextVector()), nextVector());
+                    addCubicWithReflect(p, getCurrent(), nextVector(), nextVector());
                     break;
                 case 't':
                     addQuadraticWithReflect(p, getCurrent(), nextVectorInc());
@@ -255,7 +255,7 @@ public class PolygonParser {
 
     private void addCubicWithReflect(Polygon poly, VectorInterface start, VectorInterface c2, VectorInterface p) {
         VectorInterface c1 = start.add(start.sub(getLastC3()));
-        poly.add(c1, c2, p);
+        poly.add(c1, setLastC3(c2), p);
     }
 
     /**
