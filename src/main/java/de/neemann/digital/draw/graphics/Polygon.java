@@ -291,6 +291,28 @@ public class Polygon implements Iterable<Polygon.PathElement> {
     }
 
     /**
+     * Traverses all points
+     *
+     * @param v the visitor to use
+     */
+    public void traverse(PointVisitor v) {
+        for (PathElement pe : path)
+            pe.traverse(v);
+    }
+
+    /**
+     * Visitor used to traverse all points
+     */
+    public interface PointVisitor {
+        /**
+         * Called with every point
+         *
+         * @param p the point
+         */
+        void visit(VectorInterface p);
+    }
+
+    /**
      * A element of the path
      */
     public interface PathElement {
@@ -313,6 +335,13 @@ public class Polygon implements Iterable<Polygon.PathElement> {
          * @param path2d the a Path2D instance
          */
         void drawTo(Path2D path2d);
+
+        /**
+         * Traverses all points
+         *
+         * @param v the visitor to use
+         */
+        void traverse(PointVisitor v);
     }
 
     private static String str(float f) {
@@ -357,6 +386,11 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         @Override
         public String toString() {
             return "L " + str(p);
+        }
+
+        @Override
+        public void traverse(PointVisitor v) {
+            v.visit(p);
         }
     }
     //CHECKSTYLE.ON: FinalClass
@@ -418,6 +452,13 @@ public class Polygon implements Iterable<Polygon.PathElement> {
                     c2.getXFloat(), c2.getYFloat(),
                     p.getXFloat(), p.getYFloat());
         }
+
+        @Override
+        public void traverse(PointVisitor v) {
+            v.visit(c1);
+            v.visit(c2);
+            v.visit(p);
+        }
     }
 
     private class ClosePath implements PathElement {
@@ -439,6 +480,10 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         @Override
         public String toString() {
             return "Z";
+        }
+
+        @Override
+        public void traverse(PointVisitor v) {
         }
     }
 }
