@@ -76,7 +76,7 @@ public class Polygon implements Iterable<VectorInterface> {
     }
 
     /**
-     * Adds a new bezier line to the polygon.
+     * Adds a new cubic bezier curve to the polygon.
      *
      * @param c1 the first control point to add
      * @param c2 the second control point to add
@@ -84,6 +84,8 @@ public class Polygon implements Iterable<VectorInterface> {
      * @return this for chained calls
      */
     public Polygon add(VectorInterface c1, VectorInterface c2, VectorInterface p) {
+        if (points.size() == 0)
+            throw new RuntimeException("cubic bezier curve is not allowed to be the first path element");
         isBezierStart.add(points.size());
         points.add(c1);
         points.add(c2);

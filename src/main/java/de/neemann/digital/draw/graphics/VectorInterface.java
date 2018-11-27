@@ -55,6 +55,14 @@ public interface VectorInterface {
     VectorInterface div(int d);
 
     /**
+     * Creates a new vector which has the value this*m
+     *
+     * @param m m
+     * @return this*m
+     */
+    VectorFloat mul(float m);
+
+    /**
      * Creates a new vector which has the value this-a
      *
      * @param a a

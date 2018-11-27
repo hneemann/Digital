@@ -18,6 +18,8 @@ public class PolygonParser {
     private float value;
     private float x;
     private float y;
+    private VectorInterface lastQuadraticControlPoint;
+    private VectorInterface lastCubicControlPoint;
 
     /**
      * Creates a new instance
@@ -126,47 +128,76 @@ public class PolygonParser {
             switch (command) {
                 case 'M':
                     p.add(nextVector());
+                    clearControl();
                     break;
                 case 'm':
                     p.add(nextVectorInc());
+                    clearControl();
                     break;
                 case 'V':
                     y = nextValue();
-                    p.add(new VectorFloat(x, y));
+                    p.add(getCurrent());
+                    clearControl();
                     break;
                 case 'v':
                     y += nextValue();
-                    p.add(new VectorFloat(x, y));
+                    p.add(getCurrent());
+                    clearControl();
                     break;
                 case 'H':
                     x = nextValue();
-                    p.add(new VectorFloat(x, y));
+                    p.add(getCurrent());
+                    clearControl();
                     break;
                 case 'h':
                     x += nextValue();
-                    p.add(new VectorFloat(x, y));
+                    p.add(getCurrent());
+                    clearControl();
                     break;
                 case 'l':
                     p.add(nextVectorInc());
+                    clearControl();
                     break;
                 case 'L':
                     p.add(nextVector());
+                    clearControl();
                     break;
                 case 'c':
-                    p.add(nextVectorRel(), nextVectorRel(), nextVectorInc());
+                    p.add(nextVectorRel(), setLastC3(nextVectorRel()), nextVectorInc());
                     break;
                 case 'C':
-                    p.add(nextVector(), nextVector(), nextVector());
+                    p.add(nextVector(), setLastC3(nextVector()), nextVector());
+                    break;
+                case 'q':
+                    addQuadratic(p, getCurrent(), setLastC2(nextVectorRel()), nextVectorInc());
+                    break;
+                case 'Q':
+                    addQuadratic(p, getCurrent(), setLastC2(nextVector()), nextVector());
+                    break;
+                case 's':
+                    addCubicWithReflect(p, getCurrent(), setLastC3(nextVectorRel()), nextVectorInc());
+                    break;
+                case 'S':
+                    addCubicWithReflect(p, getCurrent(), setLastC3(nextVector()), nextVector());
+                    break;
+                case 't':
+                    addQuadraticWithReflect(p, getCurrent(), nextVectorInc());
+                    break;
+                case 'T':
+                    addQuadraticWithReflect(p, getCurrent(), nextVector());
                     break;
                 case 'a':
                     addArc(p, nextVectorInc(), nextValue(), nextValue() != 0, nextValue() != 0, nextVectorInc());
+                    clearControl();
                     break;
                 case 'A':
                     addArc(p, nextVector(), nextValue(), nextValue() != 0, nextValue() != 0, nextVector());
+                    clearControl();
                     break;
                 case 'Z':
                 case 'z':
                     p.setClosed(true);
+                    clearControl();
                     break;
                 default:
                     throw new ParserException("unsupported path command " + command);
@@ -175,8 +206,56 @@ public class PolygonParser {
         return p;
     }
 
+    private VectorInterface getCurrent() {
+        return new VectorFloat(x, y);
+    }
+
+    private VectorInterface setLastC2(VectorInterface p) {
+        lastQuadraticControlPoint = p;
+        lastCubicControlPoint = null;
+        return p;
+    }
+
+    private VectorInterface setLastC3(VectorInterface p) {
+        lastCubicControlPoint = p;
+        lastQuadraticControlPoint = null;
+        return p;
+    }
+
+    private void clearControl() {
+        lastQuadraticControlPoint = null;
+        lastCubicControlPoint = null;
+    }
+
+    private VectorInterface getLastC2() {
+        if (lastQuadraticControlPoint == null)
+            return getCurrent();
+        return lastQuadraticControlPoint;
+    }
+
+    private VectorInterface getLastC3() {
+        if (lastCubicControlPoint == null)
+            return getCurrent();
+        return lastCubicControlPoint;
+    }
+
     private void addArc(Polygon p, VectorFloat rad, float rot, boolean large, boolean sweep, VectorFloat pos) {
         p.add(pos);
+    }
+
+    private void addQuadratic(Polygon poly, VectorInterface start, VectorInterface c, VectorInterface p) {
+        c = c.mul(2.0f / 3);
+        poly.add(start.mul(1f / 3).add(c), p.mul(1f / 3).add(c), p);
+    }
+
+    private void addQuadraticWithReflect(Polygon poly, VectorInterface start, VectorInterface p) {
+        VectorInterface c = start.add(start.sub(getLastC2()));
+        addQuadratic(poly, start, setLastC2(c), p);
+    }
+
+    private void addCubicWithReflect(Polygon poly, VectorInterface start, VectorInterface c2, VectorInterface p) {
+        VectorInterface c1 = start.add(start.sub(getLastC3()));
+        poly.add(c1, c2, p);
     }
 
     /**
