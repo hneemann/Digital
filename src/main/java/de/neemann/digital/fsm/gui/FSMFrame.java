@@ -51,6 +51,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private boolean moveStates = false;
     private ToolTipAction save;
     private File filename;
+    private File baseFilename;
     private boolean lastModified;
 
     /**
@@ -206,10 +207,14 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         fsm.setModifiedListener(this);
     }
 
-    private static JFileChooser getJFileChooser(File filename) {
+    private JFileChooser getJFileChooser(File filename) {
         File folder = null;
         if (filename != null)
             folder = filename.getParentFile();
+
+        if (folder == null && baseFilename != null)
+            folder = baseFilename.getParentFile();
+
         if (folder == null) {
             String folderStr = PREFS.get(PREF_FOLDER, null);
             if (folderStr != null)
@@ -330,7 +335,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    new TableDialog(FSMFrame.this, fsm.createTruthTable(), library, null).setVisible(true);
+                    new TableDialog(FSMFrame.this, fsm.createTruthTable(), library, filename).setVisible(true);
                 } catch (Exception e) {
                     new ErrorMessage(Lang.get("msg_fsmCantCreateTable")).addCause(e).show(FSMFrame.this);
                 }
@@ -351,6 +356,18 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
                 }
             });
         }
+    }
+
+    /**
+     * Sets a base file name which is used to determine a target directory
+     * if no other name is available.
+     *
+     * @param filename the filename
+     * @return this for chained calls
+     */
+    public FSMFrame setBaseFileName(File filename) {
+        baseFilename = filename;
+        return this;
     }
 
     private class ExportAction extends ToolTipAction {

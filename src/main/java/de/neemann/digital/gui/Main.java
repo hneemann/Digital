@@ -1134,7 +1134,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         analyse.add(new ToolTipAction(Lang.get("menu_fsm")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FSMFrame(Main.this, new FSM(), library).setVisible(true);
+                new FSMFrame(Main.this, new FSM(), library).setBaseFileName(filename).setVisible(true);
             }
         }
                 .setToolTip(Lang.get("menu_fsm_tt"))
