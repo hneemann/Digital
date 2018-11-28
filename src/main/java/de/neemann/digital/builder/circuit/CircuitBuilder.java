@@ -454,6 +454,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
     private int createStateVar(int splitterXPos, int y, Circuit circuit, String name) {
         ArrayList<Variable> outputs = sequentialVars;
+        outputs.sort(Comparator.comparing(Variable::getIdentifier));
 
         circuit.add(new VisualElement(Splitter.DESCRIPTION.getName())
                 .setAttribute(Keys.OUTPUT_SPLIT, "" + outputs.size())
@@ -472,7 +473,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         for (int i = 0; i < outputs.size(); i++) {
             circuit.add(new VisualElement(Tunnel.DESCRIPTION.getName())
-                    .setAttribute(Keys.NETNAME, outputs.get(outputs.size()-i-1).getIdentifier())
+                    .setAttribute(Keys.NETNAME, outputs.get(i).getIdentifier())
                     .setRotation(2)
                     .setPos(new Vector(splitterXPos - SIZE, y + i * SIZE))
                     .setShapeFactory(shapeFactory));

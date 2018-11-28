@@ -58,6 +58,7 @@ public class ReorderOutputs {
      */
     public TruthTable reorder() throws ExpressionException {
         TruthTable newTable = new TruthTable(table.getVars());
+        newTable.setModelAnalyzerInfo(table.getModelAnalyzerInfo());
         for (String name : names) {
             for (int i = 0; i < table.getResultCount(); i++)
                 if (table.getResultName(i).equals(name)) {
