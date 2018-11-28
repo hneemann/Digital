@@ -20,6 +20,7 @@ import de.neemann.digital.core.flipflops.FlipflopJK;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.io.Probe;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.Circuit;
@@ -330,7 +331,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             addClockToFlipFlops(circuit);
 
         if (combinatorialOutputs.isEmpty())
-            addNetConnections(circuit, maxWidth + SIZE * 17, outSplitterY);
+            outSplitterY = addNetConnections(circuit, maxWidth + SIZE * 17, outSplitterY);
+
+        if (mis!=null && mis.getStateMeasurementValue() != null)
+            outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, mis.getStateMeasurementValue().getSignalName());
 
         circuit.setModified(false);
         return circuit;
@@ -448,6 +452,41 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         return y;
     }
 
+    private int createStateVar(int splitterXPos, int y, Circuit circuit, String name) {
+        ArrayList<Variable> outputs = sequentialVars;
+
+        circuit.add(new VisualElement(Splitter.DESCRIPTION.getName())
+                .setAttribute(Keys.OUTPUT_SPLIT, "" + outputs.size())
+                .setAttribute(Keys.INPUT_SPLIT, "1*" + outputs.size())
+                .setPos(new Vector(splitterXPos, y))
+                .setShapeFactory(shapeFactory));
+        circuit.add(new VisualElement(Probe.DESCRIPTION.getName())
+                .setAttribute(Keys.LABEL, name)
+                .setAttribute(Keys.BITS, outputs.size())
+                .setPos(new Vector(splitterXPos + 3 * SIZE, y))
+                .setShapeFactory(shapeFactory));
+        circuit.add(new Wire(
+                new Vector(splitterXPos + 3 * SIZE, y),
+                new Vector(splitterXPos + SIZE, y)
+        ));
+
+        for (int i = 0; i < outputs.size(); i++) {
+            circuit.add(new VisualElement(Tunnel.DESCRIPTION.getName())
+                    .setAttribute(Keys.NETNAME, outputs.get(outputs.size()-i-1).getIdentifier())
+                    .setRotation(2)
+                    .setPos(new Vector(splitterXPos - SIZE, y + i * SIZE))
+                    .setShapeFactory(shapeFactory));
+            circuit.add(new Wire(
+                    new Vector(splitterXPos - SIZE, y + i * SIZE),
+                    new Vector(splitterXPos, y + i * SIZE)
+            ));
+        }
+
+        y += (outputs.size() + 2) * SIZE;
+
+        return y;
+    }
+
 
     /**
      * Move the lastItems to the end of the variables list.
@@ -501,7 +540,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         circuit.add(clock);
     }
 
-    private void addNetConnections(Circuit circuit, int xPos, int y) {
+    private int addNetConnections(Circuit circuit, int xPos, int y) {
         for (Variable name : sequentialVars) {
             String oName = name.getIdentifier();
             if (oName.endsWith("n")) {
@@ -523,6 +562,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 y += SIZE * 2;
             }
         }
+        return y;
     }
 
     private void checkPinNumber(VisualElement pin) {

@@ -5,9 +5,7 @@
  */
 package de.neemann.digital.gui.components.table;
 
-import de.neemann.digital.analyse.AnalyseException;
-import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.TruthTableTableModel;
+import de.neemann.digital.analyse.*;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
@@ -93,10 +91,10 @@ public class TableDialog extends JDialog {
     /**
      * Creates a new instance
      *
-     * @param parent       the parent frame
-     * @param truthTable   the table to show
-     * @param library      the library to use
-     * @param filename     the file name used to create the names of the created files
+     * @param parent     the parent frame
+     * @param truthTable the table to show
+     * @param library    the library to use
+     * @param filename   the file name used to create the names of the created files
      */
     public TableDialog(Window parent, TruthTable truthTable, ElementLibrary library, File filename) {
         super(parent, Lang.get("win_table"));
@@ -494,17 +492,23 @@ public class TableDialog extends JDialog {
 
     private void createCircuit(boolean useJKff, ExpressionModifier... modifier) {
         try {
+            final ModelAnalyserInfo modelAnalyzerInfo = model.getTable().getModelAnalyzerInfo();
             CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff, model.getTable().getVars())
-                    .setModelAnalyzerInfo(model.getTable().getModelAnalyzerInfo());
+                    .setModelAnalyzerInfo(modelAnalyzerInfo);
             new BuilderExpressionCreator(circuitBuilder, modifier)
                     .setUseJKOptimizer(useJKff)
                     .create(lastGeneratedExpressions);
             Circuit circuit = circuitBuilder.createCircuit();
+
+            FSMStateInfo smv = null;
+            if (modelAnalyzerInfo != null)
+                smv = modelAnalyzerInfo.getStateMeasurementValue();
             new Main.MainBuilder()
                     .setParent(TableDialog.this)
                     .setLibrary(library)
                     .setCircuit(circuit)
                     .setBaseFileName(filename)
+                    .setOpenNotification(smv)
                     .openLater();
         } catch (ExpressionException | FormatterException | RuntimeException e) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);

@@ -23,6 +23,7 @@ public class ModelAnalyserInfo {
     private ArrayList<Signal> inputs;
     private ArrayList<Signal> outputs;
     private ArrayList<String> pinsWithoutNumber;
+    private FSMStateInfo fsmStateInfo;
 
     /**
      * creates a new instance
@@ -125,5 +126,21 @@ public class ModelAnalyserInfo {
      */
     public HashMap<String, ArrayList<String>> getOutputBusMap() {
         return outputBusMap;
+    }
+
+    /**
+     * Sets the fsm state info;
+     *
+     * @param info the info instance
+     */
+    public void setStateMeasurementValue(FSMStateInfo info) {
+        fsmStateInfo = info;
+    }
+
+    /**
+     * @return the fsm state info
+     */
+    public FSMStateInfo getStateMeasurementValue() {
+        return fsmStateInfo;
     }
 }

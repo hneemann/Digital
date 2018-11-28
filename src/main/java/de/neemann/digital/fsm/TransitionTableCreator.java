@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.fsm;
 
+import de.neemann.digital.analyse.FSMStateInfo;
 import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ContextMap;
@@ -12,6 +13,7 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.VariableVisitor;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -38,10 +40,21 @@ public class TransitionTableCreator {
      * @param fsm the fsm
      */
     TransitionTableCreator(FSM fsm) {
+        this(fsm, null);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param fsm     the fsm
+     * @param creator the creating frame
+     */
+    TransitionTableCreator(FSM fsm, FSMFrame creator) {
         this.states = fsm.getStates();
         this.transitions = fsm.getTransitions();
         outputValues = new HashMap<>();
         modelAnalyserInfo = new ModelAnalyserInfo(null);
+        modelAnalyserInfo.setStateMeasurementValue(new FSMStateInfo(fsm.getFile(), creator));
         inputSignals = new ArrayList<>();
         outputSignals = new ArrayList<>();
     }

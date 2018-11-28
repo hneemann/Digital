@@ -90,8 +90,13 @@ public class State extends Movable<State> {
             VectorInterface rad = new Vector(INIT_RADIUS, INIT_RADIUS);
             gr.drawCircle(getPos().sub(rad), getPos().add(rad), Style.FILLED);
         } else {
+            Style style = Style.NORMAL;
+            if (getFsm() != null)
+                if (getFsm().getActiveState() == number)
+                    style = Style.HIGHLIGHT;
+
             VectorInterface rad = new Vector(radius, radius);
-            gr.drawCircle(getPos().sub(rad), getPos().add(rad), Style.NORMAL);
+            gr.drawCircle(getPos().sub(rad), getPos().add(rad), style);
             if (number == 0) {
                 VectorInterface rad2 = new Vector(radius - Style.MAXLINETHICK * 2, radius - Style.MAXLINETHICK * 2);
                 gr.drawCircle(getPos().sub(rad2), getPos().add(rad2), Style.THIN);
