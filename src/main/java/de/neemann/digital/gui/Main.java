@@ -289,8 +289,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         } else
             setLocationRelativeTo(null);
 
-        if (builder.openNotification != null)
-            builder.openNotification.isOpen(this);
+        if (builder.createdNotification != null)
+            builder.createdNotification.isCreated(this);
     }
 
     private void enableClockShortcut() {
@@ -1814,7 +1814,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private boolean allowAllFileActions = true;
         private File baseFileName;
         private boolean keepPrefMainFile;
-        private OpenNotification openNotification;
+        private CreatedNotification createdNotification;
 
         /**
          * @param fileToOpen the file to open
@@ -1885,11 +1885,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         /**
          * Sets a open notification
          *
-         * @param openNotification openNotification
+         * @param createdNotification createdNotification
          * @return this for chained calls
          */
-        public MainBuilder setOpenNotification(OpenNotification openNotification) {
-            this.openNotification = openNotification;
+        public MainBuilder setCreatedNotification(CreatedNotification createdNotification) {
+            this.createdNotification = createdNotification;
             return this;
         }
 
@@ -1912,15 +1912,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     /**
-     * Notification if main is open
+     * Notification if a main frame is created
      */
-    public interface OpenNotification {
+    public interface CreatedNotification {
         /**
-         * Called if main is open
+         * Called if main frae is created
          *
          * @param main main
          */
-        void isOpen(Main main);
+        void isCreated(Main main);
     }
 
     private class ModelKeyListener extends KeyAdapter {

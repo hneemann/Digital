@@ -336,7 +336,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             outSplitterY = addNetConnections(circuit, maxWidth + SIZE * 17, outSplitterY);
 
         if (mai !=null) {
-            Main.OpenNotification mon = mai.getMainOpenNotification();
+            Main.CreatedNotification mon = mai.getMainCreatedNotification();
             if (mon instanceof FSMStateInfo) {
                 FSMStateInfo fsmInfo = (FSMStateInfo) mon;
                 outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, fsmInfo.getSignalName());

@@ -13,18 +13,18 @@ import java.io.File;
 /**
  * The model state info
  */
-public class FSMStateInfo implements Main.OpenNotification {
+public class FSMStateInfo implements Main.CreatedNotification {
     private final String signalName;
-    private final FSMFrame creator;
+    private final FSMFrame fsmFrame;
 
     /**
      * Creates a new instance
      *
-     * @param file    the file of the fsm, maybe null
-     * @param creator the creator, maybe null
+     * @param file     the file of the fsm, maybe null
+     * @param fsmFrame the creator, maybe null
      */
-    public FSMStateInfo(File file, FSMFrame creator) {
-        this.creator = creator;
+    public FSMStateInfo(File file, FSMFrame fsmFrame) {
+        this.fsmFrame = fsmFrame;
         if (file != null)
             this.signalName = file.getName();
         else
@@ -39,8 +39,8 @@ public class FSMStateInfo implements Main.OpenNotification {
     }
 
     @Override
-    public void isOpen(Main main) {
-        if (creator != null)
-            creator.registerTo(main);
+    public void isCreated(Main main) {
+        if (fsmFrame != null)
+            fsmFrame.registerTo(main);
     }
 }

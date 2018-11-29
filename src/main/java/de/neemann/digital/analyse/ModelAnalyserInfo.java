@@ -24,7 +24,7 @@ public class ModelAnalyserInfo {
     private ArrayList<Signal> inputs;
     private ArrayList<Signal> outputs;
     private ArrayList<String> pinsWithoutNumber;
-    private Main.OpenNotification mainOpenNotification;
+    private Main.CreatedNotification mainCreatedNotification;
 
     /**
      * creates a new instance
@@ -134,14 +134,14 @@ public class ModelAnalyserInfo {
      *
      * @param info the info instance
      */
-    public void setMainOpenNotification(Main.OpenNotification info) {
-        mainOpenNotification = info;
+    public void setMainCreatedNotification(Main.CreatedNotification info) {
+        mainCreatedNotification = info;
     }
 
     /**
      * @return the fsm state info
      */
-    public Main.OpenNotification getMainOpenNotification() {
-        return mainOpenNotification;
+    public Main.CreatedNotification getMainCreatedNotification() {
+        return mainCreatedNotification;
     }
 }
