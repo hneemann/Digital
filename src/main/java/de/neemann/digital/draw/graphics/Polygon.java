@@ -74,9 +74,9 @@ public class Polygon implements Iterable<Polygon.PathElement> {
      */
     public Polygon add(VectorInterface p) {
         if (path.isEmpty())
-            path.add(new MoveTo(p));
+            add(new MoveTo(p));
         else
-            path.add(new LineTo(p));
+            add(new LineTo(p));
         return this;
     }
 
@@ -95,7 +95,7 @@ public class Polygon implements Iterable<Polygon.PathElement> {
     public Polygon add(VectorInterface c1, VectorInterface c2, VectorInterface p) {
         if (path.size() == 0)
             throw new RuntimeException("cubic bezier curve is not allowed to be the first path element");
-        path.add(new CurveTo(c1, c2, p));
+        add(new CurveTo(c1, c2, p));
         hasSpecialElements = true;
         return this;
     }
@@ -110,9 +110,25 @@ public class Polygon implements Iterable<Polygon.PathElement> {
     public Polygon add(VectorInterface c, VectorInterface p) {
         if (path.size() == 0)
             throw new RuntimeException("quadratic bezier curve is not allowed to be the first path element");
-        path.add(new QuadTo(c, p));
+        add(new QuadTo(c, p));
         hasSpecialElements = true;
         return this;
+    }
+
+    /**
+     * Closes the actual path
+     */
+    public void addClosePath() {
+        add(new ClosePath());
+    }
+
+    /**
+     * Adds a moveto to the path
+     *
+     * @param p the point to move to
+     */
+    public void addMoveTo(VectorFloat p) {
+        add(new MoveTo(p));
     }
 
     /**
@@ -170,6 +186,8 @@ public class Polygon implements Iterable<Polygon.PathElement> {
     }
 
     private void removeInitialMoveTo() {
+        if (!(path.get(0) instanceof MoveTo))
+            throw new RuntimeException("initial path element is not a MoveTo!");
         path.set(0, new LineTo(path.get(0)));
     }
 
@@ -273,22 +291,6 @@ public class Polygon implements Iterable<Polygon.PathElement> {
     @Override
     public Iterator<PathElement> iterator() {
         return path.iterator();
-    }
-
-    /**
-     * Closes the actual path
-     */
-    public void addClosePath() {
-        add(new ClosePath());
-    }
-
-    /**
-     * Adds a moveto to the path
-     *
-     * @param p the point to move to
-     */
-    public void addMoveTo(VectorFloat p) {
-        add(new MoveTo(p));
     }
 
     /**
