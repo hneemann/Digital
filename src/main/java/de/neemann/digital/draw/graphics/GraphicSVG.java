@@ -6,9 +6,8 @@
 package de.neemann.digital.draw.graphics;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
-
-import static java.lang.System.out;
 
 /**
  * Used to create a SVG representation of the circuit.
@@ -61,7 +60,7 @@ public class GraphicSVG implements Graphic {
     @Override
     public Graphic setBoundingBox(VectorInterface min, VectorInterface max) {
         try {
-            w = new BufferedWriter(new OutputStreamWriter(out, "utf-8"));
+            w = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
             w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
                     + "<!-- Created with Digital by H.Neemann -->\n");
             w.write("<!-- created: " + new Date() + " -->\n");

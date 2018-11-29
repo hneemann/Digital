@@ -101,6 +101,21 @@ public class Polygon implements Iterable<Polygon.PathElement> {
     }
 
     /**
+     * Adds a new quadratic bezier curve to the polygon.
+     *
+     * @param c the control point to add
+     * @param p the end point to add
+     * @return this for chained calls
+     */
+    public Polygon add(VectorInterface c, VectorInterface p) {
+        if (path.size() == 0)
+            throw new RuntimeException("quadratic bezier curve is not allowed to be the first path element");
+        path.add(new QuadTo(c, p));
+        hasSpecialElements = true;
+        return this;
+    }
+
+    /**
      * @return true if filled in even odd mode
      */
     public boolean getEvenOdd() {
@@ -322,7 +337,7 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         VectorInterface getPoint();
 
         /**
-         * Returns the transormated path element
+         * Returns the transformed path element
          *
          * @param transform the transformation
          * @return the transormated path element
@@ -457,6 +472,46 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         public void traverse(PointVisitor v) {
             v.visit(c1);
             v.visit(c2);
+            v.visit(p);
+        }
+    }
+
+    private static final class QuadTo implements PathElement {
+        private final VectorInterface c;
+        private final VectorInterface p;
+
+        private QuadTo(VectorInterface c, VectorInterface p) {
+            this.c = c;
+            this.p = p;
+        }
+
+        @Override
+        public VectorInterface getPoint() {
+            return p;
+        }
+
+        @Override
+        public PathElement transform(Transform transform) {
+            return new QuadTo(
+                    c.transform(transform),
+                    p.transform(transform)
+            );
+        }
+
+        @Override
+        public String toString() {
+            return "Q " + str(c) + " " + str(p);
+        }
+
+        @Override
+        public void drawTo(Path2D path2d) {
+            path2d.quadTo(c.getXFloat(), c.getYFloat(),
+                    p.getXFloat(), p.getYFloat());
+        }
+
+        @Override
+        public void traverse(PointVisitor v) {
+            v.visit(c);
             v.visit(p);
         }
     }
