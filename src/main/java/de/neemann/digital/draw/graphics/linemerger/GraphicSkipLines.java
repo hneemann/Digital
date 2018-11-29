@@ -30,7 +30,7 @@ public class GraphicSkipLines implements Graphic {
     }
 
     @Override
-    public void drawPolygon(Polygon p, Style style) {
+    public void drawPolygon(GenericPath p, Style style) {
         delegate.drawPolygon(p, style);
     }
 

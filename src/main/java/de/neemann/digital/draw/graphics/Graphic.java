@@ -47,7 +47,7 @@ public interface Graphic extends Closeable {
      * @param p     the polygon to draw
      * @param style the style
      */
-    void drawPolygon(Polygon p, Style style);
+    void drawPolygon(GenericPath p, Style style);
 
     /**
      * Draws a circle

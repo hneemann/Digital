@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.draw.graphics;
 
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -12,7 +14,7 @@ import java.util.Iterator;
 /**
  * A polygon representation used by the {@link Graphic} interface.
  */
-public class Polygon implements Iterable<VectorInterface> {
+public class Polygon implements GenericPath {
 
     private final ArrayList<VectorInterface> points;
     private final HashSet<Integer> isBezierStart;
@@ -258,4 +260,29 @@ public class Polygon implements Iterable<VectorInterface> {
     void setClosed(boolean closed) {
         this.closed = closed;
     }
+
+	@Override
+	public Path2D toPath2D() {
+        Path2D path = new GeneralPath();
+        //modification of loop variable i is intended!
+        //CHECKSTYLE.OFF: ModifiedControlVariable
+        for (int i = 0; i < size(); i++) {
+            if (i == 0) {
+                path.moveTo(get(i).getXFloat(), get(i).getYFloat());
+            } else {
+                if (isBezierStart(i)) {
+                    path.curveTo(get(i).getXFloat(), get(i).getYFloat(),
+                            get(i + 1).getXFloat(), get(i + 1).getYFloat(),
+                            get(i + 2).getXFloat(), get(i + 2).getYFloat());
+                    i += 2;
+                } else
+                    path.lineTo(get(i).getXFloat(), get(i).getYFloat());
+            }
+        }
+        //CHECKSTYLE.ON: ModifiedControlVariable
+
+        if (isClosed())
+            path.closePath();
+		return path;
+	}
 }

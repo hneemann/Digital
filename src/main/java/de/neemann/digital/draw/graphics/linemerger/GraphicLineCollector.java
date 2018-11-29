@@ -37,7 +37,7 @@ public class GraphicLineCollector implements Graphic {
     }
 
     @Override
-    public void drawPolygon(Polygon p, Style style) {
+    public void drawPolygon(GenericPath p, Style style) {
     }
 
     @Override

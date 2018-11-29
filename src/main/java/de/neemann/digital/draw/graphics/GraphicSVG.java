@@ -111,22 +111,10 @@ public class GraphicSVG implements Graphic {
     }
 
     @Override
-    public void drawPolygon(Polygon p, Style style) {
+    public void drawPolygon(GenericPath p, Style style) {
         try {
-            //modification of loop variable i is intended!
-            //CHECKSTYLE.OFF: ModifiedControlVariable
-            w.write("<path d=\"M " + str(p.get(0)));
-            for (int i = 1; i < p.size(); i++)
-                if (p.isBezierStart(i)) {
-                    w.write(" C " + str(p.get(i)) + " " + str(p.get(i + 1)) + " " + str(p.get(i + 2)));
-                    i += 2;
-                } else
-                    w.write(" L " + str(p.get(i)));
-            //CHECKSTYLE.ON: ModifiedControlVariable
-
-            if (p.isClosed())
-                w.write(" Z");
-
+            w.write("<path d=\"");
+            w.write(p.toString());
             w.write("\"");
             addStrokeDash(w, style.getDash());
             if (style.isFilled() && p.isClosed())
