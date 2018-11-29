@@ -6,6 +6,7 @@
 package de.neemann.digital.builder.circuit;
 
 import de.neemann.digital.analyse.DetermineJKStateMachine;
+import de.neemann.digital.analyse.FSMStateInfo;
 import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.Not;
@@ -29,6 +30,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -52,7 +54,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final ArrayList<Variable> desiredVarOrdering;
     private int pos;
     private HashSet<String> varsToNet;
-    private ModelAnalyserInfo mis;
+    private ModelAnalyserInfo mai;
 
     /**
      * Creates a new builder.
@@ -307,7 +309,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         Circuit circuit = new Circuit();
 
         int outSplitterY = 0;
-        if (mis != null)
+        if (mai != null)
             outSplitterY = checkForOutputBus(maxWidth + SIZE * 15, circuit);
 
         // add fragments to circuit
@@ -321,7 +323,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (!sequentialVars.isEmpty())
             variables = order(variables, sequentialVars);
 
-        if (mis != null)
+        if (mai != null)
             checkForInputBus(variables, -(variables.size() + 5) * SIZE * 2, circuit);
 
         createInputBus(variables, circuit);
@@ -333,8 +335,13 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (combinatorialOutputs.isEmpty())
             outSplitterY = addNetConnections(circuit, maxWidth + SIZE * 17, outSplitterY);
 
-        if (mis!=null && mis.getStateMeasurementValue() != null)
-            outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, mis.getStateMeasurementValue().getSignalName());
+        if (mai !=null) {
+            Main.OpenNotification mon = mai.getMainOpenNotification();
+            if (mon instanceof FSMStateInfo) {
+                FSMStateInfo fsmInfo = (FSMStateInfo) mon;
+                outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, fsmInfo.getSignalName());
+            }
+        }
 
         circuit.setModified(false);
         return circuit;
@@ -343,14 +350,14 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private void checkForInputBus(Collection<Variable> variables, int splitterXPos, Circuit circuit) {
         StringBuilder pinString = new StringBuilder();
         int y = 0;
-        for (Map.Entry<String, ArrayList<String>> e : mis.getInputBusMap().entrySet()) {
+        for (Map.Entry<String, ArrayList<String>> e : mai.getInputBusMap().entrySet()) {
             pinString.setLength(0);
             int found = 0;
             final ArrayList<String> inputs = e.getValue();
             for (String n : inputs) {
                 if (variables.contains(new Variable(n))) {
                     found++;
-                    String p = mis.getPins().get(n);
+                    String p = mai.getPins().get(n);
                     if (p != null) {
                         if (pinString.length() != 0)
                             pinString.append(",");
@@ -396,14 +403,14 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private int checkForOutputBus(int splitterXPos, Circuit circuit) {
         StringBuilder pinString = new StringBuilder();
         int y = 0;
-        for (Map.Entry<String, ArrayList<String>> e : mis.getOutputBusMap().entrySet()) {
+        for (Map.Entry<String, ArrayList<String>> e : mai.getOutputBusMap().entrySet()) {
             pinString.setLength(0);
             int found = 0;
             final ArrayList<String> outputs = e.getValue();
             for (String n : outputs) {
                 if (combinatorialOutputs.containsKey(n)) {
                     found++;
-                    String p = mis.getPins().get(n);
+                    String p = mai.getPins().get(n);
                     if (p != null) {
                         if (pinString.length() != 0)
                             pinString.append(",");
@@ -567,9 +574,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     }
 
     private void checkPinNumber(VisualElement pin) {
-        if (mis != null) {
+        if (mai != null) {
             String name = pin.getElementAttributes().getLabel();
-            String num = mis.getPins().get(name);
+            String num = mai.getPins().get(name);
             if (num != null && num.length() > 0) {
                 pin.getElementAttributes().set(Keys.PINNUMBER, num);
             }
@@ -583,7 +590,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
      * @return this for chained calls
      */
     public CircuitBuilder setModelAnalyzerInfo(ModelAnalyserInfo modelAnalyserInfo) {
-        mis = modelAnalyserInfo;
+        mai = modelAnalyserInfo;
         return this;
     }
 }

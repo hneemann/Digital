@@ -54,7 +54,7 @@ public class TransitionTableCreator {
         this.transitions = fsm.getTransitions();
         outputValues = new HashMap<>();
         modelAnalyserInfo = new ModelAnalyserInfo(null);
-        modelAnalyserInfo.setStateMeasurementValue(new FSMStateInfo(fsm.getFile(), creator));
+        modelAnalyserInfo.setMainOpenNotification(new FSMStateInfo(fsm.getFile(), creator));
         inputSignals = new ArrayList<>();
         outputSignals = new ArrayList<>();
     }
