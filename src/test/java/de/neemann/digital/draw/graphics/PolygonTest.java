@@ -36,12 +36,12 @@ public class PolygonTest extends TestCase {
     }
 
     public void testQuadraticReflect() {
-        assertEquals("M 0,0 C 20,20 40,20 60,0 C 80,-20 100,-20 120,0 C 140,20 160,20 180,0 C 200,-20 220,-20 240,0",
+        assertEquals("M 0,0 Q 30,30 60,0 Q 90,-30 120,0 Q 150,30 180,0 Q 210,-30 240,0",
                 Polygon.createFromPath("m 0,0 Q 30,30 60,0 t 60,0 t 60,0 t 60,0").toString());
     }
 
     public void testMultiPath() {
-        assertEquals("M 0,0 C 0,40 20,60 60,60 C 100,60 120,40 120,0 C 120,-40 100,-60 60,-60 C 20,-60 0,-40 0,0 Z M 30,0 C 30,20 40,30 60,30 C 80,30 90,20 90,0 C 90,-20 80,-30 60,-30 C 40,-30 30,-20 30,0 Z",
+        assertEquals("M 0,0 Q 0,60 60,60 Q 120,60 120,0 Q 120,-60 60,-60 Q 0,-60 0,0 Z M 30,0 Q 30,30 60,30 Q 90,30 90,0 Q 90,-30 60,-30 Q 30,-30 30,0 Z",
                 Polygon.createFromPath("M 0,0 Q 0,60 60,60 T 120,0 T 60,-60 T 0,0 z M 30,0 Q 30,30 60,30 T 90,0 T 60,-30 T 30,0 Z").toString());
     }
 
