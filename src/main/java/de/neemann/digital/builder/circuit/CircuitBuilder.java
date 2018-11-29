@@ -6,7 +6,7 @@
 package de.neemann.digital.builder.circuit;
 
 import de.neemann.digital.analyse.DetermineJKStateMachine;
-import de.neemann.digital.analyse.FSMStateInfo;
+import de.neemann.digital.fsm.FSMStateInfo;
 import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.Not;

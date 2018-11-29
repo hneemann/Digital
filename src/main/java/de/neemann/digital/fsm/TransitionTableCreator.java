@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.fsm;
 
-import de.neemann.digital.analyse.FSMStateInfo;
 import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ContextMap;

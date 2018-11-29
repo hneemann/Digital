@@ -3,7 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.analyse;
+package de.neemann.digital.fsm;
 
 import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.gui.Main;
