@@ -4,7 +4,7 @@
   <attributes>
     <entry>
       <string>shapeType</string>
-      <de.neemann.digital.draw.shapes.CustomCircuitShapeType>CUSTOM</de.neemann.digital.draw.shapes.CustomCircuitShapeType>
+      <shapeType>CUSTOM</shapeType>
     </entry>
     <entry>
       <string>Description</string>
@@ -85,7 +85,7 @@ bei der Speicheradressierung verwendet.}}</string>
         </pins>
         <drawables>
           <poly>
-            <poly path="M 0.0 -30.0 L 80.0 10.0 L 80.0 90.0 L 0.0 130.0 L 0.0 65.0 L 30.0 50.0 L 0.0 35.0 z"/>
+            <poly path="M 0,-30 L 80,10 L 80,90 L 0,130 L 0,65 L 30,50 L 0,35 Z" evenOdd="false"/>
             <thickness>1</thickness>
             <filled>true</filled>
             <color>
@@ -96,7 +96,7 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </poly>
           <poly>
-            <poly path="M 0.0 -30.0 L 80.0 10.0 L 80.0 90.0 L 0.0 130.0 L 0.0 65.0 L 30.0 50.0 L 0.0 35.0 z"/>
+            <poly reference="../../poly/poly"/>
             <thickness>4</thickness>
             <filled>false</filled>
             <color>
