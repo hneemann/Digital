@@ -114,6 +114,16 @@ class Context {
         return vector.transform(tr);
     }
 
+    public VectorInterface v(float x, float y) {
+        return new VectorFloat(x, y).transform(tr);
+    }
+
+    public VectorInterface v(String xStr, String yStr) {
+        float x = xStr.isEmpty() ? 0 : Float.parseFloat(xStr);
+        float y = yStr.isEmpty() ? 0 : Float.parseFloat(yStr);
+        return v(x, y);
+    }
+
     public float getFontSize() {
         return fontSize;
     }

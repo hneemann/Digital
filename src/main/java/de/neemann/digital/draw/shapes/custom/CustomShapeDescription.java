@@ -174,6 +174,20 @@ public class CustomShapeDescription implements Iterable<Drawable> {
         public void drawTo(Graphic graphic, Style highLight) {
             graphic.drawLine(p1, p2, Style.NORMAL.deriveStyle(thickness, false, color));
         }
+
+        /**
+         * @return first coordinate
+         */
+        public Vector getP1() {
+            return p1;
+        }
+
+        /**
+         * @return second coordinate
+         */
+        public Vector getP2() {
+            return p2;
+        }
     }
 
     /**
