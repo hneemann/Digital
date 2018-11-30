@@ -27,20 +27,20 @@ public class SvgImporterTest extends TestCase {
                         "  <path d=\"M 0,0 l 0,100 l 100,0 l 0,-100\" />\n" +
                         "  <circle\n" +
                         "       id=\"pin:test\"\n" +
-                        "       cx=\"10\"\n" +
-                        "       cy=\"20\"\n" +
+                        "       cx=\"22\"\n" +
+                        "       cy=\"19\"\n" +
                         "       r=\"6.0923076\" />\n" +
                         "  <circle\n" +
                         "       id=\"pin+:test2\"\n" +
-                        "       cx=\"10\"\n" +
-                        "       cy=\"30\"\n" +
+                        "       cx=\"0\"\n" +
+                        "       cy=\"45\"\n" +
                         "       r=\"6.0923076\" />\n" +
                         "</svg>")).create();
 
         new CSDChecker(custom)
                 .checkPolygon("M 0,0 L 0,100 L 100,100 L 100,0")
-                .checkPin(10, 20, "test", false)
-                .checkPin(10, 30, "test2", true)
+                .checkPin(20, 20, "test", false)
+                .checkPin(0, 40, "test2", true)
                 .check();
     }
 

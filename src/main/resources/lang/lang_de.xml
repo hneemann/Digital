@@ -45,6 +45,11 @@
     <string name="btn_apply">Setzen</string>
     <string name="btn_editRom_tt">Bearbeitet den Inhalt des ausgewählten ROM/EEPROM.</string>
     <string name="btn_clearRom_tt">Entfernt die hier gespeicherten Daten des ausgewählten ROM. Es wird stattdessen der direkt im ROM gespeicherte Inhalt verwendet.</string>
+    <string name="btn_saveTemplate">Template</string>
+    <string name="btn_saveTemplate_tt">Ein SVG Template erzeugen, welches dann mit z.B. Inkscape bearbeitet werden kann.</string>
+    <string name="btn_loadSvg">Import</string>
+    <string name="btn_loadSvg_tt">Importieren einer SVG-Datei. Um eine geeignete SVG Datei zu erstellen, ist es
+        am einfachsten zunächst ein Template zu erzeugen und dieses dann zu bearbeiten.</string>
     <string name="msg_warning">Warnung</string>
     <string name="cancel">Abbrechen</string>
     <string name="digital">Digital</string>
@@ -1583,6 +1588,8 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="msg_testPassed_N">{0} Testzeilen überprüft</string>
     <string name="msg_testFile">Testdatei</string>
     <string name="msg_truthTable">Wahrheitstabelle</string>
+    <string name="msg_errorImportingSvg">Fehler beim Import der SVG-Datei.</string>
+    <string name="msg_errorCreatingSvgTemplate">Fehler beim Erzeugen der SVG-Datei.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

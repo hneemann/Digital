@@ -186,10 +186,10 @@ public class SvgImporter {
             VectorInterface pos = c.v(element.getAttribute("cx"), element.getAttribute("cy"));
             String id = element.getAttribute("id");
             if (id.startsWith("pin:")) {
-                csd.addPin(id.substring(4).trim(), pos.round(), false);
+                csd.addPin(id.substring(4).trim(), toGrid(pos), false);
                 return;
             } else if (id.startsWith("pin+:")) {
-                csd.addPin(id.substring(5).trim(), pos.round(), true);
+                csd.addPin(id.substring(5).trim(), toGrid(pos), true);
                 return;
             }
         }
@@ -225,6 +225,10 @@ public class SvgImporter {
             if (c.getColor() != null)
                 csd.addPolygon(poly, c.getThickness(), c.getColor(), false);
         }
+    }
+
+    private Vector toGrid(VectorInterface pos) {
+        return new Vector(Math.round(pos.getXFloat() / 20) * 20, Math.round(pos.getYFloat() / 20) * 20);
     }
 
     private void drawText(CustomShapeDescription csd, Context c, Element element) throws SvgException {
