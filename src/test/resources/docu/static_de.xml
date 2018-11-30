@@ -405,7 +405,7 @@
             </par>
             <par>
                 Soll eine Schaltung auf einem BASYS3 Board betrieben werden, wird eine Vivado Projektdatei angelegt,
-                die direkt mit Vivado geöffnet werden kann. Es läßt sich dann  der Bitstream erzeugen und mit dem
+                die direkt mit Vivado geöffnet werden kann. Es lässt sich dann  der Bitstream erzeugen und mit dem
                 Hardware-Manager kann dieser in ein BASYS3 Board übertragen werden.
             </par>
             <par>
@@ -413,6 +413,46 @@
                 ein Textfeld mit dem Text "Board: BASYS3", "Board: MimasV1" oder "Board: MimasV2" enthalten.
             </par>
         </subchapter>
+    </chapter>
+    <chapter name="Benutzerdefinierter Schaltungsformen">
+        <par>
+            Digital bietet zwar einige Optionen, die die Erscheinungsform einer Schaltung festlegen, wenn diese
+            in eine andere eingebettet wird, in manchen Fällen kann es jedoch sinnvoll sein, eine sehr spezielle
+            Form für eine Teilschaltung zu verwenden.
+            Ein Beispiel ist die Darstellung der ALU in dem Prozessor, welcher in den Beispielen enthalten ist.
+            In diesem Kapitel wird erklärt, wie eine solche spezielle Form für eine Schaltung definiert wird.
+        </par>
+        <par>
+            Digital bietet keinen Editor für das Erstellen einer speziellen Form an. Statt dessen ist ein kleiner
+            Umweg für das Erstellen von Schaltungsformen erforderlich:
+            Zunächst wird die Schaltung geöffnet, welche durch eine spezielle Form repräsentiert werden soll.
+            Dann wird für diese Schaltung ein SVG-Template erstellt. In diesem Template wird die Schaltung durch
+            ein einfaches Rechteck repräsentiert. Es finden sich darin auch alle Pins der Schaltung,
+            repräsentiert durch blaue (Eingänge) und rote (Ausgänge) Kreise.
+            Um zu sehen, welcher Kreis zu welchem Pin gehört, kann man sich in den Objekteigenschaften die ID des
+            Kreises ansehen. Diese ID hat die Form <e>pin:[Name]</e> oder <e>pin+:[Name]</e>. Bei der letzteren
+            Variante wird der Pin beim Reimport zu Digital mit einem Label versehen. Wünscht man kein solches Label,
+            kann das <e>+</e> entfernt werden.
+        </par>
+        <par>
+            Diese SVG-Datei kann jetzt bearbeitet werden. Am besten geeignet ist das Open-Source Programm
+            <a href="https://inkscape.org/de/">Inkscape</a>
+            welches kostenlos verfügbar ist.
+            Die Pins können frei verschoben werden, werden jedoch beim Reimport auf den nächstgelegen Rasterpunkt
+            verschoben.
+        </par>
+        <par>
+            Wenn die Datei gespeichert wurde, kann diese mit Digital importiert werden. Dabei wird die Datei
+            eingelesen und alle notwendigen Informationen werden extrahiert und in der Schaltung gespeichert.
+            Für die weitere Verwendung der Schaltung ist die SVG-Datei also nicht mehr erforderlich.
+        </par>
+        <par>
+            Noch eine Anmerkung: SVG ist ein sehr mächtiges und flexibles Dateiformat. Es können extrem
+            komplexe Grafiken damit beschrieben werden. Der in Digital integrierte Importer ist nicht in der
+            Lage alle denkbaren SVG-Dateien fehlerfrei zu importieren. Wenn eine Datei nicht importiert werden kann,
+            oder nicht so erscheint wie erwartet, ist evtl. einiges Experimentieren erforderlich, bevor das
+            gewünschte Ergebnis erreicht ist.
+        </par>
     </chapter>
     <chapter name="Häufig gestellte Fragen">
         <faq>

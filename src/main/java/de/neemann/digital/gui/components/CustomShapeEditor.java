@@ -12,6 +12,7 @@ import de.neemann.digital.draw.shapes.custom.svg.SvgException;
 import de.neemann.digital.draw.shapes.custom.svg.SvgImporter;
 import de.neemann.digital.draw.shapes.custom.svg.SvgTemplate;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.MyFileChooser;
@@ -83,15 +84,15 @@ public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDesc
                 JFileChooser fc = new MyFileChooser(path);
 
                 if (fc.showSaveDialog(getAttributeDialog()) == JFileChooser.APPROVE_OPTION) {
-                    lastSVGFile = fc.getSelectedFile();
                     try {
                         final Main main = getAttributeDialog().getMain();
-                        if (main != null)
-                            try (SvgTemplate tc = new SvgTemplate(
-                                    fc.getSelectedFile(),
-                                    main.getCircuitComponent().getCircuit())) {
+                        if (main != null) {
+                            File file = SaveAsHelper.checkSuffix(fc.getSelectedFile(), "svg");
+                            lastSVGFile = file;
+                            try (SvgTemplate tc = new SvgTemplate(file, main.getCircuitComponent().getCircuit())) {
                                 tc.create();
                             }
+                        }
                     } catch (Exception e1) {
                         new ErrorMessage(Lang.get("msg_errorCreatingSvgTemplate")).addCause(e1).show(getAttributeDialog());
                     }

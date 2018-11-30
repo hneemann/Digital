@@ -79,8 +79,9 @@ public class SvgTemplate implements Closeable {
      * @throws Exception Exception
      */
     public void create() throws Exception {
-        int y = 0;
         w.write("    <rect fill=\"none\" stroke=\"black\" stroke-width=\"3\" x=\"0\" y=\"-10\" width=\"" + width + "\" height=\"" + height + "\"/>\n");
+
+        int y = 0;
         for (PinDescription i : inputs) {
             w.write("    <circle fill=\"blue\" id=\"pin+:" + i.getName() + "\" cx=\"0\" cy=\"" + y + "\" r=\"3\"/>\n");
             y += 20;

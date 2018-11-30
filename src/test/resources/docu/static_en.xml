@@ -388,6 +388,41 @@
             </par>
         </subchapter>
     </chapter>
+    <chapter name="Custom Shapes">
+        <par>
+            Although Digital has some options that determine the appearance of a circuit when it is embedded in
+            another, in some cases it may be useful to use a very special shape for a subcircuit. An example is
+            the representation of the ALU in the processor included in the examples. This chapter explains how to
+            define such a special shape for a circuit.
+        </par>
+        <par>
+            Digital does not provide an editor for creating a special shape. Instead, a small detour is required
+            for creating circuit shapes: First, the circuit is opened, which is to be represented by a special shape.
+            Then an SVG template is created for this circuit. In this template, the circuit is represented by a
+            simple rectangle. It also contains all the pins of the circuit, represented by blue (inputs) and
+            red (outputs) circuits. To see which circle belongs to which pin, you can look at the ID of the
+            circle in the object properties. This ID has the form <e>pin:[name]</e> or <e>pin+:[name]</e>.
+            In the latter variant, the pin is provided with a label if reimported to digital.
+            If you do not want such a label, the <e>+</e> can be removed.
+        </par>
+        <par>
+            This SVG file can now be edited. The most suitable is the open source program
+            <a href="https://inkscape.org/en/">Inkscape</a>
+            which is available for free.
+            The pins can be moved freely, but are moved to the next grid point during the reimport.
+        </par>
+        <par>
+            If the file was saved, it can be imported with Digital. The file is read in and all necessary
+            information is extracted and stored in the circuit. For further use of the circuit, the SVG
+            file is no longer required.
+        </par>
+        <par>
+            A final remark: SVG is a very powerful and flexible file format.
+            It can be used to described extremely complex graphics. The Digital importer is not able to import all
+            possible SVG files without errors. If a file can not be imported, or does not appear as expected,
+            some experimentation may be required before the desired result is achieved.
+        </par>
+    </chapter>
     <chapter name="Frequently asked Questions">
         <faq>
             <question>How to move a wire?</question>
