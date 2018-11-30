@@ -69,8 +69,7 @@ public class SvgTemplate implements Closeable {
                 + "       empspacing=\"4\"\n"
                 + "       spacingx=\"5\"\n"
                 + "       spacingy=\"5\" />\n"
-                + "  </sodipodi:namedview>\n"
-                + "  <g>\n");
+                + "  </sodipodi:namedview>\n");
     }
 
     /**
@@ -79,23 +78,22 @@ public class SvgTemplate implements Closeable {
      * @throws Exception Exception
      */
     public void create() throws Exception {
-        w.write("    <rect fill=\"none\" stroke=\"black\" stroke-width=\"3\" x=\"0\" y=\"-10\" width=\"" + width + "\" height=\"" + height + "\"/>\n");
+        w.write("  <rect fill=\"none\" stroke=\"black\" stroke-width=\"3\" x=\"0\" y=\"-10\" width=\"" + width + "\" height=\"" + height + "\"/>\n");
 
         int y = 0;
         for (PinDescription i : inputs) {
-            w.write("    <circle fill=\"blue\" id=\"pin+:" + i.getName() + "\" cx=\"0\" cy=\"" + y + "\" r=\"3\"/>\n");
+            w.write("  <circle fill=\"blue\" id=\"pin+:" + i.getName() + "\" cx=\"0\" cy=\"" + y + "\" r=\"3\"/>\n");
             y += 20;
         }
         y = 0;
         for (PinDescription o : outputs) {
-            w.write("    <circle fill=\"red\" id=\"pin+:" + o.getName() + "\" cx=\"" + width + "\" cy=\"" + y + "\" r=\"3\"/>\n");
+            w.write("  <circle fill=\"red\" id=\"pin+:" + o.getName() + "\" cx=\"" + width + "\" cy=\"" + y + "\" r=\"3\"/>\n");
             y += 20;
         }
     }
 
     @Override
     public void close() throws IOException {
-        w.write("</g>\n");
         w.write("</svg>\n");
         w.close();
     }
