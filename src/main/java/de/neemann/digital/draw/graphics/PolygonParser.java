@@ -26,7 +26,7 @@ public class PolygonParser {
      *
      * @param path the path to parse
      */
-    PolygonParser(String path) {
+    public PolygonParser(String path) {
         this.path = path;
         pos = 0;
     }
@@ -272,4 +272,32 @@ public class PolygonParser {
             super(message);
         }
     }
+
+    /**
+     * Parses a polygon.
+     *
+     * @return the polygon
+     * @throws ParserException ParserException
+     */
+    public Polygon parsePolygon() throws ParserException {
+        return parsePolygonPolyline(true);
+    }
+
+    /**
+     * Parses a polyline.
+     *
+     * @return the polygon
+     * @throws ParserException ParserException
+     */
+    public Polygon parsePolyline() throws ParserException {
+        return parsePolygonPolyline(false);
+    }
+
+    private Polygon parsePolygonPolyline(boolean closed) throws ParserException {
+        Polygon p = new Polygon(closed);
+        while (next() != Token.EOF)
+            p.add(new  VectorFloat(value, nextValue()));
+        return p;
+    }
+
 }
