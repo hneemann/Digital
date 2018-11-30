@@ -19,6 +19,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+
 /**
  * Helper to import an SVG file
  */
@@ -228,7 +230,7 @@ public class SvgImporter {
     }
 
     private Vector toGrid(VectorInterface pos) {
-        return new Vector(Math.round(pos.getXFloat() / 20) * 20, Math.round(pos.getYFloat() / 20) * 20);
+        return new Vector(Math.round(pos.getXFloat() / SIZE) * SIZE, Math.round(pos.getYFloat() / SIZE) * SIZE);
     }
 
     private void drawText(CustomShapeDescription csd, Context c, Element element) throws SvgException {
