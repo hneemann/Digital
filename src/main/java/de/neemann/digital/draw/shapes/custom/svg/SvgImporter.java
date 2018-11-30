@@ -152,6 +152,8 @@ public class SvgImporter {
         VectorInterface pos = vec(element.getAttribute("x"), element.getAttribute("y"));
         VectorInterface rad = vec(element.getAttribute("rx"), element.getAttribute("ry"));
 
+        final Polygon polygon;
+
         float x = pos.getXFloat();
         float y = pos.getYFloat();
         float width = size.getXFloat();
@@ -166,7 +168,7 @@ public class SvgImporter {
             float cx = (float) (f * rx);
             float cy = (float) (f * ry);
 
-            csd.addPolygon(new Polygon(true)
+            polygon = new Polygon(true)
                     .add(c.v(x + rx + w, y))
                     .add(c.v(x + rx + w + cx, y), c.v(x + width, y + ry - cy), c.v(x + width, y + ry))
                     .add(c.v(x + width, y + ry + h))
@@ -174,13 +176,18 @@ public class SvgImporter {
                     .add(c.v(x + rx, y + height))
                     .add(c.v(x + rx - cx, y + height), c.v(x, y + ry + h + cy), c.v(x, y + ry + h))
                     .add(c.v(x, y + ry))
-                    .add(c.v(x, y + ry - cy), c.v(x + rx - cx, y), c.v(x + rx, y)), c.getThickness(), c.getColor(), false);
+                    .add(c.v(x, y + ry - cy), c.v(x + rx - cx, y), c.v(x + rx, y));
         } else
-            csd.addPolygon(new Polygon(true)
+            polygon = new Polygon(true)
                     .add(c.v(x, y))
                     .add(c.v(x + width, y))
                     .add(c.v(x + width, y + height))
-                    .add(c.v(x, y + height)), c.getThickness(), c.getColor(), false);
+                    .add(c.v(x, y + height));
+
+        if (c.getFilled() != null)
+            csd.addPolygon(polygon, c.getThickness(), c.getFilled(), true);
+        if (c.getColor() != null)
+            csd.addPolygon(polygon, c.getThickness(), c.getColor(), false);
     }
 
     private void drawCircle(CustomShapeDescription csd, Element element, Context c) {
