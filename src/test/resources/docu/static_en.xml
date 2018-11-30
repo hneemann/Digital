@@ -407,8 +407,7 @@
         </par>
         <par>
             This SVG file can now be edited. The most suitable is the open source program
-            <a href="https://inkscape.org/en/">Inkscape</a>
-            which is available for free.
+            <a href="https://inkscape.org/en/">Inkscape</a> which is available for free.
             The pins can be moved freely, but are moved to the next grid point during the reimport.
         </par>
         <par>
@@ -418,7 +417,7 @@
         </par>
         <par>
             A final remark: SVG is a very powerful and flexible file format.
-            It can be used to described extremely complex graphics. The Digital importer is not able to import all
+            It can be used to describe extremely complex graphics. The Digital importer is not able to import all
             possible SVG files without errors. If a file can not be imported, or does not appear as expected,
             some experimentation may be required before the desired result is achieved.
         </par>

@@ -436,9 +436,8 @@
         </par>
         <par>
             Diese SVG-Datei kann jetzt bearbeitet werden. Am besten geeignet ist das Open-Source Programm
-            <a href="https://inkscape.org/de/">Inkscape</a>
-            welches kostenlos verfügbar ist.
-            Die Pins können frei verschoben werden, werden jedoch beim Reimport auf den nächstgelegen Rasterpunkt
+            <a href="https://inkscape.org/de/">Inkscape</a> welches kostenlos verfügbar ist.
+            Die Pins können frei verschoben werden, werden jedoch beim Reimport auf den nächstgelegenen Rasterpunkt
             verschoben.
         </par>
         <par>
