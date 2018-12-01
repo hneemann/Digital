@@ -515,7 +515,19 @@ public class TableDialog extends JDialog {
         }
     }
 
-    void setModel(TruthTableTableModel model) {
+    /**
+     * @return the used table model
+     */
+    public TruthTableTableModel getModel() {
+        return model;
+    }
+
+    /**
+     * Sets the table model
+     *
+     * @param model the model to use
+     */
+    public void setModel(TruthTableTableModel model) {
         this.model = model;
         model.addTableModelListener(new CalculationTableModelListener());
         table.setModel(model);
