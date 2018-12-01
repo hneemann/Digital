@@ -42,7 +42,6 @@ class Context {
         tr = Transform.IDENTITY;
         thickness = 1;
         color = Color.BLACK;
-        fill = Color.BLACK;
     }
 
     private Context(Context parent) {

@@ -102,24 +102,24 @@ public class SvgImporter {
             case "path":
                 try {
                     final Polygon d = new PolygonParser(element.getAttribute("d")).create();
-                    if (d != null)
+                    if (d != null) {
                         d.setEvenOdd(c.isFillRuleEvenOdd());
-
-                    drawPolygon(csd, c, d);
+                        drawTransformedPolygon(csd, c, d);
+                    }
                 } catch (PolygonParser.ParserException e) {
                     throw new SvgException("invalid path", e);
                 }
                 break;
             case "polygon":
                 try {
-                    drawPolygon(csd, c, new PolygonParser(element.getAttribute("points")).parsePolygon());
+                    drawTransformedPolygon(csd, c, new PolygonParser(element.getAttribute("points")).parsePolygon());
                 } catch (PolygonParser.ParserException e) {
                     throw new SvgException("invalid points", e);
                 }
                 break;
             case "polyline":
                 try {
-                    drawPolygon(csd, c, new PolygonParser(element.getAttribute("points")).parsePolyline());
+                    drawTransformedPolygon(csd, c, new PolygonParser(element.getAttribute("points")).parsePolyline());
                 } catch (PolygonParser.ParserException e) {
                     throw new SvgException("invalid points", e);
                 }
@@ -134,11 +134,16 @@ public class SvgImporter {
         }
     }
 
+    private void drawTransformedPolygon(CustomShapeDescription csd, Context c, Polygon polygon) {
+        if (polygon != null)
+            drawPolygon(csd, c, polygon.transform(c.getTransform()));
+    }
+
     private void drawPolygon(CustomShapeDescription csd, Context c, Polygon polygon) {
         if (c.getFilled() != null && polygon.isClosed())
-            csd.addPolygon(polygon.transform(c.getTransform()), c.getThickness(), c.getFilled(), true);
+            csd.addPolygon(polygon, c.getThickness(), c.getFilled(), true);
         if (c.getColor() != null)
-            csd.addPolygon(polygon.transform(c.getTransform()), c.getThickness(), c.getColor(), false);
+            csd.addPolygon(polygon, c.getThickness(), c.getColor(), false);
     }
 
     private VectorFloat vec(String xStr, String yStr) {

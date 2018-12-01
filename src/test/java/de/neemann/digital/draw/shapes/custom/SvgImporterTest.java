@@ -441,7 +441,7 @@ public class SvgImporterTest extends TestCase {
             ArrayList<VectorInterface> isPoints = new ArrayList<>();
             polygon.traverse(isPoints::add);
 
-            System.out.println(polygon);
+            //System.out.println(polygon);
 
             assertEquals("not the correct polygon size", shouldPoints.size(), isPoints.size());
             for (int i = 0; i < shouldPoints.size(); i++) {
