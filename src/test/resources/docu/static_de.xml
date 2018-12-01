@@ -414,18 +414,18 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Benutzerdefinierter Schaltungsformen">
+    <chapter name="Benutzerdefinierter Schaltungssymbole">
         <par>
             Digital bietet zwar einige Optionen, die die Erscheinungsform einer Schaltung festlegen, wenn diese
-            in eine andere eingebettet wird, in manchen Fällen kann es jedoch sinnvoll sein, eine sehr spezielle
-            Form für eine Teilschaltung zu verwenden.
+            in eine andere eingebettet wird, in manchen Fällen kann es jedoch sinnvoll sein, ein spezielles
+            eigenes Symbol für eine Teilschaltung zu verwenden.
             Ein Beispiel ist die Darstellung der ALU in dem Prozessor, welcher in den Beispielen enthalten ist.
-            In diesem Kapitel wird erklärt, wie eine solche spezielle Form für eine Schaltung definiert wird.
+            In diesem Kapitel wird erklärt, wie eine solches spezielles Symbol für eine Schaltung definiert wird.
         </par>
         <par>
-            Digital bietet keinen Editor für das Erstellen einer speziellen Form an. Statt dessen ist ein kleiner
-            Umweg für das Erstellen von Schaltungsformen erforderlich:
-            Zunächst wird die Schaltung geöffnet, welche durch eine spezielle Form repräsentiert werden soll.
+            Digital bietet keinen Editor für das Erstellen eines speziellen Symbols an. Statt dessen ist ein kleiner
+            Umweg für das Erstellen von Schaltungssymbolen erforderlich:
+            Zunächst wird die Schaltung geöffnet, welche durch ein spezielles Symbol repräsentiert werden soll.
             Dann wird für diese Schaltung ein SVG-Template erstellt. In diesem Template wird die Schaltung durch
             ein einfaches Rechteck repräsentiert. Es finden sich darin auch alle Pins der Schaltung,
             repräsentiert durch blaue (Eingänge) und rote (Ausgänge) Kreise.
@@ -439,6 +439,10 @@
             <a href="https://inkscape.org/de/">Inkscape</a> welches kostenlos verfügbar ist.
             Die Pins können frei verschoben werden, werden jedoch beim Reimport auf den nächstgelegenen Rasterpunkt
             verschoben.
+        </par>
+        <par>
+            Wenn schon existierende SVG Dateien verwendet werden sollen, ist es das einfachste das erstellte
+            Template zu öffnen, und die bereits vorhandene Grafik per Copy&amp;Paste in das Template einzufügen.
         </par>
         <par>
             Wenn die Datei gespeichert wurde, kann diese mit Digital importiert werden. Dabei wird die Datei

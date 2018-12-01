@@ -411,6 +411,10 @@
             The pins can be moved freely, but are moved to the next grid point during the reimport.
         </par>
         <par>
+            If existing SVG files are to be used, it is easiest to open the created template and paste the
+            existing graphic into the template via Copy&amp;Paste.
+        </par>
+        <par>
             If the file was saved, it can be imported with Digital. The file is read in and all necessary
             information is extracted and stored in the circuit. For further use of the circuit, the SVG
             file is no longer required.
