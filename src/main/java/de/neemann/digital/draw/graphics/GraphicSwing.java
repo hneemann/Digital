@@ -64,25 +64,7 @@ public class GraphicSwing implements Graphic {
     public void drawPolygon(Polygon p, Style style) {
         applyStyle(style);
         Path2D path = new GeneralPath();
-        //modification of loop variable i is intended!
-        //CHECKSTYLE.OFF: ModifiedControlVariable
-        for (int i = 0; i < p.size(); i++) {
-            if (i == 0) {
-                path.moveTo(p.get(i).getXFloat(), p.get(i).getYFloat());
-            } else {
-                if (p.isBezierStart(i)) {
-                    path.curveTo(p.get(i).getXFloat(), p.get(i).getYFloat(),
-                            p.get(i + 1).getXFloat(), p.get(i + 1).getYFloat(),
-                            p.get(i + 2).getXFloat(), p.get(i + 2).getYFloat());
-                    i += 2;
-                } else
-                    path.lineTo(p.get(i).getXFloat(), p.get(i).getYFloat());
-            }
-        }
-        //CHECKSTYLE.ON: ModifiedControlVariable
-
-        if (p.isClosed())
-            path.closePath();
+        p.drawTo(path);
 
         if (style.isFilled() && p.isClosed())
             gr.fill(path);

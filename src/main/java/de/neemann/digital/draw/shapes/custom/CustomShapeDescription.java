@@ -148,6 +148,13 @@ public class CustomShapeDescription implements Iterable<Drawable> {
     }
 
     /**
+     * @return the number of pins in this shape
+     */
+    public int getPinCount() {
+        return pins.size();
+    }
+
+    /**
      * Stores a line.
      */
     public static final class LineHolder implements Drawable {
@@ -166,6 +173,20 @@ public class CustomShapeDescription implements Iterable<Drawable> {
         @Override
         public void drawTo(Graphic graphic, Style highLight) {
             graphic.drawLine(p1, p2, Style.NORMAL.deriveStyle(thickness, false, color));
+        }
+
+        /**
+         * @return first coordinate
+         */
+        public Vector getP1() {
+            return p1;
+        }
+
+        /**
+         * @return second coordinate
+         */
+        public Vector getP2() {
+            return p2;
         }
     }
 
@@ -213,6 +234,13 @@ public class CustomShapeDescription implements Iterable<Drawable> {
         @Override
         public void drawTo(Graphic graphic, Style highLight) {
             graphic.drawPolygon(poly, Style.NORMAL.deriveStyle(thickness, filled, color));
+        }
+
+        /**
+         * @return the stored polygon
+         */
+        public Polygon getPolygon() {
+            return poly;
         }
     }
 

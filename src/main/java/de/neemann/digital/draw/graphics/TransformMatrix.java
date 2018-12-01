@@ -13,15 +13,28 @@ public class TransformMatrix implements Transform {
 
     /**
      * Creates a rotation.
+     * Rotates in mathematically positive direction. Takes into account that
+     * in Digital the y-axis goes downwards.
      *
-     * @param w the angle in 360 grad
+     * @param w the angle in 360 grad units
      * @return the transformation
      */
-    public static TransformMatrix rotate(float w) {
+    public static TransformMatrix rotate(double w) {
         final double phi = w / 180 * Math.PI;
         float cos = (float) Math.cos(phi);
         float sin = (float) Math.sin(phi);
         return new TransformMatrix(cos, sin, -sin, cos, 0, 0);
+    }
+
+    /**
+     * Creates a scaling transformation
+     *
+     * @param sx scaling in x direction
+     * @param sy scaling in y direction
+     * @return the transformation
+     */
+    public static TransformMatrix scale(float sx, float sy) {
+        return new TransformMatrix(sx, 0, 0, sy, 0, 0);
     }
 
     final float a;
@@ -66,7 +79,8 @@ public class TransformMatrix implements Transform {
 
 
     /**
-     * Transforms a direction vector
+     * Transforms a direction vector.
+     * Ignores the translation part of the transformation.
      *
      * @param v the vector to transform
      * @return the transformed vector
@@ -82,4 +96,37 @@ public class TransformMatrix implements Transform {
         return this;
     }
 
+    /**
+     * Returns the inverse transformation.
+     *
+     * @return the inverse transformation.
+     */
+    public TransformMatrix invert() {
+        float q = a * d - b * c;
+
+        return new TransformMatrix(d / q, -b / q, -c / q, a / q,
+                (b * y - d * x) / q, (c * x - a * y) / q);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

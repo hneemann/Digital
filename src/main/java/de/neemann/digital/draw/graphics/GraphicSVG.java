@@ -6,9 +6,8 @@
 package de.neemann.digital.draw.graphics;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
-
-import static java.lang.System.out;
 
 /**
  * Used to create a SVG representation of the circuit.
@@ -61,7 +60,7 @@ public class GraphicSVG implements Graphic {
     @Override
     public Graphic setBoundingBox(VectorInterface min, VectorInterface max) {
         try {
-            w = new BufferedWriter(new OutputStreamWriter(out, "utf-8"));
+            w = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
             w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
                     + "<!-- Created with Digital by H.Neemann -->\n");
             w.write("<!-- created: " + new Date() + " -->\n");
@@ -113,22 +112,11 @@ public class GraphicSVG implements Graphic {
     @Override
     public void drawPolygon(Polygon p, Style style) {
         try {
-            //modification of loop variable i is intended!
-            //CHECKSTYLE.OFF: ModifiedControlVariable
-            w.write("<path d=\"M " + str(p.get(0)));
-            for (int i = 1; i < p.size(); i++)
-                if (p.isBezierStart(i)) {
-                    w.write(" C " + str(p.get(i)) + " " + str(p.get(i + 1)) + " " + str(p.get(i + 2)));
-                    i += 2;
-                } else
-                    w.write(" L " + str(p.get(i)));
-            //CHECKSTYLE.ON: ModifiedControlVariable
-
-            if (p.isClosed())
-                w.write(" Z");
-
-            w.write("\"");
+            w.write("<path d=\"" + p + "\"");
             addStrokeDash(w, style.getDash());
+            if (p.getEvenOdd() && style.isFilled())
+                w.write(" fill-rule=\"evenodd\"");
+
             if (style.isFilled() && p.isClosed())
                 w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" fill-opacity=\"" + getOpacity(style) + "\"/>\n");
             else

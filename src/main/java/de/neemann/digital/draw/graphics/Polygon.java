@@ -5,18 +5,19 @@
  */
 package de.neemann.digital.draw.graphics;
 
+import java.awt.geom.Path2D;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 
 /**
  * A polygon representation used by the {@link Graphic} interface.
  */
-public class Polygon implements Iterable<VectorInterface> {
+public class Polygon implements Iterable<Polygon.PathElement> {
 
-    private final ArrayList<VectorInterface> points;
-    private final HashSet<Integer> isBezierStart;
+    private final ArrayList<PathElement> path;
     private boolean closed;
+    private boolean hasSpecialElements = false;
+    private boolean evenOdd;
 
     /**
      * Creates e new closed polygon
@@ -41,9 +42,10 @@ public class Polygon implements Iterable<VectorInterface> {
      * @param closed true if polygon is closed
      */
     public Polygon(ArrayList<VectorInterface> points, boolean closed) {
-        this.points = points;
         this.closed = closed;
-        isBezierStart = new HashSet<>();
+        this.path = new ArrayList<>();
+        for (VectorInterface p : points)
+            add(p);
     }
 
     /**
@@ -71,8 +73,15 @@ public class Polygon implements Iterable<VectorInterface> {
      * @return this for chained calls
      */
     public Polygon add(VectorInterface p) {
-        points.add(p);
+        if (path.isEmpty())
+            add(new MoveTo(p));
+        else
+            add(new LineTo(p));
         return this;
+    }
+
+    private void add(PathElement pe) {
+        path.add(pe);
     }
 
     /**
@@ -84,45 +93,60 @@ public class Polygon implements Iterable<VectorInterface> {
      * @return this for chained calls
      */
     public Polygon add(VectorInterface c1, VectorInterface c2, VectorInterface p) {
-        if (points.size() == 0)
+        if (path.size() == 0)
             throw new RuntimeException("cubic bezier curve is not allowed to be the first path element");
-        isBezierStart.add(points.size());
-        points.add(c1);
-        points.add(c2);
-        points.add(p);
+        add(new CurveTo(c1, c2, p));
+        hasSpecialElements = true;
         return this;
     }
 
     /**
-     * Returns true if the point with the given index is a bezier start point
+     * Adds a new quadratic bezier curve to the polygon.
      *
-     * @param n the index
-     * @return true if point is bezier start
+     * @param c the control point to add
+     * @param p the end point to add
+     * @return this for chained calls
      */
-    public boolean isBezierStart(int n) {
-        return isBezierStart.contains(n);
+    public Polygon add(VectorInterface c, VectorInterface p) {
+        if (path.size() == 0)
+            throw new RuntimeException("quadratic bezier curve is not allowed to be the first path element");
+        add(new QuadTo(c, p));
+        hasSpecialElements = true;
+        return this;
     }
 
     /**
-     * @return the number of points
+     * Closes the actual path
      */
-    public int size() {
-        return points.size();
+    public void addClosePath() {
+        add(new ClosePath());
     }
 
     /**
-     * Returns one of the points
+     * Adds a moveto to the path
      *
-     * @param i the index
-     * @return the i'th point
+     * @param p the point to move to
      */
-    public VectorInterface get(int i) {
-        return points.get(i);
+    public void addMoveTo(VectorFloat p) {
+        add(new MoveTo(p));
     }
 
-    @Override
-    public Iterator<VectorInterface> iterator() {
-        return points.iterator();
+    /**
+     * @return true if filled in even odd mode
+     */
+    public boolean getEvenOdd() {
+        return evenOdd;
+    }
+
+    /**
+     * Sets the even odd mode used to fill the polygon
+     *
+     * @param evenOdd true is even odd mode is needed
+     * @return this for chained calls
+     */
+    public Polygon setEvenOdd(boolean evenOdd) {
+        this.evenOdd = evenOdd;
+        return this;
     }
 
     /**
@@ -140,28 +164,45 @@ public class Polygon implements Iterable<VectorInterface> {
     }
 
     private boolean check(VectorInterface p1, VectorInterface p2) {
+        if (closed)
+            return false;
+
         if (p1.equals(getFirst())) {
-            points.add(0, p2);
+            if (p2.equals(getLast()))
+                closed = true;
+            else {
+                removeInitialMoveTo();
+                path.add(0, new MoveTo(p2));
+            }
             return true;
         } else if (p1.equals(getLast())) {
-            points.add(p2);
+            if (p2.equals(getFirst()))
+                closed = true;
+            else
+                path.add(new LineTo(p2));
             return true;
         } else
             return false;
+    }
+
+    private void removeInitialMoveTo() {
+        if (!(path.get(0) instanceof MoveTo))
+            throw new RuntimeException("initial path element is not a MoveTo!");
+        path.set(0, new LineTo(path.get(0)));
     }
 
     /**
      * @return the first point of the polygon
      */
     public VectorInterface getFirst() {
-        return points.get(0);
+        return path.get(0).getPoint();
     }
 
     /**
      * @return the last point of the polygon
      */
     public VectorInterface getLast() {
-        return points.get(points.size() - 1);
+        return path.get(path.size() - 1).getPoint();
     }
 
     /**
@@ -171,10 +212,17 @@ public class Polygon implements Iterable<VectorInterface> {
      * @return this for chained calls
      */
     public Polygon append(Polygon p2) {
-        if (!p2.isBezierStart.isEmpty())
+        if (hasSpecialElements || p2.hasSpecialElements)
             throw new RuntimeException("append of bezier not supported");
-        for (int i = 1; i < p2.points.size(); i++)
-            points.add(p2.points.get(i));
+
+        if (p2.getLast().equals(getFirst())) {
+            for (int i = 1; i < p2.path.size() - 1; i++)
+                add(p2.path.get(i).getPoint());
+            closed = true;
+        } else {
+            for (int i = 1; i < p2.path.size(); i++)
+                add(p2.path.get(i).getPoint());
+        }
         return this;
     }
 
@@ -184,11 +232,11 @@ public class Polygon implements Iterable<VectorInterface> {
      * @return returns this polygon with reverse order of points
      */
     public Polygon reverse() {
-        if (!isBezierStart.isEmpty())
-            throw new RuntimeException("reverse of bezier not supported");
+        if (hasSpecialElements)
+            throw new RuntimeException("append of bezier not supported");
         Polygon p = new Polygon(closed);
-        for (int i = points.size() - 1; i >= 0; i--)
-            p.add(points.get(i));
+        for (int i = path.size() - 1; i >= 0; i--)
+            p.add(path.get(i).getPoint());
         return p;
     }
 
@@ -202,43 +250,24 @@ public class Polygon implements Iterable<VectorInterface> {
         if (transform == Transform.IDENTITY)
             return this;
 
-        Polygon p = new Polygon(closed);
-        for (VectorInterface v : points)
-            p.add(v.transform(transform));
-        p.isBezierStart.addAll(isBezierStart);
+        Polygon p = new Polygon(closed).setEvenOdd(evenOdd);
+        for (PathElement pe : path)
+            p.add(pe.transform(transform));
         return p;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("M ");
-        VectorInterface v = points.get(0);
-        sb.append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
-        //modification of loop variable i is intended!
-        //CHECKSTYLE.OFF: ModifiedControlVariable
-        for (int i = 1; i < points.size(); i++) {
-            v = points.get(i);
-            if (isBezierStart.contains(i)) {
-                sb.append("C ").append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
-                v = points.get(i + 1);
-                sb.append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
-                v = points.get(i + 2);
-                sb.append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
-                i += 2;
-            } else
-                sb.append("L ").append(str(v.getXFloat())).append(",").append(str(v.getYFloat())).append(" ");
+        StringBuilder sb = new StringBuilder();
+        for (PathElement pe : path) {
+            if (sb.length() > 0)
+                sb.append(' ');
+            sb.append(pe.toString());
         }
-        //CHECKSTYLE.ON: ModifiedControlVariable
-        if (closed)
-            sb.append("z");
-        return sb.toString();
-    }
 
-    private static String str(float f) {
-        if (f == Math.round(f))
-            return Integer.toString(Math.round(f));
-        else
-            return Float.toString(f);
+        if (closed)
+            sb.append(" Z");
+        return sb.toString();
     }
 
     /**
@@ -257,5 +286,261 @@ public class Polygon implements Iterable<VectorInterface> {
 
     void setClosed(boolean closed) {
         this.closed = closed;
+    }
+
+    @Override
+    public Iterator<PathElement> iterator() {
+        return path.iterator();
+    }
+
+    /**
+     * Draw this polygon to a {@link Path2D} instance.
+     *
+     * @param path2d the Path2d instance.
+     */
+    public void drawTo(Path2D path2d) {
+        for (PathElement pe : path)
+            pe.drawTo(path2d);
+        if (closed)
+            path2d.closePath();
+        if (evenOdd)
+            path2d.setWindingRule(Path2D.WIND_EVEN_ODD);
+    }
+
+    /**
+     * Traverses all points
+     *
+     * @param v the visitor to use
+     */
+    public void traverse(PointVisitor v) {
+        for (PathElement pe : path)
+            pe.traverse(v);
+    }
+
+    /**
+     * Visitor used to traverse all points
+     */
+    public interface PointVisitor {
+        /**
+         * Called with every point
+         *
+         * @param p the point
+         */
+        void visit(VectorInterface p);
+    }
+
+    /**
+     * A element of the path
+     */
+    public interface PathElement {
+        /**
+         * @return the coordinate of this path element
+         */
+        VectorInterface getPoint();
+
+        /**
+         * Returns the transformed path element
+         *
+         * @param transform the transformation
+         * @return the transormated path element
+         */
+        PathElement transform(Transform transform);
+
+        /**
+         * Draws this path element to a Path2D instance.
+         *
+         * @param path2d the a Path2D instance
+         */
+        void drawTo(Path2D path2d);
+
+        /**
+         * Traverses all points
+         *
+         * @param v the visitor to use
+         */
+        void traverse(PointVisitor v);
+    }
+
+    private static String str(float f) {
+        if (f == Math.round(f))
+            return Integer.toString(Math.round(f));
+        else
+            return Float.toString(f);
+    }
+
+    private static String str(VectorInterface p) {
+        return str(p.getXFloat()) + "," + str(p.getYFloat());
+    }
+
+    //LineTo can not be final because its overridden. Maybe checkstyle has a bug?
+    //CHECKSTYLE.OFF: FinalClass
+    private static class LineTo implements PathElement {
+        protected final VectorInterface p;
+
+        private LineTo(VectorInterface p) {
+            this.p = p;
+        }
+
+        private LineTo(PathElement pathElement) {
+            this(pathElement.getPoint());
+        }
+
+        @Override
+        public VectorInterface getPoint() {
+            return p;
+        }
+
+        @Override
+        public PathElement transform(Transform transform) {
+            return new LineTo(p.transform(transform));
+        }
+
+        @Override
+        public void drawTo(Path2D path2d) {
+            path2d.lineTo(p.getXFloat(), p.getYFloat());
+        }
+
+        @Override
+        public String toString() {
+            return "L " + str(p);
+        }
+
+        @Override
+        public void traverse(PointVisitor v) {
+            v.visit(p);
+        }
+    }
+    //CHECKSTYLE.ON: FinalClass
+
+    private static final class MoveTo extends LineTo {
+        private MoveTo(VectorInterface p) {
+            super(p);
+        }
+
+        @Override
+        public String toString() {
+            return "M " + str(p);
+        }
+
+        @Override
+        public void drawTo(Path2D path2d) {
+            path2d.moveTo(p.getXFloat(), p.getYFloat());
+        }
+
+        @Override
+        public PathElement transform(Transform transform) {
+            return new MoveTo(p.transform(transform));
+        }
+    }
+
+    private static final class CurveTo implements PathElement {
+        private final VectorInterface c1;
+        private final VectorInterface c2;
+        private final VectorInterface p;
+
+        private CurveTo(VectorInterface c1, VectorInterface c2, VectorInterface p) {
+            this.c1 = c1;
+            this.c2 = c2;
+            this.p = p;
+        }
+
+        @Override
+        public VectorInterface getPoint() {
+            return p;
+        }
+
+        @Override
+        public PathElement transform(Transform transform) {
+            return new CurveTo(
+                    c1.transform(transform),
+                    c2.transform(transform),
+                    p.transform(transform)
+            );
+        }
+
+        @Override
+        public String toString() {
+            return "C " + str(c1) + " " + str(c2) + " " + str(p);
+        }
+
+        @Override
+        public void drawTo(Path2D path2d) {
+            path2d.curveTo(c1.getXFloat(), c1.getYFloat(),
+                    c2.getXFloat(), c2.getYFloat(),
+                    p.getXFloat(), p.getYFloat());
+        }
+
+        @Override
+        public void traverse(PointVisitor v) {
+            v.visit(c1);
+            v.visit(c2);
+            v.visit(p);
+        }
+    }
+
+    private static final class QuadTo implements PathElement {
+        private final VectorInterface c;
+        private final VectorInterface p;
+
+        private QuadTo(VectorInterface c, VectorInterface p) {
+            this.c = c;
+            this.p = p;
+        }
+
+        @Override
+        public VectorInterface getPoint() {
+            return p;
+        }
+
+        @Override
+        public PathElement transform(Transform transform) {
+            return new QuadTo(
+                    c.transform(transform),
+                    p.transform(transform)
+            );
+        }
+
+        @Override
+        public String toString() {
+            return "Q " + str(c) + " " + str(p);
+        }
+
+        @Override
+        public void drawTo(Path2D path2d) {
+            path2d.quadTo(c.getXFloat(), c.getYFloat(),
+                    p.getXFloat(), p.getYFloat());
+        }
+
+        @Override
+        public void traverse(PointVisitor v) {
+            v.visit(c);
+            v.visit(p);
+        }
+    }
+
+    private class ClosePath implements PathElement {
+        @Override
+        public VectorInterface getPoint() {
+            return null;
+        }
+
+        @Override
+        public PathElement transform(Transform transform) {
+            return this;
+        }
+
+        @Override
+        public void drawTo(Path2D path2d) {
+            path2d.closePath();
+        }
+
+        @Override
+        public String toString() {
+            return "Z";
+        }
+
+        @Override
+        public void traverse(PointVisitor v) {
+        }
     }
 }

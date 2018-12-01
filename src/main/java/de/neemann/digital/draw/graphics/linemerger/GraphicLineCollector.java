@@ -75,7 +75,7 @@ public class GraphicLineCollector implements Graphic {
 
         private void tryMerge(Polygon p1) {
             for (Polygon p2 : polyList)
-                if (p1 != p2) {
+                if (p1 != p2 && !p1.isClosed() && !p2.isClosed()) {
                     if (p1.getLast().equals(p2.getFirst())) {
                         p1.append(p2);
                         polyList.remove(p2);

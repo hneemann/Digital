@@ -2,6 +2,7 @@ Release Notes
 
 HEAD, planned as v0.21
 
+- Added a simple SVG importer to define custom shapes.
 - Added an FSM editor, which allows to input a fsm, creating a associated
   truth table and finally allows to create a circuit which implements the FSM.
 - Added a divider component.
