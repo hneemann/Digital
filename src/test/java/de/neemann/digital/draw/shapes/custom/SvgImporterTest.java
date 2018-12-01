@@ -278,6 +278,18 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testInvalidArcRadii() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "      d=\"M 0,0 L 40,0 A 10,20,0,1,1,100,0 L 140,0\"/>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 0,0 L 40,0 Q 40,-16.076952 44.019238,-30 Q 48.038475,-43.92305 55,-51.961525 Q 61.961525,-60 70,-60 Q 78.038475,-60 85,-51.961525 Q 91.961525,-43.92305 95.98076,-30 Q 100,-16.076952 100,-1.469576E-14 L 140,0")
+                .check();
+    }
+
     public void testInkscape1() throws IOException, SvgException, PolygonParser.ParserException, PinException {
         CustomShapeDescription custom = new SvgImporter(
                 in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -429,7 +441,7 @@ public class SvgImporterTest extends TestCase {
             ArrayList<VectorInterface> isPoints = new ArrayList<>();
             polygon.traverse(isPoints::add);
 
-            //System.out.println(polygon);
+            System.out.println(polygon);
 
             assertEquals("not the correct polygon size", shouldPoints.size(), isPoints.size());
             for (int i = 0; i < shouldPoints.size(); i++) {

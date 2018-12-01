@@ -135,7 +135,7 @@ public class SvgImporter {
     }
 
     private void drawPolygon(CustomShapeDescription csd, Context c, Polygon polygon) {
-        if (c.getFilled() != null)
+        if (c.getFilled() != null && polygon.isClosed())
             csd.addPolygon(polygon.transform(c.getTransform()), c.getThickness(), c.getFilled(), true);
         if (c.getColor() != null)
             csd.addPolygon(polygon.transform(c.getTransform()), c.getThickness(), c.getColor(), false);
@@ -184,10 +184,7 @@ public class SvgImporter {
                     .add(c.v(x + width, y + height))
                     .add(c.v(x, y + height));
 
-        if (c.getFilled() != null)
-            csd.addPolygon(polygon, c.getThickness(), c.getFilled(), true);
-        if (c.getColor() != null)
-            csd.addPolygon(polygon, c.getThickness(), c.getColor(), false);
+        drawPolygon(csd, c, polygon);
     }
 
     private void drawCircle(CustomShapeDescription csd, Element element, Context c) {
@@ -229,10 +226,7 @@ public class SvgImporter {
                     .add(c.v(x + rx, y - cy), c.v(x + cx, y - ry), c.v(x, y - ry))
                     .add(c.v(x - cx, y - ry), c.v(x - rx, y - cy), c.v(x - rx, y));
 
-            if (c.getFilled() != null)
-                csd.addPolygon(poly, c.getThickness(), c.getFilled(), true);
-            if (c.getColor() != null)
-                csd.addPolygon(poly, c.getThickness(), c.getColor(), false);
+            drawPolygon(csd, c, poly);
         }
     }
 

@@ -255,6 +255,20 @@ public class PolygonParser {
      */
     //CHECKSTYLE.OFF: ParameterNumberCheck
     private void addArc(Polygon p, VectorInterface current, float rx, float ry, float rot, boolean large, boolean sweep, VectorFloat pos) {
+
+        // if rx=0 or ry=0 add a straight line
+        if (rx == 0 || ry == 0) {
+            p.add(pos);
+            return;
+        }
+
+        // take the absolute value of rx, ry
+        if (rx < 0)
+            rx = -rx;
+        if (ry < 0)
+            ry = -ry;
+
+        // transform the ellipse to a circle
         Transform tr = Transform.IDENTITY;
         if (rx != ry)
             tr = TransformMatrix.scale(1, rx / ry);
@@ -270,6 +284,11 @@ public class PolygonParser {
         // ellipse is transformed to a circle with radius r
         float r = rx;
 
+        // correct invalid radii
+        final float dist = p1.sub(p2).len();
+        if (dist > r * 2)
+            r = dist / 2;
+
         double x1 = p1.getXFloat();
         double y1 = p1.getYFloat();
         double x2 = p2.getXFloat();
@@ -281,50 +300,55 @@ public class PolygonParser {
         double y2q = y2 * y2;
         double rq = r * r;
 
-        double x0A = (r * (y1 - y2) * sqrt(rq * (4 * rq - y1q + y2 * (2 * y1 - y2)) - rq * (x1q - 2 * x1 * x2 + x2q)) * sign(x1 - x2) + r * (x1 + x2) * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q))) / (2 * r * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)));
-        double y0A = (r * (y1 + y2) * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)) - r * sqrt(rq * (4 * rq - y1q + y2 * (2 * y1 - y2)) - rq * (x1q - 2 * x1 * x2 + x2q)) * abs(x1 - x2)) / (2 * r * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)));
-        double x0B = (r * (x1 + x2) * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)) - r * (y1 - y2) * sqrt(rq * (4 * rq - y1q + y2 * (2 * y1 - y2)) - rq * (x1q - 2 * x1 * x2 + x2q)) * sign(x1 - x2)) / (2 * r * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)));
-        double y0B = (r * sqrt(rq * (4 * rq - y1q + y2 * (2 * y1 - y2)) - rq * (x1q - 2 * x1 * x2 + x2q)) * abs(x1 - x2) + r * (y1 + y2) * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q))) / (2 * r * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)));
+        try {
+            double x0A = (r * (y1 - y2) * sqrt(rq * (4 * rq - y1q + y2 * (2 * y1 - y2)) - rq * (x1q - 2 * x1 * x2 + x2q)) * sign(x1 - x2) + r * (x1 + x2) * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q))) / (2 * r * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)));
+            double y0A = (r * (y1 + y2) * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)) - r * sqrt(rq * (4 * rq - y1q + y2 * (2 * y1 - y2)) - rq * (x1q - 2 * x1 * x2 + x2q)) * abs(x1 - x2)) / (2 * r * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)));
+            double x0B = (r * (x1 + x2) * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)) - r * (y1 - y2) * sqrt(rq * (4 * rq - y1q + y2 * (2 * y1 - y2)) - rq * (x1q - 2 * x1 * x2 + x2q)) * sign(x1 - x2)) / (2 * r * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)));
+            double y0B = (r * sqrt(rq * (4 * rq - y1q + y2 * (2 * y1 - y2)) - rq * (x1q - 2 * x1 * x2 + x2q)) * abs(x1 - x2) + r * (y1 + y2) * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q))) / (2 * r * sqrt(rq * (y1q - 2 * y1 * y2 + y2q) + rq * (x1q - 2 * x1 * x2 + x2q)));
 
-        double startA = Math.atan2(y1 - y0A, x1 - x0A);
-        double endA = Math.atan2(y2 - y0A, x2 - x0A);
+            double startA = Math.atan2(y1 - y0A, x1 - x0A);
+            double endA = Math.atan2(y2 - y0A, x2 - x0A);
 
-        double startB = Math.atan2(y1 - y0B, x1 - x0B);
-        double endB = Math.atan2(y2 - y0B, x2 - x0B);
+            double startB = Math.atan2(y1 - y0B, x1 - x0B);
+            double endB = Math.atan2(y2 - y0B, x2 - x0B);
 
-        double delta = 2 * Math.PI / 12;
-        if (!sweep) delta = -delta;
+            double delta = 2 * Math.PI / 12;
+            if (!sweep) delta = -delta;
 
-        if (delta > 0) {
-            if (endA < startA) endA += 2 * Math.PI;
-            if (endB < startB) endB += 2 * Math.PI;
-        } else {
-            if (endA > startA) endA -= 2 * Math.PI;
-            if (endB > startB) endB -= 2 * Math.PI;
-        }
+            if (delta > 0) {
+                if (endA < startA) endA += 2 * Math.PI;
+                if (endB < startB) endB += 2 * Math.PI;
+            } else {
+                if (endA > startA) endA -= 2 * Math.PI;
+                if (endB > startB) endB -= 2 * Math.PI;
+            }
 
-        double sizeA = Math.abs(startA - endA);
-        double sizeB = Math.abs(startB - endB);
+            double sizeA = Math.abs(startA - endA);
+            double sizeB = Math.abs(startB - endB);
 
-        double start = startA;
-        double end = endA;
-        double x0 = x0A;
-        double y0 = y0A;
-        if (large ^ (sizeA > sizeB)) {
-            start = startB;
-            end = endB;
-            x0 = x0B;
-            y0 = y0B;
-        }
+            double start = startA;
+            double end = endA;
+            double x0 = x0A;
+            double y0 = y0A;
+            if (large ^ (sizeA > sizeB)) {
+                start = startB;
+                end = endB;
+                x0 = x0B;
+                y0 = y0B;
+            }
 
-        double lastStart = start;
-        start += delta;
-        while (delta < 0 ^ start < end) {
-            addArcPoint(p, lastStart, start, x0, y0, r, invert);
-            lastStart = start;
+            double lastStart = start;
             start += delta;
+            while (delta < 0 ^ start < end) {
+                addArcPoint(p, lastStart, start, x0, y0, r, invert);
+                lastStart = start;
+                start += delta;
+            }
+            addArcPoint(p, lastStart, end, x0, y0, r, invert);
+
+        } catch (SqrtException e) {
+            p.add(pos);
         }
-        addArcPoint(p, lastStart, end, x0, y0, r, invert);
     }
     //CHECKSTYLE.ON: ParameterNumberCheck
 
@@ -336,8 +360,13 @@ public class PolygonParser {
         p.add(c.transform(tr), p1.transform(tr));
     }
 
-    private static double sqrt(double x) {
-        return Math.sqrt(x);
+    private static double sqrt(double x) throws SqrtException {
+        if (x > 0)
+            return Math.sqrt(x);
+        if (x > -1e-6)
+            return 0;
+
+        throw new SqrtException();
     }
 
     private static double sign(double x) {
@@ -394,4 +423,6 @@ public class PolygonParser {
         return p;
     }
 
+    private static class SqrtException extends Exception {
+    }
 }

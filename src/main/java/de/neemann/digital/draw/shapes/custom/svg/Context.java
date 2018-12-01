@@ -42,6 +42,7 @@ class Context {
         tr = Transform.IDENTITY;
         thickness = 1;
         color = Color.BLACK;
+        fill = Color.BLACK;
     }
 
     private Context(Context parent) {
@@ -50,6 +51,7 @@ class Context {
         color = parent.color;
         thickness = parent.thickness;
         fontSize = parent.fontSize;
+        textAnchor = parent.textAnchor;
         fillRuleEvenOdd = parent.fillRuleEvenOdd;
     }
 
@@ -127,7 +129,6 @@ class Context {
     public float getFontSize() {
         return fontSize;
     }
-
 
     private interface AttrParser {
         void parse(Context c, String value) throws SvgException;
