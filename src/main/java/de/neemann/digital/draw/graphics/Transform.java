@@ -28,6 +28,11 @@ public interface Transform {
         public TransformMatrix getMatrix() {
             return new TransformMatrix(1, 0, 0, 1, 0, 0);
         }
+
+        @Override
+        public Transform invert() {
+            return IDENTITY;
+        }
     };
 
     /**
@@ -72,4 +77,11 @@ public interface Transform {
      * @return the transformed Transform
      */
     TransformMatrix getMatrix();
+
+    /**
+     * @return the inverse transform
+     */
+    default Transform invert() {
+        return getMatrix().invert();
+    }
 }

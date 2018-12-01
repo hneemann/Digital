@@ -216,7 +216,7 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
-    public void testScale() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+    public void testScale() throws IOException, SvgException, PinException {
         CustomShapeDescription custom = new SvgImporter(
                 in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
                         "<g transform=\"scale(2,3)\">\n" +
@@ -230,6 +230,78 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testArc() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "      d=\"M 0,0 L 40,0 A 31,80,30,0,0,100,0 L 140,0\"/> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 0,0 L 40,0 Q 37.161327,16.337067 40.99908,25.612656 Q 44.83683,34.888245 54.32269,34.616966 Q 63.80854,34.345688 76.40078,24.600235 Q 88.27738,15.408623 100,0 L 140,0")
+                .check();
+    }
+
+    public void testArc2() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "      d=\"M 0,0 L 40,0 A 31,80,30,1,0,100,0 L 140,0\"/> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 0,0 L 40,0 Q 27.571037,16.337067 18.5496,35.35811 Q 9.528162,54.37915 6.331539,70.987495 Q 3.1349144,87.59584 6.6196365,97.3413 Q 10.104355,107.086754 19.336689,107.358025 Q 28.569027,107.6293 41.075184,98.35372 Q 53.581345,89.078125 66.0103,72.74106 Q 78.43926,56.403996 87.46069,37.38295 Q 96.48214,18.36191 99.67876,1.7535629 Q 99.84891,0.86956406 100,0 L 140,0")
+                .check();
+    }
+
+    public void testArc3() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "      d=\"M 0,0 L 40,0 A 31,80,30,0,1,100,0 L 140,0\"/> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 0,0 L 40,0 Q 52.42896,-16.33707 64.93511,-25.612656 Q 77.44127,-34.88825 86.67361,-34.616966 Q 95.905945,-34.345688 99.39067,-24.600235 Q 102.67735,-15.408623 100,0 L 140,0")
+                .check();
+    }
+
+    public void testArc4() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "      d=\"M 0,0 L 40,0 A 31,80,30,1,1,100,0 L 140,0\"/> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 0,0 L 40,0 Q 42.83867,-16.337069 51.593147,-35.35811 Q 60.347626,-54.379158 72.67216,-70.987495 Q 84.99669,-87.59584 97.58891,-97.3413 Q 110.18115,-107.086754 119.66701,-107.35804 Q 129.15286,-107.62932 132.99062,-98.353714 Q 136.82837,-89.07814 133.98969,-72.74107 Q 131.15103,-56.403996 122.396545,-37.382957 Q 113.64207,-18.361908 101.317535,-1.7535667 Q 100.661545,-0.86956406 100,0 L 140,0")
+                .check();
+    }
+
+    public void testInkscape1() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "      d=\"m 40,-40 h 20 c 11.08,0 20,8.92 20,20 V 20 C 80,31.08 71.08,40 60,40 H 40 C 28.92,40 20,31.08 20,20 v -40 c 0,-11.08 8.92,-20 20,-20 z\"/> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 40,-40 L 60,-40 C 71.08,-40 80,-31.08 80,-20 L 80,20 C 80,31.08 71.08,40 60,40 L 40,40 C 28.92,40 20,31.08 20,20 L 20,-20 C 20,-31.08 28.92,-40 40,-40 Z")
+                .check();
+    }
+
+    public void testInkscape2() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "      d=\"M 80,0 A 40,40 0 0 1 58.083689,35.678848 40,40 0 0 1 16.350991,32.26026 L 40,0 Z\"/> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 80,0 Q 80,10.717968 74.641014,20 Q 69.282036,29.282032 60,34.641018 Q 59.05599,35.186043 58.08369,35.67885 Q 48.52357,40.52436 37.82151,39.940636 Q 27.119452,39.35691 18.143057,33.500362 Q 17.230127,32.904728 16.35099,32.26026 L 40,0 Z")
+                .check();
+    }
+
 
     //*****************************************************************************************************
 
@@ -238,12 +310,12 @@ public class SvgImporterTest extends TestCase {
         return new ByteArrayInputStream(s.getBytes());
     }
 
-    public static class CSDChecker {
+    private static class CSDChecker {
         private final CustomShapeDescription csd;
         private final ArrayList<Checker> checker;
         private final ArrayList<TestPin> pins;
 
-        public CSDChecker(CustomShapeDescription csd) {
+        private CSDChecker(CustomShapeDescription csd) {
             this.csd = csd;
             this.checker = new ArrayList<>();
             this.pins = new ArrayList<>();
@@ -276,26 +348,26 @@ public class SvgImporterTest extends TestCase {
                 fail("not enough elements found in the csd");
         }
 
-        public CSDChecker checkPolygon(String s) throws PolygonParser.ParserException {
+        private CSDChecker checkPolygon(String s) throws PolygonParser.ParserException {
             checker.add(new CheckPolygon(new PolygonParser(s).create()));
             return this;
         }
 
-        public CSDChecker checkPolygon(String s, boolean evenOdd) throws PolygonParser.ParserException {
+        private CSDChecker checkPolygon(String s, boolean evenOdd) throws PolygonParser.ParserException {
             checker.add(new CheckPolygon(new PolygonParser(s).create().setEvenOdd(evenOdd)));
             return this;
         }
 
-        public CSDChecker checkPin(int x, int y, String name, boolean showLabel) {
+        private CSDChecker checkPin(int x, int y, String name, boolean showLabel) {
             pins.add(new TestPin(x, y, name, showLabel));
             return this;
         }
 
-        public CSDChecker checkLine(int x1, int y1, int x2, int y2) {
+        private CSDChecker checkLine(int x1, int y1, int x2, int y2) {
             checker.add(new Checker() {
                 @Override
                 public void check(Drawable d) {
-                    assertTrue(d instanceof CustomShapeDescription.LineHolder);
+                    assertTrue("element is no line", d instanceof CustomShapeDescription.LineHolder);
                     CustomShapeDescription.LineHolder l = (CustomShapeDescription.LineHolder) d;
                     assertEquals(x1, l.getP1().x);
                     assertEquals(y1, l.getP1().y);
@@ -312,7 +384,7 @@ public class SvgImporterTest extends TestCase {
             private final String name;
             private final boolean showLabel;
 
-            public TestPin(int x, int y, String name, boolean showLabel) {
+            private TestPin(int x, int y, String name, boolean showLabel) {
                 this.x = x;
                 this.y = y;
                 this.name = name;
@@ -329,7 +401,7 @@ public class SvgImporterTest extends TestCase {
 
         private final Polygon should;
 
-        public CheckPolygon(Polygon should) {
+        private CheckPolygon(Polygon should) {
             this.should = should;
         }
 
