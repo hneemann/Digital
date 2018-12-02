@@ -327,6 +327,19 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testInkscape4() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "  d=\"M 10,10 V 40 H 40 V 10 Z m 10, 10 h 10 v 10 H 20 v -10 z\"" +
+                        "  /> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 10,10 L 10,40 L 40,40 L 40,10 Z M 20,20 L 30,20 L 30,30 L 20,30 L 20,20 Z")
+                .check();
+    }
+
 
     //*****************************************************************************************************
 
@@ -371,6 +384,11 @@ public class SvgImporterTest extends TestCase {
             }
             if (i != checker.size())
                 fail("not enough elements found in the csd");
+        }
+
+        private CSDChecker checkPolygonDebug(String s) throws PolygonParser.ParserException {
+            checker.add(new CheckPolygon(new PolygonParser(s).create()).setDebug(true));
+            return this;
         }
 
         private CSDChecker checkPolygon(String s) throws PolygonParser.ParserException {
@@ -425,6 +443,7 @@ public class SvgImporterTest extends TestCase {
     private static class CheckPolygon implements Checker {
 
         private final Polygon should;
+        private boolean debug;
 
         private CheckPolygon(Polygon should) {
             this.should = should;
@@ -441,7 +460,10 @@ public class SvgImporterTest extends TestCase {
             ArrayList<VectorInterface> isPoints = new ArrayList<>();
             polygon.traverse(isPoints::add);
 
-            //System.out.println(polygon);
+            if (debug) {
+                System.out.println("should: " + should);
+                System.out.println("was   : " + polygon);
+            }
 
             assertEquals("not the correct polygon size", shouldPoints.size(), isPoints.size());
             for (int i = 0; i < shouldPoints.size(); i++) {
@@ -450,6 +472,11 @@ public class SvgImporterTest extends TestCase {
                 assertEquals("x coordinate " + i, sh.getXFloat(), is.getXFloat(), 1e-4);
                 assertEquals("y coordinate " + i, sh.getYFloat(), is.getYFloat(), 1e-4);
             }
+        }
+
+        private Checker setDebug(boolean debug) {
+            this.debug = true;
+            return this;
         }
     }
 

@@ -9,6 +9,7 @@ package de.neemann.digital.draw.graphics;
  * Creates a polygon from a path
  */
 public class PolygonParser {
+
     enum Token {EOF, COMMAND, NUMBER}
 
     private final String path;
@@ -18,6 +19,7 @@ public class PolygonParser {
     private float value;
     private float x;
     private float y;
+    private VectorFloat polyStart;
     private VectorInterface lastQuadraticControlPoint;
     private VectorInterface lastCubicControlPoint;
 
@@ -132,7 +134,7 @@ public class PolygonParser {
                         closedPending = false;
                         p.addClosePath();
                     }
-                    p.addMoveTo(nextVector());
+                    p.addMoveTo(setPolyStart(nextVector()));
                     clearControl();
                     break;
                 case 'm':
@@ -140,7 +142,7 @@ public class PolygonParser {
                         closedPending = false;
                         p.addClosePath();
                     }
-                    p.addMoveTo(nextVectorInc());
+                    p.addMoveTo(setPolyStart(nextVectorInc()));
                     clearControl();
                     break;
                 case 'V':
@@ -206,6 +208,10 @@ public class PolygonParser {
                 case 'Z':
                 case 'z':
                     closedPending = true;
+                    if (polyStart != null) {
+                        x = polyStart.getXFloat();
+                        y = polyStart.getYFloat();
+                    }
                     clearControl();
                     break;
                 default:
@@ -215,6 +221,11 @@ public class PolygonParser {
         if (closedPending)
             p.setClosed(true);
         return p;
+    }
+
+    private VectorFloat setPolyStart(VectorFloat v) {
+        polyStart = v;
+        return v;
     }
 
     private VectorInterface getCurrent() {
