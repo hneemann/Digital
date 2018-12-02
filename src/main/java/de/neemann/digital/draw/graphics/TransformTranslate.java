@@ -54,4 +54,9 @@ public class TransformTranslate implements Transform {
     public TransformMatrix getMatrix() {
         return new TransformMatrix(1, 0, 0, 1, trans.getXFloat(), trans.getYFloat());
     }
+
+    @Override
+    public Transform invert() {
+        return new TransformTranslate(trans.div(-1));
+    }
 }

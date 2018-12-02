@@ -30,7 +30,7 @@ public class GraphicTransform implements Graphic {
     }
 
     @Override
-    public void drawPolygon(GenericPath p, Style style) {
+    public void drawPolygon(Polygon p, Style style) {
         parent.drawPolygon(p.transform(transform), style);
     }
 

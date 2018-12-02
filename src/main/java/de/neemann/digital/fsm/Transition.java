@@ -77,7 +77,8 @@ public class Transition extends Movable<Transition> {
 
         if (!isInitialTransition()) {
             for (State s : states)
-                addRepulsive(s.getPos(), 2000);
+                if (s != fromState && s != toState)
+                    addRepulsive(s.getPos(), 2000);
 
             for (Transition t : transitions)
                 if (t != this)

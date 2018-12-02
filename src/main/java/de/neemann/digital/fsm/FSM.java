@@ -13,6 +13,7 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
+import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
@@ -30,6 +31,8 @@ public class FSM {
     private transient ModifiedListener modifiedListener;
     private transient boolean isInitialChecked;
     private transient Transition initialTransition;
+    private transient int activeState = -1;
+    private transient File file;
 
     /**
      * Creates a proper configured XStream instance
@@ -58,7 +61,9 @@ public class FSM {
      * @throws IOException IOException
      */
     public static FSM loadFSM(File filename) throws IOException {
-        return loadFSM(new FileInputStream(filename));
+        final FSM fsm = loadFSM(new FileInputStream(filename));
+        fsm.file = filename;
+        return fsm;
     }
 
     /**
@@ -77,6 +82,7 @@ public class FSM {
             for (State s : fsm.states)
                 s.setFSM(fsm);
             fsm.modified = false;
+            fsm.activeState = -1;
             return fsm;
         } catch (RuntimeException e) {
             throw new IOException(Lang.get("err_invalidFileFormat"), e);
@@ -93,6 +99,7 @@ public class FSM {
      */
     public void save(File filename) throws IOException {
         save(new FileOutputStream(filename));
+        file = filename;
     }
 
     /**
@@ -208,10 +215,16 @@ public class FSM {
         throw new FiniteStateMachineException(Lang.get("err_fsmState_N_notFound", number));
     }
 
+
+    /**
+     * @return the file, maybe null
+     */
+    public File getFile() {
+        return file;
+    }
+
     /**
      * Calculates all forces to move the elements
-     *
-     * @return this for chained calls
      */
     private void calculateForces() {
         for (State s : states)
@@ -324,12 +337,13 @@ public class FSM {
     /**
      * Creates the truth table which is defined by this finite state machine
      *
+     * @param creator the creator of the truth table
      * @return the truth table
      * @throws ExpressionException         ExpressionException
      * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public TruthTable createTruthTable() throws ExpressionException, FiniteStateMachineException {
-        return new TransitionTableCreator(this).create();
+    public TruthTable createTruthTable(FSMFrame creator) throws ExpressionException, FiniteStateMachineException {
+        return new TransitionTableCreator(this, creator).create();
     }
 
     /**
@@ -424,6 +438,27 @@ public class FSM {
             throw new RuntimeException("call not allowed");
         this.modified = modified;
         return this;
+    }
+
+    /**
+     * Used to set the active state
+     *
+     * @param value the state number
+     * @return true if state has changed
+     */
+    public boolean setActiveState(int value) {
+        if (activeState != value) {
+            activeState = value;
+            return true;
+        } else
+            return false;
+    }
+
+    /**
+     * @return the active state
+     */
+    int getActiveState() {
+        return activeState;
     }
 
     /**

@@ -56,9 +56,8 @@ public class GraphicMinMax implements Graphic {
     }
 
     @Override
-    public void drawPolygon(GenericPath p, Style style) {
-        for (VectorInterface v : p)
-            check(v);
+    public void drawPolygon(Polygon p, Style style) {
+        p.traverse(this::check);
     }
 
     @Override

@@ -6,9 +6,8 @@
 package de.neemann.digital.draw.graphics;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
-
-import static java.lang.System.out;
 
 /**
  * Used to create a SVG representation of the circuit.
@@ -61,7 +60,7 @@ public class GraphicSVG implements Graphic {
     @Override
     public Graphic setBoundingBox(VectorInterface min, VectorInterface max) {
         try {
-            w = new BufferedWriter(new OutputStreamWriter(out, "utf-8"));
+            w = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
             w.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
                     + "<!-- Created with Digital by H.Neemann -->\n");
             w.write("<!-- created: " + new Date() + " -->\n");
@@ -111,12 +110,13 @@ public class GraphicSVG implements Graphic {
     }
 
     @Override
-    public void drawPolygon(GenericPath p, Style style) {
+    public void drawPolygon(Polygon p, Style style) {
         try {
-            w.write("<path d=\"");
-            w.write(p.toString());
-            w.write("\"");
+            w.write("<path d=\"" + p + "\"");
             addStrokeDash(w, style.getDash());
+            if (p.getEvenOdd() && style.isFilled())
+                w.write(" fill-rule=\"evenodd\"");
+
             if (style.isFilled() && p.isClosed())
                 w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" fill-opacity=\"" + getOpacity(style) + "\"/>\n");
             else

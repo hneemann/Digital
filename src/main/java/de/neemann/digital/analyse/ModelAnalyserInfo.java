@@ -7,6 +7,7 @@ package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.gui.Main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class ModelAnalyserInfo {
     private ArrayList<Signal> inputs;
     private ArrayList<Signal> outputs;
     private ArrayList<String> pinsWithoutNumber;
+    private Main.CreatedNotification mainCreatedNotification;
 
     /**
      * creates a new instance
@@ -125,5 +127,21 @@ public class ModelAnalyserInfo {
      */
     public HashMap<String, ArrayList<String>> getOutputBusMap() {
         return outputBusMap;
+    }
+
+    /**
+     * Sets the fsm state info;
+     *
+     * @param info the info instance
+     */
+    public void setMainCreatedNotification(Main.CreatedNotification info) {
+        mainCreatedNotification = info;
+    }
+
+    /**
+     * @return the fsm state info
+     */
+    public Main.CreatedNotification getMainCreatedNotification() {
+        return mainCreatedNotification;
     }
 }

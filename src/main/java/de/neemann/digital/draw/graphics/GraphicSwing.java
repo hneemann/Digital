@@ -61,9 +61,11 @@ public class GraphicSwing implements Graphic {
     }
 
     @Override
-    public void drawPolygon(GenericPath p, Style style) {
+    public void drawPolygon(Polygon p, Style style) {
         applyStyle(style);
-        Path2D path = p.toPath2D();
+        Path2D path = new GeneralPath();
+        p.drawTo(path);
+
         if (style.isFilled() && p.isClosed())
             gr.fill(path);
         if (style.getThickness() > 0)

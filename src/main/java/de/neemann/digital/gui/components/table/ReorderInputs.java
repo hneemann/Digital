@@ -60,8 +60,7 @@ public class ReorderInputs {
      */
     public TruthTable reorder() throws ExpressionException {
         ArrayList<Variable> newVars = new ArrayList<>();
-        ArrayList<Variable> deletedVars = new ArrayList<>();
-        deletedVars.addAll(table.getVars());
+        ArrayList<Variable> deletedVars = new ArrayList<>(table.getVars());
 
         for (String name : names) {
             Variable found = null;
@@ -81,6 +80,7 @@ public class ReorderInputs {
             throw new ExpressionException(Lang.get("err_tableBecomesToSmall"));
 
         TruthTable newTable = new TruthTable(newVars);
+        newTable.setModelAnalyzerInfo(table.getModelAnalyzerInfo());
         for (int j = 0; j < table.getResultCount(); j++)
             newTable.addResult(table.getResultName(j));
 

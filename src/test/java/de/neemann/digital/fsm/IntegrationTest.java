@@ -26,6 +26,6 @@ public class IntegrationTest extends TestCase {
      * Does not test if the truth table is correct!
      */
     private void check(File file) throws IOException, ExpressionException, FiniteStateMachineException {
-        FSM.loadFSM(file).createTruthTable();
+        FSM.loadFSM(file).createTruthTable(null);
     }
 }
