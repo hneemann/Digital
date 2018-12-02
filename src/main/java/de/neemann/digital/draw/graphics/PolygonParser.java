@@ -350,7 +350,7 @@ public class PolygonParser {
 
             double lastStart = start;
             start += delta;
-            while (delta < 0 ^ start < end) {
+            while ((delta > 0 && start < end) || (delta < 0 && start > end)) {
                 addArcPoint(p, lastStart, start, x0, y0, r, invert);
                 lastStart = start;
                 start += delta;

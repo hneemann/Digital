@@ -398,6 +398,19 @@ public class SvgImporterTest extends TestCase {
     }
 
 
+    public void testInkscape5() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<path fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "  d=\"M 0,0 A 50,50,0,0,0,50,50\"" +
+                        "  /> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 0,0 Q 7.1054274E-15,13.39746 6.69873,25 Q 13.39746,36.60254 25,43.30127 Q 36.60254,50 50,50")
+                .check();
+    }
+
     //*****************************************************************************************************
 
 
