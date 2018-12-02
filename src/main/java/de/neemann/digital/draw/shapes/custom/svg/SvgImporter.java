@@ -215,23 +215,42 @@ public class SvgImporter {
         }
         if (r != null) {
             VectorFloat pos = vec(element.getAttribute("cx"), element.getAttribute("cy"));
-            float x = pos.getXFloat();
-            float y = pos.getYFloat();
             float rx = r.getXFloat();
             float ry = r.getYFloat();
 
-            double f = 4 * (Math.sqrt(2) - 1) / 3;
-            float cx = (float) (f * rx);
-            float cy = (float) (f * ry);
+            final TransformMatrix matrix = c.getTransform().getMatrix();
+            if (matrix.noRotation() || (rx == ry && matrix.isUniform())) {
+                // simple circle
+                rx = matrix.transformDirection(new VectorFloat(rx, 0)).len();
+                ry = matrix.transformDirection(new VectorFloat(0, ry)).len();
 
-            Polygon poly = new Polygon(true)
-                    .add(c.v(x - rx, y))
-                    .add(c.v(x - rx, y + cy), c.v(x - cx, y + ry), c.v(x, y + ry))
-                    .add(c.v(x + cx, y + ry), c.v(x + rx, y + cy), c.v(x + rx, y))
-                    .add(c.v(x + rx, y - cy), c.v(x + cx, y - ry), c.v(x, y - ry))
-                    .add(c.v(x - cx, y - ry), c.v(x - rx, y - cy), c.v(x - rx, y));
+                VectorInterface center = pos.transform(c.getTransform());
+                VectorFloat rad = new VectorFloat(rx, ry);
+                Vector p1 = center.sub(rad).round();
+                Vector p2 = center.add(rad).round();
 
-            drawPolygon(csd, c, poly);
+                if (c.getColor() != null)
+                    csd.addCircle(p1, p2, c.getThickness(), c.getColor(), false);
+                if (c.getFilled() != null)
+                    csd.addCircle(p1, p2, c.getThickness(), c.getFilled(), true);
+            } else {
+                // bezier curves
+                double f = 4 * (Math.sqrt(2) - 1) / 3;
+                float cx = (float) (f * rx);
+                float cy = (float) (f * ry);
+                float x = pos.getXFloat();
+                float y = pos.getYFloat();
+
+                Polygon poly = new Polygon(true)
+                        .add(c.v(x - rx, y))
+                        .add(c.v(x - rx, y + cy), c.v(x - cx, y + ry), c.v(x, y + ry))
+                        .add(c.v(x + cx, y + ry), c.v(x + rx, y + cy), c.v(x + rx, y))
+                        .add(c.v(x + rx, y - cy), c.v(x + cx, y - ry), c.v(x, y - ry))
+                        .add(c.v(x - cx, y - ry), c.v(x - rx, y - cy), c.v(x - rx, y));
+
+                drawPolygon(csd, c, poly);
+            }
+
         }
     }
 

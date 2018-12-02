@@ -8,6 +8,7 @@ package de.neemann.digital.draw.shapes.custom;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.PolygonParser;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorInterface;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.custom.svg.SvgException;
@@ -216,6 +217,62 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testCircle2() throws IOException, SvgException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<g transform=\"matrix(2,0,0,2,5,10)\">\n" +
+                        "<circle fill=\"none\" stroke=\"black\" \n" +
+                        "cx=\"30\" cy=\"30\" r=\"30\" />\n" +
+                        "</g>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkCircle(65, 70, 60, 60)
+                .check();
+    }
+
+    public void testCircle3() throws IOException, SvgException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<g transform=\"rotate(10)\">\n" +
+                        "<circle fill=\"none\" stroke=\"black\" \n" +
+                        "cx=\"30\" cy=\"30\" r=\"30\" />\n" +
+                        "</g>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkCircle(24, 35, 30, 30)
+                .check();
+    }
+
+    public void testCircle4() throws IOException, SvgException, PinException, PolygonParser.ParserException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<g transform=\"rotate(10)\">\n" +
+                        "<ellipse fill=\"none\" stroke=\"black\" \n" +
+                        "cx=\"30\" cy=\"30\" rx=\"30\" ry=\"40\" />\n" +
+                        "</g>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M -5.2094455,29.544231 C -9.045575,51.300007 1.072031,71.26889 17.388859,74.14598 C 33.70569,77.02308 50.04289,61.7189 53.879017,39.963123 C 57.71515,18.207352 47.59754,-1.7615356 31.280714,-4.6386323 C 14.963885,-7.51573 -1.3733156,7.78846 -5.2094455,29.544231 Z")
+                .check();
+    }
+
+    public void testCircle5() throws IOException, SvgException, PinException, PolygonParser.ParserException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<g transform=\"scale(1.5,2)\">\n" +
+                        "<ellipse fill=\"none\" stroke=\"black\" \n" +
+                        "cx=\"30\" cy=\"30\" rx=\"30\" ry=\"40\" />\n" +
+                        "</g>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkCircle(45,60,45,80)
+                .check();
+    }
+
     public void testScale() throws IOException, SvgException, PinException {
         CustomShapeDescription custom = new SvgImporter(
                 in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
@@ -407,16 +464,36 @@ public class SvgImporterTest extends TestCase {
         }
 
         private CSDChecker checkLine(int x1, int y1, int x2, int y2) {
-            checker.add(new Checker() {
-                @Override
-                public void check(Drawable d) {
-                    assertTrue("element is no line", d instanceof CustomShapeDescription.LineHolder);
-                    CustomShapeDescription.LineHolder l = (CustomShapeDescription.LineHolder) d;
-                    assertEquals(x1, l.getP1().x);
-                    assertEquals(y1, l.getP1().y);
-                    assertEquals(x2, l.getP2().x);
-                    assertEquals(y2, l.getP2().y);
-                }
+            checker.add(d -> {
+                assertTrue("element is no line", d instanceof CustomShapeDescription.LineHolder);
+                CustomShapeDescription.LineHolder l = (CustomShapeDescription.LineHolder) d;
+                assertEquals(x1, l.getP1().x);
+                assertEquals(y1, l.getP1().y);
+                assertEquals(x2, l.getP2().x);
+                assertEquals(y2, l.getP2().y);
+            });
+            return this;
+        }
+
+        private CSDChecker checkCircle(int cx, int cy, int rx, int ry) {
+            checker.add(d -> {
+                assertTrue("element is no circle", d instanceof CustomShapeDescription.CircleHolder);
+                CustomShapeDescription.CircleHolder c = (CustomShapeDescription.CircleHolder) d;
+
+                Vector isCenter = c.getP1().add(c.getP2()).div(2);
+                Vector isRad = c.getP2().sub(c.getP1()).div(2);
+
+                /*
+                System.out.println("cx=" + isCenter.x);
+                System.out.println("cy=" + isCenter.y);
+                System.out.println("rx=" + isRad.x);
+                System.out.println("ry=" + isRad.y);
+                */
+
+                assertEquals("cx", cx, isCenter.x);
+                assertEquals("cy", cy, isCenter.y);
+                assertEquals("rx", rx, isRad.x);
+                assertEquals("ry", ry, isRad.y);
             });
             return this;
         }

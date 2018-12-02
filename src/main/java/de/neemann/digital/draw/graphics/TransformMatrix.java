@@ -108,6 +108,24 @@ public class TransformMatrix implements Transform {
                 (b * y - d * x) / q, (c * x - a * y) / q);
     }
 
+    /**
+     * @return true if this transformation does no asymmetric scaling.
+     */
+    public boolean isUniform() {
+        return equal(a, d) && equal(b, -c);
+    }
+
+    /**
+     * @return true if this transformation does no rotation
+     */
+    public boolean noRotation() {
+        return equal(b, 0) && equal(c, 0);
+    }
+
+    private static boolean equal(float a, float b) {
+        return Math.abs(a - b) < 1e-7;
+    }
+
 }
 
 

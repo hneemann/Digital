@@ -41,4 +41,28 @@ public class TransformMatrixTest extends TestCase {
         assertEquals(p.getYFloat(), t.getYFloat(), 1e-4);
     }
 
+    public void testUniform() {
+        assertTrue(TransformMatrix.rotate(30).isUniform());
+        assertTrue(new TransformRotate(new Vector(2,2),0).getMatrix().isUniform());
+        assertTrue(new TransformRotate(new Vector(2,2),1).getMatrix().isUniform());
+        assertTrue(new TransformRotate(new Vector(2,2),2).getMatrix().isUniform());
+        assertTrue(new TransformRotate(new Vector(2,2),3).getMatrix().isUniform());
+        assertTrue(new TransformTranslate(4,5).getMatrix().isUniform());
+        assertTrue(TransformMatrix.scale(2,2).isUniform());
+
+        assertFalse(TransformMatrix.scale(2,3).isUniform());
+    }
+
+    public void testNoRotation() {
+        assertFalse(TransformMatrix.rotate(30).noRotation());
+        assertTrue(new TransformRotate(new Vector(2,2),0).getMatrix().noRotation());
+        assertFalse(new TransformRotate(new Vector(2,2),1).getMatrix().noRotation());
+        assertTrue(new TransformRotate(new Vector(2,2),2).getMatrix().noRotation());
+        assertFalse(new TransformRotate(new Vector(2,2),3).getMatrix().noRotation());
+        assertTrue(new TransformTranslate(4,5).getMatrix().noRotation());
+        assertTrue(TransformMatrix.scale(2,2).noRotation());
+
+        assertTrue(TransformMatrix.scale(2,3).noRotation());
+    }
+
 }
