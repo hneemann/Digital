@@ -323,10 +323,7 @@ public class PolygonParser {
             double startB = Math.atan2(y1 - y0B, x1 - x0B);
             double endB = Math.atan2(y2 - y0B, x2 - x0B);
 
-            double delta = 2 * Math.PI / 12;
-            if (!sweep) delta = -delta;
-
-            if (delta > 0) {
+            if (sweep) {
                 if (endA < startA) endA += 2 * Math.PI;
                 if (endB < startB) endB += 2 * Math.PI;
             } else {
@@ -348,9 +345,15 @@ public class PolygonParser {
                 y0 = y0B;
             }
 
+            // a full circle leads to 12 quadratic bezier curves
+            int n = (int) Math.round(Math.abs(start - end) / (2 * Math.PI / 12));
+            if (n < 1) n = 1;
+            double delta = Math.abs(start - end) / n;
+            if (!sweep) delta = -delta;
+
             double lastStart = start;
             start += delta;
-            while ((delta > 0 && start < end) || (delta < 0 && start > end)) {
+            for (int i = 1; i < n; i++) {
                 addArcPoint(p, lastStart, start, x0, y0, r, invert);
                 lastStart = start;
                 start += delta;

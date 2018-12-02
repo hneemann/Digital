@@ -269,7 +269,7 @@ public class SvgImporterTest extends TestCase {
                         "</svg>")).create();
 
         new CSDChecker(custom)
-                .checkCircle(45,60,45,80)
+                .checkCircle(45, 60, 45, 80)
                 .check();
     }
 
@@ -295,7 +295,7 @@ public class SvgImporterTest extends TestCase {
                         "</svg>")).create();
 
         new CSDChecker(custom)
-                .checkPolygon("M 0,0 L 40,0 Q 37.161327,16.337067 40.99908,25.612656 Q 44.83683,34.888245 54.32269,34.616966 Q 63.80854,34.345688 76.40078,24.600235 Q 88.27738,15.408623 100,0 L 140,0")
+                .checkPolygon("M 0,0 L 40,0 Q 37.201767,16.104305 40.89812,25.364246 Q 44.594475,34.624187 53.821163,34.624184 Q 63.047855,34.624187 75.39799,25.364246 Q 87.748116,16.104305 100,0 L 140,0")
                 .check();
     }
 
@@ -307,7 +307,7 @@ public class SvgImporterTest extends TestCase {
                         "</svg>")).create();
 
         new CSDChecker(custom)
-                .checkPolygon("M 0,0 L 40,0 Q 27.571037,16.337067 18.5496,35.35811 Q 9.528162,54.37915 6.331539,70.987495 Q 3.1349144,87.59584 6.6196365,97.3413 Q 10.104355,107.086754 19.336689,107.358025 Q 28.569027,107.6293 41.075184,98.35372 Q 53.581345,89.078125 66.0103,72.74106 Q 78.43926,56.403996 87.46069,37.38295 Q 96.48214,18.36191 99.67876,1.7535629 Q 99.84891,0.86956406 100,0 L 140,0")
+                .checkPolygon("M 0,0 L 40,0 Q 27.482368,16.453613 18.429781,35.611202 Q 9.377195,54.76879 6.2476597,71.42859 Q 3.118122,88.08838 6.761387,97.72682 Q 10.404648,107.36524 19.83147,107.36525 Q 29.25829,107.36525 41.90905,97.726814 Q 54.559814,88.08838 66.999504,71.42859 Q 79.4392,54.76879 88.29014,35.611202 Q 97.141075,16.453615 100,0 L 140,0")
                 .check();
     }
 
@@ -319,7 +319,7 @@ public class SvgImporterTest extends TestCase {
                         "</svg>")).create();
 
         new CSDChecker(custom)
-                .checkPolygon("M 0,0 L 40,0 Q 52.42896,-16.33707 64.93511,-25.612656 Q 77.44127,-34.88825 86.67361,-34.616966 Q 95.905945,-34.345688 99.39067,-24.600235 Q 102.67735,-15.408623 100,0 L 140,0")
+                .checkPolygon("M 0,0 L 40,0 Q 52.251877,-16.104307 64.602005,-25.364244 Q 76.95214,-34.624187 86.17883,-34.62419 Q 95.405525,-34.624187 99.10187,-25.364246 Q 102.798225,-16.104305 100,0 L 140,0")
                 .check();
     }
 
@@ -331,7 +331,7 @@ public class SvgImporterTest extends TestCase {
                         "</svg>")).create();
 
         new CSDChecker(custom)
-                .checkPolygon("M 0,0 L 40,0 Q 42.83867,-16.337069 51.593147,-35.35811 Q 60.347626,-54.379158 72.67216,-70.987495 Q 84.99669,-87.59584 97.58891,-97.3413 Q 110.18115,-107.086754 119.66701,-107.35804 Q 129.15286,-107.62932 132.99062,-98.353714 Q 136.82837,-89.07814 133.98969,-72.74107 Q 131.15103,-56.403996 122.396545,-37.382957 Q 113.64207,-18.361908 101.317535,-1.7535667 Q 100.661545,-0.86956406 100,0 L 140,0")
+                .checkPolygon("M 0,0 L 40,0 Q 42.858925,-16.453617 51.70986,-35.611206 Q 60.5608,-54.7688 73.00049,-71.42859 Q 85.440186,-88.08838 98.09094,-97.726814 Q 110.741714,-107.36525 120.16853,-107.36526 Q 129.59535,-107.36525 133.23862,-97.726814 Q 136.88188,-88.08838 133.75233,-71.42859 Q 130.6228,-54.76879 121.57021,-35.61121 Q 112.517624,-16.453617 100,0 L 140,0")
                 .check();
     }
 
@@ -367,7 +367,7 @@ public class SvgImporterTest extends TestCase {
                         "</svg>")).create();
 
         new CSDChecker(custom)
-                .checkPolygon("M 80,0 Q 80,10.717968 74.641014,20 Q 69.282036,29.282032 60,34.641018 Q 59.05599,35.186043 58.08369,35.67885 Q 48.52357,40.52436 37.82151,39.940636 Q 27.119452,39.35691 18.143057,33.500362 Q 17.230127,32.904728 16.35099,32.26026 L 40,0 Z")
+                .checkPolygon("M 80,0 Q 80,11.304157 74.083336,20.936241 Q 68.16667,30.568327 58.08369,35.67885 Q 48.00071,40.78937 36.734287,39.866467 Q 25.467867,38.943565 16.35099,32.26026 L 40,0 Z")
                 .check();
     }
 
@@ -380,7 +380,7 @@ public class SvgImporterTest extends TestCase {
                         "</svg>")).create();
 
         new CSDChecker(custom)
-                .checkPolygon("M 11.217981,5.540678 Q 19.667194,15.0592 25.481504,24.63657 Q 31.29581,34.213936 32.91727,41.2839 Q 33.082184,42.00294 33.19799,42.68264 Q 34.336685,49.36582 30.875134,51.51164 Q 27.413582,53.657448 20.279312,50.690926 Q 19.55373,50.389217 18.799128,50.03573 L -1.9073486E-6,15.498432 Z")
+                .checkPolygon("M 11.217981,5.540678 Q 20.1293,15.579788 26.06316,25.606865 Q 31.99702,35.633938 33.19799,42.68264 Q 34.398964,49.731346 30.511753,51.716427 Q 26.624548,53.701515 18.799128,50.03573 L -1.9073486E-6,15.498432 Z")
                 .check();
     }
 
@@ -456,11 +456,6 @@ public class SvgImporterTest extends TestCase {
                 fail("not enough elements found in the csd");
         }
 
-        private CSDChecker checkPolygonDebug(String s) throws PolygonParser.ParserException {
-            checker.add(new CheckPolygon(new PolygonParser(s).create()).setDebug(true));
-            return this;
-        }
-
         private CSDChecker checkPolygon(String s) throws PolygonParser.ParserException {
             checker.add(new CheckPolygon(new PolygonParser(s).create()));
             return this;
@@ -496,17 +491,12 @@ public class SvgImporterTest extends TestCase {
                 Vector isCenter = c.getP1().add(c.getP2()).div(2);
                 Vector isRad = c.getP2().sub(c.getP1()).div(2);
 
-                /*
-                System.out.println("cx=" + isCenter.x);
-                System.out.println("cy=" + isCenter.y);
-                System.out.println("rx=" + isRad.x);
-                System.out.println("ry=" + isRad.y);
-                */
+                String message = "\ncx=" + isCenter.x + "; cy=" + isCenter.y + "; rx=" + isRad.x + "; ry=" + isRad.y + "\n";
 
-                assertEquals("cx", cx, isCenter.x);
-                assertEquals("cy", cy, isCenter.y);
-                assertEquals("rx", rx, isRad.x);
-                assertEquals("ry", ry, isRad.y);
+                assertEquals(message + "cx", cx, isCenter.x);
+                assertEquals(message + "cy", cy, isCenter.y);
+                assertEquals(message + "rx", rx, isRad.x);
+                assertEquals(message + "ry", ry, isRad.y);
             });
             return this;
         }
@@ -533,7 +523,6 @@ public class SvgImporterTest extends TestCase {
     private static class CheckPolygon implements Checker {
 
         private final Polygon should;
-        private boolean debug;
 
         private CheckPolygon(Polygon should) {
             this.should = should;
@@ -550,23 +539,15 @@ public class SvgImporterTest extends TestCase {
             ArrayList<VectorInterface> isPoints = new ArrayList<>();
             polygon.traverse(isPoints::add);
 
-            if (debug) {
-                System.out.println("should: " + should);
-                System.out.println("was   : " + polygon);
-            }
+            String message = "\nshould: " + should + "\nwas   : " + polygon + "\n";
 
-            assertEquals("not the correct polygon size", shouldPoints.size(), isPoints.size());
+            assertEquals(message + "not the correct polygon size", shouldPoints.size(), isPoints.size());
             for (int i = 0; i < shouldPoints.size(); i++) {
                 VectorInterface sh = shouldPoints.get(i);
                 VectorInterface is = isPoints.get(i);
-                assertEquals("x coordinate " + i, sh.getXFloat(), is.getXFloat(), 1e-4);
-                assertEquals("y coordinate " + i, sh.getYFloat(), is.getYFloat(), 1e-4);
+                assertEquals(message + "x coordinate " + i, sh.getXFloat(), is.getXFloat(), 1e-4);
+                assertEquals(message + "y coordinate " + i, sh.getYFloat(), is.getYFloat(), 1e-4);
             }
-        }
-
-        private Checker setDebug(boolean debug) {
-            this.debug = true;
-            return this;
         }
     }
 
