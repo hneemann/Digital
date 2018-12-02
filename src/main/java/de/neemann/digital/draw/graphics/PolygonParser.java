@@ -18,6 +18,8 @@ public class PolygonParser {
     private float value;
     private float x;
     private float y;
+    private float originX;
+    private float originY;
     private VectorInterface lastQuadraticControlPoint;
     private VectorInterface lastCubicControlPoint;
 
@@ -133,6 +135,8 @@ public class PolygonParser {
                         p.addClosePath();
                     }
                     p.addMoveTo(nextVector());
+                    originX = x;
+                    originY = y;
                     clearControl();
                     break;
                 case 'm':
@@ -141,6 +145,8 @@ public class PolygonParser {
                         p.addClosePath();
                     }
                     p.addMoveTo(nextVectorInc());
+                    originX = x;
+                    originY = y;
                     clearControl();
                     break;
                 case 'V':
@@ -206,6 +212,8 @@ public class PolygonParser {
                 case 'Z':
                 case 'z':
                     closedPending = true;
+                    x = originX;
+                    y = originY;
                     clearControl();
                     break;
                 default:
