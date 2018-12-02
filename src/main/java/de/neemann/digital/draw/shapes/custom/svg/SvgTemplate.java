@@ -9,6 +9,7 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.graphics.Style;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -61,7 +62,7 @@ public class SvgTemplate implements Closeable {
                 + "   xmlns=\"http://www.w3.org/2000/svg\"\n"
                 + "   xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\"\n"
                 + "   xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\"\n"
-                + "   viewBox=\"-" + border + " -" + border + " " + (width + border * 2) + " " + (height + border * 2) + "\"\n"
+                + "   viewBox=\"-" + border + " -" + border + " " + (width + border * 2) + " " + (height - SIZE + border * 2) + "\"\n"
                 + "   version=\"1.1\">\n"
                 + "  <sodipodi:namedview showgrid=\"true\">\n"
                 + "    <inkscape:grid\n"
@@ -82,14 +83,18 @@ public class SvgTemplate implements Closeable {
 
         int y = 0;
         for (PinDescription i : inputs) {
-            w.write("  <circle fill=\"blue\" id=\"pin+:" + i.getName() + "\" cx=\"0\" cy=\"" + y + "\" r=\"3\"/>\n");
+            w.write("  <circle fill=\"" + getColor(Style.WIRE) + "\" id=\"pin+:" + i.getName() + "\" cx=\"0\" cy=\"" + y + "\" r=\"3\"/>\n");
             y += 20;
         }
         y = 0;
         for (PinDescription o : outputs) {
-            w.write("  <circle fill=\"red\" id=\"pin+:" + o.getName() + "\" cx=\"" + width + "\" cy=\"" + y + "\" r=\"3\"/>\n");
+            w.write("  <circle fill=\"" + getColor(Style.WIRE_OUT) + "\" id=\"pin+:" + o.getName() + "\" cx=\"" + width + "\" cy=\"" + y + "\" r=\"3\"/>\n");
             y += 20;
         }
+    }
+
+    private String getColor(Style style) {
+        return "#" + Integer.toHexString(style.getColor().getRGB()).substring(2);
     }
 
     @Override

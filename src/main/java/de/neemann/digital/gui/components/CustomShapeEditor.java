@@ -58,12 +58,7 @@ public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDesc
         load = new ToolTipAction(Lang.get("btn_loadSvg")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File path = null;
-                if (lastSVGFile != null)
-                    path = lastSVGFile.getParentFile();
-                JFileChooser fc = new MyFileChooser(path);
-                if (lastSVGFile != null)
-                    fc.setSelectedFile(lastSVGFile);
+                JFileChooser fc = getjFileChooser();
                 if (fc.showOpenDialog(getAttributeDialog()) == JFileChooser.APPROVE_OPTION) {
                     lastSVGFile = fc.getSelectedFile();
                     try {
@@ -78,11 +73,7 @@ public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDesc
         template = new ToolTipAction(Lang.get("btn_saveTemplate")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File path = null;
-                if (lastSVGFile != null)
-                    path = lastSVGFile.getParentFile();
-                JFileChooser fc = new MyFileChooser(path);
-
+                JFileChooser fc = getjFileChooser();
                 if (fc.showSaveDialog(getAttributeDialog()) == JFileChooser.APPROVE_OPTION) {
                     try {
                         final Main main = getAttributeDialog().getMain();
@@ -101,6 +92,19 @@ public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDesc
         }.setToolTip(Lang.get("btn_saveTemplate_tt"));
         panel.add(template.createJButton());
         return panel;
+    }
+
+    private JFileChooser getjFileChooser() {
+        File path = null;
+        if (lastSVGFile == null)
+            lastSVGFile = SaveAsHelper.checkSuffix(getAttributeDialog().getMain().getBaseFileName(), "svg");
+        if (lastSVGFile != null)
+            path = lastSVGFile.getParentFile();
+
+        JFileChooser fc = new MyFileChooser(path);
+        if (lastSVGFile != null)
+            fc.setSelectedFile(lastSVGFile);
+        return fc;
     }
 
     @Override

@@ -97,7 +97,7 @@ public final class SaveAsHelper {
      * @return the file name with the given suffix
      */
     public static File checkSuffix(File filename, String suffix) {
-        if (suffix == null)
+        if (suffix == null || filename == null)
             return filename;
 
         String name = filename.getName();
