@@ -73,7 +73,7 @@ class Context {
         }
     }
 
-    private static void readStyle(Context context, String style) throws SvgException {
+    static Context readStyle(Context context, String style) throws SvgException {
         StringTokenizer st = new StringTokenizer(style, ";");
         while (st.hasMoreTokens()) {
             String[] t = st.nextToken().split(":");
@@ -83,6 +83,7 @@ class Context {
                     p.parse(context, t[1].trim());
             }
         }
+        return context;
     }
 
     Transform getTransform() {
@@ -109,11 +110,11 @@ class Context {
         return (int) thickness;
     }
 
-    public boolean isFillRuleEvenOdd() {
+    boolean isFillRuleEvenOdd() {
         return fillRuleEvenOdd;
     }
 
-    public Orientation getTextOrientation() {
+    Orientation getTextOrientation() {
         if (textAnchor == null)
             return Orientation.LEFTBOTTOM;
 
@@ -198,14 +199,33 @@ class Context {
         if (v.equalsIgnoreCase("none"))
             return null;
 
-        if (v.startsWith("#"))
-            return Color.decode(v);
-
         try {
-            return (Color) Color.class.getField(v).get(null);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            if (v.startsWith("#")) {
+                if (v.length() == 4)
+                    return new Color(sRGB(v.charAt(1)), sRGB(v.charAt(2)), sRGB(v.charAt(3)));
+                else
+                    return Color.decode(v);
+            } else if (v.startsWith("rgb(")) {
+                StringTokenizer st = new StringTokenizer(v.substring(4), " ,)");
+                return new Color(rgb(st.nextToken()), rgb(st.nextToken()), rgb(st.nextToken()));
+            }
+
+            return (Color) Color.class.getField(v.toLowerCase()).get(null);
+        } catch (RuntimeException | IllegalAccessException | NoSuchFieldException e) {
             return Color.BLACK;
         }
+    }
+
+    private static int rgb(String s) {
+        if (s.endsWith("%"))
+            return (int) (Float.parseFloat(s.substring(0, s.length() - 1)) / 100 * 255);
+        else
+            return Integer.parseInt(s);
+    }
+
+    private static int sRGB(char c) {
+        int v = Character.digit(c, 16);
+        return v * 16 + v;
     }
 
     private static float getFloatFromString(String inp) {
