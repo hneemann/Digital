@@ -29,63 +29,63 @@ bei der Speicheradressierung verwendet.}}</string>
           <entry>
             <string>A</string>
             <pin>
-              <pos x="0" y="-20"/>
+              <pos x="0" y="0"/>
               <showLabel>false</showLabel>
             </pin>
           </entry>
           <entry>
             <string>Op</string>
             <pin>
-              <pos x="60" y="80"/>
+              <pos x="60" y="100"/>
               <showLabel>false</showLabel>
             </pin>
           </entry>
           <entry>
             <string>Neg</string>
             <pin>
-              <pos x="80" y="40"/>
+              <pos x="80" y="60"/>
               <showLabel>false</showLabel>
             </pin>
           </entry>
           <entry>
             <string>B</string>
             <pin>
-              <pos x="0" y="80"/>
+              <pos x="0" y="100"/>
               <showLabel>false</showLabel>
             </pin>
           </entry>
           <entry>
             <string>Zero</string>
             <pin>
-              <pos x="80" y="20"/>
+              <pos x="80" y="40"/>
               <showLabel>false</showLabel>
             </pin>
           </entry>
           <entry>
             <string>Ci</string>
             <pin>
-              <pos x="0" y="100"/>
+              <pos x="0" y="120"/>
               <showLabel>false</showLabel>
             </pin>
           </entry>
           <entry>
             <string>Carry</string>
             <pin>
-              <pos x="80" y="60"/>
+              <pos x="80" y="80"/>
               <showLabel>false</showLabel>
             </pin>
           </entry>
           <entry>
             <string>Y</string>
             <pin>
-              <pos x="80" y="0"/>
+              <pos x="80" y="20"/>
               <showLabel>false</showLabel>
             </pin>
           </entry>
         </pins>
         <drawables>
           <poly>
-            <poly path="M 0,-50 L 80,-10 L 80,70 L 0,110 L 0,40 L 30,30 L 0,20 Z" evenOdd="false"/>
+            <poly path="M 0,-30 L 80,10 L 80,90 L 0,130 L 0,60 L 30,50 L 0,40 Z" evenOdd="false"/>
             <thickness>4</thickness>
             <filled>true</filled>
             <color>
@@ -107,8 +107,8 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </poly>
           <text>
-            <p1 x="4" y="-15"/>
-            <p2 x="5" y="-15"/>
+            <p1 x="4" y="6"/>
+            <p2 x="5" y="6"/>
             <text>A</text>
             <orientation>LEFTBOTTOM</orientation>
             <size>18</size>
@@ -120,8 +120,8 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </text>
           <text>
-            <p1 x="4" y="86"/>
-            <p2 x="5" y="86"/>
+            <p1 x="4" y="106"/>
+            <p2 x="5" y="106"/>
             <text>B</text>
             <orientation>LEFTBOTTOM</orientation>
             <size>18</size>
@@ -133,8 +133,8 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </text>
           <text>
-            <p1 x="23" y="82"/>
-            <p2 x="24" y="82"/>
+            <p1 x="23" y="102"/>
+            <p2 x="24" y="102"/>
             <text>Op</text>
             <orientation>LEFTBOTTOM</orientation>
             <size>18</size>
@@ -146,8 +146,8 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </text>
           <text>
-            <p1 x="4" y="105"/>
-            <p2 x="5" y="105"/>
+            <p1 x="4" y="126"/>
+            <p2 x="5" y="126"/>
             <text>Ci</text>
             <orientation>LEFTBOTTOM</orientation>
             <size>18</size>
@@ -159,8 +159,8 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </text>
           <text>
-            <p1 x="76" y="6"/>
-            <p2 x="77" y="6"/>
+            <p1 x="76" y="27"/>
+            <p2 x="77" y="27"/>
             <text>Y</text>
             <orientation>RIGHTBOTTOM</orientation>
             <size>18</size>
@@ -172,8 +172,8 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </text>
           <text>
-            <p1 x="76" y="26"/>
-            <p2 x="77" y="26"/>
+            <p1 x="76" y="47"/>
+            <p2 x="77" y="47"/>
             <text>Zero</text>
             <orientation>RIGHTBOTTOM</orientation>
             <size>18</size>
@@ -185,8 +185,8 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </text>
           <text>
-            <p1 x="76" y="46"/>
-            <p2 x="77" y="46"/>
+            <p1 x="76" y="67"/>
+            <p2 x="77" y="67"/>
             <text>Neg</text>
             <orientation>RIGHTBOTTOM</orientation>
             <size>18</size>
@@ -198,8 +198,8 @@ bei der Speicheradressierung verwendet.}}</string>
             </color>
           </text>
           <text>
-            <p1 x="76" y="66"/>
-            <p2 x="77" y="66"/>
+            <p1 x="76" y="87"/>
+            <p2 x="77" y="87"/>
             <text>Carry</text>
             <orientation>RIGHTBOTTOM</orientation>
             <size>18</size>
