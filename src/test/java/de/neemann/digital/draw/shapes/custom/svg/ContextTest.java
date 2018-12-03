@@ -13,4 +13,11 @@ public class ContextTest extends TestCase {
         assertEquals(new Color(63, 127, 191), Context.readStyle(new Context(), "stroke:rgb(25%,50%,75%)").getStroke());
     }
 
+    public void testInkscape1() throws SvgException {
+        Context c = Context.readStyle(new Context(), "fill:#000000;fill-opacity:0.5;stroke:none");
+        assertNull(c.getStroke());
+        assertEquals(new Color(0, 0, 0, 127), c.getFilled());
+    }
+
+
 }

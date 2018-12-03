@@ -46,12 +46,12 @@ public interface Transform {
         TransformMatrix m1 = t1.getMatrix();
         TransformMatrix m2 = t2.getMatrix();
         return new TransformMatrix(
-                m1.a * m2.a + m1.b * m2.c,
-                m1.c * m2.a + m1.d * m2.c,
-                m1.a * m2.b + m1.b * m2.d,
-                m1.c * m2.b + m1.d * m2.d,
-                m1.a * m2.x + m1.b * m2.y + m1.x,
-                m1.c * m2.x + m1.d * m2.y + m1.y);
+                m1.a * m2.a + m1.c * m2.b,
+                m1.b * m2.a + m1.d * m2.b,
+                m1.a * m2.c + m1.c * m2.d,
+                m1.b * m2.c + m1.d * m2.d,
+                m2.a * m1.x + m2.b * m1.y + m2.x,
+                m2.c * m1.x + m2.d * m1.y + m2.y);
     }
 
 

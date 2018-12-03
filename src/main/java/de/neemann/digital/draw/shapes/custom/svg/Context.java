@@ -152,7 +152,7 @@ class Context {
 
     private static void readTransform(Context c, String value) throws SvgException {
         StringTokenizer st = new StringTokenizer(value, "(),");
-        Transform t = null;
+        Transform t;
         final String trans = st.nextToken();
         switch (trans) {
             case "translate":
@@ -170,10 +170,13 @@ class Context {
                 t = new TransformMatrix(xs, 0, 0, ys, 0, 0);
                 break;
             case "matrix":
+                final float ma = Float.parseFloat(st.nextToken());
+                final float mb = Float.parseFloat(st.nextToken());
+                final float mc = Float.parseFloat(st.nextToken());
                 t = new TransformMatrix(
-                        Float.parseFloat(st.nextToken()),
-                        Float.parseFloat(st.nextToken()),
-                        Float.parseFloat(st.nextToken()),
+                        ma,
+                        mc,
+                        mb,
                         Float.parseFloat(st.nextToken()),
                         Float.parseFloat(st.nextToken()),
                         Float.parseFloat(st.nextToken()));
@@ -184,15 +187,15 @@ class Context {
                     t = TransformMatrix.rotate(w);
                     float xc = Float.parseFloat(st.nextToken());
                     float yc = Float.parseFloat(st.nextToken());
-                    t = Transform.mul(new TransformTranslate(xc, yc), t);
-                    t = Transform.mul(t, new TransformTranslate(-xc, -yc));
+                    t = Transform.mul(new TransformTranslate(-xc, -yc), t);
+                    t = Transform.mul(t, new TransformTranslate(xc, yc));
                 } else
                     t = TransformMatrix.rotate(w);
                 break;
             default:
                 throw new SvgException("unknown transform: " + value, null);
         }
-        c.tr = Transform.mul(c.tr, t);
+        c.tr = Transform.mul(t, c.tr);
     }
 
     private static Color getColorFromString(String v) {

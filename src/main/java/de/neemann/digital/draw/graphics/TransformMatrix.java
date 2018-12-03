@@ -23,7 +23,7 @@ public class TransformMatrix implements Transform {
         final double phi = w / 180 * Math.PI;
         float cos = (float) Math.cos(phi);
         float sin = (float) Math.sin(phi);
-        return new TransformMatrix(cos, sin, -sin, cos, 0, 0);
+        return new TransformMatrix(cos, -sin, sin, cos, 0, 0);
     }
 
     /**

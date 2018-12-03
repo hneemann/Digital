@@ -424,6 +424,34 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testInkscape7() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<g transform=\"rotate(45, 100, 100)\">\n" +
+                        "<g transform=\"translate(10,10)\">\n" +
+                        "<rect fill=\"none\" stroke=\"black\" stroke-width=\"3\"\n" +
+                        "  x=\"50\" y=\"50\" width=\"100\" height=\"100\"  /> \n" +
+                        "</g>\n" +
+                        "</g>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 100,43.431458 L 170.71068,114.142136 L 100,184.85281 L 29.289322,114.142136 Z")
+                .check();
+    }
+
+    public void testInkscape8() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<rect fill=\"none\" stroke=\"yellow\" stroke-width=\"5\" transform=\"rotate(45, 100, 100) translate(10,10)\"\n" +
+                        "  x=\"50\" y=\"50\" width=\"100\" height=\"100\" />\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 100,43.431458 L 170.71068,114.142136 L 100,184.85281 L 29.289322,114.142136 Z")
+                .check();
+    }
+
     //*****************************************************************************************************
 
 
