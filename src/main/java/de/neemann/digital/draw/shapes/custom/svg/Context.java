@@ -22,7 +22,9 @@ class Context {
     static {
         PARSER.put("transform", Context::readTransform);
         PARSER.put("fill", (c, value) -> c.fill = getColorFromString(value));
-        PARSER.put("stroke", (c, value) -> c.color = getColorFromString(value));
+        PARSER.put("fill-opacity", (c, value) -> c.fillOpacity = getFloatFromString(value));
+        PARSER.put("stroke", (c, value) -> c.stroke = getColorFromString(value));
+        PARSER.put("stroke-opacity", (c, value) -> c.strokeOpacity = getFloatFromString(value));
         PARSER.put("stroke-width", (c, value) -> c.thickness = getFloatFromString(value) + 1);
         PARSER.put("font-size", (c, value) -> c.fontSize = getFloatFromString(value) + 1);
         PARSER.put("style", Context::readStyle);
@@ -32,7 +34,9 @@ class Context {
 
     private Transform tr;
     private Color fill;
-    private Color color;
+    private float fillOpacity;
+    private Color stroke;
+    private float strokeOpacity;
     private float thickness;
     private float fontSize;
     private String textAnchor;
@@ -41,13 +45,17 @@ class Context {
     Context() {
         tr = Transform.IDENTITY;
         thickness = 1;
-        color = Color.BLACK;
+        stroke = Color.BLACK;
+        fillOpacity = 1;
+        strokeOpacity = 1;
     }
 
     private Context(Context parent) {
         tr = parent.tr;
         fill = parent.fill;
-        color = parent.color;
+        fillOpacity = parent.fillOpacity;
+        stroke = parent.stroke;
+        strokeOpacity = parent.strokeOpacity;
         thickness = parent.thickness;
         fontSize = parent.fontSize;
         textAnchor = parent.textAnchor;
@@ -81,12 +89,20 @@ class Context {
         return tr;
     }
 
-    public Color getColor() {
-        return color;
+    public Color getStroke() {
+        return createColor(stroke, strokeOpacity);
     }
 
     public Color getFilled() {
-        return fill;
+        return createColor(fill, fillOpacity);
+    }
+
+    private static Color createColor(Color color, float opacity) {
+        if (color == null)
+            return null;
+        if (opacity == 1)
+            return color;
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (255 * opacity));
     }
 
     public int getThickness() {
@@ -139,11 +155,17 @@ class Context {
         final String trans = st.nextToken();
         switch (trans) {
             case "translate":
-                t = new TransformTranslate(new VectorFloat(Float.parseFloat(st.nextToken()), Float.parseFloat(st.nextToken())));
+                final float x = Float.parseFloat(st.nextToken());
+                float y = 0;
+                if (st.hasMoreTokens())
+                    y = Float.parseFloat(st.nextToken());
+                t = new TransformTranslate(new VectorFloat(x, y));
                 break;
             case "scale":
                 final float xs = Float.parseFloat(st.nextToken());
-                final float ys = Float.parseFloat(st.nextToken());
+                float ys = xs;
+                if (st.hasMoreTokens())
+                    ys = Float.parseFloat(st.nextToken());
                 t = new TransformMatrix(xs, 0, 0, ys, 0, 0);
                 break;
             case "matrix":

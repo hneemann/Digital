@@ -107,7 +107,7 @@ Single-Cycle CPU.}}</string>
     <visualElement>
       <elementName>ALU.dig</elementName>
       <elementAttributes/>
-      <pos x="1080" y="80"/>
+      <pos x="1080" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>

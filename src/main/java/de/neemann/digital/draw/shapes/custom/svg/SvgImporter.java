@@ -94,7 +94,7 @@ public class SvgImporter {
                 csd.addLine(
                         c.v(element.getAttribute("x1"), element.getAttribute("y1")).round(),
                         c.v(element.getAttribute("x2"), element.getAttribute("y2")).round(),
-                        c.getThickness(), c.getColor());
+                        c.getThickness(), c.getStroke());
                 break;
             case "rect":
                 drawRect(csd, element, c);
@@ -142,8 +142,8 @@ public class SvgImporter {
     private void drawPolygon(CustomShapeDescription csd, Context c, Polygon polygon) {
         if (c.getFilled() != null && polygon.isClosed())
             csd.addPolygon(polygon, c.getThickness(), c.getFilled(), true);
-        if (c.getColor() != null)
-            csd.addPolygon(polygon, c.getThickness(), c.getColor(), false);
+        if (c.getStroke() != null)
+            csd.addPolygon(polygon, c.getThickness(), c.getStroke(), false);
     }
 
     private VectorFloat vec(String xStr, String yStr) {
@@ -240,8 +240,8 @@ public class SvgImporter {
                 Vector p1 = center.sub(rad).round();
                 Vector p2 = center.add(rad).round();
 
-                if (c.getColor() != null)
-                    csd.addCircle(p1, p2, c.getThickness(), c.getColor(), false);
+                if (c.getStroke() != null)
+                    csd.addCircle(p1, p2, c.getThickness(), c.getStroke(), false);
                 if (c.getFilled() != null)
                     csd.addCircle(p1, p2, c.getThickness(), c.getFilled(), true);
             } else {
