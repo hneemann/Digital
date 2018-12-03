@@ -23,6 +23,7 @@ import de.neemann.digital.draw.shapes.Shape;
  * Represents a custom shape.
  */
 public class CustomShape implements Shape {
+    private final String label;
     private final CustomShapeDescription shapeDescription;
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
@@ -32,11 +33,13 @@ public class CustomShape implements Shape {
      * Creates a new instance
      *
      * @param shapeDescription the description of the shape
+     * @param label            the label
      * @param inputs           the inputs of the component
      * @param outputs          the inputs of the component
      * @throws PinException thrown if a pin is not found
      */
-    public CustomShape(CustomShapeDescription shapeDescription, PinDescriptions inputs, PinDescriptions outputs) throws PinException {
+    public CustomShape(CustomShapeDescription shapeDescription, String label, PinDescriptions inputs, PinDescriptions outputs) throws PinException {
+        this.label = label;
         this.shapeDescription = shapeDescription;
         this.inputs = inputs;
         this.outputs = outputs;
@@ -66,6 +69,10 @@ public class CustomShape implements Shape {
     public void drawTo(Graphic graphic, Style highLight) {
         for (Drawable d : shapeDescription)
             d.drawTo(graphic, highLight);
+
+        CustomShapeDescription.TextHolder l = shapeDescription.getLabel();
+        if (l != null && label != null && !label.isEmpty())
+            l.drawText(graphic, label);
 
         for (Pin p : getPins()) {
             try {

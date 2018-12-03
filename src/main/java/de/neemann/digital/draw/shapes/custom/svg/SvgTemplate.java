@@ -12,6 +12,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -80,9 +81,16 @@ public class SvgTemplate implements Closeable {
      * @throws Exception Exception
      */
     public void create() throws Exception {
-        w.write("  <rect fill=\"none\" stroke=\"black\" stroke-width=\"3\" x=\"0\" y=\"-10\" width=\"" + width + "\" height=\"" + height + "\"/>\n");
+        w.write("  <rect fill=\"none\" stroke=\"black\" stroke-width=\"3\""
+                + " fill=\"" + getColor(Keys.BACKGROUND_COLOR.getDefault()) + "\""
+                + " fill-opacity=\"" + (Keys.BACKGROUND_COLOR.getDefault().getAlpha() / 255f) + "\""
+                + " x=\"0\" y=\"-10\" width=\"" + width + "\" height=\"" + height + "\"/>\n");
 
-        final Style style = Style.SHAPE_PIN;
+        Style style = Style.NORMAL;
+        w.write("    <text id=\"label\" fill=\"" + getColor(style) + "\" font-size=\""
+                + (style.getFontSize() - 1) + "\" text-anchor=\"middle\" x=\"" + width / 2 + "\" y=\"" + (-SIZE) + "\">Label</text>\n");
+
+        style = Style.SHAPE_PIN;
         final int yOffs = style.getFontSize() / 3;
 
         int y = 0;
@@ -98,7 +106,7 @@ public class SvgTemplate implements Closeable {
         for (PinDescription o : outputs) {
             w.write("  <g>\n");
             w.write("    <circle fill=\"" + getColor(Style.WIRE_OUT) + "\" id=\"pin:" + o.getName() + "\" cx=\"" + width + "\" cy=\"" + y + "\" r=\"3\"/>\n");
-            Vector labelPos = new Vector(width-4, y + yOffs);
+            Vector labelPos = new Vector(width - 4, y + yOffs);
             w.write("    <text fill=\"" + getColor(style) + "\" font-size=\"" + (style.getFontSize() - 1) + "\" text-anchor=\"end\" x=\"" + labelPos.getX() + "\" y=\"" + labelPos.getY() + "\">" + o.getName() + "</text>\n");
             w.write("  </g>\n");
             y += 20;
@@ -106,7 +114,11 @@ public class SvgTemplate implements Closeable {
     }
 
     private String getColor(Style style) {
-        return "#" + Integer.toHexString(style.getColor().getRGB()).substring(2);
+        return getColor(style.getColor());
+    }
+
+    private String getColor(Color color) {
+        return "#" + Integer.toHexString(color.getRGB()).substring(2);
     }
 
     @Override

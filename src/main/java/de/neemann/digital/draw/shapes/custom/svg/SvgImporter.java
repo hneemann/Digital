@@ -274,7 +274,10 @@ public class SvgImporter {
         VectorInterface pos0 = p.transform(c.getTransform());
         VectorInterface pos1 = p.add(new VectorFloat(1, 0)).transform(c.getTransform());
 
-        drawTextElement(csd, c, element, pos0, pos1);
+        if (element.getAttribute("id").equals("label"))
+            csd.setLabel(pos0.round(), pos1.round(), c.getTextOrientation(), (int) c.getFontSize(), c.getFilled());
+        else
+            drawTextElement(csd, c, element, pos0, pos1);
     }
 
     private void drawTextElement(CustomShapeDescription csd, Context c, Element element, VectorInterface pos0, VectorInterface pos1) throws SvgException {

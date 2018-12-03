@@ -30,6 +30,7 @@ public class CustomShapeDescription implements Iterable<Drawable> {
 
     private HashMap<String, Pin> pins;
     private ArrayList<Drawable> drawables;
+    private TextHolder label;
 
     /**
      * Creates a new instance
@@ -152,6 +153,26 @@ public class CustomShapeDescription implements Iterable<Drawable> {
      */
     public int getPinCount() {
         return pins.size();
+    }
+
+    /**
+     * Sets the label positioning info.
+     *
+     * @param pos0            pos0
+     * @param pos1            pos1
+     * @param textOrientation textOrientation
+     * @param fontSize        fontSize
+     * @param filled          filled
+     */
+    public void setLabel(Vector pos0, Vector pos1, Orientation textOrientation, int fontSize, Color filled) {
+        label = new TextHolder(pos0, pos1, "", textOrientation, fontSize, filled);
+    }
+
+    /**
+     * @return the TextHolder used to draw the label, maybe null
+     */
+    public TextHolder getLabel() {
+        return label;
     }
 
     /**
@@ -280,6 +301,16 @@ public class CustomShapeDescription implements Iterable<Drawable> {
 
         @Override
         public void drawTo(Graphic graphic, Style highLight) {
+            drawText(graphic, text);
+        }
+
+        /**
+         * Draws the given text to the given graphic instance
+         *
+         * @param graphic the graphic instance to draw to
+         * @param text    the text to draw
+         */
+        public void drawText(Graphic graphic, String text) {
             graphic.drawText(p1, p2, text, orientation,
                     Style.NORMAL
                             .deriveFontStyle(size, true)

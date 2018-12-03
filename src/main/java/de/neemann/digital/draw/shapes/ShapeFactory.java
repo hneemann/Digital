@@ -191,7 +191,7 @@ public final class ShapeFactory {
                             case CUSTOM:
                                 final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
                                 if (customShapeDescription != CustomShapeDescription.EMPTY)
-                                    return new CustomShape(customShapeDescription,
+                                    return new CustomShape(customShapeDescription, elementAttributes.getCleanLabel(),
                                             pt.getInputDescription(elementAttributes),
                                             pt.getOutputDescriptions(elementAttributes));
                             default:
