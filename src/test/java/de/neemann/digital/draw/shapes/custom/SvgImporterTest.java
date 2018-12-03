@@ -411,10 +411,28 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testInkscape6() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                        "<rect fill=\"none\" stroke=\"black\" stroke-width=\"3\" transform=\"rotate(45,100,100)\"\n" +
+                        "  x=\"50\" y=\"50\" width=\"100\" height=\"100\"" +
+                        "  /> \n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 100,29.289322 L 170.71068,100 L 100,170.71068 L 29.289322,100 Z")
+                .check();
+    }
+
     //*****************************************************************************************************
 
 
     private InputStream in(String s) {
+        return new ByteArrayInputStream(s.getBytes());
+    }
+
+    private InputStream inDebug(String s) {
+        System.out.println(s);
         return new ByteArrayInputStream(s.getBytes());
     }
 

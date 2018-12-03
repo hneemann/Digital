@@ -155,7 +155,18 @@ public class SvgImporter {
     private void drawRect(CustomShapeDescription csd, Element element, Context c) {
         VectorInterface size = vec(element.getAttribute("width"), element.getAttribute("height"));
         VectorInterface pos = vec(element.getAttribute("x"), element.getAttribute("y"));
-        VectorInterface rad = vec(element.getAttribute("rx"), element.getAttribute("ry"));
+        String rxStr = element.getAttribute("rx");
+        String ryStr = element.getAttribute("ry");
+
+        VectorInterface rad;
+        if (rxStr.isEmpty() && ryStr.isEmpty())
+            rad = new Vector(0, 0);
+        else if (rxStr.isEmpty())
+            rad = vec(ryStr, ryStr);
+        else if (ryStr.isEmpty())
+            rad = vec(rxStr, rxStr);
+        else
+            rad = vec(rxStr, ryStr);
 
         final Polygon polygon;
 
@@ -270,7 +281,7 @@ public class SvgImporter {
         NodeList nodes = element.getElementsByTagName("*");
         if (nodes.getLength() == 0) {
             String text = element.getTextContent();
-            csd.addText(pos0.round(), pos1.round(), text, c.getTextOrientation(), (int) c.getFontSize(), c.getColor());
+            csd.addText(pos0.round(), pos1.round(), text, c.getTextOrientation(), (int) c.getFontSize(), c.getFilled());
         } else {
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node n = nodes.item(i);

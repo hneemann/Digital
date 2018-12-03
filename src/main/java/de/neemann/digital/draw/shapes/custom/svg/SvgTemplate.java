@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.Vector;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -81,14 +82,25 @@ public class SvgTemplate implements Closeable {
     public void create() throws Exception {
         w.write("  <rect fill=\"none\" stroke=\"black\" stroke-width=\"3\" x=\"0\" y=\"-10\" width=\"" + width + "\" height=\"" + height + "\"/>\n");
 
+        final Style style = Style.SHAPE_PIN;
+        final int yOffs = style.getFontSize() / 3;
+
         int y = 0;
         for (PinDescription i : inputs) {
-            w.write("  <circle fill=\"" + getColor(Style.WIRE) + "\" id=\"pin+:" + i.getName() + "\" cx=\"0\" cy=\"" + y + "\" r=\"3\"/>\n");
+            w.write("  <g>\n");
+            w.write("    <circle fill=\"" + getColor(Style.WIRE) + "\" id=\"pin:" + i.getName() + "\" cx=\"0\" cy=\"" + y + "\" r=\"3\"/>\n");
+            Vector labelPos = new Vector(4, y + yOffs);
+            w.write("    <text fill=\"" + getColor(style) + "\" font-size=\"" + (style.getFontSize() - 1) + "\" x=\"" + labelPos.getX() + "\" y=\"" + labelPos.getY() + "\">" + i.getName() + "</text>\n");
+            w.write("  </g>\n");
             y += 20;
         }
         y = 0;
         for (PinDescription o : outputs) {
-            w.write("  <circle fill=\"" + getColor(Style.WIRE_OUT) + "\" id=\"pin+:" + o.getName() + "\" cx=\"" + width + "\" cy=\"" + y + "\" r=\"3\"/>\n");
+            w.write("  <g>\n");
+            w.write("    <circle fill=\"" + getColor(Style.WIRE_OUT) + "\" id=\"pin:" + o.getName() + "\" cx=\"" + width + "\" cy=\"" + y + "\" r=\"3\"/>\n");
+            Vector labelPos = new Vector(width-4, y + yOffs);
+            w.write("    <text fill=\"" + getColor(style) + "\" font-size=\"" + (style.getFontSize() - 1) + "\" text-anchor=\"end\" x=\"" + labelPos.getX() + "\" y=\"" + labelPos.getY() + "\">" + o.getName() + "</text>\n");
+            w.write("  </g>\n");
             y += 20;
         }
     }
