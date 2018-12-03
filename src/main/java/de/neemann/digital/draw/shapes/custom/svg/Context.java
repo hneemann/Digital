@@ -11,6 +11,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import java.awt.*;
+import java.io.IOException;
+import java.io.StreamTokenizer;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -151,51 +154,96 @@ class Context {
     }
 
     private static void readTransform(Context c, String value) throws SvgException {
-        StringTokenizer st = new StringTokenizer(value, "(),");
-        Transform t;
-        final String trans = st.nextToken();
-        switch (trans) {
-            case "translate":
-                final float x = Float.parseFloat(st.nextToken());
-                float y = 0;
-                if (st.hasMoreTokens())
-                    y = Float.parseFloat(st.nextToken());
-                t = new TransformTranslate(new VectorFloat(x, y));
-                break;
-            case "scale":
-                final float xs = Float.parseFloat(st.nextToken());
-                float ys = xs;
-                if (st.hasMoreTokens())
-                    ys = Float.parseFloat(st.nextToken());
-                t = new TransformMatrix(xs, 0, 0, ys, 0, 0);
-                break;
-            case "matrix":
-                final float ma = Float.parseFloat(st.nextToken());
-                final float mb = Float.parseFloat(st.nextToken());
-                final float mc = Float.parseFloat(st.nextToken());
-                t = new TransformMatrix(
-                        ma,
-                        mc,
-                        mb,
-                        Float.parseFloat(st.nextToken()),
-                        Float.parseFloat(st.nextToken()),
-                        Float.parseFloat(st.nextToken()));
-                break;
-            case "rotate":
-                float w = Float.parseFloat(st.nextToken());
-                if (st.hasMoreTokens()) {
-                    t = TransformMatrix.rotate(w);
-                    float xc = Float.parseFloat(st.nextToken());
-                    float yc = Float.parseFloat(st.nextToken());
-                    t = Transform.mul(new TransformTranslate(-xc, -yc), t);
-                    t = Transform.mul(t, new TransformTranslate(xc, yc));
-                } else
-                    t = TransformMatrix.rotate(w);
-                break;
-            default:
-                throw new SvgException("unknown transform: " + value, null);
+        StreamTokenizer tokenzer = new StreamTokenizer(new StringReader(value));
+        try {
+            Transform t;
+            while (true) {
+                final int tok = tokenzer.nextToken();
+                if (tok == StreamTokenizer.TT_EOF)
+                    break;
+                if (tok != StreamTokenizer.TT_WORD)
+                    throw new SvgException("invalid transform", null);
+                switch (tokenzer.sval) {
+                    case "translate":
+                        consume(tokenzer, '(');
+                        final float x = readFloat(tokenzer);
+                        float y = 0;
+                        if (isComma(tokenzer))
+                            y = readFloat(tokenzer);
+                        consume(tokenzer, ')');
+                        t = new TransformTranslate(new VectorFloat(x, y));
+                        break;
+                    case "scale":
+                        consume(tokenzer, '(');
+                        final float xs = readFloat(tokenzer);
+                        float ys = xs;
+                        if (isComma(tokenzer))
+                            ys = readFloat(tokenzer);
+                        consume(tokenzer, ')');
+                        t = new TransformMatrix(xs, 0, 0, ys, 0, 0);
+                        break;
+                    case "matrix":
+                        consume(tokenzer, '(');
+                        final float ma = readFloat(tokenzer);
+                        consume(tokenzer, ',');
+                        final float mb = readFloat(tokenzer);
+                        consume(tokenzer, ',');
+                        final float mc = readFloat(tokenzer);
+                        consume(tokenzer, ',');
+                        final float md = readFloat(tokenzer);
+                        consume(tokenzer, ',');
+                        final float mx = readFloat(tokenzer);
+                        consume(tokenzer, ',');
+                        final float my = readFloat(tokenzer);
+                        consume(tokenzer, ')');
+                        t = new TransformMatrix(
+                                ma,
+                                mc,
+                                mb,
+                                md,
+                                mx,
+                                my);
+                        break;
+                    case "rotate":
+                        consume(tokenzer, '(');
+                        float w = readFloat(tokenzer);
+                        if (isComma(tokenzer)) {
+                            t = TransformMatrix.rotate(w);
+                            float xc = readFloat(tokenzer);
+                            consume(tokenzer, ',');
+                            float yc = readFloat(tokenzer);
+                            t = Transform.mul(new TransformTranslate(-xc, -yc), t);
+                            t = Transform.mul(t, new TransformTranslate(xc, yc));
+                        } else
+                            t = TransformMatrix.rotate(w);
+                        consume(tokenzer, ')');
+                        break;
+                    default:
+                        throw new SvgException("unknown transform: " + value, null);
+                }
+                c.tr = Transform.mul(t, c.tr);
+            }
+        } catch (IOException e) {
+            // can never happen
         }
-        c.tr = Transform.mul(t, c.tr);
+    }
+
+    private static boolean isComma(StreamTokenizer tokenzer) throws IOException {
+        if (tokenzer.nextToken() == ',')
+            return true;
+        tokenzer.pushBack();
+        return false;
+    }
+
+    private static void consume(StreamTokenizer tokenzer, char c) throws IOException, SvgException {
+        if (tokenzer.nextToken() != c)
+            throw new SvgException("expected " + c, null);
+    }
+
+    private static float readFloat(StreamTokenizer tokenzer) throws IOException, SvgException {
+        if (tokenzer.nextToken() != StreamTokenizer.TT_NUMBER)
+            throw new SvgException("number expected", null);
+        return (float) tokenzer.nval;
     }
 
     private static Color getColorFromString(String v) {
