@@ -146,11 +146,11 @@ public class LayoutShape implements Shape {
         graphic.drawPolygon(poly, Style.NORMAL);
 
         if (top.size() == 0)
-            Graphic.drawText(graphic, new Vector(width * SIZE / 2, -4), name, Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
+            Graphic.drawText(graphic, new Vector(width * SIZE / 2, -4), name, Orientation.CENTERBOTTOM, Style.NORMAL);
         else if (bottom.size() == 0)
-            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE + 4), name, Orientation.CENTERTOP, Style.SHAPE_PIN);
+            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE + 4), name, Orientation.CENTERTOP, Style.NORMAL);
         else
-            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE / 2), name, Orientation.CENTERCENTER, Style.SHAPE_PIN);
+            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE / 2), name, Orientation.CENTERCENTER, Style.NORMAL);
 
         for (PinPos p : left)
             Graphic.drawText(graphic, p.pos.add(4, 0), p.label, Orientation.LEFTCENTER, Style.SHAPE_PIN);
