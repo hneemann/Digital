@@ -13,6 +13,7 @@ import de.neemann.digital.lang.Lang;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -22,14 +23,14 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 /**
  * Is intended to be stored in a file.
  */
-public class CustomShapeDescription implements Iterable<Drawable> {
+public class CustomShapeDescription implements Iterable<CustomShapeDescription.Holder> {
     /**
      * The default empty shape instance
      */
     public static final CustomShapeDescription EMPTY = new CustomShapeDescription();
 
     private HashMap<String, Pin> pins;
-    private ArrayList<Drawable> drawables;
+    private ArrayList<Holder> drawables;
     private TextHolder label;
 
     /**
@@ -128,8 +129,20 @@ public class CustomShapeDescription implements Iterable<Drawable> {
     }
 
     @Override
-    public Iterator<Drawable> iterator() {
+    public Iterator<Holder> iterator() {
         return drawables.iterator();
+    }
+
+    /**
+     * Transforms this custom shape
+     *
+     * @param tr the transformation
+     */
+    public void transform(Transform tr) {
+        for (Holder h : drawables)
+            h.transform(tr);
+        for (Pin p : pins.values())
+            p.transform(tr);
     }
 
     /**
@@ -176,11 +189,25 @@ public class CustomShapeDescription implements Iterable<Drawable> {
     }
 
     /**
+     * @return the dfined pins
+     */
+    public Collection<Pin> getPins() {
+        return pins.values();
+    }
+
+    private interface Transformable {
+        void transform(Transform tr);
+    }
+
+    interface Holder extends Drawable, Transformable {
+    }
+
+    /**
      * Stores a line.
      */
-    public static final class LineHolder implements Drawable {
-        private final Vector p1;
-        private final Vector p2;
+    public static final class LineHolder implements Holder {
+        private Vector p1;
+        private Vector p2;
         private final int thickness;
         private final Color color;
 
@@ -199,24 +226,30 @@ public class CustomShapeDescription implements Iterable<Drawable> {
         /**
          * @return first coordinate
          */
-        public Vector getP1() {
+        public VectorInterface getP1() {
             return p1;
         }
 
         /**
          * @return second coordinate
          */
-        public Vector getP2() {
+        public VectorInterface getP2() {
             return p2;
+        }
+
+        @Override
+        public void transform(Transform tr) {
+            p1 = p1.transform(tr).round();
+            p2 = p2.transform(tr).round();
         }
     }
 
     /**
      * Stores a circle
      */
-    public static final class CircleHolder implements Drawable {
-        private final Vector p1;
-        private final Vector p2;
+    public static final class CircleHolder implements Holder {
+        private Vector p1;
+        private Vector p2;
         private final int thickness;
         private final Color color;
         private final boolean filled;
@@ -238,23 +271,29 @@ public class CustomShapeDescription implements Iterable<Drawable> {
         /**
          * @return first coordinate
          */
-        public Vector getP1() {
+        public VectorInterface getP1() {
             return p1;
         }
 
         /**
          * @return second coordinate
          */
-        public Vector getP2() {
+        public VectorInterface getP2() {
             return p2;
+        }
+
+        @Override
+        public void transform(Transform tr) {
+            p1 = p1.transform(tr).round();
+            p2 = p2.transform(tr).round();
         }
     }
 
     /**
      * Stores a polygon
      */
-    public static final class PolygonHolder implements Drawable {
-        private final Polygon poly;
+    public static final class PolygonHolder implements Holder {
+        private Polygon poly;
         private final int thickness;
         private final boolean filled;
         private final Color color;
@@ -277,14 +316,19 @@ public class CustomShapeDescription implements Iterable<Drawable> {
         public Polygon getPolygon() {
             return poly;
         }
+
+        @Override
+        public void transform(Transform tr) {
+            poly = poly.transform(tr);
+        }
     }
 
     /**
      * Stores a text
      */
-    public static final class TextHolder implements Drawable {
-        private final Vector p1;
-        private final Vector p2;
+    public static final class TextHolder implements Holder {
+        private Vector p1;
+        private Vector p2;
         private final String text;
         private final Orientation orientation;
         private final int size;
@@ -316,12 +360,18 @@ public class CustomShapeDescription implements Iterable<Drawable> {
                             .deriveFontStyle(size, true)
                             .deriveColor(color));
         }
+
+        @Override
+        public void transform(Transform tr) {
+            p1 = p1.transform(tr).round();
+            p2 = p2.transform(tr).round();
+        }
     }
 
     /**
      * Describes a pin position
      */
-    public static final class Pin {
+    public static final class Pin implements Transformable {
         private Vector pos;
         private boolean showLabel;
 
@@ -334,8 +384,16 @@ public class CustomShapeDescription implements Iterable<Drawable> {
             return showLabel;
         }
 
-        Vector getPos() {
+        /**
+         * @return the position of the pin
+         */
+        public Vector getPos() {
             return pos;
+        }
+
+        @Override
+        public void transform(Transform tr) {
+            pos = pos.transform(tr).round();
         }
     }
 }

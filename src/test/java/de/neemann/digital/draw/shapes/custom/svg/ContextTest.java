@@ -5,6 +5,9 @@
  */
 package de.neemann.digital.draw.shapes.custom.svg;
 
+import de.neemann.digital.draw.graphics.Transform;
+import de.neemann.digital.draw.graphics.TransformMatrix;
+import de.neemann.digital.draw.graphics.TransformTranslate;
 import junit.framework.TestCase;
 
 import java.awt.*;
@@ -23,6 +26,5 @@ public class ContextTest extends TestCase {
         assertNull(c.getStroke());
         assertEquals(new Color(0, 0, 0, 127), c.getFilled());
     }
-
 
 }

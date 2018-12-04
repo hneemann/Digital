@@ -126,6 +126,13 @@ public class TransformMatrix implements Transform {
         return Math.abs(a - b) < 1e-7;
     }
 
+    /**
+     * @return the matrix values
+     */
+    public float[] getValues() {
+        return new float[]{a, b, c, d, x, y};
+    }
+
 }
 
 

@@ -39,9 +39,9 @@ public class SvgImporterTest extends TestCase {
                         "</svg>")).create();
 
         new CSDChecker(custom)
-                .checkPolygon("M 0,0 L 0,100 L 100,100 L 100,0")
-                .checkPin(20, 20, "test", false)
-                .checkPin(0, 40, "test2", true)
+                .checkPolygon("M 0,-20 L 0,80 L 100,80 L 100,-20")
+                .checkPin(20, 0, "test", false)
+                .checkPin(0, 20, "test2", true)
                 .check();
     }
 
@@ -452,6 +452,53 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testIllustrator1() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                        "<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->\n" +
+                        "<svg version=\"1.1\"\n" +
+                        "\t id=\"Ebene_1\" xmlns:cc=\"http://creativecommons.org/ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" xmlns:svg=\"http://www.w3.org/2000/svg\"\n" +
+                        "\t xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 220 180\"\n" +
+                        "\t style=\"enable-background:new 0 0 220 180;\" xml:space=\"preserve\">\n" +
+                        "<style type=\"text/css\">\n" +
+                        "\t.st0{fill:#FFFFB4;fill-opacity:0.7843;stroke:#000000;stroke-width:3;}\n" +
+                        "\t.st1{font-family:'ArialMT';}\n" +
+                        "\t.st2{font-size:23px;}\n" +
+                        "\t.st3{fill:#0000B2;}\n" +
+                        "\t.st4{fill:#808080;}\n" +
+                        "\t.st5{font-size:17px;}\n" +
+                        "\t.st6{fill:#B20000;}\n" +
+                        "</style>\n" +
+                        "<sodipodi:namedview  showgrid=\"true\">\n" +
+                        "\t<inkscape:grid  empspacing=\"4\" spacingx=\"5\" spacingy=\"5\" type=\"xygrid\"></inkscape:grid>\n" +
+                        "</sodipodi:namedview>\n" +
+                        "<path class=\"st0\" d=\"M80,70c0,0,15,0,30,0c40,0,40,60,5,60c-15,0-35,0-35,0V70z\"/>\n" +
+                        "<text id=\"label\" transform=\"matrix(1 0 0 1 81.8621 60)\" class=\"st1 st2\">Label</text>\n" +
+                        "<g>\n" +
+                        "\t<circle id=\"pin:A\" class=\"st3\" cx=\"80\" cy=\"80\" r=\"3\"/>\n" +
+                        "\t<text transform=\"matrix(1 0 0 1 84 86)\" class=\"st4 st1 st5\">A</text>\n" +
+                        "</g>\n" +
+                        "<g>\n" +
+                        "\t<circle id=\"pin:B\" class=\"st3\" cx=\"79.5\" cy=\"118.8\" r=\"3\"/>\n" +
+                        "\t<text transform=\"matrix(1 0 0 1 83.5 124.8469)\" class=\"st4 st1 st5\">B</text>\n" +
+                        "</g>\n" +
+                        "<g>\n" +
+                        "\t<circle id=\"pin:Y\" class=\"st6\" cx=\"140\" cy=\"99\" r=\"3\"/>\n" +
+                        "\t<text transform=\"matrix(1 0 0 1 124.6611 105)\" class=\"st4 st1 st5\">Y</text>\n" +
+                        "</g>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 0,-10 C 0,-10 15,-10 30,-10 C 70,-10 70,50 35,50 C 20,50 0,50 0,50 L 0,-10 Z")
+                .checkText(10, 10, "A")
+                .checkText(10, 10, "B")
+                .checkText(10, 10, "Y")
+                .checkPin(0, 0, "A", false)
+                .checkPin(0, 40, "B", false)
+                .checkPin(60, 20, "Y", false)
+                .check();
+    }
+
     //*****************************************************************************************************
 
 
@@ -484,8 +531,8 @@ public class SvgImporterTest extends TestCase {
             assertEquals("wrong number of pins", pins.size(), csd.getPinCount());
             for (TestPin tp : pins) {
                 CustomShapeDescription.Pin p = csd.getPin(tp.name);
-                assertEquals("wrong pin x coordinate", tp.x, p.getPos().x);
-                assertEquals("wrong pin y coordinate", tp.y, p.getPos().y);
+                assertEquals("wrong pin x coordinate in " + tp.name, tp.x, p.getPos().x);
+                assertEquals("wrong pin y coordinate " + tp.name, tp.y, p.getPos().y);
                 assertEquals("wrong pin label", tp.showLabel, p.isShowLabel());
             }
         }
@@ -517,32 +564,39 @@ public class SvgImporterTest extends TestCase {
             return this;
         }
 
-        private CSDChecker checkLine(int x1, int y1, int x2, int y2) {
+        private CSDChecker checkLine(float x1, float y1, float x2, float y2) {
             checker.add(d -> {
                 assertTrue("element is no line", d instanceof CustomShapeDescription.LineHolder);
                 CustomShapeDescription.LineHolder l = (CustomShapeDescription.LineHolder) d;
-                assertEquals(x1, l.getP1().x);
-                assertEquals(y1, l.getP1().y);
-                assertEquals(x2, l.getP2().x);
-                assertEquals(y2, l.getP2().y);
+                assertEquals(x1, l.getP1().getXFloat(), 1e-4);
+                assertEquals(y1, l.getP1().getYFloat(), 1e-4);
+                assertEquals(x2, l.getP2().getXFloat(), 1e-4);
+                assertEquals(y2, l.getP2().getYFloat(), 1e-4);
             });
             return this;
         }
 
-        private CSDChecker checkCircle(int cx, int cy, int rx, int ry) {
+        private CSDChecker checkCircle(float cx, float cy, float rx, float ry) {
             checker.add(d -> {
                 assertTrue("element is no circle", d instanceof CustomShapeDescription.CircleHolder);
                 CustomShapeDescription.CircleHolder c = (CustomShapeDescription.CircleHolder) d;
 
-                Vector isCenter = c.getP1().add(c.getP2()).div(2);
-                Vector isRad = c.getP2().sub(c.getP1()).div(2);
+                VectorInterface isCenter = c.getP1().add(c.getP2()).div(2);
+                VectorInterface isRad = c.getP2().sub(c.getP1()).div(2);
 
-                String message = "\ncx=" + isCenter.x + "; cy=" + isCenter.y + "; rx=" + isRad.x + "; ry=" + isRad.y + "\n";
+                String message = "\ncx=" + isCenter.getXFloat() + "; cy=" + isCenter.getYFloat() + "; rx=" + isRad.getXFloat() + "; ry=" + isRad.getYFloat() + "\n";
 
-                assertEquals(message + "cx", cx, isCenter.x);
-                assertEquals(message + "cy", cy, isCenter.y);
-                assertEquals(message + "rx", rx, isRad.x);
-                assertEquals(message + "ry", ry, isRad.y);
+                assertEquals(message + "cx", cx, isCenter.getXFloat(), 1e-4);
+                assertEquals(message + "cy", cy, isCenter.getYFloat(), 1e-4);
+                assertEquals(message + "rx", rx, isRad.getXFloat(), 1e-4);
+                assertEquals(message + "ry", ry, isRad.getYFloat(), 1e-4);
+            });
+            return this;
+        }
+
+        private CSDChecker checkText(int x, int y, String text) {
+            checker.add(d -> {
+                assertTrue(d instanceof CustomShapeDescription.TextHolder);
             });
             return this;
         }

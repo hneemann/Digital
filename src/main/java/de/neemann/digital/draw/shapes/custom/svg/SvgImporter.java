@@ -69,6 +69,17 @@ public class SvgImporter {
         try {
             CustomShapeDescription csd = new CustomShapeDescription();
             create(csd, gList, c);
+
+            if (csd.getPinCount() > 0) {
+                float xMin = Float.MAX_VALUE;
+                float yMin = Float.MAX_VALUE;
+                for (CustomShapeDescription.Pin p : csd.getPins()) {
+                    if (p.getPos().x < xMin) xMin = p.getPos().x;
+                    if (p.getPos().y < yMin) yMin = p.getPos().y;
+                }
+                csd.transform(new TransformTranslate(-xMin, -yMin));
+            }
+
             return csd;
         } catch (RuntimeException e) {
             throw new SvgException(Lang.get("err_parsingSVG"), e);
