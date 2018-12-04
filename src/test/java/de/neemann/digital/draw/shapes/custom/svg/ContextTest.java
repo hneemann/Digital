@@ -27,4 +27,12 @@ public class ContextTest extends TestCase {
         assertEquals(new Color(0, 0, 0, 127), c.getFilled());
     }
 
+
+    public void testCSS() {
+        Context c = new Context();
+        c.addClasses("  .z{a:1}\n .y{a:2}");
+        assertEquals("a:1", c.getCssClass("z"));
+        assertEquals("a:2", c.getCssClass("y"));
+    }
+
 }

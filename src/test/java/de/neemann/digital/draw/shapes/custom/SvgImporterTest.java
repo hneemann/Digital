@@ -8,7 +8,6 @@ package de.neemann.digital.draw.shapes.custom;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.PolygonParser;
-import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorInterface;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.custom.svg.SvgException;
@@ -490,9 +489,10 @@ public class SvgImporterTest extends TestCase {
 
         new CSDChecker(custom)
                 .checkPolygon("M 0,-10 C 0,-10 15,-10 30,-10 C 70,-10 70,50 35,50 C 20,50 0,50 0,50 L 0,-10 Z")
-                .checkText(10, 10, "A")
-                .checkText(10, 10, "B")
-                .checkText(10, 10, "Y")
+                .checkPolygon("M 0,-10 C 0,-10 15,-10 30,-10 C 70,-10 70,50 35,50 C 20,50 0,50 0,50 L 0,-10 Z")
+                .checkText(4, 6, "A")
+                .checkText(4, 45, "B")
+                .checkText(45, 25, "Y")
                 .checkPin(0, 0, "A", false)
                 .checkPin(0, 40, "B", false)
                 .checkPin(60, 20, "Y", false)
@@ -596,7 +596,10 @@ public class SvgImporterTest extends TestCase {
 
         private CSDChecker checkText(int x, int y, String text) {
             checker.add(d -> {
-                assertTrue(d instanceof CustomShapeDescription.TextHolder);
+                assertTrue("Text expected, found " + d.getClass().getSimpleName(), d instanceof CustomShapeDescription.TextHolder);
+                CustomShapeDescription.TextHolder t = (CustomShapeDescription.TextHolder) d;
+                assertEquals("text x", x, t.getPos().x);
+                assertEquals("text y", y, t.getPos().y);
             });
             return this;
         }

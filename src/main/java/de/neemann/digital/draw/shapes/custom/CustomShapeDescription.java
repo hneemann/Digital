@@ -366,6 +366,13 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
             p1 = p1.transform(tr).round();
             p2 = p2.transform(tr).round();
         }
+
+        /**
+         * @return the text position
+         */
+        public Vector getPos() {
+            return p1;
+        }
     }
 
     /**

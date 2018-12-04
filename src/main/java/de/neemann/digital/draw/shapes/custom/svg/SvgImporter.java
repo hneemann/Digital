@@ -89,8 +89,13 @@ public class SvgImporter {
     private void create(CustomShapeDescription csd, NodeList gList, Context c) throws SvgException {
         for (int i = 0; i < gList.getLength(); i++) {
             final Node node = gList.item(i);
-            if (node instanceof Element)
-                create(csd, (Element) node, c);
+            if (node instanceof Element) {
+                final Element element = (Element) node;
+                if (element.getNodeName().equals("style"))
+                    c.addClasses(element.getTextContent());
+                else
+                    create(csd, element, c);
+            }
         }
     }
 

@@ -5,7 +5,10 @@
  */
 package de.neemann.digital.draw.shapes.custom.svg;
 
-import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Orientation;
+import de.neemann.digital.draw.graphics.Transform;
+import de.neemann.digital.draw.graphics.VectorFloat;
+import de.neemann.digital.draw.graphics.VectorInterface;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -30,6 +33,7 @@ class Context {
         PARSER.put("style", Context::readStyle);
         PARSER.put("text-anchor", (c, value) -> c.textAnchor = value);
         PARSER.put("fill-rule", (c, value) -> c.fillRuleEvenOdd = value.equalsIgnoreCase("evenodd"));
+        PARSER.put("class", Context::evalClass);
     }
 
     private Transform tr;
@@ -41,6 +45,7 @@ class Context {
     private float fontSize;
     private String textAnchor;
     private boolean fillRuleEvenOdd;
+    private HashMap<String, String> classesMap;
 
     Context() {
         tr = Transform.IDENTITY;
@@ -48,6 +53,7 @@ class Context {
         stroke = Color.BLACK;
         fillOpacity = 1;
         strokeOpacity = 1;
+        classesMap = new HashMap<>();
     }
 
     private Context(Context parent) {
@@ -60,6 +66,8 @@ class Context {
         fontSize = parent.fontSize;
         textAnchor = parent.textAnchor;
         fillRuleEvenOdd = parent.fillRuleEvenOdd;
+        classesMap = new HashMap<>();
+        classesMap.putAll(parent.classesMap);
     }
 
     Context(Context parent, Element element) throws SvgException {
@@ -144,6 +152,34 @@ class Context {
 
     public float getFontSize() {
         return fontSize;
+    }
+
+    void addClasses(String classes) {
+        classes = classes.trim();
+        while (classes.startsWith(".")) {
+            int p1 = classes.indexOf("{");
+            int p2 = classes.indexOf("}");
+            if (p1 < 0 || p2 < 0)
+                return;
+            String key = classes.substring(1, p1);
+            String val = classes.substring(p1 + 1, p2);
+            classesMap.put(key, val);
+            classes = classes.substring(p2 + 1).trim();
+        }
+    }
+
+    String getCssClass(String key) {
+        return classesMap.get(key);
+    }
+
+    private static void evalClass(Context c, String value) throws SvgException {
+        StringTokenizer st = new StringTokenizer(value, ", ");
+        while (st.hasMoreTokens()) {
+            String cl = st.nextToken();
+            String style = c.getCssClass(cl);
+            if (style != null)
+                readStyle(c, style);
+        }
     }
 
     private interface AttrParser {
