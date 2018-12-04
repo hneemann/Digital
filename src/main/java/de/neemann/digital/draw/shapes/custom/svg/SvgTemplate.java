@@ -81,7 +81,7 @@ public class SvgTemplate implements Closeable {
      * @throws Exception Exception
      */
     public void create() throws Exception {
-        w.write("  <rect fill=\"none\" stroke=\"black\" stroke-width=\"3\""
+        w.write("  <rect stroke=\"black\" stroke-width=\"3\""
                 + " fill=\"" + getColor(Keys.BACKGROUND_COLOR.getDefault()) + "\""
                 + " fill-opacity=\"" + (Keys.BACKGROUND_COLOR.getDefault().getAlpha() / 255f) + "\""
                 + " x=\"0\" y=\"-10\" width=\"" + width + "\" height=\"" + height + "\"/>\n");
