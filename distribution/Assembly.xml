@@ -63,6 +63,7 @@
             <outputDirectory>/examples/processor/</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
+                <include>**/*.svg</include>
             </includes>
         </fileSet>
         <fileSet>
