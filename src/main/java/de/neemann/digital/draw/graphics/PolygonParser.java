@@ -9,19 +9,13 @@ package de.neemann.digital.draw.graphics;
  * Creates a polygon from a path
  */
 public class PolygonParser {
-
-    enum Token {EOF, COMMAND, NUMBER}
-
-    private final String path;
-    private int lastTokenPos;
-    private int pos;
-    private char command;
-    private float value;
+    private final SVGTokenizer t;
     private float x;
     private float y;
     private VectorFloat polyStart;
     private VectorInterface lastQuadraticControlPoint;
     private VectorInterface lastCubicControlPoint;
+    private String command = "";
 
     /**
      * Creates a new instance
@@ -29,84 +23,26 @@ public class PolygonParser {
      * @param path the path to parse
      */
     public PolygonParser(String path) {
-        this.path = path;
-        pos = 0;
+        t = new SVGTokenizer(path);
     }
 
-    Token next() {
-        lastTokenPos = pos;
-        while (pos < path.length() && (path.charAt(pos) == ' ' || path.charAt(pos) == ','))
-            pos++;
-        if (pos == path.length())
-            return Token.EOF;
-
-        char c = path.charAt(pos);
-        if (Character.isAlphabetic(c)) {
-            pos++;
-            command = c;
-            return Token.COMMAND;
-        } else {
-            value = parseNumber();
-            return Token.NUMBER;
-        }
+    private float nextValue() throws SVGTokenizer.TokenizerException {
+        return t.readFloat();
     }
 
-    private char peekChar() {
-        return path.charAt(pos);
-    }
-
-    private float parseNumber() {
-        int p0 = pos;
-        if (peekChar() == '+' || peekChar() == '-')
-            pos++;
-
-        while (pos < path.length() && (Character.isDigit(peekChar()) || peekChar() == '.'))
-            pos++;
-
-        if (pos < path.length() && (peekChar() == 'e' || peekChar() == 'E')) {
-            pos++;
-            if (peekChar() == '+' || peekChar() == '-')
-                pos++;
-
-            while (pos < path.length() && (Character.isDigit(peekChar()) || peekChar() == '.'))
-                pos++;
-        }
-
-        return Float.parseFloat(path.substring(p0, pos));
-    }
-
-
-    private void unreadToken() {
-        pos = lastTokenPos;
-    }
-
-    char getCommand() {
-        return command;
-    }
-
-    double getValue() {
-        return value;
-    }
-
-    private float nextValue() throws ParserException {
-        if (next() != Token.NUMBER)
-            throw new ParserException("expected a number at pos " + pos + " in '" + path + "'");
-        return value;
-    }
-
-    private VectorFloat nextVector() throws ParserException {
+    private VectorFloat nextVector() throws SVGTokenizer.TokenizerException {
         x = nextValue();
         y = nextValue();
         return new VectorFloat(x, y);
     }
 
-    private VectorFloat nextVectorInc() throws ParserException {
+    private VectorFloat nextVectorInc() throws SVGTokenizer.TokenizerException {
         x += nextValue();
         y += nextValue();
         return new VectorFloat(x, y);
     }
 
-    private VectorFloat nextVectorRel() throws ParserException {
+    private VectorFloat nextVectorRel() throws SVGTokenizer.TokenizerException {
         return new VectorFloat(x + nextValue(), y + nextValue());
     }
 
@@ -117,110 +53,113 @@ public class PolygonParser {
      * @throws ParserException ParserException
      */
     public Polygon create() throws ParserException {
-        Polygon p = new Polygon(false);
-        Token tok;
-        boolean closedPending = false;
-        while ((tok = next()) != Token.EOF) {
-            if (tok == Token.NUMBER) {
-                unreadToken();
-                if (command == 'm')
-                    command = 'l';
-                else if (command == 'M')
-                    command = 'L';
+        try {
+            Polygon p = new Polygon(false);
+            boolean closedPending = false;
+            while (!t.isEOF()) {
+                if (t.nextIsNumber()) {
+                    if (command.equals("m"))
+                        command = "l";
+                    else if (command.equals("M"))
+                        command = "L";
+                } else
+                    command = t.readCommand();
+                switch (command) {
+                    case "M":
+                        if (closedPending) {
+                            closedPending = false;
+                            p.addClosePath();
+                        }
+                        p.addMoveTo(setPolyStart(nextVector()));
+                        clearControl();
+                        break;
+                    case "m":
+                        if (closedPending) {
+                            closedPending = false;
+                            p.addClosePath();
+                        }
+                        p.addMoveTo(setPolyStart(nextVectorInc()));
+                        clearControl();
+                        break;
+                    case "V":
+                        y = nextValue();
+                        p.add(getCurrent());
+                        clearControl();
+                        break;
+                    case "v":
+                        y += nextValue();
+                        p.add(getCurrent());
+                        clearControl();
+                        break;
+                    case "H":
+                        x = nextValue();
+                        p.add(getCurrent());
+                        clearControl();
+                        break;
+                    case "h":
+                        x += nextValue();
+                        p.add(getCurrent());
+                        clearControl();
+                        break;
+                    case "l":
+                        p.add(nextVectorInc());
+                        clearControl();
+                        break;
+                    case "L":
+                        p.add(nextVector());
+                        clearControl();
+                        break;
+                    case "c":
+                        p.add(nextVectorRel(), setLastC3(nextVectorRel()), nextVectorInc());
+                        break;
+                    case "C":
+                        p.add(nextVector(), setLastC3(nextVector()), nextVector());
+                        break;
+                    case "q":
+                        p.add(setLastC2(nextVectorRel()), nextVectorInc());
+                        break;
+                    case "Q":
+                        p.add(setLastC2(nextVector()), nextVector());
+                        break;
+                    case "s":
+                        addCubicWithReflect(p, getCurrent(), nextVectorRel(), nextVectorInc());
+                        break;
+                    case "S":
+                        addCubicWithReflect(p, getCurrent(), nextVector(), nextVector());
+                        break;
+                    case "t":
+                        addQuadraticWithReflect(p, getCurrent(), nextVectorInc());
+                        break;
+                    case "T":
+                        addQuadraticWithReflect(p, getCurrent(), nextVector());
+                        break;
+                    case "a":
+                        addArc(p, getCurrent(), nextValue(), nextValue(), nextValue(), nextValue() != 0, nextValue() != 0, nextVectorInc());
+                        clearControl();
+                        break;
+                    case "A":
+                        addArc(p, getCurrent(), nextValue(), nextValue(), nextValue(), nextValue() != 0, nextValue() != 0, nextVector());
+                        clearControl();
+                        break;
+                    case "Z":
+                    case "z":
+                        closedPending = true;
+                        if (polyStart != null) {
+                            x = polyStart.getXFloat();
+                            y = polyStart.getYFloat();
+                        }
+                        clearControl();
+                        break;
+                    default:
+                        throw new ParserException("unsupported path command " + command);
+                }
             }
-            switch (command) {
-                case 'M':
-                    if (closedPending) {
-                        closedPending = false;
-                        p.addClosePath();
-                    }
-                    p.addMoveTo(setPolyStart(nextVector()));
-                    clearControl();
-                    break;
-                case 'm':
-                    if (closedPending) {
-                        closedPending = false;
-                        p.addClosePath();
-                    }
-                    p.addMoveTo(setPolyStart(nextVectorInc()));
-                    clearControl();
-                    break;
-                case 'V':
-                    y = nextValue();
-                    p.add(getCurrent());
-                    clearControl();
-                    break;
-                case 'v':
-                    y += nextValue();
-                    p.add(getCurrent());
-                    clearControl();
-                    break;
-                case 'H':
-                    x = nextValue();
-                    p.add(getCurrent());
-                    clearControl();
-                    break;
-                case 'h':
-                    x += nextValue();
-                    p.add(getCurrent());
-                    clearControl();
-                    break;
-                case 'l':
-                    p.add(nextVectorInc());
-                    clearControl();
-                    break;
-                case 'L':
-                    p.add(nextVector());
-                    clearControl();
-                    break;
-                case 'c':
-                    p.add(nextVectorRel(), setLastC3(nextVectorRel()), nextVectorInc());
-                    break;
-                case 'C':
-                    p.add(nextVector(), setLastC3(nextVector()), nextVector());
-                    break;
-                case 'q':
-                    p.add(setLastC2(nextVectorRel()), nextVectorInc());
-                    break;
-                case 'Q':
-                    p.add(setLastC2(nextVector()), nextVector());
-                    break;
-                case 's':
-                    addCubicWithReflect(p, getCurrent(), nextVectorRel(), nextVectorInc());
-                    break;
-                case 'S':
-                    addCubicWithReflect(p, getCurrent(), nextVector(), nextVector());
-                    break;
-                case 't':
-                    addQuadraticWithReflect(p, getCurrent(), nextVectorInc());
-                    break;
-                case 'T':
-                    addQuadraticWithReflect(p, getCurrent(), nextVector());
-                    break;
-                case 'a':
-                    addArc(p, getCurrent(), nextValue(), nextValue(), nextValue(), nextValue() != 0, nextValue() != 0, nextVectorInc());
-                    clearControl();
-                    break;
-                case 'A':
-                    addArc(p, getCurrent(), nextValue(), nextValue(), nextValue(), nextValue() != 0, nextValue() != 0, nextVector());
-                    clearControl();
-                    break;
-                case 'Z':
-                case 'z':
-                    closedPending = true;
-                    if (polyStart != null) {
-                        x = polyStart.getXFloat();
-                        y = polyStart.getYFloat();
-                    }
-                    clearControl();
-                    break;
-                default:
-                    throw new ParserException("unsupported path command " + command);
-            }
+            if (closedPending)
+                p.setClosed(true);
+            return p;
+        } catch (SVGTokenizer.TokenizerException e) {
+            throw new ParserException("error parsing a path", e);
         }
-        if (closedPending)
-            p.setClosed(true);
-        return p;
     }
 
     private VectorFloat setPolyStart(VectorFloat v) {
@@ -408,6 +347,10 @@ public class PolygonParser {
         private ParserException(String message) {
             super(message);
         }
+
+        private ParserException(String message, Exception cause) {
+            super(message, cause);
+        }
     }
 
     /**
@@ -417,7 +360,11 @@ public class PolygonParser {
      * @throws ParserException ParserException
      */
     public Polygon parsePolygon() throws ParserException {
-        return parsePolygonPolyline(true);
+        try {
+            return parsePolygonPolyline(true);
+        } catch (SVGTokenizer.TokenizerException e) {
+            throw new ParserException("error parsing a polygon", e);
+        }
     }
 
     /**
@@ -427,13 +374,17 @@ public class PolygonParser {
      * @throws ParserException ParserException
      */
     public Polygon parsePolyline() throws ParserException {
-        return parsePolygonPolyline(false);
+        try {
+            return parsePolygonPolyline(false);
+        } catch (SVGTokenizer.TokenizerException e) {
+            throw new ParserException("error parsing a polyline", e);
+        }
     }
 
-    private Polygon parsePolygonPolyline(boolean closed) throws ParserException {
+    private Polygon parsePolygonPolyline(boolean closed) throws SVGTokenizer.TokenizerException {
         Polygon p = new Polygon(closed);
-        while (next() != Token.EOF)
-            p.add(new VectorFloat(value, nextValue()));
+        while (!t.isEOF())
+            p.add(new VectorFloat(nextValue(), nextValue()));
         return p;
     }
 

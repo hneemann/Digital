@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.draw.shapes.custom.svg;
 
-import de.neemann.digital.draw.graphics.Orientation;
-import de.neemann.digital.draw.graphics.Transform;
-import de.neemann.digital.draw.graphics.VectorFloat;
-import de.neemann.digital.draw.graphics.VectorInterface;
+import de.neemann.digital.draw.graphics.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -20,7 +17,6 @@ import java.util.StringTokenizer;
 class Context {
 
     private static final HashMap<String, AttrParser> PARSER = new HashMap<>();
-
 
     static {
         PARSER.put("transform", (c1, value1) -> c1.tr = Transform.mul(new TransformParser(value1).parse(), c1.tr));
@@ -82,16 +78,18 @@ class Context {
     }
 
     static Context readStyle(Context context, String style) throws SvgException {
-        StringTokenizer st = new StringTokenizer(style, ";");
-        while (st.hasMoreTokens()) {
-            String[] t = st.nextToken().split(":");
-            if (t.length == 2) {
-                AttrParser p = PARSER.get(t[0].trim());
+        SVGTokenizer t = new SVGTokenizer(style);
+        try {
+            while (!t.isEOF()) {
+                String command = t.readTo(':');
+                AttrParser p = PARSER.get(command);
                 if (p != null)
-                    p.parse(context, t[1].trim());
+                    p.parse(context, t.readTo(';'));
             }
+            return context;
+        } catch (SVGTokenizer.TokenizerException e) {
+            throw new SvgException("invalid svg style: " + style, e);
         }
-        return context;
     }
 
     Transform getTransform() {
@@ -155,16 +153,15 @@ class Context {
     }
 
     void addClasses(String classes) {
-        classes = classes.trim();
-        while (classes.startsWith(".")) {
-            int p1 = classes.indexOf("{");
-            int p2 = classes.indexOf("}");
-            if (p1 < 0 || p2 < 0)
-                return;
-            String key = classes.substring(1, p1);
-            String val = classes.substring(p1 + 1, p2);
-            classesMap.put(key, val);
-            classes = classes.substring(p2 + 1).trim();
+        SVGTokenizer t = new SVGTokenizer(classes);
+        try {
+            while (t.nextIsChar('.')) {
+                String key=t.readTo('{');
+                String val = t.readTo('}');
+                classesMap.put(key, val);
+            }
+        } catch (SVGTokenizer.TokenizerException e) {
+            // ignore errors
         }
     }
 
@@ -187,31 +184,39 @@ class Context {
     }
 
     private static Color getColorFromString(String v) {
-        if (v.equalsIgnoreCase("none"))
-            return null;
-
         try {
-            if (v.startsWith("#")) {
-                if (v.length() == 4)
-                    return new Color(sRGB(v.charAt(1)), sRGB(v.charAt(2)), sRGB(v.charAt(3)));
+            SVGTokenizer t = new SVGTokenizer(v);
+            if (t.nextIsChar('#')) {
+                String c = t.remaining();
+                if (c.length() == 3)
+                    return new Color(sRGB(c.charAt(0)), sRGB(c.charAt(1)), sRGB(c.charAt(2)));
                 else
                     return Color.decode(v);
-            } else if (v.startsWith("rgb(")) {
-                StringTokenizer st = new StringTokenizer(v.substring(4), " ,)");
-                return new Color(rgb(st.nextToken()), rgb(st.nextToken()), rgb(st.nextToken()));
+            } else {
+                final String command = t.readCommand();
+                switch (command) {
+                    case "none":
+                        return null;
+                    case "rgb":
+                        t.expect('(');
+                        Color col = new Color(rgb(t), rgb(t), rgb(t));
+                        t.expect(')');
+                        return col;
+                    default:
+                        return (Color) Color.class.getField(command.toLowerCase()).get(null);
+                }
             }
-
-            return (Color) Color.class.getField(v.toLowerCase()).get(null);
-        } catch (RuntimeException | IllegalAccessException | NoSuchFieldException e) {
+        } catch (Exception e) {
             return Color.BLACK;
         }
     }
 
-    private static int rgb(String s) {
-        if (s.endsWith("%"))
-            return (int) (Float.parseFloat(s.substring(0, s.length() - 1)) / 100 * 255);
+    private static int rgb(SVGTokenizer t) throws SVGTokenizer.TokenizerException {
+        float v = t.readFloat();
+        if (t.nextIsChar('%'))
+            return (int) (v * 2.55f);
         else
-            return Integer.parseInt(s);
+            return (int) v;
     }
 
     private static int sRGB(char c) {
@@ -220,10 +225,11 @@ class Context {
     }
 
     private static float getFloatFromString(String inp) {
-        inp = inp.replaceAll("[^0-9.]", "");
-        if (inp.isEmpty())
+        try {
+            return Float.parseFloat(inp);
+        } catch (NumberFormatException e) {
             return 1;
-        return Float.parseFloat(inp);
+        }
     }
 
 }
