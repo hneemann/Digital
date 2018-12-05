@@ -91,7 +91,7 @@ public class SvgImporterTest extends TestCase {
     public void testPolygon() throws IOException, SvgException, PolygonParser.ParserException, PinException {
         CustomShapeDescription custom = new SvgImporter(
                 in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                        "  <polygon points=\"0,0 0,100 100,100 100,0\" />\n" +
+                        "  <polygon fill=\"none\" points=\"0,0 0,100 100,100 100,0\" />\n" +
                         "</svg>")).create();
 
         new CSDChecker(custom)
@@ -102,7 +102,7 @@ public class SvgImporterTest extends TestCase {
     public void testPolygonTranslated() throws IOException, SvgException, PolygonParser.ParserException, PinException {
         CustomShapeDescription custom = new SvgImporter(
                 in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                        "  <polygon transform=\"translate(10,20)\" points=\"0,0 0,100 100,100 100,0\" />\n" +
+                        "  <polygon fill=\"none\" transform=\"translate(10,20)\" points=\"0,0 0,100 100,100 100,0\" />\n" +
                         "</svg>")).create();
 
         new CSDChecker(custom)
@@ -114,7 +114,7 @@ public class SvgImporterTest extends TestCase {
         CustomShapeDescription custom = new SvgImporter(
                 in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
                         " <g transform=\"translate(10,20)\">\n" +
-                        "  <polygon points=\"0,0 0,100 100,100 100,0\" />\n" +
+                        "  <polygon fill=\"none\" points=\"0,0 0,100 100,100 100,0\" />\n" +
                         " </g>\n" +
                         "</svg>")).create();
 
@@ -127,7 +127,7 @@ public class SvgImporterTest extends TestCase {
         CustomShapeDescription custom = new SvgImporter(
                 in("<svg viewBox=\"0 0 200 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
                         " <g transform=\"translate(0,20)\">\n" +
-                        "  <polygon transform=\"translate(10,0)\" points=\"0,0 0,100 100,100 100,0\" />\n" +
+                        "  <polygon fill=\"none\" transform=\"translate(10,0)\" points=\"0,0 0,100 100,100 100,0\" />\n" +
                         " </g>\n" +
                         "</svg>")).create();
 

@@ -32,6 +32,7 @@ class Context {
         PARSER.put("class", Context::evalClass);
     }
 
+    private final Context parent;
     private Transform tr;
     private Color fill;
     private float fillOpacity;
@@ -44,15 +45,17 @@ class Context {
     private HashMap<String, String> classesMap;
 
     Context() {
+        parent = null;
         tr = Transform.IDENTITY;
         thickness = 1;
         stroke = Color.BLACK;
+        fill = Color.BLACK;
         fillOpacity = 1;
         strokeOpacity = 1;
-        classesMap = new HashMap<>();
     }
 
     private Context(Context parent) {
+        this.parent = parent;
         tr = parent.tr;
         fill = parent.fill;
         fillOpacity = parent.fillOpacity;
@@ -62,8 +65,6 @@ class Context {
         fontSize = parent.fontSize;
         textAnchor = parent.textAnchor;
         fillRuleEvenOdd = parent.fillRuleEvenOdd;
-        classesMap = new HashMap<>();
-        classesMap.putAll(parent.classesMap);
     }
 
     Context(Context parent, Element element) throws SvgException {
@@ -156,8 +157,10 @@ class Context {
         SVGTokenizer t = new SVGTokenizer(classes);
         try {
             while (t.nextIsChar('.')) {
-                String key=t.readTo('{');
+                String key = t.readTo('{');
                 String val = t.readTo('}');
+                if (classesMap == null)
+                    classesMap = new HashMap<>();
                 classesMap.put(key, val);
             }
         } catch (SVGTokenizer.TokenizerException e) {
@@ -166,7 +169,13 @@ class Context {
     }
 
     String getCssClass(String key) {
-        return classesMap.get(key);
+        String v = null;
+        if (classesMap != null) v = classesMap.get(key);
+
+        if (v == null && parent != null)
+            return  parent.getCssClass(key);
+
+        return v;
     }
 
     private static void evalClass(Context c, String value) throws SvgException {
