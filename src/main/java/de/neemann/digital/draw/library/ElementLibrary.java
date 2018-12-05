@@ -67,13 +67,21 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             return new File("noLibFound");
         }
         if (path.endsWith("/target/classes/"))
-            return new File(path.substring(0, path.length() - 16) + "/src/main/dig/lib");
+            return toCanonical(new File(path.substring(0, path.length() - 16) + "/src/main/dig/lib"));
         if (path.endsWith("/target/Digital.jar"))
             return new File(path.substring(0, path.length() - 19) + "/src/main/dig/lib");
         if (path.endsWith("Digital.jar"))
             return new File(path.substring(0, path.length() - 12) + "/examples/lib");
 
         return new File("noLibFound");
+    }
+
+    private static File toCanonical(File file) {
+        try {
+            return file.getCanonicalFile();
+        } catch (IOException e) {
+            return file;
+        }
     }
 
     private final HashMap<String, LibraryNode> map = new HashMap<>();
