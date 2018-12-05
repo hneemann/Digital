@@ -143,6 +143,8 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
             h.transform(tr);
         for (Pin p : pins.values())
             p.transform(tr);
+        if (label != null)
+            label.transform(tr);
     }
 
     /**
@@ -372,6 +374,13 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
          */
         public Vector getPos() {
             return p1;
+        }
+
+        /**
+         * @return the font size
+         */
+        public int getFontSize() {
+            return size;
         }
     }
 

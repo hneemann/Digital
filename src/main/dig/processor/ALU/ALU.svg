@@ -59,11 +59,11 @@
        r="3"
        style="fill:#0000b2" />
     <text
-       font-size="17"
+       font-size="18"
        x="4"
        y="6"
        id="text9"
-       style="font-size:17px;fill:#808080">A</text>
+       style="font-size:18px;fill:#808080">A</text>
   </g>
   <g
      id="g16"
@@ -75,11 +75,11 @@
        r="3"
        style="fill:#0000b2" />
     <text
-       font-size="17"
+       font-size="18"
        x="4"
        y="26"
        id="text14"
-       style="font-size:17px;fill:#808080">B</text>
+       style="font-size:18px;fill:#808080">B</text>
   </g>
   <circle
      style="fill:#0000b2"
@@ -88,11 +88,11 @@
      cx="59.743538"
      id="pin:Op" />
   <text
-     style="font-size:17px;fill:#808080"
+     style="font-size:18px;fill:#808080"
      id="text19"
      y="102.18784"
      x="22.559103"
-     font-size="17">Op</text>
+     font-size="18">Op</text>
   <g
      id="g26"
      transform="translate(-0.28205129,60.076924)">
@@ -103,11 +103,11 @@
        r="3"
        style="fill:#0000b2" />
     <text
-       font-size="17"
+       font-size="18"
        x="4"
        y="66"
        id="text24"
-       style="font-size:17px;fill:#808080">Ci</text>
+       style="font-size:18px;fill:#808080">Ci</text>
   </g>
   <g
      id="g31"
@@ -119,11 +119,11 @@
        r="3"
        style="fill:#b20000" />
     <text
-       font-size="17"
+       font-size="18"
        x="76"
        y="6"
        id="text29"
-       style="font-size:17px;text-anchor:end;fill:#808080">Y</text>
+       style="font-size:18px;text-anchor:end;fill:#808080">Y</text>
   </g>
   <g
      id="g36"
@@ -135,11 +135,11 @@
        r="3"
        style="fill:#b20000" />
     <text
-       font-size="17"
+       font-size="18"
        x="76"
        y="26"
        id="text34"
-       style="font-size:17px;text-anchor:end;fill:#808080">Zero</text>
+       style="font-size:18px;text-anchor:end;fill:#808080">Zero</text>
   </g>
   <g
      id="g41"
@@ -151,11 +151,11 @@
        r="3"
        style="fill:#b20000" />
     <text
-       font-size="17"
+       font-size="18"
        x="76"
        y="46"
        id="text39"
-       style="font-size:17px;text-anchor:end;fill:#808080">Neg</text>
+       style="font-size:18px;text-anchor:end;fill:#808080">Neg</text>
   </g>
   <g
      id="g46"
@@ -167,10 +167,10 @@
        r="3"
        style="fill:#b20000" />
     <text
-       font-size="17"
+       font-size="18"
        x="76"
        y="66"
        id="text44"
-       style="font-size:17px;text-anchor:end;fill:#808080">Carry</text>
+       style="font-size:18px;text-anchor:end;fill:#808080">Carry</text>
   </g>
 </svg>

@@ -24,8 +24,8 @@ class Context {
         PARSER.put("fill-opacity", (c, value) -> c.fillOpacity = getFloatFromString(value));
         PARSER.put("stroke", (c, value) -> c.stroke = getColorFromString(value));
         PARSER.put("stroke-opacity", (c, value) -> c.strokeOpacity = getFloatFromString(value));
-        PARSER.put("stroke-width", (c, value) -> c.thickness = getFloatFromString(value) + 1);
-        PARSER.put("font-size", (c, value) -> c.fontSize = getFloatFromString(value) + 1);
+        PARSER.put("stroke-width", (c, value) -> c.thickness = getFloatFromString(value));
+        PARSER.put("font-size", (c, value) -> c.fontSize = getFontSizeFromString(c, value));
         PARSER.put("style", Context::readStyle);
         PARSER.put("text-anchor", (c, value) -> c.textAnchor = value);
         PARSER.put("fill-rule", (c, value) -> c.fillRuleEvenOdd = value.equalsIgnoreCase("evenodd"));
@@ -49,6 +49,7 @@ class Context {
         tr = Transform.IDENTITY;
         thickness = 1;
         stroke = Color.BLACK;
+        fontSize = Style.NORMAL.getFontSize();
         fill = Color.BLACK;
         fillOpacity = 1;
         strokeOpacity = 1;
@@ -238,6 +239,30 @@ class Context {
             return Float.parseFloat(inp);
         } catch (NumberFormatException e) {
             return 1;
+        }
+    }
+
+    private static float getFontSizeFromString(Context c, String value) {
+        SVGTokenizer t = new SVGTokenizer(value);
+        try {
+            float s = t.readFloat();
+            if (t.isEOF())
+                return s;
+            else if (t.nextIsChar('%'))
+                return s * c.getFontSize() / 100f;
+            else {
+                switch (t.readCommand()) {
+                    case "em":
+                        return s * c.getFontSize();
+                    case "pt":
+                    case "px":
+                        return s;
+                    default:
+                        return c.getFontSize();
+                }
+            }
+        } catch (SVGTokenizer.TokenizerException e) {
+            return c.getFontSize();
         }
     }
 
