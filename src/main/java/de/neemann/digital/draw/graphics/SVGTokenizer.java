@@ -90,11 +90,12 @@ public class SVGTokenizer {
 
         if (pos < code.length() && (peekChar() == 'e' || peekChar() == 'E')) {
             pos++;
-            if (peekChar() == '+' || peekChar() == '-')
+            if (peekChar() == '+' || peekChar() == '-' || Character.isDigit(peekChar())) {
                 pos++;
-
-            while (pos < code.length() && (Character.isDigit(peekChar()) || peekChar() == '.'))
-                pos++;
+                while (pos < code.length() && (Character.isDigit(peekChar()) || peekChar() == '.'))
+                    pos++;
+            } else
+                pos--;
         }
 
         try {

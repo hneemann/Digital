@@ -462,10 +462,10 @@ public class SvgImporterTest extends TestCase {
                         "<style type=\"text/css\">\n" +
                         "\t.st0{fill:#FFFFB4;fill-opacity:0.7843;stroke:#000000;stroke-width:3;}\n" +
                         "\t.st1{font-family:'ArialMT';}\n" +
-                        "\t.st2{font-size:23px;}\n" +
+                        "\t.st2{font-size:24px;}\n" +
                         "\t.st3{fill:#0000B2;}\n" +
                         "\t.st4{fill:#808080;}\n" +
-                        "\t.st5{font-size:17px;}\n" +
+                        "\t.st5{font-size:18px;}\n" +
                         "\t.st6{fill:#B20000;}\n" +
                         "</style>\n" +
                         "<sodipodi:namedview  showgrid=\"true\">\n" +
@@ -490,9 +490,9 @@ public class SvgImporterTest extends TestCase {
         new CSDChecker(custom)
                 .checkPolygon("M 0,-10 C 0,-10 15,-10 30,-10 C 70,-10 70,50 35,50 C 20,50 0,50 0,50 L 0,-10 Z")
                 .checkPolygon("M 0,-10 C 0,-10 15,-10 30,-10 C 70,-10 70,50 35,50 C 20,50 0,50 0,50 L 0,-10 Z")
-                .checkText(4, 6, "A")
-                .checkText(4, 45, "B")
-                .checkText(45, 25, "Y")
+                .checkText(4, 6, 18, "A")
+                .checkText(4, 45, 18, "B")
+                .checkText(45, 25, 18, "Y")
                 .checkPin(0, 0, "A", false)
                 .checkPin(0, 40, "B", false)
                 .checkPin(60, 20, "Y", false)
@@ -594,12 +594,13 @@ public class SvgImporterTest extends TestCase {
             return this;
         }
 
-        private CSDChecker checkText(int x, int y, String text) {
+        private CSDChecker checkText(int x, int y, int fontSize, String text) {
             checker.add(d -> {
                 assertTrue("Text expected, found " + d.getClass().getSimpleName(), d instanceof CustomShapeDescription.TextHolder);
                 CustomShapeDescription.TextHolder t = (CustomShapeDescription.TextHolder) d;
-                assertEquals("text x", x, t.getPos().x);
-                assertEquals("text y", y, t.getPos().y);
+                assertEquals(text + " x", x, t.getPos().x);
+                assertEquals(text + " y", y, t.getPos().y);
+                assertEquals(text + " font size", fontSize, t.getFontSize());
             });
             return this;
         }

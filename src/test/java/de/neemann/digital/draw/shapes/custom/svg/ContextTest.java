@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.draw.shapes.custom.svg;
 
+import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Transform;
 import de.neemann.digital.draw.graphics.TransformMatrix;
 import de.neemann.digital.draw.graphics.TransformTranslate;
@@ -27,12 +28,20 @@ public class ContextTest extends TestCase {
         assertEquals(new Color(0, 0, 0, 127), c.getFilled());
     }
 
-
     public void testCSS() {
         Context c = new Context();
         c.addClasses("  .z{a:1}\n .y{a:2}");
         assertEquals("a:1", c.getCssClass("z"));
         assertEquals("a:2", c.getCssClass("y"));
+    }
+
+    public void testFontSize() throws SvgException {
+        assertEquals(Style.NORMAL.getFontSize(), new Context().getFontSize(), 1e-4);
+        assertEquals(10, Context.readStyle(new Context(), "font-size:10").getFontSize(), 1e-4);
+        assertEquals(10, Context.readStyle(new Context(), "font-size:10pt").getFontSize(), 1e-4);
+        assertEquals(10, Context.readStyle(new Context(), "font-size:10px").getFontSize(), 1e-4);
+        assertEquals(20, Context.readStyle(new Context(), "font-size:10;font-size:2em").getFontSize(), 1e-4);
+        assertEquals(15, Context.readStyle(new Context(), "font-size:10;font-size:150%").getFontSize(), 1e-4);
     }
 
 }

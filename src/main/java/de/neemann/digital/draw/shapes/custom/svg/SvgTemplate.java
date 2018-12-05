@@ -81,14 +81,14 @@ public class SvgTemplate implements Closeable {
      * @throws Exception Exception
      */
     public void create() throws Exception {
-        w.write("  <rect stroke=\"black\" stroke-width=\"3\""
+        w.write("  <rect stroke=\"black\" stroke-width=\"4\""
                 + " fill=\"" + getColor(Keys.BACKGROUND_COLOR.getDefault()) + "\""
                 + " fill-opacity=\"" + (Keys.BACKGROUND_COLOR.getDefault().getAlpha() / 255f) + "\""
                 + " x=\"0\" y=\"-10\" width=\"" + width + "\" height=\"" + height + "\"/>\n");
 
         Style style = Style.NORMAL;
         w.write("    <text id=\"label\" fill=\"" + getColor(style) + "\" font-size=\""
-                + (style.getFontSize() - 1) + "\" text-anchor=\"middle\" x=\"" + width / 2 + "\" y=\"" + (-SIZE) + "\">Label</text>\n");
+                + style.getFontSize() + "\" text-anchor=\"middle\" x=\"" + width / 2 + "\" y=\"" + (-SIZE) + "\">Label</text>\n");
 
         style = Style.SHAPE_PIN;
         final int yOffs = style.getFontSize() / 3;
@@ -98,7 +98,7 @@ public class SvgTemplate implements Closeable {
             w.write("  <g>\n");
             w.write("    <circle fill=\"" + getColor(Style.WIRE) + "\" id=\"pin:" + i.getName() + "\" cx=\"0\" cy=\"" + y + "\" r=\"3\"/>\n");
             Vector labelPos = new Vector(4, y + yOffs);
-            w.write("    <text fill=\"" + getColor(style) + "\" font-size=\"" + (style.getFontSize() - 1) + "\" x=\"" + labelPos.getX() + "\" y=\"" + labelPos.getY() + "\">" + i.getName() + "</text>\n");
+            w.write("    <text fill=\"" + getColor(style) + "\" font-size=\"" + style.getFontSize() + "\" x=\"" + labelPos.getX() + "\" y=\"" + labelPos.getY() + "\">" + i.getName() + "</text>\n");
             w.write("  </g>\n");
             y += 20;
         }
@@ -107,7 +107,7 @@ public class SvgTemplate implements Closeable {
             w.write("  <g>\n");
             w.write("    <circle fill=\"" + getColor(Style.WIRE_OUT) + "\" id=\"pin:" + o.getName() + "\" cx=\"" + width + "\" cy=\"" + y + "\" r=\"3\"/>\n");
             Vector labelPos = new Vector(width - 4, y + yOffs);
-            w.write("    <text fill=\"" + getColor(style) + "\" font-size=\"" + (style.getFontSize() - 1) + "\" text-anchor=\"end\" x=\"" + labelPos.getX() + "\" y=\"" + labelPos.getY() + "\">" + o.getName() + "</text>\n");
+            w.write("    <text fill=\"" + getColor(style) + "\" font-size=\"" + style.getFontSize() + "\" text-anchor=\"end\" x=\"" + labelPos.getX() + "\" y=\"" + labelPos.getY() + "\">" + o.getName() + "</text>\n");
             w.write("  </g>\n");
             y += 20;
         }

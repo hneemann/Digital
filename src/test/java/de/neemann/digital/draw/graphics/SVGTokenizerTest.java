@@ -24,6 +24,27 @@ public class SVGTokenizerTest extends TestCase {
         assertTrue(t.isEOF());
     }
 
+    public void testSimpleExp2() throws SVGTokenizer.TokenizerException {
+        SVGTokenizer t = new SVGTokenizer("1em");
+        assertEquals(1, t.readFloat(), 1e-6);
+        assertEquals("em", t.readCommand());
+        assertTrue(t.isEOF());
+    }
+
+    public void testSimpleExp3() throws SVGTokenizer.TokenizerException {
+        SVGTokenizer t = new SVGTokenizer("1e-1em");
+        assertEquals(0.1, t.readFloat(), 1e-6);
+        assertEquals("em", t.readCommand());
+        assertTrue(t.isEOF());
+    }
+
+    public void testSimpleExp4() throws SVGTokenizer.TokenizerException {
+        SVGTokenizer t = new SVGTokenizer("1e+1em");
+        assertEquals(10, t.readFloat(), 1e-6);
+        assertEquals("em", t.readCommand());
+        assertTrue(t.isEOF());
+    }
+
     public void testSimpleExpSign() throws SVGTokenizer.TokenizerException {
         SVGTokenizer t = new SVGTokenizer("1e-1");
         assertEquals(0.1, t.readFloat(), 1e-6);
