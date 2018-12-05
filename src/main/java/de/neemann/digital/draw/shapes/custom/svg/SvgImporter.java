@@ -291,7 +291,7 @@ public class SvgImporter {
         VectorInterface pos1 = p.add(new VectorFloat(1, 0)).transform(c.getTransform());
 
         if (element.getAttribute("id").equals("label"))
-            csd.setLabel(pos0.round(), pos1.round(), c.getTextOrientation(), (int) c.getFontSize(), c.getFilled());
+            csd.setLabel(pos0.round(), pos1.round(), c.getTextOrientation(), Math.round(c.getFontSize()), c.getFilled());
         else
             drawTextElement(csd, c, element, pos0, pos1);
     }
@@ -300,7 +300,7 @@ public class SvgImporter {
         NodeList nodes = element.getElementsByTagName("*");
         if (nodes.getLength() == 0) {
             String text = element.getTextContent();
-            csd.addText(pos0.round(), pos1.round(), text, c.getTextOrientation(), (int) c.getFontSize(), c.getFilled());
+            csd.addText(pos0.round(), pos1.round(), text, c.getTextOrientation(), Math.round(c.getFontSize()), c.getFilled());
         } else {
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node n = nodes.item(i);
