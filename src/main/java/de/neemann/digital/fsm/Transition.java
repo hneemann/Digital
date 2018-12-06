@@ -9,8 +9,10 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.parser.ParseException;
 import de.neemann.digital.analyse.parser.Parser;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.lang.Lang;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +84,7 @@ public class Transition extends Movable<Transition> {
 
             for (Transition t : transitions)
                 if (t != this)
-                    addRepulsive(t.getPos(), 1800);
+                    addRepulsive(t.getPos(), 1500);
         }
     }
 
@@ -93,12 +95,16 @@ public class Transition extends Movable<Transition> {
     @Override
     public void setPos(VectorFloat position) {
         if (fromState != toState) {
-            VectorFloat dist = fromState.getPos().sub(toState.getPos());
+            VectorFloat dist = toState.getPos().sub(fromState.getPos());
             if (dist.getXFloat() != 0 || dist.getYFloat() != 0) {
-                VectorFloat p = position.sub(fromState.getPos());
-                VectorFloat n = dist.getOrthogonal().norm();
+                dist = dist.norm();
+                VectorFloat start = fromState.getPos().add(dist.mul(fromState.getVisualRadius()));
+                VectorFloat end = toState.getPos().sub(dist.mul(toState.getVisualRadius()));
+
+                VectorFloat p = position.sub(start);
+                VectorFloat n = dist.getOrthogonal();
                 float l = p.mul(n);
-                super.setPos(fromState.getPos().sub(dist.mul(0.5f)).add(n.mul(l)));
+                super.setPos(start.add(end).div(2).add(n.mul(l)));
                 return;
             }
         }
@@ -111,48 +117,53 @@ public class Transition extends Movable<Transition> {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
-
-        VectorFloat anchorFrom = getPos();
-        VectorFloat anchorTo = getPos();
-
+        final VectorFloat start;
+        final VectorFloat anchor;
+        final VectorFloat end;
         if (fromState == toState) {
-            VectorFloat dif = anchorFrom.sub(fromState.getPos());
-            dif = new VectorFloat(dif.getYFloat(), -dif.getXFloat()).mul(0.3f);
-            anchorFrom = anchorFrom.add(dif);
-            anchorTo = anchorTo.sub(dif);
+            VectorFloat dif = getPos().sub(fromState.getPos()).getOrthogonal().mul(0.5f);
+            VectorFloat ps = getPos().add(dif);
+            VectorFloat pe = getPos().sub(dif);
+            start = fromState.getPos().add(
+                    ps.sub(fromState.getPos()).norm().mul(fromState.getVisualRadius() + Style.MAXLINETHICK));
+            end = toState.getPos().add(
+                    pe.sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK + 2));
+        } else {
+            start = fromState.getPos().add(
+                    getPos().sub(fromState.getPos()).norm().mul(fromState.getVisualRadius() + Style.MAXLINETHICK));
+            end = toState.getPos().add(
+                    getPos().sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK + 2));
         }
-
-        VectorFloat difFrom = anchorFrom.sub(fromState.getPos()).norm().mul(fromState.getVisualRadius() + Style.MAXLINETHICK);
-        VectorFloat difTo = anchorTo.sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK + 2);
-        VectorFloat difToTip = anchorTo.sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK);
-
-        final VectorFloat start = fromState.getPos().add(difFrom);
-        final VectorFloat end = toState.getPos().add(difTo);
-        final VectorFloat arrowTip = toState.getPos().add(difToTip);
-
-        Polygon p = new Polygon(false)
-                .add(start);
-
-        if (anchorFrom.equals(anchorTo))
-            p.add(anchorFrom, end);
-        else
-            p.add(anchorFrom, anchorTo, end);
 
         final Style arrowStyle = Style.SHAPE_PIN;
-        gr.drawPolygon(p, arrowStyle);
+        // arrow line
+        anchor = getPos().mul(2).sub(start.div(2)).sub(end.div(2));
+        gr.drawPolygon(new Polygon(false).add(start).add(anchor, end), arrowStyle);
 
-        // arrow
-        VectorFloat lot = difTo.getOrthogonal().mul(0.5f);
+        // arrowhead
+        VectorFloat dir = anchor.sub(end).norm().mul(20);
+        VectorFloat lot = dir.getOrthogonal().mul(0.3f);
         gr.drawPolygon(new Polygon(false)
-                .add(end.add(difTo.add(lot).mul(0.2f)))
-                .add(arrowTip)
-                .add(end.add(difTo.sub(lot).mul(0.2f))), arrowStyle);
+                .add(end.add(dir).add(lot))
+                .add(end.sub(dir.mul(0.1f)))
+                .add(end.add(dir).sub(lot)), arrowStyle);
+
+        // text
+        VectorFloat textPos = getPos();
+        final int fontSize = Style.NORMAL.getFontSize();
+        if (fromState.getPos().getYFloat() < getPos().getYFloat()
+                && toState.getPos().getYFloat() < getPos().getYFloat())
+            textPos = textPos.add(new VectorFloat(0, fontSize / 2f));
+        if (fromState.getPos().getYFloat() > getPos().getYFloat()
+                && toState.getPos().getYFloat() > getPos().getYFloat())
+            textPos = textPos.add(new VectorFloat(0, -fontSize / 2f));
+
         if (condition != null && condition.length() > 0) {
-            gr.drawText(getPos(), getPos().add(new Vector(1, 0)), condition, Orientation.CENTERCENTER, Style.INOUT);
+            gr.drawText(textPos, textPos.add(new Vector(1, 0)), condition, Orientation.CENTERCENTER, Style.INOUT);
         }
         if (getValues() != null && getValues().length() > 0) {
-            VectorFloat pos = getPos().add(new VectorFloat(0, Style.NORMAL.getFontSize()));
-            gr.drawText(pos, pos.add(new Vector(1, 0)), Lang.get("fsm_set_N", getValues()), Orientation.CENTERCENTER, Style.INOUT);
+            textPos = textPos.add(new VectorFloat(0, fontSize));
+            gr.drawText(textPos, textPos.add(new Vector(1, 0)), Lang.get("fsm_set_N", getValues()), Orientation.CENTERCENTER, Style.INOUT);
         }
     }
 
