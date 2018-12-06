@@ -19,7 +19,7 @@ class Context {
     private static final HashMap<String, AttrParser> PARSER = new HashMap<>();
 
     static {
-        PARSER.put("transform", (c1, value1) -> c1.tr = Transform.mul(new TransformParser(value1).parse(), c1.tr));
+        PARSER.put("transform", (c, value) -> c.tr = Transform.mul(new TransformParser(value).parse(), c.tr));
         PARSER.put("fill", (c, value) -> c.fill = getColorFromString(value));
         PARSER.put("fill-opacity", (c, value) -> c.fillOpacity = getFloatFromString(value));
         PARSER.put("stroke", (c, value) -> c.stroke = getColorFromString(value));
@@ -174,7 +174,7 @@ class Context {
         if (classesMap != null) v = classesMap.get(key);
 
         if (v == null && parent != null)
-            return  parent.getCssClass(key);
+            return parent.getCssClass(key);
 
         return v;
     }
@@ -255,6 +255,9 @@ class Context {
                     case "em":
                         return s * c.getFontSize();
                     case "pt":
+                        return 4 * s / 3;
+                    case "pc":
+                        return 16 * s;
                     case "px":
                         return s;
                     default:

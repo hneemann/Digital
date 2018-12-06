@@ -38,7 +38,8 @@ public class ContextTest extends TestCase {
     public void testFontSize() throws SvgException {
         assertEquals(Style.NORMAL.getFontSize(), new Context().getFontSize(), 1e-4);
         assertEquals(10, Context.readStyle(new Context(), "font-size:10").getFontSize(), 1e-4);
-        assertEquals(10, Context.readStyle(new Context(), "font-size:10pt").getFontSize(), 1e-4);
+        assertEquals(16, Context.readStyle(new Context(), "font-size:12pt").getFontSize(), 1e-4);
+        assertEquals(12*16, Context.readStyle(new Context(), "font-size:12pc").getFontSize(), 1e-4);
         assertEquals(10, Context.readStyle(new Context(), "font-size:10px").getFontSize(), 1e-4);
         assertEquals(20, Context.readStyle(new Context(), "font-size:10;font-size:2em").getFontSize(), 1e-4);
         assertEquals(15, Context.readStyle(new Context(), "font-size:10;font-size:150%").getFontSize(), 1e-4);

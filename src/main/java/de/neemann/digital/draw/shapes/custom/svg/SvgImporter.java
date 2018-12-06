@@ -22,7 +22,7 @@ import java.io.InputStream;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
- * Helper to import an SVG file
+ * Helper to import a SVG file.
  */
 public class SvgImporter {
     private final Document svg;
@@ -58,7 +58,7 @@ public class SvgImporter {
     }
 
     /**
-     * Parses and draws the svg file.
+     * Parses the svg file.
      *
      * @return the custom shape description
      * @throws SvgException SvgException
