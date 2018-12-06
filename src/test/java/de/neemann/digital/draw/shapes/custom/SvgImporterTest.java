@@ -499,6 +499,18 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testScaling() throws IOException, SvgException, PolygonParser.ParserException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                inDebug("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                        "<svg version=\"1.1\">\n" +
+                        "<rect stroke=\"black\" stroke-width=\"3\" fill=\"none\" x=\"1cm\" y=\"1cm\" width=\"8cm\" height=\"8cm\"/>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkPolygon("M 37.795277,37.795277 L 340.1575,37.795277 L 340.1575,340.1575 L 37.795277,340.1575 Z")
+                .check();
+    }
+
     //*****************************************************************************************************
 
 

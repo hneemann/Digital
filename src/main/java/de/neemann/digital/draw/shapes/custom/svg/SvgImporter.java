@@ -108,8 +108,8 @@ public class SvgImporter {
                 break;
             case "line":
                 csd.addLine(
-                        c.v(element.getAttribute("x1"), element.getAttribute("y1")).round(),
-                        c.v(element.getAttribute("x2"), element.getAttribute("y2")).round(),
+                        c.v(c.getLength(element.getAttribute("x1")), c.getLength(element.getAttribute("y1"))).round(),
+                        c.v(c.getLength(element.getAttribute("x2")), c.getLength(element.getAttribute("y2"))).round(),
                         c.getThickness(), c.getStroke());
                 break;
             case "rect":
@@ -162,15 +162,9 @@ public class SvgImporter {
             csd.addPolygon(polygon, c.getThickness(), c.getStroke(), false);
     }
 
-    private VectorFloat vec(String xStr, String yStr) {
-        float x = xStr.isEmpty() ? 0 : Float.parseFloat(xStr);
-        float y = yStr.isEmpty() ? 0 : Float.parseFloat(yStr);
-        return new VectorFloat(x, y);
-    }
-
     private void drawRect(CustomShapeDescription csd, Element element, Context c) {
-        VectorInterface size = vec(element.getAttribute("width"), element.getAttribute("height"));
-        VectorInterface pos = vec(element.getAttribute("x"), element.getAttribute("y"));
+        VectorInterface size = new VectorFloat(c.getLength(element.getAttribute("width")), c.getLength(element.getAttribute("height")));
+        VectorInterface pos = new VectorFloat(c.getLength(element.getAttribute("x")), c.getLength(element.getAttribute("y")));
         String rxStr = element.getAttribute("rx");
         String ryStr = element.getAttribute("ry");
 
@@ -178,11 +172,11 @@ public class SvgImporter {
         if (rxStr.isEmpty() && ryStr.isEmpty())
             rad = new Vector(0, 0);
         else if (rxStr.isEmpty())
-            rad = vec(ryStr, ryStr);
+            rad = new VectorFloat(c.getLength(ryStr), c.getLength(ryStr));
         else if (ryStr.isEmpty())
-            rad = vec(rxStr, rxStr);
+            rad = new VectorFloat(c.getLength(rxStr), c.getLength(rxStr));
         else
-            rad = vec(rxStr, ryStr);
+            rad = new VectorFloat(c.getLength(rxStr), c.getLength(ryStr));
 
         final Polygon polygon;
 
@@ -221,7 +215,7 @@ public class SvgImporter {
 
     private void drawCircle(CustomShapeDescription csd, Element element, Context c) {
         if (element.hasAttribute("id")) {
-            VectorInterface pos = c.v(element.getAttribute("cx"), element.getAttribute("cy"));
+            VectorInterface pos = c.v(c.getLength(element.getAttribute("cx")), c.getLength(element.getAttribute("cy")));
             String id = element.getAttribute("id");
             if (id.startsWith("pin:")) {
                 csd.addPin(id.substring(4).trim(), toGrid(pos), false);
@@ -235,13 +229,13 @@ public class SvgImporter {
         VectorFloat r = null;
         if (element.hasAttribute("r")) {
             final String rad = element.getAttribute("r");
-            r = vec(rad, rad);
+            r = new VectorFloat(c.getLength(rad), c.getLength(rad));
         }
         if (element.hasAttribute("rx")) {
-            r = vec(element.getAttribute("rx"), element.getAttribute("ry"));
+            r = new VectorFloat(c.getLength(element.getAttribute("rx")), c.getLength(element.getAttribute("ry")));
         }
         if (r != null) {
-            VectorFloat pos = vec(element.getAttribute("cx"), element.getAttribute("cy"));
+            VectorFloat pos = new VectorFloat(c.getLength(element.getAttribute("cx")), c.getLength(element.getAttribute("cy")));
             float rx = r.getXFloat();
             float ry = r.getYFloat();
 
@@ -286,7 +280,7 @@ public class SvgImporter {
     }
 
     private void drawText(CustomShapeDescription csd, Context c, Element element) throws SvgException {
-        VectorFloat p = vec(element.getAttribute("x"), element.getAttribute("y"));
+        VectorFloat p = new VectorFloat(c.getLength(element.getAttribute("x")), c.getLength(element.getAttribute("y")));
         VectorInterface pos0 = p.transform(c.getTransform());
         VectorInterface pos1 = p.add(new VectorFloat(1, 0)).transform(c.getTransform());
 

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 class Context {
+    private static final float PIXELPERMM = 72 / 25.4f * 4 / 3; // 72 DPI by definition
 
     private static final HashMap<String, AttrParser> PARSER = new HashMap<>();
 
@@ -24,8 +25,8 @@ class Context {
         PARSER.put("fill-opacity", (c, value) -> c.fillOpacity = getFloatFromString(value));
         PARSER.put("stroke", (c, value) -> c.stroke = getColorFromString(value));
         PARSER.put("stroke-opacity", (c, value) -> c.strokeOpacity = getFloatFromString(value));
-        PARSER.put("stroke-width", (c, value) -> c.thickness = getFloatFromString(value));
-        PARSER.put("font-size", (c, value) -> c.fontSize = getFontSizeFromString(c, value));
+        PARSER.put("stroke-width", (c, value) -> c.thickness = getLengthFromString(c, value, 1, 1));
+        PARSER.put("font-size", (c, value) -> c.fontSize = getLengthFromString(c, value, c.fontSize, c.getFontSize()));
         PARSER.put("style", Context::readStyle);
         PARSER.put("text-anchor", (c, value) -> c.textAnchor = value);
         PARSER.put("fill-rule", (c, value) -> c.fillRuleEvenOdd = value.equalsIgnoreCase("evenodd"));
@@ -40,16 +41,11 @@ class Context {
     private float strokeOpacity;
     private float thickness;
     private float fontSize;
-    private float pixelPerMM;
     private String textAnchor;
     private boolean fillRuleEvenOdd;
     private HashMap<String, String> classesMap;
 
     Context() {
-        this(72 / 25.4f * 4 / 3); // 72 DPI per default
-    }
-
-    Context(float pixelsPerMM) {
         parent = null;
         tr = Transform.IDENTITY;
         thickness = 1;
@@ -58,7 +54,6 @@ class Context {
         fill = Color.BLACK;
         fillOpacity = 1;
         strokeOpacity = 1;
-        this.pixelPerMM = pixelsPerMM;
     }
 
     private Context(Context parent) {
@@ -72,7 +67,6 @@ class Context {
         fontSize = parent.fontSize;
         textAnchor = parent.textAnchor;
         fillRuleEvenOdd = parent.fillRuleEvenOdd;
-        pixelPerMM = parent.pixelPerMM;
     }
 
     Context(Context parent, Element element) throws SvgException {
@@ -151,12 +145,6 @@ class Context {
         return new VectorFloat(x, y).transform(tr);
     }
 
-    public VectorInterface v(String xStr, String yStr) {
-        float x = xStr.isEmpty() ? 0 : Float.parseFloat(xStr);
-        float y = yStr.isEmpty() ? 0 : Float.parseFloat(yStr);
-        return v(x, y);
-    }
-
     public float getFontSize() {
         return fontSize;
     }
@@ -184,6 +172,16 @@ class Context {
             return parent.getCssClass(key);
 
         return v;
+    }
+
+    /**
+     * Gets a length from the string
+     *
+     * @param value the length value, translated to pixels
+     * @return the length in pixels
+     */
+    public float getLength(String value) {
+        return getLengthFromString(this, value, 1, 0);
     }
 
     private static void evalClass(Context c, String value) throws SvgException {
@@ -249,14 +247,17 @@ class Context {
         }
     }
 
-    private static float getFontSizeFromString(Context c, String value) {
+    private static float getLengthFromString(Context c, String value, float percent100, float defaultValue) {
+        if (value.isEmpty())
+            return defaultValue;
+
         SVGTokenizer t = new SVGTokenizer(value);
         try {
             float s = t.readFloat();
             if (t.isEOF())
                 return s;
             else if (t.nextIsChar('%'))
-                return s * c.getFontSize() / 100f;
+                return s * percent100 / 100f;
             else {
                 switch (t.readCommand()) {
                     case "em":
@@ -268,17 +269,17 @@ class Context {
                     case "px":
                         return s;
                     case "mm":
-                        return s * c.pixelPerMM;
+                        return s * PIXELPERMM;
                     case "cm":
-                        return 10 * s * c.pixelPerMM;
+                        return 10 * s * PIXELPERMM;
                     case "in":
-                        return 25.4f * s * c.pixelPerMM;
+                        return 25.4f * s * PIXELPERMM;
                     default:
-                        return c.getFontSize();
+                        return defaultValue;
                 }
             }
         } catch (SVGTokenizer.TokenizerException e) {
-            return c.getFontSize();
+            return defaultValue;
         }
     }
 
