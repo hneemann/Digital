@@ -43,6 +43,9 @@ public class ContextTest extends TestCase {
         assertEquals(10, Context.readStyle(new Context(), "font-size:10px").getFontSize(), 1e-4);
         assertEquals(20, Context.readStyle(new Context(), "font-size:10;font-size:2em").getFontSize(), 1e-4);
         assertEquals(15, Context.readStyle(new Context(), "font-size:10;font-size:150%").getFontSize(), 1e-4);
+        assertEquals(96, Context.readStyle(new Context(), "font-size:25.4mm").getFontSize(), 1e-4);
+        assertEquals(96, Context.readStyle(new Context(), "font-size:2.54cm").getFontSize(), 1e-4);
+        assertEquals(96, Context.readStyle(new Context(), "font-size:1in").getFontSize(), 1e-4);
     }
 
 }

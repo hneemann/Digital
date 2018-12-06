@@ -40,11 +40,16 @@ class Context {
     private float strokeOpacity;
     private float thickness;
     private float fontSize;
+    private float pixelPerMM;
     private String textAnchor;
     private boolean fillRuleEvenOdd;
     private HashMap<String, String> classesMap;
 
     Context() {
+        this(72 / 25.4f * 4 / 3); // 72 DPI per default
+    }
+
+    Context(float pixelsPerMM) {
         parent = null;
         tr = Transform.IDENTITY;
         thickness = 1;
@@ -53,6 +58,7 @@ class Context {
         fill = Color.BLACK;
         fillOpacity = 1;
         strokeOpacity = 1;
+        this.pixelPerMM = pixelsPerMM;
     }
 
     private Context(Context parent) {
@@ -66,6 +72,7 @@ class Context {
         fontSize = parent.fontSize;
         textAnchor = parent.textAnchor;
         fillRuleEvenOdd = parent.fillRuleEvenOdd;
+        pixelPerMM = parent.pixelPerMM;
     }
 
     Context(Context parent, Element element) throws SvgException {
@@ -260,6 +267,12 @@ class Context {
                         return 16 * s;
                     case "px":
                         return s;
+                    case "mm":
+                        return s * c.pixelPerMM;
+                    case "cm":
+                        return 10 * s * c.pixelPerMM;
+                    case "in":
+                        return 25.4f * s * c.pixelPerMM;
                     default:
                         return c.getFontSize();
                 }
