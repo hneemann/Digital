@@ -82,7 +82,7 @@ public class Transition extends Movable<Transition> {
 
             for (Transition t : transitions)
                 if (t != this)
-                    addRepulsive(t.getPos(), 800);
+                    addRepulsive(t.getPos(), 1800);
         }
     }
 
@@ -131,8 +131,13 @@ public class Transition extends Movable<Transition> {
         final VectorFloat arrowTip = toState.getPos().add(difToTip);
 
         Polygon p = new Polygon(false)
-                .add(start)
-                .add(anchorFrom, anchorTo, end);
+                .add(start);
+
+        if (anchorFrom.equals(anchorTo))
+            p.add(anchorFrom, end);
+        else
+            p.add(anchorFrom, anchorTo, end);
+
         final Style arrowStyle = Style.SHAPE_PIN;
         gr.drawPolygon(p, arrowStyle);
 
