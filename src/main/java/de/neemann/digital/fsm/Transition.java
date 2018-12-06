@@ -9,10 +9,8 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.parser.ParseException;
 import de.neemann.digital.analyse.parser.Parser;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.lang.Lang;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
