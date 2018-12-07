@@ -40,28 +40,28 @@
   <transitions>
     <transition>
       <values></values>
-      <position x="777.1327" y="182.86734"/>
+      <position x="742.5" y="217.50002"/>
       <fromState reference="../../../states/state"/>
       <toState reference="../../../states/state[2]"/>
       <condition></condition>
     </transition>
     <transition>
       <values></values>
-      <position x="777.13477" y="537.13477"/>
+      <position x="743.5" y="503.5"/>
       <fromState reference="../../../states/state[2]"/>
       <toState reference="../../../states/state[3]"/>
       <condition></condition>
     </transition>
     <transition>
       <values></values>
-      <position x="428.74414" y="531.25586"/>
+      <position x="465.0" y="495.0"/>
       <fromState reference="../../../states/state[3]"/>
       <toState reference="../../../states/state[4]"/>
       <condition></condition>
     </transition>
     <transition>
       <values></values>
-      <position x="428.7441" y="188.74411"/>
+      <position x="463.0" y="223.0"/>
       <fromState reference="../../../states/state[4]"/>
       <toState reference="../../../states/state"/>
       <condition></condition>

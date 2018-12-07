@@ -12,10 +12,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.fsm.FSM;
 import de.neemann.digital.fsm.FSMDemos;
-import de.neemann.digital.gui.Main;
-import de.neemann.digital.gui.ModelCreationListener;
-import de.neemann.digital.gui.SaveAsHelper;
-import de.neemann.digital.gui.Settings;
+import de.neemann.digital.gui.*;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
@@ -36,7 +33,7 @@ import java.util.prefs.Preferences;
 /**
  * The dialog to show the FSM
  */
-public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSave, FSM.ModifiedListener, ModelCreationListener {
+public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSave, FSM.ModifiedListener, ModelCreationListener, FileHistory.OpenInterface {
     private static final Preferences PREFS = Preferences.userRoot().node("dig").node("fsm");
     private static final String PREF_FOLDER = "folder";
     private static final Icon ICON_NEW = IconCreator.create("document-new.png");
@@ -47,10 +44,11 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
     private static final Icon ICON_ZOOM_OUT = IconCreator.create("View-zoom-out.png");
 
-    private FSM fsm;
+    private final FileHistory fileHistory;
     private final FSMComponent fsmComponent;
     private final Timer timer;
     private final JComboBox<String> moveControl;
+    private FSM fsm;
     private boolean moveStates = false;
     private ToolTipAction save;
     private File filename;
@@ -60,17 +58,14 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     /**
      * Creates a new instance
      *
-     * @param parent   the parents frame
-     * @param givenFsm the fsm to visualize
-     * @param library  the library used to show the table
+     * @param parent  the parents frame
+     * @param library the library used to show the table
      */
-    public FSMFrame(JFrame parent, FSM givenFsm, ElementLibrary library) {
+    public FSMFrame(JFrame parent, ElementLibrary library) {
         super(Lang.get("fsm_title"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        if (givenFsm == null) {
-            givenFsm = FSMDemos.rotDecoder();
-            givenFsm.circle();
-        }
+
+        fileHistory = new FileHistory(this, PREFS.node("hist"));
 
         fsmComponent = new FSMComponent();
         getContentPane().add(fsmComponent, BorderLayout.CENTER);
@@ -135,7 +130,11 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         setJMenuBar(bar);
 
         pack();
-        setFSM(givenFsm);
+        setFSM(new FSM());
+
+        File f = fileHistory.getMostRecent();
+        if (f != null)
+            SwingUtilities.invokeLater(() -> loadFile(f));
 
         setLocationRelativeTo(parent);
     }
@@ -157,15 +156,14 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
                 if (ClosingWindowListener.checkForSave(FSMFrame.this, FSMFrame.this)) {
                     JFileChooser fc = getJFileChooser(filename);
                     if (fc.showOpenDialog(FSMFrame.this) == JFileChooser.APPROVE_OPTION) {
-                        loadFile(fc.getSelectedFile());
+                        loadFile(SaveAsHelper.checkSuffix(fc.getSelectedFile(), "fsm"));
                     }
                 }
             }
         }.setAcceleratorCTRLplus('O');
 
-//        JMenu openRecent = new JMenu(Lang.get("menu_openRecent"));
-//        JMenu openRecentNewWindow = new JMenu(Lang.get("menu_openRecentNewWindow"));
-//        fileHistory.setMenu(openRecent, openRecentNewWindow);
+        JMenu openRecent = new JMenu(Lang.get("menu_openRecent"));
+        fileHistory.setMenu(openRecent, null);
 
         ToolTipAction saveAs = new ToolTipAction(Lang.get("menu_saveAs"), ICON_SAVE_AS) {
             @Override
@@ -195,6 +193,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         bar.add(file);
         file.add(newFile.createJMenuItem());
         file.add(open.createJMenuItem());
+        file.add(openRecent);
         file.add(save.createJMenuItem());
         file.add(saveAs.createJMenuItem());
         file.add(export);
@@ -241,6 +240,8 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         setTitle(fsmTitle);
 
         this.filename = filename;
+        if (filename != null)
+            fileHistory.add(filename);
     }
 
     @Override
@@ -290,6 +291,12 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         } catch (IOException e) {
             new ErrorMessage(Lang.get("msg_fsm_errorStoringFile")).addCause(e).show(this);
         }
+    }
+
+    @Override
+    public void open(File file, boolean newWindow) {
+        if (ClosingWindowListener.checkForSave(FSMFrame.this, FSMFrame.this))
+            loadFile(file);
     }
 
     private void createViewMenu(JMenuBar menuBar, JToolBar toolBar) {
@@ -468,12 +475,10 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
      * @param args the programs arguments
      */
     public static void main(String[] args) {
-        FSM fsm = FSMDemos.rotDecoder();
-
         ElementLibrary library = new ElementLibrary();
         new ShapeFactory(library);
 
-        new FSMFrame(null, fsm.circle().setModified(false), library).setVisible(true);
+        new FSMFrame(null, library).setVisible(true);
     }
 
 }

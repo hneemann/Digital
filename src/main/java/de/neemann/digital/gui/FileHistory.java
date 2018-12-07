@@ -17,13 +17,13 @@ import java.util.prefs.Preferences;
  * History of last opened files
  */
 public final class FileHistory {
-    private static final Preferences PREFS = Preferences.userRoot().node("dig").node("hist");
     private static final String FILE_NUM = "fileNum";
     private static final String FILE_NAME = "name";
     private static final int MAX_SIZE = 15;
 
     private final ArrayList<File> files;
     private final OpenInterface opener;
+    private final Preferences prefs;
     private JMenu menu;
     private JMenu menuNewWindow;
 
@@ -33,11 +33,22 @@ public final class FileHistory {
      * @param opener the opene interface to be used to open a file
      */
     public FileHistory(OpenInterface opener) {
+        this(opener, Preferences.userRoot().node("dig").node("hist"));
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param opener the opene interface to be used to open a file
+     * @param prefs  the preferences node to store the history
+     */
+    public FileHistory(OpenInterface opener, Preferences prefs) {
         this.opener = opener;
-        int n = PREFS.getInt(FILE_NUM, 0);
+        this.prefs = prefs;
+        int n = prefs.getInt(FILE_NUM, 0);
         files = new ArrayList<File>();
         for (int i = 0; i < n; i++) {
-            String pathname = PREFS.get(FILE_NAME + i, null);
+            String pathname = prefs.get(FILE_NAME + i, null);
             if (pathname != null && pathname.length() > 0) {
                 final File file = new File(pathname);
                 if (file.exists())
@@ -49,9 +60,9 @@ public final class FileHistory {
     }
 
     private void saveEntries() {
-        PREFS.putInt(FILE_NUM, files.size());
+        prefs.putInt(FILE_NUM, files.size());
         for (int i = 0; i < files.size(); i++)
-            PREFS.put(FILE_NAME + i, files.get(i).getPath());
+            prefs.put(FILE_NAME + i, files.get(i).getPath());
     }
 
     /**
@@ -89,10 +100,12 @@ public final class FileHistory {
     private void updateMenu() {
         if (menu != null) {
             menu.removeAll();
-            menuNewWindow.removeAll();
+            if (menuNewWindow != null)
+                menuNewWindow.removeAll();
             for (File f : files) {
                 menu.add(new FileOpenEntry(f, opener, false).createJMenuItem());
-                menuNewWindow.add(new FileOpenEntry(f, opener, true).createJMenuItem());
+                if (menuNewWindow != null)
+                    menuNewWindow.add(new FileOpenEntry(f, opener, true).createJMenuItem());
             }
         }
     }
