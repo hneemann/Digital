@@ -1753,6 +1753,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="menu_fsm_create_table">State Transition Table</string>
     <string name="menu_fsm_create_counter">Create Counter</string>
     <string name="menu_fsm_create_counter_N">{0} States</string>
+    <string name="menu_fsm_Help_tt">Help for operating the FSM editor.</string>
     <string name="err_notDeterministic_N">The FSM is not deterministic: {0}</string>
     <string name="err_fsmNumberUsedTwice_N">State Number {0} used twice.</string>
     <string name="err_fsmNoInitialState">There is no initial state (state number zero).</string>
@@ -1773,5 +1774,32 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="msg_fsmNewState">New State</string>
     <string name="msg_fsm_errorLoadingFile">Error loading a file!</string>
     <string name="msg_fsm_errorStoringFile">Error storing a file!</string>
+    <string name="msg_fsmHelpTitle">Help FSM Editor</string>
+    <string name="msg_fsmHelp"><![CDATA[
+<html><head></head>
+<body>
+  <h3>Mouse Operation</h3>
+  <dl>
+    <dt>Create a state:</dt>
+    <dd>Secondary mouse click on a free area.</dd>
+    <dt>Creating a transition:</dt>
+    <dd>Secondary mouse click on the start state and drag to the destination state.</dd>
+    <dt>Delete a state or a transition:</dt>
+    <dd>Move the mouse over the object and press the [Del] button.</dd>
+    <dt>Moving a state or transition:</dt>
+    <dd>Primary mouse down and dragging.</dd>
+    <dt>Editing a state or a transition:</dt>
+    <dd>Secondary mouse click on the state or the transition.</dd>
+  </dl>
+  <h3>Layout Help Function</h3>
+  <dl>
+    <dt>no movement:</dt>
+    <dd>The layout help function is desabled.</dd>
+    <dt>Transitions:</dt>
+    <dd>The layout help function moves the transition arrows to avoid overlaps.</dd>
+    <dt>Transitions+States</dt>
+    <dd>The layout help function moves both states and transitions to help create a well-balanced layout.</dd>
+  </dl>
+</body></html>]]></string>
 
 </resources>

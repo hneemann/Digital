@@ -5,7 +5,10 @@
  */
 package de.neemann.digital.fsm.gui;
 
-import de.neemann.digital.core.*;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.ModelEvent;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -13,6 +16,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.fsm.FSM;
 import de.neemann.digital.fsm.FSMDemos;
 import de.neemann.digital.gui.*;
+import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.*;
@@ -43,6 +47,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private static final Icon ICON_EXPAND = IconCreator.create("View-zoom-fit.png");
     private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
     private static final Icon ICON_ZOOM_OUT = IconCreator.create("View-zoom-out.png");
+    private static final Icon ICON_HELP = IconCreator.create("help.png");
 
     private final FileHistory fileHistory;
     private final FSMComponent fsmComponent;
@@ -95,7 +100,8 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         createViewMenu(bar, toolBar);
         toolBar.addSeparator();
         createCreateMenu(bar, library);
-
+        createHelpMenu(bar, toolBar);
+        toolBar.addSeparator();
 
         moveControl = new JComboBox<>(new String[]{
                 Lang.get("fsm_noMove"), Lang.get("fsm_moveTrans"), Lang.get("fsm_moveStates")});
@@ -378,6 +384,27 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     public FSMFrame setBaseFileName(File filename) {
         baseFilename = filename;
         return this;
+    }
+
+    private void createHelpMenu(JMenuBar bar, JToolBar toolBar) {
+        JMenu helpMenu = new JMenu(Lang.get("menu_help"));
+
+        ToolTipAction viewHelp = new ToolTipAction(Lang.get("menu_help"), ICON_HELP) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ShowStringDialog(
+                        FSMFrame.this,
+                        Lang.get("msg_fsmHelpTitle"),
+                        Lang.get("msg_fsmHelp"), true)
+                        .setVisible(true);
+
+            }
+        }.setToolTip(Lang.get("menu_fsm_Help_tt"));
+
+        helpMenu.add(viewHelp.createJMenuItem());
+        helpMenu.add(InfoDialog.getInstance().createMenuItem(this, Lang.get("message")));
+        bar.add(helpMenu);
+        toolBar.add(viewHelp);
     }
 
     @Override
