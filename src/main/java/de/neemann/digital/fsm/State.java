@@ -116,7 +116,10 @@ public class State extends Movable<State> {
         }
     }
 
-    private boolean isInitialState() {
+    /**
+     * @return true if this is a initial (small black) state
+     */
+    boolean isInitialState() {
         return getFsm() != null && getFsm().isInitial(this);
     }
 

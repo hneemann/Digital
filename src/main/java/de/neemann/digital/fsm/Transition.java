@@ -49,7 +49,9 @@ public class Transition extends Movable<Transition> {
      * @param transitions the transitions
      */
     void calcForce(List<State> states, List<Transition> transitions) {
-        float preferredDist = Math.max(fromState.getVisualRadius(), toState.getVisualRadius()) * 5;
+        float preferredDist = Math.max(fromState.getVisualRadius(), toState.getVisualRadius());
+        if (!fromState.isInitialState() && !toState.isInitialState())
+            preferredDist *= 5;
         calcForce(preferredDist, states, transitions);
     }
 
@@ -77,7 +79,7 @@ public class Transition extends Movable<Transition> {
 
         if (!isInitialTransition()) {
             for (State s : states)
-                if (s != fromState && s != toState)
+                if ((s == fromState) == (s == toState))
                     addRepulsive(s.getPos(), 2000);
 
             for (Transition t : transitions)
@@ -118,6 +120,7 @@ public class Transition extends Movable<Transition> {
         final VectorFloat start;
         final VectorFloat anchor;
         final VectorFloat end;
+        final VectorFloat anchor0;
         if (fromState == toState) {
             VectorFloat dif = getPos().sub(fromState.getPos()).getOrthogonal().mul(0.5f);
             VectorFloat ps = getPos().add(dif);
@@ -126,17 +129,31 @@ public class Transition extends Movable<Transition> {
                     ps.sub(fromState.getPos()).norm().mul(fromState.getVisualRadius() + Style.MAXLINETHICK));
             end = toState.getPos().add(
                     pe.sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK + 2));
+
+            VectorFloat d0 = start.sub(fromState.getPos());
+            VectorFloat d3 = end.sub(toState.getPos());
+            float t;
+            if (Math.abs(d0.getXFloat() + d3.getXFloat()) > Math.abs(d0.getYFloat() + d3.getYFloat()))
+                t = -4 * (start.getXFloat() + end.getXFloat() - 2 * getPos().getXFloat()) / (3 * (d0.getXFloat() + d3.getXFloat()));
+            else
+                t = -4 * (start.getYFloat() + end.getYFloat() - 2 * getPos().getYFloat()) / (3 * (d0.getYFloat() + d3.getYFloat()));
+            anchor0 = start.add(d0.mul(t));
+            anchor = end.add(d3.mul(t));
         } else {
             start = fromState.getPos().add(
                     getPos().sub(fromState.getPos()).norm().mul(fromState.getVisualRadius() + Style.MAXLINETHICK));
             end = toState.getPos().add(
                     getPos().sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK + 2));
+            anchor = getPos().mul(2).sub(start.div(2)).sub(end.div(2));
+            anchor0 = null;
         }
 
         final Style arrowStyle = Style.SHAPE_PIN;
         // arrow line
-        anchor = getPos().mul(2).sub(start.div(2)).sub(end.div(2));
-        gr.drawPolygon(new Polygon(false).add(start).add(anchor, end), arrowStyle);
+        if (anchor0 != null)
+            gr.drawPolygon(new Polygon(false).add(start).add(anchor0, anchor, end), arrowStyle);
+        else
+            gr.drawPolygon(new Polygon(false).add(start).add(anchor, end), arrowStyle);
 
         // arrowhead
         VectorFloat dir = anchor.sub(end).norm().mul(20);
