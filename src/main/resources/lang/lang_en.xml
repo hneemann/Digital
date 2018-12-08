@@ -1781,20 +1781,20 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <h3>Mouse Operation</h3>
   <dl>
     <dt>Create a state:</dt>
-    <dd>Secondary mouse click on a free area.</dd>
+    <dd>Right mouse click on a free area.</dd>
     <dt>Creating a transition:</dt>
-    <dd>Secondary mouse click on the start state and drag to the destination state.</dd>
+    <dd>Right mouse button down on the start state and dragging to the destination state.</dd>
     <dt>Delete a state or a transition:</dt>
     <dd>Move the mouse over the object and press the [Del] button.</dd>
     <dt>Moving a state or transition:</dt>
-    <dd>Primary mouse down and dragging.</dd>
+    <dd>Left mouse button down and dragging.</dd>
     <dt>Editing a state or a transition:</dt>
-    <dd>Secondary mouse click on the state or the transition.</dd>
+    <dd>Right mouse click on the state or the transition.</dd>
   </dl>
   <h3>Layout Help Function</h3>
   <dl>
     <dt>no movement:</dt>
-    <dd>The layout help function is desabled.</dd>
+    <dd>The layout help function is disabled.</dd>
     <dt>Transitions:</dt>
     <dd>The layout help function moves the transition arrows to avoid overlaps.</dd>
     <dt>Transitions+States</dt>

@@ -1802,15 +1802,15 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
   <h3>Mausbedienung</h3>
   <dl>
     <dt>Erzeugen eines Zustandes:</dt>
-    <dd>Sekundärer Mausklick auf einen freien Bereich.</dd>
+    <dd>Rechter Mausklick auf einen freien Bereich.</dd>
     <dt>Erzeugen eines Übergangs:</dt>
-    <dd>Sekundärer Mausklick auf den Startzustand und ziehen auf den Zielzustand.</dd>
+    <dd>Rechte Maustaste drücken über dem Startzustand und dann ziehen auf den Zielzustand.</dd>
     <dt>Löschen eines Zustandes oder eines Übergangs:</dt>
     <dd>Mit der Maus auf das Objekt zeigen und [Entfernen] drücken.</dd>
     <dt>Verschieben eines Zustandes oder eines Übergangs:</dt>
-    <dd>Primäre Maustaste und Ziehen.</dd>
+    <dd>Linke Maustaste drücken und dann ziehen.</dd>
     <dt>Bearbeiten eines Zustandes oder eines Übergangs:</dt>
-    <dd>Sekundärer Mausklick auf den Zustand oder den Übergang.</dd>
+    <dd>Rechter Mausklick auf den Zustand oder den Übergang.</dd>
   </dl>
   <h3>Layouthilfe</h3>
   <dl>
