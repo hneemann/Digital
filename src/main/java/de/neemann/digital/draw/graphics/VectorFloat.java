@@ -72,6 +72,17 @@ public class VectorFloat implements VectorInterface {
     }
 
     /**
+     * Creates a new vector which has the value this+(dx,dy)
+     *
+     * @param dx dx
+     * @param dy dy
+     * @return this+(dx,dy)
+     */
+    public VectorFloat add(float dx, float dy) {
+        return new VectorFloat(x + dx, y + dy);
+    }
+
+    /**
      * Subtracts the given vector
      *
      * @param sub the vector to subtract
@@ -161,4 +172,5 @@ public class VectorFloat implements VectorInterface {
     public VectorFloat getOrthogonal() {
         return new VectorFloat(y, -x);
     }
+
 }

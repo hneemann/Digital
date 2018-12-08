@@ -173,21 +173,30 @@ public class Transition extends Movable<Transition> {
                 .add(end.add(dir).sub(lot)), arrowStyle);
 
         // text
-        VectorFloat textPos = getPos();
-        final int fontSize = Style.NORMAL.getFontSize();
-        if (fromState.getPos().getYFloat() < getPos().getYFloat()
-                && toState.getPos().getYFloat() < getPos().getYFloat())
-            textPos = textPos.add(new VectorFloat(0, fontSize / 2f));
-        if (fromState.getPos().getYFloat() > getPos().getYFloat()
-                && toState.getPos().getYFloat() > getPos().getYFloat())
-            textPos = textPos.add(new VectorFloat(0, -fontSize / 2f));
+        ArrayList<String> strings = new ArrayList<>();
+        if (condition != null && !condition.isEmpty())
+            strings.add(condition);
+        if (getValues() != null && !getValues().isEmpty())
+            strings.add(Lang.get("fsm_set_N", getValues()));
 
-        if (condition != null && condition.length() > 0) {
-            gr.drawText(textPos, textPos.add(new Vector(1, 0)), condition, Orientation.CENTERCENTER, Style.INOUT);
-        }
-        if (getValues() != null && getValues().length() > 0) {
-            textPos = textPos.add(new VectorFloat(0, fontSize));
-            gr.drawText(textPos, textPos.add(new Vector(1, 0)), Lang.get("fsm_set_N", getValues()), Orientation.CENTERCENTER, Style.INOUT);
+        if (!strings.isEmpty()) {
+            final int fontSize = Style.NORMAL.getFontSize();
+            VectorFloat textPos = getPos().add(0, -fontSize * (strings.size() - 1) / 2f);
+
+            if (fromState.getPos().getYFloat() < getPos().getYFloat()
+                    && toState.getPos().getYFloat() < getPos().getYFloat()) {
+                textPos = textPos.add(new VectorFloat(0, fontSize * strings.size() / 2f));
+            }
+
+            if (fromState.getPos().getYFloat() > getPos().getYFloat()
+                    && toState.getPos().getYFloat() > getPos().getYFloat()) {
+                textPos = textPos.add(new VectorFloat(0, -fontSize * strings.size() / 2f));
+            }
+
+            for (String s : strings) {
+                gr.drawText(textPos, textPos.add(new Vector(1, 0)), s, Orientation.CENTERCENTER, Style.INOUT);
+                textPos = textPos.add(0, fontSize);
+            }
         }
     }
 

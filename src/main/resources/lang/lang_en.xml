@@ -1763,9 +1763,11 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="key_stateNum">State Number</string>
     <string name="key_stateNum_tt">The number which represents this state.</string>
     <string name="key_stateValues">Outputs</string>
-    <string name="key_stateValues_tt">Defines the output values. If nothing is specified, all values are set to zero.
+    <string name="key_stateValues_tt">Defines the output values.
         With simple assignments like "A=1, B=0" outputs can be set.
-    </string>
+        With instructions like "A=101", multi-bit outputs can be set.
+        Outputs that are not defined here are set to zero in states.
+        For transitions, unspecified outputs remain unchanged.</string>
     <string name="key_transCond">Condition</string>
     <string name="key_transCond_tt">A boolean expression.</string>
     <string name="key_transRad">Radius</string>

@@ -1778,8 +1778,11 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="key_stateNum">Zustandsnummer</string>
     <string name="key_stateNum_tt">Die Nummer welche diesen Zustand representiert.</string>
     <string name="key_stateValues">Ausgänge</string>
-    <string name="key_stateValues_tt">Legt Ausgangswerte fest. Wird nichts angegeben, werden alle Werte auf Null gesetzt.
+    <string name="key_stateValues_tt">Legt Ausgangswerte fest.
         Mit einfachen Zuweisungen wie "A=1, B=0" können Ausgänge gesetzt werden.
+        Mit Anweisungen wie "A=101" können mehrbittige Ausgänge gesetzt werden.
+        Ausgänge die hier nicht definiert werden, werden bei Zuständen auf Null gesetzt.
+        Bei Übergängen bleiben nicht angegebene Ausgänge unverändert.
     </string>
     <string name="key_transCond">Bedingung</string>
     <string name="key_transCond_tt">Ein boolscher Ausdruck.</string>
