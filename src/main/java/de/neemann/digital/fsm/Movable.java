@@ -13,6 +13,9 @@ import de.neemann.digital.draw.graphics.VectorFloat;
  * @param <A> the type of the implementing class
  */
 public class Movable<A extends Movable> {
+
+    enum Property {POS, REMOVED, CONDITION, NAME, NUMBER, MOUSEPOS, VALUES}
+
     private static final float MASS = 50f;
     private static final float FRICTION = 0.8f;
     private static final float MAX_FORCE = 100000f;
@@ -23,6 +26,7 @@ public class Movable<A extends Movable> {
     private transient VectorFloat speed;
     private transient VectorFloat force;
     private transient FSM fsm;
+    private transient Property lastPosProp;
 
     /**
      * Creates a new instance
@@ -34,20 +38,34 @@ public class Movable<A extends Movable> {
     }
 
     /**
+     * Sets the position by mouse movement
+     *
+     * @param position the position
+     */
+    public void setPosByMouse(VectorFloat position) {
+        setPos(position, Property.MOUSEPOS);
+    }
+
+    /**
      * Sets the position
      *
      * @param position the position
      */
     public void setPos(VectorFloat position) {
-        if (!this.position.equals(position)) {
+        setPos(position, Property.POS);
+    }
+
+    private void setPos(VectorFloat position, Property prop) {
+        if (!this.position.equals(position) || lastPosProp != prop) {
             this.position = position;
-            wasModified();
+            lastPosProp = prop;
+            wasModified(prop);
         }
     }
 
-    void wasModified() {
+    void wasModified(Property prop) {
         if (fsm != null)
-            fsm.wasModified();
+            fsm.wasModified(this, prop);
     }
 
     /**
@@ -167,7 +185,7 @@ public class Movable<A extends Movable> {
     public A setValues(String values) {
         if (!this.values.equals(values)) {
             this.values = values;
-            wasModified();
+            wasModified(Property.VALUES);
         }
         return (A) this;
     }

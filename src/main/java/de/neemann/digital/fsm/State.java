@@ -52,7 +52,7 @@ public class State extends Movable<State> {
     public void setName(String name) {
         if (!this.name.equals(name)) {
             this.name = name;
-            wasModified();
+            wasModified(Property.NAME);
         }
     }
 
@@ -158,7 +158,7 @@ public class State extends Movable<State> {
     public State setNumber(int number) {
         if (this.number != number) {
             this.number = number;
-            wasModified();
+            wasModified(Property.NUMBER);
             if (getFsm() != null)
                 getFsm().resetInitInitialization();
         }

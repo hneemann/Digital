@@ -92,8 +92,18 @@ public class Transition extends Movable<Transition> {
         return getFsm() != null && getFsm().isInitial(this);
     }
 
+
+    @Override
+    public void setPosByMouse(VectorFloat position) {
+        super.setPosByMouse(posConstrain(position));
+    }
+
     @Override
     public void setPos(VectorFloat position) {
+        super.setPos(posConstrain(position));
+    }
+
+    private VectorFloat posConstrain(VectorFloat position) {
         if (fromState != toState) {
             VectorFloat dist = toState.getPos().sub(fromState.getPos());
             if (dist.getXFloat() != 0 || dist.getYFloat() != 0) {
@@ -104,11 +114,10 @@ public class Transition extends Movable<Transition> {
                 VectorFloat p = position.sub(start);
                 VectorFloat n = dist.getOrthogonal();
                 float l = p.mul(n);
-                super.setPos(start.add(end).div(2).add(n.mul(l)));
-                return;
+                return start.add(end).div(2).add(n.mul(l));
             }
         }
-        super.setPos(position);
+        return position;
     }
 
     /**
@@ -198,7 +207,7 @@ public class Transition extends Movable<Transition> {
     public void setCondition(String condition) {
         if (!this.condition.equals(condition)) {
             this.condition = condition;
-            wasModified();
+            wasModified(Property.CONDITION);
             conditionExpression = null;
             if (getFsm() != null)
                 getFsm().resetInitInitialization();

@@ -25,6 +25,24 @@ import java.util.List;
  */
 public class FSM {
 
+    /**
+     * The moving state of the fsm.
+     */
+    public enum MovingState {
+        /**
+         * no elements are moving
+         */
+        STOP,
+        /**
+         * only transitions are moving
+         */
+        TRANSITIONS,
+        /**
+         * transitions and states are moving
+         */
+        BOTH
+    }
+
     private ArrayList<State> states;
     private ArrayList<Transition> transitions;
     private transient boolean modified;
@@ -33,6 +51,7 @@ public class FSM {
     private transient Transition initialTransition;
     private transient int activeState = -1;
     private transient File file;
+    private transient MovingState state = MovingState.STOP;
 
     /**
      * Creates a proper configured XStream instance
@@ -130,6 +149,30 @@ public class FSM {
         for (State s : state)
             add(s);
     }
+
+    /**
+     * Sets the moving state of this FSM
+     *
+     * @param state the state
+     */
+    public void setMovingState(MovingState state) {
+        if (this.state != state) {
+            this.state = state;
+            if (state != MovingState.BOTH)
+                for (State s : states)
+                    s.toRaster();
+        }
+    }
+
+    /**
+     * @return the moving state of this FSM
+     */
+    public MovingState getMovingState() {
+        if (state == null)
+            state = MovingState.STOP;
+        return state;
+    }
+
 
     /**
      * Adds a state to the FSM
@@ -293,19 +336,20 @@ public class FSM {
     /**
      * Moved the elements
      *
-     * @param dt         the time step
-     * @param moveStates if true also states are moved
-     * @param except     element which is fixed
+     * @param dt     the time step
+     * @param except element which is fixed
      */
-    public void move(int dt, boolean moveStates, Movable except) {
-        calculateForces();
-        if (moveStates)
-            for (State s : states)
-                if (s != except)
-                    s.move(dt);
-        for (Transition t : transitions)
-            if (t != except)
-                t.move(dt);
+    public void move(int dt, Movable except) {
+        if (state != MovingState.STOP) {
+            calculateForces();
+            if (state == MovingState.BOTH)
+                for (State s : states)
+                    if (s != except)
+                        s.move(dt);
+            for (Transition t : transitions)
+                if (t != except)
+                    t.move(dt);
+        }
     }
 
     /**
@@ -353,23 +397,31 @@ public class FSM {
      * @return the element or null
      */
     public Movable getMovable(Vector pos) {
+        Movable found = null;
+        float dist = Float.MAX_VALUE;
         for (Transition t : transitions)
-            if (t.matches(pos))
-                return t;
+            if (t.matches(pos)) {
+                float d = pos.sub(t.getPos()).len();
+                if (d < dist) {
+                    dist = d;
+                    found = t;
+                }
+            }
 
+        if (found != null)
+            return found;
+
+        dist = Float.MAX_VALUE;
         for (State s : states)
-            if (s.matches(pos))
-                return s;
+            if (s.matches(pos)) {
+                float d = pos.sub(s.getPos()).len();
+                if (d < dist) {
+                    dist = d;
+                    found = s;
+                }
+            }
 
-        return null;
-    }
-
-    /**
-     * Move states to raster
-     */
-    public void toRaster() {
-        for (State s : states)
-            s.toRaster();
+        return found;
     }
 
     /**
@@ -386,7 +438,7 @@ public class FSM {
      */
     public void remove(Transition transition) {
         transitions.remove(transition);
-        wasModified();
+        wasModified(transition, Movable.Property.REMOVED);
         resetInitInitialization();
     }
 
@@ -398,15 +450,30 @@ public class FSM {
     public void remove(State state) {
         states.remove(state);
         transitions.removeIf(t -> t.getStartState() == state || t.getTargetState() == state);
-        wasModified();
+        wasModified(state, Movable.Property.REMOVED);
         resetInitInitialization();
     }
 
     /**
      * Marks the fsm as modified
+     *
+     * @param movable the element changed
+     * @param prop    the property which has changed
      */
-    void wasModified() {
+    void wasModified(Movable movable, Movable.Property prop) {
         modified = true;
+
+        if (movable instanceof State) {
+            State st = (State) movable;
+            if (prop == Movable.Property.POS && getMovingState() != MovingState.BOTH)
+                st.toRaster();
+
+            if ((prop == Movable.Property.POS || prop == Movable.Property.MOUSEPOS) && getMovingState() == MovingState.STOP)
+                for (Transition t : transitions)
+                    if (t.getTargetState() == st || t.getStartState() == st)
+                        t.setPos(t.getPos());
+        }
+
         if (modifiedListener != null)
             modifiedListener.modifiedChanged(modified);
     }

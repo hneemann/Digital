@@ -91,8 +91,8 @@ public class FSMComponent extends JComponent {
 
             @Override
             public void mouseReleased(MouseEvent mouseEvent) {
-                if (elementMoved instanceof State) {
-                    ((State) elementMoved).toRaster();
+                if (elementMoved != null) {
+                    elementMoved.setPos(getPosVector(mouseEvent).sub(delta).toFloat());
                     repaint();
                 }
                 elementMoved = null;
@@ -140,7 +140,7 @@ public class FSMComponent extends JComponent {
                     repaint();
                 }
                 if (elementMoved != null) {
-                    elementMoved.setPos(getPosVector(e).sub(delta).toFloat());
+                    elementMoved.setPosByMouse(getPosVector(e).sub(delta).toFloat());
                     repaint();
                 }
                 if (newTransitionFromState != null)

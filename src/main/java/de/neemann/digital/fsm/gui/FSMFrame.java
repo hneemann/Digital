@@ -54,7 +54,6 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private final Timer timer;
     private final JComboBox<String> moveControl;
     private FSM fsm;
-    private boolean moveStates = false;
     private ToolTipAction save;
     private File filename;
     private File baseFilename;
@@ -78,9 +77,13 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         timer = new Timer(100, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                for (int i = 0; i < 100; i++)
-                    fsm.move(10, moveStates, fsmComponent.getElementMoved());
-                repaint();
+                if (fsm.getMovingState() == FSM.MovingState.STOP)
+                    timer.stop();
+                else {
+                    for (int i = 0; i < 100; i++)
+                        fsm.move(10, fsmComponent.getElementMoved());
+                    repaint();
+                }
             }
         });
 
@@ -111,18 +114,15 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             public void actionPerformed(ActionEvent actionEvent) {
                 switch (moveControl.getSelectedIndex()) {
                     case 0:
-                        timer.stop();
-                        fsm.toRaster();
+                        fsm.setMovingState(FSM.MovingState.STOP);
                         fsmComponent.repaint();
                         break;
                     case 1:
-                        if (moveStates)
-                            fsm.toRaster();
-                        moveStates = false;
+                        fsm.setMovingState(FSM.MovingState.TRANSITIONS);
                         timer.start();
                         break;
                     case 2:
-                        moveStates = true;
+                        fsm.setMovingState(FSM.MovingState.BOTH);
                         timer.start();
                         break;
                 }
