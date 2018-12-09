@@ -453,6 +453,12 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         return this;
     }
 
+    /**
+     * @return the current fsm
+     */
+    public FSM getFSM() {
+        return fsm;
+    }
 
     private class ExportAction extends ToolTipAction {
         private final String name;

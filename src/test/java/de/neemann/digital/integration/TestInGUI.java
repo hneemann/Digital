@@ -22,6 +22,10 @@ import de.neemann.digital.draw.graphics.GraphicMinMax;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.fsm.FSM;
+import de.neemann.digital.fsm.State;
+import de.neemann.digital.fsm.Transition;
+import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.NumberingWizard;
 import de.neemann.digital.gui.Settings;
@@ -565,7 +569,7 @@ public class TestInGUI extends TestCase {
                 .press("control typed n")
                 .delay(100)
                 .add(new GuiTester.SetFocusTo<>(JDialog.class,
-                        c -> c instanceof JButton && ((JButton)c).getText().equals(Lang.get("btn_editFurther"))))
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_editFurther"))))
                 .press("SPACE")
                 .delay(100)
                 .add(new GuiTester.WindowCheck<>(Main.class,
@@ -575,7 +579,7 @@ public class TestInGUI extends TestCase {
                 .press("control typed n")
                 .delay(100)
                 .add(new GuiTester.SetFocusTo<>(JDialog.class,
-                        c -> c instanceof JButton && ((JButton)c).getText().equals(Lang.get("btn_save"))))
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_save"))))
                 .press("SPACE")
                 .delay(100)
                 .add(new GuiTester.WindowCheck<>(JDialog.class))
@@ -587,7 +591,7 @@ public class TestInGUI extends TestCase {
                 .press("control typed n")
                 .delay(100)
                 .add(new GuiTester.SetFocusTo<>(JDialog.class,
-                        c -> c instanceof JButton && ((JButton)c).getText().equals(Lang.get("btn_save"))))
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_save"))))
                 .press("SPACE")
                 .delay(100)
                 .add(new GuiTester.WindowCheck<>(JDialog.class))
@@ -613,7 +617,7 @@ public class TestInGUI extends TestCase {
                 .press("control typed n")
                 .delay(100)
                 .add(new GuiTester.SetFocusTo<>(JDialog.class,
-                        c -> c instanceof JButton && ((JButton)c).getText().equals(Lang.get("btn_discard"))))
+                        c -> c instanceof JButton && ((JButton) c).getText().equals(Lang.get("btn_discard"))))
                 .press("SPACE")
                 .delay(100)
                 .add(new GuiTester.WindowCheck<>(Main.class,
@@ -929,6 +933,66 @@ public class TestInGUI extends TestCase {
                 .press("SPACE")
                 .add(new GuiTester.WindowCheck<>(Main.class))
                 .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
+    public void testFSM() {
+        new GuiTester()
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 4)
+                .press("SPACE")
+                .delay(1000)
+                .add(new GuiTester.WindowCheck<>(FSMFrame.class))
+                .press("F10")
+                .press("control N")
+                .mouseMove(100, 200)
+                .mouseClick(InputEvent.BUTTON3_MASK)
+                .add(new GuiTester.WindowCheck<>(AttributeDialog.class))
+                .type("Aus")
+                .press("ENTER")
+                .delay(100)
+                .mouseMove(400, 200)
+                .mouseClick(InputEvent.BUTTON3_MASK)
+                .add(new GuiTester.WindowCheck<>(AttributeDialog.class))
+                .type("Ein")
+                .press("ENTER")
+                .delay(100)
+                .add(guiTester -> guiTester.mousePressNow(InputEvent.BUTTON3_MASK))
+                .mouseMove(100, 200)
+                .add(guiTester -> guiTester.mouseReleaseNow(InputEvent.BUTTON3_MASK))
+                .delay(100)
+                .mouseMove(250, 200)
+                .mouseClick(InputEvent.BUTTON3_MASK)
+                .type("A")
+                .press("ENTER")
+                .delay(100)
+                .mouseMove(100, 200)
+                .add(guiTester -> guiTester.mousePressNow(InputEvent.BUTTON3_MASK))
+                .mouseMove(400, 200)
+                .add(guiTester -> guiTester.mouseReleaseNow(InputEvent.BUTTON3_MASK))
+                .add(new GuiTester.SetFocusTo<>(FSMFrame.class, component -> component instanceof JComboBox))
+                .press("DOWN", 2)
+                .press("ENTER")
+                .delay(100)
+                .mouseMove(100, 200)
+                .add(guiTester -> guiTester.mousePressNow(InputEvent.BUTTON1_MASK))
+                .mouseMove(100, 300)
+                .add(guiTester -> guiTester.mouseReleaseNow(InputEvent.BUTTON3_MASK))
+                .add(new GuiTester.WindowCheck<>(FSMFrame.class, (guiTester, window) -> {
+                    final FSM fsm = window.getFSM();
+                    assertEquals(2, fsm.getStates().size());
+                    State s0 = fsm.getStates().get(0);
+                    State s1 = fsm.getStates().get(1);
+                    assertTrue(Math.abs(s0.getPos().getY() - s1.getPos().getY()) > 50);
+                    assertEquals(2, fsm.getTransitions().size());
+                    Transition t0 = fsm.getTransitions().get(0);
+                    Transition t1 = fsm.getTransitions().get(1);
+                    assertTrue(Math.abs(t0.getPos().getY() - t1.getPos().getY()) > 50);
+                }))
+                .add(new GuiTester.CloseTopMost())
+                .delay(100)
                 .add(new GuiTester.CloseTopMost())
                 .execute();
     }
