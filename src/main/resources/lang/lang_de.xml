@@ -963,6 +963,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_moreThenOneRomFound">Mehr als einen Programmspeicher gefunden. Es darf nur einen Programmspeicher geben.</string>
     <string name="err_errorLoadingRomData">Fehler beim Laden des Programmspeichers.</string>
     <string name="err_parsingSVG">Fehler beim Laden der SVG-Datei.</string>
+    <string name="err_morePinsDefinedInSVGAsNeeded">Die SVG-Datei enthält Pins, die es in der Schaltung nicht gibt.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

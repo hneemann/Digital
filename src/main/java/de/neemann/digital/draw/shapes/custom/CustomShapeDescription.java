@@ -5,6 +5,10 @@
  */
 package de.neemann.digital.draw.shapes.custom;
 
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
@@ -195,6 +199,25 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
      */
     public Collection<Pin> getPins() {
         return pins.values();
+    }
+
+    /**
+     * Checks the compatibility of this shape to the given circuit
+     *
+     * @param circuit the circuit
+     * @throws PinException PinException
+     */
+    public void checkCompatibility(Circuit circuit) throws PinException {
+        final ObservableValues outputNames = circuit.getOutputNames();
+        for (ObservableValue out : outputNames)
+            getPin(out.getName());
+        final PinDescription[] inputNames = circuit.getInputNames();
+        for (PinDescription in : inputNames)
+            getPin(in.getName());
+
+        int pinsNum = outputNames.size() + inputNames.length;
+        if (pinsNum != pins.size())
+            throw new PinException(Lang.get("err_morePinsDefinedInSVGAsNeeded"));
     }
 
     private interface Transformable {

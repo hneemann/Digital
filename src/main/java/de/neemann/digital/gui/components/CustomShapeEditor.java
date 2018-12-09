@@ -7,6 +7,7 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.draw.shapes.custom.svg.SvgException;
 import de.neemann.digital.draw.shapes.custom.svg.SvgImporter;
@@ -62,8 +63,13 @@ public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDesc
                 if (fc.showOpenDialog(getAttributeDialog()) == JFileChooser.APPROVE_OPTION) {
                     lastSVGFile = fc.getSelectedFile();
                     try {
-                        customShapeDescription = new SvgImporter(fc.getSelectedFile()).create();
-                    } catch (IOException | SvgException e1) {
+                        CustomShapeDescription csd = new SvgImporter(fc.getSelectedFile()).create();
+                        final Main main = getAttributeDialog().getMain();
+                        if (main != null) {
+                            csd.checkCompatibility(main.getCircuitComponent().getCircuit());
+                            customShapeDescription = csd;
+                        }
+                    } catch (IOException | SvgException | PinException e1) {
                         new ErrorMessage(Lang.get("msg_errorImportingSvg")).addCause(e1).show(getAttributeDialog());
                     }
                 }
