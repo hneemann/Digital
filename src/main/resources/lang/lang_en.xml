@@ -1802,6 +1802,14 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <dt>Transitions+States</dt>
     <dd>The layout help function moves both states and transitions to help create a well-balanced layout.</dd>
   </dl>
+  <h3>Interpretation of Transitions</h3>
+  To simplify the generation of a deterministic automata, unconditional transitions are treated in a special way:
+  an unconditional transition is only executed if no other transition satisfies the transition condition.
+  So there can be an unconditional transition and conditional transitions that start in the same state.
+  An unconditional transition thus determines to which state the state machine is shifted if no other transition
+  condition is met.
+  If there is no unconditional transition from a state, the state machine will stay in this state if no other
+  transition condition is met.
 </body></html>]]></string>
 
 </resources>

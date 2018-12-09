@@ -1825,5 +1825,14 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <dd>Die Layouthilfe bewegt sowohl die Zustände als auch die Übergänge um bei der Erzeugung eines
     ausgewogenen Layouts zu unterstützen.</dd>
   </dl>
+  <h3>Interpretation der Übergänge</h3>
+  Um die Erzeugung eines deterministischen Automaten zu erleichtern, werden unbedingte Übergänge auf
+  besondere Weise behandelt: Ein unbedingter Übergang wird nur ausgeführt, wenn bei keinem anderen
+  Übergang die Übergangsbedingung erfüllt ist. Es kann also einen unbedingten Übergang und bedingte
+  Übergänge geben, die vom selben Zustand ausgehen.<br/>
+  Ein unbedinger übergang legt damit fest, welcher Zustand angesprungen wird, wenn keine andere
+  Übergangsbedingung erfüllt ist.
+  Gibt es aus einem Zustand keinen unbedingten Übergang, bleibt der Automat in diesem Zustand, wenn keine
+  andere Übergangsbedingung erfüllt ist.
 </body></html>]]></string>
 </resources>
