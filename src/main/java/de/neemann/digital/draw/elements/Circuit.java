@@ -266,20 +266,23 @@ public class Circuit {
      * Adds a ne VisualElement
      *
      * @param visualElement the visual element to add
+     * @return this for chained calls
      */
-    public void add(VisualElement visualElement) {
+    public Circuit add(VisualElement visualElement) {
         visualElements.add(visualElement);
         modified();
+        return this;
     }
 
     /**
      * Adds a new Wire
      *
      * @param newWire the wire to add
+     * @return this for chained calls
      */
-    public void add(Wire newWire) {
+    public Circuit add(Wire newWire) {
         if (newWire.p1.equals(newWire.p2))
-            return;
+            return null;
 
         wires.add(newWire);
         WireConsistencyChecker checker = new WireConsistencyChecker(wires);
@@ -287,6 +290,7 @@ public class Circuit {
 
         dotsPresent = false;
         modified();
+        return this;
     }
 
     /**

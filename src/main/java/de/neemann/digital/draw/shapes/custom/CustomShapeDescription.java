@@ -21,9 +21,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-
 /**
  * Is intended to be stored in a file.
  */
@@ -149,22 +146,6 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
             p.transform(tr);
         if (label != null)
             label.transform(tr);
-    }
-
-    /**
-     * Creates a simple dummy shape
-     *
-     * @return the dummy shape
-     */
-    public static CustomShapeDescription createDummy() {
-        return new CustomShapeDescription()
-                .addPin("A", new Vector(0, 0), true)
-                .addPin("B", new Vector(0, SIZE * 2), true)
-                .addPin("Y", new Vector(SIZE * 3, SIZE), true)
-                .addCircle(new Vector(0, -SIZE2), new Vector(SIZE * 3, SIZE * 3 - SIZE2), Style.NORMAL.getThickness(), Color.BLACK, false)
-                .addPolygon(Polygon.createFromPath("m 20,5 c 30 0 0 30 -30 0 z"), Style.NORMAL.getThickness(), Color.BLACK, false)
-                .addLine(new Vector(0, -SIZE2), new Vector(SIZE * 3, SIZE * 3 - SIZE2), Style.NORMAL.getThickness(), Color.BLACK)
-                .addText(new Vector(20, -25), new Vector(21, -25), "Hi!", Orientation.LEFTCENTER, 20, Color.BLACK);
     }
 
     /**

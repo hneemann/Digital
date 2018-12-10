@@ -514,7 +514,7 @@ public class SvgImporterTest extends TestCase {
     //*****************************************************************************************************
 
 
-    private InputStream in(String s) {
+    static InputStream in(String s) {
         return new ByteArrayInputStream(s.getBytes());
     }
 
