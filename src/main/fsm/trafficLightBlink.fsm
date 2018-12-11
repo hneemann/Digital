@@ -40,14 +40,14 @@
   <transitions>
     <transition>
       <values></values>
-      <position x="742.5" y="217.50002"/>
+      <position x="739.0" y="221.00003"/>
       <fromState reference="../../../states/state"/>
       <toState reference="../../../states/state[2]"/>
       <condition></condition>
     </transition>
     <transition>
       <values></values>
-      <position x="743.5" y="503.5"/>
+      <position x="739.5" y="499.5"/>
       <fromState reference="../../../states/state[2]"/>
       <toState reference="../../../states/state[3]"/>
       <condition></condition>
@@ -61,7 +61,7 @@
     </transition>
     <transition>
       <values></values>
-      <position x="463.0" y="223.0"/>
+      <position x="462.5" y="222.5"/>
       <fromState reference="../../../states/state[4]"/>
       <toState reference="../../../states/state"/>
       <condition></condition>
@@ -71,7 +71,7 @@
       <position x="270.0" y="280.53717"/>
       <fromState reference="../../../states/state[4]"/>
       <toState reference="../../../states/state[5]"/>
-      <condition>Blk</condition>
+      <condition>Blk=1</condition>
     </transition>
     <transition>
       <values></values>

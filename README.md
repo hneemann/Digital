@@ -23,6 +23,8 @@ These are the main features of Digital:
 - Analysis and synthesis of combinatorial and sequential circuits.
 - Simple testing of circuits: You can create test cases and execute them to verify your design.
 - Many examples: From a transmission gate D-flip-flop to a complete (simple) MIPS-like single cycle CPU.
+- Includes a simple editor for finite state machines (FSM). A FSM can then be converted to a state
+  transition table and a circuit implementing the FSM (See screenshot at the [bottom](#additional-screenshots)).
 - Contains a library with the most commonly used 74xx series integrated circuits. 
 - Good performance: The example processor can be clocked at 120 kHz.
 - Supports large circuits: The "Conway's Game of Life" example consists of about 2400 active components
@@ -228,3 +230,7 @@ If you want to build Digital from the source code:
 * Try to keep the test coverage high. The target is a minimum of 80% test coverage.
 * So far, there are only a few GUI tests, so that the overall test coverage is only slightly below 80%.
   Try to keep the amount of untested GUI code low.
+
+## Additional Screenshots
+
+![screnshot3](screenshot3.png)
