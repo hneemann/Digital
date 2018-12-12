@@ -527,6 +527,12 @@
         shows its content on a graphic screen. Every pixel is represented by a memory address. The value stored defines
         the color of the pixel, using a fixed color palette. There are two screen buffers implemented to support page
         flipping. The input B selects which buffer is shown. Thus, the total memory size is dx * dy * 2 words.
+        The palette used is structured as follows: The indices 0-9 correspond to the colors white, black, red, green,
+        blue, yellow, cyan, magenta, orange and pink. The indices 32-63 map gray values and the indices 64-127
+        represent 64 color values each with two bits per color channel.
+        This results in a simple palette that can be addressed with only 7-bit.
+        If the architecture supports a 16-bit index, from Index 0x8000, a high-color mode with 5 bits per color channel
+        can be used, which enables 32768 colors.
     </string>
     <string name="elem_GraphicCard_pin_A">The address to read and write.</string>
     <string name="elem_GraphicCard_pin_str">If this input is high when the clock becomes high, the the data is stored.</string>
