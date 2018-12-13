@@ -162,9 +162,14 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         }
         if (useDff) {
             Fragment fr = createFragment(expression);
-            FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
-            flipflops.add(ff);
-            FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
+            Fragment fe;
+            if (expression instanceof Constant)
+                fe = new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name);
+            else {
+                FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
+                flipflops.add(ff);
+                fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
+            }
             fragments.add(new FragmentExpression(fr, fe));
         }
         expression.traverse(variableVisitor);
@@ -335,7 +340,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (combinatorialOutputs.isEmpty())
             outSplitterY = addNetConnections(circuit, maxWidth + SIZE * 17, outSplitterY);
 
-        if (mai !=null) {
+        if (mai != null) {
             Main.CreatedNotification mon = mai.getMainCreatedNotification();
             if (mon instanceof FSMStateInfo) {
                 FSMStateInfo fsmInfo = (FSMStateInfo) mon;

@@ -8,12 +8,15 @@ package de.neemann.digital.builder.circuit;
 import de.neemann.digital.TestExecuter;
 import de.neemann.digital.analyse.ModelAnalyser;
 import de.neemann.digital.analyse.TruthTable;
+import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.ModelCreator;
@@ -24,7 +27,9 @@ import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -123,6 +128,34 @@ public class CircuitBuilderTest extends TestCase {
         te.checkC(0, 0);
         te.checkC(1, 1);
         te.checkC(0, 0);
+    }
+
+    public void testBuilderSequentialConstant() throws Exception {
+        ElementLibrary library = new ElementLibrary();
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library), false)
+                .addSequential("Y_0", Constant.ONE)
+                .addSequential("Y_1", Constant.ZERO)
+                .createCircuit();
+
+        final ArrayList<VisualElement> el = circuit.getElements();
+        assertEquals(8, el.size());
+        assertEquals(4, el.stream().filter(visualElement -> visualElement.equalsDescription(Tunnel.DESCRIPTION)).count());
+        assertEquals(2, el.stream().filter(visualElement -> visualElement.equalsDescription(Const.DESCRIPTION)).count());
+        assertEquals(2, el.stream().filter(visualElement -> visualElement.equalsDescription(Out.DESCRIPTION)).count());
+    }
+
+    public void testBuilderSequentialConstantJK() throws Exception {
+        ElementLibrary library = new ElementLibrary();
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library), true)
+                .addSequential("Y_0", Constant.ONE)
+                .addSequential("Y_1", Constant.ZERO)
+                .createCircuit();
+
+        final ArrayList<VisualElement> el = circuit.getElements();
+        assertEquals(8, el.size());
+        assertEquals(4, el.stream().filter(visualElement -> visualElement.equalsDescription(Tunnel.DESCRIPTION)).count());
+        assertEquals(2, el.stream().filter(visualElement -> visualElement.equalsDescription(Const.DESCRIPTION)).count());
+        assertEquals(2, el.stream().filter(visualElement -> visualElement.equalsDescription(Out.DESCRIPTION)).count());
     }
 
     public void testBus() throws Exception {
