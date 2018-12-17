@@ -22,4 +22,8 @@ public interface ProgramMemory {
      */
     void setProgramMemory(DataField dataField);
 
+    /**
+     * @return the data bits
+     */
+    int getDataBits();
 }

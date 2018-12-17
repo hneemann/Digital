@@ -10,6 +10,7 @@ import de.neemann.digital.hdl.hgs.HGSArray;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -56,16 +57,6 @@ public class DataField implements HGSArray {
      */
     public DataField(DataField dataField, int newSize) {
         this(Arrays.copyOf(dataField.data, newSize), newSize);
-    }
-
-    /**
-     * Creates a new instance and fills it with the data in the given file
-     *
-     * @param file the file containing the data
-     * @throws IOException IOException
-     */
-    public DataField(File file) throws IOException {
-        this(new InputStreamReader(new FileInputStream(file), "UTF-8"));
     }
 
     /**
@@ -116,7 +107,7 @@ public class DataField implements HGSArray {
      */
     public void saveTo(File file) throws IOException {
         DataField df = getMinimized();
-        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"))) {
+        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             w.write("v2.0 raw");
             w.newLine();
             for (long l : df.getData()) {

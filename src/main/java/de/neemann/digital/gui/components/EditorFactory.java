@@ -14,6 +14,7 @@ import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.extern.PortDefinition;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.DataFieldImporter;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.elements.PinException;
@@ -627,9 +628,13 @@ public final class EditorFactory {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             try {
-                                data = new DataField(attr.getFile(ROM.LAST_DATA_FILE_KEY));
+                                getAttributeDialog().storeEditedValues();
+                                int dataBits = attr.get(Keys.BITS);
+                                data = DataFieldImporter.read(attr.getFile(ROM.LAST_DATA_FILE_KEY), dataBits);
                             } catch (IOException e1) {
                                 new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
+                            } catch (EditorParseException e1) {
+                                new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
                             }
                         }
                     }

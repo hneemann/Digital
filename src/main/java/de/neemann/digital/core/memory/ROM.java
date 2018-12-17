@@ -103,7 +103,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
     public void init(Model model) throws NodeException {
         if (autoLoad) {
             try {
-                data = new DataField(hexFile);
+                data = DataFieldImporter.read(hexFile, dataBits);
             } catch (IOException e) {
                 throw new NodeException(e.getMessage(), this, -1, null);
             }

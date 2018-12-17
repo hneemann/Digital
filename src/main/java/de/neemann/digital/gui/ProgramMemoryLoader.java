@@ -8,7 +8,7 @@ package de.neemann.digital.gui;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.DataFieldImporter;
 import de.neemann.digital.core.memory.ProgramMemory;
 import de.neemann.digital.lang.Lang;
 
@@ -40,7 +40,8 @@ public class ProgramMemoryLoader implements ModelModifier {
             throw new NodeException(Lang.get("err_moreThenOneRomFound"));
 
         try {
-            ((ProgramMemory) progMem.get(0)).setProgramMemory(new DataField(romHex));
+            final ProgramMemory memory = (ProgramMemory) progMem.get(0);
+            memory.setProgramMemory(DataFieldImporter.read(romHex, memory.getDataBits()));
         } catch (IOException e) {
             throw new NodeException(Lang.get("err_errorLoadingRomData"), e);
         }

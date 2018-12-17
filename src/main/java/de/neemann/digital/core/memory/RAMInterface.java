@@ -25,11 +25,6 @@ public interface RAMInterface extends ProgramMemory {
     int getSize();
 
     /**
-     * @return the data bits
-     */
-    int getDataBits();
-
-    /**
      * @return the addr bits
      */
     int getAddrBits();
