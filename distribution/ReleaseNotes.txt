@@ -1,7 +1,11 @@
 Release Notes
 
-v0.21, released on 10. Dec 2018
 
+HEAD, planned as v0.22
+- Improved the RAM/ROM data loader. Now binary files and Intel HEX files are
+  supported.
+
+v0.21, released on 10. Dec 2018
 - Added a simple SVG importer to define custom shapes.
 - Added an FSM editor, which allows to input a FSM, creating a associated
   truth table and finally allows to create a circuit which implements the FSM.
