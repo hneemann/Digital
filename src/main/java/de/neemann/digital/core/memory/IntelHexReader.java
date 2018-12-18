@@ -11,52 +11,37 @@ import java.nio.charset.StandardCharsets;
 /**
  * Reader for intel hex files
  */
-class IntelHexReader {
-    private final BufferedReader bufferedReader;
-    private final DataFieldImporter.DataArray dataArray;
+class IntelHexReader implements DataFieldImporter.Reader {
     private final int[] data;
     private int segment = 0;
 
     /**
      * Creates a new reader instance
-     *
-     * @param file      the file to read
-     * @param dataArray the array to write the data to
-     * @throws IOException IOException
      */
-    IntelHexReader(File file, DataFieldImporter.DataArray dataArray) throws IOException {
-        this(new FileInputStream(file), dataArray);
-    }
-
-    /**
-     * Creates a new reader instance
-     *
-     * @param inputStream the stream to read
-     * @param dataArray   the array to write the data to
-     * @throws IOException IOException
-     */
-    IntelHexReader(InputStream inputStream, DataFieldImporter.DataArray dataArray) throws IOException {
-        this(new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)), dataArray);
-    }
-
-    private IntelHexReader(BufferedReader bufferedReader, DataFieldImporter.DataArray dataArray) throws IOException {
-        this.bufferedReader = bufferedReader;
-        this.dataArray = dataArray;
+    IntelHexReader() {
         data = new int[300];
-        read();
     }
 
-    private void read() throws IOException {
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            int payload = parseLine(line);
-            switch (data[3]) {
-                case 0:
-                    readData(payload);
-                    break;
-                case 2:
-                    readDataSegment(payload);
-                    break;
+    @Override
+    public void read(File file, DataFieldImporter.ByteArray byteArray) throws IOException {
+        try (Reader r = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
+            read(r, byteArray);
+        }
+    }
+
+    void read(Reader reader, DataFieldImporter.ByteArray byteArray) throws IOException {
+        try (BufferedReader bufferedReader = new BufferedReader(reader)) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                int payload = parseLine(line);
+                switch (data[3]) {
+                    case 0:
+                        readData(payload, byteArray);
+                        break;
+                    case 2:
+                        readDataSegment(payload);
+                        break;
+                }
             }
         }
     }
@@ -64,13 +49,13 @@ class IntelHexReader {
     private void readDataSegment(int len) throws IOException {
         if (len != 2)
             throw new IOException("invalid segment address");
-        segment = ((data[4] << 8) + data[5])<<4;
+        segment = ((data[4] << 8) + data[5]) << 4;
     }
 
-    private void readData(int len) {
+    private void readData(int len, DataFieldImporter.ByteArray byteArray) {
         int addr = (data[1] << 8) + data[2];
         for (int i = 0; i < len; i++)
-            dataArray.put(segment + addr + i, data[i + 4]);
+            byteArray.set(segment + addr + i, data[i + 4]);
     }
 
     private int parseLine(String line) throws IOException {
@@ -103,4 +88,5 @@ class IntelHexReader {
 
         return payload;
     }
+
 }

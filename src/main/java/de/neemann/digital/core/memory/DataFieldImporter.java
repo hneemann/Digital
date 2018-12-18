@@ -35,42 +35,42 @@ public final class DataFieldImporter {
                 return new DataField(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             } catch (IOException e) {
                 LOGGER.info(file + ": could not read native hex, try intel hex");
-                return readByteArray(file, dataBits, IntelHexReader::new);
+                return readToByteArray(file, dataBits, new IntelHexReader());
             }
         } else {
             LOGGER.info(file + ": read as binary");
-            return readByteArray(file, dataBits, DataFieldImporter::readBinary);
+            return readToByteArray(file, dataBits, DataFieldImporter::readBinary);
         }
     }
 
-    private static DataField readByteArray(File file, int dataBits, Reader reader) throws IOException {
+    private static DataField readToByteArray(File file, int dataBits, Reader reader) throws IOException {
         DataField dataField = new DataField(1024);
-        reader.read(file, create(dataField, dataBits));
+        reader.read(file, createByteArray(dataField, dataBits));
         dataField.trim();
         return dataField;
     }
 
-    interface DataArray {
-        void put(int addr, int aByte);
+    interface ByteArray {
+        void set(int addr, int aByte);
     }
 
-    static DataArray create(DataField dataField, int dataBits) {
+    static ByteArray createByteArray(DataField dataField, int dataBits) {
         if (dataBits <= 8)
             return dataField::setData;
-        return new DataArrayMod(dataField, (dataBits - 1) / 8 + 1);
+        return new ByteArrayMod(dataField, (dataBits - 1) / 8 + 1);
     }
 
-    private static final class DataArrayMod implements DataArray {
+    private static final class ByteArrayMod implements ByteArray {
         private final DataField dataField;
         private final int div;
 
-        private DataArrayMod(DataField dataField, int div) {
+        private ByteArrayMod(DataField dataField, int div) {
             this.dataField = dataField;
             this.div = div;
         }
 
         @Override
-        public void put(int addr, int aByte) {
+        public void set(int addr, int aByte) {
             int a = addr / div;
             int b = addr % div;
 
@@ -81,15 +81,15 @@ public final class DataFieldImporter {
     }
 
     interface Reader {
-        void read(File file, DataArray dataArray) throws IOException;
+        void read(File file, ByteArray byteArray) throws IOException;
     }
 
-    private static void readBinary(File file, DataArray dataArray) throws IOException {
+    private static void readBinary(File file, ByteArray byteArray) throws IOException {
         try (InputStream in = new FileInputStream(file)) {
             int d;
             int addr = 0;
-            while ((d = in.read()) > 0) {
-                dataArray.put(addr, d);
+            while ((d = in.read()) >= 0) {
+                byteArray.set(addr, d);
                 addr++;
             }
         }

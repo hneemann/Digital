@@ -7,8 +7,8 @@ package de.neemann.digital.core.memory;
 
 import junit.framework.TestCase;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.StringReader;
 
 public class IntelHexReaderTest extends TestCase {
 
@@ -26,7 +26,7 @@ public class IntelHexReaderTest extends TestCase {
                 ":00000001FF";
 
         int[] bin = new int[200];
-        new IntelHexReader(new ByteArrayInputStream(data.getBytes()), (addr, aByte) -> bin[addr] = aByte);
+        new IntelHexReader().read(new StringReader(data), (addr, aByte) -> bin[addr] = aByte);
 
         assertEquals(0x0c, bin[0x00]);
         assertEquals(0x11, bin[0x70]);
@@ -41,7 +41,7 @@ public class IntelHexReaderTest extends TestCase {
                 ":0800000085B9FCCFF894FFCF95\n";
 
         int[] bin = new int[0x11010];
-        new IntelHexReader(new ByteArrayInputStream(data.getBytes()), (addr, aByte) -> bin[addr] = aByte);
+        new IntelHexReader().read(new StringReader(data), (addr, aByte) -> bin[addr] = aByte);
 
         assertEquals(0x00, bin[0x00]);
         assertEquals(0x85, bin[0x1100]);
