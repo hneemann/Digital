@@ -23,7 +23,6 @@ public class DataField implements HGSArray {
      */
     public static final DataField DEFAULT = new DataField(0);
 
-    private final int size;
     private long[] data;
 
     private final transient ArrayList<DataListener> listeners = new ArrayList<>();
@@ -34,29 +33,25 @@ public class DataField implements HGSArray {
      * @param size size
      */
     public DataField(int size) {
-        this(new long[size], size);
+        this(new long[size]);
+    }
+
+    /**
+     * Creates a new data field
+     *
+     * @param data the data to copy
+     */
+    public DataField(DataField data) {
+        this.data = Arrays.copyOf(data.data, data.data.length);
     }
 
     /**
      * Creates a new data field
      *
      * @param data the data
-     * @param size the size
      */
-    public DataField(long[] data, int size) {
-        this.size = size;
+    public DataField(long[] data) {
         this.data = data;
-    }
-
-    /**
-     * Create a new instance based on a given instance.
-     * The data given is copied.
-     *
-     * @param dataField the data to use
-     * @param newSize   new size
-     */
-    public DataField(DataField dataField, int newSize) {
-        this(Arrays.copyOf(dataField.data, newSize), newSize);
     }
 
     /**
@@ -86,16 +81,14 @@ public class DataField implements HGSArray {
 
                     if (line.length() > 0) {
                         long v = Bits.decode(line, 0, 16);
-                        if (pos == data.length)
-                            data = Arrays.copyOf(data, data.length * 2);
-                        data[pos] = v;
+                        setData(pos, v);
                         pos++;
                     }
                 } catch (Bits.NumberFormatException e) {
                     throw new IOException(e);
                 }
             }
-            size = pos;
+            data = Arrays.copyOf(data, pos);
         }
     }
 
@@ -106,11 +99,11 @@ public class DataField implements HGSArray {
      * @throws IOException IOException
      */
     public void saveTo(File file) throws IOException {
-        DataField df = getMinimized();
+        trim();
         try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
             w.write("v2.0 raw");
             w.newLine();
-            for (long l : df.getData()) {
+            for (long l : data) {
                 w.write(Long.toHexString(l));
                 w.newLine();
             }
@@ -130,21 +123,23 @@ public class DataField implements HGSArray {
     }
 
     /**
-     * Sets a data value the DataField
+     * Sets a data value the DataField.
+     * If the actual data field capacity is to small the size in increased.
      *
      * @param addr  the address
      * @param value the value
      * @return this for chained calls
      */
     public DataField setData(int addr, long value) {
-        if (addr < size) {
-            if (addr >= data.length)
-                data = Arrays.copyOf(data, size);
+        if (addr >= data.length) {
+            int newLen = addr * 2;
+            if (newLen < 32) newLen = 32;
+            data = Arrays.copyOf(data, newLen);
+        }
 
-            if (data[addr] != value) {
-                data[addr] = value;
-                fireChanged(addr);
-            }
+        if (data[addr] != value) {
+            data[addr] = value;
+            fireChanged(addr);
         }
         return this;
     }
@@ -163,27 +158,17 @@ public class DataField implements HGSArray {
     }
 
     /**
-     * Returns the size of this field
-     *
-     * @return the size
-     */
-    public int size() {
-        return size;
-    }
-
-    /**
-     * Returns a new minimal {@link DataField}.
+     * Trims the data field to it's minimal size
      * All trailing zeros are removed.
      *
-     * @return the new {@link DataField}
+     * @return the new length of the data array
      */
-    public DataField getMinimized() {
+    public int trim() {
         int pos = data.length;
         while (pos > 0 && data[pos - 1] == 0) pos--;
-        if (pos == data.length)
-            return this;
-        else
-            return new DataField(Arrays.copyOf(data, pos), size);
+        if (pos < data.length)
+            data = Arrays.copyOf(data, pos);
+        return data.length;
     }
 
     /**
@@ -226,7 +211,7 @@ public class DataField implements HGSArray {
      * @param dataField the data to set to this data field
      */
     public void setDataFrom(DataField dataField) {
-        data = Arrays.copyOf(dataField.data, size);
+        data = Arrays.copyOf(dataField.data, dataField.data.length);
         fireChanged(-1);
     }
 

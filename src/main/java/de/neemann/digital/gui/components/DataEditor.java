@@ -48,25 +48,26 @@ public class DataEditor extends JDialog {
      *
      * @param parent         the parent
      * @param dataField      the data to edit
-     * @param size           the size of the data field to edit
      * @param dataBits       the bit count of the values to edit
      * @param addrBits       the bit count of the adresses
      * @param modelIsRunning true if model is running
      * @param modelSync      used to access the running model
      */
-    public DataEditor(Component parent, DataField dataField, int size, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync) {
+    public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         if (modelIsRunning)
             localDataField = dataField;
         else
-            localDataField = new DataField(dataField, size);
+            localDataField = new DataField(dataField);
 
+        final int size = 1 << addrBits;
         final int cols = calcCols(size, dataBits);
+        final int rows = (size - 1) / cols + 1;
 
         int tableWidth = 0;
-        MyTableModel dm = new MyTableModel(this.localDataField, cols, modelSync);
+        MyTableModel dm = new MyTableModel(this.localDataField, cols, rows, modelSync);
         table = new JTable(dm);
         int widthOfZero = table.getFontMetrics(table.getFont()).stringWidth("00000000") / 8;
         table.setDefaultRenderer(MyLong.class, new MyLongRenderer(dataBits));
@@ -184,6 +185,7 @@ public class DataEditor extends JDialog {
      * @return the data field
      */
     public DataField getModifiedDataField() {
+        localDataField.trim();
         return localDataField;
     }
 
@@ -247,11 +249,11 @@ public class DataEditor extends JDialog {
         private final int rows;
         private ArrayList<TableModelListener> listener = new ArrayList<>();
 
-        private MyTableModel(DataField dataField, int cols, SyncAccess modelSync) {
+        private MyTableModel(DataField dataField, int cols, int rows, SyncAccess modelSync) {
             this.dataField = dataField;
             this.cols = cols;
+            this.rows = rows;
             this.modelSync = modelSync;
-            rows = (dataField.size() - 1) / cols + 1;
         }
 
         @Override

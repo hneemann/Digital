@@ -13,28 +13,35 @@ import java.io.StringReader;
  */
 public class DataFieldTest extends TestCase {
 
-    public void testGetMinimized() throws Exception {
+    public void testGetMinimized() {
         DataField data = new DataField(100);
         data.setData(9, 1);
-        data = data.getMinimized();
+        assertEquals(10, data.trim());
         assertEquals(1, data.getDataWord(9));
-        data = data.getMinimized();
+        assertEquals(10, data.trim());
         assertEquals(1, data.getDataWord(9));
     }
 
-    public void testGrow() throws Exception {
+    public void testGrow() {
         DataField data = new DataField(100);
         data.setData(9, 1);
-        data = data.getMinimized();
+        data.trim();
         assertEquals(1, data.getDataWord(9));
         data.setData(30, 1);
         assertEquals(1, data.getDataWord(30));
     }
 
+    public void testGrow2() {
+        DataField data = new DataField(0);
+        data.setData(0, 1);
+        assertEquals(1, data.getDataWord(0));
+        assertEquals(0, data.getDataWord(1));
+    }
+
     public void testLoad() throws Exception {
         String data = "v2.0 raw\n0\n10\nAA\nFF";
         DataField df = new DataField(new StringReader(data));
-        assertEquals(4, df.size());
+        assertEquals(4, df.trim());
         assertEquals(0x00, df.getDataWord(0));
         assertEquals(0x10, df.getDataWord(1));
         assertEquals(0xAA, df.getDataWord(2));
@@ -44,7 +51,7 @@ public class DataFieldTest extends TestCase {
     public void testLoad64Bit() throws Exception {
         String data = "v2.0 raw\n8000000000000000\n10\nAA\nFF";
         DataField df = new DataField(new StringReader(data));
-        assertEquals(4, df.size());
+        assertEquals(4, df.trim());
         assertEquals(0x8000000000000000L, df.getDataWord(0));
         assertEquals(0x10, df.getDataWord(1));
         assertEquals(0xAA, df.getDataWord(2));
@@ -54,7 +61,7 @@ public class DataFieldTest extends TestCase {
     public void testLoadComments() throws Exception {
         String data = "v2.0 raw\n#test1 \n 0 \n#test1\n  #  test2\n10  # test3\n\n\nAA\nFF #test";
         DataField df = new DataField(new StringReader(data));
-        assertEquals(4, df.size());
+        assertEquals(4, df.trim());
         assertEquals(0x00, df.getDataWord(0));
         assertEquals(0x10, df.getDataWord(1));
         assertEquals(0xAA, df.getDataWord(2));
@@ -64,7 +71,7 @@ public class DataFieldTest extends TestCase {
     public void testLoadCommentsRealHex() throws Exception {
         String data = "v2.0 raw\n#test1 \n 0x0 \n#test1\n  #  test2\n0x10  # test3\n\n\n0xAA\n0XFF #test";
         DataField df = new DataField(new StringReader(data));
-        assertEquals(4, df.size());
+        assertEquals(4, df.trim());
         assertEquals(0x00, df.getDataWord(0));
         assertEquals(0x10, df.getDataWord(1));
         assertEquals(0xAA, df.getDataWord(2));

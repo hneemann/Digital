@@ -54,13 +54,13 @@ public class ROMManger {
     }
 
     /**
-     * Adds a rom's contet to this ROMManager
+     * Adds a rom's content to this ROMManager
      *
      * @param label the label
      * @param data  the data
      */
     public void addRom(String label, DataField data) {
-        data = data.getMinimized();
+        data.trim();
         if (data.getData().length > 0)
             roms.put(label, data);
     }

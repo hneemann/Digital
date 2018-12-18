@@ -44,9 +44,10 @@ public final class DataFieldImporter {
     }
 
     private static DataField readByteArray(File file, int dataBits, Reader reader) throws IOException {
-        DataField dataField = new DataField(0x10000);
+        DataField dataField = new DataField(1024);
         reader.read(file, create(dataField, dataBits));
-        return dataField.getMinimized();
+        dataField.trim();
+        return dataField;
     }
 
     interface DataArray {

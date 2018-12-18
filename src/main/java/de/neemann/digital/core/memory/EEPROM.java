@@ -44,11 +44,6 @@ public class EEPROM extends RAMSinglePortSel implements ROMInterface {
 
     @Override
     protected DataField createDataField(ElementAttributes attr, int size) {
-        DataField memory = attr.get(Keys.DATA);
-        if (memory.size() != size) {
-            memory = new DataField(memory, size);
-            attr.set(Keys.DATA, memory);
-        }
-        return memory;
+        return attr.get(Keys.DATA);
     }
 }

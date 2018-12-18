@@ -612,8 +612,7 @@ public final class EditorFactory {
                             // memory, RAM/ROM
                             addrBits = attr.get(Keys.ADDR_BITS);
                         }
-                        int size = 1 << addrBits;
-                        DataEditor de = new DataEditor(panel, data, size, dataBits, addrBits, false, SyncAccess.NOSYNC);
+                        DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC);
                         de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
                             data = de.getModifiedDataField();
@@ -647,7 +646,8 @@ public final class EditorFactory {
 
         @Override
         public DataField getValue() {
-            return data.getMinimized();
+            data.trim();
+            return data;
         }
 
         @Override

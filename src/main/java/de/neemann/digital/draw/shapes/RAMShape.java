@@ -26,7 +26,6 @@ import java.awt.*;
  */
 public class RAMShape extends GenericShape {
     private final int dataBits;
-    private final int size;
     private final int addrBits;
     private final String dialogTitle;
     private Model model;
@@ -63,7 +62,6 @@ public class RAMShape extends GenericShape {
             dialogTitle = description.getShortName();
         dataBits = attr.get(Keys.BITS);
         addrBits = attr.get(Keys.ADDR_BITS);
-        size = 1 << addrBits;
         setInverterConfig(attr.get(Keys.INVERTER_CONFIG));
     }
 
@@ -74,7 +72,7 @@ public class RAMShape extends GenericShape {
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 if (element instanceof RAMInterface) {
                     DataField dataField = ((RAMInterface) element).getMemory();
-                    DataEditor dataEditor = new DataEditor(cc, dataField, size, dataBits, addrBits, true, modelSync);
+                    DataEditor dataEditor = new DataEditor(cc, dataField, dataBits, addrBits, true, modelSync);
                     dataEditor.showDialog(dialogTitle, model);
                 }
                 return false;
