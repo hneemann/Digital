@@ -395,7 +395,7 @@ public final class EditorFactory {
         }
 
         @Override
-        public Long getValue() {
+        public Long getValue() throws EditorParseException {
             Object item = comboBox.getSelectedItem();
             long value = 0;
             if (item instanceof Number)
@@ -404,7 +404,7 @@ public final class EditorFactory {
                 try {
                     value = Bits.decode(item.toString());
                 } catch (Bits.NumberFormatException e) {
-                    throw new RuntimeException(e);
+                    throw new EditorParseException(e);
                 }
             }
             return value;
