@@ -518,7 +518,7 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         }
     }
 
-    private class ClosePath implements PathElement {
+    private static final class ClosePath implements PathElement {
         @Override
         public VectorInterface getPoint() {
             return null;

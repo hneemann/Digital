@@ -242,7 +242,7 @@ public class SVGTokenizer {
     /**
      * Exception thrown by the tokenizer
      */
-    public final class TokenizerException extends Exception {
+    public static final class TokenizerException extends Exception {
         private TokenizerException(String message) {
             super(message);
         }
