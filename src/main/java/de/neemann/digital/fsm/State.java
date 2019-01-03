@@ -95,12 +95,11 @@ public class State extends Movable<State> {
                 if (getFsm().getActiveState() == number)
                     style = Style.HIGHLIGHT;
 
+            if (number == 0)
+                style = style.deriveStyle(style.getThickness() * 2, false, style.getColor());
+
             VectorInterface rad = new Vector(radius, radius);
             gr.drawCircle(getPos().sub(rad), getPos().add(rad), style);
-            if (number == 0) {
-                VectorInterface rad2 = new Vector(radius - Style.MAXLINETHICK * 2, radius - Style.MAXLINETHICK * 2);
-                gr.drawCircle(getPos().sub(rad2), getPos().add(rad2), Style.THIN);
-            }
 
             Vector delta = new Vector(0, Style.NORMAL.getFontSize());
             VectorFloat pos = getPos().add(delta.mul(-1));
