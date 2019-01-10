@@ -15,6 +15,10 @@
             <outputDirectory>/</outputDirectory>
         </file>
         <file>
+            <source>${basedir}/distribution/Digital_noD3D.exe</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+        <file>
             <source>${basedir}/distribution/Digital.sh</source>
             <outputDirectory>/</outputDirectory>
         </file>

@@ -3,7 +3,7 @@
   <dontWrapJar>true</dontWrapJar>
   <headerType>gui</headerType>
   <jar>Digital.jar</jar>
-  <outfile>Digital.exe</outfile>
+  <outfile>Digital_noD3D.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -14,6 +14,7 @@
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
   <icon>/home/hneemann/Dokumente/Java/digital/src/main/resources/icons/icon48.ico</icon>
+  <var>sun.java2d.d3d=false</var>
   <jre>
     <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>
