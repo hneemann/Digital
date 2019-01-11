@@ -68,7 +68,7 @@ public class State extends Movable<State> {
     }
 
     /**
-     * Calculates the repolsive forces
+     * Calculates the repulsive forces
      *
      * @param states the states to take into account
      */
