@@ -484,6 +484,21 @@
     <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_RAMDualPort_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
 
+    <string name="elem_RAMDualPortMasked">RAM, separated ports, byte access</string>
+    <string name="elem_RAMDualPortMasked_short">RAM</string>
+    <string name="elem_RAMDualPortMasked_tt">A RAM module with separate inputs for storing and output for reading the stored data.
+        In addition, individual bytes can be overwritten. In this way, for example, a single byte can be overwritten in a 32-bit memory.
+    </string>
+    <string name="elem_RAMDualPortMasked_pin_A">The address to read from or write to.</string>
+    <string name="elem_RAMDualPortMasked_pin_C">Clock input</string>
+    <string name="elem_RAMDualPortMasked_pin_Din">The data to be stored in the RAM.</string>
+    <string name="elem_RAMDualPortMasked_pin_D">The data output pin</string>
+    <string name="elem_RAMDualPortMasked_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
+    <string name="elem_RAMDualPortMasked_pin_str">If this input is high and when the clock becomes high, the the data is stored.</string>
+    <string name="elem_RAMDualPortMasked_pin_mask">Sets the write mask. In this mask there is one bit for each byte in the memory,
+        which can be overwritten. If the second byte in the memory word is to be overwritten, the second bit in
+        the mask must also be set.</string>
+
     <string name="elem_EEPROMDualPort">EEPROM, separated Ports</string>
     <string name="elem_EEPROMDualPort_short">EEPROM</string>
     <string name="elem_EEPROMDualPort_tt">A EEPROM module with separate inputs for storing and output for reading the stored data.</string>

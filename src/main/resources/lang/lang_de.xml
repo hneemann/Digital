@@ -478,6 +478,24 @@
     <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
 
+    <string name="elem_RAMDualPortMasked">RAM, getrennte Ports, Byte-Zugriff</string>
+    <string name="elem_RAMDualPortMasked_short">RAM</string>
+    <string name="elem_RAMDualPortMasked_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
+        Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.
+        Zusätzlich wird das Überschreigen einzelner Bytes ermöglicht. Auf diese Weise kann z.B. in einem 32
+        Bit Speicher ein einzelnes Byte überschrieben werden.
+    </string>
+    <string name="elem_RAMDualPortMasked_pin_A">Die Adresse, an der gelesen bzw. geschrieben wird.</string>
+    <string name="elem_RAMDualPortMasked_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
+    <string name="elem_RAMDualPortMasked_pin_Din">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_RAMDualPortMasked_pin_D">Ausgabe der gespeicherten Daten.</string>
+    <string name="elem_RAMDualPortMasked_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
+    <string name="elem_RAMDualPortMasked_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
+    <string name="elem_RAMDualPortMasked_pin_mask">Setzt die Schreibmaske. In dieser Maske steht jewels ein Bit für ein
+        Byte im Speicher, welches überschrieben werden kann. Soll also das zweite Byte im Speicherwort überschrieben werden,
+        muss auch das zweite Bit in der Maske gesetzt sein.
+    </string>
+
     <string name="elem_EEPROMDualPort">EEPROM, getrennte Ports</string>
     <string name="elem_EEPROMDualPort_short">EEPROM</string>
     <string name="elem_EEPROMDualPort_tt">Ein EEPROM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.

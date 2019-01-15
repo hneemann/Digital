@@ -52,7 +52,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
     /**
      * Creates a new instance
      *
-     * @param attr the elemets attributes
+     * @param attr the elements attributes
      */
     public RAMDualPort(ElementAttributes attr) {
         super(true);
@@ -167,9 +167,13 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             addr = (int) addrIn.getValue();
 
         if (str)
-            memory.setData(addr, data);
+            writeDataToMemory(addr, data);
 
         lastClk = clk;
+    }
+
+    void writeDataToMemory(int addr, long data) {
+        memory.setData(addr, data);
     }
 
     @Override
