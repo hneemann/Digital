@@ -32,11 +32,12 @@ public class InputShape implements Shape {
     private final String label;
     private final PinDescriptions outputs;
     private final IntFormat format;
+    private final boolean isHighZ;
+    private final boolean avoidLow;
     private IOState ioState;
     private SingleValueDialog dialog;
     private Value value;
     private Value inValue;
-    private final boolean isHighZ;
 
     /**
      * Creates a new instance
@@ -56,6 +57,8 @@ public class InputShape implements Shape {
         format = attr.get(Keys.INT_FORMAT);
 
         isHighZ = attr.get(Keys.INPUT_DEFAULT).isHighZ() || attr.get(Keys.IS_HIGH_Z);
+
+        avoidLow = isHighZ && attr.get(Keys.AVOID_ACTIVE_LOW);
     }
 
     @Override
@@ -74,8 +77,12 @@ public class InputShape implements Shape {
                 if (value.getBits() == 1) {
                     modelSync.access(() -> {
                         if (isHighZ) {
-                            if (value.isHighZ()) value.setValue(0);
-                            else if (value.getValue() == 0) value.setValue(1);
+                            if (value.isHighZ()) {
+                                if (avoidLow)
+                                    value.setValue(1);
+                                else
+                                    value.setValue(0);
+                            } else if (value.getValue() == 0) value.setValue(1);
                             else value.setToHighZ();
                         } else
                             value.setValue(1 - value.getValue());

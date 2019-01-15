@@ -993,6 +993,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_isHighZ">Eingang kann hochohmig sein</string><!-- In, Splitter -->
     <string name="key_isHighZ_tt">Wenn gesetzt, ist ein hochohmiger Eingang erlaubt. Bei einem Eingangselement ist ein
         hochohmiger Eingang auch erlaubt, wenn der Vorgabewert auf hochohmig ("Z") gesetzt wird.</string>
+    <string name="key_avoidActiveLow">Keine Ausgabe von Null.</string>
+    <string name="key_avoidActiveLow_tt">Vermeidet die Ausgabe von Null. Ist vor allem beim Aufbau von Relaisschaltungen
+        hilfreich. Kann nur aktiviert werden, wenn ein hochohmiger Ausgang erlaubt ist.</string>
     <string name="key_Description">Beschreibung</string><!-- Out, In, Text -->
     <string name="key_Description_tt">Eine kurze Beschreibung des Elementes.</string>
     <string name="key_Frequency">Frequenz/Hz</string><!-- Clock -->

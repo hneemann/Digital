@@ -396,6 +396,15 @@ public final class Keys {
             = new Key<>("isHighZ", false).allowGroupEdit().setSecondary();
 
     /**
+     * flag to avoid active low at an input
+     */
+    public static final Key<Boolean> AVOID_ACTIVE_LOW
+            = new Key<>("avoidActiveLow", false)
+            .setDependsOn(IS_HIGH_Z)
+            .allowGroupEdit()
+            .setSecondary();
+
+    /**
      * the description of an element
      */
     public static final Key.LongString DESCRIPTION
