@@ -759,6 +759,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             else
                 pos = getPosVector(0, 0);
         }
+        elements = new CopiedElementLabelRenamer(circuit, elements).rename();
         mouseInsertList.activate(elements, pos);
         repaintNeeded();
     }
