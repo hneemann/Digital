@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>RAMDualPortMasked</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Din</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>str</string>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ld</string>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mask</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C A Din        str ld  mask   D
+
+# no write at all, mask is zero
+C 0 0xffffffffffffffff  1   0  0b00000000 x
+0 0 0                   0   1  0b00000000 0
+
+# write bytes
+
+C 0 0xffffffffffffffff  1   0  0b00000001 x
+0 0 0                   0   1  0b00000000 0xff
+
+C 0 0xffffffffffffff00  1   0  0b00000010 x
+0 0 0                   0   1  0b00000000 0xffff
+
+C 0 0xffffffffffff0000  1   0  0b00000100 x
+0 0 0                   0   1  0b00000000 0xffffff
+
+C 0 0xffffffffff000000  1   0  0b00001000 x
+0 0 0                   0   1  0b00000000 0xffffffff
+
+C 0 0xffffffff00000000  1   0  0b00010000 x
+0 0 0                   0   1  0b00000000 0xffffffffff
+
+C 0 0xffffff0000000000  1   0  0b00100000 x
+0 0 0                   0   1  0b00000000 0xffffffffffff
+
+C 0 0xffff000000000000  1   0  0b01000000 x
+0 0 0                   0   1  0b00000000 0xffffffffffffff
+
+C 0 0xff00000000000000  1   0  0b10000000 x
+0 0 0                   0   1  0b00000000 0xffffffffffffffff
+
+# write 32 bit words
+
+C 1 0xffffffff          1   0  0b00001111 x
+0 1 0                   0   1  0b00000000 0xffffffff
+
+C 1 0xaaaaaaaa00000000  1   0  0b11110000 x
+0 1 0                   0   1  0b00000000 0xaaaaaaaaffffffff
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="340"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="460" y="240"/>
+      <p2 x="500" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="180"/>
+      <p2 x="400" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="260"/>
+      <p2 x="400" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="200"/>
+      <p2 x="400" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="280"/>
+      <p2 x="400" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="220"/>
+      <p2 x="400" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="300"/>
+      <p2 x="400" y="300"/>
+    </wire>
+  </wires>
+</circuit>
