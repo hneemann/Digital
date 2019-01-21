@@ -30,6 +30,6 @@ abstract class Function extends FanIn {
         getOutput().setValue(value);
     }
 
-    protected abstract int calculate(ArrayList<ObservableValue> inputs) throws NodeException;
+    protected abstract long calculate(ArrayList<ObservableValue> inputs) throws NodeException;
 
 }

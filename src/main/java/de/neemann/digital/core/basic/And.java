@@ -33,8 +33,8 @@ public class And extends Function {
     }
 
     @Override
-    protected int calculate(ArrayList<ObservableValue> inputs) throws NodeException {
-        int f = -1;
+    protected long calculate(ArrayList<ObservableValue> inputs) throws NodeException {
+        long f = -1;
         for (ObservableValue i : inputs) {
             f &= i.getValue();
         }

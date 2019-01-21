@@ -34,4 +34,17 @@ public class OrTest extends TestCase {
         sc.check(0, 1, 1);
         sc.check(0, 0, 0);
     }
+
+
+    public void testOr64() throws Exception {
+        ObservableValue a = new ObservableValue("a", 64);
+        ObservableValue b = new ObservableValue("b", 64);
+
+        Model model = new Model();
+        FanIn and = model.add(new Or(new ElementAttributes().setBits(64)));
+        and.setInputs(ovs(a, b));
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(and.getOutput());
+        sc.check(0xff00000000000000L, 0x2200000000000000L, 0xff00000000000000L);
+    }
 }

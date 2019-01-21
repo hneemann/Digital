@@ -32,4 +32,17 @@ public class XOrTest extends TestCase {
         sc.check(0, 1, 1);
         sc.check(1, 1, 0);
     }
+
+    public void testXor64() throws Exception {
+        ObservableValue a = new ObservableValue("a", 64);
+        ObservableValue b = new ObservableValue("b", 64);
+
+
+        Model model = new Model();
+        XOr out = model.add(new XOr(new ElementAttributes().setBits(64)));
+        out.setInputs(ovs(a, b));
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out.getOutputs());
+        sc.check(0x7e00000000000000L, 0x2200000000000000L, 0x5c00000000000000L);
+    }
 }

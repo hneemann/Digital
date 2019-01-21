@@ -33,7 +33,7 @@ public class NAnd extends And {
     }
 
     @Override
-    protected int calculate(ArrayList<ObservableValue> inputs) throws NodeException {
+    protected long calculate(ArrayList<ObservableValue> inputs) throws NodeException {
         return ~super.calculate(inputs);
     }
 }

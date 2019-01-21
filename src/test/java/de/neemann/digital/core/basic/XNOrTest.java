@@ -17,7 +17,7 @@ import static de.neemann.digital.core.ObservableValues.ovs;
  */
 public class XNOrTest extends TestCase {
 
-    public void testXor() throws Exception {
+    public void testXNor() throws Exception {
         ObservableValue a = new ObservableValue("a", 1);
         ObservableValue b = new ObservableValue("b", 1);
 
@@ -32,4 +32,18 @@ public class XNOrTest extends TestCase {
         sc.check(0, 1, 0);
         sc.check(1, 1, 1);
     }
+
+    public void testXNor64() throws Exception {
+        ObservableValue a = new ObservableValue("a", 64);
+        ObservableValue b = new ObservableValue("b", 64);
+
+
+        Model model = new Model();
+        XOr out = model.add(new XNOr(new ElementAttributes().setBits(64)));
+        out.setInputs(ovs(a, b));
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out.getOutputs());
+        sc.check(0x7e00000000000000L, 0x2200000000000000L, ~0x5c00000000000000L);
+    }
+
 }

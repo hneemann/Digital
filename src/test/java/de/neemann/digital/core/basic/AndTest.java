@@ -33,4 +33,16 @@ public class AndTest extends TestCase {
         sc.check(1, 0, 0);
         sc.check(0, 1, 0);
     }
+
+    public void testAnd64() throws Exception {
+        ObservableValue a = new ObservableValue("a", 64);
+        ObservableValue b = new ObservableValue("b", 64);
+
+        Model model = new Model();
+        FanIn out = model.add(new And(new ElementAttributes().setBits(64)));
+        out.setInputs(ovs(a, b));
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, b).setOutputs(out.getOutputs());
+        sc.check(0xff00000000000000L, 0x2200000000000000L, 0x2200000000000000L);
+    }
 }

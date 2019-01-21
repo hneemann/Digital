@@ -33,8 +33,8 @@ public class XOr extends Function {
     }
 
     @Override
-    protected int calculate(ArrayList<ObservableValue> inputs) throws NodeException {
-        int f = 0;
+    protected long calculate(ArrayList<ObservableValue> inputs) throws NodeException {
+        long f = 0;
         for (ObservableValue i : inputs) {
             f ^= i.getValue();
         }
