@@ -5,15 +5,13 @@
  */
 package de.neemann.digital.core.memory;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -90,6 +88,12 @@ public class RAMDualPortMasked extends Node implements Element, RAMInterface {
         dataIn = inputs.get(1).checkBits(bits, this);
         maskVal = inputs.get(2).checkBits(maskBits, this);
         clkIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
+    }
+
+    @Override
+    public void init(Model model) throws NodeException {
+        if (bits % 8 != 0)
+            throw new NodeException(Lang.get("err_bitsMustBeDividableBy8"), this, -1, null);
     }
 
     @Override

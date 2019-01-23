@@ -982,6 +982,7 @@
     <string name="err_errorLoadingRomData">Error loading the program memory.</string>
     <string name="err_parsingSVG">Error while reading the SVG file.</string>
     <string name="err_morePinsDefinedInSVGAsNeeded">The SVG file contains pins that do not exist in the circuit.</string>
+    <string name="err_bitsMustBeDividableBy8">The number of data bits must be a multiple of 8.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
