@@ -5,19 +5,22 @@
  */
 package de.neemann.digital.core.memory;
 
+import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.draw.elements.PinException;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A memory which allows to overwrite single bytes.
  */
-public class RAMDualPortMasked extends RAMDualPort {
+public class RAMDualPortMasked extends Node implements Element, RAMInterface {
 
     private static final long[] MASK_TABLE = new long[256];
 
@@ -41,17 +44,27 @@ public class RAMDualPortMasked extends RAMDualPort {
             input("A"),
             input("Din"),
             input("str"),
-            input("C").setClock(),
-            input("ld"),
-            input("mask"))
+            input("C").setClock())
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.LABEL);
 
+    private DataField memory;
+    private final ObservableValue output;
+    private final int addrBits;
+    private final int bits;
+    private final String label;
+    private final int size;
+    private final boolean isProgramMemory;
     private final int maskBits;
     private ObservableValue maskVal;
+    private ObservableValue addrIn;
+    private ObservableValue dataIn;
+    private ObservableValue clkIn;
+    private boolean lastClk = false;
+    private long outputVal;
 
     /**
      * Creates a new instance
@@ -59,25 +72,95 @@ public class RAMDualPortMasked extends RAMDualPort {
      * @param attr the elements attributes
      */
     public RAMDualPortMasked(ElementAttributes attr) {
-        super(attr);
+        super(true);
+        bits = attr.get(Keys.BITS);
+        output = new ObservableValue("D", bits).setPinDescription(DESCRIPTION);
+        addrBits = attr.get(Keys.ADDR_BITS);
+        size = 1 << addrBits;
+        memory = new DataField(size);
+        label = attr.getCleanLabel();
+        isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
         maskBits = Math.min(8, (getDataBits() - 1) / 8 + 1);
     }
 
+
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        super.setInputs(inputs);
-        maskVal = inputs.get(5).checkBits(maskBits, this).addObserverToValue(this);
+        addrIn = inputs.get(0).checkBits(addrBits, this);
+        dataIn = inputs.get(1).checkBits(bits, this);
+        maskVal = inputs.get(2).checkBits(maskBits, this);
+        clkIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
     }
 
     @Override
-    void writeDataToMemory(int addr, long data) {
+    public void readInputs() throws NodeException {
+        boolean clk = clkIn.getBool();
+        if (!lastClk && clk) {
+            int addr = (int) addrIn.getValue();
+            outputVal = memory.getDataWord(addr);
+            int maskVal = (int) this.maskVal.getValue();
+            if (maskVal != 0) {
+                long wData = dataIn.getValue();
+                writeDataToMemory(addr, wData, maskVal);
+            }
+        }
+        lastClk = clk;
+    }
+
+    private void writeDataToMemory(int addr, long data, int maskVal) {
         DataField memory = getMemory();
         long old = memory.getDataWord(addr);
 
-        long mask = MASK_TABLE[(int) maskVal.getValue()];
+        long mask = MASK_TABLE[maskVal];
         data = data & mask;
         old = old & ~mask;
 
         memory.setData(addr, data | old);
     }
+
+    @Override
+    public void writeOutputs() throws NodeException {
+        output.setValue(outputVal);
+    }
+
+    @Override
+    public ObservableValues getOutputs() throws PinException {
+        return output.asList();
+    }
+
+    @Override
+    public DataField getMemory() {
+        return memory;
+    }
+
+    @Override
+    public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public int getAddrBits() {
+        return addrBits;
+    }
+
+    @Override
+    public boolean isProgramMemory() {
+        return isProgramMemory;
+    }
+
+    @Override
+    public void setProgramMemory(DataField dataField) {
+        memory.setDataFrom(dataField);
+    }
+
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
+
 }

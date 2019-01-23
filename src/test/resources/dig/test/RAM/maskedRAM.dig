@@ -29,7 +29,7 @@
           <int>32</int>
         </entry>
       </elementAttributes>
-      <pos x="500" y="240"/>
+      <pos x="500" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -43,7 +43,7 @@
           <int>8</int>
         </entry>
       </elementAttributes>
-      <pos x="260" y="180"/>
+      <pos x="280" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -60,16 +60,6 @@
       <pos x="380" y="200"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>str</string>
-        </entry>
-      </elementAttributes>
-      <pos x="260" y="220"/>
-    </visualElement>
-    <visualElement>
       <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
@@ -84,16 +74,6 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>ld</string>
-        </entry>
-      </elementAttributes>
-      <pos x="260" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
           <string>mask</string>
         </entry>
         <entry>
@@ -101,7 +81,7 @@
           <int>4</int>
         </entry>
       </elementAttributes>
-      <pos x="380" y="300"/>
+      <pos x="280" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -109,55 +89,55 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>C A Din        str ld  mask   D
+            <dataString>C A Din         mask   D
 
 # no write at all, mask is zero
-C 0 0xffffffff  1   0  0b0000 x
-0 0 0           0   1  0b0000 0
+C 0 0xffffffff  0b0000 x
+0 0 0           0b0000 0
 
 # write bytes
 
-C 0 0xffffffff  1   0  0b0001 x
-0 0 0           0   1  0b0000 0xff
+C 0 0xffffffff  0b0001 x
+C 0 0           0b0000 0xff
 
-C 0 0xffffff00  1   0  0b0010 x
-0 0 0           0   1  0b0000 0xffff
+C 0 0xffffff00  0b0010 x
+C 0 0           0b0000 0xffff
 
-C 0 0xffff0000  1   0  0b0100 x
-0 0 0           0   1  0b0000 0xffffff
+C 0 0xffff0000  0b0100 x
+C 0 0           0b0000 0xffffff
 
-C 0 0xff000000  1   0  0b1000 x
-0 0 0           0   1  0b0000 0xffffffff
+C 0 0xff000000  0b1000 x
+C 0 0           0b0000 0xffffffff
 
 # write 16 bit words
 
-C 1 0xffff      1   0  0b0011 x
-0 1 0           0   1  0b0000  0xffff
+C 1 0xffff      0b0011 x
+C 1 0           0b0000  0xffff
 
-C 1 0xffff0000  1   0  0b1100 x
-0 1 0           0   1  0b0000 0xffffffff
+C 1 0xffff0000  0b1100 x
+C 1 0           0b0000 0xffffffff
 
-C 1 0xaaaa00    1   0  0b0110 x
-0 1 0           0   1  0b0000 0xffaaaaff
+C 1 0xaaaa00    0b0110 x
+C 1 0           0b0000 0xffaaaaff
 
 # write 32 bit words
 
-C 2 0xffffffff  1   0  0b1111 x
-0 2 0           0   1  0b0000  0xffffffff
+C 2 0xffffffff  0b1111 x
+C 2 0           0b0000  0xffffffff
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="320" y="340"/>
+      <pos x="320" y="320"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="460" y="240"/>
-      <p2 x="500" y="240"/>
+      <p1 x="280" y="240"/>
+      <p2 x="400" y="240"/>
     </wire>
     <wire>
-      <p1 x="260" y="180"/>
+      <p1 x="280" y="180"/>
       <p2 x="400" y="180"/>
     </wire>
     <wire>
@@ -169,16 +149,8 @@ C 2 0xffffffff  1   0  0b1111 x
       <p2 x="400" y="200"/>
     </wire>
     <wire>
-      <p1 x="260" y="280"/>
-      <p2 x="400" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="220"/>
-      <p2 x="400" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="300"/>
-      <p2 x="400" y="300"/>
+      <p1 x="460" y="220"/>
+      <p2 x="500" y="220"/>
     </wire>
   </wires>
 </circuit>

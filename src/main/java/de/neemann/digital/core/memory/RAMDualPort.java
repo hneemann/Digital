@@ -167,13 +167,9 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             addr = (int) addrIn.getValue();
 
         if (str)
-            writeDataToMemory(addr, data);
+            memory.setData(addr, data);
 
         lastClk = clk;
-    }
-
-    void writeDataToMemory(int addr, long data) {
-        memory.setData(addr, data);
     }
 
     @Override
