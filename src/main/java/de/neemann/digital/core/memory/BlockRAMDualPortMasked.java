@@ -18,7 +18,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * A memory which allows to overwrite single bytes.
  */
-public class RAMDualPortMasked extends Node implements Element, RAMInterface {
+public class BlockRAMDualPortMasked extends Node implements Element, RAMInterface {
 
     private static final long[] MASK_TABLE = new long[256];
 
@@ -38,7 +38,7 @@ public class RAMDualPortMasked extends Node implements Element, RAMInterface {
     /**
      * The RAMs {@link ElementTypeDescription}
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMDualPortMasked.class,
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(BlockRAMDualPortMasked.class,
             input("A"),
             input("Din"),
             input("str"),
@@ -69,7 +69,7 @@ public class RAMDualPortMasked extends Node implements Element, RAMInterface {
      *
      * @param attr the elements attributes
      */
-    public RAMDualPortMasked(ElementAttributes attr) {
+    public BlockRAMDualPortMasked(ElementAttributes attr) {
         super(true);
         bits = attr.get(Keys.BITS);
         output = new ObservableValue("D", bits).setPinDescription(DESCRIPTION);

@@ -12,7 +12,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>64</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="500" y="220"/>
@@ -40,7 +40,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>64</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="380" y="200"/>
@@ -62,10 +62,6 @@
           <string>Label</string>
           <string>mask</string>
         </entry>
-        <entry>
-          <string>Bits</string>
-          <int>8</int>
-        </entry>
       </elementAttributes>
       <pos x="280" y="240"/>
     </visualElement>
@@ -75,45 +71,22 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>C A Din                 mask   D
+            <dataString>C A Din   mask   D
 
 # no write at all, mask is zero
-C 0 0xffffffffffffffff  0b00000000 x
-C 0 0                   0b00000000 0
+C 0 0xff  0      x
+C 0 0     0      0
 
-# write bytes
+# write byte
 
-C 0 0xffffffffffffffff  0b00000001 x
-C 0 0                   0b00000000 0xff
+C 0 0xff  1      x
+C 1 0xf0  1      x
 
-C 0 0xffffffffffffff00  0b00000010 x
-C 0 0                   0b00000000 0xffff
-
-C 0 0xffffffffffff0000  0b00000100 x
-C 0 0                   0b00000000 0xffffff
-
-C 0 0xffffffffff000000  0b00001000 x
-C 0 0                   0b00000000 0xffffffff
-
-C 0 0xffffffff00000000  0b00010000 x
-C 0 0                   0b00000000 0xffffffffff
-
-C 0 0xffffff0000000000  0b00100000 x
-C 0 0                   0b00000000 0xffffffffffff
-
-C 0 0xffff000000000000  0b01000000 x
-C 0 0                   0b00000000 0xffffffffffffff
-
-C 0 0xff00000000000000  0b10000000 x
-C 0 0                   0b00000000 0xffffffffffffffff
-
-# write 32 bit words
-
-C 1 0xffffffff          0b00001111 x
-C 1 0                   0b00000000 0xffffffff
-
-C 1 0xaaaaaaaa00000000  0b11110000 x
-C 1 0                   0b00000000 0xaaaaaaaaffffffff
+C 2 0     0      0
+0 0 0     0      0
+0 1 0     0      0
+C 0 0     0      0xff
+C 1 0     0      0xf0
 </dataString>
           </testData>
         </entry>
@@ -129,7 +102,7 @@ C 1 0                   0b00000000 0xaaaaaaaaffffffff
         </entry>
         <entry>
           <string>Bits</string>
-          <int>64</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="400" y="180"/>

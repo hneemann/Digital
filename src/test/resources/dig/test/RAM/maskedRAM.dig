@@ -4,20 +4,6 @@
   <attributes/>
   <visualElements>
     <visualElement>
-      <elementName>RAMDualPortMasked</elementName>
-      <elementAttributes>
-        <entry>
-          <string>AddrBits</string>
-          <int>8</int>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="400" y="180"/>
-    </visualElement>
-    <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
@@ -93,7 +79,7 @@
 
 # no write at all, mask is zero
 C 0 0xffffffff  0b0000 x
-0 0 0           0b0000 0
+C 0 0           0b0000 0
 
 # write bytes
 
@@ -124,11 +110,32 @@ C 1 0           0b0000 0xffaaaaff
 
 C 2 0xffffffff  0b1111 x
 C 2 0           0b0000  0xffffffff
+
+# sync read
+C 1 0           0b0000 0xffaaaaff
+0 0 0           0b0000 0xffaaaaff
+0 2 0           0b0000 0xffaaaaff
+C 0 0           0b0000 0xffffffff
+C 2 0           0b0000 0xffffffff
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
       <pos x="320" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>BlockRAMDualPortMasked</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="180"/>
     </visualElement>
   </visualElements>
   <wires>
