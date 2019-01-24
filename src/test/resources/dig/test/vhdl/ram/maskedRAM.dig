@@ -78,6 +78,7 @@
             <dataString>C A Din         mask   D
 
 # no write at all, mask is zero
+C 0 0           0b1111 x
 C 0 0xffffffff  0b0000 x
 C 0 0           0b0000 0
 
@@ -97,6 +98,7 @@ C 0 0           0b0000 0xffffffff
 
 # write 16 bit words
 
+C 1 0           0b1111 x
 C 1 0xffff      0b0011 x
 C 1 0           0b0000  0xffff
 
@@ -108,6 +110,7 @@ C 1 0           0b0000 0xffaaaaff
 
 # write 32 bit words
 
+C 2 0           0b1111 x
 C 2 0xffffffff  0b1111 x
 C 2 0           0b0000  0xffffffff
 
