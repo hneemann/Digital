@@ -3,14 +3,16 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 <?
 
-   entityName := "BlockRam_D"+elem.Bits+"A"+elem.AddrBits;
+   entityName := "BlockRam_D"+elem.Bits;
    maskBits   := elem.Bits / 8;
 
 ?>
 entity <?=entityName?> is
+  generic (
+    AddrBits : integer ); <? vhdl.registerGeneric("AddrBits");?>
   port (
     D: out std_logic_vector (<?=elem.Bits-1?> downto 0);
-    A: in std_logic_vector (<?=elem.AddrBits-1?> downto 0);
+    A: in std_logic_vector ((AddrBits-1) downto 0);
     Din: in std_logic_vector (<?=elem.Bits-1?> downto 0);
     str: in <?
       if (maskBits=1) {
@@ -22,7 +24,7 @@ entity <?=entityName?> is
 end <?=entityName?>;
 
 architecture Behavioral of <?=entityName?> is
-    type memoryType is array(0 to <?=(1<<elem.AddrBits)-1?>) of std_logic_vector(<?=elem.Bits-1?> downto 0);
+    type memoryType is array(0 to (2**AddrBits)-1) of std_logic_vector(<?=elem.Bits-1?> downto 0);
     signal memory : memoryType;
     signal rData : std_logic_vector (<?=elem.Bits-1?> downto 0) := (others => '0');
 begin
