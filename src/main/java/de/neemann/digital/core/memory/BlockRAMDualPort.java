@@ -17,7 +17,7 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * A memory which allows to overwrite single bytes.
+ * A synchronized read memory which can be synthesised by using block ram.
  */
 public class BlockRAMDualPort extends Node implements Element, RAMInterface {
 
