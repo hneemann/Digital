@@ -170,7 +170,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 .add(new LibraryNode(Lang.get("lib_memory"))
                         .add(new LibraryNode(Lang.get("lib_ram"))
                                 .add(RAMDualPort.DESCRIPTION)
-                                .add(BlockRAMDualPortMasked.DESCRIPTION)
+                                .add(BlockRAMDualPort.DESCRIPTION)
                                 .add(RAMSinglePort.DESCRIPTION)
                                 .add(RAMSinglePortSel.DESCRIPTION)
                                 .add(RegisterFile.DESCRIPTION)

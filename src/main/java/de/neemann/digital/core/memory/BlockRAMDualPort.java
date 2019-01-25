@@ -5,40 +5,26 @@
  */
 package de.neemann.digital.core.memory;
 
-import de.neemann.digital.core.*;
+import de.neemann.digital.core.Node;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A memory which allows to overwrite single bytes.
  */
-public class BlockRAMDualPortMasked extends Node implements Element, RAMInterface {
-
-    private static final long[] MASK_TABLE = new long[256];
-
-    static {
-        for (int i = 0; i < 256; i++) {
-            long m = 0;
-            long bits = 0xff;
-            for (int b = 0; b < 8; b++) {
-                if ((i & (1 << b)) != 0)
-                    m = m | bits;
-                bits = bits << 8;
-            }
-            MASK_TABLE[i] = m;
-        }
-    }
+public class BlockRAMDualPort extends Node implements Element, RAMInterface {
 
     /**
      * The RAMs {@link ElementTypeDescription}
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(BlockRAMDualPortMasked.class,
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(BlockRAMDualPort.class,
             input("A"),
             input("Din"),
             input("str"),
@@ -56,8 +42,7 @@ public class BlockRAMDualPortMasked extends Node implements Element, RAMInterfac
     private final String label;
     private final int size;
     private final boolean isProgramMemory;
-    private final int maskBits;
-    private ObservableValue maskVal;
+    private ObservableValue str;
     private ObservableValue addrIn;
     private ObservableValue dataIn;
     private ObservableValue clkIn;
@@ -69,7 +54,7 @@ public class BlockRAMDualPortMasked extends Node implements Element, RAMInterfac
      *
      * @param attr the elements attributes
      */
-    public BlockRAMDualPortMasked(ElementAttributes attr) {
+    public BlockRAMDualPort(ElementAttributes attr) {
         super(true);
         bits = attr.get(Keys.BITS);
         output = new ObservableValue("D", bits).setPinDescription(DESCRIPTION);
@@ -78,7 +63,6 @@ public class BlockRAMDualPortMasked extends Node implements Element, RAMInterfac
         memory = new DataField(size);
         label = attr.getCleanLabel();
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
-        maskBits = Math.min(8, (getDataBits() - 1) / 8 + 1);
     }
 
 
@@ -86,14 +70,8 @@ public class BlockRAMDualPortMasked extends Node implements Element, RAMInterfac
     public void setInputs(ObservableValues inputs) throws NodeException {
         addrIn = inputs.get(0).checkBits(addrBits, this);
         dataIn = inputs.get(1).checkBits(bits, this);
-        maskVal = inputs.get(2).checkBits(maskBits, this);
+        str = inputs.get(2).checkBits(1, this);
         clkIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
-    }
-
-    @Override
-    public void init(Model model) throws NodeException {
-        if (bits % 8 != 0)
-            throw new NodeException(Lang.get("err_bitsMustBeDividableBy8"), this, -1, null);
     }
 
     @Override
@@ -102,24 +80,10 @@ public class BlockRAMDualPortMasked extends Node implements Element, RAMInterfac
         if (!lastClk && clk) {
             int addr = (int) addrIn.getValue();
             outputVal = memory.getDataWord(addr);
-            int maskVal = (int) this.maskVal.getValue();
-            if (maskVal != 0) {
-                long wData = dataIn.getValue();
-                writeDataToMemory(addr, wData, maskVal);
-            }
+            if (str.getBool())
+                memory.setData(addr, dataIn.getValue());
         }
         lastClk = clk;
-    }
-
-    private void writeDataToMemory(int addr, long data, int maskVal) {
-        DataField memory = getMemory();
-        long old = memory.getDataWord(addr);
-
-        long mask = MASK_TABLE[maskVal];
-        data = data & mask;
-        old = old & ~mask;
-
-        memory.setData(addr, data | old);
     }
 
     @Override
@@ -128,7 +92,7 @@ public class BlockRAMDualPortMasked extends Node implements Element, RAMInterfac
     }
 
     @Override
-    public ObservableValues getOutputs() throws PinException {
+    public ObservableValues getOutputs() {
         return output.asList();
     }
 

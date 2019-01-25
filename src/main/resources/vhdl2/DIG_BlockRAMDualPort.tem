@@ -1,0 +1,32 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+entity DIG_BlockRAMDualPort is
+  generic (
+    Bits : integer;       <? vhdl.registerGeneric("Bits");?>
+    AddrBits : integer ); <? vhdl.registerGeneric("AddrBits");?>
+  port (
+    D: out std_logic_vector ((Bits-1) downto 0);
+    A: in std_logic_vector ((AddrBits-1) downto 0);
+    Din: in std_logic_vector ((Bits-1) downto 0);
+    str: in std_logic;
+    C: in std_logic );
+end DIG_BlockRAMDualPort;
+
+architecture Behavioral of DIG_BlockRAMDualPort is
+    type memoryType is array(0 to (2**AddrBits)-1) of std_logic_vector((Bits-1) downto 0);
+    signal memory : memoryType;
+    signal rData : std_logic_vector ((Bits-1) downto 0) := (others => '0');
+begin
+  process ( C )
+  begin
+    if rising_edge(C) then
+      rData <= memory(to_integer(unsigned(A)));
+      if str='1' then
+        memory(to_integer(unsigned(A))) <= Din;
+      end if;
+    end if;
+  end process;
+  D <= rData;
+end Behavioral;

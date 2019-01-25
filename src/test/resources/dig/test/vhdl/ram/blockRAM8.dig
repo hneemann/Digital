@@ -96,7 +96,7 @@ C 1 0     0      0xf0
       <pos x="320" y="320"/>
     </visualElement>
     <visualElement>
-      <elementName>BlockRAMDualPortMasked</elementName>
+      <elementName>BlockRAMDualPort</elementName>
       <elementAttributes>
         <entry>
           <string>AddrBits</string>
