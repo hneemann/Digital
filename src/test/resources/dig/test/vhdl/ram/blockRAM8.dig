@@ -60,7 +60,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>mask</string>
+          <string>str</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="240"/>
@@ -71,7 +71,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>C A Din   mask   D
+            <dataString>C A Din   str    D
 
 # no write at all, mask is zero
 C 0 0     1      x
