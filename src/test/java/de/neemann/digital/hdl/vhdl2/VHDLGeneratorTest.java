@@ -28,7 +28,8 @@ public class VHDLGeneratorTest extends TestCase {
                 "USE ieee.std_logic_1164.all;\n" +
                 "\n" +
                 "entity DIG_D_FF is\n" +
-                "  \n" +
+                "  generic (\n" +
+                "    Default: std_logic ); \n" +
                 "  port ( D  : in std_logic;\n" +
                 "         C  : in std_logic;\n" +
                 "         Q  : out std_logic;\n" +
@@ -36,7 +37,7 @@ public class VHDLGeneratorTest extends TestCase {
                 "end DIG_D_FF;\n" +
                 "\n" +
                 "architecture Behavioral of DIG_D_FF is\n" +
-                "   signal state : std_logic := '0';\n" +
+                "   signal state : std_logic := Default;\n" +
                 "begin\n" +
                 "   Q    <= state;\n" +
                 "   notQ <= NOT( state );\n" +
@@ -71,9 +72,11 @@ public class VHDLGeneratorTest extends TestCase {
                 "  signal Z_temp: std_logic;\n" +
                 "begin\n" +
                 "  Y_temp <= (B OR NOT C);\n" +
-                "  Z_temp <= NOT A;\n"+
+                "  Z_temp <= NOT A;\n" +
                 "  s0 <= ((A OR C) AND (Z_temp OR C) AND '1' AND NOT (B OR C) AND Y_temp);\n" +
                 "  gate0: entity work.DIG_D_FF\n" +
+                "    generic map (\n" +
+                "      Default => '0')\n" +
                 "    port map (\n" +
                 "      D => s0,\n" +
                 "      C => '1',\n" +

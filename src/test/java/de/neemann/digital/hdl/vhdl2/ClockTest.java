@@ -66,7 +66,8 @@ public class ClockTest extends TestCase {
                 "USE ieee.std_logic_1164.all;\n" +
                 "\n" +
                 "entity DIG_D_FF is\n" +
-                "  \n" +
+                "  generic (\n" +
+                "    Default: std_logic ); \n" +
                 "  port ( D  : in std_logic;\n" +
                 "         C  : in std_logic;\n" +
                 "         Q  : out std_logic;\n" +
@@ -74,7 +75,7 @@ public class ClockTest extends TestCase {
                 "end DIG_D_FF;\n" +
                 "\n" +
                 "architecture Behavioral of DIG_D_FF is\n" +
-                "   signal state : std_logic := '0';\n" +
+                "   signal state : std_logic := Default;\n" +
                 "begin\n" +
                 "   Q    <= state;\n" +
                 "   notQ <= NOT( state );\n" +
@@ -109,6 +110,8 @@ public class ClockTest extends TestCase {
                 "      cin => C,\n" +
                 "      cout => s0);\n" +
                 "  gate1: entity work.DIG_D_FF\n" +
+                "    generic map (\n" +
+                "      Default => '0')\n" +
                 "    port map (\n" +
                 "      D => A,\n" +
                 "      C => s0,\n" +
@@ -229,7 +232,8 @@ public class ClockTest extends TestCase {
                 "USE ieee.std_logic_1164.all;\n" +
                 "\n" +
                 "entity DIG_D_FF is\n" +
-                "  \n" +
+                "  generic (\n" +
+                "    Default: std_logic ); \n" +
                 "  port ( D  : in std_logic;\n" +
                 "         C  : in std_logic;\n" +
                 "         Q  : out std_logic;\n" +
@@ -237,7 +241,7 @@ public class ClockTest extends TestCase {
                 "end DIG_D_FF;\n" +
                 "\n" +
                 "architecture Behavioral of DIG_D_FF is\n" +
-                "   signal state : std_logic := '0';\n" +
+                "   signal state : std_logic := Default;\n" +
                 "begin\n" +
                 "   Q    <= state;\n" +
                 "   notQ <= NOT( state );\n" +
@@ -276,6 +280,8 @@ public class ClockTest extends TestCase {
                 "      cin => C,\n" +
                 "      cout => s0);\n" +
                 "  gate1: entity work.DIG_D_FF\n" +
+                "    generic map (\n" +
+                "      Default => '0')\n" +
                 "    port map (\n" +
                 "      D => A,\n" +
                 "      C => s0,\n" +

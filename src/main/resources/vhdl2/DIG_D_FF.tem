@@ -3,11 +3,17 @@ USE ieee.std_logic_1164.all;
 <?
   if (elem.Bits=1)
       entityName:="DIG_D_FF";
-  else
+  else {
       entityName:="DIG_D_FF_BUS";
+      print("use ieee.numeric_std.all;");
+  }
 ?>
 entity <?=entityName?> is
-  <?if (elem.Bits>1) {?>generic ( Bits: integer );<? vhdl.registerGeneric("Bits"); }?>
+  generic (<?if (elem.Bits>1) {?>
+    Default: integer; <? vhdl.registerGeneric("Default");?>
+    Bits: integer );<? vhdl.registerGeneric("Bits"); }
+  else {?>
+    Default: std_logic ); <? vhdl.registerGeneric("Default", "std_logic");}?>
   port ( D  : in <?= vhdl.genericType(elem.Bits)?>;
          C  : in std_logic;
          Q  : out <?= vhdl.genericType(elem.Bits)?>;
@@ -15,7 +21,7 @@ entity <?=entityName?> is
 end <?=entityName?>;
 
 architecture Behavioral of <?=entityName?> is
-   signal state : <?= vhdl.genericType(elem.Bits)?> := <?= vhdl.zero(elem.Bits)?>;
+   signal state : <?= vhdl.genericType(elem.Bits)?> := <?if (elem.Bits>1) {?>std_logic_vector(to_unsigned(Default, Bits))<?} else {?>Default<? }?>;
 begin
    Q    <= state;
    notQ <= NOT( state );
