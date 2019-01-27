@@ -50,7 +50,7 @@ public class Transition extends Movable<Transition> {
      */
     void calcForce(List<State> states, List<Transition> transitions) {
         float preferredDist = Math.max(fromState.getVisualRadius(), toState.getVisualRadius());
-        calcForce(preferredDist, states, transitions);
+        calcForce(preferredDist * 5, states, transitions);
     }
 
     /**
