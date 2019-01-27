@@ -2,62 +2,66 @@
 <fsm>
   <states>
     <state>
+      <values>R=1</values>
       <position x="600.0" y="180.0"/>
       <number>0</number>
       <name>Red</name>
       <radius>70</radius>
-      <values>R=1</values>
+      <isInitial>true</isInitial>
     </state>
     <state>
+      <values>R=1,Y=1</values>
       <position x="780.0" y="360.0"/>
       <number>1</number>
       <name>Red/Yellow</name>
       <radius>70</radius>
-      <values>R=1,Y=1</values>
+      <isInitial>false</isInitial>
     </state>
     <state>
+      <values>G=1</values>
       <position x="600.0" y="540.0"/>
       <number>2</number>
       <name>Green</name>
       <radius>70</radius>
-      <values>G=1</values>
+      <isInitial>false</isInitial>
     </state>
     <state>
+      <values>Y=1</values>
       <position x="420.0" y="360.0"/>
       <number>3</number>
       <name>Yellow</name>
       <radius>70</radius>
-      <values>Y=1</values>
+      <isInitial>false</isInitial>
     </state>
   </states>
   <transitions>
     <transition>
-      <position x="743.5" y="216.5"/>
+      <values></values>
+      <position x="743.49994" y="216.50009"/>
       <fromState reference="../../../states/state"/>
       <toState reference="../../../states/state[2]"/>
       <condition></condition>
-      <values></values>
     </transition>
     <transition>
+      <values></values>
       <position x="742.5" y="502.5"/>
       <fromState reference="../../../states/state[2]"/>
       <toState reference="../../../states/state[3]"/>
       <condition></condition>
-      <values></values>
     </transition>
     <transition>
+      <values></values>
       <position x="459.0" y="501.0"/>
       <fromState reference="../../../states/state[3]"/>
       <toState reference="../../../states/state[4]"/>
       <condition></condition>
-      <values></values>
     </transition>
     <transition>
+      <values></values>
       <position x="463.5" y="223.5"/>
       <fromState reference="../../../states/state[4]"/>
       <toState reference="../../../states/state"/>
       <condition></condition>
-      <values></values>
     </transition>
   </transitions>
 </fsm>

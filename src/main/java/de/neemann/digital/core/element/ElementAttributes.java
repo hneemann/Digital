@@ -58,7 +58,7 @@ public class ElementAttributes implements HGSMap {
                 return key.getDefault();
 
             // needed to fix files with int constants!
-            if ((key == Keys.VALUE) && value instanceof Integer) {
+            if ((key == Keys.VALUE || key == Keys.DEFAULT) && value instanceof Integer) {
                 value = (VALUE) Long.valueOf(((Integer) value).longValue());
                 attributes.put(key.getKey(), value);
             }

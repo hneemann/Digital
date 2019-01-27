@@ -50,8 +50,6 @@ public class Transition extends Movable<Transition> {
      */
     void calcForce(List<State> states, List<Transition> transitions) {
         float preferredDist = Math.max(fromState.getVisualRadius(), toState.getVisualRadius());
-        if (!fromState.isInitialState() && !toState.isInitialState())
-            preferredDist *= 5;
         calcForce(preferredDist, states, transitions);
     }
 
@@ -77,19 +75,13 @@ public class Transition extends Movable<Transition> {
         VectorFloat center = fromState.getPos().add(toState.getPos()).mul(0.5f);
         addAttractiveTo(center, 1);
 
-        if (!isInitialTransition()) {
-            for (State s : states)
-                if ((s == fromState) == (s == toState))
-                    addRepulsive(s.getPos(), 2000);
+        for (State s : states)
+            if ((s == fromState) == (s == toState))
+                addRepulsive(s.getPos(), 2000);
 
-            for (Transition t : transitions)
-                if (t != this)
-                    addRepulsive(t.getPos(), 1500);
-        }
-    }
-
-    private boolean isInitialTransition() {
-        return getFsm() != null && getFsm().isInitial(this);
+        for (Transition t : transitions)
+            if (t != this)
+                addRepulsive(t.getPos(), 1500);
     }
 
 
@@ -218,8 +210,6 @@ public class Transition extends Movable<Transition> {
             this.condition = condition;
             wasModified(Property.CONDITION);
             conditionExpression = null;
-            if (getFsm() != null)
-                getFsm().resetInitInitialization();
         }
     }
 

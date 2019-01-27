@@ -7,6 +7,7 @@
       <number>0</number>
       <name>0</name>
       <radius>90</radius>
+      <isInitial>true</isInitial>
     </state>
     <state>
       <values>S=0000110</values>
@@ -14,6 +15,7 @@
       <number>1</number>
       <name>1</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>S=1011011</values>
@@ -21,6 +23,7 @@
       <number>2</number>
       <name>2</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>S=1001111</values>
@@ -28,6 +31,7 @@
       <number>3</number>
       <name>3</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>S=1100110</values>
@@ -35,6 +39,7 @@
       <number>4</number>
       <name>4</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>S=1101101</values>
@@ -42,6 +47,7 @@
       <number>5</number>
       <name>5</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>S=1111101</values>
@@ -49,6 +55,7 @@
       <number>6</number>
       <name>6</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>S=0000111</values>
@@ -56,6 +63,7 @@
       <number>7</number>
       <name>7</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>S=1111111</values>
@@ -63,6 +71,7 @@
       <number>8</number>
       <name>8</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>S=1101111</values>
@@ -70,12 +79,13 @@
       <number>9</number>
       <name>9</name>
       <radius>90</radius>
+      <isInitial>false</isInitial>
     </state>
   </states>
   <transitions>
     <transition>
       <values></values>
-      <position x="212.4634" y="-637.39014"/>
+      <position x="212.46338" y="-637.39014"/>
       <fromState reference="../../../states/state"/>
       <toState reference="../../../states/state[2]"/>
       <condition>en=1 &amp; clr=0</condition>
@@ -145,14 +155,14 @@
     </transition>
     <transition>
       <values></values>
-      <position x="181.09341" y="-543.2802"/>
+      <position x="181.0934" y="-543.2802"/>
       <fromState reference="../../../states/state[2]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>
     </transition>
     <transition>
       <values></values>
-      <position x="241.62164" y="-353.51355"/>
+      <position x="241.62161" y="-353.51352"/>
       <fromState reference="../../../states/state[3]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>
@@ -166,7 +176,7 @@
     </transition>
     <transition>
       <values></values>
-      <position x="171.23242" y="-57.077477"/>
+      <position x="171.23242" y="-57.07749"/>
       <fromState reference="../../../states/state[5]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>
@@ -180,28 +190,28 @@
     </transition>
     <transition>
       <values></values>
-      <position x="-171.24725" y="-57.082417"/>
+      <position x="-171.24725" y="-57.082436"/>
       <fromState reference="../../../states/state[7]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>
     </transition>
     <transition>
       <values></values>
-      <position x="-255.41997" y="-199.90613"/>
+      <position x="-255.42" y="-199.90616"/>
       <fromState reference="../../../states/state[8]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>
     </transition>
     <transition>
       <values></values>
-      <position x="-241.6128" y="-353.50217"/>
+      <position x="-241.61276" y="-353.50214"/>
       <fromState reference="../../../states/state[9]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>
     </transition>
     <transition>
       <values></values>
-      <position x="-181.08626" y="-543.2587"/>
+      <position x="-181.08624" y="-543.2587"/>
       <fromState reference="../../../states/state[10]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>

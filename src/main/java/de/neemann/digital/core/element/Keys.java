@@ -177,8 +177,8 @@ public final class Keys {
     /**
      * The default value of elements
      */
-    public static final Key<Integer> DEFAULT
-            = new Key<>("Default", 0).allowGroupEdit().setSecondary();
+    public static final Key<Long> DEFAULT
+            = new Key<>("Default", 0L).allowGroupEdit().setSecondary();
 
     /**
      * The default value of inputs

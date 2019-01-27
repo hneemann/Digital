@@ -26,6 +26,7 @@ public class TransitionTableCreator {
     private final HashMap<Movable, TreeMap<String, Integer>> outputValues;
     private final ArrayList<Signal> inputSignals;
     private final ArrayList<Signal> outputSignals;
+    private final int initState;
     private TruthTable truthTable;
     private int rowsPerState;
     private ArrayList<Variable> inVars;
@@ -38,7 +39,7 @@ public class TransitionTableCreator {
      *
      * @param fsm the fsm
      */
-    TransitionTableCreator(FSM fsm) {
+    TransitionTableCreator(FSM fsm) throws FiniteStateMachineException {
         this(fsm, null);
     }
 
@@ -48,9 +49,10 @@ public class TransitionTableCreator {
      * @param fsm     the fsm
      * @param creator the creating frame
      */
-    TransitionTableCreator(FSM fsm, FSMFrame creator) {
+    TransitionTableCreator(FSM fsm, FSMFrame creator) throws FiniteStateMachineException {
         this.states = fsm.getStates();
         this.transitions = fsm.getTransitions();
+        this.initState = fsm.getInitState();
         outputValues = new HashMap<>();
         modelAnalyserInfo = new ModelAnalyserInfo(null);
         modelAnalyserInfo.setMainCreatedNotification(new FSMStateInfo(fsm.getFile(), creator));
@@ -79,8 +81,12 @@ public class TransitionTableCreator {
 
         // create state variables
         ArrayList<Variable> vars = new ArrayList<>();
-        for (int i = stateBits - 1; i >= 0; i--)
-            vars.add(new Variable("Q" + i + "_n"));
+        for (int i = stateBits - 1; i >= 0; i--) {
+            final Variable var = new Variable("Q" + i + "_n");
+            vars.add(var);
+            boolean initVal = (initState & (1 << i)) != 0;
+            modelAnalyserInfo.setSequentialInitValue(var.getIdentifier(), initVal ? 1 : 0);
+        }
 
         truthTable = new TruthTable(vars);
 
@@ -217,9 +223,6 @@ public class TransitionTableCreator {
                 throw new FiniteStateMachineException(Lang.get("err_fsmNumberUsedTwice_N", n));
             numbers.add(n);
         }
-
-        if (!numbers.contains(0))
-            throw new FiniteStateMachineException(Lang.get("err_fsmNoInitialState"));
 
         int n = 1;
         while ((1 << n) <= maxNumber) n++;

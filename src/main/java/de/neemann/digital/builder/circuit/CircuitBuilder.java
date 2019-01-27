@@ -134,6 +134,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     @Override
     public CircuitBuilder addSequential(String name, Expression expression) throws BuilderException {
         boolean useDff = true;
+        long initValue = 0;
+        if (mai != null)
+            initValue = mai.getSequentialInitValue(name);
+
         if (useJKff) {
             try {
                 DetermineJKStateMachine jk = new DetermineJKStateMachine(name, expression);
@@ -142,7 +146,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                     boolean isJequalK = new Equals(jk.getSimplifiedJ(), jk.getSimplifiedK()).isEqual();
                     if (isJequalK) {
                         Fragment frJ = createFragment(jk.getSimplifiedJ());
-                        FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory).ignoreInput(1).setAttr(Keys.LABEL, name);
+                        FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory)
+                                .ignoreInput(1)
+                                .setAttr(Keys.LABEL, name)
+                                .setAttr(Keys.DEFAULT, initValue);
                         flipflops.add(ff);
                         FragmentSameInValue fsv = new FragmentSameInValue(ff);
                         FragmentExpression fe = new FragmentExpression(fsv, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
@@ -150,7 +157,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                     } else {
                         Fragment frJ = createFragment(jk.getSimplifiedJ());
                         Fragment frK = createFragment(jk.getSimplifiedK());
-                        FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory).ignoreInput(1).setAttr(Keys.LABEL, name);
+                        FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory)
+                                .ignoreInput(1)
+                                .setAttr(Keys.LABEL, name)
+                                .setAttr(Keys.DEFAULT, initValue);
                         flipflops.add(ff);
                         FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
                         fragments.add(new FragmentExpression(Arrays.asList(frJ, frK), fe));
@@ -166,7 +176,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             if (expression instanceof Constant)
                 fe = new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name);
             else {
-                FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
+                FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory)
+                        .setAttr(Keys.LABEL, name)
+                        .setAttr(Keys.DEFAULT, initValue);
                 flipflops.add(ff);
                 fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
             }

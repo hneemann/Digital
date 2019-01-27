@@ -1802,6 +1802,8 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="menu_fsm_Help_tt">Hilfe zur Bedienung des FSM Editors.</string>
     <string name="key_stateNum">Zustandsnummer</string>
     <string name="key_stateNum_tt">Die Nummer welche diesen Zustand representiert.</string>
+    <string name="key_isInitialState">Startzustand</string>
+    <string name="key_isInitialState_tt">Wenn gesetzt, ist dies der Initialzustand, in welchem der Automat gestartet wird.</string>
     <string name="key_stateValues">Ausgänge</string>
     <string name="key_stateValues_tt">Legt Ausgangswerte fest.
         Mit einfachen Zuweisungen wie "A=1, B=0" können Ausgänge gesetzt werden.

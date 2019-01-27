@@ -44,7 +44,7 @@ public class DemultiplexerTest extends TestCase {
         Demultiplexer demul = model.add(new Demultiplexer(
                 new ElementAttributes()
                         .set(Keys.BITS, 4)
-                        .set(Keys.DEFAULT, 7)
+                        .set(Keys.DEFAULT, 7L)
                         .set(Keys.SELECTOR_BITS, 2)));
         demul.setInputs(ovs(sel, a));
 

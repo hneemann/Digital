@@ -1784,6 +1784,8 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="err_fsmErrorInCondition_N">Error in condition ''{0}''!</string>
     <string name="key_stateNum">State Number</string>
     <string name="key_stateNum_tt">The number which represents this state.</string>
+    <string name="key_isInitialState">Initial State</string>
+    <string name="key_isInitialState_tt">If set, this state is the initial state.</string>
     <string name="key_stateValues">Outputs</string>
     <string name="key_stateValues_tt">Defines the output values.
         With simple assignments like "A=1, B=0" outputs can be set.

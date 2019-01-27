@@ -47,8 +47,6 @@ public class FSM {
     private ArrayList<Transition> transitions;
     private transient boolean modified;
     private transient ModifiedListener modifiedListener;
-    private transient boolean isInitialChecked;
-    private transient Transition initialTransition;
     private transient int activeState = -1;
     private transient File file;
     private transient MovingState state = MovingState.STOP;
@@ -183,9 +181,10 @@ public class FSM {
     public FSM add(State state) {
         if (state.getNumber() < 0)
             state.setNumber(states.size());
+        if (states.isEmpty())
+            state.setInitial(true);
         state.setFSM(this);
         states.add(state);
-        resetInitInitialization();
         return this;
     }
 
@@ -198,7 +197,6 @@ public class FSM {
     public FSM add(Transition transition) {
         transitions.add(transition);
         transition.setFSM(this);
-        resetInitInitialization();
         return this;
     }
 
@@ -295,44 +293,6 @@ public class FSM {
             t.drawTo(gr);
     }
 
-    private void checkInitState() {
-        initialTransition = null;
-        isInitialChecked = true;
-
-        int count = 0;
-        Transition found = null;
-        for (Transition t : transitions) {
-            if (t.getStartState().getNumber() == 0) {
-                count++;
-                found = t;
-            }
-            if (t.getTargetState().getNumber() == 0)
-                return;
-        }
-        try {
-            if (count == 1 && !found.hasCondition())
-                initialTransition = found;
-        } catch (FiniteStateMachineException e) {
-            // ignore
-        }
-    }
-
-    void resetInitInitialization() {
-        isInitialChecked = false;
-    }
-
-    boolean isInitial(State state) {
-        if (!isInitialChecked)
-            checkInitState();
-        return initialTransition != null && state.getNumber() == 0;
-    }
-
-    boolean isInitial(Transition transition) {
-        if (!isInitialChecked)
-            checkInitState();
-        return transition == initialTransition;
-    }
-
     /**
      * Moved the elements
      *
@@ -391,6 +351,25 @@ public class FSM {
     }
 
     /**
+     * @return the initial state
+     * @throws FiniteStateMachineException FiniteStateMachineException
+     */
+    public int getInitState() throws FiniteStateMachineException {
+        for (State s : states)
+            if (s.isInitial())
+                return s.getNumber();
+        throw new FiniteStateMachineException(Lang.get("err_fsmNoInitialState"));
+    }
+
+    /**
+     * Remove initial state
+     */
+    public void clearInitial() {
+        for (State s : states)
+            s.setInitial(false);
+    }
+
+    /**
      * Returns the element at the given position
      *
      * @param pos the position
@@ -439,7 +418,6 @@ public class FSM {
     public void remove(Transition transition) {
         transitions.remove(transition);
         wasModified(transition, Movable.Property.REMOVED);
-        resetInitInitialization();
     }
 
     /**
@@ -451,7 +429,6 @@ public class FSM {
         states.remove(state);
         transitions.removeIf(t -> t.getStartState() == state || t.getTargetState() == state);
         wasModified(state, Movable.Property.REMOVED);
-        resetInitInitialization();
     }
 
     /**

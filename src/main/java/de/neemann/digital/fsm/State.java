@@ -25,6 +25,7 @@ public class State extends Movable<State> {
     private int number = -1;
     private String name;
     private int radius;
+    private boolean isInitial;
 
     /**
      * Creates a new state
@@ -86,50 +87,35 @@ public class State extends Movable<State> {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
-        if (isInitialState()) {
-            VectorInterface rad = new Vector(INIT_RADIUS, INIT_RADIUS);
-            gr.drawCircle(getPos().sub(rad), getPos().add(rad), Style.FILLED);
-        } else {
-            Style style = Style.NORMAL;
-            if (getFsm() != null)
-                if (getFsm().getActiveState() == number)
-                    style = Style.HIGHLIGHT;
+        Style style = Style.NORMAL;
+        if (getFsm() != null)
+            if (getFsm().getActiveState() == number)
+                style = Style.HIGHLIGHT;
 
-            if (number == 0)
-                style = style.deriveStyle(style.getThickness() * 2, false, style.getColor());
+        if (isInitial)
+            style = style.deriveStyle(style.getThickness() * 2, false, style.getColor());
 
-            VectorInterface rad = new Vector(radius, radius);
-            gr.drawCircle(getPos().sub(rad), getPos().add(rad), style);
+        VectorInterface rad = new Vector(radius, radius);
+        gr.drawCircle(getPos().sub(rad), getPos().add(rad), style);
 
-            Vector delta = new Vector(0, Style.NORMAL.getFontSize());
-            VectorFloat pos = getPos().add(delta.mul(-1));
+        Vector delta = new Vector(0, Style.NORMAL.getFontSize());
+        VectorFloat pos = getPos().add(delta.mul(-1));
 
-            gr.drawText(pos, pos.add(new Vector(1, 0)), Integer.toString(number), Orientation.CENTERCENTER, Style.NORMAL);
+        gr.drawText(pos, pos.add(new Vector(1, 0)), Integer.toString(number), Orientation.CENTERCENTER, Style.NORMAL);
+        pos = pos.add(delta);
+        gr.drawText(pos, pos.add(new Vector(1, 0)), name, Orientation.CENTERCENTER, Style.NORMAL);
+
+        if (getValues() != null && getValues().length() > 0) {
             pos = pos.add(delta);
-            gr.drawText(pos, pos.add(new Vector(1, 0)), name, Orientation.CENTERCENTER, Style.NORMAL);
-
-            if (getValues() != null && getValues().length() > 0) {
-                pos = pos.add(delta);
-                gr.drawText(pos, pos.add(new Vector(1, 0)), getValues(), Orientation.CENTERCENTER, Style.INOUT);
-            }
+            gr.drawText(pos, pos.add(new Vector(1, 0)), getValues(), Orientation.CENTERCENTER, Style.INOUT);
         }
-    }
-
-    /**
-     * @return true if this is a initial (small black) state
-     */
-    boolean isInitialState() {
-        return getFsm() != null && getFsm().isInitial(this);
     }
 
     /**
      * @return the radius of the state
      */
     public int getVisualRadius() {
-        if (isInitialState())
-            return INIT_RADIUS;
-        else
-            return radius;
+        return radius;
     }
 
     /**
@@ -158,8 +144,6 @@ public class State extends Movable<State> {
         if (this.number != number) {
             this.number = number;
             wasModified(Property.NUMBER);
-            if (getFsm() != null)
-                getFsm().resetInitInitialization();
         }
         return this;
     }
@@ -201,4 +185,27 @@ public class State extends Movable<State> {
         return this;
     }
 
+    /**
+     * @return true if this is the initial state
+     */
+    public boolean isInitial() {
+        return isInitial;
+    }
+
+    /**
+     * Sets this state as the initial state.
+     *
+     * @param isInitial true is this is the initial state
+     */
+    public void setInitial(boolean isInitial) {
+        if (isInitial)
+            if (getFsm() != null)
+                getFsm().clearInitial();
+
+        if (this.isInitial != isInitial) {
+            this.isInitial = isInitial;
+            wasModified(Property.INITIAL);
+        }
+
+    }
 }

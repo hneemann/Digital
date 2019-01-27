@@ -20,6 +20,7 @@ public class ModelAnalyserInfo {
     private final String clockPin;
     private final HashMap<String, ArrayList<String>> inputBusMap;
     private final HashMap<String, ArrayList<String>> outputBusMap;
+    private final HashMap<String, Long> initValueMap;
     private TreeMap<String, String> pins;
     private ArrayList<Signal> inputs;
     private ArrayList<Signal> outputs;
@@ -39,6 +40,8 @@ public class ModelAnalyserInfo {
 
         inputBusMap = new HashMap<>();
         outputBusMap = new HashMap<>();
+
+        initValueMap = new HashMap<>();
     }
 
     /**
@@ -144,4 +147,28 @@ public class ModelAnalyserInfo {
     public Main.CreatedNotification getMainCreatedNotification() {
         return mainCreatedNotification;
     }
+
+    /**
+     * Gets the init value of a sequential state machine
+     *
+     * @param name the name of the state variable
+     * @return the init value
+     */
+    public long getSequentialInitValue(String name) {
+        final Long init = initValueMap.get(name);
+        if (init == null)
+            return 0;
+        return init;
+    }
+
+    /**
+     * Sets a init value of a sequential state machine
+     *
+     * @param name  state variable
+     * @param value initial state
+     */
+    public void setSequentialInitValue(String name, long value) {
+        initValueMap.put(name, value);
+    }
+
 }

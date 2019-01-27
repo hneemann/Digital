@@ -123,6 +123,8 @@ public class TransitionTableCreatorTest extends TestCase {
         FSM fsm = new FSM(a, b, c)
                 .transition(a, b, "Run")
                 .transition(b, c, "Run");
+
+        a.setInitial(false);
         try {
             new TransitionTableCreator(fsm).create();
             fail();

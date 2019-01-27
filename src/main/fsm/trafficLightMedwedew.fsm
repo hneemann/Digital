@@ -7,6 +7,7 @@
       <number>1</number>
       <name>Red</name>
       <radius>70</radius>
+      <isInitial>true</isInitial>
     </state>
     <state>
       <values>R=1,Y=1</values>
@@ -14,6 +15,7 @@
       <number>3</number>
       <name>Red/Yellow</name>
       <radius>70</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>G=1</values>
@@ -21,6 +23,7 @@
       <number>4</number>
       <name>Green</name>
       <radius>70</radius>
+      <isInitial>false</isInitial>
     </state>
     <state>
       <values>Y=1</values>
@@ -28,13 +31,7 @@
       <number>2</number>
       <name>Yellow</name>
       <radius>70</radius>
-    </state>
-    <state>
-      <values></values>
-      <position x="420.0" y="120.0"/>
-      <number>0</number>
-      <name>init</name>
-      <radius>70</radius>
+      <isInitial>false</isInitial>
     </state>
   </states>
   <transitions>
@@ -63,13 +60,6 @@
       <values></values>
       <position x="463.5" y="223.5"/>
       <fromState reference="../../../states/state[4]"/>
-      <toState reference="../../../states/state"/>
-      <condition></condition>
-    </transition>
-    <transition>
-      <values></values>
-      <position x="487.4829" y="138.4943"/>
-      <fromState reference="../../../states/state[5]"/>
       <toState reference="../../../states/state"/>
       <condition></condition>
     </transition>

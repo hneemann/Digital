@@ -14,7 +14,7 @@ import de.neemann.digital.draw.graphics.VectorFloat;
  */
 public class Movable<A extends Movable> {
 
-    enum Property {POS, REMOVED, CONDITION, NAME, NUMBER, MOUSEPOS, VALUES}
+    enum Property {POS, REMOVED, CONDITION, NAME, NUMBER, MOUSEPOS, VALUES, INITIAL}
 
     private static final float MASS = 50f;
     private static final float FRICTION = 0.8f;
