@@ -20,7 +20,6 @@ public class State extends Movable<State> {
 
     private static final int RASTER = 60;
     private static final float REACH = 2000;
-    private static final int INIT_RADIUS = 20;
 
     private int number = -1;
     private String name;
