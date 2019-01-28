@@ -6,12 +6,16 @@
 package de.neemann.digital.gui;
 
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.memory.RAMDualPort;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class ProgramMemoryLoaderTest extends TestCase {
@@ -45,12 +49,25 @@ public class ProgramMemoryLoaderTest extends TestCase {
         RAMDualPort ram0 = ramList.get(0);
         RAMDualPort ram1 = ramList.get(1);
 
-        assertEquals("R0",ram0.getLabel());
-        assertEquals("R1",ram1.getLabel());
+        assertEquals("R0", ram0.getLabel());
+        assertEquals("R1", ram1.getLabel());
 
         assertEquals(0x55, ram0.getMemory().getDataWord(0));
         assertEquals(0xAA, ram1.getMemory().getDataWord(0));
         assertEquals(0x56, ram0.getMemory().getDataWord(1));
         assertEquals(0xAB, ram1.getMemory().getDataWord(1));
+    }
+
+    public void testSplitErr() throws PinException, NodeException, ElementNotFoundException, IOException {
+        ToBreakRunner runner = new ToBreakRunner("dig/testProgLoaderSplitErr1.dig", false);
+        Model model = runner.getModel();
+        File romHex = new File(Resources.getRoot(), "dig/testProgLoader.hex");
+
+        try {
+            new ProgramMemoryLoader(romHex).preInit(model);
+            fail();
+        } catch (NodeException e) {
+            assertTrue(true);
+        }
     }
 }

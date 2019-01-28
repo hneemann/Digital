@@ -979,6 +979,8 @@
     <string name="err_parsingSVG">Error while reading the SVG file.</string>
     <string name="err_morePinsDefinedInSVGAsNeeded">The SVG file contains pins that do not exist in the circuit.</string>
     <string name="err_allMemoriesNeedToHaveTheSameByteWidth">All memories into which data are to be loaded require the same bit width.</string>
+    <string name="err_ProgMemLabelsNotDifferent">If programs are to be loaded into several RAMs, all RAMs must have
+        different names. The lexical order then determines the order of the RAMs.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

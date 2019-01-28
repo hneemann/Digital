@@ -985,6 +985,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_parsingSVG">Fehler beim Laden der SVG-Datei.</string>
     <string name="err_morePinsDefinedInSVGAsNeeded">Die SVG-Datei enthält Pins, die es in der Schaltung nicht gibt.</string>
     <string name="err_allMemoriesNeedToHaveTheSameByteWidth">Alle Speicher in welche Daten geladen werden sollen, benötigen die selbe Bitbreite.</string>
+    <string name="err_ProgMemLabelsNotDifferent">Wenn Programme in mehrere RAMs geladen werden sollen, müssen alle RAMs
+        unterschiedliche Bezeichnungen haben. Die lexikalische Ordnung legt dann die Reihenfolge der RAMs fest.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

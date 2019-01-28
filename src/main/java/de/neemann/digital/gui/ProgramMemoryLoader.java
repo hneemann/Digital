@@ -48,7 +48,14 @@ public class ProgramMemoryLoader implements ModelModifier {
                     final ProgramMemory memory = (ProgramMemory) progMem.get(0);
                     memory.setProgramMemory(Importer.read(romHex, memory.getDataBits()));
                 default:
-                    progMem.sort(Comparator.comparing(n -> ((ProgramMemory) n).getLabel()));
+                    final Comparator<Node> comparator = Comparator.comparing(n -> ((ProgramMemory) n).getLabel());
+
+                    for (Node n : progMem)
+                        for (Node m : progMem)
+                            if ((n != m) && comparator.compare(n, m) == 0)
+                                throw new NodeException(Lang.get("err_ProgMemLabelsNotDifferent"));
+
+                    progMem.sort(comparator);
                     MultiValueArray.Builder builder = new MultiValueArray.Builder();
                     HashMap<ProgramMemory, DataField> memMap = new HashMap<>();
                     for (Node n : progMem) {
