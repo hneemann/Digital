@@ -1,11 +1,10 @@
 Release Notes
 
-
 HEAD, planned as v0.22
 - Improved the RAM/ROM data loader. Now binary files and Intel HEX files are
   supported.
-- A dual-port multi-byte memory has been added that allows single bytes to
-  be overwritten.
+- Added a RAM that can be synthesized on an FPGA using block RAM.
+- More consistent handling of initial states in the FSM editor.
 
 v0.21, released on 10. Dec 2018
 - Added a simple SVG importer to define custom shapes.
