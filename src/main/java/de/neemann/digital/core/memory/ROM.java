@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.core.memory.rom.ROMInterface;
 
 import java.io.File;
@@ -103,7 +104,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
     public void init(Model model) throws NodeException {
         if (autoLoad) {
             try {
-                data = DataFieldImporter.read(hexFile, dataBits);
+                data = Importer.read(hexFile, dataBits);
             } catch (IOException e) {
                 throw new NodeException(e.getMessage(), this, -1, null);
             }

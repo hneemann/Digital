@@ -15,11 +15,6 @@ public interface RAMInterface extends ProgramMemory {
     DataField getMemory();
 
     /**
-     * @return the name of the memory
-     */
-    String getLabel();
-
-    /**
      * @return the rams size
      */
     int getSize();

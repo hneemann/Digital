@@ -5,7 +5,7 @@
  */
 package de.neemann.digital.core.memory.importer;
 
-import de.neemann.digital.core.memory.DataFieldImporter;
+import de.neemann.digital.core.memory.DataField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,19 +17,33 @@ import java.io.IOException;
  * In this class the file format is determined by the file suffix.
  */
 public final class Importer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataFieldImporter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Importer.class);
 
     private Importer() {
     }
 
     /**
-     * Reads a file
+     * Reads the given file to a single data field.
+     *
+     * @param hexFile  the file to read
+     * @param dataBits the bits used in the data field
+     * @return the data field
+     * @throws IOException IOException
+     */
+    public static DataField read(File hexFile, int dataBits) throws IOException {
+        DataField df = new DataField(1024);
+        read(hexFile, new DataFieldValueArray(df, dataBits));
+        return df;
+    }
+
+    /**
+     * Reads a file to the given ValueArray
      *
      * @param file   the file to read
      * @param values the data destination
      * @throws IOException IOException
      */
-    public void read(File file, ValueArray values) throws IOException {
+    public static void read(File file, ValueArray values) throws IOException {
         String name = file.getName().toLowerCase();
         if (name.endsWith(".hex")) {
             try {

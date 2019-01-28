@@ -26,4 +26,9 @@ public interface ProgramMemory {
      * @return the data bits
      */
     int getDataBits();
+
+    /**
+     * @return the name of the memory
+     */
+    String getLabel();
 }

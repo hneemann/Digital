@@ -10,7 +10,7 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.memory.DataField;
-import de.neemann.digital.core.memory.DataFieldImporter;
+import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
@@ -135,7 +135,7 @@ public class DataEditor extends JDialog {
                     if (fc.showOpenDialog(DataEditor.this) == JFileChooser.APPROVE_OPTION) {
                         fileName = fc.getSelectedFile();
                         try {
-                            localDataField.setDataFrom(DataFieldImporter.read(fc.getSelectedFile(), dataBits));
+                            localDataField.setDataFrom(Importer.read(fc.getSelectedFile(), dataBits));
                             dm.fireEvent(new TableModelEvent(dm));
                         } catch (IOException e1) {
                             new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(DataEditor.this);

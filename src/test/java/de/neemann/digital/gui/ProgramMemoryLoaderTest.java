@@ -29,5 +29,28 @@ public class ProgramMemoryLoaderTest extends TestCase {
 
         assertEquals(0x55, ram.getMemory().getDataWord(0));
         assertEquals(0xAA, ram.getMemory().getDataWord(1));
+        assertEquals(0x56, ram.getMemory().getDataWord(2));
+        assertEquals(0xAB, ram.getMemory().getDataWord(3));
+    }
+
+    public void testSplit() throws Exception {
+        ToBreakRunner runner = new ToBreakRunner("dig/testProgLoaderSplit.dig", false);
+        Model model = runner.getModel();
+        File romHex = new File(Resources.getRoot(), "dig/testProgLoader.hex");
+        new ProgramMemoryLoader(romHex).preInit(model);
+        model.init();
+
+        List<RAMDualPort> ramList = model.findNode(RAMDualPort.class);
+        assertEquals(2, ramList.size());
+        RAMDualPort ram0 = ramList.get(0);
+        RAMDualPort ram1 = ramList.get(1);
+
+        assertEquals("R0",ram0.getLabel());
+        assertEquals("R1",ram1.getLabel());
+
+        assertEquals(0x55, ram0.getMemory().getDataWord(0));
+        assertEquals(0xAA, ram1.getMemory().getDataWord(0));
+        assertEquals(0x56, ram0.getMemory().getDataWord(1));
+        assertEquals(0xAB, ram1.getMemory().getDataWord(1));
     }
 }

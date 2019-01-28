@@ -5,9 +5,7 @@
  */
 package de.neemann.digital.core.memory;
 
-import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.HGSArray;
-import de.neemann.digital.lang.Lang;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -52,44 +50,6 @@ public class DataField implements HGSArray {
      */
     public DataField(long[] data) {
         this.data = data;
-    }
-
-    /**
-     * Creates a new instance and fills it with the data in the given reader
-     *
-     * @param reader the reader
-     * @throws IOException IOException
-     */
-    public DataField(Reader reader) throws IOException {
-        try (BufferedReader br = new BufferedReader(reader)) {
-            data = new long[1024];
-            String header = br.readLine();
-            if (header == null || !header.equals("v2.0 raw"))
-                throw new IOException(Lang.get("err_invalidFileFormat"));
-            String line;
-            int pos = 0;
-            while ((line = br.readLine()) != null) {
-                try {
-                    int p = line.indexOf('#');
-                    if (p >= 0)
-                        line = line.substring(0, p).trim();
-                    else
-                        line = line.trim();
-
-                    if (line.length() > 2 && line.charAt(0) == '0' && (line.charAt(1) == 'x' || line.charAt(1) == 'X'))
-                        line = line.substring(2);
-
-                    if (line.length() > 0) {
-                        long v = Bits.decode(line, 0, 16);
-                        setData(pos, v);
-                        pos++;
-                    }
-                } catch (Bits.NumberFormatException e) {
-                    throw new IOException(e);
-                }
-            }
-            data = Arrays.copyOf(data, pos);
-        }
     }
 
     /**

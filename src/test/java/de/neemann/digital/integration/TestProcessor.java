@@ -8,6 +8,7 @@ package de.neemann.digital.integration;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.memory.*;
+import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import junit.framework.TestCase;
@@ -34,7 +35,7 @@ public class TestProcessor extends TestCase {
         }
         assertNotNull(rom);
 
-        rom.setData(DataFieldImporter.read(new File(Resources.getRoot(), program), rom.getDataBits()));
+        rom.setData(Importer.read(new File(Resources.getRoot(), program), rom.getDataBits()));
 
         runner.getModel().init(true);
         return runner;
