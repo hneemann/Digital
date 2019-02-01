@@ -1,14 +1,14 @@
 [![Build Status](https://travis-ci.org/hneemann/Digital.svg?branch=master)](https://travis-ci.org/hneemann/Digital)
 [![codecov](https://codecov.io/gh/hneemann/Digital/branch/master/graph/badge.svg)](https://codecov.io/gh/hneemann/Digital)
 
-[Download latest Release](https://github.com/hneemann/Digital/releases/latest)
+[Download](https://github.com/hneemann/Digital/releases/latest) the latest release.
 
-The most recent changes are listed in the [release notes](distribution/ReleaseNotes.txt).
+The latest changes that have not yet been released are listed in the
+[release notes](distribution/ReleaseNotes.txt).
 
 # Digital #
 
-Digital is an easy-to-use digital circuit simulator. 
-It's designed for educational purposes, and I use it in my lectures to illustrate digital electronics.
+Digital is an easy-to-use digital logic designer and circuit simulator designed for educational purposes.
 
 ![screnshot](screenshot.png)
 
@@ -33,9 +33,9 @@ These are the main features of Digital:
   See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
 - Simple remote TCP interface which e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
   the simulator.
-- Components can be described using VHDL or Verilog. The open source VHDL simulator [ghdl](http://ghdl.free.fr/) is required to
-  simulate a VHDL defined component, and the open source Verilog simulator [Icarus Verilog](http://iverilog.icarus.com/) is
-  required to simulate a Verilog defined component.
+- Components can be described using VHDL or Verilog. The open source VHDL simulator [ghdl](http://ghdl.free.fr/)
+  needs to be installed to simulate a VHDL defined component, and the open source Verilog simulator
+  [Icarus Verilog](http://iverilog.icarus.com/) is required to simulate a Verilog defined component.
 - A circuit can be exported to VHDL or Verilog. There is also support for the
   [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start), the
   [Mimas](https://numato.com/product/mimas-spartan-6-fpga-development-board) and the
@@ -63,9 +63,6 @@ The documentation also contains a list of available 74xx chips and a list of ava
 
 So far Digital is available in English and German. If someone wants to add a new translation, please check out this
 [file](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang/lang.xml).
-Adding a new language by adding these XML entries / files does not require a rebuild.
-But manually adding the XML files to the jar file is a bit tedious.
-It's easier to rebuild Digital by running `mvn install`.
 
 ## Comments ##
 
@@ -205,7 +202,7 @@ After that you can simply flash this file to the appropriate GAL and test the ci
 As mentioned above these GALs are quite old but with 8/10 macro-cells sufficient for beginners exercises.
 If more macro-cells are required, see the PDF documentation that is included in the distribution for details 
 on how to set up Digital to support the [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
-[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells and ISP (In System Programming).  
+[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells and In System Programming.
 
 ## How do I get set up? ##
 
