@@ -402,7 +402,7 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .press("F10")
                 .press("RIGHT", 4)
-                .press("DOWN", 6)
+                .press("DOWN", 7)
                 .press("RIGHT")
                 .press("DOWN", 2)
                 .press("RIGHT")
