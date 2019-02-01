@@ -3,7 +3,7 @@
 
 # Digital #
 
-Digital is an easy-to-use digital logic designer and circuit simulator designed for educational purposes.
+Digital is a easy-to-use digital logic designer and circuit simulator designed for educational purposes.
 
 ![screnshot](screenshot.png)
 
@@ -15,7 +15,7 @@ There is no installation necessary, just unpack the *Digital.zip* file, which is
 available for [download](https://github.com/hneemann/Digital/releases/latest).
 On Windows machines the EXE file can be executed, on Linux and MacOS the
 JAR file can be started directly.
-A Java Runtime Environment (at least JRE 8) is required.
+A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required.
 
 ## Features ##
 
@@ -53,7 +53,7 @@ These are the main features of Digital:
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code.
-- Good test coverage (about 80%; The GUI tests are not running on the headless Travis-CI servers, so CodeCov measures only about 50%).
+- Good test coverage (about 80%; The GUI tests are not running on the headless Travis-CI build servers, so CodeCov measures only about 50%).
   Almost all examples contain test cases which ensure that they work correctly.
 
 The latest changes that have not yet been released are listed in the
