@@ -109,7 +109,7 @@
     </string>
     <string name="elem_Not_pin_in">The input of the NOT gate.</string>
     <string name="elem_Not_pin_out">The inverted input value.</string>
-    <string name="elem_LookUpTable">LookUpTable</string>
+    <string name="elem_LookUpTable">Lookup Table</string>
     <string name="elem_LookUpTable_short">LUT</string>
     <string name="elem_LookUpTable_tt">Gets the output value from a stored table.
         So this gate can emulate every combinatorial gate.
@@ -820,6 +820,7 @@
     <string name="err_breakTimeOut">Break timeout after {0} cycles</string>
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
+    <string name="err_builder_couldNotFillLUT">Error creating the lookup table.</string>
     <string name="err_burnError">More than one output is active on a wire, causing a short circuit.</string>
     <string name="err_pullUpAndDown">It is not allowed to connect a pull-up and pull-down resistor to the same net.</string>
     <string name="err_cannotAnalyse_N">Cannot analyse Node {0}</string>
@@ -1375,6 +1376,8 @@
     <string name="menu_table_createCircuit_tt">Creates a circuit which reproduces the truth table.</string>
     <string name="menu_table_createCircuitJK">Circuit with JK flip-flops</string>
     <string name="menu_table_createCircuitJK_tt">Creates a circuit which reproduces the truth table. Uses JK flip-flops.</string>
+    <string name="menu_table_createCircuitLUT">Circuit with LUTs</string>
+    <string name="menu_table_createCircuitLUT_tt">Creates a circuit which reproduces the truth table. Uses lookup tables to create the expressions.</string>
     <string name="menu_table_createNAnd">Circuit with NAnd gates</string>
     <string name="menu_table_createNAndTwo">Circuit with NAnd gates with two inputs</string>
     <string name="menu_table_createNAndTwo_tt">Use only NAnd gates with two inputs.</string>

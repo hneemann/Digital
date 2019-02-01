@@ -15,6 +15,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -29,7 +30,6 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -84,6 +84,34 @@ public class CircuitBuilderTest extends TestCase {
         te.checkC(0, 0);
     }
 
+    public void testBuilderSequentialLUT() throws Exception {
+        Variable y0 = new Variable("Y_0");
+        Variable y1 = new Variable("Y_1");
+
+        // counter
+        Expression y0s = not(y0);
+        Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
+
+        ElementLibrary library = new ElementLibrary();
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
+                .setUseLUTs(true)
+                .addSequential("Y_0", y0s)
+                .addSequential("Y_1", y1s)
+                .createCircuit();
+
+        final ArrayList<VisualElement> el = circuit.getElements();
+        assertEquals(13, el.size());
+        assertEquals(1, el.stream().filter(visualElement -> visualElement.equalsDescription(LookUpTable.DESCRIPTION)).count());
+
+        ModelCreator m = new ModelCreator(circuit, library);
+        TestExecuter te = new TestExecuter(m.createModel(false)).setUp(m);
+        te.check(0, 0);
+        te.checkC(1, 0);
+        te.checkC(0, 1);
+        te.checkC(1, 1);
+        te.checkC(0, 0);
+    }
+
     public void testBuilderSequentialJK_JequalsK() throws Exception {
         Variable y0 = new Variable("Y_0");
         Variable y1 = new Variable("Y_1");
@@ -93,7 +121,8 @@ public class CircuitBuilderTest extends TestCase {
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
 
         ElementLibrary library = new ElementLibrary();
-        Circuit circuit = new CircuitBuilder(new ShapeFactory(library), true)
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
+                .setUseJK(true)
                 .addSequential("Y_0", y0s)
                 .addSequential("Y_1", y1s)
                 .createCircuit();
@@ -116,7 +145,8 @@ public class CircuitBuilderTest extends TestCase {
         Expression y1s = or(not(y0), not(y1));
 
         ElementLibrary library = new ElementLibrary();
-        Circuit circuit = new CircuitBuilder(new ShapeFactory(library), true)
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
+                .setUseJK(true)
                 .addSequential("Y_0", y0s)
                 .addSequential("Y_1", y1s)
                 .createCircuit();
@@ -132,7 +162,7 @@ public class CircuitBuilderTest extends TestCase {
 
     public void testBuilderSequentialConstant() throws Exception {
         ElementLibrary library = new ElementLibrary();
-        Circuit circuit = new CircuitBuilder(new ShapeFactory(library), false)
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
                 .addSequential("Y_0", Constant.ONE)
                 .addSequential("Y_1", Constant.ZERO)
                 .createCircuit();
@@ -146,7 +176,8 @@ public class CircuitBuilderTest extends TestCase {
 
     public void testBuilderSequentialConstantJK() throws Exception {
         ElementLibrary library = new ElementLibrary();
-        Circuit circuit = new CircuitBuilder(new ShapeFactory(library), true)
+        Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
+                .setUseJK(true)
                 .addSequential("Y_0", Constant.ONE)
                 .addSequential("Y_1", Constant.ZERO)
                 .createCircuit();
@@ -171,7 +202,7 @@ public class CircuitBuilderTest extends TestCase {
         new ExpressionCreator(tt).create(expr);
 
         // build a new circuit
-        CircuitBuilder circuitBuilder = new CircuitBuilder(runner.getLibrary().getShapeFactory(), false, tt.getVars())
+        CircuitBuilder circuitBuilder = new CircuitBuilder(runner.getLibrary().getShapeFactory(), tt.getVars())
                 .setModelAnalyzerInfo(tt.getModelAnalyzerInfo());
         new BuilderExpressionCreator(circuitBuilder).create(expr);
         Circuit circuit = circuitBuilder.createCircuit();

@@ -4,6 +4,7 @@ HEAD, planned as v0.22
 - Improved the RAM/ROM data loader. Now binary files and Intel HEX files are
   supported.
 - Added a RAM that can be synthesized on an FPGA using block RAM.
+- Now its possible to create circuits using lookup tables.
 - More consistent handling of the initial state in the FSM editor.
 
 v0.21, released on 10. Dec 2018

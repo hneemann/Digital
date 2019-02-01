@@ -6,6 +6,8 @@
 package de.neemann.digital.builder.circuit;
 
 import de.neemann.digital.analyse.DetermineJKStateMachine;
+import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.fsm.FSMStateInfo;
 import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.expression.*;
@@ -50,42 +52,33 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final HashMap<String, FragmentVisualElement> combinatorialOutputs;
     private final ArrayList<Variable> sequentialVars;
     private final ArrayList<FragmentVisualElement> flipflops;
-    private final boolean useJKff;
     private final ArrayList<Variable> desiredVarOrdering;
     private int pos;
+    private boolean useLUT;
+    private boolean useJKff;
     private HashSet<String> varsToNet;
     private ModelAnalyserInfo mai;
 
+
     /**
      * Creates a new builder.
-     * Creates a state machine with D flip-flops
      *
      * @param shapeFactory ShapeFactory which is set to the created VisualElements
      */
     public CircuitBuilder(ShapeFactory shapeFactory) {
-        this(shapeFactory, false);
+        this(shapeFactory, null);
     }
 
     /**
      * Creates a new builder.
      *
      * @param shapeFactory ShapeFactory which is set to the created VisualElements
-     * @param useJKff      true if JK flip-flops should be used to create state machines instead of D flip-flops.
-     */
-    public CircuitBuilder(ShapeFactory shapeFactory, boolean useJKff) {
-        this(shapeFactory, useJKff, null);
-    }
-
-    /**
-     * Creates a new builder.
-     *
-     * @param shapeFactory ShapeFactory which is set to the created VisualElements
-     * @param useJKff      true if JK flip-flops should be used to create state machines instead of D flip-flops.
      * @param varOrdering  the desired ordering of the variables, There may be more variables than required. Maybe null.
      */
-    public CircuitBuilder(ShapeFactory shapeFactory, boolean useJKff, ArrayList<Variable> varOrdering) {
+    public CircuitBuilder(ShapeFactory shapeFactory, ArrayList<Variable> varOrdering) {
         this.shapeFactory = shapeFactory;
-        this.useJKff = useJKff;
+        this.useJKff = false;
+        this.useLUT = false;
         desiredVarOrdering = varOrdering;
         variableVisitor = new VariableVisitor();
         fragmentVariables = new ArrayList<>();
@@ -94,6 +87,28 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         combinatorialOutputs = new HashMap<>();
         sequentialVars = new ArrayList<>();
         varsToNet = new HashSet<>();
+    }
+
+    /**
+     * Enables the usage of JK flip flops
+     *
+     * @param useJKff true if JK ff should be used
+     * @return this for chained calls
+     */
+    public CircuitBuilder setUseJK(boolean useJKff) {
+        this.useJKff = useJKff;
+        return this;
+    }
+
+    /**
+     * Enables the usage of LUTs
+     *
+     * @param useLUT true if LUTs should be used
+     * @return this for chained calls
+     */
+    public CircuitBuilder setUseLUTs(boolean useLUT) {
+        this.useLUT = useLUT;
+        return this;
     }
 
     /**
@@ -190,6 +205,48 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     }
 
     private Fragment createFragment(Expression expression) throws BuilderException {
+        boolean lutNeeded = true;
+        if (expression instanceof Variable)
+            lutNeeded = false;
+        else if (expression instanceof Not && ((Not) expression).getExpression() instanceof Variable)
+            lutNeeded = false;
+
+        if (useLUT && lutNeeded)
+            return createLutFragment(expression);
+        else
+            return createBasicFragment(expression);
+    }
+
+    private Fragment createLutFragment(Expression expression) throws BuilderException {
+        ArrayList<Variable> vars = new ArrayList<>(expression.traverse(new VariableVisitor()).getVariables());
+
+        ArrayList<Fragment> frags = new ArrayList<>();
+        for (Variable v : vars) {
+            FragmentVariable fragmentVariable = new FragmentVariable(v, false);
+            fragmentVariables.add(fragmentVariable);
+            frags.add(0, fragmentVariable);
+        }
+
+        final int size = 1 << vars.size();
+        DataField data = new DataField(size);
+        ContextFiller context = new ContextFiller(vars);
+        for (int i = 0; i < size; i++) {
+            context.setContextTo(i);
+            try {
+                boolean r = expression.calculate(context);
+                data.setData(i, r ? 1 : 0);
+            } catch (ExpressionException e) {
+                throw new BuilderException(Lang.get("err_builder_couldNotFillLUT"), e);
+            }
+        }
+
+        return new FragmentExpression(frags, new FragmentVisualElement(LookUpTable.DESCRIPTION, frags.size(), shapeFactory)
+                .setAttr(Keys.INPUT_COUNT, frags.size())
+                .setAttr(Keys.DATA, data)
+                .setAttr(Keys.BITS, 1));
+    }
+
+    private Fragment createBasicFragment(Expression expression) throws BuilderException {
         if (expression instanceof Operation) {
             Operation op = (Operation) expression;
             ArrayList<Fragment> frags = getOperationFragments(op);
@@ -217,7 +274,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 ArrayList<Fragment> frags = getOperationFragments((Operation) n.getExpression());
                 return new FragmentExpression(frags, new FragmentVisualElement(XNOr.DESCRIPTION, frags.size(), shapeFactory));
             }
-            return new FragmentExpression(createFragment(n.getExpression()), new FragmentVisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION, shapeFactory));
+            return new FragmentExpression(createBasicFragment(n.getExpression()), new FragmentVisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION, shapeFactory));
         } else if (expression instanceof Variable) {
             FragmentVariable fragmentVariable = new FragmentVariable((Variable) expression, false);
             fragmentVariables.add(fragmentVariable);
@@ -234,7 +291,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private ArrayList<Fragment> getOperationFragments(Operation op) throws BuilderException {
         ArrayList<Fragment> frags = new ArrayList<>();
         for (Expression exp : op.getExpressions())
-            frags.add(createFragment(exp));
+            frags.add(createBasicFragment(exp));
         return frags;
     }
 

@@ -15,7 +15,8 @@ There is no installation necessary, just unpack the *Digital.zip* file, which is
 available for [download](https://github.com/hneemann/Digital/releases/latest).
 On Windows machines the EXE file can be executed, on Linux and MacOS the
 JAR file can be started directly.
-A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required.
+A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required
+to run Digital.
 
 ## Features ##
 

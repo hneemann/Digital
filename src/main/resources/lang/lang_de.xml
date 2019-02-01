@@ -826,6 +826,7 @@
     <string name="err_breakTimeOut">Nach {0} Zyklen ist kein Break aufgetreten</string>
     <string name="err_builder_exprNotSupported">Ausdruck {0} wird nicht unterstützt.</string>
     <string name="err_builder_operationNotSupported">Operation {0} wird nicht unterstützt.</string>
+    <string name="err_builder_couldNotFillLUT">Fehler beim Erstellen der LookUpTable.</string>
     <string name="err_burnError">Es sind mehrere zusammengeschaltete Ausgänge gleichzeitig aktiv und haben einen Kurzschluss erzeugt.</string>
     <string name="err_pullUpAndDown">Ein Pull-Up- und Pull-Down-Widerstand in einem Netz ist nicht erlaubt.</string>
     <string name="err_cannotAnalyse_N">Element {0} kann nicht analysiert werden.</string>
@@ -1387,6 +1388,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_createCircuit_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht.</string>
     <string name="menu_table_createCircuitJK">Schaltung mit JK Flipflops</string>
     <string name="menu_table_createCircuitJK_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht. Verwendet JK-Flipflops.</string>
+    <string name="menu_table_createCircuitLUT">Schaltung mit LUTs</string>
+    <string name="menu_table_createCircuitLUT_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht. Verwendet LookUpTables um die Verknüpfungen zu erzeugen.</string>
     <string name="menu_table_createNAnd">Schaltung mit NAnd-Gattern</string>
     <string name="menu_table_createNAndTwo">Schaltung mit NAnd-Gattern mit zwei Eingängen</string>
     <string name="menu_table_createNAndTwo_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht nur mit NAnd-Gattern mit zwei Eingängen.</string>

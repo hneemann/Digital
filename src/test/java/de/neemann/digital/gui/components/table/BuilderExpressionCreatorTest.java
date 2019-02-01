@@ -84,7 +84,7 @@ public class BuilderExpressionCreatorTest extends TestCase {
     }
 
     private Model create(ExpressionListenerStore els, ExpressionModifier modifier) throws ExpressionException, FormatterException, ElementNotFoundException, PinException, NodeException {
-        CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, false);
+        CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory);
         new BuilderExpressionCreator(circuitBuilder, modifier).create(els);
         return new ModelCreator(circuitBuilder.createCircuit(), libary).createModel(false);
     }

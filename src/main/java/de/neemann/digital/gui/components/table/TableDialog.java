@@ -387,12 +387,20 @@ public class TableDialog extends JDialog {
                 createCircuit(ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_createCircuit_tt")).setAccelerator("F2").enableAcceleratorIn(table).createJMenuItem());
+
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitJK")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                createCircuit(true, ExpressionModifier.IDENTITY);
+                createCircuit(true, false, ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_createCircuitJK_tt")).createJMenuItem());
+
+        createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitLUT")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                createCircuit(false, true, ExpressionModifier.IDENTITY);
+            }
+        }.setToolTip(Lang.get("menu_table_createCircuitLUT_tt")).createJMenuItem());
 
         createMenu.add(new ToolTipAction(Lang.get("menu_table_createTwo")) {
             @Override
@@ -487,13 +495,15 @@ public class TableDialog extends JDialog {
     }
 
     private void createCircuit(ExpressionModifier... modifier) {
-        createCircuit(false, modifier);
+        createCircuit(false, false, modifier);
     }
 
-    private void createCircuit(boolean useJKff, ExpressionModifier... modifier) {
+    private void createCircuit(boolean useJKff, boolean useLUTs, ExpressionModifier... modifier) {
         try {
             final ModelAnalyserInfo modelAnalyzerInfo = model.getTable().getModelAnalyzerInfo();
-            CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, useJKff, model.getTable().getVars())
+            CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, model.getTable().getVars())
+                    .setUseJK(useJKff)
+                    .setUseLUTs(useLUTs)
                     .setModelAnalyzerInfo(modelAnalyzerInfo);
             new BuilderExpressionCreator(circuitBuilder, modifier)
                     .setUseJKOptimizer(useJKff)

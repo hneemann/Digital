@@ -17,4 +17,14 @@ public class BuilderException extends Exception {
     public BuilderException(String message) {
         super(message);
     }
+
+    /**
+     * Creates a new instance
+     *
+     * @param message the message
+     * @param cause   the cause
+     */
+    public BuilderException(String message, Exception cause) {
+        super(message, cause);
+    }
 }
