@@ -1,11 +1,6 @@
 [![Build Status](https://travis-ci.org/hneemann/Digital.svg?branch=master)](https://travis-ci.org/hneemann/Digital)
 [![codecov](https://codecov.io/gh/hneemann/Digital/branch/master/graph/badge.svg)](https://codecov.io/gh/hneemann/Digital)
 
-[Download](https://github.com/hneemann/Digital/releases/latest) the latest release.
-
-The latest changes that have not yet been released are listed in the
-[release notes](distribution/ReleaseNotes.txt).
-
 # Digital #
 
 Digital is an easy-to-use digital logic designer and circuit simulator designed for educational purposes.
@@ -13,6 +8,14 @@ Digital is an easy-to-use digital logic designer and circuit simulator designed 
 ![screnshot](screenshot.png)
 
 ![screnshot2](screenshot2.png)
+
+## Installation ##
+
+There is no installation necessary, just unpack the Digital.zip file, which is
+available for [download](https://github.com/hneemann/Digital/releases/latest).
+On Windows machines the EXE file can be executed, on Linux and MacOS the
+JAR file can be started directly.
+A Java Runtime Environment (at least JRE 8) is required.
 
 ## Features ##
 
@@ -52,6 +55,9 @@ These are the main features of Digital:
 - No legacy code.
 - Good test coverage (about 80%; The GUI tests are not running on the headless Travis-CI servers, so CodeCov measures only about 50%).
   Almost all examples contain test cases which ensure that they work correctly.
+
+The latest changes that have not yet been released are listed in the
+[release notes](distribution/ReleaseNotes.txt).
 
 ## Documentation ##
 
@@ -215,7 +221,7 @@ If you want to build Digital from the source code:
 * JDK 1.8 is needed (either the Oracle JDK 1.8 or OpenJDK 1.8)  
 * maven is used as build system, so the easiest way is to install [maven](https://maven.apache.org/).
 * After that you can simply run `mvn install` to build Digital.
-* Run `mvn site` to create a findbugs and a cobertura code coverage report.
+* Run `mvn site` to create a findbugs and a JaCoCo code coverage report.
 * Most IDEs (Eclipse, NetBeans, IntelliJ) are able to import the `pom.xml` to create a project.
 
 ## Contribution guidelines ##
