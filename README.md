@@ -11,7 +11,7 @@ Digital is an easy-to-use digital logic designer and circuit simulator designed 
 
 ## Installation ##
 
-There is no installation necessary, just unpack the Digital.zip file, which is
+There is no installation necessary, just unpack the *Digital.zip* file, which is
 available for [download](https://github.com/hneemann/Digital/releases/latest).
 On Windows machines the EXE file can be executed, on Linux and MacOS the
 JAR file can be started directly.
@@ -212,13 +212,10 @@ on how to set up Digital to support the [ATF1502](http://www.microchip.com/wwwpr
 
 ## How do I get set up? ##
 
-The easiest way is to download the [latest release](https://github.com/hneemann/Digital/releases/latest). 
-In the ZIP file you will find the binary (Digital.jar) and all examples. A Java JRE 1.8 is needed to run Digital.
-
 If you want to build Digital from the source code:
  
 * At first clone the repository.
-* JDK 1.8 is needed (either the Oracle JDK 1.8 or OpenJDK 1.8)  
+* A JDK (at least JDK 8) is required (either the Oracle JDK or OpenJDK)
 * maven is used as build system, so the easiest way is to install [maven](https://maven.apache.org/).
 * After that you can simply run `mvn install` to build Digital.
 * Run `mvn site` to create a findbugs and a JaCoCo code coverage report.
