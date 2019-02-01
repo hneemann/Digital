@@ -68,7 +68,7 @@ public abstract class SevenShape implements Shape {
             final TransformTranslate tr2 = new TransformTranslate(70, 139);
             float s = (2 + size) / 4f;
             final TransformMatrix trm = new TransformMatrix(s, 0, 0, s, 0, 0);
-            return Transform.mul(Transform.mul(tr2, trm), tr1);
+            return Transform.mul(tr1, Transform.mul(trm, tr2));
         }
     }
 
