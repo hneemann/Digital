@@ -205,15 +205,25 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     }
 
     private Fragment createFragment(Expression expression) throws BuilderException {
-        boolean lutNeeded = true;
-        if (expression instanceof Variable)
-            lutNeeded = false;
-        else if (expression instanceof Not && ((Not) expression).getExpression() instanceof Variable)
-            lutNeeded = false;
+        if (useLUT) {
+            if (expression instanceof Variable)
+                return createBasicFragment(expression);
 
-        if (useLUT && lutNeeded)
+            if (expression instanceof Not && ((Not) expression).getExpression() instanceof Variable)
+                return createBasicFragment(expression);
+
+            if (expression instanceof Operation) {
+                boolean allVars = true;
+                for (Expression ex : ((Operation) expression).getExpressions()) {
+                    if (!(ex instanceof Variable || (ex instanceof Not && ((Not) ex).getExpression() instanceof Variable)))
+                        allVars = false;
+                }
+                if (allVars)
+                    return createBasicFragment(expression);
+            }
+
             return createLutFragment(expression);
-        else
+        } else
             return createBasicFragment(expression);
     }
 

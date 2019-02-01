@@ -18,7 +18,7 @@ sehen Sie sich die Datei discrete.dig an.}}</string>
       <elementAttributes>
         <entry>
           <string>Data</string>
-          <data size="2048">0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,1,1,1,1,1,0,0,0,0,0,1,0,1,0,
+          <data>0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,1,1,1,1,1,0,0,0,0,0,1,0,1,0,
 1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,1,1,1,1,0,1,
 0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,0,1,
@@ -118,16 +118,6 @@ Val genutzt um die Zelle zu initialisieren.}}</string>
       <pos x="420" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="580" y="300"/>
-    </visualElement>
-    <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
@@ -141,6 +131,16 @@ Val genutzt um die Zelle zu initialisieren.}}</string>
         </entry>
       </elementAttributes>
       <pos x="700" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
