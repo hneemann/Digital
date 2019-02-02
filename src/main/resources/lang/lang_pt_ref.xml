@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- used to create the actual Portuguese translation! Used to detect keys which have changed -->
 <resources>
     <string name="addr">Address</string>
     <string name="tableOfContent">Table of Contents</string>
@@ -810,7 +811,6 @@
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR..
         This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
-
 
     <string name="error">Error</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>

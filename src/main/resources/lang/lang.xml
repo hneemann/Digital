@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 To add a new language, you can add the language to this file.
-Use the name of the language in this language.
-Then copy one of the available language files, rename it and
-translate it into the new language.
+Use the name of the language in that language.
+Then copy the English language file "lang_en.xml", rename
+it and translate it into the new language.
 
 If you also want to translate the static part of the documentation,
-you must translate one of the files "static_xx.xml" from the folder
-"src/test/Resources/Doku".
+you have to translate one of the files "static_xx.xml" from the
+folder "src/test/Resources/Docu".
 
-If you are satisfied with the translation, you can send a pull request.
-Or you file a new GitHub issue and add the files to this issue.
+If you are satisfied with the translation, please send me the
+translated version AND the file "lang_en.xml" you used for the
+translation! Both files are required to keep track of changes.
 -->
 <languages>
     <lang name="en">English</lang>
     <lang name="de">Deutsch</lang>
+    <lang name="pt">Portuguese</lang>
 </languages>

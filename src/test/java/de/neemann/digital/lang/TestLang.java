@@ -7,13 +7,12 @@ package de.neemann.digital.lang;
 
 import de.neemann.digital.integration.Resources;
 import de.neemann.gui.language.Bundle;
+import de.neemann.gui.language.Language;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  */
@@ -21,13 +20,14 @@ public class TestLang extends TestCase {
     private static final String SOURCEPATH = "/home/hneemann/Dokumente/Java/digital/src/main/java";
 
     private HashMap<String, LangSet> map = new HashMap<>();
+    private Bundle bundle;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        Bundle b = new Bundle("lang/lang");
-        addFrom(b, "en");
-        addFrom(b, "de");
+        bundle = new Bundle("lang/lang");
+        addKeysFrom("en");
+        addKeysFrom("de");
     }
 
     /**
@@ -68,6 +68,68 @@ public class TestLang extends TestCase {
         }
         if (sb.length() > 0)
             fail("there are unused language keys: " + sb.toString());
+    }
+
+    public void testAdditionalLanguages() {
+        de.neemann.gui.language.Resources master = bundle.getResources("en");
+        for (Language l : bundle.getSupportedLanguages()) {
+            if (!(l.getName().equals("de") || l.getName().equals("en")))
+                checkLanguage(master, l);
+        }
+    }
+
+    private void checkLanguage(de.neemann.gui.language.Resources master, Language l) {
+        ArrayList<String> missing = new ArrayList<>();
+        final de.neemann.gui.language.Resources langResources = bundle.getResources(l.getName());
+        Set<String> langKeys = langResources.getKeys();
+        for (String k : master.getKeys()) {
+            if (!langKeys.contains(k))
+                missing.add(k);
+        }
+        if (!missing.isEmpty()) {
+            System.out.println("Missing language keys for: " + l);
+            missing.sort(String::compareTo);
+            for (String k : missing) {
+                System.out.println("    <string name=\"" + k + "\">" + master.get(k) + "</string>");
+            }
+        }
+
+        ArrayList<String> obsolete = new ArrayList<>();
+        for (String k : langKeys) {
+            if (!master.getKeys().contains(k))
+                obsolete.add(k);
+        }
+        if (!obsolete.isEmpty()) {
+            System.out.println("Obsolete language keys for: " + l);
+            missing.sort(String::compareTo);
+            for (String k : obsolete) {
+                System.out.println("    " + k);
+            }
+        }
+
+        ArrayList<String> modified = new ArrayList<>();
+        de.neemann.gui.language.Resources origKeys =
+                new de.neemann.gui.language.Resources(
+                        getClass().getClassLoader().getResourceAsStream("lang/lang_" + l.getName() + "_ref.xml"));
+        for (String k : master.getKeys()) {
+            String m = master.get(k);
+            String o = origKeys.get(k);
+            if (m != null && o != null && !m.equals(o))
+                modified.add(k);
+        }
+
+        if (!modified.isEmpty()) {
+            System.out.println("Modified language keys for: " + l);
+            missing.sort(String::compareTo);
+            for (String k : modified) {
+                System.out.println("  key: "+k);
+                System.out.println("    old: "+origKeys.get(k));
+                System.out.println("    new: "+master.get(k));
+                System.out.println("    old: "+langResources.get(k));
+            }
+
+        }
+
     }
 
     public static File getSourceFiles() {
@@ -146,8 +208,8 @@ public class TestLang extends TestCase {
         assertTrue("key " + key + " not present!", map.containsKey(key));
     }
 
-    private void addFrom(Bundle b, String lang) {
-        for (String k : b.getResources(lang).getKeys()) {
+    private void addKeysFrom(String lang) {
+        for (String k : bundle.getResources(lang).getKeys()) {
             LangSet l = map.get(k);
             if (l == null) {
                 l = new LangSet();
