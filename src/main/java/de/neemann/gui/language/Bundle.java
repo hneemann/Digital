@@ -9,16 +9,13 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  */
 public class Bundle {
 
-    private final HashMap<String, String> languages;
+    private final Map<String, String> languages;
     private final String name;
     private final ArrayList<Language> list;
 
@@ -38,7 +35,7 @@ public class Bundle {
         this.name = name;
         InputStream in = getClass().getClassLoader().getResourceAsStream(name + ".xml");
         XStream xStream = getxStream();
-        languages = (HashMap<String, String>) xStream.fromXML(in);
+        languages = (Map<String, String>) xStream.fromXML(in);
         list = new ArrayList<>();
         for (Map.Entry<String, String> e : languages.entrySet())
             list.add(new Language(e.getKey(), e.getValue()));

@@ -7,12 +7,15 @@ and rename it to "lang_xx_ref.xml". Then create a second
 copy and rename it to "lang_xx.xml". Then translate the
 latter file into the new language.
 
-The file "lang_xx_ref.xml" helps me to keep track of future
-changes to the language files.
+The file "lang_xx_ref.xml" is important because it helps me
+to keep track of future changes to the language files.
 
 If you also want to translate the static part of the documentation,
 you have to translate one of the files "static_xx.xml" from the
 folder "src/test/Resources/Docu".
+
+You can test the translation by simply putting the files into
+the Digital.jar file. It's not necessary to rebuild the jar.
 
 If you are satisfied with the translation, please send me the
 translated version AND the file "lang_xx_ref.xml" you used for the

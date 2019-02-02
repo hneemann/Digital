@@ -7,7 +7,7 @@
     <string name="date">Data</string>
     <string name="number">No.</string>
     <string name="maxValue">Valor máximo</string>
-    <string name="settings"> A seguir descrevem-se as configurações disponíveis no simulador.</string>
+    <string name="settings">A seguir descrevem-se as configurações disponíveis no simulador.</string>
     <string name="attr_dialogTitle">Atributos</string>
     <string name="attr_openCircuit">Abrir circuito</string>
     <string name="attr_openCircuitLabel">Incluir circuito:</string>
@@ -236,8 +236,8 @@
     </string>
     <string name="elem_RotEncoder">Codificador rotativo</string>
     <string name="elem_RotEncoder_tt">Disco giratório com codificador rotativo. Usado para detectar movimentos de rotação.</string>
-    <string name="elem_RotEncoder_pin_A">sinal A do codificador </string>
-    <string name="elem_RotEncoder_pin_B">sinal A do codificador</string>
+    <string name="elem_RotEncoder_pin_A">sinal A do codificador</string>
+    <string name="elem_RotEncoder_pin_B">sinal B do codificador</string>
 
     <string name="elem_Keyboard">Teclado</string>
     <string name="elem_Keyboard_tt">Um teclado poderá ser usado para realizar entrada de texto.

@@ -6,7 +6,8 @@ HEAD, planned as v0.22
 - Added a RAM that can be synthesized on an FPGA using block RAM.
 - Now its possible to create circuits using lookup tables.
 - More consistent handling of the initial state in the FSM editor.
-- Added Portuguese translation.
+- Added Portuguese translation. Special thanks to Theldo Cruz Franqueira who
+  provided the translation.
 
 v0.21, released on 10. Dec 2018
 - Added a simple SVG importer to define custom shapes.

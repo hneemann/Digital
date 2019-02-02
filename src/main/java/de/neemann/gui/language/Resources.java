@@ -15,6 +15,7 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -34,24 +35,12 @@ public class Resources {
         this(new HashMap<>());
     }
 
-    private static Map<String, String> createMap(ResourceBundle bundle) {
-        Map<String, String> map = new TreeMap<>();
-        Enumeration<String> en = bundle.getKeys();
-        while (en.hasMoreElements()) {
-            String key = en.nextElement();
-            String value = bundle.getString(key);
-            map.put(key, value);
-        }
-        return map;
-    }
-
-
     private Resources(Map<String, String> map) {
         resourceMap = map;
     }
 
     /**
-     * Reads the recources from the given stream
+     * Reads the resources from the given stream
      *
      * @param in the input stream
      */
@@ -59,14 +48,14 @@ public class Resources {
         this(loadMap(in));
     }
 
-    private static HashMap<String, String> loadMap(InputStream in) {
+    private static Map<String, String> loadMap(InputStream in) {
         XStream xStream = getxStream();
-        return (HashMap<String, String>) xStream.fromXML(in);
+        return (Map<String, String>) xStream.fromXML(in);
     }
 
     void save(OutputStream out) throws IOException {
         XStream xStream = getxStream();
-        try (Writer w = new OutputStreamWriter(out, "utf-8")) {
+        try (Writer w = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
             w.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             xStream.marshal(resourceMap, new PrettyPrintWriter(w));
         }
@@ -111,7 +100,7 @@ public class Resources {
         }
 
         public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-            Map<String, String> map = new HashMap<>();
+            Map<String, String> map = new TreeMap<>();
             while (reader.hasMoreChildren()) {
                 reader.moveDown();
                 String key = reader.getAttribute("name");
@@ -123,10 +112,4 @@ public class Resources {
         }
     }
 
-    /**
-     public static void main(String[] args) throws IOException {
-     ResourceBundle bundle = ResourceBundle.getBundle("lang/lang", Locale.GERMAN);
-     Resources r = new Resources(bundle);
-     r.save(new FileOutputStream("/home/hneemann/Dokumente/Java/digital/src/main/resources/lang/lang_de.xml"));
-     }*/
 }

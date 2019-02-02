@@ -232,6 +232,13 @@ If you want to build Digital from the source code:
 * So far, there are only a few GUI tests, so that the overall test coverage is only slightly below 80%.
   Try to keep the amount of untested GUI code low.
 
+## Credits ##
+
+* The verilog code generator and almost all the necessary verilog templates where implemented
+  by Ivan de Jesus Deras Tabora, a faculty member at Universidad Tecnológica Centroamericana in Honduras.
+* The Portuguese translation was provided by Theldo Cruz Franqueira, a faculty member at
+  Pontifícia Universidade Católica de Minas Gerais in Brazil.
+
 ## Additional Screenshots
 
 ![screnshot3](screenshot3.png)
