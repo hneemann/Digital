@@ -15,6 +15,7 @@ import java.io.*;
 import java.util.*;
 
 /**
+ * Checks the language files to make sure they a consistent.
  */
 public class TestLang extends TestCase {
     private static final String SOURCEPATH = "/home/hneemann/Dokumente/Java/digital/src/main/java";
@@ -42,7 +43,7 @@ public class TestLang extends TestCase {
     }
 
     /**
-     * Finds usages of keys which are not present in the language xml files
+     * Finds usages of keys in the code which are not present in the language xml files
      *
      * @throws IOException IOException
      */
@@ -70,6 +71,10 @@ public class TestLang extends TestCase {
             fail("there are unused language keys: " + sb.toString());
     }
 
+    /**
+     * Outputs all missing or modified language keys in languages which are not
+     * forced to be complete. (all languages except de and en)
+     */
     public void testAdditionalLanguages() {
         de.neemann.gui.language.Resources master = bundle.getResources("en");
         for (Language l : bundle.getSupportedLanguages()) {

@@ -2,16 +2,21 @@
 <!--
 To add a new language, you can add the language to this file.
 Use the name of the language in that language.
-Then copy the English language file "lang_en.xml", rename
-it and translate it into the new language.
+Then make a copy of the English language file "lang_en.xml"
+and rename it to "lang_xx_ref.xml". Then create a second
+copy and rename it to "lang_xx.xml". Then translate the
+latter file into the new language.
+
+The file "lang_xx_ref.xml" helps me to keep track of future
+changes to the language files.
 
 If you also want to translate the static part of the documentation,
 you have to translate one of the files "static_xx.xml" from the
 folder "src/test/Resources/Docu".
 
 If you are satisfied with the translation, please send me the
-translated version AND the file "lang_en.xml" you used for the
-translation! Both files are required to keep track of changes.
+translated version AND the file "lang_xx_ref.xml" you used for the
+translation!
 -->
 <languages>
     <lang name="en">English</lang>
