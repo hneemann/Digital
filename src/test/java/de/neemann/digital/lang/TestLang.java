@@ -105,7 +105,7 @@ public class TestLang extends TestCase {
                 obsolete.add(k);
 
             String val = langResources.get(k);
-            assertFalse(l+"; "+k+"; not trimmed: >" + val + "<", !val.contains("\n") && !val.equals(val.trim()));
+            assertFalse(l + "; " + k + "; not trimmed: >" + val + "<", !val.contains("\n") && !val.equals(val.trim()));
         }
         if (!obsolete.isEmpty()) {
             System.out.println("Obsolete language keys for: " + l);
@@ -116,12 +116,12 @@ public class TestLang extends TestCase {
         }
 
         ArrayList<String> modified = new ArrayList<>();
-        de.neemann.gui.language.Resources origResource =
+        de.neemann.gui.language.Resources refResource =
                 new de.neemann.gui.language.Resources(
                         getClass().getClassLoader().getResourceAsStream("lang/lang_" + l.getName() + "_ref.xml"));
         for (String k : master.getKeys()) {
             String m = master.get(k);
-            String o = origResource.get(k);
+            String o = refResource.get(k);
             if (m != null && o != null && !m.equals(o))
                 modified.add(k);
         }
@@ -131,9 +131,21 @@ public class TestLang extends TestCase {
             missing.sort(String::compareTo);
             for (String k : modified) {
                 System.out.println("  key: " + k);
-                System.out.println("    old: " + origResource.get(k));
+                System.out.println("    old: " + refResource.get(k));
                 System.out.println("    new: " + master.get(k));
                 System.out.println("    old: " + langResources.get(k));
+            }
+        }
+
+        ArrayList<String> missingInRef = new ArrayList<>();
+        for (String k : langKeys)
+            if (refResource.get(k) == null)
+                missingInRef.add(k);
+
+        if (!missingInRef.isEmpty()) {
+            System.out.println("Missing keys in the reference file for: " + l);
+            for (String k : missingInRef) {
+                System.out.println("    " + k);
             }
         }
     }

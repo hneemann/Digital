@@ -11,10 +11,10 @@ Digital is a easy-to-use digital logic designer and circuit simulator designed f
 
 ## Installation ##
 
-There is no installation necessary, just unpack the *Digital.zip* file, which is
+There is no installation required, just unpack the *Digital.zip* file, which is
 available for [download](https://github.com/hneemann/Digital/releases/latest).
-On Windows machines the EXE file can be executed, on Linux and MacOS the
-JAR file can be started directly.
+On Windows machines the EXE file can be executed, on Linux start the shell script
+and on MacOS the JAR file can be started directly.
 A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required
 to run Digital.
 
@@ -235,9 +235,9 @@ If you want to build Digital from the source code:
 ## Credits ##
 
 * The verilog code generator and almost all the necessary verilog templates where implemented
-  by Ivan de Jesus Deras Tabora, a faculty member at Universidad Tecnológica Centroamericana in Honduras.
-* The Portuguese translation was provided by Theldo Cruz Franqueira, a faculty member at
-  Pontifícia Universidade Católica de Minas Gerais in Brazil.
+  by Ivan de Jesus Deras Tabora; Universidad Tecnológica Centroamericana; Honduras.
+* The Portuguese translation was provided by Theldo Cruz Franqueira;
+  Pontifícia Universidade Católica de Minas Gerais; Brazil.
 
 ## Additional Screenshots
 
