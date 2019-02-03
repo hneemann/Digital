@@ -12,6 +12,7 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -183,7 +184,7 @@ public class TestLang extends TestCase {
     }
 
     private void checkSourceFile(File f, HashSet<String> keys, String pattern) throws IOException {
-        try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f), "utf-8"))) {
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8))) {
             int linecount = 0;
             String line;
             while ((line = r.readLine()) != null) {
@@ -197,13 +198,13 @@ public class TestLang extends TestCase {
         }
     }
 
-    private void checkSourceLine(String line, HashSet<String> keys, String PATTERN) {
-        if (line.contains(PATTERN)) {
-            int pos = line.indexOf(PATTERN, 0);
+    private void checkSourceLine(String line, HashSet<String> keys, String pattern) {
+        if (line.contains(pattern)) {
+            int pos = line.indexOf(pattern);
             while (pos >= 0) {
 
                 StringBuilder sb = new StringBuilder();
-                pos += PATTERN.length();
+                pos += pattern.length();
                 while (line.charAt(pos) != '\"') {
                     sb.append(line.charAt(pos));
                     pos++;
@@ -217,7 +218,7 @@ public class TestLang extends TestCase {
                     keys.add(key);
                     checkSourceKey(key);
                 }
-                pos = line.indexOf(PATTERN, pos);
+                pos = line.indexOf(pattern, pos);
             }
         }
     }
