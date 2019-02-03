@@ -64,7 +64,6 @@ public class ElementTypeDescription {
     public ElementTypeDescription(String name, ElementFactory elementFactory, PinDescription... inputPins) {
         this.name = name;
         langKey = "elem_" + name;
-        this.shortName = Lang.getNull(langKey + "_short");
         this.elementFactory = elementFactory;
         this.inputPins = new PinDescriptions(inputPins).setLangKey(getPinLangKey());
         for (PinDescription p : inputPins)
@@ -80,9 +79,12 @@ public class ElementTypeDescription {
      * @return the shortname
      */
     public String getShortName() {
-        if (shortName == null)
+        if (shortName == null) {
+            String s = Lang.getNull(langKey + "_short");
+            if (s != null)
+                return s;
             return getTranslatedName();
-        else
+        } else
             return shortName;
     }
 

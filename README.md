@@ -5,9 +5,9 @@
 
 Digital is a easy-to-use digital logic designer and circuit simulator designed for educational purposes.
 
-![screnshot](screenshot.png)
+![screnshot](distribution/screenshot.png)
 
-![screnshot2](screenshot2.png)
+![screnshot2](distribution/screenshot2.png)
 
 ## Installation ##
 
@@ -17,6 +17,13 @@ On Windows machines the EXE file can be executed, on Linux start the shell scrip
 and on MacOS the JAR file can be started directly.
 A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required
 to run Digital.
+
+If there are any problems starting Digital on your system, you should try
+running Digital from a command line:
+
+```
+java -jar Digital.jar
+```
 
 ## Features ##
 
@@ -50,11 +57,13 @@ These are the main features of Digital:
   or a [GAL22v10](https://www.microchip.com/wwwproducts/en/ATF22V10C). These chips are somewhat outdated (introduced in 1985!) 
   but sufficient for beginners exercises, easy to understand and well documented. Also the
   [ATF150x](https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family) chips are 
-  supported which offer up to 128 macro-cells and in system programming. See the documentation for details.
+  supported which offer up to 128 macro-cells and in system programming.
+  See the [documentation](https://github.com/hneemann/Digital/releases/latest) for details.
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code.
-- Good test coverage (about 80%; The GUI tests are not running on the headless Travis-CI build servers, so CodeCov measures only about 50%).
+- Good test coverage (about 80%; The GUI tests are not running on the headless
+  Travis-CI build servers, so CodeCov measures only about 50%).
   Almost all examples contain test cases which ensure that they work correctly.
 
 The latest changes that have not yet been released are listed in the
@@ -93,7 +102,9 @@ Unfortunately, the development of Toves was discontinued at a very early stage.
 In 2014, Carl Burch finally [discontinued](http://www.cburch.com/logisim/retire-note.html) the development of
 Logisim. Since Logisim was released as open source, there are a number of forks to continue the work on Logisim:
 
-- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
+- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes
+  (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève,
+  and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance at Wentworth Institute of Technology, Boston, MA 
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
@@ -241,4 +252,4 @@ If you want to build Digital from the source code:
 
 ## Additional Screenshots
 
-![screnshot3](screenshot3.png)
+![screnshot3](distribution/screenshot3.png)

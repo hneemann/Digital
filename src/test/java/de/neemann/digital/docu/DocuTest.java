@@ -7,6 +7,7 @@ package de.neemann.digital.docu;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.memory.Counter;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.GraphicMinMax;
@@ -32,7 +33,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -53,7 +54,7 @@ public class DocuTest extends TestCase {
         w.append("<root titel=\"")
                 .append(Lang.get("digital"))
                 .append("\" titleImage=\"")
-                .append(new File(Resources.getRoot(), "../../../screenshot.png").toURI().toString())
+                .append(new File(Resources.getRoot(), "../../../distribution/screenshot.png").toURI().toString())
                 .append("\" images=\"")
                 .append(new File(Resources.getRoot(), "docu/images/").toURI().toString())
                 .append("\" toc=\"")
@@ -89,7 +90,7 @@ public class DocuTest extends TestCase {
         w.append("  </settings>\n");
 
         ElementLibrary library = new ElementLibrary();
-        ShapeFactory shapeFactory = new ShapeFactory(library, language.equals("en"));
+        ShapeFactory shapeFactory = new ShapeFactory(library, !language.equals("de"));
         String actPath = null;
         for (ElementLibrary.ElementContainer e : library) {
             String p = e.getTreePath();
@@ -198,7 +199,7 @@ public class DocuTest extends TestCase {
                     }
                 }
             });
-            try (Writer w = new OutputStreamWriter(new FileOutputStream(file), "UTF-8")) {
+            try (Writer w = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
                 w.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
                 w.append("<icRoot>\n");
                 for (Map.Entry<String, String> e : map.entrySet()) {
@@ -313,7 +314,7 @@ public class DocuTest extends TestCase {
             final String basename = "Documentation_" + l.getName();
             // write xml
             File xml = new File(target, basename + ".xml");
-            try (Writer w = new OutputStreamWriter(new FileOutputStream(xml), "UTF-8")) {
+            try (Writer w = new OutputStreamWriter(new FileOutputStream(xml), StandardCharsets.UTF_8)) {
                 writeXML(w, images, l.getName(), library);
             }
 

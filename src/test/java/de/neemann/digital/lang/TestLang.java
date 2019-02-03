@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
- * Checks the language files to make sure they a consistent.
+ * Checks the language files to make sure they are consistent.
  */
 public class TestLang extends TestCase {
     private static final String SOURCEPATH = "/home/hneemann/Dokumente/Java/digital/src/main/java";
