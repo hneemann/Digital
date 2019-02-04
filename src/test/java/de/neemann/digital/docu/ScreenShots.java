@@ -58,7 +58,7 @@ public class ScreenShots {
     }
 
     private static void all() {
-        // english
+        // English
         Lang.setActualRuntimeLanguage(new Language("en"));
         Settings.getInstance().getAttributes()
                 .set(Keys.SETTINGS_GRID, true)
@@ -67,10 +67,19 @@ public class ScreenShots {
         firstSteps();
         hierarchicalDesign();
 
-        // german
+        // German
         Lang.setActualRuntimeLanguage(new Language("de"));
         Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_GRID, true)
                 .set(Keys.SETTINGS_IEEE_SHAPES, false);
+        firstSteps();
+        hierarchicalDesign();
+
+        // Portuguese
+        Lang.setActualRuntimeLanguage(new Language("pt"));
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_GRID, true)
+                .set(Keys.SETTINGS_IEEE_SHAPES, true);
         firstSteps();
         hierarchicalDesign();
     }
@@ -91,7 +100,7 @@ public class ScreenShots {
                 .add((gt) -> graphic.dispose())
                 .delay(500)
                 .press("F1")
-                .add(new MainScreenShot("screenshot.png"))
+                .add(new MainScreenShot("distribution/screenshot.png"))
                 .execute();
         new GuiTester()
                 .press("F10")
@@ -131,7 +140,7 @@ public class ScreenShots {
                     td.pack();
                 }))
                 .delay(500)
-                .add(new MainScreenShot("screenshot2.png"))
+                .add(new MainScreenShot("distribution/screenshot2.png"))
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
@@ -188,7 +197,7 @@ public class ScreenShots {
                     fsmFrame.setTitle(trafficLight.getName());
                     mainStatic.requestFocus();
                 }))
-                .add(new MainScreenShot("screenshot3.png"))
+                .add(new MainScreenShot("distribution/screenshot3.png"))
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())

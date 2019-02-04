@@ -18,8 +18,8 @@ and on MacOS the JAR file can be started directly.
 A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required
 to run Digital.
 
-If there are any problems starting Digital on your system, you should try
-running Digital from a command line:
+If there are any problems starting Digital on your system, please try to
+run Digital from a command line:
 
 ```
 java -jar Digital.jar
@@ -245,10 +245,12 @@ If you want to build Digital from the source code:
 
 ## Credits ##
 
-* The verilog code generator and almost all the necessary verilog templates where implemented
-  by Ivan de Jesus Deras Tabora; Universidad Tecnológica Centroamericana; Honduras.
-* The Portuguese translation was provided by Theldo Cruz Franqueira;
-  Pontifícia Universidade Católica de Minas Gerais; Brazil.
+Many thanks to the following persons for their help:
+
+* Ivan de Jesus Deras Tabora from the Universidad Tecnológica Centroamericana in Honduras has
+  implemented the verilog code generator and almost all the necessary verilog templates.
+* Theldo Cruz Franqueira from the Pontifícia Universidade Católica de Minas Gerais in Brazil
+  has provided the Portuguese translation.
 
 ## Additional Screenshots
 
