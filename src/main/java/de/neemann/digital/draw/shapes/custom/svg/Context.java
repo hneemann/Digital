@@ -84,10 +84,11 @@ class Context {
         SVGTokenizer t = new SVGTokenizer(style);
         try {
             while (!t.isEOF()) {
-                String command = t.readTo(':');
+                final String command = t.readTo(':');
+                final String value = t.readTo(';');
                 AttrParser p = PARSER.get(command);
                 if (p != null)
-                    p.parse(context, t.readTo(';'));
+                    p.parse(context, value);
             }
             return context;
         } catch (SVGTokenizer.TokenizerException e) {

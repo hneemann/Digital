@@ -451,6 +451,27 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    public void testInkscape9() throws IOException, SvgException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg\n" +
+                        "   viewBox=\"-80 -80 240 200\">\n" +
+                        "  <text\n" +
+                        "     xml:space=\"preserve\"\n" +
+                        "     style=\"font-style:normal;font-weight:normal;font-size:15px;line-height:25px;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1\"\n" +
+                        "     x=\"3.55761\"\n" +
+                        "     y=\"53.782589\"\n" +
+                        "     id=\"text4523\"><tspan\n" +
+                        "       sodipodi:role=\"line\"\n" +
+                        "       id=\"tspan4521\"\n" +
+                        "       x=\"3.55761\"\n" +
+                        "       y=\"53.782589\">FA</tspan></text>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkText(4, 54, 15, "FA")
+                .check();
+    }
+
     public void testIllustrator1() throws IOException, SvgException, PolygonParser.ParserException, PinException {
         CustomShapeDescription custom = new SvgImporter(
                 in("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -501,7 +522,7 @@ public class SvgImporterTest extends TestCase {
 
     public void testScaling() throws IOException, SvgException, PolygonParser.ParserException, PinException {
         CustomShapeDescription custom = new SvgImporter(
-                inDebug("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                in("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                         "<svg version=\"1.1\">\n" +
                         "<rect stroke=\"black\" stroke-width=\"3\" fill=\"none\" x=\"1cm\" y=\"1cm\" width=\"8cm\" height=\"8cm\"/>\n" +
                         "</svg>")).create();
@@ -613,6 +634,7 @@ public class SvgImporterTest extends TestCase {
                 assertEquals(text + " x", x, t.getPos().x);
                 assertEquals(text + " y", y, t.getPos().y);
                 assertEquals(text + " font size", fontSize, t.getFontSize());
+                assertEquals(text + " text", text, t.getText());
             });
             return this;
         }

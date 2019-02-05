@@ -386,6 +386,13 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
         public int getFontSize() {
             return size;
         }
+
+        /**
+         * @return the text string
+         */
+        public String getText() {
+            return text;
+        }
     }
 
     /**
