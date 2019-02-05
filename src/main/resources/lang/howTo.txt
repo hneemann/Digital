@@ -1,0 +1,50 @@
+= Translations =
+
+If someone wants to contribute a new translation to Digital,
+the problem is not only to create the new translation.
+There must be a way of maintaining the translation as the
+program evolves.
+
+There are three situation which can occur if the program
+evolves after the new translation is completed:
+
+1. There are language keys which are no longer needed.
+   This is the simplest situation: I can remove the keys
+   from all language files by myself.
+2. A new language key is added.
+   In this case I can add the translation for English and
+   German. In all other language files the keys are
+   missing and are replaced by the English version at runtime.
+   But it is easy to find such keys: Simply look for
+   keys which are available is English and are missing
+   in other language files.
+3. The most complex case occurs when a key remains unchanged
+   but the corresponding text changes. It is difficult to
+   see which keys had to be revised in other languages.
+   To keep track of such keys the reference file comes into
+   play.
+
+If a new translation is added not only the translated language file
+is added (e.g. lang_pt.xml) but also a reference file (lang_pt_ref.xml).
+The latter one is the reference file and is a copy of the original
+English translation (lang_en.xml).
+When it is necessary to change a language text, it is possible to
+detect that afterwards: It is possible to compare the strings
+in the english translation with the content of the reference file
+which is also English.
+If the strings are not identical, the translation needs to be reworked.
+To do so, one has to update the translation and the English text in
+the reference file.
+
+= How to find keys that need to be revised? =
+
+Digital contains some test cases that check the consistency of
+the translations. The test class "TestLang" checks the consistency
+of the language files, which I cannot maintain myself.
+
+The easiest way to run the test case is to install maven.
+Then you can start the test case by typing:
+
+mvn -Dtest=TestLang test
+
+This gives you a report of the state of the translations.

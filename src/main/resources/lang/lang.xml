@@ -20,15 +20,6 @@ the Digital.jar file. It's not necessary to rebuild the jar.
 If you are satisfied with the translation, please send me the
 translated version AND the file "lang_xx_ref.xml" you used for the
 translation!
-
-If keys are added to or changed in the future, the keys must first
-be copied unchanged to the reference file. They can then be added
-or updated in the corresponding language file. The idea is to
-always keep the reference file synchronous with the language file.
-In this way it can be recognized whether a translation needs to
-be revised or not: This is always the case if a text from the
-English language file no longer matches the text in the reference
-file.
 -->
 <languages>
     <lang name="en">English</lang>
