@@ -123,7 +123,7 @@ Below I would like to explain briefly the reasons which led me to start a new de
 
 In Logisim there is no real "switching on" of a circuit. The simulation is running also while you are modifying it. 
 This causes sometimes an unexpected behaviour. So it is possible to build a simple master-slave flip-flop
-which works fine. But after a circuit reset the flip-flop does not work anymore.  
+which works fine. But after a circuit reset the flip-flop does not work anymore.
 Since the circuit is not switched on, there is no
 settling time to bring the circuit to a stable condition after its completion.
 A master-slave JK-flip-flop can only be implemented with a reset input, and this
@@ -139,7 +139,7 @@ However, an undesirable feature of this approach is that even a simple RS flip-f
 reach a stable state. The same problem Logisim has.
 
 To solve that problem, the "switching on" is introduced and a different simulation mode is used during the
-settling time right after switching on the circuit:  
+settling time right after switching on the circuit:
 Each time a gate undergoes a change at one of its inputs all gate inputs are read and their outputs are updated immediately.
 This happens gatewise in random order until no further changes occur and the circuit reaches a stable state.
 The gates appear to have random delay times now.
@@ -221,6 +221,9 @@ As mentioned above these GALs are quite old but with 8/10 macro-cells sufficient
 If more macro-cells are required, see the PDF documentation that is included in the distribution for details 
 on how to set up Digital to support the [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
 [ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells and In System Programming.
+It is also possible to export a circuit to VHDL or Verilog to run it on an FPGA.
+But the HDL synthesis is a bit time-consuming and in my opinion slows down the workflow in a
+lab exercise too much, especially if only very simple circuits are used.
 
 ## How do I get set up? ##
 
