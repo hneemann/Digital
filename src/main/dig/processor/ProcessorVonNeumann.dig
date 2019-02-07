@@ -53,35 +53,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="820" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>255</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="820" y="500"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>4095</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="820" y="520"/>
+      <pos x="800" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>SignExt.dig</elementName>
@@ -977,16 +949,16 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="660" y="480"/>
     </wire>
     <wire>
-      <p1 x="820" y="480"/>
-      <p2 x="840" y="480"/>
-    </wire>
-    <wire>
       <p1 x="500" y="480"/>
       <p2 x="560" y="480"/>
     </wire>
     <wire>
       <p1 x="340" y="480"/>
       <p2 x="360" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="480"/>
+      <p2 x="840" y="480"/>
     </wire>
     <wire>
       <p1 x="1400" y="420"/>
@@ -1041,6 +1013,14 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="840" y="560"/>
     </wire>
     <wire>
+      <p1 x="800" y="500"/>
+      <p2 x="820" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="500"/>
+      <p2 x="840" y="500"/>
+    </wire>
+    <wire>
       <p1 x="1180" y="180"/>
       <p2 x="1240" y="180"/>
     </wire>
@@ -1055,10 +1035,6 @@ Von Neumann Two-Cycle CPU.}}</string>
     <wire>
       <p1 x="560" y="180"/>
       <p2 x="660" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="820" y="500"/>
-      <p2 x="840" y="500"/>
     </wire>
     <wire>
       <p1 x="1000" y="440"/>
@@ -1307,6 +1283,14 @@ Von Neumann Two-Cycle CPU.}}</string>
     <wire>
       <p1 x="500" y="700"/>
       <p2 x="500" y="720"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="480"/>
+      <p2 x="820" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="500"/>
+      <p2 x="820" y="520"/>
     </wire>
     <wire>
       <p1 x="440" y="700"/>

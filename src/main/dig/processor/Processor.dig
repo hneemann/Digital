@@ -69,35 +69,7 @@ Single-Cycle CPU.}}</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="820" y="400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>255</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="820" y="420"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>4095</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="820" y="440"/>
+      <pos x="800" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>SignExt.dig</elementName>
@@ -172,7 +144,7 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data size="65536">8000,1360,8190,1350,1490,1483,1425,143a,20e1,14fc,4cef,6e55,1821,3c2f,65f9,6e1e,205,
+          <data>8000,1360,8190,1350,1490,1483,1425,143a,20e1,14fc,4cef,6e55,1821,3c2f,65f9,6e1e,205,
 216,1430,1420,14a0,8033,68c0,7a80,3c80,5e05,3c72,5e05,3c73,5e03,6e03,3c73,6401,14a3,
 741a,1801,1811,1821,3d24,65ec,1831,3d34,65e8,3091,ffff,7009,246,265,254,7c00,6fdd,
 1470,2031,2104,8058,68b0,1821,1801,8058,68b0,1831,1904,8058,68b0,1831,1904,8058,68b0,
@@ -829,10 +801,6 @@ Single-Cycle CPU.}}</string>
       <p2 x="660" y="400"/>
     </wire>
     <wire>
-      <p1 x="820" y="400"/>
-      <p2 x="840" y="400"/>
-    </wire>
-    <wire>
       <p1 x="1340" y="400"/>
       <p2 x="1360" y="400"/>
     </wire>
@@ -843,6 +811,10 @@ Single-Cycle CPU.}}</string>
     <wire>
       <p1 x="340" y="400"/>
       <p2 x="360" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="400"/>
+      <p2 x="840" y="400"/>
     </wire>
     <wire>
       <p1 x="380" y="80"/>
@@ -917,6 +889,14 @@ Single-Cycle CPU.}}</string>
       <p2 x="840" y="480"/>
     </wire>
     <wire>
+      <p1 x="800" y="420"/>
+      <p2 x="820" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="420"/>
+      <p2 x="840" y="420"/>
+    </wire>
+    <wire>
       <p1 x="800" y="100"/>
       <p2 x="840" y="100"/>
     </wire>
@@ -939,10 +919,6 @@ Single-Cycle CPU.}}</string>
     <wire>
       <p1 x="1280" y="100"/>
       <p2 x="1360" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="820" y="420"/>
-      <p2 x="840" y="420"/>
     </wire>
     <wire>
       <p1 x="1420" y="360"/>
@@ -1239,6 +1215,14 @@ Single-Cycle CPU.}}</string>
     <wire>
       <p1 x="500" y="580"/>
       <p2 x="500" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="400"/>
+      <p2 x="820" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="420"/>
+      <p2 x="820" y="440"/>
     </wire>
     <wire>
       <p1 x="440" y="580"/>
