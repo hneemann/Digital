@@ -46,7 +46,6 @@ public final class Settings implements AttributeListener {
     private Settings() {
         List<Key> intList = new ArrayList<>();
         intList.add(Keys.SETTINGS_IEEE_SHAPES);
-        intList.add(Keys.SETTINGS_USE_WIDE_SHAPES);
         intList.add(Keys.SETTINGS_LANGUAGE);
         intList.add(Keys.SETTINGS_EXPRESSION_FORMAT);
         intList.add(Keys.SETTINGS_DEFAULT_TREESELECT);

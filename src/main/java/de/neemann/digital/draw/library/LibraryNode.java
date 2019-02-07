@@ -305,7 +305,7 @@ public class LibraryNode implements Iterable<LibraryNode> {
     public VisualElement setWideShapeFlagTo(VisualElement visualElement) {
         // set the wide shape option to the element
         try {
-            if (Settings.getInstance().get(Keys.SETTINGS_USE_WIDE_SHAPES)
+            if (Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES)
                     && getDescription().hasAttribute(Keys.WIDE_SHAPE))
                 visualElement.setAttribute(Keys.WIDE_SHAPE, true);
         } catch (IOException e1) {

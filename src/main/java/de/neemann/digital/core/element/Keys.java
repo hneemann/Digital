@@ -457,7 +457,7 @@ public final class Keys {
      * enables the MAC mouse mode
      */
     public static final Key<Boolean> SETTINGS_MAC_MOUSE
-            = new Key<>("macMouse", Screen.isMac()).setRequiresRestart();
+            = new Key<>("macMouse", Screen.isMac()).setRequiresRestart().setSecondary();
 
     /**
      * output format for numbers
@@ -591,7 +591,8 @@ public final class Keys {
                     .setComboBoxValues(100, 120, 150, 180, 200, 250, 300)
                     .setMin(50)
                     .setMax(400)
-                    .setRequiresRestart();
+                    .setRequiresRestart()
+                    .setSecondary();
 
     /**
      * true if a enable input is needed
@@ -700,12 +701,5 @@ public final class Keys {
      */
     public static final Key<Boolean> WIDE_SHAPE
             = new Key<>("wideShape", false).setSecondary().allowGroupEdit();
-
-    /**
-     * Selects the wide shapes as the default
-     */
-    public static final Key<Boolean> SETTINGS_USE_WIDE_SHAPES
-            = new Key<>("wideShapeAsDefault", false).setSecondary().setRequiresRestart();
-
 
 }
