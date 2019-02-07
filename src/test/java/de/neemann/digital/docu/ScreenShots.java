@@ -89,7 +89,7 @@ public class ScreenShots {
         Settings.getInstance().getAttributes().set(Keys.SETTINGS_IEEE_SHAPES, true);
         new GuiTester("../../main/dig/processor/Processor.dig", "examples/processor/Processor.dig")
                 .press(' ')
-                .delay(500)
+                .delay(2000)
                 .add(new GuiTester.WindowCheck<>(GraphicDialog.class, (gt, gd) -> {
                     graphic = gd;
                     final Main main = (Main) gd.getParent();
@@ -164,8 +164,8 @@ public class ScreenShots {
                 .add(new GuiTester.WindowCheck<>(TableDialog.class, (guiTester, tableDialog) -> {
                     TruthTable tt = tableDialog.getModel().getTable();
                     ReorderOutputs ro = new ReorderOutputs(tt);
-                    ro.getItems().swap(3,4);
-                    ro.getItems().swap(4,5);
+                    ro.getItems().swap(3, 4);
+                    ro.getItems().swap(4, 5);
                     tableDialog.setModel(new TruthTableTableModel(ro.reorder()));
                 }))
                 .delay(500)
@@ -209,9 +209,8 @@ public class ScreenShots {
         return new GuiTester.WindowCheck<>(Window.class, (guiTester, window) -> {
             if (window instanceof AllSolutionsDialog)
                 window.dispose();
-            else
-                if (window instanceof TableDialog)
-                    ((TableDialog)window).getAllSolutionsDialog().dispose();
+            else if (window instanceof TableDialog)
+                ((TableDialog) window).getAllSolutionsDialog().dispose();
         });
     }
 
@@ -220,6 +219,9 @@ public class ScreenShots {
         ScreenShot.n = 0;
         int x = 300;
         int y = 180;
+        int shapeOffset = 0;
+        if (Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES))
+            shapeOffset = 1;
         new GuiTester()
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, w) -> w.setSize(WIN_DX, WIN_DY)))
                 // input
@@ -244,7 +246,7 @@ public class ScreenShots {
                 .press("DOWN", 4)
                 .add(new ScreenShot<>(Main.class))
                 .press("ENTER")
-                .add(new ClickAtCircuit(x + SIZE * 5, y + SIZE, InputEvent.BUTTON1_MASK))
+                .add(new ClickAtCircuit(x + SIZE * (5 + shapeOffset), y + SIZE, InputEvent.BUTTON1_MASK))
                 .add(new ScreenShot<>(Main.class))
                 // output
                 .press("F10")
@@ -253,15 +255,15 @@ public class ScreenShots {
                 .press("RIGHT")
                 .add(new ScreenShot<>(Main.class))
                 .press("ENTER")
-                .add(new ClickAtCircuit(x + SIZE * 9, y + SIZE, InputEvent.BUTTON1_MASK))
+                .add(new ClickAtCircuit(x + SIZE * (9 + shapeOffset), y + SIZE, InputEvent.BUTTON1_MASK))
                 .add(new ScreenShot<>(Main.class))
                 // wires
                 .add(new ClickAtCircuit(x, y - SIZE, InputEvent.BUTTON1_MASK))
                 .add(new ClickAtCircuit(x + SIZE * 2, y - SIZE, InputEvent.BUTTON1_MASK))
                 .add(new ClickAtCircuit(x, y + SIZE, InputEvent.BUTTON1_MASK))
                 .add(new ClickAtCircuit(x + SIZE * 2, y + SIZE, InputEvent.BUTTON1_MASK))
-                .add(new ClickAtCircuit(x + SIZE * 5, y, InputEvent.BUTTON1_MASK))
-                .add(new ClickAtCircuit(x + SIZE * 7, y, InputEvent.BUTTON1_MASK))
+                .add(new ClickAtCircuit(x + SIZE * (5 + shapeOffset), y, InputEvent.BUTTON1_MASK))
+                .add(new ClickAtCircuit(x + SIZE * (7 + shapeOffset), y, InputEvent.BUTTON1_MASK))
                 .add(new ScreenShot<>(Main.class))
                 // run circuit
                 .press(' ')
@@ -276,7 +278,7 @@ public class ScreenShots {
                 .press("ENTER")
                 .add(new ClickAtCircuit(x - SIZE, y + SIZE, InputEvent.BUTTON3_MASK))
                 .press("shift typed b", "ENTER")
-                .add(new ClickAtCircuit(x + SIZE * 8, y, InputEvent.BUTTON3_MASK))
+                .add(new ClickAtCircuit(x + SIZE * (8 + shapeOffset), y, InputEvent.BUTTON3_MASK))
                 .press("shift typed y", "ENTER")
                 // analyse
                 .press("F10")
