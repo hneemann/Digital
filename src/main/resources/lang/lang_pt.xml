@@ -1208,8 +1208,6 @@
     </string>
     <string name="key_wideShape">Formato ampliado</string>
     <string name="key_wideShape_tt">Usará um formato ampliado para visualizar a porta.</string>
-    <string name="key_wideShapeAsDefault">Usar formato ampliado por padrão.</string>
-    <string name="key_wideShapeAsDefault_tt">Se novas portas forem inseridas, essa opção será selecionada como padrão.</string>
 
     <string name="key_shapeType">Formato</string>
     <string name="key_shapeType_tt">Formato a ser usado na representação de circuito integrado a outro.
