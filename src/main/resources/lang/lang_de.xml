@@ -171,7 +171,7 @@
         Der Text kann im Attribute-Dialog geändert werden.
     </string>
     <string name="elem_Rectangle">Rechteck</string>
-    <string name="elem_Rectangle_tt">Zeigt eine einfaches Rechteck in der Schaltung an.
+    <string name="elem_Rectangle_tt">Zeigt ein einfaches Rechteck in der Schaltung an.
         Hat keine weitere Funktion für die Simulation.
     </string>
     <string name="elem_Probe">Messwert</string>
