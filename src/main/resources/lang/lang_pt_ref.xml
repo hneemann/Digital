@@ -1234,6 +1234,12 @@
     <string name="key_preloadProgramFile_tt">File which should be loaded into the program memory at the start of the
         simulation.
     </string>
+
+    <string name="key_RectWidth">Width</string>
+    <string name="key_RectWidth_tt">With in grid units</string>
+    <string name="key_RectHeight">Height</string>
+    <string name="key_RectHeight_tt">Height in grid units</string>
+
     <string name="key_wideShape">Wide Shape</string>
     <string name="key_wideShape_tt">Uses a wider shape to visualize the gate.</string>
 

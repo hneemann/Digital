@@ -702,4 +702,19 @@ public final class Keys {
     public static final Key<Boolean> WIDE_SHAPE
             = new Key<>("wideShape", false).setSecondary().allowGroupEdit();
 
+
+    /**
+     * the width of the rectangle
+     */
+    public static final Key.KeyInteger RECT_WIDTH
+            = new Key.KeyInteger("RectWidth", 3)
+            .setMin(2);
+
+    /**
+     * the height of the rectangle
+     */
+    public static final Key.KeyInteger RECT_HEIGHT
+            = new Key.KeyInteger("RectHeight", 3)
+            .setMin(2);
+
 }

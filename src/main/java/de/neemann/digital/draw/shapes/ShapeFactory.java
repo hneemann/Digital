@@ -140,6 +140,7 @@ public final class ShapeFactory {
         map.put(Tunnel.DESCRIPTION.getName(), TunnelShape::new);
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
+        map.put(DummyElement.RECTDESCRIPTION.getName(), RectShape::new);
         map.put(TestCaseElement.TESTCASEDESCRIPTION.getName(), TestCaseShape::new);
         map.put(AsyncSeq.DESCRIPTION.getName(), AsyncClockShape::new);
 

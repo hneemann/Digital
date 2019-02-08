@@ -36,6 +36,14 @@ public class DummyElement implements Element {
             .addAttribute(Keys.FONT_SIZE);
 
     /**
+     * The shape for the rectangle
+     */
+    public static final ElementTypeDescription RECTDESCRIPTION = new ElementTypeDescription("Rectangle", DummyElement.class)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.RECT_WIDTH)
+            .addAttribute(Keys.RECT_HEIGHT);
+
+    /**
      * Creates a new dummy element
      *
      * @param attr the attributes

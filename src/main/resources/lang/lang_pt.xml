@@ -1206,6 +1206,10 @@
     <string name="key_preloadProgramFile_tt">Arquivo que deverá ser carregado na memória de programa ao iniciar-se a simulação
         a simulação.
     </string>
+
+    <string name="key_RectWidth">Largura</string>
+    <string name="key_RectHeight">Altura</string>
+
     <string name="key_wideShape">Formato ampliado</string>
     <string name="key_wideShape_tt">Usará um formato ampliado para visualizar a porta.</string>
 

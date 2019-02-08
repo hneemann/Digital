@@ -453,4 +453,10 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         return interactor != null;
     }
 
+    /**
+     * @return true is the shape is just a decorating shape
+     */
+    public boolean isDecoratingShape() {
+        return getShape() instanceof DecoratingShape;
+    }
 }

@@ -109,11 +109,8 @@ public class TestLang extends TestCase {
             assertFalse(l + "; " + k + "; not trimmed: >" + val + "<", !val.contains("\n") && !val.equals(val.trim()));
         }
         if (!obsolete.isEmpty()) {
-            System.out.println("Obsolete language keys for: " + l);
-            missing.sort(String::compareTo);
-            for (String k : obsolete) {
-                System.out.println("    " + k);
-            }
+            obsolete.sort(String::compareTo);
+            fail("Obsolete language keys for: " + l + "; " + obsolete);
         }
 
         ArrayList<String> modified = new ArrayList<>();
@@ -129,7 +126,7 @@ public class TestLang extends TestCase {
 
         if (!modified.isEmpty()) {
             System.out.println("Modified language keys for: " + l);
-            missing.sort(String::compareTo);
+            modified.sort(String::compareTo);
             for (String k : modified) {
                 System.out.println("  key: " + k);
                 System.out.println("    old: " + refResource.get(k));
@@ -144,10 +141,8 @@ public class TestLang extends TestCase {
                 missingInRef.add(k);
 
         if (!missingInRef.isEmpty()) {
-            System.out.println("Missing keys in the reference file for: " + l);
-            for (String k : missingInRef) {
-                System.out.println("    " + k);
-            }
+            missingInRef.sort(String::compareTo);
+            fail("Missing keys in the reference file for: " + l + ";  " + missingInRef);
         }
     }
 

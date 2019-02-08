@@ -6,6 +6,7 @@ HEAD, planned as v0.22
 - Added a RAM that can be synthesized on an FPGA using block RAM.
 - Now its possible to create circuits using lookup tables.
 - More consistent handling of the initial state in the FSM editor.
+- Added a rectangle to visually group elements.
 - Added Portuguese translation. Special thanks to Theldo Cruz Franqueira who
   provided the translation.
 

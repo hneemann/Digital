@@ -574,6 +574,11 @@
       <elementAttributes/>
       <pos x="1100" y="580"/>
     </visualElement>
+    <visualElement>
+      <elementName>Rectangle</elementName>
+      <elementAttributes/>
+      <pos x="120" y="900"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

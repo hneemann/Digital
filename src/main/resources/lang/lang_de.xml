@@ -170,6 +170,10 @@
         Hat keine weitere Funktion für die Simulation.
         Der Text kann im Attribute-Dialog geändert werden.
     </string>
+    <string name="elem_Rectangle">Rechteck</string>
+    <string name="elem_Rectangle_tt">Zeigt eine einfaches Rechteck in der Schaltung an.
+        Hat keine weitere Funktion für die Simulation.
+    </string>
     <string name="elem_Probe">Messwert</string>
     <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertgraphen bzw. in der Messwertetabelle dargestellt wird.
         Dieses Element kann verwendet werden, um auf einfache Weise Werte aus eingebetteten Schaltungen zu beobachten.
@@ -1244,6 +1248,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_preloadProgramFile_tt">Datei welche beim Start der Simulation in den Programspeicher geladen werden
         soll.
     </string>
+
+    <string name="key_RectWidth">Breite</string>
+    <string name="key_RectWidth_tt">Breite in Rastereinheiten</string>
+    <string name="key_RectHeight">Höhe</string>
+    <string name="key_RectHeight_tt">Höhe in Rastereinheiten</string>
+
     <string name="key_wideShape">Breites Symbol</string>
     <string name="key_wideShape_tt">Verwendet ein breiteres Symbol zur Darstellung des Gatters.</string>
 

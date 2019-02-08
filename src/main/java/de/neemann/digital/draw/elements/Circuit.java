@@ -33,6 +33,7 @@ import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.language.Language;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -168,7 +169,7 @@ public class Circuit {
      * @throws IOException IOException
      */
     public void save(OutputStream out) throws IOException {
-        try (Writer w = new OutputStreamWriter(out, "utf-8")) {
+        try (Writer w = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
             XStream xStream = Circuit.getxStream();
             w.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             xStream.marshal(this, new PrettyPrintWriter(w));
@@ -201,6 +202,8 @@ public class Circuit {
         measurementOrdering = new ArrayList<>();
         if (original.measurementOrdering != null)
             measurementOrdering.addAll(original.measurementOrdering);
+
+        version = 1;
     }
 
     /**
@@ -451,15 +454,19 @@ public class Circuit {
      * @return the first element or null if there is no element at the given position
      */
     public VisualElement getElementAt(Vector pos) {
+        VisualElement pending = null;
         for (VisualElement element : visualElements) {
             if (element.matches(pos, false))
-                return element;
+                if (element.isDecoratingShape())
+                    pending = element;
+                else
+                    return element;
         }
-        return null;
+        return pending;
     }
 
     /**
-     * Returns a list of elements at the given position
+     * Returns a list of elements at the given position.
      *
      * @param pos         the cursor position
      * @param includeText if true the element is also returned if only the text matches the given position
@@ -467,11 +474,18 @@ public class Circuit {
      */
     public List<VisualElement> getElementListAt(Vector pos, boolean includeText) {
         ArrayList<VisualElement> list = new ArrayList<>();
+        ArrayList<VisualElement> grList = new ArrayList<>();
         for (VisualElement element : visualElements) {
             if (element.matches(pos, includeText))
-                list.add(element);
+                if (element.isDecoratingShape())
+                    grList.add(element);
+                else
+                    list.add(element);
         }
-        return list;
+        if (list.isEmpty())
+            return grList;
+        else
+            return list;
     }
 
 
@@ -613,7 +627,7 @@ public class Circuit {
                 pinList.add(pin.setPinNumber(attr.get(Keys.PINNUMBER)));
             }
         }
-        return pinList.toArray(new PinDescription[pinList.size()]);
+        return pinList.toArray(new PinDescription[0]);
     }
 
     /**

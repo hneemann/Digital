@@ -209,6 +209,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(TransGate.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_misc"))
                         .add(TestCaseElement.TESTCASEDESCRIPTION)
+                        .add(DummyElement.RECTDESCRIPTION)
                         .add(PowerSupply.DESCRIPTION)
                         .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
