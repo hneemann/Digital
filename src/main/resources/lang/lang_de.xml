@@ -1254,6 +1254,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_RectWidth_tt">Breite in Rastereinheiten</string>
     <string name="key_RectHeight">Höhe</string>
     <string name="key_RectHeight_tt">Höhe in Rastereinheiten</string>
+    <string name="key_RectInside">Text innen</string>
+    <string name="key_RectInside_tt">Text ins Innere des Rechtecks setzen.</string>
+    <string name="key_RectBottom">Text unten</string>
+    <string name="key_RectBottom_tt">Text unten ans Rechteck setzen.</string>
 
     <string name="key_wideShape">Breites Symbol</string>
     <string name="key_wideShape_tt">Verwendet ein breiteres Symbol zur Darstellung des Gatters.</string>

@@ -717,4 +717,16 @@ public final class Keys {
             = new Key.KeyInteger("RectHeight", 3)
             .setMin(2);
 
+    /**
+     * the position of the text in the rectangle
+     */
+    public static final Key<Boolean> RECT_INSIDE
+            = new Key<>("RectInside", false).setSecondary();
+
+    /**
+     * the position of the text in the rectangle
+     */
+    public static final Key<Boolean> RECT_BOTTOM
+            = new Key<>("RectBottom", false).setSecondary();
+
 }

@@ -23,6 +23,9 @@ public class RectShape implements Shape, DecoratingShape {
     private final String label;
     private final int width;
     private final int height;
+    private final boolean inside;
+    private final boolean bottom;
+    private final Integer fontSize;
 
     /**
      * Create a new instance
@@ -42,6 +45,9 @@ public class RectShape implements Shape, DecoratingShape {
 
         width = attr.get(Keys.RECT_WIDTH);
         height = attr.get(Keys.RECT_HEIGHT);
+        inside = attr.get(Keys.RECT_INSIDE);
+        bottom = attr.get(Keys.RECT_BOTTOM);
+        fontSize = attr.get(Keys.FONT_SIZE);
     }
 
     @Override
@@ -56,10 +62,21 @@ public class RectShape implements Shape, DecoratingShape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        Vector pos = new Vector(0, -2);
-        Style style = Style.NORMAL;
+
+        int ofs = -3;
+        Orientation orientation = Orientation.LEFTBOTTOM;
+        if (inside ^ bottom) {
+            ofs = -ofs;
+            orientation = Orientation.LEFTTOP;
+        }
+
+        Vector pos = new Vector(0, ofs);
+        if (bottom)
+            pos = pos.add(0, height * SIZE);
+
+        Style style = Style.NORMAL.deriveFontStyle(fontSize, true);
         if (!label.isEmpty())
-            graphic.drawText(pos, pos.add(1, 0), label, Orientation.LEFTBOTTOM, style);
+            graphic.drawText(pos, pos.add(1, 0), label, orientation, style);
 
         graphic.drawPolygon(new Polygon(true)
                 .add(0, 0)

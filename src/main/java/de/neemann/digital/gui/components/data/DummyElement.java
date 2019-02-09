@@ -41,7 +41,10 @@ public class DummyElement implements Element {
     public static final ElementTypeDescription RECTDESCRIPTION = new ElementTypeDescription("Rectangle", DummyElement.class)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.RECT_WIDTH)
-            .addAttribute(Keys.RECT_HEIGHT);
+            .addAttribute(Keys.RECT_HEIGHT)
+            .addAttribute(Keys.RECT_INSIDE)
+            .addAttribute(Keys.RECT_BOTTOM)
+            .addAttribute(Keys.FONT_SIZE);
 
     /**
      * Creates a new dummy element
