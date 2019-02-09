@@ -185,7 +185,7 @@
     </string>
     <string name="elem_Rectangle">Rectangle</string>
     <string name="elem_Rectangle_tt">Shows a rectangle in the circuit.
-        Does not affect the simulation.
+        Does not affect the simulation. If a minus sign is used as the heading, the heading is omitted.
     </string>
     <string name="elem_Probe">Probe</string>
     <string name="elem_Probe_tt">A measurement value which can be shown in the data graph or measurement table.
@@ -1240,7 +1240,7 @@
     </string>
 
     <string name="key_RectWidth">Width</string>
-    <string name="key_RectWidth_tt">With in grid units</string>
+    <string name="key_RectWidth_tt">Width in grid units</string>
     <string name="key_RectHeight">Height</string>
     <string name="key_RectHeight_tt">Height in grid units</string>
 

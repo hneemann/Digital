@@ -1236,7 +1236,7 @@
     </string>
 
     <string name="key_RectWidth">Width</string>
-    <string name="key_RectWidth_tt">With in grid units</string>
+    <string name="key_RectWidth_tt">Width in grid units</string>
     <string name="key_RectHeight">Height</string>
     <string name="key_RectHeight_tt">Height in grid units</string>
 

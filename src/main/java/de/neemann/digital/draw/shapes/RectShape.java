@@ -32,7 +32,14 @@ public class RectShape implements Shape, DecoratingShape {
      * @param outputs the outputs
      */
     public RectShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
-        label = Lang.evalMultilingualContent(attr.get(Keys.LABEL));
+        final String l = attr.get(Keys.LABEL);
+        if (l.isEmpty())
+            label = Lang.get("elem_Text");
+        else if (l.equals("-"))
+            label = "";
+        else
+            label = Lang.evalMultilingualContent(l);
+
         width = attr.get(Keys.RECT_WIDTH);
         height = attr.get(Keys.RECT_HEIGHT);
     }

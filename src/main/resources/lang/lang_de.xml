@@ -172,7 +172,8 @@
     </string>
     <string name="elem_Rectangle">Rechteck</string>
     <string name="elem_Rectangle_tt">Zeigt ein einfaches Rechteck in der Schaltung an.
-        Hat keine weitere Funktion für die Simulation.
+        Hat keine weitere Funktion für die Simulation. Wird als Überschrift ein Minuszeichen eingegeben, entfällt
+        die Überschrift.
     </string>
     <string name="elem_Probe">Messwert</string>
     <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertgraphen bzw. in der Messwertetabelle dargestellt wird.
