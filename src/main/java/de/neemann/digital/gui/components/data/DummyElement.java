@@ -44,6 +44,7 @@ public class DummyElement implements Element {
             .addAttribute(Keys.RECT_HEIGHT)
             .addAttribute(Keys.RECT_INSIDE)
             .addAttribute(Keys.RECT_BOTTOM)
+            .addAttribute(Keys.RECT_RIGHT)
             .addAttribute(Keys.FONT_SIZE);
 
     /**

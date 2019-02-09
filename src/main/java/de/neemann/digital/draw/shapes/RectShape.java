@@ -25,7 +25,8 @@ public class RectShape implements Shape, DecoratingShape {
     private final int height;
     private final boolean inside;
     private final boolean bottom;
-    private final Integer fontSize;
+    private final boolean right;
+    private final int fontSize;
 
     /**
      * Create a new instance
@@ -47,6 +48,7 @@ public class RectShape implements Shape, DecoratingShape {
         height = attr.get(Keys.RECT_HEIGHT);
         inside = attr.get(Keys.RECT_INSIDE);
         bottom = attr.get(Keys.RECT_BOTTOM);
+        right = attr.get(Keys.RECT_RIGHT);
         fontSize = attr.get(Keys.FONT_SIZE);
     }
 
@@ -64,13 +66,15 @@ public class RectShape implements Shape, DecoratingShape {
     public void drawTo(Graphic graphic, Style highLight) {
 
         int ofs = -3;
-        Orientation orientation = Orientation.LEFTBOTTOM;
+        Orientation orientation = right ? Orientation.RIGHTBOTTOM : Orientation.LEFTBOTTOM;
         if (inside ^ bottom) {
             ofs = -ofs;
-            orientation = Orientation.LEFTTOP;
+            orientation = right ? Orientation.RIGHTTOP : Orientation.LEFTTOP;
         }
 
-        Vector pos = new Vector(0, ofs);
+        Vector pos = new Vector(2, ofs);
+        if (right)
+            pos = pos.add(width * SIZE - 4, 0);
         if (bottom)
             pos = pos.add(0, height * SIZE);
 

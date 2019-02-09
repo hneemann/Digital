@@ -1258,6 +1258,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_RectInside_tt">Text ins Innere des Rechtecks setzen.</string>
     <string name="key_RectBottom">Text unten</string>
     <string name="key_RectBottom_tt">Text unten ans Rechteck setzen.</string>
+    <string name="key_RectRight">Text rechts</string>
+    <string name="key_RectRight_tt">Text rechts ans Rechteck setzen.</string>
 
     <string name="key_wideShape">Breites Symbol</string>
     <string name="key_wideShape_tt">Verwendet ein breiteres Symbol zur Darstellung des Gatters.</string>

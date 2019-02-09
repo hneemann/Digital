@@ -729,4 +729,10 @@ public final class Keys {
     public static final Key<Boolean> RECT_BOTTOM
             = new Key<>("RectBottom", false).setSecondary();
 
+    /**
+     * the position of the text in the rectangle
+     */
+    public static final Key<Boolean> RECT_RIGHT
+            = new Key<>("RectRight", false).setSecondary();
+
 }
