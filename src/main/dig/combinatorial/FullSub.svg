@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="-80 -80 240 200"
+   version="1.1"
+   id="svg4547"
+   sodipodi:docname="FullSub.svg"
+   inkscape:version="0.92.1 r15371">
+  <metadata
+     id="metadata4551">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4549" />
+  <sodipodi:namedview
+     showgrid="true"
+     id="namedview4517"
+     inkscape:zoom="3.9"
+     inkscape:cx="120"
+     inkscape:cy="100"
+     inkscape:window-width="1680"
+     inkscape:window-height="1002"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4547">
+    <inkscape:grid
+       type="xygrid"
+       empspacing="4"
+       spacingx="5"
+       spacingy="5"
+       id="grid4515" />
+  </sodipodi:namedview>
+  <rect
+     x="0"
+     y="-20"
+     width="80"
+     height="80"
+     id="rect4519"
+     style="fill:none;fill-opacity:0.78431373;stroke:#000000;stroke-width:4" />
+  <circle
+     style="fill:#0000b2"
+     r="3"
+     cy="-19.487179"
+     cx="20.769232"
+     id="pin:A_i" />
+  <text
+     style="font-size:18px;fill:#808080"
+     id="text4523"
+     y="0.10256479"
+     x="10.923078"
+     font-size="18">A_i</text>
+  <circle
+     style="fill:#0000b2"
+     r="3"
+     cy="-19.487179"
+     cx="60"
+     id="pin:B_i" />
+  <text
+     style="font-size:18px;fill:#808080"
+     id="text4528"
+     y="0.10256479"
+     x="49.641026"
+     font-size="18">B_i</text>
+  <circle
+     style="fill:#0000b2"
+     r="3"
+     cy="20"
+     cx="-0.25641027"
+     id="pin:BO_{i-1}" />
+  <text
+     style="font-size:18px;fill:#808080"
+     id="text4533"
+     y="34"
+     x="3.7435896"
+     font-size="18">BO_{i-1}</text>
+  <circle
+     style="fill:#b20000"
+     r="3"
+     cy="19.487179"
+     cx="80"
+     id="pin:BO_i" />
+  <text
+     style="font-size:18px;text-anchor:end;fill:#808080"
+     id="text4538"
+     y="19.487179"
+     x="76"
+     font-size="18">BO_i</text>
+  <circle
+     style="fill:#b20000"
+     r="3"
+     cy="60.512821"
+     cx="39.487179"
+     id="pin:S_i" />
+  <text
+     style="font-size:18px;text-anchor:end;fill:#808080"
+     id="text4543"
+     y="54.205124"
+     x="53.692307"
+     font-size="18">S_i</text>
+</svg>
