@@ -184,6 +184,10 @@
         Does not affect the simulation.
         The text can be changed in the attribute dialog.
     </string>
+    <string name="elem_Rectangle">Rectangle</string>
+    <string name="elem_Rectangle_tt">Shows a rectangle in the circuit.
+        Does not affect the simulation. If a minus sign is used as the heading, the heading is omitted.
+    </string>
     <string name="elem_Probe">Probe</string>
     <string name="elem_Probe_tt">A measurement value which can be shown in the data graph or measurement table.
         This component can be used to easily observe values from embedded circuits.
@@ -1234,6 +1238,17 @@
     <string name="key_preloadProgramFile_tt">File which should be loaded into the program memory at the start of the
         simulation.
     </string>
+
+    <string name="key_RectWidth">Width</string>
+    <string name="key_RectWidth_tt">Width in grid units</string>
+    <string name="key_RectHeight">Height</string>
+    <string name="key_RectHeight_tt">Height in grid units</string>
+    <string name="key_RectInside">Text Inside</string>
+    <string name="key_RectInside_tt">Place text inside the rectangle.</string>
+    <string name="key_RectBottom">Text at the bottom</string>
+    <string name="key_RectBottom_tt">Place text at the bottom of the rectangle.</string>
+    <string name="key_RectRight">Text on the right</string>
+    <string name="key_RectRight_tt">Place text to the right of the rectangle.</string>
 
     <string name="key_RectWidth">Width</string>
     <string name="key_RectWidth_tt">Width in grid units</string>
