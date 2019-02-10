@@ -141,7 +141,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                                 .add(RotEncoder.DESCRIPTION)
                                 .add(Keyboard.DESCRIPTION)
                                 .add(Terminal.DESCRIPTION)
-                                .add(Speaker.DESCRIPTION)))
+                                .add(MIDI.DESCRIPTION)))
                 .add(new LibraryNode(Lang.get("lib_wires"))
                         .add(Ground.DESCRIPTION)
                         .add(VDD.DESCRIPTION)

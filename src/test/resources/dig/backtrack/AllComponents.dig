@@ -580,11 +580,6 @@
       <pos x="120" y="900"/>
     </visualElement>
     <visualElement>
-      <elementName>Speaker</elementName>
-      <elementAttributes/>
-      <pos x="300" y="940"/>
-    </visualElement>
-    <visualElement>
       <elementName>Const</elementName>
       <elementAttributes>
         <entry>
@@ -603,6 +598,11 @@
         </entry>
       </elementAttributes>
       <pos x="280" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>MIDI</elementName>
+      <elementAttributes/>
+      <pos x="300" y="940"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -836,6 +836,10 @@
     </wire>
     <wire>
       <p1 x="240" y="980"/>
+      <p2 x="280" y="980"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="980"/>
       <p2 x="300" y="980"/>
     </wire>
     <wire>
@@ -1005,6 +1009,10 @@
     <wire>
       <p1 x="1140" y="360"/>
       <p2 x="1160" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="1000"/>
+      <p2 x="300" y="1000"/>
     </wire>
     <wire>
       <p1 x="1080" y="940"/>
@@ -1497,6 +1505,10 @@
     <wire>
       <p1 x="920" y="100"/>
       <p2 x="920" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="980"/>
+      <p2 x="280" y="1000"/>
     </wire>
     <wire>
       <p1 x="220" y="220"/>

@@ -22,30 +22,34 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * The speaker.
  */
-public class Speaker extends Node implements Element {
+public class MIDI extends Node implements Element {
 
     /**
      * The Speakers description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Speaker.class, input("N"), input("V"), input("en")) {}
+            = new ElementTypeDescription(MIDI.class,
+            input("N"),
+            input("V"),
+            input("OnOff"),
+            input("C").setClock())
             .addAttribute(Keys.MIDICHANNEL)
             .addAttribute(Keys.ROTATE);
 
     private final int chanNum;
     private ObservableValue note;
     private ObservableValue volume;
-    private ObservableValue enable;
+    private ObservableValue clock;
+    private ObservableValue onOff;
     private MidiChannel channel;
-    private boolean lastEn = false;
-    private int notePlaying;
+    private boolean lastCl = false;
 
     /**
      * Creates a new instance
      *
      * @param attributes the elements attributes
      */
-    public Speaker(ElementAttributes attributes) {
+    public MIDI(ElementAttributes attributes) {
         chanNum = attributes.get(Keys.MIDICHANNEL);
     }
 
@@ -53,7 +57,8 @@ public class Speaker extends Node implements Element {
     public void setInputs(ObservableValues inputs) throws NodeException {
         note = inputs.get(0).checkBits(7, this, 0);
         volume = inputs.get(1).checkBits(7, this, 1);
-        enable = inputs.get(2).checkBits(1, this, 2).addObserverToValue(this);
+        onOff = inputs.get(2).checkBits(1, this, 2);
+        clock = inputs.get(3).checkBits(1, this, 3).addObserverToValue(this);
     }
 
     @Override
@@ -63,17 +68,16 @@ public class Speaker extends Node implements Element {
 
     @Override
     public void readInputs() throws NodeException {
-        boolean en = enable.getBool();
-        if (channel != null) {
-            if (!lastEn && en) {
-                notePlaying = (int) note.getValue();
+        boolean cl = clock.getBool();
+        if (!lastCl && cl) {
+            int note = (int) this.note.getValue();
+            if (onOff.getBool()) {
                 int v = (int) volume.getValue();
-                channel.noteOn(notePlaying, v);
-            } else if (lastEn && !en) {
-                channel.noteOff(notePlaying);
-            }
+                channel.noteOn(note, v);
+            } else
+                channel.noteOff(note);
         }
-        lastEn = en;
+        lastCl = cl;
     }
 
     @Override
@@ -86,10 +90,16 @@ public class Speaker extends Node implements Element {
             Synthesizer synth = MidiSystem.getSynthesizer();
             synth.open();
             MidiChannel[] channels = synth.getChannels();
-            if (chanNum >= channels.length)
-                channel = channels[0];
-            else
-                channel = channels[chanNum];
+            if (chanNum >= channels.length) {
+                synth.close();
+                throw new NodeException(Lang.get("err_midiChannel_N_NotAvailable", chanNum));
+            }
+
+            channel = channels[chanNum];
+            if (channel == null) {
+                synth.close();
+                throw new NodeException(Lang.get("err_midiChannel_N_NotAvailable", chanNum));
+            }
 
             model.addObserver(event -> {
                 if (event.equals(ModelEvent.STOPPED))
