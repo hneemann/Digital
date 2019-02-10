@@ -262,7 +262,7 @@
     <string name="elem_MIDI_tt">Nutzt das MIDI-System, um Noten abzuspielen.</string>
     <string name="elem_MIDI_pin_N">Note</string>
     <string name="elem_MIDI_pin_V">Lautstärke</string>
-    <string name="elem_MIDI_pin_OnOff">Wenn gesetzt, enspricht das dem Drücken eine Keyboard-Taste (key down).
+    <string name="elem_MIDI_pin_OnOff">Wenn gesetzt, enspricht das dem Drücken einer Keyboard-Taste (key down).
         Wenn nicht gesetzt, entspricht das einem Loslassen der Taste (key up).</string>
     <string name="elem_MIDI_pin_C">Takteingang</string>
 
