@@ -258,6 +258,11 @@
     <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
     <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
+    <string name="elem_Speaker">Lautsprecher</string>
+    <string name="elem_Speaker_tt">Nutzt das MIDI-System, um Noten abzuspielen.</string>
+    <string name="elem_Speaker_pin_N">Note</string>
+    <string name="elem_Speaker_pin_V">Lautstärke</string>
+    <string name="elem_Speaker_pin_en">Wenn gesetzt, wird der Ton ausgegeben.</string>
 
     <!-- Leitungen -->
 
@@ -993,6 +998,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_allMemoriesNeedToHaveTheSameByteWidth">Alle Speicher in welche Daten geladen werden sollen, benötigen die selbe Bitbreite.</string>
     <string name="err_ProgMemLabelsNotDifferent">Wenn Programme in mehrere RAMs geladen werden sollen, müssen alle RAMs
         unterschiedliche Bezeichnungen haben. Die lexikalische Ordnung legt dann die Reihenfolge der RAMs fest.</string>
+    <string name="err_midiSystemNotAvailable">Das MIDI-System ist nicht verfügbar.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1290,6 +1296,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_textOrientation_LEFTTOP">links oben</string>
     <string name="key_textOrientation_LEFTCENTER">links mitte</string>
     <string name="key_textOrientation_CENTERCENTER">mitte mitte</string>
+
+    <string name="key_midiChannel">MIDI-Kanal</string>
+    <string name="key_midiChannel_tt">Legt den MIDI-Kanal fest.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

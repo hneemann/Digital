@@ -263,6 +263,11 @@
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
     <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
 
+    <string name="elem_Speaker">Speaker</string>
+    <string name="elem_Speaker_tt">Uses the MIDI system to play notes.</string>
+    <string name="elem_Speaker_pin_N">Note</string>
+    <string name="elem_Speaker_pin_V">Valume</string>
+    <string name="elem_Speaker_pin_en">When set, the note is played.</string>
 
     <!-- Wires -->
 
@@ -986,6 +991,7 @@
     <string name="err_allMemoriesNeedToHaveTheSameByteWidth">All memories into which data are to be loaded require the same bit width.</string>
     <string name="err_ProgMemLabelsNotDifferent">If programs are to be loaded into several RAMs, all RAMs must have
         different names. The lexical order then determines the order of the RAMs.</string>
+    <string name="err_midiSystemNotAvailable">The MIDI-System is not available.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1278,6 +1284,9 @@
     <string name="key_textOrientation_LEFTTOP">left top</string>
     <string name="key_textOrientation_LEFTCENTER">left center</string>
     <string name="key_textOrientation_CENTERCENTER">center center</string>
+
+    <string name="key_midiChannel">MIDI channel</string>
+    <string name="key_midiChannel_tt">Selects the MIDI channel to use.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

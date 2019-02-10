@@ -735,4 +735,12 @@ public final class Keys {
     public static final Key<Boolean> RECT_RIGHT
             = new Key<>("RectRight", false).setSecondary();
 
+
+    /**
+     * Selects the midi channel
+     */
+    public static final Key.KeyInteger MIDICHANNEL =
+            new Key.KeyInteger("midiChannel", 0)
+            .setMin(0)
+            .setMax(15);
 }
