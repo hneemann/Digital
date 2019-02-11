@@ -269,6 +269,8 @@
     <string name="elem_MIDI_pin_V">Volume</string>
     <string name="elem_MIDI_pin_OnOff">If set, this translates to pressing a keyboard key (key down event),
         if not set, this translates to releasing the key (key up event).</string>
+    <string name="elem_MIDI_pin_en">Enables the component</string>
+    <string name="elem_MIDI_pin_PC">If high, the value at N is used to change the program (instrument).</string>
     <string name="elem_MIDI_pin_C">Clock</string>
 
     <!-- Wires -->
@@ -1293,6 +1295,9 @@
     <string name="key_midiChannel_tt">Selects the MIDI channel to use.</string>
     <string name="key_midiInstrument">MIDI instrument</string>
     <string name="key_midiInstrument_tt">The MIDI instrument to use.</string>
+    <string name="key_midiProgChange">Allow program change</string>
+    <string name="key_midiProgChange_tt">Adds  a new input PC. If this input is set to high,
+        the value at input N is used to change te program (instrument).</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

@@ -739,14 +739,20 @@ public final class Keys {
     /**
      * Selects the midi channel
      */
-    public static final Key.KeyInteger MIDICHANNEL =
-            new Key.KeyInteger("midiChannel", 0)
-                    .setMin(0)
-                    .setMax(15);
+    public static final Key.KeyInteger MIDI_CHANNEL =
+            new Key.KeyInteger("midiChannel", 1)
+                    .setMin(1)
+                    .setMax(16);
 
     /**
      * Selects the midi channel
      */
-    public static final Key<String> MIDIINSTRUMENT =
+    public static final Key<String> MIDI_INSTRUMENT =
             new Key<>("midiInstrument", "");
+
+    /**
+     * Enables Program change
+     */
+    public static final Key<Boolean> MIDI_PROG_CHANGE =
+            new Key<>("midiProgChange", false);
 }

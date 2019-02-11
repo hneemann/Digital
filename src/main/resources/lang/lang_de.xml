@@ -264,6 +264,8 @@
     <string name="elem_MIDI_pin_V">Lautstärke</string>
     <string name="elem_MIDI_pin_OnOff">Wenn gesetzt, enspricht das dem Drücken einer Keyboard-Taste (key down).
         Wenn nicht gesetzt, entspricht das einem Loslassen der Taste (key up).</string>
+    <string name="elem_MIDI_pin_en">Wenn dieser eingang high ist, kann der Baustein angesprochen werden.</string>
+    <string name="elem_MIDI_pin_PC">Wenn gesetzt, wird mit dem Wert an Eingang N das Programm (Instrument) gewechselt.</string>
     <string name="elem_MIDI_pin_C">Takteingang</string>
 
     <!-- Leitungen -->
@@ -1305,6 +1307,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_midiChannel_tt">Legt den MIDI-Kanal fest.</string>
     <string name="key_midiInstrument">MIDI-Instrument</string>
     <string name="key_midiInstrument_tt">Das MIDI-Instrument, welches verwendet werden soll.</string>
+    <string name="key_midiProgChange">Programmwechsel erlauben</string>
+    <string name="key_midiProgChange_tt">Fügt einen weiteren Eingang PC hinzu. Wird dieser Eingang auf High gesetzt,
+        wird mit dem Wert am Eingang N das Programm (Intrument) gewechselt.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

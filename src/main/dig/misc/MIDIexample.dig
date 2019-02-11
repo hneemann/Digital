@@ -37,7 +37,7 @@
           <int>15</int>
         </entry>
       </elementAttributes>
-      <pos x="100" y="240"/>
+      <pos x="100" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Counter</elementName>
@@ -113,13 +113,23 @@
     </visualElement>
     <visualElement>
       <elementName>MIDI</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>midiInstrument</string>
+          <string>Accordion</string>
+        </entry>
+      </elementAttributes>
       <pos x="580" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
       <elementAttributes/>
       <pos x="140" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="560" y="240"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -132,16 +142,20 @@
       <p2 x="480" y="160"/>
     </wire>
     <wire>
-      <p1 x="100" y="240"/>
-      <p2 x="120" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="240" y="240"/>
+      <p1 x="560" y="240"/>
       <p2 x="580" y="240"/>
     </wire>
     <wire>
-      <p1 x="120" y="240"/>
-      <p2 x="240" y="240"/>
+      <p1 x="100" y="260"/>
+      <p2 x="120" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="260"/>
+      <p2 x="240" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="260"/>
+      <p2 x="580" y="260"/>
     </wire>
     <wire>
       <p1 x="560" y="180"/>
@@ -205,7 +219,7 @@
     </wire>
     <wire>
       <p1 x="240" y="140"/>
-      <p2 x="240" y="240"/>
+      <p2 x="240" y="260"/>
     </wire>
     <wire>
       <p1 x="260" y="160"/>
@@ -213,7 +227,7 @@
     </wire>
     <wire>
       <p1 x="120" y="140"/>
-      <p2 x="120" y="240"/>
+      <p2 x="120" y="260"/>
     </wire>
     <wire>
       <p1 x="120" y="100"/>

@@ -95,7 +95,7 @@ public final class EditorFactory {
      * @return the editor
      */
     public <T> Editor<T> create(Key<T> key, T value) {
-        if (key == Keys.MIDIINSTRUMENT)
+        if (key == Keys.MIDI_INSTRUMENT)
             return (Editor<T>) new MidiInstrumentEditor(value.toString());
 
         Class<? extends Editor> fac = map.get(key.getValueClass());
