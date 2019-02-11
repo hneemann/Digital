@@ -10,12 +10,8 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.lang.Lang;
 
 import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Synthesizer;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -33,10 +29,12 @@ public class MIDI extends Node implements Element {
             input("V"),
             input("OnOff"),
             input("C").setClock())
+            .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.MIDICHANNEL)
-            .addAttribute(Keys.ROTATE);
+            .addAttribute(Keys.MIDIINSTRUMENT);
 
     private final int chanNum;
+    private final String instrument;
     private ObservableValue note;
     private ObservableValue volume;
     private ObservableValue clock;
@@ -51,6 +49,7 @@ public class MIDI extends Node implements Element {
      */
     public MIDI(ElementAttributes attributes) {
         chanNum = attributes.get(Keys.MIDICHANNEL);
+        instrument = attributes.get(Keys.MIDIINSTRUMENT);
     }
 
     @Override
@@ -86,27 +85,7 @@ public class MIDI extends Node implements Element {
 
     @Override
     public void init(Model model) throws NodeException {
-        try {
-            Synthesizer synth = MidiSystem.getSynthesizer();
-            synth.open();
-            MidiChannel[] channels = synth.getChannels();
-            if (chanNum >= channels.length) {
-                synth.close();
-                throw new NodeException(Lang.get("err_midiChannel_N_NotAvailable", chanNum));
-            }
-
-            channel = channels[chanNum];
-            if (channel == null) {
-                synth.close();
-                throw new NodeException(Lang.get("err_midiChannel_N_NotAvailable", chanNum));
-            }
-
-            model.addObserver(event -> {
-                if (event.equals(ModelEvent.STOPPED))
-                    synth.close();
-            }, ModelEvent.STOPPED);
-        } catch (MidiUnavailableException e) {
-            throw new NodeException(Lang.get("err_midiSystemNotAvailable"), e);
-        }
+        MIDIHelper.getInstance().open(model);
+        channel = MIDIHelper.getInstance().getChannel(chanNum, instrument);
     }
 }

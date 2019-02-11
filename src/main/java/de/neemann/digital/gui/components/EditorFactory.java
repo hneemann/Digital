@@ -13,6 +13,7 @@ import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.extern.PortDefinition;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.io.MIDIHelper;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.memory.importer.Importer;
@@ -94,6 +95,9 @@ public final class EditorFactory {
      * @return the editor
      */
     public <T> Editor<T> create(Key<T> key, T value) {
+        if (key == Keys.MIDIINSTRUMENT)
+            return (Editor<T>) new MidiInstrumentEditor(value.toString());
+
         Class<? extends Editor> fac = map.get(key.getValueClass());
         if (fac == null)
             throw new RuntimeException("no editor found for " + key.getValueClass().getSimpleName());
@@ -1035,6 +1039,36 @@ public final class EditorFactory {
         @Override
         public void setValue(ROMManger value) {
             romManager = value;
+        }
+    }
+
+    private static final class MidiInstrumentEditor extends LabelEditor<String> {
+        private JComboBox<String> comb;
+
+        private MidiInstrumentEditor(String instrument) {
+            String[] instruments;
+            try {
+                instruments = MIDIHelper.getInstance().getInstruments();
+            } catch (NodeException e) {
+                instruments = new String[]{"MIDI not available"};
+            }
+            comb = new JComboBox<>(instruments);
+            comb.setSelectedItem(instrument);
+        }
+
+        @Override
+        protected JComponent getComponent(ElementAttributes elementAttributes) {
+            return comb;
+        }
+
+        @Override
+        public String getValue() {
+            return (String) comb.getSelectedItem();
+        }
+
+        @Override
+        public void setValue(String value) {
+            comb.setSelectedItem(value);
         }
     }
 }

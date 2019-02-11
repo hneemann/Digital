@@ -741,6 +741,12 @@ public final class Keys {
      */
     public static final Key.KeyInteger MIDICHANNEL =
             new Key.KeyInteger("midiChannel", 0)
-            .setMin(0)
-            .setMax(15);
+                    .setMin(0)
+                    .setMax(15);
+
+    /**
+     * Selects the midi channel
+     */
+    public static final Key<String> MIDIINSTRUMENT =
+            new Key<>("midiInstrument", "");
 }

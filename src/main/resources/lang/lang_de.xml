@@ -1002,6 +1002,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         unterschiedliche Bezeichnungen haben. Die lexikalische Ordnung legt dann die Reihenfolge der RAMs fest.</string>
     <string name="err_midiSystemNotAvailable">Das MIDI-System ist nicht verfügbar.</string>
     <string name="err_midiChannel_N_NotAvailable">Der MIDI-Kanal {0} ist nicht verfügbar.</string>
+    <string name="err_midiInstrument_N_NotAvailable">Das MIDI-Instrument {0} ist nicht verfügbar.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1302,6 +1303,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_midiChannel">MIDI-Kanal</string>
     <string name="key_midiChannel_tt">Legt den MIDI-Kanal fest.</string>
+    <string name="key_midiInstrument">MIDI-Instrument</string>
+    <string name="key_midiInstrument_tt">Das MIDI-Instrument, welches verwendet werden soll.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
