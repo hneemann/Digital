@@ -70,9 +70,9 @@ public final class MIDIHelper {
     }
 
     private void close() {
-        if (!isOpen) {
+        if (isOpen) {
             synthesizer.close();
-            synthesizer = null;
+            isOpen = false;
         }
     }
 
