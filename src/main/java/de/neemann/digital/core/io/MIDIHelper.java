@@ -9,6 +9,8 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sound.midi.*;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.TreeMap;
  * Helper for MIDI functions
  */
 public final class MIDIHelper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MIDIHelper.class);
     private static MIDIHelper ourInstance = new MIDIHelper();
 
     /**
@@ -27,19 +30,20 @@ public final class MIDIHelper {
         return ourInstance;
     }
 
-    private Synthesizer synthesizer;
+    private SynthesizerInterface synthesizer;
     private boolean isOpen;
     private TreeMap<String, Instrument> instrumentMap;
 
     private MIDIHelper() {
     }
 
-    private Synthesizer getSynthesizer() throws NodeException {
+    private SynthesizerInterface getSynthesizer() throws NodeException {
         if (synthesizer == null) {
             try {
-                synthesizer = MidiSystem.getSynthesizer();
-                if (synthesizer == null)
+                final Synthesizer synth = MidiSystem.getSynthesizer();
+                if (synth == null)
                     throw new NodeException(Lang.get("err_midiSystemNotAvailable"));
+                synthesizer = new RealSynthesizer(synth);
             } catch (MidiUnavailableException e) {
                 throw new NodeException(Lang.get("err_midiSystemNotAvailable"), e);
             }
@@ -58,8 +62,14 @@ public final class MIDIHelper {
             try {
                 getSynthesizer().open();
             } catch (MidiUnavailableException e) {
-                throw new NodeException(Lang.get("err_midiSystemNotAvailable"), e);
+                if (System.getProperty("testdata") == null) {
+                    throw new NodeException(Lang.get("err_midiSystemNotAvailable"), e);
+                } else {
+                    LOGGER.info("Use fake MIDI interface!");
+                    synthesizer = new SynthesizerMock();
+                }
             }
+
             isOpen = true;
 
             model.addObserver(event -> {
@@ -136,6 +146,202 @@ public final class MIDIHelper {
             }
         }
         return instrumentMap;
+    }
+
+    private interface SynthesizerInterface {
+        void open() throws MidiUnavailableException;
+
+        void close();
+
+        boolean loadInstrument(Instrument instr);
+
+        Instrument[] getAvailableInstruments();
+
+        MidiChannel[] getChannels();
+    }
+
+    private static final class RealSynthesizer implements SynthesizerInterface {
+        private final Synthesizer synthesizer;
+
+        private RealSynthesizer(Synthesizer synthesizer) {
+            this.synthesizer = synthesizer;
+        }
+
+        @Override
+        public void open() throws MidiUnavailableException {
+            synthesizer.open();
+        }
+
+        @Override
+        public void close() {
+            synthesizer.close();
+        }
+
+        @Override
+        public boolean loadInstrument(Instrument instr) {
+            return synthesizer.loadInstrument(instr);
+        }
+
+        @Override
+        public Instrument[] getAvailableInstruments() {
+            return synthesizer.getAvailableInstruments();
+        }
+
+        @Override
+        public MidiChannel[] getChannels() {
+            return synthesizer.getChannels();
+        }
+    }
+
+    private static final class SynthesizerMock implements SynthesizerInterface {
+        @Override
+        public void open() throws MidiUnavailableException {
+        }
+
+        @Override
+        public void close() {
+        }
+
+        @Override
+        public boolean loadInstrument(Instrument instr) {
+            return true;
+        }
+
+        @Override
+        public Instrument[] getAvailableInstruments() {
+            return new Instrument[0];
+        }
+
+        @Override
+        public MidiChannel[] getChannels() {
+            return new MidiChannel[]{new MidiChannel() {
+                @Override
+                public void noteOn(int i, int i1) {
+                }
+
+                @Override
+                public void noteOff(int i, int i1) {
+                }
+
+                @Override
+                public void noteOff(int i) {
+                }
+
+                @Override
+                public void setPolyPressure(int i, int i1) {
+                }
+
+                @Override
+                public int getPolyPressure(int i) {
+                    return 0;
+                }
+
+                @Override
+                public void setChannelPressure(int i) {
+
+                }
+
+                @Override
+                public int getChannelPressure() {
+                    return 0;
+                }
+
+                @Override
+                public void controlChange(int i, int i1) {
+
+                }
+
+                @Override
+                public int getController(int i) {
+                    return 0;
+                }
+
+                @Override
+                public void programChange(int i) {
+
+                }
+
+                @Override
+                public void programChange(int i, int i1) {
+
+                }
+
+                @Override
+                public int getProgram() {
+                    return 0;
+                }
+
+                @Override
+                public void setPitchBend(int i) {
+
+                }
+
+                @Override
+                public int getPitchBend() {
+                    return 0;
+                }
+
+                @Override
+                public void resetAllControllers() {
+
+                }
+
+                @Override
+                public void allNotesOff() {
+
+                }
+
+                @Override
+                public void allSoundOff() {
+
+                }
+
+                @Override
+                public boolean localControl(boolean b) {
+                    return false;
+                }
+
+                @Override
+                public void setMono(boolean b) {
+
+                }
+
+                @Override
+                public boolean getMono() {
+                    return false;
+                }
+
+                @Override
+                public void setOmni(boolean b) {
+
+                }
+
+                @Override
+                public boolean getOmni() {
+                    return false;
+                }
+
+                @Override
+                public void setMute(boolean b) {
+
+                }
+
+                @Override
+                public boolean getMute() {
+                    return false;
+                }
+
+                @Override
+                public void setSolo(boolean b) {
+
+                }
+
+                @Override
+                public boolean getSolo() {
+                    return false;
+                }
+            }};
+        }
     }
 
 }
