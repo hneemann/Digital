@@ -62,7 +62,7 @@ public class MIDI extends Node implements Element {
      * @param attributes the elements attributes
      */
     public MIDI(ElementAttributes attributes) {
-        chanNum = attributes.get(Keys.MIDI_CHANNEL)-1;
+        chanNum = attributes.get(Keys.MIDI_CHANNEL) - 1;
         instrument = attributes.get(Keys.MIDI_INSTRUMENT);
         progChangeEnable = attributes.get(Keys.MIDI_PROG_CHANGE);
     }
@@ -111,7 +111,6 @@ public class MIDI extends Node implements Element {
 
     @Override
     public void init(Model model) throws NodeException {
-        MIDIHelper.getInstance().open(model);
-        channel = MIDIHelper.getInstance().getChannel(chanNum, instrument);
+        channel = MIDIHelper.getInstance().getChannel(chanNum, instrument, model);
     }
 }

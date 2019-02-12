@@ -57,7 +57,7 @@ public final class MIDIHelper {
      * @param model the mode used. If the model is closed also the synthesizer is closed
      * @throws NodeException NodeException
      */
-    public void open(Model model) throws NodeException {
+    private void ensureOpen(Model model) throws NodeException {
         if (!isOpen) {
             try {
                 getSynthesizer().open();
@@ -91,10 +91,13 @@ public final class MIDIHelper {
      *
      * @param num        the channel number
      * @param instrument the instrument to use
+     * @param model      the model
      * @return the channel
      * @throws NodeException NodeException
      */
-    public MidiChannel getChannel(int num, String instrument) throws NodeException {
+    public MidiChannel getChannel(int num, String instrument, Model model) throws NodeException {
+        ensureOpen(model);
+
         Instrument instr = null;
         if (!instrument.isEmpty())
             instr = getInstrument(instrument);
