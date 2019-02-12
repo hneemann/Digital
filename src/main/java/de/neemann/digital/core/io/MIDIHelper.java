@@ -96,12 +96,8 @@ public final class MIDIHelper {
      */
     public MidiChannel getChannel(int num, String instrument) throws NodeException {
         Instrument instr = null;
-        if (!instrument.isEmpty()) {
-            if (!getSynthesizer().loadInstruments())
-                throw new NodeException(Lang.get("err_midiInstrumentsNotAvailable"));
-
+        if (!instrument.isEmpty())
             instr = getInstrument(instrument);
-        }
 
         MidiChannel[] channels = getSynthesizer().getChannels();
         if (num >= channels.length) {
@@ -154,8 +150,6 @@ public final class MIDIHelper {
 
         void close();
 
-        boolean loadInstruments();
-
         Instrument[] getAvailableInstruments();
 
         MidiChannel[] getChannels();
@@ -171,19 +165,18 @@ public final class MIDIHelper {
         @Override
         public void open() throws MidiUnavailableException {
             synthesizer.open();
+
+            Soundbank soundbank = synthesizer.getDefaultSoundbank();
+            if (soundbank == null)
+                throw new MidiUnavailableException();
+
+            if (!synthesizer.loadAllInstruments(soundbank))
+                throw new MidiUnavailableException();
         }
 
         @Override
         public void close() {
             synthesizer.close();
-        }
-
-        @Override
-        public boolean loadInstruments() {
-            Soundbank soundbank = synthesizer.getDefaultSoundbank();
-            if (soundbank == null)
-                return false;
-            return synthesizer.loadAllInstruments(soundbank);
         }
 
         @Override
@@ -199,16 +192,11 @@ public final class MIDIHelper {
 
     private static final class SynthesizerMock implements SynthesizerInterface {
         @Override
-        public void open() throws MidiUnavailableException {
+        public void open() {
         }
 
         @Override
         public void close() {
-        }
-
-        @Override
-        public boolean loadInstruments() {
-            return true;
         }
 
         @Override
