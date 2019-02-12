@@ -168,10 +168,10 @@ public final class MIDIHelper {
 
             Soundbank soundbank = synthesizer.getDefaultSoundbank();
             if (soundbank == null)
-                throw new MidiUnavailableException();
+                throw new MidiUnavailableException(Lang.get("err_midiInstrumentsNotAvailable"));
 
             if (!synthesizer.loadAllInstruments(soundbank))
-                throw new MidiUnavailableException();
+                throw new MidiUnavailableException(Lang.get("err_midiInstrumentsNotAvailable"));
         }
 
         @Override
