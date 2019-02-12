@@ -218,7 +218,7 @@ public final class MIDIHelper {
 
         @Override
         public MidiChannel[] getChannels() {
-            return new MidiChannel[]{new MidiChannel() {
+            final MidiChannel dummy = new MidiChannel() {
                 @Override
                 public void noteOn(int i, int i1) {
                 }
@@ -344,7 +344,12 @@ public final class MIDIHelper {
                 public boolean getSolo() {
                     return false;
                 }
-            }};
+            };
+            return new MidiChannel[]{
+                    dummy, dummy, dummy, dummy,
+                    dummy, dummy, dummy, dummy,
+                    dummy, dummy, dummy, dummy,
+                    dummy, dummy, dummy, dummy};
         }
     }
 
