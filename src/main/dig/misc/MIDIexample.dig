@@ -113,12 +113,7 @@
     </visualElement>
     <visualElement>
       <elementName>MIDI</elementName>
-      <elementAttributes>
-        <entry>
-          <string>midiInstrument</string>
-          <string>Accordion</string>
-        </entry>
-      </elementAttributes>
+      <elementAttributes/>
       <pos x="580" y="180"/>
     </visualElement>
     <visualElement>

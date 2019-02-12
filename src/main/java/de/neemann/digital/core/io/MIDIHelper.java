@@ -97,10 +97,10 @@ public final class MIDIHelper {
     public MidiChannel getChannel(int num, String instrument) throws NodeException {
         Instrument instr = null;
         if (!instrument.isEmpty()) {
-            instr = getInstrument(instrument);
+            if (!getSynthesizer().loadInstruments())
+                throw new NodeException(Lang.get("err_midiInstrumentsNotAvailable"));
 
-            if (!getSynthesizer().loadInstrument(instr))
-                throw new NodeException(Lang.get("err_midiInstrument_N_NotAvailable", instrument));
+            instr = getInstrument(instrument);
         }
 
         MidiChannel[] channels = getSynthesizer().getChannels();
@@ -141,6 +141,7 @@ public final class MIDIHelper {
     private TreeMap<String, Instrument> getInstumentMap() throws NodeException {
         if (instrumentMap == null) {
             instrumentMap = new TreeMap<>();
+            instrumentMap.put("", null);
             for (Instrument i : getSynthesizer().getAvailableInstruments()) {
                 instrumentMap.put(i.getName(), i);
             }
@@ -153,7 +154,7 @@ public final class MIDIHelper {
 
         void close();
 
-        boolean loadInstrument(Instrument instr);
+        boolean loadInstruments();
 
         Instrument[] getAvailableInstruments();
 
@@ -178,8 +179,11 @@ public final class MIDIHelper {
         }
 
         @Override
-        public boolean loadInstrument(Instrument instr) {
-            return synthesizer.loadInstrument(instr);
+        public boolean loadInstruments() {
+            Soundbank soundbank = synthesizer.getDefaultSoundbank();
+            if (soundbank == null)
+                return false;
+            return synthesizer.loadAllInstruments(soundbank);
         }
 
         @Override
@@ -203,7 +207,7 @@ public final class MIDIHelper {
         }
 
         @Override
-        public boolean loadInstrument(Instrument instr) {
+        public boolean loadInstruments() {
             return true;
         }
 

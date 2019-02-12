@@ -1005,6 +1005,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_midiSystemNotAvailable">Das MIDI-System ist nicht verfügbar.</string>
     <string name="err_midiChannel_N_NotAvailable">Der MIDI-Kanal {0} ist nicht verfügbar.</string>
     <string name="err_midiInstrument_N_NotAvailable">Das MIDI-Instrument {0} ist nicht verfügbar.</string>
+    <string name="err_midiInstrumentsNotAvailable">Die MIDI-Instrumente sind nicht verfügbar.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1309,7 +1310,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_midiInstrument_tt">Das MIDI-Instrument, welches verwendet werden soll.</string>
     <string name="key_midiProgChange">Programmwechsel erlauben</string>
     <string name="key_midiProgChange_tt">Fügt einen weiteren Eingang PC hinzu. Wird dieser Eingang auf High gesetzt,
-        wird mit dem Wert am Eingang N das Programm (Intrument) gewechselt.</string>
+        wird mit dem Wert am Eingang N das Programm (Instrument) gewechselt.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

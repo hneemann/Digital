@@ -998,6 +998,7 @@
     <string name="err_midiSystemNotAvailable">The MIDI-System is not available.</string>
     <string name="err_midiChannel_N_NotAvailable">The MIDI channel {0} is not available.</string>
     <string name="err_midiInstrument_N_NotAvailable">The MIDI instrument {0} is not available.</string>
+    <string name="err_midiInstrumentsNotAvailable">The MIDI instruments are not available.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
