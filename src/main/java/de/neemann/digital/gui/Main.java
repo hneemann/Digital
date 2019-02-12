@@ -154,7 +154,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      */
     private Main(MainBuilder builder) {
         super(Lang.get("digital"));
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
 
         windowPosManager = new WindowPosManager(this);
