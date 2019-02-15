@@ -7,6 +7,7 @@ HEAD, planned as v0.22
 - Now its possible to create circuits using lookup tables.
 - More consistent handling of the initial state in the FSM editor.
 - Added a rectangle to visually group elements.
+- Added a MIDI component.
 - Added Portuguese translation. Special thanks to Theldo Cruz Franqueira who
   provided the translation.
 

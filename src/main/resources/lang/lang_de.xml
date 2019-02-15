@@ -258,6 +258,15 @@
     <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
     <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
+    <string name="elem_MIDI">MIDI</string>
+    <string name="elem_MIDI_tt">Nutzt das MIDI-System, um Noten abzuspielen.</string>
+    <string name="elem_MIDI_pin_N">Note</string>
+    <string name="elem_MIDI_pin_V">Lautstärke</string>
+    <string name="elem_MIDI_pin_OnOff">Wenn gesetzt, enspricht das dem Drücken einer Keyboard-Taste (key down).
+        Wenn nicht gesetzt, entspricht das einem Loslassen der Taste (key up).</string>
+    <string name="elem_MIDI_pin_en">Wenn dieser eingang high ist, kann der Baustein angesprochen werden.</string>
+    <string name="elem_MIDI_pin_PC">Wenn gesetzt, wird mit dem Wert an Eingang N das Programm (Instrument) gewechselt.</string>
+    <string name="elem_MIDI_pin_C">Takteingang</string>
 
     <!-- Leitungen -->
 
@@ -993,6 +1002,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_allMemoriesNeedToHaveTheSameByteWidth">Alle Speicher in welche Daten geladen werden sollen, benötigen die selbe Bitbreite.</string>
     <string name="err_ProgMemLabelsNotDifferent">Wenn Programme in mehrere RAMs geladen werden sollen, müssen alle RAMs
         unterschiedliche Bezeichnungen haben. Die lexikalische Ordnung legt dann die Reihenfolge der RAMs fest.</string>
+    <string name="err_midiSystemNotAvailable">Das MIDI-System ist nicht verfügbar.</string>
+    <string name="err_midiChannel_N_NotAvailable">Der MIDI-Kanal {0} ist nicht verfügbar.</string>
+    <string name="err_midiInstrument_N_NotAvailable">Das MIDI-Instrument {0} ist nicht verfügbar.</string>
+    <string name="err_midiInstrumentsNotAvailable">Die MIDI-Instrumente sind nicht verfügbar.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1290,6 +1303,14 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_textOrientation_LEFTTOP">links oben</string>
     <string name="key_textOrientation_LEFTCENTER">links mitte</string>
     <string name="key_textOrientation_CENTERCENTER">mitte mitte</string>
+
+    <string name="key_midiChannel">MIDI-Kanal</string>
+    <string name="key_midiChannel_tt">Legt den MIDI-Kanal fest.</string>
+    <string name="key_midiInstrument">MIDI-Instrument</string>
+    <string name="key_midiInstrument_tt">Das MIDI-Instrument, welches verwendet werden soll.</string>
+    <string name="key_midiProgChange">Programmwechsel erlauben</string>
+    <string name="key_midiProgChange_tt">Fügt einen weiteren Eingang PC hinzu. Wird dieser Eingang auf High gesetzt,
+        wird mit dem Wert am Eingang N das Programm (Instrument) gewechselt.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

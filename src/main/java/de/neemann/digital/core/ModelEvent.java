@@ -16,7 +16,7 @@ public enum ModelEvent {
     STARTED,
 
     /**
-     * The model had stopped.
+     * The model has stopped.
      */
     STOPPED,
 
