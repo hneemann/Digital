@@ -127,7 +127,7 @@
 	<xsl:template match="chapter" mode="toc">
 		<fo:block text-align-last="justify">
             <fo:basic-link show-destination="replace" internal-destination="chap_{position()}">
-                <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
+                <xsl:value-of select="position() div 2"/>. <xsl:value-of select="@heading" />
             </fo:basic-link>
 			<xsl:text> </xsl:text>
 			<fo:leader leader-pattern="dots" />
@@ -142,7 +142,7 @@
         <xsl:param name="chapter"/>
         <fo:block margin-left="2mm" text-align-last="justify">
             <fo:basic-link show-destination="replace" internal-destination="chap_{position()}_{$chapter}">
-                <xsl:value-of select="$chapter" />.<xsl:value-of select="position()"/>. <xsl:value-of select="@name" />
+                <xsl:value-of select="$chapter" />.<xsl:value-of select="position()"/>. <xsl:value-of select="@heading" />
             </fo:basic-link>
             <xsl:text> </xsl:text>
             <fo:leader leader-pattern="dots" />
@@ -177,7 +177,7 @@
 			<xsl:if test="@newpage = 'true'">
 				<xsl:attribute name="page-break-before">always</xsl:attribute>
 			</xsl:if>
-			<xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
+			<xsl:value-of select="position() div 2"/>. <xsl:value-of select="@heading" />
         </fo:block>
         <xsl:apply-templates mode="full">
 			<xsl:with-param name="chapter" select="position() div 2"/>
@@ -187,7 +187,7 @@
 	<xsl:template match="subchapter" mode="full">
 		<xsl:param name="chapter"/>
 		<fo:block page-break-after="avoid" margin-top="4mm" margin-bottom="4mm" font-size="12pt" font-weight="bold" id="chap_{position() div 2}_{$chapter}">
-			<xsl:value-of select="$chapter" />.<xsl:value-of select="position() div 2"/>. <xsl:value-of select="@name" />
+			<xsl:value-of select="$chapter" />.<xsl:value-of select="position() div 2"/>. <xsl:value-of select="@heading" />
 		</fo:block>
 		<xsl:apply-templates mode="full"/>
 	</xsl:template>

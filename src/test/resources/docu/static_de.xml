@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <root>
-    <chapter name="Digital">
-        <subchapter name="Einführung">
+    <chapter heading="Digital">
+        <subchapter heading="Einführung">
             <par>
                 Digital ist ein Simulator für digitale Schaltkreise. Ein Schaltung besteht dabei aus einer
                 Anzahl logischer Gatter, welche miteinander durch Leitungen verbunden sind.
@@ -24,7 +24,7 @@
                 Möchte man die Schaltung weiter bearbeiten, muss man die Simulation zunächst wieder stoppen.
             </par>
         </subchapter>
-        <subchapter name="Erste Schritte">
+        <subchapter heading="Erste Schritte">
             <par><image src="scr00.png"/></par>
             <par>
                 Als erstes Beispiel soll eine Schaltung mit einem Exklusiv-Oder Gatter aufgebaut werden.
@@ -127,7 +127,7 @@
                 Durch Klicken in der KV-Tafel lässt sich die Wahrheitstabelle bearbeiten.
             </par>
         </subchapter>
-        <subchapter name="Verbindungsleitungen">
+        <subchapter heading="Verbindungsleitungen">
             <par>
                 Alle Elemente müssen über Leitungen verbunden werden. Es ist nicht möglich, zwei Elemente direkt
                 miteinander zu verbinden, indem man sie direkt nebeneinander platziert.
@@ -153,7 +153,7 @@
                 Die Taste S erlaubt das aufsplitten eines Leitungssegments in zwei Segmente.
             </par>
         </subchapter>
-        <subchapter name="Hierarchisches Design">
+        <subchapter heading="Hierarchisches Design">
             <par>
                 Wenn eine komplexe Schaltung aufgebaut wird, kann diese schnell sehr unübersichtlich werden.
                 Um hier die Übersicht zu behalten, können die verschiedenen Teile einer Schaltung in unterschiedlichen
@@ -242,8 +242,8 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Simulation">
-        <subchapter name="Gatterlaufzeiten">
+    <chapter heading="Simulation">
+        <subchapter heading="Gatterlaufzeiten">
             <par>
                 Bei der Simulation wird davon ausgegangen, dass jedes Gatter eine bestimmte Laufzeit hat, und dass diese
                 Laufzeit für alle Gatter identisch ist. Die Laufzeit eines jeden Elementes aus der Bibliothek hat
@@ -269,7 +269,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Schaltungsanalyse und Synthese">
+    <chapter heading="Schaltungsanalyse und Synthese">
         <par>
             Eine vorliegende Schaltung kann über den Menüeintrag <e>Analyse</e> analysiert werden. Bei rein
             kombinatorischen Schaltungen wird eine Wahrheitstabelle erzeugt. Diese Wahrheitstabelle kann beliebig
@@ -300,8 +300,8 @@
             Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend analysiert werden.
         </par>
     </chapter>
-    <chapter name="Hardware">
-        <subchapter name="GAL16v8 bzw. GAL22v10">
+    <chapter heading="Hardware">
+        <subchapter heading="GAL16v8 bzw. GAL22v10">
             <par>
                 Im Menü der Schaltungserzeugung der Warheitstabelle finden sich auch Funktionen um so gen. JEDEC Dateien
                 zu erzeugen. Dabei handelt es sich
@@ -312,7 +312,7 @@
                 Bausteine unterstützt.
             </par>
         </subchapter>
-        <subchapter name="ATF150xAS">
+        <subchapter heading="ATF150xAS">
             <par>
                 Die Bausteine der
                 <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
@@ -369,7 +369,7 @@
                 ist.
             </par>
         </subchapter>
-        <subchapter name="Export zu VHDL oder Verilog">
+        <subchapter heading="Export zu VHDL oder Verilog">
             <par>
                 Eine Schaltung kann zu VHDL oder Verilog exportiert werden. Dabei wird eine Datei erzeugt,
                 welche die komplette Beschreibung der Schaltung enthält. Der erzeugte VHDL Code wurde mit
@@ -414,7 +414,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Benutzerdefinierter Schaltungssymbole">
+    <chapter heading="Benutzerdefinierter Schaltungssymbole">
         <par>
             Digital bietet zwar einige Optionen, die die Erscheinungsform einer Schaltung festlegen, wenn diese
             in eine andere eingebettet wird, in manchen Fällen kann es jedoch sinnvoll sein, ein spezielles
@@ -457,7 +457,7 @@
             gewünschte Ergebnis erreicht ist.
         </par>
     </chapter>
-    <chapter name="Häufig gestellte Fragen">
+    <chapter heading="Häufig gestellte Fragen">
         <faq>
             <question>Wie kann ich eine Leitung verschieben?</question>
             <answer>Mit der Rechteckauswahl einen Endpunkt auswählen und dann mit der Maus verschieben.
@@ -588,7 +588,7 @@
             </answer>
         </faq>
     </chapter>
-    <chapter name="Tastenbelegung" newpage="true">
+    <chapter heading="Tastenbelegung" newpage="true">
         <shortcuts>
             <shortcut key="Leertaste">Starten und stoppen der Simulation</shortcut>
             <shortcut key="F6">Anzeigen der Messwerttabelle</shortcut>

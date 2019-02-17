@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
-    <chapter name="Digital">
-        <subchapter name="Introduction">
+    <chapter heading="Digital">
+        <subchapter heading="Introduction">
             <par>
                 Digital is a simple simulator used to simulate digital circuits. The logic gates are connected
                 to each other by wires and the behavior of the overall circuit can be simulated.
@@ -26,7 +26,7 @@
                 editing mode again by stopping the simulation.
             </par>
         </subchapter>
-        <subchapter name="First Steps">
+        <subchapter heading="First Steps">
             <par><image src="scr00.png"/></par>
             <par>
                 As a first example, a circuit is to be constructed with an Exclusive-Or gate.
@@ -119,7 +119,7 @@
                 The truth table can also be modified by clicking the K-map.
             </par>
         </subchapter>
-        <subchapter name="Wires">
+        <subchapter heading="Wires">
             <par>
                 All components must be connected via wires. It is not possible to connect two components
                 by placing them directly next to each other.
@@ -142,7 +142,7 @@
                 The key S allows the splitting of a line segment into two segments.
             </par>
         </subchapter>
-        <subchapter name="Hierarchical Design">
+        <subchapter heading="Hierarchical Design">
             <par>
                 If a complex circuit is built up, this can quickly become very confusing. To keep track here,
                 the different parts of a circuit can be stored in different files. This mechanism also makes it
@@ -222,8 +222,8 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Simulation">
-        <subchapter name="Propagation Delay">
+    <chapter heading="Simulation">
+        <subchapter heading="Propagation Delay">
             <par>
                 During the simulation every logic gate has a propagation delay. Every component found in the library
                 has the same propagation delay regardless of its complexity.
@@ -248,7 +248,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Circuit Analysis and Synthesis">
+    <chapter heading="Circuit Analysis and Synthesis">
         <par>
             A circuit can be analyzed via the menu entry <e>Analysis</e>. A truth table is generated for purely
             combinatorial circuits. This truth table can be edited as desired.
@@ -278,8 +278,8 @@
             circuit is not recognized as a flip-flop and therefore it is not possible to analyse such a circuit.
         </par>
     </chapter>
-    <chapter name="Hardware">
-        <subchapter name="GAL16v8 and GAL22v10">
+    <chapter heading="Hardware">
+        <subchapter heading="GAL16v8 and GAL22v10">
             <par>
                 In the circuit generation menu in the truth table there are also functions to generate so-called
                 JEDEC files. This is a special file format that describes the fuse map of a PLD.
@@ -288,7 +288,7 @@
                 devices are supported.
             </par>
         </subchapter>
-        <subchapter name="ATF150xAS">
+        <subchapter heading="ATF150xAS">
             <par>
                 The chips in the
                 <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
@@ -343,7 +343,7 @@
                 On Linux systems, the fitters can also be executed by Digital if <e>wine</e> is installed.
             </par>
         </subchapter>
-        <subchapter name="Export to VHDL or Verilog">
+        <subchapter heading="Export to VHDL or Verilog">
             <par>
                 A circuit can be exported to VHDL or Verilog. A file is generated which contains the complete description
                 of the circuit. The generated VHDL code was tested with
@@ -388,7 +388,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter name="Custom Shapes">
+    <chapter heading="Custom Shapes">
         <par>
             Although Digital has some options that determine the appearance of a circuit when it is embedded in
             another, in some cases it may be useful to use a very special shape for a subcircuit. An example is
@@ -426,7 +426,7 @@
             some experimentation may be required before the desired result is achieved.
         </par>
     </chapter>
-    <chapter name="Frequently asked Questions">
+    <chapter heading="Frequently asked Questions">
         <faq>
             <question>How to move a wire?</question>
             <answer>Select one of the end points with the rectangular selection. Then move this point using the mouse.
@@ -525,7 +525,7 @@
             <answer>To program such a chip a special programmer hardware is necessary.</answer>
         </faq>
     </chapter>
-    <chapter name="Keyboard Shortcuts" newpage="true">
+    <chapter heading="Keyboard Shortcuts" newpage="true">
         <shortcuts>
             <shortcut key="Space">Starts or stops the simulation.</shortcut>
             <shortcut key="F6">Opens the measurement table dialog.</shortcut>
