@@ -11,7 +11,8 @@ package de.neemann.digital.testing.parser;
 public interface LineEmitter {
 
     /**
-     * Is called to eimit the described line to the listener
+     * Is called to emit the described line to the listener.
+     * A emitter is allowed to emit multiple lines to the listener.
      *
      * @param listener the listener to emit the lines
      * @param context  the context

@@ -52,7 +52,7 @@ public class LineListenerResolveDontCare implements LineListener {
                     row[in] = new Value(val ? 1 : 0);
                     mask *= 2;
                 }
-                parent.add(new TestRow(testRow.getValues(), testRow.getDescription() + ";X=" + n));
+                parent.add(new TestRow(row, testRow.getDescription() + ";X=" + n));
             }
         }
     }
