@@ -8,6 +8,7 @@ HEAD, planned as v0.22
 - More consistent handling of the initial state in the FSM editor.
 - Added a rectangle to visually group elements.
 - Added a MIDI component.
+- Line number from test description is shown in test result table.
 - Added Portuguese translation. Special thanks to Theldo Cruz Franqueira who
   provided the translation.
 
