@@ -48,7 +48,7 @@ public class ShowStringDialog extends JDialog {
      * @param html   is the string a html string?
      */
     public ShowStringDialog(Window parent, String title, String str, boolean html) {
-        super(parent, title, ModalityType.APPLICATION_MODAL);
+        super(parent, title, ModalityType.MODELESS);
         init(parent, str, html);
     }
 
