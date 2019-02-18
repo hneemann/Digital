@@ -22,8 +22,8 @@ public class ParserLoopTest extends TestCase {
         assertEquals(10, td.getLines().size());
 
         for (int i = 0; i < 10; i++) {
-            assertEquals(Value.Type.CLOCK, td.getLines().get(i)[0].getType());
-            assertEquals(i * 2, td.getLines().get(i)[1].getValue());
+            assertEquals(Value.Type.CLOCK, td.getLines().get(i).getValue(0).getType());
+            assertEquals(i * 2, td.getLines().get(i).getValue(1).getValue());
         }
     }
 
@@ -35,8 +35,8 @@ public class ParserLoopTest extends TestCase {
         assertEquals(10, td.getLines().size());
 
         for (int i = 0; i < 10; i++) {
-            assertEquals(Value.Type.CLOCK, td.getLines().get(i)[0].getType());
-            assertEquals(i * 2, td.getLines().get(i)[1].getValue());
+            assertEquals(Value.Type.CLOCK, td.getLines().get(i).getValue(0).getType());
+            assertEquals(i * 2, td.getLines().get(i).getValue(1).getValue());
         }
     }
 
@@ -50,8 +50,8 @@ public class ParserLoopTest extends TestCase {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 int ind = i * 10 + j;
-                assertEquals(Value.Type.CLOCK, td.getLines().get(ind)[0].getType());
-                assertEquals(i + j * 2, td.getLines().get(ind)[1].getValue());
+                assertEquals(Value.Type.CLOCK, td.getLines().get(ind).getValue(0).getType());
+                assertEquals(i + j * 2, td.getLines().get(ind).getValue(1).getValue());
             }
         }
     }
@@ -64,10 +64,10 @@ public class ParserLoopTest extends TestCase {
         assertEquals(20, td.getLines().size());
 
         for (int i = 0; i < 10; i++) {
-            assertEquals(Value.Type.CLOCK, td.getLines().get(i * 2)[0].getType());
-            assertEquals(i * 2, td.getLines().get(i * 2)[1].getValue());
-            assertEquals(Value.Type.CLOCK, td.getLines().get(i * 2 + 1)[0].getType());
-            assertEquals(i * 2 + 1, td.getLines().get(i * 2 + 1)[1].getValue());
+            assertEquals(Value.Type.CLOCK, td.getLines().get(i * 2).getValue(0).getType());
+            assertEquals(i * 2, td.getLines().get(i * 2).getValue(1).getValue());
+            assertEquals(Value.Type.CLOCK, td.getLines().get(i * 2 + 1).getValue(0).getType());
+            assertEquals(i * 2 + 1, td.getLines().get(i * 2 + 1).getValue(1).getValue());
         }
     }
 

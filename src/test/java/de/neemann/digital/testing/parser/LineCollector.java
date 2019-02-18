@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class LineCollector implements LineListener {
     private final ArrayList<String> names;
-    private final ArrayList<Value[]> list;
+    private final ArrayList<TestRow> list;
 
     public LineCollector(LineEmitter le) throws ParserException {
         this.list = new ArrayList<>();
@@ -28,11 +28,11 @@ public class LineCollector implements LineListener {
     }
 
     @Override
-    public void add(Value[] values) {
+    public void add(TestRow values) {
         list.add(values);
     }
 
-    public ArrayList<Value[]> getLines() {
+    public ArrayList<TestRow> getLines() {
         return list;
     }
 

@@ -26,20 +26,20 @@ public class ParserTest extends TestCase {
         assertEquals(3, td.getLines().size());
 
 
-        assertEquals(0, td.getLines().get(0)[0].getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(0)[0].getType());
+        assertEquals(0, td.getLines().get(0).getValue(0).getValue());
+        assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(0).getType());
 
-        assertEquals(1, td.getLines().get(0)[1].getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(0)[1].getType());
+        assertEquals(1, td.getLines().get(0).getValue(1).getValue());
+        assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(1).getType());
 
-        assertEquals(1, td.getLines().get(1)[0].getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(1)[0].getType());
+        assertEquals(1, td.getLines().get(1).getValue(0).getValue());
+        assertEquals(Value.Type.NORMAL, td.getLines().get(1).getValue(0).getType());
 
-        assertEquals(0, td.getLines().get(1)[1].getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(1)[1].getType());
+        assertEquals(0, td.getLines().get(1).getValue(1).getValue());
+        assertEquals(Value.Type.NORMAL, td.getLines().get(1).getValue(1).getType());
 
-        assertEquals(Value.Type.DONTCARE, td.getLines().get(2)[0].getType());
-        assertEquals(Value.Type.DONTCARE, td.getLines().get(2)[1].getType());
+        assertEquals(Value.Type.DONTCARE, td.getLines().get(2).getValue(0).getType());
+        assertEquals(Value.Type.DONTCARE, td.getLines().get(2).getValue(1).getType());
     }
 
     public void testHex() throws TestingDataException, IOException, ParserException {
@@ -49,11 +49,11 @@ public class ParserTest extends TestCase {
 
         assertEquals(1, td.getLines().size());
 
-        assertEquals(0, td.getLines().get(0)[0].getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(0)[0].getType());
+        assertEquals(0, td.getLines().get(0).getValue(0).getValue());
+        assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(0).getType());
 
-        assertEquals(255, td.getLines().get(0)[1].getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(0)[1].getType());
+        assertEquals(255, td.getLines().get(0).getValue(1).getValue());
+        assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(1).getType());
     }
 
     public void testBin() throws TestingDataException, IOException, ParserException {
@@ -63,16 +63,17 @@ public class ParserTest extends TestCase {
 
         assertEquals(1, td.getLines().size());
 
-        assertEquals(0, td.getLines().get(0)[0].getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(0)[0].getType());
+        assertEquals(0, td.getLines().get(0).getValue(0).getValue());
+        assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(0).getType());
 
-        assertEquals(255, td.getLines().get(0)[1].getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(0)[1].getType());
+        assertEquals(255, td.getLines().get(0).getValue(1).getValue());
+        assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(1).getType());
     }
 
     public void testMissingValue() throws IOException, ParserException {
         try {
-            new Parser("A B\n0 0\n1").parse().getLines().emitLines(values -> {}, new Context());
+            new Parser("A B\n0 0\n1").parse().getLines().emitLines(values -> {
+            }, new Context());
             assertTrue(false);
         } catch (ParserException e) {
             assertTrue(true);
@@ -95,10 +96,10 @@ public class ParserTest extends TestCase {
         assertEquals(2, td.getNames().size());
         assertEquals(2, td.getLines().size());
 
-        assertEquals(Value.Type.CLOCK, td.getLines().get(0)[0].getType());
-        assertEquals(1, td.getLines().get(0)[1].getValue());
-        assertEquals(Value.Type.CLOCK, td.getLines().get(1)[0].getType());
-        assertEquals(0, td.getLines().get(1)[1].getValue());
+        assertEquals(Value.Type.CLOCK, td.getLines().get(0).getValue(0).getType());
+        assertEquals(1, td.getLines().get(0).getValue(1).getValue());
+        assertEquals(Value.Type.CLOCK, td.getLines().get(1).getValue(0).getType());
+        assertEquals(0, td.getLines().get(1).getValue(1).getValue());
     }
 
     public void testFor() throws IOException, ParserException {
@@ -109,8 +110,8 @@ public class ParserTest extends TestCase {
         assertEquals(10, td.getLines().size());
 
         for (int i = 0; i < 10; i++) {
-            assertEquals(Value.Type.CLOCK, td.getLines().get(i)[0].getType());
-            assertEquals(i * 2, td.getLines().get(i)[1].getValue());
+            assertEquals(Value.Type.CLOCK, td.getLines().get(i).getValue(0).getType());
+            assertEquals(i * 2, td.getLines().get(i).getValue(1).getValue());
         }
     }
 
@@ -121,10 +122,10 @@ public class ParserTest extends TestCase {
         assertEquals(8, td.getLines().size());
 
         for (int i = 0; i < 8; i++) {
-            assertEquals(Value.Type.DONTCARE, td.getLines().get(i)[0].getType());
-            assertEquals((i >> 2) & 1, td.getLines().get(i)[1].getValue());
-            assertEquals((i >> 1) & 1, td.getLines().get(i)[2].getValue());
-            assertEquals(i & 1, td.getLines().get(i)[3].getValue());
+            assertEquals(Value.Type.DONTCARE, td.getLines().get(i).getValue(0).getType());
+            assertEquals((i >> 2) & 1, td.getLines().get(i).getValue(1).getValue());
+            assertEquals((i >> 1) & 1, td.getLines().get(i).getValue(2).getValue());
+            assertEquals(i & 1, td.getLines().get(i).getValue(3).getValue());
         }
     }
 
@@ -151,7 +152,7 @@ public class ParserTest extends TestCase {
         assertEquals("C", td.getNames().get(2));
         assertEquals("D", td.getNames().get(3));
         assertEquals(1, td.getLines().size());
-        assertEquals(4, td.getLines().get(0).length);
+        assertEquals(4, td.getLines().get(0).getValues().length);
     }
 
     public void testEmptyLines() throws TestingDataException, IOException, ParserException {
@@ -179,7 +180,7 @@ public class ParserTest extends TestCase {
                 "repeat(1<<16) 0 (n>>8) (n&255) ((n>>8)*(n&255)) 0").parse();
         LineCollector td = new LineCollector(parser);
         assertEquals(5, td.getNames().size());
-        assertEquals(1<<16, td.getLines().size());
+        assertEquals(1 << 16, td.getLines().size());
     }
 
     public void test_GitHub_49() throws IOException, ParserException {

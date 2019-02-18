@@ -5,8 +5,6 @@
  */
 package de.neemann.digital.testing.parser;
 
-import de.neemann.digital.data.Value;
-
 /**
  * Listener for truth table lines
  */
@@ -16,5 +14,5 @@ public interface LineListener {
      *
      * @param values the values in the line
      */
-    void add(Value[] values);
+    void add(TestRow values);
 }

@@ -12,6 +12,7 @@ import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.testing.parser.TestRow;
 
 import javax.swing.*;
 
@@ -136,7 +137,7 @@ public class DataPlotter implements Drawable {
 
         boolean first = true;
         double pos = 0;
-        for (Value[] s : data) {
+        for (TestRow s : data) {
             int x1 = (int) (pos + textWidth - offset);
             int x2 = (int) (pos + textWidth - offset + size);
 
@@ -148,7 +149,7 @@ public class DataPlotter implements Drawable {
                 y = BORDER;
                 for (int i = 0; i < signals; i++) {
                     Style style;
-                    switch (s[i].getState()) {
+                    switch (s.getValue(i).getState()) {
                         case FAIL:
                             style = Style.FAILED;
                             break;
@@ -161,7 +162,7 @@ public class DataPlotter implements Drawable {
 
                     long width = data.getMax(i);
                     if (width == 0) width = 1;
-                    long value = s[i].getValue();
+                    long value = s.getValue(i).getValue();
                     int ry;
                     if (Math.abs(width >>> 1) < Integer.MAX_VALUE) {
                         ry = (int) (SIZE - (SIZE * value) / width);
@@ -183,7 +184,7 @@ public class DataPlotter implements Drawable {
                         last[i].hasChanged = false;
                     }
 
-                    if (!s[i].getType().equals(Value.Type.HIGHZ))
+                    if (!s.getValue(i).getType().equals(Value.Type.HIGHZ))
                         g.drawLine(new Vector(x1, y + ry), new Vector(x2, y + ry), style);
 
                     if (!first && ry != last[i].y)

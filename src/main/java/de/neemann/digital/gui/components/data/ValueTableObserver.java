@@ -10,6 +10,7 @@ import de.neemann.digital.core.ModelStateObserverTyped;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.data.ValueTable;
+import de.neemann.digital.testing.parser.TestRow;
 
 import java.util.ArrayList;
 
@@ -58,13 +59,13 @@ public class ValueTableObserver implements ModelStateObserverTyped {
 
         if (event == type) {
             if (manualSample != null) {
-                logData.add(manualSample);
+                logData.add(new TestRow(manualSample, -1));
                 manualSample = null;
             }
             Value[] row = new Value[logData.getColumns()];
             for (int i = 0; i < logData.getColumns(); i++)
                 row[i] = new Value(signals.get(i).getValue());
-            logData.add(row);
+            logData.add(new TestRow(row, -1));
         }
     }
 

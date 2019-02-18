@@ -22,6 +22,7 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.ModelEntry;
 import de.neemann.digital.gui.components.OrderMerger;
 import de.neemann.digital.gui.components.data.ValueTableObserver;
+import de.neemann.digital.testing.parser.TestRow;
 
 import java.util.ArrayList;
 
@@ -68,8 +69,8 @@ public class DataShape implements Shape {
     public void drawTo(Graphic graphic, Style heighLight) {
         if (logData == null) {
             logData = new ValueTable("A", "B", "C")
-                    .add(new Value[]{new Value(0), new Value(0), new Value(0)})
-                    .add(new Value[]{new Value(0), new Value(1), new Value(0)});
+                    .add(new TestRow(new Value(0), new Value(0), new Value(0)))
+                    .add(new TestRow(new Value(0), new Value(1), new Value(0)));
         }
         new DataPlotter(logData).drawTo(graphic, null);
     }

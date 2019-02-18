@@ -7,6 +7,7 @@ package de.neemann.digital.testing;
 
 import de.neemann.digital.data.Value;
 import de.neemann.digital.testing.parser.LineListener;
+import de.neemann.digital.testing.parser.TestRow;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,8 @@ public class LineListenerResolveDontCare implements LineListener {
     }
 
     @Override
-    public void add(Value[] row) {
+    public void add(TestRow testRow) {
+        Value[] row = testRow.getValues();
         ArrayList<Integer> dcIndex = null;
         for (TestExecutor.TestSignal in : inputs) {
             if (row[in.getIndex()].getType() == Value.Type.DONTCARE) {
@@ -40,7 +42,7 @@ public class LineListenerResolveDontCare implements LineListener {
             }
         }
         if (dcIndex == null)
-            parent.add(row);
+            parent.add(testRow);
         else {
             int count = 1 << dcIndex.size();
             for (int n = 0; n < count; n++) {
@@ -50,7 +52,7 @@ public class LineListenerResolveDontCare implements LineListener {
                     row[in] = new Value(val ? 1 : 0);
                     mask *= 2;
                 }
-                parent.add(row);
+                parent.add(testRow);
             }
         }
     }

@@ -23,6 +23,7 @@ import de.neemann.digital.testing.TestingDataException;
 import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.LineListener;
 import de.neemann.digital.testing.parser.ParserException;
+import de.neemann.digital.testing.parser.TestRow;
 
 import java.io.File;
 import java.io.IOException;
@@ -269,17 +270,17 @@ public class VerilogTestBenchCreator {
         }
 
         @Override
-        public void add(Value[] values) {
+        public void add(TestRow row) {
             try {
                 boolean containsClock = false;
-                for (Value v : values)
+                for (Value v : row.getValues())
                     if (v.getType() == Value.Type.CLOCK)
                         containsClock = true;
                 if (containsClock) {
-                    writeValues(values, true, 0);
-                    writeValues(values, true, 1);
+                    writeValues(row.getValues(), true, 0);
+                    writeValues(row.getValues(), true, 1);
                 }
-                writeValues(values, false, 0);
+                writeValues(row.getValues(), false, 0);
             } catch (IOException | HDLException e) {
                 throw new RuntimeException(e);
             }

@@ -10,6 +10,7 @@ import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.draw.graphics.Export;
 import de.neemann.digital.draw.graphics.GraphicsImage;
 import de.neemann.digital.gui.components.data.ValueTableObserver;
+import de.neemann.digital.testing.parser.TestRow;
 import junit.framework.TestCase;
 
 import java.io.BufferedWriter;
@@ -36,13 +37,13 @@ public class TestCaseDescription extends TestCase {
 
         assertEquals(29, dataSet.getRows());
         int i = 0;
-        for (Value[] ds : dataSet) {
-            assertEquals((~i) & 1, ds[0].getValue()); // clock
+        for (TestRow ds : dataSet) {
+            assertEquals((~i) & 1, ds.getValue(0).getValue()); // clock
             int s = i / 2 + 1;
-            assertEquals(s & 1, ds[1].getValue());//q_0
-            assertEquals((s >> 1) & 1, ds[2].getValue());//q_1
-            assertEquals((s >> 2) & 1, ds[3].getValue());//q_2
-            assertEquals((s >> 3) & 1, ds[4].getValue());//q_3
+            assertEquals(s & 1, ds.getValue(1).getValue());//q_0
+            assertEquals((s >> 1) & 1, ds.getValue(2).getValue());//q_1
+            assertEquals((s >> 2) & 1, ds.getValue(3).getValue());//q_2
+            assertEquals((s >> 3) & 1, ds.getValue(4).getValue());//q_3
             i++;
         }
 

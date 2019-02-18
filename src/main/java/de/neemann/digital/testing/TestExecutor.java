@@ -16,6 +16,7 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.LineEmitter;
 import de.neemann.digital.testing.parser.ParserException;
+import de.neemann.digital.testing.parser.TestRow;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -128,39 +129,40 @@ public class TestExecutor {
         signals.add(name);
     }
 
-    private void checkRow(Model model, Value[] row) {
-        Value[] res = new Value[row.length];
+    private void checkRow(Model model, TestRow testRow) {
+        Value[] values = testRow.getValues();
+        Value[] res = new Value[values.length];
 
         boolean clockIsUsed = false;
         // set all values except the clocks
         for (TestSignal in : inputs) {
-            if (row[in.index].getType() != Value.Type.CLOCK) {
-                row[in.index].copyTo(in.value);
+            if (values[in.index].getType() != Value.Type.CLOCK) {
+                values[in.index].copyTo(in.value);
             } else {
                 clockIsUsed = true;
             }
-            res[in.index] = row[in.index];
+            res[in.index] = values[in.index];
         }
 
         try {
             if (clockIsUsed) {  // a clock signal is used
                 model.doStep();  // propagate all except clock
-                addClockRow(row.length);
+                addClockRow(values.length, testRow.getLineNum());
 
                 // set clock
                 for (TestSignal in : inputs)
-                    if (row[in.index].getType() == Value.Type.CLOCK) {
-                        row[in.index].copyTo(in.value);
-                        res[in.index] = row[in.index];
+                    if (values[in.index].getType() == Value.Type.CLOCK) {
+                        values[in.index].copyTo(in.value);
+                        res[in.index] = values[in.index];
                     }
 
                 // propagate clock change
                 model.doStep();
-                addClockRow(row.length);
+                addClockRow(values.length, testRow.getLineNum());
 
                 // restore clock
                 for (TestSignal in : inputs)   // invert the clock values
-                    if (row[in.index].getType() == Value.Type.CLOCK) {
+                    if (values[in.index].getType() == Value.Type.CLOCK) {
                         in.value.setBool(!in.value.getBool());
                         res[in.index] = new Value(in.value);
                     }
@@ -175,7 +177,7 @@ public class TestExecutor {
 
         boolean ok = true;
         for (TestSignal out : outputs) {
-            MatchedValue matchedValue = new MatchedValue(row[out.index], out.value);
+            MatchedValue matchedValue = new MatchedValue(values[out.index], out.value);
             res[out.index] = matchedValue;
             if (!matchedValue.isPassed()) {
                 allPassed = false;
@@ -184,19 +186,19 @@ public class TestExecutor {
         }
 
         if (results.getRows() < (ok ? MAX_RESULTS : ERR_RESULTS))
-            results.add(res);
+            results.add(new TestRow(res, testRow.getLineNum()));
         else
             toManyResults = true;
     }
 
-    private void addClockRow(int cols) {
+    private void addClockRow(int cols, int lineNum) {
         if (results.getRows() < ERR_RESULTS) {
             Value[] r = new Value[cols];
             for (TestSignal out : outputs)
                 r[out.index] = new Value(out.value);
             for (TestSignal in : inputs)
                 r[in.index] = new Value(in.value);
-            results.add(r).omitInTable();
+            results.add(new TestRow(r, lineNum)).omitInTable();
         } else
             toManyResults = true;
     }

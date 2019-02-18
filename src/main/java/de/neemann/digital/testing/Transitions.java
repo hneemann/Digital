@@ -10,6 +10,7 @@ import de.neemann.digital.data.Value;
 import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.Parser;
 import de.neemann.digital.testing.parser.ParserException;
+import de.neemann.digital.testing.parser.TestRow;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class Transitions {
 
     private final String text;
-    private final ArrayList<Value[]> uniqueLines;
+    private final ArrayList<TestRow> uniqueLines;
     private final ArrayList<Integer> inVarNum;
 
     /**
@@ -54,7 +55,7 @@ public class Transitions {
         p.getLines().emitLines(line -> {
             if (isNormal(line)) {
                 boolean found = false;
-                for (Value[] u : uniqueLines) {
+                for (TestRow u : uniqueLines) {
                     if (isInputEqual(line, u)) {
                         found = true;
                         break;
@@ -66,18 +67,18 @@ public class Transitions {
         }, new Context());
     }
 
-    private boolean isInputEqual(Value[] l1, Value[] l2) {
-        if (l1.length != l2.length) return false;
+    private boolean isInputEqual(TestRow l1, TestRow l2) {
+        if (l1.getValues().length != l2.getValues().length) return false;
 
         for (int i : inVarNum)
-            if (!l1[i].isEqualTo(l2[i]))
+            if (!l1.getValues()[i].isEqualTo(l2.getValues()[i]))
                 return false;
 
         return true;
     }
 
-    private boolean isNormal(Value[] line) {
-        for (Value v : line)
+    private boolean isNormal(TestRow line) {
+        for (Value v : line.getValues())
             if (v.getType().equals(Value.Type.CLOCK) || v.getType().equals(Value.Type.DONTCARE))
                 return false;
 
@@ -100,13 +101,13 @@ public class Transitions {
 
     private String getTransitionTests() {
         ArrayList<Trans> trans = new ArrayList<>();
-        for (Value[] a : uniqueLines)
-            for (Value[] b : uniqueLines)
+        for (TestRow a : uniqueLines)
+            for (TestRow b : uniqueLines)
                 if (!isInputEqual(a, b))
                     trans.add(new Trans(a, b));
 
         StringBuilder sb = new StringBuilder();
-        Value[] last = null;
+        TestRow last = null;
         while (!trans.isEmpty()) {
             Trans found = null;
             if (last != null) {
@@ -119,13 +120,13 @@ public class Transitions {
 
             if (found == null) {
                 Trans t = trans.remove(0);
-                toString(sb, t.a);
+                toString(sb, t.a.getValues());
                 sb.append("\n");
-                toString(sb, t.b);
+                toString(sb, t.b.getValues());
                 sb.append("\n");
                 last = t.b;
             } else {
-                toString(sb, found.b);
+                toString(sb, found.b.getValues());
                 sb.append("\n");
                 last = found.b;
                 trans.remove(found);
@@ -146,10 +147,10 @@ public class Transitions {
     }
 
     private static final class Trans {
-        private final Value[] a;
-        private final Value[] b;
+        private final TestRow a;
+        private final TestRow b;
 
-        private Trans(Value[] a, Value[] b) {
+        private Trans(TestRow a, TestRow b) {
             this.a = a;
             this.b = b;
         }

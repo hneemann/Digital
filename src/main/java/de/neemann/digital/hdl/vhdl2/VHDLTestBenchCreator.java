@@ -21,6 +21,7 @@ import de.neemann.digital.testing.TestingDataException;
 import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.LineListener;
 import de.neemann.digital.testing.parser.ParserException;
+import de.neemann.digital.testing.parser.TestRow;
 
 import java.io.File;
 import java.io.IOException;
@@ -234,20 +235,20 @@ public class VHDLTestBenchCreator {
         }
 
         @Override
-        public void add(Value[] values) {
+        public void add(TestRow testRow) {
             try {
                 boolean containsClock = false;
-                for (Value v : values)
+                for (Value v : testRow.getValues())
                     if (v.getType() == Value.Type.CLOCK)
                         containsClock = true;
                 if (containsClock) {
                     lineSep.check();
-                    writeValues(values, true, 0);
+                    writeValues(testRow.getValues(), true, 0);
                     lineSep.check();
-                    writeValues(values, true, 1);
+                    writeValues(testRow.getValues(), true, 1);
                 }
                 lineSep.check();
-                writeValues(values, false, 0);
+                writeValues(testRow.getValues(), false, 0);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

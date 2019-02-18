@@ -20,8 +20,8 @@ public class ParserLetTest extends TestCase {
         assertEquals(10, td.getLines().size());
 
         for (int i = 0; i < 10; i++) {
-            assertEquals(Value.Type.CLOCK, td.getLines().get(i)[0].getType());
-            assertEquals(i * 4, td.getLines().get(i)[1].getValue());
+            assertEquals(Value.Type.CLOCK, td.getLines().get(i).getValue(0).getType());
+            assertEquals(i * 4, td.getLines().get(i).getValue(1).getValue());
         }
     }
 
@@ -33,8 +33,8 @@ public class ParserLetTest extends TestCase {
         assertEquals(10, td.getLines().size());
 
         for (int i = 0; i < 10; i++) {
-            assertEquals(Value.Type.CLOCK, td.getLines().get(i)[0].getType());
-            assertEquals(i * 2, td.getLines().get(i)[1].getValue());
+            assertEquals(Value.Type.CLOCK, td.getLines().get(i).getValue(0).getType());
+            assertEquals(i * 2, td.getLines().get(i).getValue(1).getValue());
         }
     }
 
@@ -56,8 +56,8 @@ public class ParserLetTest extends TestCase {
         for (int n = 0; n < 3; n++) {
             for (int m = 0; m < 3; m++) {
                 int row = n * 3 + m;
-                assertEquals(n * 2, td.getLines().get(row)[0].getValue());
-                assertEquals(m * 3 + n * 2, td.getLines().get(row)[1].getValue());
+                assertEquals(n * 2, td.getLines().get(row).getValue(0).getValue());
+                assertEquals(m * 3 + n * 2, td.getLines().get(row).getValue(1).getValue());
             }
         }
     }

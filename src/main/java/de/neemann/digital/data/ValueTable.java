@@ -6,6 +6,7 @@
 package de.neemann.digital.data;
 
 import de.neemann.digital.core.Observable;
+import de.neemann.digital.testing.parser.TestRow;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,10 +16,10 @@ import java.util.Iterator;
 /**
  * Stores values in a table
  */
-public class ValueTable extends Observable implements Iterable<Value[]> {
+public class ValueTable extends Observable implements Iterable<TestRow> {
 
     private final String[] names;
-    private final ArrayList<Value[]> values;
+    private final ArrayList<TestRow> values;
     private ArrayList<Integer> tableRowIndex;
     private final long[] max;
     private int maxSize = 0;
@@ -50,7 +51,7 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
      */
     public ValueTable(ValueTable toCopy) {
         this.names = toCopy.names;
-        values = (ArrayList<Value[]>) toCopy.values.clone();
+        values = (ArrayList<TestRow>) toCopy.values.clone();
         max = toCopy.max.clone();
     }
 
@@ -77,7 +78,7 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
      * @param row a row to insert, values are not copied!
      * @return this for chained calls
      */
-    public ValueTable add(Value[] row) {
+    public ValueTable add(TestRow row) {
         if (maxSize > 0 && values.size() >= maxSize) {
 
             if (tableRowIndex != null)
@@ -90,7 +91,7 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
             tableRowIndex.add(values.size());
         values.add(row);
 
-        checkMax(row);
+        checkMax(row.getValues());
 
         fireHasChanged();
 
@@ -126,7 +127,7 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
      * @return the value stored at the given position
      */
     public Value getValue(int rowIndex, int columnIndex) {
-        return values.get(rowIndex)[columnIndex];
+        return values.get(rowIndex).getValue(columnIndex);
     }
 
     /**
@@ -138,9 +139,22 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
      */
     public Value getTableValue(int rowIndex, int columnIndex) {
         if (tableRowIndex == null)
-            return values.get(rowIndex)[columnIndex];
+            return values.get(rowIndex).getValue(columnIndex);
         else
-            return values.get(tableRowIndex.get(rowIndex))[columnIndex];
+            return values.get(tableRowIndex.get(rowIndex)).getValue(columnIndex);
+    }
+
+    /**
+     * Returns the source line
+     *
+     * @param rowIndex the row index
+     * @return the source line number
+     */
+    public int getSourceLine(int rowIndex) {
+        if (tableRowIndex == null)
+            return values.get(rowIndex).getLineNum();
+        else
+            return values.get(tableRowIndex.get(rowIndex)).getLineNum();
     }
 
     /**
@@ -163,7 +177,7 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
     }
 
     @Override
-    public Iterator<Value[]> iterator() {
+    public Iterator<TestRow> iterator() {
         return values.iterator();
     }
 
@@ -200,9 +214,9 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
                 w.write(",\"" + s + '"');
             w.write("\n");
             int row = 0;
-            for (Value[] s : this) {
+            for (TestRow s : this) {
                 w.write("\"" + (row++) + "\"");
-                for (Value value : s) w.write(",\"" + value + "\"");
+                for (Value value : s.getValues()) w.write(",\"" + value + "\"");
                 w.write("\n");
             }
         } finally {
@@ -238,14 +252,14 @@ public class ValueTable extends Observable implements Iterable<Value[]> {
         sb.append("\n");
 
         if (tableRowIndex == null)
-            for (Value[] row : values) {
-                for (Value v : row)
+            for (TestRow row : values) {
+                for (Value v : row.getValues())
                     sb.append(v.toString()).append(" ");
                 sb.append("\n");
             }
         else
             for (int i : tableRowIndex) {
-                for (Value v : values.get(i))
+                for (Value v : values.get(i).getValues())
                     sb.append(v.toString()).append(" ");
                 sb.append("\n");
             }

@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.data;
 
+import de.neemann.digital.testing.parser.TestRow;
 import junit.framework.TestCase;
 
 import java.io.BufferedWriter;
@@ -12,11 +13,12 @@ import java.io.StringWriter;
 
 
 /**
+ *
  */
 public class ValueTableTest extends TestCase {
     private ValueTable t = new ValueTable("A", "B", "C")
-            .add(new Value[]{new Value(0), new Value(0), new Value(0)})
-            .add(new Value[]{new Value(0), new Value(1), Value.getHighZ()});
+            .add(new TestRow(new Value(0), new Value(0), new Value(0)))
+            .add(new TestRow(new Value(0), new Value(1), Value.getHighZ()));
 
 
     public void testGeneral() throws Exception {
@@ -40,25 +42,25 @@ public class ValueTableTest extends TestCase {
 
     public void testMax() {
         ValueTable t = new ValueTable("A", "B", "C")
-                .add(new Value[]{new Value(0), new Value(4), new Value(1)})
-                .add(new Value[]{new Value(1), new Value(0), new Value(3)})
-                .add(new Value[]{new Value(2), new Value(0), new Value(1)})
-                .add(new Value[]{new Value(1), new Value(0), new Value(1)});
-        assertEquals(2,t.getMax(0));
-        assertEquals(4,t.getMax(1));
-        assertEquals(3,t.getMax(2));
+                .add(new TestRow(new Value(0), new Value(4), new Value(1)))
+                .add(new TestRow(new Value(1), new Value(0), new Value(3)))
+                .add(new TestRow(new Value(2), new Value(0), new Value(1)))
+                .add(new TestRow(new Value(1), new Value(0), new Value(1)));
+        assertEquals(2, t.getMax(0));
+        assertEquals(4, t.getMax(1));
+        assertEquals(3, t.getMax(2));
     }
 
     public void testOmit() {
         ValueTable t = new ValueTable("A");
-        t.add(new Value[]{new Value(1)});
-        t.add(new Value[]{new Value(2)}).omitInTable();
-        t.add(new Value[]{new Value(3)});
-        t.add(new Value[]{new Value(4)}).omitInTable();
-        t.add(new Value[]{new Value(5)});
-        assertEquals(3,t.getTableRows());
-        assertTrue(new Value(1).isEqualTo(t.getTableValue(0,0)));
-        assertTrue(new Value(3).isEqualTo(t.getTableValue(1,0)));
-        assertTrue(new Value(5).isEqualTo(t.getTableValue(2,0)));
+        t.add(new TestRow(new Value(1)));
+        t.add(new TestRow(new Value(2))).omitInTable();
+        t.add(new TestRow(new Value(3)));
+        t.add(new TestRow(new Value(4))).omitInTable();
+        t.add(new TestRow(new Value(5)));
+        assertEquals(3, t.getTableRows());
+        assertTrue(new Value(1).isEqualTo(t.getTableValue(0, 0)));
+        assertTrue(new Value(3).isEqualTo(t.getTableValue(1, 0)));
+        assertTrue(new Value(5).isEqualTo(t.getTableValue(2, 0)));
     }
 }
