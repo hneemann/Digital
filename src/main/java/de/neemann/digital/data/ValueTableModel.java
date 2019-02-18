@@ -67,9 +67,13 @@ public class ValueTableModel implements TableModel, Observer {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (columnIndex == 0)
-            return values.getSourceLine(rowIndex);
-        else
+        if (columnIndex == 0) {
+            final int row = values.getSourceLine(rowIndex);
+            if (row < 0)
+                return rowIndex;
+            else
+                return row;
+        } else
             return values.getTableValue(rowIndex, columnIndex - 1);
     }
 
