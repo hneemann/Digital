@@ -5,7 +5,6 @@
     <string name="general">General</string>
     <string name="revision">Revision</string>
     <string name="date">Date</string>
-    <string name="number">No.</string>
     <string name="maxValue">maximum</string>
     <string name="settings">The following describes the available settings of the simulator.</string>
     <string name="attr_dialogTitle">Attributes</string>

@@ -6,7 +6,6 @@
 package de.neemann.digital.data;
 
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -47,7 +46,7 @@ public class ValueTableModel implements TableModel, Observer {
     @Override
     public String getColumnName(int columnIndex) {
         if (columnIndex == 0)
-            return Lang.get("number");
+            return "";
         else
             return values.getColumnName(columnIndex - 1);
     }
@@ -55,7 +54,7 @@ public class ValueTableModel implements TableModel, Observer {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         if (columnIndex == 0)
-            return Integer.class;
+            return String.class;
         else
             return Value.class;
     }
@@ -68,11 +67,11 @@ public class ValueTableModel implements TableModel, Observer {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (columnIndex == 0) {
-            final int row = values.getSourceLine(rowIndex);
-            if (row < 0)
-                return rowIndex;
+            final String description = values.getDescription(rowIndex);
+            if (description == null)
+                return "";
             else
-                return row;
+                return description;
         } else
             return values.getTableValue(rowIndex, columnIndex - 1);
     }

@@ -49,6 +49,11 @@ public class LineEmitterSimple implements LineEmitter {
         if (vals.size() != valuesCount)
             throw new ParserException(Lang.get("err_testDataExpected_N0_found_N1_numbersInLine_N2", valuesCount, vals.size(), line));
 
-        listener.add(new TestRow(vals.toArray(new Value[vals.size()]), line));
+        String description = "L" + line;
+        String conString = conext.toString();
+        if (!conString.isEmpty())
+            description += ";" + conString;
+
+        listener.add(new TestRow(vals.toArray(new Value[vals.size()]), description));
     }
 }

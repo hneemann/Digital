@@ -179,7 +179,6 @@ public class ValueTableDialog extends JDialog {
         table.setDefaultRenderer(Value.class, new ValueRenderer());
         table.setDefaultRenderer(Integer.class, new NumberRenderer());
         final Font font = table.getFont();
-        table.getColumnModel().getColumn(0).setMaxWidth(font.getSize() * 4);
         table.setRowHeight(font.getSize() * 6 / 5);
         return table;
     }

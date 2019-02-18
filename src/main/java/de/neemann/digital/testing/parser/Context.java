@@ -8,6 +8,7 @@ package de.neemann.digital.testing.parser;
 import de.neemann.digital.lang.Lang;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The context of the calculations.
@@ -60,5 +61,26 @@ public class Context {
             map = new HashMap<>();
         map.put(varName, value);
         return this;
+    }
+
+    @Override
+    public String toString() {
+        if (map == null && parent == null)
+            return "";
+
+        StringBuilder sb = new StringBuilder();
+        fillString(sb);
+        return sb.toString();
+    }
+
+    private void fillString(StringBuilder sb) {
+        if (parent != null)
+            parent.fillString(sb);
+        if (map != null)
+            for (Map.Entry<String, Long> e : map.entrySet()) {
+                if (sb.length() > 0)
+                    sb.append(";");
+                sb.append(e.getKey()).append("=").append(e.getValue());
+            }
     }
 }

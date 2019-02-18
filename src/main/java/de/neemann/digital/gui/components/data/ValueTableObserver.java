@@ -59,13 +59,13 @@ public class ValueTableObserver implements ModelStateObserverTyped {
 
         if (event == type) {
             if (manualSample != null) {
-                logData.add(new TestRow(manualSample, -1));
+                logData.add(new TestRow(manualSample));
                 manualSample = null;
             }
             Value[] row = new Value[logData.getColumns()];
             for (int i = 0; i < logData.getColumns(); i++)
                 row[i] = new Value(signals.get(i).getValue());
-            logData.add(new TestRow(row, -1));
+            logData.add(new TestRow(row));
         }
     }
 

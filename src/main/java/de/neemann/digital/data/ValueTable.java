@@ -145,16 +145,16 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
     }
 
     /**
-     * Returns the source line
+     * Returns the rows description
      *
      * @param rowIndex the row index
      * @return the source line number
      */
-    public int getSourceLine(int rowIndex) {
+    public String getDescription(int rowIndex) {
         if (tableRowIndex == null)
-            return values.get(rowIndex).getLineNum();
+            return values.get(rowIndex).getDescription();
         else
-            return values.get(tableRowIndex.get(rowIndex)).getLineNum();
+            return values.get(tableRowIndex.get(rowIndex)).getDescription();
     }
 
     /**

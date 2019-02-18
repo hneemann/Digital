@@ -12,17 +12,17 @@ import de.neemann.digital.data.Value;
  */
 public class TestRow {
     private Value[] values;
-    private int lineNum;
+    private String description;
 
     /**
      * Creates a new instance
      *
      * @param values  the values
-     * @param lineNum the line number in the source file
+     * @param description the context of the row
      */
-    public TestRow(Value[] values, int lineNum) {
+    public TestRow(Value[] values, String description) {
         this.values = values;
-        this.lineNum = lineNum;
+        this.description = description;
     }
 
     /**
@@ -32,7 +32,7 @@ public class TestRow {
      */
     public TestRow(Value... values) {
         this.values = values;
-        this.lineNum = -1;
+        this.description = null;
     }
 
     /**
@@ -53,9 +53,9 @@ public class TestRow {
     }
 
     /**
-     * @return the line number
+     * @return the rows description
      */
-    public int getLineNum() {
-        return lineNum;
+    public String getDescription() {
+        return description;
     }
 }
