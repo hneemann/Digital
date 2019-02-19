@@ -16,13 +16,15 @@ folder "src/test/Resources/Docu".
 
 You can test the translation by simply putting the files into
 the Digital.jar file. It's not necessary to rebuild the jar.
+However, if you also want to review the automatically generated
+PDF documentation, you will need to rebuild the jar.
 
 If you are satisfied with the translation, please send me the
 translated version AND the file "lang_xx_ref.xml" you used for the
-translation!
+translation! For me, the easiest way is to create a pull request.
 -->
 <languages>
     <lang name="en">English</lang>
     <lang name="de">Deutsch</lang>
-    <lang name="pt">Portuguese</lang>
+    <lang name="pt">Português</lang>
 </languages>
