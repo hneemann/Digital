@@ -14,6 +14,7 @@ import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestExecutor;
 import de.neemann.digital.testing.TestingDataException;
+import de.neemann.digital.testing.parser.ParserException;
 import junit.framework.TestCase;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class JarComponentManagerTest extends TestCase {
         }
     }
 
-    public void testJarAvailable() throws PinException, NodeException, IOException, ElementNotFoundException, TestingDataException {
+    public void testJarAvailable() throws PinException, NodeException, IOException, ElementNotFoundException, TestingDataException, ParserException {
         ToBreakRunner br = new ToBreakRunner("dig/jarLib/jarLibTest.dig") {
             @Override
             public void initLibrary(ElementLibrary library) {

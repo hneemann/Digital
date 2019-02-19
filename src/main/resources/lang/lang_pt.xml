@@ -982,8 +982,9 @@
 
     <string name="err_allMemoriesNeedToHaveTheSameByteWidth">Todas as memórias em que dados deverão ser carregados requerem a mesma largura de bits.</string>
     <string name="err_ProgMemLabelsNotDifferent">Se programas serão carregados em várias RAMs, todas deverão ter nomes distintos.
-        A ordem lexicográfica determinará a ordenação das RAMs.</string>    
-    
+        A ordem lexicográfica determinará a ordenação das RAMs.</string>
+    <string name="err_whileExecutingTests_N0">Durante a execução de testes "{0}" um erro foi encontrado!</string>
+
     <string name="key_AddrBits">Bits de endereço</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Número de bits de endereço usado.</string>
     <string name="key_Bits">Bits de dados</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
@@ -1537,7 +1538,6 @@
     <string name="msg_creatingHelp">Erro ao criar a ajuda!</string>
     <string name="msg_clipboardContainsNoImportableData">A área de transferência não contém dados para importar!</string>
     <string name="msg_selectAnEmptyFolder">Selecionado arquivo vazio!</string>
-    <string name="msg_errorWhileExecutingTests_N0">Durante a execução de testes {0} um erro foi encontrado!</string>
     <string name="msg_fitterResult">Mensagem de filtro externo</string>
     <string name="msg_startExternalFitter">Execução de filtro externo</string>
     <string name="msg_actualCircuit">Circuito corrente</string>

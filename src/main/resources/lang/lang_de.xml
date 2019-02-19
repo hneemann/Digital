@@ -1005,6 +1005,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_midiChannel_N_NotAvailable">Der MIDI-Kanal {0} ist nicht verfügbar.</string>
     <string name="err_midiInstrument_N_NotAvailable">Das MIDI-Instrument {0} ist nicht verfügbar.</string>
     <string name="err_midiInstrumentsNotAvailable">Die MIDI-Instrumente sind nicht verfügbar.</string>
+    <string name="err_whileExecutingTests_N0">Während der Ausführung der Tests "{0}" ist ein Fehler aufgetreten!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1580,7 +1581,6 @@ eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enh
     <string name="msg_creatingHelp">Fehler bei der Erzeugung der Hilfe!</string>
     <string name="msg_clipboardContainsNoImportableData">In der Zwischenablage befinden sich keine importierbaren Daten!</string>
     <string name="msg_selectAnEmptyFolder">Wählen Sie einen leeren Ordner aus!</string>
-    <string name="msg_errorWhileExecutingTests_N0">Während der Ausführung der Tests {0} ist ein Fehler aufgetreten!</string>
     <string name="msg_fitterResult">Meldung vom externen Fitter</string>
     <string name="msg_startExternalFitter">Starten des externen Fitters</string>
     <string name="msg_actualCircuit">Aktuelle Schaltung</string>

@@ -19,6 +19,7 @@ import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.*;
+import de.neemann.digital.testing.parser.ParserException;
 import de.neemann.gui.*;
 
 import javax.swing.*;
@@ -115,18 +116,14 @@ public class ValueTableDialog extends JDialog {
      * @throws PinException             PinException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ValueTableDialog addTestResult(ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws PinException, NodeException, ElementNotFoundException, TestingDataException {
+    public ValueTableDialog addTestResult(ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws TestingDataException, ElementNotFoundException, PinException, NodeException {
         Collections.sort(tsl);
         int i = 0;
         int errorTabIndex = -1;
         for (TestSet ts : tsl) {
             Model model = new ModelCreator(circuit, library).createModel(false);
             try {
-
                 TestExecutor testExecutor = new TestExecutor(ts.data).create(model);
-
-                if (testExecutor.getException() != null)
-                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorWhileExecutingTests_N0", ts.name)).addCause(testExecutor.getException()).setComponent(this));
 
                 String tabName;
                 Icon tabIcon;
@@ -146,6 +143,8 @@ public class ValueTableDialog extends JDialog {
                     tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
                 resultTableData.add(testExecutor.getResult());
                 i++;
+            } catch (TestingDataException | NodeException | ParserException | RuntimeException e) {
+                throw new TestingDataException(Lang.get("err_whileExecutingTests_N0", ts.name), e);
             } finally {
                 model.close();
             }

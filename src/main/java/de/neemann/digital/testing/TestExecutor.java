@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- * Stores the test results created by a single {@link TestCaseDescription} instance.
- * The class also performs the tests.
+ * Runs the test and stores the test results created by a single {@link TestCaseDescription} instance.
  */
 public class TestExecutor {
     private static final int MAX_RESULTS = 1 << 10;
@@ -33,7 +32,6 @@ public class TestExecutor {
     private final LineEmitter lines;
     private final ValueTable results;
     private boolean allPassed;
-    private Exception exception;
     private boolean toManyResults = false;
     private ArrayList<TestSignal> inputs;
     private ArrayList<TestSignal> outputs;
@@ -57,8 +55,9 @@ public class TestExecutor {
      * @return this for chained calls
      * @throws TestingDataException DataException
      * @throws NodeException        NodeException
+     * @throws ParserException      ParserException
      */
-    public TestExecutor create(Model model) throws TestingDataException, NodeException {
+    public TestExecutor create(Model model) throws TestingDataException, NodeException, ParserException {
         allPassed = true;
         HashSet<String> usedSignals = new HashSet<>();
 
@@ -109,16 +108,7 @@ public class TestExecutor {
 
         model.init();
 
-        try {
-            lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context());
-        } catch (ParserException e) {
-            throw new TestingDataException(Lang.get("err_errorParsingTestdata"), e);
-        } catch (RuntimeException e) {
-            if (allPassed) {
-                allPassed = false;
-                exception = e;
-            }
-        }
+        lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context());
 
         return this;
     }
@@ -169,10 +159,12 @@ public class TestExecutor {
             }
 
             model.doStep();
-        } catch (NodeException | RuntimeException e) {
-            exception = e;
+        } catch (NodeException e) {
             allPassed = false;
-            throw new RuntimeException(e);
+            throw new RuntimeException("", e);
+        } catch (RuntimeException e) {
+            allPassed = false;
+            throw e;
         }
 
         boolean ok = true;
@@ -260,10 +252,4 @@ public class TestExecutor {
         }
     }
 
-    /**
-     * @return the exception thrown during test test execution, or null if there was no error.
-     */
-    public Exception getException() {
-        return exception;
-    }
 }

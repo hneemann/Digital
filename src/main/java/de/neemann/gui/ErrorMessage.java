@@ -65,15 +65,17 @@ public class ErrorMessage implements Runnable {
      * @param e the {@link Throwable} instance
      */
     private void addExceptionMessage(Throwable e) {
+        boolean first = true;
         while (e != null) {
             final String m = e.getMessage();
-            if (m != null && m.length() > 0)
+            if (m != null && m.length() > 0) {
+                if (first)
+                    first = false;
+                else
+                    message.append("\n").append(Lang.get("msg_errCausedBy")).append(": ");
                 message.append(m);
-            else
-                message.append(e.getClass().getSimpleName());
+            }
             e = e.getCause();
-            if (e != null)
-                message.append("\n").append(Lang.get("msg_errCausedBy")).append(": ");
         }
     }
 

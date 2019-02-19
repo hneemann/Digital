@@ -72,6 +72,7 @@ public class TestExamples extends TestCase {
             try {
                 for (VisualElement el : br.getCircuit().getElements())
                     if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
+                        testCasesInFiles++;
 
                         String label = el.getElementAttributes().getCleanLabel();
                         TestCaseDescription td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
@@ -85,7 +86,6 @@ public class TestExamples extends TestCase {
                             else
                                 assertTrue(dig.getName() + ":" + label, tr.allPassed());
 
-                            testCasesInFiles++;
                         } finally {
                             model.close();
                         }

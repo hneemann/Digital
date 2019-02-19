@@ -15,6 +15,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.parser.ParserException;
 
 import java.io.File;
 import java.io.IOException;
@@ -221,7 +222,7 @@ public class FolderTestRunner {
                             setMessage(f, i, sb.toString(), FileToTest.Status.failed);
                     }
 
-                } catch (IOException | NodeException | ElementNotFoundException | PinException e) {
+                } catch (IOException | NodeException | ElementNotFoundException | PinException | ParserException | RuntimeException e) {
                     setMessage(f, i, e.getMessage(), FileToTest.Status.error);
                 }
             }
