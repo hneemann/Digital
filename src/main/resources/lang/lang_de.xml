@@ -28,6 +28,7 @@
     <string name="btn_reload">Neu Laden</string>
     <string name="btn_reload_tt">Letzte Datei noch einmal laden</string>
     <string name="btn_save">Speichern</string>
+    <string name="btn_saveAsHex_tt">Als HEX-Datei speichern.</string>
     <string name="btn_create">Erzeugen</string>
     <string name="btn_create_tt">Erzeugt eine Schaltung in einem eigenen Fenster.</string>
     <string name="btn_editDetached">Permanent Bearbeiten</string>

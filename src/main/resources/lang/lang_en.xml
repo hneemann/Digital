@@ -28,6 +28,7 @@
     <string name="btn_reload">Reload</string>
     <string name="btn_reload_tt">Reload last hex file</string>
     <string name="btn_save">Save</string>
+    <string name="btn_saveAsHex_tt">Save as HEX file.</string>
     <string name="btn_create">Create</string>
     <string name="btn_create_tt">Create a circuit in a separate window</string>
     <string name="btn_editDetached">Edit detached</string>

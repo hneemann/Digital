@@ -27,6 +27,7 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.lang.Lang;
@@ -49,6 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ *
  */
 public final class EditorFactory {
 
@@ -643,6 +645,24 @@ public final class EditorFactory {
                     }
                             .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
                             .setToolTip(Lang.get("btn_reload_tt"))
+                            .createJButton()
+            );
+            panel.add(new ToolTipAction(Lang.get("btn_save")) {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                getAttributeDialog().storeEditedValues();
+                                final File file = attr.getFile(ROM.LAST_DATA_FILE_KEY);
+                                data.saveTo(SaveAsHelper.checkSuffix(file, "hex"));
+                            } catch (IOException e1) {
+                                new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(panel);
+                            } catch (EditorParseException e1) {
+                                new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
+                            }
+                        }
+                    }
+                            .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
+                            .setToolTip(Lang.get("btn_saveAsHex_tt"))
                             .createJButton()
             );
             return panel;
