@@ -42,7 +42,7 @@ DATA Polling for End of Write Detection not implemented!</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data size="32768">55,56,aa,55,d5,80,0,0,3</data>
+          <data>0</data>
         </entry>
         <entry>
           <string>inverterConfig</string>
@@ -600,6 +600,31 @@ DATA Polling for End of Write Detection not implemented!</string>
         </entry>
       </elementAttributes>
       <pos x="480" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>~CE ~WE ~OE A14 A13 A12 A11 A10 A9 A8 A7 A6 A5 A4 A3 A2 A1 A0 I/O7 I/O6 I/O5 I/O4 I/O3 I/O2 I/O1 I/O0 I/O7_out I/O6_out I/O5_out I/O4_out I/O3_out I/O2_out I/O1_out I/O0_out
+
+let r = random(240) ;
+
+loop (a,8)
+  1   1  1  bits(15,a) bits(8,0) x x x x x x x x
+  0   0  1  bits(15,a) bits(8,0) x x x x x x x x
+  0   0  1  bits(15,a) bits(8,a+r) x x x x x x x x
+  1   1  1  bits(15,a) bits(8,a+r) x x x x x x x x
+end loop
+
+loop (a,8)
+  0   1  0  bits(15,a) z z z z z z z z bits(8,a+r)
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="760" y="260"/>
     </visualElement>
   </visualElements>
   <wires>

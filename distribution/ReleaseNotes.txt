@@ -12,6 +12,9 @@ HEAD, planned as v0.22
   in test result table.
 - Added Portuguese translation. Special thanks to Theldo Cruz Franqueira who
   provided the translation.
+- Breaking changes:
+  - The timing of the EEPROM with a single data port has changed. See help text for details.
+  - The timing of the RAM with Chip Select has changed. See help text for details.
 
 v0.21, released on 10. Dec 2018
 - Added a simple SVG importer to define custom shapes.

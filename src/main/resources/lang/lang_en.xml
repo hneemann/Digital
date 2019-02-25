@@ -530,7 +530,10 @@
     <string name="elem_RAMSinglePortSel_short">RAM</string>
     <string name="elem_RAMSinglePortSel_tt">A RAM module with a bidirectional connection for reading and writing the data.
         If the CS input is low, the component is disabled.
-        This allows to build a larger RAM from some smaller RAMs and a address decoder.</string>
+        This allows to build a larger RAM from some smaller RAMs and a address decoder.
+        The write cycle works as follows: By setting CS to high, the component is selected.
+        A rising edge at WE latches the address, and the following falling edge at WE stores the data.
+    </string>
     <string name="elem_RAMSinglePortSel_pin_A">The address to read and write.</string>
     <string name="elem_RAMSinglePortSel_pin_WE">If set to high the data is written to the RAM.</string>
     <string name="elem_RAMSinglePortSel_pin_D">The bidirectional data connection.</string>
@@ -539,7 +542,10 @@
     <string name="elem_EEPROM">EEPROM</string>
     <string name="elem_EEPROM_tt">A EEPROM module with a bidirectional connection for reading and writing the data.
         If the CS input is low, the component is disabled.
-        The data content is stored like in a ROM. It is thus preserved when the simulation is terminated and restarted.</string>
+        The data content is stored like in a ROM. It is thus preserved when the simulation is terminated and restarted.
+        The write cycle works as follows: By setting CS to high, the component is selected.
+        A rising edge at WE latches the address, and the following falling edge at WE stores the data.
+    </string>
     <string name="elem_EEPROM_pin_A">The address to read and write.</string>
     <string name="elem_EEPROM_pin_WE">If set to high the data is written to the EEPROM.</string>
     <string name="elem_EEPROM_pin_D">The bidirectional data connection.</string>

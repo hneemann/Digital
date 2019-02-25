@@ -18,20 +18,6 @@
       <pos x="60" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>Dout</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>8</int>
-        </entry>
-      </elementAttributes>
-      <pos x="460" y="560"/>
-    </visualElement>
-    <visualElement>
       <elementName>RAMSinglePortSel</elementName>
       <elementAttributes>
         <entry>
@@ -48,28 +34,6 @@
         </entry>
       </elementAttributes>
       <pos x="320" y="380"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Din</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>8</int>
-        </entry>
-        <entry>
-          <string>isHighZ</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
-      <pos x="460" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -165,7 +129,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>CS A WE OE Din Dout
+            <dataString>CS A WE OE D D_out
 
 # write some values
  1  0 C 0 7   X
@@ -224,6 +188,28 @@
       </elementAttributes>
       <pos x="60" y="620"/>
     </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>isHighZ</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="420"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -244,7 +230,7 @@
     </wire>
     <wire>
       <p1 x="400" y="420"/>
-      <p2 x="460" y="420"/>
+      <p2 x="440" y="420"/>
     </wire>
     <wire>
       <p1 x="180" y="580"/>
@@ -285,10 +271,6 @@
     <wire>
       <p1 x="380" y="560"/>
       <p2 x="400" y="560"/>
-    </wire>
-    <wire>
-      <p1 x="400" y="560"/>
-      <p2 x="460" y="560"/>
     </wire>
     <wire>
       <p1 x="140" y="400"/>

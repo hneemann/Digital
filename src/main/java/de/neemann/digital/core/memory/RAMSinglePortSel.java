@@ -49,9 +49,10 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     private ObservableValue dataIn;
 
     private boolean cs;
-    private int addr;
+    private int readAddr;
+    private int writeAddr;
     private boolean oe;
-    private boolean lastweIn;
+    private boolean lastWrite;
 
     /**
      * Creates a new instance
@@ -94,23 +95,27 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
 
     @Override
     public void readInputs() throws NodeException {
-        final boolean weIn = this.weIn.getBool();
         cs = csIn.getBool();
         if (cs) {
-            addr = (int) addrIn.getValue();
+            readAddr = (int) addrIn.getValue();
             oe = oeIn.getBool();
-            if (weIn && !lastweIn) {
-                long data = dataIn.getValue();
-                memory.setData(addr, data);
-            }
         }
-        lastweIn = weIn;
+
+        boolean write = cs && weIn.getBool();
+        if (write && !lastWrite)
+            writeAddr = (int) addrIn.getValue();
+
+        if (!write && lastWrite) {
+            long data = dataIn.getValue();
+            memory.setData(writeAddr, data);
+        }
+        lastWrite = write;
     }
 
     @Override
     public void writeOutputs() throws NodeException {
         if (cs && oe) {
-            dataOut.setValue(memory.getDataWord(addr));
+            dataOut.setValue(memory.getDataWord(readAddr));
         } else {
             dataOut.setToHighZ();
         }

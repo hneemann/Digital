@@ -112,8 +112,8 @@
 
 # write zeros to EEPROM
 loop(n,30)
-(n) 1  0  0  0      0
 (n) 1  0  1  0      0
+(n) 1  0  0  0      0
 end loop
 
 # check its cleared
@@ -124,8 +124,8 @@ end loop
 
 # write data to EEPROM
 loop(n,30)
-(n) 1  0  0  (n)    (n)
 (n) 1  0  1  (n)    (n)
+(n) 1  0  0  (n)    (n)
 end loop
 
 # read data from EEPROM

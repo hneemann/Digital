@@ -528,7 +528,10 @@
     <string name="elem_RAMSinglePortSel_short">RAM</string>
     <string name="elem_RAMSinglePortSel_tt">Ein RAM-Baustein mit einem bidirektionalem Anschluss für das Lesen und Schreiben von Daten.
         Es gibt einen CS-Eingang. Ist dieser Eingang low, ist der Baustein deaktiviert.
-        Mit diesem können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren RAM zusammen geschaltet werden.</string>
+        Mit diesem können mehrere solcher Bausteine mit einem Adressdekoder zu einem größeren RAM zusammen geschaltet werden.
+        Der Schreibzyklus läuft wie folgt ab: Indem CS auf high gesetzt wird, wird der Baustein ausgewählt.
+        Eine steigende Flanke an WE übernimmt die Adresse, und die folgende fallende Flanke an WE speichert die Daten.
+    </string>
     <string name="elem_RAMSinglePortSel_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
     <string name="elem_RAMSinglePortSel_pin_WE">Bei einer 1 werden die Daten in das RAM geschrieben.</string>
     <string name="elem_RAMSinglePortSel_pin_D">Der bidirektionale Datenanschluss.</string>
@@ -539,6 +542,8 @@
         Es gibt einen CS-Eingang. Ist dieser Eingang low, ist der Baustein deaktiviert.
         Der Dateninhalt wird gespeichert wie bei einem ROM. Er bleibt also erhalten, wenn die Simulation beendet
         und neu gestartet wird.
+        Der Schreibzyklus läuft wie folgt ab: Indem CS auf high gesetzt wird, wird der Baustein ausgewählt.
+        Eine steigende Flanke an WE übernimmt die Adresse, und die folgende fallende Flanke an WE speichert die Daten.
     </string>
     <string name="elem_EEPROM_pin_A">Die Adresse, an der gelesen und geschrieben wird.</string>
     <string name="elem_EEPROM_pin_WE">Bei einer 1 werden die Daten in das EEPROM geschrieben.</string>
