@@ -94,7 +94,7 @@ public final class PlainSwitch implements NodeInterface {
                 else {
                     constant = in2.searchConstant();
                     if (constant != null)
-                        return new UniDirectionalSwitch(constant, output1, true);
+                        return new UniDirectionalSwitch(constant, output1);
                     else
                         return new RealSwitch(in1, in2);
                 }
