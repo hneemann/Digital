@@ -88,7 +88,9 @@ public final class PlainSwitch implements NodeInterface {
             if (input2 instanceof CommonBusValue) {
                 final CommonBusValue in1 = (CommonBusValue) input1;
                 final CommonBusValue in2 = (CommonBusValue) input2;
-                if (!isDoubleThrow) {
+                if (isDoubleThrow)
+                    return new RealSwitch(in1, in2);
+                else {
                     ObservableValue constant = in1.searchConstant();
                     if (constant != null)
                         return new UniDirectionalSwitch(constant, output2);
@@ -99,8 +101,7 @@ public final class PlainSwitch implements NodeInterface {
                         else
                             return new RealSwitch(in1, in2);
                     }
-                } else
-                    return new RealSwitch(in1, in2);
+                }
             } else
                 return new UniDirectionalSwitch(input1, output2);
         } else {
