@@ -18,7 +18,7 @@ public final class PlainSwitch implements NodeInterface {
     /**
      * Defines a direction for the switch. NO means no direction is given, the switch is bidirectional.
      */
-    public enum Unidirectional { NO, FROM1TO2, FROM2TO1 }
+    public enum Unidirectional {NO, FROM1TO2, FROM2TO1}
 
     private final ObservableValue output1;
     private final ObservableValue output2;
@@ -67,7 +67,7 @@ public final class PlainSwitch implements NodeInterface {
             input2.addObserverToValue(this).checkBits(bits, null);
             switch (unidirectional) {
                 case NO:
-                    switchModel = createSwitchModel(input1, input2, output1, output2, true);
+                    switchModel = createSwitchModel(input1, input2, output1, output2, true, true);
                     break;
                 case FROM1TO2:
                     switchModel = new UniDirectionalSwitch(input1, output2);
@@ -82,22 +82,25 @@ public final class PlainSwitch implements NodeInterface {
     static SwitchModel createSwitchModel(
             ObservableValue input1, ObservableValue input2,
             ObservableValue output1, ObservableValue output2,
-            boolean setOpenContactToHighZ) throws NodeException {
+            boolean setOpenContactToHighZ, boolean optimizeConstants) throws NodeException {
 
         if (input1 instanceof CommonBusValue) {
             if (input2 instanceof CommonBusValue) {
                 final CommonBusValue in1 = (CommonBusValue) input1;
                 final CommonBusValue in2 = (CommonBusValue) input2;
-                ObservableValue constant = in1.searchConstant();
-                if (constant != null)
-                    return new UniDirectionalSwitch(constant, output2);
-                else {
-                    constant = in2.searchConstant();
+                if (optimizeConstants) {
+                    ObservableValue constant = in1.searchConstant();
                     if (constant != null)
-                        return new UniDirectionalSwitch(constant, output1);
-                    else
-                        return new RealSwitch(in1, in2);
-                }
+                        return new UniDirectionalSwitch(constant, output2);
+                    else {
+                        constant = in2.searchConstant();
+                        if (constant != null)
+                            return new UniDirectionalSwitch(constant, output1);
+                        else
+                            return new RealSwitch(in1, in2);
+                    }
+                } else
+                    return new RealSwitch(in1, in2);
             } else
                 return new UniDirectionalSwitch(input1, output2);
         } else {

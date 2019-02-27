@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>see issue #255</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="980" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RelayDT</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="1000" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="960" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A_2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="920" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A_2 Y_2 
+ 0   0   
+ 1   1   
+ 0   0   
+ 1   1   
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="860" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y_2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullDown</elementName>
+      <elementAttributes/>
+      <pos x="1000" y="520"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="680" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RelayDT</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="700" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="660" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A_1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="620" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A_1 Y_1 
+ 0   0   
+ 1   1   
+ 0   0   
+ 1   1   
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y_1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="400"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="980" y="400"/>
+      <p2 x="1000" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="400"/>
+      <p2 x="1040" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="400"/>
+      <p2 x="700" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="400"/>
+      <p2 x="740" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="420"/>
+      <p2 x="960" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="420"/>
+      <p2 x="660" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="500"/>
+      <p2 x="1080" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="700" y="500"/>
+      <p2 x="780" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="480"/>
+      <p2 x="960" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="420"/>
+      <p2 x="960" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="400"/>
+      <p2 x="720" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="480"/>
+      <p2 x="660" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="420"/>
+      <p2 x="660" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="400"/>
+      <p2 x="1000" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="480"/>
+      <p2 x="1000" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="500"/>
+      <p2 x="1000" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="400"/>
+      <p2 x="1020" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="700" y="400"/>
+      <p2 x="700" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="700" y="480"/>
+      <p2 x="700" y="500"/>
+    </wire>
+  </wires>
+</circuit>
