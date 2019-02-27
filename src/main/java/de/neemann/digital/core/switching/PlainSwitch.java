@@ -67,7 +67,7 @@ public final class PlainSwitch implements NodeInterface {
             input2.addObserverToValue(this).checkBits(bits, null);
             switch (unidirectional) {
                 case NO:
-                    switchModel = createSwitchModel(input1, input2, output1, output2, true, true);
+                    switchModel = createSwitchModel(input1, input2, output1, output2, false);
                     break;
                 case FROM1TO2:
                     switchModel = new UniDirectionalSwitch(input1, output2);
@@ -82,13 +82,13 @@ public final class PlainSwitch implements NodeInterface {
     static SwitchModel createSwitchModel(
             ObservableValue input1, ObservableValue input2,
             ObservableValue output1, ObservableValue output2,
-            boolean setOpenContactToHighZ, boolean optimizeConstants) throws NodeException {
+            boolean isDoubleThrow) throws NodeException {
 
         if (input1 instanceof CommonBusValue) {
             if (input2 instanceof CommonBusValue) {
                 final CommonBusValue in1 = (CommonBusValue) input1;
                 final CommonBusValue in2 = (CommonBusValue) input2;
-                if (optimizeConstants) {
+                if (!isDoubleThrow) {
                     ObservableValue constant = in1.searchConstant();
                     if (constant != null)
                         return new UniDirectionalSwitch(constant, output2);
@@ -105,7 +105,7 @@ public final class PlainSwitch implements NodeInterface {
                 return new UniDirectionalSwitch(input1, output2);
         } else {
             if (input2 instanceof CommonBusValue) {
-                return new UniDirectionalSwitch(input2, output1, setOpenContactToHighZ);
+                return new UniDirectionalSwitch(input2, output1, !isDoubleThrow);
             } else {
                 throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
             }
