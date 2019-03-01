@@ -990,6 +990,7 @@
     </string>
     <string name="err_errorAnalysingCircuit_N">Error analysing the circuit: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Every ROM needs a unique label to be exported!</string>
+    <string name="err_lutNeedsALabelToBeExported">Every LUT needs a unique label to be exported!</string>
     <string name="err_counterNeedsMoreBits">The counter needs at least two bits.</string>
     <string name="err_namesAreNotUnique_N">The name "{0}" is  not unique!</string>
     <string name="err_clocksNotAllowedInAsyncMode">Clock elements can not be used in asynchronous mode.</string>

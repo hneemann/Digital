@@ -58,6 +58,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private boolean useJKff;
     private HashSet<String> varsToNet;
     private ModelAnalyserInfo mai;
+    private int lutNumber;
 
 
     /**
@@ -250,7 +251,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             }
         }
 
+        lutNumber++;
         return new FragmentExpression(frags, new FragmentVisualElement(LookUpTable.DESCRIPTION, frags.size(), shapeFactory)
+                .setAttr(Keys.LABEL, "L" + lutNumber)
                 .setAttr(Keys.INPUT_COUNT, frags.size())
                 .setAttr(Keys.DATA, data)
                 .setAttr(Keys.BITS, 1));
@@ -366,6 +369,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         fr.addToCircuit(new Vector(0, pos), circuit);
         pos += b.getHeight() + SIZE * 2;
+        if (useLUT)
+            pos += SIZE * 2;
     }
 
     /**

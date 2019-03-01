@@ -1,0 +1,53 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_unsigned.all;
+use IEEE.NUMERIC_STD.ALL;
+<?
+    if (elem.Label="")
+        panic("err_lutNeedsALabelToBeExported");
+
+    entityName:="DIG_LUT_"+elem.Label;
+?>
+entity <?=entityName?> is
+  port (
+<? for (i:=0;i<elem.Inputs;i++) {
+        print("    n"+i+": in std_logic;\n");
+} ?>
+    p_out: out <?= vhdl.type(elem.Bits)?>
+);
+end <?=entityName?>;
+
+architecture Behavioral of <?=entityName?> is
+  type mem is array ( 0 to <?=(1<<elem.Inputs)-1?>) of <?= vhdl.type(elem.Bits)?>;
+  constant my_lut : mem := (
+    <?
+
+    len:= 1<<elem.Inputs;
+    maxCol:=76/(elem.Bits+4);
+
+    col:=0;
+    for (i:=0;i<len;i++) {
+        print( vhdl.value(elem.Data[i],elem.Bits));
+        if (i<len-1) {
+            print(", ");
+        }
+        col++;
+        if (col=maxCol) {
+          col=0;
+          print("\n    ");
+        }
+    }
+
+  ?>);
+  signal temp : std_logic_vector(<?=elem.Inputs-1?> downto 0);
+begin
+  temp <= <?
+    for (i:=elem.Inputs-1;i>=0;i--) {
+      if (i<elem.Inputs-1) {
+        print(" & ");
+      }
+      print("n"+i);
+    }
+  ?>;
+  p_out <= my_lut(to_integer(unsigned(temp)));
+end Behavioral;
