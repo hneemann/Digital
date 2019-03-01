@@ -68,6 +68,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     public FSMFrame(JFrame parent, ElementLibrary library) {
         super(Lang.get("fsm_title"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
 
         fileHistory = new FileHistory(this, PREFS.node("hist"));
 
