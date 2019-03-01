@@ -19,19 +19,18 @@ import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class VerilogSimulatorTest extends TestCase {
     private static final Logger LOGGER = LoggerFactory.getLogger(VerilogSimulatorTest.class);
@@ -40,6 +39,16 @@ public class VerilogSimulatorTest extends TestCase {
     private static String VVP;
     private static final boolean foundIVerilog = findIVerilogDir();
     private int testBenches;
+
+    /*
+    public void testDebug() throws Exception {
+        File file = new File(Resources.getRoot(), "dig/test/vhdl/lut.dig");
+
+        ToBreakRunner br = new ToBreakRunner(file);
+        System.out.println(new VerilogGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
+
+        checkVerilogExport(file);
+    }*/
 
     public void testInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
