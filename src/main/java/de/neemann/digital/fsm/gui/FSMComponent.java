@@ -181,11 +181,14 @@ public class FSMComponent extends JComponent {
         setPreferredSize(new Dimension(600, 600));
     }
 
+    private static final Key[] STATE_EDIT_KEYS = {Keys.LABEL, KEY_NUMBER, KEY_INITIAL, KEY_VALUES, KEY_RADIUS};
+
     private void createNewState(Vector posVector, Point point) {
         ElementAttributes attr = new ElementAttributes();
         attr.set(KEY_NUMBER, fsm.getStates().size());
         SwingUtilities.convertPointToScreen(point, this);
-        AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this), point, attr, Keys.LABEL, KEY_NUMBER, KEY_VALUES);
+        AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
+                point, attr, STATE_EDIT_KEYS);
         ad.setTitle(Lang.get("msg_fsmNewState"));
         ElementAttributes newAttr = ad.showDialog();
         if (newAttr != null) {
@@ -207,7 +210,7 @@ public class FSMComponent extends JComponent {
                 .set(Keys.LABEL, state.getName());
         SwingUtilities.convertPointToScreen(point, this);
         AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
-                point, attr, Keys.LABEL, KEY_NUMBER, KEY_INITIAL, KEY_VALUES, KEY_RADIUS);
+                point, attr, STATE_EDIT_KEYS);
         ElementAttributes newAttr = ad.showDialog();
         if (newAttr != null) {
             state.setNumber(newAttr.get(KEY_NUMBER));
