@@ -67,7 +67,7 @@ public final class PlainSwitch implements NodeInterface {
             input2.addObserverToValue(this).checkBits(bits, null);
             switch (unidirectional) {
                 case NO:
-                    switchModel = createSwitchModel(input1, input2, output1, output2, false);
+                    switchModel = createSwitchModel(input1, input2, output1, output2);
                     break;
                 case FROM1TO2:
                     switchModel = new UniDirectionalSwitch(input1, output2);
@@ -81,32 +81,27 @@ public final class PlainSwitch implements NodeInterface {
 
     static SwitchModel createSwitchModel(
             ObservableValue input1, ObservableValue input2,
-            ObservableValue output1, ObservableValue output2,
-            boolean isDoubleThrow) throws NodeException {
+            ObservableValue output1, ObservableValue output2) throws NodeException {
 
         if (input1 instanceof CommonBusValue) {
             if (input2 instanceof CommonBusValue) {
                 final CommonBusValue in1 = (CommonBusValue) input1;
                 final CommonBusValue in2 = (CommonBusValue) input2;
-                if (isDoubleThrow)
-                    return new RealSwitch(in1, in2);
+                ObservableValue constant = in1.searchConstant();
+                if (constant != null)
+                    return new UniDirectionalSwitch(constant, output2);
                 else {
-                    ObservableValue constant = in1.searchConstant();
+                    constant = in2.searchConstant();
                     if (constant != null)
-                        return new UniDirectionalSwitch(constant, output2);
-                    else {
-                        constant = in2.searchConstant();
-                        if (constant != null)
-                            return new UniDirectionalSwitch(constant, output1);
-                        else
-                            return new RealSwitch(in1, in2);
-                    }
+                        return new UniDirectionalSwitch(constant, output1);
+                    else
+                        return new RealSwitch(in1, in2);
                 }
             } else
                 return new UniDirectionalSwitch(input1, output2);
         } else {
             if (input2 instanceof CommonBusValue) {
-                return new UniDirectionalSwitch(input2, output1, !isDoubleThrow);
+                return new UniDirectionalSwitch(input2, output1);
             } else {
                 throw new NodeException(Lang.get("err_switchHasNoNet"), output1, output2);
             }
@@ -187,6 +182,13 @@ public final class PlainSwitch implements NodeInterface {
         void setClosed(boolean closed);
 
         void setModel(Model model);
+
+        default void setDoubleThrow() {
+        }
+
+        default boolean checkOutput(ObservableValue out) {
+            return false;
+        }
     }
 
     /**
@@ -197,17 +199,13 @@ public final class PlainSwitch implements NodeInterface {
     private static final class UniDirectionalSwitch implements SwitchModel {
         private final ObservableValue input;
         private final ObservableValue output;
-        private final boolean setOpenContactToHighZ;
+        private boolean setOpenContactToHighZ;
         private boolean closed;
 
         UniDirectionalSwitch(ObservableValue input, ObservableValue output) {
-            this(input, output, true);
-        }
-
-        UniDirectionalSwitch(ObservableValue input, ObservableValue output, boolean setOpenContactToHighZ) {
             this.input = input;
             this.output = output;
-            this.setOpenContactToHighZ = setOpenContactToHighZ;
+            this.setOpenContactToHighZ = true;
         }
 
         @Override
@@ -227,6 +225,16 @@ public final class PlainSwitch implements NodeInterface {
 
         @Override
         public void setModel(Model model) {
+        }
+
+        @Override
+        public void setDoubleThrow() {
+            setOpenContactToHighZ = false;
+        }
+
+        @Override
+        public boolean checkOutput(ObservableValue out) {
+            return output == out;
         }
     }
 

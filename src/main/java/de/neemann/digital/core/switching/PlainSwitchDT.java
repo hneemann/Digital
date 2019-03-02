@@ -37,16 +37,26 @@ public final class PlainSwitchDT implements NodeInterface {
      * @throws NodeException NodeException
      */
     public void setInputs(ObservableValue inA, ObservableValue inB, ObservableValue inC) throws NodeException {
-        if (inA != null && (inB != null || inC != null))
-            inA.addObserverToValue(this).checkBits(bits, null);
-
-        if (inA != null && inB != null) {
-            inB.addObserverToValue(this).checkBits(bits, null);
-            s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB, inC != null);
-        }
-        if (inA != null && inC != null) {
-            inC.addObserverToValue(this).checkBits(bits, null);
-            s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC, inB != null);
+        if (inA != null) {
+            if (inB != null && inC == null) {
+                inA.addObserverToValue(this).checkBits(bits, null);
+                inB.addObserverToValue(this).checkBits(bits, null);
+                s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB);
+            } else if (inB == null && inC != null) {
+                inA.addObserverToValue(this).checkBits(bits, null);
+                inC.addObserverToValue(this).checkBits(bits, null);
+                s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC);
+            } else if (inB != null && inC != null) {
+                inA.addObserverToValue(this).checkBits(bits, null);
+                inB.addObserverToValue(this).checkBits(bits, null);
+                inC.addObserverToValue(this).checkBits(bits, null);
+                s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB);
+                s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC);
+                if (s1.checkOutput(outputA) && s2.checkOutput(outputA)) {
+                    s1.setDoubleThrow();
+                    s2.setDoubleThrow();
+                }
+            }
         }
     }
 
