@@ -5,7 +5,7 @@
     lutSize := 1 << elem.Inputs;
     moduleName = format("LUT_%s", elem.Label);
     if (elem.Bits > 1)
-    dBitRange := format("[%d:0]", elem.Bits - 1);
+        dBitRange := format(" [%d:0] ", elem.Bits - 1);
     else
         dBitRange := " ";
 
@@ -15,7 +15,7 @@
 <?- }?>
     output reg <?= dBitRange ?> out
 );
-    reg <?= dBitRange ?> my_lut [0:<?= (lutSize - 1) ?>];
+    reg<?= dBitRange ?>my_lut [0:<?= (lutSize - 1) ?>];
     wire [<?=elem.Inputs-1?>:0] temp;
     assign temp = {<?
         for (i:=elem.Inputs-1;i>=0;i--) {
