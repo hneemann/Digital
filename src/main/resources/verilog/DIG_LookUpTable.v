@@ -32,8 +32,16 @@
 
     initial begin<?
 
+    data := 0;
     for (i := 0; i < lutSize; i++) { ?>
-        my_lut[<?= i ?>] = <?= format("%d'h%x", elem.Bits, elem.Data[i]) ?>;<?
+        my_lut[<?= i ?>] = <?
+        if (i<sizeOf(elem.Data)) {
+            data = elem.Data[i];
+        } else {
+            data = 0;
+        }
+        print(format("%d'h%x", elem.Bits, data));
+?>;<?
     } ?>
     end
 endmodule

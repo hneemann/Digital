@@ -92,24 +92,24 @@ public abstract class ApplicationVerilogStdIO implements Application {
 
             currToken = st.nextToken();
             do {
-            match(Token.MODULE, "keyword 'module'", st);
+                match(Token.MODULE, "keyword 'module'", st);
                 label = st.value();
-            match(Token.IDENT, "identifier", st);
-            match(Token.OPENPAR, "'('", st);
+                match(Token.IDENT, "identifier", st);
+                match(Token.OPENPAR, "'('", st);
 
                 in = new PortDefinition("");
                 out = new PortDefinition("");
-            scanPorts(st, in, out);
+                scanPorts(st, in, out);
 
-            if (currToken == Token.SEMICOLON) {
+                if (currToken == Token.SEMICOLON) {
                     currToken = st.lookEndModule();
                     if (currToken != Token.ENDMODULE) {
-                    return false;
-                }
+                        return false;
+                    }
                     currToken = st.nextToken();
                 } else {
                      return false;
-            }
+                 }
             } while (currToken != Token.EOF);
 
             if (in.size() > 0 && out.size() > 0) {
