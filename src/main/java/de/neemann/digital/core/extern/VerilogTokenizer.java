@@ -18,7 +18,7 @@ public class VerilogTokenizer {
 
     enum Token {UNKNOWN, MODULE, INPUT, OUTPUT, INOUT, REG, WIRE, ENDMODULE,
                 EOF, NUMBER, IDENT, OPENPAR, CLOSEPAR, OPENBRACKET, CLOSEBRACKET,
-                SEMICOLON, COLON, COMMA};
+                SEMICOLON, COLON, COMMA, ERROR};
 
     private final Reader in;
     private String value;
@@ -39,23 +39,16 @@ public class VerilogTokenizer {
      * @return true if the end of the module was found, false otherwise.
      * @throws IOException IOException
      */
-    public boolean lookEndModule() throws IOException {
-        while (true) {
-            int ch = readChar();
-
-            if (ch == 'e') {
-                StringBuilder sb = new StringBuilder();
-                while (Character.isLetter(ch)) {
-                    sb.append((char) ch);
-                    ch = readChar();
-                }
-                if (sb.toString().equals("endmodule"))
-                    return true;
-            } else if (ch == -1) {
-                break;
-            }
+    public Token lookEndModule() throws IOException {
+        Token tk;
+        try {
+            do {
+                tk = nextToken();
+            } while ((tk != Token.ENDMODULE) && (tk != Token.EOF));
+        } catch (TokenizerException ex) {
+            tk = Token.ERROR;
         }
-        return false;
+        return tk;
     }
 
     /**
@@ -82,9 +75,9 @@ public class VerilogTokenizer {
                             if (cc == '/' && hasAsterisk)
                                 break;
 
-                            hasAsterisk = (ch == '*');
+                            hasAsterisk = (cc == '*');
                         }
-                        break;
+                        continue;
                     case '/':
                         while (cc != '\n' && cc != -1) {
                             cc = readChar();
@@ -118,6 +111,18 @@ public class VerilogTokenizer {
                         ch = readChar();
                     }
                     break;
+                case '\\':
+                    StringBuilder sb1 = new StringBuilder();
+                    while (ch != ' ' && ch != '\n' && ch != -1) {
+                        sb1.append((char) ch);
+                        ch = readChar();
+                    }
+                    if (ch != ' ')
+                        unreadChar(ch);
+                    else
+                        sb1.append(' ');
+                    value = sb1.toString();
+                    return Token.IDENT;
                 default:
                     if (isNumberChar(ch)) {
                         StringBuilder sb = new StringBuilder();
@@ -141,7 +146,7 @@ public class VerilogTokenizer {
 
                         return lookUpKeyword(value);
                     } else {
-                        throw new TokenizerException("unexpected '" + (char) ch + "'");
+                        return Token.UNKNOWN;
                     }
             }
         }
