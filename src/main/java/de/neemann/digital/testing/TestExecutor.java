@@ -35,6 +35,7 @@ public class TestExecutor {
     private boolean toManyResults = false;
     private ArrayList<TestSignal> inputs;
     private ArrayList<TestSignal> outputs;
+    private int visibleRows;
 
     /**
      * Creates a new testing result
@@ -45,6 +46,7 @@ public class TestExecutor {
     public TestExecutor(TestCaseDescription testCaseDescription) throws TestingDataException {
         names = testCaseDescription.getNames();
         results = new ValueTable(names);
+        visibleRows = 0;
         lines = testCaseDescription.getLines();
     }
 
@@ -177,14 +179,15 @@ public class TestExecutor {
             }
         }
 
-        if (results.getRows() < (ok ? MAX_RESULTS : ERR_RESULTS))
+        if (visibleRows < (ok ? MAX_RESULTS : ERR_RESULTS)) {
+            visibleRows++;
             results.add(new TestRow(res, testRow.getDescription()));
-        else
+        } else
             toManyResults = true;
     }
 
     private void addClockRow(int cols, String description) {
-        if (results.getRows() < ERR_RESULTS) {
+        if (visibleRows < ERR_RESULTS) {
             Value[] r = new Value[cols];
             for (TestSignal out : outputs)
                 r[out.index] = new Value(out.value);
