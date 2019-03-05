@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * The QMC-Minimizer used for exam correction.
- * Should only be used if there are not more then 4 variables.
+ * Should only be used if there are not more than 4 variables.
  */
 public class MinimizerQuineMcCluskeyExam extends MinimizerQuineMcCluskey {
 

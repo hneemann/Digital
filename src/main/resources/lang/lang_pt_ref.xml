@@ -835,7 +835,7 @@
     <string name="err_invalidFileFormat">Invalid file format</string>
     <string name="err_isAlreadyInitialized">Logic is already initialized</string>
     <string name="err_labelNotConnectedToNet_N">A tunnel {0} is not connected!</string>
-    <string name="err_moreThenOneClocksFound">There are more then one clock</string>
+    <string name="err_moreThanOneClockFound">There are more then one clock</string>
     <string name="err_needs_N0_bits_found_N2_bits">There are {0} bits needed, but {1} bits found</string>
     <string name="err_netOfPin_N_notFound">Net of pin {0} not found</string>
     <string name="err_noClockFound">No clock found in logic</string>

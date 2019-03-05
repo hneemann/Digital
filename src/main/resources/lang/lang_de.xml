@@ -857,7 +857,7 @@
     <string name="err_invalidFileFormat">Ungültiges Dateiformat</string>
     <string name="err_isAlreadyInitialized">Die Schaltung wurde bereits initialisiert</string>
     <string name="err_labelNotConnectedToNet_N">Ein Tunnel {0} ist nicht verbunden!</string>
-    <string name="err_moreThenOneClocksFound">Es gibt mehr als einen Taktgeber</string>
+    <string name="err_moreThanOneClockFound">Es gibt mehr als einen Taktgeber</string>
     <string name="err_needs_N0_bits_found_N2_bits">Es werden {0} Bits benötigt, jedoch wurden {1} Bits gefunden</string>
     <string name="err_netOfPin_N_notFound">Das Netz von Pin {0} wurde nicht gefunden</string>
     <string name="err_noClockFound">Kein Taktgeber in der Schaltung gefunden</string>

@@ -20,7 +20,7 @@ import java.util.TreeSet;
  * Needed for exam correction.
  * It does not throw away all primes which are not necessary but tries to find the primes
  * which are necessary. So is is possible to find all possible solutions.
- * Works only if there are not more then 4 variables.
+ * Works only if there are not more than 4 variables.
  * <p>
  */
 public class QuineMcCluskeyExam extends QuineMcCluskey {

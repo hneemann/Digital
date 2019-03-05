@@ -56,7 +56,7 @@ public class MinimizerRegressionTest extends TestCase {
 
 
     /**
-     * for more then 3 variables we only test some random tables
+     * for more than 3 variables we only test some random tables
      *
      * @throws ExpressionException
      */

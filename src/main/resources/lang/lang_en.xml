@@ -840,7 +840,7 @@
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
     <string name="err_builder_couldNotFillLUT">Error creating the lookup table.</string>
-    <string name="err_burnError">More then one output is active on a wire, causing a short circuit.</string>
+    <string name="err_burnError">More than one output is active on a wire, causing a short circuit.</string>
     <string name="err_pullUpAndDown">It is not allowed to connect a pull-up and pull-down resistor to the same net.</string>
     <string name="err_cannotAnalyse_N">Cannot analyse Node {0}</string>
     <string name="err_containsVarAndNotVar">Contains [var] and [not var]</string>
@@ -851,7 +851,7 @@
     <string name="err_invalidFileFormat">Invalid file format</string>
     <string name="err_isAlreadyInitialized">Logic is already initialized</string>
     <string name="err_labelNotConnectedToNet_N">A tunnel {0} is not connected!</string>
-    <string name="err_moreThenOneClocksFound">There are more then one clock</string>
+    <string name="err_moreThanOneClockFound">There is more than one clock</string>
     <string name="err_needs_N0_bits_found_N2_bits">There are {0} bits needed, but {1} bits found</string>
     <string name="err_netOfPin_N_notFound">Net of pin {0} not found</string>
     <string name="err_noClockFound">No clock found in logic</string>
@@ -922,7 +922,7 @@
     <string name="err_diodeNeedsPullDownResistorAtOutput">Diode needs a pull down resistor at its output!</string>
     <string name="err_testSignal_N_notFound">Test signal {0} not found in the circuit!</string>
     <string name="err_toManyBits_Found_N0_maxIs_N1">Only {1} bits allowed, but {0} bits found!</string>
-    <string name="err_MultiBitFlipFlopFound">Flip-flops with more then one bits are not allowed!</string>
+    <string name="err_MultiBitFlipFlopFound">Flip-flops with more than one bit are not allowed!</string>
     <string name="err_invalidTransmissionGateState">The two control inputs of a transmission gate must be inverted!</string>
     <string name="err_nameUsedTwice_N">Signal {0} is used twice!</string>
     <string name="err_errorParsingTestdata">Error parsing the test data.</string>

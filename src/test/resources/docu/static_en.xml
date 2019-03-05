@@ -476,7 +476,7 @@
             </answer>
         </faq>
         <faq>
-            <question>I have entered a truth table, but there is more then one boolean equation shown.
+            <question>I have entered a truth table, but there is more than one boolean equation shown.
                 Which of them is the correct one?
             </question>
             <answer>Minimizing a boolean equation can result in many equations, describing the same function.
