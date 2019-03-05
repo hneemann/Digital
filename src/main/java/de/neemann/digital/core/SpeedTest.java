@@ -39,7 +39,7 @@ public class SpeedTest {
         if (clocks.isEmpty())
             throw new NodeException(Lang.get("err_noClockFound"));
         else if (clocks.size() > 1)
-            throw new NodeException(Lang.get("err_moreThenOneClocksFound"));
+            throw new NodeException(Lang.get("err_moreThanOneClockFound"));
 
 
         Clock clock = clocks.get(0);

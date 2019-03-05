@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Is thrown if more then one output of a set of connected outputs becomes active
+ * Is thrown if more than one output of a set of connected outputs becomes active
  */
 public class BurnException extends RuntimeException implements ExceptionWithOriginInterface {
     private final ObservableValues values;

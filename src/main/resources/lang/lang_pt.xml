@@ -832,7 +832,7 @@
     <string name="err_invalidFileFormat">Formato de arquivo inválido</string>
     <string name="err_isAlreadyInitialized">A lógica já está inicializada</string>
     <string name="err_labelNotConnectedToNet_N">Um túnel {0} não está conectado!</string>
-    <string name="err_moreThenOneClocksFound">Há mais de um clock</string>
+    <string name="err_moreThanOneClockFound">Há mais de um clock</string>
     <string name="err_needs_N0_bits_found_N2_bits">Necessários {0} bits, mas {1} bits encontrados</string>
     <string name="err_netOfPin_N_notFound">A rede de pino {0} não encontrada</string>
     <string name="err_noClockFound">Nenhum clock encontrado</string>
