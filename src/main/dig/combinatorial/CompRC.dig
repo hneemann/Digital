@@ -197,8 +197,16 @@ Addierers.}}</string>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>P_3 P_2 P_1 P_0   Q_3 Q_2 Q_1 Q_0  P&lt;Q P=Q P&gt;Q
-repeat(256) bits(4,n&gt;&gt;4) bits(4,n) ((n&gt;&gt;4)&lt;(n&amp;15)) ((n&gt;&gt;4)=(n&amp;15)) ((n&gt;&gt;4)&gt;(n&amp;15))</dataString>
+            <dataString>P_3 P_2 P_1 P_0   Q_3 Q_2 Q_1 Q_0  P&lt;Q   P=Q   P&gt;Q
+
+loop(P,16)
+  loop(Q,16)
+
+bits(4,P)         bits(4,Q)        (P&lt;Q) (P=Q) (P&gt;Q)
+
+  end loop
+end loop
+</dataString>
           </testData>
         </entry>
       </elementAttributes>
