@@ -141,7 +141,7 @@ public class Net {
      * All inputs and outputs in the net are connected together.
      * If there is no output an exception is thrown.
      * If there is one single output, all input {@link ObservableValue}s are set to this output
-     * If there are more then one output a {@link DataBus} is created.
+     * If there is more than one output, a {@link DataBus} is created.
      * <p>
      * At the end all wires get a reference to the {@link ObservableValue} the represent
      *

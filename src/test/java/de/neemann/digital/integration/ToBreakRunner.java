@@ -110,7 +110,7 @@ public class ToBreakRunner {
 
     /**
      * Returns single node of the given class.
-     * If there more then one maching node, an exception is thrown.
+     * If there is more than one maching node, an exception is thrown.
      *
      * @param clazz the class
      * @param <T>   the type of the node

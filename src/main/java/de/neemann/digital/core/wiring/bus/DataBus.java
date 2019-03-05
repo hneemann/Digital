@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Handles the creation of a data bus.
  * Is needed to connect multiple outputs which can become high Z.
  * If one of the output becomes low Z, this value is returned by the {@link ObservableValue}
- * created by this bus. If more then one output becomes low Z and the values are not equal then
+ * created by this bus. If more than one output becomes low Z and the values are not equal then
  * a {@link de.neemann.digital.core.BurnException} is thrown after the models step is completed.
  * During the calculation of of a single step a temporary burn condition is allowed.
  */
