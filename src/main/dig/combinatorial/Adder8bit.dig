@@ -170,9 +170,12 @@ CLA-Addierern aufgebaut ist.}}</string>
 # Test test result contains all calculated test vectors so you can investigate them.
 
               C_i-1    A       B            C                      S
-repeat(1&lt;&lt;16)   0    (n&gt;&gt;8) (n&amp;255) ((n&gt;&gt;8)+(n&amp;255)&gt;255)   (((n&gt;&gt;8)+(n&amp;255))&amp;255)
-repeat(1&lt;&lt;16)   1    (n&gt;&gt;8) (n&amp;255) ((n&gt;&gt;8)+(n&amp;255)+1&gt;255) (((n&gt;&gt;8)+(n&amp;255)+1)&amp;255)
-</dataString>
+loop(A,256)
+  loop(B,256)
+0 (A) (B) ((A+B)&gt;&gt;8) (A+B)
+1 (A) (B) ((A+B+1)&gt;&gt;8) (A+B+1)
+  end loop
+end loop</dataString>
           </testData>
         </entry>
       </elementAttributes>

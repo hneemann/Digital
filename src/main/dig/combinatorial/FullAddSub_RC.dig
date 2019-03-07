@@ -11,9 +11,12 @@
           <testData>
             <dataString>
             S   A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  S_3 S_2 S_1 S_0
-repeat(256) 0   bits(4,n&gt;&gt;4)     bits(4,n)        bits(4,(n&gt;&gt;4)+(n&amp;15))
-repeat(256) 1   bits(4,n&gt;&gt;4)     bits(4,n)        bits(4,(n&gt;&gt;4)-(n&amp;15))
-</dataString>
+loop(A,16)
+  loop(B,16)
+0 bits(4,A) bits(4,B) bits(4,A+B)
+1 bits(4,A) bits(4,B) bits(4,A-B)
+  end loop
+end loop</dataString>
           </testData>
         </entry>
       </elementAttributes>
