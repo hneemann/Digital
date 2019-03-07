@@ -183,10 +183,10 @@ public final class PlainSwitch implements NodeInterface {
 
         void setModel(Model model);
 
-        default void setDoubleThrow() {
+        default void dontTouchOpenContact() {
         }
 
-        default boolean checkOutput(ObservableValue out) {
+        default boolean isUniDirOutput(ObservableValue out) {
             return false;
         }
     }
@@ -228,12 +228,12 @@ public final class PlainSwitch implements NodeInterface {
         }
 
         @Override
-        public void setDoubleThrow() {
+        public void dontTouchOpenContact() {
             setOpenContactToHighZ = false;
         }
 
         @Override
-        public boolean checkOutput(ObservableValue out) {
+        public boolean isUniDirOutput(ObservableValue out) {
             return output == out;
         }
     }

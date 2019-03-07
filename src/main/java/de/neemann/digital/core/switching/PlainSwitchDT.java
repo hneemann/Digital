@@ -52,9 +52,9 @@ public final class PlainSwitchDT implements NodeInterface {
                 inC.addObserverToValue(this).checkBits(bits, null);
                 s1 = PlainSwitch.createSwitchModel(inA, inB, outputA, outputB);
                 s2 = PlainSwitch.createSwitchModel(inA, inC, outputA, outputC);
-                if (s1.checkOutput(outputA) && s2.checkOutput(outputA)) {
-                    s1.setDoubleThrow();
-                    s2.setDoubleThrow();
+                if (s1.isUniDirOutput(outputA) && s2.isUniDirOutput(outputA)) {
+                    s1.dontTouchOpenContact();
+                    s2.dontTouchOpenContact();
                 }
             }
         }
