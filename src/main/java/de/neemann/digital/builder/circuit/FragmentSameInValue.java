@@ -69,4 +69,11 @@ public class FragmentSameInValue implements Fragment {
     public List<Vector> getOutputs() {
         return Vector.add(fragment.getOutputs(), pos);
     }
+
+    @Override
+    public <V extends FragmentVisitor> V traverse(V v) {
+        v.visit(this);
+        fragment.traverse(v);
+        return v;
+    }
 }

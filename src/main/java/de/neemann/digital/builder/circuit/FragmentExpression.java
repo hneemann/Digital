@@ -237,4 +237,13 @@ public class FragmentExpression implements Fragment {
             fragment.setPos(new Vector(xPos - SIZE, height));
         }
     }
+
+    @Override
+    public <V extends FragmentVisitor> V traverse(V v) {
+        v.visit(this);
+        for (FragmentHolder f : fragments)
+            f.fragment.traverse(v);
+        merger.traverse(v);
+        return v;
+    }
 }

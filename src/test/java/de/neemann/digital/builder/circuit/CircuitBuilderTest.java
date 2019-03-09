@@ -36,6 +36,7 @@ import static de.neemann.digital.analyse.expression.Operation.and;
 import static de.neemann.digital.analyse.expression.Operation.or;
 
 /**
+ *
  */
 public class CircuitBuilderTest extends TestCase {
 
@@ -87,29 +88,36 @@ public class CircuitBuilderTest extends TestCase {
     public void testBuilderSequentialLUT() throws Exception {
         Variable y0 = new Variable("Y_0");
         Variable y1 = new Variable("Y_1");
+        Variable y2 = new Variable("Y_2");
 
         // counter
         Expression y0s = not(y0);
         Expression y1s = or(and(not(y0), y1), and(y0, not(y1)));
+        Expression y2s = or(and(y0, y1, not(y2)), and(not(y0), y2), and(not(y1), y2));
 
         ElementLibrary library = new ElementLibrary();
         Circuit circuit = new CircuitBuilder(new ShapeFactory(library))
                 .setUseLUTs(true)
                 .addSequential("Y_0", y0s)
                 .addSequential("Y_1", y1s)
+                .addSequential("Y_2", y2s)
                 .createCircuit();
 
         final ArrayList<VisualElement> el = circuit.getElements();
-        assertEquals(13, el.size());
+        assertEquals(19, el.size());
         assertEquals(1, el.stream().filter(visualElement -> visualElement.equalsDescription(LookUpTable.DESCRIPTION)).count());
 
         ModelCreator m = new ModelCreator(circuit, library);
         TestExecuter te = new TestExecuter(m.createModel(false)).setUp(m);
-        te.check(0, 0);
-        te.checkC(1, 0);
-        te.checkC(0, 1);
-        te.checkC(1, 1);
-        te.checkC(0, 0);
+        te.check(0, 0, 0);
+        te.checkC(1, 0, 0);
+        te.checkC(0, 1, 0);
+        te.checkC(1, 1, 0);
+        te.checkC(0, 0, 1);
+        te.checkC(1, 0, 1);
+        te.checkC(0, 1, 1);
+        te.checkC(1, 1, 1);
+        te.checkC(0, 0, 0);
     }
 
     public void testBuilderSequentialJK_JequalsK() throws Exception {
@@ -223,5 +231,64 @@ public class CircuitBuilderTest extends TestCase {
         assertEquals(label, e.getElementAttributes().getCleanLabel());
         assertEquals(4, e.getElementAttributes().getBits());
         assertEquals(pins, e.getElementAttributes().get(Keys.PINNUMBER));
+    }
+
+    public void testIsXor() {
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 0, 0, 0}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 0, 1, 0}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 0, 1, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 0, 0}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 0, 1}));
+        assertTrue(CircuitBuilder.isXor(new long[]{0, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 1, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 0, 0, 0}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 0, 1, 0}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 0, 1, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 1, 0, 0}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 1, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 1, 1, 1}));
+
+        assertTrue(CircuitBuilder.isXor(new long[]{0, 1, 1, 0, 1, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{1, 1, 1, 0, 1, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 0, 1, 0, 1, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 0, 0, 1, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 1, 1, 1, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 1, 0, 0, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 1, 0, 1, 1, 0, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 1, 0, 1, 0, 1, 1}));
+        assertFalse(CircuitBuilder.isXor(new long[]{0, 1, 1, 0, 1, 0, 0, 0}));
+    }
+
+    public void testIsXNor() {
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 0, 0, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 0, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 0, 1, 1}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 1, 0, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 1, 0, 1}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 1, 1, 1}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 0, 0}));
+        assertTrue(CircuitBuilder.isXNor(new long[]{1, 0, 0, 1}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 1, 1}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 1, 0, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 1, 0, 1}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 1, 1, 1}));
+
+        assertTrue(CircuitBuilder.isXNor(new long[]{1, 0, 0, 1, 0, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{0, 0, 0, 1, 0, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 1, 0, 1, 0, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 1, 1, 0, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 0, 0, 0, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 0, 1, 1, 1, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 0, 1, 0, 0, 1, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 0, 1, 0, 1, 0, 0}));
+        assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 0, 1, 0, 1, 1, 1}));
+
     }
 }

@@ -79,4 +79,10 @@ public class FragmentVariable implements Fragment {
     public Variable getVariable() {
         return variable;
     }
+
+    @Override
+    public <V extends FragmentVisitor> V traverse(V v) {
+        v.visit(this);
+        return v;
+    }
 }

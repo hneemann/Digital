@@ -8,6 +8,7 @@ package de.neemann.digital.analyse.expression;
 import java.util.ArrayList;
 
 /**
+ * Represents a variable as part of an expression.
  */
 public class Variable implements Comparable<Variable>, Expression {
 
@@ -47,6 +48,26 @@ public class Variable implements Comparable<Variable>, Expression {
         for (String n : names)
             v.add(new Variable(n));
         return v;
+    }
+
+    /**
+     * Returns true if the given expression is a variable.
+     *
+     * @param e the expression
+     * @return true if the given expression is a variable.
+     */
+    public static boolean isVar(Expression e) {
+        return e instanceof Variable;
+    }
+
+    /**
+     * Returns true if the given expression is a variable or a inverted variable.
+     *
+     * @param e the expression
+     * @return true if the given expression is a variable or a inverted variable.
+     */
+    public static boolean isVarOrNotVar(Expression e) {
+        return isVar(e) || (e instanceof Not && isVar(((Not) e).getExpression()));
     }
 
     /**

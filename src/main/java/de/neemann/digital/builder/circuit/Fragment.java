@@ -48,4 +48,12 @@ public interface Fragment {
      */
     List<Vector> getOutputs();
 
+    /**
+     * Visits all fragments
+     *
+     * @param v   the visitor
+     * @param <V> the type of the visitor
+     * @return the visitor
+     */
+    <V extends FragmentVisitor> V traverse(V v);
 }

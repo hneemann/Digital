@@ -141,4 +141,10 @@ public class FragmentVisualElement implements Fragment {
     public void setVisualElement(VisualElement visualElement) {
         this.visualElement = visualElement;
     }
+
+    @Override
+    public <V extends FragmentVisitor> V traverse(V v) {
+        v.visit(this);
+        return v;
+    }
 }

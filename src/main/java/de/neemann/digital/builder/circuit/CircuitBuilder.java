@@ -37,6 +37,8 @@ import de.neemann.digital.lang.Lang;
 
 import java.util.*;
 
+import static de.neemann.digital.analyse.expression.Variable.isVar;
+import static de.neemann.digital.analyse.expression.Variable.isVarOrNotVar;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
@@ -207,16 +209,13 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
     private Fragment createFragment(Expression expression) throws BuilderException {
         if (useLUT) {
-            if (expression instanceof Variable)
-                return createBasicFragment(expression);
-
-            if (expression instanceof Not && ((Not) expression).getExpression() instanceof Variable)
+            if (isVarOrNotVar(expression) || expression instanceof Constant)
                 return createBasicFragment(expression);
 
             if (expression instanceof Operation) {
                 boolean allVars = true;
                 for (Expression ex : ((Operation) expression).getExpressions()) {
-                    if (!(ex instanceof Variable || (ex instanceof Not && ((Not) ex).getExpression() instanceof Variable)))
+                    if (!isVarOrNotVar(ex))
                         allVars = false;
                 }
                 if (allVars)
@@ -251,12 +250,32 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             }
         }
 
-        lutNumber++;
-        return new FragmentExpression(frags, new FragmentVisualElement(LookUpTable.DESCRIPTION, frags.size(), shapeFactory)
-                .setAttr(Keys.LABEL, "L" + lutNumber)
-                .setAttr(Keys.INPUT_COUNT, frags.size())
-                .setAttr(Keys.DATA, data)
-                .setAttr(Keys.BITS, 1));
+        if (isXor(data.getData()))
+            return new FragmentExpression(frags, new FragmentVisualElement(XOr.DESCRIPTION, frags.size(), shapeFactory));
+        else if (isXNor(data.getData()))
+            return new FragmentExpression(frags, new FragmentVisualElement(XNOr.DESCRIPTION, frags.size(), shapeFactory));
+        else {
+            lutNumber++;
+            return new FragmentExpression(frags, new FragmentVisualElement(LookUpTable.DESCRIPTION, frags.size(), shapeFactory)
+                    .setAttr(Keys.LABEL, "L" + lutNumber)
+                    .setAttr(Keys.INPUT_COUNT, frags.size())
+                    .setAttr(Keys.DATA, data)
+                    .setAttr(Keys.BITS, 1));
+        }
+    }
+
+    static boolean isXNor(long[] data) {
+        for (int i = 0; i < data.length; i++)
+            if ((Integer.bitCount(i) & 1) == data[i])
+                return false;
+        return true;
+    }
+
+    static boolean isXor(long[] data) {
+        for (int i = 0; i < data.length; i++)
+            if (!((Integer.bitCount(i) & 1) == data[i]))
+                return false;
+        return true;
     }
 
     private Fragment createBasicFragment(Expression expression) throws BuilderException {
@@ -273,7 +292,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 throw new BuilderException(Lang.get("err_builder_operationNotSupported", op.getClass().getSimpleName()));
         } else if (expression instanceof Not) {
             Not n = (Not) expression;
-            if (n.getExpression() instanceof Variable) {
+            if (isVar(n.getExpression())) {
                 FragmentVariable fragmentVariable = new FragmentVariable((Variable) n.getExpression(), true);
                 fragmentVariables.add(fragmentVariable);
                 return fragmentVariable;
@@ -288,7 +307,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 return new FragmentExpression(frags, new FragmentVisualElement(XNOr.DESCRIPTION, frags.size(), shapeFactory));
             }
             return new FragmentExpression(createBasicFragment(n.getExpression()), new FragmentVisualElement(de.neemann.digital.core.basic.Not.DESCRIPTION, shapeFactory));
-        } else if (expression instanceof Variable) {
+        } else if (isVar(expression)) {
             FragmentVariable fragmentVariable = new FragmentVariable((Variable) expression, false);
             fragmentVariables.add(fragmentVariable);
             return fragmentVariable;
@@ -367,10 +386,11 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         fr.setPos(new Vector(0, 0));
         Box b = fr.doLayout();
 
+        if (fr.traverse(new FindLUTVisitor()).containsLUT())
+            pos += SIZE * 2;
+
         fr.addToCircuit(new Vector(0, pos), circuit);
         pos += b.getHeight() + SIZE * 2;
-        if (useLUT)
-            pos += SIZE * 2;
     }
 
     /**
@@ -681,5 +701,21 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     public CircuitBuilder setModelAnalyzerInfo(ModelAnalyserInfo modelAnalyserInfo) {
         mai = modelAnalyserInfo;
         return this;
+    }
+
+    private static final class FindLUTVisitor implements FragmentVisitor {
+        private boolean hasLUT = false;
+
+        @Override
+        public void visit(Fragment fr) {
+            if (fr instanceof FragmentVisualElement) {
+                if (((FragmentVisualElement) fr).getVisualElement().equalsDescription(LookUpTable.DESCRIPTION))
+                    hasLUT = true;
+            }
+        }
+
+        private boolean containsLUT() {
+            return hasLUT;
+        }
     }
 }
