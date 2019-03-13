@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
     <chapter heading="Digital">
-        <subchapter heading="Introduction">
+        <subchapter heading="Introdução">
             <par>
                 Digital é um simulador simples usado para testar circuitos digitais. As portas lógicas são conectadas
                 umas às outras por fios e o comportamento de todo o circuito pode ser simulado.
@@ -26,7 +26,7 @@
 				será necessário parar a simulação.
             </par>
         </subchapter>
-        <subchapter heading="First Steps">
+        <subchapter heading="Primeiros passos">
             <par><image src="scr00.png"/></par>
             <par>
                 Como um primeiro exemplo, sugere-se construir um circuito com uma porta OU_Exclusivo (XOR).
@@ -121,7 +121,7 @@
                 A tabela-verdade também poderá ser modificada por meio de clicks no K-Map.
             </par>
         </subchapter>
-        <subchapter heading="Wires">
+        <subchapter heading="Fios">
             <par>
                 Todos os componentes deverão estar conectados por fios. Não será possível conectar dois componentes simplesmente
                 colocando-os diretamente justapostos.
@@ -144,7 +144,7 @@
                 A tecla 'S' permitirá dividir um segmento de linha em dois.
             </par>
         </subchapter>
-        <subchapter heading="Hierarchical Design">
+        <subchapter heading="Projeto hierárquico">
             <par>
                 Ao se construir um circuito complexo, esse poderá se tornar rapidamente muito confuso. Para ajudar,
                 diferentes partes de um circuito poderão ser armazenadas em arquivos distintos. Esse mecanismo também poderá ser
@@ -221,8 +221,8 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter heading="Simulation">
-        <subchapter heading="Propagation Delay">
+    <chapter heading="Simulação">
+        <subchapter heading="Propagação de atraso">
             <par>
                 Durante a simulação, cada porta lógica terá um atraso de propagação. Cada componente encontrado na biblioteca
                 terá o mesmo atraso de propagação independente de sua complexidade.
@@ -247,7 +247,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter heading="Circuit Analysis and Synthesis">
+    <chapter heading="Análise e síntese de circuito">
         <par>
             Um circuito poderá ser analisado via menu<e>Análise</e>. A tabela-verdade será gerada apenas para 
             circuitos combinacionais. A tabela-verdade poderá ser editada se assim o desejar.
@@ -276,7 +276,7 @@
         </par>
     </chapter>
     <chapter heading="Hardware">
-        <subchapter heading="GAL16v8 and GAL22v10">
+        <subchapter heading="GAL16v8 e GAL22v10">
             <par>
                 No menu de geração de circuito na tabela-verdade também há funções para se gerar arquivos
                 JEDEC. Esse formato especial de arquivo descreve o mapa de fusíveis de um PLD.
@@ -340,7 +340,7 @@
                 Em sistemas Linux, os filtros também poderão ser executados por essa ferramenta, se estiver instalado o <e>wine</e>.
             </par>
         </subchapter>
-        <subchapter heading="Export to VHDL or Verilog">
+        <subchapter heading="Exportar para VHDL ou Verilog">
             <par>
                 Um circuito poderá ser exportado para VHDL ou Verilog. Um arquivo será gerado contendo a descrição
                 completa do circuito. Códigos VHDL gerados foram testados com o
@@ -384,7 +384,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter heading="Custom Shapes">
+    <chapter heading="Formatos personalizados">
         <par>
             Embora a ferramenta tenha algumas opções para determinar a aparência de um circuito quando esse for incorporado a outro,
             em alguns casos poderá ser mais útil indicá-lo por meio de uma formato bem especial para o subcircuito.
@@ -422,7 +422,7 @@
             alguns experimentos poderão ser necessários antes que o resultado desejado possa ser alcançado.
         </par>
     </chapter>
-    <chapter heading="Frequently asked Questions">
+    <chapter heading="Perquntas frequentes">
         <faq>
             <question>Como mover um fio?</question>
             <answer>Selecionar uma das extremidades com a seleção retangular. Assim se poderá mover o fio usando o mouse.
@@ -518,7 +518,7 @@
             <answer>Para programar tal chip um hardware programador será necessário.</answer>
         </faq>
     </chapter>
-    <chapter heading="Keyboard Shortcuts" newpage="true">
+    <chapter heading="Atalhos de teclado" newpage="true">
         <shortcuts>
             <shortcut key="Space">Iniciar ou parar a simulação.</shortcut>
             <shortcut key="F6">Abrir a caixa de diálogo para a tabela de medidas.</shortcut>

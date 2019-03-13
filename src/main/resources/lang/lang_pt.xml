@@ -28,6 +28,7 @@
     <string name="btn_reload">Recarregar</string>
     <string name="btn_reload_tt">Recarregar último arquivo em hexadecimal</string>
     <string name="btn_save">Salvar</string>
+    <string name="btn_saveAsHex_tt">Salvar como arquivo HEX.</string>
     <string name="btn_create">Criar</string>
     <string name="btn_create_tt">Criar circuito em janela separada</string>
     <string name="btn_editDetached">Editar em separado</string>
@@ -263,6 +264,15 @@
     <string name="elem_Terminal_pin_D">Os dados a serem escritos no terminal</string>
     <string name="elem_Terminal_pin_en">Um nível alto nessa entrada habilitará o recebimento do clock.</string>
 
+     <string name="elem_MIDI">MIDI</string>
+    <string name="elem_MIDI_tt">Usar o sistema MIDI para tocar notas.</string>
+    <string name="elem_MIDI_pin_N">Nota</string>
+    <string name="elem_MIDI_pin_V">Volume</string>
+    <string name="elem_MIDI_pin_OnOff">Se definido, isso se traduzirá no pressionar de uma tecla (key down event),
+        caso contrário, isso se traduzirá no liberar de uma tecla (key up event).</string>
+    <string name="elem_MIDI_pin_en">Habilitar o componente</string>
+    <string name="elem_MIDI_pin_PC">Se em nível alto, o valor em N será usado para alterar o programa (instrumento).</string>
+    <string name="elem_MIDI_pin_C">Clock</string>   
 
     <!-- Wires -->
 
@@ -971,6 +981,7 @@
     </string>
     <string name="err_errorAnalysingCircuit_N">Erro ao analisar o circuito: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Toda ROM necessita um rótulo único para ser exportada!</string>
+    <string name="err_lutNeedsALabelToBeExported">Toda LUT necessita um rótulo único para ser exportada!</string>
     <string name="err_counterNeedsMoreBits">O contador necessita de dois bits no mínimo.</string>
     <string name="err_namesAreNotUnique_N">O nome "{0}" não é único!</string>
     <string name="err_clocksNotAllowedInAsyncMode">Elementos de clock não podem ser usados em modo assíncrono.</string>
@@ -982,9 +993,14 @@
 
     <string name="err_allMemoriesNeedToHaveTheSameByteWidth">Todas as memórias em que dados deverão ser carregados requerem a mesma largura de bits.</string>
     <string name="err_ProgMemLabelsNotDifferent">Se programas serão carregados em várias RAMs, todas deverão ter nomes distintos.
-        A ordem lexicográfica determinará a ordenação das RAMs.</string>
-    <string name="err_whileExecutingTests_N0">Durante a execução de testes "{0}" um erro foi encontrado!</string>
-
+        A ordem lexicográfica determinará a ordenação das RAMs.</string>    
+    
+    <string name="err_midiSystemNotAvailable">Sistema MIDI-System não disponível.</string>
+    <string name="err_midiChannel_N_NotAvailable">O canal MIDI {0} não está disponível.</string>
+    <string name="err_midiInstrument_N_NotAvailable">O instrumento MIDI {0} nnão está disponível.</string>
+    <string name="err_midiInstrumentsNotAvailable">Os instrumentos MIDI não estão disponíveis.</string>
+    <string name="err_whileExecutingTests_N0">Durante a execução dos testes "{0}" houve um erro!</string>
+    
     <string name="key_AddrBits">Bits de endereço</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Número de bits de endereço usado.</string>
     <string name="key_Bits">Bits de dados</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
@@ -1277,6 +1293,14 @@
     <string name="key_textOrientation_LEFTCENTER">no centro à esquerda</string>
     <string name="key_textOrientation_CENTERCENTER">no centro</string>
 
+    <string name="key_midiChannel">Canal MIDI</string>
+    <string name="key_midiChannel_tt">Selecionar o canal MIDI a ser usado.</string>
+    <string name="key_midiInstrument">Instrumento MIDI</string>
+    <string name="key_midiInstrument_tt">O instrumento MIDI a ser usado.</string>
+    <string name="key_midiProgChange">Permitir alteração de programa</string>
+    <string name="key_midiProgChange_tt">Adicionar uma nova entrada PC. Se essa entrada estiver em nível alto,
+        o valor da entrada N será usado para alterar o programa (instrumento).</string>    
+    
     <string name="mod_insertWire">Fio inserido.</string>
     <string name="mod_insertCopied">Inserção a partir da área de transferência.</string>
     <string name="mod_setKey_N0_in_element_N1">Valor ''{0}'' no componente ''{1}'' modificado.</string>

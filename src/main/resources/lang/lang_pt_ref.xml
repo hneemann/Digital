@@ -29,6 +29,7 @@
     <string name="btn_reload">Reload</string>
     <string name="btn_reload_tt">Reload last hex file</string>
     <string name="btn_save">Save</string>
+    <string name="btn_saveAsHex_tt">Save as HEX file.</string>
     <string name="btn_create">Create</string>
     <string name="btn_create_tt">Create a circuit in a separate window</string>
     <string name="btn_editDetached">Edit detached</string>
@@ -263,6 +264,15 @@
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
     <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
 
+    <string name="elem_MIDI">MIDI</string>
+    <string name="elem_MIDI_tt">Uses the MIDI system to play notes.</string>
+    <string name="elem_MIDI_pin_N">Note</string>
+    <string name="elem_MIDI_pin_V">Volume</string>
+    <string name="elem_MIDI_pin_OnOff">If set, this translates to pressing a keyboard key (key down event),
+        if not set, this translates to releasing the key (key up event).</string>
+    <string name="elem_MIDI_pin_en">Enables the component</string>
+    <string name="elem_MIDI_pin_PC">If high, the value at N is used to change the program (instrument).</string>
+    <string name="elem_MIDI_pin_C">Clock</string>
 
     <!-- Wires -->
 
@@ -824,7 +834,7 @@
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
     <string name="err_builder_couldNotFillLUT">Error creating the lookup table.</string>
-    <string name="err_burnError">More then one output is active on a wire, causing a short circuit.</string>
+    <string name="err_burnError">More than one output is active on a wire, causing a short circuit.</string>
     <string name="err_pullUpAndDown">It is not allowed to connect a pull-up and pull-down resistor to the same net.</string>
     <string name="err_cannotAnalyse_N">Cannot analyse Node {0}</string>
     <string name="err_containsVarAndNotVar">Contains [var] and [not var]</string>
@@ -835,7 +845,7 @@
     <string name="err_invalidFileFormat">Invalid file format</string>
     <string name="err_isAlreadyInitialized">Logic is already initialized</string>
     <string name="err_labelNotConnectedToNet_N">A tunnel {0} is not connected!</string>
-    <string name="err_moreThanOneClockFound">There are more then one clock</string>
+    <string name="err_moreThanOneClockFound">There is more than one clock</string>
     <string name="err_needs_N0_bits_found_N2_bits">There are {0} bits needed, but {1} bits found</string>
     <string name="err_netOfPin_N_notFound">Net of pin {0} not found</string>
     <string name="err_noClockFound">No clock found in logic</string>
@@ -906,7 +916,7 @@
     <string name="err_diodeNeedsPullDownResistorAtOutput">Diode needs a pull down resistor at its output!</string>
     <string name="err_testSignal_N_notFound">Test signal {0} not found in the circuit!</string>
     <string name="err_toManyBits_Found_N0_maxIs_N1">Only {1} bits allowed, but {0} bits found!</string>
-    <string name="err_MultiBitFlipFlopFound">Flip-flops with more then one bits are not allowed!</string>
+    <string name="err_MultiBitFlipFlopFound">Flip-flops with more than one bit are not allowed!</string>
     <string name="err_invalidTransmissionGateState">The two control inputs of a transmission gate must be inverted!</string>
     <string name="err_nameUsedTwice_N">Signal {0} is used twice!</string>
     <string name="err_errorParsingTestdata">Error parsing the test data.</string>
@@ -974,6 +984,7 @@
     </string>
     <string name="err_errorAnalysingCircuit_N">Error analysing the circuit: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Every ROM needs a unique label to be exported!</string>
+    <string name="err_lutNeedsALabelToBeExported">Every LUT needs a unique label to be exported!</string>
     <string name="err_counterNeedsMoreBits">The counter needs at least two bits.</string>
     <string name="err_namesAreNotUnique_N">The name "{0}" is  not unique!</string>
     <string name="err_clocksNotAllowedInAsyncMode">Clock elements can not be used in asynchronous mode.</string>
@@ -985,6 +996,11 @@
     <string name="err_allMemoriesNeedToHaveTheSameByteWidth">All memories into which data are to be loaded require the same bit width.</string>
     <string name="err_ProgMemLabelsNotDifferent">If programs are to be loaded into several RAMs, all RAMs must have
         different names. The lexical order then determines the order of the RAMs.</string>
+
+    <string name="err_midiSystemNotAvailable">The MIDI-System is not available.</string>
+    <string name="err_midiChannel_N_NotAvailable">The MIDI channel {0} is not available.</string>
+    <string name="err_midiInstrument_N_NotAvailable">The MIDI instrument {0} is not available.</string>
+    <string name="err_midiInstrumentsNotAvailable">The MIDI instruments are not available.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1282,6 +1298,14 @@
     <string name="key_textOrientation_LEFTTOP">left top</string>
     <string name="key_textOrientation_LEFTCENTER">left center</string>
     <string name="key_textOrientation_CENTERCENTER">center center</string>
+
+    <string name="key_midiChannel">MIDI channel</string>
+    <string name="key_midiChannel_tt">Selects the MIDI channel to use.</string>
+    <string name="key_midiInstrument">MIDI instrument</string>
+    <string name="key_midiInstrument_tt">The MIDI instrument to use.</string>
+    <string name="key_midiProgChange">Allow program change</string>
+    <string name="key_midiProgChange_tt">Adds  a new input PC. If this input is set to high,
+        the value at input N is used to change te program (instrument).</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
