@@ -10,6 +10,10 @@ import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -92,12 +96,15 @@ public class TestLang extends TestCase {
             if (!langKeys.contains(k))
                 missing.add(k);
         }
+
+        Element dif = new Element("language").setAttribute("name", l.getName());
+
         if (!missing.isEmpty()) {
-            System.out.println("Missing language keys for: " + l);
             missing.sort(String::compareTo);
-            for (String k : missing) {
-                System.out.println("    <string name=\"" + k + "\">" + master.get(k) + "</string>");
-            }
+            for (String k : missing)
+                dif.addContent(new Element("key").setAttribute("name", k).setAttribute("type", "new")
+                        .addContent(new Element("en").setText(master.get(k)))
+                        .addContent(new Element(l.getName()).setText("-")));
         }
 
         ArrayList<String> obsolete = new ArrayList<>();
@@ -120,19 +127,16 @@ public class TestLang extends TestCase {
         for (String k : master.getKeys()) {
             String m = master.get(k);
             String o = refResource.get(k);
-            if (m != null && o != null && !m.equals(o))
+            if (m != null && o != null && !m.trim().equals(o.trim()))
                 modified.add(k);
         }
 
         if (!modified.isEmpty()) {
-            System.out.println("Modified language keys for: " + l);
             modified.sort(String::compareTo);
-            for (String k : modified) {
-                System.out.println("  key: " + k);
-                System.out.println("    old: " + refResource.get(k));
-                System.out.println("    new: " + master.get(k));
-                System.out.println("    old: " + langResources.get(k));
-            }
+            for (String k : modified)
+                dif.addContent(new Element("key").setAttribute("name", k).setAttribute("type", "modified")
+                        .addContent(new Element("en").setText(master.get(k)))
+                        .addContent(new Element(l.getName()).setText(langResources.get(k))));
         }
 
         ArrayList<String> missingInRef = new ArrayList<>();
@@ -143,6 +147,16 @@ public class TestLang extends TestCase {
         if (!missingInRef.isEmpty()) {
             missingInRef.sort(String::compareTo);
             fail("Missing keys in the reference file for: " + l + ";  " + missingInRef);
+        }
+
+        if (!dif.getChildren().isEmpty()) {
+            File filename = new File(Resources.getRoot(), "../../../target/language_" + l.getName() + ".xml");
+            try {
+                Document doc = new Document(dif);
+                new XMLOutputter(Format.getPrettyFormat()).output(doc, new FileOutputStream(filename));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

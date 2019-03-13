@@ -73,6 +73,7 @@ buildNumber.properties
 /Digital.sh
 /upload.sh
 /copyToPluginExample.sh
+.attach_pid*
 
 #netbeans project files
 nbactions.xml
