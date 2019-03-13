@@ -23,6 +23,7 @@ public class LanguageUpdater {
     private final Document ref;
     private final File langFileName;
     private final File refFileName;
+    private boolean modified = false;
 
     public LanguageUpdater(File sourceFilename) throws JDOMException, IOException {
         Document dif = new SAXBuilder().build(sourceFilename);
@@ -46,9 +47,12 @@ public class LanguageUpdater {
                 if (type.equals("new")) {
                     add(ref, key, e.getChild("en").getText());
                     add(lang, key, text);
+                    modified = true;
                 } else {
-                    replace(ref, key, e.getChild("en").getText());
-                    replace(lang, key, text);
+                    if (replace(lang, key, text)) {
+                        replace(ref, key, e.getChild("en").getText());
+                        modified = true;
+                    }
                 }
             }
         }
@@ -67,24 +71,32 @@ public class LanguageUpdater {
         xml.getRootElement().addContent("\n");
     }
 
-    private void replace(Document xml, String key, String text) throws IOException {
+    private boolean replace(Document xml, String key, String text) throws IOException {
         for (Element e : (List<Element>) xml.getRootElement().getChildren()) {
             String k = e.getAttributeValue("name");
             if (k.equals(key)) {
+                if (e.getText().trim().equals(text.trim())) {
+                    System.out.println("ignored unchanged key; " + k);
+                    return false;
+                }
                 e.setText(text);
-                return;
+                return true;
             }
         }
         throw new IOException("key " + key + " not found in " + xml);
     }
 
     private void update() throws IOException {
-        new XMLOutputter(Format.getPrettyFormat()).output(ref, new FileOutputStream(refFileName));
-        new XMLOutputter(Format.getPrettyFormat()).output(lang, new FileOutputStream(langFileName));
+        if (modified) {
+            new XMLOutputter(Format.getPrettyFormat()).output(ref, new FileOutputStream(refFileName));
+            new XMLOutputter(Format.getPrettyFormat()).output(lang, new FileOutputStream(langFileName));
+        } else {
+            System.out.println("no modification found!");
+        }
     }
 
     public static void main(String[] args) throws JDOMException, IOException {
-        new LanguageUpdater(new File("/home/hneemann/Dokumente/Java/digital/target/language_zz.xml")).update();
+        new LanguageUpdater(new File("/home/hneemann/Dokumente/Java/digital/target/language_pt.xml")).update();
     }
 
 }
