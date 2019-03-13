@@ -150,7 +150,7 @@ public class TestLang extends TestCase {
         }
 
         if (!dif.getChildren().isEmpty()) {
-            File filename = new File(Resources.getRoot(), "../../../target/language_" + l.getName() + ".xml");
+            File filename = new File(Resources.getRoot(), "../../../target/lang_diff_" + l.getName() + ".xml");
             try {
                 Document doc = new Document(dif);
                 new XMLOutputter(Format.getPrettyFormat()).output(doc, new FileOutputStream(filename));

@@ -13,6 +13,8 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,11 +25,11 @@ public class LanguageUpdater {
     private final Document ref;
     private final File langFileName;
     private final File refFileName;
-    private boolean modified = false;
+    private int modified;
 
-    public LanguageUpdater(File sourceFilename) throws JDOMException, IOException {
-        Document dif = new SAXBuilder().build(sourceFilename);
-        String langName = dif.getRootElement().getAttributeValue("name");
+    private LanguageUpdater(File sourceFilename) throws JDOMException, IOException {
+        Element dif = new SAXBuilder().build(sourceFilename).getRootElement();
+        String langName = dif.getAttributeValue("name");
 
         File langPath = new File(Resources.getRoot(), "../../main/resources/lang");
         if (!langPath.exists())
@@ -38,8 +40,7 @@ public class LanguageUpdater {
         lang = new SAXBuilder().build(langFileName);
         ref = new SAXBuilder().build(refFileName);
 
-
-        for (Element e : (List<Element>) dif.getRootElement().getChildren()) {
+        for (Element e : (List<Element>) dif.getChildren()) {
             String key = e.getAttributeValue("name");
             String type = e.getAttributeValue("type");
             final String text = e.getChild(langName).getText().trim();
@@ -47,16 +48,19 @@ public class LanguageUpdater {
                 if (type.equals("new")) {
                     add(ref, key, e.getChild("en").getText());
                     add(lang, key, text);
-                    modified = true;
+                    modified++;
                 } else {
                     if (replace(lang, key, text)) {
                         replace(ref, key, e.getChild("en").getText());
-                        modified = true;
+                        modified++;
+                    } else {
+                        System.out.println("ignored unchanged key: " + key);
                     }
                 }
+            } else {
+                System.out.println("ignored empty key: " + key);
             }
         }
-
     }
 
     private void add(Document xml, String key, String text) throws IOException {
@@ -76,27 +80,32 @@ public class LanguageUpdater {
             String k = e.getAttributeValue("name");
             if (k.equals(key)) {
                 if (e.getText().trim().equals(text.trim())) {
-                    System.out.println("ignored unchanged key; " + k);
                     return false;
+                } else {
+                    e.setText(text);
+                    return true;
                 }
-                e.setText(text);
-                return true;
             }
         }
         throw new IOException("key " + key + " not found in " + xml);
     }
 
     private void update() throws IOException {
-        if (modified) {
+        if (modified > 0) {
             new XMLOutputter(Format.getPrettyFormat()).output(ref, new FileOutputStream(refFileName));
             new XMLOutputter(Format.getPrettyFormat()).output(lang, new FileOutputStream(langFileName));
+            System.out.println(modified + " keys updated!");
         } else {
             System.out.println("no modification found!");
         }
     }
 
     public static void main(String[] args) throws JDOMException, IOException {
-        new LanguageUpdater(new File("/home/hneemann/Dokumente/Java/digital/target/language_pt.xml")).update();
+        JFileChooser fc = new JFileChooser();
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("xml", "xml"));
+        fc.setSelectedFile(new File("/home/hneemann/Dokumente/Java/digital/target/language_pt.xml"));
+        if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+            new LanguageUpdater(fc.getSelectedFile()).update();
     }
 
 }
