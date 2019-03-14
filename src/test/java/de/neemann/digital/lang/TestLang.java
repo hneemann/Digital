@@ -10,6 +10,7 @@ import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
+import org.jdom.CDATA;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -105,7 +106,7 @@ public class TestLang extends TestCase {
             missing.sort(String::compareTo);
             for (String k : missing)
                 dif.add(new Element("key").setAttribute("name", k).setAttribute("type", "new")
-                        .addContent(new Element("en").setText(master.get(k)))
+                        .addContent(addTextTo(new Element("en"), master.get(k)))
                         .addContent(new Element(l.getName()).setText("-")));
         }
 
@@ -135,8 +136,8 @@ public class TestLang extends TestCase {
         if (!modified.isEmpty()) {
             for (String k : modified)
                 dif.add(new Element("key").setAttribute("name", k).setAttribute("type", "modified")
-                        .addContent(new Element("en").setText(master.get(k)))
-                        .addContent(new Element(l.getName()).setText(langResources.get(k))));
+                        .addContent(addTextTo(new Element("en"), master.get(k)))
+                        .addContent(addTextTo(new Element(l.getName()), langResources.get(k))));
         }
 
         ArrayList<String> missingInRef = new ArrayList<>();
@@ -160,6 +161,14 @@ public class TestLang extends TestCase {
                 e.printStackTrace();
             }
         }
+    }
+
+    private Element addTextTo(Element el, String text) {
+        if (text.contains("<html>"))
+            el.addContent(new CDATA(text));
+        else
+            el.setText(text);
+        return el;
     }
 
     private void restoreOriginalKeyOrder(List<Element> dif) throws IOException, JDOMException {
