@@ -12,6 +12,8 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
@@ -80,7 +82,7 @@ public class TestLang extends TestCase {
      * Outputs all missing or modified language keys in languages which are not
      * forced to be complete. (all languages except de and en)
      */
-    public void testAdditionalLanguages() {
+    public void testAdditionalLanguages() throws IOException, JDOMException {
         de.neemann.gui.language.Resources master = bundle.getResources("en");
         for (Language l : bundle.getSupportedLanguages()) {
             if (!(l.getName().equals("de") || l.getName().equals("en")))
@@ -88,7 +90,7 @@ public class TestLang extends TestCase {
         }
     }
 
-    private void checkLanguage(de.neemann.gui.language.Resources master, Language l) {
+    private void checkLanguage(de.neemann.gui.language.Resources master, Language l) throws IOException, JDOMException {
         ArrayList<String> missing = new ArrayList<>();
         final de.neemann.gui.language.Resources langResources = bundle.getResources(l.getName());
         Set<String> langKeys = langResources.getKeys();
@@ -97,12 +99,12 @@ public class TestLang extends TestCase {
                 missing.add(k);
         }
 
-        Element dif = new Element("language").setAttribute("name", l.getName());
+        ArrayList<Element> dif = new ArrayList<>();
 
         if (!missing.isEmpty()) {
             missing.sort(String::compareTo);
             for (String k : missing)
-                dif.addContent(new Element("key").setAttribute("name", k).setAttribute("type", "new")
+                dif.add(new Element("key").setAttribute("name", k).setAttribute("type", "new")
                         .addContent(new Element("en").setText(master.get(k)))
                         .addContent(new Element(l.getName()).setText("-")));
         }
@@ -116,7 +118,6 @@ public class TestLang extends TestCase {
             assertFalse(l + "; " + k + "; not trimmed: >" + val + "<", !val.contains("\n") && !val.equals(val.trim()));
         }
         if (!obsolete.isEmpty()) {
-            obsolete.sort(String::compareTo);
             fail("Obsolete language keys for: " + l + "; " + obsolete);
         }
 
@@ -132,9 +133,8 @@ public class TestLang extends TestCase {
         }
 
         if (!modified.isEmpty()) {
-            modified.sort(String::compareTo);
             for (String k : modified)
-                dif.addContent(new Element("key").setAttribute("name", k).setAttribute("type", "modified")
+                dif.add(new Element("key").setAttribute("name", k).setAttribute("type", "modified")
                         .addContent(new Element("en").setText(master.get(k)))
                         .addContent(new Element(l.getName()).setText(langResources.get(k))));
         }
@@ -144,20 +144,40 @@ public class TestLang extends TestCase {
             if (refResource.get(k) == null)
                 missingInRef.add(k);
 
-        if (!missingInRef.isEmpty()) {
-            missingInRef.sort(String::compareTo);
+        if (!missingInRef.isEmpty())
             fail("Missing keys in the reference file for: " + l + ";  " + missingInRef);
-        }
 
-        if (!dif.getChildren().isEmpty()) {
+        if (!dif.isEmpty()) {
+            restoreOriginalKeyOrder(dif);
             File filename = new File(Resources.getRoot(), "../../../target/lang_diff_" + l.getName() + ".xml");
             try {
-                Document doc = new Document(dif);
+                Element root = new Element("language").setAttribute("name", l.getName());
+                for (Element e : dif)
+                    root.addContent(e);
+                Document doc = new Document(root);
                 new XMLOutputter(Format.getPrettyFormat()).output(doc, new FileOutputStream(filename));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void restoreOriginalKeyOrder(List<Element> dif) throws IOException, JDOMException {
+        File langPath = new File(Resources.getRoot(), "../../main/resources/lang");
+        if (!langPath.exists())
+            throw new IOException("lang folder not found!");
+
+        Element orig = new SAXBuilder().build(new File(langPath, "lang_de.xml")).getRootElement();
+        int i = 0;
+        HashMap<String, Integer> orderMap = new HashMap<>();
+        for (Element e : (List<Element>) orig.getChildren())
+            orderMap.put(e.getAttributeValue("name"), i++);
+
+        dif.sort((e1, e2) -> {
+            String k1 = e1.getAttributeValue("name");
+            String k2 = e2.getAttributeValue("name");
+            return orderMap.get(k1) - orderMap.get(k2);
+        });
     }
 
     public static File getSourceFiles() {
