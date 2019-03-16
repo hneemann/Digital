@@ -48,6 +48,16 @@ public class Resources {
         this(loadMap(in));
     }
 
+    /**
+     * Reads the resources from the given file
+     *
+     * @param file the file to read
+     * @throws FileNotFoundException FileNotFoundException
+     */
+    public Resources(File file) throws FileNotFoundException {
+        this(loadMap(new FileInputStream(file)));
+    }
+
     private static Map<String, String> loadMap(InputStream in) {
         XStream xStream = getxStream();
         return (Map<String, String>) xStream.fromXML(in);

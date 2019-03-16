@@ -93,7 +93,17 @@ public class TestLang extends TestCase {
 
     private void checkLanguage(de.neemann.gui.language.Resources master, Language l) throws IOException, JDOMException {
         ArrayList<String> missing = new ArrayList<>();
-        final de.neemann.gui.language.Resources langResources = bundle.getResources(l.getName());
+        final File rootFolder = new File(Resources.getRoot(), "../../main/resources/lang");
+        File lang = new File(rootFolder, "lang_" + l.getName() + ".xml");
+
+        if (!lang.exists()) {
+            new XMLOutputter(Format.getPrettyFormat()).output(new Document().setRootElement(new Element("resources")), new FileOutputStream(lang));
+            File f2 = new File(rootFolder, "lang_" + l.getName() + "_ref.xml");
+            new XMLOutputter(Format.getPrettyFormat()).output(new Document().setRootElement(new Element("resources")), new FileOutputStream(f2));
+        }
+
+        de.neemann.gui.language.Resources langResources = new de.neemann.gui.language.Resources(lang);
+
         Set<String> langKeys = langResources.getKeys();
         for (String k : master.getKeys()) {
             if (!langKeys.contains(k))
@@ -124,8 +134,7 @@ public class TestLang extends TestCase {
 
         ArrayList<String> modified = new ArrayList<>();
         de.neemann.gui.language.Resources refResource =
-                new de.neemann.gui.language.Resources(
-                        getClass().getClassLoader().getResourceAsStream("lang/lang_" + l.getName() + "_ref.xml"));
+                new de.neemann.gui.language.Resources(new File(rootFolder,"lang_" + l.getName() + "_ref.xml"));
         for (String k : master.getKeys()) {
             String m = master.get(k);
             String o = refResource.get(k);

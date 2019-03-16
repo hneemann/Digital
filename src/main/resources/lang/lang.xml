@@ -2,26 +2,21 @@
 <!--
 To add a new language, you can add the language to this file.
 Use the name of the language in that language.
-Then make a copy of the English language file "lang_en.xml"
-and rename it to "lang_xx_ref.xml". Then create a second
-copy and rename it to "lang_xx.xml". Then translate the
-latter file into the new language.
+Then run the test case "de.neemann.digital.lang.TestLang.testAdditionalLanguages".
 
-The file "lang_xx_ref.xml" is important because it helps me
-to keep track of future changes to the language files.
+In the target directory you can now find a diff file for the
+new language. This diff file contains a list of English text
+fragments and a empty xml tag for the translated text fragment.
+Fill all the empty language tags.
 
-If you also want to translate the static part of the documentation,
-you have to translate the file "static_en.xml" from the
-folder "src/test/Resources/Docu".
+To import the translated text, start the class
+"de.neemann.digital.lang.LanguageUpdater" and select
+your diff file.
 
-You can test the translation by simply putting the files into
-the Digital.jar file. It's not necessary to rebuild the jar.
-However, if you also want to review the automatically generated
-PDF documentation, you will need to rebuild the jar.
+In the future, each time the software is built, a new
+diff file will be created that contains all the new or
+modified keys.
 
-If you are satisfied with the translation, please send me the
-translated version AND the file "lang_xx_ref.xml" you used for the
-translation! For me, the easiest way is to create a pull request.
 -->
 <languages>
     <lang name="en">English</lang>

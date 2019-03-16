@@ -52,6 +52,9 @@ public class Bundle {
             return null;
 
         InputStream in = getClass().getClassLoader().getResourceAsStream(name + "_" + lang + ".xml");
+        if (in == null)
+            return null;
+
         return new Resources(in);
     }
 
