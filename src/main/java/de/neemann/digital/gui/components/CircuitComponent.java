@@ -2181,7 +2181,7 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
     private final class MouseControllerRun extends MouseController {
 
-        private boolean dragHandled;
+        private VisualElement draggedElement;
 
         private MouseControllerRun(Cursor cursor) {
             super(cursor);
@@ -2192,9 +2192,9 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             VisualElement ve = getInteractiveElementAt(e);
             if (ve != null) {
                 interact(e, ve::elementPressed);
-                dragHandled = true;
+                draggedElement = ve;
             } else
-                dragHandled = false;
+                draggedElement = null;
         }
 
         private VisualElement getInteractiveElementAt(MouseEvent e) {
@@ -2208,9 +2208,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void released(MouseEvent e) {
-            VisualElement ve = getInteractiveElementAt(e);
-            if (ve != null)
-                interact(e, ve::elementReleased);
+            if (draggedElement != null) {
+                interact(e, draggedElement::elementReleased);
+                draggedElement = null;
+            }
         }
 
         @Override
@@ -2222,10 +2223,11 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         boolean dragged(MouseEvent e) {
-            VisualElement ve = getInteractiveElementAt(e);
-            if (ve != null)
-                interact(e, ve::elementDragged);
-            return dragHandled;
+            if (draggedElement != null) {
+                interact(e, draggedElement::elementDragged);
+                return true;
+            } else
+                return false;
         }
 
         private void interact(MouseEvent e, Actor actor) {
