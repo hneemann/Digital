@@ -71,7 +71,7 @@ The latest changes that have not yet been released are listed in the
 
 ## Documentation ##
 
-The [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English and German.
+The [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English, German and Portuguese.
 It is still very incomplete but it contains a chapter "First Steps" which explains the basic usage of Digital.
 The documentation also contains a list of available 74xx chips and a list of available keyboard shortcuts. 
 
