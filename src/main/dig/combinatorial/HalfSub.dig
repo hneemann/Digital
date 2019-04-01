@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>XOr</elementName>
@@ -9,7 +10,14 @@
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>In_1</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
       <pos x="620" y="320"/>
     </visualElement>
     <visualElement>
@@ -20,7 +28,7 @@
           <string>$A$</string>
         </entry>
       </elementAttributes>
-      <pos x="500" y="240"/>
+      <pos x="520" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -30,7 +38,7 @@
           <string>$B$</string>
         </entry>
       </elementAttributes>
-      <pos x="500" y="360"/>
+      <pos x="520" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -53,11 +61,6 @@
       <pos x="720" y="340"/>
     </visualElement>
     <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="540" y="320"/>
-    </visualElement>
-    <visualElement>
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
@@ -77,20 +80,24 @@
   </visualElements>
   <wires>
     <wire>
-      <p1 x="500" y="240"/>
-      <p2 x="520" y="240"/>
+      <p1 x="580" y="280"/>
+      <p2 x="540" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="280"/>
+      <p2 x="580" y="320"/>
     </wire>
     <wire>
       <p1 x="520" y="240"/>
+      <p2 x="540" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="240"/>
       <p2 x="620" y="240"/>
     </wire>
     <wire>
       <p1 x="580" y="320"/>
-      <p2 x="620" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="320"/>
-      <p2 x="540" y="320"/>
+      <p2 x="600" y="320"/>
     </wire>
     <wire>
       <p1 x="680" y="260"/>
@@ -101,24 +108,24 @@
       <p2 x="720" y="340"/>
     </wire>
     <wire>
-      <p1 x="600" y="280"/>
+      <p1 x="580" y="280"/>
       <p2 x="620" y="280"/>
     </wire>
     <wire>
-      <p1 x="500" y="360"/>
-      <p2 x="600" y="360"/>
+      <p1 x="520" y="360"/>
+      <p2 x="540" y="360"/>
     </wire>
     <wire>
-      <p1 x="600" y="360"/>
+      <p1 x="540" y="360"/>
       <p2 x="620" y="360"/>
     </wire>
     <wire>
-      <p1 x="600" y="280"/>
-      <p2 x="600" y="360"/>
+      <p1 x="540" y="240"/>
+      <p2 x="540" y="280"/>
     </wire>
     <wire>
-      <p1 x="520" y="240"/>
-      <p2 x="520" y="320"/>
+      <p1 x="540" y="320"/>
+      <p2 x="540" y="360"/>
     </wire>
   </wires>
 </circuit>

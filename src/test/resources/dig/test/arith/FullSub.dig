@@ -37,7 +37,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>BO_i-1</string>
+          <string>BO_{i-1}</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="200"/>
@@ -83,7 +83,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>A_i B_i BO_i-1  BO_i S_i
+            <dataString>A_i B_i BO_{i-1}  BO_i S_i
  0   0   0        0   0
  0   0   1        1   1
  0   1   0        1   1
