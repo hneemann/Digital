@@ -1,6 +1,6 @@
 Release Notes
 
-HEAD, planned as v0.22
+v0.22, released on 01. Apr 2019
 - Improved the RAM/ROM data loader. Now binary files and Intel HEX files are
   supported.
 - Added a RAM that can be synthesized on an FPGA using block RAM.
