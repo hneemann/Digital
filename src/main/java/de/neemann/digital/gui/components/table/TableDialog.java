@@ -599,15 +599,16 @@ public class TableDialog extends JDialog {
                 expressionListener = new ExpressionListenerJK(expressionListener);
 
             final TruthTable table = model.getTable();
-            if (table.getResultCount() > 4 && table.getVars().size() > 8) {
-                if (!allSolutionsDialog.isVisible())
-                    allSolutionsDialog.setVisible(true);
-                allSolutionsDialog.setText(Lang.get("msg_optimizationInProgress"));
+            if (table.getVars().size() >= 8) {
+                ExpressionCreator.ProgressListener progress =
+                        table.getResultCount() == 1 ? null :
+                                new ProgressDialog(this);
+
                 ExpressionListener finalExpressionListener = expressionListener;
                 new Thread(() -> {
                     ExpressionListenerStore storage = new ExpressionListenerStore(null);
                     try {
-                        new ExpressionCreator(table).create(storage);
+                        new ExpressionCreator(table).setProgressListener(progress).create(storage);
                     } catch (ExpressionException | FormatterException | AnalyseException e) {
                         SwingUtilities.invokeLater(() -> {
                             allSolutionsDialog.setVisible(false);

@@ -33,6 +33,7 @@ public class ExpressionCreator {
     private static final int COMPLEX_VAR_SIZE = 8;
 
     private final TruthTable theTable;
+    private ProgressListener progressListener;
 
     /**
      * Creates a new instance
@@ -98,6 +99,8 @@ public class ExpressionCreator {
         listener.close();
         time = System.currentTimeMillis() - time;
         LOGGER.debug("time: " + time / 1000.0 + " sec");
+        if (progressListener!=null)
+            progressListener.complete();
     }
 
     private Job simplify(ExpressionListener listener, List<Variable> vars, String resultName, BoolTable boolTable) throws AnalyseException, ExpressionException {
@@ -127,6 +130,26 @@ public class ExpressionCreator {
         }
     }
 
+    public ExpressionCreator setProgressListener(ProgressListener progressListener) {
+        this.progressListener = progressListener;
+        return this;
+    }
+
+    /**
+     * Listener used to monitor the progress
+     */
+    public interface ProgressListener {
+        /**
+         * Called if a equation is calculated
+         */
+        void oneCompleted();
+
+        /**
+         * Called if all equations are calculated
+         */
+        void complete();
+    }
+
     private final class Job {
         private final List<Variable> localVars;
         private final BoolTable boolTable;
@@ -146,6 +169,8 @@ public class ExpressionCreator {
             long time = System.currentTimeMillis();
             getMinimizer(localVars.size()).minimize(localVars, boolTable, resultName, listener);
             LOGGER.info("finished job with complexity " + getComplexity() + ":  " + (System.currentTimeMillis() - time) / 1000 + "sec");
+            if (progressListener!=null)
+                progressListener.oneCompleted();
         }
 
         private int getComplexity() {
