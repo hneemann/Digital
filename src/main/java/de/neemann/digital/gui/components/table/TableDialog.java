@@ -5,7 +5,10 @@
  */
 package de.neemann.digital.gui.components.table;
 
-import de.neemann.digital.analyse.*;
+import de.neemann.digital.analyse.AnalyseException;
+import de.neemann.digital.analyse.ModelAnalyserInfo;
+import de.neemann.digital.analyse.TruthTable;
+import de.neemann.digital.analyse.TruthTableTableModel;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
@@ -41,6 +44,8 @@ import de.neemann.gui.ErrorMessage;
 import de.neemann.gui.MyFileChooser;
 import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -61,8 +66,10 @@ import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
 /**
+ *
  */
 public class TableDialog extends JDialog {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TableDialog.class);
     private static final Preferences PREFS = Preferences.userRoot().node("dig").node("generator");
     private static final Color MYGRAY = new Color(230, 230, 230);
     private static final List<Key> LIST = new ArrayList<>();
@@ -304,6 +311,7 @@ public class TableDialog extends JDialog {
                     if (createJK.isSelected())
                         expressionListener = new ExpressionListenerJK(expressionListener);
                     lastGeneratedExpressions.replayTo(expressionListener);
+                    expressionListener.close();
                 } catch (ExpressionException | FormatterException e1) {
                     new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
                 }
@@ -584,16 +592,51 @@ public class TableDialog extends JDialog {
 
     private void calculateExpressions() {
         try {
+            LOGGER.info("start optimization");
             ExpressionListener expressionListener = new HTMLExpressionListener();
 
             if (createJK.isSelected())
                 expressionListener = new ExpressionListenerJK(expressionListener);
 
-            lastGeneratedExpressions = new ExpressionListenerStore(expressionListener);
-            new ExpressionCreator(model.getTable()).create(lastGeneratedExpressions);
+            final TruthTable table = model.getTable();
+            if (table.getResultCount() > 4 && table.getVars().size() > 8) {
+                if (!allSolutionsDialog.isVisible())
+                    allSolutionsDialog.setVisible(true);
+                allSolutionsDialog.setText(Lang.get("msg_optimizationInProgress"));
+                ExpressionListener finalExpressionListener = expressionListener;
+                new Thread(() -> {
+                    ExpressionListenerStore storage = new ExpressionListenerStore(null);
+                    try {
+                        new ExpressionCreator(table).create(storage);
+                    } catch (ExpressionException | FormatterException | AnalyseException e) {
+                        SwingUtilities.invokeLater(() -> {
+                            allSolutionsDialog.setVisible(false);
+                            lastGeneratedExpressions = null;
+                            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
+                        });
+                        return;
+                    }
 
-            kvMap.setResult(model.getTable(), lastGeneratedExpressions.getResults());
+                    SwingUtilities.invokeLater(() -> {
+                        try {
+                            lastGeneratedExpressions = new ExpressionListenerStore(finalExpressionListener);
+                            storage.replayTo(lastGeneratedExpressions);
+                            lastGeneratedExpressions.close();
+                            kvMap.setResult(table, lastGeneratedExpressions.getResults());
+                        } catch (FormatterException | ExpressionException e) {
+                            lastGeneratedExpressions = null;
+                            new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
+                        }
+                    });
 
+                }).start();
+            } else {
+                lastGeneratedExpressions = new ExpressionListenerStore(expressionListener);
+                new ExpressionCreator(table).create(lastGeneratedExpressions);
+                kvMap.setResult(table, lastGeneratedExpressions.getResults());
+            }
+
+            LOGGER.info("optimization finished");
         } catch (ExpressionException | FormatterException | AnalyseException e1) {
             lastGeneratedExpressions = null;
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(this);
@@ -731,22 +774,24 @@ public class TableDialog extends JDialog {
         public void close() {
             html.append("</table></html>");
 
-            switch (count) {
-                case 0:
-                    statusBar.setVisible(false);
-                    allSolutionsDialog.setVisible(false);
-                    break;
-                case 1:
-                    statusBar.setVisible(true);
-                    statusBar.setText(firstExp);
-                    allSolutionsDialog.setVisible(false);
-                    break;
-                default:
-                    statusBar.setVisible(false);
-                    allSolutionsDialog.setText(html.toString());
-                    if (!allSolutionsDialog.isVisible())
-                        SwingUtilities.invokeLater(() -> allSolutionsDialog.setVisible(true));
-            }
+            SwingUtilities.invokeLater(() -> {
+                switch (count) {
+                    case 0:
+                        statusBar.setVisible(false);
+                        allSolutionsDialog.setVisible(false);
+                        break;
+                    case 1:
+                        statusBar.setVisible(true);
+                        statusBar.setText(firstExp);
+                        allSolutionsDialog.setVisible(false);
+                        break;
+                    default:
+                        statusBar.setVisible(false);
+                        allSolutionsDialog.setText(html.toString());
+                        if (!allSolutionsDialog.isVisible())
+                            allSolutionsDialog.setVisible(true);
+                }
+            });
         }
     }
 

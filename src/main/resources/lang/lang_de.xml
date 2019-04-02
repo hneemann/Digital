@@ -918,6 +918,7 @@ Es sind nur {1} Variablen erlaubt, es wurden jedoch {2} gefunden.</string>
     <string name="err_processExitedWithError_N1_N2">Der Prozess meldet den Rückgabewert {0}: {1}</string>
     <string name="err_errorRunningFitter">Fehler beim Starten des externen Fitters!</string>
     <string name="err_noExpressionsAvailable">Es liegen keine minimierten Gleichungen vor!</string>
+    <string name="msg_optimizationInProgress">Gleichungen werden berechnet! Einen Moment Geduld!</string>
     <string name="err_varName_N_UsedTwice">Die Variable {0} wird mehrfach verwendet!</string>
     <string name="err_fileNeedsToBeSaved">Die Datei muss zunächst gespeichert werden!</string>
     <string name="err_recursiveNestingAt_N0">Die Schaltung {0} bindet sich selbst ein!</string>

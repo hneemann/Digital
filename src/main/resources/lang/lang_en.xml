@@ -912,6 +912,7 @@
     <string name="err_processExitedWithError_N1_N2">The process returns the non zero value {0}: {1}</string>
     <string name="err_errorRunningFitter">Error starting the external fitter!</string>
     <string name="err_noExpressionsAvailable">There are no minimized equations!</string>
+    <string name="msg_optimizationInProgress">Equations are calculated! Please wait a moment!</string>
     <string name="err_varName_N_UsedTwice">The variable {0} is used twice!</string>
     <string name="err_fileNeedsToBeSaved">The file needs to be saved!</string>
     <string name="err_recursiveNestingAt_N0">The circuit {0} imports itself!</string>

@@ -78,4 +78,9 @@ public class BoolTableExpanded implements BoolTable {
     public ArrayList<Variable> getVars() {
         return vars;
     }
+
+    @Override
+    public int realSize() {
+        return e.realSize();
+    }
 }

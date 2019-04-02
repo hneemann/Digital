@@ -6,7 +6,6 @@
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.*;
-import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
@@ -17,7 +16,9 @@ import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class ExpressionCreator {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExpressionCreator.class);
     private static final int MAX_INPUTS_ALLOWED = 12;
+    private static final int COMPLEX_VAR_SIZE = 8;
 
     private final TruthTable theTable;
 
@@ -52,38 +54,55 @@ public class ExpressionCreator {
     public void create(ExpressionListener listener) throws ExpressionException, FormatterException, AnalyseException {
         final List<Variable> vars = Collections.unmodifiableList(theTable.getVars());
         long time = System.currentTimeMillis();
-        if (theTable.getResultCount() > 100) {
+        if (theTable.getResultCount() >= 4 && vars.size() > COMPLEX_VAR_SIZE) {
+            LOGGER.info("use parallel solvers");
             ExecutorService ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-            ThreadSaveExpressionListener threadListener = new ThreadSaveExpressionListener(listener);
+
+            ArrayList<Job> jobs = new ArrayList<>();
             for (int table = 0; table < theTable.getResultCount(); table++) {
-                final int t = table;
+                final ExpressionListenerStore l = new ExpressionListenerStore(null);
+                jobs.add(simplify(l, vars, theTable.getResultName(table), theTable.getResult(table))
+                        .setStorage(l));
+            }
+
+            LOGGER.info("jobs: " + jobs.size());
+
+            ArrayList<Job> orderedJobs = new ArrayList<>(jobs);
+            orderedJobs.sort(Comparator.comparingInt(job -> -job.getComplexity()));
+
+            for (Job j : orderedJobs) {
                 ex.submit(() -> {
                     try {
-                        simplify(listener, vars, theTable.getResultName(t), theTable.getResult(t));
-                    } catch (ExpressionException | FormatterException | AnalyseException e) {
+                        j.run();
+                        j.close();
+                    } catch (ExpressionException | FormatterException e) {
                         e.printStackTrace();
                     }
                 });
             }
+
             ex.shutdown();
             try {
                 ex.awaitTermination(100, TimeUnit.HOURS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            threadListener.close();
+
+            for (Job j : jobs)
+                j.getStorage().replayTo(listener);
+
         } else {
             for (int table = 0; table < theTable.getResultCount(); table++)
-                simplify(listener, vars, theTable.getResultName(table), theTable.getResult(table));
-            listener.close();
+                simplify(listener, vars, theTable.getResultName(table), theTable.getResult(table)).run();
         }
+        listener.close();
         time = System.currentTimeMillis() - time;
         LOGGER.debug("time: " + time / 1000.0 + " sec");
     }
 
-    private void simplify(ExpressionListener listener, List<Variable> vars, String resultName, BoolTable boolTable) throws AnalyseException, ExpressionException, FormatterException {
+    private Job simplify(ExpressionListener listener, List<Variable> vars, String resultName, BoolTable boolTable) throws AnalyseException, ExpressionException {
         List<Variable> localVars = vars;
-        if (vars.size()>4) {
+        if (vars.size() > 4) {
             TableReducer tr = new TableReducer(vars, boolTable);
             if (tr.canReduce()) {
                 LOGGER.debug(resultName + " reduced from " + vars.size() + " to " + tr.getVars().size() + " variables (" + tr.getVars() + ")");
@@ -97,7 +116,7 @@ public class ExpressionCreator {
 
         listener = new CheckResultListener(listener, localVars, boolTable);
 
-        getMinimizer(localVars.size()).minimize(localVars, boolTable, resultName, listener);
+        return new Job(localVars, boolTable, resultName, listener);
     }
 
     private MinimizerInterface getMinimizer(int size) {
@@ -108,22 +127,42 @@ public class ExpressionCreator {
         }
     }
 
-
-    private final static class ThreadSaveExpressionListener implements ExpressionListener {
+    private final class Job {
+        private final List<Variable> localVars;
+        private final BoolTable boolTable;
+        private final String resultName;
         private final ExpressionListener listener;
+        private ExpressionListenerStore storage;
 
-        private ThreadSaveExpressionListener(ExpressionListener listener) {
+        private Job(List<Variable> localVars, BoolTable boolTable, String resultName, ExpressionListener listener) {
+            this.localVars = localVars;
+            this.boolTable = boolTable;
+            this.resultName = resultName;
             this.listener = listener;
         }
 
-        @Override
-        public synchronized void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
-            listener.resultFound(name, expression);
+        private void run() throws ExpressionException, FormatterException {
+            LOGGER.info("start job with complexity " + getComplexity());
+            long time = System.currentTimeMillis();
+            getMinimizer(localVars.size()).minimize(localVars, boolTable, resultName, listener);
+            LOGGER.info("finished job with complexity " + getComplexity() + ":  " + (System.currentTimeMillis() - time) / 1000 + "sec");
         }
 
-        @Override
-        public synchronized void close() throws FormatterException, ExpressionException {
+        private int getComplexity() {
+            return boolTable.realSize();
+        }
+
+        private void close() throws FormatterException, ExpressionException {
             listener.close();
+        }
+
+        private ExpressionListenerStore getStorage() {
+            return storage;
+        }
+
+        private Job setStorage(ExpressionListenerStore storage) {
+            this.storage = storage;
+            return this;
         }
     }
 }
