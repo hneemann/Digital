@@ -1149,7 +1149,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
                 new FSMFrame(Main.this, library)
                         .setBaseFileName(filename)
-                        .setCircuitName(foundName)
+                        .setProbeLabelName(foundName)
                         .registerTo(Main.this)
                         .setVisible(true);
             }

@@ -58,7 +58,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private File filename;
     private File baseFilename;
     private boolean lastModified;
-    private String circuitName;
+    private String probeLabelName;
 
     /**
      * Creates a new instance
@@ -391,22 +391,23 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     }
 
     /**
-     * Sets the fsm name used in the circuit wich has opened this window
+     * Sets the fsm name used in the circuit probe label which has opened
+     * this window.
      *
-     * @param circuitName the fsm name contained in the circuit
+     * @param probeLabelName the fsm name contained in the circuit
      * @return this for chained calls
      */
-    public FSMFrame setCircuitName(String circuitName) {
-        this.circuitName = circuitName;
+    public FSMFrame setProbeLabelName(String probeLabelName) {
+        this.probeLabelName = probeLabelName;
         return this;
     }
 
     private File getFileNameFromHistory() {
         File f = fileHistory.getMostRecent();
         if (f != null)
-            for (File l : fileHistory.getFiles())
-                if (l.getName().equals(circuitName))
-                    f = l;
+            for (File hf : fileHistory.getFiles())
+                if (hf.getName().equals(probeLabelName))
+                    f = hf;
         return f;
     }
 
