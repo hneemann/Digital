@@ -99,7 +99,7 @@ public class ExpressionCreator {
         listener.close();
         time = System.currentTimeMillis() - time;
         LOGGER.debug("time: " + time / 1000.0 + " sec");
-        if (progressListener!=null)
+        if (progressListener != null)
             progressListener.complete();
     }
 
@@ -130,6 +130,12 @@ public class ExpressionCreator {
         }
     }
 
+    /**
+     * Sets the progress listener to use
+     *
+     * @param progressListener the progress listener
+     * @return this for chained calls
+     */
     public ExpressionCreator setProgressListener(ProgressListener progressListener) {
         this.progressListener = progressListener;
         return this;
@@ -169,7 +175,7 @@ public class ExpressionCreator {
             long time = System.currentTimeMillis();
             getMinimizer(localVars.size()).minimize(localVars, boolTable, resultName, listener);
             LOGGER.info("finished job with complexity " + getComplexity() + ":  " + (System.currentTimeMillis() - time) / 1000 + "sec");
-            if (progressListener!=null)
+            if (progressListener != null)
                 progressListener.oneCompleted();
         }
 

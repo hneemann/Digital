@@ -11,6 +11,9 @@ import de.neemann.gui.Screen;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A simple progress dialog which is used by the {@link ExpressionCreator}
+ */
 public class ProgressDialog extends JDialog implements ExpressionCreator.ProgressListener {
     private final JProgressBar bar;
     private int prog;
@@ -21,14 +24,14 @@ public class ProgressDialog extends JDialog implements ExpressionCreator.Progres
      * @param tableDialog the table dialog
      */
     public ProgressDialog(TableDialog tableDialog) {
-        super(tableDialog,false);
+        super(tableDialog, false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         bar = new JProgressBar(0, tableDialog.getModel().getTable().getResultCount());
         int b = Screen.getInstance().getFontSize();
-        bar.setBorder(BorderFactory.createEmptyBorder(b,b,b,b));
+        bar.setBorder(BorderFactory.createEmptyBorder(b, b, b, b));
         final JLabel label = new JLabel(Lang.get("msg_optimizationInProgress"));
-        label.setBorder(BorderFactory.createEmptyBorder(b,b,0,b));
+        label.setBorder(BorderFactory.createEmptyBorder(b, b, 0, b));
         getContentPane().add(label, BorderLayout.NORTH);
         getContentPane().add(bar, BorderLayout.SOUTH);
 
