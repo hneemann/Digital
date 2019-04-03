@@ -97,6 +97,13 @@ public final class FileHistory {
             return files.get(0);
     }
 
+    /**
+     * @return a list of files
+     */
+    public Iterable<File> getFiles() {
+        return files;
+    }
+
     private void updateMenu() {
         if (menu != null) {
             menu.removeAll();

@@ -58,6 +58,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private File filename;
     private File baseFilename;
     private boolean lastModified;
+    private String circuitName;
 
     /**
      * Creates a new instance
@@ -139,9 +140,11 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         pack();
         setFSM(new FSM());
 
-        File f = fileHistory.getMostRecent();
-        if (f != null)
-            SwingUtilities.invokeLater(() -> loadFile(f));
+        SwingUtilities.invokeLater(() -> {
+            File f = getFileNameFromHistory();
+            if (f != null)
+                loadFile(f);
+        });
 
         setLocationRelativeTo(parent);
     }
@@ -385,6 +388,26 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     public FSMFrame setBaseFileName(File filename) {
         baseFilename = filename;
         return this;
+    }
+
+    /**
+     * Sets the fsm name used in the circuit wich has opened this window
+     *
+     * @param circuitName the fsm name contained in the circuit
+     * @return this for chained calls
+     */
+    public FSMFrame setCircuitName(String circuitName) {
+        this.circuitName = circuitName;
+        return this;
+    }
+
+    private File getFileNameFromHistory() {
+        File f = fileHistory.getMostRecent();
+        if (f != null)
+            for (File l : fileHistory.getFiles())
+                if (l.getName().equals(circuitName))
+                    f = l;
+        return f;
     }
 
     private void createHelpMenu(JMenuBar bar, JToolBar toolBar) {

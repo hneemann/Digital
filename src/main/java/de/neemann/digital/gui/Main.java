@@ -1137,8 +1137,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         analyse.add(new ToolTipAction(Lang.get("menu_fsm")) {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String foundName = null;
+                for (VisualElement ve : circuitComponent.getCircuit().getElements()) {
+                    if (ve.equalsDescription(Probe.DESCRIPTION)) {
+                        String name = ve.getElementAttributes().getLabel();
+                        if (name.endsWith(".fsm")) {
+                            foundName = name;
+                        }
+                    }
+                }
+
                 new FSMFrame(Main.this, library)
                         .setBaseFileName(filename)
+                        .setCircuitName(foundName)
                         .registerTo(Main.this)
                         .setVisible(true);
             }
