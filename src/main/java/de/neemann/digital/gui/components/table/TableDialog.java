@@ -600,9 +600,7 @@ public class TableDialog extends JDialog {
 
             final TruthTable table = model.getTable();
             if (table.getVars().size() >= 8) {
-                ExpressionCreator.ProgressListener progress =
-                        table.getResultCount() == 1 ? null :
-                                new ProgressDialog(this);
+                ProgressDialog progress = new ProgressDialog(this);
 
                 ExpressionListener finalExpressionListener = expressionListener;
                 new Thread(() -> {
@@ -611,6 +609,7 @@ public class TableDialog extends JDialog {
                         new ExpressionCreator(table).setProgressListener(progress).create(storage);
                     } catch (ExpressionException | FormatterException | AnalyseException e) {
                         SwingUtilities.invokeLater(() -> {
+                            progress.dispose();
                             allSolutionsDialog.setVisible(false);
                             lastGeneratedExpressions = null;
                             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);

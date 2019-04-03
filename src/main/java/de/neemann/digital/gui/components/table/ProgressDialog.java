@@ -6,6 +6,7 @@
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,9 +25,10 @@ public class ProgressDialog extends JDialog implements ExpressionCreator.Progres
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         bar = new JProgressBar(0, tableDialog.getModel().getTable().getResultCount());
-        bar.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        int b = Screen.getInstance().getFontSize();
+        bar.setBorder(BorderFactory.createEmptyBorder(b,b,b,b));
         final JLabel label = new JLabel(Lang.get("msg_optimizationInProgress"));
-        label.setBorder(BorderFactory.createEmptyBorder(5,5,0,5));
+        label.setBorder(BorderFactory.createEmptyBorder(b,b,0,b));
         getContentPane().add(label, BorderLayout.NORTH);
         getContentPane().add(bar, BorderLayout.SOUTH);
 
