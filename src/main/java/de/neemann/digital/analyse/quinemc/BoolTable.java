@@ -21,4 +21,11 @@ public interface BoolTable {
      * @return the value
      */
     ThreeStateValue get(int i);
+
+    /**
+     * @return the real size of the bool table
+     */
+    default int realSize() {
+        return size();
+    }
 }

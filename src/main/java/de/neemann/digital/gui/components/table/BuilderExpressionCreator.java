@@ -74,6 +74,7 @@ public class BuilderExpressionCreator {
             el = new ExpressionListenerOptimizeJK(el);
 
         expressions.replayTo(el);
+        el.close();
     }
 
     /**

@@ -62,7 +62,6 @@ public class ExpressionListenerStore implements ExpressionListener {
 
         for (Result r : results)
             listener.resultFound(r.name, r.expression.copy());
-        listener.close();
     }
 
     /**
