@@ -56,7 +56,7 @@ public class ExpressionCreator {
         final List<Variable> vars = Collections.unmodifiableList(theTable.getVars());
         long time = System.currentTimeMillis();
         if (theTable.getResultCount() >= 4 && vars.size() > COMPLEX_VAR_SIZE) {
-            LOGGER.info("use parallel solvers");
+            LOGGER.debug("use parallel solvers");
             ExecutorService ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
             ArrayList<Job> jobs = new ArrayList<>();
@@ -66,7 +66,7 @@ public class ExpressionCreator {
                         .setStorage(l));
             }
 
-            LOGGER.info("jobs: " + jobs.size());
+            LOGGER.debug("jobs: " + jobs.size());
 
             ArrayList<Job> orderedJobs = new ArrayList<>(jobs);
             orderedJobs.sort(Comparator.comparingInt(job -> -job.getComplexity()));
@@ -171,10 +171,10 @@ public class ExpressionCreator {
         }
 
         private void run() throws ExpressionException, FormatterException {
-            LOGGER.info("start job with complexity " + getComplexity());
+            LOGGER.debug("start job with complexity " + getComplexity());
             long time = System.currentTimeMillis();
             getMinimizer(localVars.size()).minimize(localVars, boolTable, resultName, listener);
-            LOGGER.info("finished job with complexity " + getComplexity() + ":  " + (System.currentTimeMillis() - time) / 1000 + "sec");
+            LOGGER.debug("finished job with complexity " + getComplexity() + ":  " + (System.currentTimeMillis() - time) / 1000 + "sec");
             if (progressListener != null)
                 progressListener.oneCompleted();
         }

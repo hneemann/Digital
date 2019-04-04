@@ -610,7 +610,6 @@ public class TableDialog extends JDialog {
                     } catch (ExpressionException | FormatterException | AnalyseException e) {
                         SwingUtilities.invokeLater(() -> {
                             progress.dispose();
-                            allSolutionsDialog.setVisible(false);
                             lastGeneratedExpressions = null;
                             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);
                         });
