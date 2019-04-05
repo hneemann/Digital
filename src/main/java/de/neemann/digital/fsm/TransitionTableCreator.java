@@ -12,7 +12,6 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.VariableVisitor;
 import de.neemann.digital.core.Signal;
-import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -46,16 +45,16 @@ public class TransitionTableCreator {
     /**
      * Creates a new instance
      *
-     * @param fsm     the fsm
-     * @param creator the creating frame
+     * @param fsm             the fsm
+     * @param stateSignalName the name if the signal indicating the actual state
      */
-    TransitionTableCreator(FSM fsm, FSMFrame creator) throws FiniteStateMachineException {
+    TransitionTableCreator(FSM fsm, String stateSignalName) throws FiniteStateMachineException {
         this.states = fsm.getStates();
         this.transitions = fsm.getTransitions();
         this.initState = fsm.getInitState();
         outputValues = new HashMap<>();
         modelAnalyserInfo = new ModelAnalyserInfo(null);
-        modelAnalyserInfo.setMainCreatedNotification(new FSMStateInfo(fsm.getFile(), creator));
+        modelAnalyserInfo.setStateSignalName(stateSignalName);
         inputSignals = new ArrayList<>();
         outputSignals = new ArrayList<>();
     }

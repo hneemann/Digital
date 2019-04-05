@@ -13,10 +13,10 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
-import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,7 +126,7 @@ public class FSM {
      * @throws IOException IOException
      */
     public void save(OutputStream out) throws IOException {
-        try (Writer w = new OutputStreamWriter(out, "utf-8")) {
+        try (Writer w = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
             XStream xStream = getxStream();
             w.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             xStream.marshal(this, new PrettyPrintWriter(w));
@@ -341,13 +341,13 @@ public class FSM {
     /**
      * Creates the truth table which is defined by this finite state machine
      *
-     * @param creator the creator of the truth table
+     * @param stateSignalName the name of the signal used to represent the state
      * @return the truth table
      * @throws ExpressionException         ExpressionException
      * @throws FiniteStateMachineException FiniteStateMachineException
      */
-    public TruthTable createTruthTable(FSMFrame creator) throws ExpressionException, FiniteStateMachineException {
-        return new TransitionTableCreator(this, creator).create();
+    public TruthTable createTruthTable(String stateSignalName) throws ExpressionException, FiniteStateMachineException {
+        return new TransitionTableCreator(this, stateSignalName).create();
     }
 
     /**

@@ -145,7 +145,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private State runModelMicroState;
     private JComponent componentOnPane;
     private LibraryTreeModel treeModel;
-    private ArrayList<ModelCreationListener> modelCreationListener = new ArrayList<>();
 
     /**
      * Creates a new instance
@@ -288,8 +287,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         } else
             setLocationRelativeTo(null);
 
-        if (builder.createdNotification != null)
-            builder.createdNotification.isCreated(this);
     }
 
     private void enableClockShortcut() {
@@ -1150,30 +1147,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 new FSMFrame(Main.this, library)
                         .setBaseFileName(filename)
                         .setProbeLabelName(foundName)
-                        .registerTo(Main.this)
                         .setVisible(true);
             }
         }
                 .setToolTip(Lang.get("menu_fsm_tt"))
                 .createJMenuItem());
-    }
-
-    /**
-     * Adds a model creation listener
-     *
-     * @param listener the listener to add
-     */
-    public void addModelCreationListener(ModelCreationListener listener) {
-        modelCreationListener.add(listener);
-    }
-
-    /**
-     * Removes a model creation listener
-     *
-     * @param listener the listener to remove
-     */
-    public void removeModelCreationListener(ModelCreationListener listener) {
-        modelCreationListener.remove(listener);
     }
 
     private void orderMeasurements() {
@@ -1324,9 +1302,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
 
             model.init();
-
-            for (ModelCreationListener mcl : modelCreationListener)
-                mcl.created(model);
 
             if (updateEvent == ModelEvent.MICROSTEP)
                 doStep.setEnabled(model.needsUpdate());
@@ -1824,7 +1799,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private boolean allowAllFileActions = true;
         private File baseFileName;
         private boolean keepPrefMainFile;
-        private CreatedNotification createdNotification;
 
         /**
          * @param fileToOpen the file to open
@@ -1893,17 +1867,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         /**
-         * Sets a open notification
-         *
-         * @param createdNotification createdNotification
-         * @return this for chained calls
-         */
-        public MainBuilder setCreatedNotification(CreatedNotification createdNotification) {
-            this.createdNotification = createdNotification;
-            return this;
-        }
-
-        /**
          * Creates a new Main instance
          *
          * @return a new Main instance
@@ -1919,18 +1882,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             SwingUtilities.invokeLater(() -> build().setVisible(true));
         }
 
-    }
-
-    /**
-     * Notification if a main frame is created
-     */
-    public interface CreatedNotification {
-        /**
-         * Called if main frae is created
-         *
-         * @param main main
-         */
-        void isCreated(Main main);
     }
 
     private class ModelKeyListener extends KeyAdapter {

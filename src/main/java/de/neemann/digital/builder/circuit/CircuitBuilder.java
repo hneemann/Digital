@@ -6,9 +6,6 @@
 package de.neemann.digital.builder.circuit;
 
 import de.neemann.digital.analyse.DetermineJKStateMachine;
-import de.neemann.digital.core.memory.DataField;
-import de.neemann.digital.core.memory.LookUpTable;
-import de.neemann.digital.fsm.FSMStateInfo;
 import de.neemann.digital.analyse.ModelAnalyserInfo;
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.expression.Not;
@@ -24,6 +21,8 @@ import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.io.Probe;
+import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.Circuit;
@@ -32,7 +31,6 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -445,11 +443,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             outSplitterY = addNetConnections(circuit, maxWidth + SIZE * 17, outSplitterY);
 
         if (mai != null) {
-            Main.CreatedNotification mon = mai.getMainCreatedNotification();
-            if (mon instanceof FSMStateInfo) {
-                FSMStateInfo fsmInfo = (FSMStateInfo) mon;
-                outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, fsmInfo.getSignalName());
-            }
+            final String stateVariableName = mai.getStateSignalName();
+            if (stateVariableName != null)
+                outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, stateVariableName);
         }
 
         circuit.setModified(false);

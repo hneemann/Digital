@@ -518,15 +518,11 @@ public class TableDialog extends JDialog {
                     .create(lastGeneratedExpressions);
             Circuit circuit = circuitBuilder.createCircuit();
 
-            Main.CreatedNotification mon = null;
-            if (modelAnalyzerInfo != null)
-                mon = modelAnalyzerInfo.getMainCreatedNotification();
             new Main.MainBuilder()
                     .setParent(TableDialog.this)
                     .setLibrary(library)
                     .setCircuit(circuit)
                     .setBaseFileName(filename)
-                    .setCreatedNotification(mon)
                     .openLater();
         } catch (ExpressionException | FormatterException | RuntimeException e) {
             new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e).show(this);

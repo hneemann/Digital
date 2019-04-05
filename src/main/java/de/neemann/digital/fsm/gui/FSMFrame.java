@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.fsm.gui;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Signal;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -37,7 +34,7 @@ import java.util.prefs.Preferences;
 /**
  * The dialog to show the FSM
  */
-public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSave, FSM.ModifiedListener, ModelCreationListener, FileHistory.OpenInterface {
+public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSave, FSM.ModifiedListener, FileHistory.OpenInterface {
     private static final Preferences PREFS = Preferences.userRoot().node("dig").node("fsm");
     private static final String PREF_FOLDER = "folder";
     private static final Icon ICON_NEW = IconCreator.create("document-new.png");
@@ -59,6 +56,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private File baseFilename;
     private boolean lastModified;
     private String probeLabelName;
+    private GlobalValues.GlobalValueListener stateListener = new StateListener();
 
     /**
      * Creates a new instance
@@ -89,11 +87,13 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             }
         });
 
+        GlobalValues.getInstance().addListener(stateListener);
         addWindowListener(new ClosingWindowListener(this, this));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
                 timer.stop();
+                GlobalValues.getInstance().removeListener(stateListener);
             }
         });
 
@@ -355,7 +355,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    new TableDialog(FSMFrame.this, fsm.createTruthTable(FSMFrame.this), library, filename).setVisible(true);
+                    new TableDialog(FSMFrame.this, fsm.createTruthTable(getStateSignalName()), library, filename).setVisible(true);
                 } catch (Exception e) {
                     new ErrorMessage(Lang.get("msg_fsmCantCreateTable")).addCause(e).show(FSMFrame.this);
                 }
@@ -432,50 +432,32 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         toolBar.add(viewHelp);
     }
 
-    @Override
-    public void created(Model model) {
-        String name = "state";
+
+    private class StateListener implements GlobalValues.GlobalValueListener {
+        @Override
+        public void valueCreated(String name, ObservableValue value, Model model) {
+            if (name.equals(getStateSignalName())) {
+                value.addObserverToValue(() -> setActiveState(value.getValue()));
+                setActiveState(value.getValue());
+                model.addObserver(event -> {
+                            if (event == ModelEvent.STOPPED)
+                                setActiveState(-1);
+                        }, ModelEvent.STOPPED
+                );
+            }
+        }
+    }
+
+    private String getStateSignalName() {
         if (filename != null)
-            name = filename.getName();
-
-        Signal found = null;
-        for (Signal s : model.getSignals()) {
-            if (s.getName().equals(name))
-                found = s;
-        }
-
-        if (found != null) {
-            ObservableValue value = found.getValue();
-            value.addObserverToValue(() -> setActiveState(value.getValue()));
-            setActiveState(value.getValue());
-            model.addObserver(event -> {
-                        if (event == ModelEvent.STOPPED)
-                            setActiveState(-1);
-                    }, ModelEvent.STOPPED
-            );
-        }
+            return filename.getName();
+        else
+            return "state";
     }
 
     private void setActiveState(long value) {
         if (fsm.setActiveState((int) value))
             SwingUtilities.invokeLater(fsmComponent::repaint);
-    }
-
-    /**
-     * Registers a circuit window to this fsm
-     *
-     * @param main the main window
-     * @return this for chained calls
-     */
-    public FSMFrame registerTo(Main main) {
-        main.addModelCreationListener(this);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-                main.removeModelCreationListener(FSMFrame.this);
-            }
-        });
-        return this;
     }
 
     /**

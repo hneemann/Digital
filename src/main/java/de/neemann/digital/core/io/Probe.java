@@ -54,6 +54,7 @@ public class Probe implements Element {
     @Override
     public void registerNodes(Model model) {
         model.addSignal(new Signal(label, value).setFormat(format));
+        GlobalValues.getInstance().register(label, value, model);
     }
 
 }
