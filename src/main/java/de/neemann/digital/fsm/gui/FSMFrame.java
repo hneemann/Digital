@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.fsm.gui;
 
+import de.neemann.digital.FileLocator;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.graphics.*;
@@ -141,7 +142,11 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         setFSM(new FSM());
 
         SwingUtilities.invokeLater(() -> {
-            File f = getFileNameFromHistory();
+            File f = new FileLocator(probeLabelName)
+                    .setBaseFile(baseFilename)
+                    .setHistory(fileHistory)
+                    .setLibrary(library)
+                    .locate();
             if (f != null)
                 loadFile(f);
         });
@@ -400,15 +405,6 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     public FSMFrame setProbeLabelName(String probeLabelName) {
         this.probeLabelName = probeLabelName;
         return this;
-    }
-
-    private File getFileNameFromHistory() {
-        File f = fileHistory.getMostRecent();
-        if (f != null)
-            for (File hf : fileHistory.getFiles())
-                if (hf.getName().equals(probeLabelName))
-                    f = hf;
-        return f;
     }
 
     private void createHelpMenu(JMenuBar bar, JToolBar toolBar) {
