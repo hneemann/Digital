@@ -78,12 +78,7 @@ public class ModelAnalyser {
                 throw new AnalyseException(Lang.get("err_MultiBitFlipFlopFound"));
 
             ff.getDInput().removeObserver(ff); // turn off flipflop
-            String label = ff.getLabel();
-            if (label.length() == 0)
-                label = createUniqueName(ff);
-
-            if (!label.endsWith("n"))
-                label += "n";
+            String label = getUniqueNameFor(ff);
 
             outputs.add(i++, new Signal(label + "+1", ff.getDInput()));
 
@@ -108,23 +103,32 @@ public class ModelAnalyser {
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
     }
 
-    private ModelAnalyserInfo getModelAnalyzerInfo() {
-        return modelAnalyzerInfo;
+    private String getUniqueNameFor(FlipflopD ff) {
+        String label = ff.getLabel();
+        if (label.length() == 0)
+            label = createOutputBasedName(ff);
+
+        if (!label.endsWith("n"))
+            label += "n";
+
+        return new LabelNumbering(label).create(this::inputExist);
     }
 
-    private String createUniqueName(FlipflopD ff) {
+    private boolean inputExist(String label) {
+        for (Signal i : inputs)
+            if (i.getName().equals(label))
+                return true;
+        return false;
+    }
+
+    private String createOutputBasedName(FlipflopD ff) {
         ObservableValue q = ff.getOutputs().get(0);
         for (Signal o : outputs) {
             if (o.getValue() == q)
                 return o.getName();
         }
 
-        String name;
-        do {
-            name = "Z" + uniqueIndex;
-            uniqueIndex++;
-        } while (inputs.contains(new Signal(name, null)));
-        return name;
+        return "Z";
     }
 
     private void checkUnique(ArrayList<Signal> signals) throws AnalyseException {
@@ -236,7 +240,7 @@ public class ModelAnalyser {
                     ObservableValues.Builder spinput = new ObservableValues.Builder();
                     String label = ff.getLabel();
                     if (label.length() == 0)
-                        label = createUniqueName(ff);
+                        label = createOutputBasedName(ff);
                     for (int i = ff.getBits() - 1; i >= 0; i--) {
                         ObservableValue qn = new ObservableValue("", 1);
                         ObservableValue nqn = new ObservableValue("", 1);
@@ -448,6 +452,10 @@ public class ModelAnalyser {
 
             tt.addResult(out.getName(), new BoolTableExpanded(e, ins, inputs));
         }
+    }
+
+    private ModelAnalyserInfo getModelAnalyzerInfo() {
+        return modelAnalyzerInfo;
     }
 
     private ArrayList<Signal> reorder(ArrayList<Signal> ins, ArrayList<Signal> originalOrder) {

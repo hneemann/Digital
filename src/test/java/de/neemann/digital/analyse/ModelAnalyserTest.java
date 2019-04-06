@@ -10,6 +10,7 @@ import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
@@ -103,12 +104,26 @@ public class ModelAnalyserTest extends TestCase {
 
     public void testAnalyzerUniqueNames2() throws Exception {
         Model model = new ToBreakRunner("dig/analyze/uniqueNames2.dig", false).getModel();
-        try {
-            new ModelAnalyser(model);
-            fail();
-        } catch (AnalyseException e) {
+        ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
+        assertEquals(2,ins.size());
+        assertEquals("Q_0n",ins.get(0).getName());
+        assertEquals("Q_01n",ins.get(1).getName());
+    }
 
-        }
+    public void testAnalyzerUniqueNames3() throws Exception {
+        Model model = new ToBreakRunner("dig/analyze/uniqueNames3.dig", false).getModel();
+        ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
+        assertEquals(2,ins.size());
+        assertEquals("Zn",ins.get(0).getName());
+        assertEquals("Z1n",ins.get(1).getName());
+    }
+
+    public void testAnalyzerUniqueNames4() throws Exception {
+        Model model = new ToBreakRunner("dig/analyze/uniqueNames4.dig", false).getModel();
+        ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
+        assertEquals(2,ins.size());
+        assertEquals("Bn",ins.get(0).getName());
+        assertEquals("An",ins.get(1).getName());
     }
 
     public void testAnalyzerMultiBit() throws Exception {
