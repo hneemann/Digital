@@ -38,7 +38,6 @@ public class ModelAnalyser {
     private final Model model;
     private final ArrayList<Signal> inputs;
     private final ArrayList<Signal> outputs;
-    private int uniqueIndex = 0;
     private ModelAnalyserInfo modelAnalyzerInfo;
 
     /**
