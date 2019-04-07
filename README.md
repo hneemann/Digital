@@ -84,7 +84,8 @@ translate than the [files](https://github.com/hneemann/Digital/blob/master/src/m
 used directly by Digital. So you don't have to deal with GitHub or the 
 Java source code. Simply add the respective translation of the English 
 text to this file and send it back to [me](mailto:digital-simulator@web.de). 
-If you want to know how to create the necessary files yourself, see [here](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang/lang.xml). 
+If you want to know how to create the necessary files yourself, see 
+[here](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang/howTo.md). 
 
 ## Comments ##
 

@@ -101,9 +101,22 @@ public class LanguageUpdater {
     }
 
     public static void main(String[] args) throws JDOMException, IOException {
+        JFileChooser dc = new JFileChooser();
+        dc.setDialogTitle("Select the Digital \"src\" Folder");
+        dc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        File src = null;
+        if (dc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            src = dc.getSelectedFile();
+            System.setProperty("testdata", new File(src, "test/resources").getPath());
+        }
+
         JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Select the updated diff File");
         fc.addChoosableFileFilter(new FileNameExtensionFilter("xml", "xml"));
-        fc.setSelectedFile(new File("/home/hneemann/Dokumente/Java/digital/target/language_pt.xml"));
+        if (src != null) {
+            final File s = new File(src.getParentFile(), "target/lang_diff_pt.xml");
+            fc.setSelectedFile(s);
+        }
         if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
             new LanguageUpdater(fc.getSelectedFile()).update();
     }

@@ -1,4 +1,4 @@
-= Translations =
+## Translations ##
 
 If someone wants to contribute a new translation to Digital,
 the problem is not only to create the new translation.
@@ -25,26 +25,50 @@ evolves after the new translation is completed:
    play.
 
 If a new translation is added not only the translated language file
-is added (e.g. lang_pt.xml) but also a reference file (lang_pt_ref.xml).
+is added (e.g. lang_pt.xml) but also a file (lang_pt_ref.xml).
 The latter one is the reference file and is a copy of the original
 English translation (lang_en.xml).
 When it is necessary to change a language text, it is possible to
 detect that afterwards: It is possible to compare the strings
 in the english translation with the content of the reference file
 which is also English.
-If the strings are not identical, the translation needs to be reworked.
+If the strings are not identical, the translation needs to be revised.
 To do so, one has to update the translation and the English text in
 the reference file.
 
-= How to find keys that need to be revised? =
+## How to add a new Language ##
+
+Add the new language to the file "Digital/src/main/resources/lang/lang.xml"
+Then start the language test by running 
+
+```
+mvn -Dtest=TestLang test
+```
+
+Now all necessary files are created. In the target folder you can 
+find a diff file that contains all missing keys. Now you can start 
+adding your translation. **Copy this file to another location! The file 
+will be overwritten every time Digital is built!** 
+Use the Language Importer
+"Digital/src/test/java/de/neemann/digital/lang/LanguageUpdater.java" to 
+import your work. It is possible to import only partially translated files. 
+This helps you to test your translation step by step.   
+
+## How to find keys that need to be revised later on ##
 
 Digital contains some test cases that check the consistency of
 the translations. The test class "TestLang" checks the consistency
-of the language files, which I cannot maintain myself.
+of the language files.
 
 The easiest way to run the test case is to install maven.
 Then you can start the test case by typing:
 
+```
 mvn -Dtest=TestLang test
+```
 
-This gives you a report of the state of the translations.
+This gives you a diff file for each language. This file contains all 
+keys that have been added or modified. You can now add or update the 
+language fragments contained in this file. After that start the class
+"Digital/src/test/java/de/neemann/digital/lang/LanguageUpdater.java".
+This allows you to select the reworked diff file and import it.
