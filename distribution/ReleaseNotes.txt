@@ -1,5 +1,11 @@
 Release Notes
 
+head, planned as v0.23
+- Improved the label creation in the model analyzer.
+- Improved performance of the boolean equation minimizer.
+- The fsm dialog loads the correct fsm if a circuit is open which
+  is based on a fsm.
+
 v0.22, released on 01. Apr 2019
 - Improved the RAM/ROM data loader. Now binary files and Intel HEX files are
   supported.
