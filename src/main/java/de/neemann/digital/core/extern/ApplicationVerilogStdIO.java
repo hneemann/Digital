@@ -91,26 +91,27 @@ public abstract class ApplicationVerilogStdIO implements Application {
             String label;
 
             currToken = st.nextToken();
-            do {
-                match(Token.MODULE, "keyword 'module'", st);
-                label = st.value();
-                match(Token.IDENT, "identifier", st);
-                match(Token.OPENPAR, "'('", st);
 
-                in = new PortDefinition("");
-                out = new PortDefinition("");
-                scanPorts(st, in, out);
+            match(Token.MODULE, "keyword 'module'", st);
+            label = st.value();
+            match(Token.IDENT, "identifier", st);
+            match(Token.OPENPAR, "'('", st);
 
-                if (currToken == Token.SEMICOLON) {
-                    currToken = st.lookEndModule();
-                    if (currToken != Token.ENDMODULE) {
-                        return false;
-                    }
-                    currToken = st.nextToken();
-                } else {
-                     return false;
-                 }
-            } while (currToken != Token.EOF);
+            in = new PortDefinition("");
+            out = new PortDefinition("");
+            scanPortArgs(st, in, out);
+
+            if (currToken == Token.SEMICOLON) {
+                if (in.size() == 0 && out.size() == 0) {
+                    do {
+                        currToken = st.nextToken();
+                        if (currToken == Token.INPUT || currToken == Token.OUTPUT)
+                            scanPort(st, in, out);
+                    } while ((currToken != Token.ENDMODULE) && (currToken != Token.EOF));
+                }
+            } else {
+                return false;
+            }
 
             if (in.size() > 0 && out.size() > 0) {
                 attributes.set(Keys.LABEL, label);
@@ -125,23 +126,26 @@ public abstract class ApplicationVerilogStdIO implements Application {
         }
     }
 
-    private void scanPorts(VerilogTokenizer st, PortDefinition in, PortDefinition out) throws ParseException, IOException, VerilogTokenizer.TokenizerException {
-        boolean keepScanning = true;
-
-        do {
-            scanPort(st, in, out);
+    private void scanPortArgs(VerilogTokenizer st, PortDefinition in, PortDefinition out) throws ParseException, IOException, VerilogTokenizer.TokenizerException {
+        while (true) {
             switch (currToken) {
+                case IDENT:
+                    currToken = st.nextToken();
+                    break;
+                case INPUT:
+                case OUTPUT:
+                    scanPort(st, in, out);
+                    break;
                 case CLOSEPAR:
                     currToken = st.nextToken();
-                    keepScanning = false;
-                    break;
+                    return;
                 case COMMA:
                     currToken = st.nextToken();
                     break;
                 default:
                     throw new ParseException("unexpected '" + st.value() + "'");
             }
-        } while (keepScanning);
+        }
     }
 
     private void scanPort(VerilogTokenizer st, PortDefinition in, PortDefinition out) throws ParseException, IOException, VerilogTokenizer.TokenizerException {
@@ -159,7 +163,7 @@ public abstract class ApplicationVerilogStdIO implements Application {
                 isInput = false;
                 currToken = st.nextToken();
                 if (currToken == Token.WIRE
-                    || currToken == Token.REG) {
+                        || currToken == Token.REG) {
                     currToken = st.nextToken();
                 }
                 break;
@@ -185,6 +189,20 @@ public abstract class ApplicationVerilogStdIO implements Application {
             in.addPort(name, bits);
         } else {
             out.addPort(name, bits);
+        }
+
+        while (currToken == Token.COMMA) {
+            match(Token.COMMA, "comma", st);
+            if (currToken != Token.IDENT)
+                return;
+            name = st.value();
+            match(Token.IDENT, "identifier", st);
+
+            if (isInput) {
+                in.addPort(name, bits);
+            } else {
+                out.addPort(name, bits);
+            }
         }
     }
 
