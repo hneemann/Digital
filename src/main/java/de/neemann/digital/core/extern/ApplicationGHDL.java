@@ -28,9 +28,9 @@ public class ApplicationGHDL extends ApplicationVHDLStdIO {
             String ghdl = getGhdlPath().getPath();
 
             file = createVHDLFile(label, code, inputs, outputs);
-            ProcessStarter.start(file.getParentFile(), ghdl, "-a", "--ieee=synopsys", file.getName());
-            ProcessStarter.start(file.getParentFile(), ghdl, "-e", "--ieee=synopsys", "stdIOInterface");
-            ProcessBuilder pb = new ProcessBuilder(ghdl, "-r", "--ieee=synopsys", "stdIOInterface", "--unbuffered").redirectErrorStream(true).directory(file.getParentFile());
+            ProcessStarter.start(file.getParentFile(), ghdl, "-a", "--std=08", "--ieee=synopsys", file.getName());
+            ProcessStarter.start(file.getParentFile(), ghdl, "-e", "--std=08", "--ieee=synopsys", "stdIOInterface");
+            ProcessBuilder pb = new ProcessBuilder(ghdl, "-r", "--std=08", "--ieee=synopsys", "stdIOInterface", "--unbuffered").redirectErrorStream(true).directory(file.getParentFile());
             return new GHDLProcessInterface(pb.start(), file.getParentFile());
         } catch (IOException e) {
             if (file != null)

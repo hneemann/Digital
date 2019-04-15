@@ -5,6 +5,7 @@ head, planned as v0.23
 - Improved performance of the boolean equation minimizer.
 - The fsm dialog loads the correct fsm if a circuit is open which
   is based on that fsm.
+- If a VHDL defined component is used, ghdl now uses VHDL-2008.
 
 v0.22, released on 01. Apr 2019
 - Improved the RAM/ROM data loader. Now binary files and Intel HEX files are
