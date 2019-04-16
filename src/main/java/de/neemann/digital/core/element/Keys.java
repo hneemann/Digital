@@ -535,7 +535,14 @@ public final class Keys {
      * Flash software for the atf15xx
      */
     public static final Key<File> SETTINGS_ATMISP
-            = new Key.KeyFile("ATMISP", new File("c:/ATMISP7/ATMISP.exe")).setSecondary();
+            = new Key.KeyFile("ATMISP", getATMISPPath()).setSecondary();
+
+    private static File getATMISPPath() {
+        File f = new File("c:/Tools/ATMISP7/ATMISP.exe");
+        if (f.exists())
+            return f;
+        return new File("c:/ATMISP7/ATMISP.exe");
+    }
 
     /**
      * row bits in led matrix
