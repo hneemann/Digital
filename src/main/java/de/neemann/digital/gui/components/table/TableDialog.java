@@ -117,6 +117,7 @@ public class TableDialog extends JDialog {
         statusBar.setEditable(false);
         statusBar.setBackground(null);
         statusBar.setBorder(null);
+        statusBar.setText("-");
         font = Screen.getInstance().getFont(1.66f);
         statusBar.setFont(font);
         table = new JTable(model);
