@@ -174,7 +174,13 @@ public class TruthTable {
      * @return this for call chaining
      */
     public TruthTable addResult() {
-        return addResult("Y");
+        char v = 'Y';
+        String var;
+        do {
+            var = "" + v;
+            v--;
+        } while (resultsContains(var) && v >= 'Q');
+        return addResult(var);
     }
 
     /**
@@ -186,6 +192,13 @@ public class TruthTable {
     public TruthTable addResult(String name) {
         results.add(new Result(name, new BoolTableByteArray(getRows())));
         return this;
+    }
+
+    private boolean resultsContains(String var) {
+        for (Result r : results)
+            if (r.getName().equals(var))
+                return true;
+        return false;
     }
 
     /**
