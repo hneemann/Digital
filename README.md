@@ -261,6 +261,8 @@ Many thanks to the following persons for their help:
   implemented the verilog code generator and almost all the necessary verilog templates.
 * Theldo Cruz Franqueira from the Pontifícia Universidade Católica de Minas Gerais in Brazil
   has provided the Portuguese translation.
+* Ángel Millán from the Instituto de Educación Secundaria Ies Virgen de Villadiego in Peñaflor (Sevilla), Spain
+  has provided the Spanish translation.
 
 ## Additional Screenshots
 

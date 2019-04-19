@@ -40,9 +40,10 @@ public class LanguageUpdater {
         lang = new SAXBuilder().build(langFileName);
         ref = new SAXBuilder().build(refFileName);
 
-        for (Element e : (List<Element>) dif.getChildren()) {
+        for (Element e : dif.getChildren()) {
             String key = e.getAttributeValue("name");
             String type = e.getAttributeValue("type");
+            System.out.println(key+": "+type);
             final String text = e.getChild(langName).getText().trim();
             if (!text.isEmpty() && !text.equals("-")) {
                 if (type.equals("new")) {
@@ -101,14 +102,17 @@ public class LanguageUpdater {
     }
 
     public static void main(String[] args) throws JDOMException, IOException {
-        JFileChooser dc = new JFileChooser();
-        dc.setDialogTitle("Select the Digital \"src\" Folder");
-        dc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        File src = null;
-        if (dc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            src = dc.getSelectedFile();
-            System.setProperty("testdata", new File(src, "test/resources").getPath());
+
+        File src = new File("/home/hneemann/Dokumente/Java/digital/src");
+        if (!src.exists()) {
+            JFileChooser dc = new JFileChooser();
+            dc.setDialogTitle("Select the Digital \"src\" Folder");
+            dc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            if (dc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                src = dc.getSelectedFile();
+            }
         }
+        System.setProperty("testdata", new File(src, "test/resources").getPath());
 
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Select the updated diff File");

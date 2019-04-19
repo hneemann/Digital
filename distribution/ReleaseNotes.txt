@@ -4,6 +4,8 @@ head, planned as v0.23
 - Improved the label creation in the model analyzer.
 - Improved performance of the boolean equation minimizer.
 - Hex reader/writer supports RLE encoding like Logisim does.
+- Added Spanish translation. Special thanks to Ángel Millán who provided
+  the translation.
 - The fsm dialog loads the correct fsm if a circuit is open which
   is based on that fsm.
 - If a VHDL defined component is used, ghdl now uses VHDL-2008.
