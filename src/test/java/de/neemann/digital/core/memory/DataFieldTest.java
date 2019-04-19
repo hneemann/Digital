@@ -5,11 +5,16 @@
  */
 package de.neemann.digital.core.memory;
 
+import de.neemann.digital.core.memory.importer.DataFieldValueArray;
+import de.neemann.digital.core.memory.importer.LogisimReader;
+import de.neemann.digital.core.memory.importer.ValueArray;
 import junit.framework.TestCase;
 
-import java.io.StringReader;
+import java.io.*;
+import java.util.Arrays;
 
 /**
+ *
  */
 public class DataFieldTest extends TestCase {
 
@@ -37,4 +42,114 @@ public class DataFieldTest extends TestCase {
         assertEquals(1, data.getDataWord(0));
         assertEquals(0, data.getDataWord(1));
     }
+
+    public void testSave() throws IOException {
+        DataField data = new DataField(100);
+        for (int i = 0; i < 11; i++)
+            data.setData(i, i);
+
+        StringWriter w = new StringWriter();
+        data.saveTo(w);
+
+        assertEquals("v2.0 raw\n" +
+                "0\n" +
+                "1\n" +
+                "2\n" +
+                "3\n" +
+                "4\n" +
+                "5\n" +
+                "6\n" +
+                "7\n" +
+                "8\n" +
+                "9\n" +
+                "a\n", w.toString());
+    }
+
+    public void testSaveEmpty() throws IOException {
+        DataField data = new DataField(100);
+
+        StringWriter w = new StringWriter();
+        data.saveTo(w);
+
+        assertEquals("v2.0 raw\n", w.toString());
+    }
+
+    public void testSaveRLE() throws IOException {
+        DataField data = new DataField(100);
+        int pos = 0;
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j <= i; j++)
+                data.setData(pos++, i);
+
+        StringWriter w = new StringWriter();
+        data.saveTo(w);
+
+        assertEquals("v2.0 raw\n" +
+                "0\n" +
+                "1\n" +
+                "1\n" +
+                "2\n" +
+                "2\n" +
+                "2\n" +
+                "4*3\n" +
+                "5*4\n" +
+                "6*5\n" +
+                "7*6\n" +
+                "8*7\n" +
+                "9*8\n" +
+                "10*9\n", w.toString());
+
+        DataField readData = new DataField(100);
+        LogisimReader r = new LogisimReader(new StringReader(w.toString()));
+        r.read(new ValueArray() {
+            @Override
+            public void set(int index, long value) {
+                readData.setData(index, value);
+            }
+
+            @Override
+            public long get(int index) {
+                return 0;
+            }
+
+            @Override
+            public int getBytesPerValue() {
+                return 0;
+            }
+        });
+    }
+
+    public void testSaveRLE2() throws IOException {
+        DataField data = new DataField(100);
+        int pos = 0;
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j <= i; j++)
+                data.setData(pos++, i);
+
+        StringWriter w = new StringWriter();
+        data.saveTo(w);
+
+        DataField readData = new DataField(100);
+        LogisimReader r = new LogisimReader(new StringReader(w.toString()));
+        r.read(new ValueArray() {
+            @Override
+            public void set(int index, long value) {
+                readData.setData(index, value);
+            }
+
+            @Override
+            public long get(int index) {
+                return 0;
+            }
+
+            @Override
+            public int getBytesPerValue() {
+                return 0;
+            }
+        });
+        readData.trim();
+
+        assertTrue(Arrays.equals(data.getData(), readData.getData()));
+    }
+
 }

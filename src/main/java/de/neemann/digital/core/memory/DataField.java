@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * Used to store an array of values.
  */
 public class DataField implements HGSArray {
 
@@ -59,14 +60,56 @@ public class DataField implements HGSArray {
      * @throws IOException IOException
      */
     public void saveTo(File file) throws IOException {
+        try (Writer w = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
+            saveTo(w);
+        }
+    }
+
+    /**
+     * Save the stored data
+     *
+     * @param writer writer to write the data to
+     * @throws IOException IOException
+     */
+    public void saveTo(Writer writer) throws IOException {
         trim();
-        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
-            w.write("v2.0 raw");
-            w.newLine();
-            for (long l : data) {
-                w.write(Long.toHexString(l));
+        BufferedWriter w;
+        if (writer instanceof BufferedWriter)
+            w = (BufferedWriter) writer;
+        else
+            w = new BufferedWriter(writer);
+
+        w.write("v2.0 raw");
+        w.newLine();
+        if (data.length > 0) {
+            long akt = data[0];
+            int count = 1;
+            for (int i = 1; i < data.length; i++) {
+                final long now = data[i];
+                if (now == akt)
+                    count++;
+                else {
+                    writeChunk(w, akt, count);
+                    akt = now;
+                    count = 1;
+                }
+            }
+            writeChunk(w, akt, count);
+        }
+        w.flush();
+    }
+
+    private void writeChunk(BufferedWriter w, long data, int count) throws IOException {
+        if (count < 4) {
+            for (int j = 0; j < count; j++) {
+                w.write(Long.toHexString(data));
                 w.newLine();
             }
+        } else {
+            w.write(Integer.toString(count));
+            w.write('*');
+            w.write(Long.toHexString(data));
+            w.newLine();
         }
     }
 
@@ -195,6 +238,7 @@ public class DataField implements HGSArray {
          * @param addr the address which has changed, Called with addr=-1 if all values have changed!
          */
         void valueChanged(int addr);
+
     }
 
     /**

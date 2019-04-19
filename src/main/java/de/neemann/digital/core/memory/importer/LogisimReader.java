@@ -51,13 +51,22 @@ public class LogisimReader implements ValueArrayReader {
                     else
                         line = line.trim();
 
+                    int rle = 1;
+                    p = line.indexOf('*');
+                    if (p > 0) {
+                        rle = Integer.parseInt(line.substring(0, p));
+                        line = line.substring(p + 1).trim();
+                    }
+
                     if (line.length() > 2 && line.charAt(0) == '0' && (line.charAt(1) == 'x' || line.charAt(1) == 'X'))
                         line = line.substring(2);
 
                     if (line.length() > 0) {
                         long v = Bits.decode(line, 0, 16);
-                        valueArray.set(pos, v);
-                        pos++;
+                        for (int i = 0; i < rle; i++) {
+                            valueArray.set(pos, v);
+                            pos++;
+                        }
                     }
                 } catch (Bits.NumberFormatException e) {
                     throw new IOException(e);
