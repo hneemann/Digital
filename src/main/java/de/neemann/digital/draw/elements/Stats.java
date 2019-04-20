@@ -14,13 +14,8 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.flipflops.FlipflopD;
-import de.neemann.digital.core.io.Const;
-import de.neemann.digital.core.io.In;
-import de.neemann.digital.core.io.Out;
-import de.neemann.digital.core.memory.RAMDualPort;
-import de.neemann.digital.core.memory.RAMSinglePort;
-import de.neemann.digital.core.memory.ROM;
-import de.neemann.digital.core.memory.Register;
+import de.neemann.digital.core.io.*;
+import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.switching.NFET;
 import de.neemann.digital.core.switching.PFET;
 import de.neemann.digital.core.wiring.*;
@@ -89,11 +84,31 @@ public class Stats {
         final TransistorCalculator ram = attr -> 40 * attr.get(Keys.ADDR_BITS) + (1 << attr.get(Keys.ADDR_BITS)) * attr.getBits() * 6;
         add(RAMDualPort.DESCRIPTION, ram);
         add(RAMSinglePort.DESCRIPTION, ram);
+        add(RAMSinglePortSel.DESCRIPTION, ram);
+        add(RAMDualAccess.DESCRIPTION, ram);
         add(ROM.DESCRIPTION, attr -> 40 * attr.get(Keys.ADDR_BITS) + (1 << attr.get(Keys.ADDR_BITS)) * attr.getBits());
     }
 
     private static void add(ElementTypeDescription description, TransistorCalculator tc) {
         TRANSISTORS.put(description.getName(), tc);
+    }
+
+    private static final HashSet<String> IGNORE = new HashSet<>();
+
+    static {
+        IGNORE.add(In.DESCRIPTION.getName());
+        IGNORE.add(Out.DESCRIPTION.getName());
+        IGNORE.add(Clock.DESCRIPTION.getName());
+        IGNORE.add(DummyElement.TEXTDESCRIPTION.getName());
+        IGNORE.add(DummyElement.DATADESCRIPTION.getName());
+        IGNORE.add(DummyElement.RECTDESCRIPTION.getName());
+        IGNORE.add(TestCaseElement.TESTCASEDESCRIPTION.getName());
+        IGNORE.add(Const.DESCRIPTION.getName());
+        IGNORE.add(Ground.DESCRIPTION.getName());
+        IGNORE.add(VDD.DESCRIPTION.getName());
+        IGNORE.add(PowerSupply.DESCRIPTION.getName());
+        IGNORE.add(Tunnel.DESCRIPTION.getName());
+        IGNORE.add(Splitter.DESCRIPTION.getName());
     }
 
     private final ElementLibrary library;
@@ -118,16 +133,7 @@ public class Stats {
      */
     public Stats add(Circuit circuit) throws ElementNotFoundException {
         for (VisualElement ve : circuit.getElements()) {
-            if (ve.equalsDescription(In.DESCRIPTION)
-                    || ve.equalsDescription(Out.DESCRIPTION)
-                    || ve.equalsDescription(DummyElement.TEXTDESCRIPTION)
-                    || ve.equalsDescription(DummyElement.DATADESCRIPTION)
-                    || ve.equalsDescription(DummyElement.RECTDESCRIPTION)
-                    || ve.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)
-                    || ve.equalsDescription(Const.DESCRIPTION)
-                    || ve.equalsDescription(Tunnel.DESCRIPTION)
-                    || ve.equalsDescription(Splitter.DESCRIPTION)
-                    || ve.equalsDescription(Clock.DESCRIPTION))
+            if (IGNORE.contains(ve.getElementName()))
                 continue;
 
             ElementAttributes attr = ve.getElementAttributes();
