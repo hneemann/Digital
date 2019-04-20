@@ -32,8 +32,11 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.util.*;
 
+/**
+ * Calculates the circuits statistics
+ */
 public class Stats {
-    private static ArrayList<Key> RELEVANT_KEYS = new ArrayList<>();
+    private static final ArrayList<Key> RELEVANT_KEYS = new ArrayList<>();
 
     static {
         RELEVANT_KEYS.add(Keys.INPUT_COUNT);
@@ -42,7 +45,7 @@ public class Stats {
         RELEVANT_KEYS.add(Keys.SELECTOR_BITS);
     }
 
-    private static HashMap<String, TransistorCalculator> TRANSISTORS = new HashMap<>();
+    private static final HashMap<String, TransistorCalculator> TRANSISTORS = new HashMap<>();
 
     static {
         add(NFET.DESCRIPTION, ElementAttributes::getBits);
@@ -93,19 +96,31 @@ public class Stats {
     private final ElementLibrary library;
     private TreeMap<EntryKey, Entry> map;
 
+    /**
+     * Creates a new instance.
+     *
+     * @param library the library to use
+     */
     public Stats(ElementLibrary library) {
         this.library = library;
         map = new TreeMap<>();
     }
 
+    /**
+     * Adds a circuit to the statistics
+     *
+     * @param circuit the circuit to add
+     * @return this for chained calls
+     * @throws ElementNotFoundException ElementNotFoundException
+     */
     public Stats add(Circuit circuit) throws ElementNotFoundException {
         for (VisualElement ve : circuit.getElements()) {
-            if (ve.equalsDescription(In.DESCRIPTION) ||
-                    ve.equalsDescription(Out.DESCRIPTION) ||
-                    ve.equalsDescription(Const.DESCRIPTION) ||
-                    ve.equalsDescription(Tunnel.DESCRIPTION) ||
-                    ve.equalsDescription(Splitter.DESCRIPTION) ||
-                    ve.equalsDescription(Clock.DESCRIPTION))
+            if (ve.equalsDescription(In.DESCRIPTION)
+                    || ve.equalsDescription(Out.DESCRIPTION)
+                    || ve.equalsDescription(Const.DESCRIPTION)
+                    || ve.equalsDescription(Tunnel.DESCRIPTION)
+                    || ve.equalsDescription(Splitter.DESCRIPTION)
+                    || ve.equalsDescription(Clock.DESCRIPTION))
                 continue;
 
             ElementAttributes attr = ve.getElementAttributes();
@@ -142,6 +157,9 @@ public class Stats {
             add(childCircuit);
     }
 
+    /**
+     * @return a TableModel which shows the statistics
+     */
     public TableModel getTableModel() {
         final ArrayList<Row> entries = new ArrayList<>(map.size());
         int tr = 0;
@@ -189,7 +207,7 @@ public class Stats {
         return sb.toString();
     }
 
-    private static class EntryKey implements Comparable<EntryKey> {
+    private static final class EntryKey implements Comparable<EntryKey> {
         private final String name;
         private final int transistors;
         private final HashMap<Key, Object> map;
@@ -243,9 +261,9 @@ public class Stats {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             EntryKey entryKey = (EntryKey) o;
-            return transistors == entryKey.transistors &&
-                    name.equals(entryKey.name) &&
-                    map.equals(entryKey.map);
+            return transistors == entryKey.transistors
+                    && name.equals(entryKey.name)
+                    && map.equals(entryKey.map);
         }
 
         @Override
@@ -333,7 +351,7 @@ public class Stats {
         int getTransistors();
     }
 
-    private static class MyTableModel implements TableModel {
+    private static final class MyTableModel implements TableModel {
         private final List<Row> entries;
 
         private MyTableModel(List<Row> entries) {

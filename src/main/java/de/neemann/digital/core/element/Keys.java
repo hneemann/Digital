@@ -763,6 +763,9 @@ public final class Keys {
     public static final Key<Boolean> MIDI_PROG_CHANGE =
             new Key<>("midiProgChange", false);
 
+    /**
+     * Number of transistors used in a circuit.
+     */
     public static final Key<Integer> TRANSISTORS =
             new Key.KeyInteger("transistors", 0)
                     .setMin(0)
