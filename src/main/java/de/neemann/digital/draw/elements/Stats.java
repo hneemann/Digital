@@ -26,8 +26,11 @@ import de.neemann.digital.core.switching.PFET;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseElement;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.util.*;
@@ -117,6 +120,10 @@ public class Stats {
         for (VisualElement ve : circuit.getElements()) {
             if (ve.equalsDescription(In.DESCRIPTION)
                     || ve.equalsDescription(Out.DESCRIPTION)
+                    || ve.equalsDescription(DummyElement.TEXTDESCRIPTION)
+                    || ve.equalsDescription(DummyElement.DATADESCRIPTION)
+                    || ve.equalsDescription(DummyElement.RECTDESCRIPTION)
+                    || ve.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)
                     || ve.equalsDescription(Const.DESCRIPTION)
                     || ve.equalsDescription(Tunnel.DESCRIPTION)
                     || ve.equalsDescription(Splitter.DESCRIPTION)
@@ -148,7 +155,7 @@ public class Stats {
         EntryKey key = new EntryKey(description, attr, transistors);
         Entry e = map.get(key);
         if (e == null) {
-            e = new Entry(key);
+            e = new Entry(key, childCircuit == null);
             map.put(key, e);
         }
         e.addOne();
@@ -161,13 +168,7 @@ public class Stats {
      * @return a TableModel which shows the statistics
      */
     public TableModel getTableModel() {
-        final ArrayList<Row> entries = new ArrayList<>(map.size());
-        int tr = 0;
-        for (Entry e : map.values()) {
-            entries.add(e);
-            tr += e.getTransistors();
-        }
-        final int transistors = tr;
+        final ArrayList<Row> entries = new ArrayList<>(map.values());
         entries.add(new Row() {
             @Override
             public int getCount() {
@@ -185,11 +186,24 @@ public class Stats {
             }
 
             @Override
+            public void setTransistorsEach(int transistors) {
+            }
+
+            @Override
+            public boolean isEditable() {
+                return false;
+            }
+
+            @Override
             public int getTransistors() {
-                return transistors;
+                int tr = 0;
+                for (Row r : entries) {
+                    if (r != this)
+                        tr += r.getTransistors();
+                }
+                return tr;
             }
         });
-
         return new MyTableModel(entries);
     }
 
@@ -298,12 +312,15 @@ public class Stats {
     }
 
     private static final class Entry implements Row {
-
         private final EntryKey key;
+        private int transistors;
+        private final boolean editable;
         private int count;
 
-        private Entry(EntryKey key) {
+        private Entry(EntryKey key, boolean editable) {
             this.key = key;
+            transistors = key.transistors;
+            this.editable = editable;
         }
 
         private void addOne() {
@@ -326,13 +343,23 @@ public class Stats {
         }
 
         @Override
+        public void setTransistorsEach(int t) {
+            transistors = t;
+        }
+
+        @Override
         public int getTransistorsEach() {
-            return key.transistors;
+            return transistors;
         }
 
         @Override
         public int getTransistors() {
-            return count * key.transistors;
+            return count * transistors;
+        }
+
+        @Override
+        public boolean isEditable() {
+            return editable;
         }
     }
 
@@ -348,11 +375,16 @@ public class Stats {
 
         int getTransistorsEach();
 
+        void setTransistorsEach(int transistors);
+
         int getTransistors();
+
+        boolean isEditable();
     }
 
     private static final class MyTableModel implements TableModel {
         private final List<Row> entries;
+        private ArrayList<TableModelListener> listeners = new ArrayList<>();
 
         private MyTableModel(List<Row> entries) {
             this.entries = entries;
@@ -390,8 +422,8 @@ public class Stats {
         }
 
         @Override
-        public boolean isCellEditable(int i, int i1) {
-            return false;
+        public boolean isCellEditable(int row, int col) {
+            return col == 2 && entries.get(row).isEditable();
         }
 
         @Override
@@ -416,14 +448,22 @@ public class Stats {
 
         @Override
         public void setValueAt(Object o, int row, int col) {
+            if (col == 2 && entries.get(row).isEditable() && o instanceof Number) {
+                entries.get(row).setTransistorsEach(((Number) o).intValue());
+                TableModelEvent tme = new TableModelEvent(this);
+                for (TableModelListener l : listeners)
+                    l.tableChanged(tme);
+            }
         }
 
         @Override
         public void addTableModelListener(TableModelListener tableModelListener) {
+            listeners.add(tableModelListener);
         }
 
         @Override
         public void removeTableModelListener(TableModelListener tableModelListener) {
+            listeners.remove(tableModelListener);
         }
     }
 
