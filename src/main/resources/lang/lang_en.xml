@@ -1660,6 +1660,7 @@ Make sure the flash process is complete before closing this dialog!</string>
     <string name="msg_truthTable">Truth Table</string>
     <string name="msg_errorImportingSvg">Error while importing the SVG file.</string>
     <string name="msg_errorCreatingSvgTemplate">Error creating the SVG template.</string>
+    <string name="msg_couldNotCreateStats">Statistics could not be created.</string>
 
     <string name="ok">OK</string>
     <string name="rot_0">0°</string>
