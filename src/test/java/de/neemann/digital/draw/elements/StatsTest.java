@@ -18,15 +18,15 @@ import java.io.IOException;
 public class StatsTest extends TestCase {
 
     public void testStats() throws PinException, NodeException, ElementNotFoundException, IOException {
-        File file = new File(Resources.getRoot(), "dig/test/docu/rcAdder.dig");
+        File file = new File(Resources.getRoot(), "../../main/dig/combinatorial/FullAdderRC.dig");
         final ToBreakRunner br = new ToBreakRunner(file);
         Circuit c = br.getCircuit();
         Stats stats = new Stats(br.getLibrary()).add(c);
         TableModel model = stats.getTableModel();
-        assertEquals(6, model.getRowCount());
-        assertEquals(200, model.getValueAt(5,3));
+        assertEquals(5, model.getRowCount());
+        assertEquals(200, model.getValueAt(4,3));
         model.setValueAt(10,0,2);
-        assertEquals(152, model.getValueAt(5,3));
+        assertEquals(152, model.getValueAt(4,3));
     }
 
 }
