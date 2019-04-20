@@ -378,6 +378,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         });
         treeCheckBox.setAccelerator(KeyStroke.getKeyStroke("F5"));
 
+        ToolTipAction stats = new ToolTipAction(Lang.get("menu_stats")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    Stats stats = new Stats(library);
+                    stats.add(circuitComponent.getCircuit());
+                    new StatsDialog(Main.this, stats.getTableModel()).setVisible(true);
+                } catch (ElementNotFoundException e) {
+                    new ErrorMessage(Lang.get("msg_couldNotCreateStats")).addCause(e).show(Main.this);
+                }
+            }
+        }.setToolTip(Lang.get("menu_stats_tt"));
+
         if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT))
             SwingUtilities.invokeLater(treeCheckBox::doClick);
 
@@ -395,6 +408,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         view.add(treeCheckBox);
         view.addSeparator();
         view.add(viewHelp.createJMenuItem());
+        view.add(stats.createJMenuItem());
     }
 
     /**

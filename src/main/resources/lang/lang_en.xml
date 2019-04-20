@@ -1309,6 +1309,10 @@
     <string name="key_midiProgChange_tt">Adds  a new input PC. If this input is set to high,
         the value at input N is used to change te program (instrument).</string>
 
+    <string name="key_transistors">Transistors</string>
+    <string name="key_transistors_tt">Number of transistors required. Used for circuit statistics.
+        Zero means that the number is determined automatically.</string>
+
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
     <string name="mod_setKey_N0_in_element_N1">Value ''{0}'' in component ''{1}'' modified.</string>
@@ -1527,6 +1531,14 @@
         The ZIP file thus contains all the files that are necessary for the operation of the circuit.</string>
     <string name="menu_labelPins">Label Inputs and Outputs</string>
     <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
+
+    <string name="menu_stats">Circuit Statistics</string>
+    <string name="menu_stats_tt">Shows a list of used components.</string>
+    <string name="stat_number">Number</string>
+    <string name="stat_part">Component</string>
+    <string name="stat_transistors">Trans.</string>
+    <string name="stat_transistorsTotal">Trans. total</string>
+    <string name="stat_sum">Sum</string>
 
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.

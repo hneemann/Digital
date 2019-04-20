@@ -1319,6 +1319,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_midiProgChange">Programmwechsel erlauben</string>
     <string name="key_midiProgChange_tt">Fügt einen weiteren Eingang PC hinzu. Wird dieser Eingang auf High gesetzt,
         wird mit dem Wert am Eingang N das Programm (Instrument) gewechselt.</string>
+    <string name="key_transistors">Transistorzahl</string>
+    <string name="key_transistors_tt">Anzahl der erforderlichen Transistoren. Wird für die Schaltungsstatistik verwendet. Null bedeutet, dass die Zahl automatisch bestimmt wird.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1541,6 +1543,15 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Die ZIP-Datei enthält damit alle Dateien, die für den Betrieb der Schaltung erforderlich sind.</string>
     <string name="menu_labelPins">Ein- und Ausgänge benennen</string>
     <string name="menu_labelPins_tt">Für alle unbenannten Ein- und Ausgänge eine Bezeichnung setzen.</string>
+
+
+    <string name="menu_stats">Schaltungsstatistik</string>
+    <string name="menu_stats_tt">Zeigt eine Liste der verwendeten Komponenten</string>
+    <string name="stat_number">Zahl</string>
+    <string name="stat_part">Bauteil</string>
+    <string name="stat_transistors">Trans.</string>
+    <string name="stat_transistorsTotal">Trans. total</string>
+    <string name="stat_sum">Summe</string>
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
