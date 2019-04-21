@@ -53,8 +53,8 @@ public class Stats {
         add(And.DESCRIPTION, attr -> (attr.get(Keys.INPUT_COUNT) * 2 + 2) * attr.getBits());
         add(NOr.DESCRIPTION, attr -> attr.get(Keys.INPUT_COUNT) * attr.getBits() * 2);
         add(Or.DESCRIPTION, attr -> (attr.get(Keys.INPUT_COUNT) * 2 + 2) * attr.getBits());
-        add(XOr.DESCRIPTION, attr -> (attr.get(Keys.INPUT_COUNT) * 8) * attr.getBits());
-        add(XNOr.DESCRIPTION, attr -> (attr.get(Keys.INPUT_COUNT) * 8 + 1) * attr.getBits());
+        add(XOr.DESCRIPTION, attr -> (attr.get(Keys.INPUT_COUNT) - 1) * 16 * attr.getBits());
+        add(XNOr.DESCRIPTION, attr -> ((attr.get(Keys.INPUT_COUNT) - 1) * 16 + 1) * attr.getBits());
         add(Not.DESCRIPTION, attr -> 2 * attr.getBits());
         add(Driver.DESCRIPTION, attr -> 6 * attr.getBits());
         add(DriverInvSel.DESCRIPTION, attr -> 6 * attr.getBits());
