@@ -24,9 +24,20 @@ public class StatsTest extends TestCase {
         Stats stats = new Stats(br.getLibrary()).add(c);
         TableModel model = stats.getTableModel();
         assertEquals(5, model.getRowCount());
-        assertEquals(200, model.getValueAt(4,3));
-        model.setValueAt(10,0,2);
-        assertEquals(152, model.getValueAt(4,3));
+        assertEquals(200, model.getValueAt(4, 3));
+
+        // set xor to 4 transistors
+        for (int i = 0; i < 4; i++)
+            if (intVal(model.getValueAt(i, 2)) == 16)
+                model.setValueAt(4, i, 2);
+
+        assertEquals(104, model.getValueAt(4, 3));
+    }
+
+    private int intVal(Object value) {
+        if (value instanceof Number)
+            return ((Number) value).intValue();
+        return 0;
     }
 
 }
