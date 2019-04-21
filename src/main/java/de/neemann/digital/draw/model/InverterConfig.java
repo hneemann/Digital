@@ -110,4 +110,13 @@ public class InverterConfig {
     public int hashCode() {
         return inputs != null ? inputs.hashCode() : 0;
     }
+
+    /**
+     * @return the number of inverted inputs
+     */
+    public int size() {
+        if (inputs == null)
+            return 0;
+        return inputs.size();
+    }
 }

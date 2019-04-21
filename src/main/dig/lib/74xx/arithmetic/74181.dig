@@ -732,19 +732,6 @@
       <pos x="1800" y="620"/>
     </visualElement>
     <visualElement>
-      <elementName>Or</elementName>
-      <elementAttributes>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_1</string>
-            <string>In_2</string>
-          </inverterConfig>
-        </entry>
-      </elementAttributes>
-      <pos x="1620" y="160"/>
-    </visualElement>
-    <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes>
         <entry>
@@ -1589,6 +1576,11 @@ end loop
         </entry>
       </elementAttributes>
       <pos x="-520" y="1500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NAnd</elementName>
+      <elementAttributes/>
+      <pos x="1600" y="160"/>
     </visualElement>
   </visualElements>
   <wires>

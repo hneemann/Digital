@@ -113,6 +113,7 @@ public class Stats {
 
     private final ElementLibrary library;
     private TreeMap<EntryKey, Entry> map;
+    private int invertedInputs;
 
     /**
      * Creates a new instance.
@@ -144,6 +145,8 @@ public class Stats {
     }
 
     private void add(ElementTypeDescription description, ElementAttributes attr) throws ElementNotFoundException {
+        invertedInputs += attr.get(Keys.INVERTER_CONFIG).size();
+
         int transistors = 0;
         Circuit childCircuit = null;
         if (description instanceof ElementLibrary.ElementTypeDescriptionCustom) {
@@ -175,31 +178,10 @@ public class Stats {
      */
     public TableModel getTableModel() {
         final ArrayList<Row> entries = new ArrayList<>(map.values());
-        entries.add(new Row() {
-            @Override
-            public int getCount() {
-                return 0;
-            }
+        if (invertedInputs > 0)
+            entries.add(new Entry(Lang.get("key_inverterConfig"), invertedInputs, true, 2));
 
-            @Override
-            public String getDescription() {
-                return Lang.get("stat_sum");
-            }
-
-            @Override
-            public int getTransistorsEach() {
-                return 0;
-            }
-
-            @Override
-            public void setTransistorsEach(int transistors) {
-            }
-
-            @Override
-            public boolean isEditable() {
-                return false;
-            }
-
+        entries.add(new Entry(Lang.get("stat_sum"), 0, false, 0) {
             @Override
             public int getTransistors() {
                 int tr = 0;
@@ -317,64 +299,11 @@ public class Stats {
 
     }
 
-    private static final class Entry implements Row {
-        private final EntryKey key;
-        private int transistors;
-        private final boolean editable;
-        private int count;
-
-        private Entry(EntryKey key, boolean editable) {
-            this.key = key;
-            transistors = key.transistors;
-            this.editable = editable;
-        }
-
-        private void addOne() {
-            count++;
-        }
-
-        @Override
-        public String toString() {
-            return count + " x " + key;
-        }
-
-        @Override
-        public int getCount() {
-            return count;
-        }
-
-        @Override
-        public String getDescription() {
-            return key.getDescription();
-        }
-
-        @Override
-        public void setTransistorsEach(int t) {
-            transistors = t;
-        }
-
-        @Override
-        public int getTransistorsEach() {
-            return transistors;
-        }
-
-        @Override
-        public int getTransistors() {
-            return count * transistors;
-        }
-
-        @Override
-        public boolean isEditable() {
-            return editable;
-        }
-    }
-
     private interface TransistorCalculator {
         int transistors(ElementAttributes attr);
     }
 
     private interface Row {
-
         int getCount();
 
         String getDescription();
@@ -387,6 +316,61 @@ public class Stats {
 
         boolean isEditable();
     }
+
+    //Entry can not be final because its overridden. Maybe checkstyle has a bug?
+    //CHECKSTYLE.OFF: FinalClass
+    private static class Entry implements Row {
+        private final String description;
+        private final boolean editable;
+        private int count;
+        private int transistors;
+
+        private Entry(EntryKey key, boolean editable) {
+            this(key.getDescription(), 0, editable, key.transistors);
+        }
+
+        private Entry(String description, int count, boolean editable, int transistors) {
+            this.description = description;
+            this.count = count;
+            this.editable = editable;
+            this.transistors = transistors;
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+
+        @Override
+        public String getDescription() {
+            return description;
+        }
+
+        @Override
+        public int getTransistorsEach() {
+            return transistors;
+        }
+
+        @Override
+        public void setTransistorsEach(int transistors) {
+            this.transistors = transistors;
+        }
+
+        @Override
+        public int getTransistors() {
+            return count * transistors;
+        }
+
+        @Override
+        public boolean isEditable() {
+            return editable;
+        }
+
+        private void addOne() {
+            count++;
+        }
+    }
+    //CHECKSTYLE.ON: FinalClass
 
     private static final class MyTableModel implements TableModel {
         private final List<Row> entries;
