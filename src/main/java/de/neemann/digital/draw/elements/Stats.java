@@ -394,9 +394,9 @@ public class Stats {
         public String getColumnName(int i) {
             switch (i) {
                 case 0:
-                    return Lang.get("stat_number");
-                case 1:
                     return Lang.get("stat_part");
+                case 1:
+                    return Lang.get("stat_number");
                 case 2:
                     return Lang.get("stat_transistors");
                 default:
@@ -406,7 +406,7 @@ public class Stats {
 
         @Override
         public Class<?> getColumnClass(int i) {
-            if (i == 1)
+            if (i == 0)
                 return String.class;
             return Integer.class;
         }
@@ -421,9 +421,9 @@ public class Stats {
             Row r = entries.get(row);
             switch (col) {
                 case 0:
-                    return check(r.getCount());
-                case 1:
                     return r.getDescription();
+                case 1:
+                    return check(r.getCount());
                 case 2:
                     return check(r.getTransistorsEach());
                 default:

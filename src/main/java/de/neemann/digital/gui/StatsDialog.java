@@ -32,8 +32,11 @@ public class StatsDialog extends JDialog {
         getContentPane().add(new JScrollPane(table));
         final TableColumnModel columnModel = table.getColumnModel();
         final int fontSize = Screen.getInstance().getFontSize();
-        columnModel.getColumn(1).setPreferredWidth(fontSize * 60);
-        table.setPreferredScrollableViewportSize(new Dimension(fontSize * 70, fontSize * 20));
+        columnModel.getColumn(0).setPreferredWidth(fontSize * 35);
+        columnModel.getColumn(1).setPreferredWidth(fontSize * 6);
+        columnModel.getColumn(2).setPreferredWidth(fontSize * 6);
+        columnModel.getColumn(3).setPreferredWidth(fontSize * 8);
+        table.setPreferredScrollableViewportSize(new Dimension(fontSize * 55, fontSize * 40));
 
         pack();
         setLocationRelativeTo(frame);
