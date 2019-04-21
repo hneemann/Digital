@@ -8,7 +8,7 @@
 				El usuario puede interactuar con la simulación presionando botones o fijando valores a las entradas del circuito.
             </par>
             <par>
-                Se pueden constuir y simular la mayoría de los circuitos empleados en electrónica digital.
+                Se pueden construir y simular la mayoría de los circuitos empleados en electrónica digital.
 				En la carpeta <e>ejemplos</e>, el usuario puede navegar entre ejemplos que incluyen un procesador Harvard
 				de 16 bits de ciclo sencillo.
             </par>
@@ -128,7 +128,6 @@
             <par>
                 Con CTRL-clic, un trozo de cable puede seleccionarse para moverlo o borrarlo.
 				Si la tecla D se presiona al dibujar un cable, podrá dibujarse un segmento diagonal.
-				With CTRL-Click a single wire section can be selected to move or delete it.
 				La tecla S permite dividir un segmento en dos. Para hacer esto, pon el puntero del ratón sobre dicho segmento y pulsa la letra. Desplázate hasta donde desees.
             </par>
         </subchapter>
@@ -176,7 +175,7 @@
             <par>
                 Si un circuito se incrusta en otro, sólo el nombre del archivo del subcircuito se almacena en el circuito, no el circuito incrustado.
 				Los archivos correspondientes de los subcircuitos deben encontrarse en el sistema de archivos en el momento de la simulación.
-				Para soportar las diferentes formas de trabajo de los usuarios y evitar una gestión complejoa de las rutas de importación, etc., se ha implementado una estrategia de importación poco habitual.
+				Para soportar las diferentes formas de trabajo de los usuarios y evitar una gestión compleja de las rutas de importación, etc., se ha implementado una estrategia de importación poco habitual.
             </par>
             <par>
                 Sólo los nombres de los archivos de los circuitos incrustados se almacenan en los archivos de los circuitos, no la ruta completa. Si un archivo necesita ser abierto, se busca en todas las subcarpetas el archivo del nombre correspondiente.
@@ -193,7 +192,7 @@
     <chapter heading="Simulación">
         <subchapter heading="Retardo de propagación">
             <par>
-                Durante la simulación, cada puerta lógica tiene un retardo de propagación. Cada componente de la biblioteca tiene el mismo retardo de propagación indpendientemente de su complejidad.
+                Durante la simulación, cada puerta lógica tiene un retardo de propagación. Cada componente de la biblioteca tiene el mismo retardo de propagación independientemente de su complejidad.
 				La puerta AND por tanto tiene el mismo retardo de propagación que el multiplicador.
 				La única excepción son los diodos, conmutadores y separadores, que se emplean para crear buses de datos. Estos componentes no tienen retraso de propagación.
 			</par>
@@ -222,7 +221,7 @@
 			Para que el análisis pueda realizarse, deberán nombrarse todos los flip-flops.
         </par>
         <par>
-            Se suele aplicar el siguiente criterio para nombrar los flip-flops: el estado siguiente de un bit de la drecha de la tabla se indicará con un subíndice 'n+1', El correspondiente estado actual se indicará con'n'.
+            Se suele aplicar el siguiente criterio para nombrar los flip-flops: el estado siguiente de un bit de la derecha de la tabla se indicará con un subíndice 'n+1', El correspondiente estado actual se indicará con 'n'.
 			Si hay un estado 'A', 'An' indica el estado actual, y 'An+1' indicará el estado siguiente.
 			Si, en la tabla de verdad de la izquierda o de la derecha, hay señales presentes que siguen este patrón, se asumirá que es una tabla de transición de estados, y se generará un circuito secuencial en lugar de uno combinacional.
         </par>
@@ -235,7 +234,7 @@
             <par>
                 En el menú de creación de circuitos de la tabla de verdad encontramos la posibilidad de generar los llamados archivos JEDEC.
 				Éste es un formato de archivo especial que describe el 'fuse map' de un PLD (autómata programable).
-				Este archivo JEDEC puede escribirse en el PLD usando un programador especial. De momento, están soportados circuitos del tipo <e>GAL16v8</e> y <e>GAL22v10</e> o dispositivos compatibles con fuse map.
+				Este archivo JEDEC puede escribirse en el PLD usando un programador especial. De momento, están soportados circuitos del tipo <e>GAL16v8</e> y <e>GAL22v10</e> o dispositivos compatibles con 'fuse map'.
             </par>
         </subchapter>
         <subchapter heading="ATF150xAS">
@@ -267,7 +266,7 @@
                 disponible en el sitio web de ATMEL/Microchip, se necesita para programar los chips.
             </par>
             <par>
-                Por desgracia, los detalles del fuse map no son públicos, así que no hay ningún adaptador para este chip que pueda integrarse en Digital, como sí se puede con los chips <e>GAL16v8</e> y <e>GAL22v10</e>.
+                Por desgracia, los detalles del 'fuse map' no son públicos, así que no hay ningún adaptador para este chip que pueda integrarse en Digital, como sí se puede con los chips <e>GAL16v8</e> y <e>GAL22v10</e>.
             </par>
             <par>
                 Por tanto, los adaptadores <e>fit150[x].exe</e> que proporciona ATMEL deben usarse. Estos programas crean un archivo <e>JEDEC</e> a partir de un adecuado archivo <e>TT2</e> que puede programarse en el chip.
@@ -284,7 +283,7 @@
                 <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
                     <e>WinCupl</e>
                 </a>
-                está disponible en el sitio web de ATMEL/Microchip. En sistemas Linux, los adaptadores pueden ser ejecutados por Digital si <e>wine</e> está instalado.
+                está disponible en el sitio web de ATMEL/Microchip. En sistemas Linux, los adaptadores pueden ser ejecutados por Digital si <e>Wine</e> está instalado.
             </par>
         </subchapter>
         <subchapter heading="Exportación a VHDL o Verilog">
@@ -388,13 +387,13 @@
         <faq>
             <question>Tengo una tabla de verdad. ¿Cómo calculo las expresiones booleanas mínimas?</question>
             <answer>En el menú <e>Análisis</e> selecciona la entrada <e>Sintetizar</e>. Luego introduce la tabla de verdad.
-                Al pie de la ventana puede encontrar la ecuación booleana que la satisface. Si itroduce más de una variable dependiente, una nueva ventana se abre, en la que se muestran todas las expresiones booleanas.
+                Al pie de la ventana puedes encontrar la ecuación booleana que la satisface. Si introduces más de una variable dependiente, una nueva ventana se abre, en la que se muestran todas las expresiones booleanas.
             </answer>
         </faq>
         <faq>
-            <question>He introducdio una tabala de verdad, pero hay más de una expresión booleana. ¿Cuál es la correcta?
+            <question>He introducido una tabla de verdad, pero hay más de una expresión booleana. ¿Cuál es la correcta?
             </question>
-            <answer>Al minimizar una expresión booleana pueden resultar varias expresiones que describen la misma función. Digitall las muestra todas si vienen de la misma tabla. Puede haber diferencias dependiente de las condiciones "indiferentes" de la tabla de verdad.
+            <answer>Al minimizar una expresión booleana pueden resultar varias expresiones que describen la misma función. Digital las muestra todas si vienen de la misma tabla. Puede haber diferencias dependiente de las condiciones "indiferentes" de la tabla de verdad.
             </answer>
         </faq>
         <faq>
@@ -441,7 +440,7 @@
             <shortcut key="F6">Abre el diálogo de tabla de medidas.</shortcut>
             <shortcut key="F7">Ejecuta hasta un Break</shortcut>
             <shortcut key="F8">Ejecuta casos de prueba</shortcut>
-            <shortcut key="C">Paso de reloj sencillo (funciona sólo en una simulación en marcha y sólo si hay unn único componente de reloj).
+            <shortcut key="C">Paso de reloj sencillo (funciona sólo en una simulación en marcha y sólo si hay un único componente de reloj).
             </shortcut>
             <shortcut key="F9">Análisis del circuito</shortcut>
             <shortcut key="CTRL-A">Selecciona todo.</shortcut>
