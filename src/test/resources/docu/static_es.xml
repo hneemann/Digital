@@ -4,7 +4,7 @@
         <subchapter heading="Introducción">
             <par>
                 Digital es un simulador sencillo usado para simular circuitos digitales.
-				Las puertas lógicas se conectan entre sí con cables, y se puede simularel comportamiento global del circuito.
+				Las puertas lógicas se conectan entre sí con cables, y se puede simular el comportamiento global del circuito.
 				El usuario puede interactuar con la simulación presionando botones o fijando valores a las entradas del circuito.
             </par>
             <par>
@@ -291,7 +291,7 @@
                 Se puede exportar un circuito a VHDL o a Verilog. Se generará un archivo que contiene la descripción completa del circuito. El código VHDL generado fue probado con 
                 <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
                 y el simulador VHDL open source <a href="http://ghdl.free.fr/">ghdl</a>.
-                El código Verilog se ha probado con el simulador Verilog  <a href="http://iverilog.icarus.com/">Icarus Verilog</a>.
+                El código Verilog se ha probado con el simulador de Verilog  <a href="http://iverilog.icarus.com/">Icarus Verilog</a>.
             </par>
             <par>
                 Si un circuito contiene casos de prueba, los datos se usarán para generar un módulo de estímulo (test bench) HDL. Esto puede emplearse para probar el correcto funcionamiento del circuito en una simulación HDL.
