@@ -42,7 +42,8 @@
             <par><image src="scr02.png"/></par>
             <par>
                 Igualmente, añadimos una segunda entrada. Es mejor colocarla directamente debajo de la primera.
-            </par><image src="scr03.png"/></par>
+            </par>
+            <par><image src="scr03.png"/></par>
             <par>
                 Después de añadir las entradas, selecciona la puerta OR-Exclusiva. Esta función representa la función lógica actual.
             </par>

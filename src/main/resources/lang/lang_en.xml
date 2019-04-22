@@ -1311,7 +1311,8 @@
 
     <string name="key_transistors">Transistors</string>
     <string name="key_transistors_tt">Number of transistors required. Used for circuit statistics.
-        Zero means that the number is determined automatically.</string>
+        Zero means that the number is determined automatically by adding the number of transistors
+        of the components contained in the circuit.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
