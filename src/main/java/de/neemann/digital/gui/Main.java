@@ -1297,7 +1297,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             handleKeyboardComponent(updateEvent);
 
             doStep.setEnabled(false);
-            runToBreakAction.setEnabled(!realTimeClockRunning && model.isFastRunModel());
+            runToBreakAction.setEnabled(!realTimeClockRunning && model.isRunToBreakAllowed());
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
             if (settings.get(Keys.SHOW_DATA_TABLE) || windowPosManager.isVisible("probe"))
@@ -1738,7 +1738,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         try {
             AddressPicker addressPicker = new AddressPicker();
             SwingUtilities.invokeAndWait(() -> {
-                if (model != null && model.isFastRunModel() && !realTimeClockRunning) {
+                if (model != null && model.isRunToBreakAllowed() && !realTimeClockRunning) {
                     runToBreakAction.actionPerformed(null);
                     addressPicker.getProgramROMAddress(model);
                 }

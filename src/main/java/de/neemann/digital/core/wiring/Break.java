@@ -27,10 +27,12 @@ public class Break implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Break.class, input("brk"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.ENABLED)
             .addAttribute(Keys.CYCLES);
 
     private final int cycles;
     private final String label;
+    private final boolean enabled;
     private ObservableValue input;
 
     /**
@@ -40,6 +42,7 @@ public class Break implements Element {
      */
     public Break(ElementAttributes attributes) {
         cycles = attributes.get(Keys.CYCLES);
+        enabled = attributes.get(Keys.ENABLED);
         label = attributes.getCleanLabel();
     }
 
@@ -77,5 +80,12 @@ public class Break implements Element {
      */
     public String getLabel() {
         return label;
+    }
+
+    /**
+     * @return true if enabled
+     */
+    public boolean isEnabled() {
+        return enabled;
     }
 }

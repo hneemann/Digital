@@ -313,7 +313,8 @@ public class Model implements Iterable<Node>, SyncAccess {
     public BreakInfo runToBreak() throws NodeException {
         ArrayList<BreakDetector> brVal = new ArrayList<>();
         for (Break b : breaks)
-            brVal.add(new BreakDetector(b));
+            if (b.isEnabled())
+                brVal.add(new BreakDetector(b));
 
         ObservableValue clkVal = clocks.get(0).getClockOutput();
 
@@ -332,8 +333,15 @@ public class Model implements Iterable<Node>, SyncAccess {
     /**
      * @return true if the models allows fast run steps
      */
-    public boolean isFastRunModel() {
-        return clocks.size() == 1 && breaks.size() > 0;
+    public boolean isRunToBreakAllowed() {
+        if (clocks.size() != 1 || breaks.isEmpty())
+            return false;
+
+        for (Break b : breaks)
+            if (b.isEnabled())
+                return true;
+
+        return false;
     }
 
     /**

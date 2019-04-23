@@ -7,6 +7,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -15,6 +16,8 @@ import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
+
+import java.awt.*;
 
 /**
  * The Break shape
@@ -27,6 +30,7 @@ public class BreakShape implements Shape {
     private static final Vector D2 = new Vector(SIZEQ, SIZEQ);
     private final String label;
     private final PinDescriptions inputs;
+    private final boolean enabled;
 
     /**
      * Creates a new instance
@@ -38,6 +42,7 @@ public class BreakShape implements Shape {
     public BreakShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.label = attr.getLabel();
+        this.enabled = attr.get(Keys.ENABLED);
     }
 
     @Override
@@ -53,10 +58,13 @@ public class BreakShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         Vector center = new Vector(2 + SIZE, 0);
-        graphic.drawCircle(center.sub(RAD), center.add(RAD), Style.NORMAL);
-        graphic.drawLine(center.sub(D1), center.add(D1), Style.NORMAL);
-        graphic.drawLine(center.sub(D2), center.add(D2), Style.NORMAL);
+        Style style = Style.NORMAL;
+        if (!enabled)
+            style = Style.NORMAL.deriveColor(Color.LIGHT_GRAY);
+        graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
+        graphic.drawLine(center.sub(D1), center.add(D1), style);
+        graphic.drawLine(center.sub(D2), center.add(D2), style);
         Vector textPos = new Vector(SIZE * 3, 0);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, style);
     }
 }

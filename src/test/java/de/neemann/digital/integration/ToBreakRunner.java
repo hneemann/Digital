@@ -103,7 +103,7 @@ public class ToBreakRunner {
      * @throws NodeException
      */
     public ToBreakRunner runToBreak(int steps) throws NodeException {
-        assertTrue(model.isFastRunModel());
+        assertTrue(model.isRunToBreakAllowed());
         assertEquals(steps, model.runToBreak().getSteps());
         return this;
     }

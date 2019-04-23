@@ -1327,6 +1327,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Null bedeutet, dass die Zahl automatisch bestimmt wird, indem die Zahl der Transistoren der in der Schaltung
         enthaltenen Komponenten addiert wird.</string>
 
+    <string name="key_enabled">Aktiviert</string>
+    <string name="key_enabled_tt">Aktiviert oder deaktiviert diese Komponente.</string>
+
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
     <string name="mod_setKey_N0_in_element_N1">Wert ''{0}'' in Element ''{1}'' verändert.</string>

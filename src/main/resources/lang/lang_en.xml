@@ -1315,6 +1315,9 @@
         Zero means that the number is determined automatically by adding the number of transistors
         of the components contained in the circuit.</string>
 
+    <string name="key_enabled">Enabled</string>
+    <string name="key_enabled_tt">Enables or disables this component.</string>
+
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
     <string name="mod_setKey_N0_in_element_N1">Value ''{0}'' in component ''{1}'' modified.</string>

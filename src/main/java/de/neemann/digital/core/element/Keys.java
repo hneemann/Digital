@@ -335,6 +335,13 @@ public final class Keys {
             .setComboBoxValues(1000, 10000, 100000, 1000000);
 
     /**
+     * break enabled
+     */
+    public static final Key<Boolean> ENABLED
+            = new Key<>("enabled", true)
+            .allowGroupEdit();
+
+    /**
      * flag to make a value a probe
      */
     public static final Key<Boolean> VALUE_IS_PROBE
