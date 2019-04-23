@@ -335,7 +335,7 @@
   <string name="elem_JK_FF_short">JK</string>
   <string name="elem_JK_FF_tt">Puede almacenar (J=K=0), fijar (J=1,K=0), reiniciar (J=0, K=1) o invertir (J=K=1) el valor almacenado.
         El cambio de estado se produce sólo en un flanco de subida en la entrada de reloj.</string>
-  <string name="elem_JK_FF_pin_J">Entrada Set del Flipl-Flop</string>
+  <string name="elem_JK_FF_pin_J">Entrada Set del Flip-Flop</string>
   <string name="elem_JK_FF_pin_C">Entrada de reloj. Un flanco de subida provoca un cambio de estado.</string>
   <string name="elem_JK_FF_pin_K">Entrada de Reset del Flip-Flop</string>
   <string name="elem_JK_FF_pin_Q">Devuelve el valor almacenado.</string>
@@ -834,7 +834,7 @@
   <string name="err_invalidPinName_N">!El nombre "{0}" no está permitido!</string>
   <string name="err_whiteSpaceNotAllowedInTT2Name">¡No se permiten espacios en blanco en el nombre de un archivo TT2!</string>
   <string name="err_tableHasToManyResultColumns">¡La tabla tiene demasiadas columnas!</string>
-  <string name="err_errorExportingZip">Error creando el archivo zip.</string>
+  <string name="err_errorExportingZip">Error creando el archivo ZIP.</string>
   <string name="err_moreThanOneFastClock">Sólo se permite un componente de reloj con alta frecuencia.</string>
   <string name="err_circuitHasCycles">El circuito contiene ciclos. No es posible analizar analizar tal circuito.
 		Un ciclo aparece si la salida de una puerta realimenta una de los entradas de la misma puerta.
@@ -1582,7 +1582,7 @@ C 0  0
 Para crear más fácilmente muchos vectores de prueba, está la instrucción 'repeat([n]):
 Si una línea comienza con 'repeat([n])', [n] líneas de prueba se generarán.
 La variable 'n' puede usarse para generar los datos de la prueba.
-Con 'repeta(16)', 16 líneas se crearán, donde n va de 0 a 15.
+Con 'repeat(16)', se crearán 16 líneas, donde n va de 0 a 15.
 Si hay entradas de varios bits y se van a fijar a un valor binario, esto puede hacerse con la instrucción
 'bits([bits], [value])'. Esto se emplea para crear [bits] bits del valor [value].&lt;/p&gt;
 
