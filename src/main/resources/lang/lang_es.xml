@@ -138,7 +138,7 @@
 		Si el reloj en tiempo real no se activa, el reloj puede ser controlado por clics de ratón.
 		También se usa para asignar un número de pin, si se va a generar código para un CPLD o una FPGA.</string>
   <string name="elem_Clock_pin_C">Conmuta entre 0 y 1 con la frecuencia de reloj seleccionada.</string>
-  <string name="elem_Button">Botón</string>
+  <string name="elem_Button">Pulsador</string>
   <string name="elem_Button_tt">Pulsador simple que vuelve a su posición cuando se libera</string>
   <string name="elem_Button_pin_out">Señal de salida del botón</string>
   <string name="elem_Text">Texto</string>
