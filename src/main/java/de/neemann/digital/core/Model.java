@@ -310,32 +310,30 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @return The number of clock cycles necessary to get the positive edge
      * @throws NodeException NodeException
      */
-    public int runToBreak() throws NodeException {
-        Break aBreak = breaks.get(0);
-        ObservableValue brVal = aBreak.getBreakInput();
+    public BreakInfo runToBreak() throws NodeException {
+        ArrayList<BreakDetector> brVal = new ArrayList<>();
+        for (Break b : breaks)
+            brVal.add(new BreakDetector(b));
+
         ObservableValue clkVal = clocks.get(0).getClockOutput();
 
-        int count = aBreak.getCycles() * 2;
-        boolean lastIn = brVal.getBool();
         fireEvent(ModelEvent.FASTRUN);
-        for (int i = 0; i < count; i++) {
+        while (true) {
             clkVal.setBool(!clkVal.getBool());
             doStep();
-            boolean brIn = brVal.getBool();
-            if (!lastIn && brIn) {
-                fireEvent(ModelEvent.BREAK);
-                return i + 1;
-            }
-            lastIn = brIn;
+            for (BreakDetector bd : brVal)
+                if (bd.detected()) {
+                    fireEvent(ModelEvent.BREAK);
+                    return bd.createInfo();
+                }
         }
-        throw new NodeException(Lang.get("err_breakTimeOut", aBreak.getCycles()), brVal);
     }
 
     /**
      * @return true if the models allows fast run steps
      */
     public boolean isFastRunModel() {
-        return clocks.size() == 1 && breaks.size() == 1;
+        return clocks.size() == 1 && breaks.size() > 0;
     }
 
     /**
@@ -763,4 +761,65 @@ public class Model implements Iterable<Node>, SyncAccess {
         return run;
     }
 
+    /**
+     * Used to return the break info
+     */
+    public static final class BreakInfo {
+        private final int steps;
+        private final String label;
+
+        private BreakInfo(int steps, String label) {
+            this.steps = steps;
+            this.label = label;
+        }
+
+        /**
+         * @return the number of steps used to reach a break point
+         */
+        public int getSteps() {
+            return steps;
+        }
+
+        /**
+         * @return the break point reached
+         */
+        public String getLabel() {
+            return label;
+        }
+    }
+
+    private static final class BreakDetector {
+        private final ObservableValue brVal;
+        private final int count;
+        private final String label;
+        private boolean lastIn;
+        private int c;
+
+        private BreakDetector(Break breakComp) {
+            label = breakComp.getLabel();
+            count = breakComp.getCycles() * 2;
+            brVal = breakComp.getBreakInput();
+            lastIn = brVal.getBool();
+            c = 0;
+        }
+
+        private boolean detected() throws NodeException {
+            c++;
+            if (c >= count)
+                throw new NodeException(Lang.get("err_breakTimeOut", c, label), brVal);
+
+            boolean aktIn = brVal.getBool();
+            if (!lastIn && aktIn) {
+                lastIn = aktIn;
+                return true;
+            } else {
+                lastIn = aktIn;
+                return false;
+            }
+        }
+
+        private BreakInfo createInfo() {
+            return new BreakInfo(c, label);
+        }
+    }
 }

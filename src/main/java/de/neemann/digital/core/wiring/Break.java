@@ -30,6 +30,7 @@ public class Break implements Element {
             .addAttribute(Keys.CYCLES);
 
     private final int cycles;
+    private final String label;
     private ObservableValue input;
 
     /**
@@ -39,6 +40,7 @@ public class Break implements Element {
      */
     public Break(ElementAttributes attributes) {
         cycles = attributes.get(Keys.CYCLES);
+        label = attributes.getCleanLabel();
     }
 
     @Override
@@ -70,4 +72,10 @@ public class Break implements Element {
         model.addBreak(this);
     }
 
+    /**
+     * @return the break label
+     */
+    public String getLabel() {
+        return label;
+    }
 }

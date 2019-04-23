@@ -814,10 +814,11 @@
         If the output is inverted it behaves the opposite way.</string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
-    <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
-        You can use the component to implement a BRK assembly instruction.
-        Then you can run a simulated processor until a BRK instruction is reached.
-        Fast forward clocking can only be used if the real-time clock is disabled.</string>
+    <string name="elem_Break_tt">If this component is used in the circuit, the "Run To Break" button between "Start"
+        and "Stop" is enabled. This button clocks the circuit until a rising edge on the input of this component is
+        detected. This element can be used for debugging by clocking the circuit to any breakpoint.
+        Also an assembler command BRK can be implemented. This allows to execute a program up to the next BRK command.
+        This function can only be used if the real-time clock is deactivated!</string>
 
     <string name="elem_External">External</string>
     <string name="elem_External_tt">Component to execute an external process to calculate the logic function.
@@ -836,7 +837,7 @@
     <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock signal.</string>
     <string name="err_analyseNoInputs">The circuit has no labeled inputs</string>
     <string name="err_analyseNoOutputs">The circuit has no labeled outputs</string>
-    <string name="err_breakTimeOut">Break timeout after {0} cycles</string>
+    <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.</string>
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
     <string name="err_builder_couldNotFillLUT">Error creating the lookup table.</string>
@@ -1375,8 +1376,8 @@
     <string name="menu_exportSVGLaTex">Export SVG + LaTeX</string>
     <string name="menu_exportSVGLaTexInOut">Export SVG + LaTeX + small in/out</string>
     <string name="menu_exportAnimatedGIF">Export Animated GIF</string>
-    <string name="menu_fast">Run Fast</string>
-    <string name="menu_fast_tt">Runs the circuit until a break is detected by the BRK component.</string>
+    <string name="menu_fast">Run to Break</string>
+    <string name="menu_fast_tt">Runs the circuit until a break is detected by a BRK component.</string>
     <string name="menu_file">File</string>
     <string name="menu_help">Help</string>
     <string name="menu_update">Update</string>
@@ -1668,7 +1669,7 @@ Make sure the flash process is complete before closing this dialog!</string>
     <string name="rot_180">180°</string>
     <string name="rot_270">270°</string>
     <string name="rot_90">90°</string>
-    <string name="stat_clocks">{0} half cycles</string>
+    <string name="stat_clocks">Break after {0} half cycles at break point ''{1}''.</string>
     <string name="tt_deleteItem">Deletes the selected item</string>
     <string name="tt_moveItemDown">Move the item down</string>
     <string name="tt_moveItemUp">Move the item up</string>

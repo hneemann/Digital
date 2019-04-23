@@ -950,9 +950,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int i = model.runToBreak();
+                    Model.BreakInfo info = model.runToBreak();
                     circuitComponent.repaintNeeded();
-                    statusLabel.setText(Lang.get("stat_clocks", i));
+                    statusLabel.setText(Lang.get("stat_clocks", info.getSteps(), info.getLabel()));
                 } catch (NodeException | RuntimeException e1) {
                     showErrorAndStopModel(Lang.get("msg_fastRunError"), e1);
                 }
