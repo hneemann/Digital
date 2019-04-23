@@ -37,19 +37,19 @@
             <par>
                 Después de la selección, la primera entrada puede ser colocada en el área de trabajo.
 				El punto rojo del símbolo del componente de entrada es un punto de conexión entre el componente y un cable, que conectaremos luego.
-				El color rojo indica una salilda. Esto quiere decir que el puerto define un valor de señal o contener un cable.
+				El color rojo indica una salida. Esto quiere decir que el puerto define un valor de señal o que contiene un cable.
             </par>
             <par><image src="scr02.png"/></par>
             <par>
                 Igualmente, añadimos una segunda entrada. Es mejor colocarla directamente debajo de la primera.
             </par>
-            <par><image src="scr03.png"/></par>
+			<par><image src="scr03.png"/></par>
             <par>
                 Después de añadir las entradas, selecciona la puerta OR-Exclusiva. Esta función representa la función lógica actual.
             </par>
             <par><image src="scr04.png"/></par>
             <par>
-                Ya se puede añadir esta puerta al circuito. Es mejor colocarla de una forma que el cableado se haga lo más sencillo posible.
+                Ya se puede añadir esta puerta al circuito. Es mejor colocarla de forma que el cableado se haga lo más sencillo posible.
 				Los puntos azules indican los terminales de entrada de la puerta.
             </par>
             <par><image src="scr05.png"/></par>
