@@ -79,7 +79,7 @@ public final class FSMDemos {
         FSM fsm = new FSM();
         State last = null;
         for (int i = 0; i < n; i++) {
-            State s = new State(Integer.toString(i)).setNumber(i);
+            State s = new State("").setNumber(i);
             fsm.add(s);
             if (last != null)
                 fsm.transition(last, s, null);
