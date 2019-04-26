@@ -78,6 +78,22 @@ public class TableDialog extends JDialog {
         LIST.add(Keys.LABEL);
     }
 
+    /**
+     * Opens the given file in a new dialog
+     *
+     * @param file the file to open
+     */
+    public static void openFile(File file) {
+        try {
+            TruthTable tt = TruthTable.readFromFile(file);
+            ElementLibrary library = new ElementLibrary();
+            new ShapeFactory(library);
+            SwingUtilities.invokeLater(() -> new TableDialog(null, tt, library, file).setVisible(true));
+        } catch (IOException e) {
+            new ErrorMessage().addCause(e).show();
+        }
+    }
+
     private final JTextPane statusBar;
     private final JTable table;
     private final Font font;
