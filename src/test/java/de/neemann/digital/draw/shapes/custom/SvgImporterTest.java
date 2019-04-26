@@ -472,6 +472,28 @@ public class SvgImporterTest extends TestCase {
                 .check();
     }
 
+    // github #273
+    public void testInkscape10() throws IOException, SvgException, PinException {
+        CustomShapeDescription custom = new SvgImporter(
+                in("<svg\n" +
+                        "   viewBox=\"-80 -80 240 200\">\n" +
+                        "  <text\n" +
+                        "     xml:space=\"preserve\"\n" +
+                        "       style=\"-inkscape-font-specification:Arial;text-align:start; font-size : 15px ;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.73224092px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1  \"\n" +
+                        "     x=\"3.55761\"\n" +
+                        "     y=\"53.782589\"\n" +
+                        "     id=\"text4523\"><tspan\n" +
+                        "       sodipodi:role=\"line\"\n" +
+                        "       id=\"tspan4521\"\n" +
+                        "       x=\"3.55761\"\n" +
+                        "       y=\"53.782589\">FA</tspan></text>\n" +
+                        "</svg>")).create();
+
+        new CSDChecker(custom)
+                .checkText(4, 54, 15, "FA")
+                .check();
+    }
+
     public void testIllustrator1() throws IOException, SvgException, PolygonParser.ParserException, PinException {
         CustomShapeDescription custom = new SvgImporter(
                 in("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
