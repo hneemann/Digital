@@ -60,12 +60,27 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private GlobalValues.GlobalValueListener stateListener = new StateListener();
 
     /**
+     * Opens the given file in a new frame
+     *
+     * @param file the file to open
+     */
+    public static void openFile(File file) {
+        ElementLibrary library = new ElementLibrary();
+        new ShapeFactory(library);
+        SwingUtilities.invokeLater(() -> new FSMFrame(null, library, file).setVisible(true));
+    }
+
+    /**
      * Creates a new instance
      *
      * @param parent  the parents frame
      * @param library the library used to show the table
      */
     public FSMFrame(JFrame parent, ElementLibrary library) {
+        this(parent, library, null);
+    }
+
+    private FSMFrame(JFrame parent, ElementLibrary library, File filename) {
         super(Lang.get("fsm_title"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
@@ -142,13 +157,17 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         setFSM(new FSM());
 
         SwingUtilities.invokeLater(() -> {
-            File f = new FileLocator(probeLabelName)
-                    .setBaseFile(baseFilename)
-                    .setHistory(fileHistory)
-                    .setLibrary(library)
-                    .locate();
-            if (f != null)
-                loadFile(f);
+            if (filename != null)
+                loadFile(filename);
+            else {
+                File f = new FileLocator(probeLabelName)
+                        .setBaseFile(baseFilename)
+                        .setHistory(fileHistory)
+                        .setLibrary(library)
+                        .locate();
+                if (f != null)
+                    loadFile(f);
+            }
         });
 
         setLocationRelativeTo(parent);
@@ -514,7 +533,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         ElementLibrary library = new ElementLibrary();
         new ShapeFactory(library);
 
-        new FSMFrame(null, library).setVisible(true);
+        new FSMFrame(null, library, null).setVisible(true);
     }
 
 }

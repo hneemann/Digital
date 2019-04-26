@@ -93,9 +93,9 @@
 		También es posible usar un bus con varios bits por entrada. En tal caso, la operación se aplica a cada bit de las entradas.</string>
   <string name="elem_Not_pin_in">Entrada de la puerta NOT</string>
   <string name="elem_Not_pin_out">Valor de la entrada invertido</string>
-  <string name="elem_LookUpTable">Tabla de Búsqueda (LUT)</string>
-  <string name="elem_LookUpTable_short">TDB (LUT)</string>
-  <string name="elem_LookUpTable_tt">Extrae el valor de la salida de una tabla de búsqueda.
+  <string name="elem_LookUpTable">Tabla de Consulta (LUT)</string>
+  <string name="elem_LookUpTable_short">TdC (LUT)</string>
+  <string name="elem_LookUpTable_tt">Extrae el valor de salida de una tabla de consulta.
 		Esta puerta, por tanto, puede simular cualquier otra.</string>
   <string name="elem_LookUpTable_pin_in">Entrada {0}. Esta entrada en combinación con todas las demás define la
 		dirección del valor almacenado que se va a devolver</string>
@@ -718,7 +718,7 @@
   <string name="err_breakTimeOut">Tiempo de pausa después de {0} ciclos.</string>
   <string name="err_builder_exprNotSupported">Expresión {0} no soportada.</string>
   <string name="err_builder_operationNotSupported">Operación {0} no soportada.</string>
-  <string name="err_builder_couldNotFillLUT">Error creando la tabla de búsqueda (LUT).</string>
+  <string name="err_builder_couldNotFillLUT">Error creando la tabla de consulta (LUT).</string>
   <string name="err_burnError">Más de una salida está activa en el mismo cable, provocando un cortocircuito.</string>
   <string name="err_pullUpAndDown">No se puede conectar una resistencia pull-up y otra pull-down en la misma red.</string>
   <string name="err_cannotAnalyse_N">No se puede analizar el Nodo {0}</string>
@@ -1270,8 +1270,8 @@
   <string name="menu_table_createCircuit_tt">Crea un circuito a partir de una tabla de verdad.</string>
   <string name="menu_table_createCircuitJK">Circuito con flip-flops JK</string>
   <string name="menu_table_createCircuitJK_tt">Crea un circuito a partir de una tabla de verdad, usando flip-flops JK.</string>
-  <string name="menu_table_createCircuitLUT">Circuito con Tablas de Búsquedas (LUT)</string>
-  <string name="menu_table_createCircuitLUT_tt">Crea un circuito que reproduce la tabla de verdad. Usa tabla de búsquedas (LUT) para crear las expresiones.</string>
+  <string name="menu_table_createCircuitLUT">Circuito con Tablas de Consulta (LUT)</string>
+  <string name="menu_table_createCircuitLUT_tt">Crea un circuito que reproduce la tabla de verdad. Usa tabla de consulta (LUT) para crear las expresiones.</string>
   <string name="menu_table_createNAnd">Circuito con puertas NAND</string>
   <string name="menu_table_createNAndTwo">Circuito con puertas NAND de dos entradas</string>
   <string name="menu_table_createNAndTwo_tt">Usa sólo puertas NAND de dos entradas.</string>
@@ -1280,7 +1280,7 @@
   <string name="menu_table_createNOrTwo">Circuito con puertas NOR de dos entradas</string>
   <string name="menu_table_createNOrTwo_tt">Usa sólo puertas NOR de dos entradas.</string>
   <string name="menu_table_createNOr_tt">Crea un circuito con sólo puertas NOR que reproduce la tabla de verdad.</string>
-  <string name="menu_table_createTwo">Circuito con dos puertas de entrada</string>
+  <string name="menu_table_createTwo">Circuito con puertas de dos entradas</string>
   <string name="menu_table_createTwo_tt">Crea el circuito, usando sólo puertas con dos entradas</string>
   <string name="menu_table_createThree">Circuito con puertas de tres entradas</string>
   <string name="menu_table_createThree_tt">Crea un circuito usando sólo puertas con un máximo de tres entradas</string>
@@ -1288,7 +1288,7 @@
   <string name="menu_table_create_jedec_tt">Crea un archivo JEDEC para el dispositivo</string>
   <string name="menu_table_exportTableLaTeX">Exporta a LaTeX</string>
   <string name="menu_table_exportHex">Exporta a HEX</string>
-  <string name="menu_table_exportHex_tt">Puedes cargar el archivo HEX a una ROM o a una Tabla de Búsqueda (LUT).</string>
+  <string name="menu_table_exportHex_tt">Puedes cargar el archivo HEX a una ROM o a una Tabla de Consulta (LUT).</string>
   <string name="menu_table_new">Nuevo</string>
   <string name="menu_table_new_combinatorial">Combinacional</string>
   <string name="menu_table_new_sequential">Secuencial</string>
