@@ -1783,23 +1783,36 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
         FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
 
-        MainBuilder builder = new MainBuilder();
+        File file = null;
         for (String s : args) {
             if (s.equals("experimental")) experimental = true;
-            else if (s.trim().length() > 0)
-                builder.setFileToOpen(new File(s));
-        }
-        SwingUtilities.invokeLater(() -> {
-            Main main = builder.build();
-            try {
-                new RemoteSever(new DigitalHandler(main)).start(41114);
-            } catch (IOException e) {
-                SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
+            else if (s.trim().length() > 0) {
+                File f = new File(s);
+                if (f.exists())
+                    file = f;
             }
-            main.setVisible(true);
+        }
 
-            CheckForNewRelease.showReleaseDialog(main);
-        });
+        if (file != null && file.getName().endsWith(".fsm")) {
+            FSMFrame.openFile(file);
+        } else if (file != null && file.getName().endsWith(".tru")) {
+            TableDialog.openFile(file);
+        } else {
+            MainBuilder builder = new MainBuilder();
+            if (file != null)
+                builder.setFileToOpen(file);
+            SwingUtilities.invokeLater(() -> {
+                Main main = builder.build();
+                try {
+                    new RemoteSever(new DigitalHandler(main)).start(41114);
+                } catch (IOException e) {
+                    SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
+                }
+                main.setVisible(true);
+
+                CheckForNewRelease.showReleaseDialog(main);
+            });
+        }
     }
 
     /**
