@@ -11,14 +11,18 @@ import junit.framework.TestCase;
 
 public class ParserTest extends TestCase {
 
-
     public void testPlainString() throws ParseException {
         Text t = new Parser("Q").parse();
         assertTrue(t instanceof Simple);
         assertEquals("Q", ((Simple) t).getText());
+
         t = new Parser("In").parse();
         assertTrue(t instanceof Simple);
         assertEquals("In", ((Simple) t).getText());
+
+        t = new Parser("\\I^n_0").parse();
+        assertTrue(t instanceof Simple);
+        assertEquals("I^n_0", ((Simple) t).getText());
     }
 
     public void testSimple() throws ParseException {
@@ -39,8 +43,6 @@ public class ParserTest extends TestCase {
 
         assertEquals("Decorate{≥1, MATH}", new Parser("$≥1$").parse().toString());
         assertEquals("Decorate{MR, OVERLINE}", new Parser("~MR").parse().toString());
-
-        assertEquals("I^n_0", new Parser("\\I^n_0").parse().toString());
     }
 
 }
