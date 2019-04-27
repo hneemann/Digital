@@ -84,7 +84,7 @@ public class GenericShape implements Shape {
         this.outputs = outputs;
         if (label != null && label.length() == 0)
             label = null;
-        this.label = label;
+        this.label = label == null ? null : format(label);
         this.showPinLabels = showPinLabels;
         this.width = width;
         symmetric = outputs.size() == 1;
@@ -231,9 +231,9 @@ public class GenericShape implements Shape {
                                 .add(p.getPos().add(dx - 3, -triangle)), Style.THIN);
                         dx += triangle;
                     }
-                    graphic.drawText(p.getPos().add(dx, 0), p.getPos().add(dx + 1, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
+                    graphic.drawText(p.getPos().add(dx, 0), p.getPos().add(dx + 1, 0), format(p.getName()), Orientation.LEFTCENTER, Style.SHAPE_PIN);
                 } else
-                    graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
+                    graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), format(p.getName()), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
             }
         }
         if (name.length() > 0) {
@@ -292,5 +292,16 @@ public class GenericShape implements Shape {
         if (wideShape)
             width += 1;
         return this;
+    }
+
+    /**
+     * Formats the component specific strings.
+     * This implementation returns the given string unmodified.
+     *
+     * @param s the string to format
+     * @return the formatted string
+     */
+    public String format(String s) {
+        return s;
     }
 }
