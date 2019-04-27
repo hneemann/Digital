@@ -66,7 +66,7 @@ public class RegisterFile extends Node implements Element, RAMInterface {
         addrBits = attr.get(Keys.ADDR_BITS);
         size = 1 << addrBits;
         memory = new DataField(size);
-        label = attr.getCleanLabel();
+        label = attr.getLabel();
     }
 
     @Override

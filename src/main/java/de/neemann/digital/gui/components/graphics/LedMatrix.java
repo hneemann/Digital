@@ -56,7 +56,7 @@ public class LedMatrix extends Node implements Element {
     public LedMatrix(ElementAttributes attr) {
         rowDataBits = attr.get(Keys.ROW_DATA_BITS);
         colAddrBits = attr.get(Keys.COL_ADDR_BITS);
-        label = attr.getCleanLabel();
+        label = attr.getLabel();
         color = attr.get(Keys.COLOR);
         ledPersist = attr.get(Keys.LED_PERSISTENCE);
         dx = 1 << colAddrBits;

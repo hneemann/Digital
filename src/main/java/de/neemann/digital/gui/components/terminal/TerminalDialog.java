@@ -26,7 +26,7 @@ public class TerminalDialog extends JDialog {
 
 
     private static String getDialogTitle(ElementAttributes attr) {
-        String t = attr.getCleanLabel();
+        String t = attr.getLabel();
         if (t.length() > 0) return t;
 
         return Lang.get("elem_Terminal");

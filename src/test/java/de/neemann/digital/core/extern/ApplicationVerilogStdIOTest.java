@@ -39,7 +39,7 @@ public class ApplicationVerilogStdIOTest extends TestCase {
                 "  assign y = a & b;\n" +
                 "endmodule");
 
-        assertEquals("test", attr.getCleanLabel());
+        assertEquals("test", attr.getLabel());
         assertEquals("a,b", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("y", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
@@ -49,7 +49,7 @@ public class ApplicationVerilogStdIOTest extends TestCase {
                 "  assign y = a & b;\n" +
                 "endmodule");
 
-        assertEquals("test", attr.getCleanLabel());
+        assertEquals("test", attr.getLabel());
         assertEquals("a:5,b:5", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("y:5", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
@@ -61,7 +61,7 @@ public class ApplicationVerilogStdIOTest extends TestCase {
                 "  assign y = a & b;\n" +
                 "endmodule");
 
-        assertEquals("test", attr.getCleanLabel());
+        assertEquals("test", attr.getLabel());
         assertEquals("a,b", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("y", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
@@ -73,7 +73,7 @@ public class ApplicationVerilogStdIOTest extends TestCase {
                 "  assign y = a & b;\n" +
                 "endmodule");
 
-        assertEquals("test", attr.getCleanLabel());
+        assertEquals("test", attr.getLabel());
         assertEquals("a,b", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("y", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
@@ -85,7 +85,7 @@ public class ApplicationVerilogStdIOTest extends TestCase {
                 "  assign y = a & b;\n" +
                 "endmodule");
 
-        assertEquals("test", attr.getCleanLabel());
+        assertEquals("test", attr.getLabel());
         assertEquals("a:5,b:5", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("y:5", attr.get(Keys.EXTERNAL_OUTPUTS));
     }

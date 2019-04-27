@@ -8,7 +8,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A$</string>
+          <string>A</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="120"/>
@@ -18,7 +18,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$B$</string>
+          <string>B</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="240"/>
@@ -28,7 +28,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$Y$</string>
+          <string>Y</string>
         </entry>
       </elementAttributes>
       <pos x="560" y="180"/>

@@ -49,7 +49,7 @@ public class Terminal extends Node implements Element {
      * @param attributes the attributes
      */
     public Terminal(ElementAttributes attributes) {
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
         attr = attributes;
     }
 

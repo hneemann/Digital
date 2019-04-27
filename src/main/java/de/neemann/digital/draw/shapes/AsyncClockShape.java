@@ -34,7 +34,7 @@ public class AsyncClockShape implements Shape {
      * @param outputs    outputs
      */
     public AsyncClockShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
     }
 
     @Override

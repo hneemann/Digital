@@ -43,7 +43,7 @@ public class Break implements Element {
     public Break(ElementAttributes attributes) {
         cycles = attributes.get(Keys.CYCLES);
         enabled = attributes.get(Keys.ENABLED);
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
     }
 
     @Override

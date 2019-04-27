@@ -229,7 +229,7 @@ public class VHDLCreator {
 
         out.print("gate").print(num).print(": entity work.").print(entityName);
 
-        final String label = node.getElementAttributes().getCleanLabel();
+        final String label = node.getElementAttributes().getLabel();
         if (label != null && label.length() > 0)
             out.print(" -- ").print(label.replace('\n', ' '));
 

@@ -33,7 +33,7 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
         entries = new ArrayList<>();
         for (int i = 0; i < elements.size(); i++)
             if (filter.accept(elements.get(i))) {
-                String n = elements.get(i).getElementAttributes().getCleanLabel();
+                String n = elements.get(i).getElementAttributes().getLabel();
                 if (n != null && n.length() > 0)
                     entries.add(new Entry(i, n));
             }

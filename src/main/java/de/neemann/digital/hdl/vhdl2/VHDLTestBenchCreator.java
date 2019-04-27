@@ -70,7 +70,7 @@ public class VHDLTestBenchCreator {
             filename = filename.substring(0, p);
 
         for (ElementAttributes tc : testCases) {
-            String testName = tc.getCleanLabel();
+            String testName = tc.getLabel();
             if (testName.length() > 0)
                 testName = filename + "_" + testName + "_tb";
             else

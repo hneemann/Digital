@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>JK_FF</elementName>
@@ -49,7 +50,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>$C$</string>
+          <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="400" y="340"/>
@@ -59,7 +60,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$R$</string>
+          <string>R</string>
         </entry>
       </elementAttributes>
       <pos x="700" y="300"/>
@@ -78,7 +79,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>$Y$</string>
+          <string>Y</string>
         </entry>
       </elementAttributes>
       <pos x="700" y="340"/>
@@ -97,7 +98,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>$G$</string>
+          <string>G</string>
         </entry>
       </elementAttributes>
       <pos x="700" y="380"/>

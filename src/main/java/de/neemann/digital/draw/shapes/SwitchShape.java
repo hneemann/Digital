@@ -47,7 +47,7 @@ public class SwitchShape implements Shape {
         this.outputs = outputs;
         closed = attributes.get(Keys.CLOSED);
         poles = attributes.get(Keys.POLES);
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
     }
 
     @Override

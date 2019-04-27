@@ -161,34 +161,6 @@ public class ElementAttributes implements HGSMap {
     }
 
     /**
-     * Returns the label stored in this attributes.
-     * The '$' chars to switch to the LaTeX math mode are removed
-     *
-     * @return the clean label
-     */
-    public String getCleanLabel() {
-        return cleanLabel(getLabel());
-    }
-
-    /**
-     * The '$' chars to switch to the LaTeX math mode are removed
-     *
-     * @param name the name
-     * @return the clean name
-     */
-    public static String cleanLabel(String name) {
-        if (name.length() > 2 && name.charAt(0) == '$' && name.charAt(name.length() - 1) == '$') {
-            name = name.substring(1, name.length() - 1);
-            name = name
-                    .replace("{", "")
-                    .replace("}", "")
-                    .replace("^", "");
-        }
-        return name;
-    }
-
-
-    /**
      * Sets the bit count to this map.
      * Shorthand for set(AttributeKey.BITS, bits);
      *

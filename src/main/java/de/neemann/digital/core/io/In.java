@@ -63,7 +63,7 @@ public class In implements Element {
             output.setToHighZ().setBidirectional();
         else
             output.setValue(value.getValue());
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
         format = attributes.get(Keys.INT_FORMAT);
     }
 

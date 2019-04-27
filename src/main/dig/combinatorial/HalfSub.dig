@@ -25,7 +25,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A$</string>
+          <string>A</string>
         </entry>
       </elementAttributes>
       <pos x="520" y="240"/>
@@ -35,7 +35,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$B$</string>
+          <string>B</string>
         </entry>
       </elementAttributes>
       <pos x="520" y="360"/>
@@ -45,7 +45,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$S$</string>
+          <string>S</string>
         </entry>
       </elementAttributes>
       <pos x="720" y="260"/>
@@ -55,7 +55,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$BO$</string>
+          <string>BO</string>
         </entry>
       </elementAttributes>
       <pos x="720" y="340"/>

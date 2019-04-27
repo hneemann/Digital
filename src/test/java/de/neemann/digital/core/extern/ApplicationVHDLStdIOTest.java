@@ -157,7 +157,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
                 "begin\n" +
                 "end add_arch;", true);
 
-        assertEquals("add", attr.getCleanLabel());
+        assertEquals("add", attr.getLabel());
         assertEquals("a:4,b:4,c_i", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("s:4,c_o", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
@@ -180,7 +180,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
                 "begin\n" +
                 "end Add_arch;", true);
 
-        assertEquals("Add", attr.getCleanLabel());
+        assertEquals("Add", attr.getLabel());
         assertEquals("A:4,B:4,C_i", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("S:4,C_o", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
@@ -201,7 +201,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
                 "begin\n" +
                 "end nBitZaehlerRTL;", true);
 
-        assertEquals("nBitZaehler", attr.getCleanLabel());
+        assertEquals("nBitZaehler", attr.getLabel());
         assertEquals("LoadIn:8,load,reset,clk", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("CountOut:8", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
@@ -222,7 +222,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
                 "begin\n" +
                 "end nBitZaehlerRTL;", true);
 
-        assertEquals("nBitZaehler", attr.getCleanLabel());
+        assertEquals("nBitZaehler", attr.getLabel());
         assertEquals("LoadIn:8,load,reset,clk", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("CountOut:8", attr.get(Keys.EXTERNAL_OUTPUTS));
     }

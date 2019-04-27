@@ -42,7 +42,7 @@ public class RelayShape implements Shape {
         this.inputs = inputs;
         this.outputs = outputs;
         relayIsClosed = attributes.get(Keys.RELAY_NORMALLY_CLOSED);
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
         poles = attributes.get(Keys.POLES);
     }
 

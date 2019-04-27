@@ -818,7 +818,14 @@ public class TableDialog extends JDialog {
             if (p < 0)
                 return ident;
             else
-                return ident.substring(0, p) + "<sub>" + ident.substring(p + 1) + "</sub>";
+                return ident.substring(0, p) + "<sub>" + checkBrace(ident.substring(p + 1)) + "</sub>";
+        }
+
+        private String checkBrace(String s) {
+            if (s.length() > 2 && s.charAt(0) == '{' && s.charAt(s.length() - 1) == '}')
+                return s.substring(1, s.length() - 1);
+            else
+                return s;
         }
     }
 

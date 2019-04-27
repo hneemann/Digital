@@ -130,7 +130,7 @@ public final class ShapeFactory {
                         PriorityEncoder.DESCRIPTION.getShortName(),
                         inputs,
                         outputs,
-                        attributes.getCleanLabel(),
+                        attributes.getLabel(),
                         true,
                         4));
 
@@ -155,7 +155,7 @@ public final class ShapeFactory {
         map.put(External.DESCRIPTION.getName(),
                 (attributes, inputs, outputs) ->
                         new GenericShape(External.DESCRIPTION.getShortName(), inputs, outputs,
-                                attributes.getCleanLabel(), true, attributes.get(Keys.WIDTH)) {
+                                attributes.getLabel(), true, attributes.get(Keys.WIDTH)) {
                             @Override
                             public String format(String s) {
                                 return "\\" + s;
@@ -205,7 +205,7 @@ public final class ShapeFactory {
                             case CUSTOM:
                                 final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
                                 if (customShapeDescription != CustomShapeDescription.EMPTY)
-                                    return new CustomShape(customShapeDescription, elementAttributes.getCleanLabel(),
+                                    return new CustomShape(customShapeDescription, elementAttributes.getLabel(),
                                             pt.getInputDescription(elementAttributes),
                                             pt.getOutputDescriptions(elementAttributes));
                             default:

@@ -229,7 +229,7 @@ public class VerilogCreator {
     private void printModuleInstantiation(HDLNodeBuildIn node, int num) throws IOException, HDLException {
         String entityName = node.getHdlEntityName();
 
-        final String label = node.getElementAttributes().getCleanLabel();
+        final String label = node.getElementAttributes().getLabel();
         if (label != null && label.length() > 0)
             out.print("// ").println(label.replace('\n', ' '));
 

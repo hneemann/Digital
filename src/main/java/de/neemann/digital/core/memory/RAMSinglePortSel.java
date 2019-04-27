@@ -65,7 +65,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
         addrBits = attr.get(Keys.ADDR_BITS);
         size = 1 << addrBits;
         memory = createDataField(attr, size);
-        label = attr.getCleanLabel();
+        label = attr.getLabel();
         dataOut = new ObservableValue("D", bits)
                 .setToHighZ()
                 .setPinDescription(DESCRIPTION)

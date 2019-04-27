@@ -73,7 +73,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
      * @param attr the attributes
      */
     public GraphicCard(ElementAttributes attr) {
-        label = attr.getCleanLabel();
+        label = attr.getLabel();
         width = attr.get(Keys.GRAPHIC_WIDTH);
         height = attr.get(Keys.GRAPHIC_HEIGHT);
         bankSize = width * height;

@@ -802,7 +802,7 @@ public final class EditorFactory {
 
                                 PortDefinition ins = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_INPUTS));
                                 PortDefinition outs = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
-                                String label = elementAttributes.getCleanLabel();
+                                String label = elementAttributes.getLabel();
                                 String code = elementAttributes.get(Keys.EXTERNAL_CODE);
 
                                 try {

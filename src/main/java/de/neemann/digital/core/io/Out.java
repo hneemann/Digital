@@ -93,7 +93,7 @@ public class Out implements Element {
      */
     public Out(ElementAttributes attributes) {
         bits = new int[]{attributes.getBits()};
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
         pinNumber = attributes.get(Keys.PINNUMBER);
         format = attributes.get(Keys.INT_FORMAT);
     }
