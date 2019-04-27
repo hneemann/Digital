@@ -82,18 +82,16 @@ class Context {
 
     static Context readStyle(Context context, String style) throws SvgException {
         SVGTokenizer t = new SVGTokenizer(style);
-        try {
-            while (!t.isEOF()) {
-                final String command = t.readTo(':');
-                final String value = t.readTo(';');
-                AttrParser p = PARSER.get(command);
-                if (p != null)
-                    p.parse(context, value);
-            }
-            return context;
-        } catch (SVGTokenizer.TokenizerException e) {
-            throw new SvgException("invalid svg style: " + style, e);
+        while (true) {
+            final String command = t.readTo(':');
+            if (command.length() == 0)
+                break;
+            final String value = t.readTo(';');
+            AttrParser p = PARSER.get(command);
+            if (p != null)
+                p.parse(context, value);
         }
+        return context;
     }
 
     Transform getTransform() {
