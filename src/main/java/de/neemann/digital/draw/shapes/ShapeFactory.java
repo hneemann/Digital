@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.pld.*;
@@ -149,6 +150,17 @@ public final class ShapeFactory {
         map.put(DiodeBackward.DESCRIPTION.getName(), DiodeBackwardShape::new);
         map.put(PullUp.DESCRIPTION.getName(), PullUpShape::new);
         map.put(PullDown.DESCRIPTION.getName(), PullDownShape::new);
+
+        // disables string formatting for external components, see #272
+        map.put(External.DESCRIPTION.getName(),
+                (attributes, inputs, outputs) ->
+                        new GenericShape(External.DESCRIPTION.getShortName(), inputs, outputs,
+                                attributes.getCleanLabel(), true, attributes.get(Keys.WIDTH)) {
+                            @Override
+                            public String format(String s) {
+                                return "\\" + s;
+                            }
+                        });
 
         final JarComponentManager jcm = library.getJarComponentManager();
         if (jcm != null)

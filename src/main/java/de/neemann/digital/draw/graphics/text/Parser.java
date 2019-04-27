@@ -67,6 +67,8 @@ public class Parser {
      * @throws ParseException ParseException
      */
     public Text parse() throws ParseException {
+        if (text.length() > 0 && text.charAt(0) == '\\')
+            return new Simple(text.substring(1).trim());
         return parse('\0');
     }
 
