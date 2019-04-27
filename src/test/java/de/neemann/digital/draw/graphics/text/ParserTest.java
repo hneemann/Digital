@@ -39,6 +39,8 @@ public class ParserTest extends TestCase {
 
         assertEquals("Decorate{≥1, MATH}", new Parser("$≥1$").parse().toString());
         assertEquals("Decorate{MR, OVERLINE}", new Parser("~MR").parse().toString());
+
+        assertEquals("I^n_0", new Parser("\\I^n_0").parse().toString());
     }
 
 }
