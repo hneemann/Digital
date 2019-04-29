@@ -70,7 +70,7 @@ public class CounterPreset extends Node implements Element {
         maxValue = m;
 
         probe = attributes.get(Keys.VALUE_IS_PROBE);
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
     }
 
     @Override

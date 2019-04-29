@@ -60,7 +60,7 @@ public class External extends Node implements Element {
         ins = new PortDefinition(attr.get(Keys.EXTERNAL_INPUTS));
         outs = new PortDefinition(attr.get(Keys.EXTERNAL_OUTPUTS));
         outputs = outs.createOutputs();
-        label = attr.getCleanLabel();
+        label = attr.getLabel();
         type = attr.get(Keys.APPLICATION_TYPE);
         code = attr.get(Keys.EXTERNAL_CODE);
     }

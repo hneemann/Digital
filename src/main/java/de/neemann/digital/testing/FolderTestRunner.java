@@ -188,7 +188,7 @@ public class FolderTestRunner {
                     ArrayList<TestCase> testCases = new ArrayList<>();
                     for (VisualElement el : circuit.getElements()) {
                         if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
-                            String label = el.getElementAttributes().getCleanLabel();
+                            String label = el.getElementAttributes().getLabel();
                             TestCaseDescription testData = el.getElementAttributes().get(TestCaseElement.TESTDATA);
                             testCases.add(new TestCase(label, testData));
                         }

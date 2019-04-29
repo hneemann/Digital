@@ -74,7 +74,7 @@ public class TestExamples extends TestCase {
                     if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
                         testCasesInFiles++;
 
-                        String label = el.getElementAttributes().getCleanLabel();
+                        String label = el.getElementAttributes().getLabel();
                         TestCaseDescription td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
 
                         Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);

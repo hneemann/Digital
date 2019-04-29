@@ -51,7 +51,7 @@ public class Counter extends Node implements Element {
         this.ovf = new ObservableValue("ovf", 1).setPinDescription(DESCRIPTION);
         maxValue = (1L << bits) - 1;
         probe = attributes.get(Keys.VALUE_IS_PROBE);
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
     }
 
     @Override

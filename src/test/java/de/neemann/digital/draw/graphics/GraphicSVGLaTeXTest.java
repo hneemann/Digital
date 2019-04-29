@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.graphics;
 
-import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
 import java.io.IOException;
@@ -35,15 +34,14 @@ public class GraphicSVGLaTeXTest extends TestCase {
     }
 
     public void testCleanLabel() throws IOException {
-        check("$Z_0$", "Z_0", "$Z_0$");
-        check("$Z_{in}$", "Z_in", "$Z_{in}$");
-        check("Z_0", "Z_0", "$Z_0$");
-        check("$Z_0^n$", "Z_0n", "$Z^n_0$");
+        check("$Z_0$", "$Z_0$");
+        check("$Z_{in}$", "$Z_{in}$");
+        check("Z_0", "$Z_0$");
+        check("$Z_0^n$", "$Z^n_0$");
     }
 
-    private void check(String orig, String clean, String LaTeX) throws IOException {
+    private void check(String orig, String LaTeX) throws IOException {
         GraphicSVGLaTeX gs = new GraphicSVGLaTeX(System.out, null, 30);
         assertEquals(LaTeX, gs.formatText(orig, Style.NORMAL));
-        assertEquals(clean, ElementAttributes.cleanLabel(orig));
     }
 }

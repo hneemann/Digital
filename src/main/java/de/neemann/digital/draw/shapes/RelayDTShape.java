@@ -41,7 +41,7 @@ public class RelayDTShape implements Shape {
     public RelayDTShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
         poles = attributes.get(Keys.POLES);
     }
 

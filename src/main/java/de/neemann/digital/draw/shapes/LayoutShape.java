@@ -110,7 +110,7 @@ public class LayoutShape implements Shape {
 
         color = custom.getCircuit().getAttributes().get(Keys.BACKGROUND_COLOR);
 
-        String l = elementAttributes.getCleanLabel();
+        String l = elementAttributes.getLabel();
         if (l != null && l.length() > 0)
             name = l;
         else

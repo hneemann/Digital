@@ -52,7 +52,7 @@ public class Keyboard extends Node implements Element {
                 .setPinDescription(DESCRIPTION);
         isKeyOut = new ObservableValue("av", 1)
                 .setPinDescription(DESCRIPTION);
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
     }
 
     @Override

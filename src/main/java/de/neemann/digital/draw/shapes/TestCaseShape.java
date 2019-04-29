@@ -34,7 +34,7 @@ public class TestCaseShape implements Shape {
      * @param outputs    ans autputs
      */
     public TestCaseShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
     }
 
     @Override

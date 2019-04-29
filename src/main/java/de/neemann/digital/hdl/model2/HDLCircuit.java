@@ -103,7 +103,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
             for (VisualElement v : circuit.getElements()) {
                 if (v.equalsDescription(In.DESCRIPTION) || v.equalsDescription(Clock.DESCRIPTION)) {
                     final HDLPort port = new HDLPort(
-                            v.getElementAttributes().getCleanLabel(),
+                            v.getElementAttributes().getLabel(),
                             getNetOfPin(v.getPins().get(0)),
                             HDLPort.Direction.OUT,  // from inside the node this is an output because it defines a value
                             v.getElementAttributes().getBits())
@@ -116,7 +116,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                     addInput(port);
                 } else if (v.equalsDescription(Out.DESCRIPTION))
                     addOutput(new HDLPort(
-                            v.getElementAttributes().getCleanLabel(),
+                            v.getElementAttributes().getLabel(),
                             getNetOfPin(v.getPins().get(0)),
                             HDLPort.Direction.IN,  // from inside the node this is an input because it reads the value to output
                             v.getElementAttributes().getBits())

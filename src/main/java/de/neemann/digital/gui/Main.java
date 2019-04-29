@@ -1075,7 +1075,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
                     tsl.add(new ValueTableDialog.TestSet(
                             el.getElementAttributes().get(TestCaseElement.TESTDATA),
-                            el.getElementAttributes().getCleanLabel()));
+                            el.getElementAttributes().getLabel()));
 
             if (tsl.isEmpty())
                 throw new TestingDataException(Lang.get("err_noTestData"));

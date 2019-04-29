@@ -228,7 +228,7 @@ public class CircuitBuilderTest extends TestCase {
     }
 
     private void checkPin(VisualElement e, String label, String pins) {
-        assertEquals(label, e.getElementAttributes().getCleanLabel());
+        assertEquals(label, e.getElementAttributes().getLabel());
         assertEquals(4, e.getElementAttributes().getBits());
         assertEquals(pins, e.getElementAttributes().get(Keys.PINNUMBER));
     }

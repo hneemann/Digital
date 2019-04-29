@@ -23,7 +23,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$D$</string>
+          <string>D</string>
         </entry>
       </elementAttributes>
       <pos x="140" y="120"/>
@@ -37,7 +37,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>$D_2$</string>
+          <string>D_2</string>
         </entry>
       </elementAttributes>
       <pos x="580" y="80"/>
@@ -47,7 +47,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$C$</string>
+          <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="140" y="200"/>
@@ -61,7 +61,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>$D_0$</string>
+          <string>D_0</string>
         </entry>
       </elementAttributes>
       <pos x="300" y="80"/>
@@ -75,7 +75,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>$D_1$</string>
+          <string>D_1</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="80"/>
@@ -94,7 +94,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>$D_3$</string>
+          <string>D_3</string>
         </entry>
       </elementAttributes>
       <pos x="720" y="80"/>

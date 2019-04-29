@@ -18,7 +18,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$C_{i-1}$</string>
+          <string>C_{i-1}</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="460"/>
@@ -28,7 +28,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A_i$</string>
+          <string>A_i</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="240"/>
@@ -38,7 +38,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$B_i$</string>
+          <string>B_i</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="360"/>
@@ -48,7 +48,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$S_i$</string>
+          <string>S_i</string>
         </entry>
       </elementAttributes>
       <pos x="920" y="400"/>
@@ -58,7 +58,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$C_i$</string>
+          <string>C_i</string>
         </entry>
       </elementAttributes>
       <pos x="920" y="680"/>
@@ -174,7 +174,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>A_i B_i C_i-1 C_i S_i
+            <dataString>A_i B_i C_{i-1} C_i S_i
  0   0   0     0   0
  0   0   1     0   1
  0   1   0     0   1

@@ -36,7 +36,7 @@ public abstract class FETShape implements Shape {
     FETShape(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
     }
 
     /**

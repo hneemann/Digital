@@ -156,7 +156,7 @@ Addierers.}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>$P&lt;Q$</string>
+          <string>P&lt;Q</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="20"/>
@@ -171,7 +171,7 @@ Addierers.}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>$P=Q$</string>
+          <string>P=Q</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="140"/>
@@ -186,7 +186,7 @@ Addierers.}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>$P&gt;Q$</string>
+          <string>P&gt;Q</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="280"/>

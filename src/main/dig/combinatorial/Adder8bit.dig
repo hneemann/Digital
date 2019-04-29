@@ -152,7 +152,7 @@ CLA-Addierern aufgebaut ist.}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>C_i-1</string>
+          <string>C_{i-1}</string>
         </entry>
       </elementAttributes>
       <pos x="300" y="100"/>
@@ -169,7 +169,7 @@ CLA-Addierern aufgebaut ist.}}</string>
 # are calculated depending on n.
 # Test test result contains all calculated test vectors so you can investigate them.
 
-              C_i-1    A       B            C                      S
+              C_{i-1}    A       B            C                      S
 loop(A,256)
   loop(B,256)
 0 (A) (B) ((A+B)&gt;&gt;8) (A+B)

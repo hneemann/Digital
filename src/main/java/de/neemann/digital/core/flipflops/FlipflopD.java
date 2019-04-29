@@ -71,7 +71,7 @@ public class FlipflopD extends Node implements Element {
         this.q = q;
         this.qn = qn;
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
 
         value = attributes.get(Keys.DEFAULT);
         q.setValue(value);

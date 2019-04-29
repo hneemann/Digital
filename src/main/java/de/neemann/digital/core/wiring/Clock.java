@@ -44,7 +44,7 @@ public class Clock implements Element {
             frequency = f;
         } else
             frequency = 0;
-        label = attributes.getCleanLabel();
+        label = attributes.getLabel();
         clockPin = attributes.get(Keys.PINNUMBER);
     }
 

@@ -101,11 +101,11 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 Pins pins = ve.getPins();
                 ElementTypeDescription elementType = library.getElementType(ve.getElementName());
                 ElementAttributes attr = ve.getElementAttributes();
-                if (attr.getCleanLabel().contains("*")
+                if (attr.getLabel().contains("*")
                         && !ve.equalsDescription(In.DESCRIPTION)
                         && !ve.equalsDescription(Out.DESCRIPTION)) {
                     attr = new ElementAttributes(attr);
-                    attr.set(Keys.LABEL, attr.getCleanLabel().replace("*", subName));
+                    attr.set(Keys.LABEL, attr.getLabel().replace("*", subName));
                 }
                 Element element = elementType.createElement(attr);
                 ve.setElement(element);
@@ -148,7 +148,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
                     CustomElement ce = (CustomElement) me.getElement();
                     ModelCreator child = ce.getModelCreator(
-                            combineNames(subName, me.getVisualElement().getElementAttributes().getCleanLabel()),
+                            combineNames(subName, me.getVisualElement().getElementAttributes().getLabel()),
                             depth + 1,
                             containingVisualElement != null ? containingVisualElement : me.getVisualElement());
                     modelCreators.add(child);

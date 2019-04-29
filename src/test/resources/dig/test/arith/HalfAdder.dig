@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>XOr</elementName>
@@ -17,7 +18,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A$</string>
+          <string>A</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="240"/>
@@ -27,7 +28,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$B$</string>
+          <string>B</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="360"/>
@@ -37,7 +38,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$S$</string>
+          <string>S</string>
         </entry>
       </elementAttributes>
       <pos x="720" y="260"/>
@@ -47,7 +48,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$C$</string>
+          <string>C</string>
         </entry>
       </elementAttributes>
       <pos x="720" y="340"/>
