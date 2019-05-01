@@ -818,7 +818,7 @@
         in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Null gesetzt.
         Bei einem invertiertem Ausgang verhält es sich genau anders herum.</string>
     <string name="elem_Break">Break</string>
-    <string name="elem_Break_pin_brk">Stoppt schnellen Simulationslauf, wenn 1.</string>
+    <string name="elem_Break_pin_brk">Stoppt den schnellen Simulationsvorlauf, bei einer steigenden Flanke.</string>
     <string name="elem_Break_tt">Wenn dieses Element in der Schaltung verwendet wird, wird der "Run To Break"
         Knopf zwischen "Start" und "Stop" aktiviert. Dieser Knopf taktet die Schaltung bis eine steigende Flanke
         am Eingang des "Break" Elements erkannt wird. Dieses Element kann zur Fehlersuche eingesetzt werden, indem
