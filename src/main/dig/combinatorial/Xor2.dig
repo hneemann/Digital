@@ -31,31 +31,41 @@
           <string>Y</string>
         </entry>
       </elementAttributes>
-      <pos x="540" y="180"/>
+      <pos x="480" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
       <elementAttributes/>
-      <pos x="420" y="160"/>
+      <pos x="400" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
-      <pos x="280" y="120"/>
+      <pos x="300" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
-      <pos x="280" y="200"/>
+      <pos x="300" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="220" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="220" y="240"/>
     </visualElement>
     <visualElement>
@@ -79,43 +89,43 @@
   <wires>
     <wire>
       <p1 x="200" y="160"/>
-      <p2 x="260" y="200"/>
+      <p2 x="280" y="200"/>
     </wire>
     <wire>
       <p1 x="200" y="200"/>
-      <p2 x="260" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="160"/>
       <p2 x="280" y="160"/>
     </wire>
     <wire>
+      <p1 x="280" y="160"/>
+      <p2 x="300" y="160"/>
+    </wire>
+    <wire>
       <p1 x="380" y="160"/>
-      <p2 x="420" y="160"/>
+      <p2 x="400" y="160"/>
     </wire>
     <wire>
       <p1 x="180" y="240"/>
       <p2 x="200" y="240"/>
     </wire>
     <wire>
-      <p1 x="260" y="240"/>
-      <p2 x="280" y="240"/>
+      <p1 x="280" y="240"/>
+      <p2 x="300" y="240"/>
     </wire>
     <wire>
       <p1 x="200" y="240"/>
       <p2 x="220" y="240"/>
     </wire>
     <wire>
-      <p1 x="480" y="180"/>
-      <p2 x="540" y="180"/>
+      <p1 x="460" y="180"/>
+      <p2 x="480" y="180"/>
     </wire>
     <wire>
       <p1 x="180" y="120"/>
       <p2 x="200" y="120"/>
     </wire>
     <wire>
-      <p1 x="260" y="120"/>
-      <p2 x="280" y="120"/>
+      <p1 x="280" y="120"/>
+      <p2 x="300" y="120"/>
     </wire>
     <wire>
       <p1 x="200" y="120"/>
@@ -123,18 +133,18 @@
     </wire>
     <wire>
       <p1 x="380" y="200"/>
-      <p2 x="420" y="200"/>
+      <p2 x="400" y="200"/>
     </wire>
     <wire>
-      <p1 x="260" y="200"/>
-      <p2 x="280" y="200"/>
+      <p1 x="280" y="200"/>
+      <p2 x="300" y="200"/>
     </wire>
     <wire>
-      <p1 x="340" y="220"/>
+      <p1 x="360" y="220"/>
       <p2 x="380" y="220"/>
     </wire>
     <wire>
-      <p1 x="340" y="140"/>
+      <p1 x="360" y="140"/>
       <p2 x="380" y="140"/>
     </wire>
     <wire>
