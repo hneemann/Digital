@@ -40,9 +40,10 @@ public class GenericShape implements Shape {
     private boolean invert = false;
     private Color color = Color.WHITE;
 
-    private transient Pins pins;
+    private Pins pins;
     private boolean showPinLabels;
     private InverterConfig inverterConfig;
+    private int topBottomBorder = SIZE2;
 
     /**
      * Creates a new generic shape.
@@ -99,6 +100,17 @@ public class GenericShape implements Shape {
      */
     public GenericShape invert(boolean invert) {
         this.invert = invert;
+        return this;
+    }
+
+    /**
+     * Sets the top bottom border
+     *
+     * @param topBottomBorder the border
+     * @return this for chaind calls
+     */
+    public GenericShape setTopBottomBorder(int topBottomBorder) {
+        this.topBottomBorder = topBottomBorder;
         return this;
     }
 
@@ -190,15 +202,15 @@ public class GenericShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         int max = Math.max(inputs.size(), outputs.size());
-        int height = (max - 1) * SIZE + SIZE2;
+        int yBottom = (max - 1) * SIZE + topBottomBorder;
 
-        if (symmetric && inputs.size() > 0 && ((inputs.size() & 1) == 0)) height += SIZE;
+        if (symmetric && inputs.size() > 0 && ((inputs.size() & 1) == 0)) yBottom += SIZE;
 
         Polygon polygon = new Polygon(true)
-                .add(1, -SIZE2)
-                .add(SIZE * width - 1, -SIZE2)
-                .add(SIZE * width - 1, height)
-                .add(1, height);
+                .add(1, -topBottomBorder)
+                .add(SIZE * width - 1, -topBottomBorder)
+                .add(SIZE * width - 1, yBottom)
+                .add(1, yBottom);
 
         if (color != Color.WHITE && !graphic.isFlagSet(Graphic.LATEX))
             graphic.drawPolygon(polygon, Style.NORMAL.deriveFillStyle(color));
@@ -213,7 +225,7 @@ public class GenericShape implements Shape {
         }
 
         if (label != null) {
-            Vector pos = new Vector(SIZE2 * width, -SIZE2 - 8);
+            Vector pos = new Vector(SIZE2 * width, -topBottomBorder - 8);
             graphic.drawText(pos, pos.add(1, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
         }
 
@@ -238,10 +250,10 @@ public class GenericShape implements Shape {
         }
         if (name.length() > 0) {
             if (name.length() <= 3 && !showPinLabels) {
-                Vector pos = new Vector(SIZE2 * width, -SIZE2 + 4);
+                Vector pos = new Vector(SIZE2 * width, -topBottomBorder + 4);
                 graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.NORMAL);
             } else {
-                Vector pos = new Vector(SIZE2 * width, height + 4);
+                Vector pos = new Vector(SIZE2 * width, yBottom + 4);
                 graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.SHAPE_PIN);
             }
         }
