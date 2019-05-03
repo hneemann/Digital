@@ -348,6 +348,10 @@ end loop</dataString>
           <string>Label</string>
           <string>P=Q_i</string>
         </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
       </elementAttributes>
       <pos x="-60" y="-260"/>
     </visualElement>
