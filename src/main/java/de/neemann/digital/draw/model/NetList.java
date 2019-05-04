@@ -31,6 +31,7 @@ public class NetList implements Iterable<Net> {
         for (Wire w : circuit.getWires())
             add(w);
 
+        boolean hasLabel = false;
         for (VisualElement ve : circuit.getElements())
             if (ve.equalsDescription(Tunnel.DESCRIPTION)) {
                 Vector pos = ve.getPos();
@@ -47,17 +48,14 @@ public class NetList implements Iterable<Net> {
                 }
 
                 found.addLabel(label);
-            }
-
-        boolean hasLabel = false;
-        for (Net n : netList) {
-            n.setOrigin(circuit.getOrigin());
-            if (n.hasLabel())
                 hasLabel = true;
-        }
+            }
 
         if (hasLabel)
             mergeLabels();
+
+        for (Net n : netList)
+            n.setOrigin(circuit.getOrigin());
     }
 
     //modification of loop variable j is intended!
@@ -106,8 +104,10 @@ public class NetList implements Iterable<Net> {
      */
     public void add(Pin pin) {
         for (Net net : netList)
-            if (net.contains(pin.getPos()))
+            if (net.contains(pin.getPos())) {
                 net.add(pin);
+                return;
+            }
     }
 
     private void add(Wire w) {
