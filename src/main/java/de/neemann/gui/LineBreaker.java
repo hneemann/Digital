@@ -102,8 +102,12 @@ public class LineBreaker {
         addWord(word);
 
         String ret = outText.toString();
-        if (containsLineBreak && toHTML)
-            ret = "<html>" + ret.replace("\n", "<br>") + "</html>";
+        if (toHTML) {
+            ret = "<html>" + ret.replace("<", "&lt;")
+                    .replace(">", "&gt;") + "</html>";
+            if (containsLineBreak)
+                ret = ret.replace("\n", "<br>");
+        }
 
         return ret;
     }
