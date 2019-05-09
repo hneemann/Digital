@@ -955,8 +955,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         AffineTransform newTrans = new AffineTransform();
         if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
             Vector delta = gr.getMax().sub(gr.getMin());
-            double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 2);
-            double sy = ((double) getHeight()) / (delta.y + Style.NORMAL.getThickness() * 2);
+            double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 4);
+            double sy = ((double) getHeight()) / (delta.y + Style.NORMAL.getThickness() * 6);
             double s = Math.min(sx, sy);
 
 
