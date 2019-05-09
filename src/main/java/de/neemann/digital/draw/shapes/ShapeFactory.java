@@ -250,7 +250,7 @@ public final class ShapeFactory {
     }
 
     /**
-     * creates a new shape
+     * Creates a new shape
      */
     public interface Creator {
         /**
