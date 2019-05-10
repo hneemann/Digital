@@ -19,7 +19,7 @@
           <value v="1" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="520" y="420"/>
+      <pos x="500" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -54,7 +54,7 @@
           <string>x_0</string>
         </entry>
       </elementAttributes>
-      <pos x="520" y="480"/>
+      <pos x="500" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -72,12 +72,17 @@
           <value v="1" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="520" y="540"/>
+      <pos x="500" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="560" y="460"/>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Data</elementName>
@@ -100,19 +105,19 @@
       <p2 x="860" y="480"/>
     </wire>
     <wire>
-      <p1 x="520" y="480"/>
-      <p2 x="540" y="480"/>
+      <p1 x="500" y="480"/>
+      <p2 x="520" y="480"/>
     </wire>
     <wire>
       <p1 x="720" y="500"/>
       <p2 x="760" y="500"/>
     </wire>
     <wire>
-      <p1 x="540" y="500"/>
+      <p1 x="520" y="500"/>
       <p2 x="620" y="500"/>
     </wire>
     <wire>
-      <p1 x="520" y="420"/>
+      <p1 x="500" y="420"/>
       <p2 x="620" y="420"/>
     </wire>
     <wire>
@@ -132,11 +137,11 @@
       <p2 x="620" y="460"/>
     </wire>
     <wire>
-      <p1 x="540" y="460"/>
-      <p2 x="560" y="460"/>
+      <p1 x="520" y="460"/>
+      <p2 x="540" y="460"/>
     </wire>
     <wire>
-      <p1 x="520" y="540"/>
+      <p1 x="500" y="540"/>
       <p2 x="620" y="540"/>
     </wire>
     <wire>
@@ -148,12 +153,12 @@
       <p2 x="720" y="520"/>
     </wire>
     <wire>
-      <p1 x="540" y="460"/>
-      <p2 x="540" y="480"/>
+      <p1 x="520" y="460"/>
+      <p2 x="520" y="480"/>
     </wire>
     <wire>
-      <p1 x="540" y="480"/>
-      <p2 x="540" y="500"/>
+      <p1 x="520" y="480"/>
+      <p2 x="520" y="500"/>
     </wire>
   </wires>
   <measurementOrdering>

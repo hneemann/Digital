@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+
 /**
  * A list of pins
  */
@@ -89,5 +91,17 @@ public class Pins implements Iterable<Pin> {
      */
     public Pin get(int index) {
         return allPins.get(index);
+    }
+
+    /**
+     * @return false if there are two pins next to each other in horizontal direction
+     */
+    boolean autoWireCompatible() {
+        for (Pin p1 : allPins)
+            for (Pin p2 : allPins) {
+                if (p1.getPos().add(SIZE, 0).equals(p2.getPos()))
+                    return false;
+            }
+        return true;
     }
 }

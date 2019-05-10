@@ -338,6 +338,18 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void testAutoWire() {
+        new GuiTester()
+                .add(new DrawCircuit("dig/autoWire.dig"))
+                .press("F8")
+                .delay(500)
+                .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
+                .add(new GuiTester.CheckTableRows<>(ValueTableDialog.class, 4))
+                .add(new GuiTester.CloseTopMost())
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
     public void testDraw() {
         new GuiTester()
                 .add(new DrawCircuit("../../main/dig/sequential/JK-MS.dig"))

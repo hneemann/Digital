@@ -276,8 +276,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         enableClockShortcut();
 
-        setPreferredSize(Screen.getInstance().scale(new Dimension(1024, 768)));
-        pack();
+        new WindowSizeStorage(builder.mainFrame?"main":"sub").restore(this);
+
         if (builder.parent != null) {
             Point p = builder.parent.getLocation();
             final float d = 20 * Screen.getInstance().getScaling();
@@ -1798,7 +1798,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         } else if (file != null && file.getName().endsWith(".tru")) {
             TableDialog.openFile(file);
         } else {
-            MainBuilder builder = new MainBuilder();
+            MainBuilder builder = new MainBuilder().setMainFrame();
             if (file != null)
                 builder.setFileToOpen(file);
             SwingUtilities.invokeLater(() -> {
@@ -1826,6 +1826,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private boolean allowAllFileActions = true;
         private File baseFileName;
         private boolean keepPrefMainFile;
+        private boolean mainFrame = false;
 
         /**
          * @param fileToOpen the file to open
@@ -1909,6 +1910,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             SwingUtilities.invokeLater(() -> build().setVisible(true));
         }
 
+        private MainBuilder setMainFrame() {
+            mainFrame = true;
+            return this;
+        }
     }
 
     private class ModelKeyListener extends KeyAdapter {

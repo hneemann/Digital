@@ -15,8 +15,8 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.switching.Switch;
 import de.neemann.digital.draw.elements.*;
-import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryListener;
@@ -42,8 +42,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -955,8 +955,8 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         AffineTransform newTrans = new AffineTransform();
         if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
             Vector delta = gr.getMax().sub(gr.getMin());
-            double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 2);
-            double sy = ((double) getHeight()) / (delta.y + Style.NORMAL.getThickness() * 2);
+            double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 4);
+            double sy = ((double) getHeight()) / (delta.y + Style.NORMAL.getThickness() * 6);
             double s = Math.min(sx, sy);
 
 
@@ -1457,8 +1457,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
 
         @Override
         void clicked(MouseEvent e) {
-            if (mouse.isPrimaryClick(e) && !isLocked())
+            if (mouse.isPrimaryClick(e) && !isLocked()) {
                 modify(new ModifyInsertElement(element));
+                insertWires(element);
+            }
             mouseNormal.activate();
             focusWasLost = false;
         }
@@ -1475,6 +1477,37 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
         }
 
     }
+
+    private void insertWires(VisualElement element) {
+        if (element.isAutoWireCompatible()) {
+            Modifications.Builder wires = new Modifications.Builder(Lang.get("lib_wires"));
+            for (Pin p : element.getPins())
+                insertWirePin(p, element.getRotate(), wires);
+            modify(wires.build());
+        }
+    }
+
+    private void insertWirePin(Pin p, int rotate, Modifications.Builder wires) {
+        TransformRotate tr = new TransformRotate(new Vector(0, 0), rotate);
+        Vector pos = new Vector(-SIZE, 0);
+        if (p.getDirection() != PinDescription.Direction.input)
+            pos = new Vector(SIZE, 0);
+
+        pos = tr.transform(pos);
+        pos = pos.add(p.getPos());
+        boolean found = false;
+        List<VisualElement> el = circuit.getElementListAt(pos, false);
+        for (VisualElement ve : el) {
+            final Pin pinAt = circuit.getPinAt(pos, ve);
+            if (pinAt != null && pinAt.getPos().equals(pos)) {
+                found = true;
+                break;
+            }
+        }
+        if (found)
+            wires.add(new ModifyInsertWire(new Wire(pos, p.getPos())));
+    }
+
 
     private final class MouseControllerMoveElement extends MouseController {
         private VisualElement visualElement;
@@ -1505,8 +1538,10 @@ public class CircuitComponent extends JComponent implements Circuit.ChangedListe
             if (!isLocked()) {
                 visualElement.setPos(raster(visualElement.getPos()));
                 if (!visualElement.getPos().equals(initialPos)
-                        || visualElement.getRotate() != initialRot)
+                        || visualElement.getRotate() != initialRot) {
                     addModificationAlreadyMade(new ModifyMoveAndRotElement(visualElement, initialPos));
+                    insertWires(visualElement);
+                }
                 normalEnd = true;
             }
             mouseNormal.activate();

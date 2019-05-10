@@ -35,8 +35,8 @@ public class LineBreakerTest extends TestCase {
     }
 
     public void testBreakLinesHTML() throws Exception {
-        assertEquals("this is a test string", new LineBreaker(60).toHTML().breakLines("this is a\n   test  string"));
-        assertEquals("<html>this is a<br>test string</html>", new LineBreaker(60).toHTML().preserveContainedLineBreaks().breakLines("this is a\n   test  string"));
+        assertEquals("<html>this is a test string</html>", new LineBreaker(60).toHTML().breakLines("this is a\n   test  string"));
+        assertEquals("<html>this is a<br>test string</html>", new LineBreaker(60).toHTML().preserveContainedLineBreaks().toHTML().breakLines("this is a\n   test  string"));
     }
 
 

@@ -813,7 +813,7 @@
         After the circuit has stabilized the output goes to low.
         If the output is inverted it behaves the opposite way.</string>
     <string name="elem_Break">Break</string>
-    <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
+    <string name="elem_Break_pin_brk">Stops the fast simulation clocking if a rising edge is detected.</string>
     <string name="elem_Break_tt">If this component is used in the circuit, the "Run To Break" button between "Start"
         and "Stop" is enabled. This button clocks the circuit until a rising edge on the input of this component is
         detected. This element can be used for debugging by clocking the circuit to any breakpoint.

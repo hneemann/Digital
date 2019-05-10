@@ -21,7 +21,7 @@ public interface Shape extends Drawable, ObservableValueReader {
      * Puts the pins name and the pins x-y-position together!
      * This information is used to calculate the models connections from the wiring in the circuit.
      * Don't create your own {@link de.neemann.digital.core.element.PinInfo} instance! Try to use
-     * the instances passed to the constructor of the shape via the {@link ShapeFactory}s {@link ShapeFactory#Creator} interface.
+     * the instances passed to the constructor of the shape via the {@link ShapeFactory}s {@link ShapeFactory.Creator} interface.
      *
      * @return the pins
      */

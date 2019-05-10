@@ -74,7 +74,14 @@ public final class ShapeFactory {
             map.put(NOr.DESCRIPTION.getName(), new CreatorSimple("\u22651", true));
             map.put(XOr.DESCRIPTION.getName(), new CreatorSimple("=1", false));
             map.put(XNOr.DESCRIPTION.getName(), new CreatorSimple("=1", true));
-            map.put(Not.DESCRIPTION.getName(), new CreatorSimple("", true));
+            map.put(Not.DESCRIPTION.getName(),
+                    (attributes, inputs, outputs) -> {
+                        final boolean ws = attributes.get(Keys.WIDE_SHAPE);
+                        return new GenericShape(ws ? "1" : "", inputs, outputs)
+                                .setTopBottomBorder(ws ? GenericShape.SIZE : GenericShape.SIZE2)
+                                .invert(true)
+                                .setWide(ws);
+                    });
         }
 
 
@@ -243,7 +250,7 @@ public final class ShapeFactory {
     }
 
     /**
-     * creates a new shape
+     * Creates a new shape
      */
     public interface Creator {
         /**
