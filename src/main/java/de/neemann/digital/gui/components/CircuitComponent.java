@@ -437,7 +437,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             if (modification != null)
                 undoManager.apply(modification);
         } catch (ModifyException e) {
-            throw new RuntimeException("ToDo", e);
+            throw new RuntimeException("internal error in modify", e);
         }
     }
 
@@ -457,7 +457,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             try {
                 undoManager.undo();
             } catch (ModifyException e) {
-                throw new RuntimeException("ToDo", e);
+                throw new RuntimeException("internal error in undo", e);
             }
         }
     }
@@ -477,7 +477,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             try {
                 undoManager.redo();
             } catch (ModifyException e) {
-                throw new RuntimeException("ToDo", e);
+                throw new RuntimeException("internal error in redo", e);
             }
         }
     }
@@ -773,10 +773,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / scaleX));
 
             long time = System.currentTimeMillis();
-            if (shallowCopy != null) {
-                System.out.println("draw shallow");
+            if (shallowCopy != null)
                 shallowCopy.drawTo(gr, highLighted, highLightStyle, modelSync);
-            } else
+            else
                 getCircuit().drawTo(gr, highLighted, highLightStyle, modelSync);
             time = System.currentTimeMillis() - time;
 
