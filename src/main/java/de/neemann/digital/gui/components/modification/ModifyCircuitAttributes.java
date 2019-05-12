@@ -7,13 +7,13 @@ package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.Modification;
 
 /**
  * Sets all attributes of a circuit
  */
-public class ModifyCircuitAttributes implements Modification {
+public class ModifyCircuitAttributes implements Modification<Circuit> {
     private final ElementAttributes attributes;
 
     /**
@@ -26,7 +26,7 @@ public class ModifyCircuitAttributes implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) {
         circuit.getAttributes().getValuesFrom(attributes);
     }
 

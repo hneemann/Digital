@@ -10,16 +10,18 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.Modification;
 
 /**
  * A modification on a visual element.
  * The element is identified by its position and name.
  */
-public abstract class ModificationOfVisualElement implements Modification {
+public abstract class ModificationOfVisualElement implements Modification<Circuit> {
 
     private final Vector pos;
     private final String description;
     private final String name;
+
 
     /**
      * Creates a new instance
@@ -28,19 +30,8 @@ public abstract class ModificationOfVisualElement implements Modification {
      * @param description description
      */
     public ModificationOfVisualElement(VisualElement ve, String description) {
-        this(ve, ve.getPos(), description);
-    }
-
-    /**
-     * Creates a new instance
-     *
-     * @param ve          the element to modify
-     * @param initialPos  the initial position of the element
-     * @param description description
-     */
-    public ModificationOfVisualElement(VisualElement ve, Vector initialPos, String description) {
         name = ve.getElementName();
-        pos = initialPos;
+        pos = ve.getPos();
         this.description = description;
     }
 

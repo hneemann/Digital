@@ -9,6 +9,7 @@ import de.neemann.digital.lang.TestLang;
 import junit.framework.TestCase;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class TestLicenseNotice extends TestCase {
 
@@ -38,7 +39,7 @@ public class TestLicenseNotice extends TestCase {
     private void checkSourceFile(File f) throws IOException {
         int state = 0;
 
-        try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f), "utf-8"))) {
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8))) {
             String line;
             while ((line = r.readLine()) != null && state < 2) {
                 switch (state) {

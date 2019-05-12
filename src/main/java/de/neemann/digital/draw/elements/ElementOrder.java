@@ -7,8 +7,8 @@ package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
-import de.neemann.digital.gui.components.modification.Modification;
-import de.neemann.digital.gui.components.modification.Modifications;
+import de.neemann.digital.undo.Modification;
+import de.neemann.digital.undo.Modifications;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ElementOrder implements ElementOrderer.OrderInterface<String> {
 
     private final ArrayList<Entry> entries;
-    private final Modifications.Builder modifications;
+    private final Modifications.Builder<Circuit> modifications;
 
     /**
      * Creates a new instance
@@ -37,7 +37,7 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
                 if (n != null && n.length() > 0)
                     entries.add(new Entry(i, n));
             }
-        modifications = new Modifications.Builder(name);
+        modifications = new Modifications.Builder<>(name);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
         entries.set(i, entries.get(j));
         entries.set(j, x);
 
-        modifications.add((circuit, library) -> {
+        modifications.add(circuit -> {
             ArrayList<VisualElement> elements = circuit.getElements();
             VisualElement y = elements.get(index1);
             elements.set(index1, elements.get(index2));
@@ -74,7 +74,7 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
     /**
      * @return the modification
      */
-    public Modification getModifications() {
+    public Modification<Circuit> getModifications() {
         return modifications.build();
     }
 

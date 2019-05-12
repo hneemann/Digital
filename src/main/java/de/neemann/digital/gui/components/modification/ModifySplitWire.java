@@ -8,7 +8,6 @@ package de.neemann.digital.gui.components.modification;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -29,7 +28,7 @@ public class ModifySplitWire extends ModificationOfWire {
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) {
         Wire w = getWire(circuit);
         Vector p = w.p2;
         w.setP2(newPoint);

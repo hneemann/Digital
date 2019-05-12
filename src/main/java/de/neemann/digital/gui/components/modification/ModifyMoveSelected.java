@@ -13,15 +13,15 @@ import de.neemann.digital.draw.graphics.Transform;
 import de.neemann.digital.draw.graphics.TransformRotate;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.VectorFloat;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.Modification;
 
 import java.util.ArrayList;
 
 /**
  * Modifier to move a selection
  */
-public class ModifyMoveSelected implements Modification {
+public class ModifyMoveSelected implements Modification<Circuit> {
     private final Vector min;
     private final Vector max;
     private final Vector accumulatedDelta;
@@ -46,7 +46,7 @@ public class ModifyMoveSelected implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) {
         ArrayList<Movable> list = circuit.getElementsToMove(min, max);
         if (list != null) {
             for (Movable m : list)

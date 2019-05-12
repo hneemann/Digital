@@ -10,7 +10,6 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Movable;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 
 import java.awt.datatransfer.DataFlavor;
@@ -23,6 +22,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 
 /**
+ * Used to implement copy and paste.
  */
 public class CircuitTransferable implements Transferable {
 
@@ -55,7 +55,7 @@ public class CircuitTransferable implements Transferable {
     }
 
     @Override
-    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
         if (!isDataFlavorSupported(flavor))
             throw new UnsupportedFlavorException(flavor);
 
@@ -68,11 +68,10 @@ public class CircuitTransferable implements Transferable {
      *
      * @param data         the inserted data
      * @param shapeFactory the shapeFactory to set to the elements
-     * @param lastMousePos the actual mouse position
      * @return the elements or null
      * @throws IOException IOException
      */
-    public static ArrayList<Movable> createList(Object data, ShapeFactory shapeFactory, Vector lastMousePos) throws IOException {
+    public static ArrayList<Movable> createList(Object data, ShapeFactory shapeFactory) throws IOException {
         if (!(data instanceof String))
             return null;
 

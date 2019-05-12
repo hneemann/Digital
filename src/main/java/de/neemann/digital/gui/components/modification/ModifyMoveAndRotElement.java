@@ -8,7 +8,6 @@ package de.neemann.digital.gui.components.modification;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -21,17 +20,18 @@ public class ModifyMoveAndRotElement extends ModificationOfVisualElement {
     /**
      * Create a new instance
      *
-     * @param ve         the visual Element
-     * @param initialPos its initial position
+     * @param ve       the visual Element
+     * @param pos      the new position
+     * @param rotation the new rotation
      */
-    public ModifyMoveAndRotElement(VisualElement ve, Vector initialPos) {
-        super(ve, initialPos, Lang.get("mod_movedOrRotatedElement_N", getToolTipName(ve)));
-        pos = ve.getPos();
-        rotation = ve.getRotate();
+    public ModifyMoveAndRotElement(VisualElement ve, Vector pos, int rotation) {
+        super(ve, Lang.get("mod_movedOrRotatedElement_N", getToolTipName(ve)));
+        this.pos = pos;
+        this.rotation = rotation;
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) {
         VisualElement ve = getVisualElement(circuit);
         ve.setPos(pos);
         ve.setRotation(rotation);
