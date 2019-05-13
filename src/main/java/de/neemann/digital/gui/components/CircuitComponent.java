@@ -413,16 +413,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * Opens the attribute editor
      */
     public void editCircuitAttributes() {
-        editCircuitAttributes(ATTR_LIST);
-    }
-
-    /**
-     * Opens the attribute editor
-     *
-     * @param attrList the list of keys to edit
-     */
-    private void editCircuitAttributes(java.util.List<Key> attrList) {
-        ElementAttributes modifiedAttributes = new AttributeDialog(parent, attrList, getCircuit().getAttributes()).showDialog();
+        ElementAttributes modifiedAttributes = new AttributeDialog(parent, ATTR_LIST, getCircuit().getAttributes()).showDialog();
         if (modifiedAttributes != null)
             modify(new ModifyCircuitAttributes(modifiedAttributes));
     }
