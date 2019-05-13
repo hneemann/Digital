@@ -27,6 +27,5 @@ public class ModifyDeleteWire extends ModificationOfWire {
     @Override
     public void modify(Circuit circuit) throws ModifyException {
         circuit.delete(getWire(circuit));
-        throw new ModifyException("test");
     }
 }
