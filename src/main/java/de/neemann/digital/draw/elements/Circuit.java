@@ -713,27 +713,6 @@ public class Circuit implements HistoryComponent<Circuit> {
         return origin;
     }
 
-    private static final class CircRect {
-        private final Vector pos;
-        private final Vector size;
-
-        private CircRect(Vector pos, Vector size) {
-            this.pos = pos;
-            this.size = size;
-        }
-
-        private void drawTo(Graphic graphic) {
-
-            Polygon p = new Polygon(true)
-                    .add(pos)
-                    .add(pos.add(size.x, 0))
-                    .add(pos.add(size))
-                    .add(pos.add(0, size.y));
-
-            graphic.drawPolygon(p, Style.DASH);
-        }
-    }
-
     /**
      * Visual element filter
      */
