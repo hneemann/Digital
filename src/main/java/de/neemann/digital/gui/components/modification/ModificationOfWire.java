@@ -9,6 +9,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.undo.Modification;
+import de.neemann.digital.undo.ModifyException;
 
 /**
  * A modification on a wire
@@ -26,7 +27,7 @@ public abstract class ModificationOfWire implements Modification<Circuit> {
      * @param wire        the wire to modify
      * @param description description of modification
      */
-    public ModificationOfWire(Wire wire, String description) {
+    ModificationOfWire(Wire wire, String description) {
         this.description = description;
         p1 = wire.p1;
         p2 = wire.p2;
@@ -42,12 +43,13 @@ public abstract class ModificationOfWire implements Modification<Circuit> {
      *
      * @param circuit the circuit to modify
      * @return the wire to modify
+     * @throws ModifyException ModifyException
      */
-    public Wire getWire(Circuit circuit) {
+    Wire getWire(Circuit circuit) throws ModifyException {
         for (Wire w : circuit.getWires()) {
             if (w.p1.equals(p1) && w.p2.equals(p2))
                 return w;
         }
-        throw new RuntimeException("internal error: Wire not found!");
+        throw new ModifyException("internal error: Wire not found!");
     }
 }

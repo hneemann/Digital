@@ -9,6 +9,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.ModifyException;
 
 /**
  * Modifier to move and rotate a single visual element
@@ -31,7 +32,7 @@ public class ModifyMoveAndRotElement extends ModificationOfVisualElement {
     }
 
     @Override
-    public void modify(Circuit circuit) {
+    public void modify(Circuit circuit) throws ModifyException {
         VisualElement ve = getVisualElement(circuit);
         ve.setPos(pos);
         ve.setRotation(rotation);

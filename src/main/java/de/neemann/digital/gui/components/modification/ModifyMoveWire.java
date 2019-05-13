@@ -9,6 +9,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.ModifyException;
 
 /**
  * Modifier to move a wire
@@ -28,7 +29,7 @@ public class ModifyMoveWire extends ModificationOfWire {
     }
 
     @Override
-    public void modify(Circuit circuit) {
+    public void modify(Circuit circuit) throws ModifyException {
         getWire(circuit).move(delta);
         circuit.elementsMoved();
     }

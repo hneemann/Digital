@@ -52,14 +52,18 @@ public class UndoManager<A extends HistoryComponent<A>> {
      * @throws ModifyException ModifyException
      */
     public void apply(Modification<A> modification) throws ModifyException {
-        if (actual == null)
-            actual = initial.createDeepCopy();
-        modification.modify(actual);
-        while (modificationCounter < modifications.size())
-            modifications.remove(modifications.size() - 1);
-        modifications.add(modification);
-        modificationCounter = modifications.size();
-        fireChangedEvent();
+        try {
+            if (actual == null)
+                actual = initial.createDeepCopy();
+            modification.modify(actual);
+            while (modificationCounter < modifications.size())
+                modifications.remove(modifications.size() - 1);
+            modifications.add(modification);
+            modificationCounter = modifications.size();
+            fireChangedEvent();
+        } catch (ModifyException e) {
+            throw createTrace(e);
+        }
     }
 
     private void fireChangedEvent() {
@@ -74,9 +78,13 @@ public class UndoManager<A extends HistoryComponent<A>> {
      */
     public void redo() throws ModifyException {
         if (redoAvailable()) {
-            modifications.get(modificationCounter).modify(actual);
-            modificationCounter++;
-            fireChangedEvent();
+            try {
+                modifications.get(modificationCounter).modify(actual);
+                modificationCounter++;
+                fireChangedEvent();
+            } catch (ModifyException e) {
+                throw createTrace(e);
+            }
         }
     }
 
@@ -94,16 +102,34 @@ public class UndoManager<A extends HistoryComponent<A>> {
      */
     public void undo() throws ModifyException {
         if (undoAvailable()) {
-            modificationCounter--;
-            actual = initial.createDeepCopy();
-            for (int i = 0; i < modificationCounter; i++)
-                modifications.get(i).modify(actual);
-            fireChangedEvent();
+            try {
+                modificationCounter--;
+                actual = initial.createDeepCopy();
+                for (int i = 0; i < modificationCounter; i++)
+                    modifications.get(i).modify(actual);
+                fireChangedEvent();
+            } catch (ModifyException e) {
+                throw createTrace(e);
+            }
         }
     }
 
+    private ModifyException createTrace(ModifyException cause) {
+        StringBuilder sb = new StringBuilder("Exception during event processing");
+        for (int i = 0; i < modifications.size(); i++) {
+            if (i == modificationCounter)
+                sb.append("\n>");
+            else
+                sb.append("\n ");
+            sb.append(modifications.get(i).toString());
+        }
+        if (modificationCounter == modifications.size())
+            sb.append("\n>");
+        return new ModifyException(sb.toString(), cause);
+    }
+
     /**
-     * @return the modificaion which is reverted
+     * @return the modification which is reverted
      */
     public Modification<A> getUndoModification() {
         if (undoAvailable())

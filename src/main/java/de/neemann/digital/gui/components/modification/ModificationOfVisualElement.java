@@ -11,6 +11,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.undo.Modification;
+import de.neemann.digital.undo.ModifyException;
 
 /**
  * A modification on a visual element.
@@ -22,14 +23,13 @@ public abstract class ModificationOfVisualElement implements Modification<Circui
     private final String description;
     private final String name;
 
-
     /**
      * Creates a new instance
      *
      * @param ve          the element to modify
      * @param description description
      */
-    public ModificationOfVisualElement(VisualElement ve, String description) {
+    ModificationOfVisualElement(VisualElement ve, String description) {
         name = ve.getElementName();
         pos = ve.getPos();
         this.description = description;
@@ -41,7 +41,7 @@ public abstract class ModificationOfVisualElement implements Modification<Circui
      * @param ve the element
      * @return translated name
      */
-    public static String getToolTipName(VisualElement ve) {
+    static String getToolTipName(VisualElement ve) {
         String s = Lang.getNull("elem_" + ve.getElementName());
         if (s == null) {
             s = ve.getElementName();
@@ -64,12 +64,13 @@ public abstract class ModificationOfVisualElement implements Modification<Circui
      *
      * @param circuit the circuit
      * @return the element to modify
+     * @throws ModifyException ModifyException
      */
-    public VisualElement getVisualElement(Circuit circuit) {
+    public VisualElement getVisualElement(Circuit circuit) throws ModifyException {
         for (VisualElement ve : circuit.getElements()) {
             if (ve.getPos().equals(pos) && ve.getElementName().equals(name))
                 return ve;
         }
-        throw new RuntimeException("internal error: Element not found!");
+        throw new ModifyException("internal error: Element not found!");
     }
 }
