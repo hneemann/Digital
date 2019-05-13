@@ -103,10 +103,11 @@ public class UndoManager<A extends HistoryComponent<A>> {
     public void undo() throws ModifyException {
         if (undoAvailable()) {
             try {
+                A newActual = initial.createDeepCopy();
+                for (int i = 0; i < modificationCounter - 1; i++)
+                    modifications.get(i).modify(newActual);
                 modificationCounter--;
-                actual = initial.createDeepCopy();
-                for (int i = 0; i < modificationCounter; i++)
-                    modifications.get(i).modify(actual);
+                actual = newActual;
                 fireChangedEvent();
             } catch (ModifyException e) {
                 throw createTrace(e);

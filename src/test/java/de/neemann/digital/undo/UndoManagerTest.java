@@ -9,6 +9,8 @@ import junit.framework.TestCase;
 
 public class UndoManagerTest extends TestCase {
 
+    private int changedCount;
+
     public static class MyString implements HistoryComponent<MyString> {
         private String text;
 
@@ -44,6 +46,21 @@ public class UndoManagerTest extends TestCase {
         }
     }
 
+    public static class Error implements Modification<MyString> {
+        private int count;
+
+        @Override
+        public void modify(MyString myString) throws ModifyException {
+            if (count++ > 0)
+                throw new ModifyException("Error");
+        }
+
+        @Override
+        public String toString() {
+            return "Error";
+        }
+    }
+
     public void testSimple() throws ModifyException {
         UndoManager<MyString> mm = new UndoManager<>(new MyString("initial"));
 
@@ -53,7 +70,7 @@ public class UndoManagerTest extends TestCase {
 
         mm.apply(new Append("_1"));
         assertEquals("initial_1", mm.getActual().text);
-        assertEquals("Append _1",mm.getUndoModification().toString());
+        assertEquals("Append _1", mm.getUndoModification().toString());
         assertTrue(mm.undoAvailable());
         assertFalse(mm.redoAvailable());
 
@@ -67,7 +84,7 @@ public class UndoManagerTest extends TestCase {
         assertTrue(mm.undoAvailable());
         assertTrue(mm.redoAvailable());
 
-        assertEquals("Append _2",mm.getRedoModification().toString());
+        assertEquals("Append _2", mm.getRedoModification().toString());
         mm.redo();
         assertEquals("initial_1_2", mm.getActual().text);
         assertTrue(mm.undoAvailable());
@@ -141,4 +158,42 @@ public class UndoManagerTest extends TestCase {
         mm.undo();
         assertEquals("initial", mm.getActual().text);
     }
+
+    public void testListener() throws ModifyException {
+        UndoManager<MyString> mm = new UndoManager<>(new MyString("initial"));
+        mm.addListener(() -> changedCount++);
+        mm.apply(new Append("_1"));
+        assertEquals(1, changedCount);
+        assertEquals("initial_1", mm.getActual().text);
+        mm.undo();
+        assertEquals(2, changedCount);
+        assertEquals("initial", mm.getActual().text);
+        mm.apply(new Append("_5"));
+        assertEquals(3, changedCount);
+        assertEquals("initial_5", mm.getActual().text);
+        mm.undo();
+        assertEquals(4, changedCount);
+        assertEquals("initial", mm.getActual().text);
+    }
+
+    public void testUndoError() throws ModifyException {
+        UndoManager<MyString> mm = new UndoManager<>(new MyString("initial"));
+        mm.apply(new Append("_1"));
+        mm.apply(new Append("_2"));
+        mm.apply(new Error());
+        mm.apply(new Append("_3"));
+        mm.apply(new Append("_4"));
+        try {
+            mm.undo();
+            fail();
+        } catch (ModifyException e) {
+            assertEquals("initial_1_2_3_4", mm.getActual().text);
+            String m = e.getMessage();
+            assertTrue(m.contains("Append _1"));
+            assertTrue(m.contains("Append _2"));
+            assertTrue(m.contains("Append _3"));
+            assertTrue(m.contains("Append _4"));
+        }
+    }
+
 }
