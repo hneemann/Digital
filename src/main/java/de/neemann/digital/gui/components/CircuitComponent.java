@@ -421,7 +421,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      *
      * @param attrList the list of keys to edit
      */
-    public void editCircuitAttributes(java.util.List<Key> attrList) {
+    private void editCircuitAttributes(java.util.List<Key> attrList) {
         ElementAttributes modifiedAttributes = new AttributeDialog(parent, attrList, getCircuit().getAttributes()).showDialog();
         if (modifiedAttributes != null)
             modify(new ModifyCircuitAttributes(modifiedAttributes));
@@ -657,8 +657,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     public void addHighLightedWires(ImmutableList<ObservableValue> values) {
         if (values == null) return;
 
-        HashSet<ObservableValue> ov = new HashSet<>();
-        ov.addAll(values);
+        HashSet<ObservableValue> ov = new HashSet<>(values);
         for (Wire w : getCircuit().getWires())
             if (ov.contains(w.getValue()))
                 addHighLighted(w);
@@ -1499,7 +1498,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private final class MouseControllerMoveElement extends MouseController {
         private VisualElement visualElement;
         private Vector delta;
-        private boolean normalEnd;
         private VisualElement originalVisualElement;
 
         private MouseControllerMoveElement(Cursor cursor) {
@@ -1516,7 +1514,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
             copyAction.setEnabled(true);
-            normalEnd = false;
             repaintNeeded();
         }
 
@@ -1529,7 +1526,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     modify(new ModifyMoveAndRotElement(originalVisualElement, visualElement.getPos(), visualElement.getRotate()));
                     insertWires(visualElement);
                 }
-                normalEnd = true;
             }
             mouseNormal.activate();
         }
@@ -1825,7 +1821,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         @Override
         void clicked(MouseEvent e) {
             if (mouse.isPrimaryClick(e)) {
-                Modifications.Builder<Circuit> m = new Modifications.Builder<Circuit>(Lang.get("mod_splitWire"));
+                Modifications.Builder<Circuit> m = new Modifications.Builder<>(Lang.get("mod_splitWire"));
                 m.add(new ModifyDeleteWire(origWire));
                 m.add(new ModifyInsertWire(wire1));
                 m.add(new ModifyInsertWire(wire2));
