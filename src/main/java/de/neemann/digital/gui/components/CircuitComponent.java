@@ -368,7 +368,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                         MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
                         Vector min = Vector.min(mcs.corner1, mcs.corner2);
                         Vector max = Vector.max(mcs.corner1, mcs.corner2);
-                        ArrayList<Movable> elements = getCircuit().getElementsToCopy(min, max, shapeFactory);
+                        ArrayList<Movable> elements = getCircuit().copyElementsToMove(min, max, shapeFactory);
                         if (elements != null) {
                             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                             clipboard.setContents(new CircuitTransferable(elements), null);
@@ -399,7 +399,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         ArrayList<Movable> elements = null;
         if (activeMouseController instanceof MouseControllerSelect) {
             MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-            elements = getCircuit().getElementsToCopy(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
+            elements = getCircuit().copyElementsToMove(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
         } else if (activeMouseController instanceof MouseControllerMoveElement) {
             MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
             elements = new ArrayList<>();

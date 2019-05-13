@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @param <A> the structure to modify
  */
-public class UndoManager<A extends HistoryComponent<A>> {
+public class UndoManager<A extends Copyable<A>> {
     private ArrayList<ChangedListener> listeners;
     private ArrayList<Modification<A>> modifications;
     private int modificationCounter;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @param <A> The component to track
  */
-public final class Modifications<A extends HistoryComponent<A>> implements Modification<A> {
+public final class Modifications<A extends Copyable<A>> implements Modification<A> {
     private final ArrayList<Modification<A>> modifications;
     private final String name;
 
@@ -37,7 +37,7 @@ public final class Modifications<A extends HistoryComponent<A>> implements Modif
      *
      * @param <A> The component to track
      */
-    public static final class Builder<A extends HistoryComponent<A>> {
+    public static final class Builder<A extends Copyable<A>> {
         private final ArrayList<Modification<A>> list;
         private final String name;
 

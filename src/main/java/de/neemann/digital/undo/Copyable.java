@@ -10,7 +10,7 @@ package de.neemann.digital.undo;
  *
  * @param <A> the concrete type
  */
-public interface HistoryComponent<A extends HistoryComponent<A>> {
+public interface Copyable<A extends Copyable<A>> {
     /**
      * @return a copy of itself
      */

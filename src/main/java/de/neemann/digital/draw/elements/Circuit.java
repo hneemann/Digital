@@ -30,7 +30,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.digital.undo.HistoryComponent;
+import de.neemann.digital.undo.Copyable;
 import de.neemann.gui.language.Language;
 
 import java.io.*;
@@ -45,7 +45,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * create a runnable model representation (see {@link de.neemann.digital.core.Model}).
  * This class is also serialized to store a circuit on disk.
  */
-public class Circuit implements HistoryComponent<Circuit> {
+public class Circuit implements Copyable<Circuit> {
     private static final Set<Drawable> EMPTY_SET = Collections.emptySet();
 
     private int version = 1;
@@ -381,7 +381,7 @@ public class Circuit implements HistoryComponent<Circuit> {
      * @param shapeFactory the shape factory
      * @return the list
      */
-    public ArrayList<Movable> getElementsToCopy(Vector min, Vector max, ShapeFactory shapeFactory) {
+    public ArrayList<Movable> copyElementsToMove(Vector min, Vector max, ShapeFactory shapeFactory) {
         ArrayList<Movable> m = new ArrayList<>();
         for (VisualElement vp : visualElements)
             if (vp.matches(min, max))

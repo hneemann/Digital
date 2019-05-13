@@ -11,7 +11,7 @@ public class UndoManagerTest extends TestCase {
 
     private int changedCount;
 
-    public static class MyString implements HistoryComponent<MyString> {
+    public static class MyString implements Copyable<MyString> {
         private String text;
 
         private MyString(String text) {
@@ -31,7 +31,7 @@ public class UndoManagerTest extends TestCase {
     public static class Append implements Modification<MyString> {
         private final String app;
 
-        public Append(String app) {
+        private Append(String app) {
             this.app = app;
         }
 
