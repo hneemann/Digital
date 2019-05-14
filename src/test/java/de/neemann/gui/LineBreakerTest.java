@@ -39,5 +39,17 @@ public class LineBreakerTest extends TestCase {
         assertEquals("<html>this is a<br>test string</html>", new LineBreaker(60).toHTML().preserveContainedLineBreaks().toHTML().breakLines("this is a\n   test  string"));
     }
 
+    public void testBreakLinesLineCount() throws Exception {
+        check("", 0, new LineBreaker(10),"");
+        check("This", 1, new LineBreaker(10),"This");
+        check("This is a\ntest", 2, new LineBreaker(10),"This is a test");
+        check("This is a\ntext used\nto check\nthe line\ncount", 5, new LineBreaker(10),"This is a text used to check the line count");
+    }
+
+    private void check(String should, int lineCount, LineBreaker lineBreaker, String textToBreak) {
+        assertEquals(should, lineBreaker.breakLines(textToBreak));
+        assertEquals(lineCount, lineBreaker.getLineCount());
+    }
+
 
 }
