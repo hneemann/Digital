@@ -40,8 +40,13 @@ auftritt.}}</string>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="180" y="180"/>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -261,7 +266,7 @@ C 1 1 0 1
     </wire>
     <wire>
       <p1 x="140" y="180"/>
-      <p2 x="180" y="180"/>
+      <p2 x="160" y="180"/>
     </wire>
     <wire>
       <p1 x="140" y="40"/>

@@ -778,5 +778,10 @@ public final class Keys {
                     .setMin(0)
                     .setSecondary();
 
+    /**
+     * Stores the IDE settings file
+     */
+    public static final Key<File> SETTINGS_IDE_CONFIG =
+            new Key.KeyFile("ideSettings", new File("")).setSecondary().setRequiresRestart();
 
 }
