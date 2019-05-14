@@ -39,6 +39,7 @@ public class VHDLGenerator implements Closeable {
     private final CodePrinter out;
     private ArrayList<File> testBenches;
     private boolean useClockIntegration = true;
+    private HDLModel model;
 
     /**
      * Creates a new exporter
@@ -70,7 +71,7 @@ public class VHDLGenerator implements Closeable {
             if (board != null && useClockIntegration)
                 clockIntegrator = board.getClockIntegrator();
 
-            HDLModel model = new HDLModel(library).create(circuit, clockIntegrator);
+            model = new HDLModel(library).create(circuit, clockIntegrator);
             for (HDLCircuit hdlCircuit : model)
                 hdlCircuit.applyDefaultOptimizations();
 
@@ -160,5 +161,12 @@ public class VHDLGenerator implements Closeable {
     public VHDLGenerator disableClockIntegration() {
         useClockIntegration = false;
         return this;
+    }
+
+    /**
+     * @return the hdl model
+     */
+    public HDLModel getModel() {
+        return model;
     }
 }

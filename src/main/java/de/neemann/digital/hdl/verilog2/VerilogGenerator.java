@@ -35,6 +35,7 @@ public class VerilogGenerator implements Closeable {
     private final CodePrinter out;
     private ArrayList<File> testBenches;
     private boolean useClockIntegration = true;
+    private HDLModel model;
 
     /**
      * Creates a new exporter
@@ -66,7 +67,7 @@ public class VerilogGenerator implements Closeable {
             if (board != null && useClockIntegration)
                 clockIntegrator = board.getClockIntegrator();
 
-            HDLModel model = new HDLModel(library).create(circuit, clockIntegrator);
+            model = new HDLModel(library).create(circuit, clockIntegrator);
             for (HDLCircuit hdlCircuit : model)
                 hdlCircuit.applyDefaultOptimizations();
 
@@ -153,6 +154,13 @@ public class VerilogGenerator implements Closeable {
     @Override
     public void close() throws IOException {
         out.close();
+    }
+
+    /**
+     * @return the used hdl model
+     */
+    public HDLModel getModel() {
+        return model;
     }
 
     /**

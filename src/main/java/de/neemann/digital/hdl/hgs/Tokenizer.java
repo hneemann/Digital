@@ -253,6 +253,9 @@ class Tokenizer {
                     case 't':
                         c = '\t';
                         break;
+                    case '"':
+                        c = '"';
+                        break;
                     default:
                         throw new IOException("not allowed in string: \\" + (char) c);
                 }

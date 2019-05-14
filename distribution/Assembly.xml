@@ -121,6 +121,7 @@
             <outputDirectory>/examples/hdl/</outputDirectory>
             <includes>
                 <include>*.dig</include>
+                <include>*.xml</include>
             </includes>
         </fileSet>
         <fileSet>

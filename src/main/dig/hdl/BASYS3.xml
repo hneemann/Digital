@@ -1,0 +1,68 @@
+<ide name="BASYS 3">
+    <commands>
+        <command name="Export to Vivado" requires="vhdl" filter="false">
+        </command>
+    </commands>
+    <files>
+        <file name="&lt;?=shortname?&gt;_constraints.xdc" overwrite="true" filter="true">
+            <content><![CDATA[<?
+
+port := 0;
+for (i:=0; i<sizeOf(hdl.ports);i++) {
+    port=hdl.ports[i];
+    if (port.bits=1) {
+        print("set_property PACKAGE_PIN "+port.pin+" [get_ports "+port.name+"]\n");
+        print("set_property IOSTANDARD LVCMOS33 [get_ports "+port.name+"]\n\n");
+        if (port.clock) {
+           print("create_clock -add -name sys_clk_pin -period 10 -waveform {0 5} [get_ports "+port.name+"]\n\n");
+        }
+    } else {
+        panic("multi bit ports are not yet supported!");
+    }
+}
+print("set_property CFGBVS VCCO  [current_design]\n");
+print("set_property CONFIG_VOLTAGE 3.3 [current_design]\n");
+
+            ?>]]></content>
+        </file>
+        <file name="vivado/&lt;?=shortname?&gt;.xpr" overwrite="true" filter="true">
+            <content><![CDATA[<?print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");?>
+<!-- Created by Digital -->
+
+<Project Version="7" Minor="20" Path="<?=dir?>/vivado/<?=shortname?>.xpr">
+  <DefaultLaunch Dir="$PRUNDIR"/>
+  <Configuration>
+    <Option Name="Part" Val="xc7a35ticpg236-1L"/>
+  </Configuration>
+  <FileSets Version="1" Minor="31">
+    <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+      <Filter Type="Srcs"/>
+      <File Path="$PPRDIR/../<?=shortname?>.vhdl">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="DesignMode" Val="RTL"/>
+        <Option Name="TopModule" Val="main"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+      <Filter Type="Constrs"/>
+      <File Path="$PPRDIR/../<?=shortname?>_constraints.xdc">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="ConstrsType" Val="XDC"/>
+      </Config>
+    </FileSet>
+  </FileSets>
+</Project>]]></content>
+        </file>
+    </files>
+</ide>

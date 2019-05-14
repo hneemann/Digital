@@ -294,7 +294,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void checkIDEIntegration(MainBuilder builder, JMenuBar menuBar) {
         if (builder.mainFrame) {
-            File f = Settings.getInstance().get(Keys.SETTINGS_IDE_CONFIG);
+            File f = Settings.getInstance().get(Keys.SETTINGS_TOOLCHAIN_CONFIG);
             if (f.getPath().length() > 0) {
                 try {
                     menuBar.add(

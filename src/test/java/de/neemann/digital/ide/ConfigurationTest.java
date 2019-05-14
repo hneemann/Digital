@@ -35,12 +35,12 @@ public class ConfigurationTest extends TestCase {
 
         ToBreakRunner br = new ToBreakRunner(new File(Resources.getRoot(), "dig/hdl/negSimple.dig"));
 
-        final TestFileWriter fileWriter = new TestFileWriter();
+        final TestIOInterface fileWriter = new TestIOInterface();
         Configuration c = Configuration.load(new ByteArrayInputStream(xml.getBytes()))
                 .setFilenameProvider(() -> new File("z/test.dig"))
                 .setCircuitProvider(br::getCircuit)
                 .setLibraryProvider(br::getLibrary)
-                .setFileWriter(fileWriter);
+                .setIoInterface(fileWriter);
         ArrayList<Command> commands = c.getCommands();
         assertEquals(2, commands.size());
 
@@ -87,12 +87,12 @@ public class ConfigurationTest extends TestCase {
 
         ToBreakRunner br = new ToBreakRunner(new File(Resources.getRoot(), "dig/hdl/negSimple.dig"));
 
-        final TestFileWriter fileWriter = new TestFileWriter();
+        final TestIOInterface fileWriter = new TestIOInterface();
         Configuration c = Configuration.load(new ByteArrayInputStream(xml.getBytes()))
                 .setFilenameProvider(() -> new File("z/test.dig"))
                 .setCircuitProvider(br::getCircuit)
                 .setLibraryProvider(br::getLibrary)
-                .setFileWriter(fileWriter);
+                .setIoInterface(fileWriter);
         ArrayList<Command> commands = c.getCommands();
         assertEquals(1, commands.size());
 
@@ -105,7 +105,7 @@ public class ConfigurationTest extends TestCase {
     }
 
 
-    private class TestFileWriter implements Configuration.FileWriter {
+    private class TestIOInterface implements Configuration.IOInterface {
         private HashMap<String, ByteArrayOutputStream> files = new HashMap<>();
         private ArrayList<StartedCommand> commands = new ArrayList<>();
 

@@ -11,10 +11,10 @@ import de.neemann.digital.core.extern.ProcessStarter;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.SaveAsHelper;
-import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.HGSEvalException;
-import de.neemann.digital.hdl.hgs.Parser;
-import de.neemann.digital.hdl.hgs.ParserException;
+import de.neemann.digital.hdl.hgs.*;
+import de.neemann.digital.hdl.model2.HDLCircuit;
+import de.neemann.digital.hdl.model2.HDLModel;
+import de.neemann.digital.hdl.model2.HDLPort;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
@@ -80,7 +80,8 @@ public final class Configuration {
     private transient FilenameProvider filenameProvider;
     private transient CircuitProvider circuitProvider;
     private transient LibraryProvider libraryProvider;
-    private transient FileWriter fileWriter;
+    private transient IOInterface ioInterface;
+
 
     private Configuration() {
         files = new ArrayList<>();
@@ -120,8 +121,8 @@ public final class Configuration {
         return this;
     }
 
-    Configuration setFileWriter(FileWriter fileWriter) {
-        this.fileWriter = fileWriter;
+    Configuration setIoInterface(IOInterface ioInterface) {
+        this.ioInterface = ioInterface;
         return this;
     }
 
@@ -137,8 +138,8 @@ public final class Configuration {
         return menu;
     }
 
-    private void checkFilesToCreate(File fileToExecute) throws HGSEvalException, IOException, ParserException {
-        Context context = createContext(fileToExecute);
+    private void checkFilesToCreate(File fileToExecute, HDLModel hdlModel) throws HGSEvalException, IOException, ParserException {
+        Context context = createContext(fileToExecute, hdlModel);
 
         if (files != null)
             for (FileToCreate f : files) {
@@ -156,25 +157,28 @@ public final class Configuration {
                         content = context.toString();
                     }
 
-                    try (OutputStream out = getFileWriter().getOutputStream(filename)) {
+                    try (OutputStream out = getIoInterface().getOutputStream(filename)) {
                         out.write(content.getBytes());
                     }
                 }
             }
     }
 
-    private Context createContext(File fileToExecute) throws HGSEvalException {
-        return new Context()
+    private Context createContext(File fileToExecute, HDLModel hdlModel) throws HGSEvalException {
+        final Context context = new Context()
                 .declareVar("path", fileToExecute.getPath())
                 .declareVar("dir", fileToExecute.getParentFile())
                 .declareVar("name", fileToExecute.getName())
                 .declareVar("shortname", createShortname(fileToExecute.getName()));
+        if (hdlModel != null)
+            context.declareVar("hdl", new ModelAccess(hdlModel.getMain()));
+        return context;
     }
 
-    private FileWriter getFileWriter() {
-        if (fileWriter == null)
-            fileWriter = new DefaultFileWriter();
-        return fileWriter;
+    private IOInterface getIoInterface() {
+        if (ioInterface == null)
+            ioInterface = new DefaultIOInterface();
+        return ioInterface;
     }
 
     private String createShortname(String name) {
@@ -184,22 +188,22 @@ public final class Configuration {
         return name;
     }
 
-    private void writeHDL(String hdl, File digFile) throws IOException {
+    private HDLModel writeHDL(String hdl, File digFile) throws IOException {
         switch (hdl) {
             case "verilog":
                 File verilogFile = SaveAsHelper.checkSuffix(digFile, "v");
-                final CodePrinter verilogPrinter = new CodePrinter(getFileWriter().getOutputStream(verilogFile));
+                final CodePrinter verilogPrinter = new CodePrinter(getIoInterface().getOutputStream(verilogFile));
                 try (VerilogGenerator vlog = new VerilogGenerator(libraryProvider.getCurrentLibrary(), verilogPrinter)) {
                     vlog.export(circuitProvider.getCurrentCircuit());
+                    return vlog.getModel();
                 }
-                break;
             case "vhdl":
                 File vhdlFile = SaveAsHelper.checkSuffix(digFile, "vhdl");
-                final CodePrinter vhdlPrinter = new CodePrinter(getFileWriter().getOutputStream(vhdlFile));
+                final CodePrinter vhdlPrinter = new CodePrinter(getIoInterface().getOutputStream(vhdlFile));
                 try (VHDLGenerator vlog = new VHDLGenerator(libraryProvider.getCurrentLibrary(), vhdlPrinter)) {
                     vlog.export(circuitProvider.getCurrentCircuit());
+                    return vlog.getModel();
                 }
-                break;
             default:
                 throw new IOException(Lang.get("err_hdlNotKnown_N", hdl));
         }
@@ -215,25 +219,26 @@ public final class Configuration {
         if (digFile != null) {
             try {
 
+                HDLModel hdlModel = null;
                 if (command.needsHDL())
-                    writeHDL(command.getHDL(), digFile);
+                    hdlModel = writeHDL(command.getHDL(), digFile);
 
-                checkFilesToCreate(digFile);
+                checkFilesToCreate(digFile, hdlModel);
 
                 String[] args = command.getArgs();
                 if (command.isFilter()) {
                     final int argCount = command.getArgs().length;
-                    Context context = createContext(digFile);
+                    Context context = createContext(digFile, hdlModel);
                     for (int i = 0; i < argCount; i++) {
                         context.clearOutput();
                         new Parser(args[i]).parse().execute(context);
                         args[i] = context.toString();
                     }
                 }
-
-                getFileWriter().startProcess(digFile.getParentFile(), args);
+                if (args != null)
+                    getIoInterface().startProcess(digFile.getParentFile(), args);
             } catch (Exception e) {
-                getFileWriter().showError(command, e);
+                getIoInterface().showError(command, e);
             }
         }
     }
@@ -289,7 +294,7 @@ public final class Configuration {
     /**
      * Interface used to write a file
      */
-    public interface FileWriter {
+    public interface IOInterface {
 
         /**
          * Creates an output stream
@@ -318,10 +323,15 @@ public final class Configuration {
         void showError(Command command, Exception e);
     }
 
-    private static final class DefaultFileWriter implements FileWriter {
+    private static final class DefaultIOInterface implements IOInterface {
 
         @Override
-        public OutputStream getOutputStream(File filename) throws FileNotFoundException {
+        public OutputStream getOutputStream(File filename) throws IOException {
+            final File parentFile = filename.getParentFile();
+            if (!parentFile.exists()) {
+                if (!parentFile.mkdirs())
+                    throw new IOException("could not create "+parentFile);
+            }
             return new FileOutputStream(filename);
         }
 
@@ -333,6 +343,68 @@ public final class Configuration {
         @Override
         public void showError(Command command, Exception e) {
             new ErrorMessage(Lang.get("msg_errorStartCommand_N", command.getName())).addCause(e).show();
+        }
+    }
+
+    private static final class ModelAccess implements HGSMap {
+        private final HDLCircuit hdlCircuit;
+
+        private ModelAccess(HDLCircuit hdlCircuit) {
+            this.hdlCircuit = hdlCircuit;
+        }
+
+        @Override
+        public Object hgsMapGet(String key) throws HGSEvalException {
+            switch (key) {
+                case "ports":
+                    return new PortsArray(hdlCircuit.getPorts());
+                default:
+                    throw new HGSEvalException("field " + key + " not found!");
+            }
+        }
+    }
+
+    private static final class PortsArray implements HGSArray {
+        private final ArrayList<HDLPort> ports;
+
+        private PortsArray(ArrayList<HDLPort> ports) {
+            this.ports = ports;
+        }
+
+        @Override
+        public int hgsArraySize() {
+            return ports.size();
+        }
+
+        @Override
+        public Object hgsArrayGet(int i) {
+            return new Port(ports.get(i));
+        }
+    }
+
+    private static final class Port implements HGSMap {
+        private final HDLPort hdlPort;
+
+        private Port(HDLPort hdlPort) {
+            this.hdlPort = hdlPort;
+        }
+
+        @Override
+        public Object hgsMapGet(String key) throws HGSEvalException {
+            switch (key) {
+                case "dir":
+                    return hdlPort.getDirection().name();
+                case "name":
+                    return hdlPort.getName();
+                case "bits":
+                    return hdlPort.getBits();
+                case "pin":
+                    return hdlPort.getPinNumber();
+                case "clock":
+                    return hdlPort.isClock();
+                default:
+                    throw new HGSEvalException("field " + key + " not found!");
+            }
         }
     }
 }
