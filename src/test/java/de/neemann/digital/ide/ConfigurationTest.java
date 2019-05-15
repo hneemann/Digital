@@ -117,7 +117,7 @@ public class ConfigurationTest extends TestCase {
         }
 
         @Override
-        public void startProcess(File dir, String[] args) {
+        public void startProcess(Command command, File dir, boolean gui, String[] args) {
             commands.add(new StartedCommand(dir, args));
         }
 

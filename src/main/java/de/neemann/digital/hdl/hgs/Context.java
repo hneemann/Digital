@@ -134,8 +134,6 @@ public class Context {
      * @throws HGSEvalException HGSEvalException
      */
     public Context declareVar(String name, Object value) throws HGSEvalException {
-        if (map.containsKey(name))
-            throw new HGSEvalException("Variable '" + name + "' already declared!");
         map.put(name, value);
         return this;
     }

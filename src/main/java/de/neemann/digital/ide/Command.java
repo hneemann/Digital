@@ -11,8 +11,10 @@ package de.neemann.digital.ide;
 public class Command {
     private final String name;
     private final boolean filter;
+    private final boolean gui;
     private final String requires;
     private final String[] args;
+    private final int timeout;
 
     /**
      * Creates a new command
@@ -20,13 +22,17 @@ public class Command {
      * @param name     the name of the command
      * @param requires the hdl which is required, either "verilog" of "vhdl"
      * @param filter   the true, the commands args are filtered
+     * @param gui      if true the appp has a gui
+     * @param timeout  the timeout value in sec
      * @param args     the arguments
      */
-    public Command(String name, String requires, boolean filter, String... args) {
+    public Command(String name, String requires, boolean filter, boolean gui, int timeout, String... args) {
         this.name = name;
         this.requires = requires;
+        this.timeout = timeout;
         this.args = args;
         this.filter = filter;
+        this.gui = gui;
     }
 
     /**
@@ -62,5 +68,19 @@ public class Command {
      */
     public boolean isFilter() {
         return filter;
+    }
+
+    /**
+     * @return true if application has a gui
+     */
+    public boolean isGui() {
+        return gui;
+    }
+
+    /**
+     * @return timeout in seconds
+     */
+    public int getTimeout() {
+        return timeout;
     }
 }

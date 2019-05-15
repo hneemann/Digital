@@ -7,7 +7,7 @@ package de.neemann.digital.ide;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import de.neemann.digital.core.extern.ProcessStarter;
+import de.neemann.digital.builder.tt2.OSExecute;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.SaveAsHelper;
@@ -20,6 +20,8 @@ import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
  * Used to create the IDE integration
  */
 public final class Configuration {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
 
     /**
      * Loads a configuration
@@ -66,6 +69,8 @@ public final class Configuration {
         xStream.aliasAttribute(Command.class, "name", "name");
         xStream.aliasAttribute(Command.class, "requires", "requires");
         xStream.aliasAttribute(Command.class, "filter", "filter");
+        xStream.aliasAttribute(Command.class, "gui", "gui");
+        xStream.aliasAttribute(Command.class, "timeout", "timeout");
         xStream.addImplicitCollection(Command.class, "args", "arg", String.class);
         xStream.alias("file", FileToCreate.class);
         xStream.aliasAttribute(FileToCreate.class, "name", "name");
@@ -236,7 +241,7 @@ public final class Configuration {
                     }
                 }
                 if (args != null)
-                    getIoInterface().startProcess(digFile.getParentFile(), args);
+                    getIoInterface().startProcess(command, digFile.getParentFile(), command.isGui(), args);
             } catch (Exception e) {
                 getIoInterface().showError(command, e);
             }
@@ -308,11 +313,13 @@ public final class Configuration {
         /**
          * Starts a process
          *
-         * @param dir  the folder to start the process in
-         * @param args the arguments
+         * @param command the command started
+         * @param dir     the folder to start the process in
+         * @param gui     true if app has a gui
+         * @param args    the arguments
          * @throws IOException IOException
          */
-        void startProcess(File dir, String[] args) throws IOException;
+        void startProcess(Command command, File dir, boolean gui, String[] args) throws IOException;
 
         /**
          * Shows an error message
@@ -330,14 +337,30 @@ public final class Configuration {
             final File parentFile = filename.getParentFile();
             if (!parentFile.exists()) {
                 if (!parentFile.mkdirs())
-                    throw new IOException("could not create "+parentFile);
+                    throw new IOException("could not create " + parentFile);
             }
             return new FileOutputStream(filename);
         }
 
         @Override
-        public void startProcess(File dir, String[] args) throws IOException {
-            ProcessStarter.start(dir, args);
+        public void startProcess(Command command, File dir, boolean gui, String[] args) throws IOException {
+            OSExecute os = new OSExecute(args)
+                    .setTimeOutSec(command.getTimeout())
+                    .setWorkingDir(dir);
+            if (gui)
+                os.startInThread(new OSExecute.ProcessCallback() {
+                    @Override
+                    public void processTerminated(String consoleOut) {
+                        LOGGER.info("process '" + command.getName() + "' says:\n" + consoleOut);
+                    }
+
+                    @Override
+                    public void exception(Exception e) {
+                        showError(command, e);
+                    }
+                });
+            else
+                os.startAndWait();
         }
 
         @Override

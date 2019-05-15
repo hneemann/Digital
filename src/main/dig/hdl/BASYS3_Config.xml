@@ -1,15 +1,16 @@
 <ide name="BASYS 3">
     <commands>
-        <command name="Export to Vivado" requires="vhdl" filter="false">
+        <command name="Export to Vivado" requires="vhdl" filter="true" gui="true" timeout="0">
+            <arg>vivado</arg>
+            <arg>vivado/&lt;?=shortname?&gt;.xpr</arg>
         </command>
     </commands>
     <files>
         <file name="&lt;?=shortname?&gt;_constraints.xdc" overwrite="true" filter="true">
             <content><![CDATA[<?
 
-port := 0;
 for (i:=0; i<sizeOf(hdl.ports);i++) {
-    port=hdl.ports[i];
+    port:=hdl.ports[i];
     if (port.bits=1) {
         print("set_property PACKAGE_PIN "+port.pin+" [get_ports "+port.name+"]\n");
         print("set_property IOSTANDARD LVCMOS33 [get_ports "+port.name+"]\n\n");
@@ -25,7 +26,7 @@ print("set_property CONFIG_VOLTAGE 3.3 [current_design]\n");
 
             ?>]]></content>
         </file>
-        <file name="vivado/&lt;?=shortname?&gt;.xpr" overwrite="true" filter="true">
+        <file name="vivado/&lt;?=shortname?&gt;.xpr" overwrite="false" filter="true">
             <content><![CDATA[<?print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");?>
 <!-- Created by Digital -->
 

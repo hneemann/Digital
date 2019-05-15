@@ -73,6 +73,8 @@ public class OSExecute {
      * @return this for chained calls
      */
     public OSExecute setTimeOutSec(int timeOutSec) {
+        if (timeOutSec == 0)
+            timeOutSec = Integer.MAX_VALUE;
         this.timeOutSec = timeOutSec;
         return this;
     }
@@ -195,9 +197,11 @@ public class OSExecute {
         public void run() {
             try {
                 String result = os.startAndWait();
-                callback.processTerminated(result);
+                if (callback != null)
+                    callback.processTerminated(result);
             } catch (Exception e) {
-                callback.exception(e);
+                if (callback != null)
+                    callback.exception(e);
             }
         }
     }
