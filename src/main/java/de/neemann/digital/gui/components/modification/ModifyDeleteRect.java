@@ -7,13 +7,13 @@ package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.Modification;
 
 /**
  * Modifier to delete all elements in a given rectangle
  */
-public class ModifyDeleteRect implements Modification {
+public class ModifyDeleteRect implements Modification<Circuit> {
     private final Vector min;
     private final Vector max;
 
@@ -29,7 +29,7 @@ public class ModifyDeleteRect implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) {
         circuit.delete(min, max);
     }
 

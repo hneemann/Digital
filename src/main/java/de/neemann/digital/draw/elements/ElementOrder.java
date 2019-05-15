@@ -7,8 +7,8 @@ package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.ElementOrderer;
-import de.neemann.digital.gui.components.modification.Modification;
-import de.neemann.digital.gui.components.modification.Modifications;
+import de.neemann.digital.undo.Modification;
+import de.neemann.digital.undo.Modifications;
 
 import java.util.ArrayList;
 
@@ -19,16 +19,18 @@ import java.util.ArrayList;
 public class ElementOrder implements ElementOrderer.OrderInterface<String> {
 
     private final ArrayList<Entry> entries;
-    private final Modifications.Builder modifications;
+    private final Modifications.Builder<Circuit> modifications;
+    private final String modificationName;
 
     /**
      * Creates a new instance
      *
      * @param circuitComponent the circuitComponent witch components are to order
      * @param filter           the filter to select the entries to order
-     * @param name             name of modification
+     * @param modificationName name of modification
      */
-    public ElementOrder(CircuitComponent circuitComponent, ElementFilter filter, String name) {
+    public ElementOrder(CircuitComponent circuitComponent, ElementFilter filter, String modificationName) {
+        this.modificationName = modificationName;
         ArrayList<VisualElement> elements = circuitComponent.getCircuit().getElements();
         entries = new ArrayList<>();
         for (int i = 0; i < elements.size(); i++)
@@ -37,7 +39,7 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
                 if (n != null && n.length() > 0)
                     entries.add(new Entry(i, n));
             }
-        modifications = new Modifications.Builder(name);
+        modifications = new Modifications.Builder<>(modificationName);
     }
 
     @Override
@@ -63,18 +65,13 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
         entries.set(i, entries.get(j));
         entries.set(j, x);
 
-        modifications.add((circuit, library) -> {
-            ArrayList<VisualElement> elements = circuit.getElements();
-            VisualElement y = elements.get(index1);
-            elements.set(index1, elements.get(index2));
-            elements.set(index2, y);
-        });
+        modifications.add(new SwapModification(index1, index2, modificationName));
     }
 
     /**
      * @return the modification
      */
-    public Modification getModifications() {
+    public Modification<Circuit> getModifications() {
         return modifications.build();
     }
 
@@ -97,5 +94,30 @@ public class ElementOrder implements ElementOrderer.OrderInterface<String> {
          * @return returns true if element is to order
          */
         boolean accept(VisualElement element);
+    }
+
+    private static final class SwapModification implements Modification<Circuit> {
+        private final int index1;
+        private final int index2;
+        private final String name;
+
+        private SwapModification(int index1, int index2, String name) {
+            this.index1 = index1;
+            this.index2 = index2;
+            this.name = name;
+        }
+
+        @Override
+        public void modify(Circuit circuit) {
+            ArrayList<VisualElement> elements = circuit.getElements();
+            VisualElement y = elements.get(index1);
+            elements.set(index1, elements.get(index2));
+            elements.set(index2, y);
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }

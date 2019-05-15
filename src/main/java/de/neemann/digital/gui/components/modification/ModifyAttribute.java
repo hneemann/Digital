@@ -8,8 +8,8 @@ package de.neemann.digital.gui.components.modification;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.ModifyException;
 
 /**
  * Modifies an attribute.
@@ -35,7 +35,7 @@ public class ModifyAttribute<VALUE> extends ModificationOfVisualElement {
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) throws ModifyException {
         VisualElement ve = getVisualElement(circuit);
         ve.getElementAttributes().set(key, value);
     }

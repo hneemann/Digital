@@ -7,9 +7,8 @@ package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.ModifyException;
 
 /**
  * Modifier which deletes an element
@@ -20,14 +19,13 @@ public class ModifyDeleteElement extends ModificationOfVisualElement {
      * The element to delete
      *
      * @param ve         the visual element
-     * @param initialPos its initial position
      */
-    public ModifyDeleteElement(VisualElement ve, Vector initialPos) {
-        super(ve, initialPos, Lang.get("mod_deletedElement_N", getToolTipName(ve)));
+    public ModifyDeleteElement(VisualElement ve) {
+        super(ve, Lang.get("mod_deletedElement_N", getToolTipName(ve)));
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) throws ModifyException {
         circuit.delete(getVisualElement(circuit));
     }
 }

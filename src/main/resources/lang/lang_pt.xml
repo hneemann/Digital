@@ -1317,7 +1317,6 @@
     <string name="mod_redo_N">Refazer: {0}</string>
     <string name="mod_circuitAttrModified">Atributos de circuito modificados.</string>
     <string name="mod_modifiedMeasurementOrdering">Medidas ordenadas.</string>
-    <string name="mod_set_N_BitsToSelection">Definição da largura em bitas em {0} nos componentes selecionados.</string>
     <string name="mod_groupEdit">Atributos modificados nos componentes selecionados.</string>
     <string name="mod_splitWire">Dividir um fio em dois outros.</string>
 

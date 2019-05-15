@@ -32,7 +32,6 @@ import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.gui.components.*;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.gui.components.expression.ExpressionDialog;
-import de.neemann.digital.gui.components.modification.Modifications;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.gui.components.modification.ModifyMeasurementOrdering;
 import de.neemann.digital.gui.components.table.TableDialog;
@@ -54,6 +53,8 @@ import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
+import de.neemann.digital.undo.ChangedListener;
+import de.neemann.digital.undo.Modifications;
 import de.neemann.gui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +85,7 @@ import static javax.swing.JOptionPane.showInputDialog;
  * The main frame of the Digital Simulator
  * Set log level: -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
  */
-public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, Circuit.ChangedListener {
+public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, ChangedListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
@@ -175,7 +176,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         baseFilename = builder.baseFileName;
 
         circuitComponent = new CircuitComponent(this, library, shapeFactory);
-        circuitComponent.getCircuit().addListener(this);
+        circuitComponent.addListener(this);
         if (builder.circuit != null) {
             SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(builder.circuit));
             setFilename(builder.fileToOpen, false);
@@ -733,7 +734,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 try {
                     Object data = clipboard.getData(DataFlavor.stringFlavor);
                     if (data instanceof String) {
-                        ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory, new Vector(0, 0));
+                        ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory);
                         Circuit circuit = new Circuit();
                         for (Movable m : elements) {
                             if (m instanceof Wire)
@@ -797,7 +798,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (!circuitComponent.isLocked()) {
                     String prefix = showInputDialog(Lang.get("menu_addPrefix"));
                     if (prefix != null && prefix.length() > 0) {
-                        Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_addPrefix"));
+                        Modifications.Builder<Circuit> builder = new Modifications.Builder<>(Lang.get("menu_addPrefix"));
                         for (Drawable d : circuitComponent.getHighLighted()) {
                             if (d instanceof VisualElement) {
                                 VisualElement v = (VisualElement) d;
@@ -817,7 +818,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!circuitComponent.isLocked()) {
-                    Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_removePrefix"));
+                    Modifications.Builder<Circuit> builder = new Modifications.Builder<>(Lang.get("menu_removePrefix"));
                     for (Drawable d : circuitComponent.getHighLighted()) {
                         if (d instanceof VisualElement) {
                             VisualElement v = (VisualElement) d;
@@ -844,7 +845,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (!circuitComponent.isLocked()) {
-                    Modifications.Builder builder = new Modifications.Builder(Lang.get("menu_removePinNumbers"));
+                    Modifications.Builder<Circuit> builder = new Modifications.Builder<>(Lang.get("menu_removePinNumbers"));
                     for (VisualElement v : circuitComponent.getCircuit().getElements()) {
                         if (v.equalsDescription(In.DESCRIPTION)
                                 || v.equalsDescription(Clock.DESCRIPTION)
@@ -1437,7 +1438,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     @Override
     public boolean isStateChanged() {
-        return circuitComponent.getCircuit().isModified();
+        return circuitComponent.isModified();
     }
 
     @Override
@@ -1501,7 +1502,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private void setFilename(File filename, boolean toPrefs) {
-        modifiedPrefixVisible = circuitComponent.getCircuit().isModified();
+        modifiedPrefixVisible = circuitComponent.isModified();
         if (save != null)
             save.setEnabled(modifiedPrefixVisible);
         String prefix = "";
@@ -1520,9 +1521,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
 
     @Override
-    public void circuitHasChanged() {
+    public void hasChanged() {
         ensureModelIsStopped();
-        if (modifiedPrefixVisible != circuitComponent.getCircuit().isModified())
+        if (modifiedPrefixVisible != circuitComponent.isModified())
             setFilename(filename, false);
     }
 

@@ -172,7 +172,7 @@ public class CopiedElementLabelRenamer {
         }
     }
 
-    private final class MinIndex {
+    private static final class MinIndex {
         private int min;
 
         private MinIndex(int number) {
@@ -189,7 +189,7 @@ public class CopiedElementLabelRenamer {
         }
     }
 
-    private final class PresentIndex {
+    private static final class PresentIndex {
         private HashSet<Integer> numbers;
         private int max = Integer.MIN_VALUE;
 

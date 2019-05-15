@@ -448,7 +448,6 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, stateVariableName);
         }
 
-        circuit.setModified(false);
         return circuit;
     }
 

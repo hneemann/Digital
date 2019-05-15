@@ -8,13 +8,13 @@ package de.neemann.digital.gui.components.modification;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.Modification;
 
 /**
  * Modifier to insert a wire.
  */
-public class ModifyInsertWire implements Modification {
+public class ModifyInsertWire implements Modification<Circuit> {
     private final Vector p1;
     private final Vector p2;
 
@@ -29,14 +29,14 @@ public class ModifyInsertWire implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) {
         circuit.add(new Wire(p1, p2));
     }
 
     /**
      * @return null if this is a wire with zero length
      */
-    public Modification checkIfLenZero() {
+    public Modification<Circuit> checkIfLenZero() {
         if ((p1.x == p2.x) && (p1.y == p2.y))
             return null;
         else

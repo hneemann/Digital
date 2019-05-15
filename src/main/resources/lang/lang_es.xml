@@ -1180,7 +1180,6 @@
   <string name="mod_redo_N">Rehacer: {0}</string>
   <string name="mod_circuitAttrModified">Propiedades del circuito modificadas.</string>
   <string name="mod_modifiedMeasurementOrdering">Medidas ordenadas.</string>
-  <string name="mod_set_N_BitsToSelection">Fija el número de bits de datos a {0} en los componentes seleccionados.</string>
   <string name="mod_groupEdit">Propiedades de los componentes seleccionados modificadas.</string>
   <string name="mod_splitWire">Divide un cable en dos.</string>
   <string name="lib_Logic">Lógica</string>

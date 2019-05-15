@@ -30,6 +30,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
+import de.neemann.digital.undo.Copyable;
 import de.neemann.gui.language.Language;
 
 import java.io.*;
@@ -44,7 +45,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * create a runnable model representation (see {@link de.neemann.digital.core.Model}).
  * This class is also serialized to store a circuit on disk.
  */
-public class Circuit {
+public class Circuit implements Copyable<Circuit> {
     private static final Set<Drawable> EMPTY_SET = Collections.emptySet();
 
     private int version = 1;
@@ -53,9 +54,6 @@ public class Circuit {
     private ArrayList<Wire> wires;
     private List<String> measurementOrdering;
     private transient boolean dotsPresent = false;
-    private transient boolean modified = false;
-    private transient ArrayList<CircRect> recs;
-    private transient ArrayList<ChangedListener> listeners;
     private transient File origin;
 
     /**
@@ -173,7 +171,6 @@ public class Circuit {
             XStream xStream = Circuit.getxStream();
             w.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             xStream.marshal(this, new PrettyPrintWriter(w));
-            modified = false;
         }
     }
 
@@ -190,7 +187,7 @@ public class Circuit {
      *
      * @param original the original
      */
-    public Circuit(Circuit original) {
+    private Circuit(Circuit original) {
         this();
         for (VisualElement ve : original.visualElements)
             visualElements.add(new VisualElement(ve));
@@ -204,6 +201,24 @@ public class Circuit {
             measurementOrdering.addAll(original.measurementOrdering);
 
         version = 1;
+    }
+
+    @Override
+    public Circuit createDeepCopy() {
+        return new Circuit(this);
+    }
+
+    /**
+     * Create a shallow copy of this circuit
+     *
+     * @return the shallow copy
+     */
+    public Circuit createShallowCopy() {
+        Circuit circuit = new Circuit();
+        circuit.attributes = new ElementAttributes(attributes);
+        circuit.wires.addAll(wires);
+        circuit.visualElements.addAll(visualElements);
+        return circuit;
     }
 
     /**
@@ -258,11 +273,6 @@ public class Circuit {
             p.drawTo(graphic, highLighted.contains(p) ? highlight : null);
             graphic.closeGroup();
         }
-
-        // plot debugging rectangles
-        if (recs != null)
-            for (CircRect r : recs)
-                r.drawTo(graphic);
     }
 
     /**
@@ -273,7 +283,6 @@ public class Circuit {
      */
     public Circuit add(VisualElement visualElement) {
         visualElements.add(visualElement);
-        modified();
         return this;
     }
 
@@ -292,7 +301,6 @@ public class Circuit {
         wires = checker.check();
 
         dotsPresent = false;
-        modified();
         return this;
     }
 
@@ -304,7 +312,6 @@ public class Circuit {
         wires = checker.check();
 
         dotsPresent = false;
-        modified();
     }
 
     /**
@@ -374,7 +381,7 @@ public class Circuit {
      * @param shapeFactory the shape factory
      * @return the list
      */
-    public ArrayList<Movable> getElementsToCopy(Vector min, Vector max, ShapeFactory shapeFactory) {
+    public ArrayList<Movable> copyElementsToMove(Vector min, Vector max, ShapeFactory shapeFactory) {
         ArrayList<Movable> m = new ArrayList<>();
         for (VisualElement vp : visualElements)
             if (vp.matches(min, max))
@@ -388,6 +395,44 @@ public class Circuit {
             return null;
         else
             return m;
+    }
+
+    /**
+     * Returns a list of all Drawables and Moveables in the given rectangle.
+     * It creates a deep copy of all elements.
+     *
+     * @param min          upper left corner of the rectangle
+     * @param max          lower right corner of the rectangle
+     * @param shapeFactory the shape factory
+     * @return the list
+     */
+    public RectContainer copyElementsInRect(Vector min, Vector max, ShapeFactory shapeFactory) {
+        ArrayList<Drawable> d = new ArrayList<>();
+        ArrayList<Movable> m = new ArrayList<>();
+        for (VisualElement vp : visualElements)
+            if (vp.matches(min, max)) {
+                final VisualElement ve = new VisualElement(vp).setShapeFactory(shapeFactory);
+                m.add(ve);
+                d.add(ve);
+            }
+
+        for (Wire w : wires) {
+            final boolean p1Inside = w.p1.inside(min, max);
+            final boolean p2Inside = w.p2.inside(min, max);
+            if (p1Inside || p2Inside) {
+                final Wire ww = new Wire(w);
+                d.add(ww);
+                if (p1Inside)
+                    m.add(ww.getMovableP1());
+                if (p2Inside)
+                    m.add(ww.getMovableP2());
+            }
+        }
+
+        if (m.isEmpty() && d.isEmpty())
+            return null;
+        else
+            return new RectContainer(d, m);
     }
 
 
@@ -419,7 +464,6 @@ public class Circuit {
         }
 
         dotsPresent = false;
-        modified();
     }
 
     /**
@@ -428,8 +472,7 @@ public class Circuit {
      * @param partToDelete the element to delete
      */
     public void delete(VisualElement partToDelete) {
-        if (visualElements.remove(partToDelete))
-            modified();
+        visualElements.remove(partToDelete);
     }
 
     /**
@@ -442,7 +485,6 @@ public class Circuit {
             WireConsistencyChecker checker = new WireConsistencyChecker(wires);
             wires = checker.check();
             dotsPresent = false;
-            modified();
         }
     }
 
@@ -527,32 +569,6 @@ public class Circuit {
 
         return null;
     }
-
-
-    /**
-     * Sets this circuits state to modified
-     */
-    public void modified() {
-        modified = true;
-        fireChangedEvent();
-    }
-
-    /**
-     * Sets this circuits state to not modified
-     *
-     * @param modified the modified state
-     */
-    public void setModified(boolean modified) {
-        this.modified = modified;
-    }
-
-    /**
-     * @return true if modified
-     */
-    public boolean isModified() {
-        return modified;
-    }
-
 
     /**
      * @return a list of all wires
@@ -691,97 +707,10 @@ public class Circuit {
     }
 
     /**
-     * Add a rectangle  to the circuit.
-     * Only used to debug the {@link de.neemann.digital.builder.circuit.CircuitBuilder}.
-     *
-     * @param pos  pos of rectangle
-     * @param size size of rectangle
-     */
-    public void addRect(Vector pos, Vector size) {
-        if (recs == null)
-            recs = new ArrayList<>();
-        recs.add(new CircRect(pos, size));
-    }
-
-    /**
      * @return the file origin of this circuit, may be null
      */
     public File getOrigin() {
         return origin;
-    }
-
-    private static final class CircRect {
-        private final Vector pos;
-        private final Vector size;
-
-        private CircRect(Vector pos, Vector size) {
-            this.pos = pos;
-            this.size = size;
-        }
-
-        private void drawTo(Graphic graphic) {
-
-            Polygon p = new Polygon(true)
-                    .add(pos)
-                    .add(pos.add(size.x, 0))
-                    .add(pos.add(size))
-                    .add(pos.add(0, size.y));
-
-            graphic.drawPolygon(p, Style.DASH);
-        }
-    }
-
-    /**
-     * Add a listener for circuit changes to this circuit
-     *
-     * @param listener the listener
-     */
-    public void addListener(ChangedListener listener) {
-        if (listeners == null) listeners = new ArrayList<>();
-        listeners.add(listener);
-    }
-
-    /**
-     * takes the listener attached to the given circuit
-     *
-     * @param circuit the circuit to take the listeners from
-     */
-    public void getListenersFrom(Circuit circuit) {
-        if (circuit.listeners != null) {
-            if (listeners == null)
-                listeners = new ArrayList<>();
-            listeners.addAll(circuit.listeners);
-        }
-    }
-
-    /**
-     * Remove a listener for circuit changes from this circuit
-     *
-     * @param listener the listener
-     */
-    public void removeListener(ChangedListener listener) {
-        if (listeners != null)
-            listeners.remove(listener);
-    }
-
-    /**
-     * notifies listeners about circuit changes
-     */
-    public void fireChangedEvent() {
-        if (listeners != null)
-            for (ChangedListener l : listeners)
-                l.circuitHasChanged();
-    }
-
-
-    /**
-     * Interface to register a listener for model changes.
-     */
-    public interface ChangedListener {
-        /**
-         * called if circuit has changed
-         */
-        void circuitHasChanged();
     }
 
     /**
@@ -795,5 +724,32 @@ public class Circuit {
          * @return true if accepted
          */
         boolean accept(VisualElement v);
+    }
+
+    /**
+     * Container to return movables and drawables at once.
+     */
+    public static final class RectContainer {
+        private final ArrayList<Drawable> d;
+        private final ArrayList<Movable> m;
+
+        private RectContainer(ArrayList<Drawable> d, ArrayList<Movable> m) {
+            this.d = d;
+            this.m = m;
+        }
+
+        /**
+         * @return the list of drawables
+         */
+        public ArrayList<Drawable> getDrawables() {
+            return d;
+        }
+
+        /**
+         * @return the list of movables
+         */
+        public ArrayList<Movable> getMovables() {
+            return m;
+        }
     }
 }

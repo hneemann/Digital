@@ -7,15 +7,15 @@ package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.Modification;
 
 import static de.neemann.digital.gui.components.modification.ModificationOfVisualElement.getToolTipName;
 
 /**
  * Modifier to insert an element
  */
-public class ModifyInsertElement implements Modification {
+public class ModifyInsertElement implements Modification<Circuit> {
     private final VisualElement element;
 
     /**
@@ -28,7 +28,7 @@ public class ModifyInsertElement implements Modification {
     }
 
     @Override
-    public void modify(Circuit circuit, ElementLibrary library) {
+    public void modify(Circuit circuit) {
         circuit.add(new VisualElement(element));
     }
 

@@ -1346,7 +1346,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="mod_redo_N">Wiederherstellen: {0}</string>
     <string name="mod_circuitAttrModified">Schaltungsattribute verändert.</string>
     <string name="mod_modifiedMeasurementOrdering">Reihenfolge der Messwerte verändert.</string>
-    <string name="mod_set_N_BitsToSelection">In selektierten Elementen die Zahl der Daten-Bits auf {0} gesetzt.</string>
     <string name="mod_groupEdit">In selektierten Elementen Attribute geändert.</string>
     <string name="mod_splitWire">Leitung in zwei Leitungen teilen.</string>
 
