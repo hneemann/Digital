@@ -8,7 +8,10 @@ package de.neemann.digital.ide;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.builder.tt2.OSExecute;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.hdl.hgs.*;
@@ -27,6 +30,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used to create the IDE integration
@@ -65,6 +69,7 @@ public final class Configuration {
         final XStream xStream = new XStream(new StaxDriver());
         xStream.alias("ide", Configuration.class);
         xStream.aliasAttribute(Configuration.class, "name", "name");
+        xStream.aliasAttribute(Configuration.class, "clock", "clock");
         xStream.alias("command", Command.class);
         xStream.aliasAttribute(Command.class, "name", "name");
         xStream.aliasAttribute(Command.class, "requires", "requires");
@@ -80,6 +85,7 @@ public final class Configuration {
     }
 
     private String name;
+    private int clock;
     private ArrayList<Command> commands;
     private ArrayList<FileToCreate> files;
     private transient FilenameProvider filenameProvider;
@@ -231,17 +237,18 @@ public final class Configuration {
                 checkFilesToCreate(digFile, hdlModel);
 
                 String[] args = command.getArgs();
-                if (command.isFilter()) {
-                    final int argCount = command.getArgs().length;
-                    Context context = createContext(digFile, hdlModel);
-                    for (int i = 0; i < argCount; i++) {
-                        context.clearOutput();
-                        new Parser(args[i]).parse().execute(context);
-                        args[i] = context.toString();
+                if (args != null) {
+                    if (command.isFilter()) {
+                        final int argCount = command.getArgs().length;
+                        Context context = createContext(digFile, hdlModel);
+                        for (int i = 0; i < argCount; i++) {
+                            context.clearOutput();
+                            new Parser(args[i]).parse().execute(context);
+                            args[i] = context.toString();
+                        }
                     }
-                }
-                if (args != null)
                     getIoInterface().startProcess(command, digFile.getParentFile(), command.isGui(), args);
+                }
             } catch (Exception e) {
                 getIoInterface().showError(command, e);
             }
@@ -264,6 +271,16 @@ public final class Configuration {
 
     ArrayList<Command> getCommands() {
         return commands;
+    }
+
+    private int getFrequency() throws HGSEvalException {
+        List<VisualElement> l = circuitProvider.getCurrentCircuit().findElements(v -> v.equalsDescription(Clock.DESCRIPTION));
+        if (l.isEmpty())
+            throw new HGSEvalException("No clock component found!");
+        if (l.size() > 1)
+            throw new HGSEvalException("More than one clock components found!");
+
+        return l.get(0).getElementAttributes().get(Keys.FREQUENCY);
     }
 
     /**
@@ -369,7 +386,7 @@ public final class Configuration {
         }
     }
 
-    private static final class ModelAccess implements HGSMap {
+    private final class ModelAccess implements HGSMap {
         private final HDLCircuit hdlCircuit;
 
         private ModelAccess(HDLCircuit hdlCircuit) {
@@ -381,6 +398,8 @@ public final class Configuration {
             switch (key) {
                 case "ports":
                     return new PortsArray(hdlCircuit.getPorts());
+                case "frequency":
+                    return getFrequency();
                 default:
                     throw new HGSEvalException("field " + key + " not found!");
             }

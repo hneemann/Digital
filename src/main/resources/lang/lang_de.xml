@@ -1332,8 +1332,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_enabled">Aktiviert</string>
     <string name="key_enabled_tt">Aktiviert oder deaktiviert diese Komponente.</string>
 
-    <string name="key_toolChainConfig">Tool Chain</string>
-    <string name="key_toolChainConfig_tt">Kann für eine Integration einer externen Tool Chain verwendet werden.
+    <string name="key_toolChainConfig">Toolchain Konfiguration</string>
+    <string name="key_toolChainConfig_tt">Kann für eine Integration einer externen Toolchain verwendet werden.
         Erlaubt den Start externer Tools, um z.B. einen FPGA zu programmieren o.ä.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>

@@ -1320,8 +1320,8 @@
     <string name="key_enabled">Enabled</string>
     <string name="key_enabled_tt">Enables or disables this component.</string>
 
-    <string name="key_toolChainConfig">Tool Chain</string>
-    <string name="key_toolChainConfig_tt">Used to configurate an integration of a tool chain.
+    <string name="key_toolChainConfig">Toolchain Configuration</string>
+    <string name="key_toolChainConfig_tt">Used to configurate an integration of a toolchain.
         Allows the start of external tools, e.g. to program an FPGA or similar.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
