@@ -70,7 +70,7 @@ public class Parser {
     /**
      * Creates a new instance
      *
-     * @param reader the reader to parse
+     * @param reader  the reader to parse
      * @param srcFile the source file name if any
      */
     public Parser(Reader reader, String srcFile) {
@@ -323,6 +323,14 @@ public class Parser {
         }
     }
 
+    private double convToDouble(String num) throws ParserException {
+        try {
+            return Double.parseDouble(num);
+        } catch (NumberFormatException e) {
+            throw newParserException("not a number: " + tok.getIdent());
+        }
+    }
+
     private ParserException newUnexpectedToken(Tokenizer.Token token) {
         String name = token == IDENT ? tok.getIdent() : token.name();
         return newParserException("unexpected Token: " + name);
@@ -356,13 +364,13 @@ public class Parser {
                 case NOTEQUAL:
                     return c -> !Value.equals(a.value(c), b.value(c));
                 case LESS:
-                    return c -> Value.toLong(a.value(c)) < Value.toLong(b.value(c));
+                    return c -> Value.less(a.value(c), b.value(c));
                 case LESSEQUAL:
-                    return c -> Value.toLong(a.value(c)) <= Value.toLong(b.value(c));
+                    return c -> Value.lessEqual(a.value(c), b.value(c));
                 case GREATER:
-                    return c -> Value.toLong(a.value(c)) > Value.toLong(b.value(c));
+                    return c -> Value.less(b.value(c), a.value(c));
                 case GREATEREQUAL:
-                    return c -> Value.toLong(a.value(c)) >= Value.toLong(b.value(c));
+                    return c -> Value.lessEqual(b.value(c), a.value(c));
                 default:
                     throw newUnexpectedToken(t);
             }
@@ -435,7 +443,7 @@ public class Parser {
         while (nextIs(SUB)) {
             Expression a = ac;
             Expression b = parseMul();
-            ac = c -> Value.toLong(a.value(c)) - Value.toLong(b.value(c));
+            ac = c -> Value.sub(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -445,7 +453,7 @@ public class Parser {
         while (nextIs(MUL)) {
             Expression a = ac;
             Expression b = parseDiv();
-            ac = c -> Value.toLong(a.value(c)) * Value.toLong(b.value(c));
+            ac = c -> Value.mul(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -455,7 +463,7 @@ public class Parser {
         while (nextIs(DIV)) {
             Expression a = ac;
             Expression b = parseMod();
-            ac = c -> Value.toLong(a.value(c)) / Value.toLong(b.value(c));
+            ac = c -> Value.div(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -480,6 +488,9 @@ public class Parser {
             case NUMBER:
                 long num = convToLong(tok.getIdent());
                 return c -> num;
+            case DOUBLE:
+                double d = convToDouble(tok.getIdent());
+                return c -> d;
             case STRING:
                 String s = tok.getIdent();
                 return c -> s;

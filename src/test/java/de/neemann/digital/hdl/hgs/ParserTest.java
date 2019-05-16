@@ -78,6 +78,21 @@ public class ParserTest extends TestCase {
         assertEquals("Hallo_true", new Parser("\"Hallo_\" + (1<2)").parseExp().value(new Context()));
     }
 
+    public void testParseExpArithDouble() throws IOException, ParserException, HGSEvalException {
+        assertEquals(4.0, new Parser("1.5+2.5").parseExp().value(new Context()));
+        assertEquals(0.5, new Parser("1.5-1").parseExp().value(new Context()));
+        assertEquals(3.0, new Parser("1.5*2").parseExp().value(new Context()));
+        assertEquals(3.0, new Parser("2*1.5").parseExp().value(new Context()));
+        assertEquals(1L, new Parser("3/2").parseExp().value(new Context()));
+        assertEquals(1.5, new Parser("3.0/2").parseExp().value(new Context()));
+        assertEquals(1.5, new Parser("3/2.0").parseExp().value(new Context()));
+        assertEquals(1.5, new Parser("3.0/2.0").parseExp().value(new Context()));
+        assertEquals(true, new Parser("1.0001>1").parseExp().value(new Context()));
+        assertEquals(false, new Parser("1>1.0001").parseExp().value(new Context()));
+        assertEquals(false, new Parser("1.0001<1").parseExp().value(new Context()));
+        assertEquals(true, new Parser("1<1.0001").parseExp().value(new Context()));
+    }
+
     public void testParseExpCompare() throws IOException, ParserException, HGSEvalException {
         assertEquals(true, new Parser("5=5").parseExp().value(new Context()));
         assertEquals(true, new Parser("\"Hello\"=\"Hello\"").parseExp().value(new Context()));
@@ -85,6 +100,10 @@ public class ParserTest extends TestCase {
         assertEquals(false, new Parser("5!=5").parseExp().value(new Context()));
         assertEquals(false, new Parser("\"Hello\"!=\"Hello\"").parseExp().value(new Context()));
         assertEquals(true, new Parser("\"Hello\"!=\"World\"").parseExp().value(new Context()));
+        assertEquals(true, new Parser("\"a\"<\"b\"").parseExp().value(new Context()));
+        assertEquals(false, new Parser("\"b\"<\"a\"").parseExp().value(new Context()));
+        assertEquals(false, new Parser("\"a\">\"b\"").parseExp().value(new Context()));
+        assertEquals(true, new Parser("\"b\">\"a\"").parseExp().value(new Context()));
 
         assertEquals(false, new Parser("5<5").parseExp().value(new Context()));
         assertEquals(true, new Parser("4<5").parseExp().value(new Context()));
@@ -265,6 +284,10 @@ public class ParserTest extends TestCase {
         Context c = new Context().declareVar("Bits", 17);
         exec("<? a:=format(\"hex=%x;\",Bits); print(a);?>", c);
         assertEquals("hex=11;", c.toString());
+
+        c = new Context().declareVar("freq", Math.PI*100);
+        exec("<? a:=format(\"f=%.2f;\",freq); print(a);?>", c);
+        assertEquals("f=314.16;", c.toString());
     }
 
     public void testComment() throws IOException, ParserException, HGSEvalException {

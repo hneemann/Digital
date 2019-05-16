@@ -12,6 +12,7 @@ import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * The evaluation context
@@ -254,7 +255,7 @@ public class Context {
         for (int i = 1; i < args.size(); i++)
             eval.add(args.get(i).value(c));
 
-        return String.format(Value.toString(args.get(0).value(c)), eval.toArray());
+        return String.format(Locale.US, Value.toString(args.get(0).value(c)), eval.toArray());
     }
 
     private static final class FunctionIsPresent extends InnerFunction {
