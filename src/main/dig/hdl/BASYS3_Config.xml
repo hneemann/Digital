@@ -1,4 +1,4 @@
-<ide name="BASYS3" clock="100000000">
+<ide name="BASYS3" clockGenerator="clockGenerator">
     <commands>
         <command name="Export" requires="vhdl" />
         <command name="Export &amp; Start Vivado" requires="vhdl" filter="true" gui="true" timeout="0">
@@ -7,6 +7,42 @@
         </command>
     </commands>
     <files>
+        <file name="clockGenerator.vhdl" overwrite="true" filter="true">
+            <content><![CDATA[
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+USE ieee.std_logic_unsigned.all;
+
+entity clockGenerator is
+  port (
+    cout: out std_logic;
+    cin: in std_logic );
+end clockGenerator;
+
+<? maxCounter:=1000000000 / (20 * hdl.frequency);?>
+
+architecture Behavioral of clockGenerator is
+  -- Don't use a logic signal as clock source in a real world application!
+  -- Use the on chip clock resources instead!
+  signal counter: integer range 0 to <?=maxCounter?> := 0;
+  signal state: std_logic;
+begin
+  process (cin)
+  begin
+    if rising_edge(cin) then
+       if counter = <?=maxCounter?> then
+          counter <= 0;
+          state <= NOT (state);
+       else
+          counter <= counter+1;
+       end if;
+    end if;
+  end process;
+  cout <= state;
+end Behavioral;
+]]></content>
+        </file>
         <file name="&lt;?=shortname?&gt;_constraints.xdc" overwrite="true" filter="true">
             <content><![CDATA[<?
 
@@ -40,6 +76,12 @@ print("set_property CONFIG_VOLTAGE 3.3 [current_design]\n");
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
       <File Path="$PPRDIR/../<?=shortname?>.vhdl">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../clockGenerator.vhdl">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>

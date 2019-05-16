@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.ide;
 
+import java.io.IOException;
+
 /**
  * Represents a file to create
  */
@@ -52,8 +54,11 @@ public class FileToCreate {
 
     /**
      * @return the files content
+     * @throws IOException if no file content is available
      */
-    public String getContent() {
+    public String getContent() throws IOException {
+        if (content == null)
+            throw new IOException("no file content given!");
         return content;
     }
 }

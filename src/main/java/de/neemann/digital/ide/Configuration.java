@@ -18,6 +18,7 @@ import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.HDLPort;
+import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
@@ -69,7 +70,8 @@ public final class Configuration {
         final XStream xStream = new XStream(new StaxDriver());
         xStream.alias("ide", Configuration.class);
         xStream.aliasAttribute(Configuration.class, "name", "name");
-        xStream.aliasAttribute(Configuration.class, "clock", "clock");
+        xStream.aliasAttribute(Configuration.class, "frequency", "frequency");
+        xStream.aliasAttribute(Configuration.class, "clockGenerator", "clockGenerator");
         xStream.alias("command", Command.class);
         xStream.aliasAttribute(Command.class, "name", "name");
         xStream.aliasAttribute(Command.class, "requires", "requires");
@@ -85,7 +87,8 @@ public final class Configuration {
     }
 
     private String name;
-    private int clock;
+    private int frequency;
+    private String clockGenerator;
     private ArrayList<Command> commands;
     private ArrayList<FileToCreate> files;
     private transient FilenameProvider filenameProvider;
@@ -199,7 +202,7 @@ public final class Configuration {
         return name;
     }
 
-    private HDLModel writeHDL(String hdl, File digFile) throws IOException {
+    private HDLModel writeHDL(String hdl, File digFile) throws IOException, HGSEvalException {
         switch (hdl) {
             case "verilog":
                 File verilogFile = SaveAsHelper.checkSuffix(digFile, "v");
@@ -212,6 +215,10 @@ public final class Configuration {
                 File vhdlFile = SaveAsHelper.checkSuffix(digFile, "vhdl");
                 final CodePrinter vhdlPrinter = new CodePrinter(getIoInterface().getOutputStream(vhdlFile));
                 try (VHDLGenerator vlog = new VHDLGenerator(libraryProvider.getCurrentLibrary(), vhdlPrinter)) {
+                    if ((frequency > 1 || clockGenerator != null) && getFrequency() < Integer.MAX_VALUE)
+                        vlog.setClockIntegrator(
+                                new ClockIntegratorGeneric(frequency == 0 ? 0 : 1000000000.0 / frequency)
+                                        .setClockGenerator(clockGenerator));
                     vlog.export(circuitProvider.getCurrentCircuit());
                     return vlog.getModel();
                 }

@@ -11,6 +11,7 @@ import de.neemann.digital.hdl.hgs.function.FirstClassFunctionCall;
 import de.neemann.digital.hdl.hgs.refs.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import static de.neemann.digital.hdl.hgs.Tokenizer.Token.*;
@@ -32,7 +33,7 @@ public class Parser {
         InputStream in = ClassLoader.getSystemResourceAsStream(path);
         if (in == null)
             throw new FileNotFoundException("file not found: " + path);
-        try (Reader r = new InputStreamReader(in, "utf-8")) {
+        try (Reader r = new InputStreamReader(in, StandardCharsets.UTF_8)) {
             Parser p = new Parser(r, path);
             return p.parse();
         }
