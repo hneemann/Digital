@@ -91,6 +91,18 @@ public class ParserTest extends TestCase {
         assertEquals(false, new Parser("1>1.0001").parseExp().value(new Context()));
         assertEquals(false, new Parser("1.0001<1").parseExp().value(new Context()));
         assertEquals(true, new Parser("1<1.0001").parseExp().value(new Context()));
+
+        assertEquals(2L, new Parser("floor(2.5)").parseExp().value(new Context()));
+        assertEquals(3L, new Parser("ceil(2.5)").parseExp().value(new Context()));
+        assertEquals(3L, new Parser("round(2.8)").parseExp().value(new Context()));
+        assertEquals(4.0, new Parser("float(4)").parseExp().value(new Context()));
+
+        assertEquals(2L, new Parser("min(2,3)").parseExp().value(new Context()));
+        assertEquals(2.5, new Parser("min(2.5,3)").parseExp().value(new Context()));
+        assertEquals(2.5, new Parser("min(2.5,3.5)").parseExp().value(new Context()));
+        assertEquals(3L, new Parser("max(2,3)").parseExp().value(new Context()));
+        assertEquals(3.0, new Parser("max(2.5,3)").parseExp().value(new Context()));
+        assertEquals(3.5, new Parser("max(2.5,3.5)").parseExp().value(new Context()));
     }
 
     public void testParseExpCompare() throws IOException, ParserException, HGSEvalException {

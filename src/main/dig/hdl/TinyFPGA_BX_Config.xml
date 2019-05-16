@@ -1,4 +1,4 @@
-<ide name="TinyFPGA BX">
+<ide name="TinyFPGA BX" frequency="16000000">
     <commands>
         <command name="Build" requires="verilog" filter="false">
             <arg>make</arg>

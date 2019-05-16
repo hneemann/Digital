@@ -8,63 +8,49 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>26</int>
+          <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="220" y="140"/>
+      <pos x="280" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>VDD</elementName>
       <elementAttributes/>
-      <pos x="200" y="120"/>
+      <pos x="260" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="200" y="200"/>
+      <pos x="260" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
       <elementAttributes>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
         <entry>
           <string>Label</string>
           <string>CLK</string>
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>2147483647</int>
-        </entry>
-        <entry>
-          <string>runRealTime</string>
-          <boolean>true</boolean>
+          <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="180" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>26</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>21-25</string>
-        </entry>
-      </elementAttributes>
-      <pos x="320" y="140"/>
+      <pos x="240" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>SOS</string>
-        </entry>
-        <entry>
           <string>AddrBits</string>
           <int>5</int>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>SOS</string>
         </entry>
         <entry>
           <string>Data</string>
@@ -106,16 +92,16 @@
   </visualElements>
   <wires>
     <wire>
-      <p1 x="180" y="160"/>
-      <p2 x="220" y="160"/>
+      <p1 x="240" y="160"/>
+      <p2 x="280" y="160"/>
     </wire>
     <wire>
       <p1 x="440" y="160"/>
       <p2 x="480" y="160"/>
     </wire>
     <wire>
-      <p1 x="200" y="180"/>
-      <p2 x="220" y="180"/>
+      <p1 x="260" y="180"/>
+      <p2 x="280" y="180"/>
     </wire>
     <wire>
       <p1 x="360" y="180"/>
@@ -126,24 +112,20 @@
       <p2 x="480" y="200"/>
     </wire>
     <wire>
-      <p1 x="280" y="140"/>
-      <p2 x="320" y="140"/>
+      <p1 x="260" y="140"/>
+      <p2 x="280" y="140"/>
     </wire>
     <wire>
       <p1 x="340" y="140"/>
       <p2 x="380" y="140"/>
     </wire>
     <wire>
-      <p1 x="200" y="140"/>
-      <p2 x="220" y="140"/>
+      <p1 x="260" y="120"/>
+      <p2 x="260" y="140"/>
     </wire>
     <wire>
-      <p1 x="200" y="120"/>
-      <p2 x="200" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="200" y="180"/>
-      <p2 x="200" y="200"/>
+      <p1 x="260" y="180"/>
+      <p2 x="260" y="200"/>
     </wire>
     <wire>
       <p1 x="360" y="160"/>
@@ -154,4 +136,5 @@
       <p2 x="460" y="220"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

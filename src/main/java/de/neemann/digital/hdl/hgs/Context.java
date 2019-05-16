@@ -9,6 +9,8 @@ import de.neemann.digital.hdl.hgs.function.Func;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.InnerFunction;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,13 @@ public class Context {
     private static final HashMap<String, InnerFunction> BUILT_IN = new HashMap<>();
 
     static {
+        BUILT_IN.put("ceil", new FunctionCeil());
+        BUILT_IN.put("floor", new FunctionFloor());
+        BUILT_IN.put("round", new FunctionRound());
+        BUILT_IN.put("float", new FunctionFloat());
+        BUILT_IN.put("log", new FunctionLog());
+        BUILT_IN.put("min", new FunctionMin());
+        BUILT_IN.put("max", new FunctionMax());
         BUILT_IN.put("print", new FunctionPrint());
         BUILT_IN.put("printf", new FunctionPrintf());
         BUILT_IN.put("format", new FunctionFormat());
@@ -310,4 +319,125 @@ public class Context {
             return c.toString();
         }
     }
+
+    private static final class FunctionCeil extends Function {
+        private FunctionCeil() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            if (args[0] instanceof Double)
+                return (long) Math.ceil((Double) args[0]);
+            return Value.toLong(args[0]);
+        }
+    }
+
+    private static final class FunctionFloor extends Function {
+        private FunctionFloor() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            if (args[0] instanceof Double)
+                return (long) Math.floor((Double) args[0]);
+            return Value.toLong(args[0]);
+        }
+    }
+
+    private static final class FunctionRound extends Function {
+        private FunctionRound() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            if (args[0] instanceof Double)
+                return Math.round((Double) args[0]);
+            return Value.toLong(args[0]);
+        }
+    }
+
+    private static final class FunctionFloat extends Function {
+        private FunctionFloat() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            return Value.toDouble(args[0]);
+        }
+    }
+
+    private static final class FunctionLog extends Function {
+        private static final Logger LOGGER = LoggerFactory.getLogger(FunctionLog.class);
+
+        private FunctionLog() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) {
+            LOGGER.info(args[0].toString());
+            return args[0];
+        }
+    }
+
+    private static final class FunctionMin extends Function {
+        private FunctionMin() {
+            super(-1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            long minL = Long.MAX_VALUE;
+            double minD = Double.MAX_VALUE;
+            for (Object v : args) {
+                if (v instanceof Double) {
+                    double l = (Double) v;
+                    if (minD > l) minD = l;
+                } else {
+                    long l = Value.toLong(v);
+                    if (minL > l) minL = l;
+                }
+            }
+
+            if (minD < Double.MAX_VALUE && minL < Long.MAX_VALUE) {
+                return Math.min(minD, minL);
+            } else if (minD < Double.MAX_VALUE)
+                return minD;
+            else
+                return minL;
+        }
+    }
+
+    private static final class FunctionMax extends Function {
+        private FunctionMax() {
+            super(-1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            long maxL = Long.MIN_VALUE;
+            double maxD = -Double.MAX_VALUE;
+            for (Object v : args) {
+                if (v instanceof Double) {
+                    double l = (Double) v;
+                    if (maxD < l) maxD = l;
+                } else {
+                    long l = Value.toLong(v);
+                    if (maxL < l) maxL = l;
+                }
+            }
+
+            if (maxD > -Double.MAX_VALUE && maxL > Long.MIN_VALUE) {
+                return Math.max(maxD, maxL);
+            } else if (maxD > -Double.MAX_VALUE)
+                return maxD;
+            else
+                return maxL;
+        }
+    }
+
 }

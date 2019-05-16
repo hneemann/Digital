@@ -208,6 +208,10 @@ public final class Configuration {
                 File verilogFile = SaveAsHelper.checkSuffix(digFile, "v");
                 final CodePrinter verilogPrinter = new CodePrinter(getIoInterface().getOutputStream(verilogFile));
                 try (VerilogGenerator vlog = new VerilogGenerator(libraryProvider.getCurrentLibrary(), verilogPrinter)) {
+                    if ((frequency > 1 || clockGenerator != null) && getFrequency() < Integer.MAX_VALUE)
+                        vlog.setClockIntegrator(
+                                new ClockIntegratorGeneric(frequency == 0 ? 0 : 1000000000.0 / frequency)
+                                        .setClockGenerator(clockGenerator));
                     vlog.export(circuitProvider.getCurrentCircuit());
                     return vlog.getModel();
                 }

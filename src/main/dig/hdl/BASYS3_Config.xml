@@ -9,6 +9,7 @@
     <files>
         <file name="clockGenerator.vhdl" overwrite="true" filter="true">
             <content><![CDATA[
+<? if (hdl.frequency<4687500) { ?>
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
@@ -41,6 +42,160 @@ begin
   end process;
   cout <= state;
 end Behavioral;
+<? }
+   else
+   { ?>
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+Library UNISIM;
+use UNISIM.vcomponents.all;
+
+-- MMCME2_BASE: Base Mixed Mode Clock Manager
+-- 7 Series
+-- Xilinx HDL Libraries Guide, version 2012.2
+
+entity clockGenerator is
+  port (
+    cout: out std_logic;
+    cin: in std_logic );
+end clockGenerator;
+
+architecture Behavioral of clockGenerator is
+    signal DEV_NULL: std_logic;
+    signal feedback: std_logic;
+begin
+<?
+  F_IN := 100.0;
+
+  PDF_MIN := 10;
+  PDF_MAX := 450;
+
+  VCO_MIN := 600;
+  VCO_MAX := 1200;
+
+  D_MIN := min(106,max(1,ceil( F_IN/PDF_MAX )));
+  D_MAX := min(106,max(1,floor( F_IN/PDF_MIN )));
+
+  M_MIN := min(64,max(2,ceil( VCO_MIN/F_IN*D_MIN )));
+  M_MAX := min(64,max(2,floor( VCO_MAX/F_IN*D_MAX )));
+
+  log(format("D_min=%d",D_MIN));
+  log(format("D_max=%d",D_MAX));
+
+  log(format("M_min=%d",M_MIN));
+  log(format("M_max=%d",M_MAX));
+
+  M_IDEAL := D_MIN*VCO_MAX/F_IN;
+
+  F_DES := hdl.frequency/1000000.0;
+
+  M := round(M_IDEAL);
+  D := D_MIN;
+
+  F_VCO := (F_IN*M)/D;
+  while ((F_VCO/F_DES>128) & ((M>M_MIN) | (D<D_MAX))) {
+    if ((M>M_MIN) & (D<D_MAX)) {
+        if (M>D) {
+          M=M-1;
+        } else {
+          D=D+1;
+        }
+    } else {
+        if (M>M_MIN) {
+          M=M-1;
+        } else {
+          D=D+1;
+        }
+    }
+
+    F_VCO = (F_IN*M)/D;
+  }
+
+  DIV := min(128,max(1,round(F_VCO/F_DES*1000)/1000.0));
+
+  log(format("M_ideal=%.2f",M_IDEAL));
+  log(format("M=%d",M));
+  log(format("D=%d",D));
+  log(format("DIV=%f",DIV));
+
+
+
+  F_OUT := F_VCO/DIV;
+
+  log(format("F_VCO=%.2f",F_VCO));
+  log(format("F_OUT=%f",F_OUT));
+  log(format("F_Desired=%f",F_DES));
+
+  M = float(M);
+?>
+  DEV_NULL <= '0';
+
+  -- code taken from the "Vivado Design Suite 7 Series FPGA Libraries Guide" (UG953)
+
+  MMCME2_BASE_inst : MMCME2_BASE
+    generic map (
+      BANDWIDTH => "OPTIMIZED",    -- Jitter programming (OPTIMIZED, HIGH, LOW)
+      CLKFBOUT_MULT_F => <?=format("%.3f",M)?>,   -- Multiply value for all CLKOUT (2.000-64.000).
+      CLKFBOUT_PHASE => 0.0,       -- Phase offset in degrees of CLKFB (-360.000-360.000).
+      CLKIN1_PERIOD => 10.0,       --* Input clock period in ns to ps resolution (i.e. 33.333 is 30 MHz).
+      -- CLKOUT0_DIVIDE - CLKOUT6_DIVIDE: Divide amount for each CLKOUT (1-128)
+      CLKOUT1_DIVIDE => 1,
+      CLKOUT2_DIVIDE => 1,
+      CLKOUT3_DIVIDE => 1,
+      CLKOUT4_DIVIDE => 1,
+      CLKOUT5_DIVIDE => 1,
+      CLKOUT6_DIVIDE => 1,
+      CLKOUT0_DIVIDE_F => <?=format("%.3f",DIV)?>, -- Divide amount for CLKOUT0 (1.000-128.000).
+      -- CLKOUT0_DUTY_CYCLE - CLKOUT6_DUTY_CYCLE: Duty cycle for each CLKOUT (0.01-0.99).
+      CLKOUT0_DUTY_CYCLE => 0.5,
+      CLKOUT1_DUTY_CYCLE => 0.5,
+      CLKOUT2_DUTY_CYCLE => 0.5,
+      CLKOUT3_DUTY_CYCLE => 0.5,
+      CLKOUT4_DUTY_CYCLE => 0.5,
+      CLKOUT5_DUTY_CYCLE => 0.5,
+      CLKOUT6_DUTY_CYCLE => 0.5,
+      -- CLKOUT0_PHASE - CLKOUT6_PHASE: Phase offset for each CLKOUT (-360.000-360.000).
+      CLKOUT0_PHASE => 0.0,
+      CLKOUT1_PHASE => 0.0,
+      CLKOUT2_PHASE => 0.0,
+      CLKOUT3_PHASE => 0.0,
+      CLKOUT4_PHASE => 0.0,
+      CLKOUT5_PHASE => 0.0,
+      CLKOUT6_PHASE => 0.0,
+      CLKOUT4_CASCADE => FALSE,  -- Cascade CLKOUT4 counter with CLKOUT6 (FALSE, TRUE)
+      DIVCLK_DIVIDE => <?=D?>,   -- Master division value (1-106)
+      REF_JITTER1 => 0.0,        -- Reference input jitter in UI (0.000-0.999).
+      STARTUP_WAIT => FALSE      -- Delays DONE until MMCM is locked (FALSE, TRUE)
+    )
+    port map (
+      -- Clock Outputs: 1-bit (each) output: User configurable clock outputs
+      CLKOUT0 => cout,           --* 1-bit output: CLKOUT0
+      --CLKOUT0B => CLKOUT0B,      -- 1-bit output: Inverted CLKOUT0
+      --CLKOUT1 => CLKOUT1,        -- 1-bit output: CLKOUT1
+      --CLKOUT1B => CLKOUT1B,      -- 1-bit output: Inverted CLKOUT1
+      --CLKOUT2 => CLKOUT2,        -- 1-bit output: CLKOUT2
+      --CLKOUT2B => CLKOUT2B,      -- 1-bit output: Inverted CLKOUT2
+      --CLKOUT3 => CLKOUT3,        -- 1-bit output: CLKOUT3
+      --CLKOUT3B => CLKOUT3B,      -- 1-bit output: Inverted CLKOUT3
+      --CLKOUT4 => CLKOUT4,        -- 1-bit output: CLKOUT4
+      --CLKOUT5 => CLKOUT5,        -- 1-bit output: CLKOUT5
+      --CLKOUT6 => CLKOUT6,        -- 1-bit output: CLKOUT6
+      -- Feedback Clocks: 1-bit (each) output: Clock feedback ports
+      CLKFBOUT => feedback,      --* 1-bit output: Feedback clock
+      --CLKFBOUTB => CLKFBOUTB,    -- 1-bit output: Inverted CLKFBOUT
+      -- Status Ports: 1-bit (each) output: MMCM status ports
+      --LOCKED => LOCKED,          -- 1-bit output: LOCK
+      -- Clock Inputs: 1-bit (each) input: Clock input
+      CLKIN1 => cin,             --* 1-bit input: Clock
+      -- Control Ports: 1-bit (each) input: MMCM control ports
+      PWRDWN => DEV_NULL,        --* 1-bit input: Power-down
+      RST => DEV_NULL,           --* 1-bit input: Reset
+      -- Feedback Clocks: 1-bit (each) input: Clock feedback ports
+      CLKFBIN => feedback        --* 1-bit input: Feedback clock
+    );
+end Behavioral;
+<? } ?>
 ]]></content>
         </file>
         <file name="&lt;?=shortname?&gt;_constraints.xdc" overwrite="true" filter="true">
