@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 public class ConfigurationTest extends TestCase {
 
-    public void testStart() throws IOException, ElementNotFoundException, PinException, NodeException {
+    public void testStart() throws IOException, ElementNotFoundException, PinException, NodeException, InterruptedException {
         String xml = "<ide name=\"APIO\">\n" +
                 "    <commands>\n" +
                 "        <command name=\"build\" requires=\"verilog\" filter=\"false\">\n" +
@@ -44,7 +44,7 @@ public class ConfigurationTest extends TestCase {
         ArrayList<Command> commands = c.getCommands();
         assertEquals(2, commands.size());
 
-        c.executeCommand(commands.get(0));
+        c.executeCommand(commands.get(0), null).join();
 
         assertEquals(1, fileWriter.files.size());
         assertTrue(fileWriter.files.containsKey("z/test.v"));
@@ -54,7 +54,7 @@ public class ConfigurationTest extends TestCase {
         assertEquals("[make]", Arrays.toString(fileWriter.commands.get(0).args));
 
         fileWriter.clear();
-        c.executeCommand(commands.get(1));
+        c.executeCommand(commands.get(1), null).join();
 
         assertEquals(1, fileWriter.files.size());
         assertTrue(fileWriter.files.containsKey("z/test.v"));
@@ -64,7 +64,7 @@ public class ConfigurationTest extends TestCase {
         assertEquals("[make, z/test.v]", Arrays.toString(fileWriter.commands.get(0).args));
     }
 
-    public void testFileWriter() throws IOException, ElementNotFoundException, PinException, NodeException {
+    public void testFileWriter() throws IOException, ElementNotFoundException, PinException, NodeException, InterruptedException {
         String xml = "<ide name=\"APIO\">\n" +
                 "    <commands>\n" +
                 "        <command name=\"build\" requires=\"verilog\" filter=\"false\">\n" +
@@ -96,7 +96,7 @@ public class ConfigurationTest extends TestCase {
         ArrayList<Command> commands = c.getCommands();
         assertEquals(1, commands.size());
 
-        c.executeCommand(commands.get(0));
+        c.executeCommand(commands.get(0), null).join();
 
         assertEquals(4, fileWriter.files.size());
         assertEquals("deal with <?=path?>", fileWriter.files.get("z/file1").toString());
@@ -117,7 +117,7 @@ public class ConfigurationTest extends TestCase {
         }
 
         @Override
-        public void startProcess(Command command, File dir, boolean gui, String[] args) {
+        public void startProcess(Command command, File dir, String[] args) {
             commands.add(new StartedCommand(dir, args));
         }
 

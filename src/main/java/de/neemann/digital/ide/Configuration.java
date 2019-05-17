@@ -80,7 +80,6 @@ public final class Configuration {
         xStream.aliasAttribute(Command.class, "name", "name");
         xStream.aliasAttribute(Command.class, "requires", "requires");
         xStream.aliasAttribute(Command.class, "filter", "filter");
-        xStream.aliasAttribute(Command.class, "gui", "gui");
         xStream.aliasAttribute(Command.class, "timeout", "timeout");
         xStream.addImplicitCollection(Command.class, "args", "arg", String.class);
         xStream.alias("file", FileToCreate.class);
@@ -160,33 +159,17 @@ public final class Configuration {
         return menu;
     }
 
-    private void checkFilesToCreate(File fileToExecute, HDLModel hdlModel) throws HGSEvalException, IOException, ParserException {
-        Context context = createContext(fileToExecute, hdlModel);
+    private final class ExecuteAction extends AbstractAction {
+        private final Command command;
 
-        if (files != null)
-            for (FileToCreate f : files) {
-                context.clearOutput();
-                Parser p = new Parser(f.getName());
-                p.parse().execute(context);
-                File filename = new File(fileToExecute.getParent(), context.toString());
-
-                if (f.isOverwrite() || !filename.exists())
-                    createFile(filename, resolveFileContent(f), context);
-            }
-    }
-
-    private void createFile(File filename, FileToCreate f, Context context) throws IOException, HGSEvalException, ParserException {
-        Parser p;
-        String content = f.getContent();
-        if (f.isFilter()) {
-            context.clearOutput();
-            p = new Parser(content);
-            p.parse().execute(context);
-            content = context.toString();
+        private ExecuteAction(Command command) {
+            super(command.getName());
+            this.command = command;
         }
 
-        try (OutputStream out = getIoInterface().getOutputStream(filename)) {
-            out.write(content.getBytes());
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            executeCommand(command, this);
         }
     }
 
@@ -249,66 +232,98 @@ public final class Configuration {
      *
      * @param command the command
      */
-    void executeCommand(Command command) {
+    Thread executeCommand(Command command, Action action) {
         File digFile = filenameProvider.getCurrentFilename();
         if (digFile != null) {
             try {
-
-                HDLModel hdlModel = null;
+                HDLModel hdlModel;
                 if (command.needsHDL())
                     hdlModel = writeHDL(command.getHDL(), digFile);
+                else
+                    hdlModel = null;
 
-                checkFilesToCreate(digFile, hdlModel);
+                if (action != null)
+                    action.setEnabled(false);
+                Thread t = new Thread(() -> {
+                    try {
+                        checkFilesToCreate(digFile, hdlModel);
 
-                String[] args = command.getArgs();
-                if (args != null) {
-                    if (command.isFilter()) {
-                        final int argCount = command.getArgs().length;
-                        Context context = createContext(digFile, hdlModel);
-                        for (int i = 0; i < argCount; i++) {
-                            context.clearOutput();
-                            new Parser(args[i]).parse().execute(context);
-                            args[i] = context.toString();
+                        String[] args = command.getArgs();
+                        if (args != null) {
+                            if (command.isFilter()) {
+                                final int argCount = command.getArgs().length;
+                                Context context = createContext(digFile, hdlModel);
+                                for (int i = 0; i < argCount; i++) {
+                                    context.clearOutput();
+                                    new Parser(args[i]).parse().execute(context);
+                                    args[i] = context.toString();
+                                }
+                            }
+                            getIoInterface().startProcess(command, digFile.getParentFile(), args);
                         }
+                    } catch (Exception e) {
+                        getIoInterface().showError(command, e);
+                    } finally {
+                        if (action != null)
+                            SwingUtilities.invokeLater(() -> action.setEnabled(true));
                     }
-                    getIoInterface().startProcess(command, digFile.getParentFile(), command.isGui(), args);
-                }
+                });
+                t.setDaemon(true);
+                t.start();
+                return t;
             } catch (Exception e) {
                 getIoInterface().showError(command, e);
             }
         }
+        return null;
     }
 
-    private FileToCreate resolveFileContent(FileToCreate f) throws IOException {
+    private void checkFilesToCreate(File fileToExecute, HDLModel hdlModel) throws HGSEvalException, IOException, ParserException {
+        Context context = createContext(fileToExecute, hdlModel);
+
+        if (files != null) {
+            ConfigCache configCache = new ConfigCache(origin);
+            for (FileToCreate f : files) {
+                context.clearOutput();
+                Parser p = new Parser(f.getName());
+                p.parse().execute(context);
+                File filename = new File(fileToExecute.getParent(), context.toString());
+
+                if (f.isOverwrite() || !filename.exists())
+                    createFile(filename, resolveFileContent(f, configCache), context);
+            }
+        }
+    }
+
+    private void createFile(File filename, FileToCreate f, Context context) throws IOException, HGSEvalException, ParserException {
+        Parser p;
+        String content = f.getContent();
+        if (f.isFilter()) {
+            context.clearOutput();
+            p = new Parser(content);
+            p.parse().execute(context);
+            content = context.toString();
+        }
+
+        try (OutputStream out = getIoInterface().getOutputStream(filename)) {
+            out.write(content.getBytes());
+        }
+    }
+
+
+    private FileToCreate resolveFileContent(FileToCreate f, ConfigCache configCache) throws IOException {
         if (f.hasContent())
             return f;
 
-        if (origin == null)
-            throw new IOException("no origin file given");
-
-        Configuration c = Configuration.load(new File(origin.getParentFile(), f.getReferenceFilename()));
-        return c.getFileById(f.getReferenceId());
+        Configuration c = configCache.getConfig(f.getReferenceFilename());
+        return c.getFileById(f.getReferenceId(), configCache);
     }
 
-    private FileToCreate getFileById(String referenceId) throws IOException {
+    private FileToCreate getFileById(String referenceId, ConfigCache configCache) throws IOException {
         for (FileToCreate f : files)
             if (referenceId.equals(f.getId()))
-                return resolveFileContent(f);
+                return resolveFileContent(f, configCache);
         throw new IOException("no file with id " + referenceId + " given");
-    }
-
-    private final class ExecuteAction extends AbstractAction {
-        private final Command command;
-
-        private ExecuteAction(Command command) {
-            super(command.getName());
-            this.command = command;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            executeCommand(command);
-        }
     }
 
     ArrayList<Command> getCommands() {
@@ -374,11 +389,10 @@ public final class Configuration {
          *
          * @param command the command started
          * @param dir     the folder to start the process in
-         * @param gui     true if app has a gui
          * @param args    the arguments
          * @throws IOException IOException
          */
-        void startProcess(Command command, File dir, boolean gui, String[] args) throws IOException;
+        void startProcess(Command command, File dir, String[] args) throws IOException;
 
         /**
          * Shows an error message
@@ -402,29 +416,17 @@ public final class Configuration {
         }
 
         @Override
-        public void startProcess(Command command, File dir, boolean gui, String[] args) throws IOException {
-            OSExecute os = new OSExecute(args)
+        public void startProcess(Command command, File dir, String[] args) throws IOException {
+            String consoleOut = new OSExecute(args)
                     .setTimeOutSec(command.getTimeout())
-                    .setWorkingDir(dir);
-            if (gui)
-                os.startInThread(new OSExecute.ProcessCallback() {
-                    @Override
-                    public void processTerminated(String consoleOut) {
-                        LOGGER.info("process '" + command.getName() + "' says:\n" + consoleOut);
-                    }
-
-                    @Override
-                    public void exception(Exception e) {
-                        showError(command, e);
-                    }
-                });
-            else
-                os.startAndWait();
+                    .setWorkingDir(dir)
+                    .startAndWait();
+            LOGGER.info("process '" + command.getName() + "' says:\n" + consoleOut);
         }
 
         @Override
         public void showError(Command command, Exception e) {
-            new ErrorMessage(Lang.get("msg_errorStartCommand_N", command.getName())).addCause(e).show();
+            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorStartCommand_N", command.getName())).addCause(e));
         }
     }
 

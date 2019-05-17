@@ -11,7 +11,6 @@ package de.neemann.digital.ide;
 public class Command {
     private final String name;
     private final boolean filter;
-    private final boolean gui;
     private final String requires;
     private final String[] args;
     private final int timeout;
@@ -32,7 +31,6 @@ public class Command {
         this.timeout = timeout;
         this.args = args;
         this.filter = filter;
-        this.gui = gui;
     }
 
     /**
@@ -68,13 +66,6 @@ public class Command {
      */
     public boolean isFilter() {
         return filter;
-    }
-
-    /**
-     * @return true if application has a gui
-     */
-    public boolean isGui() {
-        return gui;
     }
 
     /**

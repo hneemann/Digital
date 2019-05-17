@@ -2,7 +2,7 @@
 <ide name="BASYS3" clockGenerator="clockGenerator">
     <commands>
         <command name="Export" requires="vhdl" />
-        <command name="Export &amp; Start Vivado" requires="vhdl" filter="true" gui="true" timeout="0">
+        <command name="Export &amp; Start Vivado" requires="vhdl" filter="true" timeout="0">
             <arg>vivado</arg>
             <arg>vivado/&lt;?=shortname?&gt;.xpr</arg>
         </command>
