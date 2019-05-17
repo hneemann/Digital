@@ -76,7 +76,7 @@ public class ConfigurationTest extends TestCase {
                 "            <content>deal with &lt;?=path?&gt;</content>\n" +
                 "        </file>\n" +
                 "        <file name=\"file2\" overwrite=\"true\" filter=\"true\">\n" +
-                "            <content>deal with &lt;?=path?&gt;</content>\n" +
+                "            <content>deal with &lt;?=path?&gt;, Bits: &lt;?=hdl.ports[0].bits?&gt; (&lt;?=hdl.ports[0].name?&gt;)</content>\n" +
                 "        </file>\n" +
                 "        <file name=\"&lt;?=shortname?&gt;.z\" overwrite=\"true\" filter=\"false\">\n" +
                 "            <content>test</content>\n" +
@@ -100,7 +100,7 @@ public class ConfigurationTest extends TestCase {
 
         assertEquals(4, fileWriter.files.size());
         assertEquals("deal with <?=path?>", fileWriter.files.get("z/file1").toString());
-        assertEquals("deal with z/test.dig", fileWriter.files.get("z/file2").toString());
+        assertEquals("deal with z/test.dig, Bits: 1 (A)", fileWriter.files.get("z/file2").toString());
         assertEquals("test", fileWriter.files.get("z/test.z").toString());
     }
 

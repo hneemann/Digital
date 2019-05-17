@@ -9,29 +9,11 @@ package de.neemann.digital.ide;
  * Represents a command to execute
  */
 public class Command {
-    private final String name;
-    private final boolean filter;
-    private final String requires;
-    private final String[] args;
-    private final int timeout;
-
-    /**
-     * Creates a new command
-     *
-     * @param name     the name of the command
-     * @param requires the hdl which is required, either "verilog" of "vhdl"
-     * @param filter   the true, the commands args are filtered
-     * @param gui      if true the appp has a gui
-     * @param timeout  the timeout value in sec
-     * @param args     the arguments
-     */
-    public Command(String name, String requires, boolean filter, boolean gui, int timeout, String... args) {
-        this.name = name;
-        this.requires = requires;
-        this.timeout = timeout;
-        this.args = args;
-        this.filter = filter;
-    }
+    private String name;
+    private boolean filter;
+    private String requires;
+    private String[] args;
+    private int timeout;
 
     /**
      * @return the commands name

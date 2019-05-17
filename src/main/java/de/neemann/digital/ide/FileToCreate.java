@@ -15,26 +15,9 @@ public class FileToCreate {
     private String content;
     private boolean overwrite;
     private boolean filter;
-    private final String id;
+    private String id;
     private String referenceFilename;
     private String referenceId;
-
-    /**
-     * The file to create
-     *
-     * @param name      the name of the file
-     * @param content   the files content
-     * @param overwrite overwrite every time a command is executed
-     * @param filter    the files content needs to be filtered
-     * @param id        the id of this file
-     */
-    public FileToCreate(String name, String content, boolean overwrite, boolean filter, String id) {
-        this.name = name;
-        this.content = content;
-        this.overwrite = overwrite;
-        this.filter = filter;
-        this.id = id;
-    }
 
     /**
      * @return The file name of the file. Is always filtered
