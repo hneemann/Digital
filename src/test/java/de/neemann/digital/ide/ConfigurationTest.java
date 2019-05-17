@@ -105,7 +105,7 @@ public class ConfigurationTest extends TestCase {
     }
 
 
-    private class TestIOInterface implements Configuration.IOInterface {
+    static class TestIOInterface implements Configuration.IOInterface {
         private HashMap<String, ByteArrayOutputStream> files = new HashMap<>();
         private ArrayList<StartedCommand> commands = new ArrayList<>();
 
@@ -130,9 +130,13 @@ public class ConfigurationTest extends TestCase {
             files.clear();
             commands.clear();
         }
+
+        public HashMap<String, ByteArrayOutputStream> getFiles() {
+            return files;
+        }
     }
 
-    private class StartedCommand {
+    private static class StartedCommand {
         private final File dir;
         private final String[] args;
 

@@ -1,3 +1,4 @@
+<!-- if a clockGenerator is given, this config needs to create the required source code -->
 <ide name="BASYS3" clockGenerator="clockGenerator">
     <commands>
         <command name="Export" requires="vhdl" />

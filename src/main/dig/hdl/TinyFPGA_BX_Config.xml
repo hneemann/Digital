@@ -1,3 +1,5 @@
+<!-- If a frequency is given, a simple clock divider is integrated if
+     the clock in the circuit is not set to the max value.-->
 <ide name="TinyFPGA BX" frequency="16000000">
     <commands>
         <command name="Build" requires="verilog" filter="false">

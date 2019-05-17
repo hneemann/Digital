@@ -38,6 +38,8 @@ import java.util.List;
  */
 public final class Configuration {
     private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
+    static final String LOOK_AT_ALIAS = "lookAt";
+    static final String REF_ALIAS = "ref";
 
     /**
      * Loads a configuration
@@ -47,7 +49,9 @@ public final class Configuration {
      * @throws IOException IOException
      */
     public static Configuration load(File file) throws IOException {
-        return load(new FileInputStream(file));
+        final Configuration configuration = load(new FileInputStream(file));
+        configuration.origin = file;
+        return configuration;
     }
 
     /**
@@ -83,6 +87,9 @@ public final class Configuration {
         xStream.aliasAttribute(FileToCreate.class, "name", "name");
         xStream.aliasAttribute(FileToCreate.class, "overwrite", "overwrite");
         xStream.aliasAttribute(FileToCreate.class, "filter", "filter");
+        xStream.aliasAttribute(FileToCreate.class, "id", "id");
+        xStream.aliasAttribute(FileToCreate.class, "referenceFilename", LOOK_AT_ALIAS);
+        xStream.aliasAttribute(FileToCreate.class, "referenceId", REF_ALIAS);
         return xStream;
     }
 
@@ -95,6 +102,7 @@ public final class Configuration {
     private transient CircuitProvider circuitProvider;
     private transient LibraryProvider libraryProvider;
     private transient IOInterface ioInterface;
+    private transient File origin;
 
 
     private Configuration() {
@@ -162,20 +170,24 @@ public final class Configuration {
                 p.parse().execute(context);
                 File filename = new File(fileToExecute.getParent(), context.toString());
 
-                if (f.isOverwrite() || !filename.exists()) {
-                    String content = f.getContent();
-                    if (f.isFilter()) {
-                        context.clearOutput();
-                        p = new Parser(content);
-                        p.parse().execute(context);
-                        content = context.toString();
-                    }
-
-                    try (OutputStream out = getIoInterface().getOutputStream(filename)) {
-                        out.write(content.getBytes());
-                    }
-                }
+                if (f.isOverwrite() || !filename.exists())
+                    createFile(filename, resolveFileContent(f), context);
             }
+    }
+
+    private void createFile(File filename, FileToCreate f, Context context) throws IOException, HGSEvalException, ParserException {
+        Parser p;
+        String content = f.getContent();
+        if (f.isFilter()) {
+            context.clearOutput();
+            p = new Parser(content);
+            p.parse().execute(context);
+            content = context.toString();
+        }
+
+        try (OutputStream out = getIoInterface().getOutputStream(filename)) {
+            out.write(content.getBytes());
+        }
     }
 
     private Context createContext(File fileToExecute, HDLModel hdlModel) throws HGSEvalException {
@@ -209,9 +221,7 @@ public final class Configuration {
                 final CodePrinter verilogPrinter = new CodePrinter(getIoInterface().getOutputStream(verilogFile));
                 try (VerilogGenerator vlog = new VerilogGenerator(libraryProvider.getCurrentLibrary(), verilogPrinter)) {
                     if ((frequency > 1 || clockGenerator != null) && getFrequency() < Integer.MAX_VALUE)
-                        vlog.setClockIntegrator(
-                                new ClockIntegratorGeneric(frequency == 0 ? 0 : 1000000000.0 / frequency)
-                                        .setClockGenerator(clockGenerator));
+                        vlog.setClockIntegrator(createClockIntegrator());
                     vlog.export(circuitProvider.getCurrentCircuit());
                     return vlog.getModel();
                 }
@@ -220,9 +230,7 @@ public final class Configuration {
                 final CodePrinter vhdlPrinter = new CodePrinter(getIoInterface().getOutputStream(vhdlFile));
                 try (VHDLGenerator vlog = new VHDLGenerator(libraryProvider.getCurrentLibrary(), vhdlPrinter)) {
                     if ((frequency > 1 || clockGenerator != null) && getFrequency() < Integer.MAX_VALUE)
-                        vlog.setClockIntegrator(
-                                new ClockIntegratorGeneric(frequency == 0 ? 0 : 1000000000.0 / frequency)
-                                        .setClockGenerator(clockGenerator));
+                        vlog.setClockIntegrator(createClockIntegrator());
                     vlog.export(circuitProvider.getCurrentCircuit());
                     return vlog.getModel();
                 }
@@ -231,12 +239,17 @@ public final class Configuration {
         }
     }
 
+    private ClockIntegratorGeneric createClockIntegrator() {
+        return new ClockIntegratorGeneric(frequency == 0 ? 0 : 1000000000.0 / frequency)
+                .setClockGenerator(clockGenerator);
+    }
+
     /**
      * Executes the given command
      *
      * @param command the command
      */
-    public void executeCommand(Command command) {
+    void executeCommand(Command command) {
         File digFile = filenameProvider.getCurrentFilename();
         if (digFile != null) {
             try {
@@ -264,6 +277,24 @@ public final class Configuration {
                 getIoInterface().showError(command, e);
             }
         }
+    }
+
+    private FileToCreate resolveFileContent(FileToCreate f) throws IOException {
+        if (f.hasContent())
+            return f;
+
+        if (origin == null)
+            throw new IOException("no origin file given");
+
+        Configuration c = Configuration.load(new File(origin.getParentFile(), f.getReferenceFilename()));
+        return c.getFileById(f.getReferenceId());
+    }
+
+    private FileToCreate getFileById(String referenceId) throws IOException {
+        for (FileToCreate f : files)
+            if (referenceId.equals(f.getId()))
+                return resolveFileContent(f);
+        throw new IOException("no file with id " + referenceId + " given");
     }
 
     private final class ExecuteAction extends AbstractAction {
