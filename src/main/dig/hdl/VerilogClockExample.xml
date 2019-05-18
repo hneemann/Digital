@@ -1,0 +1,86 @@
+<!-- if a clockGenerator is given, this config needs to create the required source code -->
+<ide name="VerilogClockTest" clockGenerator="clockGenerator">
+    <commands>
+        <command name="Export" requires="verilog"/>
+    </commands>
+    <files>
+        <file name="clockGenerator.v" overwrite="true" filter="true">
+            <content><![CDATA[<?
+    // Add the board specific clock generation here!
+    // This example assumes a 100MHz clock and creates a simple clock divider to
+    // match the input clock frequency given in the circuit.
+    // The variable hdl.frequency holds the frequency selected in the circuits
+    // clock component.
+
+    board_f := 100000000; // assuming a 100MHz clock
+
+    maxCounter := board_f/hdl.frequency/2;
+    bits := bitsNeededFor(maxCounter);
+
+?>module clockGenerator
+(
+    input cin,
+    output cout
+);
+ /*
+  * Don't use a logic signal as clock source in a real world application!
+  * Use the on chip clock resources instead!
+  */
+  reg [<?=bits-1?>:0] counter;
+  reg state;
+
+  assign cout = state;
+
+  always @ (posedge cin) begin
+       if (counter == <?=maxCounter?>) begin
+            counter <= 0;
+            state <= ~state;
+       end
+       else begin
+          counter <= counter + 1;
+       end
+  end
+
+endmodule
+]]></content>
+        </file>
+        <!-- creates a vivado project file which simplifies testing -->
+        <file name="vivado/&lt;?=shortname?&gt;.xpr" overwrite="false" filter="true">
+            <content><![CDATA[<?print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");?>
+<Project Version="7" Minor="20" Path="<?=dir?>/vivado/<?=shortname?>.xpr">
+  <DefaultLaunch Dir="$PRUNDIR"/>
+  <Configuration>
+    <Option Name="Part" Val="xc7a35ticpg236-1L"/>
+  </Configuration>
+  <FileSets Version="1" Minor="31">
+    <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+      <Filter Type="Srcs"/>
+      <File Path="$PPRDIR/../<?=shortname?>.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../clockGenerator.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="DesignMode" Val="RTL"/>
+        <Option Name="TopModule" Val="main"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+      <Filter Type="Constrs"/>
+      <Config>
+        <Option Name="ConstrsType" Val="XDC"/>
+      </Config>
+    </FileSet>
+  </FileSets>
+</Project>]]></content>
+        </file>
+    </files>
+</ide>

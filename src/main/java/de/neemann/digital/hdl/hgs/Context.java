@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.hgs;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.function.Func;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.InnerFunction;
@@ -24,6 +25,7 @@ public class Context {
     private static final HashMap<String, InnerFunction> BUILT_IN = new HashMap<>();
 
     static {
+        BUILT_IN.put("bitsNeededFor", new FunctionBitsNeeded());
         BUILT_IN.put("ceil", new FunctionCeil());
         BUILT_IN.put("floor", new FunctionFloor());
         BUILT_IN.put("round", new FunctionRound());
@@ -367,6 +369,18 @@ public class Context {
         @Override
         protected Object f(Object... args) throws HGSEvalException {
             return Value.toDouble(args[0]);
+        }
+    }
+
+    private static final class FunctionBitsNeeded extends Function {
+
+        private FunctionBitsNeeded() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            return Bits.binLn2(Value.toLong(args[0]));
         }
     }
 
