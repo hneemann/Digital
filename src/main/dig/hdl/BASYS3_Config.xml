@@ -8,7 +8,7 @@
         </command>
     </commands>
     <files>
-        <file name="clockGenerator.vhdl" overwrite="true" filter="true">
+        <file name="clockGenerator.vhdl" overwrite="true" filter="true" id="MMCME2_BASE">
             <content><![CDATA[
 <? if (hdl.frequency<4687500) { ?>
 LIBRARY ieee;
@@ -116,7 +116,9 @@ begin
   DIV := min(128,max(1,round(F_VCO/F_DES*8)/8.0));
 
   // correct to fractional M
-  M=round((F_DES*D*DIV*1000)/F_IN)/1000.0;
+  M_MIN := min(64,max(2,ceil( VCO_MIN/F_IN*D )));
+  M_MAX := min(64,max(2,floor( VCO_MAX/F_IN*D )));
+  M=max(M_MIN,min(M_MAX,round((F_DES*D*DIV*1000)/F_IN)/1000.0));
   F_VCO = (F_IN*M)/D;
 
   log(format("M_ideal=%.2f",M_IDEAL));
@@ -124,12 +126,10 @@ begin
   log(format("D=%d",D));
   log(format("DIV=%f",DIV));
 
-
-
   F_OUT := F_VCO/DIV;
 
   log(format("F_VCO=%.2f",F_VCO));
-  log(format("F_OUT=%f",F_OUT));
+  log(format("F_OUT    =%f",F_OUT));
   log(format("F_Desired=%f",F_DES));
 ?>
   DEV_NULL <= '0';

@@ -319,7 +319,7 @@ public final class Configuration {
         return c.getFileById(f.getReferenceId(), configCache);
     }
 
-    private FileToCreate getFileById(String referenceId, ConfigCache configCache) throws IOException {
+    FileToCreate getFileById(String referenceId, ConfigCache configCache) throws IOException {
         for (FileToCreate f : files)
             if (referenceId.equals(f.getId()))
                 return resolveFileContent(f, configCache);

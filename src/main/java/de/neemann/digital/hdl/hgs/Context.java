@@ -30,7 +30,6 @@ public class Context {
         BUILT_IN.put("floor", new FunctionFloor());
         BUILT_IN.put("round", new FunctionRound());
         BUILT_IN.put("float", new FunctionFloat());
-        BUILT_IN.put("log", new FunctionLog());
         BUILT_IN.put("min", new FunctionMin());
         BUILT_IN.put("max", new FunctionMax());
         BUILT_IN.put("print", new FunctionPrint());
@@ -77,6 +76,7 @@ public class Context {
         else
             this.code = null;
         map = new HashMap<>();
+        map.put("log", new FunctionLog(true));
     }
 
     /**
@@ -204,6 +204,16 @@ public class Context {
             return code.length();
         else
             return parent.length();
+    }
+
+    /**
+     * Disables the logging in this context.
+     *
+     * @return this for chained calls
+     */
+    public Context disableLogging() {
+        map.put("log", new FunctionLog(false));
+        return this;
     }
 
     /**
@@ -386,14 +396,16 @@ public class Context {
 
     private static final class FunctionLog extends Function {
         private static final Logger LOGGER = LoggerFactory.getLogger(FunctionLog.class);
+        private final boolean enabled;
 
-        private FunctionLog() {
+        private FunctionLog(boolean enabled) {
             super(1);
+            this.enabled = enabled;
         }
 
         @Override
         protected Object f(Object... args) {
-            LOGGER.info(args[0].toString());
+            if (enabled) LOGGER.info(args[0].toString());
             return args[0];
         }
     }
