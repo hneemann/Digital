@@ -262,7 +262,7 @@ public final class Configuration {
                             getIoInterface().startProcess(command, digFile.getParentFile(), args);
                         }
                     } catch (Exception e) {
-                        getIoInterface().showError(command, e);
+                        SwingUtilities.invokeLater(() -> getIoInterface().showError(command, e));
                     } finally {
                         if (action != null)
                             SwingUtilities.invokeLater(() -> action.setEnabled(true));
@@ -426,7 +426,7 @@ public final class Configuration {
 
         @Override
         public void showError(Command command, Exception e) {
-            SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorStartCommand_N", command.getName())).addCause(e));
+            new ErrorMessage(Lang.get("msg_errorStartCommand_N", command.getName())).addCause(e).show();
         }
     }
 

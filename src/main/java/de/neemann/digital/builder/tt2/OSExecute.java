@@ -166,7 +166,9 @@ public class OSExecute {
                 byte[] data = new byte[4096];
                 int l;
                 while ((l = console.read(data)) >= 0) {
-                    baos.write(data, 0, l);
+                    synchronized (this) {
+                        baos.write(data, 0, l);
+                    }
                 }
             } catch (IOException e) {
                 exception = e;
@@ -178,7 +180,7 @@ public class OSExecute {
         }
 
         @Override
-        public String toString() {
+        public synchronized String toString() {
             return baos.toString();
         }
     }
