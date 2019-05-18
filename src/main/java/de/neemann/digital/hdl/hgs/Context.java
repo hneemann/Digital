@@ -404,7 +404,7 @@ public class Context {
         @Override
         protected Object f(Object... args) throws HGSEvalException {
             if (args[0] instanceof Double)
-                return Math.abs((Double)args[0]);
+                return Math.abs((Double) args[0]);
 
             return Math.abs(Value.toLong(args[0]));
         }

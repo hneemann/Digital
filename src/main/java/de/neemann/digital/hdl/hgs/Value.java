@@ -259,6 +259,7 @@ public final class Value {
      *
      * @param value the value
      * @return value with changed sign
+     * @throws HGSEvalException HGSEvalException
      */
     public static Object neg(Object value) throws HGSEvalException {
         if (value instanceof Double)
