@@ -1,4 +1,4 @@
-<ide name="Test">
+<toolchain name="Test">
     <commands>
         <command name="Export" requires="vhdl" />
     </commands>
@@ -7,4 +7,4 @@
             <content>deep content</content>
         </file>
     </files>
-</ide>
+</toolchain>

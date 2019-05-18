@@ -1,5 +1,5 @@
 <!-- if a clockGenerator is given, this config needs to create the required source code -->
-<ide name="VerilogClockTest" clockGenerator="clockGenerator">
+<toolchain name="VerilogClockTest" clockGenerator="clockGenerator">
     <commands>
         <command name="Export" requires="verilog"/>
     </commands>
@@ -83,4 +83,4 @@ endmodule
 </Project>]]></content>
         </file>
     </files>
-</ide>
+</toolchain>

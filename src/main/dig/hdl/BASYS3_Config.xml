@@ -1,5 +1,5 @@
 <!-- if a clockGenerator is given, this config needs to create the required source code -->
-<ide name="BASYS3" clockGenerator="clockGenerator">
+<toolchain name="BASYS3" clockGenerator="clockGenerator">
     <commands>
         <command name="Export" requires="vhdl" />
         <command name="Export &amp; Start Vivado" requires="vhdl" filter="true" timeout="0">
@@ -22,7 +22,7 @@ entity clockGenerator is
     cin: in std_logic );
 end clockGenerator;
 
-<? maxCounter:=1000000000 / (20 * hdl.frequency);?>
+<? maxCounter:=100000000 / (2 * hdl.frequency);?>
 
 architecture Behavioral of clockGenerator is
   -- Don't use a logic signal as clock source in a real world application!
@@ -265,4 +265,4 @@ print("set_property CONFIG_VOLTAGE 3.3 [current_design]\n");
 </Project>]]></content>
         </file>
     </files>
-</ide>
+</toolchain>

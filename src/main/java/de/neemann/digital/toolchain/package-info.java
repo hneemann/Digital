@@ -7,4 +7,4 @@
 /**
  * Classes used to provide the IDE integration
  */
-package de.neemann.digital.ide;
+package de.neemann.digital.toolchain;

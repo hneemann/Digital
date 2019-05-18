@@ -3,7 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.ide;
+package de.neemann.digital.toolchain;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
@@ -72,7 +72,7 @@ public final class Configuration {
 
     private static XStream getxStream() {
         final XStream xStream = new XStream(new StaxDriver());
-        xStream.alias("ide", Configuration.class);
+        xStream.alias("toolchain", Configuration.class);
         xStream.aliasAttribute(Configuration.class, "name", "name");
         xStream.aliasAttribute(Configuration.class, "frequency", "frequency");
         xStream.aliasAttribute(Configuration.class, "clockGenerator", "clockGenerator");

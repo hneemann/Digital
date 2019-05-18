@@ -1,4 +1,4 @@
-<ide name="Test">
+<toolchain name="Test">
     <commands>
         <command name="Export" requires="vhdl" />
     </commands>
@@ -6,4 +6,4 @@
         <file name="test1.txt" overwrite="true" lookAt="inc.xml" ref="id1"/>
         <file name="test2.txt" overwrite="true" lookAt="inc.xml" ref="id2"/>
     </files>
-</ide>
+</toolchain>

@@ -3,7 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.ide;
+package de.neemann.digital.toolchain;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class ConfigurationTest extends TestCase {
 
     public void testStart() throws IOException, ElementNotFoundException, PinException, NodeException, InterruptedException {
-        String xml = "<ide name=\"APIO\">\n" +
+        String xml = "<toolchain name=\"APIO\">\n" +
                 "    <commands>\n" +
                 "        <command name=\"build\" requires=\"verilog\" filter=\"false\">\n" +
                 "            <arg>make</arg>\n" +
@@ -30,7 +30,7 @@ public class ConfigurationTest extends TestCase {
                 "            <arg>&lt;?=dir?&gt;/&lt;?=shortname?&gt;.v</arg>\n" +
                 "        </command>\n" +
                 "    </commands>\n" +
-                " </ide>\n";
+                " </toolchain>\n";
 
 
         ToBreakRunner br = new ToBreakRunner(new File(Resources.getRoot(), "dig/hdl/negSimple.dig"));
@@ -65,7 +65,7 @@ public class ConfigurationTest extends TestCase {
     }
 
     public void testFileWriter() throws IOException, ElementNotFoundException, PinException, NodeException, InterruptedException {
-        String xml = "<ide name=\"APIO\">\n" +
+        String xml = "<toolchain name=\"APIO\">\n" +
                 "    <commands>\n" +
                 "        <command name=\"build\" requires=\"verilog\" filter=\"false\">\n" +
                 "            <arg>make</arg>\n" +
@@ -82,7 +82,7 @@ public class ConfigurationTest extends TestCase {
                 "            <content>test</content>\n" +
                 "        </file>\n" +
                 "    </files>\n" +
-                " </ide>\n";
+                " </toolchain>\n";
 
 
         ToBreakRunner br = new ToBreakRunner(new File(Resources.getRoot(), "dig/hdl/negSimple.dig"));

@@ -3,7 +3,10 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.ide;
+package de.neemann.digital.toolchain;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +16,9 @@ import java.util.HashMap;
  * Helper to avoid loading a config several times.
  */
 class ConfigCache {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigCache.class);
     private final File initialFile;
-    private HashMap<String, Configuration> cache;
+    private final HashMap<String, Configuration> cache;
 
     /**
      * Creates a new instance
@@ -40,7 +44,9 @@ class ConfigCache {
 
         Configuration c = cache.get(filename);
         if (c == null) {
-            c = Configuration.load(new File(initialFile.getParentFile(), filename));
+            final File file = new File(initialFile.getParentFile(), filename);
+            LOGGER.info("load config " + file);
+            c = Configuration.load(file);
             cache.put(filename, c);
         }
         return c;
