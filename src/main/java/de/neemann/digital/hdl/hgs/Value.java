@@ -255,6 +255,18 @@ public final class Value {
     }
 
     /**
+     * Changes the sign of the given value
+     *
+     * @param value the value
+     * @return value with changed sign
+     */
+    public static Object neg(Object value) throws HGSEvalException {
+        if (value instanceof Double)
+            return -(Double) value;
+        return -toLong(value);
+    }
+
+    /**
      * Helper compare two values
      *
      * @param a a value

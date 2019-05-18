@@ -496,7 +496,7 @@ public class Parser {
                 return c -> s;
             case SUB:
                 Expression negExp = parseIdent();
-                return c -> -Value.toLong(negExp.value(c));
+                return c -> Value.neg(negExp.value(c));
             case NOT:
                 Expression notExp = parseIdent();
                 return c -> Value.not(notExp.value(c));

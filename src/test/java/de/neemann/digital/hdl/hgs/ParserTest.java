@@ -67,6 +67,9 @@ public class ParserTest extends TestCase {
         assertEquals(2L, new Parser("16>>3").parseExp().value(new Context()));
         assertEquals(4L, new Parser("9%5").parseExp().value(new Context()));
 
+        assertEquals(100L, new Parser("20/2*10").parseExp().value(new Context()));
+        assertEquals(20L, new Parser("20*10/10").parseExp().value(new Context()));
+
         assertEquals(-5L, new Parser("-5").parseExp().value(new Context()));
         assertEquals(6L, new Parser("2*(1+2)").parseExp().value(new Context()));
         assertEquals(1L, new Parser("--1").parseExp().value(new Context()));
@@ -103,6 +106,11 @@ public class ParserTest extends TestCase {
         assertEquals(3L, new Parser("max(2,3)").parseExp().value(new Context()));
         assertEquals(3.0, new Parser("max(2.5,3)").parseExp().value(new Context()));
         assertEquals(3.5, new Parser("max(2.5,3.5)").parseExp().value(new Context()));
+
+        assertEquals(3.5, new Parser("abs(3.5)").parseExp().value(new Context()));
+        assertEquals(3.5, new Parser("abs(-3.5)").parseExp().value(new Context()));
+        assertEquals(3L, new Parser("abs(3)").parseExp().value(new Context()));
+        assertEquals(3L, new Parser("abs(-3)").parseExp().value(new Context()));
     }
 
     public void testParseExpCompare() throws IOException, ParserException, HGSEvalException {
@@ -431,13 +439,6 @@ public class ParserTest extends TestCase {
         assertEquals(1L, dec.call());
         assertEquals(0L, dec.call());
         assertEquals(1L, inc.call());
-    }
-
-    public String javaFunc(Long n, String text) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++)
-            sb.append(text);
-        return sb.toString();
     }
 
     public static final class TestClass {

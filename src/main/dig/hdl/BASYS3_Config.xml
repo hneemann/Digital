@@ -91,35 +91,39 @@ begin
 
   F_DES := hdl.frequency/1000000.0;
 
-  M := round(M_IDEAL);
-  D := D_MIN;
+  bestError:=F_DES;
+  bestErrorM:=M_MAX;
+  M:=0.0;
+  D:=0;
+  DIV:=0.0;
+  for (d:=D_MIN;d<=D_MAX;d++) {
+      m_min_d := min(64,max(2,ceil( VCO_MIN/F_IN*d )));
+      m_max_d := min(64,max(2,floor( VCO_MAX/F_IN*d )));
 
-  F_VCO := (F_IN*M)/D;
-  while ((F_VCO/F_DES>128) & ((M>M_MIN) | (D<D_MAX))) {
-    if ((M>M_MIN) & (D<D_MAX)) {
-        if (M>D) {
-          M=M-1;
-        } else {
-          D=D+1;
-        }
-    } else {
-        if (M>M_MIN) {
-          M=M-1;
-        } else {
-          D=D+1;
-        }
-    }
+      divMin:=max(1,round(VCO_MIN/F_DES*8));
+      divMax:=min(128*8,round(VCO_MAX/F_DES*8));
+      for (divInt := divMin; divInt<=divMax; divInt++) {
+          div:= divInt/8.0;
 
-    F_VCO = (F_IN*M)/D;
+          m:=max(m_min_d,min(m_max_d,round((F_DES*d*div*1000)/F_IN)/1000.0));
+
+          F_OUT := (F_IN*m)/d/div;
+
+          error:=abs(F_DES-F_OUT);
+          errorM:=abs(m-M_IDEAL);
+
+          if ((error<bestError) | ((error=bestError) & (errorM<bestErrorM))) {
+              bestError=error;
+              bestErrorM=errorM;
+              M=m;
+              DIV=div;
+              D=d;
+          }
+
+      }
   }
 
-  DIV := min(128,max(1,round(F_VCO/F_DES*8)/8.0));
-
-  // correct to fractional M
-  M_MIN := min(64,max(2,ceil( VCO_MIN/F_IN*D )));
-  M_MAX := min(64,max(2,floor( VCO_MAX/F_IN*D )));
-  M=max(M_MIN,min(M_MAX,round((F_DES*D*DIV*1000)/F_IN)/1000.0));
-  F_VCO = (F_IN*M)/D;
+  F_VCO := (F_IN*M)/D;
 
   log(format("M_ideal=%.2f",M_IDEAL));
   log(format("M=%.3f",M));

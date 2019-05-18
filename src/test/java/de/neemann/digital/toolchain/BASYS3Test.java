@@ -24,7 +24,7 @@ public class BASYS3Test extends TestCase {
         FileToCreate clock = c.getFileById("MMCME2_BASE",null);
 
         String content = clock.getContent();
-        for (int f = 5000; f < 500000; f+=9) {
+        for (int f = 5000; f < 500000; f+=77) {
             Context context = new Context().disableLogging();
             context.declareVar("hdl",
                     new ElementAttributes()
@@ -37,9 +37,7 @@ public class BASYS3Test extends TestCase {
             double f_out = ((Number) context.getVar("F_OUT")).doubleValue();
             final double errPercent = Math.abs(f_out - f / 1000.0) / f_out * 100;
 
-            double max=f<100000?1:3;
-
-            assertTrue(""+f+"kHz, "+errPercent+"%", errPercent < max);
+            assertTrue(""+f+"kHz, "+errPercent+"%", errPercent < 0.1);
         }
 
     }

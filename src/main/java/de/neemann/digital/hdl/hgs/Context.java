@@ -32,6 +32,7 @@ public class Context {
         BUILT_IN.put("float", new FunctionFloat());
         BUILT_IN.put("min", new FunctionMin());
         BUILT_IN.put("max", new FunctionMax());
+        BUILT_IN.put("abs", new FunctionAbs());
         BUILT_IN.put("print", new FunctionPrint());
         BUILT_IN.put("printf", new FunctionPrintf());
         BUILT_IN.put("format", new FunctionFormat());
@@ -391,6 +392,21 @@ public class Context {
         @Override
         protected Object f(Object... args) throws HGSEvalException {
             return Bits.binLn2(Value.toLong(args[0]));
+        }
+    }
+
+    private static final class FunctionAbs extends Function {
+
+        private FunctionAbs() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            if (args[0] instanceof Double)
+                return Math.abs((Double)args[0]);
+
+            return Math.abs(Value.toLong(args[0]));
         }
     }
 
