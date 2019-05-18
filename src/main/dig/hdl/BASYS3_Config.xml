@@ -113,10 +113,14 @@ begin
     F_VCO = (F_IN*M)/D;
   }
 
-  DIV := min(128,max(1,round(F_VCO/F_DES*1000)/1000.0));
+  DIV := min(128,max(1,round(F_VCO/F_DES*8)/8.0));
+
+  // correct to fractional M
+  M=round((F_DES*D*DIV*1000)/F_IN)/1000.0;
+  F_VCO = (F_IN*M)/D;
 
   log(format("M_ideal=%.2f",M_IDEAL));
-  log(format("M=%d",M));
+  log(format("M=%.3f",M));
   log(format("D=%d",D));
   log(format("DIV=%f",DIV));
 
@@ -127,8 +131,6 @@ begin
   log(format("F_VCO=%.2f",F_VCO));
   log(format("F_OUT=%f",F_OUT));
   log(format("F_Desired=%f",F_DES));
-
-  M = float(M);
 ?>
   DEV_NULL <= '0';
 

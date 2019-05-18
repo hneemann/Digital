@@ -106,14 +106,14 @@ public class OSExecute {
             throw new IOException(Lang.get("err_processDoesNotTerminate_N", processBuilder.command()));
         }
 
-        if (process.exitValue() != 0 && !ignoreReturnCode)
-            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", process.exitValue(), "\n" + consoleReader.toString()));
-
         try {
             consoleReader.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        if (process.exitValue() != 0 && !ignoreReturnCode)
+            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", process.exitValue(), "\n" + consoleReader.toString()));
 
         if (consoleReader.getException() != null)
             throw consoleReader.getException();
@@ -166,7 +166,7 @@ public class OSExecute {
                 byte[] data = new byte[4096];
                 int l;
                 while ((l = console.read(data)) >= 0) {
-                    synchronized (this) {
+                    synchronized (baos) {
                         baos.write(data, 0, l);
                     }
                 }
@@ -180,8 +180,10 @@ public class OSExecute {
         }
 
         @Override
-        public synchronized String toString() {
-            return baos.toString();
+        public String toString() {
+            synchronized (baos) {
+                return baos.toString();
+            }
         }
     }
 

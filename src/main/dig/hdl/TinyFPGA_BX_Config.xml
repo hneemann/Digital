@@ -46,7 +46,7 @@ all: $(PROJ).bin
 	icepack $&lt; $@
 
 %.rpt: %.asc
-	icetime -d $(DEVICE) -C C:\Users\helmut.neemann\.apio\packages\toolchain-icestorm\share\icebox -mtr $@ $&lt;
+	icetime -d $(DEVICE) -C icebox -mtr $@ $&lt;
 
 %_tb: %_tb.v %.v
 	iverilog -o $@ $^
