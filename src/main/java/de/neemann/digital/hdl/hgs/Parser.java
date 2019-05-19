@@ -238,7 +238,7 @@ public class Parser {
                     Context iC = new Context(c, false);
                     init.execute(iC);
                     while ((boolean) forCond.value(iC)) {
-                        inner.execute(iC);
+                        inner.execute(new Context(iC, false));
                         inc.execute(iC);
                     }
                 };
