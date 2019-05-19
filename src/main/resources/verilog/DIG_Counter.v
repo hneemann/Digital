@@ -2,10 +2,10 @@
     if (elem.Bits > 1) {
         generics[0] := "Bits";
         moduleName = format("%s_Nbit", moduleName);
-        bitRange := "[(Bits-1):0] ";
+        export bitRange := "[(Bits-1):0] ";
     }
     else {
-        bitRange := "";
+        export bitRange := "";
         moduleName = format("%s_1bit", moduleName);
     }
 ?>

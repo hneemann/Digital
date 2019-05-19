@@ -3,12 +3,12 @@
         generics[0] := "Bits";
         generics[1] := "Default";
         moduleName = format("%s_Nbit", moduleName);
-        bitRange := "[(Bits-1):0] ";
+        export bitRange := "[(Bits-1):0] ";
     }
     else {
         generics[0] := "Default";
         moduleName = format("%s_1bit", moduleName);
-        bitRange := "";
+        export bitRange := "";
     }
 ?>module <?= moduleName ?>
 #(<?

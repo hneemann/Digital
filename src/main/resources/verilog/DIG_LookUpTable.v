@@ -5,9 +5,9 @@
     lutSize := 1 << elem.Inputs;
     moduleName = format("LUT_%s", elem.Label);
     if (elem.Bits > 1)
-        dBitRange := format(" [%d:0] ", elem.Bits - 1);
+        export dBitRange := format(" [%d:0] ", elem.Bits - 1);
     else
-        dBitRange := " ";
+        export dBitRange := " ";
 
 ?>module <?= moduleName ?> (
 <?- for (i:=0;i<elem.Inputs;i++) {?>

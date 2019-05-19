@@ -1,12 +1,12 @@
 <?
     if (elem.Bits = 1) {
         moduleName = format("Mux_%dx1", 1 << elem.'Selector Bits');
-        bitRange := "";
+        export bitRange := "";
     }
     else {
         generics[0] := "Bits";
         moduleName = format("Mux_%dx1_NBits", 1 << elem.'Selector Bits');
-        bitRange := "[(Bits - 1):0] ";
+        export bitRange := "[(Bits - 1):0] ";
     }
 
     selRange := format("[%d:0] ", elem.'Selector Bits' - 1);

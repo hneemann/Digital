@@ -142,7 +142,13 @@ public class Parser {
      */
     private Statement parseStatement(boolean isRealStatement) throws IOException, ParserException {
         final Tokenizer.Token token = tok.next();
+        boolean export = false;
         switch (token) {
+            case EXPORT:
+                export = true;
+                Tokenizer.Token ti = tok.next();
+                if (!ti.equals(IDENT))
+                    throw newParserException("export must be followed by an identifier!");
             case IDENT:
                 final Reference ref = parseReference(tok.getIdent());
                 Tokenizer.Token refToken = tok.next();
@@ -151,8 +157,13 @@ public class Parser {
                         expect(EQUAL);
                         final Expression initVal = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);
-                        return lino(c -> ref.declareVar(c, initVal.value(c)));
+                        if (export)
+                            return lino(c -> ref.exportVar(c, initVal.value(c)));
+                        else
+                            return lino(c -> ref.declareVar(c, initVal.value(c)));
                     case EQUAL:
+                        if (export)
+                            throw newParserException("export not alowed here!");
                         final Expression val = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> {
@@ -163,13 +174,19 @@ public class Parser {
                         });
                     case ADD:
                         expect(ADD);
+                        if (export)
+                            throw newParserException("export not alowed here!");
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.set(c, Value.toLong(ref.get(c)) + 1));
                     case SUB:
                         expect(SUB);
+                        if (export)
+                            throw newParserException("export not alowed here!");
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.set(c, Value.toLong(ref.get(c)) - 1));
                     case SEMICOLON:
+                        if (export)
+                            throw newParserException("export not alowed here!");
                         return lino(ref::get);
                     default:
                         throw newUnexpectedToken(refToken);
@@ -196,15 +213,17 @@ public class Parser {
                 if (nextIs(ELSE)) {
                     final Statement elseStatement = parseStatement();
                     return c -> {
-                        if ((boolean) ifCond.value(c))
-                            ifStatement.execute(c);
+                        Context iC = new Context(c, false);
+                        if ((boolean) ifCond.value(iC))
+                            ifStatement.execute(iC);
                         else
-                            elseStatement.execute(c);
+                            elseStatement.execute(iC);
                     };
                 } else
                     return c -> {
-                        if ((boolean) ifCond.value(c))
-                            ifStatement.execute(c);
+                        Context iC = new Context(c, false);
+                        if ((boolean) ifCond.value(iC))
+                            ifStatement.execute(iC);
                     };
             case FOR:
                 expect(OPEN);

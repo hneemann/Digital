@@ -18,7 +18,7 @@ class Tokenizer {
         UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, LESS, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
         OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, STATIC, FUNC, GREATEREQUAL, LESSEQUAL,
-        REPEAT, RETURN, COLON, UNTIL, DOUBLE
+        REPEAT, RETURN, COLON, UNTIL, DOUBLE, EXPORT
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -32,6 +32,7 @@ class Tokenizer {
         statementMap.put("repeat", Token.REPEAT);
         statementMap.put("until", Token.UNTIL);
         statementMap.put("return", Token.RETURN);
+        statementMap.put("export", Token.EXPORT);
     }
 
     private final Reader in;

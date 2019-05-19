@@ -20,6 +20,17 @@ public interface Reference {
      * @param initial the initial value
      * @throws HGSEvalException HGSEvalException
      */
+    default void exportVar(Context context, Object initial) throws HGSEvalException {
+        throw new HGSEvalException("export not allowed here!");
+    }
+
+    /**
+     * Declares a new variable
+     *
+     * @param context the context of the operation
+     * @param initial the initial value
+     * @throws HGSEvalException HGSEvalException
+     */
     void declareVar(Context context, Object initial) throws HGSEvalException;
 
     /**

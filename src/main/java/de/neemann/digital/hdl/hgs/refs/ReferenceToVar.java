@@ -24,6 +24,11 @@ public class ReferenceToVar implements Reference {
     }
 
     @Override
+    public void exportVar(Context context, Object initial) throws HGSEvalException {
+        context.exportVar(name, initial);
+    }
+
+    @Override
     public void declareVar(Context context, Object initial) throws HGSEvalException {
         context.declareVar(name, initial);
     }

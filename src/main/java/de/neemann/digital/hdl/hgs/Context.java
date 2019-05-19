@@ -138,6 +138,24 @@ public class Context {
         }
     }
 
+
+    /**
+     * Exports a new variable.
+     * Exporting means the value is declared in the root context.
+     *
+     * @param name  the name of the variable
+     * @param value the value of the variable
+     * @return this for chained calls
+     * @throws HGSEvalException HGSEvalException
+     */
+    public Context exportVar(String name, Object value) throws HGSEvalException {
+        if (parent == null)
+            declareVar(name, value);
+        else
+            parent.exportVar(name, value);
+        return this;
+    }
+
     /**
      * Declares a new variable
      *

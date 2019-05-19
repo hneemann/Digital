@@ -69,9 +69,15 @@ public class ParserTest extends TestCase {
 
         assertEquals(100L, new Parser("20/2*10").parseExp().value(new Context()));
         assertEquals(20L, new Parser("20*10/10").parseExp().value(new Context()));
+        assertEquals(10L, new Parser("200/2/10").parseExp().value(new Context()));
+        assertEquals(10.0, new Parser("200/2.0/10").parseExp().value(new Context()));
 
         assertEquals(-5L, new Parser("-5").parseExp().value(new Context()));
         assertEquals(6L, new Parser("2*(1+2)").parseExp().value(new Context()));
+        assertEquals(5L, new Parser("2*2+1").parseExp().value(new Context()));
+        assertEquals(5L, new Parser("1+2*2").parseExp().value(new Context()));
+        assertEquals(2L, new Parser("2/2+1").parseExp().value(new Context()));
+        assertEquals(2L, new Parser("1+2/2").parseExp().value(new Context()));
         assertEquals(1L, new Parser("--1").parseExp().value(new Context()));
 
         failToParseExp("1+");
@@ -206,6 +212,17 @@ public class ParserTest extends TestCase {
         assertEquals("Hello -4-5- World!", c.toString());
     }
 
+    //   if statement
+
+    public void testParseTemplateIf() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("<? b:=9; if (a<1) b=0; else b=1; print(b);?>", new Context().declareVar("a", 0));
+        assertEquals("0", c.toString());
+        assertTrue(c.contains("b"));
+
+        c = exec("<? if (a<1) export b:=0; else export b:=1; print(b);?>", new Context().declareVar("a", 0));
+        assertEquals("0", c.toString());
+        assertTrue(c.contains("b"));
+    }
     //   for statement
 
     public void testParseTemplateFor() throws IOException, ParserException, HGSEvalException {
@@ -305,7 +322,7 @@ public class ParserTest extends TestCase {
         exec("<? a:=format(\"hex=%x;\",Bits); print(a);?>", c);
         assertEquals("hex=11;", c.toString());
 
-        c = new Context().declareVar("freq", Math.PI*100);
+        c = new Context().declareVar("freq", Math.PI * 100);
         exec("<? a:=format(\"f=%.2f;\",freq); print(a);?>", c);
         assertEquals("f=314.16;", c.toString());
     }
