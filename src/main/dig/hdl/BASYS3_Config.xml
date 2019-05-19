@@ -123,14 +123,14 @@ begin
       }
   }
 
-  F_VCO := (F_IN*M)/D;
+  export F_VCO := (F_IN*M)/D; // export value for test case usage
 
   log(format("M_ideal=%.2f",M_IDEAL));
   log(format("M=%.3f",M));
   log(format("D=%d",D));
   log(format("DIV=%f",DIV));
 
-  F_OUT := F_VCO/DIV;
+  export F_OUT := F_VCO/DIV;  // export value for test case usage
 
   log(format("F_VCO=%.2f",F_VCO));
   log(format("F_OUT    =%f",F_OUT));

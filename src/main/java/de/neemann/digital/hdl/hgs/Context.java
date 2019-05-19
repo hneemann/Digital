@@ -21,6 +21,7 @@ import java.util.Locale;
  * The evaluation context
  */
 public class Context {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Context.class);
     // declare some functions which are always present
     private static final HashMap<String, InnerFunction> BUILT_IN = new HashMap<>();
 
@@ -35,6 +36,7 @@ public class Context {
         BUILT_IN.put("abs", new FunctionAbs());
         BUILT_IN.put("print", new FunctionPrint());
         BUILT_IN.put("printf", new FunctionPrintf());
+        BUILT_IN.put("log", new FunctionLog());
         BUILT_IN.put("format", new FunctionFormat());
         BUILT_IN.put("isPresent", new FunctionIsPresent());
         BUILT_IN.put("panic", new FunctionPanic());
@@ -47,6 +49,7 @@ public class Context {
     private final Context parent;
     private final StringBuilder code;
     private HashMap<String, Object> map;
+    private boolean loggingEnabled = true;
 
     /**
      * Creates a new context
@@ -77,7 +80,6 @@ public class Context {
         else
             this.code = null;
         map = new HashMap<>();
-        map.put("log", new FunctionLog(true));
     }
 
     /**
@@ -216,6 +218,20 @@ public class Context {
     }
 
     /**
+     * Logs a message
+     *
+     * @param o the object to log
+     */
+    private void log(Object o) {
+        if (loggingEnabled) {
+            if (parent != null)
+                parent.log(o);
+            else
+                LOGGER.info(o.toString());
+        }
+    }
+
+    /**
      * @return the output length
      */
     public int length() {
@@ -231,7 +247,7 @@ public class Context {
      * @return this for chained calls
      */
     public Context disableLogging() {
-        map.put("log", new FunctionLog(false));
+        loggingEnabled = false;
         return this;
     }
 
@@ -428,19 +444,20 @@ public class Context {
         }
     }
 
-    private static final class FunctionLog extends Function {
-        private static final Logger LOGGER = LoggerFactory.getLogger(FunctionLog.class);
-        private final boolean enabled;
+    private static final class FunctionLog extends InnerFunction {
 
-        private FunctionLog(boolean enabled) {
+        private FunctionLog() {
             super(1);
-            this.enabled = enabled;
         }
 
+
         @Override
-        protected Object f(Object... args) {
-            if (enabled) LOGGER.info(args[0].toString());
-            return args[0];
+        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
+            if (args.size() != 1)
+                throw new HGSEvalException("wrong number of arguments! found: " + args.size() + ", expected: " + getArgCount());
+            Object v = args.get(0).value(c);
+            c.log(v);
+            return v;
         }
     }
 
