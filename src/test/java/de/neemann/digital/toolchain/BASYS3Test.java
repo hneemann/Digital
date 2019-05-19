@@ -20,11 +20,11 @@ import java.io.IOException;
 public class BASYS3Test extends TestCase {
 
     public void testMMCME2_BASEParams() throws IOException, ParserException, HGSEvalException {
-        Configuration c = Configuration.load(new File(Resources.getRoot(), "../../main/dig/hdl/BASYS3_Config.xml"));
+        Configuration c = Configuration.load(new File(Resources.getRoot(), "../../main/dig/hdl/BASYS3.config"));
         FileToCreate clock = c.getFileById("MMCME2_BASE",null);
 
         String content = clock.getContent();
-        for (int f = 5000; f < 500000; f+=77) {
+        for (int f = 4688; f < 500000; f+=77) {
             Context context = new Context().disableLogging();
             context.declareVar("hdl",
                     new ElementAttributes()

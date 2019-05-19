@@ -393,7 +393,7 @@
             </par>
             <par>
                 Beim BASYS3 Board wird, wenn die Taktfrequenz niedrig ist, ein Frequenzteiler in den HDL Code integriert,
-                um den Boardtakt entsprechend zu teilen. Wenn die in der Schaltung gewählte Taktfrequenz über 37kHz
+                um den Boardtakt entsprechend zu teilen. Wenn die in der Schaltung gewählte Taktfrequenz über 4.7MHz
                 liegt, wird die MMCM Einheit des Artix-7 zur Takterzeugung verwendet.
                 Dies stellt sicher, dass die für die Taktverteilung vorgesehenen FPGA-Resourcen auch tatsächlich
                 verwendet werden.
@@ -409,8 +409,10 @@
                 Hardware-Manager kann dieser in ein BASYS3 Board übertragen werden.
             </par>
             <par>
-                Um neben der HDL Datei auch die erforderliche Constraints-Datei erzeugen zu lassen, muss die Schaltung
-                ein Textfeld mit dem Text "Board: BASYS3", "Board: MimasV1" oder "Board: MimasV2" enthalten.
+                Um neben der HDL Datei auch die erforderliche Constraints-Datei erzeugen zu lassen, muss in den
+                Einstellungen das Entsprechende Board konfiguriert werden. Dazu kann im Feld "Toolchain Konfiguration"
+                die entspechende XML-Datei ausgewählt werden. Die verfügbaren Konfgurationen finden sich im Ordner
+                <e>examples/hdl</e> und haben die Dateiendung <e>.config</e>.
             </par>
         </subchapter>
     </chapter>

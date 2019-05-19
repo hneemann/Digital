@@ -367,7 +367,7 @@
             <par>
                 At a BASYS3 board, if the circuit clock frequency is low, a frequency divider is integrated into the HDL
                 code to divide the board clock accordingly.
-                If the clock frequency selected in the circuit exceeds 37kHz, the MMCM unit of the
+                If the clock frequency selected in the circuit exceeds 4.7MHz, the MMCM unit of the
                 Artix-7 is used for clock generation.
                 This ensures that the FPGA resources provided for the clock distribution are used.
                 This allows the included example processor to run at 20MHz, and if you can do without the
@@ -383,8 +383,11 @@
                 to program a BASYS3 board.
             </par>
             <par>
-                To create the required constraints file, the circuit must contain a text field with the text
-                "Board: BASYS3", "Board: MimasV1" or "Board: MimasV2".
+                In order to create the required constraints file in addition to the HDL file, the corresponding board
+                must be configured in the settings. In the field "Toolchain Configuration" the corresponding XML file
+                can be selected.
+                The available configurations can be found in the folder <e>examples/hdl</e> and have the file
+                extension <e>.config</e>.
             </par>
         </subchapter>
     </chapter>

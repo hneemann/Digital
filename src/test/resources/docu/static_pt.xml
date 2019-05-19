@@ -364,7 +364,7 @@
             <par>
                 Na placa BASYS3, se a frequência de clock de um circuito for baixa, um divisor de frequências será incorporado ao código HDL
                 a fim de dividir o clock da placa para o valor conveniente.
-                Se a frequência de clock selecionada exceder 37kHz, a unidade MMCM do Artix-7 será usada para a geração de clock.
+                Se a frequência de clock selecionada exceder 4.7MHz, a unidade MMCM do Artix-7 será usada para a geração de clock.
                 Isso garantirá que os recursos disponíveis na FPGA para distribuição do clock serão usados.
                 Isso permitirá que o exemplo de processador possa ser executado a 20MHz, e se quiser, sem o multiplicador,
                 30HMz também será possível.
