@@ -388,6 +388,8 @@
                 can be selected.
                 The available configurations can be found in the folder <e>examples/hdl</e> and have the file
                 extension <e>.config</e>.
+                If the configuration was successfully integrated, a further menu appears, which makes the board
+                specific functions accessible.
             </par>
         </subchapter>
     </chapter>

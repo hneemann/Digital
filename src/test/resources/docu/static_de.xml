@@ -413,6 +413,8 @@
                 Einstellungen das Entsprechende Board konfiguriert werden. Dazu kann im Feld "Toolchain Konfiguration"
                 die entspechende XML-Datei ausgewählt werden. Die verfügbaren Konfgurationen finden sich im Ordner
                 <e>examples/hdl</e> und haben die Dateiendung <e>.config</e>.
+                Wurde die Konfiguration erfolgreich eingebunden, erscheint ein weiteres Menü, welches die
+                Board-Spezifischen Funktionen zugänglich macht.
             </par>
         </subchapter>
     </chapter>
