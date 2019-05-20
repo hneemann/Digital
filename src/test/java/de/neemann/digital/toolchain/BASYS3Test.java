@@ -21,14 +21,16 @@ public class BASYS3Test extends TestCase {
 
     public void testMMCME2_BASEParams() throws IOException, ParserException, HGSEvalException {
         Configuration c = Configuration.load(new File(Resources.getRoot(), "../../main/dig/hdl/BASYS3.config"));
-        FileToCreate clock = c.getFileById("MMCME2_BASE",null);
+        FileToCreate clock = c.getFileById("MMCME2_BASE", null);
 
         String content = clock.getContent();
-        for (int f = 4688; f < 500000; f+=77) {
-            Context context = new Context().disableLogging();
-            context.declareVar("model",
-                    new ElementAttributes()
-                            .set(new Key<>("frequency", 10), f * 1000));
+        for (int f = 4688; f < 500000; f += 77) {
+            Context context = new Context().disableLogging()
+                    .declareVar("model",
+                            new ElementAttributes()
+                                    .set(new Key<>("frequency", 10), f * 1000))
+                    .declareVar("F_IN", 100.0)
+                    .declareVar("hdl", "vhdl");
             Parser p = new Parser(content);
             p.parse().execute(context);
 
@@ -37,7 +39,7 @@ public class BASYS3Test extends TestCase {
             double f_out = ((Number) context.getVar("F_OUT")).doubleValue();
             final double errPercent = Math.abs(f_out - f / 1000.0) / f_out * 100;
 
-            assertTrue(""+f+"kHz, "+errPercent+"%", errPercent < 0.1);
+            assertTrue("" + f + "kHz, " + errPercent + "%", errPercent < 0.1);
         }
 
     }

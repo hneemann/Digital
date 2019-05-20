@@ -189,8 +189,13 @@ public final class Configuration {
             for (Map.Entry<String, String> e : params.entrySet())
                 context.declareVar(e.getKey(), toHGLValue(e.getValue()));
 
-        if (command.needsHDL())
+        if (command.needsHDL()) {
             context.declareVar("hdl", command.getHDL());
+            if (command.getHDL().equals("vhdl"))
+                context.declareVar("extension", ".vhdl");
+            else
+                context.declareVar("extension", ".v");
+        }
 
         if (clockGenerator != null)
             context.declareVar("clockGenerator", clockGenerator);
