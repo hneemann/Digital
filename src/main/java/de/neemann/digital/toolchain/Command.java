@@ -33,13 +33,15 @@ public class Command {
      * @return true if a hdl is required
      */
     public boolean needsHDL() {
-        return getHDL().length() > 0;
+        return getHDL() != null && getHDL().length() > 0;
     }
 
     /**
-     * @return the hdl which is required, either "verilog" of "vhdl"
+     * @return the hdl which is required, either "verilog" or "vhdl"
      */
     public String getHDL() {
+        if (requires == null)
+            return null;
         return requires.trim().toLowerCase();
     }
 

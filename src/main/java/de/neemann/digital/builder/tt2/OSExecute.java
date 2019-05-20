@@ -151,12 +151,12 @@ public class OSExecute {
 
     private static final class StreamReader extends Thread {
         private final InputStream console;
-        private final ByteArrayOutputStream baos;
+        private final RotationByteArrayOutputStream baos;
         private IOException exception;
 
         private StreamReader(InputStream console) {
             this.console = console;
-            baos = new ByteArrayOutputStream();
+            baos = new RotationByteArrayOutputStream(20 * 1024);
             setDaemon(true);
         }
 
