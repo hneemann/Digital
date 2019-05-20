@@ -7,7 +7,6 @@ package de.neemann.digital.builder.tt2;
 
 import de.neemann.digital.lang.Lang;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
