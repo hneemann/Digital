@@ -26,7 +26,7 @@ public class BASYS3Test extends TestCase {
         String content = clock.getContent();
         for (int f = 4688; f < 500000; f+=77) {
             Context context = new Context().disableLogging();
-            context.declareVar("hdl",
+            context.declareVar("model",
                     new ElementAttributes()
                             .set(new Key<>("frequency", 10), f * 1000));
             Parser p = new Parser(content);

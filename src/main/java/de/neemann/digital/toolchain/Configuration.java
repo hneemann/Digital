@@ -24,6 +24,7 @@ import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
+import de.neemann.gui.language.Resources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,7 @@ import java.awt.event.ActionEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Used to create the IDE integration
@@ -76,6 +78,8 @@ public final class Configuration {
         xStream.aliasAttribute(Configuration.class, "name", "name");
         xStream.aliasAttribute(Configuration.class, "frequency", "frequency");
         xStream.aliasAttribute(Configuration.class, "clockGenerator", "clockGenerator");
+        xStream.aliasAttribute(Configuration.class, "params", "params");
+        xStream.registerConverter(new Resources.MapEntryConverter("param"));
         xStream.alias("command", Command.class);
         xStream.aliasAttribute(Command.class, "name", "name");
         xStream.aliasAttribute(Command.class, "requires", "requires");
@@ -97,6 +101,7 @@ public final class Configuration {
     private String clockGenerator;
     private ArrayList<Command> commands;
     private ArrayList<FileToCreate> files;
+    private Map<String, String> params;
     private transient FilenameProvider filenameProvider;
     private transient CircuitProvider circuitProvider;
     private transient LibraryProvider libraryProvider;
@@ -173,15 +178,38 @@ public final class Configuration {
         }
     }
 
-    private Context createContext(File fileToExecute, HDLModel hdlModel) throws HGSEvalException {
+    private Context createContext(File fileToExecute, HDLModel hdlModel, Command command) throws HGSEvalException {
         final Context context = new Context()
                 .declareVar("path", fileToExecute.getPath())
                 .declareVar("dir", fileToExecute.getParentFile())
                 .declareVar("name", fileToExecute.getName())
                 .declareVar("shortname", createShortname(fileToExecute.getName()));
+
+        if (params != null)
+            for (Map.Entry<String, String> e : params.entrySet())
+                context.declareVar(e.getKey(), toHGLValue(e.getValue()));
+
+        if (command.needsHDL())
+            context.declareVar("hdl", command.getHDL());
+
+        if (clockGenerator != null)
+            context.declareVar("clockGenerator", clockGenerator);
+
         if (hdlModel != null)
-            context.declareVar("hdl", new ModelAccess(hdlModel.getMain()));
+            context.declareVar("model", new ModelAccess(hdlModel.getMain()));
         return context;
+    }
+
+    private Object toHGLValue(String value) {
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException e1) {
+            try {
+                return Double.parseDouble(value);
+            } catch (NumberFormatException e2) {
+                return value;
+            }
+        }
     }
 
     private IOInterface getIoInterface() {
@@ -246,13 +274,13 @@ public final class Configuration {
                     action.setEnabled(false);
                 Thread t = new Thread(() -> {
                     try {
-                        checkFilesToCreate(digFile, hdlModel);
+                        checkFilesToCreate(digFile, hdlModel, command);
 
                         String[] args = command.getArgs();
                         if (args != null) {
                             if (command.isFilter()) {
                                 final int argCount = command.getArgs().length;
-                                Context context = createContext(digFile, hdlModel);
+                                Context context = createContext(digFile, hdlModel, command);
                                 for (int i = 0; i < argCount; i++) {
                                     context.clearOutput();
                                     new Parser(args[i]).parse().execute(context);
@@ -278,14 +306,17 @@ public final class Configuration {
         return null;
     }
 
-    private void checkFilesToCreate(File fileToExecute, HDLModel hdlModel) throws HGSEvalException, IOException, ParserException {
-        Context context = createContext(fileToExecute, hdlModel);
+    private void checkFilesToCreate(File fileToExecute, HDLModel hdlModel, Command command) throws HGSEvalException, IOException, ParserException {
+        Context context = createContext(fileToExecute, hdlModel, command);
 
         if (files != null) {
             ConfigCache configCache = new ConfigCache(origin);
             for (FileToCreate f : files) {
                 context.clearOutput();
-                Parser p = new Parser(f.getName());
+                final String name = f.getName();
+                if (name == null)
+                    throw new IOException("no file name given!");
+                Parser p = new Parser(name);
                 p.parse().execute(context);
                 File filename = new File(fileToExecute.getParent(), context.toString());
 

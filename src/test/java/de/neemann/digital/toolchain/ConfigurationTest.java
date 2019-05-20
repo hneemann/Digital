@@ -76,7 +76,7 @@ public class ConfigurationTest extends TestCase {
                 "            <content>deal with &lt;?=path?&gt;</content>\n" +
                 "        </file>\n" +
                 "        <file name=\"file2\" overwrite=\"true\" filter=\"true\">\n" +
-                "            <content>deal with &lt;?=path?&gt;, Bits: &lt;?=hdl.ports[0].bits?&gt; (&lt;?=hdl.ports[0].name?&gt;)</content>\n" +
+                "            <content>deal with &lt;?=path?&gt;, Bits: &lt;?=model.ports[0].bits?&gt; (&lt;?=model.ports[0].name?&gt;)</content>\n" +
                 "        </file>\n" +
                 "        <file name=\"&lt;?=shortname?&gt;.z\" overwrite=\"true\" filter=\"false\">\n" +
                 "            <content>test</content>\n" +

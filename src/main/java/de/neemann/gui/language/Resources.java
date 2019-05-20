@@ -19,13 +19,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
+ * Used to store the language keys.
  */
 public class Resources {
 
     private static XStream getxStream() {
         XStream xStream = new XStream(new StaxDriver());
         xStream.alias("resources", Map.class);
-        xStream.registerConverter(new MapEntryConverter());
+        xStream.registerConverter(new MapEntryConverter("string"));
         return xStream;
     }
 
@@ -92,23 +93,57 @@ public class Resources {
         return resourceMap.keySet();
     }
 
-    static class MapEntryConverter implements Converter {
+    /**
+     * Simplified map converter
+     */
+    public static class MapEntryConverter implements Converter {
 
+        private String keyName;
+
+        /**
+         * Creates a new Instance
+         *
+         * @param keyName the name of the xml entity
+         */
+        public MapEntryConverter(String keyName) {
+            this.keyName = keyName;
+        }
+
+        /**
+         * Returns true if the given class can be converted by this converter.
+         *
+         * @param clazz the class to test.
+         * @return true if the given class can be converted by this converter.
+         */
         public boolean canConvert(Class clazz) {
             return Map.class.isAssignableFrom(clazz);
         }
 
+        /**
+         * Marshals the given object
+         *
+         * @param value   the value to matshal
+         * @param writer  the writer to write the xml to
+         * @param context the context of the marshaler
+         */
         public void marshal(Object value, HierarchicalStreamWriter writer, MarshallingContext context) {
             Map map = (Map) value;
             for (Object obj : map.entrySet()) {
                 Map.Entry entry = (Map.Entry) obj;
-                writer.startNode("string");
+                writer.startNode(keyName);
                 writer.addAttribute("name", entry.getKey().toString());
                 writer.setValue(entry.getValue().toString());
                 writer.endNode();
             }
         }
 
+        /**
+         * Unmarshals a object
+         *
+         * @param reader  the reader to read the xml from
+         * @param context the context of the unmarshaler
+         * @return the read object
+         */
         public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
             Map<String, String> map = new TreeMap<>();
             while (reader.hasMoreChildren()) {
