@@ -4,16 +4,6 @@
   <attributes/>
   <visualElements>
     <visualElement>
-      <elementName>Text</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>Board: BASYS3</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1040" y="340"/>
-    </visualElement>
-    <visualElement>
       <elementName>Add</elementName>
       <elementAttributes>
         <entry>
@@ -117,18 +107,16 @@ repeat(16) C bits(16,1&lt;&lt;n)
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Export this file to VHDL and use Xilinx Vivado to create the bitstream.
+          <string>Select the file &quot;BASYS3.config&quot; as toolchain configuration in the settings.
+Then use the new main menu items to create the Verilog or VHDL code and
+use Vivado to create the bit stream.
 
-Also add the created constraints file to the vivado project to assign
-the pins correctly.
-{{de Exportieren Sie diese Datei zu VHDL und verwenden Sie Xilinx Vivado, 
-um den Bitstream zu erstellen.
-
-Fügen Sie auch die erstellte Constraint-Datei dem Vivado-Projekt hinzu, um 
-die Pins korrekt zuzuordnen.}}</string>
+{{de Wählen Sie die Datei &quot;BASYS3.config&quot; als Toolchain Konfiguration in
+den EInstellungen aus. Mit den neuen Menüeinträgen können Sie dann Verilog
+oder VHDL Code erzeugen und mit Vivado den Bitstream erzeugen.}}</string>
         </entry>
       </elementAttributes>
-      <pos x="400" y="-340"/>
+      <pos x="380" y="-340"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
