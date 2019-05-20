@@ -108,12 +108,12 @@ repeat(16) C bits(16,1&lt;&lt;n)
         <entry>
           <string>Description</string>
           <string>Select the file &quot;BASYS3.config&quot; as toolchain configuration in the settings.
-Then use the new main menu items to create the Verilog or VHDL code and
-use Vivado to create the bit stream.
+Then use the new main menu items to generate the Verilog or VHDL code 
+and use Vivado to create the bit stream.
 
 {{de Wählen Sie die Datei &quot;BASYS3.config&quot; als Toolchain Konfiguration in
-den EInstellungen aus. Mit den neuen Menüeinträgen können Sie dann Verilog
-oder VHDL Code erzeugen und mit Vivado den Bitstream erzeugen.}}</string>
+den Einstellungen aus. Mit den neuen Menüeinträgen können Sie dann Verilog
+oder VHDL Code erzeugen und mit Vivado den Bitstream erstellen.}}</string>
         </entry>
       </elementAttributes>
       <pos x="380" y="-340"/>
