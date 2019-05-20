@@ -40,10 +40,7 @@ import de.neemann.digital.gui.components.table.hardware.GenerateCUPL;
 import de.neemann.digital.gui.components.table.hardware.GenerateFile;
 import de.neemann.digital.gui.components.table.hardware.HardwareDescriptionGenerator;
 import de.neemann.digital.lang.Lang;
-import de.neemann.gui.ErrorMessage;
-import de.neemann.gui.MyFileChooser;
-import de.neemann.gui.Screen;
-import de.neemann.gui.ToolTipAction;
+import de.neemann.gui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,6 +107,7 @@ public class TableDialog extends JDialog {
     private ExpressionListenerStore lastGeneratedExpressions;
     private KarnaughMapDialog kvMap;
     private JMenuItem lastUsedGenratorMenuItem;
+    private Mouse mouse = Mouse.getMouse();
 
     /**
      * Creates a new instance
@@ -157,7 +155,7 @@ public class TableDialog extends JDialog {
         header.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
-                if (event.getClickCount() == 1 && event.getButton() == 3) {
+                if (mouse.isSecondaryClick(event)) {
                     columnIndex = header.columnAtPoint(event.getPoint());
                     if (columnIndex != -1)
                         editColumnName(columnIndex, new Point(event.getXOnScreen(), event.getYOnScreen()));
