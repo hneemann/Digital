@@ -20,7 +20,7 @@ public class LineBreaker {
     private int pos;
     private boolean preserveLineBreaks = false;
     private boolean toHTML = false;
-    private boolean containsLineBreak = false;
+    private int lines;
 
     /**
      * Creates a new instance
@@ -105,7 +105,7 @@ public class LineBreaker {
         if (toHTML) {
             ret = "<html>" + ret.replace("<", "&lt;")
                     .replace(">", "&gt;") + "</html>";
-            if (containsLineBreak)
+            if (lines > 1)
                 ret = ret.replace("\n", "<br>");
         }
 
@@ -114,6 +114,8 @@ public class LineBreaker {
 
     private void addWord(StringBuilder word) {
         if (word.length() > 0) {
+            if (lines == 0)
+                lines = 1;
             if (pos + (isFirst ? word.length() : word.length() + 1) > cols) {
                 lineBreak();
             } else {
@@ -135,8 +137,8 @@ public class LineBreaker {
             for (int j = 0; j < indent; j++)
                 outText.append(" ");
             pos = indent;
-            containsLineBreak = true;
             isFirst = true;
+            lines++;
         }
     }
 
@@ -158,5 +160,12 @@ public class LineBreaker {
     public LineBreaker toHTML() {
         this.toHTML = true;
         return this;
+    }
+
+    /**
+     * @return the number of created lines
+     */
+    public int getLineCount() {
+        return lines;
     }
 }

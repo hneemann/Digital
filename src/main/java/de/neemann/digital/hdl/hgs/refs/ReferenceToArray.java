@@ -32,9 +32,6 @@ public class ReferenceToArray implements Reference {
         final HGSArray array = Value.toArray(parent.get(context));
         if (i < 0 || i > array.hgsArraySize())
             throw new HGSEvalException("Index out of bounds: " + i);
-        if (i < array.hgsArraySize())
-            throw new HGSEvalException("Array field redeclared: " + i);
-
         array.hgsArrayAdd(initial);
     }
 

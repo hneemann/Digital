@@ -307,7 +307,7 @@
             </par>
             <par>
                 En la placa BASYS3, si la frecuencia del reloj del circuito es baja, se integrará en el código HDL un divisor de frecuencia para dividir la frecuencia de la placa adecuadamente.
-				Si la frecuencia de reloj seleccionada supera los 37 kHz, la unidad MMCM de la Artix-7 se empleará para la generación del reloj
+				Si la frecuencia de reloj seleccionada supera los 4.7MHz, la unidad MMCM de la Artix-7 se empleará para la generación del reloj
 				Esto asegura que los recursos de la FPGA proporcionados por la distribución del reloj se emplean.
 				Esto permite al procesador incluido correr a 20 MHz y si sabe hacerlo sin el multiplicador, es posible hacerlo a 30 MHz.
             </par>

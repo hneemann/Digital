@@ -114,7 +114,11 @@ public class VHDLTemplate implements VHDLEntity {
                     .declareVar("elem", node.getElementAttributes())
                     .declareVar("vhdl", TEMP_FUNCTIONS_CLASS.createMap(helper));
 
-            statements.execute(c);
+            try {
+                statements.execute(c);
+            } catch (HGSEvalException e) {
+                throw new HGSEvalException("error evaluating hgs code " + name, e);
+            }
             code = c.toString();
 
             if (c.contains("entityName"))

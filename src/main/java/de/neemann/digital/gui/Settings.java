@@ -58,6 +58,7 @@ public final class Settings implements AttributeListener {
         intList.add(Keys.SETTINGS_ATMISP);
         intList.add(Keys.SETTINGS_GHDL_PATH);
         intList.add(Keys.SETTINGS_IVERILOG_PATH);
+        intList.add(Keys.SETTINGS_TOOLCHAIN_CONFIG);
         intList.add(Keys.SETTINGS_FONT_SCALING);
         intList.add(Keys.SETTINGS_MAC_MOUSE);
 

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class ClockIntegratorGeneric implements HDLClockIntegrator {
     private static final Key<Integer> COUNTER_KEY = new Key<>("maxCounter", 0);
     private double periodns;
+    private String clockGenerator;
 
     /**
      * Creates a new instance
@@ -32,6 +33,17 @@ public class ClockIntegratorGeneric implements HDLClockIntegrator {
         this.periodns = periodns;
     }
 
+    /**
+     * Enables an external clock generator
+     *
+     * @param clockGenerator the clock generator
+     * @return this for chained calls
+     */
+    public ClockIntegratorGeneric setClockGenerator(String clockGenerator) {
+        this.clockGenerator = clockGenerator;
+        return this;
+    }
+
     @Override
     public void integrateClocks(HDLCircuit circuit, ArrayList<ClockInfo> clocks) throws HDLException {
         for (ClockInfo ci : clocks) {
@@ -39,8 +51,11 @@ public class ClockIntegratorGeneric implements HDLClockIntegrator {
             int counter = (int) (1000000000.0 / (periodns * 2 * freq));
 
             if (counter >= 2) {
+                final ElementAttributes attributes = new ElementAttributes().set(COUNTER_KEY, counter);
+                if (clockGenerator != null)
+                    attributes.set(new Key<>("clockGenerator", ""), clockGenerator);
                 HDLNodeBuildIn node = new HDLNodeBuildIn("simpleClockDivider",
-                        new ElementAttributes().set(COUNTER_KEY, counter),
+                        attributes,
                         name -> 1);
 
                 circuit.integrateClockNode(ci.getClockPort(), node);

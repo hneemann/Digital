@@ -22,7 +22,7 @@ public class Bundle {
     private static XStream getxStream() {
         XStream xStream = new XStream(new StaxDriver());
         xStream.alias("languages", Map.class);
-        xStream.registerConverter(new Resources.MapEntryConverter());
+        xStream.registerConverter(new Resources.MapEntryConverter("string"));
         return xStream;
     }
 

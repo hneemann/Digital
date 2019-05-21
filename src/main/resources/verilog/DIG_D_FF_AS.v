@@ -3,14 +3,14 @@
         generics[0] := "Bits";
         generics[1] := "Default";
         moduleName = format("%s_Nbit", moduleName);
-        bitRange := "[(Bits-1):0] ";
-        setExpr := "{Bits{1'b1}}";
+        export bitRange := "[(Bits-1):0] ";
+        export setExpr := "{Bits{1'b1}}";
     }
     else {
         generics[0] := "Default";
         moduleName = format("%s_1bit", moduleName);
-        bitRange := "";
-        setExpr := "1'b1";
+        export bitRange := "";
+        export setExpr := "1'b1";
     }
 ?>
 module <?= moduleName ?>

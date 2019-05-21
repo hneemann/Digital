@@ -464,7 +464,7 @@ public final class Keys {
      * enables the MAC mouse mode
      */
     public static final Key<Boolean> SETTINGS_MAC_MOUSE
-            = new Key<>("macMouse", Screen.isMac()).setRequiresRestart().setSecondary();
+            = new Key<>("macMouse", Screen.isMac()).setRequiresRestart();
 
     /**
      * output format for numbers
@@ -778,5 +778,10 @@ public final class Keys {
                     .setMin(0)
                     .setSecondary();
 
+    /**
+     * Stores the IDE settings file
+     */
+    public static final Key<File> SETTINGS_TOOLCHAIN_CONFIG =
+            new Key.KeyFile("toolChainConfig", new File("")).setSecondary().setRequiresRestart();
 
 }

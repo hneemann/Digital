@@ -16,6 +16,7 @@ import de.neemann.digital.hdl.model2.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl2.Separator;
 import de.neemann.digital.lang.Lang;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *
  * @author ideras
  */
 public class VerilogTemplate implements VerilogElement {
@@ -39,7 +39,7 @@ public class VerilogTemplate implements VerilogElement {
      * Creates a new instance
      *
      * @param elementName the element name
-     * @throws IOException IOException
+     * @throws IOException  IOException
      * @throws HDLException HDLException
      */
     public VerilogTemplate(String elementName) throws IOException, HDLException {
@@ -167,7 +167,11 @@ public class VerilogTemplate implements VerilogElement {
             this.name = name;
             final Context ctx = createRuntimeContext(node);
 
-            statements.execute(ctx);
+            try {
+                statements.execute(ctx);
+            } catch (HGSEvalException e) {
+                throw new HGSEvalException("error evaluating hgs code " + name, e);
+            }
             code = ctx.toString();
 
             if (ctx.contains("moduleName")) {

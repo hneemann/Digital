@@ -126,16 +126,26 @@ public class ErrorMessage implements Runnable {
             setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
             errorMessage = message;
-            message = new LineBreaker(80)
+            final LineBreaker lineBreaker = new LineBreaker(80)
                     .toHTML()
-                    .preserveContainedLineBreaks()
-                    .breakLines(message);
+                    .preserveContainedLineBreaks();
+            message = lineBreaker.breakLines(message);
+            int lines = lineBreaker.getLineCount();
 
-
-            JLabel ta = new JLabel(message);
-            int border = ta.getFont().getSize();
-            ta.setBorder(BorderFactory.createEmptyBorder(border, border, border, border));
-            getContentPane().add(ta);
+            int border;
+            if (lines <= 15) {
+                JLabel ta = new JLabel(message);
+                border = ta.getFont().getSize();
+                ta.setBorder(BorderFactory.createEmptyBorder(border, border, border, border));
+                getContentPane().add(ta);
+            } else {
+                JEditorPane ta = new JEditorPane("text/html", message);
+                ta.setBackground(getBackground());
+                border = ta.getFont().getSize();
+                final JScrollPane scrollPane = new JScrollPane(ta);
+                getContentPane().add(scrollPane);
+                scrollPane.setBorder(BorderFactory.createEmptyBorder(border, border, border, border));
+            }
 
             JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             JButton button = new JButton(new AbstractAction(Lang.get("ok")) {

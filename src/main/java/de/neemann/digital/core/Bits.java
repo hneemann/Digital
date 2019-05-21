@@ -102,9 +102,9 @@ public final class Bits {
      * @param b number
      * @return number of bits needed to store b
      */
-    public static int binLn2(int b) {
+    public static int binLn2(long b) {
         int outBits = 1;
-        while ((1 << outBits) <= b)
+        while ((1L << outBits) <= b)
             outBits++;
         return outBits;
     }

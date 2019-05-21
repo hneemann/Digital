@@ -42,14 +42,14 @@
     outBits := bitSum(outputs);
 
     if (inBits > 1)
-        inRange := "[0:" + (inBits - 1) + "] ";
+        export inRange := "[0:" + (inBits - 1) + "] ";
     else
-        inRange := "";
+        export inRange := "";
 
     if (outBits > 1)
-        outRange := "[0:" + (outBits - 1) + "] ";
+        export outRange := "[0:" + (outBits - 1) + "] ";
     else
-        outRange := "";
+        export outRange := "";
 ?>
 module stdIOInterface;
     reg <?= inRange ?>mainIn;

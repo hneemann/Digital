@@ -50,6 +50,7 @@ import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
+import de.neemann.digital.toolchain.Configuration;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
@@ -277,7 +278,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         enableClockShortcut();
 
-        new WindowSizeStorage(builder.mainFrame?"main":"sub").restore(this);
+        new WindowSizeStorage(builder.mainFrame ? "main" : "sub").restore(this);
 
         if (builder.parent != null) {
             Point p = builder.parent.getLocation();
@@ -288,6 +289,28 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         } else
             setLocationRelativeTo(null);
 
+        checkIDEIntegration(builder, menuBar);
+    }
+
+    private void checkIDEIntegration(MainBuilder builder, JMenuBar menuBar) {
+        if (builder.mainFrame) {
+            File f = Settings.getInstance().get(Keys.SETTINGS_TOOLCHAIN_CONFIG);
+            if (f.getPath().length() > 0) {
+                try {
+                    menuBar.add(
+                            Configuration.load(f)
+                                    .setCircuitProvider(() -> getCircuitComponent().getCircuit())
+                                    .setFilenameProvider(() -> {
+                                        saveChanges();
+                                        return filename;
+                                    })
+                                    .setLibraryProvider(() -> library)
+                                    .createMenu());
+                } catch (IOException e) {
+                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorReadingIDEConfig_N", f.getPath())).addCause(e).setComponent(this));
+                }
+            }
+        }
     }
 
     private void enableClockShortcut() {

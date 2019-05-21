@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>D_FF</elementName>
+      <elementAttributes/>
+      <pos x="460" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CLK</string>
+        </entry>
+        <entry>
+          <string>Frequency</string>
+          <int>200</int>
+        </entry>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="220"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="520" y="240"/>
+      <p2 x="540" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="240"/>
+      <p2 x="460" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="180"/>
+      <p2 x="540" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="220"/>
+      <p2 x="460" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="220"/>
+      <p2 x="560" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="180"/>
+      <p2 x="440" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="180"/>
+      <p2 x="540" y="240"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

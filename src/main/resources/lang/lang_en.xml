@@ -1009,6 +1009,8 @@
     <string name="err_midiInstrument_N_NotAvailable">The MIDI instrument {0} is not available.</string>
     <string name="err_midiInstrumentsNotAvailable">The MIDI instruments are not available.</string>
     <string name="err_whileExecutingTests_N0">During the execution of the tests "{0}" an error has occurred!</string>
+    <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
+    <string name="msg_errorStartCommand_N">Error starting the command {0}</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1317,6 +1319,10 @@
 
     <string name="key_enabled">Enabled</string>
     <string name="key_enabled_tt">Enables or disables this component.</string>
+
+    <string name="key_toolChainConfig">Toolchain Configuration</string>
+    <string name="key_toolChainConfig_tt">Used to configurate an integration of a toolchain.
+        Allows the start of external tools, e.g. to program an FPGA or similar.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
@@ -1665,6 +1671,7 @@ Make sure the flash process is complete before closing this dialog!</string>
     <string name="msg_errorImportingSvg">Error while importing the SVG file.</string>
     <string name="msg_errorCreatingSvgTemplate">Error creating the SVG template.</string>
     <string name="msg_couldNotCreateStats">Statistics could not be created.</string>
+    <string name="msg_errorReadingIDEConfig_N">Error while reading the toolchain configuration {0}</string>
 
     <string name="ok">OK</string>
     <string name="rot_0">0°</string>
