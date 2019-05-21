@@ -44,7 +44,7 @@ public class ConfigurationTest extends TestCase {
         ArrayList<Command> commands = c.getCommands();
         assertEquals(2, commands.size());
 
-        c.executeCommand(commands.get(0), null).join();
+        c.executeCommand(commands.get(0), null, null).join();
 
         assertEquals(1, fileWriter.files.size());
         assertTrue(fileWriter.files.containsKey("z/test.v"));
@@ -54,7 +54,7 @@ public class ConfigurationTest extends TestCase {
         assertEquals("[make]", Arrays.toString(fileWriter.commands.get(0).args));
 
         fileWriter.clear();
-        c.executeCommand(commands.get(1), null).join();
+        c.executeCommand(commands.get(1), null, null).join();
 
         assertEquals(1, fileWriter.files.size());
         assertTrue(fileWriter.files.containsKey("z/test.v"));
@@ -96,7 +96,7 @@ public class ConfigurationTest extends TestCase {
         ArrayList<Command> commands = c.getCommands();
         assertEquals(1, commands.size());
 
-        c.executeCommand(commands.get(0), null).join();
+        c.executeCommand(commands.get(0), null, null).join();
 
         assertEquals(4, fileWriter.files.size());
         assertEquals("deal with <?=path?>", fileWriter.files.get("z/file1").toString());

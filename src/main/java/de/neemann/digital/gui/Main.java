@@ -305,9 +305,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                         return filename;
                                     })
                                     .setLibraryProvider(() -> library)
-                                    .createMenu());
+                                    .createMenu(this));
                 } catch (IOException e) {
-                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorReadingIDEConfig_N", f.getPath())).addCause(e).setComponent(this));
+                    SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorReadingToolchainConfig_N", f.getPath())).addCause(e).setComponent(this));
                 }
             }
         }

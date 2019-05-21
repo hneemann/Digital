@@ -1689,7 +1689,9 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="msg_errorCreatingSvgTemplate">Fehler beim Erzeugen der SVG-Datei.</string>
     <string name="msg_couldNotCreateStats">Statistik konnte nicht erzeugt werden.</string>
 
-    <string name="msg_errorReadingIDEConfig_N">Fehler beim Einladen der Toolchain-Konfiguration {0}</string>
+    <string name="msg_errorReadingToolchainConfig_N">Fehler beim Einladen der Toolchain-Konfiguration {0}</string>
+    <string name="msg_commandStarted_N">Kommando "{0}" wurde gestartet! Die Bearbeitung kann etwas dauern!</string>
+    <string name="msg_commandEnded_N">Kommando "{0}" wurde beendet!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

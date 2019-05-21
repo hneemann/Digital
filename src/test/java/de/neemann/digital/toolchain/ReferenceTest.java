@@ -26,7 +26,7 @@ public class ReferenceTest extends TestCase {
                 .setCircuitProvider(br::getCircuit);
         final ConfigurationTest.TestIOInterface ioInterface = new ConfigurationTest.TestIOInterface();
         c.setIoInterface(ioInterface);
-        c.executeCommand(c.getCommands().get(0),null).join();
+        c.executeCommand(c.getCommands().get(0),null, null).join();
 
         assertEquals("Test content", ioInterface.getFiles().get("z/test1.txt").toString());
         assertEquals("deep content", ioInterface.getFiles().get("z/test2.txt").toString());

@@ -14,6 +14,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.SaveAsHelper;
+import de.neemann.digital.gui.StatusInterface;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLModel;
@@ -155,26 +156,29 @@ public final class Configuration {
     /**
      * Creates a menu used to start the commands.
      *
+     * @param statusInterface used to show the commands status.
      * @return the menu
      */
-    public JMenu createMenu() {
+    public JMenu createMenu(StatusInterface statusInterface) {
         JMenu menu = new JMenu(name);
         for (Command c : commands)
-            menu.add(new JMenuItem(new ExecuteAction(c)));
+            menu.add(new JMenuItem(new ExecuteAction(c, statusInterface)));
         return menu;
     }
 
     private final class ExecuteAction extends AbstractAction {
         private final Command command;
+        private final StatusInterface statusInterface;
 
-        private ExecuteAction(Command command) {
+        private ExecuteAction(Command command, StatusInterface statusInterface) {
             super(command.getName());
             this.command = command;
+            this.statusInterface = statusInterface;
         }
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            executeCommand(command, this);
+            executeCommand(command, this, statusInterface);
         }
     }
 
@@ -265,10 +269,12 @@ public final class Configuration {
      *
      * @param command the command
      */
-    Thread executeCommand(Command command, Action action) {
+    Thread executeCommand(Command command, Action action, StatusInterface statusInterface) {
         File digFile = filenameProvider.getCurrentFilename();
         if (digFile != null) {
             try {
+                if (statusInterface != null)
+                    statusInterface.setStatus(Lang.get("msg_commandStarted_N", name + " - " + command.getName()));
                 HDLModel hdlModel;
                 if (command.needsHDL())
                     hdlModel = writeHDL(command.getHDL(), digFile);
@@ -299,6 +305,8 @@ public final class Configuration {
                     } finally {
                         if (action != null)
                             SwingUtilities.invokeLater(() -> action.setEnabled(true));
+                        if (statusInterface != null)
+                            statusInterface.setStatus(Lang.get("msg_commandEnded_N", name + " - " + command.getName()));
                     }
                 });
                 t.setDaemon(true);
@@ -306,6 +314,8 @@ public final class Configuration {
                 return t;
             } catch (Exception e) {
                 getIoInterface().showError(command, e);
+                if (statusInterface != null)
+                    statusInterface.setStatus(Lang.get("msg_commandEnded_N", name + " - " + command.getName()));
             }
         }
         return null;

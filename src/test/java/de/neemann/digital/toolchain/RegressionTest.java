@@ -48,7 +48,7 @@ public class RegressionTest extends TestCase {
             ioInterface.clear();
             clock.setAttribute(Keys.FREQUENCY, freq);
             for (Command command : configuration.getCommands())
-                configuration.executeCommand(command, null).join();
+                configuration.executeCommand(command, null, null).join();
         }
     }
 }
