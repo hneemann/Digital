@@ -126,7 +126,7 @@ public class ConfigurationTest extends TestCase {
             throw new RuntimeException(command.getName(), e);
         }
 
-        private void clear() {
+        void clear() {
             files.clear();
             commands.clear();
         }
