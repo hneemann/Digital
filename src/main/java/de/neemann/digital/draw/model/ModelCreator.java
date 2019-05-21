@@ -269,7 +269,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException NodeException
      */
     public Model createModel(boolean attachWires) throws PinException, NodeException {
-        Model m = new Model();
+        Model m = new Model().setAllowGlobalValues(attachWires);
 
         for (Net n : netList)
             n.interconnect(m, attachWires);

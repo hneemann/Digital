@@ -75,6 +75,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     private boolean isInvalidSignal = false;
     private AsyncSeq asyncInfos;
     private boolean asyncMode = false;
+    private boolean allowGlobalValues = false;
 
     private final ArrayList<ModelStateObserver> observers;
     private ArrayList<ModelStateObserver> observersStep;
@@ -740,6 +741,27 @@ public class Model implements Iterable<Node>, SyncAccess {
         return null;
     }
 
+    /**
+     * Registers a global value.
+     *
+     * @param name  the name
+     * @param value the value
+     */
+    public void registerGlobalValue(String name, ObservableValue value) {
+        if (allowGlobalValues)
+            GlobalValues.getInstance().register(name, value, this);
+    }
+
+    /**
+     * Set or denies the creation of global values.
+     *
+     * @param allowGlobalValues if true, global values are published
+     * @return this for chained calls
+     */
+    public Model setAllowGlobalValues(boolean allowGlobalValues) {
+        this.allowGlobalValues = allowGlobalValues;
+        return this;
+    }
 
     /**
      * Sets async execution infos
