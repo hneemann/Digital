@@ -8,11 +8,15 @@ package de.neemann.digital.toolchain;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import de.neemann.digital.builder.tt2.OSExecute;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.StatusInterface;
 import de.neemann.digital.hdl.hgs.*;
@@ -234,7 +238,13 @@ public final class Configuration {
         return name;
     }
 
-    private HDLModel writeHDL(String hdl, File digFile) throws IOException, HGSEvalException {
+    private HDLModel writeHDL(String hdl, File digFile) throws IOException, HGSEvalException, ElementNotFoundException, PinException, NodeException {
+
+        // Creates the simulation model to ensure the circuit is error free.
+        new ModelCreator(circuitProvider.getCurrentCircuit(), libraryProvider.getCurrentLibrary())
+                .createModel(false)
+                .close();
+
         switch (hdl) {
             case "verilog":
                 File verilogFile = SaveAsHelper.checkSuffix(digFile, "v");

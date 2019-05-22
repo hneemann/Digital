@@ -123,7 +123,7 @@ public class ConfigurationTest extends TestCase {
 
         @Override
         public void showError(Command command, Exception e) {
-            throw new RuntimeException(command.getName(), e);
+            fail(e.getMessage());
         }
 
         void clear() {
