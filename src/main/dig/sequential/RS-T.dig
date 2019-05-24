@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>NOr</elementName>
@@ -20,7 +21,7 @@
           <string>S</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="640"/>
+      <pos x="960" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -30,7 +31,7 @@
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="540"/>
+      <pos x="960" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -70,7 +71,7 @@
           <string>R</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="440"/>
+      <pos x="960" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -78,14 +79,14 @@
       <pos x="1240" y="520"/>
     </visualElement>
     <visualElement>
-      <elementName>Delay</elementName>
-      <elementAttributes/>
-      <pos x="1180" y="520"/>
-    </visualElement>
-    <visualElement>
       <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="1120" y="520"/>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="1000" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -103,6 +104,26 @@ X 0 X 1  0
         </entry>
       </elementAttributes>
       <pos x="1500" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="520"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="1160" y="520"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -127,11 +148,11 @@ X 0 X 1  0
       <p2 x="1560" y="480"/>
     </wire>
     <wire>
-      <p1 x="1080" y="640"/>
+      <p1 x="960" y="640"/>
       <p2 x="1340" y="640"/>
     </wire>
     <wire>
-      <p1 x="1100" y="560"/>
+      <p1 x="980" y="560"/>
       <p2 x="1240" y="560"/>
     </wire>
     <wire>
@@ -155,20 +176,24 @@ X 0 X 1  0
       <p2 x="1560" y="600"/>
     </wire>
     <wire>
-      <p1 x="1080" y="440"/>
+      <p1 x="960" y="440"/>
       <p2 x="1340" y="440"/>
     </wire>
     <wire>
-      <p1 x="1100" y="520"/>
-      <p2 x="1120" y="520"/>
+      <p1 x="980" y="520"/>
+      <p2 x="1000" y="520"/>
     </wire>
     <wire>
       <p1 x="1220" y="520"/>
       <p2 x="1240" y="520"/>
     </wire>
     <wire>
-      <p1 x="1160" y="520"/>
-      <p2 x="1180" y="520"/>
+      <p1 x="1060" y="520"/>
+      <p2 x="1080" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="520"/>
+      <p2 x="1160" y="520"/>
     </wire>
     <wire>
       <p1 x="1400" y="620"/>
@@ -183,8 +208,8 @@ X 0 X 1  0
       <p2 x="1320" y="540"/>
     </wire>
     <wire>
-      <p1 x="1080" y="540"/>
-      <p2 x="1100" y="540"/>
+      <p1 x="960" y="540"/>
+      <p2 x="980" y="540"/>
     </wire>
     <wire>
       <p1 x="1540" y="480"/>
@@ -193,6 +218,14 @@ X 0 X 1  0
     <wire>
       <p1 x="1540" y="560"/>
       <p2 x="1540" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="980" y="520"/>
+      <p2 x="980" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="980" y="540"/>
+      <p2 x="980" y="560"/>
     </wire>
     <wire>
       <p1 x="1320" y="480"/>
@@ -210,13 +243,6 @@ X 0 X 1  0
       <p1 x="1420" y="500"/>
       <p2 x="1420" y="520"/>
     </wire>
-    <wire>
-      <p1 x="1100" y="520"/>
-      <p2 x="1100" y="540"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="540"/>
-      <p2 x="1100" y="560"/>
-    </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

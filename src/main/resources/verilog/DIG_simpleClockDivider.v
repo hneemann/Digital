@@ -1,4 +1,15 @@
+<? if (isPresent(elem.clockGenerator)) {?>
+module DIG_simpleClockDivider (
+  input cin,
+  output cout
+);
+  <?=elem.clockGenerator?> <?=elem.clockGenerator?>_i0 (
+    .cin( cin ),
+    .cout( cout )
+  );
+endmodule
 <?
+   } else {
     generics[0] := "maxCounter";
 ?>
 module DIG_simpleClockDivider
@@ -29,3 +40,4 @@ module DIG_simpleClockDivider
   end
 
 endmodule
+<? } ?>

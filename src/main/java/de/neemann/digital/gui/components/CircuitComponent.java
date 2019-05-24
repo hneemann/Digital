@@ -125,7 +125,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private AffineTransform transform = new AffineTransform();
     private Observer manualChangeObserver;
     private Vector lastMousePos;
-    private SyncAccess modelSync;
+    private SyncAccess modelSync = SyncAccess.NOSYNC;
     private boolean isManualScale;
     private boolean graphicsHasChanged = true;
     private boolean focusWasLost = false;
@@ -263,6 +263,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         MouseDispatcher dispatcher = new MouseDispatcher();
         addMouseMotionListener(dispatcher);
         addMouseListener(dispatcher);
+
+        mouseNormal.activate();
 
         setToolTipText("");
     }

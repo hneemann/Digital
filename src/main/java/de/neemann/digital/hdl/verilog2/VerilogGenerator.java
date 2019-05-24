@@ -35,6 +35,8 @@ public class VerilogGenerator implements Closeable {
     private final CodePrinter out;
     private ArrayList<File> testBenches;
     private boolean useClockIntegration = true;
+    private HDLModel model;
+    private HDLClockIntegrator clockIntegrator;
 
     /**
      * Creates a new exporter
@@ -45,6 +47,15 @@ public class VerilogGenerator implements Closeable {
     public VerilogGenerator(ElementLibrary library, CodePrinter out) {
         this.library = library;
         this.out = out;
+    }
+
+    /**
+     * Sets a clock integrator
+     *
+     * @param clockIntegrator clockIntegrator
+     */
+    public void setClockIntegrator(HDLClockIntegrator clockIntegrator) {
+        this.clockIntegrator = clockIntegrator;
     }
 
     /**
@@ -62,11 +73,10 @@ public class VerilogGenerator implements Closeable {
 
             BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
 
-            HDLClockIntegrator clockIntegrator = null;
             if (board != null && useClockIntegration)
                 clockIntegrator = board.getClockIntegrator();
 
-            HDLModel model = new HDLModel(library).create(circuit, clockIntegrator);
+            model = new HDLModel(library).create(circuit, clockIntegrator);
             for (HDLCircuit hdlCircuit : model)
                 hdlCircuit.applyDefaultOptimizations();
 
@@ -81,7 +91,7 @@ public class VerilogGenerator implements Closeable {
             out.println(" * Any changes will be lost if this file is regenerated.");
             out.println(" */");
 
-            String fileName = out.getFile() != null? out.getFile().getName() : circuit.getOrigin().getName();
+            String fileName = out.getFile() != null ? out.getFile().getName() : circuit.getOrigin().getName();
             String[] tokens = fileName.split("(?=(\\.[^\\.]+)$)"); // The power of regex :)
 
             String topModuleName = vrename.checkName(tokens[0]);
@@ -153,6 +163,13 @@ public class VerilogGenerator implements Closeable {
     @Override
     public void close() throws IOException {
         out.close();
+    }
+
+    /**
+     * @return the used hdl model
+     */
+    public HDLModel getModel() {
+        return model;
     }
 
     /**

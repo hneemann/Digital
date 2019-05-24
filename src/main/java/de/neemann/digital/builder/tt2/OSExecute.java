@@ -7,7 +7,6 @@ package de.neemann.digital.builder.tt2;
 
 import de.neemann.digital.lang.Lang;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,6 +72,8 @@ public class OSExecute {
      * @return this for chained calls
      */
     public OSExecute setTimeOutSec(int timeOutSec) {
+        if (timeOutSec == 0)
+            timeOutSec = Integer.MAX_VALUE;
         this.timeOutSec = timeOutSec;
         return this;
     }
@@ -104,14 +105,14 @@ public class OSExecute {
             throw new IOException(Lang.get("err_processDoesNotTerminate_N", processBuilder.command()));
         }
 
-        if (process.exitValue() != 0 && !ignoreReturnCode)
-            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", process.exitValue(), "\n" + consoleReader.toString()));
-
         try {
             consoleReader.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        if (process.exitValue() != 0 && !ignoreReturnCode)
+            throw new IOException(Lang.get("err_processExitedWithError_N1_N2", process.exitValue(), "\n" + consoleReader.toString()));
 
         if (consoleReader.getException() != null)
             throw consoleReader.getException();
@@ -149,12 +150,12 @@ public class OSExecute {
 
     private static final class StreamReader extends Thread {
         private final InputStream console;
-        private final ByteArrayOutputStream baos;
+        private final RotationByteArrayOutputStream baos;
         private IOException exception;
 
         private StreamReader(InputStream console) {
             this.console = console;
-            baos = new ByteArrayOutputStream();
+            baos = new RotationByteArrayOutputStream(20 * 1024);
             setDaemon(true);
         }
 
@@ -164,7 +165,9 @@ public class OSExecute {
                 byte[] data = new byte[4096];
                 int l;
                 while ((l = console.read(data)) >= 0) {
-                    baos.write(data, 0, l);
+                    synchronized (baos) {
+                        baos.write(data, 0, l);
+                    }
                 }
             } catch (IOException e) {
                 exception = e;
@@ -177,7 +180,9 @@ public class OSExecute {
 
         @Override
         public String toString() {
-            return baos.toString();
+            synchronized (baos) {
+                return baos.toString();
+            }
         }
     }
 
@@ -195,9 +200,11 @@ public class OSExecute {
         public void run() {
             try {
                 String result = os.startAndWait();
-                callback.processTerminated(result);
+                if (callback != null)
+                    callback.processTerminated(result);
             } catch (Exception e) {
-                callback.exception(e);
+                if (callback != null)
+                    callback.exception(e);
             }
         }
     }

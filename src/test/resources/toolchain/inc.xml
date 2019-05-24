@@ -1,0 +1,11 @@
+<toolchain name="Test">
+    <commands>
+        <command name="Export" requires="vhdl" />
+    </commands>
+    <files>
+        <file name="foo.txt" overwrite="true" filter="false" id="id1">
+            <content>Test content</content>
+        </file>
+        <file name="foo.txt" id="id2" lookAt="inc2.xml" ref="id1"/>
+    </files>
+</toolchain>

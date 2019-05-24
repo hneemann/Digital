@@ -215,7 +215,8 @@ public class Circuit implements Copyable<Circuit> {
      */
     public Circuit createShallowCopy() {
         Circuit circuit = new Circuit();
-        circuit.attributes = new ElementAttributes(attributes);
+        if (attributes != null)
+            circuit.attributes = new ElementAttributes(attributes);
         circuit.wires.addAll(wires);
         circuit.visualElements.addAll(visualElements);
         return circuit;

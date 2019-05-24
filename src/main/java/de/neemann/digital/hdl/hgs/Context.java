@@ -5,24 +5,38 @@
  */
 package de.neemann.digital.hdl.hgs;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.function.Func;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.InnerFunction;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * The evaluation context
  */
 public class Context {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Context.class);
     // declare some functions which are always present
     private static final HashMap<String, InnerFunction> BUILT_IN = new HashMap<>();
 
     static {
+        BUILT_IN.put("bitsNeededFor", new FunctionBitsNeeded());
+        BUILT_IN.put("ceil", new FunctionCeil());
+        BUILT_IN.put("floor", new FunctionFloor());
+        BUILT_IN.put("round", new FunctionRound());
+        BUILT_IN.put("float", new FunctionFloat());
+        BUILT_IN.put("min", new FunctionMin());
+        BUILT_IN.put("max", new FunctionMax());
+        BUILT_IN.put("abs", new FunctionAbs());
         BUILT_IN.put("print", new FunctionPrint());
         BUILT_IN.put("printf", new FunctionPrintf());
+        BUILT_IN.put("log", new FunctionLog());
         BUILT_IN.put("format", new FunctionFormat());
         BUILT_IN.put("isPresent", new FunctionIsPresent());
         BUILT_IN.put("panic", new FunctionPanic());
@@ -35,6 +49,7 @@ public class Context {
     private final Context parent;
     private final StringBuilder code;
     private HashMap<String, Object> map;
+    private boolean loggingEnabled = true;
 
     /**
      * Creates a new context
@@ -125,6 +140,24 @@ public class Context {
         }
     }
 
+
+    /**
+     * Exports a new variable.
+     * Exporting means the value is declared in the root context.
+     *
+     * @param name  the name of the variable
+     * @param value the value of the variable
+     * @return this for chained calls
+     * @throws HGSEvalException HGSEvalException
+     */
+    public Context exportVar(String name, Object value) throws HGSEvalException {
+        if (parent == null)
+            declareVar(name, value);
+        else
+            parent.exportVar(name, value);
+        return this;
+    }
+
     /**
      * Declares a new variable
      *
@@ -187,6 +220,20 @@ public class Context {
     }
 
     /**
+     * Logs a message
+     *
+     * @param o the object to log
+     */
+    private void log(Object o) {
+        if (loggingEnabled) {
+            if (parent != null)
+                parent.log(o);
+            else
+                LOGGER.info(o.toString());
+        }
+    }
+
+    /**
      * @return the output length
      */
     public int length() {
@@ -194,6 +241,16 @@ public class Context {
             return code.length();
         else
             return parent.length();
+    }
+
+    /**
+     * Disables the logging in this context.
+     *
+     * @return this for chained calls
+     */
+    public Context disableLogging() {
+        loggingEnabled = false;
+        return this;
     }
 
     /**
@@ -256,7 +313,7 @@ public class Context {
         for (int i = 1; i < args.size(); i++)
             eval.add(args.get(i).value(c));
 
-        return String.format(Value.toString(args.get(0).value(c)), eval.toArray());
+        return String.format(Locale.US, Value.toString(args.get(0).value(c)), eval.toArray());
     }
 
     private static final class FunctionIsPresent extends InnerFunction {
@@ -311,4 +368,155 @@ public class Context {
             return c.toString();
         }
     }
+
+    private static final class FunctionCeil extends Function {
+        private FunctionCeil() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            if (args[0] instanceof Double)
+                return (long) Math.ceil((Double) args[0]);
+            return Value.toLong(args[0]);
+        }
+    }
+
+    private static final class FunctionFloor extends Function {
+        private FunctionFloor() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            if (args[0] instanceof Double)
+                return (long) Math.floor((Double) args[0]);
+            return Value.toLong(args[0]);
+        }
+    }
+
+    private static final class FunctionRound extends Function {
+        private FunctionRound() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            if (args[0] instanceof Double)
+                return Math.round((Double) args[0]);
+            return Value.toLong(args[0]);
+        }
+    }
+
+    private static final class FunctionFloat extends Function {
+        private FunctionFloat() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            return Value.toDouble(args[0]);
+        }
+    }
+
+    private static final class FunctionBitsNeeded extends Function {
+
+        private FunctionBitsNeeded() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            return Bits.binLn2(Value.toLong(args[0]));
+        }
+    }
+
+    private static final class FunctionAbs extends Function {
+
+        private FunctionAbs() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            if (args[0] instanceof Double)
+                return Math.abs((Double) args[0]);
+
+            return Math.abs(Value.toLong(args[0]));
+        }
+    }
+
+    private static final class FunctionLog extends InnerFunction {
+
+        private FunctionLog() {
+            super(1);
+        }
+
+
+        @Override
+        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
+            if (args.size() != 1)
+                throw new HGSEvalException("wrong number of arguments! found: " + args.size() + ", expected: " + getArgCount());
+            Object v = args.get(0).value(c);
+            c.log(v);
+            return v;
+        }
+    }
+
+    private static final class FunctionMin extends Function {
+        private FunctionMin() {
+            super(-1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            long minL = Long.MAX_VALUE;
+            double minD = Double.MAX_VALUE;
+            for (Object v : args) {
+                if (v instanceof Double) {
+                    double l = (Double) v;
+                    if (minD > l) minD = l;
+                } else {
+                    long l = Value.toLong(v);
+                    if (minL > l) minL = l;
+                }
+            }
+
+            if (minD < Double.MAX_VALUE && minL < Long.MAX_VALUE) {
+                return Math.min(minD, minL);
+            } else if (minD < Double.MAX_VALUE)
+                return minD;
+            else
+                return minL;
+        }
+    }
+
+    private static final class FunctionMax extends Function {
+        private FunctionMax() {
+            super(-1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            long maxL = Long.MIN_VALUE;
+            double maxD = -Double.MAX_VALUE;
+            for (Object v : args) {
+                if (v instanceof Double) {
+                    double l = (Double) v;
+                    if (maxD < l) maxD = l;
+                } else {
+                    long l = Value.toLong(v);
+                    if (maxL < l) maxL = l;
+                }
+            }
+
+            if (maxD > -Double.MAX_VALUE && maxL > Long.MIN_VALUE) {
+                return Math.max(maxD, maxL);
+            } else if (maxD > -Double.MAX_VALUE)
+                return maxD;
+            else
+                return maxL;
+        }
+    }
+
 }

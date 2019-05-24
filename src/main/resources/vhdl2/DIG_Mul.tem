@@ -4,9 +4,9 @@ USE ieee.numeric_std.all;
 
 <?
   if (elem.Signed)
-      entityName:="DIG_Mul_signed";
+      export entityName:="DIG_Mul_signed";
   else
-      entityName:="DIG_Mul_unsigned";
+      export entityName:="DIG_Mul_unsigned";
 ?>
 
 entity <?=entityName?> is

@@ -10,7 +10,9 @@ package de.neemann.digital.gui;
  */
 public interface StatusInterface {
     /**
-     * Set message to the status line
+     * Set message to the status line.
+     * Is maybe calld from an non Swing thread. Therefore needs to be
+     * thread save.
      *
      * @param message the message
      */

@@ -1017,6 +1017,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_midiInstrument_N_NotAvailable">Das MIDI-Instrument {0} ist nicht verfügbar.</string>
     <string name="err_midiInstrumentsNotAvailable">Die MIDI-Instrumente sind nicht verfügbar.</string>
     <string name="err_whileExecutingTests_N0">Während der Ausführung der Tests "{0}" ist ein Fehler aufgetreten!</string>
+    <string name="err_hdlNotKnown_N">HDL nicht bekannt: {0}</string>
+    <string name="msg_errorStartCommand_N">Fehler beim Starten des Kommandos {0}</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1329,6 +1331,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_enabled">Aktiviert</string>
     <string name="key_enabled_tt">Aktiviert oder deaktiviert diese Komponente.</string>
+
+    <string name="key_toolChainConfig">Toolchain Konfiguration</string>
+    <string name="key_toolChainConfig_tt">Kann für eine Integration einer externen Toolchain verwendet werden.
+        Erlaubt den Start externer Tools, um z.B. einen FPGA zu programmieren o.ä.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
@@ -1682,6 +1688,10 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="msg_errorImportingSvg">Fehler beim Import der SVG-Datei.</string>
     <string name="msg_errorCreatingSvgTemplate">Fehler beim Erzeugen der SVG-Datei.</string>
     <string name="msg_couldNotCreateStats">Statistik konnte nicht erzeugt werden.</string>
+
+    <string name="msg_errorReadingToolchainConfig_N">Fehler beim Einladen der Toolchain-Konfiguration {0}</string>
+    <string name="msg_commandStarted_N">Kommando "{0}" wurde gestartet! Die Bearbeitung kann etwas dauern!</string>
+    <string name="msg_commandEnded_N">Kommando "{0}" wurde beendet!</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

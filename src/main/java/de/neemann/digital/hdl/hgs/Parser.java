@@ -11,6 +11,7 @@ import de.neemann.digital.hdl.hgs.function.FirstClassFunctionCall;
 import de.neemann.digital.hdl.hgs.refs.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import static de.neemann.digital.hdl.hgs.Tokenizer.Token.*;
@@ -32,7 +33,7 @@ public class Parser {
         InputStream in = ClassLoader.getSystemResourceAsStream(path);
         if (in == null)
             throw new FileNotFoundException("file not found: " + path);
-        try (Reader r = new InputStreamReader(in, "utf-8")) {
+        try (Reader r = new InputStreamReader(in, StandardCharsets.UTF_8)) {
             Parser p = new Parser(r, path);
             return p.parse();
         }
@@ -69,7 +70,7 @@ public class Parser {
     /**
      * Creates a new instance
      *
-     * @param reader the reader to parse
+     * @param reader  the reader to parse
      * @param srcFile the source file name if any
      */
     public Parser(Reader reader, String srcFile) {
@@ -141,7 +142,13 @@ public class Parser {
      */
     private Statement parseStatement(boolean isRealStatement) throws IOException, ParserException {
         final Tokenizer.Token token = tok.next();
+        boolean export = false;
         switch (token) {
+            case EXPORT:
+                export = true;
+                Tokenizer.Token ti = tok.next();
+                if (!ti.equals(IDENT))
+                    throw newParserException("export must be followed by an identifier!");
             case IDENT:
                 final Reference ref = parseReference(tok.getIdent());
                 Tokenizer.Token refToken = tok.next();
@@ -150,8 +157,13 @@ public class Parser {
                         expect(EQUAL);
                         final Expression initVal = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);
-                        return lino(c -> ref.declareVar(c, initVal.value(c)));
+                        if (export)
+                            return lino(c -> ref.exportVar(c, initVal.value(c)));
+                        else
+                            return lino(c -> ref.declareVar(c, initVal.value(c)));
                     case EQUAL:
+                        if (export)
+                            throw newParserException("export not alowed here!");
                         final Expression val = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> {
@@ -162,13 +174,19 @@ public class Parser {
                         });
                     case ADD:
                         expect(ADD);
+                        if (export)
+                            throw newParserException("export not alowed here!");
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.set(c, Value.toLong(ref.get(c)) + 1));
                     case SUB:
                         expect(SUB);
+                        if (export)
+                            throw newParserException("export not alowed here!");
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.set(c, Value.toLong(ref.get(c)) - 1));
                     case SEMICOLON:
+                        if (export)
+                            throw newParserException("export not alowed here!");
                         return lino(ref::get);
                     default:
                         throw newUnexpectedToken(refToken);
@@ -195,15 +213,17 @@ public class Parser {
                 if (nextIs(ELSE)) {
                     final Statement elseStatement = parseStatement();
                     return c -> {
-                        if ((boolean) ifCond.value(c))
-                            ifStatement.execute(c);
+                        Context iC = new Context(c, false);
+                        if ((boolean) ifCond.value(iC))
+                            ifStatement.execute(iC);
                         else
-                            elseStatement.execute(c);
+                            elseStatement.execute(iC);
                     };
                 } else
                     return c -> {
-                        if ((boolean) ifCond.value(c))
-                            ifStatement.execute(c);
+                        Context iC = new Context(c, false);
+                        if ((boolean) ifCond.value(iC))
+                            ifStatement.execute(iC);
                     };
             case FOR:
                 expect(OPEN);
@@ -218,7 +238,7 @@ public class Parser {
                     Context iC = new Context(c, false);
                     init.execute(iC);
                     while ((boolean) forCond.value(iC)) {
-                        inner.execute(iC);
+                        inner.execute(new Context(iC, false));
                         inc.execute(iC);
                     }
                 };
@@ -322,6 +342,14 @@ public class Parser {
         }
     }
 
+    private double convToDouble(String num) throws ParserException {
+        try {
+            return Double.parseDouble(num);
+        } catch (NumberFormatException e) {
+            throw newParserException("not a number: " + tok.getIdent());
+        }
+    }
+
     private ParserException newUnexpectedToken(Tokenizer.Token token) {
         String name = token == IDENT ? tok.getIdent() : token.name();
         return newParserException("unexpected Token: " + name);
@@ -355,13 +383,13 @@ public class Parser {
                 case NOTEQUAL:
                     return c -> !Value.equals(a.value(c), b.value(c));
                 case LESS:
-                    return c -> Value.toLong(a.value(c)) < Value.toLong(b.value(c));
+                    return c -> Value.less(a.value(c), b.value(c));
                 case LESSEQUAL:
-                    return c -> Value.toLong(a.value(c)) <= Value.toLong(b.value(c));
+                    return c -> Value.lessEqual(a.value(c), b.value(c));
                 case GREATER:
-                    return c -> Value.toLong(a.value(c)) > Value.toLong(b.value(c));
+                    return c -> Value.less(b.value(c), a.value(c));
                 case GREATEREQUAL:
-                    return c -> Value.toLong(a.value(c)) >= Value.toLong(b.value(c));
+                    return c -> Value.lessEqual(b.value(c), a.value(c));
                 default:
                     throw newUnexpectedToken(t);
             }
@@ -434,7 +462,7 @@ public class Parser {
         while (nextIs(SUB)) {
             Expression a = ac;
             Expression b = parseMul();
-            ac = c -> Value.toLong(a.value(c)) - Value.toLong(b.value(c));
+            ac = c -> Value.sub(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -444,7 +472,7 @@ public class Parser {
         while (nextIs(MUL)) {
             Expression a = ac;
             Expression b = parseDiv();
-            ac = c -> Value.toLong(a.value(c)) * Value.toLong(b.value(c));
+            ac = c -> Value.mul(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -454,7 +482,7 @@ public class Parser {
         while (nextIs(DIV)) {
             Expression a = ac;
             Expression b = parseMod();
-            ac = c -> Value.toLong(a.value(c)) / Value.toLong(b.value(c));
+            ac = c -> Value.div(a.value(c), b.value(c));
         }
         return ac;
     }
@@ -479,12 +507,15 @@ public class Parser {
             case NUMBER:
                 long num = convToLong(tok.getIdent());
                 return c -> num;
+            case DOUBLE:
+                double d = convToDouble(tok.getIdent());
+                return c -> d;
             case STRING:
                 String s = tok.getIdent();
                 return c -> s;
             case SUB:
                 Expression negExp = parseIdent();
-                return c -> -Value.toLong(negExp.value(c));
+                return c -> Value.neg(negExp.value(c));
             case NOT:
                 Expression notExp = parseIdent();
                 return c -> Value.not(notExp.value(c));

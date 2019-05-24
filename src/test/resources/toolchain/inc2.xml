@@ -1,0 +1,10 @@
+<toolchain name="Test">
+    <commands>
+        <command name="Export" requires="vhdl" />
+    </commands>
+    <files>
+        <file name="foo.txt" overwrite="true" filter="false" id="id1">
+            <content>deep content</content>
+        </file>
+    </files>
+</toolchain>

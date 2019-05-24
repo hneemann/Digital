@@ -1,12 +1,12 @@
 <?
     if (elem.Bits = 1) {
         moduleName = "DIG_Register";
-        bitRange := "";
+        export bitRange := "";
     }
     else {
         moduleName = "DIG_Register_BUS";
         generics[0] := "Bits";
-        bitRange := "[(Bits - 1):0]";
+        export bitRange := "[(Bits - 1):0]";
     }
 ?>
 module <?= moduleName ?>

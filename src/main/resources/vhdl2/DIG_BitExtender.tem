@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
 <? if (elem.inputBits>1) {
-     entityName:="DIG_BitExtender";?>
+     export entityName:="DIG_BitExtender";?>
 
 entity DIG_BitExtender is
   generic ( inputBits  : integer;  <? vhdl.registerGeneric("inputBits");?>
@@ -19,7 +19,7 @@ begin
 end DIG_BitExtender_arch;
 <?
    } else {
-      entityName:="DIG_BitExtenderSingle";
+      export entityName:="DIG_BitExtenderSingle";
 ?>
 entity DIG_BitExtenderSingle is
   generic ( outputBits : integer); <? vhdl.registerGeneric("outputBits");?>
