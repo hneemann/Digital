@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 /**
  * The evaluation context
@@ -41,6 +42,7 @@ public class Context {
         BUILT_IN.put("isPresent", new FunctionIsPresent());
         BUILT_IN.put("panic", new FunctionPanic());
         BUILT_IN.put("output", new FunctionOutput());
+        BUILT_IN.put("splitString", new FunctionSplitString());
         BUILT_IN.put("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
         BUILT_IN.put("newMap", new Func(0, args -> new HashMap()));
         BUILT_IN.put("newList", new Func(0, args -> new ArrayList()));
@@ -443,6 +445,22 @@ public class Context {
                 return Math.abs((Double) args[0]);
 
             return Math.abs(Value.toLong(args[0]));
+        }
+    }
+
+    private static final class FunctionSplitString extends Function {
+
+        private FunctionSplitString() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) {
+            StringTokenizer st = new StringTokenizer(args[0].toString(), " \r\t\n,:;");
+            ArrayList<String> list = new ArrayList<>();
+            while (st.hasMoreTokens())
+                list.add(st.nextToken());
+            return list;
         }
     }
 

@@ -245,13 +245,17 @@ public final class Configuration {
                 .createModel(false)
                 .close();
 
+        final int modelDefinedFrequency = getFrequency();
+        final boolean modelHasClock = modelDefinedFrequency > 0;
         switch (hdl) {
             case "verilog":
                 File verilogFile = SaveAsHelper.checkSuffix(digFile, "v");
                 final CodePrinter verilogPrinter = new CodePrinter(getIoInterface().getOutputStream(verilogFile));
                 try (VerilogGenerator vlog = new VerilogGenerator(libraryProvider.getCurrentLibrary(), verilogPrinter)) {
-                    if ((frequency > 1 || clockGenerator != null) && getFrequency() < Integer.MAX_VALUE)
-                        vlog.setClockIntegrator(createClockIntegrator());
+                    if (modelHasClock) {
+                        if ((this.frequency > 1 || clockGenerator != null) && modelDefinedFrequency < Integer.MAX_VALUE)
+                            vlog.setClockIntegrator(createClockIntegrator());
+                    }
                     vlog.export(circuitProvider.getCurrentCircuit());
                     return vlog.getModel();
                 }
@@ -259,8 +263,10 @@ public final class Configuration {
                 File vhdlFile = SaveAsHelper.checkSuffix(digFile, "vhdl");
                 final CodePrinter vhdlPrinter = new CodePrinter(getIoInterface().getOutputStream(vhdlFile));
                 try (VHDLGenerator vlog = new VHDLGenerator(libraryProvider.getCurrentLibrary(), vhdlPrinter)) {
-                    if ((frequency > 1 || clockGenerator != null) && getFrequency() < Integer.MAX_VALUE)
-                        vlog.setClockIntegrator(createClockIntegrator());
+                    if (modelHasClock) {
+                        if ((this.frequency > 1 || clockGenerator != null) && modelDefinedFrequency < Integer.MAX_VALUE)
+                            vlog.setClockIntegrator(createClockIntegrator());
+                    }
                     vlog.export(circuitProvider.getCurrentCircuit());
                     return vlog.getModel();
                 }
@@ -334,6 +340,8 @@ public final class Configuration {
     private void checkFilesToCreate(File fileToExecute, HDLModel hdlModel, Command command) throws HGSEvalException, IOException, ParserException {
         Context context = createContext(fileToExecute, hdlModel, command);
 
+        final boolean modelHasClock = getFrequency() > 0;
+
         if (files != null) {
             ConfigCache configCache = new ConfigCache(origin);
             for (FileToCreate f : files) {
@@ -345,13 +353,29 @@ public final class Configuration {
                 p.parse().execute(context);
                 File filename = new File(fileToExecute.getParent(), context.toString());
 
-                if (f.isOverwrite() || !filename.exists())
-                    createFile(filename, resolveFileContent(f, configCache), context);
+                // do not create clockGenerator hdl code if no clock is used in the circuit
+                boolean skip = !modelHasClock
+                        && clockGenerator != null
+                        && removeSuffix(filename.getName()).equals(clockGenerator);
+
+                if (!skip) {
+                    if (f.isOverwrite() || !filename.exists())
+                        createFile(filename, resolveFileContent(f, configCache), context);
+                }
             }
         }
     }
 
+    private String removeSuffix(String name) {
+        int p = name.lastIndexOf('.');
+        if (p < 0)
+            return name;
+        else
+            return name.substring(0, p);
+    }
+
     private void createFile(File filename, FileToCreate f, Context context) throws IOException, HGSEvalException, ParserException {
+        LOGGER.info("create file " + filename);
         Parser p;
         String content = f.getContent();
         if (f.isFilter()) {
@@ -389,9 +413,9 @@ public final class Configuration {
     private int getFrequency() throws HGSEvalException {
         List<VisualElement> l = circuitProvider.getCurrentCircuit().findElements(v -> v.equalsDescription(Clock.DESCRIPTION));
         if (l.isEmpty())
-            throw new HGSEvalException("No clock component found!");
+            return 0;
         if (l.size() > 1)
-            throw new HGSEvalException("More than one clock components found!");
+            throw new HGSEvalException(Lang.get("err_moreThanOneClockFound"));
 
         return l.get(0).getElementAttributes().get(Keys.FREQUENCY);
     }
@@ -466,7 +490,7 @@ public final class Configuration {
             final File parentFile = filename.getParentFile();
             if (!parentFile.exists()) {
                 if (!parentFile.mkdirs())
-                    throw new IOException("could not create " + parentFile);
+                    throw new IOException("could not create folder " + parentFile);
             }
             return new FileOutputStream(filename);
         }
