@@ -474,10 +474,19 @@ public class Polygon implements Iterable<Polygon.PathElement> {
                     p.getXFloat(), p.getYFloat());
         }
 
+        private VectorInterface getPoint(VectorInterface start, float t) {
+            float omt = 1 - t;
+            return start.mul(omt * omt * omt)
+                    .add(c1.mul(3 * t * omt * omt))
+                    .add(c2.mul(3 * t * t * omt))
+                    .add(p.mul(t * t * t));
+        }
+
         @Override
         public VectorInterface traverse(VectorInterface start, PointVisitor v) {
-            v.visit(c1);
-            v.visit(c2);
+            v.visit(getPoint(start, 0.25f));
+            v.visit(getPoint(start, 0.5f));
+            v.visit(getPoint(start, 0.75f));
             v.visit(p);
             return p;
         }
@@ -516,10 +525,16 @@ public class Polygon implements Iterable<Polygon.PathElement> {
                     p.getXFloat(), p.getYFloat());
         }
 
+        private VectorInterface getPoint(VectorInterface start, float t) {
+            float omt = 1 - t;
+            return start.mul(omt * omt).add(c.mul(2 * t * omt)).add(p.mul(t * t));
+        }
+
         @Override
         public VectorInterface traverse(VectorInterface start, PointVisitor v) {
-            VectorInterface p1s = c.div(2);
-            v.visit(start.div(2).add(p1s).add(p.div(2).add(p1s)).div(2));
+            v.visit(getPoint(start, 0.4f));
+            v.visit(getPoint(start, 0.5f));
+            v.visit(getPoint(start, 0.6f));
             v.visit(p);
             return p;
         }
