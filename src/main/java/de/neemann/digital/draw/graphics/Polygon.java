@@ -313,8 +313,9 @@ public class Polygon implements Iterable<Polygon.PathElement> {
      * @param v the visitor to use
      */
     public void traverse(PointVisitor v) {
+        VectorInterface start = null;
         for (PathElement pe : path)
-            pe.traverse(v);
+            start = pe.traverse(start, v);
     }
 
     /**
@@ -356,9 +357,11 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         /**
          * Traverses all points
          *
-         * @param v the visitor to use
+         * @param start the start point
+         * @param v     the visitor to use
+         * @return the end point
          */
-        void traverse(PointVisitor v);
+        VectorInterface traverse(VectorInterface start, PointVisitor v);
     }
 
     private static String str(float f) {
@@ -406,8 +409,9 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         }
 
         @Override
-        public void traverse(PointVisitor v) {
+        public VectorInterface traverse(VectorInterface start, PointVisitor v) {
             v.visit(p);
+            return p;
         }
     }
     //CHECKSTYLE.ON: FinalClass
@@ -471,10 +475,11 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         }
 
         @Override
-        public void traverse(PointVisitor v) {
+        public VectorInterface traverse(VectorInterface start, PointVisitor v) {
             v.visit(c1);
             v.visit(c2);
             v.visit(p);
+            return p;
         }
     }
 
@@ -512,9 +517,11 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         }
 
         @Override
-        public void traverse(PointVisitor v) {
-            v.visit(c);
+        public VectorInterface traverse(VectorInterface start, PointVisitor v) {
+            VectorInterface p1s = c.div(2);
+            v.visit(start.div(2).add(p1s).add(p.div(2).add(p1s)).div(2));
             v.visit(p);
+            return p;
         }
     }
 
@@ -540,7 +547,8 @@ public class Polygon implements Iterable<Polygon.PathElement> {
         }
 
         @Override
-        public void traverse(PointVisitor v) {
+        public VectorInterface traverse(VectorInterface start, PointVisitor v) {
+            return null;
         }
     }
 }
