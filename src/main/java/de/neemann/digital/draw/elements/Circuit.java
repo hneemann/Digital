@@ -157,7 +157,6 @@ public class Circuit implements Copyable<Circuit> {
      */
     public void save(File filename) throws IOException {
         save(new FileOutputStream(filename));
-        origin = filename;
     }
 
     /**
@@ -200,6 +199,8 @@ public class Circuit implements Copyable<Circuit> {
         if (original.measurementOrdering != null)
             measurementOrdering.addAll(original.measurementOrdering);
 
+        origin = original.origin;
+
         version = 1;
     }
 
@@ -219,6 +220,7 @@ public class Circuit implements Copyable<Circuit> {
             circuit.attributes = new ElementAttributes(attributes);
         circuit.wires.addAll(wires);
         circuit.visualElements.addAll(visualElements);
+        circuit.origin = origin;
         return circuit;
     }
 
@@ -712,6 +714,15 @@ public class Circuit implements Copyable<Circuit> {
      */
     public File getOrigin() {
         return origin;
+    }
+
+    /**
+     * Sets the file name
+     *
+     * @param filename the file name
+     */
+    public void setOrigin(File filename) {
+        this.origin = filename;
     }
 
     /**

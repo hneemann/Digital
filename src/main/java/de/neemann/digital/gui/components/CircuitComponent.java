@@ -490,6 +490,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      */
     public void save(File filename) throws IOException {
         getCircuit().save(filename);
+        try {
+            undoManager.applyWithoutHistory(circuit -> circuit.setOrigin(filename));
+        } catch (ModifyException e) {
+            throw new RuntimeException("internal error in save", e);
+        }
         undoManager.saved();
     }
 

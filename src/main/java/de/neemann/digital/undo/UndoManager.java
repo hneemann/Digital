@@ -10,7 +10,8 @@ import java.util.ArrayList;
 /**
  * Class which implements Undo/Redo logic.
  * Uses an event sourcing approach.
- * Make sure that no modifications are made beside the {@link UndoManager#apply(Modification)} method!
+ * Make sure that no modifications are made beside the {@link UndoManager#apply(Modification)}
+ * or {@link UndoManager#applyWithoutHistory(Modification)} method!
  *
  * @param <A> the structure to modify
  */
@@ -196,6 +197,20 @@ public class UndoManager<A extends Copyable<A>> {
      */
     public void removedListener(ChangedListener listener) {
         listeners.remove(listener);
+    }
+
+
+    /**
+     * Applies a modification to the object without a history record.
+     * Needs to be used to ensure all existing copies are modified.
+     *
+     * @param modification the modification
+     * @throws ModifyException ModifyException
+     */
+    public void applyWithoutHistory(Modification<A> modification) throws ModifyException {
+        if (actual != null)
+            modification.modify(actual);
+        modification.modify(initial);
     }
 
 }
