@@ -102,7 +102,7 @@ public final class SaveAsHelper {
 
         String name = filename.getName();
         int p = name.lastIndexOf('.');
-        if (p >= 0)
+        if (p >= 0 && p == name.length() - 4)
             name = name.substring(0, p);
         return new File(filename.getParentFile(), name + "." + suffix);
     }
