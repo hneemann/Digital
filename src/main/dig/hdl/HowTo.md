@@ -34,8 +34,8 @@ The `filter` attribute allows to filter the arguments which means the given stri
 to the external program as it is, instead it is preprocessed to allow more flexible arguments which
 are depending on the name of the circuit and so on. If filtering is enabled, the arguments are scanned 
 for either `<?...?>` or `{?...?}` fragments. If such a fragment is found the enclosed text is
-evaluated by a code parser. If the code starts with a `=` the following variables content is inserted.
-The variables that are available are:
+evaluated by a code parser. If the code starts with a `=` the following expression is evaluated 
+and inserted. The variables that are available are:
 
 - `shortname`: The file name of the current circuit without the suffix.
 - `name`: The file name of the current circuit including the suffix.         
@@ -138,7 +138,7 @@ If you want to print a list containing all the port names and pins, this can be 
 There are two methods to make the hdl model run with the frequency given in the circuits
 clock component.
 The first one is to define the clock frequency used by the board. This is done by the 
-`frequency` attribute in the xml root element:
+`frequency` attribute in the xml root tag:
 ```xml
 <toolchain name="TinyFPGA BX" frequency="16000000">
   ...
@@ -149,7 +149,7 @@ signal provided by the board to match the clock frequency given in the circuit.
 Although this is very easy, it is also problematic because the clock is generated 
 by flipflops, not by the pll which is usually available on the fpga.  
 
-To utilize the pll available in the fpga a specific piece of hdl code needs to be 
+To utilize the pll available in the fpga, a specific piece of hdl code needs to be 
 generated. This is done by defining a clock generator instead of simply define the 
 frequency:
 
@@ -158,7 +158,7 @@ frequency:
   ...
 </toolchain>  
 ```
-If the `clockGenerator` attribute is used, the circuits hdl code is generated 
+If the `clockGenerator` attribute is given, the circuits hdl code is generated 
 in a way that either `clockGenerator.v` or `clockGenerator.vhdl` is used to
 generate the clock. The hdl code generator assumes that the clock generator 
 has a input port `cin` and a output port `cout`.
@@ -169,17 +169,19 @@ folder for a more complex example.
  
 ## The HGS language
 
+### General
+
 The HGS language (HDL Generator Scripting language) is used as a template 
 engine to create files dynamically. There are two main usages: At first 
 this language is used to define the VHDL and Verilog templates which are 
 necessary to export a circuit to VHDL or Verilog.
 
-Second the GDS language is used to generate the board specific files which are
+Second the HGS language is used to generate the board specific files which are
 necessary to run a circuit on a specific board. HGS is a simple, dynamic, 
 interpreted language designed for file templating.
 
 To avoid a couple of common mistakes by using a dynamic language it uses 
-a uncommon approach to deal with assignments. To declare a new variable
+a uncommon approach to deal with variables. To declare a new variable
 you have to use the `:=` operator. This is only possible if the new variables 
 does not exist. Once the new variable is created an assignment to the variable 
 is done by the `=` operator. This is only possible if the variable already 
@@ -193,5 +195,137 @@ But this code fails with an error message:
   a:=0.1;
   a=true;
 ```
- The variable `a` is declared as a float. It is not possible to assign a bool to it.
-          
+The variable `a` is declared as a float. It is not possible to assign a 
+bool to it.
+
+### File Creation
+ 
+A template allways begins with plain text which is copied to the file to generate.
+Special actions - data evaluations or control structures - are delimited 
+by `{?` and `?}` or `<?` and `?>`. Because the `.config` files are XML files the
+`{?` and `?}` variant is easier to use in most cases.
+
+If you want to create a file which creates the clock period in ns you can use the 
+following template:
+
+```xml
+  <file name="clock.txt" overwrite="true" filter="true">
+      <content>clock period is {? period:=1000000000/model.frequency; print(period);?}ns</content>
+  </file>
+```
+or in short:
+```xml
+  <file name="clock.txt" overwrite="true" filter="true">
+      <content>clock period is {?=1000000000/model.frequency?}ns</content>
+  </file>
+```
+
+### Control Structures
+
+All the most common control structures are available:
+
+The `for` statement:
+```
+  for ( i:=0; i<10; i++) {
+      println(i);
+  }
+```
+
+The `if` statement:
+
+```
+  if (a<0) {
+      println(a);
+  } else {
+      println(-a);
+  }
+```
+
+The `while` statement:
+
+```
+  while (a<10) {
+      a++;
+  }
+```
+
+The `repeat` statement:
+
+```
+  repeat {
+      a++;
+  } until a>=10;
+```
+
+It is possible to declare a function:
+
+```
+  func fibu(n){
+      if (n<2)
+          return n;
+      else
+          return fibu(n-1)+fibu(n-2);
+  }
+  
+  print(fibu(10));
+```
+Closures are also supported:
+
+```
+func create() {
+   inner:=0;
+   return func(){
+      inner++;
+      return inner;
+   };
+}
+
+a:=create();
+b:=create();
+
+print(a()+","+a()+","+b());
+```
+The output is "1,2,1".
+
+### Built-In Functions
+
+The following functions are predeclared:
+
+`bitsNeededFor(int)` returns the number of bits needed to store the given integer value.
+
+`ceil(float)` returns the smallest integer number greater than the given float.
+
+`floor(float)` returns the largest integer number smaller than the given float.
+
+`round(float)` returns the integer number closest to the given float.
+
+`float(arg)` converts the given number to a float.
+ 
+`min(a,b,...)` returns the min value of all given arguments.
+
+`max(a,b,...)` returns the max value of all given arguments.
+
+`abs(num)` if the number is positive, the number is returned. otherwise -num is returned.
+
+`print(arg)` prints the given argument
+
+`println(arg)` prints the given argument followed by a new line.
+
+`printf(str,arg,...)` the well known C-style printf function.
+
+`format(str,arg,...)` similar to `printf`, but the result is retuned as a string.
+ 
+`log(arg)` prints the given argument to the log file.
+
+`isPresent(arg)` returns true if the given arguments exists. 
+
+`panic(msg)` creates a runtime panic. Throws a java exception with the given message. 
+
+`splitString(string)` splits the given string in substrings. 
+   Returns an array of strings. The separator chars are " \n\r\t,:;"
+    
+`sizeOf(var)` returns the size of an array or a map.
+
+`newMap()` creates a new empty map.
+
+`newList()` creates a new empty list.          

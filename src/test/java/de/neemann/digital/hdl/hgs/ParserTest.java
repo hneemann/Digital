@@ -472,6 +472,24 @@ public class ParserTest extends TestCase {
         assertEquals(1L, inc.call());
     }
 
+    public void testFunctionClosure2() throws IOException, ParserException, HGSEvalException {
+        String c = exec(
+                "<?" +
+                        "func create() {" +
+                        "   inner:=0; " +
+                        "   return func(){" +
+                        "      inner++; " +
+                        "      return inner;" +
+                        "   };" +
+                        "}" +
+                        "a:=create();" +
+                        "b:=create();" +
+                        "print(a()+\",\"+a()+\",\"+b());" +
+                        "?>").toString();
+
+        assertEquals("1,2,1", c);
+    }
+
     public static final class TestClass {
         private long inner;
 
