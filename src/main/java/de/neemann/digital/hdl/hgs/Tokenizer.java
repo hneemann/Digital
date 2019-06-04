@@ -18,7 +18,7 @@ class Tokenizer {
         UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, LESS, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
         OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, STATIC, FUNC, GREATEREQUAL, LESSEQUAL,
-        REPEAT, RETURN, COLON, UNTIL, DOUBLE, EXPORT
+        REPEAT, RETURN, COLON, UNTIL, DOUBLE, EXPORT, TRUE, FALSE
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -33,6 +33,8 @@ class Tokenizer {
         statementMap.put("until", Token.UNTIL);
         statementMap.put("return", Token.RETURN);
         statementMap.put("export", Token.EXPORT);
+        statementMap.put("true", Token.TRUE);
+        statementMap.put("false", Token.FALSE);
     }
 
     private final Reader in;
@@ -214,6 +216,8 @@ class Tokenizer {
                 case '?':
                     if (isNextChar('>'))
                         token = Token.CODEEND;
+                    else if (isNextChar('}'))
+                        token = Token.CODEEND;
                     else
                         token = Token.UNKNOWN;
                     break;
@@ -393,18 +397,13 @@ class Tokenizer {
         isToken = false;
         StringBuilder sb = new StringBuilder();
         int c;
-        while ((c = in.read()) > 0) {
-            if (c == '<') {
-                int cc = in.read();
-                if (cc == '?') {
+        while ((c = readChar())>0) {
+            if (c == '<' || c == '{') {
+                if (isNextChar('?')) {
                     return sb.toString();
-                } else {
+                } else
                     sb.append((char) c);
-                    sb.append((char) cc);
-                }
             } else {
-                if (c == '\n')
-                    line++;
                 sb.append((char) c);
             }
         }

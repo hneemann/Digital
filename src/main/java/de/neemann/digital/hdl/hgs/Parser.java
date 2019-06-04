@@ -510,6 +510,10 @@ public class Parser {
             case DOUBLE:
                 double d = convToDouble(tok.getIdent());
                 return c -> d;
+            case TRUE:
+                return c -> true;
+            case FALSE:
+                return c -> false;
             case STRING:
                 String s = tok.getIdent();
                 return c -> s;

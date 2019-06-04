@@ -172,8 +172,18 @@ public class ParserTest extends TestCase {
         assertEquals("", exec("<? if (0) print(\"true\"); ?>").toString());
         assertEquals("true", exec("<? if (1=1) print(\"true\"); ?>").toString());
         assertEquals("", exec("<? if (0=1) print(\"true\"); ?>").toString());
+        assertEquals("true", exec("<? a:=true; print(a); ?>").toString());
+        assertEquals("false", exec("<? a:=true; a=false; print(a); ?>").toString());
     }
 
+    public void testTypeChecking() throws IOException, ParserException, HGSEvalException {
+        assertEquals("5.0", exec("<? a:=4.0; a=5.0; print(a); ?>", new Context()).toString());
+        assertEquals("u", exec("<? a:=\"zz\"; a=\"u\"; print(a); ?>", new Context()).toString());
+
+        failToEval("<? a:=\"zz\"; a=5; print(a); ?>", new Context());
+        failToEval("<? a:=5; a=5.0; print(a); ?>", new Context());
+        failToEval("<? a:=5.0; a=5; print(a); ?>", new Context());
+    }
 
     public void testParseTemplateSimple() throws IOException, ParserException, HGSEvalException {
         assertEquals("Hello World!", exec("Hello World!", new Context()).toString());
@@ -198,10 +208,14 @@ public class ParserTest extends TestCase {
     public void testParseTemplateCodeOnly() throws IOException, ParserException, HGSEvalException {
         Context c = exec("<? =a ?>", new Context().declareVar("a", "My"));
         assertEquals("My", c.toString());
+        c = exec("{? =a ?}", new Context().declareVar("a", "My"));
+        assertEquals("My", c.toString());
     }
 
     public void testParseTemplatePrint() throws IOException, ParserException, HGSEvalException {
         Context c = exec("Hello <? print(\"My\"); ?> World!");
+        assertEquals("Hello My World!", c.toString());
+        c = exec("Hello {? print(\"My\"); ?} World!");
         assertEquals("Hello My World!", c.toString());
 
         failToEval("Hello <? a=print(\"My\"); ?> World!", new Context());
