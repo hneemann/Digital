@@ -67,7 +67,7 @@ Such files are created by the `files` section of the `.config` file.
 
 ```xml
   <files>
-    <file name="Pins_{?=shortname?}.pin" overwrite="false" filter="true" id="vivado">
+    <file name="Pins_{?=shortname?}.pin" overwrite="false" filter="false" id="vivado">
       <content>
          The content of the file created.
       </content>  
@@ -78,8 +78,8 @@ Such files are created by the `files` section of the `.config` file.
 The `file`-tag has a `name` attribute which defines the file name. The `overwrite` attribute 
 defines the behaviour if the file already exists. If the value is set to `true` the file is 
 overwritten. If the value is set to `false` a existing file is not changed. This is handy for
-a project file template, which is modified after its creation by a tool like Vivado ore ISE 
-and you don't want to overwrite this modifications every time the tool ist started by Digital.
+a project file template, which is modified after its creation by a tool like Vivado or ISE 
+and you don't want to overwrite this modifications every time the tool is started by Digital.
 The `filter` attribute enables the filtering of the files content. And finally the `id` attribute 
 is used to include this file file from other `.config` files.
 The `content` tag defines the content of the file created.
@@ -149,7 +149,7 @@ signal provided by the board to match the clock frequency given in the circuit.
 Although this is very easy, it is also problematic because the clock is generated 
 by flipflops, not by the pll which is usually available on the fpga.  
 
-To utilize the pll available in the fpga, a specific piece of hdl code needs to be 
+To utilize the pll available on the fpga, a specific piece of hdl code needs to be 
 generated. This is done by defining a clock generator instead of simply define the 
 frequency:
 
@@ -205,7 +205,7 @@ Special actions - data evaluations or control structures - are delimited
 by `{?` and `?}` or `<?` and `?>`. Because the `.config` files are XML files the
 `{?` and `?}` variant is easier to use in most cases.
 
-If you want to create a file which creates the clock period in ns you can use the 
+If you want to create a file which contains the clock period in ns you can use the 
 following template:
 
 ```xml
@@ -213,7 +213,7 @@ following template:
       <content>clock period is {? period:=1000000000/model.frequency; print(period);?}ns</content>
   </file>
 ```
-or in short:
+or in a shorter way:
 ```xml
   <file name="clock.txt" overwrite="true" filter="true">
       <content>clock period is {?=1000000000/model.frequency?}ns</content>
@@ -226,7 +226,7 @@ All the most common control structures are available:
 
 The `for` statement:
 ```
-  for ( i:=0; i<10; i++) {
+  for (i:=0; i<10; i++) {
       println(i);
   }
 ```
@@ -313,7 +313,7 @@ The following functions are predeclared:
 
 `printf(str,arg,...)` the well known C-style printf function.
 
-`format(str,arg,...)` similar to `printf`, but the result is retuned as a string.
+`format(str,arg,...)` similar to `printf`, but the result is returned as a string.
  
 `log(arg)` prints the given argument to the log file.
 
