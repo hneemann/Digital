@@ -478,6 +478,10 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     public void integrateClockNode(HDLPort clock, HDLNodeBuildIn clockNode) throws HDLException {
         HDLNet outNet = clock.getNet();
         HDLNet inNet = new HDLNet(null);
+
+        if (outNet == null)
+            throw new HDLException(Lang.get("err_clockIsNotUsed"));
+
         outNet.resetOutput();
         clock.setNet(inNet);
         listOfNets.add(inNet);

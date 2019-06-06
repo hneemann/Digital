@@ -726,7 +726,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         JOptionPane.showMessageDialog(Main.this, Lang.get("msg_restartNeeded"));
                     }
                     if (!Settings.getInstance().getAttributes().equalsKey(Keys.SETTINGS_GRID, modified))
-                        circuitComponent.repaintNeeded();
+                        circuitComponent.graphicHasChanged();
 
                     Settings.getInstance().getAttributes().getValuesFrom(modified);
                 }
@@ -958,7 +958,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     model.doMicroStep(false);
                     circuitComponent.removeHighLighted();
                     modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
-                    circuitComponent.repaintNeeded();
+                    circuitComponent.graphicHasChanged();
                     doStep.setEnabled(model.needsUpdate());
                 } catch (Exception e1) {
                     showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
@@ -975,7 +975,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model.BreakInfo info = model.runToBreak();
-                    circuitComponent.repaintNeeded();
+                    circuitComponent.graphicHasChanged();
                     statusLabel.setText(Lang.get("stat_clocks", info.getSteps(), info.getLabel()));
                 } catch (NodeException | RuntimeException e1) {
                     showErrorAndStopModel(Lang.get("msg_fastRunError"), e1);
@@ -1364,7 +1364,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
                         model.fireManualChangeEvent();
                         doStep.setEnabled(model.needsUpdate());
-                        circuitComponent.repaintNeeded();
+                        circuitComponent.graphicHasChanged();
                     };
                 else
                     handler = keyboard -> {
@@ -1374,7 +1374,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 model.fireManualChangeEvent();
                                 model.doStep();
                             });
-                            circuitComponent.repaintNeeded();
+                            circuitComponent.graphicHasChanged();
                         } catch (NodeException | RuntimeException e) {
                             showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
                         }
@@ -1435,7 +1435,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             circuitComponent.addHighLightedWires(e.getValues());
         }
         circuitComponent.setHighLightStyle(Style.ERROR);
-        circuitComponent.repaintNeeded();
+        circuitComponent.graphicHasChanged();
         new ErrorMessage(message).addCause(cause).show(Main.this);
         ensureModelIsStopped();
     }
@@ -1576,7 +1576,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     model.fireManualChangeEvent();
                     model.doStep();
                 });
-                circuitComponent.repaintNeeded();
+                circuitComponent.graphicHasChanged();
             } catch (NodeException | RuntimeException e) {
                 showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
             }
@@ -1595,7 +1595,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (!realTimeClockRunning)
                 modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             model.fireManualChangeEvent();
-            circuitComponent.repaintNeeded();
+            circuitComponent.graphicHasChanged();
             if (!realTimeClockRunning)
                 doStep.setEnabled(model.needsUpdate());
         }
@@ -1662,7 +1662,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         GifExporter gifExporter = new GifExporter(Main.this, circuitComponent.getCircuit(), 500, file);
                         windowPosManager.closeAll();
                         runModelState.enter(false, gifExporter);
-                        circuitComponent.repaintNeeded();
+                        circuitComponent.graphicHasChanged();
                     }
             );
         }
@@ -1712,7 +1712,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     public void start(File romHex) {
         SwingUtilities.invokeLater(() -> {
             runModelState.enter(true, new ProgramMemoryLoader(romHex));
-            circuitComponent.repaintNeeded();
+            circuitComponent.graphicHasChanged();
         });
     }
 
@@ -1720,7 +1720,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     public void debug(File romHex) {
         SwingUtilities.invokeLater(() -> {
             runModelState.enter(false, new ProgramMemoryLoader(romHex));
-            circuitComponent.repaintNeeded();
+            circuitComponent.graphicHasChanged();
             if (model != null)
                 showMeasurementDialog(ModelEvent.STEP);
         });
@@ -1742,7 +1742,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 clkVal.setBool(!clkVal.getBool());
                                 model.doStep();
                             }
-                            circuitComponent.repaintNeeded();
+                            circuitComponent.graphicHasChanged();
                             addressPicker.getProgramROMAddress(model);
                         } catch (NodeException | RuntimeException e) {
                             showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
@@ -1777,7 +1777,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     public void stop() {
         SwingUtilities.invokeLater(() -> {
             ensureModelIsStopped();
-            circuitComponent.repaintNeeded();
+            circuitComponent.graphicHasChanged();
         });
     }
     //**********************

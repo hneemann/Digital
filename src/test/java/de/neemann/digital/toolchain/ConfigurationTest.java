@@ -27,7 +27,7 @@ public class ConfigurationTest extends TestCase {
                 "        </command>\n" +
                 "        <command name=\"prog\" requires=\"verilog\" filter=\"true\">\n" +
                 "            <arg>make</arg>\n" +
-                "            <arg>&lt;?=dir?&gt;/&lt;?=shortname?&gt;.v</arg>\n" +
+                "            <arg>{?=dir?}/{?=shortname?}.v</arg>\n" +
                 "        </command>\n" +
                 "    </commands>\n" +
                 " </toolchain>\n";
@@ -73,12 +73,12 @@ public class ConfigurationTest extends TestCase {
                 "    </commands>\n" +
                 "    <files>\n" +
                 "        <file name=\"file1\" overwrite=\"true\" filter=\"false\">\n" +
-                "            <content>deal with &lt;?=path?&gt;</content>\n" +
+                "            <content>deal with {?=path?}</content>\n" +
                 "        </file>\n" +
                 "        <file name=\"file2\" overwrite=\"true\" filter=\"true\">\n" +
-                "            <content>deal with &lt;?=path?&gt;, Bits: &lt;?=model.ports[0].bits?&gt; (&lt;?=model.ports[0].name?&gt;)</content>\n" +
+                "            <content>deal with {?=path?}, Bits: {?=model.ports[0].bits?} ({?=model.ports[0].name?})</content>\n" +
                 "        </file>\n" +
-                "        <file name=\"&lt;?=shortname?&gt;.z\" overwrite=\"true\" filter=\"false\">\n" +
+                "        <file name=\"{?=shortname?}.z\" overwrite=\"true\" filter=\"false\">\n" +
                 "            <content>test</content>\n" +
                 "        </file>\n" +
                 "    </files>\n" +
@@ -99,7 +99,7 @@ public class ConfigurationTest extends TestCase {
         c.executeCommand(commands.get(0), null, null).join();
 
         assertEquals(4, fileWriter.files.size());
-        assertEquals("deal with <?=path?>", fileWriter.files.get("z/file1").toString());
+        assertEquals("deal with {?=path?}", fileWriter.files.get("z/file1").toString());
         assertEquals("deal with z/test.dig, Bits: 1 (A)", fileWriter.files.get("z/file2").toString());
         assertEquals("test", fileWriter.files.get("z/test.z").toString());
     }

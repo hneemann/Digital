@@ -127,7 +127,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private Vector lastMousePos;
     private SyncAccess modelSync = SyncAccess.NOSYNC;
     private boolean isManualScale;
-    private boolean graphicsHasChanged = true;
+    private boolean graphicHasChangedFlag = true;
     private boolean focusWasLost = false;
     private boolean lockMessageShown = false;
     private boolean antiAlias = true;
@@ -225,7 +225,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             transform.scale(f, f);
             transform.translate(-pos.x, -pos.y);
             isManualScale = true;
-            repaintNeeded();
+            graphicHasChanged();
         });
 
         addComponentListener(new ComponentAdapter() {
@@ -437,8 +437,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     /**
      * invalidates the image buffer and calls repaint();
      */
-    public void repaintNeeded() {
-        graphicsHasChanged = true;
+    public void graphicHasChanged() {
+        graphicHasChangedFlag = true;
         repaint();
     }
 
@@ -490,6 +490,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      */
     public void save(File filename) throws IOException {
         getCircuit().save(filename);
+        try {
+            undoManager.applyWithoutHistory(circuit -> circuit.setOrigin(filename));
+        } catch (ModifyException e) {
+            throw new RuntimeException("internal error in save", e);
+        }
         undoManager.saved();
     }
 
@@ -628,8 +633,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * @param <T>      type of drawable
      */
     public <T extends Drawable> void addHighLighted(T drawable) {
-        if (drawable != null)
+        if (drawable != null) {
             highLighted.add(drawable);
+            graphicHasChanged();
+        }
     }
 
     /**
@@ -638,8 +645,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * @param drawables the list of drawables
      */
     public void addHighLighted(Collection<? extends Drawable> drawables) {
-        if (drawables != null)
+        if (drawables != null) {
             highLighted.addAll(drawables);
+            graphicHasChanged();
+        }
     }
 
     /**
@@ -660,8 +669,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * remove all highlighted elements
      */
     public void removeHighLighted() {
-        highLighted.clear();
-        highLightStyle = Style.HIGHLIGHT;
+        if (!highLighted.isEmpty()) {
+            highLighted.clear();
+            highLightStyle = Style.HIGHLIGHT;
+            graphicHasChanged();
+        }
+
     }
 
     /**
@@ -705,7 +718,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         }
         mouseInsertElement.updateMousePos(getPosVector(point.x, point.y));
-        repaintNeeded();
+        graphicHasChanged();
         requestFocus();
     }
 
@@ -726,30 +739,27 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
         elements = new CopiedElementLabelRenamer(getCircuit(), elements).rename();
         mouseInsertList.activate(elements, pos);
-        repaintNeeded();
+        graphicHasChanged();
     }
 
 
     private BufferedImage buffer;
-    private int highlightedPaintedSize;
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        boolean needsNewBuffer = buffer == null
+        boolean newBufferRequired = buffer == null
                 || getWidth() != buffer.getWidth()
                 || getHeight() != buffer.getHeight();
 
-        if (needsNewBuffer && !isManualScale)
+        if (newBufferRequired && !isManualScale)
             fitCircuit();
 
         final double scaleX = transform.getScaleX();
-        if (graphicsHasChanged
-                || needsNewBuffer
-                || highLighted.size() != highlightedPaintedSize) {
+        if (graphicHasChangedFlag || newBufferRequired) {
 
-            if (needsNewBuffer)
+            if (newBufferRequired)
                 buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
 
             Graphics2D gr2 = buffer.createGraphics();
@@ -774,10 +784,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             if (time > 500) antiAlias = false;
             if (time < 50) antiAlias = true;
 
-//            System.out.println("repaint: " + Long.toString(time) + "ms");
+//            System.out.println("repaint: " + time + "ms");
 
-            highlightedPaintedSize = highLighted.size();
-            graphicsHasChanged = false;
+            graphicHasChangedFlag = false;
         }
 
         g.drawImage(buffer, 0, 0, null);
@@ -845,7 +854,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     @Override
     public void hasChanged() {
-        repaintNeeded();
+        graphicHasChanged();
         redoAction.setEnabled(undoManager.redoAvailable());
         undoAction.setEnabled(undoManager.undoAvailable());
     }
@@ -856,7 +865,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * Therefore the double buffer is invalidated.
      */
     public void paintImmediately() {
-        graphicsHasChanged = true;
+        graphicHasChangedFlag = true;
         paintImmediately(0, 0, getWidth(), getHeight());
     }
 
@@ -935,7 +944,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
         if (!newTrans.equals(transform)) {
             transform = newTrans;
-            repaintNeeded();
+            graphicHasChanged();
         }
     }
 
@@ -950,7 +959,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         transform.scale(f, f);
         transform.translate(-dif.x, -dif.y);
         isManualScale = true;
-        repaintNeeded();
+        graphicHasChanged();
     }
 
     /**
@@ -962,7 +971,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     public void translateCircuit(int dx, int dy) {
         transform.translate(dx, dy);
         isManualScale = true;
-        repaintNeeded();
+        graphicHasChanged();
     }
 
     private void editAttributes(VisualElement element, MouseEvent e) {
@@ -1012,7 +1021,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     @Override
     public void libraryChanged(LibraryNode node) {
         getCircuit().clearState();
-        graphicsHasChanged = true;
+        graphicHasChangedFlag = true;
         repaint();
     }
 
@@ -1258,7 +1267,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     transform.translate(delta.x / s, delta.y / s);
                     pos = newPos;
                     isManualScale = true;
-                    repaintNeeded();
+                    graphicHasChanged();
                 }
             }
         }
@@ -1284,7 +1293,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             cutAction.setEnabled(false);
             rotateAction.setEnabled(false);
             setCursor(mouseCursor);
-            repaintNeeded();
+            graphicHasChanged();
         }
 
         void deactivate() {
@@ -1507,7 +1516,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             deleteAction.setEnabled(true);
             rotateAction.setEnabled(true);
             copyAction.setEnabled(true);
-            repaintNeeded();
+            graphicHasChanged();
         }
 
         @Override
@@ -1579,7 +1588,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             this.pos = raster(pos);
             deleteAction.setEnabled(true);
             removeHighLighted();
-            repaintNeeded();
+            graphicHasChanged();
         }
 
         @Override
@@ -2122,7 +2131,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         @Override
         public void rotate() {
             ModifyMoveSelected.rotateElements(elements, raster(lastPos));
-            repaintNeeded();
+            graphicHasChanged();
         }
 
         @Override
@@ -2194,7 +2203,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             if (modelHasChanged) {
                 modelHasChanged();
             } else
-                repaintNeeded();
+                graphicHasChanged();
         }
     }
 
