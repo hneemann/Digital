@@ -706,11 +706,12 @@
         After the circuit has stabilized the output goes to low.
         If the output is inverted it behaves the opposite way.</string>
   <string name="elem_Break">Break</string>
-  <string name="elem_Break_pin_brk">Stops fast simulation if set to 1.</string>
-  <string name="elem_Break_tt">If the input of this component becomes high, the fast forward clocking is stopped.
-        You can use the component to implement a BRK assembly instruction.
-        Then you can run a simulated processor until a BRK instruction is reached.
-        Fast forward clocking can only be used if the real-time clock is disabled.</string>
+  <string name="elem_Break_pin_brk">Stops the fast simulation clocking if a rising edge is detected.</string>
+  <string name="elem_Break_tt">If this component is used in the circuit, the "Run To Break" button between "Start"
+        and "Stop" is enabled. This button clocks the circuit until a rising edge on the input of this component is
+        detected. This element can be used for debugging by clocking the circuit to any breakpoint.
+        Also an assembler command BRK can be implemented. This allows to execute a program up to the next BRK command.
+        This function can only be used if the real-time clock is deactivated!</string>
   <string name="elem_External">External</string>
   <string name="elem_External_tt">Component to execute an external process to calculate the logic function.
         Is used to specify the behaviour of a component by VHDL or Verilog.
@@ -724,7 +725,7 @@
   <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock signal.</string>
   <string name="err_analyseNoInputs">The circuit has no labeled inputs</string>
   <string name="err_analyseNoOutputs">The circuit has no labeled outputs</string>
-  <string name="err_breakTimeOut">Break timeout after {0} cycles</string>
+  <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.</string>
   <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
   <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
   <string name="err_builder_couldNotFillLUT">Error creating the lookup table.</string>
@@ -1234,8 +1235,8 @@
   <string name="menu_exportSVGLaTex">Export SVG + LaTeX</string>
   <string name="menu_exportSVGLaTexInOut">Export SVG + LaTeX + small in/out</string>
   <string name="menu_exportAnimatedGIF">Export Animated GIF</string>
-  <string name="menu_fast">Run Fast</string>
-  <string name="menu_fast_tt">Runs the circuit until a break is detected by the BRK component.</string>
+  <string name="menu_fast">Run to Break</string>
+  <string name="menu_fast_tt">Runs the circuit until a break is detected by a BRK component.</string>
   <string name="menu_file">File</string>
   <string name="menu_help">Help</string>
   <string name="menu_update">Update</string>
@@ -1505,7 +1506,7 @@ Make sure the flash process is complete before closing this dialog!</string>
   <string name="rot_180">180°</string>
   <string name="rot_270">270°</string>
   <string name="rot_90">90°</string>
-  <string name="stat_clocks">{0} half cycles</string>
+  <string name="stat_clocks">Break after {0} half cycles at break point ''{1}''.</string>
   <string name="tt_deleteItem">Deletes the selected item</string>
   <string name="tt_moveItemDown">Move the item down</string>
   <string name="tt_moveItemUp">Move the item up</string>
@@ -1724,4 +1725,27 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   If there is no unconditional transition from a state, the state machine will stay in this state if no other
   transition condition is met.
 &lt;/body&gt;&lt;/html&gt;</string>
+  <string name="err_clockIsNotUsed">The clock component is not used!</string>
+  <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
+  <string name="msg_errorStartCommand_N">Error starting the command {0}</string>
+  <string name="key_transistors">Transistors</string>
+  <string name="key_transistors_tt">Number of transistors required. Used for circuit statistics.
+        Zero means that the number is determined automatically by adding the number of transistors
+        of the components contained in the circuit.</string>
+  <string name="key_enabled">Enabled</string>
+  <string name="key_enabled_tt">Enables or disables this component.</string>
+  <string name="key_toolChainConfig">Toolchain Configuration</string>
+  <string name="key_toolChainConfig_tt">Used to configurate an integration of a toolchain.
+        Allows the start of external tools, e.g. to program an FPGA or similar.</string>
+  <string name="menu_stats">Circuit Statistics</string>
+  <string name="menu_stats_tt">Shows a list of used components.</string>
+  <string name="stat_number">Number</string>
+  <string name="stat_part">Component</string>
+  <string name="stat_transistors">Trans.</string>
+  <string name="stat_transistorsTotal">Trans. total</string>
+  <string name="stat_sum">Sum</string>
+  <string name="msg_couldNotCreateStats">Statistics could not be created.</string>
+  <string name="msg_errorReadingToolchainConfig_N">Error while reading the toolchain configuration {0}</string>
+  <string name="msg_commandStarted_N">Command "{0}" has been started! Processing may take some time!</string>
+  <string name="msg_commandEnded_N">The command "{0}" has been completed!</string>
 </resources>

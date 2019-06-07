@@ -697,11 +697,12 @@
 		Después de que el circuito se ha estabilizado, la salida pasa a bajo.
 		Si la salida está invertida, se comporta al contrario.</string>
   <string name="elem_Break">Pausa</string>
-  <string name="elem_Break_pin_brk">Detiene la simulación rápida si está a 1.</string>
-  <string name="elem_Break_tt">Si la entrada a este componente está alta, el avance rápido del reloj se detiene.
-		Puedes usar este componente para implementar una instrucción BRK en lenguaje ensamblador.
-		Puedes ejecutar la simulación de un procesador hasta que una instrucción BRK se alcanza.
-		El avance rápido se puede usar sólo si el reloj en tiempo real está deshabilitado.</string>
+  <string name="elem_Break_pin_brk">Detiene la simulación rápida si se detecta un flanco de subida.</string>
+  <string name="elem_Break_tt">Si se usa este componente en el circuito, se habilita el botón "Ejecutar hasta un Break", entre "Iniciar" y "Parar"
+		Este botón detiene el circuito hasta que se detecta un flanco de subida en la entrada de este componente.
+		Este elemento puede usarse para depurar por el reloj el circuito hasta un punto de Break.
+		También se puede implementar un comando BRK ensamblador. Esto permite ejecutar un programa hasta el siguiente comando BRK
+		Esta función sólo se puede usar si se desactiva el reloj en tiempo real.</string>
   <string name="elem_External">Externo</string>
   <string name="elem_External_tt">Componente que ejecuta un proceso externo para calcular una función lógica.
 		Se usa para especificar el comportamiento de un componente con VHDL o Verilog.
@@ -715,7 +716,7 @@
   <string name="err_aSingleClockNecessary">Se necesita un componente de reloj. Todos los flip-flops deben usar una señal de reloj.</string>
   <string name="err_analyseNoInputs">Este circuito no tiene entradas etiquetadas.</string>
   <string name="err_analyseNoOutputs">Este circuito no tiene salidas etiquetadas.</string>
-  <string name="err_breakTimeOut">Tiempo de pausa después de {0} ciclos.</string>
+  <string name="err_breakTimeOut">Después de {0} ciclos, no se produjo ninguna interrupción en el punto de interrupción ''{1}''.</string>
   <string name="err_builder_exprNotSupported">Expresión {0} no soportada.</string>
   <string name="err_builder_operationNotSupported">Operación {0} no soportada.</string>
   <string name="err_builder_couldNotFillLUT">Error creando la tabla de consulta (LUT).</string>
@@ -1221,8 +1222,8 @@
   <string name="menu_exportSVGLaTex">Exportar SVG + LaTeX</string>
   <string name="menu_exportSVGLaTexInOut">Exportar SVG + LaTeX + entradas/salidas pequeñas</string>
   <string name="menu_exportAnimatedGIF">Exportar GIF animado</string>
-  <string name="menu_fast">Simular rápido</string>
-  <string name="menu_fast_tt">Simula el circuito hasta que el componente BRK encuentra una pausa</string>
+  <string name="menu_fast">Ejecutar hasta un Break</string>
+  <string name="menu_fast_tt">Ejecuta el circuito hasta que un componente BRK detecta un break.</string>
   <string name="menu_file">Archivo</string>
   <string name="menu_help">Ayuda</string>
   <string name="menu_update">Actualizar</string>
@@ -1493,7 +1494,7 @@
   <string name="rot_180">180°</string>
   <string name="rot_270">270°</string>
   <string name="rot_90">90°</string>
-  <string name="stat_clocks">{0} medios ciclos</string>
+  <string name="stat_clocks">Break tras {0} medios ciclos en un punto de break ''{1}''.</string>
   <string name="tt_deleteItem">Borra el objeto seleccionado</string>
   <string name="tt_moveItemDown">Mueve el objeto hacia abajo</string>
   <string name="tt_moveItemUp">Mueve el objeto hacia arriba</string>
@@ -1708,4 +1709,26 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   Una transición sin condición determina, por tanto, a qué estado se desplaza la máquina de estados si ninguna otra condición de transición se conoce.
   Si no hay transiciones sin condiciones desde un estado, la máquina de estados permanecerá en este estado si ninguna otra condición de transición se conoce.
 &lt;/body&gt;&lt;/html&gt;</string>
+  <string name="err_clockIsNotUsed">¡El componente "Reloj" no se usa!</string>
+  <string name="err_hdlNotKnown_N">HDL no conocido: {0}</string>
+  <string name="msg_errorStartCommand_N">Error al iniciar el comando {0}</string>
+  <string name="key_transistors">Transistores</string>
+  <string name="key_transistors_tt">Número de transistores que hacen falta. Se emplea para las estadísticas del circuito.
+		Cero significa que el número se calcula automáticamente añadiendo el número de transistores de los componentes que hay en el circuito.</string>
+  <string name="key_enabled">Habilitado</string>
+  <string name="key_enabled_tt">Habilita o deshabilita este componente.</string>
+  <string name="key_toolChainConfig">Configuración de la toolchain</string>
+  <string name="key_toolChainConfig_tt">Se emplea para configurar la integración de una toolchain.
+		Permite el arranque de herramientas externas, por ejemplo, programar una FPGA o similar.</string>
+  <string name="menu_stats">Estadísticas del circuito</string>
+  <string name="menu_stats_tt">Muestra una lista de los componentes empleados.</string>
+  <string name="stat_number">Número</string>
+  <string name="stat_part">Componente</string>
+  <string name="stat_transistors">Transistores</string>
+  <string name="stat_transistorsTotal">Total de transistores</string>
+  <string name="stat_sum">Suma</string>
+  <string name="msg_couldNotCreateStats">No se puedieron crear las estadísticas</string>
+  <string name="msg_errorReadingToolchainConfig_N">Error al leer la configuración de la toolchain {0}</string>
+  <string name="msg_commandStarted_N">¡El comando "{0}" ha empezado! ¡El procesado puede llevar un tiempo!</string>
+  <string name="msg_commandEnded_N">¡El comando "{0}" ha sido completado!</string>
 </resources>
