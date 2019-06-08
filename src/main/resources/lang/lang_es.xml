@@ -1727,7 +1727,7 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   <string name="stat_transistors">Transistores</string>
   <string name="stat_transistorsTotal">Total de transistores</string>
   <string name="stat_sum">Suma</string>
-  <string name="msg_couldNotCreateStats">No se puedieron crear las estadísticas</string>
+  <string name="msg_couldNotCreateStats">No se pudieron crear las estadísticas</string>
   <string name="msg_errorReadingToolchainConfig_N">Error al leer la configuración de la toolchain {0}</string>
   <string name="msg_commandStarted_N">¡El comando "{0}" ha empezado! ¡El procesado puede llevar un tiempo!</string>
   <string name="msg_commandEnded_N">¡El comando "{0}" ha sido completado!</string>
