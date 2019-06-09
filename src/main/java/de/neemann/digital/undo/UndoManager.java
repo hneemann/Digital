@@ -43,6 +43,8 @@ public class UndoManager<A extends Copyable<A>> {
         this.initial = initial;
         actual = null;
         modifications = new ArrayList<>();
+        modificationCounter = 0;
+        savedCounter = 0;
     }
 
 
