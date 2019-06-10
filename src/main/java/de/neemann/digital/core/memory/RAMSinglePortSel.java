@@ -48,10 +48,11 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
     private ObservableValue oeIn;
     private ObservableValue dataIn;
 
-    private boolean cs;
     private int readAddr;
     private int writeAddr;
+    private boolean cs;
     private boolean oe;
+    private boolean we;
     private boolean lastWrite;
 
     /**
@@ -101,7 +102,8 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
             oe = oeIn.getBool();
         }
 
-        boolean write = cs && weIn.getBool();
+        we = weIn.getBool();
+        boolean write = cs && we;
         if (write && !lastWrite)
             writeAddr = (int) addrIn.getValue();
 
@@ -114,7 +116,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
 
     @Override
     public void writeOutputs() throws NodeException {
-        if (cs && oe) {
+        if (cs && oe && !we) {
             dataOut.setValue(memory.getDataWord(readAddr));
         } else {
             dataOut.setToHighZ();

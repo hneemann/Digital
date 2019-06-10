@@ -42,7 +42,7 @@ DATA Polling for End of Write Detection not implemented!</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>0</data>
+          <data></data>
         </entry>
         <entry>
           <string>inverterConfig</string>
@@ -370,7 +370,18 @@ DATA Polling for End of Write Detection not implemented!</string>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>In_2</string>
+          </inverterConfig>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
       <pos x="820" y="-40"/>
     </visualElement>
     <visualElement>
@@ -717,6 +728,10 @@ end loop</dataString>
       <p2 x="920" y="-20"/>
     </wire>
     <wire>
+      <p1 x="760" y="-20"/>
+      <p2 x="800" y="-20"/>
+    </wire>
+    <wire>
       <p1 x="480" y="-180"/>
       <p2 x="520" y="-180"/>
     </wire>
@@ -786,6 +801,10 @@ end loop</dataString>
     </wire>
     <wire>
       <p1 x="760" y="-120"/>
+      <p2 x="760" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="760" y="-20"/>
       <p2 x="760" y="0"/>
     </wire>
     <wire>

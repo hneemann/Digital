@@ -42,7 +42,7 @@ DATA Polling for End of Write Detection not implemented!</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data size="2048">55,56,aa,55,d5,80,0,0,3</data>
+          <data>55,56,aa,55,d5,80,0,0,3</data>
         </entry>
         <entry>
           <string>inverterConfig</string>
@@ -542,7 +542,18 @@ DATA Polling for End of Write Detection not implemented!</string>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>In_2</string>
+          </inverterConfig>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
       <pos x="820" y="60"/>
     </visualElement>
   </visualElements>
@@ -606,6 +617,10 @@ DATA Polling for End of Write Detection not implemented!</string>
     <wire>
       <p1 x="900" y="80"/>
       <p2 x="920" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="760" y="80"/>
+      <p2 x="800" y="80"/>
     </wire>
     <wire>
       <p1 x="960" y="-20"/>
@@ -697,6 +712,10 @@ DATA Polling for End of Write Detection not implemented!</string>
     </wire>
     <wire>
       <p1 x="760" y="-120"/>
+      <p2 x="760" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="760" y="80"/>
       <p2 x="760" y="100"/>
     </wire>
     <wire>
