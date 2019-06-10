@@ -29,7 +29,8 @@ public class TestExamplesLanguage extends TestCase {
 
     private static void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException {
         if (file.getPath().contains("74xx")
-                || file.getPath().contains("EPROMs"))
+                || file.getPath().contains("EPROMs")
+                || file.getPath().contains("RAMs"))
             return;
 
         Circuit circuit = new ToBreakRunner(file).getCircuit();
