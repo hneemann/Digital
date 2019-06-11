@@ -369,7 +369,7 @@
                 Isso permitirá que o exemplo de processador possa ser executado a 20MHz, e se quiser, sem o multiplicador,
                 30HMz também será possível.
             </par>
-            <par>
+            <!--par>
                 Também para as placas Mimas, o Spartan 6 DCM será utilizado para a geração de clock.
             </par>
             <par>
@@ -381,7 +381,7 @@
             <par>
                 Para criar o arquivo de restrições requerido, o circuito deverá conter um campo de texto correspondente a 
                 "Board: BASYS3", "Board: MimasV1" ou "Board: MimasV2".
-            </par>
+            </par-->
         </subchapter>
     </chapter>
     <chapter heading="Formatos personalizados">

@@ -311,7 +311,7 @@
 				Esto asegura que los recursos de la FPGA proporcionados por la distribución del reloj se emplean.
 				Esto permite al procesador incluido correr a 20 MHz y si sabe hacerlo sin el multiplicador, es posible hacerlo a 30 MHz.
             </par>
-            <par>
+            <!--par>
                 También en las placas Mimas, la DCM Spartan 6 se emplea para la generación del reloj.
             </par>
             <par>
@@ -321,7 +321,7 @@
             </par>
             <par>
                 Para crear el archivo de restricciones necesario, el circuito debe contener un campo de texto con el texto "Board: BASYS3", "Board: MimasV1" or "Board: MimasV2.
-            </par>
+            </par-->
         </subchapter>
     </chapter>
     <chapter heading="Formas personalizadas">
