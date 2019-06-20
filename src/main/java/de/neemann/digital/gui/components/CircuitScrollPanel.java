@@ -17,6 +17,9 @@ import java.awt.geom.Point2D;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
+/**
+ * A scroll panel used by the circuit component
+ */
 public class CircuitScrollPanel extends JPanel {
     private static final int BORDER = SIZE * 10;
     private final CircuitComponent circuitComponent;
@@ -25,6 +28,11 @@ public class CircuitScrollPanel extends JPanel {
     private GraphicMinMax graphicMinMax;
     private AffineTransform transform;
 
+    /**
+     * Creates a new instance
+     *
+     * @param circuitComponent the circuit component to use
+     */
     public CircuitScrollPanel(CircuitComponent circuitComponent) {
         super(new BorderLayout());
         horizontal = new JScrollBar(JScrollBar.HORIZONTAL);
@@ -64,10 +72,15 @@ public class CircuitScrollPanel extends JPanel {
 
     void sizeChanged() {
         graphicMinMax = null;
-        if (transform!=null)
+        if (transform != null)
             updateBars();
     }
 
+    /**
+     * Updates the transformation
+     *
+     * @param transform the transform
+     */
     void transformChanged(AffineTransform transform) {
         this.transform = transform;
         updateBars();
