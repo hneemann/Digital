@@ -117,6 +117,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private static final Icon ICON_HELP = IconCreator.create("help.png");
 
     private final CircuitComponent circuitComponent;
+    private final CircuitScrollPanel circuitScrollPanel;
     private final ToolTipAction save;
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
@@ -191,11 +192,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
             }
         }
+        circuitScrollPanel = new CircuitScrollPanel(circuitComponent);
 
         library.addListener(circuitComponent);
 
-        getContentPane().add(circuitComponent);
-        componentOnPane = circuitComponent;
+        getContentPane().add(circuitScrollPanel);
+        componentOnPane = circuitScrollPanel;
 
         circuitComponent.addKeyListener(new ModelKeyListener());
 
@@ -387,7 +389,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
                 treeModel = new LibraryTreeModel(library);
                 split.setLeftComponent(new JScrollPane(new SelectTree(treeModel, circuitComponent, shapeFactory, insertHistory)));
-                split.setRightComponent(circuitComponent);
+                split.setRightComponent(circuitScrollPanel);
                 getContentPane().add(split);
                 componentOnPane = split;
             } else {
@@ -395,8 +397,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     library.removeListener(treeModel);
                     treeModel = null;
                 }
-                getContentPane().add(circuitComponent);
-                componentOnPane = circuitComponent;
+                getContentPane().add(circuitScrollPanel);
+                componentOnPane = circuitScrollPanel;
             }
             revalidate();
         });
