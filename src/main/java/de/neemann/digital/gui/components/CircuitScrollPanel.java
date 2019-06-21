@@ -24,7 +24,7 @@ public class CircuitScrollPanel extends JPanel {
     private static final int BORDER = SIZE * 10;
     private final CircuitComponent circuitComponent;
     private final JScrollBar horizontal;
-    private final JScrollBar vertcal;
+    private final JScrollBar vertical;
     private GraphicMinMax graphicMinMax;
     private AffineTransform transform;
 
@@ -36,17 +36,18 @@ public class CircuitScrollPanel extends JPanel {
     public CircuitScrollPanel(CircuitComponent circuitComponent) {
         super(new BorderLayout());
         horizontal = new JScrollBar(JScrollBar.HORIZONTAL);
-        vertcal = new JScrollBar(JScrollBar.VERTICAL);
+        vertical = new JScrollBar(JScrollBar.VERTICAL);
+
         this.circuitComponent = circuitComponent;
         add(circuitComponent, BorderLayout.CENTER);
         add(horizontal, BorderLayout.SOUTH);
-        add(vertcal, BorderLayout.EAST);
+        add(vertical, BorderLayout.EAST);
 
         horizontal.addAdjustmentListener(adjustmentEvent -> {
             if (adjustmentEvent.getValueIsAdjusting())
                 circuitComponent.translateCircuitToX(-adjustmentEvent.getValue() * transform.getScaleX());
         });
-        vertcal.addAdjustmentListener(adjustmentEvent -> {
+        vertical.addAdjustmentListener(adjustmentEvent -> {
             if (adjustmentEvent.getValueIsAdjusting())
                 circuitComponent.translateCircuitToY(-adjustmentEvent.getValue() * transform.getScaleY());
         });
@@ -89,27 +90,34 @@ public class CircuitScrollPanel extends JPanel {
     private void updateBars() {
         GraphicMinMax gr = getCircuitSize();
 
-        if (gr.getMin() == null || gr.getMax() == null) {
+        if (gr.getMin() == null || gr.getMax() == null || !circuitComponent.isManualScale()) {
             horizontal.setVisible(false);
-            vertcal.setVisible(false);
+            vertical.setVisible(false);
         } else {
             Point2D min = new Point2D.Float();
-            Point2D max = new Point2D.Float();
+            Point2D max0 = new Point2D.Float();
             try {
                 transform.inverseTransform(new Point2D.Float(0, 0), min);
-                transform.inverseTransform(new Point2D.Float(getWidth(), getHeight()), max);
-                int viewDx = (int) (max.getX() - min.getX());
-                int viewDy = (int) (max.getY() - min.getY());
+                transform.inverseTransform(new Point2D.Float(getWidth(), getHeight()), max0);
+                int viewDx = (int) (max0.getX() - min.getX());
+                int viewDy = (int) (max0.getY() - min.getY());
                 int valueX = (int) min.getX();
                 int valueY = (int) min.getY();
                 horizontal.setValues(valueX, viewDx, gr.getMin().x - BORDER, gr.getMax().x + BORDER);
-                horizontal.setVisible(viewDx < gr.getMax().x - gr.getMin().x + 2 * BORDER);
-                vertcal.setValues(valueY, viewDy, gr.getMin().y - BORDER, gr.getMax().y + BORDER);
-                vertcal.setVisible(viewDy < gr.getMax().y - gr.getMin().y + 2 * BORDER);
+                vertical.setValues(valueY, viewDy, gr.getMin().y - BORDER, gr.getMax().y + BORDER);
+
+
+                checkVisibility(horizontal, viewDx, gr.getMax().x - gr.getMin().x + 2 * BORDER);
+                checkVisibility(vertical, viewDy, gr.getMax().y - gr.getMin().y + 2 * BORDER);
             } catch (NoninvertibleTransformException e) {
                 // can not happen! Scaling is never zero!
                 e.printStackTrace();
             }
         }
     }
+
+    private void checkVisibility(JScrollBar bar, int view, int size) {
+        bar.setVisible(view < size);
+    }
+
 }
