@@ -44,11 +44,11 @@ public class CircuitScrollPanel extends JPanel {
         add(vertical, BorderLayout.EAST);
 
         horizontal.addAdjustmentListener(adjustmentEvent -> {
-            if (adjustmentEvent.getValueIsAdjusting())
+            if (adjustmentEvent.getValueIsAdjusting() && transform != null)
                 circuitComponent.translateCircuitToX(-adjustmentEvent.getValue() * transform.getScaleX());
         });
         vertical.addAdjustmentListener(adjustmentEvent -> {
-            if (adjustmentEvent.getValueIsAdjusting())
+            if (adjustmentEvent.getValueIsAdjusting() && transform != null)
                 circuitComponent.translateCircuitToY(-adjustmentEvent.getValue() * transform.getScaleY());
         });
 
