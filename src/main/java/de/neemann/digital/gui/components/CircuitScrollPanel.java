@@ -95,20 +95,12 @@ public class CircuitScrollPanel extends JPanel {
             vertical.setVisible(false);
         } else {
             Point2D min = new Point2D.Float();
-            Point2D max0 = new Point2D.Float();
+            Point2D max = new Point2D.Float();
             try {
                 transform.inverseTransform(new Point2D.Float(0, 0), min);
-                transform.inverseTransform(new Point2D.Float(getWidth(), getHeight()), max0);
-                int viewDx = (int) (max0.getX() - min.getX());
-                int viewDy = (int) (max0.getY() - min.getY());
-                int valueX = (int) min.getX();
-                int valueY = (int) min.getY();
-                horizontal.setValues(valueX, viewDx, gr.getMin().x - BORDER, gr.getMax().x + BORDER);
-                vertical.setValues(valueY, viewDy, gr.getMin().y - BORDER, gr.getMax().y + BORDER);
-
-
-                checkVisibility(horizontal, viewDx, gr.getMax().x - gr.getMin().x + 2 * BORDER);
-                checkVisibility(vertical, viewDy, gr.getMax().y - gr.getMin().y + 2 * BORDER);
+                transform.inverseTransform(new Point2D.Float(getWidth(), getHeight()), max);
+                setValues(horizontal, min.getX(), max.getX(), gr.getMin().x, gr.getMax().x);
+                setValues(vertical, min.getY(), max.getY(), gr.getMin().y, gr.getMax().y);
             } catch (NoninvertibleTransformException e) {
                 // can not happen! Scaling is never zero!
                 e.printStackTrace();
@@ -116,8 +108,13 @@ public class CircuitScrollPanel extends JPanel {
         }
     }
 
-    private void checkVisibility(JScrollBar bar, int view, int size) {
-        bar.setVisible(view < size);
+    private void setValues(JScrollBar bar, double viewMin, double viewMax, int circuitMin, int circuitMax) {
+        int border = Math.max(BORDER, (circuitMax - circuitMin) / 10);
+        circuitMin -= border;
+        circuitMax += border;
+        int extent = (int) (viewMax - viewMin);
+        bar.setValues((int) viewMin, extent, circuitMin, circuitMax);
+        bar.setVisible(viewMin > circuitMin || viewMax < circuitMax);
     }
 
 }

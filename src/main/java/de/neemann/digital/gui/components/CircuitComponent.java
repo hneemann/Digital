@@ -225,9 +225,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             transform.translate(pos.x, pos.y);
             transform.scale(f, f);
             transform.translate(-pos.x, -pos.y);
+            isManualScale = true;
             if (circuitScrollPanel != null)
                 circuitScrollPanel.transformChanged(transform);
-            isManualScale = true;
             graphicHasChanged();
         });
 
