@@ -55,6 +55,7 @@ import java.util.List;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.integration.GuiTester.getBaseContainer;
 import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
 
 /**
@@ -1085,7 +1086,7 @@ public class TestInGUI extends TestCase {
                 if (w.p2.y < yMin) yMin = w.p2.y;
             }
 
-            Point loc = main.getCircuitComponent().getLocation();
+            Point loc = getCircuitPos(main);
             xMin -= loc.x + SIZE * 5;
             yMin -= loc.y + SIZE * 2;
 
@@ -1111,6 +1112,14 @@ public class TestInGUI extends TestCase {
         }
     }
 
+    private static Point getCircuitPos(Main main) {
+        Point ci = new Point();
+        SwingUtilities.convertPointToScreen(ci, main.getCircuitComponent());
+        Point ma = new Point();
+        SwingUtilities.convertPointToScreen(ma, getBaseContainer());
+        return new Point(ci.x - ma.x, ci.y - ma.y);
+    }
+
     private class SelectAll extends GuiTester.WindowCheck<Main> {
         /**
          * Creates a new instance
@@ -1121,8 +1130,8 @@ public class TestInGUI extends TestCase {
 
         @Override
         public void checkWindow(GuiTester guiTester, Main main) {
-            final CircuitComponent c = main.getCircuitComponent();
-            Point loc = c.getLocation();
+            Point loc = getCircuitPos(main);
+            CircuitComponent c = main.getCircuitComponent();
             guiTester.mouseMoveNow(loc.x + 2, loc.y + 2);
             guiTester.mousePressNow(InputEvent.BUTTON1_MASK);
             guiTester.mouseMoveNow(loc.x + c.getWidth() - 2, loc.y + c.getHeight() - 2);
