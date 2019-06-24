@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core;
 
+import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Break;
@@ -72,7 +73,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     private int version;
     private WindowPosManager windowPosManager;
     private HashSet<Node> oscillatingNodes;
-    private boolean isInvalidSignal = false;
+    private Signal invalidSignal = null;
     private AsyncSeq asyncInfos;
     private boolean asyncMode = false;
     private boolean allowGlobalValues = false;
@@ -536,11 +537,11 @@ public class Model implements Iterable<Node>, SyncAccess {
     public void addInput(Signal signal) {
         if (signal.isValid()) {
             if (signals.contains(signal))
-                isInvalidSignal = true;
+                invalidSignal = signal;
             signals.add(signal);
             inputs.add(signal);
         } else
-            isInvalidSignal = true;
+            invalidSignal = signal;
     }
 
     /**
@@ -558,18 +559,26 @@ public class Model implements Iterable<Node>, SyncAccess {
     public void addOutput(Signal signal) {
         if (signal.isValid()) {
             if (signals.contains(signal))
-                isInvalidSignal = true;
+                invalidSignal = signal;
             signals.add(signal);
             outputs.add(signal);
         } else
-            isInvalidSignal = true;
+            invalidSignal = signal;
     }
 
     /**
-     * @return true if there was an invalid signal
+     * Checks for invalid signals.
+     *
+     * @throws AnalyseException AnalyseException
      */
-    public boolean isInvalidSignal() {
-        return isInvalidSignal;
+    public void checkForInvalidSignals() throws AnalyseException {
+        if (invalidSignal != null) {
+            String name = invalidSignal.getName();
+            if (name == null || name.trim().length() == 0)
+                throw new AnalyseException(Lang.get("err_thereIsAUnnamedIO"));
+            else
+                throw new AnalyseException(Lang.get("err_NameOfIOIsInvalidOrNotUnique_N", name));
+        }
     }
 
     /**

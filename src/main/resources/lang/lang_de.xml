@@ -1020,6 +1020,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_whileExecutingTests_N0">Während der Ausführung der Tests "{0}" ist ein Fehler aufgetreten!</string>
     <string name="err_hdlNotKnown_N">HDL nicht bekannt: {0}</string>
     <string name="msg_errorStartCommand_N">Fehler beim Starten des Kommandos {0}</string>
+    <string name="err_thereIsAUnnamedIO">Es gibt ein unbenannten Ein- oder Ausgang</string>
+    <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1648,8 +1650,6 @@ eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enh
     <string name="msg_errInFile_N">Aufgetreten in Datei {0}.</string>
     <string name="msg_affectedComponentsAre_N">Betroffen sind: {0}.</string>
     <string name="msg_signal_N">Leitung {0}</string>
-    <string name="msg_invalidSignalsAnalysed">Um eine Analyse der Schaltung durchzuführen, müssen alle
-        Eingänge und Ausgänge eindeutig benannt sein!</string>
     <string name="msg_thereAreMissingPinNumbers">Für die Pins {0} wurden keine Pinnummern festgelegt!
         Es werden automatisch freie Pins zugeordnet. Die Schaltung kann damit auf realer Hardware in der Regel nicht
         verwendet werden!</string>

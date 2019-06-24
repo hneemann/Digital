@@ -1012,6 +1012,8 @@
     <string name="err_whileExecutingTests_N0">During the execution of the tests "{0}" an error has occurred!</string>
     <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
     <string name="msg_errorStartCommand_N">Error starting the command {0}</string>
+    <string name="err_thereIsAUnnamedIO">There is a unnamed input or output</string>
+    <string name="err_NameOfIOIsInvalidOrNotUnique_N">The signal name "{0}" is invalid or used multiple times!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1629,8 +1631,6 @@
     <string name="msg_errInFile_N">Occurred in file {0}.</string>
     <string name="msg_affectedComponentsAre_N">Affected are: {0}.</string>
     <string name="msg_signal_N">Signal {0}</string>
-    <string name="msg_invalidSignalsAnalysed">To perform an analysis of the circuit, all inputs and outputs
-        must be uniquely named!</string>
     <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!
         Free pins are automatically assigned. The circuit can therefore not be used on real hardware in most cases!</string>
     <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>

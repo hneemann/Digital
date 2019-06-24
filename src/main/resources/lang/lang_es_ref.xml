@@ -1464,8 +1464,6 @@
   <string name="msg_errInFile_N">Occurred in file {0}.</string>
   <string name="msg_affectedComponentsAre_N">Affected are: {0}.</string>
   <string name="msg_signal_N">Signal {0}</string>
-  <string name="msg_invalidSignalsAnalysed">To perform an analysis of the circuit, all inputs and outputs
-        must be uniquely named!</string>
   <string name="msg_thereAreMissingPinNumbers">No pin numbers assigned to the pins {0}!
         Free pins are automatically assigned. The circuit can therefore not be used on real hardware in most cases!</string>
   <string name="msg_modelHasErrors">You can only export a circuit without errors!</string>

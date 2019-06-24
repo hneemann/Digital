@@ -1598,8 +1598,6 @@
     <string name="msg_errInFile_N">Ocorrido no arquivo {0}.</string>
     <string name="msg_affectedComponentsAre_N">Afetados estão: {0}.</string>
     <string name="msg_signal_N">Sinal {0}</string>
-    <string name="msg_invalidSignalsAnalysed">Para executar a análise do circuito, todas as entradas e saídas
-        deverão ser únicos!</string>
     <string name="msg_thereAreMissingPinNumbers">Não há números PIN atribuídos aos pinos {0}!
         Pinos livres receberão atribuição automática. O circuito não poderá, portanto, ser usado em um hardware real na maioria dos casos!</string>
     <string name="msg_modelHasErrors">Somente será possível exportar um circuito sem erros!</string>

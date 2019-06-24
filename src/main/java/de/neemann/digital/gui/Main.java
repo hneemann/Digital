@@ -1130,14 +1130,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 try {
                     Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                     try {
-                        if (model.isInvalidSignal())
-                            new ErrorMessage(Lang.get("msg_invalidSignalsAnalysed")).show(Main.this);
-                        else
-                            new TableDialog(Main.this,
-                                    new ModelAnalyser(model).analyse(),
-                                    library,
-                                    getBaseFileName())
-                                    .setVisible(true);
+                        model.checkForInvalidSignals();
+                        new TableDialog(Main.this,
+                                new ModelAnalyser(model).analyse(),
+                                library,
+                                getBaseFileName())
+                                .setVisible(true);
                         ensureModelIsStopped();
                     } finally {
                         model.close();

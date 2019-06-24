@@ -1451,8 +1451,6 @@
   <string name="msg_errInFile_N">Ocurrió en el archivo {0}.</string>
   <string name="msg_affectedComponentsAre_N">Afectados son: {0}.</string>
   <string name="msg_signal_N">Señal {0}</string>
-  <string name="msg_invalidSignalsAnalysed">¡Para hacer un análisis del circuito, todas las entradas y salidas
-		deben tener nombres exclusivos!</string>
   <string name="msg_thereAreMissingPinNumbers">¡No se asignaron números a los pines {0}!
 		Los pines libres se asignarán automáticamente.
 		El circuito, por tanto, no puede usarse en hardware real en la mayoría de los casos.</string>
