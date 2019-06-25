@@ -81,7 +81,7 @@ public class TransitionTableCreator {
         // create state variables
         ArrayList<Variable> vars = new ArrayList<>();
         for (int i = stateBits - 1; i >= 0; i--) {
-            final Variable var = new Variable("Q" + i + "_n");
+            final Variable var = new Variable("Q^" + i + "_n");
             vars.add(var);
             boolean initVal = (initState & (1 << i)) != 0;
             modelAnalyserInfo.setSequentialInitValue(var.getIdentifier(), initVal ? 1 : 0);
@@ -91,7 +91,7 @@ public class TransitionTableCreator {
 
         // create the next state result variables
         for (int i = stateBits - 1; i >= 0; i--)
-            truthTable.addResult("Q" + i + "_n+1");
+            truthTable.addResult("Q^" + i + "_n+1");
 
         // add the output variables
         TreeSet<String> results = new TreeSet<>();
