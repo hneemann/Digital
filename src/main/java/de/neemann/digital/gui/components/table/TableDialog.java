@@ -788,18 +788,17 @@ public class TableDialog extends JDialog {
                 switch (count) {
                     case 0:
                         statusBar.setVisible(false);
-                        allSolutionsDialog.setVisible(false);
+                        allSolutionsDialog.setNeeded(false);
                         break;
                     case 1:
                         statusBar.setVisible(true);
                         statusBar.setText(firstExp);
-                        allSolutionsDialog.setVisible(false);
+                        allSolutionsDialog.setNeeded(false);
                         break;
                     default:
                         statusBar.setVisible(false);
                         allSolutionsDialog.setText(html.toString());
-                        if (!allSolutionsDialog.isVisible())
-                            allSolutionsDialog.setVisible(true);
+                        allSolutionsDialog.setNeeded(true);
                 }
             });
         }

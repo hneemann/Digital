@@ -1558,7 +1558,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      */
     public void setCircuitScrollPanel(CircuitScrollPanel circuitScrollPanel) {
         this.circuitScrollPanel = circuitScrollPanel;
-        if (circuitScrollPanel!=null)
+        if (circuitScrollPanel != null)
             circuitScrollPanel.transformChanged(transform);
     }
 

@@ -10,16 +10,20 @@ import de.neemann.gui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
- * Simple Dialog to show all possible functions of a truth table
+ * Simple Dialog to show all possible functions of a truth table.
  */
 public class AllSolutionsDialog extends JDialog {
     private final JTextPane textPane;
     private final JScrollPane scroll;
+    private boolean userHasClosed = false;
 
     /**
-     * Creates a new Frame
+     * Creates a new Frame.
      *
      * @param owner the owner frame
      * @param font  the font to use
@@ -37,12 +41,20 @@ public class AllSolutionsDialog extends JDialog {
 
         scroll = new JScrollPane(textPane);
         getContentPane().add(scroll);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                userHasClosed = true;
+            }
+        });
+
         pack();
         setLocation(0, 0);
     }
 
     /**
-     * Sets the given text to the frame
+     * Sets the given text to the frame.
      *
      * @param text the text
      * @return this for call chaining
@@ -51,5 +63,15 @@ public class AllSolutionsDialog extends JDialog {
         textPane.setText(text);
         SwingUtilities.invokeLater(() -> scroll.getViewport().setViewPosition(new Point(0, 0)));
         return this;
+    }
+
+    /**
+     * Is called from table dialog if this dialog is needed.
+     *
+     * @param needed true if needed
+     */
+    public void setNeeded(boolean needed) {
+        if (!userHasClosed)
+            setVisible(needed);
     }
 }
