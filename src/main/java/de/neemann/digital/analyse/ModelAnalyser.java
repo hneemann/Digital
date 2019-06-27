@@ -8,14 +8,10 @@ package de.neemann.digital.analyse;
 import de.neemann.digital.analyse.expression.BitSetter;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.basic.And;
-import de.neemann.digital.core.basic.Not;
-import de.neemann.digital.core.basic.Or;
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.flipflops.FlipflopD;
-import de.neemann.digital.core.flipflops.FlipflopJK;
-import de.neemann.digital.core.flipflops.FlipflopT;
-import de.neemann.digital.core.switching.*;
+import de.neemann.digital.core.switching.NFET;
+import de.neemann.digital.core.switching.Relay;
+import de.neemann.digital.core.switching.RelayDT;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.PinException;
@@ -48,13 +44,6 @@ public class ModelAnalyser {
      */
     public ModelAnalyser(Model model) throws AnalyseException {
         this.model = model;
-
-        try {
-            replaceTFF();
-            replaceJKFF();
-        } catch (NodeException e) {
-            throw new AnalyseException(e);
-        }
 
         modelAnalyzerInfo = new ModelAnalyserInfo(model);
 
@@ -272,66 +261,6 @@ public class ModelAnalyser {
             }
         }
         return out;
-    }
-
-    private void replaceJKFF() throws NodeException, AnalyseException {
-        List<FlipflopJK> jkList = model.findNode(FlipflopJK.class);
-
-        for (FlipflopJK jk : jkList) {
-            checkClock(jk);
-
-            jk.getClockVal().removeObserver(jk);
-            jk.getjVal().removeObserver(jk);
-            jk.getkVal().removeObserver(jk);
-
-            // create d ff
-            ObservableValue q = jk.getOutputs().get(0);
-            ObservableValue qn = jk.getOutputs().get(1);
-            FlipflopD d = new FlipflopD(jk.getLabel(), q, qn);
-
-            And a1 = new And(new ElementAttributes());
-            a1.setInputs(new ObservableValues(jk.getjVal(), qn));
-            And a2 = new And(new ElementAttributes());
-            Not nk = new Not(new ElementAttributes());
-            nk.setInputs(jk.getkVal().asList());
-            a2.setInputs(new ObservableValues(nk.getOutput(), q));
-
-            Or or = new Or(new ElementAttributes());
-            or.setInputs(new ObservableValues(a1.getOutput(), a2.getOutput()));
-
-            d.setInputs(new ObservableValues(or.getOutputs().get(0), jk.getClockVal()));
-
-            model.add(a1);
-            model.add(a2);
-            model.add(nk);
-            model.add(or);
-            model.replace(jk, d);
-        }
-    }
-
-    private void replaceTFF() throws NodeException, AnalyseException {
-        List<FlipflopT> tList = model.findNode(FlipflopT.class);
-
-        for (FlipflopT tff : tList) {
-            checkClock(tff);
-            tff.getClockVal().removeObserver(tff);
-            ObservableValue q = tff.getOutputs().get(0);
-            ObservableValue qn = tff.getOutputs().get(1);
-
-            ObservableValue enable = tff.getEnableVal();
-            if (enable == null) {
-                // create d ff
-                FlipflopD d = new FlipflopD(tff.getLabel(), q, qn);
-                d.setInputs(new ObservableValues(qn, getClock()));
-                model.replace(tff, d);
-            } else {
-                // create jk ff
-                enable.removeObserver(tff);
-                FlipflopJK jk = new FlipflopJK(tff.getLabel(), q, qn);
-                jk.setInputs(new ObservableValues(enable, getClock(), enable));
-                model.replace(tff, jk);
-            }
-        }
     }
 
     /**

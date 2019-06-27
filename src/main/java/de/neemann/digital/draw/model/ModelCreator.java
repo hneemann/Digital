@@ -20,6 +20,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.lang.Lang;
 
@@ -48,7 +49,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, LibraryInterface library) throws PinException, NodeException, ElementNotFoundException {
         this(circuit, library, false);
     }
 
@@ -62,7 +63,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, LibraryInterface library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
         this(circuit, library, readAsCustom, new NetList(circuit), "", 0, null);
     }
 
@@ -80,7 +81,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, NetList netList, String subName, int depth, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, LibraryInterface library, boolean isNestedCircuit, NetList netList, String subName, int depth, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
@@ -99,8 +100,8 @@ public class ModelCreator implements Iterable<ModelEntry> {
                     cve = containingVisualElement;
 
                 Pins pins = ve.getPins();
-                ElementTypeDescription elementType = library.getElementType(ve.getElementName());
                 ElementAttributes attr = ve.getElementAttributes();
+                ElementTypeDescription elementType = library.getElementType(ve.getElementName(), attr);
                 if (attr.getLabel().contains("*")
                         && !ve.equalsDescription(In.DESCRIPTION)
                         && !ve.equalsDescription(Out.DESCRIPTION)) {

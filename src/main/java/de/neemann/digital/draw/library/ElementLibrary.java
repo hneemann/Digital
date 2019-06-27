@@ -52,7 +52,7 @@ import java.util.*;
  * This is done because the loading of a circuit and the creation of an icon is very time consuming and should
  * be avoided if not necessary. It's a kind of lazy loading.
  */
-public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
+public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>, LibraryInterface {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);
     private static final long MIN_RESCAN_INTERVAL = 5000;
 
@@ -401,6 +401,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public LibraryNode getElementNodeOrNull(String elementName) {
         return map.get(elementName);
+    }
+
+    @Override
+    public ElementTypeDescription getElementType(String elementName, ElementAttributes attr) throws ElementNotFoundException {
+        return getElementType(elementName);
     }
 
     /**

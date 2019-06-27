@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.gui;
 
+import de.neemann.digital.analyse.SubstituteLibrary;
 import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.ModelAnalyser;
 import de.neemann.digital.analyse.TruthTable;
@@ -1128,7 +1129,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Model model = new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
+                    Model model = new ModelCreator(circuitComponent.getCircuit(), new SubstituteLibrary(library)).createModel(false);
                     try {
                         model.checkForInvalidSignals();
                         new TableDialog(Main.this,
