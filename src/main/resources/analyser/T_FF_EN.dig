@@ -75,7 +75,7 @@
           <string>T</string>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="40"/>
+      <pos x="-100" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -94,6 +94,27 @@
         </entry>
       </elementAttributes>
       <pos x="200" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes/>
+      <pos x="-80" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (orig.inverterConfig.T) {
+    this.Value=1;
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="20"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -130,6 +151,10 @@
       <p2 x="120" y="20"/>
     </wire>
     <wire>
+      <p1 x="-100" y="20"/>
+      <p2 x="-80" y="20"/>
+    </wire>
+    <wire>
       <p1 x="100" y="100"/>
       <p2 x="120" y="100"/>
     </wire>
@@ -160,6 +185,10 @@
     <wire>
       <p1 x="200" y="120"/>
       <p2 x="220" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="60"/>
+      <p2 x="-80" y="60"/>
     </wire>
     <wire>
       <p1 x="200" y="60"/>

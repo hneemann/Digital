@@ -11,7 +11,7 @@
           <string>en</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="560"/>
+      <pos x="-140" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -19,6 +19,10 @@
         <entry>
           <string>runRealTime</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
         </entry>
         <entry>
           <string>Label</string>
@@ -29,7 +33,7 @@
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="460"/>
+      <pos x="620" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -39,7 +43,7 @@
           <string>dir</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="260"/>
+      <pos x="-140" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -57,7 +61,7 @@
           <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
-      <pos x="660" y="180"/>
+      <pos x="740" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -67,7 +71,7 @@
           <string>ovf</string>
         </entry>
       </elementAttributes>
-      <pos x="660" y="540"/>
+      <pos x="740" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
@@ -85,7 +89,7 @@
           <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="180"/>
+      <pos x="640" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -151,7 +155,7 @@
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
-      <pos x="360" y="520"/>
+      <pos x="360" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -205,7 +209,7 @@
           <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="240"/>
+      <pos x="520" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Comparator</elementName>
@@ -219,7 +223,7 @@
           <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="500"/>
+      <pos x="240" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -242,7 +246,7 @@ if (orig.maxValue=0) {
 }</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="500"/>
+      <pos x="-60" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -310,7 +314,7 @@ if (orig.maxValue=0) {
           <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
-      <pos x="480" y="160"/>
+      <pos x="560" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -324,7 +328,7 @@ if (orig.maxValue=0) {
           <string>ld</string>
         </entry>
       </elementAttributes>
-      <pos x="500" y="240"/>
+      <pos x="600" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -334,7 +338,7 @@ if (orig.maxValue=0) {
           <string>clr</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="420"/>
+      <pos x="-140" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -352,7 +356,7 @@ if (orig.maxValue=0) {
           <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
-      <pos x="160" y="500"/>
+      <pos x="160" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -370,13 +374,141 @@ if (orig.maxValue=0) {
           <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
-      <pos x="140" y="540"/>
+      <pos x="140" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes/>
+      <pos x="-120" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (orig.inverterConfig.clr) {
+    this.Value=1;
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes/>
+      <pos x="-120" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (orig.inverterConfig.en) {
+    this.Value=1;
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes/>
+      <pos x="-120" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (orig.inverterConfig.dir) {
+    this.Value=1;
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (orig.inverterConfig.ld) {
+    this.Value=1;
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Bits=orig.Bits;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Bits=orig.Bits;
+if (orig.inverterConfig.in) {
+    this.Value=-1;
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="420"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
       <p1 x="440" y="160"/>
-      <p2 x="480" y="160"/>
+      <p2 x="560" y="160"/>
     </wire>
     <wire>
       <p1 x="20" y="160"/>
@@ -395,6 +527,14 @@ if (orig.maxValue=0) {
       <p2 x="300" y="320"/>
     </wire>
     <wire>
+      <p1 x="-60" y="640"/>
+      <p2 x="340" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="640"/>
+      <p2 x="360" y="640"/>
+    </wire>
+    <wire>
       <p1 x="-60" y="420"/>
       <p2 x="-20" y="420"/>
     </wire>
@@ -411,6 +551,18 @@ if (orig.maxValue=0) {
       <p2 x="180" y="260"/>
     </wire>
     <wire>
+      <p1 x="-60" y="580"/>
+      <p2 x="100" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="580"/>
+      <p2 x="240" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="580"/>
+      <p2 x="160" y="580"/>
+    </wire>
+    <wire>
       <p1 x="20" y="200"/>
       <p2 x="40" y="200"/>
     </wire>
@@ -423,40 +575,36 @@ if (orig.maxValue=0) {
       <p2 x="280" y="200"/>
     </wire>
     <wire>
-      <p1 x="540" y="200"/>
+      <p1 x="620" y="200"/>
+      <p2 x="640" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="200"/>
       <p2 x="560" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="460" y="200"/>
-      <p2 x="480" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="520"/>
-      <p2 x="360" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="200" y="520"/>
-      <p2 x="240" y="520"/>
     </wire>
     <wire>
       <p1 x="360" y="140"/>
       <p2 x="400" y="140"/>
     </wire>
     <wire>
-      <p1 x="-60" y="460"/>
-      <p2 x="540" y="460"/>
-    </wire>
-    <wire>
       <p1 x="-20" y="300"/>
       <p2 x="20" y="300"/>
     </wire>
     <wire>
-      <p1 x="-60" y="560"/>
-      <p2 x="340" y="560"/>
+      <p1 x="140" y="620"/>
+      <p2 x="160" y="620"/>
     </wire>
     <wire>
-      <p1 x="340" y="560"/>
-      <p2 x="360" y="560"/>
+      <p1 x="420" y="620"/>
+      <p2 x="440" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="-140" y="620"/>
+      <p2 x="-120" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="620"/>
+      <p2 x="740" y="620"/>
     </wire>
     <wire>
       <p1 x="20" y="80"/>
@@ -464,27 +612,23 @@ if (orig.maxValue=0) {
     </wire>
     <wire>
       <p1 x="220" y="80"/>
-      <p2 x="640" y="80"/>
+      <p2 x="720" y="80"/>
     </wire>
     <wire>
       <p1 x="100" y="240"/>
       <p2 x="280" y="240"/>
     </wire>
     <wire>
-      <p1 x="-60" y="500"/>
-      <p2 x="100" y="500"/>
+      <p1 x="-140" y="240"/>
+      <p2 x="-120" y="240"/>
     </wire>
     <wire>
-      <p1 x="220" y="500"/>
-      <p2 x="240" y="500"/>
+      <p1 x="-140" y="400"/>
+      <p2 x="-120" y="400"/>
     </wire>
     <wire>
-      <p1 x="100" y="500"/>
-      <p2 x="160" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="620" y="180"/>
-      <p2 x="640" y="180"/>
+      <p1 x="700" y="180"/>
+      <p2 x="720" y="180"/>
     </wire>
     <wire>
       <p1 x="360" y="180"/>
@@ -495,40 +639,48 @@ if (orig.maxValue=0) {
       <p2 x="40" y="180"/>
     </wire>
     <wire>
-      <p1 x="520" y="180"/>
-      <p2 x="560" y="180"/>
+      <p1 x="600" y="180"/>
+      <p2 x="640" y="180"/>
     </wire>
     <wire>
-      <p1 x="640" y="180"/>
-      <p2 x="660" y="180"/>
+      <p1 x="720" y="180"/>
+      <p2 x="740" y="180"/>
     </wire>
     <wire>
       <p1 x="-20" y="340"/>
       <p2 x="0" y="340"/>
     </wire>
     <wire>
+      <p1 x="-140" y="660"/>
+      <p2 x="-120" y="660"/>
+    </wire>
+    <wire>
+      <p1 x="-140" y="440"/>
+      <p2 x="-120" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="600"/>
+      <p2 x="360" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="200" y="600"/>
+      <p2 x="240" y="600"/>
+    </wire>
+    <wire>
       <p1 x="220" y="120"/>
       <p2 x="320" y="120"/>
     </wire>
     <wire>
-      <p1 x="140" y="540"/>
-      <p2 x="160" y="540"/>
-    </wire>
-    <wire>
-      <p1 x="420" y="540"/>
-      <p2 x="440" y="540"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="540"/>
-      <p2 x="660" y="540"/>
+      <p1 x="-140" y="280"/>
+      <p2 x="-120" y="280"/>
     </wire>
     <wire>
       <p1 x="320" y="220"/>
       <p2 x="360" y="220"/>
     </wire>
     <wire>
-      <p1 x="640" y="80"/>
-      <p2 x="640" y="180"/>
+      <p1 x="480" y="400"/>
+      <p2 x="480" y="420"/>
     </wire>
     <wire>
       <p1 x="420" y="180"/>
@@ -536,19 +688,35 @@ if (orig.maxValue=0) {
     </wire>
     <wire>
       <p1 x="100" y="240"/>
-      <p2 x="100" y="500"/>
+      <p2 x="100" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="200"/>
+      <p2 x="580" y="340"/>
     </wire>
     <wire>
       <p1 x="360" y="180"/>
       <p2 x="360" y="220"/>
     </wire>
     <wire>
+      <p1 x="520" y="400"/>
+      <p2 x="520" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="200"/>
+      <p2 x="620" y="240"/>
+    </wire>
+    <wire>
       <p1 x="300" y="240"/>
       <p2 x="300" y="320"/>
     </wire>
     <wire>
-      <p1 x="460" y="200"/>
-      <p2 x="460" y="240"/>
+      <p1 x="560" y="400"/>
+      <p2 x="560" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="80"/>
+      <p2 x="720" y="180"/>
     </wire>
     <wire>
       <p1 x="400" y="400"/>
@@ -568,11 +736,11 @@ if (orig.maxValue=0) {
     </wire>
     <wire>
       <p1 x="500" y="200"/>
-      <p2 x="500" y="240"/>
+      <p2 x="500" y="340"/>
     </wire>
     <wire>
       <p1 x="340" y="160"/>
-      <p2 x="340" y="560"/>
+      <p2 x="340" y="640"/>
     </wire>
     <wire>
       <p1 x="20" y="80"/>
@@ -584,11 +752,15 @@ if (orig.maxValue=0) {
     </wire>
     <wire>
       <p1 x="180" y="260"/>
-      <p2 x="180" y="500"/>
+      <p2 x="180" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="400"/>
+      <p2 x="600" y="420"/>
     </wire>
     <wire>
       <p1 x="440" y="400"/>
-      <p2 x="440" y="540"/>
+      <p2 x="440" y="620"/>
     </wire>
     <wire>
       <p1 x="220" y="80"/>
@@ -596,11 +768,7 @@ if (orig.maxValue=0) {
     </wire>
     <wire>
       <p1 x="220" y="120"/>
-      <p2 x="220" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="540" y="200"/>
-      <p2 x="540" y="460"/>
+      <p2 x="220" y="580"/>
     </wire>
   </wires>
   <measurementOrdering/>

@@ -75,7 +75,7 @@
           <string>J</string>
         </entry>
       </elementAttributes>
-      <pos x="0" y="80"/>
+      <pos x="-100" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -103,13 +103,59 @@
           <string>K</string>
         </entry>
       </elementAttributes>
-      <pos x="0" y="40"/>
+      <pos x="-100" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes/>
+      <pos x="-80" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes/>
+      <pos x="-80" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (orig.inverterConfig.J) {
+    this.Value=1;
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (orig.inverterConfig.K) {
+    this.Value=1;
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="120"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
       <p1 x="20" y="0"/>
       <p2 x="40" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="0"/>
+      <p2 x="-80" y="0"/>
     </wire>
     <wire>
       <p1 x="120" y="80"/>
@@ -128,6 +174,10 @@
       <p2 x="40" y="80"/>
     </wire>
     <wire>
+      <p1 x="-100" y="80"/>
+      <p2 x="-80" y="80"/>
+    </wire>
+    <wire>
       <p1 x="320" y="80"/>
       <p2 x="340" y="80"/>
     </wire>
@@ -140,8 +190,16 @@
       <p2 x="120" y="20"/>
     </wire>
     <wire>
+      <p1 x="-20" y="20"/>
+      <p2 x="0" y="20"/>
+    </wire>
+    <wire>
       <p1 x="100" y="100"/>
       <p2 x="120" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="100"/>
+      <p2 x="0" y="100"/>
     </wire>
     <wire>
       <p1 x="20" y="-40"/>
@@ -160,12 +218,20 @@
       <p2 x="340" y="40"/>
     </wire>
     <wire>
+      <p1 x="-100" y="40"/>
+      <p2 x="-80" y="40"/>
+    </wire>
+    <wire>
       <p1 x="20" y="120"/>
       <p2 x="40" y="120"/>
     </wire>
     <wire>
       <p1 x="200" y="120"/>
       <p2 x="220" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="120"/>
+      <p2 x="-80" y="120"/>
     </wire>
     <wire>
       <p1 x="200" y="60"/>
@@ -186,6 +252,14 @@
     <wire>
       <p1 x="320" y="40"/>
       <p2 x="320" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="0" y="20"/>
+      <p2 x="0" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="0" y="80"/>
+      <p2 x="0" y="100"/>
     </wire>
     <wire>
       <p1 x="20" y="120"/>

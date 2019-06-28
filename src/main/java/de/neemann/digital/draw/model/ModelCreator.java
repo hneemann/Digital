@@ -147,11 +147,6 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 ModelEntry me = it.next();
                 if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
 
-                    // Input invert of custom components is not jet supported!
-                    InverterConfig ic = me.getVisualElement().getElementAttributes().get(Keys.INVERTER_CONFIG);
-                    if (!ic.isEmpty())
-                        throw new NodeException(Lang.get("err_customComponentInputInvert", me.getVisualElement().getElementName()));
-
                     CustomElement ce = (CustomElement) me.getElement();
                     ModelCreator child = ce.getModelCreator(
                             combineNames(subName, me.getVisualElement().getElementAttributes().getLabel()),
