@@ -5,10 +5,9 @@
  */
 package de.neemann.digital.draw.model;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.basic.Not;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
@@ -99,7 +98,6 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 if (containingVisualElement != null)
                     cve = containingVisualElement;
 
-                Pins pins = ve.getPins();
                 ElementAttributes attr = ve.getElementAttributes();
                 ElementTypeDescription elementType = library.getElementType(ve.getElementName(), attr);
                 if (attr.getLabel().contains("*")
@@ -110,6 +108,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 }
                 Element element = elementType.createElement(attr);
                 ve.setElement(element);
+                Pins pins = ve.getPins();
                 pins.bindOutputsToOutputPins(element.getOutputs());
 
                 // sets the nodes origin to create better error messages
@@ -117,7 +116,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                     ((Node) element).setOrigin(circuit.getOrigin());
 
                 // if handled as nested element, don't put pins in EntryList, but put the pins in a
-                // separate map to connect it with the parent!
+                // separate map to connect them with the parent!
                 boolean isNotAIO = true;
                 if (isNestedCircuit) {
                     if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION || elementType == Clock.DESCRIPTION) {
@@ -147,6 +146,12 @@ public class ModelCreator implements Iterable<ModelEntry> {
             while (it.hasNext()) {
                 ModelEntry me = it.next();
                 if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
+
+                    // Input invert of custom components is not jet supported!
+                    InverterConfig ic = me.getVisualElement().getElementAttributes().get(Keys.INVERTER_CONFIG);
+                    if (!ic.isEmpty())
+                        throw new NodeException(Lang.get("err_customComponentInputInvert", me.getVisualElement().getElementName()));
+
                     CustomElement ce = (CustomElement) me.getElement();
                     ModelCreator child = ce.getModelCreator(
                             combineNames(subName, me.getVisualElement().getElementAttributes().getLabel()),
