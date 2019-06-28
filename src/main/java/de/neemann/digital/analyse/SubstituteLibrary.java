@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,18 +33,14 @@ import java.util.Map;
 public class SubstituteLibrary implements LibraryInterface {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubstituteLibrary.class);
     private static final Map<String, SubstituteInterface> MAP = new HashMap<>();
-    private static final SubstituteInterface T_FF_WITH_ENABLE = new Substitute("T_FF_EN.dig");
-    private static final SubstituteInterface T_FF_WITHOUT_ENABLE = new Substitute("T_FF.dig");
 
     static {
         MAP.put("JK_FF", new Substitute("JK_FF.dig"));
-        MAP.put("T_FF", (attr, library) -> {
-            if (attr.get(Keys.WITH_ENABLE))
-                return T_FF_WITH_ENABLE.getElementType(attr, library);
-            else
-                return T_FF_WITHOUT_ENABLE.getElementType(attr, library);
-        });
-        MAP.put("Counter", new Substitute("Counter.dig"));
+        MAP.put("T_FF", new SubstituteMatching()
+                .add(attr -> attr.get(Keys.WITH_ENABLE), new Substitute("T_FF_EN.dig"))
+                .add(attr -> true, new Substitute("T_FF.dig"))
+        );
+        MAP.put("Counter", new SubstituteGenericBits("Counter.dig"));
     }
 
     private final ElementLibrary parent;
@@ -75,6 +73,50 @@ public class SubstituteLibrary implements LibraryInterface {
         ElementTypeDescription getElementType(ElementAttributes attr, ElementLibrary library) throws PinException, IOException;
     }
 
+    private static final class SubstituteMatching implements SubstituteInterface {
+        private final ArrayList<Matcher> matcher;
+
+        private SubstituteMatching() {
+            matcher = new ArrayList<>();
+        }
+
+        private SubstituteMatching add(Accept accept, SubstituteInterface substituteInterface) {
+            matcher.add(new Matcher(accept, substituteInterface));
+            return this;
+        }
+
+        @Override
+        public ElementTypeDescription getElementType(ElementAttributes attr, ElementLibrary library) throws PinException, IOException {
+            for (Matcher m : matcher) {
+                ElementTypeDescription type = m.getElementType(attr, library);
+                if (type != null)
+                    return type;
+            }
+            return null;
+        }
+    }
+
+    private static final class Matcher implements SubstituteInterface {
+        private final Accept accept;
+        private final SubstituteInterface substituteInterface;
+
+        private Matcher(Accept accept, SubstituteInterface substituteInterface) {
+            this.accept = accept;
+            this.substituteInterface = substituteInterface;
+        }
+
+        @Override
+        public ElementTypeDescription getElementType(ElementAttributes attr, ElementLibrary library) throws PinException, IOException {
+            if (accept.accept(attr))
+                return substituteInterface.getElementType(attr, library);
+            return null;
+        }
+    }
+
+    private interface Accept {
+        boolean accept(ElementAttributes attr);
+    }
+
     private static final class Substitute implements SubstituteInterface {
         private final String filename;
         private ElementLibrary.ElementTypeDescriptionCustom typeDescriptionCustom;
@@ -91,7 +133,7 @@ public class SubstituteLibrary implements LibraryInterface {
                 if (in == null)
                     throw new IOException("substituting failed: could not find file " + filename);
 
-                Circuit circuit = modify(Circuit.loadCircuit(in, library.getShapeFactory()));
+                Circuit circuit = Circuit.loadCircuit(in, library.getShapeFactory());
 
                 typeDescriptionCustom =
                         new ElementLibrary.ElementTypeDescriptionCustom(new File(filename),
@@ -101,9 +143,56 @@ public class SubstituteLibrary implements LibraryInterface {
             return typeDescriptionCustom;
         }
 
-        private Circuit modify(Circuit circuit) {
-            return circuit;
-        }
     }
 
+    private static abstract class SubstituteGeneric implements SubstituteInterface {
+        private final String filename;
+        private Circuit circuit;
+
+        private SubstituteGeneric(String filename) {
+            this.filename = filename;
+        }
+
+        @Override
+        public ElementTypeDescription getElementType(ElementAttributes attr, ElementLibrary library) throws PinException, IOException {
+            if (circuit == null) {
+                LOGGER.info("load substitute circuit " + filename);
+                InputStream in = getClass().getClassLoader().getResourceAsStream("analyser/" + filename);
+                if (in == null)
+                    throw new IOException("substituting failed: could not find file " + filename);
+
+                circuit = Circuit.loadCircuit(in, library.getShapeFactory());
+            }
+
+            Circuit c = circuit.createDeepCopy();
+            generify(attr, c);
+
+            return new ElementLibrary.ElementTypeDescriptionCustom(new File(filename),
+                    attributes -> new CustomElement(c, library),
+                    c);
+        }
+
+        private void generify(ElementAttributes attr, Circuit circuit) {
+            for (VisualElement v : circuit.getElements()) {
+                String gen = v.getElementAttributes().get(Keys.GENERIC).trim();
+                if (!gen.isEmpty())
+                    generify(attr, gen, v.getElementAttributes());
+            }
+        }
+
+        abstract void generify(ElementAttributes sourceAttributes, String gen, ElementAttributes nodeAttributes);
+    }
+
+    private static class SubstituteGenericBits extends SubstituteGeneric {
+
+        private SubstituteGenericBits(String filename) {
+            super(filename);
+        }
+
+        @Override
+        void generify(ElementAttributes sourceAttributes, String gen, ElementAttributes nodeAttributes) {
+            if (gen.equals("bits"))
+                nodeAttributes.setBits(sourceAttributes.getBits());
+        }
+    }
 }

@@ -7,6 +7,7 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.lang.Lang;
 
 import java.lang.reflect.Constructor;
@@ -70,6 +71,8 @@ public class ElementTypeDescription {
             if (p.getDirection() != PinDescription.Direction.input)
                 throw new RuntimeException("pin direction error");
         attributeList = new ArrayList<>();
+        if (Main.isExperimentalMode())
+            attributeList.add(Keys.GENERIC);
     }
 
     /**

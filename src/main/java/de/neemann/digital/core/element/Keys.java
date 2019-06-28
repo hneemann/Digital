@@ -784,4 +784,10 @@ public final class Keys {
     public static final Key<File> SETTINGS_TOOLCHAIN_CONFIG =
             new Key.KeyFile("toolChainConfig", new File("")).setSecondary().setRequiresRestart();
 
+    /**
+     * Selects the midi channel
+     */
+    public static final Key<String> GENERIC =
+            new Key<>("generic", "").allowGroupEdit();
+
 }

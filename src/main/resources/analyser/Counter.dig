@@ -44,6 +44,10 @@
           <string>Bits</string>
           <int>4</int>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>bits</string>
+        </entry>
       </elementAttributes>
       <pos x="540" y="160"/>
     </visualElement>
@@ -68,6 +72,10 @@
           <string>Bits</string>
           <int>4</int>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>bits</string>
+        </entry>
       </elementAttributes>
       <pos x="440" y="160"/>
     </visualElement>
@@ -77,6 +85,10 @@
         <entry>
           <string>Bits</string>
           <int>4</int>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>bits</string>
         </entry>
       </elementAttributes>
       <pos x="360" y="140"/>
@@ -88,6 +100,10 @@
           <string>Bits</string>
           <int>4</int>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>bits</string>
+        </entry>
       </elementAttributes>
       <pos x="340" y="200"/>
     </visualElement>
@@ -98,6 +114,10 @@
           <string>Bits</string>
           <int>4</int>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>bits</string>
+        </entry>
       </elementAttributes>
       <pos x="300" y="120"/>
     </visualElement>
@@ -107,6 +127,10 @@
         <entry>
           <string>Bits</string>
           <int>4</int>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>bits</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="160"/>
@@ -122,6 +146,10 @@
         <entry>
           <string>Bits</string>
           <int>4</int>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>bits</string>
         </entry>
       </elementAttributes>
       <pos x="200" y="180"/>
