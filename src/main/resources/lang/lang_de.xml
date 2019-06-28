@@ -1022,6 +1022,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="msg_errorStartCommand_N">Fehler beim Starten des Kommandos {0}</string>
     <string name="err_thereIsAUnnamedIO">Es gibt ein unbenannten Ein- oder Ausgang</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!</string>
+    <string name="err_customComponentInputInvert">Analyse der Eingangs-Inverter nicht möglich bei: {0}</string>
+    <string name="err_substitutingError">Fehler bei der Substitution von Elementen für die Analyse.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
