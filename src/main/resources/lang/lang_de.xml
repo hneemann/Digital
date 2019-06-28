@@ -1342,7 +1342,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Erlaubt den Start externer Tools, um z.B. einen FPGA zu programmieren o.ä.</string>
 
     <string name="key_generic">Generisch</string>
-    <string name="key_generic_tt">String für das Erzeugen generischer Schaltungen.</string>
+    <string name="key_generic_tt">Anweisung um eine generische Schaltung anzupassen.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

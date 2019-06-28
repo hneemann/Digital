@@ -785,9 +785,9 @@ public final class Keys {
             new Key.KeyFile("toolChainConfig", new File("")).setSecondary().setRequiresRestart();
 
     /**
-     * Selects the midi channel
+     * Used to input statements to generify a circuit.
      */
     public static final Key<String> GENERIC =
-            new Key<>("generic", "").allowGroupEdit();
+            new Key.LongString("generic").allowGroupEdit();
 
 }

@@ -100,14 +100,28 @@ public class Parser {
      * @throws ParserException ParserException
      */
     public Statement parse() throws IOException, ParserException {
-        Statements s = new Statements();
-        String text = tok.readText();
-        if (nextIs(SUB))
-            text = Value.trimRight(text);
+        return parse(true);
+    }
 
-        if (text.length() > 0) {
-            String t = text;
-            s.add(c -> c.print(t));
+    /**
+     * Parses the given template source
+     *
+     * @param startsWithText true if code starts with text.
+     * @return the Statement to execute
+     * @throws IOException     IOException
+     * @throws ParserException ParserException
+     */
+    public Statement parse(boolean startsWithText) throws IOException, ParserException {
+        Statements s = new Statements();
+        if (startsWithText) {
+            String text = tok.readText();
+            if (nextIs(SUB))
+                text = Value.trimRight(text);
+
+            if (text.length() > 0) {
+                String t = text;
+                s.add(c -> c.print(t));
+            }
         }
         while (!nextIs(EOF)) {
             if (nextIs(STATIC)) {

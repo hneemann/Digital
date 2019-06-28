@@ -1330,7 +1330,7 @@
         Allows the start of external tools, e.g. to program an FPGA or similar.</string>
 
     <string name="key_generic">Generic</string>
-    <string name="key_generic_tt">String used to create generic circuits.</string>
+    <string name="key_generic_tt">Statements used to generify a circuit.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

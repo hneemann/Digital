@@ -7,6 +7,7 @@ package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -15,6 +16,7 @@ import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
+import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +42,8 @@ public class SubstituteLibrary implements LibraryInterface {
                 .add(attr -> attr.get(Keys.WITH_ENABLE), new Substitute("T_FF_EN.dig"))
                 .add(attr -> true, new Substitute("T_FF.dig"))
         );
-        MAP.put("Counter", new SubstituteGenericBits("Counter.dig"));
+        MAP.put("Counter", new SubstituteGenericHGSParser("Counter.dig"));
+        MAP.put("CounterPreset", new SubstituteGenericHGSParser("CounterPreset.dig"));
     }
 
     private final ElementLibrary parent;
@@ -172,7 +175,7 @@ public class SubstituteLibrary implements LibraryInterface {
                     c);
         }
 
-        private void generify(ElementAttributes attr, Circuit circuit) {
+        private void generify(ElementAttributes attr, Circuit circuit) throws IOException {
             for (VisualElement v : circuit.getElements()) {
                 String gen = v.getElementAttributes().get(Keys.GENERIC).trim();
                 if (!gen.isEmpty())
@@ -180,19 +183,56 @@ public class SubstituteLibrary implements LibraryInterface {
             }
         }
 
-        abstract void generify(ElementAttributes sourceAttributes, String gen, ElementAttributes nodeAttributes);
+        abstract void generify(ElementAttributes sourceAttributes, String gen, ElementAttributes nodeAttributes) throws IOException;
     }
 
-    private static class SubstituteGenericBits extends SubstituteGeneric {
+    private static class SubstituteGenericHGSParser extends SubstituteGeneric {
+        private final HashMap<String, Statement> map;
 
-        private SubstituteGenericBits(String filename) {
+        private SubstituteGenericHGSParser(String filename) {
             super(filename);
+            map = new HashMap<>();
         }
 
         @Override
-        void generify(ElementAttributes sourceAttributes, String gen, ElementAttributes nodeAttributes) {
-            if (gen.equals("bits"))
-                nodeAttributes.setBits(sourceAttributes.getBits());
+        void generify(ElementAttributes sourceAttributes, String gen, ElementAttributes nodeAttributes) throws IOException {
+            try {
+                Statement s = map.get(gen);
+                if (s == null) {
+                    LOGGER.info("generic: " + gen);
+                    s = new Parser(gen).parse(false);
+                    map.put(gen, s);
+                }
+                Context context = new Context()
+                        .declareVar("orig", sourceAttributes)
+                        .declareVar("this", new AllowSetAttributes(nodeAttributes));
+                s.execute(context);
+            } catch (ParserException | HGSEvalException e) {
+                throw new IOException(e);
+            }
+        }
+
+    }
+
+    private static final class AllowSetAttributes implements HGSMap {
+        private final ElementAttributes attr;
+
+        private AllowSetAttributes(ElementAttributes attr) {
+            this.attr = attr;
+        }
+
+        @Override
+        public void hgsMapPut(String key, Object val) throws HGSEvalException {
+            Key k = Keys.getKeyByName(key);
+            if (k == null) {
+                throw new HGSEvalException("key " + key + " is invalid");
+            } else
+                attr.set(k, val);
+        }
+
+        @Override
+        public Object hgsMapGet(String key) {
+            return attr.hgsMapGet(key);
         }
     }
 }

@@ -46,7 +46,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>bits</string>
+          <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="160"/>
@@ -74,7 +74,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>bits</string>
+          <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="160"/>
@@ -88,7 +88,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>bits</string>
+          <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
       <pos x="360" y="140"/>
@@ -102,7 +102,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>bits</string>
+          <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
       <pos x="340" y="200"/>
@@ -116,7 +116,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>bits</string>
+          <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
       <pos x="300" y="120"/>
@@ -130,7 +130,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>bits</string>
+          <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="160"/>
@@ -149,7 +149,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>bits</string>
+          <string>this.Bits=orig.Bits;</string>
         </entry>
       </elementAttributes>
       <pos x="200" y="180"/>
