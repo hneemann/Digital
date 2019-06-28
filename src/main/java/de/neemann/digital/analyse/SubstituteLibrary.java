@@ -30,30 +30,35 @@ import java.util.Map;
  */
 public class SubstituteLibrary implements LibraryInterface {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubstituteLibrary.class);
-    private static final Map<String, SubstituteInterface> map = new HashMap<>();
+    private static final Map<String, SubstituteInterface> MAP = new HashMap<>();
     private static final SubstituteInterface T_FF_WITH_ENABLE = new Substitute("T_FF_EN.dig");
     private static final SubstituteInterface T_FF_WITHOUT_ENABLE = new Substitute("T_FF.dig");
 
     static {
-        map.put("JK_FF", new Substitute("JK_FF.dig"));
-        map.put("T_FF", (attr, library) -> {
+        MAP.put("JK_FF", new Substitute("JK_FF.dig"));
+        MAP.put("T_FF", (attr, library) -> {
             if (attr.get(Keys.WITH_ENABLE))
                 return T_FF_WITH_ENABLE.getElementType(attr, library);
             else
                 return T_FF_WITHOUT_ENABLE.getElementType(attr, library);
         });
-        map.put("Counter", new Substitute("Counter.dig"));
+        MAP.put("Counter", new Substitute("Counter.dig"));
     }
 
     private final ElementLibrary parent;
 
+    /**
+     * Creates a new instance
+     *
+     * @param parent the parent library used to create the not substitutable components.
+     */
     public SubstituteLibrary(ElementLibrary parent) {
         this.parent = parent;
     }
 
     @Override
     public ElementTypeDescription getElementType(String elementName, ElementAttributes attr) throws ElementNotFoundException {
-        SubstituteInterface subst = map.get(elementName);
+        SubstituteInterface subst = MAP.get(elementName);
         if (subst != null) {
             try {
                 ElementTypeDescription type = subst.getElementType(attr, parent);

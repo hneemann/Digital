@@ -18,6 +18,7 @@ public interface LibraryInterface {
      * @param elementName the name of the element
      * @param attr        the elements attributes
      * @return the ElementTypeDescription
+     * @throws ElementNotFoundException ElementNotFoundException
      */
     ElementTypeDescription getElementType(String elementName, ElementAttributes attr) throws ElementNotFoundException;
 }

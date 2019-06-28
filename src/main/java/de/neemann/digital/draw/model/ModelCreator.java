@@ -5,9 +5,10 @@
  */
 package de.neemann.digital.draw.model;
 
-import de.neemann.digital.core.*;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Node;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.basic.Not;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
@@ -17,7 +18,6 @@ import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.CustomElement;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -319,8 +319,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
     public void addNodeElementsTo(Collection<Node> nodes, Collection<Drawable> highLighted) {
         if (nodes == null) return;
 
-        HashSet<Node> nodeSet = new HashSet<>();
-        nodeSet.addAll(nodes);
+        HashSet<Node> nodeSet = new HashSet<>(nodes);
         for (ModelEntry me : entries) {
             Element element = me.getElement();
             if (element instanceof Node && nodeSet.contains(element))
