@@ -131,7 +131,7 @@ public class SubstituteLibrary implements LibraryInterface {
         @Override
         public ElementTypeDescription getElementType(ElementAttributes attr, ElementLibrary library) throws PinException, IOException {
             if (typeDescriptionCustom == null) {
-                LOGGER.info("load substitute circuit " + filename);
+                LOGGER.debug("load substitute circuit " + filename);
                 InputStream in = getClass().getClassLoader().getResourceAsStream("analyser/" + filename);
                 if (in == null)
                     throw new IOException("substituting failed: could not find file " + filename);
@@ -159,7 +159,7 @@ public class SubstituteLibrary implements LibraryInterface {
         @Override
         public ElementTypeDescription getElementType(ElementAttributes attr, ElementLibrary library) throws PinException, IOException {
             if (circuit == null) {
-                LOGGER.info("load substitute circuit " + filename);
+                LOGGER.debug("load substitute circuit " + filename);
                 InputStream in = getClass().getClassLoader().getResourceAsStream("analyser/" + filename);
                 if (in == null)
                     throw new IOException("substituting failed: could not find file " + filename);
@@ -186,7 +186,7 @@ public class SubstituteLibrary implements LibraryInterface {
         abstract void generify(ElementAttributes sourceAttributes, String gen, ElementAttributes nodeAttributes) throws IOException;
     }
 
-    private static class SubstituteGenericHGSParser extends SubstituteGeneric {
+    private static final class SubstituteGenericHGSParser extends SubstituteGeneric {
         private final HashMap<String, Statement> map;
 
         private SubstituteGenericHGSParser(String filename) {
@@ -199,7 +199,7 @@ public class SubstituteLibrary implements LibraryInterface {
             try {
                 Statement s = map.get(gen);
                 if (s == null) {
-                    LOGGER.info("generic: " + gen);
+                    LOGGER.debug("generic: " + gen);
                     s = new Parser(gen).parse(false);
                     map.put(gen, s);
                 }
