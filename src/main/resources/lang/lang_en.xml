@@ -1313,8 +1313,8 @@
     <string name="key_midiInstrument">MIDI instrument</string>
     <string name="key_midiInstrument_tt">The MIDI instrument to use.</string>
     <string name="key_midiProgChange">Allow program change</string>
-    <string name="key_midiProgChange_tt">Adds  a new input PC. If this input is set to high,
-        the value at input N is used to change te program (instrument).</string>
+    <string name="key_midiProgChange_tt">Adds a new input PC. If this input is set to high,
+        the value at input N is used to change the program (instrument).</string>
 
     <string name="key_transistors">Transistors</string>
     <string name="key_transistors_tt">Number of transistors required. Used for circuit statistics.
@@ -1330,6 +1330,9 @@
 
     <string name="key_generic">Generic</string>
     <string name="key_generic_tt">Statements used to generify a circuit.</string>
+
+    <string name="key_isGeneric">Circuit is generic</string>
+    <string name="key_isGeneric_tt">Allows to create a generic circuit.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

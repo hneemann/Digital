@@ -790,4 +790,10 @@ public final class Keys {
     public static final Key<String> GENERIC =
             new Key.LongString("generic").allowGroupEdit();
 
+    /**
+     * Circuit is generic
+     */
+    public static final Key<Boolean> IS_GENERIC =
+            new Key<Boolean>("isGeneric", false).setSecondary();
+
 }

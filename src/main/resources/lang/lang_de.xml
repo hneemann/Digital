@@ -1343,6 +1343,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_generic">Generisch</string>
     <string name="key_generic_tt">Anweisung um eine generische Schaltung anzupassen.</string>
 
+    <string name="key_isGeneric">Schaltung ist generisch</string>
+    <string name="key_isGeneric_tt">Erlaubt die Erzeugung von generischen Schaltungen.</string>
+
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
     <string name="mod_setKey_N0_in_element_N1">Wert ''{0}'' in Element ''{1}'' verändert.</string>
