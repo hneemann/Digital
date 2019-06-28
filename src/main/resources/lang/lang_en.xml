@@ -1014,7 +1014,6 @@
     <string name="msg_errorStartCommand_N">Error starting the command {0}</string>
     <string name="err_thereIsAUnnamedIO">There is a unnamed input or output</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">The signal name "{0}" is invalid or used multiple times!</string>
-    <string name="err_customComponentInputInvert">Analysis of the input inverters not possible at: {0}</string>
     <string name="err_substitutingError">Error when substituting components for the analysis.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
