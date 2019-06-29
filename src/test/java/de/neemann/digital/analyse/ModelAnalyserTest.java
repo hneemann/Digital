@@ -107,6 +107,24 @@ public class ModelAnalyserTest extends TestCase {
         check2BitCounter(tt);
     }
 
+    public void testAnalyzerCounter() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestCounter.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerCounterInvInputs() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestCounterInvIn.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerCounterPreset() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestCounterPreset.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
     private void check2BitCounter(TruthTable tt) {
         assertEquals(4, tt.getRows());
         assertEquals(4, tt.getCols());
@@ -122,12 +140,6 @@ public class ModelAnalyserTest extends TestCase {
         assertEquals(0, tt.getValue(1, 3));
         assertEquals(1, tt.getValue(2, 3));
         assertEquals(0, tt.getValue(3, 3));
-
-        assertEquals("Q_1n\tQ_0n\tQ_1n+1\tQ_0n+1\t\n" +
-                "0\t0\t0\t1\t\n" +
-                "0\t1\t1\t0\t\n" +
-                "1\t0\t1\t1\t\n" +
-                "1\t1\t0\t0\t\n", tt.toString());
     }
 
     public void testAnalyzerUniqueNames() throws Exception {
