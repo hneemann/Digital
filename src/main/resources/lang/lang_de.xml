@@ -1024,6 +1024,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!</string>
     <string name="err_substitutingError">Fehler bei der Substitution von Elementen für die Analyse.</string>
     <string name="err_parsingGenericsCode">Fehler bei der Analyse des für den Code der generischen Schaltung.</string>
+    <string name="err_genericCircuitsAreNotYetSupported">Generische Schaltungen werden noch nicht unterstützt.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
