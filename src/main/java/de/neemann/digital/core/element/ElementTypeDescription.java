@@ -22,7 +22,7 @@ public class ElementTypeDescription {
     private final String name;
     private final String langKey;
     private String shortName;
-    private final ElementFactory elementFactory;
+    private ElementFactory elementFactory;
     private final PinDescriptions inputPins;
     private final ArrayList<Key> attributeList;
 
@@ -70,6 +70,15 @@ public class ElementTypeDescription {
             if (p.getDirection() != PinDescription.Direction.input)
                 throw new RuntimeException("pin direction error");
         attributeList = new ArrayList<>();
+    }
+
+    /**
+     * Sets the factory to create elements.
+     *
+     * @param elementFactory the factory
+     */
+    public void setElementFactory(ElementFactory elementFactory) {
+        this.elementFactory = elementFactory;
     }
 
     /**

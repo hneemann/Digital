@@ -5,9 +5,9 @@
  */
 package de.neemann.digital.gui;
 
-import de.neemann.digital.analyse.SubstituteLibrary;
 import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.ModelAnalyser;
+import de.neemann.digital.analyse.SubstituteLibrary;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.*;
@@ -21,7 +21,6 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.gif.GifExporter;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.AsyncSequentialClock;
@@ -51,10 +50,10 @@ import de.neemann.digital.gui.state.StateManager;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
-import de.neemann.digital.toolchain.Configuration;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
+import de.neemann.digital.toolchain.Configuration;
 import de.neemann.digital.undo.ChangedListener;
 import de.neemann.digital.undo.Modifications;
 import de.neemann.gui.*;
@@ -370,9 +369,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     file = new File(name);
                 try {
                     ElementLibrary.ElementTypeDescriptionCustom description =
-                            new ElementLibrary.ElementTypeDescriptionCustom(file,
-                                    attributes -> new CustomElement(circuit, library),
-                                    circuit);
+                            ElementLibrary.createCustomDescription(file, circuit, library);
                     description.setShortName(name);
                     description.setDescription(Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION)));
                     new ElementHelpDialog(Main.this, description, circuit.getAttributes()).setVisible(true);

@@ -71,8 +71,20 @@ public class ModelAnalyserTest extends TestCase {
         check2BitCounter(tt);
     }
 
+    public void testAnalyzerDFFInvIn() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestDFFInvIn.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
     public void testAnalyzerJKFF() throws Exception {
         Model model = createModel("dig/analyze/analyzeTestJKFF.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerJKFFInvInput() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestJKFFInvIn.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }
@@ -85,6 +97,12 @@ public class ModelAnalyserTest extends TestCase {
 
     public void testAnalyzerTFFEnable() throws Exception {
         Model model = createModel("dig/analyze/analyzeTestTFFEnable.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerTFFEnableInvIn() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestTFFEnableInvIn.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }

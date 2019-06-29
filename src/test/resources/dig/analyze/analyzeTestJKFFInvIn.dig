@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>JK_FF</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q_1n</string>
+        </entry>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>J</string>
+            <string>K</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="-60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>JK_FF</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q_0n</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes/>
+      <pos x="80" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="120" y="120"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="140" y="80"/>
+      <p2 x="160" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="-20"/>
+      <p2 x="160" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="100"/>
+      <p2 x="240" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="80" y="100"/>
+      <p2 x="120" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="100"/>
+      <p2 x="160" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="20"/>
+      <p2 x="240" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="-40"/>
+      <p2 x="180" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="120"/>
+      <p2 x="140" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="120"/>
+      <p2 x="160" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="-60"/>
+      <p2 x="160" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="20"/>
+      <p2 x="240" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="-40"/>
+      <p2 x="120" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="80"/>
+      <p2 x="140" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="-60"/>
+      <p2 x="140" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="-20"/>
+      <p2 x="140" y="20"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

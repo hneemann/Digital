@@ -12,7 +12,6 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.library.CustomElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
@@ -138,10 +137,7 @@ public class SubstituteLibrary implements LibraryInterface {
 
                 Circuit circuit = Circuit.loadCircuit(in, library.getShapeFactory());
 
-                typeDescriptionCustom =
-                        new ElementLibrary.ElementTypeDescriptionCustom(new File(filename),
-                                attributes -> new CustomElement(circuit, library),
-                                circuit);
+                typeDescriptionCustom = ElementLibrary.createCustomDescription(new File(filename), circuit, library);
             }
             return typeDescriptionCustom;
         }
@@ -170,9 +166,7 @@ public class SubstituteLibrary implements LibraryInterface {
             Circuit c = circuit.createDeepCopy();
             generify(attr, c);
 
-            return new ElementLibrary.ElementTypeDescriptionCustom(new File(filename),
-                    attributes -> new CustomElement(c, library),
-                    c);
+            return ElementLibrary.createCustomDescription(new File(filename), c, library);
         }
 
         private void generify(ElementAttributes attr, Circuit circuit) throws IOException {

@@ -13,8 +13,6 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.draw.model.NetList;
-import de.neemann.digital.lang.Lang;
 
 /**
  * This class represents a custom, nested element.
@@ -22,20 +20,17 @@ import de.neemann.digital.lang.Lang;
  * existing circuit. So you can build hierarchical circuits.
  */
 public class CustomElement implements Element {
-    private static final int MAX_DEPTH = 30;
-
-    private final Circuit circuit;
+    private final ElementLibrary.ElementTypeDescriptionCustom descriptionCustom;
     private final ElementLibrary library;
-    private NetList netList;
 
     /**
      * Creates a new custom element
      *
-     * @param circuit the inner circuit
-     * @param library the library to use.
+     * @param descriptionCustom the inner circuit
+     * @param library           the library to use.
      */
-    public CustomElement(Circuit circuit, ElementLibrary library) {
-        this.circuit = circuit;
+    public CustomElement(ElementLibrary.ElementTypeDescriptionCustom descriptionCustom, ElementLibrary library) {
+        this.descriptionCustom = descriptionCustom;
         this.library = library;
     }
 
@@ -52,13 +47,7 @@ public class CustomElement implements Element {
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public ModelCreator getModelCreator(String subName, int depth, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
-        if (netList == null)
-            netList = new NetList(circuit);
-
-        if (depth > MAX_DEPTH)
-            throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
-
-        return new ModelCreator(circuit, library, true, new NetList(netList, containingVisualElement), subName, depth, containingVisualElement);
+        return descriptionCustom.getModelCreator(subName, depth, containingVisualElement, library);
     }
 
     @Override
@@ -68,7 +57,7 @@ public class CustomElement implements Element {
 
     @Override
     public ObservableValues getOutputs() throws PinException {
-        return circuit.getOutputNames();
+        return descriptionCustom.getCircuit().getOutputNames();
     }
 
     @Override
@@ -80,6 +69,6 @@ public class CustomElement implements Element {
      * @return the circuit which is represented by this element
      */
     public Circuit getCircuit() {
-        return circuit;
+        return descriptionCustom.getCircuit();
     }
 }
