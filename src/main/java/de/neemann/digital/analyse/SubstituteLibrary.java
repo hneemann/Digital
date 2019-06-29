@@ -164,6 +164,8 @@ public class SubstituteLibrary implements LibraryInterface {
             }
 
             Circuit c = circuit.createDeepCopy();
+            // disable the normal generic handling!
+            c.getAttributes().set(Keys.IS_GENERIC, false);
             generify(attr, c);
 
             return ElementLibrary.createCustomDescription(new File(filename), c, library);
@@ -208,10 +210,18 @@ public class SubstituteLibrary implements LibraryInterface {
 
     }
 
-    private static final class AllowSetAttributes implements HGSMap {
+    /**
+     * Allows writing access to the attributes.
+     */
+    public static final class AllowSetAttributes implements HGSMap {
         private final ElementAttributes attr;
 
-        private AllowSetAttributes(ElementAttributes attr) {
+        /**
+         * Creates a new instance.
+         *
+         * @param attr the attributes to write to.
+         */
+        public AllowSetAttributes(ElementAttributes attr) {
             this.attr = attr;
         }
 

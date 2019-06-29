@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.draw.library;
 
+import de.neemann.digital.analyse.SubstituteLibrary;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
@@ -36,6 +37,7 @@ import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.graphics.LedMatrix;
 import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.Terminal;
+import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 import org.slf4j.Logger;
@@ -625,6 +627,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         private static final int MAX_DEPTH = 30;
         private final File file;
         private final Circuit circuit;
+        private final HashMap<String, Statement> map;
         private String description;
         private NetList netList;
 
@@ -639,10 +642,13 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             super(file.getName(), (ElementFactory) null, circuit.getInputNames());
             this.file = file;
             this.circuit = circuit;
+            map = new HashMap<>();
             setShortName(file.getName());
             addAttribute(Keys.ROTATE);
             addAttribute(Keys.LABEL);
             addAttribute(Keys.SHAPE_TYPE);
+            if (circuit.getAttributes().get(Keys.IS_GENERIC))
+                addAttribute(Keys.GENERIC);
         }
 
         /**
@@ -706,7 +712,44 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             if (depth > MAX_DEPTH)
                 throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
 
-            return new ModelCreator(circuit, library, true, new NetList(netList, containingVisualElement), subName, depth, containingVisualElement);
+            if (circuit.getAttributes().get(Keys.IS_GENERIC)) {
+                String argsCode = containingVisualElement.getElementAttributes().get(Keys.GENERIC);
+                try {
+                    Statement s = getStatement(argsCode);
+                    Context args = new Context();
+                    s.execute(args);
+
+                    Circuit c = circuit.createDeepCopy();
+                    for (VisualElement ve : c.getElements()) {
+                        String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();
+                        if (!gen.isEmpty()) {
+
+                            Statement genS = getStatement(gen);
+
+                            Context mod = new Context()
+                                    .declareVar("args", args)
+                                    .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
+                            genS.execute(mod);
+                        }
+                    }
+
+                    return new ModelCreator(c, library, true, new NetList(netList, containingVisualElement), subName, depth, containingVisualElement);
+
+                } catch (IOException | ParserException | HGSEvalException e) {
+                    throw new NodeException(Lang.get("err_parsingGenericsCode"), e);
+                }
+            } else {
+                return new ModelCreator(circuit, library, true, new NetList(netList, containingVisualElement), subName, depth, containingVisualElement);
+            }
+        }
+
+        private Statement getStatement(String code) throws IOException, ParserException {
+            Statement genS = map.get(code);
+            if (genS == null) {
+                genS = new Parser(code).parse(false);
+                map.put(code, genS);
+            }
+            return genS;
         }
 
     }
