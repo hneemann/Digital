@@ -1012,7 +1012,7 @@
     <string name="err_whileExecutingTests_N0">During the execution of the tests "{0}" an error has occurred!</string>
     <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
     <string name="msg_errorStartCommand_N">Error starting the command {0}</string>
-    <string name="err_thereIsAUnnamedIO">There is a unnamed input or output</string>
+    <string name="err_thereIsAUnnamedIO">There is a unnamed input or output!</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">The signal name "{0}" is invalid or used multiple times!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
