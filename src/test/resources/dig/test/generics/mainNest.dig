@@ -74,7 +74,7 @@ end loop</dataString>
       <pos x="520" y="320"/>
     </visualElement>
     <visualElement>
-      <elementName>nestError.dig</elementName>
+      <elementName>nest.dig</elementName>
       <elementAttributes>
         <entry>
           <string>generic</string>
@@ -84,7 +84,7 @@ end loop</dataString>
       <pos x="380" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>nestError.dig</elementName>
+      <elementName>nest.dig</elementName>
       <elementAttributes>
         <entry>
           <string>generic</string>
@@ -94,7 +94,7 @@ end loop</dataString>
       <pos x="380" y="260"/>
     </visualElement>
     <visualElement>
-      <elementName>nestError.dig</elementName>
+      <elementName>nest.dig</elementName>
       <elementAttributes>
         <entry>
           <string>generic</string>
