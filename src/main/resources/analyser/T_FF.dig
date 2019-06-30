@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>isGeneric</string>
+      <boolean>true</boolean>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>D_FF</elementName>
@@ -13,6 +18,10 @@
         <entry>
           <string>Inputs</string>
           <int>1</int>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Default=orig.Default;</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="60"/>

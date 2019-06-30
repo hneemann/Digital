@@ -70,6 +70,8 @@ public class ModelAnalyser {
 
             outputs.add(i++, new Signal(label + "+1", ff.getDInput()));
 
+            modelAnalyzerInfo.setSequentialInitValue(label, ff.getDefault());
+
             ObservableValue q = ff.getOutputs().get(0);
             final Signal sig = new Signal(label, q);
             if (inputs.contains(sig))
@@ -229,10 +231,11 @@ public class ModelAnalyser {
                     String label = ff.getLabel();
                     if (label.length() == 0)
                         label = createOutputBasedName(ff);
+                    long def = ff.getDefault();
                     for (int i = ff.getBits() - 1; i >= 0; i--) {
                         ObservableValue qn = new ObservableValue("", 1);
                         ObservableValue nqn = new ObservableValue("", 1);
-                        FlipflopD newff = new FlipflopD(label + i, qn, nqn);
+                        FlipflopD newff = new FlipflopD(label + i, qn, nqn, (def & (1L<<i))!=0 ?1:0);
                         spinput.addAtTop(qn);
                         model.add(newff);
                         newff.setInputs(new ObservableValues(insp.getOutputs().get(i), getClock()));

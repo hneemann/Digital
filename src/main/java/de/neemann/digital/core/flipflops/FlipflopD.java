@@ -40,6 +40,7 @@ public class FlipflopD extends Node implements Element {
     private ObservableValue qn;
     private boolean lastClock;
     private long value;
+    private long defaultValue;
 
     /**
      * Creates a new instance
@@ -58,9 +59,13 @@ public class FlipflopD extends Node implements Element {
      * @param label the label
      * @param q     output
      * @param qn    inverted output
+     * @param def   the default value
      */
-    public FlipflopD(String label, ObservableValue q, ObservableValue qn) {
-        this(new ElementAttributes().set(Keys.LABEL, label).setBits(q.getBits()), q, qn);
+    public FlipflopD(String label, ObservableValue q, ObservableValue qn, long def) {
+        this(new ElementAttributes()
+                .set(Keys.LABEL, label)
+                .setBits(q.getBits())
+                .set(Keys.DEFAULT, def), q, qn);
         if (qn.getBits() != q.getBits())
             throw new RuntimeException("wrong bit count given!");
     }
@@ -73,7 +78,8 @@ public class FlipflopD extends Node implements Element {
         isProbe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getLabel();
 
-        value = attributes.get(Keys.DEFAULT);
+        defaultValue = attributes.get(Keys.DEFAULT);
+        value = defaultValue;
         q.setValue(value);
         qn.setValue(~value);
     }
@@ -144,5 +150,12 @@ public class FlipflopD extends Node implements Element {
 
     void setValue(long value) {
         this.value = value;
+    }
+
+    /**
+     * @return the default value
+     */
+    public long getDefault() {
+        return defaultValue;
     }
 }

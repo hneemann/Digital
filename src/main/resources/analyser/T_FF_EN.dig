@@ -19,6 +19,10 @@
           <string>Inputs</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Default=orig.Default;</string>
+        </entry>
       </elementAttributes>
       <pos x="240" y="60"/>
     </visualElement>
