@@ -1046,7 +1046,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         try {
-                            new ElementHelpDialog(attributeDialog, elementType, element.getElementAttributes()).setVisible(true);
+                            new ElementHelpDialog(
+                                    attributeDialog,
+                                    elementType,
+                                    element.getElementAttributes(),
+                                    getCircuit().getAttributes().get(Keys.IS_GENERIC)).setVisible(true);
                         } catch (PinException | NodeException e1) {
                             new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(CircuitComponent.this);
                         }
