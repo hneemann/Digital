@@ -21,6 +21,7 @@ import de.neemann.digital.core.switching.PFET;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
@@ -149,8 +150,8 @@ public class Stats {
 
         int transistors = 0;
         Circuit childCircuit = null;
-        if (description instanceof ElementLibrary.ElementTypeDescriptionCustom) {
-            ElementLibrary.ElementTypeDescriptionCustom c = (ElementLibrary.ElementTypeDescriptionCustom) description;
+        if (description instanceof ElementTypeDescriptionCustom) {
+            ElementTypeDescriptionCustom c = (ElementTypeDescriptionCustom) description;
             childCircuit = c.getCircuit();
             transistors = childCircuit.getAttributes().get(Keys.TRANSISTORS);
             if (transistors > 0)

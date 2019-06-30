@@ -14,6 +14,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
@@ -121,7 +122,7 @@ public class SubstituteLibrary implements LibraryInterface {
 
     private static final class Substitute implements SubstituteInterface {
         private final String filename;
-        private ElementLibrary.ElementTypeDescriptionCustom typeDescriptionCustom;
+        private ElementTypeDescriptionCustom typeDescriptionCustom;
 
         private Substitute(String filename) {
             this.filename = filename;

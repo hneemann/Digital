@@ -23,6 +23,7 @@ import de.neemann.digital.draw.gif.GifExporter;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.draw.model.AsyncSequentialClock;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
@@ -368,7 +369,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (file == null)
                     file = new File(name);
                 try {
-                    ElementLibrary.ElementTypeDescriptionCustom description =
+                    ElementTypeDescriptionCustom description =
                             ElementLibrary.createCustomDescription(file, circuit, library);
                     description.setShortName(name);
                     description.setDescription(Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION)));

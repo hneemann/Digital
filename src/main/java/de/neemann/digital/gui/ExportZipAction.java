@@ -10,6 +10,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ToolTipAction;
 
@@ -65,8 +66,8 @@ public class ExportZipAction extends ToolTipAction {
             if (!elementSet.contains(name)) {
                 elementSet.add(name);
                 ElementTypeDescription desc = lib.getElementType(name);
-                if (desc instanceof ElementLibrary.ElementTypeDescriptionCustom) {
-                    ElementLibrary.ElementTypeDescriptionCustom custom = (ElementLibrary.ElementTypeDescriptionCustom) desc;
+                if (desc instanceof ElementTypeDescriptionCustom) {
+                    ElementTypeDescriptionCustom custom = (ElementTypeDescriptionCustom) desc;
                     addFile(zip, custom.getFile(), custom.getCircuit());
                 }
             }

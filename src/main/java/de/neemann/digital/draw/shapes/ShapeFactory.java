@@ -20,6 +20,7 @@ import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.draw.library.JarComponentManager;
 import de.neemann.digital.draw.shapes.custom.CustomShape;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
@@ -191,9 +192,9 @@ public final class ShapeFactory {
                     throw new NodeException(Lang.get("err_noShapeFoundFor_N", elementName));
                 else {
                     ElementTypeDescription pt = library.getElementType(elementName);
-                    if (pt instanceof ElementLibrary.ElementTypeDescriptionCustom) {
+                    if (pt instanceof ElementTypeDescriptionCustom) {
                         // Custom component
-                        ElementLibrary.ElementTypeDescriptionCustom customDescr = (ElementLibrary.ElementTypeDescriptionCustom) pt;
+                        ElementTypeDescriptionCustom customDescr = (ElementTypeDescriptionCustom) pt;
                         CustomCircuitShapeType shapeType = customDescr.getAttributes().get(Keys.SHAPE_TYPE);
                         final CustomCircuitShapeType localShapeType = elementAttributes.get(Keys.SHAPE_TYPE);
                         if (!localShapeType.equals(CustomCircuitShapeType.DEFAULT))

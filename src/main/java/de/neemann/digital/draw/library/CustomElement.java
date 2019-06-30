@@ -20,7 +20,7 @@ import de.neemann.digital.draw.model.ModelCreator;
  * existing circuit. So you can build hierarchical circuits.
  */
 public class CustomElement implements Element {
-    private final ElementLibrary.ElementTypeDescriptionCustom descriptionCustom;
+    private final ElementTypeDescriptionCustom descriptionCustom;
     private final ElementLibrary library;
 
     /**
@@ -29,7 +29,7 @@ public class CustomElement implements Element {
      * @param descriptionCustom the inner circuit
      * @param library           the library to use.
      */
-    public CustomElement(ElementLibrary.ElementTypeDescriptionCustom descriptionCustom, ElementLibrary library) {
+    public CustomElement(ElementTypeDescriptionCustom descriptionCustom, ElementLibrary library) {
         this.descriptionCustom = descriptionCustom;
         this.library = library;
     }
@@ -40,14 +40,15 @@ public class CustomElement implements Element {
      *
      * @param subName                 name of the circuit, used to name unique elements
      * @param depth                   recursion depth, used to detect a circuit which contains itself
+     * @param errorVisualElement      visual element used for error indicating
      * @param containingVisualElement the containing visual element
      * @return the {@link ModelCreator}
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator getModelCreator(String subName, int depth, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
-        return descriptionCustom.getModelCreator(subName, depth, containingVisualElement, library);
+    public ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
+        return descriptionCustom.getModelCreator(subName, depth, errorVisualElement, containingVisualElement, library);
     }
 
     @Override

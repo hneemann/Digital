@@ -13,6 +13,7 @@ import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.draw.shapes.Shape;
 import de.neemann.digital.draw.shapes.custom.CustomShape;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.gui.Screen;
 
 import javax.swing.*;
@@ -39,6 +40,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     // shapes are recreated if attributes are changed, therefore a factory is necessary and not only a simple shape!
     private transient ShapeFactory shapeFactory;
     private transient Transform transform;
+    private transient Context genericArgs;
 
     // these fields are stored to disk
     private final String elementName;
@@ -478,5 +480,20 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      */
     public boolean isDecoratingShape() {
         return getShape() instanceof DecoratingShape;
+    }
+
+    /**
+     * Sets the generic arguments for this element
+     * @param genericArgs the arguments
+     */
+    public void setGenericArgs(Context genericArgs) {
+        this.genericArgs = genericArgs;
+    }
+
+    /**
+     * @return the generic arguments for this element
+     */
+    public Context getGenericArgs() {
+        return genericArgs;
     }
 }
