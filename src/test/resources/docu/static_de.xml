@@ -400,9 +400,9 @@
                 Der enthaltene Beispiel-Prozessor läuft z.B. mit 20MHz, und wenn auf den Multiplizierer in der ALU
                 verzichtet werden kann, sind auch 30MHz möglich.
             </par>
-            <par>
+            <!--par>
                 Auch bei den Mimas-Boards wird der Spartan 6 DCM für die Takterzeugung verwendet.
-            </par>
+            </par-->
             <par>
                 Soll eine Schaltung auf einem BASYS3 Board betrieben werden, wird eine Vivado Projektdatei angelegt,
                 die direkt mit Vivado geöffnet werden kann. Es lässt sich dann  der Bitstream erzeugen und mit dem

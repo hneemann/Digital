@@ -371,7 +371,7 @@
             </par>
             <!--par>
                 Também para as placas Mimas, o Spartan 6 DCM será utilizado para a geração de clock.
-            </par>
+            </par-->
             <par>
                 Se um circuito for executado em uma placa BASYS3, um novo projeto poderá ser criado no Vivado.
                 O arquivo VHDL gerado e o arquivo de restrições deverão ser acrescentados ao projeto.
@@ -379,9 +379,14 @@
                 para programar a placa BASYS3.
             </par>
             <par>
-                Para criar o arquivo de restrições requerido, o circuito deverá conter um campo de texto correspondente a 
-                "Board: BASYS3", "Board: MimasV1" ou "Board: MimasV2".
-            </par-->
+                Para criar o arquivo de restrições necessário, além do arquivo HDL, a placa correspondente
+                deverá ser configurada nas configurações. No campo "Toolchain Configuration" o arquivo XML correspondente
+                poderá ser selecionado.
+                As configurações disponíveis poderão ser encontradas na pasta <e>examples/hdl</e> e ter o arquivo
+                extensão <e>.config</e>.
+                Se a configuração foi integrada com sucesso, um outro menu será exibido, o que tornará  acessíveis as
+                funções específicas da placa.
+            </par>
         </subchapter>
     </chapter>
     <chapter heading="Formatos personalizados">

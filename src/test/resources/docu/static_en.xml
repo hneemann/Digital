@@ -373,9 +373,9 @@
                 This allows the included example processor to run at 20MHz, and if you can do without the
                 multiplier, 30HMz is also possible.
             </par>
-            <par>
+            <!--par>
                 Also at the Mimas-Boards the Spartan 6 DCM is utilized for the clock generation.
-            </par>
+            </par-->
             <par>
                 If a circuit is to run on a BASYS3 board, a new project can be created in Vivado.
                 The generated VHDL file and the constraints file must be added to the project.
