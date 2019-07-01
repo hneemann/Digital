@@ -133,7 +133,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (orig.inverterConfig.J) {
+          <string>if (orig.inverterConfig.K) {
     this.Value=1;
 }</string>
         </entry>
@@ -149,7 +149,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (orig.inverterConfig.K) {
+          <string>if (orig.inverterConfig.J) {
     this.Value=1;
 }</string>
         </entry>
