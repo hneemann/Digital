@@ -189,10 +189,16 @@ public class ParserTest extends TestCase {
         assertEquals("Hello World!", exec("Hello World!", new Context()).toString());
     }
 
-
     public void testParseTemplateTextOnly() throws IOException, ParserException, HGSEvalException {
         assertEquals("Hello World!", exec("Hello World!").toString());
         assertEquals("Hello < < World!", exec("Hello < < World!").toString());
+    }
+
+    public void testParseCommandsOnly() throws IOException, ParserException, HGSEvalException {
+        Statement s = new Parser("a:=2; b:=a*a;").parse(false);
+        Context context = new Context();
+        s.execute(context);
+        assertEquals(4L, context.getVar("b"));
     }
 
     public void testParseTemplateVariable() throws IOException, ParserException, HGSEvalException {

@@ -73,13 +73,13 @@ public class ClockShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        Vector POS;
+        Vector wavePos;
         if (graphic.isFlagSet(Graphic.LATEX)) {
             Vector center = new Vector(-LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
             Vector textPos = new Vector(-SIZE2 - LATEX_RAD.x, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.INOUT);
-            POS = center.sub(new Vector(2 * WI, LATEX_RAD.y + WI + 1));
+            wavePos = center.sub(new Vector(2 * WI, LATEX_RAD.y + WI + 1));
         } else {
             graphic.drawPolygon(new Polygon(true)
                     .add(-OUT_SIZE * 2 - 1, -OUT_SIZE)
@@ -89,16 +89,16 @@ public class ClockShape implements Shape {
 
             Vector textPos = new Vector(-OUT_SIZE * 3, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
-            POS = new Vector(-OUT_SIZE - WI * 2, WI);
+            wavePos = new Vector(-OUT_SIZE - WI * 2, WI);
         }
         graphic.drawPolygon(new Polygon(false)
-                .add(POS)
-                .add(POS.add(WI, 0))
-                .add(POS.add(WI, -WI * 2))
-                .add(POS.add(2 * WI, -WI * 2))
-                .add(POS.add(2 * WI, 0))
-                .add(POS.add(3 * WI, 0))
-                .add(POS.add(3 * WI, -WI * 2))
-                .add(POS.add(4 * WI, -WI * 2)), Style.THIN);
+                .add(wavePos)
+                .add(wavePos.add(WI, 0))
+                .add(wavePos.add(WI, -WI * 2))
+                .add(wavePos.add(2 * WI, -WI * 2))
+                .add(wavePos.add(2 * WI, 0))
+                .add(wavePos.add(3 * WI, 0))
+                .add(wavePos.add(3 * WI, -WI * 2))
+                .add(wavePos.add(4 * WI, -WI * 2)), Style.THIN);
     }
 }

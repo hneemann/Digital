@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.draw.library;
 
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
@@ -25,6 +26,9 @@ import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
@@ -52,7 +56,7 @@ import java.util.*;
  * This is done because the loading of a circuit and the creation of an icon is very time consuming and should
  * be avoided if not necessary. It's a kind of lazy loading.
  */
-public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer> {
+public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>, LibraryInterface {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElementLibrary.class);
     private static final long MIN_RESCAN_INTERVAL = 5000;
 
@@ -403,6 +407,11 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         return map.get(elementName);
     }
 
+    @Override
+    public ElementTypeDescription getElementType(String elementName, ElementAttributes attr) throws ElementNotFoundException {
+        return getElementType(elementName);
+    }
+
     /**
      * Returns a {@link ElementTypeDescription} by a given name.
      * If not found its tried to load it.
@@ -565,10 +574,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             } catch (FileNotFoundException e) {
                 throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
-            ElementTypeDescriptionCustom description =
-                    new ElementTypeDescriptionCustom(file,
-                            attributes -> new CustomElement(circuit, ElementLibrary.this),
-                            circuit);
+
+            ElementTypeDescriptionCustom description = createCustomDescription(file, circuit, this);
             description.setShortName(createShortName(file));
 
             String descriptionText = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
@@ -596,24 +603,40 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     }
 
     /**
+     * Creates a custom element description.
+     *
+     * @param file    the file
+     * @param circuit the circuit
+     * @param library the used library
+     * @return the type description
+     * @throws PinException PinException
+     */
+    public static ElementTypeDescriptionCustom createCustomDescription(File file, Circuit circuit, ElementLibrary library) throws PinException {
+        ElementTypeDescriptionCustom d = new ElementTypeDescriptionCustom(file, circuit);
+        d.setElementFactory(attributes -> new CustomElement(d, library));
+        return d;
+    }
+
+    /**
      * The description of a nested element.
      * This is a complete circuit which is used as a element.
      */
-    public static class ElementTypeDescriptionCustom extends ElementTypeDescription {
+    public static final class ElementTypeDescriptionCustom extends ElementTypeDescription {
+        private static final int MAX_DEPTH = 30;
         private final File file;
         private final Circuit circuit;
         private String description;
+        private NetList netList;
 
         /**
          * Creates a new element
          *
-         * @param file           the file which is loaded
-         * @param elementFactory a element factory which is used to create concrete elements if needed
-         * @param circuit        the circuit
+         * @param file    the file which is loaded
+         * @param circuit the circuit
          * @throws PinException PinException
          */
-        public ElementTypeDescriptionCustom(File file, ElementFactory elementFactory, Circuit circuit) throws PinException {
-            super(file.getName(), elementFactory, circuit.getInputNames());
+        private ElementTypeDescriptionCustom(File file, Circuit circuit) throws PinException {
+            super(file.getName(), (ElementFactory) null, circuit.getInputNames());
             this.file = file;
             this.circuit = circuit;
             setShortName(file.getName());
@@ -661,6 +684,29 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 return description;
             else
                 return super.getDescription(elementAttributes);
+        }
+
+        /**
+         * Gets a {@link ModelCreator} of this circuit.
+         * Every time this method is called a new {@link ModelCreator} is created.
+         *
+         * @param subName                 name of the circuit, used to name unique elements
+         * @param depth                   recursion depth, used to detect a circuit which contains itself
+         * @param containingVisualElement the containing visual element
+         * @param library                 the library used
+         * @return the {@link ModelCreator}
+         * @throws PinException             PinException
+         * @throws NodeException            NodeException
+         * @throws ElementNotFoundException ElementNotFoundException
+         */
+        public ModelCreator getModelCreator(String subName, int depth, VisualElement containingVisualElement, ElementLibrary library) throws PinException, NodeException, ElementNotFoundException {
+            if (netList == null)
+                netList = new NetList(circuit);
+
+            if (depth > MAX_DEPTH)
+                throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
+
+            return new ModelCreator(circuit, library, true, new NetList(netList, containingVisualElement), subName, depth, containingVisualElement);
         }
 
     }

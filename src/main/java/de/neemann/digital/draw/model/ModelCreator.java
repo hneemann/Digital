@@ -18,8 +18,8 @@ import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.library.CustomElement;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.lang.Lang;
 
@@ -48,7 +48,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, LibraryInterface library) throws PinException, NodeException, ElementNotFoundException {
         this(circuit, library, false);
     }
 
@@ -62,7 +62,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, LibraryInterface library, boolean readAsCustom) throws PinException, NodeException, ElementNotFoundException {
         this(circuit, library, readAsCustom, new NetList(circuit), "", 0, null);
     }
 
@@ -80,7 +80,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator(Circuit circuit, ElementLibrary library, boolean isNestedCircuit, NetList netList, String subName, int depth, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator(Circuit circuit, LibraryInterface library, boolean isNestedCircuit, NetList netList, String subName, int depth, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
         this.circuit = circuit;
         this.netList = netList;
         entries = new ArrayList<>();
@@ -98,9 +98,8 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 if (containingVisualElement != null)
                     cve = containingVisualElement;
 
-                Pins pins = ve.getPins();
-                ElementTypeDescription elementType = library.getElementType(ve.getElementName());
                 ElementAttributes attr = ve.getElementAttributes();
+                ElementTypeDescription elementType = library.getElementType(ve.getElementName(), attr);
                 if (attr.getLabel().contains("*")
                         && !ve.equalsDescription(In.DESCRIPTION)
                         && !ve.equalsDescription(Out.DESCRIPTION)) {
@@ -109,6 +108,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 }
                 Element element = elementType.createElement(attr);
                 ve.setElement(element);
+                Pins pins = ve.getPins();
                 pins.bindOutputsToOutputPins(element.getOutputs());
 
                 // sets the nodes origin to create better error messages
@@ -116,7 +116,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                     ((Node) element).setOrigin(circuit.getOrigin());
 
                 // if handled as nested element, don't put pins in EntryList, but put the pins in a
-                // separate map to connect it with the parent!
+                // separate map to connect them with the parent!
                 boolean isNotAIO = true;
                 if (isNestedCircuit) {
                     if (elementType == In.DESCRIPTION || elementType == Out.DESCRIPTION || elementType == Clock.DESCRIPTION) {
@@ -146,6 +146,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
             while (it.hasNext()) {
                 ModelEntry me = it.next();
                 if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
+
                     CustomElement ce = (CustomElement) me.getElement();
                     ModelCreator child = ce.getModelCreator(
                             combineNames(subName, me.getVisualElement().getElementAttributes().getLabel()),
@@ -313,8 +314,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
     public void addNodeElementsTo(Collection<Node> nodes, Collection<Drawable> highLighted) {
         if (nodes == null) return;
 
-        HashSet<Node> nodeSet = new HashSet<>();
-        nodeSet.addAll(nodes);
+        HashSet<Node> nodeSet = new HashSet<>(nodes);
         for (ModelEntry me : entries) {
             Element element = me.getElement();
             if (element instanceof Node && nodeSet.contains(element))

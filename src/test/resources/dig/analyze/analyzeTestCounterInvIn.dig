@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="20" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Counter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>inverterConfig</string>
+          <inverterConfig>
+            <string>clr</string>
+            <string>en</string>
+          </inverterConfig>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="20" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+      </elementAttributes>
+      <pos x="20" y="100"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="20" y="80"/>
+      <p2 x="40" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="20" y="40"/>
+      <p2 x="40" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="20" y="60"/>
+      <p2 x="60" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="20" y="20"/>
+      <p2 x="20" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="20" y="80"/>
+      <p2 x="20" y="100"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

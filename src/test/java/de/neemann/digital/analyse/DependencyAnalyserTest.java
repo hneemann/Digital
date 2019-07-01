@@ -13,9 +13,13 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -89,16 +93,20 @@ ExpressionCreator - s0 reduced from 17 to 2 variables ([Q_1n, Q_0n])
     }
 
     public void testBacktrackCompleteness() throws Exception {
-        ToBreakRunner toBreakRunner = new ToBreakRunner("dig/backtrack/AllComponents.dig", false);
+        File f = new File(Resources.getRoot(), "dig/backtrack/AllComponents.dig");
+
+        final ElementLibrary library = new ElementLibrary();
+        library.setRootFilePath(f.getParentFile());
+        ShapeFactory shapeFactory = new ShapeFactory(library);
+        Circuit circuit = Circuit.loadCircuit(f, shapeFactory);
 
         // create a set of all components used in the circuit
-        Circuit circuit = toBreakRunner.getCircuit();
         Set<String> set = new HashSet<>();
         for (VisualElement e : circuit.getElements())
             set.add(e.getElementName());
 
         // ensure all available components are included in test circuit
-        for (ElementLibrary.ElementContainer c : toBreakRunner.getLibrary()) {
+        for (ElementLibrary.ElementContainer c : library) {
             if (!set.contains(c.getDescription().getName())) {
                 // nodes with state are allowed to be missing
                 Element n = c.getDescription().createElement(new ElementAttributes());
@@ -108,7 +116,8 @@ ExpressionCreator - s0 reduced from 17 to 2 variables ([Q_1n, Q_0n])
         }
 
         // check if backtracking is ok at all components!
-        ModelAnalyser m = new ModelAnalyser(toBreakRunner.getModel());
+        Model model = new ModelCreator(circuit, new SubstituteLibrary(library)).createModel(false);
+        ModelAnalyser m = new ModelAnalyser(model);
         new DependencyAnalyser(m);
     }
 

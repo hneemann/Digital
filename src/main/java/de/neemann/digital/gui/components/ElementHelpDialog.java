@@ -234,10 +234,10 @@ public class ElementHelpDialog extends JDialog {
             w.append("<h4>").append(Lang.get("elem_Help_attributes")).append(":</h4>\n<dl>\n");
             for (Key k : et.getAttributeList())
                 if (!k.isSecondary())
-                    writeEntry(w, k.getName(), k.getDescription());
+                    writeEntry(w, k);
             for (Key k : et.getAttributeList())
                 if (k.isSecondary())
-                    writeEntry(w, k.getName(), k.getDescription());
+                    writeEntry(w, k);
             w.append("</dl>\n");
         }
     }
@@ -246,6 +246,14 @@ public class ElementHelpDialog extends JDialog {
         w.append("<dt><i>").append(escapeHTML(name)).append("</i></dt>\n");
         if (description != null && description.length() > 0 && !name.equals(description))
             w.append("<dd>").append(escapeHTML(description)).append("</dd>\n");
+    }
+
+    private static void writeEntry(Writer w, Key key) throws IOException {
+        final String name = key.getName();
+        final String description = key.getDescription();
+        w.append("<dt><i>").append(escapeHTML(name)).append("</i></dt>\n");
+        if (description != null && description.length() > 0 && !name.equals(description))
+            w.append("<dd>").append(escapeHTML(description)).append(" (").append(key.getKey()).append(")</dd>\n");
     }
 
     /**

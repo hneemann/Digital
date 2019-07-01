@@ -1014,6 +1014,7 @@
     <string name="msg_errorStartCommand_N">Error starting the command {0}</string>
     <string name="err_thereIsAUnnamedIO">There is a unnamed input or output!</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">The signal name "{0}" is invalid or used multiple times!</string>
+    <string name="err_substitutingError">Error when substituting components for the analysis.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1312,8 +1313,8 @@
     <string name="key_midiInstrument">MIDI instrument</string>
     <string name="key_midiInstrument_tt">The MIDI instrument to use.</string>
     <string name="key_midiProgChange">Allow program change</string>
-    <string name="key_midiProgChange_tt">Adds  a new input PC. If this input is set to high,
-        the value at input N is used to change te program (instrument).</string>
+    <string name="key_midiProgChange_tt">Adds a new input PC. If this input is set to high,
+        the value at input N is used to change the program (instrument).</string>
 
     <string name="key_transistors">Transistors</string>
     <string name="key_transistors_tt">Number of transistors required. Used for circuit statistics.
@@ -1326,6 +1327,12 @@
     <string name="key_toolChainConfig">Toolchain Configuration</string>
     <string name="key_toolChainConfig_tt">Used to configurate an integration of a toolchain.
         Allows the start of external tools, e.g. to program an FPGA or similar.</string>
+
+    <string name="key_generic">Generic</string>
+    <string name="key_generic_tt">Statements used to generify a circuit.</string>
+
+    <string name="key_isGeneric">Circuit is generic</string>
+    <string name="key_isGeneric_tt">Allows to create a generic circuit.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

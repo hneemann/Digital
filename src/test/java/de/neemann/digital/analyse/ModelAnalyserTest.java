@@ -10,10 +10,19 @@ import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.Signal;
-import de.neemann.digital.integration.ToBreakRunner;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.integration.Resources;
 import junit.framework.TestCase;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -25,8 +34,19 @@ import static de.neemann.digital.analyse.quinemc.ThreeStateValue.zero;
  */
 public class ModelAnalyserTest extends TestCase {
 
+    public Model createModel(String file) throws IOException, ElementNotFoundException, PinException, NodeException {
+        File f = new File(Resources.getRoot(), file);
+
+        final ElementLibrary library = new ElementLibrary();
+        library.setRootFilePath(f.getParentFile());
+        ShapeFactory shapeFactory = new ShapeFactory(library);
+        Circuit circuit = Circuit.loadCircuit(f, shapeFactory);
+
+        return new ModelCreator(circuit, new SubstituteLibrary(library)).createModel(false);
+    }
+
     public void testAnalyzer() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/analyzeTest.dig").getModel();
+        Model model = createModel("dig/analyze/analyzeTest.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
 
         assertEquals(4, tt.getRows());
@@ -46,25 +66,61 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     public void testAnalyzerDFF() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/analyzeTestDFF.dig").getModel();
+        Model model = createModel("dig/analyze/analyzeTestDFF.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerDFFInvIn() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestDFFInvIn.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }
 
     public void testAnalyzerJKFF() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/analyzeTestJKFF.dig", false).getModel();
+        Model model = createModel("dig/analyze/analyzeTestJKFF.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerJKFFInvInput() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestJKFFInvIn.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }
 
     public void testAnalyzerTFF() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/analyzeTestTFF.dig", false).getModel();
+        Model model = createModel("dig/analyze/analyzeTestTFF.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }
 
     public void testAnalyzerTFFEnable() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/analyzeTestTFFEnable.dig", false).getModel();
+        Model model = createModel("dig/analyze/analyzeTestTFFEnable.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerTFFEnableInvIn() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestTFFEnableInvIn.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerCounter() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestCounter.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerCounterInvInputs() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestCounterInvIn.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
+    public void testAnalyzerCounterPreset() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestCounterPreset.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         check2BitCounter(tt);
     }
@@ -84,16 +140,10 @@ public class ModelAnalyserTest extends TestCase {
         assertEquals(0, tt.getValue(1, 3));
         assertEquals(1, tt.getValue(2, 3));
         assertEquals(0, tt.getValue(3, 3));
-
-        assertEquals("Q_1n\tQ_0n\tQ_1n+1\tQ_0n+1\t\n" +
-                "0\t0\t0\t1\t\n" +
-                "0\t1\t1\t0\t\n" +
-                "1\t0\t1\t1\t\n" +
-                "1\t1\t0\t0\t\n", tt.toString());
     }
 
     public void testAnalyzerUniqueNames() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/uniqueNames.dig", false).getModel();
+        Model model = createModel("dig/analyze/uniqueNames.dig");
         try {
             new ModelAnalyser(model);
             fail();
@@ -103,7 +153,7 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     public void testAnalyzerUniqueNames2() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/uniqueNames2.dig", false).getModel();
+        Model model = createModel("dig/analyze/uniqueNames2.dig");
         ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
         assertEquals(2,ins.size());
         assertEquals("Q_0n",ins.get(0).getName());
@@ -111,7 +161,7 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     public void testAnalyzerUniqueNames3() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/uniqueNames3.dig", false).getModel();
+        Model model = createModel("dig/analyze/uniqueNames3.dig");
         ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
         assertEquals(2,ins.size());
         assertEquals("Zn",ins.get(0).getName());
@@ -119,7 +169,7 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     public void testAnalyzerUniqueNames4() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/uniqueNames4.dig", false).getModel();
+        Model model = createModel("dig/analyze/uniqueNames4.dig");
         ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
         assertEquals(2,ins.size());
         assertEquals("Bn",ins.get(0).getName());
@@ -127,7 +177,7 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     public void testAnalyzerMultiBit() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/multiBitCounter.dig", false).getModel();
+        Model model = createModel("dig/analyze/multiBitCounter.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         checkTable(tt.getResult("Q0n+1"), one, zero, one, zero);
         checkTable(tt.getResult("Q1n+1"), zero, one, one, zero);
@@ -144,7 +194,7 @@ public class ModelAnalyserTest extends TestCase {
 
 
     public void testAnalyzerMultiBit2() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/multiBitInOut.dig", false).getModel();
+        Model model = createModel("dig/analyze/multiBitInOut.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         checkIdent(tt);
 
@@ -157,7 +207,7 @@ public class ModelAnalyserTest extends TestCase {
 
     // test with non zero default values set
     public void testAnalyzerMultiBit3() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/multiBitInOutDef.dig", false).getModel();
+        Model model = createModel("dig/analyze/multiBitInOutDef.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
         checkIdent(tt);
     }
@@ -176,7 +226,7 @@ public class ModelAnalyserTest extends TestCase {
 
 
     public void testAnalyzerBacktrack() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/analyzeBacktrack.dig", false).getModel();
+        Model model = createModel("dig/analyze/analyzeBacktrack.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
 
         final BoolTable Y1 = tt.getResult("1Y");
@@ -210,7 +260,7 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     public void testAnalyzerMultiBitPins() throws Exception {
-        Model model = new ToBreakRunner("dig/analyze/multiBitInOutXOr.dig", false).getModel();
+        Model model = createModel("dig/analyze/multiBitInOutXOr.dig");
         ModelAnalyserInfo mai = new ModelAnalyser(model).analyse().getModelAnalyzerInfo();
 
         assertEquals(2, mai.getInputBusMap().size());

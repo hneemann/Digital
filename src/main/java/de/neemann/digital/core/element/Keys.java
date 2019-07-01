@@ -784,4 +784,16 @@ public final class Keys {
     public static final Key<File> SETTINGS_TOOLCHAIN_CONFIG =
             new Key.KeyFile("toolChainConfig", new File("")).setSecondary().setRequiresRestart();
 
+    /**
+     * Used to input statements to generify a circuit.
+     */
+    public static final Key<String> GENERIC =
+            new Key.LongString("generic").allowGroupEdit();
+
+    /**
+     * Circuit is generic
+     */
+    public static final Key<Boolean> IS_GENERIC =
+            new Key<Boolean>("isGeneric", false).setSecondary();
+
 }

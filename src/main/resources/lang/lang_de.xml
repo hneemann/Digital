@@ -1022,6 +1022,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="msg_errorStartCommand_N">Fehler beim Starten des Kommandos {0}</string>
     <string name="err_thereIsAUnnamedIO">Es gibt ein unbenannten Ein- oder Ausgang</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!</string>
+    <string name="err_substitutingError">Fehler bei der Substitution von Elementen für die Analyse.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1338,6 +1339,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_toolChainConfig">Toolchain Konfiguration</string>
     <string name="key_toolChainConfig_tt">Kann für eine Integration einer externen Toolchain verwendet werden.
         Erlaubt den Start externer Tools, um z.B. einen FPGA zu programmieren o.ä.</string>
+
+    <string name="key_generic">Generisch</string>
+    <string name="key_generic_tt">Anweisung um eine generische Schaltung anzupassen.</string>
+
+    <string name="key_isGeneric">Schaltung ist generisch</string>
+    <string name="key_isGeneric_tt">Erlaubt die Erzeugung von generischen Schaltungen.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

@@ -79,6 +79,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         ATTR_LIST.add(Keys.PRELOAD_PROGRAM);
         ATTR_LIST.add(Keys.PROGRAM_TO_PRELOAD);
         ATTR_LIST.add(Keys.TRANSISTORS);
+        if (Main.isExperimentalMode())
+            ATTR_LIST.add(Keys.IS_GENERIC);
     }
 
     /**
@@ -1021,14 +1023,13 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private void editAttributes(VisualElement element, MouseEvent e) {
-        String name = element.getElementName();
         try {
-            ElementTypeDescription elementType = library.getElementType(name);
-            ArrayList<Key> list = elementType.getAttributeList();
+            ArrayList<Key> list = getAttributeList(element);
             if (list.size() > 0) {
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
                 AttributeDialog attributeDialog = new AttributeDialog(parent, p, list, element.getElementAttributes()).setVisualElement(element);
+                ElementTypeDescription elementType = library.getElementType(element.getElementName());
                 if (elementType instanceof ElementLibrary.ElementTypeDescriptionCustom) {
                     attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
                         @Override
@@ -1179,7 +1180,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 for (VisualElement ve : getCircuit().getElements())
                     if (ve.matches(min, max)) {
                         elementList.add(ve);
-                        for (Key k : library.getElementType(ve.getElementName()).getAttributeList()) {
+                        for (Key k : getAttributeList(ve)) {
                             if (k.isGroupEditAllowed()) {
                                 if (keyList.contains(k)) {
                                     if (!ve.getElementAttributes().get(k).equals(attr.get(k))) {
@@ -1207,7 +1208,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                             if (ad.getCheckBoxes().get(key).isSelected()) {
                                 Object newVal = mod.get(key);
                                 for (VisualElement ve : elementList) {
-                                    if (library.getElementType(ve.getElementName()).getAttributeList().contains(key)) {
+                                    if (getAttributeList(ve).contains(key)) {
                                         if (!ve.getElementAttributes().get(key).equals(newVal))
                                             modBuilder.add(new ModifyAttribute<>(ve, key, newVal));
                                     }
@@ -1218,8 +1219,17 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 }
 
             } catch (ElementNotFoundException e) {
-                // Do nothing if an element is not in library
+                // Do nothing if an element is not in the library
             }
+    }
+
+    private ArrayList<Key> getAttributeList(VisualElement ve) throws ElementNotFoundException {
+        ArrayList<Key> list = library.getElementType(ve.getElementName()).getAttributeList();
+        if (getCircuit().getAttributes().get(Keys.IS_GENERIC)) {
+            list = new ArrayList<>(list);
+            list.add(Keys.GENERIC);
+        }
+        return list;
     }
 
     /**
