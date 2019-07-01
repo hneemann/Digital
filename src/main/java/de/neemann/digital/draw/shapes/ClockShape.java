@@ -21,6 +21,8 @@ import de.neemann.digital.gui.components.CircuitComponent;
 
 import java.awt.*;
 
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.draw.shapes.OutputShape.LATEX_RAD;
 import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
 
 /**
@@ -28,7 +30,6 @@ import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
  */
 public class ClockShape implements Shape {
     private static final int WI = OUT_SIZE / 3;
-    private static final Vector POS = new Vector(-OUT_SIZE - WI * 2, WI);
 
     private final String label;
     private final PinDescriptions outputs;
@@ -62,9 +63,7 @@ public class ClockShape implements Shape {
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 ObservableValue value = ioState.getOutput(0);
                 if (value.getBits() == 1) {
-                    modelSync.access(() -> {
-                        value.setValue(1 - value.getValue());
-                    });
+                    modelSync.access(() -> value.setValue(1 - value.getValue()));
                     return true;
                 }
                 return false;
@@ -74,12 +73,24 @@ public class ClockShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        graphic.drawPolygon(new Polygon(true)
-                .add(-OUT_SIZE * 2 - 1, -OUT_SIZE)
-                .add(-1, -OUT_SIZE)
-                .add(-1, OUT_SIZE)
-                .add(-OUT_SIZE * 2 - 1, OUT_SIZE), Style.NORMAL);
+        Vector POS;
+        if (graphic.isFlagSet(Graphic.LATEX)) {
+            Vector center = new Vector(-LATEX_RAD.x, 0);
+            graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
+            Vector textPos = new Vector(-SIZE2 - LATEX_RAD.x, 0);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.INOUT);
+            POS = center.sub(new Vector(2 * WI, LATEX_RAD.y + WI + 1));
+        } else {
+            graphic.drawPolygon(new Polygon(true)
+                    .add(-OUT_SIZE * 2 - 1, -OUT_SIZE)
+                    .add(-1, -OUT_SIZE)
+                    .add(-1, OUT_SIZE)
+                    .add(-OUT_SIZE * 2 - 1, OUT_SIZE), Style.NORMAL);
 
+            Vector textPos = new Vector(-OUT_SIZE * 3, 0);
+            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
+            POS = new Vector(-OUT_SIZE - WI * 2, WI);
+        }
         graphic.drawPolygon(new Polygon(false)
                 .add(POS)
                 .add(POS.add(WI, 0))
@@ -89,8 +100,5 @@ public class ClockShape implements Shape {
                 .add(POS.add(3 * WI, 0))
                 .add(POS.add(3 * WI, -WI * 2))
                 .add(POS.add(4 * WI, -WI * 2)), Style.THIN);
-
-        Vector textPos = new Vector(-OUT_SIZE * 3, 0);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
     }
 }
