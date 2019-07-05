@@ -44,6 +44,7 @@ public class SubstituteLibrary implements LibraryInterface {
         );
         MAP.put("Counter", new SubstituteGenericHGSParser("Counter.dig"));
         MAP.put("CounterPreset", new SubstituteGenericHGSParser("CounterPreset.dig"));
+        MAP.put("Register", new SubstituteGenericHGSParser("Register.dig"));
     }
 
     private final ElementLibrary parent;
