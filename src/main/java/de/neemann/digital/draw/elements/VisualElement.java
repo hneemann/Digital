@@ -43,7 +43,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     private transient Context genericArgs;
 
     // these fields are stored to disk
-    private final String elementName;
+    private String elementName;
     private final ElementAttributes elementAttributes;
     private Vector pos;
 
@@ -484,6 +484,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
 
     /**
      * Sets the generic arguments for this element
+     *
      * @param genericArgs the arguments
      */
     public void setGenericArgs(Context genericArgs) {
@@ -495,5 +496,14 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      */
     public Context getGenericArgs() {
         return genericArgs;
+    }
+
+    /**
+     * Sets the name of this element
+     *
+     * @param elementName the new name
+     */
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
     }
 }

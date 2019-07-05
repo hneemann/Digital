@@ -1024,7 +1024,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!</string>
     <string name="err_substitutingError">Fehler bei der Substitution von Elementen für die Analyse.</string>
     <string name="err_genericCircuitsAreNotYetSupported">Generische Schaltungen werden noch nicht unterstützt.</string>
-    <string name="err_evaluatingGenericsCode_N_N_N">Fehler bei der Auswertung des generischen Codes der Schaltung. Datei {0}; Komponente: {1}; Code {2}</string>
+    <string name="err_evaluatingGenericsCode_N_N_N">Fehler bei der Auswertung des generischen Codes der Schaltung. Datei {0}; Komponente: {1}; Code:
+        {2}</string>
     <string name="err_evaluatingGenericsCode">Fehler bei der Auswertung des generischen Codes der Schaltung.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->

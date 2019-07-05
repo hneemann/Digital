@@ -17,6 +17,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.hdl.hgs.*;
+import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
@@ -146,7 +147,14 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
                             Statement genS = getStatement(gen);
                             if (isCustom) {
                                 Context mod = new Context()
-                                        .declareVar("args", args);
+                                        .declareVar("args", args)
+                                        .declareFunc("setCircuit", new Function(1) {
+                                            @Override
+                                            protected Object f(Object... args) {
+                                                ve.setElementName(args[0].toString());
+                                                return null;
+                                            }
+                                        });
                                 genS.execute(mod);
                                 ve.setGenericArgs(mod);
                             } else {
