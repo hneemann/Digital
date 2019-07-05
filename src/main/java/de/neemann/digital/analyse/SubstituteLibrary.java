@@ -139,7 +139,7 @@ public class SubstituteLibrary implements LibraryInterface {
 
                 Circuit circuit = Circuit.loadCircuit(in, library.getShapeFactory());
 
-                typeDescriptionCustom = ElementLibrary.createCustomDescription(new File(filename), circuit, library);
+                typeDescriptionCustom = ElementLibrary.createCustomDescription(new File(filename), circuit, library).isSubstitutedBuiltIn();
             }
             return typeDescriptionCustom;
         }
@@ -170,7 +170,7 @@ public class SubstituteLibrary implements LibraryInterface {
             c.getAttributes().set(Keys.IS_GENERIC, false);
             generify(attr, c);
 
-            return ElementLibrary.createCustomDescription(new File(filename), c, library);
+            return ElementLibrary.createCustomDescription(new File(filename), c, library).isSubstitutedBuiltIn();
         }
 
         private void generify(ElementAttributes attr, Circuit circuit) throws IOException {

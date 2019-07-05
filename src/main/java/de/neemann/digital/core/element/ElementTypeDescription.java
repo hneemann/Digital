@@ -231,4 +231,11 @@ public class ElementTypeDescription {
         else
             return inputPins.get(i);
     }
+
+    /**
+     * @return true if this is a custom component
+     */
+    public boolean isCustom() {
+        return false;
+    }
 }

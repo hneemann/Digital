@@ -34,6 +34,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
     private final HashMap<String, Statement> map;
     private String description;
     private NetList netList;
+    private boolean isCustom = true;
 
     /**
      * Creates a new element
@@ -121,13 +122,17 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
                 Context args;
                 if (containingVisualElement != null) {
                     args = containingVisualElement.getGenericArgs();
-                    if (args==null) {
+                    if (args == null) {
                         String argsCode = containingVisualElement.getElementAttributes().get(Keys.GENERIC);
-                        Statement s = getStatement(argsCode);
-                        args = new Context();
-                        if (containingVisualElement.getGenericArgs() != null)
-                            args.declareVar("args", containingVisualElement.getGenericArgs());
-                        s.execute(args);
+                        try {
+                            Statement s = getStatement(argsCode);
+                            args = new Context();
+                            if (containingVisualElement.getGenericArgs() != null)
+                                args.declareVar("args", containingVisualElement.getGenericArgs());
+                            s.execute(args);
+                        } catch (HGSEvalException e) {
+                            throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N_N", circuit.getOrigin(), containingVisualElement, argsCode), e);
+                        }
                     }
                 } else
                     args = new Context();
@@ -135,26 +140,30 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
                 Circuit c = circuit.createDeepCopy();
                 for (VisualElement ve : c.getElements()) {
                     String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();
-                    if (!gen.isEmpty()) {
-                        boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()) instanceof ElementTypeDescriptionCustom;
-                        Statement genS = getStatement(gen);
-                        if (isCustom) {
-                            Context mod = new Context()
-                                    .declareVar("args", args);
-                            genS.execute(mod);
-                            ve.setGenericArgs(mod);
-                        } else {
-                            Context mod = new Context()
-                                    .declareVar("args", args)
-                                    .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
-                            genS.execute(mod);
+                    try {
+                        if (!gen.isEmpty()) {
+                            boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
+                            Statement genS = getStatement(gen);
+                            if (isCustom) {
+                                Context mod = new Context()
+                                        .declareVar("args", args);
+                                genS.execute(mod);
+                                ve.setGenericArgs(mod);
+                            } else {
+                                Context mod = new Context()
+                                        .declareVar("args", args)
+                                        .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
+                                genS.execute(mod);
+                            }
                         }
+                    } catch (HGSEvalException e) {
+                        throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N_N", circuit.getOrigin(), ve, gen), e);
                     }
                 }
 
                 return new ModelCreator(c, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
-            } catch (IOException | ParserException | HGSEvalException e) {
-                throw new NodeException(Lang.get("err_parsingGenericsCode"), e);
+            } catch (IOException | ParserException e) {
+                throw new NodeException(Lang.get("err_evaluatingGenericsCode"), e);
             }
         } else
             return new ModelCreator(circuit, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
@@ -169,4 +178,19 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
         return genS;
     }
 
+    @Override
+    public boolean isCustom() {
+        return isCustom;
+    }
+
+    /**
+     * Used by element substitution to allow to mark custom circuits which replace a built-in
+     * component to be not custom.
+     *
+     * @return this for chained calls
+     */
+    public ElementTypeDescriptionCustom isSubstitutedBuiltIn() {
+        isCustom = false;
+        return this;
+    }
 }
