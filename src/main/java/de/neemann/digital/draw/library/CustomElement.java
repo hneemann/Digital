@@ -21,17 +21,14 @@ import de.neemann.digital.draw.model.ModelCreator;
  */
 public class CustomElement implements Element {
     private final ElementTypeDescriptionCustom descriptionCustom;
-    private final ElementLibrary library;
 
     /**
      * Creates a new custom element
      *
      * @param descriptionCustom the inner circuit
-     * @param library           the library to use.
      */
-    public CustomElement(ElementTypeDescriptionCustom descriptionCustom, ElementLibrary library) {
+    public CustomElement(ElementTypeDescriptionCustom descriptionCustom) {
         this.descriptionCustom = descriptionCustom;
-        this.library = library;
     }
 
     /**
@@ -42,12 +39,13 @@ public class CustomElement implements Element {
      * @param depth                   recursion depth, used to detect a circuit which contains itself
      * @param errorVisualElement      visual element used for error indicating
      * @param containingVisualElement the containing visual element
+     * @param library                 the library to use
      * @return the {@link ModelCreator}
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
+    public ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement, LibraryInterface library) throws PinException, NodeException, ElementNotFoundException {
         return descriptionCustom.getModelCreator(subName, depth, errorVisualElement, containingVisualElement, library);
     }
 

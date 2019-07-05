@@ -608,7 +608,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public static ElementTypeDescriptionCustom createCustomDescription(File file, Circuit circuit, ElementLibrary library) throws PinException {
         ElementTypeDescriptionCustom d = new ElementTypeDescriptionCustom(file, circuit);
-        d.setElementFactory(attributes -> new CustomElement(d, library));
+        d.setElementFactory(attributes -> new CustomElement(d));
         return d;
     }
 

@@ -109,7 +109,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement, ElementLibrary library) throws PinException, NodeException, ElementNotFoundException {
+    ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement, LibraryInterface library) throws PinException, NodeException, ElementNotFoundException {
         if (netList == null)
             netList = new NetList(circuit);
 
@@ -136,7 +136,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
                 for (VisualElement ve : c.getElements()) {
                     String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();
                     if (!gen.isEmpty()) {
-                        boolean isCustom = library.getElementType(ve.getElementName()) instanceof ElementTypeDescriptionCustom;
+                        boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()) instanceof ElementTypeDescriptionCustom;
                         Statement genS = getStatement(gen);
                         if (isCustom) {
                             Context mod = new Context()
