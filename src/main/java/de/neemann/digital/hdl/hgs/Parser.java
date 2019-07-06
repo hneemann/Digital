@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.hdl.hgs;
 
-import de.neemann.digital.builder.tt2.TT2Exporter;
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunctionCall;
