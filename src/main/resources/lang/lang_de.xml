@@ -1340,7 +1340,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_toolChainConfig_tt">Kann für eine Integration einer externen Toolchain verwendet werden.
         Erlaubt den Start externer Tools, um z.B. einen FPGA zu programmieren o.ä.</string>
 
-    <string name="key_generic">Generisch</string>
+    <string name="key_generic">generische Parametrisierung</string>
     <string name="key_generic_tt">Anweisung um eine generische Schaltung anzupassen.</string>
 
     <string name="key_isGeneric">Schaltung ist generisch</string>

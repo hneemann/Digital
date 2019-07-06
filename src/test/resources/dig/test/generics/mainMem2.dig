@@ -91,7 +91,7 @@ end loop
       <pos x="600" y="340"/>
     </visualElement>
     <visualElement>
-      <elementName>memNode.dig</elementName>
+      <elementName>memNode2.dig</elementName>
       <elementAttributes>
         <entry>
           <string>generic</string>

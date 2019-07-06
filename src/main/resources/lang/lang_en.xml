@@ -1327,7 +1327,7 @@
     <string name="key_toolChainConfig_tt">Used to configurate an integration of a toolchain.
         Allows the start of external tools, e.g. to program an FPGA or similar.</string>
 
-    <string name="key_generic">Generic</string>
+    <string name="key_generic">Generic Parameterization</string>
     <string name="key_generic_tt">Statements used to generify a circuit.</string>
 
     <string name="key_isGeneric">Circuit is generic</string>
