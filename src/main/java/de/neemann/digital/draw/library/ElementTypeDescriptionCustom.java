@@ -18,11 +18,15 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.hgs.function.Function;
+import de.neemann.digital.hdl.hgs.refs.Reference;
+import de.neemann.digital.hdl.hgs.refs.ReferenceToStruct;
+import de.neemann.digital.hdl.hgs.refs.ReferenceToVar;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 /**
  * The description of a nested element.
@@ -36,6 +40,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
     private String description;
     private NetList netList;
     private boolean isCustom = true;
+    private String declarationDefault;
 
     /**
      * Creates a new element
@@ -53,7 +58,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
         addAttribute(Keys.ROTATE);
         addAttribute(Keys.LABEL);
         addAttribute(Keys.SHAPE_TYPE);
-        if (circuit.getAttributes().get(Keys.IS_GENERIC))
+        if (isGeneric())
             addAttribute(Keys.GENERIC);
     }
 
@@ -118,7 +123,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
         if (depth > MAX_DEPTH)
             throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
 
-        if (circuit.getAttributes().get(Keys.IS_GENERIC)) {
+        if (isGeneric()) {
             try {
                 Context args;
                 if (containingVisualElement != null) {
@@ -200,5 +205,52 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
     public ElementTypeDescriptionCustom isSubstitutedBuiltIn() {
         isCustom = false;
         return this;
+    }
+
+    /**
+     * @return the generics field default value
+     */
+    public String getDeclarationDefault() {
+        if (declarationDefault == null)
+            declarationDefault = createDeclarationDefault();
+        return declarationDefault;
+    }
+
+    private String createDeclarationDefault() {
+        TreeSet<String> nameSet = new TreeSet<>();
+        for (VisualElement ve : circuit.getElements()) {
+            String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();
+            try {
+                if (!gen.isEmpty()) {
+                    Parser p = new Parser(gen);
+                    p.enableRefReadCollection();
+                    p.parse(false);
+                    for (Reference r : p.getRefsRead()) {
+                        if (r instanceof ReferenceToStruct) {
+                            ReferenceToStruct st = (ReferenceToStruct) r;
+                            if (st.getParent() instanceof ReferenceToVar) {
+                                ReferenceToVar var = (ReferenceToVar) st.getParent();
+                                if (var.getName().equals("args")) {
+                                    nameSet.add(st.getName());
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (ParserException | IOException e) {
+                return "";
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String name : nameSet)
+            sb.append(name).append(" := ;\n");
+        return sb.toString();
+    }
+
+    /**
+     * @return true if the circuit is generic
+     */
+    public boolean isGeneric() {
+        return circuit.getAttributes().get(Keys.IS_GENERIC);
     }
 }

@@ -53,4 +53,17 @@ public class ReferenceToStruct implements Reference {
         return value;
     }
 
+    /**
+     * @return  the parent reference
+     */
+    public Reference getParent() {
+        return parent;
+    }
+
+    /**
+     * @return the struct field name
+     */
+    public String getName() {
+        return name;
+    }
 }

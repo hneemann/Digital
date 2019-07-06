@@ -68,7 +68,7 @@
         <entry>
           <string>generic</string>
           <string>if (isPresent(args)) {
-  this.Bits=args.bits;
+  this.Bits=int(args.dataBits);
 }</string>
         </entry>
       </elementAttributes>
@@ -106,12 +106,12 @@
           <string>generic</string>
           <string>if (isPresent(args)) {
 
-  if (args.addr&lt;2)   {
+  if (args.addrBits&lt;2)   {
     panic(&quot;at least two address bits are necessary!&quot;);
   }
 
-  this.&apos;Input Splitting&apos;=&quot;&quot;+args.addr;
-  this.&apos;Output Splitting&apos;=(args.addr-1)+&quot;,1&quot;;
+  this.&apos;Input Splitting&apos;=&quot;&quot;+args.addrBits;
+  this.&apos;Output Splitting&apos;=(args.addrBits-1)+&quot;,1&quot;;
 }</string>
         </entry>
       </elementAttributes>
@@ -123,13 +123,13 @@
         <entry>
           <string>generic</string>
           <string>if (isPresent(args)) {
-  export bits:=args.bits;
-  export addr:=args.addr-1;
-  if (args.addr&gt;2) {
+  export dataBits:=args.dataBits;
+  export addrBits:=args.addrBits-1;
+  if (args.addrBits&gt;2) {
     setCircuit(&quot;memNode.dig&quot;);
   }
 } else {
-  export bits:=int(1);
+  export dataBits:=int(1);
 }</string>
         </entry>
       </elementAttributes>
@@ -141,13 +141,13 @@
         <entry>
           <string>generic</string>
           <string>if (isPresent(args)) {
-  export bits:=args.bits;
-  export addr:=args.addr-1;
-  if (args.addr&gt;2) {
+  export dataBits:=args.dataBits;
+  export addrBits:=args.addrBits-1;
+  if (args.addrBits&gt;2) {
     setCircuit(&quot;memNode.dig&quot;);
   }
 } else {
-  export bits:=int(1);
+  export dataBits:=int(1);
 }</string>
         </entry>
       </elementAttributes>
@@ -161,14 +161,14 @@
     </wire>
     <wire>
       <p1 x="300" y="320"/>
-      <p2 x="360" y="320"/>
+      <p2 x="340" y="320"/>
     </wire>
     <wire>
       <p1 x="320" y="160"/>
       <p2 x="520" y="160"/>
     </wire>
     <wire>
-      <p1 x="360" y="420"/>
+      <p1 x="340" y="420"/>
       <p2 x="640" y="420"/>
     </wire>
     <wire>
@@ -185,10 +185,10 @@
     </wire>
     <wire>
       <p1 x="240" y="200"/>
-      <p2 x="340" y="200"/>
+      <p2 x="360" y="200"/>
     </wire>
     <wire>
-      <p1 x="340" y="200"/>
+      <p1 x="360" y="200"/>
       <p2 x="400" y="200"/>
     </wire>
     <wire>
@@ -212,7 +212,7 @@
       <p2 x="520" y="300"/>
     </wire>
     <wire>
-      <p1 x="360" y="240"/>
+      <p1 x="340" y="240"/>
       <p2 x="380" y="240"/>
     </wire>
     <wire>
@@ -224,7 +224,7 @@
       <p2 x="520" y="340"/>
     </wire>
     <wire>
-      <p1 x="340" y="340"/>
+      <p1 x="360" y="340"/>
       <p2 x="400" y="340"/>
     </wire>
     <wire>
@@ -244,7 +244,7 @@
       <p2 x="620" y="220"/>
     </wire>
     <wire>
-      <p1 x="360" y="380"/>
+      <p1 x="340" y="380"/>
       <p2 x="400" y="380"/>
     </wire>
     <wire>
@@ -268,24 +268,24 @@
       <p2 x="500" y="440"/>
     </wire>
     <wire>
-      <p1 x="340" y="200"/>
-      <p2 x="340" y="340"/>
+      <p1 x="340" y="240"/>
+      <p2 x="340" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="380"/>
+      <p2 x="340" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="320"/>
+      <p2 x="340" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="200"/>
+      <p2 x="360" y="340"/>
     </wire>
     <wire>
       <p1 x="600" y="220"/>
       <p2 x="600" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="240"/>
-      <p2 x="360" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="380"/>
-      <p2 x="360" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="320"/>
-      <p2 x="360" y="380"/>
     </wire>
   </wires>
   <measurementOrdering/>

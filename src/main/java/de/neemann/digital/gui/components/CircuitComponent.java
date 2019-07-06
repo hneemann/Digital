@@ -1023,10 +1023,19 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         try {
             ArrayList<Key> list = getAttributeList(element);
             if (list.size() > 0) {
+                ElementTypeDescription elementType = library.getElementType(element.getElementName());
+
+                if (elementType instanceof ElementTypeDescriptionCustom) {
+                    ElementTypeDescriptionCustom customDescr = (ElementTypeDescriptionCustom) elementType;
+                    if (customDescr.isGeneric()) {
+                        if (element.getElementAttributes().get(Keys.GENERIC).isEmpty())
+                            element.getElementAttributes().set(Keys.GENERIC, customDescr.getDeclarationDefault());
+                    }
+                }
+
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
                 AttributeDialog attributeDialog = new AttributeDialog(parent, p, list, element.getElementAttributes()).setVisualElement(element);
-                ElementTypeDescription elementType = library.getElementType(element.getElementName());
                 if (elementType instanceof ElementTypeDescriptionCustom) {
                     attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
                         @Override

@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.hgs;
 
+import de.neemann.digital.builder.tt2.TT2Exporter;
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunctionCall;
@@ -55,6 +56,7 @@ public class Parser {
     }
 
 
+    private ArrayList<Reference> refRead;
     private final Tokenizer tok;
     private Context staticContext;
 
@@ -76,6 +78,20 @@ public class Parser {
     public Parser(Reader reader, String srcFile) {
         tok = new Tokenizer(reader, srcFile);
         staticContext = new Context();
+    }
+
+    /**
+     * If called all read references are collected.
+     */
+    public void enableRefReadCollection() {
+        refRead = new ArrayList<>();
+    }
+
+    /**
+     * @return returns the references read
+     */
+    public ArrayList<Reference> getRefsRead() {
+        return refRead;
     }
 
     private Statement lino(Statement statement) {
@@ -517,6 +533,8 @@ public class Parser {
             case IDENT:
                 String name = tok.getIdent();
                 Reference r = parseReference(name);
+                if (refRead != null)
+                    refRead.add(r);
                 return r::get;
             case NUMBER:
                 long num = convToLong(tok.getIdent());
