@@ -57,7 +57,6 @@ public class Parser {
 
     private ArrayList<Reference> refRead;
     private final Tokenizer tok;
-    private Context staticContext;
 
     /**
      * Create a new instance
@@ -76,7 +75,6 @@ public class Parser {
      */
     public Parser(Reader reader, String srcFile) {
         tok = new Tokenizer(reader, srcFile);
-        staticContext = new Context();
     }
 
     /**
@@ -138,25 +136,10 @@ public class Parser {
                 s.add(c -> c.print(t));
             }
         }
-        while (!nextIs(EOF)) {
-            if (nextIs(STATIC)) {
-                Statement stat = parseStatement();
-                try {
-                    stat.execute(staticContext);
-                } catch (HGSEvalException e) {
-                    throw newParserException("error evaluating static code: " + e.getMessage());
-                }
-            } else
-                s.add(parseStatement());
-        }
-        return s.optimize();
-    }
+        while (!nextIs(EOF))
+            s.add(parseStatement());
 
-    /**
-     * @return the static context of this template
-     */
-    public Context getStaticContext() {
-        return staticContext;
+        return s.optimize();
     }
 
     private Statement parseStatement() throws IOException, ParserException {
