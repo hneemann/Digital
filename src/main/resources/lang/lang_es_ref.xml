@@ -1739,9 +1739,6 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="menu_stats_tt">Shows a list of used components.</string>
   <string name="stat_number">Number</string>
   <string name="stat_part">Component</string>
-  <string name="stat_transistors">Trans.</string>
-  <string name="stat_transistorsTotal">Trans. total</string>
-  <string name="stat_sum">Sum</string>
   <string name="msg_couldNotCreateStats">Statistics could not be created.</string>
   <string name="msg_errorReadingToolchainConfig_N">Error while reading the toolchain configuration {0}</string>
   <string name="msg_commandStarted_N">Command "{0}" has been started! Processing may take some time!</string>

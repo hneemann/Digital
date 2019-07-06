@@ -6,6 +6,7 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.stats.Statistics;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
@@ -20,18 +21,12 @@ public class StatsTest extends TestCase {
     public void testStats() throws PinException, NodeException, ElementNotFoundException, IOException {
         File file = new File(Resources.getRoot(), "../../main/dig/combinatorial/FullAdderRC.dig");
         final ToBreakRunner br = new ToBreakRunner(file);
-        Circuit c = br.getCircuit();
-        Stats stats = new Stats(br.getLibrary()).add(c);
+        Statistics stats = new Statistics(br.getModel());
         TableModel model = stats.getTableModel();
-        assertEquals(5, model.getRowCount());
-        assertEquals(200, model.getValueAt(4, 3));
-
-        // set xor to 4 transistors
-        for (int i = 0; i < 4; i++)
-            if (intVal(model.getValueAt(i, 2)) == 16)
-                model.setValueAt(4, i, 2);
-
-        assertEquals(104, model.getValueAt(4, 3));
+        assertEquals(3, model.getRowCount());
+        assertEquals(8, model.getValueAt(0, 5));
+        assertEquals(4, model.getValueAt(1, 5));
+        assertEquals(8, model.getValueAt(2, 5));
     }
 
     private int intVal(Object value) {

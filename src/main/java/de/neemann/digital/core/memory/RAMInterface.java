@@ -5,10 +5,12 @@
  */
 package de.neemann.digital.core.memory;
 
+import de.neemann.digital.core.stats.Countable;
+
 /**
  * Interface to get access to the rams data.
  */
-public interface RAMInterface extends ProgramMemory {
+public interface RAMInterface extends ProgramMemory, Countable {
     /**
      * @return the {@link DataField} containing the RAMs data
      */

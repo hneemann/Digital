@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -17,7 +18,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * A multiplier
  */
-public class Mul extends Node implements Element {
+public class Mul extends Node implements Element, Countable {
 
     /**
      * The multiplier description
@@ -80,4 +81,8 @@ public class Mul extends Node implements Element {
         return mul.asList();
     }
 
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
 }

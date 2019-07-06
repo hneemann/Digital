@@ -10,6 +10,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.stats.Countable;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * A fan in. Used as base class for the simple bool operations
  */
-public abstract class FanIn extends Node implements Element {
+public abstract class FanIn extends Node implements Element, Countable {
 
     /**
      * The inputs name prefix
@@ -55,7 +56,7 @@ public abstract class FanIn extends Node implements Element {
     }
 
     /**
-     * @return the outputs
+     * @return the inputs
      */
     public ArrayList<ObservableValue> getInputs() {
         return inputs;
@@ -64,6 +65,16 @@ public abstract class FanIn extends Node implements Element {
     @Override
     public ObservableValues getOutputs() {
         return output.asList();
+    }
+
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
+
+    @Override
+    public int getInputsCount() {
+        return inputs.size();
     }
 
     /**

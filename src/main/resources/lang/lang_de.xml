@@ -1576,9 +1576,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_stats_tt">Zeigt eine Liste der verwendeten Komponenten</string>
     <string name="stat_number">Zahl</string>
     <string name="stat_part">Bauteil</string>
-    <string name="stat_transistors">Trans.</string>
-    <string name="stat_transistorsTotal">Trans. total</string>
-    <string name="stat_sum">Summe</string>
+    <string name="stat_inputs">Eing.</string>
+    <string name="stat_bits">Bits</string>
+    <string name="stat_addrBits">Adr. Bits</string>
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 

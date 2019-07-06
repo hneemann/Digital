@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 import static de.neemann.digital.core.ObservableValues.ovs;
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -17,7 +18,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * A adder.
  */
-public class Add extends Node implements Element {
+public class Add extends Node implements Element, Countable {
 
     /**
      * The adders description
@@ -102,6 +103,11 @@ public class Add extends Node implements Element {
     @Override
     public ObservableValues getOutputs() {
         return ovs(sum, cOut);
+    }
+
+    @Override
+    public int getDataBits() {
+        return bits;
     }
 
     interface Calc {

@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 import static de.neemann.digital.core.ObservableValues.ovs;
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -17,7 +18,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * A comparator
  */
-public class Comparator extends Node implements Element {
+public class Comparator extends Node implements Element, Countable {
     private static final long MSB = Bits.signedFlagMask(64);
     private static final long LSB = ~MSB;
 
@@ -104,4 +105,8 @@ public class Comparator extends Node implements Element {
         return ovs(agrb, equals, aklb);
     }
 
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
 }

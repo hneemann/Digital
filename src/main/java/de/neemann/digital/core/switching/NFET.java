@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 import de.neemann.digital.draw.elements.PinException;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -17,7 +18,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * N-Channel MOS FET
  */
-public class NFET extends Node implements Element {
+public class NFET extends Node implements Element, Countable {
     /**
      * The switch description
      */
@@ -114,4 +115,8 @@ public class NFET extends Node implements Element {
         return s.getOutput2();
     }
 
+    @Override
+    public int getDataBits() {
+        return s.getBits();
+    }
 }
