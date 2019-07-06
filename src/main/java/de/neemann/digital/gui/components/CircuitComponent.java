@@ -75,7 +75,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
         ATTR_LIST.add(Keys.PRELOAD_PROGRAM);
         ATTR_LIST.add(Keys.PROGRAM_TO_PRELOAD);
-        ATTR_LIST.add(Keys.TRANSISTORS);
         if (Main.isExperimentalMode())
             ATTR_LIST.add(Keys.IS_GENERIC);
     }

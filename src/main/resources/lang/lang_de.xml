@@ -1332,10 +1332,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_midiProgChange">Programmwechsel erlauben</string>
     <string name="key_midiProgChange_tt">Fügt einen weiteren Eingang PC hinzu. Wird dieser Eingang auf High gesetzt,
         wird mit dem Wert am Eingang N das Programm (Instrument) gewechselt.</string>
-    <string name="key_transistors">Transistorzahl</string>
-    <string name="key_transistors_tt">Anzahl der erforderlichen Transistoren. Wird für die Schaltungsstatistik verwendet.
-        Null bedeutet, dass die Zahl automatisch bestimmt wird, indem die Zahl der Transistoren der in der Schaltung
-        enthaltenen Komponenten addiert wird.</string>
 
     <string name="key_enabled">Aktiviert</string>
     <string name="key_enabled_tt">Aktiviert oder deaktiviert diese Komponente.</string>
