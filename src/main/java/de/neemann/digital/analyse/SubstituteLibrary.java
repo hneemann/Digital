@@ -14,7 +14,6 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
@@ -119,30 +118,6 @@ public class SubstituteLibrary implements LibraryInterface {
 
     private interface Accept {
         boolean accept(ElementAttributes attr);
-    }
-
-    private static final class Substitute implements SubstituteInterface {
-        private final String filename;
-        private ElementTypeDescriptionCustom typeDescriptionCustom;
-
-        private Substitute(String filename) {
-            this.filename = filename;
-        }
-
-        @Override
-        public ElementTypeDescription getElementType(ElementAttributes attr, ElementLibrary library) throws PinException, IOException {
-            if (typeDescriptionCustom == null) {
-                LOGGER.debug("load substitute circuit " + filename);
-                InputStream in = getClass().getClassLoader().getResourceAsStream("analyser/" + filename);
-                if (in == null)
-                    throw new IOException("substituting failed: could not find file " + filename);
-
-                Circuit circuit = Circuit.loadCircuit(in, library.getShapeFactory());
-                typeDescriptionCustom = ElementLibrary.createCustomDescription(new File(filename), circuit, library).isSubstitutedBuiltIn();
-            }
-            return typeDescriptionCustom;
-        }
-
     }
 
     private static abstract class SubstituteGeneric implements SubstituteInterface {
