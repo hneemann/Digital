@@ -13,13 +13,14 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * The Not
  */
-public class Not extends Node implements Element {
+public class Not extends Node implements Element, Countable {
 
     /**
      * The Not description
@@ -69,5 +70,15 @@ public class Not extends Node implements Element {
      */
     public ObservableValue getOutput() {
         return output;
+    }
+
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
+
+    @Override
+    public int getInputsCount() {
+        return 1;
     }
 }

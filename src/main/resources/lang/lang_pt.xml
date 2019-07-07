@@ -1781,10 +1781,6 @@ Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse
   <string name="msg_optimizationInProgress">Equações estão sendo calculadas! Favor aguardar um instante!</string>
   <string name="err_hdlNotKnown_N">HDL desconhecido: {0}</string>
   <string name="msg_errorStartCommand_N">Erro ao iniciar o comando {0}</string>
-  <string name="key_transistors">Transistores</string>
-  <string name="key_transistors_tt">Necessário fornecer o número de transistores. Usado para estatísticas do circuito.
-        Zero indicará que o o número será determinado automaticamente pela soma do número de transistores
-        dos componentes contidos no circuito.</string>
   <string name="key_enabled">Habilitado</string>
   <string name="key_enabled_tt">Habilitar ou desabilitar o componente.</string>
   <string name="key_toolChainConfig">Configuração de ferramentas</string>
@@ -1794,9 +1790,6 @@ Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse
   <string name="menu_stats_tt">Mostrar uma lista de componentes usados.</string>
   <string name="stat_number">Número</string>
   <string name="stat_part">Componente</string>
-  <string name="stat_transistors">Trans.</string>
-  <string name="stat_transistorsTotal">Trans. total</string>
-  <string name="stat_sum">Soma</string>
   <string name="msg_couldNotCreateStats">Não foi possível levantar as estatísticas.</string>
   <string name="msg_errorReadingToolchainConfig_N">Erro ao ler a configuração do conjunto de ferramentas {0}</string>
   <string name="msg_commandStarted_N">Comando "{0}" iniciado! O processamento poderá demorar!-</string>

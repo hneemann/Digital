@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
 /**
  * The evaluation context
  */
-public class Context {
+public class Context implements HGSMap {
     private static final Logger LOGGER = LoggerFactory.getLogger(Context.class);
     // declare some functions which are always present
     private static final HashMap<String, InnerFunction> BUILT_IN = new HashMap<>();
@@ -32,6 +32,7 @@ public class Context {
         BUILT_IN.put("floor", new FunctionFloor());
         BUILT_IN.put("round", new FunctionRound());
         BUILT_IN.put("float", new FunctionFloat());
+        BUILT_IN.put("int", new FunctionInt());
         BUILT_IN.put("min", new FunctionMin());
         BUILT_IN.put("max", new FunctionMax());
         BUILT_IN.put("abs", new FunctionAbs());
@@ -51,7 +52,7 @@ public class Context {
 
     private final Context parent;
     private final StringBuilder code;
-    private HashMap<String, Object> map;
+    private final HashMap<String, Object> map;
     private boolean loggingEnabled = true;
 
     /**
@@ -277,6 +278,11 @@ public class Context {
             throw new HGSEvalException("Variable '" + funcName + "' is not a function");
     }
 
+    @Override
+    public Object hgsMapGet(String key) {
+        return map.get(key);
+    }
+
     private static final class FunctionPrint extends InnerFunction {
         private FunctionPrint() {
             super(-1);
@@ -438,6 +444,17 @@ public class Context {
         @Override
         protected Object f(Object... args) throws HGSEvalException {
             return Value.toDouble(args[0]);
+        }
+    }
+
+    private static final class FunctionInt extends Function {
+        private FunctionInt() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            return Value.toInt(args[0]);
         }
     }
 

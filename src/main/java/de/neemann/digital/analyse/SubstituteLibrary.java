@@ -14,6 +14,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
@@ -39,10 +40,11 @@ public class SubstituteLibrary implements LibraryInterface {
         MAP.put("JK_FF", new SubstituteGenericHGSParser("JK_FF.dig"));
         MAP.put("T_FF", new SubstituteMatching()
                 .add(attr -> attr.get(Keys.WITH_ENABLE), new SubstituteGenericHGSParser("T_FF_EN.dig"))
-                .add(attr -> true, new Substitute("T_FF.dig"))
+                .add(attr -> true, new SubstituteGenericHGSParser("T_FF.dig"))
         );
         MAP.put("Counter", new SubstituteGenericHGSParser("Counter.dig"));
         MAP.put("CounterPreset", new SubstituteGenericHGSParser("CounterPreset.dig"));
+        MAP.put("Register", new SubstituteGenericHGSParser("Register.dig"));
     }
 
     private final ElementLibrary parent;
@@ -121,7 +123,7 @@ public class SubstituteLibrary implements LibraryInterface {
 
     private static final class Substitute implements SubstituteInterface {
         private final String filename;
-        private ElementLibrary.ElementTypeDescriptionCustom typeDescriptionCustom;
+        private ElementTypeDescriptionCustom typeDescriptionCustom;
 
         private Substitute(String filename) {
             this.filename = filename;
@@ -136,8 +138,7 @@ public class SubstituteLibrary implements LibraryInterface {
                     throw new IOException("substituting failed: could not find file " + filename);
 
                 Circuit circuit = Circuit.loadCircuit(in, library.getShapeFactory());
-
-                typeDescriptionCustom = ElementLibrary.createCustomDescription(new File(filename), circuit, library);
+                typeDescriptionCustom = ElementLibrary.createCustomDescription(new File(filename), circuit, library).isSubstitutedBuiltIn();
             }
             return typeDescriptionCustom;
         }
@@ -164,9 +165,11 @@ public class SubstituteLibrary implements LibraryInterface {
             }
 
             Circuit c = circuit.createDeepCopy();
+            // disable the normal generic handling!
+            c.getAttributes().set(Keys.IS_GENERIC, false);
             generify(attr, c);
 
-            return ElementLibrary.createCustomDescription(new File(filename), c, library);
+            return ElementLibrary.createCustomDescription(new File(filename), c, library).isSubstitutedBuiltIn();
         }
 
         private void generify(ElementAttributes attr, Circuit circuit) throws IOException {
@@ -208,10 +211,18 @@ public class SubstituteLibrary implements LibraryInterface {
 
     }
 
-    private static final class AllowSetAttributes implements HGSMap {
+    /**
+     * Allows writing access to the attributes.
+     */
+    public static final class AllowSetAttributes implements HGSMap {
         private final ElementAttributes attr;
 
-        private AllowSetAttributes(ElementAttributes attr) {
+        /**
+         * Creates a new instance.
+         *
+         * @param attr the attributes to write to.
+         */
+        public AllowSetAttributes(ElementAttributes attr) {
             this.attr = attr;
         }
 

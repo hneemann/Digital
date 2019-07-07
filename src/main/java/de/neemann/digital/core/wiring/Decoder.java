@@ -13,6 +13,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * The decoder
  */
-public class Decoder extends Node implements Element {
+public class Decoder extends Node implements Element, Countable {
 
     private final int selectorBits;
     private final ObservableValues output;
@@ -77,4 +78,13 @@ public class Decoder extends Node implements Element {
         selector = inputs.get(0).addObserverToValue(this).checkBits(selectorBits, this);
     }
 
+    @Override
+    public int getDataBits() {
+        return 1;
+    }
+
+    @Override
+    public int getAddrBits() {
+        return selectorBits;
+    }
 }

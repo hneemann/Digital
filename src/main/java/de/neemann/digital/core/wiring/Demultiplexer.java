@@ -13,6 +13,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * The Demultiplexer
  */
-public class Demultiplexer extends Node implements Element {
+public class Demultiplexer extends Node implements Element, Countable {
 
     private final int selectorBits;
     private final Integer bits;
@@ -87,4 +88,13 @@ public class Demultiplexer extends Node implements Element {
         input = inputs.get(1).addObserverToValue(this).checkBits(bits, this);
     }
 
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
+
+    @Override
+    public int getAddrBits() {
+        return selectorBits;
+    }
 }

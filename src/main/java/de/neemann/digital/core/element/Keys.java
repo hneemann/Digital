@@ -771,14 +771,6 @@ public final class Keys {
             new Key<>("midiProgChange", false);
 
     /**
-     * Number of transistors used in a circuit.
-     */
-    public static final Key<Integer> TRANSISTORS =
-            new Key.KeyInteger("transistors", 0)
-                    .setMin(0)
-                    .setSecondary();
-
-    /**
      * Stores the IDE settings file
      */
     public static final Key<File> SETTINGS_TOOLCHAIN_CONFIG =

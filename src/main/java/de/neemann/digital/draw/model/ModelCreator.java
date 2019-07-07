@@ -151,7 +151,8 @@ public class ModelCreator implements Iterable<ModelEntry> {
                     ModelCreator child = ce.getModelCreator(
                             combineNames(subName, me.getVisualElement().getElementAttributes().getLabel()),
                             depth + 1,
-                            containingVisualElement != null ? containingVisualElement : me.getVisualElement());
+                            containingVisualElement != null ? containingVisualElement : me.getVisualElement(),
+                            me.getVisualElement(), library);
                     modelCreators.add(child);
 
                     HashMap<Net, Net> netMatch = new HashMap<>();

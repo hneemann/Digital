@@ -125,6 +125,12 @@ public class ModelAnalyserTest extends TestCase {
         check2BitCounter(tt);
     }
 
+    public void testAnalyzerRegister() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestRegister.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
     private void check2BitCounter(TruthTable tt) {
         assertEquals(4, tt.getRows());
         assertEquals(4, tt.getCols());

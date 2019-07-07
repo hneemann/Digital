@@ -62,7 +62,7 @@ public class ModelAnalyser {
         flipflops = replaceMultiBitFlipflops(flipflops);
         for (FlipflopD ff : flipflops) {
             checkClock(ff);
-            if (ff.getBits() != 1)
+            if (ff.getDataBits() != 1)
                 throw new AnalyseException(Lang.get("err_MultiBitFlipFlopFound"));
 
             ff.getDInput().removeObserver(ff); // turn off flipflop
@@ -213,7 +213,7 @@ public class ModelAnalyser {
     private List<FlipflopD> replaceMultiBitFlipflops(List<FlipflopD> flipflops) throws AnalyseException {
         ArrayList<FlipflopD> out = new ArrayList<>();
         for (FlipflopD ff : flipflops) {
-            if (ff.getBits() == 1)
+            if (ff.getDataBits() == 1)
                 out.add(ff);
             else {
                 try {
@@ -221,18 +221,18 @@ public class ModelAnalyser {
                     ff.getDInput().removeObserver(ff);
                     ff.getClock().removeObserver(ff);
 
-                    Splitter insp = Splitter.createOneToN(ff.getBits());
+                    Splitter insp = Splitter.createOneToN(ff.getDataBits());
                     insp.setInputs(new ObservableValues(ff.getDInput()));
                     ff.getDInput().fireHasChanged();
 
-                    Splitter outsp = Splitter.createNToOne(ff.getBits());
+                    Splitter outsp = Splitter.createNToOne(ff.getDataBits());
 
                     ObservableValues.Builder spinput = new ObservableValues.Builder();
                     String label = ff.getLabel();
                     if (label.length() == 0)
                         label = createOutputBasedName(ff);
                     long def = ff.getDefault();
-                    for (int i = ff.getBits() - 1; i >= 0; i--) {
+                    for (int i = ff.getDataBits() - 1; i >= 0; i--) {
                         ObservableValue qn = new ObservableValue("", 1);
                         ObservableValue nqn = new ObservableValue("", 1);
                         FlipflopD newff = new FlipflopD(label + i, qn, nqn, (def & (1L<<i))!=0 ?1:0);

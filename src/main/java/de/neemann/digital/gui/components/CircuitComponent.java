@@ -17,10 +17,7 @@ import de.neemann.digital.core.switching.Switch;
 import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.library.LibraryListener;
-import de.neemann.digital.draw.library.LibraryNode;
+import de.neemann.digital.draw.library.*;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -78,7 +75,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         ATTR_LIST.add(Keys.SHOW_DATA_GRAPH_MICRO);
         ATTR_LIST.add(Keys.PRELOAD_PROGRAM);
         ATTR_LIST.add(Keys.PROGRAM_TO_PRELOAD);
-        ATTR_LIST.add(Keys.TRANSISTORS);
         if (Main.isExperimentalMode())
             ATTR_LIST.add(Keys.IS_GENERIC);
     }
@@ -1026,18 +1022,27 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         try {
             ArrayList<Key> list = getAttributeList(element);
             if (list.size() > 0) {
+                ElementTypeDescription elementType = library.getElementType(element.getElementName());
+
+                if (elementType instanceof ElementTypeDescriptionCustom) {
+                    ElementTypeDescriptionCustom customDescr = (ElementTypeDescriptionCustom) elementType;
+                    if (customDescr.isGeneric()) {
+                        if (element.getElementAttributes().get(Keys.GENERIC).isEmpty())
+                            element.getElementAttributes().set(Keys.GENERIC, customDescr.getDeclarationDefault());
+                    }
+                }
+
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
                 AttributeDialog attributeDialog = new AttributeDialog(parent, p, list, element.getElementAttributes()).setVisualElement(element);
-                ElementTypeDescription elementType = library.getElementType(element.getElementName());
-                if (elementType instanceof ElementLibrary.ElementTypeDescriptionCustom) {
+                if (elementType instanceof ElementTypeDescriptionCustom) {
                     attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             attributeDialog.dispose();
                             new Main.MainBuilder()
                                     .setParent(parent)
-                                    .setFileToOpen(((ElementLibrary.ElementTypeDescriptionCustom) elementType).getFile())
+                                    .setFileToOpen(((ElementTypeDescriptionCustom) elementType).getFile())
                                     .setLibrary(library)
                                     .denyMostFileActions()
                                     .keepPrefMainFile()
@@ -1049,7 +1054,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         try {
-                            new ElementHelpDialog(attributeDialog, elementType, element.getElementAttributes()).setVisible(true);
+                            new ElementHelpDialog(
+                                    attributeDialog,
+                                    elementType,
+                                    element.getElementAttributes(),
+                                    getCircuit().getAttributes().get(Keys.IS_GENERIC)).setVisible(true);
                         } catch (PinException | NodeException e1) {
                             new ErrorMessage(Lang.get("msg_creatingHelp")).addCause(e1).show(CircuitComponent.this);
                         }
@@ -1225,7 +1234,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     private ArrayList<Key> getAttributeList(VisualElement ve) throws ElementNotFoundException {
         ArrayList<Key> list = library.getElementType(ve.getElementName()).getAttributeList();
-        if (getCircuit().getAttributes().get(Keys.IS_GENERIC)) {
+        if (getCircuit().getAttributes().get(Keys.IS_GENERIC) && !list.contains(Keys.GENERIC)) {
             list = new ArrayList<>(list);
             list.add(Keys.GENERIC);
         }

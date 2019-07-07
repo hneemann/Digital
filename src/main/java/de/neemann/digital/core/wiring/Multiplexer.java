@@ -74,4 +74,9 @@ public class Multiplexer extends FanIn {
         if (in.size() != (1 << selectorBits))
             throw new BitsException(Lang.get("err_selectorInputCountMismatch"), this, -1, selector);
     }
+
+    @Override
+    public int getAddrBits() {
+        return selectorBits;
+    }
 }

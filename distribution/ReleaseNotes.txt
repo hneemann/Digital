@@ -2,6 +2,7 @@ Release Notes
 
 head, planned as v0.23
 - Circuit analyser is now able to analyse the built-in counters.
+- Added generic circuits. Now it is possible to parameterize a sub circuit.
 - Simplified the integration of FPGA boards.
   Board integration is now possible without creating Java code or
   even recompiling. See the BASYS3.config in examples/hdl as an example.

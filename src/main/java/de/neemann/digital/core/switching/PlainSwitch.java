@@ -54,6 +54,13 @@ public final class PlainSwitch implements NodeInterface {
     }
 
     /**
+     * @return the number of data bits
+     */
+    public int getBits() {
+        return bits;
+    }
+
+    /**
      * Sets the inputs of this switch
      *
      * @param input1 first input

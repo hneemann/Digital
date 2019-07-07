@@ -13,13 +13,14 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * Negation, twos complement
  */
-public class Neg extends Node implements Element {
+public class Neg extends Node implements Element, Countable {
 
     /**
      * The element description
@@ -63,4 +64,8 @@ public class Neg extends Node implements Element {
         return output.asList();
     }
 
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
 }

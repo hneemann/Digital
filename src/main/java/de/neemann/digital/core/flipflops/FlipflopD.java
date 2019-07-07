@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 import static de.neemann.digital.core.ObservableValues.ovs;
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -17,7 +18,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * The D Flipflop
  */
-public class FlipflopD extends Node implements Element {
+public class FlipflopD extends Node implements Element, Countable {
 
     /**
      * The D-FF description
@@ -141,10 +142,8 @@ public class FlipflopD extends Node implements Element {
         return clockVal;
     }
 
-    /**
-     * @return number of bits
-     */
-    public int getBits() {
+    @Override
+    public int getDataBits() {
         return bits;
     }
 
@@ -158,4 +157,5 @@ public class FlipflopD extends Node implements Element {
     public long getDefault() {
         return defaultValue;
     }
+
 }

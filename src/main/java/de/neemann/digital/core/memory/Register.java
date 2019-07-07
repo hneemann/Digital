@@ -10,13 +10,14 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A simple register.
  */
-public class Register extends Node implements Element {
+public class Register extends Node implements Element, Countable {
 
     /**
      * The registers {@link ElementTypeDescription}
@@ -104,4 +105,10 @@ public class Register extends Node implements Element {
     public long getValue() {
         return value;
     }
+
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
+
 }

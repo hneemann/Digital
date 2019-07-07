@@ -10,11 +10,12 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 /**
  * A simple manually controlled switch
  */
-public class Switch implements Element, NodeInterface {
+public class Switch implements Element, NodeInterface, Countable {
 
     /**
      * The switch description
@@ -102,5 +103,15 @@ public class Switch implements Element, NodeInterface {
      */
     public boolean isClosed() {
         return closed;
+    }
+
+    @Override
+    public int getDataBits() {
+        return poles[0].getBits();
+    }
+
+    @Override
+    public int getInputsCount() {
+        return poles.length;
     }
 }

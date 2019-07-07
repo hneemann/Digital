@@ -389,25 +389,6 @@ public class ParserTest extends TestCase {
         assertEquals(7, flag);
     }
 
-    public void testStatic() throws IOException, ParserException, HGSEvalException {
-        Parser p = new Parser("generic a; <? @gen[0]:=\"a\"; ?>");
-        final ArrayList<Object> generics = new ArrayList<>();
-        p.getStaticContext().declareVar("gen", generics);
-        p.parse();
-
-        assertEquals(1, generics.size());
-        assertEquals("a", generics.get(0));
-    }
-
-    public void testFunctionStatic() throws IOException, ParserException, HGSEvalException {
-        Parser p = new Parser("<? @f:=func(a){return a*a+2;};  print(f(4));?>");
-        p.parse();
-        Object fObj = p.getStaticContext().getVar("f");
-        assertTrue(fObj instanceof Function);
-        Function f = (Function) fObj;
-        assertEquals(11L, f.call(3));
-    }
-
     public void testFunction() throws IOException, ParserException, HGSEvalException {
         assertEquals("18", exec("<? f:=func(a){return a*a+2;};  print(f(4));?>").toString());
         assertEquals("5", exec("<? f:=func(a,b){return a+2*b;};  print(f(1,2));?>").toString());

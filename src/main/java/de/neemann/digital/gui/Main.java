@@ -16,6 +16,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.Register;
+import de.neemann.digital.core.stats.Statistics;
 import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
@@ -23,6 +24,7 @@ import de.neemann.digital.draw.gif.GifExporter;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.draw.model.AsyncSequentialClock;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.RealTimeClock;
@@ -368,7 +370,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (file == null)
                     file = new File(name);
                 try {
-                    ElementLibrary.ElementTypeDescriptionCustom description =
+                    ElementTypeDescriptionCustom description =
                             ElementLibrary.createCustomDescription(file, circuit, library);
                     description.setShortName(name);
                     description.setDescription(Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION)));
@@ -406,10 +408,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    Stats stats = new Stats(library);
-                    stats.add(circuitComponent.getCircuit());
+                    model = new ModelCreator(getCircuitComponent().getCircuit(), library).createModel(false);
+                    Statistics stats = new Statistics(model);
                     new StatsDialog(Main.this, stats.getTableModel()).setVisible(true);
-                } catch (ElementNotFoundException e) {
+                } catch (ElementNotFoundException | PinException | NodeException e) {
                     new ErrorMessage(Lang.get("msg_couldNotCreateStats")).addCause(e).show(Main.this);
                 }
             }

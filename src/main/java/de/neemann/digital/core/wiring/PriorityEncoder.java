@@ -10,6 +10,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.stats.Countable;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 
@@ -18,7 +19,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * The PriorityEncoder
  */
-public class PriorityEncoder extends Node implements Element {
+public class PriorityEncoder extends Node implements Element, Countable {
 
     /**
      * The PriorityEncoder description
@@ -84,5 +85,15 @@ public class PriorityEncoder extends Node implements Element {
     @Override
     public ObservableValues getOutputs() throws PinException {
         return new ObservableValues(selOut, anyOut);
+    }
+
+    @Override
+    public int getDataBits() {
+        return 1;
+    }
+
+    @Override
+    public int getInputsCount() {
+        return inputCount;
     }
 }

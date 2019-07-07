@@ -21,6 +21,7 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.*;
 
@@ -59,8 +60,8 @@ public class HDLModel implements Iterable<HDLCircuit> {
     public HDLNode createNode(VisualElement v, HDLCircuit parent) throws HDLException {
         try {
             ElementTypeDescription td = elementLibrary.getElementType(v.getElementName());
-            if (td instanceof ElementLibrary.ElementTypeDescriptionCustom) {
-                ElementLibrary.ElementTypeDescriptionCustom tdc = (ElementLibrary.ElementTypeDescriptionCustom) td;
+            if (td instanceof ElementTypeDescriptionCustom) {
+                ElementTypeDescriptionCustom tdc = (ElementTypeDescriptionCustom) td;
 
                 HDLCircuit c = circuitMap.get(tdc.getCircuit());
                 if (c == null) {

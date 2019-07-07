@@ -5,12 +5,10 @@
  */
 package de.neemann.digital.draw.library;
 
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.arithmetic.*;
 import de.neemann.digital.core.arithmetic.Comparator;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementFactory;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.External;
@@ -26,9 +24,6 @@ import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
-import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
@@ -613,102 +608,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public static ElementTypeDescriptionCustom createCustomDescription(File file, Circuit circuit, ElementLibrary library) throws PinException {
         ElementTypeDescriptionCustom d = new ElementTypeDescriptionCustom(file, circuit);
-        d.setElementFactory(attributes -> new CustomElement(d, library));
+        d.setElementFactory(attributes -> new CustomElement(d));
         return d;
-    }
-
-    /**
-     * The description of a nested element.
-     * This is a complete circuit which is used as a element.
-     */
-    public static final class ElementTypeDescriptionCustom extends ElementTypeDescription {
-        private static final int MAX_DEPTH = 30;
-        private final File file;
-        private final Circuit circuit;
-        private String description;
-        private NetList netList;
-
-        /**
-         * Creates a new element
-         *
-         * @param file    the file which is loaded
-         * @param circuit the circuit
-         * @throws PinException PinException
-         */
-        private ElementTypeDescriptionCustom(File file, Circuit circuit) throws PinException {
-            super(file.getName(), (ElementFactory) null, circuit.getInputNames());
-            this.file = file;
-            this.circuit = circuit;
-            setShortName(file.getName());
-            addAttribute(Keys.ROTATE);
-            addAttribute(Keys.LABEL);
-            addAttribute(Keys.SHAPE_TYPE);
-        }
-
-        /**
-         * Returns the filename
-         * The returned file is opened if the user wants to modify the element
-         *
-         * @return the filename
-         */
-        public File getFile() {
-            return file;
-        }
-
-        /**
-         * @return the elements attributes
-         */
-        public ElementAttributes getAttributes() {
-            return circuit.getAttributes();
-        }
-
-        /**
-         * @return the circuit
-         */
-        public Circuit getCircuit() {
-            return circuit;
-        }
-
-        /**
-         * Sets a custom description for this field
-         *
-         * @param description the description
-         */
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        @Override
-        public String getDescription(ElementAttributes elementAttributes) {
-            if (description != null)
-                return description;
-            else
-                return super.getDescription(elementAttributes);
-        }
-
-        /**
-         * Gets a {@link ModelCreator} of this circuit.
-         * Every time this method is called a new {@link ModelCreator} is created.
-         *
-         * @param subName                 name of the circuit, used to name unique elements
-         * @param depth                   recursion depth, used to detect a circuit which contains itself
-         * @param containingVisualElement the containing visual element
-         * @param library                 the library used
-         * @return the {@link ModelCreator}
-         * @throws PinException             PinException
-         * @throws NodeException            NodeException
-         * @throws ElementNotFoundException ElementNotFoundException
-         */
-        public ModelCreator getModelCreator(String subName, int depth, VisualElement containingVisualElement, ElementLibrary library) throws PinException, NodeException, ElementNotFoundException {
-            if (netList == null)
-                netList = new NetList(circuit);
-
-            if (depth > MAX_DEPTH)
-                throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
-
-            return new ModelCreator(circuit, library, true, new NetList(netList, containingVisualElement), subName, depth, containingVisualElement);
-        }
-
     }
 
 

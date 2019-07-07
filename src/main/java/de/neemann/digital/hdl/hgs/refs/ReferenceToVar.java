@@ -42,4 +42,11 @@ public class ReferenceToVar implements Reference {
     public Object get(Context context) throws HGSEvalException {
         return context.getVar(name);
     }
+
+    /**
+     * @return the var name
+     */
+    public String getName() {
+        return name;
+    }
 }

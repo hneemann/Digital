@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class ElementHelpDialog extends JDialog {
 
     private static final int MAX_WIDTH = 600;
     private static final int MAX_HEIGHT = 800;
+    private final boolean showKeys;
 
     private JPanel buttons;
 
@@ -50,7 +52,22 @@ public class ElementHelpDialog extends JDialog {
      * @throws NodeException NodeException
      */
     public ElementHelpDialog(Window parent, ElementTypeDescription elementType, ElementAttributes elementAttributes) throws NodeException, PinException {
+        this(parent, elementType, elementAttributes, false);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param parent            the parents frame
+     * @param elementType       the type of the element
+     * @param elementAttributes the attributes of this element
+     * @param showKeys          shows the key strings
+     * @throws PinException  PinException
+     * @throws NodeException NodeException
+     */
+    public ElementHelpDialog(Window parent, ElementTypeDescription elementType, ElementAttributes elementAttributes, boolean showKeys) throws NodeException, PinException {
         super(parent, Lang.get("attr_help"), ModalityType.APPLICATION_MODAL);
+        this.showKeys = showKeys;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         StringWriter w = new StringWriter();
         try {
@@ -72,6 +89,7 @@ public class ElementHelpDialog extends JDialog {
      */
     public ElementHelpDialog(JFrame parent, ElementLibrary library, ShapeFactory shapeFactory) throws NodeException, PinException {
         super(parent, Lang.get("attr_help"), true);
+        showKeys = false;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         MyURLStreamHandlerFactory.setShapeFactory(shapeFactory);
         StringWriter w = new StringWriter();
@@ -143,7 +161,7 @@ public class ElementHelpDialog extends JDialog {
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    private static void writeFullHTMLDocumentation(Writer w, ElementLibrary library, ImageHandler imageHandler) throws IOException, NodeException, PinException {
+    private void writeFullHTMLDocumentation(Writer w, ElementLibrary library, ImageHandler imageHandler) throws IOException, NodeException, PinException {
         ArrayList<String> chapter = new ArrayList<>();
 
         String actPath = null;
@@ -187,7 +205,7 @@ public class ElementHelpDialog extends JDialog {
      * @param et                the element to describe
      * @param elementAttributes the actual attributes of the element to describe
      */
-    private static void writeDetailedDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException, NodeException, PinException {
+    private void writeDetailedDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException, NodeException, PinException {
         w.write("<html><body>");
         writeHTMLDescription(w, et, elementAttributes);
         w.write("</body></html>");
@@ -203,7 +221,7 @@ public class ElementHelpDialog extends JDialog {
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    private static void writeHTMLDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException, NodeException, PinException {
+    private void writeHTMLDescription(Writer w, ElementTypeDescription et, ElementAttributes elementAttributes) throws IOException, NodeException, PinException {
         String translatedName = et.getTranslatedName();
         if (translatedName.endsWith(".dig"))
             translatedName = new File(translatedName).getName();
@@ -242,18 +260,22 @@ public class ElementHelpDialog extends JDialog {
         }
     }
 
-    private static void writeEntry(Writer w, String name, String description) throws IOException {
+    private void writeEntry(Writer w, String name, String description) throws IOException {
         w.append("<dt><i>").append(escapeHTML(name)).append("</i></dt>\n");
         if (description != null && description.length() > 0 && !name.equals(description))
             w.append("<dd>").append(escapeHTML(description)).append("</dd>\n");
     }
 
-    private static void writeEntry(Writer w, Key key) throws IOException {
+    private void writeEntry(Writer w, Key key) throws IOException {
         final String name = key.getName();
         final String description = key.getDescription();
         w.append("<dt><i>").append(escapeHTML(name)).append("</i></dt>\n");
-        if (description != null && description.length() > 0 && !name.equals(description))
-            w.append("<dd>").append(escapeHTML(description)).append(" (").append(key.getKey()).append(")</dd>\n");
+        if (description != null && description.length() > 0 && !name.equals(description)) {
+            w.append("<dd>").append(escapeHTML(description));
+            if (showKeys)
+                w.append(" (").append(key.getKey()).append(')');
+            w.append("</dd>\n");
+        }
     }
 
     /**
@@ -279,7 +301,7 @@ public class ElementHelpDialog extends JDialog {
             if (protocol.equals("image"))
                 return new URLStreamHandler() {
                     @Override
-                    protected URLConnection openConnection(URL u) throws IOException {
+                    protected URLConnection openConnection(URL u) {
                         return new ImageConnection(u);
                     }
                 };
@@ -307,7 +329,7 @@ public class ElementHelpDialog extends JDialog {
         }
 
         @Override
-        public void connect() throws IOException {
+        public void connect() {
         }
 
         @Override
@@ -335,7 +357,7 @@ public class ElementHelpDialog extends JDialog {
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    private static void exportHTMLDocumentation(File targetPath, ElementLibrary library) throws IOException, NodeException, PinException {
+    private void exportHTMLDocumentation(File targetPath, ElementLibrary library) throws IOException, NodeException, PinException {
         File images = new File(targetPath, "img");
         if (!images.mkdir())
             throw new IOException("could not create image folder " + images);
@@ -343,7 +365,7 @@ public class ElementHelpDialog extends JDialog {
                      new BufferedWriter(
                              new OutputStreamWriter(
                                      new FileOutputStream(
-                                             new File(targetPath, "index.html")), "UTF-8"))) {
+                                             new File(targetPath, "index.html")), StandardCharsets.UTF_8))) {
             w.write("<!DOCTYPE html>\n"
                     + "<html>\n"
                     + "<head>\n"

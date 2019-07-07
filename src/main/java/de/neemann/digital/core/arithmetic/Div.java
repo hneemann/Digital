@@ -13,13 +13,14 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A divider
  */
-public class Div extends Node implements Element {
+public class Div extends Node implements Element, Countable {
 
     /**
      * The dividers description
@@ -100,4 +101,8 @@ public class Div extends Node implements Element {
         return new ObservableValues(quotient, remainder);
     }
 
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
 }

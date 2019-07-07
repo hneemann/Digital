@@ -55,8 +55,8 @@ public class Parser {
     }
 
 
+    private ArrayList<Reference> refRead;
     private final Tokenizer tok;
-    private Context staticContext;
 
     /**
      * Create a new instance
@@ -75,7 +75,20 @@ public class Parser {
      */
     public Parser(Reader reader, String srcFile) {
         tok = new Tokenizer(reader, srcFile);
-        staticContext = new Context();
+    }
+
+    /**
+     * If called all read references are collected.
+     */
+    public void enableRefReadCollection() {
+        refRead = new ArrayList<>();
+    }
+
+    /**
+     * @return returns the references read
+     */
+    public ArrayList<Reference> getRefsRead() {
+        return refRead;
     }
 
     private Statement lino(Statement statement) {
@@ -123,25 +136,10 @@ public class Parser {
                 s.add(c -> c.print(t));
             }
         }
-        while (!nextIs(EOF)) {
-            if (nextIs(STATIC)) {
-                Statement stat = parseStatement();
-                try {
-                    stat.execute(staticContext);
-                } catch (HGSEvalException e) {
-                    throw newParserException("error evaluating static code: " + e.getMessage());
-                }
-            } else
-                s.add(parseStatement());
-        }
-        return s.optimize();
-    }
+        while (!nextIs(EOF))
+            s.add(parseStatement());
 
-    /**
-     * @return the static context of this template
-     */
-    public Context getStaticContext() {
-        return staticContext;
+        return s.optimize();
     }
 
     private Statement parseStatement() throws IOException, ParserException {
@@ -177,7 +175,7 @@ public class Parser {
                             return lino(c -> ref.declareVar(c, initVal.value(c)));
                     case EQUAL:
                         if (export)
-                            throw newParserException("export not alowed here!");
+                            throw newParserException("export not allowed here!");
                         final Expression val = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> {
@@ -189,18 +187,18 @@ public class Parser {
                     case ADD:
                         expect(ADD);
                         if (export)
-                            throw newParserException("export not alowed here!");
+                            throw newParserException("export not allowed here!");
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.set(c, Value.toLong(ref.get(c)) + 1));
                     case SUB:
                         expect(SUB);
                         if (export)
-                            throw newParserException("export not alowed here!");
+                            throw newParserException("export not allowed here!");
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.set(c, Value.toLong(ref.get(c)) - 1));
                     case SEMICOLON:
                         if (export)
-                            throw newParserException("export not alowed here!");
+                            throw newParserException("export not allowed here!");
                         return lino(ref::get);
                     default:
                         throw newUnexpectedToken(refToken);
@@ -517,6 +515,8 @@ public class Parser {
             case IDENT:
                 String name = tok.getIdent();
                 Reference r = parseReference(name);
+                if (refRead != null)
+                    refRead.add(r);
                 return r::get;
             case NUMBER:
                 long num = convToLong(tok.getIdent());

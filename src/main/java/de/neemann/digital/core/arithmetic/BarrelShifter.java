@@ -10,13 +10,14 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.stats.Countable;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
  * A barrel shifter
  */
-public class BarrelShifter extends Node implements Element {
+public class BarrelShifter extends Node implements Element, Countable {
 
     /**
      * The barrel shifter description
@@ -115,4 +116,8 @@ public class BarrelShifter extends Node implements Element {
         return out.asList();
     }
 
+    @Override
+    public int getDataBits() {
+        return bits;
+    }
 }

@@ -1023,6 +1023,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_thereIsAUnnamedIO">Es gibt ein unbenannten Ein- oder Ausgang</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!</string>
     <string name="err_substitutingError">Fehler bei der Substitution von Elementen für die Analyse.</string>
+    <string name="err_genericCircuitsAreNotYetSupported">Generische Schaltungen werden noch nicht unterstützt.</string>
+    <string name="err_evaluatingGenericsCode_N_N_N">Fehler bei der Auswertung des generischen Codes der Schaltung. Datei {0}; Komponente: {1}; Code:
+        {2}</string>
+    <string name="err_evaluatingGenericsCode">Fehler bei der Auswertung des generischen Codes der Schaltung.</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1328,10 +1332,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_midiProgChange">Programmwechsel erlauben</string>
     <string name="key_midiProgChange_tt">Fügt einen weiteren Eingang PC hinzu. Wird dieser Eingang auf High gesetzt,
         wird mit dem Wert am Eingang N das Programm (Instrument) gewechselt.</string>
-    <string name="key_transistors">Transistorzahl</string>
-    <string name="key_transistors_tt">Anzahl der erforderlichen Transistoren. Wird für die Schaltungsstatistik verwendet.
-        Null bedeutet, dass die Zahl automatisch bestimmt wird, indem die Zahl der Transistoren der in der Schaltung
-        enthaltenen Komponenten addiert wird.</string>
 
     <string name="key_enabled">Aktiviert</string>
     <string name="key_enabled_tt">Aktiviert oder deaktiviert diese Komponente.</string>
@@ -1340,7 +1340,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_toolChainConfig_tt">Kann für eine Integration einer externen Toolchain verwendet werden.
         Erlaubt den Start externer Tools, um z.B. einen FPGA zu programmieren o.ä.</string>
 
-    <string name="key_generic">Generisch</string>
+    <string name="key_generic">generische Parametrisierung</string>
     <string name="key_generic_tt">Anweisung um eine generische Schaltung anzupassen.</string>
 
     <string name="key_isGeneric">Schaltung ist generisch</string>
@@ -1572,9 +1572,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_stats_tt">Zeigt eine Liste der verwendeten Komponenten</string>
     <string name="stat_number">Zahl</string>
     <string name="stat_part">Bauteil</string>
-    <string name="stat_transistors">Trans.</string>
-    <string name="stat_transistorsTotal">Trans. total</string>
-    <string name="stat_sum">Summe</string>
+    <string name="stat_inputs">Eing.</string>
+    <string name="stat_bits">Bits</string>
+    <string name="stat_addrBits">Adr. Bits</string>
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 

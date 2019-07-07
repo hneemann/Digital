@@ -1793,10 +1793,6 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="msg_optimizationInProgress">Equations are calculated! Please wait a moment!</string>
   <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
   <string name="msg_errorStartCommand_N">Error starting the command {0}</string>
-  <string name="key_transistors">Transistors</string>
-  <string name="key_transistors_tt">Number of transistors required. Used for circuit statistics.
-        Zero means that the number is determined automatically by adding the number of transistors
-        of the components contained in the circuit.</string>
   <string name="key_enabled">Enabled</string>
   <string name="key_enabled_tt">Enables or disables this component.</string>
   <string name="key_toolChainConfig">Toolchain Configuration</string>
@@ -1806,9 +1802,6 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="menu_stats_tt">Shows a list of used components.</string>
   <string name="stat_number">Number</string>
   <string name="stat_part">Component</string>
-  <string name="stat_transistors">Trans.</string>
-  <string name="stat_transistorsTotal">Trans. total</string>
-  <string name="stat_sum">Sum</string>
   <string name="msg_couldNotCreateStats">Statistics could not be created.</string>
   <string name="msg_errorReadingToolchainConfig_N">Error while reading the toolchain configuration {0}</string>
   <string name="msg_commandStarted_N">Command "{0}" has been started! Processing may take some time!</string>

@@ -114,4 +114,11 @@ public final class PlainSwitchDT implements NodeInterface {
     void addOutputsTo(ObservableValues.Builder ov) {
         ov.add(outputA, outputB, outputC);
     }
+
+    /**
+     * @return the number of bits switched
+     */
+    public int getBits() {
+        return bits;
+    }
 }

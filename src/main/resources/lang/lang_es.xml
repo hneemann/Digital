@@ -1710,9 +1710,6 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   <string name="err_clockIsNotUsed">¡El componente "Reloj" no se usa!</string>
   <string name="err_hdlNotKnown_N">HDL no conocido: {0}</string>
   <string name="msg_errorStartCommand_N">Error al iniciar el comando {0}</string>
-  <string name="key_transistors">Transistores</string>
-  <string name="key_transistors_tt">Número de transistores que hacen falta. Se emplea para las estadísticas del circuito.
-		Cero significa que el número se calcula automáticamente añadiendo el número de transistores de los componentes que hay en el circuito.</string>
   <string name="key_enabled">Habilitado</string>
   <string name="key_enabled_tt">Habilita o deshabilita este componente.</string>
   <string name="key_toolChainConfig">Configuración de la toolchain</string>
@@ -1722,9 +1719,6 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   <string name="menu_stats_tt">Muestra una lista de los componentes empleados.</string>
   <string name="stat_number">Número</string>
   <string name="stat_part">Componente</string>
-  <string name="stat_transistors">Transistores</string>
-  <string name="stat_transistorsTotal">Total de transistores</string>
-  <string name="stat_sum">Suma</string>
   <string name="msg_couldNotCreateStats">No se pudieron crear las estadísticas</string>
   <string name="msg_errorReadingToolchainConfig_N">Error al leer la configuración de la toolchain {0}</string>
   <string name="msg_commandStarted_N">¡El comando "{0}" ha empezado! ¡El procesado puede llevar un tiempo!</string>
