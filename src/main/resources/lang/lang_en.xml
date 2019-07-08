@@ -1016,9 +1016,10 @@
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">The signal name "{0}" is invalid or used multiple times!</string>
     <string name="err_substitutingError">Error when substituting components for the analysis.</string>
     <string name="err_genericCircuitsAreNotYetSupported">Generic circuits are not yet supported.</string>
-    <string name="err_evaluatingGenericsCode_N_N_N">Error in the evaluation of the generic code of the circuit. File {0}; Component: {1}; Code
-        {2}</string>
-    <string name="err_evaluatingGenericsCode">Error in the evaluation of the generic code of the circuit.</string>
+    <string name="err_evaluatingGenericsCode_N_N">Error in the evaluation of the generic code of the circuit. Code
+        {1}
+        at Component: {0}</string>
+    <string name="msg_errParsingGenerics">Error while parsing generics code.</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

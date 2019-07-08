@@ -24,6 +24,7 @@ import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.modification.*;
+import de.neemann.digital.hdl.hgs.ParserException;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.undo.*;
 import de.neemann.gui.*;
@@ -1026,8 +1027,13 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 if (elementType instanceof ElementTypeDescriptionCustom) {
                     ElementTypeDescriptionCustom customDescr = (ElementTypeDescriptionCustom) elementType;
                     if (customDescr.isGeneric()) {
-                        if (element.getElementAttributes().get(Keys.GENERIC).isEmpty())
-                            element.getElementAttributes().set(Keys.GENERIC, customDescr.getDeclarationDefault());
+                        if (element.getElementAttributes().get(Keys.GENERIC).isEmpty()) {
+                            try {
+                                element.getElementAttributes().set(Keys.GENERIC, customDescr.getDeclarationDefault());
+                            } catch (NodeException ex) {
+                                new ErrorMessage(Lang.get("msg_errParsingGenerics")).addCause(ex).show(CircuitComponent.this);
+                            }
+                        }
                     }
                 }
 
