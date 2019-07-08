@@ -461,6 +461,51 @@
             gewünschte Ergebnis erreicht ist.
         </par>
     </chapter>
+    <chapter heading="Generische Schaltungen">
+        <par>
+            Es kommt vor, dass eine Teilschaltung erstellt wurde, und diese soll in
+            veschiedenen Varianten verwendet werden. Vorstellbar ist z.B. ein spezieller Zähler, der für verschiedene
+            Bitbreiten benötigt wird. Würde man nun je eine Teilschaltung für 4,5 und 6 Bits erstellen, wäre die
+            Pflege der Schaltung in Zukunft schwierig, da man immer mehrere Teilschaltungen bearbeiten muss, die bis auf
+            einen Parameter - die Bitbreite - identisch sind.
+        </par>
+        <par>
+            Um dies zu verhindern, kann eine generische Teilschaltung erstellt werden, die sich parametrisieren
+            lässt. Dazu muss in den Schaltungseinstellung der Schaltung das Häckchen "Schaltung ist generisch" gesetzt
+            werden. Danach enthält der Parameter-Dialog jeder Komponente der Schaltung das zusätzliche Feld
+            "generische Parametrisierung". In diesem Feld kann Programmcode eingegeben werden, welcher die Parameter
+            der Komponente verändern kann. Jeder Parameter hat einen Namen und kann als Attribut des Feldes <e>this</e>
+            modifiziert werden. Wie die Parameter benannt sind, kann dem Hilfedialog der Komponente entnommen werden.
+            Möchte man die Bitbreite eines Addierers ändern, kann die Zeile <e>this.Bits=int(1);</e> verwendet werden.
+            Konstanten - hier die Eins - sind immer vom Typ <e>long</e>, die Bitbreite ist aber ein <e>int</e>. Daher
+            ist die Typkonvertierung auf ein <e>int</e> erforderlich.
+        </par>
+        <par>
+            Auf diese Weise kann man jedoch noch keine parametrisierbare Schaltung erstellen. Es ist noch erforderlich
+            auf Parameter zuzugreifen, die gesetzt werden, wenn die Schaltung verwendet wird. Dies geschieht über das
+            Feld "args". Will man die Bitbreite von außen setzen, kann man schreiben: <e>this.Bits=int(args.bitWidth);</e>.
+            Der Name des Argumentes - hier <e>bitWidth</e> ist dabei beliebig. Wenn diese Teilschaltung verwendet wird,
+            ist dieses Argument zu setzen.
+        </par>
+        <par>
+            Wird die Schaltung verwendet, und der Parameter-Dialog der eingebetteten Schaltung geöffnet, hat auch
+            dieser ein Feld "generische Parametrisierung". Hier kann mit der Anweisung <e>bitWidth:=5;</e> die zu
+            verwendende Bitbreite gesetzt werden.
+        </par>
+        <par>
+            Auf diese Weise können keine Leitungen oder Komponenten entfernt oder hinzugefügt werden. Dennoch lassen
+            sich mit einem Trick viele Schaltungen umsetzen. Erreicht wird dies, indem, abhängig von den Argumenten,
+            eine Schaltung durch eine andere ersetzt wird. Zu diesem Zweck steht die Funktion <e>setCircuit([Name])</e>
+            zur Verfügung. Wird sie im Definitionsteil einer Teilschaltung aufgerufen, kann die einzufügende Schaltung
+            durch eine andere ersetzt werden. Dies erlaubt die rekursive Definition einer Schaltung. Wie die in anderen
+            Programmiersprachen auch, ist auf eine geeignete Abbruchbedingung zu achten.
+        </par>
+        <par>
+            Im Ordner <e>examples/generic</e> findet sich ein Beispiel für einen Gray-Code-Zähler, dessen Bitbreite
+            konfigurierbar ist. Hier wird ein Gray-Code-Zähler aufgebaut, indem einer initialen Schaltung rekursiv
+            weitere Bits hinzugefügt werden, bis die erforderliche Bitzahl des Zählers erreicht ist.
+        </par>
+    </chapter>
     <chapter heading="Häufig gestellte Fragen">
         <faq>
             <question>Wie kann ich eine Leitung verschieben?</question>

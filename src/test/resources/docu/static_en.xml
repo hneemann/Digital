@@ -431,6 +431,51 @@
             some experimentation may be required before the desired result is achieved.
         </par>
     </chapter>
+    <chapter heading="Generic Circuits">
+        <par>
+            It happens that a subcircuit has been created, and this is to be used in different variants.
+            For example, you can imagine a special counter that is needed for different bit widths.
+            If one would create a partial circuit for 4, 5 and 6 bits each, the maintenance of the circuit
+            would be difficult in the future, since one must always work on several subcircuits, which are
+            identical except for one parameter, the bit width.
+        </par>
+        <par>
+            To prevent this, a generic partial circuit can be created which can be parameterized.
+            For this purpose, the checkbox "Circuit is generic" must be set in the circuit setting of the circuit.
+            Then the parameter dialog of each component of the circuit contains the additional field "generic
+            parameterization". In this field program code can be entered, which can change the parameters of the
+            component. Each parameter has a name and can be modified as an attribute of the field <e>this</e>.
+            The names of the parameters can be found in the help dialog of the component.
+            If you want to change the bit width of an adder, the line <e>this.Bits=int(1);</e> can be used.
+            Constants - here the one - are always of type <e>long</e>, but the bit width is an <e>int</e>.
+            Therefore the type conversion to an <e>int</e> is necessary.
+        </par>
+        <par>
+            In this way, however, it is not yet possible to create a circuit that can be parameterized.
+            It is still necessary to access parameters that are set when the circuit is used.
+            This is done via the field "args". If you want to set the bit width from outside, you can write:
+            <e>this.Bits=int(args.bitWidth);</e>. The name of the argument - here <e>bitWidth</e> is arbitrary.
+            If this partial circuit is used, this argument must be set.
+        </par>
+        <par>
+            If the circuit is used and the parameter dialog of the embedded circuit is opened, it also has a
+            field "generic parameterization". Here the bit width to be used can be set with the instruction
+            <e>bitWidth:=5;</e>.
+        </par>
+        <par>
+            In this way, no wires or components can be removed or added. Nevertheless, many circuits can be
+            realized with a trick. This is achieved by replacing one circuit with another, depending on the
+            arguments. For this purpose the function <e>setCircuit([Name])</e> is available.
+            If it is called in the definition part of a subcircuit, the circuit to be inserted can be replaced
+            by another circuit. This allows the recursive definition of a circuit. As in other programming
+            languages, a suitable termination condition must be ensured.
+        </par>
+        <par>
+            The <e>examples/generic</e> folder contains an example of a Gray code counter whose bit width can
+            be configured. Here a Gray code counter is constructed by recursively adding further bits to an
+            initial circuit until the required number of bits of the counter is reached.
+        </par>
+    </chapter>
     <chapter heading="Frequently asked Questions">
         <faq>
             <question>How to move a wire?</question>
