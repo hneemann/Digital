@@ -135,7 +135,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
                         if (containingVisualElement.getGenericArgs() != null)
                             args.declareVar("args", containingVisualElement.getGenericArgs());
                         s.execute(args);
-                    } catch (HGSEvalException | ParserException |IOException e) {
+                    } catch (HGSEvalException | ParserException | IOException e) {
                         final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", containingVisualElement, argsCode), e);
                         ex.setOrigin(circuit.getOrigin());
                         throw ex;
@@ -209,6 +209,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
 
     /**
      * @return the generics field default value
+     * @throws NodeException NodeException
      */
     public String getDeclarationDefault() throws NodeException {
         if (declarationDefault == null)

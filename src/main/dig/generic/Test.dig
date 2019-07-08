@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_5</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C G_5
+0 0
+loop (n,(1&lt;&lt;5)-1)
+C ((n+1) ^ ((n+1)&gt;&gt;1))
+end loop
+C 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_5</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>5</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_6</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C G_6
+0 0
+loop (n,(1&lt;&lt;6)-1)
+C ((n+1) ^ ((n+1)&gt;&gt;1))
+end loop
+C 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_6</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_4</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C G_4
+0 0
+loop (n,(1&lt;&lt;4)-1)
+C ((n+1) ^ ((n+1)&gt;&gt;1))
+end loop
+C 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_4</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_3</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_3</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C G_3
+0 0
+loop (n,(1&lt;&lt;3)-1)
+C ((n+1) ^ ((n+1)&gt;&gt;1))
+end loop
+C 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="-60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GrayCounter.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 3;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GrayCounter.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 4;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GrayCounter.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 5;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GrayCounter.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 6;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="200"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="220" y="80"/>
+      <p2 x="240" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="-40"/>
+      <p2 x="280" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="-40"/>
+      <p2 x="380" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="120"/>
+      <p2 x="380" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="120"/>
+      <p2 x="280" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="200"/>
+      <p2 x="380" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="200"/>
+      <p2 x="280" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="40"/>
+      <p2 x="380" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="40"/>
+      <p2 x="280" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="-40"/>
+      <p2 x="240" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="80"/>
+      <p2 x="240" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="120"/>
+      <p2 x="240" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="40"/>
+      <p2 x="240" y="80"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

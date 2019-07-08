@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>isGeneric</string>
+      <boolean>true</boolean>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>T_FF</elementName>
+      <elementAttributes>
+        <entry>
+          <string>withEnable</string>
+          <boolean>false</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Tog</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>C G
+0 0
+loop (n,(1&lt;&lt;3)-1)
+C ((n+1) ^ ((n+1)&gt;&gt;1))
+end loop
+C 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="680" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Generic Gray Code counter. 
+Needs the argument &quot;bits&quot; which sets the bit 
+width of the counter.
+The sub circuit &quot;GrayFinal&quot; is replaced by 
+&quot;GrayNode&quot; if necessary.
+{{de Generischer Gray-Code Zähler
+Benötigt das Argument &quot;bits&quot; welches die 
+Bitbreite des Zählers angibt.
+Die Teilschaltung &quot;GrayFinal&quot; wird durch 
+&quot;GrayNode&quot; ersetzt, wenn die Bitzahl größer 
+ist als drei.}}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>T_FF</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes/>
+      <pos x="420" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>T_FF</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G_1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="620" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="440" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>G</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GrayFinal.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>inBits:=2;
+bits:=3;
+if (isPresent(args)) {
+  bits=args.bits;
+  if (args.bits&gt;3) {
+    setCircuit(&quot;GrayNode.dig&quot;);
+  }
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="340"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="500" y="160"/>
+      <p2 x="520" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="260"/>
+      <p2 x="420" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="260"/>
+      <p2 x="520" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="360"/>
+      <p2 x="460" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="200"/>
+      <p2 x="620" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="300"/>
+      <p2 x="620" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="140"/>
+      <p2 x="520" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="140"/>
+      <p2 x="620" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="400"/>
+      <p2 x="460" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="240"/>
+      <p2 x="520" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="240"/>
+      <p2 x="600" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="340"/>
+      <p2 x="740" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="340"/>
+      <p2 x="460" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="120"/>
+      <p2 x="280" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="120"/>
+      <p2 x="380" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="120"/>
+      <p2 x="300" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="380"/>
+      <p2 x="460" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="60"/>
+      <p2 x="500" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="220"/>
+      <p2 x="420" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="200"/>
+      <p2 x="400" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="60"/>
+      <p2 x="500" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="160"/>
+      <p2 x="500" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="60"/>
+      <p2 x="280" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="120"/>
+      <p2 x="280" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="300"/>
+      <p2 x="440" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="240"/>
+      <p2 x="600" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="280"/>
+      <p2 x="620" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="140"/>
+      <p2 x="620" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="200"/>
+      <p2 x="620" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="120"/>
+      <p2 x="380" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="260"/>
+      <p2 x="380" y="380"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

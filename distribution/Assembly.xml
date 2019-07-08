@@ -110,6 +110,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${basedir}/src/main/dig/generic</directory>
+            <outputDirectory>/examples/generic/</outputDirectory>
+            <includes>
+                <include>*.dig</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${basedir}/src/main/dig/misc</directory>
             <outputDirectory>/examples/misc/</outputDirectory>
             <includes>
