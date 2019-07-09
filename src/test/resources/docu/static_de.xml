@@ -484,7 +484,7 @@
             Auf diese Weise kann man jedoch noch keine parametrisierbare Schaltung erstellen. Es ist noch erforderlich
             auf Parameter zuzugreifen, die gesetzt werden, wenn die Schaltung verwendet wird. Dies geschieht über das
             Feld "args". Will man die Bitbreite von außen setzen, kann man schreiben: <e>this.Bits=int(args.bitWidth);</e>.
-            Der Name des Argumentes - hier <e>bitWidth</e> ist dabei beliebig. Wenn diese Teilschaltung verwendet wird,
+            Der Name des Argumentes - hier <e>bitWidth</e> - ist dabei beliebig. Wenn diese Teilschaltung verwendet wird,
             ist dieses Argument zu setzen.
         </par>
         <par>
@@ -497,13 +497,13 @@
             sich mit einem Trick viele Schaltungen umsetzen. Erreicht wird dies, indem, abhängig von den Argumenten,
             eine Schaltung durch eine andere ersetzt wird. Zu diesem Zweck steht die Funktion <e>setCircuit([Name])</e>
             zur Verfügung. Wird sie im Definitionsteil einer Teilschaltung aufgerufen, kann die einzufügende Schaltung
-            durch eine andere ersetzt werden. Dies erlaubt die rekursive Definition einer Schaltung. Wie die in anderen
+            durch eine andere ersetzt werden. Dies erlaubt die rekursive Definition einer Schaltung. Wie in anderen
             Programmiersprachen auch, ist auf eine geeignete Abbruchbedingung zu achten.
         </par>
         <par>
-            Im Ordner <e>examples/generic</e> findet sich ein Beispiel für einen Gray-Code-Zähler, dessen Bitbreite
-            konfigurierbar ist. Hier wird ein Gray-Code-Zähler aufgebaut, indem einer initialen Schaltung rekursiv
-            weitere Bits hinzugefügt werden, bis die erforderliche Bitzahl des Zählers erreicht ist.
+            Im Ordner <e>examples/generic</e> findet sich ein Beispiel für einen Medwedew Gray-Code-Zähler, dessen
+            Bitbreite konfigurierbar ist. Hier wird ein Gray-Code-Zähler aufgebaut, indem einer initialen Schaltung
+            rekursiv weitere Bits hinzugefügt werden, bis die erforderliche Bitzahl des Zählers erreicht ist.
         </par>
     </chapter>
     <chapter heading="Häufig gestellte Fragen">
