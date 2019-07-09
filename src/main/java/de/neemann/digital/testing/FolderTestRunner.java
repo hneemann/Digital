@@ -196,10 +196,10 @@ public class FolderTestRunner {
                     if (testCases.isEmpty())
                         setMessage(f, i, Lang.get("err_noTestData"), FileToTest.Status.unknown);
                     else {
-                        Model model = new ModelCreator(circuit, library).createModel(false);
                         StringBuilder sb = new StringBuilder();
                         int rowCount = 0;
                         for (TestCase tc : testCases) {
+                            Model model = new ModelCreator(circuit, library).createModel(false);
                             try {
                                 TestExecutor te = new TestExecutor(tc.testData).create(model);
                                 if (te.allPassed()) {
