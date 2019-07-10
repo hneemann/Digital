@@ -21,9 +21,10 @@ import java.awt.*;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * Component which represents a text terminal.
  */
 public class Terminal extends Node implements Element {
-    private static final boolean HEADLESS = GraphicsEnvironment.isHeadless();
+    private static final boolean HIDE_DIALOG = GraphicsEnvironment.isHeadless() || System.getProperty("testdata") != null;
 
     /**
      * The terminal description
@@ -73,7 +74,7 @@ public class Terminal extends Node implements Element {
         boolean clockVal = clock.getBool();
         if (!lastClock && clockVal && en.getBool()) {
             long value = data.getValue();
-            if (value != 0 && !HEADLESS)
+            if (value != 0 && !HIDE_DIALOG)
                 SwingUtilities.invokeLater(() -> {
                     if (terminalDialog == null || !terminalDialog.isVisible()) {
                         terminalDialog = new TerminalDialog(getModel().getWindowPosManager().getMainFrame(), attr);

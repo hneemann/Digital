@@ -98,7 +98,7 @@
       <pos x="160" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>GrayFinal.dig</elementName>
+      <elementName>GrayFinal-inc.dig</elementName>
       <elementAttributes>
         <entry>
           <string>generic</string>
@@ -108,7 +108,7 @@ if (isPresent(args)) {
   inBits = args.inBits+1;
   bits=args.bits;
   if (args.inBits&lt;args.bits-2) {
-    setCircuit(&quot;GrayNode.dig&quot;);
+    setCircuit(&quot;GrayNode-inc.dig&quot;);
   }
 }</string>
         </entry>
