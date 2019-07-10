@@ -79,7 +79,12 @@
     </visualElement>
     <visualElement>
       <elementName>T_FF</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>this.Label=&quot;G_&quot;+args.inBits;</string>
+        </entry>
+      </elementAttributes>
       <pos x="500" y="300"/>
     </visualElement>
     <visualElement>
