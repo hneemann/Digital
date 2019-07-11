@@ -48,7 +48,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
     private HDLCircuit main;
     private Renaming renaming;
     private StatementCache statementCache = new StatementCache();
-    private int genNum;
+    private HashMap<String, GenNum> genericInstanceNumbers;
 
     /**
      * Creates a new instance
@@ -58,6 +58,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
     public HDLModel(ElementLibrary elementLibrary) {
         this.elementLibrary = elementLibrary;
         circuitMap = new HashMap<>();
+        genericInstanceNumbers = new HashMap<>();
     }
 
     /**
@@ -80,7 +81,8 @@ public class HDLModel implements Iterable<HDLCircuit> {
                     Circuit circuitCopy = degenerifyCircuit(v, circuit);
 
                     String elementName = v.getElementName();
-                    elementName = cleanName(elementName.substring(0, elementName.length() - 4) + "_gen" + (genNum++) + ".dig");
+                    GenNum num = genericInstanceNumbers.computeIfAbsent(elementName, t -> new GenNum());
+                    elementName = cleanName(elementName.substring(0, elementName.length() - 4) + "_gen" + num.getNum() + ".dig");
 
                     HDLCircuit c = new HDLCircuit(circuitCopy, elementName, this);
                     circuitMap.put(circuitCopy, c);
@@ -211,7 +213,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
     }
 
     private String cleanName(String s) {
-        return s.replace("-","_");
+        return s.replace("-", "_");
     }
 
     private Expression createOperation(ArrayList<HDLPort> inputs, ExprOperate.Operation op) {
@@ -346,6 +348,17 @@ public class HDLModel implements Iterable<HDLCircuit> {
         @Override
         public int getBits(String name) {
             return values.get(name).getBits();
+        }
+    }
+
+    private static final class GenNum {
+        private int num;
+
+        private GenNum() {
+        }
+
+        public int getNum() {
+            return num++;
         }
     }
 }

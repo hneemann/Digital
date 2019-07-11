@@ -32,7 +32,7 @@ public class TestExamples extends TestCase {
      */
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
-        assertEquals(266, new FileScanner(this::check).scan(examples));
+        assertEquals(265, new FileScanner(this::check).scan(examples));
         assertEquals(181, testCasesInFiles);
     }
 
@@ -43,8 +43,8 @@ public class TestExamples extends TestCase {
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(172, new FileScanner(this::check).scan(examples));
-        assertEquals(164, testCasesInFiles);
+        assertEquals(181, new FileScanner(this::check).scan(examples));
+        assertEquals(168, testCasesInFiles);
     }
 
     /**

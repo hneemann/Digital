@@ -342,7 +342,7 @@ public class HDLModelTest extends TestCase {
                 "    in(in:4 reads (A->2))\n" +
                 "    out(2,3:2 defines (s1->1))\n" +
                 "    s1->1 := A(3-2)\n" +
-                "  node s-inc.dig\n" +
+                "  node s_inc.dig\n" +
                 "    in(A:2 reads (s0->1), B:2 reads (s1->1))\n" +
                 "    out(C:2 defines (S->1))\n" +
                 "\n" +
