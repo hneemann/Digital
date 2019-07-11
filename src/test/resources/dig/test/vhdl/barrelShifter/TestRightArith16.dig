@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^16</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^16_in</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="32768" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sh^16</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>barrelShifter.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>16 bit, right, arith</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 16;
+dir := &quot;arith&quot;;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>rightArith16</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>D^16_in sh^16 D^16
+loop(n,16) 
+   (1&lt;&lt;14)     (n)  ((1&lt;&lt;14)&gt;&gt;n)
+end loop
+
+loop(n,16) 
+   (1&lt;&lt;15)     (n)  (-1&lt;&lt;(15-n))
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="1020"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="480" y="960"/>
+      <p2 x="740" y="960"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="980"/>
+      <p2 x="420" y="980"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="940"/>
+      <p2 x="420" y="940"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

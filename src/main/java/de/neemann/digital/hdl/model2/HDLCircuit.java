@@ -80,8 +80,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      * @throws NodeException NodeException
      */
     public HDLCircuit(Circuit circuit, String elementName, HDLModel c, HDLClockIntegrator clockIntegrator) throws PinException, HDLException, NodeException {
-        if (circuit.getAttributes().get(Keys.IS_GENERIC))
-            throw new HDLException(Lang.get("err_genericCircuitsAreNotYetSupported"));
+//        if (circuit.getAttributes().get(Keys.IS_GENERIC))
+//            throw new HDLException(Lang.get("err_genericCircuitsAreNotYetSupported"));
 
         this.elementName = elementName;
 
