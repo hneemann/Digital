@@ -25,7 +25,6 @@ import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.TreeSet;
 
 /**
@@ -36,7 +35,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
     private static final int MAX_DEPTH = 30;
     private final File file;
     private final Circuit circuit;
-    private final HashMap<String, Statement> map;
+    private final StatementCache statementCache;
     private String description;
     private NetList netList;
     private boolean isCustom = true;
@@ -53,7 +52,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
         super(file.getName(), (ElementFactory) null, circuit.getInputNames());
         this.file = file;
         this.circuit = circuit;
-        map = new HashMap<>();
+        statementCache=new StatementCache();
         setShortName(file.getName());
         addAttribute(Keys.ROTATE);
         addAttribute(Keys.LABEL);
@@ -130,10 +129,8 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
                 if (args == null) {
                     String argsCode = containingVisualElement.getElementAttributes().get(Keys.GENERIC);
                     try {
-                        Statement s = getStatement(argsCode);
+                        Statement s = statementCache.getStatement(argsCode);
                         args = new Context();
-                        if (containingVisualElement.getGenericArgs() != null)
-                            args.declareVar("args", containingVisualElement.getGenericArgs());
                         s.execute(args);
                     } catch (HGSEvalException | ParserException | IOException e) {
                         final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", containingVisualElement, argsCode), e);
@@ -150,7 +147,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
                 try {
                     if (!gen.isEmpty()) {
                         boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
-                        Statement genS = getStatement(gen);
+                        Statement genS = statementCache.getStatement(gen);
                         if (isCustom) {
                             Context mod = new Context()
                                     .declareVar("args", args)
@@ -180,15 +177,6 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
             return new ModelCreator(c, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
         } else
             return new ModelCreator(circuit, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
-    }
-
-    private Statement getStatement(String code) throws IOException, ParserException {
-        Statement genS = map.get(code);
-        if (genS == null) {
-            genS = new Parser(code).parse(false);
-            map.put(code, genS);
-        }
-        return genS;
     }
 
     @Override
