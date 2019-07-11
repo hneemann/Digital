@@ -28,6 +28,12 @@
           <string>intFormat</string>
           <intFormat>bin</intFormat>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+  this.Bits=int(args.dataBits);
+}</string>
+        </entry>
       </elementAttributes>
       <pos x="500" y="140"/>
     </visualElement>
@@ -46,6 +52,12 @@
           <string>intFormat</string>
           <intFormat>bin</intFormat>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+  this.Bits=int(args.dataBits);
+}</string>
+        </entry>
       </elementAttributes>
       <pos x="400" y="120"/>
     </visualElement>
@@ -59,6 +71,12 @@
         <entry>
           <string>Bits</string>
           <int>4</int>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+  this.Bits=bitsNeededFor(args.dataBits-1);
+}</string>
         </entry>
       </elementAttributes>
       <pos x="400" y="160"/>

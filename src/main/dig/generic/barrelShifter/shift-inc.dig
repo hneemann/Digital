@@ -49,6 +49,12 @@ if (isPresent(args)) {
           <string>intFormat</string>
           <intFormat>bin</intFormat>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+  this.Bits=int(args.dataBits);
+}</string>
+        </entry>
       </elementAttributes>
       <pos x="540" y="140"/>
     </visualElement>
@@ -67,6 +73,12 @@ if (isPresent(args)) {
           <string>intFormat</string>
           <intFormat>bin</intFormat>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+  this.Bits=int(args.dataBits);
+}</string>
+        </entry>
       </elementAttributes>
       <pos x="180" y="100"/>
     </visualElement>
@@ -80,6 +92,12 @@ if (isPresent(args)) {
         <entry>
           <string>Bits</string>
           <int>4</int>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+  this.Bits=int(args.shiftBits);
+}</string>
         </entry>
       </elementAttributes>
       <pos x="180" y="140"/>
@@ -96,8 +114,23 @@ if (isPresent(args)) {
   dataBits = args.dataBits;
   shiftBits = args.shiftBits-1;
   dir=args.dir;
-  if (args.shiftBits=1) {
-    setCircuit(&quot;shift-nop-inc.dig&quot;);
+  if (args.shiftBits=2) {
+
+    export shift := 1;
+    if (args.dir=&quot;right&quot;) {
+        setCircuit(&quot;shift-fixed-right-inc.dig&quot;);
+    } else {
+        if (args.dir=&quot;arith&quot;) {
+            setCircuit(&quot;shift-fixed-arith-right-inc.dig&quot;);
+        } else {
+            if (args.dir!=&quot;left&quot;) {
+                panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.dir+&quot;\&quot;!&quot;);
+            }
+            setCircuit(&quot;shift-fixed-left-inc.dig&quot;);
+        }
+    }
+
+
   }
 }</string>
         </entry>
