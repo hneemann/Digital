@@ -12,10 +12,17 @@ import java.io.File;
 public class SaveAsHelperTest extends TestCase {
 
     public void testCheckSuffix() {
+        assertEquals("test.dig", SaveAsHelper.checkSuffix(new File("test."), "dig").getName());
+        assertEquals("test.dig", SaveAsHelper.checkSuffix(new File("test"), "dig").getName());
+
         assertEquals("test.dig", SaveAsHelper.checkSuffix(new File("test.dig"), "dig").getName());
         assertEquals("test.dig", SaveAsHelper.checkSuffix(new File("test.svg"), "dig").getName());
         assertEquals("test.main.dig", SaveAsHelper.checkSuffix(new File("test.main"), "dig").getName());
         assertEquals("test.main.dig", SaveAsHelper.checkSuffix(new File("test.main.dig"), "dig").getName());
-        assertEquals("test.dig", SaveAsHelper.checkSuffix(new File("test.mai"), "dig").getName());
+        assertEquals("test.mai.dig", SaveAsHelper.checkSuffix(new File("test.mai"), "dig").getName());
+
+        assertEquals("test.dig", SaveAsHelper.checkSuffix(new File("test.v"), "dig").getName());
+        assertEquals("test.dig", SaveAsHelper.checkSuffix(new File("test.vhdl"), "dig").getName());
+
     }
 }
