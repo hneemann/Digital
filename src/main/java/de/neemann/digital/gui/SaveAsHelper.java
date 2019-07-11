@@ -22,11 +22,12 @@ public final class SaveAsHelper {
 
     static {
         KNOWN.add("dig");
+        KNOWN.add("fsm");
+        KNOWN.add("hex");
+        KNOWN.add("tru");
         KNOWN.add("svg");
         KNOWN.add("vhdl");
         KNOWN.add("v");
-        KNOWN.add("hex");
-        KNOWN.add("tru");
         KNOWN.add("csv");
         KNOWN.add("gif");
         KNOWN.add("png");
