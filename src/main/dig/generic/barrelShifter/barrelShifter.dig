@@ -70,7 +70,9 @@
           <string>generic</string>
           <string>dataBits:=16;
 shiftBits:=int(4);
+dir:=&quot;left&quot;;
 if (isPresent(args)) {
+  dir=args.dir;
   dataBits=args.dataBits;
   shiftBits=bitsNeededFor(args.dataBits-1);
 }</string>
