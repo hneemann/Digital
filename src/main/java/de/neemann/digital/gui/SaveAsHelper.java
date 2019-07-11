@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.gui;
 
-import de.neemann.digital.analyse.quinemc.TableRows;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 
@@ -17,7 +16,6 @@ import java.util.HashSet;
 
 /**
  * Helper to handle the overwrite conformation
- * <p>
  */
 public final class SaveAsHelper {
     private static final HashSet<String> KNOWN = new HashSet<>();
