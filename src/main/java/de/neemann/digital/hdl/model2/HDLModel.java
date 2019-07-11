@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.hdl.model2;
 
-import de.neemann.digital.analyse.SubstituteLibrary;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.basic.*;
@@ -23,17 +22,10 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
-import de.neemann.digital.draw.library.StatementCache;
-import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.HGSEvalException;
-import de.neemann.digital.hdl.hgs.ParserException;
-import de.neemann.digital.hdl.hgs.Statement;
-import de.neemann.digital.hdl.hgs.function.Function;
+import de.neemann.digital.draw.library.ResolveGenerics;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.*;
-import de.neemann.digital.lang.Lang;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,7 +39,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
     private HashMap<Circuit, HDLCircuit> circuitMap;
     private HDLCircuit main;
     private Renaming renaming;
-    private StatementCache statementCache = new StatementCache();
+    private ResolveGenerics resolveGenerics = new ResolveGenerics();
     private HashMap<String, GenNum> genericInstanceNumbers;
 
     /**
@@ -78,7 +70,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
                 final Circuit circuit = tdc.getCircuit();
                 if (circuit.getAttributes().get(Keys.IS_GENERIC)) {
 
-                    Circuit circuitCopy = degenerifyCircuit(v, circuit);
+                    Circuit circuitCopy = resolveGenerics.resolveCircuit(v, circuit, elementLibrary);
 
                     String elementName = v.getElementName();
                     GenNum num = genericInstanceNumbers.computeIfAbsent(elementName, t -> new GenNum());
@@ -159,57 +151,6 @@ public class HDLModel implements Iterable<HDLCircuit> {
         } catch (ElementNotFoundException | PinException | NodeException e) {
             throw new HDLException("error creating node", e);
         }
-    }
-
-    private Circuit degenerifyCircuit(VisualElement v, Circuit circuit) throws NodeException, ElementNotFoundException {
-        Context args = v.getGenericArgs();
-        if (args == null) {
-            String argsCode = v.getElementAttributes().get(Keys.GENERIC);
-            try {
-                Statement s = statementCache.getStatement(argsCode);
-                args = new Context();
-                s.execute(args);
-            } catch (HGSEvalException | ParserException | IOException e) {
-                final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", v, argsCode), e);
-                ex.setOrigin(circuit.getOrigin());
-                throw ex;
-            }
-        }
-
-        Circuit circuitCopy = circuit.createDeepCopy();
-        for (VisualElement ve : circuitCopy.getElements()) {
-            String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();
-            try {
-                if (!gen.isEmpty()) {
-                    boolean isCustom = elementLibrary.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
-                    Statement genS = statementCache.getStatement(gen);
-                    if (isCustom) {
-                        Context mod = new Context()
-                                .declareVar("args", args)
-                                .declareFunc("setCircuit", new Function(1) {
-                                    @Override
-                                    protected Object f(Object... args) {
-                                        ve.setElementName(args[0].toString());
-                                        return null;
-                                    }
-                                });
-                        genS.execute(mod);
-                        ve.setGenericArgs(mod);
-                    } else {
-                        Context mod = new Context()
-                                .declareVar("args", args)
-                                .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
-                        genS.execute(mod);
-                    }
-                }
-            } catch (HGSEvalException | ParserException | IOException e) {
-                final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
-                ex.setOrigin(circuit.getOrigin());
-                throw ex;
-            }
-        }
-        circuitCopy.getAttributes().set(Keys.IS_GENERIC, false);
-        return circuitCopy;
     }
 
     private String cleanName(String s) {

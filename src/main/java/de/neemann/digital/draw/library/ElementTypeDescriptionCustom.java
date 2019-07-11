@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.library;
 
-import de.neemann.digital.analyse.SubstituteLibrary;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementFactory;
@@ -16,8 +15,8 @@ import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.model.NetList;
-import de.neemann.digital.hdl.hgs.*;
-import de.neemann.digital.hdl.hgs.function.Function;
+import de.neemann.digital.hdl.hgs.Parser;
+import de.neemann.digital.hdl.hgs.ParserException;
 import de.neemann.digital.hdl.hgs.refs.Reference;
 import de.neemann.digital.hdl.hgs.refs.ReferenceToStruct;
 import de.neemann.digital.hdl.hgs.refs.ReferenceToVar;
@@ -35,7 +34,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
     private static final int MAX_DEPTH = 30;
     private final File file;
     private final Circuit circuit;
-    private final StatementCache statementCache;
+    private final ResolveGenerics resolveGenerics;
     private String description;
     private NetList netList;
     private boolean isCustom = true;
@@ -52,7 +51,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
         super(file.getName(), (ElementFactory) null, circuit.getInputNames());
         this.file = file;
         this.circuit = circuit;
-        statementCache=new StatementCache();
+        resolveGenerics = new ResolveGenerics();
         setShortName(file.getName());
         addAttribute(Keys.ROTATE);
         addAttribute(Keys.LABEL);
@@ -123,56 +122,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
             throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
 
         if (isGeneric()) {
-            Context args;
-            if (containingVisualElement != null) {
-                args = containingVisualElement.getGenericArgs();
-                if (args == null) {
-                    String argsCode = containingVisualElement.getElementAttributes().get(Keys.GENERIC);
-                    try {
-                        Statement s = statementCache.getStatement(argsCode);
-                        args = new Context();
-                        s.execute(args);
-                    } catch (HGSEvalException | ParserException | IOException e) {
-                        final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", containingVisualElement, argsCode), e);
-                        ex.setOrigin(circuit.getOrigin());
-                        throw ex;
-                    }
-                }
-            } else
-                args = new Context();
-
-            Circuit c = circuit.createDeepCopy();
-            for (VisualElement ve : c.getElements()) {
-                String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();
-                try {
-                    if (!gen.isEmpty()) {
-                        boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
-                        Statement genS = statementCache.getStatement(gen);
-                        if (isCustom) {
-                            Context mod = new Context()
-                                    .declareVar("args", args)
-                                    .declareFunc("setCircuit", new Function(1) {
-                                        @Override
-                                        protected Object f(Object... args) {
-                                            ve.setElementName(args[0].toString());
-                                            return null;
-                                        }
-                                    });
-                            genS.execute(mod);
-                            ve.setGenericArgs(mod);
-                        } else {
-                            Context mod = new Context()
-                                    .declareVar("args", args)
-                                    .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
-                            genS.execute(mod);
-                        }
-                    }
-                } catch (HGSEvalException | ParserException | IOException e) {
-                    final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
-                    ex.setOrigin(circuit.getOrigin());
-                    throw ex;
-                }
-            }
+            Circuit c = resolveGenerics.resolveCircuit(containingVisualElement, circuit, library);
 
             return new ModelCreator(c, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
         } else
