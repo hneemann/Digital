@@ -13,12 +13,13 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>dataBits:=16;
-shift:=8;
-if (isPresent(args)) {
-    dataBits = args.dataBits;
-    shift = 1&lt;&lt;(args.shiftBits-1);
+          <string>if (isPresent(args)) {
+    export shift := 1&lt;&lt;(args.shiftBits-1);
     setCircuit(args.circuit);
+} else {
+    // used if circuit is started as the main circuit
+    export dataBits:=16;
+    export shift:=8;
 }</string>
         </entry>
       </elementAttributes>
@@ -97,18 +98,18 @@ if (isPresent(args)) {
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>dataBits:=16;
-shiftBits:=3;
-circuit:=&quot;shift-fixed-left-inc.dig&quot;;
-if (isPresent(args)) {
-    dataBits = args.dataBits;
+          <string>if (isPresent(args)) {
     if (args.shiftBits=2) {
        export shift := 1;
        setCircuit(args.circuit);
     } else {
-        shiftBits = args.shiftBits-1;
-        circuit=args.circuit;
+        export shiftBits := args.shiftBits-1;
     }
+} else {
+    // used if circuit is started as the main circuit
+    export dataBits:=16;
+    export shiftBits:=3;
+    export circuit:=&quot;shift-fixed-left-inc.dig&quot;;
 }</string>
         </entry>
       </elementAttributes>

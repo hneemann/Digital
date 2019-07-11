@@ -175,7 +175,7 @@ public class Parser {
                             return lino(c -> ref.declareVar(c, initVal.value(c)));
                     case EQUAL:
                         if (export)
-                            throw newParserException("export not allowed here!");
+                            throw newParserException("export is only allowed at variable declaration!");
                         final Expression val = parseExpression();
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> {
@@ -187,18 +187,18 @@ public class Parser {
                     case ADD:
                         expect(ADD);
                         if (export)
-                            throw newParserException("export not allowed here!");
+                            throw newParserException("export is only allowed at variable declaration!");
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.set(c, Value.toLong(ref.get(c)) + 1));
                     case SUB:
                         expect(SUB);
                         if (export)
-                            throw newParserException("export not allowed here!");
+                            throw newParserException("export is only allowed at variable declaration!");
                         if (isRealStatement) expect(SEMICOLON);
                         return lino(c -> ref.set(c, Value.toLong(ref.get(c)) - 1));
                     case SEMICOLON:
                         if (export)
-                            throw newParserException("export not allowed here!");
+                            throw newParserException("export is only allowed at variable declaration!");
                         return lino(ref::get);
                     default:
                         throw newUnexpectedToken(refToken);

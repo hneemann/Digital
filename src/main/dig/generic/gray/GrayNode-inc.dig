@@ -107,14 +107,13 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>inBits:=3;
-bits:=4;
-if (isPresent(args)) {
-  inBits = args.inBits+1;
-  bits=args.bits;
+          <string>if (isPresent(args)) {
+  export inBits := args.inBits+1;
   if (args.inBits&lt;args.bits-2) {
     setCircuit(&quot;GrayNode-inc.dig&quot;);
   }
+} else {
+  export inBits:=3;
 }</string>
         </entry>
       </elementAttributes>

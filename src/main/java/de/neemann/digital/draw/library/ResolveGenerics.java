@@ -69,7 +69,7 @@ public class ResolveGenerics {
                     Statement genS = getStatement(gen);
                     if (isCustom) {
                         Context mod = new Context()
-                                .declareVar("args", args)
+                                .declareVar("args", new ArgsGetter(args))
                                 .declareFunc("setCircuit", new Function(1) {
                                     @Override
                                     protected Object f(Object... args) {
@@ -81,7 +81,7 @@ public class ResolveGenerics {
                         ve.setGenericArgs(mod);
                     } else {
                         Context mod = new Context()
-                                .declareVar("args", args)
+                                .declareVar("args", new ArgsGetter(args))
                                 .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
                         genS.execute(mod);
                     }
@@ -104,4 +104,23 @@ public class ResolveGenerics {
         return genS;
     }
 
+    private static final class ArgsGetter implements HGSMap {
+        private final Context args;
+
+        private ArgsGetter(Context args) {
+            this.args = args;
+        }
+
+        @Override
+        public Object hgsMapGet(String key) throws HGSEvalException {
+            Object v = args.hgsMapGet(key);
+            if (v == null) {
+                Object a = args.hgsMapGet("args");
+                if (a instanceof HGSMap) {
+                    return ((HGSMap) a).hgsMapGet(key);
+                }
+            }
+            return v;
+        }
+    }
 }

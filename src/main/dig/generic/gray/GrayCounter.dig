@@ -138,9 +138,7 @@ ist als drei.}}</string>
         <entry>
           <string>generic</string>
           <string>inBits:=2;
-bits:=3;
 if (isPresent(args)) {
-  bits=args.bits;
   if (args.bits&gt;3) {
     setCircuit(&quot;GrayNode-inc.dig&quot;);
   }
