@@ -18,17 +18,7 @@ shift:=8;
 if (isPresent(args)) {
     dataBits = args.dataBits;
     shift = 1&lt;&lt;(args.shiftBits-1);
-    if (args.dir=&quot;right&quot;) {
-        setCircuit(&quot;shift-fixed-right-inc.dig&quot;);
-    } else {
-        if (args.dir=&quot;arith&quot;) {
-            setCircuit(&quot;shift-fixed-arith-right-inc.dig&quot;);
-        } else {
-            if (args.dir!=&quot;left&quot;) {
-                panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.dir+&quot;\&quot;!&quot;);
-            }
-        }
-    }
+    setCircuit(args.circuit);
 }</string>
         </entry>
       </elementAttributes>
@@ -109,29 +99,16 @@ if (isPresent(args)) {
           <string>generic</string>
           <string>dataBits:=16;
 shiftBits:=3;
-dir:=&quot;left&quot;;
+circuit:=&quot;shift-fixed-left-inc.dig&quot;;
 if (isPresent(args)) {
-  dataBits = args.dataBits;
-  shiftBits = args.shiftBits-1;
-  dir=args.dir;
-  if (args.shiftBits=2) {
-
-    export shift := 1;
-    if (args.dir=&quot;right&quot;) {
-        setCircuit(&quot;shift-fixed-right-inc.dig&quot;);
+    dataBits = args.dataBits;
+    if (args.shiftBits=2) {
+       export shift := 1;
+       setCircuit(args.circuit);
     } else {
-        if (args.dir=&quot;arith&quot;) {
-            setCircuit(&quot;shift-fixed-arith-right-inc.dig&quot;);
-        } else {
-            if (args.dir!=&quot;left&quot;) {
-                panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.dir+&quot;\&quot;!&quot;);
-            }
-            setCircuit(&quot;shift-fixed-left-inc.dig&quot;);
-        }
+        shiftBits = args.shiftBits-1;
+        circuit=args.circuit;
     }
-
-
-  }
 }</string>
         </entry>
       </elementAttributes>

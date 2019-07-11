@@ -88,11 +88,23 @@
           <string>generic</string>
           <string>dataBits:=16;
 shiftBits:=int(4);
-dir:=&quot;left&quot;;
+circuit:=&quot;shift-fixed-left-inc.dig&quot;;
 if (isPresent(args)) {
-  dir=args.dir;
-  dataBits=args.dataBits;
-  shiftBits=bitsNeededFor(args.dataBits-1);
+
+    if (args.dir=&quot;right&quot;) {
+        circuit=&quot;shift-fixed-right-inc.dig&quot;;
+    } else {
+        if (args.dir=&quot;arith&quot;) {
+            circuit=&quot;shift-fixed-arith-right-inc.dig&quot;;
+        } else {
+            if (args.dir!=&quot;left&quot;) {
+                panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.dir+&quot;\&quot;!&quot;);
+            }
+        }
+    }
+
+    dataBits=args.dataBits;
+    shiftBits=bitsNeededFor(args.dataBits-1);
 }</string>
         </entry>
       </elementAttributes>

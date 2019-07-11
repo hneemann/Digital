@@ -19,7 +19,7 @@
           <intFormat>bin</intFormat>
         </entry>
       </elementAttributes>
-      <pos x="740" y="140"/>
+      <pos x="740" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -41,7 +41,7 @@
           <value v="1" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="160" y="120"/>
+      <pos x="160" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -55,7 +55,7 @@
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="380" y="160"/>
+      <pos x="380" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>barrelShifter.dig</elementName>
@@ -70,7 +70,7 @@
 dir := &quot;left&quot;;</string>
         </entry>
       </elementAttributes>
-      <pos x="420" y="120"/>
+      <pos x="420" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -162,7 +162,7 @@ end loop</dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="580" y="200"/>
+      <pos x="580" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -374,16 +374,20 @@ end loop</dataString>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="380" y="160"/>
-      <p2 x="420" y="160"/>
-    </wire>
-    <wire>
       <p1 x="160" y="400"/>
       <p2 x="420" y="400"/>
     </wire>
     <wire>
       <p1 x="480" y="960"/>
       <p2 x="740" y="960"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="160"/>
+      <p2 x="740" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="180"/>
+      <p2 x="420" y="180"/>
     </wire>
     <wire>
       <p1 x="480" y="420"/>
@@ -402,16 +406,12 @@ end loop</dataString>
       <p2 x="420" y="440"/>
     </wire>
     <wire>
-      <p1 x="160" y="120"/>
-      <p2 x="420" y="120"/>
-    </wire>
-    <wire>
       <p1 x="480" y="680"/>
       <p2 x="740" y="680"/>
     </wire>
     <wire>
-      <p1 x="480" y="140"/>
-      <p2 x="740" y="140"/>
+      <p1 x="160" y="140"/>
+      <p2 x="420" y="140"/>
     </wire>
     <wire>
       <p1 x="380" y="700"/>
