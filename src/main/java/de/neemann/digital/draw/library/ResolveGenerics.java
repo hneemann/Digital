@@ -55,13 +55,7 @@ public class ResolveGenerics {
                     if (isCustom) {
                         Context mod = new Context()
                                 .declareVar("args", args)
-                                .declareFunc("setCircuit", new Function(1) {
-                                    @Override
-                                    protected Object f(Object... args) {
-                                        ve.setElementName(args[0].toString());
-                                        return null;
-                                    }
-                                });
+                                .declareFunc("setCircuit", new SetCircuitFunc(ve));
                         genS.execute(mod);
                         ve.setGenericArgs(mod);
                     } else {
@@ -172,6 +166,33 @@ public class ResolveGenerics {
          */
         public Args getArgs() {
             return args;
+        }
+    }
+
+    private static final class SetCircuitFunc extends Function {
+        private final VisualElement ve;
+
+        private  SetCircuitFunc(VisualElement ve) {
+            super(1);
+            this.ve = ve;
+        }
+
+        @Override
+        protected Object f(Object... args) {
+            ve.setElementName(args[0].toString());
+            return null;
+        }
+
+        // All setCircuit functions are considered identical.
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            return o != null && getClass() == o.getClass();
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
         }
     }
 }
