@@ -6,6 +6,7 @@
 package de.neemann.digital.integration;
 
 import java.io.File;
+import java.net.URISyntaxException;
 
 /**
  */

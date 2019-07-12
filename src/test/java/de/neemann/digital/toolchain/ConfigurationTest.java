@@ -100,7 +100,7 @@ public class ConfigurationTest extends TestCase {
 
         assertEquals(4, fileWriter.files.size());
         assertEquals("deal with {?=path?}", fileWriter.files.get("z/file1").toString());
-        assertEquals("deal with z/test.dig, Bits: 1 (A)", fileWriter.files.get("z/file2").toString());
+        assertEquals("deal with z/test.dig, Bits: 1 (A)", fileWriter.files.get("z/file2").toString().replace('\\', '/'));
         assertEquals("test", fileWriter.files.get("z/test.z").toString());
     }
 
@@ -112,7 +112,7 @@ public class ConfigurationTest extends TestCase {
         @Override
         public OutputStream getOutputStream(File filename) {
             final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            files.put(filename.getPath(), baos);
+            files.put(filename.getPath().replace('\\', '/'), baos);
             return baos;
         }
 
