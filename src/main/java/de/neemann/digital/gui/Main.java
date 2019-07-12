@@ -591,7 +591,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 // check model for errors
                 try {
                     new ModelCreator(circuitComponent.getCircuit(), library).createModel(false).close();
-                } catch (PinException | NodeException | ElementNotFoundException e) {
+                } catch (PinException | NodeException | ElementNotFoundException | RuntimeException e) {
                     showErrorWithoutARunningModel(Lang.get("msg_modelHasErrors"), e);
                     return;
                 }
