@@ -16,12 +16,11 @@ public class HDLNodeCustom extends HDLNodeBuildIn {
     /**
      * Creates a new instance
      *
-     * @param elementName       the elements name
      * @param elementAttributes the attributes
      * @param hdlCircuit        the circuit to use to create this node
      */
-    HDLNodeCustom(String elementName, ElementAttributes elementAttributes, HDLCircuit hdlCircuit) {
-        super(elementName, elementAttributes, hdlCircuit);
+    HDLNodeCustom(ElementAttributes elementAttributes, HDLCircuit hdlCircuit) {
+        super(hdlCircuit.getElementName(), elementAttributes, hdlCircuit);
         this.hdlCircuit = hdlCircuit;
     }
 

@@ -40,7 +40,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
     private HDLCircuit main;
     private Renaming renaming;
     private ResolveGenerics resolveGenerics = new ResolveGenerics();
-    private HashMap<String, GenNum> genericInstanceNumbers;
+    private HashMap<String, GenericsCache> genericInstanceNumbers;
 
     /**
      * Creates a new instance
@@ -69,17 +69,21 @@ public class HDLModel implements Iterable<HDLCircuit> {
 
                 final Circuit circuit = tdc.getCircuit();
                 if (circuit.getAttributes().get(Keys.IS_GENERIC)) {
+                    ResolveGenerics.CircuitHolder holder = resolveGenerics.resolveCircuit(v, circuit, elementLibrary);
 
-                    Circuit circuitCopy = resolveGenerics.resolveCircuit(v, circuit, elementLibrary);
+                    GenericsCache cache = genericInstanceNumbers.computeIfAbsent(v.getElementName(), t -> new GenericsCache());
 
-                    String elementName = v.getElementName();
-                    GenNum num = genericInstanceNumbers.computeIfAbsent(elementName, t -> new GenNum());
-                    elementName = cleanName(elementName.substring(0, elementName.length() - 4) + "_gen" + num.getNum() + ".dig");
+                    HDLCircuit c = cache.getHDLCircuit(holder.getArgs());
+                    if (c == null) {
+                        String elementName = v.getElementName();
+                        elementName = cleanName(elementName.substring(0, elementName.length() - 4) + "_gen" + cache.getNum() + ".dig");
+                        c = new HDLCircuit(holder.getCircuit(), elementName, this);
+                        cache.addHDLCircuit(c, holder.getArgs());
+                        circuitMap.put(holder.getCircuit(), c);
+                    }
 
-                    HDLCircuit c = new HDLCircuit(circuitCopy, elementName, this);
-                    circuitMap.put(circuitCopy, c);
                     return addInputsOutputs(
-                            new HDLNodeCustom(elementName, v.getElementAttributes(), c),
+                            new HDLNodeCustom(v.getElementAttributes(), c),
                             v, parent).createExpressions();
 
                 } else {
@@ -91,7 +95,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
                     }
 
                     return addInputsOutputs(
-                            new HDLNodeCustom(elementName, v.getElementAttributes(), c),
+                            new HDLNodeCustom(v.getElementAttributes(), c),
                             v, parent).createExpressions();
                 }
 
@@ -292,14 +296,24 @@ public class HDLModel implements Iterable<HDLCircuit> {
         }
     }
 
-    private static final class GenNum {
+    private static final class GenericsCache {
         private int num;
+        private HashMap<ResolveGenerics.Args, HDLCircuit> map;
 
-        private GenNum() {
+        private GenericsCache() {
+            map = new HashMap<>();
         }
 
-        public int getNum() {
+        private int getNum() {
             return num++;
+        }
+
+        private HDLCircuit getHDLCircuit(ResolveGenerics.Args args) {
+            return map.get(args);
+        }
+
+        private void addHDLCircuit(HDLCircuit c, ResolveGenerics.Args args) {
+            map.put(args, c);
         }
     }
 }

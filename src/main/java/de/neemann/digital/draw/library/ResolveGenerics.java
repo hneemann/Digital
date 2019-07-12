@@ -16,6 +16,7 @@ import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Resolves a generic circuit and makes it non generic
@@ -41,24 +42,8 @@ public class ResolveGenerics {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public Circuit resolveCircuit(VisualElement visualElement, Circuit circuit, LibraryInterface library) throws NodeException, ElementNotFoundException {
-        Context args;
-        if (visualElement != null) {
-            args = visualElement.getGenericArgs();
-            if (args == null) {
-                String argsCode = visualElement.getElementAttributes().get(Keys.GENERIC);
-                try {
-                    Statement s = getStatement(argsCode);
-                    args = new Context();
-                    s.execute(args);
-                } catch (HGSEvalException | ParserException | IOException e) {
-                    final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", visualElement, argsCode), e);
-                    ex.setOrigin(circuit.getOrigin());
-                    throw ex;
-                }
-            }
-        } else
-            args = new Context();
+    public CircuitHolder resolveCircuit(VisualElement visualElement, Circuit circuit, LibraryInterface library) throws NodeException, ElementNotFoundException {
+        final Args args = createArgs(visualElement, circuit);
 
         Circuit c = circuit.createDeepCopy();
         for (VisualElement ve : c.getElements()) {
@@ -69,7 +54,7 @@ public class ResolveGenerics {
                     Statement genS = getStatement(gen);
                     if (isCustom) {
                         Context mod = new Context()
-                                .declareVar("args", new ArgsGetter(args))
+                                .declareVar("args", args)
                                 .declareFunc("setCircuit", new Function(1) {
                                     @Override
                                     protected Object f(Object... args) {
@@ -81,7 +66,7 @@ public class ResolveGenerics {
                         ve.setGenericArgs(mod);
                     } else {
                         Context mod = new Context()
-                                .declareVar("args", new ArgsGetter(args))
+                                .declareVar("args", args)
                                 .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
                         genS.execute(mod);
                     }
@@ -92,7 +77,29 @@ public class ResolveGenerics {
                 throw ex;
             }
         }
-        return c;
+        return new CircuitHolder(c, args);
+    }
+
+    private Args createArgs(VisualElement visualElement, Circuit circuit) throws NodeException {
+        Context context;
+        if (visualElement != null) {
+            context = visualElement.getGenericArgs();
+            if (context == null) {
+                String argsCode = visualElement.getElementAttributes().get(Keys.GENERIC);
+                try {
+                    Statement s = getStatement(argsCode);
+                    context = new Context();
+                    s.execute(context);
+                } catch (HGSEvalException | ParserException | IOException e) {
+                    final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", visualElement, argsCode), e);
+                    ex.setOrigin(circuit.getOrigin());
+                    throw ex;
+                }
+            }
+        } else
+            context = new Context();
+
+        return new Args(context);
     }
 
     private Statement getStatement(String code) throws IOException, ParserException {
@@ -104,10 +111,14 @@ public class ResolveGenerics {
         return genS;
     }
 
-    private static final class ArgsGetter implements HGSMap {
+    /**
+     * Holds the args of a circuit.
+     * Implements the access to the parents args values.
+     */
+    public static final class Args implements HGSMap {
         private final Context args;
 
-        private ArgsGetter(Context args) {
+        private Args(Context args) {
             this.args = args;
         }
 
@@ -121,6 +132,46 @@ public class ResolveGenerics {
                 }
             }
             return v;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Args that = (Args) o;
+            return args.equals(that.args);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(args);
+        }
+    }
+
+    /**
+     * Holds the circuit and the args that created that circuit.
+     */
+    public static final class CircuitHolder {
+        private final Circuit circuit;
+        private final Args args;
+
+        private CircuitHolder(Circuit circuit, Args args) {
+            this.circuit = circuit;
+            this.args = args;
+        }
+
+        /**
+         * @return teturns the created circuit
+         */
+        public Circuit getCircuit() {
+            return circuit;
+        }
+
+        /**
+         * @return the args that created the circuit
+         */
+        public Args getArgs() {
+            return args;
         }
     }
 }

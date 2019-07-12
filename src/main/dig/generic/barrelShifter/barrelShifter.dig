@@ -88,13 +88,13 @@
           <string>generic</string>
           <string>if (isPresent(args)) {
 
-    if (args.dir=&quot;right&quot;) {
+    if (args.direction=&quot;right&quot;) {
         export circuit:=&quot;shift-fixed-right-inc.dig&quot;;
     } else {
-        if (args.dir=&quot;arith&quot;) {
+        if (args.direction=&quot;arith&quot;) {
             export circuit:=&quot;shift-fixed-arith-right-inc.dig&quot;;
         } else {
-            if (args.dir=&quot;left&quot;) {
+            if (args.direction=&quot;left&quot;) {
                 export circuit:=&quot;shift-fixed-left-inc.dig&quot;;
             } else {
                 panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.dir+&quot;\&quot;!&quot;);

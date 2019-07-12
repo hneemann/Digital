@@ -67,7 +67,7 @@
         <entry>
           <string>generic</string>
           <string>dataBits := 32;
-dir := &quot;left&quot;;</string>
+direction := &quot;left&quot;;</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="140"/>
@@ -136,7 +136,7 @@ dir := &quot;left&quot;;</string>
         <entry>
           <string>generic</string>
           <string>dataBits := 8;
-dir := &quot;left&quot;;</string>
+direction := &quot;left&quot;;</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="400"/>
@@ -251,7 +251,7 @@ end loop</dataString>
         <entry>
           <string>generic</string>
           <string>dataBits := 8;
-dir := &quot;right&quot;;</string>
+direction := &quot;right&quot;;</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="660"/>
@@ -343,7 +343,7 @@ end loop</dataString>
         <entry>
           <string>generic</string>
           <string>dataBits := 16;
-dir := &quot;arith&quot;;</string>
+direction := &quot;arith&quot;;</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="940"/>

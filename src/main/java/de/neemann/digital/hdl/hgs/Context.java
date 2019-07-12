@@ -13,10 +13,7 @@ import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * The evaluation context
@@ -574,4 +571,17 @@ public class Context implements HGSMap {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Context context = (Context) o;
+        return Objects.equals(parent, context.parent)
+                && map.equals(context.map);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parent, map);
+    }
 }

@@ -122,7 +122,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
             throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
 
         if (isGeneric()) {
-            Circuit c = resolveGenerics.resolveCircuit(containingVisualElement, circuit, library);
+            Circuit c = resolveGenerics.resolveCircuit(containingVisualElement, circuit, library).getCircuit();
 
             return new ModelCreator(c, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
         } else
