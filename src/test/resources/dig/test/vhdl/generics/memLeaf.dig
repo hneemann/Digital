@@ -45,6 +45,10 @@
           <string>Label</string>
           <string>D_in</string>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Bits=int(args.dataBits);</string>
+        </entry>
       </elementAttributes>
       <pos x="340" y="140"/>
     </visualElement>
@@ -74,6 +78,10 @@
         <entry>
           <string>Label</string>
           <string>D_Out</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Bits=int(args.dataBits);</string>
         </entry>
       </elementAttributes>
       <pos x="720" y="180"/>

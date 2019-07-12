@@ -15,6 +15,12 @@
           <string>Label</string>
           <string>D_in</string>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+    this.Bits=int(args.dataBits);
+}</string>
+        </entry>
       </elementAttributes>
       <pos x="240" y="140"/>
     </visualElement>
@@ -28,6 +34,12 @@
         <entry>
           <string>Bits</string>
           <int>2</int>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+    this.Bits=int(args.addrBits);
+}</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="300"/>
@@ -48,6 +60,12 @@
         <entry>
           <string>Label</string>
           <string>D_Out</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>if (isPresent(args)) {
+    this.Bits=int(args.dataBits);
+}</string>
         </entry>
       </elementAttributes>
       <pos x="680" y="200"/>
@@ -123,7 +141,6 @@
         <entry>
           <string>generic</string>
           <string>if (isPresent(args)) {
-  export dataBits:=args.dataBits;
   export addrBits:=args.addrBits-1;
   if (args.addrBits&gt;2) {
     setCircuit(&quot;memNode.dig&quot;);
@@ -141,7 +158,6 @@
         <entry>
           <string>generic</string>
           <string>if (isPresent(args)) {
-  export dataBits:=args.dataBits;
   export addrBits:=args.addrBits-1;
   if (args.addrBits&gt;2) {
     setCircuit(&quot;memNode.dig&quot;);
