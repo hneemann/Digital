@@ -5,12 +5,13 @@
  */
 package de.neemann.digital.core.memory;
 
-import de.neemann.digital.core.memory.importer.DataFieldValueArray;
 import de.neemann.digital.core.memory.importer.LogisimReader;
 import de.neemann.digital.core.memory.importer.ValueArray;
 import junit.framework.TestCase;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Arrays;
 
 /**
@@ -149,7 +150,7 @@ public class DataFieldTest extends TestCase {
         });
         readData.trim();
 
-        assertTrue(Arrays.equals(data.getData(), readData.getData()));
+        assertEquals(true, Arrays.equals(data.getData(), readData.getData()));
     }
 
 }

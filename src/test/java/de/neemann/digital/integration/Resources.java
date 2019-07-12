@@ -9,22 +9,34 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 /**
+ * Helper to locate the resources
  */
 public class Resources {
 
     private static final class InstanceHolder {
-        static final File FILE = createFile();
-        private static final String PATH = "/home/hneemann/Dokumente/Java/digital/src/test/resources/";
+        private static final File FILE = createFile();
 
         private static File createFile() {
             String testdata = System.getProperty("testdata");
-            if (testdata == null) {
-                System.out.println("environment variable testdata not set!!!");
-                System.out.println("Try to use hardcoded " + PATH);
-                testdata = PATH;
-
+            if (testdata != null) {
+                final File r = new File(testdata);
+                if (r.exists())
+                    return r;
             }
-            return new File(testdata);
+
+            try {
+                String path = Resources.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replace('\\', '/');
+                int p = path.lastIndexOf("/target/");
+                if (p >= 0) {
+                    File r = new File(path.substring(0, p) + "/src/test/resources/");
+                    if (r.exists())
+                        return r;
+                }
+            } catch (URISyntaxException e) {
+                throw new Error("could not find the test data folder /src/test/resources/", e);
+            }
+
+            throw new Error("could not find the test data folder /src/test/resources/");
         }
 
     }
