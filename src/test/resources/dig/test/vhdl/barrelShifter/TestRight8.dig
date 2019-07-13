@@ -67,7 +67,7 @@
         <entry>
           <string>generic</string>
           <string>dataBits := 8;
-dir := &quot;right&quot;;</string>
+direction := &quot;right&quot;;</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="660"/>

@@ -67,7 +67,7 @@
         <entry>
           <string>generic</string>
           <string>dataBits := 16;
-dir := &quot;arith&quot;;</string>
+direction := &quot;arith&quot;;</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="940"/>

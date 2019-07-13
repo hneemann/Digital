@@ -35,9 +35,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  this.Bits=int(args.dataBits);
-}</string>
+          <string>this.Bits=int(args.dataBits);</string>
         </entry>
       </elementAttributes>
       <pos x="600" y="140"/>
@@ -55,9 +53,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  this.Bits=int(args.dataBits);
-}</string>
+          <string>this.Bits=int(args.dataBits);</string>
         </entry>
       </elementAttributes>
       <pos x="300" y="120"/>

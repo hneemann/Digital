@@ -371,12 +371,100 @@ end loop</dataString>
       </elementAttributes>
       <pos x="580" y="1020"/>
     </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^64</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="-120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^64_in</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sh^64</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>barrelShifter.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>64 bit, left</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 64;
+direction := &quot;left&quot;;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>64 bit, left</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>D^64_in sh^64 D^64
+loop(n,64) 
+   1     (n)  (1&lt;&lt;n)
+end loop
+
+loop(n,64) 
+   7     (n)  (7&lt;&lt;n)
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="-60"/>
+    </visualElement>
   </visualElements>
   <wires>
-    <wire>
-      <p1 x="160" y="400"/>
-      <p2 x="420" y="400"/>
-    </wire>
     <wire>
       <p1 x="480" y="960"/>
       <p2 x="740" y="960"/>
@@ -386,12 +474,36 @@ end loop</dataString>
       <p2 x="740" y="160"/>
     </wire>
     <wire>
-      <p1 x="380" y="180"/>
-      <p2 x="420" y="180"/>
+      <p1 x="380" y="-100"/>
+      <p2 x="420" y="-100"/>
     </wire>
     <wire>
       <p1 x="480" y="420"/>
       <p2 x="740" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="680"/>
+      <p2 x="740" y="680"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="-140"/>
+      <p2 x="420" y="-140"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="140"/>
+      <p2 x="420" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="940"/>
+      <p2 x="420" y="940"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="400"/>
+      <p2 x="420" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="180"/>
+      <p2 x="420" y="180"/>
     </wire>
     <wire>
       <p1 x="160" y="660"/>
@@ -402,24 +514,16 @@ end loop</dataString>
       <p2 x="420" y="980"/>
     </wire>
     <wire>
+      <p1 x="480" y="-120"/>
+      <p2 x="740" y="-120"/>
+    </wire>
+    <wire>
       <p1 x="380" y="440"/>
       <p2 x="420" y="440"/>
     </wire>
     <wire>
-      <p1 x="480" y="680"/>
-      <p2 x="740" y="680"/>
-    </wire>
-    <wire>
-      <p1 x="160" y="140"/>
-      <p2 x="420" y="140"/>
-    </wire>
-    <wire>
       <p1 x="380" y="700"/>
       <p2 x="420" y="700"/>
-    </wire>
-    <wire>
-      <p1 x="160" y="940"/>
-      <p2 x="420" y="940"/>
     </wire>
   </wires>
   <measurementOrdering/>

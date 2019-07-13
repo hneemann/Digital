@@ -30,9 +30,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  this.Bits=int(args.dataBits);
-}</string>
+          <string>this.Bits=int(args.dataBits);</string>
         </entry>
       </elementAttributes>
       <pos x="500" y="140"/>
@@ -54,9 +52,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  this.Bits=int(args.dataBits);
-}</string>
+          <string>this.Bits=int(args.dataBits);</string>
         </entry>
       </elementAttributes>
       <pos x="400" y="120"/>
@@ -74,9 +70,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  this.Bits=bitsNeededFor(args.dataBits-1);
-}</string>
+          <string>this.Bits=bitsNeededFor(args.dataBits-1);</string>
         </entry>
       </elementAttributes>
       <pos x="400" y="160"/>
@@ -86,13 +80,28 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>dataBits:=16;
-shiftBits:=int(4);
-dir:=&quot;left&quot;;
-if (isPresent(args)) {
-  dir=args.dir;
-  dataBits=args.dataBits;
-  shiftBits=bitsNeededFor(args.dataBits-1);
+          <string>if (isPresent(args)) {
+
+    if (args.direction=&quot;right&quot;) {
+        export circuit:=&quot;shift-fixed-right-inc.dig&quot;;
+    } else {
+        if (args.direction=&quot;arith&quot;) {
+            export circuit:=&quot;shift-fixed-arith-right-inc.dig&quot;;
+        } else {
+            if (args.direction=&quot;left&quot;) {
+                export circuit:=&quot;shift-fixed-left-inc.dig&quot;;
+            } else {
+                panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.dir+&quot;\&quot;!&quot;);
+            }
+        }
+    }
+
+    export shiftBits:=bitsNeededFor(args.dataBits-1);
+} else {
+    // used if circuit is started as the main circuit
+    export circuit:=&quot;shift-fixed-left-inc.dig&quot;;
+    export dataBits:=16;
+    export shiftBits:=int(4);
 }</string>
         </entry>
       </elementAttributes>
