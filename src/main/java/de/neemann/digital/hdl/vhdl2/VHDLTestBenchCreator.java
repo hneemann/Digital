@@ -69,11 +69,12 @@ public class VHDLTestBenchCreator {
         if (p > 0)
             filename = filename.substring(0, p);
 
+        VHDLRenaming renaming = new VHDLRenaming();
         for (ElementAttributes tc : testCases) {
             String testName = tc.getLabel();
-            if (testName.length() > 0)
-                testName = filename + "_" + testName + "_tb";
-            else
+            if (testName.length() > 0) {
+                testName = filename + "_" + renaming.checkName(testName) + "_tb";
+            } else
                 testName = filename + "_tb";
 
             File f = new File(file.getParentFile(), testName + ".vhdl");
@@ -179,13 +180,24 @@ public class VHDLTestBenchCreator {
                     .print(" AND patterns(").print(loopVar).print(").").print(p.getName()).print(" = ")
                     .print(getSimpleValue(p.getBits(), 'Z'))
                     .print(")").eol();
-            out.inc().print("report \"wrong value for ").print(p.getName()).print(" ").print(loopVar).print("=\" & integer'image(").print(loopVar).println(") severity error;").dec();
+            out.inc().print("report \"wrong value for ").print(p.getName()).print(", ").print(loopVar).print("=\" & integer'image(").print(loopVar).println(")")
+                    .print(" & \", expected \"")
+                    .print(" & ").print(convertFunc(p)).print("(patterns(").print(loopVar).print(").").print(p.getName()).print(")")
+                    .print(" & \", found \"")
+                    .print(" & ").print(convertFunc(p)).print("(").print(p.getName()).print(")")
+                    .print(" severity error;").dec();
         }
 
         out.dec().println("end loop;");
         out.println("wait;");
         out.dec().println("end process;");
         out.dec().println("end behav;");
+    }
+
+    private String convertFunc(HDLPort p) {
+        if (p.getBits()>1)
+            return "to_hstring";
+        return "std_logic'image";
     }
 
     private boolean loopVarExists(String loopVar, ArrayList<HDLPort> ports) {
