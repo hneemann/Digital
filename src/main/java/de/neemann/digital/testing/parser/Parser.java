@@ -169,7 +169,7 @@ public class Parser {
                     break;
                 case OPEN:
                     exp = parseExpression();
-                    line.add((vals, context) -> vals.add(new Value((int) exp.value(context))));
+                    line.add((vals, context) -> vals.add(new Value(exp.value(context))));
                     expect(Tokenizer.Token.CLOSE);
                     break;
                 case EOF:
