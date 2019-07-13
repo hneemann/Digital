@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D_out</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D_in</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>we</string>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>am</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>signed</string>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>read</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A we D_in       C am signed D_out
+
+#  32 bit read
+0 1  0x0        c  0   0    x
+4 1  0x44332211 c  0   0    x
+8 1  0x0        c  0   0    x
+4 0  0          0  0   0    0x44332211
+3 0  0          0  0   0    0x33221100
+2 0  0          0  0   0    0x22110000
+1 0  0          0  0   0    0x11000000
+5 0  0          0  0   0    0x00443322
+6 0  0          0  0   0    0x00004433
+7 0  0          0  0   0    0x00000044
+
+#   16 bit read unsigned
+4 1  0x83828180 c  0   0    x
+4 0  0          0  1   0    0x8180
+3 0  0          0  1   0    0x8000
+2 0  0          0  1   0    0x0000
+5 0  0          0  1   0    0x8281
+6 0  0          0  1   0    0x8382
+7 0  0          0  1   0    0x0083
+
+# 0  16 bit read signed
+4 0  0          0  1   1    0xffff8180
+3 0  0          0  1   1    0xffff8000
+2 0  0          0  1   1    0x00000000
+5 0  0          0  1   1    0xffff8281
+6 0  0          0  1   1    0xffff8382
+7 0  0          0  1   1    0x00000083
+
+# 8 bit read
+4 0  0          0  2   0    0x80
+3 0  0          0  2   0    0x00
+2 0  0          0  2   0    0x00
+5 0  0          0  2   0    0x81
+6 0  0          0  2   0    0x82
+7 0  0          0  2   0    0x83
+
+# 8 bit read signed
+4 0  0          0  2   1    0xffffff80
+3 0  0          0  2   1    0x00
+2 0  0          0  2   1    0x00
+5 0  0          0  2   1    0xffffff81
+6 0  0          0  2   1    0xffffff82
+7 0  0          0  2   1    0xffffff83
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>write</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A we D_in       C am signed D_out
+
+# 32 bit write
+0 1  0          c  0   0    x
+4 1  0          c  0   0    x
+1 1  0x44332211 c  0   0    x
+0 0  0          0  0   0    0x33221100
+4 0  0          0  0   0    0x00000044
+
+0 1  0          c  0   0    x
+4 1  0          c  0   0    x
+2 1  0x44332211 c  0   0    x
+0 0  0          0  0   0    0x22110000
+4 0  0          0  0   0    0x00004433
+
+0 1  0          c  0   0    x
+4 1  0          c  0   0    x
+3 1  0x44332211 c  0   0    x
+0 0  0          0  0   0    0x11000000
+4 0  0          0  0   0    0x00443322
+
+# 16 bit write
+0 1  0          c  0   0    x
+4 1  0          c  0   0    x
+0 1  0x2211     c  1   0    x
+0 0  0          0  0   0    0x00002211
+1 1  0x3320     c  1   0    x
+0 0  0          0  0   0    0x00332011
+2 1  0x4430     c  1   0    x
+0 0  0          0  0   0    0x44302011
+3 1  0x5540     c  1   0    x
+0 0  0          0  0   0    0x40302011
+4 0  0          0  0   0    0x00000055
+
+# 0 bit write
+0 1  0          c  0   0    x
+4 1  0          c  0   0    x
+0 1  0x11       c  2   0    x
+0 0  0          0  0   0    0x00000011
+1 1  0x22       c  2   0    x
+0 0  0          0  0   0    0x00002211
+2 1  0x33       c  2   0    x
+0 0  0          0  0   0    0x00332211
+3 1  0x44       c  2   0    x
+0 0  0          0  0   0    0x44332211
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RAM32Bit.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>addrBits := 8;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="200"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="500" y="240"/>
+      <p2 x="540" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="320"/>
+      <p2 x="540" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="260"/>
+      <p2 x="660" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="200"/>
+      <p2 x="540" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="280"/>
+      <p2 x="540" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="300"/>
+      <p2 x="540" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="220"/>
+      <p2 x="540" y="220"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

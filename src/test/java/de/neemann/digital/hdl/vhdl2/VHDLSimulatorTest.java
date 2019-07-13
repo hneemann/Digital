@@ -14,7 +14,6 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
@@ -47,8 +46,8 @@ public class VHDLSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(56, tested);
-            assertEquals(49, testBenches);
+            assertEquals(57, tested);
+            assertEquals(51, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }
@@ -141,14 +140,14 @@ public class VHDLSimulatorTest extends TestCase {
     }
 
     private void runGHDL(File vhdlFile, ArrayList<File> testFileWritten) throws IOException, FileScanner.SkipAllException, HDLException {
-        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--ieee=synopsys", vhdlFile.getName()));
-        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--ieee=synopsys", "main"));
+        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--std=08", "--ieee=synopsys", vhdlFile.getName()));
+        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--std=08", "--ieee=synopsys", "main"));
         for (File testbench : testFileWritten) {
             String name = testbench.getName();
-            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--ieee=synopsys", name));
+            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--std=08", "--ieee=synopsys", name));
             String module = name.substring(0, name.length() - 5);
-            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--ieee=synopsys", module));
-            String result = startProcess(vhdlFile.getParentFile(), GHDL, "-r", "--ieee=synopsys", module, "--vcd=" + module + ".vcd");
+            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--std=08", "--ieee=synopsys", module));
+            String result = startProcess(vhdlFile.getParentFile(), GHDL, "-r", "--std=08", "--ieee=synopsys", module, "--vcd=" + module + ".vcd");
             if (result.contains("(assertion error)"))
                 throw new HDLException("test bench " + name + " failed:\n" + result);
             checkWarn(testbench, result);

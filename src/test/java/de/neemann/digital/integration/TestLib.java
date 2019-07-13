@@ -40,7 +40,7 @@ public class TestLib extends TestCase {
 
     private void check(File dig) throws PinException, NodeException, ElementNotFoundException, IOException {
         Circuit circuit = new ToBreakRunner(dig).getCircuit();
-        boolean is74xx = !dig.getName().endsWith("-inc.dig");
+        boolean is74xx = !dig.getName().endsWith("-inc.dig") && dig.getPath().contains("DIL Chips");
 
         if (is74xx) {
             assertEquals("is not DIL", CustomCircuitShapeType.DIL, circuit.getAttributes().get(Keys.SHAPE_TYPE));
