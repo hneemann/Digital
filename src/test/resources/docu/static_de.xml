@@ -96,9 +96,9 @@
             <par>
                 Um die Schaltung weiter bearbeiten zu können, muss die Simulation zunächst gestoppt werden.
                 Dies geschieht am einfachsten mit dem Stopp-Knopf in der ToolBar.
-                Durch Klicken mit der rechten Maustaste auf eine Komponente öffnet sich ein Dialog, welcher die
-                Eigenschaften dieser Komponente anzeigt. Für den ersten Eingang kann über diesen Dialog die
-                Bezeichnung 'A' festgelegt werden.
+                Durch Klicken mit der rechten Maustaste auf eine Komponente (Control-Click unter MacOS) öffnet sich
+                ein Dialog, welcher die Eigenschaften dieser Komponente anzeigt. Für den ersten Eingang kann über
+                diesen Dialog die Bezeichnung 'A' festgelegt werden.
             </par>
             <par><image src="scr11.png"/></par>
             <par>

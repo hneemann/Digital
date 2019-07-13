@@ -90,13 +90,13 @@
             <par><image src="scr10.png"/></par>
             <par>
                 To further process the circuit, the simulation must first be stopped. The easiest way to do this is
-                with the Stop button in the tool bar. Clicking on a component with the right mouse button opens a
-                dialog which displays the component's properties. The label 'A' can be defined for the first
-                input via this dialog.
+                with the Stop button in the tool bar. Clicking on a component with the right mouse button
+                (control-click on MacOS) opens a dialog which shows the component's properties. The label 'A' can
+                be defined for the first input via this dialog.
             </par>
             <par><image src="scr11.png"/></par>
             <par>
-                In this way, the labels for the remaining inputs and outputs can be configured. The menu item
+                In this way, the labels for the remaining inputs and outputs can be defined. The menu item
                 <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
                 the current circuit. However, this is only possible if all inputs and outputs are labeled properly.
             </par>
