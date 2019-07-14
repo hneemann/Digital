@@ -1555,7 +1555,7 @@
     <string name="menu_stats_tt">Shows a list of used components.</string>
     <string name="stat_number">Number</string>
     <string name="stat_part">Component</string>
-    <string name="stat_inputs">Input.</string>
+    <string name="stat_inputs">Inputs</string>
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Addr. Bits</string>
 
