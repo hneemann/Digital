@@ -1064,7 +1064,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_stats_tt"));
 
-
         JMenu run = new JMenu(Lang.get("menu_sim"));
         menuBar.add(run);
         run.add(showMeasurementDialog.createJMenuItem());

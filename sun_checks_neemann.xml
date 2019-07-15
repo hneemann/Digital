@@ -139,7 +139,9 @@
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <!--module name="LineLength"/-->
-        <module name="MethodLength"/>
+        <module name="MethodLength">
+            <property name="max" value="180"/>
+        </module>
         <module name="ParameterNumber"/>
 
 
