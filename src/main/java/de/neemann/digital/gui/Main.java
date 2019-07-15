@@ -746,22 +746,24 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     Object data = clipboard.getData(DataFlavor.stringFlavor);
                     if (data instanceof String) {
                         ArrayList<Movable> elements = CircuitTransferable.createList(data, shapeFactory);
-                        Circuit circuit = new Circuit();
-                        for (Movable m : elements) {
-                            if (m instanceof Wire)
-                                circuit.add((Wire) m);
-                            if (m instanceof VisualElement)
-                                circuit.add((VisualElement) m);
-                        }
+                        if (elements != null) {
+                            Circuit circuit = new Circuit();
+                            for (Movable m : elements) {
+                                if (m instanceof Wire)
+                                    circuit.add((Wire) m);
+                                if (m instanceof VisualElement)
+                                    circuit.add((VisualElement) m);
+                            }
 
-                        new MainBuilder()
-                                .setParent(Main.this)
-                                .setLibrary(library)
-                                .setCircuit(circuit)
-                                .setBaseFileName(getBaseFileName())
-                                .keepPrefMainFile()
-                                .build()
-                                .setVisible(true);
+                            new MainBuilder()
+                                    .setParent(Main.this)
+                                    .setLibrary(library)
+                                    .setCircuit(circuit)
+                                    .setBaseFileName(getBaseFileName())
+                                    .keepPrefMainFile()
+                                    .build()
+                                    .setVisible(true);
+                        }
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
