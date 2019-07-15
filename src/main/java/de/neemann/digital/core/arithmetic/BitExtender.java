@@ -10,15 +10,15 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.stats.Countable;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * Sign extension component
+ * Sign extension component.
+ * Is not a node because it is just a special kind of wiring.
  */
-public class BitExtender implements Element, Countable {
+public class BitExtender implements Element {
 
     /**
      * Description of the sign extend component.
@@ -76,8 +76,4 @@ public class BitExtender implements Element, Countable {
         // has no nodes! Is just wiring
     }
 
-    @Override
-    public int getDataBits() {
-        return inBits;
-    }
 }
