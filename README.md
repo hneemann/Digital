@@ -37,7 +37,8 @@ These are the main features of Digital:
 - Includes a simple editor for finite state machines (FSM). A FSM can then be converted to a state
   transition table and a circuit implementing the FSM (See screenshot at the [bottom](#additional-screenshots)).
 - Contains a library with the most commonly used 74xx series integrated circuits.
-- Supports generic circuits, which allows e.g. the creation of a barrel-shifter with selectable bit width.
+- Supports generic circuits. This allows the creation of circuits that can be parameterized when used. 
+  In this way, it is possible, for e.g., to create a barrel shifter with a selectable bit width.
 - Good performance: The example processor can be clocked at 120 kHz.
 - Supports large circuits: The "Conway's Game of Life" example consists of about 2400 active components
   and works just fine.
