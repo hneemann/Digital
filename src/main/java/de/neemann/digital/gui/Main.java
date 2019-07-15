@@ -404,19 +404,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         });
         treeCheckBox.setAccelerator(KeyStroke.getKeyStroke("F5"));
 
-        ToolTipAction stats = new ToolTipAction(Lang.get("menu_stats")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    model = new ModelCreator(getCircuitComponent().getCircuit(), library).createModel(false);
-                    Statistics stats = new Statistics(model);
-                    new StatsDialog(Main.this, stats.getTableModel()).setVisible(true);
-                } catch (ElementNotFoundException | PinException | NodeException e) {
-                    new ErrorMessage(Lang.get("msg_couldNotCreateStats")).addCause(e).show(Main.this);
-                }
-            }
-        }.setToolTip(Lang.get("menu_stats_tt"));
-
         if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT))
             SwingUtilities.invokeLater(treeCheckBox::doClick);
 
@@ -434,7 +421,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         view.add(treeCheckBox);
         view.addSeparator();
         view.add(viewHelp.createJMenuItem());
-        view.add(stats.createJMenuItem());
     }
 
     /**
@@ -1065,6 +1051,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         });
 
+        ToolTipAction stats = new ToolTipAction(Lang.get("menu_stats")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    model = new ModelCreator(getCircuitComponent().getCircuit(), library).createModel(false);
+                    Statistics stats = new Statistics(model);
+                    new StatsDialog(Main.this, stats.getTableModel()).setVisible(true);
+                } catch (ElementNotFoundException | PinException | NodeException e) {
+                    new ErrorMessage(Lang.get("msg_couldNotCreateStats")).addCause(e).show(Main.this);
+                }
+            }
+        }.setToolTip(Lang.get("menu_stats_tt"));
+
+
         JMenu run = new JMenu(Lang.get("menu_sim"));
         menuBar.add(run);
         run.add(showMeasurementDialog.createJMenuItem());
@@ -1075,10 +1075,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         run.add(doStep.createJMenuItem());
         run.add(runToBreakAction.createJMenuItem());
         run.add(stoppedStateAction.createJMenuItem());
+        run.addSeparator();
         run.add(runTests.createJMenuItem());
         run.add(runAllTests.createJMenuItem());
         run.addSeparator();
         run.add(speedTest.createJMenuItem());
+        run.add(stats.createJMenuItem());
         doStep.setEnabled(false);
 
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
