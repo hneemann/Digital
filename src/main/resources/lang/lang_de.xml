@@ -287,7 +287,8 @@
     <string name="elem_Splitter">Splitter</string>
     <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.
         Mit Bussen wird es möglich z.B. 16 Bit Verbindungen zu erzeugen, ohne 16 einzelne Leitungen verlegen zu müssen.
-        Alle 16 Verbindungen können zu einer Leitung zusammengefasst werden.
+        Alle 16 Verbindungen können zu einer Leitung zusammengefasst werden. Der Splitter hat eine Richtung, er kann Signale
+        also nur in eine Richtung weitergeben.
     </string>
     <string name="elem_Splitter_pin_in">Die Eingangsbits {0} des Splitters.</string>
     <string name="elem_Splitter_pin_in_one">Das Eingangsbit {0} des Splitters.</string>

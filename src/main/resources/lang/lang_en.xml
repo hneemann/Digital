@@ -292,6 +292,7 @@
     <string name="elem_Splitter_tt">Splits or creates a wire bundle or a data bus with more than one bit.
         With a bus it is e.g. possible to generate 16-bit connections without having to route 16 individual wires.
         All 16 connections can be merged into one wire.
+        The splitter has a direction, meaning it can only transmit signals in one direction.
     </string>
     <string name="elem_Splitter_pin_in">The input bits {0}.</string>
     <string name="elem_Splitter_pin_in_one">The input bit {0}.</string>
