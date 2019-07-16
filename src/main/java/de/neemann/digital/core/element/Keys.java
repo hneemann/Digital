@@ -452,7 +452,7 @@ public final class Keys {
      * enables the grid
      */
     public static final Key<Boolean> SETTINGS_GRID
-            = new Key<>("grid", false);
+            = new Key<>("grid", true);
 
     /**
      * enables the wire bits view
@@ -786,6 +786,14 @@ public final class Keys {
      * Circuit is generic
      */
     public static final Key<Boolean> IS_GENERIC =
-            new Key<Boolean>("isGeneric", false).setSecondary();
+            new Key<>("isGeneric", false).setSecondary();
+
+
+    /**
+     * Enables the tutorial
+     */
+    public static final Key<Boolean> SETTINGS_SHOW_TUTORIAL =
+            new Key<>("showTutorial", true).setSecondary();
+
 
 }

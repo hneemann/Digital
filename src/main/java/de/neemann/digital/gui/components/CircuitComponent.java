@@ -133,6 +133,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private Mouse mouse = Mouse.getMouse();
     private Circuit shallowCopy;
     private CircuitScrollPanel circuitScrollPanel;
+    private ModificationListener modificationListener;
 
 
     /**
@@ -429,6 +430,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         try {
             if (modification != null) {
                 undoManager.apply(modification);
+                if (modificationListener != null)
+                    modificationListener.modified(modification);
                 if (circuitScrollPanel != null)
                     circuitScrollPanel.sizeChanged();
             }
@@ -620,6 +623,16 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             getCircuit().clearState();
         }
         requestFocusInWindow();
+
+        if (modificationListener != null)
+            modificationListener.modified(null);
+    }
+
+    /**
+     * @return true if circuit is running
+     */
+    public boolean isRunning() {
+        return activeMouseController == mouseRun;
     }
 
     /**
@@ -2315,6 +2328,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     /**
+     * Sets the modification listener.
+     *
+     * @param modificationListener is called every time the circuit is modified
+     */
+    public void setModificationListener(ModificationListener modificationListener) {
+        this.modificationListener = modificationListener;
+    }
+
+    /**
      * Deactivate a wizard
      */
     public void deactivateWizard() {
@@ -2366,4 +2388,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         void closed();
     }
 
+    /**
+     * Listener to get notified if the circuit has changed
+     */
+    public interface ModificationListener {
+        /**
+         * Called if the circuit was modified
+         *
+         * @param modification the modification
+         */
+        void modified(Modification<Circuit> modification);
+    }
 }

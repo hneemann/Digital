@@ -12,8 +12,8 @@ import junit.framework.TestCase;
 public class LineBreakerTest extends TestCase {
 
     public void testBreakLines() throws Exception {
-        assertEquals("this is a test string", new LineBreaker(60).breakLines("this \n\n is \n a   test \n\r    string"));
-        assertEquals("this is a test\nstring", new LineBreaker(14).breakLines("this \n\n is \n a   test \n\r    string"));
+        assertEquals("this\nis a test string", new LineBreaker(60).breakLines("this \n\n is \n a   test \n\r    string"));
+        assertEquals("this\nis a test\nstring", new LineBreaker(14).breakLines("this \n\n is \n a   test \n\r    string"));
         assertEquals("This is a test string. This\n" +
                 "is a test string. This is a\n" +
                 "test string.", new LineBreaker(27).breakLines("This is a test string. This is a test string. This is a test string."));

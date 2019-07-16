@@ -43,6 +43,7 @@ import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
 import de.neemann.digital.gui.components.tree.SelectTree;
+import de.neemann.digital.gui.tutorial.InitialTutorial;
 import de.neemann.digital.gui.release.CheckForNewRelease;
 import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteException;
@@ -1836,6 +1837,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
                 }
                 main.setVisible(true);
+
+                if (Settings.getInstance().getAttributes().get(Keys.SETTINGS_SHOW_TUTORIAL))
+                    new InitialTutorial(main).setVisible(true);
 
                 CheckForNewRelease.showReleaseDialog(main);
             });

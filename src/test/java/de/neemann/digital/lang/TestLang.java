@@ -68,7 +68,7 @@ public class TestLang extends TestCase {
         StringBuilder sb = new StringBuilder();
         for (String key : map.keySet()) {
             if (!keys.contains(key)) {
-                if (!(key.startsWith("key_") || key.startsWith("elem_"))) {
+                if (!(key.startsWith("key_") || key.startsWith("elem_") || key.startsWith("tutorial"))) {
                     if (sb.length() > 0)
                         sb.append(", ");
                     sb.append('"').append(key).append('"');

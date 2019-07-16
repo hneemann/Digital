@@ -61,6 +61,7 @@ public final class Settings implements AttributeListener {
         intList.add(Keys.SETTINGS_TOOLCHAIN_CONFIG);
         intList.add(Keys.SETTINGS_FONT_SCALING);
         intList.add(Keys.SETTINGS_MAC_MOUSE);
+        intList.add(Keys.SETTINGS_SHOW_TUTORIAL);
 
         settingsKeys = Collections.unmodifiableList(intList);
 

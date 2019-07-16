@@ -27,6 +27,13 @@ public final class Modifications<A extends Copyable<A>> implements Modification<
             m.modify(a);
     }
 
+    /**
+     * @return The contained modifications
+     */
+    public ArrayList<Modification<A>> getModifications() {
+        return modifications;
+    }
+
     @Override
     public String toString() {
         return name;
