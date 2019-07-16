@@ -36,7 +36,7 @@
         </entry>
         <entry>
           <string>Default</string>
-          <int>1</int>
+          <long>1</long>
         </entry>
       </elementAttributes>
       <pos x="440" y="280"/>
@@ -50,7 +50,7 @@
         </entry>
         <entry>
           <string>Default</string>
-          <int>1</int>
+          <long>1</long>
         </entry>
       </elementAttributes>
       <pos x="660" y="280"/>
@@ -64,7 +64,7 @@
         </entry>
         <entry>
           <string>Default</string>
-          <int>1</int>
+          <long>1</long>
         </entry>
       </elementAttributes>
       <pos x="880" y="280"/>
@@ -159,7 +159,7 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Asynchronous counter built with JK flip-flops
+          <string>Synchronous counter built with JK flip-flops
 {{de Synchroner Zähler aufgebaut mit JK-Flipflops}}</string>
         </entry>
       </elementAttributes>
