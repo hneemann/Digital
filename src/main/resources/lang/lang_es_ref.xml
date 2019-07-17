@@ -111,7 +111,7 @@
         This component can be used to realize any necessary propagation delay.</string>
   <string name="elem_Delay_pin_in">Input of the signal to be delayed.</string>
   <string name="elem_Delay_pin_out">The input signal delayed by one gate delay time.</string>
-  <string name="elem_Out">Out</string>
+  <string name="elem_Out">Output</string>
   <string name="elem_Out_tt">Can be used to display an output signal in a circuit.
         This element is also used to connect a circuit to an embedding circuit.
         In this case the connection is bidirectional.

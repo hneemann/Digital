@@ -129,7 +129,7 @@
 
     <!-- IO -->
 
-    <string name="elem_Out">Out</string>
+    <string name="elem_Out">Output</string>
     <string name="elem_Out_tt">Can be used to display an output signal in a circuit.
         This element is also used to connect a circuit to an embedding circuit.
         In this case the connection is bidirectional.
@@ -1924,7 +1924,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="tutorial">Tutorial</string>
     <string name="tutorial1">In the following you will be guided to the first circuit with a short tutorial:
 
-        Add an input into the circuit. You will find the input in the menu Components▸IO.</string>
+        First, insert an input into the circuit. You will find the input in the menu Components▸IO.</string>
     <string name="tutorial2">Now add a second input to the circuit. You can also click on the input
         in the toolbar.
 
@@ -1940,25 +1940,29 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="tutorial5">In order to complete the circuit, connecting wires must be drawn.
 
         Click on the red dot at the first input and connect it to an input of the "Exclusive Or" gate,
-        by clicking on a blue dot of the "Exclusive Or" gate.
+        by clicking on a blue dot of the "Exclusive Or" gate afterwards.
     </string>
     <string name="tutorial6">Connect the red dots of the inputs to the blue dots of the
         "Exclusive Or" gate and the red dot of the "Exclusive Or" gate to the blue dot of the output.
 
-        You can pin the wire by clicking. Right-click cancels the drawing of the wire.
+        While drawing, you can pin the wire by clicking somewhere on the canvas.
+        Right-click cancels the drawing of the wire (control-click on MacOS).
     </string>
     <string name="tutorial7">Your first circuit is now functional.
         To start the simulation, you can click on the Play button in the toolbar.
     </string>
     <string name="tutorial8">
         The simulation is now active. Now you can switch the inputs by clicking on them.
-        To stop the simulation, click on the Stop button in the toolbar.
     </string>
     <string name="tutorial9">
+        To stop the simulation, click on the Stop button in the toolbar.
+    </string>
+    <string name="tutorial10">
         For completeness, the inputs and outputs should be labeled.
 
-        Right-click on an output to open a dialog. Here the output can be given a name.</string>
-    <string name="tutorial10">
+        Right-click on an input to open a dialog. On MacOS control-click is used.
+        Here the input can be given a name.</string>
+    <string name="tutorial11">
         Label all inputs and outputs.
     </string>
     <string name="tutorialUniqueIdents">

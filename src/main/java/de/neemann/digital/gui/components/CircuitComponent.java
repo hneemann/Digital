@@ -133,7 +133,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private Mouse mouse = Mouse.getMouse();
     private Circuit shallowCopy;
     private CircuitScrollPanel circuitScrollPanel;
-    private ModificationListener modificationListener;
+    private TutorialListener tutorialListener;
 
 
     /**
@@ -430,8 +430,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         try {
             if (modification != null) {
                 undoManager.apply(modification);
-                if (modificationListener != null)
-                    modificationListener.modified(modification);
+                if (tutorialListener != null)
+                    tutorialListener.modified(modification);
                 if (circuitScrollPanel != null)
                     circuitScrollPanel.sizeChanged();
             }
@@ -624,15 +624,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
         requestFocusInWindow();
 
-        if (modificationListener != null)
-            modificationListener.modified(null);
-    }
-
-    /**
-     * @return true if circuit is running
-     */
-    public boolean isRunning() {
-        return activeMouseController == mouseRun;
+        if (tutorialListener != null)
+            tutorialListener.modified(null);
     }
 
     /**
@@ -1558,7 +1551,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private void insertWires(VisualElement element) {
-        if (element.isAutoWireCompatible()) {
+        if (element.isAutoWireCompatible() && tutorialListener == null) {
             Modifications.Builder<Circuit> wires = new Modifications.Builder<>(Lang.get("lib_wires"));
             for (Pin p : element.getPins())
                 insertWirePin(p, element.getRotate(), wires);
@@ -2302,6 +2295,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
             boolean modelHasChanged = actor.interact(CircuitComponent.this, p, getPosVector(e), modelSync);
             if (modelHasChanged) {
+                if (tutorialListener != null)
+                    tutorialListener.modified(null);
                 modelHasChanged();
             } else
                 graphicHasChanged();
@@ -2330,10 +2325,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     /**
      * Sets the modification listener.
      *
-     * @param modificationListener is called every time the circuit is modified
+     * @param tutorialListener is called every time the circuit is modified
      */
-    public void setModificationListener(ModificationListener modificationListener) {
-        this.modificationListener = modificationListener;
+    public void setTutorialListener(TutorialListener tutorialListener) {
+        this.tutorialListener = tutorialListener;
     }
 
     /**
@@ -2391,7 +2386,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     /**
      * Listener to get notified if the circuit has changed
      */
-    public interface ModificationListener {
+    public interface TutorialListener {
         /**
          * Called if the circuit was modified
          *

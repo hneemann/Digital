@@ -5,8 +5,9 @@
  */
 package de.neemann.digital.gui.tutorial;
 
-import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.basic.XOr;
+import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
@@ -33,11 +34,12 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * The tutorial dialog.
  */
-public class InitialTutorial extends JDialog implements CircuitComponent.ModificationListener {
+public class InitialTutorial extends JDialog implements CircuitComponent.TutorialListener {
     private static final ArrayList<Step> STEPS = new ArrayList<>();
 
     static {
@@ -47,10 +49,37 @@ public class InitialTutorial extends JDialog implements CircuitComponent.Modific
         STEPS.add(new Step("tutorial4", (cc, mod, t) -> contains(cc, In.DESCRIPTION, In.DESCRIPTION, XOr.DESCRIPTION, Out.DESCRIPTION)));
         STEPS.add(new Step("tutorial5", (cc, mod, t) -> contains(mod, ModifyInsertWire.class)));
         STEPS.add(new Step("tutorial6", (cc, mod, t) -> isWorking(cc)));
-        STEPS.add(new Step("tutorial7", (cc, mod, t) -> cc.isRunning()));
-        STEPS.add(new Step("tutorial8", (cc, mod, t) -> !cc.isRunning()));
-        STEPS.add(new Step("tutorial9", (cc, mod, t) -> isIONamed(cc, 1, t)));
-        STEPS.add(new Step("tutorial10", (cc, mod, t) -> isIONamed(cc, 3, t)));
+        STEPS.add(new Step("tutorial7", (cc, mod, t) -> t.main.getModel() != null));
+        STEPS.add(new Step("tutorial8", (cc, mod, t) -> outputIsHigh(t)));
+        STEPS.add(new Step("tutorial9", (cc, mod, t) -> t.main.getModel() == null));
+        STEPS.add(new Step("tutorial10", (cc, mod, t) -> isIONamed(cc, 1, t)));
+        STEPS.add(new Step("tutorial11", (cc, mod, t) -> isIONamed(cc, 3, t)));
+    }
+
+    private final Main main;
+
+    private static boolean outputIsHigh(InitialTutorial t) {
+        Model model = t.main.getModel();
+        if (model == null)
+            return false;
+        List<Node> nl = model.getNodes();
+        if (nl.size() != 1)
+            return false;
+
+        Node n = nl.get(0);
+        if (n instanceof Element) {
+            Element e = (Element) n;
+            try {
+                final ObservableValues outputs = e.getOutputs();
+                if (outputs.size() != 1)
+                    return false;
+                else
+                    return outputs.get(0).getValue() != 0;
+            } catch (PinException ex) {
+                return false;
+            }
+        } else
+            return false;
     }
 
     private static boolean isIONamed(CircuitComponent cc, int expected, InitialTutorial t) {
@@ -118,19 +147,21 @@ public class InitialTutorial extends JDialog implements CircuitComponent.Modific
 
     /**
      * Creates the tutorial dialog.
+     *
      * @param main the main class
      */
     public InitialTutorial(Main main) {
         super(main, Lang.get("tutorial"), false);
+        this.main = main;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         circuitComponent = main.getCircuitComponent();
-        circuitComponent.setModificationListener(this);
+        circuitComponent.setTutorialListener(this);
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-                circuitComponent.setModificationListener(null);
+                circuitComponent.setTutorialListener(null);
             }
         });
 

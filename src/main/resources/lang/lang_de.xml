@@ -1957,7 +1957,7 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="tutorial1">Im Folgenden werden Sie mit einem kurzen Tutorial zur ersten
         Schaltung geführt:
 
-        Fügen Sie einen Eingang in die Schaltung ein.
+        Beginnen Sie, indem Sie einen Eingang in die Schaltung einfügen.
         Sie finden den Eingang im Menu Bauteile▸IO.</string>
     <string name="tutorial2">Fügen Sie nun einen zweiten Eingang in die Schaltung ein.
         Sie können auch auf den Eingang in der Toolbar klicken.
@@ -1983,7 +1983,8 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
         "Exklusiv Oder" Gatters und den roten Punkt des "Exklusiv Oder" Gatters mit dem blauen Punkte
         des Ausgangs.
 
-        Durch Klicken können Sie die Leitung anheften. Rechts-Klick bricht das Zeichnen der Leitung ab.
+        Während Sie die Leitung zeichnen, können Sie sie durch Klicken auf die Arbeitsfläche anheften.
+        Rechts-Klick bricht das Zeichnen der Leitung ab (Controll-Klick bei MacOS).
     </string>
     <string name="tutorial7">Damit ist Ihre erste Schaltung funktionsfähig.
         Um die Simulation zu starten, können Sie auf den Play-Knopf in der Toolbar klicken.
@@ -1991,15 +1992,17 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="tutorial8">
         Die Simulation ist jetzt aktiv.
         Jetzt können Sie die Eingänge umschalten indem Sie darauf klicken.
-        Um die Simulation zu beenden, klicken Sie auf den Stop-Knopf in der Toolbar.
     </string>
     <string name="tutorial9">
-        Der Vollständigkeit halber sollen die Ein- und Ausgänge benannt werden.
-
-        Durch Rechts-Klick auf einen Ausgang öffnet sich ein Dialog.
-        Hier kann der Ausgang mit einer Bezeichnung versehen werden.
+        Um die Simulation zu beenden, klicken Sie auf den Stop-Knopf in der Toolbar.
     </string>
     <string name="tutorial10">
+        Der Vollständigkeit halber sollen die Ein- und Ausgänge benannt werden.
+
+        Durch Rechts-Klick auf einen Einsgang öffnet sich ein Dialog (Unter MacOS wird
+        Controll-Klick verwendet). Hier kann der Eingang mit einer Bezeichnung versehen werden.
+    </string>
+    <string name="tutorial11">
         Benennen Sie alle Ein- und Ausgänge.
     </string>
     <string name="tutorialUniqueIdents">
