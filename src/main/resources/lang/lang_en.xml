@@ -1941,6 +1941,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
 
         Click on the red dot at the first input and connect it to an input of the "Exclusive Or" gate,
         by clicking on a blue dot of the "Exclusive Or" gate afterwards.
+        Do NOT drag with mouse button down!
     </string>
     <string name="tutorial6">Connect the red dots of the inputs to the blue dots of the
         "Exclusive Or" gate and the red dot of the "Exclusive Or" gate to the blue dot of the output.

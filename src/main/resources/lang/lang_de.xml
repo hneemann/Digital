@@ -1977,14 +1977,14 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
 
         Klicken Sie auf den roten Punkt am ersten Eingang und verbinden Sie diesen mit einem Eingang
         des "Exklusiv Oder" Gatters, indem Sie danach auf einen blauen Punkt des "Exklusiv Oder"
-        Gatters klicken.
+        Gatters klicken. Die Maustaste NICHT gedrückt halten!
     </string>
     <string name="tutorial6">Verbinden Sie die roten Punkte der Eingänge mit den blauen Punkten des
         "Exklusiv Oder" Gatters und den roten Punkt des "Exklusiv Oder" Gatters mit dem blauen Punkte
         des Ausgangs.
 
         Während Sie die Leitung zeichnen, können Sie sie durch Klicken auf die Arbeitsfläche anheften.
-        Rechts-Klick bricht das Zeichnen der Leitung ab (Controll-Klick bei MacOS).
+        Rechts-Klick bricht das Zeichnen der Leitung ab (Steuerung-Klick unter MacOS).
     </string>
     <string name="tutorial7">Damit ist Ihre erste Schaltung funktionsfähig.
         Um die Simulation zu starten, können Sie auf den Play-Knopf in der Toolbar klicken.
@@ -2000,7 +2000,7 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
         Der Vollständigkeit halber sollen die Ein- und Ausgänge benannt werden.
 
         Durch Rechts-Klick auf einen Eingang öffnet sich ein Dialog (Unter MacOS wird
-        Controll-Klick verwendet). Hier kann der Eingang mit einer Bezeichnung versehen werden.
+        Steuerung-Klick verwendet). Hier kann der Eingang mit einer Bezeichnung versehen werden.
     </string>
     <string name="tutorial11">
         Benennen Sie alle Ein- und Ausgänge.
