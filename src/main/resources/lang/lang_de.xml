@@ -1954,24 +1954,24 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
 </body></html>]]></string>
 
     <string name="tutorial">Tutorial</string>
-    <string name="tutorial1">Im Folgenden werden Sie mit einem kurzen Tutorial zur ersten
-        Schaltung geführt:
+    <string name="tutorial1">Im Folgenden führt Sie ein kurzes Tutorial zur ersten,
+        einfachen Schaltung:
 
         Beginnen Sie, indem Sie einen Eingang in die Schaltung einfügen.
         Sie finden den Eingang im Menu Bauteile▸IO.</string>
     <string name="tutorial2">Fügen Sie nun einen zweiten Eingang in die Schaltung ein.
         Sie können auch auf den Eingang in der Toolbar klicken.
 
-        Setzen Sie den zweiten Eingang am besten mit zwei Gitterabständen unter den ersten Eingang.
+        Setzen Sie den zweiten Eingang am besten mit etwas Abstand unter den ersten Eingang.
         Sie können die Schaltung verschieben, wenn Sie die rechte Maustaste gedrückt halten.
-        Durch klicken auf die Eingänge können Sie diese verschieben.
+        Durch klicken auf Bauteile können Sie diese verschieben.
     </string>
     <string name="tutorial3">Als nächstes soll ein "Exklusiv Oder" Gatter eingefügt werden.
         Sie finden dieses Gatter im Menu Bauteile▸Logisch.
-        Setzen Sie dieses Bauteil mit zwei Gitterabständen rechts neben die Eingänge.
+        Setzen Sie dieses Bauteil mit etwas Abstand rechts neben die Eingänge.
     </string>
     <string name="tutorial4">Als letztes Bauteil soll noch ein Ausgang eingefügt werden.
-        Setzen Sie diesen mit ebenfalls zwei Gitterabständen rechts neben das "Exklusiv Oder" Gatter.
+        Place it with some distance to the right of the "Exclusive Or" gate.
     </string>
     <string name="tutorial5">Um die Schaltung zu vervollständigen, sind Verbindungsleitungen zu ziehen.
 
@@ -1979,19 +1979,20 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
         des "Exklusiv Oder" Gatters, indem Sie danach auf einen blauen Punkt des "Exklusiv Oder"
         Gatters klicken. Die Maustaste NICHT gedrückt halten!
     </string>
-    <string name="tutorial6">Verbinden Sie die roten Punkte der Eingänge mit den blauen Punkten des
-        "Exklusiv Oder" Gatters und den roten Punkt des "Exklusiv Oder" Gatters mit dem blauen Punkte
-        des Ausgangs.
+    <string name="tutorial6">Verbinden Sie den roten Punkt des zweiten Eingangs mit den zweiten blauen
+        Punkten des "Exklusiv Oder" Gatters und den roten Punkt des "Exklusiv Oder" Gatters mit dem
+        blauen Punkt des Ausgangs.
 
         Während Sie die Leitung zeichnen, können Sie sie durch Klicken auf die Arbeitsfläche anheften.
         Rechts-Klick bricht das Zeichnen der Leitung ab (Steuerung-Klick unter MacOS).
     </string>
     <string name="tutorial7">Damit ist Ihre erste Schaltung funktionsfähig.
         Um die Simulation zu starten, können Sie auf den Play-Knopf in der Toolbar klicken.
+        Wenn Sie mit der Maus über die Toolbar fahren, werden Tool-Tipps angezeigt.
     </string>
     <string name="tutorial8">
         Die Simulation ist jetzt aktiv.
-        Jetzt können Sie die Eingänge umschalten indem Sie darauf klicken.
+        Schalten Sie die Eingänge um, indem Sie darauf klicken.
     </string>
     <string name="tutorial9">
         Um die Simulation zu beenden, klicken Sie auf den Stop-Knopf in der Toolbar.
@@ -2006,7 +2007,7 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
         Benennen Sie alle Ein- und Ausgänge.
     </string>
     <string name="tutorialUniqueIdents">
-        Die Ein- und Ausgänge sollten eindeutig benannt sein.
+        Ein- und Ausgänge sollten stets eindeutig benannt sein.
     </string>
     <string name="tutorialNotNeeded">
         Tutorial überspringen
