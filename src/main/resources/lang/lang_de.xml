@@ -1999,7 +1999,7 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="tutorial10">
         Der Vollständigkeit halber sollen die Ein- und Ausgänge benannt werden.
 
-        Durch Rechts-Klick auf einen Einsgang öffnet sich ein Dialog (Unter MacOS wird
+        Durch Rechts-Klick auf einen Eingang öffnet sich ein Dialog (Unter MacOS wird
         Controll-Klick verwendet). Hier kann der Eingang mit einer Bezeichnung versehen werden.
     </string>
     <string name="tutorial11">

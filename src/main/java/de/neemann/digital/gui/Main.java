@@ -182,16 +182,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         circuitComponent = new CircuitComponent(this, library, shapeFactory);
         circuitComponent.addListener(this);
-        if (builder.circuit != null) {
-            SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(builder.circuit));
-            setFilename(builder.fileToOpen, false);
-        } else {
-            if (builder.fileToOpen != null) {
-                SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, builder.library == null));
+        if (!builder.dontOpenFile) {
+            if (builder.circuit != null) {
+                SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(builder.circuit));
+                setFilename(builder.fileToOpen, false);
             } else {
-                File name = fileHistory.getMostRecent();
-                if (name != null) {
-                    SwingUtilities.invokeLater(() -> loadFile(name, true, false));
+                if (builder.fileToOpen != null) {
+                    SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, builder.library == null));
+                } else {
+                    File name = fileHistory.getMostRecent();
+                    if (name != null) {
+                        SwingUtilities.invokeLater(() -> loadFile(name, true, false));
+                    }
                 }
             }
         }
@@ -1830,6 +1832,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (file != null)
                 builder.setFileToOpen(file);
             SwingUtilities.invokeLater(() -> {
+                final boolean tutorial = Settings.getInstance().getAttributes().get(Keys.SETTINGS_SHOW_TUTORIAL);
+                if (tutorial)
+                    builder.setDontOpenAFile(true);
+
                 Main main = builder.build();
                 try {
                     new RemoteSever(new DigitalHandler(main)).start(41114);
@@ -1838,7 +1844,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
                 main.setVisible(true);
 
-                if (Settings.getInstance().getAttributes().get(Keys.SETTINGS_SHOW_TUTORIAL))
+                if (tutorial)
                     new InitialTutorial(main).setVisible(true);
 
                 CheckForNewRelease.showReleaseDialog(main);
@@ -1858,6 +1864,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private File baseFileName;
         private boolean keepPrefMainFile;
         private boolean mainFrame = false;
+        private boolean dontOpenFile =false;
 
         /**
          * @param fileToOpen the file to open
@@ -1923,6 +1930,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         public MainBuilder keepPrefMainFile() {
             this.keepPrefMainFile = true;
             return this;
+        }
+
+        /**
+         * Avoids to open a file
+         * @param dontOpenFile true if no file should be opened
+         */
+        public void setDontOpenAFile(boolean dontOpenFile) {
+            this.dontOpenFile = dontOpenFile;
         }
 
         /**
