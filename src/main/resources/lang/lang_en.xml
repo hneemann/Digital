@@ -1968,5 +1968,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="tutorialUniqueIdents">
         The inputs and outputs should be uniquely named.
     </string>
-
+    <string name="tutorialNotNeeded">
+        Skip Tutorial
+    </string>
 </resources>

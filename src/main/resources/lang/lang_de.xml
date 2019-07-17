@@ -2008,4 +2008,7 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="tutorialUniqueIdents">
         Die Ein- und Ausgänge sollten eindeutig benannt sein.
     </string>
+    <string name="tutorialNotNeeded">
+        Tutorial überspringen
+    </string>
 </resources>

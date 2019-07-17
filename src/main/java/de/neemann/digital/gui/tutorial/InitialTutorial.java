@@ -29,6 +29,7 @@ import de.neemann.gui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -171,6 +172,12 @@ public class InitialTutorial extends JDialog implements CircuitComponent.Tutoria
         text.setPreferredSize(new Dimension(300, 400));
 
         getContentPane().add(new JScrollPane(text));
+        getContentPane().add(new JButton(new AbstractAction(Lang.get("tutorialNotNeeded")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                disableTutorial();
+            }
+        }), BorderLayout.SOUTH);
 
         pack();
 
@@ -182,11 +189,15 @@ public class InitialTutorial extends JDialog implements CircuitComponent.Tutoria
 
     }
 
+    private void disableTutorial() {
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_SHOW_TUTORIAL, false);
+        dispose();
+    }
+
     private void incIndex() {
         stepIndex++;
         if (stepIndex == STEPS.size()) {
-            Settings.getInstance().getAttributes().set(Keys.SETTINGS_SHOW_TUTORIAL, false);
-            dispose();
+            disableTutorial();
         } else {
             setTextByID(STEPS.get(stepIndex).getId());
         }
