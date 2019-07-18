@@ -958,7 +958,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
             }
-        }.setToolTip(Lang.get("menu_step_tt"));
+        }.setToolTip(Lang.get("menu_step_tt")).setAccelerator("F4");
         runToBreakMicroAction = new ToolTipAction(Lang.get("menu_runToBreakMicro"), ICON_STEP_FINISH) {
             @Override
             public void actionPerformed(ActionEvent e) {
