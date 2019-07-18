@@ -1448,8 +1448,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_speedTest_tt">Führt einen Geschwindigkeitstest durch. Es wird die maximal mögliche Taktfrequenz ermittelt</string>
     <string name="menu_step">Gatterschritt</string>
     <string name="menu_step_tt">Führt einen Einzelgatterschritt aus</string>
-    <string name="menu_stepFinish">Gatterschritte beenden</string>
-    <string name="menu_stepFinish_tt">Führt alle Einzelgatterschritte aus, bis die Schaltung sich stabilisiert hat oder eine steigende Flanke an einem Break-Element erkannt wird.</string>
+    <string name="menu_runToBreakMicro">Run To Break im Gatterschrittmodus</string>
+    <string name="menu_runToBreakMicro_tt">Führt alle Einzelgatterschritte aus, bis eine steigende Flanke an einem Break-Element erkannt wird.</string>
     <string name="menu_synthesise">Synthese</string>
     <string name="menu_synthesise_tt">Erzeugt minimale boolsche Ausdrücke, welche durch eine Wahrheitstabelle beschrieben werden.</string>
     <string name="menu_table_N_variables">{0} Variablen</string>

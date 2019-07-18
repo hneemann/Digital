@@ -1433,8 +1433,8 @@
     <string name="menu_speedTest_tt">Performs a speed test by calculating the max. clock frequency.</string>
     <string name="menu_step">Gate Step</string>
     <string name="menu_step_tt">Calculates a single gate step</string>
-    <string name="menu_stepFinish">Finish Gate Step</string>
-    <string name="menu_stepFinish_tt">Executes all single gate steps until the circuit has stabilized or a rising edge is detected on a break component.</string>
+    <string name="menu_runToBreakMicro">Run To Break in Single Gate Mode</string>
+    <string name="menu_runToBreakMicro_tt">Executes all single gate steps until a rising edge is detected on a break component.</string>
     <string name="menu_synthesise">Synthesise</string>
     <string name="menu_synthesise_tt">Generates the minimal bool expressions described by a truth table.</string>
     <string name="menu_table_N_variables">{0} variables</string>

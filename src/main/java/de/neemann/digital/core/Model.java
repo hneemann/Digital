@@ -335,25 +335,27 @@ public class Model implements Iterable<Node>, SyncAccess {
         }
     }
 
-    /**
-     * Completes the actual micro step session to a full step.
-     *
-     * @param noise true if noise should be enabled
-     * @throws NodeException NodeException
-     */
-    public void finishMicroSteps(boolean noise) throws NodeException {
+    public void runToBreakMicro() throws NodeException {
         ArrayList<BreakDetector> brVal = new ArrayList<>();
         for (Break b : breaks)
             brVal.add(new BreakDetector(b));
-        stepWithCondition(noise, () -> {
-            boolean wasBreak = false;
-            for (BreakDetector bd : brVal)
-                if (bd.detected()) {
-                    fireEvent(ModelEvent.BREAK);
-                    wasBreak = true;
-                }
-            return needsUpdate() && !wasBreak;
-        });
+
+        ObservableValue clkVal = clocks.get(0).getClockOutput();
+
+        fireEvent(ModelEvent.FASTRUN);
+        final boolean[] wasBreak = {false};
+        while (!wasBreak[0]) {
+            if (!needsUpdate())
+                clkVal.setBool(!clkVal.getBool());
+            stepWithCondition(false, () -> {
+                for (BreakDetector bd : brVal)
+                    if (bd.detected()) {
+                        fireEvent(ModelEvent.BREAK);
+                        wasBreak[0] = true;
+                    }
+                return needsUpdate() && !wasBreak[0];
+            });
+        }
     }
 
     /**

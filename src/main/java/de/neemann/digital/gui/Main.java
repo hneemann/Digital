@@ -132,7 +132,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private final boolean keepPrefMainFile;
 
     private ToolTipAction doStep;
-    private ToolTipAction finishStep;
+    private ToolTipAction runToBreakMicroAction;
     private ToolTipAction runToBreakAction;
     private ToolTipAction showMeasurementDialog;
     private ToolTipAction showMeasurementGraph;
@@ -954,28 +954,26 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     circuitComponent.graphicHasChanged();
                     final boolean needsUpdate = model.needsUpdate();
                     doStep.setEnabled(needsUpdate);
-                    finishStep.setEnabled(needsUpdate);
                 } catch (Exception e1) {
                     showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
             }
         }.setToolTip(Lang.get("menu_step_tt"));
-        finishStep = new ToolTipAction(Lang.get("menu_stepFinish"), ICON_STEP_FINISH) {
+        runToBreakMicroAction = new ToolTipAction(Lang.get("menu_runToBreakMicro"), ICON_STEP_FINISH) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    model.finishMicroSteps(false);
+                    model.runToBreakMicro();
                     circuitComponent.removeHighLighted();
                     modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
                     circuitComponent.graphicHasChanged();
                     final boolean needsUpdate = model.needsUpdate();
                     doStep.setEnabled(needsUpdate);
-                    finishStep.setEnabled(needsUpdate);
                 } catch (Exception e1) {
                     showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
             }
-        }.setToolTip(Lang.get("menu_stepFinish_tt"));
+        }.setToolTip(Lang.get("menu_runToBreakMicro_tt")).setEnabledChain(false);
 
         ToolTipAction runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), ICON_RUN)
                 .setToolTip(Lang.get("menu_run_tt"));
@@ -1098,7 +1096,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         run.addSeparator();
         run.add(runModelMicroAction.createJMenuItem());
         run.add(doStep.createJMenuItem());
-        run.add(finishStep.createJMenuItem());
+        run.add(runToBreakMicroAction.createJMenuItem());
         run.addSeparator();
         run.add(runTests.createJMenuItem());
         run.add(runAllTests.createJMenuItem());
@@ -1106,7 +1104,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         run.add(speedTest.createJMenuItem());
         run.add(stats.createJMenuItem());
         doStep.setEnabled(false);
-        finishStep.setEnabled(false);
 
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
         toolBar.add(runToBreakAction.createJButtonNoText());
@@ -1114,7 +1111,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         toolBar.addSeparator();
         toolBar.add(runModelMicroState.setIndicator(runModelMicroAction.createJButtonNoText()));
         toolBar.add(doStep.createJButtonNoText());
-        toolBar.add(finishStep.createJButtonNoText());
+        toolBar.add(runToBreakMicroAction.createJButtonNoText());
         toolBar.addSeparator();
         toolBar.add(runTests.createJButtonNoText());
     }
@@ -1251,11 +1248,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 clearModelDescription();
                 circuitComponent.setModeAndReset(false, SyncAccess.NOSYNC);
                 doStep.setEnabled(false);
-                finishStep.setEnabled(false);
                 stoppedState.getAction().setEnabled(false);
                 showMeasurementDialog.setEnabled(false);
                 showMeasurementGraph.setEnabled(false);
                 runToBreakAction.setEnabled(false);
+                runToBreakMicroAction.setEnabled(false);
                 runTests.setEnabled(true);
                 // keep errors
                 if (circuitComponent.getHighLightStyle() != Style.ERROR)
@@ -1369,8 +1366,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             handleKeyboardComponent(updateEvent);
 
             doStep.setEnabled(false);
-            finishStep.setEnabled(false);
-            runToBreakAction.setEnabled(!realTimeClockRunning && model.isRunToBreakAllowed());
+            if (!realTimeClockRunning && model.isRunToBreakAllowed()) {
+                if (updateEvent == ModelEvent.MICROSTEP)
+                    runToBreakMicroAction.setEnabled(true);
+                else
+                    runToBreakAction.setEnabled(true);
+            }
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
             if (settings.get(Keys.SHOW_DATA_TABLE) || windowPosManager.isVisible("probe"))
@@ -1390,11 +1391,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             model.init();
 
-            if (updateEvent == ModelEvent.MICROSTEP) {
-                final boolean needsUpdate = model.needsUpdate();
-                doStep.setEnabled(needsUpdate);
-                finishStep.setEnabled(needsUpdate);
-            }
+            if (updateEvent == ModelEvent.MICROSTEP)
+                doStep.setEnabled(model.needsUpdate());
 
             return true;
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
@@ -1415,9 +1413,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         keyboard.hasChanged();
                         modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
                         model.fireManualChangeEvent();
-                        final boolean needsUpdate = model.needsUpdate();
-                        doStep.setEnabled(needsUpdate);
-                        finishStep.setEnabled(needsUpdate);
+                        doStep.setEnabled(model.needsUpdate());
                         circuitComponent.graphicHasChanged();
                     };
                 else
@@ -1650,11 +1646,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
             model.fireManualChangeEvent();
             circuitComponent.graphicHasChanged();
-            if (!realTimeClockRunning) {
-                final boolean needsUpdate = model.needsUpdate();
-                doStep.setEnabled(needsUpdate);
-                finishStep.setEnabled(needsUpdate);
-            }
+            if (!realTimeClockRunning)
+                doStep.setEnabled(model.needsUpdate());
         }
     }
 
