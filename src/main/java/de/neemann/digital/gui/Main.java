@@ -134,6 +134,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private ToolTipAction runToBreakAction;
     private ToolTipAction showMeasurementDialog;
     private ToolTipAction showMeasurementGraph;
+    private ToolTipAction runTests;
 
     private File baseFilename;
     private File filename;
@@ -978,7 +979,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 .setToolTip(Lang.get("menu_element_tt"))
                 .setEnabledChain(false);
 
-        ToolTipAction runTests = new ToolTipAction(Lang.get("menu_runTests"), ICON_TEST) {
+        runTests = new ToolTipAction(Lang.get("menu_runTests"), ICON_TEST) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 startTests();
@@ -1230,6 +1231,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 showMeasurementDialog.setEnabled(false);
                 showMeasurementGraph.setEnabled(false);
                 runToBreakAction.setEnabled(false);
+                runTests.setEnabled(true);
                 // keep errors
                 if (circuitComponent.getHighLightStyle() != Style.ERROR)
                     circuitComponent.removeHighLighted();
@@ -1244,11 +1246,29 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 showMeasurementDialog.setEnabled(true);
                 showMeasurementGraph.setEnabled(true);
                 stoppedState.getAction().setEnabled(true);
+                runTests.setEnabled(false);
                 if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
             }
         });
         stateManager.setActualState(stoppedState);
+    }
+
+    private class RunModelState extends State {
+        @Override
+        public void enter() {
+            enter(true, null);
+        }
+
+        void enter(boolean runRealTime, ModelModifier modelModifier) {
+            super.enter();
+            stoppedState.getAction().setEnabled(true);
+            showMeasurementDialog.setEnabled(true);
+            showMeasurementGraph.setEnabled(true);
+            runTests.setEnabled(false);
+            if (createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier))
+                circuitComponent.setManualChangeObserver(new FullStepObserver(model));
+        }
     }
 
     private void clearModelDescription() {
@@ -1668,23 +1688,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         circuitComponent.graphicHasChanged();
                     }
             );
-        }
-    }
-
-
-    private class RunModelState extends State {
-        @Override
-        public void enter() {
-            enter(true, null);
-        }
-
-        void enter(boolean runRealTime, ModelModifier modelModifier) {
-            super.enter();
-            stoppedState.getAction().setEnabled(true);
-            showMeasurementDialog.setEnabled(true);
-            showMeasurementGraph.setEnabled(true);
-            if (createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier))
-                circuitComponent.setManualChangeObserver(new FullStepObserver(model));
         }
     }
 
