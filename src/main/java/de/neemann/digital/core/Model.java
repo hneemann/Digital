@@ -244,9 +244,13 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @throws NodeException NodeException
      */
     public void doStep(boolean noise) throws NodeException {
-        if (needsUpdate()) {
+        stepWithCondition(noise, this::needsUpdate);
+    }
+
+    private void stepWithCondition(boolean noise, StepCondition cond) throws NodeException {
+        if (cond.doNextMicroStep()) {
             int counter = 0;
-            while (needsUpdate()) {
+            while (cond.doNextMicroStep()) {
                 if (counter++ > MAX_LOOP_COUNTER) {
                     if (oscillatingNodes == null)
                         oscillatingNodes = new HashSet<>();
@@ -315,8 +319,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     public BreakInfo runToBreak() throws NodeException {
         ArrayList<BreakDetector> brVal = new ArrayList<>();
         for (Break b : breaks)
-            if (b.isEnabled())
-                brVal.add(new BreakDetector(b));
+            brVal.add(new BreakDetector(b));
 
         ObservableValue clkVal = clocks.get(0).getClockOutput();
 
@@ -333,17 +336,31 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
+     * Completes the actual micro step session to a full step.
+     *
+     * @param noise true if noise should be enabled
+     * @throws NodeException NodeException
+     */
+    public void finishMicroSteps(boolean noise) throws NodeException {
+        ArrayList<BreakDetector> brVal = new ArrayList<>();
+        for (Break b : breaks)
+            brVal.add(new BreakDetector(b));
+        stepWithCondition(noise, () -> {
+            boolean wasBreak = false;
+            for (BreakDetector bd : brVal)
+                if (bd.detected()) {
+                    fireEvent(ModelEvent.BREAK);
+                    wasBreak = true;
+                }
+            return needsUpdate() && !wasBreak;
+        });
+    }
+
+    /**
      * @return true if the models allows fast run steps
      */
     public boolean isRunToBreakAllowed() {
-        if (clocks.size() != 1 || breaks.isEmpty())
-            return false;
-
-        for (Break b : breaks)
-            if (b.isEnabled())
-                return true;
-
-        return false;
+        return clocks.size() == 1 && !breaks.isEmpty();
     }
 
     /**
@@ -493,14 +510,8 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @param aBreak the break
      */
     public void addBreak(Break aBreak) {
-        breaks.add(aBreak);
-    }
-
-    /**
-     * @return all registered Breaks
-     */
-    public ArrayList<Break> getBreaks() {
-        return breaks;
+        if (aBreak.isEnabled())
+            breaks.add(aBreak);
     }
 
     /**
@@ -860,5 +871,9 @@ public class Model implements Iterable<Node>, SyncAccess {
         private BreakInfo createInfo() {
             return new BreakInfo(c, label);
         }
+    }
+
+    private interface StepCondition {
+        boolean doNextMicroStep() throws NodeException;
     }
 }

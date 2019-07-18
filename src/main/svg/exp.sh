@@ -12,6 +12,7 @@
 ./expicon.sh media-playback-start-T
 ./expicon.sh media-playback-stop
 ./expicon.sh media-seek-forward
+./expicon.sh media-seek-forward-f
 ./expicon.sh media-skip-forward
 ./expicon.sh View-zoom-fit
 ./expicon.sh View-zoom-in
