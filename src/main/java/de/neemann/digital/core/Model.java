@@ -335,6 +335,11 @@ public class Model implements Iterable<Node>, SyncAccess {
         }
     }
 
+    /**
+     * Runs the model until a positive edge at the break element is detected in micro step mode.
+     *
+     * @throws NodeException NodeException
+     */
     public void runToBreakMicro() throws NodeException {
         ArrayList<BreakDetector> brVal = new ArrayList<>();
         for (Break b : breaks)
