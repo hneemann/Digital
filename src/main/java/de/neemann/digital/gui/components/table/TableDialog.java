@@ -62,6 +62,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
+import static de.neemann.digital.draw.graphics.GraphicSVG.escapeXML;
+
 /**
  *
  */
@@ -811,6 +813,7 @@ public class TableDialog extends JDialog {
 
         @Override
         public String identifier(String ident) {
+            ident = escapeXML(ident);
             int p = ident.indexOf("_");
             if (p < 0)
                 return ident;
