@@ -838,7 +838,8 @@
     <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock signal.</string>
     <string name="err_analyseNoInputs">The circuit has no labeled inputs</string>
     <string name="err_analyseNoOutputs">The circuit has no labeled outputs</string>
-    <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.</string>
+    <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.
+        Possibly the number of timout cycles in the break component should be increased.</string>
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
     <string name="err_builder_couldNotFillLUT">Error creating the lookup table.</string>
