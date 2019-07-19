@@ -349,13 +349,19 @@ public class Model implements Iterable<Node>, SyncAccess {
             // simply stabilize the circuit
             doStep();
         } else {
-            ObservableValue clkVal = clocks.get(0).getClockOutput();
+            ObservableValue clkVal = null;
+            if (clocks.size() == 1)
+                clkVal = clocks.get(0).getClockOutput();
 
             fireEvent(ModelEvent.FASTRUN);
             final boolean[] wasBreak = {false};
             while (!wasBreak[0]) {
-                if (!needsUpdate())
-                    clkVal.setBool(!clkVal.getBool());
+                if (!needsUpdate()) {
+                    if (clkVal != null)
+                        clkVal.setBool(!clkVal.getBool());
+                    else
+                        break;
+                }
                 stepWithCondition(false, () -> {
                     for (BreakDetector bd : brVal)
                         if (bd.detected()) {
