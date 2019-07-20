@@ -180,9 +180,9 @@ public class GraphicSVG implements Graphic {
             }
 
             if (rotateText)
-                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.getXFloat() + "\" y=\"" + p.getYFloat() + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\" transform=\"rotate(-90," + str(p1) + ")\" >" + text + "</text>\n");
+                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.getXFloat() + "\" y=\"" + p.getYFloat() + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "px\" transform=\"rotate(-90," + str(p1) + ")\" >" + text + "</text>\n");
             else
-                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.getXFloat() + "\" y=\"" + p.getYFloat() + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "\">" + text + "</text>\n");
+                w.write("<text text-anchor=\"" + getAchor(orientation.getX()) + "\" x=\"" + p.getXFloat() + "\" y=\"" + p.getYFloat() + "\" fill=\"" + getColor(style) + "\" style=\"font-size:" + style.getFontSize() + "px\">" + text + "</text>\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

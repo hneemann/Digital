@@ -1174,11 +1174,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private VisualElement getActualVisualElement() {
+        if (activeMouseController instanceof MouseControllerMoveElement)
+            mouseNormal.activate();
+
         VisualElement ve = null;
         if (activeMouseController instanceof MouseControllerNormal)
             ve = getCircuit().getElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
-//        if (activeMouseController instanceof MouseControllerMoveElement)
-//            ve = ((MouseControllerMoveElement) activeMouseController).getVisualElement();
         return ve;
     }
 
