@@ -40,9 +40,9 @@ public final class SVGFormatter {
                     if (mathMode)
                         return format(d.getContent(), true);
                     else
-                        return "<tspan style=\"font-style:italic\">" + format(d.getContent(), true) + "</tspan>";
+                        return "<tspan style=\"font-style:italic;\">" + format(d.getContent(), true) + "</tspan>";
                 case OVERLINE:
-                    return '\u00AC' + format(d.getContent(), mathMode);
+                    return "<tspan style=\"text-decoration:overline;\">" + format(d.getContent(), mathMode) + "</tspan>";
                 default:
                     return format(d.getContent(), mathMode);
             }
@@ -50,9 +50,9 @@ public final class SVGFormatter {
             Index i = (Index) text;
             String str = format(i.getVar(), true);
             if (i.getSubScript() != null)
-                str += "<tspan style=\"font-size:80%;baseline-shift:sub\">" + format(i.getSubScript(), mathMode) + "</tspan>";
+                str += "<tspan style=\"font-size:80%;baseline-shift:sub;\">" + format(i.getSubScript(), mathMode) + "</tspan>";
             if (i.getSuperScript() != null)
-                str += "<tspan style=\"font-size:80%;baseline-shift:super\">" + format(i.getSuperScript(), mathMode) + "</tspan>";
+                str += "<tspan style=\"font-size:80%;baseline-shift:super;\">" + format(i.getSuperScript(), mathMode) + "</tspan>";
             return str;
         } else if (text instanceof Sentence) {
             Sentence s = (Sentence) text;
