@@ -957,7 +957,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
             }
-        }.setToolTip(Lang.get("menu_step_tt")).setAccelerator("M").setEnabledChain(false);
+        }.setToolTip(Lang.get("menu_step_tt")).setAccelerator("V").setEnabledChain(false);
         runToBreakMicroAction = new ToolTipAction(Lang.get("menu_runToBreakMicro"), ICON_STEP_FINISH) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -971,7 +971,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
             }
-        }.setToolTip(Lang.get("menu_runToBreakMicro_tt")).setAcceleratorCTRLplus('M').setEnabledChain(false);
+        }.setToolTip(Lang.get("menu_runToBreakMicro_tt")).setAccelerator("B").setEnabledChain(false);
 
         ToolTipAction runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), ICON_RUN)
                 .setToolTip(Lang.get("menu_run_tt"));
