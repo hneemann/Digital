@@ -164,11 +164,11 @@ public class DataPlotter implements Drawable {
                     if (width == 0) width = 1;
                     long value = s.getValue(i).getValue();
                     int ry;
-                    if (Math.abs(width >>> 1) < Integer.MAX_VALUE) {
+                    long sWidth = (width >>> 32);
+                    if (sWidth == 0) {
                         ry = (int) (SIZE - (SIZE * value) / width);
                     } else {
-                        width = (width >>> 32);
-                        ry = (int) (SIZE - (SIZE * (value >>> 32)) / width);
+                        ry = (int) (SIZE - (SIZE * (value >>> 32)) / sWidth);
                     }
 
                     if (value != last[i].value)
