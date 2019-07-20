@@ -96,6 +96,7 @@ public class LineBreaker {
                     }
                     break;
                 case '\r':
+                case '\t':
                 case ' ':
                     addWord(word);
                     lastLineBreak = false;
