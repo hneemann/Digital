@@ -1771,7 +1771,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
         You can find this gate in the menu Components▸Logic.
         Place this component with some distance to the right of the inputs.</string>
   <string name="tutorial4">The last component to be inserted is an output.
-        Set it with two grid spacings to the right of the "Exclusive Or" gate.</string>
+        Place it with some distance to the right of the "Exclusive Or" gate.</string>
   <string name="tutorial5">In order to complete the circuit, connecting wires must be drawn.
 
         Click on the red dot at the first input and connect it to an input of the "Exclusive Or" gate,

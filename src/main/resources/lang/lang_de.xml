@@ -1975,7 +1975,7 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
         Setzen Sie dieses Bauteil mit etwas Abstand rechts neben die Eingänge.
     </string>
     <string name="tutorial4">Als letztes Bauteil soll noch ein Ausgang eingefügt werden.
-        Place it with some distance to the right of the "Exclusive Or" gate.
+        Platzieren Sie den Ausgang etwas rechts des "Exklusiv Oder" Gatters.
     </string>
     <string name="tutorial5">Um die Schaltung zu vervollständigen, sind Verbindungsleitungen zu ziehen.
 
