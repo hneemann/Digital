@@ -241,7 +241,8 @@
   <string name="elem_Splitter">Divisor</string>
   <string name="elem_Splitter_tt">Divide o crea un haz de cables o un bus de datos con más de un bit.
 		Con un bus es posible, por ejemplo, generar conexiones de 16 bits sin tener que generar 16 cables individuales.
-		Las 16 conexiones pueden agruparse en un cable.</string>
+		Las 16 conexiones pueden agruparse en un cable.
+		El divisor tiene una dirección, es decir, sólo puede transmitir señales en una dirección.</string>
   <string name="elem_Splitter_pin_in">Los bits de entrada {0}</string>
   <string name="elem_Splitter_pin_in_one">El bit de entrada {0}</string>
   <string name="elem_Splitter_pin_out">Los bits de salida {0}</string>
@@ -716,7 +717,8 @@
   <string name="err_aSingleClockNecessary">Se necesita un componente de reloj. Todos los flip-flops deben usar una señal de reloj.</string>
   <string name="err_analyseNoInputs">Este circuito no tiene entradas etiquetadas.</string>
   <string name="err_analyseNoOutputs">Este circuito no tiene salidas etiquetadas.</string>
-  <string name="err_breakTimeOut">Después de {0} ciclos, no se produjo ninguna interrupción en el punto de interrupción ''{1}''.</string>
+  <string name="err_breakTimeOut">Después de {0} ciclos, no se produjo ninguna interrupción en el punto de interrupción ''{1}''.
+		Posiblemente el número de ciclos de tiempo muerto en el componente de interrupción deberían incrementarse.</string>
   <string name="err_builder_exprNotSupported">Expresión {0} no soportada.</string>
   <string name="err_builder_operationNotSupported">Operación {0} no soportada.</string>
   <string name="err_builder_couldNotFillLUT">Error creando la tabla de consulta (LUT).</string>
@@ -1257,7 +1259,7 @@
   <string name="menu_saveData_tt">Guardar los datos en archivo CSV</string>
   <string name="menu_speedTest">Test de velocidad</string>
   <string name="menu_speedTest_tt">Hace un test de velocidad calculando la frecuencia de reloj máxima.</string>
-  <string name="menu_step">Paso</string>
+  <string name="menu_step">Paso de puerta</string>
   <string name="menu_step_tt">Calcula un paso de puerta simple</string>
   <string name="menu_synthesise">Sintetizar</string>
   <string name="menu_synthesise_tt">Genera la expresión booleana mínima a partir de una tabla de verdad.</string>
@@ -1771,4 +1773,7 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   <string name="tutorial11">Etiqueta todas las entradas y salidas.</string>
   <string name="tutorialUniqueIdents">Los nombres de las entradas y salidas deben ser únicos.</string>
   <string name="tutorialNotNeeded">Saltar el tutorial</string>
+  <string name="menu_runToBreakMicro">Ejecutar hasta parar en modo de puerta simple.</string>
+  <string name="menu_runToBreakMicro_tt">Ejecuta todos los pasos de puerta sencillos hasta que se detecta un flanco de subida en un componente de parada.
+		Si no hay componente de parada, se ejecutan los pasos de puerta simple restantes.</string>
 </resources>
