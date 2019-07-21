@@ -94,7 +94,10 @@ public class ScreenShots {
 
     private static void mainScreenShot() {
         Lang.setActualRuntimeLanguage(new Language("en"));
-        Settings.getInstance().getAttributes().set(Keys.SETTINGS_IEEE_SHAPES, true);
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_IEEE_SHAPES, true)
+                .set(Keys.SETTINGS_GRID, true)
+                .set(Keys.SETTINGS_SHOW_WIRE_BITS, true);
         new GuiTester("../../main/dig/processor/Processor.dig", "examples/processor/Processor.dig")
                 .press(' ')
                 .delay(2000)
@@ -186,8 +189,10 @@ public class ScreenShots {
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(Main.class,
                         (gt, main) -> {
-                            main.getCircuitComponent().translateCircuit(-40, 0);
+                            main.getCircuitComponent().translateCircuit(-40, -5);
                             mainStatic = main;
+                            main.setSize(1024, 768);
+                            main.setLocationRelativeTo(null);
                         }))
                 .delay(500)
                 .press("F10")
@@ -199,8 +204,8 @@ public class ScreenShots {
                     fsmFrame.loadFile(trafficLight);
                     fsmFrame.getContentPane().setPreferredSize(new Dimension(550, 400));
                     fsmFrame.pack();
-                    final Point location = fsmFrame.getLocation();
-                    fsmFrame.setLocation(location.x + 250, location.y + 100);
+                    final Point location = mainStatic.getLocation();
+                    fsmFrame.setLocation(location.x + 450, location.y + 120);
                     fsmFrame.setAlwaysOnTop(true);
                     fsmFrame.setTitle(trafficLight.getName());
                     mainStatic.requestFocus();

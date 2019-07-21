@@ -838,7 +838,8 @@
     <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock signal.</string>
     <string name="err_analyseNoInputs">The circuit has no labeled inputs</string>
     <string name="err_analyseNoOutputs">The circuit has no labeled outputs</string>
-    <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.</string>
+    <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.
+        Possibly the number of timout cycles in the break component should be increased.</string>
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
     <string name="err_builder_couldNotFillLUT">Error creating the lookup table.</string>
@@ -1434,8 +1435,11 @@
     <string name="menu_saveData_tt">Save data as CSV file</string>
     <string name="menu_speedTest">Speed Test</string>
     <string name="menu_speedTest_tt">Performs a speed test by calculating the max. clock frequency.</string>
-    <string name="menu_step">Step</string>
-    <string name="menu_step_tt">Calculating a single gate step</string>
+    <string name="menu_step">Gate Step</string>
+    <string name="menu_step_tt">Calculates a single gate step</string>
+    <string name="menu_runToBreakMicro">Run To Break in Single Gate Mode</string>
+    <string name="menu_runToBreakMicro_tt">Executes all single gate steps until a rising edge is detected on a break component.
+        If there is no break component, the remaining single gate steps are executed.</string>
     <string name="menu_synthesise">Synthesise</string>
     <string name="menu_synthesise_tt">Generates the minimal bool expressions described by a truth table.</string>
     <string name="menu_table_N_variables">{0} variables</string>

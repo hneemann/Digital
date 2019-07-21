@@ -846,7 +846,8 @@
     <string name="err_aSingleClockNecessary">Es muss genau ein Taktelement geben. Alle Flipflops müssen an diesem Takt hängen.</string>
     <string name="err_analyseNoInputs">Die Schaltung hat keine benannten Eingänge</string>
     <string name="err_analyseNoOutputs">Die Schaltung hat keine benannten Ausgänge</string>
-    <string name="err_breakTimeOut">Nach {0} Zyklen ist am Breakpoint ''{1}'' kein Break aufgetreten</string>
+    <string name="err_breakTimeOut">Nach {0} Zyklen ist am Breakpoint ''{1}'' kein Break aufgetreten.
+        Evtl. sollte die Anzahl der Timout-Zyklen im Break-Element erhöht werden.</string>
     <string name="err_builder_exprNotSupported">Ausdruck {0} wird nicht unterstützt.</string>
     <string name="err_builder_operationNotSupported">Operation {0} wird nicht unterstützt.</string>
     <string name="err_builder_couldNotFillLUT">Fehler beim Erstellen der LookUpTable.</string>
@@ -1451,6 +1452,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_speedTest_tt">Führt einen Geschwindigkeitstest durch. Es wird die maximal mögliche Taktfrequenz ermittelt</string>
     <string name="menu_step">Gatterschritt</string>
     <string name="menu_step_tt">Führt einen Einzelgatterschritt aus</string>
+    <string name="menu_runToBreakMicro">Run To Break im Gatterschrittmodus</string>
+    <string name="menu_runToBreakMicro_tt">Führt alle Einzelgatterschritte aus, bis eine steigende Flanke an einem Break-Element erkannt wird.
+        Ist kein Break-Element vorhanden, werden die verbleibenden Einzelgatterschritte ausgeführt.</string>
     <string name="menu_synthesise">Synthese</string>
     <string name="menu_synthesise_tt">Erzeugt minimale boolsche Ausdrücke, welche durch eine Wahrheitstabelle beschrieben werden.</string>
     <string name="menu_table_N_variables">{0} Variablen</string>

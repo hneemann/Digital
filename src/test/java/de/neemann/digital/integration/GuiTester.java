@@ -175,6 +175,8 @@ public class GuiTester {
                             SwingUtilities.invokeLater(() -> main.setTitle(displayName + " - Digital"));
                     } else
                         main = new Main.MainBuilder().setCircuit(new Circuit()).build();
+                    main.setSize(1024,768);
+                    main.setLocationRelativeTo(null);
                     main.setVisible(true);
                 });
                 Thread.sleep(500);

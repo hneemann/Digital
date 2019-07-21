@@ -584,6 +584,9 @@
             <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single
                 clock component).
             </shortcut>
+            <shortcut key="V">Execute a single gate step.</shortcut>
+            <shortcut key="B">Execute all single gate steps until the circuit has stabilized or,
+                if a break component is present, until the break.</shortcut>
             <shortcut key="F9">Analysis of the circuit</shortcut>
             <shortcut key="CTRL-A">Select all.</shortcut>
             <shortcut key="CTRL-X">Cuts the selected components to the clipboard.</shortcut>
