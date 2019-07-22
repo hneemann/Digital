@@ -22,6 +22,7 @@ head, planned as v0.23
   74xx circuit example.
 - Fixed an issue in the "RAM, Chip select" component which was not fully
   asynchronous.
+- Fixed swapped IC numbers 7447 and 7448.
 
 v0.22, released on 01. Apr 2019
 - Improved the RAM/ROM data loader. Now binary files and Intel HEX files are
