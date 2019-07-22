@@ -1022,7 +1022,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_whileExecutingTests_N0">Während der Ausführung der Tests "{0}" ist ein Fehler aufgetreten!</string>
     <string name="err_hdlNotKnown_N">HDL nicht bekannt: {0}</string>
     <string name="msg_errorStartCommand_N">Fehler beim Starten des Kommandos {0}</string>
-    <string name="err_thereIsAUnnamedIO">Es gibt ein unbenannten Ein- oder Ausgang</string>
+    <string name="err_thereIsAUnnamedIO">Es gibt einen unbenannten Ein- oder Ausgang.</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!</string>
     <string name="err_substitutingError">Fehler bei der Substitution von Elementen für die Analyse.</string>
     <string name="err_evaluatingGenericsCode_N_N">Fehler bei der Auswertung des generischen Codes der Schaltung. Code:
