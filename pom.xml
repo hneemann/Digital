@@ -24,6 +24,26 @@
         </site>
     </distributionManagement>
 
+    <profiles>
+        <profile>
+            <id>no-git-rev</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>pl.project13.maven</groupId>
+                        <artifactId>git-commit-id-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>get-the-git-infos</id>
+                                <phase>none</phase> <!-- this disables plugin -->
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <reporting>
         <plugins>
             <plugin>
@@ -261,6 +281,29 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.7.1</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                <execution>
+                    <id>enforce-property</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                      <rules>
+                        <requireProperty>
+                          <property>git.commit.id.describe</property>
+                          <message>"Project version (git.commit.id.describe) must be specified."</message>
+                        </requireProperty>
+                      </rules>
+                      <fail>true</fail>
+                    </configuration>
+                  </execution>
+                </executions>
+             </plugin>
         </plugins>
     </build>
 
