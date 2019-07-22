@@ -20,7 +20,7 @@ public class Out implements Element {
      * The Input description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(Out.class, input("in")) {
+            = new ElementTypeDescription("Out", attributes -> new Out(attributes).enforceName(), input("in")) {
         @Override
         public String getDescription(ElementAttributes elementAttributes) {
             String d = Lang.evalMultilingualContent(elementAttributes.get(Keys.DESCRIPTION));
@@ -84,6 +84,7 @@ public class Out implements Element {
     private final String label;
     private final String pinNumber;
     private final IntFormat format;
+    private boolean enforceSignal = false;
     private ObservableValue value;
 
     /**
@@ -126,9 +127,16 @@ public class Out implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addOutput(new Signal(label, value)
+        final Signal signal = new Signal(label, value)
                 .setPinNumber(pinNumber)
-                .setFormat(format));
+                .setFormat(format);
+        if (enforceSignal || signal.isValid())
+            model.addOutput(signal);
+    }
+
+    private Element enforceName() {
+        enforceSignal = true;
+        return this;
     }
 
     private final static class SevenSegTypeDescription extends ElementTypeDescription {
