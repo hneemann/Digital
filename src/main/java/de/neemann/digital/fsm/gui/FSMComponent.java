@@ -191,6 +191,10 @@ public class FSMComponent extends JComponent {
                 point, attr, STATE_EDIT_KEYS);
         ad.setTitle(Lang.get("msg_fsmNewState"));
         ElementAttributes newAttr = ad.showDialog();
+
+        if (newAttr == null && ad.isOkPressed())
+            newAttr = attr;
+
         if (newAttr != null) {
             fsm.add(new State(newAttr.get(Keys.LABEL))
                     .setNumber(newAttr.get(KEY_NUMBER))

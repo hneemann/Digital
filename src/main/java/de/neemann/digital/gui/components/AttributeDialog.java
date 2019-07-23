@@ -318,7 +318,7 @@ public class AttributeDialog extends JDialog {
     /**
      * @return true if ok is pressed
      */
-    boolean isOkPressed() {
+    public boolean isOkPressed() {
         return okPressed;
     }
 
