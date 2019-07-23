@@ -40,6 +40,7 @@ public class AttributeDialog extends JDialog {
     private final ElementAttributes modifiedAttributes;
     private final JPanel buttonPanel;
     private final ConstraintsBuilder constraints;
+    private final AbstractAction okAction;
     private HashMap<Key, JCheckBox> checkBoxes;
     private JComponent topMostTextComponent;
     private VisualElement visualElement;
@@ -163,7 +164,7 @@ public class AttributeDialog extends JDialog {
             getContentPane().add(new JScrollPane(panel));
 
 
-        JButton okButton = new JButton(new AbstractAction(Lang.get("ok")) {
+        okAction = new AbstractAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -172,7 +173,8 @@ public class AttributeDialog extends JDialog {
                     new ErrorMessage(Lang.get("msg_errorEditingValue")).addCause(err).show(AttributeDialog.this);
                 }
             }
-        });
+        };
+        JButton okButton = new JButton(okAction);
 
         final AbstractAction cancel = new AbstractAction(Lang.get("cancel")) {
             @Override
@@ -345,6 +347,14 @@ public class AttributeDialog extends JDialog {
     public AttributeDialog setVisualElement(VisualElement visualElement) {
         this.visualElement = visualElement;
         return this;
+    }
+
+    /**
+     * Disables the ok button
+     */
+    public void disableOk() {
+        okAction.setEnabled(false);
+        okPressed = false;
     }
 
     private static final class EditorHolder<T> {

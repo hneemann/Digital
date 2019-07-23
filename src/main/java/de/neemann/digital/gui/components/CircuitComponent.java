@@ -1069,8 +1069,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     }
                 }.setToolTip(Lang.get("attr_help_tt")));
 
+                boolean locked = isLocked();
+                if (isLocked())
+                    attributeDialog.disableOk();
+
                 ElementAttributes modified = attributeDialog.showDialog();
-                if (modified != null)
+                if (modified != null && !locked)
                     modify(new ModifyAttributes(element, modified));
             }
         } catch (ElementNotFoundException ex) {
@@ -1435,11 +1439,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             Vector pos = getPosVector(e);
 
             if (mouse.isSecondaryClick(e)) {
-                if (!isLocked()) {
-                    VisualElement vp = getVisualElement(pos, true);
-                    if (vp != null)
-                        editAttributes(vp, e);
-                }
+                VisualElement vp = getVisualElement(pos, true);
+                if (vp != null)
+                    editAttributes(vp, e);
             } else if (mouse.isPrimaryClick(e)) {
                 VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
