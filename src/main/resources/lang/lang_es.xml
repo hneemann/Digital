@@ -241,7 +241,8 @@
   <string name="elem_Splitter">Divisor</string>
   <string name="elem_Splitter_tt">Divide o crea un haz de cables o un bus de datos con más de un bit.
 		Con un bus es posible, por ejemplo, generar conexiones de 16 bits sin tener que generar 16 cables individuales.
-		Las 16 conexiones pueden agruparse en un cable.</string>
+		Las 16 conexiones pueden agruparse en un cable.
+		El divisor tiene una dirección, es decir, sólo puede transmitir señales en una dirección.</string>
   <string name="elem_Splitter_pin_in">Los bits de entrada {0}</string>
   <string name="elem_Splitter_pin_in_one">El bit de entrada {0}</string>
   <string name="elem_Splitter_pin_out">Los bits de salida {0}</string>
@@ -716,7 +717,8 @@
   <string name="err_aSingleClockNecessary">Se necesita un componente de reloj. Todos los flip-flops deben usar una señal de reloj.</string>
   <string name="err_analyseNoInputs">Este circuito no tiene entradas etiquetadas.</string>
   <string name="err_analyseNoOutputs">Este circuito no tiene salidas etiquetadas.</string>
-  <string name="err_breakTimeOut">Después de {0} ciclos, no se produjo ninguna interrupción en el punto de interrupción ''{1}''.</string>
+  <string name="err_breakTimeOut">Después de {0} ciclos, no se produjo ninguna interrupción en el punto de interrupción ''{1}''.
+		Posiblemente el número de ciclos de tiempo muerto en el componente de interrupción deberían incrementarse.</string>
   <string name="err_builder_exprNotSupported">Expresión {0} no soportada.</string>
   <string name="err_builder_operationNotSupported">Operación {0} no soportada.</string>
   <string name="err_builder_couldNotFillLUT">Error creando la tabla de consulta (LUT).</string>
@@ -1257,7 +1259,7 @@
   <string name="menu_saveData_tt">Guardar los datos en archivo CSV</string>
   <string name="menu_speedTest">Test de velocidad</string>
   <string name="menu_speedTest_tt">Hace un test de velocidad calculando la frecuencia de reloj máxima.</string>
-  <string name="menu_step">Paso</string>
+  <string name="menu_step">Paso de puerta</string>
   <string name="menu_step_tt">Calcula un paso de puerta simple</string>
   <string name="menu_synthesise">Sintetizar</string>
   <string name="menu_synthesise_tt">Genera la expresión booleana mínima a partir de una tabla de verdad.</string>
@@ -1723,4 +1725,55 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   <string name="msg_errorReadingToolchainConfig_N">Error al leer la configuración de la toolchain {0}</string>
   <string name="msg_commandStarted_N">¡El comando "{0}" ha empezado! ¡El procesado puede llevar un tiempo!</string>
   <string name="msg_commandEnded_N">¡El comando "{0}" ha sido completado!</string>
+  <string name="err_thereIsAUnnamedIO">Hay una entrada o una salida sin nombre</string>
+  <string name="err_NameOfIOIsInvalidOrNotUnique_N">La señal "{0}" no es válida o se ha usado varias veces</string>
+  <string name="err_substitutingError">Error al sustituir componentes para el análisis.</string>
+  <string name="err_evaluatingGenericsCode_N_N">Error en la evaluación del código genérico del circuito. Código {1} en el Componente: {0}</string>
+  <string name="msg_errParsingGenerics">Error al analizar código genérico</string>
+  <string name="key_generic">Parametrización genérica</string>
+  <string name="key_generic_tt">Declaraciones hechas para generar un circuito</string>
+  <string name="key_isGeneric">El circuito es genérico</string>
+  <string name="key_isGeneric_tt">Permite crear un circuito genérico</string>
+  <string name="key_showTutorial">Muestra el tutorial en el arranque</string>
+  <string name="key_showTutorial_tt">Habilita el tutorial</string>
+  <string name="stat_inputs">Entradas</string>
+  <string name="stat_bits">Bits</string>
+  <string name="stat_addrBits">Bits de dirección</string>
+  <string name="tutorial">Tutorial</string>
+  <string name="tutorial1">A continuación, podrás diseñar tu primer circuito tras un breve tutorial:
+		
+		Primero, pon una entrada en el circuito. Encontrarás las entradas en el menú Componentes▸Entrada-Salida</string>
+  <string name="tutorial2">Ahora, añade una segunda entrada al circuito. También puedes hacer clic sobre la entrada que ha aparecido en la barra de herramientas.
+		
+		Es mejor colocar la segunda entrada a dos espacios de rejilla debajo de la primera.
+		Puedes mover el circuito presionando el botón derecho del ratón.
+		Haciendo clic sobre las entradas puedes moverlas.</string>
+  <string name="tutorial3">A continuación vamos a insertar una puerta "OR Exclusiva".
+		Puedes encontrarla en el menú Componentes▸Lógica.
+		Coloca el componente a dos espacios de rejilla a la derecha de las entradas.</string>
+  <string name="tutorial4">El último componente que vamos a insertar es una salida.
+		Colócala a dos espacios de rejilla a la derecha de la puerta "OR Exclusiva".</string>
+  <string name="tutorial5">Para completar el circuito hay que dibujar los cables.
+	
+		Haz clic en el punto rojo de la primera entrada y conecta el cable que aparece a una entrada de la puerta "OR Exclusiva"
+		haciendo clic en uno de los puntos azules de dicha puerta.
+		¡NO pinches y arrastres con el botón del ratón!</string>
+  <string name="tutorial6">Conecta los puntos rojos de las entradas con los puntos azules de la puerta "OR Exclusiva"
+		y el punto rojo de dicha puerta con el punto azul de la salida.
+		Así de fácil: un punto rojo va a un punto azul.</string>
+  <string name="tutorial7">Tu primer circuito ya funcionará.
+		Para empezar la simulación, puedes hacer clic en el botón "Simular" de la barra de herramientas.</string>
+  <string name="tutorial8">La simulación ya está activa. Ahora puedes cambiar los valores de las entradas haciendo clic en ellas.</string>
+  <string name="tutorial9">Para terminar la simulación, haz clic en el botón "Stop" de la barra de herramientas.</string>
+  <string name="tutorial10">Para que todo quede perfecto, tendrías que poner etiquetas a las entradas y salidas.
+	
+		Haz clic con el botón derecho en una entrada para abrir un cuadro de diálogo.
+		En MacOS puedes usar el control-clic.
+		Así podrás nombrar la entrada.</string>
+  <string name="tutorial11">Etiqueta todas las entradas y salidas.</string>
+  <string name="tutorialUniqueIdents">Los nombres de las entradas y salidas deben ser únicos.</string>
+  <string name="tutorialNotNeeded">Saltar el tutorial</string>
+  <string name="menu_runToBreakMicro">Ejecutar hasta parar en modo de puerta simple.</string>
+  <string name="menu_runToBreakMicro_tt">Ejecuta todos los pasos de puerta sencillos hasta que se detecta un flanco de subida en un componente de parada.
+		Si no hay componente de parada, se ejecutan los pasos de puerta simple restantes.</string>
 </resources>

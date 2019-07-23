@@ -129,7 +129,7 @@
 
     <!-- IO -->
 
-    <string name="elem_Out">Out</string>
+    <string name="elem_Out">Output</string>
     <string name="elem_Out_tt">Can be used to display an output signal in a circuit.
         This element is also used to connect a circuit to an embedding circuit.
         In this case the connection is bidirectional.
@@ -1335,6 +1335,9 @@
     <string name="key_isGeneric">Circuit is generic</string>
     <string name="key_isGeneric_tt">Allows to create a generic circuit.</string>
 
+    <string name="key_showTutorial">Show Tutorial at Startup</string>
+    <string name="key_showTutorial_tt">Enables the tutorial.</string>
+
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
     <string name="mod_setKey_N0_in_element_N1">Value ''{0}'' in component ''{1}'' modified.</string>
@@ -1922,4 +1925,56 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   transition condition is met.
 </body></html>]]></string>
 
+    <string name="tutorial">Tutorial</string>
+    <string name="tutorial1">In the following a short tutorial leads you to the first, simple circuit:
+
+        First, insert an input into the circuit. You will find the input in the menu Components▸IO.</string>
+    <string name="tutorial2">Now add a second input to the circuit. You can also click on the input
+        in the toolbar.
+
+        It is best to place the second input slightly below the first input.
+        You can move the circuit by holding down the right mouse button.
+        By clicking on components you can move them.</string>
+    <string name="tutorial3">Next, an "Exclusive Or" gate is to be inserted.
+        You can find this gate in the menu Components▸Logic.
+        Place this component with some distance to the right of the inputs.</string>
+    <string name="tutorial4">The last component to be inserted is an output.
+        Place it with some distance to the right of the "Exclusive Or" gate.
+    </string>
+    <string name="tutorial5">In order to complete the circuit, connecting wires must be drawn.
+
+        Click on the red dot at the first input and connect it to an input of the "Exclusive Or" gate,
+        by clicking on a blue dot of the "Exclusive Or" gate afterwards.
+        Do NOT drag with mouse button down!
+    </string>
+    <string name="tutorial6">Connect the red dot of the second input to the second blue dot of the
+        "Exclusive Or" gate and the red dot of the "Exclusive Or" gate to the blue dot of the output.
+
+        While drawing, you can pin the wire by clicking somewhere on the canvas.
+        Right-click cancels the drawing of the wire (control-click on MacOS).
+    </string>
+    <string name="tutorial7">Your first circuit is now functional.
+        To start the simulation, you can click on the Play button in the toolbar.
+        If you move the mouse over the toolbar, tool tips are shown.
+    </string>
+    <string name="tutorial8">
+        The simulation is now active. Switch the inputs by clicking on them.
+    </string>
+    <string name="tutorial9">
+        To stop the simulation, click on the Stop button in the toolbar.
+    </string>
+    <string name="tutorial10">
+        For completeness, the inputs and outputs should be labeled.
+
+        Right-click on an input to open a dialog. On MacOS control-click is used.
+        Here the input can be given a name.</string>
+    <string name="tutorial11">
+        Label all inputs and outputs.
+    </string>
+    <string name="tutorialUniqueIdents">
+        Inputs and outputs should always be uniquely named.
+    </string>
+    <string name="tutorialNotNeeded">
+        Skip Tutorial
+    </string>
 </resources>

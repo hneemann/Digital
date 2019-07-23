@@ -1349,6 +1349,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_isGeneric">Schaltung ist generisch</string>
     <string name="key_isGeneric_tt">Erlaubt die Erzeugung von generischen Schaltungen.</string>
 
+    <string name="key_showTutorial">Tutorial beim Start anzeigen</string>
+    <string name="key_showTutorial_tt">Aktiviert das Tutorial.</string>
+
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
     <string name="mod_setKey_N0_in_element_N1">Wert ''{0}'' in Element ''{1}'' verändert.</string>
@@ -1953,4 +1956,64 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
   Gibt es aus einem Zustand keinen unbedingten Übergang, bleibt der Automat in diesem Zustand, wenn keine
   andere Übergangsbedingung erfüllt ist.
 </body></html>]]></string>
+
+    <string name="tutorial">Tutorial</string>
+    <string name="tutorial1">Im Folgenden führt Sie ein kurzes Tutorial zur ersten,
+        einfachen Schaltung:
+
+        Beginnen Sie, indem Sie einen Eingang in die Schaltung einfügen.
+        Sie finden den Eingang im Menu Bauteile▸IO.</string>
+    <string name="tutorial2">Fügen Sie nun einen zweiten Eingang in die Schaltung ein.
+        Sie können auch auf den Eingang in der Toolbar klicken.
+
+        Setzen Sie den zweiten Eingang am besten mit etwas Abstand unter den ersten Eingang.
+        Sie können die Schaltung verschieben, wenn Sie die rechte Maustaste gedrückt halten.
+        Durch klicken auf Bauteile können Sie diese verschieben.
+    </string>
+    <string name="tutorial3">Als nächstes soll ein "Exklusiv Oder" Gatter eingefügt werden.
+        Sie finden dieses Gatter im Menu Bauteile▸Logisch.
+        Setzen Sie dieses Bauteil mit etwas Abstand rechts neben die Eingänge.
+    </string>
+    <string name="tutorial4">Als letztes Bauteil soll noch ein Ausgang eingefügt werden.
+        Platzieren Sie den Ausgang etwas rechts des "Exklusiv Oder" Gatters.
+    </string>
+    <string name="tutorial5">Um die Schaltung zu vervollständigen, sind Verbindungsleitungen zu ziehen.
+
+        Klicken Sie auf den roten Punkt am ersten Eingang und verbinden Sie diesen mit einem Eingang
+        des "Exklusiv Oder" Gatters, indem Sie danach auf einen blauen Punkt des "Exklusiv Oder"
+        Gatters klicken. Die Maustaste NICHT gedrückt halten!
+    </string>
+    <string name="tutorial6">Verbinden Sie den roten Punkt des zweiten Eingangs mit den zweiten blauen
+        Punkten des "Exklusiv Oder" Gatters und den roten Punkt des "Exklusiv Oder" Gatters mit dem
+        blauen Punkt des Ausgangs.
+
+        Während Sie die Leitung zeichnen, können Sie sie durch Klicken auf die Arbeitsfläche anheften.
+        Rechts-Klick bricht das Zeichnen der Leitung ab (Steuerung-Klick unter MacOS).
+    </string>
+    <string name="tutorial7">Damit ist Ihre erste Schaltung funktionsfähig.
+        Um die Simulation zu starten, können Sie auf den Play-Knopf in der Toolbar klicken.
+        Wenn Sie mit der Maus über die Toolbar fahren, werden Tool-Tipps angezeigt.
+    </string>
+    <string name="tutorial8">
+        Die Simulation ist jetzt aktiv.
+        Schalten Sie die Eingänge um, indem Sie darauf klicken.
+    </string>
+    <string name="tutorial9">
+        Um die Simulation zu beenden, klicken Sie auf den Stop-Knopf in der Toolbar.
+    </string>
+    <string name="tutorial10">
+        Der Vollständigkeit halber sollen die Ein- und Ausgänge benannt werden.
+
+        Durch Rechts-Klick auf einen Eingang öffnet sich ein Dialog (Unter MacOS wird
+        Steuerung-Klick verwendet). Hier kann der Eingang mit einer Bezeichnung versehen werden.
+    </string>
+    <string name="tutorial11">
+        Benennen Sie alle Ein- und Ausgänge.
+    </string>
+    <string name="tutorialUniqueIdents">
+        Ein- und Ausgänge sollten stets eindeutig benannt sein.
+    </string>
+    <string name="tutorialNotNeeded">
+        Tutorial überspringen
+    </string>
 </resources>

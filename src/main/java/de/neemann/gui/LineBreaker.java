@@ -82,21 +82,28 @@ public class LineBreaker {
 
         StringBuilder word = new StringBuilder();
         pos = indent;
+        boolean lastLineBreak=false;
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             switch (c) {
                 case '\n':
-                    if (preserveLineBreaks) {
+                    if (preserveLineBreaks || lastLineBreak) {
                         addWord(word);
                         lineBreak();
-                        break;
+                    } else {
+                        addWord(word);
+                        lastLineBreak = true;
                     }
+                    break;
                 case '\r':
+                case '\t':
                 case ' ':
                     addWord(word);
+                    lastLineBreak = false;
                     break;
                 default:
                     word.append(c);
+                    lastLineBreak = false;
             }
         }
         addWord(word);
