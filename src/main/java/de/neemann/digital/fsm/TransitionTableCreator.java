@@ -20,6 +20,8 @@ import java.util.*;
  * Creates a transition table from given states and transitions
  */
 public class TransitionTableCreator {
+    private static final String STATE_VAR = "Z";
+
     private final List<State> states;
     private final List<Transition> transitions;
     private final HashMap<Movable, TreeMap<String, Integer>> outputValues;
@@ -81,7 +83,7 @@ public class TransitionTableCreator {
         // create state variables
         ArrayList<Variable> vars = new ArrayList<>();
         for (int i = stateBits - 1; i >= 0; i--) {
-            final Variable var = new Variable("Q^" + i + "_n");
+            final Variable var = new Variable(STATE_VAR+"^" + i + "_n");
             vars.add(var);
             boolean initVal = (initState & (1 << i)) != 0;
             modelAnalyserInfo.setSequentialInitValue(var.getIdentifier(), initVal ? 1 : 0);
@@ -91,7 +93,7 @@ public class TransitionTableCreator {
 
         // create the next state result variables
         for (int i = stateBits - 1; i >= 0; i--)
-            truthTable.addResult("Q^" + i + "_n+1");
+            truthTable.addResult(STATE_VAR+"^" + i + "_n+1");
 
         // add the output variables
         TreeSet<String> results = new TreeSet<>();
