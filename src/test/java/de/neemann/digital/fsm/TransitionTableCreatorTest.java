@@ -28,7 +28,7 @@ public class TransitionTableCreatorTest extends TestCase {
         new MinimizerQuineMcCluskey().minimize(tt.getVars(), tt.getResult(0), "Y", el);
 
         assertEquals(1, el.getResults().size());
-        assertEquals("not(Q^0_n)", el.getFirst().toString());
+        assertEquals("not(Z^0_n)", el.getFirst().toString());
     }
 
     public void testBlinkOnOff() throws ExpressionException, FiniteStateMachineException, FormatterException {
@@ -45,7 +45,7 @@ public class TransitionTableCreatorTest extends TestCase {
         new MinimizerQuineMcCluskey().minimize(tt.getVars(), tt.getResult(0), "Y", el);
 
         assertEquals(1, el.getResults().size());
-        assertEquals("or(and(not(Q^0_n),Run),and(Q^0_n,not(Run)))", el.getFirst().toString());
+        assertEquals("or(and(Run,not(Z^0_n)),and(not(Run),Z^0_n))", el.getFirst().toString());
     }
 
     public void testBlinkResult() throws ExpressionException, FiniteStateMachineException, FormatterException {
@@ -62,13 +62,13 @@ public class TransitionTableCreatorTest extends TestCase {
         new MinimizerQuineMcCluskey().minimize(tt.getVars(), tt.getResult(0), "Y", el);
 
         assertEquals(1, el.getResults().size());
-        assertEquals("not(Q^0_n)", el.getFirst().toString());
+        assertEquals("not(Z^0_n)", el.getFirst().toString());
 
         el = new ExpressionListenerStore(null);
         new MinimizerQuineMcCluskey().minimize(tt.getVars(), tt.getResult(1), "Y", el);
 
         assertEquals(1, el.getResults().size());
-        assertEquals("Q^0_n", el.getFirst().toString());
+        assertEquals("Z^0_n", el.getFirst().toString());
     }
 
     public void testBlinkNotDeterministic() throws ExpressionException {
@@ -148,13 +148,13 @@ public class TransitionTableCreatorTest extends TestCase {
         new MinimizerQuineMcCluskey().minimize(tt.getVars(), tt.getResult(0), "Y", el);
 
         assertEquals(1, el.getResults().size());
-        assertEquals("and(not(Q^0_n),R)", el.getFirst().toString());
+        assertEquals("and(R,not(Z^0_n))", el.getFirst().toString());
 
         el = new ExpressionListenerStore(null);
         new MinimizerQuineMcCluskey().minimize(tt.getVars(), tt.getResult(1), "Y", el);
 
         assertEquals(1, el.getResults().size());
-        assertEquals("and(not(Q^0_n),R)", el.getFirst().toString());
+        assertEquals("and(R,not(Z^0_n))", el.getFirst().toString());
 
     }
 
