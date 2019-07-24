@@ -195,6 +195,27 @@ public class FormatToExpression implements Formatter {
     }
 
     /**
+     * @return the OR string
+     */
+    public String getOrString() {
+        return orString;
+    }
+
+    /**
+     * @return the AND string
+     */
+    public String getAndString() {
+        return andString;
+    }
+
+    /**
+     * @return the XOR string
+     */
+    public String getXorString() {
+        return xorString;
+    }
+
+    /**
      * Formats an operation
      *
      * @param expressions the expressions

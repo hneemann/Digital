@@ -813,7 +813,7 @@ public class TableDialog extends JDialog {
 
         @Override
         public String identifier(String ident) {
-            ident = escapeXML(ident);
+            ident = escapeXML(ident.replace("^", ""));
             int p = ident.indexOf("_");
             if (p < 0)
                 return ident;
