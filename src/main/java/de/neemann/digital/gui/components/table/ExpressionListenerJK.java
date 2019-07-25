@@ -31,8 +31,8 @@ public class ExpressionListenerJK implements ExpressionListener {
     public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
         parent.resultFound(name, expression);
 
-        if (name.endsWith("n+1")) {
-            String detName = name.substring(0, name.length() - 2);
+        if (name.endsWith("^n+1")) {
+            String detName = name.substring(0, name.length() - 4);
             DetermineJKStateMachine jk = new DetermineJKStateMachine(detName, expression);
             Expression j = jk.getJ();
             parent.resultFound("J_" + detName, j);

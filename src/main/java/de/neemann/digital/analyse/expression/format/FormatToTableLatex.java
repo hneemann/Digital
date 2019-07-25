@@ -57,7 +57,7 @@ public class FormatToTableLatex extends FormatToTable {
      * @return the formatted text
      */
     public static String formatIdentifier(String identifier) {
-        int p = identifier.indexOf("_");
+        int p = identifier.indexOf("^");
         if (p < 0) return identifier;
 
         String index = identifier.substring(p + 1);

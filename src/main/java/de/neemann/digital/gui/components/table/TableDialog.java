@@ -63,8 +63,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
-import static de.neemann.digital.draw.graphics.GraphicSVG.escapeXML;
-
 /**
  *
  */
@@ -94,7 +92,7 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private final JTextPane statusBar;
+    private final ExpressionComponent statusBar;
     private final JTable table;
     private final Font font;
     private final ElementLibrary library;
@@ -128,13 +126,7 @@ public class TableDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         kvMap = new KarnaughMapDialog(this, (boolTable, row) -> model.incValue(boolTable, row));
 
-        statusBar = new JTextPane();
-        statusBar.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE); // without this setFont not work
-        statusBar.setContentType("text/html");
-        statusBar.setEditable(false);
-        statusBar.setBackground(null);
-        statusBar.setBorder(null);
-        statusBar.setText("-");
+        statusBar = new ExpressionComponent();
         font = Screen.getInstance().getFont(1.66f);
         statusBar.setFont(font);
         table = new JTable(model);
@@ -689,7 +681,7 @@ public class TableDialog extends JDialog {
         public void actionPerformed(ActionEvent actionEvent) {
             ArrayList<Variable> vars = new ArrayList<>();
             for (int i = n - 1; i >= 0; i--)
-                vars.add(new Variable("Q" + i + "n"));
+                vars.add(new Variable("Q_" + i + "^n"));
             TruthTable truthTable = new TruthTable(vars);
             int i = n - 1;
             int rows = 1 << n;
@@ -716,9 +708,9 @@ public class TableDialog extends JDialog {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             ArrayList<Variable> vars = new ArrayList<>();
-            vars.add(new Variable("dir"));
+            vars.add(new Variable("D"));
             for (int i = n - 1; i >= 0; i--)
-                vars.add(new Variable("Q" + i + "n"));
+                vars.add(new Variable("Q_" + i + "^n"));
             TruthTable truthTable = new TruthTable(vars);
             int i = n - 1;
             int rows = 1 << (n + 1);
@@ -761,7 +753,6 @@ public class TableDialog extends JDialog {
     }
 
     private final class OutputExpressionListener implements ExpressionListener {
-        private FormatToExpression htmlFormatter = new HTMLFormatter(FormatToExpression.getDefaultFormat());
         private final ArrayList<Expression> expressions;
 
         private OutputExpressionListener() {
@@ -776,12 +767,7 @@ public class TableDialog extends JDialog {
         }
 
         @Override
-        public void close() throws FormatterException {
-            String html = null;
-            if (expressions.size() == 1)
-                html = "<html>" + htmlFormatter.format(expressions.get(0)) + "</html>";
-            final String finalHtml = html;
-
+        public void close() {
             SwingUtilities.invokeLater(() -> {
                 switch (expressions.size()) {
                     case 0:
@@ -790,7 +776,7 @@ public class TableDialog extends JDialog {
                         break;
                     case 1:
                         statusBar.setVisible(true);
-                        statusBar.setText(finalHtml);
+                        statusBar.setExpression(expressions.get(0));
                         allSolutionsDialog.setNeeded(false);
                         break;
                     default:
@@ -799,29 +785,6 @@ public class TableDialog extends JDialog {
                         allSolutionsDialog.setNeeded(true);
                 }
             });
-        }
-    }
-
-    private final static class HTMLFormatter extends FormatToExpression {
-        private HTMLFormatter(FormatToExpression format) {
-            super(format);
-        }
-
-        @Override
-        public String identifier(String ident) {
-            ident = escapeXML(ident.replace("^", ""));
-            int p = ident.indexOf("_");
-            if (p < 0)
-                return ident;
-            else
-                return ident.substring(0, p) + "<sub>" + checkBrace(ident.substring(p + 1)) + "</sub>";
-        }
-
-        private String checkBrace(String s) {
-            if (s.length() > 2 && s.charAt(0) == '{' && s.charAt(s.length() - 1) == '}')
-                return s.substring(1, s.length() - 1);
-            else
-                return s;
         }
     }
 

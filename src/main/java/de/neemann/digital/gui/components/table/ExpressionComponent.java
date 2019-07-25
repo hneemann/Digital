@@ -21,6 +21,18 @@ public class ExpressionComponent extends JComponent {
     private ArrayList<Expression> expressions;
     private Dimension lastRectSet;
 
+
+    /**
+     * Sets a single expression to visualize
+     *
+     * @param expression the expression
+     */
+    public void setExpression(Expression expression) {
+        ArrayList<Expression> l = new ArrayList<Expression>();
+        l.add(expression);
+        setExpressions(l);
+    }
+
     /**
      * Sets the expressions to visualize
      *
@@ -28,7 +40,7 @@ public class ExpressionComponent extends JComponent {
      */
     public void setExpressions(ArrayList<Expression> expressions) {
         this.expressions = expressions;
-        invalidate();
+        revalidate();
         repaint();
     }
 
@@ -66,7 +78,7 @@ public class ExpressionComponent extends JComponent {
             lastRectSet = p;
             SwingUtilities.invokeLater(() -> {
                 setPreferredSize(p);
-                invalidate();
+                revalidate();
             });
         }
     }
