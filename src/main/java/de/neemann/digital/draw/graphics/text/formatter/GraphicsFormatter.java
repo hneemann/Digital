@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public final class GraphicsFormatter {
 
-    private static final FormatToExpression formatToExpression = FormatToExpression.FORMATTER_UNICODE_NOAND;
+    private static final FormatToExpression DEFAULT_FORMAT = FormatToExpression.getDefaultFormat();
 
     private GraphicsFormatter() {
     }
@@ -114,6 +114,7 @@ public final class GraphicsFormatter {
      * @param gr         the {@link Graphics2D} instance
      * @param expression the expression
      * @return the text fragment
+     * @throws FormatterException FormatterException
      */
     public static Fragment createFragment(Graphics2D gr, Expression expression) throws FormatterException {
         return createFragment((fragment, font, str) -> {
@@ -136,23 +137,23 @@ public final class GraphicsFormatter {
             String ident = ((Variable) expression).getIdentifier();
             return createFragment(sizer, font, ident);
         } else if (expression instanceof Constant) {
-            String value = formatToExpression.constant(((Constant) expression).getValue());
+            String value = DEFAULT_FORMAT.constant(((Constant) expression).getValue());
             return new TextFragment(sizer, font, value);
         } else if (expression instanceof Operation.And) {
-            return createOperationFragment(sizer, font, (Operation) expression, formatToExpression.getAndString());
+            return createOperationFragment(sizer, font, (Operation) expression, DEFAULT_FORMAT.getAndString());
         } else if (expression instanceof Operation.Or) {
-            return createOperationFragment(sizer, font, (Operation) expression, formatToExpression.getOrString());
+            return createOperationFragment(sizer, font, (Operation) expression, DEFAULT_FORMAT.getOrString());
         } else if (expression instanceof Operation.XOr) {
-            return createOperationFragment(sizer, font, (Operation) expression, formatToExpression.getXorString());
+            return createOperationFragment(sizer, font, (Operation) expression, DEFAULT_FORMAT.getXorString());
         } else if (expression instanceof Not) {
             return new OverlineFragment(createFragment(sizer, font, ((Not) expression).getExpression()), font);
         } else if (expression instanceof NamedExpression) {
             NamedExpression ne = (NamedExpression) expression;
             SentenceFragment f = new SentenceFragment();
             f.add(createFragment(sizer, font, ne.getName()));
-            f.pad(font.getSize()/2);
+            f.pad(font.getSize() / 2);
             f.add(new TextFragment(sizer, font, "="));
-            f.pad(font.getSize()/2);
+            f.pad(font.getSize() / 2);
             f.add(createFragment(sizer, font, ne.getExpression()));
             return f.setUp();
         } else
@@ -171,9 +172,9 @@ public final class GraphicsFormatter {
                 }
             }
             if (e instanceof Operation) {
-                f.add(new TextFragment(sizer,font, "("));
+                f.add(new TextFragment(sizer, font, "("));
                 f.add(createFragment(sizer, font, e));
-                f.add(new TextFragment(sizer,font, ")"));
+                f.add(new TextFragment(sizer, font, ")"));
             } else {
                 f.add(createFragment(sizer, font, e));
             }
@@ -272,7 +273,7 @@ public final class GraphicsFormatter {
         }
     }
 
-    private static class SentenceFragment extends Fragment {
+    private static final class SentenceFragment extends Fragment {
 
         private ArrayList<Fragment> fragments;
 

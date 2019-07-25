@@ -15,8 +15,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import static de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter.createFragment;
-
 /**
  * Simple Dialog to show all possible functions of a truth table.
  */
