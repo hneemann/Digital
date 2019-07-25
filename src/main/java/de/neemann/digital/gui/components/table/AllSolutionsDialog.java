@@ -8,9 +8,11 @@ package de.neemann.digital.gui.components.table;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class AllSolutionsDialog extends JDialog {
     private final ExpressionComponent expressionComponent;
     private boolean userHasClosed = false;
     private boolean needed;
+    private ToolTipAction reopenAction;
 
     /**
      * Creates a new Frame.
@@ -29,7 +32,7 @@ public class AllSolutionsDialog extends JDialog {
      * @param owner the owner frame
      * @param font  the font to use
      */
-    public AllSolutionsDialog(JDialog owner, Font font) {
+    AllSolutionsDialog(JDialog owner, Font font) {
         super(owner, Lang.get("win_allSolutions"), false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
 
@@ -45,6 +48,8 @@ public class AllSolutionsDialog extends JDialog {
             @Override
             public void windowClosing(WindowEvent windowEvent) {
                 userHasClosed = true;
+                if (reopenAction != null)
+                    reopenAction.setEnabled(true);
             }
         });
 
@@ -59,8 +64,11 @@ public class AllSolutionsDialog extends JDialog {
      */
     public void setNeeded(boolean needed) {
         this.needed = needed;
-        if (!userHasClosed)
+        if (!userHasClosed) {
             setVisible(needed);
+            if (needed && reopenAction != null)
+                reopenAction.setEnabled(false);
+        }
     }
 
     /**
@@ -72,13 +80,18 @@ public class AllSolutionsDialog extends JDialog {
         expressionComponent.setExpressions(expressions);
     }
 
-
-    /**
-     * reenables this dialog
-     */
-    public void enforceVisible() {
-        userHasClosed = false;
-        if (needed)
-            setVisible(true);
+    ToolTipAction getReopenAction() {
+        if (reopenAction == null) {
+            reopenAction = new ToolTipAction(Lang.get("menu_table_showAllSolutions")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    userHasClosed = false;
+                    reopenAction.setEnabled(false);
+                    if (needed)
+                        setVisible(true);
+                }
+            }.setToolTip(Lang.get("menu_table_showAllSolutions_tt")).setEnabledChain(false);
+        }
+        return reopenAction;
     }
 }

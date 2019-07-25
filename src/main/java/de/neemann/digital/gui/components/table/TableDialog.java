@@ -349,12 +349,7 @@ public class TableDialog extends JDialog {
         createJK.addActionListener(e -> calculateExpressions());
         fileMenu.add(createJK);
 
-        fileMenu.add(new ToolTipAction(Lang.get("menu_table_showAllSolutions")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                allSolutionsDialog.enforceVisible();
-            }
-        }.setToolTip(Lang.get("menu_table_showAllSolutions_tt")).createJMenuItem());
+        fileMenu.add(allSolutionsDialog.getReopenAction());
 
         return fileMenu;
     }
@@ -790,6 +785,7 @@ public class TableDialog extends JDialog {
                         statusBar.setVisible(false);
                         allSolutionsDialog.setExpressions(expressions);
                         allSolutionsDialog.setNeeded(true);
+                        toFront();
                 }
             });
         }
