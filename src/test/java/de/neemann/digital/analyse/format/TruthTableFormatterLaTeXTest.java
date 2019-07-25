@@ -19,7 +19,7 @@ public class TruthTableFormatterLaTeXTest extends TestCase {
 
         assertEquals("\\begin{center}\n" +
                 "\\begin{tabular}{ccc|cc}\n" +
-                "$A$&$B$&$C$&$Y_{0}$&$Y_{1}$\\\\\n" +
+                "$A$&$B$&$C$&$Y_0$&$Y_1$\\\\\n" +
                 "\\hline\n" +
                 "$0$&$0$&$0$&$0$&$0$\\\\\n" +
                 "$0$&$0$&$1$&$0$&$0$\\\\\n" +

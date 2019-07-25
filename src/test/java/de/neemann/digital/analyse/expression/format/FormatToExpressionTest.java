@@ -75,8 +75,8 @@ public class FormatToExpressionTest extends TestCase {
     public void testFormatExpLaTeX() throws Exception {
         Variable a = new Variable("A_n");
         Variable b = new Variable("B_n");
-        Expression e = new NamedExpression("Y_n+1", and(a, not(b)));
-        assertEquals("Y_{n+1} = A_{n} \\und \\nicht{B_{n}}", FormatToExpression.FORMATTER_LATEX.format(e));
+        Expression e = new NamedExpression("Y^n+1", and(a, not(b)));
+        assertEquals("Y^{n+1} = A_n \\und \\nicht{B_n}", FormatToExpression.FORMATTER_LATEX.format(e));
     }
 
     public void testFormatTable() throws Exception {
