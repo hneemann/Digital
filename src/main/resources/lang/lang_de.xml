@@ -1508,6 +1508,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_setAllTo0_tt">Setzt alle Werte auf Null.</string>
     <string name="menu_table_setAllTo1">Alles auf 1 setzen</string>
     <string name="menu_table_setAllTo1_tt">Setzt alle Werte auf Eins.</string>
+    <string name="menu_table_showAllSolutions">Lösungsdialog anzeigen</string>
+    <string name="menu_table_showAllSolutions_tt">Zeigt den Lösungsdialog wieder an, wenn er manuell geschlossen wurde.</string>
     <string name="menu_terminalDelete">Löschen</string>
     <string name="menu_terminalDelete_tt">Löschen des Terminal-Inhalts</string>
     <string name="menu_view">Ansicht</string>

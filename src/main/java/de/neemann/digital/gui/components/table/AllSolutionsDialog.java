@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class AllSolutionsDialog extends JDialog {
     private final ExpressionComponent expressionComponent;
     private boolean userHasClosed = false;
+    private boolean needed;
 
     /**
      * Creates a new Frame.
@@ -57,6 +58,7 @@ public class AllSolutionsDialog extends JDialog {
      * @param needed true if needed
      */
     public void setNeeded(boolean needed) {
+        this.needed = needed;
         if (!userHasClosed)
             setVisible(needed);
     }
@@ -71,4 +73,12 @@ public class AllSolutionsDialog extends JDialog {
     }
 
 
+    /**
+     * reenables this dialog
+     */
+    public void enforceVisible() {
+        userHasClosed = false;
+        if (needed)
+            setVisible(true);
+    }
 }
