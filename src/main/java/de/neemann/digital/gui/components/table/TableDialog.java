@@ -11,6 +11,7 @@ import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.TruthTableTableModel;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
+import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatToTableLatex;
@@ -606,7 +607,7 @@ public class TableDialog extends JDialog {
     private void calculateExpressions() {
         try {
             LOGGER.info("start optimization");
-            ExpressionListener expressionListener = new HTMLExpressionListener();
+            ExpressionListener expressionListener = new OutputExpressionListener();
 
             if (createJK.isSelected())
                 expressionListener = new ExpressionListenerJK(expressionListener);
@@ -688,7 +689,7 @@ public class TableDialog extends JDialog {
         public void actionPerformed(ActionEvent actionEvent) {
             ArrayList<Variable> vars = new ArrayList<>();
             for (int i = n - 1; i >= 0; i--)
-                vars.add(new Variable("Q_" + i + "n"));
+                vars.add(new Variable("Q" + i + "n"));
             TruthTable truthTable = new TruthTable(vars);
             int i = n - 1;
             int rows = 1 << n;
@@ -717,7 +718,7 @@ public class TableDialog extends JDialog {
             ArrayList<Variable> vars = new ArrayList<>();
             vars.add(new Variable("dir"));
             for (int i = n - 1; i >= 0; i--)
-                vars.add(new Variable("Q_" + i + "n"));
+                vars.add(new Variable("Q" + i + "n"));
             TruthTable truthTable = new TruthTable(vars);
             int i = n - 1;
             int rows = 1 << (n + 1);
@@ -759,47 +760,42 @@ public class TableDialog extends JDialog {
         }
     }
 
-    private final class HTMLExpressionListener implements ExpressionListener {
+    private final class OutputExpressionListener implements ExpressionListener {
         private FormatToExpression htmlFormatter = new HTMLFormatter(FormatToExpression.getDefaultFormat());
-        private final StringBuilder html;
-        private int count;
-        private String firstExp;
+        private final ArrayList<Expression> expressions;
 
-        private HTMLExpressionListener() {
-            html = new StringBuilder("<html><table style=\"white-space: nowrap\">\n");
-            count = 0;
+        private OutputExpressionListener() {
+            expressions = new ArrayList<>();
         }
 
         @Override
-        public void resultFound(String name, Expression expression) throws FormatterException {
-            if (count == 0)
-                firstExp = "<html>" + htmlFormatter.identifier(name) + "=" + htmlFormatter.format(expression) + "</html>";
-            html.append("<tr>");
-            html.append("<td>").append(htmlFormatter.identifier(name)).append("</td>");
-            html.append("<td>=</td>");
-            html.append("<td>").append(htmlFormatter.format(expression)).append("</td>");
-            html.append("</tr>\n");
-            count++;
+        public void resultFound(String name, Expression expression) {
+            if (name.endsWith("^n+1"))
+                name = name.substring(0, name.length() - 4) + "^{n+1}";
+            expressions.add(new NamedExpression(name, expression));
         }
 
         @Override
-        public void close() {
-            html.append("</table></html>");
+        public void close() throws FormatterException {
+            String html = null;
+            if (expressions.size() == 1)
+                html = "<html>" + htmlFormatter.format(expressions.get(0)) + "</html>";
+            final String finalHtml = html;
 
             SwingUtilities.invokeLater(() -> {
-                switch (count) {
+                switch (expressions.size()) {
                     case 0:
                         statusBar.setVisible(false);
                         allSolutionsDialog.setNeeded(false);
                         break;
                     case 1:
                         statusBar.setVisible(true);
-                        statusBar.setText(firstExp);
+                        statusBar.setText(finalHtml);
                         allSolutionsDialog.setNeeded(false);
                         break;
                     default:
                         statusBar.setVisible(false);
-                        allSolutionsDialog.setText(html.toString());
+                        allSolutionsDialog.setExpressions(expressions);
                         allSolutionsDialog.setNeeded(true);
                 }
             });

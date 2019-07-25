@@ -79,17 +79,13 @@ public final class GraphicsFormatter {
         } else if (text instanceof Sentence) {
             Sentence s = (Sentence) text;
             SentenceFragment sf = new SentenceFragment();
-            int x = 0;
             for (Text t : s)
                 if (t instanceof Blank)
-                    x += font.getSize() / 2;
+                    sf.pad(font.getSize() / 2);
                 else {
                     final Fragment f = createFragment(sizer, font, t);
-                    f.x = x;
-                    x += f.dx;
                     sf.add(f);
                 }
-            sf.dx = x;
             return sf.setUp();
         } else if (text instanceof Index) {
             Index i = (Index) text;
@@ -154,27 +150,41 @@ public final class GraphicsFormatter {
             NamedExpression ne = (NamedExpression) expression;
             SentenceFragment f = new SentenceFragment();
             f.add(createFragment(sizer, font, ne.getName()));
+            f.pad(font.getSize()/2);
             f.add(new TextFragment(sizer, font, "="));
+            f.pad(font.getSize()/2);
             f.add(createFragment(sizer, font, ne.getExpression()));
-            return f;
+            return f.setUp();
         } else
             throw new FormatterException("unknown expression " + expression.getClass().getSimpleName());
     }
 
     private static Fragment createOperationFragment(FontSizer sizer, Font font, Operation op, String opString) throws FormatterException {
+        int pad = font.getSize() / 2;
         SentenceFragment f = new SentenceFragment();
         for (Expression e : op.getExpressions()) {
-            if (f.size() > 0)
-                f.add(new TextFragment(sizer, font, opString));
-            f.add(createFragment(sizer, font, e));
+            if (f.size() > 0) {
+                f.pad(pad);
+                if (!opString.isEmpty()) {
+                    f.add(new TextFragment(sizer, font, opString));
+                    f.pad(pad);
+                }
+            }
+            if (e instanceof Operation) {
+                f.add(new TextFragment(sizer,font, "("));
+                f.add(createFragment(sizer, font, e));
+                f.add(new TextFragment(sizer,font, ")"));
+            } else {
+                f.add(createFragment(sizer, font, e));
+            }
         }
-        return f;
+        return f.setUp();
     }
 
     /**
      * Exception which indicates a formatter exception
      */
-    private static final class FormatterException extends Exception {
+    public static final class FormatterException extends Exception {
         FormatterException(String message) {
             super(message);
         }
@@ -262,7 +272,7 @@ public final class GraphicsFormatter {
         }
     }
 
-    private final static class SentenceFragment extends Fragment {
+    private static class SentenceFragment extends Fragment {
 
         private ArrayList<Fragment> fragments;
 
@@ -272,6 +282,12 @@ public final class GraphicsFormatter {
 
         private void add(Fragment fragment) {
             fragments.add(fragment);
+            fragment.x = dx;
+            dx += fragment.dx;
+        }
+
+        private void pad(int p) {
+            dx += p;
         }
 
         @Override
