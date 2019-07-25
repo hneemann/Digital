@@ -18,6 +18,7 @@ import static de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter.
  * Component to show an expression
  */
 public class ExpressionComponent extends JComponent {
+    private static final int XPAD = 5;
     private ArrayList<Expression> expressions;
     private Dimension lastRectSet;
 
@@ -63,7 +64,7 @@ public class ExpressionComponent extends JComponent {
             try {
                 GraphicsFormatter.Fragment fr = createFragment(gr, e);
                 y += fr.getHeight();
-                fr.draw(gr, 5, y);
+                fr.draw(gr, XPAD, y);
                 y += lineSpacing;
 
                 if (dx < fr.getWidth())
@@ -73,7 +74,7 @@ public class ExpressionComponent extends JComponent {
             }
         }
 
-        Dimension p = new Dimension(dx, y);
+        Dimension p = new Dimension(dx+XPAD*2, y);
         if (!p.equals(lastRectSet)) {
             lastRectSet = p;
             SwingUtilities.invokeLater(() -> {

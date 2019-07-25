@@ -35,6 +35,8 @@ public class ExpressionListenerJK implements ExpressionListener {
             String detName = name.substring(0, name.length() - 2);
             DetermineJKStateMachine jk = new DetermineJKStateMachine(detName, expression);
             if (detName.endsWith("^n"))
+                detName = detName.substring(0, detName.length() - 2);
+            else
                 detName = detName.substring(0, detName.length() - 1);
             Expression j = jk.getJ();
             parent.resultFound("J_" + detName, j);
