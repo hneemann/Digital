@@ -7,6 +7,7 @@ package de.neemann.digital.docu;
 
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.TruthTableTableModel;
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.fsm.gui.FSMFrame;
 import de.neemann.digital.gui.Main;
@@ -49,6 +50,7 @@ public class ScreenShots {
     private static Main mainStatic;
 
     public static void main(String[] args) {
+        FormatToExpression.setDefaultFormat(FormatToExpression.FORMATTER_UNICODE_NOAND);
         Settings.getInstance().getAttributes().set(Keys.SETTINGS_DEFAULT_TREESELECT, false);
         Settings.getInstance().getAttributes().set(Keys.SETTINGS_GRID, true);
 //        mainScreenShot();
@@ -58,10 +60,12 @@ public class ScreenShots {
     }
 
     private static void all() {
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_GRID, true);
+
         // English
         Lang.setActualRuntimeLanguage(new Language("en"));
         Settings.getInstance().getAttributes()
-                .set(Keys.SETTINGS_GRID, true)
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         mainScreenShot();
         firstSteps();
@@ -70,7 +74,6 @@ public class ScreenShots {
         // German
         Lang.setActualRuntimeLanguage(new Language("de"));
         Settings.getInstance().getAttributes()
-                .set(Keys.SETTINGS_GRID, true)
                 .set(Keys.SETTINGS_IEEE_SHAPES, false);
         firstSteps();
         hierarchicalDesign();
@@ -78,7 +81,6 @@ public class ScreenShots {
         // Portuguese
         Lang.setActualRuntimeLanguage(new Language("pt"));
         Settings.getInstance().getAttributes()
-                .set(Keys.SETTINGS_GRID, true)
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         firstSteps();
         hierarchicalDesign();
@@ -86,7 +88,6 @@ public class ScreenShots {
         // Spanish
         Lang.setActualRuntimeLanguage(new Language("es"));
         Settings.getInstance().getAttributes()
-                .set(Keys.SETTINGS_GRID, true)
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         firstSteps();
         hierarchicalDesign();
@@ -94,13 +95,14 @@ public class ScreenShots {
 
     private static void mainScreenShot() {
         Lang.setActualRuntimeLanguage(new Language("en"));
+
         Settings.getInstance().getAttributes()
                 .set(Keys.SETTINGS_IEEE_SHAPES, true)
                 .set(Keys.SETTINGS_GRID, true)
                 .set(Keys.SETTINGS_SHOW_WIRE_BITS, true);
         new GuiTester("../../main/dig/processor/Processor.dig", "examples/processor/Processor.dig")
                 .press(' ')
-                .delay(2000)
+                .delay(4000)
                 .add(new GuiTester.WindowCheck<>(GraphicDialog.class, (gt, gd) -> {
                     graphic = gd;
                     final Main main = (Main) gd.getParent();
@@ -112,7 +114,7 @@ public class ScreenShots {
                 .delay(500)
                 .press("F1")
                 .add(new MainScreenShot("distribution/screenshot.png"))
-                .execute();
+                .execute(); /**/
         new GuiTester()
                 .press("F10")
                 .press("RIGHT", 4)
@@ -215,7 +217,7 @@ public class ScreenShots {
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
-                .execute();
+                .execute();/**/
     }
 
     private static GuiTester.WindowCheck<Window> closeAllSolutionsDialog() {
