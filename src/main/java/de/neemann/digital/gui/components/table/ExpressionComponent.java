@@ -20,6 +20,7 @@ import static de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter.
 public class ExpressionComponent extends JComponent {
     private static final int XPAD = 5;
     private ArrayList<Expression> expressions;
+    private boolean wrongSize = true;
 
     /**
      * Sets a single expression to visualize
@@ -39,9 +40,19 @@ public class ExpressionComponent extends JComponent {
      */
     public void setExpressions(ArrayList<Expression> expressions) {
         this.expressions = expressions;
-        setPreferredSize(calcSize());
-        revalidate();
-        repaint();
+        updateComponentSize(getGraphics());
+    }
+
+    private void updateComponentSize(Graphics gr) {
+        if (gr != null) {
+            final Dimension preferredSize = calcSize(gr);
+            setPreferredSize(preferredSize);
+            revalidate();
+            repaint();
+            wrongSize = false;
+        } else {
+            wrongSize = true;
+        }
     }
 
     @Override
@@ -66,6 +77,9 @@ public class ExpressionComponent extends JComponent {
                 // ignore on error
             }
         }
+
+        if (wrongSize)
+            SwingUtilities.invokeLater(() -> updateComponentSize(graphics));
     }
 
     private Graphics2D getGraphics2D(Graphics graphics) {
@@ -75,8 +89,8 @@ public class ExpressionComponent extends JComponent {
         return gr;
     }
 
-    private Dimension calcSize() {
-        Graphics2D gr = getGraphics2D(getGraphics());
+    private Dimension calcSize(Graphics graphics) {
+        Graphics2D gr = getGraphics2D(graphics);
         int lineSpacing = getFont().getSize() / 2;
         int dx = 0;
         int y = 0;
