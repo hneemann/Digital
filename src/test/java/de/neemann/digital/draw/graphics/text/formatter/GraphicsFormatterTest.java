@@ -25,4 +25,15 @@ public class GraphicsFormatterTest extends TestCase {
         assertTrue(f instanceof GraphicsFormatter.TextFragment);
     }
 
+    public void testInvert() {
+        GraphicsFormatter.Fragment f = GraphicsFormatter.createFragment(
+                (fragment, font, str) -> {
+                    assertEquals("Q", str);
+                    fragment.set(10, 10, 5);
+                },
+                Font.decode(null), "~{~Q}");
+
+        assertEquals(10, f.dx);
+    }
+
 }

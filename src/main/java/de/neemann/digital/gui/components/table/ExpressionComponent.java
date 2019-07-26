@@ -7,9 +7,13 @@ package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
+import sun.font.FontDesignMetrics;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import static de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter.createFragment;
@@ -20,8 +24,6 @@ import static de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter.
 public class ExpressionComponent extends JComponent {
     private static final int XPAD = 5;
     private ArrayList<Expression> expressions;
-    private Dimension lastRectSet;
-
 
     /**
      * Sets a single expression to visualize
@@ -29,7 +31,7 @@ public class ExpressionComponent extends JComponent {
      * @param expression the expression
      */
     public void setExpression(Expression expression) {
-        ArrayList<Expression> l = new ArrayList<Expression>();
+        ArrayList<Expression> l = new ArrayList<>();
         l.add(expression);
         setExpressions(l);
     }
@@ -41,6 +43,7 @@ public class ExpressionComponent extends JComponent {
      */
     public void setExpressions(ArrayList<Expression> expressions) {
         this.expressions = expressions;
+        setPreferredSize(calcSize());
         revalidate();
         repaint();
     }
@@ -59,12 +62,32 @@ public class ExpressionComponent extends JComponent {
         gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         int lineSpacing = getFont().getSize() / 2;
         int y = 0;
-        int dx = 0;
         for (Expression e : expressions) {
             try {
                 GraphicsFormatter.Fragment fr = createFragment(gr, e);
                 y += fr.getHeight();
                 fr.draw(gr, XPAD, y);
+                y += lineSpacing;
+            } catch (GraphicsFormatter.FormatterException ex) {
+            }
+        }
+    }
+
+    private Dimension calcSize() {
+        FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, false);
+
+        int lineSpacing = getFont().getSize() / 2;
+        int dx = 0;
+        int y = 0;
+        for (Expression e : expressions) {
+            try {
+                GraphicsFormatter.Fragment fr = createFragment((fragment, font, str) -> {
+                    Rectangle2D rec = font.getStringBounds(str, frc);
+                    final FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font, frc);
+                    fragment.set((int) rec.getWidth(), (int) rec.getHeight(), metrics.getDescent());
+                }, getFont(), e);
+
+                y += fr.getHeight();
                 y += lineSpacing;
 
                 if (dx < fr.getWidth())
@@ -73,14 +96,7 @@ public class ExpressionComponent extends JComponent {
             } catch (GraphicsFormatter.FormatterException ex) {
             }
         }
-
-        Dimension p = new Dimension(dx+XPAD*2, y);
-        if (!p.equals(lastRectSet)) {
-            lastRectSet = p;
-            SwingUtilities.invokeLater(() -> {
-                setPreferredSize(p);
-                revalidate();
-            });
-        }
+        return new Dimension(dx + XPAD * 2, y);
     }
+
 }

@@ -58,7 +58,6 @@ public final class GraphicsFormatter {
             // if there was an exception, return the complete raw text as a fragment
             fragment = new TextFragment(sizer, font, text);
         }
-        fragment.dx += font.getSize() / 10;
         return fragment;
     }
 
@@ -132,7 +131,7 @@ public final class GraphicsFormatter {
      * @param expression the expression
      * @return the fragment
      */
-    private static Fragment createFragment(FontSizer sizer, Font font, Expression expression) throws FormatterException {
+    public static Fragment createFragment(FontSizer sizer, Font font, Expression expression) throws FormatterException {
         if (expression instanceof Variable) {
             String ident = ((Variable) expression).getIdentifier();
             return createFragment(sizer, font, ident);
