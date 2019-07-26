@@ -6,10 +6,12 @@
 package de.neemann.digital.gui.components.karnaugh;
 
 import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.Not;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
 
@@ -228,7 +230,7 @@ public class KarnaughMapComponent extends JComponent {
                     i++;
                     dx = cellSize / 2;
                 }
-                drawString(getStr(header.getVar(), header.getInvert(i)), i + 1, pos, dx, 0);
+                drawFragment(getFragment(header.getVar(), header.getInvert(i)), i + 1, pos, dx, 0);
             }
     }
 
@@ -240,32 +242,37 @@ public class KarnaughMapComponent extends JComponent {
                 i++;
                 dy = cellSize / 2;
             }
-            drawString(getStr(header.getVar(), header.getInvert(i)), pos, i + 1, 0, dy);
+            drawFragment(getFragment(header.getVar(), header.getInvert(i)), pos, i + 1, 0, dy);
         }
     }
     //CHECKSTYLE.ON: ModifiedControlVariable
 
     private void drawString(String s, int row, int col) {
-        drawString(s, row, col, 0, 0);
-    }
-
-    private void drawString(String s, int row, int col, int xOffs, int yOffs) {
         FontMetrics fontMetrics = gr.getFontMetrics();
         Rectangle2D bounds = fontMetrics.getStringBounds(s, gr);
         int xPos = (int) ((cellSize - bounds.getWidth()) / 2);
         int yPos = cellSize - (int) ((cellSize - bounds.getHeight()) / 2) - fontMetrics.getDescent();
-        gr.drawString(s, row * cellSize + xPos - xOffs, col * cellSize + yPos - yOffs);
+        gr.drawString(s, row * cellSize + xPos, col * cellSize + yPos);
     }
 
-    private String getStr(int var, boolean invert) {
+    private void drawFragment(GraphicsFormatter.Fragment fr, int row, int col, int xOffs, int yOffs) {
+        if (fr == null)
+            return;
+        FontMetrics fontMetrics = gr.getFontMetrics();
+        int xPos = (cellSize - fr.getWidth()) / 2;
+        int yPos = cellSize - ((cellSize - fr.getHeight()) / 2) - fontMetrics.getDescent();
+        fr.draw(gr, row * cellSize + xPos - xOffs, col * cellSize + yPos - yOffs);
+    }
+
+    private GraphicsFormatter.Fragment getFragment(int var, boolean invert) {
         try {
             if (invert)
-                return FormatToExpression.defaultFormat(not(vars.get(var)));
+                return GraphicsFormatter.createFragment(gr, new Not(vars.get(var)));
             else
-                return FormatToExpression.defaultFormat(vars.get(var));
-        } catch (FormatterException e) {
+                return GraphicsFormatter.createFragment(gr, vars.get(var));
+        } catch (GraphicsFormatter.FormatterException e) {
             // can not happen
-            return "";
+            return null;
         }
     }
 
