@@ -7,13 +7,9 @@ package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
-import sun.font.FontDesignMetrics;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import static de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter.createFragment;
@@ -57,9 +53,7 @@ public class ExpressionComponent extends JComponent {
         if (expressions == null)
             return;
 
-        final Graphics2D gr = (Graphics2D) graphics;
-        gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        final Graphics2D gr = getGraphics2D(graphics);
         int lineSpacing = getFont().getSize() / 2;
         int y = 0;
         for (Expression e : expressions) {
@@ -69,31 +63,31 @@ public class ExpressionComponent extends JComponent {
                 fr.draw(gr, XPAD, y);
                 y += lineSpacing;
             } catch (GraphicsFormatter.FormatterException ex) {
+                // ignore on error
             }
         }
     }
 
-    private Dimension calcSize() {
-        FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, false);
+    private Graphics2D getGraphics2D(Graphics graphics) {
+        final Graphics2D gr = (Graphics2D) graphics;
+        gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        return gr;
+    }
 
+    private Dimension calcSize() {
+        Graphics2D gr = getGraphics2D(getGraphics());
         int lineSpacing = getFont().getSize() / 2;
         int dx = 0;
         int y = 0;
         for (Expression e : expressions) {
             try {
-                GraphicsFormatter.Fragment fr = createFragment((fragment, font, str) -> {
-                    Rectangle2D rec = font.getStringBounds(str, frc);
-                    final FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font, frc);
-                    fragment.set((int) rec.getWidth(), (int) rec.getHeight(), metrics.getDescent());
-                }, getFont(), e);
-
-                y += fr.getHeight();
-                y += lineSpacing;
-
+                GraphicsFormatter.Fragment fr = createFragment(gr, e);
+                y += fr.getHeight() + lineSpacing;
                 if (dx < fr.getWidth())
                     dx = fr.getWidth();
-
             } catch (GraphicsFormatter.FormatterException ex) {
+                // ignore on error
             }
         }
         return new Dimension(dx + XPAD * 2, y);
