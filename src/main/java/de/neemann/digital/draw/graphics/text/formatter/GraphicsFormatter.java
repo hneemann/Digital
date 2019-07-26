@@ -130,6 +130,7 @@ public final class GraphicsFormatter {
      * @param font       the font
      * @param expression the expression
      * @return the fragment
+     * @throws FormatterException FormatterException
      */
     public static Fragment createFragment(FontSizer sizer, Font font, Expression expression) throws FormatterException {
         if (expression instanceof Variable) {
