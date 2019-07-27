@@ -22,6 +22,8 @@ public class PlainTextFormatterTest extends TestCase {
         assertEquals("!Q", PlainTextFormatter.format(new Parser("~{Q}").parse(), FormatToExpression.FORMATTER_JAVA));
         assertEquals("!(A+B)", PlainTextFormatter.format(new Parser("~{A+B}").parse(), FormatToExpression.FORMATTER_JAVA));
         assertEquals("!(!Q)", PlainTextFormatter.format(new Parser("~{~Q}").parse(), FormatToExpression.FORMATTER_JAVA));
+
+        assertEquals("!a0n", PlainTextFormatter.format(new Parser("~{a_0^n}").parse(), FormatToExpression.FORMATTER_JAVA));
     }
 
 }

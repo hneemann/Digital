@@ -45,7 +45,7 @@ public final class PlainTextFormatter {
             Decorate d = (Decorate) text;
             if (d.getStyle() == Decorate.Style.OVERLINE) {
                 final Text content = d.getContent();
-                if (content instanceof Simple)
+                if (content instanceof Simple || content instanceof Index)
                     return format.getNot() + format(content, format);
                 else
                     return format.getNot() + "(" + format(content, format) + ")";
