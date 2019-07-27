@@ -17,7 +17,7 @@ import de.neemann.digital.analyse.expression.Variable;
 public class FormatToTable implements Formatter {
 
     @Override
-    public String format(Expression expression) throws FormatterException, ExpressionException {
+    public String format(Expression expression) throws ExpressionException {
         StringBuilder sb = new StringBuilder();
         ContextFiller cf = new ContextFiller(expression);
         formatHead(sb, cf.getVarCount());
