@@ -15,7 +15,6 @@ import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.*;
-import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.builder.ATF150x.ATFDevice;
 import de.neemann.digital.builder.ExpressionToFileExporter;
@@ -30,7 +29,6 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.text.ParseException;
 import de.neemann.digital.draw.graphics.text.Parser;
-import de.neemann.digital.draw.graphics.text.formatter.LaTeXFormatter;
 import de.neemann.digital.draw.graphics.text.formatter.PlainTextFormatter;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -320,11 +318,15 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ExpressionListener expressionListener = new LaTeXExpressionListener(model);
+                    final LaTeXExpressionListener laTeXExpressionListener = new LaTeXExpressionListener(model);
+                    ExpressionListener expressionListener = laTeXExpressionListener;
                     if (createJK.isSelected())
                         expressionListener = new ExpressionListenerJK(expressionListener);
                     lastGeneratedExpressions.replayTo(expressionListener);
                     expressionListener.close();
+
+                    new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"),
+                            laTeXExpressionListener.toString()).setVisible(true);
                 } catch (ExpressionException | FormatterException e1) {
                     new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
                 }
@@ -847,31 +849,6 @@ public class TableDialog extends JDialog {
                     r = 0;
             }
             table.changeSelection(r, c, false, false);
-        }
-    }
-
-    private final class LaTeXExpressionListener implements ExpressionListener {
-        private final StringBuilder sb;
-
-        private LaTeXExpressionListener(TruthTableTableModel model) throws ExpressionException {
-            sb = new StringBuilder();
-            if (model.getTable().getRows() <= 256) {
-                String text = new TruthTableFormatterLaTeX().format(model.getTable());
-                sb.append(text);
-            }
-            sb.append("\\begin{eqnarray*}\n");
-        }
-
-        @Override
-        public void resultFound(String name, Expression expression) throws FormatterException {
-            sb.append(LaTeXFormatter.format(new NamedExpression(name, expression)))
-                    .append("\\\\\n");
-        }
-
-        @Override
-        public void close() {
-            sb.append("\\end{eqnarray*}\n");
-            new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"), sb.toString()).setVisible(true);
         }
     }
 

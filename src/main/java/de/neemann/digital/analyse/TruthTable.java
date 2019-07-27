@@ -218,22 +218,25 @@ public class TruthTable {
      * Adds a variable
      *
      * @param name name of the variable
+     * @return this for chained calls
      */
-    public void addVariable(String name) {
-        addVariable(new Variable(name));
+    public TruthTable addVariable(String name) {
+        return addVariable(new Variable(name));
     }
 
     /**
      * Adds a variable
      *
      * @param var the variable to add
+     * @return this for chained calls
      */
-    public void addVariable(Variable var) {
+    public TruthTable addVariable(Variable var) {
         variables.add(var);
         for (Result r : results)
             r.setValues(BoolTableByteArray.createDoubledValues(r.getValues()));
 
         bitSetter = null;
+        return this;
     }
 
     private BitSetter getBitSetter() {
