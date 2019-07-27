@@ -7,6 +7,8 @@ package de.neemann.digital.analyse.expression;
 
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 
+import java.util.Objects;
+
 /**
  */
 public final class Not implements Expression {
@@ -101,5 +103,19 @@ public final class Not implements Expression {
     @Override
     public String toString() {
         return "not(" + expression + ")";
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Not not = (Not) o;
+        return expression.equals(not.expression);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expression);
     }
 }

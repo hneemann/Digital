@@ -6,8 +6,6 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.expression.*;
-import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
 import de.neemann.digital.lang.Lang;
 
@@ -34,10 +32,10 @@ public class DetermineJKStateMachine {
      * @param name the name of the state variable
      * @param e    the expression to split in J and K expression
      * @throws ExpressionException ExpressionException
-     * @throws FormatterException  FormatterException
      */
-    public DetermineJKStateMachine(String name, Expression e) throws ExpressionException, FormatterException {
-        String notName = FormatToExpression.defaultFormat(not(new Variable(name)));
+    public DetermineJKStateMachine(String name, Expression e) throws ExpressionException {
+        final Expression var = new Variable(name);
+        final Expression notVar = not(var);
 
         boolean wasK = false;
         boolean wasJ = false;
@@ -48,11 +46,10 @@ public class DetermineJKStateMachine {
             boolean belongsToJ = false;
 
             for (Expression a : getAnds(or)) {
-                String str = FormatToExpression.defaultFormat(a);
-                if (str.equals(name)) {
+                if (a.equals(var)) {
                     belongsToK = true;
                     wasK = true;
-                } else if (str.equals(notName)) {
+                } else if (a.equals(notVar)) {
                     belongsToJ = true;
                     wasJ = true;
                 } else {

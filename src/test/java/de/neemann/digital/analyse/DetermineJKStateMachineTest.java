@@ -28,7 +28,7 @@ public class DetermineJKStateMachineTest extends TestCase {
     private Expression c;
     private Expression notc;
 
-    public void setUp() throws Exception {
+    public void setUp() {
         a = v("a");
         nota = not(a);
         b = v("b");
