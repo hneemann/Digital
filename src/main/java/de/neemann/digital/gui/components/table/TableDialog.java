@@ -13,8 +13,6 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.analyse.expression.format.FormatToTableLatex;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.*;
 import de.neemann.digital.analyse.format.TruthTableFormatterLaTeX;
@@ -30,6 +28,10 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.graphics.text.ParseException;
+import de.neemann.digital.draw.graphics.text.Parser;
+import de.neemann.digital.draw.graphics.text.formatter.LaTeXFormatter;
+import de.neemann.digital.draw.graphics.text.formatter.PlainTextFormatter;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
@@ -133,6 +135,7 @@ public class TableDialog extends JDialog {
         JComboBox<String> comboBox = new JComboBox<>(TruthTableTableModel.STATENAMES);
         table.setDefaultEditor(Integer.class, new DefaultCellEditor(comboBox));
         table.setDefaultRenderer(Integer.class, new CenterDefaultTableCellRenderer());
+        table.getTableHeader().setDefaultRenderer(new StringDefaultTableCellRenderer());
         table.setRowHeight(font.getSize() * 6 / 5);
 
         table.getInputMap().put(KeyStroke.getKeyStroke("0"), "0_ACTION");
@@ -267,7 +270,7 @@ public class TableDialog extends JDialog {
         attr.set(Keys.LABEL, name);
         ElementAttributes modified = new AttributeDialog(this, pos, LIST, attr).showDialog();
         if (modified != null) {
-            final String newName = modified.get(Keys.LABEL).trim().replace(' ', '_');
+            final String newName = modified.get(Keys.LABEL).trim().replace(' ', '-');
             if (!newName.equals(name))
                 model.setColumnName(columnIndex, newName);
         }
@@ -691,7 +694,7 @@ public class TableDialog extends JDialog {
                 BoolTableByteArray val = new BoolTableByteArray(rows);
                 for (int n = 0; n < rows; n++)
                     val.set(n, ((n + 1) >> i) & 1);
-                truthTable.addResult(v.getIdentifier() + "+1", val);
+                truthTable.addResult(addOne(v.getIdentifier()), val);
                 i--;
             }
 
@@ -724,12 +727,19 @@ public class TableDialog extends JDialog {
                     else
                         val.set(n, ((n + 1) >> i) & 1);
                 }
-                truthTable.addResult(vars.get(vi).getIdentifier() + "+1", val);
+                truthTable.addResult(addOne(vars.get(vi).getIdentifier()), val);
                 i--;
             }
 
             setModel(new TruthTableTableModel(truthTable));
         }
+    }
+
+    private String addOne(String id) {
+        if (id.endsWith("^n"))
+            return id.substring(0, id.length() - 1) + "{n+1}";
+        else
+            return id + "+1";
     }
 
     private final class CenterDefaultTableCellRenderer extends DefaultTableCellRenderer {
@@ -749,6 +759,27 @@ public class TableDialog extends JDialog {
                 if (v > 1)
                     label.setText("x");
             }
+
+            return label;
+        }
+    }
+
+    private final class StringDefaultTableCellRenderer extends DefaultTableCellRenderer {
+        private StringDefaultTableCellRenderer() {
+            setHorizontalAlignment(SwingConstants.CENTER);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            label.setBackground(MYGRAY);
+
+            try {
+                label.setText(PlainTextFormatter.format(new Parser(value.toString()).parse()));
+            } catch (ParseException e) {
+                label.setText(value.toString());
+            }
+            setBorder(BorderFactory.createRaisedBevelBorder());
 
             return label;
         }
@@ -833,9 +864,7 @@ public class TableDialog extends JDialog {
 
         @Override
         public void resultFound(String name, Expression expression) throws FormatterException {
-            sb.append(FormatToTableLatex.formatIdentifier(name))
-                    .append("&=&")
-                    .append(FormatToExpression.FORMATTER_LATEX.format(expression))
+            sb.append(LaTeXFormatter.format(new NamedExpression(name, expression)))
                     .append("\\\\\n");
         }
 

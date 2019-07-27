@@ -93,7 +93,7 @@ public class TransitionTableCreator {
 
         // create the next state result variables
         for (int i = stateBits - 1; i >= 0; i--)
-            truthTable.addResult(STATE_VAR+"_" + i + "^n+1");
+            truthTable.addResult(STATE_VAR+"_" + i + "^{n+1}");
 
         // add the output variables
         TreeSet<String> results = new TreeSet<>();

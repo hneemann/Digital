@@ -31,9 +31,11 @@ public class ExpressionListenerJK implements ExpressionListener {
     public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
         parent.resultFound(name, expression);
 
-        if (name.endsWith("n+1")) {
-            String detName = name.substring(0, name.length() - 2);
+        String detName = isSequentialVar(name);
+
+        if (detName != null) {
             DetermineJKStateMachine jk = new DetermineJKStateMachine(detName, expression);
+
             if (detName.endsWith("^n"))
                 detName = detName.substring(0, detName.length() - 2);
             else
@@ -52,6 +54,23 @@ public class ExpressionListenerJK implements ExpressionListener {
             }
         }
 
+    }
+
+    /**
+     * If the name belogs to a sequential state var, the state vars name is returned.
+     * Otherwise a null is returned
+     *
+     * @param name the name of the variable
+     * @return the state variable or null
+     */
+    public static String isSequentialVar(String name) {
+        String detName = null;
+        if (name.endsWith("n+1")) {
+            detName = name.substring(0, name.length() - 2);
+        } else if (name.endsWith("{n+1}")) {
+            detName = name.substring(0, name.length() - 5) + "n";
+        }
+        return detName;
     }
 
     @Override
