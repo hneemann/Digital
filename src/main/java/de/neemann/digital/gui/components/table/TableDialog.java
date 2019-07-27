@@ -63,6 +63,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
+import static de.neemann.digital.analyse.ModelAnalyser.addOne;
+
 /**
  *
  */
@@ -735,13 +737,6 @@ public class TableDialog extends JDialog {
 
             setModel(new TruthTableTableModel(truthTable));
         }
-    }
-
-    private String addOne(String id) {
-        if (id.endsWith("^n"))
-            return id.substring(0, id.length() - 1) + "{n+1}";
-        else
-            return id + "+1";
     }
 
     private final class CenterDefaultTableCellRenderer extends DefaultTableCellRenderer {
