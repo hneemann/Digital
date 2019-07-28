@@ -247,9 +247,10 @@
         estarão conectados em conjunto. Funcionarão apenas localmente, não sendo possível usá-los em circuitos diferentes.</string>
   <string name="elem_Tunnel_pin_in">A conexão a um túnel.</string>
   <string name="elem_Splitter">Distribuidor</string>
-  <string name="elem_Splitter_tt">Distribuirá ou criará um cabo ou barramento de dados para mais de um bit.
-        Com um barramento será possível, por exemplo gerar conexões de 16-bits sem necessitar o roteamento de 16 fios individuais.
-        Todas as 16 conexões poderão ser tratadas como um único cabo.</string>
+  <string name="elem_Splitter_tt">Distribuir ou criar um conjunto de fios ou um barramento de dados com mais de um bit.
+        Com um barramento será possível, por exemplo, gerar conexões de 16-bits sem ter quer rotear 16 fios individuais.
+        Todas as 16 conexões serão reunidas em um único cabo.
+        O distribuidor terá uma direção, isso significa que os sinais serão transmitidos em apenas um sentido.</string>
   <string name="elem_Splitter_pin_in">Os bits de entrada {0}.</string>
   <string name="elem_Splitter_pin_in_one">O bit de entrada {0}.</string>
   <string name="elem_Splitter_pin_out">Os bits de saída {0}.</string>
@@ -731,7 +732,8 @@
   <string name="err_aSingleClockNecessary">Um componente de clock comum é necessário. Todos os flip-flops devem ter esse sinal de clock.</string>
   <string name="err_analyseNoInputs">O circuito não possui entradas rotuladas</string>
   <string name="err_analyseNoOutputs">O circuito não possui saídas rotuladas</string>
-  <string name="err_breakTimeOut">Nenhuma interrupção detectada após {0} ciclos no ponto de parada "{1}"</string>
+  <string name="err_breakTimeOut">Nenhuma interrupção detectada após {0} ciclos no ponto de parada "{1}".
+        Possivelmente o número de ciclos de timeout no componente sujeito a interrupção deverá ser aumentado.</string>
   <string name="err_builder_exprNotSupported">Expressão {0} não tem suporte</string>
   <string name="err_builder_operationNotSupported">Operação {0} sem suporte</string>
   <string name="err_builder_couldNotFillLUT">Erro ao criar a LUT (LookUp Table).</string>
@@ -1326,7 +1328,7 @@
   <string name="menu_saveData_tt">Salvar dados em arquivo CSV</string>
   <string name="menu_speedTest">Teste de velocidade</string>
   <string name="menu_speedTest_tt">Calcular a máxima frequência de clock.</string>
-  <string name="menu_step">Passo</string>
+  <string name="menu_step">Passo em porta</string>
   <string name="menu_step_tt">Calcular um avanço em porta simples</string>
   <string name="menu_synthesise">Sintetizar</string>
   <string name="menu_synthesise_tt">Gerar expressões booleanas mínimas dada a tabela-verdade.</string>
@@ -1794,4 +1796,59 @@ Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse
   <string name="msg_errorReadingToolchainConfig_N">Erro ao ler a configuração do conjunto de ferramentas {0}</string>
   <string name="msg_commandStarted_N">Comando "{0}" iniciado! O processamento poderá demorar!-</string>
   <string name="msg_commandEnded_N">O comando "{0}" foi executado!</string>
+  <string name="err_thereIsAUnnamedIO">-Há uma entrada ou saída sem nome!</string>
+  <string name="err_NameOfIOIsInvalidOrNotUnique_N">-O sinal de nome "{0}" é inválido ou está repetido!}</string>
+  <string name="err_substitutingError">-Erro ao substituir componentes para a análise.</string>
+  <string name="err_evaluatingGenericsCode_N_N">Erro na avaliação do código genérico do circuito. Código
+        {1}
+        no componente: {0}</string>
+  <string name="msg_errParsingGenerics">Erro durante a varredura do código genérico.</string>
+  <string name="key_generic">Parametrização genérica</string>
+  <string name="key_generic_tt">Comandos para generalizar um circuito.</string>
+  <string name="key_isGeneric">Circuito é genérico</string>
+  <string name="key_isGeneric_tt">Permite criar um circuito genérico.</string>
+  <string name="key_showTutorial">Mostrar o tutorial na abertura</string>
+  <string name="key_showTutorial_tt">Habilitar o tutorial.</string>
+  <string name="menu_runToBreakMicro">Executar até interrupção em modo de porta simples</string>
+  <string name="menu_runToBreakMicro_tt">Executar todos os passos até uma borda de subida ser detectada em um componente sujeito a interrupção.
+        Se não houver componente sujeito a interrupção, o restante dos passos serão executados.</string>
+  <string name="stat_inputs">Entradas</string>
+  <string name="stat_bits">Bits</string>
+  <string name="stat_addrBits">Bits de endereço</string>
+  <string name="tutorial">Tutorial</string>
+  <string name="tutorial1">A seguir, em um breve tutorial, a criação de um circuito simples será apresentada:
+
+        Primeiro, inserir uma entrada no circuito. Essa entrada poderá ser encontrada no menu Componentes ▸IO.</string>
+  <string name="tutorial2">Depois, acrescentar uma segunda entrada ao circuito. Também se poderá clicar na entrada na barra de ferramentas.
+    
+        É melhor colocar a segunda entrada ligeiramente abaixo da primeira.
+        O circuito poderá ser movido mediante manter pressionado o botão direito do mouse.
+        Ao clicar nos componentes, esses poderão ser movidos.</string>
+  <string name="tutorial3">Em seguida, uma porta "OU-Exclusivo" deverá ser inserida.
+         Essa porta poderá ser encontrada no menu Componentes▸Lógico.
+         Posicionar esse componente um pouco mais distante, à direita das entradas.</string>
+  <string name="tutorial4">O último componente a ser inserido será a saída.
+        Posicionar esse componente um pouco mais distante, à direita da porta "OU-Exclusivo".</string>
+  <string name="tutorial5">Para completar o circuito, fios para conexões deverão ser traçados.
+    
+         Clicar no pont vermelho da primeira entrada e conectá-lo à entrada da porta "OU-Exclusivo",
+         e em seguida, clicar no ponto azul dessa porta.
+         NÃO arrastar o botão com o botão do mouse pressionado.</string>
+  <string name="tutorial6">Conectar o ponto vermelho na segunda entrada ao segundo ponto azul da porta "OU-Exclusivo"
+        e o ponto vermelho dessa porta ao botão azul da saída.
+        
+        Durante o traçado, será possível ancorar o fio em qualquer ponto da área de trabalho bastando clicar nela.
+        Se o botão direito do mouse for clicado, isso cancelará o traçado do fio (control-click no MacOS).</string>
+  <string name="tutorial7">O primeiro circuito estará então funcional.
+        Para iniciar a simulação, clicar no botão Play na barra de ferramentas.
+        Se o mouse passar sobre a barra de ferramentas, dicas serão mostradas.</string>
+  <string name="tutorial8">A simulação estará ativa. Para alterar as entradas, clicar nas mesmas.</string>
+  <string name="tutorial9">Para parar a simulação, clicar no botão Stop na barra de ferramentas.</string>
+  <string name="tutorial10">Para completar, as entradas e as saídas deverão ser rotuladas.
+    
+         Ao pressionar o botão da direita sobre uma entrada, uma caixa de diálogo se abrirá. No MacOs, usar control-click.
+         A entrada poderá, então, receber um nome.</string>
+  <string name="tutorial11">Rotular todas as entradas e as saídas.</string>
+  <string name="tutorialUniqueIdents">Entradas e saídas sempre deverão ter nomes únicos.</string>
+  <string name="tutorialNotNeeded">Pular o tutorial</string>
 </resources>
