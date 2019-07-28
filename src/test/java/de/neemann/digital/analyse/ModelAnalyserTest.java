@@ -185,8 +185,8 @@ public class ModelAnalyserTest extends TestCase {
     public void testAnalyzerMultiBit() throws Exception {
         Model model = createModel("dig/analyze/multiBitCounter.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
-        checkTable(tt.getResult("Q0^{n+1}"), one, zero, one, zero);
-        checkTable(tt.getResult("Q1^{n+1}"), zero, one, one, zero);
+        checkTable(tt.getResult("Q_0^{n+1}"), one, zero, one, zero);
+        checkTable(tt.getResult("Q_1^{n+1}"), zero, one, one, zero);
 
         assertEquals("Y1", tt.getResultName(2));
         assertEquals("Y0", tt.getResultName(3));
