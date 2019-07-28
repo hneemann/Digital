@@ -24,7 +24,7 @@ public class LabelNumbering {
         pos = name.length();
         if (name.endsWith("^n")) {
             pos = name.length() - 2;
-            useIndex = true;
+            useIndex = !name.contains("_");
         } else if (name.endsWith("n"))
             pos = name.length() - 1;
     }

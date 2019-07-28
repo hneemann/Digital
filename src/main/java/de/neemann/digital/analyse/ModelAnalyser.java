@@ -245,6 +245,8 @@ public class ModelAnalyser {
                     String label = ff.getLabel();
                     if (label.length() == 0)
                         label = createOutputBasedName(ff);
+                    if (!label.contains("_"))
+                        label = label + "_";
                     long def = ff.getDefault();
                     for (int i = ff.getDataBits() - 1; i >= 0; i--) {
                         ObservableValue qn = new ObservableValue("", 1);
