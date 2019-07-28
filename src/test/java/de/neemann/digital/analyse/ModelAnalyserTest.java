@@ -170,23 +170,23 @@ public class ModelAnalyserTest extends TestCase {
         Model model = createModel("dig/analyze/uniqueNames3.dig");
         ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
         assertEquals(2,ins.size());
-        assertEquals("Zn",ins.get(0).getName());
-        assertEquals("Z1n",ins.get(1).getName());
+        assertEquals("Z^n",ins.get(0).getName());
+        assertEquals("Z_1^n",ins.get(1).getName());
     }
 
     public void testAnalyzerUniqueNames4() throws Exception {
         Model model = createModel("dig/analyze/uniqueNames4.dig");
         ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
         assertEquals(2,ins.size());
-        assertEquals("Bn",ins.get(0).getName());
-        assertEquals("An",ins.get(1).getName());
+        assertEquals("B^n",ins.get(0).getName());
+        assertEquals("A^n",ins.get(1).getName());
     }
 
     public void testAnalyzerMultiBit() throws Exception {
         Model model = createModel("dig/analyze/multiBitCounter.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
-        checkTable(tt.getResult("Q0n+1"), one, zero, one, zero);
-        checkTable(tt.getResult("Q1n+1"), zero, one, one, zero);
+        checkTable(tt.getResult("Q_0^{n+1}"), one, zero, one, zero);
+        checkTable(tt.getResult("Q_1^{n+1}"), zero, one, one, zero);
 
         assertEquals("Y1", tt.getResultName(2));
         assertEquals("Y0", tt.getResultName(3));

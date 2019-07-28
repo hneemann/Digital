@@ -22,7 +22,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>q_0n</string>
+          <string>q_0^n</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="280"/>
@@ -32,7 +32,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>q_1n</string>
+          <string>q_1^n</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -46,7 +46,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>q_2n</string>
+          <string>q_2^n</string>
         </entry>
         <entry>
           <string>Default</string>
@@ -60,7 +60,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>q_3n</string>
+          <string>q_3^n</string>
         </entry>
         <entry>
           <string>Default</string>

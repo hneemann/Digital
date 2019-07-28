@@ -5,12 +5,12 @@
  */
 package de.neemann.digital.draw.graphics.text.formatter;
 
-import de.neemann.digital.analyse.expression.*;
-import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.draw.graphics.text.text.ExpressionToText;
 import de.neemann.digital.draw.graphics.text.ParseException;
 import de.neemann.digital.draw.graphics.text.Parser;
-import de.neemann.digital.draw.graphics.text.text.*;
 import de.neemann.digital.draw.graphics.text.text.Character;
+import de.neemann.digital.draw.graphics.text.text.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -20,8 +20,6 @@ import java.util.ArrayList;
  * Formatter to draw a text on a {@link Graphics2D} instance.
  */
 public final class GraphicsFormatter {
-
-    private static final FormatToExpression DEFAULT_FORMAT = FormatToExpression.getDefaultFormat();
 
     private GraphicsFormatter() {
     }
@@ -39,6 +37,22 @@ public final class GraphicsFormatter {
             Rectangle2D rec = metrics.getStringBounds(str, gr);
             fragment.set((int) rec.getWidth(), (int) rec.getHeight(), metrics.getDescent());
         }, gr.getFont(), text);
+    }
+
+    /**
+     * Creates the text fragments
+     *
+     * @param gr         the {@link Graphics2D} instance
+     * @param expression the expression
+     * @return the text fragment
+     * @throws FormatterException FormatterException
+     */
+    public static Fragment createFragment(Graphics2D gr, Expression expression) throws FormatterException {
+        return createFragment((fragment, font, str) -> {
+            final FontMetrics metrics = gr.getFontMetrics(font);
+            Rectangle2D rec = metrics.getStringBounds(str, gr);
+            fragment.set((int) rec.getWidth(), (int) rec.getHeight(), metrics.getDescent());
+        }, gr.getFont(), new ExpressionToText().createText(expression));
     }
 
     /**
@@ -105,81 +119,6 @@ public final class GraphicsFormatter {
             }
         } else
             throw new FormatterException("unknown text element " + text.getClass().getSimpleName() + ", " + text);
-    }
-
-    /**
-     * Creates the text fragments
-     *
-     * @param gr         the {@link Graphics2D} instance
-     * @param expression the expression
-     * @return the text fragment
-     * @throws FormatterException FormatterException
-     */
-    public static Fragment createFragment(Graphics2D gr, Expression expression) throws FormatterException {
-        return createFragment((fragment, font, str) -> {
-            final FontMetrics metrics = gr.getFontMetrics(font);
-            Rectangle2D rec = metrics.getStringBounds(str, gr);
-            fragment.set((int) rec.getWidth(), (int) rec.getHeight(), metrics.getDescent());
-        }, gr.getFont(), expression);
-    }
-
-    /**
-     * Creates the text fragments
-     *
-     * @param sizer      the sizer instance
-     * @param font       the font
-     * @param expression the expression
-     * @return the fragment
-     * @throws FormatterException FormatterException
-     */
-    public static Fragment createFragment(FontSizer sizer, Font font, Expression expression) throws FormatterException {
-        if (expression instanceof Variable) {
-            String ident = ((Variable) expression).getIdentifier();
-            return createFragment(sizer, font, ident);
-        } else if (expression instanceof Constant) {
-            String value = DEFAULT_FORMAT.constant(((Constant) expression).getValue());
-            return new TextFragment(sizer, font, value);
-        } else if (expression instanceof Operation.And) {
-            return createOperationFragment(sizer, font, (Operation) expression, DEFAULT_FORMAT.getAndString());
-        } else if (expression instanceof Operation.Or) {
-            return createOperationFragment(sizer, font, (Operation) expression, DEFAULT_FORMAT.getOrString());
-        } else if (expression instanceof Operation.XOr) {
-            return createOperationFragment(sizer, font, (Operation) expression, DEFAULT_FORMAT.getXorString());
-        } else if (expression instanceof Not) {
-            return new OverlineFragment(createFragment(sizer, font, ((Not) expression).getExpression()), font);
-        } else if (expression instanceof NamedExpression) {
-            NamedExpression ne = (NamedExpression) expression;
-            SentenceFragment f = new SentenceFragment();
-            f.add(createFragment(sizer, font, ne.getName()));
-            f.pad(font.getSize() / 2);
-            f.add(new TextFragment(sizer, font, "="));
-            f.pad(font.getSize() / 2);
-            f.add(createFragment(sizer, font, ne.getExpression()));
-            return f.setUp();
-        } else
-            throw new FormatterException("unknown expression " + expression.getClass().getSimpleName());
-    }
-
-    private static Fragment createOperationFragment(FontSizer sizer, Font font, Operation op, String opString) throws FormatterException {
-        int pad = font.getSize() / 2;
-        SentenceFragment f = new SentenceFragment();
-        for (Expression e : op.getExpressions()) {
-            if (f.size() > 0) {
-                f.pad(pad);
-                if (!opString.isEmpty()) {
-                    f.add(new TextFragment(sizer, font, opString));
-                    f.pad(pad);
-                }
-            }
-            if (e instanceof Operation) {
-                f.add(new TextFragment(sizer, font, "("));
-                f.add(createFragment(sizer, font, e));
-                f.add(new TextFragment(sizer, font, ")"));
-            } else {
-                f.add(createFragment(sizer, font, e));
-            }
-        }
-        return f.setUp();
     }
 
     /**
@@ -310,10 +249,6 @@ public final class GraphicsFormatter {
             dy = maxBase + maxAscent;
             base = maxBase;
             return this;
-        }
-
-        private int size() {
-            return fragments.size();
         }
     }
 

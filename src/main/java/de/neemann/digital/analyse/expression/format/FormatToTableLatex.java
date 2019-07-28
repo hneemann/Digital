@@ -7,6 +7,7 @@ package de.neemann.digital.analyse.expression.format;
 
 
 import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.draw.graphics.text.formatter.LaTeXFormatter;
 
 /**
  */
@@ -22,7 +23,7 @@ public class FormatToTableLatex extends FormatToTable {
 
     @Override
     protected String formatVariable(Variable v) {
-        return "$" + formatIdentifier(super.formatVariable(v)) + "$&";
+        return "$" + LaTeXFormatter.format(v) + "$&";
     }
 
     @Override
@@ -50,17 +51,4 @@ public class FormatToTableLatex extends FormatToTable {
         sb.append("\\end{tabular}\n");
     }
 
-    /**
-     * Formats the given identifier
-     *
-     * @param identifier the identifier
-     * @return the formatted text
-     */
-    public static String formatIdentifier(String identifier) {
-        int p = identifier.indexOf("^");
-        if (p < 0) return identifier;
-
-        String index = identifier.substring(p + 1);
-        return identifier.substring(0, p + 1) + "{" + index + "}";
-    }
 }

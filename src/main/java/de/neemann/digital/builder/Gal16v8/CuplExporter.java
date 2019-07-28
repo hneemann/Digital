@@ -9,7 +9,6 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionVisitor;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.builder.*;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.lang.Lang;
@@ -127,8 +126,8 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
      * Writes code to given writer
      *
      * @param out the stream to write to
-     * @throws IOException            IOException
-     * @throws PinMapException        PinMapException
+     * @throws IOException     IOException
+     * @throws PinMapException PinMapException
      */
     public void writeTo(Writer out) throws IOException, PinMapException {
         out
@@ -166,27 +165,23 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
             }
         }
 
-        try {
-            if (!builder.getRegistered().isEmpty()) {
-                out.append("\r\n/* sequential logic */\r\n");
-                for (Map.Entry<String, Expression> c : builder.getRegistered().entrySet()) {
-                    out.append(c.getKey()).append(".D = ");
-                    breakLines(out, FormatToExpression.FORMATTER_CUPL.format(c.getValue()));
-                    out.append(";\r\n");
-                    sequentialWritten(out, c.getKey());
-                }
+        if (!builder.getRegistered().isEmpty()) {
+            out.append("\r\n/* sequential logic */\r\n");
+            for (Map.Entry<String, Expression> c : builder.getRegistered().entrySet()) {
+                out.append(c.getKey()).append(".D = ");
+                breakLines(out, FormatToExpression.FORMATTER_CUPL.format(c.getValue()));
+                out.append(";\r\n");
+                sequentialWritten(out, c.getKey());
             }
+        }
 
-            if (!builder.getCombinatorial().isEmpty()) {
-                out.append("\r\n/* combinatorial logic */\r\n");
-                for (Map.Entry<String, Expression> c : builder.getCombinatorial().entrySet()) {
-                    out.append(c.getKey()).append(" = ");
-                    breakLines(out, FormatToExpression.FORMATTER_CUPL.format(c.getValue()));
-                    out.append(";\r\n");
-                }
+        if (!builder.getCombinatorial().isEmpty()) {
+            out.append("\r\n/* combinatorial logic */\r\n");
+            for (Map.Entry<String, Expression> c : builder.getCombinatorial().entrySet()) {
+                out.append(c.getKey()).append(" = ");
+                breakLines(out, FormatToExpression.FORMATTER_CUPL.format(c.getValue()));
+                out.append(";\r\n");
             }
-        } catch (FormatterException e) {
-            throw new IOException(e);
         }
 
         out.flush();

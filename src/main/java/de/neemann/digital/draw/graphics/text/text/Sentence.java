@@ -84,4 +84,11 @@ public class Sentence implements Text, Iterable<Text> {
         else
             return list.get(list.size() - 1) instanceof Blank;
     }
+
+    /**
+     * @return the size of the sentence
+     */
+    public int size() {
+        return list.size();
+    }
 }

@@ -10,6 +10,8 @@ import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.parser.Parser;
+import de.neemann.digital.draw.graphics.text.formatter.LaTeXFormatter;
+import de.neemann.digital.draw.graphics.text.text.ExpressionToText;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -29,12 +31,13 @@ public class FormatToExpressionTest extends TestCase {
         Expression e = and(not(or(not(a), not(b))), not(and(not(a), not(b))));
 
         assertEquals("!(!A || !B) && !(!A && !B)", FormatToExpression.FORMATTER_JAVA.format(e));
-        assertEquals("\\nicht{\\nicht{A} \\oder \\nicht{B}} \\und \\nicht{\\nicht{A} \\und \\nicht{B}}", FormatToExpression.FORMATTER_LATEX.format(e));
         assertEquals("NOT (NOT A OR NOT B) AND NOT (NOT A AND NOT B)", FormatToExpression.FORMATTER_DERIVE.format(e));
         assertEquals("~(~A + ~B) ~(~A ~B)", FormatToExpression.FORMATTER_LOGISIM.format(e));
         assertEquals("¬(¬A ∨ ¬B) ∧ ¬(¬A ∧ ¬B)", FormatToExpression.FORMATTER_UNICODE.format(e));
         assertEquals("!(!A + !B) * !(!A * !B)", FormatToExpression.FORMATTER_SHORT.format(e));
         assertEquals("!(!A + !B) !(!A !B)", FormatToExpression.FORMATTER_SHORTER.format(e));
+
+        assertEquals("\\overline{\\overline{A} \\oder \\overline{B}} \\und \\overline{\\overline{A} \\und \\overline{B}}", LaTeXFormatter.format(e));
     }
 
     public void testFormatExp2() throws Exception {
@@ -75,8 +78,8 @@ public class FormatToExpressionTest extends TestCase {
     public void testFormatExpLaTeX() throws Exception {
         Variable a = new Variable("A_n");
         Variable b = new Variable("B_n");
-        Expression e = new NamedExpression("Y^n+1", and(a, not(b)));
-        assertEquals("Y^{n+1} = A_n \\und \\nicht{B_n}", FormatToExpression.FORMATTER_LATEX.format(e));
+        Expression e = new NamedExpression("Y^{n+1}", and(a, not(b)));
+        assertEquals("Y^{n+1} &=& A_n \\und \\overline{B_n}", LaTeXFormatter.format(e));
     }
 
     public void testFormatTable() throws Exception {
@@ -111,7 +114,7 @@ public class FormatToExpressionTest extends TestCase {
         ArrayList<Expression> e = new Parser("let sum=(A^B)^C, let c = (A B) + ((A^B) C)").parse();
         assertEquals("sum = (A ⊻ B) ⊻ C", FormatToExpression.FORMATTER_UNICODE.format(e.get(0)));
         assertEquals("c = (A ∧ B) ∨ ((A ⊻ B) ∧ C)", FormatToExpression.FORMATTER_UNICODE.format(e.get(1)));
-        assertEquals("sum = (A \\xoder B) \\xoder C", FormatToExpression.FORMATTER_LATEX.format(e.get(0)));
+        assertEquals("sum &=& (A \\xoder B) \\xoder C", LaTeXFormatter.format(e.get(0)));
         assertEquals("sum = (A $ B) $ C", FormatToExpression.FORMATTER_CUPL.format(e.get(0)));
         assertEquals("sum = (A ^ B) ^ C", FormatToExpression.FORMATTER_JAVA.format(e.get(0)));
         assertEquals("sum = (A ^ B) ^ C", FormatToExpression.FORMATTER_SHORT.format(e.get(0)));

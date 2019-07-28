@@ -8,8 +8,6 @@ package de.neemann.digital.gui.components.karnaugh;
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Not;
 import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
 import de.neemann.digital.lang.Lang;
@@ -22,8 +20,6 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-
-import static de.neemann.digital.analyse.expression.Not.not;
 
 /**
  * JComponent to show a kv map.
@@ -120,18 +116,17 @@ public class KarnaughMapComponent extends JComponent {
             gr.setFont(valuesFont);
 
             Font headerFont = valuesFont;
-            try {
-                int maxHeaderStrWidth = 0;
-                FontMetrics fontMetrics = gr.getFontMetrics();
-                for (Variable v : vars) {
-                    int w = fontMetrics.stringWidth(FormatToExpression.defaultFormat(not(v)));
+            int maxHeaderStrWidth = 0;
+            FontMetrics fontMetrics = gr.getFontMetrics();
+            for (int i = 0; i < vars.size(); i++) {
+                final GraphicsFormatter.Fragment fr = getFragment(i, true);
+                if (fr != null) {
+                    int w = fr.getWidth();
                     if (w > maxHeaderStrWidth) maxHeaderStrWidth = w;
                 }
-                if (maxHeaderStrWidth > cellSize)
-                    headerFont = origFont.deriveFont(cellSize * 0.5f * cellSize / maxHeaderStrWidth);
-            } catch (FormatterException e) {
-                // can not happen
             }
+            if (maxHeaderStrWidth > cellSize)
+                headerFont = origFont.deriveFont(cellSize * 0.5f * cellSize / maxHeaderStrWidth);
 
             xOffs = (width - (kvWidth + 2) * cellSize) / 2;
             yOffs = (height - (kvHeight + 2) * cellSize) / 2;

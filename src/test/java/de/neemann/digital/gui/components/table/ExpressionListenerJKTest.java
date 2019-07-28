@@ -33,4 +33,11 @@ public class ExpressionListenerJKTest extends TestCase {
         assertEquals("not(A)", exp.getList().get(2).toString());
     }
 
+    public void testSequentialVar() {
+        assertEquals(null, ExpressionListenerJK.isSequentialVar("A"));
+        assertEquals(null, ExpressionListenerJK.isSequentialVar("An"));
+        assertEquals("An", ExpressionListenerJK.isSequentialVar("An+1"));
+        assertEquals("An", ExpressionListenerJK.isSequentialVar("A{n+1}"));
+    }
+
 }

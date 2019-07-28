@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.draw.graphics.text.formatter;
 
+import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.draw.graphics.text.text.*;
 import de.neemann.digital.draw.graphics.text.text.Character;
 
@@ -16,6 +18,15 @@ public final class LaTeXFormatter {
     private LaTeXFormatter() {
     }
 
+    /**
+     * Formats the given text
+     *
+     * @param exp the expression to format
+     * @return the formatted string
+     */
+    public static String format(Expression exp) {
+        return format(new ExpressionToText().createText(exp, FormatToExpression.FORMATTER_LATEX), true);
+    }
     /**
      * Formats the given text
      *
@@ -49,7 +60,7 @@ public final class LaTeXFormatter {
                         if (c instanceof Index)
                             return "$\\overline{" + format(c, true) + "}$";
                         else
-                            return "$\\overline{\\mbox{" + format(c, false) + "}}$";
+                            return "$\\overline{\\mbox{" + format(c, true) + "}}$";
                     }
                 default:
                     return format(d.getContent(), mathMode);

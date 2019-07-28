@@ -9,8 +9,8 @@ import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ContextFiller;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.analyse.expression.format.FormatToTableLatex;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
+import de.neemann.digital.draw.graphics.text.formatter.LaTeXFormatter;
 
 /**
  */
@@ -27,9 +27,9 @@ public class TruthTableFormatterLaTeX implements TruthTableFormatter {
         sb.append("}\n");
 
         for (Variable v : truthTable.getVars())
-            sb.append("$").append(formatVar(v.getIdentifier())).append("$&");
+            sb.append("$").append(LaTeXFormatter.format(v)).append("$&");
         for (int i = 0; i < truthTable.getResultCount(); i++) {
-            sb.append("$").append(formatVar(truthTable.getResultName(i))).append("$");
+            sb.append("$").append(LaTeXFormatter.format(new Variable(truthTable.getResultName(i)))).append("$");
             if (i < truthTable.getResultCount() - 1)
                 sb.append("&");
         }
@@ -70,7 +70,4 @@ public class TruthTableFormatterLaTeX implements TruthTableFormatter {
         return null;
     }
 
-    private static String formatVar(String var) {
-        return FormatToTableLatex.formatIdentifier(var);
-    }
 }

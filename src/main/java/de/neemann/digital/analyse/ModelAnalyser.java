@@ -68,7 +68,7 @@ public class ModelAnalyser {
             ff.getDInput().removeObserver(ff); // turn off flipflop
             String label = getUniqueNameFor(ff);
 
-            outputs.add(i++, new Signal(label + "+1", ff.getDInput()));
+            outputs.add(i++, new Signal(addOne(label), ff.getDInput()));
 
             modelAnalyzerInfo.setSequentialInitValue(label, ff.getDefault());
 
@@ -93,13 +93,27 @@ public class ModelAnalyser {
             throw new AnalyseException(Lang.get("err_analyseNoOutputs"));
     }
 
+    /**
+     * Adds the "+1" to the variables name
+     *
+     * @param name the vars name
+     * @return the modified name
+     */
+    public static String addOne(String name) {
+        if (name.endsWith("^n"))
+            return name.substring(0, name.length() - 1) + "{n+1}";
+        else
+            return name + "+1";
+    }
+
+
     private String getUniqueNameFor(FlipflopD ff) {
         String label = ff.getLabel();
         if (label.length() == 0)
             label = createOutputBasedName(ff);
 
         if (!label.endsWith("n"))
-            label += "n";
+            label += "^n";
 
         return new LabelNumbering(label).create(this::inputExist);
     }
@@ -231,11 +245,13 @@ public class ModelAnalyser {
                     String label = ff.getLabel();
                     if (label.length() == 0)
                         label = createOutputBasedName(ff);
+                    if (!label.contains("_"))
+                        label = label + "_";
                     long def = ff.getDefault();
                     for (int i = ff.getDataBits() - 1; i >= 0; i--) {
                         ObservableValue qn = new ObservableValue("", 1);
                         ObservableValue nqn = new ObservableValue("", 1);
-                        FlipflopD newff = new FlipflopD(label + i, qn, nqn, (def & (1L<<i))!=0 ?1:0);
+                        FlipflopD newff = new FlipflopD(label + i, qn, nqn, (def & (1L << i)) != 0 ? 1 : 0);
                         spinput.addAtTop(qn);
                         model.add(newff);
                         newff.setInputs(new ObservableValues(insp.getOutputs().get(i), getClock()));

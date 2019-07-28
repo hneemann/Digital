@@ -36,8 +36,8 @@ public class ExpressionListenerOptimizeJK implements ExpressionListener {
 
     @Override
     public void resultFound(String name, Expression expression) throws FormatterException, ExpressionException {
-        if (name.endsWith("n+1")) {
-            String varName = name.substring(0, name.length() - 2);
+        String varName = ExpressionListenerJK.isSequentialVar(name);
+        if (varName != null) {
             if (name.equals(lastName)) {
                 int c = new DetermineJKStateMachine(varName, expression).getComplexity();
                 if (c < lastComplexity) {

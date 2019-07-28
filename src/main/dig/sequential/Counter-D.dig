@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -21,7 +22,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>q_3n</string>
+          <string>q_3^n</string>
         </entry>
         <entry>
           <string>Inputs</string>
@@ -29,7 +30,7 @@
         </entry>
         <entry>
           <string>Default</string>
-          <int>1</int>
+          <long>1</long>
         </entry>
       </elementAttributes>
       <pos x="260" y="180"/>
@@ -88,7 +89,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>q_2n</string>
+          <string>q_2^n</string>
         </entry>
         <entry>
           <string>Inputs</string>
@@ -96,7 +97,7 @@
         </entry>
         <entry>
           <string>Default</string>
-          <int>1</int>
+          <long>1</long>
         </entry>
       </elementAttributes>
       <pos x="260" y="460"/>
@@ -150,7 +151,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>q_1n</string>
+          <string>q_1^n</string>
         </entry>
         <entry>
           <string>Inputs</string>
@@ -158,7 +159,7 @@
         </entry>
         <entry>
           <string>Default</string>
-          <int>1</int>
+          <long>1</long>
         </entry>
       </elementAttributes>
       <pos x="260" y="660"/>
@@ -197,7 +198,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>q_0n</string>
+          <string>q_0^n</string>
         </entry>
         <entry>
           <string>Inputs</string>

@@ -12,6 +12,7 @@ public class LabelNumbering {
 
     private final String name;
     private int pos;
+    private boolean useIndex = false;
 
     /**
      * Creates a new instance
@@ -21,9 +22,10 @@ public class LabelNumbering {
     public LabelNumbering(String name) {
         this.name = name;
         pos = name.length();
-        if (name.endsWith("_n"))
+        if (name.endsWith("^n")) {
             pos = name.length() - 2;
-        else if (name.endsWith("n"))
+            useIndex = !name.contains("_");
+        } else if (name.endsWith("n"))
             pos = name.length() - 1;
     }
 
@@ -48,7 +50,10 @@ public class LabelNumbering {
     }
 
     private String addNumber(int n) {
-        return name.substring(0, pos) + n + name.substring(pos);
+        if (useIndex)
+            return name.substring(0, pos) + "_" + n + name.substring(pos);
+        else
+            return name.substring(0, pos) + n + name.substring(pos);
     }
 
     /**

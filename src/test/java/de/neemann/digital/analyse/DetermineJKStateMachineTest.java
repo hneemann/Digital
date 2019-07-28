@@ -7,8 +7,8 @@ package de.neemann.digital.analyse;
 
 
 import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.analyse.expression.format.FormatterException;
 import junit.framework.TestCase;
 
 import static de.neemann.digital.analyse.expression.Not.not;
@@ -28,7 +28,7 @@ public class DetermineJKStateMachineTest extends TestCase {
     private Expression c;
     private Expression notc;
 
-    public void setUp() throws Exception {
+    public void setUp() {
         a = v("a");
         nota = not(a);
         b = v("b");
@@ -47,7 +47,23 @@ public class DetermineJKStateMachineTest extends TestCase {
         assertFalse(jk.isDFF());
     }
 
-    private String toStr(Expression expression) throws FormatterException {
+    public void testIndex() throws Exception {
+        Variable _a = v("Q_0^n");
+        Expression _nota = not(_a);
+        Expression _b = v("Q_1^n");
+        Expression _notb = not(_b);
+        Expression _c = v("Q_2^n");
+        Expression _notc = not(_c);
+
+        Expression e = or(and(_a, _c), and(_nota, _notb));
+
+        DetermineJKStateMachine jk = new DetermineJKStateMachine(_a.getIdentifier(), e);
+        assertEquals(toStr(_notb), toStr(jk.getJ()));
+        assertEquals(toStr(_notc), toStr(jk.getK()));
+        assertFalse(jk.isDFF());
+    }
+
+    private String toStr(Expression expression) {
         return FormatToExpression.FORMATTER_UNICODE.format(expression);
     }
 

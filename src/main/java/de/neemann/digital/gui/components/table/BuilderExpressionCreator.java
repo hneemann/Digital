@@ -55,9 +55,9 @@ public class BuilderExpressionCreator {
                 if (!contained.contains(name)) {
                     contained.add(name);
                     try {
-                        if (name.endsWith("n+1")) {
-                            name = name.substring(0, name.length() - 2);
-                            builder.addSequential(name, ExpressionModifier.modifyExpression(expression, modifier));
+                        String n = ExpressionListenerJK.isSequentialVar(name);
+                        if (n!=null) {
+                            builder.addSequential(n, ExpressionModifier.modifyExpression(expression, modifier));
                         } else
                             builder.addCombinatorial(name, ExpressionModifier.modifyExpression(expression, modifier));
                     } catch (BuilderException e) {

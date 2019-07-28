@@ -6,6 +6,8 @@
 package de.neemann.digital.analyse.expression.format;
 
 import de.neemann.digital.analyse.expression.*;
+import de.neemann.digital.draw.graphics.text.formatter.PlainTextFormatter;
+import de.neemann.digital.draw.graphics.text.text.ExpressionToText;
 
 import java.util.Objects;
 
@@ -17,44 +19,44 @@ import static de.neemann.digital.analyse.expression.Variable.v;
 /**
  * Used to format an expression to a simple string
  */
-public class FormatToExpression implements Formatter {
+public final class FormatToExpression implements Formatter {
 
     /**
      * Creates a string compatible to Java
      */
-    public static final FormatToExpression FORMATTER_JAVA = new FormatToExpression("||", "&&", "^", "!", "false", "true");
+    public static final FormatToExpression FORMATTER_JAVA = new FormatToExpression("||", "&&", "^", "!", "false", "true", "=");
     /**
      * Creates a string compatible to Derive
      */
-    public static final FormatToExpression FORMATTER_DERIVE = new FormatToExpression("OR", "AND", "XOR", "NOT ", "false", "true");
+    public static final FormatToExpression FORMATTER_DERIVE = new FormatToExpression("OR", "AND", "XOR", "NOT ", "false", "true", "=");
     /**
      * Creates a string compatible to WinCUPL
      */
-    public static final FormatToExpression FORMATTER_CUPL = new FormatToExpression("#", "&", "$", "!", "'b'0", "'b'1");
+    public static final FormatToExpression FORMATTER_CUPL = new FormatToExpression("#", "&", "$", "!", "'b'0", "'b'1", "=").setKeepVars();
     /**
      * Creates a string compatible to Logisim
      */
-    public static final FormatToExpression FORMATTER_LOGISIM = new FormatToExpression("+", "", "^", "~", "false", "true");
+    public static final FormatToExpression FORMATTER_LOGISIM = new FormatToExpression("+", "", "^", "~", "false", "true", "=");
     /**
      * Creates a unicode string
      */
-    public static final FormatToExpression FORMATTER_UNICODE = new FormatToExpression("\u2228", "\u2227", "\u22BB", "\u00AC", "0", "1");
+    public static final FormatToExpression FORMATTER_UNICODE = new FormatToExpression("\u2228", "\u2227", "\u22BB", "\u00AC", "0", "1", "=");
     /**
      * Creates a unicode string with no AND character
      */
-    public static final FormatToExpression FORMATTER_UNICODE_NOAND = new FormatToExpression("\u2228", "", "\u22BB", "\u00AC", "0", "1");
+    public static final FormatToExpression FORMATTER_UNICODE_NOAND = new FormatToExpression("\u2228", "", "\u22BB", "\u00AC", "0", "1", "=");
     /**
      * Creates a short string representation
      */
-    public static final FormatToExpression FORMATTER_SHORT = new FormatToExpression("+", "*", "^", "!", "0", "1");
+    public static final FormatToExpression FORMATTER_SHORT = new FormatToExpression("+", "*", "^", "!", "0", "1", "=");
     /**
      * Creates a short string representation
      */
-    public static final FormatToExpression FORMATTER_SHORTER = new FormatToExpression("+", "", "^", "!", "0", "1");
+    public static final FormatToExpression FORMATTER_SHORTER = new FormatToExpression("+", "", "^", "!", "0", "1", "=");
     /**
      * Creates a LaTeX representation
      */
-    public static final FormatToExpression FORMATTER_LATEX = new FormatterLatex();
+    public static final FormatToExpression FORMATTER_LATEX = new FormatToExpression("\\oder", "\\und", "\\xoder", "", "0", "1", "&=&");
 
 
     private static final Expression TOSTRING_EXPR;
@@ -84,9 +86,8 @@ public class FormatToExpression implements Formatter {
      *
      * @param exp the expression to format
      * @return the string representation
-     * @throws FormatterException FormatterException
      */
-    public static String defaultFormat(Expression exp) throws FormatterException {
+    public static String defaultFormat(Expression exp) {
         return defaultFormat.format(exp);
     }
 
@@ -103,25 +104,24 @@ public class FormatToExpression implements Formatter {
     private final String andString;
     private final String falseString;
     private final String trueString;
+    private final String equal;
     private final String xorString;
     private final String notString;
+    private boolean keepVars;
 
-    /**
-     * Derives a new formatter from the parent
-     *
-     * @param parent the parent
-     */
-    public FormatToExpression(FormatToExpression parent) {
-        this(parent.orString, parent.andString, parent.xorString, parent.notString, parent.falseString, parent.trueString);
-    }
-
-    private FormatToExpression(String orString, String andString, String xorString, String notString, String falseString, String trueString) {
+    private FormatToExpression(String orString, String andString, String xorString, String notString, String falseString, String trueString, String equal) {
         this.orString = orString;
         this.andString = andString;
         this.xorString = xorString;
         this.notString = notString;
         this.falseString = falseString;
         this.trueString = trueString;
+        this.equal = equal;
+    }
+
+    private FormatToExpression setKeepVars() {
+        keepVars = true;
+        return this;
     }
 
     /**
@@ -138,60 +138,6 @@ public class FormatToExpression implements Formatter {
      */
     public static FormatToExpression getDefaultFormat() {
         return defaultFormat;
-    }
-
-    /**
-     * Formats the given expression
-     *
-     * @param expression the expression
-     * @return the formated string
-     * @throws FormatterException FormatterException
-     */
-    @Override
-    public String format(Expression expression) throws FormatterException {
-        if (expression instanceof Variable) {
-            return identifier(((Variable) expression).getIdentifier());
-        } else if (expression instanceof Constant) {
-            return constant(((Constant) expression).getValue());
-        } else if (expression instanceof Not) {
-            return formatNot((Not) expression);
-        } else if (expression instanceof Operation.And) {
-            return formatAnd((Operation.And) expression);
-        } else if (expression instanceof Operation.Or) {
-            return formatOr((Operation.Or) expression);
-        } else if (expression instanceof Operation.XOr) {
-            return formatXOr((Operation.XOr) expression);
-        } else if (expression instanceof NamedExpression) {
-            NamedExpression ne = (NamedExpression) expression;
-            return identifier(ne.getName()) + " = " + format(ne.getExpression());
-        } else throw new FormatterException("unknown type " + expression.getClass().getSimpleName());
-
-    }
-
-    /**
-     * Formats a not expression
-     *
-     * @param expression the nor expression
-     * @return the formatted string
-     * @throws FormatterException FormatterException
-     */
-    protected String formatNot(Not expression) throws FormatterException {
-        if (expression.getExpression() instanceof Operation)
-            return notString + "(" + format(expression.getExpression()) + ")";
-        else
-            return notString + format(expression.getExpression());
-    }
-
-    private String formatAnd(Operation.And expression) throws FormatterException {
-        return formatOp(expression.getExpressions(), andString);
-    }
-
-    private String formatOr(Operation.Or expression) throws FormatterException {
-        return formatOp(expression.getExpressions(), orString);
-    }
-
-    private String formatXOr(Operation.XOr expression) throws FormatterException {
-        return formatOp(expression.getExpressions(), xorString == null ? "^" : xorString);  // fixes stored old formats
     }
 
     /**
@@ -216,27 +162,19 @@ public class FormatToExpression implements Formatter {
     }
 
     /**
-     * Formats an operation
-     *
-     * @param expressions the expressions
-     * @param opString    the string representation of the operation
-     * @return the formatted string
-     * @throws FormatterException FormatterException
+     * @return the NOT string
      */
-    private String formatOp(Iterable<Expression> expressions, String opString) throws FormatterException {
-        StringBuilder sb = new StringBuilder();
-        for (Expression e : expressions) {
-            if (sb.length() > 0) {
-                sb.append(" ");
-                if (opString.length() > 0)
-                    sb.append(opString).append(" ");
-            }
-            if (e instanceof Operation)
-                sb.append("(").append(format(e)).append(")");
-            else
-                sb.append(format(e));
-        }
-        return sb.toString();
+    public String getNot() {
+        return notString;
+    }
+
+    /**
+     * @return the EQUAL string
+     */
+    public String getEqual() {
+        if (equal == null)  // compatibility with old config files!!!
+            return "=";
+        return equal;
     }
 
     /**
@@ -250,23 +188,14 @@ public class FormatToExpression implements Formatter {
         else return falseString;
     }
 
-    /**
-     * Formats the given identifier
-     *
-     * @param identifier the identifier
-     * @return the string representation of the identifier
-     */
-    public String identifier(String identifier) {
-        return identifier;
+    @Override
+    public String format(Expression expression) {
+        return PlainTextFormatter.format(new ExpressionToText().setFormatIdentifiers(!keepVars).createText(expression, this), this);
     }
 
     @Override
     public String toString() {
-        try {
-            return format(TOSTRING_EXPR);
-        } catch (FormatterException e1) {
-            return "format error";
-        }
+        return format(TOSTRING_EXPR);
     }
 
     @Override
@@ -279,7 +208,8 @@ public class FormatToExpression implements Formatter {
                 && Objects.equals(falseString, that.falseString)
                 && Objects.equals(trueString, that.trueString)
                 && Objects.equals(xorString, that.xorString)
-                && Objects.equals(notString, that.notString);
+                && Objects.equals(notString, that.notString)
+                && Objects.equals(equal, that.equal);
     }
 
     @Override
@@ -287,19 +217,4 @@ public class FormatToExpression implements Formatter {
         return Objects.hash(orString, andString, falseString, trueString, xorString, notString);
     }
 
-    private static class FormatterLatex extends FormatToExpression {
-        FormatterLatex() {
-            super("\\oder", "\\und", "\\xoder", null, "0", "1");
-        }
-
-        @Override
-        public String formatNot(Not expression) throws FormatterException {
-            return "\\nicht{" + format(expression.getExpression()) + "}";
-        }
-
-        @Override
-        public String identifier(String identifier) {
-            return FormatToTableLatex.formatIdentifier(identifier);
-        }
-    }
 }

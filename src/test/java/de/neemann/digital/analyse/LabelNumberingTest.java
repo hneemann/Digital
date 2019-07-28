@@ -13,7 +13,8 @@ public class LabelNumberingTest extends TestCase {
         assertEquals("test", new LabelNumbering("test").create(name -> false));
         assertEquals("test2", new LabelNumbering("test").create(new TestCheck()));
         assertEquals("test2n", new LabelNumbering("testn").create(new TestCheck()));
-        assertEquals("test2_n", new LabelNumbering("test_n").create(new TestCheck()));
+        assertEquals("test_2^n", new LabelNumbering("test^n").create(new TestCheck()));
+        assertEquals("test_2n", new LabelNumbering("test_n").create(new TestCheck()));
     }
 
     private class TestCheck implements LabelNumbering.Exists {

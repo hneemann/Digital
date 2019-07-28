@@ -7,6 +7,7 @@ package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.ExpressionException;
+import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 
@@ -106,11 +107,7 @@ public class ExpressionListenerStore implements ExpressionListener {
 
         @Override
         public String toString() {
-            try {
-                return name + " = " + FormatToExpression.defaultFormat(expression);
-            } catch (FormatterException e) {
-                return name;
-            }
+            return FormatToExpression.defaultFormat(new NamedExpression(name, expression));
         }
     }
 }
