@@ -155,14 +155,17 @@ public class ModelAnalyser {
                     SplitPinString pins = SplitPinString.create(s);
 
                     final ObservableValues spOutputs = sp.getOutputs();
+                    String name = s.getName();
+                    if (!name.contains("_"))
+                        name += "_";
                     for (int i = spOutputs.size() - 1; i >= 0; i--)
-                        outputs.add(new Signal(s.getName() + i, spOutputs.get(i)).setPinNumber(pins.getPin(i)));
+                        outputs.add(new Signal(name + i, spOutputs.get(i)).setPinNumber(pins.getPin(i)));
 
                     s.getValue().fireHasChanged();
 
                     ArrayList<String> names = new ArrayList<>(bits);
                     for (int i = 0; i < bits; i++)
-                        names.add(s.getName() + i);
+                        names.add(name + i);
 
                     modelAnalyzerInfo.addOutputBus(s.getName(), names);
 
@@ -194,10 +197,13 @@ public class ModelAnalyser {
 
                     SplitPinString pins = SplitPinString.create(s);
                     ObservableValues.Builder builder = new ObservableValues.Builder();
+                    String name = s.getName();
+                    if (!name.contains("_"))
+                        name += "_";
                     for (int i = bits - 1; i >= 0; i--) {
-                        ObservableValue o = new ObservableValue(s.getName() + i, 1);
+                        ObservableValue o = new ObservableValue(name + i, 1);
                         builder.add(o);
-                        inputs.add(new Signal(s.getName() + i, o).setPinNumber(pins.getPin(i)));
+                        inputs.add(new Signal(name + i, o).setPinNumber(pins.getPin(i)));
                     }
                     final ObservableValues inputsList = builder.reverse().build();
                     sp.setInputs(inputsList);

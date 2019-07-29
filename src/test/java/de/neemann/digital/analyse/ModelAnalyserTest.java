@@ -188,8 +188,8 @@ public class ModelAnalyserTest extends TestCase {
         checkTable(tt.getResult("Q_0^{n+1}"), one, zero, one, zero);
         checkTable(tt.getResult("Q_1^{n+1}"), zero, one, one, zero);
 
-        assertEquals("Y1", tt.getResultName(2));
-        assertEquals("Y0", tt.getResultName(3));
+        assertEquals("Y_1", tt.getResultName(2));
+        assertEquals("Y_0", tt.getResultName(3));
         final BoolTable y1 = tt.getResult(2);
         final BoolTable y0 = tt.getResult(3);
         for (int i = 0; i < 4; i++) {
@@ -205,10 +205,10 @@ public class ModelAnalyserTest extends TestCase {
         checkIdent(tt);
 
         TreeMap<String, String> p = tt.getModelAnalyzerInfo().getPins();
-        assertEquals("i1", p.get("A0"));
-        assertEquals("i2", p.get("A1"));
-        assertEquals("o1", p.get("B0"));
-        assertEquals("o2", p.get("B1"));
+        assertEquals("i1", p.get("A_0"));
+        assertEquals("i2", p.get("A_1"));
+        assertEquals("o1", p.get("B_0"));
+        assertEquals("o2", p.get("B_1"));
     }
 
     // test with non zero default values set
@@ -219,8 +219,8 @@ public class ModelAnalyserTest extends TestCase {
     }
 
     private void checkIdent(TruthTable tt) {
-        checkTable(tt.getResult("B1"), zero, zero, one, one);
-        checkTable(tt.getResult("B0"), zero, one, zero, one);
+        checkTable(tt.getResult("B_1"), zero, zero, one, one);
+        checkTable(tt.getResult("B_0"), zero, one, zero, one);
     }
 
     private void checkTable(BoolTable table, ThreeStateValue... expected) {
@@ -270,11 +270,11 @@ public class ModelAnalyserTest extends TestCase {
         ModelAnalyserInfo mai = new ModelAnalyser(model).analyse().getModelAnalyzerInfo();
 
         assertEquals(2, mai.getInputBusMap().size());
-        checkBus(mai.getInputBusMap(), "A", "A0", "A1", "A2", "A3");
-        checkBus(mai.getInputBusMap(), "B", "B0", "B1", "B2", "B3");
+        checkBus(mai.getInputBusMap(), "A", "A_0", "A_1", "A_2", "A_3");
+        checkBus(mai.getInputBusMap(), "B", "B_0", "B_1", "B_2", "B_3");
 
         assertEquals(1, mai.getOutputBusMap().size());
-        checkBus(mai.getOutputBusMap(), "S", "S0", "S1", "S2", "S3");
+        checkBus(mai.getOutputBusMap(), "S", "S_0", "S_1", "S_2", "S_3");
     }
 
     private void checkBus(HashMap<String, ArrayList<String>> busMap, String name, String... names) {
