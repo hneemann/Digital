@@ -797,7 +797,8 @@ public final class EditorFactory {
                         if (app != null) {
                             try {
                                 getAttributeDialog().storeEditedValues();
-                                if (app.ensureConsistency(elementAttributes))
+                                final boolean consistent = app.ensureConsistency(elementAttributes);
+                                if (consistent)
                                     getAttributeDialog().updateEditedValues();
 
                                 PortDefinition ins = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_INPUTS));
@@ -807,10 +808,11 @@ public final class EditorFactory {
 
                                 try {
                                     String message = app.checkCode(label, code, ins, outs);
-                                    if (message != null && !message.isEmpty())
-                                        new ErrorMessage(Lang.get("msg_checkResult") + "\n\n" + message).show(getAttributeDialog());
+                                    if (message != null && !message.isEmpty()) {
+                                        createError(consistent, Lang.get("msg_checkResult") + "\n\n" + message).show(getAttributeDialog());
+                                    }
                                 } catch (IOException e) {
-                                    new ErrorMessage(Lang.get("msg_checkResult")).addCause(e).show(getAttributeDialog());
+                                    createError(consistent, Lang.get("msg_checkResult")).addCause(e).show(getAttributeDialog());
                                 }
                             } catch (EditorParseException e) {
                                 e.printStackTrace();
@@ -818,6 +820,13 @@ public final class EditorFactory {
                         }
                     }
                 }
+
+                private ErrorMessage createError(boolean consistent, String message) {
+                    if (!consistent)
+                        message = Lang.get("msg_codeNotConsistent") + "\n\n" + message;
+                    return new ErrorMessage(message);
+                }
+
             }.setToolTip(Lang.get("btn_checkCode_tt")).createJButton();
             combo.addActionListener(new AbstractAction() {
                 @Override

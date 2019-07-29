@@ -1689,6 +1689,8 @@ Soll dennoch exportiert werden?</string>
     <string name="btn_checkCode_tt">Startet die Anwendung um zu prüfen, ob der eingegebene Code korrekt ist. Falls das
         nicht der Fall ist, wird die Fehlermeldung der externen Anwendung angezeigt. Wenn es möglich ist, werden zudem
         die Eingangs- und Ausgangsdefinitionen an den aktuellen Code angepasst.</string>
+    <string name="msg_codeNotConsistent">Ein- und Ausgängsdefinitionen konnten nicht automatisch erzeugt werden.
+        Bitte prüfen Sie die Einstellungen!</string>
     <string name="msg_applicationFileNotFound">Ausführbare Datei "{0}" nicht gefunden!</string>
     <string name="msg_enterText">Text eingeben!</string>
     <string name="btn_startATMISP">Starte ATMISP</string>
