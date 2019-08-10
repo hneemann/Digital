@@ -13,6 +13,7 @@ import de.neemann.digital.lang.Lang;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -20,6 +21,7 @@ import java.util.*;
  */
 public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     private final BuilderCollector builder;
+    private final CleanNameBuilder cleanNameBuilder;
     private final PinMap pinMap;
     private String projectName;
     private String device;
@@ -40,6 +42,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
     public TT2Exporter(String projectName) {
         // if simple aliases are filtered out, a direct input to output connection isn't possible anymore
         builder = new BuilderCollector();
+        cleanNameBuilder = new CleanNameBuilder(builder);
         pinMap = new PinMap().setClockPin(43);
         device = "f1502ispplcc44";
         this.projectName = projectName;
@@ -47,7 +50,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
 
     @Override
     public BuilderInterface getBuilder() {
-        return builder;
+        return cleanNameBuilder;
     }
 
     /**
@@ -68,7 +71,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
 
     @Override
     public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
-        writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
+        writeTo(new OutputStreamWriter(out, StandardCharsets.ISO_8859_1));
     }
 
     private void writeTo(OutputStreamWriter writer) throws IOException, FuseMapFillerException, PinMapException {
