@@ -1370,6 +1370,7 @@
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
 
+    <string name="menu_window">Windows</string>
     <string name="menu_about">About</string>
     <string name="menu_analyse">Analysis</string>
     <string name="menu_analyse_tt">Analyses the actual circuit</string>

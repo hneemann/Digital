@@ -1197,6 +1197,7 @@
   <string name="lib_more">Más</string>
   <string name="lib_ram">RAM</string>
   <string name="lib_eeprom">EEPROM</string>
+  <string name="menu_window">Ventana</string>
   <string name="menu_about">Acerca de</string>
   <string name="menu_analyse">Análisis</string>
   <string name="menu_analyse_tt">Analiza el circuito actual</string>

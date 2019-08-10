@@ -1384,6 +1384,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
 
+    <string name="menu_window">Fenster</string>
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>
     <string name="menu_analyse_tt">Analyse der aktuellen Schaltung</string>

@@ -121,6 +121,9 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         createViewMenu(bar, toolBar);
         toolBar.addSeparator();
         createCreateMenu(bar, library);
+
+        bar.add(WindowManager.getInstance().registerAndCreateMenu(this));
+
         createHelpMenu(bar, toolBar);
         toolBar.addSeparator();
 

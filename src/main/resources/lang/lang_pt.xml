@@ -1264,6 +1264,7 @@
   <string name="lib_more">mais</string>
   <string name="lib_ram">RAM</string>
   <string name="lib_eeprom">EEPROM</string>
+  <string name="menu_window">Janela</string>
   <string name="menu_about">Sobre</string>
   <string name="menu_analyse">Análises</string>
   <string name="menu_analyse_tt">Analisar o circuito corrente</string>

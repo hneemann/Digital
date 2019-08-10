@@ -240,6 +240,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         library.addListener(librarySelector);
         menuBar.add(librarySelector.buildMenu(insertHistory, circuitComponent));
 
+        menuBar.add(WindowManager.getInstance().registerAndCreateMenu(this));
+
         JMenu helpMenu = new JMenu(Lang.get("menu_help"));
         helpMenu.add(new ToolTipAction(Lang.get("menu_help_elements")) {
             @Override
