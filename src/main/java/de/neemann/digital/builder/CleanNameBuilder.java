@@ -80,6 +80,20 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
     }
 
     /**
+     * Creates a pinMap which is consistent to the pin renaming done by this builder.
+     *
+     * @return the pin map
+     */
+    public PinMap createPinMap() {
+        return new PinMap() {
+            @Override
+            public PinMap assignPin(String name, int pin) throws PinMapException {
+                return super.assignPin(checkName(name), pin);
+            }
+        };
+    }
+
+    /**
      * Filter interface
      */
     public interface Filter {

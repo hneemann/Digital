@@ -43,7 +43,7 @@ public class TT2Exporter implements ExpressionExporter<TT2Exporter> {
         // if simple aliases are filtered out, a direct input to output connection isn't possible anymore
         builder = new BuilderCollector();
         cleanNameBuilder = new CleanNameBuilder(builder);
-        pinMap = new PinMap().setClockPin(43);
+        pinMap = cleanNameBuilder.createPinMap().setClockPin(43);
         device = "f1502ispplcc44";
         this.projectName = projectName;
     }

@@ -150,6 +150,59 @@ public class TT2ExporterTest extends TestCase {
                 ".e\r\n", baos.toString());
     }
 
+    public void testCombinatorialRenaming() throws Exception {
+        TT2Exporter tt2 = new TT2Exporter("unknown");
+        tt2.getPinMapping().setAvailBidirectional(4, 5, 6, 8, 20, 21);
+        tt2.getBuilder().addCombinatorial("Y^l", and(v("A"), v("B")));
+        tt2.getBuilder().addCombinatorial("X^l", or(v("A1"), v("B1")));
+        tt2.getPinMapping().parseString("X^l=21;Y^l=20");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        tt2.writeTo(baos);
+
+        assertEquals("#$ TOOL CUPL\r\n" +
+                "# Berkeley PLA format generated using Digital\r\n" +
+                "#$ TITLE  unknown\r\n" +
+                "#$ DEVICE  f1502ispplcc44\r\n" +
+                "#$ PINS 6 A+:4 A1+:5 B+:6 B1+:8 Yl+:20 Xl+:21\r\n" +
+                ".i 4\r\n" +
+                ".o 2\r\n" +
+                ".type f\r\n" +
+                ".ilb A A1 B B1\r\n" +
+                ".ob Yl Xl\r\n" +
+                ".phase 11\r\n" +
+                ".p 3\r\n" +
+                "1-1- 10\r\n" +
+                "-1-- 01\r\n" +
+                "---1 01\r\n" +
+                ".e\r\n", baos.toString());
+    }
+
+    public void testSequentialRenaming() throws Exception {
+        TT2Exporter tt2 = new TT2Exporter("unknown");
+        tt2.getPinMapping().setAvailBidirectional(4, 5, 6, 8, 20, 21);
+        tt2.getBuilder().addSequential("Y^n", and(v("A"), not(v("Y^n"))));
+        tt2.getPinMapping().parseString("Y^n=5");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        tt2.writeTo(baos);
+
+        assertEquals("#$ TOOL CUPL\r\n" +
+                "# Berkeley PLA format generated using Digital\r\n" +
+                "#$ TITLE  unknown\r\n" +
+                "#$ DEVICE  f1502ispplcc44\r\n" +
+                "#$ PINS 3 A+:4 CLK+:43 Yn+:5\r\n" +
+                ".i 3\r\n" +
+                ".o 3\r\n" +
+                ".type f\r\n" +
+                ".ilb A CLK Yn.Q\r\n" +
+                ".ob Yn.REG Yn.AR Yn.C\r\n" +
+                ".phase 111\r\n" +
+                ".p 3\r\n" +
+                "1-0 100\r\n" +
+                "-1- 001\r\n" +
+                "--- 000\r\n" +
+                ".e\r\n", baos.toString());
+    }
+
     public void testNames() throws FuseMapFillerException {
         TT2Exporter.checkName("a0");
         TT2Exporter.checkName("b_0");
