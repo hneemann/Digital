@@ -523,8 +523,11 @@ public final class Keys {
     /**
      * Used to indicate if the 7-seg display has a common cathode output
      */
-    public static final Key<Boolean> COMMON_CATHODE
+    public static final Key<Boolean> COMMON_CONNECTION
             = new Key<>("commonCathode", false).allowGroupEdit();
+
+    public static final Key<Boolean> COMMON_ANODE
+            = new Key<>("commonAnode", false).setDependsOn(COMMON_CONNECTION).allowGroupEdit();
 
     /**
      * Used to enable the storage of the last state in the Seven Seg display.

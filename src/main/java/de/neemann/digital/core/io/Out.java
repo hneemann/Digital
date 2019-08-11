@@ -142,23 +142,30 @@ public class Out implements Element {
     private final static class SevenSegTypeDescription extends ElementTypeDescription {
         private SevenSegTypeDescription() {
             super("Seven-Seg", attributes -> {
-                if (attributes.get(Keys.COMMON_CATHODE))
+                if (attributes.get(Keys.COMMON_CONNECTION))
                     return new Out(1, 1, 1, 1, 1, 1, 1, 1, 1);
                 else
                     return new Out(1, 1, 1, 1, 1, 1, 1, 1);
             });
             addAttribute(Keys.COLOR);
-            addAttribute(Keys.COMMON_CATHODE);
+            addAttribute(Keys.COMMON_CONNECTION);
+            addAttribute(Keys.COMMON_ANODE);
             addAttribute(Keys.LED_PERSISTENCE);
         }
 
         @Override
-        public PinDescriptions getInputDescription(ElementAttributes attributes) throws NodeException {
-            if (attributes.get(Keys.COMMON_CATHODE)) {
-                return new PinDescriptions(
-                        input("a"), input("b"), input("c"),
-                        input("d"), input("e"), input("f"),
-                        input("g"), input("dp"), input("cc")).setLangKey(getPinLangKey());
+        public PinDescriptions getInputDescription(ElementAttributes attributes) {
+            if (attributes.get(Keys.COMMON_CONNECTION)) {
+                if (attributes.get(Keys.COMMON_ANODE))
+                    return new PinDescriptions(
+                            input("a"), input("b"), input("c"),
+                            input("d"), input("e"), input("f"),
+                            input("g"), input("dp"), input("ca")).setLangKey(getPinLangKey());
+                else
+                    return new PinDescriptions(
+                            input("a"), input("b"), input("c"),
+                            input("d"), input("e"), input("f"),
+                            input("g"), input("dp"), input("cc")).setLangKey(getPinLangKey());
             } else
                 return new PinDescriptions(
                         input("a"), input("b"), input("c"),
