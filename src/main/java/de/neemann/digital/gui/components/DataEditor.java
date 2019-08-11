@@ -340,6 +340,9 @@ public class DataEditor extends JDialog {
 
         @Override
         protected void setValue(Object value) {
+            if (value == null)
+                super.setValue(value);
+
             String str = Long.toHexString(((MyLong) value).getValue()).toUpperCase();
             while (str.length() < chars) str = "0" + str;
             super.setValue(str);
