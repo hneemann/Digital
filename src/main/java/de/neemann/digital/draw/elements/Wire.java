@@ -185,9 +185,9 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
      */
     public boolean contains(Vector v, int radius) {
         if (p1.x == p2.x)
-            return Math.abs(p1.x - v.x) < radius && ((p1.y < v.y && v.y < p2.y) || (p2.y < v.y && v.y < p1.y));
+            return Math.abs(p1.x - v.x) < radius && ((p1.y - radius < v.y && v.y < p2.y + radius) || (p2.y - radius < v.y && v.y < p1.y + radius));
         else if (p1.y == p2.y)
-            return Math.abs(p1.y - v.y) < radius && ((p1.x < v.x && v.x < p2.x) || (p2.x < v.x && v.x < p1.x));
+            return Math.abs(p1.y - v.y) < radius && ((p1.x - radius < v.x && v.x < p2.x + radius) || (p2.x - radius < v.x && v.x < p1.x + radius));
         else {
             // some simple box tests
             if (v.x < Math.min(p1.x, p2.x) - radius) return false;

@@ -21,6 +21,9 @@ public class WireContainsTest extends TestCase {
 
         assertTrue(w.contains(new Vector(5, 2), 5));
         assertTrue(w.contains(new Vector(5, -2), 5));
+
+        assertTrue(w.contains(new Vector(-2, 0), 5));
+        assertTrue(w.contains(new Vector(12, 0), 5));
     }
 
     public void testVertical() {
@@ -32,6 +35,9 @@ public class WireContainsTest extends TestCase {
 
         assertTrue(w.contains(new Vector(2, 5), 5));
         assertTrue(w.contains(new Vector(-2, 5), 5));
+
+        assertTrue(w.contains(new Vector(0, -2), 5));
+        assertTrue(w.contains(new Vector(0, 12), 5));
     }
 
     public void testDiagonal() {
