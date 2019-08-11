@@ -588,10 +588,17 @@ public class Circuit implements Copyable<Circuit> {
      * @return the matching wire or null
      */
     public Wire getWireAt(Vector pos, int radius) {
+        float minDist = 0;
+        Wire best = null;
         for (Wire w : wires)
-            if (w.contains(pos, radius))
-                return w;
-        return null;
+            if (w.contains(pos, radius)) {
+                float d = w.distance(pos);
+                if (best == null || d < minDist) {
+                    minDist = d;
+                    best = w;
+                }
+            }
+        return best;
     }
 
     /**

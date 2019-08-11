@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.VectorFloat;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ObservableValueReader;
 import de.neemann.digital.gui.Settings;
@@ -201,6 +202,27 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
 
             return dist < radius * radius;
         }
+    }
+
+    /**
+     * Returns the distance to the wire.
+     *
+     * @param v the position
+     * @return the distance
+     */
+    public float distance(Vector v) {
+        Vector ds = p2.sub(p1);
+        float len = ds.len();
+        VectorFloat d = ds.mul(1 / len);
+        VectorFloat p = v.sub(p1).toFloat();
+        float s = p.mul(d);
+
+        if (s < 0)
+            return v.sub(p1).len();
+        else if (s > len)
+            return v.sub(p2).len();
+        else
+            return d.mul(s).sub(p).len();
     }
 
     /**
