@@ -1112,6 +1112,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 ElementAttributes modified = attributeDialog.showDialog();
                 if (modified != null && !locked)
                     modify(new ModifyAttributes(element, modified));
+                focusWasLost = false;
             }
         } catch (ElementNotFoundException ex) {
             // do nothing if element not found!
@@ -1270,6 +1271,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                             }
                         modify(modBuilder.build());
                     }
+                    focusWasLost = false;
                 }
 
             } catch (ElementNotFoundException e) {
