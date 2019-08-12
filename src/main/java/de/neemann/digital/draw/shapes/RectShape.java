@@ -19,7 +19,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 /**
  * Simple text
  */
-public class RectShape implements Shape, DecoratingShape {
+public class RectShape implements Shape {
     private final String label;
     private final int width;
     private final int height;
@@ -88,4 +88,10 @@ public class RectShape implements Shape, DecoratingShape {
                 .add(width * SIZE, height * SIZE)
                 .add(0, height * SIZE), Style.DASH);
     }
+
+    @Override
+    public boolean onlyBorderClickable() {
+        return true;
+    }
+
 }

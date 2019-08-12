@@ -56,4 +56,12 @@ public interface Shape extends Drawable, ObservableValueReader {
      */
     default void registerModel(ModelCreator modelCreator, Model model, ModelEntry element) {
     }
+
+    /**
+     * @return if true, only the border of the shape is clickable.
+     */
+    default boolean onlyBorderClickable() {
+        return false;
+    }
+
 }
