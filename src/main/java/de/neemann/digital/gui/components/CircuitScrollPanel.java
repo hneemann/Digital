@@ -117,4 +117,10 @@ public class CircuitScrollPanel extends JPanel {
         bar.setVisible(viewMin > circuitMin || viewMax < circuitMax);
     }
 
+    /**
+     * @return the width of the bars
+     */
+    int getBarWidth() {
+        return vertical.getPreferredSize().width;
+    }
 }

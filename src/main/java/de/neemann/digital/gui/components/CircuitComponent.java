@@ -937,8 +937,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         AffineTransform newTrans = new AffineTransform();
         if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
             Vector delta = gr.getMax().sub(gr.getMin());
-            double sx = ((double) getWidth()) / (delta.x + Style.NORMAL.getThickness() * 4);
-            double sy = ((double) getHeight()) / (delta.y + Style.NORMAL.getThickness() * 6);
+            int pad = circuitScrollPanel.getBarWidth();
+            double sx = ((double) getWidth() - pad) / (delta.x + SIZE * 2);
+            double sy = ((double) getHeight() - pad) / (delta.y + SIZE * 2);
             double s = Math.min(sx, sy);
 
 
