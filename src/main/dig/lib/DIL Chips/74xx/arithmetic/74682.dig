@@ -289,7 +289,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>~P=Q</string>
+          <string>~{P=Q}</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -303,7 +303,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>~P&gt;Q</string>
+          <string>~{P&gt;Q}</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -355,7 +355,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>P7 P6 P5 P4 P3 P2 P1 P0 Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0 ~P=Q ~P&gt;Q
+            <dataString>P7 P6 P5 P4 P3 P2 P1 P0 Q7 Q6 Q5 Q4 Q3 Q2 Q1 Q0 ~{P=Q} ~{P&gt;Q}
 loop(P,256)
 loop(Q,256)
 bits(8,P) bits(8,Q) (~(P=Q)) (~(P&gt;Q))
@@ -489,4 +489,5 @@ end loop</dataString>
       <p2 x="520" y="220"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
