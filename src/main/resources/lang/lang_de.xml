@@ -1213,6 +1213,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     </string>
     <string name="key_grid">Raster anzeigen</string>
     <string name="key_grid_tt">Zeigt im Hauptfenster ein Raster an, um das platzieren der Elemente zu erleichtern.</string>
+    <string name="key_wireToolTips">Leitungen als ToolTip</string>
+    <string name="key_wireToolTips_tt">Wenn gesetzt, werden Leitungen hervorgehoben, wenn die Maus darauf zeigt.</string>
     <string name="key_mapToKey">Auf Tastatur legen</string><!-- Button -->
     <string name="key_mapToKey_tt">Taste wird durch die Tastatur bedienbar. Um die Cursor-Tasten zu nutzen, kann als
         Bezeichnung UP, DOWN, LEFT oder RIGHT verwendet werden.</string>

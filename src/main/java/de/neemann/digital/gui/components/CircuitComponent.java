@@ -551,20 +551,21 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             if (v != null)
                 return v.getValueString();
             else {
-                if (highLighted == null || highLighted.isEmpty() || toolTipHighlighted) {
-                    try {
-                        if (toolTipNetList == null)
-                            toolTipNetList = new NetList(getCircuit());
-                        Net n = toolTipNetList.getNetOfPos(w.p1);
-                        if (n != null) {
-                            removeHighLighted();
-                            addHighLighted(n.getWires());
-                            toolTipHighlighted = true;
+                if (Settings.getInstance().get(Keys.SETTINGS_WIRETOOLTIP))
+                    if (highLighted == null || highLighted.isEmpty() || toolTipHighlighted) {
+                        try {
+                            if (toolTipNetList == null)
+                                toolTipNetList = new NetList(getCircuit());
+                            Net n = toolTipNetList.getNetOfPos(w.p1);
+                            if (n != null) {
+                                removeHighLighted();
+                                addHighLighted(n.getWires());
+                                toolTipHighlighted = true;
+                            }
+                        } catch (PinException e) {
+                            e.printStackTrace();
                         }
-                    } catch (PinException e) {
-                        e.printStackTrace();
                     }
-                }
             }
         }
 
