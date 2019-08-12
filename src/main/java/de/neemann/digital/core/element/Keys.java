@@ -795,5 +795,11 @@ public final class Keys {
     public static final Key<Boolean> SETTINGS_SHOW_TUTORIAL =
             new Key<>("showTutorial", true).setSecondary();
 
+    /**
+     * Enables the wire tool tips
+     */
+    public static final Key<Boolean> SETTINGS_WIRETOOLTIP =
+            new Key<>("wireToolTips", false);
+
 
 }

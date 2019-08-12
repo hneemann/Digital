@@ -18,6 +18,8 @@ import de.neemann.digital.draw.elements.*;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.*;
+import de.neemann.digital.draw.model.Net;
+import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
@@ -134,6 +136,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private Circuit shallowCopy;
     private CircuitScrollPanel circuitScrollPanel;
     private TutorialListener tutorialListener;
+    private boolean toolTipHighlighted = false;
+    private NetList toolTipNetList;
 
 
     /**
@@ -429,6 +433,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     public void modify(Modification<Circuit> modification) {
         try {
             if (modification != null) {
+                toolTipNetList = null;
                 undoManager.apply(modification);
                 if (tutorialListener != null)
                     tutorialListener.modified(modification);
@@ -513,6 +518,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     @Override
     public String getToolTipText(MouseEvent event) {
+        if (toolTipHighlighted) {
+            toolTipHighlighted = false;
+            removeHighLighted();
+        }
+
         Vector pos = getPosVector(event);
         VisualElement ve = getCircuit().getElementAt(pos);
         if (ve != null) {
@@ -540,6 +550,23 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             ObservableValue v = w.getValue();
             if (v != null)
                 return v.getValueString();
+            else {
+                if (Settings.getInstance().get(Keys.SETTINGS_WIRETOOLTIP))
+                    if (highLighted == null || highLighted.isEmpty() || toolTipHighlighted) {
+                        try {
+                            if (toolTipNetList == null)
+                                toolTipNetList = new NetList(getCircuit());
+                            Net n = toolTipNetList.getNetOfPos(w.p1);
+                            if (n != null) {
+                                removeHighLighted();
+                                addHighLighted(n.getWires());
+                                toolTipHighlighted = true;
+                            }
+                        } catch (PinException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            }
         }
 
         return null;
@@ -920,6 +947,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         undoManager.setInitial(circuit);
         undoAction.setEnabled(false);
         redoAction.setEnabled(false);
+
+        toolTipNetList = null;
 
         if (circuitScrollPanel != null)
             circuitScrollPanel.sizeChanged();
@@ -1333,6 +1362,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         @Override
         public void mouseMoved(MouseEvent e) {
+            if (toolTipHighlighted) {
+                removeHighLighted();
+                toolTipHighlighted = false;
+            }
             lastMousePos = new Vector(e.getX(), e.getY());
             activeMouseController.moved(e);
         }
