@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
@@ -5,6 +10,7 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.draw.elements.IOState;
 import junit.framework.TestCase;
 
@@ -13,7 +19,7 @@ public class SevenSegShapeTest extends TestCase {
     public void testCommonCathode() {
         ElementAttributes attr = new ElementAttributes()
                 .set(Keys.COMMON_CONNECTION, true)
-                .set(Keys.COMMON_ANODE, false);
+                .set(Keys.COMMON_CONNECTION_TYPE, CommonConnectionType.cathode);
 
         ObservableValue a = new ObservableValue("a", 1);
         ObservableValue b = new ObservableValue("b", 1);
@@ -74,7 +80,7 @@ public class SevenSegShapeTest extends TestCase {
     public void testCommonAnode() {
         ElementAttributes attr = new ElementAttributes()
                 .set(Keys.COMMON_CONNECTION, true)
-                .set(Keys.COMMON_ANODE, true);
+                .set(Keys.COMMON_CONNECTION_TYPE, CommonConnectionType.anode);
 
         ObservableValue a = new ObservableValue("a", 1);
         ObservableValue b = new ObservableValue("b", 1);

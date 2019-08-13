@@ -10,6 +10,7 @@ import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.extern.Application;
+import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManger;
@@ -526,8 +527,11 @@ public final class Keys {
     public static final Key<Boolean> COMMON_CONNECTION
             = new Key<>("commonCathode", false).allowGroupEdit();
 
-    public static final Key<Boolean> COMMON_ANODE
-            = new Key<>("commonAnode", false).setDependsOn(COMMON_CONNECTION).allowGroupEdit();
+    /**
+     * Used to define the common connection type
+     */
+    public static final Key<CommonConnectionType> COMMON_CONNECTION_TYPE
+            = new Key.KeyEnum<>("commonConnectionType", CommonConnectionType.cathode, CommonConnectionType.values()).setDependsOn(COMMON_CONNECTION).allowGroupEdit();
 
     /**
      * Used to enable the storage of the last state in the Seven Seg display.

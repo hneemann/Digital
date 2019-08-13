@@ -149,14 +149,14 @@ public class Out implements Element {
             });
             addAttribute(Keys.COLOR);
             addAttribute(Keys.COMMON_CONNECTION);
-            addAttribute(Keys.COMMON_ANODE);
+            addAttribute(Keys.COMMON_CONNECTION_TYPE);
             addAttribute(Keys.LED_PERSISTENCE);
         }
 
         @Override
         public PinDescriptions getInputDescription(ElementAttributes attributes) {
             if (attributes.get(Keys.COMMON_CONNECTION)) {
-                if (attributes.get(Keys.COMMON_ANODE))
+                if (attributes.get(Keys.COMMON_CONNECTION_TYPE).equals(CommonConnectionType.anode))
                     return new PinDescriptions(
                             input("a"), input("b"), input("c"),
                             input("d"), input("e"), input("f"),

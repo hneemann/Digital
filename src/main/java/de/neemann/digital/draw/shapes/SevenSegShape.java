@@ -12,6 +12,7 @@ import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -47,7 +48,7 @@ public class SevenSegShape extends SevenShape {
         super(attr);
         this.inputPins = inputs;
         commonConnection = attr.get(Keys.COMMON_CONNECTION);
-        anode = attr.get(Keys.COMMON_ANODE);
+        anode = attr.get(Keys.COMMON_CONNECTION_TYPE).equals(CommonConnectionType.anode);
         persistence = attr.get(Keys.LED_PERSISTENCE);
         data = new boolean[8];
     }
