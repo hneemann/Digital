@@ -127,7 +127,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private SyncAccess modelSync = SyncAccess.NOSYNC;
     private boolean isManualScale;
     private boolean graphicHasChangedFlag = true;
-    private boolean focusWasLost = false;
+    private boolean hadFocusAtClick = true;
     private boolean lockMessageShown = false;
     private boolean antiAlias = true;
 
@@ -238,13 +238,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             public void componentResized(ComponentEvent componentEvent) {
                 if (!isManualScale)
                     fitCircuit();
-            }
-        });
-
-        addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent focusEvent) {
-                focusWasLost = true;
             }
         });
 
@@ -1112,7 +1105,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 ElementAttributes modified = attributeDialog.showDialog();
                 if (modified != null && !locked)
                     modify(new ModifyAttributes(element, modified));
-                focusWasLost = false;
             }
         } catch (ElementNotFoundException ex) {
             // do nothing if element not found!
@@ -1271,7 +1263,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                             }
                         modify(modBuilder.build());
                     }
-                    focusWasLost = false;
                 }
 
             } catch (ElementNotFoundException e) {
@@ -1344,6 +1335,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         @Override
         public void mousePressed(MouseEvent e) {
+            hadFocusAtClick = hasFocus();
             pos = new Vector(e.getX(), e.getY());
             isMoved = false;
             requestFocusInWindow();
@@ -1484,7 +1476,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 VisualElement vp = getVisualElement(pos, true);
                 if (vp != null)
                     editAttributes(vp, e);
-            } else if (mouse.isPrimaryClick(e)) {
+            } else if (mouse.isPrimaryClick(e) && hadFocusAtClick) {
                 VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
                     if (getCircuit().isPinPos(raster(pos), vp) && !mouse.isClickModifier(e)) {
@@ -1496,11 +1488,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                         Wire wire = getCircuit().getWireAt(pos, SIZE2);
                         if (wire != null)
                             mouseMoveWire.activate(wire, pos);
-                    } else if (!focusWasLost)
+                    } else
                         mouseWireRect.activate(pos);
                 }
             }
-            focusWasLost = false;
         }
 
         @Override
@@ -1573,7 +1564,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 insertWires(element);
             }
             mouseNormal.activate();
-            focusWasLost = false;
         }
 
         @Override
@@ -2258,7 +2248,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 modify(builder.build());
             }
             mouseNormal.activate();
-            focusWasLost = false;
         }
 
         @Override
