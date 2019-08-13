@@ -102,19 +102,18 @@ public class SevenSegShape extends SevenShape {
         if (inputValues == null)
             return true;
 
-        if (persistence && commonConnection) {
-            if (!ccin.isHighZ() && !ccin.getBool())
-                data[i] = inputs[i].getBool();
-            return data[i];
-        } else {
-            if (commonConnection && (ccin.isHighZ() || (ccin.getBool() ^ anode)))
-                return false;
+        if (commonConnection) {
+            boolean isHighZ = inputs[i].isHighZ() || ccin.isHighZ();
+            boolean on = (inputs[i].getBool() != ccin.getBool()) && (inputs[i].getBool() ^ anode);
+            if (persistence) {
+                if (!isHighZ)
+                    data[i] = on;
+                return data[i];
+            } else
+                return !isHighZ && on;
+        } else
+            return !inputs[i].isHighZ() && inputs[i].getBool();
 
-            if (inputs[i].isHighZ())
-                return false;
-
-            return inputs[i].getBool() ^ anode;
-        }
     }
 
 }
