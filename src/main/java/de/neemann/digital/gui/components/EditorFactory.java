@@ -12,6 +12,7 @@ import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.extern.PortDefinition;
+import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.MIDIHelper;
 import de.neemann.digital.core.memory.DataField;
@@ -82,6 +83,7 @@ public final class EditorFactory {
         add(Application.Type.class, ApplicationTypeEditor.class);
         add(CustomShapeDescription.class, CustomShapeEditor.class);
         add(CustomCircuitShapeType.class, CustomCircuitShapeTypeEditor.class);
+        add(CommonConnectionType.class, CommonConnectionTypeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -770,6 +772,12 @@ public final class EditorFactory {
 
     private static final class CustomCircuitShapeTypeEditor extends EnumEditor<CustomCircuitShapeType> {
         public CustomCircuitShapeTypeEditor(CustomCircuitShapeType value, Key<CustomCircuitShapeType> key) {
+            super(value, key);
+        }
+    }
+
+    private static final class CommonConnectionTypeEditor extends EnumEditor<CommonConnectionType> {
+        public CommonConnectionTypeEditor(CommonConnectionType value, Key<CommonConnectionType> key) {
             super(value, key);
         }
     }

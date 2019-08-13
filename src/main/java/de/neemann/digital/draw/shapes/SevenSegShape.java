@@ -12,6 +12,7 @@ import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
+import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -27,9 +28,10 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class SevenSegShape extends SevenShape {
     private final PinDescriptions inputPins;
-    private final boolean commonCatode;
+    private final boolean commonConnection;
     private final boolean persistence;
     private final boolean[] data;
+    private final boolean anode;
     private ObservableValues inputValues;
     private Value[] inputs = new Value[8];
     private Value ccin;
@@ -45,7 +47,8 @@ public class SevenSegShape extends SevenShape {
     public SevenSegShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         super(attr);
         this.inputPins = inputs;
-        commonCatode = attr.get(Keys.COMMON_CATHODE);
+        commonConnection = attr.get(Keys.COMMON_CONNECTION);
+        anode = attr.get(Keys.COMMON_CONNECTION_TYPE).equals(CommonConnectionType.anode);
         persistence = attr.get(Keys.LED_PERSISTENCE);
         data = new boolean[8];
     }
@@ -62,7 +65,7 @@ public class SevenSegShape extends SevenShape {
             pins.add(new Pin(new Vector(SIZE, SIZE * HEIGHT), inputPins.get(5)));
             pins.add(new Pin(new Vector(SIZE * 2, SIZE * HEIGHT), inputPins.get(6)));
             pins.add(new Pin(new Vector(SIZE * 3, SIZE * HEIGHT), inputPins.get(7)));
-            if (commonCatode)
+            if (commonConnection)
                 pins.add(new Pin(new Vector(SIZE * 4, SIZE * HEIGHT), inputPins.get(8)));
         }
         return pins;
@@ -79,7 +82,7 @@ public class SevenSegShape extends SevenShape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         super.drawTo(graphic, highLight);
-        if (commonCatode)
+        if (commonConnection)
             graphic.drawLine(
                     new Vector(SIZE * 4 - SIZE2, SIZE * HEIGHT - 1),
                     new Vector(SIZE * 4, SIZE * HEIGHT - 1), Style.NORMAL);
@@ -90,7 +93,7 @@ public class SevenSegShape extends SevenShape {
         if (inputValues != null) {
             for (int i = 0; i < 8; i++)
                 inputs[i] = inputValues.get(i).getCopy();
-            if (commonCatode)
+            if (commonConnection)
                 ccin = inputValues.get(8).getCopy();
         }
     }
@@ -100,16 +103,18 @@ public class SevenSegShape extends SevenShape {
         if (inputValues == null)
             return true;
 
-        if (persistence && commonCatode) {
-            if (!ccin.isHighZ() && !ccin.getBool())
-                data[i] = inputs[i].getBool();
-            return data[i];
-        } else {
-            if (commonCatode && (ccin.isHighZ() || ccin.getBool()))
-                return false;
+        if (commonConnection) {
+            boolean isHighZ = inputs[i].isHighZ() || ccin.isHighZ();
+            boolean on = (inputs[i].getBool() != ccin.getBool()) && (inputs[i].getBool() ^ anode);
+            if (persistence) {
+                if (!isHighZ)
+                    data[i] = on;
+                return data[i];
+            } else
+                return !isHighZ && on;
+        } else
+            return !inputs[i].isHighZ() && inputs[i].getBool();
 
-            return inputs[i].getBool();
-        }
     }
 
 }

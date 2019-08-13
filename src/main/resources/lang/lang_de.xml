@@ -210,6 +210,7 @@
     <string name="elem_Seven-Seg_pin_g">Dieser Eingang steuert die mittlere horizontale Linie.</string>
     <string name="elem_Seven-Seg_pin_dp">Dieser Eingang steuert den Dezimalpunkt.</string>
     <string name="elem_Seven-Seg_pin_cc">Gemeinsame Kathode. Nur wenn hier eine Null anliegt, können die LEDs leuchten.</string>
+    <string name="elem_Seven-Seg_pin_ca">Gemeinsame Anode. Nur wenn hier eine Eins anliegt, können die LEDs leuchten.</string>
     <string name="elem_Seven-Seg-Hex">Siebensegmentanzeige Hex</string>
     <string name="elem_Seven-Seg-Hex_tt">Siebensegmentanzeige mit einem 4 Bit hexadezimalen Eingang.</string>
     <string name="elem_Seven-Seg-Hex_pin_d">Der 4-Bit-Wert dieses Eingangs wird als Hex-Ziffer dargestellt.</string>
@@ -1165,8 +1166,13 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_relayNormallyClosed_tt">Wenn gesetzt, ist das Relais unbestromt geschlossen.</string>
     <string name="key_poles">Pole</string><!-- Relay -->
     <string name="key_poles_tt">Anzahl der Schaltkontakte des Relais.</string>
-    <string name="key_commonCathode">Gemeinsame Kathode</string><!-- Seven-Seg -->
-    <string name="key_commonCathode_tt">Wenn gesetzt, hat die Anzeige einen Anschluss mit einer gemeinsamen Kathode.</string>
+    <string name="key_commonCathode">Gemeinsamer Anschluss</string><!-- Seven-Seg -->
+    <string name="key_commonCathode_tt">Wenn gesetzt, hat die Anzeige einen Anschluss mit einer gemeinsamen Kathode oder Anode.</string>
+    <string name="key_commonConnectionType">Gemeinsame</string>
+    <string name="key_commonConnectionType_tt">Art des gemeinsamen Anschlusses.</string>
+    <string name="key_commonConnectionType_cathode">Kathode</string>
+    <string name="key_commonConnectionType_anode">Anode</string>
+
     <string name="key_ledPersistence">Flimmern vermeiden</string><!-- Seven-Seg, LedMatrix -->
     <string name="key_ledPersistence_tt">Die Schaltfrequenz in der Simulation kann nicht so hoch werden,
         dass das menschliche Auge kein Flimmern mehr wahrnimmt. Um dennoch das Flackern zu unterdrücken, kann
