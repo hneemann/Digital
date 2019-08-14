@@ -29,7 +29,8 @@ public class ExpressionComponent extends JComponent {
      */
     public void setExpression(Expression expression) {
         ArrayList<Expression> l = new ArrayList<>();
-        l.add(expression);
+        if (expression != null)
+            l.add(expression);
         setExpressions(l);
     }
 

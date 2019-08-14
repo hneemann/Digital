@@ -157,7 +157,10 @@ public class KarnaughMapDialog extends JDialog {
 
         @Override
         public Component getListCellRendererComponent(JList<? extends ExpressionListenerStore.Result> jList, ExpressionListenerStore.Result result, int index, boolean isSelected, boolean focus) {
-            setExpression(new NamedExpression(result.getName(), result.getExpression()));
+            if (result != null)
+                setExpression(new NamedExpression(result.getName(), result.getExpression()));
+            else
+                setExpression(null);
             updateComponentSize(combo.getGraphics());
 
             if (isSelected) {
