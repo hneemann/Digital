@@ -1017,8 +1017,8 @@
   <string name="key_relayNormallyClosed_tt">Si se marca, el relé estará cerrado si la entrada es baja.</string>
   <string name="key_poles">Contar contactos</string>
   <string name="key_poles_tt">Cantidad de contactos disponibles</string>
-  <string name="key_commonCathode">Cátodo común</string>
-  <string name="key_commonCathode_tt">Si está seleccionado, se simula la entrada de cátodo común</string>
+  <string name="key_commonCathode">Conexión común</string>
+  <string name="key_commonCathode_tt">Si está seleccionado, se simula la entrada de ánodo o cátodo común</string>
   <string name="key_ledPersistence">Evitar el parpadeo</string>
   <string name="key_ledPersistence_tt">No se puede incrementar la frecuencia tanto que desaparezca el parpadeo.
 		Con esta opción puedes estabilizar el display manteniendo los ledes encendidos hasta que el cátodo común baje.
@@ -1777,4 +1777,15 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   <string name="menu_runToBreakMicro">Ejecutar hasta parar en modo de puerta simple.</string>
   <string name="menu_runToBreakMicro_tt">Ejecuta todos los pasos de puerta sencillos hasta que se detecta un flanco de subida en un componente de parada.
 		Si no hay componente de parada, se ejecutan los pasos de puerta simple restantes.</string>
+  <string name="elem_Seven-Seg_pin_ca">Ánodo común. Para encender los ledes, esta entrada deberá estar en ALTO</string>
+  <string name="key_commonConnectionType">Común</string>
+  <string name="key_commonConnectionType_tt">Tipo de conexión común.</string>
+  <string name="key_commonConnectionType_cathode">Cátodo</string>
+  <string name="key_commonConnectionType_anode">Ánodo</string>
+  <string name="key_wireToolTips">Consejos sobre la herramienta cable</string>
+  <string name="key_wireToolTips_tt">Si está seleccionado, las líneas de resaltan cuando el ratón para sobre ellas.</string>
+  <string name="menu_table_showAllSolutions">Muestra el diálogo de resultados</string>
+  <string name="menu_table_showAllSolutions_tt">Muestra el cuadro de diálogo de resultados si se cerró manualmente</string>
+  <string name="msg_codeNotConsistent">Las definiciones de entrada y salida no se pudieron crear automáticamente.
+        ¡Por favor, comprueba los ajustes!</string>
 </resources>
