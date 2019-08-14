@@ -184,7 +184,7 @@
   <string name="elem_Seven-Seg_pin_f">This input controls the upper, left, vertical line.</string>
   <string name="elem_Seven-Seg_pin_g">This input controls the middle, horizontal line.</string>
   <string name="elem_Seven-Seg_pin_dp">This input controls the decimal point.</string>
-  <string name="elem_Seven-Seg_pin_cc">Common Cathode. To turn on the LEDs, this input needs to be low.</string>
+  <string name="elem_Seven-Seg_pin_cc">Common cathode. To turn on the LEDs, this input needs to be low.</string>
   <string name="elem_Seven-Seg-Hex">Seven-Segment-Hex Display</string>
   <string name="elem_Seven-Seg-Hex_tt">Seven Segment Display with a 4 bit hex input</string>
   <string name="elem_Seven-Seg-Hex_pin_d">The value at this input is visualized at the display.</string>
@@ -1076,7 +1076,7 @@
   <string name="key_poles">Pole count</string>
   <!-- Relay -->
   <string name="key_poles_tt">Number of poles available.</string>
-  <string name="key_commonCathode">Common Cathode</string>
+  <string name="key_commonCathode">Common cathode</string>
   <!-- Seven-Seg -->
   <string name="key_commonCathode_tt">If selected the common cathode input is also simulated.</string>
   <string name="key_ledPersistence">Avoid Flicker</string>

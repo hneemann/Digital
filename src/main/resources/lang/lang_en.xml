@@ -214,8 +214,8 @@
     <string name="elem_Seven-Seg_pin_f">This input controls the upper, left, vertical line.</string>
     <string name="elem_Seven-Seg_pin_g">This input controls the middle, horizontal line.</string>
     <string name="elem_Seven-Seg_pin_dp">This input controls the decimal point.</string>
-    <string name="elem_Seven-Seg_pin_cc">Common Cathode. To turn on the LEDs, this input needs to be low.</string>
-    <string name="elem_Seven-Seg_pin_ca">Common Anode. To turn on the LEDs, this input needs to be high.</string>
+    <string name="elem_Seven-Seg_pin_cc">Common cathode. To turn on the LEDs, this input needs to be low.</string>
+    <string name="elem_Seven-Seg_pin_ca">Common anode. To turn on the LEDs, this input needs to be high.</string>
     <string name="elem_Seven-Seg-Hex">Seven-Segment-Hex Display</string>
     <string name="elem_Seven-Seg-Hex_tt">Seven Segment Display with a 4 bit hex input</string>
     <string name="elem_Seven-Seg-Hex_pin_d">The value at this input is visualized at the display.</string>
@@ -1157,7 +1157,7 @@
     <string name="key_poles">Pole count</string><!-- Relay -->
     <string name="key_poles_tt">Number of poles available.</string>
     <string name="key_commonCathode">Common Connection</string><!-- Seven-Seg -->
-    <string name="key_commonCathode_tt">If selected a common cathode or anode input is also simulated.</string>
+    <string name="key_commonCathode_tt">If selected, a common cathode or anode input is also simulated.</string>
     <string name="key_commonConnectionType">Common</string>
     <string name="key_commonConnectionType_tt">Kind of common connection.</string>
     <string name="key_commonConnectionType_cathode">Cathode</string>
