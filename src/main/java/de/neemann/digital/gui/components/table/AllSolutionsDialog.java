@@ -39,6 +39,7 @@ public class AllSolutionsDialog extends JDialog {
         expressionComponent = new ExpressionComponent();
         expressionComponent.setPreferredSize(Screen.getInstance().scale(new Dimension(600, 300)));
         expressionComponent.setFont(font);
+        expressionComponent.setBackground(Color.WHITE);
 
         final JScrollPane scrollPane = new JScrollPane(expressionComponent);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);

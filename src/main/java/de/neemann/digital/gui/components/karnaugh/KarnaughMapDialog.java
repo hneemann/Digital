@@ -6,7 +6,9 @@
 package de.neemann.digital.gui.components.karnaugh;
 
 import de.neemann.digital.analyse.TruthTable;
+import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.gui.components.table.ExpressionComponent;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.lang.Lang;
 
@@ -41,6 +43,7 @@ public class KarnaughMapDialog extends JDialog {
         getContentPane().add(kvComponent);
 
         combo = new JComboBox<>();
+        combo.setRenderer(new MyDefaultListCellRenderer());
         getContentPane().add(combo, BorderLayout.NORTH);
         combo.addActionListener(new AbstractAction() {
             @Override
@@ -147,6 +150,24 @@ public class KarnaughMapDialog extends JDialog {
 
         @Override
         public void removeListDataListener(ListDataListener listDataListener) {
+        }
+    }
+
+    private final class MyDefaultListCellRenderer extends ExpressionComponent implements ListCellRenderer<ExpressionListenerStore.Result> {
+
+        @Override
+        public Component getListCellRendererComponent(JList<? extends ExpressionListenerStore.Result> jList, ExpressionListenerStore.Result result, int index, boolean isSelected, boolean focus) {
+            setExpression(new NamedExpression(result.getName(), result.getExpression()));
+            updateComponentSize(combo.getGraphics());
+
+            if (isSelected) {
+                this.setBackground(jList.getSelectionBackground());
+                this.setForeground(jList.getSelectionForeground());
+            } else {
+                this.setBackground(jList.getBackground());
+                this.setForeground(jList.getForeground());
+            }
+            return this;
         }
     }
 }
