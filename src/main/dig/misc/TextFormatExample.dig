@@ -4,7 +4,7 @@
   <attributes/>
   <visualElements>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -14,7 +14,7 @@
       <pos x="0" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -24,7 +24,7 @@
       <pos x="0" y="220"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -34,7 +34,7 @@
       <pos x="320" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -44,7 +44,7 @@
       <pos x="320" y="220"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -54,7 +54,7 @@
       <pos x="320" y="280"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -72,10 +72,10 @@
 of ~{s_1^{n+1}} in detail.</string>
         </entry>
       </elementAttributes>
-      <pos x="0" y="380"/>
+      <pos x="-80" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -85,7 +85,7 @@ of ~{s_1^{n+1}} in detail.</string>
       <pos x="0" y="280"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -95,7 +95,7 @@ of ~{s_1^{n+1}} in detail.</string>
       <pos x="0" y="340"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -105,7 +105,7 @@ of ~{s_1^{n+1}} in detail.</string>
       <pos x="140" y="160"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
