@@ -17,7 +17,10 @@ import static de.neemann.digital.analyse.expression.Operation.or;
 import static de.neemann.digital.analyse.expression.Variable.v;
 
 /**
- * Used to format an expression to a simple string
+ * Used to format an expression to a simple string.
+ * The hard work is meanwhile done by two separate classes called {@link PlainTextFormatter} and {@link ExpressionToText}.
+ * At first the expression is converted to a {@link de.neemann.digital.draw.graphics.text.text.Text} instance and then
+ * formatted to a string by the {@link PlainTextFormatter}.
  */
 public final class FormatToExpression implements Formatter {
 
@@ -209,12 +212,12 @@ public final class FormatToExpression implements Formatter {
                 && Objects.equals(trueString, that.trueString)
                 && Objects.equals(xorString, that.xorString)
                 && Objects.equals(notString, that.notString)
-                && Objects.equals(equal, that.equal);
+                && Objects.equals(getEqual(), that.getEqual());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orString, andString, falseString, trueString, xorString, notString);
+        return Objects.hash(orString, andString, falseString, trueString, xorString, notString, getEqual());
     }
 
 }

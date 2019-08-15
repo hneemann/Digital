@@ -26,11 +26,11 @@ public class ExpressionToText {
     /**
      * If set to false, the identifiers are unchanged
      *
-     * @param formatIdetifiers set to false to keep identifiers unchanged
+     * @param formatIdentifiers set to false to keep identifiers unchanged
      * @return this for chained calls
      */
-    public ExpressionToText setFormatIdentifiers(boolean formatIdetifiers) {
-        this.formatIdentifiers = formatIdetifiers;
+    public ExpressionToText setFormatIdentifiers(boolean formatIdentifiers) {
+        this.formatIdentifiers = formatIdentifiers;
         return this;
     }
 
