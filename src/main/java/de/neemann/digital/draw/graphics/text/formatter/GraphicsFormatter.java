@@ -335,6 +335,7 @@ public final class GraphicsFormatter {
             super.drawDirect(gr, xOfs, yOfs);
             fragment.drawDirect(gr, xOfs + x, yOfs + y);
             int yy = yOfs + y - dy + base + border;
+            if (fontSize < 15) yy -= 1;
             gr.setStroke(new BasicStroke(fontSize / 10f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
             gr.drawLine(xOfs + x + dx1, yy, xOfs + x + dx - dx2, yy);
         }
