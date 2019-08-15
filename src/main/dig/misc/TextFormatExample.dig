@@ -69,7 +69,9 @@
         <entry>
           <string>Description</string>
           <string>Text that explains the meaning 
-of ~{s_1^{n+1}} in detail.</string>
+of ~{s_1^{n+1}} in detail.
+{{de Text der die Bedeutung 
+von ~{s_1^{n+1}} im Detail erklärt.}}</string>
         </entry>
       </elementAttributes>
       <pos x="-80" y="380"/>

@@ -30,4 +30,12 @@ public class TestMultiligual extends TestCase {
         assertEquals("World", Lang.evalMultilingualContent("World {{de }", new Language("fr")));
         assertEquals("World", Lang.evalMultilingualContent("World {{de", new Language("fr")));
     }
+
+    public void testNesting() {
+        final String text = "explains ~{s_1^{n+1}} {{de erklärt ~{s_1^{n+1}}}} {{es explica ~{s_1^{n+1}}}}";
+        assertEquals("explains ~{s_1^{n+1}}", Lang.evalMultilingualContent(text, new Language("en")));
+        assertEquals("erklärt ~{s_1^{n+1}}", Lang.evalMultilingualContent(text, new Language("de")));
+        assertEquals("explica ~{s_1^{n+1}}", Lang.evalMultilingualContent(text, new Language("es")));
+    }
+
 }

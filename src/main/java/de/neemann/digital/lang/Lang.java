@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.prefs.Preferences;
 
 /**
+ *
  */
 public final class Lang {
     private static final Preferences PREFS = Preferences.userRoot().node("dig");
@@ -122,7 +123,20 @@ public final class Lang {
         String def = text.substring(0, pos).trim();
 
         do {
-            int p2 = text.indexOf("}}", pos);
+            int p2 = pos + 1;
+            int count = 1;
+            while (count > 0) {
+                char c = text.charAt(p2);
+                if (c == '{') count++;
+                else if (c == '}') count--;
+                p2++;
+                if (p2 == text.length() && count > 0) {
+                    p2 = 1;
+                    break;
+                }
+            }
+            p2 -= 2;
+
             if (p2 > pos + 3) {
                 String l = text.substring(pos + 2, pos + 4);
                 if (l.equalsIgnoreCase(currentLanguage.getName()))
