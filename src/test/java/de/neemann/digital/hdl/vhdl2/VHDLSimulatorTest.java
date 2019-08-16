@@ -140,14 +140,14 @@ public class VHDLSimulatorTest extends TestCase {
     }
 
     private void runGHDL(File vhdlFile, ArrayList<File> testFileWritten) throws IOException, FileScanner.SkipAllException, HDLException {
-        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--std=08", "--ieee=synopsys", vhdlFile.getName()));
-        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--std=08", "--ieee=synopsys", "main"));
+        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--std=02", "--ieee=synopsys", vhdlFile.getName()));
+        checkWarn(vhdlFile, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--std=02", "--ieee=synopsys", "main"));
         for (File testbench : testFileWritten) {
             String name = testbench.getName();
-            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--std=08", "--ieee=synopsys", name));
+            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-a", "--std=02", "--ieee=synopsys", name));
             String module = name.substring(0, name.length() - 5);
-            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--std=08", "--ieee=synopsys", module));
-            String result = startProcess(vhdlFile.getParentFile(), GHDL, "-r", "--std=08", "--ieee=synopsys", module, "--vcd=" + module + ".vcd");
+            checkWarn(testbench, startProcess(vhdlFile.getParentFile(), GHDL, "-e", "--std=02", "--ieee=synopsys", module));
+            String result = startProcess(vhdlFile.getParentFile(), GHDL, "-r", "--std=02", "--ieee=synopsys", module, "--vcd=" + module + ".vcd");
             if (result.contains("(assertion error)"))
                 throw new HDLException("test bench " + name + " failed:\n" + result);
             checkWarn(testbench, result);

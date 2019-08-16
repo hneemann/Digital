@@ -115,6 +115,17 @@ public class VHDLTestBenchCreator {
             out.print("signal ").print(p.getName()).print(" : ").print(VHDLCreator.getType(p.getBits())).println(";");
         for (HDLPort p : main.getOutputs())
             out.print("signal ").print(p.getName()).print(" : ").print(VHDLCreator.getType(p.getBits())).println(";");
+
+        out.print("function to_string ( a: std_logic_vector) return string is\n"
+                + "    variable b : string (1 to a'length) := (others => NUL);\n"
+                + "    variable stri : integer := 1; \n"
+                + "begin\n"
+                + "    for i in a'range loop\n"
+                + "        b(stri) := std_logic'image(a((i)))(2);\n"
+                + "    stri := stri+1;\n"
+                + "    end loop;\n"
+                + "    return b;\n"
+                + "end function;\n");
         out.dec().println("begin").inc();
 
         out.println("main_0 : main port map (").inc();
@@ -195,8 +206,8 @@ public class VHDLTestBenchCreator {
     }
 
     private String convertFunc(HDLPort p) {
-        if (p.getBits()>1)
-            return "to_hstring";
+        if (p.getBits() > 1)
+            return "to_string";
         return "std_logic'image";
     }
 
