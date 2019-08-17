@@ -573,7 +573,7 @@ Single-Cycle CPU.}}</string>
           <string>ALUop</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="220"/>
+      <pos x="1060" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -889,12 +889,8 @@ Single-Cycle CPU.}}</string>
       <p2 x="840" y="480"/>
     </wire>
     <wire>
-      <p1 x="800" y="420"/>
-      <p2 x="820" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="820" y="420"/>
-      <p2 x="840" y="420"/>
+      <p1 x="1060" y="100"/>
+      <p2 x="1080" y="100"/>
     </wire>
     <wire>
       <p1 x="800" y="100"/>
@@ -919,6 +915,14 @@ Single-Cycle CPU.}}</string>
     <wire>
       <p1 x="1280" y="100"/>
       <p2 x="1360" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="420"/>
+      <p2 x="820" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="420"/>
+      <p2 x="840" y="420"/>
     </wire>
     <wire>
       <p1 x="1420" y="360"/>
@@ -1207,10 +1211,6 @@ Single-Cycle CPU.}}</string>
     <wire>
       <p1 x="1200" y="160"/>
       <p2 x="1200" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="180"/>
-      <p2 x="1140" y="220"/>
     </wire>
     <wire>
       <p1 x="500" y="580"/>

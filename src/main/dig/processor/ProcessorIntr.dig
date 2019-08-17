@@ -558,7 +558,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
           <string>ALUop</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="280"/>
+      <pos x="1080" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1197,16 +1197,8 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="840" y="540"/>
     </wire>
     <wire>
-      <p1 x="1000" y="480"/>
-      <p2 x="1080" y="480"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="480"/>
-      <p2 x="1260" y="480"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="480"/>
-      <p2 x="340" y="480"/>
+      <p1 x="1080" y="160"/>
+      <p2 x="1100" y="160"/>
     </wire>
     <wire>
       <p1 x="1180" y="160"/>
@@ -1227,6 +1219,18 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     <wire>
       <p1 x="1200" y="160"/>
       <p2 x="1340" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="480"/>
+      <p2 x="1080" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="480"/>
+      <p2 x="1260" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="480"/>
+      <p2 x="340" y="480"/>
     </wire>
     <wire>
       <p1 x="1000" y="420"/>
@@ -1391,10 +1395,6 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     <wire>
       <p1 x="520" y="720"/>
       <p2 x="520" y="740"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="240"/>
-      <p2 x="1160" y="280"/>
     </wire>
     <wire>
       <p1 x="460" y="500"/>
