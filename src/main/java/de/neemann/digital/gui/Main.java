@@ -542,19 +542,28 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }.setAcceleratorCTRLplus('S').setEnabledChain(false);
 
         JMenu export = new JMenu(Lang.get("menu_export"));
-        export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
-        export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
-        export.add(new ExportAction(Lang.get("menu_exportSVGLaTexInOut"), "svg", GraphicSVGLaTeXInOut::new));
+        export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVG::new));
+        export.add(new ToolTipAction(Lang.get("menu_exportSVGSettings")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ElementAttributes modified = new AttributeDialog(Main.this, SVGSettings.getInstance().getKeys(), SVGSettings.getInstance().getAttributes()).showDialog();
+                SVGSettings.getInstance().getAttributes().getValuesFrom(modified);
+            }
+        });
+        export.addSeparator();
         export.add(new ExportAction(Lang.get("menu_exportPNGSmall"), "png", (out) -> new GraphicsImage(out, "PNG", 1)));
         export.add(new ExportAction(Lang.get("menu_exportPNGLarge"), "png", (out) -> new GraphicsImage(out, "PNG", 2)));
 
         if (isExperimentalMode())
             export.add(new ExportGifAction(Lang.get("menu_exportAnimatedGIF")));
 
-        export.add(new ExportZipAction(this).createJMenuItem());
+        export.addSeparator();
 
         export.add(createVHDLExportAction().createJMenuItem());
         export.add(createVerilogExportAction().createJMenuItem());
+
+        export.addSeparator();
+        export.add(new ExportZipAction(this).createJMenuItem());
 
         JMenu file = new JMenu(Lang.get("menu_file"));
         menuBar.add(file);

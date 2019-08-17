@@ -10,13 +10,12 @@ import junit.framework.TestCase;
 /**
  */
 public class GraphicSVGIndexTest extends TestCase {
-    public void testFormatText() throws Exception {
-        GraphicSVGIndex gs = new GraphicSVGIndex(System.out, null, 30);
-        gs.setBoundingBox(new Vector(0, 0), new Vector(30, 30));
+    public void testFormatText() {
+        GraphicSVG.TextStyle gs = new TextFormatSVG();
 
-        assertEquals("Z<tspan style=\"font-size:80%;baseline-shift:sub;\">0</tspan>", gs.formatText("Z_0", Style.NORMAL));
-        assertEquals("&lt;a&gt;", gs.formatText("<a>", Style.NORMAL));
-        assertEquals("<tspan style=\"text-decoration:overline;\">Z</tspan>", gs.formatText("~Z", Style.NORMAL));
+        assertEquals("Z<tspan style=\"font-size:80%;baseline-shift:sub;\">0</tspan>", gs.format("Z_0", Style.NORMAL));
+        assertEquals("&lt;a&gt;", gs.format("<a>", Style.NORMAL));
+        assertEquals("<tspan style=\"text-decoration:overline;\">Z</tspan>", gs.format("~Z", Style.NORMAL));
     }
 
 }

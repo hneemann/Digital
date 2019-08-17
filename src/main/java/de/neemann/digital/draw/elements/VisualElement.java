@@ -228,9 +228,10 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         Graphic gr = new GraphicTransform(graphic, getTransform());
         Shape shape = getShape();
         shape.drawTo(gr, highLight);
-        for (Pin p : shape.getPins())
-            gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN),
-                    p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
+        if (!graphic.isFlagSet(GraphicSVG.NO_PIN_MARKER))
+            for (Pin p : shape.getPins())
+                gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN),
+                        p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
     }
 
     private Transform getTransform() {

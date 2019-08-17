@@ -49,7 +49,7 @@ public class AsyncClockShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        if (!graphic.isFlagSet(Graphic.LATEX)) {
+        if (!graphic.isFlagSet(Graphic.HIDE_TEST)) {
             Polygon pol = new Polygon(true)
                     .add(SIZE2, SIZE2)
                     .add(SIZE2 + SIZE * 4, SIZE2)

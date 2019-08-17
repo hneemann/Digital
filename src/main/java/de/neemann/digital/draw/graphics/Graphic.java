@@ -14,10 +14,23 @@ import java.io.IOException;
  * implementations which create export formats like SVG ({@link GraphicSVG}).
  */
 public interface Graphic extends Closeable {
+
     /**
-     * Flag to enable LaTeX output mode.
+     * The shape filling flag
      */
-    String LATEX = "LaTeX";
+    String NO_SHAPE_FILLING = "noShapeFilling";
+    /**
+     * the small IO flag
+     */
+    String SMALL_IO = "smallIO";
+    /**
+     * flag used to hide the test cases
+     */
+    String HIDE_TEST = "hideTest";
+    /**
+     * flag used to hide the pin marker
+     */
+    String NO_PIN_MARKER = "noPinMarker";
 
     /**
      * Sets the bounding box of the future usage of this instance

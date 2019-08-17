@@ -84,7 +84,7 @@ public class OutputShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        if (graphic.isFlagSet(Graphic.LATEX)) {
+        if (graphic.isFlagSet(Graphic.SMALL_IO)) {
             Vector center = new Vector(LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
             Vector textPos = new Vector(SIZE2 + LATEX_RAD.x, 0);
