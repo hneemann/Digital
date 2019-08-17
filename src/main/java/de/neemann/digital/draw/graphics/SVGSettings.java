@@ -24,6 +24,8 @@ public final class SVGSettings extends SettingsBase {
             new Key<>("SVG_smallIO", false);
     static final Key<Boolean> NO_PIN_MARKER =
             new Key<>("SVG_noPinMarker", false);
+    static final Key<Boolean> THINNER_LINES =
+            new Key<>("SVG_thinnerLines", false);
     static final Key<Boolean> HIDE_TEST =
             new Key<>("SVG_hideTest", false);
     static final Key<Boolean> NO_SHAPE_FILLING =
@@ -55,6 +57,7 @@ public final class SVGSettings extends SettingsBase {
         list.add(NO_SHAPE_FILLING);
         list.add(SMALL_IO);
         list.add(NO_PIN_MARKER);
+        list.add(THINNER_LINES);
         list.add(HIGH_CONTRAST);
         list.add(MONOCHROME);
         return list;

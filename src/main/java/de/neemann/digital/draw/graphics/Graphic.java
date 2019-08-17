@@ -31,6 +31,10 @@ public interface Graphic extends Closeable {
      * flag used to hide the pin marker
      */
     String NO_PIN_MARKER = "noPinMarker";
+    /**
+     * flag used to make lines thinner
+     */
+    String THINNER_LINES = "thinnerLines";
 
     /**
      * Sets the bounding box of the future usage of this instance

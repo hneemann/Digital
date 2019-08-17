@@ -1370,11 +1370,13 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_SVG_smallIO">kleine Ein- und Ausgänge</string>
     <string name="key_SVG_smallIO_tt">Ein- und Ausgänge werden als kleine Kreise dargestellt.</string>
     <string name="key_SVG_noPinMarker">keine Pin-Marker</string>
-    <string name="key_SVG_noPinMarker_tt">Die Pin-Marker an den Symbolen entfallen.</string>
+    <string name="key_SVG_noPinMarker_tt">Die blauen und roten Pin-Marker an den Symbolen entfallen.</string>
     <string name="key_SVG_highContrast">hoher Kontrast</string>
     <string name="key_SVG_highContrast_tt">Leitungen und der Text der Pins werden in Schwarz ausgegeben.</string>
     <string name="key_SVG_monochrome">Monochrom</string>
     <string name="key_SVG_monochrome_tt">Es werden nur Graustufen verwendet.</string>
+    <string name="key_SVG_thinnerLines">Dünne Linien</string>
+    <string name="key_SVG_thinnerLines_tt">Wenn gesetzt, werden die Linen etwas dünner gezeichnet.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

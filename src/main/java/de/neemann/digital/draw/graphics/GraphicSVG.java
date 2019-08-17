@@ -48,6 +48,8 @@ public class GraphicSVG implements Graphic {
             setFlag(NO_SHAPE_FILLING);
         if (a.get(SVGSettings.NO_PIN_MARKER))
             setFlag(NO_PIN_MARKER);
+        if (a.get(SVGSettings.THINNER_LINES))
+            setFlag(THINNER_LINES);
 
         if (a.get(SVGSettings.MONOCHROME))
             setColorStyle(new ColorStyleMonochrome(colorStyle));
@@ -151,8 +153,11 @@ public class GraphicSVG implements Graphic {
         }
     }
 
-    private static double getStrokeWidth(Style style) {
-        return style.getThickness() * 0.7;
+    private double getStrokeWidth(Style style) {
+        if (isFlagSet(THINNER_LINES))
+            return style.getThickness() * 0.7;
+        else
+            return style.getThickness();
     }
 
     @Override

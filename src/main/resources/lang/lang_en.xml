@@ -1355,12 +1355,14 @@
     <string name="key_SVG_noShapeFilling_tt">Polygons are not filled.</string>
     <string name="key_SVG_smallIO">Small Inputs and Outputs</string>
     <string name="key_SVG_smallIO_tt">Inputs and outputs are represented as small circles.</string>
-    <string name="key_SVG_noPinMarker">No Pin Marker</string>
-    <string name="key_SVG_noPinMarker_tt">The pin markers at the symbols are omitted.</string>
+    <string name="key_SVG_noPinMarker">No Pin Markers</string>
+    <string name="key_SVG_noPinMarker_tt">The blue and red pin markers on the symbols are omitted.</string>
     <string name="key_SVG_highContrast">High Contrast</string>
     <string name="key_SVG_highContrast_tt">The wires and the text of the pins are displayed in black.</string>
     <string name="key_SVG_monochrome">Monochrome</string>
     <string name="key_SVG_monochrome_tt">Only gray colors are used.</string>
+    <string name="key_SVG_thinnerLines">Thin Lines</string>
+    <string name="key_SVG_thinnerLines_tt">If set, the lines are drawn slightly thinner.</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
