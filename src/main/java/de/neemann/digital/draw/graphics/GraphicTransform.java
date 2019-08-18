@@ -45,7 +45,7 @@ public class GraphicTransform implements Graphic {
     }
 
     @Override
-    public boolean isFlagSet(String name) {
-        return parent.isFlagSet(name);
+    public boolean isFlagSet(Flag flag) {
+        return parent.isFlagSet(flag);
     }
 }

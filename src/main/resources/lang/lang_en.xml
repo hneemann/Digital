@@ -1347,7 +1347,7 @@
     <string name="key_showTutorial_tt">Enables the tutorial.</string>
 
     <string name="menu_exportSVGSettings">SVG Export Settings</string>
-    <string name="key_SVG_LaTeX">Text as LaTeX</string>
+    <string name="key_SVG_LaTeX">Text in LaTeX notation</string>
     <string name="key_SVG_LaTeX_tt">Text is inserted in LaTeX notation. Inkscape is required for further processing.</string>
     <string name="key_SVG_hideTest">Hide Test Cases</string>
     <string name="key_SVG_hideTest__">The test cases are not exported.</string>

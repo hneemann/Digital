@@ -55,7 +55,7 @@ public class GraphicSkipLines implements Graphic {
     }
 
     @Override
-    public boolean isFlagSet(String name) {
-        return delegate.isFlagSet(name);
+    public boolean isFlagSet(Flag flag) {
+        return delegate.isFlagSet(flag);
     }
 }

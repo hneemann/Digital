@@ -24,7 +24,7 @@ public class GraphicSVG implements Graphic {
     private BufferedWriter w;
     private TextStyle textStyle = new TextFormatSVG();
     private ColorStyle colorStyle = Style::getColor;
-    private HashSet<String> flags = new HashSet<>();
+    private HashSet<Flag> flags = new HashSet<>();
 
     /**
      * Creates a new instance.
@@ -39,17 +39,15 @@ public class GraphicSVG implements Graphic {
         if (a.get(SVGSettings.HIGH_CONTRAST))
             setColorStyle(new ColorStyleHighContrast());
         if (a.get(SVGSettings.SMALL_IO))
-            setFlag(SMALL_IO);
+            setFlag(Flag.smallIO);
         if (a.get(SVGSettings.HIDE_TEST))
-            setFlag(HIDE_TEST);
+            setFlag(Flag.hideTest);
         if (a.get(SVGSettings.NO_SHAPE_FILLING))
-            setFlag(NO_SHAPE_FILLING);
-        if (a.get(SVGSettings.NO_SHAPE_FILLING))
-            setFlag(NO_SHAPE_FILLING);
+            setFlag(Flag.noShapeFilling);
         if (a.get(SVGSettings.NO_PIN_MARKER))
-            setFlag(NO_PIN_MARKER);
+            setFlag(Flag.noPinMarker);
         if (a.get(SVGSettings.THINNER_LINES))
-            setFlag(THINNER_LINES);
+            setFlag(Flag.thinnerLines);
 
         if (a.get(SVGSettings.MONOCHROME))
             setColorStyle(new ColorStyleMonochrome(colorStyle));
@@ -140,7 +138,7 @@ public class GraphicSVG implements Graphic {
             if (p.getEvenOdd() && style.isFilled())
                 w.write(" fill-rule=\"evenodd\"");
 
-            if (style.isFilled() && p.isClosed() && !isFlagSet(NO_SHAPE_FILLING))
+            if (style.isFilled() && p.isClosed() && !isFlagSet(Flag.noShapeFilling))
                 w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" fill-opacity=\"" + getOpacity(style) + "\"/>\n");
             else {
                 double strokeWidth = getStrokeWidth(style);
@@ -154,7 +152,7 @@ public class GraphicSVG implements Graphic {
     }
 
     private double getStrokeWidth(Style style) {
-        if (isFlagSet(THINNER_LINES))
+        if (isFlagSet(Flag.thinnerLines))
             return style.getThickness() * 0.7;
         else
             return style.getThickness();
@@ -319,13 +317,13 @@ public class GraphicSVG implements Graphic {
         this.colorStyle = colorStyle;
     }
 
-    private void setFlag(String flag) {
+    private void setFlag(Flag flag) {
         flags.add(flag);
     }
 
     @Override
-    public boolean isFlagSet(String name) {
-        return flags.contains(name);
+    public boolean isFlagSet(Flag flag) {
+        return flags.contains(flag);
     }
 
     /**

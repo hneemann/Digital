@@ -1361,7 +1361,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showTutorial_tt">Aktiviert das Tutorial.</string>
 
     <string name="menu_exportSVGSettings">SVG Exporteinstellungen</string>
-    <string name="key_SVG_LaTeX">Text als LaTeX</string>
+    <string name="key_SVG_LaTeX">Text im LaTeX-Format</string>
     <string name="key_SVG_LaTeX_tt">Text wird in LaTeX-Notation eingefügt. Inkscape ist für die Weiterverabeitung erforderlich.</string>
     <string name="key_SVG_hideTest">Testfälle verbergen</string>
     <string name="key_SVG_hideTest__">Die Testfälle werden nicht mit exportiert.</string>
@@ -1373,9 +1373,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_SVG_noPinMarker_tt">Die blauen und roten Pin-Marker an den Symbolen entfallen.</string>
     <string name="key_SVG_highContrast">hoher Kontrast</string>
     <string name="key_SVG_highContrast_tt">Leitungen und der Text der Pins werden in Schwarz ausgegeben.</string>
-    <string name="key_SVG_monochrome">Monochrom</string>
+    <string name="key_SVG_monochrome">monochrom</string>
     <string name="key_SVG_monochrome_tt">Es werden nur Graustufen verwendet.</string>
-    <string name="key_SVG_thinnerLines">Dünne Linien</string>
+    <string name="key_SVG_thinnerLines">dünne Linien</string>
     <string name="key_SVG_thinnerLines_tt">Wenn gesetzt, werden die Linen etwas dünner gezeichnet.</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>

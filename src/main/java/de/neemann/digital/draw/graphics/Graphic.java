@@ -16,25 +16,9 @@ import java.io.IOException;
 public interface Graphic extends Closeable {
 
     /**
-     * The shape filling flag
+     * The available flags
      */
-    String NO_SHAPE_FILLING = "noShapeFilling";
-    /**
-     * the small IO flag
-     */
-    String SMALL_IO = "smallIO";
-    /**
-     * flag used to hide the test cases
-     */
-    String HIDE_TEST = "hideTest";
-    /**
-     * flag used to hide the pin marker
-     */
-    String NO_PIN_MARKER = "noPinMarker";
-    /**
-     * flag used to make lines thinner
-     */
-    String THINNER_LINES = "thinnerLines";
+    enum Flag {noShapeFilling, smallIO, hideTest, noPinMarker, thinnerLines}
 
     /**
      * Sets the bounding box of the future usage of this instance
@@ -114,10 +98,10 @@ public interface Graphic extends Closeable {
     /**
      * Returns true if the given flag is set
      *
-     * @param name the flags name
+     * @param flag the flag
      * @return true if the given flag is set
      */
-    default boolean isFlagSet(String name) {
+    default boolean isFlagSet(Flag flag) {
         return false;
     }
 
