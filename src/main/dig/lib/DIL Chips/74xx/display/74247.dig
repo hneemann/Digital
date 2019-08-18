@@ -697,11 +697,6 @@
       <pos x="120" y="-220"/>
     </visualElement>
     <visualElement>
-      <elementName>NFET</elementName>
-      <elementAttributes/>
-      <pos x="100" y="-180"/>
-    </visualElement>
-    <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
       <pos x="120" y="-120"/>
@@ -810,6 +805,16 @@
       </elementAttributes>
       <pos x="540" y="300"/>
     </visualElement>
+    <visualElement>
+      <elementName>Driver</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="-160"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -859,10 +864,6 @@
     <wire>
       <p1 x="320" y="-140"/>
       <p2 x="420" y="-140"/>
-    </wire>
-    <wire>
-      <p1 x="80" y="-140"/>
-      <p2 x="100" y="-140"/>
     </wire>
     <wire>
       <p1 x="260" y="140"/>
@@ -945,6 +946,14 @@
       <p2 x="520" y="-1180"/>
     </wire>
     <wire>
+      <p1 x="80" y="-160"/>
+      <p2 x="100" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="-160"/>
+      <p2 x="640" y="-160"/>
+    </wire>
+    <wire>
       <p1 x="520" y="-800"/>
       <p2 x="540" y="-800"/>
     </wire>
@@ -955,10 +964,6 @@
     <wire>
       <p1 x="-180" y="-800"/>
       <p2 x="-80" y="-800"/>
-    </wire>
-    <wire>
-      <p1 x="620" y="-160"/>
-      <p2 x="640" y="-160"/>
     </wire>
     <wire>
       <p1 x="500" y="160"/>
@@ -1545,7 +1550,7 @@
       <p2 x="300" y="-580"/>
     </wire>
     <wire>
-      <p1 x="80" y="-140"/>
+      <p1 x="80" y="-160"/>
       <p2 x="80" y="-100"/>
     </wire>
     <wire>

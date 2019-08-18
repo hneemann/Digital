@@ -130,7 +130,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="740" y="-1100"/>
+      <pos x="680" y="-1100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -148,7 +148,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="740" y="-820"/>
+      <pos x="680" y="-820"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -166,7 +166,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="740" y="-620"/>
+      <pos x="680" y="-620"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -184,7 +184,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="740" y="-360"/>
+      <pos x="680" y="-360"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -202,7 +202,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="740" y="-160"/>
+      <pos x="680" y="-160"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -220,7 +220,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="740" y="80"/>
+      <pos x="680" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -238,7 +238,7 @@
           <int>1</int>
         </entry>
       </elementAttributes>
-      <pos x="740" y="320"/>
+      <pos x="680" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -666,145 +666,6 @@
       <pos x="-20" y="100"/>
     </visualElement>
     <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_1</string>
-            <string>In_2</string>
-          </inverterConfig>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="-640"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_1</string>
-            <string>In_2</string>
-          </inverterConfig>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="-180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_1</string>
-            <string>In_2</string>
-          </inverterConfig>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="300"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_1</string>
-            <string>In_2</string>
-            <string>In_3</string>
-          </inverterConfig>
-        </entry>
-        <entry>
-          <string>Inputs</string>
-          <int>3</int>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="60"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_1</string>
-            <string>In_2</string>
-            <string>In_3</string>
-          </inverterConfig>
-        </entry>
-        <entry>
-          <string>Inputs</string>
-          <int>3</int>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="-380"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_1</string>
-            <string>In_2</string>
-            <string>In_3</string>
-          </inverterConfig>
-        </entry>
-        <entry>
-          <string>Inputs</string>
-          <int>3</int>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="-840"/>
-    </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>In_1</string>
-            <string>In_2</string>
-            <string>In_3</string>
-          </inverterConfig>
-        </entry>
-        <entry>
-          <string>Inputs</string>
-          <int>3</int>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="-1120"/>
-    </visualElement>
-    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -836,11 +697,6 @@
       <pos x="120" y="-220"/>
     </visualElement>
     <visualElement>
-      <elementName>NFET</elementName>
-      <elementAttributes/>
-      <pos x="100" y="-180"/>
-    </visualElement>
-    <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
       <pos x="120" y="-120"/>
@@ -862,6 +718,102 @@
         </entry>
       </elementAttributes>
       <pos x="20" y="-20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="-1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="-840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="-380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="-640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Driver</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="-160"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -912,10 +864,6 @@
     <wire>
       <p1 x="320" y="-140"/>
       <p2 x="420" y="-140"/>
-    </wire>
-    <wire>
-      <p1 x="80" y="-140"/>
-      <p2 x="100" y="-140"/>
     </wire>
     <wire>
       <p1 x="260" y="140"/>
@@ -998,8 +946,12 @@
       <p2 x="520" y="-1180"/>
     </wire>
     <wire>
+      <p1 x="80" y="-160"/>
+      <p2 x="100" y="-160"/>
+    </wire>
+    <wire>
       <p1 x="640" y="-160"/>
-      <p2 x="740" y="-160"/>
+      <p2 x="680" y="-160"/>
     </wire>
     <wire>
       <p1 x="520" y="-800"/>
@@ -1083,7 +1035,7 @@
     </wire>
     <wire>
       <p1 x="640" y="-820"/>
-      <p2 x="740" y="-820"/>
+      <p2 x="680" y="-820"/>
     </wire>
     <wire>
       <p1 x="320" y="-820"/>
@@ -1135,7 +1087,7 @@
     </wire>
     <wire>
       <p1 x="640" y="320"/>
-      <p2 x="740" y="320"/>
+      <p2 x="680" y="320"/>
     </wire>
     <wire>
       <p1 x="500" y="-580"/>
@@ -1171,7 +1123,7 @@
     </wire>
     <wire>
       <p1 x="640" y="-1100"/>
-      <p2 x="740" y="-1100"/>
+      <p2 x="680" y="-1100"/>
     </wire>
     <wire>
       <p1 x="320" y="-1100"/>
@@ -1203,7 +1155,7 @@
     </wire>
     <wire>
       <p1 x="640" y="80"/>
-      <p2 x="740" y="80"/>
+      <p2 x="680" y="80"/>
     </wire>
     <wire>
       <p1 x="60" y="-340"/>
@@ -1291,7 +1243,7 @@
     </wire>
     <wire>
       <p1 x="640" y="-360"/>
-      <p2 x="740" y="-360"/>
+      <p2 x="680" y="-360"/>
     </wire>
     <wire>
       <p1 x="320" y="-360"/>
@@ -1311,7 +1263,7 @@
     </wire>
     <wire>
       <p1 x="640" y="-620"/>
-      <p2 x="740" y="-620"/>
+      <p2 x="680" y="-620"/>
     </wire>
     <wire>
       <p1 x="60" y="-620"/>
@@ -1598,7 +1550,7 @@
       <p2 x="300" y="-580"/>
     </wire>
     <wire>
-      <p1 x="80" y="-140"/>
+      <p1 x="80" y="-160"/>
       <p2 x="80" y="-100"/>
     </wire>
     <wire>
