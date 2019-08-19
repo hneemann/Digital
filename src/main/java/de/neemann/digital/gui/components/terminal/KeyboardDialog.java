@@ -37,6 +37,7 @@ public class KeyboardDialog extends JDialog implements Keyboard.KeyboardInterfac
         text = "";
 
         textLabel.setFocusable(true);
+        textLabel.setFocusTraversalKeysEnabled(false);
         textLabel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -54,7 +55,7 @@ public class KeyboardDialog extends JDialog implements Keyboard.KeyboardInterfac
         setLocationRelativeTo(owner);
         setVisible(true);
 
-        keyboard.setKeyboardDialog(this);
+        keyboard.setKeyboard(this);
     }
 
     @Override
