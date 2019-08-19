@@ -498,7 +498,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>ALUop</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="280"/>
+      <pos x="1080" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -921,6 +921,10 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="660" y="540"/>
     </wire>
     <wire>
+      <p1 x="1080" y="160"/>
+      <p2 x="1100" y="160"/>
+    </wire>
+    <wire>
       <p1 x="1180" y="160"/>
       <p2 x="1220" y="160"/>
     </wire>
@@ -1139,10 +1143,6 @@ Von Neumann Two-Cycle CPU.}}</string>
     <wire>
       <p1 x="520" y="700"/>
       <p2 x="520" y="720"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="240"/>
-      <p2 x="1160" y="280"/>
     </wire>
     <wire>
       <p1 x="460" y="460"/>

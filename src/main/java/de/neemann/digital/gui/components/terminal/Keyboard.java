@@ -99,7 +99,7 @@ public class Keyboard extends Node implements Element {
      *
      * @param keyboardInterface the keyboard interface
      */
-    public void setKeyboardDialog(KeyboardInterface keyboardInterface) {
+    public void setKeyboard(KeyboardInterface keyboardInterface) {
         this.keyboardInterface = keyboardInterface;
     }
 

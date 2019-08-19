@@ -1335,7 +1335,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         @Override
         public void mousePressed(MouseEvent e) {
-            hadFocusAtClick = hasFocus();
+            hadFocusAtClick = SwingUtilities.getWindowAncestor(CircuitComponent.this).isFocused();
             pos = new Vector(e.getX(), e.getY());
             isMoved = false;
             requestFocusInWindow();
