@@ -1276,6 +1276,25 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         stateManager.setActualState(stoppedState);
     }
 
+    /**
+     * @return returns true if one of the children has the focus.
+     */
+    public boolean hasMouseFocus() {
+        return checkFocus(getContentPane());
+    }
+
+    private static boolean checkFocus(Container contentPane) {
+        for (int i = 0; i < contentPane.getComponentCount(); i++) {
+            Component c = contentPane.getComponent(i);
+            if (c.hasFocus())
+                return true;
+            if (c instanceof Container)
+                if (checkFocus((Container) c))
+                    return true;
+        }
+        return false;
+    }
+
     private class RunModelState extends State {
         @Override
         public void enter() {
