@@ -460,11 +460,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * undo last action
      */
     private void undo() {
-        if (!isLocked() && undoManager.undoAvailable()) {
-            try {
-                undoManager.undo();
-            } catch (ModifyException e) {
-                throw new RuntimeException("internal error in undo", e);
+        if (activeMouseController != mouseNormal)
+            activeMouseController.escapePressed();
+        else {
+            if (!isLocked() && undoManager.undoAvailable()) {
+                try {
+                    undoManager.undo();
+                } catch (ModifyException e) {
+                    throw new RuntimeException("internal error in undo", e);
+                }
             }
         }
     }
@@ -481,6 +485,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      */
     private void redo() {
         if (!isLocked() && undoManager.redoAvailable()) {
+            activeMouseController.escapePressed();
             try {
                 undoManager.redo();
             } catch (ModifyException e) {
