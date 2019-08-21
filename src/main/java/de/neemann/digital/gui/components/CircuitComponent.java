@@ -264,13 +264,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         mouseNormal.activate();
 
-        addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                activeMouseController.escapePressed();
-            }
-        });
-
         setToolTipText("");
     }
 
