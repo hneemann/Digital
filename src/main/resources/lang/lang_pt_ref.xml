@@ -1865,4 +1865,6 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="tutorial11">Label all inputs and outputs.</string>
   <string name="tutorialUniqueIdents">Inputs and outputs should always be uniquely named.</string>
   <string name="tutorialNotNeeded">Skip Tutorial</string>
+  <string name="msg_fsmTransition">Transition</string>
+  <string name="msg_fsmState">State</string>
 </resources>

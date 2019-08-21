@@ -1788,4 +1788,6 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   <string name="menu_table_showAllSolutions_tt">Muestra el cuadro de diálogo de resultados si se cerró manualmente</string>
   <string name="msg_codeNotConsistent">Las definiciones de entrada y salida no se pudieron crear automáticamente.
         ¡Por favor, comprueba los ajustes!</string>
+  <string name="msg_fsmTransition">Transición</string>
+  <string name="msg_fsmState">Estado</string>
 </resources>

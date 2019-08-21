@@ -1852,4 +1852,6 @@ Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse
   <string name="tutorial11">Rotular todas as entradas e as saídas.</string>
   <string name="tutorialUniqueIdents">Entradas e saídas sempre deverão ter nomes únicos.</string>
   <string name="tutorialNotNeeded">Pular o tutorial</string>
+  <string name="msg_fsmTransition">Transição</string>
+  <string name="msg_fsmState">Estado</string>
 </resources>
