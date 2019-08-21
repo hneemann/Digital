@@ -1930,6 +1930,8 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="err_fsmErrorInCondition_N">Fehler in Bedingung ''{0}''!</string>
     <string name="msg_fsm_errorLoadingFile">Fehler beim Laden der Datei!</string>
     <string name="msg_fsm_errorStoringFile">Fehler beim Speichern der Datei!</string>
+    <string name="msg_fsmTransition">Übergang</string>
+    <string name="msg_fsmState">Zustand</string>
     <string name="msg_fsmNewState">Neuer Zustand</string>
     <string name="msg_fsmCantCreateTable">Zustandsübergangstabelle kann nicht erzeugt werden.</string>
     <string name="msg_fsmHelpTitle">Hilfe Endliche Automaten</string>

@@ -413,7 +413,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * Opens the attribute editor
      */
     public void editCircuitAttributes() {
-        ElementAttributes modifiedAttributes = new AttributeDialog(parent, ATTR_LIST, getCircuit().getAttributes()).showDialog();
+        ElementAttributes modifiedAttributes =
+                new AttributeDialog(parent, ATTR_LIST, getCircuit().getAttributes())
+                        .setDialogTitle(Lang.get("menu_editAttributes"))
+                        .showDialog();
         if (modifiedAttributes != null)
             modify(new ModifyCircuitAttributes(modifiedAttributes));
     }
@@ -1067,7 +1070,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
-                AttributeDialog attributeDialog = new AttributeDialog(parent, p, list, element.getElementAttributes()).setVisualElement(element);
+                AttributeDialog attributeDialog = new AttributeDialog(parent, p, list, element.getElementAttributes())
+                        .setDialogTitle(elementType.getTranslatedName())
+                        .setVisualElement(element);
                 if (elementType instanceof ElementTypeDescriptionCustom) {
                     attributeDialog.addButton(Lang.get("attr_openCircuitLabel"), new ToolTipAction(Lang.get("attr_openCircuit")) {
                         @Override

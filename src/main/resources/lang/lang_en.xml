@@ -1899,6 +1899,8 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="key_transRad">Radius</string>
     <string name="key_transRad_tt">Radius of the circle in the diagram.</string>
     <string name="msg_fsmCantCreateTable">Can not create state transition table.</string>
+    <string name="msg_fsmTransition">Transition</string>
+    <string name="msg_fsmState">State</string>
     <string name="msg_fsmNewState">New State</string>
     <string name="msg_fsm_errorLoadingFile">Error loading a file!</string>
     <string name="msg_fsm_errorStoringFile">Error storing a file!</string>

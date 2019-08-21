@@ -196,6 +196,17 @@ public class AttributeDialog extends JDialog {
     }
 
     /**
+     * Sets the dialogs title
+     *
+     * @param title the dialogs title
+     * @return this for chained calls
+     */
+    public AttributeDialog setDialogTitle(String title) {
+        setTitle(title);
+        return this;
+    }
+
+    /**
      * Returns true if two tabs are to be used.
      *
      * @param list the list a keys

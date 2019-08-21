@@ -189,8 +189,8 @@ public class FSMComponent extends JComponent {
         attr.set(KEY_NUMBER, fsm.getStates().size());
         SwingUtilities.convertPointToScreen(point, this);
         AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
-                point, attr, STATE_EDIT_KEYS);
-        ad.setTitle(Lang.get("msg_fsmNewState"));
+                point, attr, STATE_EDIT_KEYS)
+                .setDialogTitle(Lang.get("msg_fsmNewState"));
         ElementAttributes newAttr = ad.showDialog();
 
         if (newAttr == null && ad.isOkPressed())
@@ -214,9 +214,10 @@ public class FSMComponent extends JComponent {
                 .set(KEY_RADIUS, state.getVisualRadius())
                 .set(Keys.LABEL, state.getName());
         SwingUtilities.convertPointToScreen(point, this);
-        AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
-                point, attr, STATE_EDIT_KEYS);
-        ElementAttributes newAttr = ad.showDialog();
+        ElementAttributes newAttr = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
+                point, attr, STATE_EDIT_KEYS)
+                .setDialogTitle(Lang.get("msg_fsmState"))
+                .showDialog();
         if (newAttr != null) {
             state.setNumber(newAttr.get(KEY_NUMBER));
             state.setInitial(newAttr.get(KEY_INITIAL));
@@ -232,9 +233,10 @@ public class FSMComponent extends JComponent {
                 .set(KEY_CONDITION, transition.getCondition())
                 .set(KEY_VALUES, transition.getValues());
         SwingUtilities.convertPointToScreen(point, this);
-        AttributeDialog ad = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
-                point, attr, KEY_CONDITION, KEY_VALUES);
-        ElementAttributes newAttr = ad.showDialog();
+        ElementAttributes newAttr = new AttributeDialog(SwingUtilities.getWindowAncestor(this),
+                point, attr, KEY_CONDITION, KEY_VALUES)
+                .setDialogTitle(Lang.get("msg_fsmTransition"))
+                .showDialog();
         if (newAttr != null) {
             lastCondition = newAttr.get(KEY_CONDITION);
             transition.setCondition(lastCondition);
