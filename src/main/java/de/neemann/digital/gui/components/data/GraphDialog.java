@@ -58,6 +58,7 @@ public class GraphDialog extends JDialog implements Observer {
             title = Lang.get("win_measures_fullstep");
 
         ArrayList<Signal> signals = model.getSignalsCopy();
+        signals.removeIf(signal -> !signal.isShowInGraph());
         new OrderMerger<String, Signal>(ordering) {
             @Override
             public boolean equals(Signal a, String b) {

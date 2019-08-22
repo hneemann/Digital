@@ -25,10 +25,12 @@ public class Probe implements Element {
             = new ElementTypeDescription("Probe", Probe.class, input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.INT_FORMAT);
+            .addAttribute(Keys.INT_FORMAT)
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
 
     private final String label;
     private final IntFormat format;
+    private final boolean showInGraph;
     private ObservableValue value;
 
     /**
@@ -39,6 +41,7 @@ public class Probe implements Element {
     public Probe(ElementAttributes attributes) {
         label = attributes.get(Keys.LABEL);
         format = attributes.get(Keys.INT_FORMAT);
+        showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
     @Override
@@ -53,7 +56,7 @@ public class Probe implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addSignal(new Signal(label, value).setFormat(format));
+        model.addSignal(new Signal(label, value).setShowInGraph(showInGraph).setFormat(format));
         model.registerGlobalValue(label, value);
     }
 

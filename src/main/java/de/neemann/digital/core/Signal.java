@@ -15,6 +15,7 @@ public final class Signal implements Comparable<Signal> {
     private IntFormat format = IntFormat.def;
     private String pinNumber;
     private ObservableValue bidirectionalReader;
+    private boolean showInGraph;
 
     /**
      * Creates a new Instance
@@ -38,6 +39,25 @@ public final class Signal implements Comparable<Signal> {
         if (name == null) this.name = null;
         else this.name = name.trim().replace(' ', '_');
         this.value = value;
+        showInGraph = true;
+    }
+
+    /**
+     * If set to true the value is shown in the graph.
+     *
+     * @param showInGraph if true the value is shown in the graph
+     * @return this for chained calls
+     */
+    public Signal setShowInGraph(boolean showInGraph) {
+        this.showInGraph = showInGraph;
+        return this;
+    }
+
+    /**
+     * @return true if the value is visible in the data graph
+     */
+    public boolean isShowInGraph() {
+        return showInGraph;
     }
 
     /**

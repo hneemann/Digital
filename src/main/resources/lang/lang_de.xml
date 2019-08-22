@@ -1135,6 +1135,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showDataGraphMicro">Zeige Messwertgraph im Gatterschrittmodus bei Simulationsstart</string>
     <string name="key_showDataGraphMicro_tt">Beim Start der Simulation wird ein Graph mit den Messwerten im Gatterschrittmodus
         angezeigt. Dabei werden alle Gatterwechsel angezeigt.</string>
+    <string name="key_addValueToGraph">Im Messwertegraph anzeigen</string>
+    <string name="key_addValueToGraph_tt">Zeigt den Wert im Messwertegraph an.</string>
     <string name="key_showDataTable">Zeige Messwertetabelle bei Simulationsstart</string>
     <string name="key_showDataTable_tt">Beim Start der Simulation wird eine Tabelle mit den Messwerten angezeigt.</string>
     <string name="key_termHeight">Zeilen</string><!-- Terminal -->

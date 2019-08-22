@@ -1125,6 +1125,8 @@
     <string name="key_showDataGraphMicro">Show measurement graph in single gate step mode at simulation start</string>
     <string name="key_showDataGraphMicro_tt">When the simulation is started, a graph with the measured values in the
         gate step mode is shown. All gate changes are included in the graph.</string>
+    <string name="key_addValueToGraph">Show in Measurement Graph</string>
+    <string name="key_addValueToGraph_tt">Shows the value in the measurement graph.</string>
     <string name="key_showDataTable">Show measurement values at simulation start</string>
     <string name="key_showDataTable_tt">When the simulation is started, a table with the measured values is shown.</string>
     <string name="key_termHeight">Lines</string><!-- Terminal -->
