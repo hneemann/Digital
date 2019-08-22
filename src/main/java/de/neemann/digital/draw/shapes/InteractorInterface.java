@@ -18,6 +18,7 @@ import java.awt.*;
  * The {@link de.neemann.digital.draw.elements.VisualElement}s InteractorInterface instance is called
  * if the element is clicked during execution. So the User can interact with the element.
  * Example usage at the {@link InputShape} to let the user toggle the inputs state.
+ *
  * @see InputShape
  */
 public interface InteractorInterface {
@@ -34,7 +35,7 @@ public interface InteractorInterface {
     boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
-     * Called mouse is pressed on running model
+     * Called if mouse is pressed on running model
      *
      * @param cc        the CircuitComponent
      * @param pos       the popuplocation on screen
@@ -46,7 +47,7 @@ public interface InteractorInterface {
     boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
-     * Called mouse is released on running model
+     * Called if mouse is released on running model
      *
      * @param cc        the CircuitComponent
      * @param pos       the popuplocation on screen
@@ -58,16 +59,17 @@ public interface InteractorInterface {
     boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
-     * Called mouse is dragged on running model
+     * Called if mouse is dragged on running model
      *
-     * @param cc        the CircuitComponent
-     * @param pos       the position in the model coordinates
-     * @param transform transformation to transform shape coordinates to the model coordinates
-     * @param ioState   the state of the element
-     * @param element   the element on which the mouse is dragged
-     * @param modelSync used to sync model access
+     * @param cc          the CircuitComponent
+     * @param posOnScreen the position in screen coordinates
+     * @param pos         the position in the model coordinates
+     * @param transform   transformation to transform shape coordinates to the model coordinates
+     * @param ioState     the state of the element
+     * @param element     the element on which the mouse is dragged
+     * @param modelSync   used to sync model access
      * @return true if model is changed
      */
-    boolean dragged(CircuitComponent cc, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync);
+    boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync);
 
 }

@@ -268,7 +268,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             parent.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowDeactivated(WindowEvent e) {
-                    activeMouseController.escapePressed();
+                    if (!(activeMouseController instanceof MouseControllerWizard || activeMouseController == mouseSelect))
+                        activeMouseController.escapePressed();
                 }
             });
         }

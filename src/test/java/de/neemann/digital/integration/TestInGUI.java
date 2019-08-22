@@ -62,6 +62,8 @@ import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
  * These tests are excluded from the maven build because gui tests are sometimes fragile.
  * They may not behave as expected on all systems.
  * Run this tests directly from your IDE.
+ *
+ * maven: mvn -Dtest=TestInGUI test
  */
 public class TestInGUI extends TestCase {
 

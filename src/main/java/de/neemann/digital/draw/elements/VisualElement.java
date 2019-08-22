@@ -408,7 +408,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      */
     public boolean elementDragged(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
-            return interactor.dragged(cc, posInComponent, getTransform(), ioState, element, modelSync);
+            return interactor.dragged(cc, pos, posInComponent, getTransform(), ioState, element, modelSync);
         else
             return false;
     }
