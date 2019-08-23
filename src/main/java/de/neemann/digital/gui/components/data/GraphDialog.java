@@ -58,6 +58,7 @@ public class GraphDialog extends JDialog implements Observer {
             title = Lang.get("win_measures_fullstep");
 
         ArrayList<Signal> signals = model.getSignalsCopy();
+        signals.removeIf(signal -> !signal.isShowInGraph());
         new OrderMerger<String, Signal>(ordering) {
             @Override
             public boolean equals(Signal a, String b) {
@@ -165,8 +166,7 @@ public class GraphDialog extends JDialog implements Observer {
                         .checkOverwrite(logData::saveCSV);
             }
         }.setToolTip(Lang.get("menu_saveData_tt")).createJMenuItem());
-        file.add(new ExportAction(Lang.get("menu_exportSVG"), GraphicSVGIndex::new).createJMenuItem());
-        file.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), GraphicSVGLaTeX::new).createJMenuItem());
+        file.add(new ExportAction(Lang.get("menu_exportSVG"), GraphicSVG::new).createJMenuItem());
 
         JMenu view = new JMenu(Lang.get("menu_view"));
         bar.add(view);

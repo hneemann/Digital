@@ -1125,6 +1125,8 @@
     <string name="key_showDataGraphMicro">Show measurement graph in single gate step mode at simulation start</string>
     <string name="key_showDataGraphMicro_tt">When the simulation is started, a graph with the measured values in the
         gate step mode is shown. All gate changes are included in the graph.</string>
+    <string name="key_addValueToGraph">Show in Measurement Graph</string>
+    <string name="key_addValueToGraph_tt">Shows the value in the measurement graph.</string>
     <string name="key_showDataTable">Show measurement values at simulation start</string>
     <string name="key_showDataTable_tt">When the simulation is started, a table with the measured values is shown.</string>
     <string name="key_termHeight">Lines</string><!-- Terminal -->
@@ -1346,6 +1348,24 @@
     <string name="key_showTutorial">Show Tutorial at Startup</string>
     <string name="key_showTutorial_tt">Enables the tutorial.</string>
 
+    <string name="menu_exportSVGSettings">SVG Export Settings</string>
+    <string name="key_SVG_LaTeX">Text in LaTeX notation</string>
+    <string name="key_SVG_LaTeX_tt">Text is inserted in LaTeX notation. Inkscape is required for further processing.</string>
+    <string name="key_SVG_hideTest">Hide Test Cases</string>
+    <string name="key_SVG_hideTest__">The test cases are not exported.</string>
+    <string name="key_SVG_noShapeFilling">Shapes not filled</string>
+    <string name="key_SVG_noShapeFilling_tt">Polygons are not filled.</string>
+    <string name="key_SVG_smallIO">Small Inputs and Outputs</string>
+    <string name="key_SVG_smallIO_tt">Inputs and outputs are represented as small circles.</string>
+    <string name="key_SVG_noPinMarker">No Pin Markers</string>
+    <string name="key_SVG_noPinMarker_tt">The blue and red pin markers on the symbols are omitted.</string>
+    <string name="key_SVG_highContrast">High Contrast</string>
+    <string name="key_SVG_highContrast_tt">The wires and the text of the pins are displayed in black.</string>
+    <string name="key_SVG_monochrome">Monochrome</string>
+    <string name="key_SVG_monochrome_tt">Only gray colors are used.</string>
+    <string name="key_SVG_thinnerLines">Thin Lines</string>
+    <string name="key_SVG_thinnerLines_tt">If set, the lines are drawn slightly thinner.</string>
+
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>
     <string name="mod_setKey_N0_in_element_N1">Value ''{0}'' in component ''{1}'' modified.</string>
@@ -1404,8 +1424,6 @@
     <string name="menu_exportPNGLarge">Export PNG large</string>
     <string name="menu_exportPNGSmall">Export PNG small</string>
     <string name="menu_exportSVG">Export SVG</string>
-    <string name="menu_exportSVGLaTex">Export SVG + LaTeX</string>
-    <string name="menu_exportSVGLaTexInOut">Export SVG + LaTeX + small in/out</string>
     <string name="menu_exportAnimatedGIF">Export Animated GIF</string>
     <string name="menu_fast">Run to Break</string>
     <string name="menu_fast_tt">Runs the circuit until a break is detected by a BRK component.</string>

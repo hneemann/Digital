@@ -1135,6 +1135,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showDataGraphMicro">Zeige Messwertgraph im Gatterschrittmodus bei Simulationsstart</string>
     <string name="key_showDataGraphMicro_tt">Beim Start der Simulation wird ein Graph mit den Messwerten im Gatterschrittmodus
         angezeigt. Dabei werden alle Gatterwechsel angezeigt.</string>
+    <string name="key_addValueToGraph">Im Messwertegraph anzeigen</string>
+    <string name="key_addValueToGraph_tt">Zeigt den Wert im Messwertegraph an.</string>
     <string name="key_showDataTable">Zeige Messwertetabelle bei Simulationsstart</string>
     <string name="key_showDataTable_tt">Beim Start der Simulation wird eine Tabelle mit den Messwerten angezeigt.</string>
     <string name="key_termHeight">Zeilen</string><!-- Terminal -->
@@ -1360,6 +1362,24 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showTutorial">Tutorial beim Start anzeigen</string>
     <string name="key_showTutorial_tt">Aktiviert das Tutorial.</string>
 
+    <string name="menu_exportSVGSettings">SVG Exporteinstellungen</string>
+    <string name="key_SVG_LaTeX">Text im LaTeX-Format</string>
+    <string name="key_SVG_LaTeX_tt">Text wird in LaTeX-Notation eingefügt. Inkscape ist für die Weiterverabeitung erforderlich.</string>
+    <string name="key_SVG_hideTest">Testfälle verbergen</string>
+    <string name="key_SVG_hideTest__">Die Testfälle werden nicht mit exportiert.</string>
+    <string name="key_SVG_noShapeFilling">Polygone nicht ausfüllen</string>
+    <string name="key_SVG_noShapeFilling_tt">Polygone werden nicht ausgefüllt.</string>
+    <string name="key_SVG_smallIO">kleine Ein- und Ausgänge</string>
+    <string name="key_SVG_smallIO_tt">Ein- und Ausgänge werden als kleine Kreise dargestellt.</string>
+    <string name="key_SVG_noPinMarker">keine Pin-Marker</string>
+    <string name="key_SVG_noPinMarker_tt">Die blauen und roten Pin-Marker an den Symbolen entfallen.</string>
+    <string name="key_SVG_highContrast">hoher Kontrast</string>
+    <string name="key_SVG_highContrast_tt">Leitungen und der Text der Pins werden in Schwarz ausgegeben.</string>
+    <string name="key_SVG_monochrome">monochrom</string>
+    <string name="key_SVG_monochrome_tt">Es werden nur Graustufen verwendet.</string>
+    <string name="key_SVG_thinnerLines">dünne Linien</string>
+    <string name="key_SVG_thinnerLines_tt">Wenn gesetzt, werden die Linen etwas dünner gezeichnet.</string>
+
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
     <string name="mod_setKey_N0_in_element_N1">Wert ''{0}'' in Element ''{1}'' verändert.</string>
@@ -1421,8 +1441,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_exportPNGLarge">Export PNG groß</string>
     <string name="menu_exportPNGSmall">Export PNG klein</string>
     <string name="menu_exportSVG">Export SVG</string>
-    <string name="menu_exportSVGLaTex">Export SVG + LaTeX</string>
-    <string name="menu_exportSVGLaTexInOut">Export SVG + LaTeX + kleine Ein- und Ausgänge</string>
     <string name="menu_exportAnimatedGIF">Export Animated GIF</string>
     <string name="menu_fast">Run To Break</string>
     <string name="menu_fast_tt">Führt die Schaltung aus, bis ein Stopsignal über ein BRK-Element detektiert wird.</string>

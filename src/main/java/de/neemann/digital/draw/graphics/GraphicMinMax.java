@@ -154,10 +154,10 @@ public class GraphicMinMax implements Graphic {
     }
 
     @Override
-    public boolean isFlagSet(String name) {
+    public boolean isFlagSet(Flag flag) {
         if (parent == null)
             return false;
         else
-            return parent.isFlagSet(name);
+            return parent.isFlagSet(flag);
     }
 }

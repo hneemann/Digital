@@ -35,7 +35,8 @@ public class Out implements Element {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DESCRIPTION)
             .addAttribute(Keys.INT_FORMAT)
-            .addAttribute(Keys.PINNUMBER);
+            .addAttribute(Keys.PINNUMBER)
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
 
     /**
      * The LED description
@@ -84,6 +85,7 @@ public class Out implements Element {
     private final String label;
     private final String pinNumber;
     private final IntFormat format;
+    private final boolean showInGraph;
     private boolean enforceSignal = false;
     private ObservableValue value;
 
@@ -97,6 +99,7 @@ public class Out implements Element {
         label = attributes.getLabel();
         pinNumber = attributes.get(Keys.PINNUMBER);
         format = attributes.get(Keys.INT_FORMAT);
+        showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
     /**
@@ -109,6 +112,7 @@ public class Out implements Element {
         label = null;
         pinNumber = "";
         format = null;
+        showInGraph = true;
     }
 
     @Override
@@ -129,6 +133,7 @@ public class Out implements Element {
     public void registerNodes(Model model) {
         final Signal signal = new Signal(label, value)
                 .setPinNumber(pinNumber)
+                .setShowInGraph(showInGraph)
                 .setFormat(format);
         if (enforceSignal || signal.isValid())
             model.addOutput(signal);

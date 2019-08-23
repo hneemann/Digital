@@ -1289,8 +1289,6 @@
   <string name="menu_exportPNGLarge">Exportar PNG grande</string>
   <string name="menu_exportPNGSmall">Exportar PNG pequeno</string>
   <string name="menu_exportSVG">Exportar SVG</string>
-  <string name="menu_exportSVGLaTex">Exportar SVG + LaTeX</string>
-  <string name="menu_exportSVGLaTexInOut">Exportar SVG + LaTeX + entrada/saídas pequenas</string>
   <string name="menu_exportAnimatedGIF">Exportar GIF animado</string>
   <string name="menu_fast">Executar com interrupção</string>
   <string name="menu_fast_tt">Executará o circuito até que uma interrupção seja detectada por uso de um componente BRK.</string>
