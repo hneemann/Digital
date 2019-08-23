@@ -1,6 +1,6 @@
 Release Notes
 
-head, planned as v0.23
+v0.23, released on 23. Aug. 2019
 - Added generic circuits. Now it is possible to parameterize a sub circuit.
   Allows e.g. the creation of a barrel-shifter with selectable bit width.
 - Circuit analyser is now able to analyse the built-in counters.
@@ -12,6 +12,7 @@ head, planned as v0.23
 - Hex reader/writer supports RLE encoding like Logisim does.
 - Added Spanish translation. Special thanks to Ángel Millán who provided
   the translation.
+- Added a simple interactive beginners tutorial.
 - Added a statistics dialog which shows the number of used components.
 - Added scrollbars.
 - Multiple break components are allowed.
