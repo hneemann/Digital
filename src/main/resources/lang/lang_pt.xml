@@ -829,7 +829,6 @@
   <string name="err_vhdlExporting">Erro ao exportar para VHDL.</string>
   <string name="err_vhdlNoEntity_N">Nenhum código VHDL disponível para {0}!</string>
   <string name="err_verilogNoElement_N">Nenhum código Verilog disponível para {0}!</string>
-  <string name="err_vhdlPin_N_hasNoNumber">Pino {0} sem número!</string>
   <string name="err_vhdlErrorWritingTestBench">Erro ao criar os casos de testes!</string>
   <string name="err_vhdlValuesOfType_N_notAllowed">Valores de tipo {0} não são permitidos!</string>
   <string name="err_vhdlANameIsMissing">Falta nome. Todos os pinos têm rótulos (por exemplo)?</string>

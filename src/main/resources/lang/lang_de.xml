@@ -946,7 +946,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_vhdlExporting">Fehler beim Export zu VHDL.</string>
     <string name="err_vhdlNoEntity_N">Kein VHDL Code für {0} verfügbar!</string>
     <string name="err_verilogNoElement_N">Kein Verilog Code für {0} verfügbar!</string>
-    <string name="err_vhdlPin_N_hasNoNumber">Der Pin {0} hat keine Nummer!</string>
     <string name="err_vhdlErrorWritingTestBench">Fehler beim erzeugen des Testfalls!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
     <string name="err_vhdlANameIsMissing">Es fehlt ein Name. Sind z.B. alle Pins benannt?</string>

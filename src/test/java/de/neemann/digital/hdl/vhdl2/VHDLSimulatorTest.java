@@ -128,7 +128,7 @@ public class VHDLSimulatorTest extends TestCase {
                     .replace('-', '_')+ ".vhdl");
             CodePrinter out = new CodePrinter(vhdlFile);
             try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
-                vhdl.disableClockIntegration().export(br.getCircuit());
+                vhdl.export(br.getCircuit());
                 ArrayList<File> testFiles = vhdl.getTestBenches();
                 out.close();
                 runGHDL(vhdlFile, testFiles);

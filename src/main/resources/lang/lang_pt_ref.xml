@@ -834,7 +834,6 @@
   <string name="err_vhdlExporting">Error during export to VHDL.</string>
   <string name="err_vhdlNoEntity_N">No VHDL code for {0} available!</string>
   <string name="err_verilogNoElement_N">No Verilog code for {0} available!</string>
-  <string name="err_vhdlPin_N_hasNoNumber">Pin {0} has no number!</string>
   <string name="err_vhdlErrorWritingTestBench">Error creating a test bench!</string>
   <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
   <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a label set?</string>
