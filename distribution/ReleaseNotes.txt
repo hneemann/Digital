@@ -1,5 +1,9 @@
 Release Notes
 
+HEAD, planned as v0.24
+- Improved SVG export
+- Allows to disable inputs and outputs in the measurement graph.
+
 v0.23, released on 23. Aug. 2019
 - Added generic circuits. Now it is possible to parameterize a sub circuit.
   Allows e.g. the creation of a barrel-shifter with selectable bit width.
