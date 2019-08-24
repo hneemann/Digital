@@ -793,10 +793,6 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="1220" y="0"/>
     </wire>
     <wire>
-      <p1 x="1060" y="260"/>
-      <p2 x="1100" y="260"/>
-    </wire>
-    <wire>
       <p1 x="1400" y="260"/>
       <p2 x="1420" y="260"/>
     </wire>
@@ -909,6 +905,10 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="1500" y="220"/>
     </wire>
     <wire>
+      <p1 x="900" y="220"/>
+      <p2 x="1100" y="220"/>
+    </wire>
+    <wire>
       <p1 x="460" y="540"/>
       <p2 x="580" y="540"/>
     </wire>
@@ -1001,12 +1001,12 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="1300" y="300"/>
     </wire>
     <wire>
-      <p1 x="1400" y="240"/>
-      <p2 x="1420" y="240"/>
+      <p1 x="1060" y="240"/>
+      <p2 x="1100" y="240"/>
     </wire>
     <wire>
-      <p1 x="900" y="240"/>
-      <p2 x="1100" y="240"/>
+      <p1 x="1400" y="240"/>
+      <p2 x="1420" y="240"/>
     </wire>
     <wire>
       <p1 x="420" y="560"/>
@@ -1137,7 +1137,7 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="580" y="720"/>
     </wire>
     <wire>
-      <p1 x="900" y="240"/>
+      <p1 x="900" y="220"/>
       <p2 x="900" y="520"/>
     </wire>
     <wire>
@@ -1245,7 +1245,7 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="420" y="720"/>
     </wire>
     <wire>
-      <p1 x="1060" y="260"/>
+      <p1 x="1060" y="240"/>
       <p2 x="1060" y="380"/>
     </wire>
     <wire>

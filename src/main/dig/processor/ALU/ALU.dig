@@ -50,7 +50,7 @@ bei der Speicheradressierung verwendet.}}</string>
           <entry>
             <string>B</string>
             <pin>
-              <pos x="0" y="100"/>
+              <pos x="0" y="80"/>
               <showLabel>true</showLabel>
             </pin>
           </entry>
@@ -64,7 +64,7 @@ bei der Speicheradressierung verwendet.}}</string>
           <entry>
             <string>Ci</string>
             <pin>
-              <pos x="0" y="120"/>
+              <pos x="0" y="100"/>
               <showLabel>true</showLabel>
             </pin>
           </entry>
