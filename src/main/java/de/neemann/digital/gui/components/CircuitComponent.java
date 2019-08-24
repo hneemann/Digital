@@ -264,12 +264,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         mouseNormal.activate();
 
-        addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                activeMouseController.escapePressed();
-            }
-        });
+        if (parent != null) {
+            parent.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowDeactivated(WindowEvent e) {
+                    if (!(activeMouseController instanceof MouseControllerWizard || activeMouseController == mouseSelect))
+                        activeMouseController.escapePressed();
+                }
+            });
+        }
 
         setToolTipText("");
     }
@@ -484,12 +487,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * redo last undo
      */
     private void redo() {
-        if (!isLocked() && undoManager.redoAvailable()) {
+        if (activeMouseController != mouseNormal)
             activeMouseController.escapePressed();
-            try {
-                undoManager.redo();
-            } catch (ModifyException e) {
-                throw new RuntimeException("internal error in redo", e);
+        else {
+            if (!isLocked() && undoManager.redoAvailable()) {
+                try {
+                    undoManager.redo();
+                } catch (ModifyException e) {
+                    throw new RuntimeException("internal error in redo", e);
+                }
             }
         }
     }

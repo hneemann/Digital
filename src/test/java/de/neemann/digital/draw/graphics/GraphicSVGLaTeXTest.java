@@ -13,24 +13,24 @@ import java.io.IOException;
  */
 public class GraphicSVGLaTeXTest extends TestCase {
     public void testFormatText() throws Exception {
-        GraphicSVGLaTeX gs = new GraphicSVGLaTeX(System.out, null, 30);
+        GraphicSVG.TextStyle gs = new TextFormatLaTeX();
 
-        assertEquals("$Z_0$", gs.formatText("$Z_0$", Style.NORMAL));
-        assertEquals("$Z_{in}$", gs.formatText("$Z_{in}$", Style.NORMAL));
-        assertEquals("$Z_0$", gs.formatText("Z_0", Style.NORMAL));
-        assertEquals("\\&amp;", gs.formatText("&", Style.NORMAL));
-        assertEquals("$\\geq\\!\\!{}$1", gs.formatText("\u22651", Style.NORMAL));
-        assertEquals("$\\geq\\!\\!{}1$", gs.formatText("$\u22651$", Style.NORMAL));
-        assertEquals("$\\overline{\\mbox{Q}}$", gs.formatText("~Q", Style.NORMAL));
-        assertEquals("$\\overline{Q}$", gs.formatText("$~Q$", Style.NORMAL));
-        assertEquals("\\textless{}a\\textgreater{}", gs.formatText("<a>", Style.NORMAL));
-        assertEquals("Grün", gs.formatText("Grün", Style.NORMAL));
+        assertEquals("$Z_0$", gs.format("$Z_0$", Style.NORMAL));
+        assertEquals("$Z_{in}$", gs.format("$Z_{in}$", Style.NORMAL));
+        assertEquals("$Z_0$", gs.format("Z_0", Style.NORMAL));
+        assertEquals("\\&amp;", gs.format("&", Style.NORMAL));
+        assertEquals("$\\geq\\!\\!{}$1", gs.format("\u22651", Style.NORMAL));
+        assertEquals("$\\geq\\!\\!{}1$", gs.format("$\u22651$", Style.NORMAL));
+        assertEquals("$\\overline{\\mbox{Q}}$", gs.format("~Q", Style.NORMAL));
+        assertEquals("$\\overline{Q}$", gs.format("$~Q$", Style.NORMAL));
+        assertEquals("\\textless{}a\\textgreater{}", gs.format("<a>", Style.NORMAL));
+        assertEquals("Grün", gs.format("Grün", Style.NORMAL));
 
 
-        assertEquals("{\\scriptsize Grün}", gs.formatText("Grün", Style.SHAPE_PIN));
-        assertEquals("{\\scriptsize $Z_0$}", gs.formatText("Z_0", Style.SHAPE_PIN));
-        assertEquals("{\\tiny $Z_0$}", gs.formatText("Z_0", Style.SHAPE_SPLITTER));
-        assertEquals("{\\tiny $Z_0$}", gs.formatText("Z_0", Style.WIRE_BITS));
+        assertEquals("{\\scriptsize Grün}", gs.format("Grün", Style.SHAPE_PIN));
+        assertEquals("{\\scriptsize $Z_0$}", gs.format("Z_0", Style.SHAPE_PIN));
+        assertEquals("{\\tiny $Z_0$}", gs.format("Z_0", Style.SHAPE_SPLITTER));
+        assertEquals("{\\tiny $Z_0$}", gs.format("Z_0", Style.WIRE_BITS));
     }
 
     public void testCleanLabel() throws IOException {
@@ -41,7 +41,7 @@ public class GraphicSVGLaTeXTest extends TestCase {
     }
 
     private void check(String orig, String LaTeX) throws IOException {
-        GraphicSVGLaTeX gs = new GraphicSVGLaTeX(System.out, null, 30);
-        assertEquals(LaTeX, gs.formatText(orig, Style.NORMAL));
+        GraphicSVG.TextStyle gs = new TextFormatLaTeX();
+        assertEquals(LaTeX, gs.format(orig, Style.NORMAL));
     }
 }

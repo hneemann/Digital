@@ -14,10 +14,11 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.SingleValueDialog;
+import de.neemann.gui.Screen;
 
 import java.awt.*;
 
@@ -28,6 +29,8 @@ import static de.neemann.digital.draw.shapes.OutputShape.*;
  * The input shape
  */
 public class InputShape implements Shape {
+
+    private static final int SLIDER_HEIGHT = (int) (300 * Screen.getInstance().getScaling());
 
     private final String label;
     private final PinDescriptions outputs;
@@ -70,36 +73,7 @@ public class InputShape implements Shape {
     public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         this.ioState = ioState;
         ioState.getOutput(0).addObserverToValue(guiObserver);
-        return new Interactor() {
-            @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-                ObservableValue value = ioState.getOutput(0);
-                if (value.getBits() == 1) {
-                    modelSync.access(() -> {
-                        if (isHighZ) {
-                            if (value.isHighZ()) {
-                                if (avoidLow)
-                                    value.setValue(1);
-                                else
-                                    value.setValue(0);
-                            } else if (value.getValue() == 0) value.setValue(1);
-                            else value.setToHighZ();
-                        } else
-                            value.setValue(1 - value.getValue());
-                    });
-                    return true;
-                } else {
-                    if (dialog == null || !dialog.isVisible()) {
-                        Model model = ((In) element).getModel();
-                        dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, cc, model);
-                        dialog.setVisible(true);
-                    } else
-                        dialog.requestFocus();
-
-                    return false;
-                }
-            }
-        };
+        return new InputInteractor();
     }
 
     /**
@@ -123,7 +97,7 @@ public class InputShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
-        if (graphic.isFlagSet(Graphic.LATEX)) {
+        if (graphic.isFlagSet(Graphic.Flag.smallIO)) {
             Vector center = new Vector(-LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
             Vector textPos = new Vector(-SIZE2 - LATEX_RAD.x, 0);
@@ -149,6 +123,68 @@ public class InputShape implements Shape {
 
             Vector textPos = new Vector(-OUT_SIZE * 3, 0);
             graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.INOUT);
+        }
+    }
+
+    private class InputInteractor extends Interactor {
+        private boolean isDrag;
+        private Point startPos;
+        private long startValue;
+
+        @Override
+        public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+            ObservableValue value = ioState.getOutput(0);
+            if (value.getBits() == 1) {
+                modelSync.access(() -> {
+                    if (isHighZ) {
+                        if (value.isHighZ()) {
+                            if (avoidLow)
+                                value.setValue(1);
+                            else
+                                value.setValue(0);
+                        } else if (value.getValue() == 0) value.setValue(1);
+                        else value.setToHighZ();
+                    } else
+                        value.setValue(1 - value.getValue());
+                });
+                return true;
+            } else {
+                if (dialog == null || !dialog.isVisible()) {
+                    Model model = ((In) element).getModel();
+                    dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, cc, model);
+                    dialog.setVisible(true);
+                } else
+                    dialog.requestFocus();
+
+                return false;
+            }
+        }
+
+        @Override
+        public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+            isDrag = false;
+            return false;
+        }
+
+        @Override
+        public boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
+            ObservableValue value = ioState.getOutput(0);
+            int bits = value.getBits();
+            if (bits > 1 && !value.isHighZ()) {
+                if (!isDrag) {
+                    isDrag = true;
+                    startPos = posOnScreen;
+                    startValue = value.getValue();
+                } else {
+                    long max = Bits.mask(bits);
+                    int delta = startPos.y - posOnScreen.y;
+                    long v = startValue + (delta * max) / SLIDER_HEIGHT;
+                    long val = Math.max(0, Math.min(v, max));
+                    modelSync.access(() -> value.setValue(val));
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

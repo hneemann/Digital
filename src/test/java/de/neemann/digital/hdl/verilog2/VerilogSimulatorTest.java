@@ -131,7 +131,7 @@ public class VerilogSimulatorTest extends TestCase {
                     .replace('-', '_')+ ".v");
             CodePrinter out = new CodePrinter(srcFile);
             try (VerilogGenerator gen = new VerilogGenerator(br.getLibrary(), out)) {
-                gen.disableClockIntegration().export(br.getCircuit());
+                gen.export(br.getCircuit());
                 ArrayList<File> testFiles = gen.getTestBenches();
                 out.close();
                 runIVerilog(srcFile, testFiles);

@@ -17,8 +17,6 @@ import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.HDLNet;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.boards.BoardInterface;
-import de.neemann.digital.hdl.boards.BoardProvider;
 import de.neemann.digital.lang.Lang;
 
 import java.io.Closeable;
@@ -34,7 +32,6 @@ public class VerilogGenerator implements Closeable {
     private final ElementLibrary library;
     private final CodePrinter out;
     private ArrayList<File> testBenches;
-    private boolean useClockIntegration = true;
     private HDLModel model;
     private HDLClockIntegrator clockIntegrator;
 
@@ -71,11 +68,6 @@ public class VerilogGenerator implements Closeable {
             if (!circuit.getAttributes().get(Keys.ROMMANAGER).isEmpty())
                 throw new HDLException(Lang.get("err_centralDefinedRomsAreNotSupported"));
 
-            BoardInterface board = BoardProvider.getInstance().getBoard(circuit);
-
-            if (board != null && useClockIntegration)
-                clockIntegrator = board.getClockIntegrator();
-
             model = new HDLModel(library).create(circuit, clockIntegrator);
             for (HDLCircuit hdlCircuit : model)
                 hdlCircuit.applyDefaultOptimizations();
@@ -103,9 +95,6 @@ public class VerilogGenerator implements Closeable {
                 testBenches = new VerilogTestBenchCreator(circuit, model, topModuleName)
                         .write(outFile)
                         .getTestFileWritten();
-
-                if (board != null)
-                    board.writeFiles(outFile, model);
             }
 
             return this;
@@ -170,16 +159,5 @@ public class VerilogGenerator implements Closeable {
      */
     public HDLModel getModel() {
         return model;
-    }
-
-    /**
-     * Disables the clock integration.
-     * Used only for the tests.
-     *
-     * @return this for chained calls
-     */
-    public VerilogGenerator disableClockIntegration() {
-        useClockIntegration = false;
-        return this;
     }
 }

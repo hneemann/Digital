@@ -38,7 +38,8 @@ public class In implements Element {
             .addAttribute(Keys.AVOID_ACTIVE_LOW)
             .addAttribute(Keys.DESCRIPTION)
             .addAttribute(Keys.INT_FORMAT)
-            .addAttribute(Keys.PINNUMBER);
+            .addAttribute(Keys.PINNUMBER)
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
 
     private final ObservableValue output;
     private final String label;
@@ -46,6 +47,7 @@ public class In implements Element {
     private final IntFormat format;
     private Model model;
     private ObservableValue input;
+    private boolean showInGraph;
 
     /**
      * Create a new instance
@@ -65,6 +67,7 @@ public class In implements Element {
             output.setValue(value.getValue());
         label = attributes.getLabel();
         format = attributes.get(Keys.INT_FORMAT);
+        showInGraph= attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
     @Override
@@ -83,6 +86,7 @@ public class In implements Element {
         model.addInput(new Signal(label, output, output::set)
                 .setPinNumber(pinNumber)
                 .setBidirectionalReader(input)
+                .setShowInGraph(showInGraph)
                 .setFormat(format));
         this.model = model;
     }

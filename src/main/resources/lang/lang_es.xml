@@ -815,7 +815,6 @@
   <string name="err_vhdlExporting">Error en la exportación a  VHDL.</string>
   <string name="err_vhdlNoEntity_N">¡No hay código VHDL disponible para {0}!</string>
   <string name="err_verilogNoElement_N">¡No hay código Verilog disponible para {0}!</string>
-  <string name="err_vhdlPin_N_hasNoNumber">¡El pin {0} no tiene ningún número!</string>
   <string name="err_vhdlErrorWritingTestBench">¡Error en la creación del módulo de estímulo (test bench)!</string>
   <string name="err_vhdlValuesOfType_N_notAllowed">¡Los valores del tipo {0} no están permitidos!</string>
   <string name="err_vhdlANameIsMissing">Falta un nombre. Por ejemplo: ¿tienen todos los pines una etiqueta?</string>
@@ -1222,8 +1221,6 @@
   <string name="menu_exportPNGLarge">Exportar PNG grande</string>
   <string name="menu_exportPNGSmall">Exportar PNG pequeño</string>
   <string name="menu_exportSVG">Exportar SVG</string>
-  <string name="menu_exportSVGLaTex">Exportar SVG + LaTeX</string>
-  <string name="menu_exportSVGLaTexInOut">Exportar SVG + LaTeX + entradas/salidas pequeñas</string>
   <string name="menu_exportAnimatedGIF">Exportar GIF animado</string>
   <string name="menu_fast">Ejecutar hasta un Break</string>
   <string name="menu_fast_tt">Ejecuta el circuito hasta que un componente BRK detecta un break.</string>

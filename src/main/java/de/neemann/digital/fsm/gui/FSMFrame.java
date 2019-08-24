@@ -223,8 +223,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         }.setAcceleratorCTRLplus('S').setEnabledChain(false);
 
         JMenu export = new JMenu(Lang.get("menu_export"));
-        export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVGIndex::new));
-        export.add(new ExportAction(Lang.get("menu_exportSVGLaTex"), "svg", GraphicSVGLaTeX::new));
+        export.add(new ExportAction(Lang.get("menu_exportSVG"), "svg", GraphicSVG::new));
 
 
         JMenu file = new JMenu(Lang.get("menu_file"));

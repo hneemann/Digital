@@ -829,7 +829,6 @@
   <string name="err_vhdlExporting">Erro ao exportar para VHDL.</string>
   <string name="err_vhdlNoEntity_N">Nenhum código VHDL disponível para {0}!</string>
   <string name="err_verilogNoElement_N">Nenhum código Verilog disponível para {0}!</string>
-  <string name="err_vhdlPin_N_hasNoNumber">Pino {0} sem número!</string>
   <string name="err_vhdlErrorWritingTestBench">Erro ao criar os casos de testes!</string>
   <string name="err_vhdlValuesOfType_N_notAllowed">Valores de tipo {0} não são permitidos!</string>
   <string name="err_vhdlANameIsMissing">Falta nome. Todos os pinos têm rótulos (por exemplo)?</string>
@@ -1289,8 +1288,6 @@
   <string name="menu_exportPNGLarge">Exportar PNG grande</string>
   <string name="menu_exportPNGSmall">Exportar PNG pequeno</string>
   <string name="menu_exportSVG">Exportar SVG</string>
-  <string name="menu_exportSVGLaTex">Exportar SVG + LaTeX</string>
-  <string name="menu_exportSVGLaTexInOut">Exportar SVG + LaTeX + entrada/saídas pequenas</string>
   <string name="menu_exportAnimatedGIF">Exportar GIF animado</string>
   <string name="menu_fast">Executar com interrupção</string>
   <string name="menu_fast_tt">Executará o circuito até que uma interrupção seja detectada por uso de um componente BRK.</string>

@@ -78,7 +78,7 @@ public class RotEncoderShape implements Shape {
             }
 
             @Override
-            public boolean dragged(CircuitComponent cc, Vector pos, Transform trans, IOState ioState, Element element, SyncAccess modelSync) {
+            public boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform trans, IOState ioState, Element element, SyncAccess modelSync) {
                 if (ioState != null) {
                     Vector p = pos.sub(trans.transform(CENTER));
                     final int dist = p.x * p.x + p.y * p.y;

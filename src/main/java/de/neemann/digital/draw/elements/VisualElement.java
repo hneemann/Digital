@@ -228,9 +228,10 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         Graphic gr = new GraphicTransform(graphic, getTransform());
         Shape shape = getShape();
         shape.drawTo(gr, highLight);
-        for (Pin p : shape.getPins())
-            gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN),
-                    p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
+        if (!graphic.isFlagSet(Graphic.Flag.noPinMarker))
+            for (Pin p : shape.getPins())
+                gr.drawCircle(p.getPos().add(-PIN, -PIN), p.getPos().add(PIN, PIN),
+                        p.getDirection() == Pin.Direction.input ? Style.WIRE : Style.WIRE_OUT);
     }
 
     private Transform getTransform() {
@@ -408,7 +409,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      */
     public boolean elementDragged(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
-            return interactor.dragged(cc, posInComponent, getTransform(), ioState, element, modelSync);
+            return interactor.dragged(cc, pos, posInComponent, getTransform(), ioState, element, modelSync);
         else
             return false;
     }

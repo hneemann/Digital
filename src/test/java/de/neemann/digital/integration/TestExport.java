@@ -31,17 +31,9 @@ public class TestExport extends TestCase {
     public void testSVGExport() throws NodeException, PinException, IOException, ElementNotFoundException {
         ByteArrayOutputStream baos
                 = export("../../main/dig/processor/Processor.dig",
-                (out) -> new GraphicSVGIndex(out, null, 15));
+                (out) -> new GraphicSVG(out, null, 15));
 
         assertTrue(baos.size() > 20000);
-    }
-
-    public void testSVGExportLaTeX() throws NodeException, PinException, IOException, ElementNotFoundException {
-        ByteArrayOutputStream baos
-                = export("../../main/dig/processor/Processor.dig",
-                (out) -> new GraphicSVGLaTeX(out, null, 15));
-
-        assertTrue(baos.size() > 15000);
     }
 
     public void testPNGExport() throws NodeException, PinException, IOException, ElementNotFoundException {

@@ -385,6 +385,12 @@ public final class Keys {
             = new Key<>("showDataGraphMicro", false).setSecondary();
 
     /**
+     * Used to add the value to the measurement graph
+     */
+    public static final Key<Boolean> ADD_VALUE_TO_GRAPH
+            = new Key<>("addValueToGraph", true).allowGroupEdit().setSecondary();
+
+    /**
      * flag to enable the single gate mode in the embedded data view
      */
     public static final Key<Boolean> MICRO_STEP

@@ -14,10 +14,11 @@ import java.io.IOException;
  * implementations which create export formats like SVG ({@link GraphicSVG}).
  */
 public interface Graphic extends Closeable {
+
     /**
-     * Flag to enable LaTeX output mode.
+     * The available flags
      */
-    String LATEX = "LaTeX";
+    enum Flag {noShapeFilling, smallIO, hideTest, noPinMarker, thinnerLines}
 
     /**
      * Sets the bounding box of the future usage of this instance
@@ -97,10 +98,10 @@ public interface Graphic extends Closeable {
     /**
      * Returns true if the given flag is set
      *
-     * @param name the flags name
+     * @param flag the flag
      * @return true if the given flag is set
      */
-    default boolean isFlagSet(String name) {
+    default boolean isFlagSet(Flag flag) {
         return false;
     }
 
