@@ -142,6 +142,7 @@ public class InputShape implements Shape {
         private boolean isDrag;
         private Point startPos;
         private long startValue;
+        private long lastValueSet;
 
         @Override
         public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
@@ -186,12 +187,16 @@ public class InputShape implements Shape {
                     isDrag = true;
                     startPos = posOnScreen;
                     startValue = value.getValue();
+                    lastValueSet = startValue;
                 } else {
                     int delta = startPos.y - posOnScreen.y;
                     long v = startValue + (delta * max) / SLIDER_HEIGHT;
                     long val = Math.max(min, Math.min(v, max));
-                    modelSync.access(() -> value.setValue(val));
-                    return true;
+                    if (val != lastValueSet) {
+                        modelSync.access(() -> value.setValue(val));
+                        lastValueSet = val;
+                        return true;
+                    }
                 }
             }
             return false;

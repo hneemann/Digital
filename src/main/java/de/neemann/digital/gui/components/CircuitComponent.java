@@ -1399,6 +1399,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             if (wasMoved(e) || isMoved) {
                 isMoved = true;
                 if (!activeMouseController.dragged(e)) {
+                    // if active mouse controller does not handle the drag, move the circuit instead.
                     Vector newPos = new Vector(e.getX(), e.getY());
                     Vector delta = newPos.sub(pos);
                     double s = transform.getScaleX();
@@ -1451,6 +1452,13 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         void moved(MouseEvent e) {
         }
 
+        /**
+         * Is called if the mouse is dragged.
+         * If this method returns false, the circuit is moved instead.
+         *
+         * @param e the mouse event
+         * @return false is drag is not handled by controller
+         */
         boolean dragged(MouseEvent e) {
             return false;
         }
