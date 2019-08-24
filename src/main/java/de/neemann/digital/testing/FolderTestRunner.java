@@ -193,9 +193,16 @@ public class FolderTestRunner {
                             testCases.add(new TestCase(label, testData));
                         }
                     }
-                    if (testCases.isEmpty())
-                        setMessage(f, i, Lang.get("err_noTestData"), FileToTest.Status.unknown);
-                    else {
+                    if (testCases.isEmpty()) {
+                        // if no test data is available, at least check if the model is error free
+                        try {
+                            new ModelCreator(circuit, library).createModel(false);
+                            // if error free, issue a no test date message
+                            setMessage(f, i, Lang.get("err_noTestData"), FileToTest.Status.unknown);
+                        } catch (Exception e) {
+                            setMessage(f, i, Lang.get("msg_errorCreatingModel"), FileToTest.Status.error);
+                        }
+                    } else {
                         StringBuilder sb = new StringBuilder();
                         int rowCount = 0;
                         for (TestCase tc : testCases) {
