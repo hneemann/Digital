@@ -65,6 +65,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -1878,6 +1879,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
         FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
 
+        if (Screen.isMac()) {
+            setMacCopyPasteTo(UIManager.get("TextField.focusInputMap"));
+            setMacCopyPasteTo(UIManager.get("TextArea.focusInputMap"));
+        }
+
         File file = null;
         for (String s : args) {
             if (s.equals("experimental")) experimental = true;
@@ -1914,6 +1920,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
                 CheckForNewRelease.showReleaseDialog(main);
             });
+        }
+    }
+
+    private static void setMacCopyPasteTo(Object obj) {
+        if (obj instanceof InputMap) {
+            InputMap im = (InputMap) obj;
+            im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.META_DOWN_MASK), DefaultEditorKit.copyAction);
+            im.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.META_DOWN_MASK), DefaultEditorKit.pasteAction);
+            im.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.META_DOWN_MASK), DefaultEditorKit.cutAction);
         }
     }
 
