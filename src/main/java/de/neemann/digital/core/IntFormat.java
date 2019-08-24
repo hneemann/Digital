@@ -6,6 +6,7 @@
 package de.neemann.digital.core;
 
 /**
+ *
  */
 public enum IntFormat {
     /**
@@ -149,5 +150,12 @@ public enum IntFormat {
             mask <<= 1;
         }
         return new String(data);
+    }
+
+    /**
+     * @return true if the format supports signed values
+     */
+    public boolean isSigned() {
+        return this.equals(decSigned);
     }
 }

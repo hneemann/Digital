@@ -37,6 +37,9 @@ public class InputShape implements Shape {
     private final IntFormat format;
     private final boolean isHighZ;
     private final boolean avoidLow;
+    private final long min;
+    private final long max;
+    private final int bits;
     private IOState ioState;
     private SingleValueDialog dialog;
     private Value value;
@@ -62,6 +65,15 @@ public class InputShape implements Shape {
         isHighZ = attr.get(Keys.INPUT_DEFAULT).isHighZ() || attr.get(Keys.IS_HIGH_Z);
 
         avoidLow = isHighZ && attr.get(Keys.AVOID_ACTIVE_LOW);
+
+        bits = attr.getBits();
+        if (format.isSigned()) {
+            max = Bits.mask(bits) >> 1;
+            min = -max - 1;
+        } else {
+            min = 0;
+            max = Bits.mask(bits);
+        }
     }
 
     @Override
@@ -134,7 +146,7 @@ public class InputShape implements Shape {
         @Override
         public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
-            if (value.getBits() == 1) {
+            if (bits == 1) {
                 modelSync.access(() -> {
                     if (isHighZ) {
                         if (value.isHighZ()) {
@@ -169,17 +181,15 @@ public class InputShape implements Shape {
         @Override
         public boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
-            int bits = value.getBits();
             if (bits > 1 && !value.isHighZ()) {
                 if (!isDrag) {
                     isDrag = true;
                     startPos = posOnScreen;
                     startValue = value.getValue();
                 } else {
-                    long max = Bits.mask(bits);
                     int delta = startPos.y - posOnScreen.y;
                     long v = startValue + (delta * max) / SLIDER_HEIGHT;
-                    long val = Math.max(0, Math.min(v, max));
+                    long val = Math.max(min, Math.min(v, max));
                     modelSync.access(() -> value.setValue(val));
                     return true;
                 }
