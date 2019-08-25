@@ -16,7 +16,6 @@ import java.io.File;
  */
 public class Key<VALUE> {
     private final String key;
-    private final VALUE def;
     private final DefaultFactory<VALUE> defFactory;
     private final String langKey;
     private boolean groupEditAllowed = false;
@@ -38,12 +37,9 @@ public class Key<VALUE> {
      * @param def the default value
      */
     public Key(String key, VALUE def) {
-        this.key = key;
-        langKey = "key_" + key.replace(" ", "");
+        this(key, () -> def);
         if (def == null)
             throw new NullPointerException();
-        this.def = def;
-        this.defFactory = null;
     }
 
     /**
@@ -58,7 +54,6 @@ public class Key<VALUE> {
         langKey = "key_" + key.replace(" ", "");
         if (defFactory == null)
             throw new NullPointerException();
-        this.def = null;
         this.defFactory = defFactory;
     }
 
@@ -87,10 +82,7 @@ public class Key<VALUE> {
      * @return the default value of this key
      */
     public VALUE getDefault() {
-        if (def != null)
-            return def;
-        else
-            return defFactory.createDefault();
+        return defFactory.createDefault();
     }
 
     /**
