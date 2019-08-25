@@ -17,7 +17,7 @@ import java.io.File;
 public class Key<VALUE> {
     private final String key;
     private final VALUE def;
-    private final Default<VALUE> defFactory;
+    private final DefaultFactory<VALUE> defFactory;
     private final String langKey;
     private boolean groupEditAllowed = false;
     private Key dependsOn;
@@ -53,7 +53,7 @@ public class Key<VALUE> {
      * @param key        the key
      * @param defFactory the factory to create a default value
      */
-    public Key(String key, Default<VALUE> defFactory) {
+    public Key(String key, DefaultFactory<VALUE> defFactory) {
         this.key = key;
         langKey = "key_" + key.replace(" ", "");
         if (defFactory == null)
@@ -518,7 +518,7 @@ public class Key<VALUE> {
      *
      * @param <VALUE> the type of the value
      */
-    public interface Default<VALUE> {
+    public interface DefaultFactory<VALUE> {
         /**
          * Called to create a new default value.
          *
