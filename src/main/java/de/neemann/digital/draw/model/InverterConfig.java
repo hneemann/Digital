@@ -15,29 +15,12 @@ import java.util.Objects;
 /**
  * Manages the input inverting of a component
  */
-public class InverterConfig implements HGSMap {
+public final class InverterConfig implements HGSMap {
 
     private HashSet<String> inputs;
 
-    /**
-     * Creates a new instance.
-     * No input is inverted.
-     */
-    public InverterConfig() {
-        inputs = null;
-    }
-
-    /**
-     * Adds a signal to invert
-     *
-     * @param name the signale
-     * @return this for chained calls
-     */
-    public InverterConfig add(String name) {
-        if (inputs == null)
-            inputs = new HashSet<>();
-        inputs.add(name);
-        return this;
+    private InverterConfig(HashSet<String> inputs) {
+        this.inputs = inputs;
     }
 
     /**
@@ -128,5 +111,36 @@ public class InverterConfig implements HGSMap {
             return false;
 
         return inputs.contains(key);
+    }
+
+    /**
+     * Builder to create InverterConfig instances
+     */
+    public static class Builder {
+
+        private HashSet<String> inputs;
+
+        /**
+         * Adds a signal to invert
+         *
+         * @param name the signale
+         * @return this for chained calls
+         */
+        public Builder add(String name) {
+            if (inputs == null)
+                inputs = new HashSet<>();
+            inputs.add(name);
+            return this;
+        }
+
+        /**
+         * Creats the instance
+         *
+         * @return the created instance
+         */
+        public InverterConfig build() {
+            return new InverterConfig(inputs);
+        }
+
     }
 }

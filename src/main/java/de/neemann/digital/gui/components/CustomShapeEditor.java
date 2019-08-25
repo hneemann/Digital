@@ -52,7 +52,7 @@ public class CustomShapeEditor extends EditorFactory.LabelEditor<CustomShapeDesc
         clear = new ToolTipAction(Lang.get("btn_clearData")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                customShapeDescription = CustomShapeDescription.EMPTY;
+                customShapeDescription = new CustomShapeDescription.Builder().build();
             }
         };
         panel.add(clear.createJButton());

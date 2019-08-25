@@ -206,7 +206,7 @@ public class ROMEditorDialog extends JDialog {
             for (RomHolder rh : romlist)
                 rm.addRom(rh.ri.getLabel(), rh.data);
 
-            return rm.getMinimized();
+            return rm;
         }
     }
 

@@ -10,15 +10,12 @@ import de.neemann.digital.core.Node;
 import de.neemann.digital.core.memory.DataField;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * The Manager to manage all necessary rom images
  */
 public class ROMManger {
-    /**
-     * The empty instance
-     */
-    public static final ROMManger EMPTY = new ROMManger();
 
     private final HashMap<String, DataField> roms;
 
@@ -35,6 +32,8 @@ public class ROMManger {
      * @param model the mode to use
      */
     public void applyTo(Model model) {
+        if (roms == null)
+            return;
         for (Node n : model.findNode(n -> n instanceof ROMInterface)) {
             ROMInterface rom = (ROMInterface) n;
             DataField data = roms.get(rom.getLabel());
@@ -66,18 +65,22 @@ public class ROMManger {
     }
 
     /**
-     * @return returns EMPTY it this ROMManager is empty, this otherwise
-     */
-    public ROMManger getMinimized() {
-        if (roms.isEmpty())
-            return EMPTY;
-        return this;
-    }
-
-    /**
      * @return true if no ROM's are stored
      */
     public boolean isEmpty() {
         return roms.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ROMManger romManger = (ROMManger) o;
+        return Objects.equals(roms, romManger.roms);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roms);
     }
 }

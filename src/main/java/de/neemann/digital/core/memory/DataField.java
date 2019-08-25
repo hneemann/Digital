@@ -17,14 +17,16 @@ import java.util.Arrays;
  */
 public class DataField implements HGSArray {
 
-    /***
-     * Simple default data field
-     */
-    public static final DataField DEFAULT = new DataField(0);
-
     private long[] data;
 
     private final transient ArrayList<DataListener> listeners = new ArrayList<>();
+
+    /**
+     * Creates a new DataField of size 0
+     */
+    public DataField() {
+        this(0);
+    }
 
     /**
      * Creates a new DataField
@@ -175,6 +177,13 @@ public class DataField implements HGSArray {
     }
 
     /**
+     * @return true if the data field is empty
+     */
+    public boolean isEmpty() {
+        return trim() == 0;
+    }
+
+    /**
      * Adds a listener to this DataField
      *
      * @param l the listener
@@ -246,5 +255,18 @@ public class DataField implements HGSArray {
      */
     public long[] getData() {
         return data;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataField dataField = (DataField) o;
+        return Arrays.equals(data, dataField.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(data);
     }
 }

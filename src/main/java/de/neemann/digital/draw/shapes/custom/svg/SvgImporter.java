@@ -67,9 +67,10 @@ public class SvgImporter {
         NodeList gList = svg.getElementsByTagName("svg").item(0).getChildNodes();
         Context c = new Context();
         try {
-            CustomShapeDescription csd = new CustomShapeDescription();
-            create(csd, gList, c);
+            CustomShapeDescription.Builder builder = new CustomShapeDescription.Builder();
+            create(builder, gList, c);
 
+            CustomShapeDescription csd = builder.build();
             if (csd.getPinCount() > 0) {
                 float xMin = Float.MAX_VALUE;
                 float yMin = Float.MAX_VALUE;
@@ -86,7 +87,7 @@ public class SvgImporter {
         }
     }
 
-    private void create(CustomShapeDescription csd, NodeList gList, Context c) throws SvgException {
+    private void create(CustomShapeDescription.Builder csd, NodeList gList, Context c) throws SvgException {
         for (int i = 0; i < gList.getLength(); i++) {
             final Node node = gList.item(i);
             if (node instanceof Element) {
@@ -99,7 +100,7 @@ public class SvgImporter {
         }
     }
 
-    private void create(CustomShapeDescription csd, Element element, Context parent) throws SvgException {
+    private void create(CustomShapeDescription.Builder csd, Element element, Context parent) throws SvgException {
         Context c = new Context(parent, element);
         switch (element.getNodeName()) {
             case "a":
@@ -150,19 +151,19 @@ public class SvgImporter {
         }
     }
 
-    private void drawTransformedPolygon(CustomShapeDescription csd, Context c, Polygon polygon) {
+    private void drawTransformedPolygon(CustomShapeDescription.Builder csd, Context c, Polygon polygon) {
         if (polygon != null)
             drawPolygon(csd, c, polygon.transform(c.getTransform()));
     }
 
-    private void drawPolygon(CustomShapeDescription csd, Context c, Polygon polygon) {
+    private void drawPolygon(CustomShapeDescription.Builder csd, Context c, Polygon polygon) {
         if (c.getFilled() != null && polygon.isClosed())
             csd.addPolygon(polygon, c.getThickness(), c.getFilled(), true);
         if (c.getStroke() != null)
             csd.addPolygon(polygon, c.getThickness(), c.getStroke(), false);
     }
 
-    private void drawRect(CustomShapeDescription csd, Element element, Context c) {
+    private void drawRect(CustomShapeDescription.Builder csd, Element element, Context c) {
         VectorInterface size = new VectorFloat(c.getLength(element.getAttribute("width")), c.getLength(element.getAttribute("height")));
         VectorInterface pos = new VectorFloat(c.getLength(element.getAttribute("x")), c.getLength(element.getAttribute("y")));
         String rxStr = element.getAttribute("rx");
@@ -213,7 +214,7 @@ public class SvgImporter {
         drawPolygon(csd, c, polygon);
     }
 
-    private void drawCircle(CustomShapeDescription csd, Element element, Context c) {
+    private void drawCircle(CustomShapeDescription.Builder csd, Element element, Context c) {
         if (element.hasAttribute("id")) {
             VectorInterface pos = c.v(c.getLength(element.getAttribute("cx")), c.getLength(element.getAttribute("cy")));
             String id = element.getAttribute("id");
@@ -279,7 +280,7 @@ public class SvgImporter {
         return new Vector(Math.round(pos.getXFloat() / SIZE) * SIZE, Math.round(pos.getYFloat() / SIZE) * SIZE);
     }
 
-    private void drawText(CustomShapeDescription csd, Context c, Element element) throws SvgException {
+    private void drawText(CustomShapeDescription.Builder csd, Context c, Element element) throws SvgException {
         VectorFloat p = new VectorFloat(c.getLength(element.getAttribute("x")), c.getLength(element.getAttribute("y")));
         VectorInterface pos0 = p.transform(c.getTransform());
         VectorInterface pos1 = p.add(new VectorFloat(1, 0)).transform(c.getTransform());
@@ -290,7 +291,7 @@ public class SvgImporter {
             drawTextElement(csd, c, element, pos0, pos1);
     }
 
-    private void drawTextElement(CustomShapeDescription csd, Context c, Element element, VectorInterface pos0, VectorInterface pos1) throws SvgException {
+    private void drawTextElement(CustomShapeDescription.Builder csd, Context c, Element element, VectorInterface pos0, VectorInterface pos1) throws SvgException {
         NodeList nodes = element.getElementsByTagName("*");
         if (nodes.getLength() == 0) {
             String text = element.getTextContent();

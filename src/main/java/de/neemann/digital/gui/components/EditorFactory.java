@@ -1010,12 +1010,12 @@ public final class EditorFactory {
         }
 
         private InverterConfig getInverterConfig() {
-            InverterConfig ic = new InverterConfig();
+            InverterConfig.Builder ic = new InverterConfig.Builder();
             for (JCheckBox cb : boxes) {
                 if (cb.isSelected())
                     ic.add(cb.getText());
             }
-            return ic;
+            return ic.build();
         }
     }
 
