@@ -7,6 +7,7 @@ package de.neemann.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Action to handle tool tips.
@@ -83,7 +84,10 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return this for call chaining
      */
     public ToolTipAction setAcceleratorCTRLplus(char key) {
-        return setAccelerator(KeyStroke.getKeyStroke(key, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        int mask = KeyEvent.CTRL_DOWN_MASK;
+        if (Screen.isMac())
+            mask= KeyEvent.META_DOWN_MASK;
+        return setAccelerator(KeyStroke.getKeyStroke(key, mask));
     }
 
     /**
