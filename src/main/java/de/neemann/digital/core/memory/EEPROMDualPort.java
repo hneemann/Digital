@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.core.memory;
 
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.ModelEvent;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
@@ -33,6 +35,9 @@ public class EEPROMDualPort extends RAMDualPort implements ROMInterface {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DATA);
 
+    private final ElementAttributes attr;
+    private DataField memory;
+
     /**
      * Creates a new instance
      *
@@ -40,11 +45,21 @@ public class EEPROMDualPort extends RAMDualPort implements ROMInterface {
      */
     public EEPROMDualPort(ElementAttributes attr) {
         super(attr);
+        this.attr = attr;
     }
 
     @Override
     protected DataField createDataField(ElementAttributes attr, int size) {
-        return attr.get(Keys.DATA);
+        memory = attr.get(Keys.DATA);
+        return memory;
+    }
+
+    @Override
+    public void registerNodes(Model model) {
+        super.registerNodes(model);
+
+        if (memory.isEmpty())
+            model.addObserver(event -> attr.set(Keys.DATA, memory), ModelEvent.STOPPED);
     }
 
 }

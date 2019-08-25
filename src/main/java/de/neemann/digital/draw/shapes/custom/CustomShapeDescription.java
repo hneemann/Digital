@@ -24,95 +24,19 @@ import java.util.Iterator;
 /**
  * Is intended to be stored in a file.
  */
-public class CustomShapeDescription implements Iterable<CustomShapeDescription.Holder> {
-    /**
-     * The default empty shape instance
-     */
-    public static final CustomShapeDescription EMPTY = new CustomShapeDescription();
+public final class CustomShapeDescription implements Iterable<CustomShapeDescription.Holder> {
 
-    private HashMap<String, Pin> pins;
-    private ArrayList<Holder> drawables;
-    private TextHolder label;
+    private final HashMap<String, Pin> pins;
+    private final ArrayList<Holder> drawables;
+    private final TextHolder label;
 
     /**
      * Creates a new instance
      */
-    public CustomShapeDescription() {
-        pins = new HashMap<>();
-        drawables = new ArrayList<>();
-    }
-
-    /**
-     * Adds a pin to this shape description
-     *
-     * @param name      the name of the pin
-     * @param pos       the pins position
-     * @param showLabel if true the label of the pin is shown
-     * @return this for chained calls
-     */
-    public CustomShapeDescription addPin(String name, Vector pos, boolean showLabel) {
-        pins.put(name, new Pin(pos, showLabel));
-        return this;
-    }
-
-
-    /**
-     * Adds a polygon to the shape
-     *
-     * @param p1        starting point of the line
-     * @param p2        ending point of the line
-     * @param thickness the line thickness
-     * @param color     the color to use
-     * @return this for chained calls
-     */
-    public CustomShapeDescription addLine(Vector p1, Vector p2, int thickness, Color color) {
-        drawables.add(new LineHolder(p1, p2, thickness, color));
-        return this;
-    }
-
-    /**
-     * Adds a circle to the shape
-     *
-     * @param p1        upper left corner of the circles bounding box
-     * @param p2        lower right corner of the circles bounding box
-     * @param thickness the line thickness
-     * @param color     the color to use
-     * @param filled    true if filled
-     * @return this for chained calls
-     */
-    public CustomShapeDescription addCircle(Vector p1, Vector p2, int thickness, Color color, boolean filled) {
-        drawables.add(new CircleHolder(p1, p2, thickness, color, filled));
-        return this;
-    }
-
-    /**
-     * Adds a polygon to the shape
-     *
-     * @param poly      the polygon to add
-     * @param thickness the line thickness
-     * @param color     the color to use
-     * @param filled    true if filled
-     * @return this for chained calls
-     */
-    public CustomShapeDescription addPolygon(Polygon poly, int thickness, Color color, boolean filled) {
-        drawables.add(new PolygonHolder(poly, thickness, filled, color));
-        return this;
-    }
-
-    /**
-     * Adds a text to the shape
-     *
-     * @param p1          position
-     * @param p2          second position to determin the base line orientation
-     * @param text        the text to draw
-     * @param orientation the orientation of the text
-     * @param size        the font size
-     * @param color       the text color
-     * @return this for chained calls
-     */
-    public CustomShapeDescription addText(Vector p1, Vector p2, String text, Orientation orientation, int size, Color color) {
-        drawables.add(new TextHolder(p1, p2, text, orientation, size, color));
-        return this;
+    private CustomShapeDescription(HashMap<String, Pin> pins, ArrayList<Holder> drawables, TextHolder label) {
+        this.pins = pins;
+        this.drawables = drawables;
+        this.label = label;
     }
 
     /**
@@ -156,19 +80,6 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
     }
 
     /**
-     * Sets the label positioning info.
-     *
-     * @param pos0            pos0
-     * @param pos1            pos1
-     * @param textOrientation textOrientation
-     * @param fontSize        fontSize
-     * @param filled          filled
-     */
-    public void setLabel(Vector pos0, Vector pos1, Orientation textOrientation, int fontSize, Color filled) {
-        label = new TextHolder(pos0, pos1, "", textOrientation, fontSize, filled);
-    }
-
-    /**
      * @return the TextHolder used to draw the label, maybe null
      */
     public TextHolder getLabel() {
@@ -180,6 +91,13 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
      */
     public Collection<Pin> getPins() {
         return pins.values();
+    }
+
+    /**
+     * @return true if shape is empty
+     */
+    public boolean isEmpty() {
+        return drawables.isEmpty() && pins.isEmpty();
     }
 
     /**
@@ -199,6 +117,26 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
         int pinsNum = outputNames.size() + inputNames.length;
         if (pinsNum != pins.size())
             throw new PinException(Lang.get("err_morePinsDefinedInSVGAsNeeded"));
+    }
+
+    /*
+     * Two CustomShapeDescriptions are equal if and only if they are both empty!
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CustomShapeDescription customShapeDescription = (CustomShapeDescription) o;
+
+        return customShapeDescription.isEmpty() && isEmpty();
+    }
+
+    @Override
+    public int hashCode() {
+        if (isEmpty())
+            return 0;
+        return super.hashCode();
     }
 
     private interface Transformable {
@@ -422,5 +360,118 @@ public class CustomShapeDescription implements Iterable<CustomShapeDescription.H
         public void transform(Transform tr) {
             pos = pos.transform(tr).round();
         }
+    }
+
+    /**
+     * Used to build a custom shape description
+     */
+    public static final class Builder {
+        private final HashMap<String, Pin> pins;
+        private final ArrayList<Holder> drawables;
+        private TextHolder label;
+
+        /**
+         * Creates a new builder
+         */
+        public Builder() {
+            pins = new HashMap<>();
+            drawables = new ArrayList<>();
+        }
+
+        /**
+         * Sets the label positioning info.
+         *
+         * @param pos0            pos0
+         * @param pos1            pos1
+         * @param textOrientation textOrientation
+         * @param fontSize        fontSize
+         * @param filled          filled
+         * @return this for chained calls
+         */
+        public Builder setLabel(Vector pos0, Vector pos1, Orientation textOrientation, int fontSize, Color filled) {
+            label = new TextHolder(pos0, pos1, "", textOrientation, fontSize, filled);
+            return this;
+        }
+
+        /**
+         * Adds a pin to this shape description
+         *
+         * @param name      the name of the pin
+         * @param pos       the pins position
+         * @param showLabel if true the label of the pin is shown
+         * @return this for chained calls
+         */
+        public Builder addPin(String name, Vector pos, boolean showLabel) {
+            pins.put(name, new Pin(pos, showLabel));
+            return this;
+        }
+
+
+        /**
+         * Adds a polygon to the shape
+         *
+         * @param p1        starting point of the line
+         * @param p2        ending point of the line
+         * @param thickness the line thickness
+         * @param color     the color to use
+         * @return this for chained calls
+         */
+        public Builder addLine(Vector p1, Vector p2, int thickness, Color color) {
+            drawables.add(new LineHolder(p1, p2, thickness, color));
+            return this;
+        }
+
+        /**
+         * Adds a circle to the shape
+         *
+         * @param p1        upper left corner of the circles bounding box
+         * @param p2        lower right corner of the circles bounding box
+         * @param thickness the line thickness
+         * @param color     the color to use
+         * @param filled    true if filled
+         * @return this for chained calls
+         */
+        public Builder addCircle(Vector p1, Vector p2, int thickness, Color color, boolean filled) {
+            drawables.add(new CircleHolder(p1, p2, thickness, color, filled));
+            return this;
+        }
+
+        /**
+         * Adds a polygon to the shape
+         *
+         * @param poly      the polygon to add
+         * @param thickness the line thickness
+         * @param color     the color to use
+         * @param filled    true if filled
+         * @return this for chained calls
+         */
+        public Builder addPolygon(Polygon poly, int thickness, Color color, boolean filled) {
+            drawables.add(new PolygonHolder(poly, thickness, filled, color));
+            return this;
+        }
+
+        /**
+         * Adds a text to the shape
+         *
+         * @param p1          position
+         * @param p2          second position to determin the base line orientation
+         * @param text        the text to draw
+         * @param orientation the orientation of the text
+         * @param size        the font size
+         * @param color       the text color
+         * @return this for chained calls
+         */
+        public Builder addText(Vector p1, Vector p2, String text, Orientation orientation, int size, Color color) {
+            drawables.add(new TextHolder(p1, p2, text, orientation, size, color));
+            return this;
+        }
+
+        /**
+         * @return the {@link CustomShapeDescription}
+         */
+        public CustomShapeDescription build() {
+            return new CustomShapeDescription(pins, drawables, label);
+        }
+
     }
 }

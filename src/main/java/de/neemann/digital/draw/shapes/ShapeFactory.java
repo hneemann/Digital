@@ -212,7 +212,7 @@ public final class ShapeFactory {
                                 return new LayoutShape(customDescr, elementAttributes);
                             case CUSTOM:
                                 final CustomShapeDescription customShapeDescription = customDescr.getAttributes().get(Keys.CUSTOM_SHAPE);
-                                if (customShapeDescription != CustomShapeDescription.EMPTY)
+                                if (!customShapeDescription.isEmpty())
                                     return new CustomShape(customShapeDescription, elementAttributes.getLabel(),
                                             pt.getInputDescription(elementAttributes),
                                             pt.getOutputDescriptions(elementAttributes));

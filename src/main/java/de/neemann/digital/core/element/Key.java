@@ -17,20 +17,22 @@ import java.io.File;
 public class Key<VALUE> {
     private final String key;
     private final VALUE def;
+    private final Default<VALUE> defFactory;
     private final String langKey;
     private boolean groupEditAllowed = false;
     private Key dependsOn;
     private CheckEnabled checkEnabled;
+    private boolean isSecondary;
+    private boolean requiresRestart = false;
 
     // Both values are always null in digital.
     // Both are only used within a custom implemented component.
     private String name;
     private String description;
-    private boolean isSecondary;
-    private boolean requiresRestart = false;
 
     /**
-     * Creates a new Key
+     * Creates a new Key.
+     * Use this constructor only if the def value is not mutable!
      *
      * @param key the key
      * @param def the default value
@@ -41,6 +43,23 @@ public class Key<VALUE> {
         if (def == null)
             throw new NullPointerException();
         this.def = def;
+        this.defFactory = null;
+    }
+
+    /**
+     * Creates a new Key.
+     * Use this constructor if the def value is mutable!
+     *
+     * @param key        the key
+     * @param defFactory the factory to create a default value
+     */
+    public Key(String key, Default<VALUE> defFactory) {
+        this.key = key;
+        langKey = "key_" + key.replace(" ", "");
+        if (defFactory == null)
+            throw new NullPointerException();
+        this.def = null;
+        this.defFactory = defFactory;
     }
 
     /**
@@ -68,14 +87,17 @@ public class Key<VALUE> {
      * @return the default value of this key
      */
     public VALUE getDefault() {
-        return def;
+        if (def != null)
+            return def;
+        else
+            return defFactory.createDefault();
     }
 
     /**
      * @return The values class
      */
     public Class getValueClass() {
-        return def.getClass();
+        return getDefault().getClass();
     }
 
     @Override
@@ -489,5 +511,19 @@ public class Key<VALUE> {
          * @return true if editor is enabled
          */
         boolean isEnabled(T t);
+    }
+
+    /**
+     * Used to provide a default value if the value is mutable.
+     *
+     * @param <VALUE> the type of the value
+     */
+    public interface Default<VALUE> {
+        /**
+         * Called to create a new default value.
+         *
+         * @return the default value
+         */
+        VALUE createDefault();
     }
 }

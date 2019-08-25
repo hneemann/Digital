@@ -17,12 +17,6 @@ import java.util.ArrayList;
  * The test data.
  */
 public class TestCaseDescription {
-
-    /**
-     * the default instance
-     */
-    public static final TestCaseDescription DEFAULT = new TestCaseDescription("");
-
     private String dataString;
     private transient LineEmitter lines;
     private transient ArrayList<String> names;
