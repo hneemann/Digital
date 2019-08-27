@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
