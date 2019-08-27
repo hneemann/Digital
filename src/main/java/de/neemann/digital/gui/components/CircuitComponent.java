@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Observer;
@@ -1126,12 +1127,42 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     attributeDialog.disableOk();
 
                 ElementAttributes modified = attributeDialog.showDialog();
-                if (modified != null && !locked)
-                    modify(new ModifyAttributes(element, modified));
+                if (modified != null && !locked) {
+                    Modification<Circuit> mod = new ModifyAttributes(element, modified);
+                    modify(checkNetRename(element, modified, mod));
+                }
             }
         } catch (ElementNotFoundException ex) {
             // do nothing if element not found!
         }
+    }
+
+    private Modification<Circuit> checkNetRename(VisualElement element, ElementAttributes modified, Modification<Circuit> mod) {
+        String oldName = element.getElementAttributes().get(Keys.NETNAME);
+        if (element.equalsDescription(Tunnel.DESCRIPTION) && modified.contains(Keys.NETNAME) && !oldName.isEmpty()) {
+            ArrayList<VisualElement> others = new ArrayList<>();
+            for (VisualElement el : getCircuit().getElements())
+                if (el != element
+                        && el.equalsDescription(Tunnel.DESCRIPTION)
+                        && el.getElementAttributes().get(Keys.NETNAME).equals(oldName)) {
+                    others.add(el);
+                }
+            if (others.size() > 0) {
+                String newName = modified.get(Keys.NETNAME);
+                int res = JOptionPane.showConfirmDialog(this,
+                        Lang.get("msg_renameNet_N_OLD_NEW", others.size(), oldName, newName),
+                        Lang.get("msg_renameNet"),
+                        JOptionPane.YES_NO_OPTION);
+                if (res == JOptionPane.YES_OPTION) {
+                    Modifications.Builder<Circuit> b =
+                            new Modifications.Builder<Circuit>(Lang.get("msg_renameNet")).add(mod);
+                    for (VisualElement o : others)
+                        b.add(new ModifyAttribute<>(o, Keys.NETNAME, newName));
+                    return b.build();
+                }
+            }
+        }
+        return mod;
     }
 
     @Override
