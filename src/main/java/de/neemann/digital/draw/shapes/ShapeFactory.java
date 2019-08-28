@@ -19,6 +19,7 @@ import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
+import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.draw.library.JarComponentManager;
@@ -33,6 +34,9 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 
 import java.util.HashMap;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * Used to create a shape matching a given name
@@ -79,7 +83,7 @@ public final class ShapeFactory {
                     (attributes, inputs, outputs) -> {
                         final boolean ws = attributes.get(Keys.WIDE_SHAPE);
                         return new GenericShape(ws ? "1" : "", inputs, outputs)
-                                .setTopBottomBorder(ws ? GenericShape.SIZE : GenericShape.SIZE2)
+                                .setTopBottomBorder(ws ? SIZE : SIZE2)
                                 .invert(true)
                                 .setWide(ws);
                     });
@@ -224,6 +228,7 @@ public final class ShapeFactory {
                                         elementAttributes.getLabel(),
                                         true,
                                         customDescr.getAttributes().get(Keys.WIDTH))
+                                        .setTopBottomBorder(SIZE2 + Style.MAXLINETHICK)
                                         .setColor(customDescr.getAttributes().get(Keys.BACKGROUND_COLOR));
                         }
                     } else {

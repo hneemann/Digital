@@ -206,15 +206,9 @@ public class GenericShape implements Shape {
 
         if (symmetric && inputs.size() > 0 && ((inputs.size() & 1) == 0)) yBottom += SIZE;
 
-        int top = topBottomBorder;
-        if (outputs.size() > 1) {
-            top += 3;
-            yBottom += 3;
-        }
-
         Polygon polygon = new Polygon(true)
-                .add(1, -top)
-                .add(SIZE * width - 1, -top)
+                .add(1, -topBottomBorder)
+                .add(SIZE * width - 1, -topBottomBorder)
                 .add(SIZE * width - 1, yBottom)
                 .add(1, yBottom);
 
@@ -231,7 +225,7 @@ public class GenericShape implements Shape {
         }
 
         if (label != null) {
-            Vector pos = new Vector(SIZE2 * width, -top - 8);
+            Vector pos = new Vector(SIZE2 * width, -topBottomBorder - 8);
             graphic.drawText(pos, pos.add(1, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
         }
 
@@ -256,7 +250,7 @@ public class GenericShape implements Shape {
         }
         if (name.length() > 0) {
             if (name.length() <= 3 && !showPinLabels) {
-                Vector pos = new Vector(SIZE2 * width, -top + 4);
+                Vector pos = new Vector(SIZE2 * width, -topBottomBorder + 4);
                 graphic.drawText(pos, pos.add(1, 0), name, Orientation.CENTERTOP, Style.NORMAL);
             } else {
                 Vector pos = new Vector(SIZE2 * width, yBottom + 4);
