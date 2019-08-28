@@ -1364,6 +1364,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_exportSVGSettings">SVG Exporteinstellungen</string>
     <string name="key_SVG_LaTeX">Text im LaTeX-Format</string>
     <string name="key_SVG_LaTeX_tt">Text wird in LaTeX-Notation eingefügt. Inkscape ist für die Weiterverabeitung erforderlich.</string>
+    <string name="key_SVG_pinsInMathMode">Pin-Labels im Math-Mode</string>
+    <string name="key_SVG_pinsInMathMode_tt">Für Pin-Labels auch dann den Math-Mode verwenden, wenn keine Indizes enthalten sind.</string>
     <string name="key_SVG_hideTest">Testfälle verbergen</string>
     <string name="key_SVG_hideTest__">Die Testfälle werden nicht mit exportiert.</string>
     <string name="key_SVG_noShapeFilling">Polygone nicht ausfüllen</string>

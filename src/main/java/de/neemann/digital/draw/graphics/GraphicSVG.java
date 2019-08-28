@@ -32,10 +32,19 @@ public class GraphicSVG implements Graphic {
      * @param out the stream
      */
     public GraphicSVG(OutputStream out) {
+        this(out, SVGSettings.getInstance().getAttributes());
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param out the stream
+     * @param a   the attributes
+     */
+    public GraphicSVG(OutputStream out, ElementAttributes a) {
         this(out, null, DEF_SCALE);
-        ElementAttributes a = SVGSettings.getInstance().getAttributes();
         if (a.get(SVGSettings.LATEX))
-            setTextStyle(new TextFormatLaTeX());
+            setTextStyle(new TextFormatLaTeX(a.get(SVGSettings.PINS_IN_MATH_MODE)));
         if (a.get(SVGSettings.HIGH_CONTRAST))
             setColorStyle(new ColorStyleHighContrast());
         if (a.get(SVGSettings.SMALL_IO))

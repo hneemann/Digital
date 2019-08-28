@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class GraphicSVGLaTeXTest extends TestCase {
     public void testFormatText() throws Exception {
-        GraphicSVG.TextStyle gs = new TextFormatLaTeX();
+        GraphicSVG.TextStyle gs = new TextFormatLaTeX(false);
 
         assertEquals("$Z_0$", gs.format("$Z_0$", Style.NORMAL));
         assertEquals("$Z_{in}$", gs.format("$Z_{in}$", Style.NORMAL));
@@ -41,7 +41,7 @@ public class GraphicSVGLaTeXTest extends TestCase {
     }
 
     private void check(String orig, String LaTeX) throws IOException {
-        GraphicSVG.TextStyle gs = new TextFormatLaTeX();
+        GraphicSVG.TextStyle gs = new TextFormatLaTeX(false);
         assertEquals(LaTeX, gs.format(orig, Style.NORMAL));
     }
 }

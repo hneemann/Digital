@@ -19,6 +19,16 @@ import java.util.ArrayList;
  */
 public class TextFormatLaTeX implements GraphicSVG.TextStyle {
     private static final ArrayList<FontSize> FONT_SIZES = new ArrayList<>();
+    private boolean pinStyleInMathMode;
+
+    /**
+     * Creates a new instance.
+     *
+     * @param pinStyleInMathMode if true pin lables are set in math mode
+     */
+    public TextFormatLaTeX(boolean pinStyleInMathMode) {
+        this.pinStyleInMathMode = pinStyleInMathMode;
+    }
 
     private static final class FontSize {
 
@@ -65,7 +75,7 @@ public class TextFormatLaTeX implements GraphicSVG.TextStyle {
     public String format(String text, Style style) {
         try {
             Text t = new Parser(text).parse();
-            if (style.getFontStyle() == Font.ITALIC)
+            if (style.getFontStyle() == Font.ITALIC || (style == Style.SHAPE_PIN && pinStyleInMathMode))
                 t = Decorate.math(t);
             text = LaTeXFormatter.format(t);
         } catch (ParseException e) {

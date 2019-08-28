@@ -32,6 +32,8 @@ public final class SVGSettings extends SettingsBase {
             new Key<>("SVG_noShapeFilling", false);
     static final Key<Boolean> LATEX =
             new Key<>("SVG_LaTeX", false);
+    static final Key<Boolean> PINS_IN_MATH_MODE =
+            new Key<>("SVG_pinsInMathMode", false).setDependsOn(LATEX);
 
     private static final class SettingsHolder {
         static final SVGSettings INSTANCE = new SVGSettings();
@@ -53,6 +55,7 @@ public final class SVGSettings extends SettingsBase {
     private static List<Key> createKeyList() {
         ArrayList<Key> list = new ArrayList<>();
         list.add(LATEX);
+        list.add(PINS_IN_MATH_MODE);
         list.add(HIDE_TEST);
         list.add(NO_SHAPE_FILLING);
         list.add(SMALL_IO);
