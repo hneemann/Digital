@@ -101,7 +101,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data size="64">0,200080,4004c0,4044c0,4008c0,4048c0,400cc0,4010c0,4014c0,c4,d4,4004c4,4004d4,4044c4,
+          <data>0,200080,4004c0,4044c0,4008c0,4048c0,400cc0,4010c0,4014c0,c4,d4,4004c4,4004d4,4044c4,
 4044d4,4008c4,4008d4,4048c4,4048d4,400cc4,400cd4,4010c4,4010d4,4014c4,4014d4,402cc0,
 402cc4,402cd4,400800,400804,400814,4018c0,401cc0,4058c0,405cc0,4020c0,24c0,28c0,20040a,
 689,200006,20001e,85,95,200406,685,8018,10018,18018,28018,30018,38018,1a4,20,24,20018,
@@ -228,7 +228,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>srcToD</string>
+          <string>src2D</string>
         </entry>
       </elementAttributes>
       <pos x="860" y="460"/>
@@ -258,7 +258,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>ALUToBus</string>
+          <string>alu2D</string>
         </entry>
       </elementAttributes>
       <pos x="680" y="280"/>
@@ -273,7 +273,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>ALUop</string>
+          <string>aluOp</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -328,7 +328,7 @@ aus, so dass die Flags gespeichert werden müssen.}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>st</string>
+          <string>ramSt</string>
         </entry>
       </elementAttributes>
       <pos x="860" y="220"/>
@@ -344,7 +344,7 @@ data bus.
         </entry>
         <entry>
           <string>Label</string>
-          <string>ld</string>
+          <string>ramLd</string>
         </entry>
       </elementAttributes>
       <pos x="680" y="200"/>
@@ -536,4 +536,5 @@ data bus.
       <p2 x="580" y="220"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

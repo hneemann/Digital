@@ -339,7 +339,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>ALU2D</string>
+          <string>alu2D</string>
         </entry>
       </elementAttributes>
       <pos x="480" y="740"/>
@@ -353,7 +353,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>ALUop</string>
+          <string>aluOp</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="740"/>
@@ -541,7 +541,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>ALU2D</string>
+          <string>alu2D</string>
         </entry>
       </elementAttributes>
       <pos x="1240" y="40"/>
@@ -555,7 +555,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>ALUop</string>
+          <string>aluOp</string>
         </entry>
       </elementAttributes>
       <pos x="1080" y="160"/>
