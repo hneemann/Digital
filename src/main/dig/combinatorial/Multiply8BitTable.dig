@@ -45,7 +45,7 @@
           <value v="5" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="260" y="240"/>
+      <pos x="260" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -64,7 +64,7 @@ end loop
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="680" y="220"/>
+      <pos x="680" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -88,11 +88,11 @@ end loop
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>(a+b)^2-(a-b)^2
-{{de (a+b)^2-(a-b)^2}}</string>
+          <string>(a+b)^2 - (a-b)^2
+{{de (a+b)^2 - (a-b)^2}}</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="-180"/>
+      <pos x="220" y="-180"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -131,7 +131,7 @@ end loop
           <string>9</string>
         </entry>
       </elementAttributes>
-      <pos x="440" y="220"/>
+      <pos x="440" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -5722,7 +5722,7 @@ fd,fd,fe,fe,ff,ff,100,100,101,101,102,102,103,103,104,104,105,105,106,106,107,10
     <visualElement>
       <elementName>VDD</elementName>
       <elementAttributes/>
-      <pos x="520" y="240"/>
+      <pos x="520" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Add</elementName>
@@ -5747,12 +5747,12 @@ fd,fd,fe,fe,ff,ff,100,100,101,101,102,102,103,103,104,104,105,105,106,106,107,10
           <int>8</int>
         </entry>
       </elementAttributes>
-      <pos x="340" y="220"/>
+      <pos x="340" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="320" y="280"/>
+      <pos x="320" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Sub</elementName>
@@ -11364,25 +11364,17 @@ fc,fc,fd,fd,fe,fe,ff,ff,100,100,101,101,102,102,103,103,104,104,105,105,106,106,
           <string>/home/hneemann/Dokumente/DHBW/Technische_Informatik_I/Vorlesung/05_Schaltkreistechnik/Digital/squareSign.hex</string>
         </entry>
       </elementAttributes>
-      <pos x="540" y="220"/>
+      <pos x="540" y="180"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="400" y="240"/>
-      <p2 x="440" y="240"/>
+      <p1 x="300" y="60"/>
+      <p2 x="280" y="180"/>
     </wire>
     <wire>
-      <p1 x="260" y="240"/>
-      <p2 x="280" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="240"/>
-      <p2 x="640" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="240"/>
-      <p2 x="340" y="240"/>
+      <p1 x="280" y="60"/>
+      <p2 x="300" y="180"/>
     </wire>
     <wire>
       <p1 x="520" y="80"/>
@@ -11397,16 +11389,36 @@ fc,fc,fd,fd,fe,fe,ff,ff,100,100,101,101,102,102,103,103,104,104,105,105,106,106,
       <p2 x="680" y="80"/>
     </wire>
     <wire>
-      <p1 x="520" y="260"/>
-      <p2 x="540" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="320" y="260"/>
-      <p2 x="340" y="260"/>
-    </wire>
-    <wire>
       <p1 x="660" y="100"/>
       <p2 x="680" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="180"/>
+      <p2 x="440" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="180"/>
+      <p2 x="340" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="180"/>
+      <p2 x="540" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="200"/>
+      <p2 x="440" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="200"/>
+      <p2 x="280" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="200"/>
+      <p2 x="640" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="200"/>
+      <p2 x="340" y="200"/>
     </wire>
     <wire>
       <p1 x="400" y="40"/>
@@ -11418,30 +11430,26 @@ fc,fc,fd,fd,fe,fe,ff,ff,100,100,101,101,102,102,103,103,104,104,105,105,106,106,
     </wire>
     <wire>
       <p1 x="260" y="40"/>
-      <p2 x="300" y="40"/>
+      <p2 x="280" y="40"/>
     </wire>
     <wire>
-      <p1 x="300" y="40"/>
+      <p1 x="280" y="40"/>
       <p2 x="340" y="40"/>
     </wire>
     <wire>
-      <p1 x="400" y="220"/>
-      <p2 x="440" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="220"/>
-      <p2 x="340" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="460" y="220"/>
+      <p1 x="520" y="220"/>
       <p2 x="540" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="220"/>
+      <p2 x="340" y="220"/>
     </wire>
     <wire>
       <p1 x="400" y="60"/>
       <p2 x="440" y="60"/>
     </wire>
     <wire>
-      <p1 x="280" y="60"/>
+      <p1 x="300" y="60"/>
       <p2 x="340" y="60"/>
     </wire>
     <wire>
@@ -11457,12 +11465,12 @@ fc,fc,fd,fd,fe,fe,ff,ff,100,100,101,101,102,102,103,103,104,104,105,105,106,106,
       <p2 x="320" y="100"/>
     </wire>
     <wire>
-      <p1 x="320" y="260"/>
-      <p2 x="320" y="280"/>
+      <p1 x="320" y="220"/>
+      <p2 x="320" y="240"/>
     </wire>
     <wire>
       <p1 x="640" y="80"/>
-      <p2 x="640" y="240"/>
+      <p2 x="640" y="200"/>
     </wire>
     <wire>
       <p1 x="660" y="100"/>
@@ -11473,16 +11481,16 @@ fc,fc,fd,fd,fe,fe,ff,ff,100,100,101,101,102,102,103,103,104,104,105,105,106,106,
       <p2 x="520" y="80"/>
     </wire>
     <wire>
-      <p1 x="520" y="240"/>
-      <p2 x="520" y="260"/>
+      <p1 x="520" y="200"/>
+      <p2 x="520" y="220"/>
     </wire>
     <wire>
-      <p1 x="280" y="60"/>
-      <p2 x="280" y="240"/>
+      <p1 x="280" y="180"/>
+      <p2 x="280" y="200"/>
     </wire>
     <wire>
-      <p1 x="300" y="40"/>
-      <p2 x="300" y="220"/>
+      <p1 x="280" y="40"/>
+      <p2 x="280" y="60"/>
     </wire>
   </wires>
   <measurementOrdering/>

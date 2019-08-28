@@ -358,7 +358,7 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>ALU2D</string>
+          <string>alu2D</string>
         </entry>
       </elementAttributes>
       <pos x="480" y="600"/>
@@ -372,7 +372,7 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>ALUop</string>
+          <string>aluOp</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="600"/>
@@ -556,7 +556,7 @@ Single-Cycle CPU.}}</string>
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>ALU2D</string>
+          <string>alu2D</string>
         </entry>
       </elementAttributes>
       <pos x="1220" y="-20"/>
@@ -570,7 +570,7 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>ALUop</string>
+          <string>aluOp</string>
         </entry>
       </elementAttributes>
       <pos x="1060" y="100"/>
