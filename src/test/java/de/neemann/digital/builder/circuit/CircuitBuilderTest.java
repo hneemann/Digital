@@ -216,12 +216,12 @@ public class CircuitBuilderTest extends TestCase {
         Circuit circuit = circuitBuilder.createCircuit();
 
         // check
-        List<VisualElement> in = circuit.findElements(v -> v.equalsDescription(In.DESCRIPTION));
+        List<VisualElement> in = circuit.getElements(v -> v.equalsDescription(In.DESCRIPTION));
         assertEquals(2, in.size());
         checkPin(in.get(0), "A", "1,2,3,4");
         checkPin(in.get(1), "B", "5,6,7,8");
 
-        List<VisualElement> out = circuit.findElements(v -> v.equalsDescription(Out.DESCRIPTION));
+        List<VisualElement> out = circuit.getElements(v -> v.equalsDescription(Out.DESCRIPTION));
         assertEquals(2, out.size());
         checkPin(out.get(0), "S", "9,10,11,12");
         checkPin(out.get(1), "U", "13,14,15,16");

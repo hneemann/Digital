@@ -30,7 +30,7 @@ public class RegressionTest extends TestCase {
     public void testSimple() throws Exception {
         ioInterface = new ConfigurationTest.TestIOInterface();
         br = new ToBreakRunner(new File(Resources.getRoot(), "toolchain/ff.dig"));
-        clock = br.getCircuit().findElements(v -> v.equalsDescription(Clock.DESCRIPTION)).get(0);
+        clock = br.getCircuit().getElements(v -> v.equalsDescription(Clock.DESCRIPTION)).get(0);
         File root = new File(Resources.getRoot(), "../../main/dig/hdl");
         int fc = new FileScanner(this::doCheck).setSuffix(".config").scan(root);
 

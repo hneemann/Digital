@@ -964,6 +964,7 @@ public class TestInGUI extends TestCase {
                 .press("ENTER")
                 .delay(200)
                 .add(new GuiTester.CheckTextInWindow<>(JDialog.class, "'net'"))
+                .add(new GuiTester.CheckTextInWindow<>(JDialog.class, " 2 "))
                 .delay(200)
                 .press("ENTER")
                 .delay(200)
@@ -971,7 +972,7 @@ public class TestInGUI extends TestCase {
                     @Override
                     public void checkWindow(GuiTester guiTester, Main main) {
                         List<VisualElement> e = main.getCircuitComponent().getCircuit()
-                                .findElements(v -> v.equalsDescription(Tunnel.DESCRIPTION));
+                                .getElements(v -> v.equalsDescription(Tunnel.DESCRIPTION));
                         assertEquals(3, e.size());
                         for (VisualElement v : e)
                             assertEquals("net", v.getElementAttributes().get(Keys.NETNAME));
@@ -1189,7 +1190,7 @@ public class TestInGUI extends TestCase {
             List<VisualElement> el = main
                     .getCircuitComponent()
                     .getCircuit()
-                    .findElements(v -> v.equalsDescription(description));
+                    .getElements(v -> v.equalsDescription(description));
 
             assertEquals("not exact one " + description.getName() + " found in circuit", 1, el.size());
 
@@ -1218,7 +1219,7 @@ public class TestInGUI extends TestCase {
             List<VisualElement> el = main
                     .getCircuitComponent()
                     .getCircuit()
-                    .findElements(filter);
+                    .getElements(filter);
 
             assertEquals("not exact one element found in circuit", 1, el.size());
 

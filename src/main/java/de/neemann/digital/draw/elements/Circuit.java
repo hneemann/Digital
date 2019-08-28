@@ -327,6 +327,20 @@ public class Circuit implements Copyable<Circuit> {
     }
 
     /**
+     * Find specific visual elements
+     *
+     * @param filter the filter
+     * @return the elements
+     */
+    public List<VisualElement> getElements(Circuit.ElementFilter filter) {
+        ArrayList<VisualElement> found = new ArrayList<>();
+        for (VisualElement v : visualElements)
+            if (filter.accept(v))
+                found.add(v);
+        return found;
+    }
+
+    /**
      * Returns a list of all Moveables in the given rectangle.
      *
      * @param min upper left corner of the rectangle
@@ -586,20 +600,6 @@ public class Circuit implements Copyable<Circuit> {
                 }
             }
         return best;
-    }
-
-    /**
-     * Find specific visual elements
-     *
-     * @param filter the filter
-     * @return the elements
-     */
-    public List<VisualElement> findElements(Circuit.ElementFilter filter) {
-        ArrayList<VisualElement> found = new ArrayList<>();
-        for (VisualElement v : visualElements)
-            if (filter.accept(v))
-                found.add(v);
-        return found;
     }
 
     /**

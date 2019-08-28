@@ -411,7 +411,7 @@ public final class Configuration {
     }
 
     private int getFrequency() throws HGSEvalException {
-        List<VisualElement> l = circuitProvider.getCurrentCircuit().findElements(v -> v.equalsDescription(Clock.DESCRIPTION));
+        List<VisualElement> l = circuitProvider.getCurrentCircuit().getElements(v -> v.equalsDescription(Clock.DESCRIPTION));
         if (l.isEmpty())
             return 0;
         if (l.size() > 1)
