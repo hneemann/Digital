@@ -1723,7 +1723,8 @@ Make sure the flash process is complete before closing this dialog!</string>
     <string name="msg_commandEnded_N">The command "{0}" has been completed!</string>
 
     <string name="msg_renameNet">Rename Net</string>
-    <string name="msg_renameNet_N_OLD_NEW">There are {0} more tunnels with the net name ''{1}''. Do you want to rename all {0} to ''{2}''?</string>
+    <string name="msg_renameNet_N_OLD_NEW">There are {0} more tunnels with the net name ''{1}''.
+        Do you want to rename all {0} to ''{2}''?</string>
 
     <string name="ok">OK</string>
     <string name="rot_0">0°</string>

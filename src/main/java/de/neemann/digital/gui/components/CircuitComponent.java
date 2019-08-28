@@ -1149,7 +1149,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             if (others.size() > 0) {
                 String newName = modified.get(Keys.NETNAME);
                 int res = JOptionPane.showConfirmDialog(this,
-                        Lang.get("msg_renameNet_N_OLD_NEW", others.size(), oldName, newName),
+                        new LineBreaker().toHTML().preserveContainedLineBreaks().breakLines(Lang.get("msg_renameNet_N_OLD_NEW", others.size(), oldName, newName)),
                         Lang.get("msg_renameNet"),
                         JOptionPane.YES_NO_OPTION);
                 if (res == JOptionPane.YES_OPTION) {
