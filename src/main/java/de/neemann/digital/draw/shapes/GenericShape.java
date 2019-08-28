@@ -209,7 +209,7 @@ public class GenericShape implements Shape {
         int top = topBottomBorder;
         if (outputs.size() > 1) {
             top += 3;
-            yBottom += 6;
+            yBottom += 3;
         }
 
         Polygon polygon = new Polygon(true)
