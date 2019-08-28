@@ -165,7 +165,9 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .press("F5")
                 .mouseMove(100, 100)
+                .delay(300)
                 .mouseClick(InputEvent.BUTTON1_MASK)
+                .delay(200)
                 .mouseMove(400, 200)
                 .mouseClick(InputEvent.BUTTON1_MASK)
                 .delay(500)
@@ -431,7 +433,11 @@ public class TestInGUI extends TestCase {
                 .press("control typed a")
                 .typeTempFile("test")
                 .press("ENTER")
-                .delay(3000)
+                .delay(300)
+                .add(new GuiTester.WaitFor(() -> {
+                    Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
+                    return !(activeWindow instanceof Main || activeWindow instanceof TableDialog);
+                }))
                 .add(new GuiTester.CheckTextInWindow<>(JDialog.class, "Design fits successfully"))
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
