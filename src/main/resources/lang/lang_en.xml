@@ -1347,6 +1347,9 @@
     <string name="key_showTutorial">Show Tutorial at Startup</string>
     <string name="key_showTutorial_tt">Enables the tutorial.</string>
 
+    <string name="key_switchActsAsInput">Switch behaves like an input</string>
+    <string name="key_switchActsAsInput_tt">If the model is analyzed, the switch behaves like an input, where "open" corresponds to '0' and "closed" to '1'.</string>
+
     <string name="menu_exportSVGSettings">SVG Export Settings</string>
     <string name="key_SVG_LaTeX">Text in LaTeX notation</string>
     <string name="key_SVG_LaTeX_tt">Text is inserted in LaTeX notation. Inkscape is required for further processing.</string>

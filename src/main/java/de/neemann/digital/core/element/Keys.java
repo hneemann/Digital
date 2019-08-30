@@ -815,4 +815,9 @@ public final class Keys {
             new Key<>("wireToolTips", false);
 
 
+    /**
+     * The switch acts as input
+     */
+    public static final Key<Boolean> SWITCH_ACTS_AS_INPUT =
+            new Key<>("switchActsAsInput", false).setSecondary();
 }

@@ -1361,6 +1361,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showTutorial">Tutorial beim Start anzeigen</string>
     <string name="key_showTutorial_tt">Aktiviert das Tutorial.</string>
 
+    <string name="key_switchActsAsInput">Schalter verhält sich wie ein Eingang</string>
+    <string name="key_switchActsAsInput_tt">Wird das Model analysiert, verhält sich der Schalter wie ein Eingang, wobei
+        "offen" einer '0' und "geschlossen" einer '1' entspricht.</string>
+
     <string name="menu_exportSVGSettings">SVG Exporteinstellungen</string>
     <string name="key_SVG_LaTeX">Text im LaTeX-Format</string>
     <string name="key_SVG_LaTeX_tt">Text wird in LaTeX-Notation eingefügt. Inkscape ist für die Weiterverabeitung erforderlich.</string>

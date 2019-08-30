@@ -25,10 +25,14 @@ public class Switch implements Element, NodeInterface, Countable {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.POLES)
-            .addAttribute(Keys.CLOSED);
+            .addAttribute(Keys.CLOSED)
+            .addAttribute(Keys.SWITCH_ACTS_AS_INPUT);
 
     private final PlainSwitch[] poles;
+    private final String label;
+    private final boolean switchActsAsInput;
     private boolean closed;
+    private ObservableValue value;
 
     /**
      * Create a new instance
@@ -52,6 +56,8 @@ public class Switch implements Element, NodeInterface, Countable {
         poles = new PlainSwitch[poleCount];
         for (int i = 0; i < poleCount; i++)
             poles[i] = new PlainSwitch(bits, closed, "A" + (i + 1), "B" + (i + 1));
+        label = attr.getLabel();
+        switchActsAsInput = attr.get(Keys.SWITCH_ACTS_AS_INPUT);
     }
 
     @Override
@@ -79,6 +85,21 @@ public class Switch implements Element, NodeInterface, Countable {
 
     @Override
     public void registerNodes(Model model) {
+        if (switchActsAsInput && !label.isEmpty()) {
+            value = new ObservableValue(label, 1);
+            value.addObserver(new NodeInterface() {
+                @Override
+                public ObservableValues getOutputs() {
+                    return value.asList();
+                }
+
+                @Override
+                public void hasChanged() {
+                    setClosed(value.getBool());
+                }
+            });
+            model.addInput(new Signal(label, value));
+        }
     }
 
     @Override
@@ -93,9 +114,13 @@ public class Switch implements Element, NodeInterface, Countable {
      * @param closed true if closed
      */
     public void setClosed(boolean closed) {
-        this.closed = closed;
-        for (PlainSwitch p : poles)
-            p.setClosed(closed);
+        if (this.closed != closed) {
+            if (value != null)
+                value.setBool(closed);
+            this.closed = closed;
+            for (PlainSwitch p : poles)
+                p.setClosed(closed);
+        }
     }
 
     /**
