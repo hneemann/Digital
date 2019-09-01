@@ -182,6 +182,8 @@ public class DataField implements HGSArray {
      * @return the new length of the data array
      */
     private int trim(int size) {
+        if (size > data.length)
+            size = data.length;
         while (size > 0 && data[size - 1] == 0) size--;
         if (size < data.length)
             data = Arrays.copyOf(data, size);
