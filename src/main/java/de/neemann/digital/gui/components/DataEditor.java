@@ -135,7 +135,9 @@ public class DataEditor extends JDialog {
                     if (fc.showOpenDialog(DataEditor.this) == JFileChooser.APPROVE_OPTION) {
                         fileName = fc.getSelectedFile();
                         try {
-                            localDataField.setDataFrom(Importer.read(fc.getSelectedFile(), dataBits));
+                            DataField dataRead = Importer.read(fc.getSelectedFile(), dataBits)
+                                    .trimValues(addrBits, dataBits);
+                            localDataField.setDataFrom(dataRead);
                             dm.fireEvent(new TableModelEvent(dm));
                         } catch (IOException e1) {
                             new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(DataEditor.this);

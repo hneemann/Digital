@@ -608,18 +608,7 @@ public final class EditorFactory {
                     try {
                         getAttributeDialog().storeEditedValues();
                         int dataBits = attr.get(Keys.BITS);
-                        int addrBits;
-
-                        // INPUT_COUNT and ADDR_BITS must have the same default value!!!
-                        // If INPUT_COUNT is not present (default value is used) the default value of
-                        // ADDR_BITS is used. This works only if both have the same default value!!!
-                        if (attr.contains(Keys.INPUT_COUNT)) {
-                            // used to handle the LUT
-                            addrBits = attr.get(Keys.INPUT_COUNT);
-                        } else {
-                            // memory, RAM/ROM
-                            addrBits = attr.get(Keys.ADDR_BITS);
-                        }
+                        int addrBits = getAddrBits(attr);
                         DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC);
                         de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
@@ -637,7 +626,8 @@ public final class EditorFactory {
                             try {
                                 getAttributeDialog().storeEditedValues();
                                 int dataBits = attr.get(Keys.BITS);
-                                data = Importer.read(attr.getFile(ROM.LAST_DATA_FILE_KEY), dataBits);
+                                data = Importer.read(attr.getFile(ROM.LAST_DATA_FILE_KEY), dataBits)
+                                        .trimValues(getAddrBits(attr), dataBits);
                             } catch (IOException e1) {
                                 new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
                             } catch (EditorParseException e1) {
@@ -668,6 +658,19 @@ public final class EditorFactory {
                             .createJButton()
             );
             return panel;
+        }
+
+        private int getAddrBits(ElementAttributes attr) {
+            // INPUT_COUNT and ADDR_BITS must have the same default value!!!
+            // If INPUT_COUNT is not present (default value is used) the default value of
+            // ADDR_BITS is used. This works only if both have the same default value!!!
+            if (attr.contains(Keys.INPUT_COUNT)) {
+                // used to handle the LUT
+                return attr.get(Keys.INPUT_COUNT);
+            } else {
+                // memory, RAM/ROM
+                return attr.get(Keys.ADDR_BITS);
+            }
         }
 
         @Override

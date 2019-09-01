@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.memory;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.HGSArray;
 
 import java.io.*;
@@ -163,18 +164,46 @@ public class DataField implements HGSArray {
     }
 
     /**
-     * Trims the data field to it's minimal size
+     * Trims the data field to it's minimal size.
      * All trailing zeros are removed.
      *
      * @return the new length of the data array
      */
     public int trim() {
-        int pos = data.length;
-        while (pos > 0 && data[pos - 1] == 0) pos--;
-        if (pos < data.length)
-            data = Arrays.copyOf(data, pos);
+        return trim(data.length);
+    }
+
+    /**
+     * Trims the data field to it's minimal size.
+     * The size is limited to the given value.
+     * Additional data is removed, even if it is not zero.
+     *
+     * @param size the max size
+     * @return the new length of the data array
+     */
+    private int trim(int size) {
+        while (size > 0 && data[size - 1] == 0) size--;
+        if (size < data.length)
+            data = Arrays.copyOf(data, size);
         return data.length;
     }
+
+    /**
+     * Trims the data field to the given bit numbers.
+     *
+     * @param addrBits the number of addr bits, trims the size of the array
+     * @param dataBits the number of data bits, trims the values
+     * @return this for chained calls
+     */
+    public DataField trimValues(int addrBits, int dataBits) {
+        trim(1 << addrBits);
+        long mask = Bits.mask(dataBits);
+        for (int i = 0; i < data.length; i++)
+            data[i] = data[i] & mask;
+
+        return this;
+    }
+
 
     /**
      * @return true if the data field is empty
