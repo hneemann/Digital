@@ -27,7 +27,7 @@ import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
  */
 public class ButtonShape implements Shape {
 
-    private static final int HEIGHT = OUT_SIZE / 2;
+    protected static final int HEIGHT = OUT_SIZE / 2;
 
     private final String label;
     private final PinDescriptions outputs;

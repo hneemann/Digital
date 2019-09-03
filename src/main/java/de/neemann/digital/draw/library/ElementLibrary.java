@@ -131,6 +131,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(new LibraryNode(Lang.get("lib_more"))
                                 .add(RGBLED.DESCRIPTION)
                                 .add(Out.POLARITYAWARELEDDESCRIPTION)
+                                .add(ButtonLED.DESCRIPTION)
                                 .add(Out.SEVENDESCRIPTION)
                                 .add(Out.SEVENHEXDESCRIPTION)
                                 .add(Out.SIXTEENDESCRIPTION)

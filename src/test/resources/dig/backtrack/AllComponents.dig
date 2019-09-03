@@ -604,6 +604,11 @@
       <elementAttributes/>
       <pos x="300" y="940"/>
     </visualElement>
+    <visualElement>
+      <elementName>ButtonLED</elementName>
+      <elementAttributes/>
+      <pos x="180" y="280"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -1059,8 +1064,8 @@
       <p2 x="420" y="300"/>
     </wire>
     <wire>
-      <p1 x="220" y="300"/>
-      <p2 x="260" y="300"/>
+      <p1 x="180" y="300"/>
+      <p2 x="220" y="300"/>
     </wire>
     <wire>
       <p1 x="940" y="300"/>
@@ -1073,6 +1078,10 @@
     <wire>
       <p1 x="660" y="300"/>
       <p2 x="680" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="300"/>
+      <p2 x="260" y="300"/>
     </wire>
     <wire>
       <p1 x="1080" y="880"/>

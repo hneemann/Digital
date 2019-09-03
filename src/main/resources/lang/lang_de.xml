@@ -165,6 +165,11 @@
     <string name="elem_Button">Taster</string>
     <string name="elem_Button_tt">Ein einfacher Taster, welcher in seinen Ausgangszustand zurückkehrt, wenn er nicht gehalten wird.</string>
     <string name="elem_Button_pin_out">Das Ausgangssignal des Tasters.</string>
+    <string name="elem_ButtonLED">Taster mit LED</string>
+    <string name="elem_ButtonLED_tt">Ein einfacher Taster, welcher in seinen Ausgangszustand zurückkehrt, wenn er nicht gehalten wird.
+        Der Taster verfügt über eine LED, die über ein Eingangssignal geschaltet werden kann.</string>
+    <string name="elem_ButtonLED_pin_out">Das Ausgangssignal des Tasters.</string>
+    <string name="elem_ButtonLED_pin_in">Eingang zur Steuerung der LED.</string>
     <string name="elem_Text">Text</string>
     <string name="elem_Text_tt">Zeigt einen einfachen Text in der Schaltung an.
         Hat keine weitere Funktion für die Simulation.
