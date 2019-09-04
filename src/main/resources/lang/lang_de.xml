@@ -954,6 +954,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_vhdlErrorWritingTestBench">Fehler beim erzeugen des Testfalls!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Werte vom Typ {0} sind nicht erlaubt!</string>
     <string name="err_vhdlANameIsMissing">Es fehlt ein Name. Sind z.B. alle Pins benannt?</string>
+    <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">Es sind mehrere Ausgänge miteinander verbunden.
+        Diese Art der Verschaltung wird beim HDL-Export nicht unterstützt ({0}, {1}, {2}).</string>
     <string name="err_toManyVars">Zu viele Variablen!</string>
     <string name="err_invalidExpression">Ungültiger Ausdruck!</string>
     <string name="err_function_N0_notFoundInLine_N1">Funktion {0} nicht gefunden in Zeile {1}!</string>

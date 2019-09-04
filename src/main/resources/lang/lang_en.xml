@@ -946,6 +946,8 @@
     <string name="err_vhdlErrorWritingTestBench">Error creating a test bench!</string>
     <string name="err_vhdlValuesOfType_N_notAllowed">Values of typ {0} are not allowed!</string>
     <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a label set?</string>
+    <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">Several outputs are connected to each other.
+        This type of interconnection is not supported for HDL export. ({0}, {1}, {2}).</string>
     <string name="err_toManyVars">To many variables!</string>
     <string name="err_invalidExpression">Invalid expression!</string>
     <string name="err_function_N0_notFoundInLine_N1">Function {0} not found in line {1}!</string>

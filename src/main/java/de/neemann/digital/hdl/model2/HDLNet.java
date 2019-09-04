@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.hdl.model2.expression.ExprConstant;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class HDLNet implements Printable, HasName {
     public void addPort(HDLPort hdlPort) throws HDLException {
         if (hdlPort.getDirection().equals(HDLPort.Direction.OUT)) {
             if (output != null)
-                throw new HDLException("multiple outputs connected to net " + name + ": " + output + " and " + hdlPort);
+                throw new HDLException(Lang.get("err_hdlMultipleOutputsConnectedToNet_N_N_N", name, output, hdlPort));
             output = hdlPort;
         } else
             inputs.add(hdlPort);
