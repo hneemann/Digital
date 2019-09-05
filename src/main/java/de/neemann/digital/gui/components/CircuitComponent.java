@@ -99,7 +99,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private final ElementLibrary library;
     private final HashSet<Drawable> highLighted;
     private final ToolTipAction deleteAction;
-
     private final MouseController mouseNormal;
     private final MouseControllerInsertElement mouseInsertElement;
     private final MouseControllerMoveElement mouseMoveElement;
@@ -139,7 +138,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private boolean toolTipHighlighted = false;
     private NetList toolTipNetList;
 
-
     /**
      * Creates a new instance
      *
@@ -158,7 +156,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 activeMouseController.rotate();
             }
         }.setEnabledChain(false).setAccelerator("R").enableAcceleratorIn(this);
-
 
         cutAction = createCutAction(shapeFactory);
         copyAction = createCopyAction(shapeFactory);
@@ -211,7 +208,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 }
             }
         }.setAccelerator("S").enableAcceleratorIn(this);
-
 
         createAdditionalShortcuts(shapeFactory);
 
@@ -319,7 +315,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 }
             }
         }.setAcceleratorCTRLplus('D').enableAcceleratorIn(this);
-
 
         ToolTipAction plus = new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         // enable [+] which is SHIFT+[=] on english keyboard layout
@@ -905,8 +900,23 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     @Override
     public void hasChanged() {
         graphicHasChanged();
+        enableUndoRedo();
+    }
+
+    /**
+     * Enables undo and redo if possible
+     */
+    public void enableUndoRedo() {
         redoAction.setEnabled(undoManager.redoAvailable());
         undoAction.setEnabled(undoManager.undoAvailable());
+    }
+
+    /**
+     * Disables undo and redo
+     */
+    public void disableUndoRedo() {
+        redoAction.setEnabled(false);
+        undoAction.setEnabled(false);
     }
 
     /**
@@ -1199,7 +1209,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         return redoAction;
     }
 
-
     /**
      * Makes actual input values to the default value
      */
@@ -1440,7 +1449,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 }
             }
         }
-
     }
 
     //MouseController can not be final because its overridden. Maybe checkstyle has a bug?
@@ -1818,9 +1826,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         public void escapePressed() {
             mouseNormal.activate();
         }
-
     }
-
 
     private final class MouseControllerWireDiag extends MouseController {
         private Wire wire;
@@ -2326,13 +2332,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
     }
 
-
     private interface Actor {
         boolean interact(CircuitComponent cc, Point p, Vector posInComponent, SyncAccess modelSync);
     }
 
     private final class MouseControllerRun extends MouseController {
-
         private VisualElement draggedElement;
 
         private MouseControllerRun(Cursor cursor) {
@@ -2435,7 +2439,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private final class MouseControllerWizard extends MouseController {
-
         private final WizardNotification wizardNotification;
 
         private MouseControllerWizard(WizardNotification wizardNotification) {
