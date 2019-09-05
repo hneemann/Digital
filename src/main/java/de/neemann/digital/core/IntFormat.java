@@ -30,6 +30,10 @@ public enum IntFormat {
      */
     bin,
     /**
+     * octal
+     */
+    oct,
+    /**
      * ascii format
      */
     ascii;
@@ -73,6 +77,8 @@ public enum IntFormat {
                 return "0x" + toHex(inValue);
             case bin:
                 return "0b" + toBin(inValue);
+            case oct:
+                return "0" + toOct(inValue);
             case ascii:
                 return "'" + (char) inValue.getValue() + "'";
             default:
@@ -95,6 +101,19 @@ public enum IntFormat {
         final long value = inValue.getValue();
         for (int i = numChars - 1; i >= 0; i--) {
             int c = (int) ((value >> (i * 4)) & 0xf);
+            sb.append(DIGITS[c]);
+        }
+        return sb.toString();
+    }
+
+    private static String toOct(Value inValue) {
+        final int bits = inValue.getBits();
+        final int numChars = (bits - 1) / 3 + 1;
+
+        StringBuilder sb = new StringBuilder(numChars);
+        final long value = inValue.getValue();
+        for (int i = numChars - 1; i >= 0; i--) {
+            int c = (int) ((value >> (i * 3)) & 0x7);
             sb.append(DIGITS[c]);
         }
         return sb.toString();

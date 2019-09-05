@@ -1106,6 +1106,7 @@
     <string name="key_intFormat_decSigned">signed decimal</string>
     <string name="key_intFormat_def">default</string>
     <string name="key_intFormat_hex">hex</string>
+    <string name="key_intFormat_oct">octal</string>
     <string name="key_barrelSigned">shift input has sign</string><!-- BarrelShifter -->
     <string name="key_barrelSigned_tt">shift input data has two complement format</string>
     <string name="key_barrelShifterMode">Mode</string><!-- BarrelShifter -->
