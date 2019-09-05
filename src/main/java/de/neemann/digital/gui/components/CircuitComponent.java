@@ -1664,8 +1664,13 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 break;
             }
         }
-        if (found)
-            wires.add(new ModifyInsertWire(new Wire(pos, p.getPos())));
+        if (found) {
+            Wire newWire = new Wire(pos, p.getPos());
+            for (Wire w : getCircuit().getWires())
+                if (w.equalsContent(newWire))
+                    return;
+            wires.add(new ModifyInsertWire(newWire));
+        }
     }
 
     /**
