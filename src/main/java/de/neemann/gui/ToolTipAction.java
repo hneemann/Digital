@@ -183,6 +183,7 @@ public abstract class ToolTipAction extends AbstractAction {
             ToolTipManager.sharedInstance().registerComponent(b);
         }
         b.setText(null);
+        b.setFocusable(false);
         return b;
     }
 
