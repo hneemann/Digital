@@ -1267,7 +1267,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 runToBreakAction.setEnabled(false);
                 runToBreakMicroAction.setEnabled(false);
                 runTests.setEnabled(true);
-                circuitComponent.enableUndoRedo();
                 // keep errors
                 if (circuitComponent.getHighLightStyle() != Style.ERROR)
                     circuitComponent.removeHighLighted();
@@ -1282,7 +1281,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 showMeasurementDialog.setEnabled(true);
                 showMeasurementGraph.setEnabled(true);
                 stoppedState.getAction().setEnabled(true);
-                circuitComponent.disableUndoRedo();
                 runTests.setEnabled(false);
                 if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
                     circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
@@ -1321,7 +1319,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             stoppedState.getAction().setEnabled(true);
             showMeasurementDialog.setEnabled(true);
             showMeasurementGraph.setEnabled(true);
-            circuitComponent.disableUndoRedo();
             runTests.setEnabled(false);
             if (createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier))
                 circuitComponent.setManualChangeObserver(new FullStepObserver(model));

@@ -652,9 +652,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      */
     public void setModeAndReset(boolean runMode, SyncAccess modelSync) {
         this.modelSync = modelSync;
-        if (runMode)
+        if (runMode) {
+            redoAction.setEnabled(false);
+            undoAction.setEnabled(false);
             mouseRun.activate();
-        else {
+        } else {
+            enableUndoRedo();
             mouseNormal.activate();
             getCircuit().clearState();
         }
@@ -664,8 +667,13 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             tutorialListener.modified(null);
     }
 
+    private void enableUndoRedo() {
+        redoAction.setEnabled(undoManager.redoAvailable());
+        undoAction.setEnabled(undoManager.undoAvailable());
+    }
+
     /**
-     * @return the high lighted elements
+     * @return the highlighted elements
      */
     public Collection<Drawable> getHighLighted() {
         return highLighted;
@@ -901,22 +909,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     public void hasChanged() {
         graphicHasChanged();
         enableUndoRedo();
-    }
-
-    /**
-     * Enables undo and redo if possible
-     */
-    public void enableUndoRedo() {
-        redoAction.setEnabled(undoManager.redoAvailable());
-        undoAction.setEnabled(undoManager.undoAvailable());
-    }
-
-    /**
-     * Disables undo and redo
-     */
-    public void disableUndoRedo() {
-        redoAction.setEnabled(false);
-        undoAction.setEnabled(false);
     }
 
     /**
