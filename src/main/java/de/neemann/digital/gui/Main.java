@@ -352,7 +352,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(1 / 0.9);
             }
-        }.setAccelerator("control PLUS");
+        }.setAcceleratorCTRLplus("PLUS");
         // enable [+] which is SHIFT+[=] on english keyboard layout
         circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
         circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
@@ -363,7 +363,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(0.9);
             }
-        }.setAccelerator("control MINUS");
+        }.setAcceleratorCTRLplus("MINUS");
         // enable [+] which is SHIFT+[=] on english keyboard layout
         circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK, false), zoomOut);
         circuitComponent.getActionMap().put(zoomOut, zoomOut);

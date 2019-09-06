@@ -129,13 +129,13 @@ public class GraphDialog extends JDialog implements Observer {
             public void actionPerformed(ActionEvent e) {
                 graphComponent.scale(1.25f, getWidth() / 2);
             }
-        }.setAccelerator("control PLUS");
+        }.setAcceleratorCTRLplus("PLUS");
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 graphComponent.scale(0.8f, getWidth() / 2);
             }
-        }.setAccelerator("control MINUS");
+        }.setAcceleratorCTRLplus("MINUS");
 
         showTable = new ToolTipAction(Lang.get("menu_showDataAsTable")) {
             @Override

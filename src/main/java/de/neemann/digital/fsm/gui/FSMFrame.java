@@ -348,7 +348,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             public void actionPerformed(ActionEvent e) {
                 fsmComponent.scaleCircuit(1 / 0.9);
             }
-        }.setAccelerator("control PLUS");
+        }.setAcceleratorCTRLplus("PLUS");
         // enable [+] which is SHIFT+[=] on english keyboard layout
         fsmComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
         fsmComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
@@ -359,7 +359,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             public void actionPerformed(ActionEvent e) {
                 fsmComponent.scaleCircuit(0.9);
             }
-        }.setAccelerator("control MINUS");
+        }.setAcceleratorCTRLplus("MINUS");
         // enable [+] which is SHIFT+[=] on english keyboard layout
         fsmComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK, false), zoomOut);
         fsmComponent.getActionMap().put(zoomOut, zoomOut);
