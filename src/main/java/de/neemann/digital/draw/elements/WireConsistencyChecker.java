@@ -43,13 +43,13 @@ public class WireConsistencyChecker {
         HashSet<Vector> diagPoints = new HashSet<>();
 
         ArrayList<Wire> newWires = new ArrayList<>();
-        WireMerger hori = new WireMerger(Wire.Orientation.horzontal);
+        WireMerger hori = new WireMerger(Wire.Orientation.horizontal);
         WireMerger vert = new WireMerger(Wire.Orientation.vertical);
 
         for (Wire w : wires) {
             if (!w.p1.equals(w.p2))
                 switch (w.getOrientation()) {
-                    case horzontal:
+                    case horizontal:
                         hori.add(w);
                         horiPoints.add(w.p1);
                         horiPoints.add(w.p2);

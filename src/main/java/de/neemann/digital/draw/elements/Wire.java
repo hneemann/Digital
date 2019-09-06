@@ -237,7 +237,7 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
         if (p1.x == p2.x)
             return Orientation.vertical;
         if (p1.y == p2.y)
-            return Orientation.horzontal;
+            return Orientation.horizontal;
         return Orientation.diagonal;
     }
 
@@ -359,5 +359,5 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
         this.isConnectedToSplitter = isConnectedToSplitter;
     }
 
-    enum Orientation {horzontal, vertical, diagonal}
+    enum Orientation {horizontal, vertical, diagonal}
 }
