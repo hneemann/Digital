@@ -7,6 +7,7 @@ package de.neemann.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 /**
@@ -84,10 +85,7 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return this for call chaining
      */
     public ToolTipAction setAcceleratorCTRLplus(char key) {
-        int mask = KeyEvent.CTRL_DOWN_MASK;
-        if (Screen.isMac())
-            mask= KeyEvent.META_DOWN_MASK;
-        return setAccelerator(KeyStroke.getKeyStroke(key, mask));
+        return setAccelerator(KeyStroke.getKeyStroke(key, getAccMask()));
     }
 
     /**
@@ -97,11 +95,15 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return this for call chaining
      */
     public ToolTipAction setAcceleratorCTRLplus(String key) {
-        int mask = KeyEvent.CTRL_DOWN_MASK;
-        if (Screen.isMac())
-            mask= KeyEvent.META_DOWN_MASK;
         int keyCode = KeyStroke.getKeyStroke(key).getKeyCode();
-        return setAccelerator(KeyStroke.getKeyStroke(keyCode, mask));
+        return setAccelerator(KeyStroke.getKeyStroke(keyCode, getAccMask()));
+    }
+
+    private int getAccMask() {
+        int mask = InputEvent.CTRL_DOWN_MASK;
+        if (Screen.isMac())
+            mask = InputEvent.META_DOWN_MASK;
+        return mask;
     }
 
     /**
