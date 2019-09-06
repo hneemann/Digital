@@ -96,8 +96,12 @@ public abstract class ToolTipAction extends AbstractAction {
      * @param key the accelerator key
      * @return this for call chaining
      */
-    public ToolTipAction setAccelerator(String key) {
-        return setAccelerator(KeyStroke.getKeyStroke(key));
+    public ToolTipAction setAcceleratorCTRLplus(String key) {
+        int mask = KeyEvent.CTRL_DOWN_MASK;
+        if (Screen.isMac())
+            mask= KeyEvent.META_DOWN_MASK;
+        int keyCode = KeyStroke.getKeyStroke(key).getKeyCode();
+        return setAccelerator(KeyStroke.getKeyStroke(keyCode, mask));
     }
 
     /**
@@ -106,12 +110,8 @@ public abstract class ToolTipAction extends AbstractAction {
      * @param key the accelerator key
      * @return this for call chaining
      */
-    public ToolTipAction setAcceleratorCTRLplus(String key) {
-        int mask = KeyEvent.CTRL_DOWN_MASK;
-        if (Screen.isMac())
-            mask= KeyEvent.META_DOWN_MASK;
-        int keyCode = KeyStroke.getKeyStroke(key).getKeyCode();
-        return setAccelerator(KeyStroke.getKeyStroke(keyCode, mask));
+    public ToolTipAction setAccelerator(String key) {
+        return setAccelerator(KeyStroke.getKeyStroke(key));
     }
 
     /**
