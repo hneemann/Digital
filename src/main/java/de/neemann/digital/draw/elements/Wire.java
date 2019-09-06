@@ -87,6 +87,11 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
             style = Style.getWireStyle(value);
 
         graphic.drawLine(p1, p2, style);
+        if (highLight != null && graphic.isFlagSet(Graphic.Flag.tiny)) {
+            Vector min = Vector.min(p1, p2).add(-SIZE, -SIZE);
+            Vector max = Vector.max(p1, p2).add(SIZE, SIZE);
+            graphic.drawCircle(min, max, highLight);
+        }
 
         if (value != null)
             bits = value.getBits();

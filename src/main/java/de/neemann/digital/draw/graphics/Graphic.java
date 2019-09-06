@@ -18,7 +18,7 @@ public interface Graphic extends Closeable {
     /**
      * The available flags
      */
-    enum Flag {noShapeFilling, smallIO, hideTest, noPinMarker, thinnerLines}
+    enum Flag {noShapeFilling, smallIO, hideTest, noPinMarker, thinnerLines, tiny}
 
     /**
      * Sets the bounding box of the future usage of this instance

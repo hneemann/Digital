@@ -142,4 +142,10 @@ public class GraphicSwing implements Graphic {
         }
     }
 
+    @Override
+    public boolean isFlagSet(Flag flag) {
+        if (flag == Flag.tiny)
+            return pixelSize > 3;
+        return false;
+    }
 }
