@@ -1075,9 +1075,9 @@
   <string name="key_poles">Pole count</string>
   <!-- Relay -->
   <string name="key_poles_tt">Number of poles available.</string>
-  <string name="key_commonCathode">Common cathode</string>
+  <string name="key_commonCathode">Common Connection</string>
   <!-- Seven-Seg -->
-  <string name="key_commonCathode_tt">If selected the common cathode input is also simulated.</string>
+  <string name="key_commonCathode_tt">If selected, a common cathode or anode input is also simulated.</string>
   <string name="key_ledPersistence">Avoid Flicker</string>
   <!-- Seven-Seg, LedMatrix -->
   <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering disappears.
@@ -1864,4 +1864,15 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="tutorialNotNeeded">Skip Tutorial</string>
   <string name="msg_fsmTransition">Transition</string>
   <string name="msg_fsmState">State</string>
+  <string name="elem_Seven-Seg_pin_ca">Common anode. To turn on the LEDs, this input needs to be high.</string>
+  <string name="key_commonConnectionType">Common</string>
+  <string name="key_commonConnectionType_tt">Kind of common connection.</string>
+  <string name="key_commonConnectionType_cathode">Cathode</string>
+  <string name="key_commonConnectionType_anode">Anode</string>
+  <string name="key_wireToolTips">Wire tool tips</string>
+  <string name="key_wireToolTips_tt">If set, lines are highlighted when the mouse hovers over them.</string>
+  <string name="menu_table_showAllSolutions">Show results dialog</string>
+  <string name="menu_table_showAllSolutions_tt">Shows the results dialog again if it was closed manually.</string>
+  <string name="msg_codeNotConsistent">Input and output definitions could not be created automatically.
+        Please check the settings!</string>
 </resources>

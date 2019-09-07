@@ -1070,9 +1070,9 @@
   <string name="key_poles">Número de polos</string>
   <!-- Relay -->
   <string name="key_poles_tt">Número de polos disponíveis.</string>
-  <string name="key_commonCathode">cátodo comum</string>
+  <string name="key_commonCathode">Conexão comum</string>
   <!-- Seven-Seg -->
-  <string name="key_commonCathode_tt">Se a entrada for selecionada como cátodo comum, também será simulada.</string>
+  <string name="key_commonCathode_tt">Se a entrada for selecionada como ânodo ou cátodo comum, também será simulada.</string>
   <string name="key_ledPersistence">Prevenir o piscamento (flicker)</string>
   <!-- Seven-Seg, LedMatrix -->
   <string name="key_ledPersistence_tt">Se não for possível aumentar a frequência o bastante para que o efeito de piscamento possa desaparecer.
@@ -1851,4 +1851,15 @@ Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse
   <string name="tutorialNotNeeded">Pular o tutorial</string>
   <string name="msg_fsmTransition">Transição</string>
   <string name="msg_fsmState">Estado</string>
+  <string name="elem_Seven-Seg_pin_ca">Ânodo comum. Para acender os LEDs, essa entrada deverá estar em nível alto.</string>
+  <string name="key_commonConnectionType">Comum</string>
+  <string name="key_commonConnectionType_tt">Tipo da conexão comum.</string>
+  <string name="key_commonConnectionType_cathode">Cátodo</string>
+  <string name="key_commonConnectionType_anode">Ânodo</string>
+  <string name="key_wireToolTips">Dicas sobre conexões</string>
+  <string name="key_wireToolTips_tt">Se habilitada, linhas serão destacadas quando o mouse passar sobre elas.</string>
+  <string name="menu_table_showAllSolutions">Mostrar a caixa de diálogo com resultados</string>
+  <string name="menu_table_showAllSolutions_tt">Mostrar a caixa de diálogo com resultados se tiver sido fechada manualmente.</string>
+  <string name="msg_codeNotConsistent">Impossível criar definições de entrada e de saída automaticamente.
+        Favor verificar as configurações|</string>
 </resources>
