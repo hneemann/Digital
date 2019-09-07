@@ -5,6 +5,8 @@
  */
 package de.neemann.gui;
 
+import de.neemann.digital.lang.Lang;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
@@ -85,7 +87,7 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return this for call chaining
      */
     public ToolTipAction setAcceleratorCTRLplus(char key) {
-        return setAccelerator(KeyStroke.getKeyStroke(key, getAccMask()));
+        return setAccelerator(KeyStroke.getKeyStroke(key, getCTRLMask()));
     }
 
     /**
@@ -96,10 +98,13 @@ public abstract class ToolTipAction extends AbstractAction {
      */
     public ToolTipAction setAcceleratorCTRLplus(String key) {
         int keyCode = KeyStroke.getKeyStroke(key).getKeyCode();
-        return setAccelerator(KeyStroke.getKeyStroke(keyCode, getAccMask()));
+        return setAccelerator(KeyStroke.getKeyStroke(keyCode, getCTRLMask()));
     }
 
-    private int getAccMask() {
+    /**
+     * @return the system specific CTRL mask.
+     */
+    public static int getCTRLMask() {
         int mask = InputEvent.CTRL_DOWN_MASK;
         if (Screen.isMac())
             mask = InputEvent.META_DOWN_MASK;
@@ -123,6 +128,8 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return this for call chaining
      */
     public ToolTipAction setAccelerator(KeyStroke accelerator) {
+        if (accelerator.getKeyCode() == KeyEvent.VK_PLUS && Lang.currentLanguage().getName().equals("en"))
+            accelerator = KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, accelerator.getModifiers());
         this.accelerator = accelerator;
         return this;
     }

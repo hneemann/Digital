@@ -84,6 +84,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.gui.ToolTipAction.getCTRLMask;
 import static javax.swing.JOptionPane.showInputDialog;
 
 /**
@@ -352,21 +353,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(1 / 0.9);
             }
-        }.setAcceleratorCTRLplus("PLUS");
-        // enable [+] which is SHIFT+[=] on english keyboard layout
-        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
-        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK, false), zoomIn);
-        circuitComponent.getActionMap().put(zoomIn, zoomIn);
+        }.setAcceleratorCTRLplus("PLUS").enableAcceleratorIn(circuitComponent);
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, getCTRLMask()), zoomIn);
 
         ToolTipAction zoomOut = new ToolTipAction(Lang.get("menu_zoomOut"), ICON_ZOOM_OUT) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 circuitComponent.scaleCircuit(0.9);
             }
-        }.setAcceleratorCTRLplus("MINUS");
-        // enable [+] which is SHIFT+[=] on english keyboard layout
-        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK, false), zoomOut);
-        circuitComponent.getActionMap().put(zoomOut, zoomOut);
+        }.setAcceleratorCTRLplus("MINUS").enableAcceleratorIn(circuitComponent);
+        circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, getCTRLMask()), zoomOut);
 
         ToolTipAction viewHelp = new ToolTipAction(Lang.get("menu_viewHelp"), ICON_HELP) {
             @Override
