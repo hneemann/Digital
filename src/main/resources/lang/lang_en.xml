@@ -178,7 +178,7 @@
     <string name="elem_Button">Button</string>
     <string name="elem_Button_tt">A simple push button which goes back to its original state when it is released.</string>
     <string name="elem_Button_pin_out">The output signal of the button.</string>
-    <string name="elem_ButtonLED">Button</string>
+    <string name="elem_ButtonLED">Button with LED</string>
     <string name="elem_ButtonLED_tt">A simple push button which goes back to its original state when it is released.
         The push button has an LED which can be switched via an input signal.</string>
     <string name="elem_ButtonLED_pin_out">The output signal of the button.</string>

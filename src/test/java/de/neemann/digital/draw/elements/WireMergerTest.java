@@ -38,7 +38,7 @@ public class WireMergerTest extends TestCase {
     }
 
     public void testMerge1() {
-        WireMerger wm = new WireMerger(Wire.Orientation.horzontal);
+        WireMerger wm = new WireMerger(Wire.Orientation.horizontal);
         wm.add(new Wire(new Vector(1, 3), new Vector(5, 3)));
         wm.add(new Wire(new Vector(5, 3), new Vector(8, 3)));
         wm.add(new Wire(new Vector(1, 4), new Vector(5, 4)));
@@ -66,7 +66,7 @@ public class WireMergerTest extends TestCase {
     }
 
     public void testMerge2() {
-        WireMerger wm = new WireMerger(Wire.Orientation.horzontal);
+        WireMerger wm = new WireMerger(Wire.Orientation.horizontal);
         wm.add(new Wire(new Vector(1, 3), new Vector(3, 3)));
         wm.add(new Wire(new Vector(6, 3), new Vector(8, 3)));
         wm.add(new Wire(new Vector(2, 3), new Vector(7, 3)));

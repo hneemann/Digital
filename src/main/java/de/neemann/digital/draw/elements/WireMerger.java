@@ -27,7 +27,7 @@ public class WireMerger {
     public WireMerger(Wire.Orientation orientation) {
         wireContainers = new HashMap<>();
         switch (orientation) {
-            case horzontal:
+            case horizontal:
                 handler = new OrientationHandlerHorizontal();
                 break;
             case vertical:
