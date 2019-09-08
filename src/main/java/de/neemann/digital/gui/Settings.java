@@ -56,6 +56,7 @@ public final class Settings extends SettingsBase  {
         intList.add(Keys.SETTINGS_TOOLCHAIN_CONFIG);
         intList.add(Keys.SETTINGS_FONT_SCALING);
         intList.add(Keys.SETTINGS_MAC_MOUSE);
+        intList.add(Keys.SETTINGS_USE_EQUALS_KEY);
 
         return Collections.unmodifiableList(intList);
     }

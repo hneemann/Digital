@@ -622,6 +622,16 @@ public final class Keys {
                     .setSecondary();
 
     /**
+     * Uses the equals key instead of the plus key.
+     */
+    public static final Key<Boolean> SETTINGS_USE_EQUALS_KEY;
+    static {
+        String language = Locale.getDefault().getLanguage();
+        SETTINGS_USE_EQUALS_KEY = new Key<>("equalsInsteadOfPlus",
+                language.equals("en") || language.equals("fr")).setSecondary();
+    }
+
+    /**
      * true if a enable input is needed
      */
     public static final Key<Boolean> WITH_ENABLE

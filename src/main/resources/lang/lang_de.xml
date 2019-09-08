@@ -1393,6 +1393,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_SVG_thinnerLines">dünne Linien</string>
     <string name="key_SVG_thinnerLines_tt">Wenn gesetzt, werden die Linen etwas dünner gezeichnet.</string>
 
+    <string name="key_equalsInsteadOfPlus">Die Gleich-Taste verwenden.</string>
+    <string name="key_equalsInsteadOfPlus_tt">Die Gleich-Taste anstelle der Plus-Taste verwenden.
+        Dies ist immer dann sinvoll, wenn das Plus-Zeichen keine Primärtaste ist, sondern die Zweitbelegung des
+        Gleich-Zeichens, also z.B. bei amerikanischem oder französischem Tastaturlayout.</string>
+
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
     <string name="mod_setKey_N0_in_element_N1">Wert ''{0}'' in Element ''{1}'' verändert.</string>

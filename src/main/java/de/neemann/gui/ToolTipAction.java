@@ -5,7 +5,8 @@
  */
 package de.neemann.gui;
 
-import de.neemann.digital.lang.Lang;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.gui.Settings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -128,7 +129,7 @@ public abstract class ToolTipAction extends AbstractAction {
      * @return this for call chaining
      */
     public ToolTipAction setAccelerator(KeyStroke accelerator) {
-        if (accelerator.getKeyCode() == KeyEvent.VK_PLUS && Lang.currentLanguage().getName().equals("en"))
+        if (accelerator.getKeyCode() == KeyEvent.VK_PLUS && Settings.getInstance().get(Keys.SETTINGS_USE_EQUALS_KEY))
             accelerator = KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, accelerator.getModifiers());
         this.accelerator = accelerator;
         return this;
