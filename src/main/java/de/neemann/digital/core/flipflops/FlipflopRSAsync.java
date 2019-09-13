@@ -91,7 +91,7 @@ public class FlipflopRSAsync extends FlipflopBit {
     @Override
     public void setInputs(ObservableValues inputs) throws BitsException {
         sVal = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
-        rVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 2);
+        rVal = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
     }
 
 }
