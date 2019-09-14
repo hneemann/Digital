@@ -121,6 +121,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     private MouseController activeMouseController;
     private AffineTransform transform = new AffineTransform();
+    private AffineTransform[] favorites = new AffineTransform[10];
     private Observer manualChangeObserver;
     private Vector lastMousePos;
     private SyncAccess modelSync = SyncAccess.NOSYNC;
@@ -258,6 +259,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         addMouseMotionListener(dispatcher);
         addMouseListener(dispatcher);
 
+        enableFavoritPositions();
+
         mouseNormal.activate();
 
         if (parent != null) {
@@ -271,6 +274,31 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
 
         setToolTipText("");
+    }
+
+    private void enableFavoritPositions() {
+        for (int j = 0; j <= 9; j++) {
+            final int i = j;
+            new ToolTipAction("CTRL+" + i) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    favorites[i] = transform;
+                }
+            }.setAcceleratorCTRLplus((char) ('0' + i)).enableAcceleratorIn(this);
+            new ToolTipAction("" + i) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    if (favorites[i] != null) {
+                        transform = favorites[i];
+                        isManualScale = true;
+                        graphicHasChanged();
+                        if (circuitScrollPanel != null)
+                            circuitScrollPanel.transformChanged(transform);
+                    }
+
+                }
+            }.setAccelerator(KeyStroke.getKeyStroke((char) ('0' + i), 0)).enableAcceleratorIn(this);
+        }
     }
 
     private void createAdditionalShortcuts(ShapeFactory shapeFactory) {
