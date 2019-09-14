@@ -258,7 +258,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         addMouseMotionListener(dispatcher);
         addMouseListener(dispatcher);
 
-        enableFavoritPositions();
+        enableFavoritePositions();
 
         mouseNormal.activate();
 
@@ -275,7 +275,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         setToolTipText("");
     }
 
-    private void enableFavoritPositions() {
+    private void enableFavoritePositions() {
         for (int j = 0; j <= 9; j++) {
             final int i = j;
             final Key<AffineTransform> key = new Key<>("view" + i, AffineTransform::new);
