@@ -121,7 +121,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     private MouseController activeMouseController;
     private AffineTransform transform = new AffineTransform();
-    private AffineTransform[] favorites = new AffineTransform[10];
     private Observer manualChangeObserver;
     private Vector lastMousePos;
     private SyncAccess modelSync = SyncAccess.NOSYNC;
@@ -279,23 +278,26 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private void enableFavoritPositions() {
         for (int j = 0; j <= 9; j++) {
             final int i = j;
+            final Key<AffineTransform> key = new Key<>("view" + i, AffineTransform::new);
             new ToolTipAction("CTRL+" + i) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    favorites[i] = transform;
+                    ElementAttributes attr = new ElementAttributes(getCircuit().getAttributes());
+                    attr.set(key, transform);
+                    modify(new ModifyCircuitAttributes(attr));
                 }
             }.setAcceleratorCTRLplus((char) ('0' + i)).enableAcceleratorIn(this);
             new ToolTipAction("" + i) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    if (favorites[i] != null) {
-                        transform = favorites[i];
+                    AffineTransform tr = getCircuit().getAttributes().get(key);
+                    if (!tr.isIdentity()) {
+                        transform = tr;
                         isManualScale = true;
                         graphicHasChanged();
                         if (circuitScrollPanel != null)
                             circuitScrollPanel.transformChanged(transform);
                     }
-
                 }
             }.setAccelerator(KeyStroke.getKeyStroke((char) ('0' + i), 0)).enableAcceleratorIn(this);
         }
