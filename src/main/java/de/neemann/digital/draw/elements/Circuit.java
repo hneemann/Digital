@@ -33,6 +33,7 @@ import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.undo.Copyable;
 import de.neemann.gui.language.Language;
 
+import java.awt.geom.AffineTransform;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -98,6 +99,7 @@ public class Circuit implements Copyable<Circuit> {
         xStream.alias("text", CustomShapeDescription.TextHolder.class);
         xStream.alias("polygon", Polygon.class);
         xStream.alias("shapeType", CustomCircuitShapeType.class);
+        xStream.alias("transform", AffineTransform.class);
         xStream.registerConverter(new PolygonConverter());
         return xStream;
     }
