@@ -4,6 +4,9 @@ HEAD, planned as v0.24
 - Improved SVG export
 - Allows to disable inputs and outputs in the measurement graph.
 - Model analyzer is able to use switches as inputs.
+- Editor is able to store views ([CRTL]+[[n]] to store and [[n]] ro recall a view.
+  So [CTRL]+[1] stores a view in slot one and [1] recalls it.
+- The octal number format was added.
 
 v0.23, released on 23. Aug. 2019
 - Added generic circuits. Now it is possible to parameterize a sub circuit.
