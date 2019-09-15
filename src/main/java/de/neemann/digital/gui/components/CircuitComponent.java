@@ -283,7 +283,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     ElementAttributes attr = new ElementAttributes(getCircuit().getAttributes());
-                    attr.set(key, transform);
+                    attr.set(key, new AffineTransform(transform));
                     modify(new ModifyCircuitAttributes(attr));
                 }
             }.setAcceleratorCTRLplus((char) ('0' + i)).enableAcceleratorIn(this);
@@ -292,7 +292,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 public void actionPerformed(ActionEvent actionEvent) {
                     AffineTransform tr = getCircuit().getAttributes().get(key);
                     if (!tr.isIdentity()) {
-                        transform = tr;
+                        transform = new AffineTransform(tr);
                         isManualScale = true;
                         graphicHasChanged();
                         if (circuitScrollPanel != null)
