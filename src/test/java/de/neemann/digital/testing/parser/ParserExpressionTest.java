@@ -42,6 +42,12 @@ public class ParserExpressionTest extends TestCase {
         assertEquals(1, new Parser("1!=2").getValue());
         assertEquals(0, new Parser("2!=2").getValue());
 
+        assertEquals(1, new Parser("1<=3").getValue());
+        assertEquals(1, new Parser("3<=3").getValue());
+        assertEquals(0, new Parser("4<=3").getValue());
+        assertEquals(1, new Parser("3>=1").getValue());
+        assertEquals(1, new Parser("3>=3").getValue());
+        assertEquals(0, new Parser("3>=4").getValue());
 
         assertEquals(7, new Parser("3|4").getValue());
         assertEquals(2, new Parser("7&2").getValue());

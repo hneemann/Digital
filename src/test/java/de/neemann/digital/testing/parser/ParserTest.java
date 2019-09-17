@@ -42,7 +42,7 @@ public class ParserTest extends TestCase {
         assertEquals(Value.Type.DONTCARE, td.getLines().get(2).getValue(1).getType());
     }
 
-    public void testHex() throws TestingDataException, IOException, ParserException {
+    public void testHex() throws IOException, ParserException {
         Parser parser = new Parser("A B\n0 0xff").parse();
         LineCollector td = new LineCollector(parser);
         assertEquals(2, td.getNames().size());
@@ -56,7 +56,7 @@ public class ParserTest extends TestCase {
         assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(1).getType());
     }
 
-    public void testBin() throws TestingDataException, IOException, ParserException {
+    public void testBin() throws IOException, ParserException {
         Parser parser = new Parser("A B\n0 0b11111111").parse();
         LineCollector td = new LineCollector(parser);
         assertEquals(2, td.getNames().size());
@@ -70,7 +70,7 @@ public class ParserTest extends TestCase {
         assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(1).getType());
     }
 
-    public void testMissingValue() throws IOException, ParserException {
+    public void testMissingValue() throws IOException {
         try {
             new Parser("A B\n0 0\n1").parse().getLines().emitLines(values -> {
             }, new Context());

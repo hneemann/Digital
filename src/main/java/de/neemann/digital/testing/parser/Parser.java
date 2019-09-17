@@ -255,7 +255,7 @@ public class Parser {
      * @throws ParserException IOException
      */
     private Expression parseExpression() throws IOException, ParserException {
-        Expression ac = parseGreater();
+        Expression ac = parseSmalerEqual();
         while (isToken(Tokenizer.Token.SMALER)) {
             Expression a = ac;
             Expression b = parseGreater();
@@ -264,12 +264,31 @@ public class Parser {
         return ac;
     }
 
+    private Expression parseSmalerEqual() throws IOException, ParserException {
+        Expression ac = parseGreater();
+        while (isToken(Tokenizer.Token.SMALEREQUAL)) {
+            Expression a = ac;
+            Expression b = parseGreater();
+            ac = (c) -> a.value(c) <= b.value(c) ? 1 : 0;
+        }
+        return ac;
+    }
+
     private Expression parseGreater() throws IOException, ParserException {
-        Expression ac = parseEquals();
+        Expression ac = parseGreaterEqual();
         while (isToken(Tokenizer.Token.GREATER)) {
             Expression a = ac;
             Expression b = parseEquals();
             ac = (c) -> a.value(c) > b.value(c) ? 1 : 0;
+        }
+        return ac;
+    }
+    private Expression parseGreaterEqual() throws IOException, ParserException {
+        Expression ac = parseEquals();
+        while (isToken(Tokenizer.Token.GREATEREQUAL)) {
+            Expression a = ac;
+            Expression b = parseEquals();
+            ac = (c) -> a.value(c) >= b.value(c) ? 1 : 0;
         }
         return ac;
     }
