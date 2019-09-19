@@ -48,11 +48,18 @@ public interface Editor<T> {
     void setEnabled(boolean enabled);
 
     /**
-     * Adds an ectionListener to the component
+     * Adds an actionListener to the component
      *
      * @param actionListener the actionListener to add
      */
     default void addActionListener(ActionListener actionListener) {
+    }
+
+    /**
+     * @return true if a major invisible change has been made that is unlikely to be lost.
+     */
+    default boolean invisibleModification() {
+        return false;
     }
 
     /**

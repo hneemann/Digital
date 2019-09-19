@@ -18,6 +18,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -92,11 +94,11 @@ public class AttributeDialog extends JDialog {
      */
     public AttributeDialog(Window parent, Point pos, java.util.List<Key> list, ElementAttributes elementAttributes, boolean addCheckBoxes) {
         super(parent, Lang.get("attr_dialogTitle"), ModalityType.APPLICATION_MODAL);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.parent = parent;
         this.pos = pos;
         this.originalAttributes = elementAttributes;
         this.modifiedAttributes = new ElementAttributes(elementAttributes);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         panel = new JPanel(new GridBagLayout());
 
@@ -188,6 +190,30 @@ public class AttributeDialog extends JDialog {
         buttonPanel.add(okButton);
 
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EditorHolder majorModification = null;
+                for (EditorHolder eh : editors)
+                    if (eh.e.invisibleModification())
+                        majorModification = eh;
+                if (majorModification == null)
+                    dispose();
+                else {
+                    int r = JOptionPane.showOptionDialog(
+                            AttributeDialog.this,
+                            Lang.get("msg_dataWillBeLost_n", majorModification.key.getName()),
+                            Lang.get("msg_warning"),
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE,
+                            null, new String[]{Lang.get("btn_discard"), Lang.get("cancel")},
+                            Lang.get("cancel"));
+                    if (r == JOptionPane.YES_OPTION)
+                        dispose();
+                }
+            }
+        });
 
         getRootPane().setDefaultButton(okButton);
         getRootPane().registerKeyboardAction(cancel,

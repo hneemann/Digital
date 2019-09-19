@@ -1763,6 +1763,8 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="msg_renameNet_N_OLD_NEW">Es gibt noch {0} weitere Tunnel mit dem Netznamen ''{1}''.
         Sollen alle {0} zu ''{2}'' umbenannt werden?</string>
 
+    <string name="msg_dataWillBeLost_n">Sollen die Änderungen im Feld "{0}" wirklich verworfen werden?</string>
+
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>
     <string name="rot_180">180°</string>
