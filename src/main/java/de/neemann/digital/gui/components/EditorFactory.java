@@ -609,8 +609,10 @@ public final class EditorFactory {
                         DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC);
                         de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
-                            data = de.getModifiedDataField();
-                            majorModification = true;
+                            DataField mod = de.getModifiedDataField();
+                            if (!data.equals(mod))
+                                majorModification = true;
+                            data = mod;
                             attr.setFile(ROM.LAST_DATA_FILE_KEY, de.getFileName());
                         }
                     } catch (EditorParseException e1) {
