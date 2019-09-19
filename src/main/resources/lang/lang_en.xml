@@ -269,6 +269,16 @@
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
     <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
 
+    <string name="elem_VGA">VGA Monitor</string>
+    <string name="elem_VGA_tt">Analyzes the incoming video signals and displays the corresponding graphic.
+        Since the simulation cannot run in real time, the pixel clock is required in addition to the video signals.</string>
+    <string name="elem_VGA_pin_R">The red color component</string>
+    <string name="elem_VGA_pin_G">The green color component</string>
+    <string name="elem_VGA_pin_B">The blue color component</string>
+    <string name="elem_VGA_pin_H">The horizontal synchronization signal</string>
+    <string name="elem_VGA_pin_V">The vertical synchronization signal</string>
+    <string name="elem_VGA_pin_C">The pixel clock</string>
+
     <string name="elem_MIDI">MIDI</string>
     <string name="elem_MIDI_tt">Uses the MIDI system to play notes.</string>
     <string name="elem_MIDI_pin_N">Note</string>
@@ -1743,6 +1753,8 @@ Make sure the flash process is complete before closing this dialog!</string>
         Do you want to rename all {0} to ''{2}''?</string>
 
     <string name="msg_dataWillBeLost_n">Do you really want to discard the changes in the "{0}" field?</string>
+
+    <string name="err_vgaModeNotDetected_N">Video mode was not detected ({0})</string>
 
     <string name="ok">OK</string>
     <string name="rot_0">0°</string>

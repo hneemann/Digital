@@ -24,6 +24,7 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.draw.model.NetList;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.gui.components.graphics.VGA;
 import de.neemann.digital.hdl.model2.clock.ClockInfo;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.ExprNot;
@@ -228,6 +229,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                 && !v.equalsDescription(PullDown.DESCRIPTION)
                 && !v.equalsDescription(PullUp.DESCRIPTION)
                 && !v.equalsDescription(Probe.DESCRIPTION)
+                && !v.equalsDescription(VGA.DESCRIPTION)
                 && !v.equalsDescription(PowerSupply.DESCRIPTION)
                 && !v.equalsDescription(DummyElement.TEXTDESCRIPTION)
                 && !v.equalsDescription(DummyElement.DATADESCRIPTION)

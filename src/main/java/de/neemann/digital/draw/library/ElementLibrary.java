@@ -29,6 +29,7 @@ import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.graphics.LedMatrix;
+import de.neemann.digital.gui.components.graphics.VGA;
 import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.lang.Lang;
@@ -141,6 +142,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                                 .add(RotEncoder.DESCRIPTION)
                                 .add(Keyboard.DESCRIPTION)
                                 .add(Terminal.DESCRIPTION)
+                                .add(VGA.DESCRIPTION)
                                 .add(MIDI.DESCRIPTION)))
                 .add(new LibraryNode(Lang.get("lib_wires"))
                         .add(Ground.DESCRIPTION)

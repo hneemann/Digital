@@ -264,6 +264,16 @@
     <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
     <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
+    <string name="elem_VGA">VGA Bildschirm</string>
+    <string name="elem_VGA_tt">Analysiert die eingehenden Video-Signale und zeigt die entsprechende Grafik an.
+        Da die Simulation nicht in Echtzeit laufen kann, wird zusätzlich zu den Videosignalen der Pixeltakt benötigt.</string>
+    <string name="elem_VGA_pin_R">Der rote Farbanteil</string>
+    <string name="elem_VGA_pin_G">Der grüne Farbanteil</string>
+    <string name="elem_VGA_pin_B">Der blaue Farbanteil</string>
+    <string name="elem_VGA_pin_H">Das horizontale Synchronisationssignal</string>
+    <string name="elem_VGA_pin_V">Das vertikale Synchronisationssignal</string>
+    <string name="elem_VGA_pin_C">Der Pixeltakt</string>
+
     <string name="elem_MIDI">MIDI</string>
     <string name="elem_MIDI_tt">Nutzt das MIDI-System, um Noten abzuspielen.</string>
     <string name="elem_MIDI_pin_N">Note</string>
@@ -1037,6 +1047,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         in Komponente: {0}
     </string>
     <string name="msg_errParsingGenerics">Fehler bei der Analyse des generischen Codes.</string>
+
+    <string name="err_vgaModeNotDetected_N">Videomodus wurde nicht erkannt ({0})</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
