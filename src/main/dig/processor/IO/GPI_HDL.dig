@@ -4,7 +4,8 @@
   <attributes>
     <entry>
       <string>Description</string>
-      <string>Element für ein allgemeines EIngaberegister.</string>
+      <string>Simple general input register.
+{{de Element für ein allgemeines Eingaberegister.}}</string>
     </entry>
   </attributes>
   <visualElements>
@@ -13,7 +14,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Output</string>
+          <string>Output
+{{de Ausgabe}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -45,7 +47,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Addressbus</string>
+          <string>address bus
+{{de Addressbus}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -63,7 +66,8 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Raed Enable</string>
+          <string>Read Enable
+{{de Lesefreigabe}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -212,4 +216,5 @@
       <p2 x="420" y="180"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

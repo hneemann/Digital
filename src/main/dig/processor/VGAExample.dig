@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes>
-    <entry>
-      <string>Description</string>
-      <string>Einfacher Prozessor, der an die MIPS-Architektur 
-angelehnt ist. Es handelt sich um eine Harvard 
-Single-Cycle CPU.</string>
-    </entry>
-  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Clock</elementName>

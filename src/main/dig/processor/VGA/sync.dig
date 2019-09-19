@@ -7,7 +7,11 @@
       <string>Designed for a 
 25.175MHz clock.
 Generates 
-640x480@60Hz</string>
+640x480@60Hz
+{{de Ausgelegt für einen 
+25.175MHz Takt.
+Erzeugt
+640x480@60Hz}}</string>
     </entry>
     <entry>
       <string>Width</string>
@@ -39,7 +43,9 @@ Generates
         <entry>
           <string>Description</string>
           <string>The x coordinate of visible pixel.
-Is valid only if oe is high.</string>
+Is valid only if oe is high.
+{{de Die x-Koordinate des sichtbaren Pixels.
+Nur gültig, wenn oe auf HIGH gesetzt ist.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -77,7 +83,9 @@ Is valid only if oe is high.</string>
         <entry>
           <string>Description</string>
           <string>The y coordinate of visible pixel.
-Is valid only if oe is high.</string>
+Is valid only if oe is high.
+{{de Die y-Koordinate des sichtbaren Pixels.
+Nur gültig, wenn oe auf HIGH gesetzt ist.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -96,7 +104,9 @@ Is valid only if oe is high.</string>
         <entry>
           <string>Description</string>
           <string>If oe is high the x- and y-coordinates are valid and 
-a visible pixel is to output.</string>
+a visible pixel is to output.
+{{de Wenn oe HIGH ist, sind x- und y-Koordinate
+gültig, und es muss ein Pixel ausgegeben werden.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -110,7 +120,8 @@ a visible pixel is to output.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>The horizontal sync signal. Is low active.</string>
+          <string>The horizontal sync signal. Is low active.
+{{de Das horizontale sync-Signal. Ist Active Low}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -124,7 +135,8 @@ a visible pixel is to output.</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>The vertical sync signal. Is low active.</string>
+          <string>The vertical sync signal. Is low active.
+{{de Das vertikale sync-Signal. Ist Active Low}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -165,10 +177,18 @@ a visible pixel is to output.</string>
           <string>Designed for a 
 25.175MHz clock.
 Generates 
-640x480@60Hz</string>
+640x480@60Hz
+Designed for a 
+25.175MHz clock.
+Generates 
+640x480@60Hz
+{{de Ausgelegt für einen 
+25.175MHz Takt.
+Erzeugt
+640x480@60Hz}}</string>
         </entry>
       </elementAttributes>
-      <pos x="420" y="540"/>
+      <pos x="380" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Comparator</elementName>
