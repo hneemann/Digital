@@ -90,65 +90,23 @@ Single-Cycle CPU.}}</string>
       <pos x="480" y="420"/>
     </visualElement>
     <visualElement>
-      <elementName>ROM</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>AddrBits</string>
-          <int>16</int>
-        </entry>
-        <entry>
-          <string>isProgramMemory</string>
-          <boolean>true</boolean>
+          <string>Description</string>
+          <string>Instruction
+{{de Befehlswort}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>ROM</string>
+          <string>Instr</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
         </entry>
-        <entry>
-          <string>Addr Bits</string>
-          <int>16</int>
-        </entry>
-        <entry>
-          <string>Data</string>
-          <data>802e,1220,7800,5610,5200,3c00,5e0e,3c10,640c,210,2811,6422,210,2818,6431,210,2812,
-6404,210,2814,640c,6a02,801a,1220,1580,1491,7359,3e90,2081,6402,1580,1491,6fe1,8026,
-1220,1580,8000,1390,7359,4090,2081,6403,1580,8000,1390,6fd4,8032,1220,1491,14a0,7359,
-3ca0,6406,3e90,8000,3b90,65c9,14a1,6fc7,4090,3c91,65c4,14a0,6fc2,8045,1220,1484,9111,
-1290,7359,3e90,2081,6403,1484,9111,1290,6fb5</data>
-        </entry>
-        <entry>
-          <string>lastDataFile</string>
-          <string>/home/hneemann/Dokumente/Java/assembler/assembler3/src/main/asm/lightChase.hex</string>
-        </entry>
       </elementAttributes>
-      <pos x="360" y="400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes/>
-      <pos x="340" y="440"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Clock</elementName>
-      <elementAttributes>
-        <entry>
-          <string>runRealTime</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Clock</string>
-        </entry>
-        <entry>
-          <string>Frequency</string>
-          <int>200</int>
-        </entry>
-      </elementAttributes>
-      <pos x="1140" y="600"/>
+      <pos x="420" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Flags.dig</elementName>
@@ -523,22 +481,22 @@ Single-Cycle CPU.}}</string>
       <pos x="1140" y="340"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Clock</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>reset input {{de Reset Eingang}}</string>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
         </entry>
         <entry>
           <string>Label</string>
-          <string>reset</string>
+          <string>Clock</string>
         </entry>
         <entry>
-          <string>InDefault</string>
-          <value v="1" z="false"/>
+          <string>Frequency</string>
+          <int>200</int>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="560"/>
+      <pos x="1140" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -676,19 +634,37 @@ Single-Cycle CPU.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>the data input for io reads
-{{de Datenbus für IO Leseoperationen.}}</string>
+          <string>reset input {{de Reset Eingang}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>D_in</string>
+          <string>reset</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="1140" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Program Counter
+{{de Programzähler}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>PC</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="500" y="100"/>
+      <pos x="580" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -708,6 +684,20 @@ Single-Cycle CPU.}}</string>
         </entry>
       </elementAttributes>
       <pos x="1260" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ioR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -737,10 +727,10 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>ioR</string>
+          <string>ioW</string>
         </entry>
       </elementAttributes>
-      <pos x="1280" y="560"/>
+      <pos x="1280" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -756,35 +746,6 @@ Single-Cycle CPU.}}</string>
         </entry>
       </elementAttributes>
       <pos x="1300" y="560"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>ioW</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1280" y="600"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>if high, a io write is perfromed
-{{de IO Schreibfreigabe}}</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>ioW</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1300" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -820,6 +781,40 @@ Single-Cycle CPU.}}</string>
       <elementAttributes/>
       <pos x="660" y="120"/>
     </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>if high, a io write is perfromed
+{{de IO Schreibfreigabe}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>ioW</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1300" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>the data input for io reads
+{{de Datenbus für IO Leseoperationen.}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>D_in</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="100"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -831,8 +826,8 @@ Single-Cycle CPU.}}</string>
       <p2 x="1000" y="320"/>
     </wire>
     <wire>
-      <p1 x="340" y="260"/>
-      <p2 x="520" y="260"/>
+      <p1 x="520" y="260"/>
+      <p2 x="580" y="260"/>
     </wire>
     <wire>
       <p1 x="640" y="200"/>
@@ -905,10 +900,6 @@ Single-Cycle CPU.}}</string>
     <wire>
       <p1 x="1120" y="400"/>
       <p2 x="1220" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="400"/>
-      <p2 x="360" y="400"/>
     </wire>
     <wire>
       <p1 x="800" y="400"/>
@@ -1111,10 +1102,6 @@ Single-Cycle CPU.}}</string>
       <p2 x="560" y="440"/>
     </wire>
     <wire>
-      <p1 x="340" y="440"/>
-      <p2 x="360" y="440"/>
-    </wire>
-    <wire>
       <p1 x="820" y="440"/>
       <p2 x="840" y="440"/>
     </wire>
@@ -1201,10 +1188,6 @@ Single-Cycle CPU.}}</string>
     <wire>
       <p1 x="1040" y="340"/>
       <p2 x="1040" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="260"/>
-      <p2 x="340" y="400"/>
     </wire>
     <wire>
       <p1 x="340" y="620"/>
