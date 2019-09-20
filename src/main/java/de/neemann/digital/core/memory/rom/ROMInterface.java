@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.memory.rom;
 
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.stats.Countable;
 
@@ -34,4 +35,5 @@ public interface ROMInterface extends Countable {
      */
     int getAddrBits();
 
+    IntFormat getIntFormat();
 }

@@ -71,8 +71,9 @@ public class RAMShape extends GenericShape {
             @Override
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 if (element instanceof RAMInterface) {
-                    DataField dataField = ((RAMInterface) element).getMemory();
-                    DataEditor dataEditor = new DataEditor(cc, dataField, dataBits, addrBits, true, modelSync);
+                    RAMInterface ram = (RAMInterface) element;
+                    DataField dataField = ram.getMemory();
+                    DataEditor dataEditor = new DataEditor(cc, dataField, dataBits, addrBits, true, modelSync, ram.getIntFormat());
                     dataEditor.showDialog(dialogTitle, model);
                 }
                 return false;

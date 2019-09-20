@@ -606,7 +606,7 @@ public final class EditorFactory {
                         getAttributeDialog().storeEditedValues();
                         int dataBits = attr.get(Keys.BITS);
                         int addrBits = getAddrBits(attr);
-                        DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC);
+                        DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC, attr.get(Keys.INT_FORMAT));
                         de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
                         if (de.showDialog()) {
                             DataField mod = de.getModifiedDataField();

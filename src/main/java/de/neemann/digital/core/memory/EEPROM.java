@@ -31,6 +31,7 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.DATA);
@@ -42,6 +43,7 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
     private final String label;
     private final ObservableValue dataOut;
     private final boolean isProgramMemory;
+    private final IntFormat intFormat;
     private DataField memory;
     private ObservableValue addrIn;
     private ObservableValue csIn;
@@ -74,6 +76,7 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional();
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
+        intFormat = attr.get(Keys.INT_FORMAT);
     }
 
     @Override
@@ -120,6 +123,11 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
         } else {
             dataOut.setToHighZ();
         }
+    }
+
+    @Override
+    public IntFormat getIntFormat() {
+        return intFormat;
     }
 
     @Override

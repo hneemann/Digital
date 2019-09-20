@@ -90,6 +90,24 @@ public enum IntFormat {
         }
     }
 
+    public int strLen(int bits) {
+        switch (this) {
+            case dec:
+                return (int) Math.ceil(Math.log10(1L<<bits));
+            case decSigned:
+                return (int) Math.ceil(Math.log10(1L<<(bits-1)))+1;
+            case hex:
+                return (bits-1)/4+3;
+            case bin:
+                return bits+2;
+            case oct:
+                return (bits-1)/3+3;
+            case ascii:
+                return 3;
+            default:
+                return (bits-1)/4+3;
+        }
+    }
 
     private static final char[] DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 

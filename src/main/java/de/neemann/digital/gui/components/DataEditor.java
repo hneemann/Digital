@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.Bits;
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.SyncAccess;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.gui.SaveAsHelper;
@@ -53,7 +50,7 @@ public class DataEditor extends JDialog {
      * @param modelIsRunning true if model is running
      * @param modelSync      used to access the running model
      */
-    public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync) {
+    public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync, IntFormat intFormat) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 

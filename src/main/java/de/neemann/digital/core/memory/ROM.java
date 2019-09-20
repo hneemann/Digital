@@ -38,10 +38,12 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DATA)
+            .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.AUTO_RELOAD_ROM);
 
     private DataField data;
+    private final IntFormat intFormat;
     private final ObservableValue output;
     private final int addrBits;
     private final int dataBits;
@@ -73,6 +75,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
             hexFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else
             hexFile = null;
+        intFormat = attr.get(Keys.INT_FORMAT);
     }
 
     @Override
@@ -138,6 +141,11 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
     @Override
     public int getAddrBits() {
         return addrBits;
+    }
+
+    @Override
+    public IntFormat getIntFormat() {
+        return intFormat;
     }
 
     @Override
