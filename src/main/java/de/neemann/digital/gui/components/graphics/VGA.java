@@ -180,7 +180,7 @@ public class VGA extends Node implements Element {
         if (mode == null) {
             VideoId id = new VideoId(
                     lineLen, hSyncDetection.syncPulse(), hSyncDetection.isNegPolarity(),
-                    lineCount, vSyncDetection.syncPulse() / lineLen, vSyncDetection.isNegPolarity());
+                    lineCount, (vSyncDetection.syncPulse() + lineLen / 2) / lineLen, vSyncDetection.isNegPolarity());
 
             mode = MODES.get(id);
             if (mode == null)
@@ -241,14 +241,14 @@ public class VGA extends Node implements Element {
         }
     }
 
-    private static class SyncDetector {
+    static class SyncDetector {
         private boolean lastS;
         private int high;
         private int highLen;
         private int low;
         private int lowLen;
 
-        public boolean add(boolean s) {
+        boolean add(boolean s) {
             if (s) {
                 high++;
                 if (!lastS) {
@@ -277,11 +277,11 @@ public class VGA extends Node implements Element {
             return result;
         }
 
-        private boolean isNegPolarity() {
+        boolean isNegPolarity() {
             return lowLen < highLen;
         }
 
-        private int syncPulse() {
+        int syncPulse() {
             if (isNegPolarity())
                 return lowLen;
             else
