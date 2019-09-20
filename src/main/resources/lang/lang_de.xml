@@ -298,7 +298,7 @@
     <string name="elem_Tunnel">Tunnel</string>
     <string name="elem_Tunnel_tt">Verbindet Elemente, ohne eine Leitung zu ziehen. Alle Tunnelelemente, welche denselben
         Netznamen tragen, sind miteinander verbunden. Der Tunnel ist immer lokal, es können keine Verbindungen über
-        Schaltungsgrenzen hinaus erzeugt werden.</string>
+        Schaltungsgrenzen hinaus erzeugt werden. Unbenannte Tunnel haben keine Funktion.</string>
     <string name="elem_Tunnel_pin_in">Anschluss des Tunnels.</string>
     <string name="elem_Splitter">Splitter</string>
     <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.

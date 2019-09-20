@@ -34,21 +34,23 @@ public class NetList implements Iterable<Net> {
         boolean hasLabel = false;
         for (VisualElement ve : circuit.getElements())
             if (ve.equalsDescription(Tunnel.DESCRIPTION)) {
-                Vector pos = ve.getPos();
-                Net found = null;
-                for (Net n : netList)
-                    if (n.contains(pos))
-                        found = n;
-
                 String label = ve.getElementAttributes().get(Keys.NETNAME).trim();
-                if (found == null) {
-                    final PinException e = new PinException(Lang.get("err_labelNotConnectedToNet_N", label), ve);
-                    e.setOrigin(circuit.getOrigin());
-                    throw e;
-                }
+                if (!label.isEmpty()) {
+                    Vector pos = ve.getPos();
+                    Net found = null;
+                    for (Net n : netList)
+                        if (n.contains(pos))
+                            found = n;
 
-                found.addLabel(label);
-                hasLabel = true;
+                    if (found == null) {
+                        final PinException e = new PinException(Lang.get("err_labelNotConnectedToNet_N", label), ve);
+                        e.setOrigin(circuit.getOrigin());
+                        throw e;
+                    }
+
+                    found.addLabel(label);
+                    hasLabel = true;
+                }
             }
 
         if (hasLabel)
