@@ -35,6 +35,8 @@ import java.util.ArrayList;
  */
 public class DataEditor extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
+    private final IntFormat dataFormat;
+    private final IntFormat addrFormat;
     private DataField localDataField;
     private final JTable table;
     private boolean ok = false;
@@ -53,6 +55,11 @@ public class DataEditor extends JDialog {
     public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync, IntFormat intFormat) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        dataFormat = intFormat;
+        if (intFormat.equals(IntFormat.ascii) || intFormat.equals(IntFormat.bin))
+            addrFormat = IntFormat.hex;
+        else
+            addrFormat = intFormat;
 
         if (modelIsRunning)
             localDataField = dataField;
@@ -60,7 +67,7 @@ public class DataEditor extends JDialog {
             localDataField = new DataField(dataField);
 
         final int size = 1 << addrBits;
-        final int cols = calcCols(size, dataBits);
+        final int cols = calcCols(size, dataBits, dataFormat);
         final int rows = (size - 1) / cols + 1;
 
         int tableWidth = 0;
@@ -171,12 +178,15 @@ public class DataEditor extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    private int calcCols(int size, int dataBits) {
-        int cols = 16;
-        if (size <= 16) cols = 1;
-        else if (size <= 128) cols = 8;
+    private int calcCols(int size, int dataBits, IntFormat dataFormat) {
 
-        if (dataBits > 20 && cols == 16) cols = 8;
+        if (size <= 16) return 1;
+
+        int colWidth = dataFormat.strLen(dataBits);
+        int cols = 2;
+        while (colWidth * cols * 2 < 100)
+            cols *= 2;
+
         return cols;
     }
 
