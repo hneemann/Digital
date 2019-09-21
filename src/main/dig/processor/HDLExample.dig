@@ -558,7 +558,7 @@ end loop
         <entry>
           <string>Description</string>
           <string>Pin numbers are defined to match the BASYS3 FPGA board.
-{{de Die Pin-Nummern sind definiert für ein BASYS3 FPGA  Board.}}</string>
+{{de Die Pin-Nummern sind angepasst an ein BASYS3 FPGA Board.}}</string>
         </entry>
       </elementAttributes>
       <pos x="400" y="140"/>
