@@ -191,9 +191,12 @@ public class DataEditor extends JDialog {
 
         int colWidth = dataFormat.strLen(dataBits);
         int cols = 2;
-        while (colWidth * cols * 2 < 100)
-            cols *= 2;
-
+        while (true) {
+            int newCols = cols * 2;
+            if (colWidth * newCols > 100 || size / newCols < newCols)
+                break;
+            cols = newCols;
+        }
         return cols;
     }
 
