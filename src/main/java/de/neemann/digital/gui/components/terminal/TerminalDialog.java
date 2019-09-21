@@ -8,6 +8,7 @@ package de.neemann.digital.gui.components.terminal;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.gui.components.CircuitComponent;
+import de.neemann.digital.gui.components.graphics.MoveFocusTo;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ToolTipAction;
 
@@ -58,6 +59,8 @@ public class TerminalDialog extends JDialog {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+
+        addWindowFocusListener(new MoveFocusTo(parent));
     }
 
     /**

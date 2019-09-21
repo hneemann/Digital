@@ -36,6 +36,8 @@ public class LedMatrixDialog extends JDialog {
 
         setLocationRelativeTo(null);
         setVisible(true);
+
+        addWindowFocusListener(new MoveFocusTo(parent));
     }
 
     /**
