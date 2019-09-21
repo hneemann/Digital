@@ -37,6 +37,8 @@ public class DataEditor extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
     private final IntFormat dataFormat;
     private final IntFormat addrFormat;
+    private final int dataBits;
+    private final int addrBits;
     private DataField localDataField;
     private final JTable table;
     private boolean ok = false;
@@ -51,13 +53,16 @@ public class DataEditor extends JDialog {
      * @param addrBits       the bit count of the adresses
      * @param modelIsRunning true if model is running
      * @param modelSync      used to access the running model
+     * @param intFormat      the integer format to be used
      */
     public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync, IntFormat intFormat) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.dataBits = dataBits;
+        this.addrBits = addrBits;
         dataFormat = intFormat;
         if (intFormat.equals(IntFormat.ascii) || intFormat.equals(IntFormat.bin))
-            addrFormat = IntFormat.hex;
+            addrFormat = IntFormat.def;
         else
             addrFormat = intFormat;
 
@@ -74,22 +79,25 @@ public class DataEditor extends JDialog {
         MyTableModel dm = new MyTableModel(this.localDataField, cols, rows, modelSync);
         table = new JTable(dm);
         int widthOfZero = table.getFontMetrics(table.getFont()).stringWidth("00000000") / 8;
-        table.setDefaultRenderer(MyLong.class, new MyLongRenderer(dataBits));
+        int widthOfData = widthOfZero * (dataFormat.strLen(dataBits) + 1);
         for (int c = 1; c < table.getColumnModel().getColumnCount(); c++) {
-            int width = widthOfZero * ((dataBits - 1) / 4 + 2);
-            tableWidth += width;
+            tableWidth += widthOfData;
             TableColumn col = table.getColumnModel().getColumn(c);
-            col.setPreferredWidth(width);
+            col.setPreferredWidth(widthOfData);
         }
 
-        MyLongRenderer addrRenderer = new MyLongRenderer(addrBits);
+        DefaultTableCellRenderer dataRenderer = new DefaultTableCellRenderer();
+        dataRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        table.setDefaultRenderer(NumberString.class, dataRenderer);
+
+        DefaultTableCellRenderer addrRenderer = new DefaultTableCellRenderer();
         addrRenderer.setBackground(MYGRAY);
+        addrRenderer.setHorizontalAlignment(JLabel.RIGHT);
         TableColumn addrColumn = table.getColumnModel().getColumn(0);
         addrColumn.setCellRenderer(addrRenderer);
-        int width = widthOfZero * ((addrBits - 1) / 4 + 2);
-        addrColumn.setPreferredWidth(width);
-        tableWidth += width;
-
+        int widthOfAddr = widthOfZero * (addrFormat.strLen(addrBits) + 1);
+        addrColumn.setPreferredWidth(widthOfAddr);
+        tableWidth += widthOfAddr;
 
         JScrollPane scrollPane = new JScrollPane(table);
         getContentPane().add(scrollPane);
@@ -179,7 +187,6 @@ public class DataEditor extends JDialog {
     }
 
     private int calcCols(int size, int dataBits, IntFormat dataFormat) {
-
         if (size <= 16) return 1;
 
         int colWidth = dataFormat.strLen(dataBits);
@@ -251,7 +258,7 @@ public class DataEditor extends JDialog {
         return fileName;
     }
 
-    private final static class MyTableModel implements TableModel, DataField.DataListener {
+    private final class MyTableModel implements TableModel, DataField.DataListener {
         private final DataField dataField;
         private final int cols;
         private final SyncAccess modelSync;
@@ -280,14 +287,14 @@ public class DataEditor extends JDialog {
             if (columnIndex == 0)
                 return Lang.get("addr");
             else if (cols > 1)
-                return Integer.toHexString(columnIndex - 1).toUpperCase();
+                return addrFormat.formatToEdit(new Value(columnIndex - 1, addrBits));
             else
                 return Lang.get("key_Value");
         }
 
         @Override
         public Class<?> getColumnClass(int columnIndex) {
-            return MyLong.class;
+            return NumberString.class;
         }
 
         @Override
@@ -297,16 +304,17 @@ public class DataEditor extends JDialog {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            if (columnIndex == 0) {
-                return new MyLong((long) rowIndex * cols);
-            }
-            return new MyLong(dataField.getDataWord(rowIndex * cols + (columnIndex - 1)));
+            if (columnIndex == 0)
+                return new NumberString(rowIndex * cols, addrBits, addrFormat);
+            else
+                return new NumberString(dataField.getDataWord(rowIndex * cols + (columnIndex - 1)), dataBits, dataFormat);
         }
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+            long decode = ((NumberString) aValue).getVal();
             modelSync.access(() -> {
-                dataField.setData(rowIndex * cols + (columnIndex - 1), ((MyLong) aValue).getValue());
+                dataField.setData(rowIndex * cols + (columnIndex - 1), decode);
             });
         }
 
@@ -337,63 +345,37 @@ public class DataEditor extends JDialog {
         }
     }
 
-
-    private final static class MyLongRenderer extends DefaultTableCellRenderer {
-
-        private final int chars;
-
-        private MyLongRenderer(int bits) {
-            this.chars = (bits - 1) / 4 + 1;
-            setHorizontalAlignment(JLabel.RIGHT);
-        }
-
-        @Override
-        protected void setValue(Object value) {
-            if (value == null)
-                super.setValue(value);
-
-            String str = Long.toHexString(((MyLong) value).getValue()).toUpperCase();
-            while (str.length() < chars) str = "0" + str;
-            super.setValue(str);
-        }
-    }
-
     /**
-     * Used to store a long is used by the table
+     * Used to represent a number in the table
      */
-    public static class MyLong {
-        private final long data;
+    public static class NumberString {
+        private final String str;
+        private final long val;
+
+        private NumberString(long val, int bits, IntFormat format) {
+            this.val = val;
+            this.str = format.formatToEdit(new Value(val, bits));
+        }
 
         /**
-         * Is called by the JTable to create a new instance if field was edited
+         * Called by JTable to create a new value from an edited string!
+         * In an exception is thrown, the cell is marked with a small red border.
          *
-         * @param value the edited value
+         * @param str the string after editing
          * @throws Bits.NumberFormatException Bits.NumberFormatException
          */
-        public MyLong(String value) throws Bits.NumberFormatException {
-            data = Bits.decode(value);
-        }
-
-        /**
-         * Creates a new instance
-         *
-         * @param data the value to store
-         */
-        public MyLong(long data) {
-            this.data = data;
+        public NumberString(String str) throws Bits.NumberFormatException {
+            this.val = Bits.decode(str);
+            this.str = str;
         }
 
         @Override
         public String toString() {
-            return "0x" + Long.toHexString(data).toUpperCase();
+            return str;
         }
 
-        /**
-         * @return the stored value
-         */
-        public long getValue() {
-            return data;
+        private long getVal() {
+            return val;
         }
     }
-
 }

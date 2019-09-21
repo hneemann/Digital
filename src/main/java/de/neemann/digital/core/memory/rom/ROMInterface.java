@@ -35,5 +35,8 @@ public interface ROMInterface extends Countable {
      */
     int getAddrBits();
 
+    /**
+     * @return the integer format to be used to visualize the values
+     */
     IntFormat getIntFormat();
 }

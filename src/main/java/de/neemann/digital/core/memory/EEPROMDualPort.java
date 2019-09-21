@@ -31,6 +31,7 @@ public class EEPROMDualPort extends RAMDualPort implements ROMInterface {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
+            .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DATA);

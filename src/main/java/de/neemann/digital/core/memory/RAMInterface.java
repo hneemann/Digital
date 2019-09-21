@@ -27,6 +27,9 @@ public interface RAMInterface extends ProgramMemory, Countable {
      */
     int getAddrBits();
 
+    /**
+     * @return the integer format to be used to visualize the values
+     */
     default IntFormat getIntFormat() {
         return IntFormat.hex;
     }

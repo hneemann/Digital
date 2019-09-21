@@ -90,22 +90,28 @@ public enum IntFormat {
         }
     }
 
+    /**
+     * Return the number of characters required to format a number with the given bit width.
+     *
+     * @param bits the number of bits
+     * @return the number of characters required
+     */
     public int strLen(int bits) {
         switch (this) {
             case dec:
-                return (int) Math.ceil(Math.log10(1L<<bits));
+                return (int) Math.ceil(Math.log10(1L << bits));
             case decSigned:
-                return (int) Math.ceil(Math.log10(1L<<(bits-1)))+1;
+                return (int) Math.ceil(Math.log10(1L << (bits - 1))) + 1;
             case hex:
-                return (bits-1)/4+3;
+                return (bits - 1) / 4 + 3;
             case bin:
-                return bits+2;
+                return bits + 2;
             case oct:
-                return (bits-1)/3+3;
+                return (bits - 1) / 3 + 3;
             case ascii:
                 return 3;
             default:
-                return (bits-1)/4+3;
+                return (bits - 1) / 4 + 3;
         }
     }
 
