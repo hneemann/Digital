@@ -1122,7 +1122,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_flipSelPos">Tausche Selektorposition</string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->
     <string name="key_flipSelPos_tt">Mit dieser Option kann der Anschluss des Selektors auf die andere Seite des Multiplexers verschoben werden.</string>
     <string name="key_intFormat">Zahlenformat</string><!-- Probe -->
-    <string name="key_intFormat_tt">Das Zahlenformat für die Ausgabe.</string>
+    <string name="key_intFormat_tt">Das Zahlenformat für die Anzeige der Werte.</string>
     <string name="key_intFormat_ascii">ASCII</string>
     <string name="key_intFormat_bin">Binär</string>
     <string name="key_intFormat_dec">Dezimal</string>
