@@ -17,6 +17,7 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
+ * The Keyboard component
  */
 public class Keyboard extends Node implements Element {
 
@@ -33,13 +34,12 @@ public class Keyboard extends Node implements Element {
 
     private final String label;
     private final ObservableValue data;
-    private final ObservableValue isKeyOut;
+    private final ObservableValue keyAvail;
     private KeyboardInterface keyboardInterface;
     private ObservableValue clock;
     private ObservableValue enable;
     private boolean enableVal;
     private boolean lastClock = false;
-    private int nextChar;
 
     /**
      * Creates a new terminal instance
@@ -50,7 +50,7 @@ public class Keyboard extends Node implements Element {
         data = new ObservableValue("D", 16)
                 .setToHighZ()
                 .setPinDescription(DESCRIPTION);
-        isKeyOut = new ObservableValue("av", 1)
+        keyAvail = new ObservableValue("av", 1)
                 .setPinDescription(DESCRIPTION);
         label = attributes.getLabel();
     }
@@ -63,7 +63,7 @@ public class Keyboard extends Node implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        return new ObservableValues(data, isKeyOut);
+        return new ObservableValues(data, keyAvail);
     }
 
     @Override
@@ -71,8 +71,8 @@ public class Keyboard extends Node implements Element {
         enableVal = enable.getBool();
         boolean nowClock = clock.getBool();
 
-        if (keyboardInterface != null && nowClock && !lastClock && enableVal)
-            nextChar = keyboardInterface.getChar();
+        if (keyboardInterface != null && !nowClock && lastClock && enableVal)
+            keyboardInterface.deleteFirstChar();
 
         lastClock = nowClock;
     }
@@ -81,16 +81,16 @@ public class Keyboard extends Node implements Element {
     public void writeOutputs() throws NodeException {
         if (keyboardInterface != null) {
             if (enableVal)
-                data.setValue(nextChar);
+                data.setValue(keyboardInterface.getChar());
             else
                 data.setToHighZ();
-            isKeyOut.setBool(keyboardInterface.isChar() || nextChar != 0);
+            keyAvail.setBool(keyboardInterface.getChar() != 0);
         } else {
             if (enableVal)
                 data.setValue(0);
             else
                 data.setToHighZ();
-            isKeyOut.setBool(false);
+            keyAvail.setBool(false);
         }
     }
 
@@ -115,14 +115,14 @@ public class Keyboard extends Node implements Element {
      */
     public interface KeyboardInterface {
         /**
-         * @return a char or 0 if no char available
+         * @return a char or 0 if no char available, does not remove the char
          */
         int getChar();
 
         /**
-         * @return true if there is a char
+         * removes the first char
          */
-        boolean isChar();
+        void deleteFirstChar();
 
     }
 }

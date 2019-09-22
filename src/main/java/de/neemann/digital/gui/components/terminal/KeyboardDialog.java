@@ -64,19 +64,19 @@ public class KeyboardDialog extends JDialog implements Keyboard.KeyboardInterfac
             if (text.length() == 0)
                 return 0;
             else {
-                final char c = text.charAt(0);
-                text = text.substring(1);
-                final String t = text;
-                SwingUtilities.invokeLater(() -> textLabel.setText(t));
-                return c;
+                return text.charAt(0);
             }
         }
     }
 
     @Override
-    public boolean isChar() {
+    public void deleteFirstChar() {
         synchronized (textLock) {
-            return text.length() > 0;
+            if (text.length() > 0) {
+                text = text.substring(1);
+                final String t = text;
+                SwingUtilities.invokeLater(() -> textLabel.setText(t));
+            }
         }
     }
 
