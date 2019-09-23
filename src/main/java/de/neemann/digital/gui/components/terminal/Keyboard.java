@@ -71,7 +71,7 @@ public class Keyboard extends Node implements Element {
         enableVal = enable.getBool();
         boolean nowClock = clock.getBool();
 
-        if (keyboardInterface != null && !nowClock && lastClock && enableVal)
+        if (keyboardInterface != null && nowClock && !lastClock && enableVal)
             keyboardInterface.deleteFirstChar();
 
         lastClock = nowClock;
