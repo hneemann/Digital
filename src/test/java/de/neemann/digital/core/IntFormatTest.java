@@ -101,11 +101,19 @@ public class IntFormatTest extends TestCase {
         assertEquals(3,IntFormat.dec.strLen(8));
         assertEquals(3,IntFormat.dec.strLen(9));
         assertEquals(4,IntFormat.dec.strLen(10));
+        assertEquals(19, IntFormat.dec.strLen(60));
+        assertEquals(19, IntFormat.dec.strLen(61));
+        assertEquals(19, IntFormat.dec.strLen(62));
+        assertEquals(19, IntFormat.dec.strLen(63));
+        assertEquals(20, IntFormat.dec.strLen(64));
 
         assertEquals(4,IntFormat.decSigned.strLen(8));
         assertEquals(4,IntFormat.decSigned.strLen(9));
         assertEquals(4,IntFormat.decSigned.strLen(10));
         assertEquals(5,IntFormat.decSigned.strLen(11));
+        assertEquals(20, IntFormat.decSigned.strLen(62));
+        assertEquals(20, IntFormat.decSigned.strLen(63));
+        assertEquals(20, IntFormat.decSigned.strLen(64));
 
         assertEquals(4,IntFormat.oct.strLen(4));
         assertEquals(4,IntFormat.oct.strLen(5));

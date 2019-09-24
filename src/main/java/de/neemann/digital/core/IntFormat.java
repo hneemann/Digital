@@ -99,9 +99,9 @@ public enum IntFormat {
     public int strLen(int bits) {
         switch (this) {
             case dec:
-                return (int) Math.ceil(Math.log10(1L << bits));
+                return decStrLen(bits);
             case decSigned:
-                return (int) Math.ceil(Math.log10(1L << (bits - 1))) + 1;
+                return decStrLen(bits - 1) + 1;
             case hex:
                 return (bits - 1) / 4 + 3;
             case bin:
@@ -113,6 +113,15 @@ public enum IntFormat {
             default:
                 return (bits - 1) / 4 + 3;
         }
+    }
+
+    private int decStrLen(int bits) {
+        if (bits == 64)
+            return 20;
+        else if (bits == 63) {
+            return 19;
+        } else
+            return (int) Math.ceil(Math.log10(1L << bits));
     }
 
     private static final char[] DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
