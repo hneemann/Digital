@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Out</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Clk</string>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>Clk ld In                 Out                  ov
+c    1 0xfffffffffffffffe 0xfffffffffffffffe   0
+0    0 0                  0xfffffffffffffffe   0
+c    0 0                  0xffffffffffffffff   1
+c    0 0                  0                    0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>CounterPreset</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ov</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="300" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="300" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>In</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ld</string>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="220"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="400" y="160"/>
+      <p2 x="440" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="160"/>
+      <p2 x="320" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="180"/>
+      <p2 x="320" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="120"/>
+      <p2 x="440" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="120"/>
+      <p2 x="320" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="200"/>
+      <p2 x="320" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="140"/>
+      <p2 x="320" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="140"/>
+      <p2 x="400" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="220"/>
+      <p2 x="320" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="220"/>
+      <p2 x="280" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="140"/>
+      <p2 x="400" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="200"/>
+      <p2 x="280" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="100"/>
+      <p2 x="300" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="220"/>
+      <p2 x="300" y="240"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
