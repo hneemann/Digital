@@ -397,12 +397,24 @@ public class TableDialog extends JDialog {
                 setAllValuesTo(1);
             }
         }.setToolTip(Lang.get("menu_table_setAllTo1_tt")).createJMenuItem());
+        setMenu.add(new ToolTipAction(Lang.get("menu_table_inverseAll01")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setAllValuesInverse();
+            }
+        }.setToolTip(Lang.get("menu_table_inverseAll01_tt")).createJMenuItem());
         return setMenu;
     }
 
     private void setAllValuesTo(int value) {
         TruthTable t = model.getTable();
         t.setAllTo(value);
+        setModel(new TruthTableTableModel(t));
+    }
+
+    private void setAllValuesInverse() {
+        TruthTable t = model.getTable();
+        t.setAllValuesInverse();
         setModel(new TruthTableTableModel(t));
     }
 

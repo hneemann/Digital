@@ -483,6 +483,19 @@ public class TruthTable {
     }
 
     /**
+     * Set all table entries to the inverse value.
+     * Only zeros and ones are processed. All other values are left intact
+     *
+     */
+    public void setAllValuesInverse() {
+        for (Result r : results) {
+            BoolTable bt = r.getValues();
+            if (bt instanceof BoolTableByteArray)
+                ((BoolTableByteArray) bt).setAllInverse();
+        }
+    }
+
+    /**
      * Sets additional data obtained from the model
      *
      * @param modelAnalyzerInfo the data obtained from the model

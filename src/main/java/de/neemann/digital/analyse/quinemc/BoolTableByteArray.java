@@ -98,4 +98,13 @@ public class BoolTableByteArray implements BoolTable {
         for (int i = 0; i < table.length; i++)
             table[i] = (byte) value;
     }
+
+    /**
+     * Sets all zero or one entries to their inverse value
+     */
+    public void setAllInverse() {
+        for (int i = 0; i < table.length; i++)
+            if (table[i] <= 1)
+            table[i] = (byte) (1 - table[i]);
+    }
 }
