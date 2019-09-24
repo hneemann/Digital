@@ -66,7 +66,7 @@ public class CounterPreset extends Node implements Element {
 
         long m = attributes.get(Keys.MAX_VALUE);
         if (m == 0)
-            m = (1L << bits) - 1;
+            m = Bits.mask(bits);
         maxValue = m;
 
         probe = attributes.get(Keys.VALUE_IS_PROBE);
