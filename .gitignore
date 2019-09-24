@@ -77,3 +77,13 @@ buildNumber.properties
 
 #netbeans project files
 nbactions.xml
+
+#Maven local directory
+.m2/
+
+#Java user prefereces folder
+.java/
+
+#Log files
+*Digital_*.log
+
