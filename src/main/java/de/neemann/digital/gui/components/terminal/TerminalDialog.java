@@ -93,4 +93,11 @@ public class TerminalDialog extends JDialog {
                 }
         }
     }
+
+    /**
+     * @return the text shown
+     */
+    public String getText() {
+        return textArea.getText();
+    }
 }

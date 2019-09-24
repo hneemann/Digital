@@ -90,4 +90,10 @@ public class Terminal extends Node implements Element {
     public void writeOutputs() throws NodeException {
     }
 
+    /**
+     * @return the terminal dialog
+     */
+    public TerminalDialog getTerminalDialog() {
+        return terminalDialog;
+    }
 }

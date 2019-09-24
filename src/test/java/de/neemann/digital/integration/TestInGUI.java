@@ -37,6 +37,9 @@ import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
 import de.neemann.digital.gui.components.table.AllSolutionsDialog;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.gui.components.table.TableDialog;
+import de.neemann.digital.gui.components.terminal.KeyboardDialog;
+import de.neemann.digital.gui.components.terminal.Terminal;
+import de.neemann.digital.gui.components.terminal.TerminalDialog;
 import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.lang.Lang;
@@ -489,6 +492,47 @@ public class TestInGUI extends TestCase {
                 .mouseClick(InputEvent.BUTTON1_MASK)
                 .add(new GuiTester.WindowCheck<>(Main.class,
                         (gt, main) -> assertEquals(2, main.getCircuitComponent().getCircuit().getWires().size())))
+                .execute();
+    }
+
+    public void testKeyboard() {
+        new GuiTester("dig/io/keyboard.dig")
+                .press("SPACE")
+                .delay(500)
+                .press("A")
+                .delay(500)
+                .add(new GuiTester.CloseTopMost())
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> assertEquals('a', main.getModel().getOutput("akt").getValue())))
+                .execute();
+    }
+
+    private KeyboardDialog keyboard;
+
+    public void testKeyboard2() {
+        new GuiTester("dig/io/keyboard2.dig")
+                .press("SPACE")
+                .delay(200)
+                .add(new GuiTester.WindowCheck<>(KeyboardDialog.class,
+                        (gt, kb) -> keyboard = kb))
+                .press("ENTER")
+                .delay(200)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, td) -> keyboard.toFront()))
+                .delay(200)
+                .type("Hello World!")
+                .delay(200)
+                .add(new GuiTester.WindowCheck<>(KeyboardDialog.class,
+                        (gt, kb) -> kb.dispose()))
+                .delay(200)
+                .add(new GuiTester.WindowCheck<>(Main.class,
+                        (gt, main) -> {
+                            List<Terminal> n = main.getModel().findNode(Terminal.class);
+                            assertEquals(1, n.size());
+                            Terminal t = n.get(0);
+                            assertEquals("\nHello World!", t.getTerminalDialog().getText());
+                        }))
                 .execute();
     }
 
@@ -974,7 +1018,7 @@ public class TestInGUI extends TestCase {
                 .delay(200)
                 .press("ENTER")
                 .delay(200)
-                .add(new GuiTester.WindowCheck<Main>(Main.class){
+                .add(new GuiTester.WindowCheck<Main>(Main.class) {
                     @Override
                     public void checkWindow(GuiTester guiTester, Main main) {
                         List<VisualElement> e = main.getCircuitComponent().getCircuit()
