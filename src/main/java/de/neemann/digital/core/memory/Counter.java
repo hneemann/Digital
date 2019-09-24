@@ -49,7 +49,7 @@ public class Counter extends Node implements Element {
         int bits = attributes.getBits();
         this.out = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
         this.ovf = new ObservableValue("ovf", 1).setPinDescription(DESCRIPTION);
-        maxValue = (1L << bits) - 1;
+        maxValue = Bits.mask(bits);
         probe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getLabel();
     }
