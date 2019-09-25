@@ -366,44 +366,44 @@ public class TableDialog extends JDialog {
         setMenu.add(new ToolTipAction(Lang.get("menu_table_setXTo0")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TruthTable t = model.getTable();
-                t.setXto(false);
-                setModel(new TruthTableTableModel(t));
+                modifyTable(v -> v > 1 ? 0 : v);
             }
         }.setToolTip(Lang.get("menu_table_setXTo0_tt")).createJMenuItem());
         setMenu.add(new ToolTipAction(Lang.get("menu_table_setXTo1")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TruthTable t = model.getTable();
-                t.setXto(true);
-                setModel(new TruthTableTableModel(t));
+                modifyTable(v -> v > 1 ? 1 : v);
             }
         }.setToolTip(Lang.get("menu_table_setXTo1_tt")).createJMenuItem());
         setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllToX")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setAllValuesTo(2);
+                modifyTable(v -> (byte) 2);
             }
         }.setToolTip(Lang.get("menu_table_setAllToX_tt")).createJMenuItem());
         setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllTo0")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setAllValuesTo(0);
+                modifyTable(v -> (byte) 0);
             }
         }.setToolTip(Lang.get("menu_table_setAllTo0_tt")).createJMenuItem());
         setMenu.add(new ToolTipAction(Lang.get("menu_table_setAllTo1")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setAllValuesTo(1);
+                modifyTable(v -> (byte) 1);
             }
         }.setToolTip(Lang.get("menu_table_setAllTo1_tt")).createJMenuItem());
+        setMenu.add(new ToolTipAction(Lang.get("menu_table_invert")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modifyTable(v -> v > 1 ? v : (byte) (1 - v));
+            }
+        }.setToolTip(Lang.get("menu_table_invert_tt")).createJMenuItem());
         return setMenu;
     }
 
-    private void setAllValuesTo(int value) {
-        TruthTable t = model.getTable();
-        t.setAllTo(value);
-        setModel(new TruthTableTableModel(t));
+    private void modifyTable(BoolTableByteArray.TableModifier m) {
+        setModel(new TruthTableTableModel(model.getTable().modifyValues(m)));
     }
 
     private JMenu createCreateMenu() {

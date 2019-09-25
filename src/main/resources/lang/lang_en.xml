@@ -1548,6 +1548,8 @@
     <string name="menu_table_setAllTo0_tt">Set all values to zero.</string>
     <string name="menu_table_setAllTo1">Set all to 1</string>
     <string name="menu_table_setAllTo1_tt">Set all values to one.</string>
+    <string name="menu_table_invert">Invert all bits</string>
+    <string name="menu_table_invert_tt">A "1" becomes a "0" and vice versa. Don't cares remain unchanged.</string>
     <string name="menu_table_showAllSolutions">Show results dialog</string>
     <string name="menu_table_showAllSolutions_tt">Shows the results dialog again if it was closed manually.</string>
     <string name="menu_terminalDelete">Delete</string>

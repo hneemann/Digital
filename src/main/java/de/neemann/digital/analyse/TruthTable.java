@@ -18,6 +18,7 @@ import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 /**
@@ -52,7 +53,7 @@ public class TruthTable {
      */
     public void save(File filename) throws IOException {
         XStream xStream = getxStream();
-        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
+        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8)) {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             xStream.marshal(this, new PrettyPrintWriter(out));
         }
@@ -68,7 +69,7 @@ public class TruthTable {
         if (results.size() > 63)
             throw new IOException(Lang.get("err_tableHasToManyResultColumns"));
 
-        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"))) {
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8))) {
             saveHex(out);
         }
     }
@@ -456,30 +457,18 @@ public class TruthTable {
     }
 
     /**
-     * Sets the don't cares to a given value
+     * Modifies all column in the table
      *
-     * @param b the value to set
+     * @param m the modifier to use
+     * @return this for chained calls
      */
-    public void setXto(boolean b) {
+    public TruthTable modifyValues(BoolTableByteArray.TableModifier m) {
         for (Result r : results) {
             BoolTable bt = r.getValues();
             if (bt instanceof BoolTableByteArray)
-                ((BoolTableByteArray) bt).setXTo(b ? 1 : 0);
+                ((BoolTableByteArray) bt).modify(m);
         }
-    }
-
-    /**
-     * Set all table entries to the given value.
-     * Zero and one behave as expected. All other values represent "don't care"
-     *
-     * @param value the value to set
-     */
-    public void setAllTo(int value) {
-        for (Result r : results) {
-            BoolTable bt = r.getValues();
-            if (bt instanceof BoolTableByteArray)
-                ((BoolTableByteArray) bt).setAllTo(value);
-        }
+        return this;
     }
 
     /**

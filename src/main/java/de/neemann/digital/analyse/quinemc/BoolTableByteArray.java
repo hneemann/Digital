@@ -79,23 +79,25 @@ public class BoolTableByteArray implements BoolTable {
     }
 
     /**
-     * Sets the don't cares to the given value
+     * Modifies all the table elements using the given modifier.
      *
-     * @param value the value
+     * @param m the modifier
      */
-    public void setXTo(int value) {
+    public void modify(TableModifier m) {
         for (int i = 0; i < table.length; i++)
-            if (table[i] > 1)
-                table[i] = (byte) value;
+            table[i] = m.modify(table[i]);
     }
 
     /**
-     * Sets all entries to the given value
-     *
-     * @param value the value
+     * Modifier to modify the table
      */
-    public void setAllTo(int value) {
-        for (int i = 0; i < table.length; i++)
-            table[i] = (byte) value;
+    public interface TableModifier {
+        /**
+         * Creates the modified value
+         *
+         * @param b the original value
+         * @return the modified value
+         */
+        byte modify(byte b);
     }
 }

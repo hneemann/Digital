@@ -1565,6 +1565,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_setAllTo0_tt">Setzt alle Werte auf Null.</string>
     <string name="menu_table_setAllTo1">Alles auf 1 setzen</string>
     <string name="menu_table_setAllTo1_tt">Setzt alle Werte auf Eins.</string>
+    <string name="menu_table_invert">Alle Bits invertieren</string>
+    <string name="menu_table_invert_tt">Aus einer "1" wird eine "0" und umgekehrt. Don't Cares bleiben unverändert.
+    </string>
     <string name="menu_table_showAllSolutions">Lösungsdialog anzeigen</string>
     <string name="menu_table_showAllSolutions_tt">Zeigt den Lösungsdialog wieder an, wenn er manuell geschlossen wurde.</string>
     <string name="menu_terminalDelete">Löschen</string>
