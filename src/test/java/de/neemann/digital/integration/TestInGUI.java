@@ -332,7 +332,7 @@ public class TestInGUI extends TestCase {
         new GuiTester()
                 .use(create4BitCounterTruthTable)
                 .press("F10")
-                .press("RIGHT", 4)
+                .press("RIGHT", 3)
                 .press("DOWN", 2)
                 .press("ENTER")
                 .delay(500)
@@ -424,7 +424,7 @@ public class TestInGUI extends TestCase {
                 }))
                 .delay(500)
                 .press("F10")
-                .press("RIGHT", 4)
+                .press("RIGHT", 3)
                 .press("DOWN", 7)
                 .press("RIGHT")
                 .press("DOWN", 2)
@@ -947,7 +947,7 @@ public class TestInGUI extends TestCase {
                             assertEquals(4, model.getRowCount());
                             for (int i = 0; i < 4; i++) {
                                 final Object valueAt = model.getValueAt(i, 1);
-                                assertEquals("0x0", valueAt.toString());
+                                assertEquals("0", valueAt.toString());
                             }
                             found();
                         }
