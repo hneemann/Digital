@@ -291,6 +291,9 @@ public class TableDialog extends JDialog {
 
         setJMenuBar(bar);
 
+        karnaughMenuAction.setEnabled(undoManager.getActual().getVars().size() <= 4);
+        calculateExpressions();
+
         getContentPane().add(new JScrollPane(table));
         getContentPane().add(statusBar, BorderLayout.SOUTH);
         pack();
