@@ -32,6 +32,17 @@ public class BoolTableByteArray implements BoolTable {
         this.table = table;
     }
 
+    /**
+     * Creates a new instance
+     *
+     * @param values the values to initialize the table
+     */
+    public BoolTableByteArray(BoolTable values) {
+        table = new byte[values.size()];
+        for (int i = 0; i < values.size(); i++)
+            table[i] = (byte) values.get(i).asInt();
+    }
+
     @Override
     public int size() {
         return table.length;

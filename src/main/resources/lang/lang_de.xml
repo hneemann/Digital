@@ -1546,14 +1546,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_new_combinatorial">Kombinatorisch</string>
     <string name="menu_table_new_sequential">Automat</string>
     <string name="menu_table_new_sequential_bidir">Automat bidirektional</string>
-    <string name="menu_table_columns">Spalten</string>
     <string name="menu_table_reorder_inputs">Eingangsvariablen umsortieren/löschen</string>
     <string name="menu_table_reorder_outputs">Ergebnisspalten umsortieren/löschen</string>
     <string name="menu_table_columnsAdd">Ergebnisspalte hinzufügen</string>
     <string name="menu_table_columnsAdd_tt">Fügt der Tabelle eine Ergebnisspalte hinzu.</string>
     <string name="menu_table_columnsAddVariable">Eingangsvariable hinzufügen</string>
     <string name="menu_table_columnsAddVariable_tt">Fügt der Tabelle eine Variablenspalte hinzu.</string>
-    <string name="menu_table_set">Setzen</string>
     <string name="menu_table_setXTo0">Setze X auf 0</string>
     <string name="menu_table_setXTo0_tt">Setzt die Don't Cares auf 0.</string>
     <string name="menu_table_setXTo1">Setze X auf 1</string>

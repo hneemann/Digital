@@ -16,15 +16,17 @@ import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.Copyable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * The description of a truth table.
  */
-public class TruthTable {
+public class TruthTable implements Copyable<TruthTable> {
 
     private final ArrayList<Variable> variables;
     private final ArrayList<Result> results;
@@ -146,6 +148,29 @@ public class TruthTable {
         for (int i = 0; i < oldTable.getResultCount(); i++) {
             addResult(oldTable.results.get(i).getName(), new BoolTableByteArray(getRows()));
         }
+    }
+
+    private TruthTable(TruthTable truthTable) {
+        variables = new ArrayList<>(truthTable.variables.size());
+        for (Variable v : truthTable.variables)
+            variables.add(new Variable(v.getIdentifier()));
+        results = new ArrayList<>();
+        for (int i = 0; i < truthTable.getResultCount(); i++) {
+            Result result = truthTable.results.get(i);
+            addResult(result.getName(), new BoolTableByteArray(result.values));
+        }
+        this.modelAnalyzerInfo = truthTable.modelAnalyzerInfo;
+    }
+
+    /**
+     * Clears the table and sets the given variables
+     *
+     * @param vars the variables to use
+     */
+    public void clear(Collection<? extends Variable> vars) {
+        variables.clear();
+        variables.addAll(vars);
+        results.clear();
     }
 
     /**
@@ -487,6 +512,31 @@ public class TruthTable {
      */
     public ModelAnalyserInfo getModelAnalyzerInfo() {
         return modelAnalyzerInfo;
+    }
+
+    @Override
+    public TruthTable createDeepCopy() {
+        return new TruthTable(this);
+    }
+
+    /**
+     * @return the names of all input variables
+     */
+    public ArrayList<String> getVarNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Variable v : variables)
+            names.add(v.getIdentifier());
+        return names;
+    }
+
+    /**
+     * @return the names of al result variables
+     */
+    public ArrayList<String> getResultNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Result r : results)
+            names.add(r.getName());
+        return names;
     }
 
     /**

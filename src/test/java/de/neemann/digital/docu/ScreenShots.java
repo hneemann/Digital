@@ -159,6 +159,7 @@ public class ScreenShots {
                 .add(new GuiTester.CloseTopMost())
                 .execute();
 
+        /*
         File trafficLight = new File(Resources.getRoot(), "../../main/fsm/trafficLightBlink.fsm");
         new GuiTester()
                 .press("F10")
@@ -217,7 +218,7 @@ public class ScreenShots {
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
-                .execute();/**/
+                .execute();*/
     }
 
     private static GuiTester.WindowCheck<Window> closeAllSolutionsDialog() {

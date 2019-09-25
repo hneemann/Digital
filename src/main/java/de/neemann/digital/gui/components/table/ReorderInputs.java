@@ -55,10 +55,9 @@ public class ReorderInputs {
     /**
      * Creates a new table matching the actual state of the items
      *
-     * @return the new table
      * @throws ExpressionException ExpressionException
      */
-    public TruthTable reorder() throws ExpressionException {
+    public void reorder() throws ExpressionException {
         ArrayList<Variable> newVars = new ArrayList<>();
         ArrayList<Variable> deletedVars = new ArrayList<>(table.getVars());
 
@@ -79,21 +78,20 @@ public class ReorderInputs {
         if (newVars.size() < 2)
             throw new ExpressionException(Lang.get("err_tableBecomesToSmall"));
 
-        TruthTable newTable = new TruthTable(newVars);
-        newTable.setModelAnalyzerInfo(table.getModelAnalyzerInfo());
-        for (int j = 0; j < table.getResultCount(); j++)
-            newTable.addResult(table.getResultName(j));
+        TruthTable oldTable = this.table.createDeepCopy();
 
-        ContextFiller fc = new ContextFiller(newTable.getVars());
+        table.clear(newVars);
+        for (int j = 0; j < oldTable.getResultCount(); j++)
+            table.addResult(oldTable.getResultName(j));
+
+        ContextFiller fc = new ContextFiller(table.getVars());
         for (Variable v : deletedVars)
             fc.set(v, false);
 
-        for (int row = 0; row < newTable.getRows(); row++) {
+        for (int row = 0; row < table.getRows(); row++) {
             fc.setContextTo(row);
-            for (int t = 0; t < newTable.getResultCount(); t++)
-                newTable.setByContext(t, fc, table.getByContext(t, fc));
+            for (int t = 0; t < table.getResultCount(); t++)
+                table.setByContext(t, fc, oldTable.getByContext(t, fc));
         }
-
-        return newTable;
     }
 }

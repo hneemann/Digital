@@ -19,9 +19,10 @@ public class TestReorderOutputs extends TestCase {
         for (int i = 0; i < t.getRows(); i++)
             col.set(i, i + 1);
 
-        ReorderOutputs reorderOutputs = new ReorderOutputs(t);
+        TruthTable newTable = t.createDeepCopy();
+        ReorderOutputs reorderOutputs = new ReorderOutputs(newTable);
         reorderOutputs.getItems().delete(1);
-        TruthTable newTable = reorderOutputs.reorder();
+        reorderOutputs.reorder();
 
         assertEquals(3, newTable.getVars().size());
         assertEquals(1, newTable.getResultCount());

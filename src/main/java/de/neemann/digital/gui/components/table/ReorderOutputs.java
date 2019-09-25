@@ -53,23 +53,20 @@ public class ReorderOutputs {
     /**
      * Creates a new table matching the actual state of the items
      *
-     * @return the new table
      * @throws ExpressionException ExpressionException
      */
-    public TruthTable reorder() throws ExpressionException {
-        TruthTable newTable = new TruthTable(table.getVars());
-        newTable.setModelAnalyzerInfo(table.getModelAnalyzerInfo());
+    public void reorder() throws ExpressionException {
+        TruthTable oldTable = table.createDeepCopy();
+        table.clear(oldTable.getVars());
         for (String name : names) {
-            for (int i = 0; i < table.getResultCount(); i++)
-                if (table.getResultName(i).equals(name)) {
-                    newTable.addResult(table.getResultName(i), table.getResult(i));
+            for (int i = 0; i < oldTable.getResultCount(); i++)
+                if (oldTable.getResultName(i).equals(name)) {
+                    table.addResult(oldTable.getResultName(i), oldTable.getResult(i));
                     break;
                 }
         }
 
-        if (newTable.getResultCount() < 1)
+        if (table.getResultCount() < 1)
             throw new ExpressionException(Lang.get("err_oneResultIsRequired"));
-
-        return newTable;
     }
 }

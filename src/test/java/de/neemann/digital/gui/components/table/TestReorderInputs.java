@@ -21,9 +21,10 @@ public class TestReorderInputs extends TestCase {
             col.set(i, i + 1);
 
 
-        ReorderInputs reorderInputs = new ReorderInputs(t);
+        TruthTable newTable = t.createDeepCopy();
+        ReorderInputs reorderInputs = new ReorderInputs(newTable);
         reorderInputs.getItems().swap(1, 2);
-        TruthTable newTable = reorderInputs.reorder();
+        reorderInputs.reorder();
 
 
         ContextFiller cf = new ContextFiller(t.getVars());
@@ -39,9 +40,10 @@ public class TestReorderInputs extends TestCase {
         for (int i = 0; i < t.getRows(); i++)
             col.set(i, i + 1);
 
-        ReorderInputs reorderInputs = new ReorderInputs(t);
+        TruthTable newTable = t.createDeepCopy();
+        ReorderInputs reorderInputs = new ReorderInputs(newTable);
         reorderInputs.getItems().delete(2);
-        TruthTable newTable = reorderInputs.reorder();
+        reorderInputs.reorder();
 
         assertEquals(2, newTable.getVars().size());
         assertEquals(1, newTable.getResultCount());

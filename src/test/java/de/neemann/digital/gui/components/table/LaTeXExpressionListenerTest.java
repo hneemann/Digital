@@ -21,8 +21,7 @@ public class LaTeXExpressionListenerTest extends TestCase {
                 .addVariable("A")
                 .addVariable("B")
                 .addResult("Y", new BoolTableBoolArray(new boolean[]{false, false, true, false}));
-        TruthTableTableModel model = new TruthTableTableModel(tt);
-        LaTeXExpressionListener l = new LaTeXExpressionListener(model);
+        LaTeXExpressionListener l = new LaTeXExpressionListener(tt);
         l.resultFound("Y", Operation.and(new Variable("A"), new Not(new Variable("B"))));
         l.close();
 
