@@ -337,7 +337,10 @@ public class TableDialog extends JDialog {
         redo.setEnabled(undoManager.redoAvailable());
     }
 
-    void tableChanged() {
+    /**
+     * Called if table was modified.
+     */
+    public void tableChanged() {
         karnaughMenuAction.setEnabled(undoManager.getActual().getVars().size() <= 4);
         calculateExpressions();
         model.fireTableChanged();
