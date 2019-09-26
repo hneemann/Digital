@@ -172,10 +172,6 @@ die Interrupts wieder freigegeben.}}</string>
       <p2 x="520" y="80"/>
     </wire>
     <wire>
-      <p1 x="280" y="240"/>
-      <p2 x="480" y="240"/>
-    </wire>
-    <wire>
       <p1 x="260" y="160"/>
       <p2 x="280" y="160"/>
     </wire>
@@ -189,10 +185,14 @@ die Interrupts wieder freigegeben.}}</string>
     </wire>
     <wire>
       <p1 x="220" y="20"/>
+      <p2 x="240" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="20"/>
       <p2 x="300" y="20"/>
     </wire>
     <wire>
-      <p1 x="280" y="180"/>
+      <p1 x="240" y="180"/>
       <p2 x="300" y="180"/>
     </wire>
     <wire>
@@ -220,8 +220,8 @@ die Interrupts wieder freigegeben.}}</string>
       <p2 x="480" y="80"/>
     </wire>
     <wire>
-      <p1 x="480" y="80"/>
-      <p2 x="480" y="240"/>
+      <p1 x="240" y="20"/>
+      <p2 x="240" y="180"/>
     </wire>
     <wire>
       <p1 x="260" y="-40"/>
@@ -234,10 +234,6 @@ die Interrupts wieder freigegeben.}}</string>
     <wire>
       <p1 x="280" y="-80"/>
       <p2 x="280" y="-20"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="180"/>
-      <p2 x="280" y="240"/>
     </wire>
     <wire>
       <p1 x="380" y="100"/>
