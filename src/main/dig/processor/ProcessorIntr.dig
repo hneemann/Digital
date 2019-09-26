@@ -145,16 +145,12 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>6e28,0,ffff,59e0,7800,fffe,59e0,20e2,20e1,4ce1,5601,5610,3c10,6402,1411,1400,7351,
-3c00,6407,3e10,8000,3b10,6408,1401,5210,6e05,4010,3c11,6402,1400,5210,5201,4e1e,18e1,
-18e2,fffe,5b0e,7200,ffff,5b0e,7e00,99ab,1200,803e,68f0,8020,1200,73f0,8f8a,1200,803e,
-68f0,8020,1200,73f0,1831,203,803e,68f0,140a,73f0,6feb,4800,4a00,804d,6820,4a00,804d,
-6820,4800,4a00,804d,6820,4a00,804d,6820,6a0f,210,281f,3c1a,6203,8030,1610,6e02,8037,
-1610,73f1,6a02</data>
+          <data>6e10,0,ffff,59e0,7800,fffe,59e0,20e2,790e,73f0,18e2,fffe,5b0e,7200,ffff,5b0e,7e00,
+1401,7350,3e00,65fd,8000,1300,7350,4000,65fd,6ff6</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <string>C:\_daten\daten\Technische_Informatik_II\Systemnahes_Programmieren\asm\hexoutIntr.hex</string>
+          <string>/home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/Vorlesung/03_Interrupts_Sim_neu/src/asm/keyboard.hex</string>
         </entry>
       </elementAttributes>
       <pos x="340" y="480"/>
