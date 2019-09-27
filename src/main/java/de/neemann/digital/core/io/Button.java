@@ -27,12 +27,14 @@ public class Button implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.ACTIVE_LOW)
-            .addAttribute(Keys.MAP_TO_KEY);
+            .addAttribute(Keys.MAP_TO_KEY)
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
 
     private final ObservableValue output;
     private final String label;
     private final boolean invert;
     private final boolean mapToKey;
+    private final boolean showInGraph;
     private boolean pressed;
 
     /**
@@ -46,6 +48,7 @@ public class Button implements Element {
         invert = attributes.get(Keys.ACTIVE_LOW);
         mapToKey = attributes.get(Keys.MAP_TO_KEY);
         output.setValue(invert ? 1 : 0);
+        showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
     @Override
@@ -60,7 +63,8 @@ public class Button implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addSignal(new Signal(label, output));
+        model.addSignal(new Signal(label, output)
+                .setShowInGraph(showInGraph));
         if (mapToKey) {
             final KeyStroke keyStroke = KeyStroke.getKeyStroke(label.trim());
             if (keyStroke != null && keyStroke.getKeyCode() != KeyEvent.VK_UNDEFINED)
