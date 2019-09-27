@@ -295,8 +295,8 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
      * Columns formatting information
      */
     public static final class ColumnInfo {
-        private int bits;
-        private IntFormat format;
+        private final int bits;
+        private final IntFormat format;
 
         /**
          * Creates a new instance
@@ -305,6 +305,10 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
          * @param bits   the number of bits to output
          */
         public ColumnInfo(IntFormat format, int bits) {
+            if (format == null)
+                format = IntFormat.def;
+            if (format.equals(IntFormat.def) && (bits > 3))
+                format = IntFormat.hex;
             this.format = format;
             this.bits = bits;
         }
