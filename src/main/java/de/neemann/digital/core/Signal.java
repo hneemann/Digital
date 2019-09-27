@@ -183,6 +183,13 @@ public final class Signal implements Comparable<Signal> {
     }
 
     /**
+     * @return the format to be used to visualize the signal values
+     */
+    public IntFormat getFormat() {
+        return format;
+    }
+
+    /**
      * Setter interface to set a value
      */
     public interface Setter {

@@ -5,10 +5,12 @@
  */
 package de.neemann.digital.data;
 
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.Observable;
 import de.neemann.digital.testing.parser.TestRow;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -198,7 +200,18 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
      * @throws IOException IOException
      */
     public void saveCSV(File file) throws IOException {
-        saveCSV(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8")));
+        saveCSV(file, null);
+    }
+
+    /**
+     * Stores the data in  csv file
+     *
+     * @param file       the file
+     * @param columnInfo information of how to format the values, maybe null
+     * @throws IOException IOException
+     */
+    public void saveCSV(File file, ColumnInfo[] columnInfo) throws IOException {
+        saveCSV(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)), columnInfo);
     }
 
     /**
@@ -208,6 +221,10 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
      * @throws IOException IOException
      */
     public void saveCSV(BufferedWriter w) throws IOException {
+        saveCSV(w, null);
+    }
+
+    void saveCSV(BufferedWriter w, ColumnInfo[] columnInfo) throws IOException {
         try {
             w.write("\"step\"");
             for (String s : names)
@@ -216,7 +233,14 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
             int row = 0;
             for (TestRow s : this) {
                 w.write("\"" + (row++) + "\"");
-                for (Value value : s.getValues()) w.write(",\"" + value + "\"");
+                if (columnInfo == null) {
+                    for (Value value : s.getValues())
+                        w.write(",\"" + value + "\"");
+                } else {
+                    int i = 0;
+                    for (Value value : s.getValues())
+                        w.write(",\"" + columnInfo[i++].format(value) + "\"");
+                }
                 w.write("\n");
             }
         } finally {
@@ -265,5 +289,37 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
             }
 
         return sb.toString();
+    }
+
+    /**
+     * Columns formatting information
+     */
+    public static final class ColumnInfo {
+        private int bits;
+        private IntFormat format;
+
+        /**
+         * Creates a new instance
+         *
+         * @param format the format to use
+         * @param bits   the number of bits to output
+         */
+        public ColumnInfo(IntFormat format, int bits) {
+            this.format = format;
+            this.bits = bits;
+        }
+
+        private String format(Value value) {
+            switch (value.getType()) {
+                case HIGHZ:
+                    return "Z";
+                case DONTCARE:
+                    return "X";
+                case CLOCK:
+                    return "C";
+                default:
+                    return format.formatToEdit(new de.neemann.digital.core.Value(value.getValue(), bits));
+            }
+        }
     }
 }

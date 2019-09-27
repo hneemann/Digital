@@ -41,6 +41,8 @@ public class GraphDialog extends JDialog implements Observer {
     private static final Icon ICON_ZOOM_IN = IconCreator.create("View-zoom-in.png");
     private static final Icon ICON_ZOOM_OUT = IconCreator.create("View-zoom-out.png");
 
+    private ValueTable.ColumnInfo[] columnInfo;
+
     /**
      * Creates a instance prepared for "live logging"
      *
@@ -66,9 +68,11 @@ public class GraphDialog extends JDialog implements Observer {
             }
         }.order(signals);
 
+
         ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, MAX_SAMPLE_SIZE);
 
-        GraphDialog graphDialog = new GraphDialog(owner, title, valueTableObserver.getLogData(), model);
+        GraphDialog graphDialog = new GraphDialog(owner, title, valueTableObserver.getLogData(), model)
+                .setColumnInfo(createColumnsInfo(signals));
 
         graphDialog.addWindowListener(new WindowAdapter() {
             @Override
@@ -83,6 +87,15 @@ public class GraphDialog extends JDialog implements Observer {
         });
 
         return graphDialog;
+    }
+
+    private static ValueTable.ColumnInfo[] createColumnsInfo(ArrayList<Signal> signals) {
+        ValueTable.ColumnInfo[] info = new ValueTable.ColumnInfo[signals.size()];
+        for (int i = 0; i < signals.size(); i++) {
+            Signal s = signals.get(i);
+            info[i] = new ValueTable.ColumnInfo(s.getFormat(), s.getValue().getBits());
+        }
+        return info;
     }
 
     /**
@@ -163,7 +176,7 @@ public class GraphDialog extends JDialog implements Observer {
                 JFileChooser fileChooser = new MyFileChooser();
                 fileChooser.setFileFilter(new FileNameExtensionFilter("Comma Separated Values", "csv"));
                 new SaveAsHelper(GraphDialog.this, fileChooser, "csv")
-                        .checkOverwrite(logData::saveCSV);
+                        .checkOverwrite(file -> logData.saveCSV(file, columnInfo));
             }
         }.setToolTip(Lang.get("menu_saveData_tt")).createJMenuItem());
         file.add(new ExportAction(Lang.get("menu_exportSVG"), GraphicSVG::new).createJMenuItem());
@@ -179,6 +192,11 @@ public class GraphDialog extends JDialog implements Observer {
         setJMenuBar(bar);
         pack();
         setLocationRelativeTo(owner);
+    }
+
+    private GraphDialog setColumnInfo(ValueTable.ColumnInfo[] columnInfo) {
+        this.columnInfo = columnInfo;
+        return this;
     }
 
     private final AtomicBoolean paintPending = new AtomicBoolean();

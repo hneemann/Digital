@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.data;
 
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.testing.parser.TestRow;
 import junit.framework.TestCase;
 
@@ -38,6 +39,19 @@ public class ValueTableTest extends TestCase {
         assertEquals("\"step\",\"A\",\"B\",\"C\"\n" +
                 "\"0\",\"0\",\"0\",\"0\"\n" +
                 "\"1\",\"0\",\"1\",\"Z\"\n", sw.toString());
+    }
+
+    public void testCSV2() throws Exception {
+        StringWriter sw = new StringWriter();
+        ValueTable.ColumnInfo[] infos = new ValueTable.ColumnInfo[]{
+                new ValueTable.ColumnInfo(IntFormat.hex, 4),
+                new ValueTable.ColumnInfo(IntFormat.oct, 4),
+                new ValueTable.ColumnInfo(IntFormat.bin, 4),
+        };
+        t.saveCSV(new BufferedWriter(sw), infos);
+        assertEquals("\"step\",\"A\",\"B\",\"C\"\n" +
+                "\"0\",\"0x0\",\"000\",\"0b0000\"\n" +
+                "\"1\",\"0x0\",\"001\",\"Z\"\n", sw.toString());
     }
 
     public void testMax() {
