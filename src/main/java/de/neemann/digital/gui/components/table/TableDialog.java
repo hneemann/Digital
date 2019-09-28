@@ -427,7 +427,7 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    TruthTableFormatter test = new TruthTableFormatterTestCase();
+                    TruthTableFormatter test = new TruthTableFormatterTestCase(undoManager.getActual().getModelAnalyzerInfo());
                     String testCase = test.format(undoManager.getActual());
                     new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"),
                             testCase).setVisible(true);
