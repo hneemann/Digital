@@ -1306,14 +1306,12 @@
   <string name="menu_table_new_combinatorial">Combinatorial</string>
   <string name="menu_table_new_sequential">Sequential</string>
   <string name="menu_table_new_sequential_bidir">Sequential bidirectional</string>
-  <string name="menu_table_columns">Columns</string>
   <string name="menu_table_reorder_inputs">Reorder/Delete Input Variables</string>
   <string name="menu_table_reorder_outputs">Reorder/Delete Output Columns</string>
   <string name="menu_table_columnsAdd">Add Output Column</string>
   <string name="menu_table_columnsAdd_tt">Adds a new result column to the table.</string>
   <string name="menu_table_columnsAddVariable">Add Input Variable</string>
   <string name="menu_table_columnsAddVariable_tt">Adds a new input variable to the table.</string>
-  <string name="menu_table_set">Set</string>
   <string name="menu_table_setXTo0">Set X to 0</string>
   <string name="menu_table_setXTo0_tt">Sets the Don't Cares to 0.</string>
   <string name="menu_table_setXTo1">Set X to 1</string>

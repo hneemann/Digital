@@ -115,6 +115,7 @@ public class ScreenShots {
                 .press("F1")
                 .add(new MainScreenShot("distribution/screenshot.png"))
                 .execute(); /**/
+
         new GuiTester()
                 .press("F10")
                 .press("RIGHT", 4)
@@ -157,8 +158,8 @@ public class ScreenShots {
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
-                .execute();
-
+                .execute();/**/
+        
         File trafficLight = new File(Resources.getRoot(), "../../main/fsm/trafficLightBlink.fsm");
         new GuiTester()
                 .press("F10")
@@ -179,13 +180,14 @@ public class ScreenShots {
                     ReorderOutputs ro = new ReorderOutputs(tt);
                     ro.getItems().swap(3, 4);
                     ro.getItems().swap(4, 5);
-                    tableDialog.setModel(new TruthTableTableModel(ro.reorder()));
+                    ro.reorder();
+                    tableDialog.tableChanged();
                 }))
                 .delay(500)
                 .add(closeAllSolutionsDialog())
                 .delay(500)
                 .press("F10")
-                .press("RIGHT", 4)
+                .press("RIGHT", 3)
                 .press("DOWN", 2)
                 .press("ENTER")
                 .delay(500)
@@ -217,7 +219,7 @@ public class ScreenShots {
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
-                .execute();/**/
+                .execute();
     }
 
     private static GuiTester.WindowCheck<Window> closeAllSolutionsDialog() {

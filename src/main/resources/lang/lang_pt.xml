@@ -1362,14 +1362,12 @@
   <string name="menu_table_new_combinatorial">Combinacional</string>
   <string name="menu_table_new_sequential">Sequencial</string>
   <string name="menu_table_new_sequential_bidir">Sequencial bidirecional</string>
-  <string name="menu_table_columns">Colunas</string>
   <string name="menu_table_reorder_inputs">Reordenar/remover variáveis de entrada</string>
   <string name="menu_table_columnsAddVariable">Adicionar variável de entrada</string>
   <string name="menu_table_columnsAddVariable_tt">Adicionar uma nova variável de entrada à tabela.</string>
   <string name="menu_table_reorder_outputs">Reordenar/remover colunas de saída</string>
   <string name="menu_table_columnsAdd">Adicionar coluna de saída</string>
   <string name="menu_table_columnsAdd_tt">Adicionar uma nova coluna de resultado à tabela.</string>
-  <string name="menu_table_set">Definir</string>
   <string name="menu_table_setXTo0">Definir X como 0</string>
   <string name="menu_table_setXTo0_tt">Definir "don't cares" como 0.</string>
   <string name="menu_table_setXTo1">Definir X como 1</string>

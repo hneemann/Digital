@@ -10,6 +10,7 @@ import de.neemann.digital.analyse.TruthTableTableModel;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.undo.ModifyException;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Handles reordering of the table columns by mouse drag and drop
  */
-public class TableReorderManager {
+class TableReorderManager {
 
     private final TableDialog tableDialog;
     private final JTable table;
@@ -31,7 +32,7 @@ public class TableReorderManager {
      * @param tableDialog the TableDialog instance
      * @param table       the table which is reordered
      */
-    public TableReorderManager(TableDialog tableDialog, JTable table) {
+    TableReorderManager(TableDialog tableDialog, JTable table) {
         this.tableDialog = tableDialog;
         this.table = table;
         table.getTableHeader().addMouseListener(new MouseAdapter() {
@@ -64,24 +65,32 @@ public class TableReorderManager {
         }
 
         if (wasChange) {
-            if (isVarChange(varList, vars)) {
-                try {
-                    TruthTable tt = new ReorderInputs(model.getTable(), vars).reorder();
-                    tableDialog.setModel(new TruthTableTableModel(tt));
-                } catch (ExpressionException e) {
-                    // can't happen because no columns are removed
-                    e.printStackTrace();
-                }
-            } else if (isResultChange(model.getTable(), results)) {
-                try {
-                    TruthTable tt = new ReorderOutputs(model.getTable(), results).reorder();
-                    tableDialog.setModel(new TruthTableTableModel(tt));
-                } catch (ExpressionException e) {
-                    // can't happen because no columns are removed
-                    e.printStackTrace();
-                }
-            } else
-                tableDialog.setModel(new TruthTableTableModel(model.getTable()));
+            try {
+                if (isVarChange(varList, vars)) {
+                    tableDialog.getUndoManager().apply(tt -> {
+                        try {
+                            new ReorderInputs(tt, vars).reorder();
+                        } catch (ExpressionException e) {
+                            // can't happen because no columns are removed
+                            e.printStackTrace();
+                        }
+                    });
+                    tableDialog.tableChanged();
+                } else if (isResultChange(model.getTable(), results)) {
+                    tableDialog.getUndoManager().apply(tt -> {
+                        try {
+                            new ReorderOutputs(tt, results).reorder();
+                        } catch (ExpressionException e) {
+                            // can't happen because no columns are removed
+                            e.printStackTrace();
+                        }
+                    });
+                    tableDialog.tableChanged();
+                } else
+                    tableDialog.tableChanged();
+            } catch (ModifyException e) {
+                e.printStackTrace();
+            }
         }
     }
 

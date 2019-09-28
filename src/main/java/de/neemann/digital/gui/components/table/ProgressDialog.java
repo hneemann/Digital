@@ -27,7 +27,7 @@ public class ProgressDialog extends JDialog implements ExpressionCreator.Progres
         super(tableDialog, false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        bar = new JProgressBar(0, tableDialog.getModel().getTable().getResultCount());
+        bar = new JProgressBar(0, tableDialog.getUndoManager().getActual().getResultCount());
         int b = Screen.getInstance().getFontSize();
         bar.setBorder(BorderFactory.createEmptyBorder(b, b, b, b));
         final JLabel label = new JLabel(Lang.get("msg_optimizationInProgress"));

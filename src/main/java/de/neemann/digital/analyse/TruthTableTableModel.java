@@ -6,6 +6,8 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.undo.ModifyException;
+import de.neemann.digital.undo.UndoManager;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -23,31 +25,31 @@ public class TruthTableTableModel implements TableModel {
      */
     public static final String[] STATENAMES = new String[]{"0", "1", "x"};
 
-    private final TruthTable truthTable;
     private final ArrayList<TableModelListener> listeners = new ArrayList<>();
+    private final UndoManager<TruthTable> undoManager;
 
     /**
      * Creates a new instance
      *
-     * @param truthTable the truthTable which is to visualize
+     * @param undoManager the undoManager
      */
-    public TruthTableTableModel(TruthTable truthTable) {
-        this.truthTable = truthTable;
+    public TruthTableTableModel(UndoManager<TruthTable> undoManager) {
+        this.undoManager = undoManager;
     }
 
     @Override
     public int getRowCount() {
-        return truthTable.getRows();
+        return undoManager.getActual().getRows();
     }
 
     @Override
     public int getColumnCount() {
-        return truthTable.getCols();
+        return undoManager.getActual().getCols();
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return truthTable.getColumnName(columnIndex);
+        return undoManager.getActual().getColumnName(columnIndex);
     }
 
     @Override
@@ -57,31 +59,51 @@ public class TruthTableTableModel implements TableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return truthTable.isEditable(columnIndex);
+        return undoManager.getActual().isEditable(columnIndex);
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return truthTable.getValue(rowIndex, columnIndex);
+        return undoManager.getActual().getValue(rowIndex, columnIndex);
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         if (aValue instanceof Integer)
-            truthTable.setValue(rowIndex, columnIndex, (Integer) aValue);
+            setValue(rowIndex, columnIndex, (Integer) aValue);
         if (aValue instanceof String) {
             if (aValue.toString().equals("0"))
-                truthTable.setValue(rowIndex, columnIndex, 0);
+                setValue(rowIndex, columnIndex, 0);
             else if (aValue.toString().equals("1"))
-                truthTable.setValue(rowIndex, columnIndex, 1);
+                setValue(rowIndex, columnIndex, 1);
             else
-                truthTable.setValue(rowIndex, columnIndex, 2);
+                setValue(rowIndex, columnIndex, 2);
         }
-        fireModelEvent(rowIndex);
+    }
+
+    private void setValue(int rowIndex, int columnIndex, int val) {
+        int actVal = undoManager.getActual().getValue(rowIndex, columnIndex);
+        if (actVal != val) {
+            try {
+                undoManager.apply(truthTable -> truthTable.setValue(rowIndex, columnIndex, val));
+            } catch (ModifyException e) {
+                e.printStackTrace();
+            }
+            fireModelEvent(rowIndex);
+        }
     }
 
     private void fireModelEvent(int rowIndex) {
         TableModelEvent e = new TableModelEvent(this, rowIndex);
+        for (TableModelListener l : listeners)
+            l.tableChanged(e);
+    }
+
+    /**
+     * Fires a structural table change
+     */
+    public void fireTableChanged() {
+        TableModelEvent e = new TableModelEvent(this, HEADER_ROW);
         for (TableModelListener l : listeners)
             l.tableChanged(e);
     }
@@ -96,20 +118,17 @@ public class TruthTableTableModel implements TableModel {
     }
 
     /**
-     * @return the truth table used by this model
-     */
-    public TruthTable getTable() {
-        return truthTable;
-    }
-
-    /**
      * Sets the column name
      *
      * @param columnIndex the column
      * @param name        the new name
      */
     public void setColumnName(int columnIndex, String name) {
-        truthTable.setColumnName(columnIndex, name);
+        try {
+            undoManager.apply(truthTable -> truthTable.setColumnName(columnIndex, name));
+        } catch (ModifyException e) {
+            e.printStackTrace();
+        }
         fireModelEvent(HEADER_ROW);
     }
 
@@ -121,18 +140,26 @@ public class TruthTableTableModel implements TableModel {
      */
     public void incValue(BoolTable boolTable, int row) {
         int col = -1;
-        for (int i = 0; i < truthTable.getResultCount(); i++) {
-            if (truthTable.getResult(i) == boolTable) {
+        TruthTable tt = undoManager.getActual();
+        for (int i = 0; i < tt.getResultCount(); i++) {
+            if (tt.getResult(i) == boolTable) {
                 col = i;
                 break;
             }
         }
         if (col >= 0) {
-            col += truthTable.getVars().size();
-            int value = truthTable.getValue(row, col);
+            col += tt.getVars().size();
+            int value = tt.getValue(row, col);
             if (value == 2) value = 0;
             else value++;
             setValueAt(value, row, col);
         }
+    }
+
+    /**
+     * @return the truth table shown
+     */
+    public TruthTable getTable() {
+        return undoManager.getActual();
     }
 }

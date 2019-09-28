@@ -45,6 +45,7 @@ public class UndoManager<A extends Copyable<A>> {
         modifications = new ArrayList<>();
         modificationCounter = 0;
         savedCounter = 0;
+        fireChangedEvent();
     }
 
 
@@ -187,9 +188,11 @@ public class UndoManager<A extends Copyable<A>> {
      * Adds a listener
      *
      * @param listener the listener to add
+     * @return the given listener for chained calls.
      */
-    public void addListener(ChangedListener listener) {
+    public ChangedListener addListener(ChangedListener listener) {
         listeners.add(listener);
+        return listener;
     }
 
     /**

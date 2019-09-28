@@ -1293,14 +1293,12 @@
   <string name="menu_table_new_combinatorial">Combinacional</string>
   <string name="menu_table_new_sequential">Secuencial</string>
   <string name="menu_table_new_sequential_bidir">Secuencial bidireccional</string>
-  <string name="menu_table_columns">Columnas</string>
   <string name="menu_table_reorder_inputs">Reordena/Borra variables de entrada</string>
   <string name="menu_table_reorder_outputs">Reordena/Borra columnas de salida</string>
   <string name="menu_table_columnsAdd">Añade columna de salida</string>
   <string name="menu_table_columnsAdd_tt">Añade una nueva columna de resultado a la tabla.</string>
   <string name="menu_table_columnsAddVariable">Añade variable de entrada</string>
   <string name="menu_table_columnsAddVariable_tt">Añade una nueva variable de entrada a la tabla.</string>
-  <string name="menu_table_set">Fijar</string>
   <string name="menu_table_setXTo0">Fijar X a 0</string>
   <string name="menu_table_setXTo0_tt">Convierte los "indiferentes" a 0.</string>
   <string name="menu_table_setXTo1">Poner X a 1</string>

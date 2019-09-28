@@ -16,14 +16,17 @@ import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.undo.Copyable;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * The description of a truth table.
  */
-public class TruthTable {
+public class TruthTable implements Copyable<TruthTable> {
 
     private final ArrayList<Variable> variables;
     private final ArrayList<Result> results;
@@ -52,7 +55,7 @@ public class TruthTable {
      */
     public void save(File filename) throws IOException {
         XStream xStream = getxStream();
-        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), "utf-8")) {
+        try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8)) {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             xStream.marshal(this, new PrettyPrintWriter(out));
         }
@@ -68,7 +71,7 @@ public class TruthTable {
         if (results.size() > 63)
             throw new IOException(Lang.get("err_tableHasToManyResultColumns"));
 
-        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"))) {
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8))) {
             saveHex(out);
         }
     }
@@ -145,6 +148,29 @@ public class TruthTable {
         for (int i = 0; i < oldTable.getResultCount(); i++) {
             addResult(oldTable.results.get(i).getName(), new BoolTableByteArray(getRows()));
         }
+    }
+
+    private TruthTable(TruthTable truthTable) {
+        variables = new ArrayList<>(truthTable.variables.size());
+        for (Variable v : truthTable.variables)
+            variables.add(new Variable(v.getIdentifier()));
+        results = new ArrayList<>();
+        for (int i = 0; i < truthTable.getResultCount(); i++) {
+            Result result = truthTable.results.get(i);
+            addResult(result.getName(), new BoolTableByteArray(result.values));
+        }
+        this.modelAnalyzerInfo = truthTable.modelAnalyzerInfo;
+    }
+
+    /**
+     * Clears the table and sets the given variables
+     *
+     * @param vars the variables to use
+     */
+    public void clear(Collection<? extends Variable> vars) {
+        variables.clear();
+        variables.addAll(vars);
+        results.clear();
     }
 
     /**
@@ -456,30 +482,18 @@ public class TruthTable {
     }
 
     /**
-     * Sets the don't cares to a given value
+     * Modifies all column in the table
      *
-     * @param b the value to set
+     * @param m the modifier to use
+     * @return this for chained calls
      */
-    public void setXto(boolean b) {
+    public TruthTable modifyValues(BoolTableByteArray.TableModifier m) {
         for (Result r : results) {
             BoolTable bt = r.getValues();
             if (bt instanceof BoolTableByteArray)
-                ((BoolTableByteArray) bt).setXTo(b ? 1 : 0);
+                ((BoolTableByteArray) bt).modify(m);
         }
-    }
-
-    /**
-     * Set all table entries to the given value.
-     * Zero and one behave as expected. All other values represent "don't care"
-     *
-     * @param value the value to set
-     */
-    public void setAllTo(int value) {
-        for (Result r : results) {
-            BoolTable bt = r.getValues();
-            if (bt instanceof BoolTableByteArray)
-                ((BoolTableByteArray) bt).setAllTo(value);
-        }
+        return this;
     }
 
     /**
@@ -498,6 +512,31 @@ public class TruthTable {
      */
     public ModelAnalyserInfo getModelAnalyzerInfo() {
         return modelAnalyzerInfo;
+    }
+
+    @Override
+    public TruthTable createDeepCopy() {
+        return new TruthTable(this);
+    }
+
+    /**
+     * @return the names of all input variables
+     */
+    public ArrayList<String> getVarNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Variable v : variables)
+            names.add(v.getIdentifier());
+        return names;
+    }
+
+    /**
+     * @return the names of al result variables
+     */
+    public ArrayList<String> getResultNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Result r : results)
+            names.add(r.getName());
+        return names;
     }
 
     /**
