@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Helmut Neemann
+ * Copyright (c) 2019 Helmut Neemann
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
@@ -10,48 +10,42 @@ import de.neemann.digital.analyse.expression.ContextFiller;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
-import de.neemann.digital.draw.graphics.text.formatter.LaTeXFormatter;
 
 /**
- * Creates a LaTeX table using the truth table data
+ * Creates a test case which represents the truth table
  */
-public class TruthTableFormatterLaTeX implements TruthTableFormatter {
+public class TruthTableFormatterTestCase implements TruthTableFormatter {
     @Override
     public String format(TruthTable truthTable) throws ExpressionException {
         StringBuilder sb = new StringBuilder();
-        sb.append("\\begin{center}\n\\begin{tabular}{");
         for (Variable v : truthTable.getVars())
-            sb.append("c");
-        sb.append("|");
-        for (int i = 0; i < truthTable.getResultCount(); i++)
-            sb.append("c");
-        sb.append("}\n");
+            sb.append(v.getIdentifier()).append(" ");
 
-        for (Variable v : truthTable.getVars())
-            sb.append("$").append(LaTeXFormatter.format(v)).append("$&");
         for (int i = 0; i < truthTable.getResultCount(); i++) {
-            sb.append("$").append(LaTeXFormatter.format(new Variable(truthTable.getResultName(i)))).append("$");
+            sb.append(truthTable.getResultName(i));
             if (i < truthTable.getResultCount() - 1)
-                sb.append("&");
+                sb.append(" ");
         }
-        sb.append("\\\\\n");
-        sb.append("\\hline\n");
+        sb.append("\n\n");
 
         ContextFiller cf = new ContextFiller(truthTable.getVars());
         for (int i = 0; i < cf.getRowCount(); i++) {
             cf.setContextTo(i);
-            for (Variable v : cf)
-                sb.append(format(cf.get(v))).append("&");
+            for (Variable v : cf) {
+                sb.append(format(cf.get(v)));
+                for (int j = 0; j < v.getIdentifier().length(); j++)
+                    sb.append(" ");
+            }
 
             for (int j = 0; j < truthTable.getResultCount(); j++) {
                 ThreeStateValue r = truthTable.getResult(j).get(i);
                 sb.append(format(r));
                 if (j < truthTable.getResultCount() - 1)
-                    sb.append("&");
+                    for (int k = 0; k < truthTable.getResultName(j).length(); k++)
+                        sb.append(" ");
             }
-            sb.append("\\\\\n");
+            sb.append("\n");
         }
-        sb.append("\\end{tabular}\n\\end{center}\n");
         return sb.toString();
     }
 
@@ -62,11 +56,11 @@ public class TruthTableFormatterLaTeX implements TruthTableFormatter {
     private String format(ThreeStateValue r) {
         switch (r) {
             case one:
-                return "$1$";
+                return "1";
             case zero:
-                return "$0$";
+                return "0";
             case dontCare:
-                return "-";
+                return "x";
         }
         return null;
     }

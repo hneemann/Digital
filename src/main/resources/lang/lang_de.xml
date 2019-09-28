@@ -1539,7 +1539,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_createThree_tt">Erzeugt eine Schaltung und verwendet nur Gatter mit maximal drei Eingängen.</string>
     <string name="menu_table_create_hardware">Bausteine</string>
     <string name="menu_table_create_jedec_tt">Erzeugt eine JEDEC Datei für den Baustein</string>
-    <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
+    <string name="menu_table_exportTableLaTeX">Erzeuge LaTeX</string>
+    <string name="menu_table_createFunctionFixture">Erzeuge Testfall</string>
+    <string name="menu_table_createFunctionFixture_tt">Erzeugt eine Testfallbeschreibung, welche in einen Testfall
+        übernommen werden kann.
+    </string>
     <string name="menu_table_exportHex">Erzeuge HEX</string>
     <string name="menu_table_exportHex_tt">Die HEX-Datei kann in ein ROM oder eine LUT geladen werden.</string>
     <string name="menu_table_new">Neu</string>
@@ -1777,6 +1781,7 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
         Sollen alle {0} zu ''{2}'' umbenannt werden?</string>
 
     <string name="msg_dataWillBeLost_n">Sollen die Änderungen im Feld "{0}" wirklich verworfen werden?</string>
+    <string name="btn_copyToClipboard">Zwischenablage</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

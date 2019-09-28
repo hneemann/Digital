@@ -15,6 +15,8 @@ import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.*;
+import de.neemann.digital.analyse.format.TruthTableFormatter;
+import de.neemann.digital.analyse.format.TruthTableFormatterTestCase;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.builder.ATF150x.ATFDevice;
 import de.neemann.digital.builder.ExpressionToFileExporter;
@@ -420,6 +422,20 @@ public class TableDialog extends JDialog {
                 }
             }
         });
+
+        fileMenu.add(new ToolTipAction(Lang.get("menu_table_createFunctionFixture")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    TruthTableFormatter test = new TruthTableFormatterTestCase();
+                    String testCase = test.format(undoManager.getActual());
+                    new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"),
+                            testCase).setVisible(true);
+                } catch (ExpressionException e1) {
+                    new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
+                }
+            }
+        }.setToolTip(Lang.get("menu_table_createFunctionFixture_tt")).createJMenuItem());
 
         fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportHex")) {
             @Override

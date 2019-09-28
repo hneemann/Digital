@@ -5,11 +5,16 @@
  */
 package de.neemann.digital.gui.components.table;
 
+import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionEvent;
 
 /**
  * Shows a simple string
@@ -68,6 +73,23 @@ public class ShowStringDialog extends JDialog {
         textComp.setEditable(false);
         textComp.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         getContentPane().add(new JScrollPane(textComp));
+
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttons.add(new ToolTipAction(Lang.get("btn_copyToClipboard")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                StringSelection stringSelection = new StringSelection(str);
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection, null);
+            }
+        }.createJButton());
+        buttons.add(new ToolTipAction(Lang.get("ok")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+            }
+        }.createJButton());
+        getContentPane().add(buttons, BorderLayout.SOUTH);
 
         pack();
         setLocationRelativeTo(parent);
