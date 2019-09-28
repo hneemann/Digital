@@ -327,7 +327,7 @@ public class TableDialog extends JDialog {
                 }
             }
         }.setAcceleratorCTRLplus("Y");
-        
+
         edit.add(undo.createJMenuItem());
         edit.add(redo.createJMenuItem());
         undoManager.addListener(() -> {
