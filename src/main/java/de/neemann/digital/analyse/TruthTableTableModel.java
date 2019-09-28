@@ -79,14 +79,17 @@ public class TruthTableTableModel implements TableModel {
             else
                 setValue(rowIndex, columnIndex, 2);
         }
-        fireModelEvent(rowIndex);
     }
 
     private void setValue(int rowIndex, int columnIndex, int val) {
-        try {
-            undoManager.apply(truthTable -> truthTable.setValue(rowIndex, columnIndex, val));
-        } catch (ModifyException e) {
-            e.printStackTrace();
+        int actVal = undoManager.getActual().getValue(rowIndex, columnIndex);
+        if (actVal != val) {
+            try {
+                undoManager.apply(truthTable -> truthTable.setValue(rowIndex, columnIndex, val));
+            } catch (ModifyException e) {
+                e.printStackTrace();
+            }
+            fireModelEvent(rowIndex);
         }
     }
 

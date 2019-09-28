@@ -327,14 +327,17 @@ public class TableDialog extends JDialog {
                 }
             }
         }.setAcceleratorCTRLplus("Y");
+        
         edit.add(undo.createJMenuItem());
         edit.add(redo.createJMenuItem());
         undoManager.addListener(() -> {
             undo.setEnabled(undoManager.undoAvailable());
             redo.setEnabled(undoManager.redoAvailable());
-        });
-        undo.setEnabled(undoManager.undoAvailable());
-        redo.setEnabled(undoManager.redoAvailable());
+            if (undoManager.isModified())
+                setTitle("*" + Lang.get("win_table"));
+            else
+                setTitle(Lang.get("win_table"));
+        }).hasChanged();
     }
 
     /**
