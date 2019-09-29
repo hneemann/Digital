@@ -185,6 +185,7 @@ public class FSM {
             state.setInitial(true);
         state.setFSM(this);
         states.add(state);
+        wasModified(state, Movable.Property.ADDED);
         return this;
     }
 
@@ -197,6 +198,7 @@ public class FSM {
     public FSM add(Transition transition) {
         transitions.add(transition);
         transition.setFSM(this);
+        wasModified(transition, Movable.Property.ADDED);
         return this;
     }
 
