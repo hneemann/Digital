@@ -6,6 +6,7 @@
 package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Node;
 import de.neemann.digital.core.Signal;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class ModelAnalyserInfo {
     private final HashMap<String, ArrayList<String>> inputBusMap;
     private final HashMap<String, ArrayList<String>> outputBusMap;
     private final HashMap<String, Long> initValueMap;
+    private final boolean isSequential;
     private TreeMap<String, String> pins;
     private ArrayList<Signal> inputs;
     private ArrayList<Signal> outputs;
@@ -36,6 +38,8 @@ public class ModelAnalyserInfo {
             clockPin = model.getClocks().get(0).getClockPin();
         else
             clockPin = null;
+
+        isSequential = model != null && !model.findNode(Node::hasState).isEmpty();
 
         inputBusMap = new HashMap<>();
         outputBusMap = new HashMap<>();
@@ -129,6 +133,13 @@ public class ModelAnalyserInfo {
      */
     public HashMap<String, ArrayList<String>> getOutputBusMap() {
         return outputBusMap;
+    }
+
+    /**
+     * @return true if model is sequential
+     */
+    public boolean isSequential() {
+        return isSequential;
     }
 
     /**

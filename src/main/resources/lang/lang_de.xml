@@ -1544,6 +1544,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_createFunctionFixture_tt">Erzeugt eine Testfallbeschreibung, welche in einen Testfall
         übernommen werden kann.
     </string>
+    <string name="menu_table_createFunctionFixture_isSequential">Der Testfall ist nur funktionsfähig, wenn die Schaltung
+        rein kombinatorisch ist!
+    </string>
+
     <string name="menu_table_exportHex">Erzeuge HEX</string>
     <string name="menu_table_exportHex_tt">Die HEX-Datei kann in ein ROM oder eine LUT geladen werden.</string>
     <string name="menu_table_new">Neu</string>
@@ -1782,6 +1786,7 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
 
     <string name="msg_dataWillBeLost_n">Sollen die Änderungen im Feld "{0}" wirklich verworfen werden?</string>
     <string name="btn_copyToClipboard">Zwischenablage</string>
+    <string name="btn_copyToClipboard_tt">Kopiert den Text in die Zwischenablage.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

@@ -1527,6 +1527,10 @@
     <string name="menu_table_createFunctionFixture_tt">Creates a test case description that can be used in a test
         case.
     </string>
+    <string name="menu_table_createFunctionFixture_isSequential">The test case is only functional if the circuit is
+        purely combinatorial!
+    </string>
+
     <string name="menu_table_exportHex">Export HEX</string>
     <string name="menu_table_exportHex_tt">You can load the HEX file to a ROM or a LUT.</string>
     <string name="menu_table_new">New</string>
@@ -1787,6 +1791,7 @@ Make sure the flash process is complete before closing this dialog!</string>
 
     <string name="btn_help">Help</string>
     <string name="btn_copyToClipboard">Clipboard</string>
+    <string name="btn_copyToClipboard_tt">Copies the text to the clipboard.</string>
 
     <string name="win_romDialogHelpTitle">Central ROM Content</string>
     <string name="msg_romDialogHelp"><![CDATA[

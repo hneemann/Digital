@@ -427,7 +427,12 @@ public class TableDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    TruthTableFormatter test = new TruthTableFormatterTestCase(undoManager.getActual().getModelAnalyzerInfo());
+                    ModelAnalyserInfo modelAnalyzerInfo = undoManager.getActual().getModelAnalyzerInfo();
+                    if (modelAnalyzerInfo.isSequential())
+                        JOptionPane.showMessageDialog(
+                                TableDialog.this,
+                                Lang.get("menu_table_createFunctionFixture_isSequential"));
+                    TruthTableFormatter test = new TruthTableFormatterTestCase(modelAnalyzerInfo);
                     String testCase = test.format(undoManager.getActual());
                     new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"),
                             testCase).setVisible(true);

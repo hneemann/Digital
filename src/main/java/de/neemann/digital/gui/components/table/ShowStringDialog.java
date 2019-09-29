@@ -82,7 +82,7 @@ public class ShowStringDialog extends JDialog {
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(stringSelection, null);
             }
-        }.createJButton());
+        }.setToolTip(Lang.get("btn_copyToClipboard_tt")).createJButton());
         buttons.add(new ToolTipAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
