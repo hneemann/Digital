@@ -6,10 +6,12 @@
 package de.neemann.gui.language;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
+import de.neemann.digital.LegalXStream;
 
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  */
@@ -20,7 +22,7 @@ public class Bundle {
     private final ArrayList<Language> list;
 
     private static XStream getxStream() {
-        XStream xStream = new XStream(new StaxDriver());
+        XStream xStream = new LegalXStream();
         xStream.alias("languages", Map.class);
         xStream.registerConverter(new Resources.MapEntryConverter("string"));
         return xStream;

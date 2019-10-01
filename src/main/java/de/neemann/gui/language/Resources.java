@@ -12,11 +12,14 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
+import de.neemann.digital.LegalXStream;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Used to store the language keys.
@@ -24,7 +27,7 @@ import java.util.*;
 public class Resources {
 
     private static XStream getxStream() {
-        XStream xStream = new XStream(new StaxDriver());
+        XStream xStream = new LegalXStream();
         xStream.alias("resources", Map.class);
         xStream.registerConverter(new MapEntryConverter("string"));
         return xStream;

@@ -7,7 +7,7 @@ package de.neemann.digital.analyse;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
+import de.neemann.digital.LegalXStream;
 import de.neemann.digital.analyse.expression.BitSetter;
 import de.neemann.digital.analyse.expression.Context;
 import de.neemann.digital.analyse.expression.ExpressionException;
@@ -101,7 +101,7 @@ public class TruthTable implements Copyable<TruthTable> {
 
 
     private static XStream getxStream() {
-        XStream xStream = new XStream(new StaxDriver());
+        XStream xStream = new LegalXStream();
         xStream.alias("truthTable", TruthTable.class);
         xStream.alias("variable", Variable.class);
         xStream.aliasAttribute(Variable.class, "identifier", "name");
