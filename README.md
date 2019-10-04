@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/hneemann/Digital.svg?branch=master)](https://travis-ci.org/hneemann/Digital)
 [![codecov](https://codecov.io/gh/hneemann/Digital/branch/master/graph/badge.svg)](https://codecov.io/gh/hneemann/Digital)
-[![Download](distribution/Download.svg)](https://github.com/hneemann/Digital/releases/download/v0.23/Digital.zip)
+[![Download](distribution/Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
 # Digital #
 
@@ -10,10 +10,10 @@ Digital is a easy-to-use digital logic designer and circuit simulator designed f
 
 ![screnshot2](distribution/screenshot2.png)
 
-## [Download](https://github.com/hneemann/Digital/releases/download/v0.23/Digital.zip) and Installation ##
+## [Download](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip) and Installation ##
 
 There is no installation required, just unpack the *Digital.zip* file, which is
-available for [download](https://github.com/hneemann/Digital/releases/download/v0.23/Digital.zip).
+available for [download](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip).
 On Windows machines the EXE file can be executed, on Linux start the shell script
 and on MacOS the JAR file can be started directly.
 A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required
