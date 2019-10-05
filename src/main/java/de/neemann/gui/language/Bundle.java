@@ -6,7 +6,7 @@
 package de.neemann.gui.language;
 
 import com.thoughtworks.xstream.XStream;
-import de.neemann.digital.LegalXStream;
+import de.neemann.digital.XStreamValid;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class Bundle {
     private final ArrayList<Language> list;
 
     private static XStream getxStream() {
-        XStream xStream = new LegalXStream();
+        XStream xStream = new XStreamValid();
         xStream.alias("languages", Map.class);
         xStream.registerConverter(new Resources.MapEntryConverter("string"));
         return xStream;

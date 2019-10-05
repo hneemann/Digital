@@ -12,7 +12,7 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import de.neemann.digital.LegalXStream;
+import de.neemann.digital.XStreamValid;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +27,7 @@ import java.util.TreeMap;
 public class Resources {
 
     private static XStream getxStream() {
-        XStream xStream = new LegalXStream();
+        XStream xStream = new XStreamValid();
         xStream.alias("resources", Map.class);
         xStream.registerConverter(new MapEntryConverter("string"));
         return xStream;

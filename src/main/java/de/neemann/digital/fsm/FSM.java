@@ -7,7 +7,7 @@ package de.neemann.digital.fsm;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import de.neemann.digital.LegalXStream;
+import de.neemann.digital.XStreamValid;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.draw.graphics.Graphic;
@@ -57,7 +57,7 @@ public class FSM {
      * @return the XStream instance
      */
     public static XStream getxStream() {
-        XStream xStream = new LegalXStream();
+        XStream xStream = new XStreamValid();
         xStream.alias("fsm", FSM.class);
         xStream.alias("state", State.class);
         xStream.alias("transition", Transition.class);

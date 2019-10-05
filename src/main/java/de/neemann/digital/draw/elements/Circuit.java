@@ -7,7 +7,7 @@ package de.neemann.digital.draw.elements;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import de.neemann.digital.LegalXStream;
+import de.neemann.digital.XStreamValid;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
@@ -63,7 +63,7 @@ public class Circuit implements Copyable<Circuit> {
      * @return the XStream instance
      */
     public static XStream getxStream() {
-        XStream xStream = new LegalXStream();
+        XStream xStream = new XStreamValid();
         xStream.alias("attributes", ElementAttributes.class);
         xStream.alias("visualElement", VisualElement.class);
         xStream.alias("wire", Wire.class);

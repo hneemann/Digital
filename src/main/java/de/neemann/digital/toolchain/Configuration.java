@@ -6,7 +6,7 @@
 package de.neemann.digital.toolchain;
 
 import com.thoughtworks.xstream.XStream;
-import de.neemann.digital.LegalXStream;
+import de.neemann.digital.XStreamValid;
 import de.neemann.digital.builder.tt2.OSExecute;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
@@ -78,7 +78,7 @@ public final class Configuration {
     }
 
     private static XStream getxStream() {
-        final XStream xStream = new LegalXStream();
+        final XStream xStream = new XStreamValid();
         xStream.alias("toolchain", Configuration.class);
         xStream.aliasAttribute(Configuration.class, "name", "name");
         xStream.aliasAttribute(Configuration.class, "frequency", "frequency");
