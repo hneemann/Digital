@@ -119,6 +119,14 @@ public final class ShapeFactory {
         map.put(DummyElement.DATADESCRIPTION.getName(), DataShape::new);
         map.put(RotEncoder.DESCRIPTION.getName(), RotEncoderShape::new);
         map.put(DipSwitch.DESCRIPTION.getName(), DipSwitchShape::new);
+        map.put(Port.DESCRIPTION.getName(),
+        (attributes, inputs, outputs) -> new GenericShape(
+                Port.DESCRIPTION.getShortName(),
+                inputs,
+                outputs,
+                attributes.getLabel(),
+                true,
+                4));
 
         map.put(Switch.DESCRIPTION.getName(), SwitchShape::new);
         map.put(SwitchDT.DESCRIPTION.getName(), SwitchDTShape::new);
