@@ -289,6 +289,21 @@
     <string name="elem_MIDI_pin_PC">If high, the value at N is used to change the program (instrument).</string>
     <string name="elem_MIDI_pin_C">Clock</string>
 
+    <string name="elem_Port">PORT</string>
+    <string name="elem_Port_tt">Serial/Parellel port connected to a TCP socket at port 2323 for communication with external devices/processes.</string>
+    <string name="elem_Port_pin_out">OUT</string>
+    <string name="elem_Port_pin_Q">[Parallel mode] The 8 bits of data received from the socket</string>
+    <string name="elem_Port_pin_avail">[Parallel mode] High if new data has arrived from the socket</string>
+    <string name="elem_Port_pin_bsy">[Parallel mode] Low if the device is ready to receive new data.</string>
+    <string name="elem_Port_pin_C">[Serial mode] This pin expects the bitrate times 16. [Parallel mode] this pin is used for counting 100 clock cycles before clearing the bsy pin.</string>
+    <string name="elem_Port_pin_ack">[Parallel mode] A rising edge acknowledges that the data on Q has been read so new data can be received from the socket. Clears the avail pin.</string>
+    <string name="elem_Port_pin_stb">[Parallel mode] A rising edge latches the data presented at D and transmits it over the socket. The bsy pin is set high and is automatically cleared after 100 clock cycles has passed.</string>
+    <string name="elem_Port_pin_D">[Parallel mode] The 8 bits of data to be sent to the socket.</string>
+    <string name="key_portMode">Parallel mode</string>
+    <string name="key_portMode_tt">Unchecked for Serial 8N1 interface, Checked for Parallel interface </string>
+    <string name="key_portTelnet">Telnet mode</string>
+    <string name="key_portTelnet_tt">Unchecked for raw/uncooked data on socket, Checked for enabing Telnet mode where commands for turning off echo and buffering automatically is sent.</string>
+
     <!-- Wires -->
 
     <string name="elem_Ground">Ground</string>

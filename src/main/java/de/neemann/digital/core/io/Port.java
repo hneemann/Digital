@@ -7,10 +7,18 @@ package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.Node;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
+
 import java.io.DataOutputStream;
 import java.util.ArrayDeque;
 import java.util.Deque;
-//import java.util.Iterator;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -19,26 +27,23 @@ import static de.neemann.digital.core.element.PinInfo.input;
  */
 public class Port extends Node implements Element {
 
-    static private Deque<Integer> buf = new ArrayDeque<Integer>(1000);
-    static private PortSocket portSocket = null;
 
     /**
      * The Port description
      */
-
     public static final ElementTypeDescription DESCRIPTION
         = new ElementTypeDescription(Port.class) {
         public PinDescriptions getInputDescription(ElementAttributes elementAttributes) throws NodeException {
             if (elementAttributes.get(Keys.PORT_MODE))
                 return new PinDescriptions(
                     input("in"),
-                    input("C").setClock());
+                    input("C").setClock()).setLangKey(getPinLangKey());
             else
                 return new PinDescriptions(
                     input("D"),
                     input("C").setClock(),
                     input("stb"),
-                    input("ack"));
+                    input("ack")).setLangKey(getPinLangKey());
         }
     }
     .addAttribute(Keys.ROTATE)
@@ -47,9 +52,7 @@ public class Port extends Node implements Element {
     .addAttribute(Keys.PORT_MODE)
     .addAttribute(Keys.PORT_TELNET);
 
-    private boolean portMode; // false=parallel, true=serial
-    private boolean portTelnet; // false=raw, true=telnet
-
+    private final String label;
     private ObservableValue clock;
     private ObservableValue sin;    // Serial input
     private ObservableValue sout;   // Serial output
@@ -60,13 +63,16 @@ public class Port extends Node implements Element {
     private ObservableValue avail;  // Parallel output data available at Q
     private ObservableValue ack;    // Acknowledge that data is read from Q
 
+    private boolean portMode; // false=parallel, true=serial
+    private boolean portTelnet; // false=raw, true=telnet
     private boolean lastClock = false;
     private int bsyCnt = 0;
     private long pinVal = 0;
     private long poutVal = 0;
     private boolean lastStb = false;
-    private boolean  lastAck = false;
-    private String label;
+    private boolean lastAck = false;
+    static private Deque<Integer> buf = new ArrayDeque<Integer>(1000);
+    static private PortSocket portSocket = null;
 
     /**
      * Creates a new instance
@@ -178,6 +184,14 @@ public class Port extends Node implements Element {
     public void init(Model model) throws NodeException {
         buf.clear();
     }
+
+    /**
+     * @return the port label
+     */
+    public String getLabel() {
+        return label;
+    }
+
 
     /**
      * The PortSocket thread calls here when new data has
