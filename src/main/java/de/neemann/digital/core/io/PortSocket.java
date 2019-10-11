@@ -33,6 +33,7 @@ public class PortSocket extends Thread {
     public PortSocket(Port port, int listenPort, boolean telnetMode) {
         this.port = port;
         this.telnetMode = telnetMode;
+        this.setDaemon(true);
         try {
             serverSocket = new ServerSocket(listenPort);
         } catch (IOException e) {
