@@ -148,7 +148,7 @@ public class Port extends Node implements Element {
             if (!portMode) {
                 if (lastClock != nowClock) {
                     if (bsyCnt>0) {
-                        if (--bsyCnt==0) bsyVal=1;
+                        if (--bsyCnt==0) bsyVal=0;
                     }
                 }
             }
