@@ -69,6 +69,8 @@ public class Port extends Node implements Element {
     private int bsyCnt = 0;
     private long pinVal = 0;
     private long poutVal = 0;
+    private long availVal = 0;
+    private long bsyVal = 0;
     private boolean lastStb = false;
     private boolean lastAck = false;
     static private Deque<Integer> buf = new ArrayDeque<Integer>(1000);
@@ -128,14 +130,14 @@ public class Port extends Node implements Element {
             boolean nowStb = stb.getBool();
             boolean nowAck = ack.getBool();
 
-            // If rising edge on stb then send the paralell-in (pin) to
+            // If rising edge on stb then send the parallel-in (pin) to
             // the socket, and set the bsy flag (it will be automatically
             // be cleared in X clock cycles to simulate a slow external device)
             if (lastStb != nowStb) {
                 if (nowStb) {
                     if (!bsy.getBool()) {
                         toSocket((int) pin.getValue());
-                        bsy.setValue(1);
+                        bsyVal=1;
                         bsyCnt=100;
                     }
                 }
@@ -146,22 +148,21 @@ public class Port extends Node implements Element {
             if (!portMode) {
                 if (lastClock != nowClock) {
                     if (bsyCnt>0) {
-                        if (--bsyCnt==0) bsy.setValue(0);
+                        if (--bsyCnt==0) bsyVal=1;
                     }
                 }
             }
 
-            // If there's pending data in the buffer and the last
-            // data has been ack'ed then update the Q port
+            // If there's pending data in the buffer and the last data
+            // has been ack'ed then update the Q port and set the avail flag
             if (!buf.isEmpty() && !avail.getBool()) {
                 poutVal=buf.remove();
-                pout.set((long) poutVal, 0);
-                avail.setValue(1);
+                availVal=1;
             }
 
             // If rising edge on ack then clear the avail flag
             if (lastAck != nowAck) {
-                if (nowAck) avail.setValue(0);
+                if (nowAck) availVal=0;
                 lastAck=nowAck;
             }
 
@@ -172,7 +173,9 @@ public class Port extends Node implements Element {
     @Override
     public void writeOutputs() throws NodeException {
         if (!portMode) {
-            pout.setValue(poutVal);
+            pout.set((long) poutVal, 0);
+            avail.setValue(availVal);
+            bsy.setValue(bsyVal);
         }
     }
 
