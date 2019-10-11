@@ -830,4 +830,18 @@ public final class Keys {
      */
     public static final Key<Boolean> SWITCH_ACTS_AS_INPUT =
             new Key<>("switchActsAsInput", false).setSecondary();
+
+
+    /**
+     * true if port is to be used with telnet
+     */
+    public static final Key<Boolean> PORT_TELNET
+            = new Key<>("portTelnet", true);
+
+
+   /**
+     * true if port is serial
+     */
+    public static final Key<Boolean> PORT_MODE
+             = new Key<>("portMode", true);
 }
