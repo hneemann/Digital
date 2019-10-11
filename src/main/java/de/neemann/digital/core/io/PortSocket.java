@@ -10,16 +10,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-//import java.net.SocketTimeoutException;
-//import java.util.concurrent.TimeoutException;
 
 /**
  *
  */
 public class PortSocket extends Thread {
-
-
-
     private Port port;
     private boolean telnetMode;
     private ServerSocket serverSocket;
@@ -97,7 +92,7 @@ public class PortSocket extends Thread {
                     outStream.flush();
                     Thread.sleep(100); // Wait for a bit and eat up all replies from telnet
                     inStream.read(buffer);
-                    outStream.writeChars("[Digital UART]\r\n");
+                    outStream.writeChars("\r\n[Digital]\r\n");
                 }
 
                 while (true) {
