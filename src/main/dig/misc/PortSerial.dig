@@ -256,7 +256,12 @@
     </visualElement>
     <visualElement>
       <elementName>RS_FF_AS</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Default</string>
+          <long>1</long>
+        </entry>
+      </elementAttributes>
       <pos x="-160" y="20"/>
     </visualElement>
     <visualElement>
@@ -346,7 +351,7 @@ Connect telnet terminal to localhost port 2323</string>
 into a serial stream) enters the PORT component (in) and 
 is sent to the telnet via the socket. 
 
-Characters from telnet will be shown as a 8N2 serial stream 
+Characters from telnet will be output as a 8N2 serial stream 
 at the (out) pin. But also fed back to the receiver so it will be 
 echoed back to the telnet.</string>
         </entry>
