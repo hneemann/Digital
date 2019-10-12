@@ -299,8 +299,11 @@
     <string name="elem_Port_pin_ack">[Parallel mode] A rising edge acknowledges that the data on Q has been read so new data can be received from the socket. Clears the avail pin.</string>
     <string name="elem_Port_pin_stb">[Parallel mode] A rising edge latches the data presented at D and transmits it over the socket. The bsy pin is set high and is automatically cleared after 100 clock cycles has passed.</string>
     <string name="elem_Port_pin_D">[Parallel mode] The 8 bits of data to be sent to the socket.</string>
-    <string name="key_portMode">Parallel mode</string>
-    <string name="key_portMode_tt">Unchecked for Serial 8N1 interface, Checked for Parallel interface </string>
+
+    <string name="key_portMode">Mode</string>
+    <string name="key_portMode_tt">Mode of internal interface</string>
+    <string name="key_portMode_serial">Serial 8N1</string>
+    <string name="key_portMode_parallel">Parallel</string>
     <string name="key_portTelnet">Telnet mode</string>
     <string name="key_portTelnet_tt">Unchecked for raw/uncooked data on socket, Checked for enabing Telnet mode where commands for turning off echo and buffering automatically is sent.</string>
 
