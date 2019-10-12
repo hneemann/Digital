@@ -42,16 +42,6 @@
       <pos x="400" y="60"/>
     </visualElement>
     <visualElement>
-      <elementName>Port</elementName>
-      <elementAttributes>
-        <entry>
-          <string>portMode</string>
-          <boolean>false</boolean>
-        </entry>
-      </elementAttributes>
-      <pos x="640" y="40"/>
-    </visualElement>
-    <visualElement>
       <elementName>Probe</elementName>
       <elementAttributes>
         <entry>
@@ -153,6 +143,16 @@ the data before new data can be received.</string>
         </entry>
       </elementAttributes>
       <pos x="800" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Port</elementName>
+      <elementAttributes>
+        <entry>
+          <string>portMode</string>
+          <de.neemann.digital.core.io.PortMode>parallel</de.neemann.digital.core.io.PortMode>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="40"/>
     </visualElement>
   </visualElements>
   <wires>
