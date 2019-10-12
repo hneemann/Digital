@@ -33,7 +33,7 @@ public class Port extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION
         = new ElementTypeDescription(Port.class) {
         public PinDescriptions getInputDescription(ElementAttributes elementAttributes) throws NodeException {
-            if (elementAttributes.get(Keys.PORT_MODE))
+            if (elementAttributes.get(Keys.PORT_MODE)==PortMode.serial)
                 return new PinDescriptions(
                     // Serial
                     input("in"),
@@ -64,8 +64,8 @@ public class Port extends Node implements Element {
     private ObservableValue avail;  // Parallel output data available at Q
     private ObservableValue ack;    // Acknowledge that data is read from Q
 
-    private boolean portMode;       // false=parallel, true=serial
-    private boolean portTelnet;     // false=raw, true=telnet
+    private PortMode portMode;       // serial/parallel
+    private boolean portTelnet;      // false=raw, true=telnet
     private boolean lastClock = false;
     private int bsyTicks = 0;
     private long pinVal = 0;
@@ -100,7 +100,7 @@ public class Port extends Node implements Element {
         portTelnet = attributes.get(Keys.PORT_TELNET);
         label = attributes.getLabel();
 
-        if (portMode) { // Serial mode
+        if (portMode==PortMode.serial) { // Serial mode
             sout = new ObservableValue("out", 1).setPinDescription(DESCRIPTION);
         } else {        // Parallel mode
             pout = new ObservableValue("Q", 8).setPinDescription(DESCRIPTION);
@@ -120,7 +120,7 @@ public class Port extends Node implements Element {
      */
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        if (portMode) {
+        if (portMode==PortMode.serial) {
             // Serial
             sin = inputs.get(0).addObserverToValue(this).checkBits(1, this, 0);
             clock = inputs.get(1).addObserverToValue(this).checkBits(1, this, 1);
@@ -135,12 +135,10 @@ public class Port extends Node implements Element {
 
     @Override
     public ObservableValues getOutputs() {
-        if (portMode) {
-            // Serial
-            return new ObservableValues(sout);
+        if (portMode==PortMode.serial) {
+            return new ObservableValues(sout);              // Serial
         } else {
-            // Parallel
-            return new ObservableValues(pout, bsy, avail);
+            return new ObservableValues(pout, bsy, avail);  // Parallel
         }
     }
 
@@ -150,7 +148,7 @@ public class Port extends Node implements Element {
 
         // We only care about the rising edge of the clock
         if (lastClock != nowClock && nowClock) {
-            if (portMode) {
+            if (portMode==PortMode.serial) {
                 serialHandlerSout();    // Toggles the sout pin
                 serialHandlerSin();     // Collects bits from the sin pin
             } else {
@@ -164,12 +162,10 @@ public class Port extends Node implements Element {
 
     @Override
     public void writeOutputs() throws NodeException {
-        if (portMode) {
-            // Serial
-            sout.setValue(soutVal);
+        if (portMode==PortMode.serial) {
+            sout.setValue(soutVal);     // Serial
         } else {
-            // Parallel
-            pout.set(poutVal, 0);
+            pout.set(poutVal, 0);       // Parallel
             avail.setValue(availVal);
             bsy.setValue(bsyVal);
         }
@@ -179,13 +175,6 @@ public class Port extends Node implements Element {
     public void init(Model model) throws NodeException {
         buf.clear();    // Clear the buffer when the simulation is started
     }
-
-    // /**
-    //  * @return the port label
-    //  */
-    // public String getLabel() {
-    //     return label;
-    // }
 
     /**
      *
