@@ -6,13 +6,13 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.core.*;
-import de.neemann.digital.core.arithmetic.BarrelShifterMode;
-import de.neemann.digital.core.arithmetic.LeftRightFormat;
+import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.extern.PortDefinition;
-import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.MIDIHelper;
 import de.neemann.digital.core.memory.DataField;
@@ -21,11 +21,9 @@ import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
@@ -51,14 +49,14 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *
+ * Factory used to create an editor for a given key/value pair.
  */
 public final class EditorFactory {
 
     /**
      * The single EditorFactory instance.
      */
-    public static final EditorFactory INSTANCE = new EditorFactory();
+    static final EditorFactory INSTANCE = new EditorFactory();
     private HashMap<Class<?>, Class<? extends Editor>> map = new HashMap<>();
 
     private EditorFactory() {
@@ -71,10 +69,6 @@ public final class EditorFactory {
         add(Boolean.class, BooleanEditor.class);
         add(DataField.class, DataFieldEditor.class);
         add(Rotation.class, RotationEditor.class);
-        add(BarrelShifterMode.class, BarrelShifterModeEditor.class);
-        add(LeftRightFormat.class, LeftRightFormatsEditor.class);
-        add(IntFormat.class, IntFormatsEditor.class);
-        add(Orientation.class, OrientationEditor.class);
         add(Language.class, LanguageEditor.class);
         add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
         add(FormatToExpression.class, FormatEditor.class);
@@ -82,8 +76,6 @@ public final class EditorFactory {
         add(ROMManger.class, ROMManagerEditor.class);
         add(Application.Type.class, ApplicationTypeEditor.class);
         add(CustomShapeDescription.class, CustomShapeEditor.class);
-        add(CustomCircuitShapeType.class, CustomCircuitShapeTypeEditor.class);
-        add(CommonConnectionType.class, CommonConnectionTypeEditor.class);
     }
 
     private <T> void add(Class<T> clazz, Class<? extends Editor<T>> editor) {
@@ -103,8 +95,12 @@ public final class EditorFactory {
             return (Editor<T>) new MidiInstrumentEditor(value.toString());
 
         Class<? extends Editor> fac = map.get(key.getValueClass());
-        if (fac == null)
+
+        if (fac == null) {
+            if (key instanceof Key.KeyEnum)
+                return new EnumEditor((Enum) value, key);
             throw new RuntimeException("no editor found for " + key.getValueClass().getSimpleName());
+        }
 
         try {
             Constructor<? extends Editor> c = fac.getConstructor(value.getClass(), Key.class);
@@ -754,50 +750,12 @@ public final class EditorFactory {
         }
     }
 
-    private static final class IntFormatsEditor extends EnumEditor<IntFormat> {
-        public IntFormatsEditor(IntFormat value, Key<IntFormat> key) {
-            super(value, key);
-        }
-    }
-
-    private static final class OrientationEditor extends EnumEditor<Orientation> {
-        public OrientationEditor(Orientation value, Key<Orientation> key) {
-            super(value, key);
-        }
-    }
-
-    private static final class BarrelShifterModeEditor extends EnumEditor<BarrelShifterMode> {
-        public BarrelShifterModeEditor(BarrelShifterMode value, Key<BarrelShifterMode> key) {
-            super(value, key);
-        }
-    }
-
-    private static final class LeftRightFormatsEditor extends EnumEditor<LeftRightFormat> {
-        public LeftRightFormatsEditor(LeftRightFormat value, Key<LeftRightFormat> key) {
-            super(value, key);
-        }
-    }
-
-    private static final class CustomCircuitShapeTypeEditor extends EnumEditor<CustomCircuitShapeType> {
-        public CustomCircuitShapeTypeEditor(CustomCircuitShapeType value, Key<CustomCircuitShapeType> key) {
-            super(value, key);
-        }
-    }
-
-    private static final class CommonConnectionTypeEditor extends EnumEditor<CommonConnectionType> {
-        public CommonConnectionTypeEditor(CommonConnectionType value, Key<CommonConnectionType> key) {
-            super(value, key);
-        }
-    }
-
     private static final class ApplicationTypeEditor extends EnumEditor<Application.Type> {
-        private final Key<Application.Type> key;
         private JComboBox combo;
         private JButton checkButton;
 
         public ApplicationTypeEditor(Application.Type value, Key<Application.Type> key) {
             super(value, key);
-            this.key = key;
         }
 
         @Override
