@@ -78,13 +78,13 @@ public class Port extends Node implements Element {
     private boolean lastAck = false;
 
     private static final int  OVERSAMPLECNT = 16;
+    private static final int  BITS_TO_COLLECT = 1+8+1; // 1 start, 8 data, 1 stop
     private int rxTicks = 0;    // Keeps track of the incoming baud/bitrate clock
     private int txTicks = 0;    // Keeps track of the incoming baud/bitrate clock
     private int txData = 0;     // Bit pattern (including start/stop bits to be sent)
-    private int rxData=0;       // collects bits from sin-input into a byte
+    private int rxData=0;       // Collects bits from sin-input into a byte
+    private int rxBitCnt=0;     // How many bits remanining to be collected
     private boolean waitForStartbit=true;
-    private boolean waitForStopbit=false;
-    private int bits=0;         // How many bits collected so far
 
     static private Deque<Integer> buf = new ArrayDeque<Integer>(1000);
     static private PortSocket portSocket = null;
@@ -192,6 +192,7 @@ public class Port extends Node implements Element {
      */
     private void serialHandlerSout() {
         if (!buf.isEmpty() && txData==0) {
+            // Get data and tack on the start and stop bits to it
             txData=(buf.remove()<<1) | 0x00000600;
             txTicks=OVERSAMPLECNT;
         }
@@ -199,8 +200,7 @@ public class Port extends Node implements Element {
         // If the data is not fully sent
         // then peel off a bit and output it to the sout pin
         if (txData!=0) {
-            txTicks--;
-            if (txTicks <= 0) {
+            if (--txTicks <= 0) {
                 txTicks=OVERSAMPLECNT;
                 soutVal=txData&1;
                 txData>>=1;
@@ -213,40 +213,39 @@ public class Port extends Node implements Element {
      * Collects serial stream bits from sin pin and sends bytes to the socket
      */
     private void serialHandlerSin() {
+        boolean nowSin=sin.getBool();
+
         // If waiting for the startbit wait until line goes low, then initialize
         // all involved variables
         if (waitForStartbit) {
-            if (!sin.getBool()) {
+            if (!nowSin) {
                 waitForStartbit = false;
                 rxData = 0;
-                bits = 0;
-                // We're at the beginnin of the start bit, set the waiting time
-                // to halfway into first bit
-                rxTicks=OVERSAMPLECNT+OVERSAMPLECNT/2;
+                rxBitCnt = BITS_TO_COLLECT;
+                // Test startbit again in the middle of the bit period
+                rxTicks=OVERSAMPLECNT/2;
             }
-        // When waiting for the stopbit nothing needs to be done. Just count
-        // down the number of ticks reqired (set when the last bit was collected)
-        } else if (waitForStopbit) {
-            rxTicks--;
-            if (rxTicks == 0) {
-                waitForStopbit=false;
-                waitForStartbit=true;
+            return;
+        }
+
+        if (--rxTicks == 0) {
+            // Are we at the middle of the start bit? If so then
+            // re-sample it to check if the previous edge was just
+            // a glitch
+            if (rxBitCnt==BITS_TO_COLLECT && nowSin) {
+                waitForStartbit = true;
+                return;
             }
-        // If not waiting for start- or stop bits we're actively collecting real
-        // data bits.
-        } else {
-            rxTicks--;
-            // Now at the right time to sample the current bit
-            if (rxTicks == 0) {
-                rxTicks=OVERSAMPLECNT;
-                rxData >>= 1;
-                if (sin.getBool()) rxData+=128;
-                bits++;
-                if (bits == 8) {
-                    waitForStopbit = true;
-                    rxTicks=OVERSAMPLECNT;
-                    toSocket(rxData);
-                }
+            rxTicks=OVERSAMPLECNT;
+
+            // Shift in the data
+            rxData >>= 1;
+            if (nowSin) rxData+=(int) Math.pow(2, BITS_TO_COLLECT-1);
+
+            if (--rxBitCnt == 0) {
+                waitForStartbit = true;
+                // Mask off the start/stopbits and send to socket
+                toSocket((rxData>>1)&0xFF);
             }
         }
     }
