@@ -145,16 +145,14 @@ public class Port extends Node implements Element {
     @Override
     public void readInputs() throws NodeException {
         boolean nowClock = clock.getBool();
+        boolean rising=(lastClock != nowClock && nowClock);
 
-        // We only care about the rising edge of the clock
-        if (lastClock != nowClock && nowClock) {
-            if (portMode==PortMode.serial) {
-                serialHandlerSout();    // Toggles the sout pin
-                serialHandlerSin();     // Collects bits from the sin pin
-            } else {
-                parallelHandlerD();     // Checks stb and reads D-pin
-                parallelHandlerQ();     // Checks buf-queue and writes to Q-pin
-            }
+        if (portMode==PortMode.serial) {
+            serialHandlerSout(rising);    // Toggles the sout pin
+            serialHandlerSin(rising);     // Collects bits from the sin pin
+        } else {
+                parallelHandlerD(rising);     // Checks stb and reads D-pin
+                parallelHandlerQ(rising);     // Checks buf-queue and writes to Q-pin
         }
 
         lastClock=nowClock;
@@ -190,7 +188,8 @@ public class Port extends Node implements Element {
      *
      * The data is sent as 8N2
      */
-    private void serialHandlerSout() {
+    private void serialHandlerSout(boolean rising) {
+        if (!rising) return;
         if (!buf.isEmpty() && txData==0) {
             // Get data and tack on the start and stop bits to it
             txData=(buf.remove()<<1) | 0x00000600;
@@ -212,8 +211,10 @@ public class Port extends Node implements Element {
     /*
      * Collects serial stream bits from sin pin and sends bytes to the socket
      */
-    private void serialHandlerSin() {
+    private void serialHandlerSin(boolean rising) {
         boolean nowSin=sin.getBool();
+
+        if (!rising) return;
 
         // If waiting for the startbit wait until line goes low, then initialize
         // all involved variables
@@ -255,8 +256,9 @@ public class Port extends Node implements Element {
      * the socket, and set the bsy flag (it will be automatically
      * be cleared in X clock cycles to simulate a slow external device)
      */
-    private void parallelHandlerD() {
+    private void parallelHandlerD(boolean rising) {
         boolean nowStb = stb.getBool();
+
         if (lastStb != nowStb) {
             if (nowStb) {
                 if (!bsy.getBool()) {
@@ -268,8 +270,9 @@ public class Port extends Node implements Element {
             lastStb=nowStb;
         }
 
-        // Check if it's time to clear the bsy flag
-        if (bsyTicks>0) {
+        // Check if it's time to clear the bsy flag, the countdown
+        // is only done at risging edges of the clock
+        if (rising && bsyTicks>0) {
             if (--bsyTicks==0) bsyVal=0;
         }
     }
@@ -280,10 +283,10 @@ public class Port extends Node implements Element {
      *
      * Also check for rising edge on ack and then clear the avail flag
      */
-    private void parallelHandlerQ() {
+    private void parallelHandlerQ(boolean rising) {
         boolean nowAck = ack.getBool();
 
-        if (!buf.isEmpty() && !avail.getBool()) {
+        if (!buf.isEmpty() && !avail.getBool() && rising) {
             poutVal=buf.remove();
             availVal=1;
         }
