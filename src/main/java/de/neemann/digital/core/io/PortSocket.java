@@ -71,6 +71,14 @@ public class PortSocket extends Thread {
             cli = client;
         }
 
+        private static final int ECHO = 1;
+        private static final int SGA  = 3;
+        private static final int WILL = 251;
+        private static final int WONT = 252;
+        private static final int DO   = 253;
+        private static final int DONT = 254;
+        private static final int IAC  = 255;
+
         /**
          *
          */
@@ -85,10 +93,12 @@ public class PortSocket extends Thread {
                 // turn off local each and line buffering in the telnet
                 // terminal
                 if (telnetMode) {
-                    outStream.writeBytes("\377\373\003"); // send IAC WILL SUPPRESS-GOAHEAD
-                    outStream.writeBytes("\377\375\003"); // send IAC DO SUPPRESS-GO-AHEAD
-                    outStream.writeBytes("\377\373\001"); // send IAC WILL SUPPRESS-ECHO
-                    outStream.writeBytes("\377\375\001"); // send IAC DO SUPPRESS-ECHO
+                    outStream.writeByte(IAC);
+                    outStream.writeByte(WILL);
+                    outStream.writeByte(SGA);
+                    outStream.writeByte(IAC);
+                    outStream.writeByte(WILL);
+                    outStream.writeByte(ECHO);
                     outStream.flush();
                     Thread.sleep(100); // Wait for a bit and eat up all replies from telnet
                     inStream.read(buffer);
