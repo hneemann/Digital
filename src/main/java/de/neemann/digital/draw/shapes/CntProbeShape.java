@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Helmut Neemann
+ * Copyright (c) 2016 Helmut Neemann, Mats Engstrom
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
@@ -26,6 +26,7 @@ public class CntProbeShape implements Shape {
     private final PinDescriptions inputs;
     private final boolean isLabel;
     private CntProbe cntProbe;
+    private int cntValue;
 
     /**
      * Creates a new instance
@@ -46,9 +47,15 @@ public class CntProbeShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {//        inValue = ioState.getInput(0);
+    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
         cntProbe = (CntProbe) ioState.getElement();
         return null;
+    }
+
+    @Override
+    public void readObservableValues() {
+        if (cntProbe != null)
+            cntValue = cntProbe.getCnt();
     }
 
     @Override
@@ -62,7 +69,7 @@ public class CntProbeShape implements Shape {
         }
         String v = "#";
         if (cntProbe != null)
-            v = Integer.toString(cntProbe.getCnt());
+            v = Integer.toString(cntValue);
         graphic.drawText(new Vector(2, dy), new Vector(3, dy), v, orientation, Style.NORMAL);
 
     }
