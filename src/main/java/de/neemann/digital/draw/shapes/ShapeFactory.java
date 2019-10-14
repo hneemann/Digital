@@ -112,6 +112,7 @@ public final class ShapeFactory {
         map.put(Button.DESCRIPTION.getName(), ButtonShape::new);
         map.put(ButtonLED.DESCRIPTION.getName(), ButtonLEDShape::new);
         map.put(Probe.DESCRIPTION.getName(), ProbeShape::new);
+        map.put(CntProbe.DESCRIPTION.getName(), CntProbeShape::new);
         map.put(Clock.DESCRIPTION.getName(), ClockShape::new);
         map.put(Out.SEVENDESCRIPTION.getName(), SevenSegShape::new);
         map.put(Out.SEVENHEXDESCRIPTION.getName(), SevenSegHexShape::new);

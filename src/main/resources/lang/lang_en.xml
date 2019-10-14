@@ -198,7 +198,13 @@
         Does not affect the simulation.
     </string>
     <string name="elem_Probe_pin_in">The measurement value.</string>
-
+    <string name="elem_CntProbe">Counting Probe</string>
+    <string name="elem_CntProbe_tt">A probe that counts the number of edge transitions on a wire.</string>
+    <string name="key_edge">Edge</string>
+    <string name="key_edge_tt">At which edge should the probe count up at</string>
+    <string name="key_edge_rising">Rising</string>
+    <string name="key_edge_falling">Falling</string>
+    <string name="key_edge_both">Both</string>
 
     <!-- IO - more -->
 

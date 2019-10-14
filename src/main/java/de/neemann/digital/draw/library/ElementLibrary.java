@@ -129,6 +129,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(DipSwitch.DESCRIPTION)
                         .add(DummyElement.TEXTDESCRIPTION)
                         .add(Probe.DESCRIPTION)
+                        .add(CntProbe.DESCRIPTION)
                         .add(new LibraryNode(Lang.get("lib_more"))
                                 .add(RGBLED.DESCRIPTION)
                                 .add(Out.POLARITYAWARELEDDESCRIPTION)
