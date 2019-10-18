@@ -21,6 +21,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * This class is used to store the visual representation of an element.
@@ -150,7 +151,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     public boolean matches(Vector p, boolean includeText) {
         GraphicMinMax m = getMinMax(includeText);
         if (getShape().onlyBorderClickable()) {
-            int width = SIZE;
+            int width = SIZE2;
             return ((Math.abs(p.x - m.getMin().x) < width || Math.abs(p.x - m.getMax().x) < width)
                     && (m.getMin().y <= p.y) && (p.y <= m.getMax().y))
                     || ((Math.abs(p.y - m.getMin().y) < width || Math.abs(p.y - m.getMax().y) < width)
