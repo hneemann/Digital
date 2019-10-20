@@ -27,7 +27,8 @@ public class MoveFocusTo implements WindowFocusListener {
 
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
-        SwingUtilities.invokeLater(parent::requestFocus);
+        if (parent != null)
+            SwingUtilities.invokeLater(parent::requestFocus);
     }
 
     @Override
