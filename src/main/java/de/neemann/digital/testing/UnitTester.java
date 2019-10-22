@@ -22,39 +22,93 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Helper to test circuits
+ */
 public class UnitTester {
-    private final ShapeFactory sf;
-    private final ElementLibrary library;
     private final Model model;
     private boolean initCalled = false;
 
+    /**
+     * Creates a new instanve
+     *
+     * @param file the file to load
+     * @throws IOException              IOException
+     * @throws ElementNotFoundException ElementNotFoundException
+     * @throws PinException             PinException
+     * @throws NodeException            NodeException
+     */
     public UnitTester(File file) throws IOException, ElementNotFoundException, PinException, NodeException {
-        library = new ElementLibrary();
+        ElementLibrary library = new ElementLibrary();
         library.setRootFilePath(file.getParentFile());
-        sf = new ShapeFactory(library);
-        Circuit circuit = Circuit.loadCircuit(file, sf);
+        initLibrary(library);
+        ShapeFactory shapeFactory = new ShapeFactory(library);
+        Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
         model = new ModelCreator(circuit, library).createModel(false);
     }
 
+    /**
+     * Overload this method if you have to modify the library.
+     *
+     * @param library the used library
+     */
+    protected void initLibrary(ElementLibrary library) {
+    }
+
+    /**
+     * Writed data to a memory component
+     *
+     * @param filter the filter to identify the memory component
+     * @param data   the data to write
+     * @return this for chained calls
+     * @throws TestException TestException
+     */
     public UnitTester writeDataTo(MemoryFilter filter, DataField data) throws TestException {
         getMemory(filter).setProgramMemory(data);
         return this;
     }
 
+    /**
+     * Reruts the memory idetified by the filter
+     *
+     * @param filter the filter to identify the memory component
+     * @return the memory component
+     * @throws TestException TestException
+     */
     public ProgramMemory getMemory(MemoryFilter filter) throws TestException {
         Node node = getNode(n -> n instanceof ProgramMemory && filter.accept((ProgramMemory) n));
         return (ProgramMemory) node;
     }
 
+    /**
+     * Used to get the RAM if there is only on in the circuit
+     *
+     * @return the RSM component
+     * @throws TestException TestException
+     */
     public RAMInterface getRAM() throws TestException {
         return getRAM(pm -> true);
     }
 
+    /**
+     * Used to get a RAM component from the circuit
+     *
+     * @param filter the filter to identify the memory component
+     * @return the memory component
+     * @throws TestException TestException
+     */
     public RAMInterface getRAM(MemoryFilter filter) throws TestException {
         Node node = getNode(n -> n instanceof RAMInterface && filter.accept((RAMInterface) n));
         return (RAMInterface) node;
     }
 
+    /**
+     * Used to find a specific node in the circuit.
+     *
+     * @param filter the filter io identify the node.
+     * @return the node
+     * @throws TestException TestException
+     */
     public Node getNode(Model.NodeFilter<Node> filter) throws TestException {
         List<Node> list = model.findNode(filter);
         if (list.size() == 0)
@@ -66,6 +120,13 @@ public class UnitTester {
         }
     }
 
+    /**
+     * Runs the simulation until a break signal is detected
+     *
+     * @return this for chained calls
+     * @throws TestException TestException
+     * @throws NodeException NodeException
+     */
     public UnitTester runToBreak() throws TestException, NodeException {
         if (!model.isRunToBreakAllowed())
             throw new TestException("model has no break or no clock element");
@@ -74,6 +135,10 @@ public class UnitTester {
         return this;
     }
 
+    /**
+     * @return the model
+     * @throws NodeException NodeException
+     */
     public Model getModel() throws NodeException {
         if (!initCalled) {
             model.init();
@@ -82,13 +147,25 @@ public class UnitTester {
         return model;
     }
 
-    public static class TestException extends Exception {
+    /**
+     * Exception according to this test
+     */
+    public static final class TestException extends Exception {
         private TestException(String message) {
             super(message);
         }
     }
 
+    /**
+     * Filter to identify a memory component.
+     */
     public interface MemoryFilter {
+        /**
+         * Used to identify the component
+         *
+         * @param pm the memory component
+         * @return true if this component is to use
+         */
         boolean accept(ProgramMemory pm);
     }
 }
