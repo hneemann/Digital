@@ -26,25 +26,26 @@ Interrupt-Controller wieder frei.}}</string>
         <entry>
           <string>inverterConfig</string>
           <inverterConfig>
+            <string>In_4</string>
             <string>In_2</string>
           </inverterConfig>
         </entry>
         <entry>
           <string>Inputs</string>
-          <int>3</int>
+          <int>4</int>
         </entry>
       </elementAttributes>
-      <pos x="400" y="60"/>
+      <pos x="440" y="60"/>
     </visualElement>
     <visualElement>
-      <elementName>Clock</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C</string>
+          <string>~ie</string>
         </entry>
       </elementAttributes>
-      <pos x="220" y="-40"/>
+      <pos x="220" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>JK_FF</elementName>
@@ -79,7 +80,17 @@ Interrupt-Controller wieder frei.}}</string>
           <string>iEn</string>
         </entry>
       </elementAttributes>
-      <pos x="520" y="80"/>
+      <pos x="560" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="-40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -116,20 +127,6 @@ die Interrupts wieder freigegeben.}}</string>
       <pos x="220" y="20"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
-          <string>interrupt trigger {{de Interrupt Anforderung}}</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>intr</string>
-        </entry>
-      </elementAttributes>
-      <pos x="220" y="140"/>
-    </visualElement>
-    <visualElement>
       <elementName>JK_FF</elementName>
       <elementAttributes>
         <entry>
@@ -147,41 +144,51 @@ die Interrupts wieder freigegeben.}}</string>
           </inverterConfig>
         </entry>
       </elementAttributes>
-      <pos x="300" y="140"/>
+      <pos x="300" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>interrupt trigger {{de Interrupt Anforderung}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>intr</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="120"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
       <p1 x="360" y="0"/>
-      <p2 x="380" y="0"/>
+      <p2 x="400" y="0"/>
     </wire>
     <wire>
       <p1 x="260" y="0"/>
       <p2 x="280" y="0"/>
     </wire>
     <wire>
+      <p1 x="240" y="160"/>
+      <p2 x="300" y="160"/>
+    </wire>
+    <wire>
       <p1 x="220" y="80"/>
-      <p2 x="380" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="460" y="80"/>
-      <p2 x="480" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="480" y="80"/>
-      <p2 x="520" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="160"/>
-      <p2 x="280" y="160"/>
+      <p2 x="420" y="80"/>
     </wire>
     <wire>
       <p1 x="280" y="-20"/>
       <p2 x="300" y="-20"/>
     </wire>
     <wire>
-      <p1 x="380" y="100"/>
-      <p2 x="400" y="100"/>
+      <p1 x="500" y="100"/>
+      <p2 x="520" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="100"/>
+      <p2 x="560" y="100"/>
     </wire>
     <wire>
       <p1 x="220" y="20"/>
@@ -192,36 +199,48 @@ die Interrupts wieder freigegeben.}}</string>
       <p2 x="300" y="20"/>
     </wire>
     <wire>
-      <p1 x="240" y="180"/>
-      <p2 x="300" y="180"/>
-    </wire>
-    <wire>
       <p1 x="220" y="-40"/>
       <p2 x="260" y="-40"/>
     </wire>
     <wire>
-      <p1 x="360" y="140"/>
-      <p2 x="380" y="140"/>
+      <p1 x="220" y="120"/>
+      <p2 x="300" y="120"/>
     </wire>
     <wire>
-      <p1 x="220" y="140"/>
-      <p2 x="300" y="140"/>
+      <p1 x="360" y="120"/>
+      <p2 x="440" y="120"/>
     </wire>
     <wire>
-      <p1 x="380" y="60"/>
-      <p2 x="400" y="60"/>
+      <p1 x="220" y="220"/>
+      <p2 x="400" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="140"/>
+      <p2 x="420" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="140"/>
+      <p2 x="280" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="60"/>
+      <p2 x="440" y="60"/>
     </wire>
     <wire>
       <p1 x="280" y="-80"/>
-      <p2 x="480" y="-80"/>
-    </wire>
-    <wire>
-      <p1 x="480" y="-80"/>
-      <p2 x="480" y="80"/>
+      <p2 x="520" y="-80"/>
     </wire>
     <wire>
       <p1 x="240" y="20"/>
-      <p2 x="240" y="180"/>
+      <p2 x="240" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="140"/>
+      <p2 x="400" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="0"/>
+      <p2 x="400" y="60"/>
     </wire>
     <wire>
       <p1 x="260" y="-40"/>
@@ -229,19 +248,15 @@ die Interrupts wieder freigegeben.}}</string>
     </wire>
     <wire>
       <p1 x="260" y="0"/>
-      <p2 x="260" y="160"/>
+      <p2 x="260" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="-80"/>
+      <p2 x="520" y="100"/>
     </wire>
     <wire>
       <p1 x="280" y="-80"/>
       <p2 x="280" y="-20"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="100"/>
-      <p2 x="380" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="0"/>
-      <p2 x="380" y="60"/>
     </wire>
   </wires>
   <measurementOrdering/>

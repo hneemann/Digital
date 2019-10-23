@@ -104,7 +104,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
           <rotation rotation="2"/>
         </entry>
       </elementAttributes>
-      <pos x="1000" y="480"/>
+      <pos x="1000" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -574,7 +574,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
           <string>br</string>
         </entry>
       </elementAttributes>
-      <pos x="1020" y="400"/>
+      <pos x="1020" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -692,7 +692,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="580"/>
+      <pos x="1060" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -706,7 +706,7 @@ An dieser Adresse muss sich die ISR befinden.}}</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="1060" y="600"/>
+      <pos x="1060" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1089,12 +1089,12 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="340" y="200"/>
     </wire>
     <wire>
-      <p1 x="1000" y="460"/>
-      <p2 x="1080" y="460"/>
-    </wire>
-    <wire>
       <p1 x="1140" y="460"/>
       <p2 x="1240" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="460"/>
+      <p2 x="1080" y="460"/>
     </wire>
     <wire>
       <p1 x="880" y="140"/>
@@ -1122,7 +1122,7 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     </wire>
     <wire>
       <p1 x="1000" y="400"/>
-      <p2 x="1020" y="400"/>
+      <p2 x="1060" y="400"/>
     </wire>
     <wire>
       <p1 x="1400" y="80"/>
@@ -1153,16 +1153,16 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="1160" y="340"/>
     </wire>
     <wire>
+      <p1 x="1060" y="600"/>
+      <p2 x="1080" y="600"/>
+    </wire>
+    <wire>
       <p1 x="760" y="600"/>
       <p2 x="840" y="600"/>
     </wire>
     <wire>
       <p1 x="460" y="600"/>
       <p2 x="580" y="600"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="600"/>
-      <p2 x="1080" y="600"/>
     </wire>
     <wire>
       <p1 x="580" y="600"/>
@@ -1217,10 +1217,6 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="1340" y="160"/>
     </wire>
     <wire>
-      <p1 x="1000" y="480"/>
-      <p2 x="1080" y="480"/>
-    </wire>
-    <wire>
       <p1 x="1140" y="480"/>
       <p2 x="1260" y="480"/>
     </wire>
@@ -1229,12 +1225,20 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="340" y="480"/>
     </wire>
     <wire>
-      <p1 x="1000" y="420"/>
-      <p2 x="1060" y="420"/>
+      <p1 x="1060" y="480"/>
+      <p2 x="1080" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="420"/>
+      <p2 x="940" y="420"/>
     </wire>
     <wire>
       <p1 x="1140" y="420"/>
       <p2 x="1160" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="420"/>
+      <p2 x="1080" y="420"/>
     </wire>
     <wire>
       <p1 x="1040" y="680"/>
@@ -1251,6 +1255,10 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     <wire>
       <p1 x="1220" y="40"/>
       <p2 x="1240" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="620"/>
+      <p2 x="1080" y="620"/>
     </wire>
     <wire>
       <p1 x="1180" y="620"/>
@@ -1321,11 +1329,7 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="340" y="180"/>
     </wire>
     <wire>
-      <p1 x="320" y="440"/>
-      <p2 x="940" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="440"/>
+      <p1 x="1000" y="440"/>
       <p2 x="1080" y="440"/>
     </wire>
     <wire>
@@ -1353,6 +1357,10 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
       <p2 x="660" y="120"/>
     </wire>
     <wire>
+      <p1 x="1000" y="380"/>
+      <p2 x="1020" y="380"/>
+    </wire>
+    <wire>
       <p1 x="1140" y="380"/>
       <p2 x="1160" y="380"/>
     </wire>
@@ -1366,7 +1374,7 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     </wire>
     <wire>
       <p1 x="320" y="220"/>
-      <p2 x="320" y="440"/>
+      <p2 x="320" y="420"/>
     </wire>
     <wire>
       <p1 x="580" y="500"/>
@@ -1474,15 +1482,19 @@ Interrupt ausgelöst. Die ISR muss sich an Adresse
     </wire>
     <wire>
       <p1 x="1060" y="240"/>
-      <p2 x="1060" y="420"/>
+      <p2 x="1060" y="400"/>
     </wire>
     <wire>
       <p1 x="1060" y="660"/>
       <p2 x="1060" y="680"/>
     </wire>
     <wire>
-      <p1 x="1060" y="420"/>
-      <p2 x="1060" y="440"/>
+      <p1 x="1060" y="480"/>
+      <p2 x="1060" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="400"/>
+      <p2 x="1060" y="420"/>
     </wire>
     <wire>
       <p1 x="420" y="720"/>
