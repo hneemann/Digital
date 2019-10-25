@@ -32,15 +32,11 @@ werden. Die Flags finden sich an IO Adresse 0.}}</string>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>Description</string>
-          <string>Zero Out {{de Zero Ausgang}}</string>
-        </entry>
-        <entry>
           <string>Label</string>
-          <string>Zo</string>
+          <string>~ie</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="180"/>
+      <pos x="580" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -61,14 +57,14 @@ werden. Die Flags finden sich an IO Adresse 0.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Negative Out {{de negative Ausgang}}</string>
+          <string>Zero Out {{de Zero Ausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>No</string>
+          <string>Zo</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="220"/>
+      <pos x="580" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -89,14 +85,14 @@ werden. Die Flags finden sich an IO Adresse 0.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Carry Out {{de Carry Ausgang}}</string>
+          <string>Negative Out {{de negative Ausgang}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>Co</string>
+          <string>No</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="140"/>
+      <pos x="580" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -113,7 +109,7 @@ werden. Die Flags finden sich an IO Adresse 0.}}</string>
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>1,1,1,13</string>
+          <string>1,1,1,1,12</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -248,7 +244,7 @@ Operation ausgeführt wird.}}</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>1,1,1,13</string>
+          <string>1,1,1,1,12</string>
         </entry>
       </elementAttributes>
       <pos x="460" y="160"/>
@@ -272,10 +268,10 @@ Operation ausgeführt wird.}}</string>
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>13</int>
+          <int>12</int>
         </entry>
       </elementAttributes>
-      <pos x="0" y="200"/>
+      <pos x="0" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Register</elementName>
@@ -304,6 +300,20 @@ Operation ausgeführt wird.}}</string>
         </entry>
       </elementAttributes>
       <pos x="-100" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Carry Out {{de Carry Ausgang}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Co</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="140"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -352,6 +362,10 @@ Operation ausgeführt wird.}}</string>
       <p2 x="540" y="200"/>
     </wire>
     <wire>
+      <p1 x="0" y="200"/>
+      <p2 x="20" y="200"/>
+    </wire>
+    <wire>
       <p1 x="140" y="360"/>
       <p2 x="180" y="360"/>
     </wire>
@@ -388,12 +402,12 @@ Operation ausgeführt wird.}}</string>
       <p2 x="140" y="400"/>
     </wire>
     <wire>
-      <p1 x="480" y="180"/>
-      <p2 x="580" y="180"/>
+      <p1 x="-20" y="80"/>
+      <p2 x="520" y="80"/>
     </wire>
     <wire>
-      <p1 x="0" y="180"/>
-      <p2 x="20" y="180"/>
+      <p1 x="480" y="180"/>
+      <p2 x="580" y="180"/>
     </wire>
     <wire>
       <p1 x="280" y="180"/>
@@ -404,6 +418,10 @@ Operation ausgeführt wird.}}</string>
       <p2 x="-60" y="180"/>
     </wire>
     <wire>
+      <p1 x="-20" y="180"/>
+      <p2 x="20" y="180"/>
+    </wire>
+    <wire>
       <p1 x="-100" y="500"/>
       <p2 x="60" y="500"/>
     </wire>
@@ -412,16 +430,8 @@ Operation ausgeführt wird.}}</string>
       <p2 x="280" y="340"/>
     </wire>
     <wire>
-      <p1 x="-60" y="120"/>
-      <p2 x="20" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="40" y="120"/>
-      <p2 x="120" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="-100" y="440"/>
-      <p2 x="-40" y="440"/>
+      <p1 x="520" y="280"/>
+      <p2 x="580" y="280"/>
     </wire>
     <wire>
       <p1 x="360" y="280"/>
@@ -436,6 +446,18 @@ Operation ausgeführt wird.}}</string>
       <p2 x="320" y="280"/>
     </wire>
     <wire>
+      <p1 x="-60" y="120"/>
+      <p2 x="20" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="40" y="120"/>
+      <p2 x="120" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="440"/>
+      <p2 x="-40" y="440"/>
+    </wire>
+    <wire>
       <p1 x="-100" y="380"/>
       <p2 x="60" y="380"/>
     </wire>
@@ -444,8 +466,12 @@ Operation ausgeführt wird.}}</string>
       <p2 x="580" y="220"/>
     </wire>
     <wire>
-      <p1 x="0" y="180"/>
-      <p2 x="0" y="200"/>
+      <p1 x="480" y="220"/>
+      <p2 x="520" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="0" y="200"/>
+      <p2 x="0" y="220"/>
     </wire>
     <wire>
       <p1 x="80" y="160"/>
@@ -454,6 +480,10 @@ Operation ausgeführt wird.}}</string>
     <wire>
       <p1 x="400" y="160"/>
       <p2 x="400" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="80"/>
+      <p2 x="-20" y="180"/>
     </wire>
     <wire>
       <p1 x="340" y="300"/>
@@ -466,6 +496,14 @@ Operation ausgeführt wird.}}</string>
     <wire>
       <p1 x="40" y="420"/>
       <p2 x="40" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="80"/>
+      <p2 x="520" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="220"/>
+      <p2 x="520" y="280"/>
     </wire>
     <wire>
       <p1 x="-60" y="100"/>
@@ -496,4 +534,5 @@ Operation ausgeführt wird.}}</string>
       <p2 x="140" y="400"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
