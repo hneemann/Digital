@@ -1644,6 +1644,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_labelPins">Ein- und Ausgänge benennen</string>
     <string name="menu_labelPins_tt">Für alle unbenannten Ein- und Ausgänge eine Bezeichnung setzen.</string>
 
+    <string name="menu_tutorial">Tutorial starten</string>
+    <string name="menu_tutorial_tt">Startet das Anfänger-Tutorial.</string>
 
     <string name="menu_stats">Schaltungsstatistik</string>
     <string name="menu_stats_tt">Zeigt eine Liste der verwendeten Komponenten</string>

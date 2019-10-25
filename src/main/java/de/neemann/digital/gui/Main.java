@@ -407,6 +407,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         });
         treeCheckBox.setAccelerator(KeyStroke.getKeyStroke("F5"));
 
+        ToolTipAction tutorial = new ToolTipAction(Lang.get("menu_tutorial")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
+                    clearPane();
+                    new InitialTutorial(Main.this).setVisible(true);
+                }
+            }
+        }.setToolTip(Lang.get("menu_tutorial_tt"));
+
         if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT))
             SwingUtilities.invokeLater(treeCheckBox::doClick);
 
@@ -423,7 +433,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         view.addSeparator();
         view.add(treeCheckBox);
         view.addSeparator();
+        view.add(tutorial.createJMenuItem());
+        view.addSeparator();
         view.add(viewHelp.createJMenuItem());
+    }
+
+    private void clearPane() {
+        circuitComponent.setCircuit(new Circuit());
+        setFilename(null, true);
+        windowPosManager.closeAll();
+        try {
+            library.setRootFilePath(null);
+        } catch (IOException e1) {
+            // can not happen, no folder is scanned
+        }
     }
 
     /**
@@ -438,14 +461,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
-                    circuitComponent.setCircuit(new Circuit());
-                    setFilename(null, true);
-                    windowPosManager.closeAll();
-                    try {
-                        library.setRootFilePath(null);
-                    } catch (IOException e1) {
-                        // can not happen, no folder is scanned
-                    }
+                    clearPane();
                 }
             }
         }.setAcceleratorCTRLplus('N').setToolTip(Lang.get("menu_new_tt")).setEnabledChain(allowAll);

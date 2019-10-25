@@ -1624,6 +1624,9 @@
     <string name="menu_labelPins">Label Inputs and Outputs</string>
     <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
 
+    <string name="menu_tutorial">Start Tutorial</string>
+    <string name="menu_tutorial_tt">Starts the beginner tutorial.</string>
+
     <string name="menu_stats">Circuit Statistics</string>
     <string name="menu_stats_tt">Shows a list of used components.</string>
     <string name="stat_number">Number</string>
