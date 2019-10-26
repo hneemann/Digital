@@ -625,6 +625,7 @@ public final class Keys {
      * Uses the equals key instead of the plus key.
      */
     public static final Key<Boolean> SETTINGS_USE_EQUALS_KEY;
+
     static {
         String language = Locale.getDefault().getLanguage();
         SETTINGS_USE_EQUALS_KEY = new Key<>("equalsInsteadOfPlus",
@@ -830,4 +831,11 @@ public final class Keys {
      */
     public static final Key<Boolean> SWITCH_ACTS_AS_INPUT =
             new Key<>("switchActsAsInput", false).setSecondary();
+
+    /**
+     * Snaps the element to the grid
+     */
+    public static final Key<Boolean> SNAP_TO_GRID =
+            new Key<>("snapToGrid", true).setSecondary();
+
 }

@@ -24,7 +24,8 @@ public class DummyElement implements Element {
      */
     public static final ElementTypeDescription DATADESCRIPTION = new ElementTypeDescription("Data", DummyElement.class)
             .addAttribute(Keys.MICRO_STEP)
-            .addAttribute(Keys.MAX_STEP_COUNT);
+            .addAttribute(Keys.MAX_STEP_COUNT)
+            .addAttribute(Keys.SNAP_TO_GRID);
 
     /**
      * The TextElement description
@@ -33,7 +34,8 @@ public class DummyElement implements Element {
             .addAttribute(Keys.DESCRIPTION)
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.TEXT_ORIENTATION)
-            .addAttribute(Keys.FONT_SIZE);
+            .addAttribute(Keys.FONT_SIZE)
+            .addAttribute(Keys.SNAP_TO_GRID);
 
     /**
      * The shape for the rectangle
@@ -45,7 +47,8 @@ public class DummyElement implements Element {
             .addAttribute(Keys.RECT_INSIDE)
             .addAttribute(Keys.RECT_BOTTOM)
             .addAttribute(Keys.RECT_RIGHT)
-            .addAttribute(Keys.FONT_SIZE);
+            .addAttribute(Keys.FONT_SIZE)
+            .addAttribute(Keys.SNAP_TO_GRID);
 
     /**
      * Creates a new dummy element

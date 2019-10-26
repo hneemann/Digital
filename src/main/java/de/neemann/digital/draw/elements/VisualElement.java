@@ -22,6 +22,7 @@ import java.awt.image.BufferedImage;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.gui.components.CircuitComponent.raster;
 
 /**
  * This class is used to store the visual representation of an element.
@@ -136,7 +137,10 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @return this for chained calls
      */
     public VisualElement setPos(Vector pos) {
-        this.pos = pos;
+        if (elementAttributes.get(Keys.SNAP_TO_GRID))
+            this.pos = raster(pos);
+        else
+            this.pos = pos;
         resetGeometry();
         return this;
     }

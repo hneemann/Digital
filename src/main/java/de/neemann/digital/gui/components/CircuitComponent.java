@@ -970,7 +970,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * @param pos the vector
      * @return pos round to raster
      */
-    private static Vector raster(Vector pos) {
+    public static Vector raster(Vector pos) {
         return new Vector((int) Math.round((double) pos.x / SIZE) * SIZE,
                 (int) Math.round((double) pos.y / SIZE) * SIZE);
     }
@@ -1629,7 +1629,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 GraphicMinMax minMax = element.getMinMax(false);
                 delta = element.getPos().sub(minMax.getMax());
             }
-            element.setPos(raster(pos.add(delta)));
+            element.setPos(pos.add(delta));
             repaint();
         }
 
@@ -1737,7 +1737,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         @Override
         void clicked(MouseEvent e) {
             if (!isLocked()) {
-                visualElement.setPos(raster(visualElement.getPos()));
+                visualElement.setPos(visualElement.getPos());
                 if (!visualElement.getPos().equals(originalVisualElement.getPos())
                         || visualElement.getRotate() != originalVisualElement.getRotate()) {
                     modify(new ModifyMoveAndRotElement(originalVisualElement, visualElement.getPos(), visualElement.getRotate()));
@@ -1751,7 +1751,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         void moved(MouseEvent e) {
             if (!isLocked()) {
                 Vector pos = getPosVector(e);
-                visualElement.setPos(raster(pos.add(delta)));
+                visualElement.setPos(pos.add(delta));
                 repaint();
             }
         }
