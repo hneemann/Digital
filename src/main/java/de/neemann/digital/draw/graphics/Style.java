@@ -167,7 +167,7 @@ public final class Style {
         this.mattersForSize = builder.mattersForSize;
 
         stroke = new BasicStroke(thickness, builder.endCap, BasicStroke.JOIN_MITER, 10f, dash, 0f);
-        font = new Font("Arial", fontStyle, fontSize);
+        font = new Font(null, fontStyle, fontSize);
     }
 
     /**
