@@ -7,9 +7,13 @@ HEAD, planned as v0.24
 - Editor is able to store views ([CRTL]+[[n]] to store and [[n]] ro recall a view.
   So [CTRL]+[1] stores a view in slot one and [1] recalls it.
 - The octal number format was added.
-- A push button combined with LED was added.
+- Added a undo function to the table editor.
+- Adds a command line interface for testing circuits.
+- Allows to disable "snap to grid" in text and rectangle components.
+- A push button combined with a LED was added.
 - A VGA monitor was added.
 - Unnamed Tunnels are ignored silently.
+- Fixed an issue with Chinese text rendering.
 
 v0.23, released on 23. Aug. 2019
 - Added generic circuits. Now it is possible to parameterize a sub circuit.
