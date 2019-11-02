@@ -6,6 +6,7 @@
 package de.neemann.digital.hdl.verilog2;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.draw.library.JarComponentManager;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLNode;
 import de.neemann.digital.hdl.verilog2.lib.VerilogElement;
@@ -14,6 +15,8 @@ import de.neemann.digital.lang.Lang;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.jar.JarFile;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,14 +27,19 @@ import org.slf4j.LoggerFactory;
 public class VerilogLibrary {
     private static final Logger LOGGER = LoggerFactory.getLogger(VerilogLibrary.class);
 
+    private JarFile externalJarFile;
     private final HashMap<String, VerilogElement> map;
     private final ArrayList<HDLNode> nodeList = new ArrayList<>();
 
     /**
      * Creates a new instance
      *
+     * @param jarComponentManager the jar component manager
      */
-    public VerilogLibrary() {
+    public VerilogLibrary(JarComponentManager jarComponentManager) {
+        if (jarComponentManager != null) {
+            externalJarFile = jarComponentManager.getJarFile();
+        }
         map = new HashMap<>();
     }
 
@@ -51,7 +59,7 @@ public class VerilogLibrary {
         VerilogElement e = map.get(elementName);
         if (e == null) {
             try {
-                e = new VerilogTemplate(elementName);
+                e = new VerilogTemplate(elementName, externalJarFile);
                 map.put(elementName, e);
             } catch (IOException ex) {
                 ex.printStackTrace();

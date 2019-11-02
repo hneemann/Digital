@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.verilog2;
 
+import de.neemann.digital.draw.library.JarComponentManager;
 import de.neemann.digital.hdl.vhdl2.*;
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.wiring.Splitter;
@@ -32,10 +33,11 @@ public class VerilogCreator {
      * Creates a new instance
      *
      * @param out the output stream
+     * @param jarComponentManager
      */
-    VerilogCreator(CodePrinter out) {
+    VerilogCreator(CodePrinter out, JarComponentManager jarComponentManager) {
         this.out = out;
-        library = new VerilogLibrary();
+        library = new VerilogLibrary(jarComponentManager);
         customPrinted = new HashSet<>();
     }
 

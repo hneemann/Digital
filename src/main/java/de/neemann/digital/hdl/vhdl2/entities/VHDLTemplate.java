@@ -15,6 +15,7 @@ import de.neemann.digital.lang.Lang;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.jar.JarFile;
 
 /**
  * Reads a file with the vhdl code to create the entity.
@@ -32,13 +33,14 @@ public class VHDLTemplate implements VHDLEntity {
      * Creates a new instance
      *
      * @param name the name of the entity
+     * @param externalJarFile the external jar file
      * @throws IOException IOException
      */
-    public VHDLTemplate(String name) throws IOException {
+    public VHDLTemplate(String name, JarFile externalJarFile) throws IOException {
         entityName = ENTITY_PREFIX + name;
         this.entities = new HashMap<>();
         try {
-            statements = Parser.createFromJar(createFileName(entityName));
+            statements = Parser.createFromJar(createFileName(entityName), externalJarFile);
         } catch (ParserException e) {
             throw new IOException("error parsing template " + createFileName(entityName), e);
         }

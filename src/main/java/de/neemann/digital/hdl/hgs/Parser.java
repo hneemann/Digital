@@ -13,6 +13,8 @@ import de.neemann.digital.hdl.hgs.refs.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
 
 import static de.neemann.digital.hdl.hgs.Tokenizer.Token.*;
 
@@ -25,14 +27,20 @@ public class Parser {
      * Creates a statement from the jar file using ClassLoader.getSystemResourceAsStream(path).
      *
      * @param path the path of the file to load
+     * @param externalJarFile the external jar file
      * @return the statement
      * @throws IOException     IOException
      * @throws ParserException ParserException
      */
-    public static Statement createFromJar(String path) throws IOException, ParserException {
+    public static Statement createFromJar(String path, JarFile externalJarFile) throws IOException, ParserException {
         InputStream in = ClassLoader.getSystemResourceAsStream(path);
-        if (in == null)
+        if (in == null && externalJarFile != null) {
+            in = externalJarFile.getInputStream(new ZipEntry(path));
+        }
+        if (in == null) {
             throw new FileNotFoundException("file not found: " + path);
+        }
+
         try (Reader r = new InputStreamReader(in, StandardCharsets.UTF_8)) {
             Parser p = new Parser(r, path);
             return p.parse();
@@ -48,7 +56,7 @@ public class Parser {
      */
     public static Statement createFromJarStatic(String path) {
         try {
-            return createFromJar(path);
+            return createFromJar(path, null);
         } catch (IOException | ParserException e) {
             throw new RuntimeException("could not parse: " + path, e);
         }

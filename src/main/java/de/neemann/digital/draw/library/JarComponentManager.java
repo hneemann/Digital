@@ -25,6 +25,7 @@ import java.util.jar.Manifest;
 public class JarComponentManager implements ComponentManager, Iterable<JarComponentManager.AdditionalShape> {
     private ElementLibrary library;
     private ArrayList<AdditionalShape> additionalShapes;
+    private JarFile jarFile;
 
     JarComponentManager(ElementLibrary library) {
         this.library = library;
@@ -47,6 +48,12 @@ public class JarComponentManager implements ComponentManager, Iterable<JarCompon
         return additionalShapes.iterator();
     }
 
+    /**
+     * @return the loaded jar file
+     */
+    public JarFile getJarFile() {
+        return jarFile;
+    }
 
     /**
      * Loads the components from a jar file
@@ -57,9 +64,8 @@ public class JarComponentManager implements ComponentManager, Iterable<JarCompon
      */
     public void loadJar(File file) throws IOException, InvalidNodeException {
         Manifest manifest;
-        try (JarFile jarFile = new JarFile(file)) {
-            manifest = jarFile.getManifest();
-        }
+        jarFile = new JarFile(file);
+        manifest = jarFile.getManifest();
         if (manifest == null)
             throw new IOException(Lang.get("err_noManifestFound"));
         Attributes attr = manifest.getMainAttributes();
