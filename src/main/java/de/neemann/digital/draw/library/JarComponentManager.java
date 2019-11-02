@@ -64,8 +64,8 @@ public class JarComponentManager implements ComponentManager, Iterable<JarCompon
      */
     public void loadJar(File file) throws IOException, InvalidNodeException {
         Manifest manifest;
-        jarFile = new JarFile(file);
-        manifest = jarFile.getManifest();
+        JarFile f = new JarFile(file);
+        manifest = f.getManifest();
         if (manifest == null)
             throw new IOException(Lang.get("err_noManifestFound"));
         Attributes attr = manifest.getMainAttributes();
@@ -79,6 +79,7 @@ public class JarComponentManager implements ComponentManager, Iterable<JarCompon
             Class<?> c = cl.loadClass(main);
             ComponentSource cs = (ComponentSource) c.newInstance();
             cs.registerComponents(this);
+            jarFile = f;
         } catch (ClassNotFoundException e) {
             throw new IOException(Lang.get("err_mainClass_N_NotFound", main));
         } catch (IllegalAccessException | InstantiationException e) {
