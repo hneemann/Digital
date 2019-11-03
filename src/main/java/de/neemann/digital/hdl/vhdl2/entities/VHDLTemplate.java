@@ -32,13 +32,14 @@ public class VHDLTemplate implements VHDLEntity {
      * Creates a new instance
      *
      * @param name the name of the entity
+     * @param cl   the classloader used to load the template from
      * @throws IOException IOException
      */
-    public VHDLTemplate(String name) throws IOException {
+    public VHDLTemplate(String name, ClassLoader cl) throws IOException {
         entityName = ENTITY_PREFIX + name;
         this.entities = new HashMap<>();
         try {
-            statements = Parser.createFromJar(createFileName(entityName));
+            statements = Parser.createFromJar(createFileName(entityName), cl);
         } catch (ParserException e) {
             throw new IOException("error parsing template " + createFileName(entityName), e);
         }

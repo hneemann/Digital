@@ -21,6 +21,7 @@ public class ElementTypeDescription {
     private static final String PINSEPARATOR = "_pin_";
     private final String name;
     private final String langKey;
+    private ClassLoader classLoader;
     private String shortName;
     private ElementFactory elementFactory;
     private final PinDescriptions inputPins;
@@ -52,6 +53,7 @@ public class ElementTypeDescription {
                 throw new RuntimeException(Lang.get("err_couldNotCreateElement_N", name), e);
             }
         }, inputPins);
+        classLoader = clazz.getClassLoader();
     }
 
     /**
@@ -237,5 +239,12 @@ public class ElementTypeDescription {
      */
     public boolean isCustom() {
         return false;
+    }
+
+    /**
+     * @return the class loader, the component is loaded from. Maybe null.
+     */
+    public ClassLoader getClassLoader() {
+        return classLoader;
     }
 }

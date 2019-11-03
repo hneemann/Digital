@@ -29,7 +29,7 @@ public class DescriptionTest extends TestCase {
                 null)
                 .applyDefaultOptimizations();
         CodePrinterStr out = new CodePrinterStr();
-        new VerilogCreator(out).printHDLCircuit(circuit, "naming");
+        new VerilogCreator(out, br.getLibrary()).printHDLCircuit(circuit, "naming");
 
         assertEquals( "\n"
                     + "// Simple test circuit\n"

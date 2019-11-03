@@ -6,19 +6,22 @@
 package de.neemann.digital.hdl.verilog2;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLNode;
 import de.neemann.digital.hdl.verilog2.lib.VerilogElement;
 import de.neemann.digital.hdl.verilog2.lib.VerilogTemplate;
 import de.neemann.digital.lang.Lang;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author ideras
  */
 public class VerilogLibrary {
@@ -26,12 +29,15 @@ public class VerilogLibrary {
 
     private final HashMap<String, VerilogElement> map;
     private final ArrayList<HDLNode> nodeList = new ArrayList<>();
+    private final ElementLibrary elementLibrary;
 
     /**
      * Creates a new instance
      *
+     * @param elementLibrary the element library used
      */
-    public VerilogLibrary() {
+    public VerilogLibrary(ElementLibrary elementLibrary) {
+        this.elementLibrary = elementLibrary;
         map = new HashMap<>();
     }
 
@@ -51,7 +57,14 @@ public class VerilogLibrary {
         VerilogElement e = map.get(elementName);
         if (e == null) {
             try {
-                e = new VerilogTemplate(elementName);
+                ClassLoader cl = null;
+                try {
+                    cl = elementLibrary.getElementType(elementName).getClassLoader();
+                } catch (ElementNotFoundException ex) {
+                    // try default
+                }
+
+                e = new VerilogTemplate(elementName, cl);
                 map.put(elementName, e);
             } catch (IOException ex) {
                 ex.printStackTrace();

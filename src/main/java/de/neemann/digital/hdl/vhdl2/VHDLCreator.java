@@ -7,6 +7,7 @@ package de.neemann.digital.hdl.vhdl2;
 
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.wiring.Splitter;
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.*;
 import de.neemann.digital.hdl.model2.expression.*;
@@ -35,9 +36,9 @@ public class VHDLCreator {
      *
      * @param out the output stream
      */
-    VHDLCreator(CodePrinter out) {
+    VHDLCreator(CodePrinter out, ElementLibrary lib) {
         this.out = out;
-        library = new VHDLLibrary();
+        library = new VHDLLibrary(lib);
         customPrinted = new HashSet<>();
     }
 

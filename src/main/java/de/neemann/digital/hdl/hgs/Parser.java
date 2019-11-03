@@ -25,12 +25,15 @@ public class Parser {
      * Creates a statement from the jar file using ClassLoader.getSystemResourceAsStream(path).
      *
      * @param path the path of the file to load
+     * @param cl   the classloader used to load the template. If set to null, the SystemClassLoader is used
      * @return the statement
      * @throws IOException     IOException
      * @throws ParserException ParserException
      */
-    public static Statement createFromJar(String path) throws IOException, ParserException {
-        InputStream in = ClassLoader.getSystemResourceAsStream(path);
+    public static Statement createFromJar(String path, ClassLoader cl) throws IOException, ParserException {
+        if (cl == null)
+            cl = ClassLoader.getSystemClassLoader();
+        InputStream in = cl.getResourceAsStream(path);
         if (in == null)
             throw new FileNotFoundException("file not found: " + path);
         try (Reader r = new InputStreamReader(in, StandardCharsets.UTF_8)) {
@@ -48,7 +51,7 @@ public class Parser {
      */
     public static Statement createFromJarStatic(String path) {
         try {
-            return createFromJar(path);
+            return createFromJar(path, null);
         } catch (IOException | ParserException e) {
             throw new RuntimeException("could not parse: " + path, e);
         }

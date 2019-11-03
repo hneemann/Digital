@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.hdl.vhdl2;
 
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLNode;
 import de.neemann.digital.hdl.vhdl2.entities.VHDLEntity;
@@ -22,13 +24,17 @@ import java.util.HashMap;
  */
 public class VHDLLibrary {
     private static final Logger LOGGER = LoggerFactory.getLogger(VHDLLibrary.class);
+    private final ElementLibrary library;
 
     private HashMap<String, VHDLEntity> map;
 
     /**
      * Creates a new library
+     *
+     * @param library the element library used
      */
-    VHDLLibrary() {
+    VHDLLibrary(ElementLibrary library) {
+        this.library = library;
         map = new HashMap<>();
     }
 
@@ -44,7 +50,13 @@ public class VHDLLibrary {
         VHDLEntity e = map.get(elementName);
         if (e == null) {
             try {
-                e = new VHDLTemplate(elementName);
+                ClassLoader cl = null;
+                try {
+                    cl = library.getElementType(elementName).getClassLoader();
+                } catch (ElementNotFoundException ex) {
+                    // try default
+                }
+                e = new VHDLTemplate(elementName, cl);
                 map.put(elementName, e);
             } catch (IOException ex) {
                 ex.printStackTrace();

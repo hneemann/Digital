@@ -39,16 +39,17 @@ public class VerilogTemplate implements VerilogElement {
      * Creates a new instance
      *
      * @param elementName the element name
+     * @param cl          the classloader used to load the template
      * @throws IOException  IOException
      * @throws HDLException HDLException
      */
-    public VerilogTemplate(String elementName) throws IOException, HDLException {
+    public VerilogTemplate(String elementName, ClassLoader cl) throws IOException, HDLException {
         super();
         this.moduleBaseName = MODULE_PREFIX + elementName;
         modules = new HashMap<>();
 
         try {
-            statements = parseFile(moduleBaseName);
+            statements = parseFile(moduleBaseName, cl);
         } catch (ParserException ex) {
             throw new HDLException(ex.getMessage());
         }
@@ -58,11 +59,14 @@ public class VerilogTemplate implements VerilogElement {
         }
     }
 
-    private Statement parseFile(String moduleName) throws IOException, ParserException {
+    private Statement parseFile(String moduleName, ClassLoader cl) throws IOException, ParserException {
         Statement stmt;
         String fileName = createFileName(moduleName);
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+        if (cl == null)
+            cl = ClassLoader.getSystemClassLoader();
+
+        InputStream inputStream = cl.getResourceAsStream(fileName);
         if (inputStream == null) {
             throw new IOException("file not present: " + fileName);
         }

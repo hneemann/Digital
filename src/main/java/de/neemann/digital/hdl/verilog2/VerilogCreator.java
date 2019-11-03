@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.verilog2;
 
+import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.hdl.vhdl2.*;
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.wiring.Splitter;
@@ -33,9 +34,9 @@ public class VerilogCreator {
      *
      * @param out the output stream
      */
-    VerilogCreator(CodePrinter out) {
+    VerilogCreator(CodePrinter out, ElementLibrary lib) {
         this.out = out;
-        library = new VerilogLibrary();
+        library = new VerilogLibrary(lib);
         customPrinted = new HashSet<>();
     }
 
