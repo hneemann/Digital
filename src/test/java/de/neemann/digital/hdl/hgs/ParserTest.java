@@ -14,7 +14,6 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -595,7 +594,7 @@ public class ParserTest extends TestCase {
 
     // checks the available VHDL templates
     public void testVHDLTemplates() throws Exception {
-        final File path = new File(Resources.getRoot(), "../../main/resources/vhdl2");
+        final File path = new File(Resources.getRoot(), "../../main/resources/vhdl");
         int n = new FileScanner(f -> new Parser(new FileReader(f), f.getName()).parse()).setSuffix(".tem").scan(path);
         assertTrue(n > 10);
     }

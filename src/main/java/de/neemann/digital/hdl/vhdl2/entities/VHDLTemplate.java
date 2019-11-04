@@ -46,7 +46,7 @@ public class VHDLTemplate implements VHDLEntity {
     }
 
     private static String createFileName(String name) {
-        return "vhdl2/" + name + ".tem";
+        return "vhdl/" + name + ".tem";
     }
 
     /**

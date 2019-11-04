@@ -25,7 +25,7 @@ import static de.neemann.digital.core.extern.VHDLTokenizer.Token.*;
  */
 public abstract class ApplicationVHDLStdIO implements Application {
     private static final Statement TEMPLATE =
-            Parser.createFromJarStatic("vhdl2/VHDLStdIOTemplate.tem");
+            Parser.createFromJarStatic("vhdl/VHDLStdIOTemplate.tem");
 
     /**
      * Creates a vhdl file in a temp directory.
