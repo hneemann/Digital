@@ -160,6 +160,11 @@ public class VectorFloat implements VectorInterface {
     }
 
     @Override
+    public VectorInterface perpendicular() {
+        return new VectorFloat(y, -x);
+    }
+
+    @Override
     public VectorFloat toFloat() {
         return this;
     }

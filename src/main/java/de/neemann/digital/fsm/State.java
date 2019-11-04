@@ -100,13 +100,13 @@ public class State extends Movable<State> {
         Vector delta = new Vector(0, Style.NORMAL.getFontSize());
         VectorFloat pos = getPos().add(delta.mul(-1));
 
-        gr.drawText(pos, pos.add(new Vector(1, 0)), Integer.toString(number), Orientation.CENTERCENTER, Style.NORMAL);
+        gr.drawText(pos, Integer.toString(number), Orientation.CENTERCENTER, Style.NORMAL);
         pos = pos.add(delta);
-        gr.drawText(pos, pos.add(new Vector(1, 0)), name, Orientation.CENTERCENTER, Style.NORMAL);
+        gr.drawText(pos, name, Orientation.CENTERCENTER, Style.NORMAL);
 
         if (getValues() != null && getValues().length() > 0) {
             pos = pos.add(delta);
-            gr.drawText(pos, pos.add(new Vector(1, 0)), getValues(), Orientation.CENTERCENTER, Style.INOUT);
+            gr.drawText(pos, getValues(), Orientation.CENTERCENTER, Style.INOUT);
         }
     }
 

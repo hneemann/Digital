@@ -15,7 +15,7 @@ import java.awt.geom.Path2D;
 /**
  * Used to draw on a {@link Graphics2D} instance.
  */
-public class GraphicSwing implements Graphic {
+public class GraphicSwing extends Graphic {
 
     private final int minFontSize;
     private int pixelSize;
@@ -95,7 +95,7 @@ public class GraphicSwing implements Graphic {
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         applyStyle(style); // sets also font size!
         int fontHeight = gr.getFontMetrics().getHeight();
         if (fontHeight > minFontSize) {

@@ -99,7 +99,7 @@ public class DipSwitchShape implements Shape {
         graphic.drawPolygon(FRAME, Style.NORMAL);
         Vector pos = new Vector(-SIZE * 3 - SIZE2, 0);
         if (label.length() > 0)
-            graphic.drawText(pos, pos.add(-1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+            graphic.drawText(pos, label, Orientation.RIGHTCENTER, Style.NORMAL);
 
         boolean on = defValue;
         if (value != null)

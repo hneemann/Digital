@@ -146,16 +146,16 @@ public class LayoutShape implements Shape {
         graphic.drawPolygon(poly, Style.NORMAL);
 
         if (top.size() == 0)
-            Graphic.drawText(graphic, new Vector(width * SIZE / 2, -4), name, Orientation.CENTERBOTTOM, Style.NORMAL);
+            graphic.drawText(new Vector(width * SIZE / 2, -4), name, Orientation.CENTERBOTTOM, Style.NORMAL);
         else if (bottom.size() == 0)
-            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE + 4), name, Orientation.CENTERTOP, Style.NORMAL);
+            graphic.drawText(new Vector(width * SIZE / 2, height * SIZE + 4), name, Orientation.CENTERTOP, Style.NORMAL);
         else
-            Graphic.drawText(graphic, new Vector(width * SIZE / 2, height * SIZE / 2), name, Orientation.CENTERCENTER, Style.NORMAL);
+            graphic.drawText(new Vector(width * SIZE / 2, height * SIZE / 2), name, Orientation.CENTERCENTER, Style.NORMAL);
 
         for (PinPos p : left)
-            Graphic.drawText(graphic, p.pos.add(4, 0), p.label, Orientation.LEFTCENTER, Style.SHAPE_PIN);
+            graphic.drawText(p.pos.add(4, 0), p.label, Orientation.LEFTCENTER, Style.SHAPE_PIN);
         for (PinPos p : right)
-            Graphic.drawText(graphic, p.pos.add(-4, 0), p.label, Orientation.RIGHTCENTER, Style.SHAPE_PIN);
+            graphic.drawText(p.pos.add(-4, 0), p.label, Orientation.RIGHTCENTER, Style.SHAPE_PIN);
         for (PinPos p : top)
             graphic.drawText(p.pos.add(0, 4), p.pos.add(0, 3), p.label, Orientation.RIGHTCENTER, Style.SHAPE_PIN);
         for (PinPos p : bottom)

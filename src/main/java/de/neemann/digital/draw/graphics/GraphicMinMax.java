@@ -15,7 +15,7 @@ import java.awt.geom.Rectangle2D;
  * You can draw the items to an instance of this class and then obtain the size
  * by the getters getMin() and getMax().
  */
-public class GraphicMinMax implements Graphic {
+public class GraphicMinMax extends Graphic {
 
     private final boolean includeText;
     private final Graphic parent;
@@ -82,9 +82,9 @@ public class GraphicMinMax implements Graphic {
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         if (includeText || style.mattersAlwaysForSize())
-            approxTextSize(this, p1, p2, text, orientation, style);
+            approxTextSize(this, p1, p2, p3, text, orientation, style);
     }
 
     /**
@@ -97,7 +97,7 @@ public class GraphicMinMax implements Graphic {
      * @param orientation the texts orientation
      * @param style       the text style
      */
-    public static void approxTextSize(Graphic gr, VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public static void approxTextSize(Graphic gr, VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         if (text != null && text.length() > 0) {
             VectorFloat delta = p2.sub(p1).norm();
             VectorFloat height = new VectorFloat(delta.getYFloat(), -delta.getXFloat()).mul(style.getFontSize());

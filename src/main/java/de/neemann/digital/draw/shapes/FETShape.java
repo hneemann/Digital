@@ -73,7 +73,7 @@ public abstract class FETShape implements Shape {
         graphic.drawLine(new Vector(1, 0), new Vector(1, SIZE * 2), Style.NORMAL);
 
         if (label != null && label.length() > 0)
-            graphic.drawText(new Vector(SIZE + SIZE2, SIZE * 2), new Vector(SIZE * 2, SIZE * 2), label, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+            graphic.drawText(new Vector(SIZE + SIZE2, SIZE * 2), label, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
 
         if (fet != null)
             drawSwitch(graphic);

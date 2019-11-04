@@ -79,9 +79,9 @@ public class CustomShape implements Shape {
                 CustomShapeDescription.Pin cp = shapeDescription.getPin(p.getName());
                 if (cp != null && cp.isShowLabel()) {
                     if (p.getDirection() == Pin.Direction.input) {
-                        graphic.drawText(p.getPos().add(4, 0), p.getPos().add(5, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
+                        graphic.drawText(p.getPos().add(4, 0), p.getName(), Orientation.LEFTCENTER, Style.SHAPE_PIN);
                     } else
-                        graphic.drawText(p.getPos().add(-4, 0), p.getPos().add(5, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
+                        graphic.drawText(p.getPos().add(-4, 0), p.getName(), Orientation.RIGHTCENTER, Style.SHAPE_PIN);
 
                 }
             } catch (PinException e) {

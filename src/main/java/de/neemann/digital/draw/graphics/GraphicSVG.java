@@ -16,7 +16,7 @@ import java.util.HashSet;
 /**
  * Used to create a SVG representation of the circuit.
  */
-public class GraphicSVG implements Graphic {
+public class GraphicSVG extends Graphic {
     private static final int DEF_SCALE = 15;
     private final OutputStream out;
     private final File source;
@@ -185,7 +185,7 @@ public class GraphicSVG implements Graphic {
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         if (text == null || text.length() == 0) return;
 
         try {

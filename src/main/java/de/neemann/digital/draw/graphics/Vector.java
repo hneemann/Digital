@@ -253,6 +253,11 @@ public class Vector implements VectorInterface {
     }
 
     @Override
+    public VectorInterface perpendicular() {
+        return new Vector(y, -x);
+    }
+
+    @Override
     public VectorFloat toFloat() {
         return new VectorFloat(x, y);
     }

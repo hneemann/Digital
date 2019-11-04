@@ -88,7 +88,7 @@ public class PolarityAwareLEDShape implements Shape {
         graphic.drawLine(new Vector(0, SIZE * 4 - SIZE2), new Vector(0, SIZE * 4), Style.NORMAL);
         if (label != null) {
             Vector textPos = new Vector(SIZE + SIZE2, SIZE);
-            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.NORMAL);
+            graphic.drawText(textPos, label, Orientation.LEFTCENTER, Style.NORMAL);
         }
 
         if (a == null || c == null) {

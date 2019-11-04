@@ -109,7 +109,6 @@ public class SwitchDTShape implements Shape {
         if (label != null && label.length() > 0)
             graphic.drawText(
                     new Vector(SIZE, 4 + (poles - 1) * 2 * SIZE + SIZE),
-                    new Vector(SIZE * 2, 4 + (poles - 1) * 2 * SIZE + SIZE),
                     label, Orientation.CENTERTOP, Style.SHAPE_PIN);
     }
 

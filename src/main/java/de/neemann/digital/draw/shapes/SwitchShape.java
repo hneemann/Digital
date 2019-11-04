@@ -101,7 +101,6 @@ public class SwitchShape implements Shape {
         if (label != null && label.length() > 0)
             graphic.drawText(
                     new Vector(SIZE, 4 + (poles - 1) * 2 * SIZE),
-                    new Vector(SIZE * 2, 4 + (poles - 1) * 2 * SIZE),
                     label, Orientation.CENTERTOP, Style.SHAPE_PIN);
     }
 

@@ -126,7 +126,7 @@ public class RotEncoderShape implements Shape {
         graphic.drawLine(CENTER, CENTER.add(x, y), MARKER);
 
         Vector textPos = CENTER.add(0, SIZE2 * 3 + 4);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.CENTERTOP, Style.NORMAL);
+        graphic.drawText(textPos, label, Orientation.CENTERTOP, Style.NORMAL);
     }
 
 }

@@ -125,7 +125,7 @@ public class DataPlotter implements Drawable {
             textPos = textWidth - offset;
         for (int i = 0; i < signals; i++) {
             String text = data.getColumnName(i);
-            g.drawText(new Vector(textPos - 2, y + yOffs), new Vector(textPos + 1, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
+            g.drawText(new Vector(textPos - 2, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
             g.drawLine(new Vector(textPos, y - SEP2), new Vector(textWidth + preferredDataWidth - offset, y - SEP2), Style.DASH);
             y += SIZE + SEP;
         }
@@ -178,9 +178,9 @@ public class DataPlotter implements Drawable {
                         final String text = IntFormat.toShortHex(value);
                         last[i].textWidth = text.length() * SIZE / 2;
                         if (ry > CENTER)
-                            g.drawText(new Vector(x1 + 1, y - SEP2 + 1), new Vector(x1 + 2, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
+                            g.drawText(new Vector(x1 + 1, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);
                         else
-                            g.drawText(new Vector(x1 + 1, y + SIZE + SEP2 - 1), new Vector(x1 + 2, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+                            g.drawText(new Vector(x1 + 1, y + SIZE + SEP2 - 1), text, Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
                         last[i].hasChanged = false;
                     }
 

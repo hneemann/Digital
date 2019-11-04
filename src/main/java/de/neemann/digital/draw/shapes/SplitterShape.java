@@ -64,12 +64,12 @@ public class SplitterShape implements Shape {
     public void drawTo(Graphic graphic, Style heighLight) {
         for (int i = 0; i < inputs.size(); i++) {
             Vector pos = new Vector(-2, i * spreading * SIZE - 3);
-            graphic.drawText(pos, pos.add(2, 0), inputs.get(i).getName(), Orientation.RIGHTBOTTOM, Style.SHAPE_SPLITTER);
+            graphic.drawText(pos, inputs.get(i).getName(), Orientation.RIGHTBOTTOM, Style.SHAPE_SPLITTER);
             graphic.drawLine(new Vector(0, i * spreading * SIZE), new Vector(SIZE2, i * spreading * SIZE), Style.NORMAL);
         }
         for (int i = 0; i < outputs.size(); i++) {
             Vector pos = new Vector(SIZE + 2, i * spreading * SIZE - 3);
-            graphic.drawText(pos, pos.add(2, 0), outputs.get(i).getName(), Orientation.LEFTBOTTOM, Style.SHAPE_SPLITTER);
+            graphic.drawText(pos, outputs.get(i).getName(), Orientation.LEFTBOTTOM, Style.SHAPE_SPLITTER);
             graphic.drawLine(new Vector(SIZE, i * spreading * SIZE), new Vector(SIZE2, i * spreading * SIZE), Style.NORMAL);
         }
 

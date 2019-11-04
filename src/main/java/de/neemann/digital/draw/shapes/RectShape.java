@@ -80,7 +80,7 @@ public class RectShape implements Shape {
 
         Style style = Style.NORMAL.deriveFontStyle(fontSize, true);
         if (!label.isEmpty())
-            graphic.drawText(pos, pos.add(1, 0), label, orientation, style);
+            graphic.drawText(pos, label, orientation, style);
 
         graphic.drawPolygon(new Polygon(true)
                 .add(0, 0)

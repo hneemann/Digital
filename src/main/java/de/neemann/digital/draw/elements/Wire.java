@@ -108,7 +108,7 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
                 pos = pos.add(0, -3);
                 ori = de.neemann.digital.draw.graphics.Orientation.CENTERBOTTOM;
             }
-            graphic.drawText(pos, pos.add(1, 0), value.toString(), ori, Style.WIRE_VALUE);
+            graphic.drawText(pos, value.toString(), ori, Style.WIRE_VALUE);
         }
 
         int minCrossLen = isConnectedToSplitter ? MIN_CROSS_WIRE_LEN_SPLITTER : MIN_CROSS_WIRE_LEN;
@@ -116,7 +116,7 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
             Vector pos = getRoundPos();
             graphic.drawLine(pos.add(CROSS_LEN, CROSS_LEN), pos.add(-CROSS_LEN, -CROSS_LEN), Style.WIRE_BITS);
             Vector numPos = pos.add(0, -3);
-            graphic.drawText(numPos, numPos.add(1, 0), Integer.toString(bits), de.neemann.digital.draw.graphics.Orientation.LEFTBOTTOM, Style.WIRE_BITS);
+            graphic.drawText(numPos, Integer.toString(bits), de.neemann.digital.draw.graphics.Orientation.LEFTBOTTOM, Style.WIRE_BITS);
         }
 
         if (p1Dot || p2Dot) {
