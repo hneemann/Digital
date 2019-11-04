@@ -5,12 +5,7 @@
  */
 package de.neemann.digital.hdl.verilog2.lib;
 
-import de.neemann.digital.hdl.hgs.Context;
-import de.neemann.digital.hdl.hgs.HGSEvalException;
-import de.neemann.digital.hdl.hgs.Parser;
-import de.neemann.digital.hdl.hgs.ParserException;
-import de.neemann.digital.hdl.hgs.Statement;
-import de.neemann.digital.hdl.hgs.Value;
+import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -18,8 +13,6 @@ import de.neemann.digital.hdl.vhdl2.Separator;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +42,7 @@ public class VerilogTemplate implements VerilogElement {
         modules = new HashMap<>();
 
         try {
-            statements = parseFile(moduleBaseName, cl);
+            statements = Parser.createFromJar(createFileName(moduleBaseName), cl);
         } catch (ParserException ex) {
             throw new HDLException(ex.getMessage());
         }
@@ -57,27 +50,6 @@ public class VerilogTemplate implements VerilogElement {
         if (statements == null) {
             throw new HDLException("Invalid verilog template file. Template is empty.");
         }
-    }
-
-    private Statement parseFile(String moduleName, ClassLoader cl) throws IOException, ParserException {
-        Statement stmt;
-        String fileName = createFileName(moduleName);
-
-        if (cl == null)
-            cl = ClassLoader.getSystemClassLoader();
-
-        InputStream inputStream = cl.getResourceAsStream(fileName);
-        if (inputStream == null) {
-            throw new IOException("file not present: " + fileName);
-        }
-
-        try (InputStreamReader in = new InputStreamReader(inputStream)) {
-            Parser parser = new Parser(in, fileName);
-
-            stmt = parser.parse();
-        }
-
-        return stmt;
     }
 
     private static String createFileName(String name) {
