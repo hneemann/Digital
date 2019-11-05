@@ -24,6 +24,7 @@ public class NFET extends Node implements Element, Countable {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(NFET.class, input("G"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.FET_UNIDIRECTIONAL)
             .addAttribute(Keys.LABEL);

@@ -246,6 +246,9 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
                 transform = new TransformTranslate(pos);
             else
                 transform = new TransformRotate(pos, rotate);
+
+            if (elementAttributes.get(Keys.MIRROR))
+                transform = Transform.mul(new TransformMatrix(1, 0, 0, -1, 0, 0), transform);
         }
         return transform;
     }

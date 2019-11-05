@@ -54,6 +54,7 @@ public class Splitter implements Element {
     public static final ElementTypeDescription DESCRIPTION
             = new SplitterTypeDescription()
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.INPUT_SPLIT)
             .addAttribute(Keys.OUTPUT_SPLIT)
             .addAttribute(Keys.SPLITTER_SPREADING)

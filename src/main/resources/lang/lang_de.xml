@@ -1147,6 +1147,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_microStep_tt">Zeigt in der Grafik alle Einzelgatterschritte an.</string>
     <string name="key_rotation">Rotation</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, Ground, VDD, Const, Tunnel, Splitter, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, DiodeForward, DiodeBackward, Switch, Fuse, Relay, PFET, NFET, FGPFET, FGNFET, TransGate, PowerSupply, Reset, Break -->
     <string name="key_rotation_tt">Legt die Ausrichtung des Elementes in der Schaltung fest.</string>
+    <string name="key_mirror">Spiegeln</string>
+    <string name="key_mirror_tt">Spiegelt das Element in der Schaltung.</string>
     <string name="key_runRealTime">Echtzeittakt starten</string><!-- Clock -->
     <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet.</string>
     <string name="key_showDataGraph">Zeige Messwertegraph bei Simulationsstart</string>
