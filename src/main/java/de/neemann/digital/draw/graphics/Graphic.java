@@ -80,8 +80,8 @@ public abstract class Graphic implements Closeable {
      * @param style       the text style
      */
     public final void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
-        VectorInterface d = p2.sub(p1).perpendicular();
-        drawText(p1, p2, d, text, orientation, style);
+        VectorInterface d = p2.sub(p1).toFloat().getOrthogonal();
+        drawText(p1, p2, p1.add(d), text, orientation, style);
     }
 
     /**

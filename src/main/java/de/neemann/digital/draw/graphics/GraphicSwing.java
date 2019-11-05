@@ -113,6 +113,11 @@ public class GraphicSwing extends Graphic {
                 rotateText = true;
             }
 
+            VectorInterface d0 = p2.sub(p1).toFloat().getOrthogonal();
+            VectorInterface d1 = p3.sub(p1);
+            boolean mirror = d1.getX() * d0.getX() + d1.getY() * d0.getY() < 0;
+            if (mirror) text += "|";
+
             GraphicsFormatter.Fragment fragment = GraphicsFormatter.createFragment(gr, text);
 
             AffineTransform old = null;

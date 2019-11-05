@@ -91,6 +91,4 @@ public interface VectorInterface {
      * @return the length of the vector
      */
     float len();
-
-    VectorInterface perpendicular();
 }
