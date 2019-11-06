@@ -104,7 +104,7 @@ public class DILShape implements Shape {
                         .add(x - pin, -SIZE)
                         .add(x - pin, h)
                         .add(pin, h), Style.NORMAL);
-        graphic.drawText(new Vector(x / 2, SIZE2), shortName, Orientation.LEFTCENTER, Style.NORMAL_TEXT);
+        graphic.drawText(new Vector(x / 2, SIZE2), new Vector(x / 2, SIZE * 2), shortName, Orientation.LEFTCENTER, Style.NORMAL_TEXT);
 
         if (label != null && label.length() > 0)
             graphic.drawText(new Vector(x / 2, h + SIZE2), label, Orientation.CENTERTOP, Style.NORMAL_TEXT);
