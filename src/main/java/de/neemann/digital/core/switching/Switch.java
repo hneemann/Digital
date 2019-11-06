@@ -22,6 +22,7 @@ public class Switch implements Element, NodeInterface, Countable {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Switch.class)
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.POLES)

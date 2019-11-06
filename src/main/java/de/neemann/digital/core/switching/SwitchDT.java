@@ -22,6 +22,7 @@ public class SwitchDT implements Element, NodeInterface, Countable {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(SwitchDT.class)
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.POLES);

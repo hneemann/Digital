@@ -24,6 +24,7 @@ public class RelayDT extends Node implements Element, Countable {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RelayDT.class, input("in1"), input("in2"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.POLES);
