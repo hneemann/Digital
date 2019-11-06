@@ -95,6 +95,7 @@ public class GraphicMinMax extends Graphic {
      * @param gr          the Graphic instance to use
      * @param p1          point to draw the text
      * @param p2          at the left of p1, is used to determine the correct orientation of the text after transforming coordinates
+     * @param p3          at the top of p1, is used to determine the correct orientation of the text after transforming coordinates
      * @param text        the text
      * @param orientation the texts orientation
      * @param style       the text style
