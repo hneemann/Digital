@@ -113,11 +113,6 @@ public class GraphicSwing extends Graphic {
                 rotateText = true;
             }
 
-            VectorInterface d0 = p2.sub(p1).toFloat().getOrthogonal();
-            VectorInterface d1 = p3.sub(p1);
-            boolean mirror = d1.getX() * d0.getX() + d1.getY() * d0.getY() < 0;
-            if (mirror) text += "|";
-
             GraphicsFormatter.Fragment fragment = GraphicsFormatter.createFragment(gr, text);
 
             AffineTransform old = null;
@@ -135,9 +130,11 @@ public class GraphicSwing extends Graphic {
             }
 
             int yoff = 0;
-            if (orientation.getY() != 0) {
+            int oy = orientation.getY();
+            if (isMirror(p1, p2, p3)) oy = 2 - oy;
+            if (oy != 0) {
                 int height = fragment.getHeight();
-                yoff += height * orientation.getY() / 3;
+                yoff += height * oy / 3;
             }
 
             fragment.draw(gr, p1.getX() + xoff, p1.getY() + yoff);
@@ -145,6 +142,12 @@ public class GraphicSwing extends Graphic {
             if (rotateText)
                 gr.setTransform(old);
         }
+    }
+
+    static boolean isMirror(VectorInterface p1, VectorInterface p2, VectorInterface p3) {
+        VectorInterface d0 = p2.sub(p1).toFloat().getOrthogonal();
+        VectorInterface d1 = p3.sub(p1);
+        return d1.getX() * d0.getX() + d1.getY() * d0.getY() < 0;
     }
 
     @Override
