@@ -64,9 +64,10 @@ public class CounterPreset extends Node implements Element {
         this.out = new ObservableValue("out", bits).setPinDescription(DESCRIPTION);
         this.ovf = new ObservableValue("ovf", 1).setPinDescription(DESCRIPTION);
 
-        long m = attributes.get(Keys.MAX_VALUE);
+        long mask = Bits.mask(bits);
+        long m = attributes.get(Keys.MAX_VALUE) & mask;
         if (m == 0)
-            m = Bits.mask(bits);
+            m = mask;
         maxValue = m;
 
         probe = attributes.get(Keys.VALUE_IS_PROBE);
