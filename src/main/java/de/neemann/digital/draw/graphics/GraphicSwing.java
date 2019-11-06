@@ -130,8 +130,7 @@ public class GraphicSwing extends Graphic {
             }
 
             int yoff = 0;
-            int oy = orientation.getY();
-            if (isMirror(p1, p2, p3)) oy = 2 - oy;
+            int oy = getMirrorYOrientation(orientation, p1, p2, p3);
             if (oy != 0) {
                 int height = fragment.getHeight();
                 yoff += height * oy / 3;
@@ -144,10 +143,12 @@ public class GraphicSwing extends Graphic {
         }
     }
 
-    static boolean isMirror(VectorInterface p1, VectorInterface p2, VectorInterface p3) {
+    static int getMirrorYOrientation(Orientation orientation, VectorInterface p1, VectorInterface p2, VectorInterface p3) {
+        int oy = orientation.getY();
         VectorInterface d0 = p2.sub(p1).toFloat().getOrthogonal();
         VectorInterface d1 = p3.sub(p1);
-        return d1.getX() * d0.getX() + d1.getY() * d0.getY() < 0;
+        if (d1.getX() * d0.getX() + d1.getY() * d0.getY() < 0) oy = 2 - oy;
+        return oy;
     }
 
     @Override

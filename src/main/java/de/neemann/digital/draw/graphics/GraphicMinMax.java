@@ -10,7 +10,7 @@ import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
-import static de.neemann.digital.draw.graphics.GraphicSwing.isMirror;
+import static de.neemann.digital.draw.graphics.GraphicSwing.getMirrorYOrientation;
 
 /**
  * This class is used to determine the size of shapes or the whole circuit.
@@ -113,8 +113,7 @@ public class GraphicMinMax extends Graphic {
                 p = p.sub(width.mul(orientation.getX()).div(2));
             }
 
-            int oy = orientation.getY();
-            if (isMirror(p1, p2, p3)) oy = 2 - oy;
+            int oy = getMirrorYOrientation(orientation, p1, p2, p3);
             if (oy != 0) {
                 p = p.sub(height.mul(oy).div(2));
             } else
