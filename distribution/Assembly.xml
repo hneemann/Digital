@@ -113,7 +113,7 @@
             <directory>${basedir}/src/main/dig/generic</directory>
             <outputDirectory>/examples/generic/</outputDirectory>
             <includes>
-                <include>*.dig</include>
+                <include>**/*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
