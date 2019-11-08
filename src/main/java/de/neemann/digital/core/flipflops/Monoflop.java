@@ -31,6 +31,7 @@ public class Monoflop extends FlipflopBit {
             input("C").setClock(),
             input("R"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
             .addAttribute(Keys.MONOFLOP_DELAY)

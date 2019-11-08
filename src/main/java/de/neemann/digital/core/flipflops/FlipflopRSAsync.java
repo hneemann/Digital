@@ -26,6 +26,7 @@ public class FlipflopRSAsync extends FlipflopBit {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("RS_FF_AS", FlipflopRSAsync.class, input("S"), input("R"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
             .addAttribute(Keys.INVERTER_CONFIG)

@@ -26,6 +26,7 @@ public class FlipflopD extends Node implements Element, Countable {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("D_FF", FlipflopD.class, input("D"), input("C").setClock())
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)

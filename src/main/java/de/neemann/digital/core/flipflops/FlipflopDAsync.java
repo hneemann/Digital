@@ -28,6 +28,7 @@ public class FlipflopDAsync extends FlipflopD {
             = new ElementTypeDescription("D_FF_AS", FlipflopDAsync.class,
             input("Set"), input("D"), input("C").setClock(), input("Clr"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)

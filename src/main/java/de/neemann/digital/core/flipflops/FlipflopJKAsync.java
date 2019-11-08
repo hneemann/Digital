@@ -32,6 +32,7 @@ public class FlipflopJKAsync extends FlipflopJK {
             input("K"),
             input("Clr"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
             .addAttribute(Keys.INVERTER_CONFIG)
