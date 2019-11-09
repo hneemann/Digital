@@ -11,7 +11,7 @@ import de.neemann.digital.draw.graphics.*;
  * Filters out all the lines.
  * All other drawing elements are delegated to the given class.
  */
-public class GraphicSkipLines implements Graphic {
+public class GraphicSkipLines extends Graphic {
 
     private final Graphic delegate;
 
@@ -40,8 +40,8 @@ public class GraphicSkipLines implements Graphic {
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
-        delegate.drawText(p1, p2, text, orientation, style);
+    public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
+        delegate.drawText(p1, p2, p3, text, orientation, style);
     }
 
     @Override

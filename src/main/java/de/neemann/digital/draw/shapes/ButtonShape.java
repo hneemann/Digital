@@ -107,6 +107,6 @@ public class ButtonShape implements Shape {
         }
 
         Vector textPos = new Vector(-OUT_SIZE * 3, -4);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
+        graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.NORMAL);
     }
 }

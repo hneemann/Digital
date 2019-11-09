@@ -1136,6 +1136,8 @@
     <string name="key_microStep_tt">Shows all single step steps in the graphic.</string>
     <string name="key_rotation">Rotation</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, LED, In, Clock, Button, Probe, LightBulb, LedMatrix, RotEncoder, Keyboard, Terminal, Ground, VDD, Const, Tunnel, Splitter, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, DiodeForward, DiodeBackward, Switch, Fuse, Relay, PFET, NFET, FGPFET, FGNFET, TransGate, PowerSupply, Reset, Break -->
     <string name="key_rotation_tt">The orientation of the Element in the circuit.</string>
+    <string name="key_mirror">Mirror</string>
+    <string name="key_mirror_tt">Mirrors the component in the circuit.</string>
     <string name="key_runRealTime">Start real time clock</string><!-- Clock -->
     <string name="key_runRealTime_tt">If enabled the runtime clock is started when the circuit is started</string>
     <string name="key_showDataGraph">Show measurement graph at simulation start</string>

@@ -78,7 +78,7 @@ public class ClockShape implements Shape {
             Vector center = new Vector(-LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
             Vector textPos = new Vector(-SIZE2 - LATEX_RAD.x, 0);
-            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.INOUT);
+            graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.INOUT);
             wavePos = center.sub(new Vector(2 * WI, LATEX_RAD.y + WI + 1));
         } else {
             graphic.drawPolygon(new Polygon(true)
@@ -88,7 +88,7 @@ public class ClockShape implements Shape {
                     .add(-OUT_SIZE * 2 - 1, OUT_SIZE), Style.NORMAL);
 
             Vector textPos = new Vector(-OUT_SIZE * 3, 0);
-            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
+            graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.NORMAL);
             wavePos = new Vector(-OUT_SIZE - WI * 2, WI);
         }
         graphic.drawPolygon(new Polygon(false)

@@ -91,4 +91,20 @@ public interface VectorInterface {
      * @return the length of the vector
      */
     float len();
+
+    /**
+     * @return a vector which is orthogonal to this one
+     */
+    VectorInterface getOrthogonal();
+
+    /**
+     * Calculates the scalar product
+     *
+     * @param v the vector to multiply with
+     * @return the scalar product
+     */
+    default float scalar(VectorInterface v) {
+        return getXFloat() * v.getXFloat() + getYFloat() * v.getYFloat();
+    }
+
 }

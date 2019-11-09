@@ -69,14 +69,14 @@ public class ProbeShape implements Shape {
         int dy = -1;
         Orientation orientation = Orientation.LEFTCENTER;
         if (isLabel) {
-            graphic.drawText(new Vector(2, -4), new Vector(3, -4), label, Orientation.LEFTBOTTOM, Style.NORMAL);
+            graphic.drawText(new Vector(2, -4), label, Orientation.LEFTBOTTOM, Style.NORMAL);
             dy = 4;
             orientation = Orientation.LEFTTOP;
         }
         String v = "?";
         if (inValueCopy != null)
             v = format.formatToView(inValueCopy);
-        graphic.drawText(new Vector(2, dy), new Vector(3, dy), v, orientation, Style.NORMAL);
+        graphic.drawText(new Vector(2, dy), v, orientation, Style.NORMAL);
 
     }
 }

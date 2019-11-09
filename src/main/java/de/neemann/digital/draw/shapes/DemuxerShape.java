@@ -74,6 +74,6 @@ public class DemuxerShape implements Shape {
                 .add(SIZE * 2 - 1, -4)
                 .add(SIZE * 2 - 1, height + 4)
                 .add(1, height - 5), Style.NORMAL);
-        graphic.drawText(new Vector(SIZE * 2 - 3, 2), new Vector(SIZE * 2, 2), "0", Orientation.RIGHTTOP, Style.SHAPE_PIN);
+        graphic.drawText(new Vector(SIZE * 2 - 3, 2), "0", Orientation.RIGHTTOP, Style.SHAPE_PIN);
     }
 }

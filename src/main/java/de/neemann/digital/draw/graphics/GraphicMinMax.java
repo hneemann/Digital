@@ -10,12 +10,14 @@ import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
+import static de.neemann.digital.draw.graphics.GraphicSwing.getMirrorYOrientation;
+
 /**
  * This class is used to determine the size of shapes or the whole circuit.
  * You can draw the items to an instance of this class and then obtain the size
  * by the getters getMin() and getMax().
  */
-public class GraphicMinMax implements Graphic {
+public class GraphicMinMax extends Graphic {
 
     private final boolean includeText;
     private final Graphic parent;
@@ -82,9 +84,9 @@ public class GraphicMinMax implements Graphic {
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         if (includeText || style.mattersAlwaysForSize())
-            approxTextSize(this, p1, p2, text, orientation, style);
+            approxTextSize(this, p1, p2, p3, text, orientation, style);
     }
 
     /**
@@ -93,11 +95,12 @@ public class GraphicMinMax implements Graphic {
      * @param gr          the Graphic instance to use
      * @param p1          point to draw the text
      * @param p2          at the left of p1, is used to determine the correct orientation of the text after transforming coordinates
+     * @param p3          at the top of p1, is used to determine the correct orientation of the text after transforming coordinates
      * @param text        the text
      * @param orientation the texts orientation
      * @param style       the text style
      */
-    public static void approxTextSize(Graphic gr, VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public static void approxTextSize(Graphic gr, VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         if (text != null && text.length() > 0) {
             VectorFloat delta = p2.sub(p1).norm();
             VectorFloat height = new VectorFloat(delta.getYFloat(), -delta.getXFloat()).mul(style.getFontSize());
@@ -110,8 +113,9 @@ public class GraphicMinMax implements Graphic {
                 p = p.sub(width.mul(orientation.getX()).div(2));
             }
 
-            if (orientation.getY() != 0) {
-                p = p.sub(height.mul(orientation.getY()).div(2));
+            int oy = getMirrorYOrientation(orientation, p1, p2, p3);
+            if (oy != 0) {
+                p = p.sub(height.mul(oy).div(2));
             } else
                 p = p.sub(height.div(4));
 

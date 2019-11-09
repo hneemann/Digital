@@ -13,10 +13,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashSet;
 
+import static de.neemann.digital.draw.graphics.GraphicSwing.getMirrorYOrientation;
+
 /**
  * Used to create a SVG representation of the circuit.
  */
-public class GraphicSVG implements Graphic {
+public class GraphicSVG extends Graphic {
     private static final int DEF_SCALE = 15;
     private final OutputStream out;
     private final File source;
@@ -185,7 +187,7 @@ public class GraphicSVG implements Graphic {
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         if (text == null || text.length() == 0) return;
 
         try {
@@ -204,7 +206,8 @@ public class GraphicSVG implements Graphic {
             }
 
             VectorFloat p = new VectorFloat(p1);
-            switch (orientation.getY()) {
+            int oy = getMirrorYOrientation(orientation, p1, p2, p3);
+            switch (oy) {
                 case 1:
                     p = p.add(new VectorFloat(0, style.getFontSize() / 2f - style.getFontSize() / 8f));
                     break;

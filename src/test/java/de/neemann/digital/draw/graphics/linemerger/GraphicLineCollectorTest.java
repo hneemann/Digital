@@ -56,7 +56,7 @@ public class GraphicLineCollectorTest extends TestCase {
         assertEquals("M 10,0 L 0,0 L 0,10 L 10,10 Z", poly.get(0).toString());
     }
 
-    private static class MyGraphic implements Graphic {
+    private static class MyGraphic extends Graphic {
         private final ArrayList<Polygon> poly;
 
         private MyGraphic(ArrayList<Polygon> poly) {
@@ -77,7 +77,7 @@ public class GraphicLineCollectorTest extends TestCase {
         }
 
         @Override
-        public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+        public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         }
     }
 }

@@ -35,6 +35,7 @@ public class FlipflopT extends FlipflopBit {
         }
     }
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.WITH_ENABLE)
             .addAttribute(Keys.DEFAULT)

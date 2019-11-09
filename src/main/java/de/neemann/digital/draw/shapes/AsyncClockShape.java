@@ -57,8 +57,8 @@ public class AsyncClockShape implements Shape {
                     .add(SIZE2, SIZE * 2 + SIZE2);
             graphic.drawPolygon(pol, TESTSTYLE);
             graphic.drawPolygon(pol, Style.THIN);
-            graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), new Vector(SIZE * 4, SIZE + SIZE2), "Async", Orientation.CENTERCENTER, Style.NORMAL);
-            graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), new Vector(SIZE * 4, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
+            graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), "Async", Orientation.CENTERCENTER, Style.NORMAL);
+            graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
         }
     }
 }

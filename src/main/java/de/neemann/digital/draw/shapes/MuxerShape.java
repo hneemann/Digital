@@ -69,6 +69,6 @@ public class MuxerShape implements Shape {
                 .add(SIZE * 2 - 1, 5)
                 .add(SIZE * 2 - 1, inputCount * SIZE - 5)
                 .add(1, inputCount * SIZE + 4), Style.NORMAL);
-        graphic.drawText(new Vector(3, 2), new Vector(4, 2), "0", Orientation.LEFTTOP, Style.SHAPE_PIN);
+        graphic.drawText(new Vector(3, 2), "0", Orientation.LEFTTOP, Style.SHAPE_PIN);
     }
 }

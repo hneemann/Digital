@@ -21,6 +21,7 @@ public class PFET extends NFET {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(PFET.class, input("G"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.FET_UNIDIRECTIONAL)
             .addAttribute(Keys.LABEL);

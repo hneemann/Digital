@@ -21,6 +21,7 @@ public class FGNFET extends NFET {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(FGNFET.class, input("G"))
             .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.MIRROR)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.BLOWN);

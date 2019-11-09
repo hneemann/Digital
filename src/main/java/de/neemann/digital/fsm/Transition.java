@@ -186,7 +186,7 @@ public class Transition extends Movable<Transition> {
             }
 
             for (String s : strings) {
-                gr.drawText(textPos, textPos.add(new Vector(1, 0)), s, Orientation.CENTERCENTER, Style.INOUT);
+                gr.drawText(textPos, s, Orientation.CENTERCENTER, Style.INOUT);
                 textPos = textPos.add(0, fontSize);
             }
         }

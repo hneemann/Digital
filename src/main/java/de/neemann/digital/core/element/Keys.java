@@ -838,4 +838,10 @@ public final class Keys {
     public static final Key<Boolean> SNAP_TO_GRID =
             new Key<>("snapToGrid", true).setSecondary();
 
+    /**
+     * Mirrors the component
+     */
+    public static final Key<Boolean> MIRROR =
+            new Key<>("mirror", false).allowGroupEdit().setSecondary();
+
 }

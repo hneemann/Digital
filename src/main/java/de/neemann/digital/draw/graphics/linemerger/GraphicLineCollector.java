@@ -16,7 +16,7 @@ import java.util.Iterator;
  * Needed to create a nicer svg export because of the creation of longer strokes
  * instead of single lines.
  */
-public class GraphicLineCollector implements Graphic {
+public class GraphicLineCollector extends Graphic {
     private final HashMap<Style, PolygonSet> polys;
 
     /**
@@ -45,7 +45,7 @@ public class GraphicLineCollector implements Graphic {
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
     }
 
     private static final class PolygonSet implements Iterable<Polygon> {

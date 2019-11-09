@@ -15,7 +15,7 @@ import java.awt.geom.Path2D;
 /**
  * Used to draw on a {@link Graphics2D} instance.
  */
-public class GraphicSwing implements Graphic {
+public class GraphicSwing extends Graphic {
 
     private final int minFontSize;
     private int pixelSize;
@@ -95,7 +95,7 @@ public class GraphicSwing implements Graphic {
     }
 
     @Override
-    public void drawText(VectorInterface p1, VectorInterface p2, String text, Orientation orientation, Style style) {
+    public void drawText(VectorInterface p1, VectorInterface p2, VectorInterface p3, String text, Orientation orientation, Style style) {
         applyStyle(style); // sets also font size!
         int fontHeight = gr.getFontMetrics().getHeight();
         if (fontHeight > minFontSize) {
@@ -130,9 +130,10 @@ public class GraphicSwing implements Graphic {
             }
 
             int yoff = 0;
-            if (orientation.getY() != 0) {
+            int oy = getMirrorYOrientation(orientation, p1, p2, p3);
+            if (oy != 0) {
                 int height = fragment.getHeight();
-                yoff += height * orientation.getY() / 3;
+                yoff += height * oy / 3;
             }
 
             fragment.draw(gr, p1.getX() + xoff, p1.getY() + yoff);
@@ -140,6 +141,14 @@ public class GraphicSwing implements Graphic {
             if (rotateText)
                 gr.setTransform(old);
         }
+    }
+
+    static int getMirrorYOrientation(Orientation orientation, VectorInterface p1, VectorInterface p2, VectorInterface p3) {
+        int oy = orientation.getY();
+        VectorInterface d0 = p2.sub(p1).getOrthogonal();
+        VectorInterface d1 = p3.sub(p1);
+        if (d0.scalar(d1) < 0) oy = 2 - oy;
+        return oy;
     }
 
     @Override

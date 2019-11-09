@@ -66,9 +66,9 @@ public class ResetShape implements Shape {
                 .add(x - OutputShape.OUT_SIZE * 2 - 2, OutputShape.OUT_SIZE), Style.NORMAL);
 
         Vector textPos = new Vector(x - OutputShape.OUT_SIZE * 2 + 2, -OutputShape.OUT_SIZE + 2);
-        graphic.drawText(textPos, textPos.add(1, 0), "R", Orientation.LEFTTOP, Style.SHAPE_PIN);
+        graphic.drawText(textPos, "R", Orientation.LEFTTOP, Style.SHAPE_PIN);
 
         textPos = new Vector(x - OutputShape.OUT_SIZE * 3, 0);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.RIGHTCENTER, Style.NORMAL);
+        graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.NORMAL);
     }
 }

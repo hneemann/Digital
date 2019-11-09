@@ -114,7 +114,7 @@ public class RelayShape implements Shape {
         graphic.drawLine(new Vector(SIZE + SIZE2, -SIZE * 2), new Vector(SIZE * 2, -SIZE * 2), Style.NORMAL);
 
         if (label != null && label.length() > 0)
-            Graphic.drawText(graphic, new Vector(SIZE, -SIZE * 3 - 4), label, Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
+            graphic.drawText(new Vector(SIZE, -SIZE * 3 - 4), label, Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
     }
 
 }

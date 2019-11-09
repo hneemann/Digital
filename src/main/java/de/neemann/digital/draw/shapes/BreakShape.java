@@ -65,6 +65,6 @@ public class BreakShape implements Shape {
         graphic.drawLine(center.sub(D1), center.add(D1), style);
         graphic.drawLine(center.sub(D2), center.add(D2), style);
         Vector textPos = new Vector(SIZE * 3, 0);
-        graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, style);
+        graphic.drawText(textPos, label, Orientation.LEFTCENTER, style);
     }
 }

@@ -88,14 +88,14 @@ public class OutputShape implements Shape {
             Vector center = new Vector(LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
             Vector textPos = new Vector(SIZE2 + LATEX_RAD.x, 0);
-            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.INOUT);
+            graphic.drawText(textPos, label, Orientation.LEFTCENTER, Style.INOUT);
         } else {
             Style style = Style.NORMAL;
             if (value != null) {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
                     Vector textPos = new Vector(1 + OUT_SIZE, -4 - OUT_SIZE);
-                    graphic.drawText(textPos, textPos.add(1, 0), format.formatToView(value), Orientation.CENTERBOTTOM, Style.NORMAL);
+                    graphic.drawText(textPos, format.formatToView(value), Orientation.CENTERBOTTOM, Style.NORMAL);
                 }
             }
 
@@ -103,7 +103,7 @@ public class OutputShape implements Shape {
             graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
             graphic.drawCircle(center.sub(RADL), center.add(RADL), Style.NORMAL);
             Vector textPos = new Vector(OUT_SIZE * 3, 0);
-            graphic.drawText(textPos, textPos.add(1, 0), label, Orientation.LEFTCENTER, Style.INOUT);
+            graphic.drawText(textPos, label, Orientation.LEFTCENTER, Style.INOUT);
         }
     }
 }
