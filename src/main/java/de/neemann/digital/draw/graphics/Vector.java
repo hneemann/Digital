@@ -256,4 +256,10 @@ public class Vector implements VectorInterface {
     public VectorFloat toFloat() {
         return new VectorFloat(x, y);
     }
+
+    @Override
+    public Vector getOrthogonal() {
+        return new Vector(y, -x);
+    }
+
 }

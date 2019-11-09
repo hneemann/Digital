@@ -145,9 +145,9 @@ public class GraphicSwing extends Graphic {
 
     static int getMirrorYOrientation(Orientation orientation, VectorInterface p1, VectorInterface p2, VectorInterface p3) {
         int oy = orientation.getY();
-        VectorInterface d0 = p2.sub(p1).toFloat().getOrthogonal();
+        VectorInterface d0 = p2.sub(p1).getOrthogonal();
         VectorInterface d1 = p3.sub(p1);
-        if (d1.getX() * d0.getX() + d1.getY() * d0.getY() < 0) oy = 2 - oy;
+        if (d0.scalar(d1) < 0) oy = 2 - oy;
         return oy;
     }
 

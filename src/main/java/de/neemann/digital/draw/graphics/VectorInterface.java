@@ -91,4 +91,17 @@ public interface VectorInterface {
      * @return the length of the vector
      */
     float len();
+
+    /**
+     * @return a vector which is orthogonal to this one
+     */
+    VectorInterface getOrthogonal();
+
+    /**
+     * @return the scalar product
+     */
+    default float scalar(VectorInterface v) {
+        return getXFloat() * v.getXFloat() + getYFloat() * v.getYFloat();
+    }
+
 }
