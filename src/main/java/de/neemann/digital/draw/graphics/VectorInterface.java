@@ -98,6 +98,9 @@ public interface VectorInterface {
     VectorInterface getOrthogonal();
 
     /**
+     * Calculates the scalar product
+     *
+     * @param v the vector to multiply with
      * @return the scalar product
      */
     default float scalar(VectorInterface v) {
