@@ -72,17 +72,17 @@ public class ButtonLEDShape extends ButtonShape {
     public void drawTo(Graphic graphic, Style heighLight) {
         super.drawTo(graphic, heighLight);
 
-        if (ledValue == null || ledValue.getBool()) {
-            Vector center;
-            if (button != null && button.isPressed()) {
-                center = new Vector(-OUT_SIZE - 1, 0);
-            } else
-                center = new Vector(-OUT_SIZE - 1 - ButtonShape.HEIGHT, -ButtonShape.HEIGHT);
+        boolean ledOn = ledValue == null || ledValue.getBool();
+        boolean pressed = button != null && button.isPressed();
+
+        Vector center;
+        if (pressed) {
+            center = new Vector(-OUT_SIZE - 1, 0);
+        } else
+            center = new Vector(-OUT_SIZE - 1 - ButtonShape.HEIGHT, -ButtonShape.HEIGHT);
+
+        if (ledOn)
             graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), color);
-            graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), Style.THIN);
-        } else {
-            Vector center = new Vector(-OUT_SIZE - 1 - ButtonShape.HEIGHT, -ButtonShape.HEIGHT);
-            graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), Style.THIN);
-        }
+        graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), Style.THIN);
     }
 }
