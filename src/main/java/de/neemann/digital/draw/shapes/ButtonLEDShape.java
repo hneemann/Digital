@@ -79,6 +79,10 @@ public class ButtonLEDShape extends ButtonShape {
             } else
                 center = new Vector(-OUT_SIZE - 1 - ButtonShape.HEIGHT, -ButtonShape.HEIGHT);
             graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), color);
+            graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), Style.THIN);
+        } else {
+            Vector center = new Vector(-OUT_SIZE - 1 - ButtonShape.HEIGHT, -ButtonShape.HEIGHT);
+            graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), Style.THIN);
         }
     }
 }
