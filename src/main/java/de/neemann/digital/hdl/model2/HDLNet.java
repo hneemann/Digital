@@ -50,8 +50,12 @@ public class HDLNet implements Printable, HasName {
      */
     public void addPort(HDLPort hdlPort) throws HDLException {
         if (hdlPort.getDirection().equals(HDLPort.Direction.OUT)) {
-            if (output != null)
-                throw new HDLException(Lang.get("err_hdlMultipleOutputsConnectedToNet_N_N_N", name, output, hdlPort));
+            if (output != null) {
+                String netName = name;
+                if (netName == null)
+                    netName = Lang.get("err_unnamedNet");
+                throw new HDLException(Lang.get("err_hdlMultipleOutputsConnectedToNet_N_N_N", netName, output, hdlPort));
+            }
             output = hdlPort;
         } else
             inputs.add(hdlPort);
