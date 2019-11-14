@@ -1168,7 +1168,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     private Modification<Circuit> checkNetRename(VisualElement element, ElementAttributes modified, Modification<Circuit> mod) {
         String oldName = element.getElementAttributes().get(Keys.NETNAME);
-        if (element.equalsDescription(Tunnel.DESCRIPTION) && modified.contains(Keys.NETNAME) && !oldName.isEmpty()) {
+        if (element.equalsDescription(Tunnel.DESCRIPTION)
+                && modified.contains(Keys.NETNAME)
+                && !modified.get(Keys.NETNAME).equals(oldName)
+                && !oldName.isEmpty()) {
 
             List<VisualElement> others = getCircuit().getElements(el -> el != element
                     && el.equalsDescription(Tunnel.DESCRIPTION)
