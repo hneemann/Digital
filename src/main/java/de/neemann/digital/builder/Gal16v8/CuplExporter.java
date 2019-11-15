@@ -10,13 +10,13 @@ import de.neemann.digital.analyse.expression.ExpressionVisitor;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.builder.*;
-import de.neemann.digital.builder.jedec.FuseMapFillerException;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -34,6 +34,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
     private final String username;
     private final Date date;
     private final BuilderCollector builder;
+    private final BuilderInterface cleanNameBuilder;
 
     private final PinMap pinMap;
     private final String devName;
@@ -84,6 +85,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
         this.devName = devName;
         this.pinMap = pinMap;
         builder = new CuplBuilder();
+        cleanNameBuilder = new CleanNameBuilder(builder);
     }
 
     /**
@@ -108,8 +110,8 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
     }
 
     @Override
-    public BuilderCollector getBuilder() {
-        return builder;
+    public BuilderInterface getBuilder() {
+        return cleanNameBuilder;
     }
 
     @Override
@@ -118,8 +120,8 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
     }
 
     @Override
-    public void writeTo(OutputStream out) throws FuseMapFillerException, IOException, PinMapException {
-        writeTo(new OutputStreamWriter(out, "ISO-8859-1"));
+    public void writeTo(OutputStream out) throws IOException, PinMapException {
+        writeTo(new OutputStreamWriter(out, StandardCharsets.ISO_8859_1));
     }
 
     /**
