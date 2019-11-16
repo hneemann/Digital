@@ -595,6 +595,7 @@
             <shortcut key="CTRL-D">Duplicate the current selection without modifying the clipboard.</shortcut>
             <shortcut key="R">While inserting this rotates the components.</shortcut>
             <shortcut key="L">Inserts the last inserted component again.</shortcut>
+            <shortcut key="T">Inserts a new tunnel.</shortcut>
             <shortcut key="CTRL-N">New circuit.</shortcut>
             <shortcut key="CTRL-O">Open circuit.</shortcut>
             <shortcut key="CTRL-S">Save the circuit.</shortcut>
@@ -607,8 +608,12 @@
             <shortcut key="ESC">Abort the current action.</shortcut>
             <shortcut key="Del">Removes the selected components.</shortcut>
             <shortcut key="Backspace">Removes the selected components.</shortcut>
-            <shortcut key="+">Increases the number of inputs at the component the mouse points to.</shortcut>
-            <shortcut key="-">Decreases the number of inputs at the component the mouse points to.</shortcut>
+            <shortcut key="+">Increases the number of inputs at the component the mouse points to. If it is used with
+                constants, the value is increased.
+            </shortcut>
+            <shortcut key="-">Decreases the number of inputs at the component the mouse points to. If it is used with
+                constants, the value is decreased.
+            </shortcut>
             <shortcut key="CTRL +">Zoom In</shortcut>
             <shortcut key="CTRL -">Zoom Out</shortcut>
             <shortcut key="F1">Fit to size</shortcut>

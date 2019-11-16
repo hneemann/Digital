@@ -515,8 +515,19 @@ public class Circuit implements Copyable<Circuit> {
      * @return the first element or null if there is no element at the given position
      */
     public VisualElement getElementAt(Vector pos) {
+        return getElementAt(pos, false);
+    }
+
+    /**
+     * Returns the element at the given position
+     *
+     * @param pos         the cursor position
+     * @param includeText if true the label text is included in matching
+     * @return the first element or null if there is no element at the given position
+     */
+    public VisualElement getElementAt(Vector pos, boolean includeText) {
         for (VisualElement element : visualElements)
-            if (element.matches(pos, false))
+            if (element.matches(pos, includeText))
                 return element;
         return null;
     }

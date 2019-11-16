@@ -5,11 +5,10 @@
  */
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.Observer;
-import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
@@ -345,6 +344,18 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 }
             }
         }.setAcceleratorCTRLplus('D').enableAcceleratorIn(this);
+
+        new ToolTipAction("insertTunnel") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (activeMouseController == mouseNormal) {
+                    VisualElement tunnel =
+                            new VisualElement(Tunnel.DESCRIPTION.getName())
+                                    .setShapeFactory(shapeFactory);
+                    setPartToInsert(tunnel);
+                }
+            }
+        }.setAccelerator("T").enableAcceleratorIn(this);
 
         ToolTipAction plus = new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), plus);
@@ -1288,8 +1299,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             mouseNormal.activate();
 
         VisualElement ve = null;
-        if (activeMouseController instanceof MouseControllerNormal)
-            ve = getCircuit().getElementAt(getPosVector(lastMousePos.x, lastMousePos.y));
+        if (activeMouseController instanceof MouseControllerNormal) {
+            Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
+            ve = getCircuit().getElementAt(pos);
+            if (ve == null)
+                ve = getCircuit().getElementAt(pos, true);
+        }
         return ve;
     }
 
@@ -1403,6 +1418,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                             int number = ve.getElementAttributes().get(Keys.INPUT_COUNT) + delta;
                             if (number >= Keys.INPUT_COUNT.getMin() && number <= Keys.INPUT_COUNT.getMax())
                                 modify(new ModifyAttribute<>(ve, Keys.INPUT_COUNT, number));
+                        } else if (ve.equalsDescription(Const.DESCRIPTION)) {
+                            long v = ve.getElementAttributes().get(Keys.VALUE) + delta;
+                            v &= Bits.mask(ve.getElementAttributes().getBits());
+                            modify(new ModifyAttribute<>(ve, Keys.VALUE, v));
                         }
                     } catch (ElementNotFoundException e1) {
                         // do nothing on error

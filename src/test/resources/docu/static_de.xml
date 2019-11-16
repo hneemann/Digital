@@ -657,6 +657,7 @@
             <shortcut key="STRG-D">Aktuelle Auswahl duplizieren ohne die Zwischenablage zu verändern.</shortcut>
             <shortcut key="R">Rotieren der Elemente beim Einfügen</shortcut>
             <shortcut key="L">Zuletzt eingefügtes Element noch einmal einfügen</shortcut>
+            <shortcut key="T">Einfügen eines Tunnels</shortcut>
             <shortcut key="STRG-N">Neue Schaltung</shortcut>
             <shortcut key="STRG-O">Schaltung öffnen</shortcut>
             <shortcut key="STRG-S">Speichern der Schaltung</shortcut>
@@ -669,8 +670,12 @@
             <shortcut key="ESC">Abbrechen der aktuellen Aktion</shortcut>
             <shortcut key="Entfernen">Löschen der selektierten Elemente</shortcut>
             <shortcut key="Rückschritt">Löschen der selektierten Elemente</shortcut>
-            <shortcut key="+">Erhöht die Anzahl der Eingänge in dem Element, auf welches die Maus zeigt.</shortcut>
-            <shortcut key="-">Erniedrigt die Anzahl der Eingänge in dem Element, auf welches die Maus zeigt.</shortcut>
+            <shortcut key="+">Erhöht die Anzahl der Eingänge in dem Element, auf welches die Maus zeigt. Bei Konstanten
+                wird der Wert erhöht.
+            </shortcut>
+            <shortcut key="-">Erniedrigt die Anzahl der Eingänge in dem Element, auf welches die Maus zeigt. Bei
+                Konstanten wird der Wert verringert.
+            </shortcut>
             <shortcut key="STRG +">Vergrößern</shortcut>
             <shortcut key="STRG -">Verkleinern</shortcut>
             <shortcut key="F1">Einpassen</shortcut>
