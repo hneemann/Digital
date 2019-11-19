@@ -212,11 +212,11 @@ public class TableDialog extends JDialog {
                         undoManager.apply(tt -> {
                             try {
                                 new ReorderInputs(tt, varNames).reorder();
-                                tableChanged();
                             } catch (ExpressionException ex) {
                                 throw new ModifyException("failed to reorder", ex);
                             }
                         });
+                        tableChanged();
                     } catch (ModifyException e1) {
                         new ErrorMessage().addCause(e1).show(TableDialog.this);
                     }
@@ -248,11 +248,11 @@ public class TableDialog extends JDialog {
                         undoManager.apply(tt -> {
                             try {
                                 new ReorderOutputs(tt, resultNames).reorder();
-                                tableChanged();
                             } catch (ExpressionException ex) {
                                 throw new ModifyException("failed to reorder", ex);
                             }
                         });
+                        tableChanged();
                     } catch (ModifyException e1) {
                         new ErrorMessage().addCause(e1).show(TableDialog.this);
                     }

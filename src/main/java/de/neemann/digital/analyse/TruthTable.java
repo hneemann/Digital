@@ -171,6 +171,7 @@ public class TruthTable implements Copyable<TruthTable> {
         variables.clear();
         variables.addAll(vars);
         results.clear();
+        bitSetter = null;
     }
 
     /**
