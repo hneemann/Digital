@@ -26,6 +26,7 @@ Interrupt-Controller wieder frei.}}</string>
         <entry>
           <string>inverterConfig</string>
           <inverterConfig>
+            <string>In_1</string>
             <string>In_4</string>
             <string>In_2</string>
           </inverterConfig>
@@ -46,26 +47,6 @@ Interrupt-Controller wieder frei.}}</string>
         </entry>
       </elementAttributes>
       <pos x="220" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>JK_FF</elementName>
-      <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>intLock</string>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>C</string>
-          </inverterConfig>
-        </entry>
-      </elementAttributes>
-      <pos x="300" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -127,26 +108,6 @@ die Interrupts wieder freigegeben.}}</string>
       <pos x="220" y="20"/>
     </visualElement>
     <visualElement>
-      <elementName>JK_FF</elementName>
-      <elementAttributes>
-        <entry>
-          <string>valueIsProbe</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>intReq</string>
-        </entry>
-        <entry>
-          <string>inverterConfig</string>
-          <inverterConfig>
-            <string>C</string>
-          </inverterConfig>
-        </entry>
-      </elementAttributes>
-      <pos x="300" y="120"/>
-    </visualElement>
-    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -158,29 +119,45 @@ die Interrupts wieder freigegeben.}}</string>
           <string>intr</string>
         </entry>
       </elementAttributes>
-      <pos x="220" y="120"/>
+      <pos x="220" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RS.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>intLock</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="-20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>RS.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>intr</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="140"/>
     </visualElement>
   </visualElements>
   <wires>
+    <wire>
+      <p1 x="360" y="160"/>
+      <p2 x="380" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="160"/>
+      <p2 x="300" y="160"/>
+    </wire>
     <wire>
       <p1 x="360" y="0"/>
       <p2 x="400" y="0"/>
     </wire>
     <wire>
       <p1 x="260" y="0"/>
-      <p2 x="280" y="0"/>
-    </wire>
-    <wire>
-      <p1 x="240" y="160"/>
-      <p2 x="300" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="80"/>
-      <p2 x="420" y="80"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="-20"/>
-      <p2 x="300" y="-20"/>
+      <p2 x="300" y="0"/>
     </wire>
     <wire>
       <p1 x="500" y="100"/>
@@ -191,6 +168,34 @@ die Interrupts wieder freigegeben.}}</string>
       <p2 x="560" y="100"/>
     </wire>
     <wire>
+      <p1 x="220" y="-40"/>
+      <p2 x="260" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="140"/>
+      <p2 x="300" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="140"/>
+      <p2 x="420" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="-80"/>
+      <p2 x="520" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="80"/>
+      <p2 x="420" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="-20"/>
+      <p2 x="300" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="180"/>
+      <p2 x="300" y="180"/>
+    </wire>
+    <wire>
       <p1 x="220" y="20"/>
       <p2 x="240" y="20"/>
     </wire>
@@ -199,15 +204,7 @@ die Interrupts wieder freigegeben.}}</string>
       <p2 x="300" y="20"/>
     </wire>
     <wire>
-      <p1 x="220" y="-40"/>
-      <p2 x="260" y="-40"/>
-    </wire>
-    <wire>
-      <p1 x="220" y="120"/>
-      <p2 x="300" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="360" y="120"/>
+      <p1 x="380" y="120"/>
       <p2 x="440" y="120"/>
     </wire>
     <wire>
@@ -215,24 +212,12 @@ die Interrupts wieder freigegeben.}}</string>
       <p2 x="400" y="220"/>
     </wire>
     <wire>
-      <p1 x="400" y="140"/>
-      <p2 x="420" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="260" y="140"/>
-      <p2 x="280" y="140"/>
-    </wire>
-    <wire>
       <p1 x="400" y="60"/>
-      <p2 x="440" y="60"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="-80"/>
-      <p2 x="520" y="-80"/>
+      <p2 x="420" y="60"/>
     </wire>
     <wire>
       <p1 x="240" y="20"/>
-      <p2 x="240" y="160"/>
+      <p2 x="240" y="180"/>
     </wire>
     <wire>
       <p1 x="400" y="140"/>
@@ -248,7 +233,7 @@ die Interrupts wieder freigegeben.}}</string>
     </wire>
     <wire>
       <p1 x="260" y="0"/>
-      <p2 x="260" y="140"/>
+      <p2 x="260" y="160"/>
     </wire>
     <wire>
       <p1 x="520" y="-80"/>
@@ -257,6 +242,10 @@ die Interrupts wieder freigegeben.}}</string>
     <wire>
       <p1 x="280" y="-80"/>
       <p2 x="280" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="120"/>
+      <p2 x="380" y="160"/>
     </wire>
   </wires>
   <measurementOrdering/>
