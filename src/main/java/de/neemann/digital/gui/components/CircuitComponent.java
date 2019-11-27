@@ -277,21 +277,21 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private void enableFavoritePositions() {
         for (int j = 0; j <= 9; j++) {
             final int i = j;
-            final Key<AffineTransform> key = new Key<>("view" + i, AffineTransform::new);
+            final Key<TransformHolder> key = new Key<>("view" + i, TransformHolder::new);
             new ToolTipAction("CTRL+" + i) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     ElementAttributes attr = new ElementAttributes(getCircuit().getAttributes());
-                    attr.set(key, new AffineTransform(transform));
+                    attr.set(key, new TransformHolder(transform));
                     modify(new ModifyCircuitAttributes(attr));
                 }
             }.setAcceleratorCTRLplus((char) ('0' + i)).enableAcceleratorIn(this);
             new ToolTipAction("" + i) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    AffineTransform tr = getCircuit().getAttributes().get(key);
-                    if (!tr.isIdentity()) {
-                        transform = new AffineTransform(tr);
+                    TransformHolder transformHolder = getCircuit().getAttributes().get(key);
+                    if (!transformHolder.isIdentity()) {
+                        transform = transformHolder.createAffineTransform();
                         isManualScale = true;
                         graphicHasChanged();
                         if (circuitScrollPanel != null)
