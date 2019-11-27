@@ -21,7 +21,7 @@ public class InlineManyToOne implements Optimization {
             if (node instanceof HDLNodeAssignment) {
                 HDLNodeAssignment assign = (HDLNodeAssignment) node;
                 final HDLNet net = assign.getTargetNet();
-                if (net.getInputs().size() == 1) {
+                if (net != null && net.getInputs().size() == 1) {
                     HDLNode receiver = net.getInputs().get(0).getParent();
                     if (receiver instanceof HDLNodeSplitterManyToOne) {
                         HDLNodeSplitterManyToOne mto = (HDLNodeSplitterManyToOne) receiver;

@@ -254,9 +254,11 @@ public class VHDLCreator {
     }
 
     private void printExpression(HDLNodeAssignment node) throws IOException, HDLException {
-        out.print(node.getTargetNet().getName()).print(" <= ");
-        printExpression(node.getExpression());
-        out.println(";");
+        if (node.getTargetNet() != null) {
+            out.print(node.getTargetNet().getName()).print(" <= ");
+            printExpression(node.getExpression());
+            out.println(";");
+        }
     }
 
     private void printExpression(Expression expression) throws IOException, HDLException {
