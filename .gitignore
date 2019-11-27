@@ -77,3 +77,9 @@ buildNumber.properties
 
 #netbeans project files
 nbactions.xml
+
+#vscode
+.classpath
+.project
+.settings
+.vscode

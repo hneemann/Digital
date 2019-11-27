@@ -1190,16 +1190,18 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
             if (others.size() > 0) {
                 String newName = modified.get(Keys.NETNAME);
-                int res = JOptionPane.showConfirmDialog(this,
-                        new LineBreaker().toHTML().preserveContainedLineBreaks().breakLines(Lang.get("msg_renameNet_N_OLD_NEW", others.size(), oldName, newName)),
-                        Lang.get("msg_renameNet"),
-                        JOptionPane.YES_NO_OPTION);
-                if (res == JOptionPane.YES_OPTION) {
-                    Modifications.Builder<Circuit> b =
-                            new Modifications.Builder<Circuit>(Lang.get("msg_renameNet")).add(mod);
-                    for (VisualElement o : others)
-                        b.add(new ModifyAttribute<>(o, Keys.NETNAME, newName));
-                    return b.build();
+                if (Settings.getInstance().get(Keys.SETTINGS_SHOW_TUNNEL_RENAME_DIALOG)) {
+                    int res = JOptionPane.showConfirmDialog(this,
+                            new LineBreaker().toHTML().preserveContainedLineBreaks().breakLines(Lang.get("msg_renameNet_N_OLD_NEW", others.size(), oldName, newName)),
+                            Lang.get("msg_renameNet"),
+                            JOptionPane.YES_NO_OPTION);
+                    if (res == JOptionPane.YES_OPTION) {
+                        Modifications.Builder<Circuit> b =
+                                new Modifications.Builder<Circuit>(Lang.get("msg_renameNet")).add(mod);
+                        for (VisualElement o : others)
+                            b.add(new ModifyAttribute<>(o, Keys.NETNAME, newName));
+                        return b.build();
+                    }
                 }
             }
         }
