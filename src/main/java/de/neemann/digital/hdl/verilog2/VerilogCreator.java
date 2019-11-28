@@ -61,7 +61,7 @@ public class VerilogCreator {
      * @return the verilog signal type
      */
     public static String getType(HDLPort.Direction dir, int bits) {
-        String result = (dir == HDLPort.Direction.IN)? "input" : "output";
+        String result = (dir == HDLPort.Direction.IN) ? "input" : "output";
 
         if (bits > 1) {
             result += " [" + (bits - 1) + ":0]";
@@ -110,7 +110,7 @@ public class VerilogCreator {
      * Prints the given circuit to the output.
      * Also all needed entities are printed.
      *
-     * @param circuit the circuit to print
+     * @param circuit    the circuit to print
      * @param moduleName the module name
      * @throws IOException      IOException
      * @throws HDLException     HDLException
@@ -244,7 +244,7 @@ public class VerilogCreator {
         String instanceName = entityName.trim() + "_i" + num;
 
         out.print(instanceName + " ")
-           .println("(");
+                .println("(");
 
         out.inc();
         Separator sep = new Separator(out, ",\n");
@@ -265,9 +265,11 @@ public class VerilogCreator {
     }
 
     private void printExpression(HDLNodeAssignment node) throws IOException, HDLException {
-        out.print("assign ").print(node.getTargetNet().getName()).print(" = ");
-        printExpression(node.getExpression());
-        out.println(";");
+        if (node.getTargetNet() != null) {
+            out.print("assign ").print(node.getTargetNet().getName()).print(" = ");
+            printExpression(node.getExpression());
+            out.println(";");
+        }
     }
 
     private void printExpression(Expression expression) throws IOException, HDLException {

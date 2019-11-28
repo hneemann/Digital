@@ -28,12 +28,12 @@ import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
+import de.neemann.digital.gui.components.TransformHolder;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.undo.Copyable;
 import de.neemann.gui.language.Language;
 
-import java.awt.geom.AffineTransform;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -99,7 +99,7 @@ public class Circuit implements Copyable<Circuit> {
         xStream.alias("text", CustomShapeDescription.TextHolder.class);
         xStream.alias("polygon", Polygon.class);
         xStream.alias("shapeType", CustomCircuitShapeType.class);
-        xStream.alias("transform", AffineTransform.class);
+        xStream.alias("transform", TransformHolder.class);
         xStream.registerConverter(new PolygonConverter());
         return xStream;
     }
