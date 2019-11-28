@@ -474,6 +474,12 @@ public final class Keys {
             = new Key<>("macMouse", Screen.isMac()).setRequiresRestart();
 
     /**
+     * enables tunnel rename dialog
+     */
+    public static final Key<Boolean> SETTINGS_SHOW_TUNNEL_RENAME_DIALOG
+            = new Key<>("tunnelRenameDialog", true);
+
+    /**
      * output format for numbers
      */
     public static final Key<IntFormat> INT_FORMAT

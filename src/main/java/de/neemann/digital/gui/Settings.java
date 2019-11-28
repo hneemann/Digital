@@ -18,7 +18,7 @@ import java.util.List;
  * <p>
  * Created by Helmut.Neemann on 11.05.2016.
  */
-public final class Settings extends SettingsBase  {
+public final class Settings extends SettingsBase {
 
     private static final class SettingsHolder {
         static final Settings INSTANCE = new Settings();
@@ -57,6 +57,7 @@ public final class Settings extends SettingsBase  {
         intList.add(Keys.SETTINGS_FONT_SCALING);
         intList.add(Keys.SETTINGS_MAC_MOUSE);
         intList.add(Keys.SETTINGS_USE_EQUALS_KEY);
+        intList.add(Keys.SETTINGS_SHOW_TUNNEL_RENAME_DIALOG);
 
         return Collections.unmodifiableList(intList);
     }
@@ -76,4 +77,3 @@ public final class Settings extends SettingsBase  {
     }
 
 }
-

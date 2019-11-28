@@ -1301,6 +1301,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_noComponentToolTips">Keine ToolTips für Bauteile auf der Arbeitsfläche.</string>
     <string name="key_noComponentToolTips_tt">Wenn gesetzt, werden keine ToolTips für die Bauteile auf der Arbeitsfläche angezeigt.
         Vor allem in einer Präsentation können diese ToolTips sehr störend sein.</string>
+    <string name="key_tunnelRenameDialog">Dialog zum automatischen umbenennen von Tunneln anzeigen</string>
+    <string name="key_tunnelRenameDialog_tt">Wenn gesetzt, wird nach dem Umbenennen eines Tunnels ein Dialog für automatisches Umbenennen
+        aller gleichnamigen Tunnel angezeigt.</string>
 
     <string name="key_ATMISP">ATMISP</string>
     <string name="key_ATMISP_tt">Pfad zur ausführbaren Datei ATMISP.exe. Wenn gesetzt, kann die Software ATMISP automatisch gestartet werden!</string>
