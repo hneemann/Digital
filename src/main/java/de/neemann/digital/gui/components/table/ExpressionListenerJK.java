@@ -57,7 +57,7 @@ public class ExpressionListenerJK implements ExpressionListener {
     }
 
     /**
-     * If the name belogs to a sequential state var, the state vars name is returned.
+     * If the name belongs to a sequential state var, the state vars name is returned.
      * Otherwise a null is returned
      *
      * @param name the name of the variable
