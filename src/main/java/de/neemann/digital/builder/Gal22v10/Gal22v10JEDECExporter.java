@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Class to create a JEDEC file for the Lattice GAL16V8
+ * Class to create a JEDEC file for the Lattice GAL22V10
  */
 public class Gal22v10JEDECExporter implements ExpressionExporter<Gal22v10JEDECExporter> {
     private static final int[] PRODUCTS_BY_OLMC = new int[]{8, 10, 12, 14, 16, 16, 14, 12, 10, 8};

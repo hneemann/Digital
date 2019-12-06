@@ -26,8 +26,6 @@ public class FuseMapFiller {
 
     /**
      * Creates a new instance
-     * The given vars list needs to contain all variables connected to the matrix in the correct order.
-     * If a variable in the matrix is not used, you have to add a null to the variables list.
      *
      * @param fuseMap            the fuse map to fill
      * @param varsConnectedToMap the number variables available in matrix

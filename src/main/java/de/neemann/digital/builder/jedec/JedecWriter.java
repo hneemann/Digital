@@ -8,6 +8,7 @@ package de.neemann.digital.builder.jedec;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  */
@@ -35,11 +36,11 @@ public class JedecWriter extends FilterOutputStream {
      * Writes the string to the file
      *
      * @param s the string to write
-     * @return this for chanined calls
+     * @return this for chained calls
      * @throws IOException IOException
      */
     public JedecWriter print(String s) throws IOException {
-        write(s.getBytes("ISO-8859-1"));
+        write(s.getBytes(StandardCharsets.ISO_8859_1));
         return this;
     }
 
@@ -48,7 +49,7 @@ public class JedecWriter extends FilterOutputStream {
      * Adds a carriage return and a line feed
      *
      * @param s the string to write
-     * @return this for chanined calls
+     * @return this for chained calls
      * @throws IOException IOException
      */
     public JedecWriter println(String s) throws IOException {
@@ -104,7 +105,7 @@ public class JedecWriter extends FilterOutputStream {
     @Override
     public void close() throws IOException {
         write(ETX);
-        out.write(toHex(checksum & 0xffff, 4).getBytes("ISO-8859-1"));
+        out.write(toHex(checksum & 0xffff, 4).getBytes(StandardCharsets.ISO_8859_1));
         super.close();
     }
 
