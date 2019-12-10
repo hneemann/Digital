@@ -1151,8 +1151,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         try {
+                            attributeDialog.dispose();
                             new ElementHelpDialog(
-                                    attributeDialog,
+                                    attributeDialog.getDialogParent(),
                                     elementType,
                                     element.getElementAttributes(),
                                     getCircuit().getAttributes().get(Keys.IS_GENERIC)).setVisible(true);

@@ -66,7 +66,7 @@ public class ElementHelpDialog extends JDialog {
      * @throws NodeException NodeException
      */
     public ElementHelpDialog(Window parent, ElementTypeDescription elementType, ElementAttributes elementAttributes, boolean showKeys) throws NodeException, PinException {
-        super(parent, Lang.get("attr_help"), ModalityType.APPLICATION_MODAL);
+        super(parent, Lang.get("attr_help"), ModalityType.MODELESS);
         this.showKeys = showKeys;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         StringWriter w = new StringWriter();
