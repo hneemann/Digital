@@ -6,6 +6,8 @@
 package de.neemann.digital.builder.jedec;
 
 /**
+ * Represents the fuses in the fuse map.
+ * Fuse data is represented by bytes containing 8 fuses each
  */
 public class FuseMap {
 

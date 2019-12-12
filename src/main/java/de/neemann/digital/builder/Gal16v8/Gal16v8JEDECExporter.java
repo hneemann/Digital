@@ -5,9 +5,11 @@
  */
 package de.neemann.digital.builder.Gal16v8;
 
-import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.builder.*;
+import de.neemann.digital.builder.BuilderCollector;
+import de.neemann.digital.builder.ExpressionExporter;
+import de.neemann.digital.builder.PinMap;
+import de.neemann.digital.builder.PinMapException;
 import de.neemann.digital.builder.jedec.FuseMap;
 import de.neemann.digital.builder.jedec.FuseMapFiller;
 import de.neemann.digital.builder.jedec.FuseMapFillerException;
@@ -43,18 +45,10 @@ public class Gal16v8JEDECExporter implements ExpressionExporter<Gal16v8JEDECExpo
             map.setFuse(i, true);
         filler = new FuseMapFiller(map, 16);
 
-        builder = new BuilderCollector() {
-            @Override
-            public BuilderCollector addCombinatorial(String name, Expression expression) throws BuilderException {
-                if (pinMap.isSimpleAlias(name, expression))
-                    return this;
-                else
-                    return super.addCombinatorial(name, expression);
-            }
-        };
         pinMap = new PinMap()
                 .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9)
                 .setAvailOutputs(12, 13, 14, 15, 16, 17, 18, 19);
+        builder = new BuilderCollectorGAL(pinMap);
     }
 
     private void init(boolean registered) {

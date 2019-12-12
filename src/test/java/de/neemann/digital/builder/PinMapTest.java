@@ -8,7 +8,12 @@ package de.neemann.digital.builder;
 import de.neemann.digital.analyse.expression.Variable;
 import junit.framework.TestCase;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+
 /**
+ *
  */
 public class PinMapTest extends TestCase {
 
@@ -131,7 +136,7 @@ public class PinMapTest extends TestCase {
 
     public void testAlias() throws PinMapException {
         pinMap.assignPin("A", 4);
-        assertTrue(pinMap.isSimpleAlias("B", new Variable("A")));
+        assertTrue(pinMap.isSimpleAlias("B", new Variable("A"), null));
 
         assertEquals(4, pinMap.getOutputFor("A"));
         assertEquals(4, pinMap.getOutputFor("B"));
@@ -139,14 +144,14 @@ public class PinMapTest extends TestCase {
 
     public void testAliasSwap() throws PinMapException {
         pinMap.assignPin("A", 4);
-        assertTrue(pinMap.isSimpleAlias("A", new Variable("B")));
+        assertTrue(pinMap.isSimpleAlias("A", new Variable("B"), null));
 
         assertEquals(4, pinMap.getOutputFor("A"));
         assertEquals(4, pinMap.getOutputFor("B"));
     }
 
     public void testAliasReverseOrder() throws PinMapException {
-        assertTrue(pinMap.isSimpleAlias("B", new Variable("A")));
+        assertTrue(pinMap.isSimpleAlias("B", new Variable("A"), null));
         pinMap.assignPin("A", 4);
 
         assertEquals(4, pinMap.getOutputFor("A"));
@@ -156,12 +161,27 @@ public class PinMapTest extends TestCase {
 
     public void testAliasInput() throws PinMapException {
         pinMap.assignPin("A", 2);
-        assertTrue(pinMap.isSimpleAlias("B", new Variable("A")));
+        assertTrue(pinMap.isSimpleAlias("B", new Variable("A"), null));
 
         assertEquals(2, pinMap.getInputFor("A"));
         assertEquals(2, pinMap.getInputFor("B"));
     }
 
+    public void testAliasSequential() throws PinMapException {
+        pinMap.assignPin("A", 4);
+        assertFalse(pinMap.isSimpleAlias("B", new Variable("A"), new HashSet<>()));
+
+        assertEquals(4, pinMap.getOutputFor("A"));
+        assertEquals(5, pinMap.getOutputFor("B"));
+    }
+
+    public void testAliasSequential2() throws PinMapException {
+        pinMap.assignPin("A", 4);
+        assertTrue(pinMap.isSimpleAlias("B", new Variable("A"), new HashSet<>(Collections.singletonList("A"))));
+
+        assertEquals(4, pinMap.getOutputFor("A"));
+        assertEquals(4, pinMap.getOutputFor("B"));
+    }
 
     public void testToString() throws PinMapException {
         pinMap.assignPin("A", 1);

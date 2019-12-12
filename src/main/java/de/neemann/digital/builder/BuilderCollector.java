@@ -80,4 +80,12 @@ public class BuilderCollector implements BuilderInterface<BuilderCollector> {
         return registered;
     }
 
+    /**
+     * Removes an output.
+     *
+     * @param name the output to remove
+     */
+    public void removeOutput(String name) {
+        outputs.remove(name);
+    }
 }
