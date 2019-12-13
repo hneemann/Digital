@@ -106,7 +106,7 @@ If you are familiar with Logisim you will recognize the wire color scheme.
 Logisim is a excellent and proven tool for teaching purposes, that has been actively developed until 2011. 
 In 2013 Carl Burch has started the development of a new simulator called [Toves](http://www.toves.org/). 
 In his [blog](http://www.toves.org/blog/) he explained why he decided to develop a new simulator instead of improving Logisim. 
-In short: There are weaknesses in Logisims architecture which are too difficult to overcome.
+In short: In his opinion, there are weaknesses in Logisim's architecture that are too difficult to overcome. 
 Unfortunately, the development of Toves was discontinued at a very early stage.
 
 In 2014, Carl Burch finally [discontinued](http://www.cburch.com/logisim/retire-note.html) the development of
@@ -121,7 +121,7 @@ Logisim. Since Logisim was released as open source, there are a number of forks 
 
 But as far as I know, these projects do not work on solving the architectural difficulties. 
 They are more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
-for example, a VHDL/Verilog export was added.
+for example, a VHDL/Verilog export and a really nice FPGA board integration was added.
 
 So I also decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
 In the meantime a development level has been reached which is comparable to Logisim.
@@ -224,16 +224,17 @@ D flip-flops or JK flip-flops, including the generation of the state transition 
 Note, however, that a flip-flop build of combinatorial gates is not recognized as such.
 The analysis of sequential circuits only works with purely combinatorial
 logic combined with the build-in D or JK flip-flops.
-After you have created the truth table or state transition table you can create a JEDEC file for a 
+Once a truth table or state transition table has been created, a JEDEC file can be exported for a 
 [GAL16v8](http://www.atmel.com/devices/ATF16V8C.aspx) or a [GAL22v10](http://www.atmel.com/devices/ATF22V10C.aspx).
-After that you can simply flash this file to the appropriate GAL and test the circuit on a bred board.
+After that, this file can be flashed onto a appropriate GAL.
 As mentioned above these GALs are quite old but with 8/10 macro-cells sufficient for beginners exercises.
-If more macro-cells are required, see the PDF documentation that is included in the distribution for details 
-on how to set up Digital to support the [ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
-[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) which offer 32/64 macro-cells and In System Programming.
+If more macro-cells are required, see the PDF documentation for details on how to set up Digital to support the 
+[ATF1502](http://www.microchip.com/wwwproducts/en/ATF1502AS) and
+[ATF1504](http://www.microchip.com/wwwproducts/en/ATF1504AS) CPLDs which offer 32/64 macro-cells and In System Programming.
 It is also possible to export a circuit to VHDL or Verilog to run it on an FPGA.
-But the HDL synthesis is a bit time-consuming and in my opinion slows down the workflow in a
-lab exercise too much, especially if only very simple circuits are used.
+But the necessary HDL synthesis is sometimes a bit time-consuming and in my experience slows down the workflow in a 
+lab exercise too much, especially if only simple circuits are required and the students change the circuit 
+over and over again.
 
 ## How do I get set up? ##
 
