@@ -120,8 +120,11 @@ public class InputShape implements Shape {
             if (value != null) {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
+                    Value v = value;
+                    if (inValue != null)
+                        v = inValue;
                     Vector textPos = new Vector(-1 - OUT_SIZE, -4 - OUT_SIZE);
-                    graphic.drawText(textPos, format.formatToView(value), Orientation.CENTERBOTTOM, Style.NORMAL);
+                    graphic.drawText(textPos, format.formatToView(v), Orientation.CENTERBOTTOM, Style.NORMAL);
                 } else {
                     if (inValue != null && !inValue.isEqual(value))
                         graphic.drawPolygon(box, Style.getWireStyle(inValue));
