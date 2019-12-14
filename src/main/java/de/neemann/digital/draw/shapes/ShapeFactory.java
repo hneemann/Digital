@@ -163,6 +163,7 @@ public final class ShapeFactory {
         map.put(DiodeBackward.DESCRIPTION.getName(), DiodeBackwardShape::new);
         map.put(PullUp.DESCRIPTION.getName(), PullUpShape::new);
         map.put(PullDown.DESCRIPTION.getName(), PullDownShape::new);
+        map.put(PinControl.DESCRIPTION.getName(), PinControlShape::new);
 
         // disables string formatting for external components, see #272
         map.put(External.DESCRIPTION.getName(),
