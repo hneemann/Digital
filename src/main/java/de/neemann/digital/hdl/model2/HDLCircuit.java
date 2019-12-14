@@ -154,12 +154,18 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         nodes.addAll(newNodes);
 
         for (HDLPort i : inputs)
-            if (i.getNet() != null)
+            if (i.getNet() != null) {
                 i.getNet().setIsInput(i.getName());
+                if (i.getNet().isInOutNet())
+                    i.setInOut();
+            }
 
-        for (HDLPort o : outputs)
+        for (HDLPort o : outputs) {
             if (o.getNet().needsVariable())
                 o.getNet().setIsOutput(o.getName(), o.getNet().getInputs().size() == 1);
+            if (o.getNet().isInOutNet())
+                o.setInOut();
+        }
 
     }
 

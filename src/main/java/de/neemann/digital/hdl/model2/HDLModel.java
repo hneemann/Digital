@@ -10,10 +10,7 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.io.Const;
-import de.neemann.digital.core.io.DipSwitch;
-import de.neemann.digital.core.io.Ground;
-import de.neemann.digital.core.io.VDD;
+import de.neemann.digital.core.io.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.PinException;
@@ -150,7 +147,6 @@ public class HDLModel implements Iterable<HDLCircuit> {
                                         td.createElement(v.getElementAttributes()).getOutputs())),
                         v, parent).createExpressions();
 
-
         } catch (ElementNotFoundException | PinException | NodeException e) {
             throw new HDLException("error creating node", e);
         }
@@ -187,7 +183,10 @@ public class HDLModel implements Iterable<HDLCircuit> {
                     node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
                     break;
                 case both:
-                    node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.INOUT, node.getBits(p.getName())));
+                    if (v.equalsDescription(PinControl.DESCRIPTION))
+                        node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.INOUT, node.getBits(p.getName())));
+                    else
+                        node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
                     break;
             }
         }

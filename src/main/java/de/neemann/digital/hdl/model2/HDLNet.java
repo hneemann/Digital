@@ -67,7 +67,6 @@ public class HDLNet implements Printable, HasName {
             case INOUT:
                 inOutputs.add(hdlPort);
                 break;
-
         }
     }
 
@@ -223,6 +222,13 @@ public class HDLNet implements Printable, HasName {
      */
     public void rename(HDLModel.Renaming renaming) {
         name = renaming.checkName(name);
+    }
+
+    /**
+     * @return true if this is a inOut net
+     */
+    public boolean isInOutNet() {
+        return !inOutputs.isEmpty();
     }
 
 }
