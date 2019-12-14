@@ -1,0 +1,64 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+<?
+  if (elem.Bits=1) {
+      export entityName:="PinControl";  ?>
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY PinControl IS
+    PORT(
+        pin  : INOUT STD_LOGIC;
+        oe   : IN STD_LOGIC;
+        wr   : IN STD_LOGIC;
+        rd   : OUT STD_LOGIC);
+END PinControl;
+
+ARCHITECTURE Behavioral OF PinControl IS
+BEGIN
+    PROCESS (oe, pin, wr)      -- Behavioral representation
+        BEGIN                  -- of tri-states.
+        IF( oe = '0') THEN
+            pin <= 'Z';
+            rd <= pin;
+        ELSE
+            pin <= wr;
+            rd <= wr;
+        END IF;
+    END PROCESS;
+END Behavioral;
+
+<? } else {
+      export entityName:="PinControl_BUS"; ?>
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY PinControl_BUS IS
+    GENERIC (
+      Bits: integer );<? vhdl.registerGeneric("Bits"); ?>
+    PORT(
+        pin  : INOUT std_logic_vector((Bits-1) downto 0);
+        oe   : IN STD_LOGIC;
+        wr   : IN std_logic_vector((Bits-1) downto 0);
+        rd   : OUT std_logic_vector((Bits-1) downto 0));
+END PinControl_BUS;
+
+ARCHITECTURE Behavioral OF PinControl_BUS IS
+BEGIN
+    PROCESS (oe, pin, wr)      -- Behavioral representation
+        BEGIN                  -- of tri-states.
+        IF( oe = '0') THEN
+            pin <= (others => 'Z');
+            rd <= pin;
+        ELSE
+            pin <= wr;
+            rd <= wr;
+        END IF;
+    END PROCESS;
+END Behavioral;
+
+<?
+  }
+?>

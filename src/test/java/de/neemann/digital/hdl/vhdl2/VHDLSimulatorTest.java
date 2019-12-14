@@ -14,6 +14,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
@@ -32,9 +33,9 @@ public class VHDLSimulatorTest extends TestCase {
     private static final String GHDL = System.getProperty("ghdl", "ghdl");
     private int testBenches;
 
-    /*
+    //*
     public void testDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "dig/test/vhdl/lut2.dig");
+        File file = new File(Resources.getRoot(), "/dig/test/pinControl/simple.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));

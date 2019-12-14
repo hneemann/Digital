@@ -9,6 +9,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.hdl.model2.expression.Expression;
 import de.neemann.digital.hdl.model2.expression.Visitor;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.vhdl2.VHDLTestBenchCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public abstract class HDLNode {
     private final HDLModel.BitProvider bitProvider;
     private final ArrayList<HDLPort> inputs;
     private final ArrayList<HDLPort> outputs;
+    private final ArrayList<HDLPort> inOutputs;
     private String hdlEntityName;
 
     /**
@@ -37,6 +39,7 @@ public abstract class HDLNode {
         this.bitProvider = bitProvider;
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
+        inOutputs = new ArrayList<>();
     }
 
     /**
@@ -46,10 +49,17 @@ public abstract class HDLNode {
      * @return this for chained calls
      */
     public HDLNode addPort(HDLPort port) {
-        if (port.getDirection().equals(HDLPort.Direction.OUT))
-            outputs.add(port);
-        else
-            inputs.add(port);
+        switch (port.getDirection()) {
+            case IN:
+                inputs.add(port);
+                break;
+            case OUT:
+                outputs.add(port);
+                break;
+            case INOUT:
+                inOutputs.add(port);
+                break;
+        }
 
         port.setParent(this);
 
@@ -96,6 +106,13 @@ public abstract class HDLNode {
         return outputs;
     }
 
+    /**
+     * @return the list of inOutputs
+     */
+    public ArrayList<HDLPort> getInOutputs() {
+        return inOutputs;
+    }
+
     int getBits(String name) {
         return bitProvider.getBits(name);
     }
@@ -111,6 +128,10 @@ public abstract class HDLNode {
         printWithLocal(out, inputs);
         out.print("out");
         printWithLocal(out, outputs);
+        if (!inOutputs.isEmpty()) {
+            out.print("inOut");
+            printWithLocal(out, inOutputs);
+        }
     }
 
     private void printWithLocal(CodePrinter out, ArrayList<HDLPort> ports) throws IOException {
@@ -176,6 +197,8 @@ public abstract class HDLNode {
         for (HDLPort p : outputs)
             p.rename(renaming);
         for (HDLPort p : inputs)
+            p.rename(renaming);
+        for (HDLPort p : inOutputs)
             p.rename(renaming);
     }
 

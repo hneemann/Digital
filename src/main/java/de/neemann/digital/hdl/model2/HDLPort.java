@@ -30,7 +30,11 @@ public class HDLPort implements Printable, HasName {
          * Caution: a circuits input components port has type OUT because it defines a value,
          * seen from inside the node.
          */
-        OUT
+        OUT,
+        /**
+         * Bidirectional port
+         */
+        INOUT
     }
 
     private String name;

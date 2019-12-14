@@ -250,6 +250,11 @@ public class VHDLCreator {
                 sep.check();
                 out.print(o.getName()).print(" => ").print(o.getNet().getName());
             }
+        for (HDLPort o : node.getInOutputs())
+            if (o.getNet() != null) {
+                sep.check();
+                out.print(o.getName()).print(" => ").print(o.getNet().getName());
+            }
         out.println(");").dec().dec();
     }
 

@@ -180,10 +180,17 @@ public class HDLModel implements Iterable<HDLCircuit> {
     private <N extends HDLNode> N addInputsOutputs(N node, VisualElement v, HDLCircuit c) throws HDLException {
         for (Pin p : v.getPins()) {
             HDLNet net = c.getNetOfPin(p);
-            if (p.getDirection().equals(PinDescription.Direction.input))
-                node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.IN, 0));
-            else
-                node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
+            switch (p.getDirection()) {
+                case input:
+                    node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.IN, 0));
+                    break;
+                case output:
+                    node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
+                    break;
+                case both:
+                    node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.INOUT, node.getBits(p.getName())));
+                    break;
+            }
         }
         return node;
     }

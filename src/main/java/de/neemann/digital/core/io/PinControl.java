@@ -26,7 +26,8 @@ public class PinControl extends Node implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(PinControl.class, input("wr"), input("oe"))
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.MIRROR);
 
     private final int bits;
     private final ObservableValue rdValue;
@@ -46,7 +47,7 @@ public class PinControl extends Node implements Element {
     public PinControl(ElementAttributes attr) {
         bits = attr.getBits();
         rdValue = new ObservableValue("rd", bits).setPinDescription(DESCRIPTION);
-        outWriteValue = new ObservableValue("out", bits).setPinDescription(DESCRIPTION).setBidirectional();
+        outWriteValue = new ObservableValue("pin", bits).setPinDescription(DESCRIPTION).setBidirectional();
     }
 
     @Override
