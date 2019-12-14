@@ -305,7 +305,7 @@
         are connected together. Works only locally, so it is not possible to connect different circuits.
         Unnamed tunnels are ignored silently.</string>
     <string name="elem_Tunnel_pin_in">The connection to the tunnel.</string>
-    <string name="elem_Splitter">Splitter</string>
+    <string name="elem_Splitter">Splitter/Merger</string>
     <string name="elem_Splitter_tt">Splits or creates a wire bundle or a data bus with more than one bit.
         With a bus it is e.g. possible to generate 16-bit connections without having to route 16 individual wires.
         All 16 connections can be merged into one wire.

@@ -300,7 +300,7 @@
         Netznamen tragen, sind miteinander verbunden. Der Tunnel ist immer lokal, es können keine Verbindungen über
         Schaltungsgrenzen hinaus erzeugt werden. Unbenannte Tunnel haben keine Funktion.</string>
     <string name="elem_Tunnel_pin_in">Anschluss des Tunnels.</string>
-    <string name="elem_Splitter">Splitter</string>
+    <string name="elem_Splitter">Splitter/Merger</string>
     <string name="elem_Splitter_tt">Führt mehrere Leitungen zu einem gemeinsamen Bus zusammen, bzw. splittet diesen wieder auf.
         Mit Bussen wird es möglich z.B. 16 Bit Verbindungen zu erzeugen, ohne 16 einzelne Leitungen verlegen zu müssen.
         Alle 16 Verbindungen können zu einer Leitung zusammengefasst werden. Der Splitter hat eine Richtung, er kann Signale
