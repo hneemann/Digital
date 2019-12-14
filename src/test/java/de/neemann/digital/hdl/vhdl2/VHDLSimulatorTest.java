@@ -14,7 +14,6 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
@@ -33,7 +32,7 @@ public class VHDLSimulatorTest extends TestCase {
     private static final String GHDL = System.getProperty("ghdl", "ghdl");
     private int testBenches;
 
-    //*
+    /*
     public void testDebug() throws Exception {
         File file = new File(Resources.getRoot(), "/dig/test/pinControl/simple.dig");
 
@@ -59,6 +58,17 @@ public class VHDLSimulatorTest extends TestCase {
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
             assertEquals(47, tested);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        }
+    }
+
+    public void testInSimulatorInOut() throws Exception {
+        File examples = new File(Resources.getRoot(), "/dig/test/pinControl");
+        try {
+            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
+            assertEquals(2, tested);
+            assertEquals(2, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }

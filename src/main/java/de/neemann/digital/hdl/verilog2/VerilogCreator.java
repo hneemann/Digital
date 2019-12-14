@@ -56,12 +56,17 @@ public class VerilogCreator {
     /**
      * Returns the verilog type for a signal
      *
-     * @param dir  the signal type (input or output)
+     * @param def  the signal type (input or output) used if dir is not "inout"
+     * @param dir  used to check if direction is "inout"
      * @param bits the number of bits
      * @return the verilog signal type
      */
-    public static String getType(HDLPort.Direction dir, int bits) {
-        String result = (dir == HDLPort.Direction.IN) ? "input" : "output";
+    public static String getType(HDLPort.Direction def, HDLPort.Direction dir, int bits) {
+        String result;
+        if (dir == HDLPort.Direction.INOUT)
+            result = "inout";
+        else
+            result = (def == HDLPort.Direction.IN) ? "input" : "output";
 
         if (bits > 1) {
             result += " [" + (bits - 1) + ":0]";
@@ -181,12 +186,12 @@ public class VerilogCreator {
 
         for (HDLPort i : circuit.getInputs()) {
             sep.check();
-            out.print(getType(HDLPort.Direction.IN, i.getBits())).print(" ").print(i.getName());
+            out.print(getType(HDLPort.Direction.IN, i.getDirection(), i.getBits())).print(" ").print(i.getName());
             if (i.hasDescription()) sep.setLineFinalizer(ou -> ou.printComment(" // ", i.getDescription()));
         }
         for (HDLPort o : circuit.getOutputs()) {
             sep.check();
-            out.print(getType(HDLPort.Direction.OUT, o.getBits())).print(" ").print(o.getName());
+            out.print(getType(HDLPort.Direction.OUT, o.getDirection(), o.getBits())).print(" ").print(o.getName());
             if (o.hasDescription()) sep.setLineFinalizer(ou -> ou.printComment(" // ", o.getDescription()));
         }
         sep.close();
@@ -256,6 +261,12 @@ public class VerilogCreator {
         }
 
         for (HDLPort o : node.getOutputs())
+            if (o.getNet() != null) {
+                sep.check();
+                out.print(".").print(o.getName()).print("( ").print(o.getNet().getName()).print(" )");
+            }
+
+        for (HDLPort o : node.getInOutputs())
             if (o.getNet() != null) {
                 sep.check();
                 out.print(".").print(o.getName()).print("( ").print(o.getNet().getName()).print(" )");
