@@ -9,7 +9,6 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.hdl.model2.expression.Expression;
 import de.neemann.digital.hdl.model2.expression.Visitor;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.vhdl2.VHDLTestBenchCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;

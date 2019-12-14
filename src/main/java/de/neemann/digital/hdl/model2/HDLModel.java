@@ -10,7 +10,6 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.basic.*;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.DipSwitch;
 import de.neemann.digital.core.io.Ground;

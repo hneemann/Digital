@@ -7,7 +7,6 @@ package de.neemann.digital.hdl.model2;
 
 import de.neemann.digital.hdl.model2.expression.ExprConstant;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.vhdl2.VHDLTestBenchCreator;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
@@ -187,6 +186,7 @@ public class HDLNet implements Printable, HasName {
 
     /**
      * @return the number of bits on this net
+     * @throws HDLException HDLException
      */
     public int getBits() throws HDLException {
         if (output != null)
