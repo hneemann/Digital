@@ -372,7 +372,7 @@
     <string name="elem_PinControl_pin_wr">The data to be output.</string>
     <string name="elem_PinControl_pin_oe">Activates the output.</string>
     <string name="elem_PinControl_pin_rd">The data to be read.</string>
-    <string name="elem_PinControl_pin_pin">The connector for the actual pin. Only a single input should be connected
+    <string name="elem_PinControl_pin_pin">The connector for the actual pin. Only a single output should be connected
         here.
     </string>
 

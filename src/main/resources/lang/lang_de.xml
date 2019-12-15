@@ -365,7 +365,7 @@
     <string name="elem_PinControl_pin_oe">Aktiviert die Ausgabe</string>
     <string name="elem_PinControl_pin_rd">Die zu lesenden Daten.</string>
     <string name="elem_PinControl_pin_pin">Der Anschluss für den eigentlichen Pin. Hier sollte nur noch ein einzelner
-        Eingang angeschlossen werden.
+        Ausgang angeschlossen werden.
     </string>
 
     <!-- Plexers  -->
