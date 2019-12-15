@@ -11,11 +11,10 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
  * The shape for the pin control logic
@@ -23,6 +22,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 public class PinControlShape implements Shape {
     private final PinDescriptions in;
     private final PinDescriptions out;
+    private Pins pins;
 
     /**
      * Creates a new instance
@@ -38,11 +38,13 @@ public class PinControlShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins()
-                .add(new Pin(new Vector(0, -SIZE), in.get(0)))
-                .add(new Pin(new Vector(0, 0), out.get(0)))
-                .add(new Pin(new Vector(0, +SIZE), in.get(1)))
-                .add(new Pin(new Vector(SIZE * 2, 0), out.get(1)));
+        if (pins == null)
+            pins = new Pins()
+                    .add(new Pin(new Vector(0, 0), in.get(0)))
+                    .add(new Pin(new Vector(SIZE, -SIZE), in.get(1)))
+                    .add(new Pin(new Vector(SIZE * 2, SIZE), out.get(0)))
+                    .add(new Pin(new Vector(SIZE * 3, 0), out.get(1)));
+        return pins;
     }
 
     @Override
@@ -52,8 +54,13 @@ public class PinControlShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-        graphic.drawLine(new Vector(0, -SIZE), new Vector(SIZE, 0), Style.NORMAL);
-        graphic.drawLine(new Vector(0, 0), new Vector(SIZE * 2, 0), Style.NORMAL);
-        graphic.drawLine(new Vector(0, SIZE), new Vector(SIZE, 0), Style.NORMAL);
+        graphic.drawLine(new Vector(0, 0), new Vector(SIZE2, 0), Style.NORMAL);
+        graphic.drawLine(new Vector(SIZE + SIZE2, 0), new Vector(SIZE * 3, 0), Style.NORMAL);
+        graphic.drawLine(new Vector(SIZE * 2, 0), new Vector(SIZE * 2, SIZE), Style.NORMAL);
+        graphic.drawPolygon(new Polygon()
+                .add(SIZE2, SIZE2)
+                .add(SIZE2, -SIZE2)
+                .add(SIZE + SIZE2, 0), Style.NORMAL);
+        graphic.drawLine(new Vector(SIZE, -SIZE), new Vector(SIZE, -6), Style.NORMAL);
     }
 }
