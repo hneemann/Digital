@@ -73,7 +73,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
                     if (c == null) {
                         String elementName = v.getElementName();
                         elementName = cleanName(elementName.substring(0, elementName.length() - 4) + "_gen" + cache.getNum() + ".dig");
-                        c = new HDLCircuit(holder.getCircuit(), elementName, this);
+                        c = new HDLCircuit(holder.getCircuit(), elementName, this, parent.getDepth() + 1);
                         cache.addHDLCircuit(c, holder.getArgs());
                         circuitMap.put(holder.getCircuit(), c);
                     }
@@ -86,7 +86,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
                     HDLCircuit c = circuitMap.get(circuit);
                     final String elementName = cleanName(v.getElementName());
                     if (c == null) {
-                        c = new HDLCircuit(circuit, elementName, this);
+                        c = new HDLCircuit(circuit, elementName, this, parent.getDepth() + 1);
                         circuitMap.put(circuit, c);
                     }
 
@@ -183,9 +183,11 @@ public class HDLModel implements Iterable<HDLCircuit> {
                     node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
                     break;
                 case both:
-                    if (v.equalsDescription(PinControl.DESCRIPTION))
+                    if (v.equalsDescription(PinControl.DESCRIPTION)) {
+                        if (c.getDepth() != 0)
+                            throw new HDLException("PinControl component is allowed only in the top level circuit");
                         node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.INOUT, node.getBits(p.getName())));
-                    else
+                    } else
                         node.addPort(new HDLPort(p.getName(), net, HDLPort.Direction.OUT, node.getBits(p.getName())));
                     break;
             }
@@ -210,7 +212,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
      * @throws NodeException NodeException
      */
     public HDLModel create(Circuit circuit, HDLClockIntegrator clockIntegrator) throws PinException, HDLException, NodeException {
-        main = new HDLCircuit(circuit, "main", this, clockIntegrator);
+        main = new HDLCircuit(circuit, "main", this, 0, clockIntegrator);
         circuitMap.put(circuit, main);
         return this;
     }

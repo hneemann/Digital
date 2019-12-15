@@ -123,7 +123,7 @@ public class ClockTest extends TestCase {
         HDLCircuit c = new HDLCircuit(
                 br.getCircuit(), "main",
                 new HDLModel(br.getLibrary()),
-                ci);
+                0, ci);
 
         c.applyDefaultOptimizations();
 

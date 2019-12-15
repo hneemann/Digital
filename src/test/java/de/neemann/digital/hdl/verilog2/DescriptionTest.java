@@ -26,7 +26,7 @@ public class DescriptionTest extends TestCase {
                 br.getCircuit(),
                 "main"
                 , new HDLModel(br.getLibrary()),
-                null)
+                0, null)
                 .applyDefaultOptimizations();
         CodePrinterStr out = new CodePrinterStr();
         new VerilogCreator(out, br.getLibrary()).printHDLCircuit(circuit, "naming");

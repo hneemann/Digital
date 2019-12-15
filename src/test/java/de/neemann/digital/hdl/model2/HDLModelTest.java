@@ -21,7 +21,7 @@ public class HDLModelTest extends TestCase {
 
     private HDLCircuit getCircuit(String filename, HDLClockIntegrator ci) throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
         ToBreakRunner br = new ToBreakRunner(filename);
-        return new HDLCircuit(br.getCircuit(), "main", new HDLModel(br.getLibrary()), ci);
+        return new HDLCircuit(br.getCircuit(), "main", new HDLModel(br.getLibrary()), 0, ci);
     }
 
     public void testSimple() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
