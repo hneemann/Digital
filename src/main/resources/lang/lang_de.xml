@@ -355,8 +355,8 @@
 
     <string name="elem_PinControl">Pinsteuerung</string>
     <string name="elem_PinControl_tt">Steuerlogik für einen bidirektionalen Pin.
-        Nur im Rahmen der VHDL- oder Verilog-Generierung erforderlich!
-        Diese Komponente ist notwendig, um einen bidirektionalen HDL-Port zu erstellen!
+        Diese ist nur im Rahmen der VHDL- oder Verilog-Generierung erforderlich, um einen bidirektionalen HDL-Port zu
+        erstellen!
         Wenn Sie keinen bidirektionalen IO-Port auf einem FPGA verwenden wollen, verwenden Sie diese Komponente nicht!
         Die Pinsteuerung kann nicht in einer eingebetteten Schaltung verwendet werden! Sie ist nur auf der obersten
         Schaltungsebene erlaubt!
