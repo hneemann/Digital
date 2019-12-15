@@ -72,17 +72,19 @@ public class VerilogSimulatorTest extends TestCase {
         }
     }
 
-    /*
     public void testInSimulatorInOut() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/pinControl");
         try {
-            int tested = new FileScanner(this::checkVerilogExport).noOutput().scan(examples);
+            int tested = new FileScanner(f -> {
+                if (!f.getName().equals("uniTest.dig"))
+                    checkVerilogExport(f);
+            }).noOutput().scan(examples);
             assertEquals(2, tested);
-            assertEquals(2, testBenches);
+            assertEquals(1, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if iverilog is not installed its also ok
         }
-    }/**/
+    }
 
 
     public void testDistributedInSimulator() throws Exception {
@@ -142,7 +144,7 @@ public class VerilogSimulatorTest extends TestCase {
         try {
             File srcFile = new File(dir, file.getName()
                     .replace('.', '_')
-                    .replace('-', '_')+ ".v");
+                    .replace('-', '_') + ".v");
             CodePrinter out = new CodePrinter(srcFile);
             try (VerilogGenerator gen = new VerilogGenerator(br.getLibrary(), out)) {
                 gen.export(br.getCircuit());
