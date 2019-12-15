@@ -53,8 +53,7 @@ public class PinControlShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         graphic.drawLine(new Vector(0, -SIZE), new Vector(SIZE, 0), Style.NORMAL);
-        graphic.drawLine(new Vector(0, 0), new Vector(SIZE, 0), Style.NORMAL);
+        graphic.drawLine(new Vector(0, 0), new Vector(SIZE * 2, 0), Style.NORMAL);
         graphic.drawLine(new Vector(0, SIZE), new Vector(SIZE, 0), Style.NORMAL);
-        graphic.drawLine(new Vector(SIZE, 0), new Vector(SIZE * 2, 0), Style.NORMAL);
     }
 }

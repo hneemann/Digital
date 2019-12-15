@@ -358,6 +358,8 @@
         Nur im Rahmen der VHDL- oder Verilog-Generierung erforderlich!
         Diese Komponente ist notwendig, um einen bidirektionalen HDL-Port zu erstellen!
         Wenn Sie keinen bidirektionalen IO-Port auf einem FPGA verwenden wollen, verwenden Sie diese Komponente nicht!
+        Die Pinsteuerung kann nicht in einer eingebetteten Schaltung verwendet werden! Sie ist nur auf der obersten
+        Schaltungsebene erlaubt!
     </string>
     <string name="elem_PinControl_pin_wr">Die auszugebenden Daten</string>
     <string name="elem_PinControl_pin_oe">Aktiviert die Ausgabe</string>
