@@ -338,25 +338,47 @@
     <string name="elem_Driver_pin_sel">Eingang zum Steuern des Treibers.
         Ist dieser Eingang auf 1 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht. Ist der Eingang 0, ist der Ausgang hochohmig.</string>
     <string name="elem_DriverInvSel">Treiber, invertierte Auswahl</string>
-    <string name="elem_DriverInvSel_tt">Ein Treiber kann dazu verwendet werden, ein Datenwort nur unter speziellen Voraussetzungen auf eine andere Leitung weiterzureichen.
+    <string name="elem_DriverInvSel_tt">Ein Treiber kann dazu verwendet werden, ein Datenwort nur unter speziellen
+        Voraussetzungen auf eine andere Leitung weiterzureichen.
         Gesteuert wird der Treiber durch den sel Eingang.
         Ist der sel Eingang auf 0 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht.
         Ist der Eingang 1, ist der Ausgang hochohmig.
     </string>
     <string name="elem_DriverInvSel_pin_in">Das Eingangssignal des Treibers.</string>
     <string name="elem_DriverInvSel_pin_sel">Eingang zum Steuern des Treibers.
-        Ist dieser Eingang auf 0 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht. Ist der Eingang 1, ist der Ausgang hochohmig.</string>
-    <string name="elem_DriverInvSel_pin_out">Gibt den am Eingang anliegenden Wert aus, wenn der Selection Eingang auf 0 gesetzt ist.</string>
+        Ist dieser Eingang auf 0 gesetzt, wird der am Eingang anliegende Wert zum Ausgang gereicht. Ist der Eingang 1,
+        ist der Ausgang hochohmig.
+    </string>
+    <string name="elem_DriverInvSel_pin_out">Gibt den am Eingang anliegenden Wert aus, wenn der Selection Eingang auf 0
+        gesetzt ist.
+    </string>
 
+    <string name="elem_PinControl">Pinsteuerung</string>
+    <string name="elem_PinControl_tt">Steuerlogik für einen bidirektionalen Pin.
+        Diese ist nur im Rahmen der VHDL- oder Verilog-Generierung erforderlich, um einen bidirektionalen HDL-Port zu
+        erstellen!
+        Wenn Sie keinen bidirektionalen IO-Port auf einem FPGA verwenden wollen, verwenden Sie diese Komponente nicht!
+        Die Pinsteuerung kann nicht in einer eingebetteten Schaltung verwendet werden! Sie ist nur auf der obersten
+        Schaltungsebene erlaubt!
+    </string>
+    <string name="elem_PinControl_pin_wr">Die auszugebenden Daten</string>
+    <string name="elem_PinControl_pin_oe">Aktiviert die Ausgabe</string>
+    <string name="elem_PinControl_pin_rd">Die zu lesenden Daten.</string>
+    <string name="elem_PinControl_pin_pin">Der Anschluss für den eigentlichen Pin. Hier sollte nur noch ein einzelner
+        Ausgang angeschlossen werden.
+    </string>
 
     <!-- Plexers  -->
 
     <string name="elem_Multiplexer">Multiplexer</string>
     <string name="elem_Multiplexer_tt">Ein Baustein, welcher den Wert eines der Eingänge am Ausgang ausgibt.
-        Über den sel-Eingang wird ausgewählt, welcher der Eingänge ausgegeben werden soll.</string>
+        Über den sel-Eingang wird ausgewählt, welcher der Eingänge ausgegeben werden soll.
+    </string>
     <string name="elem_Multiplexer_input">Der {0}. Dateneingang des Multiplexers.</string>
     <string name="elem_Multiplexer_output">Ausgeben wird der Wert, der am gewählten Dateneingang anliegt.</string>
-    <string name="elem_Multiplexer_pin_sel">Mit dieser Leitung wird der Dateneingang ausgewählt, welcher am Ausgang ausgegeben werden soll.</string>
+    <string name="elem_Multiplexer_pin_sel">Mit dieser Leitung wird der Dateneingang ausgewählt, welcher am Ausgang
+        ausgegeben werden soll.
+    </string>
     <string name="elem_Demultiplexer">Demultiplexer</string>
     <string name="elem_Demultiplexer_tt">Ein Baustein, welcher einen Eingangswert auf verschiedene Ausgänge ausgeben kann.
         Gibt das Eingangssignal auf einem wählbaren Ausgang aus. Die anderen Ausgänge werden auf den Vorgabewert gesetzt.</string>

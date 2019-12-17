@@ -178,16 +178,22 @@ public class VHDLCreator {
 
         for (HDLPort i : circuit.getInputs()) {
             sep.check();
-            out.print(i.getName()).print(": in ").print(getType(i.getBits()));
+            out.print(i.getName()).print(": ").print(getDir(i.getDirection(), "in")).print(" ").print(getType(i.getBits()));
             if (i.hasDescription()) sep.setLineFinalizer(ou -> ou.printComment(" -- ", i.getDescription()));
         }
         for (HDLPort o : circuit.getOutputs()) {
             sep.check();
-            out.print(o.getName()).print(": out ").print(getType(o.getBits()));
+            out.print(o.getName()).print(": ").print(getDir(o.getDirection(), "out")).print(" ").print(getType(o.getBits()));
             if (o.hasDescription()) sep.setLineFinalizer(ou -> ou.printComment(" -- ", o.getDescription()));
         }
         sep.close();
         out.println(");").dec();
+    }
+
+    private static String getDir(HDLPort.Direction direction, String def) {
+        if (direction == HDLPort.Direction.INOUT)
+            return "inout";
+        return def;
     }
 
     private void printManyToOne(HDLNodeSplitterManyToOne node) throws IOException, HDLException {
@@ -246,6 +252,11 @@ public class VHDLCreator {
         }
 
         for (HDLPort o : node.getOutputs())
+            if (o.getNet() != null) {
+                sep.check();
+                out.print(o.getName()).print(" => ").print(o.getNet().getName());
+            }
+        for (HDLPort o : node.getInOutputs())
             if (o.getNet() != null) {
                 sep.check();
                 out.print(o.getName()).print(" => ").print(o.getNet().getName());

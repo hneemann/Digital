@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>wr</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>oe</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PinControl</elementName>
+      <elementAttributes/>
+      <pos x="360" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>rd</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pin</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>oe wr rd pin
+1  0  0  0
+1  1  1  1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="240"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="340" y="240"/>
+      <p2 x="400" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="380" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="200"/>
+      <p2 x="360" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="200"/>
+      <p2 x="440" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="220"/>
+      <p2 x="400" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="160"/>
+      <p2 x="380" y="180"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

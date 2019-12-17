@@ -18,8 +18,9 @@ import java.util.ArrayList;
  */
 public class HDLNet implements Printable, HasName {
     private final boolean userNamed;
+    private final ArrayList<HDLPort> inputs;
+    private final ArrayList<HDLPort> inOutputs;
     private String name;
-    private ArrayList<HDLPort> inputs;
     private HDLPort output;
     private boolean needsVariable = true;
     private boolean isInput;
@@ -32,6 +33,7 @@ public class HDLNet implements Printable, HasName {
     public HDLNet(String name) {
         this.name = name;
         inputs = new ArrayList<>();
+        inOutputs = new ArrayList<>();
         userNamed = name != null;
     }
 
@@ -49,16 +51,23 @@ public class HDLNet implements Printable, HasName {
      * @throws HDLException HDLException
      */
     public void addPort(HDLPort hdlPort) throws HDLException {
-        if (hdlPort.getDirection().equals(HDLPort.Direction.OUT)) {
-            if (output != null) {
-                String netName = name;
-                if (netName == null)
-                    netName = Lang.get("err_unnamedNet");
-                throw new HDLException(Lang.get("err_hdlMultipleOutputsConnectedToNet_N_N_N", netName, output, hdlPort));
-            }
-            output = hdlPort;
-        } else
-            inputs.add(hdlPort);
+        switch (hdlPort.getDirection()) {
+            case OUT:
+                if (output != null) {
+                    String netName = name;
+                    if (netName == null)
+                        netName = Lang.get("err_unnamedNet");
+                    throw new HDLException(Lang.get("err_hdlMultipleOutputsConnectedToNet_N_N_N", netName, output, hdlPort));
+                }
+                output = hdlPort;
+                break;
+            case IN:
+                inputs.add(hdlPort);
+                break;
+            case INOUT:
+                inOutputs.add(hdlPort);
+                break;
+        }
     }
 
     /**
@@ -81,11 +90,25 @@ public class HDLNet implements Printable, HasName {
     }
 
     void fixBits() throws HDLException {
-        if (output == null)
-            throw new HDLException("no output connected to net");
-        final int bits = output.getBits();
-        if (bits == 0)
-            throw new HDLException("no bit number set for output " + output.getName());
+        int bits = 0;
+        if (output == null) {
+            if (inOutputs.isEmpty())
+                throw new HDLException("no output connected to net");
+            else {
+                for (HDLPort p : inOutputs) {
+                    if (p.getBits() > 0) {
+                        bits = p.getBits();
+                        break;
+                    }
+                }
+                if (bits == 0)
+                    throw new HDLException("no bit number set for inOutputs " + inOutputs);
+            }
+        } else {
+            bits = output.getBits();
+            if (bits == 0)
+                throw new HDLException("no bit number set for output " + output.getName());
+        }
 
         for (HDLPort i : inputs)
             i.setBits(bits);
@@ -96,6 +119,8 @@ public class HDLNet implements Printable, HasName {
      * @return the constant if this net is a constant, null otherwise
      */
     public ExprConstant isConstant() {
+        if (output == null)
+            return null;
         return ExprConstant.isConstant(output.getParent());
     }
 
@@ -160,9 +185,18 @@ public class HDLNet implements Printable, HasName {
 
     /**
      * @return the number of bits on this net
+     * @throws HDLException HDLException
      */
-    public int getBits() {
-        return output.getBits();
+    public int getBits() throws HDLException {
+        if (output != null)
+            return output.getBits();
+
+        for (HDLPort p : inOutputs) {
+            if (p.getBits() > 0) {
+                return p.getBits();
+            }
+        }
+        throw new HDLException("no bit number set for inOutputs " + inOutputs);
     }
 
     /**
@@ -188,6 +222,13 @@ public class HDLNet implements Printable, HasName {
      */
     public void rename(HDLModel.Renaming renaming) {
         name = renaming.checkName(name);
+    }
+
+    /**
+     * @return true if this is a inOut net
+     */
+    public boolean isInOutNet() {
+        return !inOutputs.isEmpty();
     }
 
 }

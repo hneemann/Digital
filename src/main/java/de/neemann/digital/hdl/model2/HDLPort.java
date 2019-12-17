@@ -30,11 +30,15 @@ public class HDLPort implements Printable, HasName {
          * Caution: a circuits input components port has type OUT because it defines a value,
          * seen from inside the node.
          */
-        OUT
+        OUT,
+        /**
+         * Bidirectional port
+         */
+        INOUT
     }
 
     private String name;
-    private final Direction direction;
+    private Direction direction;
     private int bits;
     private String description;
     private boolean isClock;
@@ -211,6 +215,13 @@ public class HDLPort implements Printable, HasName {
      */
     public void rename(HDLModel.Renaming renaming) {
         name = renaming.checkName(name);
+    }
+
+    /**
+     * Sets this port to a inOut mode port
+     */
+    public void setInOut() {
+        direction = Direction.INOUT;
     }
 
 }

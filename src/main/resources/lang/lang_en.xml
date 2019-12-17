@@ -363,11 +363,26 @@
         If the sel input is 1, this output is in high z state.
     </string>
 
+    <string name="elem_PinControl">Pin Control</string>
+    <string name="elem_PinControl_tt">Control logic for a bi-directional pin.
+        This component is necessary only in the context of VHDL or Verilog generation, in order to create a
+        bi-directional HDL port!
+        If you don't want to use a bi-directional IO-port on an FPGA, don't use this component!
+        The PinControl component cannot be used in an embedded circuit! It is only allowed at the top level circuit!
+    </string>
+    <string name="elem_PinControl_pin_wr">The data to be output.</string>
+    <string name="elem_PinControl_pin_oe">Activates the output.</string>
+    <string name="elem_PinControl_pin_rd">The data to be read.</string>
+    <string name="elem_PinControl_pin_pin">The connector for the actual pin. Only a single output should be connected
+        here.
+    </string>
 
     <!-- Plexers  -->
 
     <string name="elem_Multiplexer">Multiplexer</string>
-    <string name="elem_Multiplexer_tt">A component which uses the value of the sel pin to decide which input value is set to the output.</string>
+    <string name="elem_Multiplexer_tt">A component which uses the value of the sel pin to decide which input value is
+        set to the output.
+    </string>
     <string name="elem_Multiplexer_input">The {0}. data input of the multiplexer.</string>
     <string name="elem_Multiplexer_output">The value of the selected input.</string>
     <string name="elem_Multiplexer_pin_sel">This input is used to select the data input which is output.</string>

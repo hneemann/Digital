@@ -34,7 +34,7 @@ public class VHDLSimulatorTest extends TestCase {
 
     /*
     public void testDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "dig/test/vhdl/lut2.dig");
+        File file = new File(Resources.getRoot(), "/dig/test/pinControl/nesting.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
@@ -58,6 +58,17 @@ public class VHDLSimulatorTest extends TestCase {
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
             assertEquals(47, tested);
+        } catch (FileScanner.SkipAllException e) {
+            // if ghdl is not installed its also ok
+        }
+    }
+
+    public void testInSimulatorInOut() throws Exception {
+        File examples = new File(Resources.getRoot(), "/dig/test/pinControl");
+        try {
+            int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
+            assertEquals(2, tested);
+            assertEquals(2, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }

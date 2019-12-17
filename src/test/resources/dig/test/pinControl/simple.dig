@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>wr_0</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>oe</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PinControl</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>rd_0</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>wr_1</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PinControl</elementName>
+      <elementAttributes>
+        <entry>
+          <string>mirror</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>rd_1</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="420" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>oe wr_0 rd_0 wr_1 rd_1
+1   1     x   x    1
+1   2     x   x    2
+0   x     1   1    x
+0   x     2   2    x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="240"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="520" y="180"/>
+      <p2 x="540" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="180"/>
+      <p2 x="380" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="180"/>
+      <p2 x="460" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="140"/>
+      <p2 x="500" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="140"/>
+      <p2 x="400" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="140"/>
+      <p2 x="420" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="220"/>
+      <p2 x="420" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="220"/>
+      <p2 x="540" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="200"/>
+      <p2 x="480" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="140"/>
+      <p2 x="400" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="200"/>
+      <p2 x="420" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="140"/>
+      <p2 x="500" y="160"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
