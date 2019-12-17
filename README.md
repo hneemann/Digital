@@ -65,7 +65,7 @@ These are the main features of Digital:
 - SVG export of circuits, including a LaTeX/Inkscape compatible SVG version (see 
   [ctan](https://www.ctan.org/tex-archive/info/svg-inkscape))
 - No legacy code.
-- Good test coverage (about 80%; The GUI tests are not running on the headless
+- Good test coverage (about 80%; Neither the GUI tests nor the HDL simulator integration tests are running on the 
   Travis-CI build servers, so CodeCov measures only about 50%).
   Almost all examples contain test cases which ensure that they work correctly.
 
