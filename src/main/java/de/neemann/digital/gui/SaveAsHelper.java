@@ -34,6 +34,7 @@ public final class SaveAsHelper {
         KNOWN.add("tt2");
         KNOWN.add("cupl");
         KNOWN.add("jed");
+        KNOWN.add("zip");
     }
 
     private final Component parent;
