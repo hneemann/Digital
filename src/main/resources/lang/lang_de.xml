@@ -925,6 +925,7 @@
     <string name="err_clockWithoutName">Es gibt ein Taktelement ohne einen Namen. Wenn ein Taktelement eingebettet wird, benötigt auch dieses eine Bezeichnung.</string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} von Element {1} wurde nicht gefunden</string>
     <string name="err_pin_N_notFound">Pin {0} wurde nicht gefunden.</string>
+    <string name="err_customShapeHasNoPin_N">Die importierte SVG Datei definiert keinen Pin {0}</string>
     <string name="err_pin_N_unknown">Pin {0} ist unbekannt</string>
     <string name="err_seemsToOscillate">Die Schaltung scheint zu oszillieren!
 Zur Analyse können Sie die Schaltung im Gatterschrittmodus ausführen.</string>

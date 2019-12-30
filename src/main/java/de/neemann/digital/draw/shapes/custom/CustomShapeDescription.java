@@ -49,7 +49,7 @@ public final class CustomShapeDescription implements Iterable<CustomShapeDescrip
     Pin getPin(String name) throws PinException {
         final Pin pin = pins.get(name);
         if (pin == null)
-            throw new PinException(Lang.get("err_pin_N_notFound", name));
+            throw new PinException(Lang.get("err_customShapeHasNoPin_N", name));
         return pin;
     }
 
