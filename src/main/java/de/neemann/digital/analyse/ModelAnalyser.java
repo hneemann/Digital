@@ -180,42 +180,48 @@ public class ModelAnalyser {
     private ArrayList<Signal> checkBinaryInputs(ArrayList<Signal> list) throws AnalyseException {
         ArrayList<Signal> inputs = new ArrayList<>();
         for (Signal s : list) {
-            final int bits = s.getValue().getBits();
-            if (bits == 1)
-                inputs.add(s);
-            else {
-                try {
-                    Splitter sp = Splitter.createNToOne(bits);
-                    final ObservableValue out = sp.getOutputs().get(0);
-                    out.addObserver(new NodeWithoutDelay(s.getValue()) {
-                        @Override
-                        public void hasChanged() {
-                            s.getValue().setValue(out.getValue());
+            if (!ignoreSignal(s)) {
+                final int bits = s.getValue().getBits();
+                if (bits == 1)
+                    inputs.add(s);
+                else {
+                    try {
+                        Splitter sp = Splitter.createNToOne(bits);
+                        final ObservableValue out = sp.getOutputs().get(0);
+                        out.addObserver(new NodeWithoutDelay(s.getValue()) {
+                            @Override
+                            public void hasChanged() {
+                                s.getValue().setValue(out.getValue());
+                            }
+                        });
+                        out.fireHasChanged();
+
+                        SplitPinString pins = SplitPinString.create(s);
+                        ObservableValues.Builder builder = new ObservableValues.Builder();
+                        String name = s.getName();
+                        if (!name.contains("_"))
+                            name += "_";
+                        for (int i = bits - 1; i >= 0; i--) {
+                            ObservableValue o = new ObservableValue(name + i, 1);
+                            builder.add(o);
+                            inputs.add(new Signal(name + i, o).setPinNumber(pins.getPin(i)));
                         }
-                    });
-                    out.fireHasChanged();
+                        final ObservableValues inputsList = builder.reverse().build();
+                        sp.setInputs(inputsList);
 
-                    SplitPinString pins = SplitPinString.create(s);
-                    ObservableValues.Builder builder = new ObservableValues.Builder();
-                    String name = s.getName();
-                    if (!name.contains("_"))
-                        name += "_";
-                    for (int i = bits - 1; i >= 0; i--) {
-                        ObservableValue o = new ObservableValue(name + i, 1);
-                        builder.add(o);
-                        inputs.add(new Signal(name + i, o).setPinNumber(pins.getPin(i)));
+                        modelAnalyzerInfo.addInputBus(s.getName(), inputsList.getNames());
+
+                    } catch (NodeException e) {
+                        throw new AnalyseException(e);
                     }
-                    final ObservableValues inputsList = builder.reverse().build();
-                    sp.setInputs(inputsList);
-
-                    modelAnalyzerInfo.addInputBus(s.getName(), inputsList.getNames());
-
-                } catch (NodeException e) {
-                    throw new AnalyseException(e);
                 }
             }
         }
         return inputs;
+    }
+
+    private boolean ignoreSignal(Signal s) {
+        return s.getName().equals("VCC") || s.getName().equals("GND");
     }
 
     private void checkClock(Node node) throws AnalyseException {
