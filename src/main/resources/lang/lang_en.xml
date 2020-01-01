@@ -257,15 +257,21 @@
     </string>
     <string name="elem_Keyboard_pin_C">Clock. A rising edge removes the oldest character from the buffer.</string>
     <string name="elem_Keyboard_pin_en">If high the output D is active and one character is output.
-        It also enables the clock input.</string>
-    <string name="elem_Keyboard_pin_D">The last typed character, or zero if no character is available.</string>
+        It also enables the clock input.
+    </string>
+    <string name="elem_Keyboard_pin_D">The last typed character, or zero if no character is available.
+        Output is the 16 bit Java char value.
+    </string>
     <string name="elem_Keyboard_pin_av">This output indicates that characters are available.
-        It can be used to trigger an interrupt.</string>
+        It can be used to trigger an interrupt.
+    </string>
 
     <string name="elem_Terminal">Terminal</string>
     <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
-        The terminal opens its own window to visualize the output.</string>
-    <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.</string>
+        The terminal opens its own window to visualize the output.
+    </string>
+    <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.
+    </string>
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
     <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
 

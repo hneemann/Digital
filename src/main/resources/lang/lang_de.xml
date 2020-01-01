@@ -252,16 +252,25 @@
     </string>
     <string name="elem_Keyboard_pin_C">Takt. Eine steigende Flanke entfernt das älteste Zeichen aus dem Buffer.</string>
     <string name="elem_Keyboard_pin_en">Wenn gesetzt, ist der Ausgang D aktiv und ein Tastendruck wird ausgegeben.
-        Ist gleichzeitig die Freigabe für den Takt.</string>
-    <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.</string>
+        Ist gleichzeitig die Freigabe für den Takt.
+    </string>
+    <string name="elem_Keyboard_pin_D">Die letzte Taste oder 0, wenn keine Taste gedrückt.
+        Ausgegeben wird der 16 Bit Java char-Wert.
+    </string>
     <string name="elem_Keyboard_pin_av">Dieser Ausgang zeigt an, dass Zeichen vorhanden sind.
-        Er kann genutzt werden, um einen Interrupt auszulösen.</string>
+        Er kann genutzt werden, um einen Interrupt auszulösen.
+    </string>
 
     <string name="elem_Terminal">Terminal</string>
     <string name="elem_Terminal_tt">Ein Terminal, auf dem ASCII-Zeichen ausgegeben werden können.
-        Öffnet ein eigenes Fenster, um die Ausgabe anzuzeigen.</string>
-    <string name="elem_Terminal_pin_C">Takteingang. Eine steigende Flanke gibt das anliegende Datenwort auf dem Terminal aus.</string>
-    <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal weitergegeben.</string>
+        Öffnet ein eigenes Fenster, um die Ausgabe anzuzeigen.
+    </string>
+    <string name="elem_Terminal_pin_C">Takteingang. Eine steigende Flanke gibt das anliegende Datenwort auf dem Terminal
+        aus.
+    </string>
+    <string name="elem_Terminal_pin_D">Über diesen Eingang werden die anzuzeigenden Daten an das Terminal
+        weitergegeben.
+    </string>
     <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
     <string name="elem_VGA">VGA Bildschirm</string>
