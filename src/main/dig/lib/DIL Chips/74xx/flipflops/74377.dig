@@ -11,6 +11,10 @@
       <int>20</int>
     </entry>
     <entry>
+      <string>Description</string>
+      <string>Octal D Flip-Flop with enable</string>
+    </entry>
+    <entry>
       <string>lockedMode</string>
       <boolean>true</boolean>
     </entry>
