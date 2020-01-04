@@ -17,6 +17,7 @@ HEAD, planned as v0.24
 - A push button combined with a LED was added.
 - A VGA monitor was added.
 - Unnamed Tunnels are ignored silently.
+- Overlapping pins are now connected.
 - Fixed an issue with Chinese text rendering.
 
 v0.23, released on 23. Aug. 2019

@@ -51,7 +51,7 @@ public class Net {
     }
 
     /**
-     * Creates a net containing of a single wire
+     * Creates a net containing a single wire
      *
      * @param w the wire
      */
@@ -62,6 +62,19 @@ public class Net {
         pins = new ArrayList<>();
         wires = new ArrayList<>();
         wires.add(w);
+        labelSet = new HashSet<>();
+    }
+
+    /**
+     * Creates a single point net
+     *
+     * @param v the vector containing the points coordinates
+     */
+    public Net(Vector v) {
+        points = new HashSet<>();
+        points.add(v);
+        pins = new ArrayList<>();
+        wires = null;
         labelSet = new HashSet<>();
     }
 

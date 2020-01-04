@@ -11,6 +11,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -30,6 +31,24 @@ public class NetList implements Iterable<Net> {
         netList = new ArrayList<>();
         for (Wire w : circuit.getWires())
             add(w);
+
+
+        // handles a direct pin overlap by adding a single point net
+        HashSet<Vector> allPinPositions = new HashSet<>();
+        HashSet<Vector> directConnection = new HashSet<>();
+        for (VisualElement ve : circuit.getElements())
+            for (Pin p : ve.getPins()) {
+                Vector v = p.getPos();
+                if (allPinPositions.contains(v))
+                    directConnection.add(v);
+                else
+                    allPinPositions.add(v);
+            }
+
+        for (Vector v : directConnection)
+            if (getNetOfPos(v) == null)
+                netList.add(new Net(v));
+
 
         boolean hasLabel = false;
         for (VisualElement ve : circuit.getElements())
