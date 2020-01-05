@@ -1713,6 +1713,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         for (VisualElement ve : el) {
             final Pin pinAt = ve.getPinAt(pos);
             if (pinAt != null) {
+                if (found != null)
+                    return;
                 found = pinAt;
             }
             if (ve.isPinPos(p.getPos()))
