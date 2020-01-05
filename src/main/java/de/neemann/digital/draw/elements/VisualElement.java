@@ -9,9 +9,8 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.draw.shapes.Shape;
-import de.neemann.digital.draw.shapes.custom.CustomShape;
+import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.gui.Screen;
@@ -38,7 +37,6 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     private transient Element element;
     // shape is set to null and recreated if needed if attributes are changed
     private transient Shape shape;
-    private transient Boolean autoWire;
     // shapes are recreated if attributes are changed, therefore a factory is necessary and not only a simple shape!
     private transient ShapeFactory shapeFactory;
     private transient Transform transform;
@@ -113,7 +111,6 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
 
     private void resetShape() {
         shape = null;
-        autoWire = null;
         resetGeometry();
     }
 
@@ -201,19 +198,6 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
             resetGeometry();
         }
         return shape;
-    }
-
-    /**
-     * @return true if this shape supports auto wire
-     */
-    public boolean isAutoWireCompatible() {
-        if (autoWire == null) {
-            Shape shape = getShape();
-            autoWire = !(shape instanceof DILShape || shape instanceof CustomShape || shape instanceof LayoutShape);
-            if (autoWire)
-                autoWire = shape.getPins().autoWireCompatible();
-        }
-        return autoWire;
     }
 
     @Override
@@ -515,4 +499,30 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     public void setElementName(String elementName) {
         this.elementName = elementName;
     }
+
+
+    /**
+     * Returns true if there is a pin at the given position
+     *
+     * @param pos the position
+     * @return true if position is a pin position
+     */
+    public boolean isPinPos(Vector pos) {
+        return getPinAt(pos) != null;
+    }
+
+    /**
+     * Returns the pin at the given position
+     *
+     * @param pos position
+     * @return the pin or null if no pin found
+     */
+    public Pin getPinAt(Vector pos) {
+        for (Pin p : getPins())
+            if (p.getPos().equals(pos))
+                return p;
+
+        return null;
+    }
+
 }

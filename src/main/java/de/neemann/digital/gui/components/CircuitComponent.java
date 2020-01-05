@@ -574,7 +574,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         Vector pos = getPosVector(event);
         VisualElement ve = getCircuit().getElementAt(pos);
         if (ve != null) {
-            Pin p = getCircuit().getPinAt(raster(pos), ve);
+            Pin p = ve.getPinAt(raster(pos));
             if (p != null)
                 return createPinToolTip(p);
 
@@ -1591,7 +1591,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             } else if (mouse.isPrimaryClick(e) && hadFocusAtClick) {
                 VisualElement vp = getVisualElement(pos, false);
                 if (vp != null) {
-                    if (getCircuit().isPinPos(raster(pos), vp) && !mouse.isClickModifier(e)) {
+                    if (vp.isPinPos(raster(pos)) && !mouse.isClickModifier(e)) {
                         if (!isLocked()) mouseWireRect.activate(pos);
                     } else
                         mouseMoveElement.activate(vp, pos);
@@ -1692,33 +1692,34 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private void insertWires(VisualElement element) {
-        if (element.isAutoWireCompatible() && tutorialListener == null) {
+        if (tutorialListener == null) {
             Modifications.Builder<Circuit> wires = new Modifications.Builder<>(Lang.get("lib_wires"));
             for (Pin p : element.getPins())
-                insertWirePin(p, element.getRotate(), wires);
+                insertWirePin(p, element, wires);
             modify(wires.build());
         }
     }
 
-    private void insertWirePin(Pin p, int rotate, Modifications.Builder<Circuit> wires) {
-        TransformRotate tr = new TransformRotate(new Vector(0, 0), rotate);
+    private void insertWirePin(Pin p, VisualElement element, Modifications.Builder<Circuit> wires) {
+        TransformRotate tr = new TransformRotate(new Vector(0, 0), element.getRotate());
         Vector pos = new Vector(-SIZE, 0);
         if (p.getDirection() != PinDescription.Direction.input)
             pos = new Vector(SIZE, 0);
 
         pos = tr.transform(pos);
         pos = pos.add(p.getPos());
-        boolean found = false;
+        Pin found = null;
         List<VisualElement> el = getCircuit().getElementListAt(pos, false);
         for (VisualElement ve : el) {
-            final Pin pinAt = getCircuit().getPinAt(pos, ve);
-            if (pinAt != null && pinAt.getPos().equals(pos)) {
-                found = true;
-                break;
+            final Pin pinAt = ve.getPinAt(pos);
+            if (pinAt != null) {
+                found = pinAt;
             }
+            if (ve.isPinPos(p.getPos()))
+                return;
         }
-        if (found) {
-            Wire newWire = new Wire(pos, p.getPos());
+        if (found != null && PinDescription.Direction.isInOut(p.getDirection(), found.getDirection())) {
+            Wire newWire = new Wire(found.getPos(), p.getPos());
             for (Wire w : getCircuit().getWires())
                 if (w.equalsContent(newWire))
                     return;

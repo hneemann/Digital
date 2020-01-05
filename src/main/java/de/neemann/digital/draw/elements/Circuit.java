@@ -558,33 +558,7 @@ public class Circuit implements Copyable<Circuit> {
         VisualElement el = getElementAt(pos);
         if (el == null) return false;
 
-        return isPinPos(pos, el);
-    }
-
-    /**
-     * Returns true if the given element has a pin at the given position
-     *
-     * @param pos the position
-     * @param el  the element
-     * @return true if position is a pin position
-     */
-    public boolean isPinPos(Vector pos, VisualElement el) {
-        return getPinAt(pos, el) != null;
-    }
-
-    /**
-     * Returns the pin at the given position
-     *
-     * @param pos position
-     * @param el  the element
-     * @return the pin or null if no pin found
-     */
-    public Pin getPinAt(Vector pos, VisualElement el) {
-        for (Pin p : el.getPins())
-            if (p.getPos().equals(pos))
-                return p;
-
-        return null;
+        return el.isPinPos(pos);
     }
 
     /**

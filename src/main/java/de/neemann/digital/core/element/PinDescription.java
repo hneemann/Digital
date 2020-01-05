@@ -22,7 +22,18 @@ public interface PinDescription {
      * The possible directions of a pin
      */
     enum Direction {
-        input, output, both
+        input, output, both;
+
+        /**
+         * Returns true if one direction is output and the other is input
+         *
+         * @param a direction a
+         * @param b direction a
+         * @return true if a and b are a input and a output
+         */
+        public static boolean isInOut(Direction a, Direction b) {
+            return (a.equals(input) && b.equals(output)) || (a.equals(output) && b.equals(input));
+        }
     }
 
     /**
