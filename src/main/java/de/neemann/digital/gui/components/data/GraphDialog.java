@@ -12,6 +12,7 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.OrderMerger;
+import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.IconCreator;
@@ -188,6 +189,19 @@ public class GraphDialog extends JDialog implements Observer {
         view.add(zoomIn.createJMenuItem());
         view.addSeparator();
         view.add(showTable.createJMenuItem());
+
+        JMenu help = new JMenu(Lang.get("menu_help"));
+        bar.add(help);
+        help.add(new ToolTipAction(Lang.get("btn_help")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ShowStringDialog(
+                        GraphDialog.this,
+                        Lang.get("msg_graphHelpTitle"),
+                        Lang.get("msg_graphHelp"), true)
+                        .setVisible(true);
+            }
+        }.createJMenuItem());
 
         setJMenuBar(bar);
         pack();

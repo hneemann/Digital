@@ -2080,12 +2080,35 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
   andere Übergangsbedingung erfüllt ist.
 </body></html>]]></string>
 
+    <string name="msg_graphHelpTitle">Der Messwertegraph</string>
+    <string name="msg_graphHelp"><![CDATA[
+        <html><body>
+        <h3>Was ist im Graphen zu sehen?</h3>
+        Im Gegensatz zu einem realen Logikanalysator zeigt die X-Achse des Messwertegraphen nicht die Zeit an.
+        Angezeigt wird ein Zähler welcher die Zustandsänderungen in der Schaltung zählt. Immer wenn eine Änderung
+        in der Schaltung stattfindet, wird der Zähler erhöht und der neue Zustand wird angezeigt.<br/>
+        Man kann es sich auch wie einen klassischen Logikanalysator vorstellen, welcher zur Optimierung keine Daten
+        abspeichert, wenn sich nichts in der Schaltung verändert hat.<br/>
+        Das bedeutet jedoch auch, dass aus dem Graphen nicht abgelesen werden kann, ob zwischen zwei Änderungen in der
+        Schaltung viel oder wenig Zeit vergangen ist.<br/>
+        Dieses Verhalten entsteht durch die Art der Simulation: Die Simulation der Schaltung kennt keine Zeit.
+        Es wird eine Veränderung an der Schaltung durchgeführt, und die Änderung des Schaltungszustandes wird berechnet,
+        bis sich die Schaltung wieder stabiliert hat. Dann erfolgt die nächste Änderung, deren Auswirkung ebenfalls
+        berechnet wird usw.. Diese Änderungen werden gezählt und der Zählerstand wird an der X-Achse des Graphen
+        angezeigt.<br/>
+        Das bedeutet unter anderem, dass man eine Schaltung nicht übertakten kann, da die Auswirkungen der fallenden
+        Flanke des Taktes erst berechnet werden, wenn sich die Schaltung nach der vorherigen steigenden Flanke wieder
+        stabilisiert hat.
+        </body></html>
+    ]]></string>
+
     <string name="tutorial">Tutorial</string>
     <string name="tutorial1">Im Folgenden führt Sie ein kurzes Tutorial zur ersten,
         einfachen Schaltung:
 
         Beginnen Sie, indem Sie einen Eingang in die Schaltung einfügen.
-        Sie finden den Eingang im Menu Bauteile▸IO.</string>
+        Sie finden den Eingang im Menu Bauteile▸IO.
+    </string>
     <string name="tutorial2">Fügen Sie nun einen zweiten Eingang in die Schaltung ein.
         Sie können auch auf den Eingang in der Toolbar klicken.
 

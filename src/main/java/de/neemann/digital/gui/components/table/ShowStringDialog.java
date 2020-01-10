@@ -75,14 +75,16 @@ public class ShowStringDialog extends JDialog {
         getContentPane().add(new JScrollPane(textComp));
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttons.add(new ToolTipAction(Lang.get("btn_copyToClipboard")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                StringSelection stringSelection = new StringSelection(str);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(stringSelection, null);
-            }
-        }.setToolTip(Lang.get("btn_copyToClipboard_tt")).createJButton());
+        if (!html) {
+            buttons.add(new ToolTipAction(Lang.get("btn_copyToClipboard")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    StringSelection stringSelection = new StringSelection(str);
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(stringSelection, null);
+                }
+            }.setToolTip(Lang.get("btn_copyToClipboard_tt")).createJButton());
+        }
         buttons.add(new ToolTipAction(Lang.get("ok")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
