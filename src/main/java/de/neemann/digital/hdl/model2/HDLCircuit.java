@@ -14,8 +14,6 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.io.PowerSupply;
 import de.neemann.digital.core.io.Probe;
-import de.neemann.digital.core.pld.PullDown;
-import de.neemann.digital.core.pld.PullUp;
 import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
@@ -236,8 +234,6 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     private boolean isRealElement(VisualElement v) {
         return !v.equalsDescription(Tunnel.DESCRIPTION)
                 && !v.equalsDescription(Break.DESCRIPTION)
-                && !v.equalsDescription(PullDown.DESCRIPTION)
-                && !v.equalsDescription(PullUp.DESCRIPTION)
                 && !v.equalsDescription(Probe.DESCRIPTION)
                 && !v.equalsDescription(VGA.DESCRIPTION)
                 && !v.equalsDescription(PowerSupply.DESCRIPTION)
