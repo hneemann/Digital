@@ -76,7 +76,7 @@ public final class Style {
     /**
      * Used for high wires in running mode
      */
-    public static final Style WIRE_HIGH = new Builder(WIRE).setColor(new Color(102, 255, 102)).build();
+    public static final Style WIRE_HIGH = new Builder(WIRE).setColor(new Color(142, 0, 0)).build();
     /**
      * Used for wires in high Z state
      */

@@ -307,7 +307,8 @@ public class LibraryNode implements Iterable<LibraryNode> {
         try {
             if (Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES)
                     && getDescription().hasAttribute(Keys.WIDE_SHAPE))
-                visualElement.setAttribute(Keys.WIDE_SHAPE, true);
+                // the shape checkbox's default value is false
+                visualElement.setAttribute(Keys.WIDE_SHAPE, false);
         } catch (IOException e1) {
             // do nothing on error
         }
