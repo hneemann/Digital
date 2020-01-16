@@ -1,0 +1,3 @@
+<?
+  moduleName = elem.Label;
+?>
