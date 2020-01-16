@@ -39,6 +39,28 @@ public class Out implements Element {
             .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
 
     /**
+     * The InOut description
+     */
+    public static final ElementTypeDescription INOUTDESCRIPTION
+            = new ElementTypeDescription("InOut", attributes -> new Out(attributes).enforceName(), input("in")) {
+        @Override
+        public String getDescription(ElementAttributes elementAttributes) {
+            String d = Lang.evalMultilingualContent(elementAttributes.get(Keys.DESCRIPTION));
+            if (d.length() > 0)
+                return d;
+            else
+                return super.getDescription(elementAttributes);
+        }
+    }
+            .addAttribute(Keys.ROTATE)
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.DESCRIPTION)
+            .addAttribute(Keys.INT_FORMAT)
+            .addAttribute(Keys.PINNUMBER)
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
+
+    /**
      * The LED description
      */
     public static final ElementTypeDescription LEDDESCRIPTION

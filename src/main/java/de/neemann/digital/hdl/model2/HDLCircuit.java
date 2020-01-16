@@ -117,14 +117,19 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                         port.setIsClock();
                     }
                     addInput(port);
-                } else if (v.equalsDescription(Out.DESCRIPTION))
-                    addOutput(new HDLPort(
+                } else if (v.equalsDescription(Out.DESCRIPTION) || v.equalsDescription(Out.INOUTDESCRIPTION)) {
+                    final HDLPort port = new HDLPort(
                             v.getElementAttributes().getLabel(),
                             getNetOfPin(v.getPins().get(0)),
                             HDLPort.Direction.IN,  // from inside the node this is an input because it reads the value to output
                             v.getElementAttributes().getBits())
                             .setPinNumber(v.getElementAttributes().get(Keys.PINNUMBER))
-                            .setDescription(Lang.evalMultilingualContent(v.getElementAttributes().get(Keys.DESCRIPTION))));
+                            .setDescription(Lang.evalMultilingualContent(v.getElementAttributes().get(Keys.DESCRIPTION)));
+                    if (v.equalsDescription(Out.INOUTDESCRIPTION))
+                        port.setIsInOut();
+                    addOutput(port);
+
+                }
                 else if (v.equalsDescription(Splitter.DESCRIPTION))
                     handleSplitter(c.createNode(v, this));
                 else if (isRealElement(v))

@@ -191,7 +191,10 @@ public class VerilogCreator {
         }
         for (HDLPort o : circuit.getOutputs()) {
             sep.check();
-            out.print(getType(HDLPort.Direction.OUT, o.getDirection(), o.getBits())).print(" ").print(o.getName());
+            if (o.isInOut())
+                out.print(getType(HDLPort.Direction.INOUT, HDLPort.Direction.INOUT, o.getBits())).print(" ").print(o.getName());
+            else
+                out.print(getType(HDLPort.Direction.OUT, o.getDirection(), o.getBits())).print(" ").print(o.getName());
             if (o.hasDescription()) sep.setLineFinalizer(ou -> ou.printComment(" // ", o.getDescription()));
         }
         sep.close();

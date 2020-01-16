@@ -130,6 +130,7 @@
     <!-- IO -->
 
     <string name="elem_Out">Output</string>
+    <string name="elem_InOut">InOut</string>
     <string name="elem_Out_tt">Can be used to display an output signal in a circuit.
         This element is also used to connect a circuit to an embedding circuit.
         In this case the connection is bidirectional.
@@ -1456,6 +1457,8 @@
     <string name="lib_more">more</string>
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
+    <string name="lib_lattice">Lattice</string>
+    <string name="lib_machXO2">MachXO2</string>
 
     <string name="menu_window">Windows</string>
     <string name="menu_about">About</string>

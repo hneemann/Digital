@@ -33,6 +33,7 @@ import de.neemann.digital.gui.components.graphics.VGA;
 import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.plugin.lattice.*;
 import de.neemann.digital.testing.TestCaseElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,6 +123,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(LookUpTable.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_io"))
                         .add(Out.DESCRIPTION)
+                        .add(Out.INOUTDESCRIPTION)
                         .add(Out.LEDDESCRIPTION)
                         .add(In.DESCRIPTION)
                         .add(Clock.DESCRIPTION)
@@ -219,7 +221,14 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION)
                         .add(AsyncSeq.DESCRIPTION)
-                        .add(External.DESCRIPTION));
+                        .add(External.DESCRIPTION))
+                .add(new LibraryNode(Lang.get("lib_lattice"))
+                        .add(new LibraryNode(Lang.get("lib_machXO2"))
+                                .add(LRamDPTrue.DESCRIPTION)
+                                .add(LRamDQ.DESCRIPTION)
+                                .add(LRom.DESCRIPTION)
+                                .add(LRamDP.DESCRIPTION)
+                                .add(RegsFile.DESCRIPTION)));       // todo: PLL
 
         addExternalJarComponents(jarFile);
 

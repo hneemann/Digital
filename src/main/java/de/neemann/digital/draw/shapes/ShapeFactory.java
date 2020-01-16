@@ -31,6 +31,7 @@ import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEXOrShape;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.plugin.lattice.*;
 import de.neemann.digital.testing.TestCaseElement;
 
 import java.util.HashMap;
@@ -105,6 +106,7 @@ public final class ShapeFactory {
         map.put(Ground.DESCRIPTION.getName(), GroundShape::new);
         map.put(VDD.DESCRIPTION.getName(), VDDShape::new);
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
+        map.put(Out.INOUTDESCRIPTION.getName(), InOutShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(LightBulb.DESCRIPTION.getName(), LightBulbShape::new);
         map.put(RGBLED.DESCRIPTION.getName(), RGBLEDShape::new);
@@ -164,6 +166,14 @@ public final class ShapeFactory {
         map.put(PullUp.DESCRIPTION.getName(), PullUpShape::new);
         map.put(PullDown.DESCRIPTION.getName(), PullDownShape::new);
         map.put(PinControl.DESCRIPTION.getName(), PinControlShape::new);
+
+        // add Lattice components shape
+        map.put(LRamDPTrue.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, LRamDPTrue.DESCRIPTION, 6));
+        map.put(LRamDQ.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, LRamDQ.DESCRIPTION, 6));
+        map.put(LRom.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, LRom.DESCRIPTION, 6));
+        map.put(LRamDP.DESCRIPTION.getName(), (attr, inputs, outputs) -> new RAMShape(attr, LRamDP.DESCRIPTION, 6));
+        map.put(RegsFile.DESCRIPTION.getName(), RectShape::new);
+        // todo: PLL
 
         // disables string formatting for external components, see #272
         map.put(External.DESCRIPTION.getName(),
