@@ -1,0 +1,320 @@
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <title>Visual Verilog Documentation</title>
+        <link rel="stylesheet" type="text/css" href="styles_documentation.css">
+    </head>
+    <body>
+        <div>
+            <div>
+                <h3>Port Declaration</h3>
+                <p>
+                    As any normal programming language works, where code must be written within classes or methods.
+                    Hardware descriptive languages work the same way around in which code is written within <b>Modules</b>
+                </p>
+                <p>
+                    Functionality is described within the module. Each module is declared with two keywords, 
+                    <b>module and endmodule</b>. Now in our Visual Verilog main page; you will find a category on the left
+                    panel "Port declaration", this category contains blocks to represent initializing a new module, declare
+                    input/ output variables and the <b>end</b> module block which is essential and very important to plug in
+                    at the end of your module to achieve correct syntax modules.
+                </p>
+                <h5>
+                    Let's have an example to display any text to the user:
+                </h5>
+                <p>
+                    We will go inside the first and main category of our application. Drag "create new module block" into workspace
+                    Now to start executing stuff at t=0, or in other words as soon as the program is compiled; the "intial" keyword
+                    must be used. Thus, going into the <b>Behavioral</b> category that I'll explain in no time. Append the new module
+                    block with the "Execute at t=0" block from Behavioral category and from the <b>simulation2</b> category, users can
+                    find a print block where he/she could write any text to be displayed. Finally don't forget the <b>End</b> block inside
+                    Module declaration category to be attached at the end.
+                </p>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/helloWorld.PNG" alt="HelloWorld program in Visual Verilog" style="width:430px;height:250px;">
+                    </div>
+                    <div id="middleThing">
+                        <img src="assets/helloWorldV.PNG" alt="Verilog code in show Verilog Module" style="width:430px;height:250px;">
+                    </div>
+                    <div id="rightThing">
+                        <img src="assets/helloWorldR.PNG" alt="Results after compiling the code via Simulator provided" style="width:430px;height:250px;">
+                    </div>
+                </div>
+                <h6>Figure 1 shows the blocks inside workspace, Figure 2 shows the generated Verilog code, Figure 3 shows result after testing the generated
+                    code via the simulator provided in Visual Verilog.
+                </h6>
+            </div>
+            <div>
+                <h3>Dynamic Variables</h3>
+                <p>This category allows users to create variables which can be used throughout the program,
+                    for example, going to this directory and create a variable given it's name as "X". Now This
+                    category will expand with getters and setters for the variable. This variable database could hold
+                    any number of variables. User only has to specifiy the name of the variable only. As shown in image below,
+                    where I created a variable with name "X".
+                </p>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/variables.PNG" alt="variables" style="width:300px;height:170px;">
+                    </div>
+                    <p>
+                        This category help users/designer to intialize variable and use them throughout the design process. Basically
+                        any new variable should be declared from this category to be used correctly.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <h3>Gate Level 1 & 2</h3>
+                <p>
+                    Gate level modeling is an approach to implement ideas in terms of logic gates and interconnections behind, 
+                    which means that the designer or developer should know the inner gate-level structure behind. Logic gates
+                    could support multiple inputs be only generates one output. Our application Visual Verilog supports all logic
+                    gates such as (and, or, not, xnor, xor, nor, nand) gates. Each could be given a name for the gate itself and 
+                    to name the output for late use.
+                </p>
+                <h5>Example for resemebling a circuit diagram with Visual Verilog</h5>
+                <div id="container1">
+                    <div id="leftThing">
+                        <img src="assets/gateLevel1.PNG" alt="Circuit diagram">
+                    </div>
+                    <div id="middleThing">
+                        <img src="assets/gateLevelCirc.PNG" alt="Circuit program in Visual Verilog">
+                    </div>
+                    <div id="rightThing">
+                        <img src="assets/gateLeve;ModulePNG.PNG" alt="Verilog module representing the circuit">
+                    </div>
+                </div>
+                <p>Figure 3 on the right, shows correct syntax Verilog module generated by Visual Verilog</p>
+            </div>
+            <div>
+                <h3>Behavioral Category</h3>
+                <p>
+                    This is the highest level of abstraction. A module can be implemented in terms of the design algorithm. 
+                    The designer no need to have any knowledge of hardware implementation. Behavioral Modeling contain procedural statements,
+                    which control the simulation and manipulate variables of the data types. 
+                    These all statements are contained within the procedures. Each of the procedure has an activity flow associated with it.
+                    During simulation of behavioral model, all the flows defined by the ‘always’ and ‘initial’ statements start together at 
+                    simulation time ‘zero’. 
+                    The initial statements are executed once, and the always statements are executed repetitively. 
+                    In this model, the register variables a and b are initialized to binary 1 and 0 respectively at simulation time ‘zero’. 
+                    The initial statement is then completed and is not executed again during that simulation run. 
+                </p>
+                <p>
+                    Verilog does not only provides sequential programs but it also have the feature of executing multiple programs simultaneously,
+                    in other words; a sequence of operations are done within the same clock cycle without stalling. This is opposite to sequential
+                    executing, in which each statement is executed in one clock cycle. 
+                </p>
+            </div>
+            <div>
+                <h3>Data Flow category</h3>
+                <p>
+                    This category only contains one block which is the <b>Assign</b>, the module is designed by specifying the data flow. 
+                    Designer must how data flows between various registers of the design. Dataflow modeling uses a number of operators that 
+                    act on operands to produce the desired results. For example, an or-Gate module using the Data Flow modeling would require
+                    to inputs to be OR-ed together, thus we assign an output variable the result of OR-ing two input variables to achieve the
+                    correct result.
+                </p>
+                <h5>Example showing Data Flow modeling</h5>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/orGateDataFlow.PNG" alt="OR-Gate truth table">
+                    </div>
+                    <div id="middleThing">
+                        <img src="assets/orGateVisualVerilog.PNG" alt="Visual Verilog program for DataFlow OR-Gate">                        
+                    </div>
+                    <div id="rightThing">
+                        <img src="assets/dataFlowModule.PNG" alt="Generated Verilog module">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Conditions category</h3>
+                <p>Visual Verilog present a full category of <b>Condition</b> blocks with variance of conditional operators.
+                Each block should be provided with a condition if the block require. This condition should evaluate to a boolean
+                expression.
+                </p>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/conditionExamplesVV.PNG">
+                    </div>
+                    <div id="middleThing">
+                        <img src="assets/conditionVCode.PNG">
+                    </div>
+                    <div id="rightThing">
+                        <p>
+                            Examples of how to use <b>conditions</b> in Visual Verilog and how to plug in correct expressions.
+                            Ternary condition is also supported for user's needs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Logic Operators</h3>
+                <p>
+                    Verilog provides operators that have an effect on both logic and bitwise, this category have operators that have an effect
+                    on the logical component. Since Verilog have different syntax for each category. Input to these blocks should be boolean expressions
+                    or numbers to have a correct usage.
+                </p>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/logic.PNG">
+                    </div>
+                    <div id="middleThing">
+                        <img src="assets/logic2.PNG">
+                    </div>
+                    <div id="rightThing">
+                        <p>
+                            This category focuses on Logical operators, since it is commonly used within conditions and loops. As you can see in figure2; 
+                            Each block with a dropdown have multiple functions to be used as the user desires. Hence, in logical and, logical or is also
+                            and also other logical operations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Bitwise Operators</h3>
+                <p>
+                    Bitwise operators have an effect on each bit in a given number or expression. You might notice it shares some features of the logic categpry
+                    blocks; however, it's totally different. Thus make sure you use the correct on in any situation. The use is up to the designer.
+                </p>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/bitwise.PNG">
+                    </div>
+                    <div id="rightThing">
+                        <img src="assets/bitwise2.PNG">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Operators</h3>
+                <p>
+                    Visual Verilog have power introducing blocks that provide arithmetic operators, not only but also a block to input certain text and two other
+                    which simulate the clock's rising edge and the clock's falling edge. Designer should have basic knowledge of how hardware components work to 
+                    produce a valid functioning Verilog code. Clock's rising and falling edges usually used within the Behvairoual modeling category inside the always block.
+                </p>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/operators.PNG">
+                    </div>
+                    <p>
+                        As you can see in the figure, the <b>Operator</b> category contains these blocks, each have it's own function. First the arithmetic block which
+                        takes in two numbers and do an arithmetic operation from the dropdown menu. Next, is the text input block that helps designers display some Strings.
+                        Finally the two blocks which are mainly used in Behavioral Modeling, since it could model the behavior on doing certain actions on the rising edge or
+                        falling edge of any signal. Thus, It was very important to simulate it too.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <h3>Values</h3>
+                <p>
+                    Visual Verilog also supports numbers and basic values used within the process of designing a circuit. Users can find four different blocks each representing 
+                    a value. Most common are the values of <b>Zero</b> and <b>One</b> and also <b>Z</b> and <b>X</b> which represents the high impedence state and don't care conditions.
+                </p>
+                <div id="container">
+                    <div>
+                        <p>
+                            Values is essential to Verilog. Since Verilog has values that represents hardware component states. First the logic <b>Zero</b> and <b>One</b>; however, Verilog
+                            has two different common values. The <b>High impedence</b> and <b>Don't care</b> where each is different. The high impedence is represented by "Z" and it has a no value.
+                            On the other hand, the don't care which is represented by "X" which could be bound to Zero or One but we don't care about it.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Numbers</h3>
+                <p>
+                    This Number category contains a bunch of Number operators that I'll explain. The first block allows users to input a number which is very important to our platform
+                    since the users might have to input sizes of Input/Output ports or to specify the size of wire in terms of bits. Thus, since Verilog doesn't usually store numbers as 
+                    decimal, Visual Verilog provides with operators that translates an input number in decimal to <b>Binary</b> or <b>Hexadecimal</b> or <b>Octal</b> bases. As you can notice
+                    there is a repition but there is differences between them. As you can see three blocks have no output while three have an output value. This repition help designers to have more
+                    power to use numbers inside the program.
+                </p>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/numbers.PNG" style="height:95%;">
+                    </div>
+                    <div id="middleThing">
+                        <img src="assets/numbers1.PNG">
+                    </div>
+                    <div id="rightThing">
+                        <img src="assets/numbersResult.PNG">
+                    </div>
+                </div>
+                <p>
+                    As you know Verilog stores number in <b>Binary</b> based format. But you as a user isn't restricted to writing binary numbers. Thus,
+                    Visual Verilog provides users with blocks to write any decimal number in any format he/she desires. As you can notice there is some sort
+                    of duplication between the blocks; however, they are different. Take a look on the left side of each block where you'll find some blocks that
+                    return values and some don't. This allows flexibility in the design process.
+                </p>
+            </div>
+            <div>
+                <h3>Loops</h3>
+                <p>
+                    As long as Visual Verilog provided a blocks for conditional operators, thus it must provide blocks representing Loops. Loops are essential for building software programs. In Verilog
+                    there is a bunch of loop statments, forever loop is a loop that executes forever under a boolean condition also the repeat loop which requires a number to be repeated this number of times.
+                    This repeat doesn't require a boolean condition. On the other hand the basic while loop is also provided for users to use.
+                </p>
+                <div id="container">
+                    <div id="leftThing">
+                        <img src="assets/loops.PNG">
+                    </div>
+                    <div id="middleThing">
+                        <img src="assets/loops1.PNG">
+                    </div>
+                    <div id="rightThing">
+                        <img src="assets/loops3.PNG">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Simulation Category 1 & 2</h3>
+                <p>
+                    Simulation is divided upon two categories to reduce the complexity of being in one category. It holds blocks used in creating <b>testbenches</b>. Testbenches are a form of testing a certain module
+                    giving it values and watch it over a period of time to track if the logic is correct or it returns false values. Testbenches are essential in Verilog. The first Simulation category provides definition
+                    for intializing a testbench; Testbenches are like modules, they are both inclosed within a module and endmodule tags thus always remember to append the end block at the end of each new module.
+                    Also there exists blocks representing inputs and outputs declared in the testbenches.<br>
+                    Simulation two contains blocks that have an effect on variables. For example, you can use the monitor block to check the wave forms of a variable over time. So drag it in workspace and write the name of
+                    the variable inside the textfield. Last and not least the print which can display some text, and at time block which is very important, since testbenches use an intial keyword to start executing
+                    which operates at time = 0, the designer must check for variable's behavior over a period thus this allows a certain action to be executed at a certain time and not 0 only. Finally the finish block is basically
+                    used just to define that the testbench phase ended and there is not change of variables after this point. This is totally different that the end block so don't mistake them.
+                </p>
+                <div id="container">
+                    <div>
+                        <img src="assets/simulation1.PNG">
+                        <p>
+                            Figure 1. shows blocks for initializing testbench module and declare input/output variables.
+                            <b>End</b> keyword is essential to append at the end of the testbench, since testbenches are enclosed
+                            with <b>module endmodule</b> keywords.
+                        </p>
+                    </div>
+                    <div>
+                        <img src="assets/simulation2.PNG">
+                        <p>
+                            Figure 2. shows blocks to display text, display wave forms of variables, allow certain actions to execute at
+                            a specific time unit which is the main point of testbenches. <b>Finish simulation</b> blocks describes that once
+                            the compiler reach this command no further change of variables will be allowed; however, don't mistake it with the end
+                            block since end is responsible for module decleration.
+                        </p>
+                    </div>
+                    <div>
+                        <img src="assets/simulation3.PNG">
+                        <p>
+                            Figure 3. shows an example testbench module implemented with Visual Verilog for a simple if condition that executes 
+                            over a variable signal.
+                        </p>
+                    </div>
+                    <div>
+                    <div>
+                        <img src="assets/simulation4.PNG">
+                    </div>
+                    <div>
+                    <p>
+                        The generated code by Visual Verilog for blocks in <b>figure 3</b>.
+                    </p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

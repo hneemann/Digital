@@ -1,0 +1,222 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Visual Verilog</title>
+  <link rel="stylesheet" type="text/css" href="styles_index.css">
+  <script src="js/blockly_compressed.js"></script>
+  <script src="js/blocks_compressed.js"></script>
+  <!-- <script src="js/verilog_compressed.js"></script> -->
+  <script src="js/en.js"></script>
+  <script src="js/customBlocks.js"></script>
+  <script src="js/text.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/math.js"></script>
+  <script src="js/variables.js"></script>
+  <!-- <script src="js/custom.js"></script> -->
+  <script src="js/loops.js"></script>
+  <script src="generators/verilog.js"></script>
+  <script src="generators/verilog/custom.js"></script>
+  <script src="generators/verilog/math.js"></script>
+  <script src="generators/verilog/logic.js"></script>
+  <script src="generators/verilog/loops.js"></script>
+  <script src="generators/verilog/text.js"></script>
+  <script src="generators/verilog/variables.js"></script>
+  <script src="generators/verilog/variables_dynamic.js"></script>
+</head>
+
+<body>
+  <div id="blocklyDiv">
+    <xml id="toolbox" style="display: none">
+      <category name="Port Declaration" colour="260">
+        <block type="module_dec"></block>
+        <block type="input_block"></block>
+        <block type="output_block"></block>
+        <block type="wire_block"></block>
+        <block type="reg_block"></block>
+        <block type="inout_block"></block>
+        <block type="end_module"></block>
+      </category>
+      <category name="Dynamic Variables" colour="330" custom="VARIABLE">
+      </category>
+      <category name="Gate level1" colour="140">
+        <block type="and_block"></block>
+        <block type="or_block"></block>
+        <block type="not_gate"></block>
+        <block type="xor_block"></block>
+      </category>
+      <category name="Gate level2" colour="160">
+        <block type="nand_block"></block>
+        <block type="nor_block"></block>
+        <block type="xnor_block"></block>
+      </category>
+      <category name="Behavioral" colour="140">
+        <block type="intial"></block>
+        <block type="intial_par"></block>
+        <block type="always_blk"></block>
+        <block type="always_simu"></block>
+        <block type="logic_operation_2"></block>
+        <block type="variables_set_parallel"></block>
+      </category>
+      <category name="Data Flow" colour="200">
+        <block type="assign_block"></block>
+      </category>
+      <category name="Conditions" colour="310">
+        <block type="controls_if"></block>
+        <block type="controls_ifelse"></block>
+        <block type="if_else_block"></block>
+        <block type="logic_ternary"></block>
+      </category>
+      <category name="Logic Operators" colour="230">
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_null"></block>
+      </category>
+      <category name="Bitwise Operators" colour="270">
+        <block type="logic_operation3"></block>
+        <block type="logic_negate3"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_null"></block>
+      </category>
+      <category name="Operators" colour="110">
+        <block type="math_arithmetic"></block>
+        <block type="text"></block>
+        <block type="bit_select"></block>
+        <block type="pos_edge"></block>
+        <block type="neg_edge"></block>
+        <block type="concat"></block>
+      </category>
+      <category name="Values" colour="230">
+        <block type="zero"></block>
+        <block type="one"></block>
+        <block type="high_impedence"></block>
+        <block type="dont_care"></block>
+      </category>
+      <category name="Numbers" colour="280">
+        <block type="math_number"></block>
+        <block type="decimal_binary"></block>
+        <block type="decimal_hexa"></block>
+        <block type="decimal_octa"></block>
+        <block type="decimal_binary_return"></block>
+        <block type="decimal_hexa_return"></block>
+        <block type="decimal_octal_return"></block>
+      </category>
+      <category name="Loops" colour="230">
+        <block type="forever_loop"></block>
+        <block type="repeat_loop"></block>
+        <block type="while_loop"></block>
+      </category>
+      <category name="Simulation1" colour="300">
+        <block type="module_test"></block>
+        <block type="input_simu"></block>
+        <block type="output_simu"></block>
+        <block type="end_module"></block>
+      </category>
+      <category name="Simulation2" colour="320">
+        <block type="display_block"></block>
+        <block type="monitor_block"></block>
+        <block type="time_block"></block>
+        <block type="finish_block"></block>
+      </category>
+    </xml>
+  </div>
+
+  <div class="codeDiv">
+    <h3>Code View</h3>
+    <hr>
+    <div id="codeArea"></div>
+    <button class="saveButton">
+      <img src="./save.png" alt="保存到本地">
+    </button>
+  </div>
+
+  <script>
+    const workspace = Blockly.inject('blocklyDiv',
+      {
+        toolbox: document.getElementById('toolbox'),
+        grid:
+        {
+          spacing: 20,
+          length: 3,
+          colour: '#aaa',
+          snap: true
+        },
+        trashcan: true
+        ,
+        zoom:
+        {
+          controls: true,
+          wheel: true,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2
+        },
+        trashcan: true
+      });
+
+    function ShowVerCode() {
+      Blockly.Verilog.INFINITE_LOOP_TRAP = null;
+      var code = Blockly.Verilog.workspaceToCode(workspace);
+      document.getElementById('codeArea').innerText = code;
+    }
+
+    workspace.addChangeListener(ShowVerCode);
+
+    const saveButton = document.querySelector('.saveButton');
+    saveButton.onclick = () => {
+      const code = document.getElementById('codeArea').innerText;
+      if (code) {
+        const filename = inputFileName();
+        filename && doSave(code, filename);
+      }
+      else
+        alert('There is nothing to save!')
+    }
+
+    function inputFileName() {
+      let filename = prompt('Please enter a filename...');
+      if (filename == '')
+        return inputFileName();
+      else if (filename !== null) {
+        if (/\.v$/.test(filename))
+          return filename;
+        else
+          return filename + '.v';
+      }
+      return null;
+    }
+
+    function doSave(code, filename) {
+      if (isIE()) {   // IE 浏览器保存
+        const winname = window.open('', '_blank', 'top=10000');
+        winname.document.open('text/html', 'replace');
+        winname.document.writeln(code);
+        winname.document.execCommand('saves', '', filename);
+        winname.close();
+      } else
+        saveAs(code, filename);
+    }
+
+    function saveAs(code, filename) {
+      const a = document.createElement('a');
+      a.setAttribute('href', 'data:text/html;gb2312,' + code);
+      a.setAttribute('download', filename);
+      a.setAttribute('target', '_blank');
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+    }
+
+    function isIE() {
+      if (window.ActiveXObject || 'ActiveXObject' in window) 
+        return true;
+      return false;
+    }
+
+  </script>
+</body>
+
+</html>

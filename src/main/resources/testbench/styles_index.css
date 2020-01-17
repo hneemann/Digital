@@ -1,0 +1,66 @@
+body {
+  display: flex;
+  margin: 0;
+}
+
+#blocklyDiv {
+  width: 80%;
+  
+}
+
+.codeDiv {
+  width: 20%;
+  height: 100vh;
+  border: 1px solid #c6c6c68a;
+  overflow: auto;
+}
+
+.codeDiv h3 {
+  text-align: center;
+}
+
+hr {
+  border: 0;
+  background-color: #c6c6c68a;
+  height: 2px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+#codeArea {
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+.saveButton {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background-color: #0097A7;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .37);
+  transition: box-shadow .3s ease-in-out;
+  border: 0;
+}
+
+.saveButton:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .2),
+              0 6px 10px rgba(0, 0, 0, .3);
+  transition: box-shadow .3s ease-in-out;
+}
+
+.saveButton:focus {
+  outline: 0;
+}
+
+img {
+  width: 32px;
+  height: 32px;
+}

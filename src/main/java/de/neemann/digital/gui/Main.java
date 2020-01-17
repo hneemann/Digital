@@ -60,8 +60,10 @@ import de.neemann.digital.toolchain.Configuration;
 import de.neemann.digital.undo.ChangedListener;
 import de.neemann.digital.undo.Modifications;
 import de.neemann.gui.*;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.security.krb5.internal.crypto.Des;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -75,12 +77,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
@@ -243,6 +249,30 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         menuBar.add(librarySelector.buildMenu(insertHistory, circuitComponent));
 
         menuBar.add(WindowManager.getInstance().registerAndCreateMenu(this));
+
+        /*
+        *   在菜单栏中添加 TestBench 选项
+         */
+        JMenu testBenchMenu = new JMenu(Lang.get("menu_testBench"));
+        menuBar.add(testBenchMenu);
+        testBenchMenu.add(new ToolTipAction(Lang.get("menu_testBench_create")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    URL url = this.getClass().getClassLoader().getResource("testbench");
+                    Path src = Paths.get(Objects.requireNonNull(url).toURI());
+                    Path target = Paths.get(System.getProperty("java.io.tmpdir"), "digital");
+                    FileUtils.copyDirectory(src.toFile(), target.toFile());
+                    target.toFile().deleteOnExit();
+                    URI uri = target.resolve("index.html").toUri();
+                    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+                    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE))
+                        desktop.browse(uri);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }.setToolTip(Lang.get("menu_testBench_create_tt")).createJMenuItem());
 
         JMenu helpMenu = new JMenu(Lang.get("menu_help"));
         helpMenu.add(new ToolTipAction(Lang.get("menu_help_elements")) {
