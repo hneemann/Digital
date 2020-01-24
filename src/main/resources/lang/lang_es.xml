@@ -197,27 +197,34 @@
 		Pueden dibujarse ciclos de reloj completos o cambios en puertas simples.
 		No afecta a la simulación.</string>
   <string name="elem_RotEncoder">Encoder rotatorio</string>
-  <string name="elem_RotEncoder_tt">Mando rotatorio con un encoder rotatorio. Se usa para detectar giros.</string>
-  <string name="elem_RotEncoder_pin_A">Señal A del encoder</string>
-  <string name="elem_RotEncoder_pin_B">Señal B del encoder</string>
-  <string name="elem_Keyboard">Teclado</string>
-  <string name="elem_Keyboard_tt">Teclado que puede usarse para introducir texto.
-		Este componente almacena la entrada, que puede leerse posteriormente.
-		Una ventana aparte se abre para escribir el texto</string>
-  <string name="elem_Keyboard_pin_C">Reloj. Un flanco de subida elimina el último carácter de la memoria.</string>
-  <string name="elem_Keyboard_pin_en">Si está alto, la salida D está activa y sale un carácter.
-		También habilita la entrada de reloj.</string>
-  <string name="elem_Keyboard_pin_D">El último carácter escrito, o cero si no hay ningún carácter disponible.</string>
-  <string name="elem_Keyboard_pin_av">Esta salida indica que hay caracteres disponibles.
-		Se puede usar para disparar una interrupción.</string>
-  <string name="elem_Terminal">Terminal</string>
-  <string name="elem_Terminal_tt">Puedes escribir caracteres ASCII en el terminal.
-		El terminal abre su propia ventana para visualizar la salida.</string>
-  <string name="elem_Terminal_pin_C">Reloj. Un flanco de subida escribe el valor de la entrada en la terminal.</string>
-  <string name="elem_Terminal_pin_D">El dato que se va a escribir en la terminal.</string>
-  <string name="elem_Terminal_pin_en">Un 1 en esta entrada habilita la entrada de reloj.</string>
-  <string name="elem_MIDI">MIDI</string>
-  <string name="elem_MIDI_tt">Usa el MIDI del sistema para tocar notas.</string>
+    <string name="elem_RotEncoder_tt">Mando rotatorio con un encoder rotatorio. Se usa para detectar giros.</string>
+    <string name="elem_RotEncoder_pin_A">Señal A del encoder</string>
+    <string name="elem_RotEncoder_pin_B">Señal B del encoder</string>
+    <string name="elem_Keyboard">Teclado</string>
+    <string name="elem_Keyboard_tt">Teclado que puede usarse para introducir texto.
+        Este componente almacena la entrada, que puede leerse posteriormente.
+        Una ventana aparte se abre para escribir el texto
+    </string>
+    <string name="elem_Keyboard_pin_C">Reloj. Un flanco de subida elimina el último carácter de la memoria.</string>
+    <string name="elem_Keyboard_pin_en">Si está alto, la salida D está activa y sale un carácter.
+        También habilita la entrada de reloj.
+    </string>
+    <string name="elem_Keyboard_pin_D">El último carácter escrito, o cero si no hay ningún carácter disponible.
+        La salida es el carácter Java de 16 bits
+    </string>
+    <string name="elem_Keyboard_pin_av">Esta salida indica que hay caracteres disponibles.
+        Se puede usar para disparar una interrupción.
+    </string>
+    <string name="elem_Terminal">Terminal</string>
+    <string name="elem_Terminal_tt">Puedes escribir caracteres ASCII en el terminal.
+        El terminal abre su propia ventana para visualizar la salida.
+    </string>
+    <string name="elem_Terminal_pin_C">Reloj. Un flanco de subida escribe el valor de la entrada en la terminal.
+    </string>
+    <string name="elem_Terminal_pin_D">El dato que se va a escribir en la terminal.</string>
+    <string name="elem_Terminal_pin_en">Un 1 en esta entrada habilita la entrada de reloj.</string>
+    <string name="elem_MIDI">MIDI</string>
+    <string name="elem_MIDI_tt">Usa el MIDI del sistema para tocar notas.</string>
   <string name="elem_MIDI_pin_N">Nota</string>
   <string name="elem_MIDI_pin_V">Volumen</string>
   <string name="elem_MIDI_pin_OnOff">Si está activo, funcionará al presionar una tecla del teclado.
@@ -235,10 +242,13 @@
   <string name="elem_Const_tt">Componente que devuelve un valor dado como simple constante. El valor puede fijarse en el diálogo de propiedades.</string>
   <string name="elem_Const_pin_out">Devuelve el valor dado como constante.</string>
   <string name="elem_Tunnel">Túnel</string>
-  <string name="elem_Tunnel_tt">Conecta componentes sin cable. Todos los elementos "túnel" que tengan el mismo nombre de red
-		están conectados entre sí. Funciona sólo localmente, por lo que no es posible conectar diferentes circuitos.</string>
+    <string name="elem_Tunnel_tt">Conecta componentes sin cable. Todos los elementos "túnel" que tengan el mismo nombre
+        de red
+        están conectados entre sí. Funciona sólo localmente, por lo que no es posible conectar diferentes circuitos.
+        Los túneles sin nombre se ignoran en silencio.
+    </string>
   <string name="elem_Tunnel_pin_in">Conexión al túnel</string>
-  <string name="elem_Splitter">Divisor</string>
+    <string name="elem_Splitter">Divisor/Agregador</string>
   <string name="elem_Splitter_tt">Divide o crea un haz de cables o un bus de datos con más de un bit.
 		Con un bus es posible, por ejemplo, generar conexiones de 16 bits sin tener que generar 16 cables individuales.
 		Las 16 conexiones pueden agruparse en un cable.
@@ -285,7 +295,9 @@
   <string name="elem_DriverInvSel_pin_out">Si la entrada "sel" es 0, la entrada se propaga a esta salida.
 		Si la entrada "sel" es 1, esta salida estará en alta impedancia.</string>
   <string name="elem_Multiplexer">Multiplexor</string>
-  <string name="elem_Multiplexer_tt">Componente que usa el valor del pin de selección (sel) para decidir qué valor de entrada se propaga a la salida.</string>
+    <string name="elem_Multiplexer_tt">Componente que usa el valor del pin de selección (sel) para decidir qué valor de
+        entrada se pone en la salida.
+    </string>
   <string name="elem_Multiplexer_input">El {0} dato de entrada del multiplexor.</string>
   <string name="elem_Multiplexer_output">El valor de la entrada seleccionada.</string>
   <string name="elem_Multiplexer_pin_sel">Esta entrada se emplea para seleccionar el dato de entrada que pasará a la salida.</string>
@@ -1775,14 +1787,131 @@ Por tanto, la señal 'D_out' estará también disponible para chequear el valor 
   <string name="elem_Seven-Seg_pin_ca">Ánodo común. Para encender los ledes, esta entrada deberá estar en ALTO</string>
   <string name="key_commonConnectionType">Común</string>
   <string name="key_commonConnectionType_tt">Tipo de conexión común.</string>
-  <string name="key_commonConnectionType_cathode">Cátodo</string>
-  <string name="key_commonConnectionType_anode">Ánodo</string>
-  <string name="key_wireToolTips">Consejos sobre la herramienta cable</string>
-  <string name="key_wireToolTips_tt">Si está seleccionado, las líneas de resaltan cuando el ratón para sobre ellas.</string>
-  <string name="menu_table_showAllSolutions">Muestra el diálogo de resultados</string>
-  <string name="menu_table_showAllSolutions_tt">Muestra el cuadro de diálogo de resultados si se cerró manualmente</string>
-  <string name="msg_codeNotConsistent">Las definiciones de entrada y salida no se pudieron crear automáticamente.
-        ¡Por favor, comprueba los ajustes!</string>
-  <string name="msg_fsmTransition">Transición</string>
-  <string name="msg_fsmState">Estado</string>
+    <string name="key_commonConnectionType_cathode">Cátodo</string>
+    <string name="key_commonConnectionType_anode">Ánodo</string>
+    <string name="key_wireToolTips">Consejos sobre la herramienta cable</string>
+    <string name="key_wireToolTips_tt">Si está seleccionado, las líneas de resaltan cuando el ratón para sobre ellas.
+    </string>
+    <string name="menu_table_showAllSolutions">Muestra el diálogo de resultados</string>
+    <string name="menu_table_showAllSolutions_tt">Muestra el cuadro de diálogo de resultados si se cerró manualmente
+    </string>
+    <string name="msg_codeNotConsistent">Las definiciones de entrada y salida no se pudieron crear automáticamente.
+        ¡Por favor, comprueba los ajustes!
+    </string>
+    <string name="msg_fsmTransition">Transición</string>
+    <string name="msg_fsmState">Estado</string>
+    <string name="elem_ButtonLED">Pulsador con LED</string>
+    <string name="elem_ButtonLED_tt">Un pulsador que vuelve a su estado original cuando se presiona.
+        El pulsador tiene un led que puede ser conmutado con una señal de entrada.
+    </string>
+    <string name="elem_ButtonLED_pin_out">Señal de salida del botón</string>
+    <string name="elem_ButtonLED_pin_in">Entrada para controlar el LED</string>
+    <string name="elem_VGA">Monitor VGA</string>
+    <string name="elem_VGA_tt">Analiza las señales de vídeo entrantes y muestra el gráfico correspondiente.
+        Puesto que la simulación no se puede ejecutar en tiempo real, se necesita el reloj de pixel además de las
+        señales de vídeo.
+    </string>
+    <string name="elem_VGA_pin_R">Componente de color rojo</string>
+    <string name="elem_VGA_pin_G">Componente de color verde</string>
+    <string name="elem_VGA_pin_B">Componente de color azul</string>
+    <string name="elem_VGA_pin_H">Señal de sincronización horizontal</string>
+    <string name="elem_VGA_pin_V">Señal de sincronización vertical</string>
+    <string name="elem_VGA_pin_C">Reloj de píxel</string>
+    <string name="elem_PinControl">Pin Control</string>
+    <string name="elem_PinControl_tt">Lógica de control para un pin bidireccional.
+        ¡Se precisa este componente sólo en el contexto de generación de VHDL o Verilog, con el fin de crear un puerto
+        HDL bidireccional!
+    </string>
+    <string name="elem_PinControl_pin_wr">Dato que se va a mostrar</string>
+    <string name="elem_PinControl_pin_oe">Activa la salida.</string>
+    <string name="elem_PinControl_pin_rd">Datos que se van a leer.</string>
+    <string name="elem_PinControl_pin_pin">Conector para el pin real. Sólo se debería conectar aquí una salida simple.
+    </string>
+    <string name="err_customShapeHasNoPin_N">La forma personalizada no define un pin {0}</string>
+    <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">Varias salidas se conectan a otras.
+        Este tipo de interconexión no está soportado para exportación HDL. ({0}, {1}, {2})
+    </string>
+    <string name="err_unnamedNet">red sin nombre</string>
+    <string name="err_vgaModeNotDetected_N">No se detectó modo de vídeo ({0})</string>
+    <string name="key_intFormat_oct">octal</string>
+    <string name="key_mirror">Reflejo</string>
+    <string name="key_mirror_tt">Refleja el componente del circuito</string>
+    <string name="key_addValueToGraph">Mostrar en gráfico de medida</string>
+    <string name="key_addValueToGraph_tt">Muestra el valor en el gráfico de medida.</string>
+    <string name="key_tunnelRenameDialog">Muestra el cuadro de diálogo para renombrar los túneles</string>
+    <string name="key_tunnelRenameDialog_tt">Si se fija, se muestra un cuadro de diálogo para renombrar automáticamente
+        todos los túneles que tienen el mismo nombre después de que se renombra un túnel.
+    </string>
+    <string name="key_switchActsAsInput">El switch se comporta como una entrada</string>
+    <string name="key_switchActsAsInput_tt">Si se analiza el modelo, el switch se comporta como una entrada, en la que
+        "abierto" corresponde a '0' y "cerrado" a '1'.
+    </string>
+    <string name="menu_exportSVGSettings">Ajustes de exportación SVG</string>
+    <string name="key_SVG_LaTeX">Texto en notación LaTeX</string>
+    <string name="key_SVG_LaTeX_tt">El texto se introduce en notación LaTeX. Se necesita Inkscape para procesamiento
+        posterior.
+    </string>
+    <string name="key_SVG_pinsInMathMode">Etiquetas de pin en modo Math</string>
+    <string name="key_SVG_pinsInMathMode_tt">Para etiquetas de pines, usar el modo math incluso si no contiene
+        índices.
+    </string>
+    <string name="key_SVG_hideTest">Oculta los Casos de Prueba</string>
+    <string name="key_SVG_hideTest__">Los Casos de Prueba no se exportan.</string>
+    <string name="key_SVG_noShapeFilling">Formas no rellenas</string>
+    <string name="key_SVG_noShapeFilling_tt">Los polígonos no están rellenos.</string>
+    <string name="key_SVG_smallIO">Entradas y salidas pequeñas</string>
+    <string name="key_SVG_smallIO_tt">Entradas y salidas se representan como pequeños círculos.</string>
+    <string name="key_SVG_noPinMarker">Abandonar el marcador de pines</string>
+    <string name="key_SVG_noPinMarker_tt">Los marcadores de pines azul y rojo se omiten en los símbolos.</string>
+    <string name="key_SVG_highContrast">Alto contraste</string>
+    <string name="key_SVG_highContrast_tt">Los cables y el texto de los pines se muestran en negro.</string>
+    <string name="key_SVG_monochrome">Monocromo</string>
+    <string name="key_SVG_monochrome_tt">Sólo se usan grises.</string>
+    <string name="key_SVG_thinnerLines">Líneas delgadas</string>
+    <string name="key_SVG_thinnerLines_tt">Si se marca, las líneas se dibujan un poco más delgadas.</string>
+    <string name="key_equalsInsteadOfPlus">Usa la tecla "Igual"</string>
+    <string name="key_equalsInsteadOfPlus_tt">Usa la tecla igual en lugar de la tecla más.
+        Ésto es especialmente útil si el carácter "más" no es una tecla primaria, sino la segunda asignación de la tecla
+        igual, por ejemplo, en un teclado americano o francés.
+    </string>
+    <string name="key_snapToGrid">Ajustarse a la rejilla</string>
+    <string name="key_snapToGrid_tt">Si se fija, el componente se alinea con la rejilla.</string>
+    <string name="menu_table_createFunctionFixture">Exportar el caso de prueba</string>
+    <string name="menu_table_createFunctionFixture_tt">Crea la descripción de un caso de prueba que puede usarse en un
+        caso de prueba.
+    </string>
+    <string name="menu_table_createFunctionFixture_isSequential">¡El caso de prueba sólo es funcional si el circuito es
+        puramente combinacional!
+    </string>
+    <string name="menu_table_invert">Invierte todos los bits</string>
+    <string name="menu_table_invert_tt">Convierte3 el "1" en "0" y viceversa. Las indeterminaciones no se modifican.
+    </string>
+    <string name="menu_tutorial">Empezar el tutorial</string>
+    <string name="menu_tutorial_tt">Empieza el tutorial para el principiante.</string>
+    <string name="msg_renameNet">Renombrar la red</string>
+    <string name="msg_renameNet_N_OLD_NEW">Hay {0} túneles adicionales con el mismo nombre ''{1}''.
+        ¿Quieres renombrarlos todos de {0} a ''{2}''?
+    </string>
+    <string name="msg_dataWillBeLost_n">¿Quieres realmente descartar los cambios del campo "{0}"?</string>
+    <string name="btn_copyToClipboard">Portapapeles</string>
+    <string name="btn_copyToClipboard_tt">Copia el texto al portapapeles.</string>
+    <string name="msg_graphHelpTitle">Gráfico de medida</string>
+    <string name="msg_graphHelp">&lt;html&gt;&lt;body&gt;
+        &lt;h3&gt;¿Qué puede verse en el gráfico?&lt;/h3&gt;
+        A diferencia de un analizador lógico, el eje X del gráfico de medida no muestra el tiempo.
+        En su lugar, se muestra un contador, que cuenta los cambios en el estado del circuito.
+        Cuando quiera que haya un cambio en el circuito, el contador se incrementa y se muestra el nuevo estado.&lt;br/&gt;
+        También puedes pensar que es un analizador lógico clásico que no guarda ningún data para su optimización si nada
+        ha cambiado en el circuito.
+        Sin embargo, esto también quiere decir que no es posible leer del gráfico tanto si ha pasado mucho o poco tiempo
+        entre dos cambios en el circuito.&lt;br/&gt;
+        Este comportamiento está provocado por la naturaleza de la simulación: la simulación del circuito no entiende el
+        concepto "tiempo". Se hace un cambio en el ciruito, y se calcula el cambio en el estado del mismo, hasta que se
+        estabiliza de nuevo. Cuando se llega al siguiente esado, el efecto se vuelve a calcular, y así sucesivamente.
+        Estos cambios se cuentan, y el valor del contador se muestra en el eje X del gráfico.&lt;br/&gt;
+        Entre otras cosas, esto también significa que un circuito no puede ser overclockeado, puesto que los efectos del
+        flanco de bajada del reloj no se calculan hasta que el circuito ha sido estabilizado tras el flanco de subida
+        anterior.
+        &lt;/body&gt;&lt;/html&gt;
+    </string>
 </resources>
