@@ -506,9 +506,9 @@
             rekursiv weitere Bits hinzugefügt werden, bis die erforderliche Bitzahl des Zählers erreicht ist.
         </par>
     </chapter>
-    <chapter heading="Scriptgesteuertes Testen">
+    <chapter heading="Skriptgesteuertes Testen">
         <par>
-            Wenn Studenten Aufgaben mit Digital erledigen sollen, kann es hilfreich sein, wenn die von den Studenten
+            Wenn Studenten Aufgaben mit Digital erledigen sollen, kann es hilfreich sein, die von den Studenten
             abgegebenen Schaltungen in einem automatischen Prozess überprüfen zu können.
             Um diese Überprüfung durchzuführen, kann Digital über die Kommandozeile gestartet werden.
             Der Aufruf geschieht dabei wie folgt:
@@ -520,12 +520,12 @@
             </code>
         </par>
         <par>
-            Wird nur die zu testende Datei angegegben, werden die Testfälle in dieser Datei ausgeführt.
+            Wird nur die zu testende Datei angegeben, werden die Testfälle in dieser Datei ausgeführt.
             Auf diese Weise können die Testfälle ausgeführt werden, welche die Studenten selbst erstellt haben.
         </par>
         <par>
             Wird ein zweiter Dateiname angegeben, werden die Testfälle aus der zweiten Datei entnommen und die erste
-            Schaltung wird mit diese Testfällen überprüft. Die zweite Datei wird also in der Regel die Musterlösung
+            Schaltung wird mit diesen Testfällen überprüft. Die zweite Datei wird also in der Regel die Musterlösung
             enthalten, deren Testfälle vollständig und korrekt sind. Die in der zweiten Datei enthaltene Schaltung
             wird dabei ignoriert. Nur die Testfälle werden daraus entnommen.
         </par>
