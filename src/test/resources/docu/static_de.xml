@@ -506,6 +506,34 @@
             rekursiv weitere Bits hinzugefügt werden, bis die erforderliche Bitzahl des Zählers erreicht ist.
         </par>
     </chapter>
+    <chapter heading="Scriptgesteuertes Testen">
+        <par>
+            Wenn Studenten Aufgaben mit Digital erledigen sollen, kann es hilfreich sein, wenn die von den Studenten
+            abgegebenen Schaltungen in einem automatischen Prozess überprüfen zu können.
+            Um diese Überprüfung durchzuführen, kann Digital über die Kommandozeile gestartet werden.
+            Der Aufruf geschieht dabei wie folgt:
+        </par>
+        <par>
+            <code>
+                java -cp Digital.jar de.neemann.digital.testing.CommandLineTester [zu testende Datei] [[optionale Datei
+                mit Testfällen]]
+            </code>
+        </par>
+        <par>
+            Wird nur die zu testende Datei angegegben, werden die Testfälle in dieser Datei ausgeführt.
+            Auf diese Weise können die Testfälle ausgeführt werden, welche die Studenten selbst erstellt haben.
+        </par>
+        <par>
+            Wird ein zweiter Dateiname angegeben, werden die Testfälle aus der zweiten Datei entnommen und die erste
+            Schaltung wird mit diese Testfällen überprüft. Die zweite Datei wird also in der Regel die Musterlösung
+            enthalten, deren Testfälle vollständig und korrekt sind. Die in der zweiten Datei enthaltene Schaltung
+            wird dabei ignoriert. Nur die Testfälle werden daraus entnommen.
+        </par>
+        <par>
+            Um eine abgegebene Schaltung gegen eine Musterlösung testen zu können, müssen die Signalnamen der
+            Ein- und Ausgänge in beiden Schaltungen übereinstimmen.
+        </par>
+    </chapter>
     <chapter heading="Häufig gestellte Fragen">
         <faq>
             <question>Wie kann ich eine Leitung verschieben?</question>

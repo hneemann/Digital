@@ -476,6 +476,33 @@
             initial circuit until the required number of bits of the counter is reached.
         </par>
     </chapter>
+    <chapter heading="Script-controlled testing">
+        <par>
+            If students are to complete exercises with Digital, it can be helpful if the circuits submitted by the
+            students can be checked in an automatic process. To perform this check, Digital can be started
+            from the command line. The call is done as follows:
+        </par>
+        <par>
+            <code>
+                java -cp Digital.jar de.neemann.digital.testing.CommandLineTester [file to test] [[optional file with
+                test cases]]
+            </code>
+        </par>
+        <par>
+            If only the file to be tested is specified, the test cases in that file are executed. In this way, the
+            test cases created by the students themselves can be executed.
+        </par>
+        <par>
+            If a second file name is specified, the test cases are taken from the second file and the first circuit
+            is checked with these test cases. The second file will therefore usually contain the sample solution
+            whose test cases are complete and correct. The circuit contained in the second file is ignored.
+            Only the test cases are taken from it.
+        </par>
+        <par>
+            In order to test a submitted circuit against a sample solution, the signal names of the inputs and
+            outputs in both circuits must match.
+        </par>
+    </chapter>
     <chapter heading="Frequently asked Questions">
         <faq>
             <question>How to move a wire?</question>

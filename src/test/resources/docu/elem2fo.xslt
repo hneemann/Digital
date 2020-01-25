@@ -215,14 +215,22 @@
 	</xsl:template>
 
 	<xsl:template match="e">
-		<fo:inline font-style="italic"><xsl:apply-templates/></fo:inline>
+		<fo:inline font-style="italic">
+			<xsl:apply-templates/>
+		</fo:inline>
+	</xsl:template>
+
+	<xsl:template match="code">
+		<fo:block font-family="Courier" text-align="left">
+			<xsl:apply-templates/>
+		</fo:block>
 	</xsl:template>
 
 	<xsl:template match="arrow">
 		<fo:inline padding-left="2pt" font-family="ZapfDingbats">&#x2192;</fo:inline>
 	</xsl:template>
 
-    <xsl:template match="faq" mode="full">
+	<xsl:template match="faq" mode="full">
 		<fo:block keep-together.within-page="always">
 			<fo:block font-weight="bold" margin-top="3mm" margin-bottom="1mm">
 				<xsl:apply-templates select="question"/>
