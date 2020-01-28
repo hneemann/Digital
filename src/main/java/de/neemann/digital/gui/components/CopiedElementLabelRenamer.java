@@ -95,7 +95,12 @@ public class CopiedElementLabelRenamer {
     static final class LabelInstance {
 
         static LabelInstance create(VisualElement ve) {
-            String fullLabel = ve.getElementAttributes().getLabel();
+            return create(ve.getElementName(), ve.getElementAttributes().getLabel());
+        }
+
+        static LabelInstance create(String elementName, String fullLabel) {
+            if (fullLabel == null)
+                return null;
 
             int pos = fullLabel.length();
             if (pos == 0)
@@ -113,7 +118,7 @@ public class CopiedElementLabelRenamer {
             }
 
             String label = fullLabel.substring(0, pos);
-            LabelClass lc = new LabelClass(ve.getElementName(), label);
+            LabelClass lc = new LabelClass(elementName, label);
 
             return new LabelInstance(lc, number);
         }
