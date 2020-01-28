@@ -20,7 +20,7 @@ import java.util.prefs.Preferences;
  */
 public final class ReleaseInfo {
     private static final String RELEASE_URL = "https://api.github.com/repos/hneemann/Digital/releases/latest";
-    private static final String RELEASE_URL_NEW = "https://api.github.com/repos/hneemann/DigitalCS/releases/latest";
+    private static final String RELEASE_URL_NEW = "https://api.github.com/repos/hneemann/DigitaSi/releases/latest";
 
     private String version;
     private String url;
@@ -33,7 +33,7 @@ public final class ReleaseInfo {
     ReleaseInfo() throws IOException {
         try {
             readReleaseInfo(RELEASE_URL_NEW);
-            Preferences.userRoot().node("dig").put("newname", "DigitalCS");
+            Preferences.userRoot().node("dig").put("newname", "DigitaSi");
         } catch (IOException e) {
             readReleaseInfo(RELEASE_URL);
         }
