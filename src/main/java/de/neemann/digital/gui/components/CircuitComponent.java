@@ -136,6 +136,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private TutorialListener tutorialListener;
     private boolean toolTipHighlighted = false;
     private NetList toolTipNetList;
+    private String lastUsedTunnelName;
 
     /**
      * Creates a new instance
@@ -791,6 +792,18 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * @param element the element to insert
      */
     public void setPartToInsert(VisualElement element) {
+        if (element.equalsDescription(Tunnel.DESCRIPTION)) {
+            if (lastUsedTunnelName != null) {
+                CopiedElementLabelRenamer.LabelInstance li =
+                        CopiedElementLabelRenamer.LabelInstance.
+                                create(Tunnel.DESCRIPTION.getName(), lastUsedTunnelName);
+                if (li != null) {
+                    lastUsedTunnelName = li.getLabel(1);
+                }
+                element.setAttribute(Keys.NETNAME, lastUsedTunnelName);
+            }
+        }
+
         parent.ensureModelIsStopped();
         mouseInsertElement.activate(element);
         Point point = MouseInfo.getPointerInfo().getLocation();
@@ -1168,6 +1181,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     attributeDialog.disableOk();
 
                 ElementAttributes modified = attributeDialog.showDialog();
+                if (elementType == Tunnel.DESCRIPTION) {
+                    if (modified.contains(Keys.NETNAME))
+                        lastUsedTunnelName = modified.get(Keys.NETNAME);
+                }
                 if (modified != null && !locked) {
                     Modification<Circuit> mod = new ModifyAttributes(element, modified);
                     modify(checkNetRename(element, modified, mod));
