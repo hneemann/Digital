@@ -134,11 +134,11 @@ public class TestLang extends TestCase {
 
         ArrayList<String> modified = new ArrayList<>();
         de.neemann.gui.language.Resources refResource =
-                new de.neemann.gui.language.Resources(new File(rootFolder,"lang_" + l.getName() + "_ref.xml"));
+                new de.neemann.gui.language.Resources(new File(rootFolder, "lang_" + l.getName() + "_ref.xml"));
         for (String k : master.getKeys()) {
             String m = master.get(k);
             String o = refResource.get(k);
-            if (m != null && o != null && !m.trim().equals(o.trim()))
+            if (m != null && o != null && !removeSpacesFrom(m).equals(removeSpacesFrom(o)))
                 modified.add(k);
         }
 
@@ -157,9 +157,11 @@ public class TestLang extends TestCase {
         if (!missingInRef.isEmpty())
             fail("Missing keys in the reference file for: " + l + ";  " + missingInRef);
 
-        if (!dif.isEmpty()) {
+        File filename = new File(Resources.getRoot(), "../../../target/lang_diff_" + l.getName() + ".xml");
+        if (dif.isEmpty()) {
+            filename.delete();
+        } else {
             restoreOriginalKeyOrder(dif);
-            File filename = new File(Resources.getRoot(), "../../../target/lang_diff_" + l.getName() + ".xml");
             try {
                 Element root = new Element("language").setAttribute("name", l.getName());
                 for (Element e : dif)
@@ -170,6 +172,24 @@ public class TestLang extends TestCase {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String removeSpacesFrom(String str) {
+        StringBuilder sb = new StringBuilder();
+        boolean wasSpace = false;
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c == ' ' || c == '\n' || c == '\r' || c == '\t') {
+                if (sb.length() > 0)
+                    wasSpace = true;
+            } else {
+                if (wasSpace)
+                    sb.append(' ');
+                sb.append(c);
+                wasSpace = false;
+            }
+        }
+        return sb.toString();
     }
 
     private Element addTextTo(Element el, String text) {
