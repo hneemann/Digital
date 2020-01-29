@@ -1419,15 +1419,20 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_showTutorial">Tutorial beim Start anzeigen</string>
     <string name="key_showTutorial_tt">Aktiviert das Tutorial.</string>
 
-    <string name="key_switchActsAsInput">Schalter verhält sich wie ein Eingang</string>
-    <string name="key_switchActsAsInput_tt">Wird das Model analysiert, verhält sich der Schalter wie ein Eingang, wobei
-        "offen" einer '0' und "geschlossen" einer '1' entspricht.</string>
+    <string name="key_switchActsAsInput">Schalter als Eingang betrachten</string>
+    <string name="key_switchActsAsInput_tt">Wird das Model analysiert, wird der Schalter wie ein Eingang betrachtet,
+        wobei "offen" einer '0' und "geschlossen" einer '1' entspricht.
+    </string>
 
     <string name="menu_exportSVGSettings">SVG Exporteinstellungen</string>
     <string name="key_SVG_LaTeX">Text im LaTeX-Format</string>
-    <string name="key_SVG_LaTeX_tt">Text wird in LaTeX-Notation eingefügt. Inkscape ist für die Weiterverabeitung erforderlich.</string>
+    <string name="key_SVG_LaTeX_tt">Text wird in LaTeX-Notation eingefügt. Inkscape ist für die Weiterverabeitung
+        erforderlich.
+    </string>
     <string name="key_SVG_pinsInMathMode">Pin-Labels im Math-Mode</string>
-    <string name="key_SVG_pinsInMathMode_tt">Für Pin-Labels auch dann den Math-Mode verwenden, wenn keine Indizes enthalten sind.</string>
+    <string name="key_SVG_pinsInMathMode_tt">Für Pin-Labels auch dann den Math-Mode verwenden, wenn keine Indizes
+        enthalten sind.
+    </string>
     <string name="key_SVG_hideTest">Testfälle verbergen</string>
     <string name="key_SVG_hideTest__">Die Testfälle werden nicht mit exportiert.</string>
     <string name="key_SVG_noShapeFilling">Polygone nicht ausfüllen</string>
