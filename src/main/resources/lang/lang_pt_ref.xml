@@ -206,27 +206,34 @@
         You can plot complete clock cycles or single gate changes.
         Does not affect the simulation.</string>
   <string name="elem_RotEncoder">Rotary Encoder</string>
-  <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder. Used to detect rotational movements.</string>
-  <string name="elem_RotEncoder_pin_A">encoder signal A</string>
-  <string name="elem_RotEncoder_pin_B">encoder signal B</string>
-  <string name="elem_Keyboard">Keyboard</string>
-  <string name="elem_Keyboard_tt">A keyboard that can be used to enter text.
+    <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder. Used to detect rotational movements.</string>
+    <string name="elem_RotEncoder_pin_A">encoder signal A</string>
+    <string name="elem_RotEncoder_pin_B">encoder signal B</string>
+    <string name="elem_Keyboard">Keyboard</string>
+    <string name="elem_Keyboard_tt">A keyboard that can be used to enter text.
         This component buffers the input, which can then be read out.
-        A separate window is opened for the text input.</string>
-  <string name="elem_Keyboard_pin_C">Clock. A rising edge removes the oldest character from the buffer.</string>
-  <string name="elem_Keyboard_pin_en">If high the output D is active and one character is output.
-        It also enables the clock input.</string>
-  <string name="elem_Keyboard_pin_D">The last typed character, or zero if no character is available.</string>
-  <string name="elem_Keyboard_pin_av">This output indicates that characters are available.
-        It can be used to trigger an interrupt.</string>
-  <string name="elem_Terminal">Terminal</string>
-  <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
-        The terminal opens its own window to visualize the output.</string>
-  <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.</string>
-  <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
-  <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
-  <string name="elem_MIDI">MIDI</string>
-  <string name="elem_MIDI_tt">Uses the MIDI system to play notes.</string>
+        A separate window is opened for the text input.
+    </string>
+    <string name="elem_Keyboard_pin_C">Clock. A rising edge removes the oldest character from the buffer.</string>
+    <string name="elem_Keyboard_pin_en">If high the output D is active and one character is output.
+        It also enables the clock input.
+    </string>
+    <string name="elem_Keyboard_pin_D">The last typed character, or zero if no character is available.
+        Output is the 16 bit Java char value.
+    </string>
+    <string name="elem_Keyboard_pin_av">This output indicates that characters are available.
+        It can be used to trigger an interrupt.
+    </string>
+    <string name="elem_Terminal">Terminal</string>
+    <string name="elem_Terminal_tt">You can write ASCII characters to this terminal.
+        The terminal opens its own window to visualize the output.
+    </string>
+    <string name="elem_Terminal_pin_C">Clock. A rising edge writes the value at the input to the terminal window.
+    </string>
+    <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
+    <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
+    <string name="elem_MIDI">MIDI</string>
+    <string name="elem_MIDI_tt">Uses the MIDI system to play notes.</string>
   <string name="elem_MIDI_pin_N">Note</string>
   <string name="elem_MIDI_pin_V">Volume</string>
   <string name="elem_MIDI_pin_OnOff">If set, this translates to pressing a keyboard key (key down event),
@@ -245,10 +252,12 @@
   <string name="elem_Const_tt">A component which returns a given value as a simple constant value. The value can be set in the attribute dialog.</string>
   <string name="elem_Const_pin_out">Returns the given value as a constant.</string>
   <string name="elem_Tunnel">Tunnel</string>
-  <string name="elem_Tunnel_tt">Connects components without a wire. All tunnel elements, which have the same net name,
-        are connected together. Works only locally, so it is not possible to connect different circuits.</string>
+    <string name="elem_Tunnel_tt">Connects components without a wire. All tunnel elements, which have the same net name,
+        are connected together. Works only locally, so it is not possible to connect different circuits.
+        Unnamed tunnels are ignored silently.
+    </string>
   <string name="elem_Tunnel_pin_in">The connection to the tunnel.</string>
-  <string name="elem_Splitter">Splitter</string>
+    <string name="elem_Splitter">Splitter/Merger</string>
   <string name="elem_Splitter_tt">Splits or creates a wire bundle or a data bus with more than one bit.
         With a bus it is e.g. possible to generate 16-bit connections without having to route 16 individual wires.
         All 16 connections can be merged into one wire.
@@ -1338,7 +1347,7 @@
   <string name="menu_speedTest">Speed Test</string>
   <string name="menu_speedTest_tt">Performs a speed test by calculating the max. clock frequency.</string>
   <string name="menu_step">Gate Step</string>
-  <string name="menu_step_tt">Calculating a single gate step</string>
+    <string name="menu_step_tt">Calculates a single gate step</string>
   <string name="menu_synthesise">Synthesise</string>
   <string name="menu_synthesise_tt">Generates the minimal bool expressions described by a truth table.</string>
   <string name="menu_table_N_variables">{0} variables</string>
@@ -1863,14 +1872,127 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="msg_fsmTransition">Transition</string>
   <string name="msg_fsmState">State</string>
   <string name="elem_Seven-Seg_pin_ca">Common anode. To turn on the LEDs, this input needs to be high.</string>
-  <string name="key_commonConnectionType">Common</string>
-  <string name="key_commonConnectionType_tt">Kind of common connection.</string>
-  <string name="key_commonConnectionType_cathode">Cathode</string>
-  <string name="key_commonConnectionType_anode">Anode</string>
-  <string name="key_wireToolTips">Wire tool tips</string>
-  <string name="key_wireToolTips_tt">If set, lines are highlighted when the mouse hovers over them.</string>
-  <string name="menu_table_showAllSolutions">Show results dialog</string>
-  <string name="menu_table_showAllSolutions_tt">Shows the results dialog again if it was closed manually.</string>
-  <string name="msg_codeNotConsistent">Input and output definitions could not be created automatically.
-        Please check the settings!</string>
+    <string name="key_commonConnectionType">Common</string>
+    <string name="key_commonConnectionType_tt">Kind of common connection.</string>
+    <string name="key_commonConnectionType_cathode">Cathode</string>
+    <string name="key_commonConnectionType_anode">Anode</string>
+    <string name="key_wireToolTips">Wire tool tips</string>
+    <string name="key_wireToolTips_tt">If set, lines are highlighted when the mouse hovers over them.</string>
+    <string name="menu_table_showAllSolutions">Show results dialog</string>
+    <string name="menu_table_showAllSolutions_tt">Shows the results dialog again if it was closed manually.</string>
+    <string name="msg_codeNotConsistent">Input and output definitions could not be created automatically.
+        Please check the settings!
+    </string>
+    <string name="elem_ButtonLED">Button with LED</string>
+    <string name="elem_ButtonLED_tt">A simple push button which goes back to its original state when it is released.
+        The push button has an LED which can be switched via an input signal.
+    </string>
+    <string name="elem_ButtonLED_pin_out">The output signal of the button.</string>
+    <string name="elem_ButtonLED_pin_in">Input for controlling the LED.</string>
+    <string name="elem_VGA">VGA Monitor</string>
+    <string name="elem_VGA_tt">Analyzes the incoming video signals and displays the corresponding graphic.
+        Since the simulation cannot run in real time, the pixel clock is required in addition to the video signals.
+    </string>
+    <string name="elem_VGA_pin_R">The red color component</string>
+    <string name="elem_VGA_pin_G">The green color component</string>
+    <string name="elem_VGA_pin_B">The blue color component</string>
+    <string name="elem_VGA_pin_H">The horizontal synchronization signal</string>
+    <string name="elem_VGA_pin_V">The vertical synchronization signal</string>
+    <string name="elem_VGA_pin_C">The pixel clock</string>
+    <string name="elem_PinControl">Pin Control</string>
+    <string name="elem_PinControl_tt">Control logic for a bi-directional pin.
+        This component is necessary only in the context of VHDL or Verilog generation, in order to create a
+        bi-directional HDL port!
+        If you don't want to use a bi-directional IO-port on an FPGA, don't use this component!
+        The PinControl component cannot be used in an embedded circuit! It is only allowed at the top level circuit!
+    </string>
+    <string name="elem_PinControl_pin_wr">The data to be output.</string>
+    <string name="elem_PinControl_pin_oe">Activates the output.</string>
+    <string name="elem_PinControl_pin_rd">The data to be read.</string>
+    <string name="elem_PinControl_pin_pin">The connector for the actual pin. Only a single output should be connected
+        here.
+    </string>
+    <string name="err_customShapeHasNoPin_N">The custom shape does not define a pin {0}</string>
+    <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">Several outputs are connected to each other.
+        This type of interconnection is not supported for HDL export. ({0}, {1}, {2}).
+    </string>
+    <string name="err_unnamedNet">unnamed net</string>
+    <string name="err_vgaModeNotDetected_N">Video mode was not detected ({0})</string>
+    <string name="key_intFormat_oct">octal</string>
+    <string name="key_mirror">Mirror</string>
+    <string name="key_mirror_tt">Mirrors the component in the circuit.</string>
+    <string name="key_addValueToGraph">Show in Measurement Graph</string>
+    <string name="key_addValueToGraph_tt">Shows the value in the measurement graph.</string>
+    <string name="key_tunnelRenameDialog">Show dialog for automatic renaming of tunnels.</string>
+    <string name="key_tunnelRenameDialog_tt">If set, a dialog for automatically renaming all tunnels of the same name is
+        displayed after a
+        tunnel has been renamed.
+    </string>
+    <string name="key_switchActsAsInput">Switch behaves like an input</string>
+    <string name="key_switchActsAsInput_tt">If the model is analyzed, the switch behaves like an input, where "open"
+        corresponds to '0' and "closed" to '1'.
+    </string>
+    <string name="menu_exportSVGSettings">SVG Export Settings</string>
+    <string name="key_SVG_LaTeX">Text in LaTeX notation</string>
+    <string name="key_SVG_LaTeX_tt">Text is inserted in LaTeX notation. Inkscape is required for further processing.
+    </string>
+    <string name="key_SVG_pinsInMathMode">Pin-Labels in Math Mode</string>
+    <string name="key_SVG_pinsInMathMode_tt">For pin labels, use math mode even if no indexes are contained.</string>
+    <string name="key_SVG_hideTest">Hide Test Cases</string>
+    <string name="key_SVG_hideTest__">The test cases are not exported.</string>
+    <string name="key_SVG_noShapeFilling">Shapes not filled</string>
+    <string name="key_SVG_noShapeFilling_tt">Polygons are not filled.</string>
+    <string name="key_SVG_smallIO">Small Inputs and Outputs</string>
+    <string name="key_SVG_smallIO_tt">Inputs and outputs are represented as small circles.</string>
+    <string name="key_SVG_noPinMarker">Leave out Pin Marker</string>
+    <string name="key_SVG_noPinMarker_tt">The blue and red pin markers on the symbols are omitted.</string>
+    <string name="key_SVG_highContrast">High Contrast</string>
+    <string name="key_SVG_highContrast_tt">The wires and the text of the pins are displayed in black.</string>
+    <string name="key_SVG_monochrome">Monochrome</string>
+    <string name="key_SVG_monochrome_tt">Only gray colors are used.</string>
+    <string name="key_SVG_thinnerLines">Thin Lines</string>
+    <string name="key_SVG_thinnerLines_tt">If set, the lines are drawn slightly thinner.</string>
+    <string name="key_equalsInsteadOfPlus">Use Equals-Key</string>
+    <string name="key_equalsInsteadOfPlus_tt">Use the equal key instead of the plus key.
+        This is always useful if the plus character is not a primary key, but the second assignment of the
+        equals character, e.g. for an American or French keyboard layout.
+    </string>
+    <string name="key_snapToGrid">Snap To Grid</string>
+    <string name="key_snapToGrid_tt">If set, the component is aligned with the grid.</string>
+    <string name="menu_table_createFunctionFixture">Export Test Case</string>
+    <string name="menu_table_createFunctionFixture_tt">Creates a test case description that can be used in a test
+        case.
+    </string>
+    <string name="menu_table_createFunctionFixture_isSequential">The test case is only functional if the circuit is
+        purely combinatorial!
+    </string>
+    <string name="menu_table_invert">Invert all bits</string>
+    <string name="menu_table_invert_tt">A "1" becomes a "0" and vice versa. Don't cares remain unchanged.</string>
+    <string name="menu_tutorial">Start Tutorial</string>
+    <string name="menu_tutorial_tt">Starts the beginner tutorial.</string>
+    <string name="msg_renameNet">Rename Net</string>
+    <string name="msg_renameNet_N_OLD_NEW">There are {0} more tunnels with the net name ''{1}''.
+        Do you want to rename all {0} to ''{2}''?
+    </string>
+    <string name="msg_dataWillBeLost_n">Do you really want to discard the changes in the "{0}" field?</string>
+    <string name="btn_copyToClipboard">Clipboard</string>
+    <string name="btn_copyToClipboard_tt">Copies the text to the clipboard.</string>
+    <string name="msg_graphHelpTitle">The measurement graph</string>
+    <string name="msg_graphHelp">&lt;html&gt;&lt;body&gt;
+        &lt;h3&gt;What can be seen in the graph?&lt;/h3&gt;
+        Unlike a real logic analyzer, the X-axis of the measurement graph does not show the time.
+        Instead a counter is displayed which counts the changes of state in the circuit.
+        Whenever there is a change in the circuit, the counter is incremented and the new state is displayed.&lt;br/&gt;
+        You can also think of it as a classic logic analyzer, which does not save any data for optimization
+        if nothing has changed in the circuit.
+        However, this also means that it is not possible to read from the graph whether a lot or little time has
+        passed between two changes in the circuit.&lt;br/&gt;
+        This behavior is caused by the nature of the simulation: The simulation of the circuit does not know the
+        concept of time. A change is made to the circuit, and the change in the circuit state is calculated, until
+        the circuit has stabilized again. Then the next change is made, the effect of which is also is calculated
+        and so on. These changes are counted and the counter value is displayed on the X-axis of the graph.&lt;br/&gt;
+        Among other things, this also means that a circuit cannot be overclocked, since the effects of the falling
+        edge of the clock are not calculated until the circuit has stabilized after the previous rising edge.
+        &lt;/body&gt;&lt;/html&gt;
+    </string>
 </resources>

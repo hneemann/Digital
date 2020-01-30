@@ -780,7 +780,9 @@
   <string name="err_splitterNotUnambiguously">Bits de entrada definidos varias veces</string>
   <string name="err_spitterToManyBits">Sólo se permiten 64 bits en el separador</string>
   <string name="err_tableBecomesToSmall">¡Se necesitan dos entradas!</string>
-  <string name="err_toManyInputs_max_N0_is_N1">Demasiadas variables (entradas+flip-flops)</string>
+  <string name="err_toManyInputs_max_N0_is_N1">Demasiadas variables (entradas+flip-flops), las permitidas son {0}, pero
+      hay {1}
+  </string>
   <string name="err_toManyInputsIn_N0_max_N1_is_N2">Demasiadas variables usadas en {0};
         las permitidas son {1}, pero hay {2}.</string>
   <string name="err_varNotAllowedInCUPL_N">¡La variable {0} no está permitida en una fuente CUPL!</string>
