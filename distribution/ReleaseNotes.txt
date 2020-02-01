@@ -1,23 +1,23 @@
 Release Notes
 
-HEAD, planned as v0.24
-- Added support for INOUT ports in HDL generation.
+v0.24, released on 1. Feb. 2020
 - Improved SVG export
 - Allows to disable inputs and outputs in the measurement graph.
 - Model analyzer is able to use switches as inputs.
-- Editor is able to store views ([CRTL]+[[n]] to store and [[n]] ro recall a view.
-  So [CTRL]+[1] stores a view in slot one and [1] recalls it.
+- Editor is able to store views ([CRTL]+[[n]] to create, [[n]] ro recall
+  a view. So [CTRL]+[1] stores a view in slot one and [1] recalls it.
 - The octal number format was added.
 - A mirroring option was added to some components.
-- Custom Java implemented components can now also implement HDL code to represent
-  the component in an HDL export.
+- Custom Java implemented components can now also implement HDL code to
+  represent the component in an HDL export.
 - Added a undo function to the table editor.
 - Adds a command line interface for testing circuits.
 - Allows to disable "snap to grid" in text and rectangle components.
 - A push button combined with a LED was added.
 - A VGA monitor was added.
-- Unnamed Tunnels are ignored silently.
+- Improved naming of new Tunnels. Unnamed Tunnels are ignored silently.
 - Overlapping pins are now connected.
+- Added support for INOUT ports in HDL generation.
 - Fixed an issue with Chinese text rendering.
 
 v0.23, released on 23. Aug. 2019
