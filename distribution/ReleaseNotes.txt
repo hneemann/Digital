@@ -1,5 +1,8 @@
 Release Notes
 
+Head, planned as v0.25
+- 74193 was added
+
 v0.24, released on 1. Feb. 2020
 - Improved SVG export
 - Allows to disable inputs and outputs in the measurement graph.
