@@ -50,10 +50,9 @@ These are the main features of Digital:
 - Components can be described using VHDL or Verilog. The open source VHDL simulator [ghdl](http://ghdl.free.fr/)
   needs to be installed to simulate a VHDL defined component, and the open source Verilog simulator
   [Icarus Verilog](http://iverilog.icarus.com/) is required to simulate a Verilog defined component.
-- A circuit can be exported to VHDL or Verilog. There is also support for the
-  [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start), the
-  [Mimas](https://numato.com/product/mimas-spartan-6-fpga-development-board) and the
-  [Mimas V2](https://numato.com/product/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram) boards.
+- A circuit can be exported to VHDL or Verilog. There is also direct support for the
+  [BASYS3 Board](https://reference.digilentinc.com/reference/programmable-logic/basys-3/start) and the 
+  [TinyFPGA BX](https://tinyfpga.com/) board.
   See the documentation for details.
   The examples folder contains a variant of the example CPU, which runs on a BASYS3 board.
 - Direct export of JEDEC files which you can flash to a [GAL16v8](https://www.microchip.com/wwwproducts/en/ATF16V8C)
@@ -71,6 +70,9 @@ These are the main features of Digital:
 
 The latest changes that have not yet been released are listed in the
 [release notes](distribution/ReleaseNotes.txt).
+You can find the latest pre-release builds [here](https://infdigital.dhbw-mosbach.de/). 
+In the pre release builds the automated GUI tests are usually not executed. 
+All other tests, including the HDL tests, were executed without errors.
 
 ## Documentation ##
 
