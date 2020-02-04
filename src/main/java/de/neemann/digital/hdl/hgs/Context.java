@@ -515,9 +515,9 @@ public class Context implements HGSMap {
                     if (sb.length() == 0)
                         sb.append('n');
                     sb.append(c);
-                } else if ((c >= 'A' && c <= 'Z') ||
-                        (c >= 'a' && c <= 'z') ||
-                        c == '_') {
+                } else if ((c >= 'A' && c <= 'Z')
+                        || (c >= 'a' && c <= 'z')
+                        || c == '_') {
                     sb.append(c);
                 }
             }
