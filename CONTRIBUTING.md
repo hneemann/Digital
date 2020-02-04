@@ -14,7 +14,8 @@ included in the project, so `mvn verify` should be run even if only a `*.dig` fi
 
 To run the tests with `mvn verify`, [maven](https://maven.apache.org/) and a jdk must be installed.
 
-If you want to contribute a `*.dig` file, but are not familiar with maven and therefore not able to 
+If you want to contribute a `*.dig` file, but you are not familiar with maven or just don't want 
+to install all this stuff, and therefore can't 
 run `mvn verify`, it is easier for me if you don't create a pull request, but instead pack the 
 `*.dig` files, create an [issue](https://github.com/hneemann/Digital/issues/new), and 
 attach the zip file to this issue.
