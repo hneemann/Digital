@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
     if (elem.Label="")
         panic("err_romNeedsALabelToBeExported");
 
-    entityName:="DIG_ROM_"+elem.Label;
+    entityName:="DIG_ROM_"+identifier(elem.Label);
 ?>
 entity <?=entityName?> is
   port (

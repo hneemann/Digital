@@ -346,6 +346,13 @@ public class ParserTest extends TestCase {
         assertEquals("f=314.16;", c.toString());
     }
 
+    public void testParseTemplateEscape() throws IOException, ParserException, HGSEvalException {
+        assertEquals("simple", exec("<? str:=\"simple\"; print(identifier(str)); ?>").toString());
+        assertEquals("hp", exec("<? str:=\"hä-äpä\"; print(identifier(str)); ?>").toString());
+        assertEquals("A0", exec("<? str:=\"A-0\"; print(identifier(str)); ?>").toString());
+        assertEquals("n0A", exec("<? str:=\"0-A\"; print(identifier(str)); ?>").toString());
+    }
+
     public void testComment() throws IOException, ParserException, HGSEvalException {
         Context c = exec("<? // comment\nprint(\"false\"); // zzz\n ?>;");
         assertEquals("false;", c.toString());

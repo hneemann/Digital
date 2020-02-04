@@ -4,7 +4,7 @@
 
     romMaxSize := 1 << elem.AddrBits;
     romSize := sizeOf(elem.Data);
-    moduleName = format("%s_%dX%d_%s", moduleName, romMaxSize, elem.Bits, elem.Label);
+    moduleName = format("%s_%dX%d_%s", moduleName, romMaxSize, elem.Bits, identifier(elem.Label));
     dBitRange := format("[%d:0]", elem.Bits - 1);
     aBitRange := format("[%d:0]", elem.AddrBits - 1);
 

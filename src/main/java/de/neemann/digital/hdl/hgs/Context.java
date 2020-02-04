@@ -42,6 +42,7 @@ public class Context implements HGSMap {
         BUILT_IN.put("panic", new FunctionPanic());
         BUILT_IN.put("output", new FunctionOutput());
         BUILT_IN.put("splitString", new FunctionSplitString());
+        BUILT_IN.put("identifier", new FunctionIdentifier());
         BUILT_IN.put("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
         BUILT_IN.put("newMap", new Func(0, args -> new HashMap()));
         BUILT_IN.put("newList", new Func(0, args -> new ArrayList()));
@@ -495,6 +496,32 @@ public class Context implements HGSMap {
             while (st.hasMoreTokens())
                 list.add(st.nextToken());
             return list;
+        }
+    }
+
+    private static final class FunctionIdentifier extends Function {
+
+        private FunctionIdentifier() {
+            super(1);
+        }
+
+        @Override
+        protected Object f(Object... args) {
+            String str = args[0].toString();
+            StringBuilder sb = new StringBuilder(str.length());
+            for (int p = 0; p < str.length(); p++) {
+                char c = str.charAt(p);
+                if (c >= '0' && c <= '9') {
+                    if (sb.length() == 0)
+                        sb.append('n');
+                    sb.append(c);
+                } else if ((c >= 'A' && c <= 'Z') ||
+                        (c >= 'a' && c <= 'z') ||
+                        c == '_') {
+                    sb.append(c);
+                }
+            }
+            return sb.toString();
         }
     }
 
