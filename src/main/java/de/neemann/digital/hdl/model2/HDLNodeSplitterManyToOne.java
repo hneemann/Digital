@@ -51,7 +51,10 @@ public class HDLNodeSplitterManyToOne extends HDLNode implements Iterable<HDLNod
      * @return the targets signal name
      */
     public String getTargetSignal() {
-        return getOutput().getNet().getName();
+        HDLNet net = getOutput().getNet();
+        if (net == null)
+            return null;
+        return net.getName();
     }
 
     @Override

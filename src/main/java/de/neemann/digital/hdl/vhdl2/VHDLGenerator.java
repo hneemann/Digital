@@ -85,7 +85,7 @@ public class VHDLGenerator implements Closeable {
             }
 
             return this;
-        } catch (PinException | NodeException | HDLException | HGSEvalException e) {
+        } catch (PinException | NodeException | HDLException | HGSEvalException | NullPointerException e) {
             throw new IOException(Lang.get("err_vhdlExporting"), e);
         }
     }

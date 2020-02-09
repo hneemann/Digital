@@ -199,16 +199,17 @@ public class VerilogCreator {
 
     private void printManyToOne(HDLNodeSplitterManyToOne node) throws IOException, HDLException {
         String target = node.getTargetSignal();
-
-        for (HDLNodeSplitterManyToOne.SplitterAssignment in : node) {
-            out.print("assign ").print(target).print("[");
-            if (in.getLsb() == in.getMsb())
-                out.print(in.getLsb());
-            else
-                out.print(in.getMsb()).print(":").print(in.getLsb());
-            out.print("] = ");
-            printExpression(in.getExpression());
-            out.println(";");
+        if (target != null) {
+            for (HDLNodeSplitterManyToOne.SplitterAssignment in : node) {
+                out.print("assign ").print(target).print("[");
+                if (in.getLsb() == in.getMsb())
+                    out.print(in.getLsb());
+                else
+                    out.print(in.getMsb()).print(":").print(in.getLsb());
+                out.print("] = ");
+                printExpression(in.getExpression());
+                out.println(";");
+            }
         }
     }
 
