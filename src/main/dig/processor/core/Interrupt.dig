@@ -122,23 +122,13 @@ die Interrupts wieder freigegeben.}}</string>
       <pos x="220" y="140"/>
     </visualElement>
     <visualElement>
-      <elementName>RS.dig</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>intLock</string>
-        </entry>
-      </elementAttributes>
+      <elementName>RSpSet.dig</elementName>
+      <elementAttributes/>
       <pos x="300" y="-20"/>
     </visualElement>
     <visualElement>
-      <elementName>RS.dig</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>intr</string>
-        </entry>
-      </elementAttributes>
+      <elementName>RSpSet.dig</elementName>
+      <elementAttributes/>
       <pos x="300" y="140"/>
     </visualElement>
   </visualElements>
