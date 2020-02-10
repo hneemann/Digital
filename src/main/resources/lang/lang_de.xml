@@ -1704,16 +1704,18 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Ein einfacher Simulator für digitale Schaltkreise.
-Geschrieben von H. Neemann 2016-2019
+        Geschrieben von H. Neemann 2016-2020
 
-Die Icons stammen aus dem &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
+        Die Icons stammen aus dem &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
 
-Besuche das Projekt auf &lt;a href=&quot;https://github.com/hneemann/[[name]]&quot;&gt;GitHub&lt;/a&gt;.
-Die jeweils neueste Version steht dort ebenfalls zum
-&lt;a href=&quot;https://github.com/hneemann/[[name]]/releases/latest&quot;&gt;Download&lt;/a&gt; bereit.
+        Besuche das Projekt auf &lt;a href=&quot;https://github.com/hneemann/[[name]]&quot;&gt;GitHub&lt;/a&gt;.
+        Die jeweils neueste Version steht dort ebenfalls zum
+        &lt;a href=&quot;https://github.com/hneemann/[[name]]/releases/latest&quot;&gt;Download&lt;/a&gt; bereit.
 
-Per GitHub kann auch ein &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug&quot;&gt;Fehler&lt;/a&gt; gemeldet oder
-eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enhancement&quot;&gt;Verbesserung&lt;/a&gt; vorgeschlagen werden.
+        Per GitHub kann auch ein &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug&quot;&gt;Fehler&lt;/a&gt;
+        gemeldet oder
+        eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enhancement&quot;&gt;Verbesserung&lt;/a&gt;
+        vorgeschlagen werden.
     </string>
     <string name="msg_N_nodes">{0} aktive Elemente</string>
     <string name="msg_analyseErr">Fehler bei der Analyse der Schaltung.</string>

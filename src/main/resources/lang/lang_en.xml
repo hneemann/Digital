@@ -1668,14 +1668,16 @@
 
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
-        Written by H. Neemann in 2016-2019.
+        Written by H. Neemann in 2016-2020.
 
         The icons are taken from the &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
 
         Visit the project at &lt;a href=&quot;https://github.com/hneemann/[[name]]&quot;&gt;GitHub&lt;/a&gt;.
-        At Github you can also &lt;a href=&quot;https://github.com/hneemann/[[name]]/releases/latest&quot;&gt;download&lt;/a&gt; the latest release.
+        At Github you can also &lt;a href=&quot;https://github.com/hneemann/[[name]]/releases/latest&quot;&gt;download&lt;/a&gt;
+        the latest release.
 
-        There you also can file an &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug&quot;&gt;issue&lt;/a&gt; or suggest
+        There you also can file an &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug&quot;&gt;issue&lt;/a&gt;
+        or suggest
         an &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enhancement&quot;&gt;enhancement&lt;/a&gt;.
     </string>
     <string name="msg_N_nodes">{0} nodes</string>

@@ -1458,15 +1458,17 @@
   <string name="menu_labelPins">Rotular entradas e saídas</string>
   <string name="menu_labelPins_tt">Definir rótulo para entradas e saídas que não tiverem algum.</string>
   <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Um simulator simples para circuitos digitais.
-        Elaborado por H. Neemann em 2016-2018.
+      Elaborado por H. Neemann em 2016-2020.
 
-        Os ícones foram tomados de &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.
+      Os ícones foram tomados de &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.
 
-        Para conhecer melhor o projeto, visitar &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
-        Última versão disponível em &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;download&lt;/a&gt;.
+      Para conhecer melhor o projeto, visitar &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
+      Última versão disponível em &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;download&lt;/a&gt;.
 
-        Questões poderão ser endereçadas para &lt;a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;issue&lt;/a&gt; ou sugestões
-        para &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;enhancement&lt;/a&gt;.</string>
+      Questões poderão ser endereçadas para &lt;a
+      href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;issue&lt;/a&gt;
+      ou sugestões
+      para &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;enhancement&lt;/a&gt;.</string>
   <string name="msg_N_nodes">{0} nodos</string>
   <string name="msg_analyseErr">Erro ao analisar o circuito</string>
   <string name="msg_clockError">Erro durante a mudança de estado do clock</string>

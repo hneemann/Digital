@@ -1388,17 +1388,20 @@
   <string name="menu_labelPins_tt">Fija una etiqueta a todas las entradas y salidas que no la tienen.</string>
   <string name="msg_errorOpeningDocumentation">¡Error al abrir un archivo PDF!</string>
   <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Un sencillo simulador para circuitos digitales.
-        Escrito por H. Neemann entre 2016-2019.
+      Escrito por H. Neemann entre 2016-2020.
 
-        Los iconos se han tomado de &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.
+      Los iconos se han tomado de &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.
 
-        Visita el proyecto en la dirección &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
-        También disponible en GitHub &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;descarga&lt;/a&gt; la última versión.
+      Visita el proyecto en la dirección &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
+      También disponible en GitHub &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;descarga&lt;/a&gt;
+      la última versión.
 
-        Allí también puedes aportar un &lt;a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;problema&lt;/a&gt; o sugerencia
-        o &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;mejoras&lt;/a&gt;.
-		
-		Traducido al castellano por Ángel Millán León</string>
+      Allí también puedes aportar un &lt;a
+      href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;problema&lt;/a&gt;
+      o sugerencia
+      o &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;mejoras&lt;/a&gt;.
+
+      Traducido al castellano por Ángel Millán León</string>
   <string name="msg_N_nodes">{0} nodos</string>
   <string name="msg_analyseErr">Error al analizar el circuito</string>
   <string name="msg_clockError">Error al cambiar de estado el reloj</string>
