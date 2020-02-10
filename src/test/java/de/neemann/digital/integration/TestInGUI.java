@@ -39,7 +39,6 @@ import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.terminal.KeyboardDialog;
 import de.neemann.digital.gui.components.terminal.Terminal;
-import de.neemann.digital.gui.components.terminal.TerminalDialog;
 import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.lang.Lang;
@@ -758,7 +757,7 @@ public class TestInGUI extends TestCase {
 
     public void test74xxUsage() {
         new GuiTester()
-                .add(new DrawCircuit("../../main/dig/74xx/xor.dig"))
+                .add(new DrawCircuit("../../main/dig/74xx/74xx_xor.dig"))
                 .press("F8")
                 .delay(500)
                 .add(new GuiTester.CheckTextInWindow<>(ValueTableDialog.class, Lang.get("msg_test_N_Passed", "")))
