@@ -6,6 +6,7 @@
 package de.neemann.digital.integration;
 
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.gui.FileHistory;
 import de.neemann.digital.gui.Main;
 import junit.framework.Assert;
 
@@ -166,6 +167,7 @@ public class GuiTester {
      */
     public void execute() {
         if (isDisplay()) {
+            FileHistory.setGuiTest();
             try {
                 SwingUtilities.invokeAndWait(() -> {
                     if (filename != null) {
@@ -175,7 +177,7 @@ public class GuiTester {
                             SwingUtilities.invokeLater(() -> main.setTitle(displayName + " - Digital"));
                     } else
                         main = new Main.MainBuilder().setCircuit(new Circuit()).build();
-                    main.setSize(1024,768);
+                    main.setSize(1024, 768);
                     main.setLocationRelativeTo(null);
                     main.setVisible(true);
                 });
@@ -480,7 +482,7 @@ public class GuiTester {
         boolean accept(Component component);
     }
 
-    public final static class WaitFor implements Runnable{
+    public final static class WaitFor implements Runnable {
         private Condition cond;
 
         public WaitFor(Condition cond) {
@@ -489,10 +491,10 @@ public class GuiTester {
 
         @Override
         public void run(GuiTester guiTester) throws Exception {
-            int n=0;
-            while (!cond.proceed())  {
+            int n = 0;
+            while (!cond.proceed()) {
                 Thread.sleep(100);
-                if (n++>20)
+                if (n++ > 20)
                     throw new RuntimeException("time out!");
             }
         }

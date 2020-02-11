@@ -17,6 +17,7 @@ import java.util.prefs.Preferences;
  * History of last opened files
  */
 public final class FileHistory {
+    private static boolean isGuiTest = false;
     private static final String FILE_NUM = "fileNum";
     private static final String FILE_NAME = "name";
     private static final int MAX_SIZE = 15;
@@ -26,6 +27,13 @@ public final class FileHistory {
     private final Preferences prefs;
     private JMenu menu;
     private JMenu menuNewWindow;
+
+    /**
+     * Sets the FileHistory to gui test mode which disables the storage
+     */
+    public static void setGuiTest() {
+        isGuiTest = true;
+    }
 
     /**
      * Creates a new instance
@@ -60,9 +68,11 @@ public final class FileHistory {
     }
 
     private void saveEntries() {
-        prefs.putInt(FILE_NUM, files.size());
-        for (int i = 0; i < files.size(); i++)
-            prefs.put(FILE_NAME + i, files.get(i).getPath());
+        if (!isGuiTest) {
+            prefs.putInt(FILE_NUM, files.size());
+            for (int i = 0; i < files.size(); i++)
+                prefs.put(FILE_NAME + i, files.get(i).getPath());
+        }
     }
 
     /**
