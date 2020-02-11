@@ -132,6 +132,13 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
+     * @return true if this model runs in the main frame
+     */
+    public boolean runningInMainFrame() {
+        return getWindowPosManager().getMainFrame() != null;
+    }
+
+    /**
      * Returns the actual step counter.
      * This counter is incremented by every micro step
      *

@@ -530,7 +530,7 @@ public class TestInGUI extends TestCase {
                             List<Terminal> n = main.getModel().findNode(Terminal.class);
                             assertEquals(1, n.size());
                             Terminal t = n.get(0);
-                            assertEquals("\nHello World!", t.getTerminalDialog().getText());
+                            assertEquals("\nHello World!", t.getTerminalInterface().getText());
                         }))
                 .execute();
     }

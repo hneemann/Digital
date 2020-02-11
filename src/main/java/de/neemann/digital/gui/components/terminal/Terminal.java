@@ -22,7 +22,6 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * Component which represents a text terminal.
  */
 public class Terminal extends Node implements Element {
-    private static final boolean HIDE_DIALOG = GraphicsEnvironment.isHeadless() || System.getProperty("testdata") != null;
 
     /**
      * The terminal description
@@ -72,10 +71,10 @@ public class Terminal extends Node implements Element {
             long value = data.getValue();
             if (value != 0) {
                 if (terminal == null) {
-                    if (HIDE_DIALOG) {
-                        terminal = new ConsoleTerminal();
-                    } else {
+                    if (getModel().runningInMainFrame()) {
                         terminal = TerminalDialog.getTerminal(getModel(), attr);
+                    } else {
+                        terminal = new ConsoleTerminal();
                     }
                 }
                 terminal.addChar((char) value);
@@ -89,9 +88,9 @@ public class Terminal extends Node implements Element {
     }
 
     /**
-     * @return the terminal dialog
+     * @return the terminal interface
      */
-    public TerminalInterface getTerminalDialog() {
+    public TerminalInterface getTerminalInterface() {
         return terminal;
     }
 }
