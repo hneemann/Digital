@@ -14,8 +14,6 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 
-import java.awt.*;
-
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
