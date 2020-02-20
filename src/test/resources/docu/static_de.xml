@@ -664,6 +664,14 @@
                 erforderlich.
             </answer>
         </faq>
+        <faq>
+            <question>Ich habe eine Schaltung erstellt, welche ich in vielen anderen Schaltungen verwenden möchte.
+                Wie kann ich das ermöglichen, ohne die Datei immer wieder in die entsprechenden Ordner zu kopieren?
+            </question>
+            <answer>Die Schaltung kann im "lib" Ordner gespeichert werden. Dann ist sie in allen anderen Schaltungen
+                verfügbar.
+            </answer>
+        </faq>
     </chapter>
     <chapter heading="Tastenbelegung" newpage="true">
         <shortcuts>

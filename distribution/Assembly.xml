@@ -57,7 +57,7 @@
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/lib</directory>
-            <outputDirectory>/examples/lib/</outputDirectory>
+            <outputDirectory>/lib/</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
                 <include>**/*.txt</include>
