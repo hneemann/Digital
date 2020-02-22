@@ -434,7 +434,7 @@ public final class Keys {
      * shape setting
      */
     public static final Key<Boolean> SETTINGS_IEEE_SHAPES
-            = new Key<>("IEEEShapes", Locale.getDefault().getLanguage().equals(Locale.US.getLanguage())).setRequiresRestart();
+            = new Key<>("IEEEShapes", !Locale.getDefault().getLanguage().equals(Locale.GERMAN.getLanguage())).setRequiresRestart();
 
     /**
      * The GUI Language
