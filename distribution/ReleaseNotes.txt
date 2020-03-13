@@ -2,6 +2,7 @@ Release Notes
 
 Head, planned as v0.25
 - move the "lib" folder from the "examples" folder to the root folder.
+- Reordering of the cells in the K-Map
 - 74193 was added
 
 v0.24, released on 1. Feb. 2020
