@@ -17,7 +17,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * A simple register.
  */
-public class Register extends Node implements Element, Countable {
+public class Register extends Node implements Element, Countable, ProgramCounter {
 
     /**
      * The registers {@link ElementTypeDescription}
@@ -92,17 +92,13 @@ public class Register extends Node implements Element, Countable {
             }));
     }
 
-    /**
-     * @return true if this register is the program counter
-     */
+    @Override
     public boolean isProgramCounter() {
         return isProgramCounter;
     }
 
-    /**
-     * @return the value of this register
-     */
-    public long getValue() {
+    @Override
+    public long getProgramCounter() {
         return value;
     }
 

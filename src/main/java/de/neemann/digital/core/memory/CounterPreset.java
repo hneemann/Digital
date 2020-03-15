@@ -17,7 +17,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * A simple counter.
  */
-public class CounterPreset extends Node implements Element {
+public class CounterPreset extends Node implements Element, ProgramCounter {
 
     /**
      * The counters {@link ElementTypeDescription}
@@ -35,7 +35,8 @@ public class CounterPreset extends Node implements Element {
             .addAttribute(Keys.MAX_VALUE)
             .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.VALUE_IS_PROBE);
+            .addAttribute(Keys.VALUE_IS_PROBE)
+            .addAttribute(Keys.IS_PROGRAM_COUNTER);
 
     private final ObservableValue out;
     private final ObservableValue ovf;
@@ -43,6 +44,7 @@ public class CounterPreset extends Node implements Element {
     private final boolean probe;
     private final String label;
     private final int bits;
+    private final boolean isProgramCounter;
     private ObservableValue clockIn;
     private ObservableValue clrIn;
     private ObservableValue enable;
@@ -72,6 +74,7 @@ public class CounterPreset extends Node implements Element {
 
         probe = attributes.get(Keys.VALUE_IS_PROBE);
         label = attributes.getLabel();
+        isProgramCounter = attributes.get(Keys.IS_PROGRAM_COUNTER);
     }
 
     @Override
@@ -145,4 +148,13 @@ public class CounterPreset extends Node implements Element {
             }));
     }
 
+    @Override
+    public boolean isProgramCounter() {
+        return isProgramCounter;
+    }
+
+    @Override
+    public long getProgramCounter() {
+        return counter;
+    }
 }

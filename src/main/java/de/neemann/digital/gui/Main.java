@@ -15,7 +15,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Button;
 import de.neemann.digital.core.io.*;
-import de.neemann.digital.core.memory.Register;
+import de.neemann.digital.core.memory.ProgramCounter;
 import de.neemann.digital.core.stats.Statistics;
 import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Clock;
@@ -1777,9 +1777,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private long address;
 
         private void getProgramROMAddress(Model model) {
-            List<Register> roms = model.findNode(Register.class, Register::isProgramCounter);
-            if (roms.size() == 1)
-                address = roms.get(0).getValue();
+            List<Node> programCounters = model.findNode(n -> n instanceof ProgramCounter && ((ProgramCounter) n).isProgramCounter());
+            if (programCounters.size() == 1)
+                address = ((ProgramCounter) programCounters.get(0)).getProgramCounter();
             else
                 address = -1;
         }
