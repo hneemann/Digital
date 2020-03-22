@@ -706,7 +706,22 @@ public final class Keys {
      * Path to ghdl
      */
     public static final Key<File> SETTINGS_GHDL_PATH
-            = new Key.KeyFile("ghdlPath", new File("ghdl")).setSecondary();
+            = new Key.KeyFile("ghdlPath", new File("ghdl")).setPanelId("ghdl");
+    /**
+     * The ghdl analysis options
+     */
+    public static final Key<String> SETTINGS_GHDL_OPT_ANALYSYS
+            = new Key<>("ghdlOptAnalysis", "-a --std=08 --ieee=synopsys").setPanelId("ghdl");
+    /**
+     * The ghdl elaboration options
+     */
+    public static final Key<String> SETTINGS_GHDL_OPT_ELABORATION
+            = new Key<>("ghdlOptElaboration", "-e --std=08 --ieee=synopsys stdIOInterface").setPanelId("ghdl");
+    /**
+     * The ghdl run options
+     */
+    public static final Key<String> SETTINGS_GHDL_OPT_RUN
+            = new Key<>("ghdlOptRun", "-r --std=08 --ieee=synopsys stdIOInterface --unbuffered").setPanelId("ghdl");
 
     /**
      * Path to iverilog installation directory

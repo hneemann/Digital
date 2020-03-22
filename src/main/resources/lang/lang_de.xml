@@ -19,8 +19,8 @@
     <string name="attr_dialogHighz">HighZ</string>
     <string name="attr_dialogOctal">Oktal</string>
     <string name="attr_dialogBinary">Binär</string>
-    <string name="attr_primary">Standard</string>
-    <string name="attr_secondary">Erweitert</string>
+    <string name="attr_panel_primary">Standard</string>
+    <string name="attr_panel_secondary">Erweitert</string>
     <string name="btn_discard">Verwerfen</string>
     <string name="btn_edit">Bearbeiten</string>
     <string name="btn_editFurther">Weiter bearbeiten</string>
@@ -1313,18 +1313,31 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Die Eingänge eines 8-Bit Addierers könnten also mit "a:8,b:8,c_in" beschrieben werden.</string>
     <string name="key_externalOutputs">Ausgänge</string>
     <string name="key_externalOutputs_tt">Die Ausgänge des externen Prozesses. Es handelt sich um eine kommaseparierte
-        Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
-        Die Ausgänge eines 8-Bit Addierers könnten also mit "s:8,c_out" beschrieben werden.</string>
+        Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben
+        werden.
+        Die Ausgänge eines 8-Bit Addierers könnten also mit "s:8,c_out" beschrieben werden.
+    </string>
     <string name="key_Code">Programmcode</string>
     <string name="key_Code_tt">Der Programmcode welcher ausgeführt werden soll.</string>
+    <string name="attr_panel_ghdl">GHDL</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von
-        VHDL-Code verwendet werden soll.</string>
+        VHDL-Code verwendet werden soll.
+    </string>
+    <string name="key_ghdlOptAnalysis">Analyse</string>
+    <string name="key_ghdlOptAnalysis_tt">Optionen, die für die Analyse durch GHDL verwendet werden.</string>
+    <string name="key_ghdlOptElaboration">Elaboration</string>
+    <string name="key_ghdlOptElaboration_tt">Optionen, die für die Elaboration durch GHDL verwendet werden.</string>
+    <string name="key_ghdlOptRun">Start</string>
+    <string name="key_ghdlOptRun_tt">Optionen, die für den Start durch GHDL verwendet werden.</string>
     <string name="key_iverilogPath">IVerilog</string>
     <string name="key_iverilogPath_tt">Pfad zum Icarus-Verilog-Installationsordner. Nur notwendig, wenn Sie iverilog
-        verwenden möchten, um mit Verilog definierte Komponenten zu simulieren.</string>
+        verwenden möchten, um mit Verilog definierte Komponenten zu simulieren.
+    </string>
     <string name="key_maxValue">Maximalwert</string>
-    <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits sind Eins).</string>
+    <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits
+        sind Eins).
+    </string>
 
     <string name="key_dipDefault">Ausgabe ist High</string>
     <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters, wenn die Simulation gestartet wird.</string>

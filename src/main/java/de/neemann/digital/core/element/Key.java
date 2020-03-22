@@ -23,6 +23,7 @@ public class Key<VALUE> {
     private CheckEnabled checkEnabled;
     private boolean isSecondary;
     private boolean requiresRestart = false;
+    private String panelId;
 
     // Both values are always null in digital.
     // Both are only used within a custom implemented component.
@@ -232,6 +233,24 @@ public class Key<VALUE> {
      */
     public boolean getRequiresRestart() {
         return requiresRestart;
+    }
+
+    /**
+     * Moves this key to the panel with the given id
+     *
+     * @param panelId the panel id
+     * @return this for chained calls
+     */
+    public Key<VALUE> setPanelId(String panelId) {
+        this.panelId = panelId;
+        return this;
+    }
+
+    /**
+     * @return the panel id, null if no panel is set
+     */
+    public String getPanelId() {
+        return panelId;
     }
 
     /**
