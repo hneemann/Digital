@@ -290,10 +290,37 @@
     <string name="elem_MIDI_pin_N">Note</string>
     <string name="elem_MIDI_pin_V">Volume</string>
     <string name="elem_MIDI_pin_OnOff">If set, this translates to pressing a keyboard key (key down event),
-        if not set, this translates to releasing the key (key up event).</string>
+        if not set, this translates to releasing the key (key up event).
+    </string>
     <string name="elem_MIDI_pin_en">Enables the component</string>
     <string name="elem_MIDI_pin_PC">If high, the value at N is used to change the program (instrument).</string>
     <string name="elem_MIDI_pin_C">Clock</string>
+
+    <string name="elem_StepperMotorUnipolar">Stepper Motor, unipolar</string>
+    <string name="elem_StepperMotorUnipolar_tt">Unipolar stepper motor with two limit position switches.
+        Full step drive, half step drive and wave drive are supported.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S0">Limit position switch 0, becomes 1 when the motor angle is 0°.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S1">Limit position switch 1, becomes 1 when the motor angle is 180°.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_P0">Phase 0</string>
+    <string name="elem_StepperMotorUnipolar_pin_P1">Phase 1</string>
+    <string name="elem_StepperMotorUnipolar_pin_P2">Phase 2</string>
+    <string name="elem_StepperMotorUnipolar_pin_P3">Phase 3</string>
+
+    <string name="elem_StepperMotorBipolar">Stepper Motor, bipolar</string>
+    <string name="elem_StepperMotorBipolar_tt">Bipolar stepper motor with two limit position switches.
+        Full step drive, half step drive and wave drive are supported.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S0">Limit position switch 0, becomes 1 when the motor angle is 0°.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S1">Limit position switch 1, becomes 1 when the motor angle is 180°.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_A+">Coil A, positive</string>
+    <string name="elem_StepperMotorBipolar_pin_A-">Coil A, negative</string>
+    <string name="elem_StepperMotorBipolar_pin_B+">Coil B, positive</string>
+    <string name="elem_StepperMotorBipolar_pin_B-">Coil B, negative</string>
 
     <!-- Wires -->
 
@@ -1454,6 +1481,9 @@
     <string name="lib_switching">Switches</string>
     <string name="lib_misc">Misc.</string>
     <string name="lib_more">more</string>
+    <string name="lib_displays">Displays</string>
+    <string name="lib_mechanic">Mechanical</string>
+    <string name="lib_peripherals">Peripherals</string>
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
 

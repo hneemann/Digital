@@ -288,10 +288,42 @@
     <string name="elem_MIDI_pin_N">Note</string>
     <string name="elem_MIDI_pin_V">Lautstärke</string>
     <string name="elem_MIDI_pin_OnOff">Wenn gesetzt, enspricht das dem Drücken einer Keyboard-Taste (key down).
-        Wenn nicht gesetzt, entspricht das einem Loslassen der Taste (key up).</string>
+        Wenn nicht gesetzt, entspricht das einem Loslassen der Taste (key up).
+    </string>
     <string name="elem_MIDI_pin_en">Wenn dieser eingang high ist, kann der Baustein angesprochen werden.</string>
-    <string name="elem_MIDI_pin_PC">Wenn gesetzt, wird mit dem Wert an Eingang N das Programm (Instrument) gewechselt.</string>
+    <string name="elem_MIDI_pin_PC">Wenn gesetzt, wird mit dem Wert an Eingang N das Programm (Instrument) gewechselt.
+    </string>
     <string name="elem_MIDI_pin_C">Takteingang</string>
+
+    <string name="elem_StepperMotorUnipolar">Schrittmotor, unipolar</string>
+    <string name="elem_StepperMotorUnipolar_tt">Unipolarer Schrittmotor mit zwei Endlagenschaltern. Die Endlagenschalter
+        können 'überfahren' werden.
+        Unterstützt wird das Vollschrittverfahren, das Halbschrittverfahren und Wave-Drive.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S0">Endlagenschalter 0, wird zu Eins, wenn der Motorwinkel 0° beträgt.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S1">Endlagenschalter 1, wird zu Eins, wenn der Motorwinkel 180°
+        beträgt.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_P0">Phase 0</string>
+    <string name="elem_StepperMotorUnipolar_pin_P1">Phase 1</string>
+    <string name="elem_StepperMotorUnipolar_pin_P2">Phase 2</string>
+    <string name="elem_StepperMotorUnipolar_pin_P3">Phase 3</string>
+
+    <string name="elem_StepperMotorBipolar">Schrittmotor, bipolar</string>
+    <string name="elem_StepperMotorBipolar_tt">Bipolarer Schrittmotor mit zwei Endlagenschaltern. Die Endlagenschalter
+        können 'überfahren' werden.
+        Unterstützt wird das Vollschrittverfahren, das Halbschrittverfahren und Wave-Drive.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S0">Endlagenschalter 0, wird zu Eins, wenn der Motorwinkel 0° beträgt.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S1">Endlagenschalter 1, wird zu Eins, wenn der Motorwinkel 180°
+        beträgt.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_A+">Wicklung A, Pluspol</string>
+    <string name="elem_StepperMotorBipolar_pin_A-">Wicklung A, Minuspol</string>
+    <string name="elem_StepperMotorBipolar_pin_B+">Wicklung B, Pluspol</string>
+    <string name="elem_StepperMotorBipolar_pin_B-">Wicklung B, Minuspol</string>
 
     <!-- Leitungen -->
 
@@ -1483,6 +1515,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="lib_mux">Multiplexer</string>
     <string name="lib_wires">Leitungen</string>
     <string name="lib_switching">Schalter</string>
+    <string name="lib_displays">Anzeigen</string>
+    <string name="lib_mechanic">Mechanisch</string>
+    <string name="lib_peripherals">Peripherie</string>
     <string name="lib_misc">Sonstige</string>
     <string name="lib_more">mehr</string>
     <string name="lib_ram">RAM</string>
