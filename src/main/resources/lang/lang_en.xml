@@ -1293,17 +1293,13 @@
     </string>
     <string name="key_Code">Programcode</string>
     <string name="key_Code_tt">The programm code to be executed by the external application.</string>
-    <string name="attr_panel_ghdl">GHDL</string>
+    <string name="attr_panel_Options">Options</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
         components defined with vhdl.
     </string>
-    <string name="key_ghdlOptAnalysis">Analysis</string>
-    <string name="key_ghdlOptAnalysis_tt">Options used for the GHDL analysis.</string>
-    <string name="key_ghdlOptElaboration">Elaboration</string>
-    <string name="key_ghdlOptElaboration_tt">Options used for the GHDL elaboration.</string>
-    <string name="key_ghdlOptRun">Run</string>
-    <string name="key_ghdlOptRun_tt">Options used for the start of GHDL.</string>
+    <string name="key_ghdlOptions">GHDL Options</string>
+    <string name="key_ghdlOptions_tt">Options that are used for all processing steps by GHDL.</string>
 
     <string name="key_iverilogPath">IVerilog</string>
     <string name="key_iverilogPath_tt">Path to the Icarus verilog installation folder. Only necessary if you want to use

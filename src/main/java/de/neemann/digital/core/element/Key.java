@@ -441,7 +441,7 @@ public class Key<VALUE> {
      */
     public static final class LongString extends Key<String> {
         private int rows = 6;
-        private int columns = 30;
+        private int columns = 0;
         private boolean lineNumbers = false;
 
         /**
@@ -451,6 +451,16 @@ public class Key<VALUE> {
          */
         public LongString(String key) {
             super(key, "");
+        }
+
+        /**
+         * Creates a new Key
+         *
+         * @param key the key
+         * @param def the default value
+         */
+        public LongString(String key, String def) {
+            super(key, def);
         }
 
         /**

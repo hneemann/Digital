@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.extern;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.gui.Settings;
 
@@ -30,7 +31,7 @@ public class Options {
      * @param key the key to use
      * @return this for chained calls
      */
-    public Options addSettings(Key<String> key) {
+    public Options addFromSettings(Key<String> key) {
         return addString(Settings.getInstance().get(key));
     }
 
@@ -71,6 +72,18 @@ public class Options {
         list.add(option);
         return this;
     }
+
+    /**
+     * Adds a string from the give attributes
+     *
+     * @param attr the attributes
+     * @param key  the key to use
+     * @return this for chained calls
+     */
+    public Options add(ElementAttributes attr, Key<String> key) {
+        return addString(attr.get(key));
+    }
+
 
     /**
      * @return the options as a list

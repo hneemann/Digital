@@ -52,9 +52,6 @@ public final class Settings extends SettingsBase {
         intList.add(Keys.SETTINGS_ATF1502_FITTER);
         intList.add(Keys.SETTINGS_ATMISP);
         intList.add(Keys.SETTINGS_GHDL_PATH);
-        intList.add(Keys.SETTINGS_GHDL_OPT_ANALYSYS);
-        intList.add(Keys.SETTINGS_GHDL_OPT_ELABORATION);
-        intList.add(Keys.SETTINGS_GHDL_OPT_RUN);
         intList.add(Keys.SETTINGS_IVERILOG_PATH);
         intList.add(Keys.SETTINGS_TOOLCHAIN_CONFIG);
         intList.add(Keys.SETTINGS_FONT_SCALING);

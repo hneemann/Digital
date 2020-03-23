@@ -39,11 +39,13 @@ public class External extends Node implements Element {
             .addAttribute(Keys.EXTERNAL_INPUTS)
             .addAttribute(Keys.EXTERNAL_OUTPUTS)
             .addAttribute(Keys.EXTERNAL_CODE)
-            .addAttribute(Keys.APPLICATION_TYPE);
+            .addAttribute(Keys.APPLICATION_TYPE)
+            .addAttribute(Keys.GHDL_OPTIONS);
 
     private final Application.Type type;
     private final PortDefinition ins;
     private final PortDefinition outs;
+    private final ElementAttributes attr;
     private final ObservableValues outputs;
     private final String code;
     private final String label;
@@ -57,6 +59,7 @@ public class External extends Node implements Element {
      */
     public External(ElementAttributes attr) {
         super(true);
+        this.attr = attr;
         ins = new PortDefinition(attr.get(Keys.EXTERNAL_INPUTS));
         outs = new PortDefinition(attr.get(Keys.EXTERNAL_OUTPUTS));
         outputs = outs.createOutputs();
@@ -99,7 +102,7 @@ public class External extends Node implements Element {
     @Override
     public void init(Model model) throws NodeException {
         try {
-            Application app = Application.create(type);
+            Application app = Application.create(type, attr);
             if (app == null)
                 throw new NodeException(Lang.get("err_errorCreatingProcess"), this, -1, null);
 

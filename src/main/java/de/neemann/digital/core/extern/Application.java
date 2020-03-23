@@ -36,15 +36,16 @@ public interface Application {
     /**
      * Creates a new application instance
      *
-     * @param type the type of the prosess
+     * @param type the type of the process
+     * @param attr the elements attributes
      * @return the created process handler
      */
-    static Application create(Type type) {
+    static Application create(Type type, ElementAttributes attr) {
         switch (type) {
             case Generic:
                 return new ApplicationGeneric();
             case GHDL:
-                return new ApplicationGHDL();
+                return new ApplicationGHDL(attr);
             case IVERILOG:
                 return new ApplicationIVerilog();
             default:
