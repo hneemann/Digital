@@ -44,12 +44,15 @@ public class Options {
     public Options addString(String options) {
         StringBuilder opt = new StringBuilder();
         boolean inQuote = false;
+        int quoteCount = 0;
         for (int i = 0; i < options.length(); i++) {
             char c = options.charAt(i);
-            if (c == '"')
+            if (c == '"') {
                 inQuote = !inQuote;
+                quoteCount++;
+            }
 
-            if (c == '\\' && i < options.length() - 1) {
+            if (c == '\\' && i < options.length() - 1 && !inQuote) {
                 //modification of loop variable i is intended!
                 //CHECKSTYLE.OFF: ModifiedControlVariable
                 i++;
@@ -57,8 +60,10 @@ public class Options {
                 opt.append(escapeChar(options.charAt(i)));
             } else {
                 if (Character.isWhitespace(c) && !inQuote) {
-                    if (opt.length() > 0)
-                        list.add(opt.toString());
+                    if (opt.length() > 0) {
+                        addQuote(opt.toString(), quoteCount);
+                        quoteCount = 0;
+                    }
                     opt.setLength(0);
                 } else {
                     opt.append(c);
@@ -66,8 +71,16 @@ public class Options {
             }
         }
         if (opt.length() > 0)
-            list.add(opt.toString());
+            addQuote(opt.toString(), quoteCount);
         return this;
+    }
+
+    private void addQuote(String opt, int quoteCount) {
+        if (quoteCount == 2 && opt.charAt(0) == '"' && opt.charAt(opt.length() - 1) == '"') {
+            list.add(opt.substring(1, opt.length() - 1));
+        } else {
+            list.add(opt);
+        }
     }
 
     private char escapeChar(char c) {
