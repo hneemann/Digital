@@ -49,17 +49,38 @@ public class Options {
             if (c == '"')
                 inQuote = !inQuote;
 
-            if (Character.isWhitespace(c) && !inQuote) {
-                if (opt.length() > 0)
-                    list.add(opt.toString());
-                opt.setLength(0);
+            if (c == '\\' && i < options.length() - 1) {
+                //modification of loop variable i is intended!
+                //CHECKSTYLE.OFF: ModifiedControlVariable
+                i++;
+                //CHECKSTYLE.ON: ModifiedControlVariable
+                opt.append(escapeChar(options.charAt(i)));
             } else {
-                opt.append(c);
+                if (Character.isWhitespace(c) && !inQuote) {
+                    if (opt.length() > 0)
+                        list.add(opt.toString());
+                    opt.setLength(0);
+                } else {
+                    opt.append(c);
+                }
             }
         }
         if (opt.length() > 0)
             list.add(opt.toString());
         return this;
+    }
+
+    private char escapeChar(char c) {
+        switch (c) {
+            case 't':
+                return '\t';
+            case 'n':
+                return '\n';
+            case 'r':
+                return '\r';
+            default:
+                return c;
+        }
     }
 
     /**

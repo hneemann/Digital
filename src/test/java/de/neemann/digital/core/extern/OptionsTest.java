@@ -15,6 +15,13 @@ public class OptionsTest extends TestCase {
         check(new Options().addString("-a -e -u=zzz"), "-a", "-e", "-u=zzz");
         check(new Options().addString("-a -e -u=\"Hello World\""), "-a", "-e", "-u=\"Hello World\"");
         check(new Options().addString("-a -u=\"Hello World\" -e"), "-a", "-u=\"Hello World\"", "-e");
+
+        // escape
+        check(new Options().addString("-a -u=Hello\\ World -e"), "-a", "-u=Hello World", "-e");
+        check(new Options().addString("-a -u=Hello\\nWorld -e"), "-a", "-u=Hello\nWorld", "-e");
+        check(new Options().addString("-a -u=Hello\\tWorld -e"), "-a", "-u=Hello\tWorld", "-e");
+        check(new Options().addString("-a -u=Hello\\rWorld -e"), "-a", "-u=Hello\rWorld", "-e");
+        check(new Options().addString("-a -u=Hello\\ World -e\\"), "-a", "-u=Hello World", "-e\\");
     }
 
     private void check(Options options, String... opt) {
