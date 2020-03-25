@@ -122,7 +122,7 @@ public final class EditorFactory {
         private JLabel label;
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
+        public void addToPanel(EditorPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
             this.attributeDialog = attributeDialog;
             label = new JLabel(key.getName() + ":  ");
             final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
@@ -130,12 +130,12 @@ public final class EditorFactory {
             component = getComponent(elementAttributes);
             component.setToolTipText(description);
             if (labelAtTop) {
-                panel.add(label, constraints.width(2));
-                constraints.nextRow();
-                panel.add(component, constraints.width(2).dynamicHeight());
+                panel.add(label, cb -> cb.width(2));
+                panel.nextRow();
+                panel.add(component, cb -> cb.width(2).dynamicWidth().dynamicHeight());
             } else {
-                panel.add(label, constraints);
-                panel.add(component, constraints.x(1).dynamicWidth());
+                panel.add(label);
+                panel.add(component, cb -> cb.x(1).dynamicWidth());
             }
         }
 
@@ -466,8 +466,8 @@ public final class EditorFactory {
         }
 
         @Override
-        public void addToPanel(JPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog, ConstraintsBuilder constraints) {
-            panel.add(bool, constraints.width(2));
+        public void addToPanel(EditorPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
+            panel.add(bool, cb -> cb.width(2));
         }
 
         @Override
@@ -767,7 +767,7 @@ public final class EditorFactory {
                     int n = combo.getSelectedIndex();
                     if (n >= 0) {
                         Application.Type appType = Application.Type.values()[n];
-                        Application app = Application.create(appType);
+                        Application app = Application.create(appType, elementAttributes);
                         if (app != null) {
                             try {
                                 getAttributeDialog().storeEditedValues();
@@ -805,7 +805,7 @@ public final class EditorFactory {
             combo.addActionListener(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    enableButton();
+                    enableButton(elementAttributes);
                 }
             });
 
@@ -814,16 +814,16 @@ public final class EditorFactory {
             p.add(combo);
             p.add(checkButton, BorderLayout.EAST);
 
-            enableButton();
+            enableButton(elementAttributes);
 
             return p;
         }
 
-        void enableButton() {
+        void enableButton(ElementAttributes attr) {
             int n = combo.getSelectedIndex();
             if (n >= 0) {
                 Application.Type appType = Application.Type.values()[n];
-                Application app = Application.create(appType);
+                Application app = Application.create(appType, attr);
                 if (app != null)
                     checkButton.setEnabled(app.checkSupported());
             }

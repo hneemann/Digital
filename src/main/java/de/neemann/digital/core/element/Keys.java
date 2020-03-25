@@ -709,6 +709,12 @@ public final class Keys {
             = new Key.KeyFile("ghdlPath", new File("ghdl")).setSecondary();
 
     /**
+     * The ghdl options
+     */
+    public static final Key<String> GHDL_OPTIONS
+            = new Key.LongString("ghdlOptions", "--std=08 --ieee=synopsys").setRows(3).setColumns(30).setPanelId("Options");
+
+    /**
      * Path to iverilog installation directory
      */
     public static final Key<File> SETTINGS_IVERILOG_PATH

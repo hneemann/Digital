@@ -19,8 +19,8 @@
     <string name="attr_dialogHighz">HighZ</string>
     <string name="attr_dialogOctal">Octal</string>
     <string name="attr_dialogBinary">Binary</string>
-    <string name="attr_primary">Basic</string>
-    <string name="attr_secondary">Advanced</string>
+    <string name="attr_panel_primary">Basic</string>
+    <string name="attr_panel_secondary">Advanced</string>
     <string name="btn_discard">Discard Changes</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_editFurther">Continue editing</string>
@@ -1316,15 +1316,23 @@
     <string name="key_externalOutputs">Outputs</string>
     <string name="key_externalOutputs_tt">The outputs of the external process.
         It is a comma-separated list of signal names. For each signal name, with a colon separated, a number of bits
-        can be specified. The outputs of an 8-bit adder could thus be described as "s:8,c_out".</string>
+        can be specified. The outputs of an 8-bit adder could thus be described as "s:8,c_out".
+    </string>
     <string name="key_Code">Programcode</string>
     <string name="key_Code_tt">The programm code to be executed by the external application.</string>
+    <string name="attr_panel_Options">Options</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
-        components defined with vhdl.</string>
+        components defined with vhdl.
+    </string>
+    <string name="key_ghdlOptions">GHDL Options</string>
+    <string name="key_ghdlOptions_tt">Options that are used for all processing steps by GHDL.</string>
+
     <string name="key_iverilogPath">IVerilog</string>
-    <string name="key_iverilogPath_tt">Path to the Icarus verilog installation folder. Only necessary if you want to use iverilog to simulate
-        components defined with verilog.</string>
+    <string name="key_iverilogPath_tt">Path to the Icarus verilog installation folder. Only necessary if you want to use
+        iverilog to simulate
+        components defined with verilog.
+    </string>
     <string name="key_maxValue">Maximum Value</string>
     <string name="key_maxValue_tt">If a zero is entered, the maximum possible value is used (all bits are one).</string>
 

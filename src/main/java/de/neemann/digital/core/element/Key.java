@@ -23,6 +23,7 @@ public class Key<VALUE> {
     private CheckEnabled checkEnabled;
     private boolean isSecondary;
     private boolean requiresRestart = false;
+    private String panelId;
 
     // Both values are always null in digital.
     // Both are only used within a custom implemented component.
@@ -235,6 +236,24 @@ public class Key<VALUE> {
     }
 
     /**
+     * Moves this key to the panel with the given id
+     *
+     * @param panelId the panel id
+     * @return this for chained calls
+     */
+    public Key<VALUE> setPanelId(String panelId) {
+        this.panelId = panelId;
+        return this;
+    }
+
+    /**
+     * @return the panel id, null if no panel is set
+     */
+    public String getPanelId() {
+        return panelId;
+    }
+
+    /**
      * A integer attribute.
      * Stores additional combo box values
      */
@@ -422,7 +441,7 @@ public class Key<VALUE> {
      */
     public static final class LongString extends Key<String> {
         private int rows = 6;
-        private int columns = 30;
+        private int columns = 0;
         private boolean lineNumbers = false;
 
         /**
@@ -432,6 +451,16 @@ public class Key<VALUE> {
          */
         public LongString(String key) {
             super(key, "");
+        }
+
+        /**
+         * Creates a new Key
+         *
+         * @param key the key
+         * @param def the default value
+         */
+        public LongString(String key, String def) {
+            super(key, def);
         }
 
         /**
