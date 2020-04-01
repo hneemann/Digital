@@ -78,7 +78,7 @@ end loop
 {{de = a^2+2ab+b^2 - (a^2-2ab+b^2)
 = a^2+2ab+b^2 - a^2+2ab-b^2
 = 4ab^{ }
-= (a+b)^2/4-(a-b)^2/4}}</string>
+= (a+b)^2/4 - (a-b)^2/4}}</string>
         </entry>
       </elementAttributes>
       <pos x="400" y="-180"/>
@@ -102,8 +102,12 @@ end loop
           <string>ab
 {{de ab}}</string>
         </entry>
+        <entry>
+          <string>snapToGrid</string>
+          <boolean>false</boolean>
+        </entry>
       </elementAttributes>
-      <pos x="340" y="-80"/>
+      <pos x="361" y="-82"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
