@@ -583,7 +583,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             }
 
             ElementTypeDescriptionCustom description = createCustomDescription(file, circuit, this);
-            description.setShortName(createShortName(file));
+            description.setShortName(createShortName(file.getName(), circuit.getAttributes().getLabel()));
 
             String descriptionText = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
             if (descriptionText != null && descriptionText.length() > 0) {
@@ -595,18 +595,18 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         }
     }
 
-    private String createShortName(File file) {
-        return createShortName(file.getName());
-    }
+    private String createShortName(String name, String userDefined) {
+        if (userDefined.isEmpty()) {
+            if (name.endsWith(".dig")) return "\\" + name.substring(0, name.length() - 4);
 
-    private String createShortName(String name) {
-        if (name.endsWith(".dig")) return "\\" + name.substring(0, name.length() - 4);
-
-        String transName = Lang.getNull("elem_" + name);
-        if (transName == null)
-            return name;
-        else
-            return transName;
+            String transName = Lang.getNull("elem_" + name);
+            if (transName == null)
+                return name;
+            else
+                return transName;
+        } else {
+            return userDefined;
+        }
     }
 
     /**

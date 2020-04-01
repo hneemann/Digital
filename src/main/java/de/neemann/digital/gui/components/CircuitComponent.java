@@ -62,6 +62,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
 
     static {
+        ATTR_LIST.add(Keys.LABEL);
         ATTR_LIST.add(Keys.WIDTH);
         ATTR_LIST.add(Keys.SHAPE_TYPE);
         ATTR_LIST.add(Keys.CUSTOM_SHAPE);
