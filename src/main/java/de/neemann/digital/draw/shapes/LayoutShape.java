@@ -227,7 +227,7 @@ public class LayoutShape implements Shape {
             } else {
                 // length: user defined width, always larger or equal to pins.size()+1
 
-                int delta = length / (pins.size() + 1);
+                int delta = (length + 2) / (pins.size() + 1);
 
                 int pinsOnly = delta * (pins.size() - 1);
 
