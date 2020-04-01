@@ -6,6 +6,10 @@ Head, planned as v0.25
 - Reordering of the cells in the K-Map
 - Counters are able to act as program counters via the remote interface.
 - 74193 was added
+- Breaking changes:
+  - The layout shape uses a slightly different algorithm to determine
+    the pin positions. You may need to adjust usages of embedded circuits
+    that use the layout shape.
 
 v0.24, released on 1. Feb. 2020
 - Improved SVG export

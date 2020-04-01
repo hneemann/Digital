@@ -1492,10 +1492,15 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_equalsInsteadOfPlus">Die Gleich-Taste verwenden.</string>
     <string name="key_equalsInsteadOfPlus_tt">Die Gleich-Taste anstelle der Plus-Taste verwenden.
         Dies ist immer dann sinvoll, wenn das Plus-Zeichen keine Primärtaste ist, sondern die Zweitbelegung des
-        Gleich-Zeichens, also z.B. bei amerikanischem oder französischem Tastaturlayout.</string>
+        Gleich-Zeichens, also z.B. bei amerikanischem oder französischem Tastaturlayout.
+    </string>
 
     <string name="key_snapToGrid">An Gitter ausrichten</string>
     <string name="key_snapToGrid_tt">Wenn gesetzt, wird das Element am Gitter ausgerichtet.</string>
+
+    <string name="key_layoutShapeDelta">Pin Abstand</string>
+    <string name="key_layoutShapeDelta_tt">Wird vom Layout-Shape verwendet. Legt den Abstand zum vorherigen Pin fest.
+    </string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>

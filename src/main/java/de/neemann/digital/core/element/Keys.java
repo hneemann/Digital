@@ -306,6 +306,13 @@ public final class Keys {
             = new Key.KeyEnum<>("shapeType", CustomCircuitShapeType.DEFAULT, CustomCircuitShapeType.values()).setSecondary();
 
     /**
+     * Defines the distance to the previous pin. Used by the layout shape type
+     */
+    public static final Key.KeyInteger LAYOUT_SHAPE_DELTA
+            = new Key.KeyInteger("layoutShapeDelta", 0)
+            .setMin(0);
+
+    /**
      * the width of an element if it is included as nested element
      */
     public static final Key<Integer> HEIGHT
