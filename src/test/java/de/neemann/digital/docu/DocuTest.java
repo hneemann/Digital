@@ -59,6 +59,8 @@ public class DocuTest extends TestCase {
                 .append(Lang.get("tableOfContent"))
                 .append("\" lang=\"")
                 .append(language)
+                .append("\" fontFamily=\"")
+                .append(language.equals("cn") ? "SimSun" : "SansSerif")
                 .append("\" rev=\"")
                 .append(System.getProperty("buildnumber"))
                 .append("\" revt=\"")
