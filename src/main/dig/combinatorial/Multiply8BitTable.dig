@@ -74,7 +74,7 @@ end loop
           <string>= a^2+2ab+b^2 - (a^2-2ab+b^2)
 = a^2+2ab+b^2 - a^2+2ab-b^2
 = 4ab^{ }
-= (a+b)^2/4-(a-b)^2/4
+= (a+b)^2/4 - (a-b)^2/4
 {{de = a^2+2ab+b^2 - (a^2-2ab+b^2)
 = a^2+2ab+b^2 - a^2+2ab-b^2
 = 4ab^{ }
