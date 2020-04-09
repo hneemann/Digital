@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.switching.TransGate;
@@ -65,7 +64,7 @@ public class TransGateShape implements Shape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public InteractorInterface applyStateMonitor(IOState ioState) {
         transGate = (TransGate) ioState.getElement();
         return null;
     }

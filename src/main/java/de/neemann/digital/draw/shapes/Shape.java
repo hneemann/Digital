@@ -6,7 +6,6 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.model.ModelCreator;
@@ -29,20 +28,15 @@ public interface Shape extends Drawable, ObservableValueReader {
 
     /**
      * This method call connects the created model element to the shape which represents the model node.
-     * If the look of the shape depends on an inputs state, the shape has to register the guiObserver
-     * to all of the inputs ObservableValues it depends on.
      * To access the actual state while drawing, the Shape needs to store the IOState or the needed inputs
      * in a member variable.
      * If the shape returns an interactor, this interactors clicked method is called if the
      * shape is clicked in running mode. If the shape is not interactive simply return null.
      *
-     * @param ioState     the state of the element, never null
-     * @param guiObserver can be used to update the GUI by calling hasChanged, Is maybe null.
-     *                    If the shape depends on a signal value, you can add this observer to
-     *                    the signal. In this case a repaint is initiated, if the signal changes.
+     * @param ioState the state of the element, never null
      * @return The interactor which is used to interact with the shape while the simulation runs.
      */
-    InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver);
+    InteractorInterface applyStateMonitor(IOState ioState);
 
     /**
      * Allows the shape to make its drawing dependent of the model by registering a Observer to the model.

@@ -30,9 +30,8 @@ public interface InteractorInterface {
      * @param ioState   the state of the element
      * @param element   the element which is clicked
      * @param modelSync used to sync model access
-     * @return true if model is changed
      */
-    boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
+    void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
      * Called if mouse is pressed on running model
@@ -42,9 +41,8 @@ public interface InteractorInterface {
      * @param ioState   the state of the element
      * @param element   the element on which the mouse is pressed
      * @param modelSync used to sync model access
-     * @return true if model is changed
      */
-    boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
+    void pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
      * Called if mouse is released on running model
@@ -54,9 +52,8 @@ public interface InteractorInterface {
      * @param ioState   the state of the element
      * @param element   the element on which the mouse is released
      * @param modelSync used to sync model access
-     * @return true if model is changed
      */
-    boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
+    void released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync);
 
     /**
      * Called if mouse is dragged on running model
@@ -68,8 +65,7 @@ public interface InteractorInterface {
      * @param ioState     the state of the element
      * @param element     the element on which the mouse is dragged
      * @param modelSync   used to sync model access
-     * @return true if model is changed
      */
-    boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync);
+    void dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync);
 
 }

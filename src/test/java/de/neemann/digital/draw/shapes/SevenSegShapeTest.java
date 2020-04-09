@@ -34,7 +34,7 @@ public class SevenSegShapeTest extends TestCase {
         PinDescriptions inputs = new PinDescriptions(observableValues);
         SevenSegShape ss = new SevenSegShape(attr, inputs, new PinDescriptions());
         IOState state = new IOState(observableValues, null, null);
-        ss.applyStateMonitor(state, null);
+        ss.applyStateMonitor(state);
 
         checkValue(false, ss, 0, a, 0, 1, cc, 0, 1);
         checkValue(false, ss, 0, a, 0, 1, cc, 1, 1);
@@ -95,7 +95,7 @@ public class SevenSegShapeTest extends TestCase {
         PinDescriptions inputs = new PinDescriptions(observableValues);
         SevenSegShape ss = new SevenSegShape(attr, inputs, new PinDescriptions());
         IOState state = new IOState(observableValues, null, null);
-        ss.applyStateMonitor(state, null);
+        ss.applyStateMonitor(state);
 
         checkValue(false, ss, 0, a, 0, 1, cc, 0, 1);
         checkValue(false, ss, 0, a, 0, 1, cc, 1, 1);

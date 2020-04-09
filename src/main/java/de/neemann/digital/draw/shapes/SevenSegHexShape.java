@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -72,10 +71,8 @@ public class SevenSegHexShape extends SevenShape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public Interactor applyStateMonitor(IOState ioState) {
         this.ioState = ioState;
-        ioState.getInput(0).addObserverToValue(guiObserver);
-        ioState.getInput(1).addObserverToValue(guiObserver);
         return null;
     }
 }

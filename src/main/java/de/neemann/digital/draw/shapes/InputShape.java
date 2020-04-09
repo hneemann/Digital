@@ -82,9 +82,8 @@ public class InputShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public Interactor applyStateMonitor(IOState ioState) {
         this.ioState = ioState;
-        ioState.getOutput(0).addObserverToValue(guiObserver);
         return new InputInteractor();
     }
 
@@ -148,7 +147,7 @@ public class InputShape implements Shape {
         private long lastValueSet;
 
         @Override
-        public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+        public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
             if (bits == 1) {
                 modelSync.modify(() -> {
@@ -163,7 +162,6 @@ public class InputShape implements Shape {
                     } else
                         value.setValue(1 - value.getValue());
                 });
-                return true;
             } else {
                 if (dialog == null || !dialog.isVisible()) {
                     Model model = ((In) element).getModel();
@@ -172,18 +170,16 @@ public class InputShape implements Shape {
                 } else
                     dialog.requestFocus();
 
-                return false;
             }
         }
 
         @Override
-        public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+        public void pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             isDrag = false;
-            return false;
         }
 
         @Override
-        public boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
+        public void dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
             if (bits > 1 && !value.isHighZ()) {
                 if (!isDrag) {
@@ -198,11 +194,9 @@ public class InputShape implements Shape {
                     if (val != lastValueSet) {
                         modelSync.modify(() -> value.setValue(val));
                         lastValueSet = val;
-                        return true;
                     }
                 }
             }
-            return false;
         }
     }
 }

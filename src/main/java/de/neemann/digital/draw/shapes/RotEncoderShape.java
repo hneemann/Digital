@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -54,31 +53,27 @@ public class RotEncoderShape implements Shape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        ioState.getOutput(0).addObserverToValue(guiObserver);
+    public InteractorInterface applyStateMonitor(IOState ioState) {
         return new InteractorInterface() {
 
             private int initialState;
             private boolean initial;
 
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-                return false;
+            public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             }
 
             @Override
-            public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+            public void pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 initial = true;
-                return false;
             }
 
             @Override
-            public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-                return false;
+            public void released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             }
 
             @Override
-            public boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform trans, IOState ioState, Element element, SyncAccess modelSync) {
+            public void dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform trans, IOState ioState, Element element, SyncAccess modelSync) {
                 if (ioState != null) {
                     Vector p = pos.sub(trans.transform(CENTER));
                     final int dist = p.x * p.x + p.y * p.y;
@@ -97,13 +92,11 @@ public class RotEncoderShape implements Shape {
                                     ioState.getOutput(0).setBool(a);
                                     ioState.getOutput(1).setBool(b);
                                 });
-                                return true;
                             }
                         }
                     } else
                         initial = true;
                 }
-                return false;
             }
         };
     }

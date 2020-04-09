@@ -6,7 +6,6 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -56,17 +55,13 @@ public class ClockShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
-        ioState.getOutput(0).addObserverToValue(guiObserver); // necessary to replot wires also if component itself does not depend on state
+    public Interactor applyStateMonitor(IOState ioState) {
         return new Interactor() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+            public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 ObservableValue value = ioState.getOutput(0);
-                if (value.getBits() == 1) {
+                if (value.getBits() == 1)
                     modelSync.modify(() -> value.setValue(1 - value.getValue()));
-                    return true;
-                }
-                return false;
             }
         };
     }

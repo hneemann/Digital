@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -63,10 +62,8 @@ public class RelayDTShape implements Shape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public InteractorInterface applyStateMonitor(IOState ioState) {
         relay = (RelayDT) ioState.getElement();
-        ioState.getInput(0).addObserverToValue(guiObserver);
-        ioState.getInput(1).addObserverToValue(guiObserver);
         return null;
     }
 

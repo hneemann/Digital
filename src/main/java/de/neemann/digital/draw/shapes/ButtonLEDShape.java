@@ -6,7 +6,6 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
@@ -56,10 +55,10 @@ public class ButtonLEDShape extends ButtonShape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public InteractorInterface applyStateMonitor(IOState ioState) {
         inputValue = ioState.getInput(0);
         button = (ButtonLED) ioState.getElement();
-        return super.applyStateMonitor(ioState, guiObserver);
+        return super.applyStateMonitor(ioState);
     }
 
     @Override

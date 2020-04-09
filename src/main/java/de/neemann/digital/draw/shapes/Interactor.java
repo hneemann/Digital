@@ -23,17 +23,14 @@ import java.awt.*;
 public abstract class Interactor implements InteractorInterface {
 
     @Override
-    public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-        return false;
+    public void pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
     }
 
     @Override
-    public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-        return false;
+    public void released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
     }
 
     @Override
-    public boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
-        return false;
+    public void dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
     }
 }

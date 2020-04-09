@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.StepperMotorUnipolar;
@@ -57,9 +56,7 @@ public class StepperMotorShape implements Shape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        for (int i = 0; i < 4; i++)
-            ioState.getInput(i).addObserver(guiObserver);
+    public InteractorInterface applyStateMonitor(IOState ioState) {
         motor = (StepperMotorUnipolar) ioState.getElement();
         return null;
     }
