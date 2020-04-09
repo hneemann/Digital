@@ -60,12 +60,12 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                model.access(() -> model.addObserver(ProbeDialog.this));
+                model.modify(() -> model.addObserver(ProbeDialog.this));
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                model.access(() -> model.removeObserver(ProbeDialog.this));
+                model.modify(() -> model.removeObserver(ProbeDialog.this));
             }
         });
 
@@ -107,7 +107,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event == type || event == ModelEvent.MANUALCHANGE) {
+        if (event == type || event == ModelEvent.EXTERNALCHANGE) {
             if (tableUpdateEnable) {
                 if (paintPending.compareAndSet(false, true)) {
                     SwingUtilities.invokeLater(() -> {
@@ -131,7 +131,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     @Override
     public ModelEvent[] getEvents() {
-        return new ModelEvent[]{type, ModelEvent.MANUALCHANGE, ModelEvent.FASTRUN, ModelEvent.BREAK, ModelEvent.STOPPED};
+        return new ModelEvent[]{type, ModelEvent.EXTERNALCHANGE, ModelEvent.FASTRUN, ModelEvent.BREAK, ModelEvent.STOPPED};
     }
 
     private static class SignalTableModel implements TableModel {
@@ -186,12 +186,11 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                     try {
                         final String str = aValue.toString();
                         if (str.equals("?") || str.equals("z") || str.equals("Z")) {
-                            modelSync.access(() -> s.set(0, -1));
+                            modelSync.modify(() -> s.set(0, -1));
                         } else {
                             long value = Bits.decode(str);
-                            modelSync.access(() -> s.set(value, 0));
+                            modelSync.modify(() -> s.set(value, 0));
                         }
-                        circuitComponent.modelHasChanged();
                     } catch (Bits.NumberFormatException e) {
                         // do nothing in this case!
                     }

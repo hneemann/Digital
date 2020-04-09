@@ -332,9 +332,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (model != null && !realTimeClockRunning) {
                     ArrayList<Clock> cl = model.getClocks();
                     if (cl.size() == 1) {
-                        ObservableValue clkVal = cl.get(0).getClockOutput();
-                        clkVal.setBool(!clkVal.getBool());
-                        circuitComponent.modelHasChanged();
+                        model.modify(() -> {
+                            ObservableValue clkVal = cl.get(0).getClockOutput();
+                            clkVal.setBool(!clkVal.getBool());
+                        });
                     }
                 }
             }
@@ -1294,8 +1295,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 showMeasurementGraph.setEnabled(true);
                 stoppedState.getAction().setEnabled(true);
                 runTests.setEnabled(false);
-                if (createAndStartModel(false, ModelEvent.MICROSTEP, null))
-                    circuitComponent.setManualChangeObserver(new MicroStepObserver(model));
+                createAndStartModel(false, ModelEvent.MICROSTEP, null);
             }
         });
         stateManager.setActualState(stoppedState);
@@ -1332,20 +1332,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             showMeasurementDialog.setEnabled(true);
             showMeasurementGraph.setEnabled(true);
             runTests.setEnabled(false);
-            if (createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier))
-                circuitComponent.setManualChangeObserver(new FullStepObserver(model));
+            createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier);
         }
     }
 
     private void clearModelDescription() {
         if (model != null)
-            model.access(() -> model.close());
+            model.modify(() -> model.close());
 
         modelCreator = null;
         model = null;
     }
 
-    private boolean createAndStartModel(boolean globalRunClock, ModelEvent updateEvent, ModelModifier modelModifier) {
+    private void createAndStartModel(boolean globalRunClock, ModelEvent updateEvent, ModelModifier modelModifier) {
         try {
             circuitComponent.removeHighLighted();
 
@@ -1354,7 +1353,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
             if (model != null) {
-                model.access(() -> model.close());
+                model.modify(() -> model.close());
                 circuitComponent.getCircuit().clearState();
                 model = null;
             }
@@ -1368,16 +1367,21 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             statusLabel.setText(Lang.get("msg_N_nodes", model.size()));
 
+            int maxFrequency = 0;
             realTimeClockRunning = false;
             if (globalRunClock) {
                 int threadRunnerCount = 0;
-                for (Clock c : model.getClocks())
-                    if (c.getFrequency() > 0) {
+                for (Clock c : model.getClocks()) {
+                    int frequency = c.getFrequency();
+                    if (frequency > 0) {
                         final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this, this);
                         model.addObserver(realTimeClock);
                         if (realTimeClock.isThreadRunner()) threadRunnerCount++;
                         realTimeClockRunning = true;
                     }
+                    if (frequency > maxFrequency)
+                        maxFrequency = frequency;
+                }
                 if (threadRunnerCount > 1)
                     throw new RuntimeException(Lang.get("err_moreThanOneFastClock"));
             }
@@ -1398,14 +1402,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             circuitComponent.setModeAndReset(true, model);
 
-            if (realTimeClockRunning) {
-                // if clock is running, enable automatic update of gui
-                GuiModelObserver gmo = new GuiModelObserver(circuitComponent, updateEvent);
-                modelCreator.connectToGui(gmo);
-                model.addObserver(gmo);
-            } else
-                // all repainting is initiated by user actions!
-                modelCreator.connectToGui(null);
+            modelCreator.connectToGui();
 
             handleKeyboardComponent(updateEvent);
 
@@ -1435,17 +1432,22 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             model.init();
 
-            if (updateEvent == ModelEvent.MICROSTEP)
+            if (updateEvent == ModelEvent.MICROSTEP) {
                 checkMicroStepActions(model);
+                model.addObserver(new MicroStepObserver(model));
+            } else if (updateEvent == ModelEvent.STEP) {
+                if (maxFrequency <= 100)
+                    model.addObserver(new FullStepObserver(model));
+                else
+                    model.addObserver(new FastObserver());
+            }
 
-            return true;
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
             if (model != null) {
                 showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
             } else
                 showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
         }
-        return false;
     }
 
     private void checkMicroStepActions(Model model) {
@@ -1461,26 +1463,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (handler == null)
                 if (updateEvent == ModelEvent.MICROSTEP)
                     handler = keyboard -> {
-                        keyboard.hasChanged();
-                        modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
-                        model.fireManualChangeEvent();
+                        model.modify(keyboard::hasChanged);
                         checkMicroStepActions(model);
-                        circuitComponent.graphicHasChanged();
                     };
                 else
-                    handler = keyboard -> {
-                        try {
-                            model.accessNEx(() -> {
-                                keyboard.hasChanged();
-                                model.fireManualChangeEvent();
-                                model.doStep();
-                            });
-                            circuitComponent.graphicHasChanged();
-                        } catch (NodeException | RuntimeException e) {
-                            showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
-                        }
-                    };
-
+                    handler = keyboard -> model.modify(keyboard::hasChanged);
 
             windowPosManager.register("keyboard_" + k.getLabel(), new KeyboardDialog(this, k, handler));
         }
@@ -1512,7 +1499,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         // To avoid such problems a lock is used.
         synchronized (modelLock) {
             if (model != null) {
-                model.access(() -> model.close());
+                model.modify(() -> model.close());
                 model = null;
                 SwingUtilities.invokeLater(() -> showErrorWithoutARunningModel(message, cause));
             }
@@ -1663,7 +1650,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         SwingUtilities.invokeLater(() -> statusLabel.setText(message));
     }
 
-    private class FullStepObserver implements Observer {
+    /**
+     * Updates the graphic at every modification.
+     */
+    private class FullStepObserver implements ModelStateObserverTyped {
         private final Model model;
 
         FullStepObserver(Model model) {
@@ -1671,20 +1661,60 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         @Override
-        public void hasChanged() {
+        public void handleEvent(ModelEvent event) {
             try {
-                model.accessNEx(() -> {
-                    model.fireManualChangeEvent();
-                    model.doStep();
-                });
-                circuitComponent.graphicHasChanged();
+                switch (event) {
+                    case EXTERNALCHANGE:
+                        model.doStep();
+                        circuitComponent.graphicHasChanged();
+                        break;
+                    case BREAK:
+                        circuitComponent.graphicHasChanged();
+                        break;
+                }
             } catch (NodeException | RuntimeException e) {
                 showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
             }
         }
+
+        @Override
+        public ModelEvent[] getEvents() {
+            return new ModelEvent[]{ModelEvent.EXTERNALCHANGE, ModelEvent.BREAK};
+        }
     }
 
-    private class MicroStepObserver implements Observer {
+    /**
+     * Updates the graphic at every 100ms
+     */
+    private class FastObserver implements ModelStateObserverTyped {
+        private final Timer timer;
+
+        FastObserver() {
+            timer = new Timer(100, actionEvent -> circuitComponent.graphicHasChanged());
+            timer.start();
+        }
+
+        @Override
+        public void handleEvent(ModelEvent event) {
+            switch (event) {
+                case STOPPED:
+                case BREAK:
+                    timer.stop();
+                    circuitComponent.graphicHasChanged();
+                    break;
+            }
+        }
+
+        @Override
+        public ModelEvent[] getEvents() {
+            return new ModelEvent[]{ModelEvent.STOPPED, ModelEvent.BREAK};
+        }
+    }
+
+    /**
+     * Updates the graphic at every micro step
+     */
+    private class MicroStepObserver implements ModelStateObserverTyped {
         private final Model model;
 
         MicroStepObserver(Model model) {
@@ -1692,13 +1722,23 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         @Override
-        public void hasChanged() {
-            if (!realTimeClockRunning)
-                modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
-            model.fireManualChangeEvent();
-            circuitComponent.graphicHasChanged();
-            if (!realTimeClockRunning)
-                checkMicroStepActions(model);
+        public void handleEvent(ModelEvent event) {
+            switch (event) {
+                case EXTERNALCHANGE:
+                case MICROSTEP:
+                case BREAK:
+                    if (!realTimeClockRunning)
+                        modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+                    circuitComponent.graphicHasChanged();
+                    if (!realTimeClockRunning)
+                        checkMicroStepActions(model);
+                    break;
+            }
+        }
+
+        @Override
+        public ModelEvent[] getEvents() {
+            return new ModelEvent[]{ModelEvent.EXTERNALCHANGE, ModelEvent.MICROSTEP, ModelEvent.BREAK};
         }
     }
 
@@ -2061,8 +2101,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (model != null && keyCode != KeyEvent.VK_UNDEFINED) {
                 Button b = model.getButtonToMap(keyCode);
                 if (b != null) {
-                    model.access(() -> b.setPressed(pressed));
-                    circuitComponent.modelHasChanged();
+                    model.modify(() -> b.setPressed(pressed));
                 }
             }
         }

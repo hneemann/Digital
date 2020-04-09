@@ -8,7 +8,6 @@ package de.neemann.digital.draw.model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
@@ -110,14 +109,12 @@ public class ModelEntry {
 
     /**
      * Connects this model to the gui.
-     *
-     * @param guiObserver the observer which could be notified if the a repaint is necessary
      */
-    public void connectToGui(Observer guiObserver) {
+    public void connectToGui() {
         if (!isNestedElement) {
             if (ioState == null)
                 throw new RuntimeException("call applyInputs before connectToGui");
-            visualElement.setState(ioState, guiObserver);
+            visualElement.setState(ioState);
         }
     }
 

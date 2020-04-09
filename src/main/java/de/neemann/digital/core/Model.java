@@ -256,7 +256,7 @@ public class Model implements Iterable<Node>, SyncAccess {
         stepWithCondition(noise, this::needsUpdate);
     }
 
-    private void stepWithCondition(boolean noise, StepCondition cond) throws NodeException {
+    synchronized private void stepWithCondition(boolean noise, StepCondition cond) throws NodeException {
         if (cond.doNextMicroStep()) {
             int counter = 0;
             while (cond.doNextMicroStep()) {
@@ -289,7 +289,7 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @param noise if true the micro step is performed with noise
      * @throws NodeException NodeException
      */
-    public void doMicroStep(boolean noise) throws NodeException {
+    synchronized public void doMicroStep(boolean noise) throws NodeException {
         version++;
         // swap lists
         ArrayList<Node> nl = nodesToUpdateNext;
@@ -643,13 +643,6 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
-     * Fires a model changed event to all listeners.
-     */
-    public void fireManualChangeEvent() {
-        fireEvent(ModelEvent.MANUALCHANGE);
-    }
-
-    /**
      * @return the number of nodes
      */
     public int size() {
@@ -827,14 +820,28 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     @Override
-    public synchronized <A extends Runnable> A access(A run) {
-        run.run();
+    public <A extends Runnable> A modify(A run) {
+        synchronized (this) {
+            run.run();
+        }
+        fireEvent(ModelEvent.EXTERNALCHANGE);
         return run;
     }
 
     @Override
-    public synchronized <A extends ModelRun> A accessNEx(A run) throws NodeException {
-        run.run();
+    public <A extends ModelRun> A modifyNEx(A run) throws NodeException {
+        synchronized (this) {
+            run.run();
+        }
+        fireEvent(ModelEvent.EXTERNALCHANGE);
+        return run;
+    }
+
+    @Override
+    public <A extends Runnable> A read(A run) {
+        synchronized (this) {
+            run.run();
+        }
         return run;
     }
 

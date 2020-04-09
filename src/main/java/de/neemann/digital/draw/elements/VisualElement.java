@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.elements;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.graphics.*;
@@ -326,16 +325,15 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     /**
      * Sets the state of the elements inputs and outputs
      *
-     * @param ioState     actual state, if null VisualPart is reseted
-     * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
+     * @param ioState actual state, if null VisualPart is reseted
      */
-    public void setState(IOState ioState, Observer guiObserver) {
+    public void setState(IOState ioState) {
         this.ioState = ioState;
         if (ioState == null) {
             interactor = null;
             resetShape();
         } else
-            interactor = getShape().applyStateMonitor(ioState, guiObserver);
+            interactor = getShape().applyStateMonitor(ioState, null);
     }
 
     /**

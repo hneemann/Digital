@@ -91,7 +91,7 @@ public class RotEncoderShape implements Shape {
                             if (s != initialState) {
                                 state += s - initialState;
                                 initialState = s;
-                                modelSync.access(() -> {
+                                modelSync.modify(() -> {
                                     boolean a = (state & 2) != 0;
                                     boolean b = ((state + 1) & 2) != 0;
                                     ioState.getOutput(0).setBool(a);

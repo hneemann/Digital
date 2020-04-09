@@ -62,13 +62,13 @@ public class ButtonShape implements Shape {
 
             @Override
             public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-                modelSync.access(() -> button.setPressed(true));
+                modelSync.modify(() -> button.setPressed(true));
                 return true;
             }
 
             @Override
             public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-                modelSync.access(() -> button.setPressed(false));
+                modelSync.modify(() -> button.setPressed(false));
                 return true;
             }
 

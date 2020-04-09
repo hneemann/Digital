@@ -8,7 +8,6 @@ package de.neemann.digital.draw.model;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
@@ -296,13 +295,10 @@ public class ModelCreator implements Iterable<ModelEntry> {
     /**
      * Needs to be called after createModel is called!
      * Connects the gui to the model
-     *
-     * @param guiObserver the observer which can be attached to {@link de.neemann.digital.core.ObservableValue}s
-     *                    which have a state dependant graphical representation.
      */
-    public void connectToGui(Observer guiObserver) {
+    public void connectToGui() {
         for (ModelEntry e : entries)
-            e.connectToGui(guiObserver);
+            e.connectToGui();
     }
 
     /**

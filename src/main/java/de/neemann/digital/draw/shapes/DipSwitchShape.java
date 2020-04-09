@@ -82,7 +82,7 @@ public class DipSwitchShape implements Shape {
             @Override
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 ObservableValue value = ioState.getOutput(0);
-                modelSync.access(() -> value.setValue(1 - value.getValue()));
+                modelSync.modify(() -> value.setValue(1 - value.getValue()));
                 return true;
             }
         };

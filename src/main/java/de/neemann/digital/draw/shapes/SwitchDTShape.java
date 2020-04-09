@@ -70,7 +70,7 @@ public class SwitchDTShape implements Shape {
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 closed = !closed;
                 if (ioState != null) {
-                    modelSync.access(() -> ((SwitchDT) element).setClosed(closed));
+                    modelSync.modify(() -> ((SwitchDT) element).setClosed(closed));
                 }
                 return true;
             }

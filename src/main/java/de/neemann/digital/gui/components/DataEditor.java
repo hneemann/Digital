@@ -316,9 +316,7 @@ public class DataEditor extends JDialog {
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
             long decode = ((NumberString) aValue).getVal();
-            modelSync.access(() -> {
-                dataField.setData(rowIndex * cols + (columnIndex - 1), decode);
-            });
+            modelSync.modify(() -> dataField.setData(rowIndex * cols + (columnIndex - 1), decode));
         }
 
         private void fireEvent(TableModelEvent e) {

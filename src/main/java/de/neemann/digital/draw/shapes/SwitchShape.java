@@ -69,7 +69,7 @@ public class SwitchShape implements Shape {
             public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 closed = !closed;
                 if (ioState != null) {
-                    modelSync.access(() -> ((Switch) element).setClosed(closed));
+                    modelSync.modify(() -> ((Switch) element).setClosed(closed));
                 }
                 return true;
             }

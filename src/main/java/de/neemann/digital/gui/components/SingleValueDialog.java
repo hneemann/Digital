@@ -98,11 +98,11 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 setLongToDialog(editValue);
         });
 
-        model.access(() -> model.addObserver(this));
+        model.modify(() -> model.addObserver(this));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-                model.access(() -> model.removeObserver(SingleValueDialog.this));
+                model.modify(() -> model.removeObserver(SingleValueDialog.this));
             }
         });
 
@@ -164,11 +164,10 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
     private void apply() {
         if (getSelectedFormat().equals(InMode.HIGHZ)) {
-            model.access(value::setToHighZ);
+            model.modify(value::setToHighZ);
         } else {
-            model.access(() -> value.setValue(editValue));
+            model.modify(() -> value.setValue(editValue));
         }
-        circuitComponent.modelHasChanged();
     }
 
     @Override

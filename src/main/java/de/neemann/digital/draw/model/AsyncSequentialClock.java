@@ -77,7 +77,7 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
                 @Override
                 public void run() {
                     try {
-                        model.accessNEx(() -> model.doMicroStep(false));
+                        model.modifyNEx(() -> model.doMicroStep(false));
                     } catch (NodeException | RuntimeException e) {
                         stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
                         timer.cancel(false);

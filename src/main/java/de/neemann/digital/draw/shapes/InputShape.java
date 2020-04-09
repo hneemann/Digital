@@ -151,7 +151,7 @@ public class InputShape implements Shape {
         public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
             if (bits == 1) {
-                modelSync.access(() -> {
+                modelSync.modify(() -> {
                     if (isHighZ) {
                         if (value.isHighZ()) {
                             if (avoidLow)
@@ -196,7 +196,7 @@ public class InputShape implements Shape {
                     long v = startValue + (delta * max) / SLIDER_HEIGHT;
                     long val = Math.max(min, Math.min(v, max));
                     if (val != lastValueSet) {
-                        modelSync.access(() -> value.setValue(val));
+                        modelSync.modify(() -> value.setValue(val));
                         lastValueSet = val;
                         return true;
                     }
