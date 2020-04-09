@@ -978,10 +978,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     model.doMicroStep(false);
-                    circuitComponent.removeHighLighted();
-                    modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
-                    circuitComponent.graphicHasChanged();
-                    checkMicroStepActions(model);
                 } catch (Exception e1) {
                     showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
@@ -992,10 +988,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     model.runToBreakMicro();
-                    circuitComponent.removeHighLighted();
-                    modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
-                    circuitComponent.graphicHasChanged();
-                    checkMicroStepActions(model);
                 } catch (Exception e1) {
                     showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
                 }
@@ -1011,7 +1003,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 try {
                     Model.BreakInfo info = model.runToBreak();
-                    circuitComponent.graphicHasChanged();
                     statusLabel.setText(Lang.get("stat_clocks", info.getSteps(), info.getLabel()));
                 } catch (NodeException | RuntimeException e1) {
                     showErrorAndStopModel(Lang.get("msg_fastRunError"), e1);
@@ -1404,7 +1395,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             modelCreator.connectToGui();
 
-            handleKeyboardComponent(updateEvent);
+            handleKeyboardComponents();
 
             doMicroStep.setEnabled(false);
             if (!realTimeClockRunning && model.isRunToBreakAllowed()) {
@@ -1457,17 +1448,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             runToBreakMicroAction.setEnabled(needsUpdate);
     }
 
-    private void handleKeyboardComponent(ModelEvent updateEvent) {
+    private void handleKeyboardComponents() {
         KeyboardDialog.KeyPressedHandler handler = null;
         for (Keyboard k : model.findNode(Keyboard.class)) {
             if (handler == null)
-                if (updateEvent == ModelEvent.MICROSTEP)
-                    handler = keyboard -> {
-                        model.modify(keyboard::hasChanged);
-                        checkMicroStepActions(model);
-                    };
-                else
-                    handler = keyboard -> model.modify(keyboard::hasChanged);
+                handler = keyboard -> model.modify(keyboard::hasChanged);
 
             windowPosManager.register("keyboard_" + k.getLabel(), new KeyboardDialog(this, k, handler));
         }
@@ -1499,8 +1484,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         // To avoid such problems a lock is used.
         synchronized (modelLock) {
             if (model != null) {
-                model.modify(() -> model.close());
+                Model m = model;
                 model = null;
+                m.modify(m::close);
                 SwingUtilities.invokeLater(() -> showErrorWithoutARunningModel(message, cause));
             }
         }
@@ -1727,8 +1713,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 case EXTERNALCHANGE:
                 case MICROSTEP:
                 case BREAK:
-                    if (!realTimeClockRunning)
+                    if (!realTimeClockRunning) {
+                        circuitComponent.removeHighLighted();
                         modelCreator.addNodeElementsTo(model.nodesToUpdate(), circuitComponent.getHighLighted());
+                    }
                     circuitComponent.graphicHasChanged();
                     if (!realTimeClockRunning)
                         checkMicroStepActions(model);
@@ -1863,7 +1851,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         try {
                             model.doStep();
                             if (clkVal.getBool()) {
-                                clkVal.setBool(!clkVal.getBool());
+                                model.modify(() -> clkVal.setBool(!clkVal.getBool()));
                                 model.doStep();
                             }
                             circuitComponent.graphicHasChanged();

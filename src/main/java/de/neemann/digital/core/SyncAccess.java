@@ -41,7 +41,8 @@ public interface SyncAccess {
 
         @Override
         public <A extends Runnable> A read(A run) {
-            return null;
+            run.run();
+            return run;
         }
     };
 

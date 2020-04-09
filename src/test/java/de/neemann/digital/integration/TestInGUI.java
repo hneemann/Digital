@@ -434,7 +434,7 @@ public class TestInGUI extends TestCase {
                 .press("control typed a")
                 .typeTempFile("test")
                 .press("ENTER")
-                .delay(300)
+                .delay(600)
                 .add(new GuiTester.WaitFor(() -> {
                     Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
                     return !(activeWindow instanceof Main || activeWindow instanceof TableDialog);
@@ -915,7 +915,7 @@ public class TestInGUI extends TestCase {
                 .press("RIGHT", 1)
                 .press("DOWN", 1)
                 .press("ENTER", 1)
-                .press("control TAB", 4)
+                .press("control TAB", 7)
                 .press("RIGHT", 1)
                 .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
                         b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
