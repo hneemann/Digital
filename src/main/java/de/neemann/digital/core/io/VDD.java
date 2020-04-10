@@ -25,7 +25,8 @@ public class VDD implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(VDD.class)
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.LABEL);
 
     private final ObservableValue output;
 

@@ -11,20 +11,18 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
- * The Vcc shape
+ * The VDD shape
  */
 public class VDDShape implements Shape {
     static final int DOWNSHIFT = 4;
     private final PinDescriptions outputs;
+    private final String label;
 
     /**
      * Creates a new instance
@@ -35,6 +33,7 @@ public class VDDShape implements Shape {
      */
     public VDDShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
+        label = attr.getLabel();
     }
 
     @Override
@@ -55,5 +54,7 @@ public class VDDShape implements Shape {
                         .add(0, DOWNSHIFT - SIZE * 2 / 3)
                         .add(SIZE2, DOWNSHIFT), Style.NORMAL);
         graphic.drawLine(new Vector(0, -SIZE2 + DOWNSHIFT), new Vector(0, 0), Style.NORMAL);
+        if (!label.isEmpty())
+            graphic.drawText(new Vector(0, DOWNSHIFT - SIZE * 2 / 3 - SIZE2), label, Orientation.CENTERBOTTOM, Style.SHAPE_PIN);
     }
 }

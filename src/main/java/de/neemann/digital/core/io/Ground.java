@@ -25,7 +25,8 @@ public class Ground implements Element {
      */
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Ground.class)
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .addAttribute(Keys.LABEL);
 
     private final ObservableValue output;
 
