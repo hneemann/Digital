@@ -29,9 +29,9 @@ public class FlipflopRSAsyncTest extends TestCase {
         sc.check(0, 0, 1, 0);
         sc.check(0, 1, 0, 1);
         sc.check(0, 0, 0, 1);
-        sc.check(1, 1, 1, 1);
+        sc.check(1, 1, 0, 0);
         sc.check(1, 0, 1, 0);
-        sc.check(1, 1, 1, 1);
+        sc.check(1, 1, 0, 0);
         sc.check(0, 1, 0, 1);
 
         ObservableValue q = out.getOutputs().get(0);
@@ -41,8 +41,8 @@ public class FlipflopRSAsyncTest extends TestCase {
             s.setValue(1);
             r.setValue(1);
             model.doStep();
-            assertTrue(q.getBool());
-            assertTrue(qn.getBool());
+            assertFalse(q.getBool());
+            assertFalse(qn.getBool());
             s.setValue(0);
             r.setValue(0);
             model.doStep();

@@ -61,8 +61,8 @@ public class FlipflopRSAsync extends FlipflopBit {
 
         if (s) {
             if (r) {
-                q = true;
-                qn = true;
+                q = false;
+                qn = false;
             } else {
                 q = true;
                 qn = false;
@@ -72,11 +72,11 @@ public class FlipflopRSAsync extends FlipflopBit {
                 q = false;
                 qn = true;
             } else {
-                if (q && qn) {
+                if (!q && !qn) {
                     if (Math.random() < 0.5) {
-                        q = false;
+                        q = true;
                     } else {
-                        qn = false;
+                        qn = true;
                     }
                 }
             }
