@@ -1421,17 +1421,17 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     new ProgramMemoryLoader(settings.get(Keys.PROGRAM_TO_PRELOAD)).preInit(model);
             }
 
-            model.init();
-
             if (updateEvent == ModelEvent.MICROSTEP) {
                 checkMicroStepActions(model);
                 model.addObserver(new MicroStepObserver(model));
             } else if (updateEvent == ModelEvent.STEP) {
-                if (maxFrequency <= 100)
+                if (maxFrequency <= 50)
                     model.addObserver(new FullStepObserver(model));
                 else
                     model.addObserver(new FastObserver());
             }
+
+            model.init();
 
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
             if (model != null) {
@@ -1449,13 +1449,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private void handleKeyboardComponents() {
-        KeyboardDialog.KeyPressedHandler handler = null;
-        for (Keyboard k : model.findNode(Keyboard.class)) {
-            if (handler == null)
-                handler = keyboard -> model.modify(keyboard::hasChanged);
-
-            windowPosManager.register("keyboard_" + k.getLabel(), new KeyboardDialog(this, k, handler));
-        }
+        for (Keyboard k : model.findNode(Keyboard.class))
+            windowPosManager.register("keyboard_" + k.getLabel(), new KeyboardDialog(this, k, model));
     }
 
     private void showMeasurementGraph(ModelEvent updateEvent) {
@@ -1677,12 +1672,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         FastObserver() {
             timer = new Timer(100, actionEvent -> circuitComponent.graphicHasChanged());
-            timer.start();
         }
 
         @Override
         public void handleEvent(ModelEvent event) {
             switch (event) {
+                case STARTED:
+                    timer.start();
+                    break;
                 case STOPPED:
                 case BREAK:
                     timer.stop();
