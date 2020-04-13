@@ -60,7 +60,7 @@ public class DocuTest extends TestCase {
                 .append("\" lang=\"")
                 .append(language)
                 .append("\" fontFamily=\"")
-                .append(language.equals("cn") ? "SimSun" : "SansSerif")
+                .append(language.equals("zh_CN") ? "SansSerif,SimSun" : "SansSerif")
                 .append("\" rev=\"")
                 .append(System.getProperty("buildnumber"))
                 .append("\" revt=\"")
