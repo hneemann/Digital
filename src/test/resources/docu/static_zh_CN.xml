@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <chapter heading="Digital">
+        <subchapter heading="简介">
+            <par>
+                Digital 是一个简单的数字电路仿真器。通过导线将各种逻辑门连接起来，可以仿真整个电路的行为。
+                用户可以通过点击按钮或者设置输入值实现交互式仿真。
+            </par>
+            <par>
+                通过这种方式，多数数字电路中的基本电路可以被构建和仿真。在 "examples" 文件夹内，用户可以浏览各种示例，如
+                1个16位的单周期哈佛架构处理器。
+            </par>
+            <par>
+                仿真器有两种操作模式：编辑和仿真模式。
+                在编辑模式，不允许仿真，只允许修改电路。用户可以添加或连接各种组件。
+                可以通过点按工具栏中的 "启动仿真电路" 按钮开启仿真模式。在开始仿真电路之前，将会先检测电路的一致性。
+                如果有某些错误，将会显示对应的消息提示并且相关的组件或导线将会高亮。如果没有任何错误，将会开启仿真模式。这时，
+                你可以和正在运行的仿真进行交互。
+            </par>
+        </subchapter>
+        <subchapter heading="起步">
+            <par><image src="scr00.png"/></par>
+            <par>
+                作为第一个示例，将会构建一个由异或门组成的电路。在主窗口，"组件" 菜单允许我们选择各种组件。
+                然后它们会被放置于绘图面板。在任何时候，可以通过 ESC 键取消操作。让我们开始选择一个输入组件，该组件在
+                仿真时可以通过鼠标交互进行控制。
+            <par><image src="scr01.png"/></par>
+            <par>
+                选择后，输入组件可以被放置在绘图面板。
+                红色的点表示组件和导线之间的连接点，在之后会被连接。同时红色表示输出，意思为该端口定义了一个信号，该信号可以驱动导线。
+            </par>
+            <par><image src="scr02.png"/></par>
+            <par>
+                使用同样的方式，添加第二个输入组件，最好将其放置在第一个输入组件下面。
+            </par><image src="scr03.png"/></par>
+            <par>
+                添加完输入组件，我们选中异或门。该门表示实际的逻辑功能。
+            </par>
+            <par><image src="scr04.png"/></par>
+            <par>
+                选中后我们可以将其添加到电路。最好将其放置在合适的位置使得后续的连线尽可能简单。蓝色的点表示门的输入端口。
+            </par>
+            <par><image src="scr05.png"/></par>
+            <par>
+                现在，选择一个输出组件，该组件用于显示一个信号状态或者传递信号给一个子电路。
+            </par>
+            <par><image src="scr06.png"/></par>
+            <par>
+                输出组件有一个蓝色的点，意思为输入端口，我们可以通过为其赋值以便之后使用。
+            </par>
+            <par><image src="scr07.png"/></par>
+            <par>
+                当所有组件放置好后，使用鼠标连接蓝色和红色的点。确保仅有一个红色的点被连接到任何蓝色的点。只有允许三态的输出可以
+                打破该规则，允许连接到多个红色的点。当所有导线被绘制后，整个电路即完成。
+            </par>
+            <par><image src="scr08.png"/></par>
+            <par>
+                当仿真启动后，我们可以和电路进行交互。通过点击 “启动仿真电路” 按钮开始仿真。
+                仿真开启后，导线的颜色改变并且输入、输出组件被填充。鲜绿色表示逻辑电平 ‘1’，深绿色表示逻辑电平 ‘0’。
+                在上图中，所有的导线为 ‘0’。
+            </par>
+            <par><image src="scr09.png"/></par>
+            <par>
+                通过鼠标点击，可以切换输入组件的值。由于仿真已经运行，输出组件的值根据当前输入的状态而做出对应改变。电路的行为
+                和期望的异或门一样。
+            </par>
+            <par><image src="scr10.png"/></par>
+            <par>
+                如果需要修改电路，必须先停止仿真。最简单的方式是通过点击工具栏的 “停止” 按钮。
+                通过在组件上右击（MacOS 使用 control+左击）打开组件属性对话框。通过该对话框，我们定义第一个输入组件的标签为 ‘A’。
+            </par>
+            <par><image src="scr11.png"/></par>
+            <par>
+                通过同样的方式，定义剩余组件的输入和输出端口标签。
+                "分析" 菜单包含一个同名的菜单项，该功能对当前电路进行分析。不过，需要先给所有的输入和输出端口添加标签才行。
+            </par>
+            <par><image src="scr12.png"/></par>
+            <par>
+                仿真电路的真值表在一个新窗口中显示，在表的下面，我们可以找到一个和电路对应的布尔表达式。如果电路可能有多个布尔
+                表达式，一个独立的窗口将会打开并显示所有可能的表达式。
+            </par>
+            <par><image src="scr13.png"/></par>
+            <par>
+                真值表对话框有一个 "卡诺图" 菜单项，允许以卡诺图方式显示真值表。
+            </par>
+            <par><image src="scr14.png"/></par>
+            <par>
+                在对话框的顶部，通过下拉列表允许选择期望的表达式。通过这种方式，我们可以评估多个等价的布尔表达式。然而，在该示例中，
+                仅有一个最小表达式。点击卡诺图，可以实现对真值表的修改。
+            </par>
+        </subchapter>
+        <subchapter heading="导线">
+            <par>
+                所有的组件必须通过导线连接起来。不可以通过将两个组件相邻放置实现连接。
+            </par>
+            <par>
+                另外，仅可以通过导线的端点连接到组件，如果一个组件的管脚放置在一条导线中间，该组件和导线并不会实现连接。
+                因此，导线必须在其所连接的管脚终止。即使使用隧道组件，也必须使用导线连接管脚和隧道组件。
+            </par>
+            <par>
+                如果需要移动组件，包括其连接的导线，则必须先框选该组件，如果不想同时移到其连接的导线，可以通过单击选择组件。
+            </par>
+            <par>
+                通过 CTRL-单击，可以选中且移动或删除一个单独的导线段。如果在画导线时按下 D 键，可以绘制斜线。
+                键 S 可以将一条线段分割为两条。
+            </par>
+        </subchapter>
+        <subchapter heading="层次设计">
+            <par>
+                随着电路越来越复杂，电路将变得难以理解。为解决该问题，电路中不同的部分可以存放在不同的文件。该机制使得
+                使用子电路变为可能。
+            </par>
+            <par><image src="scr20.png"/></par>
+            <par>
+                作为一个示例，我们考虑4位加法器：首先，我们构建一个简单的半加器，其包含一个异或门和一个与门。
+                位 ‘A’ 和 ‘B’ 相加的结果通过 ‘S’ 和 ‘C’ 输出。该电路存储在文件 "halfAdder.dig"。
+            </par>
+            <par><image src="scr21.png"/></par>
+            <par>
+                使用两个半加器可以构建一个全加器。
+                创建一个空文件并保存为 "fullAdder.dig"，将其放在和半加器相同的路径下。这时，可以通过菜单"组件"<arrow/>"自定义"
+                将半加器添加进电路。
+                半加器的管脚顺序可以在半加器电路中通过菜单 "编辑"<arrow/>"排序输入信号" 或者 "编辑"<arrow/>"排序输出信号"
+                重新排序。全加器实现将位 ‘A’，‘B’，‘Ci’ 相加，结果给到输出 ‘S’ 和 ‘Co’。
+            </par>
+            <par><image src="scr22.png"/></par>
+            <par>
+                为了检验全加器正常工作，我们需要添加一个测试用例。在测试用例中存储满足电路功能的真值表，通过这种方式，可以自动
+                测试电路功能是否正确。
+            </par>
+            <par><image src="scr23.png"/></par>
+            <par>
+                可以通过测试用例编辑器或工具栏中的测试按钮执行测试。
+                绿色高亮的单元格表示电路的输出和测试用例中的真值表相匹配。
+            </par>
+            <par><image src="scr24.png"/></par>
+            <par>
+                现在可以通过全加器进一步构建逐位（行波）进位加法器;。
+                在该示例中，前一个加法器的进位输出作为下一级加法器的进位输入，就像使用纸和笔进行加法一样。
+                为了测试该 4 位加法器的功能，我门添加了一个测试用例。
+            </par>
+            <par><image src="scr25.png"/></par>
+            <par>
+                该测试用例执行 100% 测试，这对于相对简单的电路是可能的。在这里，所有的512种输入组合被应用于电路，同时检测其输出是否
+                正确。
+                第一行列出输入和输出信号，下面的内容应用输入值并检测其对应的输出，像真值表一样。
+                在该示例中，需要512行。然而这样输入即繁琐又容易出错，如果能够自动生成所需要的行，则更容易和可靠。
+                为此，变量 "A" 和 "B" 分别被分别从0到15进行遍历。对应的值被赋值给 ‘A[n]’ 和 ‘B[n]’。然后检测电路输出
+                是否为 "A+B"。然后再次检测当设置进位时，即 "A+B+1" 的对应结果。详细的测试语法可以通过帮助对话框查看。
+            </par>
+            <par>
+                如果一个电路被嵌入另外一个电路，仅仅子电路的名字被保存在父电路而不是子电路本身。
+                因此，在仿真时，必须可以通过文件系统找到对应的子电路。为了避免复杂的导入路径管理，使用以下导入策略。
+            </par>
+            <par>
+                仅仅子电路的文件名而不是完整的文件路径被存储。如果需要打开某个子电路，需要在所有的子文件夹下寻找。
+                该过程仅依赖文件名称而不是完整路径，当在不同路径下有多个同名文件时，将会给出错误信息。
+            </par>
+            <par>
+                一个合理的项目结构看起来应当时这样的：根电路放在独立的文件夹下，所有导入的子电路必须放在相同和子文件夹下。
+                所有的电路必须不能重名，即使位于不同的文件夹内。
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="仿真">
+        <subchapter heading="传输延迟">
+            <par>
+                在仿真时，所有的逻辑门均有一个传输延迟。所有的组件具有相同的传输延迟而与其复杂度无关。
+                因此，与门和乘法器具有相同的传输延迟。特例是二极管，开关和分裂器，这些组件没有任何延迟。
+            </par>
+            <par>
+                如果需要仿真一个组件如乘法器更长的传输延迟，必须在乘法器的输出右侧添加一个延迟组件。
+            </par>
+            <par>
+                如果一个电路被包含进另一个父电路，被包含的电路保持其时序行为。被包含的电路同将其所有组件直接插入父电路行为一致。
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="分析和综合电路">
+        <par>
+            可以通过 "分析" 菜单来分析电路。对于纯组合电路，会生成对应的真值表。可以编辑该真值表，然后从编辑后的真值表生成
+            新的电路。
+        </par>
+        <par>
+            分析和生成时序电路也是可能的。此时，会生成状态转换表而不是简单的真值表。
+            每个触发器在状态转换表的输入和输出侧都会显示。在该表中，右侧为下一个状态，其会在下一个时钟信号产生。
+            下一个状态依赖左侧触发器的当前状态。为了能够分析电路，必须为触发器命名。
+        </par>
+        <par>
+            右侧的下一个状态通过小写的 ‘n+1’ 表示，对应的当前状态通过附加 ‘n’ 表示。如果状态变量为 ‘A’, ‘An’ 表示当前状态，
+            ‘An+1’ 表示下一个状态。在一个真值表中，如果信号的名称以此方式命名，则被认为时状态转换表，会生成时序电路而不是组合电路。
+        </par>
+        <par>
+            需要注意的是，需要分析的电路仅可包含纯组合电路和内建的 D、JK 触发器。如果一个触发器由用户自己构建，如使用或非门
+            组成，则该电路不被认为触发器，因此不可以分析这种电路。
+        </par>
+    </chapter>
+    <chapter heading="硬件">
+        <subchapter heading="GAL16v8 和 GAL22v10">
+            <par>
+                在真值表对话框电路生成菜单中，有生成 JEDEC 文件的功能。这是一种描述 PLD 配置图（fuse map）的特殊文件格式。
+                该 JEDEC 文件可以通过特殊的编程器烧写进对应的 PLD 设备。目前，支持 "GAL16v8" 和 "GAL22v10" 或其兼容的设备。
+            </par>
+        </subchapter>
+        <subchapter heading="ATF150xAS">
+            <par>
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    "ATF150x"
+                </a>
+                系列芯片是简单的 CPLDs，其最多有128个宏单元。具有 PLCC 封装。这样，如果一个 IC 在实验中被毁坏，那么其可以被
+                简单的替换。另外，通过
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/hardware/atdh1150usb">
+                    "ATDH1150USB"
+                </a>
+                廉价和易用的编程器，可以使用 JTAG 接口编程
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    "ATF150x"
+                </a>
+                芯片。
+                一个合适的评估开发板为
+                <a href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATF15XX-DK3-U">
+                    ("ATF15XX-DK3-U")
+                </a>
+                ，编程所需要的软件
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
+                    "ATMISP"
+                </a>, 
+                通过 ATMEL/Microchip 网站提供。
+            </par>
+        </subchapter>
+        <subchapter heading="导出 VHDL 或 Verilog">
+            <par>
+                电路可以导出为 VHDL 或 Verilog，导出文件包含电路的完整描述。生成的 VHDL 代码通过了<a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
+                和开源 VHDL 仿真器 <a href="http://ghdl.free.fr/">ghdl</a> 的测试。Verilog 代码通过了仿真器 <a href="http://iverilog.icarus.com/">Icarus Verilog</a> 的测试。
+            </par>
+            <par>
+                如果电路包含测试用例，测试数据用于生成对应的 HDL 测试平台（test bench），可用于在 HDL 仿真时检测电路功能的正确性。
+            </par>
+            <par>
+                对于一些开发板，会为其生成额外所需的文件。目前，支持 <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
+                和 Mimas 开发板 <a href="https://numato.com/product/mimas-spartan-6-fpga-development-board">Mimas</a>
+                和 <a href="https://numato.com/product/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram">Mimas V2</a>。
+                包含管脚分配的约束文件将会被创建。可以在开发板的数据手册中查找其管脚描述，并为输入和输出组件分配管脚编号。
+            </par>
+            <par>
+                对于 BASYS3 板子，如果电路的时钟频率比较低，在生成的 HDL 代码中将包含一个分频器，从而合理的对板载的时钟进行分频。
+                如果电路的时钟频率超过 4.7MHz，则使用 Artix-7 的 MMCM 单元用于生成时钟。
+            </par>
+            <!--par>
+                Also at the Mimas-Boards the Spartan 6 DCM is utilized for the clock generation.
+            </par-->
+            <par>
+                为了创建 HDL 需要的约束文件，必须在设置中配置对应的开发板。在字段 “工具链配置” 中，可以设置对应的 XML 文件。
+                在 "examples/hdl" 目录下，可以找到以 ".config" 为后缀的可用配置文件。
+                如果配置文件正确，会在主菜单右侧显示对应的功能菜单。
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="自定义外观">
+        <par>
+            尽管 Digital 有些内建的选项可以设置子电路的外观，但在某些时候，需要使用更特殊的形状来显示子电路。如当表示处理器
+            中的 ALU 时，本节解释如何为电路定义一个特殊的形状。
+        </par>
+        <par>
+            Digital 没有提供一个用例创建特殊形状的编辑器。
+            为了创建电路形状，需要一些特殊步骤：首先，打开需要创建特殊外观形状的电路，然后为该电路创建一个 SVG 模板，在
+            该模板中，电路表示为一个简单矩形，另外还包含电路中所有的管脚，其中输入使用蓝色圆圈表示，输出使用红色圆圈表示。
+            可以通过查看圆圈的 ID 对象属性了解该圆圈属于哪个管脚。ID 格式为 "pin:[name]" 或 "pin+:[name]"。
+            对于后者，当导入 Digital 时，管脚将被包含一个标签。
+        </par>
+        <par>
+            SVG 文件可以被编辑，如使用最常用的开源编辑器<a href="https://inkscape.org/en/">Inkscape</a>。
+            管脚可以自由移动，但在重新导入 Digital 时，其被替换为最近的栅格坐标位置。
+        </par>
+        <par>
+            当导入Digital后，所有的信息将被提取和保存在电路文件中，SVG 文件不再需要。
+            最后提示：SVG 是一种非常强大和灵活的文件格式。可用于描述非常复杂的图形。
+            Digital 并不能导入所有可能的 SVG 文件。如果一个文件不能被导入，可能会出现异常。
+        </par>
+    </chapter>
+    <chapter heading="通用电路">
+        <par>
+            有这样一种情形，一个子电路用于多种变形。如需要一个不同位宽的计数器，分别用于创建一个 4,5,6位宽的电路，
+            这样，将来维护时会非常困难。因为我们必须维护多个子电路，然而这些子电路除了一个位宽参数，其它都相同。
+        </par>
+        <par>
+            为解决该问题，我们可以创建一个通用参数化的部分电路。
+            为此，电路设置中的 “通用电路” 复选框必须被选中，然后每个组件的属性对话框包含一个额外的字段 “通用参数”。
+            在该字段中，可以输入程序代码用来改变组件的参数。
+            每个参数须有一个名字，可以作为字段"this"的属性被修改。可用参数的名称可以通过组件的帮助对话框查看。
+            如果我们需要改变加法器的位宽，可以通过 "this.Bits=int(1);" 实现，这里的常量 1 始终是 "long"
+            类型，但位宽是 "int"，因此必须使用类型转换。
+        </par>
+        <par>
+            此时，电路仍然没有被参数化。这种情形是必要的，即当电路实际被使用时给出参数。
+            这可以通过 “args” 字段来实现。如果我们想在外部设置位宽，代码可以这样 "this.Bits=int(args.bitWidth);"。
+            参数的名称-这里为 "bitWidth" 是任意的。当实际使用该电路时，需要设置参数 "bitWidth"：。
+        </par>
+        <par>
+            当使用电路时，打开子电路的属性对话框，其也有一个 “通用参数” 字段。这里可以通过输入 "bitWidth:=5;"
+            来实现设置位宽。
+        </par>
+        <par>
+            "examples/generic" 文件夹包含一个格雷码计数器的例子，其位宽可以被配置。
+        </par>
+    </chapter>
+    <chapter heading="使用脚本控制测试">
+        <par>
+            如果学生通过 Digital 来完成测验，能够自动测试学生提交的电路将会非常有帮助。为实现这种测试，可以通过命令行启动 Digital：
+        </par>
+        <par>
+            <code>
+                java -cp Digital.jar de.neemann.digital.testing.CommandLineTester [file to test] [[optional file with
+                test cases]]
+            </code>
+        </par>
+        <par>
+            如果仅指定一个文件，则该文件中的测试用例将被执行。
+        </par>
+        <par>
+            如果指定了第二个文件，则使用第二个文件中的测试用例和第一个文件中的电路进行测试。第二个文件中的电路将被忽略。
+        </par>
+        <par>
+            此时，待测电路和测试用例中的电路输入输出信号名称必须相同。
+        </par>
+    </chapter>
+    <chapter heading="常见问题">
+        <faq>
+            <question>如何移动导线？</question>
+            <answer> 选择其中一个端点或通过 CTRL+单击选择导线，移动鼠标。
+            </answer>
+        </faq>
+        <faq>
+            <question>如何删除导线？</question>
+            <answer>
+                选择其中一个端点或通过 CTRL+单击选择导线，然后按 "DEL" 键。
+            </answer>
+        </faq>
+        <faq>
+            <question>如何移动组件，包括其所连接的导线？</question>
+            <answer>框选整个组件
+            </answer>
+        </faq>
+        <faq>
+            <question>当组件管脚放在导线上时没有连接</question>
+            <answer>仅当导线的端点位于管脚时才会连接</answer>
+        </faq>
+        <faq>
+            <question>如果管脚的名字比较长，当作为子电路时，管脚名字无法阅读</question>
+            <answer>通过菜单 "编辑<arrow/>设置当前电路" 修改组件的宽度
+                </answer>
+        </faq>
+        <faq>
+            <question>修改子电路管脚的顺序</question>
+            <answer>菜单 "编辑<arrow/>排序输入信号" 或
+                "编辑<arrow/>排序输出信号"</answer>
+        </faq>
+
+        <faq>
+            <question>当开始仿真时，导线颜色变为灰色</question>
+            <answer>
+                鲜绿色表示高电平，深绿色表示低电平，灰色表示高阻。
+            </answer>
+        </faq>
+        <faq>
+            <question>我有一个真值表，如何计算最小布尔表达式？</question>
+            <answer>
+                通过菜单 "分析" 选择 "综合"，然后输入真值表。在窗口底部，你会发现匹配的布尔表达式。
+            </answer>
+        </faq>
+        <faq>
+            <question>
+                我输入真值表后，显示多个布尔表达式，哪个是正确的？
+            </question>
+            <answer>
+                化简一个布尔表达式可能出现多个结果，它们描述同样的功能
+            </answer>
+        </faq>
+        <faq>
+            <question>我有一个真值表，如何创建对应的电路？</question>
+            <answer>通过菜单 "分析" 选择 "综合"，然后输入真值表。
+                使用菜单 "创建" "电路" 可以创建对应的电路。
+            </answer>
+        </faq>
+        <faq>
+            <question>如何编辑真值表中信号的名称？</question>
+            <answer>在表头中右击信号名称</answer>
+        </faq>
+        <faq>
+            <question>如何根据表达式创建电路？</question>
+            <answer>通过菜单 "分析" "表达式"，输入表达式。
+            </answer>
+        </faq>
+        <faq>
+            <question>如何通过表达式创建真值表？</question>
+            <answer>菜单 "分析"  "表达式" 输入表达式，创建电路。
+                然后通过菜单  "分析"  "分析" 创建真值表。
+            </answer>
+        </faq>
+        <faq>
+            <question>我创建了一个电路，想把它用于很多电路，如何才能不重复的复制到不同的文件夹下？
+            </question>
+            <answer>放在 “lib” 文件夹内
+            </answer>
+        </faq>
+    </chapter>
+    <chapter heading="快捷键" newpage="true">
+        <shortcuts>
+            <shortcut key="Space">开启或停止仿真</shortcut>
+            <shortcut key="F6">打开测量表对话框</shortcut>
+            <shortcut key="F7">运行至中断</shortcut>
+            <shortcut key="F8">执行测试用例</shortcut>
+            <shortcut key="C">时钟步进（仅在仿真模式且只有一个时钟组件时可用）
+            </shortcut>
+            <shortcut key="V">单门步进</shortcut>
+            <shortcut key="B">执行所有单门步骤，直至中断或完成</shortcut>
+            <shortcut key="F9">分析电路</shortcut>
+            <shortcut key="CTRL-A">选择所有</shortcut>
+            <shortcut key="CTRL-X">剪切</shortcut>
+            <shortcut key="CTRL-C">复制</shortcut>
+            <shortcut key="CTRL-V">从剪贴板插入</shortcut>
+            <shortcut key="CTRL-D">复制当前选中而不更改剪贴板</shortcut>
+            <shortcut key="R">旋转组件</shortcut>
+            <shortcut key="L">插入最近一次插入的组件</shortcut>
+            <shortcut key="T">插入隧道组件</shortcut>
+            <shortcut key="CTRL-N">新建电路</shortcut>
+            <shortcut key="CTRL-O">打开电路</shortcut>
+            <shortcut key="CTRL-S">保存电路</shortcut>
+            <shortcut key="CTRL-Z">撤销上次修改</shortcut>
+            <shortcut key="CTRL-Y">重做上次撤销操作</shortcut>
+            <shortcut key="P">对二极管或浮动栅场效应管编程</shortcut>
+            <shortcut key="D">画导线时使用对角线模式</shortcut>
+            <shortcut key="F">画线时翻转方向</shortcut>
+            <shortcut key="S">分割一条导线为两条</shortcut>
+            <shortcut key="ESC">放弃当前操作</shortcut>
+            <shortcut key="Del">删除</shortcut>
+            <shortcut key="Backspace">删除</shortcut>
+            <shortcut key="+">
+                加1
+            </shortcut>
+            <shortcut key="-">减1
+            </shortcut>
+            <shortcut key="CTRL +">放大</shortcut>
+            <shortcut key="CTRL -">缩小</shortcut>
+            <shortcut key="F1">适合窗口</shortcut>
+            <shortcut key="F5">显示或隐藏组件树</shortcut>
+        </shortcuts>
+    </chapter>
+</root>
