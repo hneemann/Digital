@@ -1,0 +1,1674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="addr">地址</string>
+  <string name="tableOfContent">目录</string>
+  <string name="general">一般使用</string>
+  <string name="revision">修订版本</string>
+  <string name="date">日期</string>
+  <string name="settings">以下内容为可用的仿真器设置</string>
+  <string name="maxValue">最大值</string>
+  <string name="attr_dialogTitle">属性</string>
+  <string name="attr_openCircuit">打开电路</string>
+  <string name="attr_openCircuitLabel">包含电路：</string>
+  <string name="attr_openCircuit_tt">在新窗口中打开电路</string>
+  <string name="attr_help">帮助</string>
+  <string name="attr_help_tt">显示该组件的简介</string>
+  <string name="attr_dialogHex">十六进制</string>
+  <string name="attr_dialogDecimal">十进制</string>
+  <string name="attr_dialogAscii">Ascii码</string>
+  <string name="attr_dialogHighz">高阻</string>
+  <string name="attr_dialogOctal">八进制</string>
+  <string name="attr_dialogBinary">二进制</string>
+  <string name="attr_panel_primary">基础设置</string>
+  <string name="attr_panel_secondary">高级设置</string>
+  <string name="btn_discard">忽略修改</string>
+  <string name="btn_edit">编辑</string>
+  <string name="btn_editFurther">继续编辑</string>
+  <string name="btn_load">载入</string>
+  <string name="btn_reload">重新载入</string>
+  <string name="btn_reload_tt">重新载入最后使用的十六进制文件</string>
+  <string name="btn_save">保存</string>
+  <string name="btn_saveAsHex_tt">另存为十六进制文件</string>
+  <string name="btn_create">创建</string>
+  <string name="btn_create_tt">在新窗口中创建电路</string>
+  <string name="btn_editDetached">分离编辑</string>
+  <string name="btn_editDetached_tt">以非模态方式打开对话框</string>
+  <string name="btn_openInBrowser">浏览器打开</string>
+  <string name="btn_openInBrowser_tt">在浏览器中打开帮助文本</string>
+  <string name="btn_clearData">清空</string>
+  <string name="btn_clearData_tt">所有值将被置为0！</string>
+  <string name="btn_addTransitions">转换</string>
+  <string name="btn_addTransitions_tt">所有可能的转换被添加为测试用例。</string>
+  <string name="btn_newName">新名称</string>
+  <string name="btn_saveAnyway">始终保存</string>
+  <string name="btn_overwrite">覆盖</string>
+  <string name="btn_apply">应用</string>
+  <string name="btn_editRom_tt">编辑所选 ROM/EEPROM 中的内容</string>
+  <string name="btn_clearRom_tt">移除所选 ROM 中存储的数据。</string>
+  <string name="btn_saveTemplate">创建模板</string>
+  <string name="btn_saveTemplate_tt">创建SVG模板，之后可以使用 Inkscape 编辑</string>
+  <string name="btn_loadSvg">导入</string>
+  <string name="btn_loadSvg_tt">导入 SVG 文件。如果需要创建 SVG 文件，最好的方式时首先创建 SVG 模板，然后进行编辑。</string>
+  <string name="msg_warning">警告</string>
+  <string name="cancel">取消</string>
+  <string name="digital">Digital</string>
+  <string name="expression">表达式</string>
+  <string name="elem_Help_inputs">输入</string>
+  <string name="elem_Help_outputs">输出</string>
+  <string name="elem_Help_attributes">属性</string>
+  <string name="elem_Basic_In">逻辑运算输入 {0}</string>
+  <string name="elem_Basic_Out">逻辑运算结果</string>
+  <string name="elem_And">与门</string>
+  <string name="elem_And_tt">二进制与门，仅当所有输入为 1 时输出为 1。
+      其输入和输出也可以使用多位总线，此时将执行按位与运算。</string>
+  <string name="elem_NAnd">与非门</string>
+  <string name="elem_NAnd_tt">与和非的组合。仅当所有输入为 1 时，输出为 0。其输入也可以使用多位总线，此时将先执行按位与运算，然后执行逻辑非运算。</string>
+  <string name="elem_Or">或门</string>
+  <string name="elem_Or_tt">二进制或门，如果其中一个输入为 1 则输出 1。
+      其输入和输出也可以使用多位总线，此时将执行按位或运算。</string>
+  <string name="elem_NOr">或非门</string>
+  <string name="elem_NOr_tt">或门和非门的组合。
+    如果其中一个输入为 1 则输出为 0，如果所有输入为 0，输出为 1。
+      其输入也可以使用多位总线，此时将先执行按位或运算，然后执行逻辑非运算。</string>
+  <string name="elem_XOr">异或门</string>
+  <string name="elem_XOr_tt">如果两个输入被使用，当两个输入相等时输出为 0，否则为 1。
+      如果多于两个输入，其行为类似于级联的异或门(A 异或 B 异或 C = (A 异或 B) 异或 C)。
+      其输入也可以使用多位总线，此时将执行按位异或运算。</string>
+  <string name="elem_XNOr">异或非门</string>
+  <string name="elem_XNOr_tt">异或门和非门的组合。</string>
+  <string name="elem_Not">非门</string>
+  <string name="elem_Not_tt">翻转输入，1 变为 0,0变为 1。
+      其输入和输出也可以使用多位总线，此时将执行按位非运算。</string>
+  <string name="elem_Not_pin_in">非门的输入</string>
+  <string name="elem_Not_pin_out">翻转后的输入值</string>
+  <string name="elem_LookUpTable">查找表</string>
+  <string name="elem_LookUpTable_short">LUT</string>
+  <string name="elem_LookUpTable_tt">从一张存储表中获取输出，该组件可以模拟任何组合电路。</string>
+  <string name="elem_LookUpTable_pin_in">输入 {0}，和其他输入共同定义将要返回的所存储内容地址。</string>
+  <string name="elem_LookUpTable_pin_out">根据指定的输入组合，返回对应的存储值。</string>
+  <string name="elem_Delay">延迟</string>
+  <string name="elem_Delay_tt">延迟信号传输。Digital 中的所有组件具有相同的传输延迟单位，该组件用于实现必要的传输延迟。</string>
+  <string name="elem_Delay_pin_in">将要延迟的输入信号</string>
+  <string name="elem_Delay_pin_out">经过延迟的输入信号(默认一个延迟单位)</string>
+  <string name="elem_Out">输出</string>
+  <string name="elem_Out_tt">用于在电路中显示输出信号。也用于连接子电路。
+      当用于生成 CPLD 或 FPGA 代码时，用于为其赋值管脚编号。</string>
+  <string name="elem_Out_pin_in">用于连接输出</string>
+  <string name="elem_LED">LED</string>
+  <string name="elem_LED_tt">用于可视化输出信号，仅接受 1 位值，当输入为 1时灯被点亮。</string>
+  <string name="elem_LED_pin_in">LED 输入，仅接受 1 位值，当输入为 1时灯被点亮。</string>
+  <string name="elem_RGBLED">RGB-LED</string>
+  <string name="elem_RGBLED_tt">RGB LED，其颜色通过3个输入信号控制，每个输入表示一个颜色通道。</string>
+  <string name="elem_RGBLED_pin_R">红色通道</string>
+  <string name="elem_RGBLED_pin_G">绿色通道</string>
+  <string name="elem_RGBLED_pin_B">蓝色通道</string>
+  <string name="elem_In">输入</string>
+  <string name="elem_In_tt">可以通过鼠标交互操作输入信号。也用于连接子电路。
+      当用于生成 CPLD 或 FPGA 代码时，用于为其赋值管脚编号。</string>
+  <string name="elem_In_pin_out">给出连接到该输入的值</string>
+  <string name="elem_DipSwitch">DIP开关</string>
+  <string name="elem_DipSwitch_tt">简单的DIP开关，可以输出高或低电平</string>
+  <string name="elem_DipSwitch_pin_out">开关的输出值</string>
+  <string name="elem_Clock">时钟输入</string>
+  <string name="elem_Clock_tt">时钟信号，可以通过实时时钟进行控制。
+      如果频率大于50赫兹，导线的颜色将不会更新。如果没有使用实时时钟，可以通过鼠标单击控制时钟信号。
+      当生成 CPLD 或 FPGA 代码时，用于为其赋值管脚编号。</string>
+  <string name="elem_Clock_pin_C">根据设置的时钟频率在0和1间切换</string>
+  <string name="elem_Button">按钮</string>
+  <string name="elem_Button_tt">一个简单按键，当释放时回到其初始的状态</string>
+  <string name="elem_Button_pin_out">按键输出信号</string>
+  <string name="elem_ButtonLED">带有LED的按钮</string>
+  <string name="elem_ButtonLED_tt">一个简单按键，当释放时回到其初始的状态。
+      按键有一个LED，可以通过输入信号进行开关。</string>
+  <string name="elem_ButtonLED_pin_out">按键输出信号</string>
+  <string name="elem_ButtonLED_pin_in">控制LED的输入信号</string>
+  <string name="elem_Text">Text</string>
+  <string name="elem_Text_tt">显示一段文本，其对电路仿真没有影响，可以通过其属性对话框修改文本内容。</string>
+  <string name="elem_Rectangle">矩形</string>
+  <string name="elem_Rectangle_tt">显示一个矩形，其对电路仿真没有影响。
+      如果使用 - 作为标题，将不会显示标题。</string>
+  <string name="elem_Probe">探测器</string>
+  <string name="elem_Probe_tt">测量值可以通过数据图或测量表显示，该组件可用于观察子电路中的值。</string>
+  <string name="elem_Probe_pin_in">需要测量的值</string>
+  <string name="elem_LightBulb">灯泡</string>
+  <string name="elem_LightBulb_tt">灯泡具有两个连接点，当电流经过时灯泡变亮。
+      不关心电流的方向。当输入为不同的值时点亮，行为类似异或门。</string>
+  <string name="elem_LightBulb_pin_A">连接点</string>
+  <string name="elem_LightBulb_pin_B">连接点</string>
+  <string name="elem_PolarityAwareLED">发光二极管</string>
+  <string name="elem_PolarityAwareLED_tt">LED 区分阴极和阳极，当阳极连接到高电平且阴极连接到低电平时，LED点亮。</string>
+  <string name="elem_PolarityAwareLED_pin_A">阳极</string>
+  <string name="elem_PolarityAwareLED_pin_C">阴极</string>
+  <string name="elem_Seven-Seg">7段数码管</string>
+  <string name="elem_Seven-Seg_tt">每段都有自己的控制输入</string>
+  <string name="elem_Seven-Seg_pin_a">该输入控制顶部，水平线</string>
+  <string name="elem_Seven-Seg_pin_b">该输入控制顶部，右侧，垂直线</string>
+  <string name="elem_Seven-Seg_pin_c">该输入控制底部，右侧，垂直线</string>
+  <string name="elem_Seven-Seg_pin_d">该输入控制底部，水平线</string>
+  <string name="elem_Seven-Seg_pin_e">该输入控制底部，左侧，垂直线</string>
+  <string name="elem_Seven-Seg_pin_f">该输入控制顶部，左侧，垂直线</string>
+  <string name="elem_Seven-Seg_pin_g">该输入控制中间，水平线</string>
+  <string name="elem_Seven-Seg_pin_dp">该输入控制小数点</string>
+  <string name="elem_Seven-Seg_pin_cc">共阴极，如果要点亮 LED，该输入需为低电平</string>
+  <string name="elem_Seven-Seg_pin_ca">共阳极，如果要点亮 LED，该输入需为高电平</string>
+  <string name="elem_Seven-Seg-Hex">7段数码管(十六进制输入)</string>
+  <string name="elem_Seven-Seg-Hex_tt">4位十六进制输入7段数码管</string>
+  <string name="elem_Seven-Seg-Hex_pin_d">将被显示的输入值</string>
+  <string name="elem_Seven-Seg-Hex_pin_dp">该输入控制小数点</string>
+  <string name="elem_SixteenSeg">16段数码管</string>
+  <string name="elem_SixteenSeg_tt">通过16位输入控制各段，第二个输入控制小数点</string>
+  <string name="elem_SixteenSeg_pin_led">16位驱动总线</string>
+  <string name="elem_SixteenSeg_pin_dp">该输入控制小数点</string>
+  <string name="elem_LedMatrix">LED矩阵</string>
+  <string name="elem_LedMatrix_tt">LED矩阵，在独立窗口中显示。
+      通过一个数据字段控制一列LED的开关，另外一个输入为当前列的地址。</string>
+  <string name="elem_LedMatrix_pin_r-data">当前列对应的数据位字，自底向上</string>
+  <string name="elem_LedMatrix_pin_c-addr">当前列地址</string>
+  <string name="elem_Data">数据图</string>
+  <string name="elem_Data_tt">在电路面板显示数据绘图，可以绘制完整的时钟周期或单个门改变，该组件不影响仿真。</string>
+  <string name="elem_RotEncoder">旋转编码器</string>
+  <string name="elem_RotEncoder_tt">带旋转编码器的旋钮，用于检测旋转运动。</string>
+  <string name="elem_RotEncoder_pin_A">信号A</string>
+  <string name="elem_RotEncoder_pin_B">信号B</string>
+  <string name="elem_Keyboard">键盘</string>
+  <string name="elem_Keyboard_tt">可以用于输入文本的键盘。
+      该组件缓存输入，然后读取输入作为输出。</string>
+  <string name="elem_Keyboard_pin_C">时钟，上升沿时从缓冲中移除旧的字符</string>
+  <string name="elem_Keyboard_pin_en">如果为高电平，则输出 D 有效，输出一个字符。同时使能时钟输入。</string>
+  <string name="elem_Keyboard_pin_D">最后输入的字符或0(如果没有有效字符)，输出为16位Java字符值</string>
+  <string name="elem_Keyboard_pin_av">该输出信号表示字符有效，用于触发中断。</string>
+  <string name="elem_Terminal">终端</string>
+  <string name="elem_Terminal_tt">可以想向终端写入ASCII字符，该终端打开新的窗口并显示输出。</string>
+  <string name="elem_Terminal_pin_C">时钟，在上升沿将输入信号的值写入终端</string>
+  <string name="elem_Terminal_pin_D">将要写入终端的数据</string>
+  <string name="elem_Terminal_pin_en">高电平使能</string>
+  <string name="elem_VGA">VGA显示器</string>
+  <string name="elem_VGA_tt">分析输入视频信号并显示对应图形。
+      因为仿真不能实时运行，除了视频信号，还需要像素时钟。</string>
+  <string name="elem_VGA_pin_R">红色组件</string>
+  <string name="elem_VGA_pin_G">绿色组件</string>
+  <string name="elem_VGA_pin_B">蓝色组件</string>
+  <string name="elem_VGA_pin_H">水平同步信号</string>
+  <string name="elem_VGA_pin_V">垂直同步信号</string>
+  <string name="elem_VGA_pin_C">像素时钟</string>
+  <string name="elem_MIDI">MIDI</string>
+  <string name="elem_MIDI_tt">使用 MIDI 系统播放记录</string>
+  <string name="elem_MIDI_pin_N">记录</string>
+  <string name="elem_MIDI_pin_V">音量</string>
+  <string name="elem_MIDI_pin_OnOff">为1相当于按下按键，为0相当于释放按键。</string>
+  <string name="elem_MIDI_pin_en">使能</string>
+  <string name="elem_MIDI_pin_PC">如果为高电平，使用 N 值改变程序(仪器)</string>
+  <string name="elem_MIDI_pin_C">时钟</string>
+  <string name="elem_StepperMotorUnipolar">单极性步进电机</string>
+  <string name="elem_StepperMotorUnipolar_tt">具有两个限位开关的单极步进电机。支持全步驱动，半步驱动和细分(微步)驱动。</string>
+  <string name="elem_StepperMotorUnipolar_pin_S0">限位开关0，当电机角度为 0° 时变为高电平</string>
+  <string name="elem_StepperMotorUnipolar_pin_S1">限位开关1，当电机角度为 180° 时变为高电平</string>
+  <string name="elem_StepperMotorUnipolar_pin_P0">相数 0</string>
+  <string name="elem_StepperMotorUnipolar_pin_P1">相数 1</string>
+  <string name="elem_StepperMotorUnipolar_pin_P2">相数 2</string>
+  <string name="elem_StepperMotorUnipolar_pin_P3">相数 3</string>
+  <string name="elem_StepperMotorBipolar">双极性步进电机</string>
+  <string name="elem_StepperMotorBipolar_tt">具有两个限位开关的双极步进电机。支持全步驱动，半步驱动和细分(微步)驱动。</string>
+  <string name="elem_StepperMotorBipolar_pin_S0">限位开关0，当电机角度为 0° 时变为高电平</string>
+  <string name="elem_StepperMotorBipolar_pin_S1">限位开关1，当电机角度为 180° 时变为高电平</string>
+  <string name="elem_StepperMotorBipolar_pin_A+">线圈 A，正极</string>
+  <string name="elem_StepperMotorBipolar_pin_A-">线圈 A，负极</string>
+  <string name="elem_StepperMotorBipolar_pin_B+">线圈 B，正极</string>
+  <string name="elem_StepperMotorBipolar_pin_B-">线圈 B，负极</string>
+  <string name="elem_Ground">地</string>
+  <string name="elem_Ground_tt">用于接地，输出始终为 0</string>
+  <string name="elem_Ground_pin_out">输出始终为 0</string>
+  <string name="elem_VDD">电源</string>
+  <string name="elem_VDD_tt">用于连接电源，输出始终为 1</string>
+  <string name="elem_VDD_pin_out">输出始终为 1</string>
+  <string name="elem_Const">常量</string>
+  <string name="elem_Const_tt">常量，值在属性对话框设置</string>
+  <string name="elem_Const_pin_out">返回常量设置值</string>
+  <string name="elem_Tunnel">隧道</string>
+  <string name="elem_Tunnel_tt">不是有导线实现组件连接。所有具有相同名称的隧道网络被认为连接一起。
+      仅在当前电路有效，不能用于不同电路。没有名称的隧道组件被忽略。</string>
+  <string name="elem_Tunnel_pin_in">连接点</string>
+  <string name="elem_Splitter">分裂器/合并器</string>
+  <string name="elem_Splitter_tt">分裂信号或创建总线。</string>
+  <string name="elem_Splitter_pin_in">输入位 {0}</string>
+  <string name="elem_Splitter_pin_in_one">输入位 {0}</string>
+  <string name="elem_Splitter_pin_out">输出位 {0}</string>
+  <string name="elem_Splitter_pin_out_one">输出位 {0}</string>
+  <string name="elem_BusSplitter">双向分裂器</string>
+  <string name="elem_BusSplitter_tt">可用于数据总线特别是存储器模块的构建</string>
+  <string name="elem_BusSplitter_pin_OE">When set, the value at the common data terminal D is output to the bit
+      outputs D[i], if not, the bits D[i] are output to the common output D.</string>
+  <string name="elem_BusSplitter_pin_D">The common data connection.</string>
+  <string name="elem_BusSplitter_pin_D_N">数据位 {0}</string>
+  <string name="elem_PullUp">上拉电阻</string>
+  <string name="elem_PullUp_pin_out">弱高电平</string>
+  <string name="elem_PullUp_tt">如果一个网络为高阻态，该电阻将网络上拉到高电平，其它时候该组件无效。</string>
+  <string name="elem_PullDown">下拉电阻</string>
+  <string name="elem_PullDown_pin_out">弱低电平</string>
+  <string name="elem_PullDown_tt">如果一个网络为高阻态，该电阻将网络下拉到低电平，其它时候该组件无效。</string>
+  <string name="elem_Driver">驱动器</string>
+  <string name="elem_Driver_tt">用于将信号连接到其它导线。
+      如果 sel 输入为低电平，输出为高阻状态，如果 sel 为高电平，输出等于输入。</string>
+  <string name="elem_Driver_pin_in">输入</string>
+  <string name="elem_Driver_pin_out">输出</string>
+  <string name="elem_Driver_pin_sel">控制位</string>
+  <string name="elem_DriverInvSel">驱动器(低电平有效)</string>
+  <string name="elem_DriverInvSel_tt">用于将信号连接到其它导线。
+      如果 sel 输入为高电平，输出为高阻状态，如果 sel 为低电平，输出等于输入。</string>
+  <string name="elem_DriverInvSel_pin_in">输入</string>
+  <string name="elem_DriverInvSel_pin_sel">控制位</string>
+  <string name="elem_DriverInvSel_pin_out">输出</string>
+  <string name="elem_PinControl">双向管脚</string>
+  <string name="elem_PinControl_tt">该组件仅在生成 VHDL 或 Verilog 时有效，用于创建双向端口。该组件只能在顶级电路使用。</string>
+  <string name="elem_PinControl_pin_wr">待输出数据</string>
+  <string name="elem_PinControl_pin_oe">使能输出</string>
+  <string name="elem_PinControl_pin_rd">待读取数据</string>
+  <string name="elem_PinControl_pin_pin">实际管脚连接点，只有一个输出可以连接到该端口</string>
+  <string name="elem_Multiplexer">复用器</string>
+  <string name="elem_Multiplexer_tt">根据 sel 端口选择哪个输入可以通过</string>
+  <string name="elem_Multiplexer_input">输入端口 {0}</string>
+  <string name="elem_Multiplexer_output">输出</string>
+  <string name="elem_Multiplexer_pin_sel">选择端口</string>
+  <string name="elem_Demultiplexer">多路分配器</string>
+  <string name="elem_Demultiplexer_tt">根据 sel 将输入值给到某个输出端口</string>
+  <string name="elem_Demultiplexer_pin_sel">选择端口</string>
+  <string name="elem_Demultiplexer_pin_in">输入端口</string>
+  <string name="elem_Demultiplexer_output">输出端口 {0}</string>
+  <string name="elem_Decoder">解码器</string>
+  <string name="elem_Decoder_tt">仅有一个选中的输出端口为高电平，其它输出为低电平.</string>
+  <string name="elem_Decoder_output">输出端口 {0}</string>
+  <string name="elem_Decoder_pin_sel">选择端口</string>
+  <string name="elem_BitSelector">位选择器</string>
+  <string name="elem_BitSelector_tt">在数据总线中选择某一位</string>
+  <string name="elem_BitSelector_pin_in">输入总线</string>
+  <string name="elem_BitSelector_pin_sel">选择端口</string>
+  <string name="elem_BitSelector_pin_out">输出端口</string>
+  <string name="elem_PriorityEncoder">优先级编码器</string>
+  <string name="elem_PriorityEncoder_short">Priority</string>
+  <string name="elem_PriorityEncoder_tt">当输入只有一个为高电平时，其对应的值被输出。
+      当多个输入为高电平时，输出对应最大的值。</string>
+  <string name="elem_PriorityEncoder_pin_num">输入信号对应的值</string>
+  <string name="elem_PriorityEncoder_pin_any">如果该端口为高电平，则至少有一个输入为高电平</string>
+  <string name="elem_PriorityEncoder_input">输入信号 {0}</string>
+  <string name="elem_RS_FF_AS">SR 触发器</string>
+  <string name="elem_RS_FF_AS_short">SR</string>
+  <string name="elem_RS_FF_AS_tt">用于存储 1 位数据。通过置位和复位来设置存储的数据。
+      如果输入同时为高电平，输出全为低电平。如果输入同时为低电平，输出状态随机。</string>
+  <string name="elem_RS_FF_AS_pin_S">置位</string>
+  <string name="elem_RS_FF_AS_pin_R">复位</string>
+  <string name="elem_RS_FF_AS_pin_Q">返回存储的值</string>
+  <string name="elem_RS_FF_AS_pin_~Q">返回翻转后的存储值</string>
+  <string name="elem_RS_FF">SR 触发器(时钟控制)</string>
+  <string name="elem_RS_FF_short">SR</string>
+  <string name="elem_RS_FF_tt">用于存储 1 位数据。通过置位和复位来设置存储的数据。
+      如果输入在时钟上升沿同时为低电平，输出状态随机。</string>
+  <string name="elem_RS_FF_pin_S">置位</string>
+  <string name="elem_RS_FF_pin_C">时钟输入，在上升沿状态转换</string>
+  <string name="elem_RS_FF_pin_R">复位</string>
+  <string name="elem_RS_FF_pin_Q">返回存储的值</string>
+  <string name="elem_RS_FF_pin_~Q">返回翻转后的存储值</string>
+  <string name="elem_JK_FF">JK 触发器</string>
+  <string name="elem_JK_FF_short">JK</string>
+  <string name="elem_JK_FF_tt">可以存储(J=K=0), 置位(J=1, K=0), 复位(J=0, K=1)或翻转(J=K=1)存储的内容。
+      状态转换仅在时钟上升沿发生。</string>
+  <string name="elem_JK_FF_pin_J">置位</string>
+  <string name="elem_JK_FF_pin_C">时钟输入，在上升沿状态转换</string>
+  <string name="elem_JK_FF_pin_K">复位</string>
+  <string name="elem_JK_FF_pin_Q">返回存储的值</string>
+  <string name="elem_JK_FF_pin_~Q">返回翻转后的存储值</string>
+  <string name="elem_D_FF">D 触发器</string>
+  <string name="elem_D_FF_short">D</string>
+  <string name="elem_D_FF_tt">管脚 D 的值在时钟上升沿被存储。可以设置位宽以允许存储多位数据。</string>
+  <string name="elem_D_FF_pin_D">输入</string>
+  <string name="elem_D_FF_pin_C">时钟</string>
+  <string name="elem_D_FF_pin_Q">返回存储的值</string>
+  <string name="elem_D_FF_pin_~Q">返回翻转后的存储值</string>
+  <string name="elem_T_FF">T 触发器</string>
+  <string name="elem_T_FF_short">T</string>
+  <string name="elem_T_FF_tt">存储一位，在时钟上升沿切换状态。</string>
+  <string name="elem_T_FF_pin_T">使能状态切换</string>
+  <string name="elem_T_FF_pin_C">时钟输入</string>
+  <string name="elem_T_FF_pin_Q">返回存储的值</string>
+  <string name="elem_T_FF_pin_~Q">返回翻转后的存储值</string>
+  <string name="elem_JK_FF_AS">JK 触发器(异步)</string>
+  <string name="elem_JK_FF_AS_short">JK-AS</string>
+  <string name="elem_D_FF_AS">D 触发器(异步)</string>
+  <string name="elem_D_FF_AS_short">D-AS</string>
+  <string name="elem_Monoflop">单稳态触发器</string>
+  <string name="elem_Monoflop_short">Mono</string>
+  <string name="elem_Register">寄存器</string>
+  <string name="elem_Register_short">Reg</string>
+  <string name="elem_ROM">ROM</string>
+  <string name="elem_BlockRAMDualPort_short">RAM</string>
+  <string name="elem_EEPROMDualPort_short">EEPROM</string>
+  <string name="elem_PFET">P 沟道场效应晶体管</string>
+  <string name="elem_FGNFET">N 沟道浮动门场效应晶体管</string>
+  <string name="elem_Testcase">测试用例</string>
+  <string name="elem_Testcase_tt">用于定义测试用例，可用于自动检测电路的行为是否符合该定义。</string>
+  <string name="elem_AsyncSeq">异步时序</string>
+  <string name="elem_AsyncSeq_tt">允许设置异步时序电路如Muller流水线的时序。</string>
+  <string name="elem_PowerSupply">电源连接器</string>
+  <string name="elem_Reset">复位器</string>
+  <string name="elem_Reset_pin_Reset">复位输出</string>
+  <string name="elem_Break">Break</string>
+  <string name="elem_Break_pin_brk">如果检测到上升沿则停止仿真</string>
+  <string name="elem_External">External</string>
+  <string name="elem_External_tt">通过执行外部程序计算逻辑值。用于通过 VHDL 或 Verilog 定义组件行为。
+      实际的仿真行为由外部仿真器完成。目前支持 VHDL 仿真器 ghdl 和 verilog 仿真器 Icarus Verilog。</string>
+  <string name="elem_Diode">二极管</string>
+  <string name="error">错误</string>
+  <string name="err_N_isNotInputOrOutput">组件 {1} 的管脚 {0} 不是输入或输出</string>
+  <string name="err_aSingleClockNecessary">需要唯一的时钟组件，所有的触发器必须使用该唯一时钟信号。</string>
+  <string name="err_analyseNoInputs">电路包含没有标签的输入端口</string>
+  <string name="err_analyseNoOutputs">电路包含没有标签的输出端口</string>
+  <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.
+      Possibly the number of timout cycles in the break component should be increased.</string>
+  <string name="err_builder_exprNotSupported">不支持表达式 {0}</string>
+  <string name="err_builder_operationNotSupported">不支持操作 {0}</string>
+  <string name="err_builder_couldNotFillLUT">创建查找表时遇到错误</string>
+  <string name="err_burnError">在一条导线上存在多于一个输出信号导致短路。</string>
+  <string name="err_pullUpAndDown">不能将上拉和下拉电阻连接到同一网络</string>
+  <string name="err_cannotAnalyse_N">不能分析结点 {0}</string>
+  <string name="err_containsVarAndNotVar">包含 [var] 和 [not var]</string>
+  <string name="err_duplicatePinLabel">管脚 {0} 在组件 {1} 中重复</string>
+  <string name="err_element_N_notFound">未发现组件 {0}</string>
+  <string name="err_exact_N0_valuesNecessaryNot_N1">Exact {0} valoas necessary, not {1}</string>
+  <string name="err_ffNeedsToBeConnectedToClock">触发器必须连接到时钟信号</string>
+  <string name="err_invalidFileFormat">文件格式无效</string>
+  <string name="err_isAlreadyInitialized">逻辑值已经初始化</string>
+  <string name="err_labelNotConnectedToNet_N">隧道组件 {0} 未连接！</string>
+  <string name="err_moreThanOneClockFound">多于一个时钟信号</string>
+  <string name="err_clockIsNotUsed">时钟组件未使用！</string>
+  <string name="err_needs_N0_bits_found_N2_bits">需要 {0} 位，但只有 {1}</string>
+  <string name="err_netOfPin_N_notFound">找不到管脚 {0} 的网络</string>
+  <string name="err_noClockFound">找不到时钟</string>
+  <string name="key_AddrBits">地址位数</string>
+  <string name="key_AddrBits_tt">地址线位数</string>
+  <string name="key_Bits">数据位数</string>
+  <string name="key_Bits_tt">数据线位数</string>
+  <string name="key_Color">颜色</string>
+  <string name="key_Color_tt">组件的颜色</string>
+  <string name="key_backgroundColor">背景色</string>
+  <string name="key_backgroundColor_tt">当嵌入其它电路时的电路背景色</string>
+  <string name="key_Cycles">超时周期</string>
+  <string name="key_Cycles_tt">如果设置的周期数完成而没有中断信号则会报错。</string>
+  <string name="key_Data">数据</string>
+  <string name="key_Data_tt">存储在该组件中的值</string>
+  <string name="key_Default">默认</string>
+  <string name="key_Default_tt">电路仿真开始时的默认值。</string>
+  <string name="key_InDefault">默认值</string>
+  <string name="key_InDefault_tt">电路仿真启动时的默认值，"Z" 表示高阻状态。</string>
+  <string name="key_isHighZ">允许三态输入</string>
+  <string name="key_isHighZ_tt">如果勾选，则输入信号允许高阻状态，其控制输入组件的默认值是否可以设为 "Z"</string>
+  <string name="key_avoidActiveLow">非零输出</string>
+  <string name="key_Description">简介</string>
+  <string name="key_Description_tt">关于该组件和其使用的简短描述</string>
+  <string name="key_Frequency">频率/赫兹</string>
+  <string name="key_Frequency_tt">实时时钟频率</string>
+  <string name="key_IEEEShapes">使用 IEEE 91-1984 外观</string>
+  <string name="key_IEEEShapes_tt">使用 IEEE 91-1984 形状代替矩形</string>
+  <string name="key_Inputs">输入端口数</string>
+  <string name="key_Inputs_tt">输入端口个数，所有的输入端口都必须被连接。</string>
+  <string name="key_Label">标签</string>
+  <string name="key_Label_tt">该组件的名称</string>
+  <string name="key_Size">大小</string>
+  <string name="key_Size_tt">形状大小</string>
+  <string name="key_Language">语言</string>
+  <string name="key_Language_tt">图形界面的语言，需要重启才能生效</string>
+  <string name="key_NetName">网络名称</string>
+  <string name="key_NetName_tt">所有具有相同名称的网络连在一起。</string>
+  <string name="key_InputSplitting">输入分割</string>
+  <string name="key_intFormat">数字格式</string>
+  <string name="key_intFormat_tt">显示数字的格式</string>
+  <string name="key_intFormat_ascii">ascii</string>
+  <string name="key_intFormat_bin">bin</string>
+  <string name="key_intFormat_dec">decimal</string>
+  <string name="key_intFormat_decSigned">signed decimal</string>
+  <string name="key_intFormat_def">default</string>
+  <string name="key_intFormat_hex">hex</string>
+  <string name="key_intFormat_oct">octal</string>
+  <string name="key_barrelShifterMode">模式</string>
+  <string name="key_direction">方向</string>
+  <string name="key_direction_tt">设置方向</string>
+  <string name="key_direction_left">左</string>
+  <string name="key_direction_right">右</string>
+  <string name="key_maxStepCount">最大显示步数</string>
+  <string name="key_maxStepCount_tt">存储值的最大数，如果达到最大数，旧的值将被忽略。</string>
+  <string name="key_rotation">旋转</string>
+  <string name="key_rotation_tt">组件在电路中的旋转角度</string>
+  <string name="key_mirror">镜像</string>
+  <string name="key_mirror_tt">镜像组件</string>
+  <string name="key_runRealTime">使用实时时钟</string>
+  <string name="key_runRealTime_tt">如果选中，当电路开始模拟时将使用实时时钟</string>
+  <string name="key_showDataGraph">仿真启动时显示测量图</string>
+  <string name="key_showDataGraph_tt">当仿真开始时，包含测量值的图形将被显示。</string>
+  <string name="key_addValueToGraph">在测量图中显示</string>
+  <string name="key_addValueToGraph_tt">在测量图中显示值</string>
+  <string name="key_showDataTable">在仿真开始时显示测量值</string>
+  <string name="key_showDataTable_tt">当仿真开始时，包含测量值的表将被显示。</string>
+  <string name="key_termHeight">行数</string>
+  <string name="key_termHeight_tt">显示的行数</string>
+  <string name="key_termWidth">每行字符数</string>
+  <string name="key_termWidth_tt">每行字符数</string>
+  <string name="key_valueIsProbe">作为测量值</string>
+  <string name="key_valueIsProbe_tt">如果选中，该值将作为测量值在测量图和数据表中显示。此时，必须指定标签作为值的标识。</string>
+  <string name="key_Testdata">测试数据</string>
+  <string name="key_graphicWidth">宽度(像素)</string>
+  <string name="key_graphicWidth_tt">使用像素描述的屏幕宽度</string>
+  <string name="key_graphicHeight">高度(像素)</string>
+  <string name="key_graphicHeight_tt">使用像素描述的屏幕高度</string>
+  <string name="key_isProgramMemory">可编程存储器</string>
+  <string name="key_isProgramMemory_tt">设置 ROM 为可编程存储器，这样就可以通过外部 IDE 访问。</string>
+  <string name="key_isProgramCounter">程序计数器</string>
+  <string name="key_Blown">已编程</string>
+  <string name="key_Blown_tt">如果选中，二极管(熔丝)为已烧写，浮动门场效应晶体管为已充电。
+      可以通过快捷键 ‘p’ 修改设置。</string>
+  <string name="key_ExpressionFormat">格式</string>
+  <string name="key_ExpressionFormat_tt">表达式格式</string>
+  <string name="key_commonCathode">共极性</string>
+  <string name="key_commonCathode_tt">如果设置，将会仿真共阴极或共阳极</string>
+  <string name="key_commonConnectionType">共</string>
+  <string name="key_commonConnectionType_tt">共极性</string>
+  <string name="key_commonConnectionType_cathode">阴极</string>
+  <string name="key_commonConnectionType_anode">阳极</string>
+  <string name="key_ledPersistence">避免闪烁</string>
+  <string name="key_atf1502Fitter">ATF15xx Fitter</string>
+  <string name="key_atf1502Fitter_tt">包含Microchip(ATMEL)fit15xx.exe 文件的路径</string>
+  <string name="key_pin">管脚编号</string>
+  <string name="key_pin_tt">为空表示该信号不会被分配给某个管脚</string>
+  <string name="key_rowDataBits">行数</string>
+  <string name="key_rowDataBits_tt">行数</string>
+  <string name="key_colAddrBits">列地址位数</string>
+  <string name="key_colAddrBits_tt">单个列的地址，3位表示8列。</string>
+  <string name="key_lockedMode">电路被锁定</string>
+  <string name="key_lockedMode_tt">电路被锁定</string>
+  <string name="key_pinNumber">管脚编号</string>
+  <string name="key_pinNumber_tt">管脚的编号，用于表示电路的 DIL 封装和生成 CPLD 代码时分配管脚。
+      如果具有多位，所有的管脚编号可以表示为逗号分割列表。</string>
+  <string name="key_pinCount">管脚数</string>
+  <string name="key_pinCount_tt">管脚数，0表示自动确定管脚数</string>
+  <string name="key_defTreeSelect">应用启动时显示组件树</string>
+  <string name="key_defTreeSelect_tt">如果选中，应用启动时会在左侧显示组件树</string>
+  <string name="key_inverterConfig">翻转输入</string>
+  <string name="key_inverterConfig_tt">选择需要翻转的输入信号</string>
+  <string name="key_fontSize">菜单字体大小(百分比)</string>
+  <string name="key_fontSize_tt">菜单字体大小，相对于默认大小的百分比</string>
+  <string name="key_withEnable">允许输入</string>
+  <string name="key_withEnable_tt">如果设置，将使能输入端口 T</string>
+  <string name="key_unidirectional">单向</string>
+  <string name="key_activeLow">Active Low</string>
+  <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
+  <string name="key_libraryPath">库</string>
+  <string name="key_libraryPath_tt">包含预定义的子电路，还可以在当前路径下添加自定义电路。</string>
+  <string name="key_grid">显示栅格</string>
+  <string name="key_grid_tt">在主窗口中显示栅格</string>
+  <string name="key_wireToolTips">导线提示</string>
+  <string name="key_wireToolTips_tt">如果选中，当鼠标划过时导线会高亮</string>
+  <string name="key_mapToKey">映射到键盘</string>
+  <string name="key_mapToKey_tt">按钮被映射的键盘。使用 UP, DOWN, LEFT 或者 RIGHT 作为标签以使用方向键。</string>
+  <string name="key_jarPath">Java 库</string>
+  <string name="key_jarPath_tt">使用java实现的额外组件jar文件。</string>
+  <string name="key_showWireBits">在总线上显示导线数。</string>
+  <string name="key_showWireBits_tt">注意：值仅在仿真启动后更新。</string>
+  <string name="key_inputBits">输入位宽</string>
+  <string name="key_inputBits_tt">输出位宽必须大于输入位宽</string>
+  <string name="key_outputBits">输出位宽</string>
+  <string name="key_outputBits_tt">输出位宽必须大于输入位宽</string>
+  <string name="key_textFontSize">字体大小</string>
+  <string name="key_textFontSize_tt">设置文本字体大小</string>
+  <string name="key_delayTime">时长</string>
+  <string name="key_delayTime_tt">延迟时间，单位为常见门的传输延迟。</string>
+  <string name="key_invertOutput">翻转输出</string>
+  <string name="key_invertOutput_tt">如果选中，输出将被翻转。</string>
+  <string name="key_timerDelay">脉冲宽度</string>
+  <string name="key_timerDelay_tt">用时钟周期表示的脉冲宽度</string>
+  <string name="key_splitterSpreading">间距</string>
+  <string name="key_splitterSpreading_tt">设置输入和输出端口间距</string>
+  <string name="key_romContent">ROM 内容</string>
+  <string name="key_romContent_tt">所有使用的 ROM 中的内容</string>
+  <string name="key_applicationType">应用</string>
+  <string name="key_applicationType_tt">定义使用哪个应用</string>
+  <string name="key_applicationType_Generic">通用</string>
+  <string name="key_applicationType_GHDL">GHDL</string>
+  <string name="key_applicationType_IVERILOG">IVerilog</string>
+  <string name="key_externalInputs">输入</string>
+  <string name="key_externalOutputs">输出</string>
+  <string name="key_Code">程序代码</string>
+  <string name="key_Code_tt">被外部应用执行的程序代码</string>
+  <string name="attr_panel_Options">选项</string>
+  <string name="key_ghdlPath">GHDL</string>
+  <string name="key_ghdlOptions">GHDL 选项</string>
+  <string name="key_ghdlOptions_tt">用于处理 GHDL 的选项</string>
+  <string name="key_iverilogPath">IVerilog</string>
+  <string name="key_iverilogPath_tt">Icarus verilog 安装路径</string>
+  <string name="key_maxValue">最大值</string>
+  <string name="key_maxValue_tt">如果为 0，则使用可能的最大值</string>
+  <string name="key_dipDefault">输出为高电平</string>
+  <string name="key_dipDefault_tt">默认输出</string>
+  <string name="key_macMouse">使用 MacOS 鼠标单击</string>
+  <string name="key_macMouse_tt">使用 CTRL+左键 代替右键单击。</string>
+  <string name="key_noComponentToolTips">在主面板中不显示工具提示</string>
+  <string name="key_noComponentToolTips_tt">如果选中，将不会在主面板中显示组件的工具提示。</string>
+  <string name="key_tunnelRenameDialog">显示自动重命名隧道组件对话框</string>
+  <string name="key_tunnelRenameDialog_tt">如果选中，当一个隧道组件被重命名后，将会显示为同名隧道组件自动重命名的对话框。</string>
+  <string name="key_ATMISP">ATMISP</string>
+  <string name="key_ATMISP_tt">可执行文件ATMISP.exe的路径。设置后，ATMISP 软件可以被自动启动！</string>
+  <string name="key_customShape">自定义形状</string>
+  <string name="key_customShape_tt">导入 SVG 文件</string>
+  <string name="key_preloadProgram">在启动时预加载程序到存储器</string>
+  <string name="key_preloadProgram_tt">当仿真一个使用 RAM 作为程序存储器的处理器时，因为 RAM 内容被初始化为零，因此很难启动处理器。
+      该设置允许在处理器启动时加载数据到程序存储器。</string>
+  <string name="key_preloadProgramFile">程序文件</string>
+  <string name="key_preloadProgramFile_tt">在仿真开始时被自动加载进存储器的程序文件</string>
+  <string name="key_RectWidth">宽</string>
+  <string name="key_RectWidth_tt">以栅格为单位的宽度</string>
+  <string name="key_RectHeight">高</string>
+  <string name="key_RectHeight_tt">以栅格为单位的高度</string>
+  <string name="key_RectInside">内置文本</string>
+  <string name="key_RectInside_tt">将文本放在矩形内部</string>
+  <string name="key_RectBottom">底部文本</string>
+  <string name="key_RectBottom_tt">将文本放在矩形底部</string>
+  <string name="key_RectRight">右侧文本</string>
+  <string name="key_RectRight_tt">将文本放在矩形右侧</string>
+  <string name="key_wideShape">宽形</string>
+  <string name="key_wideShape_tt">使用较宽的形状显示门</string>
+  <string name="key_shapeType">形状</string>
+  <string name="key_shapeType_tt">当电路作为子电路时的形状。
+      “Simple” 模式：输入管脚显示在一个简单矩形左侧，输出管脚显示在一个简单矩形右侧。
+      “Layout” 模式：管脚的位置由实际电路中输入、输出组件的位置和方向决定。此时，管脚可以位于顶部或底部。
+      “DIL-Chip”模式：使用双列直插封装外形显示电路，输入、输出组件的管脚编号决定管脚的位置。</string>
+  <string name="key_shapeType_DEFAULT">默认</string>
+  <string name="key_shapeType_SIMPLE">Simple</string>
+  <string name="key_shapeType_DIL">DIL-Chip</string>
+  <string name="key_shapeType_LAYOUT">Layout</string>
+  <string name="key_shapeType_CUSTOM">自定义</string>
+  <string name="key_textOrientation">文本对齐</string>
+  <string name="key_textOrientation_tt">文本对齐方式</string>
+  <string name="key_textOrientation_LEFTBOTTOM">左下角</string>
+  <string name="key_textOrientation_CENTERBOTTOM">居中偏下</string>
+  <string name="key_textOrientation_RIGHTBOTTOM">右下角</string>
+  <string name="key_textOrientation_RIGHTCENTER">居中偏右</string>
+  <string name="key_textOrientation_RIGHTTOP">右上角</string>
+  <string name="key_textOrientation_CENTERTOP">居中偏上</string>
+  <string name="key_textOrientation_LEFTTOP">左上角</string>
+  <string name="key_textOrientation_LEFTCENTER">居中偏左</string>
+  <string name="key_textOrientation_CENTERCENTER">正中</string>
+  <string name="key_enabled">启用</string>
+  <string name="key_enabled_tt">启用或禁用该组件</string>
+  <string name="key_toolChainConfig">工具链配置</string>
+  <string name="key_toolChainConfig_tt">用于配置集成工具链，如启动外部工具，对 FPGA 进行编程</string>
+  <string name="key_generic">通用参数</string>
+  <string name="key_generic_tt">通用化电路的代码</string>
+  <string name="key_isGeneric">通用电路</string>
+  <string name="key_isGeneric_tt">创建一个通用电路</string>
+  <string name="key_showTutorial">启动时显示使用指南</string>
+  <string name="key_showTutorial_tt">开启使用指南</string>
+  <string name="menu_exportSVGSettings">SVG 导出设置</string>
+  <string name="key_SVG_hideTest">隐藏测试用例</string>
+  <string name="key_SVG_hideTest__">不导出测试用例</string>
+  <string name="key_SVG_noShapeFilling">不填充形状</string>
+  <string name="key_SVG_noShapeFilling_tt">多边形不会被填充</string>
+  <string name="key_SVG_smallIO_tt">输入和输出表示为小圆圈。</string>
+  <string name="key_SVG_noPinMarker">忽略管脚标注</string>
+  <string name="key_SVG_noPinMarker_tt">符号中蓝色和红色的管脚标注会被忽略。</string>
+  <string name="key_SVG_highContrast">高对比度</string>
+  <string name="key_SVG_highContrast_tt">导线和管脚的文本显示为黑色。</string>
+  <string name="key_SVG_monochrome">单色</string>
+  <string name="key_SVG_monochrome_tt">仅使用灰色。</string>
+  <string name="key_SVG_thinnerLines">细线</string>
+  <string name="key_SVG_thinnerLines_tt">如果选中，绘制的线会比较细</string>
+  <string name="key_snapToGrid">对齐到栅格</string>
+  <string name="key_snapToGrid_tt">如果选中，组件将会和栅格对齐。</string>
+  <string name="key_layoutShapeDelta">管脚间距</string>
+  <string name="key_layoutShapeDelta_tt">用于 layout 外观，设置和前一个管脚的距离。</string>
+  <string name="mod_insertWire">插入导线</string>
+  <string name="mod_insertCopied">从剪切板插入</string>
+  <string name="mod_setKey_N0_in_element_N1">组件 ''{1}'' 中的 ''{0}'' 值被修改</string>
+  <string name="mod_setAttributesIn_N">修改组件 ''{0}'' 属性</string>
+  <string name="mod_wireDeleted">删除导线</string>
+  <string name="mod_movedOrRotatedElement_N">移动或旋转组件 ''{0}''</string>
+  <string name="mod_movedWire">移动导线</string>
+  <string name="mod_deletedSelection">删除选中</string>
+  <string name="mod_insertedElement_N">插入组件 ''{0}''</string>
+  <string name="mod_deletedElement_N">删除组件 ''{0}''</string>
+  <string name="mod_insertedWire">插入导线</string>
+  <string name="mod_movedSelected">移动选中组件</string>
+  <string name="mod_undo_N">撤销: {0}</string>
+  <string name="mod_redo_N">恢复: {0}</string>
+  <string name="mod_circuitAttrModified">修改电路属性</string>
+  <string name="mod_modifiedMeasurementOrdering">排序测量值</string>
+  <string name="mod_groupEdit">修改所选组件属性</string>
+  <string name="mod_splitWire">分割单个导线为两个</string>
+  <string name="lib_Logic">逻辑</string>
+  <string name="lib_arithmetic">运算器</string>
+  <string name="lib_flipFlops">触发器</string>
+  <string name="lib_io">输入输出</string>
+  <string name="lib_memory">存储器</string>
+  <string name="lib_mux">复用器</string>
+  <string name="lib_wires">导线</string>
+  <string name="lib_switching">开关</string>
+  <string name="lib_displays">显示</string>
+  <string name="lib_mechanic">机械</string>
+  <string name="lib_peripherals">外设</string>
+  <string name="lib_misc">其他</string>
+  <string name="lib_more">更多</string>
+  <string name="menu_window">窗口</string>
+  <string name="menu_about">关于</string>
+  <string name="menu_analyse">分析</string>
+  <string name="menu_analyse_tt">分析当前电路</string>
+  <string name="menu_cut">剪切</string>
+  <string name="menu_copy">复制</string>
+  <string name="menu_custom">自定义</string>
+  <string name="menu_library">库</string>
+  <string name="menu_delete">删除组件</string>
+  <string name="menu_delete_tt">删除选中的组件</string>
+  <string name="menu_edit">编辑</string>
+  <string name="menu_editAttributes">设置当前电路</string>
+  <string name="menu_editAttributes_tt">该电路设置影响当前打开电路的行为，例如当电路作为子电路被其他电路使用时的形状，
+      这些设置和电路文件保存在一起。</string>
+  <string name="menu_editSettings">设置</string>
+  <string name="menu_editSettings_tt">全局设置，包括仿真器、界面语言、符号、外部工具等。</string>
+  <string name="menu_element">停止仿真</string>
+  <string name="menu_element_tt">停止仿真并允许编辑电路。</string>
+  <string name="menu_elements">组件</string>
+  <string name="menu_export">导出</string>
+  <string name="menu_exportPNGLarge">导出 PNG(大)</string>
+  <string name="menu_exportPNGSmall">导出 PNG(小)</string>
+  <string name="menu_exportSVG">导出 SVG</string>
+  <string name="menu_exportAnimatedGIF">导出 GIF 动画</string>
+  <string name="menu_fast">运行至中断</string>
+  <string name="menu_fast_tt">运行电路直至中断(BRK)组件检测到断点。</string>
+  <string name="menu_file">文件</string>
+  <string name="menu_help">帮助</string>
+  <string name="menu_update">更新</string>
+  <string name="menu_update_tt">更新组件菜单。</string>
+  <string name="menu_maximize">适合窗口</string>
+  <string name="menu_micro">单门仿真</string>
+  <string name="menu_micro_tt">使用单步模式运行电路</string>
+  <string name="menu_new">新建</string>
+  <string name="menu_new_tt">新建一个空电路</string>
+  <string name="menu_newSub">新建子电路</string>
+  <string name="menu_newSub_tt">打开新窗口并创建一个子电路，然后可以在当前电路中使用该子电路</string>
+  <string name="menu_open">打开</string>
+  <string name="menu_openRecent">打开最近使用</string>
+  <string name="menu_openRecentNewWindow">在新窗口打开最近使用</string>
+  <string name="menu_openWin">在新窗口中打开</string>
+  <string name="menu_openWin_tt">在新窗口中打开电路</string>
+  <string name="menu_orderInputs">排序输入信号</string>
+  <string name="menu_orderInputs_tt">排序输入信号(作为子电路使用时)</string>
+  <string name="menu_orderMeasurements">排序测量值信号</string>
+  <string name="menu_orderMeasurements_tt">排序在图形和表格视图中的测量值信号</string>
+  <string name="menu_orderOutputs">排序输出信号</string>
+  <string name="menu_orderOutputs_tt">排序输出信号(作为子电路使用时)</string>
+  <string name="menu_paste">粘贴</string>
+  <string name="menu_rotate">旋转</string>
+  <string name="menu_sim">仿真</string>
+  <string name="menu_run">启动仿真</string>
+  <string name="menu_run_tt">启动仿真电路</string>
+  <string name="menu_save">保存</string>
+  <string name="menu_saveAs">另存为</string>
+  <string name="menu_saveData">保存数据</string>
+  <string name="menu_saveData_tt">保存数据为 CSV 文件</string>
+  <string name="menu_speedTest">电路速度测试</string>
+  <string name="menu_speedTest_tt">通过计算最大时钟频率进行运算速度测试</string>
+  <string name="menu_step">单门步进</string>
+  <string name="menu_step_tt">运行单个门</string>
+  <string name="menu_runToBreakMicro">运行至中断</string>
+  <string name="menu_runToBreakMicro_tt">执行所有的单门步骤直至中断组件检测到上升沿。
+    如果没有中断组件，则执行剩余所有单门步骤。</string>
+  <string name="menu_synthesise">综合</string>
+  <string name="menu_synthesise_tt">为真值表生成最简布尔表达式</string>
+  <string name="menu_table_N_variables">{0} 变量</string>
+  <string name="menu_table_create">创建</string>
+  <string name="menu_table_createCircuit">电路</string>
+  <string name="menu_table_createCircuit_tt">根据真值表创建对应电路</string>
+  <string name="menu_table_createCircuitJK">基于 JK 触发器的电路</string>
+  <string name="menu_table_createCircuitJK_tt">使用 JK 触发器电路表示真值表</string>
+  <string name="menu_table_createCircuitLUT">基于查找表的电路</string>
+  <string name="menu_table_createCircuitLUT_tt">使用查找表电路表示真值表</string>
+  <string name="menu_table_createNAnd">基于与非门的电路</string>
+  <string name="menu_table_createNAndTwo">基于2输入与非门的电路</string>
+  <string name="menu_table_createNAndTwo_tt">仅使用2输入与非门创建电路</string>
+  <string name="menu_table_createNAnd_tt">仅使用与非门电路表示真值表</string>
+  <string name="menu_table_createNOr">基于或非门的电路</string>
+  <string name="menu_table_createNOrTwo">基于2输入或非门的电路</string>
+  <string name="menu_table_createNOrTwo_tt">仅使用2输入或非门创建电路</string>
+  <string name="menu_table_createNOr_tt">仅使用或非门电路表示真值表</string>
+  <string name="menu_table_createTwo">基于2输入门的电路</string>
+  <string name="menu_table_createTwo_tt">仅使用2输入门创建电路</string>
+  <string name="menu_table_createThree">基于3输入门的电路</string>
+  <string name="menu_table_createThree_tt">仅使用最多3输入的门创建电路</string>
+  <string name="menu_table_create_hardware">器件</string>
+  <string name="menu_table_create_jedec_tt">为器件创建 JEDEC 文件</string>
+  <string name="menu_table_exportTableLaTeX">导出 LaTeX</string>
+  <string name="menu_table_createFunctionFixture">导出测试用例</string>
+  <string name="menu_table_createFunctionFixture_tt">创建用于测试用例的描述</string>
+  <string name="menu_table_createFunctionFixture_isSequential">测试用例仅在电路为纯组合电路时可用</string>
+  <string name="menu_table_exportHex">导出十六进制文件</string>
+  <string name="menu_table_exportHex_tt">可用将十六进制文件载入 ROM 或查找表</string>
+  <string name="menu_table_new">新建</string>
+  <string name="menu_table_new_combinatorial">组合电路</string>
+  <string name="menu_table_new_sequential">时序电路</string>
+  <string name="menu_table_new_sequential_bidir">双向时序电路</string>
+  <string name="menu_table_reorder_inputs">重新排序或删除输入变量</string>
+  <string name="menu_table_reorder_outputs">重新排序或删除输出列</string>
+  <string name="menu_table_columnsAdd">添加输出列</string>
+  <string name="menu_table_columnsAdd_tt">在表中添加新的结果列</string>
+  <string name="menu_table_columnsAddVariable">添加输入变量</string>
+  <string name="menu_table_columnsAddVariable_tt">在表中添加新的输入变量</string>
+  <string name="menu_table_setXTo0">将 X 设为 0</string>
+  <string name="menu_table_setXTo0_tt">将 Don't Cares 设为 0</string>
+  <string name="menu_table_setXTo1">将 X 设为 1</string>
+  <string name="menu_table_setXTo1_tt">将 Don't Cares 设为 1</string>
+  <string name="menu_table_JK">创建 J/K 表达式</string>
+  <string name="menu_table_setAllToX">将值全部设为 X</string>
+  <string name="menu_table_setAllToX_tt">将值全部设为 "don't care"</string>
+  <string name="menu_table_setAllTo0">将值全部设为 0</string>
+  <string name="menu_table_setAllTo0_tt">将值全部设为 0</string>
+  <string name="menu_table_setAllTo1">将值全部设为 1</string>
+  <string name="menu_table_setAllTo1_tt">将值全部设为 1</string>
+  <string name="menu_table_invert">翻转所有位</string>
+  <string name="menu_table_invert_tt">将 "1" 变为 "0"，"0" 变为 "1"，Don't cares保持不变。</string>
+  <string name="menu_table_showAllSolutions">显示结果对话框</string>
+  <string name="menu_table_showAllSolutions_tt">如果结果对话框被手动关闭，则重新显示。</string>
+  <string name="menu_terminalDelete">删除</string>
+  <string name="menu_terminalDelete_tt">删除终端内容</string>
+  <string name="menu_view">视图</string>
+  <string name="menu_zoomIn">放大</string>
+  <string name="menu_zoomOut">缩小</string>
+  <string name="menu_expression">表达式</string>
+  <string name="menu_expression_tt">从表达式创建电路</string>
+  <string name="menu_runTests">运行测试用例(当前电路)</string>
+  <string name="menu_runTests_tt">运行当前电路中的所有测试用例</string>
+  <string name="menu_actualToDefault">设置默认输入信号</string>
+  <string name="menu_actualToDefault_tt">将当前实际输入值设为默认输入值</string>
+  <string name="menu_restoreAllFuses">重置二级管和浮动栅场效应晶体管状态</string>
+  <string name="menu_restoreAllFuses_tt">将所有二极管(熔丝)和浮动栅场效应晶体管设为 "非编程" 状态，实际的配置将会丢失。</string>
+  <string name="menu_help_elements">组件信息</string>
+  <string name="menu_help_elements_tt">显示可用组件列表</string>
+  <string name="menu_viewHelp">帮助对话框</string>
+  <string name="menu_viewHelp_tt">显示描述当前电路的帮助对话框</string>
+  <string name="menu_insertAsNew">在新窗口粘贴</string>
+  <string name="menu_insertAsNew_tt">在新窗口粘贴剪切板内容</string>
+  <string name="menu_treeSelect">组件树视图</string>
+  <string name="menu_treeSelect_tt">在左侧以树视图显示可用组件</string>
+  <string name="menu_special">针对 74xx 电路的功能</string>
+  <string name="menu_addPrefix">添加输入输出信号前缀</string>
+  <string name="menu_removePrefix">移除输入输出信号前缀</string>
+  <string name="menu_removePrefix_tt">移除输入输出信号标签的第一个字符</string>
+  <string name="menu_numbering">管脚向导</string>
+  <string name="menu_numbering_tt">为输入和输出信号添加管脚编号向导</string>
+  <string name="menu_removePinNumbers">移除管脚编号</string>
+  <string name="menu_removePinNumbers_tt">移除电路中所有管脚编号</string>
+  <string name="menu_undo">撤销</string>
+  <string name="menu_undo_tt">还原上次修改</string>
+  <string name="menu_redo">重做</string>
+  <string name="menu_redo_tt">再次应用上一次还原的修改</string>
+  <string name="menu_showDataAsGraph">显示图</string>
+  <string name="menu_showDataAsGraph_tt">以图方式显示数据</string>
+  <string name="menu_showDataAsTable">显示表格</string>
+  <string name="menu_showDataAsTable_tt">以表格方式显示值数据</string>
+  <string name="menu_addPowerSupply">添加电源</string>
+  <string name="menu_addPowerSupply_tt">为电路添加电源</string>
+  <string name="menu_exportVHDL">导出 VHDL</string>
+  <string name="menu_exportVHDL_tt">导出电路为 VHDL</string>
+  <string name="menu_exportVerilog">导出 Verilog</string>
+  <string name="menu_exportVerilog_tt">-导出电路为 Verilog</string>
+  <string name="menu_karnaughMap">卡诺图</string>
+  <string name="menu_karnaughMap_tt">以卡诺图表示当前表格</string>
+  <string name="menu_pdfDocumentation">使用文档</string>
+  <string name="menu_openPdfDocumentation">打开 {0}</string>
+  <string name="menu_showDataTable">显示测量值表格</string>
+  <string name="menu_showDataTable_tt">在新窗口中显示带有测量值的表格</string>
+  <string name="menu_showDataGraph">显示测量图</string>
+  <string name="menu_showDataGraph_tt">在新窗口中显示测量图</string>
+  <string name="menu_exportZIP">导出为 ZIP 文件</string>
+  <string name="menu_exportZIP_tt">导出电路为 ZIP 压缩文件，该压缩文件包含所有电路功能需要的必要文件</string>
+  <string name="menu_labelPins">标签化输入输出信号</string>
+  <string name="menu_labelPins_tt">为所有没有标签的输入输出信号自动添加标签</string>
+  <string name="menu_tutorial">使用指南</string>
+  <string name="menu_tutorial_tt">打开新手使用指南</string>
+  <string name="menu_stats">电路统计</string>
+  <string name="menu_stats_tt">显示所有已使用组件的列表</string>
+  <string name="stat_number">数量</string>
+  <string name="stat_part">组件</string>
+  <string name="stat_inputs">输入</string>
+  <string name="stat_bits">位</string>
+  <string name="stat_addrBits">地址位</string>
+  <string name="msg_errorOpeningDocumentation">打开 PDF 文件时遇到错误！</string>
+  <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;一个简单的数字电路仿真器
+      作者： H. Neemann  2016-2020
+
+      所用图标来自 &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;
+
+      在 &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt; 查看该项目，并&lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;下载&lt;/a&gt;最新的发行版
+
+      可以在这里提交&lt;a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;问题&lt;/a&gt;或&lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;建议&lt;/a&gt;</string>
+  <string name="msg_N_nodes">{0} 结点</string>
+  <string name="msg_analyseErr">分析电路时遇到错误</string>
+  <string name="msg_clockError">时钟状态改变时遇到错误</string>
+  <string name="msg_color">颜色</string>
+  <string name="msg_errorCreatingModel">新建电路时遇到错误</string>
+  <string name="msg_errorDuringCalculation">化简电路时遇到错误</string>
+  <string name="msg_errorDuringHardwareExport">创建硬件配置时遇到错误</string>
+  <string name="msg_errorEditingValue">编辑属性时遇到错误</string>
+  <string name="msg_errorImportingModel_N0">导入电路 {0} 时遇到错误！</string>
+  <string name="msg_errorUpdatingLibrary">更新组件库遇到错误！</string>
+  <string name="msg_errorReadingFile">读取文件时遇到错误</string>
+  <string name="msg_remoteUnknownCommand">未知命令 {0}</string>
+  <string name="msg_errorWritingFile">写入文件时遇到错误</string>
+  <string name="msg_frequency_N">最大频率为 {0} kHz</string>
+  <string name="msg_missingShape_N">形状 {0} 丢失</string>
+  <string name="msg_pins">管脚分配</string>
+  <string name="msg_pinMap_pin_N_is_N">管脚 {0}: {1}</string>
+  <string name="msg_restartNeeded">当前更改需要重启生效！</string>
+  <string name="msg_enterAnExpression">输入表达式：</string>
+  <string name="msg_runningTestError">运行测试时遇到错误：</string>
+  <string name="msg_testResult">测试结果</string>
+  <string name="msg_test_N_Passed">{0} 通过</string>
+  <string name="msg_test_N_Failed">{0} 失败</string>
+  <string name="msg_test_missingLines">(To many entries!)</string>
+  <string name="msg_test_missingLines_tt">所有测试用例已执行，但没有显示所有结果。然而，对测试结果的评估是正确的！</string>
+  <string name="msg_testExp_N0_found_N1">E: {0} / F: {1}</string>
+  <string name="msg_creatingHelp">创建帮助时遇到错误！</string>
+  <string name="msg_clipboardContainsNoImportableData">剪贴板包含不可导入数据！</string>
+  <string name="msg_selectAnEmptyFolder">请选择空文件夹！</string>
+  <string name="msg_fitterResult">Message from the external fitter</string>
+  <string name="msg_startExternalFitter">Execution of external fitter</string>
+  <string name="msg_actualCircuit">实际电路</string>
+  <string name="msg_fileNotAccessible">文件不可导入！可能存在同名文件？</string>
+  <string name="msg_fileIsNotUnique">文件名不唯一！工作目录和子目录下的所有文件必须具有唯一的文件名。</string>
+  <string name="msg_duplicateLibraryFiles">存在同名文件：</string>
+  <string name="msg_and_N_More">and {0} more.</string>
+  <string name="msg_fileNotImportedYet">文件尚未导入</string>
+  <string name="msg_fileExists">文件 {0} 已存在！是否覆盖当前文件？</string>
+  <string name="msg_isLocked">已禁止编辑电路。你可以在 "{0} -&gt; {1} -&gt; {2}" 移除锁定</string>
+  <string name="msg_speedTestError">测试运行速度遇到错误！</string>
+  <string name="msg_pin_N">管脚 {0}</string>
+  <string name="msg_numberingWizard">编号向导</string>
+  <string name="msg_pin_numbering_N">选择管脚 {0}:</string>
+  <string name="msg_framesWritten_N">写入帧：{0}</string>
+  <string name="msg_errorWritingGif">写入 GIF 文件错误！</string>
+  <string name="btn_gifComplete">完成</string>
+  <string name="btn_gifComplete_tt">GIF 文件结束并关闭</string>
+  <string name="msg_gifExport">导出 GIF</string>
+  <string name="msg_errCausedBy">由于</string>
+  <string name="msg_inputsToInvert">待翻转输入</string>
+  <string name="msg_none">未设置</string>
+  <string name="msg_errGettingPinNames">不能确定管脚名称</string>
+  <string name="msg_errInFile_N">发生在文件 {0}。</string>
+  <string name="msg_affectedComponentsAre_N">受影响组件： {0}</string>
+  <string name="msg_signal_N">信号 {0}</string>
+  <string name="msg_thereAreMissingPinNumbers">管脚 {0} 未指定管脚编号！</string>
+  <string name="msg_modelHasErrors">仅当电路没有错误时才可导出！</string>
+  <string name="msg_noKVMapAvailable">无有效 KV 图！</string>
+  <string name="msg_dataNotUpdatedAnymore">数据不会被更新</string>
+  <string name="msg_modifyThisAttribute">修改当前值</string>
+  <string name="msg_invalidEditorValue">包含无效数据字段！</string>
+  <string name="msg_create CHNFile">创建 CHN 文件。</string>
+  <string name="msg_tableHasManyRowsConfirm">当前表非常大，导出需要些时间。确认导出？</string>
+  <string name="msg_circuitIsRequired">必须先创建和分析电路，不能使用独立的真值表生成硬件描述。</string>
+  <string name="msg_noData">没有数据</string>
+  <string name="msg_errorClosingExternalProcess">不能关闭外部进程！</string>
+  <string name="msg_checkResult">测试结果：</string>
+  <string name="btn_checkCode">测试</string>
+  <string name="btn_checkCode_tt">启动应用以测试输入代码是否正确。</string>
+  <string name="msg_codeNotConsistent">不能自动创建输入和输出端口，请检测设置！</string>
+  <string name="msg_applicationFileNotFound">未发现可执行文件 "{0}"</string>
+  <string name="msg_enterText">输入文本！</string>
+  <string name="btn_startATMISP">启动 ATMISP</string>
+  <string name="btn_startATMISP_tt">启动外部程序 ATMISP。</string>
+  <string name="msg_errorStartingATMISP">启动 ATMISP 遇到错误！</string>
+  <string name="msg_ATMISPIsStillRunning">ATMISP 在继续运行！当关闭当前对话框，ATMISP 被终止。</string>
+  <string name="menu_runAllTests">运行所有测试(当前目录)</string>
+  <string name="menu_runAllTests_tt">对当前目录下的所有电路进行测试</string>
+  <string name="msg_testPassed_N">{0} 测试行通过</string>
+  <string name="msg_testFile">测试文件</string>
+  <string name="msg_truthTable">真值表</string>
+  <string name="btn_copyToClipboard">剪贴板</string>
+  <string name="btn_copyToClipboard_tt">复制文本到剪贴板。</string>
+  <string name="ok">确定</string>
+  <string name="rot_0">0°</string>
+  <string name="rot_180">180°</string>
+  <string name="rot_270">270°</string>
+  <string name="rot_90">90°</string>
+  <string name="tt_deleteItem">删除选中内容</string>
+  <string name="tt_moveItemDown">下移该项</string>
+  <string name="tt_moveItemUp">上移该项</string>
+  <string name="win_allSolutions">所有可能方案</string>
+  <string name="win_testdata_N">测试数据 {0}</string>
+  <string name="win_data">数据</string>
+  <string name="win_confirmExit">确认退出</string>
+  <string name="win_measures">测量</string>
+  <string name="win_saveChanges">保存变更？</string>
+  <string name="win_stateChanged">内容已更改</string>
+  <string name="win_table">表</string>
+  <string name="win_table_exportDialog">导出</string>
+  <string name="win_itempicker_title">选择</string>
+  <string name="win_valueInputTitle_N">输入 {0}</string>
+  <string name="win_karnaughMap">卡诺图</string>
+  <string name="btn_help">帮助</string>
+  <string name="win_romDialogHelpTitle">居中 ROM 内容</string>
+  <string name="msg_expressionHelpTitle">表达式</string>
+  <string name="msg_testVectorHelpTitle">测试向量</string>
+  <string name="fsm_title">有限状态机</string>
+  <string name="fsm_noMove">no movement</string>
+  <string name="fsm_moveTrans">Transitions</string>
+  <string name="fsm_moveStates">Transitions+States</string>
+  <string name="fsm_set_N">设置 {0}</string>
+  <string name="menu_fsm">有限状态机</string>
+  <string name="menu_fsm_tt">打开有限状态机编辑对话框</string>
+  <string name="menu_fsm_create">创建</string>
+  <string name="menu_fsm_create_table">状态转换表</string>
+  <string name="menu_fsm_create_counter">创建计数器</string>
+  <string name="menu_fsm_create_counter_N">{0} 状态</string>
+  <string name="menu_fsm_Help_tt">有限状态机编辑器使用帮助</string>
+  <string name="key_stateNum">状态码</string>
+  <string name="key_stateNum_tt">表示该状态的数字</string>
+  <string name="key_isInitialState">初始状态</string>
+  <string name="key_isInitialState_tt">如果设置，则该状态为初始状态</string>
+  <string name="key_stateValues">输出</string>
+  <string name="key_transCond">条件</string>
+  <string name="key_transCond_tt">布尔表达式</string>
+  <string name="key_transRad">半径</string>
+  <string name="key_transRad_tt">图中圆的半径</string>
+  <string name="msg_fsm_errorLoadingFile">载入文件遇到错误！</string>
+  <string name="msg_fsm_errorStoringFile">存储文件遇到错误！</string>
+  <string name="msg_fsmTransition">转换</string>
+  <string name="msg_fsmState">状态</string>
+  <string name="msg_fsmNewState">新状态</string>
+  <string name="msg_fsmCantCreateTable">不能创建状态转换表</string>
+  <string name="msg_fsmHelpTitle">有限状态就编辑器帮助</string>
+  <string name="msg_graphHelpTitle">测量图</string>
+  <string name="tutorial">使用指南</string>
+  <string name="tutorial1">在接下来的指南中，我们将完成第一个简单的电路：
+      首先，在电路中添加一个输入组件，我们可以通过 组件▸输入输出 菜单找到该组件。</string>
+  <string name="tutorial2">现在向电路中添加第二个输入组件。
+      最好将第二个输入组件放置在第一个组件的下面。我们可以通过按住鼠标右键来移动电路，单击组件来移动相应组件。</string>
+  <string name="tutorial3">接下来，添加一个异或门。可以通过 组件▸逻辑 菜单找到该组件。将该组件放置到输入组件的右侧，保持适当距离。</string>
+  <string name="tutorial4">最后要添加的组件为输出组件。
+      将其放置在异或门的右侧，保持适当距离。</string>
+  <string name="tutorial5">为完成电路，必须绘制连接导线。
+      点击第一个输入组件的红色点，然后点击异或门的一个蓝色点来连接到异或门的输入。</string>
+  <string name="tutorial6">连接第二个输入组件的红色点到异或门的第二个蓝色点，连接异或门的红色点到输出组件的蓝色点。
+      当绘制导线时，单击可以固定导线，右击取消绘制。</string>
+  <string name="tutorial7">你的第一个电路此时已可正常工作。
+      要仿真电路，点击工具栏中的 “启动仿真” 按钮，如果移动鼠标到工具栏，相应的提示会显示。</string>
+  <string name="tutorial8">此时仿真已开启，单击输入组件可以切换输入值。</string>
+  <string name="tutorial9">点击工具栏中 “停止仿真” 按钮来定制仿真。</string>
+  <string name="tutorial10">继续完成，需要给输入和输出添加标签。
+      在输入组件上右击打开对话框，在 MacOS 上使用 control+单击，这时可以给输入组件命名。</string>
+  <string name="tutorial11">为所有输入和输出添加标签</string>
+  <string name="tutorialUniqueIdents">输入和输出名称必须唯一</string>
+  <string name="tutorialNotNeeded">跳过使用指南</string>
+  <string name="elem_JK_FF_AS_tt">能够存储(J=K=0), 置位(J=1, K=0), 复位(J=0, K=1)或翻转(J=K=1)存储的内容。
+      状态仅能够在时钟上升沿发生改变。另有两个额外的输入可以立即改变状态而不需要时钟信号。</string>
+  <string name="elem_JK_FF_AS_pin_J">置位</string>
+  <string name="elem_JK_FF_AS_pin_C">时钟输入</string>
+  <string name="elem_JK_FF_AS_pin_K">复位</string>
+  <string name="elem_JK_FF_AS_pin_Q">返回存储的值</string>
+  <string name="elem_JK_FF_AS_pin_~Q">翻转后的存储值</string>
+  <string name="elem_JK_FF_AS_pin_Set">异步置位，输入高电平将置位触发器</string>
+  <string name="elem_JK_FF_AS_pin_Clr">异步复位，输入高电平将复位触发器</string>
+  <string name="elem_D_FF_AS_tt">管脚 D 的值在时钟上升沿被存储。可以设置位宽以允许存储多位数据。
+      另有两个额外的输入可以立即改变状态而不需要时钟信号。</string>
+  <string name="elem_D_FF_AS_pin_D">输入</string>
+  <string name="elem_D_FF_AS_pin_C">时钟，上升沿触发</string>
+  <string name="elem_D_FF_AS_pin_Q">输出</string>
+  <string name="elem_D_FF_AS_pin_~Q">翻转后的输出</string>
+  <string name="elem_D_FF_AS_pin_Set">异步置位，输入高电平将置位触发器</string>
+  <string name="elem_D_FF_AS_pin_Clr">异步复位，输入高电平将复位触发器</string>
+  <string name="elem_Monoflop_tt">单稳态触发器(monoflop)，在时钟上升沿置位。
+      在经过一个可配置的延迟后，自动复位。该单稳态触发器可重复触发。电路中必须存在唯一的一个时钟组件，
+      时钟组件作为测量时间延迟的基准。</string>
+  <string name="elem_Monoflop_pin_R">复位输入，高电平有效</string>
+  <string name="elem_Monoflop_pin_C">时钟输入</string>
+  <string name="elem_Monoflop_pin_Q">输出</string>
+  <string name="elem_Monoflop_pin_~Q">翻转后的输出</string>
+  <string name="err_noInputsAvailable">没有可用输入</string>
+  <string name="err_noShapeFoundFor_N">未找到适用于组件 {0} 的形状</string>
+  <string name="err_noValueSetFor_N0_atElement_N1">Nothing connected to input ''{0}'' at component ''{1}''. Open inputs are not allowed.</string>
+  <string name="err_notAllOutputsSameBits">所有连接的输出必须具有相同位宽</string>
+  <string name="err_notAllOutputsSupportHighZ">如果允许多个输出信号连接，所有输出必须为三态输出。</string>
+  <string name="err_noOutConnectedToWire">导线 {0} 未连接到任何输出，状态未定义。</string>
+  <string name="err_oneResultIsRequired">至少需要一个结果！</string>
+  <string name="err_output_N_notDefined">输出 {0} 未定义</string>
+  <string name="err_pinMap_NoNameForPin_N">管脚 {0} 没有标签</string>
+  <string name="err_pinMap_Pin_N_AssignedTwicePin">管脚 {0} 重复！</string>
+  <string name="err_pinMap_pin_N0_isNotAnInput">管脚 {0} 不是输入！</string>
+  <string name="err_pinMap_pin_N0_isNotAnOutput">管脚 {0} 不是输出！</string>
+  <string name="err_pinMap_noEqualsfound">No = found!</string>
+  <string name="err_pinMap_toMannyInputsDefined">太多输入！</string>
+  <string name="err_pinMap_toMannyOutputsDefined">太多输出！</string>
+  <string name="err_pinNotPresent">管脚不存在</string>
+  <string name="err_pinWithoutName">发现没有定义标签的管脚！</string>
+  <string name="err_clockWithoutName">需要为时钟信号定义标签。</string>
+  <string name="err_pin_N0_atElement_N1_notFound">组件 {1} 没有管脚 {0}</string>
+  <string name="err_pin_N_notFound">未发现管脚 {0}</string>
+  <string name="err_customShapeHasNoPin_N">自定义形状未定义管脚 {0}</string>
+  <string name="err_pin_N_unknown">未知管脚 {0}</string>
+  <string name="err_seemsToOscillate">Logic seems to oscillate.
+      To analyse you can run the circuit in single gate step mode.</string>
+  <string name="err_portIsInUse">远程端口被占用！是否有其它实例正在运行？</string>
+  <string name="err_selectorInputCountMismatch">输入端口数和选择位数不匹配</string>
+  <string name="err_spitterDefSyntaxError">分裂器 {0} 包含语法错误</string>
+  <string name="err_splitterBitsMismatch">分裂器位数不匹配</string>
+  <string name="err_splitterNotAllBitsDefined">所有输入位必须定义！</string>
+  <string name="err_splitterNotUnambiguously">输入位重复定义！</string>
+  <string name="err_spitterToManyBits">分裂器仅允许 64 位！</string>
+  <string name="err_tableBecomesToSmall">需要两个输入！</string>
+  <string name="err_toManyInputs_max_N0_is_N1">太多变量，最多允许 {0} 个，但发现 {1} 个。</string>
+  <string name="err_toManyInputsIn_N0_max_N1_is_N2">{0} 中包含太多变量，最多允许 {1} 个，但发现 {2} 个。</string>
+  <string name="err_varNotAllowedInCUPL_N">CUPL 中不允许变量 {0}！</string>
+  <string name="err_varNotDefined_N">变量 {0} 未定义</string>
+  <string name="err_parserUnexpectedToken_N">意外的 Token {0}</string>
+  <string name="err_parserMissingClosedParenthesis">缺少右括号</string>
+  <string name="err_notANumber_N0_inLine_N1">第 {1} 行中的 {0} 不是数字！</string>
+  <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">Expected {0} but found {1} values in line {2}!</string>
+  <string name="err_unexpectedToken_N0_inLine_N1">Unexpected token ({0}) in line {1}.</string>
+  <string name="err_variable_N0_notFound">变量 {0} 不存在</string>
+  <string name="err_noTestInputSignalsDefined">测试向量未定义输入信号！</string>
+  <string name="err_noTestOutputSignalsDefined">测试向量未定义输出信号！</string>
+  <string name="err_noTestData">未发现测试数据。</string>
+  <string name="err_remoteExecution">执行远程命令遇到错误</string>
+  <string name="elem_Register_tt">可以设置数据位宽度，和D触发器不同，该寄存器具有使能输入。</string>
+  <string name="elem_Register_pin_D">输入</string>
+  <string name="elem_Register_pin_C">时钟输入，上升沿触发</string>
+  <string name="elem_Register_pin_en">使能输入，高电平有效</string>
+  <string name="elem_Register_pin_Q">返回存储内容</string>
+  <string name="elem_ROM_tt">非易失存储器。可以通过属性对话框编辑存储内容。</string>
+  <string name="elem_ROM_pin_A">地址位</string>
+  <string name="elem_ROM_pin_D">输出使能</string>
+  <string name="elem_ROM_pin_sel">如果输入为高电平，输出使能，如果输入为低电平，输出为高阻态。</string>
+  <string name="elem_RAMDualPort">RAM(独立端口)</string>
+  <string name="elem_RAMDualPort_short">RAM</string>
+  <string name="elem_RAMDualPort_tt">拥有独立的数据输入存储端口和数据输出读取端口的RAM。</string>
+  <string name="elem_RAMDualPort_pin_A">输入和输出共用地址位</string>
+  <string name="elem_RAMDualPort_pin_C">时钟输入</string>
+  <string name="elem_RAMDualPort_pin_Din">输入数据</string>
+  <string name="elem_RAMDualPort_pin_D">输出数据</string>
+  <string name="elem_RAMDualPort_pin_ld">输出使能，高电平有效，当为低电平时，输出呈高阻态</string>
+  <string name="elem_RAMDualPort_pin_str">输入使能，高电平有效</string>
+  <string name="elem_BlockRAMDualPort">Block-RAM(独立端口)</string>
+  <string name="elem_BlockRAMDualPort_tt">该 RAM 输出仅在时钟上升沿更新，用于 FPGA 的块内存。</string>
+  <string name="elem_BlockRAMDualPort_pin_A">输入和输出共用地址位</string>
+  <string name="elem_BlockRAMDualPort_pin_C">时钟输入</string>
+  <string name="elem_BlockRAMDualPort_pin_Din">输入数据</string>
+  <string name="elem_BlockRAMDualPort_pin_D">输出数据</string>
+  <string name="elem_BlockRAMDualPort_pin_str">输入使能，高电平有效</string>
+  <string name="elem_EEPROMDualPort">EEPROM(独立端口)</string>
+  <string name="elem_EEPROMDualPort_tt">拥有独立的数据输入存储端口和数据输出读取端口的EEPROM。</string>
+  <string name="elem_EEPROMDualPort_pin_A">输入和输出共用地址位</string>
+  <string name="elem_EEPROMDualPort_pin_C">时钟输入</string>
+  <string name="elem_EEPROMDualPort_pin_Din">输入数据</string>
+  <string name="elem_EEPROMDualPort_pin_D">输出数据</string>
+  <string name="elem_EEPROMDualPort_pin_ld">输出使能，高电平有效</string>
+  <string name="elem_EEPROMDualPort_pin_str">输入使能，高电平有效</string>
+  <string name="elem_RAMSinglePort">RAM(双向端口)</string>
+  <string name="elem_RAMSinglePort_short">RAM</string>
+  <string name="elem_RAMSinglePort_tt">拥有一个既可用作数据输入，又可用作数据输出端口的RAM。</string>
+  <string name="elem_RAMSinglePort_pin_A">输入和输出共用地址位</string>
+  <string name="elem_RAMSinglePort_pin_C">时钟输入</string>
+  <string name="elem_RAMSinglePort_pin_D">双向数据端口</string>
+  <string name="elem_RAMSinglePort_pin_ld">输出使能，高电平有效</string>
+  <string name="elem_RAMSinglePort_pin_str">输入使能，高电平有效</string>
+  <string name="elem_RAMSinglePortSel">RAM(片选)</string>
+  <string name="elem_RAMSinglePortSel_short">RAM</string>
+  <string name="elem_RAMSinglePortSel_tt">拥有一个既可用作数据输入，又可用作数据输出端口的RAM。
+      如果片选输入(CS)为低电平，组件被禁止。用于通过使用较小容量的RAM和地址解码器构造较大容量的RAM。</string>
+  <string name="elem_RAMSinglePortSel_pin_A">输入和输出共用地址位</string>
+  <string name="elem_RAMSinglePortSel_pin_WE">输入使能，高电平有效</string>
+  <string name="elem_RAMSinglePortSel_pin_D">双向数据端口</string>
+  <string name="elem_RAMSinglePortSel_pin_CS">片选使能，输入为高电平时，RAM可用，否则输出为高阻态。</string>
+  <string name="elem_RAMSinglePortSel_pin_OE">输出使能，高电平有效</string>
+  <string name="elem_EEPROM">EEPROM</string>
+  <string name="elem_EEPROM_tt">拥有一个既可用作数据输入，又可用作数据输出端口的EEPROM。
+      如果片选输入(CS)为低电平，组件被禁止。</string>
+  <string name="elem_EEPROM_pin_A">输入和输出共用地址位</string>
+  <string name="elem_EEPROM_pin_WE">输入使能，高电平有效</string>
+  <string name="elem_EEPROM_pin_D">双向数据端口</string>
+  <string name="elem_EEPROM_pin_CS">片选使能，输入为高电平时，EEPROM可用，否则输出为高阻态。</string>
+  <string name="elem_EEPROM_pin_OE">输出使能，高电平有效</string>
+  <string name="elem_RAMDualAccess_short">RAM</string>
+  <string name="elem_RAMDualAccess_tt">一个端口可以读写，另一个端口只读的RAM。
+      第二个端口可用于图形逻辑访问。此时，处理器写数据到RAM，图形逻辑同时读取数据。</string>
+  <string name="elem_RAMDualAccess_pin_1D">输出端口 1</string>
+  <string name="elem_RAMDualAccess_pin_2D">输出端口 2</string>
+  <string name="elem_RAMDualAccess_pin_1A">用于端口 1 读取和写入数据的地址位</string>
+  <string name="elem_RAMDualAccess_pin_2A">用于端口 2 读取和写入数据的地址位</string>
+  <string name="elem_RAMDualAccess_pin_C">时钟输入</string>
+  <string name="elem_RAMDualAccess_pin_1Din">输入数据</string>
+  <string name="elem_RAMDualAccess_pin_ld">输出使能，高电平有效，用于输出端口 1</string>
+  <string name="elem_RAMDualAccess_pin_str">输入使能，高电平有效</string>
+  <string name="elem_RegisterFile">Register File</string>
+  <string name="elem_RegisterFile_short">Register</string>
+  <string name="elem_Counter">计数器</string>
+  <string name="elem_Counter_short">Counter</string>
+  <string name="elem_CounterPreset">计数器(可预设)</string>
+  <string name="key_Closed">关闭</string>
+  <string name="key_Closed_tt">设置开关的初始状态</string>
+  <string name="key_Value">值</string>
+  <string name="key_Value_tt">常量的值</string>
+  <string name="key_Width">宽度</string>
+  <string name="key_Width_tt">当电路作为子电路时，电路符号的宽度</string>
+  <string name="key_Height">高度</string>
+  <string name="key_Height_tt">当电路作为子电路时，电路符号的高度</string>
+  <string name="key_autoReload">模型启动时重新载入</string>
+  <string name="key_autoReload_tt">每次模型启动时重新载入十六进制文件</string>
+  <string name="key_flipSelPos">翻转选择管脚位置</string>
+  <string name="key_flipSelPos_tt">将选择管脚移到对面的位置</string>
+  <string name="key_SVG_LaTeX">使用 LaTeX 格式表示文本</string>
+  <string name="key_SVG_LaTeX_tt">使用 LaTeX 格式表示文本</string>
+  <string name="key_SVG_pinsInMathMode">数据模式命名管脚标签</string>
+  <string name="key_SVG_pinsInMathMode_tt">即使不包含索引，仍然使用数学模式命名管脚标签</string>
+  <string name="key_SVG_smallIO">缩小输入和输出管脚</string>
+  <string name="key_equalsInsteadOfPlus">使用等号按键</string>
+  <string name="key_equalsInsteadOfPlus_tt">Use the equal key instead of the plus key.
+      This is always useful if the plus character is not a primary key, but the second assignment of the
+      equals character, e.g. for an American or French keyboard layout.</string>
+  <string name="lib_ram">RAM</string>
+  <string name="lib_eeprom">EEPROM</string>
+  <string name="menu_table_createCUPL_tt">根据电路创建 CUPL 源文件</string>
+  <string name="menu_table_createTT2_tt">根据电路创建 BLIF 文件，然后启动 Atmel fitte 创建 JEDEC 文件。</string>
+  <string name="menu_programDiode">编程二极管(熔丝)</string>
+  <string name="menu_probe_memory">存储器</string>
+  <string name="menu_probe_memory_tt">显示存储器内容</string>
+  <string name="menu_addPrefix_tt">为所有选中的输入和输出添加前缀，用于简化复制 74xx 电路。</string>
+  <string name="msg_errorCalculatingStep">执行单步时遇到错误</string>
+  <string name="msg_fastRunError">Error at fast run</string>
+  <string name="msg_errorImportingSvg">导入 SVG 文件时遇到错误</string>
+  <string name="msg_errorCreatingSvgTemplate">创建 SVG 模板时遇到错误</string>
+  <string name="msg_couldNotCreateStats">不能创建统计</string>
+  <string name="msg_errorReadingToolchainConfig_N">读取工具链配置 {0} 时遇发生错误</string>
+  <string name="msg_commandStarted_N">命令 "{0}" 已启动，处理可能需要些时间！</string>
+  <string name="msg_commandEnded_N">命令 "{0}" 已完成！</string>
+  <string name="msg_renameNet">重命名网络</string>
+  <string name="msg_renameNet_N_OLD_NEW">还有 {0} 个网络名为 ''{1}'' 的隧道组件，是否重命名所有组件为 ''{2}''？</string>
+  <string name="msg_dataWillBeLost_n">确定忽略 "{0}" 字段中的修改？</string>
+  <string name="stat_clocks">Break after {0} half cycles at break point ''{1}''.</string>
+  <string name="win_measures_fullstep">全时钟测量</string>
+  <string name="win_measures_microstep">单门测量</string>
+  <string name="win_romDialog">包含 ROM</string>
+  <string name="msg_romDialogHelp">&lt;html&gt;
+        &lt;h3&gt;Motivation&lt;/h3&gt;
+        When a circuit containing a ROM component is embedded multiple times, the contents of the ROM
+        is normally used for each instance of that circuit. Under certain circumstances,
+        however, it may be desirable for such a circuit to be embedded multiple times,
+        but different ROM contents are used for each instance.&lt;br/&gt;
+        This problem occurs e.g. if a 74xx ROM is used multiple times but with different
+        memory contents.&lt;br/&gt;
+        &lt;h3&gt;Function&lt;/h3&gt;
+        At this location, therefore, contents can be defined for all ROM's in the circuit.
+        When the simulation model is generated, every ROM is initialized with the contents stored
+        directly in the respective ROM. Then it is checked whether an alternative content is
+        defined here. If this is the case, the content defined here is loaded into the corresponding ROM.
+        &lt;h3&gt;Usage&lt;/h3&gt;
+        It should be noted that each ROM requires a unique name used to identify the ROM.
+        To do this, use the asterisk ('*') in the label of the ROM. The asterisk is then replaced by the complete
+        path constructed from the names of the embedded circuits.
+        If a circuit contains only one ROM component, it is sufficient to use only the asterisk as a label for it.
+        All embedded circuits must be named so that a unique name can be formed for each ROM component.
+        &lt;/html&gt;</string>
+  <string name="msg_newRelease_N">&lt;html&gt;
+        &lt;h1&gt;新版本 {0} 可用&lt;/h1&gt;
+        &lt;p&gt;发现新的仿真器&lt;/p&gt;
+        &lt;p&gt;在这里 &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;发行说明&lt;/a&gt;
+        你可以查看有哪些功能变更。&lt;/p&gt;
+        &lt;p&gt;也可以直接 &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;下载&lt;/a&gt; 最新版本&lt;/p&gt;
+        &lt;/html&gt;</string>
+  <string name="msg_expressionHelp">To define an expression you can use all most common notations:
+
+      And: "&amp;", "&amp;&amp;", "*", "∧"
+      Or: "|", "||", "+", "∨", "#"
+      XOr: "^", "⊻"
+      Not: "!", "~", "¬"
+
+      As usual AND precedes OR and XOr.
+
+      Multiple expressions can be separated by "," or ";".
+      If you want to name the expressions you can use the
+      let-command: "let U=A+B, let V=A*B"</string>
+  <string name="msg_testVectorHelp">&lt;html&gt;
+    &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
+    &lt;body&gt;
+&lt;p&gt;The first line has to contain the names of inputs and outputs.
+The following lines contain the expected values.
+A 'X' represents a don't care, and a 'Z' represents a high Z value.
+If a 'C' is used, at first all other values are set, after that a clock cycle is performed and than the
+values are compared. So it's easier to test sequential logic.
+A line which starts with a number sign ('#') is a comment.&lt;/p&gt;
+
+&lt;p&gt;So a test for a 2-bit counter could look like this:&lt;/p&gt;
+
+&lt;pre&gt;
+C Q1 Q0
+0 0  0
+C 0  1
+C 1  0
+C 1  1
+C 0  0
+&lt;/pre&gt;
+
+&lt;p&gt;The tests are executed by Run-&gt;Run Tests.&lt;/p&gt;
+&lt;p&gt;
+To make it easier to create a lot of test vectors there is the 'repeat([n])' statement:
+If a line begins with 'repeat([n])', [n] test lines are generated. The
+Variable 'n' can be used to generate the test data. With 'repeat(16)'
+16 lines are created, where n goes from 0 to 15. If there are multiple bit inputs,
+and these are to be set together to a binary value, this can be done with the
+'bits([bits], [value])' statement. This is used to create [bits] bits of the value [value].&lt;/p&gt;
+
+&lt;p&gt;The following is an example that tests a 4-bit adder:&lt;/p&gt;
+
+&lt;pre&gt;
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+repeat(256)  0    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15))
+repeat(256)  1    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+&lt;/pre&gt;
+
+&lt;p&gt;The input signals are the carry-in (C_i-1) and the eight input bits A_3-A_0 and B_3-B_0.
+The 4 input bits are generated with the 'bits' instruction. The result (C_i, S_3-S_0) is also generated
+by a 'bits' instruction.
+This happens once with C_i-1 = 0 and in the next line with C_i-1 = 1.
+In this way, 512 test rows are generated which cover all possible input configurations.&lt;/p&gt;
+&lt;p&gt;If multiple rows are to be repeated, or if nested loops are required, the loop
+statement can be used. The above example could also be implemented as follows:&lt;/p&gt;
+
+&lt;pre&gt;
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+loop(a,16)
+  loop(b,16)
+             0    bits(4,a)        bits(4,b)        bits(5,a+b)
+             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
+  end loop
+end loop
+&lt;/pre&gt;
+
+&lt;p&gt;It may be helpful to generate random numbers in test cases.
+These can be created with the function 'random([n])'. The generated number is greater
+than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
+a full test can not be performed since it would have 2^32 input combinations.
+A regression test that multiplies 100000 random numbers might look like this:&lt;/p&gt;
+
+&lt;pre&gt;
+   A    B      Y
+loop(i,100000)
+  let a = random(1&amp;lt;&amp;lt;16);
+  let b = random(1&amp;lt;&amp;lt;16);
+  (a)  (b)   (a*b)
+end loop
+&lt;/pre&gt;
+
+&lt;p&gt;An input that allows high impedance as a value can also be used as a test output.
+In this case, the signal name can be used with a trailing "_out" to read back and check the current value.
+For this, the corresponding input must be set to high impedance ('Z').&lt;/p&gt;
+
+&lt;pre&gt;OE CLK D D_out
+0   0  0 0
+0   C  1 1
+1   0  z 1
+0   C  0 0
+1   0  z 0
+&lt;/pre&gt;
+
+&lt;p&gt;The circuit for this test has only one input 'D', but which can be high impedance state.
+Therefore, the signal 'D_out' is also available to check the value in this case.&lt;/p&gt;
+
+&lt;/body&gt;&lt;/html&gt;</string>
+  <string name="key_stateValues_tt">定义输出值。简单的如 "A=1, B=0"，多位输出，如 "A=101"。
+      未定义的输出状态默认为 0。在状态转换中，为指定的输出保持不变。</string>
+  <string name="err_notDeterministic_N">有限状态机 {0} 不确定</string>
+  <string name="err_fsmNumberUsedTwice_N">状态码 {0} 重复</string>
+  <string name="err_fsmNoInitialState">找不到初始状态</string>
+  <string name="err_fsmState_N_notFound">找不到状态 ''{0}''</string>
+  <string name="err_fsmInvalidOutputAssignment_N">输出 ''{0}'' 分配错误</string>
+  <string name="err_fsmErrorInCondition_N">条件 ''{0}'' 错误</string>
+  <string name="msg_fsmHelp">&lt;html&gt;&lt;head&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;h3&gt;Mouse Operation&lt;/h3&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;Create a state:&lt;/dt&gt;
+    &lt;dd&gt;Right mouse click on a free area.&lt;/dd&gt;
+    &lt;dt&gt;Creating a transition:&lt;/dt&gt;
+    &lt;dd&gt;Right mouse button down on the start state and dragging to the destination state.&lt;/dd&gt;
+    &lt;dt&gt;Delete a state or a transition:&lt;/dt&gt;
+    &lt;dd&gt;Move the mouse over the object and press the [Del] button.&lt;/dd&gt;
+    &lt;dt&gt;Moving a state or transition:&lt;/dt&gt;
+    &lt;dd&gt;Left mouse button down and dragging.&lt;/dd&gt;
+    &lt;dt&gt;Editing a state or a transition:&lt;/dt&gt;
+    &lt;dd&gt;Right mouse click on the state or the transition.&lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;h3&gt;Layout Help Function&lt;/h3&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;no movement:&lt;/dt&gt;
+    &lt;dd&gt;The layout help function is disabled.&lt;/dd&gt;
+    &lt;dt&gt;Transitions:&lt;/dt&gt;
+    &lt;dd&gt;The layout help function moves the transition arrows to avoid overlaps.&lt;/dd&gt;
+    &lt;dt&gt;Transitions+States&lt;/dt&gt;
+    &lt;dd&gt;The layout help function moves both states and transitions to help create a well-balanced layout.&lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;h3&gt;Interpretation of Transitions&lt;/h3&gt;
+  To simplify the generation of a deterministic automata, unconditional transitions are treated in a special way:
+  an unconditional transition is only executed if no other transition satisfies the transition condition.
+  So there can be an unconditional transition and conditional transitions that start in the same state.
+  An unconditional transition thus determines to which state the state machine is shifted if no other transition
+  condition is met.
+  If there is no unconditional transition from a state, the state machine will stay in this state if no other
+  transition condition is met.
+&lt;/body&gt;&lt;/html&gt;</string>
+  <string name="msg_graphHelp">&lt;html&gt;&lt;body&gt;
+        &lt;h3&gt;What can be seen in the graph?&lt;/h3&gt;
+        Unlike a real logic analyzer, the X-axis of the measurement graph does not show the time.
+        Instead a counter is displayed which counts the changes of state in the circuit.
+        Whenever there is a change in the circuit, the counter is incremented and the new state is displayed.&lt;br/&gt;
+        You can also think of it as a classic logic analyzer, which does not save any data for optimization
+        if nothing has changed in the circuit.
+        However, this also means that it is not possible to read from the graph whether a lot or little time has
+        passed between two changes in the circuit.&lt;br/&gt;
+        This behavior is caused by the nature of the simulation: The simulation of the circuit does not know the
+        concept of time. A change is made to the circuit, and the change in the circuit state is calculated, until
+        the circuit has stabilized again. Then the next change is made, the effect of which is also is calculated
+        and so on. These changes are counted and the counter value is displayed on the X-axis of the graph.&lt;br/&gt;
+        Among other things, this also means that a circuit cannot be overclocked, since the effects of the falling
+		edge of the clock are not calculated until the circuit has stabilized after the previous rising edge.
+        &lt;/body&gt;&lt;/html&gt;</string>
+  <string name="elem_GraphicCard">显存</string>
+  <string name="elem_GraphicCard_short">Gr-RAM</string>
+  <string name="elem_GraphicCard_tt">用于显示位图图形。
+      每个像素都由一个存储器地址表示。存储的值使用固定的调色板定义像素的颜色。实现了两个屏幕缓冲区以支持页翻转。
+      输入B选择显示哪个缓冲区。总存储器大小为 dx * dy * 2。
+      所使用的调色板的结构如下：索引0-9对应于白色，黑色，红色，绿色，蓝色，黄色，青色，品红色，橙色和粉红色。
+      索引32-63映射灰度值，索引64-127表示64个颜色值，其中每个颜色通道有两位。这样产生了一个简单的调色板，该调色板只能用7位寻址。
+      如果支持16位索引，从0x8000开始，则可以使用每个颜色通道5位的高色模式，从而启用32768种颜色。</string>
+  <string name="elem_GraphicCard_pin_A">输入和输出共用地址位</string>
+  <string name="elem_GraphicCard_pin_str">输入使能，高电平有效</string>
+  <string name="elem_GraphicCard_pin_C">时钟输入</string>
+  <string name="elem_GraphicCard_pin_ld">输出使能，高电平有效</string>
+  <string name="elem_GraphicCard_pin_B">选择需要显示的屏幕缓冲区</string>
+  <string name="elem_GraphicCard_pin_D">双向数据端口</string>
+  <string name="elem_RAMDualAccess">RAM(多端口)</string>
+  <string name="elem_RegisterFile_tt">1个写端口，两个读端口的存储器，用于实现处理器寄存器。</string>
+  <string name="elem_RegisterFile_pin_Da">输出端口 a</string>
+  <string name="elem_RegisterFile_pin_Db">输出端口 b</string>
+  <string name="elem_RegisterFile_pin_Ra">输出到端口 a 的寄存器</string>
+  <string name="elem_RegisterFile_pin_Rb">输出到端口 b 的寄存器</string>
+  <string name="elem_RegisterFile_pin_Rw">写寄存器</string>
+  <string name="elem_RegisterFile_pin_we">写使能，高电平有效</string>
+  <string name="elem_RegisterFile_pin_C">时钟</string>
+  <string name="elem_RegisterFile_pin_Din">输入数据</string>
+  <string name="elem_Counter_tt">简单的计数器。时钟上升沿增加计数，通过 clr 输入重置为 0。可通过属性对话框设置计数器位数。</string>
+  <string name="elem_Counter_pin_C">时钟输入</string>
+  <string name="elem_Counter_pin_clr">同步复位，高电平有效</string>
+  <string name="elem_Counter_pin_ovf">溢出位</string>
+  <string name="elem_Counter_pin_out">计数输出</string>
+  <string name="elem_Counter_pin_en">使能位，高电平有效</string>
+  <string name="elem_CounterPreset_tt">可预置位的计数器，可以指定最大值和计数方向。</string>
+  <string name="elem_CounterPreset_short">Counter</string>
+  <string name="elem_CounterPreset_pin_out">计数输出</string>
+  <string name="elem_CounterPreset_pin_ovf">溢出位，当使能时，如果计数到达最大或递减到 0，则输出 1。</string>
+  <string name="elem_CounterPreset_pin_C">时钟输入</string>
+  <string name="elem_CounterPreset_pin_clr">同步复位</string>
+  <string name="elem_CounterPreset_pin_en">使能位，高电平有效</string>
+  <string name="elem_CounterPreset_pin_dir">计数方向，0 表示递增</string>
+  <string name="elem_CounterPreset_pin_ld">输入使能，当为 1时 ，输入数据在下一个时钟信号存入计数器</string>
+  <string name="elem_CounterPreset_pin_in">数据输入</string>
+  <string name="elem_Add">加法器</string>
+  <string name="elem_Add_short">Add</string>
+  <string name="elem_Add_tt">计算输入 a 和输入 b 的和，如果设置进位，则结果加 1。</string>
+  <string name="elem_Add_pin_a">第一个输入</string>
+  <string name="elem_Add_pin_b">第二个输入</string>
+  <string name="elem_Add_pin_s">加法运算结果</string>
+  <string name="elem_Add_pin_c_i">进位输入，如果为高电平，则结果加 1。</string>
+  <string name="elem_Add_pin_c_o">输出进位</string>
+  <string name="elem_Sub">减法器</string>
+  <string name="elem_Sub_short">Sub</string>
+  <string name="elem_Sub_tt">将二进制输入 a 和输入 b相减，如果进位输入为高电平，则结果减 1。</string>
+  <string name="elem_Sub_pin_c_i">进位输入，如果为高电平，则结果减 1。</string>
+  <string name="elem_Sub_pin_a">输入 a</string>
+  <string name="elem_Sub_pin_b">输入 b</string>
+  <string name="elem_Sub_pin_s">减法运算结果</string>
+  <string name="elem_Sub_pin_c_o">如果出现溢出，则输出为 1。</string>
+  <string name="elem_Mul">乘法器</string>
+  <string name="elem_Mul_short">Mul</string>
+  <string name="elem_Mul_tt">将整数输入 a 和 b 相乘</string>
+  <string name="elem_Mul_pin_a">输入 a</string>
+  <string name="elem_Mul_pin_b">输入 b</string>
+  <string name="elem_Mul_pin_mul">乘法运算结果</string>
+  <string name="elem_Div">除法器</string>
+  <string name="elem_Div_short">Div</string>
+  <string name="elem_Div_tt">将整数 a 除以 整数 b。 如果除数为零，则除以1。 在有符号除法中，余数始终为正。</string>
+  <string name="elem_Div_pin_a">被除数</string>
+  <string name="elem_Div_pin_b">除数</string>
+  <string name="elem_Div_pin_q">商</string>
+  <string name="elem_Div_pin_r">余数</string>
+  <string name="elem_BarrelShifter">桶式移位器</string>
+  <string name="elem_BarrelShifter_short">shift</string>
+  <string name="elem_BarrelShifter_tt">根据移位输入将数据移位</string>
+  <string name="elem_BarrelShifter_pin_in">输入数据</string>
+  <string name="elem_BarrelShifter_pin_shift">移位宽度</string>
+  <string name="elem_BarrelShifter_pin_out">移位后的输出</string>
+  <string name="elem_Comparator">比较器</string>
+  <string name="elem_Comparator_tt">比较二进制输入 a 和 b</string>
+  <string name="elem_Comparator_pin_a">输入 a</string>
+  <string name="elem_Comparator_pin_b">输入 b</string>
+  <string name="elem_Comparator_pin_=">如果 a 等于 b，输出 1</string>
+  <string name="elem_Comparator_pin_&gt;">如果 a 大于 b，输出 1</string>
+  <string name="elem_Comparator_pin_&lt;">如果 a 小于 b，输出 1</string>
+  <string name="elem_Neg">补码器</string>
+  <string name="elem_Neg_short">Neg</string>
+  <string name="elem_Neg_pin_in">输入</string>
+  <string name="elem_Neg_pin_out">补码输出</string>
+  <string name="elem_Neg_tt">补码运算</string>
+  <string name="elem_BitExtender">符号扩展器</string>
+  <string name="elem_BitExtender_short">SignEx</string>
+  <string name="elem_BitExtender_tt">增加符号数的位宽同时保持值不变</string>
+  <string name="elem_BitExtender_pin_in">输入值，位宽必须小于输出</string>
+  <string name="elem_BitExtender_pin_out">扩展后的输入</string>
+  <string name="elem_BitCount">位计数器</string>
+  <string name="elem_BitCount_short">Bit count</string>
+  <string name="elem_BitCount_tt">返回输入值中位为 1 的位数</string>
+  <string name="elem_BitCount_pin_in">输入</string>
+  <string name="elem_BitCount_pin_out">包含 1 的位数</string>
+  <string name="msg_errorStartCommand_N">启动命令 {0} 时遇到错误</string>
+  <string name="msg_errParsingGenerics">解析代码时遇到错误</string>
+  <string name="err_vgaModeNotDetected_N">未检测到视频模式 ({0})</string>
+  <string name="key_avoidActiveLow_tt">避免输出0。用于设置延迟电路。仅当允许高阻态输出时可用。</string>
+  <string name="key_InputSplitting_tt">假设 4位，2位，2位作为输入，可表示为 "4,2,2"。
+        还可以使用 * 号，如 16 位表示为 "1*16"([Bits]*[Number])。还可以直接指定使用的位而不用关心顺序，如 "4-7,0-3"。
+        输入位必须明确且完整的指定。</string>
+  <string name="key_OutputSplitting">输出分割</string>
+  <string name="key_OutputSplitting_tt">假设 4位，2位，2位作为输出，可表示为 "4,2,2"。
+      还可以使用 * 号，如 16 位表示为 "1*16"([Bits]*[Number])。还可以直接指定使用的位而不用关心顺序，如 "4-7,0-3"。
+      输出位可以使用多次，如 "0-7,1-6,4-7"。</string>
+  <string name="key_SelectorBits">选择位</string>
+  <string name="key_SelectorBits_tt">选择位位数</string>
+  <string name="key_Signed">补码运算</string>
+  <string name="key_Signed_tt">使用补码</string>
+  <string name="key_barrelSigned">补码输入</string>
+  <string name="key_barrelSigned_tt">输入数据为补码格式</string>
+  <string name="key_barrelShifterMode_tt">桶式移位器模式</string>
+  <string name="key_barrelShifterMode_logical">逻辑</string>
+  <string name="key_barrelShifterMode_rotate">环绕</string>
+  <string name="key_barrelShifterMode_arithmetic">算术</string>
+  <string name="key_microStep">显示单步</string>
+  <string name="key_microStep_tt">在图形中显示所有单步</string>
+  <string name="key_showDataGraphMicro">以单步模式显示测量图</string>
+  <string name="key_showDataGraphMicro_tt">当仿真启动时，以单步模式显示测量图。</string>
+  <string name="key_Testdata_tt">测试用例描述，详细的语法可以在测试数据编辑器帮助对话框查看。</string>
+  <string name="key_isProgramCounter_tt">将该寄存器作为程序计数器。寄存器的值返回给外部汇编器，用来表示当前调试代码行。</string>
+  <string name="key_relayNormallyClosed">闭合寄存器</string>
+  <string name="key_relayNormallyClosed_tt">输入输入为低电平，继电器闭合</string>
+  <string name="key_poles">极数</string>
+  <string name="key_poles_tt">可用极数</string>
+  <string name="key_ledPersistence_tt">不可能将频率增加得太多以至于使闪烁消失。
+      使用此选项，您可以通过保持LED点亮直到公共阴极再次下降来稳定显示，从而模拟高于临界闪烁融合频率的频率。</string>
+  <string name="key_unidirectional_tt">单向晶体管仅将信号从源极传播到漏极。仿真时，比双向晶体管快很多。
+      由于没有从漏极到源极的反馈，因此在这种模式下，晶体管导通时无法使连接的导线短路。此模式对于模拟某些CMOS电路是必需的。</string>
+  <string name="key_externalInputs_tt">外部进程的输入端口。格式为逗号分割的信号名称，对于每个信号，可通过冒号指定位数。如8位加法器的输入可表示为 "a:8,b:8,c_in"。</string>
+  <string name="key_externalOutputs_tt">外部进程的输出端口。格式为逗号分割的信号名称，对于每个信号，可通过冒号指定位数。如8位加法器的输出可表示为 "s:8,c_out"。</string>
+  <string name="key_ghdlPath_tt">可执行文件ghdl路径。仅当需要使用 ghdl 仿真 vhdl 组件时设置。</string>
+  <string name="key_midiChannel">MIDI通道</string>
+  <string name="key_midiChannel_tt">选择需要使用的 MIDI通道</string>
+  <string name="key_midiInstrument">MIDI 设备</string>
+  <string name="key_midiInstrument_tt">选择需要使用的 MIDI 设备</string>
+  <string name="key_midiProgChange">允许改变程序</string>
+  <string name="key_midiProgChange_tt">增加一个新的输入端口(PC)，如果该输入为高电平，输入端口 N 的值用于改变程序(设备)</string>
+  <string name="key_switchActsAsInput">开关行为输入化</string>
+  <string name="key_switchActsAsInput_tt">开关行为类似输入，开对应 0，关对应 1。</string>
+  <string name="elem_DiodeForward">二极管(上拉)</string>
+  <string name="elem_DiodeForward_tt">用于将导线上拉至VDD，必须将下拉电阻连接到二极管输出。</string>
+  <string name="elem_DiodeForward_pin_in">如果输入为高电平，输出则为高电平，其它情况输出为高阻。</string>
+  <string name="elem_DiodeForward_pin_out">如果输入为高电平，输出则为高电平，其它情况输出为高阻。</string>
+  <string name="elem_DiodeBackward">二极管(下拉)</string>
+  <string name="elem_DiodeBackward_tt">用于将导线下拉至地，必须将上拉电阻连接到二极管输出。</string>
+  <string name="elem_DiodeBackward_pin_in">如果输入为低电平，输出则为低电平，其它情况输出为高阻。</string>
+  <string name="elem_DiodeBackward_pin_out">如果输入为低电平，输出则为低电平，其它情况输出为高阻。</string>
+  <string name="elem_Switch">开关</string>
+  <string name="elem_Switch_pin">连接点</string>
+  <string name="elem_Switch_tt">简单的开关，没有门延迟</string>
+  <string name="elem_SwitchDT">双掷开关</string>
+  <string name="elem_SwitchDT_tt">双掷开关，没有门延迟</string>
+  <string name="elem_Fuse">Fuse</string>
+  <string name="elem_Fuse_tt">用于构建一次性可编程存储器</string>
+  <string name="elem_Fuse_pin_out1">连接点</string>
+  <string name="elem_Fuse_pin_out2">连接点</string>
+  <string name="elem_Relay">继电器</string>
+  <string name="elem_Relay_tt">继电器是一种可以通过线圈控制的开关，如果电流流过线圈，则开关会闭合或断开。不关心电流方向。</string>
+  <string name="elem_Relay_pin_in1">控制输入</string>
+  <string name="elem_Relay_pin_in2">控制输入</string>
+  <string name="elem_RelayDT">双掷继电器</string>
+  <string name="elem_RelayDT_tt">继电器是一种可以通过线圈控制的开关，如果电流流过线圈，则开关会闭合或断开。不关心电流方向。</string>
+  <string name="elem_RelayDT_pin_in1">控制输入</string>
+  <string name="elem_RelayDT_pin_in2">控制输入</string>
+  <string name="elem_PFET_tt">P 沟道场效应晶体管</string>
+  <string name="elem_PFET_pin_G">栅极</string>
+  <string name="elem_PFET_pin_S">源极</string>
+  <string name="elem_PFET_pin_D">漏极</string>
+  <string name="elem_NFET">N 沟道场效应晶体管</string>
+  <string name="elem_NFET_tt">N 沟道场效应晶体管</string>
+  <string name="elem_NFET_pin_G">栅极</string>
+  <string name="elem_NFET_pin_S">源极</string>
+  <string name="elem_NFET_pin_D">漏极</string>
+  <string name="elem_FGPFET">P 沟道浮动门场效应晶体管</string>
+  <string name="elem_FGPFET_tt">P 沟道浮动门场效应，如果浮栅中存储有电荷，即使栅极为低电平时晶体管也不导通</string>
+  <string name="elem_FGPFET_pin_G">栅极</string>
+  <string name="elem_FGPFET_pin_S">源极</string>
+  <string name="elem_FGPFET_pin_D">漏极</string>
+  <string name="elem_FGNFET_tt">N 沟道浮动门场效应晶体管，如果浮栅中存储有电荷，即使栅极为高电平时晶体管也不导通</string>
+  <string name="elem_FGNFET_pin_G">栅极</string>
+  <string name="elem_FGNFET_pin_S">源极</string>
+  <string name="elem_FGNFET_pin_D">漏极</string>
+  <string name="elem_TransGate">传输门</string>
+  <string name="elem_TransGate_tt">由两个晶体管构建的传输门</string>
+  <string name="elem_TransGate_pin_A">输入 A</string>
+  <string name="elem_TransGate_pin_B">输入 B</string>
+  <string name="elem_TransGate_pin_S">控制输入</string>
+  <string name="elem_TransGate_pin_~S">翻转的控制输入</string>
+  <string name="elem_PowerSupply_tt">用于确保电源和地被连接</string>
+  <string name="elem_PowerSupply_pin_VDD">必须连接到电源</string>
+  <string name="elem_PowerSupply_pin_GND">必须连接到地</string>
+  <string name="elem_Reset_tt">在电路初始化期间，该组件的输出保持高电平。电路稳定后，输出变为低电平。 如果输出反相，则其行为相反。</string>
+  <string name="elem_Break_tt">如果电路中使用到该组件，则 运行至中断 按钮可用。仅在禁用实时时钟时才能使用此功能！</string>
+  <string name="elem_Diode_tt">一个理想的二极管：正向偏置二极管两端没有压降。</string>
+  <string name="err_pullUpAndDownNotAllowed">禁止将上拉电阻和下拉电阻连接到同一条导线</string>
+  <string name="err_openingDocumentation">无法打开浏览器</string>
+  <string name="err_couldNotCreateFolder_N0">无法创建文件夹 "{0}"</string>
+  <string name="err_switchHasNoNet">不可仅连接输入信号到开关</string>
+  <string name="err_file_N0_ExistsTwiceBelow_N1">The file {0} exists multiple times below {1}.</string>
+  <string name="err_couldNotFindIncludedFile_N0">找不到文件 {0}</string>
+  <string name="err_postProcessErrorIn_N0">执行 "{0}" 时遇到错误</string>
+  <string name="err_processDoesNotTerminate_N">进程 "{0}" 无返回内容！</string>
+  <string name="err_processExitedWithError_N1_N2">进程返回值非零 {0}: {1}</string>
+  <string name="err_errorRunningFitter">Error starting the external fitter!</string>
+  <string name="err_noExpressionsAvailable">找不到最简等式！</string>
+  <string name="msg_optimizationInProgress">正在计算，请稍等！</string>
+  <string name="err_varName_N_UsedTwice">变量 {0} 重复！</string>
+  <string name="err_fileNeedsToBeSaved">文件需要保存！</string>
+  <string name="err_recursiveNestingAt_N0">电路 {0} 导入自身！</string>
+  <string name="err_minimizationFailed">化简结果不正确，变量的名称或不唯一！</string>
+  <string name="err_toManyIterations">循环中出现太多迭代！</string>
+  <string name="err_diodeNeedsPullUpResistorAtOutput">二极管输出需要上拉电阻！</string>
+  <string name="err_diodeNeedsPullDownResistorAtOutput">二极管输出需要下拉电阻！</string>
+  <string name="err_testSignal_N_notFound">电路中找不到测试信号 {0}！</string>
+  <string name="err_toManyBits_Found_N0_maxIs_N1">仅允许 {1} 位数据，但给出 {0} 位！</string>
+  <string name="err_MultiBitFlipFlopFound">禁止多于 1 位的触发器！</string>
+  <string name="err_invalidTransmissionGateState">传输门的两个控制输入必须反相！</string>
+  <string name="err_nameUsedTwice_N">信号 {0} 使用多次！</string>
+  <string name="err_errorParsingTestdata">解析测试数据遇到错误。</string>
+  <string name="err_backtrackOf_N_isImpossible">不能分析组件 {0} 的模型。</string>
+  <string name="err_errorInPowerSupply">电源布线错误 {0}</string>
+  <string name="err_pinIsNotANumber_N">管脚编号 {0} 不是整数</string>
+  <string name="err_vhdlExporting">导出 VHDL 时遇到错误</string>
+  <string name="err_vhdlNoEntity_N">找不到 {0} 的 VHDL 代码！</string>
+  <string name="err_verilogNoElement_N">找不到 {0} 的 Verilog 代码！</string>
+  <string name="err_vhdlErrorWritingTestBench">创建测试文件遇到错误！</string>
+  <string name="err_vhdlValuesOfType_N_notAllowed">不允许的类型 {0}！</string>
+  <string name="err_vhdlANameIsMissing">缺失名称，是否为所有管脚设置标签？</string>
+  <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">多个输出连接在一起。({0}, {1}, {2})</string>
+  <string name="err_unnamedNet">未命名网络</string>
+  <string name="err_toManyVars">太多变量！</string>
+  <string name="err_invalidExpression">无效表达式！</string>
+  <string name="err_function_N0_notFoundInLine_N1">Function {0} not found in line {1}!</string>
+  <string name="err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3">Number of arguments in function {0} in line {1} not correct (found {2}, expected {3})!</string>
+  <string name="err_invalidValue_N0_inFunction_N1">Invalid value {0} in function {1}!</string>
+  <string name="err_Node_N_isAComponent">{0} 不是一个路径元素</string>
+  <string name="err_loadingLibrary">载入库时遇到错误</string>
+  <string name="err_noManifestFound">JAR 文件不包含 manifest！</string>
+  <string name="err_noMainFoundInManifest">manifest 文件不包含主类！</string>
+  <string name="err_mainClass_N_NotFound">找不到类 {0}！</string>
+  <string name="err_couldNotInitializeMainClass_N">不能创建类 {0} 的实例！</string>
+  <string name="err_notMoreOutBitsThanInBits">输入位必须多于输出位！</string>
+  <string name="err_constantsNotAllowed">禁止设置物理管脚为常量！</string>
+  <string name="err_invalidNumberFormat_N_N">字符串 {0} 不是有效数字 (pos {1})！</string>
+  <string name="err_invalidPinName_N">不允许名称 "{0}"</string>
+  <string name="err_whiteSpaceNotAllowedInTT2Name">TT2文件禁止出现空格！</string>
+  <string name="err_tableHasToManyResultColumns">表中包含太多列！</string>
+  <string name="err_errorExportingZip">创建压缩 zip 时遇到错误。</string>
+  <string name="err_moreThanOneFastClock">仅允许存在一个高频时钟组件。</string>
+  <string name="err_circuitHasCycles">电路包含环，无法分析当前电路。</string>
+  <string name="err_monoflopRequiresOneClock">如果使用单稳态触发器，必须有且也只有一个时钟组件！</string>
+  <string name="err_couldNotCreateElement_N">不能创建组件类型 {0}！</string>
+  <string name="err_centralDefinedRomsAreNotSupported">ROM's defined in the settings are not supported!</string>
+  <string name="err_namesAreNotUnique_N">名称 "{0}" 不唯一！</string>
+  <string name="err_errorWritingDataToProcess">无法向外部进程写入值！</string>
+  <string name="err_errorReadingDataFromProcess">无法从外部进程读取值！</string>
+  <string name="err_errorCreatingProcess">无法创建外部进程！</string>
+  <string name="err_timeoutReadingData_O">从外部进程读取数据超时！ {0}</string>
+  <string name="err_notEnoughDataReceived_O">接收数据不足！</string>
+  <string name="err_invalidCharacterReceived_N_O">接收到的文本包含无效字符：{0}! {1}</string>
+  <string name="err_processTerminatedUnexpected_O">进程异常终止！ {0}</string>
+  <string name="err_couldNotTerminateProcess">无法结束进程！</string>
+  <string name="err_couldNotStartProcess_N">无法启动进程：{0}</string>
+  <string name="err_exitValueNotNull_N_O">应用退出状态非零 {0}：{1}</string>
+  <string name="err_canOnlyExportExternalVHDL">仅 VHDL 代码可导出！</string>
+  <string name="err_canOnlyExportExternalVerilog">仅 Verilog 代码可导出！</string>
+  <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">如果一个外部组件被使用多次，代码必须相同！影响: {0}</string>
+  <string name="err_writingToStdOut_O">无法写入 stdOut：{0}</string>
+  <string name="err_ghdlNotInstalled">VHDL 仿真器 ghdl 未安装，安装 ghdl (http://ghdl.free.fr/) 并重新尝试。</string>
+  <string name="err_iverilogNotInstalled">Verilog 仿真器 Icarus 未安装，安装 iverilog (http://iverilog.icarus.com/) 并重新尝试。</string>
+  <string name="err_errorAnalysingCircuit_N">分析电路 {0} 时遇到错误</string>
+  <string name="err_romNeedsALabelToBeExported">每个 ROM 必须有唯一的标签才能导出！</string>
+  <string name="err_lutNeedsALabelToBeExported">每个 LUT 必须有唯一的标签才能导出！</string>
+  <string name="err_counterNeedsMoreBits">计数器至少需要两位。</string>
+  <string name="err_clocksNotAllowedInAsyncMode">禁止在异步模式使用时钟组件。</string>
+  <string name="err_verilogExporting">导出 Verilog 时遇到错误。</string>
+  <string name="err_noRomFound">未发现程序存储器！</string>
+  <string name="err_errorLoadingRomData">Error loading the program memory.</string>
+  <string name="err_parsingSVG">读取 SVG 文件时遇到错误。</string>
+  <string name="err_morePinsDefinedInSVGAsNeeded">SVG 文件包含电路中不存在的管脚。</string>
+  <string name="err_allMemoriesNeedToHaveTheSameByteWidth">All memories into which data are to be loaded require the same bit width.</string>
+  <string name="err_ProgMemLabelsNotDifferent">If programs are to be loaded into several RAMs, all RAMs must have
+      different names. The lexical order then determines the order of the RAMs.</string>
+  <string name="err_midiSystemNotAvailable">MIDI 系统不可用。</string>
+  <string name="err_midiChannel_N_NotAvailable">MIDI 通道 {0} 不可用。</string>
+  <string name="err_midiInstrument_N_NotAvailable">MIDI 设备 {0} 不可用。</string>
+  <string name="err_midiInstrumentsNotAvailable">MIDI 设备不可用</string>
+  <string name="err_whileExecutingTests_N0">执行测试 "{0}" 时遇到错误！</string>
+  <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
+  <string name="err_thereIsAUnnamedIO">未命名的输入或者输出端口！</string>
+  <string name="err_NameOfIOIsInvalidOrNotUnique_N">信号名称 "{0}" 无效或多次使用！</string>
+  <string name="err_substitutingError">Error when substituting components for the analysis.</string>
+  <string name="err_evaluatingGenericsCode_N_N">Error in the evaluation of the generic code of the circuit. Code
+      {1}
+      at Component: {0}</string>
+</resources>
