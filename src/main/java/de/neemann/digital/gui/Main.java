@@ -133,6 +133,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private final WindowPosManager windowPosManager;
     private final InsertHistory insertHistory;
     private final boolean keepPrefMainFile;
+    private final FileHistory fileHistory;
 
     private ToolTipAction doMicroStep;
     private ToolTipAction runToBreakMicroAction;
@@ -143,7 +144,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private File baseFilename;
     private File filename;
-    private FileHistory fileHistory;
     private boolean modifiedPrefixVisible = false;
 
     private Model model;
@@ -1031,7 +1031,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }.setToolTip(Lang.get("menu_runAllTests_tt")).setAccelerator("F11");
 
         ToolTipAction speedTest = new ToolTipAction(Lang.get("menu_speedTest")) {
-            private NumberFormat format = new DecimalFormat("0.0");
+            private final NumberFormat format = new DecimalFormat("0.0");
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1851,7 +1851,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 model.modify(() -> clkVal.setBool(!clkVal.getBool()));
                                 model.doStep();
                             }
-                            circuitComponent.graphicHasChanged();
                             addressPicker.getProgramROMAddress(model);
                         } catch (NodeException | RuntimeException e) {
                             showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
@@ -1884,10 +1883,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     @Override
     public void stop() {
-        SwingUtilities.invokeLater(() -> {
-            ensureModelIsStopped();
-            circuitComponent.graphicHasChanged();
-        });
+        SwingUtilities.invokeLater(this::ensureModelIsStopped);
     }
     //**********************
     // remote interface end
