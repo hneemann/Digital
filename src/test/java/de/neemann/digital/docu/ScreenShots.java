@@ -93,7 +93,7 @@ public class ScreenShots {
         hierarchicalDesign();
 
         // Chinese
-        Lang.setActualRuntimeLanguage(new Language("zh_CN"));
+        Lang.setActualRuntimeLanguage(new Language("zh"));
         Settings.getInstance().getAttributes()
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         firstSteps();
