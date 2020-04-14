@@ -112,6 +112,11 @@ the location of this file.
            for details of FOP configuration for AFP
       -->
 
+        <!-- specific font mapping chinese -->
+        <font kerning="yes" embed-url="SimSun.ttf" embedding-mode="subset">
+          <font-triplet name="SimSun" style="normal" weight="normal"/>
+        </font>
+
         <!-- Times Roman -->
         <font>
           <afp-font name="Times Roman" type="raster" codepage="T1V10500" encoding="Cp500">

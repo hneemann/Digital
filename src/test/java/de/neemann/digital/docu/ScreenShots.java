@@ -91,6 +91,13 @@ public class ScreenShots {
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         firstSteps();
         hierarchicalDesign();
+
+        // Chinese
+        Lang.setActualRuntimeLanguage(new Language("zh"));
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_IEEE_SHAPES, true);
+        firstSteps();
+        hierarchicalDesign();
     }
 
     private static void mainScreenShot() {
@@ -316,7 +323,7 @@ public class ScreenShots {
                 .add(new ScreenShot<>(TableDialog.class).useParent())
                 // k-map
                 .press("F10")
-                .press("RIGHT", 5)
+                .press("RIGHT", 4)
                 .press("DOWN", 1)
                 .add(new ScreenShot<>(TableDialog.class).useParent())
                 .press("ENTER")
