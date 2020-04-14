@@ -76,13 +76,15 @@ All other tests, including the HDL tests, were executed without errors.
 
 ## Documentation ##
 
-The [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English, German, Spanish and Portuguese.
+The [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English, 
+German, Spanish, Portuguese and Chinese.
 It is still very incomplete but it contains a chapter "First Steps" which explains the basic usage of Digital.
 The documentation also contains a list of available 74xx chips and a list of available keyboard shortcuts. 
 
 ## Translations ##
 
-So far Digital is available in English, German, Spanish and Portuguese. If someone wants to add a 
+So far Digital is available in English, German, Spanish, Portuguese and Chinese. 
+If someone wants to add a 
 new translation, please let me [know](mailto:digital-simulator@web.de).
 I can provide you with a special file for translation. This file is much easier to 
 translate than the [files](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang) 
@@ -269,6 +271,7 @@ Many thanks to the following persons for their help:
   has provided the Portuguese translation.
 * Ángel Millán from the Instituto de Educación Secundaria Ies Virgen de Villadiego in Peñaflor (Sevilla), Spain
   has provided the Spanish translation.
+* XinJun Ma ([@itviewer](https://github.com/itviewer)) has provided the Chinese translation.
 
 ## Additional Screenshots
 
