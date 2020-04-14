@@ -39,10 +39,11 @@ public class DataEditor extends JDialog {
     private final IntFormat addrFormat;
     private final int dataBits;
     private final int addrBits;
-    private DataField localDataField;
+    private final DataField localDataField;
     private final JTable table;
     private boolean ok = false;
     private File fileName;
+    private Node node;
 
     /**
      * Creates a new instance
@@ -261,12 +262,23 @@ public class DataEditor extends JDialog {
         return fileName;
     }
 
+    /**
+     * Sets the node if this DataEditor edits a DataField used in a running model.
+     *
+     * @param node the node
+     * @return this for chained calls
+     */
+    public DataEditor setNode(Node node) {
+        this.node = node;
+        return this;
+    }
+
     private final class MyTableModel implements TableModel, DataField.DataListener {
         private final DataField dataField;
         private final int cols;
         private final SyncAccess modelSync;
         private final int rows;
-        private ArrayList<TableModelListener> listener = new ArrayList<>();
+        private final ArrayList<TableModelListener> listener = new ArrayList<>();
 
         private MyTableModel(DataField dataField, int cols, int rows, SyncAccess modelSync) {
             this.dataField = dataField;
@@ -316,7 +328,12 @@ public class DataEditor extends JDialog {
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
             long decode = ((NumberString) aValue).getVal();
-            modelSync.modify(() -> dataField.setData(rowIndex * cols + (columnIndex - 1), decode));
+            modelSync.modify(() -> {
+                int addr = rowIndex * cols + (columnIndex - 1);
+                boolean modified = dataField.setData(addr, decode);
+                if (modified && node != null)
+                    node.hasChanged();
+            });
         }
 
         private void fireEvent(TableModelEvent e) {

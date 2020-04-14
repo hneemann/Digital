@@ -136,7 +136,7 @@ public class DataField implements HGSArray {
      * @param value the value
      * @return this for chained calls
      */
-    public DataField setData(int addr, long value) {
+    public boolean setData(int addr, long value) {
         if (addr >= data.length) {
             int newLen = addr * 2;
             if (newLen < 32) newLen = 32;
@@ -146,8 +146,9 @@ public class DataField implements HGSArray {
         if (data[addr] != value) {
             data[addr] = value;
             fireChanged(addr);
-        }
-        return this;
+            return true;
+        } else
+            return false;
     }
 
     /**

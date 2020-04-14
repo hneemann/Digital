@@ -30,13 +30,13 @@ public class ElementAttributesTest extends TestCase {
      * Ensures that the DataField is accessible from within the template engine
      */
     public void testDataField() throws IOException, ParserException, HGSEvalException {
-        DataField d = new DataField(5)
-                .setData(0, 1)
-                .setData(1, 7)
-                .setData(2, 4)
-                .setData(3, 8)
-                .setData(4, 2);
-        Context c= new Context().declareVar("d", d);
+        DataField d = new DataField(5);
+        d.setData(0, 1);
+        d.setData(1, 7);
+        d.setData(2, 4);
+        d.setData(3, 8);
+        d.setData(4, 2);
+        Context c = new Context().declareVar("d", d);
         new Parser("(<? for(i:=0;i<sizeOf(d);i++) { if (i>0) print(\"-\"); print(d[i]);} ?>)").parse().execute(c);
         assertEquals("(1-7-4-8-2)", c.toString());
     }

@@ -6,6 +6,7 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Node;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
@@ -73,6 +74,8 @@ public class RAMShape extends GenericShape {
                     RAMInterface ram = (RAMInterface) element;
                     DataField dataField = ram.getMemory();
                     DataEditor dataEditor = new DataEditor(cc, dataField, dataBits, addrBits, true, modelSync, ram.getIntFormat());
+                    if (element instanceof Node)
+                        dataEditor.setNode((Node) element);
                     dataEditor.showDialog(dialogTitle, model);
                 }
             }
