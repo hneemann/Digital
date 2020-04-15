@@ -80,7 +80,6 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
                         model.doMicroStep(false);
                     } catch (NodeException | RuntimeException e) {
                         stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
-                    } finally {
                         timer.cancel(false);
                     }
                 }
