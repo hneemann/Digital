@@ -34,12 +34,6 @@ public interface SyncAccess {
         }
 
         @Override
-        public <A extends ModelRun> A modifyNEx(A run) throws NodeException {
-            run.run();
-            return run;
-        }
-
-        @Override
         public <A extends Runnable> A read(A run) {
             run.run();
             return run;
@@ -57,17 +51,6 @@ public interface SyncAccess {
     <A extends Runnable> A modify(A run);
 
     /**
-     * Same as access, but catches an exception.
-     * The runnable is allowed to modify the model.
-     *
-     * @param run the runnable to execute
-     * @param <A> the type oth the runnable
-     * @return the given runnable. Used for chained calls
-     * @throws NodeException NodeException
-     */
-    <A extends SyncAccess.ModelRun> A modifyNEx(A run) throws NodeException;
-
-    /**
      * Calls the given runnable
      * The runnable is NOT allowed to modify the model.
      *
@@ -76,12 +59,5 @@ public interface SyncAccess {
      * @return the given runnable. Used for chained calls
      */
     <A extends Runnable> A read(A run);
-
-    /**
-     * Like runnable but throws an exception
-     */
-    interface ModelRun {
-        void run() throws NodeException;
-    }
 
 }

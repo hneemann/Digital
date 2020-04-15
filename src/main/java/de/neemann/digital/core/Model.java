@@ -829,15 +829,6 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     @Override
-    public <A extends ModelRun> A modifyNEx(A run) throws NodeException {
-        synchronized (this) {
-            run.run();
-        }
-        fireEvent(ModelEvent.EXTERNALCHANGE);
-        return run;
-    }
-
-    @Override
     public <A extends Runnable> A read(A run) {
         synchronized (this) {
             run.run();
