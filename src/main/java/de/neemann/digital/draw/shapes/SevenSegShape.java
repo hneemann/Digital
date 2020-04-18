@@ -5,9 +5,7 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
@@ -72,10 +70,8 @@ public class SevenSegShape extends SevenShape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public Interactor applyStateMonitor(IOState ioState) {
         inputValues = ioState.getInputs();
-        for (ObservableValue o : inputValues)
-            o.addObserverToValue(guiObserver);
         return null;
     }
 

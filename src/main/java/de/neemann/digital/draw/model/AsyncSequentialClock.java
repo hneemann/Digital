@@ -30,10 +30,10 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
     /**
      * Creates a new real time clock
      *
-     * @param model     the model
-     * @param asyncSeq  the infos used to cofigure the clock
-     * @param executor  the executor used to schedule the update
-     * @param stopper   used to stop the model if an error is detected
+     * @param model    the model
+     * @param asyncSeq the data used to configure the clock
+     * @param executor the executor used to schedule the update
+     * @param stopper  used to stop the model if an error is detected
      */
     public AsyncSequentialClock(Model model, AsyncSeq asyncSeq, ScheduledThreadPoolExecutor executor, ErrorStopper stopper) {
         this.model = model;
@@ -77,7 +77,7 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
                 @Override
                 public void run() {
                     try {
-                        model.accessNEx(() -> model.doMicroStep(false));
+                        model.doMicroStep(false);
                     } catch (NodeException | RuntimeException e) {
                         stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
                         timer.cancel(false);

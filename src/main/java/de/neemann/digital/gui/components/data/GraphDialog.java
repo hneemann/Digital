@@ -78,12 +78,12 @@ public class GraphDialog extends JDialog implements Observer {
         graphDialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                model.access(() -> model.addObserver(valueTableObserver));
+                model.modify(() -> model.addObserver(valueTableObserver));
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                model.access(() -> model.removeObserver(valueTableObserver));
+                model.modify(() -> model.removeObserver(valueTableObserver));
             }
         });
 

@@ -6,7 +6,6 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
@@ -54,9 +53,9 @@ public class LightBulbShape implements Shape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        aValue = ioState.getInput(0).addObserverToValue(guiObserver);
-        bValue = ioState.getInput(1).addObserverToValue(guiObserver);
+    public InteractorInterface applyStateMonitor(IOState ioState) {
+        aValue = ioState.getInput(0);
+        bValue = ioState.getInput(1);
         return null;
     }
 

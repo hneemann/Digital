@@ -45,9 +45,9 @@ public class In implements Element {
     private final String label;
     private final String pinNumber;
     private final IntFormat format;
+    private final boolean showInGraph;
     private Model model;
     private ObservableValue input;
-    private boolean showInGraph;
 
     /**
      * Create a new instance

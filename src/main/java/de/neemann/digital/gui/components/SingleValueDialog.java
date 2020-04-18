@@ -27,8 +27,7 @@ import java.util.Arrays;
 public final class SingleValueDialog extends JDialog implements ModelStateObserverTyped {
 
     private final ObservableValue value;
-    private final CircuitComponent circuitComponent;
-    private final SyncAccess model;
+    private final SyncAccess syncAccess;
 
     private enum InMode {
         HEX(Lang.get("attr_dialogHex")),
@@ -38,7 +37,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         // highZ needs to be the last entry!! See InMode#values(boolean)
         HIGHZ(Lang.get("attr_dialogHighz"));
 
-        private String langText;
+        private final String langText;
 
         InMode(String langKey) {
             this.langText = langKey;
@@ -69,21 +68,18 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     /**
      * Edits a single value
      *
-     * @param parent           the parent frame
-     * @param pos              the position to pop up the dialog
-     * @param label            the name of the value
-     * @param value            the value to edit
-     * @param supportsHighZ    true is high z is supported
-     * @param circuitComponent the component which contains the circuit
-     * @param model            the model
+     * @param parent        the parent frame
+     * @param pos           the position to pop up the dialog
+     * @param label         the name of the value
+     * @param value         the value to edit
+     * @param supportsHighZ true is high z is supported
+     * @param model         the model
      */
-    //CHECKSTYLE.OFF: ParameterNumberCheck
-    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, boolean supportsHighZ, CircuitComponent circuitComponent, Model model) {
+    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, boolean supportsHighZ, Model model) {
         super(parent, Lang.get("win_valueInputTitle_N", label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.value = value;
-        this.circuitComponent = circuitComponent;
-        this.model = model;
+        this.syncAccess = model;
 
         editValue = value.getValue();
         this.supportsHighZ = supportsHighZ;
@@ -98,11 +94,11 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 setLongToDialog(editValue);
         });
 
-        model.access(() -> model.addObserver(this));
+        model.modify(() -> model.addObserver(this));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-                model.access(() -> model.removeObserver(SingleValueDialog.this));
+                model.modify(() -> model.removeObserver(SingleValueDialog.this));
             }
         });
 
@@ -160,15 +156,13 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
     }
-    //CHECKSTYLE.ON: ParameterNumberCheck
 
     private void apply() {
         if (getSelectedFormat().equals(InMode.HIGHZ)) {
-            model.access(value::setToHighZ);
+            syncAccess.modify(value::setToHighZ);
         } else {
-            model.access(() -> value.setValue(editValue));
+            syncAccess.modify(() -> value.setValue(editValue));
         }
-        circuitComponent.modelHasChanged();
     }
 
     @Override
@@ -212,7 +206,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         switch (getSelectedFormat()) {
             case ASCII:
                 char val = (char) (editValue);
-                textField.setText("\'" + val + "\'");
+                textField.setText("'" + val + "'");
                 textField.setCaretPosition(1);
                 break;
             case DECIMAL:
@@ -306,7 +300,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         @Override
         public void setValue(Object o) {
-            if (o != null && o instanceof Number) {
+            if (o instanceof Number) {
                 editValue = ((Number) o).longValue();
                 setLongToDialog(editValue);
                 apply();

@@ -261,7 +261,7 @@ public class Circuit implements Copyable<Circuit> {
         }
 
         // reads the models state which is a fast operation
-        modelSync.access(() -> {
+        modelSync.read(() -> {
             for (Wire w : wires)
                 w.readObservableValues();
             for (VisualElement p : visualElements)
@@ -595,7 +595,7 @@ public class Circuit implements Copyable<Circuit> {
      */
     public void clearState() {
         for (VisualElement vp : visualElements)
-            vp.setState(null, null);
+            vp.setState(null);
         for (Wire w : wires)
             w.setValue(null);
     }

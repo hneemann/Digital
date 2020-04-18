@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.elements;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.graphics.*;
@@ -326,16 +325,15 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     /**
      * Sets the state of the elements inputs and outputs
      *
-     * @param ioState     actual state, if null VisualPart is reseted
-     * @param guiObserver can be used to update the GUI by calling hasChanged, maybe null
+     * @param ioState actual state, if null VisualPart is reseted
      */
-    public void setState(IOState ioState, Observer guiObserver) {
+    public void setState(IOState ioState) {
         this.ioState = ioState;
         if (ioState == null) {
             interactor = null;
             resetShape();
         } else
-            interactor = getShape().applyStateMonitor(ioState, guiObserver);
+            interactor = getShape().applyStateMonitor(ioState);
     }
 
     /**
@@ -346,13 +344,10 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @param pos            the position
      * @param posInComponent position in CircuitComponent
      * @param modelSync      used to access the running model
-     * @return true if model is changed
      */
-    public boolean elementClicked(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
+    public void elementClicked(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
-            return interactor.clicked(cc, pos, ioState, element, modelSync);
-        else
-            return false;
+            interactor.clicked(cc, pos, ioState, element, modelSync);
     }
 
     /**
@@ -363,13 +358,10 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @param pos            the position
      * @param posInComponent position in CircuitComponent
      * @param modelSync      used to access the running model
-     * @return true if model is changed
      */
-    public boolean elementPressed(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
+    public void elementPressed(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
-            return interactor.pressed(cc, pos, ioState, element, modelSync);
-        else
-            return false;
+            interactor.pressed(cc, pos, ioState, element, modelSync);
     }
 
     /**
@@ -380,13 +372,10 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @param pos            the position
      * @param posInComponent position in CircuitComponent
      * @param modelSync      used to access the running model
-     * @return true if model is changed
      */
-    public boolean elementReleased(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
+    public void elementReleased(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
-            return interactor.released(cc, pos, ioState, element, modelSync);
-        else
-            return false;
+            interactor.released(cc, pos, ioState, element, modelSync);
     }
 
     /**
@@ -397,13 +386,10 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * @param pos            the position
      * @param posInComponent position in CircuitComponent
      * @param modelSync      used to access the running model
-     * @return true if model is changed
      */
-    public boolean elementDragged(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
+    public void elementDragged(CircuitComponent cc, Point pos, Vector posInComponent, SyncAccess modelSync) {
         if (interactor != null)
-            return interactor.dragged(cc, pos, posInComponent, getTransform(), ioState, element, modelSync);
-        else
-            return false;
+            interactor.dragged(cc, pos, posInComponent, getTransform(), ioState, element, modelSync);
     }
 
 

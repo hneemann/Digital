@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.shapes.ieee;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -57,7 +56,7 @@ public abstract class IEEEGenericShape implements Shape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public InteractorInterface applyStateMonitor(IOState ioState) {
         return null;
     }
 

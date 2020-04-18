@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
@@ -40,7 +39,7 @@ public class MissingShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public Interactor applyStateMonitor(IOState ioState) {
         return null;
     }
 

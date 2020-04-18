@@ -6,7 +6,6 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.Element;
@@ -75,15 +74,13 @@ public class DipSwitchShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public Interactor applyStateMonitor(IOState ioState) {
         this.ioState = ioState;
-        ioState.getOutput(0).addObserverToValue(guiObserver);
         return new Interactor() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+            public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
                 ObservableValue value = ioState.getOutput(0);
-                modelSync.access(() -> value.setValue(1 - value.getValue()));
-                return true;
+                modelSync.modify(() -> value.setValue(1 - value.getValue()));
             }
         };
     }

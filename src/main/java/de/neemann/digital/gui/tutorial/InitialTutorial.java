@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * The tutorial dialog.
  */
-public class InitialTutorial extends JDialog implements CircuitComponent.TutorialListener {
+public class InitialTutorial extends JDialog implements CircuitComponent.TutorialListener, ModelStateObserverTyped {
     private static final ArrayList<Step> STEPS = new ArrayList<>();
 
     static {
@@ -50,7 +50,14 @@ public class InitialTutorial extends JDialog implements CircuitComponent.Tutoria
         STEPS.add(new Step("tutorial4", (cc, mod, t) -> contains(cc, In.DESCRIPTION, In.DESCRIPTION, XOr.DESCRIPTION, Out.DESCRIPTION)));
         STEPS.add(new Step("tutorial5", (cc, mod, t) -> contains(mod, ModifyInsertWire.class) || isWorking(cc)));
         STEPS.add(new Step("tutorial6", (cc, mod, t) -> isWorking(cc)));
-        STEPS.add(new Step("tutorial7", (cc, mod, t) -> t.main.getModel() != null));
+        STEPS.add(new Step("tutorial7", (cc, mod, t) -> {
+            Model model = t.main.getModel();
+            if (model != null) {
+                model.addObserver(t);
+                return true;
+            } else
+                return false;
+        }));
         STEPS.add(new Step("tutorial8", (cc, mod, t) -> outputIsHigh(t)));
         STEPS.add(new Step("tutorial9", (cc, mod, t) -> t.main.getModel() == null));
         STEPS.add(new Step("tutorial10", (cc, mod, t) -> isIONamed(cc, 1, t)));
@@ -217,6 +224,17 @@ public class InitialTutorial extends JDialog implements CircuitComponent.Tutoria
     public void modified(Modification<Circuit> modification) {
         if (STEPS.get(stepIndex).getChecker().accomplished(circuitComponent, modification, this))
             incIndex();
+    }
+
+    @Override
+    public ModelEvent[] getEvents() {
+        return new ModelEvent[]{ModelEvent.EXTERNALCHANGE};
+    }
+
+    @Override
+    public void handleEvent(ModelEvent event) {
+        if (event == ModelEvent.EXTERNALCHANGE)
+            modified(null);
     }
 
     private static final class Step {

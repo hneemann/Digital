@@ -57,7 +57,7 @@ public class DataPlotter implements Drawable {
      * Fits the data in the visible area
      */
     public void fitInside() {
-        modelSync.access(() -> size = ((double) (width - textWidth)) / dataOriginal.getRows());
+        modelSync.modify(() -> size = ((double) (width - textWidth)) / dataOriginal.getRows());
         offset = 0;
         manualScaling = false;
     }
@@ -97,7 +97,7 @@ public class DataPlotter implements Drawable {
         if (staticData) {
             data = dataOriginal;
         } else {
-            data = modelSync.access(new Runnable() {
+            data = modelSync.read(new Runnable() {
                 private ValueTable data;
 
                 @Override
@@ -222,7 +222,7 @@ public class DataPlotter implements Drawable {
      * @return the current width of the graphical representation
      */
     public int getCurrentGraphicWidth() {
-        return modelSync.access(new Runnable() {
+        return modelSync.read(new Runnable() {
             private int r;
 
             @Override

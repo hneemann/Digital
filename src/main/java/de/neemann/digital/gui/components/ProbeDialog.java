@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
+ *
  */
 public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
@@ -33,13 +34,12 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
     /**
      * Creates a new instance
      *
-     * @param owner            the owner
-     * @param model            the model to run
-     * @param type             the event type which fires a dialog repaint
-     * @param ordering         the names list used to order the measurement values
-     * @param circuitComponent used to update the circuit if signal values are changed
+     * @param owner    the owner
+     * @param model    the model to run
+     * @param type     the event type which fires a dialog repaint
+     * @param ordering the names list used to order the measurement values
      */
-    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering, CircuitComponent circuitComponent) {
+    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.type = type;
@@ -52,7 +52,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
             }
         }.order(signals);
 
-        tableModel = new SignalTableModel(signals, model, circuitComponent);
+        tableModel = new SignalTableModel(signals, model);
         JTable list = new JTable(tableModel);
         list.setRowHeight(list.getFont().getSize() * 6 / 5);
         getContentPane().add(new JScrollPane(list), BorderLayout.CENTER);
@@ -60,12 +60,12 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                model.access(() -> model.addObserver(ProbeDialog.this));
+                model.modify(() -> model.addObserver(ProbeDialog.this));
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                model.access(() -> model.removeObserver(ProbeDialog.this));
+                model.modify(() -> model.removeObserver(ProbeDialog.this));
             }
         });
 
@@ -88,7 +88,9 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                                     ram.getDataBits(),
                                     ram.getAddrBits(),
                                     true,
-                                    model, ram.getIntFormat()).showDialog(ram.getLabel(), model);
+                                    model, ram.getIntFormat())
+                                    .setNode(n)
+                                    .showDialog(ram.getLabel(), model);
                         }
                     }));
                 }
@@ -107,7 +109,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event == type || event == ModelEvent.MANUALCHANGE) {
+        if (event == type || event == ModelEvent.EXTERNALCHANGE) {
             if (tableUpdateEnable) {
                 if (paintPending.compareAndSet(false, true)) {
                     SwingUtilities.invokeLater(() -> {
@@ -131,19 +133,17 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     @Override
     public ModelEvent[] getEvents() {
-        return new ModelEvent[]{type, ModelEvent.MANUALCHANGE, ModelEvent.FASTRUN, ModelEvent.BREAK, ModelEvent.STOPPED};
+        return new ModelEvent[]{type, ModelEvent.EXTERNALCHANGE, ModelEvent.FASTRUN, ModelEvent.BREAK, ModelEvent.STOPPED};
     }
 
     private static class SignalTableModel implements TableModel {
         private final ArrayList<Signal> signals;
         private final SyncAccess modelSync;
-        private final CircuitComponent circuitComponent;
-        private ArrayList<TableModelListener> listeners = new ArrayList<>();
+        private final ArrayList<TableModelListener> listeners = new ArrayList<>();
 
-        SignalTableModel(ArrayList<Signal> signals, SyncAccess modelSync, CircuitComponent circuitComponent) {
+        SignalTableModel(ArrayList<Signal> signals, SyncAccess modelSync) {
             this.signals = signals;
             this.modelSync = modelSync;
-            this.circuitComponent = circuitComponent;
         }
 
         @Override
@@ -186,12 +186,11 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                     try {
                         final String str = aValue.toString();
                         if (str.equals("?") || str.equals("z") || str.equals("Z")) {
-                            modelSync.access(() -> s.set(0, -1));
+                            modelSync.modify(() -> s.set(0, -1));
                         } else {
                             long value = Bits.decode(str);
-                            modelSync.access(() -> s.set(value, 0));
+                            modelSync.modify(() -> s.set(value, 0));
                         }
-                        circuitComponent.modelHasChanged();
                     } catch (Bits.NumberFormatException e) {
                         // do nothing in this case!
                     }

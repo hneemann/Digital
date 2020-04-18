@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -51,30 +50,25 @@ public class ButtonShape implements Shape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public InteractorInterface applyStateMonitor(IOState ioState) {
         this.button = (Button) ioState.getElement();
-        ioState.getOutput(0).addObserverToValue(guiObserver);
         return new InteractorInterface() {
             @Override
-            public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-                return false;
+            public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             }
 
             @Override
-            public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-                modelSync.access(() -> button.setPressed(true));
-                return true;
+            public void pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+                modelSync.modify(() -> button.setPressed(true));
             }
 
             @Override
-            public boolean released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
-                modelSync.access(() -> button.setPressed(false));
-                return true;
+            public void released(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+                modelSync.modify(() -> button.setPressed(false));
             }
 
             @Override
-            public boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform trans, IOState ioState, Element element, SyncAccess modelSync) {
-                return false;
+            public void dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform trans, IOState ioState, Element element, SyncAccess modelSync) {
             }
         };
     }

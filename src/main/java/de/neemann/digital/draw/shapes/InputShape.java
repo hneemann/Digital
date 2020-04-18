@@ -82,9 +82,8 @@ public class InputShape implements Shape {
     }
 
     @Override
-    public Interactor applyStateMonitor(IOState ioState, Observer guiObserver) {
+    public Interactor applyStateMonitor(IOState ioState) {
         this.ioState = ioState;
-        ioState.getOutput(0).addObserverToValue(guiObserver);
         return new InputInteractor();
     }
 
@@ -148,10 +147,10 @@ public class InputShape implements Shape {
         private long lastValueSet;
 
         @Override
-        public boolean clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+        public void clicked(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
             if (bits == 1) {
-                modelSync.access(() -> {
+                modelSync.modify(() -> {
                     if (isHighZ) {
                         if (value.isHighZ()) {
                             if (avoidLow)
@@ -163,27 +162,24 @@ public class InputShape implements Shape {
                     } else
                         value.setValue(1 - value.getValue());
                 });
-                return true;
             } else {
                 if (dialog == null || !dialog.isVisible()) {
                     Model model = ((In) element).getModel();
-                    dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, cc, model);
+                    dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, model);
                     dialog.setVisible(true);
                 } else
                     dialog.requestFocus();
 
-                return false;
             }
         }
 
         @Override
-        public boolean pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
+        public void pressed(CircuitComponent cc, Point pos, IOState ioState, Element element, SyncAccess modelSync) {
             isDrag = false;
-            return false;
         }
 
         @Override
-        public boolean dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
+        public void dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
             if (bits > 1 && !value.isHighZ()) {
                 if (!isDrag) {
@@ -196,13 +192,11 @@ public class InputShape implements Shape {
                     long v = startValue + (delta * max) / SLIDER_HEIGHT;
                     long val = Math.max(min, Math.min(v, max));
                     if (val != lastValueSet) {
-                        modelSync.access(() -> value.setValue(val));
+                        modelSync.modify(() -> value.setValue(val));
                         lastValueSet = val;
-                        return true;
                     }
                 }
             }
-            return false;
         }
     }
 }

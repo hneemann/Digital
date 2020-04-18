@@ -8,7 +8,6 @@ package de.neemann.digital.draw.model;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.gui.ErrorStopper;
-import de.neemann.digital.gui.GuiModelObserver;
 import de.neemann.digital.gui.StatusInterface;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
@@ -58,9 +57,6 @@ public class RealTimeClock implements ModelStateObserverTyped {
     public void handleEvent(ModelEvent event) {
         switch (event) {
             case STARTED:
-                if (frequency > 50)  // if frequency is high it is not necessary to update the GUI at every clock change
-                    model.access(() -> output.removeObserver(GuiModelObserver.class));
-
                 int delayMuS = 500000 / frequency;
                 if (delayMuS < 1)
                     runner = new ThreadRunner();
@@ -108,10 +104,8 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 @Override
                 public void run() {
                     try {
-                        model.accessNEx(() -> {
-                            output.setValue(1 - output.getValue());
-                            model.doStep();
-                        });
+                        model.modify(() -> output.setValue(1 - output.getValue()));
+                        model.doStep();
                         if (frequencyCalculator != null)
                             frequencyCalculator.calc();
                     } catch (NodeException | RuntimeException e) {
@@ -142,10 +136,8 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 FrequencyCalculator frequencyCalculator = new FrequencyCalculator(status, frequency);
                 try {
                     while (!Thread.interrupted()) {
-                        model.accessNEx(() -> {
-                            output.setValue(1 - output.getValue());
-                            model.doStep();
-                        });
+                        model.modify(() -> output.setValue(1 - output.getValue()));
+                        model.doStep();
                         frequencyCalculator.calc();
                     }
                 } catch (NodeException | RuntimeException e) {

@@ -40,7 +40,7 @@ public enum ModelEvent {
     /**
      * Here was a manual change to the model by the user.
      */
-    MANUALCHANGE,
+    EXTERNALCHANGE,
 
     /**
      * If fired if a micro step is calculated.

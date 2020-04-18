@@ -6,7 +6,6 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
@@ -60,9 +59,9 @@ public class PolarityAwareLEDShape implements Shape {
     }
 
     @Override
-    public InteractorInterface applyStateMonitor(IOState ioState, Observer guiObserver) {
-        aValue = ioState.getInput(0).addObserverToValue(guiObserver);
-        cValue = ioState.getInput(1).addObserverToValue(guiObserver);
+    public InteractorInterface applyStateMonitor(IOState ioState) {
+        aValue = ioState.getInput(0);
+        cValue = ioState.getInput(1);
         return null;
     }
 

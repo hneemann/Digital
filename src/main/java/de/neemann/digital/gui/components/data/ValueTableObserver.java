@@ -50,7 +50,7 @@ public class ValueTableObserver implements ModelStateObserverTyped {
         if (event == ModelEvent.STARTED)
             logData.clear();
 
-        if (event == ModelEvent.MANUALCHANGE && type == ModelEvent.MICROSTEP) {
+        if (event == ModelEvent.EXTERNALCHANGE && type == ModelEvent.MICROSTEP) {
             if (manualSample == null)
                 manualSample = new Value[logData.getColumns()];
             for (int i = 0; i < logData.getColumns(); i++)
@@ -71,7 +71,7 @@ public class ValueTableObserver implements ModelStateObserverTyped {
 
     @Override
     public ModelEvent[] getEvents() {
-        return new ModelEvent[]{type, ModelEvent.STARTED, ModelEvent.MANUALCHANGE};
+        return new ModelEvent[]{type, ModelEvent.STARTED, ModelEvent.EXTERNALCHANGE};
     }
 
     /**
