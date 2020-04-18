@@ -27,7 +27,6 @@ public class TestSyntax extends TestCase {
             else if (l.getName().equals("de"))
                 de = resources;
             else
-
                 list.add(resources);
         }
 
@@ -36,7 +35,7 @@ public class TestSyntax extends TestCase {
             check(msg);
             int paramCount = getParamCount(msg);
             check(de.get(key));
-            assertEquals(paramCount, getParamCount(de.get(key)));
+            assertEquals(key, paramCount, getParamCount(de.get(key)));
 
             for (Resources r : list) {
                 final String m = r.get(key);
