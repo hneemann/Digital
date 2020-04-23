@@ -428,7 +428,7 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     ModelAnalyserInfo modelAnalyzerInfo = undoManager.getActual().getModelAnalyzerInfo();
-                    if (modelAnalyzerInfo.isSequential())
+                    if (modelAnalyzerInfo != null && modelAnalyzerInfo.isSequential())
                         JOptionPane.showMessageDialog(
                                 TableDialog.this,
                                 Lang.get("menu_table_createFunctionFixture_isSequential"));
