@@ -8,11 +8,13 @@ package de.neemann.gui.language;
 import java.util.Locale;
 
 /**
+ * Abstraction of a language
  */
 public final class Language implements Comparable<Language> {
 
     private final String name;
     private final String displayName;
+    private final String filename;
 
     /**
      * Creates a new instance
@@ -20,7 +22,7 @@ public final class Language implements Comparable<Language> {
      * @param name the languages name
      */
     public Language(String name) {
-        this(name, "");
+        this(name, "", "");
     }
 
     /**
@@ -34,11 +36,13 @@ public final class Language implements Comparable<Language> {
      * Creates new instance
      *
      * @param name        name, eq. "en" or "de"
-     * @param displayName displayname
+     * @param displayName the name shown to the user
+     * @param filename    a name that contains only ASCII characters
      */
-    public Language(String name, String displayName) {
+    public Language(String name, String displayName, String filename) {
         this.name = name;
         this.displayName = displayName;
+        this.filename = filename;
     }
 
 
@@ -75,5 +79,12 @@ public final class Language implements Comparable<Language> {
     @Override
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
+    }
+
+    /**
+     * @return a name that contains only ASCII characters
+     */
+    public String getFileName() {
+        return filename;
     }
 }

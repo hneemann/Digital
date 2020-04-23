@@ -10,10 +10,12 @@ import de.neemann.digital.XStreamValid;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ *
  */
 public class Bundle {
 
@@ -36,11 +38,20 @@ public class Bundle {
     public Bundle(String name) {
         this.name = name;
         InputStream in = getClass().getClassLoader().getResourceAsStream(name + ".xml");
-        XStream xStream = getxStream();
-        languages = (Map<String, String>) xStream.fromXML(in);
+        XStream xStream = new XStreamValid();
+        xStream.alias("languages", MyLang.class);
+        xStream.addImplicitCollection(MyLang.class, "lang");
+        xStream.alias("lang", MyLangEntry.class);
+        xStream.aliasAttribute(MyLangEntry.class, "name", "name");
+        xStream.aliasAttribute(MyLangEntry.class, "filename", "file");
+        xStream.aliasAttribute(MyLangEntry.class, "displayName", "display");
+        MyLang l = (MyLang) xStream.fromXML(in);
+        languages = new HashMap<>();
         list = new ArrayList<>();
-        for (Map.Entry<String, String> e : languages.entrySet())
-            list.add(new Language(e.getKey(), e.getValue()));
+        for (MyLangEntry e : l.lang) {
+            languages.put(e.name, e.displayName);
+            list.add(new Language(e.name, e.displayName, e.filename));
+        }
     }
 
     /**
@@ -67,5 +78,15 @@ public class Bundle {
      */
     public List<Language> getSupportedLanguages() {
         return list;
+    }
+
+    private static class MyLang {
+        private ArrayList<MyLangEntry> lang;
+    }
+
+    private static class MyLangEntry {
+        private String name;
+        private String displayName;
+        private String filename;
     }
 }

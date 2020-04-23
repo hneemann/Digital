@@ -327,7 +327,7 @@ public class DocuTest extends TestCase {
             File pdf = new File(target, basename + ".pdf");
             startFOP(fopFactory, xslFO, pdf);
 
-            copy(pdf, new File(target2, "Doc_" + l + ".pdf"));
+            copy(pdf, new File(target2, "Doc_" + l.getFileName() + ".pdf"));
         }
     }
 

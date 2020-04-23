@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 To add a new language, you can add the language to this file.
-Use the name of the language in that language.
+The display name is the name of the language in that language.
+The file name is a name that contains no special characters,
+but only ASCII characters.
 Then run the test case "de.neemann.digital.lang.TestLang.testAdditionalLanguages".
 
 In the target directory you can now find a diff file for the
@@ -19,9 +21,9 @@ modified keys.
 
 -->
 <languages>
-    <lang name="en">English</lang>
-    <lang name="de">Deutsch</lang>
-    <lang name="es">Español</lang>
-    <lang name="pt">Português</lang>
-    <lang name="zh">简体中文</lang>
+    <lang name="en" display="English" file="English"/>
+    <lang name="de" display="Deutsch" file="Deutsch"/>
+    <lang name="es" display="Español" file="Espanol"/>
+    <lang name="pt" display="Português" file="Portugues"/>
+    <lang name="zh" display="简体中文" file="ChineseSimplified"/>
 </languages>
