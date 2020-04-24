@@ -117,6 +117,11 @@ public class DataPlotter implements Drawable {
         if (scrollBar != null)
             scrollBar.setValues(offset, availDataWidth, 0, preferredDataWidth);
 
+        int dataAreaWidth = availDataWidth;
+        // if no width is given, plot all the data
+        if (width == 0)
+            dataAreaWidth = preferredDataWidth - offset;
+
         int yOffs = SIZE / 2;
         int y = BORDER;
         int signals = data.getColumns();
@@ -126,10 +131,10 @@ public class DataPlotter implements Drawable {
         for (int i = 0; i < signals; i++) {
             String text = data.getColumnName(i);
             g.drawText(new Vector(textPos - 2, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
-            g.drawLine(new Vector(textPos, y - SEP2), new Vector(textWidth + preferredDataWidth - offset, y - SEP2), Style.DASH);
+            g.drawLine(new Vector(textPos, y - SEP2), new Vector(textWidth + dataAreaWidth, y - SEP2), Style.DASH);
             y += SIZE + SEP;
         }
-        g.drawLine(new Vector(textPos, y - SEP2), new Vector(textWidth + preferredDataWidth - offset, y - SEP2), Style.DASH);
+        g.drawLine(new Vector(textPos, y - SEP2), new Vector(textWidth + dataAreaWidth, y - SEP2), Style.DASH);
 
 
         LastState[] last = new LastState[signals];
@@ -141,9 +146,11 @@ public class DataPlotter implements Drawable {
             int x1 = (int) (pos + textWidth - offset);
             int x2 = (int) (pos + textWidth - offset + size);
 
-            if (x2 > textWidth) {
+            if (x2 > textWidth && x1 < textWidth + dataAreaWidth) {
                 if (x1 < textWidth)
                     x1 = textWidth;
+                if (x2 > textWidth + dataAreaWidth)
+                    x2 = textWidth + dataAreaWidth;
 
                 g.drawLine(new Vector(x1, BORDER - SEP2), new Vector(x1, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
                 y = BORDER;
@@ -208,7 +215,7 @@ public class DataPlotter implements Drawable {
             pos += size;
 
         }
-        g.drawLine(new Vector((int) (pos + textWidth - offset), BORDER - SEP2), new Vector((int) (pos + textWidth - offset), (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
+        g.drawLine(new Vector(textWidth + dataAreaWidth, BORDER - SEP2), new Vector(textWidth + dataAreaWidth, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
     }
 
     /**
