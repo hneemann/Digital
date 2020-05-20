@@ -77,6 +77,7 @@ public class DataShape implements Shape {
     @Override
     public void registerModel(ModelCreator modelCreator, Model model, ModelEntry element) {
         ArrayList<Signal> signals = model.getSignalsCopy();
+        signals.removeIf(signal -> !signal.isShowInGraph());
         new OrderMerger<String, Signal>(modelCreator.getCircuit().getMeasurementOrdering()) {
             @Override
             public boolean equals(Signal a, String b) {
