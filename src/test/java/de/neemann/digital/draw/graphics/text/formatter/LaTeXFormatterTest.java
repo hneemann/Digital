@@ -31,4 +31,9 @@ public class LaTeXFormatterTest extends TestCase {
         assertEquals("a$\\neg{}$b", LaTeXFormatter.format(new Parser("a¬b").parse()));
         assertEquals("$a\\neg{}b$", LaTeXFormatter.format(new Parser("$a¬b$").parse()));
     }
+
+    public void testSumProd() throws ParseException {
+        assertEquals("$\\sum ^a_{n=0}$", LaTeXFormatter.format(new Parser("∑_{n=0}^a").parse()));
+        assertEquals("$\\prod ^a_{n=0}$", LaTeXFormatter.format(new Parser("∏_{n=0}^a").parse()));
+    }
 }
