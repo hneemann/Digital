@@ -1264,7 +1264,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_ledPersistence">Flimmern vermeiden</string><!-- Seven-Seg, LedMatrix -->
     <string name="key_ledPersistence_tt">Die Schaltfrequenz in der Simulation kann nicht so hoch werden,
         dass das menschliche Auge kein Flimmern mehr wahrnimmt. Um dennoch das Flackern zu unterdrücken, kann
-        bei den LEDs mit dieser Option ein "nachleuchten" eingeschaltet werden.</string>
+        bei den LEDs mit dieser Option ein "nachleuchten" eingeschaltet werden. Dabei leuchten die LEDs weiter, auch
+        wenn einer der Anschlüsse zu High-Z wechselt.
+    </string>
     <string name="key_atf1502Fitter">ATF15xx Fitter</string>
     <string name="key_atf1502Fitter_tt">Pfad zum Fitter für den ATF15xx.
         Geben Sie hier das Verzeichnis an, welches die Dateien fit15xx.exe enthält.

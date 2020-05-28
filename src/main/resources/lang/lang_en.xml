@@ -1236,8 +1236,11 @@
     <string name="key_commonConnectionType_anode">Anode</string>
 
     <string name="key_ledPersistence">Avoid Flicker</string><!-- Seven-Seg, LedMatrix -->
-    <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering disappears.
-        With this option you can stabilize the display by keeping the LEDs on until the common cathode goes down again.
+    <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering
+        disappears.
+        In order to suppress the flickering nevertheless, a "afterglow" can be switched on for the LEDs with this
+        option.
+        If enabled, the LEDs remain on, even if one of the pins changes to high-z.
         This simulates a frequency above the critical flicker fusion frequency.</string>
     <string name="key_atf1502Fitter">ATF15xx Fitter</string>
     <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF15xx.
