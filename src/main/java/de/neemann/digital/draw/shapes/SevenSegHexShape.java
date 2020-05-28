@@ -54,6 +54,8 @@ public class SevenSegHexShape extends SevenShape {
         if (i == 7) {
             return dp.getBool();
         } else {
+            if (input.isHighZ())
+                return false;
             int v = (int) input.getValue() & 0xf;
             v = TABLE[v];
             return (v & (1 << i)) != 0;
