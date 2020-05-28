@@ -167,9 +167,9 @@ public class Transition extends Movable<Transition> {
         // text
         ArrayList<String> strings = new ArrayList<>();
         if (condition != null && !condition.isEmpty())
-            strings.add(condition);
+            strings.add("$" + condition + "$");
         if (getValues() != null && !getValues().isEmpty())
-            strings.add(Lang.get("fsm_set_N", getValues()));
+            strings.add(Lang.get("fsm_set_N", "$" + getValues() + "$"));
 
         if (!strings.isEmpty()) {
             final int fontSize = Style.NORMAL.getFontSize();
@@ -186,7 +186,7 @@ public class Transition extends Movable<Transition> {
             }
 
             for (String s : strings) {
-                gr.drawText(textPos, s, Orientation.CENTERCENTER, Style.INOUT);
+                gr.drawText(textPos, s, Orientation.CENTERCENTER, Style.NORMAL);
                 textPos = textPos.add(0, fontSize);
             }
         }
