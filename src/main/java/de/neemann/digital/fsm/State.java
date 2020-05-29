@@ -18,6 +18,8 @@ public class State extends Movable<State> {
      */
     static final int DEFAULT_RAD = 70;
 
+    private static final int INIT_RAD = 10;
+
     private static final int RASTER = 60;
     private static final float REACH = 2000;
 
@@ -91,11 +93,18 @@ public class State extends Movable<State> {
             if (getFsm().getActiveState() == number)
                 style = Style.HIGHLIGHT;
 
-        if (isInitial)
-            style = style.deriveStyle(style.getThickness() * 2, false, style.getColor());
-
         VectorInterface rad = new Vector(radius, radius);
         gr.drawCircle(getPos().sub(rad), getPos().add(rad), style);
+
+        if (isInitial) {
+            Vector initRad = new Vector(INIT_RAD, INIT_RAD);
+            VectorInterface pos = getPos().add(-radius - INIT_RAD * 2, -radius - INIT_RAD * 2).sub(initRad);
+            gr.drawCircle(pos.sub(initRad), pos.add(initRad), Style.FILLED);
+            VectorInterface delta = getPos().sub(pos).norm();
+            VectorInterface a0 = pos.add(delta.mul(INIT_RAD + Style.FILLED.getThickness()));
+            VectorInterface a1 = getPos().sub(delta.mul(radius + Style.FILLED.getThickness()));
+            Transition.drawArrow(gr, a0, null, null, a1);
+        }
 
         Vector delta = new Vector(0, Style.NORMAL.getFontSize());
         VectorFloat pos = getPos().add(delta.mul(-1));

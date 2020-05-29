@@ -149,20 +149,7 @@ public class Transition extends Movable<Transition> {
             anchor0 = null;
         }
 
-        final Style arrowStyle = Style.SHAPE_PIN;
-        // arrow line
-        if (anchor0 != null)
-            gr.drawPolygon(new Polygon(false).add(start).add(anchor0, anchor, end), arrowStyle);
-        else
-            gr.drawPolygon(new Polygon(false).add(start).add(anchor, end), arrowStyle);
-
-        // arrowhead
-        VectorFloat dir = anchor.sub(end).norm().mul(20);
-        VectorFloat lot = dir.getOrthogonal().mul(0.3f);
-        gr.drawPolygon(new Polygon(false)
-                .add(end.add(dir).add(lot))
-                .add(end.sub(dir.mul(0.1f)))
-                .add(end.add(dir).sub(lot)), arrowStyle);
+        drawArrow(gr, start, anchor0, anchor, end);
 
         // text
         ArrayList<String> strings = new ArrayList<>();
@@ -190,6 +177,27 @@ public class Transition extends Movable<Transition> {
                 textPos = textPos.add(0, fontSize);
             }
         }
+    }
+
+    static void drawArrow(Graphic gr, VectorInterface start, VectorInterface anchor0, VectorInterface anchor, VectorInterface end) {
+        final Style arrowStyle = Style.SHAPE_PIN;
+
+        if (anchor == null)
+            anchor = start.add(end).div(2);
+
+        // arrow line
+        if (anchor0 != null)
+            gr.drawPolygon(new Polygon(false).add(start).add(anchor0, anchor, end), arrowStyle);
+        else
+            gr.drawPolygon(new Polygon(false).add(start).add(anchor, end), arrowStyle);
+
+        // arrowhead
+        VectorFloat dir = anchor.sub(end).norm().mul(20);
+        VectorFloat lot = dir.getOrthogonal().mul(0.3f);
+        gr.drawPolygon(new Polygon(false)
+                .add(end.add(dir).add(lot))
+                .add(end.sub(dir.mul(0.1f)))
+                .add(end.add(dir).sub(lot)), arrowStyle);
     }
 
     /**

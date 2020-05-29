@@ -536,7 +536,11 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         ElementLibrary library = new ElementLibrary();
         new ShapeFactory(library);
 
-        new FSMFrame(null, library, null).setVisible(true);
+        File f = null;
+        if (args.length == 1)
+            f = new File(args[0]);
+
+        new FSMFrame(null, library, f).setVisible(true);
     }
 
 }
