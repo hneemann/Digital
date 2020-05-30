@@ -52,10 +52,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final ArrayList<Variable> sequentialVars;
     private final ArrayList<FragmentVisualElement> flipflops;
     private final ArrayList<Variable> desiredVarOrdering;
+    private final HashSet<String> varsToNet;
     private int pos;
     private boolean useLUT;
     private boolean useJKff;
-    private HashSet<String> varsToNet;
     private ModelAnalyserInfo mai;
     private int lutNumber;
 
@@ -326,7 +326,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
     private void createInputBus(Collection<Variable> inputs, Circuit circuit) {
         HashMap<String, Integer> varPos = new HashMap<>();
-        int dx = -inputs.size() * SIZE * 2;
+        int dx = -(inputs.size() * 3 - 1) * SIZE;
         pos -= SIZE;
         for (Variable v : inputs) {
             VisualElement visualElement;
@@ -360,7 +360,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             }
 
             varPos.put(v.getIdentifier(), dx);
-            dx += SIZE * 2;
+            dx += SIZE * 3;
         }
 
         for (FragmentVariable f : fragmentVariables) {
