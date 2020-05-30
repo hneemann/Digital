@@ -5,7 +5,9 @@ Head, planned as v0.25
 - move the "lib" folder from the "examples" folder to the root folder.
 - Reordering of the cells in the K-Map
 - Counters are able to act as program counters via the remote interface.
-- 74193 was added
+- The circuits created have a more visible separation of the inputs.
+- The hex seven seg display is turned of in case of a high-z input.
+- 7482, 74193 and 744017 were added
 - Breaking changes:
   - The layout shape uses a slightly different algorithm to determine
     the pin positions. You may need to adjust usages of embedded circuits
