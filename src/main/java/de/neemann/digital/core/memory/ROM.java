@@ -12,6 +12,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.core.memory.rom.ROMInterface;
+import de.neemann.digital.lang.Lang;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,6 +107,8 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
     @Override
     public void init(Model model) throws NodeException {
         if (autoLoad) {
+            if (hexFile == null)
+                throw new NodeException(Lang.get("err_ROM_noFileGivenToLoad"), this, -1, null);
             try {
                 data = Importer.read(hexFile, dataBits);
             } catch (IOException e) {

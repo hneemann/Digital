@@ -1114,6 +1114,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="msg_errParsingGenerics">Fehler bei der Analyse des generischen Codes.</string>
 
     <string name="err_vgaModeNotDetected_N">Videomodus wurde nicht erkannt ({0})</string>
+    <string name="err_ROM_noFileGivenToLoad">Es ist kein Dateiname für das automatische Neuladen verfügbar!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
