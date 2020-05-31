@@ -156,6 +156,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
 
         setJMenuBar(bar);
 
+        pack();
         new WindowSizeStorage("fsm").setDefaultSize(600, 600).restore(this);
 
         setFSM(new FSM());

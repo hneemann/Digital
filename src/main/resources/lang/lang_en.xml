@@ -2029,18 +2029,23 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="err_fsmNumberUsedTwice_N">State Number {0} used twice.</string>
     <string name="err_fsmNoInitialState">There is no initial state (state number zero).</string>
     <string name="err_fsmState_N_notFound">State ''{0}'' not found!</string>
-    <string name="err_fsmInvalidOutputAssignment_N">Wrong  assignment to output (''{0}'')!</string>
+    <string name="err_fsmInvalidOutputAssignment_N">Wrong assignment to output (''{0}'')!</string>
     <string name="err_fsmErrorInCondition_N">Error in condition ''{0}''!</string>
     <string name="key_stateNum">State Number</string>
     <string name="key_stateNum_tt">The number which represents this state.</string>
     <string name="key_isInitialState">Initial State</string>
     <string name="key_isInitialState_tt">If set, this state is the initial state.</string>
+    <string name="key_initialAngle">Angle Initial Marker</string>
+    <string name="key_initialAngle_tt">Angle at which the marker of the initial state should be drawn.
+        Is a value between 0 and 31.
+    </string>
     <string name="key_stateValues">Outputs</string>
     <string name="key_stateValues_tt">Defines the output values.
         With simple assignments like "A=1, B=0" outputs can be set.
         With instructions like "A=101", multi-bit outputs can be set.
         Outputs that are not defined here are set to zero in states.
-        For transitions, unspecified outputs remain unchanged.</string>
+        For transitions, unspecified outputs remain unchanged.
+    </string>
     <string name="key_transCond">Condition</string>
     <string name="key_transCond_tt">A boolean expression.</string>
     <string name="key_transRad">Radius</string>

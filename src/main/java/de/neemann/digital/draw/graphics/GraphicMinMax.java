@@ -164,4 +164,11 @@ public class GraphicMinMax extends Graphic {
         else
             return parent.isFlagSet(flag);
     }
+
+    @Override
+    public String toString() {
+        return "GraphicMinMax{"
+                + "min=" + min
+                + ", max=" + max + '}';
+    }
 }

@@ -27,6 +27,7 @@ public class State extends Movable<State> {
     private String name;
     private int radius;
     private boolean isInitial;
+    private int initialAngle = 12;
 
     /**
      * Creates a new state
@@ -98,7 +99,9 @@ public class State extends Movable<State> {
 
         if (isInitial) {
             Vector initRad = new Vector(INIT_RAD, INIT_RAD);
-            VectorInterface pos = getPos().add(-radius - INIT_RAD * 2, -radius - INIT_RAD * 2).sub(initRad);
+            int r = radius + INIT_RAD * 6;
+            double angle = 2 * Math.PI / 32 * initialAngle;
+            VectorInterface pos = getPos().add(new VectorFloat((float) (Math.cos(angle) * r), -(float) (Math.sin(angle) * r)));
             gr.drawCircle(pos.sub(initRad), pos.add(initRad), Style.FILLED);
             VectorInterface delta = getPos().sub(pos).norm();
             VectorInterface a0 = pos.add(delta.mul(INIT_RAD + Style.FILLED.getThickness()));
@@ -215,5 +218,21 @@ public class State extends Movable<State> {
             wasModified(Property.INITIAL);
         }
 
+    }
+
+    /**
+     * @return the angle of the initial marker
+     */
+    public int getInitialAngle() {
+        return initialAngle;
+    }
+
+    /**
+     * Sets the angle of the initial marker
+     *
+     * @param angle the angle
+     */
+    public void setInitialAngle(Integer angle) {
+        initialAngle = angle;
     }
 }
