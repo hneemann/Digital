@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.draw.library;
 
+import de.neemann.digital.core.basic.Not;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
@@ -306,7 +307,8 @@ public class LibraryNode implements Iterable<LibraryNode> {
         // set the wide shape option to the element
         try {
             if (Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES)
-                    && getDescription().hasAttribute(Keys.WIDE_SHAPE))
+                    && getDescription().hasAttribute(Keys.WIDE_SHAPE)
+                    && !visualElement.equalsDescription(Not.DESCRIPTION))
                 visualElement.setAttribute(Keys.WIDE_SHAPE, true);
         } catch (IOException e1) {
             // do nothing on error
