@@ -99,9 +99,7 @@ public class State extends Movable<State> {
 
         if (isInitial) {
             Vector initRad = new Vector(INIT_RAD, INIT_RAD);
-            int r = radius + INIT_RAD * 6;
-            double angle = 2 * Math.PI / 32 * initialAngle;
-            VectorInterface pos = getPos().add(new VectorFloat((float) (Math.cos(angle) * r), -(float) (Math.sin(angle) * r)));
+            VectorInterface pos = getInitialMarkerPos();
             gr.drawCircle(pos.sub(initRad), pos.add(initRad), Style.FILLED);
             VectorInterface delta = getPos().sub(pos).norm();
             VectorInterface a0 = pos.add(delta.mul(INIT_RAD + Style.FILLED.getThickness()));
@@ -120,6 +118,15 @@ public class State extends Movable<State> {
             pos = pos.add(delta);
             gr.drawText(pos, getValues(), Orientation.CENTERCENTER, Style.INOUT);
         }
+    }
+
+    /**
+     * @return the initial marker position
+     */
+    VectorInterface getInitialMarkerPos() {
+        int r = radius + INIT_RAD * 6;
+        double angle = 2 * Math.PI / 32 * initialAngle;
+        return getPos().add(new VectorFloat((float) (Math.cos(angle) * r), -(float) (Math.sin(angle) * r)));
     }
 
     /**
@@ -176,6 +183,18 @@ public class State extends Movable<State> {
         return pos.sub(getPos()).len() <= radius;
     }
 
+    /**
+     * Returns true if the position matches the states initial marker
+     *
+     * @param pos the position
+     * @return true if pos inside of the states initial marker
+     */
+    public boolean matchesInitial(Vector pos) {
+        if (!isInitial)
+            return false;
+        return pos.sub(getInitialMarkerPos()).len() <= INIT_RAD;
+    }
+
     @Override
     public String toString() {
         if (name != null && name.length() > 0)
@@ -221,18 +240,31 @@ public class State extends Movable<State> {
     }
 
     /**
-     * @return the angle of the initial marker
+     * @return a movable that represents the initial marker.
      */
-    public int getInitialAngle() {
-        return initialAngle;
-    }
+    public MouseMovable getInitialMarkerMovable() {
+        return new MouseMovable() {
+            @Override
+            public VectorInterface getPos() {
+                return getInitialMarkerPos();
+            }
 
-    /**
-     * Sets the angle of the initial marker
-     *
-     * @param angle the angle
-     */
-    public void setInitialAngle(Integer angle) {
-        initialAngle = angle;
+            @Override
+            public void setPosByMouse(VectorFloat pos) {
+                VectorInterface delta = pos.sub(State.this.getPos());
+                double angle = Math.atan2(-delta.getYFloat(), delta.getXFloat()) / Math.PI * 16;
+                if (angle < 0)
+                    angle += 32;
+                int ia = (int) Math.round(angle);
+                if (initialAngle != ia) {
+                    initialAngle = ia;
+                    wasModified(Property.INITIAL_ANGLE);
+                }
+            }
+
+            @Override
+            public void setPos(VectorFloat pos) {
+            }
+        };
     }
 }

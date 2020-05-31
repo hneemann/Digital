@@ -2080,10 +2080,6 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="key_isInitialState_tt">Wenn gesetzt, ist dies der Initialzustand, in welchem der Automat gestartet
         wird.
     </string>
-    <string name="key_initialAngle">Winkel Initial-Marker</string>
-    <string name="key_initialAngle_tt">Winkel bei dem der Marker des Initialzustandes gezeichnet werden soll.
-        Ist ein Wert zwischen 0 und 31.
-    </string>
     <string name="key_stateValues">Ausgänge</string>
     <string name="key_stateValues_tt">Legt Ausgangswerte fest.
         Mit einfachen Zuweisungen wie "A=1, B=0" können Ausgänge gesetzt werden.

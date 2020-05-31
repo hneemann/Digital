@@ -10,10 +10,7 @@ import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.fsm.FSM;
-import de.neemann.digital.fsm.Movable;
-import de.neemann.digital.fsm.State;
-import de.neemann.digital.fsm.Transition;
+import de.neemann.digital.fsm.*;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Mouse;
@@ -34,12 +31,6 @@ import static de.neemann.digital.gui.components.CircuitComponent.ICON_DELETE;
 public class FSMComponent extends JComponent {
     private static final Key<Integer> KEY_NUMBER = new Key.KeyInteger("stateNum", 0);
     private static final Key<Boolean> KEY_INITIAL = new Key<>("isInitialState", false);
-    private static final Key<Integer> KEY_INITIAL_ANGLE = new Key.KeyInteger("initialAngle", 12)
-            .setComboBoxValues(4, 12, 20, 28)
-            .setMin(0)
-            .setMax(31)
-            .setDependsOn(KEY_INITIAL)
-            .setSecondary();
     private static final Key<String> KEY_VALUES = new Key<>("stateValues", "");
     private static final Key<String> KEY_CONDITION = new Key<>("transCond", "");
     private static final Key<Integer> KEY_RADIUS = new Key.KeyInteger("transRad", 70)
@@ -51,7 +42,7 @@ public class FSMComponent extends JComponent {
 
     private boolean isManualScale;
     private AffineTransform transform = new AffineTransform();
-    private Movable<?> elementMoved;
+    private MouseMovable elementMoved;
     private FSM fsm;
     private Vector lastMousePos;
     private State newTransitionFromState;
@@ -87,7 +78,7 @@ public class FSMComponent extends JComponent {
                     if (elementMoved != null)
                         delta = posVector.sub(elementMoved.getPos());
                 } else if (mouse.isSecondaryClick(e)) {
-                    Movable<?> st = fsm.getMovable(posVector);
+                    MouseMovable st = fsm.getMovable(posVector);
                     if (st instanceof State) {
                         newTransitionStartPos = posVector;
                         newTransitionFromState = (State) st;
@@ -107,7 +98,7 @@ public class FSMComponent extends JComponent {
                 if (newTransitionFromState != null) {
                     final Vector posVector = getPosVector(mouseEvent);
                     if (newTransitionStartPos.sub(posVector).len() > MIN_NEW_TRANS_DIST) {
-                        Movable<?> target = fsm.getMovable(posVector);
+                        MouseMovable target = fsm.getMovable(posVector);
                         if (target instanceof State)
                             fsm.add(new Transition(newTransitionFromState, (State) target, lastCondition));
                     }
@@ -119,7 +110,7 @@ public class FSMComponent extends JComponent {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 final Vector posVector = getPosVector(mouseEvent);
-                Movable<?> elementClicked = fsm.getMovable(posVector);
+                MouseMovable elementClicked = fsm.getMovable(posVector);
                 if (mouse.isSecondaryClick(mouseEvent)) {
                     if (elementClicked == null)
                         createNewState(posVector, new Point(mouseEvent.getX(), mouseEvent.getY()));
@@ -161,7 +152,7 @@ public class FSMComponent extends JComponent {
         ToolTipAction deleteAction = new ToolTipAction(Lang.get("menu_delete"), ICON_DELETE) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Movable<?> element = fsm.getMovable(lastMousePos);
+                MouseMovable element = fsm.getMovable(lastMousePos);
                 if (element instanceof State) {
                     fsm.remove((State) element);
                     repaint();
@@ -188,7 +179,7 @@ public class FSMComponent extends JComponent {
         setPreferredSize(new Dimension(600, 600));
     }
 
-    private static final Key<?>[] STATE_EDIT_KEYS = {Keys.LABEL, KEY_NUMBER, KEY_INITIAL, KEY_INITIAL_ANGLE, KEY_VALUES, KEY_RADIUS};
+    private static final Key<?>[] STATE_EDIT_KEYS = {Keys.LABEL, KEY_NUMBER, KEY_INITIAL, KEY_VALUES, KEY_RADIUS};
 
     private void createNewState(Vector posVector, Point point) {
         ElementAttributes attr = new ElementAttributes();
@@ -216,7 +207,6 @@ public class FSMComponent extends JComponent {
         ElementAttributes attr = new ElementAttributes()
                 .set(KEY_NUMBER, state.getNumber())
                 .set(KEY_INITIAL, state.isInitial())
-                .set(KEY_INITIAL_ANGLE, state.getInitialAngle())
                 .set(KEY_VALUES, state.getValues())
                 .set(KEY_RADIUS, state.getVisualRadius())
                 .set(Keys.LABEL, state.getName());
@@ -228,7 +218,6 @@ public class FSMComponent extends JComponent {
         if (newAttr != null) {
             state.setNumber(newAttr.get(KEY_NUMBER));
             state.setInitial(newAttr.get(KEY_INITIAL));
-            state.setInitialAngle(newAttr.get(KEY_INITIAL_ANGLE));
             state.setValues(newAttr.get(KEY_VALUES));
             state.setRadius(newAttr.get(KEY_RADIUS));
             state.setName(newAttr.get(Keys.LABEL));
@@ -318,7 +307,7 @@ public class FSMComponent extends JComponent {
     /**
      * @return the element picked by the mouse
      */
-    Movable<?> getElementMoved() {
+    MouseMovable getElementMoved() {
         return elementMoved;
     }
 

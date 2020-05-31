@@ -2035,10 +2035,6 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="key_stateNum_tt">The number which represents this state.</string>
     <string name="key_isInitialState">Initial State</string>
     <string name="key_isInitialState_tt">If set, this state is the initial state.</string>
-    <string name="key_initialAngle">Angle Initial Marker</string>
-    <string name="key_initialAngle_tt">Angle at which the marker of the initial state should be drawn.
-        Is a value between 0 and 31.
-    </string>
     <string name="key_stateValues">Outputs</string>
     <string name="key_stateValues_tt">Defines the output values.
         With simple assignments like "A=1, B=0" outputs can be set.

@@ -12,9 +12,9 @@ import de.neemann.digital.draw.graphics.VectorFloat;
  *
  * @param <A> the type of the implementing class
  */
-public class Movable<A extends Movable> {
+public class Movable<A extends Movable<?>> implements MouseMovable {
 
-    enum Property {POS, REMOVED, CONDITION, NAME, NUMBER, MOUSEPOS, VALUES, INITIAL, ADDED}
+    enum Property {POS, REMOVED, CONDITION, NAME, NUMBER, MOUSEPOS, VALUES, INITIAL, ADDED, INITIAL_ANGLE}
 
     private static final float MASS = 50f;
     private static final float FRICTION = 0.8f;
