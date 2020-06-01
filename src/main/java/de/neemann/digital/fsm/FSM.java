@@ -378,7 +378,11 @@ public class FSM {
      * @return the element or null
      */
     public MouseMovable getMovable(Vector pos) {
-        Movable<?> found = null;
+        for (State s : states)
+            if (s.matchesInitial(pos))
+                return s.getInitialMarkerMovable();
+
+        MouseMovable found = null;
         float dist = Float.MAX_VALUE;
         for (Transition t : transitions)
             if (t.matches(pos)) {
@@ -400,9 +404,7 @@ public class FSM {
                     dist = d;
                     found = s;
                 }
-            } else if (s.matchesInitial(pos))
-                return s.getInitialMarkerMovable();
-
+            }
         return found;
     }
 
