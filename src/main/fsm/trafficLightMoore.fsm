@@ -8,6 +8,7 @@
       <name>Red</name>
       <radius>70</radius>
       <isInitial>true</isInitial>
+      <initialAngle>14</initialAngle>
     </state>
     <state>
       <values>R=1,Y=1</values>
@@ -16,6 +17,7 @@
       <name>Red/Yellow</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
+      <initialAngle>0</initialAngle>
     </state>
     <state>
       <values>G=1</values>
@@ -24,6 +26,7 @@
       <name>Green</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
+      <initialAngle>0</initialAngle>
     </state>
     <state>
       <values>Y=1</values>
@@ -32,33 +35,34 @@
       <name>Yellow</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
+      <initialAngle>0</initialAngle>
     </state>
   </states>
   <transitions>
     <transition>
       <values></values>
-      <position x="743.49994" y="216.50009"/>
+      <position x="733.80725" y="226.19278"/>
       <fromState reference="../../../states/state"/>
       <toState reference="../../../states/state[2]"/>
       <condition></condition>
     </transition>
     <transition>
       <values></values>
-      <position x="742.5" y="502.5"/>
+      <position x="733.812" y="493.812"/>
       <fromState reference="../../../states/state[2]"/>
       <toState reference="../../../states/state[3]"/>
       <condition></condition>
     </transition>
     <transition>
       <values></values>
-      <position x="459.0" y="501.0"/>
+      <position x="466.18964" y="493.81036"/>
       <fromState reference="../../../states/state[3]"/>
       <toState reference="../../../states/state[4]"/>
       <condition></condition>
     </transition>
     <transition>
       <values></values>
-      <position x="463.5" y="223.5"/>
+      <position x="466.19138" y="226.19138"/>
       <fromState reference="../../../states/state[4]"/>
       <toState reference="../../../states/state"/>
       <condition></condition>

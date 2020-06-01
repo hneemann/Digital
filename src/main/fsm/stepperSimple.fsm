@@ -8,6 +8,7 @@
       <name>S0</name>
       <radius>70</radius>
       <isInitial>true</isInitial>
+      <initialAngle>14</initialAngle>
     </state>
     <state>
       <values>P=0110</values>
@@ -16,6 +17,7 @@
       <name>S2</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
+      <initialAngle>0</initialAngle>
     </state>
     <state>
       <values>P=0011</values>
@@ -24,6 +26,7 @@
       <name>S4</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
+      <initialAngle>0</initialAngle>
     </state>
     <state>
       <values>P=1001</values>
@@ -32,6 +35,7 @@
       <name>S6</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
+      <initialAngle>0</initialAngle>
     </state>
   </states>
   <transitions>
