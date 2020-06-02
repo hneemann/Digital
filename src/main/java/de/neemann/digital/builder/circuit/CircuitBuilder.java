@@ -430,7 +430,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             variables = order(variables, sequentialVars);
 
         if (mai != null)
-            checkForInputBus(variables, -(variables.size() + 5) * SIZE * 2, circuit);
+            checkForInputBus(variables, -SIZE * 5 - variables.size() * SIZE * 3, circuit);
 
         createInputBus(variables, circuit);
 
