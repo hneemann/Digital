@@ -42,7 +42,7 @@ public class Movable<A extends Movable<?>> implements MouseMovable {
      *
      * @param position the position
      */
-    public void setPosByMouse(VectorFloat position) {
+    public void setPosDragging(VectorFloat position) {
         setPos(position, Property.MOUSEPOS);
     }
 

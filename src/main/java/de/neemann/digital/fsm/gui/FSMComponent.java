@@ -139,7 +139,7 @@ public class FSMComponent extends JComponent {
                     repaint();
                 }
                 if (elementMoved != null) {
-                    elementMoved.setPosByMouse(getPosVector(e).sub(delta).toFloat());
+                    elementMoved.setPosDragging(getPosVector(e).sub(delta).toFloat());
                     repaint();
                 }
                 if (newTransitionFromState != null)

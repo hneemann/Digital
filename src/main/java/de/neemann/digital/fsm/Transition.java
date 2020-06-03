@@ -86,8 +86,8 @@ public class Transition extends Movable<Transition> {
 
 
     @Override
-    public void setPosByMouse(VectorFloat position) {
-        super.setPosByMouse(posConstrain(position));
+    public void setPosDragging(VectorFloat position) {
+        super.setPosDragging(posConstrain(position));
     }
 
     @Override

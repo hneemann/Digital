@@ -21,15 +21,15 @@ public interface MouseMovable {
      * Sets the position by the mouse.
      * Is called while dragging.
      *
-     * @param pos the position
+     * @param pos the intermediate position
      */
-    void setPosByMouse(VectorFloat pos);
+    void setPosDragging(VectorFloat pos);
 
     /**
      * Sets the position by the mouse.
      * Is called if mouse button is released.
      *
-     * @param pos the position
+     * @param pos the final position
      */
     void setPos(VectorFloat pos);
 }

@@ -250,7 +250,7 @@ public class State extends Movable<State> {
             }
 
             @Override
-            public void setPosByMouse(VectorFloat pos) {
+            public void setPosDragging(VectorFloat pos) {
                 VectorInterface delta = pos.sub(State.this.getPos());
                 double angle = Math.atan2(-delta.getYFloat(), delta.getXFloat()) / Math.PI * 16;
                 if (angle < 0)
