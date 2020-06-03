@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.core.io;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -22,6 +19,12 @@ public class StepperMotorUnipolar extends Node implements Element {
      */
     public static final int STEPS = 72;
     private static final int SWITCH_SIZE = 2;
+    private static final boolean[] STATE_VALID = new boolean[]{
+            false, true, true, true,
+            true, false, true, false,
+            true, true, false, false,
+            true, false, false, false,
+    };
     private static final int[][] STEP_TABLE = new int[][]{
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 2, 1, 0, 0, 0, 0, -2, -1, 0, 0, 0, 0, 0, 0},
@@ -89,14 +92,14 @@ public class StepperMotorUnipolar extends Node implements Element {
         if (this.pos < 0) this.pos += STEPS;
         else if (this.pos >= STEPS) this.pos -= STEPS;
 
-        if (step == 0 && lastState != 0) {
+        if (step == 0 && STATE_VALID[lastState] && STATE_VALID[state]) {
             error += 8;
             if (error > 8)
                 error = 8;
         } else if (error > 0)
             error--;
 
-        if (state != 0)
+        if (STATE_VALID[state])
             lastState = state;
     }
 
