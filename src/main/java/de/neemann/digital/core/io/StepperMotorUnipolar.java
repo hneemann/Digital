@@ -90,6 +90,9 @@ public class StepperMotorUnipolar extends Node implements Element {
         int state = getState();
 
         int step = STEP_TABLE[lastState][state];
+        if (com.getBool())
+            step = -step;
+
         this.pos += step;
         if (this.pos < 0) this.pos += STEPS;
         else if (this.pos >= STEPS) this.pos -= STEPS;
