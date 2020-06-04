@@ -309,6 +309,7 @@
     <string name="elem_StepperMotorUnipolar_pin_P1">Phase 1</string>
     <string name="elem_StepperMotorUnipolar_pin_P2">Phase 2</string>
     <string name="elem_StepperMotorUnipolar_pin_P3">Phase 3</string>
+    <string name="elem_StepperMotorUnipolar_pin_com">Gemeinsamer Mittenanschluss</string>
 
     <string name="elem_StepperMotorBipolar">Schrittmotor, bipolar</string>
     <string name="elem_StepperMotorBipolar_tt">Bipolarer Schrittmotor mit zwei Endlagenschaltern. Die Endlagenschalter

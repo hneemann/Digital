@@ -5,7 +5,9 @@
  */
 package de.neemann.digital.core.io;
 
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
@@ -26,6 +28,11 @@ public class StepperMotorBipolar extends StepperMotorUnipolar {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.INVERT_OUTPUT);
 
+    private ObservableValue aPlus;
+    private ObservableValue aMinus;
+    private ObservableValue bPlus;
+    private ObservableValue bMinus;
+
     /**
      * Creates a new instance
      *
@@ -36,7 +43,15 @@ public class StepperMotorBipolar extends StepperMotorUnipolar {
     }
 
     @Override
-    protected int getState(ObservableValue aPlus, ObservableValue aMinus, ObservableValue bPlus, ObservableValue bMinus) {
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        aPlus = inputs.get(0).checkBits(1, this).addObserverToValue(this);
+        aMinus = inputs.get(1).checkBits(1, this).addObserverToValue(this);
+        bPlus = inputs.get(2).checkBits(1, this).addObserverToValue(this);
+        bMinus = inputs.get(3).checkBits(1, this).addObserverToValue(this);
+    }
+
+    @Override
+    protected int getState() {
         int a = getCoilState(aPlus, aMinus);
         int b = getCoilState(bPlus, bMinus);
 

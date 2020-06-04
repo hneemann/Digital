@@ -308,6 +308,7 @@
     <string name="elem_StepperMotorUnipolar_pin_P1">Phase 1</string>
     <string name="elem_StepperMotorUnipolar_pin_P2">Phase 2</string>
     <string name="elem_StepperMotorUnipolar_pin_P3">Phase 3</string>
+    <string name="elem_StepperMotorUnipolar_pin_com">Common center coil connection</string>
 
     <string name="elem_StepperMotorBipolar">Stepper Motor, bipolar</string>
     <string name="elem_StepperMotorBipolar_tt">Bipolar stepper motor with two limit position switches.

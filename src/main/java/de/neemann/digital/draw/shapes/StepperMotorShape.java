@@ -46,13 +46,23 @@ public class StepperMotorShape implements Shape {
 
     @Override
     public Pins getPins() {
-        return new Pins()
-                .add(new Pin(new Vector(-SIZE * 2, -SIZE), inputs.get(0)))
-                .add(new Pin(new Vector(-SIZE * 2, 0), inputs.get(1)))
-                .add(new Pin(new Vector(-SIZE * 2, SIZE), inputs.get(2)))
-                .add(new Pin(new Vector(-SIZE * 2, SIZE * 2), inputs.get(3)))
-                .add(new Pin(new Vector(SIZE * 2, -SIZE), outputs.get(0)))
-                .add(new Pin(new Vector(SIZE * 2, SIZE * 2), outputs.get(1)));
+        if (inputs.size() == 4)
+            return new Pins()
+                    .add(new Pin(new Vector(-SIZE * 2, -SIZE), inputs.get(0)))
+                    .add(new Pin(new Vector(-SIZE * 2, 0), inputs.get(1)))
+                    .add(new Pin(new Vector(-SIZE * 2, SIZE), inputs.get(2)))
+                    .add(new Pin(new Vector(-SIZE * 2, SIZE * 2), inputs.get(3)))
+                    .add(new Pin(new Vector(SIZE * 3, -SIZE), outputs.get(0)))
+                    .add(new Pin(new Vector(SIZE * 3, SIZE * 3), outputs.get(1)));
+        else
+            return new Pins()
+                    .add(new Pin(new Vector(-SIZE * 2, -SIZE), inputs.get(0)))
+                    .add(new Pin(new Vector(-SIZE * 2, 0), inputs.get(1)))
+                    .add(new Pin(new Vector(-SIZE * 2, SIZE), inputs.get(2)))
+                    .add(new Pin(new Vector(-SIZE * 2, SIZE * 2), inputs.get(3)))
+                    .add(new Pin(new Vector(-SIZE * 2, SIZE * 3), inputs.get(4)))
+                    .add(new Pin(new Vector(SIZE * 3, -SIZE), outputs.get(0)))
+                    .add(new Pin(new Vector(SIZE * 3, SIZE * 3), outputs.get(1)));
     }
 
     @Override
@@ -65,7 +75,7 @@ public class StepperMotorShape implements Shape {
     public void readObservableValues() {
         if (motor != null) {
             pos = motor.getPos();
-            error = motor.wasError();
+            error = motor.isError();
         }
     }
 
@@ -76,16 +86,16 @@ public class StepperMotorShape implements Shape {
     public void drawTo(Graphic graphic, Style highLight) {
         Polygon polygon = new Polygon()
                 .add(-SIZE * 2, -SIZE - SIZE2)
-                .add(SIZE * 2, -SIZE - SIZE2)
-                .add(SIZE * 2, SIZE * 2 + SIZE2)
-                .add(-SIZE * 2, SIZE * 2 + SIZE2);
+                .add(SIZE * 3, -SIZE - SIZE2)
+                .add(SIZE * 3, SIZE * 3 + SIZE2)
+                .add(-SIZE * 2, SIZE * 3 + SIZE2);
 
 
         graphic.drawPolygon(polygon, Style.NORMAL);
 
 
-        Vector center = new Vector(0, SIZE2);
-        int radius = SIZE + SIZE2;
+        Vector center = new Vector(SIZE2, SIZE);
+        int radius = SIZE * 2;
         Vector rad = new Vector(radius, radius);
         graphic.drawCircle(center.sub(rad), center.add(rad), Style.THIN);
 
@@ -98,7 +108,7 @@ public class StepperMotorShape implements Shape {
             graphic.drawLine(center, center.add(pointer), Style.NORMAL);
 
         if (label != null && !label.isEmpty())
-            graphic.drawText(new Vector(0, -SIZE * 2), label, Orientation.CENTERBOTTOM, Style.NORMAL);
+            graphic.drawText(new Vector(SIZE2, -SIZE * 2), label, Orientation.CENTERBOTTOM, Style.NORMAL);
 
     }
 }

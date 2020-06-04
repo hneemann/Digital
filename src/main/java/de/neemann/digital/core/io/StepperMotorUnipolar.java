@@ -47,11 +47,10 @@ public class StepperMotorUnipolar extends Node implements Element {
      * The stepper motors description
      */
     public static final ElementTypeDescription DESCRIPTION
-            = new ElementTypeDescription(StepperMotorUnipolar.class, input("P0"), input("P1"), input("P2"), input("P3"))
+            = new ElementTypeDescription(StepperMotorUnipolar.class, input("P0"), input("P1"), input("P2"), input("P3"), input("com"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.INVERT_OUTPUT)
-            .addAttribute(Keys.INVERTER_CONFIG);
+            .addAttribute(Keys.INVERT_OUTPUT);
 
     private final ObservableValue s0;
     private final ObservableValue s1;
@@ -60,9 +59,11 @@ public class StepperMotorUnipolar extends Node implements Element {
     private ObservableValue p1;
     private ObservableValue p2;
     private ObservableValue p3;
+    private ObservableValue com;
     private int lastState;
     private int pos;
-    private int error;
+    private int sequenceError;
+    private boolean stateError;
 
     /**
      * Creates a new instance
@@ -81,39 +82,52 @@ public class StepperMotorUnipolar extends Node implements Element {
         p1 = inputs.get(1).checkBits(1, this).addObserverToValue(this);
         p2 = inputs.get(2).checkBits(1, this).addObserverToValue(this);
         p3 = inputs.get(3).checkBits(1, this).addObserverToValue(this);
+        com = inputs.get(4).checkBits(1, this).addObserverToValue(this);
     }
 
     @Override
     public void readInputs() throws NodeException {
-        int state = getState(p0, p1, p2, p3);
+        int state = getState();
 
         int step = STEP_TABLE[lastState][state];
         this.pos += step;
         if (this.pos < 0) this.pos += STEPS;
         else if (this.pos >= STEPS) this.pos -= STEPS;
 
-        if (step == 0 && STATE_VALID[lastState] && STATE_VALID[state]) {
-            error += 8;
-            if (error > 8)
-                error = 8;
-        } else if (error > 0)
-            error--;
+        boolean stateValid = STATE_VALID[state];
+        if (step == 0 && STATE_VALID[lastState] && stateValid) {
+            sequenceError += 8;
+            if (sequenceError > 8)
+                sequenceError = 8;
+        } else if (sequenceError > 0)
+            sequenceError--;
 
-        if (STATE_VALID[state])
+        stateError = state != 0 && !stateValid;
+
+        if (stateValid)
             lastState = state;
     }
 
     /**
      * Calculates the state of the motor inputs
      *
-     * @param p0 port 0
-     * @param p1 port 1
-     * @param p2 port 2
-     * @param p3 port 3
      * @return the state as a number from 0 to 15
      */
-    protected int getState(ObservableValue p0, ObservableValue p1, ObservableValue p2, ObservableValue p3) {
-        return (p0.getBool() ? 1 : 0) | (p1.getBool() ? 2 : 0) | (p2.getBool() ? 4 : 0) | (p3.getBool() ? 8 : 0);
+    protected int getState() {
+        if (com.isHighZ())
+            return 0;
+
+        boolean comIn = com.getBool();
+        return (isCurrent(p0, comIn) ? 1 : 0)
+                | (isCurrent(p1, comIn) ? 2 : 0)
+                | (isCurrent(p2, comIn) ? 4 : 0)
+                | (isCurrent(p3, comIn) ? 8 : 0);
+    }
+
+    private boolean isCurrent(ObservableValue phase, boolean comIn) {
+        if (phase.isHighZ())
+            return false;
+        return phase.getBool() != comIn;
     }
 
     @Override
@@ -134,8 +148,8 @@ public class StepperMotorUnipolar extends Node implements Element {
     /**
      * @return true if the was an error in the phase pattern
      */
-    public boolean wasError() {
-        return error > 0;
+    public boolean isError() {
+        return sequenceError > 0 || stateError;
     }
 
     @Override
