@@ -51,6 +51,11 @@ public class StepperMotorBipolar extends StepperMotorUnipolar {
     }
 
     @Override
+    protected boolean reverse() {
+        return false;
+    }
+
+    @Override
     protected int getState() {
         int a = getCoilState(aPlus, aMinus);
         int b = getCoilState(bPlus, bMinus);
