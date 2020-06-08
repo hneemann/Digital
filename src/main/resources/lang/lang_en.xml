@@ -1505,6 +1505,25 @@
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
 
+    <string name="cli_nonOptionalArgumentMissing_N">The non-optional argument {0} is missing.</string>
+    <string name="cli_notABool_N">The value {0} is no bool.</string>
+    <string name="cli_notANumber_N">The value {0} is not a number.</string>
+    <string name="cli_noArgument_N_available">The argument {0} is missing.</string>
+    <string name="cli_notEnoughArgumentsGiven">There are not enough arguments.</string>
+    <string name="cli_toMuchArguments">There are too many arguments.</string>
+    <string name="cli_invalidType_N">Invalid type.</string>
+    <string name="cli_command_N_hasNoSubCommand_N">The command {0} has no sub-command {1}.</string>
+
+    <string name="cli_help_test">The first file name specifies the circuit to be tested.
+        If a second file name is specified, the test cases are executed from this file.
+        If no second file name is specified, the tests are executed from the first file.
+    </string>
+    <string name="cli_help_test_circ">Name of the file to be tested.</string>
+    <string name="cli_help_test_test">Name of a file with test cases.</string>
+    <string name="cli_thereAreTestFailures">Tests have failed.</string>
+    <string name="cli_errorExecutingTests">An error has occurred during the execution of the tests.</string>
+
+
     <string name="menu_window">Windows</string>
     <string name="menu_about">About</string>
     <string name="menu_analyse">Analysis</string>
