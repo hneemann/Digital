@@ -5,6 +5,9 @@
  */
 package de.neemann.digital.testing.parser;
 
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.testing.TestingDataException;
 import junit.framework.TestCase;
@@ -189,6 +192,18 @@ public class ParserTest extends TestCase {
         LineCollector td = new LineCollector(parser);
         assertEquals(3, td.getNames().size());
         assertEquals(1, td.getLines().size());
+    }
+
+    public void test_modelInitState() throws IOException, ParserException {
+        Model model = new Model();
+        model.addSignal(new Signal("A", new ObservableValue("A", 3).setValue(2)));
+        model.addSignal(new Signal("B", new ObservableValue("B", 3).setValue(3)));
+        Parser parser = new Parser("A B Y\n" +
+                "let a=A+B;\n" +
+                "1 1 1\n#test").parse();
+        Context context = new Context().setModel(model);
+        LineCollector td = new LineCollector(parser, context);
+        assertEquals(5, context.getVar("a"));
     }
 
 }

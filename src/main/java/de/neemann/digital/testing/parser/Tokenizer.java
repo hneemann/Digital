@@ -16,7 +16,8 @@ public class Tokenizer {
 
     enum Token {
         UNKNOWN, IDENT, AND, OR, XOR, BIN_NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
-        ADD, SUB, MUL, GREATER, GREATEREQUAL, SMALER, SMALEREQUAL, DIV, MOD, END, LOOP, REPEAT, BITS, SEMICOLON, LET, LOG_NOT
+        ADD, SUB, MUL, GREATER, GREATEREQUAL, SMALER, SMALEREQUAL, DIV, MOD, END, LOOP, REPEAT, BITS, SEMICOLON,
+        LET, LOG_NOT, WHILE
     }
 
     private static HashMap<String, Token> statementMap = new HashMap<>();
@@ -27,6 +28,7 @@ public class Tokenizer {
         statementMap.put("repeat", Token.REPEAT);
         statementMap.put("bits", Token.BITS);
         statementMap.put("let", Token.LET);
+        statementMap.put("while", Token.WHILE);
     }
 
     private final Reader in;

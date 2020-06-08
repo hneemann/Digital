@@ -110,7 +110,7 @@ public class TestExecutor {
 
         model.init();
 
-        lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context());
+        lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context().setModel(model));
 
         return this;
     }

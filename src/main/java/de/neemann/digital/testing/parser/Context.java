@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.testing.parser;
 
+import de.neemann.digital.core.Model;
+import de.neemann.digital.core.Signal;
 import de.neemann.digital.lang.Lang;
 
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import java.util.Map;
 public class Context {
     private final Context parent;
     private HashMap<String, Long> map;
+    private Model model;
 
     /**
      * Creates an empty context
@@ -42,8 +45,14 @@ public class Context {
      */
     public long getVar(String name) throws ParserException {
         if (map == null || !map.containsKey(name)) {
-            if (parent == null)
+            if (parent == null) {
+                if (model != null) {
+                    for (Signal s : model.getSignals())
+                        if (s.getName().equals(name))
+                            return s.getValue().getValue();
+                }
                 throw new ParserException(Lang.get("err_variable_N0_notFound", name));
+            }
             return parent.getVar(name);
         } else
             return map.get(name);
@@ -82,5 +91,16 @@ public class Context {
                     sb.append(";");
                 sb.append(e.getKey()).append("=").append(e.getValue());
             }
+    }
+
+    /**
+     * Sets the model where tis context is used with.
+     *
+     * @param model the model
+     * @return this for chained calls
+     */
+    public Context setModel(Model model) {
+        this.model = model;
+        return this;
     }
 }

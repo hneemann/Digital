@@ -33,8 +33,8 @@ public class Parser {
 
     private final ArrayList<String> names;
     private final Tokenizer tok;
+    private final HashMap<String, Function> functions = new HashMap<>();
     private LineEmitter emitter;
-    private HashMap<String, Function> functions = new HashMap<>();
 
     /**
      * Creates a new instance
@@ -111,7 +111,7 @@ public class Parser {
                 case LET:
                     tok.consume();
                     expect(Tokenizer.Token.IDENT);
-                    final String varName=tok.getIdent();
+                    final String varName = tok.getIdent();
                     expect(Tokenizer.Token.EQUAL);
                     final Expression intValue = parseExpression();
                     expect(Tokenizer.Token.SEMICOLON);
@@ -133,6 +133,13 @@ public class Parser {
                     count = parseInt();
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterRepeat(var, count, parseRows(Tokenizer.Token.LOOP)));
+                    break;
+                case WHILE:
+                    tok.consume();
+                    expect(Tokenizer.Token.OPEN);
+                    final Expression condition = parseExpression();
+                    expect(Tokenizer.Token.CLOSE);
+                    list.add(new LineEmitterWhile(condition, parseRows(Tokenizer.Token.WHILE)));
                     break;
                 default:
                     throw newUnexpectedToken(t);
@@ -283,6 +290,7 @@ public class Parser {
         }
         return ac;
     }
+
     private Expression parseGreaterEqual() throws IOException, ParserException {
         Expression ac = parseEquals();
         while (isToken(Tokenizer.Token.GREATEREQUAL)) {
@@ -440,7 +448,7 @@ public class Parser {
                 return (c) -> ~notExp.value(c);
             case LOG_NOT:
                 Expression boolNotExp = parseIdent();
-                return (c) -> boolNotExp.value(c)==0?1:0;
+                return (c) -> boolNotExp.value(c) == 0 ? 1 : 0;
             case OPEN:
                 Expression exp = parseExpression();
                 expect(Tokenizer.Token.CLOSE);

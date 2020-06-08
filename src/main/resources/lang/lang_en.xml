@@ -1982,6 +1982,22 @@ loop(a,16)
 end loop
 </pre>
 
+<p>Under certain circumstances it may be necessary to be able to react to the initial
+state of the circuit. Therefore the signals provided in the circuit can be used within
+the test case. For example, if a counter that starts in an undefined state is to be
+tested, it can be clocked to a defined state:</p>
+
+<pre>C Q_3 Q_2 Q_1 Q_0
+
+# clock counter to 1111
+while(!(Q_3 & Q_2 & Q_1 & Q_0))
+C x x x x
+end while
+
+# start the test execution
+repeat(16) C bits(4,n)
+</pre>
+
 <p>It may be helpful to generate random numbers in test cases.
 These can be created with the function 'random([n])'. The generated number is greater
 than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,

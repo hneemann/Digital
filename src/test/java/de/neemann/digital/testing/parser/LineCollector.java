@@ -10,6 +10,7 @@ import de.neemann.digital.data.Value;
 import java.util.ArrayList;
 
 /**
+ *
  */
 public class LineCollector implements LineListener {
     private final ArrayList<String> names;
@@ -22,8 +23,12 @@ public class LineCollector implements LineListener {
     }
 
     public LineCollector(Parser parser) throws ParserException {
+        this(parser, new Context());
+    }
+
+    public LineCollector(Parser parser, Context context) throws ParserException {
         this.list = new ArrayList<>();
-        parser.getLines().emitLines(this, new Context());
+        parser.getLines().emitLines(this, context);
         names = parser.getNames();
     }
 

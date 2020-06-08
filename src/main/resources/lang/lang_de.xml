@@ -2029,6 +2029,23 @@ loop(a,16)
 end loop
 </pre>
 
+<p>Unter Umständen kann es notwendig sein, auf den Startzustand der Schaltung
+reagieren zu können. Daher können die Signale, die in der Schaltung bereitgestellt werden,
+innerhalb des Testfalls verwendet werden. Soll zum Beispiel ein Zähler, welcher in
+einem undefinierten Zustand startet, getestet werden, kann dieser in einen definierten
+Zustand getaktet werden:</p>
+
+<pre>C Q_3 Q_2 Q_1 Q_0
+
+# clock counter to 1111
+while(!(Q_3 & Q_2 & Q_1 & Q_0))
+C x x x x
+end while
+
+# start the test execution
+repeat(16) C bits(4,n)
+</pre>
+
 <p>Unter Umständen ist die Erzeugung von Zufallszahlen in Testfällen hilfreich.
 Diese können mit der Funktion 'random([n])' erzeugt werden. Die erzeugte Zahl ist
 größer gleich Null und kleiner als [n]. Betrachtet man einen 16-Bit Multiplikator als Beispiel,
