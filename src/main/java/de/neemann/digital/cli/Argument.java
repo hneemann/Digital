@@ -12,7 +12,7 @@ import de.neemann.digital.lang.Lang;
  *
  * @param <T> the type of the argument
  */
-public class Argument<T> {
+public class Argument<T> extends ArgumentBase<T> {
     private final String name;
     private final boolean optional;
     private T value;
@@ -33,70 +33,67 @@ public class Argument<T> {
         value = def;
     }
 
-    T get() {
+    @Override
+    public T get() {
         return value;
     }
 
     @Override
-    public String toString() {
-        if (optional)
-            return "[[" + name + "]]";
-        else
-            return "[" + name + "]";
-    }
-
-    /**
-     * Sets a string value
-     *
-     * @param val the value to set
-     * @throws CLIException CLIException
-     */
     public void setString(String val) throws CLIException {
-        if (value instanceof String)
-            value = (T) val;
-        else if (value instanceof Boolean)
-            switch (val.toLowerCase()) {
-                case "yes":
-                case "1":
-                case "true":
-                    value = (T) (Boolean) true;
-                    break;
-                case "no":
-                case "0":
-                case "false":
-                    value = (T) (Boolean) false;
-                    break;
-                default:
-                    throw new CLIException(Lang.get("cli_notABool_N", val), 106);
-            }
-        else if (value instanceof Integer) {
-            try {
-                value = (T) (Integer) Integer.parseInt(val);
-            } catch (NumberFormatException e) {
-                throw new CLIException(Lang.get("cli_notANumber_N", val), e);
-            }
-        } else
-            throw new CLIException(Lang.get("cli_invalidType_N", value.getClass().getSimpleName()), 203);
+        value = (T) fromString(val, value);
         isSet = true;
     }
 
     /**
-     * @return if this argument was set
+     * Creates a value from a string
+     *
+     * @param val      the value as a string
+     * @param defValue the default value
+     * @return the value converted to the type of the default value
+     * @throws CLIException CLIException
      */
+    public static Object fromString(String val, Object defValue) throws CLIException {
+        if (defValue instanceof String)
+            return val;
+        else if (defValue instanceof Boolean)
+            switch (val.toLowerCase()) {
+                case "yes":
+                case "1":
+                case "true":
+                    return true;
+                case "no":
+                case "0":
+                case "false":
+                    return false;
+                default:
+                    throw new CLIException(Lang.get("cli_notABool_N", val), 106);
+            }
+        else if (defValue instanceof Integer) {
+            try {
+                return Integer.parseInt(val);
+            } catch (NumberFormatException e) {
+                throw new CLIException(Lang.get("cli_notANumber_N", val), e);
+            }
+        } else
+            throw new CLIException(Lang.get("cli_invalidType_N", defValue.getClass().getSimpleName()), 203);
+    }
+
+    @Override
     public boolean isSet() {
         return isSet;
     }
 
-    /**
-     * @return the name of this argument
-     */
+    @Override
+    public String getDescription(String command) {
+        return Lang.get("cli_help_" + command + "_" + name);
+    }
+
+    @Override
     public String getName() {
         return name;
     }
 
-    /**
-     * @return true if this argument is optional
-     */
+    @Override
     public boolean isOptional() {
         return optional;
     }

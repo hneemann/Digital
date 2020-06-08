@@ -19,13 +19,14 @@ public class Muxer implements CLICommand {
      * The main muxer
      */
     public static final Muxer MAIN_MUXER = new Muxer()
-            .addCommand(new CLITester());
+            .addCommand(new CLITester())
+            .addCommand(new SVGExport());
 
     private final HashMap<String, CLICommand> commands;
     private final String name;
 
     private Muxer() {
-        this("java -jar Digital.jar CLI");
+        this("java -cp Digital.jar CLI");
     }
 
     /**

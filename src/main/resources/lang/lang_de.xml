@@ -1549,6 +1549,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="cli_toMuchArguments">Es gibt zu viele Argumente.</string>
     <string name="cli_invalidType_N">Ungültiger Typ.</string>
     <string name="cli_command_N_hasNoSubCommand_N">Der Befehl {0} hat keinen Subbefehl {1}.</string>
+    <string name="cli_options">Optionen:</string>
 
     <string name="cli_help_test">Der erste Dateiname gibt die zu testende Schaltung an.
         Wenn ein zweiter Dateiname angegeben wird, werden die Testfälle aus dieser Datei ausgeführt.
@@ -1558,6 +1559,14 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="cli_help_test_test">Name einer Datei mit Testfällen.</string>
     <string name="cli_thereAreTestFailures">Es sind Tests fehlgeschlagen.</string>
     <string name="cli_errorExecutingTests">Es ist ein Fehler bei der Ausführung der Tests aufgetreten.</string>
+
+    <string name="cli_help_svg">Kann verwendet werden, um aus einer Schaltung
+        eine SVG-Datei zu erzeugen.
+    </string>
+    <string name="cli_help_svg_dig">Der Dateiname der Schaltung.</string>
+    <string name="cli_help_svg_svg">Der Name der zu schreibenden SVG-Datei.</string>
+    <string name="cli_help_svg_ieee">Verwendung der IEEE Symbole.</string>
+    <string name="cli_errorCreatingSVG">Fehler bei der Erzeugung der SVG Datei!</string>
 
     <string name="menu_window">Fenster</string>
     <string name="menu_about">Über Digital</string>

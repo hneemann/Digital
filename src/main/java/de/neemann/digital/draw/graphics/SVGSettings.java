@@ -52,7 +52,10 @@ public final class SVGSettings extends SettingsBase {
         super(createKeyList(), ".svgStyle.cfg");
     }
 
-    private static List<Key> createKeyList() {
+    /**
+     * @return a list of available SVG export keys
+     */
+    public static List<Key> createKeyList() {
         ArrayList<Key> list = new ArrayList<>();
         list.add(LATEX);
         list.add(PINS_IN_MATH_MODE);

@@ -25,6 +25,7 @@ public final class CLI {
             Muxer.MAIN_MUXER.execute(args);
         } catch (CLIException e) {
             e.printMessage(System.out);
+            System.out.println();
             Muxer.MAIN_MUXER.printDescription(System.out, "");
             System.exit(e.getExitCode());
         }

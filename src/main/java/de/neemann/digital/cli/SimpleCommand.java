@@ -17,7 +17,7 @@ import java.util.Iterator;
  */
 public abstract class SimpleCommand implements CLICommand {
     private final String name;
-    private final ArrayList<Argument<?>> arguments;
+    private final ArrayList<ArgumentBase<?>> arguments;
 
     /**
      * Creates a new command
@@ -37,7 +37,7 @@ public abstract class SimpleCommand implements CLICommand {
      * @param <A>      the type of the argument
      * @return the argument itself
      */
-    public <T, A extends Argument<T>> A addArgument(A argument) {
+    public <T, A extends ArgumentBase<T>> A addArgument(A argument) {
         arguments.add(argument);
         return argument;
     }
@@ -51,24 +51,33 @@ public abstract class SimpleCommand implements CLICommand {
 
     @Override
     public void printDescription(PrintStream out, String prefix) {
-        String message = Lang.get("cli_help_" + name);
-        out.print(prefix);
-        out.print(name);
-        for (Argument<?> a : arguments) {
-            out.print(" ");
-            out.print(a);
+        StringBuilder sb = new StringBuilder();
+        sb.append(name);
+        for (ArgumentBase<?> a : arguments) {
+            sb.append(" ");
+            sb.append(a);
         }
-        out.println(":");
+        sb.append(":");
+        out.print(prefix);
+        printString(out, prefix + "      ", sb.toString());
 
-        for (Argument<?> a : arguments)
-            printString(out, prefix + "  ", a + ":\t" + Lang.get("cli_help_" + name + "_" + a.getName()));
+        prefix += "  ";
+        out.print(prefix + "  ");
+        printString(out, prefix + "  ", Lang.get("cli_help_" + name));
+        out.print(prefix);
+        out.println(Lang.get("cli_options"));
 
-        printString(out, prefix + "  ", message);
+
+        for (ArgumentBase<?> a : arguments) {
+            out.println(prefix + "  " + a.toStringDef());
+            out.print(prefix + "    ");
+            printString(out, prefix + "    ", a.getDescription(name));
+        }
+
     }
 
     void printString(PrintStream out, String prefix, String message) {
         boolean lastWasSpace = false;
-        out.print(prefix);
         int col = prefix.length();
         for (int i = 0; i < message.length(); i++) {
             char c = message.charAt(i);
@@ -94,6 +103,21 @@ public abstract class SimpleCommand implements CLICommand {
         out.println();
     }
 
+    private void set(String arg, Iterator<String> args) throws CLIException {
+        for (ArgumentBase<?> a : arguments)
+            if (arg.equals(a.getName())) {
+                if (a.isBool())
+                    a.toggle();
+                else {
+                    if (!args.hasNext())
+                        throw new CLIException(Lang.get("cli_notEnoughArgumentsGiven"), 100);
+                    a.setString(args.next());
+                }
+                return;
+            }
+        throw new CLIException(Lang.get("cli_noArgument_N_available", arg), 104);
+    }
+
     @Override
     public void execute(String[] args) throws CLIException {
         int nonOptional = 0;
@@ -101,9 +125,7 @@ public abstract class SimpleCommand implements CLICommand {
         while (it.hasNext()) {
             String n = it.next();
             if (n.startsWith("-")) {
-                if (!it.hasNext())
-                    throw new CLIException(Lang.get("cli_notEnoughArgumentsGiven"), 100);
-                set(n.substring(1), it.next());
+                set(n.substring(1), it);
             } else {
                 while (nonOptional < arguments.size() && arguments.get(nonOptional).isOptional()) {
                     nonOptional++;
@@ -116,7 +138,7 @@ public abstract class SimpleCommand implements CLICommand {
             }
         }
 
-        for (Argument<?> a : arguments)
+        for (ArgumentBase<?> a : arguments)
             if (!a.isOptional() && !a.isSet())
                 throw new CLIException(Lang.get("cli_nonOptionalArgumentMissing_N", a), 105);
 
@@ -129,14 +151,5 @@ public abstract class SimpleCommand implements CLICommand {
      * @throws CLIException CLIException
      */
     protected abstract void execute() throws CLIException;
-
-    private void set(String arg, String value) throws CLIException {
-        for (Argument<?> a : arguments)
-            if (arg.equals(a.getName())) {
-                a.setString(value);
-                return;
-            }
-        throw new CLIException(Lang.get("cli_noArgument_N_available", arg), 104);
-    }
 
 }
