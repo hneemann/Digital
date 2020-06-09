@@ -102,7 +102,7 @@ public abstract class ArgumentBase<T> {
      */
     public void toggle() throws CLIException {
         if (isBool()) {
-            boolean b = (boolean) get();
+            boolean b = (Boolean) get();
             setString(Boolean.toString(!b));
         }
     }
