@@ -1568,6 +1568,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="cli_help_svg_ieee">Verwendung der IEEE Symbole.</string>
     <string name="cli_errorCreatingSVG">Fehler bei der Erzeugung der SVG Datei!</string>
 
+    <string name="cli_errorCreatingStats">Fehler bei der Erzeugung der CSV Datei!</string>
+
     <string name="menu_window">Fenster</string>
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>

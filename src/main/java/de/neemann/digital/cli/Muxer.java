@@ -20,7 +20,8 @@ public class Muxer implements CLICommand {
      */
     public static final Muxer MAIN_MUXER = new Muxer()
             .addCommand(new CLITester())
-            .addCommand(new SVGExport());
+            .addCommand(new SVGExport())
+            .addCommand(new StatsExport());
 
     private final HashMap<String, CLICommand> commands;
     private final String name;

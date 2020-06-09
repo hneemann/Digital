@@ -1530,6 +1530,7 @@
     <string name="cli_help_svg_ieee">Use of the IEEE symbols.</string>
     <string name="cli_errorCreatingSVG">Error while creating the SVG file!</string>
 
+    <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
 
     <string name="menu_window">Windows</string>
     <string name="menu_about">About</string>
