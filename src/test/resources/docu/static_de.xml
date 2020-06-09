@@ -515,7 +515,7 @@
         </par>
         <par>
             <code>
-                java -cp Digital.jar de.neemann.digital.testing.CommandLineTester [zu testende Datei] [[optionale Datei
+                java -cp Digital.jar CLI test [zu testende Datei] [-tests [optionale Datei
                 mit Testfällen]]
             </code>
         </par>
