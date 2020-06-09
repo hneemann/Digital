@@ -1602,6 +1602,7 @@
     <string name="menu_table_create_hardware">Device</string>
     <string name="menu_table_create_jedec_tt">Creates a JEDEC file for the device</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
+    <string name="menu_table_exportTablePlainText">Export Plain Text</string>
     <string name="menu_table_createFunctionFixture">Export Test Case</string>
     <string name="menu_table_createFunctionFixture_tt">Creates a test case description that can be used in a test
         case.

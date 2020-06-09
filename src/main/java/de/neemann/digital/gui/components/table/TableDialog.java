@@ -107,15 +107,15 @@ public class TableDialog extends JDialog {
     private final HashMap<String, HardwareDescriptionGenerator> availGenerators = new HashMap<>();
     private final JMenu hardwareMenu;
     private final TruthTableTableModel model;
+    private final AllSolutionsDialog allSolutionsDialog;
+    private final KarnaughMapDialog kvMap;
+    private final Mouse mouse = Mouse.getMouse();
+    private final UndoManager<TruthTable> undoManager;
     private JCheckBoxMenuItem createJK;
     private File filename;
     private int columnIndex;
-    private AllSolutionsDialog allSolutionsDialog;
     private ExpressionListenerStore lastGeneratedExpressions;
-    private KarnaughMapDialog kvMap;
     private JMenuItem lastUsedGenratorMenuItem;
-    private Mouse mouse = Mouse.getMouse();
-    private UndoManager<TruthTable> undoManager;
 
     /**
      * Creates a new instance
@@ -136,7 +136,7 @@ public class TableDialog extends JDialog {
         model = new TruthTableTableModel(undoManager);
         model.addTableModelListener(new CalculationTableModelListener());
 
-        kvMap = new KarnaughMapDialog(this, (boolTable, row) -> model.incValue(boolTable, row));
+        kvMap = new KarnaughMapDialog(this, model::incValue);
 
         statusBar = new ExpressionComponent();
         font = Screen.getInstance().getFont(1.66f);
@@ -403,23 +403,17 @@ public class TableDialog extends JDialog {
             }
         });
 
-
-        fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportTableLaTeX")) {
+        fileMenu.add(new TextExportAction(Lang.get("menu_table_exportTablePlainText")) {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    final LaTeXExpressionListener laTeXExpressionListener = new LaTeXExpressionListener(undoManager.getActual());
-                    ExpressionListener expressionListener = laTeXExpressionListener;
-                    if (createJK.isSelected())
-                        expressionListener = new ExpressionListenerJK(expressionListener);
-                    lastGeneratedExpressions.replayTo(expressionListener);
-                    expressionListener.close();
+            ExpressionListener createExpressionListener() {
+                return new PlainTextExpressionListener();
+            }
+        });
 
-                    new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"),
-                            laTeXExpressionListener.toString()).setVisible(true);
-                } catch (ExpressionException | FormatterException e1) {
-                    new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
-                }
+        fileMenu.add(new TextExportAction(Lang.get("menu_table_exportTableLaTeX")) {
+            @Override
+            ExpressionListener createExpressionListener() throws ExpressionException {
+                return new LaTeXExpressionListener(undoManager.getActual());
             }
         });
 
@@ -770,7 +764,7 @@ public class TableDialog extends JDialog {
     }
 
     private final class SizeAction extends AbstractAction {
-        private int n;
+        private final int n;
 
         private SizeAction(int n) {
             super(Lang.get("menu_table_N_variables", n));
@@ -785,7 +779,7 @@ public class TableDialog extends JDialog {
     }
 
     private final class SizeSequentialAction extends AbstractAction {
-        private int n;
+        private final int n;
 
         private SizeSequentialAction(int n) {
             super(Lang.get("menu_table_N_variables", n));
@@ -814,7 +808,7 @@ public class TableDialog extends JDialog {
     }
 
     private final class SizeSequentialBidirectionalAction extends AbstractAction {
-        private int n;
+        private final int n;
 
         private SizeSequentialBidirectionalAction(int n) {
             super(Lang.get("menu_table_N_variables", n));
@@ -973,5 +967,30 @@ public class TableDialog extends JDialog {
                 new ErrorMessage(Lang.get("msg_errorDuringHardwareExport")).addCause(e1).show(TableDialog.this);
             }
         }
+    }
+
+    private abstract class TextExportAction extends ToolTipAction {
+        private TextExportAction(String name) {
+            super(name);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                final ExpressionListener laTeXExpressionListener = createExpressionListener();
+                ExpressionListener expressionListener = laTeXExpressionListener;
+                if (createJK.isSelected())
+                    expressionListener = new ExpressionListenerJK(expressionListener);
+                lastGeneratedExpressions.replayTo(expressionListener);
+                expressionListener.close();
+
+                new ShowStringDialog(TableDialog.this, Lang.get("win_table_exportDialog"),
+                        laTeXExpressionListener.toString()).setVisible(true);
+            } catch (ExpressionException | FormatterException e1) {
+                new ErrorMessage(Lang.get("msg_errorDuringCalculation")).addCause(e1).show(TableDialog.this);
+            }
+        }
+
+        abstract ExpressionListener createExpressionListener() throws ExpressionException;
     }
 }

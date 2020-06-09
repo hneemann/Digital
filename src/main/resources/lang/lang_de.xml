@@ -1639,6 +1639,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_create_hardware">Bausteine</string>
     <string name="menu_table_create_jedec_tt">Erzeugt eine JEDEC Datei für den Baustein</string>
     <string name="menu_table_exportTableLaTeX">Erzeuge LaTeX</string>
+    <string name="menu_table_exportTablePlainText">Erzeuge einfachen Text</string>
     <string name="menu_table_createFunctionFixture">Erzeuge Testfall</string>
     <string name="menu_table_createFunctionFixture_tt">Erzeugt eine Testfallbeschreibung, welche in einen Testfall
         übernommen werden kann.
