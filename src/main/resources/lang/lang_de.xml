@@ -1568,6 +1568,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="cli_help_svg_ieee">Verwendung der IEEE Symbole.</string>
     <string name="cli_errorCreatingSVG">Fehler bei der Erzeugung der SVG Datei!</string>
 
+    <string name="cli_help_stats">Erzeugt eine CSV Datei welche die Schaltungsstatistik enthält.
+        Aufgeführt sind alle verwendeten Komponenten.
+    </string>
+    <string name="cli_help_stats_dig">Name der Schaltung.</string>
+    <string name="cli_help_stats_csv">Name der Ausgabedatei.</string>
     <string name="cli_errorCreatingStats">Fehler bei der Erzeugung der CSV Datei!</string>
 
     <string name="menu_window">Fenster</string>

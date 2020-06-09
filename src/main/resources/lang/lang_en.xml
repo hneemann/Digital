@@ -1530,6 +1530,11 @@
     <string name="cli_help_svg_ieee">Use of the IEEE symbols.</string>
     <string name="cli_errorCreatingSVG">Error while creating the SVG file!</string>
 
+    <string name="cli_help_stats">Creates a CSV file which contains the circuit statistics.
+        All components used are listed.
+    </string>
+    <string name="cli_help_stats_dig">File name of the circuit.</string>
+    <string name="cli_help_stats_csv">Name of the csv file to be created.</string>
     <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
 
     <string name="menu_window">Windows</string>
