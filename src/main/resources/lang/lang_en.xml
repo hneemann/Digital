@@ -1520,7 +1520,7 @@
         If no second file name is specified, the tests are executed from the first file.
     </string>
     <string name="cli_help_test_circ">Name of the file to be tested.</string>
-    <string name="cli_help_test_test">Name of a file with test cases.</string>
+    <string name="cli_help_test_tests">Name of a file with test cases.</string>
     <string name="cli_thereAreTestFailures">Tests have failed.</string>
     <string name="cli_errorExecutingTests">An error has occurred during the execution of the tests.</string>
 
@@ -1531,7 +1531,7 @@
     <string name="cli_errorCreatingSVG">Error while creating the SVG file!</string>
 
     <string name="cli_help_stats">Creates a CSV file which contains the circuit statistics.
-        All components used are listed.
+        All components used are listed in the CSV file.
     </string>
     <string name="cli_help_stats_dig">File name of the circuit.</string>
     <string name="cli_help_stats_csv">Name of the csv file to be created.</string>

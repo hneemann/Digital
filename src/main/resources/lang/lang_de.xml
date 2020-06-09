@@ -1556,7 +1556,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Wird kein zweiter Dateiname angegeben, werden die Tests aus der ersten Datei ausgeführt.
     </string>
     <string name="cli_help_test_circ">Name der zu testenden Datei.</string>
-    <string name="cli_help_test_test">Name einer Datei mit Testfällen.</string>
+    <string name="cli_help_test_tests">Name einer Datei mit Testfällen.</string>
     <string name="cli_thereAreTestFailures">Es sind Tests fehlgeschlagen.</string>
     <string name="cli_errorExecutingTests">Es ist ein Fehler bei der Ausführung der Tests aufgetreten.</string>
 

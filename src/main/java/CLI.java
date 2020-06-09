@@ -4,11 +4,12 @@
  * that can be found in the LICENSE file.
  */
 
-import de.neemann.digital.cli.cli.CLIException;
-import de.neemann.digital.cli.cli.Muxer;
+import de.neemann.digital.cli.Main;
 
 /**
- * Entry point for the CLI interface
+ * Entry point for the CLI interface.
+ * Used to allow a more compact command line.
+ * All work is delegated to {@link Main}.
  */
 public final class CLI {
 
@@ -21,13 +22,6 @@ public final class CLI {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            Muxer.MAIN_MUXER.execute(args);
-        } catch (CLIException e) {
-            e.printMessage(System.out);
-            System.out.println();
-            Muxer.MAIN_MUXER.printDescription(System.out, "");
-            System.exit(e.getExitCode());
-        }
+        new Main().main(args);
     }
 }

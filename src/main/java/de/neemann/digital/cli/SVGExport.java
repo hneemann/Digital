@@ -15,11 +15,8 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.Export;
 import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.graphics.SVGSettings;
-import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -51,11 +48,7 @@ public class SVGExport extends BasicCommand {
     @Override
     protected void execute() throws CLIException {
         try {
-            File file = new File(digFile.get());
-            ElementLibrary library = new ElementLibrary();
-            library.setRootFilePath(file.getParentFile());
-            ShapeFactory shapeFactory = new ShapeFactory(library, ieeeShapes.get());
-            Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
+            Circuit circuit = new CircuitLoader(digFile.get(), ieeeShapes.get()).getCircuit();
 
             String outName;
             if (svgFile.isSet())

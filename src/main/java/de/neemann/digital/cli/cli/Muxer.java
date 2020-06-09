@@ -5,9 +5,6 @@
  */
 package de.neemann.digital.cli.cli;
 
-import de.neemann.digital.cli.CLITester;
-import de.neemann.digital.cli.SVGExport;
-import de.neemann.digital.cli.StatsExport;
 import de.neemann.digital.lang.Lang;
 
 import java.io.PrintStream;
@@ -18,19 +15,7 @@ import java.util.HashMap;
  * The command muxer
  */
 public class Muxer extends NamedCommand {
-    /**
-     * The main muxer
-     */
-    public static final Muxer MAIN_MUXER = new Muxer()
-            .addCommand(new CLITester())
-            .addCommand(new SVGExport())
-            .addCommand(new StatsExport());
-
     private final HashMap<String, CLICommand> commands;
-
-    private Muxer() {
-        this("java -cp Digital.jar CLI");
-    }
 
     /**
      * Creates a new muxer

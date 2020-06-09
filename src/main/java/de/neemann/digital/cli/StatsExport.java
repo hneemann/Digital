@@ -11,15 +11,14 @@ import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.stats.Statistics;
-import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.lang.Lang;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 /**
  * CLI stats exporter
@@ -40,13 +39,7 @@ public class StatsExport extends BasicCommand {
     @Override
     protected void execute() throws CLIException {
         try {
-            File file = new File(digFile.get());
-            ElementLibrary library = new ElementLibrary();
-            library.setRootFilePath(file.getParentFile());
-            ShapeFactory shapeFactory = new ShapeFactory(library, false);
-            Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
-
-            Model model = new ModelCreator(circuit, library).createModel(false);
+            Model model = new CircuitLoader(digFile.get()).createModel();
             Statistics stats = new Statistics(model);
 
             BufferedWriter writer;

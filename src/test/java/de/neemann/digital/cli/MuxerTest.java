@@ -22,7 +22,7 @@ public class MuxerTest extends TestCase {
      */
     public void testDocu() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        Muxer.MAIN_MUXER.printDescription(new PrintStream(baos), "");
+        new Main().printDescription(new PrintStream(baos), "");
         assertTrue(baos.toByteArray().length > 100);
     }
 
@@ -88,7 +88,7 @@ public class MuxerTest extends TestCase {
         }
 
         @Override
-        protected void execute() throws CLIException {
+        protected void execute() {
             wasExecuted = true;
         }
 

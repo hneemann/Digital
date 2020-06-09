@@ -12,6 +12,7 @@ import java.io.PrintStream;
  */
 public class CLIException extends Exception {
     private final int exitCode;
+    private boolean showHelp = true;
 
     /**
      * Creates a new instance
@@ -56,5 +57,22 @@ public class CLIException extends Exception {
             else
                 out.println(c.getMessage());
         }
+    }
+
+    /**
+     * Hides the help text
+     *
+     * @return this for chained calls
+     */
+    public CLIException hideHelp() {
+        showHelp = false;
+        return this;
+    }
+
+    /**
+     * @return true if help has to be shown
+     */
+    public boolean showHelp() {
+        return showHelp;
     }
 }

@@ -3,8 +3,9 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.testing;
+package de.neemann.digital.cli;
 
+import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.integration.Resources;
 import junit.framework.TestCase;
 
@@ -37,6 +38,14 @@ public class CommandLineTesterTest extends TestCase {
         int errors = tester.execute();
         assertEquals(0, errors);
         assertEquals(1, tester.getTestsPassed());
+    }
+
+    public void testCommand() throws CLIException {
+        File source = new File(Resources.getRoot(), "dig/failingTest.dig");
+        File tests = new File(Resources.getRoot(), "../../main/dig/sequential/Counter-D.dig");
+        CommandLineTester.TestCommand tc = new CommandLineTester.TestCommand();
+        tc.execute(new String[]{source.getPath(), "-tests", tests.getPath()});
+        assertEquals(1, tc.getTestsPassed());
     }
 
 }
