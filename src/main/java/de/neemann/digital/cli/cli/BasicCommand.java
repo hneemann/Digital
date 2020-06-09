@@ -3,7 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.cli;
+package de.neemann.digital.cli.cli;
 
 import de.neemann.digital.lang.Lang;
 
@@ -13,10 +13,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * E simple executable command
+ * A simple executable command
  */
-public abstract class SimpleCommand implements CLICommand {
-    private final String name;
+public abstract class BasicCommand extends NamedCommand {
     private final ArrayList<ArgumentBase<?>> arguments;
 
     /**
@@ -24,8 +23,8 @@ public abstract class SimpleCommand implements CLICommand {
      *
      * @param name the name of the command
      */
-    public SimpleCommand(String name) {
-        this.name = name;
+    public BasicCommand(String name) {
+        super(name);
         arguments = new ArrayList<>();
     }
 
@@ -42,17 +41,10 @@ public abstract class SimpleCommand implements CLICommand {
         return argument;
     }
 
-    /**
-     * @return the name of the argument
-     */
-    public String getName() {
-        return name;
-    }
-
     @Override
     public void printDescription(PrintStream out, String prefix) {
         StringBuilder sb = new StringBuilder();
-        sb.append(name);
+        sb.append(getName());
         for (ArgumentBase<?> a : arguments) {
             sb.append(" ");
             sb.append(a);
@@ -63,7 +55,7 @@ public abstract class SimpleCommand implements CLICommand {
 
         prefix += "  ";
         out.print(prefix + "  ");
-        printString(out, prefix + "  ", Lang.get("cli_help_" + name));
+        printString(out, prefix + "  ", Lang.get("cli_help_" + getName()));
         out.print(prefix);
         out.println(Lang.get("cli_options"));
 
@@ -71,7 +63,7 @@ public abstract class SimpleCommand implements CLICommand {
         for (ArgumentBase<?> a : arguments) {
             out.println(prefix + "  " + a.toStringDef());
             out.print(prefix + "    ");
-            printString(out, prefix + "    ", a.getDescription(name));
+            printString(out, prefix + "    ", a.getDescription(getName()));
         }
 
     }

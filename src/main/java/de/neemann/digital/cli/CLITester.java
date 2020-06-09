@@ -5,6 +5,9 @@
  */
 package de.neemann.digital.cli;
 
+import de.neemann.digital.cli.cli.Argument;
+import de.neemann.digital.cli.cli.BasicCommand;
+import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.CommandLineTester;
 
@@ -12,9 +15,9 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Used to test circuits
+ * Used to test circuits.
  */
-public class CLITester extends SimpleCommand {
+public class CLITester extends BasicCommand {
     private final Argument<String> circ;
     private final Argument<String> test;
 

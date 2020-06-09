@@ -5,11 +5,14 @@
  */
 package de.neemann.digital.cli;
 
+import de.neemann.digital.cli.cli.Argument;
+import de.neemann.digital.cli.cli.BasicCommand;
+import de.neemann.digital.cli.cli.CLIException;
 import junit.framework.TestCase;
 
-public class SimpleCommandTest extends TestCase {
+public class BasicCommandTest extends TestCase {
 
-    private static class TestCommand extends SimpleCommand {
+    private static class TestCommand extends BasicCommand {
         private boolean wasExecuted;
 
         private TestCommand() {

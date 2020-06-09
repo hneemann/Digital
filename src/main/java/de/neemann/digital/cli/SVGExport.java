@@ -5,6 +5,10 @@
  */
 package de.neemann.digital.cli;
 
+import de.neemann.digital.cli.cli.Argument;
+import de.neemann.digital.cli.cli.ArgumentKey;
+import de.neemann.digital.cli.cli.BasicCommand;
+import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.draw.elements.Circuit;
@@ -23,7 +27,7 @@ import java.io.OutputStream;
 /**
  * CLI svg exporter
  */
-public class SVGExport extends SimpleCommand {
+public class SVGExport extends BasicCommand {
     private final ElementAttributes attr;
     private final Argument<String> digFile;
     private final Argument<String> svgFile;

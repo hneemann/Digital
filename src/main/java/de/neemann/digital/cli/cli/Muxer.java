@@ -3,8 +3,11 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.cli;
+package de.neemann.digital.cli.cli;
 
+import de.neemann.digital.cli.CLITester;
+import de.neemann.digital.cli.SVGExport;
+import de.neemann.digital.cli.StatsExport;
 import de.neemann.digital.lang.Lang;
 
 import java.io.PrintStream;
@@ -14,7 +17,7 @@ import java.util.HashMap;
 /**
  * The command muxer
  */
-public class Muxer implements CLICommand {
+public class Muxer extends NamedCommand {
     /**
      * The main muxer
      */
@@ -24,7 +27,6 @@ public class Muxer implements CLICommand {
             .addCommand(new StatsExport());
 
     private final HashMap<String, CLICommand> commands;
-    private final String name;
 
     private Muxer() {
         this("java -cp Digital.jar CLI");
@@ -36,7 +38,7 @@ public class Muxer implements CLICommand {
      * @param name the name of the muxer
      */
     public Muxer(String name) {
-        this.name = name;
+        super(name);
         this.commands = new HashMap<>();
     }
 
@@ -46,7 +48,7 @@ public class Muxer implements CLICommand {
      * @param command the command
      * @return this for chained calls
      */
-    public Muxer addCommand(SimpleCommand command) {
+    public Muxer addCommand(NamedCommand command) {
         return addCommand(command.getName(), command);
     }
 
@@ -65,7 +67,7 @@ public class Muxer implements CLICommand {
     @Override
     public void printDescription(PrintStream out, String prefix) {
         out.print(prefix);
-        out.print(name);
+        out.print(getName());
         out.println();
         for (CLICommand c : commands.values())
             c.printDescription(out, prefix + "  ");
@@ -78,7 +80,7 @@ public class Muxer implements CLICommand {
 
         CLICommand command = commands.get(args[0]);
         if (command == null)
-            throw new CLIException(Lang.get("cli_command_N_hasNoSubCommand_N", name, args[0]), 101);
+            throw new CLIException(Lang.get("cli_command_N_hasNoSubCommand_N", getName(), args[0]), 101);
 
         command.execute(Arrays.copyOfRange(args, 1, args.length));
     }

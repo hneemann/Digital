@@ -4,8 +4,8 @@
  * that can be found in the LICENSE file.
  */
 
-import de.neemann.digital.cli.CLIException;
-import de.neemann.digital.cli.Muxer;
+import de.neemann.digital.cli.cli.CLIException;
+import de.neemann.digital.cli.cli.Muxer;
 
 /**
  * Entry point for the CLI interface

@@ -28,7 +28,7 @@ public class CommandLineTester {
 
     private final ElementLibrary library;
     private final ShapeFactory shapeFactory;
-    private Circuit circuit;
+    private final Circuit circuit;
     private PrintStream out = System.out;
     private ArrayList<TestCase> testCases;
     private int testsPassed;

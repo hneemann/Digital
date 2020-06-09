@@ -5,6 +5,9 @@
  */
 package de.neemann.digital.cli;
 
+import de.neemann.digital.cli.cli.Argument;
+import de.neemann.digital.cli.cli.BasicCommand;
+import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.stats.Statistics;
@@ -21,7 +24,7 @@ import java.io.*;
 /**
  * CLI stats exporter
  */
-public class StatsExport extends SimpleCommand {
+public class StatsExport extends BasicCommand {
     private final Argument<String> digFile;
     private final Argument<String> csvFile;
 
@@ -46,13 +49,12 @@ public class StatsExport extends SimpleCommand {
             Model model = new ModelCreator(circuit, library).createModel(false);
             Statistics stats = new Statistics(model);
 
-            String outName;
+            BufferedWriter writer;
             if (csvFile.isSet())
-                outName = csvFile.get();
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(csvFile.get())));
             else
-                outName = digFile.get() + ".csv";
+                writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outName)));
             new CSVWriter(stats.getTableModel()).writeTo(writer);
 
         } catch (IOException | ElementNotFoundException | PinException | NodeException e) {

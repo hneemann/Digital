@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.cli;
 
+import de.neemann.digital.cli.cli.Argument;
+import de.neemann.digital.cli.cli.CLIException;
 import junit.framework.TestCase;
 
 public class ArgumentTest extends TestCase {
@@ -37,6 +39,14 @@ public class ArgumentTest extends TestCase {
             fail();
         } catch (CLIException e) {
         }
+    }
+
+    public void testToggle() throws CLIException {
+        Argument<Boolean> a = new Argument<>("flag", false, false);
+        assertTrue(a.isBool());
+        assertFalse(a.get());
+        a.toggle();
+        assertTrue(a.get());
     }
 
     public void testInteger() throws CLIException {
