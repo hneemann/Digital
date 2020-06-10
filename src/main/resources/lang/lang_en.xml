@@ -1505,6 +1505,7 @@
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
 
+    <string name="cli_cli">Command Line Interface</string>
     <string name="cli_nonOptionalArgumentMissing_N">The non-optional argument {0} is missing.</string>
     <string name="cli_notABool_N">The value {0} is no bool.</string>
     <string name="cli_notANumber_N">The value {0} is not a number.</string>
@@ -1534,7 +1535,9 @@
         All components used are listed in the CSV file.
     </string>
     <string name="cli_help_stats_dig">File name of the circuit.</string>
-    <string name="cli_help_stats_csv">Name of the csv file to be created.</string>
+    <string name="cli_help_stats_csv">Name of the csv file to be created.
+        If this option is missing, the table is written to stdout.
+    </string>
     <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
 
     <string name="menu_window">Windows</string>

@@ -7,7 +7,9 @@ package de.neemann.digital.cli.cli;
 
 import de.neemann.digital.lang.Lang;
 
+import java.io.IOException;
 import java.io.PrintStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -65,7 +67,32 @@ public abstract class BasicCommand extends NamedCommand {
             out.print(prefix + "    ");
             printString(out, prefix + "    ", a.getDescription(getName()));
         }
+    }
 
+    @Override
+    public void printXMLDescription(Writer w) throws IOException {
+        w.write("<indent>\n");
+        w.append(getName());
+        for (ArgumentBase<?> a : arguments) {
+            w.append(" ");
+            w.append(a.toString());
+        }
+        w.append(":");
+        w.write("<indent>\n");
+        w.write(Lang.get("cli_help_" + getName()));
+        w.write("</indent>\n");
+        w.write("<indent>\n");
+        w.write(Lang.get("cli_options"));
+        for (ArgumentBase<?> a : arguments) {
+            w.write("<indent>\n");
+            w.write(a.toStringDef());
+            w.write("<indent>\n");
+            w.write(a.getDescription(getName()));
+            w.write("</indent>\n");
+            w.write("</indent>\n");
+        }
+        w.write("</indent>\n");
+        w.write("</indent>\n");
     }
 
     void printString(PrintStream out, String prefix, String message) {

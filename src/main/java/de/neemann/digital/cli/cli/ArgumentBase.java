@@ -68,14 +68,14 @@ public abstract class ArgumentBase<T> {
         String s;
         if (isBool())
             s = "-" + getName()
-                    + "("
+                    + "(def: "
                     + get()
                     + ")";
         else
             s = "-" + getName()
                     + " ["
                     + get().getClass().getSimpleName()
-                    + "("
+                    + "(def: "
                     + get()
                     + ")]";
 

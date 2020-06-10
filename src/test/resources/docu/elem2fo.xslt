@@ -78,43 +78,86 @@
                     <fo:block page-break-before="always" margin-bottom="5mm" font-size="18pt" font-weight="bold">
 						<xsl:value-of select="@toc"/>
 					</fo:block>
-                    <!-- table of contents -->
+					<!-- table of contents -->
 					<fo:block margin-bottom="2mm" font-weight="bold">
-						A <fo:inline padding-left="1mm"><xsl:value-of select="@general"/></fo:inline>
+						A
+						<fo:inline padding-left="1mm">
+							<xsl:value-of select="@general"/>
+						</fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="document(@static)/*" mode="toc"/>
 					<fo:block margin-top="2mm" margin-bottom="2mm" font-weight="bold">
 						<fo:basic-link show-destination="replace" internal-destination="chap_settings">
-							B <fo:inline padding-left="2mm"><xsl:value-of select="settings/@name"/></fo:inline>
+							B
+							<fo:inline padding-left="2mm">
+								<xsl:value-of select="settings/@name"/>
+							</fo:inline>
 						</fo:basic-link>
 					</fo:block>
 					<fo:block margin-top="2mm" margin-bottom="2mm" font-weight="bold">
-						C <fo:inline padding-left="2mm"><xsl:value-of select="@components"/></fo:inline>
+						<fo:basic-link show-destination="replace" internal-destination="chap_cli">
+							C
+							<fo:inline padding-left="2mm">
+								<xsl:value-of select="cli/@heading"/>
+							</fo:inline>
+						</fo:basic-link>
+					</fo:block>
+					<fo:block margin-top="2mm" margin-bottom="2mm" font-weight="bold">
+						D
+						<fo:inline padding-left="2mm">
+							<xsl:value-of select="@components"/>
+						</fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="toc"/>
 					<fo:block margin-top="2mm" margin-bottom="2mm" font-weight="bold">
 						<fo:basic-link show-destination="replace" internal-destination="chap_library">
-							D <fo:inline padding-left="2mm"><xsl:value-of select="@lib"/></fo:inline>
+							E
+							<fo:inline padding-left="2mm">
+								<xsl:value-of select="@lib"/>
+							</fo:inline>
 						</fo:basic-link>
 					</fo:block>
 					<fo:block page-break-before="always"/>
                     <!-- the content -->
 					<fo:block margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
-						A <fo:inline padding-left="2mm"><xsl:value-of select="@general"/></fo:inline>
+						A
+						<fo:inline padding-left="2mm">
+							<xsl:value-of select="@general"/>
+						</fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="document(@static)/*" mode="full"/>
 
-					<fo:block page-break-before="always" margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold" id="chap_settings">
-						B <fo:inline padding-left="2mm"><xsl:value-of select="settings/@name"/></fo:inline>
+					<fo:block page-break-before="always" margin-top="4mm" margin-bottom="4mm" font-size="16pt"
+							  font-weight="bold" id="chap_settings">
+						B
+						<fo:inline padding-left="2mm">
+							<xsl:value-of select="settings/@name"/>
+						</fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="settings" mode="full"/>
 
+					<fo:block page-break-before="always" margin-top="4mm" margin-bottom="4mm" font-size="16pt"
+							  font-weight="bold" id="chap_cli">
+						C
+						<fo:inline padding-left="2mm">
+							<xsl:value-of select="cli/@heading"/>
+						</fo:inline>
+					</fo:block>
+					<xsl:apply-templates select="cli" mode="full"/>
+
 					<fo:block page-break-before="always" margin-bottom="4mm" font-size="16pt" font-weight="bold">
-						C <fo:inline padding-left="2mm"><xsl:value-of select="@components"/></fo:inline>
+						D
+						<fo:inline padding-left="2mm">
+							<xsl:value-of select="@components"/>
+						</fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="lib" mode="full"/>
-					<fo:block page-break-before="always" margin-bottom="4mm" font-size="16pt" font-weight="bold" id="chap_library">
-					    D <fo:inline padding-left="2mm"><xsl:value-of select="@lib"/></fo:inline>
+					<fo:block page-break-before="always" margin-bottom="4mm" font-size="16pt" font-weight="bold"
+							  id="chap_library">
+						E
+						<fo:inline padding-left="2mm">
+							<xsl:value-of select="@lib"/>
+						</fo:inline>
 					</fo:block>
 					<xsl:apply-templates select="document(@library)/*"/>
 					<fo:block id="LastPage"/>
@@ -294,14 +337,25 @@
 		<xsl:apply-templates select="circuit/attributes"/>
 	</xsl:template>
 
+	<xsl:template match="cli" mode="full">
+		<xsl:apply-templates select="indent"/>
+	</xsl:template>
+
+	<xsl:template match="indent">
+		<fo:block margin-left="4mm" start-indent="2mm" margin-top="2mm" margin-bottom="2mm">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
 	<xsl:template match="lib" mode="full">
 		<fo:block page-break-after="avoid" margin-top="4mm" margin-bottom="4mm" font-size="16pt" font-weight="bold">
-			<xsl:value-of select="position()"/>. <xsl:value-of select="@name"/>
+			<xsl:value-of select="position()"/>.
+			<xsl:value-of select="@name"/>
 		</fo:block>
 		<xsl:apply-templates select="element" mode="full">
 			<xsl:with-param name="number" select="position()"/>
 		</xsl:apply-templates>
-  	</xsl:template>
+	</xsl:template>
 
 	<xsl:template match="element" mode="full">
 		<xsl:param name="number" />

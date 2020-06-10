@@ -7,7 +7,9 @@ package de.neemann.digital.cli.cli;
 
 import de.neemann.digital.lang.Lang;
 
+import java.io.IOException;
 import java.io.PrintStream;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -56,6 +58,15 @@ public class Muxer extends NamedCommand {
         out.println();
         for (CLICommand c : commands.values())
             c.printDescription(out, prefix + "  ");
+    }
+
+    @Override
+    public void printXMLDescription(Writer w) throws IOException {
+        w.write("<indent>\n");
+        w.write(getName());
+        for (CLICommand c : commands.values())
+            c.printXMLDescription(w);
+        w.write("</indent>\n");
     }
 
     @Override

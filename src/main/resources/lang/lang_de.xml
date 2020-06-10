@@ -1541,6 +1541,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
 
+    <string name="cli_cli">Steuerung per Kommandozeile</string>
     <string name="cli_nonOptionalArgumentMissing_N">Es fehlt das nicht optionale Argument {0}.</string>
     <string name="cli_notABool_N">Der Wert {0} ist kein bool.</string>
     <string name="cli_notANumber_N">Der Wert {0} ist keine Zahl.</string>
@@ -1572,7 +1573,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Aufgeführt sind alle verwendeten Komponenten.
     </string>
     <string name="cli_help_stats_dig">Name der Schaltung.</string>
-    <string name="cli_help_stats_csv">Name der Ausgabedatei.</string>
+    <string name="cli_help_stats_csv">Name der Ausgabedatei.
+        Wenn diese Option fehlt, erfolgt eine Ausgabe auf die Konsole.
+    </string>
     <string name="cli_errorCreatingStats">Fehler bei der Erzeugung der CSV Datei!</string>
 
     <string name="menu_window">Fenster</string>

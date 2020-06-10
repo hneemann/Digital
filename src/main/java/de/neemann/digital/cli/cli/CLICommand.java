@@ -5,7 +5,9 @@
  */
 package de.neemann.digital.cli.cli;
 
+import java.io.IOException;
 import java.io.PrintStream;
+import java.io.Writer;
 
 /**
  * A cli command
@@ -13,19 +15,28 @@ import java.io.PrintStream;
 public interface CLICommand {
 
     /**
+     * Executes the command
+     *
+     * @param args the arguments
+     * @throws CLIException CLIException
+     */
+    void execute(String[] args) throws CLIException;
+
+    /**
      * Prints the description
      *
-     * @param out    the pront stream
+     * @param out    the print stream
      * @param prefix the prefex string which should
      *               printed at the beginning of each line
      */
     void printDescription(PrintStream out, String prefix);
 
     /**
-     * Esecuted the command
+     * Prints the description in xml format
      *
-     * @param args the arguments
-     * @throws CLIException CLIException
+     * @param w the writer to write to
+     * @throws IOException IOException
      */
-    void execute(String[] args) throws CLIException;
+    void printXMLDescription(Writer w) throws IOException;
+
 }
