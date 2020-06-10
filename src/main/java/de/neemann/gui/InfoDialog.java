@@ -69,7 +69,7 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
      */
     private String createMessage(String message) {
         StringBuilder sb = new StringBuilder("<html>");
-        sb.append(message.replace("\n", "<br/>"));
+        sb.append(message.replace("\n\n", "<br/><br/>"));
         sb.append("\n\n");
         for (Manifest m : infos) {
             m.createInfoString(sb);
@@ -93,6 +93,9 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
         ta.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
         ta.setEditable(false);
         ta.setBackground(new JLabel().getBackground());
+        ta.setSize(new Dimension(400, 800));
+        ta.setPreferredSize(new Dimension(400, ta.getPreferredSize().height + 30));
+
         Font font = ta.getFont().deriveFont(Font.BOLD);
         ta.setFont(font);
         int border = font.getSize();
