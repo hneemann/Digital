@@ -17,7 +17,7 @@ public class CommandLineTesterTest extends TestCase {
     public void test74181() throws IOException {
         File source = new File(Resources.getRoot(), "../../main/dig/lib/DIL Chips/74xx/arithmetic/74181.dig");
         CommandLineTester tester = new CommandLineTester(source);
-        int errors = tester.execute();
+        int errors = tester.execute(System.out);
         assertEquals(0, errors);
         assertEquals(32, tester.getTestsPassed());
     }
@@ -25,7 +25,7 @@ public class CommandLineTesterTest extends TestCase {
     public void testFailing() throws IOException {
         File source = new File(Resources.getRoot(), "dig/failingTest.dig");
         CommandLineTester tester = new CommandLineTester(source);
-        int errors = tester.execute();
+        int errors = tester.execute(System.out);
         assertEquals(1, errors);
         assertEquals(0, tester.getTestsPassed());
     }
@@ -35,7 +35,7 @@ public class CommandLineTesterTest extends TestCase {
         CommandLineTester tester = new CommandLineTester(source)
                 .useTestCasesFrom(new File(Resources.getRoot(), "../../main/dig/sequential/Counter-D.dig"));
 
-        int errors = tester.execute();
+        int errors = tester.execute(System.out);
         assertEquals(0, errors);
         assertEquals(1, tester.getTestsPassed());
     }
@@ -46,6 +46,17 @@ public class CommandLineTesterTest extends TestCase {
         CommandLineTester.TestCommand tc = new CommandLineTester.TestCommand();
         tc.execute(new String[]{source.getPath(), "-tests", tests.getPath()});
         assertEquals(1, tc.getTestsPassed());
+    }
+
+    public void testCommandTestFail() {
+        try {
+            File source = new File(Resources.getRoot(), "dig/failingTest.dig");
+            CommandLineTester.TestCommand tc = new CommandLineTester.TestCommand();
+            tc.execute(new String[]{source.getPath()});
+            fail();
+        } catch (CLIException e) {
+            assertEquals(1, e.getExitCode());
+        }
     }
 
 }

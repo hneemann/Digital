@@ -32,7 +32,6 @@ import java.util.ArrayList;
 public class CommandLineTester {
 
     private final CircuitLoader circuitLoader;
-    private PrintStream out = System.out;
     private ArrayList<TestCase> testCases;
     private int testsPassed;
 
@@ -44,17 +43,6 @@ public class CommandLineTester {
      */
     public CommandLineTester(File file) throws IOException {
         circuitLoader = new CircuitLoader(file);
-    }
-
-    /**
-     * Sets the printer to use
-     *
-     * @param out the {@link PrintStream}
-     * @return this for chained calls
-     */
-    public CommandLineTester setOutputs(PrintStream out) {
-        this.out = out;
-        return this;
     }
 
     /**
@@ -83,9 +71,10 @@ public class CommandLineTester {
     /**
      * Executes test test
      *
+     * @param out Stream to output messages
      * @return the number of failed test cases
      */
-    public int execute() {
+    public int execute(PrintStream out) {
         if (testCases == null)
             testCases = getTestCasesFrom(circuitLoader.getCircuit());
 
@@ -168,7 +157,7 @@ public class CommandLineTester {
                 CommandLineTester clt = new CommandLineTester(new File(circ.get()));
                 if (tests.isSet())
                     clt.useTestCasesFrom(new File(tests.get()));
-                int errors = clt.execute();
+                int errors = clt.execute(System.out);
                 testsPassed = clt.getTestsPassed();
                 if (errors > 0)
                     throw new CLIException(Lang.get("cli_thereAreTestFailures"), errors).hideHelp();
