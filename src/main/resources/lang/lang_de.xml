@@ -1541,6 +1541,43 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
 
+    <string name="cli_cli">Steuerung per Kommandozeile</string>
+    <string name="cli_nonOptionalArgumentMissing_N">Es fehlt das nicht optionale Argument {0}.</string>
+    <string name="cli_notABool_N">Der Wert {0} ist kein bool.</string>
+    <string name="cli_notANumber_N">Der Wert {0} ist keine Zahl.</string>
+    <string name="cli_noArgument_N_available">Das Argument {0} fehlt.</string>
+    <string name="cli_notEnoughArgumentsGiven">Es sind nicht genug Argumente vorhanden.</string>
+    <string name="cli_toMuchArguments">Es gibt zu viele Argumente.</string>
+    <string name="cli_invalidType_N">Ungültiger Typ.</string>
+    <string name="cli_command_N_hasNoSubCommand_N">Der Befehl {0} hat keinen Subbefehl {1}.</string>
+    <string name="cli_options">Optionen:</string>
+
+    <string name="cli_help_test">Der erste Dateiname gibt die zu testende Schaltung an.
+        Wenn ein zweiter Dateiname angegeben wird, werden die Testfälle aus dieser Datei ausgeführt.
+        Wird kein zweiter Dateiname angegeben, werden die Tests aus der ersten Datei ausgeführt.
+    </string>
+    <string name="cli_help_test_circ">Name der zu testenden Datei.</string>
+    <string name="cli_help_test_tests">Name einer Datei mit Testfällen.</string>
+    <string name="cli_thereAreTestFailures">Es sind Tests fehlgeschlagen.</string>
+    <string name="cli_errorExecutingTests">Es ist ein Fehler bei der Ausführung der Tests aufgetreten.</string>
+
+    <string name="cli_help_svg">Kann verwendet werden, um aus einer Schaltung
+        eine SVG-Datei zu erzeugen.
+    </string>
+    <string name="cli_help_svg_dig">Der Dateiname der Schaltung.</string>
+    <string name="cli_help_svg_svg">Der Name der zu schreibenden SVG-Datei.</string>
+    <string name="cli_help_svg_ieee">Verwendung der IEEE Symbole.</string>
+    <string name="cli_errorCreatingSVG">Fehler bei der Erzeugung der SVG Datei!</string>
+
+    <string name="cli_help_stats">Erzeugt eine CSV Datei welche die Schaltungsstatistik enthält.
+        Aufgeführt sind alle verwendeten Komponenten.
+    </string>
+    <string name="cli_help_stats_dig">Name der Schaltung.</string>
+    <string name="cli_help_stats_csv">Name der Ausgabedatei.
+        Wenn diese Option fehlt, erfolgt eine Ausgabe auf die Konsole.
+    </string>
+    <string name="cli_errorCreatingStats">Fehler bei der Erzeugung der CSV Datei!</string>
+
     <string name="menu_window">Fenster</string>
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>

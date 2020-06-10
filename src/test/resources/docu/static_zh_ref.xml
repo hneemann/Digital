@@ -556,7 +556,7 @@
         </par>
         <par>
             <code>
-                java -cp Digital.jar de.neemann.digital.testing.CommandLineTester [file to test] [[optional file with
+                java -cp Digital.jar CLI test [file to test] [-tests [optional file with
                 test cases]]
             </code>
         </par>

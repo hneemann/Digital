@@ -3,17 +3,22 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.testing;
+package de.neemann.digital.cli;
 
+import de.neemann.digital.cli.cli.Argument;
+import de.neemann.digital.cli.cli.BasicCommand;
+import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseDescription;
+import de.neemann.digital.testing.TestCaseElement;
+import de.neemann.digital.testing.TestExecutor;
+import de.neemann.digital.testing.TestingDataException;
 import de.neemann.digital.testing.parser.ParserException;
 
 import java.io.File;
@@ -26,10 +31,7 @@ import java.util.ArrayList;
  */
 public class CommandLineTester {
 
-    private final ElementLibrary library;
-    private final ShapeFactory shapeFactory;
-    private Circuit circuit;
-    private PrintStream out = System.out;
+    private final CircuitLoader circuitLoader;
     private ArrayList<TestCase> testCases;
     private int testsPassed;
 
@@ -40,20 +42,7 @@ public class CommandLineTester {
      * @throws IOException IOException
      */
     public CommandLineTester(File file) throws IOException {
-        library = new ElementLibrary();
-        shapeFactory = new ShapeFactory(library);
-        circuit = Circuit.loadCircuit(file, shapeFactory);
-    }
-
-    /**
-     * Sets the printer to use
-     *
-     * @param out the {@link PrintStream}
-     * @return this for chained calls
-     */
-    public CommandLineTester setOutputs(PrintStream out) {
-        this.out = out;
-        return this;
+        circuitLoader = new CircuitLoader(file);
     }
 
     /**
@@ -64,7 +53,7 @@ public class CommandLineTester {
      * @throws IOException IOException
      */
     public CommandLineTester useTestCasesFrom(File file) throws IOException {
-        Circuit c = Circuit.loadCircuit(file, shapeFactory);
+        Circuit c = Circuit.loadCircuit(file, circuitLoader.getShapeFactory());
         testCases = getTestCasesFrom(c);
         return this;
     }
@@ -82,11 +71,12 @@ public class CommandLineTester {
     /**
      * Executes test test
      *
+     * @param out Stream to output messages
      * @return the number of failed test cases
      */
-    public int execute() {
+    public int execute(PrintStream out) {
         if (testCases == null)
-            testCases = getTestCasesFrom(circuit);
+            testCases = getTestCasesFrom(circuitLoader.getCircuit());
 
         int errorCount = 0;
 
@@ -100,7 +90,7 @@ public class CommandLineTester {
                     label = "unnamed";
 
                 try {
-                    Model model = new ModelCreator(circuit, library).createModel(false);
+                    Model model = circuitLoader.createModel();
                     TestExecutor te = new TestExecutor(t.getTestCaseDescription()).create(model);
 
                     if (te.allPassed()) {
@@ -145,23 +135,42 @@ public class CommandLineTester {
     }
 
     /**
-     * Entry point of the command line tester.
-     *
-     * @param args the program arguments
-     * @throws IOException IOException
+     * The test command
      */
-    public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
-            System.err.println("no command line arguments given!\n");
-            System.err.println("usage:\n");
-            System.err.println("java -cp Digital.jar " + CommandLineTester.class.getName() + " [dig file to test] [[optional dig file with test cases]]");
-            System.exit(1);
+    public static class TestCommand extends BasicCommand {
+        private final Argument<String> circ;
+        private final Argument<String> tests;
+        private int testsPassed;
+
+        /**
+         * Creates a new CLI command
+         */
+        public TestCommand() {
+            super("test");
+            circ = addArgument(new Argument<>("circ", "", false));
+            tests = addArgument(new Argument<>("tests", "", true));
         }
 
-        CommandLineTester clt = new CommandLineTester(new File(args[0]));
-        if (args.length > 1)
-            clt.useTestCasesFrom(new File(args[1]));
-        int errors = clt.execute();
-        System.exit(errors);
+        @Override
+        protected void execute() throws CLIException {
+            try {
+                CommandLineTester clt = new CommandLineTester(new File(circ.get()));
+                if (tests.isSet())
+                    clt.useTestCasesFrom(new File(tests.get()));
+                int errors = clt.execute(System.out);
+                testsPassed = clt.getTestsPassed();
+                if (errors > 0)
+                    throw new CLIException(Lang.get("cli_thereAreTestFailures"), errors).hideHelp();
+            } catch (IOException e) {
+                throw new CLIException(Lang.get("cli_errorExecutingTests"), e);
+            }
+        }
+
+        /**
+         * @return the number of tests passed
+         */
+        public int getTestsPassed() {
+            return testsPassed;
+        }
     }
 }
