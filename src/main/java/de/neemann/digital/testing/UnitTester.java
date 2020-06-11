@@ -30,7 +30,7 @@ public class UnitTester {
     private boolean initCalled = false;
 
     /**
-     * Creates a new instanve
+     * Creates a new instance
      *
      * @param file the file to load
      * @throws IOException              IOException
@@ -40,7 +40,7 @@ public class UnitTester {
      */
     public UnitTester(File file) throws IOException, ElementNotFoundException, PinException, NodeException {
         ElementLibrary library = new ElementLibrary();
-        library.setRootFilePath(file.getParentFile());
+        library.setRootFilePath(file.getAbsoluteFile().getParentFile());
         initLibrary(library);
         ShapeFactory shapeFactory = new ShapeFactory(library);
         Circuit circuit = Circuit.loadCircuit(file, shapeFactory);
@@ -56,7 +56,7 @@ public class UnitTester {
     }
 
     /**
-     * Writed data to a memory component
+     * Write data to a memory component
      *
      * @param filter the filter to identify the memory component
      * @param data   the data to write
@@ -69,7 +69,7 @@ public class UnitTester {
     }
 
     /**
-     * Reruts the memory idetified by the filter
+     * Returns the memory identified by the filter
      *
      * @param filter the filter to identify the memory component
      * @return the memory component
