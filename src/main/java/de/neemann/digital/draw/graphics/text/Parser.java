@@ -8,13 +8,22 @@ package de.neemann.digital.draw.graphics.text;
 import de.neemann.digital.draw.graphics.text.text.*;
 import de.neemann.digital.draw.graphics.text.text.Character;
 
+import java.util.HashMap;
+
 /**
  * The text parser
  */
 public class Parser {
+    private static final HashMap<String, String> COMMANDS = new HashMap<>();
+
+    static {
+        COMMANDS.put("sum", "∑");
+        COMMANDS.put("prod", "∏");
+    }
 
     private final String text;
     private int pos;
+
 
     /**
      * Creates a new instance
@@ -67,8 +76,6 @@ public class Parser {
      * @throws ParseException ParseException
      */
     public Text parse() throws ParseException {
-        if (text.length() > 0 && text.charAt(0) == '\\')
-            return new Simple(text.substring(1).trim());
         return parse('\0');
     }
 
@@ -99,6 +106,24 @@ public class Parser {
                 case '^':
                     getChar();
                     sentence.getIndex().addSuper(parseBrace());
+                    break;
+                case '\\':
+                    getChar();
+                    char p = peekChar();
+                    switch (p) {
+                        case '\\':
+                        case '^':
+                        case '_':
+                            sentence.add(new Character(getChar()));
+                            break;
+                        default:
+                            String command = readWord();
+                            String t = COMMANDS.get(command);
+                            if (t == null)
+                                t = '\\' + command;
+                            sentence.add(new Simple(t).simplify());
+                    }
+
                     break;
                 default:
                     if (isNormal(peekChar()))

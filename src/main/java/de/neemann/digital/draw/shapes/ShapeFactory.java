@@ -174,7 +174,7 @@ public final class ShapeFactory {
                                 attributes.getLabel(), true, attributes.get(Keys.WIDTH)) {
                             @Override
                             public String format(String s) {
-                                return "\\" + s;
+                                return s.replace("_", "\\_");
                             }
                         });
 

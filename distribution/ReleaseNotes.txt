@@ -14,9 +14,11 @@ Head, planned as v0.25
   - The layout shape uses a slightly different algorithm to determine
     the pin positions. You may need to adjust usages of embedded circuits
     that use the layout shape.
-  - The CommandLineTester has moved! Tests are now executed like
+  - The CommandLineTester has moved! Tests are now executed like this:
     java -cp Digital.jar CLI test [file to test]
        [-tests [optional file with test cases]]
+  - Text formatting was reworked. Disable formatting with a '\' in the
+    beginning does not longer work. Use "\_" to escape a underscore.
 
 v0.24, released on 1. Feb. 2020
 - Improved SVG export

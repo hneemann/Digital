@@ -597,7 +597,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
     private String createShortName(String name, String userDefined) {
         if (userDefined.isEmpty()) {
-            if (name.endsWith(".dig")) return "\\" + name.substring(0, name.length() - 4);
+            if (name.endsWith(".dig")) return name.substring(0, name.length() - 4).replace("_", "\\_");
 
             String transName = Lang.getNull("elem_" + name);
             if (transName == null)
