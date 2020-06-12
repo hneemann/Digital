@@ -20,9 +20,8 @@ public class ParserTest extends TestCase {
         assertTrue(t instanceof Simple);
         assertEquals("In", ((Simple) t).getText());
 
-        t = new Parser("\\I^n_0").parse();
-        assertTrue(t instanceof Simple);
-        assertEquals("I^n_0", ((Simple) t).getText());
+        t = new Parser("I\\^n\\_0").parse();
+        assertEquals("I^n_0", t.toString());
 
         t = new Parser("A\\_B").parse();
         assertEquals("A_B", t.toString());
