@@ -8,7 +8,7 @@
       <name></name>
       <radius>70</radius>
       <isInitial>true</isInitial>
-      <initialAngle>8</initialAngle>
+      <initialAngle>3</initialAngle>
     </state>
     <state>
       <values>D=0001</values>
@@ -172,7 +172,7 @@
     </transition>
     <transition>
       <values></values>
-      <position x="218.74463" y="-235.99142"/>
+      <position x="218.74461" y="-235.99138"/>
       <fromState reference="../../../states/state[3]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>
@@ -214,7 +214,7 @@
     </transition>
     <transition>
       <values></values>
-      <position x="-220.57414" y="-238.91864"/>
+      <position x="-220.57413" y="-238.91861"/>
       <fromState reference="../../../states/state[9]"/>
       <toState reference="../../../states/state"/>
       <condition>clr=1</condition>
