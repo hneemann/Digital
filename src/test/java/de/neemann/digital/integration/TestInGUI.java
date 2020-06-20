@@ -27,6 +27,7 @@ import de.neemann.digital.fsm.FSM;
 import de.neemann.digital.fsm.State;
 import de.neemann.digital.fsm.Transition;
 import de.neemann.digital.fsm.gui.FSMFrame;
+import de.neemann.digital.gui.DigitalRemoteInterface;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.NumberingWizard;
 import de.neemann.digital.gui.Settings;
@@ -41,6 +42,7 @@ import de.neemann.digital.gui.components.terminal.KeyboardDialog;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
+import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
@@ -1089,6 +1091,28 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void testRemoteInterface() throws InterruptedException, RemoteException {
+        Main m = new Main.MainBuilder()
+                .setFileToOpen(new File(Resources.getRoot(), "dig/remoteInterface/measure.dig"))
+                .build();
+
+        SwingUtilities.invokeLater(() -> m.setVisible(true));
+        DigitalRemoteInterface ri = m;
+
+        Thread.sleep(1000);
+        ri.start(null);
+        Thread.sleep(1000);
+        String json = ri.measure();
+        assertEquals("{\"Q\":0,\"C\":0}", json);
+        Thread.sleep(1000);
+        ri.doSingleStep();
+        Thread.sleep(1000);
+        json = ri.measure();
+        assertEquals("{\"Q\":1,\"C\":0}", json);
+        Thread.sleep(1000);
+        ri.stop();
+        m.dispose();
+    }
 
     public static class CheckErrorDialog extends GuiTester.WindowCheck<ErrorMessage.ErrorDialog> {
         private final String[] expected;

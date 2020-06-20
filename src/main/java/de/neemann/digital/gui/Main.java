@@ -1820,7 +1820,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     @Override
     public void start(File romHex) {
         SwingUtilities.invokeLater(() -> {
-            runModelState.enter(true, new ProgramMemoryLoader(romHex));
+            ProgramMemoryLoader modelModifier = null;
+            if (romHex != null)
+                modelModifier = new ProgramMemoryLoader(romHex);
+            runModelState.enter(true, modelModifier);
             circuitComponent.graphicHasChanged();
         });
     }
@@ -1885,6 +1888,26 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     public void stop() {
         SwingUtilities.invokeLater(this::ensureModelIsStopped);
     }
+
+    @Override
+    public String measure() throws RemoteException {
+        if (model != null) {
+            StringBuilder sb = new StringBuilder("{");
+            ArrayList<Signal> signals = model.getSignalsCopy();
+            boolean first = true;
+            for (Signal s : signals) {
+                if (first)
+                    first = false;
+                else
+                    sb.append(',');
+                sb.append('"').append(s.getName()).append("\":").append(s.getValue().getValue());
+            }
+            sb.append("}");
+            return sb.toString();
+        }
+        throw new RemoteException("no model available");
+    }
+
     //**********************
     // remote interface end
     //**********************

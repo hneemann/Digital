@@ -63,6 +63,8 @@ public class DigitalHandler implements HandlerInterface {
             case "stop":
                 digitalRemoteInterface.stop();
                 return null;
+            case "measure":
+                return digitalRemoteInterface.measure();
             default:
                 throw new RemoteException(Lang.get("msg_remoteUnknownCommand", command));
         }

@@ -54,4 +54,12 @@ public interface DigitalRemoteInterface {
      * @throws RemoteException RemoteException
      */
     void stop() throws RemoteException;
+
+    /**
+     * Used to obtain the models state
+     *
+     * @return a JSON string containing the measurement values
+     * @throws RemoteException RemoteException
+     */
+    String measure() throws RemoteException;
 }
