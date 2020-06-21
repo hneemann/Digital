@@ -1545,7 +1545,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="cli_nonOptionalArgumentMissing_N">Es fehlt das nicht optionale Argument {0}.</string>
     <string name="cli_notABool_N">Der Wert {0} ist kein bool.</string>
     <string name="cli_notANumber_N">Der Wert {0} ist keine Zahl.</string>
-    <string name="cli_noArgument_N_available">Das Argument {0} fehlt.</string>
+    <string name="cli_noArgument_N_available">Das Argument {0} ist nicht definiert.</string>
     <string name="cli_notEnoughArgumentsGiven">Es sind nicht genug Argumente vorhanden.</string>
     <string name="cli_toMuchArguments">Es gibt zu viele Argumente.</string>
     <string name="cli_invalidType_N">Ungültiger Typ.</string>
@@ -1558,6 +1558,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     </string>
     <string name="cli_help_test_circ">Name der zu testenden Datei.</string>
     <string name="cli_help_test_tests">Name einer Datei mit Testfällen.</string>
+    <string name="cli_help_test_allowMissingInputs">Erlaubt das Fehlen von Eingängen in der Schaltung die im
+        Testfall definiert sind. Dies kann sinnvoll sein, wenn es mehrere mögliche Lösungen gibt, die von
+        verschiedenen Eingängen abhängig sein können.
+    </string>
     <string name="cli_thereAreTestFailures">Es sind Tests fehlgeschlagen.</string>
     <string name="cli_errorExecutingTests">Es ist ein Fehler bei der Ausführung der Tests aufgetreten.</string>
 

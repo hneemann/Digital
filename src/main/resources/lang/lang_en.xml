@@ -1509,7 +1509,7 @@
     <string name="cli_nonOptionalArgumentMissing_N">The non-optional argument {0} is missing.</string>
     <string name="cli_notABool_N">The value {0} is no bool.</string>
     <string name="cli_notANumber_N">The value {0} is not a number.</string>
-    <string name="cli_noArgument_N_available">The argument {0} is missing.</string>
+    <string name="cli_noArgument_N_available">The argument {0} is not defined.</string>
     <string name="cli_notEnoughArgumentsGiven">There are not enough arguments.</string>
     <string name="cli_toMuchArguments">There are too many arguments.</string>
     <string name="cli_invalidType_N">Invalid type.</string>
@@ -1522,6 +1522,10 @@
     </string>
     <string name="cli_help_test_circ">Name of the file to be tested.</string>
     <string name="cli_help_test_tests">Name of a file with test cases.</string>
+    <string name="cli_help_test_allowMissingInputs">Allows the missing of inputs in the circuit which are
+        defined in the test case. This can be useful if there are several possible solutions which may
+        depend on different inputs.
+    </string>
     <string name="cli_thereAreTestFailures">Tests have failed.</string>
     <string name="cli_errorExecutingTests">An error has occurred during the execution of the tests.</string>
 
