@@ -34,6 +34,7 @@ public class CommandLineTester {
     private final CircuitLoader circuitLoader;
     private ArrayList<TestCase> testCases;
     private int testsPassed;
+    private boolean allowMissingInputs;
 
     /**
      * Creates a new instance.
@@ -91,7 +92,9 @@ public class CommandLineTester {
 
                 try {
                     Model model = circuitLoader.createModel();
-                    TestExecutor te = new TestExecutor(t.getTestCaseDescription()).create(model);
+                    TestExecutor te = new TestExecutor(t.getTestCaseDescription())
+                            .setAllowMissingInputs(allowMissingInputs)
+                            .create(model);
 
                     if (te.allPassed()) {
                         out.println(label + ": passed");
@@ -134,12 +137,18 @@ public class CommandLineTester {
         }
     }
 
+    private CommandLineTester setAllowMissingInputs(boolean allowMissingInputs) {
+        this.allowMissingInputs = allowMissingInputs;
+        return this;
+    }
+
     /**
      * The test command
      */
     public static class TestCommand extends BasicCommand {
         private final Argument<String> circ;
         private final Argument<String> tests;
+        private final Argument<Boolean> allowMissingInputs;
         private int testsPassed;
 
         /**
@@ -149,12 +158,13 @@ public class CommandLineTester {
             super("test");
             circ = addArgument(new Argument<>("circ", "", false));
             tests = addArgument(new Argument<>("tests", "", true));
+            allowMissingInputs = addArgument(new Argument<>("allowMissingInputs", false, true));
         }
 
         @Override
         protected void execute() throws CLIException {
             try {
-                CommandLineTester clt = new CommandLineTester(new File(circ.get()));
+                CommandLineTester clt = new CommandLineTester(new File(circ.get())).setAllowMissingInputs(allowMissingInputs.get());
                 if (tests.isSet())
                     clt.useTestCasesFrom(new File(tests.get()));
                 int errors = clt.execute(System.out);

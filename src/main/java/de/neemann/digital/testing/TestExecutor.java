@@ -36,6 +36,7 @@ public class TestExecutor {
     private ArrayList<TestSignal> inputs;
     private ArrayList<TestSignal> outputs;
     private int visibleRows;
+    private boolean allowMissingInputs;
 
     /**
      * Creates a new testing result
@@ -100,7 +101,10 @@ public class TestExecutor {
 
         for (String name : names)
             if (!usedSignals.contains(name))
-                throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
+                if (allowMissingInputs)
+                    inputs.add(new TestSignal(getIndexOf(name), null));
+                else
+                    throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
 
         if (inputs.size() == 0)
             throw new TestingDataException(Lang.get("err_noTestInputSignalsDefined"));
@@ -129,7 +133,8 @@ public class TestExecutor {
         // set all values except the clocks
         for (TestSignal in : inputs) {
             if (values[in.index].getType() != Value.Type.CLOCK) {
-                values[in.index].copyTo(in.value);
+                if (in.value != null)
+                    values[in.index].copyTo(in.value);
             } else {
                 clockIsUsed = true;
             }
@@ -233,6 +238,17 @@ public class TestExecutor {
      */
     public ValueTable getResult() {
         return results;
+    }
+
+    /**
+     * Allow missing inputs
+     *
+     * @param allowMissingInputs if true, missing inputs are allowed
+     * @return this for chained calls
+     */
+    public TestExecutor setAllowMissingInputs(boolean allowMissingInputs) {
+        this.allowMissingInputs = allowMissingInputs;
+        return this;
     }
 
     /**
