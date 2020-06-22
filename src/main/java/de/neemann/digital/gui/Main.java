@@ -1891,21 +1891,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     @Override
     public String measure() throws RemoteException {
-        if (model != null) {
-            StringBuilder sb = new StringBuilder("{");
-            ArrayList<Signal> signals = model.getSignalsCopy();
+        if (model == null)
+            throw new RemoteException("no model available");
+
+        StringBuilder sb = new StringBuilder("{");
+        model.read(() -> {
             boolean first = true;
-            for (Signal s : signals) {
-                if (first)
-                    first = false;
-                else
-                    sb.append(',');
+            for (Signal s : model.getSignals()) {
+                if (first) first = false;
+                else sb.append(',');
                 sb.append('"').append(s.getName()).append("\":").append(s.getValue().getValue());
             }
-            sb.append("}");
-            return sb.toString();
-        }
-        throw new RemoteException("no model available");
+        });
+        sb.append("}");
+        return sb.toString();
     }
 
     //**********************
