@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
+import static de.neemann.digital.draw.graphics.ColorMap.*;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
@@ -91,8 +92,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private static final int MOUSE_BORDER_LARGE = 50;
 
     private static final int DRAG_DISTANCE = (int) (SIZE2 * Screen.getInstance().getScaling());
-
-    private static final Color GRID_COLOR = new Color(210, 210, 210);
 
     private final Main parent;
     private final ElementLibrary library;
@@ -859,7 +858,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
             Graphics2D gr2 = buffer.createGraphics();
             enableAntiAlias(gr2);
-            gr2.setColor(Color.WHITE);
+            gr2.setColor(getInstance().getColor(ColorKey.BACKGROUND));
             gr2.fillRect(0, 0, getWidth(), getHeight());
 
             if (scaleX > 0.3 && Settings.getInstance().get(Keys.SETTINGS_GRID))
@@ -917,7 +916,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         if (delta > max) delta = max;
         double sub = delta / 2.0;
 
-        gr2.setColor(GRID_COLOR);
+        gr2.setColor(getInstance().getColor(ColorKey.GRID));
         for (int x = 0; x <= cx; x++) {
             double xx = p1.getX() + (p2.getX() - p1.getX()) * x / cx - sub;
             for (int y = 0; y <= cy; y++) {

@@ -8,6 +8,7 @@ package de.neemann.digital.gui;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.draw.graphics.ColorMap;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,6 +43,7 @@ public final class Settings extends SettingsBase {
         intList.add(Keys.SETTINGS_IEEE_SHAPES);
         intList.add(Keys.SETTINGS_LANGUAGE);
         intList.add(Keys.SETTINGS_EXPRESSION_FORMAT);
+        intList.add(ColorMap.COLOR_SCHEME);
         intList.add(Keys.SETTINGS_DEFAULT_TREESELECT);
         intList.add(Keys.SETTINGS_GRID);
         intList.add(Keys.SETTINGS_SHOW_WIRE_BITS);
@@ -71,6 +73,20 @@ public final class Settings extends SettingsBase {
     public boolean requiresRestart(ElementAttributes modified) {
         for (Key<?> key : getKeys())
             if (key.getRequiresRestart() && !getAttributes().equalsKey(key, modified))
+                return true;
+
+        return false;
+    }
+
+    /**
+     * Returns true if the given modification requires a repaint.
+     *
+     * @param modified the modified settings
+     * @return true if the modification requires a repaint
+     */
+    public boolean requiresRepaint(ElementAttributes modified) {
+        for (Key<?> key : getKeys())
+            if (key.getRequiresRepaint() && !getAttributes().equalsKey(key, modified))
                 return true;
 
         return false;

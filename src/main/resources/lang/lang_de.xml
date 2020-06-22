@@ -1506,6 +1506,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_layoutShapeDelta_tt">Wird vom Layout-Shape verwendet. Legt den Abstand zum vorherigen Pin fest.
     </string>
 
+    <string name="key_colorScheme">Farbschema</string>
+    <string name="key_colorScheme_DEFAULT">Normal</string>
+    <string name="key_colorScheme_DARK">Dunkel</string>
+    <string name="key_colorScheme_COLOR_BLIND">Rot-Grün-Sehschwäche</string>
+
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
     <string name="mod_setKey_N0_in_element_N1">Wert ''{0}'' in Element ''{1}'' verändert.</string>

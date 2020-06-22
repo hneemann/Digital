@@ -466,7 +466,7 @@ public final class Keys {
      * enables the grid
      */
     public static final Key<Boolean> SETTINGS_GRID
-            = new Key<>("grid", true);
+            = new Key<>("grid", true).setRequiresRepaint();
 
     /**
      * enables the wire bits view

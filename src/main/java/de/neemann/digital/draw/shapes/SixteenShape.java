@@ -14,9 +14,6 @@ import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.graphics.Polygon;
-
-import java.awt.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
@@ -67,7 +64,7 @@ public class SixteenShape implements Shape {
     public SixteenShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         pins = inputs;
         onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
-        offStyle = Style.NORMAL.deriveFillStyle(new Color(230, 230, 230));
+        offStyle = Style.NORMAL.deriveFillStyle(ColorMap.getInstance().getColor(ColorMap.ColorKey.GRID));
         size = attr.get(Keys.SEVEN_SEG_SIZE);
     }
 
