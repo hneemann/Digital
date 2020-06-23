@@ -186,12 +186,10 @@ public class FolderTestRunner {
                 try {
                     Circuit circuit = Circuit.loadCircuit(f.file, shapeFactory);
                     ArrayList<TestCase> testCases = new ArrayList<>();
-                    for (VisualElement el : circuit.getElements()) {
-                        if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
-                            String label = el.getElementAttributes().getLabel();
-                            TestCaseDescription testData = el.getElementAttributes().get(TestCaseElement.TESTDATA);
-                            testCases.add(new TestCase(label, testData));
-                        }
+                    for (VisualElement el : circuit.getTestCases()) {
+                        String label = el.getElementAttributes().getLabel();
+                        TestCaseDescription testData = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+                        testCases.add(new TestCase(label, testData));
                     }
                     if (testCases.isEmpty()) {
                         // if no test data is available, at least check if the model is error free

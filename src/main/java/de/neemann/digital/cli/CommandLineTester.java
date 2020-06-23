@@ -61,11 +61,10 @@ public class CommandLineTester {
 
     private ArrayList<TestCase> getTestCasesFrom(Circuit circuit) {
         ArrayList<TestCase> tsl = new ArrayList<>();
-        for (VisualElement el : circuit.getElements())
-            if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
-                tsl.add(new TestCase(
-                        el.getElementAttributes().get(TestCaseElement.TESTDATA),
-                        el.getElementAttributes().getLabel()));
+        for (VisualElement el : circuit.getTestCases())
+            tsl.add(new TestCase(
+                    el.getElementAttributes().get(TestCaseElement.TESTDATA),
+                    el.getElementAttributes().getLabel()));
         return tsl;
     }
 

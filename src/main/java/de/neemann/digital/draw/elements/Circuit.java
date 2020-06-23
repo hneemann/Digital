@@ -31,6 +31,7 @@ import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.components.TransformHolder;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
+import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.undo.Copyable;
 import de.neemann.gui.language.Language;
 
@@ -340,6 +341,15 @@ public class Circuit implements Copyable<Circuit> {
             if (filter.accept(v))
                 found.add(v);
         return found;
+    }
+
+    /**
+     * Returns all enabled test cases in the circuit
+     *
+     * @return the test case elements
+     */
+    public List<VisualElement> getTestCases() {
+        return getElements(v -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
     }
 
     /**
