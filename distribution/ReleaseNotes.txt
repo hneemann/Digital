@@ -2,7 +2,9 @@ Release Notes
 
 Head, planned as v0.25
 - Unipolar and bipolar stepper motors were added.
-- move the "lib" folder from the "examples" folder to the root folder.
+- Moved the "lib" folder from the "examples" folder to the root folder.
+  - In case you have added your own library circuits, you have to move
+    them manually as well.
 - Reordering of the cells in the K-Map
 - Counters are able to act as program counters via the remote interface.
 - The circuits created have a more visible separation of the inputs.
