@@ -1,6 +1,7 @@
 Release Notes
 
 Head, planned as v0.25
+- Color schemes where added to support colorblind users.
 - Unipolar and bipolar stepper motors were added.
 - move the "lib" folder from the "examples" folder to the root folder.
 - Reordering of the cells in the K-Map
