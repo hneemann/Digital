@@ -16,7 +16,6 @@ import de.neemann.digital.hdl.model2.HDLPort;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.digital.testing.parser.Context;
 import de.neemann.digital.testing.parser.LineListener;
@@ -49,9 +48,8 @@ public class VHDLTestBenchCreator {
         this.main = model.getMain();
         this.renaming = model.getRenaming();
         testCases = new ArrayList<>();
-        for (VisualElement ve : circuit.getElements())
-            if (ve.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION))
-                testCases.add(ve.getElementAttributes());
+        for (VisualElement ve : circuit.getTestCases())
+            testCases.add(ve.getElementAttributes());
         testFileWritten = new ArrayList<>();
     }
 

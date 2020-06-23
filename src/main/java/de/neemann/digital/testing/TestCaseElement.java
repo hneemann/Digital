@@ -26,7 +26,8 @@ public class TestCaseElement implements Element {
     public static final ElementTypeDescription TESTCASEDESCRIPTION
             = new ElementTypeDescription("Testcase", TestCaseElement.class)
             .addAttribute(Keys.LABEL)
-            .addAttribute(TESTDATA);
+            .addAttribute(TESTDATA)
+            .addAttribute(Keys.ENABLED);
 
     /**
      * creates a new instance

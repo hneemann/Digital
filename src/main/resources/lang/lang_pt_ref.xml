@@ -1348,7 +1348,7 @@
   <string name="menu_speedTest_tt">Performs a speed test by calculating the max. clock frequency.</string>
   <string name="menu_step">Gate Step</string>
     <string name="menu_step_tt">Calculates a single gate step</string>
-  <string name="menu_synthesise">Synthesise</string>
+  <string name="menu_synthesise">Synthesis</string>
   <string name="menu_synthesise_tt">Generates the minimal bool expressions described by a truth table.</string>
   <string name="menu_table_N_variables">{0} variables</string>
   <string name="menu_table_create">Create</string>
