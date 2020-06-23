@@ -11,10 +11,7 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Orientation;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
 
 import java.awt.*;
 
@@ -59,7 +56,7 @@ public class BreakShape implements Shape {
         Vector center = new Vector(2 + SIZE, 0);
         Style style = Style.NORMAL;
         if (!enabled)
-            style = Style.NORMAL.deriveColor(Color.LIGHT_GRAY);
+            style = Style.NORMAL.deriveColor(ColorKey.DISABLED);
         graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
         graphic.drawLine(center.sub(D1), center.add(D1), style);
         graphic.drawLine(center.sub(D2), center.add(D2), style);

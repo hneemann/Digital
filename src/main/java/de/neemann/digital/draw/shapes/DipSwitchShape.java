@@ -47,7 +47,7 @@ public class DipSwitchShape implements Shape {
             .add(-SIZE - SIZE2, -SIZE2 + 4)
             .add(-SIZE * 3 + 5, -SIZE2 + 4);
 
-    private static final Style STYLE = Style.THIN.deriveFillStyle(Color.GRAY);
+    private static final Style STYLE = Style.THIN.deriveFillStyle(ColorKey.PINS);
 
     private final String label;
     private final PinDescriptions outputs;

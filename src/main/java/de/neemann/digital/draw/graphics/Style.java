@@ -37,11 +37,11 @@ public final class Style {
     /**
      * used to draw the failed state lines in the measurement graph
      */
-    public static final Style FAILED = new Builder(NORMAL).setColor(ColorMap.ColorKey.ERROR).build();
+    public static final Style FAILED = new Builder(NORMAL).setColor(ColorKey.ERROR).build();
     /**
      * used to draw the passed state lines in the measurement graph
      */
-    public static final Style PASS = new Builder(NORMAL).setColor(ColorMap.ColorKey.PASSED).build();
+    public static final Style PASS = new Builder(NORMAL).setColor(ColorKey.PASSED).build();
     /**
      * Used for text which is integral part of the shape.
      * Text which uses this style is always included in sizing!
@@ -66,25 +66,25 @@ public final class Style {
     public static final Style WIRE = new Builder()
             .setThickness(WIRETHICK)
             .setFilled(true)
-            .setColor(ColorMap.ColorKey.WIRE)
+            .setColor(ColorKey.WIRE)
             .setEndCap(BasicStroke.CAP_ROUND)
             .build();
     /**
      * Used for low wires in running mode
      */
-    public static final Style WIRE_LOW = new Builder(WIRE).setColor(ColorMap.ColorKey.WIRE_LOW).build();
+    public static final Style WIRE_LOW = new Builder(WIRE).setColor(ColorKey.WIRE_LOW).build();
     /**
      * Used for high wires in running mode
      */
-    public static final Style WIRE_HIGH = new Builder(WIRE).setColor(ColorMap.ColorKey.WIRE_HIGH).build();
+    public static final Style WIRE_HIGH = new Builder(WIRE).setColor(ColorKey.WIRE_HIGH).build();
     /**
      * Used for wires in high Z state
      */
-    public static final Style WIRE_HIGHZ = new Builder(WIRE).setColor(ColorMap.ColorKey.WIRE_Z).build();
+    public static final Style WIRE_HIGHZ = new Builder(WIRE).setColor(ColorKey.WIRE_Z).build();
     /**
      * used to draw the output dots
      */
-    public static final Style WIRE_OUT = new Builder(WIRE).setColor(ColorMap.ColorKey.WIRE_OUT).build();
+    public static final Style WIRE_OUT = new Builder(WIRE).setColor(ColorKey.WIRE_OUT).build();
 
     /**
      * used to draw the bus wires
@@ -107,7 +107,7 @@ public final class Style {
      */
     public static final Style SHAPE_PIN = new Builder()
             .setThickness(LINETHIN)
-            .setColor(ColorMap.ColorKey.PINS)
+            .setColor(ColorKey.PINS)
             .setFontSize(18)
             .build();
     /**
@@ -118,19 +118,19 @@ public final class Style {
      * Used to draw the pin description text
      */
     public static final Style WIRE_VALUE = new Builder(SHAPE_SPLITTER)
-            .setColor(ColorMap.ColorKey.WIRE_VALUE)
+            .setColor(ColorKey.WIRE_VALUE)
             .build();
     /**
      * Used to draw the wire bit number
      */
     public static final Style WIRE_BITS = new Builder(SHAPE_SPLITTER)
-            .setColor(ColorMap.ColorKey.WIRE)
+            .setColor(ColorKey.WIRE)
             .build();
     /**
      * highlight color used for the circles to mark an element
      */
     public static final Style HIGHLIGHT = new Builder(NORMAL)
-            .setColor(ColorMap.ColorKey.HIGHLIGHT)
+            .setColor(ColorKey.HIGHLIGHT)
             .setEndCap(BasicStroke.CAP_ROUND)
             .build();
 
@@ -138,13 +138,14 @@ public final class Style {
      * error color used for the circles to mark an element
      */
     public static final Style ERROR = new Builder(NORMAL)
-            .setColor(ColorMap.ColorKey.ERROR)
+            .setColor(ColorKey.ERROR)
             .setEndCap(BasicStroke.CAP_ROUND)
             .build();
 
     private final int thickness;
     private final boolean filled;
-    private final ColorMap.ColorProvider color;
+    private final Color color;
+    private final ColorKey colorKey;
     private final int fontSize;
     private final float[] dash;
     private final BasicStroke stroke;
@@ -160,6 +161,7 @@ public final class Style {
     private Style(Builder builder) {
         this.thickness = builder.thickness;
         this.filled = builder.filled;
+        this.colorKey = builder.colorKey;
         this.color = builder.color;
         this.fontSize = builder.fontSize;
         this.fontStyle = builder.fontStyle;
@@ -188,7 +190,10 @@ public final class Style {
      * @return the color
      */
     public Color getColor() {
-        return color.getColor();
+        if (colorKey != null)
+            return ColorScheme.getInstance().getColor(colorKey);
+        else
+            return color;
     }
 
     /**
@@ -279,6 +284,18 @@ public final class Style {
     /**
      * Creates a new style, based on this style.
      *
+     * @param colorKey the new color
+     * @return Style the derived style with the given color set.
+     */
+    public Style deriveColor(ColorKey colorKey) {
+        return new Builder(this)
+                .setColor(colorKey)
+                .build();
+    }
+
+    /**
+     * Creates a new style, based on this style.
+     *
      * @param thickness the line thickness
      * @param filled    filled flag for polygons
      * @param color     the color
@@ -306,10 +323,25 @@ public final class Style {
                 .build();
     }
 
+    /**
+     * Creates a new style suited for filling polygons, based on this style.
+     *
+     * @param colorKey the fill color key
+     * @return the nes style
+     */
+    public Style deriveFillStyle(ColorKey colorKey) {
+        return new Builder(this)
+                .setThickness(0)
+                .setFilled(true)
+                .setColor(colorKey)
+                .build();
+    }
+
     private static final class Builder {
         private int thickness = LINETHICK;
         private boolean filled = false;
-        private ColorMap.ColorProvider color = new ColorMap.ColorByKey(ColorMap.ColorKey.MAIN);
+        private ColorKey colorKey = ColorKey.MAIN;
+        private Color color;
         private int fontSize = 24;
         private float[] dash = null;
         private boolean mattersForSize = false;
@@ -322,6 +354,7 @@ public final class Style {
         private Builder(Style style) {
             thickness = style.thickness;
             filled = style.filled;
+            colorKey = style.colorKey;
             color = style.color;
             fontSize = style.fontSize;
             dash = style.getDash();
@@ -339,13 +372,15 @@ public final class Style {
             return this;
         }
 
-        private Builder setColor(ColorMap.ColorKey key) {
-            this.color = new ColorMap.ColorByKey(key);
+        private Builder setColor(ColorKey key) {
+            this.colorKey = key;
+            this.color = null;
             return this;
         }
 
         private Builder setColor(Color color) {
-            this.color = () -> color;
+            this.colorKey = null;
+            this.color = color;
             return this;
         }
 

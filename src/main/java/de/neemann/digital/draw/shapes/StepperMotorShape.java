@@ -80,7 +80,7 @@ public class StepperMotorShape implements Shape {
     }
 
 
-    private static final Style ERROR_STYLE = Style.NORMAL.deriveColor(Color.RED);
+    private static final Style ERROR_STYLE = Style.NORMAL.deriveColor(ColorKey.ERROR);
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {

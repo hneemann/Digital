@@ -43,7 +43,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
-import static de.neemann.digital.draw.graphics.ColorMap.*;
+import static de.neemann.digital.draw.graphics.ColorScheme.*;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 

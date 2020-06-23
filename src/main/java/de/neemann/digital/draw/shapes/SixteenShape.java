@@ -64,7 +64,7 @@ public class SixteenShape implements Shape {
     public SixteenShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         pins = inputs;
         onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
-        offStyle = Style.NORMAL.deriveFillStyle(ColorMap.getInstance().getColor(ColorMap.ColorKey.GRID));
+        offStyle = Style.NORMAL.deriveFillStyle(ColorKey.GRID);
         size = attr.get(Keys.SEVEN_SEG_SIZE);
     }
 

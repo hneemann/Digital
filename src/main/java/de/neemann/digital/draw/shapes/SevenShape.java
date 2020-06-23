@@ -43,7 +43,7 @@ public abstract class SevenShape implements Shape {
      */
     public SevenShape(ElementAttributes attr) {
         onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
-        offStyle = Style.NORMAL.deriveFillStyle(ColorMap.getInstance().getColor(ColorMap.ColorKey.GRID));
+        offStyle = Style.NORMAL.deriveFillStyle(ColorKey.GRID);
         size = attr.get(Keys.SEVEN_SEG_SIZE);
     }
 

@@ -10,9 +10,6 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.graphics.Polygon;
-
-import java.awt.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -22,7 +19,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class TestCaseShape implements Shape {
 
-    private static final Style TESTSTYLE = Style.NORMAL.deriveFillStyle(new Color(180, 255, 180, 200));
+    private static final Style TESTSTYLE = Style.NORMAL.deriveFillStyle(ColorKey.TESTCASE);
     private final String label;
 
     /**
