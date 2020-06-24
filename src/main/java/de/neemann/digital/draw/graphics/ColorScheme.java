@@ -38,7 +38,7 @@ public final class ColorScheme {
             .set(ColorKey.BACKGROUND, Color.BLACK)
             .set(ColorKey.MAIN, Color.GRAY)
             .set(ColorKey.GRID, new Color(50, 50, 50))
-            .set(ColorKey.DISABLED, Color.GRAY.darker().darker());
+            .set(ColorKey.DISABLED, new Color(40, 40, 40));
 
     private static final ColorScheme COLOR_BLIND_SCHEME = new ColorScheme(DEFAULT_SCHEME)
             .set(ColorKey.WIRE_LOW, new Color(32, 59, 232))

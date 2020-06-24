@@ -12,6 +12,8 @@ import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.*;
 
+import static de.neemann.digital.draw.graphics.Style.DISABLED;
+import static de.neemann.digital.draw.graphics.Style.NORMAL;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
@@ -21,7 +23,6 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 public class TestCaseShape implements Shape {
 
     private static final Style TESTSTYLE = Style.NORMAL.deriveFillStyle(ColorKey.TESTCASE);
-    private static final Style DISABLEDTESTSTYLE = Style.NORMAL.deriveFillStyle(ColorKey.DISABLED);
     private final String label;
     private final boolean enabled;
 
@@ -55,13 +56,17 @@ public class TestCaseShape implements Shape {
                     .add(SIZE2 + SIZE * 4, SIZE2)
                     .add(SIZE2 + SIZE * 4, SIZE * 2 + SIZE2)
                     .add(SIZE2, SIZE * 2 + SIZE2);
-            if (enabled)
+            Style textStyle = NORMAL;
+            if (enabled) {
                 graphic.drawPolygon(pol, TESTSTYLE);
-            else
-                graphic.drawPolygon(pol, DISABLEDTESTSTYLE);
-            graphic.drawPolygon(pol, Style.THIN);
-            graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), "Test", Orientation.CENTERCENTER, Style.NORMAL);
-            graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);
+                graphic.drawPolygon(pol, Style.THIN);
+            } else {
+                graphic.drawPolygon(pol, DISABLED);
+                textStyle = DISABLED;
+            }
+
+            graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), "Test", Orientation.CENTERCENTER, textStyle);
+            graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), label, Orientation.CENTERBOTTOM, textStyle);
         }
     }
 }

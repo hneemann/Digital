@@ -31,6 +31,10 @@ public final class Style {
      */
     public static final Style NORMAL = new Builder().build();
     /**
+     * used for all disabled elements
+     */
+    public static final Style DISABLED = new Builder().setColor(ColorKey.DISABLED).build();
+    /**
      * used for input and output labels
      */
     public static final Style INOUT = new Builder(NORMAL).setFontStyle(Font.ITALIC).build();

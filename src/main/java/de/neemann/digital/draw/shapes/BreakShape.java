@@ -56,7 +56,7 @@ public class BreakShape implements Shape {
         Vector center = new Vector(2 + SIZE, 0);
         Style style = Style.NORMAL;
         if (!enabled)
-            style = Style.NORMAL.deriveColor(ColorKey.DISABLED);
+            style = Style.DISABLED;
         graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
         graphic.drawLine(center.sub(D1), center.add(D1), style);
         graphic.drawLine(center.sub(D2), center.add(D2), style);
