@@ -315,7 +315,7 @@ public class FSMComponent extends JComponent {
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
-        graphics.setColor(ColorScheme.getInstance().getColor(ColorKey.BACKGROUND));
+        graphics.setColor(ColorScheme.getSelected().getColor(ColorKey.BACKGROUND));
         graphics.fillRect(0, 0, getWidth(), getHeight());
 
         Graphics2D gr2 = (Graphics2D) graphics;

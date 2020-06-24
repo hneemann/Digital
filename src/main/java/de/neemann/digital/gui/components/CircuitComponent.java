@@ -857,7 +857,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
             Graphics2D gr2 = buffer.createGraphics();
             enableAntiAlias(gr2);
-            gr2.setColor(ColorScheme.getInstance().getColor(ColorKey.BACKGROUND));
+            gr2.setColor(ColorScheme.getSelected().getColor(ColorKey.BACKGROUND));
             gr2.fillRect(0, 0, getWidth(), getHeight());
 
             if (scaleX > 0.3 && Settings.getInstance().get(Keys.SETTINGS_GRID))
@@ -915,7 +915,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         if (delta > max) delta = max;
         double sub = delta / 2.0;
 
-        gr2.setColor(ColorScheme.getInstance().getColor(ColorKey.GRID));
+        gr2.setColor(ColorScheme.getSelected().getColor(ColorKey.GRID));
         for (int x = 0; x <= cx; x++) {
             double xx = p1.getX() + (p2.getX() - p1.getX()) * x / cx - sub;
             for (int y = 0; y <= cy; y++) {

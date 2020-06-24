@@ -71,7 +71,7 @@ public final class ColorScheme {
     /**
      * @return the selected color map
      */
-    public static ColorScheme getInstance() {
+    public static ColorScheme getSelected() {
         if (instance == null) {
             updateInstance();
             Settings.getInstance().getAttributes().addListener(ColorScheme::updateInstance);
@@ -101,7 +101,7 @@ public final class ColorScheme {
     /**
      * Returns the selected color
      *
-     * @param key te color key
+     * @param key the color key
      * @return the color
      */
     public Color getColor(ColorKey key) {

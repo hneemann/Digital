@@ -195,7 +195,7 @@ public final class Style {
      */
     public Color getColor() {
         if (colorKey != null)
-            return ColorScheme.getInstance().getColor(colorKey);
+            return ColorScheme.getSelected().getColor(colorKey);
         else
             return color;
     }
