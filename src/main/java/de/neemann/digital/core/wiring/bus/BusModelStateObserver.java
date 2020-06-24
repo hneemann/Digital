@@ -97,20 +97,24 @@ public final class BusModelStateObserver implements ModelStateObserverTyped {
                     createdHandlers.add(h);
                     h.addNet(s.getInput1());
                     h.addNet(s.getInput2());
+                    h.addExclude(s.getOutput1(), s.getOutput2());
                     netMap.put(s.getInput1(), h);
                     netMap.put(s.getInput2(), h);
                 } else {
                     h2.addNet(s.getInput1());
+                    h2.addExclude(s.getOutput1(), s.getOutput2());
                     netMap.put(s.getInput1(), h2);
                 }
             } else {
                 if (h2 == null) {
                     h1.addNet(s.getInput2());
+                    h1.addExclude(s.getOutput1(), s.getOutput2());
                     netMap.put(s.getInput2(), h1);
                 } else {
                     if (h1 != h2) {
                         // merge the nets
                         h1.addNet(h2);
+                        h1.addExcludesFrom(h2);
                         for (CommonBusValue v : h2.getValues())
                             netMap.put(v, h1);
                         createdHandlers.remove(h2);
@@ -118,6 +122,8 @@ public final class BusModelStateObserver implements ModelStateObserverTyped {
                 }
             }
         }
+        for (ConnectedBusHandler h : createdHandlers)
+            h.removeExcludes();
         for (ConnectedBusHandler h : createdHandlers)
             h.recalculate();
     }

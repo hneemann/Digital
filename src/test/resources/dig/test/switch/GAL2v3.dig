@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>Ground</elementName>
@@ -1205,22 +1206,12 @@
     </visualElement>
     <visualElement>
       <elementName>FGNFET</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Blown</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
+      <elementAttributes/>
       <pos x="440" y="1120"/>
     </visualElement>
     <visualElement>
       <elementName>FGNFET</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Blown</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
+      <elementAttributes/>
       <pos x="500" y="1120"/>
     </visualElement>
     <visualElement>
@@ -5881,4 +5872,5 @@ repeat(8) 1 0 C     bits(3,7-n)
       <p2 x="1140" y="1440"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

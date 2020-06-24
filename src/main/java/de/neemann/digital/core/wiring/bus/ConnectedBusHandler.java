@@ -19,8 +19,9 @@ import java.util.List;
  */
 public final class ConnectedBusHandler extends AbstractBusHandler {
     private PinDescription.PullResistor resistor = PinDescription.PullResistor.none;
-    private ArrayList<CommonBusValue> values;
-    private ArrayList<ObservableValue> inputs;
+    private final ArrayList<CommonBusValue> values;
+    private final ArrayList<ObservableValue> inputs;
+    private final ArrayList<ObservableValue> excludes;
 
     /**
      * Creates a new instance
@@ -31,6 +32,7 @@ public final class ConnectedBusHandler extends AbstractBusHandler {
         super(obs);
         values = new ArrayList<>();
         inputs = new ArrayList<>();
+        excludes = new ArrayList<>();
     }
 
     /**
@@ -99,5 +101,32 @@ public final class ConnectedBusHandler extends AbstractBusHandler {
     public String toString() {
         return "ConnectedBusHandler{"
                 + "values=" + values + '}';
+    }
+
+    /**
+     * Adds output to the net which are to ignore.
+     *
+     * @param output1 output1
+     * @param output2 output2
+     */
+    public void addExclude(ObservableValue output1, ObservableValue output2) {
+        excludes.add(output1);
+        excludes.add(output2);
+    }
+
+    /**
+     * Adds output which are to ignore by net other.
+     *
+     * @param other adds the outputs to ignore from this net
+     */
+    public void addExcludesFrom(ConnectedBusHandler other) {
+        excludes.addAll(other.excludes);
+    }
+
+    /**
+     * Removes all the outputs which are to ignore
+     */
+    public void removeExcludes() {
+        inputs.removeAll(excludes);
     }
 }
