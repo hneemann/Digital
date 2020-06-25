@@ -23,6 +23,7 @@ public class Key<VALUE> {
     private CheckEnabled checkEnabled;
     private boolean isSecondary;
     private boolean requiresRestart = false;
+    private boolean requiresRepaint = false;
     private String panelId;
 
     // Both values are always null in digital.
@@ -233,6 +234,23 @@ public class Key<VALUE> {
      */
     public boolean getRequiresRestart() {
         return requiresRestart;
+    }
+
+    /**
+     * Called if this setting needs a repaint.
+     *
+     * @return this for chained calls
+     */
+    public Key<VALUE> setRequiresRepaint() {
+        requiresRepaint = true;
+        return this;
+    }
+
+    /**
+     * @return true if changing this value needs a repaint
+     */
+    public boolean getRequiresRepaint() {
+        return requiresRepaint;
     }
 
     /**

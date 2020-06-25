@@ -22,7 +22,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class AsyncClockShape implements Shape {
 
-    private static final Style TESTSTYLE = Style.NORMAL.deriveFillStyle(new Color(255, 180, 180, 200));
+    private static final Style ASYNCSTYLE = Style.NORMAL.deriveFillStyle(ColorKey.ASYNC);
     private final String label;
 
     /**
@@ -54,7 +54,7 @@ public class AsyncClockShape implements Shape {
                     .add(SIZE2 + SIZE * 4, SIZE2)
                     .add(SIZE2 + SIZE * 4, SIZE * 2 + SIZE2)
                     .add(SIZE2, SIZE * 2 + SIZE2);
-            graphic.drawPolygon(pol, TESTSTYLE);
+            graphic.drawPolygon(pol, ASYNCSTYLE);
             graphic.drawPolygon(pol, Style.THIN);
             graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), "Async", Orientation.CENTERCENTER, Style.NORMAL);
             graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), label, Orientation.CENTERBOTTOM, Style.NORMAL);

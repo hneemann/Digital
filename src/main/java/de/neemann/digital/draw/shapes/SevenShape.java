@@ -8,9 +8,6 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.graphics.*;
-import de.neemann.digital.draw.graphics.Polygon;
-
-import java.awt.*;
 
 /**
  * The shape to show a seven seg display.
@@ -46,7 +43,7 @@ public abstract class SevenShape implements Shape {
      */
     public SevenShape(ElementAttributes attr) {
         onStyle = Style.NORMAL.deriveFillStyle(attr.get(Keys.COLOR));
-        offStyle = Style.NORMAL.deriveFillStyle(new Color(230, 230, 230));
+        offStyle = Style.NORMAL.deriveFillStyle(ColorKey.GRID);
         size = attr.get(Keys.SEVEN_SEG_SIZE);
     }
 
