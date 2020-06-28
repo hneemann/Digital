@@ -91,6 +91,13 @@ public class TestCaseDescriptionDialog extends JDialog {
             }.setToolTip(Lang.get("btn_addTransitions_tt")).createJButton());
         }
 
+        buttons.add(new ToolTipAction(Lang.get("cancel")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+            }
+        }.createJButton());
+
         if (element != null) {
             buttons.add(new ToolTipAction(Lang.get("menu_runTests")) {
                 @Override
