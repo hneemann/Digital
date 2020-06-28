@@ -79,7 +79,7 @@ public class LedMatrix extends Node implements Element {
     public void readInputs() throws NodeException {
         long rowData = rowDataVal.getValue();
         int colAddr = (int) colAddrVal.getValue();
-        if (colAddr < dx && data[colAddr] != rowData) {
+        if (colAddr < dx && (!ledPersist || data[colAddr] != rowData)) {
             data[colAddr] = rowData;
             dataChanged(colAddr, rowData);
         }
