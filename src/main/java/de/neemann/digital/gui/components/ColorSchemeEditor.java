@@ -15,6 +15,7 @@ import de.neemann.gui.ToolTipAction;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /**
  * Editor for color schemes
@@ -55,16 +56,21 @@ public class ColorSchemeEditor extends EditorFactory.LabelEditor<ColorScheme> {
     }
 
     private final class SchemeEditor extends JDialog {
+        private final ColorScheme.Builder builder;
+        private final ArrayList<ColorButton> colorButtons;
 
         private SchemeEditor(ColorScheme colorScheme) {
             super((Frame) null, Lang.get("key_customColorScheme"), true);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-            ColorScheme.Builder builder = new ColorScheme.Builder(colorScheme);
-
+            builder = new ColorScheme.Builder(colorScheme);
+            colorButtons = new ArrayList<>();
             JPanel colors = new JPanel(new GridLayout(ColorKey.values().length, 1));
-            for (ColorKey ck : ColorKey.values())
-                colors.add(new ColorButton(builder, ck));
+            for (ColorKey ck : ColorKey.values()) {
+                ColorButton colorButton = new ColorButton(builder, ck);
+                colorButtons.add(colorButton);
+                colors.add(colorButton);
+            }
             getContentPane().add(colors);
 
             JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -82,16 +88,45 @@ public class ColorSchemeEditor extends EditorFactory.LabelEditor<ColorScheme> {
                 }
             }.createJButton());
 
+            JMenu preset = new JMenu(Lang.get("menu_colorSchemePreset"));
+            for (ColorScheme.ColorSchemes cs : ColorScheme.ColorSchemes.values())
+                if (!cs.equals(ColorScheme.ColorSchemes.CUSTOM))
+                    preset.add(new PresetAction(cs).createJMenuItem());
+            JMenuBar bar = new JMenuBar();
+            bar.add(preset);
+            setJMenuBar(bar);
+
             getContentPane().add(buttons, BorderLayout.SOUTH);
 
             pack();
             setLocationRelativeTo(null);
         }
+
+        private final class PresetAction extends ToolTipAction {
+            private final ColorScheme.ColorSchemes cs;
+
+            private PresetAction(ColorScheme.ColorSchemes cs) {
+                super(Lang.get("key_colorScheme_" + cs.name()));
+                this.cs = cs;
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                builder.set(cs.getScheme());
+                for (ColorButton cb : colorButtons)
+                    cb.updateColor();
+            }
+        }
     }
 
     private static final class ColorButton extends JButton {
+        private final ColorScheme.Builder builder;
+        private final ColorKey ck;
+
         private ColorButton(ColorScheme.Builder builder, ColorKey ck) {
             super(Lang.get("colorName_" + ck.name()));
+            this.builder = builder;
+            this.ck = ck;
             setColor(builder.getColor(ck));
 
             addActionListener(new AbstractAction() {
@@ -106,14 +141,19 @@ public class ColorSchemeEditor extends EditorFactory.LabelEditor<ColorScheme> {
             });
         }
 
+        private void updateColor() {
+            setColor(builder.getColor(ck));
+        }
+
         private void setColor(Color color) {
             setBackground(color);
             float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
-            if (hsb[2] < 0.5)
+            if (hsb[2] < 0.7)
                 setForeground(Color.WHITE);
             else
                 setForeground(Color.BLACK);
         }
+
     }
 
 }

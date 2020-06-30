@@ -1511,6 +1511,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_colorScheme_DARK">Dunkel</string>
     <string name="key_colorScheme_COLOR_BLIND">Rot-Grün-Sehschwäche</string>
     <string name="key_colorScheme_CUSTOM">Benutzerdefiniert</string>
+    <string name="menu_colorSchemePreset">Vorgabe</string>
     <string name="key_customColorScheme">Benutzerdefinierte Farben</string>
     <string name="colorName_BACKGROUND">Hintergrund</string>
     <string name="colorName_MAIN">Vordergrund</string>

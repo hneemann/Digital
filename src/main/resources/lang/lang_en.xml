@@ -1476,6 +1476,7 @@
     <string name="key_colorScheme_COLOR_BLIND">red/green colorblind</string>
     <string name="key_colorScheme_CUSTOM">User Defined</string>
     <string name="key_customColorScheme">User Defined Colors</string>
+    <string name="menu_colorSchemePreset">Preset</string>
     <string name="colorName_BACKGROUND">Background</string>
     <string name="colorName_MAIN">Foreground</string>
     <string name="colorName_WIRE">Wire</string>

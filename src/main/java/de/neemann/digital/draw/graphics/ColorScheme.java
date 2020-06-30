@@ -59,9 +59,26 @@ public final class ColorScheme {
         ColorSchemes.CUSTOM.set(modified.get(CUSTOM_COLOR_SCHEME));
     }
 
-    enum ColorSchemes {
-        DEFAULT(DEFAULT_SCHEME), DARK(DARK_SCHEME),
-        COLOR_BLIND(COLOR_BLIND_SCHEME), CUSTOM(null);
+    /**
+     * The available color schemes
+     */
+    public enum ColorSchemes {
+        /**
+         * the normal, default color scheme
+         */
+        DEFAULT(DEFAULT_SCHEME),
+        /**
+         * The dark color scheme
+         */
+        DARK(DARK_SCHEME),
+        /**
+         * color scheme suited for colorblind users
+         */
+        COLOR_BLIND(COLOR_BLIND_SCHEME),
+        /**
+         * User defined custom scheme
+         */
+        CUSTOM(null);
 
         private ColorScheme scheme;
 
@@ -69,7 +86,10 @@ public final class ColorScheme {
             this.scheme = scheme;
         }
 
-        ColorScheme getScheme() {
+        /**
+         * @return the color scheme
+         */
+        public ColorScheme getScheme() {
             if (scheme == null)
                 scheme = Settings.getInstance().get(CUSTOM_COLOR_SCHEME);
             return scheme;
@@ -173,6 +193,18 @@ public final class ColorScheme {
          */
         public Builder set(ColorKey key, Color color) {
             colors[key.ordinal()] = color;
+            return this;
+        }
+
+        /**
+         * Sets a color scheme
+         *
+         * @param colorScheme the color scheme
+         * @return this for chained calls
+         */
+        public Builder set(ColorScheme colorScheme) {
+            for (ColorKey ck : ColorKey.values())
+                colors[ck.ordinal()] = colorScheme.getColor(ck);
             return this;
         }
 
