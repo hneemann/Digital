@@ -14,7 +14,6 @@ import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
 
 /**
