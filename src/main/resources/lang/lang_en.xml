@@ -1474,6 +1474,24 @@
     <string name="key_colorScheme_DEFAULT">Normal</string>
     <string name="key_colorScheme_DARK">Dark</string>
     <string name="key_colorScheme_COLOR_BLIND">red/green colorblind</string>
+    <string name="key_colorScheme_CUSTOM">User Defined</string>
+    <string name="key_customColorScheme">User Defined Colors</string>
+    <string name="colorName_BACKGROUND">Background</string>
+    <string name="colorName_MAIN">Foreground</string>
+    <string name="colorName_WIRE">Wire</string>
+    <string name="colorName_WIRE_HIGH">Wire HIGH</string>
+    <string name="colorName_WIRE_LOW">Wire LOW</string>
+    <string name="colorName_WIRE_VALUE">Value at the wire</string>
+    <string name="colorName_WIRE_OUT">Output</string>
+    <string name="colorName_WIRE_Z">Wire HIGH-Z</string>
+    <string name="colorName_ERROR">Error</string>
+    <string name="colorName_PASSED">Ok</string>
+    <string name="colorName_PINS">Pins</string>
+    <string name="colorName_GRID">Grid</string>
+    <string name="colorName_TESTCASE">Test case</string>
+    <string name="colorName_DISABLED">Disabled</string>
+    <string name="colorName_ASYNC">Asynchronous</string>
+    <string name="colorName_HIGHLIGHT">Highlighted</string>
 
     <string name="mod_insertWire">Inserted wire.</string>
     <string name="mod_insertCopied">Insert from clipboard.</string>

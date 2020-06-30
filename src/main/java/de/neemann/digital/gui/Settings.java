@@ -44,6 +44,7 @@ public final class Settings extends SettingsBase {
         intList.add(Keys.SETTINGS_LANGUAGE);
         intList.add(Keys.SETTINGS_EXPRESSION_FORMAT);
         intList.add(ColorScheme.COLOR_SCHEME);
+        intList.add(ColorScheme.CUSTOM_COLOR_SCHEME);
         intList.add(Keys.SETTINGS_DEFAULT_TREESELECT);
         intList.add(Keys.SETTINGS_GRID);
         intList.add(Keys.SETTINGS_SHOW_WIRE_BITS);

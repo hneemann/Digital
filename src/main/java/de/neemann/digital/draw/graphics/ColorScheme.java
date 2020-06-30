@@ -5,10 +5,12 @@
  */
 package de.neemann.digital.draw.graphics;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.gui.Settings;
 
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Color map.
@@ -16,7 +18,7 @@ import java.awt.*;
  */
 public final class ColorScheme {
 
-    private static final ColorScheme DEFAULT_SCHEME = new ColorScheme()
+    private static final ColorScheme DEFAULT_SCHEME = new Builder()
             .set(ColorKey.BACKGROUND, Color.WHITE)
             .set(ColorKey.MAIN, Color.BLACK)
             .set(ColorKey.WIRE, Color.BLUE.darker())
@@ -32,30 +34,53 @@ public final class ColorScheme {
             .set(ColorKey.ERROR, Color.RED)
             .set(ColorKey.DISABLED, Color.LIGHT_GRAY)
             .set(ColorKey.TESTCASE, new Color(180, 255, 180, 200))
-            .set(ColorKey.ASYNC, new Color(255, 180, 180, 200));
+            .set(ColorKey.ASYNC, new Color(255, 180, 180, 200))
+            .build();
 
-    private static final ColorScheme DARK_SCHEME = new ColorScheme(DEFAULT_SCHEME)
+    private static final ColorScheme DARK_SCHEME = new Builder(DEFAULT_SCHEME)
             .set(ColorKey.BACKGROUND, Color.BLACK)
             .set(ColorKey.MAIN, Color.GRAY)
             .set(ColorKey.GRID, new Color(50, 50, 50))
-            .set(ColorKey.DISABLED, new Color(40, 40, 40));
+            .set(ColorKey.DISABLED, new Color(40, 40, 40))
+            .build();
 
-    private static final ColorScheme COLOR_BLIND_SCHEME = new ColorScheme(DEFAULT_SCHEME)
+    private static final ColorScheme COLOR_BLIND_SCHEME = new Builder(DEFAULT_SCHEME)
             .set(ColorKey.WIRE_LOW, new Color(32, 59, 232))
             .set(ColorKey.WIRE_HIGH, new Color(244, 235, 66))
-            .set(ColorKey.WIRE_Z, new Color(1, 188, 157));
+            .set(ColorKey.WIRE_Z, new Color(1, 188, 157))
+            .build();
+
+    /**
+     * Needs to be called if the settings are modified
+     *
+     * @param modified the modified settings
+     */
+    public static void updateCustomColorScheme(ElementAttributes modified) {
+        ColorSchemes.CUSTOM.set(modified.get(CUSTOM_COLOR_SCHEME));
+    }
 
     enum ColorSchemes {
-        DEFAULT(DEFAULT_SCHEME), DARK(DARK_SCHEME), COLOR_BLIND(COLOR_BLIND_SCHEME);
+        DEFAULT(DEFAULT_SCHEME), DARK(DARK_SCHEME),
+        COLOR_BLIND(COLOR_BLIND_SCHEME), CUSTOM(null);
 
-        private final ColorScheme scheme;
+        private ColorScheme scheme;
 
         ColorSchemes(ColorScheme scheme) {
             this.scheme = scheme;
         }
 
         ColorScheme getScheme() {
+            if (scheme == null)
+                scheme = Settings.getInstance().get(CUSTOM_COLOR_SCHEME);
             return scheme;
+        }
+
+        private void set(ColorScheme newScheme) {
+            if (scheme != null && !scheme.equals(newScheme)) {
+                scheme = newScheme;
+                if (Settings.getInstance().get(COLOR_SCHEME).equals(CUSTOM))
+                    instance = newScheme;
+            }
         }
     }
 
@@ -64,6 +89,13 @@ public final class ColorScheme {
      */
     public static final Key<ColorSchemes> COLOR_SCHEME =
             new Key.KeyEnum<>("colorScheme", ColorSchemes.DEFAULT, ColorSchemes.values())
+                    .setRequiresRepaint();
+    /**
+     * The key used to define the custom color map
+     */
+    public static final Key<ColorScheme> CUSTOM_COLOR_SCHEME =
+            new Key<>("customColorScheme", DEFAULT_SCHEME)
+                    .setDependsOn(COLOR_SCHEME, o -> o.equals(ColorSchemes.CUSTOM))
                     .setRequiresRepaint();
 
     private static ColorScheme instance = null;
@@ -85,17 +117,8 @@ public final class ColorScheme {
 
     private final Color[] colors;
 
-    private ColorScheme() {
-        colors = new Color[ColorKey.values().length];
-    }
-
-    private ColorScheme(ColorScheme other) {
-        this.colors = other.colors.clone();
-    }
-
-    private ColorScheme set(ColorKey key, Color color) {
-        colors[key.ordinal()] = color;
-        return this;
+    private ColorScheme(Builder builder) {
+        colors = builder.colors;
     }
 
     /**
@@ -106,5 +129,70 @@ public final class ColorScheme {
      */
     public Color getColor(ColorKey key) {
         return colors[key.ordinal()];
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ColorScheme that = (ColorScheme) o;
+        return Arrays.equals(colors, that.colors);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(colors);
+    }
+
+    /**
+     * Use to create a immutable color scheme
+     */
+    public static final class Builder {
+        private final Color[] colors;
+
+        private Builder() {
+            this.colors = new Color[ColorKey.values().length];
+        }
+
+        /**
+         * Creates a new builder
+         *
+         * @param colorScheme the color scheme used as default
+         */
+        public Builder(ColorScheme colorScheme) {
+            this.colors = colorScheme.colors.clone();
+        }
+
+        /**
+         * Sets a color
+         *
+         * @param key   the color key
+         * @param color the color
+         * @return this for chained calls
+         */
+        public Builder set(ColorKey key, Color color) {
+            colors[key.ordinal()] = color;
+            return this;
+        }
+
+        /**
+         * Builds the color scheme
+         *
+         * @return the color scheme
+         */
+        public ColorScheme build() {
+            return new ColorScheme(this);
+        }
+
+        /**
+         * Returns the selected color
+         *
+         * @param key the color key
+         * @return the color
+         */
+        public Color getColor(ColorKey key) {
+            return colors[key.ordinal()];
+        }
     }
 }

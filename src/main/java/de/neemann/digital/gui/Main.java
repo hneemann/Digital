@@ -740,6 +740,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 .showDialog();
                 if (modified != null) {
                     FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
+                    ColorScheme.updateCustomColorScheme(modified);
 
                     if (Settings.getInstance().requiresRestart(modified)) {
                         Lang.setLanguage(modified.get(Keys.SETTINGS_LANGUAGE));

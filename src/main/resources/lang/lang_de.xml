@@ -1510,6 +1510,24 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
     <string name="key_colorScheme_DARK">Dunkel</string>
     <string name="key_colorScheme_COLOR_BLIND">Rot-Grün-Sehschwäche</string>
+    <string name="key_colorScheme_CUSTOM">Benutzerdefiniert</string>
+    <string name="key_customColorScheme">Benutzerdefinierte Farben</string>
+    <string name="colorName_BACKGROUND">Hintergrund</string>
+    <string name="colorName_MAIN">Vordergrund</string>
+    <string name="colorName_WIRE">Leitung</string>
+    <string name="colorName_WIRE_HIGH">Leitung HIGH</string>
+    <string name="colorName_WIRE_LOW">Leitung LOW</string>
+    <string name="colorName_WIRE_VALUE">Wert auf der Leitung</string>
+    <string name="colorName_WIRE_OUT">Ausgang</string>
+    <string name="colorName_WIRE_Z">Leitung HIGH-Z</string>
+    <string name="colorName_ERROR">Fehler</string>
+    <string name="colorName_PASSED">Ok</string>
+    <string name="colorName_PINS">Pins</string>
+    <string name="colorName_GRID">Gitter</string>
+    <string name="colorName_TESTCASE">Testfall</string>
+    <string name="colorName_DISABLED">Deaktiviert</string>
+    <string name="colorName_ASYNC">Asynchron</string>
+    <string name="colorName_HIGHLIGHT">Hervorgehoben</string>
 
     <string name="mod_insertWire">Leitung eingefügt.</string>
     <string name="mod_insertCopied">Aus Zwischenablage eingefügt.</string>
