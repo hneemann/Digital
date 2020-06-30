@@ -14,6 +14,7 @@ import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.color.ColorSpace;
 import java.awt.event.ActionEvent;
 
 /**
@@ -92,7 +93,7 @@ public class ColorSchemeEditor extends EditorFactory.LabelEditor<ColorScheme> {
     private static final class ColorButton extends JButton {
         private ColorButton(ColorScheme.Builder builder, ColorKey ck) {
             super(Lang.get("colorName_" + ck.name()));
-            setBackground(builder.getColor(ck));
+            setColor(builder.getColor(ck));
 
             addActionListener(new AbstractAction() {
                 @Override
@@ -100,10 +101,19 @@ public class ColorSchemeEditor extends EditorFactory.LabelEditor<ColorScheme> {
                     Color color = JColorChooser.showDialog(ColorButton.this, Lang.get("msg_color"), builder.getColor(ck));
                     if (color != null) {
                         builder.set(ck, color);
-                        setBackground(color);
+                        setColor(color);
                     }
                 }
             });
+        }
+
+        private void setColor(Color color) {
+            setBackground(color);
+            float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
+            if (hsb[2] < 0.5)
+                setForeground(Color.WHITE);
+            else
+                setForeground(Color.BLACK);
         }
     }
 
