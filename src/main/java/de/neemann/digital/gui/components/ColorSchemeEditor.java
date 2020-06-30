@@ -16,11 +16,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-class ColorSchemeEditor extends EditorFactory.LabelEditor<ColorScheme> {
+/**
+ * Editor for color schemes
+ */
+public class ColorSchemeEditor extends EditorFactory.LabelEditor<ColorScheme> {
 
     private ColorScheme colorScheme;
 
-    ColorSchemeEditor(ColorScheme colorScheme, Key<ColorScheme> key) {
+    /**
+     * Creates a new instance
+     *
+     * @param colorScheme the color scheme
+     * @param key         the key used
+     */
+    public ColorSchemeEditor(ColorScheme colorScheme, Key<ColorScheme> key) {
         this.colorScheme = colorScheme;
     }
 
