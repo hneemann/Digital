@@ -29,12 +29,33 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private final ObservableValue value;
     private final SyncAccess syncAccess;
 
-    private enum InMode {
+    /**
+     * The format used in the text field
+     */
+    public enum InMode {
+        /**
+         * Hex format
+         */
         HEX(Lang.get("attr_dialogHex")),
+        /**
+         * decimal format
+         */
         DECIMAL(Lang.get("attr_dialogDecimal")),
+        /**
+         * binary format
+         */
+        BIN(Lang.get("attr_dialogBinary")),
+        /**
+         * octal format
+         */
         OCTAL(Lang.get("attr_dialogOctal")),
+        /**
+         * ascii format
+         */
         ASCII(Lang.get("attr_dialogAscii")),
-        // highZ needs to be the last entry!! See InMode#values(boolean)
+        /**
+         * highZ needs to be the last entry!! See InMode#values(boolean)
+         */
         HIGHZ(Lang.get("attr_dialogHighz"));
 
         private final String langText;
@@ -48,7 +69,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             return langText;
         }
 
-        public static InMode[] values(boolean supportsHighZ) {
+        private static InMode[] values(boolean supportsHighZ) {
             if (supportsHighZ) {
                 return values();
             } else {
@@ -62,7 +83,6 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private final JComboBox<InMode> formatComboBox;
     private final long mask;
     private JCheckBox[] checkBoxes;
-    private boolean programmaticModifyingFormat = false;
     private long editValue;
 
     /**
@@ -90,8 +110,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         formatComboBox = new JComboBox<>(InMode.values(supportsHighZ));
         formatComboBox.addActionListener(actionEvent -> {
-            if (!programmaticModifyingFormat)
-                setLongToDialog(editValue);
+            setLongToDialog(editValue);
         });
 
         model.modify(() -> model.addObserver(this));
@@ -206,36 +225,48 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         switch (getSelectedFormat()) {
             case ASCII:
                 char val = (char) (editValue);
-                textField.setText("'" + val + "'");
+                setText("'" + val + "'");
                 textField.setCaretPosition(1);
                 break;
             case DECIMAL:
-                textField.setText(Long.toString(editValue));
+                setText(Long.toString(editValue));
                 break;
             case HEX:
-                textField.setText("0x" + Long.toHexString(editValue));
+                setText("0x" + Long.toHexString(editValue));
+                break;
+            case BIN:
+                setText("0b" + Long.toBinaryString(editValue));
                 break;
             case OCTAL:
-                textField.setText("0" + Long.toOctalString(editValue));
+                setText("0" + Long.toOctalString(editValue));
                 break;
             case HIGHZ:
-                textField.setText("?");
+                setText("?");
                 break;
             default:
         }
         textField.requestFocus();
     }
 
+    private void setText(String text) {
+        if (!textField.getText().equals(text))
+            textField.setText(text);
+    }
+
     private InMode getSelectedFormat() {
         return (InMode) formatComboBox.getSelectedItem();
     }
 
-    private void setSelectedFormat(InMode format) {
-        if (!getSelectedFormat().equals(format)) {
-            programmaticModifyingFormat = true;
+    /**
+     * Sets the selected format
+     *
+     * @param format the format
+     * @return this for chained calls
+     */
+    public SingleValueDialog setSelectedFormat(InMode format) {
+        if (!getSelectedFormat().equals(format))
             formatComboBox.setSelectedItem(format);
-            programmaticModifyingFormat = false;
-        }
+        return this;
     }
 
     private void setStringToDialog(String text) {
@@ -254,6 +285,8 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             } else {
                 if (text.startsWith("0x"))
                     setSelectedFormat(InMode.HEX);
+                else if (text.startsWith("0b"))
+                    setSelectedFormat(InMode.BIN);
                 else if (text.startsWith("0") && text.length() > 1)
                     setSelectedFormat(InMode.OCTAL);
                 else

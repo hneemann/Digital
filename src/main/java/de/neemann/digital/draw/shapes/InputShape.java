@@ -165,7 +165,8 @@ public class InputShape implements Shape {
             } else {
                 if (dialog == null || !dialog.isVisible()) {
                     Model model = ((In) element).getModel();
-                    dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, model);
+                    dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, model)
+                            .setSelectedFormat(getFormat(format));
                     dialog.setVisible(true);
                 } else
                     dialog.requestFocus();
@@ -197,6 +198,22 @@ public class InputShape implements Shape {
                     }
                 }
             }
+        }
+    }
+
+    private SingleValueDialog.InMode getFormat(IntFormat format) {
+        switch (format) {
+            case decSigned:
+            case dec:
+                return SingleValueDialog.InMode.DECIMAL;
+            case oct:
+                return SingleValueDialog.InMode.OCTAL;
+            case bin:
+                return SingleValueDialog.InMode.BIN;
+            case ascii:
+                return SingleValueDialog.InMode.ASCII;
+            default:
+                return SingleValueDialog.InMode.HEX;
         }
     }
 }
