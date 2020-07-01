@@ -45,9 +45,11 @@ public final class ColorScheme {
             .build();
 
     private static final ColorScheme COLOR_BLIND_SCHEME = new Builder(DEFAULT_SCHEME)
-            .set(ColorKey.WIRE_LOW, new Color(32, 59, 232))
-            .set(ColorKey.WIRE_HIGH, new Color(244, 235, 66))
-            .set(ColorKey.WIRE_Z, new Color(1, 188, 157))
+            .set(ColorKey.WIRE, new Color(0, 0, 255))
+            .set(ColorKey.WIRE_HIGH, new Color(98, 255, 41))
+            .set(ColorKey.WIRE_LOW, new Color(0, 52, 0))
+            .set(ColorKey.WIRE_OUT, new Color(250, 165, 0))
+            .set(ColorKey.HIGHLIGHT, new Color(255, 255, 0))
             .build();
 
     /**
@@ -90,9 +92,25 @@ public final class ColorScheme {
          * @return the color scheme
          */
         public ColorScheme getScheme() {
-            if (scheme == null)
+            if (scheme == null) {
                 scheme = Settings.getInstance().get(CUSTOM_COLOR_SCHEME);
+                //printScheme(scheme);
+            }
             return scheme;
+        }
+
+        private static void printScheme(ColorScheme scheme) {
+            System.out.println("private static final ColorScheme COLOR_BLIND_SCHEME = new Builder(DEFAULT_SCHEME)");
+            for (ColorKey ck : ColorKey.values()) {
+                Color c = scheme.getColor(ck);
+                if (!DEFAULT_SCHEME.getColor(ck).equals(c)) {
+                    if (c.getAlpha() == 255)
+                        System.out.println(".set(ColorKey." + ck.name() + ", new Color(" + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + "))");
+                    else
+                        System.out.println(".set(ColorKey." + ck.name() + ", new Color(" + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + ", " + c.getAlpha() + "))");
+                }
+            }
+            System.out.println(".build();");
         }
 
         private void set(ColorScheme newScheme) {
