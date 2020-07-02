@@ -17,6 +17,11 @@ import com.thoughtworks.xstream.converters.reflection.SerializableConverter;
 import com.thoughtworks.xstream.core.JVM;
 import com.thoughtworks.xstream.core.util.SelfStreamingInstanceChecker;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import com.thoughtworks.xstream.security.*;
+
+import java.awt.*;
+import java.io.File;
+import java.util.Map;
 
 /**
  * XStream instance which does not create an illegal access warnings.
@@ -28,6 +33,10 @@ public class XStreamValid extends XStream {
      */
     public XStreamValid() {
         super(new StaxDriver());
+        addPermission(NoTypePermission.NONE);
+        addPermission(PrimitiveTypePermission.PRIMITIVES);
+        addPermission(new ExplicitTypePermission(new Class[]{Map.class, Map.Entry.class, File.class, Color.class, String.class}));
+        addPermission(aClass -> aClass.getName().startsWith("de.neemann."));
     }
 
     @Override
