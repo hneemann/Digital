@@ -79,6 +79,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     }
 
     private final JTextField textField;
+    private boolean textIsModifying;
     private final boolean supportsHighZ;
     private final JComboBox<InMode> formatComboBox;
     private final long mask;
@@ -249,7 +250,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     }
 
     private void setText(String text) {
-        if (!textField.getText().equals(text))
+        if (!textIsModifying)
             textField.setText(text);
     }
 
@@ -302,7 +303,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         }
     }
 
-    private static final class MyDocumentListener implements DocumentListener {
+    private final class MyDocumentListener implements DocumentListener {
         private final Runnable runnable;
 
         private MyDocumentListener(Runnable runnable) {
@@ -311,17 +312,23 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         @Override
         public void insertUpdate(DocumentEvent documentEvent) {
-            runnable.run();
+            run();
         }
 
         @Override
         public void removeUpdate(DocumentEvent documentEvent) {
-            runnable.run();
+            run();
         }
 
         @Override
         public void changedUpdate(DocumentEvent documentEvent) {
+            run();
+        }
+
+        private void run() {
+            textIsModifying = true;
             runnable.run();
+            textIsModifying = false;
         }
     }
 
