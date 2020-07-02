@@ -60,14 +60,18 @@ public class In implements Element {
         output = new ObservableValue("out", attributes.get(Keys.BITS))
                 .setPinDescription(DESCRIPTION)
                 .setPinNumber(pinNumber);
-        boolean highZ = attributes.get(Keys.IS_HIGH_Z) || value.isHighZ();
-        if (highZ)
-            output.setToHighZ().setBidirectional();
+
+        if (attributes.get(Keys.IS_HIGH_Z) || value.isHighZ())
+            output.setBidirectional();
+
+        if (value.isHighZ())
+            output.setToHighZ();
         else
             output.setValue(value.getValue());
+
         label = attributes.getLabel();
         format = attributes.get(Keys.INT_FORMAT);
-        showInGraph= attributes.get(Keys.ADD_VALUE_TO_GRAPH);
+        showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
     @Override
