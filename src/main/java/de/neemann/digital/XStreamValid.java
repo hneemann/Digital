@@ -35,7 +35,7 @@ public class XStreamValid extends XStream {
         super(new StaxDriver());
         addPermission(NoTypePermission.NONE);
         addPermission(PrimitiveTypePermission.PRIMITIVES);
-        addPermission(new ExplicitTypePermission(new Class[]{Map.class, Map.Entry.class, File.class, Color.class, String.class}));
+        addPermission(new ExplicitTypePermission(new Class[]{Map.class, Map.Entry.class, File.class, Color.class, String.class, java.util.List.class}));
         addPermission(aClass -> aClass.getName().startsWith("de.neemann."));
     }
 
