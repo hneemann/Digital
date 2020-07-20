@@ -17,6 +17,7 @@ import java.util.Map;
 public class WindowPosManager {
     private final Map<String, Window> windows;
     private final JFrame main;
+    private boolean shutdown;
 
     /**
      * Creates a new instance
@@ -52,8 +53,19 @@ public class WindowPosManager {
             window.setSize(oldWindow.getSize());
             oldWindow.dispose();
         }
-        windows.put(id, window);
+        if (shutdown)
+            window.dispose();
+        else
+            windows.put(id, window);
         return window;
+    }
+
+    /**
+     * Closes all registered windows and avoids a reopening them.
+     */
+    public void shutdown() {
+        shutdown = true;
+        closeAll();
     }
 
     /**

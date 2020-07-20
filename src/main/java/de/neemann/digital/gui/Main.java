@@ -273,7 +273,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 library.removeListener(circuitComponent);
                 if (treeModel != null)
                     library.removeListener(treeModel);
-                windowPosManager.closeAll();
+                windowPosManager.shutdown();
             }
         });
 
