@@ -9,7 +9,8 @@ Head, planned as v0.25
 - Reordering of the cells in the K-Map
 - Counters are able to act as program counters via the remote interface.
 - The circuits created have a more visible separation of the inputs.
-- The hex seven seg display is turned of in case of a high-z input.
+- The hex seven seg display is switched off in case of a high-z input.
+- A Stop component was added.
 - Improved test case parser. Now the test case is able to react on the
   circuit's state.
 - 7482, 74193 and 744017 were added

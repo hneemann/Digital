@@ -653,6 +653,11 @@
       </elementAttributes>
       <pos x="180" y="1060"/>
     </visualElement>
+    <visualElement>
+      <elementName>Stop</elementName>
+      <elementAttributes/>
+      <pos x="420" y="1020"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -1356,6 +1361,10 @@
       <p2 x="240" y="1020"/>
     </wire>
     <wire>
+      <p1 x="400" y="1020"/>
+      <p2 x="420" y="1020"/>
+    </wire>
+    <wire>
       <p1 x="760" y="1020"/>
       <p2 x="840" y="1020"/>
     </wire>
@@ -1610,6 +1619,10 @@
     <wire>
       <p1 x="400" y="940"/>
       <p2 x="400" y="960"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="960"/>
+      <p2 x="400" y="1020"/>
     </wire>
     <wire>
       <p1 x="400" y="580"/>

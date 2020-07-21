@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>{{de Erzeugt die Koordinaten in der Grafik und die dazu gehörige komplexe Zahl.}}
+{{en Creates the coordinates in the graph and the associated complex number.}}</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Counter</elementName>
@@ -144,6 +150,21 @@
       <elementAttributes/>
       <pos x="440" y="340"/>
     </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>{{en ready}}
+{{de fertig}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>rdy</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="440"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -183,8 +204,16 @@
       <p2 x="440" y="340"/>
     </wire>
     <wire>
+      <p1 x="400" y="440"/>
+      <p2 x="520" y="440"/>
+    </wire>
+    <wire>
       <p1 x="260" y="360"/>
       <p2 x="280" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="360"/>
+      <p2 x="400" y="360"/>
     </wire>
     <wire>
       <p1 x="280" y="360"/>
@@ -217,6 +246,10 @@
     <wire>
       <p1 x="400" y="240"/>
       <p2 x="400" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="360"/>
+      <p2 x="400" y="440"/>
     </wire>
     <wire>
       <p1 x="420" y="340"/>

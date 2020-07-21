@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>{{de Führt die eigentliche Iteration durch.}}
+{{en Executes the actual iteration.}}</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>calc.dig</elementName>

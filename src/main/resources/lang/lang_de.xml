@@ -897,7 +897,8 @@
     <string name="elem_Reset_pin_Reset">Reset Ausgang.</string>
     <string name="elem_Reset_tt">Der Ausgang dieses Elements ist Eins, solange sich die Schaltung nach dem Einschalten
         in der Stabilisierungsphase befindet. Hat sich die Schaltung stabilisiert wird der Ausgang auf Null gesetzt.
-        Bei einem invertiertem Ausgang verhält es sich genau anders herum.</string>
+        Bei einem invertiertem Ausgang verhält es sich genau anders herum.
+    </string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stoppt den schnellen Simulationsvorlauf, bei einer steigenden Flanke.</string>
     <string name="elem_Break_tt">Wenn dieses Element in der Schaltung verwendet wird, wird der "Run To Break"
@@ -906,7 +907,13 @@
         die Schaltung bis zu einem beliebigen Haltepunkt vorgetaktet wird.
         Auch kann damit ein Assemblerbefehl BRK implementiert werden.
         Dies erlaubt dann, ein Programm bis zum nächsten BRK-Befehl auszuführen.
-        Diese Funktion kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!</string>
+        Diese Funktion kann nur genutzt werden, wenn der Echtzeittakt deaktiviert ist!
+    </string>
+    <string name="elem_Stop">Stop</string>
+    <string name="elem_Stop_tt">Eine steigende Flanke am Eingang beendet die Simulation.
+        Hat den gleichen Effekt wie das Drücken des Stop-Knopfes in der Werkzeugleiste.
+    </string>
+    <string name="elem_Stop_pin_stop">Eine steigende Flanke beendet die Simulation.</string>
 
     <string name="elem_External">Extern</string>
     <string name="elem_External_tt">Element zur Anbindung von externen Programmen zur Berechnung der Logik.

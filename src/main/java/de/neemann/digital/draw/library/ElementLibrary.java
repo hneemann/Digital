@@ -225,6 +225,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION)
+                        .add(Stop.DESCRIPTION)
                         .add(AsyncSeq.DESCRIPTION)
                         .add(External.DESCRIPTION)
                         .add(PinControl.DESCRIPTION));

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>1</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>Description</string>
+      <string>{{de Erzeugt aus einer Koordinate die zugehörige Festkommazahl.}}
+{{en Generates the corresponding fixed point number from a coordinate.}}</string>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Sub</elementName>

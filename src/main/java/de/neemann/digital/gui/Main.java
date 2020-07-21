@@ -1431,6 +1431,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     model.addObserver(new FastObserver());
             }
 
+            model.addObserver(event -> {
+                if (event.equals(ModelEvent.STOPPED))
+                    SwingUtilities.invokeLater(this::ensureModelIsStopped);
+            }, ModelEvent.STOPPED);
+
             model.init();
 
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {

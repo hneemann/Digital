@@ -878,14 +878,21 @@
     <string name="elem_Reset_pin_Reset">Reset Output.</string>
     <string name="elem_Reset_tt">The output of this component is held high during the initialisation of the circuit.
         After the circuit has stabilized the output goes to low.
-        If the output is inverted it behaves the opposite way.</string>
+        If the output is inverted it behaves the opposite way.
+    </string>
     <string name="elem_Break">Break</string>
     <string name="elem_Break_pin_brk">Stops the fast simulation clocking if a rising edge is detected.</string>
     <string name="elem_Break_tt">If this component is used in the circuit, the "Run To Break" button between "Start"
         and "Stop" is enabled. This button clocks the circuit until a rising edge on the input of this component is
         detected. This element can be used for debugging by clocking the circuit to any breakpoint.
         Also an assembler command BRK can be implemented. This allows to execute a program up to the next BRK command.
-        This function can only be used if the real-time clock is deactivated!</string>
+        This function can only be used if the real-time clock is deactivated!
+    </string>
+    <string name="elem_Stop">Stop</string>
+    <string name="elem_Stop_tt">A rising edge at the input stops the simulation.
+        Has the same effect as pressing the Stop button in the toolbar.
+    </string>
+    <string name="elem_Stop_pin_stop">A rising edge stops the simulation.</string>
 
     <string name="elem_External">External</string>
     <string name="elem_External_tt">Component to execute an external process to calculate the logic function.
