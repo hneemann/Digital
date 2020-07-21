@@ -7,9 +7,7 @@ package de.neemann.digital.draw.model;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.wiring.Clock;
-import de.neemann.digital.gui.ErrorStopper;
 import de.neemann.digital.gui.StatusInterface;
-import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +25,6 @@ public class RealTimeClock implements ModelStateObserverTyped {
 
     private final Model model;
     private final ScheduledThreadPoolExecutor executor;
-    private final ErrorStopper stopper;
     private final StatusInterface status;
     private final int frequency;
     private final ObservableValue output;
@@ -39,13 +36,11 @@ public class RealTimeClock implements ModelStateObserverTyped {
      * @param model    the model
      * @param clock    the clock element which is modify
      * @param executor the executor used to schedule the update
-     * @param stopper  used to stop the model if an error is detected
      * @param status   allows sending messages to the status line
      */
-    public RealTimeClock(Model model, Clock clock, ScheduledThreadPoolExecutor executor, ErrorStopper stopper, StatusInterface status) {
+    public RealTimeClock(Model model, Clock clock, ScheduledThreadPoolExecutor executor, StatusInterface status) {
         this.model = model;
         this.executor = executor;
-        this.stopper = stopper;
         this.status = status;
         int f = clock.getFrequency();
         if (f < 1) f = 1;
@@ -103,15 +98,10 @@ public class RealTimeClock implements ModelStateObserverTyped {
             timer = executor.scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        model.modify(() -> output.setValue(1 - output.getValue()));
-                        model.doStep();
-                        if (frequencyCalculator != null)
-                            frequencyCalculator.calc();
-                    } catch (NodeException | RuntimeException e) {
-                        stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
-                        timer.cancel(false);
-                    }
+                    model.modify(() -> output.setValue(1 - output.getValue()));
+                    model.doStep();
+                    if (frequencyCalculator != null)
+                        frequencyCalculator.calc();
                 }
             }, delay, delay, TimeUnit.MICROSECONDS);
         }
@@ -134,14 +124,10 @@ public class RealTimeClock implements ModelStateObserverTyped {
             thread = new Thread(() -> {
                 LOGGER.debug("thread start");
                 FrequencyCalculator frequencyCalculator = new FrequencyCalculator(status, frequency);
-                try {
-                    while (!Thread.interrupted()) {
-                        model.modify(() -> output.setValue(1 - output.getValue()));
-                        model.doStep();
-                        frequencyCalculator.calc();
-                    }
-                } catch (NodeException | RuntimeException e) {
-                    stopper.showErrorAndStopModel(Lang.get("msg_clockError"), e);
+                while (!Thread.interrupted()) {
+                    model.modify(() -> output.setValue(1 - output.getValue()));
+                    model.doStep();
+                    frequencyCalculator.calc();
                 }
             });
             thread.setDaemon(true);

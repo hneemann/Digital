@@ -8,14 +8,11 @@ package de.neemann.digital.integration;
 import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import junit.framework.TestCase;
-
-import java.io.IOException;
 
 public class TestErrorOrigin extends TestCase {
 
-    public void testErrorMessage() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testErrorMessage() throws Exception {
         try {
             new ToBreakRunner("/dig/errorOrigin/main.dig");
             fail();
@@ -32,7 +29,7 @@ public class TestErrorOrigin extends TestCase {
         assertTrue(file, file.endsWith(origin));
     }
 
-    public void testErrorMessage2() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testErrorMessage2() throws Exception {
         try {
             new ToBreakRunner("/dig/errorOrigin/main2.dig");
             fail();
@@ -43,7 +40,7 @@ public class TestErrorOrigin extends TestCase {
         }
     }
 
-    public void testErrorMessage3() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testErrorMessage3() throws Exception {
         try {
             new ToBreakRunner("/dig/errorOrigin/main3.dig");
             fail();
@@ -54,7 +51,7 @@ public class TestErrorOrigin extends TestCase {
         }
     }
 
-    public void testErrorMessage4() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testErrorMessage4() throws Exception {
         try {
             new ToBreakRunner("/dig/errorOrigin/main4.dig");
             fail();
@@ -65,7 +62,7 @@ public class TestErrorOrigin extends TestCase {
         }
     }
 
-    public void testErrorMessage5() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testErrorMessage5() throws Exception {
         try {
             new ToBreakRunner("/dig/errorOrigin/main5.dig");
             fail();

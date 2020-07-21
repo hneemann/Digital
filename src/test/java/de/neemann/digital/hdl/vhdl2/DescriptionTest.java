@@ -5,22 +5,15 @@
  */
 package de.neemann.digital.hdl.vhdl2;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.HDLCircuit;
-import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
-import java.io.IOException;
-
 public class DescriptionTest extends TestCase {
 
-    public void testDescription() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException, HGSEvalException {
+    public void testDescription() throws Exception {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/model2/naming.dig");
         HDLCircuit circuit = new HDLCircuit(
                 br.getCircuit(),

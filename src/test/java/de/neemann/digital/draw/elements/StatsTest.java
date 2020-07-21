@@ -5,20 +5,17 @@
  */
 package de.neemann.digital.draw.elements;
 
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.stats.Statistics;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
 import javax.swing.table.TableModel;
 import java.io.File;
-import java.io.IOException;
 
 public class StatsTest extends TestCase {
 
-    public void testStats() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testStats() throws Exception {
         File file = new File(Resources.getRoot(), "../../main/dig/combinatorial/FullAdderRC.dig");
         final ToBreakRunner br = new ToBreakRunner(file);
         Statistics stats = new Statistics(br.getModel());

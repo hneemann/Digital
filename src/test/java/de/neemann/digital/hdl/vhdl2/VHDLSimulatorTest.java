@@ -6,11 +6,8 @@
 package de.neemann.digital.hdl.vhdl2;
 
 import de.neemann.digital.core.ExceptionWithOrigin;
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.ProcessStarter;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
@@ -130,13 +127,13 @@ public class VHDLSimulatorTest extends TestCase {
     }
 
 
-    private void checkVHDLExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
+    private void checkVHDLExport(File file) throws Exception {
         ToBreakRunner br = new ToBreakRunner(file);
         File dir = Files.createTempDirectory("digital_vhdl_" + getTime() + "_").toFile();
         try {
             File vhdlFile = new File(dir, file.getName()
                     .replace('.', '_')
-                    .replace('-', '_')+ ".vhdl");
+                    .replace('-', '_') + ".vhdl");
             CodePrinter out = new CodePrinter(vhdlFile);
             try (VHDLGenerator vhdl = new VHDLGenerator(br.getLibrary(), out)) {
                 vhdl.export(br.getCircuit());

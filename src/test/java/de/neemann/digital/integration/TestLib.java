@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.integration;
 
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
@@ -13,14 +12,11 @@ import de.neemann.digital.core.memory.EEPROM;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import junit.framework.TestCase;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -38,7 +34,7 @@ public class TestLib extends TestCase {
         assertTrue(count74xx >= 60);
     }
 
-    private void check(File dig) throws PinException, NodeException, ElementNotFoundException, IOException {
+    private void check(File dig) throws Exception {
         Circuit circuit = new ToBreakRunner(dig).getCircuit();
         boolean is74xx = !dig.getName().endsWith("-inc.dig") && dig.getPath().contains("DIL Chips");
 

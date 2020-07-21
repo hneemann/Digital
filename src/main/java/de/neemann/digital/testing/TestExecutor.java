@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.testing;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.Signal;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.data.ValueTable;
@@ -113,6 +110,10 @@ public class TestExecutor {
             throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
 
         model.init();
+        model.addObserver(event -> {
+            if (event.getType() == ModelEventType.ERROR_OCCURRED)
+                allPassed = false;
+        }, ModelEventType.ERROR_OCCURRED);
 
         lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context().setModel(model));
 
@@ -166,9 +167,6 @@ public class TestExecutor {
             }
 
             model.doStep();
-        } catch (NodeException e) {
-            allPassed = false;
-            throw new RuntimeException("", e);
         } catch (RuntimeException e) {
             allPassed = false;
             throw e;

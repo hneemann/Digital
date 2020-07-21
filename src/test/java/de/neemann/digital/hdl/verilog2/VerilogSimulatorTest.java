@@ -6,15 +6,11 @@
 package de.neemann.digital.hdl.verilog2;
 
 import de.neemann.digital.core.ExceptionWithOrigin;
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.ProcessStarter;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
-import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
@@ -138,7 +134,7 @@ public class VerilogSimulatorTest extends TestCase {
     }
 
 
-    private void checkVerilogExport(File file) throws PinException, NodeException, ElementNotFoundException, IOException, FileScanner.SkipAllException, HDLException {
+    private void checkVerilogExport(File file) throws Exception {
         ToBreakRunner br = new ToBreakRunner(file);
         File dir = Files.createTempDirectory("digital_verilog_" + getTime() + "_").toFile();
         try {

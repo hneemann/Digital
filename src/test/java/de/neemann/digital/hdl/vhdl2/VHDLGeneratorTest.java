@@ -5,18 +5,13 @@
  */
 package de.neemann.digital.hdl.vhdl2;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
-import java.io.IOException;
-
 public class VHDLGeneratorTest extends TestCase {
 
-    public void testComb() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testComb() throws Exception {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/model2/comb.dig");
         CodePrinterStr out = new CodePrinterStr();
         VHDLGenerator gen = new VHDLGenerator(br.getLibrary(), out).export(br.getCircuit());
@@ -87,7 +82,7 @@ public class VHDLGeneratorTest extends TestCase {
                 "end Behavioral;\n",out.toString());
     }
 
-    public void testSplitter3() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testSplitter3() throws Exception {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/model2/splitter3.dig");
         CodePrinterStr out = new CodePrinterStr();
         VHDLGenerator gen = new VHDLGenerator(br.getLibrary(), out).export(br.getCircuit());
@@ -113,7 +108,7 @@ public class VHDLGeneratorTest extends TestCase {
                 "end Behavioral;\n",out.toString());
     }
 
-    public void testSplitter2() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testSplitter2() throws Exception {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/model2/splitter2.dig");
         CodePrinterStr out = new CodePrinterStr();
         VHDLGenerator gen = new VHDLGenerator(br.getLibrary(), out).export(br.getCircuit());
@@ -143,7 +138,7 @@ public class VHDLGeneratorTest extends TestCase {
                 "end Behavioral;\n",out.toString());
     }
 
-    public void testSplitter2I() throws PinException, NodeException, ElementNotFoundException, IOException {
+    public void testSplitter2I() throws Exception {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/splitter2.dig");
         CodePrinterStr out = new CodePrinterStr();
         VHDLGenerator gen = new VHDLGenerator(br.getLibrary(), out).export(br.getCircuit());

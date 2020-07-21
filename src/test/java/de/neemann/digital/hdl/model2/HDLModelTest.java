@@ -5,9 +5,6 @@
  */
 package de.neemann.digital.hdl.model2;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.optimizations.*;
@@ -15,16 +12,14 @@ import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
-import java.io.IOException;
-
 public class HDLModelTest extends TestCase {
 
-    private HDLCircuit getCircuit(String filename, HDLClockIntegrator ci) throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    private HDLCircuit getCircuit(String filename, HDLClockIntegrator ci) throws Exception {
         ToBreakRunner br = new ToBreakRunner(filename);
         return new HDLCircuit(br.getCircuit(), "main", new HDLModel(br.getLibrary()), 0, ci);
     }
 
-    public void testSimple() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testSimple() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb.dig", null)
                 .apply(new MergeAssignments())
                 .apply(new NodeSorterExpressionBased())
@@ -63,7 +58,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testSimple2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testSimple2() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/comb2.dig", null)
                 .applyDefaultOptimizations();
 
@@ -82,7 +77,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testInputInvert() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testInputInvert() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert.dig", null)
                 .applyDefaultOptimizations();
 
@@ -101,7 +96,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testInputInvert2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testInputInvert2() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/inputInvert2.dig", null)
                 .applyDefaultOptimizations();
 
@@ -120,7 +115,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testSplitter() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testSplitter() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter.dig", null)
                 .applyDefaultOptimizations();
 
@@ -139,7 +134,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testSplitter2() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testSplitter2() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter2.dig", null)
                 .applyDefaultOptimizations();
 
@@ -167,7 +162,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testClock() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testClock() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/clock.dig", new ClockIntegratorGeneric(10)).applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
@@ -187,7 +182,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testNaming() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testNaming() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/naming.dig", null).applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
@@ -213,7 +208,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testConstantMerge() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testConstantMerge() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/constMerge.dig", null)
                 .apply(new MergeAssignments())
                 .apply(new MergeConstants())
@@ -253,7 +248,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testCircular() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testCircular() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/circular.dig", null).applyDefaultOptimizations();
 
         CodePrinterStr cp = new CodePrinterStr();
@@ -289,7 +284,7 @@ public class HDLModelTest extends TestCase {
     }
 
 
-    public void testSplitter3() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testSplitter3() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter3.dig", null)
                 .apply(new ReplaceOneToMany())
                 .apply(new MergeAssignments())
@@ -320,7 +315,7 @@ public class HDLModelTest extends TestCase {
                 "end circuit main\n", cp.toString());
     }
 
-    public void testSplitter4() throws IOException, PinException, HDLException, NodeException, ElementNotFoundException {
+    public void testSplitter4() throws Exception {
         HDLCircuit hdl = getCircuit("dig/hdl/model2/splitter4.dig", null)
                 .apply(new ReplaceOneToMany())
                 .apply(new MergeAssignments())

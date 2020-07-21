@@ -5,18 +5,15 @@
  */
 package de.neemann.digital.integration;
 
+import de.neemann.digital.core.ErrorDetector;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -30,17 +27,14 @@ public class ToBreakRunner {
     private final Model model;
     private final Circuit circuit;
     private final ElementLibrary library;
+    private final ErrorDetector errorDetector;
 
     /**
      * Creates a new instance
      *
      * @param file the file to load
-     * @throws IOException
-     * @throws PinException
-     * @throws NodeException
-     * @throws ElementNotFoundException
      */
-    public ToBreakRunner(String file) throws IOException, PinException, NodeException, ElementNotFoundException {
+    public ToBreakRunner(String file) throws Exception {
         this(new File(Resources.getRoot(), file));
     }
 
@@ -49,12 +43,8 @@ public class ToBreakRunner {
      *
      * @param file   the file to load
      * @param doInit if true model is initialized
-     * @throws IOException
-     * @throws PinException
-     * @throws NodeException
-     * @throws ElementNotFoundException
      */
-    public ToBreakRunner(String file, boolean doInit) throws IOException, PinException, NodeException, ElementNotFoundException {
+    public ToBreakRunner(String file, boolean doInit) throws Exception {
         this(new File(Resources.getRoot(), file), doInit);
     }
 
@@ -62,15 +52,12 @@ public class ToBreakRunner {
      * Creates a new instance
      *
      * @param filename the file to load
-     * @throws IOException
-     * @throws PinException
-     * @throws NodeException
      */
-    public ToBreakRunner(File filename) throws IOException, PinException, NodeException, ElementNotFoundException {
+    public ToBreakRunner(File filename) throws Exception {
         this(filename, true);
     }
 
-    private ToBreakRunner(File filename, boolean doInit) throws IOException, PinException, NodeException, ElementNotFoundException {
+    private ToBreakRunner(File filename, boolean doInit) throws Exception {
         library = new ElementLibrary();
         initLibrary(library);
         library.setRootFilePath(filename.getParentFile());
@@ -79,11 +66,14 @@ public class ToBreakRunner {
 
         ModelCreator md = new ModelCreator(circuit, library);
         model = md.createModel(false);
+        errorDetector = new ErrorDetector();
+        model.addObserver(errorDetector);
         if (doInit) {
             if (model.getAsyncInfos() != null)
                 model.setAsyncMode();
             model.init(true);
         }
+        errorDetector.check();
     }
 
     /**
@@ -100,11 +90,11 @@ public class ToBreakRunner {
      *
      * @param steps the needed ticks
      * @return this for chained calls
-     * @throws NodeException
      */
-    public ToBreakRunner runToBreak(int steps) throws NodeException {
+    public ToBreakRunner runToBreak(int steps) throws Exception {
         assertTrue(model.isRunToBreakAllowed());
         assertEquals(steps, model.runToBreak().getSteps());
+        errorDetector.check();
         return this;
     }
 

@@ -5,11 +5,12 @@
  */
 package de.neemann.digital.gui.components.testing;
 
+import de.neemann.digital.core.ErrorDetector;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.data.Value;
 import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.data.ValueTableModel;
-import de.neemann.digital.data.Value;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -18,9 +19,13 @@ import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.*;
-import de.neemann.digital.testing.parser.ParserException;
-import de.neemann.gui.*;
+import de.neemann.digital.testing.TestCaseDescription;
+import de.neemann.digital.testing.TestExecutor;
+import de.neemann.digital.testing.TestingDataException;
+import de.neemann.gui.IconCreator;
+import de.neemann.gui.LineBreaker;
+import de.neemann.gui.MyFileChooser;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -122,6 +127,8 @@ public class ValueTableDialog extends JDialog {
         int errorTabIndex = -1;
         for (TestSet ts : tsl) {
             Model model = new ModelCreator(circuit, library).createModel(false);
+            ErrorDetector errorDetector = new ErrorDetector();
+            model.addObserver(errorDetector);
             try {
                 TestExecutor testExecutor = new TestExecutor(ts.data).create(model);
 
@@ -143,7 +150,8 @@ public class ValueTableDialog extends JDialog {
                     tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
                 resultTableData.add(testExecutor.getResult());
                 i++;
-            } catch (TestingDataException | NodeException | ParserException | RuntimeException e) {
+                errorDetector.check();
+            } catch (Exception e) {
                 throw new TestingDataException(Lang.get("err_whileExecutingTests_N0", ts.name), e);
             } finally {
                 model.close();

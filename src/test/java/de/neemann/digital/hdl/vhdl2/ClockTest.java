@@ -5,12 +5,7 @@
  */
 package de.neemann.digital.hdl.vhdl2;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.HDLCircuit;
-import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.clock.ClockIntegratorGeneric;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
@@ -19,11 +14,9 @@ import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
-import java.io.IOException;
-
 public class ClockTest extends TestCase {
 
-    public void testGeneric() throws PinException, NodeException, ElementNotFoundException, IOException, HDLException, HGSEvalException {
+    public void testGeneric() throws Exception {
         String code = create(new ClockIntegratorGeneric(10));
 
         assertEquals("\n" +
@@ -118,7 +111,7 @@ public class ClockTest extends TestCase {
                 "end Behavioral;\n", code);
     }
 
-    String create(HDLClockIntegrator ci) throws IOException, PinException, NodeException, ElementNotFoundException, HDLException, HGSEvalException {
+    String create(HDLClockIntegrator ci) throws Exception {
         ToBreakRunner br = new ToBreakRunner("dig/hdl/model2/clock.dig");
         HDLCircuit c = new HDLCircuit(
                 br.getCircuit(), "main",

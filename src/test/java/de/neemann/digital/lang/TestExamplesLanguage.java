@@ -5,20 +5,16 @@
  */
 package de.neemann.digital.lang;
 
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
 import java.io.File;
-import java.io.IOException;
 
 public class TestExamplesLanguage extends TestCase {
 
@@ -27,7 +23,7 @@ public class TestExamplesLanguage extends TestCase {
         new FileScanner(TestExamplesLanguage::check).scan(examples);
     }
 
-    private static void check(File file) throws PinException, NodeException, ElementNotFoundException, IOException {
+    private static void check(File file) throws Exception {
         if (file.getPath().contains("74xx")
                 || file.getPath().contains("EPROMs")
                 || file.getPath().contains("RAMs"))

@@ -5,21 +5,21 @@
  */
 package de.neemann.digital.toolchain;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class ConfigurationTest extends TestCase {
 
-    public void testStart() throws IOException, ElementNotFoundException, PinException, NodeException, InterruptedException {
+    public void testStart() throws Exception {
         String xml = "<toolchain name=\"APIO\">\n" +
                 "    <commands>\n" +
                 "        <command name=\"build\" requires=\"verilog\" filter=\"false\">\n" +
@@ -64,7 +64,7 @@ public class ConfigurationTest extends TestCase {
         assertEquals("[make, z/test.v]", Arrays.toString(fileWriter.commands.get(0).args));
     }
 
-    public void testFileWriter() throws IOException, ElementNotFoundException, PinException, NodeException, InterruptedException {
+    public void testFileWriter() throws Exception {
         String xml = "<toolchain name=\"APIO\">\n" +
                 "    <commands>\n" +
                 "        <command name=\"build\" requires=\"verilog\" filter=\"false\">\n" +

@@ -91,7 +91,7 @@ import static javax.swing.JOptionPane.showInputDialog;
  * The main frame of the Digital Simulator
  * Set log level: -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
  */
-public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, ErrorStopper, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, ChangedListener {
+public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, ChangedListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
@@ -607,7 +607,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 try {
                     new ModelCreator(circuitComponent.getCircuit(), library).createModel(false).close();
                 } catch (PinException | NodeException | ElementNotFoundException | RuntimeException e) {
-                    showErrorWithoutARunningModel(Lang.get("msg_modelHasErrors"), e);
+                    showError(Lang.get("msg_modelHasErrors"), e);
                     return;
                 }
 
@@ -642,7 +642,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 try {
                     new ModelCreator(circuitComponent.getCircuit(), library).createModel(false);
                 } catch (PinException | NodeException | ElementNotFoundException e) {
-                    showErrorWithoutARunningModel(Lang.get("msg_modelHasErrors"), e);
+                    showError(Lang.get("msg_modelHasErrors"), e);
                     return;
                 }
 
@@ -977,21 +977,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         doMicroStep = new ToolTipAction(Lang.get("menu_step"), ICON_STEP) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    model.doMicroStep(false);
-                } catch (Exception e1) {
-                    showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
-                }
+                model.doMicroStep(false);
             }
         }.setToolTip(Lang.get("menu_step_tt")).setAccelerator("V").setEnabledChain(false);
         runToBreakMicroAction = new ToolTipAction(Lang.get("menu_runToBreakMicro"), ICON_STEP_FINISH) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    model.runToBreakMicro();
-                } catch (Exception e1) {
-                    showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e1);
-                }
+                model.runToBreakMicro();
             }
         }.setToolTip(Lang.get("menu_runToBreakMicro_tt")).setAccelerator("B").setEnabledChain(false);
 
@@ -1002,12 +994,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         runToBreakAction = new ToolTipAction(Lang.get("menu_fast"), ICON_FAST) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Model.BreakInfo info = model.runToBreak();
+                Model.BreakInfo info = model.runToBreak();
+                if (info != null)
                     statusLabel.setText(Lang.get("stat_clocks", info.getSteps(), info.getLabel()));
-                } catch (NodeException | RuntimeException e1) {
-                    showErrorAndStopModel(Lang.get("msg_fastRunError"), e1);
-                }
             }
         }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false).setAccelerator("F7");
 
@@ -1051,7 +1040,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         model.close();
                     }
                 } catch (Exception e1) {
-                    showErrorWithoutARunningModel(Lang.get("msg_speedTestError"), e1);
+                    showError(Lang.get("msg_speedTestError"), e1);
                 }
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
@@ -1154,7 +1143,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             ensureModelIsStopped();
         } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {
-            showErrorWithoutARunningModel(Lang.get("msg_runningTestError"), e1);
+            showError(Lang.get("msg_runningTestError"), e1);
         }
     }
 
@@ -1183,7 +1172,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         model.close();
                     }
                 } catch (PinException | NodeException | AnalyseException | ElementNotFoundException | BacktrackException | RuntimeException e1) {
-                    showErrorWithoutARunningModel(Lang.get("msg_analyseErr"), e1);
+                    showError(Lang.get("msg_analyseErr"), e1);
                 }
             }
         }
@@ -1253,7 +1242,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 m.close();
             }
         } catch (NodeException | PinException | ElementNotFoundException | RuntimeException e) {
-            showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
+            showError(Lang.get("msg_errorCreatingModel"), e);
         }
     }
 
@@ -1365,7 +1354,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 for (Clock c : model.getClocks()) {
                     int frequency = c.getFrequency();
                     if (frequency > 0) {
-                        final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this, this);
+                        final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this);
                         model.addObserver(realTimeClock);
                         if (realTimeClock.isThreadRunner()) threadRunnerCount++;
                         realTimeClockRunning = true;
@@ -1384,7 +1373,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         if (!model.getClocks().isEmpty())
                             throw new RuntimeException(Lang.get("err_clocksNotAllowedInAsyncMode"));
                         model.addObserver(
-                                new AsyncSequentialClock(model, ai, timerExecutor, this));
+                                new AsyncSequentialClock(model, ai, timerExecutor));
                         realTimeClockRunning = true;
                     }
                     model.setAsyncMode();
@@ -1431,18 +1420,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     model.addObserver(new FastObserver());
             }
 
-            model.addObserver(event -> {
-                if (event.equals(ModelEventType.CLOSED))
-                    SwingUtilities.invokeLater(this::ensureModelIsStopped);
-            }, ModelEventType.CLOSED);
+            model.addObserver(new ModelClosedObserver());
 
             model.init();
 
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
-            if (model != null) {
-                showErrorAndStopModel(Lang.get("msg_errorCreatingModel"), e);
-            } else
-                showErrorWithoutARunningModel(Lang.get("msg_errorCreatingModel"), e);
+            if (model != null)
+                model.close();
+            showError(Lang.get("msg_errorCreatingModel"), e);
         }
     }
 
@@ -1475,24 +1460,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         return model;
     }
 
-    private final Object modelLock = new Object();
-
-    @Override
-    public void showErrorAndStopModel(String message, Exception cause) {
-        // If an error is detected by the gui thread by clicking a button o.e. the real time
-        // thread could also detect that error later and maybe also calls this function.
-        // To avoid such problems a lock is used.
-        synchronized (modelLock) {
-            if (model != null) {
-                Model m = model;
-                model = null;
-                m.modify(m::close);
-                SwingUtilities.invokeLater(() -> showErrorWithoutARunningModel(message, cause));
-            }
-        }
-    }
-
-    private void showErrorWithoutARunningModel(String message, Exception cause) {
+    private void showError(String message, Exception cause) {
         if (cause instanceof NodeException) {
             NodeException e = (NodeException) cause;
             circuitComponent.addHighLightedWires(e.getValues());
@@ -1637,6 +1605,29 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     /**
+     * Used to update the gui if the model is closed
+     */
+    private class ModelClosedObserver implements ModelStateObserverTyped {
+
+        @Override
+        public void handleEvent(ModelEvent event) {
+            switch (event.getType()) {
+                case ERROR_OCCURRED:
+                    SwingUtilities.invokeLater(() -> showError("Error", event.getCause()));
+                    break;
+                case CLOSED:
+                    SwingUtilities.invokeLater(Main.this::ensureModelIsStopped);
+                    break;
+            }
+        }
+
+        @Override
+        public ModelEventType[] getEvents() {
+            return new ModelEventType[]{ModelEventType.CLOSED, ModelEventType.ERROR_OCCURRED};
+        }
+    }
+
+    /**
      * Updates the graphic at every modification.
      */
     private class FullStepObserver implements ModelStateObserverTyped {
@@ -1648,18 +1639,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void handleEvent(ModelEvent event) {
-            try {
-                switch (event.getType()) {
-                    case EXTERNALCHANGE:
-                        model.doStep();
-                        circuitComponent.graphicHasChanged();
-                        break;
-                    case BREAK:
-                        circuitComponent.graphicHasChanged();
-                        break;
-                }
-            } catch (NodeException | RuntimeException e) {
-                showErrorAndStopModel(Lang.get("msg_errorCalculatingStep"), e);
+            switch (event.getType()) {
+                case EXTERNALCHANGE:
+                    model.doStep();
+                    circuitComponent.graphicHasChanged();
+                    break;
+                case BREAK:
+                    circuitComponent.graphicHasChanged();
+                    break;
             }
         }
 
@@ -1853,16 +1840,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     if (cl.size() == 1) {
                         ObservableValue clkVal = cl.get(0).getClockOutput();
                         clkVal.setBool(!clkVal.getBool());
-                        try {
+                        model.doStep();
+                        if (clkVal.getBool()) {
+                            model.modify(() -> clkVal.setBool(!clkVal.getBool()));
                             model.doStep();
-                            if (clkVal.getBool()) {
-                                model.modify(() -> clkVal.setBool(!clkVal.getBool()));
-                                model.doStep();
-                            }
-                            addressPicker.getProgramROMAddress(model);
-                        } catch (NodeException | RuntimeException e) {
-                            showErrorAndStopModel(Lang.get("err_remoteExecution"), e);
                         }
+                        addressPicker.getProgramROMAddress(model);
                     }
                 });
                 return addressPicker.getAddressString();

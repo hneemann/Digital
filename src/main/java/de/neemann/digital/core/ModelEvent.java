@@ -41,16 +41,14 @@ public class ModelEvent {
     public static final ModelEvent EXTERNALCHANGE = new ModelEvent(ModelEventType.EXTERNALCHANGE);
 
     private final ModelEventType type;
-    private String message;
     private Exception cause;
 
     private ModelEvent(ModelEventType type) {
         this.type = type;
     }
 
-    ModelEvent(String message, Exception cause) {
+    ModelEvent(Exception cause) {
         this(ModelEventType.ERROR_OCCURRED);
-        this.message = message;
         this.cause = cause;
     }
 
@@ -59,13 +57,6 @@ public class ModelEvent {
      */
     public ModelEventType getType() {
         return type;
-    }
-
-    /**
-     * @return the message
-     */
-    public String getMessage() {
-        return message;
     }
 
     /**

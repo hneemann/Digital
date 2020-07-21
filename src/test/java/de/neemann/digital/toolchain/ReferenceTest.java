@@ -5,19 +5,15 @@
  */
 package de.neemann.digital.toolchain;
 
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
 import java.io.File;
-import java.io.IOException;
 
 public class ReferenceTest extends TestCase {
 
-    public void testRef() throws IOException, ElementNotFoundException, PinException, NodeException, InterruptedException {
+    public void testRef() throws Exception {
         File f = new File(Resources.getRoot(), "toolchain/main.xml");
         ToBreakRunner br = new ToBreakRunner(new File(Resources.getRoot(), "dig/hdl/negSimple.dig"));
         Configuration c = Configuration.load(f)
@@ -26,7 +22,7 @@ public class ReferenceTest extends TestCase {
                 .setCircuitProvider(br::getCircuit);
         final ConfigurationTest.TestIOInterface ioInterface = new ConfigurationTest.TestIOInterface();
         c.setIoInterface(ioInterface);
-        c.executeCommand(c.getCommands().get(0),null, null).join();
+        c.executeCommand(c.getCommands().get(0), null, null).join();
 
         assertEquals("Test content", ioInterface.getFiles().get("z/test1.txt").toString());
         assertEquals("deep content", ioInterface.getFiles().get("z/test2.txt").toString());

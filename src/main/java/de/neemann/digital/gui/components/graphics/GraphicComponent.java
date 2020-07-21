@@ -30,9 +30,9 @@ public class GraphicComponent extends JComponent {
         this.height = height;
 
         int pw = 640 / width;
-        if (pw < 2) pw = 2;
+        if (pw < 1) pw = 1;
         int ph = 400 / height;
-        if (ph < 2) ph = 2;
+        if (ph < 1) ph = 1;
         int pixSize = (pw + ph) / 2;
 
         Dimension size = new Dimension(width * pixSize, height * pixSize);

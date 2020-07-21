@@ -8,18 +8,14 @@ package de.neemann.digital.cli;
 import de.neemann.digital.cli.cli.Argument;
 import de.neemann.digital.cli.cli.BasicCommand;
 import de.neemann.digital.cli.cli.CLIException;
+import de.neemann.digital.core.ErrorDetector;
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
-import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestExecutor;
-import de.neemann.digital.testing.TestingDataException;
-import de.neemann.digital.testing.parser.ParserException;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,6 +87,8 @@ public class CommandLineTester {
 
                 try {
                     Model model = circuitLoader.createModel();
+                    ErrorDetector errorDetector = new ErrorDetector();
+                    model.addObserver(errorDetector);
                     TestExecutor te = new TestExecutor(t.getTestCaseDescription())
                             .setAllowMissingInputs(allowMissingInputs)
                             .create(model);
@@ -102,7 +100,9 @@ public class CommandLineTester {
                         out.println(label + ": failed");
                         errorCount++;
                     }
-                } catch (ParserException | PinException | ElementNotFoundException | TestingDataException | NodeException e) {
+                    errorDetector.check();
+
+                } catch (Exception e) {
                     out.println(label + ": " + e.getMessage());
                     errorCount++;
                 }
