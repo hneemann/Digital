@@ -180,13 +180,13 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event.equals(ModelEvent.STOPPED))
+        if (event.equals(ModelEvent.CLOSED))
             dispose();
     }
 
     @Override
-    public ModelEvent[] getEvents() {
-        return new ModelEvent[]{ModelEvent.STOPPED};
+    public ModelEventType[] getEvents() {
+        return new ModelEventType[]{ModelEventType.CLOSED};
     }
 
     private JPanel createCheckBoxPanel(int bits, long value) {

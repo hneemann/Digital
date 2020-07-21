@@ -1060,9 +1060,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (model != null) {
-                    ModelEvent event = ModelEvent.STEP;
+                    ModelEventType event = ModelEventType.STEP;
                     if (stateManager.isActive(runModelMicroState))
-                        event = ModelEvent.MICROSTEP;
+                        event = ModelEventType.MICROSTEP;
                     showMeasurementDialog(event);
                 }
             }
@@ -1072,9 +1072,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (model != null) {
-                    ModelEvent event = ModelEvent.STEP;
+                    ModelEventType event = ModelEventType.STEP;
                     if (stateManager.isActive(runModelMicroState))
-                        event = ModelEvent.MICROSTEP;
+                        event = ModelEventType.MICROSTEP;
                     showMeasurementGraph(event);
                 }
             }
@@ -1286,7 +1286,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 showMeasurementGraph.setEnabled(true);
                 stoppedState.getAction().setEnabled(true);
                 runTests.setEnabled(false);
-                createAndStartModel(false, ModelEvent.MICROSTEP, null);
+                createAndStartModel(false, ModelEventType.MICROSTEP, null);
             }
         });
         stateManager.setActualState(stoppedState);
@@ -1323,7 +1323,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             showMeasurementDialog.setEnabled(true);
             showMeasurementGraph.setEnabled(true);
             runTests.setEnabled(false);
-            createAndStartModel(runRealTime, ModelEvent.STEP, modelModifier);
+            createAndStartModel(runRealTime, ModelEventType.STEP, modelModifier);
         }
     }
 
@@ -1335,7 +1335,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         model = null;
     }
 
-    private void createAndStartModel(boolean globalRunClock, ModelEvent updateEvent, ModelModifier modelModifier) {
+    private void createAndStartModel(boolean globalRunClock, ModelEventType updateEvent, ModelModifier modelModifier) {
         try {
             circuitComponent.removeHighLighted();
 
@@ -1376,7 +1376,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (threadRunnerCount > 1)
                     throw new RuntimeException(Lang.get("err_moreThanOneFastClock"));
             }
-            if (!realTimeClockRunning && updateEvent == ModelEvent.MICROSTEP) {
+            if (!realTimeClockRunning && updateEvent == ModelEventType.MICROSTEP) {
                 // no real clock
                 AsyncSeq ai = model.getAsyncInfos();
                 if (ai != null) {
@@ -1399,7 +1399,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             doMicroStep.setEnabled(false);
             if (!realTimeClockRunning && model.isRunToBreakAllowed()) {
-                if (updateEvent == ModelEvent.MICROSTEP)
+                if (updateEvent == ModelEventType.MICROSTEP)
                     runToBreakMicroAction.setEnabled(true);
                 else
                     runToBreakAction.setEnabled(true);
@@ -1412,7 +1412,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (settings.get(Keys.SHOW_DATA_GRAPH) || windowPosManager.isVisible("dataSet"))
                 showMeasurementGraph(updateEvent);
             if (settings.get(Keys.SHOW_DATA_GRAPH_MICRO))
-                showMeasurementGraph(ModelEvent.MICROSTEP);
+                showMeasurementGraph(ModelEventType.MICROSTEP);
 
             if (modelModifier != null)
                 modelModifier.preInit(model);
@@ -1421,10 +1421,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     new ProgramMemoryLoader(settings.get(Keys.PROGRAM_TO_PRELOAD)).preInit(model);
             }
 
-            if (updateEvent == ModelEvent.MICROSTEP) {
+            if (updateEvent == ModelEventType.MICROSTEP) {
                 checkMicroStepActions(model);
                 model.addObserver(new MicroStepObserver(model));
-            } else if (updateEvent == ModelEvent.STEP) {
+            } else if (updateEvent == ModelEventType.STEP) {
                 if (maxFrequency <= 50)
                     model.addObserver(new FullStepObserver(model));
                 else
@@ -1432,9 +1432,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
 
             model.addObserver(event -> {
-                if (event.equals(ModelEvent.STOPPED))
+                if (event.equals(ModelEventType.CLOSED))
                     SwingUtilities.invokeLater(this::ensureModelIsStopped);
-            }, ModelEvent.STOPPED);
+            }, ModelEventType.CLOSED);
 
             model.init();
 
@@ -1458,12 +1458,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             windowPosManager.register("keyboard_" + k.getLabel(), new KeyboardDialog(this, k, model));
     }
 
-    private void showMeasurementGraph(ModelEvent updateEvent) {
+    private void showMeasurementGraph(ModelEventType updateEvent) {
         List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEvent.MICROSTEP, ordering)).setVisible(true);
+        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEventType.MICROSTEP, ordering)).setVisible(true);
     }
 
-    private void showMeasurementDialog(ModelEvent updateEvent) {
+    private void showMeasurementDialog(ModelEventType updateEvent) {
         List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
         windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering)).setVisible(true);
     }
@@ -1649,7 +1649,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         @Override
         public void handleEvent(ModelEvent event) {
             try {
-                switch (event) {
+                switch (event.getType()) {
                     case EXTERNALCHANGE:
                         model.doStep();
                         circuitComponent.graphicHasChanged();
@@ -1664,8 +1664,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         @Override
-        public ModelEvent[] getEvents() {
-            return new ModelEvent[]{ModelEvent.EXTERNALCHANGE, ModelEvent.BREAK};
+        public ModelEventType[] getEvents() {
+            return new ModelEventType[]{ModelEventType.EXTERNALCHANGE, ModelEventType.BREAK};
         }
     }
 
@@ -1681,11 +1681,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void handleEvent(ModelEvent event) {
-            switch (event) {
+            switch (event.getType()) {
                 case STARTED:
                     timer.start();
                     break;
-                case STOPPED:
+                case CLOSED:
                 case BREAK:
                     timer.stop();
                     circuitComponent.graphicHasChanged();
@@ -1694,8 +1694,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         @Override
-        public ModelEvent[] getEvents() {
-            return new ModelEvent[]{ModelEvent.STOPPED, ModelEvent.BREAK};
+        public ModelEventType[] getEvents() {
+            return new ModelEventType[]{ModelEventType.CLOSED, ModelEventType.BREAK};
         }
     }
 
@@ -1711,7 +1711,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void handleEvent(ModelEvent event) {
-            switch (event) {
+            switch (event.getType()) {
                 case EXTERNALCHANGE:
                 case MICROSTEP:
                 case BREAK:
@@ -1727,8 +1727,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
 
         @Override
-        public ModelEvent[] getEvents() {
-            return new ModelEvent[]{ModelEvent.EXTERNALCHANGE, ModelEvent.MICROSTEP, ModelEvent.BREAK};
+        public ModelEventType[] getEvents() {
+            return new ModelEventType[]{ModelEventType.EXTERNALCHANGE, ModelEventType.MICROSTEP, ModelEventType.BREAK};
         }
     }
 
@@ -1839,7 +1839,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             runModelState.enter(false, new ProgramMemoryLoader(romHex));
             circuitComponent.graphicHasChanged();
             if (model != null)
-                showMeasurementDialog(ModelEvent.STEP);
+                showMeasurementDialog(ModelEventType.STEP);
         });
     }
 

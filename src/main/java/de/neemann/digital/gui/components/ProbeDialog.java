@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
-    private final ModelEvent type;
+    private final ModelEventType type;
     private final SignalTableModel tableModel;
     private boolean tableUpdateEnable = true;
 
@@ -39,7 +39,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
      * @param type     the event type which fires a dialog repaint
      * @param ordering the names list used to order the measurement values
      */
-    public ProbeDialog(Frame owner, Model model, ModelEvent type, List<String> ordering) {
+    public ProbeDialog(Frame owner, Model model, ModelEventType type, List<String> ordering) {
         super(owner, Lang.get("win_measures"), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.type = type;
@@ -109,7 +109,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event == type || event == ModelEvent.EXTERNALCHANGE) {
+        if (event.getType() == type || event == ModelEvent.EXTERNALCHANGE) {
             if (tableUpdateEnable) {
                 if (paintPending.compareAndSet(false, true)) {
                     SwingUtilities.invokeLater(() -> {
@@ -119,12 +119,12 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                 }
             }
         }
-        switch (event) {
+        switch (event.getType()) {
             case FASTRUN:
                 tableUpdateEnable = false;
                 break;
             case BREAK:
-            case STOPPED:
+            case CLOSED:
                 tableUpdateEnable = true;
                 SwingUtilities.invokeLater(tableModel::fireChanged);
                 break;
@@ -132,8 +132,8 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
     }
 
     @Override
-    public ModelEvent[] getEvents() {
-        return new ModelEvent[]{type, ModelEvent.EXTERNALCHANGE, ModelEvent.FASTRUN, ModelEvent.BREAK, ModelEvent.STOPPED};
+    public ModelEventType[] getEvents() {
+        return new ModelEventType[]{type, ModelEventType.EXTERNALCHANGE, ModelEventType.FASTRUN, ModelEventType.BREAK, ModelEventType.CLOSED};
     }
 
     private static class SignalTableModel implements TableModel {

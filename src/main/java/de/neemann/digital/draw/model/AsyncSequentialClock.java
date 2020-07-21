@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.draw.model;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
-import de.neemann.digital.core.ModelStateObserverTyped;
-import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.gui.ErrorStopper;
 import de.neemann.digital.lang.Lang;
@@ -46,14 +43,14 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        switch (event) {
+        switch (event.getType()) {
             case STARTED:
                 int delayMuS = 1000000 / frequency;
                 if (delayMuS < 100)
                     delayMuS = 100;
                 runner = new RealTimeRunner(delayMuS);
                 break;
-            case STOPPED:
+            case CLOSED:
                 if (runner != null)
                     runner.stop();
                 break;
@@ -61,8 +58,8 @@ public class AsyncSequentialClock implements ModelStateObserverTyped {
     }
 
     @Override
-    public ModelEvent[] getEvents() {
-        return new ModelEvent[]{ModelEvent.STARTED, ModelEvent.STOPPED};
+    public ModelEventType[] getEvents() {
+        return new ModelEventType[]{ModelEventType.STARTED, ModelEventType.CLOSED};
     }
 
     /**

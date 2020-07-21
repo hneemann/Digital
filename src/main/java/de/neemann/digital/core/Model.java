@@ -221,7 +221,7 @@ public class Model implements Iterable<Node>, SyncAccess {
                 for (ModelStateObserver ob : observersMicroStep)
                     LOGGER.debug("Observer Micro: " + ob.getClass().getSimpleName());
 
-            fireEvent(ModelEvent.STOPPED);
+            fireEvent(ModelEvent.CLOSED);
         }
     }
 
@@ -429,9 +429,9 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @param event    the mandatory event
      * @param events   more optional events
      */
-    public void addObserver(ModelStateObserver observer, ModelEvent event, ModelEvent... events) {
+    public void addObserver(ModelStateObserver observer, ModelEventType event, ModelEventType... events) {
         addObserverForEvent(observer, event);
-        for (ModelEvent ev : events)
+        for (ModelEventType ev : events)
             addObserverForEvent(observer, ev);
     }
 
@@ -441,18 +441,18 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @param observer the observer to add
      */
     public void addObserver(ModelStateObserverTyped observer) {
-        for (ModelEvent ev : observer.getEvents())
+        for (ModelEventType ev : observer.getEvents())
             addObserverForEvent(observer, ev);
     }
 
 
-    private void addObserverForEvent(ModelStateObserver observer, ModelEvent event) {
+    private void addObserverForEvent(ModelStateObserver observer, ModelEventType event) {
         ArrayList<ModelStateObserver> obs = observers;
-        if (event == ModelEvent.STEP) {
+        if (event == ModelEventType.STEP) {
             if (observersStep == null)
                 observersStep = new ArrayList<>();
             obs = observersStep;
-        } else if (event == ModelEvent.MICROSTEP) {
+        } else if (event == ModelEventType.MICROSTEP) {
             if (observersMicroStep == null)
                 observersMicroStep = new ArrayList<>();
             obs = observersMicroStep;
@@ -498,7 +498,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     private void fireEvent(ModelEvent event) {
-        switch (event) {
+        switch (event.getType()) {
             case MICROSTEP:
                 if (observersMicroStep != null)
                     for (ModelStateObserver observer : observersMicroStep)

@@ -459,9 +459,9 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
                 value.addObserverToValue(() -> setActiveState(value.getValue()));
                 setActiveState(value.getValue());
                 model.addObserver(event -> {
-                            if (event == ModelEvent.STOPPED)
+                            if (event == ModelEvent.CLOSED)
                                 setActiveState(-1);
-                        }, ModelEvent.STOPPED
+                        }, ModelEventType.CLOSED
                 );
             }
         }

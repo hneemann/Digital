@@ -84,7 +84,7 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
         super.registerNodes(model);
 
         if (memory.isEmpty())
-            model.addObserver(event -> attr.set(Keys.DATA, memory), ModelEvent.STOPPED);
+            model.addObserver(event -> attr.set(Keys.DATA, memory), ModelEventType.CLOSED);
     }
 
     @Override

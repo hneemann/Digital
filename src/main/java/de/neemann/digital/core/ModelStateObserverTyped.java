@@ -13,6 +13,6 @@ public interface ModelStateObserverTyped extends ModelStateObserver {
     /**
      * @return the events on which this handler needs to be called
      */
-    ModelEvent[] getEvents();
+    ModelEventType[] getEvents();
 
 }

@@ -6,7 +6,7 @@
 package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
+import de.neemann.digital.core.ModelEventType;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
@@ -73,9 +73,9 @@ public final class MIDIHelper {
             isOpen = true;
 
             model.addObserver(event -> {
-                if (event.equals(ModelEvent.STOPPED))
+                if (event.equals(ModelEventType.CLOSED))
                     close();
-            }, ModelEvent.STOPPED);
+            }, ModelEventType.CLOSED);
         }
     }
 

@@ -6,7 +6,7 @@
 package de.neemann.digital.core.memory;
 
 import de.neemann.digital.core.Model;
-import de.neemann.digital.core.ModelEvent;
+import de.neemann.digital.core.ModelEventType;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
@@ -60,7 +60,7 @@ public class EEPROMDualPort extends RAMDualPort implements ROMInterface {
         super.registerNodes(model);
 
         if (memory.isEmpty())
-            model.addObserver(event -> attr.set(Keys.DATA, memory), ModelEvent.STOPPED);
+            model.addObserver(event -> attr.set(Keys.DATA, memory), ModelEventType.CLOSED);
     }
 
 }

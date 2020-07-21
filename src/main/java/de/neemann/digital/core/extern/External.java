@@ -112,13 +112,13 @@ public class External extends Node implements Element {
         }
 
         model.addObserver(event -> {
-            if (event.equals(ModelEvent.STOPPED)) {
+            if (event.equals(ModelEventType.CLOSED)) {
                 try {
                     processInterface.close();
                 } catch (IOException e) {
                     SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorClosingExternalProcess")).addCause(e));
                 }
             }
-        }, ModelEvent.STOPPED);
+        }, ModelEventType.CLOSED);
     }
 }

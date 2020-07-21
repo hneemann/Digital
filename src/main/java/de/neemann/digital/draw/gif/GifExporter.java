@@ -111,13 +111,13 @@ public class GifExporter extends JDialog implements ModelStateObserverTyped, Mod
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event.equals(ModelEvent.STEP))
+        if (event == ModelEvent.STEP)
             writeImage();
     }
 
     @Override
-    public ModelEvent[] getEvents() {
-        return new ModelEvent[]{ModelEvent.STEP};
+    public ModelEventType[] getEvents() {
+        return new ModelEventType[]{ModelEventType.STEP};
     }
 
     private void writeImage() {

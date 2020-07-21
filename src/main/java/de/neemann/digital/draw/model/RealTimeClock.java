@@ -55,7 +55,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        switch (event) {
+        switch (event.getType()) {
             case STARTED:
                 int delayMuS = 500000 / frequency;
                 if (delayMuS < 1)
@@ -63,7 +63,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 else
                     runner = new RealTimeRunner(delayMuS);
                 break;
-            case STOPPED:
+            case CLOSED:
                 if (runner != null)
                     runner.stop();
                 break;
@@ -71,8 +71,8 @@ public class RealTimeClock implements ModelStateObserverTyped {
     }
 
     @Override
-    public ModelEvent[] getEvents() {
-        return new ModelEvent[]{ModelEvent.STARTED, ModelEvent.STOPPED};
+    public ModelEventType[] getEvents() {
+        return new ModelEventType[]{ModelEventType.STARTED, ModelEventType.CLOSED};
     }
 
     /**

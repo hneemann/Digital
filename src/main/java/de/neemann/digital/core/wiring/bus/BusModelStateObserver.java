@@ -6,6 +6,7 @@
 package de.neemann.digital.core.wiring.bus;
 
 import de.neemann.digital.core.ModelEvent;
+import de.neemann.digital.core.ModelEventType;
 import de.neemann.digital.core.ModelStateObserverTyped;
 import de.neemann.digital.core.switching.PlainSwitch;
 
@@ -40,8 +41,8 @@ public final class BusModelStateObserver implements ModelStateObserverTyped {
     }
 
     @Override
-    public ModelEvent[] getEvents() {
-        return new ModelEvent[]{ModelEvent.STEP};
+    public ModelEventType[] getEvents() {
+        return new ModelEventType[]{ModelEventType.STEP};
     }
 
     /**

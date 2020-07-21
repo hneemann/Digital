@@ -6,6 +6,7 @@
 package de.neemann.digital.gui.components.data;
 
 import de.neemann.digital.core.ModelEvent;
+import de.neemann.digital.core.ModelEventType;
 import de.neemann.digital.core.ModelStateObserverTyped;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.data.Value;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class ValueTableObserver implements ModelStateObserverTyped {
 
     private final ValueTable logData;
-    private final ModelEvent type;
+    private final ModelEventType type;
     private final ArrayList<Signal> signals;
 
     private Value[] manualSample;
@@ -35,9 +36,9 @@ public class ValueTableObserver implements ModelStateObserverTyped {
     public ValueTableObserver(boolean microStep, ArrayList<Signal> signals, int maxSize) {
         this.signals = signals;
         if (microStep)
-            this.type = ModelEvent.MICROSTEP;
+            this.type = ModelEventType.MICROSTEP;
         else
-            this.type = ModelEvent.STEP;
+            this.type = ModelEventType.STEP;
 
         String[] names = new String[signals.size()];
         for (int i = 0; i < signals.size(); i++)
@@ -50,14 +51,14 @@ public class ValueTableObserver implements ModelStateObserverTyped {
         if (event == ModelEvent.STARTED)
             logData.clear();
 
-        if (event == ModelEvent.EXTERNALCHANGE && type == ModelEvent.MICROSTEP) {
+        if (event == ModelEvent.EXTERNALCHANGE && type == ModelEventType.MICROSTEP) {
             if (manualSample == null)
                 manualSample = new Value[logData.getColumns()];
             for (int i = 0; i < logData.getColumns(); i++)
                 manualSample[i] = new Value(signals.get(i).getValue());
         }
 
-        if (event == type) {
+        if (event.getType() == type) {
             if (manualSample != null) {
                 logData.add(new TestRow(manualSample));
                 manualSample = null;
@@ -70,8 +71,8 @@ public class ValueTableObserver implements ModelStateObserverTyped {
     }
 
     @Override
-    public ModelEvent[] getEvents() {
-        return new ModelEvent[]{type, ModelEvent.STARTED, ModelEvent.EXTERNALCHANGE};
+    public ModelEventType[] getEvents() {
+        return new ModelEventType[]{type, ModelEventType.STARTED, ModelEventType.EXTERNALCHANGE};
     }
 
     /**
