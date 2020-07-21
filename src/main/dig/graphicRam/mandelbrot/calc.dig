@@ -47,7 +47,7 @@
           <intFormat>decSigned</intFormat>
         </entry>
       </elementAttributes>
-      <pos x="260" y="280"/>
+      <pos x="260" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>mulFixed.dig</elementName>
@@ -177,6 +177,14 @@
   </visualElements>
   <wires>
     <wire>
+      <p1 x="440" y="220"/>
+      <p2 x="420" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="220"/>
+      <p2 x="440" y="280"/>
+    </wire>
+    <wire>
       <p1 x="300" y="320"/>
       <p2 x="320" y="320"/>
     </wire>
@@ -205,15 +213,15 @@
       <p2 x="320" y="180"/>
     </wire>
     <wire>
+      <p1 x="260" y="420"/>
+      <p2 x="300" y="420"/>
+    </wire>
+    <wire>
       <p1 x="300" y="420"/>
       <p2 x="320" y="420"/>
     </wire>
     <wire>
-      <p1 x="260" y="280"/>
-      <p2 x="300" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="420" y="280"/>
+      <p1 x="440" y="280"/>
       <p2 x="480" y="280"/>
     </wire>
     <wire>
@@ -258,19 +266,19 @@
     </wire>
     <wire>
       <p1 x="380" y="300"/>
-      <p2 x="440" y="300"/>
+      <p2 x="420" y="300"/>
     </wire>
     <wire>
-      <p1 x="440" y="300"/>
+      <p1 x="420" y="300"/>
       <p2 x="480" y="300"/>
     </wire>
     <wire>
-      <p1 x="420" y="200"/>
-      <p2 x="420" y="280"/>
+      <p1 x="420" y="280"/>
+      <p2 x="420" y="300"/>
     </wire>
     <wire>
-      <p1 x="440" y="220"/>
-      <p2 x="440" y="300"/>
+      <p1 x="420" y="200"/>
+      <p2 x="420" y="220"/>
     </wire>
     <wire>
       <p1 x="280" y="180"/>

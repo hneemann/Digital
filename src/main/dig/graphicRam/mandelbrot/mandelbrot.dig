@@ -78,7 +78,7 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>5</int>
+          <int>6</int>
         </entry>
       </elementAttributes>
       <pos x="540" y="400"/>
@@ -98,11 +98,11 @@
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>5,1</string>
+          <string>6,1</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>6</string>
+          <string>1-6</string>
         </entry>
       </elementAttributes>
       <pos x="900" y="400"/>
