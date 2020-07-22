@@ -1839,13 +1839,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     ArrayList<Clock> cl = model.getClocks();
                     if (cl.size() == 1) {
                         ObservableValue clkVal = cl.get(0).getClockOutput();
-                        clkVal.setBool(!clkVal.getBool());
+                        model.modify(() -> clkVal.setBool(!clkVal.getBool()));
                         model.doStep();
-                        if (clkVal.getBool()) {
-                            model.modify(() -> clkVal.setBool(!clkVal.getBool()));
-                            model.doStep();
+                        if (model != null) {
+                            if (clkVal.getBool() && model.isRunning()) {
+                                model.modify(() -> clkVal.setBool(!clkVal.getBool()));
+                                model.doStep();
+                            }
+                            addressPicker.getProgramROMAddress(model);
                         }
-                        addressPicker.getProgramROMAddress(model);
                     }
                 });
                 return addressPicker.getAddressString();

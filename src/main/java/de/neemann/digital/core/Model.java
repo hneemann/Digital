@@ -241,6 +241,13 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
+     * @return true if model is not closed
+     */
+    public boolean isRunning() {
+        return state != State.CLOSED;
+    }
+
+    /**
      * Adds a node to the update list.
      *
      * @param node the node
