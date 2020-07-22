@@ -796,7 +796,6 @@
   <string name="err_noTestInputSignalsDefined">¡No hay señales de entrada definidas en el vector de prueba!</string>
   <string name="err_noTestOutputSignalsDefined">¡No hay señales de salida definidas en el vector de prueba!</string>
   <string name="err_noTestData">No hay datos para realizar la prueba.</string>
-  <string name="err_remoteExecution">Error durante la ejecución de un comando remoto.</string>
   <string name="err_pullUpAndDownNotAllowed">No está permitido conectar resistencias de pull-up y pull-down en el mismo cable.</string>
   <string name="err_openingDocumentation">No se puede abrir el explorador.</string>
   <string name="err_couldNotCreateFolder_N0">¡No se pudo crear la carpeta "{0}"!</string>
@@ -1404,7 +1403,6 @@
       Traducido al castellano por Ángel Millán León</string>
   <string name="msg_N_nodes">{0} nodos</string>
   <string name="msg_analyseErr">Error al analizar el circuito</string>
-  <string name="msg_clockError">Error al cambiar de estado el reloj</string>
   <string name="msg_color">Color</string>
   <string name="msg_errorCalculatingStep">Error al calcular un paso</string>
   <string name="msg_errorCreatingModel">Error al crear el circuito</string>
@@ -1416,7 +1414,6 @@
   <string name="msg_errorReadingFile">Error al leer un archivo</string>
   <string name="msg_remoteUnknownCommand">¡Comando {0} desconocido!</string>
   <string name="msg_errorWritingFile">Error al escribir un archivo</string>
-  <string name="msg_fastRunError">Error en la ejecución rápida</string>
   <string name="msg_frequency_N">La frecuencia máxima es {0} kHz</string>
   <string name="msg_missingShape_N">No se encuentra la forma {0}</string>
   <string name="msg_pins">Asignación de pines</string>

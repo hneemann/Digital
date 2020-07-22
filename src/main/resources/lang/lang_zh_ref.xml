@@ -966,7 +966,6 @@
         an &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;enhancement&lt;/a&gt;.</string>
   <string name="msg_N_nodes">{0} nodes</string>
   <string name="msg_analyseErr">Error analysing the circuit</string>
-  <string name="msg_clockError">Error during a clock state change</string>
   <string name="msg_color">Color</string>
   <string name="msg_errorCreatingModel">Error creating the circuit</string>
   <string name="msg_errorDuringCalculation">Error during simplification</string>
@@ -1229,7 +1228,6 @@ Make sure the flash process is complete before closing this dialog!</string>
   <string name="err_noTestInputSignalsDefined">No input signals defined in test vector!</string>
   <string name="err_noTestOutputSignalsDefined">No output signals defined in test vector!</string>
   <string name="err_noTestData">No test data found.</string>
-  <string name="err_remoteExecution">Error during execution of a remote command</string>
   <string name="elem_Register_tt">A component to store values. The bit width of the data word can be selected.
         Unlike a D flip-flop, the register provides an input which enables the clock.</string>
   <string name="elem_Register_pin_D">Input pin of the data word to be stored.</string>
@@ -1348,7 +1346,6 @@ Make sure the flash process is complete before closing this dialog!</string>
   <string name="menu_addPrefix_tt">A prefix is added to all selected inputs and outputs.
         Is used to simplify the doubling of circuits within a 74xx circuit.</string>
   <string name="msg_errorCalculatingStep">Error calculating a step</string>
-  <string name="msg_fastRunError">Error at fast run</string>
   <string name="msg_errorImportingSvg">Error while importing the SVG file.</string>
   <string name="msg_errorCreatingSvgTemplate">Error creating the SVG template.</string>
   <string name="msg_couldNotCreateStats">Statistics could not be created.</string>

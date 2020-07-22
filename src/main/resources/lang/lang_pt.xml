@@ -813,7 +813,6 @@
   <string name="err_noTestInputSignalsDefined">Nenhum sinal de entrada definido no arranjo de testes!</string>
   <string name="err_noTestOutputSignalsDefined">Nenhum sinal de saída definido no arranjo de testes!</string>
   <string name="err_noTestData">Não há dados para testes.</string>
-  <string name="err_remoteExecution">Erro durante a execução de um comando remoto</string>
   <string name="err_pullUpAndDownNotAllowed">Não é permitido conectar um resistor de pull up e pull down ao mesmo fio.</string>
   <string name="err_openingDocumentation">Não foi possível abrir o navegador.</string>
   <string name="err_couldNotCreateFolder_N0">Não foi possível criar a pasta {0}!</string>
@@ -1471,7 +1470,6 @@
       para &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;enhancement&lt;/a&gt;.</string>
   <string name="msg_N_nodes">{0} nodos</string>
   <string name="msg_analyseErr">Erro ao analisar o circuito</string>
-  <string name="msg_clockError">Erro durante a mudança de estado do clock</string>
   <string name="msg_color">Cor</string>
   <string name="msg_errorCalculatingStep">Erro ao calcular um passo</string>
   <string name="msg_errorCreatingModel">Erro ao criar o circuito</string>
@@ -1482,7 +1480,6 @@
   <string name="msg_errorUpdatingLibrary">Erro ao atualizar a biblioteca de componentes!!</string>
   <string name="msg_errorReadingFile">Erro ao ler arquivo</string>
   <string name="msg_errorWritingFile">Erro ao escrever arquivo</string>
-  <string name="msg_fastRunError">Erro durante execução rápida</string>
   <string name="msg_frequency_N">A frequência máxima é de {0} kHz</string>
   <string name="msg_missingShape_N">Formato {0} não encontrado</string>
   <string name="msg_pins">Atribuição de pino</string>

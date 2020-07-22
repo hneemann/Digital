@@ -1613,7 +1613,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         public void handleEvent(ModelEvent event) {
             switch (event.getType()) {
                 case ERROR_OCCURRED:
-                    SwingUtilities.invokeLater(() -> showError("Error", event.getCause()));
+                    SwingUtilities.invokeLater(() -> showError(Lang.get("msg_errorCalculatingStep"), event.getCause()));
                     break;
                 case CLOSED:
                     SwingUtilities.invokeLater(Main.this::ensureModelIsStopped);
@@ -1675,7 +1675,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 case CLOSED:
                 case BREAK:
                     timer.stop();
-                    circuitComponent.graphicHasChanged();
+                    SwingUtilities.invokeLater(circuitComponent::graphicHasChanged);
                     break;
             }
         }

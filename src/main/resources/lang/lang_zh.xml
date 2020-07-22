@@ -846,7 +846,6 @@
       可以在这里提交&lt;a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;问题&lt;/a&gt;或&lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;建议&lt;/a&gt;</string>
   <string name="msg_N_nodes">{0} 结点</string>
   <string name="msg_analyseErr">分析电路时遇到错误</string>
-  <string name="msg_clockError">时钟状态改变时遇到错误</string>
   <string name="msg_color">颜色</string>
   <string name="msg_errorCreatingModel">新建电路时遇到错误</string>
   <string name="msg_errorDuringCalculation">化简电路时遇到错误</string>
@@ -1070,7 +1069,6 @@
   <string name="err_noTestInputSignalsDefined">测试向量未定义输入信号！</string>
   <string name="err_noTestOutputSignalsDefined">测试向量未定义输出信号！</string>
   <string name="err_noTestData">未发现测试数据。</string>
-  <string name="err_remoteExecution">执行远程命令遇到错误</string>
   <string name="elem_Register_tt">可以设置数据位宽度，和D触发器不同，该寄存器具有使能输入。</string>
   <string name="elem_Register_pin_D">输入</string>
   <string name="elem_Register_pin_C">时钟输入，上升沿触发</string>
@@ -1175,7 +1173,6 @@
   <string name="menu_probe_memory_tt">显示存储器内容</string>
   <string name="menu_addPrefix_tt">为所有选中的输入和输出添加前缀，用于简化复制 74xx 电路。</string>
   <string name="msg_errorCalculatingStep">执行单步时遇到错误</string>
-  <string name="msg_fastRunError">Error at fast run</string>
   <string name="msg_errorImportingSvg">导入 SVG 文件时遇到错误</string>
   <string name="msg_errorCreatingSvgTemplate">创建 SVG 模板时遇到错误</string>
   <string name="msg_couldNotCreateStats">不能创建统计</string>

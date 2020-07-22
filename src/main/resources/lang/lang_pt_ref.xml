@@ -811,7 +811,6 @@
   <string name="err_noTestInputSignalsDefined">No input signals defined in test vector!</string>
   <string name="err_noTestOutputSignalsDefined">No output signals defined in test vector!</string>
   <string name="err_noTestData">No test data found.</string>
-  <string name="err_remoteExecution">Error during execution of a remote command</string>
   <string name="err_pullUpAndDownNotAllowed">It's not allowed to connect a pull up and a pull down resistor to a single wire.</string>
   <string name="err_openingDocumentation">Could not open the browser.</string>
   <string name="err_couldNotCreateFolder_N0">Could not create folder "{0}"!</string>
@@ -1475,7 +1474,6 @@
       an &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;enhancement&lt;/a&gt;.</string>
   <string name="msg_N_nodes">{0} nodes</string>
   <string name="msg_analyseErr">Error analysing the circuit</string>
-  <string name="msg_clockError">Error during a clock state change</string>
   <string name="msg_color">Color</string>
   <string name="msg_errorCalculatingStep">Error calculating a step</string>
   <string name="msg_errorCreatingModel">Error creating the circuit</string>
@@ -1486,7 +1484,6 @@
   <string name="msg_errorUpdatingLibrary">Error updating the component library!!</string>
   <string name="msg_errorReadingFile">Error reading a file</string>
   <string name="msg_errorWritingFile">Error writing a file</string>
-  <string name="msg_fastRunError">Error at fast run</string>
   <string name="msg_frequency_N">The maximum frequency is {0} kHz</string>
   <string name="msg_missingShape_N">Shape {0} is missing</string>
   <string name="msg_pins">Pin assignment</string>
