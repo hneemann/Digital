@@ -11,7 +11,7 @@ package de.neemann.digital.core;
 public interface ModelStateObserver {
 
     /**
-     * called if a event was detected.
+     * called to propagate an event
      *
      * @param event the event
      */
