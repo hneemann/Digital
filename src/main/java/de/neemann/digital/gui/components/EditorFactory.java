@@ -6,10 +6,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
-import de.neemann.digital.core.Bits;
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.SyncAccess;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.extern.PortDefinition;
@@ -58,7 +55,7 @@ public final class EditorFactory {
      * The single EditorFactory instance.
      */
     static final EditorFactory INSTANCE = new EditorFactory();
-    private HashMap<Class<?>, Class<? extends Editor>> map = new HashMap<>();
+    private final HashMap<Class<?>, Class<? extends Editor>> map = new HashMap<>();
 
     private EditorFactory() {
         add(String.class, StringEditor.class);
@@ -124,7 +121,7 @@ public final class EditorFactory {
         private JLabel label;
 
         @Override
-        public void addToPanel(EditorPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
+        public void addToPanel(EditorPanel panel, Key<T> key, ElementAttributes elementAttributes, AttributeDialog attributeDialog) {
             this.attributeDialog = attributeDialog;
             label = new JLabel(key.getName() + ":  ");
             final String description = new LineBreaker().toHTML().breakLines(key.getDescription());
@@ -401,6 +398,15 @@ public final class EditorFactory {
         }
 
         @Override
+        public void addToPanel(EditorPanel panel, Key<Long> key, ElementAttributes attr, AttributeDialog attributeDialog) {
+            if (key.isAdaptiveIntFormat()) {
+                Value value = new Value(attr.get(key), attr.getBits());
+                comboBox.setSelectedItem(attr.get(Keys.INT_FORMAT).formatToEdit(value));
+            }
+            super.addToPanel(panel, key, attr, attributeDialog);
+        }
+
+        @Override
         public Long getValue() throws EditorParseException {
             Object item = comboBox.getSelectedItem();
             long value = 0;
@@ -430,6 +436,15 @@ public final class EditorFactory {
             comboBox = new JComboBox<>(DEFAULTS);
             comboBox.setEditable(true);
             comboBox.setSelectedItem(value.toString());
+        }
+
+        @Override
+        public void addToPanel(EditorPanel panel, Key<InValue> key, ElementAttributes attr, AttributeDialog attributeDialog) {
+            if (key.isAdaptiveIntFormat()) {
+                Value value = new Value(attr.get(key), attr.getBits());
+                comboBox.setSelectedItem(attr.get(Keys.INT_FORMAT).formatToEdit(value));
+            }
+            super.addToPanel(panel, key, attr, attributeDialog);
         }
 
         @Override

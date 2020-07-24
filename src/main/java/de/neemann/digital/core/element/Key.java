@@ -30,6 +30,7 @@ public class Key<VALUE> {
     // Both are only used within a custom implemented component.
     private String name;
     private String description;
+    private boolean adaptiveIntFormat;
 
     /**
      * Creates a new Key.
@@ -220,7 +221,7 @@ public class Key<VALUE> {
     }
 
     /**
-     * Called if this setting needs a restart.
+     * Called if the modification of this setting needs a restart.
      *
      * @return this for chained calls
      */
@@ -238,6 +239,8 @@ public class Key<VALUE> {
 
     /**
      * Called if this setting needs a repaint.
+     * This means, that the circuit graphics became invalid
+     * if this setting has changed.
      *
      * @return this for chained calls
      */
@@ -251,6 +254,25 @@ public class Key<VALUE> {
      */
     public boolean getRequiresRepaint() {
         return requiresRepaint;
+    }
+
+    /**
+     * Enables an adaptive int format in number editors.
+     * This means that the string representation of the number is controlled
+     * by the IntFormat stored in the elements attributes.
+     *
+     * @return this for chained calls
+     */
+    public Key<VALUE> setAdaptiveIntFormat() {
+        adaptiveIntFormat = true;
+        return this;
+    }
+
+    /**
+     * @return true if adaptive int format is required
+     */
+    public boolean isAdaptiveIntFormat() {
+        return adaptiveIntFormat;
     }
 
     /**

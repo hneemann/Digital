@@ -173,7 +173,7 @@ public final class Keys {
      * The value of constants
      */
     public static final Key<Long> VALUE
-            = new Key<>("Value", 1L).allowGroupEdit();
+            = new Key<>("Value", 1L).setAdaptiveIntFormat().allowGroupEdit();
 
     /**
      * The default value of elements
@@ -185,7 +185,7 @@ public final class Keys {
      * The default value of inputs
      */
     public static final Key<InValue> INPUT_DEFAULT
-            = new Key<>("InDefault", new InValue(0)).allowGroupEdit().setSecondary();
+            = new Key<>("InDefault", new InValue(0)).setAdaptiveIntFormat().allowGroupEdit().setSecondary();
 
     /**
      * The default value of the dip switch

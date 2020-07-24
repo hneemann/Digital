@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.core;
 
+import de.neemann.digital.core.io.InValue;
+
 import static de.neemann.digital.core.ObservableValue.zMaskString;
 
 /**
@@ -26,6 +28,23 @@ public class Value {
         this.bits = bits;
         this.value = value & Bits.mask(bits);
         this.highZ = 0;
+    }
+
+    /**
+     * Creates a new Value
+     *
+     * @param value the value
+     * @param bits  the number of bits
+     */
+    public Value(InValue value, int bits) {
+        this.bits = bits;
+        if (value.isHighZ()) {
+            this.value = 0;
+            this.highZ = Bits.mask(bits);
+        } else {
+            this.value = value.getValue() & Bits.mask(bits);
+            this.highZ = 0;
+        }
     }
 
     Value(ObservableValue observableValue) {

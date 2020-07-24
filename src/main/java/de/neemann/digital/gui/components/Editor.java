@@ -37,7 +37,7 @@ public interface Editor<T> {
      * @param elementAttributes the attributes
      * @param dialog            the containing dialog
      */
-    void addToPanel(EditorPanel panel, Key key, ElementAttributes elementAttributes, AttributeDialog dialog);
+    void addToPanel(EditorPanel panel, Key<T> key, ElementAttributes elementAttributes, AttributeDialog dialog);
 
     /**
      * Used to enable/disable the component.
