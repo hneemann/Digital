@@ -10,16 +10,23 @@ import de.neemann.digital.analyse.ModelAnalyser;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.Constant;
 import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.parser.ParseException;
+import de.neemann.digital.analyse.parser.Parser;
+import de.neemann.digital.builder.BuilderException;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.components.table.BuilderExpressionCreator;
@@ -28,6 +35,7 @@ import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -290,5 +298,41 @@ public class CircuitBuilderTest extends TestCase {
         assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 0, 1, 0, 1, 0, 0}));
         assertFalse(CircuitBuilder.isXNor(new long[]{1, 0, 0, 1, 0, 1, 1, 1}));
 
+    }
+
+    public void testLocalVar() throws IOException, ParseException, BuilderException, ElementNotFoundException, PinException, NodeException {
+        ArrayList<Expression> expList = new Parser("let a1=a+b;\nlet a2=c+d;\nlet y=a1^a2").parse();
+        ElementLibrary library = new ElementLibrary();
+        CircuitBuilder circuitBuilder = new CircuitBuilder(new ShapeFactory(library)).setResolveLocalVars(true);
+        for (Expression exp : expList) {
+            assertTrue(exp instanceof NamedExpression);
+            NamedExpression ne = (NamedExpression) exp;
+            circuitBuilder.addCombinatorial(ne.getName(), ne.getExpression());
+        }
+        Circuit circuit = circuitBuilder.createCircuit();
+        List<VisualElement> outs = circuit.getElements(v -> v.equalsDescription(Out.DESCRIPTION));
+        assertEquals(1, outs.size());
+        assertEquals("y", outs.get(0).getElementAttributes().getLabel());
+        List<VisualElement> tunnels = circuit.getElements(v -> v.equalsDescription(Tunnel.DESCRIPTION));
+        assertEquals(4, tunnels.size());
+
+        ModelCreator m = new ModelCreator(circuit, library);
+        TestExecuter te = new TestExecuter(m.createModel(false)).setUp(m);
+        te.check(0, 0, 0, 0, 0);
+        te.check(0, 0, 0, 1, 1);
+        te.check(0, 0, 1, 0, 1);
+        te.check(0, 0, 1, 1, 1);
+        te.check(0, 1, 0, 0, 1);
+        te.check(0, 1, 0, 1, 0);
+        te.check(0, 1, 1, 0, 0);
+        te.check(0, 1, 1, 1, 0);
+        te.check(1, 0, 0, 0, 1);
+        te.check(1, 0, 0, 1, 0);
+        te.check(1, 0, 1, 0, 0);
+        te.check(1, 0, 1, 1, 0);
+        te.check(1, 1, 0, 0, 1);
+        te.check(1, 1, 0, 1, 0);
+        te.check(1, 1, 1, 0, 0);
+        te.check(1, 1, 1, 1, 0);
     }
 }

@@ -53,11 +53,13 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final ArrayList<FragmentVisualElement> flipflops;
     private final ArrayList<Variable> desiredVarOrdering;
     private final HashSet<String> varsToNet;
+    private final HashSet<String> localVarsUsed;
     private int pos;
     private boolean useLUT;
     private boolean useJKff;
     private ModelAnalyserInfo mai;
     private int lutNumber;
+    private boolean resolveLocalVars;
 
 
     /**
@@ -87,6 +89,18 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         combinatorialOutputs = new HashMap<>();
         sequentialVars = new ArrayList<>();
         varsToNet = new HashSet<>();
+        localVarsUsed = new HashSet<>();
+    }
+
+    /**
+     * Allows the usage of local variables
+     *
+     * @param resolveLocalVars true if local variables should be resolved
+     * @return this for chained calls
+     */
+    public CircuitBuilder setResolveLocalVars(boolean resolveLocalVars) {
+        this.resolveLocalVars = resolveLocalVars;
+        return this;
     }
 
     /**
@@ -131,11 +145,22 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         final FragmentVisualElement frag = new FragmentVisualElement(Out.DESCRIPTION, shapeFactory).setAttr(Keys.LABEL, name);
         checkPinNumber(frag.getVisualElement());
 
+        checkForLocalVars(expression);
+
         combinatorialOutputs.put(name, frag);
 
         fragments.add(new FragmentExpression(fr, frag));
         expression.traverse(variableVisitor);
         return this;
+    }
+
+    void checkForLocalVars(Expression expression) {
+        VariableVisitor vv = new VariableVisitor();
+        expression.traverse(vv);
+        for (Variable usedVar : vv.getVariables())
+            for (String createdVar : combinatorialOutputs.keySet())
+                if (usedVar.getIdentifier().equals(createdVar))
+                    localVarsUsed.add(createdVar);
     }
 
     /**
@@ -199,6 +224,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             }
             fragments.add(new FragmentExpression(fr, fe));
         }
+
+        checkForLocalVars(expression);
+
         expression.traverse(variableVisitor);
         sequentialVars.add(new Variable(name));
         return this;
@@ -396,6 +424,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
      * @return the circuit
      */
     public Circuit createCircuit() {
+        if (resolveLocalVars)
+            resolveLocalVars();
+
         // determine maximum width
         int maxWidth = 0;
         for (Fragment f : fragments) {
@@ -448,6 +479,14 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         }
 
         return circuit;
+    }
+
+    private void resolveLocalVars() {
+        for (String lv : localVarsUsed) {
+            varsToNet.add(lv);
+            FragmentVisualElement frag = combinatorialOutputs.get(lv);
+            frag.traverse(new ReplaceOutputByTunnel(lv, shapeFactory));
+        }
     }
 
     private void checkForInputBus(Collection<Variable> variables, int splitterXPos, Circuit circuit) {
@@ -710,6 +749,30 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         private boolean containsLUT() {
             return hasLUT;
+        }
+    }
+
+    private static final class ReplaceOutputByTunnel implements FragmentVisitor {
+        private final String outName;
+        private final ShapeFactory shapeFactory;
+
+        private ReplaceOutputByTunnel(String outName, ShapeFactory shapeFactory) {
+            this.outName = outName;
+            this.shapeFactory = shapeFactory;
+        }
+
+        @Override
+        public void visit(Fragment fr) {
+            if (fr instanceof FragmentVisualElement) {
+                FragmentVisualElement fve = (FragmentVisualElement) fr;
+                VisualElement ve = fve.getVisualElement();
+                if (ve.equalsDescription(Out.DESCRIPTION) && ve.getElementAttributes().getLabel().equals(outName)) {
+                    fve.setVisualElement(
+                            new VisualElement(Tunnel.DESCRIPTION.getName())
+                                    .setAttribute(Keys.NETNAME, outName)
+                                    .setShapeFactory(shapeFactory));
+                }
+            }
         }
     }
 }
