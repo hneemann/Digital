@@ -17,6 +17,7 @@ public class Value {
     private final long value;
     private final long highZ;
     private final int bits;
+    private final long mask;
 
     /**
      * Creates a new Value
@@ -26,7 +27,8 @@ public class Value {
      */
     public Value(long value, int bits) {
         this.bits = bits;
-        this.value = value & Bits.mask(bits);
+        this.mask = Bits.mask(bits);
+        this.value = value & mask;
         this.highZ = 0;
     }
 
@@ -38,11 +40,12 @@ public class Value {
      */
     public Value(InValue value, int bits) {
         this.bits = bits;
+        this.mask = Bits.mask(bits);
         if (value.isHighZ()) {
             this.value = 0;
-            this.highZ = Bits.mask(bits);
+            this.highZ = mask;
         } else {
-            this.value = value.getValue() & Bits.mask(bits);
+            this.value = value.getValue() & mask;
             this.highZ = 0;
         }
     }
@@ -51,6 +54,7 @@ public class Value {
         value = observableValue.getValue();
         highZ = observableValue.getHighZ();
         bits = observableValue.getBits();
+        this.mask = Bits.mask(bits);
     }
 
     /**
@@ -96,7 +100,7 @@ public class Value {
     @Override
     public String toString() {
         if (highZ != 0)
-            if (highZ == Bits.mask(bits))
+            if (highZ == mask)
                 return "Z";
             else {
                 return zMaskString(value, highZ, bits);

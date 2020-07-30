@@ -16,7 +16,6 @@ public class ColorStyleHighContrast implements GraphicSVG.ColorStyle {
         if (style == Style.WIRE) return Style.NORMAL.getColor();
         else if (style == Style.WIRE_OUT) return Style.NORMAL.getColor();
         else if (style == Style.WIRE_BITS) return Style.NORMAL.getColor();
-        else if (style == Style.WIRE_BUS) return Style.NORMAL.getColor();
         else if (style == Style.SHAPE_PIN) return Style.NORMAL.getColor();
         else if (style == Style.SHAPE_SPLITTER) return Style.NORMAL.getColor();
         else return style.getColor();

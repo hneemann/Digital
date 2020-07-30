@@ -91,11 +91,6 @@ public final class Style {
     public static final Style WIRE_OUT = new Builder(WIRE).setColor(ColorKey.WIRE_OUT).build();
 
     /**
-     * used to draw the bus wires
-     */
-    public static final Style WIRE_BUS = WIRE;
-
-    /**
      * Filled style used to fill the splitter or the dark LEDs
      */
     public static final Style FILLED = new Builder().setFilled(true).build();
@@ -242,10 +237,9 @@ public final class Style {
      * @return the style
      */
     public static Style getWireStyle(Value value) {
-        if (value == null) return WIRE;
-        if (value.isHighZ()) return WIRE_HIGHZ;
-        if (value.getBits() > 1) return WIRE_BUS;
+        if (value == null || value.getBits() > 1) return WIRE;
 
+        if (value.isHighZ()) return WIRE_HIGHZ;
         if (value.getValue() == 1) return WIRE_HIGH;
         else return WIRE_LOW;
     }
