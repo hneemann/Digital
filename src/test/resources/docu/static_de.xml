@@ -269,17 +269,18 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter heading="Schaltungsanalyse und Synthese">
-        <par>
-            Eine vorliegende Schaltung kann über den Menüeintrag <e>Analyse</e> analysiert werden. Bei rein
-            kombinatorischen Schaltungen wird eine Wahrheitstabelle erzeugt. Diese Wahrheitstabelle kann beliebig
-            bearbeitet werden.
-            Aus dieser Wahrheitstabelle lässt sich nach einer Bearbeitung eine neue Schaltung erzeugen.
-        </par>
-        <par>
-            Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen.
-            Anstelle einer einfachen Wahrheitstabelle entsteht eine sogenannte Zustandsfolgetabelle.
-            Jedes Flipflop taucht dabei auf der
+    <chapter heading="Analyse">
+        <subchapter heading="Schaltungsanalyse und Synthese">
+            <par>
+                Eine vorliegende Schaltung kann über den Menüeintrag <e>Analyse</e> analysiert werden. Bei rein
+                kombinatorischen Schaltungen wird eine Wahrheitstabelle erzeugt. Diese Wahrheitstabelle kann beliebig
+                bearbeitet werden.
+                Aus dieser Wahrheitstabelle lässt sich nach einer Bearbeitung eine neue Schaltung erzeugen.
+            </par>
+            <par>
+                Neben rein kombinatorischen Schaltungen lassen sich auch Schaltwerke analysieren bzw. erzeugen.
+                Anstelle einer einfachen Wahrheitstabelle entsteht eine sogenannte Zustandsfolgetabelle.
+                Jedes Flipflop taucht dabei auf der
             Eingangsseite und der Ausgangsseite der Zustandsfolgetabelle auf. In dieser Tabelle findet sich auf der
             rechten Seite der abhängigen Signale der Folgezustand, der nach dem nächsten Taktsignal eintreten wird,
             abhängig vom aktuellen Zustand der Flipflops. Damit eine Analyse möglich ist, müssen die Flipflops benannt
@@ -294,11 +295,38 @@
             die diesem Muster entsprechen, wird davon ausgegangen, dass es sich um eine Zustandsfolgetabelle handelt und
             bei der Synthese wird entsprechend ein Schaltwerk anstelle eines Schaltnetzes erzeugt.
         </par>
-        <par>
-            Zu beachten ist dabei, dass die zu analysierende Schaltung neben den eingebauten D- und JK-Flipflops nur
-            rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus NOR-Gattern aufgebaut, kann diese
-            Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend analysiert werden.
-        </par>
+            <par>
+                Zu beachten ist dabei, dass die zu analysierende Schaltung neben den eingebauten D- und JK-Flipflops nur
+                rein kombinatorische Elemente enthalten darf. Wird ein Flipflop z.B. aus NOR-Gattern aufgebaut, kann
+                diese
+                Schaltung nicht als Flipflop erkannt und daher auch nicht entsprechend analysiert werden.
+            </par>
+        </subchapter>
+        <subchapter heading="Ausdrücke">
+            <par>
+                Über den Menüeintrag <e>Ausdruck</e> ist es möglich, eine Boolsche Funktion einzugeben und diese dann
+                in eine Schaltung überführen zu lassen.
+            </par>
+        </subchapter>
+        <subchapter heading="Zustandsdiagramme">
+            <par>
+                Über den Menüeintrag <e>Endlicher Automat</e> ist ein Editor für Zustandsdiagramme verfügbar.
+                Dieser elaubt die grafische Erstellung von Zustandsautomaten indem Zustände und Zustandsübergänge
+                gezeichnet werden.
+                Dabei können in den verschiedenen Zuständen unterschiedliche Ausgänge gesetzt werden.
+                Indem Übergänge mit Bedingungen versehen werden, können Eingangssignale erzeugt werden.
+                Da Ausgangswerte auch an Übergängen gesetzt werden können, is es möglich, auch Mealy-Automaten zu
+                erstellen.
+            </par>
+            <par>
+                Der auf diese Weise definierte Automat kann dann automatisiert in eine Zustandsübergangstabelle
+                überführt
+                werden, aus welcher dann in einem weiteren Schritt eine Schaltung erzeugt werden kann, welche den
+                ursprünglichen Automaten implementiert.
+                Wird dann die Simulation dieser Schaltung gestartet, lässt sich der aktuelle Zustand auch im
+                noch geöffneten Zustandsdiagramm verfolgen.
+            </par>
+        </subchapter>
     </chapter>
     <chapter heading="Hardware">
         <subchapter heading="GAL16v8 bzw. GAL22v10">

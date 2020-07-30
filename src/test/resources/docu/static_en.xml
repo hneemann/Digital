@@ -240,7 +240,8 @@
                 So if you include a complex circuit which has a large propagation delay because the input signals
                 has to pass three gates until it reaches the output, this behaviour is conserved while including this
                 circuit.
-                There are no additional delays introduced as a result of including a circuit. If not all outputs of a circuit have
+                There are no additional delays introduced as a result of including a circuit. If not all outputs of a
+                circuit have
                 the same propagation delay, then this is also the case if it is included in a parent circuit.
                 In general, including a circuit into an other circuit does not modify its timing behaviour at all. An
                 included circuit behaves exactly the same way as if all components had been inserted at the same circuit
@@ -248,17 +249,18 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter heading="Circuit Analysis and Synthesis">
-        <par>
-            A circuit can be analyzed via the menu entry <e>Analysis</e>. A truth table is generated for purely
-            combinatorial circuits. This truth table can be edited as desired.
-            A new circuit can be generated from this truth table after editing.
-        </par>
-        <par>
-            In addition to purely combinatorial circuits, it is also possible to analyze or generate sequential
-            circuits.
-            Instead of a simple truth table a so-called state transition table is created.
-            Each flip-flop thereby appears on the input side and the output side of the state transition table.
+    <chapter heading="Analysis">
+        <subchapter heading="Circuit Analysis and Synthesis">
+            <par>
+                A circuit can be analyzed via the menu entry <e>Analysis</e>. A truth table is generated for purely
+                combinatorial circuits. This truth table can be edited as desired.
+                A new circuit can be generated from this truth table after editing.
+            </par>
+            <par>
+                In addition to purely combinatorial circuits, it is also possible to analyze or generate sequential
+                circuits.
+                Instead of a simple truth table a so-called state transition table is created.
+                Each flip-flop thereby appears on the input side and the output side of the state transition table.
             In this table, on the right-hand side, you can find the next state, which will
             occur after the next clock signal. This next state depends on the current state of the flip-flops as found
             at the left-hand side of the table.
@@ -272,11 +274,33 @@
             it is assumed that the table is a state transition table, and a sequential circuit is generated instead of
             a combinatorial circuit.
         </par>
-        <par>
-            It should be noted that the circuit to be analyzed may contain only purely combinatorial elements in
-            addition to the built-in D and JK flip-flops. If a flip-flop is e.g. made from Nor gates, this
-            circuit is not recognized as a flip-flop and therefore it is not possible to analyse such a circuit.
-        </par>
+            <par>
+                It should be noted that the circuit to be analyzed may contain only purely combinatorial elements in
+                addition to the built-in D and JK flip-flops. If a flip-flop is e.g. made from Nor gates, this
+                circuit is not recognized as a flip-flop and therefore it is not possible to analyse such a circuit.
+            </par>
+        </subchapter>
+        <subchapter heading="Expression">
+            <par>
+                Via the menu item <e>Expression</e> it is possible to enter a boolean function from which a
+                circuit can then be generated.
+            </par>
+        </subchapter>
+        <subchapter heading="State charts">
+            <par>
+                An editor for state charts is available via the menu item <e>Finite State Machine</e>.
+                It allows the graphical creation of state machines by drawing states and state transitions.
+                Thereby different outputs can be set in the different states.
+                By providing transitions with conditions, input signals can be generated.
+                By setting output values at transitions, Mealy automata can also be defined.
+            </par>
+            <par>
+                The state machine defined in this way can then be automatically transferred to a state transition table,
+                from which, in a further step, a circuit implementing the initial state machine can be generated.
+                If the simulation of this circuit is then started, the current state can also be followed in the
+                state chart.
+            </par>
+        </subchapter>
     </chapter>
     <chapter heading="Hardware">
         <subchapter heading="GAL16v8 and GAL22v10">
