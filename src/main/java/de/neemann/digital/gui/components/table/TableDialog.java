@@ -909,17 +909,17 @@ public class TableDialog extends JDialog {
                 switch (expressions.size()) {
                     case 0:
                         statusBar.setVisible(false);
-                        allSolutionsDialog.setNeeded(false);
+                        allSolutionsDialog.setNeeded(false, TableDialog.this.getBounds());
                         break;
                     case 1:
                         statusBar.setVisible(true);
                         statusBar.setExpression(expressions.get(0));
-                        allSolutionsDialog.setNeeded(false);
+                        allSolutionsDialog.setNeeded(false, TableDialog.this.getBounds());
                         break;
                     default:
                         statusBar.setVisible(false);
                         allSolutionsDialog.setExpressions(expressions);
-                        allSolutionsDialog.setNeeded(true);
+                        allSolutionsDialog.setNeeded(true, TableDialog.this.getBounds());
                         toFront();
                 }
             });

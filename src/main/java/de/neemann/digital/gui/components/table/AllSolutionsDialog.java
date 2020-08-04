@@ -61,12 +61,19 @@ public class AllSolutionsDialog extends JDialog {
     /**
      * Is called from table dialog if this dialog is needed.
      *
-     * @param needed true if needed
+     * @param needed            true if needed
+     * @param tableDialogBounds the table dialogs bounds
      */
-    public void setNeeded(boolean needed) {
+    public void setNeeded(boolean needed, Rectangle tableDialogBounds) {
         this.needed = needed;
         if (!userHasClosed) {
             setVisible(needed);
+            int x = (int) (tableDialogBounds.x - (getWidth() - tableDialogBounds.getWidth()) / 2);
+            int y = tableDialogBounds.y + tableDialogBounds.height + 10;
+            if (getHeight() < tableDialogBounds.y - 10) {
+                y = tableDialogBounds.y - getHeight() - 10;
+            }
+            setLocation(x, y);
             if (needed && reopenAction != null)
                 reopenAction.setEnabled(false);
         }
