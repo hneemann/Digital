@@ -21,7 +21,7 @@ public class KarnaughMapTest extends TestCase {
 
     public void testSimple2() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("(A ¬B) ∨ (¬A B)").parse().get(0);
-        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp, 0);
 
         assertEquals(2, c.size());
 
@@ -31,7 +31,7 @@ public class KarnaughMapTest extends TestCase {
 
     public void testSimple2_singleVar() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("A").parse().get(0);
-        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp, 0);
 
         assertEquals(1, c.size());
 
@@ -41,7 +41,7 @@ public class KarnaughMapTest extends TestCase {
 
     public void testSimple2_singleAnd() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("A B").parse().get(0);
-        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(2), exp, 0);
 
         assertEquals(1, c.size());
 
@@ -51,7 +51,7 @@ public class KarnaughMapTest extends TestCase {
 
     public void testSimple3() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("(A ¬C) ∨ (¬A ¬B) ∨ (B C)").parse().get(0);
-        KarnaughMap c = new KarnaughMap(Variable.vars(3), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(3), exp, 0);
 
         assertEquals(3, c.size());
 
@@ -61,7 +61,7 @@ public class KarnaughMapTest extends TestCase {
 
     public void testSimple_BUG() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("(¬A B ¬C) ∨ (A C) ∨ ¬B").parse().get(0);
-        KarnaughMap c = new KarnaughMap(Variable.vars(3), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(3), exp, 0);
 
         assertEquals(3, c.size());
 
@@ -73,7 +73,7 @@ public class KarnaughMapTest extends TestCase {
 
     public void testSimple4() throws IOException, ParseException, KarnaughException {
         Expression exp = new Parser("(¬A ¬C ¬D) ∨ (A B C) ∨ (A ¬B D) ∨ (¬A ¬B C) ∨ (¬B ¬C ¬D)").parse().get(0);
-        KarnaughMap c = new KarnaughMap(Variable.vars(4), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(4), exp, 0);
 
         assertEquals(5, c.size());
 
@@ -84,7 +84,7 @@ public class KarnaughMapTest extends TestCase {
     // in 4x4 map a 8 cell block is drawn in wrong orientation
     public void testBUG_1() throws IOException, ParseException, KarnaughException {
         Expression exp = Not.not(new Variable("D"));
-        KarnaughMap c = new KarnaughMap(Variable.vars(4), exp);
+        KarnaughMap c = new KarnaughMap(Variable.vars(4), exp, 0);
 
         assertEquals(1, c.size());
 
@@ -94,7 +94,7 @@ public class KarnaughMapTest extends TestCase {
         assertTrue(co.isVerticalDivided());
 
         exp = Not.not(new Variable("B"));
-        c = new KarnaughMap(Variable.vars(4), exp);
+        c = new KarnaughMap(Variable.vars(4), exp, 0);
 
         assertEquals(1, c.size());
 
@@ -120,7 +120,7 @@ public class KarnaughMapTest extends TestCase {
                                 .fillTableWith(t)
                                 .simplify(new PrimeSelectorDefault())
                                 .getExpression();                    // create the expression
-                KarnaughMap c = new KarnaughMap(Variable.vars(vars), exp);     // create the KV covers
+                KarnaughMap c = new KarnaughMap(Variable.vars(vars), exp, 0);     // create the KV covers
                 assertEquals(1, c.size());                 // there is only on cover
                 KarnaughMap.Cover cover = c.iterator().next();
                 assertEquals(1, cover.getSize());          // the size of the cover is one cell
@@ -136,7 +136,7 @@ public class KarnaughMapTest extends TestCase {
      * Tests if header description in 4x4 kv map is correct
      */
     public void testHeader4() throws IOException, ParseException, KarnaughException {
-        KarnaughMap cov = new KarnaughMap(Variable.vars(4), Constant.ONE);
+        KarnaughMap cov = new KarnaughMap(Variable.vars(4), Constant.ONE, 0);
         KarnaughMap.Header head = cov.getHeaderLeft();
         assertEquals(4, head.size());
         for (int r = 0; r < 4; r++)
@@ -167,7 +167,7 @@ public class KarnaughMapTest extends TestCase {
      * Tests if header description in 2x4 kv map is correct
      */
     public void testHeader3() throws IOException, ParseException, KarnaughException {
-        KarnaughMap cov = new KarnaughMap(Variable.vars(3), Constant.ONE);
+        KarnaughMap cov = new KarnaughMap(Variable.vars(3), Constant.ONE, 0);
         KarnaughMap.Header head = cov.getHeaderLeft();
         assertEquals(2, head.size());
         for (int r = 0; r < 2; r++)
@@ -193,7 +193,7 @@ public class KarnaughMapTest extends TestCase {
      * Tests if header description in 2x2 kv map is correct
      */
     public void testHeader2() throws IOException, ParseException, KarnaughException {
-        KarnaughMap cov = new KarnaughMap(Variable.vars(2), Constant.ONE);
+        KarnaughMap cov = new KarnaughMap(Variable.vars(2), Constant.ONE, 0);
         KarnaughMap.Header head = cov.getHeaderLeft();
         assertEquals(2, head.size());
         for (int r = 0; r < 2; r++)
@@ -218,16 +218,18 @@ public class KarnaughMapTest extends TestCase {
     public void testKVLayout() throws KarnaughException {
         int checks = 0;
         for (int vars = 2; vars <= 4; vars++) {
-            KarnaughMap map = new KarnaughMap(Variable.vars(vars), Constant.ONE);
-            for (int r = 0; r < map.getRows(); r++)
-                for (int c = 0; c < map.getColumns(); c++) {
-                    KarnaughMap.Cell cell = map.getCell(r, c);
-                    compareCells(cell, map.getCell(r, inc(c, map.getColumns())), vars);
-                    compareCells(cell, map.getCell(inc(r, map.getRows()), c), vars);
-                    checks += 2;
-                }
+            for (int mode = 0; mode < 16; mode++) {
+                KarnaughMap map = new KarnaughMap(Variable.vars(vars), Constant.ONE, mode);
+                for (int r = 0; r < map.getRows(); r++)
+                    for (int c = 0; c < map.getColumns(); c++) {
+                        KarnaughMap.Cell cell = map.getCell(r, c);
+                        compareCells(cell, map.getCell(r, inc(c, map.getColumns())), vars);
+                        compareCells(cell, map.getCell(inc(r, map.getRows()), c), vars);
+                        checks += 2;
+                    }
+            }
         }
-        assertEquals((16 + 8 + 4) * 2, checks);
+        assertEquals((16 + 8 + 4) * 2 * 16, checks);
     }
 
     private void compareCells(KarnaughMap.Cell a, KarnaughMap.Cell b, int vars) {

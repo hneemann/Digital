@@ -33,6 +33,7 @@ public class KarnaughMapComponent extends JComponent {
             new Color(200, 200, 0, 128), new Color(0, 255, 255, 128)};
     private KarnaughMap kv;
     private BoolTable boolTable;
+    private Expression exp;
     private ArrayList<Variable> vars;
     private Graphics2D gr;
     private String message = Lang.get("msg_noKVMapAvailable");
@@ -40,6 +41,7 @@ public class KarnaughMapComponent extends JComponent {
     private int xOffs;
     private int yOffs;
     private int cellSize;
+    private int mode;
 
     /**
      * Creates a new instance
@@ -58,6 +60,20 @@ public class KarnaughMapComponent extends JComponent {
                         if (x >= 0 && x < kv.getColumns() && y >= 0 && y < kv.getRows()) {
                             int row = kv.getCell(y, x).getBoolTableRow();
                             modifier.modify(boolTable, row);
+                        } else {
+                            if (x < 0) {
+                                mode = mode ^ 1;
+                                update();
+                            } else if (y < 0) {
+                                mode = mode ^ 4;
+                                update();
+                            } else if (x >= kv.getColumns()) {
+                                mode = mode ^ 2;
+                                update();
+                            } else if (y >= kv.getRows()) {
+                                mode = mode ^ 8;
+                                update();
+                            }
                         }
                     }
                 }
@@ -74,8 +90,13 @@ public class KarnaughMapComponent extends JComponent {
     public void setResult(ArrayList<Variable> vars, BoolTable boolTable, Expression exp) {
         this.vars = vars;
         this.boolTable = boolTable;
+        this.exp = exp;
+        update();
+    }
+
+    private void update() {
         try {
-            kv = new KarnaughMap(vars, exp);
+            kv = new KarnaughMap(vars, exp, mode);
         } catch (KarnaughException e) {
             kv = null;
             message = e.getMessage();
