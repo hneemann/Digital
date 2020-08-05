@@ -28,7 +28,9 @@ public class TestExecutor {
     private final ArrayList<String> names;
     private final LineEmitter lines;
     private final ValueTable results;
-    private boolean allPassed;
+    private boolean errorOccurred;
+    private int failedCount;
+    private int passedCount;
     private boolean toManyResults = false;
     private ArrayList<TestSignal> inputs;
     private ArrayList<TestSignal> outputs;
@@ -58,7 +60,6 @@ public class TestExecutor {
      * @throws ParserException      ParserException
      */
     public TestExecutor create(Model model) throws TestingDataException, NodeException, ParserException {
-        allPassed = true;
         HashSet<String> usedSignals = new HashSet<>();
 
         inputs = new ArrayList<>();
@@ -112,7 +113,7 @@ public class TestExecutor {
         model.init();
         model.addObserver(event -> {
             if (event.getType() == ModelEventType.ERROR_OCCURRED)
-                allPassed = false;
+                errorOccurred = true;
         }, ModelEventType.ERROR_OCCURRED);
 
         lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context().setModel(model));
@@ -168,7 +169,7 @@ public class TestExecutor {
 
             model.doStep();
         } catch (RuntimeException e) {
-            allPassed = false;
+            errorOccurred = true;
             throw e;
         }
 
@@ -176,11 +177,14 @@ public class TestExecutor {
         for (TestSignal out : outputs) {
             MatchedValue matchedValue = new MatchedValue(values[out.index], out.value);
             res[out.index] = matchedValue;
-            if (!matchedValue.isPassed()) {
-                allPassed = false;
+            if (!matchedValue.isPassed())
                 ok = false;
-            }
         }
+
+        if (ok)
+            passedCount++;
+        else
+            failedCount++;
 
         if (visibleRows < (ok ? MAX_RESULTS : ERR_RESULTS)) {
             visibleRows++;
@@ -205,9 +209,27 @@ public class TestExecutor {
      * @return true if all tests have passed
      */
     public boolean allPassed() {
-        return allPassed;
+        return !errorOccurred && failedCount == 0 && passedCount > 0;
     }
 
+    /**
+     * @return true if the test failed due to an error
+     */
+    public boolean isErrorOccurred() {
+        return errorOccurred;
+    }
+
+    /**
+     * @return the percentage of failed test rows
+     */
+    public int failedPercent() {
+        if (passedCount == 0)
+            return 100;
+        int p = 100 * failedCount / passedCount;
+        if (p == 0 && failedCount > 0)
+            p = 1;
+        return p;
+    }
 
     /**
      * Indicates if there are to many entries in the table to show.
