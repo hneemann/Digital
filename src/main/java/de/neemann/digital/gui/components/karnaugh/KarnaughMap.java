@@ -37,8 +37,20 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         this(vars, expr, 0, null);
     }
 
-    private static int[] createSwap(List<Variable> vars) {
-        int[] s = new int[vars.size()];
+    /**
+     * Checks is the given swap list is valid (not null and of the correct size).
+     * If so, the given list is returned, IF not, a simple, non swapping default swap
+     * list is created.
+     *
+     * @param swap the old swap list
+     * @param size the required size of the list
+     * @return the valid swap list
+     */
+    public static int[] checkSwap(int[] swap, int size) {
+        if (swap != null && swap.length == size)
+            return swap;
+
+        int[] s = new int[size];
         for (int i = 0; i < s.length; i++) s[i] = i;
         return s;
     }
@@ -53,8 +65,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
      * @throws KarnaughException KarnaughException
      */
     public KarnaughMap(List<Variable> vars, Expression expr, int mode, int[] swap) throws KarnaughException {
-        if (swap == null)
-            swap = createSwap(vars);
+        swap = checkSwap(swap, vars.size());
         this.vars = vars;
         cells = new ArrayList<>();
         covers = new ArrayList<>();

@@ -70,10 +70,7 @@ public class KarnaughMapComponent extends JComponent {
      */
     public void setResult(ArrayList<Variable> vars, BoolTable boolTable, Expression exp) {
         this.vars = vars;
-        if (swap == null || swap.length != vars.size()) {
-            this.swap = new int[vars.size()];
-            for (int i = 0; i < swap.length; i++) swap[i] = i;
-        }
+        swap = KarnaughMap.checkSwap(swap, vars.size());
         this.boolTable = boolTable;
         this.exp = exp;
         update();
