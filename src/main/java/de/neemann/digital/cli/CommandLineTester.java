@@ -97,7 +97,12 @@ public class CommandLineTester {
                         out.println(label + ": passed");
                         testsPassed++;
                     } else {
-                        out.println(label + ": failed");
+                        String message = label + ": failed";
+                        if (te.isErrorOccurred())
+                            message += " due to an error";
+                        else
+                            message += " (" + te.failedPercent() + "%)";
+                        out.println(message);
                         errorCount++;
                     }
                     errorDetector.check();
