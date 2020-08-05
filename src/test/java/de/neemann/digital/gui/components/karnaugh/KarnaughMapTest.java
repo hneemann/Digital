@@ -218,16 +218,18 @@ public class KarnaughMapTest extends TestCase {
     public void testKVLayout() throws KarnaughException {
         int checks = 0;
         for (int vars = 2; vars <= 4; vars++) {
-            KarnaughMap map = new KarnaughMap(Variable.vars(vars), Constant.ONE);
-            for (int r = 0; r < map.getRows(); r++)
-                for (int c = 0; c < map.getColumns(); c++) {
-                    KarnaughMap.Cell cell = map.getCell(r, c);
-                    compareCells(cell, map.getCell(r, inc(c, map.getColumns())), vars);
-                    compareCells(cell, map.getCell(inc(r, map.getRows()), c), vars);
-                    checks += 2;
-                }
+            for (int mode = 0; mode < 16; mode++) {
+                KarnaughMap map = new KarnaughMap(Variable.vars(vars), Constant.ONE, mode, null);
+                for (int r = 0; r < map.getRows(); r++)
+                    for (int c = 0; c < map.getColumns(); c++) {
+                        KarnaughMap.Cell cell = map.getCell(r, c);
+                        compareCells(cell, map.getCell(r, inc(c, map.getColumns())), vars);
+                        compareCells(cell, map.getCell(inc(r, map.getRows()), c), vars);
+                        checks += 2;
+                    }
+            }
         }
-        assertEquals((16 + 8 + 4) * 2, checks);
+        assertEquals((16 + 8 + 4) * 2 * 16, checks);
     }
 
     private void compareCells(KarnaughMap.Cell a, KarnaughMap.Cell b, int vars) {

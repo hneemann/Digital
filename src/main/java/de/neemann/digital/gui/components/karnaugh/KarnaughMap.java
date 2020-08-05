@@ -34,17 +34,55 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
      * @throws KarnaughException KarnaughException
      */
     public KarnaughMap(List<Variable> vars, Expression expr) throws KarnaughException {
+        this(vars, expr, 0, null);
+    }
+
+    /**
+     * Checks is the given swap list is valid (not null and of the correct size).
+     * If so, the given list is returned, IF not, a simple, non swapping default swap
+     * list is created.
+     *
+     * @param swap the old swap list
+     * @param size the required size of the list
+     * @return the valid swap list
+     */
+    public static int[] checkSwap(int[] swap, int size) {
+        if (swap != null && swap.length == size)
+            return swap;
+
+        int[] s = new int[size];
+        for (int i = 0; i < s.length; i++) s[i] = i;
+        return s;
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param vars the variables used
+     * @param expr the expression
+     * @param mode the layout mode
+     * @param swap describes, how to swap the variables
+     * @throws KarnaughException KarnaughException
+     */
+    public KarnaughMap(List<Variable> vars, Expression expr, int mode, int[] swap) throws KarnaughException {
+        swap = checkSwap(swap, vars.size());
         this.vars = vars;
         cells = new ArrayList<>();
         covers = new ArrayList<>();
+
+        boolean leftMode = (mode & 1) != 0;
+        boolean rightMode = (mode & 2) != 0;
+        boolean topMode = (mode & 4) != 0;
+        boolean bottomMode = (mode & 8) != 0;
+
         switch (vars.size()) {
             case 2:  // create the needed KV cells
                 for (int row = 0; row < 2; row++)
                     for (int col = 0; col < 2; col++)
                         cells.add(new Cell(row, col));
 
-                headerLeft = new Header(0, true, false).toRows(2, this);
-                headerTop = new Header(1, true, false).toCols(2, this);
+                headerLeft = new Header(swap[0], !leftMode, leftMode).toRows(2, this);
+                headerTop = new Header(swap[1], !topMode, topMode).toCols(2, this);
                 headerRight = null;
                 headerBottom = null;
                 break;
@@ -53,9 +91,9 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
                     for (int col = 0; col < 4; col++)
                         cells.add(new Cell(row, col));
 
-                headerLeft = new Header(0, true, false).toRows(4, this);
-                headerTop = new Header(1, true, true, false, false).toCols(2, this);
-                headerBottom = new Header(2, true, false, false, true).toCols(2, this);
+                headerLeft = new Header(swap[0], !leftMode, leftMode).toRows(4, this);
+                headerTop = new Header(swap[1], !topMode, !topMode, topMode, topMode).toCols(2, this);
+                headerBottom = new Header(swap[2], !bottomMode, bottomMode, bottomMode, !bottomMode).toCols(2, this);
                 headerRight = null;
                 break;
             case 4:
@@ -63,10 +101,10 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
                     for (int col = 0; col < 4; col++)
                         cells.add(new Cell(row, col));
 
-                headerLeft = new Header(0, true, true, false, false).toRows(4, this);
-                headerRight = new Header(1, true, false, false, true).toRows(4, this);
-                headerTop = new Header(2, true, true, false, false).toCols(4, this);
-                headerBottom = new Header(3, true, false, false, true).toCols(4, this);
+                headerLeft = new Header(swap[0], !leftMode, !leftMode, leftMode, leftMode).toRows(4, this);
+                headerRight = new Header(swap[1], !rightMode, rightMode, rightMode, !rightMode).toRows(4, this);
+                headerTop = new Header(swap[2], !topMode, !topMode, topMode, topMode).toCols(4, this);
+                headerBottom = new Header(swap[3], !bottomMode, bottomMode, bottomMode, !bottomMode).toCols(4, this);
                 break;
             default:
                 throw new KarnaughException(Lang.get("err_toManyVars"));
@@ -219,8 +257,8 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
     public static final class Cell {
         private final int row;
         private final int col;
-        private ArrayList<VarState> minTerm; // min term  of the cell
-        private ArrayList<Cover> covers;
+        private final ArrayList<VarState> minTerm; // min term  of the cell
+        private final ArrayList<Cover> covers;
         private int boolTableRow;
 
         private Cell(int row, int col) {
@@ -290,8 +328,8 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
     }
 
     private static final class VarState {
-        private int num;        // number of the variable in the vars list
-        private boolean invert; // true if variable is inverted
+        private final int num;        // number of the variable in the vars list
+        private final boolean invert; // true if variable is inverted
 
         private VarState(int num, boolean invert) {
             this.num = num;
