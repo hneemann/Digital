@@ -110,14 +110,10 @@ public class ScreenShots {
         new GuiTester("../../main/dig/processor/Processor.dig", "examples/processor/Processor.dig")
                 .press(' ')
                 .delay(4000)
-                .add(new GuiTester.WindowCheck<>(GraphicDialog.class, (gt, gd) -> {
-                    graphic = gd;
-                    final Main main = (Main) gd.getParent();
-                    main.getCircuitComponent().requestFocus();
+                .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
+                    main.ensureModelIsStopped();
+                    main.getWindowPosManager().closeAll();
                 }))
-                .delay(500)
-                .press(' ')
-                .add((gt) -> graphic.dispose())
                 .delay(500)
                 .press("F1")
                 .add(new MainScreenShot("distribution/screenshot.png"))
@@ -213,10 +209,10 @@ public class ScreenShots {
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(FSMFrame.class, (gt, fsmFrame) -> {
                     fsmFrame.loadFile(trafficLight);
-                    fsmFrame.getContentPane().setPreferredSize(new Dimension(550, 400));
+                    fsmFrame.getContentPane().setPreferredSize(new Dimension(500, 400));
                     fsmFrame.pack();
                     final Point location = mainStatic.getLocation();
-                    fsmFrame.setLocation(location.x + 450, location.y + 120);
+                    fsmFrame.setLocation(location.x + 500, location.y + 120);
                     fsmFrame.setAlwaysOnTop(true);
                     fsmFrame.setTitle(trafficLight.getName());
                     mainStatic.requestFocus();
@@ -226,7 +222,7 @@ public class ScreenShots {
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
-                .execute();
+                .execute();/**/
     }
 
     private static GuiTester.WindowCheck<Window> closeAllSolutionsDialog() {
