@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <string name="addr">Endereço</string>
-  <string name="tableOfContent">Índice</string>
-  <string name="general">Geral</string>
-  <string name="revision">Revisão</string>
-  <string name="date">Data</string>
-  <string name="maxValue">Valor máximo</string>
-  <string name="settings">A seguir descrevem-se as configurações disponíveis no simulador.</string>
-  <string name="attr_dialogTitle">Atributos</string>
-  <string name="attr_openCircuit">Abrir circuito</string>
+    <string name="addr">Endereço</string>
+    <string name="tableOfContent">Índice</string>
+    <string name="general">Geral</string>
+    <string name="revision">Revisão</string>
+    <string name="date">Data</string>
+    <string name="maxValue">Valor máximo</string>
+    <string name="settings">A seguir descrevem-se as configurações disponíveis no simulador.</string>
+    <string name="attr_dialogTitle">Atributos</string>
+    <string name="attr_openCircuit">Abrir circuito</string>
     <string name="attr_openCircuitLabel">Incluir circuito:</string>
     <string name="attr_openCircuit_tt">Abrir circuito em um nova janela.</string>
     <string name="attr_help">Ajuda</string>
@@ -31,16 +31,18 @@
     <string name="btn_saveAsHex_tt">Salvar como arquivo HEX.</string>
     <string name="btn_create">Criar</string>
     <string name="btn_create_tt">Criar circuito em janela separada</string>
-  <string name="btn_editDetached">Editar em separado</string>
-  <string name="btn_editDetached_tt">Abrir diálogo como não modal</string>
-  <string name="btn_openInBrowser">Navegador</string>
-  <string name="btn_openInBrowser_tt">Abrir texto de ajuda no navegador. Permite-se a impressão do texto.</string>
-  <string name="btn_clearData">Limpar</string>
-  <string name="btn_clearData_tt">Atribuir zeros a todos os valores!</string>
-  <string name="btn_addTransitions">Transições</string>
-  <string name="btn_addTransitions_tt">Todas as possíveis transições serão adicionadas como casos de testes. É usada para criar casos de testes para o próprio simulador.</string>
-  <string name="btn_newName">Novo nome</string>
-  <string name="btn_saveAnyway">Salvar incondicionalmente</string>
+    <string name="btn_editDetached">Editar em separado</string>
+    <string name="btn_editDetached_tt">Abrir diálogo como não modal</string>
+    <string name="btn_openInBrowser">Navegador</string>
+    <string name="btn_openInBrowser_tt">Abrir texto de ajuda no navegador. Permite-se a impressão do texto.</string>
+    <string name="btn_clearData">Limpar</string>
+    <string name="btn_clearData_tt">Atribuir zeros a todos os valores!</string>
+    <string name="btn_addTransitions">Transições</string>
+    <string name="btn_addTransitions_tt">Todas as possíveis transições serão adicionadas como casos de testes. É usada
+        para criar casos de testes para o próprio simulador.
+    </string>
+    <string name="btn_newName">Novo nome</string>
+    <string name="btn_saveAnyway">Salvar incondicionalmente</string>
   <string name="btn_overwrite">Substituir</string>
   <string name="btn_apply">Aplicar</string>
   <string name="btn_editRom_tt">Editar o conteúdo da ROM/EEPROM selecionada</string>
@@ -193,17 +195,23 @@
   <string name="elem_SixteenSeg_pin_dp">Essa entrada controlará o ponto decimal.</string>
   <string name="elem_LedMatrix">Matriz de LEDs</string>
   <string name="elem_LedMatrix_tt">A matrixz de LEDs. Os LEDs serão exibidos em uma janela em separado.
-        Os LEDs de uma coluna do display serão controlados por uma palavra de controle. Em outra entrada, a coluna corrente será 
-        selecionada. Dessa forma um display multiplexado será obtido.
-        Os LEDs são capazes de se manter acesos indefinidamente durante a simulação para evitar que o display fique piscando.</string>
-  <string name="elem_LedMatrix_pin_r-data">A fileira de LEDs de uma coluna.
-        Cada bit nessa palavra de dados representa o estado da coluna corrente.</string>
-  <string name="elem_LedMatrix_pin_c-addr">O número da coluna corrente cujo estado estará visível segundo a outra entrada.</string>
-  <string name="elem_Data">Gráfico de dados</string>
-  <string name="elem_Data_tt">Mostrará um gráfico dentro do painel de circuito.
+        Os LEDs de uma coluna do display serão controlados por uma palavra de controle. Em outra entrada, a coluna corrente será
+      selecionada. Dessa forma um display multiplexado será obtido.
+      Os LEDs são capazes de se manter acesos indefinidamente durante a simulação para evitar que o display fique
+      piscando.
+  </string>
+    <string name="elem_LedMatrix_pin_r-data">A fileira de LEDs de uma coluna.
+        Cada bit nessa palavra de dados representa o estado da coluna corrente.
+    </string>
+    <string name="elem_LedMatrix_pin_c-addr">O número da coluna corrente cujo estado estará visível segundo a outra
+        entrada.
+    </string>
+    <string name="elem_Data">Gráfico de dados</string>
+    <string name="elem_Data_tt">Mostrará um gráfico dentro do painel de circuito.
         Será possível exibir ciclos completos de clock ou mudanças de portas individuais.
-        Não afeta a simulação.</string>
-  <string name="elem_RotEncoder">Codificador rotativo</string>
+        Não afeta a simulação.
+    </string>
+    <string name="elem_RotEncoder">Codificador rotativo</string>
     <string name="elem_RotEncoder_tt">Disco giratório com codificador rotativo. Usado para detectar movimentos de
         rotação.
     </string>
@@ -237,16 +245,18 @@
     <string name="elem_Terminal_pin_en">Um nível alto nessa entrada habilitará o recebimento do clock.</string>
     <string name="elem_MIDI">MIDI</string>
     <string name="elem_MIDI_tt">Usar o sistema MIDI para tocar notas.</string>
-  <string name="elem_MIDI_pin_N">Nota</string>
-  <string name="elem_MIDI_pin_V">Volume</string>
-  <string name="elem_MIDI_pin_OnOff">Se definido, isso se traduzirá no pressionar de uma tecla (key down event),
-        caso contrário, isso se traduzirá no liberar de uma tecla (key up event).</string>
-  <string name="elem_MIDI_pin_en">Habilitar o componente</string>
-  <string name="elem_MIDI_pin_PC">Se em nível alto, o valor em N será usado para alterar o programa (instrumento).</string>
-  <string name="elem_MIDI_pin_C">Clock</string>
-  <!-- Wires -->
-  <string name="elem_Ground">Terra</string>
-  <string name="elem_Ground_tt">Conexão para terra. A saída será sempre igual a zero.</string>
+    <string name="elem_MIDI_pin_N">Nota</string>
+    <string name="elem_MIDI_pin_V">Volume</string>
+    <string name="elem_MIDI_pin_OnOff">Se definido, isso se traduzirá no pressionar de uma tecla (key down event),
+        caso contrário, isso se traduzirá no liberar de uma tecla (key up event).
+    </string>
+    <string name="elem_MIDI_pin_en">Habilitar o componente</string>
+    <string name="elem_MIDI_pin_PC">Se em nível alto, o valor em N será usado para alterar o programa (instrumento).
+    </string>
+    <string name="elem_MIDI_pin_C">Clock</string>
+    <!-- Wires -->
+    <string name="elem_Ground">Terra</string>
+    <string name="elem_Ground_tt">Conexão para terra. A saída será sempre igual a zero.</string>
   <string name="elem_Ground_pin_out">Saída sempre retornará 0.</string>
   <string name="elem_VDD">Fonte</string>
   <string name="elem_VDD_tt">Conexão à fonte. A saída será sempre igual a um.</string>
@@ -1080,28 +1090,36 @@
   <string name="key_ExpressionFormat">Formato</string>
   <string name="key_ExpressionFormat_tt">Formato da tela para expressões.</string>
   <string name="key_relayNormallyClosed">Relé normalmente fechado.</string>
-  <!-- Relay -->
-  <string name="key_relayNormallyClosed_tt">Se o relé estiver fechado, a entrada estará em nível baixo.</string>
-  <string name="key_poles">Número de polos</string>
-  <!-- Relay -->
-  <string name="key_poles_tt">Número de polos disponíveis.</string>
-  <string name="key_commonCathode">Conexão comum</string>
-  <!-- Seven-Seg -->
-  <string name="key_commonCathode_tt">Se a entrada for selecionada como ânodo ou cátodo comum, também será simulada.</string>
-  <string name="key_ledPersistence">Prevenir o piscamento (flicker)</string>
-  <!-- Seven-Seg, LedMatrix -->
-  <string name="key_ledPersistence_tt">Se não for possível aumentar a frequência o bastante para que o efeito de piscamento possa desaparecer.
-        Com essa opção se poderá estabilizar o display mantendo os LEDs ligados até que o cátodo comum vá para nível baixo novamente.
-        Isso simulará uma frequência acima da crítica para a fusão.</string>
-  <string name="key_atf1502Fitter">Filtro ATF15xx</string>
-  <string name="key_atf1502Fitter_tt">Caminho para o filtro ATF15xx.
-        Fornecer a pasta que contenha os arquivos fit15xx.exe fornecidos pela Microchip (antes ATMEL).</string>
-  <string name="key_pin">Número do pino</string>
-  <string name="key_pin_tt">Um campo vazio significará que o sinal não está associado ao pino.</string>
-  <string name="key_rowDataBits">Linhas</string>
-  <!-- LedMatrix -->
-  <string name="key_rowDataBits_tt">Especificação do número de linhas mediante a largura em bits da palavra correspondente.</string>
-  <string name="key_colAddrBits">Bits de endereço das colunas</string>
+    <!-- Relay -->
+    <string name="key_relayNormallyClosed_tt">Se o relé estiver fechado, a entrada estará em nível baixo.</string>
+    <string name="key_poles">Número de polos</string>
+    <!-- Relay -->
+    <string name="key_poles_tt">Número de polos disponíveis.</string>
+    <string name="key_commonCathode">Conexão comum</string>
+    <!-- Seven-Seg -->
+    <string name="key_commonCathode_tt">Se a entrada for selecionada como ânodo ou cátodo comum, também será simulada.
+    </string>
+    <string name="key_ledPersistence">Prevenir o piscamento (flicker)</string>
+    <!-- Seven-Seg, LedMatrix -->
+    <string name="key_ledPersistence_tt">Não é possível aumentar a frequência o bastante para que o efeito de piscamento
+        possa desaparecer.
+        Para suprimir o piscamento, um "afterglow" poderá ser acionado para manter os LEDs nessa condição.
+        Se selecionado, os LEDs se manterão ligados, mesmo que um dos pinos for alterado para nível de alta impedância
+        (z).
+        Isso simulará uma frequência acima da crítica para a fusão.
+    </string>
+    <string name="key_atf1502Fitter">Filtro ATF15xx</string>
+    <string name="key_atf1502Fitter_tt">Caminho para o filtro ATF15xx.
+        Fornecer a pasta que contenha os arquivos fit15xx.exe fornecidos pela Microchip (antes ATMEL).
+    </string>
+    <string name="key_pin">Número do pino</string>
+    <string name="key_pin_tt">Um campo vazio significará que o sinal não está associado ao pino.</string>
+    <string name="key_rowDataBits">Linhas</string>
+    <!-- LedMatrix -->
+    <string name="key_rowDataBits_tt">Especificação do número de linhas mediante a largura em bits da palavra
+        correspondente.
+    </string>
+    <string name="key_colAddrBits">Bits de endereço das colunas</string>
   <!-- LedMatrix -->
   <string name="key_colAddrBits_tt">Endereços das colunas individuais. Três bits corresponderão a oito colunas.</string>
   <string name="key_lockedMode">Modificação bloqueada</string>
@@ -1623,103 +1641,108 @@
   <string name="msg_expressionHelp">Para definir uma expressão poderão ser usadas todas as notações mais comuns:
 
         And: "&amp;", "&amp;&amp;", "*", "∧"
-        Or: "|", "||", "+", "∨", "#"
-        XOr: "^", "⊻"
-        Not: "!", "~", "¬"
+      Or: "|", "||", "+", "∨", "#"
+      XOr: "^", "⊻"
+      Not: "!", "~", "¬"
 
-        Como usual AND tem precedência sobre OR e XOR.
+      Como usual AND tem precedência sobre OR e XOR.
 
-        Múltiplas expressões poderão ser separadas por "," ou ";".
-        Se desejado dar nome às expressões se poderá usar o comando "let"
-        "let U=A+B, let V=A*B"</string>
-  <string name="msg_testVectorHelpTitle">Arranjos de teste</string>
-  <string name="msg_testVectorHelp"><![CDATA[<html>
-    <head><style>pre { background-color: #E0E0E0;}</style></head>
-    <body>
-<p>A primeira linha deverá conter os nomes das entradas e das saídas.
-As linhas seguintes deverão conter os valores esperados.
-Um 'X' representará um "don't care", e um 'Z' representará um valor em alta impedância.
-Se um 'C' for usado,  inicialmente, todos os outros valores serão definidos, e após um ciclo de clock 
-seus valores serão comparados. Dessa forma será mais fácil testar lógica sequencial.
-Um linha que for iniciada por um sinal ('#') será um comentário.</p>
+      Múltiplas expressões poderão ser separadas por "," ou ";".
+      Se desejado dar nome às expressões se poderá usar o comando "let"
+      "let U=A+B, let V=A*B"
+  </string>
+    <string name="msg_testVectorHelpTitle">Arranjos de teste</string>
+    <string name="msg_testVectorHelp">&lt;html&gt;
+        &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
+        &lt;body&gt;
+        &lt;p&gt;A primeira linha deverá conter os nomes das entradas e das saídas.
+        As linhas seguintes deverão conter os valores esperados.
+        Um 'X' representará um "don't care", e um 'Z' representará um valor em alta impedância.
+        Se um 'C' for usado, inicialmente, todos os outros valores serão definidos, e após um ciclo de clock
+        seus valores serão comparados. Dessa forma será mais fácil testar lógica sequencial.
+        Um linha que for iniciada por um sinal ('#') será um comentário.&lt;/p&gt;
 
-<p>Dessa forma um teste para um contador de 2-bits poderia se parecer com isso:</p>
+        &lt;p&gt;Dessa forma um teste para um contador de 2-bits poderia se parecer com isso:&lt;/p&gt;
 
-<pre>
-C Q1 Q0
-0 0  0
-C 0  1
-C 1  0
-C 1  1
-C 0  0
-</pre>
+        &lt;pre&gt;
+        C Q1 Q0
+        0 0 0
+        C 0 1
+        C 1 0
+        C 1 1
+        C 0 0
+        &lt;/pre&gt;
 
-<p>The tests are executed by Run->Testes de execução.</p>
-<p>
-Para tornar mais fácil a criação de muitos arranjos de testes, há o comando 'repeat([n])':
-Se um linha começar por 'repeat([n])', [n] linhas de testes serão geradas.
-A variável 'n' poderá ser usada para gerar os dados de testes. Por exemplo, 'repeat(16)'
-16 linhas serão criadas, onde n variar de 0 até 15. Se houver entradas com múltiplos bits,
-e esses forem definidos juntos por um valor binário, isso poderá ser feito usando o comando
-'bits([bits], [valor])'. Isso poderá ser usado para criar [bits] com esse [valor].</p>
+        &lt;p&gt;Os testes serão executados por Executar-&gt;Testes de execução.&lt;/p&gt;
+        &lt;p&gt;
+        Para tornar mais fácil a criação de muitos arranjos de testes, há o comando 'repeat([n])':
+        Se um linha começar por 'repeat([n])', [n] linhas de testes serão geradas.
+        A variável 'n' poderá ser usada para gerar os dados de testes. Por exemplo, 'repeat(16)'
+        16 linhas serão criadas, onde n variar de 0 até 15. Se houver entradas com múltiplos bits,
+        e esses forem definidos juntos por um valor binário, isso poderá ser feito usando o comando
+        'bits([bits], [valor])'. Isso poderá ser usado para criar [bits] com esse [valor].&lt;/p&gt;
 
-<p>A seguir há um exemplo para testar um somador de 4-bits:</p>
+        &lt;p&gt;A seguir há um exemplo para testar um somador de 4-bits:&lt;/p&gt;
 
-<pre>
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))
-repeat(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
-</pre>
+        &lt;pre&gt;
+        C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+        repeat(256) 0 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15))
+        repeat(256) 1 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+        &lt;/pre&gt;
 
-<p>Os sinais de entrada serão o carry-in (C_i-1) e os oito bits de entrada A_3-A_0 e B_3-B_0.
-Os 4 bits de entrada serão gerados pela instrução 'bits'. O resultado (C_i, S_3-S_0) também será gerado
-pela mesma instrução.
-Isso irá ocorrer um vez com C_i-1 = 0 e na próxima linha com C_i-1 = 1.
-Dessa forma, 512 linhas de testes serão gerados para cobrir todas as configurações possíveis das entradas.</p>
-<p>Se múltiplas linhas forem repetidas, ou se repetições aninhadas forem requeridas, o comando de repetição
-poderá ser usado. O exemplo acima poderia ser implementado como mostrado a seguir:</p>
+        &lt;p&gt;Os sinais de entrada serão o carry-in (C_i-1) e os oito bits de entrada A_3-A_0 e B_3-B_0.
+        Os 4 bits de entrada serão gerados pela instrução 'bits'. O resultado (C_i, S_3-S_0) também será gerado
+        pela mesma instrução.
+        Isso irá ocorrer um vez com C_i-1 = 0 e na próxima linha com C_i-1 = 1.
+        Dessa forma, 512 linhas de testes serão gerados para cobrir todas as configurações possíveis das entradas.&lt;/p&gt;
+        &lt;p&gt;Se múltiplas linhas forem repetidas, ou se repetições aninhadas forem requeridas, o comando de
+        repetição
+        poderá ser usado. O exemplo acima poderia ser implementado como mostrado a seguir:&lt;/p&gt;
 
-<pre>
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-loop(a,16)
-  loop(b,16)
-             0    bits(4,a)        bits(4,b)        bits(5,a+b)
-             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
-  end loop
-end loop
-</pre>
+        &lt;pre&gt;
+        C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+        loop(a,16)
+        loop(b,16)
+        0 bits(4,a) bits(4,b) bits(5,a+b)
+        1 bits(4,a) bits(4,b) bits(5,a+b+1)
+        end loop
+        end loop
+        &lt;/pre&gt;
 
-<p>Poderia ser útil para gerar valores aleatórios para casos de testes.
-Isso poderá ser criado pela função 'random([n])'. O valor gerado será maior ou igual a
-zero e menor que [n]. Considerando um multiplicador de 16-bits como exemplo,
-um teste completo não poderá ser executado pois deveria ter 2^32 combinações das entradas.
-Um teste de regressão para multiplicar 100000 valores aleatórios poderia se parecer como isso:</p>
+        &lt;p&gt;Poderia ser útil para gerar valores aleatórios para casos de testes.
+        Isso poderá ser criado pela função 'random([n])'. O valor gerado será maior ou igual a
+        zero e menor que [n]. Considerando um multiplicador de 16-bits como exemplo,
+        um teste completo não poderá ser executado pois deveria ter 2^32 combinações das entradas.
+        Um teste de regressão para multiplicar 100000 valores aleatórios poderia se parecer como isso:&lt;/p&gt;
 
-<pre>
-   A    B      Y
-loop(i,100000)
-  let a = random(1&lt;&lt;16);
-  let b = random(1&lt;&lt;16);
-  (a)  (b)   (a*b)
-end loop
-</pre>
+        &lt;pre&gt;
+        A B Y
+        loop(i,100000)
+        let a = random(1&amp;lt;&amp;lt;16);
+        let b = random(1&amp;lt;&amp;lt;16);
+        (a) (b) (a*b)
+        end loop
+        &lt;/pre&gt;
 
-<p>Uma entrada que permita um valor em alta impedância também poderá ser usada como valor de saída de teste.
-Nesse caso, o nome do sinal poderá ser usado com o sufixo "_out" para ser lido de volta e ter o valor comparado.
-Para isso, a entrada correspondente deverá ser definida como de alta impedância ('Z').</p>
+        &lt;p&gt;Uma entrada que permita um valor em alta impedância também poderá ser usada como valor de saída de
+        teste.
+        Nesse caso, o nome do sinal poderá ser usado com o sufixo "_out" para ser lido de volta e ter o valor comparado.
+        Para isso, a entrada correspondente deverá ser definida como de alta impedância ('Z').&lt;/p&gt;
 
-<pre>OE CLK D D_out
-0   0  0 0
-0   C  1 1
-1   0  z 1
-0   C  0 0
-1   0  z 0
-</pre>
+        &lt;pre&gt;OE CLK D D_out
+        0 0 0 0
+        0 C 1 1
+        1 0 z 1
+        0 C 0 0
+        1 0 z 0
+        &lt;/pre&gt;
 
-<p>O circuito para esse teste deverá ter apenas uma entrada 'D', a qual poderá estar em estado de alta impedância.
-Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse caso.</p>
+        &lt;p&gt;O circuito para esse teste deverá ter apenas uma entrada 'D', a qual poderá estar em estado de alta
+        impedância.
+        Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse caso.&lt;/p&gt;
 
-</body></html>]]></string>
+        &lt;/body&gt;&lt;/html&gt;
+    </string>
   <string name="fsm_title">Máquina de Estados Finitos (FSM)</string>
   <string name="fsm_noMove">Nenhuma transição</string>
   <string name="fsm_moveTrans">Transições</string>
@@ -1855,16 +1878,19 @@ Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse
         Se o mouse passar sobre a barra de ferramentas, dicas serão mostradas.</string>
   <string name="tutorial8">A simulação estará ativa. Para alterar as entradas, clicar nas mesmas.</string>
   <string name="tutorial9">Para parar a simulação, clicar no botão Stop na barra de ferramentas.</string>
-  <string name="tutorial10">Para completar, as entradas e as saídas deverão ser rotuladas.
-    
-         Ao pressionar o botão da direita sobre uma entrada, uma caixa de diálogo se abrirá. No MacOs, usar control-click.
-         A entrada poderá, então, receber um nome.</string>
-  <string name="tutorial11">Rotular todas as entradas e as saídas.</string>
-  <string name="tutorialUniqueIdents">Entradas e saídas sempre deverão ter nomes únicos.</string>
-  <string name="tutorialNotNeeded">Pular o tutorial</string>
-  <string name="msg_fsmTransition">Transição</string>
-  <string name="msg_fsmState">Estado</string>
-  <string name="elem_Seven-Seg_pin_ca">Ânodo comum. Para acender os LEDs, essa entrada deverá estar em nível alto.</string>
+    <string name="tutorial10">Para completar, as entradas e as saídas deverão ser rotuladas.
+
+        Ao pressionar o botão da direita sobre uma entrada, uma caixa de diálogo se abrirá. No MacOs, usar
+        control-click.
+        A entrada poderá, então, receber um nome.
+    </string>
+    <string name="tutorial11">Rotular todas as entradas e as saídas.</string>
+    <string name="tutorialUniqueIdents">Entradas e saídas sempre deverão ter nomes únicos.</string>
+    <string name="tutorialNotNeeded">Pular o tutorial</string>
+    <string name="msg_fsmTransition">Transição</string>
+    <string name="msg_fsmState">Estado</string>
+    <string name="elem_Seven-Seg_pin_ca">Ânodo comum. Para acender os LEDs, essa entrada deverá estar em nível alto.
+    </string>
     <string name="key_commonConnectionType">Comum</string>
     <string name="key_commonConnectionType_tt">Tipo da conexão comum.</string>
     <string name="key_commonConnectionType_cathode">Cátodo</string>
@@ -1999,4 +2025,104 @@ Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse
         após uma borda de subida.
         &lt;/body&gt;&lt;/html&gt;
     </string>
+    <string name="elem_StepperMotorUnipolar">Motor de passos, unipolar</string>
+    <string name="elem_StepperMotorUnipolar_tt">Motor de passos unipolar com duas chaves de fim de curso.
+        Há suporte para controle por passo completo, meio-passo e .
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S0">Chave de fim de curso 0, será 1 quando o ângulo do motor for 0°.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S1">Chave de fim de curso 1, será 1 quando o ângulo do motor for 180°.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_P0">Fase 0</string>
+    <string name="elem_StepperMotorUnipolar_pin_P1">Fase 1</string>
+    <string name="elem_StepperMotorUnipolar_pin_P2">Fase 2</string>
+    <string name="elem_StepperMotorUnipolar_pin_P3">Fase 3</string>
+    <string name="elem_StepperMotorUnipolar_pin_com">Conexão da bobina com derivação central</string>
+    <string name="elem_StepperMotorBipolar">Motor de passos, bipolar</string>
+    <string name="elem_StepperMotorBipolar_tt">Motor de passos bipolar com duas chaves de fim de curso.
+        Há suporte para controle por passo completo, meio passo e .
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S0">Chave de fim de curso 0, será 1 quando o ângulo do motor for 0°.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S1">Chave de fim de curso 1, será 1 quando o ângulo do motor for 180°.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_A+">Bobina A, positivo</string>
+    <string name="elem_Stop">Parar</string>
+    <string name="elem_Stop_tt">Uma borda de subida na entrada irá parar a simulação.
+        Terá o mesmo efeito que pressionar o botão Parar na barra de ferramentas.
+    </string>
+    <string name="elem_Stop_pin_stop">Um borda de subida irá parar a simulação.</string>
+    <string name="err_ROM_noFileGivenToLoad">Não há nome de arquivo disponível para recarga automática!</string>
+    <string name="attr_panel_Options">Opções</string>
+    <string name="key_ghdlOptions">Opções GHDL</string>
+    <string name="key_ghdlOptions_tt">Opções que serão usadas para todos os passos de processamento pelo GHDL.</string>
+    <string name="key_layoutShapeDelta">Separador de pinos</string>
+    <string name="key_layoutShapeDelta_tt">Usado pelo tipo de formato do layout. Indicará a distância do pino
+        anterior.
+    </string>
+    <string name="key_colorScheme">Esquema de cores</string>
+    <string name="key_colorScheme_DEFAULT">Normal</string>
+    <string name="key_colorScheme_COLOR_BLIND">vermelho/verde para deficiência de cor</string>
+    <string name="key_colorScheme_CUSTOM">Definido pelo usuário</string>
+    <string name="menu_colorSchemePreset">Valor inicial</string>
+    <string name="key_customColorScheme">Cores definidas pelo usuário</string>
+    <string name="colorName_BACKGROUND">Plano de fundo</string>
+    <string name="colorName_MAIN">Plano frontal</string>
+    <string name="colorName_WIRE">Fio</string>
+    <string name="colorName_WIRE_HIGH">Fio em nível alto</string>
+    <string name="colorName_WIRE_LOW">Fio em nível baixo</string>
+    <string name="colorName_WIRE_VALUE">Valor medido no fio</string>
+    <string name="colorName_WIRE_OUT">Saída</string>
+    <string name="colorName_WIRE_Z">Fio em alta impedância (Z)</string>
+    <string name="colorName_ERROR">Erro</string>
+    <string name="colorName_PASSED">Ok</string>
+    <string name="colorName_PINS">Pinos</string>
+    <string name="colorName_GRID">Malha</string>
+    <string name="colorName_TESTCASE">Caso de teste</string>
+    <string name="colorName_DISABLED">Desabilitado</string>
+    <string name="colorName_ASYNC">Assíncrono</string>
+    <string name="colorName_HIGHLIGHT">Destacado</string>
+    <string name="lib_displays">Mostrar</string>
+    <string name="lib_mechanic">Mecânica</string>
+    <string name="lib_peripherals">Periféricos-</string>
+    <string name="cli_cli">Interface para a linha de comandos</string>
+    <string name="cli_nonOptionalArgumentMissing_N">Falta o argumento não opcional {0}</string>
+    <string name="cli_notABool_N">O valor {0} não é lógico.</string>
+    <string name="cli_notANumber_N">O valor {0} não é número.</string>
+    <string name="cli_noArgument_N_available">Indefinido o argumento {0}.-</string>
+    <string name="cli_notEnoughArgumentsGiven">Não há argumentos suficientes.</string>
+    <string name="cli_toMuchArguments">Há argumentos demais.</string>
+    <string name="cli_invalidType_N">Tipo inválido.</string>
+    <string name="cli_command_N_hasNoSubCommand_N">O comando {0} não tem subcomando {1}.</string>
+    <string name="cli_options">Opções:</string>
+    <string name="cli_help_test">O primeiro nome de arquivo especificará o circuito a ser testado.
+        Se um segundo nome de arquivo for especificado, os casos de testes serão executados a partir desse arquivo.
+        Se não houver um segundo nome de arquivo especificado, os testes serão executados a partir do primeiro arquivo.
+    </string>
+    <string name="cli_help_test_circ">Nome do arquivo a ser testado.</string>
+    <string name="cli_help_test_tests">Nome do arquivo com os casos para testes.</string>
+    <string name="cli_help_test_allowMissingInputs">Permite-se que entradas faltantes no circuito sejam definidas no
+        caso de teste. Isso poderá ser útil se houver
+        várias soluções que possam depender de diferentes entradas.
+    </string>
+    <string name="cli_thereAreTestFailures">Testes falharam.</string>
+    <string name="cli_errorExecutingTests">Um erro ocorreu durante a execução dos testes.</string>
+    <string name="cli_help_svg">Poderá ser usado para criar um arquivo SVG a partir de um circuito.</string>
+    <string name="cli_help_svg_dig">O nome do arquivo do circuito.</string>
+    <string name="cli_help_svg_svg">O nome do arquivo SVG a ser gravado.</string>
+    <string name="cli_help_svg_ieee">Usar símbolos IEEE.</string>
+    <string name="cli_errorCreatingSVG">Erro na criação do arquivo SVG!</string>
+    <string name="cli_help_stats">Criar arquivo CSV contendo estatísticas do circuito.
+        Todos os components usados serão listados no arquivo CSV.
+    </string>
+    <string name="cli_help_stats_dig">Nome do arquivo contendo circuito.</string>
+    <string name="cli_help_stats_csv">Nome do arquivo CSV a ser criado.
+        Se essa opção for omitida, a tabela será escrita na saída padrão.
+    </string>
+    <string name="cli_errorCreatingStats">Erro ao criar o arquivo com estatísticas!</string>
+    <string name="menu_table_exportTablePlainText">Exportar para texto puro</string>
+    <string name="elem_StepperMotorBipolar_pin_A-">Bobina A, negativo</string>
+    <string name="elem_StepperMotorBipolar_pin_B+">Bobina B, positivo</string>
+    <string name="elem_StepperMotorBipolar_pin_B-">Bobina B, negativo</string>
+    <string name="key_colorScheme_DARK">Escuro</string>
 </resources>

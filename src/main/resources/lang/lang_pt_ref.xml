@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- used to create the actual Portuguese translation! Used to detect keys which have changed -->
 <resources>
-  <string name="addr">Address</string>
-  <string name="tableOfContent">Table of Contents</string>
-  <string name="general">General</string>
-  <string name="revision">Revision</string>
-  <string name="date">Date</string>
-  <string name="maxValue">maximum</string>
-  <string name="settings">The following describes the available settings of the simulator.</string>
-  <string name="attr_dialogTitle">Attributes</string>
-  <string name="attr_openCircuit">Open Circuit</string>
+    <string name="addr">Address</string>
+    <string name="tableOfContent">Table of Contents</string>
+    <string name="general">General</string>
+    <string name="revision">Revision</string>
+    <string name="date">Date</string>
+    <string name="maxValue">maximum</string>
+    <string name="settings">The following describes the available settings of the simulator.</string>
+    <string name="attr_dialogTitle">Attributes</string>
+    <string name="attr_openCircuit">Open Circuit</string>
     <string name="attr_openCircuitLabel">Included circuit:</string>
     <string name="attr_openCircuit_tt">Opens the circuit in a new window.</string>
     <string name="attr_help">Help</string>
@@ -32,16 +32,18 @@
     <string name="btn_saveAsHex_tt">Save as HEX file.</string>
     <string name="btn_create">Create</string>
     <string name="btn_create_tt">Create a circuit in a separate window</string>
-  <string name="btn_editDetached">Edit detached</string>
-  <string name="btn_editDetached_tt">Opens the dialog as a non modal dialog</string>
-  <string name="btn_openInBrowser">Browser</string>
-  <string name="btn_openInBrowser_tt">Opens help text in the browser. Allows to print the text.</string>
-  <string name="btn_clearData">Clear</string>
-  <string name="btn_clearData_tt">All values are set to zero!</string>
-  <string name="btn_addTransitions">Transitions</string>
-  <string name="btn_addTransitions_tt">All possible transitions are added as test cases. Is used to create test cases to test the simulator itself.</string>
-  <string name="btn_newName">New Name</string>
-  <string name="btn_saveAnyway">Save anyway</string>
+    <string name="btn_editDetached">Edit detached</string>
+    <string name="btn_editDetached_tt">Opens the dialog as a non modal dialog</string>
+    <string name="btn_openInBrowser">Browser</string>
+    <string name="btn_openInBrowser_tt">Opens help text in the browser. Allows to print the text.</string>
+    <string name="btn_clearData">Clear</string>
+    <string name="btn_clearData_tt">All values are set to zero!</string>
+    <string name="btn_addTransitions">Transitions</string>
+    <string name="btn_addTransitions_tt">All possible transitions are added as test cases. Is used to create test cases
+        to test the simulator itself.
+    </string>
+    <string name="btn_newName">New Name</string>
+    <string name="btn_saveAnyway">Save anyway</string>
   <string name="btn_overwrite">Overwrite</string>
   <string name="btn_apply">Apply</string>
   <string name="btn_editRom_tt">Edits the content of the selected ROM/EEPROM</string>
@@ -196,16 +198,21 @@
   <string name="elem_LedMatrix">LED-Matrix</string>
   <string name="elem_LedMatrix_tt">A matrix of LEDs. The LEDs are shown in a separate window.
         The LEDs of a column of the display are controlled by a data word. At another input, the current column is
-        selected. So a multiplexed display is realized.
-        The LEDs are able to light up indefinitely in the simulation to prevent the display from flickering.</string>
-  <string name="elem_LedMatrix_pin_r-data">The row state of the LEDs of a column.
-        Each bit in this data word represents the state of a row of the current column.</string>
-  <string name="elem_LedMatrix_pin_c-addr">The number of the current column whose state is currently visible at the other input.</string>
-  <string name="elem_Data">Data Graph</string>
-  <string name="elem_Data_tt">Shows a data plot inside of the circuit panel.
+      selected. So a multiplexed display is realized.
+      The LEDs are able to light up indefinitely in the simulation to prevent the display from flickering.
+  </string>
+    <string name="elem_LedMatrix_pin_r-data">The row state of the LEDs of a column.
+        Each bit in this data word represents the state of a row of the current column.
+    </string>
+    <string name="elem_LedMatrix_pin_c-addr">The number of the current column whose state is currently visible at the
+        other input.
+    </string>
+    <string name="elem_Data">Data Graph</string>
+    <string name="elem_Data_tt">Shows a data plot inside of the circuit panel.
         You can plot complete clock cycles or single gate changes.
-        Does not affect the simulation.</string>
-  <string name="elem_RotEncoder">Rotary Encoder</string>
+        Does not affect the simulation.
+    </string>
+    <string name="elem_RotEncoder">Rotary Encoder</string>
     <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder. Used to detect rotational movements.</string>
     <string name="elem_RotEncoder_pin_A">encoder signal A</string>
     <string name="elem_RotEncoder_pin_B">encoder signal B</string>
@@ -234,16 +241,17 @@
     <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
     <string name="elem_MIDI">MIDI</string>
     <string name="elem_MIDI_tt">Uses the MIDI system to play notes.</string>
-  <string name="elem_MIDI_pin_N">Note</string>
-  <string name="elem_MIDI_pin_V">Volume</string>
-  <string name="elem_MIDI_pin_OnOff">If set, this translates to pressing a keyboard key (key down event),
-        if not set, this translates to releasing the key (key up event).</string>
-  <string name="elem_MIDI_pin_en">Enables the component</string>
-  <string name="elem_MIDI_pin_PC">If high, the value at N is used to change the program (instrument).</string>
-  <string name="elem_MIDI_pin_C">Clock</string>
-  <!-- Wires -->
-  <string name="elem_Ground">Ground</string>
-  <string name="elem_Ground_tt">A connection to ground. Output is always zero.</string>
+    <string name="elem_MIDI_pin_N">Note</string>
+    <string name="elem_MIDI_pin_V">Volume</string>
+    <string name="elem_MIDI_pin_OnOff">If set, this translates to pressing a keyboard key (key down event),
+        if not set, this translates to releasing the key (key up event).
+    </string>
+    <string name="elem_MIDI_pin_en">Enables the component</string>
+    <string name="elem_MIDI_pin_PC">If high, the value at N is used to change the program (instrument).</string>
+    <string name="elem_MIDI_pin_C">Clock</string>
+    <!-- Wires -->
+    <string name="elem_Ground">Ground</string>
+    <string name="elem_Ground_tt">A connection to ground. Output is always zero.</string>
   <string name="elem_Ground_pin_out">Output always returns 0.</string>
   <string name="elem_VDD">Supply voltage</string>
   <string name="elem_VDD_tt">A connection to the supply voltage. Output is always one.</string>
@@ -1078,28 +1086,34 @@
   <string name="key_ExpressionFormat">Format</string>
   <string name="key_ExpressionFormat_tt">Screen format of expressions.</string>
   <string name="key_relayNormallyClosed">Relay is normally closed.</string>
-  <!-- Relay -->
-  <string name="key_relayNormallyClosed_tt">If set the relay is closed if the input is low.</string>
-  <string name="key_poles">Pole count</string>
-  <!-- Relay -->
-  <string name="key_poles_tt">Number of poles available.</string>
-  <string name="key_commonCathode">Common Connection</string>
-  <!-- Seven-Seg -->
-  <string name="key_commonCathode_tt">If selected, a common cathode or anode input is also simulated.</string>
-  <string name="key_ledPersistence">Avoid Flicker</string>
-  <!-- Seven-Seg, LedMatrix -->
-  <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering disappears.
-        With this option you can stabilize the display by keeping the LEDs on until the common cathode goes down again.
-        This simulates a frequency above the critical flicker fusion frequency.</string>
-  <string name="key_atf1502Fitter">ATF15xx Fitter</string>
-  <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF15xx.
-        Enter the directory which contains the fit15xx.exe files provided by Microchip (former ATMEL).</string>
-  <string name="key_pin">Pin number</string>
-  <string name="key_pin_tt">An empty field means this signal is not assigned to a pin.</string>
-  <string name="key_rowDataBits">Rows</string>
-  <!-- LedMatrix -->
-  <string name="key_rowDataBits_tt">Specifies the number of rows by specifying the number of bits of the row word.</string>
-  <string name="key_colAddrBits">Address bits of columns</string>
+    <!-- Relay -->
+    <string name="key_relayNormallyClosed_tt">If set the relay is closed if the input is low.</string>
+    <string name="key_poles">Pole count</string>
+    <!-- Relay -->
+    <string name="key_poles_tt">Number of poles available.</string>
+    <string name="key_commonCathode">Common Connection</string>
+    <!-- Seven-Seg -->
+    <string name="key_commonCathode_tt">If selected, a common cathode or anode input is also simulated.</string>
+    <string name="key_ledPersistence">Avoid Flicker</string>
+    <!-- Seven-Seg, LedMatrix -->
+    <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering
+        disappears.
+        In order to suppress the flickering nevertheless, a "afterglow" can be switched on for the LEDs with this
+        option.
+        If enabled, the LEDs remain on, even if one of the pins changes to high-z.
+        This simulates a frequency above the critical flicker fusion frequency.
+    </string>
+    <string name="key_atf1502Fitter">ATF15xx Fitter</string>
+    <string name="key_atf1502Fitter_tt">Path to the fitter for the ATF15xx.
+        Enter the directory which contains the fit15xx.exe files provided by Microchip (former ATMEL).
+    </string>
+    <string name="key_pin">Pin number</string>
+    <string name="key_pin_tt">An empty field means this signal is not assigned to a pin.</string>
+    <string name="key_rowDataBits">Rows</string>
+    <!-- LedMatrix -->
+    <string name="key_rowDataBits_tt">Specifies the number of rows by specifying the number of bits of the row word.
+    </string>
+    <string name="key_colAddrBits">Address bits of columns</string>
   <!-- LedMatrix -->
   <string name="key_colAddrBits_tt">Addresses the individual columns. Three bits means eight columns.</string>
   <string name="key_lockedMode">Modification locked</string>
@@ -1628,103 +1642,121 @@ Make sure the flash process is complete before closing this dialog!</string>
   <string name="msg_expressionHelp">To define an expression you can use all most common notations:
 
         And: "&amp;", "&amp;&amp;", "*", "∧"
-        Or: "|", "||", "+", "∨", "#"
-        XOr: "^", "⊻"
-        Not: "!", "~", "¬"
+      Or: "|", "||", "+", "∨", "#"
+      XOr: "^", "⊻"
+      Not: "!", "~", "¬"
 
-        As usual AND precedes OR and XOr.
+      As usual AND precedes OR and XOr.
 
-        Multiple expressions can be separated by "," or ";".
-        If you want to name the expressions you can use the
-        let-command: "let U=A+B, let V=A*B"</string>
-  <string name="msg_testVectorHelpTitle">Test vectors</string>
-  <string name="msg_testVectorHelp"><![CDATA[<html>
-    <head><style>pre { background-color: #E0E0E0;}</style></head>
-    <body>
-<p>The first line has to contain the names of inputs and outputs.
-The following lines contain the expected values.
-A 'X' represents a don't care, and a 'Z' represents a high Z value.
-If a 'C' is used, at first all other values are set, after that a clock cycle is performed and than the
-values are compared. So it's easier to test sequential logic.
-A line which starts with a number sign ('#') is a comment.</p>
+      Multiple expressions can be separated by "," or ";".
+      If you want to name the expressions you can use the
+      let-command: "let U=A+B, let V=A*B"
+  </string>
+    <string name="msg_testVectorHelpTitle">Test vectors</string>
+    <string name="msg_testVectorHelp">&lt;html&gt;
+        &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
+        &lt;body&gt;
+        &lt;p&gt;The first line has to contain the names of inputs and outputs.
+        The following lines contain the expected values.
+        A 'X' represents a don't care, and a 'Z' represents a high Z value.
+        If a 'C' is used, at first all other values are set, after that a clock cycle is performed and than the
+        values are compared. So it's easier to test sequential logic.
+        A line which starts with a number sign ('#') is a comment.&lt;/p&gt;
 
-<p>So a test for a 2-bit counter could look like this:</p>
+        &lt;p&gt;So a test for a 2-bit counter could look like this:&lt;/p&gt;
 
-<pre>
-C Q1 Q0
-0 0  0
-C 0  1
-C 1  0
-C 1  1
-C 0  0
-</pre>
+        &lt;pre&gt;
+        C Q1 Q0
+        0 0 0
+        C 0 1
+        C 1 0
+        C 1 1
+        C 0 0
+        &lt;/pre&gt;
 
-<p>The tests are executed by Run->Run Tests.</p>
-<p>
-To make it easier to create a lot of test vectors there is the 'repeat([n])' statement:
-If a line begins with 'repeat([n])', [n] test lines are generated. The
-Variable 'n' can be used to generate the test data. With 'repeat(16)'
-16 lines are created, where n goes from 0 to 15. If there are multiple bit inputs,
-and these are to be set together to a binary value, this can be done with the
-'bits([bits], [value])' statement. This is used to create [bits] bits of the value [value].</p>
+        &lt;p&gt;The tests are executed by Run-&gt;Run Tests.&lt;/p&gt;
+        &lt;p&gt;
+        To make it easier to create a lot of test vectors there is the 'repeat([n])' statement:
+        If a line begins with 'repeat([n])', [n] test lines are generated. The
+        Variable 'n' can be used to generate the test data. With 'repeat(16)'
+        16 lines are created, where n goes from 0 to 15. If there are multiple bit inputs,
+        and these are to be set together to a binary value, this can be done with the
+        'bits([bits], [value])' statement. This is used to create [bits] bits of the value [value].&lt;/p&gt;
 
-<p>The following is an example that tests a 4-bit adder:</p>
+        &lt;p&gt;The following is an example that tests a 4-bit adder:&lt;/p&gt;
 
-<pre>
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))
-repeat(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
-</pre>
+        &lt;pre&gt;
+        C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+        repeat(256) 0 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15))
+        repeat(256) 1 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+        &lt;/pre&gt;
 
-<p>The input signals are the carry-in (C_i-1) and the eight input bits A_3-A_0 and B_3-B_0.
-The 4 input bits are generated with the 'bits' instruction. The result (C_i, S_3-S_0) is also generated
-by a 'bits' instruction.
-This happens once with C_i-1 = 0 and in the next line with C_i-1 = 1.
-In this way, 512 test rows are generated which cover all possible input configurations.</p>
-<p>If multiple rows are to be repeated, or if nested loops are required, the loop
-statement can be used. The above example could also be implemented as follows:</p>
+        &lt;p&gt;The input signals are the carry-in (C_i-1) and the eight input bits A_3-A_0 and B_3-B_0.
+        The 4 input bits are generated with the 'bits' instruction. The result (C_i, S_3-S_0) is also generated
+        by a 'bits' instruction.
+        This happens once with C_i-1 = 0 and in the next line with C_i-1 = 1.
+        In this way, 512 test rows are generated which cover all possible input configurations.&lt;/p&gt;
+        &lt;p&gt;If multiple rows are to be repeated, or if nested loops are required, the loop
+        statement can be used. The above example could also be implemented as follows:&lt;/p&gt;
 
-<pre>
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-loop(a,16)
-  loop(b,16)
-             0    bits(4,a)        bits(4,b)        bits(5,a+b)
-             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
-  end loop
-end loop
-</pre>
+        &lt;pre&gt;
+        C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+        loop(a,16)
+        loop(b,16)
+        0 bits(4,a) bits(4,b) bits(5,a+b)
+        1 bits(4,a) bits(4,b) bits(5,a+b+1)
+        end loop
+        end loop
+        &lt;/pre&gt;
 
-<p>It may be helpful to generate random numbers in test cases.
-These can be created with the function 'random([n])'. The generated number is greater
-than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
-a full test can not be performed since it would have 2^32 input combinations.
-A regression test that multiplies 100000 random numbers might look like this:</p>
+        &lt;p&gt;Under certain circumstances it may be necessary to be able to react to the initial
+        state of the circuit. Therefore the signals provided in the circuit can be used within
+        the test case. For example, if a counter that starts in an undefined state is to be
+        tested, it can be clocked to a defined state:&lt;/p&gt;
 
-<pre>
-   A    B      Y
-loop(i,100000)
-  let a = random(1&lt;&lt;16);
-  let b = random(1&lt;&lt;16);
-  (a)  (b)   (a*b)
-end loop
-</pre>
+        &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
 
-<p>An input that allows high impedance as a value can also be used as a test output.
-In this case, the signal name can be used with a trailing "_out" to read back and check the current value.
-For this, the corresponding input must be set to high impedance ('Z').</p>
+        # clock counter to 1111
+        while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
+        C x x x x
+        end while
 
-<pre>OE CLK D D_out
-0   0  0 0
-0   C  1 1
-1   0  z 1
-0   C  0 0
-1   0  z 0
-</pre>
+        # start the test execution
+        repeat(16) C bits(4,n)
+        &lt;/pre&gt;
 
-<p>The circuit for this test has only one input 'D', but which can be high impedance state.
-Therefore, the signal 'D_out' is also available to check the value in this case.</p>
+        &lt;p&gt;It may be helpful to generate random numbers in test cases.
+        These can be created with the function 'random([n])'. The generated number is greater
+        than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
+        a full test can not be performed since it would have 2^32 input combinations.
+        A regression test that multiplies 100000 random numbers might look like this:&lt;/p&gt;
 
-</body></html>]]></string>
+        &lt;pre&gt;
+        A B Y
+        loop(i,100000)
+        let a = random(1&amp;lt;&amp;lt;16);
+        let b = random(1&amp;lt;&amp;lt;16);
+        (a) (b) (a*b)
+        end loop
+        &lt;/pre&gt;
+
+        &lt;p&gt;An input that allows high impedance as a value can also be used as a test output.
+        In this case, the signal name can be used with a trailing "_out" to read back and check the current value.
+        For this, the corresponding input must be set to high impedance ('Z').&lt;/p&gt;
+
+        &lt;pre&gt;OE CLK D D_out
+        0 0 0 0
+        0 C 1 1
+        1 0 z 1
+        0 C 0 0
+        1 0 z 0
+        &lt;/pre&gt;
+
+        &lt;p&gt;The circuit for this test has only one input 'D', but which can be high impedance state.
+        Therefore, the signal 'D_out' is also available to check the value in this case.&lt;/p&gt;
+
+        &lt;/body&gt;&lt;/html&gt;
+    </string>
   <string name="fsm_title">Finite State Machine</string>
   <string name="fsm_noMove">no movement</string>
   <string name="fsm_moveTrans">Transitions</string>
@@ -1861,16 +1893,17 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
         If you move the mouse over the toolbar, tool tips are shown.</string>
   <string name="tutorial8">The simulation is now active. Switch the inputs by clicking on them.</string>
   <string name="tutorial9">To stop the simulation, click on the Stop button in the toolbar.</string>
-  <string name="tutorial10">For completeness, the inputs and outputs should be labeled.
+    <string name="tutorial10">For completeness, the inputs and outputs should be labeled.
 
         Right-click on an input to open a dialog. On MacOS control-click is used.
-        Here the input can be given a name.</string>
-  <string name="tutorial11">Label all inputs and outputs.</string>
-  <string name="tutorialUniqueIdents">Inputs and outputs should always be uniquely named.</string>
-  <string name="tutorialNotNeeded">Skip Tutorial</string>
-  <string name="msg_fsmTransition">Transition</string>
-  <string name="msg_fsmState">State</string>
-  <string name="elem_Seven-Seg_pin_ca">Common anode. To turn on the LEDs, this input needs to be high.</string>
+        Here the input can be given a name.
+    </string>
+    <string name="tutorial11">Label all inputs and outputs.</string>
+    <string name="tutorialUniqueIdents">Inputs and outputs should always be uniquely named.</string>
+    <string name="tutorialNotNeeded">Skip Tutorial</string>
+    <string name="msg_fsmTransition">Transition</string>
+    <string name="msg_fsmState">State</string>
+    <string name="elem_Seven-Seg_pin_ca">Common anode. To turn on the LEDs, this input needs to be high.</string>
     <string name="key_commonConnectionType">Common</string>
     <string name="key_commonConnectionType_tt">Kind of common connection.</string>
     <string name="key_commonConnectionType_cathode">Cathode</string>
@@ -1994,4 +2027,103 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
         edge of the clock are not calculated until the circuit has stabilized after the previous rising edge.
         &lt;/body&gt;&lt;/html&gt;
     </string>
+    <string name="elem_StepperMotorUnipolar">Stepper Motor, unipolar</string>
+    <string name="elem_StepperMotorUnipolar_tt">Unipolar stepper motor with two limit position switches.
+        Full step drive, half step drive and wave drive are supported.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S0">Limit position switch 0, becomes 1 when the motor angle is 0°.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S1">Limit position switch 1, becomes 1 when the motor angle is 180°.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_P0">Phase 0</string>
+    <string name="elem_StepperMotorUnipolar_pin_P1">Phase 1</string>
+    <string name="elem_StepperMotorUnipolar_pin_P2">Phase 2</string>
+    <string name="elem_StepperMotorUnipolar_pin_P3">Phase 3</string>
+    <string name="elem_StepperMotorUnipolar_pin_com">Common center coil connection</string>
+    <string name="elem_StepperMotorBipolar">Stepper Motor, bipolar</string>
+    <string name="elem_StepperMotorBipolar_tt">Bipolar stepper motor with two limit position switches.
+        Full step drive, half step drive and wave drive are supported.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S0">Limit position switch 0, becomes 1 when the motor angle is 0°.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S1">Limit position switch 1, becomes 1 when the motor angle is 180°.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_A+">Coil A, positive</string>
+    <string name="elem_Stop">Stop</string>
+    <string name="elem_Stop_tt">A rising edge at the input stops the simulation.
+        Has the same effect as pressing the Stop button in the toolbar.
+    </string>
+    <string name="elem_Stop_pin_stop">A rising edge stops the simulation.</string>
+    <string name="err_ROM_noFileGivenToLoad">There is no file name available for the automatic reload!</string>
+    <string name="attr_panel_Options">Options</string>
+    <string name="key_ghdlOptions">GHDL Options</string>
+    <string name="key_ghdlOptions_tt">Options that are used for all processing steps by GHDL.</string>
+    <string name="key_layoutShapeDelta">Pin Separator</string>
+    <string name="key_layoutShapeDelta_tt">Used by the layout shape type. Sets the distance to the previous pin.
+    </string>
+    <string name="key_colorScheme">Color-Scheme</string>
+    <string name="key_colorScheme_DEFAULT">Normal</string>
+    <string name="key_colorScheme_COLOR_BLIND">red/green colorblind</string>
+    <string name="key_colorScheme_CUSTOM">User Defined</string>
+    <string name="menu_colorSchemePreset">Preset</string>
+    <string name="key_customColorScheme">User Defined Colors</string>
+    <string name="colorName_BACKGROUND">Background</string>
+    <string name="colorName_MAIN">Foreground</string>
+    <string name="colorName_WIRE">Wire</string>
+    <string name="colorName_WIRE_HIGH">Wire HIGH</string>
+    <string name="colorName_WIRE_LOW">Wire LOW</string>
+    <string name="colorName_WIRE_VALUE">Value at the wire</string>
+    <string name="colorName_WIRE_OUT">Output</string>
+    <string name="colorName_WIRE_Z">Wire HIGH-Z</string>
+    <string name="colorName_ERROR">Error</string>
+    <string name="colorName_PASSED">Ok</string>
+    <string name="colorName_PINS">Pins</string>
+    <string name="colorName_GRID">Grid</string>
+    <string name="colorName_TESTCASE">Test case</string>
+    <string name="colorName_DISABLED">Disabled</string>
+    <string name="colorName_ASYNC">Asynchronous</string>
+    <string name="colorName_HIGHLIGHT">Highlighted</string>
+    <string name="lib_displays">Displays</string>
+    <string name="lib_mechanic">Mechanical</string>
+    <string name="lib_peripherals">Peripherals</string>
+    <string name="cli_cli">Command Line Interface</string>
+    <string name="cli_nonOptionalArgumentMissing_N">The non-optional argument {0} is missing.</string>
+    <string name="cli_notABool_N">The value {0} is no bool.</string>
+    <string name="cli_notANumber_N">The value {0} is not a number.</string>
+    <string name="cli_noArgument_N_available">The argument {0} is not defined.</string>
+    <string name="cli_notEnoughArgumentsGiven">There are not enough arguments.</string>
+    <string name="cli_toMuchArguments">There are too many arguments.</string>
+    <string name="cli_invalidType_N">Invalid type.</string>
+    <string name="cli_command_N_hasNoSubCommand_N">The command {0} has no sub-command {1}.</string>
+    <string name="cli_options">Options:</string>
+    <string name="cli_help_test">The first file name specifies the circuit to be tested.
+        If a second file name is specified, the test cases are executed from this file.
+        If no second file name is specified, the tests are executed from the first file.
+    </string>
+    <string name="cli_help_test_circ">Name of the file to be tested.</string>
+    <string name="cli_help_test_tests">Name of a file with test cases.</string>
+    <string name="cli_help_test_allowMissingInputs">Allows the missing of inputs in the circuit which are
+        defined in the test case. This can be useful if there are several possible solutions which may
+        depend on different inputs.
+    </string>
+    <string name="cli_thereAreTestFailures">Tests have failed.</string>
+    <string name="cli_errorExecutingTests">An error has occurred during the execution of the tests.</string>
+    <string name="cli_help_svg">Can be used to create an SVG file from a circuit.</string>
+    <string name="cli_help_svg_dig">The file name of the circuit.</string>
+    <string name="cli_help_svg_svg">The name of the SVG file to be written.</string>
+    <string name="cli_help_svg_ieee">Use of the IEEE symbols.</string>
+    <string name="cli_errorCreatingSVG">Error while creating the SVG file!</string>
+    <string name="cli_help_stats">Creates a CSV file which contains the circuit statistics.
+        All components used are listed in the CSV file.
+    </string>
+    <string name="cli_help_stats_dig">File name of the circuit.</string>
+    <string name="cli_help_stats_csv">Name of the csv file to be created.
+        If this option is missing, the table is written to stdout.
+    </string>
+    <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
+    <string name="menu_table_exportTablePlainText">Export Plain Text</string>
+    <string name="elem_StepperMotorBipolar_pin_A-">Coil A, negative</string>
+    <string name="elem_StepperMotorBipolar_pin_B+">Coil B, positive</string>
+    <string name="elem_StepperMotorBipolar_pin_B-">Coil B, negative</string>
+    <string name="key_colorScheme_DARK">Dark</string>
 </resources>
