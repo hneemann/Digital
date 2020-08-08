@@ -44,6 +44,7 @@ import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -181,7 +182,7 @@ public final class EditorFactory {
         public StringEditor(String value, Key<String> key) {
             if (key instanceof Key.LongString) {
                 Key.LongString k = (Key.LongString) key;
-                text = new JTextArea(k.getRows(), k.getColumns());
+                text = addF1Traversal(new JTextArea(k.getRows(), k.getColumns()));
                 final JScrollPane scrollPane = new JScrollPane(text);
 
                 if (k.getLineNumbers()) {
@@ -214,7 +215,7 @@ public final class EditorFactory {
 
                 setLabelAtTop(true);
             } else {
-                text = new JTextField(10);
+                text = addF1Traversal(new JTextField(10));
                 compToAdd = text;
             }
             text.setText(value);
@@ -292,6 +293,20 @@ public final class EditorFactory {
         public JTextComponent getTextComponent() {
             return text;
         }
+    }
+
+    /**
+     * Adds F1 as a focus traversal key to a text components.
+     *
+     * @param text The text component
+     * @param <TC> the concrete type of the text component
+     * @return the given text component
+     */
+    public static <TC extends JTextComponent> TC addF1Traversal(TC text) {
+        HashSet<AWTKeyStroke> set = new HashSet<>(text.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+        set.add(KeyStroke.getKeyStroke("F1"));
+        text.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
+        return text;
     }
 
     private final static class IntegerEditor extends LabelEditor<Integer> {

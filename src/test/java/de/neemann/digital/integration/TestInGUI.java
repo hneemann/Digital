@@ -212,7 +212,8 @@ public class TestInGUI extends TestCase {
                 .press("ENTER")
                 .press("control typed a")
                 .type("a b + b c")
-                .press("TAB", 2)
+                .press("F1", 1)
+                .press("TAB", 1)
                 .press("SPACE")
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(Main.class,

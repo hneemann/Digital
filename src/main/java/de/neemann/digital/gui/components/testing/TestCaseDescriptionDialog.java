@@ -25,7 +25,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.HashSet;
+
+import static de.neemann.digital.gui.components.EditorFactory.addF1Traversal;
 
 /**
  * Dialog to show and edit the testing data source.
@@ -48,12 +49,8 @@ public class TestCaseDescriptionDialog extends JDialog {
 
         String initialDataString = data.getDataString();
 
-        JTextArea text = new JTextArea(data.getDataString(), 30, 50);
+        JTextArea text = addF1Traversal(new JTextArea(data.getDataString(), 30, 50));
         text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, Screen.getInstance().getFontSize()));
-
-        HashSet<AWTKeyStroke> set = new HashSet<>(text.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
-        set.add(KeyStroke.getKeyStroke("F1"));
-        text.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
 
         JScrollPane scrollPane = new JScrollPane(text);
         getContentPane().add(scrollPane);

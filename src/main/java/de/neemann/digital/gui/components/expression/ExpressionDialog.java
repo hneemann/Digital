@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
 
+import static de.neemann.digital.gui.components.EditorFactory.addF1Traversal;
+
 /**
  * Dialog to enter an expression.
  * Creates a new frame with a circuit generated from the entered expression.
@@ -42,7 +44,7 @@ public class ExpressionDialog extends JDialog {
         super(parent, Lang.get("expression"), false);
 
         String exampleEquation = "(C ∨ B) ∧ (A ∨ C) ∧ (B ∨ !C) * (C + !A)";
-        JTextArea text = new JTextArea(exampleEquation, 5, 40);
+        JTextArea text = addF1Traversal(new JTextArea(exampleEquation, 5, 40));
         getContentPane().add(new JScrollPane(text), BorderLayout.CENTER);
         getContentPane().add(new JLabel(Lang.get("msg_enterAnExpression")), BorderLayout.NORTH);
 
