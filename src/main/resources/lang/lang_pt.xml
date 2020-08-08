@@ -2082,7 +2082,7 @@
     <string name="colorName_DISABLED">Desabilitado</string>
     <string name="colorName_ASYNC">Assíncrono</string>
     <string name="colorName_HIGHLIGHT">Destacado</string>
-    <string name="lib_displays">Mostrar</string>
+    <string name="lib_displays">Displays</string>
     <string name="lib_mechanic">Mecânica</string>
     <string name="lib_peripherals">Periféricos-</string>
     <string name="cli_cli">Interface para a linha de comandos</string>
