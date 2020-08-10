@@ -1,12 +1,12 @@
 Release Notes
 
-Head, planned as v0.25
+v0.25, released on 10. Aug. 2020
 - Color schemes have been added to support color-blind users.
 - Unipolar and bipolar stepper motors were added.
 - Moved the "lib" folder from the "examples" folder to the root folder.
   - In case you have added your own library circuits, you have to move
     them manually as well.
-- Reordering of the cells in the K-Map
+- Reordering of the cells in the K-Map.
 - Counters are able to act as program counters via the remote interface.
 - The circuits created have a more visible separation of the inputs.
 - The hex seven seg display is switched off in case of a high-z input.
