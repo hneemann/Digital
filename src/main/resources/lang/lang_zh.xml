@@ -1272,24 +1272,40 @@ In this way, 512 test rows are generated which cover all possible input configur
 statement can be used. The above example could also be implemented as follows:&lt;/p&gt;
 
 &lt;pre&gt;
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-loop(a,16)
-  loop(b,16)
-             0    bits(4,a)        bits(4,b)        bits(5,a+b)
-             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
-  end loop
-end loop
-&lt;/pre&gt;
+      C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+      loop(a,16)
+      loop(b,16)
+      0 bits(4,a) bits(4,b) bits(5,a+b)
+      1 bits(4,a) bits(4,b) bits(5,a+b+1)
+      end loop
+      end loop
+      &lt;/pre&gt;
 
-&lt;p&gt;It may be helpful to generate random numbers in test cases.
-These can be created with the function 'random([n])'. The generated number is greater
-than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
-a full test can not be performed since it would have 2^32 input combinations.
-A regression test that multiplies 100000 random numbers might look like this:&lt;/p&gt;
+      &lt;p&gt;Under certain circumstances it may be necessary to be able to react to the initial
+      state of the circuit. Therefore the signals provided in the circuit can be used within
+      the test case. For example, if a counter that starts in an undefined state is to be
+      tested, it can be clocked to a defined state:&lt;/p&gt;
 
-&lt;pre&gt;
-   A    B      Y
-loop(i,100000)
+      &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
+
+      # clock counter to 1111
+      while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
+      C x x x x
+      end while
+
+      # start the test execution
+      repeat(16) C bits(4,n)
+      &lt;/pre&gt;
+
+      &lt;p&gt;It may be helpful to generate random numbers in test cases.
+      These can be created with the function 'random([n])'. The generated number is greater
+      than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
+      a full test can not be performed since it would have 2^32 input combinations.
+      A regression test that multiplies 100000 random numbers might look like this:&lt;/p&gt;
+
+      &lt;pre&gt;
+      A B Y
+      loop(i,100000)
   let a = random(1&amp;lt;&amp;lt;16);
   let b = random(1&amp;lt;&amp;lt;16);
   (a)  (b)   (a*b)
@@ -1487,28 +1503,30 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="key_barrelShifterMode_logical">逻辑</string>
   <string name="key_barrelShifterMode_rotate">环绕</string>
   <string name="key_barrelShifterMode_arithmetic">算术</string>
-  <string name="key_microStep">显示单步</string>
-  <string name="key_microStep_tt">在图形中显示所有单步</string>
-  <string name="key_showDataGraphMicro">以单步模式显示测量图</string>
-  <string name="key_showDataGraphMicro_tt">当仿真启动时，以单步模式显示测量图。</string>
-  <string name="key_Testdata_tt">测试用例描述，详细的语法可以在测试数据编辑器帮助对话框查看。</string>
-  <string name="key_isProgramCounter_tt">将该寄存器作为程序计数器。寄存器的值返回给外部汇编器，用来表示当前调试代码行。</string>
-  <string name="key_relayNormallyClosed">闭合寄存器</string>
-  <string name="key_relayNormallyClosed_tt">输入输入为低电平，继电器闭合</string>
-  <string name="key_poles">极数</string>
-  <string name="key_poles_tt">可用极数</string>
-  <string name="key_ledPersistence_tt">不可能将频率增加得太多以至于使闪烁消失。
-      使用此选项，您可以通过保持LED点亮直到公共阴极再次下降来稳定显示，从而模拟高于临界闪烁融合频率的频率。</string>
-  <string name="key_unidirectional_tt">单向晶体管仅将信号从源极传播到漏极。仿真时，比双向晶体管快很多。
-      由于没有从漏极到源极的反馈，因此在这种模式下，晶体管导通时无法使连接的导线短路。此模式对于模拟某些CMOS电路是必需的。</string>
-  <string name="key_externalInputs_tt">外部进程的输入端口。格式为逗号分割的信号名称，对于每个信号，可通过冒号指定位数。如8位加法器的输入可表示为 "a:8,b:8,c_in"。</string>
-  <string name="key_externalOutputs_tt">外部进程的输出端口。格式为逗号分割的信号名称，对于每个信号，可通过冒号指定位数。如8位加法器的输出可表示为 "s:8,c_out"。</string>
-  <string name="key_ghdlPath_tt">可执行文件ghdl路径。仅当需要使用 ghdl 仿真 vhdl 组件时设置。</string>
-  <string name="key_midiChannel">MIDI通道</string>
-  <string name="key_midiChannel_tt">选择需要使用的 MIDI通道</string>
-  <string name="key_midiInstrument">MIDI 设备</string>
-  <string name="key_midiInstrument_tt">选择需要使用的 MIDI 设备</string>
-  <string name="key_midiProgChange">允许改变程序</string>
+    <string name="key_microStep">显示单步</string>
+    <string name="key_microStep_tt">在图形中显示所有单步</string>
+    <string name="key_showDataGraphMicro">以单步模式显示测量图</string>
+    <string name="key_showDataGraphMicro_tt">当仿真启动时，以单步模式显示测量图。</string>
+    <string name="key_Testdata_tt">测试用例描述，详细的语法可以在测试数据编辑器帮助对话框查看。</string>
+    <string name="key_isProgramCounter_tt">将该寄存器作为程序计数器。寄存器的值返回给外部汇编器，用来表示当前调试代码行。</string>
+    <string name="key_relayNormallyClosed">闭合寄存器</string>
+    <string name="key_relayNormallyClosed_tt">输入输入为低电平，继电器闭合</string>
+    <string name="key_poles">极数</string>
+    <string name="key_poles_tt">可用极数</string>
+    <string name="key_ledPersistence_tt">不能将频率增加得太多以至于使闪烁消失。尽管如此，为了抑制闪烁，可以使用此选项为LED开启“余辉”。 当启用时，即使某个引脚变为高阻，LED仍保持点亮状态。
+        这模拟了高于临界闪烁融合频率的频率。
+    </string>
+    <string name="key_unidirectional_tt">单向晶体管仅将信号从源极传播到漏极。仿真时，比双向晶体管快很多。
+        由于没有从漏极到源极的反馈，因此在这种模式下，晶体管导通时无法使连接的导线短路。此模式对于模拟某些CMOS电路是必需的。
+    </string>
+    <string name="key_externalInputs_tt">外部进程的输入端口。格式为逗号分割的信号名称，对于每个信号，可通过冒号指定位数。如8位加法器的输入可表示为 "a:8,b:8,c_in"。</string>
+    <string name="key_externalOutputs_tt">外部进程的输出端口。格式为逗号分割的信号名称，对于每个信号，可通过冒号指定位数。如8位加法器的输出可表示为 "s:8,c_out"。</string>
+    <string name="key_ghdlPath_tt">可执行文件ghdl路径。仅当需要使用 ghdl 仿真 vhdl 组件时设置。</string>
+    <string name="key_midiChannel">MIDI通道</string>
+    <string name="key_midiChannel_tt">选择需要使用的 MIDI通道</string>
+    <string name="key_midiInstrument">MIDI 设备</string>
+    <string name="key_midiInstrument_tt">选择需要使用的 MIDI 设备</string>
+    <string name="key_midiProgChange">允许改变程序</string>
   <string name="key_midiProgChange_tt">增加一个新的输入端口(PC)，如果该输入为高电平，输入端口 N 的值用于改变程序(设备)</string>
   <string name="key_switchActsAsInput">开关行为输入化</string>
   <string name="key_switchActsAsInput_tt">开关行为类似输入，开对应 0，关对应 1。</string>
@@ -1658,14 +1676,72 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
       different names. The lexical order then determines the order of the RAMs.</string>
   <string name="err_midiSystemNotAvailable">MIDI 系统不可用。</string>
   <string name="err_midiChannel_N_NotAvailable">MIDI 通道 {0} 不可用。</string>
-  <string name="err_midiInstrument_N_NotAvailable">MIDI 设备 {0} 不可用。</string>
-  <string name="err_midiInstrumentsNotAvailable">MIDI 设备不可用</string>
-  <string name="err_whileExecutingTests_N0">执行测试 "{0}" 时遇到错误！</string>
-  <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
-  <string name="err_thereIsAUnnamedIO">未命名的输入或者输出端口！</string>
-  <string name="err_NameOfIOIsInvalidOrNotUnique_N">信号名称 "{0}" 无效或多次使用！</string>
-  <string name="err_substitutingError">Error when substituting components for the analysis.</string>
-  <string name="err_evaluatingGenericsCode_N_N">Error in the evaluation of the generic code of the circuit. Code
-      {1}
-      at Component: {0}</string>
+    <string name="err_midiInstrument_N_NotAvailable">MIDI 设备 {0} 不可用。</string>
+    <string name="err_midiInstrumentsNotAvailable">MIDI 设备不可用</string>
+    <string name="err_whileExecutingTests_N0">执行测试 "{0}" 时遇到错误！</string>
+    <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
+    <string name="err_thereIsAUnnamedIO">未命名的输入或者输出端口！</string>
+    <string name="err_NameOfIOIsInvalidOrNotUnique_N">信号名称 "{0}" 无效或多次使用！</string>
+    <string name="err_substitutingError">Error when substituting components for the analysis.</string>
+    <string name="err_evaluatingGenericsCode_N_N">Error in the evaluation of the generic code of the circuit. Code
+        {1}
+        at Component: {0}
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_com">共中心连接</string>
+    <string name="elem_Stop">停止</string>
+    <string name="elem_Stop_tt">上升沿时停止仿真，效果同工具栏中的停止按钮</string>
+    <string name="elem_Stop_pin_stop">升沿时停止仿真</string>
+    <string name="err_ROM_noFileGivenToLoad">自动重新载入的文件名无效</string>
+    <string name="key_colorScheme">颜色方案</string>
+    <string name="key_colorScheme_DEFAULT">正常</string>
+    <string name="key_colorScheme_DARK">深色</string>
+    <string name="key_colorScheme_COLOR_BLIND">红绿色盲</string>
+    <string name="key_colorScheme_CUSTOM">自定义</string>
+    <string name="menu_colorSchemePreset">预设</string>
+    <string name="key_customColorScheme">自定义颜色</string>
+    <string name="colorName_BACKGROUND">背景色</string>
+    <string name="colorName_MAIN">前景色</string>
+    <string name="colorName_WIRE">导线</string>
+    <string name="colorName_WIRE_HIGH">高电平</string>
+    <string name="colorName_WIRE_LOW">低电平</string>
+    <string name="colorName_WIRE_VALUE">导线值</string>
+    <string name="colorName_WIRE_OUT">输出</string>
+    <string name="colorName_WIRE_Z">高阻</string>
+    <string name="colorName_ERROR">错误</string>
+    <string name="colorName_PASSED">正常</string>
+    <string name="colorName_PINS">管教</string>
+    <string name="colorName_GRID">栅格</string>
+    <string name="colorName_TESTCASE">测试用例</string>
+    <string name="colorName_DISABLED">禁用</string>
+    <string name="colorName_ASYNC">异步</string>
+    <string name="colorName_HIGHLIGHT">高亮</string>
+    <string name="cli_cli">命令行界面</string>
+    <string name="cli_nonOptionalArgumentMissing_N">缺少非可选参数 {0}</string>
+    <string name="cli_notABool_N">{0} 不是布尔类型</string>
+    <string name="cli_notANumber_N">{0} 不是数字</string>
+    <string name="cli_noArgument_N_available">参数 {0} 未定义</string>
+    <string name="cli_notEnoughArgumentsGiven">缺少参数</string>
+    <string name="cli_toMuchArguments">太多参数</string>
+    <string name="cli_invalidType_N">无效类型</string>
+    <string name="cli_command_N_hasNoSubCommand_N">{0} 没有子命令 {1}</string>
+    <string name="cli_options">选项</string>
+    <string name="cli_help_test">第一个文件名指定将要被测的电路。如果指定第二个文件名，则执行该文件中的测试用例。</string>
+    <string name="cli_help_test_circ">待测文件的文件名</string>
+    <string name="cli_help_test_tests">测试用例文件的文件名</string>
+    <string name="cli_help_test_allowMissingInputs">Allows the missing of inputs in the circuit which are
+        defined in the test case. This can be useful if there are several possible solutions which may
+        depend on different inputs.
+    </string>
+    <string name="cli_thereAreTestFailures">测试失败</string>
+    <string name="cli_errorExecutingTests">执行测试时发生错误</string>
+    <string name="cli_help_svg">根据电路创建 SVG 文件</string>
+    <string name="cli_help_svg_dig">电路文件名</string>
+    <string name="cli_help_svg_svg">SVG 文件名</string>
+    <string name="cli_help_svg_ieee">使用 IEEE 符号</string>
+    <string name="cli_errorCreatingSVG">创建 SVG 文件遇到错误！</string>
+    <string name="cli_help_stats">创建包含电路统计信息的 CSV 文件。</string>
+    <string name="cli_help_stats_dig">电路文件名</string>
+    <string name="cli_help_stats_csv">CSV 文件名，如果为空，将写入到标准输出。</string>
+    <string name="cli_errorCreatingStats">创建统计文件时遇到错误！</string>
+    <string name="menu_table_exportTablePlainText">导出纯文本</string>
 </resources>

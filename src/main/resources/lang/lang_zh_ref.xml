@@ -1446,24 +1446,40 @@ In this way, 512 test rows are generated which cover all possible input configur
 statement can be used. The above example could also be implemented as follows:&lt;/p&gt;
 
 &lt;pre&gt;
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-loop(a,16)
-  loop(b,16)
-             0    bits(4,a)        bits(4,b)        bits(5,a+b)
-             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
-  end loop
-end loop
-&lt;/pre&gt;
+      C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+      loop(a,16)
+      loop(b,16)
+      0 bits(4,a) bits(4,b) bits(5,a+b)
+      1 bits(4,a) bits(4,b) bits(5,a+b+1)
+      end loop
+      end loop
+      &lt;/pre&gt;
 
-&lt;p&gt;It may be helpful to generate random numbers in test cases.
-These can be created with the function 'random([n])'. The generated number is greater
-than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
-a full test can not be performed since it would have 2^32 input combinations.
-A regression test that multiplies 100000 random numbers might look like this:&lt;/p&gt;
+      &lt;p&gt;Under certain circumstances it may be necessary to be able to react to the initial
+      state of the circuit. Therefore the signals provided in the circuit can be used within
+      the test case. For example, if a counter that starts in an undefined state is to be
+      tested, it can be clocked to a defined state:&lt;/p&gt;
 
-&lt;pre&gt;
-   A    B      Y
-loop(i,100000)
+      &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
+
+      # clock counter to 1111
+      while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
+      C x x x x
+      end while
+
+      # start the test execution
+      repeat(16) C bits(4,n)
+      &lt;/pre&gt;
+
+      &lt;p&gt;It may be helpful to generate random numbers in test cases.
+      These can be created with the function 'random([n])'. The generated number is greater
+      than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
+      a full test can not be performed since it would have 2^32 input combinations.
+      A regression test that multiplies 100000 random numbers might look like this:&lt;/p&gt;
+
+      &lt;pre&gt;
+      A B Y
+      loop(i,100000)
   let a = random(1&amp;lt;&amp;lt;16);
   let b = random(1&amp;lt;&amp;lt;16);
   (a)  (b)   (a*b)
@@ -1697,27 +1713,37 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="key_microStep">Show single gate steps</string>
   <string name="key_microStep_tt">Shows all single step steps in the graphic.</string>
   <string name="key_showDataGraphMicro">Show measurement graph in single gate step mode at simulation start</string>
-  <string name="key_showDataGraphMicro_tt">When the simulation is started, a graph with the measured values in the
-        gate step mode is shown. All gate changes are included in the graph.</string>
-  <string name="key_Testdata_tt">The description of the test case.
-        Details of the syntax can be found in the help dialog of the test data editor.</string>
-  <string name="key_isProgramCounter_tt">Makes this register a program counter. The value of this register is returned
-        to the external assembler IDE to mark the current line of code during debugging.</string>
-  <string name="key_relayNormallyClosed">Relay is normally closed.</string>
-  <string name="key_relayNormallyClosed_tt">If set the relay is closed if the input is low.</string>
-  <string name="key_poles">Pole count</string>
-  <string name="key_poles_tt">Number of poles available.</string>
-  <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering disappears.
-        With this option you can stabilize the display by keeping the LEDs on until the common cathode goes down again.
-        This simulates a frequency above the critical flicker fusion frequency.</string>
-  <string name="key_unidirectional_tt">Unidirectional transistors propagate a signal only from source to drain. They are
+    <string name="key_showDataGraphMicro_tt">When the simulation is started, a graph with the measured values in the
+        gate step mode is shown. All gate changes are included in the graph.
+    </string>
+    <string name="key_Testdata_tt">The description of the test case.
+        Details of the syntax can be found in the help dialog of the test data editor.
+    </string>
+    <string name="key_isProgramCounter_tt">Makes this register a program counter. The value of this register is returned
+        to the external assembler IDE to mark the current line of code during debugging.
+    </string>
+    <string name="key_relayNormallyClosed">Relay is normally closed.</string>
+    <string name="key_relayNormallyClosed_tt">If set the relay is closed if the input is low.</string>
+    <string name="key_poles">Pole count</string>
+    <string name="key_poles_tt">Number of poles available.</string>
+    <string name="key_ledPersistence_tt">It is not possible to increase the frequency so much that the flickering
+        disappears.
+        In order to suppress the flickering nevertheless, a "afterglow" can be switched on for the LEDs with this
+        option.
+        If enabled, the LEDs remain on, even if one of the pins changes to high-z.
+        This simulates a frequency above the critical flicker fusion frequency.
+    </string>
+    <string name="key_unidirectional_tt">Unidirectional transistors propagate a signal only from source to drain. They
+        are
         much faster to simulate than bidirectional transistors. Since there is no feedback from drain to source, in this
         mode, the transistor can not short the connected wires when it is conducting. Thus, this mode is necessary to
-        simulate certain CMOS circuits.</string>
-  <string name="key_externalInputs_tt">The inputs of the external process.
+        simulate certain CMOS circuits.
+    </string>
+    <string name="key_externalInputs_tt">The inputs of the external process.
         It is a comma-separated list of signal names. For each signal name, with a colon separated, a number of bits
-        can be specified. The inputs of an 8-bit adder could thus be described as "a:8,b:8,c_in".</string>
-  <string name="key_externalOutputs_tt">The outputs of the external process.
+        can be specified. The inputs of an 8-bit adder could thus be described as "a:8,b:8,c_in".
+    </string>
+    <string name="key_externalOutputs_tt">The outputs of the external process.
         It is a comma-separated list of signal names. For each signal name, with a colon separated, a number of bits
         can be specified. The outputs of an 8-bit adder could thus be described as "s:8,c_out".</string>
   <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate
@@ -1922,14 +1948,81 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
         different names. The lexical order then determines the order of the RAMs.</string>
   <string name="err_midiSystemNotAvailable">The MIDI-System is not available.</string>
   <string name="err_midiChannel_N_NotAvailable">The MIDI channel {0} is not available.</string>
-  <string name="err_midiInstrument_N_NotAvailable">The MIDI instrument {0} is not available.</string>
-  <string name="err_midiInstrumentsNotAvailable">The MIDI instruments are not available.</string>
-  <string name="err_whileExecutingTests_N0">During the execution of the tests "{0}" an error has occurred!</string>
-  <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
-  <string name="err_thereIsAUnnamedIO">There is a unnamed input or output!</string>
-  <string name="err_NameOfIOIsInvalidOrNotUnique_N">The signal name "{0}" is invalid or used multiple times!</string>
-  <string name="err_substitutingError">Error when substituting components for the analysis.</string>
-  <string name="err_evaluatingGenericsCode_N_N">Error in the evaluation of the generic code of the circuit. Code
+    <string name="err_midiInstrument_N_NotAvailable">The MIDI instrument {0} is not available.</string>
+    <string name="err_midiInstrumentsNotAvailable">The MIDI instruments are not available.</string>
+    <string name="err_whileExecutingTests_N0">During the execution of the tests "{0}" an error has occurred!</string>
+    <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
+    <string name="err_thereIsAUnnamedIO">There is a unnamed input or output!</string>
+    <string name="err_NameOfIOIsInvalidOrNotUnique_N">The signal name "{0}" is invalid or used multiple times!</string>
+    <string name="err_substitutingError">Error when substituting components for the analysis.</string>
+    <string name="err_evaluatingGenericsCode_N_N">Error in the evaluation of the generic code of the circuit. Code
         {1}
-        at Component: {0}</string>
+        at Component: {0}
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_com">Common center coil connection</string>
+    <string name="elem_Stop">Stop</string>
+    <string name="elem_Stop_tt">A rising edge at the input stops the simulation.
+        Has the same effect as pressing the Stop button in the toolbar.
+    </string>
+    <string name="elem_Stop_pin_stop">A rising edge stops the simulation.</string>
+    <string name="err_ROM_noFileGivenToLoad">There is no file name available for the automatic reload!</string>
+    <string name="key_colorScheme">Color-Scheme</string>
+    <string name="key_colorScheme_DEFAULT">Normal</string>
+    <string name="key_colorScheme_DARK">Dark</string>
+    <string name="key_colorScheme_COLOR_BLIND">red/green colorblind</string>
+    <string name="key_colorScheme_CUSTOM">User Defined</string>
+    <string name="menu_colorSchemePreset">Preset</string>
+    <string name="key_customColorScheme">User Defined Colors</string>
+    <string name="colorName_BACKGROUND">Background</string>
+    <string name="colorName_MAIN">Foreground</string>
+    <string name="colorName_WIRE">Wire</string>
+    <string name="colorName_WIRE_HIGH">Wire HIGH</string>
+    <string name="colorName_WIRE_LOW">Wire LOW</string>
+    <string name="colorName_WIRE_VALUE">Value at the wire</string>
+    <string name="colorName_WIRE_OUT">Output</string>
+    <string name="colorName_WIRE_Z">Wire HIGH-Z</string>
+    <string name="colorName_ERROR">Error</string>
+    <string name="colorName_PASSED">Ok</string>
+    <string name="colorName_PINS">Pins</string>
+    <string name="colorName_GRID">Grid</string>
+    <string name="colorName_TESTCASE">Test case</string>
+    <string name="colorName_DISABLED">Disabled</string>
+    <string name="colorName_ASYNC">Asynchronous</string>
+    <string name="colorName_HIGHLIGHT">Highlighted</string>
+    <string name="cli_cli">Command Line Interface</string>
+    <string name="cli_nonOptionalArgumentMissing_N">The non-optional argument {0} is missing.</string>
+    <string name="cli_notABool_N">The value {0} is no bool.</string>
+    <string name="cli_notANumber_N">The value {0} is not a number.</string>
+    <string name="cli_noArgument_N_available">The argument {0} is not defined.</string>
+    <string name="cli_notEnoughArgumentsGiven">There are not enough arguments.</string>
+    <string name="cli_toMuchArguments">There are too many arguments.</string>
+    <string name="cli_invalidType_N">Invalid type.</string>
+    <string name="cli_command_N_hasNoSubCommand_N">The command {0} has no sub-command {1}.</string>
+    <string name="cli_options">Options:</string>
+    <string name="cli_help_test">The first file name specifies the circuit to be tested.
+        If a second file name is specified, the test cases are executed from this file.
+        If no second file name is specified, the tests are executed from the first file.
+    </string>
+    <string name="cli_help_test_circ">Name of the file to be tested.</string>
+    <string name="cli_help_test_tests">Name of a file with test cases.</string>
+    <string name="cli_help_test_allowMissingInputs">Allows the missing of inputs in the circuit which are
+        defined in the test case. This can be useful if there are several possible solutions which may
+        depend on different inputs.
+    </string>
+    <string name="cli_thereAreTestFailures">Tests have failed.</string>
+    <string name="cli_errorExecutingTests">An error has occurred during the execution of the tests.</string>
+    <string name="cli_help_svg">Can be used to create an SVG file from a circuit.</string>
+    <string name="cli_help_svg_dig">The file name of the circuit.</string>
+    <string name="cli_help_svg_svg">The name of the SVG file to be written.</string>
+    <string name="cli_help_svg_ieee">Use of the IEEE symbols.</string>
+    <string name="cli_errorCreatingSVG">Error while creating the SVG file!</string>
+    <string name="cli_help_stats">Creates a CSV file which contains the circuit statistics.
+        All components used are listed in the CSV file.
+    </string>
+    <string name="cli_help_stats_dig">File name of the circuit.</string>
+    <string name="cli_help_stats_csv">Name of the csv file to be created.
+        If this option is missing, the table is written to stdout.
+    </string>
+    <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
+    <string name="menu_table_exportTablePlainText">Export Plain Text</string>
 </resources>
