@@ -205,7 +205,7 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<String> varNames = undoManager.getActual().getVarNames();
                 if (new ElementOrderer<>(TableDialog.this, Lang.get("menu_table_reorder_inputs"), new ElementOrderer.ListOrder<>(varNames))
-                        .addDeleteButton()
+                        .addDeleteButton(2)
                         .addOkButton()
                         .showDialog()) {
 
@@ -242,7 +242,7 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<String> resultNames = undoManager.getActual().getResultNames();
                 if (new ElementOrderer<>(TableDialog.this, Lang.get("menu_table_reorder_outputs"), new ElementOrderer.ListOrder<>(resultNames))
-                        .addDeleteButton()
+                        .addDeleteButton(1)
                         .addOkButton()
                         .showDialog()) {
                     try {
