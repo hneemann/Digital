@@ -53,7 +53,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>8,1,7</string>
+          <string>7,1,7</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="140"/>
@@ -63,7 +63,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>8,1*8</string>
+          <string>7,1*9</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -82,7 +82,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>5S</string>
+          <string>4S</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -100,7 +100,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>4,5,7</string>
+          <string>4,4,8</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="340"/>
@@ -110,7 +110,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>5,11</string>
+          <string>4,12</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -128,7 +128,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>11</int>
+          <int>12</int>
         </entry>
       </elementAttributes>
       <pos x="380" y="380"/>
@@ -143,7 +143,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>9SD</string>
+          <string>8SD</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -161,7 +161,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>4,4,1,7</string>
+          <string>4,4,8</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="420"/>
@@ -171,7 +171,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>4,1,11</string>
+          <string>4,12</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -189,10 +189,10 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>11</int>
+          <int>12</int>
         </entry>
       </elementAttributes>
-      <pos x="380" y="460"/>
+      <pos x="380" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -204,7 +204,7 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>5D</string>
+          <string>4D</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -222,6 +222,10 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
     <wire>
       <p1 x="380" y="160"/>
       <p2 x="420" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="320"/>
+      <p2 x="420" y="320"/>
     </wire>
     <wire>
       <p1 x="440" y="420"/>
@@ -268,14 +272,6 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
       <p2 x="280" y="140"/>
     </wire>
     <wire>
-      <p1 x="300" y="460"/>
-      <p2 x="340" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="460"/>
-      <p2 x="420" y="460"/>
-    </wire>
-    <wire>
       <p1 x="380" y="300"/>
       <p2 x="420" y="300"/>
     </wire>
@@ -292,12 +288,12 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
       <p2 x="420" y="180"/>
     </wire>
     <wire>
-      <p1 x="380" y="280"/>
-      <p2 x="420" y="280"/>
+      <p1 x="380" y="440"/>
+      <p2 x="420" y="440"/>
     </wire>
     <wire>
-      <p1 x="340" y="440"/>
-      <p2 x="420" y="440"/>
+      <p1 x="380" y="280"/>
+      <p2 x="420" y="280"/>
     </wire>
     <wire>
       <p1 x="380" y="220"/>
@@ -306,10 +302,6 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
     <wire>
       <p1 x="380" y="380"/>
       <p2 x="420" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="440"/>
-      <p2 x="340" y="460"/>
     </wire>
     <wire>
       <p1 x="220" y="140"/>
@@ -340,6 +332,10 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
       <p2 x="380" y="240"/>
     </wire>
     <wire>
+      <p1 x="380" y="300"/>
+      <p2 x="380" y="320"/>
+    </wire>
+    <wire>
       <p1 x="380" y="240"/>
       <p2 x="380" y="260"/>
     </wire>
@@ -348,4 +344,5 @@ zusammen mit Bit 8 des Befehlswortes)}}</string>
       <p2 x="380" y="200"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

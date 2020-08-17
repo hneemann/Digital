@@ -21,7 +21,7 @@ Single-Cycle CPU.}}</string>
           <rotation rotation="3"/>
         </entry>
       </elementAttributes>
-      <pos x="620" y="480"/>
+      <pos x="640" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Register.dig</elementName>
@@ -50,12 +50,12 @@ Single-Cycle CPU.}}</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="840" y="360"/>
+      <pos x="860" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>ImReg.dig</elementName>
       <elementAttributes/>
-      <pos x="660" y="360"/>
+      <pos x="700" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -69,12 +69,12 @@ Single-Cycle CPU.}}</string>
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="800" y="420"/>
+      <pos x="820" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>SignExt.dig</elementName>
       <elementAttributes/>
-      <pos x="660" y="460"/>
+      <pos x="700" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>ALU.dig</elementName>
@@ -107,7 +107,7 @@ Single-Cycle CPU.}}</string>
           <rotation rotation="2"/>
         </entry>
       </elementAttributes>
-      <pos x="1000" y="360"/>
+      <pos x="1000" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -118,10 +118,10 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>4,4,1,7</string>
+          <string>4,4,8</string>
         </entry>
       </elementAttributes>
-      <pos x="480" y="380"/>
+      <pos x="480" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -144,25 +144,25 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>8000,1360,8190,1350,1490,1483,1425,143a,20e1,14fc,4cef,6e55,1821,3c2f,65f9,6e1e,205,
-216,1430,1420,14a0,8033,68c0,7a80,3c80,5e05,3c72,5e05,3c73,5e03,6e03,3c73,6401,14a3,
-741a,1801,1811,1821,3d24,65ec,1831,3d34,65e8,3091,ffff,7009,246,265,254,7c00,6fdd,
-1470,2031,2104,8058,68b0,1821,1801,8058,68b0,1831,1904,8058,68b0,1831,1904,8058,68b0,
-2021,2001,8058,68b0,2021,2001,8058,68b0,2031,2104,8058,68b0,2031,2104,8058,68b0,1821,
-1831,1905,6a0c,3d24,6206,3d34,6204,7a80,3c80,5e01,1871,6a0b,243,3744,442,446,7448,
-4efe,18e1,6a0f</data>
+          <data>8000,961,8190,951,a90,a83,a25,a3a,10e1,afc,2bef,3c5f,c21,212f,37f9,3c20,105,116,a30,
+a20,aa0,8035,39c0,4280,2180,3405,2172,3405,2173,3403,3c03,2173,3701,aa3,3f1a,c01,
+c11,c21,8014,2020,37eb,c31,8014,2030,37e6,1991,ffff,3d09,146,165,154,4300,3cdb,a70,
+1031,8014,f00,8060,39b0,c21,c01,8060,39b0,c31,8014,b00,8060,39b0,c31,8014,b00,8060,
+39b0,1021,1001,8060,39b0,1021,1001,8060,39b0,1031,8014,f00,8060,39b0,1031,8014,f00,
+8060,39b0,c21,c31,8015,b00,3a0c,8014,2020,3607,8014,2030,3604,4280,2180,3401,c71,
+3a0b,143,8014,1c40,242,246,3f48,2cfe,ce1,3a0f</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <string>/home/hneemann/Dokumente/Java/assembler/assembler3/src/main/asm/Conway2.hex</string>
+          <string>/home/hneemann/Dokumente/Java/assembler/assembler3/src/main/asm/Conway.hex</string>
         </entry>
       </elementAttributes>
-      <pos x="360" y="360"/>
+      <pos x="360" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
       <elementAttributes/>
-      <pos x="340" y="400"/>
+      <pos x="340" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Driver</elementName>
@@ -249,7 +249,7 @@ Single-Cycle CPU.}}</string>
           <rotation rotation="2"/>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="360"/>
+      <pos x="1140" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -263,7 +263,7 @@ Single-Cycle CPU.}}</string>
           <string>stPC</string>
         </entry>
       </elementAttributes>
-      <pos x="620" y="600"/>
+      <pos x="640" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -277,7 +277,7 @@ Single-Cycle CPU.}}</string>
           <string>WE</string>
         </entry>
       </elementAttributes>
-      <pos x="600" y="600"/>
+      <pos x="620" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -291,7 +291,7 @@ Single-Cycle CPU.}}</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="600"/>
+      <pos x="600" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -497,7 +497,7 @@ Single-Cycle CPU.}}</string>
           <string>imm</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="380"/>
+      <pos x="680" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -525,7 +525,7 @@ Single-Cycle CPU.}}</string>
           <string>muxB</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="540"/>
+      <pos x="880" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -583,7 +583,7 @@ Single-Cycle CPU.}}</string>
           <string>sf</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="280"/>
+      <pos x="1160" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -593,7 +593,7 @@ Single-Cycle CPU.}}</string>
           <string>br</string>
         </entry>
       </elementAttributes>
-      <pos x="1020" y="280"/>
+      <pos x="1020" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -659,7 +659,7 @@ Single-Cycle CPU.}}</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="400"/>
+      <pos x="680" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -683,7 +683,7 @@ Single-Cycle CPU.}}</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="300"/>
+      <pos x="1160" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -746,115 +746,85 @@ Single-Cycle CPU.}}</string>
       </elementAttributes>
       <pos x="1340" y="380"/>
     </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>iem</string>
+        </entry>
+      </elementAttributes>
+      <pos x="680" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>iem</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>RetI</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="600"/>
+    </visualElement>
   </visualElements>
   <wires>
-    <wire>
-      <p1 x="380" y="320"/>
-      <p2 x="940" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="320"/>
-      <p2 x="1080" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="320"/>
-      <p2 x="1200" y="320"/>
-    </wire>
     <wire>
       <p1 x="1280" y="320"/>
       <p2 x="1360" y="320"/>
     </wire>
     <wire>
-      <p1 x="1160" y="160"/>
-      <p2 x="1200" y="160"/>
+      <p1 x="1000" y="320"/>
+      <p2 x="1080" y="320"/>
     </wire>
     <wire>
-      <p1 x="1340" y="160"/>
-      <p2 x="1360" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="900" y="160"/>
-      <p2 x="1080" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="740" y="480"/>
-      <p2 x="840" y="480"/>
+      <p1 x="1140" y="320"/>
+      <p2 x="1220" y="320"/>
     </wire>
     <wire>
       <p1 x="1220" y="580"/>
       <p2 x="1240" y="580"/>
     </wire>
     <wire>
-      <p1 x="1060" y="100"/>
-      <p2 x="1080" y="100"/>
+      <p1 x="1140" y="260"/>
+      <p2 x="1160" y="260"/>
     </wire>
     <wire>
-      <p1 x="800" y="100"/>
-      <p2 x="840" y="100"/>
+      <p1 x="1000" y="260"/>
+      <p2 x="1020" y="260"/>
     </wire>
     <wire>
-      <p1 x="540" y="100"/>
-      <p2 x="660" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="100"/>
-      <p2 x="400" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="100"/>
-      <p2 x="1180" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="100"/>
-      <p2 x="1280" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="1280" y="100"/>
-      <p2 x="1360" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="800" y="420"/>
-      <p2 x="820" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="820" y="420"/>
-      <p2 x="840" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="1420" y="360"/>
-      <p2 x="1440" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1000" y="360"/>
-      <p2 x="1080" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="360"/>
-      <p2 x="1240" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="340" y="360"/>
-      <p2 x="360" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="800" y="360"/>
-      <p2 x="840" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="580" y="360"/>
-      <p2 x="660" y="360"/>
+      <p1 x="780" y="520"/>
+      <p2 x="820" y="520"/>
     </wire>
     <wire>
       <p1 x="460" y="460"/>
-      <p2 x="580" y="460"/>
+      <p2 x="680" y="460"/>
     </wire>
     <wire>
-      <p1 x="740" y="460"/>
-      <p2 x="840" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="580" y="460"/>
-      <p2 x="660" y="460"/>
+      <p1 x="800" y="460"/>
+      <p2 x="860" y="460"/>
     </wire>
     <wire>
       <p1 x="640" y="140"/>
@@ -869,32 +839,28 @@ Single-Cycle CPU.}}</string>
       <p2 x="1220" y="140"/>
     </wire>
     <wire>
-      <p1 x="1000" y="300"/>
-      <p2 x="1060" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="300"/>
-      <p2 x="1160" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="400"/>
-      <p2 x="660" y="400"/>
+      <p1 x="680" y="400"/>
+      <p2 x="700" y="400"/>
     </wire>
     <wire>
       <p1 x="1340" y="400"/>
       <p2 x="1360" y="400"/>
     </wire>
     <wire>
+      <p1 x="840" y="400"/>
+      <p2 x="860" y="400"/>
+    </wire>
+    <wire>
       <p1 x="500" y="400"/>
-      <p2 x="560" y="400"/>
+      <p2 x="540" y="400"/>
     </wire>
     <wire>
-      <p1 x="340" y="400"/>
-      <p2 x="360" y="400"/>
+      <p1 x="420" y="400"/>
+      <p2 x="460" y="400"/>
     </wire>
     <wire>
-      <p1 x="820" y="400"/>
-      <p2 x="840" y="400"/>
+      <p1 x="460" y="400"/>
+      <p2 x="480" y="400"/>
     </wire>
     <wire>
       <p1 x="380" y="80"/>
@@ -929,6 +895,142 @@ Single-Cycle CPU.}}</string>
       <p2 x="560" y="-20"/>
     </wire>
     <wire>
+      <p1 x="1340" y="340"/>
+      <p2 x="1360" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="340"/>
+      <p2 x="700" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="340"/>
+      <p2 x="1080" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="340"/>
+      <p2 x="1240" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="20"/>
+      <p2 x="1180" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="280"/>
+      <p2 x="1060" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="280"/>
+      <p2 x="1160" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="780" y="540"/>
+      <p2 x="840" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="220"/>
+      <p2 x="520" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="160"/>
+      <p2 x="1200" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="1340" y="160"/>
+      <p2 x="1360" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="160"/>
+      <p2 x="1080" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="480"/>
+      <p2 x="860" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="420"/>
+      <p2 x="560" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="420"/>
+      <p2 x="360" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="420"/>
+      <p2 x="700" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="420"/>
+      <p2 x="840" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="840" y="420"/>
+      <p2 x="860" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="100"/>
+      <p2 x="1080" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="100"/>
+      <p2 x="840" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="100"/>
+      <p2 x="660" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="100"/>
+      <p2 x="400" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="100"/>
+      <p2 x="1180" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="100"/>
+      <p2 x="1280" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="100"/>
+      <p2 x="1360" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="1420" y="360"/>
+      <p2 x="1440" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="360"/>
+      <p2 x="860" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="360"/>
+      <p2 x="700" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="300"/>
+      <p2 x="940" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="300"/>
+      <p2 x="1080" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="300"/>
+      <p2 x="1200" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="780" y="500"/>
+      <p2 x="800" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="500"/>
+      <p2 x="700" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="840" y="500"/>
+      <p2 x="860" y="500"/>
+    </wire>
+    <wire>
       <p1 x="1060" y="180"/>
       <p2 x="1080" y="180"/>
     </wire>
@@ -937,44 +1039,16 @@ Single-Cycle CPU.}}</string>
       <p2 x="1360" y="180"/>
     </wire>
     <wire>
-      <p1 x="1340" y="340"/>
-      <p2 x="1360" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="1000" y="340"/>
-      <p2 x="1080" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="340"/>
-      <p2 x="1220" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="20"/>
-      <p2 x="1180" y="20"/>
-    </wire>
-    <wire>
-      <p1 x="740" y="500"/>
-      <p2 x="840" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="280"/>
-      <p2 x="1160" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="1000" y="280"/>
-      <p2 x="1020" y="280"/>
-    </wire>
-    <wire>
       <p1 x="500" y="440"/>
-      <p2 x="620" y="440"/>
+      <p2 x="640" y="440"/>
     </wire>
     <wire>
-      <p1 x="880" y="440"/>
-      <p2 x="900" y="440"/>
+      <p1 x="900" y="440"/>
+      <p2 x="920" y="440"/>
     </wire>
     <wire>
-      <p1 x="820" y="440"/>
-      <p2 x="840" y="440"/>
+      <p1 x="840" y="440"/>
+      <p2 x="860" y="440"/>
     </wire>
     <wire>
       <p1 x="1160" y="120"/>
@@ -997,6 +1071,10 @@ Single-Cycle CPU.}}</string>
       <p2 x="640" y="-60"/>
     </wire>
     <wire>
+      <p1 x="640" y="-60"/>
+      <p2 x="800" y="-60"/>
+    </wire>
+    <wire>
       <p1 x="800" y="-60"/>
       <p2 x="1180" y="-60"/>
     </wire>
@@ -1005,36 +1083,16 @@ Single-Cycle CPU.}}</string>
       <p2 x="1440" y="-60"/>
     </wire>
     <wire>
-      <p1 x="640" y="-60"/>
-      <p2 x="800" y="-60"/>
+      <p1 x="340" y="380"/>
+      <p2 x="360" y="380"/>
     </wire>
     <wire>
-      <p1 x="340" y="220"/>
-      <p2 x="520" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="740" y="380"/>
-      <p2 x="840" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="380"/>
-      <p2 x="660" y="380"/>
+      <p1 x="780" y="380"/>
+      <p2 x="860" y="380"/>
     </wire>
     <wire>
       <p1 x="1340" y="380"/>
       <p2 x="1360" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="500" y="380"/>
-      <p2 x="540" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="420" y="380"/>
-      <p2 x="460" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="460" y="380"/>
-      <p2 x="480" y="380"/>
     </wire>
     <wire>
       <p1 x="500" y="60"/>
@@ -1053,28 +1111,32 @@ Single-Cycle CPU.}}</string>
       <p2 x="660" y="60"/>
     </wire>
     <wire>
-      <p1 x="1280" y="100"/>
-      <p2 x="1280" y="320"/>
+      <p1 x="640" y="440"/>
+      <p2 x="640" y="480"/>
     </wire>
     <wire>
       <p1 x="640" y="-60"/>
       <p2 x="640" y="60"/>
     </wire>
     <wire>
-      <p1 x="580" y="360"/>
-      <p2 x="580" y="460"/>
+      <p1 x="640" y="580"/>
+      <p2 x="640" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="100"/>
+      <p2 x="1280" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="580"/>
+      <p2 x="320" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="140"/>
+      <p2 x="1220" y="320"/>
     </wire>
     <wire>
       <p1 x="580" y="580"/>
       <p2 x="580" y="600"/>
-    </wire>
-    <wire>
-      <p1 x="900" y="160"/>
-      <p2 x="900" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="1220" y="140"/>
-      <p2 x="1220" y="340"/>
     </wire>
     <wire>
       <p1 x="520" y="80"/>
@@ -1093,7 +1155,19 @@ Single-Cycle CPU.}}</string>
       <p2 x="520" y="600"/>
     </wire>
     <wire>
-      <p1 x="460" y="380"/>
+      <p1 x="840" y="500"/>
+      <p2 x="840" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="840" y="400"/>
+      <p2 x="840" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="840" y="420"/>
+      <p2 x="840" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="400"/>
       <p2 x="460" y="460"/>
     </wire>
     <wire>
@@ -1105,12 +1179,16 @@ Single-Cycle CPU.}}</string>
       <p2 x="400" y="600"/>
     </wire>
     <wire>
-      <p1 x="340" y="220"/>
-      <p2 x="340" y="360"/>
-    </wire>
-    <wire>
       <p1 x="340" y="580"/>
       <p2 x="340" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="220"/>
+      <p2 x="340" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="160"/>
+      <p2 x="920" y="440"/>
     </wire>
     <wire>
       <p1 x="600" y="580"/>
@@ -1118,7 +1196,15 @@ Single-Cycle CPU.}}</string>
     </wire>
     <wire>
       <p1 x="1240" y="120"/>
-      <p2 x="1240" y="360"/>
+      <p2 x="1240" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="580"/>
+      <p2 x="540" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="100"/>
+      <p2 x="540" y="400"/>
     </wire>
     <wire>
       <p1 x="1180" y="0"/>
@@ -1133,32 +1219,12 @@ Single-Cycle CPU.}}</string>
       <p2 x="1180" y="100"/>
     </wire>
     <wire>
-      <p1 x="540" y="100"/>
-      <p2 x="540" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="540" y="580"/>
-      <p2 x="540" y="600"/>
-    </wire>
-    <wire>
       <p1 x="860" y="100"/>
       <p2 x="860" y="120"/>
     </wire>
     <wire>
-      <p1 x="860" y="520"/>
-      <p2 x="860" y="540"/>
-    </wire>
-    <wire>
-      <p1 x="1440" y="-60"/>
-      <p2 x="1440" y="140"/>
-    </wire>
-    <wire>
-      <p1 x="1440" y="140"/>
-      <p2 x="1440" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="480" y="580"/>
-      <p2 x="480" y="600"/>
+      <p1 x="800" y="460"/>
+      <p2 x="800" y="500"/>
     </wire>
     <wire>
       <p1 x="800" y="0"/>
@@ -1177,28 +1243,48 @@ Single-Cycle CPU.}}</string>
       <p2 x="800" y="360"/>
     </wire>
     <wire>
-      <p1 x="1060" y="180"/>
-      <p2 x="1060" y="300"/>
+      <p1 x="480" y="580"/>
+      <p2 x="480" y="600"/>
     </wire>
     <wire>
-      <p1 x="1060" y="300"/>
-      <p2 x="1060" y="320"/>
+      <p1 x="1440" y="-60"/>
+      <p2 x="1440" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="1440" y="140"/>
+      <p2 x="1440" y="360"/>
     </wire>
     <wire>
       <p1 x="420" y="580"/>
       <p2 x="420" y="600"/>
     </wire>
     <wire>
+      <p1 x="1060" y="180"/>
+      <p2 x="1060" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="280"/>
+      <p2 x="1060" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="420"/>
+      <p2 x="680" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="460"/>
+      <p2 x="680" y="500"/>
+    </wire>
+    <wire>
       <p1 x="360" y="580"/>
       <p2 x="360" y="600"/>
     </wire>
     <wire>
-      <p1 x="620" y="440"/>
-      <p2 x="620" y="480"/>
-    </wire>
-    <wire>
       <p1 x="620" y="580"/>
       <p2 x="620" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="520"/>
+      <p2 x="880" y="540"/>
     </wire>
     <wire>
       <p1 x="560" y="580"/>
@@ -1206,39 +1292,35 @@ Single-Cycle CPU.}}</string>
     </wire>
     <wire>
       <p1 x="560" y="120"/>
-      <p2 x="560" y="400"/>
+      <p2 x="560" y="420"/>
     </wire>
     <wire>
       <p1 x="1200" y="160"/>
-      <p2 x="1200" y="320"/>
+      <p2 x="1200" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="820" y="480"/>
+      <p2 x="820" y="520"/>
     </wire>
     <wire>
       <p1 x="500" y="580"/>
       <p2 x="500" y="600"/>
     </wire>
     <wire>
-      <p1 x="820" y="400"/>
-      <p2 x="820" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="820" y="420"/>
-      <p2 x="820" y="440"/>
-    </wire>
-    <wire>
       <p1 x="440" y="580"/>
       <p2 x="440" y="600"/>
     </wire>
     <wire>
+      <p1 x="380" y="580"/>
+      <p2 x="380" y="600"/>
+    </wire>
+    <wire>
       <p1 x="380" y="120"/>
-      <p2 x="380" y="320"/>
+      <p2 x="380" y="300"/>
     </wire>
     <wire>
       <p1 x="380" y="20"/>
       <p2 x="380" y="60"/>
-    </wire>
-    <wire>
-      <p1 x="380" y="580"/>
-      <p2 x="380" y="600"/>
     </wire>
   </wires>
   <measurementOrdering>

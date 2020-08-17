@@ -28,7 +28,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>The obcode and the immediate bit.
+          <string>The opcode and the immediate bit.
 {{de Der Opcode incl. Immediate Bit}}</string>
         </entry>
         <entry>
@@ -37,7 +37,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>7</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="260" y="160"/>
@@ -47,11 +47,11 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>7</string>
+          <string>8</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>6,1</string>
+          <string>7,1</string>
         </entry>
       </elementAttributes>
       <pos x="300" y="160"/>
@@ -61,7 +61,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>6</int>
+          <int>7</int>
         </entry>
       </elementAttributes>
       <pos x="400" y="160"/>
@@ -75,7 +75,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>6</int>
+          <int>7</int>
         </entry>
       </elementAttributes>
       <pos x="380" y="200"/>
@@ -85,7 +85,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
       <elementAttributes>
         <entry>
           <string>AddrBits</string>
-          <int>6</int>
+          <int>7</int>
         </entry>
         <entry>
           <string>Label</string>
@@ -93,7 +93,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>24</int>
+          <int>26</int>
         </entry>
         <entry>
           <string>Addr Bits</string>
@@ -101,17 +101,15 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>0,200080,4004c0,4044c0,4008c0,4048c0,400cc0,4010c0,4014c0,c4,d4,4004c4,4004d4,4044c4,
-4044d4,4008c4,4008d4,4048c4,4048d4,400cc4,400cd4,4010c4,4010d4,4014c4,4014d4,402cc0,
-402cc4,402cd4,400800,400804,400814,4018c0,401cc0,4058c0,405cc0,4020c0,24c0,28c0,20040a,
-689,200006,20001e,85,95,200406,685,8018,10018,18018,28018,30018,38018,1a4,20,24,20018,
-240004,24001c,240408,80284,80294,80688,100000,800020</data>
+          <data>0,208,e10,f10,e20,f20,e30,e40,e50,2a01,a05,2e11,e15,2f11,f15,2e21,e25,2f21,f25,a70,
+2e31,e35,2e41,e45,2e51,e55,a60,ed0,2ed1,ed5,420,520,2421,425,2521,525,e80,e90,f80,
+f90,ea0,ab0,ac0,8001a,60212,83009,8000f,42201,40205,80019,60211,4006,8006,c006,14006,
+18006,1c006,902201,100000,102001,10006,203009,20000f,20001a,422201,420205,420212,
+1000000,2100000</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <string>
-            /home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/java/assembler3/control.dat
-          </string>
+          <string>/home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/control.hex</string>
         </entry>
       </elementAttributes>
       <pos x="480" y="180"/>
@@ -134,18 +132,18 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
           <string>stPC</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="320"/>
+      <pos x="660" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>24</string>
+          <string>26</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>1*2,3,1*5,5,3,1*6</string>
+          <string>3,1,5,1,1,1,2,3,1,1,1,1,1,1,1,1,1</string>
         </entry>
       </elementAttributes>
       <pos x="600" y="200"/>
@@ -163,7 +161,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
           <string>WE</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="300"/>
+      <pos x="860" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -189,6 +187,25 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
+          <string>immediate extend mode
+{{de Erweiterungsmodus der Konstanten}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>iem</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
           <string>triggers a absolute jump
 {{de absoluten Sprung auslösen}}</string>
         </entry>
@@ -197,7 +214,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
           <string>absJmp</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="260"/>
+      <pos x="860" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -216,7 +233,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
           <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="680" y="240"/>
+      <pos x="660" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -231,7 +248,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
           <string>src2D</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="460"/>
+      <pos x="860" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -246,7 +263,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
           <string>muxA</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="340"/>
+      <pos x="660" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -261,7 +278,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
           <string>alu2D</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="280"/>
+      <pos x="860" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -280,7 +297,7 @@ realisiert, und nicht durch 24 einzelne Schaltnetze.}}</string>
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="680" y="360"/>
+      <pos x="660" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -297,7 +314,7 @@ aus, so dass die Flags gespeichert werden müssen.}}</string>
           <string>storeFlags</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="480"/>
+      <pos x="660" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -316,7 +333,7 @@ aus, so dass die Flags gespeichert werden müssen.}}</string>
           <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="860" y="380"/>
+      <pos x="860" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -331,7 +348,21 @@ aus, so dass die Flags gespeichert werden müssen.}}</string>
           <string>ramSt</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="220"/>
+      <pos x="660" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Break</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Cycles</string>
+          <int>600000</int>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Break</string>
+        </entry>
+      </elementAttributes>
+      <pos x="860" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -347,21 +378,7 @@ data bus.
           <string>ramLd</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Break</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Cycles</string>
-          <int>600000</int>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Break</string>
-        </entry>
-      </elementAttributes>
-      <pos x="680" y="440"/>
+      <pos x="860" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -376,7 +393,7 @@ data bus.
           <string>ioW</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="400"/>
+      <pos x="660" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -391,14 +408,25 @@ data bus.
           <string>ioR</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="420"/>
+      <pos x="860" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Return From Interrupt
+{{de Rückkehr aus dem Interrupt}}</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>RetI</string>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="520"/>
     </visualElement>
   </visualElements>
   <wires>
-    <wire>
-      <p1 x="620" y="320"/>
-      <p2 x="680" y="320"/>
-    </wire>
     <wire>
       <p1 x="320" y="160"/>
       <p2 x="400" y="160"/>
@@ -408,8 +436,12 @@ data bus.
       <p2 x="300" y="160"/>
     </wire>
     <wire>
+      <p1 x="620" y="320"/>
+      <p2 x="660" y="320"/>
+    </wire>
+    <wire>
       <p1 x="620" y="480"/>
-      <p2 x="680" y="480"/>
+      <p2 x="660" y="480"/>
     </wire>
     <wire>
       <p1 x="620" y="260"/>
@@ -429,11 +461,15 @@ data bus.
     </wire>
     <wire>
       <p1 x="620" y="200"/>
-      <p2 x="680" y="200"/>
+      <p2 x="660" y="200"/>
     </wire>
     <wire>
       <p1 x="620" y="360"/>
-      <p2 x="680" y="360"/>
+      <p2 x="660" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="520"/>
+      <p2 x="660" y="520"/>
     </wire>
     <wire>
       <p1 x="620" y="300"/>
@@ -444,16 +480,16 @@ data bus.
       <p2 x="860" y="460"/>
     </wire>
     <wire>
-      <p1 x="620" y="400"/>
-      <p2 x="680" y="400"/>
-    </wire>
-    <wire>
       <p1 x="340" y="240"/>
       <p2 x="420" y="240"/>
     </wire>
     <wire>
       <p1 x="620" y="240"/>
-      <p2 x="680" y="240"/>
+      <p2 x="660" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="400"/>
+      <p2 x="660" y="400"/>
     </wire>
     <wire>
       <p1 x="320" y="180"/>
@@ -468,12 +504,16 @@ data bus.
       <p2 x="860" y="340"/>
     </wire>
     <wire>
+      <p1 x="620" y="500"/>
+      <p2 x="860" y="500"/>
+    </wire>
+    <wire>
       <p1 x="620" y="280"/>
-      <p2 x="680" y="280"/>
+      <p2 x="660" y="280"/>
     </wire>
     <wire>
       <p1 x="620" y="440"/>
-      <p2 x="680" y="440"/>
+      <p2 x="660" y="440"/>
     </wire>
     <wire>
       <p1 x="460" y="220"/>
