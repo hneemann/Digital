@@ -1988,6 +1988,8 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
 
     <string name="btn_help">Hilfe</string>
 
+    <string name="msg_keyAsGenericAttribute">Name in einer generischen Schaltung: {0}</string>
+
     <string name="win_romDialogHelpTitle">Zentrale ROM Inhalte</string>
     <string name="msg_romDialogHelp"><![CDATA[
         <html>

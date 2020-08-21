@@ -1784,6 +1784,7 @@
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Addr. Bits</string>
 
+    <string name="msg_keyAsGenericAttribute">Name to use in generic circuits: {0}</string>
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
         Written by H. Neemann in 2016-2020.

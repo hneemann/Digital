@@ -250,10 +250,10 @@ public class ElementHelpDialog extends JDialog {
 
         if (et.getAttributeList().size() > 0) {
             w.append("<h4>").append(Lang.get("elem_Help_attributes")).append(":</h4>\n<dl>\n");
-            for (Key k : et.getAttributeList())
+            for (Key<?> k : et.getAttributeList())
                 if (!k.isSecondary())
                     writeEntry(w, k);
-            for (Key k : et.getAttributeList())
+            for (Key<?> k : et.getAttributeList())
                 if (k.isSecondary())
                     writeEntry(w, k);
             w.append("</dl>\n");
@@ -266,14 +266,18 @@ public class ElementHelpDialog extends JDialog {
             w.append("<dd>").append(escapeHTML(description)).append("</dd>\n");
     }
 
-    private void writeEntry(Writer w, Key key) throws IOException {
+    private void writeEntry(Writer w, Key<?> key) throws IOException {
         final String name = key.getName();
         final String description = key.getDescription();
         w.append("<dt><i>").append(escapeHTML(name)).append("</i></dt>\n");
         if (description != null && description.length() > 0 && !name.equals(description)) {
             w.append("<dd>").append(escapeHTML(description));
-            if (showKeys)
-                w.append(" (").append(key.getKey()).append(')');
+            if (showKeys) {
+                String keyName = key.getKey();
+                if (keyName.contains(" "))
+                    keyName = "'" + keyName + "'";
+                w.append(" (").append(Lang.get("msg_keyAsGenericAttribute", keyName)).append(')');
+            }
             w.append("</dd>\n");
         }
     }
@@ -288,12 +292,12 @@ public class ElementHelpDialog extends JDialog {
 
     private static class MyURLStreamHandlerFactory implements URLStreamHandlerFactory {
 
+        private static final HashMap<String, BufferedImage> IMAGE_MAP = new HashMap<>();
         private static ShapeFactory shapeFactory;
-        private static HashMap<String, BufferedImage> imageMap = new HashMap<>();
 
         public static void setShapeFactory(ShapeFactory shapeFactory) {
             MyURLStreamHandlerFactory.shapeFactory = shapeFactory;
-            imageMap.clear();
+            IMAGE_MAP.clear();
         }
 
         @Override
@@ -310,13 +314,13 @@ public class ElementHelpDialog extends JDialog {
         }
 
         static BufferedImage getImage(String name) {
-            BufferedImage bi = imageMap.get(name);
+            BufferedImage bi = IMAGE_MAP.get(name);
             if (bi == null) {
                 final float scale = IMAGE_SCALE * Screen.getInstance().getScaling();
                 bi = new VisualElement(name)
                         .setShapeFactory(shapeFactory)
                         .getBufferedImage(0.75 * scale, (int) (250 * scale));
-                imageMap.put(name, bi);
+                IMAGE_MAP.put(name, bi);
             }
             return bi;
         }
