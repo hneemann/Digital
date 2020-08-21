@@ -208,7 +208,7 @@ public class FragmentExpression implements Fragment {
      * Sets the alignment width.
      * If set the fragment will be layout to the given width
      *
-     * @param width the requirted width
+     * @param width the required width
      */
     public void setWidth(int width) {
         this.alignedWidth = width;
