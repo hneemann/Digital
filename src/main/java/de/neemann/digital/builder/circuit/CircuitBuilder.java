@@ -30,6 +30,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -91,6 +92,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         sequentialVars = new ArrayList<>();
         varsToNet = new HashSet<>();
         localVarsUsed = new HashSet<>();
+        wideShapes = Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES);
     }
 
     /**

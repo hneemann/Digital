@@ -36,7 +36,6 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
-import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.gui.components.ElementOrderer;
 import de.neemann.digital.gui.components.karnaugh.KarnaughMapDialog;
@@ -636,7 +635,6 @@ public class TableDialog extends JDialog {
         try {
             final ModelAnalyserInfo modelAnalyzerInfo = undoManager.getActual().getModelAnalyzerInfo();
             CircuitBuilder circuitBuilder = new CircuitBuilder(shapeFactory, undoManager.getActual().getVars())
-                    .setWideShapes(Settings.getInstance().get(Keys.SETTINGS_IEEE_SHAPES))
                     .setUseJK(useJKff)
                     .setUseLUTs(useLUTs)
                     .setModelAnalyzerInfo(modelAnalyzerInfo);
