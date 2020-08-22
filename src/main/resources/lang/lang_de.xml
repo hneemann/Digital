@@ -549,28 +549,63 @@
     <string name="elem_Register_short">Reg</string>
     <string name="elem_Register_tt">Ein Baustein zum Speichern von Werten. Die Bitbreite kann gewählt werden.
         Der an Eingang D anliegende Wert wird bei einer steigenden Flanke an Eingang C gespeichert.
-        Im Unterschied zu einem D Flipflop verfügt das Register über einen Freigabeeingang für den Takt.</string>
+        Im Unterschied zu einem D Flipflop verfügt das Register über einen Freigabeeingang für den Takt.
+    </string>
     <string name="elem_Register_pin_D">Das zu speichernde Datenwort liegt hier an.</string>
-    <string name="elem_Register_pin_C">Der Takteingang. Eine steigende Flanke speichert den an D anliegenden Wert ab.</string>
+    <string name="elem_Register_pin_C">Der Takteingang. Eine steigende Flanke speichert den an D anliegenden Wert ab.
+    </string>
     <string name="elem_Register_pin_en">Nur wenn dieser Eingang 1 ist, kann gespeichert werden.</string>
     <string name="elem_Register_pin_Q">Gibt den abgespeicherten Wert aus.</string>
     <string name="elem_ROM">ROM</string>
-    <string name="elem_ROM_tt">Ein nichtflüchtiger Speicherbaustein welcher einmalig beschreibbar ist.
+    <string name="elem_ROM_tt">Ein nichtflüchtiger Speicherbaustein welcher einen zur Simulationszeit festen Inhalt hat.
         Die gespeicherten Daten können im Attribute-Dialog bearbeitet werden.
     </string>
-    <string name="elem_ROM_pin_A">Dieser Eingang bestimmt die Speicheradresse des Datenwortes, welches ausgegeben werden soll.</string>
+    <string name="elem_ROM_pin_A">Dieser Eingang bestimmt die Speicheradresse des Datenwortes, welches ausgegeben werden
+        soll.
+    </string>
     <string name="elem_ROM_pin_D">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang eine 1 anliegt.</string>
-    <string name="elem_ROM_pin_sel">Ist dieser Pin high (1), ist der Ausgang aktiviert. Ist er low (0), ist der Ausgang hochohmig.</string>
+    <string name="elem_ROM_pin_sel">Ist dieser Pin high (1), ist der Ausgang aktiviert. Ist er low (0), ist der Ausgang
+        hochohmig.
+    </string>
+
+    <string name="elem_ROMDualPort">ROM Dual Port</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_ROMDualPort_tt">Ein nichtflüchtiger Speicherbaustein welcher einen zur Simulationszeit festen
+        Inhalt hat.
+        Die gespeicherten Daten können im Attribute-Dialog bearbeitet werden.
+        Im Gegensatz zum einfachen ROM verfügt dieser Baustein über zwei Leseports.
+    </string>
+    <string name="elem_ROMDualPort_pin_A1">Dieser Eingang bestimmt die Speicheradresse des Datenwortes, welches and Port
+        1 ausgegeben werden soll.
+    </string>
+    <string name="elem_ROMDualPort_pin_D1">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang 1 eine 1
+        anliegt.
+    </string>
+    <string name="elem_ROMDualPort_pin_s1">Ist dieser Pin high (1), ist der Ausgang 1 aktiviert. Ist er low (0), ist der
+        Ausgang 1 hochohmig.
+    </string>
+    <string name="elem_ROMDualPort_pin_A2">Dieser Eingang bestimmt die Speicheradresse des Datenwortes, welches and Port
+        2 ausgegeben werden soll.
+    </string>
+    <string name="elem_ROMDualPort_pin_D2">Hier wird das Datenwort ausgegeben, wenn am "Select"-Eingang 2 eine 1
+        anliegt.
+    </string>
+    <string name="elem_ROMDualPort_pin_s2">Ist dieser Pin high (1), ist der Ausgang 2 aktiviert. Ist er low (0), ist der
+        Ausgang 2 hochohmig.
+    </string>
 
     <string name="elem_RAMDualPort">RAM, getrennte Ports</string>
     <string name="elem_RAMDualPort_short">RAM</string>
     <string name="elem_RAMDualPort_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
-        Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.</string>
+        Es gibt einen Eingang für das Beschreiben und einen Ausgang für das Auslesen der gespeicherten Daten.
+    </string>
     <string name="elem_RAMDualPort_pin_A">Die Adresse, an der gelesen bzw. geschrieben wird.</string>
     <string name="elem_RAMDualPort_pin_C">Der Takt. Eine steigende Flanke aktiviert das Speichern.</string>
     <string name="elem_RAMDualPort_pin_Din">Die Daten, die gespeichert werden sollen.</string>
     <string name="elem_RAMDualPort_pin_D">Ausgabe der gespeicherten Daten.</string>
-    <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort an.</string>
+    <string name="elem_RAMDualPort_pin_ld">Ist diese Leitung high, wird der Ausgang aktiviert, und die Daten liegen dort
+        an.
+    </string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
 
     <string name="elem_BlockRAMDualPort">Block-RAM, getrennte Ports</string>
