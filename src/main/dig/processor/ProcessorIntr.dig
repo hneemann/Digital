@@ -144,17 +144,12 @@ Single-Cycle CPU.}}</string>
         </entry>
         <entry>
           <string>Data</string>
-          <data>8000,961,8190,951,a90,a83,a25,a3a,10e1,afc,2aef,3b5f,c21,202f,36f9,3b20,105,116,a30,
-a20,aa0,8035,38c0,4180,2080,3305,2072,3305,2073,3303,3b03,2073,3601,aa3,3e1a,c01,
-c11,c21,8014,1f20,36eb,c31,8014,1f30,36e6,1891,ffff,3c09,146,165,154,4200,3bdb,a70,
-1031,8014,f00,8060,38b0,c21,c01,8060,38b0,c31,8014,b00,8060,38b0,c31,8014,b00,8060,
-38b0,1021,1001,8060,38b0,1021,1001,8060,38b0,1031,8014,f00,8060,38b0,1031,8014,f00,
-8060,38b0,c21,c31,8015,b00,390c,8014,1f20,3507,8014,1f30,3504,4180,2080,3301,c71,
-390b,143,8014,1b40,242,246,3e48,2bfe,ce1,390f</data>
+          <data>3d12,0,ffff,31e0,4200,fffe,31e0,10e2,801e,4100,801f,3e00,ce2,fffe,320e,3f00,ffff,
+320e,4500,a01,8015,3e00,2400,38fc,8000,901,8015,3e00,2500,38fc,3df4</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <string>/home/hneemann/Dokumente/Java/assembler/assembler3/src/main/asm/Conway.hex</string>
+          <string>/home/hneemann/Dokumente/Java/digital/src/main/asm/ProcessorIntr.hex</string>
         </entry>
       </elementAttributes>
       <pos x="360" y="440"/>

@@ -95,7 +95,7 @@ fe0,fc0,0,7c0,fe0,820,820,820,fe0,7c0,0,4020,7fe0,7fc0,4820,820,fe0,7c0,0,7c0,fe
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <string>/home/hneemann/Dokumente/DHBW/Technische_Informatik_II/Systemnahes_Programmieren/asm/scrolling.hex</string>
+          <string>/home/hneemann/Dokumente/Java/digital/src/main/asm/vonNeumann.hex</string>
         </entry>
       </elementAttributes>
       <pos x="600" y="120"/>

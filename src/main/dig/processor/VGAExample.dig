@@ -987,7 +987,7 @@ b0c9,920,a00,a10,80b2,3af0,b0bb,920,804f,900,a10,80b2,3af0,b0c8,920,a00,801d,910
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <string>/home/hneemann/Dokumente/DHBW/Technische_Informatik_I/Labor/VHDL/VGA/test.hex</string>
+          <string>/home/hneemann/Dokumente/Java/digital/src/main/asm/vga.hex</string>
         </entry>
       </elementAttributes>
       <pos x="1300" y="280"/>
