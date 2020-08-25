@@ -14,6 +14,9 @@ import de.neemann.digital.core.element.Keys;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
+/**
+ * The dual ported ROM
+ */
 public class ROMDualPort extends ROM {
 
     /**
