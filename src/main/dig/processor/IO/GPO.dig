@@ -71,7 +71,7 @@ Seine Adresse ist 0x15}}</string>
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <long>21</long>
+          <long>5</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -398,4 +398,5 @@ Seine Adresse ist 0x15}}</string>
       <p2 x="560" y="160"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

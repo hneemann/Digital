@@ -69,7 +69,7 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
           <string>0-0,4-4</string>
         </entry>
       </elementAttributes>
-      <pos x="320" y="300"/>
+      <pos x="320" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -90,7 +90,7 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
       <elementAttributes>
         <entry>
           <string>splitterSpreading</string>
-          <int>5</int>
+          <int>4</int>
         </entry>
         <entry>
           <string>Input Splitting</string>
@@ -139,7 +139,7 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="260" y="360"/>
+      <pos x="260" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -178,7 +178,7 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="560" y="260"/>
+      <pos x="560" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -192,7 +192,7 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
           <string>14-14</string>
         </entry>
       </elementAttributes>
-      <pos x="520" y="260"/>
+      <pos x="520" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -202,21 +202,17 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
           <long>0</long>
         </entry>
       </elementAttributes>
-      <pos x="540" y="280"/>
+      <pos x="540" y="260"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="340" y="320"/>
-      <p2 x="560" y="320"/>
+      <p1 x="540" y="240"/>
+      <p2 x="560" y="240"/>
     </wire>
     <wire>
-      <p1 x="540" y="260"/>
-      <p2 x="560" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="480" y="260"/>
-      <p2 x="520" y="260"/>
+      <p1 x="480" y="240"/>
+      <p2 x="520" y="240"/>
     </wire>
     <wire>
       <p1 x="260" y="180"/>
@@ -231,12 +227,12 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
       <p2 x="320" y="180"/>
     </wire>
     <wire>
-      <p1 x="260" y="360"/>
-      <p2 x="580" y="360"/>
+      <p1 x="260" y="340"/>
+      <p2 x="580" y="340"/>
     </wire>
     <wire>
-      <p1 x="540" y="280"/>
-      <p2 x="560" y="280"/>
+      <p1 x="540" y="260"/>
+      <p2 x="560" y="260"/>
     </wire>
     <wire>
       <p1 x="460" y="200"/>
@@ -259,16 +255,20 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
       <p2 x="380" y="120"/>
     </wire>
     <wire>
+      <p1 x="340" y="280"/>
+      <p2 x="560" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="280"/>
+      <p2 x="320" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="280"/>
+      <p2 x="620" y="280"/>
+    </wire>
+    <wire>
       <p1 x="340" y="300"/>
       <p2 x="560" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="280" y="300"/>
-      <p2 x="320" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="300"/>
-      <p2 x="620" y="300"/>
     </wire>
     <wire>
       <p1 x="260" y="220"/>
@@ -276,15 +276,15 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
     </wire>
     <wire>
       <p1 x="480" y="200"/>
-      <p2 x="480" y="260"/>
+      <p2 x="480" y="240"/>
     </wire>
     <wire>
-      <p1 x="580" y="340"/>
-      <p2 x="580" y="360"/>
+      <p1 x="580" y="320"/>
+      <p2 x="580" y="340"/>
     </wire>
     <wire>
       <p1 x="280" y="180"/>
-      <p2 x="280" y="300"/>
+      <p2 x="280" y="280"/>
     </wire>
     <wire>
       <p1 x="380" y="120"/>

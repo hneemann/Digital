@@ -55,7 +55,7 @@
       <elementAttributes>
         <entry>
           <string>Value</string>
-          <long>30</long>
+          <long>14</long>
         </entry>
         <entry>
           <string>Bits</string>
@@ -154,4 +154,5 @@
       <p2 x="580" y="320"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

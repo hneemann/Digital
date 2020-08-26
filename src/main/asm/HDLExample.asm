@@ -8,7 +8,7 @@
 ; down:  four lights
 ; up:    back and fourth
 ;
-	.const GPO_PORT 0x15
+	.const GPO_PORT 0x5
 	.const GPI_PORT 0x0 
 	.const UP_MASK     0b0001
 	.const LEFT_MASK   0b0010
