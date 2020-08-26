@@ -318,7 +318,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>ld</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="380"/>
+      <pos x="1400" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -445,12 +445,12 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>S_in</string>
         </entry>
       </elementAttributes>
-      <pos x="1340" y="380"/>
+      <pos x="1340" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>LedMatrix.dig</elementName>
       <elementAttributes/>
-      <pos x="1420" y="460"/>
+      <pos x="1420" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -464,7 +464,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>ioW</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="520"/>
+      <pos x="1400" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -478,7 +478,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="500"/>
+      <pos x="1400" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>RegisterOpt.dig</elementName>
@@ -755,7 +755,7 @@ Von Neumann Two-Cycle CPU.}}</string>
     <visualElement>
       <elementName>ClockDiv.dig</elementName>
       <elementAttributes/>
-      <pos x="1140" y="620"/>
+      <pos x="1060" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -773,7 +773,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <int>2147483647</int>
         </entry>
       </elementAttributes>
-      <pos x="1120" y="620"/>
+      <pos x="1040" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -783,7 +783,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1260" y="660"/>
+      <pos x="1180" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -793,7 +793,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>C_in</string>
         </entry>
       </elementAttributes>
-      <pos x="1260" y="640"/>
+      <pos x="1180" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -803,7 +803,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <string>S_in</string>
         </entry>
       </elementAttributes>
-      <pos x="1260" y="620"/>
+      <pos x="1180" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -869,7 +869,7 @@ Von Neumann Two-Cycle CPU.}}</string>
           <rotation rotation="1"/>
         </entry>
       </elementAttributes>
-      <pos x="1360" y="340"/>
+      <pos x="1360" y="360"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -894,8 +894,12 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="1220" y="0"/>
     </wire>
     <wire>
-      <p1 x="1240" y="640"/>
-      <p2 x="1260" y="640"/>
+      <p1 x="1160" y="640"/>
+      <p2 x="1180" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="640"/>
+      <p2 x="1060" y="640"/>
     </wire>
     <wire>
       <p1 x="820" y="580"/>
@@ -912,6 +916,10 @@ Von Neumann Two-Cycle CPU.}}</string>
     <wire>
       <p1 x="540" y="580"/>
       <p2 x="560" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="1400" y="580"/>
+      <p2 x="1420" y="580"/>
     </wire>
     <wire>
       <p1 x="1380" y="260"/>
@@ -994,10 +1002,6 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="840" y="460"/>
     </wire>
     <wire>
-      <p1 x="1400" y="460"/>
-      <p2 x="1420" y="460"/>
-    </wire>
-    <wire>
       <p1 x="460" y="460"/>
       <p2 x="480" y="460"/>
     </wire>
@@ -1018,8 +1022,8 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="1200" y="400"/>
     </wire>
     <wire>
-      <p1 x="1240" y="660"/>
-      <p2 x="1260" y="660"/>
+      <p1 x="1160" y="660"/>
+      <p2 x="1180" y="660"/>
     </wire>
     <wire>
       <p1 x="740" y="600"/>
@@ -1028,6 +1032,10 @@ Von Neumann Two-Cycle CPU.}}</string>
     <wire>
       <p1 x="780" y="540"/>
       <p2 x="840" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="540"/>
+      <p2 x="1420" y="540"/>
     </wire>
     <wire>
       <p1 x="1180" y="220"/>
@@ -1042,10 +1050,6 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="1100" y="220"/>
     </wire>
     <wire>
-      <p1 x="1280" y="480"/>
-      <p2 x="1420" y="480"/>
-    </wire>
-    <wire>
       <p1 x="740" y="480"/>
       <p2 x="840" y="480"/>
     </wire>
@@ -1056,6 +1060,10 @@ Von Neumann Two-Cycle CPU.}}</string>
     <wire>
       <p1 x="340" y="480"/>
       <p2 x="360" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1400" y="480"/>
+      <p2 x="1500" y="480"/>
     </wire>
     <wire>
       <p1 x="1080" y="160"/>
@@ -1086,16 +1094,16 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="1320" y="160"/>
     </wire>
     <wire>
-      <p1 x="1400" y="420"/>
-      <p2 x="1500" y="420"/>
-    </wire>
-    <wire>
       <p1 x="1000" y="420"/>
       <p2 x="1080" y="420"/>
     </wire>
     <wire>
       <p1 x="1140" y="420"/>
       <p2 x="1220" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="680"/>
+      <p2 x="1180" y="680"/>
     </wire>
     <wire>
       <p1 x="820" y="40"/>
@@ -1118,18 +1126,6 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="1020" y="360"/>
     </wire>
     <wire>
-      <p1 x="1340" y="360"/>
-      <p2 x="1360" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1240" y="620"/>
-      <p2 x="1260" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1120" y="620"/>
-      <p2 x="1140" y="620"/>
-    </wire>
-    <wire>
       <p1 x="740" y="620"/>
       <p2 x="820" y="620"/>
     </wire>
@@ -1150,8 +1146,8 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="840" y="560"/>
     </wire>
     <wire>
-      <p1 x="1400" y="500"/>
-      <p2 x="1420" y="500"/>
+      <p1 x="1400" y="560"/>
+      <p2 x="1420" y="560"/>
     </wire>
     <wire>
       <p1 x="640" y="500"/>
@@ -1222,6 +1218,10 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="660" y="120"/>
     </wire>
     <wire>
+      <p1 x="1340" y="380"/>
+      <p2 x="1360" y="380"/>
+    </wire>
+    <wire>
       <p1 x="1000" y="380"/>
       <p2 x="1060" y="380"/>
     </wire>
@@ -1239,7 +1239,7 @@ Von Neumann Two-Cycle CPU.}}</string>
     </wire>
     <wire>
       <p1 x="1280" y="160"/>
-      <p2 x="1280" y="480"/>
+      <p2 x="1280" y="540"/>
     </wire>
     <wire>
       <p1 x="320" y="720"/>
@@ -1298,8 +1298,8 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="400" y="740"/>
     </wire>
     <wire>
-      <p1 x="1360" y="340"/>
-      <p2 x="1360" y="360"/>
+      <p1 x="1360" y="360"/>
+      <p2 x="1360" y="380"/>
     </wire>
     <wire>
       <p1 x="340" y="180"/>
@@ -1347,7 +1347,7 @@ Von Neumann Two-Cycle CPU.}}</string>
     </wire>
     <wire>
       <p1 x="1500" y="220"/>
-      <p2 x="1500" y="420"/>
+      <p2 x="1500" y="480"/>
     </wire>
     <wire>
       <p1 x="860" y="160"/>
@@ -1407,7 +1407,7 @@ Von Neumann Two-Cycle CPU.}}</string>
     </wire>
     <wire>
       <p1 x="1380" y="260"/>
-      <p2 x="1380" y="280"/>
+      <p2 x="1380" y="300"/>
     </wire>
     <wire>
       <p1 x="360" y="720"/>
@@ -1446,12 +1446,12 @@ Von Neumann Two-Cycle CPU.}}</string>
       <p2 x="820" y="620"/>
     </wire>
     <wire>
-      <p1 x="1400" y="340"/>
-      <p2 x="1400" y="380"/>
+      <p1 x="1400" y="360"/>
+      <p2 x="1400" y="400"/>
     </wire>
     <wire>
-      <p1 x="1400" y="420"/>
-      <p2 x="1400" y="460"/>
+      <p1 x="1400" y="480"/>
+      <p2 x="1400" y="520"/>
     </wire>
     <wire>
       <p1 x="440" y="720"/>
@@ -1463,11 +1463,11 @@ Von Neumann Two-Cycle CPU.}}</string>
     </wire>
     <wire>
       <p1 x="1340" y="200"/>
-      <p2 x="1340" y="360"/>
+      <p2 x="1340" y="380"/>
     </wire>
     <wire>
-      <p1 x="1340" y="360"/>
-      <p2 x="1340" y="380"/>
+      <p1 x="1340" y="380"/>
+      <p2 x="1340" y="400"/>
     </wire>
   </wires>
   <measurementOrdering>

@@ -1,7 +1,7 @@
         
-        .const KEY 0x1e
-        .const TERM 0x1f
-        .const GPO 0x15
+        .const KEY 0xe
+        .const TERM 0xf
+        .const GPO 0x5
 
         jmp main
 
