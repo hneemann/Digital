@@ -99,19 +99,20 @@ public class ElementOrderer<T> extends JDialog {
     /**
      * Called to add a delete button
      *
+     * @param minEntries the min number of entries
      * @return this for chained calls
      */
-    public ElementOrderer<T> addDeleteButton() {
+    public ElementOrderer<T> addDeleteButton(final int minEntries) {
         buttons.add(new ToolTipAction("\u2717") { // 274C is not visible on Windows, 2715,2716,2717,2718 works an linux
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i = list.getSelectedIndex();
-                if (i >= 0 && i < data.size()) {
+                if (data.size() > minEntries && i >= 0 && i < data.size())
                     listModel.delete(i);
-                }
-
+                if (data.size() >= minEntries)
+                    setEnabled(false);
             }
-        }.setToolTip(Lang.get("tt_deleteItem")).createJButton());
+        }.setToolTip(Lang.get("tt_deleteItem")).setEnabledChain(data.size() > minEntries).createJButton());
         return this;
     }
 

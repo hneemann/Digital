@@ -906,7 +906,7 @@
   <string name="menu_insertAsNew_tt">The content of the clip board is pasted in a new window.</string>
   <string name="menu_treeSelect">Component Tree View</string>
   <string name="menu_treeSelect_tt">Shows a tree view of available components at the left side.</string>
-  <string name="menu_special">Special 74xx Funtions</string>
+  <string name="menu_special">Special 74xx Functions</string>
   <string name="menu_addPrefix">Add IO-Prefix</string>
   <string name="menu_removePrefix">Remove IO-Prefix</string>
   <string name="menu_removePrefix_tt">The first character from the inputs and outputs labels are removed.

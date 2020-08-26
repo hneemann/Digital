@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.gui.components.CircuitComponent;
 import de.neemann.digital.gui.components.graphics.MoveFocusTo;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
@@ -56,7 +57,7 @@ public final class TerminalDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         width = attr.get(Keys.TERM_WIDTH);
         textArea = new JTextArea(attr.get(Keys.TERM_HEIGHT), width);
-        textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+        textArea.setFont(new Font("monospaced", Font.PLAIN, Screen.getInstance().getFontSize()));
         getContentPane().add(new JScrollPane(textArea));
 
         JToolBar toolBar = new JToolBar();

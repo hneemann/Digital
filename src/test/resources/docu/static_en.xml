@@ -459,14 +459,14 @@
         <par>
             It happens that a subcircuit has been created, and this is to be used in different variants.
             For example, you can imagine a special counter that is needed for different bit widths.
-            If one would create a partial circuit for 4, 5 and 6 bits each, the maintenance of the circuit
+            If one would create a subcircuit for 4, 5 and 6 bits each, the maintenance of the circuit
             would be difficult in the future, since one must always work on several subcircuits, which are
             identical except for one parameter, the bit width.
         </par>
         <par>
-            To prevent this, a generic partial circuit can be created which can be parameterized.
-            For this purpose, the checkbox "Circuit is generic" must be set in the circuit setting of the circuit.
-            Then the parameter dialog of each component of the circuit contains the additional field "generic
+            To prevent this, a generic subcircuit can be created which can be parameterized.
+            For this purpose, the checkbox "Circuit is generic" must be set in the circuit specific settings.
+            Then the parameter dialog of each component in that circuit contains the additional field "generic
             parameterization". In this field program code can be entered, which can change the parameters of the
             component. Each parameter has a name and can be modified as an attribute of the field <e>this</e>.
             The names of the parameters can be found in the help dialog of the component.
@@ -479,7 +479,7 @@
             It is still necessary to access parameters that are set when the circuit is used.
             This is done via the field "args". If you want to set the bit width from outside, you can write:
             <e>this.Bits=int(args.bitWidth);</e>. The name of the argument - here <e>bitWidth</e> is arbitrary.
-            If this partial circuit is used, this argument must be set.
+            If such a subcircuit is used, this argument must be set.
         </par>
         <par>
             If the circuit is used and the parameter dialog of the embedded circuit is opened, it also has a

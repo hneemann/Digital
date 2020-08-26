@@ -29,8 +29,8 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
  */
 public class FragmentVisualElement implements Fragment {
 
-    private final ArrayList<Vector> inputs;
-    private final ArrayList<Vector> outputs;
+    private ArrayList<Vector> inputs;
+    private ArrayList<Vector> outputs;
     private VisualElement visualElement;
     private Vector pos;
 
@@ -54,15 +54,19 @@ public class FragmentVisualElement implements Fragment {
     public FragmentVisualElement(ElementTypeDescription description, int inputCount, ShapeFactory shapeFactory) {
         visualElement = new VisualElement(description.getName()).setShapeFactory(shapeFactory);
         visualElement.getElementAttributes().set(Keys.INPUT_COUNT, inputCount);
-        Pins pins = visualElement.getShape().getPins();
+    }
 
-        inputs = new ArrayList<>();
-        outputs = new ArrayList<>();
-        for (Pin p : pins) {
-            if (p.getDirection().equals(PinDescription.Direction.input))
-                inputs.add(p.getPos());
-            else
-                outputs.add(p.getPos());
+    private void checkInOutPresent() {
+        if (inputs == null || outputs == null) {
+            Pins pins = visualElement.getShape().getPins();
+            inputs = new ArrayList<>();
+            outputs = new ArrayList<>();
+            for (Pin p : pins) {
+                if (p.getDirection().equals(PinDescription.Direction.input))
+                    inputs.add(p.getPos());
+                else
+                    outputs.add(p.getPos());
+            }
         }
     }
 
@@ -73,6 +77,7 @@ public class FragmentVisualElement implements Fragment {
      * @return this for call chaining
      */
     public FragmentVisualElement ignoreInput(int n) {
+        checkInOutPresent();
         inputs.remove(n);
         return this;
     }
@@ -92,6 +97,7 @@ public class FragmentVisualElement implements Fragment {
 
     @Override
     public Box doLayout() {
+        checkInOutPresent();
         GraphicMinMax mm = new GraphicMinMax();
         for (Vector p : inputs)
             mm.check(p);
@@ -118,11 +124,13 @@ public class FragmentVisualElement implements Fragment {
 
     @Override
     public List<Vector> getInputs() {
+        checkInOutPresent();
         return Vector.add(inputs, pos);
     }
 
     @Override
     public List<Vector> getOutputs() {
+        checkInOutPresent();
         return Vector.add(outputs, pos);
     }
 

@@ -53,6 +53,7 @@ public class BitExtenderTest extends TestCase {
                 .set(Keys.INPUT_BITS, 4)
                 .set(Keys.OUTPUT_BITS, 8));
         bitExtender.setInputs(in.asList());
+        bitExtender.init(null);
 
         assertEquals(1, bitExtender.getOutputs().get(0).getValue());
     }

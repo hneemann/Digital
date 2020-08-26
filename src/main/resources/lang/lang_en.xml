@@ -1757,7 +1757,7 @@
     <string name="menu_karnaughMap">K-Map</string>
     <string name="menu_karnaughMap_tt">Shows a K-map representation of the Table!</string>
 
-    <string name="menu_special">Special 74xx Funtions</string>
+    <string name="menu_special">Special 74xx Functions</string>
     <string name="menu_addPrefix">Add IO-Prefix</string>
     <string name="menu_addPrefix_tt">A prefix is added to all selected inputs and outputs.
         Is used to simplify the doubling of circuits within a 74xx circuit.</string>
@@ -1809,6 +1809,7 @@
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Addr. Bits</string>
 
+    <string name="msg_keyAsGenericAttribute">Name to use in generic circuits: {0}</string>
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
         Written by H. Neemann in 2016-2020.

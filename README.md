@@ -4,7 +4,7 @@
 
 # Digital #
 
-Digital is a easy-to-use digital logic designer and circuit simulator designed for educational purposes.
+Digital is an easy-to-use digital logic designer and circuit simulator designed for educational purposes.
 
 ![screnshot](distribution/screenshot.png)
 
@@ -127,7 +127,7 @@ But as far as I know, these projects do not work on solving the architectural di
 They are more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
 for example, a VHDL/Verilog export and a really nice FPGA board integration was added.
 
-So I also decided to implement a new simulator completely from scratch and started the implementation of Digital in march 2016.
+So I also decided to implement a new simulator completely from scratch and started the implementation of Digital in March 2016.
 In the meantime a development level has been reached which is comparable to Logisim.
 In some areas (performance, testing of circuits, circuit analysis, hardware support) Logisim has already been exceeded.
 
@@ -220,7 +220,7 @@ assembly program executed by a simulated processor.
 ### Circuit Synthesis ###
 
 Logisim is able to generate combinatorial circuits from a truth table and vice versa. In Digital, this is also possible.
-In addition, also a sequential circuit can be generated from an appropriate state transition table.
+In addition, a sequential circuit can be generated from an appropriate state transition table.
 You can specify both the transition circuit and the output circuit. The minimization of the expressions is done
 by the method of Quine and McCluskey.
 The truth table also can derived from a circuit which contains simple combinatorial logic,

@@ -1,5 +1,9 @@
 Release Notes
 
+HEAD, planned as v0.26
+- If IEEE shapes are selected in the settings, also the CircuitBuilder
+  uses wide shapes in the created circuits.
+
 v0.25, released on 10. Aug. 2020
 - Color schemes have been added to support color-blind users.
 - Unipolar and bipolar stepper motors were added.
