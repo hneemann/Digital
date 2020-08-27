@@ -32,7 +32,8 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .supportsHDL();
 
     private DataField memory;
     private final IntFormat intFormat;

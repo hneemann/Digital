@@ -34,7 +34,8 @@ public class RegisterFile extends Node implements Element, RAMInterface {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .supportsHDL();
 
     private final DataField memory;
     private final ObservableValue out1;

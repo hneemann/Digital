@@ -24,7 +24,8 @@ public class DriverInvSel extends Driver {
             input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.FLIP_SEL_POSITON);
+            .addAttribute(Keys.FLIP_SEL_POSITON)
+            .supportsHDL();
 
     /**
      * Creates a new instance

@@ -33,7 +33,8 @@ public class FlipflopDAsync extends FlipflopD {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
             .addAttribute(Keys.INVERTER_CONFIG)
-            .addAttribute(Keys.VALUE_IS_PROBE);
+            .addAttribute(Keys.VALUE_IS_PROBE)
+            .supportsHDL();
 
     private ObservableValue setVal;
     private ObservableValue clrVal;

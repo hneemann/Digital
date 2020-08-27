@@ -27,7 +27,8 @@ public class PinControl extends Node implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(PinControl.class, input("wr"), input("oe"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.MIRROR);
+            .addAttribute(Keys.MIRROR)
+            .supportsHDL();
 
     private final int bits;
     private final ObservableValue rdValue;

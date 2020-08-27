@@ -28,7 +28,8 @@ public class Not extends Node implements Element, Countable {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(Not.class, input("in"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.WIDE_SHAPE)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .supportsHDL();
 
     private final ObservableValue output;
     private final int bits;

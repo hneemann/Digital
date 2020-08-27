@@ -36,7 +36,8 @@ public class CounterPreset extends Node implements Element, ProgramCounter {
             .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.VALUE_IS_PROBE)
-            .addAttribute(Keys.IS_PROGRAM_COUNTER);
+            .addAttribute(Keys.IS_PROGRAM_COUNTER)
+            .supportsHDL();
 
     private final ObservableValue out;
     private final ObservableValue ovf;

@@ -28,7 +28,8 @@ public class Mul extends Node implements Element, Countable {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.SIGNED)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .supportsHDL();
 
     private final ObservableValue mul;
     private final int bits;

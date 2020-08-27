@@ -31,7 +31,8 @@ public class Comparator extends Node implements Element, Countable {
                     .addAttribute(Keys.LABEL)
                     .addAttribute(Keys.BITS)
                     .addAttribute(Keys.SIGNED)
-                    .setShortName("");
+                    .setShortName("")
+                    .supportsHDL();
 
     private final int bits;
     private final Boolean signed;

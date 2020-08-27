@@ -26,6 +26,7 @@ public class ElementTypeDescription {
     private ElementFactory elementFactory;
     private final PinDescriptions inputPins;
     private final ArrayList<Key> attributeList;
+    private boolean supportsHDL;
 
     /**
      * Creates a new ElementTypeDescription
@@ -136,10 +137,11 @@ public class ElementTypeDescription {
     public String getDescription(ElementAttributes elementAttributes) {
         String d = Lang.getNull(langKey + "_tt");
         if (d == null) {
-            return getTranslatedName();
-        } else {
-            return d;
+            d = getTranslatedName();
         }
+        if (supportsHDL)
+            d += " " + Lang.get("msg_supportsHDL");
+        return d;
     }
 
     /**
@@ -154,6 +156,23 @@ public class ElementTypeDescription {
     public <VALUE> ElementTypeDescription addAttribute(Key<VALUE> key) {
         attributeList.add(key);
         return this;
+    }
+
+    /**
+     * Used to flag this elements as supporting hdl export
+     *
+     * @return this for chained calls
+     */
+    public ElementTypeDescription supportsHDL() {
+        supportsHDL = true;
+        return this;
+    }
+
+    /**
+     * @return true if the element supports export to HDL.
+     */
+    public boolean isSupportsHDL() {
+        return supportsHDL;
     }
 
     /**

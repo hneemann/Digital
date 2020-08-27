@@ -33,7 +33,8 @@ public class BlockRAMDualPort extends Node implements Element, RAMInterface {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .supportsHDL();
 
     private DataField memory;
     private final ObservableValue output;

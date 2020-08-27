@@ -40,7 +40,8 @@ public class External extends Node implements Element {
             .addAttribute(Keys.EXTERNAL_OUTPUTS)
             .addAttribute(Keys.EXTERNAL_CODE)
             .addAttribute(Keys.APPLICATION_TYPE)
-            .addAttribute(Keys.GHDL_OPTIONS);
+            .addAttribute(Keys.GHDL_OPTIONS)
+            .supportsHDL();
 
     private final Application.Type type;
     private final PortDefinition ins;

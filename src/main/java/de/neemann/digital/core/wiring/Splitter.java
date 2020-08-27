@@ -58,7 +58,8 @@ public class Splitter implements Element {
             .addAttribute(Keys.INPUT_SPLIT)
             .addAttribute(Keys.OUTPUT_SPLIT)
             .addAttribute(Keys.SPLITTER_SPREADING)
-            .setShortName("");
+            .setShortName("")
+            .supportsHDL();
 
     private final ObservableValues outputs;
     private final Ports inPorts;

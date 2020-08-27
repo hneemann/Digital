@@ -30,7 +30,8 @@ public class Driver extends Node implements Element, Countable {
             input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.FLIP_SEL_POSITON);
+            .addAttribute(Keys.FLIP_SEL_POSITON)
+            .supportsHDL();
 
     private final ObservableValue output;
     private final int bits;

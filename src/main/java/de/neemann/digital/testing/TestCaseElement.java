@@ -27,7 +27,8 @@ public class TestCaseElement implements Element {
             = new ElementTypeDescription("Testcase", TestCaseElement.class)
             .addAttribute(Keys.LABEL)
             .addAttribute(TESTDATA)
-            .addAttribute(Keys.ENABLED);
+            .addAttribute(Keys.ENABLED)
+            .supportsHDL();
 
     /**
      * creates a new instance

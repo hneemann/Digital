@@ -27,7 +27,8 @@ public class Tunnel implements Element {
     public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription(Tunnel.class, input("in"))
             .addAttribute(Keys.ROTATE)
-            .addAttribute(Keys.NETNAME);
+            .addAttribute(Keys.NETNAME)
+            .supportsHDL();
 
     private final String label;
 

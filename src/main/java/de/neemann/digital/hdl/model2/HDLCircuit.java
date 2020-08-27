@@ -48,9 +48,9 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     private final ArrayList<HDLNet> listOfNets;
     private final String description;
     private final File origin;
+    private final ArrayList<HDLNode> nodes;
     private ArrayList<HDLPort> ports;
     private NetList netList;
-    private ArrayList<HDLNode> nodes;
     private HashMap<Net, HDLNet> nets;
     private String hdlEntityName;
 

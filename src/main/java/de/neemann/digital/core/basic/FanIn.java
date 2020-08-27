@@ -84,6 +84,7 @@ public abstract class FanIn extends Node implements Element, Countable {
         FanInDescription(Class<? extends Element> clazz) {
             super(clazz);
             addAttributes();
+            supportsHDL();
         }
 
         private void addAttributes() {

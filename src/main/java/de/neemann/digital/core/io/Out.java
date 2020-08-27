@@ -36,7 +36,8 @@ public class Out implements Element {
             .addAttribute(Keys.DESCRIPTION)
             .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.PINNUMBER)
-            .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH)
+            .supportsHDL();
 
     /**
      * The LED description

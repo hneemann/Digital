@@ -1955,11 +1955,14 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
 
     <string name="msg_renameNet">Netz umbenennen</string>
     <string name="msg_renameNet_N_OLD_NEW">Es gibt noch {0} weitere Tunnel mit dem Netznamen ''{1}''.
-        Sollen alle {0} zu ''{2}'' umbenannt werden?</string>
+        Sollen alle {0} zu ''{2}'' umbenannt werden?
+    </string>
 
     <string name="msg_dataWillBeLost_n">Sollen die Änderungen im Feld "{0}" wirklich verworfen werden?</string>
     <string name="btn_copyToClipboard">Zwischenablage</string>
     <string name="btn_copyToClipboard_tt">Kopiert den Text in die Zwischenablage.</string>
+
+    <string name="msg_supportsHDL">Exportierbar zu VHDL/Verilog.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

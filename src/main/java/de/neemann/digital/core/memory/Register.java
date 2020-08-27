@@ -29,7 +29,8 @@ public class Register extends Node implements Element, Countable, ProgramCounter
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.INVERTER_CONFIG)
             .addAttribute(Keys.IS_PROGRAM_COUNTER)
-            .addAttribute(Keys.VALUE_IS_PROBE);
+            .addAttribute(Keys.VALUE_IS_PROBE)
+            .supportsHDL();
 
     private final int bits;
     private final boolean isProbe;

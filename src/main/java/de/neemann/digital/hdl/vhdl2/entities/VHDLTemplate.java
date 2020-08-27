@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.hdl.vhdl2.entities;
 
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.hgs.function.JavaClass;
 import de.neemann.digital.hdl.model2.HDLNode;
@@ -13,6 +14,7 @@ import de.neemann.digital.hdl.vhdl2.Separator;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,6 +50,21 @@ public class VHDLTemplate implements VHDLEntity {
     private static String createFileName(String name) {
         return "vhdl/" + name + ".tem";
     }
+
+    /**
+     * Returns true, if a hdl template is available.
+     *
+     * @param etd the {@link ElementTypeDescription}
+     * @return true if VHDL template is available
+     */
+    public static boolean isTemplate(ElementTypeDescription etd) {
+        ClassLoader cl = etd.getClassLoader();
+        if (cl == null)
+            cl = ClassLoader.getSystemClassLoader();
+        URL url = cl.getResource(createFileName(ENTITY_PREFIX + etd.getName()));
+        return url != null;
+    }
+
 
     /**
      * Creates the name of the file used to load the vhdl file for the given element

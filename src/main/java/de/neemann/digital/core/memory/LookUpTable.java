@@ -36,7 +36,8 @@ public class LookUpTable extends Node implements Element {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.INPUT_COUNT)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.DATA);
+            .addAttribute(Keys.DATA)
+            .supportsHDL();
 
     private final DataField data;
     private final ObservableValue output;

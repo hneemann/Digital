@@ -33,7 +33,8 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .supportsHDL();
 
     private final DataField memory;
     private final ObservableValue out1;

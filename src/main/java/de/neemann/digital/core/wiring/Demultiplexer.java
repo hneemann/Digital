@@ -46,7 +46,8 @@ public class Demultiplexer extends Node implements Element, Countable {
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.SELECTOR_BITS)
             .addAttribute(Keys.FLIP_SEL_POSITON)
-            .addAttribute(Keys.DEFAULT);
+            .addAttribute(Keys.DEFAULT)
+            .supportsHDL();
 
     /**
      * Creates a new instance
