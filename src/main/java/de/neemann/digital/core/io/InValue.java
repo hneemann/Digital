@@ -49,7 +49,7 @@ public class InValue {
      * @throws Bits.NumberFormatException NumberFormatException
      */
     public InValue(String value) throws Bits.NumberFormatException {
-        if (value.toLowerCase().trim().equalsIgnoreCase("z")) {
+        if (value.trim().equalsIgnoreCase("z")) {
             this.highZ = true;
             this.value = 0;
         } else {
