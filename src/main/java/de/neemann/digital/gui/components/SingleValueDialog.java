@@ -267,7 +267,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private void setStringToDialog(String text) {
         text = text.trim();
         if (text.length() > 0) {
-            if (text.contains("Z") && supportsHighZ) {
+            if (text.toLowerCase().contains("z") && supportsHighZ) {
                 setSelectedFormat(InMode.HIGHZ);
                 editValue = 0;
             } else if (text.charAt(0) == '\'') {
