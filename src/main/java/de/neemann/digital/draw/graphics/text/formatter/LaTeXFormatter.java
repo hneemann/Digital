@@ -27,6 +27,7 @@ public final class LaTeXFormatter {
     public static String format(Expression exp) {
         return format(new ExpressionToText().createText(exp, FormatToExpression.FORMATTER_LATEX), true);
     }
+
     /**
      * Formats the given text
      *
@@ -41,7 +42,10 @@ public final class LaTeXFormatter {
         if (text instanceof Simple) {
             return ((Simple) text).getText();
         } else if (text instanceof Blank) {
-            return " ";
+            if (mathMode)
+                return "\\ ";
+            else
+                return " ";
         } else if (text instanceof Character) {
             return character(((Character) text).getChar(), mathMode);
         } else if (text instanceof Decorate) {
