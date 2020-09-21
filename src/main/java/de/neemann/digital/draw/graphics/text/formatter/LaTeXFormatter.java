@@ -42,10 +42,7 @@ public final class LaTeXFormatter {
         if (text instanceof Simple) {
             return ((Simple) text).getText();
         } else if (text instanceof Blank) {
-            if (mathMode)
-                return "\\ ";
-            else
-                return " ";
+            return " ";
         } else if (text instanceof Character) {
             return character(((Character) text).getChar(), mathMode);
         } else if (text instanceof Decorate) {
@@ -112,7 +109,15 @@ public final class LaTeXFormatter {
                 else
                     return "\\textgreater{}";
             case '&':
-                return "\\&";
+                if (inMath)
+                    return "\\ \\&\\ ";
+                else
+                    return "\\&";
+            case '|':
+                if (inMath)
+                    return "\\ |\\ ";
+                else
+                    return "|";
             case '_':
                 return "\\_";
             case '\\':
