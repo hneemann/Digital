@@ -1,6 +1,10 @@
 Release Notes
 
 HEAD, planned as v0.26
+- Fixed a bug in the value editor, which occurs, if high-z is the
+  default value of an input.
+- Fixed an issue which avoids to restart a running simulation by just
+  click on the start button again.
 - If IEEE shapes are selected in the settings, also the CircuitBuilder
   uses wide shapes in the created circuits.
 
