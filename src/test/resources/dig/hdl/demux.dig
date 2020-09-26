@@ -48,6 +48,24 @@
       </elementAttributes>
       <pos x="420" y="160"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>S D Y Z 
+
+ 0 0 0 0
+ 0 1 1 0
+ 1 0 0 0
+ 1 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="220"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -71,4 +89,5 @@
       <p2 x="380" y="180"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
