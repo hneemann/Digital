@@ -1333,7 +1333,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
 
             if (model != null) {
-                model.modify(() -> model.close());
+                model.modify(() -> {
+                    ModelClosedObserver mco = model.getObserver(ModelClosedObserver.class);
+                    if (mco != null) mco.setClosedByRestart(true);
+                    model.close();
+                });
                 circuitComponent.getCircuit().clearState();
                 model = null;
             }
@@ -1609,6 +1613,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      */
     private class ModelClosedObserver implements ModelStateObserverTyped {
 
+        private boolean closedByRestart = false;
+
         @Override
         public void handleEvent(ModelEvent event) {
             switch (event.getType()) {
@@ -1616,7 +1622,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     SwingUtilities.invokeLater(() -> showError(Lang.get("msg_errorCalculatingStep"), event.getCause()));
                     break;
                 case CLOSED:
-                    SwingUtilities.invokeLater(Main.this::ensureModelIsStopped);
+                    if (!closedByRestart)
+                        SwingUtilities.invokeLater(Main.this::ensureModelIsStopped);
                     break;
             }
         }
@@ -1624,6 +1631,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         @Override
         public ModelEventType[] getEvents() {
             return new ModelEventType[]{ModelEventType.CLOSED, ModelEventType.ERROR_OCCURRED};
+        }
+
+        public void setClosedByRestart(boolean closedByRestart) {
+            this.closedByRestart = closedByRestart;
         }
     }
 
