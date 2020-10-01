@@ -36,7 +36,7 @@ These are the main features of Digital:
 - Simple testing of circuits: You can create test cases and execute them to verify your design.
 - Many examples: From a transmission gate D-flip-flop to a complete (simple) MIPS-like single cycle CPU.
 - Includes a simple editor for finite state machines (FSM). A FSM can then be converted to a state
-  transition table and a circuit implementing the FSM (See screenshot at the [bottom](#additional-screenshots)).
+  transition table and a circuit implementing the FSM (See [screenshot](#additional-screenshots)).
 - Contains a library with the most commonly used 74xx series integrated circuits.
 - Supports generic circuits. This allows the creation of circuits that can be parameterized when used. 
   In this way, it is possible, for e.g., to create a barrel shifter with a selectable bit width.
