@@ -30,12 +30,14 @@ public class Div extends Node implements Element, Countable {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.SIGNED);
+            .addAttribute(Keys.SIGNED)
+            .addAttribute(Keys.REMAINDER_POSITIVE);
 
     private final ObservableValue quotient;
     private final ObservableValue remainder;
     private final int bits;
     private final boolean signed;
+    private final boolean remainderPositive;
     private ObservableValue a;
     private ObservableValue b;
     private long q;
@@ -51,6 +53,7 @@ public class Div extends Node implements Element, Countable {
         bits = attributes.get(Keys.BITS);
         this.quotient = new ObservableValue("q", bits).setPinDescription(DESCRIPTION);
         this.remainder = new ObservableValue("r", bits).setPinDescription(DESCRIPTION);
+        remainderPositive = attributes.get(Keys.REMAINDER_POSITIVE);
     }
 
     @Override
@@ -64,7 +67,7 @@ public class Div extends Node implements Element, Countable {
             r = av % bv;
 
             // make the remainder positive
-            if (r < 0) {
+            if (remainderPositive && r < 0) {
                 if (bv >= 0) {
                     r += bv;
                     q--;

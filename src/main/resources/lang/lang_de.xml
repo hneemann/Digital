@@ -1172,16 +1172,22 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Die Eingangsbits müssen vollständig und eindeutig angegeben werden.</string>
     <string name="key_OutputSplitting">Ausgangsaufteilung</string><!-- Splitter -->
     <string name="key_OutputSplitting_tt">Sollen z.B. je vier Bits, zwei Bits und noch einmal zwei Bits als Ausgänge
-        verwendet werden, kann das mit der Eingabe "4,2,2" konfiguriert werden. Die Zahl gibt dabei jeweils die Bitanzahl an.
+        verwendet werden, kann das mit der Eingabe "4,2,2" konfiguriert werden. Die Zahl gibt dabei jeweils die
+        Bitanzahl an.
         Als Vereinfachung kann das *-Zeichen verwendet werden: Mit "[Bits]*[Anzahl]" wie "1*16" können 16 einzelne Bits
         konfiguriert werden.
         Es können auch die zu verwendenden Bits direkt und in beliebiger Reihenfolge angegeben werden. So werden mit der
         Eingabe"4-7,0-3" die Bits 4-7 und 0-3 konfiguriert. Diese Notation erlaubt eine beliebige Bit-Anordnung.
-        Ausgangsbits können auch mehrfach ausgegeben werden: "0-7,1-6,4-7"</string>
+        Ausgangsbits können auch mehrfach ausgegeben werden: "0-7,1-6,4-7"
+    </string>
     <string name="key_SelectorBits">Anzahl der Auswahlbits</string><!-- Multiplexer, Demultiplexer, Decoder -->
     <string name="key_SelectorBits_tt">Anzahl der Bits, die in der Auswahlleitung vorhanden sind.</string>
     <string name="key_Signed">Operation mit Vorzeichen</string><!-- Comparator, Div -->
     <string name="key_Signed_tt">Wenn gesetzt, findet die Operation vorzeichenrichtig (2-er Komplement) statt.</string>
+    <string name="key_remainderPositive">Rest immer positiv</string>
+    <string name="key_remainderPositive_tt">Wenn gesetzt, ist der Rest einer vorzeichenbehafteten Division immer
+        positiv.
+    </string>
     <string name="key_Closed">Geschlossen</string><!-- Switch -->
     <string name="key_Closed_tt">Gibt an, ob der Schalter bei Modelstart offen oder geschlossen ist.</string>
     <string name="key_Value">Wert</string><!-- Const -->

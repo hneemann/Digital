@@ -275,6 +275,12 @@ public final class Keys {
             = new Key<>("Signed", false).allowGroupEdit();
 
     /**
+     * Selects if the reminder of the division is always positive
+     */
+    public static final Key<Boolean> REMAINDER_POSITIVE
+            = new Key<>("remainderPositive", true).setDependsOn(SIGNED);
+
+    /**
      * the data key for memory
      */
     public static final Key<DataField> DATA

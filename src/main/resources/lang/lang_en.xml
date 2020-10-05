@@ -1150,11 +1150,14 @@
         can be used: 16 bits can be configured with "[Bits]*[Number]" as "1*16".
         It is also possible to specify the bits to be used directly and in any order.
         For example, "4-7,0-3" configures bits 4-7 and 0-3. This notation allows any bit arrangement.
-        Output bits can also be output several times: "0-7,1-6,4-7"</string>
+        Output bits can also be output several times: "0-7,1-6,4-7"
+    </string>
     <string name="key_SelectorBits">Number of Selector Bits</string><!-- Multiplexer, Demultiplexer, Decoder -->
     <string name="key_SelectorBits_tt">Number of bits used for the selector input.</string>
     <string name="key_Signed">Signed Operation</string><!-- Comparator, Div -->
     <string name="key_Signed_tt">If selected the operation is performed with signed (2th complement) values.</string>
+    <string name="key_remainderPositive">Remainder always positive</string>
+    <string name="key_remainderPositive_tt">If set, the remainder of a signed division is always positive.</string>
     <string name="key_Closed">Closed</string><!-- Switch -->
     <string name="key_Closed_tt">Sets the initial state of the switch.</string>
     <string name="key_Value">Value</string><!-- Const -->
