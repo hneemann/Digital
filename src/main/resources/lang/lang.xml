@@ -25,5 +25,6 @@ modified keys.
     <lang name="de" display="Deutsch" file="Deutsch"/>
     <lang name="es" display="Español" file="Espanol"/>
     <lang name="pt" display="Português" file="Portugues"/>
+    <lang name="fr" display="Français" file="Français"/>
     <lang name="zh" display="简体中文" file="ChineseSimplified"/>
 </languages>
