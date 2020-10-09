@@ -32,15 +32,15 @@ public class TestSyntax extends TestCase {
 
         for (String key : en.getKeys()) {
             final String msg = en.get(key);
-            check(msg);
             int paramCount = getParamCount(msg);
-            check(de.get(key));
+            check(msg, paramCount);
             assertEquals(key, paramCount, getParamCount(de.get(key)));
+            check(de.get(key), paramCount);
 
             for (Resources r : list) {
                 final String m = r.get(key);
                 if (m != null) {
-                    check(m);
+                    check(m, paramCount);
                     if (paramCount != getParamCount(m)) {
                         String message = "Param count does not match: " + key + " " + m;
                         System.out.println("WARNING: " + message);
@@ -74,20 +74,20 @@ public class TestSyntax extends TestCase {
         }
     }
 
-    private void check(String message) {
-        checkEscapedParam(message);
+    private void check(String message, int paramCount) {
+        checkEscapedParam(message, paramCount);
 
     }
 
-    private void checkEscapedParam(String message) {
-        boolean singleQ = false;
-        for (int p = 0; p < message.length(); p++) {
-            switch (message.charAt(p)) {
-                case '\'':
-                    singleQ = !singleQ;
-                    break;
-                case '{':
-                    assertFalse("quote error: " + message, singleQ);
+    private void checkEscapedParam(String message, int paramCount) {
+        if (paramCount > 0) {
+            boolean lastWasFirstSingleQ = false;
+            for (int p = 0; p < message.length(); p++) {
+                if (message.charAt(p) == '\'') {
+                    lastWasFirstSingleQ = !lastWasFirstSingleQ;
+                } else {
+                    assertFalse("quote error: " + message, lastWasFirstSingleQ);
+                }
             }
         }
     }
