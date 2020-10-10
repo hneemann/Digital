@@ -7,6 +7,7 @@ package de.neemann.digital.analyse.parser;
 
 import de.neemann.digital.analyse.expression.*;
 import de.neemann.digital.analyse.quinemc.QuineMcCluskey;
+import de.neemann.digital.core.io.Const;
 import junit.framework.TestCase;
 
 import java.io.IOException;
@@ -80,8 +81,18 @@ public class ParserTest extends TestCase {
         Expression exp = createSingle("!a");
         assertTrue(exp instanceof Not);
         assertTrue(((Not) exp).getExpression() instanceof Variable);
+
+        exp = createSingle("a'");
+        assertTrue(exp instanceof Not);
+        assertTrue(((Not) exp).getExpression() instanceof Variable);
+
         assertTrue(createSingle("~a") instanceof Not);
         assertTrue(createSingle("¬a") instanceof Not);
+
+        assertEquals(Constant.ZERO, createSingle("1'"));
+        assertEquals(Constant.ONE, createSingle("0'"));
+        assertEquals(Constant.ZERO, createSingle("0''"));
+        assertEquals(Constant.ONE, createSingle("1''"));
     }
 
     public void testParseEqual() throws Exception {

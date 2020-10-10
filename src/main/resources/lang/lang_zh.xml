@@ -1649,7 +1649,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="err_errorReadingDataFromProcess">无法从外部进程读取值！</string>
   <string name="err_errorCreatingProcess">无法创建外部进程！</string>
   <string name="err_timeoutReadingData_O">从外部进程读取数据超时！ {0}</string>
-  <string name="err_notEnoughDataReceived_O">接收数据不足！</string>
+  <string name="err_notEnoughDataReceived_O">接收数据不足！ {0}</string>
   <string name="err_invalidCharacterReceived_N_O">接收到的文本包含无效字符：{0}! {1}</string>
   <string name="err_processTerminatedUnexpected_O">进程异常终止！ {0}</string>
   <string name="err_couldNotTerminateProcess">无法结束进程！</string>

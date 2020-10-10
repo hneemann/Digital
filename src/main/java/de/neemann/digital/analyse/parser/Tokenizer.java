@@ -14,7 +14,7 @@ import java.io.Reader;
 public class Tokenizer {
 
 
-    enum Token {UNKNOWN, IDENT, AND, OR, NOT, XOR, OPEN, CLOSE, ONE, ZERO, EOF, COMMA, EQUAL, NOTEQUAL}
+    enum Token {UNKNOWN, IDENT, AND, OR, NOT, XOR, OPEN, CLOSE, ONE, ZERO, EOF, COMMA, EQUAL, NOTEQUAL, POSTNOT}
 
     private final Reader in;
     private Token token;
@@ -121,6 +121,9 @@ public class Tokenizer {
                 break;
             case '=':
                 token = Token.EQUAL;
+                break;
+            case '\'':
+                token = Token.POSTNOT;
                 break;
             default:
                 if (isIdentChar(c)) {
