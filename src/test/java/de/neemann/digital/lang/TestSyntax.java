@@ -31,20 +31,18 @@ public class TestSyntax extends TestCase {
         }
 
         for (String key : en.getKeys()) {
-            final String msg = en.get(key);
-            int paramCount = getParamCount(msg);
-            check(msg, paramCount);
-            assertEquals(key, paramCount, getParamCount(de.get(key)));
-            check(de.get(key), paramCount);
+            final String en_msg = en.get(key);
+            final String de_msg = de.get(key);
+            int paramCount = getParamCount(en_msg);
+            assertEquals(key, paramCount, getParamCount(de_msg));
+            checkSingleQuoteRules(en_msg, key, paramCount);
+            checkSingleQuoteRules(de_msg, key, paramCount);
 
             for (Resources r : list) {
                 final String m = r.get(key);
                 if (m != null) {
-                    check(m, paramCount);
-                    if (paramCount != getParamCount(m)) {
-                        String message = "Param count does not match: " + key + " " + m;
-                        System.out.println("WARNING: " + message);
-                    }
+                    checkSingleQuoteRules(m, key, paramCount);
+                    assertEquals("Param count does not match: " + key + " " + m, paramCount, getParamCount(m));
                 }
             }
         }
@@ -74,21 +72,18 @@ public class TestSyntax extends TestCase {
         }
     }
 
-    private void check(String message, int paramCount) {
-        checkEscapedParam(message, paramCount);
-
-    }
-
-    private void checkEscapedParam(String message, int paramCount) {
-        if (paramCount > 0) {
-            boolean lastWasFirstSingleQ = false;
+    private void checkSingleQuoteRules(String message, String key, int paramCount) {
+        if (paramCount == 0) {
+            assertFalse(key + ": quote error: If a single quote is to be used in a string not containing parameters, a doubled single quote is not allowed.", message.contains("''"));
+        } else {
+            boolean singleQ = false;
             for (int p = 0; p < message.length(); p++) {
-                if (message.charAt(p) == '\'') {
-                    lastWasFirstSingleQ = !lastWasFirstSingleQ;
-                } else {
-                    assertFalse("quote error: " + message, lastWasFirstSingleQ);
-                }
+                if (message.charAt(p) == '\'')
+                    singleQ = !singleQ;
+                else
+                    assertFalse(key + ": quote error: If a single quote is to be used in a string containing parameters, the single quote must be doubled (e.g. don''t):\n" + message, singleQ);
             }
         }
     }
+
 }

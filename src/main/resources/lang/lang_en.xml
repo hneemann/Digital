@@ -562,7 +562,8 @@
     <string name="elem_RAMDualPort_pin_Din">The data to be stored in the RAM.</string>
     <string name="elem_RAMDualPort_pin_D">The data output pin</string>
     <string name="elem_RAMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
-    <string name="elem_RAMDualPort_pin_str">If this input is high and when the clock becomes high, the data is stored.</string>
+    <string name="elem_RAMDualPort_pin_str">If this input is high and when the clock becomes high, the data is stored.
+    </string>
 
     <string name="elem_BlockRAMDualPort">Block-RAM, separated ports</string>
     <string name="elem_BlockRAMDualPort_short">RAM</string>
@@ -574,7 +575,9 @@
     <string name="elem_BlockRAMDualPort_pin_C">Clock input</string>
     <string name="elem_BlockRAMDualPort_pin_Din">The data to be stored in the RAM.</string>
     <string name="elem_BlockRAMDualPort_pin_D">The data output pin</string>
-    <string name="elem_BlockRAMDualPort_pin_str">If this input is high and when the clock becomes high, the data is stored.</string>
+    <string name="elem_BlockRAMDualPort_pin_str">If this input is high and when the clock becomes high, the data is
+        stored.
+    </string>
 
     <string name="elem_EEPROMDualPort">EEPROM, separated Ports</string>
     <string name="elem_EEPROMDualPort_short">EEPROM</string>
@@ -584,7 +587,9 @@
     <string name="elem_EEPROMDualPort_pin_Din">The data to be stored in the EEPROM.</string>
     <string name="elem_EEPROMDualPort_pin_D">The data output pin</string>
     <string name="elem_EEPROMDualPort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
-    <string name="elem_EEPROMDualPort_pin_str">If this input is high and when the clock becomes high, the data is stored.</string>
+    <string name="elem_EEPROMDualPort_pin_str">If this input is high and when the clock becomes high, the data is
+        stored.
+    </string>
 
     <string name="elem_RAMSinglePort">RAM, bidirectional Port</string>
     <string name="elem_RAMSinglePort_short">RAM</string>
@@ -593,7 +598,8 @@
     <string name="elem_RAMSinglePort_pin_C">Clock</string>
     <string name="elem_RAMSinglePort_pin_D">The bidirectional data connection.</string>
     <string name="elem_RAMSinglePort_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
-    <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the data is stored.</string>
+    <string name="elem_RAMSinglePort_pin_str">If this input is high when the clock becomes high, the data is stored.
+    </string>
     <string name="elem_RAMSinglePortSel">RAM, Chip Select</string>
     <string name="elem_RAMSinglePortSel_short">RAM</string>
     <string name="elem_RAMSinglePortSel_tt">A RAM module with a bidirectional connection for reading and writing the data.
@@ -633,7 +639,8 @@
         can be used, which enables 32768 colors.
     </string>
     <string name="elem_GraphicCard_pin_A">The address to read and write.</string>
-    <string name="elem_GraphicCard_pin_str">If this input is high when the clock becomes high, the data is stored.</string>
+    <string name="elem_GraphicCard_pin_str">If this input is high when the clock becomes high, the data is stored.
+    </string>
     <string name="elem_GraphicCard_pin_C">Clock</string>
     <string name="elem_GraphicCard_pin_ld">If this input is high the output is activated and the data is visible at the output.</string>
     <string name="elem_GraphicCard_pin_B">Selects the screen buffer to show.</string>
@@ -652,19 +659,22 @@
     <string name="elem_RAMDualAccess_pin_C">Clock</string>
     <string name="elem_RAMDualAccess_pin_1Din">The data to be stored in the RAM.</string>
     <string name="elem_RAMDualAccess_pin_ld">If this input is high the output is activated and the data is visible at the output 1D.</string>
-    <string name="elem_RAMDualAccess_pin_str">If this input is high and when the clock becomes high, the data is stored.</string>
+    <string name="elem_RAMDualAccess_pin_str">If this input is high and when the clock becomes high, the data is
+        stored.
+    </string>
 
     <string name="elem_RegisterFile">Register File</string>
     <string name="elem_RegisterFile_short">Register</string>
     <string name="elem_RegisterFile_tt">Memory with one port that allows to write and two ports that allow to read from
         the memory simultaneously. Can be used to implement processor registers.
         Two registers can be read simultaneously and a third can be written.</string>
-    <string name="elem_RegisterFile_pin_Da">Output Port A</string>
-    <string name="elem_RegisterFile_pin_Db">Output Port B</string>
-    <string name="elem_RegisterFile_pin_Ra">The register which is visible at port A.</string>
-    <string name="elem_RegisterFile_pin_Rb">The register which is visible at port B.</string>
+    <string name="elem_RegisterFile_pin_Da">Output Port a</string>
+    <string name="elem_RegisterFile_pin_Db">Output Port b</string>
+    <string name="elem_RegisterFile_pin_Ra">The register which is visible at port a.</string>
+    <string name="elem_RegisterFile_pin_Rb">The register which is visible at port b.</string>
     <string name="elem_RegisterFile_pin_Rw">The register into which the data is written.</string>
-    <string name="elem_RegisterFile_pin_we">If this input is high and when the clock becomes high, the data is stored.</string>
+    <string name="elem_RegisterFile_pin_we">If this input is high and when the clock becomes high, the data is stored.
+    </string>
     <string name="elem_RegisterFile_pin_C">Clock</string>
     <string name="elem_RegisterFile_pin_Din">The data to be stored in the register Rw.</string>
 
@@ -677,20 +687,26 @@
     <string name="elem_Counter_pin_clr">Synchronous reset of the counter if set to 1.</string>
     <string name="elem_Counter_pin_out">Returns the counted value.</string>
     <string name="elem_Counter_pin_ovf">Overflow output. This pin is set to 1 if the counter is on its maximal value
-        and the en input is set to 1.</string>
+        and the en input is set to 1.
+    </string>
     <string name="elem_Counter_pin_en">If set to 1 the counter is enabled!</string>
 
     <string name="elem_CounterPreset">Counter with preset</string>
-    <string name="elem_CounterPreset_tt">A counter whose value can be set. In addition, a maximum value and a counting direction can be specified.</string>
+    <string name="elem_CounterPreset_tt">A counter whose value can be set. In addition, a maximum value and a counting
+        direction can be specified.
+    </string>
     <string name="elem_CounterPreset_short">Counter</string>
     <string name="elem_CounterPreset_pin_out">Returns the counted value.</string>
     <string name="elem_CounterPreset_pin_ovf">Overflow output. It is set to 1 if the 'en' input is set to 1 and if the
-    counter reaches its maximum value when counting up, or has reached 0 when counting down.</string>
+        counter reaches its maximum value when counting up, or has reached 0 when counting down.
+    </string>
     <string name="elem_CounterPreset_pin_C">The clock input. A rising edge increases or decreases the counter.</string>
     <string name="elem_CounterPreset_pin_clr">Synchronous reset of the counter if set to 1.</string>
     <string name="elem_CounterPreset_pin_en">If set to 1 the counter is enabled!</string>
     <string name="elem_CounterPreset_pin_dir">Specifies the counting direction. A 0 means upwards.</string>
-    <string name="elem_CounterPreset_pin_ld">If set, the value at input 'in' is stored in the counter at the next clock signal.</string>
+    <string name="elem_CounterPreset_pin_ld">If set, the value at input 'in' is stored in the counter at the next clock
+        signal.
+    </string>
     <string name="elem_CounterPreset_pin_in">This data word is stored in the counter when ld is set.</string>
 
 
@@ -778,15 +794,18 @@
         It is used to implement a wired OR.
         So it is necessary to connect a pull down resistor to the diodes output.
         In the simulation the diode behaves like an active gate with a trivalent truth table:
-        If the input high, the output is also high. In all other cases (input is low or high z) the output is in high z state.
+        If the input high, the output is also high. In all other cases (input is low or high z) the output is in high z
+        state.
         So two anti parallel connected diodes can keep each other in high state, which is not possible with real diodes.
         This is an ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeForward_pin_in">If the input is high also the output is high. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeForward_pin_out">If the input is high also the output is high. In all other cases the output is in high z state.</string>
     <string name="elem_DiodeBackward">Diode to Ground</string>
-    <string name="elem_DiodeBackward_tt">A simplified unidirectional diode, used to pull a wire to ground. It is used to implement a wired AND.
+    <string name="elem_DiodeBackward_tt">A simplified unidirectional diode, used to pull a wire to ground. It is used to
+        implement a wired AND.
         So it is necessary to connect a pull up resistor to the diodes output.
-        If the input low, the output is also low. In the other cases (input is high or high z) the output is in high z state.
+        If the input low, the output is also low. In the other cases (input is high or high z) the output is in high z
+        state.
         So two anti parallel connected diodes can keep each other in low state, which is not possible with real diodes.
         So this is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
     <string name="elem_DiodeBackward_pin_in">If the input is low also the output is low. In all other cases the output is in high z state.</string>
@@ -809,7 +828,8 @@
         If a current flows through the coil, the switch is closed or opened.
         There is no flyback diode so the current direction does not matter.
         The switch is actuated if the inputs have different values.
-        The relay behaves similar to an XOr gate.</string>
+        The relay behaves similar to an XOr gate.
+    </string>
     <string name="elem_Relay_pin_in1">One of the inputs to control the relay.</string>
     <string name="elem_Relay_pin_in2">One of the inputs to control the relay.</string>
     <string name="elem_RelayDT">Double Throw Relay</string>
@@ -817,18 +837,21 @@
         If a current flows through the coil, the switch is closed or opened.
         There is no flyback diode so the current direction does not matter.
         The switch is actuated if the inputs have different values.
-        The relay behaves similar to an XOr gate.</string>
+        The relay behaves similar to an XOr gate.
+    </string>
     <string name="elem_RelayDT_pin_in1">One of the inputs to control the relay.</string>
     <string name="elem_RelayDT_pin_in2">One of the inputs to control the relay.</string>
     <string name="elem_PFET">P-Channel FET</string>
     <string name="elem_PFET_tt">P-Channel Field Effect Transistor.
-        The bulk is connected to the pos. voltage rail and the transistor is simulated without a body diode.</string>
+        The bulk is connected to the pos. voltage rail and the transistor is simulated without a body diode.
+    </string>
     <string name="elem_PFET_pin_G">Gate</string>
     <string name="elem_PFET_pin_S">Source</string>
     <string name="elem_PFET_pin_D">Drain</string>
     <string name="elem_NFET">N-Channel FET</string>
     <string name="elem_NFET_tt">N-Channel Field Effect Transistor.
-        The bulk is connected to ground and the transistor is simulated without a body diode.</string>
+        The bulk is connected to ground and the transistor is simulated without a body diode.
+    </string>
     <string name="elem_NFET_pin_G">Gate</string>
     <string name="elem_NFET_pin_S">Source</string>
     <string name="elem_NFET_pin_D">Drain</string>
@@ -903,7 +926,8 @@
 
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR.
-        This is a ideal diode: There is no voltage drop across a forward-biased diode.</string>
+        This is a ideal diode: There is no voltage drop across a forward-biased diode.
+    </string>
 
 
     <string name="error">Error</string>
@@ -912,7 +936,8 @@
     <string name="err_analyseNoInputs">The circuit has no labeled inputs</string>
     <string name="err_analyseNoOutputs">The circuit has no labeled outputs</string>
     <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.
-        Possibly the number of timeout cycles in the break component should be increased.</string>
+        Possibly the number of timeout cycles in the break component should be increased.
+    </string>
     <string name="err_builder_exprNotSupported">Expression {0} not supported</string>
     <string name="err_builder_operationNotSupported">Operation {0} not supported</string>
     <string name="err_builder_couldNotFillLUT">Error creating the lookup table.</string>
@@ -936,8 +961,11 @@
     <string name="err_noShapeFoundFor_N">No shape found for component {0}</string>
     <string name="err_noValueSetFor_N0_atElement_N1">Nothing connected to input ''{0}'' at component ''{1}''. Open inputs are not allowed.</string>
     <string name="err_notAllOutputsSameBits">Not all connected outputs have the same bit count</string>
-    <string name="err_notAllOutputsSupportHighZ">If multiple outputs are connected together, all of them have to be three-state outputs.</string>
-    <string name="err_noOutConnectedToWire">No output connected to a wire ({0}). The state of the wire is undefined.</string>
+    <string name="err_notAllOutputsSupportHighZ">If multiple outputs are connected together, all of them have to be
+        three-state outputs.
+    </string>
+    <string name="err_noOutConnectedToWire">No output connected to a wire ({0}). The state of the wire is undefined.
+    </string>
     <string name="err_oneResultIsRequired">Table too small: One result is required!</string>
     <string name="err_output_N_notDefined">Output {0} not defined</string>
     <string name="err_pinMap_NoNameForPin_N">No label for pin {0}</string>
@@ -949,13 +977,16 @@
     <string name="err_pinMap_toMannyOutputsDefined">Too many outputs used!</string>
     <string name="err_pinNotPresent">Pin not present</string>
     <string name="err_pinWithoutName">Found a pin without a label.</string>
-    <string name="err_clockWithoutName">Found a clock without a label. If a clock is embedded the clock also needs a label.</string>
+    <string name="err_clockWithoutName">Found a clock without a label. If a clock is embedded the clock also needs a
+        label.
+    </string>
     <string name="err_pin_N0_atElement_N1_notFound">Pin {0} not found at component {1}</string>
     <string name="err_pin_N_notFound">Pin {0} not found</string>
     <string name="err_customShapeHasNoPin_N">The custom shape does not define a pin {0}</string>
     <string name="err_pin_N_unknown">Pin {0} unknown</string>
     <string name="err_seemsToOscillate">Logic seems to oscillate.
-        To analyse you can run the circuit in single gate step mode.</string>
+        To analyse you can run the circuit in single gate step mode.
+    </string>
     <string name="err_portIsInUse">The remote port is in use! Is there an other instance running?</string>
     <string name="err_selectorInputCountMismatch">Number of inputs does not match selector bit count</string>
     <string name="err_spitterDefSyntaxError">Syntax error in splitter definition {0}</string>
@@ -964,15 +995,19 @@
     <string name="err_splitterNotUnambiguously">Input bits are defined several times!</string>
     <string name="err_spitterToManyBits">Only 64 bits allowed in splitter!</string>
     <string name="err_tableBecomesToSmall">Two inputs are required!</string>
-    <string name="err_toManyInputs_max_N0_is_N1">Too many variables (inputs+flip-flops), {0} are allowed but {1} were found.</string>
+    <string name="err_toManyInputs_max_N0_is_N1">Too many variables (inputs+flip-flops), {0} are allowed but {1} were
+        found.
+    </string>
     <string name="err_toManyInputsIn_N0_max_N1_is_N2">Too many variables used in {0},
-        {1} are allowed variables but {2} were found.</string>
+        {1} are allowed variables but {2} were found.
+    </string>
     <string name="err_varNotAllowedInCUPL_N">Variable {0} is not allowed in CUPL source!</string>
     <string name="err_varNotDefined_N">Variable {0} not defined</string>
     <string name="err_parserUnexpectedToken_N">Unexpected Token {0}</string>
     <string name="err_parserMissingClosedParenthesis">Missing closed parenthesis</string>
     <string name="err_notANumber_N0_inLine_N1">Value {0} in line {1} is not a number!</string>
-    <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">Expected {0} but found {1} values in line {2}!</string>
+    <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">Expected {0} but found {1} values in line {2}!
+    </string>
     <string name="err_unexpectedToken_N0_inLine_N1">Unexpected token ({0}) in line {1}.</string>
     <string name="err_variable_N0_notFound">Variable {0} not found!</string>
     <string name="err_noTestInputSignalsDefined">No input signals defined in test vector!</string>
@@ -1067,7 +1102,8 @@
         If there are still problems, check the path to the ghdl executable in the Digital settings.
     </string>
     <string name="err_iverilogNotInstalled">
-        The Verilog simulator Icarus does not seem to be installed. Install IVerilog (http://iverilog.icarus.com/) and try again.
+        The Verilog simulator Icarus does not seem to be installed. Install IVerilog (http://iverilog.icarus.com/) and
+        try again.
         If there are still problems, check the path to the IVerilog executable in the Digital settings.
     </string>
     <string name="err_errorAnalysingCircuit_N">Error analysing the circuit: {0}</string>
@@ -1170,8 +1206,11 @@
     <string name="key_Height_tt">Height of symbol if this circuit is used as an component in an other circuit.</string>
     <string name="key_autoReload">Reload at model start</string><!-- ROM -->
     <string name="key_autoReload_tt">Reloads the HEX file every time the model is started.</string>
-    <string name="key_flipSelPos">Flip selector position</string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->
-    <string name="key_flipSelPos_tt">This option allows you to move te selector pin to the opposite side of the plexer.</string>
+    <string name="key_flipSelPos">Flip selector position
+    </string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->
+    <string name="key_flipSelPos_tt">This option allows you to move te selector pin to the opposite side of the
+        plexer.
+    </string>
     <string name="key_intFormat">Number Format</string><!-- Probe -->
     <string name="key_intFormat_tt">The format used to show the numbers.</string>
     <string name="key_intFormat_ascii">ASCII</string>
@@ -1218,7 +1257,8 @@
     <string name="key_termWidth_tt">The number of characters shown in a single line.</string>
     <string name="key_valueIsProbe">Use as measurement value</string><!-- RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Register -->
     <string name="key_valueIsProbe_tt">If set the value is a measurement value and appears in the graph and data table.
-        In addition, a label must be specified that can serve as identification of the value.</string>
+        In addition, a label must be specified that can serve as identification of the value.
+    </string>
     <string name="key_Testdata">Test data</string><!-- Testcase -->
     <string name="key_Testdata_tt">The description of the test case.
         Details of the syntax can be found in the help dialog of the test data editor.</string>
@@ -1234,7 +1274,8 @@
     <string name="key_Blown">Programmed</string><!-- DiodeForward, DiodeBackward, Fuse, FGPFET, FGNFET -->
     <string name="key_Blown_tt">If set a diode is "blown" or "programmed".
         At a floating gate FET the floating gate is charged.
-        You can change this setting with the [P] key.</string>
+        You can change this setting with the [P] key.
+    </string>
     <string name="key_ExpressionFormat">Format</string>
     <string name="key_ExpressionFormat_tt">Screen format of expressions.</string>
     <string name="key_relayNormallyClosed">Relay is normally closed.</string><!-- Relay -->
@@ -1269,36 +1310,43 @@
     <string name="key_pinNumber">Pin number</string><!-- Out, In, Clock -->
     <string name="key_pinNumber_tt">Number of this pin. Used for the representation of a circuit as a DIL package and
         the pin assignment when programming a CPLD.
-        If there are several bits, all pin numbers can be specified as a comma-separated list.</string>
+        If there are several bits, all pin numbers can be specified as a comma-separated list.
+    </string>
     <string name="key_pinCount">Number of DIL pins</string>
-    <string name="key_pinCount_tt">Number of pins. A zero means that the number of pins is determined automatically.</string>
+    <string name="key_pinCount_tt">Number of pins. A zero means that the number of pins is determined automatically.
+    </string>
     <string name="key_defTreeSelect">Component tree view is visible at startup.</string>
     <string name="key_defTreeSelect_tt">If set, the component tree view is enabled at startup.</string>
-    <string name="key_inverterConfig">Inverted inputs</string><!-- And, NAnd, Or, NOr, XOr, XNOr, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Counter -->
+    <string name="key_inverterConfig">Inverted inputs
+    </string><!-- And, NAnd, Or, NOr, XOr, XNOr, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS, Counter -->
     <string name="key_inverterConfig_tt">You can select the inputs that are to be inverted.</string>
     <string name="key_fontSize">Menus Font Size [%]</string>
     <string name="key_fontSize_tt">Size of the fonts used in the menu in percent of the default size.</string>
     <string name="key_withEnable">Enable Input</string><!-- T_FF -->
     <string name="key_withEnable_tt">If set an enable input (T) is available.</string>
     <string name="key_unidirectional">Unidirectional</string><!-- PFET, NFET -->
-    <string name="key_unidirectional_tt">Unidirectional transistors propagate a signal only from source to drain. They are
+    <string name="key_unidirectional_tt">Unidirectional transistors propagate a signal only from source to drain. They
+        are
         much faster to simulate than bidirectional transistors. Since there is no feedback from drain to source, in this
         mode, the transistor can not short the connected wires when it is conducting. Thus, this mode is necessary to
-        simulate certain CMOS circuits.</string>
+        simulate certain CMOS circuits.
+    </string>
     <string name="key_activeLow">Active Low</string><!-- Button -->
     <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
     <string name="key_libraryPath">Library</string>
     <string name="key_libraryPath_tt">Folder which contains the library with predefined sub circuits.
         Contains, for example, the components of the 74xx series. You also can add your own circuits by storing
         them at this location.
-        It must be ensured that the names of all files in this folder and all subfolders are unique.</string>
+        It must be ensured that the names of all files in this folder and all subfolders are unique.
+    </string>
     <string name="key_grid">Show Grid</string>
     <string name="key_grid_tt">Shows a grid in the main window.</string>
     <string name="key_wireToolTips">Wire tool tips</string>
     <string name="key_wireToolTips_tt">If set, lines are highlighted when the mouse hovers over them.</string>
     <string name="key_mapToKey">Map to keyboard</string><!-- Button -->
     <string name="key_mapToKey_tt">Button is mapped to the keyboard.
-        To use the cursor keys use UP, DOWN, LEFT or RIGHT as label.</string>
+        To use the cursor keys use UP, DOWN, LEFT or RIGHT as label.
+    </string>
     <string name="key_jarPath">Java library</string>
     <string name="key_jarPath_tt">A jar file containing additional components implemented in Java.</string>
     <string name="key_showWireBits">Show the number of wires on a bus.</string>
@@ -1328,7 +1376,8 @@
     <string name="key_externalInputs">Inputs</string>
     <string name="key_externalInputs_tt">The inputs of the external process.
         It is a comma-separated list of signal names. For each signal name, a number of bits separated by a colon
-        can be specified. The inputs of an 8-bit adder could thus be described as "a:8,b:8,c_in".</string>
+        can be specified. The inputs of an 8-bit adder could thus be described as "a:8,b:8,c_in".
+    </string>
     <string name="key_externalOutputs">Outputs</string>
     <string name="key_externalOutputs_tt">The outputs of the external process.
         It is a comma-separated list of signal names. For each signal name, a number of bits separated by a colon
@@ -1397,10 +1446,12 @@
 
     <string name="key_shapeType">Shape</string>
     <string name="key_shapeType_tt">The shape to be used for the representation of the circuit in an embedding circuit.
-        In the "Simple" mode, the inputs are displayed on the left and the outputs on the right side of a simple rectangle.
+        In the "Simple" mode, the inputs are displayed on the left and the outputs on the right side of a simple
+        rectangle.
         With "Layout", the position of the inputs and outputs and their orientation in the circuit determines
         the position of the pins. Here it is possible to have pins at the top or the bottom.
-        When selecting "DIL-Chip", a DIL housing is used to display the circuit. The pin numbers of the inputs and outputs
+        When selecting "DIL-Chip", a DIL housing is used to display the circuit. The pin numbers of the inputs and
+        outputs
         determine the position of the pins in this case.
     </string>
     <string name="key_shapeType_DEFAULT">Default</string>
@@ -1618,7 +1669,9 @@
     <string name="menu_new">New</string>
     <string name="menu_new_tt">Creates a new, empty circuit.</string>
     <string name="menu_newSub">New embedded Circuit</string>
-    <string name="menu_newSub_tt">Opens a new window to create a new embedded circuit, which can then be used in this circuit.</string>
+    <string name="menu_newSub_tt">Opens a new window to create a new embedded circuit, which can then be used in this
+        circuit.
+    </string>
     <string name="menu_open">Open</string>
     <string name="menu_openRecent">Open Recent</string>
     <string name="menu_openRecentNewWindow">Open Recent in New Window</string>
@@ -1721,10 +1774,12 @@
     <string name="menu_expression_tt">Create a circuit from an expression.</string>
     <string name="menu_runTests">Run Tests</string>
     <string name="menu_runTests_tt">Runs all test cases in the circuit</string>
-    <string name="menu_actualToDefault">Set Inputs</string>
+    <string name="menu_actualToDefault">Set Input Defaults</string>
     <string name="menu_actualToDefault_tt">Use current input values as new default values.</string>
     <string name="menu_restoreAllFuses">Reset all diodes and FGFETs</string>
-    <string name="menu_restoreAllFuses_tt">Resets all diodes (fuses) and FGFETs to the "not programed" state. The current fuse configuration is lost!</string>
+    <string name="menu_restoreAllFuses_tt">Resets all diodes (fuses) and FGFETs to the "not programed" state. The
+        current fuse configuration is lost!
+    </string>
     <string name="menu_programDiode">Program diode</string>
     <string name="menu_help_elements">Components</string>
     <string name="menu_help_elements_tt">Shows a list of all available components.</string>
@@ -1839,7 +1894,8 @@
         the library, because this file name can no longer be uniquely assigned.
     </string>
     <string name="msg_duplicateLibraryFiles">There are several files with identical file names, which can not be
-        uniquely assigned! Affected are:</string>
+        uniquely assigned! Affected are:
+    </string>
     <string name="msg_and_N_More">and {0} more.</string>
     <string name="msg_fileNotImportedYet">The file has not yet been imported.</string>
     <string name="msg_fileExists">The file {0} already exists! Do you want to overwrite the file?</string>
@@ -1848,7 +1904,9 @@
         The evaluation of the test result is nevertheless correct!</string>
     <string name="msg_isLocked">The editing of the circuit is disabled. You can remove the lock at
         "{0} -> {1} -> {2}".
-        However, copying of components and the configuration of diodes and FGFETs with the [P] key is also possible in the locked mode.</string>
+        However, copying of components and the configuration of diodes and FGFETs with the [P] key is also possible in
+        the locked mode.
+    </string>
     <string name="msg_speedTestError">Error during speed test!</string>
     <string name="msg_pin_N">Pin {0}</string>
     <string name="msg_numberingWizard">Numbering Wizard</string>
@@ -1894,10 +1952,12 @@
     <string name="btn_startATMISP">Start ATMISP</string>
     <string name="btn_startATMISP_tt">Starts the external program ATMISP. This must have been previously installed.</string>
     <string name="msg_errorStartingATMISP">Error while starting ATMISP!
-Is the correct path to the executable ATMISP.exe specified in the settings?</string>
+        Is the correct path to the executable ATMISP.exe specified in the settings?
+    </string>
     <string name="msg_ATMISPIsStillRunning">ATMISP is still running!
-When this dialog is closed, ATMISP is terminated!
-Make sure the flash process is complete before closing this dialog!</string>
+        When this dialog is closed, ATMISP is terminated!
+        Make sure the flash process is complete before closing this dialog!
+    </string>
 
     <string name="menu_runAllTests">Run all Tests</string>
     <string name="menu_runAllTests_tt">Executes all tests in the current folder.</string>
@@ -1997,7 +2057,8 @@ Make sure the flash process is complete before closing this dialog!</string>
 
         Multiple expressions can be separated by "," or ";".
         If you want to name the expressions you can use the
-        let command: "let U=A+B, let V=A*B".</string>
+        let command: "let U=A+B, let V=A*B".
+    </string>
     <string name="msg_testVectorHelpTitle">Test vectors</string>
     <string name="msg_testVectorHelp"><![CDATA[<html>
     <head><style>pre { background-color: #E0E0E0;}</style></head>
@@ -2193,7 +2254,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
         concept of time. A change is made to the circuit, and the change in the circuit state is calculated, until
         the circuit has stabilized again. Then the next change is made, the effect of which is also is calculated
         and so on. These changes are counted and the counter value is displayed on the X-axis of the graph.<br/>
-        Among other things, this also means that a circuit cannot be overclocked, since the effects of the falling 
+        Among other things, this also means that a circuit cannot be overclocked, since the effects of the falling
 		edge of the clock are not calculated until the circuit has stabilized after the previous rising edge.
         </body></html>
     ]]></string>
