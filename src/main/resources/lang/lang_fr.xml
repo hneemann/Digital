@@ -2028,7 +2028,7 @@
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Bits d'addr.</string>
     <string name="msg_errorOpeningDocumentation">Erreur lors de l'ouverture du fichier PDF!</string>
-    <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Un simulateur simple pour les circuits électroniques.
+    <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Un simulateur simple pour les circuits numériques.
         Écrit par H. Neemann de 2016-2020.
 
         Les icônes ont été prises du &lt;a href="http://tango.freedesktop.org"&gt;projet Tango Desktop&lt;/a&gt;.
@@ -2361,7 +2361,7 @@
     <string name="menu_fsm">Automate fini</string>
     <string name="menu_fsm_tt">Ouvre un dialogue pour éditer l'automate fini.</string>
     <string name="menu_fsm_create">Créer</string>
-    <string name="menu_fsm_create_table">Table états-transitions</string>
+    <string name="menu_fsm_create_table">Table de transition d'états</string>
     <string name="menu_fsm_create_counter">Créer un compteur</string>
     <string name="menu_fsm_create_counter_N">{0} états</string>
     <string name="menu_fsm_Help_tt">Aide pour utiliser l'éditeur FSM.</string>
@@ -2391,7 +2391,7 @@
     <string name="msg_fsmTransition">Transition</string>
     <string name="msg_fsmState">État</string>
     <string name="msg_fsmNewState">Nouvel état</string>
-    <string name="msg_fsmCantCreateTable">Impossible de créer la table états-transitions.</string>
+    <string name="msg_fsmCantCreateTable">Impossible de créer la table de transition d'états.</string>
     <string name="msg_fsmHelpTitle">Aide de l'éditeur FSM</string>
     <string name="msg_fsmHelp">&lt;html&gt;&lt;head&gt;&lt;/head&gt;
         &lt;body&gt;

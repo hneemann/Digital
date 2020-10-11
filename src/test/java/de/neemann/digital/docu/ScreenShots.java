@@ -98,6 +98,13 @@ public class ScreenShots {
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         firstSteps();
         hierarchicalDesign();
+
+        // French
+        Lang.setActualRuntimeLanguage(new Language("fr"));
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_IEEE_SHAPES, true);
+        firstSteps();
+        hierarchicalDesign();
     }
 
     private static void mainScreenShot() {
@@ -450,7 +457,9 @@ public class ScreenShots {
             String str = Integer.toString(n);
             if (str.length() == 1)
                 str = '0' + str;
-            File file = new File(Resources.getRoot(), "docu/images/" + Lang.currentLanguage().getName() + "/scr" + str + ".png");
+            File dir = new File(Resources.getRoot(), "docu/images/" + Lang.currentLanguage().getName());
+            dir.mkdirs();
+            File file = new File(dir, "/scr" + str + ".png");
             ImageIO.write(image, "png", file);
             n++;
         }
