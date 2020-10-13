@@ -272,6 +272,7 @@ Many thanks to the following persons for their help:
 * Ángel Millán from the Instituto de Educación Secundaria Ies Virgen de Villadiego in Peñaflor (Sevilla), Spain
   has provided the Spanish translation.
 * XinJun Ma ([@itviewer](https://github.com/itviewer)) has provided the Chinese translation.
+* Nicolas Maltais ([@maltaisn](https://github.com/maltaisn)) has provided the French translation.
 
 ## Additional Screenshots
 
