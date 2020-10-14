@@ -73,7 +73,7 @@ public final class MIDIHelper {
             isOpen = true;
 
             model.addObserver(event -> {
-                if (event.equals(ModelEventType.CLOSED))
+                if (event.getType().equals(ModelEventType.CLOSED))
                     close();
             }, ModelEventType.CLOSED);
         }

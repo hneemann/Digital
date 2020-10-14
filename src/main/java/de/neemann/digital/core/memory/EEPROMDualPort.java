@@ -60,7 +60,10 @@ public class EEPROMDualPort extends RAMDualPort implements ROMInterface {
         super.registerNodes(model);
 
         if (memory.isEmpty())
-            model.addObserver(event -> attr.set(Keys.DATA, memory), ModelEventType.CLOSED);
+            model.addObserver(event -> {
+                if (event.getType().equals(ModelEventType.CLOSED))
+                    attr.set(Keys.DATA, memory);
+            }, ModelEventType.CLOSED);
     }
 
 }
