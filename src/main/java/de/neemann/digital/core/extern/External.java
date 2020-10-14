@@ -113,7 +113,7 @@ public class External extends Node implements Element {
         }
 
         model.addObserver(event -> {
-            if (event.equals(ModelEventType.CLOSED)) {
+            if (event == ModelEvent.CLOSED) {
                 try {
                     processInterface.close();
                 } catch (IOException e) {
