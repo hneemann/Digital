@@ -17,7 +17,7 @@
                 The simulator has two modes of operation: Editing and Simulation mode.
                 In the editing mode, modifications to the circuit can be performed. Users can add or connect components.
                 In this mode, simulation is disabled.
-                The simulation mode is activated by pressing the <e>Start</e> button in the toolbar.
+                The simulation mode is activated by pressing the <e>Start</e> button in the tool bar.
                 While starting the simulation the circuit is checked for consistency.
                 If there are errors in the circuit an appropriate message is shown and
                 the affected components or wires are highlighted. If the circuit is error free, the simulation is
@@ -91,12 +91,12 @@
             <par>
                 To further process the circuit, the simulation must first be stopped. The easiest way to do this is
                 with the Stop button in the tool bar. Clicking on a component with the right mouse button
-                (control-click on macOS) opens a dialog which shows the component's properties. The label 'A' can
+                (control-click on MacOS) opens a dialog which shows the component's properties. The label 'A' can
                 be defined for the first input via this dialog.
             </par>
             <par><image src="scr11.png"/></par>
             <par>
-                In the same way, the labels for the remaining inputs and outputs can be defined. The menu item
+                In this way, the labels for the remaining inputs and outputs can be defined. The menu item
                 <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
                 the current circuit. However, this is only possible if all inputs and outputs are labeled properly.
             </par>
@@ -132,8 +132,8 @@
                 Even if the tunnel component is used, there must be a wire between the pin and the tunnel element.
             </par>
             <par>
-                The component needs to be selected using the rectangular selection tool in order to be moved
-                along with the connected wires. For moving a component without the connected wires,
+                The component needs to be selected using the rectangular selection tool in order to be moved,
+                including the connected wires. For moving a component without the connected wires,
                 select the component using a mouse click.
             </par>
             <par>
@@ -161,7 +161,7 @@
                 From two half adders a full adder can now be built. To do this, create a new empty file and save the
                 empty file as <e>fullAdder.dig</e> in the same folder as the half adder. Then the
                 half adder can be added to the new circuit via the <e>Components</e><arrow/><e>Custom</e> menu.
-                The order of the pins at the package of the half-adder can be rearranged from the half adder in the
+                The order of the pins at the package of the half-adder can be rearranged in the half adder in the
                 menu <e>Edit</e><arrow/><e>Order inputs</e> or <e>Edit</e><arrow/><e>Order outputs</e>.
                 The full adder adds the three bits 'A', 'B' and 'Ci' and gives the sum to the outputs 'S' and 'Co'.
             </par>
@@ -194,7 +194,7 @@
                 In this example, however, 512 lines are required. Entering this would be a tedious and error-prone task.
                 It is easier and more reliable to automatically generate the required lines.
                 For this purpose, the variables <e>A</e> and <e>B</e> are each traversed
-                from 0 to 15. The respective values of <e>A</e> and <e>B</e> are then assigned to inputs 'A[n]' and 'B[n]'.
+                from 0 to 15. The respective values of <e>A</e> and <e>B </e> are then assigned to inputs 'A[n]' and 'B[n]'.
                 Then it is checked whether the circuit outputs the value <e>A+B</e>. Then it is checked again with
                 the carry bit set, in which case <e>A+B+1</e> must result.
                 The details of the test syntax are provided by the help dialog.
@@ -389,7 +389,7 @@
                 be found in the boards data sheet, and must be entered as a pin number for the inputs and outputs.
             </par>
             <par>
-                For a BASYS3 board, if the circuit clock frequency is low, a frequency divider is integrated into the HDL
+                At a BASYS3 board, if the circuit clock frequency is low, a frequency divider is integrated into the HDL
                 code to divide the board clock accordingly.
                 If the clock frequency selected in the circuit exceeds 4.7MHz, the MMCM unit of the
                 Artix-7 is used for clock generation.
@@ -426,10 +426,10 @@
         </par>
         <par>
             Digital does not provide an editor for creating a special shape. Instead, a small detour is required
-            for creating circuit shapes: First, the circuit which is to be represented by a special shape is opened.
+            for creating circuit shapes: First, the circuit is opened, which is to be represented by a special shape.
             Then an SVG template is created for this circuit. In this template, the circuit is represented by a
             simple rectangle. It also contains all the pins of the circuit, represented by blue (inputs) and
-            red (outputs) circles. To see which circle belongs to which pin, you can look at the ID of the
+            red (outputs) circuits. To see which circle belongs to which pin, you can look at the ID of the
             circle in the object properties. This ID has the form <e>pin:[name]</e> or <e>pin+:[name]</e>.
             In the latter variant, the pin is provided with a label if reimported to digital.
             If you do not want such a label, the <e>+</e> can be removed.
@@ -457,14 +457,14 @@
     </chapter>
     <chapter heading="Generic Circuits">
         <par>
-            It happens that a subcircuit has been created, and is to be used in different variants.
+            It happens that a subcircuit has been created, and this is to be used in different variants.
             For example, you can imagine a special counter that is needed for different bit widths.
             If one would create a subcircuit for 4, 5 and 6 bits each, the maintenance of the circuit
             would be difficult in the future, since one must always work on several subcircuits, which are
             identical except for one parameter, the bit width.
         </par>
         <par>
-            To prevent this, a generic subcircuit which can be parameterized can be created.
+            To prevent this, a generic subcircuit can be created which can be parameterized.
             For this purpose, the checkbox "Circuit is generic" must be set in the circuit specific settings.
             Then the parameter dialog of each component in that circuit contains the additional field "generic
             parameterization". In this field program code can be entered, which can change the parameters of the
@@ -555,7 +555,7 @@
             <question>If the names of the pins in a circuit are long, the names are no longer readable when
                 the circuit is embedded. What can I do?</question>
             <answer>The width of the block can be increased using the menu item
-                <e>Edit<arrow/>Circuit specific settings</e>.</answer>
+                <e>Edit<arrow/>Edit circuit attributes</e>.</answer>
         </faq>
         <faq>
             <question>The pins in an embedded circuit have an non-optimal order. How can this be changed?</question>
@@ -580,7 +580,7 @@
             <question>I have entered a truth table, but there is more than one boolean equation shown.
                 Which of them is the correct one?
             </question>
-            <answer>Minimizing a boolean equation can result in many equations describing the same function.
+            <answer>Minimizing a boolean equation can result in many equations, describing the same function.
                 Digital shows all of them and they all create the same truth table.
                 There may be differences depending on the "don't cares" in the truth table.
             </answer>
@@ -588,8 +588,8 @@
         <faq>
             <question>I have a truth table. How to create a circuit representing the truth table?</question>
             <answer>In the menu <e>Analysis</e> select the entry <e>Synthesise</e>. Then enter the truth table.
-                You can edit the table using the <e>New</e> or <e>Edit</e> menus.
-                In the menu <e>Create</e>, you can create a circuit using the <e>Circuit</e> item.
+                You can edit the table using the <e>New</e> or <e>Add Columns</e> menus.
+                In the menu <e>Create</e> you can create a circuit using the <e>Circuit</e> item.
             </answer>
         </faq>
         <faq>
@@ -598,7 +598,7 @@
         </faq>
         <faq>
             <question>I have a boolean equation. How to create a circuit?</question>
-            <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the equation.
+            <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the expression.
             </answer>
         </faq>
         <faq>
@@ -638,15 +638,15 @@
         <shortcuts>
             <shortcut key="Space">Starts or stops the simulation.</shortcut>
             <shortcut key="F6">Opens the measurement table dialog.</shortcut>
-            <shortcut key="F7">Run to Break.</shortcut>
-            <shortcut key="F8">Execute test cases.</shortcut>
+            <shortcut key="F7">Run to Break</shortcut>
+            <shortcut key="F8">Execute test cases</shortcut>
             <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single
                 clock component).
             </shortcut>
             <shortcut key="V">Execute a single gate step.</shortcut>
             <shortcut key="B">Execute all single gate steps until the circuit has stabilized or,
                 if a break component is present, until the break.</shortcut>
-            <shortcut key="F9">Analysis of the circuit.</shortcut>
+            <shortcut key="F9">Analysis of the circuit</shortcut>
             <shortcut key="CTRL-A">Select all.</shortcut>
             <shortcut key="CTRL-X">Cuts the selected components to the clipboard.</shortcut>
             <shortcut key="CTRL-C">Copys the selected components to the clipboard.</shortcut>
@@ -660,7 +660,7 @@
             <shortcut key="CTRL-S">Save the circuit.</shortcut>
             <shortcut key="CTRL-Z">Undo last modification.</shortcut>
             <shortcut key="CTRL-Y">Redo the last undone modification.</shortcut>
-            <shortcut key="P">Programs a diode or a FGFET.</shortcut>
+            <shortcut key="P">Programs a diode or a FG-FET.</shortcut>
             <shortcut key="D">While drawing a wire switches to the diagonal mode.</shortcut>
             <shortcut key="F">While drawing a line flips the orientation.</shortcut>
             <shortcut key="S">Splits a single wire into two wires.</shortcut>
@@ -673,10 +673,10 @@
             <shortcut key="-">Decreases the number of inputs at the component the mouse points to. If it is used with
                 constants, the value is decreased.
             </shortcut>
-            <shortcut key="CTRL +">Zoom In.</shortcut>
-            <shortcut key="CTRL -">Zoom Out.</shortcut>
-            <shortcut key="F1">Fit to size.</shortcut>
-            <shortcut key="F5">Show or hide the components tree view.</shortcut>
+            <shortcut key="CTRL +">Zoom In</shortcut>
+            <shortcut key="CTRL -">Zoom Out</shortcut>
+            <shortcut key="F1">Fit to size</shortcut>
+            <shortcut key="F5">Show or hide the components tree view</shortcut>
         </shortcuts>
     </chapter>
 </root>

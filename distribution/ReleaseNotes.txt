@@ -1,6 +1,8 @@
 Release Notes
 
 HEAD, planned as v0.26
+- Added French translation. Special thanks to Nicolas Maltais who
+  provided the translation.
 - Fixed a bug in the Demuxer Verilog template that causes problems
   when using multiple demuxers in the same circuit.
 - Fixed a bug in the value editor, which occurs, if high-z is the
