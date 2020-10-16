@@ -1076,8 +1076,8 @@
   <string name="elem_Register_pin_Q">返回存储内容</string>
   <string name="elem_ROM_tt">非易失存储器。可以通过属性对话框编辑存储内容。</string>
   <string name="elem_ROM_pin_A">地址位</string>
-  <string name="elem_ROM_pin_D">输出使能</string>
-  <string name="elem_ROM_pin_sel">如果输入为高电平，输出使能，如果输入为低电平，输出为高阻态。</string>
+  <string name="elem_ROM_pin_D">输出</string>
+  <string name="elem_ROM_pin_sel">如果 sel 信号为高电平，输出为地址A所存储的数据，如果 sel 信号为低电平，输出为高阻态。</string>
   <string name="elem_RAMDualPort">RAM(独立端口)</string>
   <string name="elem_RAMDualPort_short">RAM</string>
   <string name="elem_RAMDualPort_tt">拥有独立的数据输入存储端口和数据输出读取端口的RAM。</string>
