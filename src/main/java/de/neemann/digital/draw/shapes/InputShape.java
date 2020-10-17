@@ -68,7 +68,7 @@ public class InputShape implements Shape {
 
         bits = attr.getBits();
         if (format.isSigned()) {
-            max = Bits.mask(bits) >> 1;
+            max = Bits.mask(bits) >>> 1;
             min = -max - 1;
         } else {
             min = 0;

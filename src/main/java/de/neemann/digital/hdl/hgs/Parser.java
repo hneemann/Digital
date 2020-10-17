@@ -447,7 +447,7 @@ public class Parser {
         while (nextIs(SHIFTRIGHT)) {
             Expression a = ac;
             Expression b = parseShiftLeft();
-            ac = c -> Value.toLong(a.value(c)) >> Value.toLong(b.value(c));
+            ac = c -> Value.toLong(a.value(c)) >>> Value.toLong(b.value(c));
         }
         return ac;
     }

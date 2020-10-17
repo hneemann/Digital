@@ -357,7 +357,7 @@ public class Parser {
         while (isToken(Tokenizer.Token.SHIFTRIGHT)) {
             Expression a = ac;
             Expression b = parseShiftLeft();
-            ac = (c) -> a.value(c) >> b.value(c);
+            ac = (c) -> a.value(c) >>> b.value(c);
         }
         return ac;
     }
