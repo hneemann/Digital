@@ -45,7 +45,7 @@ public class KarnaughMapComponent extends JComponent {
     private int cellSize;
     private int xDrag;
     private int yDrag;
-    private int startVar = -1;
+    private VarRect startVarRect = null;
 
     /**
      * Creates a new instance
@@ -109,8 +109,8 @@ public class KarnaughMapComponent extends JComponent {
         gr.fillRect(0, 0, width, height);
         gr.setColor(Color.BLACK);
 
-        if (startVar >= 0)
-            gr.drawString(vars.get(startVar).getIdentifier(), xDrag, yDrag);
+        if (startVarRect != null)
+            startVarRect.fragment.draw(gr, xDrag, yDrag);
 
         if (kv != null) {
             AffineTransform trans = gr.getTransform(); // store the old transform
@@ -267,7 +267,7 @@ public class KarnaughMapComponent extends JComponent {
         int xFr = row * cellSize + xPos - xOffs;
         int yFr = col * cellSize + yPos - yOffs;
         fr.draw(gr, xFr, yFr);
-        varPosList.add(new VarRect(var, xFr, yFr + fontMetrics.getDescent() - fr.getHeight(), fr.getWidth(), fr.getHeight()));
+        varPosList.add(new VarRect(var, xFr, yFr + fontMetrics.getDescent() - fr.getHeight(), fr.getWidth(), fr.getHeight(), fr));
     }
 
     private GraphicsFormatter.Fragment getFragment(int var, boolean invert) {
@@ -312,9 +312,9 @@ public class KarnaughMapComponent extends JComponent {
                     int row = kv.getCell(y, x).getBoolTableRow();
                     tableCellModifier.modify(boolTable, row);
                 } else {
-                    int varAt = findVarAt(mouseEvent);
-                    if (varAt >= 0) {
-                        mapLayout.toggleInvertByMouse(varAt);
+                    VarRect varAt = findVarRect(mouseEvent);
+                    if (varAt != null) {
+                        mapLayout.toggleInvertByMouse(varAt.var);
                         update();
                     }
                 }
@@ -323,12 +323,12 @@ public class KarnaughMapComponent extends JComponent {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            startVar = findVarAt(e);
+            startVarRect = findVarRect(e);
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            if (startVar >= 0) {
+            if (startVarRect != null) {
                 xDrag = e.getX();
                 yDrag = e.getY();
                 repaint();
@@ -337,37 +337,44 @@ public class KarnaughMapComponent extends JComponent {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            int endVar = findVarAt(e);
-            if (endVar != startVar
-                    && endVar >= 0 && startVar >= 0
-                    && endVar < vars.size() && startVar <= vars.size()) {
-                mapLayout.swapByMouse(startVar, endVar);
-                startVar = -1;
+            VarRect endVarRect = findVarRect(e);
+            if (startVarRect != null && endVarRect != null
+                    && startVarRect.isValid(vars.size())
+                    && endVarRect.isValid(vars.size())
+                    && startVarRect.var != endVarRect.var) {
+                mapLayout.swapByMouse(startVarRect.var, endVarRect.var);
+                startVarRect = null;
                 update();
             } else {
-                startVar = -1;
+                startVarRect = null;
                 repaint();
             }
         }
+    }
 
-        private int findVarAt(MouseEvent e) {
-            int x = e.getX() - xOffs;
-            int y = e.getY() - yOffs;
-            for (VarRect r : varPosList) {
-                if (r.rect.contains(x, y))
-                    return r.var;
-            }
-            return -1;
+    private VarRect findVarRect(MouseEvent e) {
+        int x = e.getX() - xOffs;
+        int y = e.getY() - yOffs;
+        for (VarRect r : varPosList) {
+            if (r.rect.contains(x, y))
+                return r;
         }
+        return null;
     }
 
     private static final class VarRect {
         private final Rectangle rect;
         private final int var;
+        private final GraphicsFormatter.Fragment fragment;
 
-        private VarRect(int var, int x, int y, int width, int height) {
+        private VarRect(int var, int x, int y, int width, int height, GraphicsFormatter.Fragment fragment) {
             this.var = var;
             rect = new Rectangle(x, y, width, height);
+            this.fragment = fragment;
+        }
+
+        private boolean isValid(int size) {
+            return var >= 0 && var < size;
         }
     }
 
