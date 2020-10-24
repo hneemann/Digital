@@ -23,10 +23,14 @@ public class MapLayout {
         return -1;
     }
 
-    void swapVars(int startVar, int endVar) {
+    private void swapVars(int startVar, int endVar) {
         int t = swap[startVar];
         swap[startVar] = swap[endVar];
         swap[endVar] = t;
+    }
+
+    private void toggleInvert(int n) {
+        mode ^= (1 << n);
     }
 
     /**
@@ -45,16 +49,19 @@ public class MapLayout {
         mode = 0;
     }
 
-    void swapByMouse(int startVar, int endVar) {
-        swapVars(indexOf(startVar), indexOf(endVar));
-    }
+    boolean swapByDragAndDrop(VarRectList.VarRect startVar, VarRectList.VarRect endVar) {
+        if (startVar == null || endVar == null || startVar.equals(endVar))
+            return false;
 
-    void toggleInvert(int n) {
-        mode ^= (1 << n);
-    }
+        int start = indexOf(startVar.getVar());
+        int end = indexOf(endVar.getVar());
+        if (start != end)
+            swapVars(start, end);
 
-    void toggleInvertByMouse(int n) {
-        toggleInvert(indexOf(n));
+        if (startVar.getInvert() != endVar.getInvert())
+            toggleInvert(end);
+
+        return true;
     }
 
     boolean getInvert(int n) {

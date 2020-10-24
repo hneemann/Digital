@@ -50,18 +50,15 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
         cells = new ArrayList<>();
         covers = new ArrayList<>();
 
-        boolean leftMode = mapLayout.getInvert(0);
-        boolean rightMode = mapLayout.getInvert(1);
-        boolean topMode = mapLayout.getInvert(2);
-        boolean bottomMode = mapLayout.getInvert(3);
-
         switch (vars.size()) {
             case 2:  // create the needed KV cells
                 for (int row = 0; row < 2; row++)
                     for (int col = 0; col < 2; col++)
                         cells.add(new Cell(row, col));
 
+                boolean leftMode = mapLayout.getInvert(0);
                 headerLeft = new Header(mapLayout.get(0), !leftMode, leftMode).toRows(2, this);
+                boolean topMode = mapLayout.getInvert(1);
                 headerTop = new Header(mapLayout.get(1), !topMode, topMode).toCols(2, this);
                 headerRight = null;
                 headerBottom = null;
@@ -71,8 +68,11 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
                     for (int col = 0; col < 4; col++)
                         cells.add(new Cell(row, col));
 
+                leftMode = mapLayout.getInvert(0);
                 headerLeft = new Header(mapLayout.get(0), !leftMode, leftMode).toRows(4, this);
+                topMode = mapLayout.getInvert(1);
                 headerTop = new Header(mapLayout.get(1), !topMode, !topMode, topMode, topMode).toCols(2, this);
+                boolean bottomMode = mapLayout.getInvert(2);
                 headerBottom = new Header(mapLayout.get(2), !bottomMode, bottomMode, bottomMode, !bottomMode).toCols(2, this);
                 headerRight = null;
                 break;
@@ -81,9 +81,13 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
                     for (int col = 0; col < 4; col++)
                         cells.add(new Cell(row, col));
 
+                leftMode = mapLayout.getInvert(0);
                 headerLeft = new Header(mapLayout.get(0), !leftMode, !leftMode, leftMode, leftMode).toRows(4, this);
+                boolean rightMode = mapLayout.getInvert(1);
                 headerRight = new Header(mapLayout.get(1), !rightMode, rightMode, rightMode, !rightMode).toRows(4, this);
+                topMode = mapLayout.getInvert(2);
                 headerTop = new Header(mapLayout.get(2), !topMode, !topMode, topMode, topMode).toCols(4, this);
+                bottomMode = mapLayout.getInvert(3);
                 headerBottom = new Header(mapLayout.get(3), !bottomMode, bottomMode, bottomMode, !bottomMode).toCols(4, this);
                 break;
             default:

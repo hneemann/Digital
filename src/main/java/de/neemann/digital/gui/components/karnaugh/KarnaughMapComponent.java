@@ -38,14 +38,14 @@ public class KarnaughMapComponent extends JComponent {
     private Graphics2D gr;
     private String message = Lang.get("msg_noKVMapAvailable");
     private final MapLayout mapLayout = new MapLayout(0);
-    private final ArrayList<VarRect> varPosList = new ArrayList<>();
+    private final VarRectList varRectList = new VarRectList();
 
     private int xOffs;
     private int yOffs;
     private int cellSize;
     private int xDrag;
     private int yDrag;
-    private VarRect startVarRect = null;
+    private VarRectList.VarRect startVarRect = null;
 
     /**
      * Creates a new instance
@@ -97,7 +97,6 @@ public class KarnaughMapComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        varPosList.clear();
         gr = (Graphics2D) graphics;
         gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -108,9 +107,6 @@ public class KarnaughMapComponent extends JComponent {
         gr.setColor(Color.WHITE);
         gr.fillRect(0, 0, width, height);
         gr.setColor(Color.BLACK);
-
-        if (startVarRect != null)
-            startVarRect.fragment.draw(gr, xDrag, yDrag);
 
         if (kv != null) {
             AffineTransform trans = gr.getTransform(); // store the old transform
@@ -166,6 +162,9 @@ public class KarnaughMapComponent extends JComponent {
                         (cell.getRow() + 2) * cellSize - 1);
             }
 
+            // remove old var rectangles
+            varRectList.reset(xOffs, yOffs);
+
             // draw the text in the borders
             gr.setColor(Color.BLACK);
             gr.setFont(headerFont);
@@ -214,6 +213,11 @@ public class KarnaughMapComponent extends JComponent {
             gr.setTransform(trans);
         } else
             gr.drawString(message, 10, 20);
+
+        if (startVarRect != null) {
+            gr.setColor(Color.BLACK);
+            startVarRect.getFragment().draw(gr, xDrag, yDrag);
+        }
     }
 
     private boolean isNoHeaderLine(KarnaughMap.Header header, int i) {
@@ -232,7 +236,8 @@ public class KarnaughMapComponent extends JComponent {
                     dx = cellSize / 2;
                 }
                 int var = header.getVar();
-                drawFragment(getFragment(var, header.getInvert(i)), i + 1, pos, dx, 0, var);
+                boolean invert = header.getInvert(i);
+                drawFragment(var, invert, i + 1, pos, dx, 0);
             }
     }
 
@@ -245,7 +250,8 @@ public class KarnaughMapComponent extends JComponent {
                 dy = cellSize / 2;
             }
             int var = header.getVar();
-            drawFragment(getFragment(var, header.getInvert(i)), pos, i + 1, 0, dy, var);
+            boolean invert = header.getInvert(i);
+            drawFragment(var, invert, pos, i + 1, 0, dy);
         }
     }
     //CHECKSTYLE.ON: ModifiedControlVariable
@@ -258,7 +264,8 @@ public class KarnaughMapComponent extends JComponent {
         gr.drawString(s, row * cellSize + xPos, col * cellSize + yPos);
     }
 
-    private void drawFragment(GraphicsFormatter.Fragment fr, int row, int col, int xOffs, int yOffs, int var) {
+    private void drawFragment(int var, boolean invert, int row, int col, int xOffs, int yOffs) {
+        GraphicsFormatter.Fragment fr = getFragment(var, invert);
         if (fr == null)
             return;
         FontMetrics fontMetrics = gr.getFontMetrics();
@@ -267,7 +274,10 @@ public class KarnaughMapComponent extends JComponent {
         int xFr = row * cellSize + xPos - xOffs;
         int yFr = col * cellSize + yPos - yOffs;
         fr.draw(gr, xFr, yFr);
-        varPosList.add(new VarRect(var, xFr, yFr + fontMetrics.getDescent() - fr.getHeight(), fr.getWidth(), fr.getHeight(), fr));
+
+        // register fragment for drag&drop action
+        Rectangle r = new Rectangle(xFr, yFr + fontMetrics.getDescent() - fr.getHeight(), fr.getWidth(), fr.getHeight());
+        varRectList.add(var, invert, r, fr);
     }
 
     private GraphicsFormatter.Fragment getFragment(int var, boolean invert) {
@@ -311,19 +321,13 @@ public class KarnaughMapComponent extends JComponent {
                 if (x >= 0 && x < kv.getColumns() && y >= 0 && y < kv.getRows()) {
                     int row = kv.getCell(y, x).getBoolTableRow();
                     tableCellModifier.modify(boolTable, row);
-                } else {
-                    VarRect varAt = findVarRect(mouseEvent);
-                    if (varAt != null) {
-                        mapLayout.toggleInvertByMouse(varAt.var);
-                        update();
-                    }
                 }
             }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            startVarRect = findVarRect(e);
+            startVarRect = varRectList.findVarRect(e);
         }
 
         @Override
@@ -337,45 +341,12 @@ public class KarnaughMapComponent extends JComponent {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            VarRect endVarRect = findVarRect(e);
-            if (startVarRect != null && endVarRect != null
-                    && startVarRect.isValid(vars.size())
-                    && endVarRect.isValid(vars.size())
-                    && startVarRect.var != endVarRect.var) {
-                mapLayout.swapByMouse(startVarRect.var, endVarRect.var);
-                startVarRect = null;
+            VarRectList.VarRect endVarRect = varRectList.findVarRect(e);
+            if (mapLayout.swapByDragAndDrop(startVarRect, endVarRect))
                 update();
-            } else {
-                startVarRect = null;
+            else
                 repaint();
-            }
+            startVarRect = null;
         }
     }
-
-    private VarRect findVarRect(MouseEvent e) {
-        int x = e.getX() - xOffs;
-        int y = e.getY() - yOffs;
-        for (VarRect r : varPosList) {
-            if (r.rect.contains(x, y))
-                return r;
-        }
-        return null;
-    }
-
-    private static final class VarRect {
-        private final Rectangle rect;
-        private final int var;
-        private final GraphicsFormatter.Fragment fragment;
-
-        private VarRect(int var, int x, int y, int width, int height, GraphicsFormatter.Fragment fragment) {
-            this.var = var;
-            rect = new Rectangle(x, y, width, height);
-            this.fragment = fragment;
-        }
-
-        private boolean isValid(int size) {
-            return var >= 0 && var < size;
-        }
-    }
-
 }
