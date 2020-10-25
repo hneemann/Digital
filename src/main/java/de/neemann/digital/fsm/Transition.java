@@ -141,10 +141,12 @@ public class Transition extends Movable<Transition> {
             anchor0 = start.add(d0.mul(t));
             anchor = end.add(d3.mul(t));
         } else {
+            float n = 1.75f;
+            VectorFloat correctedPos = getPos().mul(n).add(fromState.getPos().add(toState.getPos()).mul((1 - n) / 2));
             start = fromState.getPos().add(
-                    getPos().sub(fromState.getPos()).norm().mul(fromState.getVisualRadius() + Style.MAXLINETHICK));
+                    correctedPos.sub(fromState.getPos()).norm().mul(fromState.getVisualRadius() + Style.MAXLINETHICK));
             end = toState.getPos().add(
-                    getPos().sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK + 2));
+                    correctedPos.sub(toState.getPos()).norm().mul(toState.getVisualRadius() + Style.MAXLINETHICK + 2));
             anchor = getPos().mul(2).sub(start.div(2)).sub(end.div(2));
             anchor0 = null;
         }
