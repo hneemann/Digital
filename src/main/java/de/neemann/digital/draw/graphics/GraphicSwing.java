@@ -41,8 +41,6 @@ public class GraphicSwing extends Graphic {
         this.gr = gr;
         this.pixelSize = pixelSize;
         this.minFontSize = pixelSize * 3;
-        if (gr != null)
-            gr.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
     }
 
     /**
