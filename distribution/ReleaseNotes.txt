@@ -1,6 +1,8 @@
 Release Notes
 
 HEAD, planned as v0.26
+- Improved the gui to modify the k-map layout.
+- Improved the layout of fsm transitions in the fsm editor.
 - Added French translation. Special thanks to Nicolas Maltais who
   provided the translation.
 - Fixed a bug in the Demuxer Verilog template that causes problems
