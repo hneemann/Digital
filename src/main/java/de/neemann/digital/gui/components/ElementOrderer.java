@@ -109,7 +109,7 @@ public class ElementOrderer<T> extends JDialog {
                 int i = list.getSelectedIndex();
                 if (data.size() > minEntries && i >= 0 && i < data.size())
                     listModel.delete(i);
-                if (data.size() == minEntries)
+                if (data.size() <= minEntries)
                     setEnabled(false);
             }
         }.setToolTip(Lang.get("tt_deleteItem")).setEnabledChain(data.size() > minEntries).createJButton());
