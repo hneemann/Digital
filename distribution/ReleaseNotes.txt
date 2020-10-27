@@ -13,6 +13,7 @@ HEAD, planned as v0.26
   click on the start button again.
 - If IEEE shapes are selected in the settings, also the CircuitBuilder
   uses wide shapes in the created circuits.
+- Added IC 74190 to the Library.
 
 v0.25, released on 10. Aug. 2020
 - Color schemes have been added to support color-blind users.
