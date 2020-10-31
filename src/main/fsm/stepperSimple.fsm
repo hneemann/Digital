@@ -14,7 +14,7 @@
       <values>P=0110</values>
       <position x="240.0" y="240.0"/>
       <number>1</number>
-      <name>S2</name>
+      <name>S1</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
       <initialAngle>0</initialAngle>
@@ -23,7 +23,7 @@
       <values>P=0011</values>
       <position x="0.0" y="480.0"/>
       <number>2</number>
-      <name>S4</name>
+      <name>S2</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
       <initialAngle>0</initialAngle>
@@ -32,7 +32,7 @@
       <values>P=1001</values>
       <position x="-240.0" y="240.0"/>
       <number>3</number>
-      <name>S6</name>
+      <name>S3</name>
       <radius>70</radius>
       <isInitial>false</isInitial>
       <initialAngle>0</initialAngle>

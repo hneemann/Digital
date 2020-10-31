@@ -14,7 +14,6 @@ import de.neemann.digital.analyse.expression.ExpressionVisitor;
 import de.neemann.digital.analyse.expression.Operation;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.core.Bits;
-import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.components.table.ExpressionListener;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
@@ -22,49 +21,19 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Used to determine the optimal state numbers for a given FSM.
  */
 public class Optimizer {
     private static final Logger LOGGER = LoggerFactory.getLogger(Optimizer.class);
-
-    private int bestComplexity = Integer.MAX_VALUE;
-    private int[] best;
-
-    static void permute(int size, PermListener listener) throws FiniteStateMachineException, FormatterException, ExpressionException {
-        permute(size, size, listener);
-    }
-
-    static void permute(int size, int range, PermListener listener) throws FiniteStateMachineException, FormatterException, ExpressionException {
-        int[] perms = new int[range];
-        for (int i = 0; i < range; i++)
-            perms[i] = i;
-        permute(perms, 0, size, listener);
-    }
-
-    private static void permute(int[] perms, int fixed, int size, PermListener listener) throws FiniteStateMachineException, FormatterException, ExpressionException {
-        if (fixed == size) {
-            listener.perm(perms);
-            return;
-        }
-
-        permute(perms, fixed + 1, size, listener);
-        for (int i = fixed + 1; i < perms.length; i++) {
-            swap(perms, fixed, i);
-            permute(perms, fixed + 1, size, listener);
-            swap(perms, fixed, i);
-        }
-    }
-
-    private static void swap(int[] perms, int n0, int n1) {
-        int t = perms[n0];
-        perms[n0] = perms[n1];
-        perms[n1] = t;
-    }
-
     private static final long[] FAC_TABLE = new long[]{1L, 1L, 2L, 6L, 24L, 120L, 720L, 5040L, 40320L, 362880L, 3628800L, 39916800L, 479001600L, 6227020800L, 87178291200L, 1307674368000L, 20922789888000L, 355687428096000L, 6402373705728000L, 121645100408832000L, 2432902008176640000L};
+    private final FSM fsm;
+
+    private final int initialComplexity;
+    private int bestComplexity;
+    private int[] best;
+    private Permute.PermPull pp;
 
     /**
      * Returns the factorial of a number.
@@ -80,51 +49,55 @@ public class Optimizer {
     }
 
     /**
-     * Called to optimize the state numbers in a FSM
+     * Creates a new optimizer
      *
      * @param fsm the fsm to optimize
      * @throws FiniteStateMachineException FiniteStateMachineException
      * @throws FormatterException          FormatterException
      * @throws ExpressionException         ExpressionException
-     * @throws OptimizerException          OptimizerException
      */
-    public void optimizeFSM(FSM fsm) throws FiniteStateMachineException, FormatterException, ExpressionException, OptimizerException {
-        LOGGER.info("optimizing time complexity: " + getTimeComplexity(fsm));
+    public Optimizer(FSM fsm) throws FiniteStateMachineException, FormatterException, ExpressionException {
+        this.fsm = fsm;
+        initialComplexity = calcComplexity(fsm, false);
+        bestComplexity = initialComplexity;
+    }
 
-        final long timeOut = Main.isExperimentalMode() ? Long.MAX_VALUE : System.currentTimeMillis() + 1000L * 30;
+    /**
+     * Called to optimize the state numbers in a FSM
+     *
+     * @return this for chained calls
+     * @throws FiniteStateMachineException   FiniteStateMachineException
+     * @throws FormatterException            FormatterException
+     * @throws ExpressionException           ExpressionException
+     * @throws Permute.PermListenerException PermListenerException
+     */
+    public Optimizer optimizeFSM() throws FiniteStateMachineException, FormatterException, ExpressionException, Permute.PermListenerException {
+        LOGGER.info("optimizing time complexity: " + getTimeComplexity(fsm));
 
         bestComplexity = calcComplexity(fsm, false);
         LOGGER.info("start complexity " + bestComplexity);
-
-        ArrayBlockingQueue<int[]> queue = new ArrayBlockingQueue<>(50);
-
         List<State> states = fsm.getStates();
         int size = states.size();
         int sizeInclDC = 1 << Bits.binLn2(size - 1);
-        try {
-            permute(states.size(), sizeInclDC, perm -> {
-                for (int i = 0; i < states.size(); i++)
-                    states.get(i).setNumber(perm[i]);
 
-                int c = calcComplexity(fsm, false);
+        Permute.permute(size, sizeInclDC, perm -> {
+            for (int i = 0; i < states.size(); i++)
+                states.get(i).setNumber(perm[i]);
 
-                if (c < bestComplexity) {
-                    bestComplexity = c;
-                    best = Arrays.copyOf(perm, size);
-                    bestSoFar(fsm, bestComplexity);
-                }
+            int c;
+            try {
+                c = calcComplexity(fsm, false);
+            } catch (ExpressionException | FiniteStateMachineException | FormatterException e) {
+                throw new Permute.PermListenerException(e);
+            }
 
-                if (System.currentTimeMillis() > timeOut)
-                    throw new TimeoutException();
+            if (c < bestComplexity) {
+                bestComplexity = c;
+                best = Arrays.copyOf(perm, size);
+            }
+        });
 
-            });
-        } catch (TimeoutException e) {
-            throw new OptimizerException(Lang.get("err_fsm_optimizer_timeout"));
-        } finally {
-            if (best != null)
-                for (int i = 0; i < size; i++)
-                    states.get(i).setNumber(best[i]);
-        }
+        return this;
     }
 
     /**
@@ -145,13 +118,78 @@ public class Optimizer {
     }
 
     /**
-     * Called if a new optimal fsm is found
+     * Use to optimize the fsm by utilizing all evalable cores
      *
-     * @param fsm        the fsm
-     * @param complexity the complexity of the fsm
+     * @param el the event listener to inform a client apout th state of the optimization
+     * @return this for chained calls
+     * @throws FiniteStateMachineException FiniteStateMachineException
+     * @throws FormatterException          FormatterException
+     * @throws ExpressionException         ExpressionException
      */
-    public void bestSoFar(FSM fsm, int complexity) {
-        LOGGER.info(fsm.getStates() + "; " + complexity);
+    public Optimizer optimizeFSMParallel(EventListener el) throws FiniteStateMachineException, FormatterException, ExpressionException {
+        LOGGER.info("optimizing time complexity: " + getTimeComplexity(fsm));
+        bestComplexity = calcComplexity(fsm, false);
+        LOGGER.info("start complexity " + bestComplexity);
+        List<State> states = fsm.getStates();
+        int size = states.size();
+        int sizeInclDC = 1 << Bits.binLn2(size - 1);
+        pp = new Permute.PermPull(size, sizeInclDC, () -> {
+            if (el != null)
+                el.finished();
+        });
+
+        final Object lock = new Object();
+
+        BestListener l = (b, bcplx) -> {
+            synchronized (lock) {
+                if (bcplx < bestComplexity) {
+                    bestComplexity = bcplx;
+                    best = b;
+                    if (el != null)
+                        el.bestSoFar(best, bestComplexity);
+                }
+            }
+        };
+
+
+        for (int i = 0; i < Runtime.getRuntime().availableProcessors(); i++)
+            new ThreadRunner(new FSM(fsm), pp, l).start();
+
+        return this;
+    }
+
+    /**
+     * Waits for the optimizer to finish
+     *
+     * @return this for chained calls
+     */
+    public Optimizer waitFor() {
+        if (pp != null)
+            pp.waitFor();
+
+        return this;
+    }
+
+    /**
+     * stops the optimizer
+     */
+    public void stop() {
+        if (pp != null)
+            pp.stop();
+    }
+
+    /**
+     * Apply the best permutation to the fsm
+     *
+     * @return this for chained calls
+     */
+    public Optimizer applyBest() {
+        if (best != null) {
+            List<State> states = fsm.getStates();
+            for (int i = 0; i < states.size(); i++)
+                states.get(i).setNumber(best[i]);
+        }
+        return this;
     }
 
     /**
@@ -170,6 +208,13 @@ public class Optimizer {
         for (int i = 0; i < tt.getResultCount(); i++)
             mi.minimize(tt.getVars(), tt.getResult(i), tt.getResultName(i), listener);
         return listener.complexity;
+    }
+
+    /**
+     * @return the initial complexity
+     */
+    public int getInitialComplexity() {
+        return initialComplexity;
     }
 
     private final static class ComplexityListener implements ExpressionListener {
@@ -210,20 +255,53 @@ public class Optimizer {
         }
     }
 
-    private static final class TimeoutException extends RuntimeException {
-    }
+    private static final class ThreadRunner extends Thread {
+        private final FSM fsm;
+        private final Permute.PermPull pp;
+        private final BestListener l;
 
-    /**
-     * Exception thrown by the optimizer
-     */
-    public static final class OptimizerException extends Exception {
-        private OptimizerException(String message) {
-            super(message);
+        private ThreadRunner(FSM fsm, Permute.PermPull pp, BestListener l) {
+            this.fsm = fsm;
+            this.pp = pp;
+            this.l = l;
+        }
+
+        public void run() {
+            int bestComplexity = Integer.MAX_VALUE;
+            List<de.neemann.digital.fsm.State> states = fsm.getStates();
+            int size = states.size();
+            int[] p;
+            while ((p = pp.next()) != null) {
+                for (int i = 0; i < size; i++)
+                    states.get(i).setNumber(p[i]);
+
+                int c;
+                try {
+                    c = calcComplexity(fsm, false);
+
+                    if (c < bestComplexity) {
+                        bestComplexity = c;
+                        l.bestSoFar(Arrays.copyOf(p, size), bestComplexity);
+                    }
+                } catch (ExpressionException | FiniteStateMachineException | FormatterException e) {
+                    // ToDo
+                }
+            }
         }
     }
 
-    interface PermListener {
-        void perm(int[] perm) throws FiniteStateMachineException, FormatterException, ExpressionException;
+    private interface BestListener {
+        void bestSoFar(int[] best, int bestComplexity);
+    }
+
+    /**
+     * Used to inform the user of the parallel optimizer
+     */
+    public interface EventListener extends BestListener {
+        /**
+         * Called if the optimizer has finished
+         */
+        void finished();
     }
 
 }

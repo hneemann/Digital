@@ -13,10 +13,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.fsm.FSM;
-import de.neemann.digital.fsm.FSMDemos;
-import de.neemann.digital.fsm.FiniteStateMachineException;
-import de.neemann.digital.fsm.Optimizer;
+import de.neemann.digital.fsm.*;
 import de.neemann.digital.gui.*;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
@@ -409,18 +406,18 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             });
         }
 
-        create.add(new ToolTipAction(Lang.get("menu_fsm_create_state_numbers")) {
+        create.add(new ToolTipAction(Lang.get("menu_fsm_optimize_state_numbers")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    new Optimizer().optimizeFSM(fsm);
-                } catch (FiniteStateMachineException | FormatterException | ExpressionException | Optimizer.OptimizerException e) {
-                    new ErrorMessage(Lang.get("menu_fsm_create_state_numbers_err")).addCause(e).show(FSMFrame.this);
+                    new OptimizerDialog(FSMFrame.this).setVisible(true);
+                } catch (FiniteStateMachineException | FormatterException | ExpressionException e) {
+                    new ErrorMessage(Lang.get("menu_fsm_optimize_state_numbers_err")).addCause(e).show(FSMFrame.this);
                 } finally {
                     fsmComponent.repaint();
                 }
             }
-        }.setToolTip(Lang.get("menu_fsm_create_state_numbers_tt")).createJMenuItem());
+        }.setToolTip(Lang.get("menu_fsm_optimize_state_numbers_tt")).createJMenuItem());
     }
 
     /**
