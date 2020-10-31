@@ -198,7 +198,7 @@ public class State extends Movable<State> {
     @Override
     public String toString() {
         if (name != null && name.length() > 0)
-            return name;
+            return name + "/" + number;
         else
             return Integer.toString(number);
     }
