@@ -91,7 +91,7 @@
             if (args.direction=&quot;left&quot;) {
                 export circuit:=&quot;shift-fixed-left-inc.dig&quot;;
             } else {
-                panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.dir+&quot;\&quot;!&quot;);
+                panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.direction+&quot;\&quot;!&quot;);
             }
         }
     }
