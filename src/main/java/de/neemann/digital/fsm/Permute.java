@@ -143,7 +143,7 @@ public final class Permute {
          * @param size the size of the permutation
          */
         public PermPull(int size) {
-            this(size, size, null);
+            this(size, size);
         }
 
         /**
@@ -153,17 +153,6 @@ public final class Permute {
          * @param range the range
          */
         public PermPull(int size, int range) {
-            this(size, range, null);
-        }
-
-        /**
-         * Creates a new instance
-         *
-         * @param size   the size of the permutation
-         * @param range  the range
-         * @param finish a runnable called if the last permutation is read
-         */
-        public PermPull(int size, int range, Runnable finish) {
             queue = new LinkedList<>();
 
             Thread thread = new Thread(() -> {
@@ -195,9 +184,6 @@ public final class Permute {
                     running = false;
                     queue.notifyAll();
                 }
-
-                if (finish != null)
-                    finish.run();
             });
 
             thread.start();

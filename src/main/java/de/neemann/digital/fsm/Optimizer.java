@@ -15,7 +15,6 @@ import de.neemann.digital.analyse.expression.Operation;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.gui.components.table.ExpressionListener;
-import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,10 +132,7 @@ public class Optimizer {
         List<State> states = fsm.getStates();
         int size = states.size();
         int sizeInclDC = 1 << Bits.binLn2(size - 1);
-        pp = new Permute.PermPull(size, sizeInclDC, () -> {
-            if (el != null)
-                el.finished();
-        });
+        pp = new Permute.PermPull(size, sizeInclDC);
 
         final Object lock = new Object();
 
@@ -151,9 +147,14 @@ public class Optimizer {
             }
         };
 
-
-        for (int i = 0; i < Runtime.getRuntime().availableProcessors(); i++)
-            new ThreadRunner(new FSM(fsm), pp, l).start();
+        WaitGroup wg = new WaitGroup(() -> {
+            if (el != null)
+                el.finished();
+        });
+        for (int i = 0; i < Runtime.getRuntime().availableProcessors(); i++) {
+            wg.add();
+            new ThreadRunner(wg, new FSM(fsm), pp, l).start();
+        }
 
         return this;
     }
@@ -256,41 +257,53 @@ public class Optimizer {
     }
 
     private static final class ThreadRunner extends Thread {
+        private final WaitGroup wg;
         private final FSM fsm;
         private final Permute.PermPull pp;
         private final BestListener l;
 
-        private ThreadRunner(FSM fsm, Permute.PermPull pp, BestListener l) {
+        private ThreadRunner(WaitGroup wg, FSM fsm, Permute.PermPull pp, BestListener l) {
+            this.wg = wg;
             this.fsm = fsm;
             this.pp = pp;
             this.l = l;
         }
 
         public void run() {
-            int bestComplexity = Integer.MAX_VALUE;
-            List<de.neemann.digital.fsm.State> states = fsm.getStates();
-            int size = states.size();
-            int[] p;
-            while ((p = pp.next()) != null) {
-                for (int i = 0; i < size; i++)
-                    states.get(i).setNumber(p[i]);
+            try {
+                int bestComplexity = Integer.MAX_VALUE;
+                List<de.neemann.digital.fsm.State> states = fsm.getStates();
+                int size = states.size();
+                int[] p;
+                while ((p = pp.next()) != null) {
+                    for (int i = 0; i < size; i++)
+                        states.get(i).setNumber(p[i]);
 
-                int c;
-                try {
-                    c = calcComplexity(fsm, false);
+                    int c;
+                    try {
+                        c = calcComplexity(fsm, false);
 
-                    if (c < bestComplexity) {
-                        bestComplexity = c;
-                        l.bestSoFar(Arrays.copyOf(p, size), bestComplexity);
+                        if (c < bestComplexity) {
+                            bestComplexity = c;
+                            l.bestSoFar(Arrays.copyOf(p, size), bestComplexity);
+                        }
+                    } catch (ExpressionException | FiniteStateMachineException | FormatterException e) {
+                        // do nothing
                     }
-                } catch (ExpressionException | FiniteStateMachineException | FormatterException e) {
-                    // ToDo
                 }
+            } finally {
+                wg.done();
             }
         }
     }
 
     private interface BestListener {
+        /**
+         * Called if a new, better permutation is found
+         *
+         * @param best           the permutation
+         * @param bestComplexity the complexity
+         */
         void bestSoFar(int[] best, int bestComplexity);
     }
 

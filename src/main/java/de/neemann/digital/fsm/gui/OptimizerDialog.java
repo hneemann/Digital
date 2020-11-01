@@ -40,9 +40,9 @@ public class OptimizerDialog extends JDialog {
 
         GridLayout layout = new GridLayout(2, 2);
         JPanel panel = new JPanel(layout);
-        panel.add(addBorder(new JLabel("Initial")));
+        panel.add(addBorder(new JLabel(Lang.get("msg_fsm_optimizer_initial"))));
         panel.add(addBorder(new JLabel(Integer.toString(optimizer.getInitialComplexity()))));
-        panel.add(addBorder(new JLabel("Best")));
+        panel.add(addBorder(new JLabel(Lang.get("msg_fsm_optimizer_best"))));
         bestLabel = new JLabel(Integer.toString(optimizer.getInitialComplexity()));
         panel.add(addBorder(bestLabel));
 
