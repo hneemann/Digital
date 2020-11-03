@@ -134,6 +134,16 @@
       </elementAttributes>
       <pos x="440" y="180"/>
     </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 8;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="380"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

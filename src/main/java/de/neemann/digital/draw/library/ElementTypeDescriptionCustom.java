@@ -151,11 +151,18 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
      */
     public String getDeclarationDefault() throws NodeException {
         if (declarationDefault == null)
-            declarationDefault = createDeclarationDefault();
+            declarationDefault = createDeclarationDefault(circuit);
         return declarationDefault;
     }
 
-    private String createDeclarationDefault() throws NodeException {
+    /**
+     * Creates the default for custom element declarations
+     *
+     * @param circuit the circuit
+     * @return the default code template
+     * @throws NodeException NodeException
+     */
+    public static String createDeclarationDefault(Circuit circuit) throws NodeException {
         TreeSet<String> nameSet = new TreeSet<>();
         for (VisualElement ve : circuit.getElements()) {
             String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();

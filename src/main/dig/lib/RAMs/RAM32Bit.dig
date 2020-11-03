@@ -1060,6 +1060,16 @@ this.&apos;Output Splitting&apos;=&quot;2-&quot;+(args.addrBits-1)+&quot;,0-0,1-
       </elementAttributes>
       <pos x="140" y="520"/>
     </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>addrBits := 8;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="880" y="120"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

@@ -107,13 +107,9 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  export inBits := args.inBits+1;
-  if (args.inBits&lt;args.bits-2) {
-    setCircuit(&quot;GrayNode-inc.dig&quot;);
-  }
-} else {
-  export inBits:=3;
+          <string>export inBits := args.inBits+1;
+if (args.inBits&lt;args.bits-2) {
+  setCircuit(&quot;GrayNode-inc.dig&quot;);
 }</string>
         </entry>
       </elementAttributes>
@@ -186,6 +182,17 @@ noch nicht erreicht ist.}}</string>
         </entry>
       </elementAttributes>
       <pos x="80" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 4;
+inBits := 2;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="140"/>
     </visualElement>
   </visualElements>
   <wires>

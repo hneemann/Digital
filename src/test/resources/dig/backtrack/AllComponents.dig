@@ -492,7 +492,7 @@
     <visualElement>
       <elementName>Testcase</elementName>
       <elementAttributes/>
-      <pos x="100" y="480"/>
+      <pos x="100" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>PowerSupply</elementName>
@@ -657,6 +657,11 @@
       <elementName>Stop</elementName>
       <elementAttributes/>
       <pos x="420" y="1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes/>
+      <pos x="100" y="440"/>
     </visualElement>
   </visualElements>
   <wires>

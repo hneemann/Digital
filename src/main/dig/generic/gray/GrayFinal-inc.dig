@@ -162,6 +162,16 @@ den Überlauf korrekt umzusetzen.}}</string>
       </elementAttributes>
       <pos x="200" y="40"/>
     </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>inBits := 2;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="620" y="220"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

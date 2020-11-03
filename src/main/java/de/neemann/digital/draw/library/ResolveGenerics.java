@@ -16,6 +16,7 @@ import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -90,8 +91,20 @@ public class ResolveGenerics {
                     throw ex;
                 }
             }
-        } else
+        } else {
             context = new Context();
+            List<VisualElement> g = circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
+            if (g.size() == 0)
+                throw new NodeException(Lang.get("err_noGenericInitCode"));
+            if (g.size() > 1)
+                throw new NodeException(Lang.get("err_multipleGenericInitCodes"));
+            String argsCode = g.get(0).getElementAttributes().get(Keys.GENERIC);
+            try {
+                getStatement(argsCode).execute(context);
+            } catch (IOException | ParserException | HGSEvalException e) {
+                throw new NodeException(Lang.get("err_inGenericInitCode"), e);
+            }
+        }
 
         return new Args(context);
     }
@@ -172,7 +185,7 @@ public class ResolveGenerics {
     private static final class SetCircuitFunc extends Function {
         private final VisualElement ve;
 
-        private  SetCircuitFunc(VisualElement ve) {
+        private SetCircuitFunc(VisualElement ve) {
             super(1);
             this.ve = ve;
         }

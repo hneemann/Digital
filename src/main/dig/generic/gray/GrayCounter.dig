@@ -138,14 +138,22 @@ ist als drei.}}</string>
         <entry>
           <string>generic</string>
           <string>inBits:=2;
-if (isPresent(args)) {
-  if (args.bits&gt;3) {
-    setCircuit(&quot;GrayNode-inc.dig&quot;);
-  }
+if (args.bits&gt;3) {
+  setCircuit(&quot;GrayNode-inc.dig&quot;);
 }</string>
         </entry>
       </elementAttributes>
       <pos x="500" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 3;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="160"/>
     </visualElement>
   </visualElements>
   <wires>

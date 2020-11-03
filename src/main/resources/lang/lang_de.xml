@@ -875,22 +875,32 @@
     <string name="elem_TransGate_pin_~S">Steuereingang, invertiert</string>
 
 
-
     <!-- Sonstige -->
 
     <string name="elem_Testcase">Testfall</string>
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
-        dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.</string>
+        dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.
+    </string>
+    <string name="elem_GenericInitCode">Generische Initialisierung</string>
+    <string name="elem_GenericInitCode_tt">Code der ausgeführt wird, um eine generische Schaltung direkt starten zu
+        können.
+        Soll eine generische Schaltung direkt gestartet werden, muss eine solche Komponente vorhanden sein.
+    </string>
+
     <string name="elem_AsyncSeq">Asynchrones Timing</string>
     <string name="elem_AsyncSeq_tt">Erlaubt die Konfiguration des Timings eines asynchronen Automaten wie z.B einer
-        Muller-Pipeline. Die Schaltung muss im Gatterschrittmodus gestartet werden und muss zunächst einen stabilen Zustand
+        Muller-Pipeline. Die Schaltung muss im Gatterschrittmodus gestartet werden und muss zunächst einen stabilen
+        Zustand
         einnehmen. Interaktiv oder mit einem Reset-Element kann dann der Automat gestartet werden.
-        Die Taktelemente können in diesem Modus nicht verwendet werden.</string>
+        Die Taktelemente können in diesem Modus nicht verwendet werden.
+    </string>
     <string name="elem_PowerSupply">Versorgung</string>
-    <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen sind.
+    <string name="elem_PowerSupply_tt">Hat keine weitere Funktion. Stellt nur sicher, dass VDD und GND angeschlossen
+        sind.
         Kann im Zusammenhang mit den 74xx Bausteinen verwendet werden, um Anschlüsse für die Spannungsversorgung
-        zu erzeugen, welche dann auch auf korrekte Beschaltung geprüft werden.</string>
+        zu erzeugen, welche dann auch auf korrekte Beschaltung geprüft werden.
+    </string>
     <string name="elem_PowerSupply_pin_VDD">Muss mit VDD verbunden werden!</string>
     <string name="elem_PowerSupply_pin_GND">Muss mit GND verbunden werden!</string>
     <string name="elem_Reset">Reset</string>
@@ -1112,20 +1122,26 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_hdlNotKnown_N">HDL nicht bekannt: {0}</string>
     <string name="msg_errorStartCommand_N">Fehler beim Starten des Kommandos {0}</string>
     <string name="err_thereIsAUnnamedIO">Es gibt einen unbenannten Ein- oder Ausgang.</string>
-    <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!</string>
+    <string name="err_NameOfIOIsInvalidOrNotUnique_N">Der Signalname "{0}" ist ungültig oder mehrfach verwendet!
+    </string>
     <string name="err_substitutingError">Fehler bei der Substitution von Elementen für die Analyse.</string>
     <string name="err_evaluatingGenericsCode_N_N">Fehler bei der Auswertung des generischen Codes der Schaltung. Code:
         {1}
         in Komponente: {0}
     </string>
     <string name="msg_errParsingGenerics">Fehler bei der Analyse des generischen Codes.</string>
+    <string name="err_noGenericInitCode">Kein Initialisierungscode für die generischen Elemente.</string>
+    <string name="err_multipleGenericInitCodes">Mehrere Initialisierungscodes für die generischen Elemente.</string>
+    <string name="err_inGenericInitCode">Fehler bei der Analyse des generischen Initialisierungscodes.</string>
+
 
     <string name="err_vgaModeNotDetected_N">Videomodus wurde nicht erkannt ({0})</string>
     <string name="err_ROM_noFileGivenToLoad">Es ist kein Dateiname für das automatische Neuladen verfügbar!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
-    <string name="key_Bits">Daten-Bits</string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
+    <string name="key_Bits">Daten-Bits
+    </string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
     <string name="key_Bits_tt">Anzahl der Daten-Bits, die verwendet werden.</string>
     <string name="key_Color">Farbe</string><!-- LED, LightBulb, Seven-Seg, Seven-Seg-Hex, LedMatrix -->
     <string name="key_Color_tt">Die Farbe des Elementes.</string>

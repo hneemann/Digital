@@ -1121,6 +1121,16 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     }
                 }
 
+                if (elementType == GenericInitCode.DESCRIPTION) {
+                    if (element.getElementAttributes().get(Keys.GENERIC).isEmpty()) {
+                        try {
+                            element.getElementAttributes().set(Keys.GENERIC, ElementTypeDescriptionCustom.createDeclarationDefault(getCircuit()));
+                        } catch (NodeException ex) {
+                            new ErrorMessage(Lang.get("msg_errParsingGenerics")).addCause(ex).show(CircuitComponent.this);
+                        }
+                    }
+                }
+
                 Point p = new Point(e.getX(), e.getY());
                 SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
                 AttributeDialog attributeDialog = new AttributeDialog(parent, p, list, element.getElementAttributes())
@@ -1399,6 +1409,16 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      */
     boolean isManualScale() {
         return isManualScale;
+    }
+
+    /**
+     * Sets a copy to use temporarily to draw the circuit.
+     * Used to visualize a created concrete circuit created from a generic one.
+     *
+     * @param circuit the circuit to use.
+     */
+    public void setCopy(Circuit circuit) {
+        shallowCopy = circuit;
     }
 
     private final class PlusMinusAction extends ToolTipAction {
@@ -2400,7 +2420,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
 
         private VisualElement getInteractiveElementAt(MouseEvent e) {
-            List<VisualElement> elementList = getCircuit().getElementListAt(getPosVector(e), false);
+            Circuit circuit;
+            if (shallowCopy != null)
+                circuit = shallowCopy;
+            else
+                circuit = getCircuit();
+            List<VisualElement> elementList = circuit.getElementListAt(getPosVector(e), false);
             for (VisualElement ve : elementList) {
                 if (ve.isInteractive())
                     return ve;
