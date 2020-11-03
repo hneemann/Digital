@@ -591,7 +591,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             }
         }
 
-        Wire w = getCircuit().getWireAt(pos, SIZE2);
+        Wire w = getCircuit().getWireAt(pos, (int) (SIZE2 / transform.getScaleX()));
         if (w != null) {
             ObservableValue v = w.getValue();
             if (v != null)
