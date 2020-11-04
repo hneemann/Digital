@@ -1151,14 +1151,17 @@
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
     <string name="key_Bits">Data Bits
-    </string><!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
+    </string> <!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
     <string name="key_Bits_tt">Number of data bits used.</string>
     <string name="key_Color">Color</string><!-- LED, LightBulb, Seven-Seg, Seven-Seg-Hex, LedMatrix -->
     <string name="key_Color_tt">The Color of the element.</string>
     <string name="key_backgroundColor">Background color</string>
-    <string name="key_backgroundColor_tt">Background color of the circuit when it is embedded in another circuit. Is not used for DIL packages.</string>
+    <string name="key_backgroundColor_tt">Background color of the circuit when it is embedded in another circuit. Is not
+        used for DIL packages.
+    </string>
     <string name="key_Cycles">Timeout cycles</string><!-- Break -->
-    <string name="key_Cycles_tt">If this amount of cycles is reached without a break signal, an error is created.</string>
+    <string name="key_Cycles_tt">If this amount of cycles is reached without a break signal, an error is created.
+    </string>
     <string name="key_Data">Data</string><!-- LookUpTable, ROM, EEPROM -->
     <string name="key_Data_tt">The values stored in this element.</string>
     <string name="key_Default">Default</string><!-- Demultiplexer, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS -->
@@ -1858,6 +1861,12 @@
     <string name="stat_addrBits">Addr. Bits</string>
 
     <string name="msg_keyAsGenericAttribute">Name to use in generic circuits: {0}</string>
+    <string name="attr_createConcreteCircuitLabel">Create Concrete Circuit</string>
+    <string name="attr_createConcreteCircuit">Create</string>
+    <string name="attr_createConcreteCircuit_tt">Creates a concrete circuit from this generic circuit using the
+        parameters specified in this element.
+    </string>
+    <string name="attr_createConcreteCircuitErr">Error while creating the concrete circuit!</string>
 
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
         Written by H. Neemann in 2016-2020.
@@ -1865,9 +1874,11 @@
         The icons are taken from the &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
 
         Visit the project at &lt;a href=&quot;https://github.com/hneemann/[[name]]&quot;&gt;GitHub&lt;/a&gt;.
-        At Github you can also &lt;a href=&quot;https://github.com/hneemann/[[name]]/releases/latest&quot;&gt;download&lt;/a&gt; the latest release.
+        At Github you can also &lt;a href=&quot;https://github.com/hneemann/[[name]]/releases/latest&quot;&gt;download&lt;/a&gt;
+        the latest release.
 
-        There you also can file an &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug&quot;&gt;issue&lt;/a&gt; or suggest
+        There you also can file an &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug&quot;&gt;issue&lt;/a&gt;
+        or suggest
         an &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enhancement&quot;&gt;enhancement&lt;/a&gt;.
     </string>
     <string name="msg_N_nodes">{0} nodes</string>

@@ -1151,6 +1151,35 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                         }
                     }.setToolTip(Lang.get("attr_openCircuit_tt")));
                 }
+                if (elementType == GenericInitCode.DESCRIPTION && getCircuit().getAttributes().get(Keys.IS_GENERIC)) {
+                    attributeDialog.addButton(Lang.get("attr_createConcreteCircuitLabel"), new ToolTipAction(Lang.get("attr_createConcreteCircuit")) {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                attributeDialog.fireOk();
+                                ElementAttributes modified = attributeDialog.getModifiedAttributes();
+                                if (modified != null && !isLocked()) {
+                                    Modification<Circuit> mod = new ModifyAttributes(element, modified);
+                                    modify(checkNetRename(element, modified, mod));
+                                }
+                                Circuit concreteCircuit = new ResolveGenerics().resolveCircuit(element, getCircuit(), library).getCircuit();
+                                for (VisualElement gic : concreteCircuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION)))
+                                    concreteCircuit.delete(gic);
+                                concreteCircuit.getAttributes().set(Keys.IS_GENERIC, false);
+
+                                new Main.MainBuilder()
+                                        .setParent(parent)
+                                        .setCircuit(concreteCircuit)
+                                        .setLibrary(library)
+                                        .denyMostFileActions()
+                                        .keepPrefMainFile()
+                                        .openLater();
+                            } catch (NodeException | ElementNotFoundException | Editor.EditorParseException ex) {
+                                new ErrorMessage(Lang.get("attr_createConcreteCircuitErr")).addCause(ex).show(parent);
+                            }
+                        }
+                    }.setToolTip(Lang.get("attr_createConcreteCircuit_tt")));
+                }
                 attributeDialog.addButton(new ToolTipAction(Lang.get("attr_help")) {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
