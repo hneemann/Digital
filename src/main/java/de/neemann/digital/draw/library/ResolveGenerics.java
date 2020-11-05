@@ -12,10 +12,12 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.hgs.function.Function;
+import de.neemann.digital.hdl.hgs.function.InnerFunction;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,6 +27,7 @@ import java.util.Objects;
 public class ResolveGenerics {
 
     private final HashMap<String, Statement> map;
+    private LibraryInterface library;
 
     /**
      * Creates a new instance
@@ -44,6 +47,7 @@ public class ResolveGenerics {
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public CircuitHolder resolveCircuit(VisualElement visualElement, Circuit circuit, LibraryInterface library) throws NodeException, ElementNotFoundException {
+        this.library = library;
         final Args args = createArgs(visualElement, circuit);
 
         Circuit c = circuit.createDeepCopy();
@@ -53,18 +57,17 @@ public class ResolveGenerics {
                 if (!gen.isEmpty()) {
                     boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
                     Statement genS = getStatement(gen);
+                    Context mod = new Context();
                     if (isCustom) {
-                        Context mod = new Context()
-                                .declareVar("args", args)
+                        mod.declareVar("args", args)
                                 .declareFunc("setCircuit", new SetCircuitFunc(ve));
                         genS.execute(mod);
-                        ve.setGenericArgs(mod);
                     } else {
-                        Context mod = new Context()
-                                .declareVar("args", args)
+                        mod.declareVar("args", args)
                                 .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
                         genS.execute(mod);
                     }
+                    ve.setGenericArgs(mod);
                 }
             } catch (HGSEvalException | ParserException | IOException e) {
                 final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
@@ -158,7 +161,7 @@ public class ResolveGenerics {
     /**
      * Holds the circuit and the args that created that circuit.
      */
-    public static final class CircuitHolder {
+    public final class CircuitHolder {
         private final Circuit circuit;
         private final Args args;
 
@@ -180,6 +183,70 @@ public class ResolveGenerics {
         public Args getArgs() {
             return args;
         }
+
+        /**
+         * Converts a circuit that is only suitable for creating a model
+         * to a circuit that can also be edited and saved.
+         *
+         * @return this for chained calls
+         */
+        public CircuitHolder cleanupConcreteCircuit() {
+            for (VisualElement gic : circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION)))
+                circuit.delete(gic);
+            for (VisualElement v : circuit.getElements()) {
+                try {
+                    boolean isCustom = library.getElementType(v.getElementName(), v.getElementAttributes()).isCustom();
+                    if (isCustom)
+                        v.getElementAttributes().set(Keys.GENERIC, createGenericCode(v.getGenericArgs()));
+                    else
+                        v.getElementAttributes().set(Keys.GENERIC, "");
+                } catch (ElementNotFoundException e) {
+                    // can not happen
+                    e.printStackTrace();
+                }
+                v.setGenericArgs(null);
+            }
+
+            circuit.getAttributes().set(Keys.IS_GENERIC, false);
+
+            return this;
+        }
+    }
+
+    private static String createGenericCode(Context args) {
+        StringBuilder sb = new StringBuilder();
+        HashSet<String> contentSet = new HashSet<>();
+        addVal(sb, "", args, contentSet);
+        return sb.toString();
+    }
+
+    private static void addVal(StringBuilder sb, String key, Object val, HashSet<String> contentSet) {
+        if (contentSet.contains(key))
+            return;
+
+        if (val instanceof InnerFunction)
+            return;
+
+        if (val instanceof Context) {
+            Context c = (Context) val;
+            for (String k : c.getKeySet()) {
+                Object v = c.hgsMapGet(k);
+                if (!(v instanceof Args))
+                    addVal(sb, k, v, contentSet);
+            }
+            for (String k : c.getKeySet()) {
+                Object v = c.hgsMapGet(k);
+                if (v instanceof Args)
+                    addVal(sb, k, ((Args) v).args, contentSet);
+            }
+            return;
+        }
+
+        contentSet.add(key);
+        if (val instanceof String)
+            sb.append(key).append(":=\"").append(val).append("\";\n");
+        else
+            sb.append(key).append(":=").append(val).append(";\n");
     }
 
     private static final class SetCircuitFunc extends Function {

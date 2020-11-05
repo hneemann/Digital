@@ -1158,14 +1158,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                             try {
                                 attributeDialog.fireOk();
                                 ElementAttributes modified = attributeDialog.getModifiedAttributes();
-                                if (modified != null && !isLocked()) {
+                                if (modified != null && !isLocked() && !modified.equals(element.getElementAttributes())) {
                                     Modification<Circuit> mod = new ModifyAttributes(element, modified);
                                     modify(checkNetRename(element, modified, mod));
                                 }
-                                Circuit concreteCircuit = new ResolveGenerics().resolveCircuit(element, getCircuit(), library).getCircuit();
-                                for (VisualElement gic : concreteCircuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION)))
-                                    concreteCircuit.delete(gic);
-                                concreteCircuit.getAttributes().set(Keys.IS_GENERIC, false);
+
+                                Circuit concreteCircuit = new ResolveGenerics()
+                                        .resolveCircuit(element, getCircuit(), library)
+                                        .cleanupConcreteCircuit()
+                                        .getCircuit();
 
                                 new Main.MainBuilder()
                                         .setParent(parent)

@@ -13,7 +13,7 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>export shift := 1&lt;&lt;(args.shiftBits-1);
+          <string>shift := 1&lt;&lt;(args.shiftBits-1);
 setCircuit(args.circuit);</string>
         </entry>
       </elementAttributes>
@@ -87,8 +87,8 @@ setCircuit(args.circuit);</string>
         <entry>
           <string>generic</string>
           <string>if (args.shiftBits=2) {
-   export shift := 1;
-   setCircuit(args.circuit);
+    export shift := 1;
+    setCircuit(args.circuit);
 } else {
     export shiftBits := args.shiftBits-1;
 }</string>

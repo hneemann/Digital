@@ -637,14 +637,14 @@ public class Parser {
         }
     }
 
-    private static class StructLiteral implements Expression {
+    private static final class StructLiteral implements Expression {
         private final HashMap<String, Expression> map;
 
         private StructLiteral() {
             map = new HashMap<>();
         }
 
-        public void add(String key, Expression exp) {
+        private void add(String key, Expression exp) {
             map.put(key, exp);
         }
 
