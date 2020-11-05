@@ -13,6 +13,8 @@ import de.neemann.digital.hdl.hgs.refs.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static de.neemann.digital.hdl.hgs.Tokenizer.Token.*;
 
@@ -544,11 +546,38 @@ public class Parser {
                 Expression exp = parseExpression();
                 expect(CLOSE);
                 return exp;
+            case OPENBRACE:
+                return parseStructLiteral();
             case FUNC:
                 FirstClassFunction func = parseFunction();
                 return c -> new FirstClassFunctionCall(func, c);
             default:
                 throw newUnexpectedToken(t);
+        }
+    }
+
+    private Expression parseStructLiteral() throws IOException, ParserException {
+        StructLiteral sl = new StructLiteral();
+        while (true) {
+            Tokenizer.Token t = tok.next();
+            switch (t) {
+                case CLOSEDBRACE:
+                    return sl;
+                case IDENT:
+                    String key = tok.getIdent();
+                    expect(COLON);
+                    Expression exp = parseExpression();
+                    sl.add(key, exp);
+                    if (nextIs(COMMA))
+                        tok.consume();
+                    else {
+                        if (tok.peek() != CLOSEDBRACE)
+                            throw newUnexpectedToken(t);
+                    }
+                    break;
+                default:
+                    throw newUnexpectedToken(t);
+            }
         }
     }
 
@@ -608,4 +637,24 @@ public class Parser {
         }
     }
 
+    private static class StructLiteral implements Expression {
+        private final HashMap<String, Expression> map;
+
+        private StructLiteral() {
+            map = new HashMap<>();
+        }
+
+        public void add(String key, Expression exp) {
+            map.put(key, exp);
+        }
+
+        @Override
+        public Object value(Context c) throws HGSEvalException {
+            HashMap<String, Object> vmap = new HashMap<>();
+            for (Map.Entry<String, Expression> e : map.entrySet())
+                vmap.put(e.getKey(), e.getValue().value(c));
+            return vmap;
+        }
+
+    }
 }
