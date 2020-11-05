@@ -7,8 +7,15 @@ package de.neemann.digital.integration;
 
 import de.neemann.digital.core.ErrorDetector;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.GenericInitCode;
+import de.neemann.digital.draw.library.ResolveGenerics;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
@@ -16,6 +23,7 @@ import de.neemann.digital.testing.TestExecutor;
 import junit.framework.TestCase;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Reads all examples and tries to create the model.
@@ -105,5 +113,27 @@ public class TestExamples extends TestCase {
         } finally {
             br.close();
         }
+
+        if (br.getCircuit().getAttributes().get(Keys.IS_GENERIC))
+            checkGeneric(br.getCircuit(), br.getLibrary());
+    }
+
+    private void checkGeneric(Circuit circuit, ElementLibrary library) throws NodeException, ElementNotFoundException, PinException {
+        List<VisualElement> initCodeList = circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
+        assertEquals("init code element count", 1, initCodeList.size());
+
+        VisualElement element = initCodeList.get(0);
+
+        Circuit concreteCircuit = new ResolveGenerics()
+                .resolveCircuit(element, circuit, library)
+                .cleanupConcreteCircuit()
+                .getCircuit();
+
+        for (VisualElement ve : concreteCircuit.getElements()) {
+            assertNull(ve.getGenericArgs());
+            assertFalse(ve.equalsDescription(GenericInitCode.DESCRIPTION));
+        }
+
+        new ModelCreator(concreteCircuit, library).createModel(false).init();
     }
 }
