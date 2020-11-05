@@ -46,9 +46,12 @@ public class ObservableValue extends Observable implements PinDescription {
 
     /**
      * Makes this value a constant value
+     *
+     * @return this for chained calls
      */
-    public void setConstant() {
+    public ObservableValue setConstant() {
         isConstant = true;
+        return this;
     }
 
     /**
