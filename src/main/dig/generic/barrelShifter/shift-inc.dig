@@ -133,7 +133,7 @@ shiftBits := 3;</string>
           <boolean>false</boolean>
         </entry>
       </elementAttributes>
-      <pos x="300" y="-20"/>
+      <pos x="360" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>GenericInitCode</elementName>
