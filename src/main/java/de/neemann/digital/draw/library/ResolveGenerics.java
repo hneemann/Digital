@@ -244,13 +244,40 @@ public class ResolveGenerics {
 
         contentSet.add(key);
         sb.append(key).append(":=");
-        if (val instanceof String)
-            sb.append("\"").append(val).append("\"");
-        else if (val instanceof Integer)
+        if (val instanceof String) {
+            sb.append("\"");
+            escapeString(sb, (String) val);
+            sb.append("\"");
+        } else if (val instanceof Integer)
             sb.append("int(").append(val).append(")");
         else
             sb.append(val);
         sb.append(";\n");
+    }
+
+    static void escapeString(StringBuilder sb, String str) {
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            switch (c) {
+                case '\\':
+                    sb.append("\\\\");
+                    break;
+                case '\n':
+                    sb.append("\\n");
+                    break;
+                case '\r':
+                    sb.append("\\r");
+                    break;
+                case '\t':
+                    sb.append("\\t");
+                    break;
+                case '"':
+                    sb.append("\\\"");
+                    break;
+                default:
+                    sb.append(c);
+            }
+        }
     }
 
     private static final class SetCircuitFunc extends Function {
