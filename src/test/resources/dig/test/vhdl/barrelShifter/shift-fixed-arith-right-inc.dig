@@ -106,6 +106,17 @@ this.outputBits=int(args.dataBits);</string>
       </elementAttributes>
       <pos x="440" y="160"/>
     </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 8;
+shift := 3;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="20"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

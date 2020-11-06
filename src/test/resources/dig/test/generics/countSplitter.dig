@@ -88,7 +88,7 @@ this.&apos;Input Splitting&apos;=args.bits+&quot;,&quot;+args.bits;</string>
         </entry>
         <entry>
           <string>generic</string>
-          <string>this.Bits=int(args.bits);</string>
+          <string>this.Bits=int(args.bits*2);</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="120"/>
@@ -120,6 +120,16 @@ this.&apos;Input Splitting&apos;=args.bits+&quot;,&quot;+args.bits;</string>
         </entry>
       </elementAttributes>
       <pos x="380" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 2;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="40"/>
     </visualElement>
   </visualElements>
   <wires>

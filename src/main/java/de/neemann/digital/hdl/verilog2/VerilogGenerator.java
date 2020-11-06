@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLException;
@@ -98,7 +99,7 @@ public class VerilogGenerator implements Closeable {
             }
 
             return this;
-        } catch (PinException | NodeException | HDLException | HGSEvalException | NullPointerException e) {
+        } catch (PinException | NodeException | HDLException | HGSEvalException | NullPointerException | ElementNotFoundException e) {
             throw new IOException(Lang.get("err_verilogExporting"), e);
         }
     }

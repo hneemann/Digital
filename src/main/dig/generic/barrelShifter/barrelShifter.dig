@@ -80,32 +80,35 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-
-    if (args.direction=&quot;right&quot;) {
-        export circuit:=&quot;shift-fixed-right-inc.dig&quot;;
-    } else {
-        if (args.direction=&quot;arith&quot;) {
-            export circuit:=&quot;shift-fixed-arith-right-inc.dig&quot;;
-        } else {
-            if (args.direction=&quot;left&quot;) {
-                export circuit:=&quot;shift-fixed-left-inc.dig&quot;;
-            } else {
-                panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.direction+&quot;\&quot;!&quot;);
-            }
-        }
-    }
-
-    export shiftBits:=bitsNeededFor(args.dataBits-1);
+          <string>if (args.direction=&quot;right&quot;) {
+      export circuit:=&quot;shift-fixed-right-inc.dig&quot;;
 } else {
-    // used if circuit is started as the main circuit
-    export circuit:=&quot;shift-fixed-left-inc.dig&quot;;
-    export dataBits:=16;
-    export shiftBits:=int(4);
-}</string>
+      if (args.direction=&quot;arith&quot;) {
+          export circuit:=&quot;shift-fixed-arith-right-inc.dig&quot;;
+      } else {
+          if (args.direction=&quot;left&quot;) {
+              export circuit:=&quot;shift-fixed-left-inc.dig&quot;;
+          } else {
+              panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.direction+&quot;\&quot;!&quot;);
+          }
+      }
+}
+
+shiftBits:=bitsNeededFor(args.dataBits-1);</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 5;
+direction := &quot;left&quot;;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="0"/>
     </visualElement>
   </visualElements>
   <wires>

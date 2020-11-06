@@ -7,6 +7,8 @@ HEAD, planned as v0.26
   provided the translation.
 - Fixed a bug in the Demuxer Verilog template that causes problems
   when using multiple demuxers in the same circuit.
+- Generic circuits are easier to debug: It is possible now to create
+  a specific, concrete circuit from a generic one.
 - Fixed a bug in the value editor, which occurs, if high-z is the
   default value of an input.
 - Fixed an issue which avoids to restart a running simulation by just

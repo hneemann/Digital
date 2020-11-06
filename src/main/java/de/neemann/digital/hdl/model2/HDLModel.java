@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static de.neemann.digital.draw.model.ModelCreator.fixGenerics;
+
 /**
  * The context of creating nodes and circuits.
  * Ensures that every circuit is only processed one time.
@@ -207,11 +209,13 @@ public class HDLModel implements Iterable<HDLCircuit> {
      * @param circuit         the circuit
      * @param clockIntegrator the clock integrator. Meybe null
      * @return this for chained calls
-     * @throws PinException  PinException
-     * @throws HDLException  HDLException
-     * @throws NodeException NodeException
+     * @throws PinException             PinException
+     * @throws HDLException             HDLException
+     * @throws NodeException            NodeException
+     * @throws ElementNotFoundException ElementNotFoundException
      */
-    public HDLModel create(Circuit circuit, HDLClockIntegrator clockIntegrator) throws PinException, HDLException, NodeException {
+    public HDLModel create(Circuit circuit, HDLClockIntegrator clockIntegrator) throws PinException, HDLException, NodeException, ElementNotFoundException {
+        circuit = fixGenerics(circuit, elementLibrary);
         main = new HDLCircuit(circuit, "main", this, 0, clockIntegrator);
         circuitMap.put(circuit, main);
         return this;
