@@ -119,13 +119,37 @@ this.&apos;Output Splitting&apos; = (args.shiftBits-1)+&quot;-&quot;+(args.shift
       <elementName>GenericInitCode</elementName>
       <elementAttributes>
         <entry>
+          <string>Label</string>
+          <string>3 bits</string>
+        </entry>
+        <entry>
           <string>generic</string>
           <string>circuit := &quot;shift-fixed-left-inc.dig&quot;;
 dataBits := 8;
 shiftBits := 3;</string>
         </entry>
+        <entry>
+          <string>enabled</string>
+          <boolean>false</boolean>
+        </entry>
       </elementAttributes>
       <pos x="300" y="-20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2 bits</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>circuit := &quot;shift-fixed-left-inc.dig&quot;;
+dataBits := 8;
+shiftBits := 2;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="-20"/>
     </visualElement>
   </visualElements>
   <wires>
