@@ -1140,8 +1140,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
-    <string name="key_Bits">Daten-Bits
-    </string> <!-- And, NAnd, Or, NOr, XOr, XNOr, Not, LookUpTable, Delay, Out, In, Ground, VDD, Const, PullUp, PullDown, Driver, DriverInvSel, Multiplexer, Demultiplexer, D_FF, D_FF_AS, Register, ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Neg, BitCount, Switch, Relay, PFET, NFET, FGPFET, FGNFET, TransGate -->
+    <string name="key_Bits">Daten-Bits</string>
     <string name="key_Bits_tt">Anzahl der Daten-Bits, die verwendet werden.</string>
     <string name="key_Color">Farbe</string><!-- LED, LightBulb, Seven-Seg, Seven-Seg-Hex, LedMatrix -->
     <string name="key_Color_tt">Die Farbe des Elementes.</string>
