@@ -53,6 +53,7 @@ public class OptimizerDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 optimizer.stop();
+                this.setEnabled(false);
             }
         }.createJButton(), BorderLayout.SOUTH);
         getContentPane().add(addBorder(buttons), BorderLayout.SOUTH);
