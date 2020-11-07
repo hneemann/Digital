@@ -18,7 +18,6 @@ import de.neemann.digital.draw.library.GenericInitCode;
 import de.neemann.digital.draw.library.ResolveGenerics;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestExecutor;
 import junit.framework.TestCase;
 
@@ -79,29 +78,28 @@ public class TestExamples extends TestCase {
             assertEquals("wrong locked mode", isLib, (boolean) br.getCircuit().getAttributes().get(Keys.LOCKED_MODE));
 
             try {
-                for (VisualElement el : br.getCircuit().getElements())
-                    if (el.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
-                        testCasesInFiles++;
+                for (Circuit.TestCase tc : br.getCircuit().getTestCases()) {
+                    testCasesInFiles++;
 
-                        String label = el.getElementAttributes().getLabel();
-                        TestCaseDescription td = el.getElementAttributes().get(Keys.TESTDATA);
+                    String label = tc.getLabel();
+                    TestCaseDescription td = tc.getTestCaseDescription();
 
-                        Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
-                        ErrorDetector ed = new ErrorDetector();
-                        model.addObserver(ed);
-                        try {
-                            TestExecutor tr = new TestExecutor(td).create(model);
+                    Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
+                    ErrorDetector ed = new ErrorDetector();
+                    model.addObserver(ed);
+                    try {
+                        TestExecutor tr = new TestExecutor(td).create(model);
 
-                            if (label.contains("Failing"))
-                                assertFalse(dig.getName() + ":" + label, tr.allPassed());
-                            else
-                                assertTrue(dig.getName() + ":" + label, tr.allPassed());
+                        if (label.contains("Failing"))
+                            assertFalse(dig.getName() + ":" + label, tr.allPassed());
+                        else
+                            assertTrue(dig.getName() + ":" + label, tr.allPassed());
 
-                        } finally {
-                            model.close();
-                        }
-                        ed.check();
+                    } finally {
+                        model.close();
                     }
+                    ed.check();
+                }
             } catch (Exception e) {
                 if (shouldFail) {
                     return;
@@ -114,8 +112,15 @@ public class TestExamples extends TestCase {
             br.close();
         }
 
-        if (br.getCircuit().getAttributes().get(Keys.IS_GENERIC))
-            checkGeneric(br.getCircuit(), br.getLibrary());
+        if (br.getCircuit().
+
+                getAttributes().
+
+                get(Keys.IS_GENERIC))
+
+            checkGeneric(br.getCircuit(), br.
+
+                    getLibrary());
     }
 
     private void checkGeneric(Circuit circuit, ElementLibrary library) throws NodeException, ElementNotFoundException, PinException {

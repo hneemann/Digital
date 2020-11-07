@@ -348,8 +348,41 @@ public class Circuit implements Copyable<Circuit> {
      *
      * @return the test case elements
      */
-    public List<VisualElement> getTestCases() {
-        return getElements(v -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
+    public List<TestCase> getTestCases() {
+        ArrayList<TestCase> tc = new ArrayList<>();
+        for (VisualElement ve : getElements(v -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED))) {
+            tc.add(new TestCase(
+                    ve.getElementAttributes().getLabel(),
+                    new TestCaseDescription(ve.getElementAttributes().get(Keys.TESTDATA))));
+        }
+        return tc;
+    }
+
+    /**
+     * A simple java bean to encapsulate a test case description
+     */
+    public static final class TestCase {
+        private final String label;
+        private final TestCaseDescription testCaseDescription;
+
+        private TestCase(String label, TestCaseDescription testCaseDescription) {
+            this.label = label;
+            this.testCaseDescription = testCaseDescription;
+        }
+
+        /**
+         * @return the label of the test case
+         */
+        public String getLabel() {
+            return label;
+        }
+
+        /**
+         * @return the test case description
+         */
+        public TestCaseDescription getTestCaseDescription() {
+            return testCaseDescription;
+        }
     }
 
     /**

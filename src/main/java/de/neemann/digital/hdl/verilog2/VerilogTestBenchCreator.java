@@ -5,17 +5,15 @@
  */
 package de.neemann.digital.hdl.verilog2;
 
-import de.neemann.digital.hdl.vhdl2.*;
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
 import de.neemann.digital.hdl.model2.HDLPort;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.printer.CodePrinterStr;
+import de.neemann.digital.hdl.vhdl2.Separator;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestingDataException;
@@ -27,9 +25,7 @@ import de.neemann.digital.testing.parser.TestRow;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static de.neemann.digital.core.element.Keys.TESTDATA;
-
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +34,7 @@ import java.util.logging.Logger;
  * The needed test date is taken from the test cases in the circuit
  */
 public class VerilogTestBenchCreator {
-    private final ArrayList<ElementAttributes> testCases;
+    private final List<Circuit.TestCase> testCases;
     private final HDLCircuit main;
     private final String topModuleName;
     private final HDLModel.Renaming renaming;
@@ -54,9 +50,7 @@ public class VerilogTestBenchCreator {
     public VerilogTestBenchCreator(Circuit circuit, HDLModel model, String topModuleName) {
         this.main = model.getMain();
         this.topModuleName = topModuleName;
-        testCases = new ArrayList<>();
-        for (VisualElement ve : circuit.getTestCases())
-            testCases.add(ve.getElementAttributes());
+        testCases = circuit.getTestCases();
         testFileWritten = new ArrayList<>();
         renaming = model.getRenaming();
     }
@@ -75,7 +69,7 @@ public class VerilogTestBenchCreator {
         if (p > 0)
             filename = filename.substring(0, p);
 
-        for (ElementAttributes tc : testCases) {
+        for (Circuit.TestCase tc : testCases) {
             String testName = tc.getLabel();
             if (testName.length() > 0)
                 testName = filename + "_" + testName + "_tb";
@@ -107,7 +101,7 @@ public class VerilogTestBenchCreator {
         return testFileWritten;
     }
 
-    private void writeTestBench(CodePrinter out, String moduleName, String testName, ElementAttributes tc) throws IOException, HDLException, TestingDataException, ParserException {
+    private void writeTestBench(CodePrinter out, String moduleName, String testName, Circuit.TestCase tc) throws IOException, HDLException, TestingDataException, ParserException {
         out.print("//  A testbench for ").println(testName);
         out.println("`timescale 1us/1ns").println();
         out.print("module ").print(testName).println(";");
@@ -131,7 +125,7 @@ public class VerilogTestBenchCreator {
         }
         out.dec().println().print(");").println().println();
 
-        TestCaseDescription testdata = tc.get(TESTDATA);
+        TestCaseDescription testdata = tc.getTestCaseDescription();
 
         ArrayList<HDLPort> dataOrder = new ArrayList<>();
         ArrayList<HDLPort> inputsInOrder = new ArrayList<>();

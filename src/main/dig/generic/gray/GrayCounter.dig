@@ -47,8 +47,19 @@ C 0
 </dataString>
           </testData>
         </entry>
+        <entry>
+          <string>generic</string>
+          <string>?&gt;C G
+0 0
+loop (n,(1&lt;&lt; &lt;?=args.bits?&gt; )-1)
+C ((n+1) ^ ((n+1)&gt;&gt;1))
+end loop
+C 0&lt;?
+
+this.Testdata=output();</string>
+        </entry>
       </elementAttributes>
-      <pos x="620" y="40"/>
+      <pos x="680" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -153,7 +164,7 @@ if (args.bits&gt;3) {
           <string>bits := 3;</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="160"/>
+      <pos x="680" y="100"/>
     </visualElement>
   </visualElements>
   <wires>

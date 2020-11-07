@@ -1128,10 +1128,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     public void startTests() {
         try {
             ArrayList<ValueTableDialog.TestSet> tsl = new ArrayList<>();
-            for (VisualElement el : circuitComponent.getCircuit().getTestCases())
-                tsl.add(new ValueTableDialog.TestSet(
-                        el.getElementAttributes().get(Keys.TESTDATA),
-                        el.getElementAttributes().getLabel()));
+            for (Circuit.TestCase tc : circuitComponent.getCircuit().getTestCases())
+                tsl.add(new ValueTableDialog.TestSet(tc.getTestCaseDescription(), tc.getLabel()));
 
             if (tsl.isEmpty())
                 throw new TestingDataException(Lang.get("err_noTestData"));
