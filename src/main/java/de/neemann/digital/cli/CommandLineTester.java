@@ -10,11 +10,11 @@ import de.neemann.digital.cli.cli.BasicCommand;
 import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.core.ErrorDetector;
 import de.neemann.digital.core.Model;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestExecutor;
 
 import java.io.File;
@@ -59,7 +59,7 @@ public class CommandLineTester {
         ArrayList<TestCase> tsl = new ArrayList<>();
         for (VisualElement el : circuit.getTestCases())
             tsl.add(new TestCase(
-                    el.getElementAttributes().get(TestCaseElement.TESTDATA),
+                    el.getElementAttributes().get(Keys.TESTDATA),
                     el.getElementAttributes().getLabel()));
         return tsl;
     }

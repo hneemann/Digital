@@ -375,6 +375,19 @@ public class ParserTest extends TestCase {
         assertEquals("false;", c.toString());
     }
 
+    public void testStringCreation() throws IOException, ParserException, HGSEvalException {
+        String code = "?>Test:<? print(n); str:=output();";
+        Statement s = new Parser(code).parse(false);
+
+        Context c = new Context().declareVar("n", 3);
+        s.execute(c);
+        assertEquals("Test:3", c.getVar("str"));
+
+        c = new Context().declareVar("n", 12);
+        s.execute(c);
+        assertEquals("Test:12", c.getVar("str"));
+    }
+
     public void testAddFunction() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("a : in <?=type(Bits)?>;").parse();
         Context funcs = new Context().declareVar("type", new Function(1) {

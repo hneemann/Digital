@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.gui.components.testing;
 
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.Main;
@@ -14,7 +15,6 @@ import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.Transitions;
 import de.neemann.digital.testing.parser.ParserException;
 import de.neemann.gui.ErrorMessage;
@@ -103,7 +103,7 @@ public class TestCaseDescriptionDialog extends JDialog {
                         data.setDataString(text.getText());
                         if (parent instanceof Main) {
                             CircuitComponent cc = ((Main) parent).getCircuitComponent();
-                            element.getElementAttributes().set(TestCaseElement.TESTDATA, data);
+                            element.getElementAttributes().set(Keys.TESTDATA, data);
                             cc.getMain().startTests();
                         }
                     } catch (ParserException | IOException e1) {
@@ -122,7 +122,7 @@ public class TestCaseDescriptionDialog extends JDialog {
                             && !initialDataString.equals(data.getDataString())
                             && parent instanceof Main) {
                         CircuitComponent cc = ((Main) parent).getCircuitComponent();
-                        cc.modify(new ModifyAttribute<>(element, TestCaseElement.TESTDATA, new TestCaseDescription(data)));
+                        cc.modify(new ModifyAttribute<>(element, Keys.TESTDATA, new TestCaseDescription(data)));
                     }
                     dispose();
                 } catch (ParserException | IOException e1) {

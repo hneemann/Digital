@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.draw.library;
 
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
@@ -37,7 +38,7 @@ public class JarComponentManagerTest extends TestCase {
 
         for (VisualElement ve : br.getCircuit().getElements()) {
             if (ve.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)) {
-                TestCaseDescription td = ve.getElementAttributes().get(TestCaseElement.TESTDATA);
+                TestCaseDescription td = ve.getElementAttributes().get(Keys.TESTDATA);
                 TestExecutor tr = new TestExecutor(td).create(br.getModel());
                 assertTrue(tr.allPassed());
             }

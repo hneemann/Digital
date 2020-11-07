@@ -26,7 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
+import static de.neemann.digital.core.element.Keys.TESTDATA;
 
 /**
  * Creates a test bench for a model.

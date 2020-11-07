@@ -84,7 +84,7 @@ public class TestExamples extends TestCase {
                         testCasesInFiles++;
 
                         String label = el.getElementAttributes().getLabel();
-                        TestCaseDescription td = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+                        TestCaseDescription td = el.getElementAttributes().get(Keys.TESTDATA);
 
                         Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
                         ErrorDetector ed = new ErrorDetector();

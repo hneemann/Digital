@@ -7,6 +7,7 @@ package de.neemann.digital.testing;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -188,7 +189,7 @@ public class FolderTestRunner {
                     ArrayList<TestCase> testCases = new ArrayList<>();
                     for (VisualElement el : circuit.getTestCases()) {
                         String label = el.getElementAttributes().getLabel();
-                        TestCaseDescription testData = el.getElementAttributes().get(TestCaseElement.TESTDATA);
+                        TestCaseDescription testData = el.getElementAttributes().get(Keys.TESTDATA);
                         testCases.add(new TestCase(label, testData));
                     }
                     if (testCases.isEmpty()) {

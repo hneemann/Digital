@@ -106,4 +106,9 @@ public class TestCaseDescription {
     public int hashCode() {
         return dataString != null ? dataString.hashCode() : 0;
     }
+
+    @Override
+    public String toString() {
+        return dataString;
+    }
 }

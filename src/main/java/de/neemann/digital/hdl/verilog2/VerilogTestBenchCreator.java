@@ -28,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
+import static de.neemann.digital.core.element.Keys.TESTDATA;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

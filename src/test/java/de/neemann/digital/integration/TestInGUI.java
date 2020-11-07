@@ -61,7 +61,7 @@ import java.util.List;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 import static de.neemann.digital.integration.GuiTester.getBaseContainer;
-import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
+import static de.neemann.digital.core.element.Keys.TESTDATA;
 
 /**
  * These tests are excluded from the maven build because gui tests are sometimes fragile.

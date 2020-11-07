@@ -54,7 +54,6 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.digital.toolchain.Configuration;
 import de.neemann.digital.undo.ChangedListener;
@@ -1131,7 +1130,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             ArrayList<ValueTableDialog.TestSet> tsl = new ArrayList<>();
             for (VisualElement el : circuitComponent.getCircuit().getTestCases())
                 tsl.add(new ValueTableDialog.TestSet(
-                        el.getElementAttributes().get(TestCaseElement.TESTDATA),
+                        el.getElementAttributes().get(Keys.TESTDATA),
                         el.getElementAttributes().getLabel()));
 
             if (tsl.isEmpty())

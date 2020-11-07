@@ -20,6 +20,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
+import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
 
@@ -868,5 +869,11 @@ public final class Keys {
      */
     public static final Key<Boolean> MIRROR =
             new Key<>("mirror", false).allowGroupEdit().setSecondary();
+
+    /**
+     * The test data
+     */
+    public static final Key<TestCaseDescription> TESTDATA =
+            new Key<>("Testdata", () -> new TestCaseDescription(""));
 
 }
