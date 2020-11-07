@@ -1057,6 +1057,9 @@
     <string name="err_vhdlANameIsMissing">A name is missing. Have e.g. all pins a label set?</string>
     <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">Several outputs are connected to each other.
         This type of interconnection is not supported for HDL export. ({0}, {1}, {2}).</string>
+    <string name="err_hdlTestCaseHasGenericCode">Test cases with generic parameterization are not supported in HDL
+        export!
+    </string>
     <string name="err_unnamedNet">unnamed net</string>
     <string name="err_toManyVars">Too many variables!</string>
     <string name="err_invalidExpression">Invalid expression!</string>

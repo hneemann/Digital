@@ -9,7 +9,6 @@ import de.neemann.digital.cli.cli.Argument;
 import de.neemann.digital.cli.cli.BasicCommand;
 import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.core.ErrorDetector;
-import de.neemann.digital.core.Model;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestExecutor;
@@ -74,12 +73,11 @@ public class CommandLineTester {
                     label = "unnamed";
 
                 try {
-                    Model model = circuitLoader.createModel();
                     ErrorDetector errorDetector = new ErrorDetector();
-                    model.addObserver(errorDetector);
-                    TestExecutor te = new TestExecutor(t.getTestCaseDescription())
+                    TestExecutor te = new TestExecutor(t, circuitLoader.getCircuit(), circuitLoader.getLibrary())
                             .setAllowMissingInputs(allowMissingInputs)
-                            .create(model);
+                            .addObserver(errorDetector)
+                            .create();
 
                     if (te.allPassed()) {
                         out.println(label + ": passed");

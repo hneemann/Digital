@@ -351,9 +351,7 @@ public class Circuit implements Copyable<Circuit> {
     public List<TestCase> getTestCases() {
         ArrayList<TestCase> tc = new ArrayList<>();
         for (VisualElement ve : getElements(v -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED))) {
-            tc.add(new TestCase(
-                    ve.getElementAttributes().getLabel(),
-                    new TestCaseDescription(ve.getElementAttributes().get(Keys.TESTDATA))));
+            tc.add(new TestCase(ve));
         }
         return tc;
     }
@@ -361,13 +359,29 @@ public class Circuit implements Copyable<Circuit> {
     /**
      * A simple java bean to encapsulate a test case description
      */
-    public static final class TestCase {
+    public static final class TestCase implements Comparable<TestCase> {
         private final String label;
         private final TestCaseDescription testCaseDescription;
+        private final boolean hasGenericCode;
+        private final VisualElement visualElement;
 
-        private TestCase(String label, TestCaseDescription testCaseDescription) {
-            this.label = label;
-            this.testCaseDescription = testCaseDescription;
+        /**
+         * Used in some test cases.
+         * Don't use this constructor in production code!
+         *
+         * @param testCaseDescription the test case description
+         */
+        public TestCase(TestCaseDescription testCaseDescription) {
+            this(new VisualElement(TestCaseElement.TESTCASEDESCRIPTION.getName())
+                    .setAttribute(Keys.TESTDATA, testCaseDescription));
+        }
+
+        private TestCase(VisualElement visualElement) {
+            this.visualElement = visualElement;
+            ElementAttributes attr = visualElement.getElementAttributes();
+            this.label = attr.getLabel();
+            this.testCaseDescription = attr.get(Keys.TESTDATA);
+            this.hasGenericCode = !attr.get(Keys.GENERIC).isEmpty();
         }
 
         /**
@@ -383,6 +397,42 @@ public class Circuit implements Copyable<Circuit> {
         public TestCaseDescription getTestCaseDescription() {
             return testCaseDescription;
         }
+
+        /**
+         * @return true if the test case has generic code
+         */
+        public boolean hasGenericCode() {
+            return hasGenericCode;
+        }
+
+        /**
+         * @return the visual element which contains the test case, maybe null
+         */
+        public VisualElement getVisualElement() {
+            return visualElement;
+        }
+
+        @Override
+        public int compareTo(TestCase o) {
+            return label.compareTo(o.label);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            TestCase testCase = (TestCase) o;
+
+            return label.equals(testCase.label);
+
+        }
+
+        @Override
+        public int hashCode() {
+            return label.hashCode();
+        }
+
     }
 
     /**

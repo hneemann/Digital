@@ -70,6 +70,9 @@ public class VerilogTestBenchCreator {
             filename = filename.substring(0, p);
 
         for (Circuit.TestCase tc : testCases) {
+            if (tc.hasGenericCode())
+                throw new HDLException(Lang.get("err_hdlTestCaseHasGenericCode"));
+
             String testName = tc.getLabel();
             if (testName.length() > 0)
                 testName = filename + "_" + testName + "_tb";

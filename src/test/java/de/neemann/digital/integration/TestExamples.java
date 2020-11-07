@@ -17,7 +17,6 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.GenericInitCode;
 import de.neemann.digital.draw.library.ResolveGenerics;
 import de.neemann.digital.draw.model.ModelCreator;
-import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestExecutor;
 import junit.framework.TestCase;
 
@@ -41,7 +40,7 @@ public class TestExamples extends TestCase {
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
         assertEquals(302, new FileScanner(this::check).scan(examples));
-        assertEquals(198, testCasesInFiles);
+        assertEquals(200, testCasesInFiles);
     }
 
     /**
@@ -82,22 +81,17 @@ public class TestExamples extends TestCase {
                     testCasesInFiles++;
 
                     String label = tc.getLabel();
-                    TestCaseDescription td = tc.getTestCaseDescription();
 
-                    Model model = new ModelCreator(br.getCircuit(), br.getLibrary()).createModel(false);
                     ErrorDetector ed = new ErrorDetector();
-                    model.addObserver(ed);
-                    try {
-                        TestExecutor tr = new TestExecutor(td).create(model);
+                    TestExecutor tr = new TestExecutor(tc, br.getCircuit(), br.getLibrary())
+                            .addObserver(ed)
+                            .create();
 
-                        if (label.contains("Failing"))
-                            assertFalse(dig.getName() + ":" + label, tr.allPassed());
-                        else
-                            assertTrue(dig.getName() + ":" + label, tr.allPassed());
+                    if (label.contains("Failing"))
+                        assertFalse(dig.getName() + ":" + label, tr.allPassed());
+                    else
+                        assertTrue(dig.getName() + ":" + label, tr.allPassed());
 
-                    } finally {
-                        model.close();
-                    }
                     ed.check();
                 }
             } catch (Exception e) {

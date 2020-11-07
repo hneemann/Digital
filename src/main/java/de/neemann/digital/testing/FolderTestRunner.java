@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.testing;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
@@ -199,9 +198,8 @@ public class FolderTestRunner {
                         StringBuilder sb = new StringBuilder();
                         int rowCount = 0;
                         for (Circuit.TestCase tc : testCases) {
-                            Model model = new ModelCreator(circuit, library).createModel(false);
                             try {
-                                TestExecutor te = new TestExecutor(tc.getTestCaseDescription()).create(model);
+                                TestExecutor te = new TestExecutor(tc, circuit, library).create();
                                 if (te.allPassed()) {
                                     rowCount += te.getResult().getRows();
                                 } else {
@@ -222,7 +220,7 @@ public class FolderTestRunner {
                             setMessage(f, i, sb.toString(), FileToTest.Status.failed);
                     }
 
-                } catch (IOException | NodeException | ElementNotFoundException | PinException | ParserException | RuntimeException e) {
+                } catch (IOException | ElementNotFoundException | PinException | ParserException | RuntimeException e) {
                     setMessage(f, i, e.getMessage(), FileToTest.Status.error);
                 }
             }

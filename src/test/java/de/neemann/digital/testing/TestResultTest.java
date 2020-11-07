@@ -47,8 +47,8 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestExecutor tr = new TestExecutor(data).create(model);
-        assertEquals(4,tr.getResult().getRows());
+        TestExecutor tr = new TestExecutor(new Circuit.TestCase(data), model).create();
+        assertEquals(4, tr.getResult().getRows());
         assertTrue(tr.allPassed());
     }
 
@@ -60,9 +60,9 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestExecutor te = new TestExecutor(data).create(model);
+        TestExecutor te = new TestExecutor(new Circuit.TestCase(data), model).create();
         ValueTable tr = te.getResult();
-        assertEquals(4,tr.getRows());
+        assertEquals(4, tr.getRows());
         assertFalse(te.allPassed());
         assertEquals(true, ((MatchedValue) tr.getValue(0, 2)).isPassed());
         assertEquals(true, ((MatchedValue) tr.getValue(1, 2)).isPassed());
@@ -78,9 +78,9 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 x\n");
-        TestExecutor te = new TestExecutor(data).create(model);
+        TestExecutor te = new TestExecutor(new Circuit.TestCase(data), model).create();
         ValueTable tr = te.getResult();
-        assertEquals(4,tr.getRows());
+        assertEquals(4, tr.getRows());
         assertTrue(te.allPassed());
     }
 
@@ -92,9 +92,9 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 1\n");
-        TestExecutor te = new TestExecutor(data).create(model);
+        TestExecutor te = new TestExecutor(new Circuit.TestCase(data), model).create();
         ValueTable tr = te.getResult();
-        assertEquals(4,tr.getRows());
+        assertEquals(4, tr.getRows());
         assertTrue(te.allPassed());
     }
 
@@ -104,9 +104,9 @@ public class TestResultTest extends TestCase {
                 "A B Y\n"
                         + "x 0 0\n"
                         + "x 1 1\n");
-        TestExecutor te = new TestExecutor(data).create(model);
+        TestExecutor te = new TestExecutor(new Circuit.TestCase(data), model).create();
         ValueTable tr = te.getResult();
-        assertEquals(4,tr.getRows());
+        assertEquals(4, tr.getRows());
         assertTrue(te.allPassed());
     }
 
@@ -116,9 +116,9 @@ public class TestResultTest extends TestCase {
                 "A B C Y\n"
                         + "x x 0 0\n"
                         + "x x 1 1\n");
-        TestExecutor te = new TestExecutor(data).create(model);
+        TestExecutor te = new TestExecutor(new Circuit.TestCase(data), model).create();
         ValueTable tr = te.getResult();
-        assertEquals(8,tr.getRows());
+        assertEquals(8, tr.getRows());
         assertTrue(te.allPassed());
     }
 

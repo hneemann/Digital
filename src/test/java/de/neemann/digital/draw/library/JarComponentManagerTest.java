@@ -5,13 +5,9 @@
  */
 package de.neemann.digital.draw.library;
 
-import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.ToBreakRunner;
-import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestExecutor;
 import junit.framework.TestCase;
 
@@ -38,6 +34,6 @@ public class JarComponentManagerTest extends TestCase {
         };
 
         for (Circuit.TestCase tc : br.getCircuit().getTestCases())
-            assertTrue(new TestExecutor(tc.getTestCaseDescription()).create(br.getModel()).allPassed());
+            assertTrue(new TestExecutor(tc, br.getCircuit(), br.getLibrary()).create().allPassed());
     }
 }

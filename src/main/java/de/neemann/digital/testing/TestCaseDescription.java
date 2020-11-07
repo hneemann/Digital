@@ -63,7 +63,7 @@ public class TestCaseDescription {
     }
 
     private void check() throws TestingDataException {
-        if (lines == null) {
+        if (lines == null || names == null) {
             try {
                 Parser tdp = new Parser(dataString).parse();
                 lines = tdp.getLines();

@@ -64,6 +64,9 @@ public class VHDLTestBenchCreator {
 
         VHDLRenaming renaming = new VHDLRenaming();
         for (Circuit.TestCase tc : testCases) {
+            if (tc.hasGenericCode())
+                throw new HDLException(Lang.get("err_hdlTestCaseHasGenericCode"));
+
             String testName = tc.getLabel();
             if (testName.length() > 0) {
                 testName = filename + "_" + renaming.checkName(testName) + "_tb";
