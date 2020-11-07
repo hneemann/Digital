@@ -57,7 +57,7 @@ public class TestExecutor {
      * @throws NodeException            NodeException
      */
     public TestExecutor(Circuit.TestCase testCase, Circuit circuit, ElementLibrary library) throws TestingDataException, NodeException, ElementNotFoundException, PinException {
-        this(testCase, createModel(testCase, circuit, library));
+        this(testCase.getTestCaseDescription(), createModel(testCase, circuit, library));
     }
 
     static private Model createModel(Circuit.TestCase testCase, Circuit circuit, ElementLibrary library) throws NodeException, ElementNotFoundException, PinException {
@@ -71,30 +71,30 @@ public class TestExecutor {
     }
 
     /**
-     * Use for tests only! Do'nt use this constructor with a model you have created from a circuit.
-     * If a circuit is available use the other constructor.
+     * Use for tests only! Don't use this constructor with a model you have created from a circuit.
+     * If a circuit is available use the constructor above.
      *
      * @param testCase the test case
      * @param model    the model
      * @throws TestingDataException TestingDataException
      */
-    public TestExecutor(Circuit.TestCase testCase, Model model) throws TestingDataException {
-        names = testCase.getTestCaseDescription().getNames();
+    public TestExecutor(TestCaseDescription testCase, Model model) throws TestingDataException {
+        names = testCase.getNames();
         this.model = model;
         results = new ValueTable(names);
         visibleRows = 0;
-        lines = testCase.getTestCaseDescription().getLines();
+        lines = testCase.getLines();
     }
 
     /**
-     * Creates the result by comparing the testing vector with the given model-
+     * Creates the result by comparing the testing vector with the given model
      *
-     * @return this for chained calls
+     * @return the result of the test execution
      * @throws TestingDataException DataException
      * @throws NodeException        NodeException
      * @throws ParserException      ParserException
      */
-    public TestExecutor create() throws TestingDataException, NodeException, ParserException {
+    public TestExecutor.Result execute() throws TestingDataException, NodeException, ParserException {
         try {
             HashSet<String> usedSignals = new HashSet<>();
             inputs = new ArrayList<>();
@@ -153,7 +153,7 @@ public class TestExecutor {
 
             lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context().setModel(model));
 
-            return this;
+            return new Result();
         } finally {
             model.close();
         }
@@ -243,42 +243,6 @@ public class TestExecutor {
             toManyResults = true;
     }
 
-    /**
-     * @return true if all tests have passed
-     */
-    public boolean allPassed() {
-        return !errorOccurred && failedCount == 0 && passedCount > 0;
-    }
-
-    /**
-     * @return true if the test failed due to an error
-     */
-    public boolean isErrorOccurred() {
-        return errorOccurred;
-    }
-
-    /**
-     * @return the percentage of failed test rows
-     */
-    public int failedPercent() {
-        if (passedCount == 0)
-            return 100;
-        int p = 100 * failedCount / passedCount;
-        if (p == 0 && failedCount > 0)
-            p = 1;
-        return p;
-    }
-
-    /**
-     * Indicates if there are to many entries in the table to show.
-     * If there are to many entries, the test results is still correct.
-     *
-     * @return true if there are missing items in the results list.
-     */
-    public boolean toManyResults() {
-        return toManyResults;
-    }
-
     private int getIndexOf(String name) {
         if (name == null || name.length() == 0)
             return -1;
@@ -289,13 +253,6 @@ public class TestExecutor {
                 return i;
         }
         return -1;
-    }
-
-    /**
-     * @return return the result
-     */
-    public ValueTable getResult() {
-        return results;
     }
 
     /**
@@ -323,11 +280,11 @@ public class TestExecutor {
     /**
      * A test signal
      */
-    public static class TestSignal {
+    public final static class TestSignal {
         private final int index;
         private final ObservableValue value;
 
-        TestSignal(int index, ObservableValue value) {
+        private TestSignal(int index, ObservableValue value) {
             this.index = index;
             this.value = value;
         }
@@ -340,4 +297,55 @@ public class TestExecutor {
         }
     }
 
+    /**
+     * The result of the test execution
+     */
+    public final class Result {
+
+        private Result() {
+        }
+
+        /**
+         * @return true if all tests have passed
+         */
+        public boolean allPassed() {
+            return !errorOccurred && failedCount == 0 && passedCount > 0;
+        }
+
+        /**
+         * @return true if the test failed due to an error
+         */
+        public boolean isErrorOccurred() {
+            return errorOccurred;
+        }
+
+        /**
+         * @return the percentage of failed test rows
+         */
+        public int failedPercent() {
+            if (passedCount == 0)
+                return 100;
+            int p = 100 * failedCount / passedCount;
+            if (p == 0 && failedCount > 0)
+                p = 1;
+            return p;
+        }
+
+        /**
+         * Indicates if there are to many entries in the table to show.
+         * If there are to many entries, the test results is still correct.
+         *
+         * @return true if there are missing items in the results list.
+         */
+        public boolean toManyResults() {
+            return toManyResults;
+        }
+
+        /**
+         * @return the value table containing the detailed result
+         */
+        public ValueTable getValueTable() {
+            return results;
+        }
+    }
 }

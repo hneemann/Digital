@@ -125,13 +125,13 @@ public class ValueTableDialog extends JDialog {
         for (Circuit.TestCase ts : tsl) {
             ErrorDetector errorDetector = new ErrorDetector();
             try {
-                TestExecutor testExecutor = new TestExecutor(ts, circuit, library)
+                TestExecutor.Result testResult = new TestExecutor(ts, circuit, library)
                         .addObserver(errorDetector)
-                        .create();
+                        .execute();
 
                 String tabName;
                 Icon tabIcon;
-                if (testExecutor.allPassed()) {
+                if (testResult.allPassed()) {
                     tabName = Lang.get("msg_test_N_Passed", ts.getLabel());
                     tabIcon = ICON_PASSED;
                 } else {
@@ -139,13 +139,13 @@ public class ValueTableDialog extends JDialog {
                     tabIcon = ICON_FAILED;
                     errorTabIndex = i;
                 }
-                if (testExecutor.toManyResults())
+                if (testResult.toManyResults())
                     tabName += " " + Lang.get("msg_test_missingLines");
 
-                tp.addTab(tabName, tabIcon, new JScrollPane(createTable(testExecutor.getResult())));
-                if (testExecutor.toManyResults())
+                tp.addTab(tabName, tabIcon, new JScrollPane(createTable(testResult.getValueTable())));
+                if (testResult.toManyResults())
                     tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
-                resultTableData.add(testExecutor.getResult());
+                resultTableData.add(testResult.getValueTable());
                 i++;
                 errorDetector.check();
             } catch (Exception e) {

@@ -365,17 +365,6 @@ public class Circuit implements Copyable<Circuit> {
         private final boolean hasGenericCode;
         private final VisualElement visualElement;
 
-        /**
-         * Used in some test cases.
-         * Don't use this constructor in production code!
-         *
-         * @param testCaseDescription the test case description
-         */
-        public TestCase(TestCaseDescription testCaseDescription) {
-            this(new VisualElement(TestCaseElement.DESCRIPTION.getName())
-                    .setAttribute(Keys.TESTDATA, testCaseDescription));
-        }
-
         private TestCase(VisualElement visualElement) {
             this.visualElement = visualElement;
             ElementAttributes attr = visualElement.getElementAttributes();
@@ -406,7 +395,7 @@ public class Circuit implements Copyable<Circuit> {
         }
 
         /**
-         * @return the visual element which contains the test case, maybe null
+         * @return the visual element which contains the test case
          */
         public VisualElement getVisualElement() {
             return visualElement;
@@ -425,7 +414,6 @@ public class Circuit implements Copyable<Circuit> {
             TestCase testCase = (TestCase) o;
 
             return label.equals(testCase.label);
-
         }
 
         @Override

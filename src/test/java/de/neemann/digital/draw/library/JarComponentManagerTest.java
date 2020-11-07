@@ -34,6 +34,6 @@ public class JarComponentManagerTest extends TestCase {
         };
 
         for (Circuit.TestCase tc : br.getCircuit().getTestCases())
-            assertTrue(new TestExecutor(tc, br.getCircuit(), br.getLibrary()).create().allPassed());
+            assertTrue(new TestExecutor(tc, br.getCircuit(), br.getLibrary()).execute().allPassed());
     }
 }

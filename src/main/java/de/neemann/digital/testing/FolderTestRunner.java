@@ -199,9 +199,9 @@ public class FolderTestRunner {
                         int rowCount = 0;
                         for (Circuit.TestCase tc : testCases) {
                             try {
-                                TestExecutor te = new TestExecutor(tc, circuit, library).create();
-                                if (te.allPassed()) {
-                                    rowCount += te.getResult().getRows();
+                                TestExecutor.Result tr = new TestExecutor(tc, circuit, library).execute();
+                                if (tr.allPassed()) {
+                                    rowCount += tr.getValueTable().getRows();
                                 } else {
                                     if (sb.length() > 0)
                                         sb.append("; ");

@@ -6,7 +6,6 @@
 package de.neemann.digital.integration;
 
 import de.neemann.digital.core.ErrorDetector;
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
@@ -83,9 +82,9 @@ public class TestExamples extends TestCase {
                     String label = tc.getLabel();
 
                     ErrorDetector ed = new ErrorDetector();
-                    TestExecutor tr = new TestExecutor(tc, br.getCircuit(), br.getLibrary())
+                    TestExecutor.Result tr = new TestExecutor(tc, br.getCircuit(), br.getLibrary())
                             .addObserver(ed)
-                            .create();
+                            .execute();
 
                     if (label.contains("Failing"))
                         assertFalse(dig.getName() + ":" + label, tr.allPassed());

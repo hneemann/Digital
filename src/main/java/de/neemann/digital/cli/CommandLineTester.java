@@ -74,20 +74,20 @@ public class CommandLineTester {
 
                 try {
                     ErrorDetector errorDetector = new ErrorDetector();
-                    TestExecutor te = new TestExecutor(t, circuitLoader.getCircuit(), circuitLoader.getLibrary())
+                    TestExecutor.Result tr = new TestExecutor(t, circuitLoader.getCircuit(), circuitLoader.getLibrary())
                             .setAllowMissingInputs(allowMissingInputs)
                             .addObserver(errorDetector)
-                            .create();
+                            .execute();
 
-                    if (te.allPassed()) {
+                    if (tr.allPassed()) {
                         out.println(label + ": passed");
                         testsPassed++;
                     } else {
                         String message = label + ": failed";
-                        if (te.isErrorOccurred())
+                        if (tr.isErrorOccurred())
                             message += " due to an error";
                         else
-                            message += " (" + te.failedPercent() + "%)";
+                            message += " (" + tr.failedPercent() + "%)";
                         out.println(message);
                         errorCount++;
                     }
