@@ -350,7 +350,7 @@ public class Circuit implements Copyable<Circuit> {
      */
     public List<TestCase> getTestCases() {
         ArrayList<TestCase> tc = new ArrayList<>();
-        for (VisualElement ve : getElements(v -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED))) {
+        for (VisualElement ve : getElements(v -> v.equalsDescription(TestCaseElement.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED))) {
             tc.add(new TestCase(ve));
         }
         return tc;
@@ -372,7 +372,7 @@ public class Circuit implements Copyable<Circuit> {
          * @param testCaseDescription the test case description
          */
         public TestCase(TestCaseDescription testCaseDescription) {
-            this(new VisualElement(TestCaseElement.TESTCASEDESCRIPTION.getName())
+            this(new VisualElement(TestCaseElement.DESCRIPTION.getName())
                     .setAttribute(Keys.TESTDATA, testCaseDescription));
         }
 

@@ -18,7 +18,7 @@ public class TestCaseElement implements Element {
     /**
      * The TestCaseElement description
      */
-    public static final ElementTypeDescription TESTCASEDESCRIPTION
+    public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("Testcase", TestCaseElement.class)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.TESTDATA)

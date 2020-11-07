@@ -25,6 +25,7 @@ import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.undo.*;
 import de.neemann.gui.*;
 
@@ -1121,12 +1122,14 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     }
                 }
 
-                if (elementType == GenericInitCode.DESCRIPTION) {
-                    if (element.getElementAttributes().get(Keys.GENERIC).isEmpty()) {
-                        try {
-                            element.getElementAttributes().set(Keys.GENERIC, ElementTypeDescriptionCustom.createDeclarationDefault(getCircuit()));
-                        } catch (NodeException ex) {
-                            new ErrorMessage(Lang.get("msg_errParsingGenerics")).addCause(ex).show(CircuitComponent.this);
+                if (getCircuit().getAttributes().get(Keys.IS_GENERIC)) {
+                    if (elementType == GenericInitCode.DESCRIPTION || elementType == TestCaseElement.DESCRIPTION) {
+                        if (element.getElementAttributes().get(Keys.GENERIC).isEmpty()) {
+                            try {
+                                element.getElementAttributes().set(Keys.GENERIC, ElementTypeDescriptionCustom.createDeclarationDefault(getCircuit()));
+                            } catch (NodeException ex) {
+                                new ErrorMessage(Lang.get("msg_errParsingGenerics")).addCause(ex).show(CircuitComponent.this);
+                            }
                         }
                     }
                 }

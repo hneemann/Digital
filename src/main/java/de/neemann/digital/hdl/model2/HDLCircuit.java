@@ -241,7 +241,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                 && !v.equalsDescription(DummyElement.TEXTDESCRIPTION)
                 && !v.equalsDescription(DummyElement.DATADESCRIPTION)
                 && !v.equalsDescription(DummyElement.RECTDESCRIPTION)
-                && !v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)
+                && !v.equalsDescription(TestCaseElement.DESCRIPTION)
                 && !v.equalsDescription(GenericInitCode.DESCRIPTION);
     }
 

@@ -451,7 +451,7 @@ public class TestInGUI extends TestCase {
     public void testTestEditor() {
         new GuiTester("dig/manualError/11_editTest.dig")
                 .delay(300)
-                .add(new SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)))
+                .add(new SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.DESCRIPTION)))
                 .mouseClick(InputEvent.BUTTON3_DOWN_MASK)
                 .delay(300)
                 .type("testIdentzz")
@@ -1376,7 +1376,7 @@ public class TestInGUI extends TestCase {
         @Override
         public void checkWindow(GuiTester gt, Main main) {
             main.getCircuitComponent().getCircuit().add(
-                    new VisualElement(TestCaseElement.TESTCASEDESCRIPTION.getName())
+                    new VisualElement(TestCaseElement.DESCRIPTION.getName())
                             .setAttribute(TESTDATA, new TestCaseDescription(testdata))
                             .setShapeFactory(main.getCircuitComponent().getLibrary().getShapeFactory()));
         }

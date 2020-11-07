@@ -219,7 +219,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(FGNFET.DESCRIPTION)
                         .add(TransGate.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_misc"))
-                        .add(TestCaseElement.TESTCASEDESCRIPTION)
+                        .add(TestCaseElement.DESCRIPTION)
                         .add(GenericInitCode.DESCRIPTION)
                         .add(DummyElement.RECTDESCRIPTION)
                         .add(PowerSupply.DESCRIPTION)
