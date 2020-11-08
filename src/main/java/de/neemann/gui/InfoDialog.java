@@ -16,10 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.jar.JarFile;
 import java.util.prefs.Preferences;
 
@@ -70,11 +67,24 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
     private String createMessage(String message) {
         StringBuilder sb = new StringBuilder("<html>");
         sb.append(message.replace("\n\n", "<br/><br/>"));
-        sb.append("\n\n");
+        sb.append("<br/><br/>");
+
+        for (Map.Entry<Object, Object> e : System.getProperties().entrySet())
+            System.out.println(e.getKey() + "=" + e.getValue());
+
+        append(sb, "OS", "os.name");
+        append(sb, "OS version", "os.version");
+        append(sb, "JRE", "java.version");
+        append(sb, "VM", "java.vm.version");
+
         for (Manifest m : infos) {
             m.createInfoString(sb);
         }
         return sb.append("</html>").toString();
+    }
+
+    private void append(StringBuilder sb, String name, String key) {
+        sb.append(name).append(": ").append(System.getProperties().getProperty(key)).append("<br/>");
     }
 
     /**
