@@ -2332,4 +2332,20 @@
     <string name="tutorial11">Label all inputs and outputs.</string>
     <string name="tutorialUniqueIdents">Inputs and outputs should always be uniquely named.</string>
     <string name="tutorialNotNeeded">Skip Tutorial</string>
+    <string name="elem_GenericInitCode">Generic Initialization</string>
+    <string name="elem_GenericInitCode_tt">Code that is executed to start a generic circuit directly.
+        If a generic circuit is to be started directly, such a component must be present.
+    </string>
+    <string name="err_hdlTestCaseHasGenericCode">Test cases with generic parameterization are not supported in HDL
+        export!
+    </string>
+    <string name="err_noGenericInitCode">No initialization code for the generic components.</string>
+    <string name="err_multipleGenericInitCodes">Multiple initialization codes for the generic elements.</string>
+    <string name="err_inGenericInitCode">Error in the analysis of the generic initialization code.</string>
+    <string name="attr_createConcreteCircuitLabel">Create Concrete Circuit</string>
+    <string name="attr_createConcreteCircuit">Create</string>
+    <string name="attr_createConcreteCircuit_tt">Creates a concrete circuit from this generic circuit using the
+        parameters specified in this element.
+    </string>
+    <string name="attr_createConcreteCircuitErr">Error while creating the concrete circuit!</string>
 </resources>

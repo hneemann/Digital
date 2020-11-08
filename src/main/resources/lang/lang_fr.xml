@@ -2499,4 +2499,22 @@
     <string name="tutorial11">Étiquetez toutes les entrées et sorties.</string>
     <string name="tutorialUniqueIdents">Les entrées et les sorties devraient toujours porter un nom unique.</string>
     <string name="tutorialNotNeeded">Ignorer le tutoriel</string>
+    <string name="elem_GenericInitCode">Initialisation générique</string>
+    <string name="elem_GenericInitCode_tt">Code qui est exécuté pour simuler un circuit générique directement.
+        Cette composante est requise si un circuit générique doit être simulé directement.
+    </string>
+    <string name="err_hdlTestCaseHasGenericCode">Les tests avec une paramétrisation générique ne sont pas pris en charge
+        lors de l'exportation HDL!
+    </string>
+    <string name="err_noGenericInitCode">Aucun code d'initialisation trouvé pour les composantes génériques.</string>
+    <string name="err_multipleGenericInitCodes">Plusieurs codes d'initialisation ont été trouvés pour les composantes
+        génériques, il n'en faut qu'un seul.
+    </string>
+    <string name="err_inGenericInitCode">Erreur lors de l'analyze du code d'initialisation générique.</string>
+    <string name="attr_createConcreteCircuitLabel">Circuit concret</string>
+    <string name="attr_createConcreteCircuit">Créer</string>
+    <string name="attr_createConcreteCircuit_tt">Crée un circuit concret à partir de ce circuit générique en utilisant
+        les paramètres spécifiés dans cet élément.
+    </string>
+    <string name="attr_createConcreteCircuitErr">Erreur lors de la création du circuit concret!</string>
 </resources>
