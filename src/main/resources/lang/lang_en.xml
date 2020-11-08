@@ -1145,7 +1145,9 @@
         at Component: {0}
     </string>
     <string name="msg_errParsingGenerics">Error while parsing generics code.</string>
-    <string name="err_noGenericInitCode">No initialization code for the generic components.</string>
+    <string name="err_noGenericInitCode">No initialization code for the generic components.
+        A respective component must be added to the circuit in order to start it.
+    </string>
     <string name="err_multipleGenericInitCodes">Multiple initialization codes for the generic elements.</string>
     <string name="err_inGenericInitCode">Error in the analysis of the generic initialization code.</string>
 

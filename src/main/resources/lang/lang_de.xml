@@ -1133,7 +1133,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         in Komponente: {0}
     </string>
     <string name="msg_errParsingGenerics">Fehler bei der Analyse des generischen Codes.</string>
-    <string name="err_noGenericInitCode">Kein Initialisierungscode für die generischen Elemente.</string>
+    <string name="err_noGenericInitCode">Kein Initialisierungscode für die generischen Elemente.
+        Eine entsprechende Komponente muss der Schaltung hinzugefügt werden, um diese starten zu können.
+    </string>
     <string name="err_multipleGenericInitCodes">Mehrere Initialisierungscodes für die generischen Elemente.</string>
     <string name="err_inGenericInitCode">Fehler bei der Analyse des generischen Initialisierungscodes.</string>
 
