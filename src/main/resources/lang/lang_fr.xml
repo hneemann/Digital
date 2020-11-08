@@ -2028,19 +2028,17 @@
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Bits d'addr.</string>
     <string name="msg_errorOpeningDocumentation">Erreur lors de l'ouverture du fichier PDF!</string>
-    <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Un simulateur simple pour les circuits numériques.
-        Écrit par H. Neemann de 2016-2020.
-
-        Les icônes ont été prises du &lt;a href="http://tango.freedesktop.org"&gt;projet Tango Desktop&lt;/a&gt;.
-
-        Visiter le projet sur &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
-        Sur GitHub vous pouvez aussi &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;télécharger&lt;/a&gt;
-        la dernière version.
-
-        Vous pouvez aussi y poser &lt;a
-        href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;une
-        question au sujet d'un problème&lt;/a&gt;
-        ou suggérer une &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;amélioration&lt;/a&gt;.
+    <string name="message"><![CDATA[<h1>Digital</h1>
+        <p>Un simulateur simple pour les circuits numériques.</p>
+        <p>Écrit par H. Neemann de 2016-2020.</p>
+        <p>Les icônes ont été prises du <a href="http://tango.freedesktop.org">projet Tango Desktop</a>.</p>
+        <p>Visiter le projet sur <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
+        Sur GitHub vous pouvez aussi <a href="https://github.com/hneemann/[[name]]/releases/latest">télécharger</a>
+        la dernière version.</p>
+        <p>Vous pouvez aussi y poser <a
+        href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">une
+        question au sujet d'un problème</a>
+        ou suggérer une <a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">amélioration</a>.</p>]]>
     </string>
     <string name="msg_N_nodes">{0} noeuds</string>
     <string name="msg_analyseErr">Erreur lors de l'analyse du circuit</string>
@@ -2233,19 +2231,19 @@
         &lt;/html&gt;
     </string>
     <string name="msg_expressionHelpTitle">Expressions</string>
-    <string name="msg_expressionHelp">Pour définir une expression, vous pouvez utiliser la plupart des notations
-        courantes:
-
-        ET: "&amp;", "&amp;&amp;", "*", "∧"
-        OU: "|", "||", "+", "∨", "#"
-        XOR: "^", "⊻"
+    <string name="msg_expressionHelp"><![CDATA[
+        <p>Pour définir une expression, vous pouvez utiliser la plupart des notations
+        courantes:</p>
+        <p>
+        ET: "&", "&&", "*", "∧"<br/>
+        OU: "|", "||", "+", "∨", "#"<br/>
+        XOR: "^", "⊻"<br/>
         NON: "!", "~", "¬"
-
-        Comme d'habitude, le ET à la priorité sur le OU et le XOR.
-
-        Plusieurs expressions peuvent être séparées par "," ou ";".
+        </p>
+        <p>Comme d'habitude, le ET à la priorité sur le OU et le XOR.</p>
+        <p>Plusieurs expressions peuvent être séparées par "," ou ";".
         Si vous voulez nommer les expressions, vous pouvez utiliser la
-        commande let: "let U=A+B, let V=A*B".
+        commande let: "let U=A+B, let V=A*B".</p>]]>
     </string>
     <string name="msg_testVectorHelpTitle">Vecteurs de test</string>
     <string name="msg_testVectorHelp">&lt;html&gt;

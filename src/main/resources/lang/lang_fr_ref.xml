@@ -1884,19 +1884,16 @@
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Addr. Bits</string>
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
-    <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
-        Written by H. Neemann in 2016-2020.
-
-        The icons are taken from the &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.
-
-        Visit the project at &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
-        At Github you can also &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;download&lt;/a&gt;
-        the latest release.
-
-        There you also can file an &lt;a
-        href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;issue&lt;/a&gt;
+    <string name="message"><![CDATA[<h1>Digital</h1>
+        <p>A simple simulator for digital circuits.</p>
+        <p>Written by H. Neemann in 2016-2020.</p>
+        <p>The icons are taken from the <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
+        <p>Visit the project at <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
+        At Github you can also <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>
+        the latest release.</p>
+        <p>There you also can file an <a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">issue</a>
         or suggest
-        an &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;enhancement&lt;/a&gt;.
+        an <a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">enhancement</a>.</p>]]>
     </string>
     <string name="msg_N_nodes">{0} nodes</string>
     <string name="msg_analyseErr">Error analysing the circuit</string>
@@ -2080,18 +2077,18 @@
         &lt;/html&gt;
     </string>
     <string name="msg_expressionHelpTitle">Expressions</string>
-    <string name="msg_expressionHelp">To define an expression you can use all most common notations:
-
-        And: "&amp;", "&amp;&amp;", "*", "∧"
-        Or: "|", "||", "+", "∨", "#"
-        XOr: "^", "⊻"
+    <string name="msg_expressionHelp"><![CDATA[
+        <p>To define an expression you can use all most common notations:</p>
+        <p>
+        And: "&", "&&", "*", "∧"<br/>
+        Or: "|", "||", "+", "∨", "#"<br/>
+        XOr: "^", "⊻"<br/>
         Not: "!", "~", "¬"
-
-        As usual AND precedes OR and XOr.
-
-        Multiple expressions can be separated by "," or ";".
+        </p>
+        <p>As usual AND precedes OR and XOr.</p>
+        <p>Multiple expressions can be separated by "," or ";".
         If you want to name the expressions you can use the
-        let command: "let U=A+B, let V=A*B".
+        let command: "let U=A+B, let V=A*B".</p>]]>
     </string>
     <string name="msg_testVectorHelpTitle">Test vectors</string>
     <string name="msg_testVectorHelp">&lt;html&gt;

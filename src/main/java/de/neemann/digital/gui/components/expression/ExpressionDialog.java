@@ -57,7 +57,7 @@ public class ExpressionDialog extends JDialog {
                 new ShowStringDialog(
                         ExpressionDialog.this,
                         Lang.get("msg_expressionHelpTitle"),
-                        Lang.get("msg_expressionHelp"))
+                        Lang.get("msg_expressionHelp"), true)
                         .setVisible(true);
             }
         }.createJButton());

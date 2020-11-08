@@ -1856,19 +1856,17 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
-    <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Ein einfacher Simulator für digitale Schaltkreise.
-        Geschrieben von H. Neemann 2016-2020
-
-        Die Icons stammen aus dem &lt;a href=&quot;http://tango.freedesktop.org&quot;&gt;Tango Desktop Project&lt;/a&gt;.
-
-        Besuche das Projekt auf &lt;a href=&quot;https://github.com/hneemann/[[name]]&quot;&gt;GitHub&lt;/a&gt;.
+    <string name="message"><![CDATA[<h1>Digital</h1>
+        <p>Ein einfacher Simulator für digitale Schaltkreise.</p>
+        <p>Geschrieben von H. Neemann 2016-2020</p>
+        <p>Die Icons stammen aus dem <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
+        <p>Besuche das Projekt auf <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
         Die jeweils neueste Version steht dort ebenfalls zum
-        &lt;a href=&quot;https://github.com/hneemann/[[name]]/releases/latest&quot;&gt;Download&lt;/a&gt; bereit.
-
-        Per GitHub kann auch ein &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug&quot;&gt;Fehler&lt;/a&gt;
+        <a href="https://github.com/hneemann/[[name]]/releases/latest">Download</a> bereit.</p>
+        <p>Per GitHub kann auch ein <a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">Fehler</a>
         gemeldet oder
-        eine &lt;a href=&quot;https://github.com/hneemann/[[name]]/issues/new?labels=enhancement&quot;&gt;Verbesserung&lt;/a&gt;
-        vorgeschlagen werden.
+        eine <a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">Verbesserung</a>
+        vorgeschlagen werden.</p>]]>
     </string>
     <string name="msg_N_nodes">{0} aktive Elemente</string>
     <string name="msg_analyseErr">Fehler bei der Analyse der Schaltung.</string>
@@ -2067,18 +2065,20 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     ]]></string>
 
     <string name="msg_expressionHelpTitle">Ausdrücke</string>
-    <string name="msg_expressionHelp">Zur Definition eines Ausdruckes können alle üblichen
-Notationen verwendet werden:
-
-Und: &quot;&amp;&quot;, &quot;&amp;&amp;&quot;, &quot;*&quot;, &quot;∧&quot;
-Oder: &quot;|&quot;, &quot;||&quot;, &quot;+&quot;, &quot;∨&quot;, &quot;#&quot;
-Exkl. Oder: &quot;^&quot;, &quot;⊻&quot;
-Nicht: &quot;!&quot;, &quot;~&quot;, &quot;&#172;&quot;
-
-UND hat Vorrang vor ODER bzw. Exkl. ODER.
-Mehrere Ausdrücke können durch "," oder ";" getrennt werden.
-Sollen die Ausdrücke benannt werden, kann die let-Anweisung verwendet
-werden: "let U=A+B, let V=A*B"</string>
+    <string name="msg_expressionHelp"><![CDATA[<html>
+        <p>Zur Definition eines Ausdruckes können alle üblichen
+        Notationen verwendet werden:</p>
+        <p>
+        Und: "&", "&&", "*", "∧"<br/>
+        Oder: "|", "||", "+", "∨", "#"<br/>
+        Exkl. Oder: "^", "⊻"<br/>
+        Nicht: "!", "~", "¬"<br/>
+        </p>
+        <p>UND hat Vorrang vor ODER bzw. Exkl. ODER.
+        Mehrere Ausdrücke können durch "," oder ";" getrennt werden.
+        Sollen die Ausdrücke benannt werden, kann die let-Anweisung verwendet
+        werden: "let U=A+B, let V=A*B"</p></html>]]>
+    </string>
     <string name="msg_testVectorHelpTitle">Testvektoren</string>
     <string name="msg_testVectorHelp"><![CDATA[<html>
     <head><style>pre { background-color: #E0E0E0;}</style></head>

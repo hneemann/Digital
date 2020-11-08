@@ -956,38 +956,37 @@
         The ZIP file thus contains all the files that are necessary for the operation of the circuit.</string>
   <string name="menu_labelPins">Label Inputs and Outputs</string>
   <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
-  <string name="menu_tutorial">Start Tutorial</string>
-  <string name="menu_tutorial_tt">Starts the beginner tutorial.</string>
-  <string name="menu_stats">Circuit Statistics</string>
-  <string name="menu_stats_tt">Shows a list of used components.</string>
-  <string name="stat_number">Number</string>
-  <string name="stat_part">Component</string>
-  <string name="stat_inputs">Inputs</string>
-  <string name="stat_bits">Bits</string>
-  <string name="stat_addrBits">Addr. Bits</string>
-  <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
-  <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;A simple simulator for digital circuits.
-      Written by H. Neemann in 2016-2020.
-
-      The icons are taken from the &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.
-
-      Visit the project at &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
-      At Github you can also &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;download&lt;/a&gt; the
-      latest release.
-
-      There you also can file an &lt;a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;issue&lt;/a&gt;
-      or suggest
-      an &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;enhancement&lt;/a&gt;.</string>
-  <string name="msg_N_nodes">{0} nodes</string>
-  <string name="msg_analyseErr">Error analysing the circuit</string>
-  <string name="msg_color">Color</string>
-  <string name="msg_errorCreatingModel">Error creating the circuit</string>
-  <string name="msg_errorDuringCalculation">Error during simplification</string>
-  <string name="msg_errorDuringHardwareExport">Error during creation of hardware configuration.</string>
-  <string name="msg_errorEditingValue">Error editing a attribute value</string>
-  <string name="msg_errorImportingModel_N0">Error importing the circuit {0}!</string>
-  <string name="msg_errorUpdatingLibrary">Error updating the component library!!</string>
-  <string name="msg_errorReadingFile">Error reading a file</string>
+    <string name="menu_tutorial">Start Tutorial</string>
+    <string name="menu_tutorial_tt">Starts the beginner tutorial.</string>
+    <string name="menu_stats">Circuit Statistics</string>
+    <string name="menu_stats_tt">Shows a list of used components.</string>
+    <string name="stat_number">Number</string>
+    <string name="stat_part">Component</string>
+    <string name="stat_inputs">Inputs</string>
+    <string name="stat_bits">Bits</string>
+    <string name="stat_addrBits">Addr. Bits</string>
+    <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
+    <string name="message"><![CDATA[<h1>Digital</h1>
+        <p>A simple simulator for digital circuits.</p>
+        <p>Written by H. Neemann in 2016-2020.</p>
+        <p>The icons are taken from the <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
+        <p>Visit the project at <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
+        At Github you can also <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>
+        the latest release.</p>
+        <p>There you also can file an <a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">issue</a>
+        or suggest
+        an <a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">enhancement</a>.</p>]]>
+    </string>
+    <string name="msg_N_nodes">{0} nodes</string>
+    <string name="msg_analyseErr">Error analysing the circuit</string>
+    <string name="msg_color">Color</string>
+    <string name="msg_errorCreatingModel">Error creating the circuit</string>
+    <string name="msg_errorDuringCalculation">Error during simplification</string>
+    <string name="msg_errorDuringHardwareExport">Error during creation of hardware configuration.</string>
+    <string name="msg_errorEditingValue">Error editing a attribute value</string>
+    <string name="msg_errorImportingModel_N0">Error importing the circuit {0}!</string>
+    <string name="msg_errorUpdatingLibrary">Error updating the component library!!</string>
+    <string name="msg_errorReadingFile">Error reading a file</string>
   <string name="msg_remoteUnknownCommand">Command {0} unknown!</string>
   <string name="msg_errorWritingFile">Error writing a file</string>
   <string name="msg_frequency_N">The maximum frequency is {0} kHz</string>
@@ -1425,19 +1424,6 @@
         you can find the changes and improvements.&lt;/p&gt;
         &lt;p&gt;Here you can &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;download&lt;/a&gt; the new release.&lt;/p&gt;
         &lt;/html&gt;</string>
-  <string name="msg_expressionHelp">To define an expression you can use all most common notations:
-
-      And: "&amp;", "&amp;&amp;", "*", "∧"
-      Or: "|", "||", "+", "∨", "#"
-      XOr: "^", "⊻"
-      Not: "!", "~", "¬"
-
-      As usual AND precedes OR and XOr.
-
-      Multiple expressions can be separated by "," or ";".
-      If you want to name the expressions you can use the
-      let command: "let U=A+B, let V=A*B".
-  </string>
   <string name="msg_testVectorHelp">&lt;html&gt;
       &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
       &lt;body&gt;

@@ -1464,36 +1464,35 @@
   <string name="menu_exportVerilog_tt">Exportar o circuito para Verilog</string>
   <string name="menu_pdfDocumentation">Documentação</string>
   <string name="menu_openPdfDocumentation">Abrir {0}</string>
-  <string name="msg_errorOpeningDocumentation">Erro ao abrir arquivo PDF!</string>
-  <string name="menu_showDataGraph">Mostrar o gráfico de medições</string>
-  <string name="menu_showDataGraph_tt">Mostrar o gráfico com os valores medidos em janela separada.</string>
-  <string name="menu_showDataTable">Mostrar tabela com valores medidos</string>
-  <string name="menu_showDataTable_tt">Mostrar tabela com valores medidos em janela separada.</string>
-  <string name="menu_exportZIP">Exportar para arquivo ZIP</string>
-  <string name="menu_exportZIP_tt">Exportar o circuito para um arquivo ZIP.
-        O arquivo ZIP conterá todos os arquivos que forem necessários para a operação do circuito.</string>
-  <string name="menu_labelPins">Rotular entradas e saídas</string>
-  <string name="menu_labelPins_tt">Definir rótulo para entradas e saídas que não tiverem algum.</string>
-  <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Um simulator simples para circuitos digitais.
-      Elaborado por H. Neemann em 2016-2020.
-
-      Os ícones foram tomados de &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.
-
-      Para conhecer melhor o projeto, visitar &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
-      Última versão disponível em &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;download&lt;/a&gt;.
-
-      Questões poderão ser endereçadas para &lt;a
-      href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;issue&lt;/a&gt;
+    <string name="msg_errorOpeningDocumentation">Erro ao abrir arquivo PDF!</string>
+    <string name="menu_showDataGraph">Mostrar o gráfico de medições</string>
+    <string name="menu_showDataGraph_tt">Mostrar o gráfico com os valores medidos em janela separada.</string>
+    <string name="menu_showDataTable">Mostrar tabela com valores medidos</string>
+    <string name="menu_showDataTable_tt">Mostrar tabela com valores medidos em janela separada.</string>
+    <string name="menu_exportZIP">Exportar para arquivo ZIP</string>
+    <string name="menu_exportZIP_tt">Exportar o circuito para um arquivo ZIP.
+        O arquivo ZIP conterá todos os arquivos que forem necessários para a operação do circuito.
+    </string>
+    <string name="menu_labelPins">Rotular entradas e saídas</string>
+    <string name="menu_labelPins_tt">Definir rótulo para entradas e saídas que não tiverem algum.</string>
+    <string name="message"><![CDATA[<h1>Digital</h1>
+      <p>Um simulator simples para circuitos digitais.</p>
+      <p>Elaborado por H. Neemann em 2016-2020.</p>
+      <p>Os ícones foram tomados de <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
+      <p>Para conhecer melhor o projeto, visitar <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
+      Última versão disponível em <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>.</p>
+      <p>Questões poderão ser endereçadas para <a
+      href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">issue</a>
       ou sugestões
-      para &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;enhancement&lt;/a&gt;.</string>
-  <string name="msg_N_nodes">{0} nodos</string>
-  <string name="msg_analyseErr">Erro ao analisar o circuito</string>
-  <string name="msg_color">Cor</string>
-  <string name="msg_errorCalculatingStep">Erro ao calcular um passo</string>
-  <string name="msg_errorCreatingModel">Erro ao criar o circuito</string>
-  <string name="msg_errorDuringCalculation">Erro durante a simplificação</string>
-  <string name="msg_errorDuringHardwareExport">Erro durante a criação da configuração de hardware.</string>
-  <string name="msg_errorEditingValue">Erro ao editar um valor de atributo</string>
+      para <a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">enhancement</a>.</p>]]></string>
+    <string name="msg_N_nodes">{0} nodos</string>
+    <string name="msg_analyseErr">Erro ao analisar o circuito</string>
+    <string name="msg_color">Cor</string>
+    <string name="msg_errorCalculatingStep">Erro ao calcular um passo</string>
+    <string name="msg_errorCreatingModel">Erro ao criar o circuito</string>
+    <string name="msg_errorDuringCalculation">Erro durante a simplificação</string>
+    <string name="msg_errorDuringHardwareExport">Erro durante a criação da configuração de hardware.</string>
+    <string name="msg_errorEditingValue">Erro ao editar um valor de atributo</string>
   <string name="msg_errorImportingModel_N0">Erro ao importar o circuito {0}!</string>
   <string name="msg_errorUpdatingLibrary">Erro ao atualizar a biblioteca de componentes!!</string>
   <string name="msg_errorReadingFile">Erro ao ler arquivo</string>
@@ -1630,27 +1629,27 @@
         Se um circuito contiver apenas uma única ROM, isso será suficiente para se usar o asterisco como rótulo.
         Todos os circuitos integrados deverão term nomes únicos para cada ROM.
         </html>]]></string>
-  <string name="msg_newRelease_N"><![CDATA[<html>
+    <string name="msg_newRelease_N"><![CDATA[<html>
         <h1>Nova versão {0} disponível</h1>
         <p>Há uma nova versão do simulador disponível.</p>
         <p>Em <a href="https://github.com/hneemann/[[name]]/releases/latest">Release Notes</a>
         poderão ser encontradas as alterações e melhorias.</p>
         <p>Em <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a> se poderá encontrar a nova versão.</p>
         </html>]]></string>
-  <string name="msg_expressionHelpTitle">Expressões</string>
-  <string name="msg_expressionHelp">Para definir uma expressão poderão ser usadas todas as notações mais comuns:
-
-        And: "&amp;", "&amp;&amp;", "*", "∧"
-      Or: "|", "||", "+", "∨", "#"
-      XOr: "^", "⊻"
+    <string name="msg_expressionHelpTitle">Expressões</string>
+    <string name="msg_expressionHelp"><![CDATA[
+      <p>Para definir uma expressão poderão ser usadas todas as notações mais comuns:</p>
+      <p>
+      And: "&", "&&", "*", "∧"<br/>
+      Or: "|", "||", "+", "∨", "#"<br/>
+      XOr: "^", "⊻"<br/>
       Not: "!", "~", "¬"
-
-      Como usual AND tem precedência sobre OR e XOR.
-
-      Múltiplas expressões poderão ser separadas por "," ou ";".
+      </p>
+      <p>Como usual AND tem precedência sobre OR e XOR.</p>
+      <p>Múltiplas expressões poderão ser separadas por "," ou ";".
       Se desejado dar nome às expressões se poderá usar o comando "let"
-      "let U=A+B, let V=A*B"
-  </string>
+      "let U=A+B, let V=A*B"</p>]]>
+    </string>
     <string name="msg_testVectorHelpTitle">Arranjos de teste</string>
     <string name="msg_testVectorHelp">&lt;html&gt;
         &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
