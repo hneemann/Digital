@@ -406,18 +406,19 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             });
         }
 
-        create.add(new ToolTipAction(Lang.get("menu_fsm_optimize_state_numbers")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    new OptimizerDialog(FSMFrame.this).setVisible(true);
-                } catch (FiniteStateMachineException | FormatterException | ExpressionException e) {
-                    new ErrorMessage(Lang.get("menu_fsm_optimize_state_numbers_err")).addCause(e).show(FSMFrame.this);
-                } finally {
-                    fsmComponent.repaint();
+        if (Main.isExperimentalMode())
+            create.add(new ToolTipAction(Lang.get("menu_fsm_optimize_state_numbers")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    try {
+                        new OptimizerDialog(FSMFrame.this).setVisible(true);
+                    } catch (FiniteStateMachineException | FormatterException | ExpressionException e) {
+                        new ErrorMessage(Lang.get("menu_fsm_optimize_state_numbers_err")).addCause(e).show(FSMFrame.this);
+                    } finally {
+                        fsmComponent.repaint();
+                    }
                 }
-            }
-        }.setToolTip(Lang.get("menu_fsm_optimize_state_numbers_tt")).createJMenuItem());
+            }.setToolTip(Lang.get("menu_fsm_optimize_state_numbers_tt")).createJMenuItem());
     }
 
     /**
