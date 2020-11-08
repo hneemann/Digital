@@ -1781,7 +1781,10 @@ En tal caso, el nombre de la señal puede usarse con un añadido "_out" para lee
   <string name="err_thereIsAUnnamedIO">Hay una entrada o una salida sin nombre</string>
   <string name="err_NameOfIOIsInvalidOrNotUnique_N">La señal "{0}" no es válida o se ha usado varias veces</string>
   <string name="err_substitutingError">Error al sustituir componentes para el análisis.</string>
-  <string name="err_evaluatingGenericsCode_N_N">Error en la evaluación del código genérico del circuito. Código {1} en el Componente: {0}</string>
+  <string name="err_evaluatingGenericsCode_N_N">Error en la evaluación del código genérico del circuito. Código
+    {1}
+    en el Componente: {0}
+  </string>
   <string name="msg_errParsingGenerics">Error al analizar código genérico</string>
   <string name="key_generic">Parametrización genérica</string>
   <string name="key_generic_tt">Declaraciones hechas para generar un circuito</string>
