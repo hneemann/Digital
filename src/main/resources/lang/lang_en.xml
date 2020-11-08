@@ -2230,6 +2230,16 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="msg_fsm_errorLoadingFile">Error loading a file!</string>
     <string name="msg_fsm_errorStoringFile">Error storing a file!</string>
     <string name="msg_fsmHelpTitle">Help FSM Editor</string>
+
+    <string name="msg_fsm_optimizer">FSM-Optimizer</string>
+    <string name="menu_fsm_optimize_state_numbers">Optimize the State Numbers</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">Optimizes the state numbers so that an implementation has the
+        least possible effort. The runtime increases very quickly with the complexity of the machine. (O(n!))
+    </string>
+    <string name="menu_fsm_optimize_state_numbers_err">Error during optimization!</string>
+    <string name="msg_fsm_optimizer_initial">Initial complexity:</string>
+    <string name="msg_fsm_optimizer_best">Best so far:</string>
+
     <string name="msg_fsmHelp"><![CDATA[
 <html><head></head>
 <body>

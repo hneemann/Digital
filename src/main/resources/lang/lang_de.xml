@@ -2233,6 +2233,18 @@ Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert z
     <string name="msg_fsmNewState">Neuer Zustand</string>
     <string name="msg_fsmCantCreateTable">Zustandsübergangstabelle kann nicht erzeugt werden.</string>
     <string name="msg_fsmHelpTitle">Hilfe Endliche Automaten</string>
+
+    <string name="msg_fsm_optimizer">FSM-Optimierer</string>
+    <string name="menu_fsm_optimize_state_numbers">Optimiere die Zustandsnummern</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">Optimiert die Zustandsnummern so, dass ein Implementierung
+        einen möglichst geringen Aufwand hat. Die Laufzeit steigt sehr schnell mit der Komplexität des Automaten an.
+        (O(n!))
+    </string>
+    <string name="menu_fsm_optimize_state_numbers_err">Fehler wärend der Optimierung!</string>
+    <string name="msg_fsm_optimizer_initial">Startkomplexität:</string>
+    <string name="msg_fsm_optimizer_best">Beste bisher:</string>
+
+
     <string name="msg_fsmHelp"><![CDATA[
 <html><head></head>
 <body>

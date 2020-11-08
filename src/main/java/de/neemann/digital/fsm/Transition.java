@@ -42,6 +42,14 @@ public class Transition extends Movable<Transition> {
         initPos();
     }
 
+    Transition(Transition other, ArrayList<State> states, List<State> otherStates) {
+        this.condition = other.condition;
+        this.fromState = states.get(otherStates.indexOf(other.fromState));
+        this.toState = states.get(otherStates.indexOf(other.toState));
+        setValues(other.getValues());
+        setPos(other.getPos());
+    }
+
     /**
      * Calculates the repulsive forces
      *
