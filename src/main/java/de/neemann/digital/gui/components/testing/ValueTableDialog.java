@@ -6,7 +6,6 @@
 package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.ErrorDetector;
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.data.ValueTable;
@@ -15,11 +14,9 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
-import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestExecutor;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.gui.IconCreator;
@@ -121,40 +118,38 @@ public class ValueTableDialog extends JDialog {
      * @throws PinException             PinException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ValueTableDialog addTestResult(ArrayList<TestSet> tsl, Circuit circuit, ElementLibrary library) throws TestingDataException, ElementNotFoundException, PinException, NodeException {
+    public ValueTableDialog addTestResult(java.util.List<Circuit.TestCase> tsl, Circuit circuit, ElementLibrary library) throws TestingDataException, ElementNotFoundException, PinException, NodeException {
         Collections.sort(tsl);
         int i = 0;
         int errorTabIndex = -1;
-        for (TestSet ts : tsl) {
-            Model model = new ModelCreator(circuit, library).createModel(false);
+        for (Circuit.TestCase ts : tsl) {
             ErrorDetector errorDetector = new ErrorDetector();
-            model.addObserver(errorDetector);
             try {
-                TestExecutor testExecutor = new TestExecutor(ts.data).create(model);
+                TestExecutor.Result testResult = new TestExecutor(ts, circuit, library)
+                        .addObserver(errorDetector)
+                        .execute();
 
                 String tabName;
                 Icon tabIcon;
-                if (testExecutor.allPassed()) {
-                    tabName = Lang.get("msg_test_N_Passed", ts.name);
+                if (testResult.allPassed()) {
+                    tabName = Lang.get("msg_test_N_Passed", ts.getLabel());
                     tabIcon = ICON_PASSED;
                 } else {
-                    tabName = Lang.get("msg_test_N_Failed", ts.name);
+                    tabName = Lang.get("msg_test_N_Failed", ts.getLabel());
                     tabIcon = ICON_FAILED;
                     errorTabIndex = i;
                 }
-                if (testExecutor.toManyResults())
+                if (testResult.toManyResults())
                     tabName += " " + Lang.get("msg_test_missingLines");
 
-                tp.addTab(tabName, tabIcon, new JScrollPane(createTable(testExecutor.getResult())));
-                if (testExecutor.toManyResults())
+                tp.addTab(tabName, tabIcon, new JScrollPane(createTable(testResult.getValueTable())));
+                if (testResult.toManyResults())
                     tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
-                resultTableData.add(testExecutor.getResult());
+                resultTableData.add(testResult.getValueTable());
                 i++;
                 errorDetector.check();
             } catch (Exception e) {
-                throw new TestingDataException(Lang.get("err_whileExecutingTests_N0", ts.name), e);
-            } finally {
-                model.close();
+                throw new TestingDataException(Lang.get("err_whileExecutingTests_N0", ts.getLabel()), e);
             }
         }
         if (errorTabIndex >= 0)
@@ -198,48 +193,6 @@ public class ValueTableDialog extends JDialog {
     public ValueTableDialog disableGraph() {
         asGraph.setEnabled(false);
         return this;
-    }
-
-    /**
-     * A TestSet contains the {@link TestCaseDescription} and the name of the TestData.
-     * Is only a value bean
-     */
-    public static class TestSet implements Comparable<TestSet> {
-
-        private final TestCaseDescription data;
-        private final String name;
-
-        /**
-         * Creates a new instance
-         *
-         * @param data the TestData
-         * @param name the name of the data, eg. the used label
-         */
-        public TestSet(TestCaseDescription data, String name) {
-            this.data = data;
-            this.name = name;
-        }
-
-        @Override
-        public int compareTo(TestSet o) {
-            return name.compareTo(o.name);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            TestSet testSet = (TestSet) o;
-
-            return name.equals(testSet.name);
-
-        }
-
-        @Override
-        public int hashCode() {
-            return name.hashCode();
-        }
     }
 
     private static class ValueRenderer extends DefaultTableCellRenderer {

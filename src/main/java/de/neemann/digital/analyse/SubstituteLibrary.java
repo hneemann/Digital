@@ -17,6 +17,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -206,8 +207,29 @@ public class SubstituteLibrary implements LibraryInterface {
             Key k = Keys.getKeyByName(key);
             if (k == null) {
                 throw new HGSEvalException("key " + key + " is invalid");
-            } else
+            } else {
+                Class<?> expectedClass = k.getDefault().getClass();
+
+                val = doImplicitTypeCasts(expectedClass, val);
+
+                boolean isAssignable = expectedClass.isAssignableFrom(val.getClass());
+                if (!isAssignable)
+                    throw new HGSEvalException("error writing to " + key + ": value of type " + val.getClass().getSimpleName() + " can't be assigned to " + expectedClass.getSimpleName());
                 attr.set(k, val);
+            }
+        }
+
+        private Object doImplicitTypeCasts(Class<?> expectedClass, Object val) {
+            if (expectedClass == TestCaseDescription.class)
+                return new TestCaseDescription(val.toString());
+
+            if (expectedClass == Integer.class && val instanceof Long) {
+                long l = (Long) val;
+                if (l <= Integer.MAX_VALUE && l >= Integer.MIN_VALUE)
+                    return (int) l;
+            }
+
+            return val;
         }
 
         @Override

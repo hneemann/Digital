@@ -43,7 +43,7 @@ public class TestHDLExportFlag extends TestCase {
         implicitSupported.add(Tunnel.DESCRIPTION);
         implicitSupported.add(Splitter.DESCRIPTION);
 
-        implicitSupported.add(TestCaseElement.TESTCASEDESCRIPTION);
+        implicitSupported.add(TestCaseElement.DESCRIPTION);
         implicitSupported.add(GenericInitCode.DESCRIPTION);
     }
 

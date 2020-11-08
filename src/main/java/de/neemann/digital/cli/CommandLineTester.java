@@ -9,18 +9,14 @@ import de.neemann.digital.cli.cli.Argument;
 import de.neemann.digital.cli.cli.BasicCommand;
 import de.neemann.digital.cli.cli.CLIException;
 import de.neemann.digital.core.ErrorDetector;
-import de.neemann.digital.core.Model;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.TestCaseDescription;
-import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.testing.TestExecutor;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tester used from the command line
@@ -28,7 +24,7 @@ import java.util.ArrayList;
 public class CommandLineTester {
 
     private final CircuitLoader circuitLoader;
-    private ArrayList<TestCase> testCases;
+    private List<Circuit.TestCase> testCases;
     private int testsPassed;
     private boolean allowMissingInputs;
 
@@ -51,17 +47,8 @@ public class CommandLineTester {
      */
     public CommandLineTester useTestCasesFrom(File file) throws IOException {
         Circuit c = Circuit.loadCircuit(file, circuitLoader.getShapeFactory());
-        testCases = getTestCasesFrom(c);
+        testCases = c.getTestCases();
         return this;
-    }
-
-    private ArrayList<TestCase> getTestCasesFrom(Circuit circuit) {
-        ArrayList<TestCase> tsl = new ArrayList<>();
-        for (VisualElement el : circuit.getTestCases())
-            tsl.add(new TestCase(
-                    el.getElementAttributes().get(TestCaseElement.TESTDATA),
-                    el.getElementAttributes().getLabel()));
-        return tsl;
     }
 
     /**
@@ -72,7 +59,7 @@ public class CommandLineTester {
      */
     public int execute(PrintStream out) {
         if (testCases == null)
-            testCases = getTestCasesFrom(circuitLoader.getCircuit());
+            testCases = circuitLoader.getCircuit().getTestCases();
 
         int errorCount = 0;
 
@@ -80,28 +67,27 @@ public class CommandLineTester {
             out.println("no test cases given");
             errorCount++;
         } else {
-            for (TestCase t : testCases) {
+            for (Circuit.TestCase t : testCases) {
                 String label = t.getLabel();
                 if (label.isEmpty())
                     label = "unnamed";
 
                 try {
-                    Model model = circuitLoader.createModel();
                     ErrorDetector errorDetector = new ErrorDetector();
-                    model.addObserver(errorDetector);
-                    TestExecutor te = new TestExecutor(t.getTestCaseDescription())
+                    TestExecutor.Result tr = new TestExecutor(t, circuitLoader.getCircuit(), circuitLoader.getLibrary())
                             .setAllowMissingInputs(allowMissingInputs)
-                            .create(model);
+                            .addObserver(errorDetector)
+                            .execute();
 
-                    if (te.allPassed()) {
+                    if (tr.allPassed()) {
                         out.println(label + ": passed");
                         testsPassed++;
                     } else {
                         String message = label + ": failed";
-                        if (te.isErrorOccurred())
+                        if (tr.isErrorOccurred())
                             message += " due to an error";
                         else
-                            message += " (" + te.failedPercent() + "%)";
+                            message += " (" + tr.failedPercent() + "%)";
                         out.println(message);
                         errorCount++;
                     }
@@ -121,24 +107,6 @@ public class CommandLineTester {
      */
     public int getTestsPassed() {
         return testsPassed;
-    }
-
-    private static final class TestCase {
-        private final TestCaseDescription testCaseDescription;
-        private final String label;
-
-        private TestCase(TestCaseDescription testCaseDescription, String label) {
-            this.testCaseDescription = testCaseDescription;
-            this.label = label;
-        }
-
-        private TestCaseDescription getTestCaseDescription() {
-            return testCaseDescription;
-        }
-
-        private String getLabel() {
-            return label;
-        }
     }
 
     private CommandLineTester setAllowMissingInputs(boolean allowMissingInputs) {

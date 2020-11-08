@@ -63,7 +63,7 @@ public class TestCaseDescription {
     }
 
     private void check() throws TestingDataException {
-        if (lines == null) {
+        if (lines == null || names == null) {
             try {
                 Parser tdp = new Parser(dataString).parse();
                 lines = tdp.getLines();
@@ -105,5 +105,10 @@ public class TestCaseDescription {
     @Override
     public int hashCode() {
         return dataString != null ? dataString.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return dataString;
     }
 }

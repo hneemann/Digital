@@ -6,7 +6,6 @@
 package de.neemann.digital.docu;
 
 import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.TruthTableTableModel;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.fsm.gui.FSMFrame;
@@ -353,7 +352,7 @@ public class ScreenShots {
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, w) -> w.setSize(WIN_DX, WIN_DY)))
                 .delay(500)
                 .add(new ScreenShot<>(Main.class))
-                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)))
+                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.DESCRIPTION)))
                 .mouseClick(InputEvent.BUTTON3_MASK)
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(AttributeDialog.class, (gt, w) -> {
@@ -391,7 +390,7 @@ public class ScreenShots {
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, w) -> w.setSize(WIN_DX, WIN_DY)))
                 .delay(500)
                 .add(new ScreenShot<>(Main.class))
-                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)))
+                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.DESCRIPTION)))
                 .mouseClick(InputEvent.BUTTON3_MASK)
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(AttributeDialog.class, (gt, w) -> {

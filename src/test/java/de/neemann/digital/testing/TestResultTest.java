@@ -47,8 +47,8 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestExecutor tr = new TestExecutor(data).create(model);
-        assertEquals(4,tr.getResult().getRows());
+        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        assertEquals(4, tr.getValueTable().getRows());
         assertTrue(tr.allPassed());
     }
 
@@ -60,14 +60,14 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestExecutor te = new TestExecutor(data).create(model);
-        ValueTable tr = te.getResult();
-        assertEquals(4,tr.getRows());
-        assertFalse(te.allPassed());
-        assertEquals(true, ((MatchedValue) tr.getValue(0, 2)).isPassed());
-        assertEquals(true, ((MatchedValue) tr.getValue(1, 2)).isPassed());
-        assertEquals(true, ((MatchedValue) tr.getValue(2, 2)).isPassed());
-        assertEquals(false, ((MatchedValue) tr.getValue(3, 2)).isPassed());
+        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        ValueTable valueTable = tr.getValueTable();
+        assertEquals(4, valueTable.getRows());
+        assertFalse(tr.allPassed());
+        assertEquals(true, ((MatchedValue) valueTable.getValue(0, 2)).isPassed());
+        assertEquals(true, ((MatchedValue) valueTable.getValue(1, 2)).isPassed());
+        assertEquals(true, ((MatchedValue) valueTable.getValue(2, 2)).isPassed());
+        assertEquals(false, ((MatchedValue) valueTable.getValue(3, 2)).isPassed());
     }
 
     public void testResultDontCare() throws Exception {
@@ -78,10 +78,10 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 x\n");
-        TestExecutor te = new TestExecutor(data).create(model);
-        ValueTable tr = te.getResult();
-        assertEquals(4,tr.getRows());
-        assertTrue(te.allPassed());
+        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        ValueTable valueTable = tr.getValueTable();
+        assertEquals(4, valueTable.getRows());
+        assertTrue(tr.allPassed());
     }
 
     public void testResultDontCare2() throws Exception {
@@ -92,10 +92,10 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 1\n");
-        TestExecutor te = new TestExecutor(data).create(model);
-        ValueTable tr = te.getResult();
-        assertEquals(4,tr.getRows());
-        assertTrue(te.allPassed());
+        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        ValueTable valueTable = tr.getValueTable();
+        assertEquals(4, valueTable.getRows());
+        assertTrue(tr.allPassed());
     }
 
     public void testResultDontCareInput() throws Exception {
@@ -104,10 +104,10 @@ public class TestResultTest extends TestCase {
                 "A B Y\n"
                         + "x 0 0\n"
                         + "x 1 1\n");
-        TestExecutor te = new TestExecutor(data).create(model);
-        ValueTable tr = te.getResult();
-        assertEquals(4,tr.getRows());
-        assertTrue(te.allPassed());
+        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        ValueTable valueTable = tr.getValueTable();
+        assertEquals(4, valueTable.getRows());
+        assertTrue(tr.allPassed());
     }
 
     public void testResultDontCareInput2() throws Exception {
@@ -116,10 +116,10 @@ public class TestResultTest extends TestCase {
                 "A B C Y\n"
                         + "x x 0 0\n"
                         + "x x 1 1\n");
-        TestExecutor te = new TestExecutor(data).create(model);
-        ValueTable tr = te.getResult();
-        assertEquals(8,tr.getRows());
-        assertTrue(te.allPassed());
+        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        ValueTable valueTable = tr.getValueTable();
+        assertEquals(8, valueTable.getRows());
+        assertTrue(tr.allPassed());
     }
 
 }

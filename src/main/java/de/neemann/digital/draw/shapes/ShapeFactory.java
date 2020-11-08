@@ -158,7 +158,7 @@ public final class ShapeFactory {
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
         map.put(DummyElement.RECTDESCRIPTION.getName(), RectShape::new);
-        map.put(TestCaseElement.TESTCASEDESCRIPTION.getName(), TestCaseShape::new);
+        map.put(TestCaseElement.DESCRIPTION.getName(), TestCaseShape::new);
         map.put(GenericInitCode.DESCRIPTION.getName(), GenericInitCodeShape::new);
         map.put(AsyncSeq.DESCRIPTION.getName(), AsyncClockShape::new);
 
