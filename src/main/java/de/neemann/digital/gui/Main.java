@@ -1413,7 +1413,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             if (updateEvent == ModelEventType.MICROSTEP) {
                 checkMicroStepActions(model);
-                model.addObserver(new MicroStepObserver(model));
+                model.addObserver(new MicroStepObserver(model, modelCreator));
             } else if (updateEvent == ModelEventType.STEP) {
                 if (maxFrequency <= 50)
                     model.addObserver(new FullStepObserver(model));
@@ -1667,10 +1667,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * Updates the graphic at every 100ms
      */
-    private class FastObserver implements ModelStateObserverTyped {
+    private final class FastObserver implements ModelStateObserverTyped {
         private final Timer timer;
 
-        FastObserver() {
+        private FastObserver() {
             timer = new Timer(100, actionEvent -> circuitComponent.graphicHasChanged());
         }
 
@@ -1697,11 +1697,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * Updates the graphic at every micro step
      */
-    private class MicroStepObserver implements ModelStateObserverTyped {
+    private final class MicroStepObserver implements ModelStateObserverTyped {
         private final Model model;
+        private final ModelCreator modelCreator;
 
-        MicroStepObserver(Model model) {
+        private MicroStepObserver(Model model, ModelCreator modelCreator) {
             this.model = model;
+            this.modelCreator = modelCreator;
         }
 
         @Override
