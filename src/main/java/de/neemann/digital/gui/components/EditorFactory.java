@@ -34,7 +34,6 @@ import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
