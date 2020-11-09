@@ -34,6 +34,7 @@ import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -530,7 +531,9 @@ public final class EditorFactory {
                 public void actionPerformed(ActionEvent e) {
                     Color col = JColorChooser.showDialog(button, Lang.get("msg_color"), color);
                     if (col != null) {
-                        color = col;
+                        // JColorChooser returns child classes from Color under certain circumstances.
+                        // The following line ensures that color is a Color instance.
+                        color = new Color(col.getRed(), col.getGreen(), col.getBlue(), col.getAlpha());
                         button.setBackground(color);
                     }
                 }
