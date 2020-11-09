@@ -201,7 +201,7 @@ public class FolderTestRunner {
                             try {
                                 TestExecutor.Result tr = new TestExecutor(tc, circuit, library).execute();
                                 if (tr.allPassed()) {
-                                    rowCount += tr.getValueTable().getRows();
+                                    rowCount += tr.getRowsTested();
                                 } else {
                                     if (sb.length() > 0)
                                         sb.append("; ");

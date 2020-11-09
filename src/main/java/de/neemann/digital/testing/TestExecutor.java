@@ -342,6 +342,13 @@ public class TestExecutor {
         }
 
         /**
+         * @return the number of rows tested (passed+failed)
+         */
+        public int getRowsTested() {
+            return passedCount + failedCount;
+        }
+
+        /**
          * @return the value table containing the detailed result
          */
         public ValueTable getValueTable() {
