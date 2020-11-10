@@ -1383,7 +1383,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (circuitComponent.getCircuit().getAttributes().get(Keys.IS_GENERIC))
                 circuitComponent.setCopy(modelCreator.getCircuit());
 
-            modelCreator.connectToGui();
+            modelCreator.connectToGui(circuitComponent);
 
             handleKeyboardComponents();
 
