@@ -170,10 +170,8 @@ public class Model implements Iterable<Node>, SyncAccess {
      * Needs to be called after all nodes are added.
      * Resets and initializes the model.
      * Calls <code>init(true);</code>
-     *
-     * @throws NodeException NodeException
      */
-    public void init() throws NodeException {
+    public void init() {
         init(true);
     }
 
@@ -182,9 +180,8 @@ public class Model implements Iterable<Node>, SyncAccess {
      * Resets and initializes the model.
      *
      * @param noise setup with or without noise
-     * @throws NodeException NodeException
      */
-    public void init(boolean noise) throws NodeException {
+    public void init(boolean noise) {
         nodesToUpdateNext.addAll(nodes);
         state = State.INITIALIZING;
         doStep(noise);
@@ -277,24 +274,21 @@ public class Model implements Iterable<Node>, SyncAccess {
 
     synchronized private void stepWithCondition(boolean noise, StepCondition cond) {
         try {
-            if (cond.doNextMicroStep()) {
-                int counter = 0;
-                while (cond.doNextMicroStep() && state != State.CLOSED) {
-                    if (counter++ > MAX_LOOP_COUNTER) {
-                        if (oscillatingNodes == null)
-                            oscillatingNodes = new HashSet<>();
-                        if (counter > COLLECTING_LOOP_COUNTER) {
-                            NodeException seemsToOscillate = new NodeException(Lang.get("err_seemsToOscillate")).addNodes(oscillatingNodes);
-                            oscillatingNodes = null;
-                            throw seemsToOscillate;
-                        } else {
-                            oscillatingNodes.addAll(nodesToUpdateNext);
-                        }
+            int counter = 0;
+            while (cond.doNextMicroStep() && state != State.CLOSED) {
+                if (counter++ > MAX_LOOP_COUNTER) {
+                    if (oscillatingNodes == null)
+                        oscillatingNodes = new HashSet<>();
+                    if (counter > COLLECTING_LOOP_COUNTER) {
+                        NodeException seemsToOscillate = new NodeException(Lang.get("err_seemsToOscillate")).addNodes(oscillatingNodes);
+                        oscillatingNodes = null;
+                        throw seemsToOscillate;
+                    } else {
+                        oscillatingNodes.addAll(nodesToUpdateNext);
                     }
-                    doMicroStep(noise);
                 }
-            } else
-                fireEvent(ModelEvent.STEP);
+                doMicroStep(noise);
+            }
         } catch (Exception e) {
             errorOccurred(e);
         }
