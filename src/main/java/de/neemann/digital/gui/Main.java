@@ -757,7 +757,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction actualToDefault = new ToolTipAction(Lang.get("menu_actualToDefault")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.actualToDefault();
+                circuitComponent.currentToDefault();
                 ensureModelIsStopped();
             }
         }.setToolTip(Lang.get("menu_actualToDefault_tt"));

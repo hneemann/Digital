@@ -1288,12 +1288,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     /**
-     * Makes actual input values to the default value
+     * Makes current input values to the default values
      */
-    public void actualToDefault() {
+    public void currentToDefault() {
         if (!isLocked()) {
             Modifications.Builder<Circuit> builder = new Modifications.Builder<>(Lang.get("menu_actualToDefault"));
-            for (VisualElement ve : getCircuit().getElements())
+            Circuit circuit = shallowCopy;
+            if (circuit == null)
+                circuit = getCircuit();
+            for (VisualElement ve : circuit.getElements())
                 if (ve.equalsDescription(In.DESCRIPTION)) {
                     ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
                     if (ov != null) {
