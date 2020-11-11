@@ -43,13 +43,13 @@ import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
 import de.neemann.digital.gui.components.tree.SelectTree;
-import de.neemann.digital.gui.tutorial.InitialTutorial;
 import de.neemann.digital.gui.release.CheckForNewRelease;
 import de.neemann.digital.gui.remote.DigitalHandler;
 import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.gui.remote.RemoteSever;
 import de.neemann.digital.gui.state.State;
 import de.neemann.digital.gui.state.StateManager;
+import de.neemann.digital.gui.tutorial.InitialTutorial;
 import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.verilog2.VerilogGenerator;
 import de.neemann.digital.hdl.vhdl2.VHDLGenerator;
@@ -1384,7 +1384,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 circuitComponent.setCopy(modelCreator.getCircuit());
 
             // Allows the model to modify the circuit
-            CircuitModifierPostClosed cmpc = new CircuitModifierPostClosed(circuitComponent);
+            CircuitModifierPostClosed cmpc = new CircuitModifierPostClosed(
+                    modification -> SwingUtilities.invokeLater(() -> circuitComponent.modify(modification)));
             modelCreator.connectToGui(cmpc);
             model.addObserver(cmpc);
 

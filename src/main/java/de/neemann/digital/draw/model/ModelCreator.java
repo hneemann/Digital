@@ -283,16 +283,16 @@ public class ModelCreator implements Iterable<ModelEntry> {
     /**
      * Creates the model.
      *
-     * @param runsInGui if true the wires are attached to the values
+     * @param attachWires if true the wires are attached to the values
      * @return the model
      * @throws PinException  PinException
      * @throws NodeException NodeException
      */
-    public Model createModel(boolean runsInGui) throws PinException, NodeException {
-        Model m = new Model().setAllowGlobalValues(runsInGui);
+    public Model createModel(boolean attachWires) throws PinException, NodeException {
+        Model m = new Model().setAllowGlobalValues(attachWires);
 
         for (Net n : netList)
-            n.interconnect(m, runsInGui);
+            n.interconnect(m, attachWires);
 
         for (ModelEntry e : entries)
             e.applyInputs();

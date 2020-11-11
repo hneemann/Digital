@@ -52,7 +52,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * ToDo: refactoring of repaint logic. Its to complex now.
  * ToDo: class is to large, move the MouseController classes to their own package
  */
-public class CircuitComponent extends JComponent implements ChangedListener, LibraryListener, CircuitModifier {
+public class CircuitComponent extends JComponent implements ChangedListener, LibraryListener {
     /**
      * The delete icon, also used from {@link de.neemann.digital.gui.components.terminal.TerminalDialog}
      */
@@ -469,7 +469,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      *
      * @param modification the modification
      */
-    @Override
     public void modify(Modification<Circuit> modification) {
         try {
             if (modification != null) {

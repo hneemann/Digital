@@ -48,7 +48,7 @@ public class CircuitModifierPostClosed implements CircuitModifier, ModelStateObs
         if (event.getType().equals(ModelEventType.POSTCLOSED)) {
             Modification<Circuit> m = builder.build();
             if (m != null)
-                SwingUtilities.invokeLater(() -> circuitModifier.modify(m));
+                circuitModifier.modify(m);
         }
     }
 }
