@@ -21,6 +21,11 @@ public enum ModelEventType {
     CLOSED,
 
     /**
+     * The model has stopped and the CLOSED event was fired.
+     */
+    POSTCLOSED,
+
+    /**
      * Is fired if the model had performed a full step.
      * This means a change is propagated through all nodes, and the model has
      * become stable again.

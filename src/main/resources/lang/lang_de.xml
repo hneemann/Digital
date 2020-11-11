@@ -1584,6 +1584,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="mod_modifiedMeasurementOrdering">Reihenfolge der Messwerte verändert.</string>
     <string name="mod_groupEdit">In selektierten Elementen Attribute geändert.</string>
     <string name="mod_splitWire">Leitung in zwei Leitungen teilen.</string>
+    <string name="mod_modifiedByRunningModel">Änderungen durch die laufende Simulation.</string>
 
     <string name="lib_Logic">Logisch</string>
     <string name="lib_arithmetic">Arithmetik</string>

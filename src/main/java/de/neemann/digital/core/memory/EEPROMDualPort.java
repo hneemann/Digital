@@ -65,7 +65,7 @@ public class EEPROMDualPort extends RAMDualPort implements ROMInterface {
             if (event.getType() == ModelEventType.CLOSED) {
                 DataField orig = attr.get(Keys.DATA);
                 if (!orig.equals(memory))
-                    SwingUtilities.invokeLater(() -> circuitModifier.modify(new ModifyAttribute<>(visualElement, Keys.DATA, memory)));
+                    circuitModifier.modify(new ModifyAttribute<>(visualElement, Keys.DATA, memory));
             }
         }, ModelEventType.CLOSED);
     }

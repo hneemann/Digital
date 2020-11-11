@@ -91,7 +91,7 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
                 DataField orig = attr.get(Keys.DATA);
                 memory.trim();
                 if (!orig.equals(memory))
-                    SwingUtilities.invokeLater(() -> circuitModifier.modify(new ModifyAttribute<>(visualElement, Keys.DATA, memory)));
+                    circuitModifier.modify(new ModifyAttribute<>(visualElement, Keys.DATA, memory));
             }
         }, ModelEventType.CLOSED);
     }
