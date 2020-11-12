@@ -9,6 +9,8 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.gui.components.CircuitModifier;
 
 /**
  * A concrete element used for the simulation
@@ -51,4 +53,13 @@ public interface Element {
     default void init(Model model) throws NodeException {
     }
 
+    /**
+     * Needs to be implemented if a circuit is to be modified by the running model.
+     * The EEPROM is a example which does that.
+     *
+     * @param visualElement   the visualElement in the circuit
+     * @param circuitModifier interface to modify the circuit
+     */
+    default void enableCircuitModification(VisualElement visualElement, CircuitModifier circuitModifier) {
+    }
 }

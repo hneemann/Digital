@@ -16,9 +16,13 @@ public class ModelEvent {
      */
     public static final ModelEvent STARTED = new ModelEvent(ModelEventType.STARTED);
     /**
-     * Shorthand for a ModelEventType.STOPPED event
+     * Shorthand for a ModelEventType.CLOSED event
      */
     public static final ModelEvent CLOSED = new ModelEvent(ModelEventType.CLOSED);
+    /**
+     * Shorthand for a ModelEventType.POSTCLOSED event
+     */
+    public static final ModelEvent POSTCLOSED = new ModelEvent(ModelEventType.POSTCLOSED);
     /**
      * Shorthand for a ModelEventType.STEP event
      */

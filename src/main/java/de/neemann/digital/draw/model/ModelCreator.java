@@ -21,6 +21,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.draw.library.ResolveGenerics;
 import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.gui.components.CircuitModifier;
 import de.neemann.digital.lang.Lang;
 
 import java.util.*;
@@ -313,10 +314,12 @@ public class ModelCreator implements Iterable<ModelEntry> {
     /**
      * Needs to be called after createModel is called!
      * Connects the gui to the model
+     *
+     * @param circuitModifier used to modify the circuit by the running model
      */
-    public void connectToGui() {
+    public void connectToGui(CircuitModifier circuitModifier) {
         for (ModelEntry e : entries)
-            e.connectToGui();
+            e.connectToGui(circuitModifier);
     }
 
     /**

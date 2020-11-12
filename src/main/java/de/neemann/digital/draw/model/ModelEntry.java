@@ -13,6 +13,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.gui.components.CircuitModifier;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
@@ -109,12 +110,15 @@ public class ModelEntry {
 
     /**
      * Connects this model to the gui.
+     *
+     * @param circuitModifier Used to modify the circuit by the running model
      */
-    public void connectToGui() {
+    public void connectToGui(CircuitModifier circuitModifier) {
         if (!isNestedElement) {
             if (ioState == null)
                 throw new RuntimeException("call applyInputs before connectToGui");
             visualElement.setState(ioState);
+            element.enableCircuitModification(visualElement, circuitModifier);
         }
     }
 

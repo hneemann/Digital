@@ -222,6 +222,7 @@ public class Model implements Iterable<Node>, SyncAccess {
                     LOGGER.debug("Observer Micro: " + ob.getClass().getSimpleName());
 
             fireEvent(ModelEvent.CLOSED);
+            fireEvent(ModelEvent.POSTCLOSED);
         }
     }
 

@@ -39,4 +39,11 @@ public class ModifyAttribute<VALUE> extends ModificationOfVisualElement {
         VisualElement ve = getVisualElement(circuit);
         ve.getElementAttributes().set(key, value);
     }
+
+    /**
+     * @return the modified value, only used in some tests
+     */
+    public VALUE getValue() {
+        return value;
+    }
 }
