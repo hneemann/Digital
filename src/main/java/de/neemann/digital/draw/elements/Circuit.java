@@ -643,6 +643,33 @@ public class Circuit implements Copyable<Circuit> {
     }
 
     /**
+     * Returns true if there is a wire at the given position
+     *
+     * @param pos the position
+     * @return true if there is a wire at the given position
+     */
+    public boolean isWireAt(Vector pos) {
+        for (Wire w : wires) {
+            switch (w.getOrientation()) {
+                case vertical:
+                    if (w.p1.x == pos.x) {
+                        if (w.p1.y <= pos.y && pos.y <= w.p2.y || ((w.p2.y <= pos.y) && (pos.y <= w.p1.y)))
+                            return true;
+                    }
+                case horizontal:
+                    if (w.p1.y == pos.y) {
+                        if (w.p1.x <= pos.x && pos.x <= w.p2.x || ((w.p2.x <= pos.x) && (pos.x <= w.p1.x)))
+                            return true;
+                    }
+                case diagonal:
+                    if (pos.equals(w.p1) || pos.equals(w.p2))
+                        return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @return a list of all wires
      */
     public ArrayList<Wire> getWires() {

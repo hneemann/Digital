@@ -1959,8 +1959,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 if (mouse.isSecondaryClick(e))
                     mouseNormal.activate();
                 else if (mouse.isPrimaryClick(e)) {
+                    boolean clickOnWire = getCircuit().isWireAt(wire.p2);
                     modify(new ModifyInsertWire(wire).checkIfLenZero());
-                    if (getCircuit().isPinPos(wire.p2))
+                    if (clickOnWire || getCircuit().isPinPos(wire.p2))
                         mouseNormal.activate();
                     else
                         mouseWireRect.activate(wire.p2);
@@ -2049,11 +2050,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 if (mouse.isSecondaryClick(e))
                     mouseNormal.activate();
                 else if (mouse.isPrimaryClick(e)) {
+                    boolean clickOnWire = getCircuit().isWireAt(wire2.p2);
                     modify(new Modifications.Builder<Circuit>(Lang.get("mod_insertWire"))
                             .add(new ModifyInsertWire(wire1).checkIfLenZero())
                             .add(new ModifyInsertWire(wire2).checkIfLenZero())
                             .build());
-                    if (getCircuit().isPinPos(wire2.p2))
+                    if (clickOnWire || getCircuit().isPinPos(wire2.p2))
                         mouseNormal.activate();
                     else {
                         initialPos = wire2.p2;
