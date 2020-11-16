@@ -150,7 +150,9 @@
 
     <string name="elem_PolarityAwareLED">LED with two connections.</string>
     <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up,
-        if the anode is connected to high and the cathode is connected to low.</string>
+        if the anode is connected to high and the cathode is connected to low.
+        This LED cannot be used as a pull-down resistor. It acts solely as a display element.
+        The shown resistor is only meant to symbolize the required series resistor to limit the current.</string>
     <string name="elem_PolarityAwareLED_pin_A">The anode connection of the LED.</string>
     <string name="elem_PolarityAwareLED_pin_C">The cathode connection of the LED.</string>
 

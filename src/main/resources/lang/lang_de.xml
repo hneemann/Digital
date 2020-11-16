@@ -199,7 +199,9 @@
 
     <string name="elem_PolarityAwareLED">LED mit zwei Anschlüssen</string>
     <string name="elem_PolarityAwareLED_tt">LED mit zwei Anschlüssen für die Kathode und die Anode. Die LED leuchtet
-        nur, wenn die Anode auf High und die Kathode auf Low gelegt wird.</string>
+        nur, wenn die Anode auf High und die Kathode auf Low gelegt wird. Diese LED kann nicht als Pull-Down-Widerstand
+        verwendet werden. Es handelt sich ausschließlich um ein Anzeigeelement. Der abgebildete Widerstand soll
+        lediglich den erforderlichen Serienwiderstand zur Strombegrenzung symbolisieren.</string>
     <string name="elem_PolarityAwareLED_pin_A">Die Anode der LED.</string>
     <string name="elem_PolarityAwareLED_pin_C">Die Kathode der LED.</string>
 
