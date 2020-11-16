@@ -335,7 +335,8 @@
     <string name="elem_VDD_tt">Anschluss zur Betriebsspannung. Gibt immer Eins aus.</string>
     <string name="elem_VDD_pin_out">Dieser Ausgang gibt immer 1 aus.</string>
     <string name="elem_NotConnected">Nicht Verbunden</string>
-    <string name="elem_NotConnected_tt">Kann verwendet werden, um eine Leitung auf High-Z zu legen.</string>
+    <string name="elem_NotConnected_tt">Kann verwendet werden, um eine Leitung auf High-Z zu legen.
+        Wird ein Eingang eines Gatters auf High-Z gesetzt, wird dieser Wert wie Null interpretiert.</string>
     <string name="elem_NotConnected_pin_out">Dieser Ausgang gibt immer High-Z aus.</string>
     <string name="err_notConnectedNotAllowed">Das Nicht-Verbunden Symbol ist hier nicht erlaubt!</string>
     <string name="elem_Const">Konstante</string>
