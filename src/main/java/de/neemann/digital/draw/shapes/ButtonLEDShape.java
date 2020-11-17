@@ -71,7 +71,7 @@ public class ButtonLEDShape extends ButtonShape {
     public void drawTo(Graphic graphic, Style heighLight) {
         super.drawTo(graphic, heighLight);
 
-        boolean ledOn = ledValue == null || ledValue.getBool();
+        boolean ledOn = ledValue == null || (ledValue.getBool() & !ledValue.isHighZ());
         boolean pressed = button != null && button.isPressed();
 
         Vector center;
