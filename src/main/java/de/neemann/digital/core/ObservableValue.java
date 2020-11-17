@@ -9,6 +9,8 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.lang.Lang;
 
+import java.util.Random;
+
 /**
  * Represents all signal values in the simulator.
  * There are some setters to set the value. Each bit of a value can be set to high z state.
@@ -29,6 +31,8 @@ public class ObservableValue extends Observable implements PinDescription {
     private String description;
     private String pinNumber;
     private boolean isSwitchPin;
+    // used to create random bits if high-z values are read
+    private Random random;
 
     /**
      * Creates a new instance.
@@ -122,11 +126,27 @@ public class ObservableValue extends Observable implements PinDescription {
     }
 
     /**
-     * returns the actual value
+     * Returns the current value.
+     * The high-z bits are set to a random value.
      *
      * @return the value
      */
     public long getValue() {
+        if (highZ != 0) {
+            if (random == null)
+                random = new Random();
+            return value | (random.nextLong() & highZ);
+        } else
+            return value;
+    }
+
+    /**
+     * Returns the current value
+     * The high-z bits are set to zero
+     *
+     * @return the value
+     */
+    public long getValueHighZIsZero() {
         return value;
     }
 

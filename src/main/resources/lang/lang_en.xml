@@ -333,7 +333,7 @@
     <string name="elem_VDD_pin_out">This output always returns 1.</string>
     <string name="elem_NotConnected">Not Connected</string>
     <string name="elem_NotConnected_tt">This component can be used to set a line to High-Z.
-        If an input of a gate is set to High-Z, the simulator interprets this value as zero.
+        If an input of a logical gate is set to high-Z, the read value is undefined.
         Note that in reality in many cases excessive current consumption and even damage can
         occur if a digital input is not set to zero or one but remains unconnected.
         Therefore this element should be used with care.</string>

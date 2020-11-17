@@ -336,8 +336,7 @@
     <string name="elem_VDD_pin_out">Dieser Ausgang gibt immer 1 aus.</string>
     <string name="elem_NotConnected">Nicht verbunden</string>
     <string name="elem_NotConnected_tt">Dieses Element kann verwendet werden, um eine Leitung auf High-Z zu
-        legen. Wird ein Eingang eines Gatters auf High-Z gesetzt, wird dieser Wert vom Simulator wie Null
-        interpretiert.
+        legen. Wird ein Eingang eines logischen Gatters auf High-Z gesetzt, ist der gelesene Wert undefiniert.
         Zu beachten ist, dass es in der Realität in vielen Fällen zu überhöhter Stromaufnahme und gar zu
         Beschädigungen kommen kann, wenn ein Digitaleingang nicht auf Null oder Eins gesetzt wird, sondern
         unbeschaltet bleibt. Daher sollte dies Element mit Bedacht eingesetzt werden.</string>
