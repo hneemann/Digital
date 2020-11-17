@@ -332,8 +332,11 @@
     <string name="elem_VDD_tt">A connection to the supply voltage. Output is always one.</string>
     <string name="elem_VDD_pin_out">This output always returns 1.</string>
     <string name="elem_NotConnected">Not Connected</string>
-    <string name="elem_NotConnected_tt">Can be used to set a wire to High-Z.
-        If an input of a gate is set to High-Z, this value is interpreted as zero.</string>
+    <string name="elem_NotConnected_tt">This component can be used to set a line to High-Z.
+        If an input of a gate is set to High-Z, the simulator interprets this value as zero.
+        Note that in reality in many cases excessive current consumption and even damage can
+        occur if a digital input is not set to zero or one but remains unconnected.
+        Therefore this element should be used with care.</string>
     <string name="elem_NotConnected_pin_out">This output always outputs High-Z.</string>
     <string name="err_notConnectedNotAllowed">The NotConnected symbol is not allowed here!</string>
     <string name="elem_Const">Constant value</string>
