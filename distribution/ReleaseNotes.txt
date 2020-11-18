@@ -5,6 +5,7 @@ HEAD, planned as v0.26
 - Improved the layout of fsm transitions in the fsm editor.
 - Added French translation. Special thanks to Nicolas Maltais who
   provided the translation.
+- Added a "Not Connected" component, to output a constant high-z value.
 - Fixed a bug in the Demuxer Verilog template that causes problems
   when using multiple demuxers in the same circuit.
 - Generic circuits are easier to debug: It is possible now to create

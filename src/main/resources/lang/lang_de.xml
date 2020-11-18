@@ -339,7 +339,7 @@
         legen. Wird ein Eingang eines logischen Gatters auf High-Z gesetzt, ist der gelesene Wert undefiniert.
         Zu beachten ist, dass es in der Realität in vielen Fällen zu überhöhter Stromaufnahme und gar zu
         Beschädigungen kommen kann, wenn ein Digitaleingang nicht auf Null oder Eins gesetzt wird, sondern
-        unbeschaltet bleibt. Daher sollte dies Element mit Bedacht eingesetzt werden.</string>
+        unbeschaltet bleibt.</string>
     <string name="elem_NotConnected_pin_out">Dieser Ausgang gibt immer High-Z aus.</string>
     <string name="err_notConnectedNotAllowed">Das Nicht-Verbunden Symbol ist hier nicht erlaubt!</string>
     <string name="elem_Const">Konstante</string>
