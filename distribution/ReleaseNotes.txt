@@ -8,6 +8,7 @@ HEAD, planned as v0.26
 - Added a "Not Connected" component to output a constant high-z value.
 - If a high-z value is connected to a logic gate input, the read value
   is undefined.
+- It is now possible to use a probe as output in a test case.
 - Fixed a bug in the Demuxer Verilog template that causes problems
   when using multiple demuxers in the same circuit.
 - Generic circuits are easier to debug: It is possible now to create
