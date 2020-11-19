@@ -37,6 +37,7 @@ public class BusSplitter extends Node implements Element {
     private ObservableValue commonIn;
     private boolean oe;
     private long commonD;
+    private long commonZ;
     private ObservableValues outputValues;
 
     /**
@@ -77,12 +78,16 @@ public class BusSplitter extends Node implements Element {
         oe = oeValue.getBool();
         if (oe) {
             commonD = commonIn.getValue();
+            commonZ = commonIn.getHighZ();
         } else {
             commonD = 0;
+            commonZ = 0;
             long mask = 1;
             for (int i = 0; i < bits; i++) {
                 if (in[i].getBool())
                     commonD |= mask;
+                if (in[i].isHighZ())
+                    commonZ |= mask;
                 mask <<= 1;
             }
         }
@@ -94,13 +99,16 @@ public class BusSplitter extends Node implements Element {
             commonOut.setToHighZ();
             long mask = 1;
             for (int i = 0; i < bits; i++) {
-                out[i].setBool((commonD & mask) != 0);
+                if ((commonZ & mask) != 0)
+                    out[i].setToHighZ();
+                else
+                    out[i].setBool((commonD & mask) != 0);
                 mask <<= 1;
             }
         } else {
             for (int i = 0; i < bits; i++)
                 out[i].setToHighZ();
-            commonOut.setValue(commonD);
+            commonOut.set(commonD, commonZ);
         }
     }
 

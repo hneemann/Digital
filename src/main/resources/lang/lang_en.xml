@@ -333,6 +333,13 @@
     <string name="elem_VDD">Supply voltage</string>
     <string name="elem_VDD_tt">A connection to the supply voltage. Output is always one.</string>
     <string name="elem_VDD_pin_out">This output always returns 1.</string>
+    <string name="elem_NotConnected">Not Connected</string>
+    <string name="elem_NotConnected_tt">This component can be used to set a wire to High-Z.
+        If an input of a logical gate is set to high-Z, the read value is undefined.
+        Note that in reality in many cases excessive current consumption and even damage can
+        occur if a digital input is not set to high or low but remains unconnected.</string>
+    <string name="elem_NotConnected_pin_out">This output always outputs High-Z.</string>
+    <string name="err_notConnectedNotAllowed">The NotConnected symbol is not allowed here!</string>
     <string name="elem_Const">Constant value</string>
     <string name="elem_Const_tt">A component which returns a given value as a simple constant value. The value can be set in the attribute dialog.</string>
     <string name="elem_Const_pin_out">Returns the given value as a constant.</string>

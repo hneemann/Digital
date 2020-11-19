@@ -663,6 +663,11 @@
       <elementAttributes/>
       <pos x="100" y="440"/>
     </visualElement>
+    <visualElement>
+      <elementName>NotConnected</elementName>
+      <elementAttributes/>
+      <pos x="120" y="620"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

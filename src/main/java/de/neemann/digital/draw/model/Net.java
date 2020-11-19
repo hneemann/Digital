@@ -186,6 +186,14 @@ public class Net {
                 value = new DataBus(this, m, outputs).getReadableOutput();
         }
 
+        if (outputs.size() > 1) {
+            for (Pin o : outputs) {
+                ObservableValue ov = o.getValue();
+                if (ov.isConstant() && ov.isHighZ())
+                    throw new PinException(Lang.get("err_notConnectedNotAllowed", o), this);
+            }
+        }
+
         if (value == null)
             throw new PinException(Lang.get("err_output_N_notDefined", outputs.get(0)), this);
 

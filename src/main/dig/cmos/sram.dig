@@ -519,9 +519,9 @@ in der Speichermatrix gespeichert.}}</string>
 
 # write all cells to one
 loop(n,16)
-bits(4,n)    0  1    0
-bits(4,n)    1  1    1
-bits(4,n)    0  1    1
+bits(4,n)    0  1    x
+bits(4,n)    1  1    x
+bits(4,n)    0  1    x
 end loop
 
 # check all cells are one

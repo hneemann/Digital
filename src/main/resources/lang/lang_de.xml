@@ -336,6 +336,14 @@
     <string name="elem_VDD">Betriebsspannung</string>
     <string name="elem_VDD_tt">Anschluss zur Betriebsspannung. Gibt immer Eins aus.</string>
     <string name="elem_VDD_pin_out">Dieser Ausgang gibt immer 1 aus.</string>
+    <string name="elem_NotConnected">Nicht verbunden</string>
+    <string name="elem_NotConnected_tt">Dieses Element kann verwendet werden, um eine Leitung auf High-Z zu
+        legen. Wird ein Eingang eines logischen Gatters auf High-Z gesetzt, ist der gelesene Wert undefiniert.
+        Zu beachten ist, dass es in der Realität in vielen Fällen zu überhöhter Stromaufnahme und gar zu
+        Beschädigungen kommen kann, wenn ein Digitaleingang nicht auf Null oder Eins gesetzt wird, sondern
+        unbeschaltet bleibt.</string>
+    <string name="elem_NotConnected_pin_out">Dieser Ausgang gibt immer High-Z aus.</string>
+    <string name="err_notConnectedNotAllowed">Das Nicht-Verbunden Symbol ist hier nicht erlaubt!</string>
     <string name="elem_Const">Konstante</string>
     <string name="elem_Const_tt">Ein Element, welches einen konstanten Wert ausgibt. Die Konstante kann über den Attribute-Dialog festgelegt werden.</string>
     <string name="elem_Const_pin_out">Gibt den gesetzten Wert als Konstante aus.</string>

@@ -6,6 +6,7 @@
 package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -67,11 +68,18 @@ public class RGBLEDShape implements Shape {
     @Override
     public void readObservableValues() {
         if (ioState != null) {
-            long r = ioState.getInput(0).getValue() * 255 / max;
-            long g = ioState.getInput(1).getValue() * 255 / max;
-            long b = ioState.getInput(2).getValue() * 255 / max;
+            long r = getCol(ioState.getInput(0));
+            long g = getCol(ioState.getInput(1));
+            long b = getCol(ioState.getInput(2));
             color = new Color((int) r, (int) g, (int) b);
         }
+    }
+
+    long getCol(ObservableValue c) {
+        if (c.isHighZ())
+            return 0;
+        else
+            return c.getValue() * 255 / max;
     }
 
     @Override
