@@ -57,13 +57,14 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>A P SP Y
+            <dataString>A P S1 S2 Y
 
-declare SP=(Y&gt;&gt;1)&amp;1;
+declare S1=(Y&gt;&gt;1)&amp;1;
+declare S2=(~(Y&gt;&gt;1))&amp;1;
 
 loop (n,20)
-1 0 0 x
-0 1 1 x
+1 0 0 1 x
+0 1 1 0 x
 end loop</dataString>
           </testData>
         </entry>
