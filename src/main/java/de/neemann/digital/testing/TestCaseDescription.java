@@ -9,6 +9,7 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.parser.LineEmitter;
 import de.neemann.digital.testing.parser.Parser;
 import de.neemann.digital.testing.parser.ParserException;
+import de.neemann.digital.testing.parser.VirtualSignal;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class TestCaseDescription {
     private String dataString;
     private transient LineEmitter lines;
     private transient ArrayList<String> names;
+    private transient ArrayList<VirtualSignal> virtualSignals;
 
     /**
      * creates a new instance
@@ -59,6 +61,7 @@ public class TestCaseDescription {
             dataString = data;
             lines = tdp.getLines();
             names = tdp.getNames();
+            virtualSignals = tdp.getVirtualSignals();
         }
     }
 
@@ -68,6 +71,7 @@ public class TestCaseDescription {
                 Parser tdp = new Parser(dataString).parse();
                 lines = tdp.getLines();
                 names = tdp.getNames();
+                virtualSignals = tdp.getVirtualSignals();
             } catch (ParserException | IOException e) {
                 throw new TestingDataException(Lang.get("err_errorParsingTestdata"), e);
             }
@@ -90,6 +94,15 @@ public class TestCaseDescription {
     public ArrayList<String> getNames() throws TestingDataException {
         check();
         return names;
+    }
+
+    /**
+     * @return the list of declared virtual signals
+     * @throws TestingDataException TestingDataException
+     */
+    public ArrayList<VirtualSignal> getVirtualSignals() throws TestingDataException {
+        check();
+        return virtualSignals;
     }
 
     @Override

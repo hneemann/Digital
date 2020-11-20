@@ -17,10 +17,7 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.ResolveGenerics;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.parser.Context;
-import de.neemann.digital.testing.parser.LineEmitter;
-import de.neemann.digital.testing.parser.ParserException;
-import de.neemann.digital.testing.parser.TestRow;
+import de.neemann.digital.testing.parser.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,6 +33,7 @@ public class TestExecutor {
     private final Model model;
     private final LineEmitter lines;
     private final ValueTable results;
+    private final ArrayList<VirtualSignal> virtualSignals;
     private boolean errorOccurred;
     private int failedCount;
     private int passedCount;
@@ -80,6 +78,7 @@ public class TestExecutor {
      */
     public TestExecutor(TestCaseDescription testCase, Model model) throws TestingDataException {
         names = testCase.getNames();
+        virtualSignals = testCase.getVirtualSignals();
         this.model = model;
         results = new ValueTable(names);
         visibleRows = 0;
@@ -132,6 +131,16 @@ public class TestExecutor {
                 }
             }
 
+            Context context = new Context().setModel(model);
+
+            for (VirtualSignal s : virtualSignals) {
+                final int index = getIndexOf(s.getName());
+                if (index >= 0) {
+                    outputs.add(new TestSignal(index, s.getValue(context)));
+                    addTo(usedSignals, s.getName());
+                }
+            }
+
             for (String name : names)
                 if (!usedSignals.contains(name))
                     if (allowMissingInputs)
@@ -151,7 +160,7 @@ public class TestExecutor {
                     errorOccurred = true;
             }, ModelEventType.ERROR_OCCURRED);
 
-            lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context().setModel(model));
+            lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), context);
 
             return new Result();
         } finally {

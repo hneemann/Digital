@@ -32,6 +32,7 @@ import java.util.HashMap;
 public class Parser {
 
     private final ArrayList<String> names;
+    private final ArrayList<VirtualSignal> virtualSignals;
     private final Tokenizer tok;
     private final HashMap<String, Function> functions = new HashMap<>();
     private LineEmitter emitter;
@@ -46,6 +47,7 @@ public class Parser {
         functions.put("random", new Random());
         functions.put("ite", new IfThenElse());
         names = new ArrayList<>();
+        virtualSignals = new ArrayList<>();
         tok = new Tokenizer(new BufferedReader(new StringReader(data)));
     }
 
@@ -103,6 +105,15 @@ public class Parser {
                 case IDENT:
                 case NUMBER:
                     list.add(parseSingleRow());
+                    break;
+                case DECLARE:
+                    tok.consume();
+                    expect(Tokenizer.Token.IDENT);
+                    final String sigName = tok.getIdent();
+                    expect(Tokenizer.Token.EQUAL);
+                    final Expression sigExpression = parseExpression();
+                    expect(Tokenizer.Token.SEMICOLON);
+                    virtualSignals.add(new VirtualSignal(sigName, sigExpression));
                     break;
                 case END:
                     tok.consume();
@@ -212,6 +223,13 @@ public class Parser {
      */
     public ArrayList<String> getNames() {
         return names;
+    }
+
+    /**
+     * @return the list  of declared virtual signals
+     */
+    public ArrayList<VirtualSignal> getVirtualSignals() {
+        return virtualSignals;
     }
 
     /**
