@@ -34,10 +34,13 @@ public class VirtualSignal {
     }
 
     /**
-     * The observable name of the expression
+     * The value of the expression.
+     * This method does not return a real observable value.
+     * It is just a placeholder for a value.
+     * Only the method {@link ObservableValue#getValue()} is working!
      *
      * @param context the context to use
-     * @return the observable value
+     * @return the created observable value instance
      */
     public ObservableValue getValue(Context context) {
         return new ObservableValue(sigName, 64) {
