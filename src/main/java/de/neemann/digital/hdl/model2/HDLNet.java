@@ -203,6 +203,8 @@ public class HDLNet implements Printable, HasName {
      * @return true if this is a clock net
      */
     public boolean isClock() {
+        if (output == null)
+            return false;
         return output.isClock();
     }
 
