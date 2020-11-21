@@ -1161,6 +1161,7 @@
     <string name="err_inGenericInitCode">Error in the analysis of the generic initialization code.</string>
 
     <string name="err_ROM_noFileGivenToLoad">There is no file name available for the automatic reload!</string>
+    <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Virtual signal {0} declared twice in line {1}!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>

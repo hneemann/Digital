@@ -113,7 +113,7 @@ public class Parser {
                     expect(Tokenizer.Token.EQUAL);
                     final Expression sigExpression = parseExpression();
                     expect(Tokenizer.Token.SEMICOLON);
-                    virtualSignals.add(new VirtualSignal(sigName, sigExpression));
+                    addVirtualSignal(new VirtualSignal(sigName, sigExpression));
                     break;
                 case END:
                     tok.consume();
@@ -156,6 +156,13 @@ public class Parser {
                     throw newUnexpectedToken(t);
             }
         }
+    }
+
+    private void addVirtualSignal(VirtualSignal vs) throws ParserException {
+        for (VirtualSignal v : virtualSignals)
+            if (v.getName().equals(vs.getName()))
+                throw new ParserException(Lang.get("err_virtualSignal_N_DeclaredTwiceInLine_N", vs.getName(), tok.getLine()));
+        virtualSignals.add(vs);
     }
 
     private LineEmitter parseSingleRow() throws IOException, ParserException {
