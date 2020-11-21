@@ -233,4 +233,17 @@ public class HDLNet implements Printable, HasName {
         return !inOutputs.isEmpty();
     }
 
+    /**
+     * Checks whether a PinControl component is used correctly.
+     *
+     * @throws HDLException thrown if PinControl us used the wrong way
+     */
+    public void checkPinControlUsage() throws HDLException {
+        if (output == null && inOutputs.size() > 0) {
+            if (inputs.size() > 1)
+                throw new HDLException("multiple components connected to PinControl output");
+            if (inputs.size() == 1 && inputs.get(0).getParent() != null)
+                throw new HDLException("only a single output is allowed on a PinControl component");
+        }
+    }
 }
