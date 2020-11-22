@@ -895,6 +895,7 @@
         In a test case you can describe how a circuit should behave. It can then be automatically checked whether the
         behavior of the circuit actually corresponds to this description. If this is not the case, an
         error message is shown.
+        The help text of the test case editor describes in detail how such a test case can be created.
     </string>
     <string name="elem_GenericInitCode">Generic Initialization</string>
     <string name="elem_GenericInitCode_tt">Code that is executed to start a generic circuit directly.
@@ -2198,6 +2199,24 @@ For this, the corresponding input must be set to high impedance ('Z').</p>
 
 <p>The circuit for this test has only one input 'D', but which can be high impedance state.
 Therefore, the signal 'D_out' is also available to check the value in this case.</p>
+
+<p>In special cases, it may be desirable to use the signals, which are provided by
+the circuit, to derive a new signal, which is then tested. An example could be a bus
+signal with several bits, where only a single bit should be tested, whereby the remaining
+bits have no influence on the test. In this case, a new signal can be generated in the
+test itself, which contains this one bit so that tests can be defined for this bit.</p>
+<p>This is done with the 'declare' statement:</p>
+<pre>A B Bit
+
+declare Bit = (Bus>>3)&1;
+
+0 0  0
+0 1  0
+1 0  1
+1 1  0
+</pre>
+<p>In this example, the 3rd bit is isolated from the 'Bus' signal and made available as
+the 'Bit' signal for the test. The circuit itself contains no output 'Bit'.</p>
 
 </body></html>]]></string>
 

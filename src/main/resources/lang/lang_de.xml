@@ -891,6 +891,7 @@
     <string name="elem_Testcase_tt">Beschreibt einen Testfall. In einem Testfall kann beschrieben werden, wie sich eine
         Schaltung verhalten soll. Es kann dann automatisch überprüft werden, ob das Verhalten der Schaltung tatsächlich
         dieser Beschreibung entspricht. Ist das nicht der Fall, wird eine entsprechende Fehlermeldung angezeigt.
+        Der Hilfetext des Testfalleditors beschreibt, wie im Detail ein solcher Testfall erstellt werden kann.
     </string>
     <string name="elem_GenericInitCode">Generische Initialisierung</string>
     <string name="elem_GenericInitCode_tt">Code der ausgeführt wird, um eine generische Schaltung direkt starten zu
@@ -2199,6 +2200,25 @@ hochohmig ('Z') gesetzt sein.</p>
 
 <p>Die Schaltung zu diesem Test hat nur einen Eingang 'D', welcher aber hochohmig sein kann.
 Daher steht auch das Signal 'D_out' zur Verfügung, um in diesem Fall den Wert zu prüfen.</p>
+
+<p>In besonderen Fällen kann es wünschenswert sein, aus den Signalen, die von der Schaltung zur
+Verfügung gestellt werden, ein neues Signal abzuleiten, welches dann gestestet wird.
+Ein Beispiel könnte ein Bussignal mit mehreren Bits sein, bei welchem nur ein einzelnes Bit
+getestet werden soll, wobei die übrigen Bits keinen Einfluss auf den Test haben.
+In diesem Fall kann im Test selbst ein neues Signal erzeugt werden, welches dieses eine Bit
+berechnet, so dass dann für dieses Bit Tests definiert werden können.</p>
+<p>Dies geschieht mit der Anweisung 'declare':</p>
+<pre>A B Bit
+
+declare Bit = (Bus>>3)&1;
+
+0 0  0
+0 1  0
+1 0  1
+1 1  0
+</pre>
+<p>In diesem Beispiel wird aus dem Signal 'Bus' das 3. Bit isoliert und als Signal 'Bit' für den
+Test zur Verfügung gestellt. Die Schaltung selbst enthält keinen Ausgang 'Bit'.</p>
 
 </body></html>]]></string>
 
