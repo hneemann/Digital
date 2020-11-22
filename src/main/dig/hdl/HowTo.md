@@ -84,7 +84,7 @@ The `filter` attribute enables the filtering of the files content. And finally t
 is used to include this file file from other `.config` files.
 The `content` tag defines the content of the file created.
 In most cases the content of the file depends on the circuit. In this case a the `filter` 
-attribute needs to be set to `true`. After thät you are able to use the `<?...?>` or `{?...?}` 
+attribute needs to be set to `true`. After that you are able to use the `<?...?>` or `{?...?}` 
 fragments to generate the file in a flexible way.
 As an example we want to create a file named `Pins_[name of circuit].pin` which contains all
 the pins used by the circuit:         
@@ -105,7 +105,7 @@ The circuit contains the following pins:
   </files>
 ```
 The code enclosed by the `{?...?}` characters is executed and prints the list of all 
-used pins to the text file. The `<![CDATA[ ]]>` statemant ensures that the content 
+used pins to the text file. The `<![CDATA[ ]]>` statement ensures that the content 
 is considered as character data which is not analysed by the XML parser. If this statement 
 is not used the `i < sizeOf(...` code causes an XML parser error. 
 
@@ -200,7 +200,7 @@ bool to it.
 
 ### File Creation
  
-A template allways begins with plain text which is copied to the file to generate.
+A template always begins with plain text which is copied to the file to generate.
 Special actions - data evaluations or control structures - are delimited 
 by `{?` and `?}` or `<?` and `?>`. Because the `.config` files are XML files the
 `{?` and `?}` variant is easier to use in most cases.
