@@ -4,7 +4,7 @@
 
 ### The Commands to Execute
 
-The `.config` File describes two things. At first it defines which external
+The `.config` File describes two things. At first, it defines which external
 executables are needed to be started to run a circuit on a specific board.
 And second it creates the files which are required to run a circuit on a specific
 board.
