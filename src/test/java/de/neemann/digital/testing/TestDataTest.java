@@ -28,8 +28,8 @@ public class TestDataTest extends TestCase {
 
         // try to set a non parsable string
         try {
-            td.setDataString(DATA3);
-            assertTrue(false);
+            td = new TestCaseDescription(DATA3);
+            fail();
         } catch (IOException | ParserException e) {
             assertTrue(true);
         }
@@ -46,7 +46,7 @@ public class TestDataTest extends TestCase {
         assertEquals(DATA1, td.getDataString());
 
         // try to set a parsable string
-        td.setDataString(DATA2);
+        td = new TestCaseDescription(DATA2);
         // TestData has changed!
         assertEquals(DATA2, td.getDataString());
     }

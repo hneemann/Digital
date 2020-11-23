@@ -28,11 +28,6 @@
       <pos x="520" y="20"/>
     </visualElement>
     <visualElement>
-      <elementName>VDD</elementName>
-      <elementAttributes/>
-      <pos x="500" y="0"/>
-    </visualElement>
-    <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
@@ -89,7 +84,7 @@
       <p2 x="460" y="40"/>
     </wire>
     <wire>
-      <p1 x="500" y="60"/>
+      <p1 x="460" y="60"/>
       <p2 x="520" y="60"/>
     </wire>
     <wire>
@@ -101,20 +96,20 @@
       <p2 x="340" y="100"/>
     </wire>
     <wire>
-      <p1 x="500" y="0"/>
-      <p2 x="500" y="60"/>
-    </wire>
-    <wire>
       <p1 x="360" y="40"/>
       <p2 x="360" y="80"/>
     </wire>
     <wire>
       <p1 x="460" y="40"/>
-      <p2 x="460" y="80"/>
+      <p2 x="460" y="60"/>
     </wire>
     <wire>
       <p1 x="460" y="-40"/>
       <p2 x="460" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="60"/>
+      <p2 x="460" y="80"/>
     </wire>
   </wires>
   <measurementOrdering/>

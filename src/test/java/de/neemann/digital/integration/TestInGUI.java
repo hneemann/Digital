@@ -46,6 +46,7 @@ import de.neemann.digital.gui.remote.RemoteException;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
+import de.neemann.digital.testing.parser.ParserException;
 import de.neemann.gui.ErrorMessage;
 import junit.framework.TestCase;
 
@@ -1375,10 +1376,14 @@ public class TestInGUI extends TestCase {
 
         @Override
         public void checkWindow(GuiTester gt, Main main) {
-            main.getCircuitComponent().getCircuit().add(
-                    new VisualElement(TestCaseElement.DESCRIPTION.getName())
-                            .setAttribute(TESTDATA, new TestCaseDescription(testdata))
-                            .setShapeFactory(main.getCircuitComponent().getLibrary().getShapeFactory()));
+            try {
+                main.getCircuitComponent().getCircuit().add(
+                        new VisualElement(TestCaseElement.DESCRIPTION.getName())
+                                .setAttribute(TESTDATA, new TestCaseDescription(testdata))
+                                .setShapeFactory(main.getCircuitComponent().getLibrary().getShapeFactory()));
+            } catch (IOException | ParserException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

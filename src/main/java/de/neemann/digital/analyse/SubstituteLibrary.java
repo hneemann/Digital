@@ -17,7 +17,6 @@ import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.TestCaseDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -220,9 +219,6 @@ public class SubstituteLibrary implements LibraryInterface {
         }
 
         private Object doImplicitTypeCasts(Class<?> expectedClass, Object val) {
-            if (expectedClass == TestCaseDescription.class)
-                return new TestCaseDescription(val.toString());
-
             if (expectedClass == Integer.class && val instanceof Long) {
                 long l = (Long) val;
                 if (l <= Integer.MAX_VALUE && l >= Integer.MIN_VALUE)

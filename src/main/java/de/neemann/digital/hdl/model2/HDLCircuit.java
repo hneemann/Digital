@@ -144,6 +144,9 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         for (HDLNet n : listOfNets)
             n.fixBits();
 
+        for (HDLNet n : listOfNets)
+            n.checkPinControlUsage();
+
         // fix inverted inputs
         ArrayList<HDLNode> newNodes = new ArrayList<>();
         for (HDLNode n : nodes) {
