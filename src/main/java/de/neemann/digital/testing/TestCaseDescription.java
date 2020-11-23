@@ -43,6 +43,7 @@ public class TestCaseDescription {
         Parser tdp = new Parser(data).parse();
         lines = tdp.getLines();
         names = tdp.getNames();
+        virtualSignals = tdp.getVirtualSignals();
     }
 
     /**
