@@ -17,17 +17,30 @@ import java.util.ArrayList;
  * The test data.
  */
 public class TestCaseDescription {
-    private String dataString;
+    private final String dataString;
     private transient LineEmitter lines;
     private transient ArrayList<String> names;
+
+
+    /**
+     * creates a new instance
+     */
+    public TestCaseDescription() {
+        this.dataString = "";
+    }
 
     /**
      * creates a new instance
      *
      * @param data the test case description
+     * @throws IOException     IOException
+     * @throws ParserException ParserException
      */
-    public TestCaseDescription(String data) {
+    public TestCaseDescription(String data) throws IOException, ParserException {
         this.dataString = data;
+        Parser tdp = new Parser(data).parse();
+        lines = tdp.getLines();
+        names = tdp.getNames();
     }
 
     /**
@@ -36,7 +49,7 @@ public class TestCaseDescription {
      * @param valueToCopy the instance to copy
      */
     public TestCaseDescription(TestCaseDescription valueToCopy) {
-        this(valueToCopy.dataString);
+        this.dataString = valueToCopy.dataString;
     }
 
     /**
@@ -44,22 +57,6 @@ public class TestCaseDescription {
      */
     public String getDataString() {
         return dataString;
-    }
-
-    /**
-     * Sets the data and checks its validity
-     *
-     * @param data the data
-     * @throws IOException     thrown if data is not valid
-     * @throws ParserException thrown if data is not valid
-     */
-    public void setDataString(String data) throws IOException, ParserException {
-        if (!data.equals(dataString)) {
-            Parser tdp = new Parser(data).parse();
-            dataString = data;
-            lines = tdp.getLines();
-            names = tdp.getNames();
-        }
     }
 
     private void check() throws TestingDataException {

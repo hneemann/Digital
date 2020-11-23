@@ -19,10 +19,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
+ * The test case description editor
  */
 public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCaseDescription> {
 
-    private final TestCaseDescription data;
+    private final TestCaseDescription initialData;
+    private TestCaseDescription data;
 
     /**
      * Creates a new editor
@@ -31,7 +33,8 @@ public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCas
      * @param key  the data key
      */
     public TestCaseDescriptionEditor(TestCaseDescription data, Key<TestCaseDescription> key) {
-        this.data = new TestCaseDescription(data);
+        this.data = data;
+        this.initialData = data;
     }
 
     @Override
@@ -46,7 +49,10 @@ public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCas
         panel.add(new ToolTipAction(Lang.get("btn_edit")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TestCaseDescriptionDialog(SwingUtilities.getWindowAncestor(panel), data, null).setVisible(true);
+                TestCaseDescriptionDialog tdd = new TestCaseDescriptionDialog(SwingUtilities.getWindowAncestor(panel), data);
+                TestCaseDescription d = tdd.showDialog();
+                if (d != null)
+                    data = d;
             }
         }.createJButton());
 
@@ -73,6 +79,12 @@ public class TestCaseDescriptionEditor extends EditorFactory.LabelEditor<TestCas
     }
 
     @Override
-    public void setValue(TestCaseDescription value) {
+    public boolean invisibleModification() {
+        return !initialData.equals(data);
+    }
+
+    @Override
+    public void setValue(TestCaseDescription data) {
+        this.data = data;
     }
 }

@@ -874,6 +874,6 @@ public final class Keys {
      * The test data
      */
     public static final Key<TestCaseDescription> TESTDATA =
-            new Key<>("Testdata", () -> new TestCaseDescription(""));
+            new Key<>("Testdata", TestCaseDescription::new);
 
 }
