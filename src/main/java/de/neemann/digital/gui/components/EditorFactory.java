@@ -35,11 +35,9 @@ import de.neemann.gui.language.Language;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
+import javax.swing.undo.UndoManager;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -177,6 +175,7 @@ public final class EditorFactory {
 
         private final JTextComponent text;
         private final JComponent compToAdd;
+        private final UndoManager undoManager;
         private JPopupMenu popup;
 
         public StringEditor(String value, Key<String> key) {
@@ -219,6 +218,8 @@ public final class EditorFactory {
                 compToAdd = text;
             }
             text.setText(value);
+
+            undoManager = createUndoManager(text);
         }
 
         JPopupMenu getPopupMenu(String keyName) {
@@ -286,8 +287,10 @@ public final class EditorFactory {
 
         @Override
         public void setValue(String value) {
-            if (!text.getText().equals(value))
+            if (!text.getText().equals(value)) {
                 text.setText(value);
+                undoManager.discardAllEdits();
+            }
         }
 
         public JTextComponent getTextComponent() {
@@ -1108,4 +1111,30 @@ public final class EditorFactory {
             comb.setSelectedItem(value);
         }
     }
+
+    /**
+     * Enables undo in the given text component.
+     *
+     * @param text the text component
+     * @return the undo manager
+     */
+    public static UndoManager createUndoManager(JTextComponent text) {
+        final UndoManager undoManager;
+        undoManager = new UndoManager();
+        text.getDocument().addUndoableEditListener(undoManager);
+        text.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_Z && (e.getModifiersEx() & ToolTipAction.getCTRLMask()) != 0) {
+                    if (undoManager.canUndo())
+                        undoManager.undo();
+                } else if (e.getKeyCode() == KeyEvent.VK_Y && (e.getModifiersEx() & ToolTipAction.getCTRLMask()) != 0) {
+                    if (undoManager.canRedo())
+                        undoManager.redo();
+                }
+            }
+        });
+        return undoManager;
+    }
+
 }

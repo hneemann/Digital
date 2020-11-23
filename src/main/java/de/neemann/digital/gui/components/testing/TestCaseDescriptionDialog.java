@@ -29,6 +29,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import static de.neemann.digital.gui.components.EditorFactory.addF1Traversal;
+import static de.neemann.digital.gui.components.EditorFactory.createUndoManager;
 
 /**
  * Dialog to show and edit the testing data source.
@@ -69,6 +70,8 @@ public class TestCaseDescriptionDialog extends JDialog {
 
         text = addF1Traversal(new JTextArea(initialData.getDataString(), 30, 50));
         text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, Screen.getInstance().getFontSize()));
+
+        createUndoManager(text);
 
         addWindowListener(new ClosingWindowListener());
 
