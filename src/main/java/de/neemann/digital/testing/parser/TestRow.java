@@ -11,13 +11,13 @@ import de.neemann.digital.data.Value;
  * A test data row, used by the {@link LineListener}
  */
 public class TestRow {
-    private Value[] values;
-    private String description;
+    private final Value[] values;
+    private final String description;
 
     /**
      * Creates a new instance
      *
-     * @param values  the values
+     * @param values      the values
      * @param description the context of the row
      */
     public TestRow(Value[] values, String description) {

@@ -9,18 +9,16 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.data.Value;
-import de.neemann.digital.testing.TestingDataException;
 import junit.framework.TestCase;
 
 import java.io.IOException;
-
 
 /**
  * Created by Helmut.Neemann on 02.12.2016.
  */
 public class ParserTest extends TestCase {
 
-    public void testOk() throws TestingDataException, IOException, ParserException {
+    public void testOk() throws IOException, ParserException {
         Parser parser = new Parser("A B\n0 1\n1 0\nX x").parse();
         LineCollector td = new LineCollector(parser);
 
@@ -77,16 +75,16 @@ public class ParserTest extends TestCase {
         try {
             new Parser("A B\n0 0\n1").parse().getLines().emitLines(values -> {
             }, new Context());
-            assertTrue(false);
+            fail();
         } catch (ParserException e) {
             assertTrue(true);
         }
     }
 
-    public void testInvalidValue() throws IOException, ParserException {
+    public void testInvalidValue() throws IOException {
         try {
             new Parser("A B\n0 0\n1 u").parse();
-            assertTrue(false);
+            fail();
         } catch (ParserException e) {
             assertTrue(true);
         }
@@ -132,21 +130,21 @@ public class ParserTest extends TestCase {
         }
     }
 
-    public void testComment() throws TestingDataException, IOException, ParserException {
+    public void testComment() throws IOException, ParserException {
         Parser parser = new Parser("#test\nA B\n1 1").parse();
         LineCollector td = new LineCollector(parser);
         assertEquals(2, td.getNames().size());
         assertEquals(1, td.getLines().size());
     }
 
-    public void testHeader() throws TestingDataException, IOException, ParserException {
+    public void testHeader() throws IOException, ParserException {
         Parser parser = new Parser("A   B     C  D\n1 1 1 1").parse();
         LineCollector td = new LineCollector(parser);
         assertEquals(4, td.getNames().size());
         assertEquals(1, td.getLines().size());
     }
 
-    public void testHeaderTabs() throws TestingDataException, IOException, ParserException {
+    public void testHeaderTabs() throws IOException, ParserException {
         Parser parser = new Parser("A\tB\tC \t D\n1\t1\t1\t1").parse();
         LineCollector td = new LineCollector(parser);
         assertEquals(4, td.getNames().size());
@@ -158,7 +156,7 @@ public class ParserTest extends TestCase {
         assertEquals(4, td.getLines().get(0).getValues().length);
     }
 
-    public void testEmptyLines() throws TestingDataException, IOException, ParserException {
+    public void testEmptyLines() throws IOException, ParserException {
         Parser parser = new Parser("A_i B_i C_i-1 C_i S_i\n" +
                 " 0   0   0     0   0\n" +
                 " 0   0   1     0   1\n" +
@@ -202,7 +200,7 @@ public class ParserTest extends TestCase {
                 "let a=A+B;\n" +
                 "1 1 1\n#test").parse();
         Context context = new Context().setModel(model);
-        LineCollector td = new LineCollector(parser, context);
+        new LineCollector(parser, context);
         assertEquals(5, context.getVar("a"));
     }
 
