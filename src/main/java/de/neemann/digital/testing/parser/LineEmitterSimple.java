@@ -41,16 +41,16 @@ public class LineEmitterSimple implements LineEmitter {
     }
 
     @Override
-    public void emitLines(LineListener listener, Context conext) throws ParserException {
+    public void emitLines(LineListener listener, Context context) throws ParserException {
         ArrayList<Value> vals = new ArrayList<>(valuesCount);
         for (ValueAppender ve : appender)
-            ve.appendValues(vals, conext);
+            ve.appendValues(vals, context);
 
         if (vals.size() != valuesCount)
             throw new ParserException(Lang.get("err_testDataExpected_N0_found_N1_numbersInLine_N2", valuesCount, vals.size(), line));
 
         String description = "L" + line;
-        String conString = conext.toString();
+        String conString = context.toString();
         if (!conString.isEmpty())
             description += ";" + conString;
 

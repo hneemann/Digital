@@ -43,9 +43,9 @@ public class LineEmitterList implements LineEmitter {
     }
 
     @Override
-    public void emitLines(LineListener listener, Context conext) throws ParserException {
+    public void emitLines(LineListener listener, Context context) throws ParserException {
         for (LineEmitter l : lines)
-            l.emitLines(listener, conext);
+            l.emitLines(listener, context);
     }
 
 }
