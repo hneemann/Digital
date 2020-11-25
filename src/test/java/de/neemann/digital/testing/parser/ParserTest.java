@@ -196,8 +196,8 @@ public class ParserTest extends TestCase {
 
     public void test_modelInitState() throws IOException, ParserException {
         Model model = new Model();
-        model.addSignal(new Signal("A", new ObservableValue("A", 3).setValue(2)));
-        model.addSignal(new Signal("B", new ObservableValue("B", 3).setValue(3)));
+        model.addOutput(new Signal("A", new ObservableValue("A", 3).setValue(2)));
+        model.addOutput(new Signal("B", new ObservableValue("B", 3).setValue(3)));
         Parser parser = new Parser("A B Y\n" +
                 "let a=A+B;\n" +
                 "1 1 1\n#test").parse();

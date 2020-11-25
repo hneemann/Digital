@@ -47,7 +47,9 @@ public class Context {
         if (map == null || !map.containsKey(name)) {
             if (parent == null) {
                 if (model != null) {
-                    for (Signal s : model.getSignals())
+                    // inputs are not supported because there are cases where values
+                    // are evaluated and model inputs are not set!
+                    for (Signal s : model.getOutputs())
                         if (s.getName().equals(name))
                             return s.getValue().getValue();
                 }
