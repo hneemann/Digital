@@ -2017,6 +2017,7 @@
     <string name="msg_dataWillBeLost_n">Do you really want to discard the changes in the "{0}" field?</string>
 
     <string name="msg_supportsHDL">Exportable to VHDL/Verilog.</string>
+    <string name="msg_errorSettingModelToTestCase">Error while setting the test case row.</string>
 
     <string name="err_vgaModeNotDetected_N">Video mode was not detected ({0})</string>
 

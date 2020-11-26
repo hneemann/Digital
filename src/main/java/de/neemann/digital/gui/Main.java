@@ -1600,10 +1600,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             SwingUtilities.invokeLater(() -> {
                 if (model != null && model.isRunning()) {
                     try {
-                        advanceSimulator.advance(Main.this);
+                        advanceSimulator.advance(model);
                         circuitComponent.graphicHasChanged();
                     } catch (Exception e) {
-                        showError("Message", e);
+                        showError(Lang.get("msg_errorSettingModelToTestCase"), e);
                     }
                 }
             });
@@ -2141,9 +2141,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         /**
          * Advances the model to a certain state
          *
-         * @param main main
+         * @param model the model
          * @throws Exception Exception
          */
-        void advance(Main main) throws Exception;
+        void advance(Model model) throws Exception;
     }
 }

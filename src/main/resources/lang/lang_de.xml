@@ -2004,6 +2004,7 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="btn_copyToClipboard_tt">Kopiert den Text in die Zwischenablage.</string>
 
     <string name="msg_supportsHDL">Exportierbar zu VHDL/Verilog.</string>
+    <string name="msg_errorSettingModelToTestCase">Fehler beim Setzen der Zeile des Testfalles.</string>
 
     <string name="ok">Ok</string>
     <string name="rot_0">0°</string>

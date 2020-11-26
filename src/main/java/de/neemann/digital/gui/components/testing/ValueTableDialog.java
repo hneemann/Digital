@@ -189,7 +189,7 @@ public class ValueTableDialog extends JDialog {
                     TestRow row = vtm.getRow(r);
                     if (owner instanceof Main) {
                         Main main = (Main) owner;
-                        main.startSimulation(m -> new TestExecutor(valueTableHolder.testCaseDescription, m.getModel()).executeTo(row.getRow()));
+                        main.startSimulation(m -> new TestExecutor(valueTableHolder.testCaseDescription, m).executeTo(row.getRow()));
                     }
                 }
             }
