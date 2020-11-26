@@ -13,6 +13,7 @@ import de.neemann.digital.data.Value;
 public class TestRow {
     private final Value[] values;
     private final String description;
+    private int rowCount;
 
     /**
      * Creates a new instance
@@ -57,5 +58,23 @@ public class TestRow {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Sets the row number
+     *
+     * @param rowCount the number to set
+     * @return this for chained calls
+     */
+    public TestRow setRow(int rowCount) {
+        this.rowCount = rowCount;
+        return this;
+    }
+
+    /**
+     * @return the row number of this row
+     */
+    public int getRow() {
+        return rowCount;
     }
 }

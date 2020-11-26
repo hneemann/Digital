@@ -6,19 +6,19 @@
 package de.neemann.digital.gui.components.testing;
 
 import de.neemann.digital.core.ErrorDetector;
-import de.neemann.digital.core.NodeException;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.data.ValueTable;
 import de.neemann.digital.data.ValueTableModel;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestExecutor;
 import de.neemann.digital.testing.TestingDataException;
+import de.neemann.digital.testing.parser.TestRow;
 import de.neemann.gui.IconCreator;
 import de.neemann.gui.LineBreaker;
 import de.neemann.gui.MyFileChooser;
@@ -29,6 +29,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -50,7 +52,7 @@ public class ValueTableDialog extends JDialog {
     private static final Icon ICON_GRAPH = IconCreator.create("measurement-graph.png");
 
 
-    private final ArrayList<ValueTable> resultTableData;
+    private final ArrayList<ValueTableHolder> resultTableData;
     private final JTabbedPane tp;
     private final Window owner;
     private final ToolTipAction asGraph;
@@ -80,7 +82,7 @@ public class ValueTableDialog extends JDialog {
                 JFileChooser fileChooser = new MyFileChooser();
                 fileChooser.setFileFilter(new FileNameExtensionFilter("Comma Separated Values", "csv"));
                 new SaveAsHelper(ValueTableDialog.this, fileChooser, "csv")
-                        .checkOverwrite(resultTableData.get(tab)::saveCSV);
+                        .checkOverwrite(resultTableData.get(tab).valueTable::saveCSV);
             }
         }.setToolTip(Lang.get("menu_saveData_tt")).createJMenuItem());
 
@@ -90,7 +92,7 @@ public class ValueTableDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 int tab = tp.getSelectedIndex();
                 if (tab < 0) tab = 0;
-                new GraphDialog(ValueTableDialog.this, Lang.get("win_testdata_N", tp.getTitleAt(tab)), resultTableData.get(tab))
+                new GraphDialog(ValueTableDialog.this, Lang.get("win_testdata_N", tp.getTitleAt(tab)), resultTableData.get(tab).valueTable)
                         .disableTable()
                         .setVisible(true);
             }
@@ -113,12 +115,9 @@ public class ValueTableDialog extends JDialog {
      * @param circuit the circuit
      * @param library the library to use
      * @return this for chained calls
-     * @throws NodeException            NodeException
-     * @throws TestingDataException     DataException
-     * @throws PinException             PinException
-     * @throws ElementNotFoundException ElementNotFoundException
+     * @throws TestingDataException DataException
      */
-    public ValueTableDialog addTestResult(java.util.List<Circuit.TestCase> tsl, Circuit circuit, ElementLibrary library) throws TestingDataException, ElementNotFoundException, PinException, NodeException {
+    public ValueTableDialog addTestResult(java.util.List<Circuit.TestCase> tsl, Circuit circuit, ElementLibrary library) throws TestingDataException {
         Collections.sort(tsl);
         int i = 0;
         int errorTabIndex = -1;
@@ -142,10 +141,11 @@ public class ValueTableDialog extends JDialog {
                 if (testResult.toManyResults())
                     tabName += " " + Lang.get("msg_test_missingLines");
 
-                tp.addTab(tabName, tabIcon, new JScrollPane(createTable(testResult.getValueTable())));
+                ValueTableHolder vth = new ValueTableHolder(testResult.getValueTable(), ts.getTestCaseDescription());
+                tp.addTab(tabName, tabIcon, new JScrollPane(createTable(vth)));
                 if (testResult.toManyResults())
                     tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
-                resultTableData.add(testResult.getValueTable());
+                resultTableData.add(vth);
                 i++;
                 errorDetector.check();
             } catch (Exception e) {
@@ -168,18 +168,32 @@ public class ValueTableDialog extends JDialog {
      * @return this for chained calls
      */
     public ValueTableDialog addValueTable(String name, ValueTable valueTable) {
-        tp.addTab(name, new JScrollPane(createTable(valueTable)));
-        resultTableData.add(valueTable);
+        tp.addTab(name, new JScrollPane(createTable(new ValueTableHolder(valueTable))));
+        resultTableData.add(new ValueTableHolder(valueTable));
 
         pack();
         setLocationRelativeTo(owner);
         return this;
     }
 
-    private JTable createTable(ValueTable valueTable) {
-        JTable table = new JTable(new ValueTableModel(valueTable));
+    private JTable createTable(ValueTableHolder valueTableHolder) {
+        ValueTableModel vtm = new ValueTableModel(valueTableHolder.valueTable);
+        JTable table = new JTable(vtm);
         table.setDefaultRenderer(Value.class, new ValueRenderer());
         table.setDefaultRenderer(Integer.class, new NumberRenderer());
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int r = table.getSelectedRow();
+                if (r > 0 && r < vtm.getRowCount() && valueTableHolder.testCaseDescription != null) {
+                    TestRow row = vtm.getRow(r);
+                    if (owner instanceof Main) {
+                        Main main = (Main) owner;
+                        main.startSimulation(m -> new TestExecutor(valueTableHolder.testCaseDescription, m.getModel()).executeTo(row.getRow()));
+                    }
+                }
+            }
+        });
         final Font font = table.getFont();
         table.setRowHeight(font.getSize() * 6 / 5);
         return table;
@@ -233,4 +247,18 @@ public class ValueTableDialog extends JDialog {
         }
     }
 
+    private static final class ValueTableHolder {
+        private final ValueTable valueTable;
+        private final TestCaseDescription testCaseDescription;
+
+        private ValueTableHolder(ValueTable valueTable) {
+            this.valueTable = valueTable;
+            testCaseDescription = null;
+        }
+
+        private ValueTableHolder(ValueTable valueTable, TestCaseDescription testCaseDescription) {
+            this.valueTable = valueTable;
+            this.testCaseDescription = testCaseDescription;
+        }
+    }
 }

@@ -1137,7 +1137,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     .setVisible(true);
 
             ensureModelIsStopped();
-        } catch (NodeException | ElementNotFoundException | PinException | TestingDataException | RuntimeException e1) {
+        } catch (TestingDataException | RuntimeException e1) {
             showError(Lang.get("msg_runningTestError"), e1);
         }
     }
@@ -1589,6 +1589,26 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
     }
 
+    /**
+     * Starts the simulation and allows to advance the model to a certain state.
+     *
+     * @param advanceSimulator needs to be implemented to advance the model
+     */
+    public void startSimulation(AdvanceSimulator advanceSimulator) {
+        SwingUtilities.invokeLater(() -> {
+            runModelState.enter(false, null);
+            SwingUtilities.invokeLater(() -> {
+                if (model != null && model.isRunning()) {
+                    try {
+                        advanceSimulator.advance(Main.this);
+                        circuitComponent.graphicHasChanged();
+                    } catch (Exception e) {
+                        showError("Message", e);
+                    }
+                }
+            });
+        });
+    }
 
     @Override
     public void hasChanged() {
@@ -2112,5 +2132,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
             }
         }
+    }
+
+    /**
+     * Allows to start the simulation and advance the model to a certain state.
+     */
+    public interface AdvanceSimulator {
+        /**
+         * Advances the model to a certain state
+         *
+         * @param main main
+         * @throws Exception Exception
+         */
+        void advance(Main main) throws Exception;
     }
 }

@@ -37,6 +37,7 @@ public class TestExecutor {
     private boolean errorOccurred;
     private int failedCount;
     private int passedCount;
+    private int rowCount;
     private boolean toManyResults = false;
     private ArrayList<TestSignal> inputs;
     private ArrayList<TestSignal> outputs;
@@ -86,14 +87,50 @@ public class TestExecutor {
     }
 
     /**
+     * Sets the model to the given row.
+     *
+     * @param row the row to advance the model to
+     * @throws TestingDataException DataException
+     * @throws ParserException      ParserException
+     */
+    public void executeTo(int row) throws TestingDataException, ParserException {
+        execute(new LineListener() {
+            private int r = row;
+
+            @Override
+            public void add(TestRow testRow) {
+                Value[] values = testRow.getValues();
+                Value[] res = new Value[values.length];
+
+                if (r >= 0) {
+                    advanceModel(model, testRow, values, res);
+                    r--;
+                }
+            }
+        }, false);
+    }
+
+    /**
      * Creates the result by comparing the testing vector with the given model
      *
      * @return the result of the test execution
      * @throws TestingDataException DataException
-     * @throws NodeException        NodeException
      * @throws ParserException      ParserException
      */
-    public TestExecutor.Result execute() throws TestingDataException, NodeException, ParserException {
+    public TestExecutor.Result execute() throws TestingDataException, ParserException {
+        return execute(values -> checkRow(model, values), true);
+    }
+
+    /**
+     * Executes the test and sends all the test lines to the {@link LineListener} provided.
+     *
+     * @param lineListener the line listener to use
+     * @param closeModel   if true the model is closed
+     * @return the result of the test execution
+     * @throws TestingDataException DataException
+     * @throws ParserException      ParserException
+     */
+    private TestExecutor.Result execute(LineListener lineListener, boolean closeModel) throws TestingDataException, ParserException {
         try {
             HashSet<String> usedSignals = new HashSet<>();
             inputs = new ArrayList<>();
@@ -160,11 +197,12 @@ public class TestExecutor {
                     errorOccurred = true;
             }, ModelEventType.ERROR_OCCURRED);
 
-            lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), context);
+            lines.emitLines(new LineListenerResolveDontCare(lineListener, inputs), context);
 
             return new Result();
         } finally {
-            model.close();
+            if (closeModel)
+                model.close();
         }
     }
 
@@ -178,6 +216,30 @@ public class TestExecutor {
         Value[] values = testRow.getValues();
         Value[] res = new Value[values.length];
 
+        advanceModel(model, testRow, values, res);
+
+        boolean ok = true;
+        for (TestSignal out : outputs) {
+            MatchedValue matchedValue = new MatchedValue(values[out.index], out.value);
+            res[out.index] = matchedValue;
+            if (!matchedValue.isPassed())
+                ok = false;
+        }
+
+        if (ok)
+            passedCount++;
+        else
+            failedCount++;
+
+        if (visibleRows < (ok ? MAX_RESULTS : ERR_RESULTS)) {
+            visibleRows++;
+            results.add(new TestRow(res, testRow.getDescription()).setRow(rowCount));
+            rowCount++;
+        } else
+            toManyResults = true;
+    }
+
+    private void advanceModel(Model model, TestRow testRow, Value[] values, Value[] res) {
         boolean clockIsUsed = false;
         // set all values except the clocks
         for (TestSignal in : inputs) {
@@ -219,25 +281,6 @@ public class TestExecutor {
             errorOccurred = true;
             throw e;
         }
-
-        boolean ok = true;
-        for (TestSignal out : outputs) {
-            MatchedValue matchedValue = new MatchedValue(values[out.index], out.value);
-            res[out.index] = matchedValue;
-            if (!matchedValue.isPassed())
-                ok = false;
-        }
-
-        if (ok)
-            passedCount++;
-        else
-            failedCount++;
-
-        if (visibleRows < (ok ? MAX_RESULTS : ERR_RESULTS)) {
-            visibleRows++;
-            results.add(new TestRow(res, testRow.getDescription()));
-        } else
-            toManyResults = true;
     }
 
     private void addClockRow(int cols, String description) {

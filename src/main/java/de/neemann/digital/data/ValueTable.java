@@ -140,10 +140,20 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
      * @return the value stored at the given position
      */
     public Value getTableValue(int rowIndex, int columnIndex) {
+        return getTableRow(rowIndex).getValue(columnIndex);
+    }
+
+    /**
+     * Returns a table row
+     *
+     * @param rowIndex the index of the table row
+     * @return the table row
+     */
+    public TestRow getTableRow(int rowIndex) {
         if (tableRowIndex == null)
-            return values.get(rowIndex).getValue(columnIndex);
+            return values.get(rowIndex);
         else
-            return values.get(tableRowIndex.get(rowIndex)).getValue(columnIndex);
+            return values.get(tableRowIndex.get(rowIndex));
     }
 
     /**
