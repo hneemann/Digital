@@ -234,9 +234,9 @@ public class TestExecutor {
         if (visibleRows < (ok ? MAX_RESULTS : ERR_RESULTS)) {
             visibleRows++;
             results.add(new TestRow(res, testRow.getDescription()).setRow(rowCount));
-            rowCount++;
         } else
             toManyResults = true;
+        rowCount++;
     }
 
     private void advanceModel(Model model, TestRow testRow, Value[] values, Value[] res) {
