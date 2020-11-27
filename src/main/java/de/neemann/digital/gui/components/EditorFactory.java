@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.gui.components;
 
+import de.neemann.digital.FileLocator;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
@@ -640,7 +641,9 @@ public final class EditorFactory {
                         int dataBits = attr.get(Keys.BITS);
                         int addrBits = getAddrBits(attr);
                         DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC, attr.get(Keys.INT_FORMAT));
-                        de.setFileName(attr.getFile(ROM.LAST_DATA_FILE_KEY));
+                        de.setFileName(new FileLocator(attr.getFile(ROM.LAST_DATA_FILE_KEY))
+                                .setupWithMain(getAttributeDialog().getMain())
+                                .locate());
                         if (de.showDialog()) {
                             DataField mod = de.getModifiedDataField();
                             if (!data.equals(mod))
@@ -659,7 +662,9 @@ public final class EditorFactory {
                             try {
                                 getAttributeDialog().storeEditedValues();
                                 int dataBits = attr.get(Keys.BITS);
-                                data = Importer.read(attr.getFile(ROM.LAST_DATA_FILE_KEY), dataBits)
+                                data = Importer.read(new FileLocator(attr.getFile(ROM.LAST_DATA_FILE_KEY))
+                                        .setupWithMain(getAttributeDialog().getMain())
+                                        .locate(), dataBits)
                                         .trimValues(getAddrBits(attr), dataBits);
                             } catch (IOException e1) {
                                 new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
@@ -677,7 +682,9 @@ public final class EditorFactory {
                         public void actionPerformed(ActionEvent e) {
                             try {
                                 getAttributeDialog().storeEditedValues();
-                                final File file = attr.getFile(ROM.LAST_DATA_FILE_KEY);
+                                final File file = new FileLocator(attr.getFile(ROM.LAST_DATA_FILE_KEY))
+                                        .setupWithMain(getAttributeDialog().getMain())
+                                        .locate();
                                 data.saveTo(SaveAsHelper.checkSuffix(file, "hex"));
                             } catch (IOException e1) {
                                 new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(panel);

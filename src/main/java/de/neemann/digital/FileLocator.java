@@ -31,7 +31,7 @@ public class FileLocator {
     /**
      * Creates a new instance
      *
-     * @param file the file to serach for
+     * @param file the file to search for
      */
     public FileLocator(File file) {
         this(file == null ? null : file.getName());
@@ -90,8 +90,10 @@ public class FileLocator {
      * @return this for chained calls
      */
     public FileLocator setupWithMain(Main main) {
-        setBaseFile(main.getBaseFileName());
-        setLibrary(main.getLibrary());
+        if (main != null) {
+            setBaseFile(main.getBaseFileName());
+            setLibrary(main.getLibrary());
+        }
         return this;
     }
 
@@ -105,7 +107,7 @@ public class FileLocator {
             return file;
 
         if (filename == null)
-            return file;
+            return null;
 
         if (baseFile != null) {
             File f = new File(baseFile.getParentFile(), filename);
