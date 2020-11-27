@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A B C O S
+
+loop (a,256)
+loop (b,256)
+loop (c,2)
+let sum=a+b+c;
+(a) (b) (c) (sum&gt;&gt;8) (sum)
+end loop
+end loop
+end loop
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="-120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="-240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="-200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="-160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>S</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="-240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Add</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="-220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>O</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Comparator</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Comparator</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="-60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>255</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="980" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NAnd</elementName>
+      <elementAttributes/>
+      <pos x="1140" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes/>
+      <pos x="1160" y="-200"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="980" y="-180"/>
+      <p2 x="1040" y="-180"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="-180"/>
+      <p2 x="1240" y="-180"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="-100"/>
+      <p2 x="1140" y="-100"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="-200"/>
+      <p2 x="1000" y="-200"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="-200"/>
+      <p2 x="1160" y="-200"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="-200"/>
+      <p2 x="1040" y="-200"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="-120"/>
+      <p2 x="1040" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="-120"/>
+      <p2 x="1120" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="-120"/>
+      <p2 x="1240" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="980" y="-40"/>
+      <p2 x="1020" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="-40"/>
+      <p2 x="1120" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="-40"/>
+      <p2 x="1040" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="-220"/>
+      <p2 x="1140" y="-220"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="-220"/>
+      <p2 x="1040" y="-220"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="-140"/>
+      <p2 x="1040" y="-140"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="-60"/>
+      <p2 x="1040" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="-60"/>
+      <p2 x="1140" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="-240"/>
+      <p2 x="1020" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="-240"/>
+      <p2 x="1240" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="-160"/>
+      <p2 x="980" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="-160"/>
+      <p2 x="1160" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="-80"/>
+      <p2 x="1240" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="-60"/>
+      <p2 x="1120" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="-120"/>
+      <p2 x="1120" y="-100"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="-240"/>
+      <p2 x="1140" y="-220"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="-160"/>
+      <p2 x="1140" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="980" y="-180"/>
+      <p2 x="980" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="-200"/>
+      <p2 x="1000" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="1240" y="-120"/>
+      <p2 x="1240" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="-240"/>
+      <p2 x="1020" y="-220"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="-120"/>
+      <p2 x="1020" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="-220"/>
+      <p2 x="1020" y="-140"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
