@@ -5,7 +5,10 @@
  */
 package de.neemann.digital.gui;
 
+import de.neemann.digital.FileLocator;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -52,6 +55,15 @@ public class ExportZipAction extends ToolTipAction {
                 File origin = circuit.getOrigin();
                 elementSet = new HashSet<>();
                 addFile(zip, origin, circuit);
+
+                ElementAttributes settings = circuit.getAttributes();
+                if (settings.get(Keys.PRELOAD_PROGRAM)) {
+                    File prog = new FileLocator(settings.get(Keys.PROGRAM_TO_PRELOAD))
+                            .setupWithMain(main)
+                            .locate();
+                    addToZip(zip, prog);
+                }
+
                 addToZip(zip, "MANIFEST.TXT", "Main-Circuit: " + origin.getName() + "\n");
             } catch (ElementNotFoundException e1) {
                 throw new IOException(Lang.get("err_errorExportingZip"), e1);

@@ -7,6 +7,7 @@ package de.neemann.digital;
 
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.FileHistory;
+import de.neemann.digital.gui.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,10 +21,22 @@ public class FileLocator {
     private static final int MAX_FILE_COUNTER = 5000;
 
     private final String filename;
+    private File file;
     private FileHistory history;
     private ElementLibrary library;
     private File baseFile;
     private int fileCounter;
+
+
+    /**
+     * Creates a new instance
+     *
+     * @param file the file to serach for
+     */
+    public FileLocator(File file) {
+        this(file == null ? null : file.getName());
+        this.file = file;
+    }
 
     /**
      * Creates a new instance
@@ -71,13 +84,28 @@ public class FileLocator {
     }
 
     /**
+     * Configures the file locator with the given main
+     *
+     * @param main the main class
+     * @return this for chained calls
+     */
+    public FileLocator setupWithMain(Main main) {
+        setBaseFile(main.getBaseFileName());
+        setLibrary(main.getLibrary());
+        return this;
+    }
+
+    /**
      * Tries to locate the given file.
      *
      * @return the file or null if not found
      */
     public File locate() {
+        if (file != null && file.exists())
+            return file;
+
         if (filename == null)
-            return null;
+            return file;
 
         if (baseFile != null) {
             File f = new File(baseFile.getParentFile(), filename);
@@ -110,7 +138,7 @@ public class FileLocator {
         }
 
         LOGGER.debug(filename + " not found");
-        return null;
+        return file;
     }
 
     private File search(File path) {
