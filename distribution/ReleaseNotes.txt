@@ -8,6 +8,8 @@ HEAD, planned as v0.26
 - Added a "Not Connected" component to output a constant high-z value.
 - If a high-z value is connected to a logic gate input, the read value
   is undefined.
+- Improved debugging: It is possible to set the circuit to the
+  state of a certain test result, by simply clicking on it.
 - It is now possible to use a probe as output in a test case.
 - Adds undo to text fields
 - Fixed a bug in the Demuxer Verilog template that causes problems

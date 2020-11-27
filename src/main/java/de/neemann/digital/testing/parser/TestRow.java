@@ -13,7 +13,7 @@ import de.neemann.digital.data.Value;
 public class TestRow {
     private final Value[] values;
     private final String description;
-    private int rowCount;
+    private int rowCount = -1;
 
     /**
      * Creates a new instance
@@ -72,7 +72,7 @@ public class TestRow {
     }
 
     /**
-     * @return the row number of this row
+     * @return the row number of this row, or -1 if no row number is available
      */
     public int getRow() {
         return rowCount;

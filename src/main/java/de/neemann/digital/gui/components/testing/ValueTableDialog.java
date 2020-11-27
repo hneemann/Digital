@@ -185,11 +185,12 @@ public class ValueTableDialog extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int r = table.getSelectedRow();
-                if (r > 0 && r < vtm.getRowCount() && valueTableHolder.testCaseDescription != null) {
+                if (r >= 0 && r < vtm.getRowCount() && valueTableHolder.testCaseDescription != null) {
                     TestRow row = vtm.getRow(r);
-                    if (owner instanceof Main) {
+                    int testRow = row.getRow();
+                    if (owner instanceof Main && testRow >= 0) {
                         Main main = (Main) owner;
-                        main.startSimulation(m -> new TestExecutor(valueTableHolder.testCaseDescription, m).executeTo(row.getRow()));
+                        main.startSimulation(m -> new TestExecutor(valueTableHolder.testCaseDescription, m).executeTo(testRow));
                     }
                 }
             }
