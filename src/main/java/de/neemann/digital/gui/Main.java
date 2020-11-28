@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.gui;
 
+import de.neemann.digital.FileLocator;
 import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.ModelAnalyser;
 import de.neemann.digital.analyse.SubstituteLibrary;
@@ -680,6 +681,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      */
     public CircuitComponent getCircuitComponent() {
         return circuitComponent;
+    }
+
+    /**
+     * @return the used library
+     */
+    public ElementLibrary getLibrary() {
+        return library;
     }
 
     /**
@@ -1411,8 +1419,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (modelModifier != null)
                 modelModifier.preInit(model);
             else {
-                if (settings.get(Keys.PRELOAD_PROGRAM))
-                    new ProgramMemoryLoader(settings.get(Keys.PROGRAM_TO_PRELOAD)).preInit(model);
+                if (settings.get(Keys.PRELOAD_PROGRAM)) {
+                    File romHex = new FileLocator(settings.get(Keys.PROGRAM_TO_PRELOAD))
+                            .setupWithMain(this)
+                            .locate();
+                    new ProgramMemoryLoader(romHex)
+                            .preInit(model);
+                }
             }
 
             if (updateEvent == ModelEventType.MICROSTEP) {
