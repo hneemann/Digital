@@ -33,6 +33,7 @@ import java.util.HashMap;
 public class Parser {
 
     private final ArrayList<String> names;
+    private final HashMap<String, Long> signalInitMap;
     private final ArrayList<VirtualSignal> virtualSignals;
     private final Tokenizer tok;
     private final HashMap<String, Function> functions = new HashMap<>();
@@ -50,6 +51,7 @@ public class Parser {
         functions.put("ite", new IfThenElse());
         names = new ArrayList<>();
         virtualSignals = new ArrayList<>();
+        signalInitMap = new HashMap<>();
         tok = new Tokenizer(new BufferedReader(new StringReader(data)));
     }
 
@@ -107,6 +109,16 @@ public class Parser {
                 case IDENT:
                 case NUMBER:
                     list.add(parseSingleRow());
+                    break;
+                case INIT:
+                    tok.consume();
+                    expect(Tokenizer.Token.IDENT);
+                    final String sName = tok.getIdent();
+                    expect(Tokenizer.Token.EQUAL);
+                    expect(Tokenizer.Token.NUMBER);
+                    long n = convToLong(tok.getIdent());
+                    expect(Tokenizer.Token.SEMICOLON);
+                    signalInitMap.put(sName, n);
                     break;
                 case PROGRAM:
                     tok.consume();
@@ -270,6 +282,13 @@ public class Parser {
      */
     public DataField getProgram() {
         return program;
+    }
+
+    /**
+     * @return the signal init map
+     */
+    public HashMap<String, Long> getSignalInit() {
+        return signalInitMap;
     }
 
     /**

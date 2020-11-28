@@ -22,6 +22,7 @@ import de.neemann.digital.testing.parser.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Runs the test and stores the test results created by a single {@link TestCaseDescription} instance.
@@ -160,6 +161,13 @@ public class TestExecutor {
                 default:
                     throw new TestingDataException(Lang.get("err_multipleRomsFound"));
             }
+        }
+
+        for (Map.Entry<String, Long> r : testCase.getSignalInit().entrySet()) {
+            Signal.Setter signal = model.getSignalSetter(r.getKey());
+            if (signal == null)
+                throw new TestingDataException(Lang.get("err_testSignal_N_notFound", r.getKey()));
+            signal.set(r.getValue(), 0);
         }
 
         model.init();

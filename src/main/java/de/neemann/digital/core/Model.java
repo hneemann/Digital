@@ -805,6 +805,19 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
+     * Returns the signal setter with the given name.
+     *
+     * @param name the name
+     * @return the input value
+     */
+    public Signal.Setter getSignalSetter(String name) {
+        for (Signal i : signals)
+            if (i.getName().equals(name))
+                return i.getSetter();
+        return null;
+    }
+
+    /**
      * Registers a global value.
      *
      * @param name  the name
