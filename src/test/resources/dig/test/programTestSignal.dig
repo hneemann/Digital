@@ -13,11 +13,11 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>en Out
+            <dataString>en Out R
 
 init R=1;
 
-0  1
+0   1  1
 </dataString>
           </testData>
         </entry>
@@ -100,11 +100,11 @@ init R=1;
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>en Out
+            <dataString>en Out R
 
 init R=7;
 
-0  7
+0   7  7
 </dataString>
           </testData>
         </entry>
