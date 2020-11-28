@@ -543,11 +543,6 @@ Single-Cycle CPU.}}</string>
       <pos x="1060" y="140"/>
     </visualElement>
     <visualElement>
-      <elementName>RegisterOpt.dig</elementName>
-      <elementAttributes/>
-      <pos x="660" y="120"/>
-    </visualElement>
-    <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
@@ -927,6 +922,11 @@ Single-Cycle CPU.}}</string>
         </entry>
       </elementAttributes>
       <pos x="640" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Register.dig</elementName>
+      <elementAttributes/>
+      <pos x="660" y="120"/>
     </visualElement>
   </visualElements>
   <wires>
