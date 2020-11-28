@@ -30,6 +30,10 @@ public class LaTeXFormatterTest extends TestCase {
         assertEquals("a\\&b", LaTeXFormatter.format(new Parser("a&b").parse()));
         assertEquals("a$\\neg{}$b", LaTeXFormatter.format(new Parser("a¬b").parse()));
         assertEquals("$a\\neg{}b$", LaTeXFormatter.format(new Parser("$a¬b$").parse()));
+        assertEquals("a\\&b", LaTeXFormatter.format(new Parser("a&b").parse()));
+        assertEquals("$a\\ \\&\\ b$", LaTeXFormatter.format(new Parser("$a&b$").parse()));
+        assertEquals("a|b", LaTeXFormatter.format(new Parser("a|b").parse()));
+        assertEquals("$a\\ |\\ b$", LaTeXFormatter.format(new Parser("$a|b$").parse()));
     }
 
     public void testSumProd() throws ParseException {

@@ -6,7 +6,6 @@
 package de.neemann.digital.docu;
 
 import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.TruthTableTableModel;
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.fsm.gui.FSMFrame;
@@ -94,6 +93,13 @@ public class ScreenShots {
 
         // Chinese
         Lang.setActualRuntimeLanguage(new Language("zh"));
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_IEEE_SHAPES, true);
+        firstSteps();
+        hierarchicalDesign();
+
+        // French
+        Lang.setActualRuntimeLanguage(new Language("fr"));
         Settings.getInstance().getAttributes()
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         firstSteps();
@@ -346,7 +352,7 @@ public class ScreenShots {
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, w) -> w.setSize(WIN_DX, WIN_DY)))
                 .delay(500)
                 .add(new ScreenShot<>(Main.class))
-                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)))
+                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.DESCRIPTION)))
                 .mouseClick(InputEvent.BUTTON3_MASK)
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(AttributeDialog.class, (gt, w) -> {
@@ -384,7 +390,7 @@ public class ScreenShots {
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, w) -> w.setSize(WIN_DX, WIN_DY)))
                 .delay(500)
                 .add(new ScreenShot<>(Main.class))
-                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION)))
+                .add(new TestInGUI.SetMouseToElement((v) -> v.equalsDescription(TestCaseElement.DESCRIPTION)))
                 .mouseClick(InputEvent.BUTTON3_MASK)
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(AttributeDialog.class, (gt, w) -> {
@@ -450,7 +456,9 @@ public class ScreenShots {
             String str = Integer.toString(n);
             if (str.length() == 1)
                 str = '0' + str;
-            File file = new File(Resources.getRoot(), "docu/images/" + Lang.currentLanguage().getName() + "/scr" + str + ".png");
+            File dir = new File(Resources.getRoot(), "docu/images/" + Lang.currentLanguage().getName());
+            dir.mkdirs();
+            File file = new File(dir, "/scr" + str + ".png");
             ImageIO.write(image, "png", file);
             n++;
         }

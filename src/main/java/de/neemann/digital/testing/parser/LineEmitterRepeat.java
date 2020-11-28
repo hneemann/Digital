@@ -35,8 +35,8 @@ public class LineEmitterRepeat implements LineEmitter {
     }
 
     @Override
-    public void emitLines(LineListener listener, Context conext) throws ParserException {
-        Context c = new Context(conext);
+    public void emitLines(LineListener listener, Context context) throws ParserException {
+        Context c = new Context(context);
         for (int i = 0; i < size; i++) {
             c.setVar(name, i);
             inner.emitLines(listener, c);

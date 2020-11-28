@@ -72,7 +72,7 @@ public class TransGate extends Node implements Element {
     public void init(Model model) throws NodeException {
         aSwitch.init(model);
         model.addObserver(event -> {
-            if (event.equals(ModelEventType.STEP)) {
+            if (event.getType().equals(ModelEventType.STEP)) {
                 if (!s.isHighZ() && !ns.isHighZ() && (s.getBool() == ns.getBool()))
                     throw new BurnException(Lang.get("err_invalidTransmissionGateState"), new ObservableValues(s, ns));
             }

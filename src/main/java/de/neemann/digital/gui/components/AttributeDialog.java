@@ -177,7 +177,7 @@ public class AttributeDialog extends JDialog {
         final AbstractAction cancel = new AbstractAction(Lang.get("cancel")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                tryDispose();
             }
         };
 
@@ -190,24 +190,7 @@ public class AttributeDialog extends JDialog {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                EditorHolder majorModification = null;
-                for (EditorHolder eh : editors)
-                    if (eh.e.invisibleModification())
-                        majorModification = eh;
-                if (majorModification == null)
-                    dispose();
-                else {
-                    int r = JOptionPane.showOptionDialog(
-                            AttributeDialog.this,
-                            Lang.get("msg_dataWillBeLost_n", majorModification.key.getName()),
-                            Lang.get("msg_warning"),
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE,
-                            null, new String[]{Lang.get("btn_discard"), Lang.get("cancel")},
-                            Lang.get("cancel"));
-                    if (r == JOptionPane.YES_OPTION)
-                        dispose();
-                }
+                tryDispose();
             }
         });
 
@@ -215,6 +198,27 @@ public class AttributeDialog extends JDialog {
         getRootPane().registerKeyboardAction(cancel,
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
+    }
+
+    private void tryDispose() {
+        EditorHolder majorModification = null;
+        for (EditorHolder eh : editors)
+            if (eh.e.invisibleModification())
+                majorModification = eh;
+        if (majorModification == null)
+            dispose();
+        else {
+            int r = JOptionPane.showOptionDialog(
+                    AttributeDialog.this,
+                    Lang.get("msg_dataWillBeLost_n", majorModification.key.getName()),
+                    Lang.get("msg_warning"),
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null, new String[]{Lang.get("btn_discard"), Lang.get("btn_editFurther")},
+                    Lang.get("cancel"));
+            if (r == JOptionPane.YES_OPTION)
+                dispose();
+        }
     }
 
     private EditorPanel findPanel(ArrayList<EditorPanel> panels, String panelId) {

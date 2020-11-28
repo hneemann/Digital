@@ -6,6 +6,7 @@
 package de.neemann.digital.data;
 
 import de.neemann.digital.core.Observer;
+import de.neemann.digital.testing.parser.TestRow;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class ValueTableModel implements TableModel, Observer {
 
     private final ValueTable values;
-    private ArrayList<TableModelListener> listeners;
+    private final ArrayList<TableModelListener> listeners;
 
     /**
      * Creates a new table model
@@ -98,5 +99,15 @@ public class ValueTableModel implements TableModel, Observer {
             for (TableModelListener l : listeners)
                 l.tableChanged(tme);
         });
+    }
+
+    /**
+     * Returns a table row
+     *
+     * @param row the number of the table row
+     * @return the table row
+     */
+    public TestRow getRow(int row) {
+        return values.getTableRow(row);
     }
 }

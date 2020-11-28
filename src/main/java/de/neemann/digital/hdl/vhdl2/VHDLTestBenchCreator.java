@@ -5,10 +5,8 @@
  */
 package de.neemann.digital.hdl.vhdl2;
 
-import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.draw.elements.Circuit;
-import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.hdl.model2.HDLCircuit;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.model2.HDLModel;
@@ -25,15 +23,14 @@ import de.neemann.digital.testing.parser.TestRow;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static de.neemann.digital.testing.TestCaseElement.TESTDATA;
+import java.util.List;
 
 /**
  * Creates a test bench for a model.
  * The needed test data is taken from the test cases in the circuit
  */
 public class VHDLTestBenchCreator {
-    private final ArrayList<ElementAttributes> testCases;
+    private final List<Circuit.TestCase> testCases;
     private final HDLCircuit main;
     private final HDLModel.Renaming renaming;
     private ArrayList<File> testFileWritten;
@@ -47,9 +44,7 @@ public class VHDLTestBenchCreator {
     VHDLTestBenchCreator(Circuit circuit, HDLModel model) {
         this.main = model.getMain();
         this.renaming = model.getRenaming();
-        testCases = new ArrayList<>();
-        for (VisualElement ve : circuit.getTestCases())
-            testCases.add(ve.getElementAttributes());
+        testCases = circuit.getTestCases();
         testFileWritten = new ArrayList<>();
     }
 
@@ -68,7 +63,10 @@ public class VHDLTestBenchCreator {
             filename = filename.substring(0, p);
 
         VHDLRenaming renaming = new VHDLRenaming();
-        for (ElementAttributes tc : testCases) {
+        for (Circuit.TestCase tc : testCases) {
+            if (tc.hasGenericCode())
+                throw new HDLException(Lang.get("err_hdlTestCaseHasGenericCode"));
+
             String testName = tc.getLabel();
             if (testName.length() > 0) {
                 testName = filename + "_" + renaming.checkName(testName) + "_tb";
@@ -95,7 +93,7 @@ public class VHDLTestBenchCreator {
         return testFileWritten;
     }
 
-    private void writeTestBench(CodePrinter out, String testName, ElementAttributes tc) throws IOException, TestingDataException, ParserException {
+    private void writeTestBench(CodePrinter out, String testName, Circuit.TestCase tc) throws IOException, TestingDataException, ParserException {
         out.print("--  A testbench for ").println(testName);
         out.println("LIBRARY ieee;");
         out.println("USE ieee.std_logic_1164.all;");
@@ -140,7 +138,7 @@ public class VHDLTestBenchCreator {
 
         out.println("process").inc();
 
-        TestCaseDescription testdata = tc.get(TESTDATA);
+        TestCaseDescription testdata = tc.getTestCaseDescription();
 
         ArrayList<HDLPort> dataOrder = new ArrayList<>();
         out.println("type pattern_type is record").inc();

@@ -149,6 +149,21 @@ public class FSM {
     }
 
     /**
+     * Creates a deep copy of this fsm
+     *
+     * @param other the fsm to copy
+     */
+    public FSM(FSM other) {
+        states = new ArrayList<>();
+        transitions = new ArrayList<>();
+        for (State s : other.getStates())
+            add(new State(s));
+        for (Transition t : other.getTransitions())
+            add(new Transition(t, states, other.getStates()));
+    }
+
+
+    /**
      * Sets the moving state of this FSM
      *
      * @param state the state

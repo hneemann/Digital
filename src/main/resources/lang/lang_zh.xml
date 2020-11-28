@@ -836,14 +836,12 @@
   <string name="stat_bits">位</string>
   <string name="stat_addrBits">地址位</string>
   <string name="msg_errorOpeningDocumentation">打开 PDF 文件时遇到错误！</string>
-  <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;一个简单的数字电路仿真器
-      作者： H. Neemann  2016-2020
-
-      所用图标来自 &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;
-
-      在 &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt; 查看该项目，并&lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;下载&lt;/a&gt;最新的发行版
-
-      可以在这里提交&lt;a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;问题&lt;/a&gt;或&lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;建议&lt;/a&gt;</string>
+  <string name="message"><![CDATA[<h1>Digital</h1>
+      <p>一个简单的数字电路仿真器</p>
+      <p>作者： H. Neemann  2016-2020</p>
+      <p>所用图标来自 <a href="http://tango.freedesktop.org">Tango Desktop Project</a></p>
+      <p>在 <a href="https://github.com/hneemann/[[name]]">GitHub</a> 查看该项目，并<a href="https://github.com/hneemann/[[name]]/releases/latest">下载</a>最新的发行版</p>
+      <p>可以在这里提交<a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">问题</a>或<a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">建议</a></p>]]></string>
   <string name="msg_N_nodes">{0} 结点</string>
   <string name="msg_analyseErr">分析电路时遇到错误</string>
   <string name="msg_color">颜色</string>
@@ -1076,8 +1074,8 @@
   <string name="elem_Register_pin_Q">返回存储内容</string>
   <string name="elem_ROM_tt">非易失存储器。可以通过属性对话框编辑存储内容。</string>
   <string name="elem_ROM_pin_A">地址位</string>
-  <string name="elem_ROM_pin_D">输出使能</string>
-  <string name="elem_ROM_pin_sel">如果输入为高电平，输出使能，如果输入为低电平，输出为高阻态。</string>
+  <string name="elem_ROM_pin_D">输出</string>
+  <string name="elem_ROM_pin_sel">如果 sel 信号为高电平，输出为地址A所存储的数据，如果 sel 信号为低电平，输出为高阻态。</string>
   <string name="elem_RAMDualPort">RAM(独立端口)</string>
   <string name="elem_RAMDualPort_short">RAM</string>
   <string name="elem_RAMDualPort_tt">拥有独立的数据输入存储端口和数据输出读取端口的RAM。</string>
@@ -1213,18 +1211,6 @@
         你可以查看有哪些功能变更。&lt;/p&gt;
         &lt;p&gt;也可以直接 &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;下载&lt;/a&gt; 最新版本&lt;/p&gt;
         &lt;/html&gt;</string>
-  <string name="msg_expressionHelp">To define an expression you can use all most common notations:
-
-      And: "&amp;", "&amp;&amp;", "*", "∧"
-      Or: "|", "||", "+", "∨", "#"
-      XOr: "^", "⊻"
-      Not: "!", "~", "¬"
-
-      As usual AND precedes OR and XOr.
-
-      Multiple expressions can be separated by "," or ";".
-      If you want to name the expressions you can use the
-      let-command: "let U=A+B, let V=A*B"</string>
   <string name="msg_testVectorHelp">&lt;html&gt;
     &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
     &lt;body&gt;
@@ -1649,7 +1635,7 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
   <string name="err_errorReadingDataFromProcess">无法从外部进程读取值！</string>
   <string name="err_errorCreatingProcess">无法创建外部进程！</string>
   <string name="err_timeoutReadingData_O">从外部进程读取数据超时！ {0}</string>
-  <string name="err_notEnoughDataReceived_O">接收数据不足！</string>
+  <string name="err_notEnoughDataReceived_O">接收数据不足！ {0}</string>
   <string name="err_invalidCharacterReceived_N_O">接收到的文本包含无效字符：{0}! {1}</string>
   <string name="err_processTerminatedUnexpected_O">进程异常终止！ {0}</string>
   <string name="err_couldNotTerminateProcess">无法结束进程！</string>

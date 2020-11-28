@@ -113,23 +113,33 @@ public class Parser {
     }
 
     private Expression parseSimpleExp() throws IOException, ParseException {
+        Expression res;
         switch (tokenizer.next()) {
             case NOT:
-                return Not.not(parseSimpleExp());
+                res = Not.not(parseSimpleExp());
+                break;
             case OPEN:
-                Expression exp = parseOr();
+                res = parseOr();
                 if (!(tokenizer.next() == CLOSE))
                     throw new ParseException(Lang.get("err_parserMissingClosedParenthesis"));
-                return exp;
+                break;
             case IDENT:
-                return new Variable(tokenizer.getIdent());
+                res = new Variable(tokenizer.getIdent());
+                break;
             case ONE:
-                return Constant.ONE;
+                res = Constant.ONE;
+                break;
             case ZERO:
-                return Constant.ZERO;
+                res = Constant.ZERO;
+                break;
             default:
                 throw new ParseException(Lang.get("err_parserUnexpectedToken_N", tokenizer.toString()));
         }
+        while (tokenizer.peek() == POSTNOT) {
+            tokenizer.consume();
+            res = Not.not(res);
+        }
+        return res;
     }
 
     private void consume(Tokenizer.Token token) throws IOException, ParseException {

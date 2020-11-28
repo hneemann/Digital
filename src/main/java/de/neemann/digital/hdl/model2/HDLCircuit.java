@@ -18,6 +18,7 @@ import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.library.GenericInitCode;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.draw.model.NetList;
@@ -48,9 +49,9 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     private final ArrayList<HDLNet> listOfNets;
     private final String description;
     private final File origin;
+    private final ArrayList<HDLNode> nodes;
     private ArrayList<HDLPort> ports;
     private NetList netList;
-    private ArrayList<HDLNode> nodes;
     private HashMap<Net, HDLNet> nets;
     private String hdlEntityName;
 
@@ -142,6 +143,9 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
 
         for (HDLNet n : listOfNets)
             n.fixBits();
+
+        for (HDLNet n : listOfNets)
+            n.checkPinControlUsage();
 
         // fix inverted inputs
         ArrayList<HDLNode> newNodes = new ArrayList<>();
@@ -240,7 +244,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                 && !v.equalsDescription(DummyElement.TEXTDESCRIPTION)
                 && !v.equalsDescription(DummyElement.DATADESCRIPTION)
                 && !v.equalsDescription(DummyElement.RECTDESCRIPTION)
-                && !v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION);
+                && !v.equalsDescription(TestCaseElement.DESCRIPTION)
+                && !v.equalsDescription(GenericInitCode.DESCRIPTION);
     }
 
     HDLNet getNetOfPin(Pin pin) {

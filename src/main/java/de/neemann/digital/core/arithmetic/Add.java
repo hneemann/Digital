@@ -27,7 +27,8 @@ public class Add extends Node implements Element, Countable {
             = new ElementTypeDescription(Add.class, input("a"), input("b"), input("c_i"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .supportsHDL();
 
     private final int bits;
     private final ObservableValue sum;

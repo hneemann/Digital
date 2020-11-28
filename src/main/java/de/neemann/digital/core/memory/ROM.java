@@ -41,7 +41,8 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
             .addAttribute(Keys.DATA)
             .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
-            .addAttribute(Keys.AUTO_RELOAD_ROM);
+            .addAttribute(Keys.AUTO_RELOAD_ROM)
+            .supportsHDL();
 
     private DataField data;
     private final IntFormat intFormat;

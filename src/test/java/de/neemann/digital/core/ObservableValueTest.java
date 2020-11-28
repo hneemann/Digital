@@ -9,6 +9,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
+ *
  */
 public class ObservableValueTest extends TestCase {
 
@@ -52,13 +53,22 @@ public class ObservableValueTest extends TestCase {
 
     public void testHighZ() {
         ObservableValue v = new ObservableValue("z", 4);
-        check(0, 15, v.set(15, 15));
         check(14, 1, v.set(15, 1));
         check(12, 3, v.set(15, 3));
+
+        v.set(15, 15);
+        long min = 15;
+        long max = 0;
+        for (int i = 0; i < 100; i++) {
+            long val = v.getValue();
+            if (val < min) min = val;
+            if (val > max) max = val;
+        }
+        assertTrue(max - min > 8);
     }
 
     private void check(long val, long z, ObservableValue v) {
-        assertEquals(val, v.getValue());
+        assertEquals(val, v.getValue() & ~z);
         assertEquals(z, v.getHighZ());
     }
 
@@ -66,10 +76,10 @@ public class ObservableValueTest extends TestCase {
         ObservableValue v = new ObservableValue("z", 4)
                 .setToHighZ()
                 .addObserverToValue(Assert::fail);
-        v.set(0,15);
-        v.set(1,15);
-        v.set(2,15);
-        v.set(3,15);
+        v.set(0, 15);
+        v.set(1, 15);
+        v.set(2, 15);
+        v.set(3, 15);
     }
 
     public void testChange() {
@@ -91,12 +101,12 @@ public class ObservableValueTest extends TestCase {
 
         @Override
         public void hasChanged() {
-            changed=true;
+            changed = true;
         }
 
         private boolean isChanged() {
             final boolean c = changed;
-            changed=false;
+            changed = false;
             return c;
         }
     }

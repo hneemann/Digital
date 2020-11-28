@@ -36,7 +36,7 @@ These are the main features of Digital:
 - Simple testing of circuits: You can create test cases and execute them to verify your design.
 - Many examples: From a transmission gate D-flip-flop to a complete (simple) MIPS-like single cycle CPU.
 - Includes a simple editor for finite state machines (FSM). A FSM can then be converted to a state
-  transition table and a circuit implementing the FSM (See screenshot at the [bottom](#additional-screenshots)).
+  transition table and a circuit implementing the FSM (See [screenshot](#additional-screenshots)).
 - Contains a library with the most commonly used 74xx series integrated circuits.
 - Supports generic circuits. This allows the creation of circuits that can be parameterized when used. 
   In this way, it is possible, for e.g., to create a barrel shifter with a selectable bit width.
@@ -45,7 +45,8 @@ These are the main features of Digital:
   and works just fine.
 - It is possible to use custom components which are implemented in Java and packed in a jar file. 
   See this [example](https://github.com/hneemann/digitalCustomComponents) for details.   
-- Simple remote TCP interface which e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
+- Simple remote [TCP interface](https://github.com/hneemann/Assembler/blob/master/src/main/java/de/neemann/assembler/gui/RemoteInterface.java) 
+  which e.g. allows an [assembler IDE](https://github.com/hneemann/Assembler) to control 
   the simulator.
 - Components can be described using VHDL or Verilog. The open source VHDL simulator [ghdl](http://ghdl.free.fr/)
   needs to be installed to simulate a VHDL defined component, and the open source Verilog simulator
@@ -77,13 +78,13 @@ All other tests, including the HDL tests, were executed without errors.
 ## Documentation ##
 
 The [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English, 
-German, Spanish, Portuguese and simplified Chinese.
+German, Spanish, Portuguese, French and simplified Chinese.
 It is still very incomplete but it contains a chapter "First Steps" which explains the basic usage of Digital.
 The documentation also contains a list of available 74xx chips and a list of available keyboard shortcuts. 
 
 ## Translations ##
 
-So far Digital is available in English, German, Spanish, Portuguese and simplified Chinese. 
+So far Digital is available in English, German, Spanish, Portuguese, French and simplified Chinese. 
 If someone wants to add a 
 new translation, please let me [know](mailto:digital-simulator@web.de).
 I can provide you with a special file for translation. This file is much easier to 
@@ -272,6 +273,7 @@ Many thanks to the following persons for their help:
 * Ángel Millán from the Instituto de Educación Secundaria Ies Virgen de Villadiego in Peñaflor (Sevilla), Spain
   has provided the Spanish translation.
 * XinJun Ma ([@itviewer](https://github.com/itviewer)) has provided the Chinese translation.
+* Nicolas Maltais ([@maltaisn](https://github.com/maltaisn)) has provided the French translation.
 
 ## Additional Screenshots
 

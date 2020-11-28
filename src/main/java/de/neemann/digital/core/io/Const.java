@@ -27,7 +27,8 @@ public class Const implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.VALUE)
-            .addAttribute(Keys.INT_FORMAT);
+            .addAttribute(Keys.INT_FORMAT)
+            .supportsHDL();
 
     private final ObservableValue output;
 

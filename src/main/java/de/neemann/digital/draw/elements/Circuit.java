@@ -348,8 +348,79 @@ public class Circuit implements Copyable<Circuit> {
      *
      * @return the test case elements
      */
-    public List<VisualElement> getTestCases() {
-        return getElements(v -> v.equalsDescription(TestCaseElement.TESTCASEDESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
+    public List<TestCase> getTestCases() {
+        ArrayList<TestCase> tc = new ArrayList<>();
+        for (VisualElement ve : getElements(v -> v.equalsDescription(TestCaseElement.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED))) {
+            tc.add(new TestCase(ve));
+        }
+        return tc;
+    }
+
+    /**
+     * A simple java bean to encapsulate a test case description
+     */
+    public static final class TestCase implements Comparable<TestCase> {
+        private final String label;
+        private final TestCaseDescription testCaseDescription;
+        private final boolean hasGenericCode;
+        private final VisualElement visualElement;
+
+        private TestCase(VisualElement visualElement) {
+            this.visualElement = visualElement;
+            ElementAttributes attr = visualElement.getElementAttributes();
+            this.label = attr.getLabel();
+            this.testCaseDescription = attr.get(Keys.TESTDATA);
+            this.hasGenericCode = !attr.get(Keys.GENERIC).isEmpty();
+        }
+
+        /**
+         * @return the label of the test case
+         */
+        public String getLabel() {
+            return label;
+        }
+
+        /**
+         * @return the test case description
+         */
+        public TestCaseDescription getTestCaseDescription() {
+            return testCaseDescription;
+        }
+
+        /**
+         * @return true if the test case has generic code
+         */
+        public boolean hasGenericCode() {
+            return hasGenericCode;
+        }
+
+        /**
+         * @return the visual element which contains the test case
+         */
+        public VisualElement getVisualElement() {
+            return visualElement;
+        }
+
+        @Override
+        public int compareTo(TestCase o) {
+            return label.compareTo(o.label);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            TestCase testCase = (TestCase) o;
+
+            return label.equals(testCase.label);
+        }
+
+        @Override
+        public int hashCode() {
+            return label.hashCode();
+        }
+
     }
 
     /**
@@ -576,6 +647,19 @@ public class Circuit implements Copyable<Circuit> {
      */
     public ArrayList<Wire> getWires() {
         return wires;
+    }
+
+    /**
+     * Returns true if there is a wire at the given position
+     *
+     * @param pos the position
+     * @return true if there is a wire at the given position
+     */
+    public boolean isWireAt(Vector pos) {
+        for (Wire w : wires)
+            if (w.isPosOnWire(pos))
+                return true;
+        return false;
     }
 
     /**

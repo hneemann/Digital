@@ -231,7 +231,7 @@ public class DataEditor extends JDialog {
         if (model != null) {
             model.getWindowPosManager().register("RAM_DATA_" + label, this);
             model.addObserver(event -> {
-                if (event.equals(ModelEventType.CLOSED))
+                if (event.getType().equals(ModelEventType.CLOSED))
                     detachFromRunningModel();
             }, ModelEventType.CLOSED);
         }

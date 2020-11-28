@@ -40,7 +40,8 @@ public class Decoder extends Node implements Element, Countable {
             input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.SELECTOR_BITS)
-            .addAttribute(Keys.FLIP_SEL_POSITON);
+            .addAttribute(Keys.FLIP_SEL_POSITON)
+            .supportsHDL();
 
     /**
      * Creates a new instance

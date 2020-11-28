@@ -210,6 +210,31 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
     }
 
     /**
+     * Returns true if the given position is exactly on an existing wire
+     *
+     * @param pos the position
+     * @return true if the given position is exactly on an existing wire
+     */
+    public boolean isPosOnWire(Vector pos) {
+        switch (getOrientation()) {
+            case vertical:
+                if (p1.x == pos.x) {
+                    if (p1.y <= pos.y && pos.y <= p2.y || ((p2.y <= pos.y) && (pos.y <= p1.y)))
+                        return true;
+                }
+            case horizontal:
+                if (p1.y == pos.y) {
+                    if (p1.x <= pos.x && pos.x <= p2.x || ((p2.x <= pos.x) && (pos.x <= p1.x)))
+                        return true;
+                }
+            case diagonal:
+                if (pos.equals(p1) || pos.equals(p2))
+                    return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns the distance to the wire.
      *
      * @param v the position

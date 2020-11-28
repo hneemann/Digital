@@ -34,7 +34,7 @@ public class ValueAppenderBits implements ValueAppender {
         for (int i = 0; i < bitCount; i++) {
             boolean v = (value & mask) != 0;
             values.add(new Value(v ? 1 : 0));
-            mask >>= 1;
+            mask >>>= 1;
         }
     }
 }

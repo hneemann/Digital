@@ -76,6 +76,8 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
 
     @Override
     public void libraryChanged(LibraryNode node) {
+        if (map.remove(node) == null)
+            map.clear();
         final TreeModelEvent treeModelEvent = new TreeModelEvent(this, new TreePath(node.getPath()));
         for (TreeModelListener l : listeners)
             l.treeStructureChanged(treeModelEvent);

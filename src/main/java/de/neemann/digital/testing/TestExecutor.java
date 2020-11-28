@@ -6,62 +6,92 @@
 package de.neemann.digital.testing;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.memory.ProgramMemory;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.data.Value;
-import de.neemann.digital.data.ValueTable;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.ElementNotFoundException;
+import de.neemann.digital.draw.library.ResolveGenerics;
+import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.parser.Context;
-import de.neemann.digital.testing.parser.LineEmitter;
-import de.neemann.digital.testing.parser.ParserException;
-import de.neemann.digital.testing.parser.TestRow;
+import de.neemann.digital.testing.parser.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Runs the test and stores the test results created by a single {@link TestCaseDescription} instance.
  */
 public class TestExecutor {
-    private static final int MAX_RESULTS = 1 << 10;
-    private static final int ERR_RESULTS = MAX_RESULTS * 2;
-
+    private final String label;
     private final ArrayList<String> names;
+    private final Model model;
     private final LineEmitter lines;
-    private final ValueTable results;
-    private boolean errorOccurred;
-    private int failedCount;
-    private int passedCount;
-    private boolean toManyResults = false;
-    private ArrayList<TestSignal> inputs;
-    private ArrayList<TestSignal> outputs;
-    private int visibleRows;
+    private final Context context;
+    private final ArrayList<TestSignal> inputs;
+    private final ArrayList<TestSignal> outputs;
     private boolean allowMissingInputs;
+    private boolean errorOccurred;
 
     /**
-     * Creates a new testing result
+     * Creates a new testing result.
      *
-     * @param testCaseDescription the testing data
-     * @throws TestingDataException DataException
+     * @param testCase the testing data
+     * @param circuit  the circuit
+     * @param library  the library
+     * @throws TestingDataException     DataException
+     * @throws ElementNotFoundException ElementNotFoundException
+     * @throws PinException             PinException
+     * @throws NodeException            NodeException
      */
-    public TestExecutor(TestCaseDescription testCaseDescription) throws TestingDataException {
-        names = testCaseDescription.getNames();
-        results = new ValueTable(names);
-        visibleRows = 0;
-        lines = testCaseDescription.getLines();
+    public TestExecutor(Circuit.TestCase testCase, Circuit circuit, ElementLibrary library) throws TestingDataException, NodeException, ElementNotFoundException, PinException {
+        this(testCase.getLabel(), testCase.getTestCaseDescription(), createModel(testCase, circuit, library));
+    }
+
+    static private Model createModel(Circuit.TestCase testCase, Circuit circuit, ElementLibrary library) throws NodeException, ElementNotFoundException, PinException {
+        final Model model;
+        if (circuit != null && circuit.getAttributes().get(Keys.IS_GENERIC) && testCase.hasGenericCode()) {
+            Circuit c = new ResolveGenerics().resolveCircuit(testCase.getVisualElement(), circuit, library).getCircuit();
+            model = new ModelCreator(c, library, false).createModel(false);
+        } else
+            model = new ModelCreator(circuit, library).createModel(false);
+        return model;
+    }
+
+
+    /**
+     * Use for tests only! Don't use this constructor with a model you have created from a circuit.
+     * If a circuit is available use the constructor above.
+     *
+     * @param testCase the test case
+     * @param model    the model
+     * @throws TestingDataException TestingDataException
+     */
+    public TestExecutor(TestCaseDescription testCase, Model model) throws TestingDataException {
+        this("unknown", testCase, model);
     }
 
     /**
-     * Creates the result by comparing the testing vector with the given model-
+     * Use for tests only! Don't use this constructor with a model you have created from a circuit.
+     * If a circuit is available use the constructor above.
      *
-     * @param model the model to check
-     * @return this for chained calls
-     * @throws TestingDataException DataException
-     * @throws NodeException        NodeException
-     * @throws ParserException      ParserException
+     * @param label    the name of this test case
+     * @param testCase the test case
+     * @param model    the model
+     * @throws TestingDataException TestingDataException
      */
-    public TestExecutor create(Model model) throws TestingDataException, NodeException, ParserException {
-        HashSet<String> usedSignals = new HashSet<>();
+    public TestExecutor(String label, TestCaseDescription testCase, Model model) throws TestingDataException {
+        this.label = label;
+        names = testCase.getNames();
+        this.model = model;
+        lines = testCase.getLines();
 
+        HashSet<String> usedSignals = new HashSet<>();
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
         for (Signal s : model.getInputs()) {
@@ -97,6 +127,16 @@ public class TestExecutor {
             }
         }
 
+        context = new Context().setModel(model);
+
+        for (VirtualSignal s : testCase.getVirtualSignals()) {
+            final int index = getIndexOf(s.getName());
+            if (index >= 0) {
+                outputs.add(new TestSignal(index, s.getValue(context)));
+                addTo(usedSignals, s.getName());
+            }
+        }
+
         for (String name : names)
             if (!usedSignals.contains(name))
                 if (allowMissingInputs)
@@ -110,15 +150,91 @@ public class TestExecutor {
         if (outputs.size() == 0)
             throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
 
+        if (testCase.getProgram() != null) {
+            List<Node> nodes = model.findNode(n -> n instanceof ProgramMemory && ((ProgramMemory) n).isProgramMemory());
+            switch (nodes.size()) {
+                case 0:
+                    throw new TestingDataException(Lang.get("err_noRomFound"));
+                case 1:
+                    ((ProgramMemory) nodes.get(0)).setProgramMemory(testCase.getProgram());
+                    break;
+                default:
+                    throw new TestingDataException(Lang.get("err_multipleRomsFound"));
+            }
+        }
+
+        for (Map.Entry<String, Long> r : testCase.getSignalInit().entrySet()) {
+            Signal.Setter signal = model.getSignalSetter(r.getKey());
+            if (signal == null)
+                throw new TestingDataException(Lang.get("err_testSignal_N_notFound", r.getKey()));
+            signal.set(r.getValue(), 0);
+        }
+
         model.init();
         model.addObserver(event -> {
             if (event.getType() == ModelEventType.ERROR_OCCURRED)
                 errorOccurred = true;
         }, ModelEventType.ERROR_OCCURRED);
+    }
 
-        lines.emitLines(new LineListenerResolveDontCare(values -> checkRow(model, values), inputs), new Context().setModel(model));
+    /**
+     * Sets the model to the given row.
+     *
+     * @param row the row to advance the model to
+     * @throws ParserException      ParserException
+     * @throws TestingDataException TestingDataException
+     */
+    public void executeTo(int row) throws ParserException, TestingDataException {
+        execute(new TestResultListener() {
+            private int r = row;
 
-        return this;
+            @Override
+            public void add(TestRow testRow) {
+                Value[] values = testRow.getValues();
+                Value[] res = new Value[values.length];
+
+                if (r >= 0) {
+                    advanceModel(testRow, values, res, this);
+                    r--;
+                }
+            }
+
+            @Override
+            public void addClockRow(String description) {
+            }
+
+        }, false);
+    }
+
+    /**
+     * Creates the result by comparing the testing vector with the given model
+     *
+     * @return the result of the test execution
+     * @throws ParserException      ParserException
+     * @throws TestingDataException TestingDataException
+     */
+    public TestResult execute() throws ParserException, TestingDataException {
+        return execute(new TestResult(this), true);
+    }
+
+    /**
+     * Executes the test and sends all the test lines to the {@link LineListener} provided.
+     *
+     * @param lineListener the line listener to use
+     * @param closeModel   if true the model is closed
+     * @throws ParserException ParserException
+     */
+    private <LL extends LineListener> LL execute(LL lineListener, boolean closeModel) throws ParserException, TestingDataException {
+        try {
+            lines.emitLines(new LineListenerResolveDontCare(lineListener, inputs), context);
+            return lineListener;
+        } catch (RuntimeException re) {
+            errorOccurred = true;
+            throw new TestingDataException(Lang.get("err_whileExecutingTests_N0", label, re));
+        } finally {
+            if (closeModel)
+                model.close();
+        }
     }
 
     private void addTo(HashSet<String> signals, String name) throws TestingDataException {
@@ -127,10 +243,7 @@ public class TestExecutor {
         signals.add(name);
     }
 
-    private void checkRow(Model model, TestRow testRow) {
-        Value[] values = testRow.getValues();
-        Value[] res = new Value[values.length];
-
+    void advanceModel(TestRow testRow, Value[] values, Value[] res, TestResultListener trl) {
         boolean clockIsUsed = false;
         // set all values except the clocks
         for (TestSignal in : inputs) {
@@ -143,102 +256,30 @@ public class TestExecutor {
             res[in.index] = values[in.index];
         }
 
-        try {
-            if (clockIsUsed) {  // a clock signal is used
-                model.doStep();  // propagate all except clock
-                addClockRow(values.length, testRow.getDescription());
+        if (clockIsUsed) {  // a clock signal is used
+            model.doStep();  // propagate all except clock
+            trl.addClockRow(testRow.getDescription());
 
-                // set clock
-                for (TestSignal in : inputs)
-                    if (values[in.index].getType() == Value.Type.CLOCK) {
-                        values[in.index].copyTo(in.value);
-                        res[in.index] = values[in.index];
-                    }
-
-                // propagate clock change
-                model.doStep();
-                addClockRow(values.length, testRow.getDescription());
-
-                // restore clock
-                for (TestSignal in : inputs)   // invert the clock values
-                    if (values[in.index].getType() == Value.Type.CLOCK) {
-                        in.value.setBool(!in.value.getBool());
-                        res[in.index] = new Value(in.value);
-                    }
-            }
-
-            model.doStep();
-        } catch (RuntimeException e) {
-            errorOccurred = true;
-            throw e;
-        }
-
-        boolean ok = true;
-        for (TestSignal out : outputs) {
-            MatchedValue matchedValue = new MatchedValue(values[out.index], out.value);
-            res[out.index] = matchedValue;
-            if (!matchedValue.isPassed())
-                ok = false;
-        }
-
-        if (ok)
-            passedCount++;
-        else
-            failedCount++;
-
-        if (visibleRows < (ok ? MAX_RESULTS : ERR_RESULTS)) {
-            visibleRows++;
-            results.add(new TestRow(res, testRow.getDescription()));
-        } else
-            toManyResults = true;
-    }
-
-    private void addClockRow(int cols, String description) {
-        if (visibleRows < ERR_RESULTS) {
-            Value[] r = new Value[cols];
-            for (TestSignal out : outputs)
-                r[out.index] = new Value(out.value);
+            // set clock
             for (TestSignal in : inputs)
-                r[in.index] = new Value(in.value);
-            results.add(new TestRow(r, description)).omitInTable();
-        } else
-            toManyResults = true;
-    }
+                if (values[in.index].getType() == Value.Type.CLOCK) {
+                    values[in.index].copyTo(in.value);
+                    res[in.index] = values[in.index];
+                }
 
-    /**
-     * @return true if all tests have passed
-     */
-    public boolean allPassed() {
-        return !errorOccurred && failedCount == 0 && passedCount > 0;
-    }
+            // propagate clock change
+            model.doStep();
+            trl.addClockRow(testRow.getDescription());
 
-    /**
-     * @return true if the test failed due to an error
-     */
-    public boolean isErrorOccurred() {
-        return errorOccurred;
-    }
+            // restore clock
+            for (TestSignal in : inputs)   // invert the clock values
+                if (values[in.index].getType() == Value.Type.CLOCK) {
+                    in.value.setBool(!in.value.getBool());
+                    res[in.index] = new Value(in.value);
+                }
+        }
 
-    /**
-     * @return the percentage of failed test rows
-     */
-    public int failedPercent() {
-        if (passedCount == 0)
-            return 100;
-        int p = 100 * failedCount / passedCount;
-        if (p == 0 && failedCount > 0)
-            p = 1;
-        return p;
-    }
-
-    /**
-     * Indicates if there are to many entries in the table to show.
-     * If there are to many entries, the test results is still correct.
-     *
-     * @return true if there are missing items in the results list.
-     */
-    public boolean toManyResults() {
-        return toManyResults;
+        model.doStep();
     }
 
     private int getIndexOf(String name) {
@@ -254,13 +295,6 @@ public class TestExecutor {
     }
 
     /**
-     * @return return the result
-     */
-    public ValueTable getResult() {
-        return results;
-    }
-
-    /**
      * Allow missing inputs
      *
      * @param allowMissingInputs if true, missing inputs are allowed
@@ -272,13 +306,52 @@ public class TestExecutor {
     }
 
     /**
+     * Adds a observer to the model of this test executor
+     *
+     * @param observer the observer to add
+     * @return this for chained calls
+     */
+    public TestExecutor addObserver(ModelStateObserverTyped observer) {
+        model.addObserver(observer);
+        return this;
+    }
+
+    /**
+     * @return the list of outputs
+     */
+    public ArrayList<TestSignal> getOutputs() {
+        return outputs;
+    }
+
+    /**
+     * @return the list of inputs
+     */
+    public ArrayList<TestSignal> getInputs() {
+        return inputs;
+    }
+
+    /**
+     * @return true if an error has occurred
+     */
+    public boolean isErrorOccurred() {
+        return errorOccurred;
+    }
+
+    /**
+     * @return the list of names in the test header
+     */
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    /**
      * A test signal
      */
-    public static class TestSignal {
+    public final static class TestSignal {
         private final int index;
         private final ObservableValue value;
 
-        TestSignal(int index, ObservableValue value) {
+        private TestSignal(int index, ObservableValue value) {
             this.index = index;
             this.value = value;
         }
@@ -289,6 +362,12 @@ public class TestExecutor {
         public int getIndex() {
             return index;
         }
-    }
 
+        /**
+         * @return the observable value of this index
+         */
+        public ObservableValue getValue() {
+            return value;
+        }
+    }
 }

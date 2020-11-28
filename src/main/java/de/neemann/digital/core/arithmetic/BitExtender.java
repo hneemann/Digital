@@ -28,7 +28,8 @@ public class BitExtender implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.INPUT_BITS)
-            .addAttribute(Keys.OUTPUT_BITS);
+            .addAttribute(Keys.OUTPUT_BITS)
+            .supportsHDL();
 
     private final ObservableValue out;
     private final int outBits;

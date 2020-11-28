@@ -11,13 +11,14 @@ import de.neemann.digital.data.Value;
  * A test data row, used by the {@link LineListener}
  */
 public class TestRow {
-    private Value[] values;
-    private String description;
+    private final Value[] values;
+    private final String description;
+    private int rowCount = -1;
 
     /**
      * Creates a new instance
      *
-     * @param values  the values
+     * @param values      the values
      * @param description the context of the row
      */
     public TestRow(Value[] values, String description) {
@@ -57,5 +58,23 @@ public class TestRow {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Sets the row number
+     *
+     * @param rowCount the number to set
+     * @return this for chained calls
+     */
+    public TestRow setRow(int rowCount) {
+        this.rowCount = rowCount;
+        return this;
+    }
+
+    /**
+     * @return the row number of this row, or -1 if no row number is available
+     */
+    public int getRow() {
+        return rowCount;
     }
 }

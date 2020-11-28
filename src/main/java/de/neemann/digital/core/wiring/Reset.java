@@ -26,7 +26,8 @@ public class Reset implements Element {
     public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription("Reset", Reset.class)
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.INVERT_OUTPUT);
+            .addAttribute(Keys.INVERT_OUTPUT)
+            .supportsHDL();
 
     private final ObservableValue output;
     private final boolean invOut;

@@ -30,7 +30,8 @@ public class FlipflopJK extends FlipflopBit {
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.DEFAULT)
             .addAttribute(Keys.INVERTER_CONFIG)
-            .addAttribute(Keys.VALUE_IS_PROBE);
+            .addAttribute(Keys.VALUE_IS_PROBE)
+            .supportsHDL();
 
     private ObservableValue jVal;
     private ObservableValue kVal;

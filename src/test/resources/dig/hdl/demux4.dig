@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Demultiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2S</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2Y</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>2Z</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>2S 2D 3S 3D 2Y 2Z 3Y 3Z 
+
+ 0 0b00 0 0b000 0b00 0b00 0b000 0b000
+ 0 0b00 0 0b001 0b00 0b00 0b001 0b000
+ 0 0b00 0 0b010 0b00 0b00 0b010 0b000
+ 0 0b00 0 0b011 0b00 0b00 0b011 0b000
+ 0 0b00 0 0b100 0b00 0b00 0b100 0b000
+ 0 0b00 0 0b101 0b00 0b00 0b101 0b000
+ 0 0b00 0 0b110 0b00 0b00 0b110 0b000
+ 0 0b00 0 0b111 0b00 0b00 0b111 0b000
+ 0 0b00 1 0b000 0b00 0b00 0b000 0b000
+ 0 0b00 1 0b001 0b00 0b00 0b000 0b001
+ 0 0b00 1 0b010 0b00 0b00 0b000 0b010
+ 0 0b00 1 0b011 0b00 0b00 0b000 0b011
+ 0 0b00 1 0b100 0b00 0b00 0b000 0b100
+ 0 0b00 1 0b101 0b00 0b00 0b000 0b101
+ 0 0b00 1 0b110 0b00 0b00 0b000 0b110
+ 0 0b00 1 0b111 0b00 0b00 0b000 0b111
+ 0 0b01 0 0b000 0b01 0b00 0b000 0b000
+ 0 0b01 0 0b001 0b01 0b00 0b001 0b000
+ 0 0b01 0 0b010 0b01 0b00 0b010 0b000
+ 0 0b01 0 0b011 0b01 0b00 0b011 0b000
+ 0 0b01 0 0b100 0b01 0b00 0b100 0b000
+ 0 0b01 0 0b101 0b01 0b00 0b101 0b000
+ 0 0b01 0 0b110 0b01 0b00 0b110 0b000
+ 0 0b01 0 0b111 0b01 0b00 0b111 0b000
+ 0 0b01 1 0b000 0b01 0b00 0b000 0b000
+ 0 0b01 1 0b001 0b01 0b00 0b000 0b001
+ 0 0b01 1 0b010 0b01 0b00 0b000 0b010
+ 0 0b01 1 0b011 0b01 0b00 0b000 0b011
+ 0 0b01 1 0b100 0b01 0b00 0b000 0b100
+ 0 0b01 1 0b101 0b01 0b00 0b000 0b101
+ 0 0b01 1 0b110 0b01 0b00 0b000 0b110
+ 0 0b01 1 0b111 0b01 0b00 0b000 0b111
+ 0 0b10 0 0b000 0b10 0b00 0b000 0b000
+ 0 0b10 0 0b001 0b10 0b00 0b001 0b000
+ 0 0b10 0 0b010 0b10 0b00 0b010 0b000
+ 0 0b10 0 0b011 0b10 0b00 0b011 0b000
+ 0 0b10 0 0b100 0b10 0b00 0b100 0b000
+ 0 0b10 0 0b101 0b10 0b00 0b101 0b000
+ 0 0b10 0 0b110 0b10 0b00 0b110 0b000
+ 0 0b10 0 0b111 0b10 0b00 0b111 0b000
+ 0 0b10 1 0b000 0b10 0b00 0b000 0b000
+ 0 0b10 1 0b001 0b10 0b00 0b000 0b001
+ 0 0b10 1 0b010 0b10 0b00 0b000 0b010
+ 0 0b10 1 0b011 0b10 0b00 0b000 0b011
+ 0 0b10 1 0b100 0b10 0b00 0b000 0b100
+ 0 0b10 1 0b101 0b10 0b00 0b000 0b101
+ 0 0b10 1 0b110 0b10 0b00 0b000 0b110
+ 0 0b10 1 0b111 0b10 0b00 0b000 0b111
+ 0 0b11 0 0b000 0b11 0b00 0b000 0b000
+ 0 0b11 0 0b001 0b11 0b00 0b001 0b000
+ 0 0b11 0 0b010 0b11 0b00 0b010 0b000
+ 0 0b11 0 0b011 0b11 0b00 0b011 0b000
+ 0 0b11 0 0b100 0b11 0b00 0b100 0b000
+ 0 0b11 0 0b101 0b11 0b00 0b101 0b000
+ 0 0b11 0 0b110 0b11 0b00 0b110 0b000
+ 0 0b11 0 0b111 0b11 0b00 0b111 0b000
+ 0 0b11 1 0b000 0b11 0b00 0b000 0b000
+ 0 0b11 1 0b001 0b11 0b00 0b000 0b001
+ 0 0b11 1 0b010 0b11 0b00 0b000 0b010
+ 0 0b11 1 0b011 0b11 0b00 0b000 0b011
+ 0 0b11 1 0b100 0b11 0b00 0b000 0b100
+ 0 0b11 1 0b101 0b11 0b00 0b000 0b101
+ 0 0b11 1 0b110 0b11 0b00 0b000 0b110
+ 0 0b11 1 0b111 0b11 0b00 0b000 0b111
+ 1 0b00 0 0b000 0b00 0b00 0b000 0b000
+ 1 0b00 0 0b001 0b00 0b00 0b001 0b000
+ 1 0b00 0 0b010 0b00 0b00 0b010 0b000
+ 1 0b00 0 0b011 0b00 0b00 0b011 0b000
+ 1 0b00 0 0b100 0b00 0b00 0b100 0b000
+ 1 0b00 0 0b101 0b00 0b00 0b101 0b000
+ 1 0b00 0 0b110 0b00 0b00 0b110 0b000
+ 1 0b00 0 0b111 0b00 0b00 0b111 0b000
+ 1 0b00 1 0b000 0b00 0b00 0b000 0b000
+ 1 0b00 1 0b001 0b00 0b00 0b000 0b001
+ 1 0b00 1 0b010 0b00 0b00 0b000 0b010
+ 1 0b00 1 0b011 0b00 0b00 0b000 0b011
+ 1 0b00 1 0b100 0b00 0b00 0b000 0b100
+ 1 0b00 1 0b101 0b00 0b00 0b000 0b101
+ 1 0b00 1 0b110 0b00 0b00 0b000 0b110
+ 1 0b00 1 0b111 0b00 0b00 0b000 0b111
+ 1 0b01 0 0b000 0b00 0b01 0b000 0b000
+ 1 0b01 0 0b001 0b00 0b01 0b001 0b000
+ 1 0b01 0 0b010 0b00 0b01 0b010 0b000
+ 1 0b01 0 0b011 0b00 0b01 0b011 0b000
+ 1 0b01 0 0b100 0b00 0b01 0b100 0b000
+ 1 0b01 0 0b101 0b00 0b01 0b101 0b000
+ 1 0b01 0 0b110 0b00 0b01 0b110 0b000
+ 1 0b01 0 0b111 0b00 0b01 0b111 0b000
+ 1 0b01 1 0b000 0b00 0b01 0b000 0b000
+ 1 0b01 1 0b001 0b00 0b01 0b000 0b001
+ 1 0b01 1 0b010 0b00 0b01 0b000 0b010
+ 1 0b01 1 0b011 0b00 0b01 0b000 0b011
+ 1 0b01 1 0b100 0b00 0b01 0b000 0b100
+ 1 0b01 1 0b101 0b00 0b01 0b000 0b101
+ 1 0b01 1 0b110 0b00 0b01 0b000 0b110
+ 1 0b01 1 0b111 0b00 0b01 0b000 0b111
+ 1 0b10 0 0b000 0b00 0b10 0b000 0b000
+ 1 0b10 0 0b001 0b00 0b10 0b001 0b000
+ 1 0b10 0 0b010 0b00 0b10 0b010 0b000
+ 1 0b10 0 0b011 0b00 0b10 0b011 0b000
+ 1 0b10 0 0b100 0b00 0b10 0b100 0b000
+ 1 0b10 0 0b101 0b00 0b10 0b101 0b000
+ 1 0b10 0 0b110 0b00 0b10 0b110 0b000
+ 1 0b10 0 0b111 0b00 0b10 0b111 0b000
+ 1 0b10 1 0b000 0b00 0b10 0b000 0b000
+ 1 0b10 1 0b001 0b00 0b10 0b000 0b001
+ 1 0b10 1 0b010 0b00 0b10 0b000 0b010
+ 1 0b10 1 0b011 0b00 0b10 0b000 0b011
+ 1 0b10 1 0b100 0b00 0b10 0b000 0b100
+ 1 0b10 1 0b101 0b00 0b10 0b000 0b101
+ 1 0b10 1 0b110 0b00 0b10 0b000 0b110
+ 1 0b10 1 0b111 0b00 0b10 0b000 0b111
+ 1 0b11 0 0b000 0b00 0b11 0b000 0b000
+ 1 0b11 0 0b001 0b00 0b11 0b001 0b000
+ 1 0b11 0 0b010 0b00 0b11 0b010 0b000
+ 1 0b11 0 0b011 0b00 0b11 0b011 0b000
+ 1 0b11 0 0b100 0b00 0b11 0b100 0b000
+ 1 0b11 0 0b101 0b00 0b11 0b101 0b000
+ 1 0b11 0 0b110 0b00 0b11 0b110 0b000
+ 1 0b11 0 0b111 0b00 0b11 0b111 0b000
+ 1 0b11 1 0b000 0b00 0b11 0b000 0b000
+ 1 0b11 1 0b001 0b00 0b11 0b000 0b001
+ 1 0b11 1 0b010 0b00 0b11 0b000 0b010
+ 1 0b11 1 0b011 0b00 0b11 0b000 0b011
+ 1 0b11 1 0b100 0b00 0b11 0b000 0b100
+ 1 0b11 1 0b101 0b00 0b11 0b000 0b101
+ 1 0b11 1 0b110 0b00 0b11 0b000 0b110
+ 1 0b11 1 0b111 0b00 0b11 0b000 0b111
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Demultiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>3S</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>3D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>3Y</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>3Z</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="240"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="400" y="160"/>
+      <p2 x="420" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="240"/>
+      <p2 x="420" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="180"/>
+      <p2 x="380" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="260"/>
+      <p2 x="380" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="120"/>
+      <p2 x="420" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="200"/>
+      <p2 x="420" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="140"/>
+      <p2 x="360" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="220"/>
+      <p2 x="360" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="160"/>
+      <p2 x="380" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="240"/>
+      <p2 x="380" y="260"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

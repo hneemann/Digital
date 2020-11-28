@@ -15,7 +15,7 @@ import de.neemann.digital.lang.Lang;
  */
 public class MatchedValue extends Value {
     private final Value expected;
-    private long mask;
+    private final long mask;
 
     /**
      * Creates a new instance

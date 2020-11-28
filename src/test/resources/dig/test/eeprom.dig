@@ -101,10 +101,6 @@
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>first</string>
-        </entry>
-        <entry>
           <string>Testdata</string>
           <testData>
             <dataString>A   CS OE WE D_in   D_out
@@ -137,32 +133,6 @@ end loop
         </entry>
       </elementAttributes>
       <pos x="640" y="260"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Testcase</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>second</string>
-        </entry>
-        <entry>
-          <string>Testdata</string>
-          <testData>
-            <dataString>A   CS OE WE D_in   D_out
-0   0  0  0  Z      Z
-
-# Data written by the first test case
-# is still present in the EEPROM.
-
-# read from EEPROM
-loop(n,30)
-(n) 1  1  0  Z      (n)
-end loop
-</dataString>
-          </testData>
-        </entry>
-      </elementAttributes>
-      <pos x="640" y="340"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -199,4 +169,5 @@ end loop
       <p2 x="600" y="260"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

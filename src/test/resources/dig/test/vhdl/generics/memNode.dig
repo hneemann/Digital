@@ -17,9 +17,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-    this.Bits=int(args.dataBits);
-}</string>
+          <string>this.Bits=int(args.dataBits);</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="140"/>
@@ -37,9 +35,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-    this.Bits=int(args.addrBits);
-}</string>
+          <string>this.Bits=int(args.addrBits);</string>
         </entry>
       </elementAttributes>
       <pos x="240" y="300"/>
@@ -63,9 +59,7 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-    this.Bits=int(args.dataBits);
-}</string>
+          <string>this.Bits=int(args.dataBits);</string>
         </entry>
       </elementAttributes>
       <pos x="680" y="200"/>
@@ -85,9 +79,7 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  this.Bits=int(args.dataBits);
-}</string>
+          <string>this.Bits=int(args.dataBits);</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="180"/>
@@ -122,15 +114,12 @@
         </entry>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
+          <string>if (args.addrBits&lt;2)   {
+  panic(&quot;at least two address bits are necessary!&quot;);
+}
 
-  if (args.addrBits&lt;2)   {
-    panic(&quot;at least two address bits are necessary!&quot;);
-  }
-
-  this.&apos;Input Splitting&apos;=&quot;&quot;+args.addrBits;
-  this.&apos;Output Splitting&apos;=(args.addrBits-1)+&quot;,1&quot;;
-}</string>
+this.&apos;Input Splitting&apos;=&quot;&quot;+args.addrBits;
+this.&apos;Output Splitting&apos;=(args.addrBits-1)+&quot;,1&quot;;</string>
         </entry>
       </elementAttributes>
       <pos x="280" y="300"/>
@@ -140,13 +129,9 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  export addrBits:=args.addrBits-1;
-  if (args.addrBits&gt;2) {
-    setCircuit(&quot;memNode.dig&quot;);
-  }
-} else {
-  export dataBits:=int(1);
+          <string>export addrBits:=args.addrBits-1;
+if (args.addrBits&gt;2) {
+  setCircuit(&quot;memNode.dig&quot;);
 }</string>
         </entry>
       </elementAttributes>
@@ -157,17 +142,24 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>if (isPresent(args)) {
-  export addrBits:=args.addrBits-1;
-  if (args.addrBits&gt;2) {
-    setCircuit(&quot;memNode.dig&quot;);
-  }
-} else {
-  export dataBits:=int(1);
+          <string>export addrBits:=args.addrBits-1;
+if (args.addrBits&gt;2) {
+  setCircuit(&quot;memNode.dig&quot;);
 }</string>
         </entry>
       </elementAttributes>
       <pos x="520" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>addrBits := 8;
+dataBits := 8;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="340"/>
     </visualElement>
   </visualElements>
   <wires>

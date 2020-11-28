@@ -40,6 +40,16 @@ public class State extends Movable<State> {
         this.radius = DEFAULT_RAD;
     }
 
+    State(State other) {
+        this.name = other.name;
+        this.radius = other.radius;
+        this.number = other.number;
+        this.isInitial = other.isInitial;
+        this.initialAngle = other.initialAngle;
+        setValues(other.getValues());
+        setPos(other.getPos());
+    }
+
     /**
      * @return the name of the state
      */
@@ -198,7 +208,7 @@ public class State extends Movable<State> {
     @Override
     public String toString() {
         if (name != null && name.length() > 0)
-            return name;
+            return name + "/" + number;
         else
             return Integer.toString(number);
     }

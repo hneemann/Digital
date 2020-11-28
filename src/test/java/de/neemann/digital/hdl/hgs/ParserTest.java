@@ -175,6 +175,23 @@ public class ParserTest extends TestCase {
         assertEquals("false", exec("<? a:=true; a=false; print(a); ?>").toString());
     }
 
+    public void testStructLiteral() throws ParserException, IOException, HGSEvalException {
+        Object str = new Parser("{a:1, b:2, c:{d:3+4}}").parseExp().value(new Context());
+        Map<String, Object> m = (Map<String, Object>) str;
+        assertEquals(3, m.size());
+        assertEquals(1L, m.get("a"));
+        assertEquals(2L, m.get("b"));
+        Map<String, Object> c = (Map<String, Object>) m.get("c");
+        assertEquals(1, c.size());
+        assertEquals(7L, c.get("d"));
+
+        str = new Parser("{a:{}}").parseExp().value(new Context());
+        m = (Map<String, Object>) str;
+        assertEquals(1, m.size());
+        Map<String, Object> a = (Map<String, Object>) m.get("a");
+        assertEquals(0, a.size());
+    }
+
     public void testTypeChecking() throws IOException, ParserException, HGSEvalException {
         assertEquals("5.0", exec("<? a:=4.0; a=5.0; print(a); ?>", new Context()).toString());
         assertEquals("u", exec("<? a:=\"zz\"; a=\"u\"; print(a); ?>", new Context()).toString());
@@ -356,6 +373,19 @@ public class ParserTest extends TestCase {
     public void testComment() throws IOException, ParserException, HGSEvalException {
         Context c = exec("<? // comment\nprint(\"false\"); // zzz\n ?>;");
         assertEquals("false;", c.toString());
+    }
+
+    public void testStringCreation() throws IOException, ParserException, HGSEvalException {
+        String code = "?>Test:<? print(n); str:=output();";
+        Statement s = new Parser(code).parse(false);
+
+        Context c = new Context().declareVar("n", 3);
+        s.execute(c);
+        assertEquals("Test:3", c.getVar("str"));
+
+        c = new Context().declareVar("n", 12);
+        s.execute(c);
+        assertEquals("Test:12", c.getVar("str"));
     }
 
     public void testAddFunction() throws IOException, ParserException, HGSEvalException {

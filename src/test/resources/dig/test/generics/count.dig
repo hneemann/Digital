@@ -168,6 +168,16 @@
       </elementAttributes>
       <pos x="340" y="280"/>
     </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 4;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="20"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

@@ -20,6 +20,6 @@ public class ValueTest extends TestCase {
     public void testFromInValue() throws Bits.NumberFormatException {
         assertEquals("5", new Value(new InValue("5"), 4).toString());
         assertEquals("Z", new Value(new InValue("z"), 4).toString());
-        assertEquals("?", IntFormat.hex.formatToEdit(new Value(new InValue("z"), 4)));
+        assertEquals("Z", IntFormat.hex.formatToEdit(new Value(new InValue("z"), 4)));
     }
 }

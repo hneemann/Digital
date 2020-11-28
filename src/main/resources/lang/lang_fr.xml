@@ -1,0 +1,2520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="addr">Adresse</string>
+    <string name="tableOfContent">Table des matières</string>
+    <string name="general">Général</string>
+    <string name="revision">Révision</string>
+    <string name="date">Date</string>
+    <string name="settings">Le texte suivant décrit les paramètres disponibles dans le simulateur.</string>
+    <string name="maxValue">maximum</string>
+    <string name="attr_dialogTitle">Attributs</string>
+    <string name="attr_openCircuit">Ouvrir le circuit</string>
+    <string name="attr_openCircuitLabel">Circuit inclut:</string>
+    <string name="attr_openCircuit_tt">Ouvre un circuit dans une nouvelle fenêtre.</string>
+    <string name="attr_help">Aide</string>
+    <string name="attr_help_tt">Affiche une courte description de cet élément.</string>
+    <string name="attr_dialogHex">Hex</string>
+    <string name="attr_dialogDecimal">Décimal</string>
+    <string name="attr_dialogAscii">ASCII</string>
+    <string name="attr_dialogHighz">Hi-Z</string>
+    <string name="attr_dialogOctal">Octal</string>
+    <string name="attr_dialogBinary">Binaire</string>
+    <string name="attr_panel_primary">Base</string>
+    <string name="attr_panel_secondary">Avancé</string>
+    <string name="btn_discard">Abandonner les modifications</string>
+    <string name="btn_edit">Éditer</string>
+    <string name="btn_editFurther">Continuer l'édition</string>
+    <string name="btn_load">Charger</string>
+    <string name="btn_reload">Recharger</string>
+    <string name="btn_reload_tt">Recharger le dernier fichier HEX</string>
+    <string name="btn_save">Enregistrer</string>
+    <string name="btn_saveAsHex_tt">Enregistrer en fichier HEX.</string>
+    <string name="btn_create">Créer</string>
+    <string name="btn_create_tt">Créer un circuit dans une fenêtre séparée.</string>
+    <string name="btn_editDetached">Éditer séparément</string>
+    <string name="btn_editDetached_tt">Ouvrir le dialogue comme un dialogue non modal</string>
+    <string name="btn_openInBrowser">Navigateur</string>
+    <string name="btn_openInBrowser_tt">Ouvre le texte d'aide dans le navigateur. Permet d'imprimer le texte.</string>
+    <string name="btn_clearData">Effacer</string>
+    <string name="btn_clearData_tt">Toutes les values sont mises à zéro!</string>
+    <string name="btn_addTransitions">Transitions</string>
+    <string name="btn_addTransitions_tt">Toutes les transitions possibles sont ajoutées comme</string>
+    <string name="btn_newName">Nouveau nom</string>
+    <string name="btn_saveAnyway">Enregistrer quand même</string>
+    <string name="btn_overwrite">Remplacer</string>
+    <string name="btn_apply">Appliquer</string>
+    <string name="btn_editRom_tt">Édite le contenu de la ROM/EEPROM sélectionné</string>
+    <string name="btn_clearRom_tt">Supprime les données stockées dans la ROM sélectionnée. À la place, le contenu qui
+        est stocké directement dans la ROM est utilisée.
+    </string>
+    <string name="btn_saveTemplate">Modèle</string>
+    <string name="btn_saveTemplate_tt">Créer un modèle SVG qui peut ensuite être édité avec Inkscape.</string>
+    <string name="btn_loadSvg">Importer</string>
+    <string name="btn_loadSvg_tt">Importer un fichier SVG. Pour créer un fichier SVG adéquat, il est plus facile de
+        créer d'abord
+        un modèle SVG et ensuite l'éditer.
+    </string>
+    <string name="msg_warning">Avertissement</string>
+    <string name="cancel">Annuler</string>
+    <string name="digital">Digital</string>
+    <string name="expression">Expression</string>
+    <string name="elem_Help_inputs">Entrées</string>
+    <string name="elem_Help_outputs">Sorties</string>
+    <string name="elem_Help_attributes">Attributs</string>
+    <string name="elem_Basic_In">La valeur d''entrée {0} pour l''opération logique.</string>
+    <string name="elem_Basic_Out">Retourne le résultat de l'opération logique.</string>
+    <string name="elem_And">Et</string>
+    <string name="elem_And_tt">Porte ET binaire. Retourne une valeur haute lorsque les deux entrées ont une valeur
+        haute.
+        Il est également possible d'utiliser des bus à plusieurs bits comme entrées et sortie. Dans ce cas, une
+        opération bit à bit est effectuée. Cela équivaut à connecter chaque paire de bits d'entrée à une porte ET 1-bit
+        et émettre le résultat correspondant pour chaque bit de sortie.
+    </string>
+    <string name="elem_NAnd">Non-Et</string>
+    <string name="elem_NAnd_tt">Une combinaison du ET et du NON.
+        Retourne 0 lorsque toutes les entrées sont mises à 1. Si une des entrées est à 0 alors la sortie est mise à 1.
+        Il est également possible d'utiliser des bus à plusieurs bits comme entrées. Dans ce cas, l'opération
+        s'applique à chaque bit de l'entrée.
+    </string>
+    <string name="elem_Or">Ou</string>
+    <string name="elem_Or_tt">Porte OU binaire. Retourne un 1 lorsqu'au moins une entrée est mise à 1.
+        Il est également possible d'utiliser des bus à plusieurs bits comme entrées et sortie. Dans ce cas, une
+        opération bit à bit est effectuée. Cela équivaut à connecter chaque paire de bits d'entrée à une porte OU 1-bit
+        et émettre le résultat correspondant pour chaque bit de sortie.
+    </string>
+    <string name="elem_NOr">Non-Ou</string>
+    <string name="elem_NOr_tt">Une combinaison du OU et du NON.
+        Retourne 0 lorsqu'au moins une entrée est mise à 1. Si toutes les entrées sont à 1 alors la sortie est à 0.
+        Il est également possible d'utiliser des bus à plusieurs bits comme entrées. Dans ce cas, l'opération
+        s'applique à chaque bit de l'entrée.
+    </string>
+    <string name="elem_XOr">XOR</string>
+    <string name="elem_XOr_tt">Aussi appelée Ou-exclusif. Si deux entrées sont utilisées, la sortie est à 0 si les deux
+        entrées sont égales.
+        Sinon la sortie est mise à 1.
+        Si plus de deux entrées sont utilisées, il se comporte que des portes XOR en cascade.
+        (A XOR B XOR C = (A XOR B) XOR C). Il est également possible d'utiliser des bus à plusieurs bits comme entrées.
+        Dans ce cas, l'opération s'applique à chaque bit de l'entrée.
+    </string>
+    <string name="elem_XNOr">NXOR</string>
+    <string name="elem_XNOr_tt">Une combinaison du XOR et du NON. Les entrées sont combinées avec l'opération XOR. Le
+        résultat de cette
+        opération est ensuite inversé. Il est également possible d'utiliser des bus à plusieurs bits comme entrées.
+        Dans ce cas, l'opération s'applique à chaque bit de l'entrée.
+    </string>
+    <string name="elem_Not">Non</string>
+    <string name="elem_Not_tt">Inverse la valeur d'entrée. Un 1 devient un 0 et un 0 devient un 1. Il est également
+        possible d'utiliser des bus
+        à plusieurs bits comme entrées. Dans ce cas, l'opération s'applique à chaque bit de l'entrée.
+    </string>
+    <string name="elem_Not_pin_in">L'entrée de la porte NON.</string>
+    <string name="elem_Not_pin_out">La valeur inversée de l'entrée.</string>
+    <string name="elem_LookUpTable">Table de recherche</string>
+    <string name="elem_LookUpTable_short">LUT</string>
+    <string name="elem_LookUpTable_tt">Trouve la valeur de sortie à partir d'une table stockée. Aussi appelée "lookup
+        table".
+        Cette porte permet donc d'imiter toutes les portes combinatoires.
+    </string>
+    <string name="elem_LookUpTable_pin_in">Entrée {0}. Cette entrée en combinaison avec toutes les autres définit
+        l''adresse
+        de sortie de la valeur stockée à retourner.
+    </string>
+    <string name="elem_LookUpTable_pin_out">Retourne la valeur stockée à l'adresse fixée par les entrées.</string>
+    <string name="elem_Delay">Délai</string>
+    <string name="elem_Delay_tt">Retarde un signal par une valeur ajustable de temps de propagation équivalent d'une
+        porte logique.
+        Toutes les autres composantes dans Digital ont un délai de temps de propagation d'une durée de 1.
+        Cette composante peut servir à réaliser n'importe quel temps de propagation nécessaire.
+    </string>
+    <string name="elem_Delay_pin_in">Entrée du signal qui doit être retardé.</string>
+    <string name="elem_Delay_pin_out">L'entrée du signal retardée d'un temps de propagation équivalent à celui d'une
+        porte logique.
+    </string>
+    <string name="elem_Out">Sortie</string>
+    <string name="elem_Out_tt">Peut être utilisé pour afficher un signal de sortie dans un circuit.
+        Cet élément peut aussi servir à connecter un circuit à un circuit intégré.
+        Dans ce cas, la connexion est bidirectionnelle.
+        Il peut aussi servir à assigner un numéro de broche pour la génération de code de CPLD ou FPGA.
+    </string>
+    <string name="elem_Out_pin_in">Cette valeur est utilisée pour la sortie.</string>
+    <string name="elem_LED">DEL</string>
+    <string name="elem_LED_tt">Une DEL (ou LED) peut être utilisée pour visualiser une valeur de sortie.
+        L'entrée accepte un seul bit. La lumière est allumée quand l'entrée est mise à 1.
+    </string>
+    <string name="elem_LED_pin_in">Entrée de la DEL. La DEL est allumée si l'entrée est mise à 1.</string>
+    <string name="elem_RGBLED">DEL-RVB</string>
+    <string name="elem_RGBLED_tt">Une DEL RVB pour laquelle la couleur est établie par trois entrées.
+        Un canal de couleur est associé à chaque entrée.
+    </string>
+    <string name="elem_RGBLED_pin_R">Le canal de couleur rouge.</string>
+    <string name="elem_RGBLED_pin_G">Le canal de couleur verte.</string>
+    <string name="elem_RGBLED_pin_B">Le canal de couleur bleue.</string>
+    <string name="elem_In">Entrée</string>
+    <string name="elem_In_tt">Peut être utilisé pour manipuler interactivement avec la souris un signal d'entrée dans un
+        circuit.
+        Cet élément peut aussi servir à connecter un circuit à un circuit intégré.
+        Dans ce cas, la connexion est bidirectionnelle.
+        Il peut aussi servir à assigner un numéro de broche pour la génération de code de CPLD ou FPGA.
+    </string>
+    <string name="elem_In_pin_out">Donne la valeur liée à cette entrée.</string>
+    <string name="elem_DipSwitch">Interrupteur DIP</string>
+    <string name="elem_DipSwitch_tt">Interrupteur DIP simple (DIP switch) qui peut émettre des valeurs hautes ou
+        basses.
+    </string>
+    <string name="elem_DipSwitch_pin_out">La valeur de sortie pour l'interrupteur</string>
+    <string name="elem_Clock">Horloge</string>
+    <string name="elem_Clock_tt">Un signal d'horloge. Il est possible de le contrôler avec une horloge temps réel.
+        Selon la complexité du circuit, la fréquence de l'horloge atteinte pourrait être moins que la valeur
+        sélectionnée. Si la fréquence est supérieure à 50Hz, la représentation graphique du circuit ne sera plus mise
+        à jour à chaque cycle d'horloge, donc les couleurs de fils ne pourront plus être mises à jour à chaque
+        changement
+        de valeur. Si l'horloge temps réel est désactivée, l'horloge peut être contrôlée par des clics de la souris.
+        Elle peut aussi servir à assigner un numéro de broche pour la génération de code de CPLD ou FPGA.
+    </string>
+    <string name="elem_Clock_pin_C">Oscille entre 0 et 1 avec la fréquence d'horloge sélectionnée.</string>
+    <string name="elem_Button">Bouton</string>
+    <string name="elem_Button_tt">Un simple bouton-poussoir qui revient à son état original lorsqu'il est relâché.
+    </string>
+    <string name="elem_Button_pin_out">Le signal de sortie du bouton.</string>
+    <string name="elem_ButtonLED">Bouton avec DEL</string>
+    <string name="elem_ButtonLED_tt">Un simple bouton-poussoir qui revient à son état original lorsqu'il est relâché.
+        Le bouton a également une DEL qui peut être allumée avec un signal d'entrée.
+    </string>
+    <string name="elem_ButtonLED_pin_out">Le signal de sortie du bouton.</string>
+    <string name="elem_ButtonLED_pin_in">L'entrée contrôlant la DEL.</string>
+    <string name="elem_Text">Texte</string>
+    <string name="elem_Text_tt">Affiche du texte dans le circuit.
+        N'affecte pas la simulation.
+        Le texte peut être changé dans le dialogue d'attributs.
+    </string>
+    <string name="elem_Rectangle">Rectangle</string>
+    <string name="elem_Rectangle_tt">Affiche un rectangle dans le circuit.
+        N'affecte pas la simulation. Si un trait d'union est d'utilisé comme titre, le titre n'est pas affiché.
+    </string>
+    <string name="elem_Probe">Sonde</string>
+    <string name="elem_Probe_tt">Une mesure qui peut être affichée dans un graphique de données ou un tableau de
+        mesures.
+        Cette composante peut être utilisée pour observer facilement des valeurs dans des circuits embarqués.
+        N'affecte pas la simulation.
+    </string>
+    <string name="elem_Probe_pin_in">La valeur mesurée.</string>
+    <string name="elem_LightBulb">Ampoule</string>
+    <string name="elem_LightBulb_tt">Une ampoule avec deux connexions. Si le courant circule, l'ampoule s'allume!
+        La direction du courant n'a pas d'importance. La lampe s'allume quand les entrées ont des valeurs différentes.
+        Ainsi, l'ampoule se comporte de façon similaire à une porte XOR.
+    </string>
+    <string name="elem_LightBulb_pin_A">Connexion</string>
+    <string name="elem_LightBulb_pin_B">Connexion</string>
+    <string name="elem_PolarityAwareLED">DEL avec deux connexions.</string>
+    <string name="elem_PolarityAwareLED_tt">DEL avec des connexions pour la cathode et l'anode. La DEL s'allume si
+        l'anode est connectée à un signal haut et l'anode à un signal bas.
+    </string>
+    <string name="elem_PolarityAwareLED_pin_A">La connexion de l'anode pour la DEL.</string>
+    <string name="elem_PolarityAwareLED_pin_C">La connexion de la cathode pour la DEL.</string>
+    <string name="elem_Seven-Seg">Affichage 7 segments</string>
+    <string name="elem_Seven-Seg_tt">Affichage 7 segments, chaque segment a sa propre entrée.</string>
+    <string name="elem_Seven-Seg_pin_a">Cette entrée contrôle la ligne horizontale du haut.</string>
+    <string name="elem_Seven-Seg_pin_b">Cette entrée contrôle la ligne verticale du haut à droite.</string>
+    <string name="elem_Seven-Seg_pin_c">Cette entrée contrôle la ligne verticale du bas à droite.</string>
+    <string name="elem_Seven-Seg_pin_d">Cette entrée contrôle la ligne horizontale du bas.</string>
+    <string name="elem_Seven-Seg_pin_e">Cette entrée contrôle la ligne verticale du bas à gauche.</string>
+    <string name="elem_Seven-Seg_pin_f">Cette entrée contrôle la ligne verticale du haut à gauche.</string>
+    <string name="elem_Seven-Seg_pin_g">Cette entrée contrôle la ligne horizontale du milieu.</string>
+    <string name="elem_Seven-Seg_pin_dp">Cette entrée contrôle le point décimal.</string>
+    <string name="elem_Seven-Seg_pin_cc">Cathode commune. Pour allumer les DELs, cette entrée doit être basse.</string>
+    <string name="elem_Seven-Seg_pin_ca">Anode commune. Pour allumer les DELs, cette entrée doit être haute.</string>
+    <string name="elem_Seven-Seg-Hex">Affichage 7 segments Hex</string>
+    <string name="elem_Seven-Seg-Hex_tt">Affichage 7 segments avec une entrée hexadécimale de 4 bits.</string>
+    <string name="elem_Seven-Seg-Hex_pin_d">La valeur de cette entrée est visualisée sur l'affichage.</string>
+    <string name="elem_Seven-Seg-Hex_pin_dp">Cette entrée contrôle le point décimal.</string>
+    <string name="elem_SixteenSeg">Affichage 16 segments</string>
+    <string name="elem_SixteenSeg_tt">L'entrée de la DEL a 16 bits qui contrôlent chaque segment. La deuxième entrée
+        contrôle le point décimal.
+    </string>
+    <string name="elem_SixteenSeg_pin_led">Bus 16 bits pour contrôler les DELs.</string>
+    <string name="elem_SixteenSeg_pin_dp">Cette entrée contrôle le point décimal.</string>
+    <string name="elem_LedMatrix">Matrice de DELs</string>
+    <string name="elem_LedMatrix_tt">Une matrice de DELs. Les DELs sont affichées dans une fenêtre séparée.
+        Les DELs d'une colonne de l'affichage sont contrôlées par un mot. Dans une autre entrée, la colonne courante
+        est sélectionnée. Ainsi, un affichage multiplexé est réalisé.
+        Les DELs peuvent être allumées indéfiniment dans la simulation pour empêcher l'affichage de clignoter.
+    </string>
+    <string name="elem_LedMatrix_pin_r-data">L'état de la DEL de chaque rangée pour une colonne.
+        Chaque bit de ce mot représente l'état d'une rangée de la colonne courante.
+    </string>
+    <string name="elem_LedMatrix_pin_c-addr">Le numéro de la colonne qui est sélectionnée pour l'autre entrée.</string>
+    <string name="elem_Data">Graphique de données</string>
+    <string name="elem_Data_tt">Affiche un graphique de données à l'intérieur de la zone du circuit.
+        Il est possible de tracer des cycles d'horloge complets ou le changement d'une seule porte.
+        N'affecte pas la simulation.
+    </string>
+    <string name="elem_RotEncoder">Encodeur rotatif</string>
+    <string name="elem_RotEncoder_tt">Roulette tournante avec encodeur rotatif. Sert à détecter les mouvements de
+        rotation.
+    </string>
+    <string name="elem_RotEncoder_pin_A">signal de l'encodeur A</string>
+    <string name="elem_RotEncoder_pin_B">signal de l'encodeur B</string>
+    <string name="elem_Keyboard">Clavier</string>
+    <string name="elem_Keyboard_tt">Un clavier peut être utilisé pour entrer du texte.
+        Cette composante enregistre l'entrée dans un tampon qui peut être lu à la sortie.
+        Une fenêtre séparée est ouverte pour entrer le texte.
+    </string>
+    <string name="elem_Keyboard_pin_C">Signal d'horloge. Un front montant supprime le caractère le plus vieux du
+        tampon.
+    </string>
+    <string name="elem_Keyboard_pin_en">Si activée, la sortie D est active et un caractère est émis.
+        Cette entrée active également la lecture du signal d'horloge.
+    </string>
+    <string name="elem_Keyboard_pin_D">Le dernier caractère tapé, ou zéro si aucun caractère n'est disponible.
+        La sortie correspond à une valeur de caractère en Java de 16 bits.
+    </string>
+    <string name="elem_Keyboard_pin_av">Cette sortie indique que des caractères sont disponibles.
+        Elle peut permettre de déclencher une interruption.
+    </string>
+    <string name="elem_Terminal">Terminal</string>
+    <string name="elem_Terminal_tt">Des caractères ASCII peuvent être écrits dans ce terminal.
+        Ce terminal s'ouvre dans sa propre fenêtre pour visualiser la sortie.
+    </string>
+    <string name="elem_Terminal_pin_C">Signal d'horloge. Un front montant écrit la valeur à l'entrée dans la fenêtre du
+        terminal.
+    </string>
+    <string name="elem_Terminal_pin_D">Les données à écrire dans le terminal</string>
+    <string name="elem_Terminal_pin_en">Une valeur haute à cette entrée active le signal d'horloge.</string>
+    <string name="elem_VGA">Écran VGA</string>
+    <string name="elem_VGA_tt">Analyse les signaux vidéo entrants et affiche les graphiques correspondants.
+        Puisque la simulation ne peut pas s'exécuter en temps réel, le signal d'horloge de pixel est nécessaire en
+        plus du signal vidéo.
+    </string>
+    <string name="elem_VGA_pin_R">La composante rouge</string>
+    <string name="elem_VGA_pin_G">La composante verte</string>
+    <string name="elem_VGA_pin_B">La composante bleue</string>
+    <string name="elem_VGA_pin_H">Le signal de synchronisation horizontal</string>
+    <string name="elem_VGA_pin_V">Le signal de synchronisation vertical</string>
+    <string name="elem_VGA_pin_C">Le signal d'horloge de pixel</string>
+    <string name="elem_MIDI">MIDI</string>
+    <string name="elem_MIDI_tt">Utilise le système MIDI pour jouer des notes.</string>
+    <string name="elem_MIDI_pin_N">Note</string>
+    <string name="elem_MIDI_pin_V">Volume</string>
+    <string name="elem_MIDI_pin_OnOff">Si activée, cela se traduit par un appui sur une touche (événement de touche
+        enfoncée),
+        sinon, cela se traduit par un relâchement de la touche (événement de touche relâchée).
+    </string>
+    <string name="elem_MIDI_pin_en">Active la composante</string>
+    <string name="elem_MIDI_pin_PC">Si activée, la valeur de N est utilisée pour changer le programme (l'instrument).
+    </string>
+    <string name="elem_MIDI_pin_C">Signal d'horloge</string>
+    <string name="elem_StepperMotorUnipolar">Moteur pas-à-pas, unipolaire</string>
+    <string name="elem_StepperMotorUnipolar_tt">Moteur pas-à-pas unipolaire avec deux interrupteurs de position limite.
+        Permet le fonctionnement à pas complet, à demi-pas et à une phase (wave).
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S0">Interrupteur de position limite 0, devient 1 lorsque l'angle du
+        moteur est de 0°.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_S1">Interrupteur de position limite 1, devient 1 lorsque l'angle du
+        moteur est de 180°.
+    </string>
+    <string name="elem_StepperMotorUnipolar_pin_P0">Phase 0</string>
+    <string name="elem_StepperMotorUnipolar_pin_P1">Phase 1</string>
+    <string name="elem_StepperMotorUnipolar_pin_P2">Phase 2</string>
+    <string name="elem_StepperMotorUnipolar_pin_P3">Phase 3</string>
+    <string name="elem_StepperMotorUnipolar_pin_com">Connexion de bobine centrale commune</string>
+    <string name="elem_StepperMotorBipolar">Moteur pas-à-pas, bipolaire</string>
+    <string name="elem_StepperMotorBipolar_tt">Moteur pas-à-pas bipolaire avec deux interrupteurs de position limite.
+        Permet le fonctionnement à pas complet, à demi-pas et à une phase (wave).
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S0">Interrupteur de position limite 0, devient 1 lorsque l'angle du
+        moteur est de 0°.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_S1">Interrupteur de position limite 1, devient 1 lorsque l'angle du
+        moteur est de 180°.
+    </string>
+    <string name="elem_StepperMotorBipolar_pin_A+">Bobine A, positif</string>
+    <string name="elem_StepperMotorBipolar_pin_A-">Bobine A, négatif</string>
+    <string name="elem_StepperMotorBipolar_pin_B+">Bobine B, positif</string>
+    <string name="elem_StepperMotorBipolar_pin_B-">Bobine B, négatif</string>
+    <string name="elem_Ground">Masse</string>
+    <string name="elem_Ground_tt">Une connexion à une masse (mise à la terre). La sortie est toujours zéro.</string>
+    <string name="elem_Ground_pin_out">La sortie est toujours 0.</string>
+    <string name="elem_VDD">Tension d'alimentation</string>
+    <string name="elem_VDD_tt">Une connexion à une tension d'alimentation. La sortie est toujours un.</string>
+    <string name="elem_VDD_pin_out">La sortie est toujours 1.</string>
+    <string name="elem_Const">Valeur constante</string>
+    <string name="elem_Const_tt">Une composante qui retourne une valeur donnée comme une constante.
+        Cette valeur peut être mise dans le dialogue des attributs.
+    </string>
+    <string name="elem_Const_pin_out">Retourne la valeur donnée comme une constante.</string>
+    <string name="elem_Tunnel">Tunnel</string>
+    <string name="elem_Tunnel_tt">Connecte des composantes sans un fil. Tous les tunnels ayant le même nom de réseau
+        sont connectés ensemble.
+        Fonctionne uniquement de manière locale, il est donc impossible de connecter des circuits différents.
+        Les tunnels sans nom sont ignorés sans produire d'erreurs.
+    </string>
+    <string name="elem_Tunnel_pin_in">La connexion au tunnel.</string>
+    <string name="elem_Splitter">Séparateur/Fusionneur</string>
+    <string name="elem_Splitter_tt">Sépare ou crée un amas de fils ou un bus de données de plus d'un bit.
+        Avec un bus il est par exemple possible de générer des connexions 16 bits sans avoir à tracer 16 fils
+        individuels. Les 16 connexions peuvent être fusionnées en un seul fil.
+        Le séparateur possède une direction, ce qui veut dire qu'il ne peut transmettre les signaux que dans une
+        direction.
+    </string>
+    <string name="elem_Splitter_pin_in">Les bits d''entrée {0}.</string>
+    <string name="elem_Splitter_pin_in_one">Le bit d''entrée {0}.</string>
+    <string name="elem_Splitter_pin_out">Les bits de sortie {0}.</string>
+    <string name="elem_Splitter_pin_out_one">Le bit de sortie {0}.</string>
+    <string name="elem_BusSplitter">Séparateur bidirectionnel</string>
+    <string name="elem_BusSplitter_tt">Peut être utilisé pour les bus de données et simplifie particulièrement la
+        construction de module de
+        mémoire dans un boîtier DIL, car l'implantation du bus de données est simplifiée.
+    </string>
+    <string name="elem_BusSplitter_pin_OE">Lorsqu'activée, la valeur au terminal commun D est émise au bits de sortie
+        D[i], sinon,
+        les bits de sortie D[i] sont émis à la sortie commune D.
+    </string>
+    <string name="elem_BusSplitter_pin_D">La connexion de la valeur commune.</string>
+    <string name="elem_BusSplitter_pin_D_N">Le bit de donnée {0} du séparateur de bus.</string>
+    <string name="elem_PullUp">Résistance de tirage</string>
+    <string name="elem_PullUp_pin_out">Un signal haut "faible"</string>
+    <string name="elem_PullUp_tt">Si un réseau n'est pas dans un état de haute impédance (Hi-Z), cette résistance tire
+        le réseau à une valeur
+        haute. Dans n'importe quel autre cas, cette composante n'a aucun effet.
+    </string>
+    <string name="elem_PullDown">Résistance de rappel</string>
+    <string name="elem_PullDown_pin_out">Un signal bas "faible"</string>
+    <string name="elem_PullDown_tt">Si un réseau n'est pas dans un état de haute impédance (Hi-Z), cette résistance tire
+        le réseau à une valeur
+        basse (à la masse). Dans n'importe quel autre cas, cette composante n'a aucun effet.
+    </string>
+    <string name="elem_Driver">Pilote</string>
+    <string name="elem_Driver_tt">Un pilote peut être utilisé pour connecter une valeur de signal à un autre fil.
+        Le pilote est contrôlé par l'entrée "sel" (sélection).
+        Si l'entrée "sel" est basse, la sortie est dans un état de haute impédance.
+        Si l'entrée "sel" est haute, la sortie est mise à la valeur d'entrée.
+    </string>
+    <string name="elem_Driver_pin_in">La valeur d'entrée du pilote.</string>
+    <string name="elem_Driver_pin_out">Si l'entrée "sel" est haute, la valeur de l'entrée est donnée à cette sortie.
+        Si l'entrée "sel" est basse, la sortie est dans un état de haute impédance.
+    </string>
+    <string name="elem_Driver_pin_sel">Si la valeur est 1, la sortie est mise à la valeur d'entrée.
+        Si la valeur est 0, la sortie est dans un état de haute impédance.
+    </string>
+    <string name="elem_DriverInvSel">Pilote, sélection inversée</string>
+    <string name="elem_DriverInvSel_tt">Un pilote peut être utilisé pour connecter une valeur de signal à un autre fil.
+        Le pilote est contrôlé par l'entrée "sel" (sélection).
+        Si l'entrée "sel" est haute, la sortie est dans un état de haute impédance.
+        Si l'entrée "sel" est basse, la sortie est mise à la valeur d'entrée.
+    </string>
+    <string name="elem_DriverInvSel_pin_in">La valeur d'entrée du pilote.</string>
+    <string name="elem_DriverInvSel_pin_sel">Si la valeur est 0, la sortie est mise à la valeur d'entrée.
+        Si la valeur est 1, la sortie est dans un état de haute impédance.
+    </string>
+    <string name="elem_DriverInvSel_pin_out">Si l'entrée "sel" est 0, la valeur de l'entrée est donnée à cette sortie.
+        Si l'entrée "sel" est 1, la sortie est dans un état de haute impédance.
+    </string>
+    <string name="elem_PinControl">Commande de broche</string>
+    <string name="elem_PinControl_tt">Logique de commande pour une broche bidirectionnelle.
+        Cette composante est nécessaire seulement dans un contexte de génération de VHDL ou de Verilog,
+        dans le but de créer un port HDL bidirectionnel!
+        Si vous ne voulez pas utiliser un port E/S bidirectionnel sur un FPGA, n'utilisez pas cette composante!
+        L'élément de commande de broche ne peut pas être utilisé dans un circuit intégré, seulement dans le circuit
+        du niveau supérieur!
+    </string>
+    <string name="elem_PinControl_pin_wr">La valeur à émettre</string>
+    <string name="elem_PinControl_pin_oe">Active la sortie</string>
+    <string name="elem_PinControl_pin_rd">La valeur à lire</string>
+    <string name="elem_PinControl_pin_pin">Le connecteur pour la broche en tant que telle. Seule une sortie peut être
+        connectée ici.
+    </string>
+    <string name="elem_Multiplexer">Multiplexeur</string>
+    <string name="elem_Multiplexer_tt">Une composante qui utilise la valeur de l'entrée "sel" (sélection) pour décider
+        quelle
+        valeur d'entrée est émise à la sortie.
+    </string>
+    <string name="elem_Multiplexer_input">La valeur d''entrée {0} du multiplexeur.</string>
+    <string name="elem_Multiplexer_output">La valeur de l'entrée sélectionnée.</string>
+    <string name="elem_Multiplexer_pin_sel">Cette entrée sert à sélectionner l'entrée qui est émise.</string>
+    <string name="elem_Demultiplexer">Démultiplexeur</string>
+    <string name="elem_Demultiplexer_tt">Une composante qui émet la valeur d'entrée à une de ses sorties.
+        Les autres sorties sont mises à la valeur par défaut.
+    </string>
+    <string name="elem_Demultiplexer_pin_sel">Cette entrée sélectionner la sortie à utiliser.</string>
+    <string name="elem_Demultiplexer_pin_in">La valeur de cette entrée est donnée à la sortie sélectionnée.</string>
+    <string name="elem_Demultiplexer_output">Valeur de sortie {0}.</string>
+    <string name="elem_Decoder">Décodeur</string>
+    <string name="elem_Decoder_tt">Une sortie sélectionnée est à 1, les autres sorties sont à 0.</string>
+    <string name="elem_Decoder_output">Valeur de sortie {0}. Cette sortie est à 1 lorsqu''elle est sélectionnée par
+        l''entrée "sel".
+    </string>
+    <string name="elem_Decoder_pin_sel">Cette entrée sélectionne la sortie activée.
+        La sortie activée est mise à 1. Les autres sorties sont mises à 0.
+    </string>
+    <string name="elem_BitSelector">Sélecteur de bit</string>
+    <string name="elem_BitSelector_tt">Sélectionne un seul bit à partir d'un bus de données d'entrée.</string>
+    <string name="elem_BitSelector_pin_in">Le bus d'entrée</string>
+    <string name="elem_BitSelector_pin_sel">Cette entrée sélectionne le bit</string>
+    <string name="elem_BitSelector_pin_out">Le bit sélectionné.</string>
+    <string name="elem_PriorityEncoder">Codeur de priorité</string>
+    <string name="elem_PriorityEncoder_short">Priorité</string>
+    <string name="elem_PriorityEncoder_tt">Si une des entrées est mise, sa valeur est émise.
+        Si plusieurs entrées sont mises en même temps, la plus grande valeur est émise.
+    </string>
+    <string name="elem_PriorityEncoder_pin_num">Valeur de l'entrée choisie.</string>
+    <string name="elem_PriorityEncoder_pin_any">Si cette sortie est active, au moins une des deux entrées est mise.
+    </string>
+    <string name="elem_PriorityEncoder_input">La valeur d''entrée {0} du codeur de priorité.</string>
+    <string name="elem_RS_FF_AS">Bascule RS</string>
+    <string name="elem_RS_FF_AS_short">RS</string>
+    <string name="elem_RS_FF_AS_tt">Une composante pour stocker un seul bit.
+        Fournit les fonctions "set" et "reset" pour mémoriser ou réinitialiser le bit stocké.
+        Si les deux entrées sont à un, les deux sorties seront aussi à un.
+        Si les deux entrées sont mises à zéro en même temps, l'état final est aléatoire.
+    </string>
+    <string name="elem_RS_FF_AS_pin_S">L'entrée "set" pour mémoriser.</string>
+    <string name="elem_RS_FF_AS_pin_R">L'entrée "reset" pour réinitialiser.</string>
+    <string name="elem_RS_FF_AS_pin_Q">Retourne la valeur stockée.</string>
+    <string name="elem_RS_FF_AS_pin_~Q">Retourne l'inverse de la valeur stockée.</string>
+    <string name="elem_RS_FF">Bascule RS, avec horloge</string>
+    <string name="elem_RS_FF_short">RS</string>
+    <string name="elem_RS_FF_tt">Une composante pour stocker un seul bit.
+        Fournit les fonctions "set" et "reset" pour mémoriser ou réinitialiser le bit stocké.
+        Si les deux entrées (S, R) sont actives au front montant de l'horloge, l'état final est aléatoire.
+    </string>
+    <string name="elem_RS_FF_pin_S">L'entrée "set" pour mémoriser.</string>
+    <string name="elem_RS_FF_pin_C">Le signal d'horloge. Un front montant amorce une transition d'état.</string>
+    <string name="elem_RS_FF_pin_R">L'entrée "reset" pour réinitialiser.</string>
+    <string name="elem_RS_FF_pin_Q">Retourne la valeur stockée.</string>
+    <string name="elem_RS_FF_pin_~Q">Retourne l'inverse de la valeur stockée.</string>
+    <string name="elem_JK_FF">Bascule JK</string>
+    <string name="elem_JK_FF_short">JK</string>
+    <string name="elem_JK_FF_tt">À la possibilité de stocker (J=K=0), mémoriser (J=1, K=0), réinitialiser (J=0, K=1) ou
+        basculer (J=K=1) la
+        valeur stockée. Un changement d'état se produit seulement lors d'un front montant du signal d'horloge C.
+    </string>
+    <string name="elem_JK_FF_pin_J">L'entrée "set" de la bascule, pour mémoriser.</string>
+    <string name="elem_JK_FF_pin_C">Le signal d'horloge. Un front montant amorce un changement d'état.</string>
+    <string name="elem_JK_FF_pin_K">L'entrée "reset" de la bascule, pour réinitialiser.</string>
+    <string name="elem_JK_FF_pin_Q">Retourne la valeur stockée.</string>
+    <string name="elem_JK_FF_pin_~Q">Retourne l'inverse de la valeur stockée.</string>
+    <string name="elem_D_FF">Bascule D</string>
+    <string name="elem_D_FF_short">D</string>
+    <string name="elem_D_FF_tt">Une composante utilisée pour stocker une valeur.
+        La valeur sur l'entrée D est stockée lors du front montant du signal d'horloge C.
+        La largeur de bit peut être sélectionnée ce qui permet de stocker plusieurs bits.
+    </string>
+    <string name="elem_D_FF_pin_D">L'entrée du bit à stocker.</string>
+    <string name="elem_D_FF_pin_C">Signal d'horloge pour stocker une valeur.
+        La valeur à l'entrée D est stockée sur un front montant de cette entrée.
+    </string>
+    <string name="elem_D_FF_pin_Q">Retourne la valeur stockée.</string>
+    <string name="elem_D_FF_pin_~Q">Retourne l'inverse de la valeur stockée.</string>
+    <string name="elem_T_FF">Bascule T</string>
+    <string name="elem_T_FF_short">T</string>
+    <string name="elem_T_FF_tt">Stocke un seul bit. L'état bascule sur un front montant de l'entrée C.</string>
+    <string name="elem_T_FF_pin_T">Active la fonction de bascule.</string>
+    <string name="elem_T_FF_pin_C">Signal d'horloge. Un front montant fait basculer la sortie si l'entrée T est à 1.
+    </string>
+    <string name="elem_T_FF_pin_Q">Retourne la valeur stockée.</string>
+    <string name="elem_T_FF_pin_~Q">Retourne l'inverse de la valeur stockée.</string>
+    <string name="elem_JK_FF_AS">Bascule JK asynchrone</string>
+    <string name="elem_JK_FF_AS_short">JK-AS</string>
+    <string name="elem_JK_FF_AS_tt">À la possibilité de stocker (J=K=0), mémoriser (J=1, K=0), réinitialiser (J=0, K=1)
+        ou basculer (J=K=1) la
+        valeur stockée. Un changement d'état se produit seulement lors d'un front montant du signal d'horloge C.
+        Il y a deux entrées additionnelles pour mémoriser et réinitialiser immédiatement, sans signal d'horloge.
+    </string>
+    <string name="elem_JK_FF_AS_pin_J">L'entrée "set" de la bascule, pour mémoriser.</string>
+    <string name="elem_JK_FF_AS_pin_C">Le signal d'horloge. Un front montant amorce un changement d'état.</string>
+    <string name="elem_JK_FF_AS_pin_K">L'entrée "reset" de la bascule, pour réinitialiser.</string>
+    <string name="elem_JK_FF_AS_pin_Q">Retourne la valeur stockée.</string>
+    <string name="elem_JK_FF_AS_pin_~Q">Retourne l'inverse de la valeur stockée.</string>
+    <string name="elem_JK_FF_AS_pin_Set">Une entrée "set" asynchrone, pour mémoriser. Une valeur de 1 à cette entrée
+        fixe la sortie de la bascule.
+    </string>
+    <string name="elem_JK_FF_AS_pin_Clr">Une entrée "clear" asynchrone, pour effacer. Une valeur de 1 à cette entrée
+        réinitialise la sortie de la bascule.
+    </string>
+    <string name="elem_D_FF_AS">Bascule D asynchrone</string>
+    <string name="elem_D_FF_AS_short">D-AS</string>
+    <string name="elem_D_FF_AS_tt">Une composante utilisée pour stocker une valeur.
+        La valeur sur l'entrée D est stockée lors du front montant du signal d'horloge C.
+        Il y a deux entrées additionnelles pour mémoriser et réinitialiser immédiatement, sans signal d'horloge.
+        La largeur de bit peut être sélectionnée ce qui permet de stocker plusieurs bits.
+    </string>
+    <string name="elem_D_FF_AS_pin_D">L'entrée du bit à stocker.</string>
+    <string name="elem_D_FF_AS_pin_C">Signal d'horloge pour stocker une valeur.
+        La valeur à l'entrée D est stockée sur un front montant de cette entrée.
+    </string>
+    <string name="elem_D_FF_AS_pin_Q">Retourne la valeur stockée.</string>
+    <string name="elem_D_FF_AS_pin_~Q">Retourne l'inverse de la valeur stockée.</string>
+    <string name="elem_D_FF_AS_pin_Set">Une entrée "set" asynchrone, pour mémoriser. Si la valeur est à 1, tous les bits
+        de sortie sont mis à 1.
+    </string>
+    <string name="elem_D_FF_AS_pin_Clr">Une entrée "clear" asynchrone, pour effacer. Si la valeur est à 1, tous les bits
+        de sortie sont mis à 0.
+    </string>
+    <string name="elem_Monoflop">Bascule monostable</string>
+    <string name="elem_Monoflop_short">Mono</string>
+    <string name="elem_Monoflop_tt">Une bascule monostable est mise à 1 au front montant du signal d'horloge.
+        Après un délai configurable, la bascule est réinitialisée automatiquement.
+        La bascule monostable est redéclenchable. Elle peut seulement être utilisée s'il y a exactement une composante
+        horloge dans le circuit. Cette composante horloge est utilisée comme temps de base pour mesurer le délai.
+    </string>
+    <string name="elem_Monoflop_pin_R">L'entrée "reset". Une valeur haute réinitialise la bascule monostable.</string>
+    <string name="elem_Monoflop_pin_C">Le signal d'horloge. Un front montant fixe la sortie de la bascule monostable.
+    </string>
+    <string name="elem_Monoflop_pin_Q">Sortie</string>
+    <string name="elem_Monoflop_pin_~Q">Inverse de la sortie</string>
+    <string name="elem_Register">Registre</string>
+    <string name="elem_Register_short">Reg</string>
+    <string name="elem_Register_tt">Une composante pour stocker des valeurs. La largeur de bit du mot peut être
+        sélectionnée.
+        Contrairement à une bascule D, le registre fournit une entrée qui active l'horloge.
+    </string>
+    <string name="elem_Register_pin_D">L'entrée du mot à stocker.</string>
+    <string name="elem_Register_pin_C">Signal d'horloge. Un front montant stocke la valeur à l'entrée D.</string>
+    <string name="elem_Register_pin_en">L'entrée "enable", pour activer. Il est seulement possible de stocker une valeur
+        si cette entrée est active.
+    </string>
+    <string name="elem_Register_pin_Q">Retourne la valeur stockée.</string>
+    <string name="elem_ROM">ROM</string>
+    <string name="elem_ROM_tt">Une composante de mémoire non volatile.
+        Les données stockées peuvent être éditées dans le dialog d'attributs.
+    </string>
+    <string name="elem_ROM_pin_A">Cette entrée définit l'adresse d'un mot à émettre à la sortie.</string>
+    <string name="elem_ROM_pin_D">Le mot sélectionné si l'entrée "sel" est active.</string>
+    <string name="elem_ROM_pin_sel">Si cette entrée est active, la sortie est activée. Sinon la sortie est dans état de
+        haute impédance.
+    </string>
+    <string name="elem_RAMDualPort">RAM, ports séparés</string>
+    <string name="elem_RAMDualPort_short">RAM</string>
+    <string name="elem_RAMDualPort_tt">Un module de RAM avec des entrées séparées pour stocker une valeur et émettre une
+        valeur stockée.
+    </string>
+    <string name="elem_RAMDualPort_pin_A">L'adresse à laquelle lire et écrire.</string>
+    <string name="elem_RAMDualPort_pin_C">Signal d'horloge</string>
+    <string name="elem_RAMDualPort_pin_Din">La valeur à stocker dans la RAM.</string>
+    <string name="elem_RAMDualPort_pin_D">La valeur de sortie</string>
+    <string name="elem_RAMDualPort_pin_ld">Si cette entrée est active, la sortie est activée et la valeur devient
+        visible à la sortie.
+    </string>
+    <string name="elem_RAMDualPort_pin_str">Si cette entrée est active et lorsque le signal d'horloge est haut, la
+        valeur est stockée.
+    </string>
+    <string name="elem_BlockRAMDualPort">RAM de bloc, ports séparés</string>
+    <string name="elem_BlockRAMDualPort_short">RAM</string>
+    <string name="elem_BlockRAMDualPort_tt">Un module de RAM avec des entrées séparées pour stocker une valeur et
+        émettre une valeur stockée.
+        Cette RAM met sa sortie à jour uniquement sur un front montant du signal d'horloge.
+        Cela permet de l'utiliser dans un FPGA.
+    </string>
+    <string name="elem_BlockRAMDualPort_pin_A">L'adresse à laquelle lire et écrire.</string>
+    <string name="elem_BlockRAMDualPort_pin_C">Signal d'horloge</string>
+    <string name="elem_BlockRAMDualPort_pin_Din">La valeur à stocker dans la RAM.</string>
+    <string name="elem_BlockRAMDualPort_pin_D">La valeur de sortie</string>
+    <string name="elem_BlockRAMDualPort_pin_str">Si cette entrée est active et lorsque le signal d'horloge est haut, la
+        valeur est stockée.
+    </string>
+    <string name="elem_EEPROMDualPort">EEPROM, ports séparés</string>
+    <string name="elem_EEPROMDualPort_short">EEPROM</string>
+    <string name="elem_EEPROMDualPort_tt">Un module EEPROM avec des entrées séparées pour stocker une valeur et émettre
+        une valeur stockée.
+    </string>
+    <string name="elem_EEPROMDualPort_pin_A">L'adresse à laquelle lire et écrire.</string>
+    <string name="elem_EEPROMDualPort_pin_C">Signal d'horloge</string>
+    <string name="elem_EEPROMDualPort_pin_Din">La valeur à stocker dans le EEPROM.</string>
+    <string name="elem_EEPROMDualPort_pin_D">La valeur de sortie</string>
+    <string name="elem_EEPROMDualPort_pin_ld">Si cette entrée est active, la sortie est activée et la valeur devient
+        visible à la sortie.
+    </string>
+    <string name="elem_EEPROMDualPort_pin_str">Si cette entrée est active et lorsque le signal d'horloge est haut, la
+        valeur est stockée.
+    </string>
+    <string name="elem_RAMSinglePort">RAM, port bidirectionnel</string>
+    <string name="elem_RAMSinglePort_short">RAM</string>
+    <string name="elem_RAMSinglePort_tt">Un module de RAM avec un port bidirectionnel pour stocker une valeur et émettre
+        une valeur stockée.
+    </string>
+    <string name="elem_RAMSinglePort_pin_A">L'adresse à laquelle lire et écrire.</string>
+    <string name="elem_RAMSinglePort_pin_C">Signal d'horloge</string>
+    <string name="elem_RAMSinglePort_pin_D">Une connexion bidirectionnelle de valeur</string>
+    <string name="elem_RAMSinglePort_pin_ld">Si cette entrée est active, la sortie est activée et la valeur devient
+        visible à la sortie.
+    </string>
+    <string name="elem_RAMSinglePort_pin_str">Si cette entrée est active et lorsque le signal d'horloge est haut, la
+        valeur est stockée.
+    </string>
+    <string name="elem_RAMSinglePortSel">RAM, sélection de puce</string>
+    <string name="elem_RAMSinglePortSel_short">RAM</string>
+    <string name="elem_RAMSinglePortSel_tt">Un module de RAM avec un port bidirectionnel pour stocker une valeur et
+        émettre une valeur stockée.
+        Si l'entrée CS est basse, la composante est désactivée.
+        Cela permet de créer une RAM plus grande à partir de RAM plus petite et un décodeur d'adresse.
+        Le cycle d'écriture fonctionne comme suit: en activant l'entrée CS, la composante est activée.
+        Un front montant à l'entrée WE verrouille l'adresse, et le front descendant suivant stocke la valeur.
+    </string>
+    <string name="elem_RAMSinglePortSel_pin_A">L'adresse à laquelle lire et écrire.</string>
+    <string name="elem_RAMSinglePortSel_pin_WE">Si cette entrée est activée, la valeur est écrite à la RAM.</string>
+    <string name="elem_RAMSinglePortSel_pin_D">Une connexion bidirectionnelle de valeur.</string>
+    <string name="elem_RAMSinglePortSel_pin_CS">Si cette entrée est active, la RAM est activée. Sinon la sortie est dans
+        état de haute impédance.
+    </string>
+    <string name="elem_RAMSinglePortSel_pin_OE">Si cette entrée est active, la valeur stockée est émise.</string>
+    <string name="elem_EEPROM">EEPROM</string>
+    <string name="elem_EEPROM_tt">Un module EEPROM avec un port bidirectionnel pour stocker une valeur et émettre une
+        valeur stockée.
+    </string>
+    <string name="elem_EEPROM_pin_A">L'adresse à laquelle lire et écrire.</string>
+    <string name="elem_EEPROM_pin_WE">Si cette entrée est activée, la valeur est écrite à l'EEPROM.</string>
+    <string name="elem_EEPROM_pin_D">Une connexion bidirectionnelle de valeur.</string>
+    <string name="elem_EEPROM_pin_CS">Si cette entrée est active, l'EEPROM est activée. Sinon la sortie est dans un état
+        de haute impédance.
+    </string>
+    <string name="elem_EEPROM_pin_OE">Si cette entrée est active, la valeur stockée est émise.</string>
+    <string name="elem_GraphicCard">RAM graphique</string>
+    <string name="elem_GraphicCard_short">RAM-Gr</string>
+    <string name="elem_GraphicCard_tt">Sert à afficher une image matricielle (bitmap). Cet élément se comporte comme une
+        RAM. De plus, il affiche
+        son contenu sur un écran. Chaque pixel est représenté par une adresse en mémoire. La valeur stockée définit
+        la couleur de son pixel à l'aide d'une palette de couleurs fixe. Il y a deux tampons d'écran implantés pour
+        permettre le changement de page. L'entrée B sélectionne le tampon à afficher. Ainsi, la taille totale de la
+        mémoire est de dx * dy * 2 mots. La palette de couleurs utilisée fonctionne comme suit: les indices 0-9
+        correspondent aux couleurs blanc, noir, rouge, vert, bleu, jaune, cyan, magenta, orange et rose. Les indices
+        32-63 correspondent des nuances de gris et les indices 64-127 correspondent 64 couleurs avec deux bits par
+        canal de couleur. Cela permet une palette simple qui peut être adressée avec seulement 7 bits.
+        Si l'architecture permet un indice 16 bits, à partir de l'indice 0x8000, un mode 5 bits avec plus de couleurs
+        est utilisé, qui permet 32768 couleurs.
+    </string>
+    <string name="elem_GraphicCard_pin_A">L'adresse à laquelle lire et écrire.</string>
+    <string name="elem_GraphicCard_pin_str">Si cette entrée est active et lorsque le signal d'horloge est haut, la
+        valeur est stockée.
+    </string>
+    <string name="elem_GraphicCard_pin_C">Signal d'horloge</string>
+    <string name="elem_GraphicCard_pin_ld">Si cette entrée est active, la sortie est activée et la valeur devient
+        visible à la sortie.
+    </string>
+    <string name="elem_GraphicCard_pin_B">Sélectionne le tampon d'écran à afficher</string>
+    <string name="elem_GraphicCard_pin_D">Une connexion bidirectionnelle de valeur.</string>
+    <string name="elem_RAMDualAccess">RAM, port double</string>
+    <string name="elem_RAMDualAccess_short">RAM</string>
+    <string name="elem_RAMDualAccess_tt">RAM avec un port qui sert à la fois à la lecture et l'écriture et un second
+        port de lecture seulement.
+        Ce second port peut être utilisé pour donner un accès à une logique graphique à partir du contenu de la mémoire.
+        Ainsi, un processeur peut écrire à la RAM et une unité graphique peut y lire simultanément.
+    </string>
+    <string name="elem_RAMDualAccess_pin_1D">Port de sortie 1.</string>
+    <string name="elem_RAMDualAccess_pin_2D">Port de sortie 2</string>
+    <string name="elem_RAMDualAccess_pin_1A">L'adresse à laquelle le port 1 est lu ou écrit.</string>
+    <string name="elem_RAMDualAccess_pin_2A">L'adresse utilisée pour lire du port 2.</string>
+    <string name="elem_RAMDualAccess_pin_C">Signal d'horloge</string>
+    <string name="elem_RAMDualAccess_pin_1Din">La valeur à stocker dans la RAM.</string>
+    <string name="elem_RAMDualAccess_pin_ld">Si cette entrée est active, la sortie est activée et la valeur est visible
+        à la sortie 1D.
+    </string>
+    <string name="elem_RAMDualAccess_pin_str">Si cette entrée est active et lorsque le signal d'horloge est haut, la
+        valeur est stockée.
+    </string>
+    <string name="elem_RegisterFile">Banc de registres</string>
+    <string name="elem_RegisterFile_short">Registre</string>
+    <string name="elem_RegisterFile_tt">Mémoire avec un port qui permet d'écrire et deux ports qui permettent de lire de
+        la
+        mémoire simultanément. Peut être utilisé pour implanté les registres d'un processeur.
+        Deux registres peuvent être lus en même temps et un troisième peut être écrit.
+    </string>
+    <string name="elem_RegisterFile_pin_Da">Port de sortie A</string>
+    <string name="elem_RegisterFile_pin_Db">Port de sortie B</string>
+    <string name="elem_RegisterFile_pin_Ra">Le registre qui est visible au port A.</string>
+    <string name="elem_RegisterFile_pin_Rb">Le registre qui est visible au port B.</string>
+    <string name="elem_RegisterFile_pin_Rw">Le registre dans lequel la valeur est écrite.</string>
+    <string name="elem_RegisterFile_pin_we">Si cette entrée est active et lorsque le signal d'horloge est haut, la
+        valeur est stockée.
+    </string>
+    <string name="elem_RegisterFile_pin_C">Signal d'horloge</string>
+    <string name="elem_RegisterFile_pin_Din">La valeur à stocker dans la RAM.</string>
+    <string name="elem_Counter">Compteur</string>
+    <string name="elem_Counter_short">Compteur</string>
+    <string name="elem_Counter_tt">Une composante simple pour compter. Le signal d'horloge incrémente le compteur.
+        Peut être réinitialisée à 0 avec l'entrée "clr" (clear).
+        Le nombre de bits est ajustable dans le dialogue des attributs.
+    </string>
+    <string name="elem_Counter_pin_C">Le signal d'horloge. Un front montant incrémente le compteur.</string>
+    <string name="elem_Counter_pin_clr">Si mis à 1, réinitialise le compteur de façon synchrone.</string>
+    <string name="elem_Counter_pin_ovf">Indicateur de débordement. Si cette sortie est à 1 alors le compteur est à sa
+        valeur maximale
+        et l'entrée d'activation "en" est à 1.
+    </string>
+    <string name="elem_Counter_pin_out">Retourne la valeur comptée.</string>
+    <string name="elem_Counter_pin_en">Si mise à 1 le compteur est activé!</string>
+    <string name="elem_CounterPreset">Compteur prédéfini</string>
+    <string name="elem_CounterPreset_tt">Un compteur pour lequel la valeur peut être changée. De plus, une valeur
+        maximale et une direction peuvent
+        être spécifiés.
+    </string>
+    <string name="elem_CounterPreset_short">Compteur</string>
+    <string name="elem_CounterPreset_pin_out">Retourne la valeur comptée.</string>
+    <string name="elem_CounterPreset_pin_ovf">Indicateur de débordement. Si cette sortie est à 1 et que l'entrée
+        d'activation "en" est à 1
+        alors le compteur est à sa valeur maximale s'il compte vers le haut, ou à zéro s'il compte vers le bas.
+    </string>
+    <string name="elem_CounterPreset_pin_C">Signal d'horloge. Un front montant incrémente ou décrémente le compteur.
+    </string>
+    <string name="elem_CounterPreset_pin_clr">Si mis à 1, réinitialise le compteur de façon synchrone.</string>
+    <string name="elem_CounterPreset_pin_en">Si mis à 1, le compteur est activé!</string>
+    <string name="elem_CounterPreset_pin_dir">Spécifie la direction du compte. Un zéro signifie vers le haut (en ordre
+        croissant).
+    </string>
+    <string name="elem_CounterPreset_pin_ld">Si activée, la valeur dans l'entrée "in" est stockée dans le compteur au
+        prochain signal d'horloge.
+    </string>
+    <string name="elem_CounterPreset_pin_in">Cette valeur est stockée dans le compteur lorsque l'entrée "ld" est
+        activée.
+    </string>
+    <string name="elem_Add">Addition</string>
+    <string name="elem_Add_short">Add</string>
+    <string name="elem_Add_tt">Une composante pour des calculs d'addition simples.
+        Additionne deux valeurs entières aux entrées A et B (A+B).
+        Le résultat est incrémenté de un si l'entrée de retenue est active.
+    </string>
+    <string name="elem_Add_pin_a">Première valeur à additionner.</string>
+    <string name="elem_Add_pin_b">Seconde valeur à additionner.</string>
+    <string name="elem_Add_pin_s">Le résultat de l'addition</string>
+    <string name="elem_Add_pin_c_i">Entrée de retenue, si active le résultat sera incrémenté de un.</string>
+    <string name="elem_Add_pin_c_o">Indicateur de retenue. Si actif, il y a eu un débordement.</string>
+    <string name="elem_Sub">Soustraction</string>
+    <string name="elem_Sub_short">Soustr</string>
+    <string name="elem_Sub_tt">Une composante pour des soustractions simples.
+        Soustrait des nombres binaires aux entrées A et B (A-B).
+        Le résultat est décrémenté de 1 si l'entrée de retenue est active.
+    </string>
+    <string name="elem_Sub_pin_c_i">Entrée de retenue, si active le résultat sera décrémenté de 1.</string>
+    <string name="elem_Sub_pin_a">L'entrée A de la soustraction.</string>
+    <string name="elem_Sub_pin_b">L'entrée B de la soustraction</string>
+    <string name="elem_Sub_pin_s">Retourne le résultat de la soustraction.</string>
+    <string name="elem_Sub_pin_c_o">Émet un 1 si un débordement a eu lieu.</string>
+    <string name="elem_Mul">Multiplication</string>
+    <string name="elem_Mul_short">Mult</string>
+    <string name="elem_Mul_tt">Une composante pour la multiplication.
+        Multiplie les nombres entiers aux entrées A et B.
+    </string>
+    <string name="elem_Mul_pin_a">L'entrée A de la multiplication</string>
+    <string name="elem_Mul_pin_b">L'entrée B de la multiplication</string>
+    <string name="elem_Mul_pin_mul">La sortie pour le résultat de la multiplication.</string>
+    <string name="elem_Div">Division</string>
+    <string name="elem_Div_short">Div</string>
+    <string name="elem_Div_tt">Une composante pour la division.
+        Divise le nombre entier à l'entrée A par le nombre entier à l'entrée B.
+        Si le diviseur est zéro, le nombre est divisé par un à la place.
+        Pour la division signée, le reste est toujours positif.
+    </string>
+    <string name="elem_Div_pin_a">Dividende</string>
+    <string name="elem_Div_pin_b">Diviseur</string>
+    <string name="elem_Div_pin_q">Quotient</string>
+    <string name="elem_Div_pin_r">Reste</string>
+    <string name="elem_BarrelShifter">Décaleur</string>
+    <string name="elem_BarrelShifter_short">Décal</string>
+    <string name="elem_BarrelShifter_tt">Une composante pour décaler des bits.
+        Décale la valeur d'entrée par un nombre de bits donné par l'entrée "shift".
+    </string>
+    <string name="elem_BarrelShifter_pin_in">Entrée avec les bits à décaler.</string>
+    <string name="elem_BarrelShifter_pin_shift">Entrée avec le nombre de bits à décaler.</string>
+    <string name="elem_BarrelShifter_pin_out">Sortie de la valeur décalée.</string>
+    <string name="elem_Comparator">Comparateur</string>
+    <string name="elem_Comparator_tt">Une composante pour comparer des valeurs binaires.
+        Compare les nombres binaires aux entrées A et B et met la sortie correspondante à 1.
+    </string>
+    <string name="elem_Comparator_pin_a">L'entrée A à comparer.</string>
+    <string name="elem_Comparator_pin_b">L'entrée B à comparer.</string>
+    <string name="elem_Comparator_pin_=">La sortie est active si A est égal à B.</string>
+    <string name="elem_Comparator_pin_&gt;">La sortie est active si A est plus grand que B.</string>
+    <string name="elem_Comparator_pin_&lt;">La sortie est active si A est plus petit que B.</string>
+    <string name="elem_Neg">Négation</string>
+    <string name="elem_Neg_short">Nég</string>
+    <string name="elem_Neg_pin_in">L'entrée du mot à inverser selon le complément 2.</string>
+    <string name="elem_Neg_pin_out">Retourne le résultat de l'inversion selon le complément 2.</string>
+    <string name="elem_Neg_tt">Négation selon le complément 2.</string>
+    <string name="elem_BitExtender">Extension de signe</string>
+    <string name="elem_BitExtender_short">ExtSign</string>
+    <string name="elem_BitExtender_tt">Augmente la largeur binaire d'une valeur signée en gardant le même signe que la
+        valeur.
+        Si l'entrée est un seul bit, ce bit est répété sur tous les bits de sortie.
+    </string>
+    <string name="elem_BitExtender_pin_in">Valeur d'entrée.
+        La largeur binaire d'entrée doit être plus petite que la largeur binaire de sortie!
+    </string>
+    <string name="elem_BitExtender_pin_out">Valeur d'entrée étendue.
+        La largeur binaire d'entrée doit être plus petite que la largeur binaire de sortie!
+    </string>
+    <string name="elem_BitCount">Compteur de bits</string>
+    <string name="elem_BitCount_short">Compt bits</string>
+    <string name="elem_BitCount_tt">Retourne le nombre de bits à 1 dans la valeur d'entrée.</string>
+    <string name="elem_BitCount_pin_in">La valeur d'entrée pour laquelle les bits à 1 sont comptés.</string>
+    <string name="elem_BitCount_pin_out">Retourne le nombre de bits à 1.</string>
+    <string name="elem_DiodeForward">Diode à l'alimentation</string>
+    <string name="elem_DiodeForward_tt">Une diode unidirectionnelle simplifiée, utilisée pour le tirage d'un fil à
+        l'alimentation.
+        Elle est utilisée pour créer un OU câblé.
+        Donc il est nécessaire de connecter une résistance de rappel à la sortie de la diode.
+        Dans la simulation la diode se comporte comme une porte active avec une table de vérité trivalente:
+        si l'entrée est haute, la sortie l'est aussi. Dans tous les autres cas (l'entrée est basse ou Hi-Z), la sortie
+        est dans un état de haute impédance.
+        Donc deux diodes antiparallèles connectées peuvent se garder l'une et l'autre dans un état haut, ce qui n'est
+        pas possible avec de vraies diodes.
+        C'est une diode polarisée idéale: il n'y a pas de sans perte de tension à travers la diode.
+    </string>
+    <string name="elem_DiodeForward_pin_in">Si l'entrée est haute alors la sortie l'est aussi. Dans tous les autres cas
+        la sortie est dans état de haute impédance.
+    </string>
+    <string name="elem_DiodeForward_pin_out">Si l'entrée est haute alors la sortie l'est aussi. Dans tous les autres cas
+        la sortie est dans état de haute impédance.
+    </string>
+    <string name="elem_DiodeBackward">Diode à la masse</string>
+    <string name="elem_DiodeBackward_tt">Une diode unidirectionnelle simplifiée, utilisée pour le rappel d'un fil à la
+        masse.
+        Elle est utilisée pour créer un ET câblé.
+        Donc il est nécessaire de connecter une résistance de tirage à la sortie de la diode.
+        Si l'entrée est basse, la sortie l'est aussi. Dans tous les autres cas (l'entrée est haute ou Hi-Z), la sortie
+        est dans un état de haute impédance.
+        Donc deux diodes antiparallèles connectées peuvent se garder l'une et l'autre dans un état bas, ce qui n'est
+        pas possible avec de vraies diodes.
+        C'est une diode polarisée idéale: il n'y a pas de sans perte de tension à travers la diode.
+    </string>
+    <string name="elem_DiodeBackward_pin_in">Si l'entrée est basse alors la sortie l'est aussi. Dans tous les autres cas
+        la sortie est dans état de haute impédance.
+    </string>
+    <string name="elem_DiodeBackward_pin_out">Si l'entrée est basse alors la sortie l'est aussi. Dans tous les autres
+        cas la sortie est dans état de haute impédance.
+    </string>
+    <string name="elem_Switch">Interrupteur</string>
+    <string name="elem_Switch_pin">Une des connexions de l'interrupteur.</string>
+    <string name="elem_Switch_tt">Interrupteur simple.
+        Il n'y a pas de délai de transmission: un changement est propagé instantanément.
+    </string>
+    <string name="elem_SwitchDT">Interrupteur bidirectionnel</string>
+    <string name="elem_SwitchDT_tt">Interrupteur bidirectionnel.
+        Il n'y a pas de délai de transmission: un changement est propagé instantanément.
+    </string>
+    <string name="elem_Fuse">Fusible</string>
+    <string name="elem_Fuse_tt">Un fusible utilisé pour construire une mémoire programmée une seule fois</string>
+    <string name="elem_Fuse_pin_out1">Une des connexions du fusible.</string>
+    <string name="elem_Fuse_pin_out2">Une des connexions du fusible.</string>
+    <string name="elem_Relay">Relais</string>
+    <string name="elem_Relay_tt">Un relais est un interrupteur qui peut être contrôlé par une bobine.
+        Si le courant circule dans la bobine, l'interrupteur est ouvert ou fermé.
+        Il n'y a pas de diode antiretour alors le sens du courant n'a pas d'importance.
+        L'interrupteur est actionné si les deux entrées ont des valeurs différentes.
+        Le relais se comporte de façon similaire à une porte XOR.
+    </string>
+    <string name="elem_Relay_pin_in1">Une des entrées qui contrôle le relais.</string>
+    <string name="elem_Relay_pin_in2">Une des entrées qui contrôle le relais.</string>
+    <string name="elem_RelayDT">Relais bidirectionnel</string>
+    <string name="elem_RelayDT_tt">Un relais est un interrupteur qui peut être contrôlé par une bobine.
+        Si le courant circule dans la bobine, l'interrupteur est ouvert ou fermé.
+        Il n'y a pas de diode antiretour alors le sens du courant n'a pas d'importance.
+        L'interrupteur est actionné si les deux entrées ont des valeurs différentes.
+        Le relais se comporte de façon similaire à une porte XOR.
+    </string>
+    <string name="elem_RelayDT_pin_in1">Une des entrées qui contrôle le relais.</string>
+    <string name="elem_RelayDT_pin_in2">Une des entrées qui contrôle le relais.</string>
+    <string name="elem_PFET">FET de type P</string>
+    <string name="elem_PFET_tt">Transistor à effet de champ avec dopage de type P.
+        Le substrat est connecté à l'alimentation et le transistor est simulé sans diode de corps.
+    </string>
+    <string name="elem_PFET_pin_G">Grille</string>
+    <string name="elem_PFET_pin_S">Source</string>
+    <string name="elem_PFET_pin_D">Drain</string>
+    <string name="elem_NFET">FET de type N</string>
+    <string name="elem_NFET_tt">Transistor à effet de champ avec dopage de type N.
+        Le substrat est connecté à la masse et le transistor est simulé sans diode de corps.
+    </string>
+    <string name="elem_NFET_pin_G">Grille</string>
+    <string name="elem_NFET_pin_S">Source</string>
+    <string name="elem_NFET_pin_D">Drain</string>
+    <string name="elem_FGPFET">FET de type P à grille flottante</string>
+    <string name="elem_FGPFET_tt">Transistor à effet de champ avec dopage de type P avec grille flottante (floating
+        gate).
+        Le substrat est connecté à l'alimentation et le transistor est simulé sans diode de corps.
+        S'il y a une charge stockée dans la grille flottante, le FET n'est pas conducteur même si la grille est basse.
+    </string>
+    <string name="elem_FGPFET_pin_G">Grille</string>
+    <string name="elem_FGPFET_pin_S">Source</string>
+    <string name="elem_FGPFET_pin_D">Drain</string>
+    <string name="elem_FGNFET">FET de type N à grille flottante</string>
+    <string name="elem_FGNFET_tt">Transistor à effet de champ avec dopage de type N avec grille flottante (floating
+        gate).
+        Le substrat est connecté à la masse et le transistor est simulé sans diode de corps.
+        S'il y a une charge stockée dans la grille flottante, le FET n'est pas conducteur même si la grille est haute.
+    </string>
+    <string name="elem_FGNFET_pin_G">Grille</string>
+    <string name="elem_FGNFET_pin_S">Source</string>
+    <string name="elem_FGNFET_pin_D">Drain</string>
+    <string name="elem_TransGate">Porte de transmission</string>
+    <string name="elem_TransGate_tt">Une vraie porte de transmission est construire à partir de seulement deux
+        transistors.
+        Ainsi, elle est souvent utilisée pour économiser des transistors lors de l'implantation sur le silicium.
+    </string>
+    <string name="elem_TransGate_pin_A">Entrée A</string>
+    <string name="elem_TransGate_pin_B">Entrée B</string>
+    <string name="elem_TransGate_pin_S">Entrée de contrôle</string>
+    <string name="elem_TransGate_pin_~S">Entrée de contrôle inversée</string>
+    <string name="elem_Testcase">Test</string>
+    <string name="elem_Testcase_tt">Décrit un test.
+        Dans un test, vous pouvez décrire comment le circuit devrait se comporter. Il est ensuite possible de vérifier
+        automatiquement si le comportement du circuit correspond réellement à cette description. Si ce n'est pas le
+        cas, un message d'erreur est affiché.
+    </string>
+    <string name="elem_AsyncSeq">Minuterie asynchrone</string>
+    <string name="elem_AsyncSeq_tt">Permet la configuration d'une minuterie d'un circuit séquentiel asynchrone comme un
+        pipeline de Muller. Le circuit doit être lancé en mode pas-à-pas et doit être en mesure d'atteindre un état
+        stable
+        au démarrage. Le circuit séquentiel peut alors être lancé interactivement ou avec une porte de réinitialisation.
+        Il n'est pas permis d'utiliser une composante d'horloge ordinaire dans ce mode.
+    </string>
+    <string name="elem_PowerSupply">Alimentation</string>
+    <string name="elem_PowerSupply_tt">N'a aucune fonction. S'assure que l'alimentation (VDD) et la masse (GND) sont
+        connectées.
+        Peut être utilisé dans les circuits 74xx pour générer les broches de l'alimentation, qui sont testées
+        pour s'assurer que le câblage est correct.
+    </string>
+    <string name="elem_PowerSupply_pin_VDD">Doit être connecté à l'alimentation (VDD)!</string>
+    <string name="elem_PowerSupply_pin_GND">Doit être connecté à la masse (GND)!</string>
+    <string name="elem_Reset">Réinitialisation</string>
+    <string name="elem_Reset_pin_Reset">Sortie de réinitialisation</string>
+    <string name="elem_Reset_tt">La sortie de cette composante est gardée haute lors de l'initialisation du circuit.
+        Après que le circuit se soit stabilisé, la sortie devient basse.
+        Si la sortie est inversée alors elle se comporte de la façon inverse.
+    </string>
+    <string name="elem_Break">Pause</string>
+    <string name="elem_Break_pin_brk">Arrête la simulation haute vitesse si un front montant est détecté.</string>
+    <string name="elem_Break_tt">Si cette composante est utilisée dans le circuit, le bouton "Exécuter jusqu'à une
+        pause" entre les boutons
+        "Commencer" et "Arrêter" est activé. Ce bouton exécute le circuit jusqu'à ce que cette composante reçoive
+        un front montant. Cet élément peut aussi être utilisé pour déboguer en exécutant un circuit jusqu'à un point
+        d'arrêt. Une instruction d'assembleur BRK (break) peut également être implantée. Cela permet à un programme de
+        s'exécuter jusqu'à la prochaine instruction BRK. Cette fonction peut seulement être utilisée si l'horloge
+        temps réel est désactivée!
+    </string>
+    <string name="elem_Stop">Arrêt</string>
+    <string name="elem_Stop_tt">Un front montant à l'entrée arrête la simulation.
+        A le même effet que d'appuyer sur le bouton "Arrêter" dans la barre d'outils.
+    </string>
+    <string name="elem_Stop_pin_stop">Un front montant arrête la simulation.</string>
+    <string name="elem_External">Externe</string>
+    <string name="elem_External_tt">Une composante qui exécute un processus externe pour calculer la fonction logique.
+        Peut être utilisé pour spécifier le comportement d'une composante avec VHDL ou Verilog.
+        La simulation du comportement en tant que telle doit être faite avec un simulateur externe.
+        À l'heure actuelle, seuls le simulateur de VHDL ghdl et le simulateur de Verilog Icarus Verilog sont pris en
+        charge.
+    </string>
+    <string name="elem_Diode">Diode</string>
+    <string name="elem_Diode_tt">Une diode bidirectionnelle simplifiée. Peut être utilisée pour implanter un ET câblé ou
+        un OU câblé.
+    </string>
+    <string name="error">Erreur</string>
+    <string name="err_N_isNotInputOrOutput">La broche {0} de la composante {1} n''est pas une entrée ou une sortie
+    </string>
+    <string name="err_aSingleClockNecessary">Une seule composante d'horloge est nécessaire. Toutes les bascules doivent
+        utiliser ce signal.
+    </string>
+    <string name="err_analyseNoInputs">Le circuit n'a pas d'entrées étiquetées</string>
+    <string name="err_analyseNoOutputs">Le circuit n'a pas de sorties étiquetées</string>
+    <string name="err_breakTimeOut">Aucune pause détectée après {0} cycles au point d''arrêt ''{1}''.
+        Il est possible que le nombre de cycles d''attente dans la composante de pause doive être augmenté.
+    </string>
+    <string name="err_builder_exprNotSupported">L''expression {0} n''est pas prise en charge.</string>
+    <string name="err_builder_operationNotSupported">L''opération {0} n''est pas prise en charge.</string>
+    <string name="err_builder_couldNotFillLUT">Erreur lors de la création de la table de recherche.</string>
+    <string name="err_burnError">Plus qu'une sortie est active sur un fil, causant un court-circuit.</string>
+    <string name="err_pullUpAndDown">Il n'est pas permis de connecter une résistance de rappel et tirage au même
+        réseau.
+    </string>
+    <string name="err_cannotAnalyse_N">Impossible d''analyser le noeud {0}</string>
+    <string name="err_containsVarAndNotVar">Contient [var] et [non var]</string>
+    <string name="err_duplicatePinLabel">La broche {0} dans la composante {1} existe à deux reprises</string>
+    <string name="err_element_N_notFound">La composante {0} n''a pas été trouvée</string>
+    <string name="err_exact_N0_valuesNecessaryNot_N1">Des valeurs {0} exactes sont nécessaires, pas {1}</string>
+    <string name="err_ffNeedsToBeConnectedToClock">La bascule doit être connectée à l'horloge.</string>
+    <string name="err_invalidFileFormat">Format de fichier invalide</string>
+    <string name="err_isAlreadyInitialized">La logique a déjà été initialisée</string>
+    <string name="err_labelNotConnectedToNet_N">Un tunnel {0} n''est pas connecté!</string>
+    <string name="err_moreThanOneClockFound">Il y a plus qu'une horloge</string>
+    <string name="err_clockIsNotUsed">La composante d'horloge n'est pas utilisée!</string>
+    <string name="err_needs_N0_bits_found_N2_bits">{0} bits sont requis, mais {1} bits ont été trouvés</string>
+    <string name="err_netOfPin_N_notFound">Le réseau de la broche {0} n''a pas été trouvé</string>
+    <string name="err_noClockFound">Aucune horloge trouvée dans la logique</string>
+    <string name="err_noInputsAvailable">Aucune entrée disponible pour être changée</string>
+    <string name="err_noShapeFoundFor_N">Aucune forme trouvée pour la composante {0}</string>
+    <string name="err_noValueSetFor_N0_atElement_N1">Rien de connecté à l''entrée ''{0}'' à la composante ''{1}''. Les
+        circuits ouverts ne sont pas permis.
+    </string>
+    <string name="err_notAllOutputsSameBits">Les sorties n'ont pas toutes le même nombre de bits</string>
+    <string name="err_notAllOutputsSupportHighZ">Si plusieurs sorties sont connectées ensemble, elles doivent toutes
+        être des sorties à trois états.
+    </string>
+    <string name="err_noOutConnectedToWire">Aucune sortie connectée au fil ({0}). L''état du fil est indéfini.</string>
+    <string name="err_oneResultIsRequired">La table est trop petite: un résultat est requis!</string>
+    <string name="err_output_N_notDefined">La sortie {0} n''est pas définie.</string>
+    <string name="err_pinMap_NoNameForPin_N">Aucune étiquette pour la broche {0}</string>
+    <string name="err_pinMap_Pin_N_AssignedTwicePin">La broche {0} est assignée deux fois!</string>
+    <string name="err_pinMap_pin_N0_isNotAnInput">La broche {0} n''est pas une entrée!</string>
+    <string name="err_pinMap_pin_N0_isNotAnOutput">La broche {0} n''est pas une sortie!</string>
+    <string name="err_pinMap_noEqualsfound">Aucun = trouvé!</string>
+    <string name="err_pinMap_toMannyInputsDefined">Trop d'entrées utilisées!</string>
+    <string name="err_pinMap_toMannyOutputsDefined">Trop de sorties utilisées!</string>
+    <string name="err_pinNotPresent">La broche n'est pas présente</string>
+    <string name="err_pinWithoutName">Une broche sans étiquette a été trouvée.</string>
+    <string name="err_clockWithoutName">Une horloge sans étiquette a été trouvée. Si une horloge est intégrée, elle doit
+        aussi avoir une étiquette.
+    </string>
+    <string name="err_pin_N0_atElement_N1_notFound">La broche {0} n''a pas été trouvée à la composante {1}</string>
+    <string name="err_pin_N_notFound">La broche {0} n''a pas été trouvée</string>
+    <string name="err_customShapeHasNoPin_N">La forme personnalisée ne définit pas une broche {0}.</string>
+    <string name="err_pin_N_unknown">La broche {0} est inconnue</string>
+    <string name="err_seemsToOscillate">La logique semble osciller.
+        Pour l'analyser, vous pouvez exécuter le circuit en mode pas-à-pas.
+    </string>
+    <string name="err_portIsInUse">Le port distant est en cours d'utilisation! Y a-t-il une autre instance de
+        l'application qui fonctionne?
+    </string>
+    <string name="err_selectorInputCountMismatch">Le nombre d'entrées ne correspond pas au nombre de bits du
+        sélecteur.
+    </string>
+    <string name="err_spitterDefSyntaxError">Erreur de syntaxe dans la définition du séparateur {0}.</string>
+    <string name="err_splitterBitsMismatch">Le nombre de bits du séparateur ne correspond pas</string>
+    <string name="err_splitterNotAllBitsDefined">Pas tous les bits d'entrée sont définis!</string>
+    <string name="err_splitterNotUnambiguously">Les bits d'entrées sont définis à de multiples reprises!</string>
+    <string name="err_spitterToManyBits">Seulement 64 bits sont permis dans le séparateur!</string>
+    <string name="err_tableBecomesToSmall">Deux entrées sont requises!</string>
+    <string name="err_toManyInputs_max_N0_is_N1">Trop de variables (entrées+bascules). {0} variables sont permises, mais
+        {1} ont été trouvées.
+    </string>
+    <string name="err_toManyInputsIn_N0_max_N1_is_N2">Trop de variables utilisées dans {0}. {1} variables sont permises,
+        mais {2} ont été trouvées.
+    </string>
+    <string name="err_varNotAllowedInCUPL_N">La variable {0} n''est pas permise dans une source CUPL!</string>
+    <string name="err_varNotDefined_N">La variable {0} n''est pas définie</string>
+    <string name="err_parserUnexpectedToken_N">Élément inattendu {0}</string>
+    <string name="err_parserMissingClosedParenthesis">Il manque une parenthèse de fermeture</string>
+    <string name="err_notANumber_N0_inLine_N1">La valeur {0} à la ligne {1} n''est pas un nombre!</string>
+    <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">{0} valeurs étaient attendues, mais {1} valeurs ont
+        été trouvées à la ligne {2}!
+    </string>
+    <string name="err_unexpectedToken_N0_inLine_N1">Jeton inattendu ({0}) à la ligne {1}.</string>
+    <string name="err_variable_N0_notFound">La variable {0} n''a pas été trouvée!</string>
+    <string name="err_noTestInputSignalsDefined">Aucun signal d'entrée défini dans le vecteur de test!</string>
+    <string name="err_noTestOutputSignalsDefined">Aucun signal de sortie défini dans le vecteur de test!</string>
+    <string name="err_noTestData">Aucune donnée de test trouvée.</string>
+    <string name="err_pullUpAndDownNotAllowed">Il n'est pas permis de connecter une résistance de rappel et tirage au
+        même fil.
+    </string>
+    <string name="err_openingDocumentation">Impossible d'ouvrir le navigateur</string>
+    <string name="err_couldNotCreateFolder_N0">Impossible de créer le dossier "{0}"!</string>
+    <string name="err_switchHasNoNet">Il n'est pas permis de connecter seulement des entrées à un interrupteur.</string>
+    <string name="err_file_N0_ExistsTwiceBelow_N1">Le fichier {0} existe à de multiples reprises sous {1}.</string>
+    <string name="err_couldNotFindIncludedFile_N0">Impossible de trouver le fichier {0}.</string>
+    <string name="err_postProcessErrorIn_N0">Erreur durant l''exécution de "{0}".</string>
+    <string name="err_processDoesNotTerminate_N">Le processus "{0}" ne retourne pas!</string>
+    <string name="err_processExitedWithError_N1_N2">Le processus a retourné la valeur non nulle {0}: {1}</string>
+    <string name="err_errorRunningFitter">Erreur lors de l'exécution de l'ajusteur externe!</string>
+    <string name="err_noExpressionsAvailable">Il n'y a aucune équation minimisée!</string>
+    <string name="msg_optimizationInProgress">Les équations sont calculées! Veuillez attendre un moment!</string>
+    <string name="err_varName_N_UsedTwice">La variable {0} est utilisée deux fois!</string>
+    <string name="err_fileNeedsToBeSaved">Le fichier doit être enregistré!</string>
+    <string name="err_recursiveNestingAt_N0">Le circuit {0} s''importe lui-même!</string>
+    <string name="err_minimizationFailed">Le résultat de la minimisation n'est pas correct!
+        Le nom des variables n'est peut-être pas unique.
+    </string>
+    <string name="err_toManyIterations">Trop d'itérations dans une boucle.</string>
+    <string name="err_diodeNeedsPullUpResistorAtOutput">La diode doit avoir une résistance de tirage à sa sortie!
+    </string>
+    <string name="err_diodeNeedsPullDownResistorAtOutput">La diode doit avoir une résistance de rappel à sa sortie!
+    </string>
+    <string name="err_testSignal_N_notFound">Le signal de test {0} n''a pas été trouvé dans le circuit!</string>
+    <string name="err_toManyBits_Found_N0_maxIs_N1">Seulement {1} bits sont permis, mais {0} bits ont été trouvés!
+    </string>
+    <string name="err_MultiBitFlipFlopFound">Les bascules de plus d'un bit ne sont pas permises!</string>
+    <string name="err_invalidTransmissionGateState">Les deux entrées de contrôle de la porte de transmission doivent
+        être inversées.
+    </string>
+    <string name="err_nameUsedTwice_N">Le signal {0} est utilisé deux fois!</string>
+    <string name="err_errorParsingTestdata">Erreur lors de l'évaluation des données de test.</string>
+    <string name="err_backtrackOf_N_isImpossible">La composante modèle {0} n''a pas pu être analysée.</string>
+    <string name="err_errorInPowerSupply">Erreur de câblage de l''alimentation à {0}.</string>
+    <string name="err_pinIsNotANumber_N">Le numéro de broche {0} n''est pas un entier!</string>
+    <string name="err_vhdlExporting">Erreur lors de l'exportation en VHDL.</string>
+    <string name="err_vhdlNoEntity_N">Aucun code VHDL disponible pour {0}!</string>
+    <string name="err_verilogNoElement_N">Aucun code Verilog disponible pour {0}!</string>
+    <string name="err_vhdlErrorWritingTestBench">Erreur lors de création d'un banc de test!</string>
+    <string name="err_vhdlValuesOfType_N_notAllowed">Les valeurs du type {0} ne sont pas permises!</string>
+    <string name="err_vhdlANameIsMissing">Un nom est manquant. Est-ce que toutes les broches ont une étiquette par
+        exemple?
+    </string>
+    <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">Plusieurs sorties sont connectées une à l''autre.
+        Ce type d''interconnexion n''est pas pris en charge pour l''exportation HDL. ({0}, {1}, {2}).
+    </string>
+    <string name="err_unnamedNet">réseau sans nom</string>
+    <string name="err_toManyVars">Trop de variables!</string>
+    <string name="err_invalidExpression">Expression invalide!</string>
+    <string name="err_function_N0_notFoundInLine_N1">La fonction {0} n''a pas été trouvée à la ligne {1}!</string>
+    <string name="err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3">Le nombre d''arguments de la fonction {0} à la
+        ligne {1} est incorrect ({2} trouvés, {3} attendus)!
+    </string>
+    <string name="err_invalidValue_N0_inFunction_N1">Valeur invalide {0} dans la fonction {1}!</string>
+    <string name="err_Node_N_isAComponent">Le nom {0} n''est pas un élément du chemin.</string>
+    <string name="err_loadingLibrary">Erreur lors du chargement d'une bibliothèque.</string>
+    <string name="err_noManifestFound">Le fichier JAR ne contient aucun manifeste!</string>
+    <string name="err_noMainFoundInManifest">Le manifeste ne contient pas d'entrée Main-Class</string>
+    <string name="err_mainClass_N_NotFound">Impossible de trouver la classe {0}!</string>
+    <string name="err_couldNotInitializeMainClass_N">Impossible de créer une instance de la classe {0}!</string>
+    <string name="err_notMoreOutBitsThanInBits">Il doit y avoir plus de bits à l'entrée qu'à la sortie!</string>
+    <string name="err_constantsNotAllowed">Il n'est pas possible de mettre des broches physiques à des valeurs
+        constantes!
+    </string>
+    <string name="err_invalidNumberFormat_N_N">La chaîne de caractères {0} n''est pas un nombre valide (pos {1})!
+    </string>
+    <string name="err_invalidPinName_N">Le nom "{0}" n''est pas permis!</string>
+    <string name="err_whiteSpaceNotAllowedInTT2Name">Les espaces blancs ne sont pas permis dans le nom du fichier TT2!
+    </string>
+    <string name="err_tableHasToManyResultColumns">La table a trop de colonnes!</string>
+    <string name="err_errorExportingZip">Erreur lors de l'écriture du fichier ZIP.</string>
+    <string name="err_moreThanOneFastClock">Seulement une composante d'horloge avec haute fréquence est permise.
+    </string>
+    <string name="err_circuitHasCycles">Le circuit contient des cycles. Il n'est pas possible d'analyser un tel circuit.
+        Les cycles surviennent si la sortie d'une porte se répercute dans une des entrées de la même porte.
+        L'utilisation d'interrupteurs, de FETs ou de relais peut aussi causer des cycles.
+    </string>
+    <string name="err_monoflopRequiresOneClock">Si une bascule monostable est utilisée, il doit y avoir exactement une
+        composante horloge!
+    </string>
+    <string name="err_couldNotCreateElement_N">Impossible de créer une composante de type {0}!</string>
+    <string name="err_centralDefinedRomsAreNotSupported">La ROM définie dans les paramètres n'est pas prise en charge!
+    </string>
+    <string name="err_namesAreNotUnique_N">Le nom "{0}" n''est pas unique!</string>
+    <string name="err_errorWritingDataToProcess">Impossible d'écrire les valeurs au processus externe!</string>
+    <string name="err_errorReadingDataFromProcess">Impossible de lire les valeurs du processus externe!</string>
+    <string name="err_errorCreatingProcess">Impossible de créer le processus externe!</string>
+    <string name="err_timeoutReadingData_O">Expiration du délai d''attente pour lire les données du processus externe!
+        {0}
+    </string>
+    <string name="err_notEnoughDataReceived_O">Pas assez de données reçues!
+        {0}
+    </string>
+    <string name="err_invalidCharacterReceived_N_O">Le texte reçu contient un caractère invalide: {0}!
+        {1}
+    </string>
+    <string name="err_processTerminatedUnexpected_O">Le processus a été interrompu de façon inattendue!
+        {0}
+    </string>
+    <string name="err_couldNotTerminateProcess">Impossible d'interrompre le processus!</string>
+    <string name="err_couldNotStartProcess_N">Impossible d''exécuter le processus: {0}</string>
+    <string name="err_exitValueNotNull_N_O">L''état de sortie de l''application n''était pas 0, mais {0}:
+        {1}
+    </string>
+    <string name="err_canOnlyExportExternalVHDL">Le code externe peut seulement être exporté si c'est du VHDL!</string>
+    <string name="err_canOnlyExportExternalVerilog">Le code externe peut seulement être exporté si c'est du Verilog!
+    </string>
+    <string name="err_ifExternalComponentIsUsedTwiceCodeMustBeIdentical_N">Si une composante externe est utilisée à de
+        multiples reprises, le code doit être identique! Effets: {0}
+    </string>
+    <string name="err_writingToStdOut_O">Impossible d''écrire à la sortie standard (stdout):
+        {0}
+    </string>
+    <string name="err_ghdlNotInstalled">Le simulateur de VHDL ghdl ne semble pas être installé. Installez ghdl
+        (http://ghdl.free.fr/) et réessayez.
+        S'il y a toujours des problèmes, vérifiez le chemin de l'exécutable ghdl dans les paramètres de Digital.
+    </string>
+    <string name="err_iverilogNotInstalled">Le simulateur de Verilog Icarus ne semble pas être installé. Installez
+        IVerilog (http://iverilog.icarus.com/) et réessayez.
+        S'il y a toujours des problèmes, vérifiez le chemin de l'exécutable IVerilog dans les paramètres de Digital.
+    </string>
+    <string name="err_errorAnalysingCircuit_N">Erreur lors de l''analyse du circuit: {0}</string>
+    <string name="err_romNeedsALabelToBeExported">Chaque ROM doit avoir une étiquette unique pour pouvoir être
+        exportée!
+    </string>
+    <string name="err_lutNeedsALabelToBeExported">Chaque LUT doit avoir une étiquette unique pour pouvoir être
+        exportée!
+    </string>
+    <string name="err_counterNeedsMoreBits">Le compte doit avoir au moins deux bits.</string>
+    <string name="err_clocksNotAllowedInAsyncMode">Les horloges ne peuvent pas être utilisées en mode asynchrone.
+    </string>
+    <string name="err_verilogExporting">Erreur lors de l'exportation en Verilog.</string>
+    <string name="err_noRomFound">Aucune mémoire de programme trouvée! La mémoire du programme doit être identifiée
+        comme telle.
+    </string>
+    <string name="err_errorLoadingRomData">Erreur lors du chargement de la mémoire du programme.</string>
+    <string name="err_parsingSVG">Erreur lors de la lecture du fichier SVG.</string>
+    <string name="err_morePinsDefinedInSVGAsNeeded">Le fichier SVG contient des broches qui n'existent pas dans le
+        circuit.
+    </string>
+    <string name="err_allMemoriesNeedToHaveTheSameByteWidth">Toutes les mémoires dans lesquelles des données sont
+        chargées doivent avoir la même largeur binaire.
+    </string>
+    <string name="err_ProgMemLabelsNotDifferent">Si les programmes seront chargés dans plusieurs RAMs, toutes les RAMs
+        doivent avoir
+        des noms différents. L'ordre lexicographique détermine l'ordre des RAMs.
+    </string>
+    <string name="err_midiSystemNotAvailable">Le système MIDI n'est pas disponible.</string>
+    <string name="err_midiChannel_N_NotAvailable">Le canal MIDI {0} n''est pas disponible.</string>
+    <string name="err_midiInstrument_N_NotAvailable">L''instrument MIDI {0} n''est pas disponible.</string>
+    <string name="err_midiInstrumentsNotAvailable">Les instruments MIDI ne sont pas disponibles.</string>
+    <string name="err_whileExecutingTests_N0">Une erreur a eu lieu pendant l''exécution des tests "{0}"!</string>
+    <string name="err_hdlNotKnown_N">HDL inconnu: {0}</string>
+    <string name="msg_errorStartCommand_N">Erreur d''exécution de la commande {0}</string>
+    <string name="err_thereIsAUnnamedIO">Il y a une entrée ou une sortie sans nom!</string>
+    <string name="err_NameOfIOIsInvalidOrNotUnique_N">Le nom de signal "{0}" est invalide ou est utilisé à plusieurs
+        reprises!
+    </string>
+    <string name="err_substitutingError">Erreur lors de la substitution des composantes pour l'analyse.</string>
+    <string name="err_evaluatingGenericsCode_N_N">Erreur lors de l''évaluation du code générique pour un circuit. Code
+        {1}
+        à la composante: {0}
+    </string>
+    <string name="msg_errParsingGenerics">Erreur lors de l'évaluation du code générique.</string>
+    <string name="err_vgaModeNotDetected_N">Le mode vidéo n''a pas été détecté ({0})</string>
+    <string name="err_ROM_noFileGivenToLoad">Il n'y a aucun nom de fichier disponible pour le rechargement
+        automatique!
+    </string>
+    <string name="key_AddrBits">Bits d'adressage</string>
+    <string name="key_AddrBits_tt">Nombre de bits utilisés pour l'adresse.</string>
+    <string name="key_Bits">Bits de données</string>
+    <string name="key_Bits_tt">Le nombre de bits utilisés pour les données.</string>
+    <string name="key_Color">Couleur</string>
+    <string name="key_Color_tt">La couleur de l'élément.</string>
+    <string name="key_backgroundColor">Couleur d'arrière-plan</string>
+    <string name="key_backgroundColor_tt">La couleur d'arrière-plan du circuit lorsqu'il est intégré dans un autre
+        circuit.
+        Elle n'est pas utilisée pour les boîtiers DIL.
+    </string>
+    <string name="key_Cycles">Cycles d'attente</string>
+    <string name="key_Cycles_tt">Si ce nombre de cycles est atteint dans signal de pause, une erreur est affichée.
+    </string>
+    <string name="key_Data">Données</string>
+    <string name="key_Data_tt">Les valeurs stockées dans cet élément.</string>
+    <string name="key_Default">Par défaut</string>
+    <string name="key_Default_tt">Cette valeur est mise lorsque le circuit débute.
+        Pour un démultiplexeur, cette valeur est mise pour les sorties non sélectionnées.
+    </string>
+    <string name="key_InDefault">Par défaut</string>
+    <string name="key_InDefault_tt">Cette valeur est mise lorsque le circuit débute. Un "Z" signifie un état de haute
+        impédance.
+    </string>
+    <string name="key_isHighZ">Entrée à trois états</string>
+    <string name="key_isHighZ_tt">Si coché, l'entrée pourra être mise dans un état de haute impédance. Pour une entrée,
+        c'est aussi
+        disponible si "Z" est choisi comme valeur par défaut.
+    </string>
+    <string name="key_avoidActiveLow">Pas de sortie à zéro.</string>
+    <string name="key_avoidActiveLow_tt">Évite la sortie à zéro. Cela est particulièrement pratique pour monter des
+        circuits de relais.
+        Peut seulement être coché si l'état de haute impédance est permis.
+    </string>
+    <string name="key_Description">Description</string>
+    <string name="key_Description_tt">Une courte description de cet élément et son utilisation.</string>
+    <string name="key_Frequency">Fréquence/Hz</string>
+    <string name="key_Frequency_tt">La fréquence utilisée pour l'horloge temps réel.</string>
+    <string name="key_IEEEShapes">Utiliser les formes IEEE 91-1984</string>
+    <string name="key_IEEEShapes_tt">Utiliser les formes IEEE 91-1984 au lieu des formes rectangulaires.</string>
+    <string name="key_Inputs">Nombre d'entrées</string>
+    <string name="key_Inputs_tt">Le nombre d'entrées utilisées. Chaque entrée doit être connectée.</string>
+    <string name="key_Label">Étiquette</string>
+    <string name="key_Label_tt">Le nom de cet élément.</string>
+    <string name="key_Size">Taille</string>
+    <string name="key_Size_tt">La taille de la forme de cet élément dans le circuit.</string>
+    <string name="key_Language">Langue</string>
+    <string name="key_Language_tt">Langue de l'interface. Prend effet seulement après un redémarrage.</string>
+    <string name="key_NetName">Nom du réseau</string>
+    <string name="key_NetName_tt">Tous les réseaux avec un nom identique sont connectés ensemble.</string>
+    <string name="key_InputSplitting">Séparation de l'entrée</string>
+    <string name="key_InputSplitting_tt">S'il y a par exemple quatre bits, deux bits et encore deux bits à être utilisés
+        comme entrées,
+        cela peut être configuré avec "4,2,2". Le nombre indique le nombre de bits. Pour plus de facilité,
+        l'astérisque peut être utilisé: 16 bits peuvent ainsi être séparés avec "[Bits]*[Nombre]",
+        par exemple "1*16" donnera 16 bits individuels. Il est également possible de spécifier les bits à utiliser dans
+        n'importe quel ordre. Par exemple, "4-7,0-3" utilisera les bits 4-7 et 0-3. Cette notation permet n'importe quel
+        arrangement de bits. Les entrées doivent être spécifiées complètement et sans ambiguïté.
+    </string>
+    <string name="key_OutputSplitting">Séparation de la sortie</string>
+    <string name="key_OutputSplitting_tt">S'il y a par exemple quatre bits, deux bits et encore deux bits à être
+        utilisés comme entrées,
+        cela peut être configuré avec "4,2,2". Le nombre indique le nombre de bits. Pour plus de facilité,
+        l'astérisque peut être utilisé: 16 bits peuvent ainsi être séparés avec "[Bits]*[Nombre]",
+        par exemple "1*16" donnera 16 bits individuels. Il est également possible de spécifier les bits à utiliser dans
+        n'importe quel ordre. Par exemple, "4-7,0-3" utilisera les bits 4-7 et 0-3. Cette notation permet n'importe quel
+        arrangement de bits. Les bits de sortie peuvent être émis plusieurs fois: "0-7,1-6,4-7".
+    </string>
+    <string name="key_SelectorBits">Nombre de bits du sélecteur</string>
+    <string name="key_SelectorBits_tt">Nombre de bits utilisés pour l'entrée du sélecteur.</string>
+    <string name="key_Signed">Opération signée</string>
+    <string name="key_Signed_tt">Si coché, l'opération est effectuée avec des valeurs signées (complément 2).</string>
+    <string name="key_remainderPositive">Le reste est toujours positif.</string>
+    <string name="key_remainderPositive_tt">Si coché, le reste d'une division signée sera toujours positif.</string>
+    <string name="key_Closed">Fermé</string>
+    <string name="key_Closed_tt">Donne l'état initial de l'interrupteur.</string>
+    <string name="key_Value">Valeur</string>
+    <string name="key_Value_tt">La valeur de la constante.</string>
+    <string name="key_Width">Largeur</string>
+    <string name="key_Width_tt">Largeur du symbole si le circuit est utilisé comme une composante dans un autre
+        circuit.
+    </string>
+    <string name="key_Height">Hauteur</string>
+    <string name="key_Height_tt">Hauteur du symbole si le circuit est utilisé comme une composante dans un autre
+        circuit.
+    </string>
+    <string name="key_autoReload">Recharger au début</string>
+    <string name="key_autoReload_tt">Recharger le fichier HEX à chaque fois que le modèle débute.</string>
+    <string name="key_flipSelPos">Inverser la position du sélecteur</string>
+    <string name="key_flipSelPos_tt">Cette option permet de déplacer l'entrée du sélecteur du côté opposé du plexeur.
+    </string>
+    <string name="key_intFormat">Format de nombre</string>
+    <string name="key_intFormat_tt">Le format utilisé pour afficher les nombres.</string>
+    <string name="key_intFormat_ascii">ASCII</string>
+    <string name="key_intFormat_bin">Binaire</string>
+    <string name="key_intFormat_dec">Décimal</string>
+    <string name="key_intFormat_decSigned">Décimal signé</string>
+    <string name="key_intFormat_def">Par défaut</string>
+    <string name="key_intFormat_hex">Hexadécimal</string>
+    <string name="key_intFormat_oct">Octal</string>
+    <string name="key_barrelSigned">L'entrée de décalage est signée</string>
+    <string name="key_barrelSigned_tt">Si coché, l'entrée de décalage est une valeur signée (complément 2).</string>
+    <string name="key_barrelShifterMode">Mode</string>
+    <string name="key_barrelShifterMode_tt">Mode du décaleur</string>
+    <string name="key_barrelShifterMode_logical">Logique</string>
+    <string name="key_barrelShifterMode_rotate">Rotation</string>
+    <string name="key_barrelShifterMode_arithmetic">Arithmétique</string>
+    <string name="key_direction">Direction</string>
+    <string name="key_direction_tt">Détermine la direction du décalage.</string>
+    <string name="key_direction_left">Gauche</string>
+    <string name="key_direction_right">Droite</string>
+    <string name="key_maxStepCount">Nombre maximal d'étapes à afficher</string>
+    <string name="key_maxStepCount_tt">Le nombre maximal de valeurs stockées.
+        Si le nombre maximal est atteint, les valeurs plus vieilles disparaissent.
+    </string>
+    <string name="key_microStep">Afficher les étapes pas-à-pas</string>
+    <string name="key_microStep_tt">Afficher toutes les étapes pas-à-pas dans le graphique.</string>
+    <string name="key_rotation">Rotation</string>
+    <string name="key_rotation_tt">L'orientation de l'élément dans le circuit.</string>
+    <string name="key_mirror">Miroir</string>
+    <string name="key_mirror_tt">Reflète la composante dans le circuit.</string>
+    <string name="key_runRealTime">Partir l'horloge temps réel</string>
+    <string name="key_runRealTime_tt">Si coché, l'horloge de temps d'exécution est partie quand le circuit débute.
+    </string>
+    <string name="key_showDataGraph">Afficher le graphique de mesures au début de la simulation</string>
+    <string name="key_showDataGraph_tt">Lorsque la simulation est débutée, un graphique avec les valeurs mesurées est
+        affiché.
+    </string>
+    <string name="key_showDataGraphMicro">Afficher le graphique de mesures en mode pas-à-pas au début de la simulation
+    </string>
+    <string name="key_showDataGraphMicro_tt">Lorsque la simulation est débutée, un graphique avec les valeurs mesurées
+        en mode
+        pas-à-pas est affiché. Tous les changements de portes sont inclus dans le graphique.
+    </string>
+    <string name="key_addValueToGraph">Afficher dans le graphique de mesures</string>
+    <string name="key_addValueToGraph_tt">Affiche la valeur dans le graphique de mesures</string>
+    <string name="key_showDataTable">Afficher les valeurs de mesures au début de la simulation</string>
+    <string name="key_showDataTable_tt">Lorsque la simulation débute, un tableau avec les valeurs mesurées est
+        affiché.
+    </string>
+    <string name="key_termHeight">Lignes</string>
+    <string name="key_termHeight_tt">Le nombre de lignes à afficher.</string>
+    <string name="key_termWidth">Caractères par ligne</string>
+    <string name="key_termWidth_tt">Le nombre de caractères affichés dans une seule ligne.</string>
+    <string name="key_valueIsProbe">Utiliser comme valeur de mesure</string>
+    <string name="key_valueIsProbe_tt">Si coché, la valeur est une valeur de mesure est s'affiche dans le graphique et
+        le tableau de données.
+        De plus, une étiquette doit être spécifiée afin d'identifier la valeur.
+    </string>
+    <string name="key_Testdata">Données de test</string>
+    <string name="key_Testdata_tt">La description du test.
+        Les détails de la syntaxe peuvent être trouvés dans le dialogue d'aide de l'éditeur de données de test.
+    </string>
+    <string name="key_graphicWidth">Largeur en pixels</string>
+    <string name="key_graphicWidth_tt">La largeur de l'écran en pixels.</string>
+    <string name="key_graphicHeight">Hauteur en pixels</string>
+    <string name="key_graphicHeight_tt">La hauteur de l'écran en pixels.</string>
+    <string name="key_isProgramMemory">Mémoire de programme</string>
+    <string name="key_isProgramMemory_tt">Fait de cette ROM une mémoire de programme. Ainsi, elle devient accessible par
+        un éditeur externe.
+    </string>
+    <string name="key_isProgramCounter">Pointeur d'instruction</string>
+    <string name="key_isProgramCounter_tt">Fait de ce registre un pointeur d'instruction (ou compteur ordinal). La
+        valeur de ce registre
+        est retournée à un assembleur externe pour marquer la ligne de code courante durant le débogage.
+    </string>
+    <string name="key_Blown">Programmé</string>
+    <string name="key_Blown_tt">Si la diode est "sautée" ou "programmée".
+        Pour un FET à grille flottante, la grille flottante est chargée.
+        Il est aussi possible de changer cette option avec la touche [P].
+    </string>
+    <string name="key_ExpressionFormat">Format</string>
+    <string name="key_ExpressionFormat_tt">Format des expressions à l'écran</string>
+    <string name="key_relayNormallyClosed">Relais normalement fermé.</string>
+    <string name="key_relayNormallyClosed_tt">Si coché, le relais est fermé si l'entrée est basse.</string>
+    <string name="key_poles">Nombre de pôles</string>
+    <string name="key_poles_tt">Nombre de poles disponibles.</string>
+    <string name="key_commonCathode">Connexion commune</string>
+    <string name="key_commonCathode_tt">Si coché, une entrée de cathode ou d'anode commune est aussi simulée.</string>
+    <string name="key_commonConnectionType">Commun</string>
+    <string name="key_commonConnectionType_tt">Type de connexion commune.</string>
+    <string name="key_commonConnectionType_cathode">Cathode</string>
+    <string name="key_commonConnectionType_anode">Anode</string>
+    <string name="key_ledPersistence">Éviter le clignotement</string>
+    <string name="key_ledPersistence_tt">Il n'est pas possible d'augmenter la fréquence assez pour que le clignomenet
+        disparaisse.
+        Afin de supprimer le clignotent quand même, une "rémanence" peut être activée pour les LEDs avec cette option.
+        Si coché, les LEDs restent allumées, même si une des broches change vers un état de haute impédance.
+        Cela simule une fréquence au-delà de la fréquence critique de fusion du clignotement.
+    </string>
+    <string name="key_atf1502Fitter">Ajusteur ATF15xx</string>
+    <string name="key_atf1502Fitter_tt">Chemin vers l'ajusteur pour le ATF15xx.
+        Entrer un répertoire qui contient les fichiers fit15xx.exe fournis par Microchip (anciennement ATMEL).
+    </string>
+    <string name="key_pin">Numéro de broche</string>
+    <string name="key_pin_tt">Un champ vide signifie que le signal n'est pas assigné à une broche.</string>
+    <string name="key_rowDataBits">Lignes</string>
+    <string name="key_rowDataBits_tt">Spécifie le nombre de lignes en spécifiant le nombre de bits du mot de la ligne.
+    </string>
+    <string name="key_colAddrBits">Bits d'adressage des colonnes</string>
+    <string name="key_colAddrBits_tt">Pour adresser des colonnes individuelles. Trois bits donnent huit colonnes.
+    </string>
+    <string name="key_lockedMode">Empêcher la modification</string>
+    <string name="key_lockedMode_tt">Verrouille le circuit. Il est possible de configurer les diodes et les FGF-FETs.
+    </string>
+    <string name="key_pinNumber">Numéro de broche</string>
+    <string name="key_pinNumber_tt">Numéro de cette broche. Utilisé pour la représentation d'un circuit dans un boîtier
+        DIL et lors
+        de l'affectation des broches lors de la programmation d'un CPLD.
+        S'il y a plusieurs bits, tous les numéros de broche peuvent être spécifiés dans une liste séparée par des
+        virgules.
+    </string>
+    <string name="key_pinCount">Nombre de broches DIL</string>
+    <string name="key_pinCount_tt">Nombre de broches. Un zéro signifie que le nombre de broches est déterminé
+        automatiquement.
+    </string>
+    <string name="key_defTreeSelect">Afficher l'arborescence des composantes au démarrage.</string>
+    <string name="key_defTreeSelect_tt">Si coché, l'arborescence des composantes est affichée au démarrage.</string>
+    <string name="key_inverterConfig">Entrées inversées</string>
+    <string name="key_inverterConfig_tt">Sélectionner les entrées qui doivent être inversées.</string>
+    <string name="key_fontSize">Taille de la police des menus [%]</string>
+    <string name="key_fontSize_tt">Taille des polices utilisées dans le menu en pourcentage de la valeur par défaut.
+    </string>
+    <string name="key_withEnable">Entrée d'activation</string>
+    <string name="key_withEnable_tt">Si coché, une entrée d'activation (T) est disponible.</string>
+    <string name="key_unidirectional">Unidirectionnel</string>
+    <string name="key_unidirectional_tt">Les transistors unidirectionnels propagent un signal seulement de la source au
+        drain. Ils sont
+        beaucoup plus rapides à simuler que les transistors bidirectionnels. Dans ce mode, puisqu'il n'y a pas de
+        rétroaction du drain à la source, le transistor ne peut pas court-circuiter les fils connectés lorsqu'il est
+        conducteur.
+        Ainsi, ce mode est nécessaire pour simuler certains circuits CMOS.
+    </string>
+    <string name="key_activeLow">Actif bas</string>
+    <string name="key_activeLow_tt">Si coché, la sortie est basse lorsque la composante est active.</string>
+    <string name="key_libraryPath">Bibliothèque</string>
+    <string name="key_libraryPath_tt">Dossier qui contient la bibliothèque avec des sous-circuits prédéfinis.
+        Contient par exemple les composantes de la série 74xx. Vous pouvez aussi ajouter vos propres circuits
+        en les stockant à cet emplacement.
+        Il faut s'assurer que le nom des fichiers dans ce dossier et ses sous-dossiers sont uniques.
+    </string>
+    <string name="key_grid">Afficher la grille</string>
+    <string name="key_grid_tt">Afficher la grille dans la fenêtre principale.</string>
+    <string name="key_wireToolTips">Surlignement des fils</string>
+    <string name="key_wireToolTips_tt">Si coché, les lignes de fils sont surlignées lorsque la souris est par-dessus.
+    </string>
+    <string name="key_mapToKey">Associer au clavier</string>
+    <string name="key_mapToKey_tt">Le bouton est associé au clavier.
+        Pour utiliser les touches de direction, utilisez UP, DOWN, LEFT ou RIGHT comme étiquette.
+    </string>
+    <string name="key_jarPath">Bibliothèque Java</string>
+    <string name="key_jarPath_tt">Un fichier JAR qui contient des composantes additionnelles implantées en Java.
+    </string>
+    <string name="key_showWireBits">Afficher le nombre de fils sur un bus.</string>
+    <string name="key_showWireBits_tt">ATTENTION: La valeur est seulement mise à jour lorsque la simulation débute.
+    </string>
+    <string name="key_inputBits">Largeur binaire d'entrée</string>
+    <string name="key_inputBits_tt">Le nombre de bits de sortie doit est plus grand que le nombre de bits d'entrée.
+    </string>
+    <string name="key_outputBits">Largeur binaire de sortie</string>
+    <string name="key_outputBits_tt">Le nombre de bits de sortie doit est plus grand que le nombre de bits d'entrée.
+    </string>
+    <string name="key_textFontSize">Taille de police</string>
+    <string name="key_textFontSize_tt">Détermine la taille de la police à utiliser pour ce texte.</string>
+    <string name="key_delayTime">Durée</string>
+    <string name="key_delayTime_tt">Temps de délais avec comme unités le temps de propagation équivalent d'une porte
+        logique.
+    </string>
+    <string name="key_invertOutput">Inverser la sortie</string>
+    <string name="key_invertOutput_tt">Si coché la sortie est inversée.</string>
+    <string name="key_timerDelay">Largeur d'impulsion</string>
+    <string name="key_timerDelay_tt">La largeur d'impulsion est mesurée en cycles d'horloge.</string>
+    <string name="key_splitterSpreading">Étalement</string>
+    <string name="key_splitterSpreading_tt">Configure l'étalement des entrées et des sorties dans le circuit.</string>
+    <string name="key_romContent">Contenu des ROM.</string>
+    <string name="key_romContent_tt">Contenu de toutes les ROMs utilisées.</string>
+    <string name="key_applicationType">Application</string>
+    <string name="key_applicationType_tt">Définit l'application à utiliser.</string>
+    <string name="key_applicationType_Generic">Générique</string>
+    <string name="key_applicationType_GHDL">GHDL</string>
+    <string name="key_applicationType_IVERILOG">IVerilog</string>
+    <string name="key_externalInputs">Entrées</string>
+    <string name="key_externalInputs_tt">Les entrées du processus externe.
+        C'est une liste de noms de signaux séparée par des virgules. Pour chaque nom de signal, un nombre de bits
+        séparé par un deux-points peut être spécifié. Les entrées d'un additionneur 8-bit pourraient ainsi être séparées
+        avec "a:8,b:8,c_in".
+    </string>
+    <string name="key_externalOutputs">Sorties</string>
+    <string name="key_externalOutputs_tt">Les sorties du processus externe.
+        C'est une liste de noms de signaux séparée par des virgules. Pour chaque nom de signal, un nombre de bits
+        séparé par un deux-points peut être spécifié. Les sorties d'un additionneur 8-bit pourraient ainsi être séparées
+        avec "s:8,c_out".
+    </string>
+    <string name="key_Code">Code du programme</string>
+    <string name="key_Code_tt">Le code du programme à exécuter par une application externe.</string>
+    <string name="attr_panel_Options">Options</string>
+    <string name="key_ghdlPath">GHDL</string>
+    <string name="key_ghdlPath_tt">Chemin du fichier ghdl exécutable. Seulement nécessaire si vous voulez utiliser ghdl
+        pour
+        simuler des composantes définies avec VHDL.
+    </string>
+    <string name="key_ghdlOptions">Options GHDL</string>
+    <string name="key_ghdlOptions_tt">Options utilisées pour les étapes de traitement par GHDL.</string>
+    <string name="key_iverilogPath">IVerilog</string>
+    <string name="key_iverilogPath_tt">Chemin du fichier exécutable d'Icarus Verilog. Seulement nécessaire si vous
+        voulez utiliser
+        IVerilog pour simuler des composantes définies avec Verilog.
+    </string>
+    <string name="key_maxValue">Valeur maximale</string>
+    <string name="key_maxValue_tt">Si un zéro est entré, la valeur maximale est utilisée (tous les bits à un).</string>
+    <string name="key_dipDefault">Sortie haute</string>
+    <string name="key_dipDefault_tt">La valeur par défaut de l'interrupteur DIP lorsque la simulation débute.</string>
+    <string name="key_macMouse">Utiliser les clics de souris macOS.</string>
+    <string name="key_macMouse_tt">Utiliser Ctrl+Clic au lieu du clic droit.</string>
+    <string name="key_noComponentToolTips">Pas d'infobulles pour les composantes du volet principal.</string>
+    <string name="key_noComponentToolTips_tt">Si coché, aucune infobulle pour les composantes dans le volet principal ne
+        sera affichée.
+        Les infobulles peuvent être dérangeantes, surtout dans une présentation.
+    </string>
+    <string name="key_tunnelRenameDialog">Afficher le dialogue pour renommer automatiquement les tunnels.</string>
+    <string name="key_tunnelRenameDialog_tt">Si coché, un dialogue pour renommer automatiquement les tunnels du même nom
+        sera affiché après
+        qu'un tunnel ait été renommé.
+    </string>
+    <string name="key_ATMISP">ATMISP</string>
+    <string name="key_ATMISP_tt">Chemin du fichier exécutable ATMISP.exe. Si coché, le programme ATMISP sera exécuté
+        automatiquement!
+    </string>
+    <string name="key_customShape">Forme personnalisée</string>
+    <string name="key_customShape_tt">Importation d'un fichier SVG</string>
+    <string name="key_preloadProgram">Précharger le mémoire de programme au démarrage.</string>
+    <string name="key_preloadProgram_tt">Lors de la simulation d'un processeur qui utilise une composante de RAM comme
+        mémoire de programme,
+        il est difficile de lancer le processeur parce que le contenu de la RAM est toujours initialisé avec des
+        zéros au début de la simulation. Cette option permet de charger les données dans la mémoire de programme au
+        démarrage. La mémoire de programme dans le circuit doit être identifiée comme telle.
+    </string>
+    <string name="key_preloadProgramFile">Fichier de programme</string>
+    <string name="key_preloadProgramFile_tt">Fichier qui devrait être chargé dans la mémoire de programme au début de la
+        simulation.
+    </string>
+    <string name="key_RectWidth">Largeur</string>
+    <string name="key_RectWidth_tt">Largeur en unités de grille</string>
+    <string name="key_RectHeight">Hauteur</string>
+    <string name="key_RectHeight_tt">Hauteur en unités de grille</string>
+    <string name="key_RectInside">Texte en dedans</string>
+    <string name="key_RectInside_tt">Place le texte à l'intérieur du rectangle.</string>
+    <string name="key_RectBottom">Texte en bas</string>
+    <string name="key_RectBottom_tt">Place le texte au bas du rectangle.</string>
+    <string name="key_RectRight">Text à droite</string>
+    <string name="key_RectRight_tt">Place le texte à droite du rectangle.</string>
+    <string name="key_wideShape">Forme large</string>
+    <string name="key_wideShape_tt">Utilise une forme plus large pour visualiser la porte.</string>
+    <string name="key_shapeType">Forme</string>
+    <string name="key_shapeType_tt">La forme à utiliser pour la représentation du circuit lorsque celui-ci est intégré.
+        Dans le mode "Simple", les entrées sont affichées à gauche et les sorties à droite dans un rectangle simple.
+        Avec "Disposition", la position des entrées et des sorties ainsi que leur orientation dans le circuit détermine
+        la position des broches. Avec "Boîtier DIL", un boîtier DIL est utilisé pour afficher le circuit. Les numéros
+        de broches des entrées et des sorties déterminent la position des broches sur le boîtier.
+    </string>
+    <string name="key_shapeType_DEFAULT">Par défaut</string>
+    <string name="key_shapeType_SIMPLE">Simple</string>
+    <string name="key_shapeType_DIL">Boîtier DIL</string>
+    <string name="key_shapeType_LAYOUT">Disposition</string>
+    <string name="key_shapeType_CUSTOM">Personnalisée</string>
+    <string name="key_textOrientation">Orientation</string>
+    <string name="key_textOrientation_tt">Position de la coordonnée relativement au texte.</string>
+    <string name="key_textOrientation_LEFTBOTTOM">Bas à gauche</string>
+    <string name="key_textOrientation_CENTERBOTTOM">Bas au centre</string>
+    <string name="key_textOrientation_RIGHTBOTTOM">Bas à droite</string>
+    <string name="key_textOrientation_RIGHTCENTER">Milieu à droite</string>
+    <string name="key_textOrientation_RIGHTTOP">Haut à droite</string>
+    <string name="key_textOrientation_CENTERTOP">Haut au centre</string>
+    <string name="key_textOrientation_LEFTTOP">Haut à gauche</string>
+    <string name="key_textOrientation_LEFTCENTER">Milieu à gauche</string>
+    <string name="key_textOrientation_CENTERCENTER">Milieu au centre</string>
+    <string name="key_midiChannel">Canal MIDI</string>
+    <string name="key_midiChannel_tt">Sélectionne le canal MIDI à utiliser.</string>
+    <string name="key_midiInstrument">Instrument MIDI</string>
+    <string name="key_midiInstrument_tt">L'instrument MIDI à utiliser</string>
+    <string name="key_midiProgChange">Permettre le changement de programme</string>
+    <string name="key_midiProgChange_tt">Ajoute une nouvelle entrée PC (program change). Si cette entrée est haute,
+        la valeur à l'entrée N est utilisée pour changer le programme (l'instrument).
+    </string>
+    <string name="key_enabled">Activée</string>
+    <string name="key_enabled_tt">Active ou désactive cette composante.</string>
+    <string name="key_toolChainConfig">Configuration de la chaîne d'outils</string>
+    <string name="key_toolChainConfig_tt">Sert à configurer l'intégration d'une chaîne d'outils.
+        Permet d'exécuter des outils externes, par exemple pour programmer un FPGA ou autre.
+    </string>
+    <string name="key_generic">Paramétrisation générique</string>
+    <string name="key_generic_tt">Énoncés utilisés pour générifier un circuit.</string>
+    <string name="key_isGeneric">Circuit générique</string>
+    <string name="key_isGeneric_tt">Permet de créer un circuit générique.</string>
+    <string name="key_showTutorial">Afficher le tutoriel au démarrage.</string>
+    <string name="key_showTutorial_tt">Active le tutoriel.</string>
+    <string name="key_switchActsAsInput">Interrupteur se comporte comme une entrée</string>
+    <string name="key_switchActsAsInput_tt">Si le modèle est analysé, l'interrupteur se comporte comme une entrée, où
+        "ouverte" correspond à '0' et "fermée" à '1'.
+    </string>
+    <string name="menu_exportSVGSettings">Paramètres d'exportation SVG</string>
+    <string name="key_SVG_LaTeX">Texte en notation LaTeX</string>
+    <string name="key_SVG_LaTeX_tt">Le texte est inséré en notation LaTeX. Inkscape est requis pour un traitement
+        ultérieur.
+    </string>
+    <string name="key_SVG_pinsInMathMode">Étiquettes de broches en mode math.</string>
+    <string name="key_SVG_pinsInMathMode_tt">Pour les étiquettes de broches, utiliser le mode math même s'elles ne
+        contiennent aucun indice.
+    </string>
+    <string name="key_SVG_hideTest">Cacher les tests</string>
+    <string name="key_SVG_hideTest__">Les tests ne sont pas exportés.</string>
+    <string name="key_SVG_noShapeFilling">Formes non remplies</string>
+    <string name="key_SVG_noShapeFilling_tt">Les polygones ne sont pas remplis.</string>
+    <string name="key_SVG_smallIO">Petites entrées et sorties</string>
+    <string name="key_SVG_smallIO_tt">Les entrées et les sorties sont représentées comme de petits cercles.</string>
+    <string name="key_SVG_noPinMarker">Omettre les marqueurs de broches</string>
+    <string name="key_SVG_noPinMarker_tt">Les marqueurs de broches bleus et rouges sur les symboles sont omis.</string>
+    <string name="key_SVG_highContrast">Constraste élevé</string>
+    <string name="key_SVG_highContrast_tt">Les fils et le texte des broches sont affichés en noir.</string>
+    <string name="key_SVG_monochrome">Monochrome</string>
+    <string name="key_SVG_monochrome_tt">Seulement des nuances de gris sont utilisées.</string>
+    <string name="key_SVG_thinnerLines">Lignes minces</string>
+    <string name="key_SVG_thinnerLines_tt">Si coché, les lignes sont dessinées un peu plus minces.</string>
+    <string name="key_equalsInsteadOfPlus">Utiliser la touche égal</string>
+    <string name="key_equalsInsteadOfPlus_tt">Utiliser la touche égal au lieu de la touche plus.
+        Cela est toujours utile si le caractère plus n'est pas une touche primaire, mais une affectation secondaire
+        de la touche égal, par exemple sur les claviers américains et français.
+    </string>
+    <string name="key_snapToGrid">Aligner sur la grille</string>
+    <string name="key_snapToGrid_tt">Si coché, la composante reste alignée sur la grille.</string>
+    <string name="key_layoutShapeDelta">Séparateur de broche</string>
+    <string name="key_layoutShapeDelta_tt">Utilisé par le type de forme "Disposition". Établit la distance avec la
+        broche précédente.
+    </string>
+    <string name="key_colorScheme">Thème de couleur</string>
+    <string name="key_colorScheme_DEFAULT">Normal</string>
+    <string name="key_colorScheme_DARK">Foncé</string>
+    <string name="key_colorScheme_COLOR_BLIND">Deutéranopie</string>
+    <string name="key_colorScheme_CUSTOM">Personnalisé</string>
+    <string name="menu_colorSchemePreset">Préréglages</string>
+    <string name="key_customColorScheme">Couleurs personnalisées</string>
+    <string name="colorName_BACKGROUND">Arrière-plan</string>
+    <string name="colorName_MAIN">Avant-plan</string>
+    <string name="colorName_WIRE">Fil</string>
+    <string name="colorName_WIRE_HIGH">Fil HAUT</string>
+    <string name="colorName_WIRE_LOW">Fil BAS</string>
+    <string name="colorName_WIRE_VALUE">Valeur au fil</string>
+    <string name="colorName_WIRE_OUT">Sortie</string>
+    <string name="colorName_WIRE_Z">Fil HI-Z</string>
+    <string name="colorName_ERROR">Erreur</string>
+    <string name="colorName_PASSED">OK</string>
+    <string name="colorName_PINS">Broches</string>
+    <string name="colorName_GRID">Grille</string>
+    <string name="colorName_TESTCASE">Test</string>
+    <string name="colorName_DISABLED">Désactivé</string>
+    <string name="colorName_ASYNC">Asynchrone</string>
+    <string name="colorName_HIGHLIGHT">Surligné</string>
+    <string name="mod_insertWire">Fil inséré.</string>
+    <string name="mod_insertCopied">Insertion du presse-papier</string>
+    <string name="mod_setKey_N0_in_element_N1">Valeur ''{0}'' de la composante ''{1}'' modifiée</string>
+    <string name="mod_setAttributesIn_N">Attributs de la composante ''{0}'' modifiée.</string>
+    <string name="mod_wireDeleted">Fil supprimé.</string>
+    <string name="mod_movedOrRotatedElement_N">Composante ''{0}'' déplacée ou pivotée.</string>
+    <string name="mod_movedWire">Fil déplacé.</string>
+    <string name="mod_deletedSelection">Sélection supprimée.</string>
+    <string name="mod_insertedElement_N">Composante ''{0}'' insérée.</string>
+    <string name="mod_deletedElement_N">Composante ''{0}'' supprimée.</string>
+    <string name="mod_insertedWire">Fil inséré.</string>
+    <string name="mod_movedSelected">Sélection déplacée.</string>
+    <string name="mod_undo_N">Annuler: {0}</string>
+    <string name="mod_redo_N">Rétablir: {0}</string>
+    <string name="mod_circuitAttrModified">Attributs du circuit modifiés.</string>
+    <string name="mod_modifiedMeasurementOrdering">Mesures réordonnées.</string>
+    <string name="mod_groupEdit">Attributs des composantes sélectionnées modifiées.</string>
+    <string name="mod_splitWire">Séparation d'un fil en deux fils.</string>
+    <string name="lib_Logic">Logique</string>
+    <string name="lib_arithmetic">Arithmétique</string>
+    <string name="lib_flipFlops">Bascules</string>
+    <string name="lib_io">E/S</string>
+    <string name="lib_memory">Mémoire</string>
+    <string name="lib_mux">Plexeurs</string>
+    <string name="lib_wires">Câblage</string>
+    <string name="lib_switching">Interrupteurs</string>
+    <string name="lib_displays">Affichages</string>
+    <string name="lib_mechanic">Mécanique</string>
+    <string name="lib_peripherals">Périphériques</string>
+    <string name="lib_misc">Divers</string>
+    <string name="lib_more">Plus</string>
+    <string name="lib_ram">RAM</string>
+    <string name="lib_eeprom">EEPROM</string>
+    <string name="cli_cli">Interface de ligne de commande</string>
+    <string name="cli_nonOptionalArgumentMissing_N">L''argument non optionnel {0} est manquant.</string>
+    <string name="cli_notABool_N">La valeur {0} n''est pas un booléen.</string>
+    <string name="cli_notANumber_N">La valeur {0} n''est pas un nombre.</string>
+    <string name="cli_noArgument_N_available">L''argument {0} n''est pas défini.</string>
+    <string name="cli_notEnoughArgumentsGiven">Il n'y a pas assez d'arguments.</string>
+    <string name="cli_toMuchArguments">Il y a trop d'arguments.</string>
+    <string name="cli_invalidType_N">Type invalide.</string>
+    <string name="cli_command_N_hasNoSubCommand_N">La commande {0} n''a pas de sous-commande {1}.</string>
+    <string name="cli_options">Options:</string>
+    <string name="cli_help_test">Le premier nom de fichier spécifie le nom du circuit à tester.
+        Si un second nom de fichier est spécifié, les tests sont exécutés à partir de ce fichier.
+        Sinon, les tests sont exécutés à partir du premier fichier.
+    </string>
+    <string name="cli_help_test_circ">Nom du fichier à être testé.</string>
+    <string name="cli_help_test_tests">Nom du fichier avec les tests.</string>
+    <string name="cli_help_test_allowMissingInputs">Permet l'omission d'entrées dans le circuit qui sont définies dans
+        le test.
+        Cela peut être utile s'il y a plusieurs solutions qui peuvent dépendre d'entrées différentes.
+    </string>
+    <string name="cli_thereAreTestFailures">Les tests ont échoué.</string>
+    <string name="cli_errorExecutingTests">Une erreur s'est produite lors de l'exécution des tests.</string>
+    <string name="cli_help_svg">Peut être utilisé pour créer un fichier SVG à partir d'un circuit.</string>
+    <string name="cli_help_svg_dig">Le nom de fichier du circuit.</string>
+    <string name="cli_help_svg_svg">Le nom du fichier SVG à créer.</string>
+    <string name="cli_help_svg_ieee">Utiliser les symboles IEEE.</string>
+    <string name="cli_errorCreatingSVG">Erreur lors de la création du fichier SVG!</string>
+    <string name="cli_help_stats">Créer un fichier CSV qui contient les statistiques du circuit.
+        Toutes les composantes sont listées dans le fichier CSV.
+    </string>
+    <string name="cli_help_stats_dig">Nom de fichier du circuit.</string>
+    <string name="cli_help_stats_csv">Nom du fichier CSV à créer.
+        Si cette option est manque, la table de vérité est écrite à la sortie standard.
+    </string>
+    <string name="cli_errorCreatingStats">Erreur lors de la création du fichier de statistiques!</string>
+    <string name="menu_window">Fenêtre</string>
+    <string name="menu_about">À propos</string>
+    <string name="menu_analyse">Analyse</string>
+    <string name="menu_analyse_tt">Analyse le circuit actuel</string>
+    <string name="menu_cut">Couper</string>
+    <string name="menu_copy">Copier</string>
+    <string name="menu_custom">Personnalisé</string>
+    <string name="menu_library">Bibliothèque</string>
+    <string name="menu_delete">Supprimer la composante</string>
+    <string name="menu_delete_tt">Supprime la composante ou le groupe de composantes sélectionnées</string>
+    <string name="menu_edit">Édition</string>
+    <string name="menu_editAttributes">Paramètres spécifiques au circuit</string>
+    <string name="menu_editAttributes_tt">Les paramètres spécifiques au circuit affectent le comportement du circuit
+        présentement ouvert.
+        Par exemple, la forme qui représente le circuit quand il est intégré dans d'autres circuits.
+        Ces paramètres sont stockés avec le circuit.
+    </string>
+    <string name="menu_editSettings">Paramètres</string>
+    <string name="menu_editSettings_tt">Les paramètres globaux du simulateur spécifient, entre autres, la langue, la
+        forme des symboles à utiliser,
+        ou les chemins des outils externes.
+    </string>
+    <string name="menu_element">Arrêter la simulation</string>
+    <string name="menu_element_tt">Arrête la simulation et permet d'éditer le circuit.</string>
+    <string name="menu_elements">Composantes</string>
+    <string name="menu_export">Exporter</string>
+    <string name="menu_exportPNGLarge">Exporter en PNG (large)</string>
+    <string name="menu_exportPNGSmall">Exporter en PNG (petit)</string>
+    <string name="menu_exportSVG">Exporter en SVG</string>
+    <string name="menu_exportAnimatedGIF">Exporter en GIF animé</string>
+    <string name="menu_fast">Exécuter jusqu'à une pause</string>
+    <string name="menu_fast_tt">Exécute le circuit jusqu'à qu'une pause est détectée sur une composante BRK.</string>
+    <string name="menu_file">Fichier</string>
+    <string name="menu_help">Aide</string>
+    <string name="menu_update">Mettre à jour</string>
+    <string name="menu_update_tt">Met à jour le menu des composantes.</string>
+    <string name="menu_maximize">Ajuster à la fenêtre</string>
+    <string name="menu_micro">Mode pas-à-pas</string>
+    <string name="menu_micro_tt">Lance le circuit en mode pas-à-pas</string>
+    <string name="menu_new">Nouveau</string>
+    <string name="menu_new_tt">Crée un nouveau circuit vide.</string>
+    <string name="menu_newSub">Nouveau circuit intégré</string>
+    <string name="menu_newSub_tt">Ouvre une nouvelle fenêtre pour créer un circuit intégré, qui peut ensuite être
+        utilisé dans ce circuit.
+    </string>
+    <string name="menu_open">Ouvrir</string>
+    <string name="menu_openRecent">Ouvrir récent</string>
+    <string name="menu_openRecentNewWindow">Ouvrir récent dans une nouvelle fenêtre</string>
+    <string name="menu_openWin">Ouvrir dans une nouvelle fenêtre</string>
+    <string name="menu_openWin_tt">Ouvre un circuit dans une nouvelle fenêtre</string>
+    <string name="menu_orderInputs">Ordonner les entrées</string>
+    <string name="menu_orderInputs_tt">Ordonne les entrées pour l'utilisation comme circuit intégré</string>
+    <string name="menu_orderMeasurements">Ordonner les valeurs de mesure</string>
+    <string name="menu_orderMeasurements_tt">Ordonne les valeurs de mesure dans l'affichage graphique et le tableau
+    </string>
+    <string name="menu_orderOutputs">Ordonner les sorties</string>
+    <string name="menu_orderOutputs_tt">Ordonne les sorties pour l'utilisation comme circuit intégré</string>
+    <string name="menu_paste">Coller</string>
+    <string name="menu_rotate">Pivoter</string>
+    <string name="menu_sim">Simulation</string>
+    <string name="menu_run">Lancer la simulation</string>
+    <string name="menu_run_tt">Lance la simulation du circuit.</string>
+    <string name="menu_save">Enregistrer</string>
+    <string name="menu_saveAs">Enregistrer sous</string>
+    <string name="menu_saveData">Enregistrer les données</string>
+    <string name="menu_saveData_tt">Enregistre les données dans un fichier CSV</string>
+    <string name="menu_speedTest">Test de vitesse</string>
+    <string name="menu_speedTest_tt">Effectue un test de vitesse pour calculer la fréquence d'horloge maximale.</string>
+    <string name="menu_step">Avancer d'un pas</string>
+    <string name="menu_step_tt">Calcule le résultat d'un seul pas</string>
+    <string name="menu_runToBreakMicro">Exécuter jusqu'à une pause en mode pas-à-pas</string>
+    <string name="menu_runToBreakMicro_tt">Exécute tous les pas du mode pas-à-pas jusqu'à qu'une composante de pause
+        reçoive un front montant.
+        S'il n'y a pas de composante de pause, le reste de pas sont effectués.
+    </string>
+    <string name="menu_synthesise">Synthèse</string>
+    <string name="menu_synthesise_tt">Génère les expressions booléennes minimales décrites par une table de vérité.
+    </string>
+    <string name="menu_table_N_variables">{0} variables</string>
+    <string name="menu_table_create">Créer</string>
+    <string name="menu_table_createCUPL_tt">Crée un nouveau fichier source CUPL contenant le circuit défini.</string>
+    <string name="menu_table_createTT2_tt">Crée un fichier contenant un circuit similaire au format Berkeley Logic
+        Interchange (BLIF).
+        Par la suite, l'ajusteur d'Atmel peut être lancé pour créer le fichier JEDEC.
+    </string>
+    <string name="menu_table_createCircuit">Circuit</string>
+    <string name="menu_table_createCircuit_tt">Crée un circuit qui reproduit la table de vérité.</string>
+    <string name="menu_table_createCircuitJK">Circuit avec des bascules JK</string>
+    <string name="menu_table_createCircuitJK_tt">Crée un circuit qui reproduit la table de vérité. Utilise des bascules
+        JK.
+    </string>
+    <string name="menu_table_createCircuitLUT">Circuit avec LUTs</string>
+    <string name="menu_table_createCircuitLUT_tt">Crée un circuit qui reproduit la table de vérité. Utilise des tables
+        de recherche pour créer l'expression.
+    </string>
+    <string name="menu_table_createNAnd">Circuit avec portes Non-Et</string>
+    <string name="menu_table_createNAndTwo">Circuit avec portes Non-Et à deux entrées</string>
+    <string name="menu_table_createNAndTwo_tt">Utilise seulement des portes Non-Et à deux entrées.</string>
+    <string name="menu_table_createNAnd_tt">Crée un circuit qui reproduit la table de vérité avec seulement des portes
+        Non-Et.
+    </string>
+    <string name="menu_table_createNOr">Circuit avec portes Non-Ou</string>
+    <string name="menu_table_createNOrTwo">Circuit avec portes Non-Ou à deux entrées</string>
+    <string name="menu_table_createNOrTwo_tt">Utilise seulement des portes Non-Ou à deux entrées</string>
+    <string name="menu_table_createNOr_tt">Crée un circuit qui reproduit la table de vérité avec seulement des portes
+        Non-Ou.
+    </string>
+    <string name="menu_table_createTwo">Circuit avec portes à deux entrées</string>
+    <string name="menu_table_createTwo_tt">Crée un circuit avec seulement des portes à deux entrées</string>
+    <string name="menu_table_createThree">Circuit avec portes à trois entrées</string>
+    <string name="menu_table_createThree_tt">Crée un circuit avec des portes a trois entrées maximum</string>
+    <string name="menu_table_create_hardware">Périphérique</string>
+    <string name="menu_table_create_jedec_tt">Crée un fichier JEDEC pour le périphérique</string>
+    <string name="menu_table_exportTableLaTeX">Exporter en LaTeX</string>
+    <string name="menu_table_exportTablePlainText">Exporter en texte brut</string>
+    <string name="menu_table_createFunctionFixture">Exporter en test</string>
+    <string name="menu_table_createFunctionFixture_tt">Crée une description de test qui peut être utilisée dans un
+        test.
+    </string>
+    <string name="menu_table_createFunctionFixture_isSequential">Le test est seulement fonctionnel si le circuit est
+        purement combinatoire!
+    </string>
+    <string name="menu_table_exportHex">Exporter en HEX</string>
+    <string name="menu_table_exportHex_tt">Le fichier HEX peut être chargé dans une ROM ou une LUT.</string>
+    <string name="menu_table_new">Nouveau</string>
+    <string name="menu_table_new_combinatorial">Combinatoire</string>
+    <string name="menu_table_new_sequential">Séquentiel</string>
+    <string name="menu_table_new_sequential_bidir">Séquentiel bidirectionnel</string>
+    <string name="menu_table_reorder_inputs">Réordonner/supprimer des variables d'entrées</string>
+    <string name="menu_table_reorder_outputs">Réordonner/supprimer des colonnes de sortie</string>
+    <string name="menu_table_columnsAdd">Ajouter une colonne de sortie</string>
+    <string name="menu_table_columnsAdd_tt">Ajoute une nouvelle colonne de résultat à la table.</string>
+    <string name="menu_table_columnsAddVariable">Ajouter une variable d'entrée</string>
+    <string name="menu_table_columnsAddVariable_tt">Ajoute une nouvelle variable d'entrée à la table.</string>
+    <string name="menu_table_setXTo0">Mettre les X à 0</string>
+    <string name="menu_table_setXTo0_tt">Mettre les cas indéfinis à 0.</string>
+    <string name="menu_table_setXTo1">Mettre les X à 1</string>
+    <string name="menu_table_setXTo1_tt">Mettre les cas indéfinis à 1.</string>
+    <string name="menu_table_JK">Créer les expressions J/K</string>
+    <string name="menu_table_setAllToX">Tout mettre à X</string>
+    <string name="menu_table_setAllToX_tt">Mettre toutes les valeurs comme indéfinies</string>
+    <string name="menu_table_setAllTo0">Tout mettre à 0</string>
+    <string name="menu_table_setAllTo0_tt">Mettre toutes les valeurs à 0.</string>
+    <string name="menu_table_setAllTo1">Tout mettre à 1</string>
+    <string name="menu_table_setAllTo1_tt">Mettre toutes les valeurs à 1.</string>
+    <string name="menu_table_invert">Inverser tous les bits</string>
+    <string name="menu_table_invert_tt">Un "1" devient un "0" et vice versa. Les cas indéfinis ne changent pas.</string>
+    <string name="menu_table_showAllSolutions">Afficher le dialogue des résultats</string>
+    <string name="menu_table_showAllSolutions_tt">Affiche le dialog des résultats une autre fois s'il a été fermé
+        manuellement.
+    </string>
+    <string name="menu_terminalDelete">Effacer</string>
+    <string name="menu_terminalDelete_tt">Efface le contenu du terminal.</string>
+    <string name="menu_view">Affichage</string>
+    <string name="menu_zoomIn">Zoom avant</string>
+    <string name="menu_zoomOut">Zoom arrière</string>
+    <string name="menu_expression">Expression</string>
+    <string name="menu_expression_tt">Crée un circuit à partir d'une expression</string>
+    <string name="menu_runTests">Exécuter les tests</string>
+    <string name="menu_runTests_tt">Exécute tous les tests du circuit</string>
+    <string name="menu_actualToDefault">Fixer les entrées</string>
+    <string name="menu_actualToDefault_tt">Utilise les valeurs actuelles des entrées comme valeurs par défaut.</string>
+    <string name="menu_restoreAllFuses">Réinitialise toutes les diodes et les FGFETs</string>
+    <string name="menu_restoreAllFuses_tt">Réinitialise toutes les diodes (fusibles) et les FGFETS à l'état "non
+        programmé". L'état de configuration
+        du fusible est perdu!
+    </string>
+    <string name="menu_programDiode">Programmer la diode</string>
+    <string name="menu_help_elements">Composantes</string>
+    <string name="menu_help_elements_tt">Affiche une liste des composantes disponibles.</string>
+    <string name="menu_viewHelp">Dialogue d'aide</string>
+    <string name="menu_viewHelp_tt">Affiche le dialogue d'aide qui décrit le circuit actuel.</string>
+    <string name="menu_probe_memory">Mémoire</string>
+    <string name="menu_probe_memory_tt">Affiche le contenu des composantes de mémoire</string>
+    <string name="menu_insertAsNew">Coller dans une nouvelle fenêtre</string>
+    <string name="menu_insertAsNew_tt">Le contenu du presse-papier est collé dans une nouvelle fenêtre.</string>
+    <string name="menu_treeSelect">Arborescence des composantes</string>
+    <string name="menu_treeSelect_tt">Affiche l'arborescence des composantes disponibles sur le côté gauche.</string>
+    <string name="menu_special">Fonctions 74xx spéciales</string>
+    <string name="menu_addPrefix">Ajouter un préfixe E/S</string>
+    <string name="menu_addPrefix_tt">Un préfixe est ajouté pour toutes les entrées et sorties sélectionnées.
+        Sert à simplifier le doublage des circuits à l'intérieur d'un circuit 74xx.
+    </string>
+    <string name="menu_removePrefix">Supprimer le préfixe E/S</string>
+    <string name="menu_removePrefix_tt">Le premier caractère des étiquettes des entrées et des sorties est supprimé.
+        Sert à simplifier le doublage des circuits à l'intérieur d'un circuit 74xx.
+    </string>
+    <string name="menu_numbering">Assistant de numéros de broche</string>
+    <string name="menu_numbering_tt">Assistant pour appliquer les numéros de broches aux entrées et aux sorties.
+    </string>
+    <string name="menu_removePinNumbers">Supprimer les numéros de broche</string>
+    <string name="menu_removePinNumbers_tt">Supprime tous les numéros de broche dans le circuit</string>
+    <string name="menu_undo">Annuler</string>
+    <string name="menu_undo_tt">Annule la dernière modification</string>
+    <string name="menu_redo">Rétablir</string>
+    <string name="menu_redo_tt">Réapplique la dernière modification annulée.</string>
+    <string name="menu_showDataAsGraph">Afficher le graphique</string>
+    <string name="menu_showDataAsGraph_tt">Affiche les données comme un graphique.</string>
+    <string name="menu_showDataAsTable">Affiche le tableau</string>
+    <string name="menu_showDataAsTable_tt">Affiche les données comme un tableau.</string>
+    <string name="menu_addPowerSupply">Ajouter une alimentation</string>
+    <string name="menu_addPowerSupply_tt">Ajoute une alimentation au circuit.</string>
+    <string name="menu_exportVHDL">Exporter en VHDL</string>
+    <string name="menu_exportVHDL_tt">Exporte le circuit en VHDL</string>
+    <string name="menu_exportVerilog">Exporter en Verilog</string>
+    <string name="menu_exportVerilog_tt">Exporte le circuit en Verilog</string>
+    <string name="menu_karnaughMap">Table-K</string>
+    <string name="menu_karnaughMap_tt">Affiche une représentation en table de Karnaugh de la table!</string>
+    <string name="menu_pdfDocumentation">Documentation</string>
+    <string name="menu_openPdfDocumentation">Ouvrir {0}</string>
+    <string name="menu_showDataTable">Afficher le tableau des mesures</string>
+    <string name="menu_showDataTable_tt">Affiche un tableau avec les valeurs mesurées dans une fenêtre séparée.</string>
+    <string name="menu_showDataGraph">Afficher le graphique des mesures</string>
+    <string name="menu_showDataGraph_tt">Affiche un graphique avec les valeurs mesurées dans une fenêtre séparée.
+    </string>
+    <string name="menu_exportZIP">Exporter en fichier ZIP</string>
+    <string name="menu_exportZIP_tt">Exporte le fichier comme un fichier ZIP.
+        Le fichier ZIP contient ainsi tous les fichiers nécessaires pour l'opération du circuit.
+    </string>
+    <string name="menu_labelPins">Étiqueter les entrées et les sorties</string>
+    <string name="menu_labelPins_tt">Met une étiquette à toutes les entrées et toutes les sorties qui n'en ont pas.
+    </string>
+    <string name="menu_tutorial">Commencer le tutoriel</string>
+    <string name="menu_tutorial_tt">Lance le tutoriel pour débutants</string>
+    <string name="menu_stats">Statistiques du circuit</string>
+    <string name="menu_stats_tt">Affiche une liste des composantes utilisées.</string>
+    <string name="stat_number">Nombre</string>
+    <string name="stat_part">Composante</string>
+    <string name="stat_inputs">Entrées</string>
+    <string name="stat_bits">Bits</string>
+    <string name="stat_addrBits">Bits d'addr.</string>
+    <string name="msg_errorOpeningDocumentation">Erreur lors de l'ouverture du fichier PDF!</string>
+    <string name="message"><![CDATA[<h1>Digital</h1>
+        <p>Un simulateur simple pour les circuits numériques.</p>
+        <p>Écrit par H. Neemann de 2016-2020.</p>
+        <p>Les icônes ont été prises du <a href="http://tango.freedesktop.org">projet Tango Desktop</a>.</p>
+        <p>Visiter le projet sur <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
+        Sur GitHub vous pouvez aussi <a href="https://github.com/hneemann/[[name]]/releases/latest">télécharger</a>
+        la dernière version.</p>
+        <p>Vous pouvez aussi y poser <a
+        href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">une
+        question au sujet d'un problème</a>
+        ou suggérer une <a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">amélioration</a>.</p>]]>
+    </string>
+    <string name="msg_N_nodes">{0} noeuds</string>
+    <string name="msg_analyseErr">Erreur lors de l'analyse du circuit</string>
+    <string name="msg_color">Couleur</string>
+    <string name="msg_errorCalculatingStep">Erreur lors du calcul d'un pas</string>
+    <string name="msg_errorCreatingModel">Erreur lors de création du circuit</string>
+    <string name="msg_errorDuringCalculation">Erreur durant la simplification</string>
+    <string name="msg_errorDuringHardwareExport">Erreur durant la création de la configuration matérielle.</string>
+    <string name="msg_errorEditingValue">Erreur lors de l'édition de la valeur d'un attribut.</string>
+    <string name="msg_errorImportingModel_N0">Erreur lors de l''importation du circuit {0}!</string>
+    <string name="msg_errorUpdatingLibrary">Erreur lors de la mise à jour de la bibliothèque de composantes!!</string>
+    <string name="msg_errorReadingFile">Erreur lors de la lecture d'un fichier</string>
+    <string name="msg_remoteUnknownCommand">La commande {0} est inconnue!</string>
+    <string name="msg_errorWritingFile">Erreur lors de l'écriture d'un fichier</string>
+    <string name="msg_frequency_N">La fréquence maximale est {0} kHz</string>
+    <string name="msg_missingShape_N">La forme {0} est manquante</string>
+    <string name="msg_pins">Affectation des broches</string>
+    <string name="msg_pinMap_pin_N_is_N">Broche {0}: {1}</string>
+    <string name="msg_restartNeeded">Un redémarrage est requis pour que les changements fassent effet!</string>
+    <string name="msg_enterAnExpression">Entrez une expression:</string>
+    <string name="msg_runningTestError">Erreur lors de l'exécution des tests:</string>
+    <string name="msg_testResult">Résultat de test</string>
+    <string name="msg_test_N_Passed">{0} passés</string>
+    <string name="msg_test_N_Failed">{0} échoués</string>
+    <string name="msg_test_missingLines">(Trop d'entrées!)</string>
+    <string name="msg_test_missingLines_tt">Tous les tests ont été exécutés, mais aucun résultat n'est affiché.
+        L'évaluation du résultat est tout de même correcte!
+    </string>
+    <string name="msg_testExp_N0_found_N1">A: {0} / T: {1}</string>
+    <string name="msg_creatingHelp">Erreur lors de la création de l'aide!</string>
+    <string name="msg_clipboardContainsNoImportableData">Le presse-papier ne contient aucune donnée importable!</string>
+    <string name="msg_selectAnEmptyFolder">Sélectionnez un dossier vide!</string>
+    <string name="msg_fitterResult">Message de l'ajusteur externe</string>
+    <string name="msg_startExternalFitter">Exécution de l'ajusteur externe</string>
+    <string name="msg_actualCircuit">Circuit courant</string>
+    <string name="msg_fileNotAccessible">Le nom de fichier sélectionné n'est pas importable à partir du projet en
+        cours!
+    </string>
+    <string name="msg_fileIsNotUnique">Le nom de fichier n'est pas unique!
+        Tous les fichiers dans le dossier courant et ses sous-dossiers doivent avoir des noms uniques. Cela s'applique
+        aussi au dossier de la bibliothèque. Si votre dossier de travail a un fichier 7400.dig, vous ne pouvez ni
+        utiliser
+        ce fichier ni celui de la bibliothèque, parce que ce nom de fichier n'est plus unique.
+    </string>
+    <string name="msg_duplicateLibraryFiles">Il y a plusieurs fichiers avec des noms identiques qui ne peuvent pas être
+        assignés. Les fichiers affectés sont:
+    </string>
+    <string name="msg_and_N_More">et {0} de plus.</string>
+    <string name="msg_fileNotImportedYet">Le fichier n'a pas encore été importé.</string>
+    <string name="msg_fileExists">Le fichier {0} existe déjà. Voulez-vous remplacer le fichier?</string>
+    <string name="msg_isLocked">L''édition de ce circuit est désactivée. Vous pouvez désactiver le verrouillage avec
+        "{0} -&gt; {1} -&gt; {2}".
+        Cependant, en mode verrouillage, il est toujours possible de copier des composantes ou configurer des diodes et
+        des FGFETs avec la touche [P]
+    </string>
+    <string name="msg_speedTestError">Erreur durant le test de vitesse!</string>
+    <string name="msg_pin_N">Broche {0}</string>
+    <string name="msg_numberingWizard">Assistant de numérotation</string>
+    <string name="msg_pin_numbering_N">Sélectionner la broche {0}:</string>
+    <string name="msg_framesWritten_N">Images écrites: {0}</string>
+    <string name="msg_errorWritingGif">Erreur lors de l'écriture du fichier GIF!</string>
+    <string name="btn_gifComplete">Terminer</string>
+    <string name="btn_gifComplete_tt">Le fichier GIF a été créé.</string>
+    <string name="msg_gifExport">Exportation en GIF</string>
+    <string name="msg_errCausedBy">causé par</string>
+    <string name="msg_inputsToInvert">Entrées à inverser</string>
+    <string name="msg_none">aucun</string>
+    <string name="msg_errGettingPinNames">Impossible de déterminer le nom des broches.</string>
+    <string name="msg_errInFile_N">A eu lieu dans le fichier {0}.</string>
+    <string name="msg_affectedComponentsAre_N">Les composantes affectées sont: {0}.</string>
+    <string name="msg_signal_N">Signal {0}</string>
+    <string name="msg_thereAreMissingPinNumbers">Aucun numéro de broche assigné aux broches {0}!
+        Les broches libres sont automatiquement assignées. Ainsi, dans la plupart des cas, le circuit ne peut
+        pas être utilisé sur du vrai matériel!
+    </string>
+    <string name="msg_modelHasErrors">Vous pouvez seulement exporter un fichier sans erreurs!</string>
+    <string name="msg_noKVMapAvailable">Aucune table de Karnaugh disponible!</string>
+    <string name="msg_dataNotUpdatedAnymore">Les données ne seront plus mises à jour!</string>
+    <string name="msg_modifyThisAttribute">Modifier cette valeur</string>
+    <string name="msg_invalidEditorValue">Un des champs contient une valeur invalide!</string>
+    <string name="msg_create CHNFile">Création du fichier CHN.</string>
+    <string name="msg_tableHasManyRowsConfirm">Ce tableau est très grand, l'exportation pourrait prendre un moment.
+        Commencer l'exportation quand même?
+    </string>
+    <string name="msg_circuitIsRequired">Pour créer une description matérielle, le circuit doit d'abord être créé et
+        analysé.
+        Une table de vérité seule ne peut pas être utilisée pour générer une description matérielle.
+    </string>
+    <string name="msg_noData">pas de données</string>
+    <string name="msg_errorClosingExternalProcess">Impossible de fermer le processus externe!</string>
+    <string name="msg_checkResult">Résultat de la vérification:</string>
+    <string name="btn_checkCode">Vérifier</string>
+    <string name="btn_checkCode_tt">Exécute l'application pour voir si le code entré est correct.
+        Si ce n'est pas le cas, le message d'erreur de l'application externe est affiché.
+        Si possible, les définitions des entrées et des sorties sont aussi adaptées au code en cours.
+    </string>
+    <string name="msg_codeNotConsistent">Les définitions des entrées et des sorties n'ont pas pu être créées
+        automatiquement.
+        Veuillez vérifier les paramètres!
+    </string>
+    <string name="msg_applicationFileNotFound">Le fichier exécutable "{0}" n''a pas été trouvé!</string>
+    <string name="msg_enterText">Entrez du texte!</string>
+    <string name="btn_startATMISP">Exécuter ATMISP</string>
+    <string name="btn_startATMISP_tt">Exécute le programme externe ATMISP. Il doit avoir été installé précédemment.
+    </string>
+    <string name="msg_errorStartingATMISP">Erreur lors de l'exécution d'ATMISP!
+        Le chemin vers l'exécutable ATMISP.exe est-il spécifié correctement dans les paramètres?
+    </string>
+    <string name="msg_ATMISPIsStillRunning">ATMISP est toujours en exécution!
+        Lorsque ce dialogue sera fermé, ATMISP sera interrompu!
+        Assurez-vous que le processus de flash est complet avant de fermer ce dialogue!
+    </string>
+    <string name="menu_runAllTests">Exécuter tous les tests</string>
+    <string name="menu_runAllTests_tt">Exécute tous les tests dans le répertoire courant.</string>
+    <string name="msg_testPassed_N">{0} lignes de test passées</string>
+    <string name="msg_testFile">Fichier testé</string>
+    <string name="msg_truthTable">Table de vérité</string>
+    <string name="msg_errorImportingSvg">Erreur lors de l'importation du fichier SVG.</string>
+    <string name="msg_errorCreatingSvgTemplate">Erreur lors de la création du modèle SVG.</string>
+    <string name="msg_couldNotCreateStats">Les statistiques n'ont pas pu être créées.</string>
+    <string name="msg_errorReadingToolchainConfig_N">Erreur lors de la lecture de la configuration de chaîne d''outils
+        {0}
+    </string>
+    <string name="msg_commandStarted_N">La commande "{0}" a été lancée! Le traitement pourrait durer quelque temps!
+    </string>
+    <string name="msg_commandEnded_N">La commande "{0}" a été complétée!</string>
+    <string name="msg_renameNet">Renommer le réseau</string>
+    <string name="msg_renameNet_N_OLD_NEW">Il y a {0} tunnels de plus avec le nom de réseau ''{1}''.
+        Voulez-vous renommer tous les {0} à ''{2}''.
+    </string>
+    <string name="msg_dataWillBeLost_n">Voulez-vous vraiment abandonner les changements au champ "{0}"?</string>
+    <string name="btn_copyToClipboard">Copier le texte</string>
+    <string name="btn_copyToClipboard_tt">Copie le texte dans le presse-papier.</string>
+    <string name="msg_supportsHDL">Exportable en VHDL/Verilog.</string>
+    <string name="ok">OK</string>
+    <string name="rot_0">0°</string>
+    <string name="rot_180">180°</string>
+    <string name="rot_270">270°</string>
+    <string name="rot_90">90°</string>
+    <string name="stat_clocks">Pause après {0} demi-cycles au point d''arrêt ''{1}''</string>
+    <string name="tt_deleteItem">Supprime l'item sélectionné</string>
+    <string name="tt_moveItemDown">Déplace l'item vers le bas</string>
+    <string name="tt_moveItemUp">Déplace l'item vers le haut</string>
+    <string name="win_allSolutions">Toutes les solutions possibles</string>
+    <string name="win_testdata_N">Données de tests {0}</string>
+    <string name="win_data">Données</string>
+    <string name="win_confirmExit">Confirmer la fermeture!</string>
+    <string name="win_measures">Mesures</string>
+    <string name="win_measures_fullstep">Mesures (pas d'horloge complet)</string>
+    <string name="win_measures_microstep">Mesures (pas-à-pas)</string>
+    <string name="win_saveChanges">Enregistrer les modifications?</string>
+    <string name="win_stateChanged">État changé!</string>
+    <string name="win_table">Table</string>
+    <string name="win_table_exportDialog">Exporter</string>
+    <string name="win_itempicker_title">Sélectionner</string>
+    <string name="win_valueInputTitle_N">Entrée {0}</string>
+    <string name="win_karnaughMap">Table de Karnaugh</string>
+    <string name="win_romDialog">ROMs incluses</string>
+    <string name="btn_help">Aide</string>
+    <string name="msg_keyAsGenericAttribute">Nom à utiliser dans les circuits génériques: {0}</string>
+    <string name="win_romDialogHelpTitle">Contenu de la ROM centrale</string>
+    <string name="msg_romDialogHelp">&lt;html&gt;
+        &lt;h3&gt;Motivation&lt;/h3&gt;
+        Quand un circuit qui contient une composante de ROM est intégré de multiple fois, le contenu de la ROM
+        est normalement utilisé pour chaque instance de ce circuit. Dans des certaines circonstances toutefois,
+        il peut être désirable pour un tel circuit d'être intégré de multiples fois,
+        mais avec un contenu différent de la ROM pour chaque instance.&lt;br/&gt;
+        Ce problème a lieu par exemple si une ROM 74xx est utilisée plusieurs fois, mais avec des contenus
+        en mémoire différents.&lt;br/&gt;
+        &lt;h3&gt;Fonction&lt;/h3&gt;
+        Donc ici, le contenu de chaque ROM du circuit peut être défini.
+        Quand le modèle de la simulation est généré, chaque ROM est d'abord initialisée avec le contenu qu'elle stocke
+        elle-même. Ensuite, si un contenu alternatif est défini ici, la ROM correspondante utilise plutôt ce contenu.
+        &lt;h3&gt;Utilisation&lt;/h3&gt;
+        Il devrait être noté que chaque ROM nécessite un nom unique pour être identifiée.
+        Pour ce faire, utilisez l'astérisque ('*') pour étiqueter la ROM. L'astérisque est ensuite remplacé par le
+        chemin complet construit à partir des noms des circuits intégrés.
+        Si un circuit contient une seule composante ROM, il est suffisant d'utiliser seulement l'astérisque
+        pour l'identifier.
+        Tous les circuits intégrés doivent être nommés pour qu'un nom unique soit formé pour chaque composante de ROM.
+        &lt;/html&gt;
+    </string>
+    <string name="msg_newRelease_N">&lt;html&gt;
+        &lt;h1&gt;Nouvelle version {0} disponible&lt;/h1&gt;
+        &lt;p&gt;Une nouvelle version du simulateur est disponible.&lt;/p&gt;
+        &lt;p&gt;Vous pouvez voir les changements et les améliorations dans les
+        &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;notes de mise à jour&lt;/a&gt;&lt;/p&gt;.
+        &lt;p&gt;Vous pouvez aussi &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;télécharger&lt;/a&gt;
+        la nouvelle version.&lt;/p&gt;
+        &lt;/html&gt;
+    </string>
+    <string name="msg_expressionHelpTitle">Expressions</string>
+    <string name="msg_expressionHelp"><![CDATA[
+        <p>Pour définir une expression, vous pouvez utiliser la plupart des notations
+        courantes:</p>
+        <p>
+        ET: "&", "&&", "*", "∧"<br/>
+        OU: "|", "||", "+", "∨", "#"<br/>
+        XOR: "^", "⊻"<br/>
+        NON: "!", "~", "¬"
+        </p>
+        <p>Comme d'habitude, le ET à la priorité sur le OU et le XOR.</p>
+        <p>Plusieurs expressions peuvent être séparées par "," ou ";".
+        Si vous voulez nommer les expressions, vous pouvez utiliser la
+        commande let: "let U=A+B, let V=A*B".</p>]]>
+    </string>
+    <string name="msg_testVectorHelpTitle">Vecteurs de test</string>
+    <string name="msg_testVectorHelp">&lt;html&gt;
+        &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
+        &lt;body&gt;
+        &lt;p&gt;La première ligne doit contenu le nom des entrées et des sorties.
+        Les lignes suivantes contiennent les valeurs attendues.
+        Un 'X' représente un cas indéfini et un 'Z' représente un état de haute impédance.
+        Si un 'C' est utilisé, toutes les valeurs sont mises, ensuite un cycle d'horloge est effectué, puis les
+        valeurs sont comparées. C'est donc plus facile de tester la logique séquentielle.
+        Une ligne qui commence par un dièse ('#') est un commentaire.&lt;/p&gt;
+
+        &lt;p&gt;Ainsi, un test pour un compteur de 2 bits pourrait ressembler à ceci:&lt;/p&gt;
+
+        &lt;pre&gt;
+        C Q1 Q0
+        0 0 0
+        C 0 1
+        C 1 0
+        C 1 1
+        C 0 0
+        &lt;/pre&gt;
+
+        &lt;p&gt;Les tests sont exécutés en allant dans Simulation-&gt;Exécuter les tests.&lt;/p&gt;
+        &lt;p&gt;
+        Pour rendre plus facile la création de beaucoup de vecteurs de tests, il y a l'énoncé 'repeat(n)':
+        si une ligne commence par 'repeat([n])', [n] lignes de test sont générées. La
+        variable 'n' peut être utilisée pour générer les données de test. Avec 'repeat(16)',
+        16 lignes de test sont créées, où n va de 0 à 15. S'il y a des plusieurs entrées à 1 bit,
+        et celles-ci doivent être mises ensemble à une valeur binaire, cela peut être fait avec l'énoncé
+        'bits([bits], [valeur])'. Celui-ci crée [bits] bits à partir de la valeur [valeur].&lt;/p&gt;
+
+        &lt;p&gt;L'example suivant est teste un additionneur 4 bits:&lt;/p&gt;
+
+        &lt;pre&gt;
+        C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+        repeat(256) 0 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15))
+        repeat(256) 1 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+        &lt;/pre&gt;
+
+        &lt;p&gt;Les signaux d'entrée sont la retenue (C_i-1) et les huit entrées A_3-A_0 et B_3-B_0.
+        Les 4 bits d'entrée sont générés avec l'instruction 'bits'. Les résultats (C_i, S_3-S_0) sont également générés
+        avec l'instruction 'bits'.
+        Cela se produit une fois avec C_i-1 = 0 et sur la prochaine ligne avec C_i-1 = 1.
+        De cette façon, 512 lignes de test sont générées qui permettent de couvrir toutes les configurations d'entrée.&lt;/p&gt;
+        &lt;p&gt;Si plusieurs lignes doivent être répétées, or si des boucles imbriquées sont nécessaires, l'énoncé loop
+        peut être utilisé. L'exemple précédant peut ainsi être implanté de la façon suivante:&lt;/p&gt;
+
+        &lt;pre&gt;
+        C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+        loop(a,16)
+        loop(b,16)
+        0 bits(4,a) bits(4,b) bits(5,a+b)
+        1 bits(4,a) bits(4,b) bits(5,a+b+1)
+        end loop
+        end loop
+        &lt;/pre&gt;
+
+        &lt;p&gt;Dans certaines circonstances, il peut être nécessaire de pouvoir agir après l'état initial
+        du circuit. De cette manière, les signaux fournis plus tard dans le circuit peuvent être utilisé dans le test.
+        Par exemple, si un compteur qui débute dans un état indéfini doit être testé,
+        il peut être amené à un état défini:&lt;/p&gt;
+
+        &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
+
+        # compteur d'horloge jusqu'à 1111
+        while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
+        C x x x x
+        end while
+
+        # débute l'exécution du test
+        repeat(16) C bits(4,n)
+        &lt;/pre&gt;
+
+        &lt;p&gt;Dans certains tests, il peut être utile de générer des nombres aléatoires.
+        Ceux-ci peuvent être créés avec la fonction 'random([n])'. Le nombre généré est plus grand ou égal à
+        zéro et plus petit que [n] (exclus). Si l'on considère le cas d'un multiplicateur 16 bits par exemple,
+        un test complet ne peut pas être effectué car il nécessiterait 2^32 combinaisons.
+        Un test de régression qui multiplie 100000 nombres aléatoires pourrait ressembler à ceci:&lt;/p&gt;
+
+        &lt;pre&gt;
+        A B Y
+        loop(i,100000)
+        let a = random(1&amp;lt;&amp;lt;16);
+        let b = random(1&amp;lt;&amp;lt;16);
+        (a) (b) (a*b)
+        end loop
+        &lt;/pre&gt;
+
+        &lt;p&gt;Une entrée qui permet une haute impédance comme valeur peut aussi être utilisée comme sortie dans un
+        test.
+        Dans ce cas, le nom du signal suivi de "_out" peut être utilisé pour lire et vérifier la valeur courante.
+        Pour cela, l'entrée correspondante doit être mise à haute impédance ('Z').&lt;/p&gt;
+
+        &lt;pre&gt;OE CLK D D_out
+        0 0 0 0
+        0 C 1 1
+        1 0 z 1
+        0 C 0 0
+        1 0 z 0
+        &lt;/pre&gt;
+
+        &lt;p&gt;Le circuit pour ce test n'a qu'une seule entrée 'D', qui peut prendre un état de haute impédance.
+        Alors, le signal 'D_out' est aussi disponible pour vérifier la valeur dans ce cas.&lt;/p&gt;
+
+        &lt;/body&gt;&lt;/html&gt;
+    </string>
+    <string name="fsm_title">Automate fini</string>
+    <string name="fsm_noMove">Aucun mouvement</string>
+    <string name="fsm_moveTrans">Transitions</string>
+    <string name="fsm_moveStates">Transitions+États</string>
+    <string name="fsm_set_N">mettre {0}</string>
+    <string name="menu_fsm">Automate fini</string>
+    <string name="menu_fsm_tt">Ouvre un dialogue pour éditer l'automate fini.</string>
+    <string name="menu_fsm_create">Créer</string>
+    <string name="menu_fsm_create_table">Table de transition d'états</string>
+    <string name="menu_fsm_create_counter">Créer un compteur</string>
+    <string name="menu_fsm_create_counter_N">{0} états</string>
+    <string name="menu_fsm_Help_tt">Aide pour utiliser l'éditeur FSM.</string>
+    <string name="key_stateNum">Numéro d'état</string>
+    <string name="key_stateNum_tt">Le nombre qui représente cet état.</string>
+    <string name="key_isInitialState">État initial</string>
+    <string name="key_isInitialState_tt">Si coché, cet état est l'état initial.</string>
+    <string name="key_stateValues">Sortie</string>
+    <string name="key_stateValues_tt">Définit les valeurs de sorties.
+        Avec des affectations comme "A=1, B=0", des sorties peuvent être établies.
+        Avec des instructions comme "A=101", des sorties à plusieurs bits peuvent être établies.
+        Les sorties qui ne sont pas définies ici sont mises à zéro.
+        Pour les transitions, les sorties non spécifiées restent inchangées
+    </string>
+    <string name="key_transCond">Condition</string>
+    <string name="key_transCond_tt">Une expression booléenne.</string>
+    <string name="key_transRad">Rayon</string>
+    <string name="key_transRad_tt">Rayon du cercle dans le diagramme.</string>
+    <string name="err_notDeterministic_N">La FSM n''est pas déterministe: {0}</string>
+    <string name="err_fsmNumberUsedTwice_N">Le numéro d''état {0} est utilisé deux fois.</string>
+    <string name="err_fsmNoInitialState">Il n'y a pas d'état initial (état numéro zéro).</string>
+    <string name="err_fsmState_N_notFound">L''état ''{0}'' n''a pas été trouvé!</string>
+    <string name="err_fsmInvalidOutputAssignment_N">Mauvaise affectation à la sortie (''{0}'')!</string>
+    <string name="err_fsmErrorInCondition_N">Erreur dans la condition ''{0}''!</string>
+    <string name="msg_fsm_errorLoadingFile">Erreur lors du chargement du fichier!</string>
+    <string name="msg_fsm_errorStoringFile">Erreur lors du stockage du fichier!</string>
+    <string name="msg_fsmTransition">Transition</string>
+    <string name="msg_fsmState">État</string>
+    <string name="msg_fsmNewState">Nouvel état</string>
+    <string name="msg_fsmCantCreateTable">Impossible de créer la table de transition d'états.</string>
+    <string name="msg_fsmHelpTitle">Aide de l'éditeur FSM</string>
+    <string name="msg_fsmHelp">&lt;html&gt;&lt;head&gt;&lt;/head&gt;
+        &lt;body&gt;
+        &lt;h3&gt;Opérations avec la souris&lt;/h3&gt;
+        &lt;dl&gt;
+        &lt;dt&gt;Créer un état:&lt;/dt&gt;
+        &lt;dd&gt;Clic droit dans un espace vide.&lt;/dd&gt;
+        &lt;dt&gt;Créer une transition:&lt;/dt&gt;
+        &lt;dd&gt;Clic droit sur l'état de départ et glisser vers l'état final.&lt;/dd&gt;
+        &lt;dt&gt;Supprimer un état ou une transition:&lt;/dt&gt;
+        &lt;dd&gt;Déplacer la souris au-dessus de l'objet et appuyer sur la touch [Suppr].&lt;/dd&gt;
+        &lt;dt&gt;Déplacer un état ou une transition:&lt;/dt&gt;
+        &lt;dd&gt;Garder le bouton gauche enfoncé et glisser.&lt;/dd&gt;
+        &lt;dt&gt;Éditer un état ou une transition:&lt;/dt&gt;
+        &lt;dd&gt;Clic droit sur l'état ou la transition.&lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;h3&gt;Fonction d'aide à la disposition&lt;/h3&gt;
+        &lt;dl&gt;
+        &lt;dt&gt;Aucun mouvement:&lt;/dt&gt;
+        &lt;dd&gt;L'aide à la disposition est désactivée.&lt;/dd&gt;
+        &lt;dt&gt;Transitions:&lt;/dt&gt;
+        &lt;dd&gt;L'aide à la disposition va bouger les flèches de transitions pour éviter les chevauchements.&lt;/dd&gt;
+        &lt;dt&gt;Transitions+États&lt;/dt&gt;
+        &lt;dd&gt;L'aide à la disposition va bouger à la fois les états et les transitions pour aider à créer une
+        disposition balancée.&lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;h3&gt;Interprétation des transitions&lt;/h3&gt;
+        Pour simplifier la génération d'un automate déterministe, les transitions inconditionnelles sont traitées d'une
+        manière spéciale:
+        un transition inconditionnelle est exécutée seulement si aucune autre transition ne satisfait la condition de
+        transition.
+        Ainsi il peut avoir une transition inconditionnelle et une transition conditionnelle qui débute dans le même
+        état.
+        Une transition inconditionnelle détermine ainsi dans quelle état l'automate change si aucune autre condition de
+        transition n'est remplie.
+        S'il n'y pas de transition inconditionnelle à partir d'un état, l'automate restera dans cet état si aucune autre
+        condition de transition n'est respectée.
+        &lt;/body&gt;&lt;/html&gt;
+    </string>
+    <string name="msg_graphHelpTitle">Le graphique de mesures</string>
+    <string name="msg_graphHelp">&lt;html&gt;&lt;body&gt;
+        &lt;h3&gt;Qu'est-ce qui peut être vu dans le graphique?&lt;/h3&gt;
+        Contrairement à un vrai analyseur de logique, l'axe des X du graphique de mesure n'affiche pas le temps.
+        À la place, un compteur est affiché qui compte le nombre de changements d'état dans le circuit.
+        Lorsqu'il y a un changement dans le circuit, le compteur est incrémenté et le nouvel état est affiché.&lt;br/&gt;
+        Vous pouvez aussi le voir comme un analyseur de logique classique, qui, à des fins d'optimisation, n'enregistre
+        aucune donnée
+        si rien n'a changé dans le circuit.
+        Cependant, cela veut aussi dire qu'il n'est pas possible de voir sur le graphique si peu ou beaucoup de temps
+        s'est écoulé entre deux changements d'état dans le circuit.&lt;br/&gt;
+        Ce comportement est causé par la nature de la simulation: la simulation du circuit ne connaît pas le
+        concept du temps. Un changement est fait dans le circuit, et le changement d'état du circuit est calculé,
+        jusqu'à
+        ce que le circuit se soit stabilisé une fois de plus. Puis, le prochain changement est fait, l'effet duquel est
+        aussi calculé,
+        et ainsi de suite. Ces changements sont comptés et la valeur du compte est affiché sur l'axe des X du graphique.&lt;br/&gt;
+        Entre autres, cela veut aussi dire que le circuit ne peut pas être surcadencé (overclocké), puisque les effets
+        du front
+        descendant de l'horloge ne sont pas calculés jusqu'à tant que le circuit se soit stabilisé après le dernier
+        front montant.
+        &lt;/body&gt;&lt;/html&gt;
+    </string>
+    <string name="tutorial">Tutoriel</string>
+    <string name="tutorial1">Ce court tutoriel vous amenera à créer un premier circuit simple:
+
+        D'abord, insérez une entrée dans le circuit. Vous trouvez l'entrée dans le menu Composantes▸E/S
+    </string>
+    <string name="tutorial2">Maintenant, ajoutez une deuxième entrée au circuit. Vous pouvez aussi cliquer sur l'entrée
+        qui est apparue dans la barre d'outils.
+
+        Il vaut mieux placer la deuxième entrée légèrement plus bas que la première.
+        Vous pouvez bouger le circuit en tenant le bouton droit de la souris.
+        En cliquant sur les composantes, vous pouvez les déplacer.
+    </string>
+    <string name="tutorial3">Ensuite, une porte "Ou Exclusif", aussi appelée "XOR", doit être insérée.
+        Vous pouvez trouver cette porte dans le menu Composantes▸Logique.
+        Placez cette composante à une certaine distance à droite des entrées.
+    </string>
+    <string name="tutorial4">La dernière composante à insérer est une sortie.
+        Placez-la encore une fois à une certaine distance à droite de la porte "Ou Exclusif".
+    </string>
+    <string name="tutorial5">Afin de compléter le circuit, des fils de connexion doivent être dessinés.
+
+        Cliquez sur le point rouge à la première entrée et connectez-le sur une des entrées de la porte "Ou Exclusif"
+        en cliquant cette fois sur le point bleu.
+        N'enfoncez pas le bouton de la souris!
+    </string>
+    <string name="tutorial6">Connectez le point rouge de la deuxième entrée au deuxième point bleu de la porte
+        "Ou Exclusif" et le point rouge de la porte "Ou Exclusif" au point bleu de la sortie.
+
+        Pendant que vous dessinez, vous pouvez accrocher le fil en cliquant quelque part sur la grille.
+        Un clic droit annule le dessin d'un fil (Ctrl+Clic sur macOS).
+    </string>
+    <string name="tutorial7">Votre circuit est maintenant fonctionnel.
+        Pour commencer la simulation, vous pouvez cliquer sur le bouton Play dans la barre d'outils.
+        Si vous déplacez la souris sur la barre d'outils, des infobulles apparaîtront.
+    </string>
+    <string name="tutorial8">La simulation est maintenant active. Changer l'état des entrées en cliquant sur
+        celles-ci.
+    </string>
+    <string name="tutorial9">Pour arrêter la simulation, cliquez sur le bouton Arrêt dans la barre d'outils.</string>
+    <string name="tutorial10">Pour compléter, les entrées et les sorties devraient être étiquetées.
+
+        Faites un clic droit sur une entrée pour ouvrir un dialogue. Sur macOS le Ctrl+Clic est utilisé.
+        Dans ce dialogue, un nom peut être donné à l'entrée.
+    </string>
+    <string name="tutorial11">Étiquetez toutes les entrées et sorties.</string>
+    <string name="tutorialUniqueIdents">Les entrées et les sorties devraient toujours porter un nom unique.</string>
+    <string name="tutorialNotNeeded">Ignorer le tutoriel</string>
+    <string name="elem_GenericInitCode">Initialisation générique</string>
+    <string name="elem_GenericInitCode_tt">Code qui est exécuté pour simuler un circuit générique directement.
+        Cette composante est requise si un circuit générique doit être simulé directement.
+    </string>
+    <string name="err_hdlTestCaseHasGenericCode">Les tests avec une paramétrisation générique ne sont pas pris en charge
+        lors de l'exportation HDL!
+    </string>
+    <string name="err_noGenericInitCode">Aucun code d'initialisation trouvé pour les composantes génériques.</string>
+    <string name="err_multipleGenericInitCodes">Plusieurs codes d'initialisation ont été trouvés pour les composantes
+        génériques, il n'en faut qu'un seul.
+    </string>
+    <string name="err_inGenericInitCode">Erreur lors de l'analyze du code d'initialisation générique.</string>
+    <string name="attr_createConcreteCircuitLabel">Circuit concret</string>
+    <string name="attr_createConcreteCircuit">Créer</string>
+    <string name="attr_createConcreteCircuit_tt">Crée un circuit concret à partir de ce circuit générique en utilisant
+        les paramètres spécifiés dans cet élément.
+    </string>
+    <string name="attr_createConcreteCircuitErr">Erreur lors de la création du circuit concret!</string>
+</resources>

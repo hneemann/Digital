@@ -23,10 +23,7 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>bits:=4;
-if (isPresent(args)) {
-  bits=args.bits;
-}</string>
+          <string>bits:=args.bits;</string>
         </entry>
       </elementAttributes>
       <pos x="380" y="160"/>
@@ -77,6 +74,16 @@ if (isPresent(args)) {
       <elementName>Ground</elementName>
       <elementAttributes/>
       <pos x="360" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits := 4;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="60"/>
     </visualElement>
   </visualElements>
   <wires>

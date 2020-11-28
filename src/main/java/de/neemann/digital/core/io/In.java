@@ -39,7 +39,8 @@ public class In implements Element {
             .addAttribute(Keys.DESCRIPTION)
             .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.PINNUMBER)
-            .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH)
+            .supportsHDL();
 
     private final ObservableValue output;
     private final String label;

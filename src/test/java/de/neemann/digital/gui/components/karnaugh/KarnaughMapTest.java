@@ -219,7 +219,7 @@ public class KarnaughMapTest extends TestCase {
         int checks = 0;
         for (int vars = 2; vars <= 4; vars++) {
             for (int mode = 0; mode < 16; mode++) {
-                KarnaughMap map = new KarnaughMap(Variable.vars(vars), Constant.ONE, mode, null);
+                KarnaughMap map = new KarnaughMap(Variable.vars(vars), Constant.ONE, new MapLayout(vars));
                 for (int r = 0; r < map.getRows(); r++)
                     for (int c = 0; c < map.getColumns(); c++) {
                         KarnaughMap.Cell cell = map.getCell(r, c);

@@ -6,13 +6,14 @@
 package de.neemann.digital.fsm.gui;
 
 import de.neemann.digital.FileLocator;
+import de.neemann.digital.analyse.expression.ExpressionException;
+import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.shapes.ShapeFactory;
-import de.neemann.digital.fsm.FSM;
-import de.neemann.digital.fsm.FSMDemos;
+import de.neemann.digital.fsm.*;
 import de.neemann.digital.gui.*;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.table.TableDialog;
@@ -57,7 +58,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     private File baseFilename;
     private boolean lastModified;
     private String probeLabelName;
-    private GlobalValues.GlobalValueListener stateListener = new StateListener();
+    private final GlobalValues.GlobalValueListener stateListener = new StateListener();
 
     /**
      * Opens the given file in a new frame
@@ -404,6 +405,20 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
                 }
             });
         }
+
+        if (Main.isExperimentalMode())
+            create.add(new ToolTipAction(Lang.get("menu_fsm_optimize_state_numbers")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    try {
+                        new OptimizerDialog(FSMFrame.this).setVisible(true);
+                    } catch (FiniteStateMachineException | FormatterException | ExpressionException e) {
+                        new ErrorMessage(Lang.get("menu_fsm_optimize_state_numbers_err")).addCause(e).show(FSMFrame.this);
+                    } finally {
+                        fsmComponent.repaint();
+                    }
+                }
+            }.setToolTip(Lang.get("menu_fsm_optimize_state_numbers_tt")).createJMenuItem());
     }
 
     /**

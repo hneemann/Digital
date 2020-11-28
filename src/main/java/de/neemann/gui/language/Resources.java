@@ -152,7 +152,7 @@ public class Resources {
             while (reader.hasMoreChildren()) {
                 reader.moveDown();
                 String key = reader.getAttribute("name");
-                String value = reader.getValue();
+                String value = reader.getValue().trim();
                 map.put(key, value);
                 reader.moveUp();
             }

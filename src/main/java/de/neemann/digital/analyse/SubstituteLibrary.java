@@ -206,8 +206,26 @@ public class SubstituteLibrary implements LibraryInterface {
             Key k = Keys.getKeyByName(key);
             if (k == null) {
                 throw new HGSEvalException("key " + key + " is invalid");
-            } else
+            } else {
+                Class<?> expectedClass = k.getDefault().getClass();
+
+                val = doImplicitTypeCasts(expectedClass, val);
+
+                boolean isAssignable = expectedClass.isAssignableFrom(val.getClass());
+                if (!isAssignable)
+                    throw new HGSEvalException("error writing to " + key + ": value of type " + val.getClass().getSimpleName() + " can't be assigned to " + expectedClass.getSimpleName());
                 attr.set(k, val);
+            }
+        }
+
+        private Object doImplicitTypeCasts(Class<?> expectedClass, Object val) {
+            if (expectedClass == Integer.class && val instanceof Long) {
+                long l = (Long) val;
+                if (l <= Integer.MAX_VALUE && l >= Integer.MIN_VALUE)
+                    return (int) l;
+            }
+
+            return val;
         }
 
         @Override

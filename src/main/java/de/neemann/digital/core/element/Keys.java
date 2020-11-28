@@ -20,6 +20,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
+import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
 
@@ -273,6 +274,12 @@ public final class Keys {
      */
     public static final Key<Boolean> SIGNED
             = new Key<>("Signed", false).allowGroupEdit();
+
+    /**
+     * Selects if the reminder of the division is always positive
+     */
+    public static final Key<Boolean> REMAINDER_POSITIVE
+            = new Key<>("remainderPositive", true).setDependsOn(SIGNED);
 
     /**
      * the data key for memory
@@ -862,5 +869,11 @@ public final class Keys {
      */
     public static final Key<Boolean> MIRROR =
             new Key<>("mirror", false).allowGroupEdit().setSecondary();
+
+    /**
+     * The test data
+     */
+    public static final Key<TestCaseDescription> TESTDATA =
+            new Key<>("Testdata", TestCaseDescription::new);
 
 }

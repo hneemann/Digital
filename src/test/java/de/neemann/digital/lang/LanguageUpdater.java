@@ -93,8 +93,11 @@ public class LanguageUpdater {
 
     private void update() throws IOException {
         if (modified > 0) {
-            new XMLOutputter(Format.getPrettyFormat()).output(ref, new FileOutputStream(refFileName));
-            new XMLOutputter(Format.getPrettyFormat()).output(lang, new FileOutputStream(langFileName));
+            Format format = Format.getPrettyFormat()
+                    .setIndent("    ")
+                    .setTextMode(Format.TextMode.PRESERVE);
+            new XMLOutputter(format).output(ref, new FileOutputStream(refFileName));
+            new XMLOutputter(format).output(lang, new FileOutputStream(langFileName));
             System.out.println(modified + " keys updated!");
         } else {
             System.out.println("no modification found!");

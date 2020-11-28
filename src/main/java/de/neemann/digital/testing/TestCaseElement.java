@@ -16,18 +16,14 @@ import de.neemann.digital.core.element.*;
 public class TestCaseElement implements Element {
 
     /**
-     * the used {@link ElementAttributes} key
-     */
-    public static final Key<TestCaseDescription> TESTDATA = new Key<>("Testdata", () -> new TestCaseDescription(""));
-
-    /**
      * The TestCaseElement description
      */
-    public static final ElementTypeDescription TESTCASEDESCRIPTION
+    public static final ElementTypeDescription DESCRIPTION
             = new ElementTypeDescription("Testcase", TestCaseElement.class)
             .addAttribute(Keys.LABEL)
-            .addAttribute(TESTDATA)
-            .addAttribute(Keys.ENABLED);
+            .addAttribute(Keys.TESTDATA)
+            .addAttribute(Keys.ENABLED)
+            .supportsHDL();
 
     /**
      * creates a new instance

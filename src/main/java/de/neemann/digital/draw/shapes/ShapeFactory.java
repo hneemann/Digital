@@ -22,6 +22,7 @@ import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
+import de.neemann.digital.draw.library.GenericInitCode;
 import de.neemann.digital.draw.library.JarComponentManager;
 import de.neemann.digital.draw.shapes.custom.CustomShape;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
@@ -104,6 +105,7 @@ public final class ShapeFactory {
         map.put(Const.DESCRIPTION.getName(), ConstShape::new);
         map.put(Ground.DESCRIPTION.getName(), GroundShape::new);
         map.put(VDD.DESCRIPTION.getName(), VDDShape::new);
+        map.put(NotConnected.DESCRIPTION.getName(), NotConnectedShape::new);
         map.put(Out.DESCRIPTION.getName(), OutputShape::new);
         map.put(Out.LEDDESCRIPTION.getName(), LEDShape::new);
         map.put(LightBulb.DESCRIPTION.getName(), LightBulbShape::new);
@@ -157,7 +159,8 @@ public final class ShapeFactory {
 
         map.put(DummyElement.TEXTDESCRIPTION.getName(), TextShape::new);
         map.put(DummyElement.RECTDESCRIPTION.getName(), RectShape::new);
-        map.put(TestCaseElement.TESTCASEDESCRIPTION.getName(), TestCaseShape::new);
+        map.put(TestCaseElement.DESCRIPTION.getName(), TestCaseShape::new);
+        map.put(GenericInitCode.DESCRIPTION.getName(), GenericInitCodeShape::new);
         map.put(AsyncSeq.DESCRIPTION.getName(), AsyncClockShape::new);
 
         map.put(Diode.DESCRIPTION.getName(), DiodeShape::new);

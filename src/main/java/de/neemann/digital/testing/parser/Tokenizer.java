@@ -17,24 +17,27 @@ public class Tokenizer {
     enum Token {
         UNKNOWN, IDENT, AND, OR, XOR, BIN_NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, GREATEREQUAL, SMALER, SMALEREQUAL, DIV, MOD, END, LOOP, REPEAT, BITS, SEMICOLON,
-        LET, LOG_NOT, WHILE
+        LET, LOG_NOT, DECLARE, PROGRAM, INIT, WHILE
     }
 
-    private static HashMap<String, Token> statementMap = new HashMap<>();
+    private final static HashMap<String, Token> STATEMENT_MAP = new HashMap<>();
 
     static {
-        statementMap.put("end", Token.END);
-        statementMap.put("loop", Token.LOOP);
-        statementMap.put("repeat", Token.REPEAT);
-        statementMap.put("bits", Token.BITS);
-        statementMap.put("let", Token.LET);
-        statementMap.put("while", Token.WHILE);
+        STATEMENT_MAP.put("end", Token.END);
+        STATEMENT_MAP.put("loop", Token.LOOP);
+        STATEMENT_MAP.put("repeat", Token.REPEAT);
+        STATEMENT_MAP.put("bits", Token.BITS);
+        STATEMENT_MAP.put("let", Token.LET);
+        STATEMENT_MAP.put("while", Token.WHILE);
+        STATEMENT_MAP.put("declare", Token.DECLARE);
+        STATEMENT_MAP.put("program", Token.PROGRAM);
+        STATEMENT_MAP.put("init", Token.INIT);
     }
 
     private final Reader in;
+    private final StringBuilder builder;
     private Token token;
     private boolean isToken;
-    private StringBuilder builder;
     private boolean isUnreadChar = false;
     private int unreadChar;
     private int line = 1;
@@ -171,7 +174,7 @@ public class Tokenizer {
                             wasChar = false;
                         }
                     } while (wasChar);
-                    token = statementMap.get(builder.toString());
+                    token = STATEMENT_MAP.get(builder.toString());
                     if (token == null) token = Token.IDENT;
                 } else if (isNumberChar(c)) {
                     token = Token.NUMBER;

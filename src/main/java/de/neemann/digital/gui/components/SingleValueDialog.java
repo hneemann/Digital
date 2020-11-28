@@ -236,7 +236,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                     textField.setText("0" + Long.toOctalString(editValue));
                     break;
                 case HIGHZ:
-                    textField.setText("?");
+                    textField.setText("Z");
                     break;
                 default:
             }
@@ -267,7 +267,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private void setStringToDialog(String text) {
         text = text.trim();
         if (text.length() > 0) {
-            if (text.contains("?") && supportsHighZ) {
+            if (text.toLowerCase().contains("z") && supportsHighZ) {
                 setSelectedFormat(InMode.HIGHZ);
                 editValue = 0;
             } else if (text.charAt(0) == '\'') {

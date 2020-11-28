@@ -1406,25 +1406,23 @@
   <string name="menu_showDataGraph_tt">Muestra un gráfico con los valores medidos en una ventana aparte.</string>
   <string name="menu_exportZIP">Exporta a un archivo ZIP</string>
   <string name="menu_exportZIP_tt">Exporta el circuito como un archivo ZIP.
-		El ZIP contendrá todos los archivos que sean necesarios para el funcionamiento del circuito.</string>
+    El ZIP contendrá todos los archivos que sean necesarios para el funcionamiento del circuito.
+  </string>
   <string name="menu_labelPins">Etiquetar entradas y salidas</string>
   <string name="menu_labelPins_tt">Fija una etiqueta a todas las entradas y salidas que no la tienen.</string>
   <string name="msg_errorOpeningDocumentation">¡Error al abrir un archivo PDF!</string>
-  <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;Un sencillo simulador para circuitos digitales.
-      Escrito por H. Neemann entre 2016-2020.
-
-      Los iconos se han tomado de &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.
-
-      Visita el proyecto en la dirección &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
-      También disponible en GitHub &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;descarga&lt;/a&gt;
-      la última versión.
-
-      Allí también puedes aportar un &lt;a
-      href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;problema&lt;/a&gt;
+  <string name="message"><![CDATA[<h1>Digital</h1>
+      <p>Un sencillo simulador para circuitos digitales.</p>
+      <p>Escrito por H. Neemann entre 2016-2020.</p>
+      <p>Los iconos se han tomado de <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
+      <p>Visita el proyecto en la dirección <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
+      También disponible en GitHub <a href="https://github.com/hneemann/[[name]]/releases/latest">descarga</a>
+      la última versión.</p>
+      <p>Allí también puedes aportar un <a
+      href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">problema</a>
       o sugerencia
-      o &lt;a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement"&gt;mejoras&lt;/a&gt;.
-
-      Traducido al castellano por Ángel Millán León</string>
+      o <a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">mejoras</a>.</p>
+      <p>Traducido al castellano por Ángel Millán León</p>]]></string>
   <string name="msg_N_nodes">{0} nodos</string>
   <string name="msg_analyseErr">Error al analizar el circuito</string>
   <string name="msg_color">Color</string>
@@ -1567,32 +1565,36 @@
 		Para hacer esto, use el asterisco ('*') en la etiqueta de la ROM.
 		El asterisco se reemplazará por la ruta completa construida con los nombres de los circuitos incrustados.
 		Si un circuito contiene sólo un componente de ROM, es suficiente usar sólo el asterisco como una etiqueta para él.
-		Todos los circuitos incrustados deben ser nombrados para que un único nombre pueda ser formado para cada componente de ROM.
-        &lt;/html&gt;</string>
+    Todos los circuitos incrustados deben ser nombrados para que un único nombre pueda ser formado para cada componente
+    de ROM.
+    &lt;/html&gt;
+  </string>
   <string name="msg_newRelease_N">&lt;html&gt;
-        &lt;h1&gt;Nueva versión {0} disponible&lt;/h1&gt;
-        &lt;p&gt;Hay una nueva versión del simulador disponible.&lt;/p&gt;
-        &lt;p&gt;En la ruta &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;, notas de la versión&lt;/a&gt;
-        puede econtrar los cambios y mejoras..&lt;/p&gt;
-        &lt;p&gt;Aquí puede &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;descargar&lt;/a&gt; la nueva versión.&lt;/p&gt;
-        &lt;/html&gt;</string>
+    &lt;h1&gt;Nueva versión {0} disponible&lt;/h1&gt;
+    &lt;p&gt;Hay una nueva versión del simulador disponible.&lt;/p&gt;
+    &lt;p&gt;En la ruta &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;, notas de la versión&lt;/a&gt;
+    puede econtrar los cambios y mejoras..&lt;/p&gt;
+    &lt;p&gt;Aquí puede &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;descargar&lt;/a&gt; la
+    nueva versión.&lt;/p&gt;
+    &lt;/html&gt;
+  </string>
   <string name="msg_expressionHelpTitle">Expresiones</string>
-  <string name="msg_expressionHelp">Para definir una expresión puede usar las notaciones más conocidas:
-
-        AND: "&amp;", "&amp;&amp;", "*", "∧"
-        OR: "|", "||", "+", "∨", "#"
-        XOR: "^", "⊻"
+  <string name="msg_expressionHelp"><![CDATA[
+        <p>Para definir una expresión puede usar las notaciones más conocidas:</p>
+        <p>
+        AND: "&", "&&", "*", "∧"<br/>
+        OR: "|", "||", "+", "∨", "#"<br/>
+        XOR: "^", "⊻"<br/>
         NOT: "!", "~", "¬"
-
-        Como es habitual, AND prevalece sobre OR y XOR.
-
-        Expresiones múltiples pueden separarse con "," or ";".
+        </p>
+        <p>Como es habitual, AND prevalece sobre OR y XOR.</p>
+        <p>Expresiones múltiples pueden separarse con "," or ";".
         Si quiere nombrar las expresiones, puede usar el
-        comando let: "let U=A+B, let V=A*B"</string>
+        comando let: "let U=A+B, let V=A*B"</p>]]></string>
   <string name="msg_testVectorHelpTitle">Vectores de prueba</string>
   <string name="msg_testVectorHelp">&lt;html&gt;
-      &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
-      &lt;body&gt;
+    &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
+    &lt;body&gt;
       &lt;p&gt; La primera línea tiene que contener los nombres de las entradas y las salidas.
       Las siguientes líneas contienen los valores esperados.
       Una 'X' indica un "indiferente", y una 'Z' indica un valor de alta impedancia.
@@ -1779,7 +1781,10 @@ En tal caso, el nombre de la señal puede usarse con un añadido "_out" para lee
   <string name="err_thereIsAUnnamedIO">Hay una entrada o una salida sin nombre</string>
   <string name="err_NameOfIOIsInvalidOrNotUnique_N">La señal "{0}" no es válida o se ha usado varias veces</string>
   <string name="err_substitutingError">Error al sustituir componentes para el análisis.</string>
-  <string name="err_evaluatingGenericsCode_N_N">Error en la evaluación del código genérico del circuito. Código {1} en el Componente: {0}</string>
+  <string name="err_evaluatingGenericsCode_N_N">Error en la evaluación del código genérico del circuito. Código
+    {1}
+    en el Componente: {0}
+  </string>
   <string name="msg_errParsingGenerics">Error al analizar código genérico</string>
   <string name="key_generic">Parametrización genérica</string>
   <string name="key_generic_tt">Declaraciones hechas para generar un circuito</string>

@@ -66,7 +66,7 @@ public enum IntFormat {
      */
     public String formatToEdit(Value inValue) {
         if (inValue.isHighZ())
-            return "?";
+            return "Z";
 
         switch (this) {
             case dec:

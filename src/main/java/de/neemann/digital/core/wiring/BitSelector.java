@@ -29,7 +29,8 @@ public class BitSelector extends Node implements Element {
             input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.SELECTOR_BITS)
-            .addAttribute(Keys.FLIP_SEL_POSITON);
+            .addAttribute(Keys.FLIP_SEL_POSITON)
+            .supportsHDL();
 
     private final ObservableValue output;
     private final int selBits;

@@ -11,6 +11,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.element.ElementAttributes;
 import junit.framework.TestCase;
 
+import static de.neemann.digital.TestExecuter.IGNORE;
 import static de.neemann.digital.core.ObservableValues.ovs;
 
 public class BusSplitterTest extends TestCase {
@@ -30,12 +31,12 @@ public class BusSplitterTest extends TestCase {
 
 
         TestExecuter te = new TestExecuter(model).setInputs(oe, d, d0, d1, d2, d3).setOutputs(out.getOutputs());
-        te.check(1,  0, 0, 0, 0, 0,   0, 0, 0, 0, 0);
-        te.check(1,  5, 0, 0, 0, 0,   0, 1, 0, 1, 0);
-        te.check(1, 15, 0, 0, 0, 0,   0, 1, 1, 1, 1);
-        te.check(0,  0, 0, 0, 0, 0,   0, 0, 0, 0, 0);
-        te.check(0,  0, 1, 0, 1, 0,   5, 0, 0, 0, 0);
-        te.check(0,  0, 1, 1, 1, 1,  15, 0, 0, 0, 0);
+        te.checkZ(1, 0, 0, 0, 0, 0, IGNORE, 0, 0, 0, 0);
+        te.checkZ(1, 5, 0, 0, 0, 0, IGNORE, 1, 0, 1, 0);
+        te.checkZ(1, 15, 0, 0, 0, 0, IGNORE, 1, 1, 1, 1);
+        te.checkZ(0, 0, 0, 0, 0, 0, 0, IGNORE, IGNORE, IGNORE, IGNORE);
+        te.checkZ(0, 0, 1, 0, 1, 0, 5, IGNORE, IGNORE, IGNORE, IGNORE);
+        te.checkZ(0, 0, 1, 1, 1, 1, 15, IGNORE, IGNORE, IGNORE, IGNORE);
     }
 
 }

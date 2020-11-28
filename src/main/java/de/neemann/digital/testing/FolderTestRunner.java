@@ -5,11 +5,9 @@
  */
 package de.neemann.digital.testing;
 
-import de.neemann.digital.core.Model;
 import de.neemann.digital.core.NodeException;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
-import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.model.ModelCreator;
@@ -22,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Runs all tests in al circuits in a folder
@@ -185,12 +184,7 @@ public class FolderTestRunner {
                 FileToTest f = files.get(i);
                 try {
                     Circuit circuit = Circuit.loadCircuit(f.file, shapeFactory);
-                    ArrayList<TestCase> testCases = new ArrayList<>();
-                    for (VisualElement el : circuit.getTestCases()) {
-                        String label = el.getElementAttributes().getLabel();
-                        TestCaseDescription testData = el.getElementAttributes().get(TestCaseElement.TESTDATA);
-                        testCases.add(new TestCase(label, testData));
-                    }
+                    List<Circuit.TestCase> testCases = circuit.getTestCases();
                     if (testCases.isEmpty()) {
                         // if no test data is available, at least check if the model is error free
                         try {
@@ -203,21 +197,20 @@ public class FolderTestRunner {
                     } else {
                         StringBuilder sb = new StringBuilder();
                         int rowCount = 0;
-                        for (TestCase tc : testCases) {
-                            Model model = new ModelCreator(circuit, library).createModel(false);
+                        for (Circuit.TestCase tc : testCases) {
                             try {
-                                TestExecutor te = new TestExecutor(tc.testData).create(model);
-                                if (te.allPassed()) {
-                                    rowCount += te.getResult().getRows();
+                                TestResult tr = new TestExecutor(tc, circuit, library).execute();
+                                if (tr.allPassed()) {
+                                    rowCount += tr.getRowsTested();
                                 } else {
                                     if (sb.length() > 0)
                                         sb.append("; ");
-                                    sb.append(Lang.get("msg_test_N_Failed", tc.label));
+                                    sb.append(Lang.get("msg_test_N_Failed", tc.getLabel()));
                                 }
                             } catch (TestingDataException | NodeException e) {
                                 if (sb.length() > 0)
                                     sb.append("; ");
-                                sb.append(tc.label).append(": ").append(e.getMessage());
+                                sb.append(tc.getLabel()).append(": ").append(e.getMessage());
                             }
                         }
                         if (sb.length() == 0) {
@@ -227,7 +220,7 @@ public class FolderTestRunner {
                             setMessage(f, i, sb.toString(), FileToTest.Status.failed);
                     }
 
-                } catch (IOException | NodeException | ElementNotFoundException | PinException | ParserException | RuntimeException e) {
+                } catch (IOException | ElementNotFoundException | PinException | ParserException | RuntimeException e) {
                     setMessage(f, i, e.getMessage(), FileToTest.Status.error);
                 }
             }
@@ -236,16 +229,6 @@ public class FolderTestRunner {
         private void setMessage(FileToTest f, int i, String message, FileToTest.Status status) {
             f.setMessage(message, status);
             fileChangedListener.messageChanged(f, i);
-        }
-    }
-
-    private static final class TestCase {
-        private final String label;
-        private final TestCaseDescription testData;
-
-        private TestCase(String label, TestCaseDescription testData) {
-            this.label = label;
-            this.testData = testData;
         }
     }
 

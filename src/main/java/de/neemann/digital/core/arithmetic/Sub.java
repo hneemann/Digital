@@ -23,7 +23,8 @@ public class Sub extends Add {
             = new ElementTypeDescription(Sub.class, input("a"), input("b"), input("c_i"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.BITS);
+            .addAttribute(Keys.BITS)
+            .supportsHDL();
 
     /**
      * Creates a new instance

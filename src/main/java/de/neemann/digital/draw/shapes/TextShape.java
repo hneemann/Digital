@@ -33,15 +33,6 @@ public class TextShape implements Shape {
      */
     public TextShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         String text = attr.get(Keys.DESCRIPTION);
-
-        if (text.length() == 0) { // ToDo: used to be compatible with old files. Can be removed in the future
-            text = attr.getLabel();
-            if (text.length() > 0) {
-                attr.set(Keys.DESCRIPTION, text);
-                attr.set(Keys.LABEL, "");
-            }
-        }
-
         if (text.length() == 0)
             text = Lang.get("elem_Text");
         this.text = Lang.evalMultilingualContent(text);
@@ -62,7 +53,6 @@ public class TextShape implements Shape {
 
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
-
         StringBuilder sb = new StringBuilder();
         Style style = Style.NORMAL.deriveFontStyle(fontSize, true);
         Vector pos = new Vector(0, 0);

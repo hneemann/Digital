@@ -27,6 +27,7 @@ import java.util.HashSet;
  * After creation all the ObservableValues belonging to the outputs are set.
  */
 public class Net {
+    private static final ObservableValue UNCONNECTED_WIRE = new ObservableValue("unconnected wire", 1).setToHighZ().setConstant();
 
     private final HashSet<Vector> points;
     private final ArrayList<Pin> pins;
@@ -172,14 +173,25 @@ public class Net {
                 outputs.add(p);
         }
 
-        if (outputs.size() == 0)
+        if (outputs.size() == 0 && inputs.size() > 0)
             throw new PinException(Lang.get("err_noOutConnectedToWire", this.toString()), this);
 
-        ObservableValue value = null;
+        ObservableValue value;
         if (outputs.size() == 1 && outputs.get(0).getPullResistor() == PinDescription.PullResistor.none) {
             value = outputs.get(0).getValue();
         } else {
-            value = new DataBus(this, m, outputs).getReadableOutput();
+            if (inputs.size() == 0 && outputs.size() == 0) // unconnected wire
+                value = UNCONNECTED_WIRE;
+            else
+                value = new DataBus(this, m, outputs).getReadableOutput();
+        }
+
+        if (outputs.size() > 1) {
+            for (Pin o : outputs) {
+                ObservableValue ov = o.getValue();
+                if (ov.isConstant() && ov.isHighZ())
+                    throw new PinException(Lang.get("err_notConnectedNotAllowed", o), this);
+            }
         }
 
         if (value == null)

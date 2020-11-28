@@ -81,14 +81,16 @@ public abstract class AbstractBusHandler {
             long highz = -1;
             for (ObservableValue input : getInputs()) {
                 highz &= input.getHighZ();
-                value |= input.getValue();
+                value |= input.getValueHighZIsZero();
             }
 
             // check for a burn condition!
             for (ObservableValue input : getInputs()) {
                 long bothDefine = ~(highz | input.getHighZ());
-                if ((value & bothDefine) != (input.getValue() & bothDefine))
+                if ((value & bothDefine) != (input.getValueHighZIsZero() & bothDefine)) {
                     burn = State.burn;
+                    break;
+                }
             }
 
             switch (getResistor()) {

@@ -36,7 +36,8 @@ public class PriorityEncoder extends Node implements Element, Countable {
     }
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
-            .addAttribute(Keys.SELECTOR_BITS);
+            .addAttribute(Keys.SELECTOR_BITS)
+            .supportsHDL();
 
 
     private final ObservableValue selOut;
