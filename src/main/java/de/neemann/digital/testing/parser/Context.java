@@ -49,7 +49,7 @@ public class Context {
                 if (model != null) {
                     // inputs are not supported because there are cases where values
                     // are evaluated and model inputs are not set!
-                    for (Signal s : model.getOutputs())
+                    for (Signal s : model.getTestOutputs())
                         if (s.getName().equals(name))
                             return s.getValue().getValue();
                 }

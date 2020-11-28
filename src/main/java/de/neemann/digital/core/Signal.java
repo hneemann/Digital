@@ -16,6 +16,7 @@ public final class Signal implements Comparable<Signal> {
     private String pinNumber;
     private ObservableValue bidirectionalReader;
     private boolean showInGraph;
+    private boolean testOutput;
 
     /**
      * Creates a new Instance
@@ -58,6 +59,23 @@ public final class Signal implements Comparable<Signal> {
      */
     public boolean isShowInGraph() {
         return showInGraph;
+    }
+
+    /**
+     * Makes this signal to a test output signal
+     *
+     * @return this for chained calls
+     */
+    public Signal setTestOutput() {
+        testOutput = true;
+        return this;
+    }
+
+    /**
+     * @return true if this signal is a test output
+     */
+    public boolean isTestOutput() {
+        return testOutput;
     }
 
     /**

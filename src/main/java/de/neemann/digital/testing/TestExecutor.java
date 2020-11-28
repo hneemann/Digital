@@ -119,7 +119,7 @@ public class TestExecutor {
             }
         }
 
-        for (Signal s : model.getOutputs()) {
+        for (Signal s : model.getTestOutputs()) {
             final int index = getIndexOf(s.getName());
             if (index >= 0) {
                 outputs.add(new TestSignal(index, s.getValue()));

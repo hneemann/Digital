@@ -120,7 +120,7 @@ public class FlipflopD extends Node implements Element, Countable {
                 value = v;
                 q.setValue(value);
                 qn.setValue(~value);
-            }));
+            }).setTestOutput());
     }
 
     /**

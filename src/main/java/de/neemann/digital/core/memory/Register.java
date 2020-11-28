@@ -90,7 +90,7 @@ public class Register extends Node implements Element, Countable, ProgramCounter
             model.addSignal(new Signal(label, q, (v, z) -> {
                 value = v;
                 q.setValue(value);
-            }));
+            }).setTestOutput());
     }
 
     @Override

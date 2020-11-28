@@ -56,7 +56,7 @@ public class Probe implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addOutput(new Signal(label, value).setShowInGraph(showInGraph).setFormat(format));
+        model.addSignal(new Signal(label, value).setShowInGraph(showInGraph).setFormat(format).setTestOutput());
         model.registerGlobalValue(label, value);
     }
 
