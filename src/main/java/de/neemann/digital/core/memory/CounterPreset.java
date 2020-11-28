@@ -146,7 +146,7 @@ public class CounterPreset extends Node implements Element, ProgramCounter {
                 boolean o = getOvfValue(counter, dir.getBool(), enable.getBool());
                 out.setValue(counter);
                 ovf.setBool(o);
-            }));
+            }).setTestOutput());
     }
 
     @Override

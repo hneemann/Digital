@@ -105,7 +105,7 @@ public class Counter extends Node implements Element, ProgramCounter {
                 boolean o = (counter == maxValue) && enable.getBool();
                 out.setValue(counter);
                 ovf.setBool(o);
-            }));
+            }).setTestOutput());
     }
 
     @Override

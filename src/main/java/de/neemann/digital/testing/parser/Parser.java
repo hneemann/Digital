@@ -115,10 +115,15 @@ public class Parser {
                     expect(Tokenizer.Token.IDENT);
                     final String sName = tok.getIdent();
                     expect(Tokenizer.Token.EQUAL);
+                    int sign = 1;
+                    if (tok.peek() == Tokenizer.Token.SUB) {
+                        tok.consume();
+                        sign = -1;
+                    }
                     expect(Tokenizer.Token.NUMBER);
                     long n = convToLong(tok.getIdent());
                     expect(Tokenizer.Token.SEMICOLON);
-                    signalInitMap.put(sName, n);
+                    signalInitMap.put(sName, sign * n);
                     break;
                 case PROGRAM:
                     tok.consume();

@@ -66,6 +66,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     private final ArrayList<Signal> signals;
     private final ArrayList<Signal> inputs;
     private final ArrayList<Signal> outputs;
+    private final ArrayList<Signal> testOutputs;
 
     private final ArrayList<Node> nodes;
     private ArrayList<Node> nodesToUpdateAct;
@@ -92,6 +93,7 @@ public class Model implements Iterable<Node>, SyncAccess {
         this.buttonsToMap = new HashMap<>();
         this.signals = new ArrayList<>();
         this.outputs = new ArrayList<>();
+        this.testOutputs = new ArrayList<>();
         this.inputs = new ArrayList<>();
         this.nodes = new ArrayList<>();
         this.nodesToUpdateAct = new ArrayList<>();
@@ -586,8 +588,13 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @param signal the signal
      */
     public void addSignal(Signal signal) {
-        if (signal.isValid())
+        if (signal.isValid()) {
+            if (signals.contains(signal))
+                invalidSignal = signal;
             signals.add(signal);
+            if (signal.isTestOutput())
+                testOutputs.add(signal);
+        }
     }
 
     /**
@@ -623,6 +630,7 @@ public class Model implements Iterable<Node>, SyncAccess {
                 invalidSignal = signal;
             signals.add(signal);
             outputs.add(signal);
+            testOutputs.add(signal);
         } else
             invalidSignal = signal;
     }
@@ -647,6 +655,13 @@ public class Model implements Iterable<Node>, SyncAccess {
      */
     public ArrayList<Signal> getOutputs() {
         return outputs;
+    }
+
+    /**
+     * @return the models outputs
+     */
+    public ArrayList<Signal> getTestOutputs() {
+        return testOutputs;
     }
 
     /**

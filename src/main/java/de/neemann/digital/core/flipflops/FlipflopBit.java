@@ -86,7 +86,7 @@ abstract class FlipflopBit extends Node implements Element {
                 out = v != 0;
                 q.setBool(out);
                 qn.setBool(!out);
-            }));
+            }).setTestOutput());
     }
 
     void setOut(boolean out) {
