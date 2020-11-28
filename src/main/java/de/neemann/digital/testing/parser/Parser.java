@@ -6,6 +6,7 @@
 package de.neemann.digital.testing.parser;
 
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.data.Value;
 import de.neemann.digital.testing.parser.functions.Function;
@@ -36,6 +37,7 @@ public class Parser {
     private final Tokenizer tok;
     private final HashMap<String, Function> functions = new HashMap<>();
     private LineEmitter emitter;
+    private DataField program;
 
     /**
      * Creates a new instance
@@ -106,6 +108,10 @@ public class Parser {
                 case NUMBER:
                     list.add(parseSingleRow());
                     break;
+                case PROGRAM:
+                    tok.consume();
+                    program = parseData();
+                    break;
                 case DECLARE:
                     tok.consume();
                     expect(Tokenizer.Token.IDENT);
@@ -152,6 +158,26 @@ public class Parser {
                     expect(Tokenizer.Token.CLOSE);
                     list.add(new LineEmitterWhile(condition, parseRows(Tokenizer.Token.WHILE)));
                     break;
+                default:
+                    throw newUnexpectedToken(t);
+            }
+        }
+    }
+
+    private DataField parseData() throws IOException, ParserException {
+        expect(Tokenizer.Token.OPEN);
+        DataField df = new DataField();
+        int addr = 0;
+        while (true) {
+            expect(Tokenizer.Token.NUMBER);
+            df.setData(addr, convToLong(tok.getIdent()));
+            addr++;
+            Tokenizer.Token t = tok.next();
+            switch (t) {
+                case COMMA:
+                    break;
+                case CLOSE:
+                    return df;
                 default:
                     throw newUnexpectedToken(t);
             }
@@ -237,6 +263,13 @@ public class Parser {
      */
     public ArrayList<VirtualSignal> getVirtualSignals() {
         return virtualSignals;
+    }
+
+    /**
+     * @return returns the program data or null if not available
+     */
+    public DataField getProgram() {
+        return program;
     }
 
     /**

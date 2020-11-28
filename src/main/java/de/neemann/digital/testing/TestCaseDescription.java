@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.testing;
 
+import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.parser.LineEmitter;
 import de.neemann.digital.testing.parser.Parser;
@@ -22,6 +23,7 @@ public class TestCaseDescription {
     private transient LineEmitter lines;
     private transient ArrayList<String> names;
     private transient ArrayList<VirtualSignal> virtualSignals;
+    private transient DataField program;
 
 
     /**
@@ -40,10 +42,7 @@ public class TestCaseDescription {
      */
     public TestCaseDescription(String data) throws IOException, ParserException {
         this.dataString = data;
-        Parser tdp = new Parser(data).parse();
-        lines = tdp.getLines();
-        names = tdp.getNames();
-        virtualSignals = tdp.getVirtualSignals();
+        parseDataString();
     }
 
     /**
@@ -65,14 +64,19 @@ public class TestCaseDescription {
     private void check() throws TestingDataException {
         if (lines == null || names == null) {
             try {
-                Parser tdp = new Parser(dataString).parse();
-                lines = tdp.getLines();
-                names = tdp.getNames();
-                virtualSignals = tdp.getVirtualSignals();
+                parseDataString();
             } catch (ParserException | IOException e) {
                 throw new TestingDataException(Lang.get("err_errorParsingTestdata"), e);
             }
         }
+    }
+
+    private void parseDataString() throws IOException, ParserException {
+        Parser tdp = new Parser(dataString).parse();
+        lines = tdp.getLines();
+        names = tdp.getNames();
+        virtualSignals = tdp.getVirtualSignals();
+        program = tdp.getProgram();
     }
 
     /**
@@ -100,6 +104,15 @@ public class TestCaseDescription {
     public ArrayList<VirtualSignal> getVirtualSignals() throws TestingDataException {
         check();
         return virtualSignals;
+    }
+
+    /**
+     * @return the program data or null if not available
+     * @throws TestingDataException TestingDataException
+     */
+    public DataField getProgram() throws TestingDataException {
+        check();
+        return program;
     }
 
     @Override

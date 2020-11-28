@@ -1122,6 +1122,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_clocksNotAllowedInAsyncMode">Taktelemente können im asynchronen Modus nicht verwendet werden.</string>
     <string name="err_verilogExporting">Fehler beim Export zu Verilog.</string>
     <string name="err_noRomFound">Kein Programmspeicher im Modell gefunden! Ein Programmspeicher muss gewählt werden!</string>
+    <string name="err_multipleRomsFound">Mehrere Programmspeicher im Modell gefunden! Es darf nur ein Programmspeicher muss gewählt werden!</string>
     <string name="err_errorLoadingRomData">Fehler beim Laden des Programmspeichers.</string>
     <string name="err_parsingSVG">Fehler beim Laden der SVG-Datei.</string>
     <string name="err_morePinsDefinedInSVGAsNeeded">Die SVG-Datei enthält Pins, die es in der Schaltung nicht gibt.</string>
