@@ -33,14 +33,14 @@ public class TestExecutor {
     private final Model model;
     private final LineEmitter lines;
     private final ValueTable results;
-    private final ArrayList<VirtualSignal> virtualSignals;
+    private final Context context;
+    private final ArrayList<TestSignal> inputs;
+    private final ArrayList<TestSignal> outputs;
     private boolean errorOccurred;
     private int failedCount;
     private int passedCount;
     private int rowCount;
     private boolean toManyResults = false;
-    private ArrayList<TestSignal> inputs;
-    private ArrayList<TestSignal> outputs;
     private int visibleRows;
     private boolean allowMissingInputs;
 
@@ -79,21 +79,84 @@ public class TestExecutor {
      */
     public TestExecutor(TestCaseDescription testCase, Model model) throws TestingDataException {
         names = testCase.getNames();
-        virtualSignals = testCase.getVirtualSignals();
         this.model = model;
         results = new ValueTable(names);
         visibleRows = 0;
         lines = testCase.getLines();
+
+        HashSet<String> usedSignals = new HashSet<>();
+        inputs = new ArrayList<>();
+        outputs = new ArrayList<>();
+        for (Signal s : model.getInputs()) {
+            final int index = getIndexOf(s.getName());
+            if (index >= 0) {
+                inputs.add(new TestSignal(index, s.getValue()));
+                addTo(usedSignals, s.getName());
+            }
+            ObservableValue outValue = s.getBidirectionalReader();
+            if (outValue != null) {
+                final String outName = s.getName() + "_out";
+                final int inIndex = getIndexOf(outName);
+                if (inIndex >= 0) {
+                    outputs.add(new TestSignal(inIndex, outValue));
+                    addTo(usedSignals, outName);
+                }
+            }
+        }
+
+        for (Clock c : model.getClocks()) {
+            final int index = getIndexOf(c.getLabel());
+            if (index >= 0) {
+                inputs.add(new TestSignal(index, c.getClockOutput()));
+                addTo(usedSignals, c.getLabel());
+            }
+        }
+
+        for (Signal s : model.getOutputs()) {
+            final int index = getIndexOf(s.getName());
+            if (index >= 0) {
+                outputs.add(new TestSignal(index, s.getValue()));
+                addTo(usedSignals, s.getName());
+            }
+        }
+
+        context = new Context().setModel(model);
+
+        for (VirtualSignal s : testCase.getVirtualSignals()) {
+            final int index = getIndexOf(s.getName());
+            if (index >= 0) {
+                outputs.add(new TestSignal(index, s.getValue(context)));
+                addTo(usedSignals, s.getName());
+            }
+        }
+
+        for (String name : names)
+            if (!usedSignals.contains(name))
+                if (allowMissingInputs)
+                    inputs.add(new TestSignal(getIndexOf(name), null));
+                else
+                    throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
+
+        if (inputs.size() == 0)
+            throw new TestingDataException(Lang.get("err_noTestInputSignalsDefined"));
+
+        if (outputs.size() == 0)
+            throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
+
+        model.init();
+        model.addObserver(event -> {
+            if (event.getType() == ModelEventType.ERROR_OCCURRED)
+                errorOccurred = true;
+        }, ModelEventType.ERROR_OCCURRED);
     }
 
     /**
      * Sets the model to the given row.
      *
      * @param row the row to advance the model to
-     * @throws TestingDataException DataException
-     * @throws ParserException      ParserException
+     * @throws ParserException ParserException
      */
-    public void executeTo(int row) throws TestingDataException, ParserException {
+    public void executeTo(int row) throws ParserException {
         execute(new LineListener() {
             private int r = row;
 
@@ -114,10 +177,9 @@ public class TestExecutor {
      * Creates the result by comparing the testing vector with the given model
      *
      * @return the result of the test execution
-     * @throws TestingDataException DataException
      * @throws ParserException      ParserException
      */
-    public TestExecutor.Result execute() throws TestingDataException, ParserException {
+    public TestExecutor.Result execute() throws ParserException {
         return execute(values -> checkRow(model, values), true);
     }
 
@@ -127,78 +189,11 @@ public class TestExecutor {
      * @param lineListener the line listener to use
      * @param closeModel   if true the model is closed
      * @return the result of the test execution
-     * @throws TestingDataException DataException
-     * @throws ParserException      ParserException
+     * @throws ParserException ParserException
      */
-    private TestExecutor.Result execute(LineListener lineListener, boolean closeModel) throws TestingDataException, ParserException {
+    private TestExecutor.Result execute(LineListener lineListener, boolean closeModel) throws ParserException {
         try {
-            HashSet<String> usedSignals = new HashSet<>();
-            inputs = new ArrayList<>();
-            outputs = new ArrayList<>();
-            for (Signal s : model.getInputs()) {
-                final int index = getIndexOf(s.getName());
-                if (index >= 0) {
-                    inputs.add(new TestSignal(index, s.getValue()));
-                    addTo(usedSignals, s.getName());
-                }
-                ObservableValue outValue = s.getBidirectionalReader();
-                if (outValue != null) {
-                    final String outName = s.getName() + "_out";
-                    final int inIndex = getIndexOf(outName);
-                    if (inIndex >= 0) {
-                        outputs.add(new TestSignal(inIndex, outValue));
-                        addTo(usedSignals, outName);
-                    }
-                }
-            }
-
-            for (Clock c : model.getClocks()) {
-                final int index = getIndexOf(c.getLabel());
-                if (index >= 0) {
-                    inputs.add(new TestSignal(index, c.getClockOutput()));
-                    addTo(usedSignals, c.getLabel());
-                }
-            }
-
-            for (Signal s : model.getOutputs()) {
-                final int index = getIndexOf(s.getName());
-                if (index >= 0) {
-                    outputs.add(new TestSignal(index, s.getValue()));
-                    addTo(usedSignals, s.getName());
-                }
-            }
-
-            Context context = new Context().setModel(model);
-
-            for (VirtualSignal s : virtualSignals) {
-                final int index = getIndexOf(s.getName());
-                if (index >= 0) {
-                    outputs.add(new TestSignal(index, s.getValue(context)));
-                    addTo(usedSignals, s.getName());
-                }
-            }
-
-            for (String name : names)
-                if (!usedSignals.contains(name))
-                    if (allowMissingInputs)
-                        inputs.add(new TestSignal(getIndexOf(name), null));
-                    else
-                        throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
-
-            if (inputs.size() == 0)
-                throw new TestingDataException(Lang.get("err_noTestInputSignalsDefined"));
-
-            if (outputs.size() == 0)
-                throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
-
-            model.init();
-            model.addObserver(event -> {
-                if (event.getType() == ModelEventType.ERROR_OCCURRED)
-                    errorOccurred = true;
-            }, ModelEventType.ERROR_OCCURRED);
-
             lines.emitLines(new LineListenerResolveDontCare(lineListener, inputs), context);
-
             return new Result();
         } finally {
             if (closeModel)
