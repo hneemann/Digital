@@ -12,6 +12,7 @@ import de.neemann.digital.core.ErrorDetector;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestExecutor;
+import de.neemann.digital.testing.TestResult;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,7 +75,7 @@ public class CommandLineTester {
 
                 try {
                     ErrorDetector errorDetector = new ErrorDetector();
-                    TestExecutor.Result tr = new TestExecutor(t, circuitLoader.getCircuit(), circuitLoader.getLibrary())
+                    TestResult tr = new TestExecutor(t, circuitLoader.getCircuit(), circuitLoader.getLibrary())
                             .setAllowMissingInputs(allowMissingInputs)
                             .addObserver(errorDetector)
                             .execute();

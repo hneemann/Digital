@@ -199,7 +199,7 @@ public class FolderTestRunner {
                         int rowCount = 0;
                         for (Circuit.TestCase tc : testCases) {
                             try {
-                                TestExecutor.Result tr = new TestExecutor(tc, circuit, library).execute();
+                                TestResult tr = new TestExecutor(tc, circuit, library).execute();
                                 if (tr.allPassed()) {
                                     rowCount += tr.getRowsTested();
                                 } else {

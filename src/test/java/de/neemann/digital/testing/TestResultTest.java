@@ -24,8 +24,6 @@ import junit.framework.TestCase;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- */
 public class TestResultTest extends TestCase {
 
     private Model getModel(String func) throws IOException, ParseException, BuilderException, PinException, NodeException, ElementNotFoundException {
@@ -47,7 +45,7 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        TestResult tr = new TestExecutor(data, model).execute();
         assertEquals(4, tr.getValueTable().getRows());
         assertTrue(tr.allPassed());
     }
@@ -60,7 +58,7 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 0\n");
-        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        TestResult tr = new TestExecutor(data, model).execute();
         ValueTable valueTable = tr.getValueTable();
         assertEquals(4, valueTable.getRows());
         assertFalse(tr.allPassed());
@@ -78,7 +76,7 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 x\n");
-        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        TestResult tr = new TestExecutor(data, model).execute();
         ValueTable valueTable = tr.getValueTable();
         assertEquals(4, valueTable.getRows());
         assertTrue(tr.allPassed());
@@ -92,7 +90,7 @@ public class TestResultTest extends TestCase {
                         + "0 1 1\n"
                         + "1 0 1\n"
                         + "1 1 1\n");
-        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        TestResult tr = new TestExecutor(data, model).execute();
         ValueTable valueTable = tr.getValueTable();
         assertEquals(4, valueTable.getRows());
         assertTrue(tr.allPassed());
@@ -104,7 +102,7 @@ public class TestResultTest extends TestCase {
                 "A B Y\n"
                         + "x 0 0\n"
                         + "x 1 1\n");
-        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        TestResult tr = new TestExecutor(data, model).execute();
         ValueTable valueTable = tr.getValueTable();
         assertEquals(4, valueTable.getRows());
         assertTrue(tr.allPassed());
@@ -116,7 +114,7 @@ public class TestResultTest extends TestCase {
                 "A B C Y\n"
                         + "x x 0 0\n"
                         + "x x 1 1\n");
-        TestExecutor.Result tr = new TestExecutor(data, model).execute();
+        TestResult tr = new TestExecutor(data, model).execute();
         ValueTable valueTable = tr.getValueTable();
         assertEquals(8, valueTable.getRows());
         assertTrue(tr.allPassed());

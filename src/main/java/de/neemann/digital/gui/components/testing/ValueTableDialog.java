@@ -17,6 +17,7 @@ import de.neemann.digital.gui.components.data.GraphDialog;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestExecutor;
+import de.neemann.digital.testing.TestResult;
 import de.neemann.digital.testing.TestingDataException;
 import de.neemann.digital.testing.parser.TestRow;
 import de.neemann.gui.IconCreator;
@@ -124,7 +125,7 @@ public class ValueTableDialog extends JDialog {
         for (Circuit.TestCase ts : tsl) {
             ErrorDetector errorDetector = new ErrorDetector();
             try {
-                TestExecutor.Result testResult = new TestExecutor(ts, circuit, library)
+                TestResult testResult = new TestExecutor(ts, circuit, library)
                         .addObserver(errorDetector)
                         .execute();
 
@@ -190,7 +191,7 @@ public class ValueTableDialog extends JDialog {
                     int testRow = row.getRow();
                     if (owner instanceof Main && testRow >= 0) {
                         Main main = (Main) owner;
-                        main.startSimulation(m -> new TestExecutor(valueTableHolder.testCaseDescription, m).executeTo(testRow));
+                        main.startSimulation(m -> new TestExecutor("", valueTableHolder.testCaseDescription, m).executeTo(testRow));
                     }
                 }
             }

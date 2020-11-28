@@ -17,6 +17,7 @@ import de.neemann.digital.draw.library.GenericInitCode;
 import de.neemann.digital.draw.library.ResolveGenerics;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.testing.TestExecutor;
+import de.neemann.digital.testing.TestResult;
 import junit.framework.TestCase;
 
 import java.io.File;
@@ -82,7 +83,7 @@ public class TestExamples extends TestCase {
                     String label = tc.getLabel();
 
                     ErrorDetector ed = new ErrorDetector();
-                    TestExecutor.Result tr = new TestExecutor(tc, br.getCircuit(), br.getLibrary())
+                    TestResult tr = new TestExecutor(tc, br.getCircuit(), br.getLibrary())
                             .addObserver(ed)
                             .execute();
 
