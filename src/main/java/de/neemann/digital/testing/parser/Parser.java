@@ -128,7 +128,15 @@ public class Parser {
                     tok.consume();
                     expect(Tokenizer.Token.IDENT);
                     final String ramName = tok.getIdent();
-                    modelInit.initMemory(ramName, parseData());
+                    expect(Tokenizer.Token.OPEN);
+                    expect(Tokenizer.Token.NUMBER);
+                    long addr = convToLong(tok.getIdent());
+                    expect(Tokenizer.Token.CLOSE);
+                    expect(Tokenizer.Token.EQUAL);
+                    expect(Tokenizer.Token.NUMBER);
+                    long val = convToLong(tok.getIdent());
+                    expect(Tokenizer.Token.SEMICOLON);
+                    modelInit.initMemory(ramName, (int) addr, val);
                     break;
                 case PROGRAM:
                     tok.consume();

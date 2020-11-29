@@ -59,7 +59,8 @@ public class ModelInitializerTest extends TestCase {
 
     public void test_ram() throws IOException, ParserException, TestingDataException {
         ModelInitializer mi = new Parser("A B Y\n" +
-                "memory myRam (1,2)\n" +
+                "memory myRam(0)=1;\n" +
+                "memory myRam(1)=2;\n" +
                 "1 1 1").parse().getModelInitializer();
 
         Model m = new Model();

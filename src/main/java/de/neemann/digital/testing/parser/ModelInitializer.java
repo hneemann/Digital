@@ -10,6 +10,7 @@ import de.neemann.digital.core.Node;
 import de.neemann.digital.core.Signal;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ProgramMemory;
+import de.neemann.digital.core.memory.RAMInterface;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestingDataException;
 
@@ -35,8 +36,8 @@ public class ModelInitializer {
         inits.add(new InitProgramMemory(memory));
     }
 
-    void initMemory(String ramName, DataField memory) {
-        inits.add(new InitMemory(ramName, memory));
+    void initMemory(String ramName, int addr, long value) {
+        inits.add(new InitMemory(ramName, addr, value));
     }
 
     /**
@@ -96,21 +97,23 @@ public class ModelInitializer {
 
     private static final class InitMemory implements ModelInit {
         private final String memoryName;
-        private final DataField memory;
+        private final int addr;
+        private final long value;
 
-        private InitMemory(String memoryName, DataField memory) {
+        private InitMemory(String memoryName, int addr, long value) {
             this.memoryName = memoryName;
-            this.memory = memory;
+            this.addr = addr;
+            this.value = value;
         }
 
         @Override
         public void init(Model model) throws TestingDataException {
-            List<Node> nodes = model.findNode(n -> n instanceof ProgramMemory && ((ProgramMemory) n).getLabel().equals(memoryName));
+            List<Node> nodes = model.findNode(n -> n instanceof RAMInterface && ((RAMInterface) n).getLabel().equals(memoryName));
             switch (nodes.size()) {
                 case 0:
                     throw new TestingDataException(Lang.get("err_noMemoryFound", memoryName));
                 case 1:
-                    ((ProgramMemory) nodes.get(0)).setProgramMemory(memory);
+                    ((RAMInterface) nodes.get(0)).getMemory().setData(addr, value);
                     break;
                 default:
                     throw new TestingDataException(Lang.get("err_multipleMemoriesFound", memoryName));
