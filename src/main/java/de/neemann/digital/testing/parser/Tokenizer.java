@@ -17,7 +17,7 @@ public class Tokenizer {
     enum Token {
         UNKNOWN, IDENT, AND, OR, XOR, BIN_NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
         ADD, SUB, MUL, GREATER, GREATEREQUAL, SMALER, SMALEREQUAL, DIV, MOD, END, LOOP, REPEAT, BITS, SEMICOLON,
-        LET, LOG_NOT, DECLARE, PROGRAM, INIT, WHILE
+        LET, LOG_NOT, DECLARE, PROGRAM, INIT, MEMORY, WHILE
     }
 
     private final static HashMap<String, Token> STATEMENT_MAP = new HashMap<>();
@@ -32,6 +32,7 @@ public class Tokenizer {
         STATEMENT_MAP.put("declare", Token.DECLARE);
         STATEMENT_MAP.put("program", Token.PROGRAM);
         STATEMENT_MAP.put("init", Token.INIT);
+        STATEMENT_MAP.put("memory", Token.MEMORY);
     }
 
     private final Reader in;
