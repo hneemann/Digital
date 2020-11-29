@@ -5,7 +5,7 @@
  */
 package de.neemann.digital.testing.parser;
 
-import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.data.Value;
@@ -33,12 +33,11 @@ import java.util.HashMap;
 public class Parser {
 
     private final ArrayList<String> names;
-    private final HashMap<String, Long> signalInitMap;
+    private final ModelInitializer modelInit;
     private final ArrayList<VirtualSignal> virtualSignals;
     private final Tokenizer tok;
     private final HashMap<String, Function> functions = new HashMap<>();
     private LineEmitter emitter;
-    private DataField program;
 
     /**
      * Creates a new instance
@@ -51,7 +50,7 @@ public class Parser {
         functions.put("ite", new IfThenElse());
         names = new ArrayList<>();
         virtualSignals = new ArrayList<>();
-        signalInitMap = new HashMap<>();
+        modelInit = new ModelInitializer();
         tok = new Tokenizer(new BufferedReader(new StringReader(data)));
     }
 
@@ -123,11 +122,25 @@ public class Parser {
                     expect(Tokenizer.Token.NUMBER);
                     long n = convToLong(tok.getIdent());
                     expect(Tokenizer.Token.SEMICOLON);
-                    signalInitMap.put(sName, sign * n);
+                    modelInit.initSignal(sName, sign * n);
+                    break;
+                case MEMORY:
+                    tok.consume();
+                    expect(Tokenizer.Token.IDENT);
+                    final String ramName = tok.getIdent();
+                    expect(Tokenizer.Token.OPEN);
+                    expect(Tokenizer.Token.NUMBER);
+                    long addr = convToLong(tok.getIdent());
+                    expect(Tokenizer.Token.CLOSE);
+                    expect(Tokenizer.Token.EQUAL);
+                    expect(Tokenizer.Token.NUMBER);
+                    long val = convToLong(tok.getIdent());
+                    expect(Tokenizer.Token.SEMICOLON);
+                    modelInit.initMemory(ramName, (int) addr, val);
                     break;
                 case PROGRAM:
                     tok.consume();
-                    program = parseData();
+                    modelInit.initProgramMemory(parseData());
                     break;
                 case DECLARE:
                     tok.consume();
@@ -283,17 +296,10 @@ public class Parser {
     }
 
     /**
-     * @return returns the program data or null if not available
+     * @return the model init actions
      */
-    public DataField getProgram() {
-        return program;
-    }
-
-    /**
-     * @return the signal init map
-     */
-    public HashMap<String, Long> getSignalInit() {
-        return signalInitMap;
+    public ModelInitializer getModelInitializer() {
+        return modelInit;
     }
 
     /**

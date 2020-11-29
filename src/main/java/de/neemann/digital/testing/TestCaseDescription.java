@@ -5,16 +5,11 @@
  */
 package de.neemann.digital.testing;
 
-import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
-import de.neemann.digital.testing.parser.LineEmitter;
-import de.neemann.digital.testing.parser.Parser;
-import de.neemann.digital.testing.parser.ParserException;
-import de.neemann.digital.testing.parser.VirtualSignal;
+import de.neemann.digital.testing.parser.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * The test data.
@@ -24,8 +19,7 @@ public class TestCaseDescription {
     private transient LineEmitter lines;
     private transient ArrayList<String> names;
     private transient ArrayList<VirtualSignal> virtualSignals;
-    private transient DataField program;
-    private transient HashMap<String, Long> signalInit;
+    private transient ModelInitializer modelInitializer;
 
 
     /**
@@ -78,8 +72,7 @@ public class TestCaseDescription {
         lines = tdp.getLines();
         names = tdp.getNames();
         virtualSignals = tdp.getVirtualSignals();
-        program = tdp.getProgram();
-        signalInit = tdp.getSignalInit();
+        modelInitializer = tdp.getModelInitializer();
     }
 
     /**
@@ -110,21 +103,12 @@ public class TestCaseDescription {
     }
 
     /**
-     * @return the program data or null if not available
+     * @return the model initializer
      * @throws TestingDataException TestingDataException
      */
-    public DataField getProgram() throws TestingDataException {
+    public ModelInitializer getModelInitializer() throws TestingDataException {
         check();
-        return program;
-    }
-
-    /**
-     * @return the signal init values
-     * @throws TestingDataException TestingDataException
-     */
-    public HashMap<String, Long> getSignalInit() throws TestingDataException {
-        check();
-        return signalInit;
+        return modelInitializer;
     }
 
     @Override

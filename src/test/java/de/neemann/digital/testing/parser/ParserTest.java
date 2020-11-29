@@ -8,8 +8,13 @@ package de.neemann.digital.testing.parser;
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.RAMSinglePort;
+import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.data.Value;
+import de.neemann.digital.testing.TestingDataException;
 import junit.framework.TestCase;
 
 import java.io.IOException;
@@ -193,7 +198,7 @@ public class ParserTest extends TestCase {
         assertEquals(1, td.getLines().size());
     }
 
-    public void test_modelInitState() throws IOException, ParserException {
+    public void test_modelSetVar() throws IOException, ParserException {
         Model model = new Model();
         model.addOutput(new Signal("A", new ObservableValue("A", 3).setValue(2)));
         model.addOutput(new Signal("B", new ObservableValue("B", 3).setValue(3)));
@@ -204,19 +209,4 @@ public class ParserTest extends TestCase {
         new LineCollector(parser, context);
         assertEquals(5, context.getVar("a"));
     }
-
-    public void test_program() throws IOException, ParserException {
-        Parser parser = new Parser("A B Y\n" +
-                "program(1,2,3,4)\n" +
-                "1 1 1").parse();
-        DataField program = parser.getProgram();
-        assertNotNull(program);
-        assertEquals(4, program.trim());
-        assertEquals(1, program.getDataWord(0));
-        assertEquals(2, program.getDataWord(1));
-        assertEquals(3, program.getDataWord(2));
-        assertEquals(4, program.getDataWord(3));
-        assertEquals(0, program.getDataWord(4));
-    }
-
 }
