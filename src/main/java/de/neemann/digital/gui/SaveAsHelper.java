@@ -86,7 +86,7 @@ public final class SaveAsHelper {
                             Lang.get("msg_warning"),
                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                             null, options, options[0]);
-                    if (res == 1) {
+                    if (res != JOptionPane.OK_OPTION) {
                         repeat = true;
                         continue;
                     }
