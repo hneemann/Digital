@@ -195,6 +195,10 @@ Single-Cycle CPU.}}</string>
           <int>16</int>
         </entry>
         <entry>
+          <string>Label</string>
+          <string>mem</string>
+        </entry>
+        <entry>
           <string>Bits</string>
           <int>16</int>
         </entry>

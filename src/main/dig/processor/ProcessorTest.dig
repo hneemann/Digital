@@ -38,14 +38,19 @@
           <testData>
             <dataString># auto generated, do not modify
 Clk R1 R2
+
 init R1=3;
 init R2=4;
+
 # mov r2,r1
 program(0x121)
+
 C X X
-0 3 3
+
+# expects
 # R1=3
 # R2=3
+0 3 3
 </dataString>
           </testData>
         </entry>
@@ -64,14 +69,19 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=3;
 init R2=4;
+
 # add r2,r1
 program(0x221)
+
 C X X
-0 0 7
+
+# expects
 # Carry=0
 # R2=7
+0 0 7
 </dataString>
           </testData>
         </entry>
@@ -90,14 +100,19 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=-1;
 init R2=-1;
+
 # add r2,r1
 program(0x221)
+
 C X X
-0 1 65534
+
+# expects
 # Carry=1
 # R2=65534
+0 1 65534
 </dataString>
           </testData>
         </entry>
@@ -116,14 +131,19 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=3;
 init R2=4;
+
 # adc r2,r1
 program(0x321)
+
 C X X
-0 0 7
+
+# expects
 # Carry=0
 # R2=7
+0 0 7
 </dataString>
           </testData>
         </entry>
@@ -142,15 +162,20 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=3;
 init R2=4;
 init Carry=1;
+
 # adc r2,r1
 program(0x321)
+
 C X X
-0 0 8
+
+# expects
 # Carry=0
 # R2=8
+0 0 8
 </dataString>
           </testData>
         </entry>
@@ -169,14 +194,19 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=-1;
 init R2=-1;
+
 # adc r2,r1
 program(0x321)
+
 C X X
-0 1 65534
+
+# expects
 # Carry=1
 # R2=65534
+0 1 65534
 </dataString>
           </testData>
         </entry>
@@ -195,12 +225,17 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=3;
+
 # addi r1,4
 program(0xc14)
+
 C X
-0 7
+
+# expects
 # R1=7
+0 7
 </dataString>
           </testData>
         </entry>
@@ -219,12 +254,17 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=3;
+
 # addi r1,20
 program(0x8014,0xb10)
+
 repeat (2) C X
-0 23
+
+# expects
 # R1=23
+0 23
 </dataString>
           </testData>
         </entry>
@@ -243,12 +283,17 @@ repeat (2) C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=3;
+
 # adci r1,4
 program(0xe14)
+
 C X
-0 7
+
+# expects
 # R1=7
+0 7
 </dataString>
           </testData>
         </entry>
@@ -267,12 +312,17 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=3;
+
 # adci r1,20
 program(0x8014,0xd10)
+
 repeat (2) C X
-0 23
+
+# expects
 # R1=23
+0 23
 </dataString>
           </testData>
         </entry>
@@ -291,13 +341,18 @@ repeat (2) C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=3;
 init Carry=1;
+
 # adci r1,4
 program(0xe14)
+
 C X
-0 8
+
+# expects
 # R1=8
+0 8
 </dataString>
           </testData>
         </entry>
@@ -316,13 +371,18 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=3;
 init Carry=1;
+
 # adci r1,20
 program(0x8014,0xd10)
+
 repeat (2) C X
-0 24
+
+# expects
 # R1=24
+0 24
 </dataString>
           </testData>
         </entry>
@@ -341,14 +401,19 @@ repeat (2) C X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=3;
 init R2=4;
+
 # sub r2,r1
 program(0x421)
+
 C X X
-0 0 1
+
+# expects
 # Carry=0
 # R2=1
+0 0 1
 </dataString>
           </testData>
         </entry>
@@ -367,14 +432,19 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=4;
 init R2=3;
+
 # sub r2,r1
 program(0x421)
+
 C X X
-0 1 65535
+
+# expects
 # Carry=1
 # R2=65535
+0 1 65535
 </dataString>
           </testData>
         </entry>
@@ -393,14 +463,19 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=3;
 init R2=4;
+
 # sbc r2,r1
 program(0x521)
+
 C X X
-0 0 1
+
+# expects
 # Carry=0
 # R2=1
+0 0 1
 </dataString>
           </testData>
         </entry>
@@ -419,15 +494,20 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk Carry R2
+
 init R1=3;
 init R2=5;
 init Carry=1;
+
 # sbc r2,r1
 program(0x521)
+
 C X X
-0 0 1
+
+# expects
 # Carry=0
 # R2=1
+0 0 1
 </dataString>
           </testData>
         </entry>
@@ -446,12 +526,17 @@ C X X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=4;
+
 # subi r1,2
 program(0x1012)
+
 C X
-0 2
+
+# expects
 # R1=2
+0 2
 </dataString>
           </testData>
         </entry>
@@ -470,12 +555,17 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=30;
+
 # subi r1,20
 program(0x8014,0xf10)
+
 repeat (2) C X
-0 10
+
+# expects
 # R1=10
+0 10
 </dataString>
           </testData>
         </entry>
@@ -494,12 +584,17 @@ repeat (2) C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=6;
+
 # sbci r1,4
 program(0x1214)
+
 C X
-0 2
+
+# expects
 # R1=2
+0 2
 </dataString>
           </testData>
         </entry>
@@ -518,12 +613,17 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=30;
+
 # sbci r1,20
 program(0x8014,0x1110)
+
 repeat (2) C X
-0 10
+
+# expects
 # R1=10
+0 10
 </dataString>
           </testData>
         </entry>
@@ -542,13 +642,18 @@ repeat (2) C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=6;
 init Carry=1;
+
 # sbci r1,4
 program(0x1214)
+
 C X
-0 1
+
+# expects
 # R1=1
+0 1
 </dataString>
           </testData>
         </entry>
@@ -567,13 +672,18 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=30;
 init Carry=1;
+
 # sbci r1,20
 program(0x8014,0x1110)
+
 repeat (2) C X
-0 9
+
+# expects
 # R1=9
+0 9
 </dataString>
           </testData>
         </entry>
@@ -592,12 +702,17 @@ repeat (2) C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=0;
+
 # not r1
 program(0x1a10)
+
 C X
-0 65535
+
+# expects
 # R1=65535
+0 65535
 </dataString>
           </testData>
         </entry>
@@ -616,12 +731,17 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=1;
+
 # neg r1
 program(0x1310)
+
 C X
-0 65535
+
+# expects
 # R1=65535
+0 65535
 </dataString>
           </testData>
         </entry>
@@ -640,13 +760,18 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=4660;
+
 # swap r1
 # brk
 program(0x2910,0x4400)
+
 repeat (2) C X
-0 13330
+
+# expects
 # R1=13330
+0 13330
 </dataString>
           </testData>
         </entry>
@@ -665,12 +790,17 @@ repeat (2) C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
+
 init R1=4660;
+
 # swapn r1
 program(0x2a10)
+
 C X
-0 8515
+
+# expects
 # R1=8515
+0 8515
 </dataString>
           </testData>
         </entry>
@@ -682,18 +812,26 @@ C X
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>LDI small</string>
+          <string>MUL</string>
         </entry>
         <entry>
           <string>Testdata</string>
           <testData>
             <dataString># auto generated, do not modify
-Clk R1
-# ldi r1,5
-program(0xa15)
-C X
-0 5
-# R1=5
+Clk R1 R0
+
+init R0=7;
+init R1=8;
+
+# mul r0,r1
+program(0x1b01)
+
+C X X
+
+# expects
+# R1=8
+# R0=56
+0 8 56
 </dataString>
           </testData>
         </entry>
@@ -712,11 +850,16 @@ C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
-# ldi r1,15
-program(0xa1f)
+
+
+# ldi r1,5
+program(0xa15)
+
 C X
-0 15
-# R1=15
+
+# expects
+# R1=5
+0 5
 </dataString>
           </testData>
         </entry>
@@ -728,18 +871,23 @@ C X
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>LDI large</string>
+          <string>LDI small</string>
         </entry>
         <entry>
           <string>Testdata</string>
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
-# ldi r1,16
-program(0x8010,0x910)
-repeat (2) C X
-0 16
-# R1=16
+
+
+# ldi r1,15
+program(0xa1f)
+
+C X
+
+# expects
+# R1=15
+0 15
 </dataString>
           </testData>
         </entry>
@@ -758,16 +906,435 @@ repeat (2) C X
           <testData>
             <dataString># auto generated, do not modify
 Clk R1
-# ldi r1,0x8000
-program(0x8000,0x911)
+
+
+# ldi r1,16
+program(0x8010,0x910)
+
 repeat (2) C X
-0 32768
-# R1=32768
+
+# expects
+# R1=16
+0 16
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
       <pos x="520" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDI large</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+
+# ldi r1,0x8000
+program(0x8000,0x911)
+
+repeat (2) C X
+
+# expects
+# R1=32768
+0 32768
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDS small</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1 R2
+
+memory mem(0)=6;
+memory mem(1)=7;
+
+# lds r1,0
+# lds r2,1
+program(0x3010,0x3021)
+
+repeat (2) C X X
+
+# expects
+# R1=6
+# R2=7
+0 6 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDS large</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+memory mem(32768)=8;
+
+# lds r1,0x8000
+program(0x8000,0x2f11)
+
+repeat (2) C X
+
+# expects
+# R1=8
+0 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>STS small</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R2
+
+init R1=7;
+
+# sts 1,r1
+# lds r2,1
+program(0x2e11,0x3021)
+
+repeat (2) C X
+
+# expects
+# R2=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>STS large</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=8;
+
+# sts 0x8000,r1
+# lds r2,0x8000
+program(0x8000,0x2d11,0x8000,0x2f21)
+
+repeat (4) C X
+
+# expects
+# R1=8
+0 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LD</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0 R1
+
+memory mem(1)=7;
+memory mem(32768)=8;
+init R2=1;
+init R3=32768;
+
+# ld r0,[r2]
+# ld r1,[r3]
+program(0x2c02,0x2c13)
+
+repeat (2) C X X
+
+# expects
+# R0=7
+# R1=8
+0 7 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDD</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0 R1
+
+memory mem(3)=7;
+memory mem(32768)=8;
+init R2=1;
+init R3=32770;
+
+# ldd r0,[r2+2]
+# ldd r1,[r3-2]
+program(0x8002,0x3202,0xfffe,0x3213)
+
+repeat (4) C X X
+
+# expects
+# R0=7
+# R1=8
+0 7 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ST</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init R1=1;
+init R2=7;
+
+# st [r1],r2
+# lds r0,1
+program(0x2b12,0x3001)
+
+repeat (2) C X
+
+# expects
+# R0=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>STD</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0 R1
+
+init R2=4;
+init R3=7;
+init R4=8;
+
+# std [r2+2],r3
+# std [r2-2],r4
+# lds r0,6
+# lds r1,2
+program(0x8002,0x3123,0xfffe,0x3124,0x3006,0x3012)
+
+repeat (6) C X X
+
+# expects
+# R0=7
+# R1=8
+0 7 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JMP short</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init R0=2;
+
+# jmp end
+#  ldi r0, 1
+# end: nop
+program(0x3d01,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JMP short back</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init PC=20;
+
+# ldi r0,1
+# .org 10
+# code: ldi r0,3
+# .org 20
+# jmp code
+#  ldi r0, 2
+program(0xa01,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa03,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x3df5,0xa02)
+
+repeat (2) C X
+
+# expects
+# R0=3
+0 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JMP long</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+
+# jmp 130
+#  ldi r0, 1
+# .org 130
+# ldi r0,2
+program(0x8082,0x3c00,0xa01,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa02)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>RCALL</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0 RA
+
+init R0=3;
+
+# jmp end
+# ldi r0, 1
+# func: ldi r0,1
+# rret ra
+# ldi r0,2
+# end: rcall ra,func
+program(0x3d04,0xa01,0xa01,0x3b0f,0xa02,0x8002,0x3af0)
+
+repeat (7) C X X
+
+# expects
+# R0=1
+# RA=7
+0 1 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="160"/>
     </visualElement>
   </visualElements>
   <wires>
