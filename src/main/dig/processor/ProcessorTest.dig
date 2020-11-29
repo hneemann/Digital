@@ -1336,6 +1336,390 @@ repeat (7) C X X
       </elementAttributes>
       <pos x="1040" y="160"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRCS jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Carry=1;
+init R0=2;
+
+# brcs end
+#  ldi r0, 1
+# end: nop
+program(0x3401,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRCS skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Carry=0;
+init R0=2;
+
+# brcs end
+#  ldi r0, 1
+# end: nop
+program(0x3401,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRCC jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Carry=0;
+init R0=2;
+
+# brcc end
+#  ldi r0, 1
+# end: nop
+program(0x3701,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRCC skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Carry=1;
+init R0=2;
+
+# brcc end
+#  ldi r0, 1
+# end: nop
+program(0x3701,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRMI jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Neg=1;
+init R0=2;
+
+# brmi end
+#  ldi r0, 1
+# end: nop
+program(0x3601,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRMI skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Neg=0;
+init R0=2;
+
+# brmi end
+#  ldi r0, 1
+# end: nop
+program(0x3601,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRPL jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Neg=0;
+init R0=2;
+
+# brpl end
+#  ldi r0, 1
+# end: nop
+program(0x3901,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRPL skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Neg=1;
+init R0=2;
+
+# brpl end
+#  ldi r0, 1
+# end: nop
+program(0x3901,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1300" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BREQ jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Zero=1;
+init R0=2;
+
+# breq end
+#  ldi r0, 1
+# end: nop
+program(0x3501,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1300" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BREQ skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Zero=0;
+init R0=2;
+
+# breq end
+#  ldi r0, 1
+# end: nop
+program(0x3501,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1300" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRNE jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Zero=0;
+init R0=2;
+
+# brne end
+#  ldi r0, 1
+# end: nop
+program(0x3801,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1300" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRNE skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Zero=1;
+init R0=2;
+
+# brne end
+#  ldi r0, 1
+# end: nop
+program(0x3801,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1300" y="320"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
