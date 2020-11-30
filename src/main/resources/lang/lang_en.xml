@@ -2105,6 +2105,7 @@
     <string name="msg_testVectorHelp"><![CDATA[<html>
     <head><style>pre { background-color: #E0E0E0;}</style></head>
     <body>
+<h3>General</h3>
 <p>The first line has to contain the names of inputs and outputs.
 The following lines contain the expected values.
 A 'X' represents a don't care, and a 'Z' represents a high Z value.
@@ -2221,7 +2222,25 @@ declare Bit = (Bus>>3)&1;
 </pre>
 <p>In this example, the 3rd bit is isolated from the 'Bus' signal and made available as
 the 'Bit' signal for the test. The circuit itself contains no output 'Bit'.</p>
-
+<h3>Processors</h3>
+<p>If processors are to be tested, an initialization of the processor is usually required.
+It is possible to perform this initialization within the test case.
+In this way, several tests can be located in one circuit and each test can use its own initialization.
+There are three instructions to perform this initialization:</p>
+<ul>
+<li>The 'program' statement can be used to overwrite the program memory of the processor.
+The instruction <pre>program(0x8000,0x2d11,0x8000,0x2f21)</pre> writes four words to the beginning
+of the program memory. All other words are set to zero.</li>.
+<li>The 'memory' instruction can be used to write to a RAM component:
+<pre>memory mem(3)=7;</pre>
+This example writes 7 to the memory with the label 'mem' at address 3.</li>
+<li> A labeled register can be overwritten with the 'init' statement.
+<pre>init R0=22;</pre>
+This instruction overwrites the register with the label 'R0' with the value 22.</li>
+</ul>
+<p>It should be noted that all used initializations are only applied once before the
+test execution. It does not matter in which line in the test case these statements are located.
+However, they must not be used above the header line listing the signal names.</p>.
 </body></html>]]></string>
 
     <string name="fsm_title">Finite State Machine</string>

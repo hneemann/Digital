@@ -2102,6 +2102,7 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="msg_testVectorHelp"><![CDATA[<html>
     <head><style>pre { background-color: #E0E0E0;}</style></head>
     <body>
+<h3>Allgemein</h3>
 <p>Die erste Zeile muss, durch ein Leerzeichen getrennt, die
 Ein- und Ausgänge auflisten, die verwendet werden sollen.
 In den folgenden Zeilen stehen dann die Sollwerte.
@@ -2223,7 +2224,25 @@ declare Bit = (Bus>>3)&1;
 </pre>
 <p>In diesem Beispiel wird aus dem Signal 'Bus' das 3. Bit isoliert und als Signal 'Bit' für den
 Test zur Verfügung gestellt. Die Schaltung selbst enthält keinen Ausgang 'Bit'.</p>
-
+<h3>Prozessoren</h3>
+<p>Wenn Prozessoren getestet werden sollen, ist in der Regel eine Initialisierung des Prozessors erforderlich.
+Es ist möglich, diese Initialisierung innhalb des Testfalls vorzunehmen.
+Auf diese Weise können sich mehrere Tests in einer Schaltung befinden und eine jeweils eigene Initialisierung verwenden.
+Um diese Initialisierung vorzunehmen gibt es drei Anweisungen:</p>
+<ul>
+<li>Mit der Anweisung 'program' kann der Programmspeicher des Prozessors überschrieben werden.
+Die Anweisung <pre>program(0x8000,0x2d11,0x8000,0x2f21)</pre> schreibt vier Worte an den Anfang des Programmspeichers.
+Alle übrigen Worte werden auf Null gesetzt.</li>
+<li>Mit der Anweisung 'memory' kann ein RAM-Baustein beschrieben werden:
+<pre>memory mem(3)=7;</pre>
+Dieses Beispiel schreibt in den Speicher mit dem Label 'mem' an der Adresse 3 eine 7.</li>
+<li> Mit der Anweisung 'init' kann ein benanntes Register überschrieben werden.
+<pre>init R0=22;</pre>
+Diese Anweisung überschreibt das Register mit dem Label 'R0' mit dem Wert 22.</li>
+</ul>
+<p>Zu beachten ist, dass alle verwendeten Initialisierungen nur einmal vor Beginn der Testausführung
+angewendet werden. Es spielt dabei keine Rolle in welcher Zeile im Testfall diese Anweisungen stehen.
+Sie dürfen jedoch nicht oberhalb der Kopfzeile mit den Signalnamen verwendet werden.</p>
 </body></html>]]></string>
 
 
