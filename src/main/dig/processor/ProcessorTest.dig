@@ -27,7 +27,7 @@
       <pos x="-280" y="20" />
     </visualElement>
     <visualElement>
-      <elementName>TestOut.dig</elementName>
+      <elementName>TestIO.dig</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
@@ -41,7 +41,7 @@
       <pos x="-80" y="20" />
     </visualElement>
     <visualElement>
-      <elementName>TestOut.dig</elementName>
+      <elementName>TestIO.dig</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
