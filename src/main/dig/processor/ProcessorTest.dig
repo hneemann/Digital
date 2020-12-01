@@ -19,12 +19,12 @@
           <int>2147483647</int>
         </entry>
       </elementAttributes>
-      <pos x="-320" y="20" />
+      <pos x="-380" y="20" />
     </visualElement>
     <visualElement>
       <elementName>Processor.dig</elementName>
       <elementAttributes />
-      <pos x="-280" y="20" />
+      <pos x="-340" y="20" />
     </visualElement>
     <visualElement>
       <elementName>TestIO.dig</elementName>
@@ -38,7 +38,7 @@
           <string>addr := 3;</string>
         </entry>
       </elementAttributes>
-      <pos x="-80" y="20" />
+      <pos x="-140" y="20" />
     </visualElement>
     <visualElement>
       <elementName>TestIO.dig</elementName>
@@ -52,7 +52,7 @@
           <string>addr := 32;</string>
         </entry>
       </elementAttributes>
-      <pos x="-80" y="180" />
+      <pos x="-140" y="180" />
     </visualElement>
   <visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>MOV</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1 R2
@@ -86,7 +86,7 @@ C X X X
 # R1=5
 # R2=3
 0 0 5 3
-</dataString></testData></entry></elementAttributes><pos x="160" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=0;
@@ -101,7 +101,22 @@ C X X
 # Carry=0
 # R1=5
 0 0 5
-</dataString></testData></entry></elementAttributes><pos x="320" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADD C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=2;
+
+# addi r1,23
+program(0x8017,0xb10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=25
+0 0 25
+</dataString></testData></entry></elementAttributes><pos x="480" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADD C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=1;
@@ -118,7 +133,7 @@ C X X X
 # R1=5
 # R2=3
 0 0 5 3
-</dataString></testData></entry></elementAttributes><pos x="480" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_in S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=1;
@@ -133,7 +148,22 @@ C X X
 # Carry=0
 # R1=5
 0 0 5
-</dataString></testData></entry></elementAttributes><pos x="640" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADD C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_in L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=2;
+
+# addi r1,23
+program(0x8017,0xb10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=25
+0 0 25
+</dataString></testData></entry></elementAttributes><pos x="960" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADD C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=0;
@@ -150,7 +180,7 @@ C X X X
 # R1=2
 # R2=3
 0 1 2 3
-</dataString></testData></entry></elementAttributes><pos x="800" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_out S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=0;
@@ -165,7 +195,22 @@ C X X
 # Carry=1
 # R1=2
 0 1 2
-</dataString></testData></entry></elementAttributes><pos x="960" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADD C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_out L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=-1;
+
+# addi r1,23
+program(0x8017,0xb10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=22
+0 1 22
+</dataString></testData></entry></elementAttributes><pos x="1440" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADD C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=1;
@@ -182,7 +227,7 @@ C X X X
 # R1=2
 # R2=3
 0 1 2 3
-</dataString></testData></entry></elementAttributes><pos x="1120" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_in C_out S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=1;
@@ -197,7 +242,22 @@ C X X
 # Carry=1
 # R1=2
 0 1 2
-</dataString></testData></entry></elementAttributes><pos x="1280" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADC</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADDI C_in C_out L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=-1;
+
+# addi r1,23
+program(0x8017,0xb10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=22
+0 1 22
+</dataString></testData></entry></elementAttributes><pos x="320" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADC</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=0;
@@ -214,7 +274,7 @@ C X X X
 # R1=5
 # R2=3
 0 0 5 3
-</dataString></testData></entry></elementAttributes><pos x="1440" y="0" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=0;
@@ -229,7 +289,22 @@ C X X
 # Carry=0
 # R1=5
 0 0 5
-</dataString></testData></entry></elementAttributes><pos x="0" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADC C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=2;
+
+# adci r1,23
+program(0x8017,0xd10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=25
+0 0 25
+</dataString></testData></entry></elementAttributes><pos x="800" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADC C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=1;
@@ -246,7 +321,7 @@ C X X X
 # R1=6
 # R2=3
 0 0 6 3
-</dataString></testData></entry></elementAttributes><pos x="160" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_in S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=1;
@@ -261,7 +336,22 @@ C X X
 # Carry=0
 # R1=6
 0 0 6
-</dataString></testData></entry></elementAttributes><pos x="320" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADC C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_in L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=2;
+
+# adci r1,23
+program(0x8017,0xd10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=26
+0 0 26
+</dataString></testData></entry></elementAttributes><pos x="1280" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADC C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=0;
@@ -278,7 +368,7 @@ C X X X
 # R1=2
 # R2=3
 0 1 2 3
-</dataString></testData></entry></elementAttributes><pos x="480" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_out S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=0;
@@ -293,7 +383,22 @@ C X X
 # Carry=1
 # R1=2
 0 1 2
-</dataString></testData></entry></elementAttributes><pos x="640" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADC C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_out L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=-1;
+
+# adci r1,23
+program(0x8017,0xd10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=22
+0 1 22
+</dataString></testData></entry></elementAttributes><pos x="160" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADC C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=1;
@@ -310,7 +415,7 @@ C X X X
 # R1=3
 # R2=3
 0 1 3 3
-</dataString></testData></entry></elementAttributes><pos x="800" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_in C_out S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=1;
@@ -325,7 +430,22 @@ C X X
 # Carry=1
 # R1=3
 0 1 3
-</dataString></testData></entry></elementAttributes><pos x="960" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUB</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ADCI C_in C_out L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=-1;
+
+# adci r1,23
+program(0x8017,0xd10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=23
+0 1 23
+</dataString></testData></entry></elementAttributes><pos x="640" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUB</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=0;
@@ -342,7 +462,7 @@ C X X X
 # R1=1
 # R2=2
 0 0 1 2
-</dataString></testData></entry></elementAttributes><pos x="1120" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=0;
@@ -357,7 +477,22 @@ C X X
 # Carry=0
 # R1=1
 0 0 1
-</dataString></testData></entry></elementAttributes><pos x="1280" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUB C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=23;
+
+# subi r1,22
+program(0x8016,0xf10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString></testData></entry></elementAttributes><pos x="1120" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUB C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=1;
@@ -374,7 +509,7 @@ C X X X
 # R1=1
 # R2=2
 0 0 1 2
-</dataString></testData></entry></elementAttributes><pos x="1440" y="80" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_in S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=1;
@@ -389,7 +524,22 @@ C X X
 # Carry=0
 # R1=1
 0 0 1
-</dataString></testData></entry></elementAttributes><pos x="0" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUB C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_in L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=23;
+
+# subi r1,22
+program(0x8016,0xf10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString></testData></entry></elementAttributes><pos x="0" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUB C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=0;
@@ -406,7 +556,7 @@ C X X X
 # R1=65535
 # R2=3
 0 1 65535 3
-</dataString></testData></entry></elementAttributes><pos x="160" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_out S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=0;
@@ -421,7 +571,22 @@ C X X
 # Carry=1
 # R1=65535
 0 1 65535
-</dataString></testData></entry></elementAttributes><pos x="320" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUB C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_out L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=22;
+
+# subi r1,23
+program(0x8017,0xf10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString></testData></entry></elementAttributes><pos x="480" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUB C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=1;
@@ -438,7 +603,7 @@ C X X X
 # R1=65535
 # R2=3
 0 1 65535 3
-</dataString></testData></entry></elementAttributes><pos x="480" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_in C_out S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=1;
@@ -453,7 +618,22 @@ C X X
 # Carry=1
 # R1=65535
 0 1 65535
-</dataString></testData></entry></elementAttributes><pos x="640" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBC</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SUBI C_in C_out L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=22;
+
+# subi r1,23
+program(0x8017,0xf10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString></testData></entry></elementAttributes><pos x="960" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBC</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=0;
@@ -470,7 +650,7 @@ C X X X
 # R1=1
 # R2=2
 0 0 1 2
-</dataString></testData></entry></elementAttributes><pos x="800" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=0;
@@ -485,7 +665,22 @@ C X X
 # Carry=0
 # R1=1
 0 0 1
-</dataString></testData></entry></elementAttributes><pos x="960" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBC C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=23;
+
+# sbci r1,22
+program(0x8016,0x1110)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString></testData></entry></elementAttributes><pos x="1440" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBC C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=1;
@@ -502,7 +697,7 @@ C X X X
 # R1=0
 # R2=2
 0 0 0 2
-</dataString></testData></entry></elementAttributes><pos x="1120" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_in</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_in S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=1;
@@ -517,7 +712,22 @@ C X X
 # Carry=0
 # R1=0
 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="1280" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBC C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_in L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=23;
+
+# sbci r1,22
+program(0x8016,0x1110)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=0
+0 0 0
+</dataString></testData></entry></elementAttributes><pos x="320" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBC C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=0;
@@ -534,7 +744,7 @@ C X X X
 # R1=65535
 # R2=3
 0 1 65535 3
-</dataString></testData></entry></elementAttributes><pos x="1440" y="160" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_out S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=0;
@@ -549,7 +759,22 @@ C X X
 # Carry=1
 # R1=65535
 0 1 65535
-</dataString></testData></entry></elementAttributes><pos x="0" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBC C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_out L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=22;
+
+# sbci r1,23
+program(0x8017,0x1110)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString></testData></entry></elementAttributes><pos x="800" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBC C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1 R2
 
 init Carry=1;
@@ -566,7 +791,7 @@ C X X X
 # R1=65534
 # R2=3
 0 1 65534 3
-</dataString></testData></entry></elementAttributes><pos x="160" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_in C_out</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_in C_out S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry R1
 
 init Carry=1;
@@ -581,7 +806,22 @@ C X X
 # Carry=1
 # R1=65534
 0 1 65534
-</dataString></testData></entry></elementAttributes><pos x="320" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>NOT</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SBCI C_in C_out L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=22;
+
+# sbci r1,23
+program(0x8017,0x1110)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=65534
+0 1 65534
+</dataString></testData></entry></elementAttributes><pos x="1280" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>NOT</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=0;
@@ -594,7 +834,7 @@ C X
 # expects
 # R1=65535
 0 65535
-</dataString></testData></entry></elementAttributes><pos x="480" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>NEG</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>NEG</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=1;
@@ -607,7 +847,7 @@ C X
 # expects
 # R1=65535
 0 65535
-</dataString></testData></entry></elementAttributes><pos x="640" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>AND</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>AND</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1 R2
 
 init R1=2;
@@ -622,7 +862,7 @@ C X X
 # R1=2
 # R2=3
 0 2 3
-</dataString></testData></entry></elementAttributes><pos x="800" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ANDI short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ANDI short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=2;
@@ -635,7 +875,7 @@ C X
 # expects
 # R1=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="960" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ANDI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ANDI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=16;
@@ -648,7 +888,7 @@ repeat (2) C X
 # expects
 # R1=16
 0 16
-</dataString></testData></entry></elementAttributes><pos x="1120" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>OR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>OR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1 R2
 
 init R1=2;
@@ -663,7 +903,7 @@ C X X
 # R1=3
 # R2=3
 0 3 3
-</dataString></testData></entry></elementAttributes><pos x="1280" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ORI short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ORI short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=2;
@@ -676,7 +916,7 @@ C X
 # expects
 # R1=3
 0 3
-</dataString></testData></entry></elementAttributes><pos x="1440" y="240" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ORI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ORI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=16;
@@ -689,7 +929,7 @@ repeat (2) C X
 # expects
 # R1=24
 0 24
-</dataString></testData></entry></elementAttributes><pos x="0" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>EOR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>EOR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1 R2
 
 init R1=2;
@@ -704,7 +944,7 @@ C X X
 # R1=1
 # R2=3
 0 1 3
-</dataString></testData></entry></elementAttributes><pos x="160" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>EORI short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>EORI short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=2;
@@ -717,7 +957,7 @@ C X
 # expects
 # R1=1
 0 1
-</dataString></testData></entry></elementAttributes><pos x="320" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>EORI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>EORI</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=16;
@@ -730,7 +970,7 @@ repeat (2) C X
 # expects
 # R1=8
 0 8
-</dataString></testData></entry></elementAttributes><pos x="480" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LSL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LSL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=8;
@@ -743,7 +983,7 @@ C X
 # expects
 # R1=16
 0 16
-</dataString></testData></entry></elementAttributes><pos x="640" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LSR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LSR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=8;
@@ -756,7 +996,7 @@ C X
 # expects
 # R1=4
 0 4
-</dataString></testData></entry></elementAttributes><pos x="800" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LSR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LSR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=65535;
@@ -769,7 +1009,7 @@ C X
 # expects
 # R1=32767
 0 32767
-</dataString></testData></entry></elementAttributes><pos x="960" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ASR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ASR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=8;
@@ -782,7 +1022,7 @@ C X
 # expects
 # R1=4
 0 4
-</dataString></testData></entry></elementAttributes><pos x="1120" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ASR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ASR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=65535;
@@ -795,7 +1035,7 @@ C X
 # expects
 # R1=65535
 0 65535
-</dataString></testData></entry></elementAttributes><pos x="1280" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ROR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ROR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init Carry=0;
@@ -809,7 +1049,7 @@ C X
 # expects
 # R1=4
 0 4
-</dataString></testData></entry></elementAttributes><pos x="1440" y="320" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ROR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ROR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init Carry=1;
@@ -823,7 +1063,7 @@ C X
 # expects
 # R1=32772
 0 32772
-</dataString></testData></entry></elementAttributes><pos x="0" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ROL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ROL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init Carry=0;
@@ -837,7 +1077,7 @@ C X
 # expects
 # R1=16
 0 16
-</dataString></testData></entry></elementAttributes><pos x="160" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ROL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ROL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init Carry=1;
@@ -851,7 +1091,7 @@ C X
 # expects
 # R1=17
 0 17
-</dataString></testData></entry></elementAttributes><pos x="320" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SWAP</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SWAP</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=4660;
@@ -864,7 +1104,7 @@ C X
 # expects
 # R1=13330
 0 13330
-</dataString></testData></entry></elementAttributes><pos x="480" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SWAPN</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>SWAPN</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=4660;
@@ -877,7 +1117,7 @@ C X
 # expects
 # R1=8515
 0 8515
-</dataString></testData></entry></elementAttributes><pos x="640" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>MUL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>MUL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1 R0
 
 init R0=7;
@@ -892,7 +1132,7 @@ C X X
 # R1=8
 # R0=56
 0 8 56
-</dataString></testData></entry></elementAttributes><pos x="800" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>MULI short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>MULI short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init R0=7;
@@ -905,7 +1145,7 @@ C X
 # expects
 # R0=21
 0 21
-</dataString></testData></entry></elementAttributes><pos x="960" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>MULI long</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>MULI long</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init R0=7;
@@ -918,7 +1158,7 @@ repeat (2) C X
 # expects
 # R0=224
 0 224
-</dataString></testData></entry></elementAttributes><pos x="1120" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDI small</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDI small</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 
@@ -930,7 +1170,7 @@ C X
 # expects
 # R1=5
 0 5
-</dataString></testData></entry></elementAttributes><pos x="1280" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDI small</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDI small</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 
@@ -942,7 +1182,7 @@ C X
 # expects
 # R1=15
 0 15
-</dataString></testData></entry></elementAttributes><pos x="1440" y="400" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDI large</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDI large</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 
@@ -954,7 +1194,7 @@ repeat (2) C X
 # expects
 # R1=16
 0 16
-</dataString></testData></entry></elementAttributes><pos x="0" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDI large</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDI large</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 
@@ -966,7 +1206,7 @@ repeat (2) C X
 # expects
 # R1=32768
 0 32768
-</dataString></testData></entry></elementAttributes><pos x="160" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDS small</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDS small</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1 R2
 
 memory mem(0)=6;
@@ -982,7 +1222,7 @@ repeat (2) C X X
 # R1=6
 # R2=7
 0 6 7
-</dataString></testData></entry></elementAttributes><pos x="320" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDS large</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDS large</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 memory mem(32768)=8;
@@ -995,7 +1235,7 @@ repeat (2) C X
 # expects
 # R1=8
 0 8
-</dataString></testData></entry></elementAttributes><pos x="480" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>STS small</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>STS small</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R2
 
 init R1=7;
@@ -1009,7 +1249,7 @@ repeat (2) C X
 # expects
 # R2=7
 0 7
-</dataString></testData></entry></elementAttributes><pos x="640" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>STS large</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>STS large</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R1=8;
@@ -1023,7 +1263,7 @@ repeat (4) C X
 # expects
 # R1=8
 0 8
-</dataString></testData></entry></elementAttributes><pos x="800" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LD</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LD</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0 R1
 
 memory mem(1)=7;
@@ -1041,7 +1281,7 @@ repeat (2) C X X
 # R0=7
 # R1=8
 0 7 8
-</dataString></testData></entry></elementAttributes><pos x="960" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDD</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>LDD</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0 R1
 
 memory mem(3)=7;
@@ -1059,7 +1299,7 @@ repeat (4) C X X
 # R0=7
 # R1=8
 0 7 8
-</dataString></testData></entry></elementAttributes><pos x="1120" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ST</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>ST</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init R1=1;
@@ -1074,7 +1314,7 @@ repeat (2) C X
 # expects
 # R0=7
 0 7
-</dataString></testData></entry></elementAttributes><pos x="1280" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>STD</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>STD</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0 R1
 
 init R2=4;
@@ -1093,7 +1333,7 @@ repeat (6) C X X
 # R0=7
 # R1=8
 0 7 8
-</dataString></testData></entry></elementAttributes><pos x="1440" y="480" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>JMP short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>JMP short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init R0=2;
@@ -1108,7 +1348,7 @@ repeat (3) C X
 # expects
 # R0=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="0" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>JMP short back</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>JMP short back</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init PC=20;
@@ -1126,7 +1366,7 @@ repeat (2) C X
 # expects
 # R0=3
 0 3
-</dataString></testData></entry></elementAttributes><pos x="160" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>JMP long</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>JMP long</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 
@@ -1141,7 +1381,7 @@ repeat (3) C X
 # expects
 # R0=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="320" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>RCALL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>RCALL</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0 RA
 
 init R0=3;
@@ -1160,7 +1400,7 @@ repeat (7) C X X
 # R0=1
 # RA=7
 0 1 7
-</dataString></testData></entry></elementAttributes><pos x="480" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 210</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 210</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1177,7 +1417,7 @@ C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="640" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 211</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 211</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1194,7 +1434,7 @@ C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="800" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 220</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 220</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1211,7 +1451,7 @@ C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="960" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 221</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 221</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1228,7 +1468,7 @@ C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="1120" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 230</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 230</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1245,7 +1485,7 @@ C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="1280" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 231</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CMP 231</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1262,7 +1502,7 @@ C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="1440" y="560" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 210</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 210</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1279,7 +1519,7 @@ C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="0" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 201</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 201</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1296,7 +1536,7 @@ C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="160" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 220</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 220</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1313,7 +1553,7 @@ C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="320" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 211</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 211</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1330,7 +1570,7 @@ C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="480" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 230</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 230</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1347,7 +1587,7 @@ C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="640" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 221</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPC 221</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1364,7 +1604,7 @@ C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="800" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 210S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 210S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1380,7 +1620,7 @@ C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="960" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 210L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 210L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1396,7 +1636,7 @@ repeat (2) C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="1120" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 211S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 211S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1412,7 +1652,7 @@ C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="1280" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 211L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 211L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1428,7 +1668,7 @@ repeat (2) C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="1440" y="640" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 220S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 220S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1444,7 +1684,7 @@ C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="0" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 220L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 220L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1460,7 +1700,7 @@ repeat (2) C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="160" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 221S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 221S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1476,7 +1716,7 @@ C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="320" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 221L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 221L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1492,7 +1732,7 @@ repeat (2) C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="480" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 230S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 230S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1508,7 +1748,7 @@ C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="640" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 230L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 230L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1524,7 +1764,7 @@ repeat (2) C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="800" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 231S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 231S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1540,7 +1780,7 @@ C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="960" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 231L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPI 231L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1556,7 +1796,7 @@ repeat (2) C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="1120" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 210S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 210S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1572,7 +1812,7 @@ C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="1280" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 210L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 210L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1588,7 +1828,7 @@ repeat (2) C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="1440" y="720" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 201S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 201S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1604,7 +1844,7 @@ C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="0" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 201L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 201L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1620,7 +1860,7 @@ repeat (2) C X X X
 # Zero=0
 # Neg=0
 0 0 0 0
-</dataString></testData></entry></elementAttributes><pos x="160" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 220S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 220S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1636,7 +1876,7 @@ C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="320" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 220L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 220L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1652,7 +1892,7 @@ repeat (2) C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="480" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 211S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 211S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1668,7 +1908,7 @@ C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="640" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 211L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 211L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1684,7 +1924,7 @@ repeat (2) C X X X
 # Zero=1
 # Neg=0
 0 0 1 0
-</dataString></testData></entry></elementAttributes><pos x="800" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 230S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 230S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1700,7 +1940,7 @@ C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="960" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 230L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 230L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=0;
@@ -1716,7 +1956,7 @@ repeat (2) C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="1120" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 221S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 221S</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1732,7 +1972,7 @@ C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="1280" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 221L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>CPCI 221L</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Carry Zero Neg
 
 init Carry=1;
@@ -1748,7 +1988,7 @@ repeat (2) C X X X
 # Zero=0
 # Neg=1
 0 1 0 1
-</dataString></testData></entry></elementAttributes><pos x="1440" y="800" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRCS jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRCS jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Carry=1;
@@ -1764,7 +2004,7 @@ repeat (3) C X
 # expects
 # R0=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="0" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRCS skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRCS skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Carry=0;
@@ -1780,7 +2020,7 @@ repeat (3) C X
 # expects
 # R0=1
 0 1
-</dataString></testData></entry></elementAttributes><pos x="160" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRCC jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRCC jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Carry=0;
@@ -1796,7 +2036,7 @@ repeat (3) C X
 # expects
 # R0=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="320" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRCC skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRCC skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Carry=1;
@@ -1812,7 +2052,7 @@ repeat (3) C X
 # expects
 # R0=1
 0 1
-</dataString></testData></entry></elementAttributes><pos x="480" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRMI jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRMI jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Neg=1;
@@ -1828,7 +2068,7 @@ repeat (3) C X
 # expects
 # R0=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="640" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRMI skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRMI skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Neg=0;
@@ -1844,7 +2084,7 @@ repeat (3) C X
 # expects
 # R0=1
 0 1
-</dataString></testData></entry></elementAttributes><pos x="800" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRPL jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRPL jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Neg=0;
@@ -1860,7 +2100,7 @@ repeat (3) C X
 # expects
 # R0=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="960" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRPL skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRPL skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Neg=1;
@@ -1876,7 +2116,7 @@ repeat (3) C X
 # expects
 # R0=1
 0 1
-</dataString></testData></entry></elementAttributes><pos x="1120" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BREQ jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="480" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BREQ jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Zero=1;
@@ -1892,7 +2132,7 @@ repeat (3) C X
 # expects
 # R0=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="1280" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BREQ skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="640" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BREQ skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Zero=0;
@@ -1908,7 +2148,7 @@ repeat (3) C X
 # expects
 # R0=1
 0 1
-</dataString></testData></entry></elementAttributes><pos x="1440" y="880" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRNE jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="800" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRNE jmp</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Zero=0;
@@ -1924,7 +2164,7 @@ repeat (3) C X
 # expects
 # R0=2
 0 2
-</dataString></testData></entry></elementAttributes><pos x="0" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRNE skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="960" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>BRNE skip</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R0
 
 init Zero=1;
@@ -1940,7 +2180,7 @@ repeat (3) C X
 # expects
 # R0=1
 0 1
-</dataString></testData></entry></elementAttributes><pos x="160" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>OUT short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1120" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>OUT short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Reg3
 
 init R1=7;
@@ -1953,7 +2193,7 @@ C X
 # expects
 # Reg3=7
 0 7
-</dataString></testData></entry></elementAttributes><pos x="320" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>OUT long</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1280" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>OUT long</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Reg32
 
 init R1=7;
@@ -1966,7 +2206,7 @@ repeat (2) C X
 # expects
 # Reg32=7
 0 7
-</dataString></testData></entry></elementAttributes><pos x="480" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>OUTR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="1440" y="1040" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>OUTR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk Reg3
 
 init R0=3;
@@ -1980,7 +2220,7 @@ C X
 # expects
 # Reg3=7
 0 7
-</dataString></testData></entry></elementAttributes><pos x="640" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>IN short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="0" y="1120" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>IN short</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init Reg3=7;
@@ -1993,7 +2233,7 @@ C X
 # expects
 # R1=7
 0 7
-</dataString></testData></entry></elementAttributes><pos x="800" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>IN long</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="160" y="1120" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>IN long</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init Reg32=7;
@@ -2006,7 +2246,7 @@ repeat (2) C X
 # expects
 # R1=7
 0 7
-</dataString></testData></entry></elementAttributes><pos x="960" y="960" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>INR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
+</dataString></testData></entry></elementAttributes><pos x="320" y="1120" /></visualElement><visualElement><elementName>Testcase</elementName><elementAttributes><entry><string>Label</string><string>INR</string></entry><entry><string>Testdata</string><testData><dataString># auto generated, do not modify
 Clk R1
 
 init R0=3;
@@ -2020,103 +2260,103 @@ C X
 # expects
 # R1=7
 0 7
-</dataString></testData></entry></elementAttributes><pos x="1120" y="960" /></visualElement></visualElements>
+</dataString></testData></entry></elementAttributes><pos x="480" y="1120" /></visualElement></visualElements>
   <wires>
     <wire>
-      <p1 x="-200" y="80" />
-      <p2 x="-160" y="80" />
+      <p1 x="-260" y="80" />
+      <p2 x="-220" y="80" />
     </wire>
     <wire>
-      <p1 x="-160" y="80" />
-      <p2 x="-80" y="80" />
+      <p1 x="-220" y="80" />
+      <p2 x="-140" y="80" />
     </wire>
     <wire>
-      <p1 x="-160" y="240" />
-      <p2 x="-80" y="240" />
+      <p1 x="-220" y="240" />
+      <p2 x="-140" y="240" />
     </wire>
     <wire>
-      <p1 x="-320" y="20" />
-      <p2 x="-300" y="20" />
+      <p1 x="-380" y="20" />
+      <p2 x="-360" y="20" />
     </wire>
     <wire>
-      <p1 x="-200" y="20" />
-      <p2 x="-100" y="20" />
+      <p1 x="-260" y="20" />
+      <p2 x="-160" y="20" />
     </wire>
     <wire>
-      <p1 x="-100" y="20" />
-      <p2 x="-80" y="20" />
+      <p1 x="-360" y="20" />
+      <p2 x="-340" y="20" />
     </wire>
     <wire>
-      <p1 x="-300" y="20" />
-      <p2 x="-280" y="20" />
+      <p1 x="-160" y="20" />
+      <p2 x="-140" y="20" />
     </wire>
     <wire>
-      <p1 x="-180" y="100" />
-      <p2 x="-80" y="100" />
+      <p1 x="-240" y="100" />
+      <p2 x="-140" y="100" />
     </wire>
     <wire>
-      <p1 x="-180" y="260" />
-      <p2 x="-80" y="260" />
+      <p1 x="-240" y="260" />
+      <p2 x="-140" y="260" />
     </wire>
     <wire>
-      <p1 x="-100" y="180" />
-      <p2 x="-80" y="180" />
+      <p1 x="-160" y="180" />
+      <p2 x="-140" y="180" />
     </wire>
     <wire>
-      <p1 x="-200" y="40" />
-      <p2 x="-120" y="40" />
+      <p1 x="-260" y="40" />
+      <p2 x="-180" y="40" />
     </wire>
     <wire>
-      <p1 x="-120" y="40" />
-      <p2 x="-80" y="40" />
+      <p1 x="-180" y="40" />
+      <p2 x="-140" y="40" />
     </wire>
     <wire>
-      <p1 x="-300" y="120" />
-      <p2 x="-180" y="120" />
+      <p1 x="-360" y="120" />
+      <p2 x="-240" y="120" />
     </wire>
     <wire>
-      <p1 x="-120" y="200" />
-      <p2 x="-80" y="200" />
+      <p1 x="-180" y="200" />
+      <p2 x="-140" y="200" />
     </wire>
     <wire>
-      <p1 x="-140" y="220" />
-      <p2 x="-80" y="220" />
+      <p1 x="-200" y="220" />
+      <p2 x="-140" y="220" />
+    </wire>
+    <wire>
+      <p1 x="-260" y="60" />
+      <p2 x="-200" y="60" />
     </wire>
     <wire>
       <p1 x="-200" y="60" />
       <p2 x="-140" y="60" />
     </wire>
     <wire>
-      <p1 x="-140" y="60" />
-      <p2 x="-80" y="60" />
+      <p1 x="-180" y="40" />
+      <p2 x="-180" y="200" />
     </wire>
     <wire>
-      <p1 x="-180" y="100" />
-      <p2 x="-180" y="120" />
+      <p1 x="-360" y="20" />
+      <p2 x="-360" y="120" />
     </wire>
     <wire>
-      <p1 x="-180" y="120" />
-      <p2 x="-180" y="260" />
+      <p1 x="-200" y="60" />
+      <p2 x="-200" y="220" />
     </wire>
     <wire>
-      <p1 x="-100" y="20" />
-      <p2 x="-100" y="180" />
+      <p1 x="-220" y="80" />
+      <p2 x="-220" y="240" />
     </wire>
     <wire>
-      <p1 x="-120" y="40" />
-      <p2 x="-120" y="200" />
+      <p1 x="-240" y="100" />
+      <p2 x="-240" y="120" />
     </wire>
     <wire>
-      <p1 x="-300" y="20" />
-      <p2 x="-300" y="120" />
+      <p1 x="-240" y="120" />
+      <p2 x="-240" y="260" />
     </wire>
     <wire>
-      <p1 x="-140" y="60" />
-      <p2 x="-140" y="220" />
-    </wire>
-    <wire>
-      <p1 x="-160" y="80" />
-      <p2 x="-160" y="240" />
+      <p1 x="-160" y="20" />
+      <p2 x="-160" y="180" />
     </wire>
   </wires>
   <measurementOrdering />
