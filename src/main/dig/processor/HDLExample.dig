@@ -429,7 +429,7 @@ end loop
       <pos x="540" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>ProcessorMux.dig</elementName>
+      <elementName>ProcessorHDL.dig</elementName>
       <elementAttributes/>
       <pos x="1020" y="320"/>
     </visualElement>

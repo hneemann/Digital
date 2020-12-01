@@ -394,7 +394,7 @@
       <pos x="420" y="320"/>
     </visualElement>
     <visualElement>
-      <elementName>ProcessorMux.dig</elementName>
+      <elementName>ProcessorHDL.dig</elementName>
       <elementAttributes/>
       <pos x="1220" y="340"/>
     </visualElement>

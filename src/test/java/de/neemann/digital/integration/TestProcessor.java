@@ -41,7 +41,7 @@ public class TestProcessor extends TestCase {
     }
 
     private ToBreakRunner createProcessorMux(String program) throws Exception {
-        ToBreakRunner runner = new ToBreakRunner("../../main/dig/processor/ProcessorMux.dig", false);
+        ToBreakRunner runner = new ToBreakRunner("../../main/dig/processor/ProcessorHDL.dig", false);
         Model model = runner.getModel();
 
         ObservableValue instr = model.getInput("Instr");
