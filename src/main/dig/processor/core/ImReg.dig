@@ -127,8 +127,8 @@ spezielles Bit in jedem Befehlswort zur Verfügung.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>immediate extend mode (0: sign extend; 0: extend with s0)
-{{de Erweiterungsmodus (0: sign extend; 0: extend with s0)}}</string>
+          <string>immediate extend mode (0: sign extend; 1: extend with 0, 2:extend with S0, 3:extend with D0)
+{{de Erweiterungsmodus (0: sign extend; 1: extend with 0, 2:extend with S0, 3:extend with D0)}}</string>
         </entry>
         <entry>
           <string>Label</string>
