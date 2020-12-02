@@ -1,0 +1,4819 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Clk</string>
+        </entry>
+        <entry>
+          <string>Frequency</string>
+          <int>2147483647</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-540" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>TestIO.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Reg3</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>addr := 3;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>TestIO.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Reg32</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>addr := 32;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>MOV</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1 R2
+
+init R1=3;
+init R2=4;
+
+# mov r2,r1
+program(0x121)
+
+C X X
+
+# expects
+# R1=3
+# R2=3
+0 3 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADD</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=0;
+init R1=2;
+init R2=3;
+
+# add r1,r2
+program(0x212)
+
+C X X X
+
+# expects
+# Carry=0
+# R1=5
+# R2=3
+0 0 5 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDI S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=2;
+
+# addi r1,3
+program(0xc13)
+
+C X X
+
+# expects
+# Carry=0
+# R1=5
+0 0 5
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDI L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=2;
+
+# addi r1,23
+program(0x8017,0xb10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=25
+0 0 25
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADD C_in</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=1;
+init R1=2;
+init R2=3;
+
+# add r1,r2
+program(0x212)
+
+C X X X
+
+# expects
+# Carry=0
+# R1=5
+# R2=3
+0 0 5 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDI C_in S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=2;
+
+# addi r1,3
+program(0xc13)
+
+C X X
+
+# expects
+# Carry=0
+# R1=5
+0 0 5
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDI C_in L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=2;
+
+# addi r1,23
+program(0x8017,0xb10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=25
+0 0 25
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADD C_out</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=0;
+init R1=-1;
+init R2=3;
+
+# add r1,r2
+program(0x212)
+
+C X X X
+
+# expects
+# Carry=1
+# R1=2
+# R2=3
+0 1 2 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDI C_out S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=-1;
+
+# addi r1,3
+program(0xc13)
+
+C X X
+
+# expects
+# Carry=1
+# R1=2
+0 1 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDI C_out L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=-1;
+
+# addi r1,23
+program(0x8017,0xb10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=22
+0 1 22
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADD C_in C_out</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=1;
+init R1=-1;
+init R2=3;
+
+# add r1,r2
+program(0x212)
+
+C X X X
+
+# expects
+# Carry=1
+# R1=2
+# R2=3
+0 1 2 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDI C_in C_out S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=-1;
+
+# addi r1,3
+program(0xc13)
+
+C X X
+
+# expects
+# Carry=1
+# R1=2
+0 1 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDI C_in C_out L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=-1;
+
+# addi r1,23
+program(0x8017,0xb10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=22
+0 1 22
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADC</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=0;
+init R1=2;
+init R2=3;
+
+# adc r1,r2
+program(0x312)
+
+C X X X
+
+# expects
+# Carry=0
+# R1=5
+# R2=3
+0 0 5 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADCI S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=2;
+
+# adci r1,3
+program(0xe13)
+
+C X X
+
+# expects
+# Carry=0
+# R1=5
+0 0 5
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADCI L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=2;
+
+# adci r1,23
+program(0x8017,0xd10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=25
+0 0 25
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADC C_in</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=1;
+init R1=2;
+init R2=3;
+
+# adc r1,r2
+program(0x312)
+
+C X X X
+
+# expects
+# Carry=0
+# R1=6
+# R2=3
+0 0 6 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADCI C_in S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=2;
+
+# adci r1,3
+program(0xe13)
+
+C X X
+
+# expects
+# Carry=0
+# R1=6
+0 0 6
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADCI C_in L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=2;
+
+# adci r1,23
+program(0x8017,0xd10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=26
+0 0 26
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADC C_out</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=0;
+init R1=-1;
+init R2=3;
+
+# adc r1,r2
+program(0x312)
+
+C X X X
+
+# expects
+# Carry=1
+# R1=2
+# R2=3
+0 1 2 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADCI C_out S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=-1;
+
+# adci r1,3
+program(0xe13)
+
+C X X
+
+# expects
+# Carry=1
+# R1=2
+0 1 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADCI C_out L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=-1;
+
+# adci r1,23
+program(0x8017,0xd10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=22
+0 1 22
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADC C_in C_out</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=1;
+init R1=-1;
+init R2=3;
+
+# adc r1,r2
+program(0x312)
+
+C X X X
+
+# expects
+# Carry=1
+# R1=3
+# R2=3
+0 1 3 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADCI C_in C_out S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=-1;
+
+# adci r1,3
+program(0xe13)
+
+C X X
+
+# expects
+# Carry=1
+# R1=3
+0 1 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADCI C_in C_out L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=-1;
+
+# adci r1,23
+program(0x8017,0xd10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=23
+0 1 23
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUB</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=0;
+init R1=3;
+init R2=2;
+
+# sub r1,r2
+program(0x412)
+
+C X X X
+
+# expects
+# Carry=0
+# R1=1
+# R2=2
+0 0 1 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUBI S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=3;
+
+# subi r1,2
+program(0x1012)
+
+C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUBI L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=23;
+
+# subi r1,22
+program(0x8016,0xf10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUB C_in</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=1;
+init R1=3;
+init R2=2;
+
+# sub r1,r2
+program(0x412)
+
+C X X X
+
+# expects
+# Carry=0
+# R1=1
+# R2=2
+0 0 1 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUBI C_in S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=3;
+
+# subi r1,2
+program(0x1012)
+
+C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUBI C_in L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=23;
+
+# subi r1,22
+program(0x8016,0xf10)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUB C_out</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=0;
+init R1=2;
+init R2=3;
+
+# sub r1,r2
+program(0x412)
+
+C X X X
+
+# expects
+# Carry=1
+# R1=65535
+# R2=3
+0 1 65535 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUBI C_out S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=2;
+
+# subi r1,3
+program(0x1013)
+
+C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUBI C_out L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=22;
+
+# subi r1,23
+program(0x8017,0xf10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUB C_in C_out</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=1;
+init R1=2;
+init R2=3;
+
+# sub r1,r2
+program(0x412)
+
+C X X X
+
+# expects
+# Carry=1
+# R1=65535
+# R2=3
+0 1 65535 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUBI C_in C_out S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=2;
+
+# subi r1,3
+program(0x1013)
+
+C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SUBI C_in C_out L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=22;
+
+# subi r1,23
+program(0x8017,0xf10)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBC</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=0;
+init R1=3;
+init R2=2;
+
+# sbc r1,r2
+program(0x512)
+
+C X X X
+
+# expects
+# Carry=0
+# R1=1
+# R2=2
+0 0 1 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBCI S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=3;
+
+# sbci r1,2
+program(0x1212)
+
+C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBCI L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=23;
+
+# sbci r1,22
+program(0x8016,0x1110)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=1
+0 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBC C_in</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=1;
+init R1=3;
+init R2=2;
+
+# sbc r1,r2
+program(0x512)
+
+C X X X
+
+# expects
+# Carry=0
+# R1=0
+# R2=2
+0 0 0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBCI C_in S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=3;
+
+# sbci r1,2
+program(0x1212)
+
+C X X
+
+# expects
+# Carry=0
+# R1=0
+0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBCI C_in L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=23;
+
+# sbci r1,22
+program(0x8016,0x1110)
+
+repeat (2) C X X
+
+# expects
+# Carry=0
+# R1=0
+0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBC C_out</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=0;
+init R1=2;
+init R2=3;
+
+# sbc r1,r2
+program(0x512)
+
+C X X X
+
+# expects
+# Carry=1
+# R1=65535
+# R2=3
+0 1 65535 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBCI C_out S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=2;
+
+# sbci r1,3
+program(0x1213)
+
+C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBCI C_out L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=0;
+init R1=22;
+
+# sbci r1,23
+program(0x8017,0x1110)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=65535
+0 1 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBC C_in C_out</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1 R2
+
+init Carry=1;
+init R1=2;
+init R2=3;
+
+# sbc r1,r2
+program(0x512)
+
+C X X X
+
+# expects
+# Carry=1
+# R1=65534
+# R2=3
+0 1 65534 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBCI C_in C_out S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=2;
+
+# sbci r1,3
+program(0x1213)
+
+C X X
+
+# expects
+# Carry=1
+# R1=65534
+0 1 65534
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SBCI C_in C_out L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry R1
+
+init Carry=1;
+init R1=22;
+
+# sbci r1,23
+program(0x8017,0x1110)
+
+repeat (2) C X X
+
+# expects
+# Carry=1
+# R1=65534
+0 1 65534
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>NOT</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=0;
+
+# not r1
+program(0x1a10)
+
+C X
+
+# expects
+# R1=65535
+0 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>NEG</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=1;
+
+# neg r1
+program(0x1310)
+
+C X
+
+# expects
+# R1=65535
+0 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>AND</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1 R2
+
+init R1=2;
+init R2=3;
+
+# and r1,r2
+program(0x612)
+
+C X X
+
+# expects
+# R1=2
+# R2=3
+0 2 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ANDI short</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=2;
+
+# andi r1,3
+program(0x1513)
+
+C X
+
+# expects
+# R1=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ANDI</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=16;
+
+# andi r1,24
+program(0x8018,0x1410)
+
+repeat (2) C X
+
+# expects
+# R1=16
+0 16
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>OR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1 R2
+
+init R1=2;
+init R2=3;
+
+# or r1,r2
+program(0x712)
+
+C X X
+
+# expects
+# R1=3
+# R2=3
+0 3 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ORI short</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=2;
+
+# ori r1,3
+program(0x1713)
+
+C X
+
+# expects
+# R1=3
+0 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ORI</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=16;
+
+# ori r1,24
+program(0x8018,0x1610)
+
+repeat (2) C X
+
+# expects
+# R1=24
+0 24
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>EOR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1 R2
+
+init R1=2;
+init R2=3;
+
+# eor r1,r2
+program(0x812)
+
+C X X
+
+# expects
+# R1=1
+# R2=3
+0 1 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>EORI short</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=2;
+
+# eori r1,3
+program(0x1913)
+
+C X
+
+# expects
+# R1=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>EORI</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=16;
+
+# eori r1,24
+program(0x8018,0x1810)
+
+repeat (2) C X
+
+# expects
+# R1=8
+0 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LSL</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=8;
+
+# lsl r1
+program(0x2410)
+
+C X
+
+# expects
+# R1=16
+0 16
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LSR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=8;
+
+# lsr r1
+program(0x2510)
+
+C X
+
+# expects
+# R1=4
+0 4
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LSR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=65535;
+
+# lsr r1
+program(0x2510)
+
+C X
+
+# expects
+# R1=32767
+0 32767
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ASR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=8;
+
+# asr r1
+program(0x2810)
+
+C X
+
+# expects
+# R1=4
+0 4
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ASR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=65535;
+
+# asr r1
+program(0x2810)
+
+C X
+
+# expects
+# R1=65535
+0 65535
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ROR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init Carry=0;
+init R1=8;
+
+# ror r1
+program(0x2710)
+
+C X
+
+# expects
+# R1=4
+0 4
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ROR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init Carry=1;
+init R1=8;
+
+# ror r1
+program(0x2710)
+
+C X
+
+# expects
+# R1=32772
+0 32772
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ROL</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init Carry=0;
+init R1=8;
+
+# rol r1
+program(0x2610)
+
+C X
+
+# expects
+# R1=16
+0 16
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ROL</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init Carry=1;
+init R1=8;
+
+# rol r1
+program(0x2610)
+
+C X
+
+# expects
+# R1=17
+0 17
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SWAP</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=4660;
+
+# swap r1
+program(0x2910)
+
+C X
+
+# expects
+# R1=13330
+0 13330
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SWAPN</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=4660;
+
+# swapn r1
+program(0x2a10)
+
+C X
+
+# expects
+# R1=8515
+0 8515
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>MUL</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1 R0
+
+init R0=7;
+init R1=8;
+
+# mul r0,r1
+program(0x1b01)
+
+C X X
+
+# expects
+# R1=8
+# R0=56
+0 8 56
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>MULI short</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init R0=7;
+
+# muli r0,3
+program(0x1d03)
+
+C X
+
+# expects
+# R0=21
+0 21
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>MULI long</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init R0=7;
+
+# muli r0,32
+program(0x8020,0x1c00)
+
+repeat (2) C X
+
+# expects
+# R0=224
+0 224
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDI small</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+
+# ldi r1,5
+program(0xa15)
+
+C X
+
+# expects
+# R1=5
+0 5
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDI small</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+
+# ldi r1,15
+program(0xa1f)
+
+C X
+
+# expects
+# R1=15
+0 15
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDI large</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+
+# ldi r1,16
+program(0x8010,0x910)
+
+repeat (2) C X
+
+# expects
+# R1=16
+0 16
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDI large</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+
+# ldi r1,0x8000
+program(0x8000,0x911)
+
+repeat (2) C X
+
+# expects
+# R1=32768
+0 32768
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDS small</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1 R2
+
+memory mem(0)=6;
+memory mem(1)=7;
+
+# lds r1,0
+# lds r2,1
+program(0x3010,0x3021)
+
+repeat (2) C X X
+
+# expects
+# R1=6
+# R2=7
+0 6 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDS large</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+memory mem(0xff)=8;
+
+# lds r1,0x0xff
+program(0x80ff,0x2f10)
+
+repeat (2) C X
+
+# expects
+# R1=8
+0 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>STS small</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R2
+
+init R1=7;
+
+# sts 1,r1
+# lds r2,1
+program(0x2e11,0x3021)
+
+repeat (2) C X
+
+# expects
+# R2=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>STS large</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R1=8;
+
+# sts 0x8000,r1
+# lds r2,0x8000
+program(0x8000,0x2d11,0x8000,0x2f21)
+
+repeat (4) C X
+
+# expects
+# R1=8
+0 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LD</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0 R1
+
+memory mem(1)=7;
+memory mem(0xff)=8;
+init R2=1;
+init R3=0xff;
+
+# ld r0,[r2]
+# ld r1,[r3]
+program(0x2c02,0x2c13)
+
+repeat (2) C X X
+
+# expects
+# R0=7
+# R1=8
+0 7 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>LDD</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0 R1
+
+memory mem(3)=7;
+memory mem(0xff)=8;
+init R2=1;
+init R3=0x101;
+
+# ldd r0,[r2+2]
+# ldd r1,[r3-2]
+program(0x8002,0x3202,0xfffe,0x3213)
+
+repeat (4) C X X
+
+# expects
+# R0=7
+# R1=8
+0 7 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ST</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init R1=1;
+init R2=7;
+
+# st [r1],r2
+# lds r0,1
+program(0x2b12,0x3001)
+
+repeat (2) C X
+
+# expects
+# R0=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>STD</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0 R1
+
+init R2=4;
+init R3=7;
+init R4=8;
+
+# std [r2+2],r3
+# std [r2-2],r4
+# lds r0,6
+# lds r1,2
+program(0x8002,0x3123,0xfffe,0x3124,0x3006,0x3012)
+
+repeat (6) C X X
+
+# expects
+# R0=7
+# R1=8
+0 7 8
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JMP short</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init R0=2;
+
+# jmp end
+#  ldi r0, 1
+# end: nop
+program(0x3d01,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JMP short back</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init PC=20;
+
+# ldi r0,1
+# .org 10
+# code: ldi r0,3
+# .org 20
+# jmp code
+#  ldi r0, 2
+program(0xa01,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa03,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x3df5,0xa02)
+
+repeat (2) C X
+
+# expects
+# R0=3
+0 3
+</dataString>
+          </testData>
+        </entry>
+        <entry>
+          <string>enabled</string>
+          <boolean>false</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>JMP long</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+
+# jmp 130
+#  ldi r0, 1
+# .org 130
+# ldi r0,2
+program(0x8082,0x3c00,0xa01,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa02)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>RCALL</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0 RA
+
+init R0=3;
+
+# jmp end
+# ldi r0, 1
+# func: ldi r0,1
+# rret ra
+# ldi r0,2
+# end: rcall ra,func
+program(0x3d04,0xa01,0xa01,0x3b0f,0xa02,0x8002,0x3af0)
+
+repeat (7) C X X
+
+# expects
+# R0=1
+# RA=7
+0 1 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CMP 210</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+init R1=1;
+
+# cmp r0,r1
+program(0x1e01)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CMP 211</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+init R1=1;
+
+# cmp r0,r1
+program(0x1e01)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CMP 220</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+init R1=2;
+
+# cmp r0,r1
+program(0x1e01)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CMP 221</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+init R1=2;
+
+# cmp r0,r1
+program(0x1e01)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CMP 230</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+init R1=3;
+
+# cmp r0,r1
+program(0x1e01)
+
+C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CMP 231</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+init R1=3;
+
+# cmp r0,r1
+program(0x1e01)
+
+C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPC 210</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+init R1=1;
+
+# cpc r0,r1
+program(0x1f01)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPC 201</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+init R1=0;
+
+# cpc r0,r1
+program(0x1f01)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPC 220</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+init R1=2;
+
+# cpc r0,r1
+program(0x1f01)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPC 211</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+init R1=1;
+
+# cpc r0,r1
+program(0x1f01)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPC 230</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+init R1=3;
+
+# cpc r0,r1
+program(0x1f01)
+
+C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPC 221</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+init R1=2;
+
+# cpc r0,r1
+program(0x1f01)
+
+C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 210S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+
+# cpi r0,1
+program(0x2101)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 210L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=22;
+
+# cpi r0,21
+program(0x8015,0x2000)
+
+repeat (2) C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 211S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+
+# cpi r0,1
+program(0x2101)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 211L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=22;
+
+# cpi r0,21
+program(0x8015,0x2000)
+
+repeat (2) C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 220S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+
+# cpi r0,2
+program(0x2102)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 220L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=22;
+
+# cpi r0,22
+program(0x8016,0x2000)
+
+repeat (2) C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 221S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+
+# cpi r0,2
+program(0x2102)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 221L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=22;
+
+# cpi r0,22
+program(0x8016,0x2000)
+
+repeat (2) C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 230S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+
+# cpi r0,3
+program(0x2103)
+
+C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 230L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=22;
+
+# cpi r0,23
+program(0x8017,0x2000)
+
+repeat (2) C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 231S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+
+# cpi r0,3
+program(0x2103)
+
+C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPI 231L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=22;
+
+# cpi r0,23
+program(0x8017,0x2000)
+
+repeat (2) C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 210S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+
+# cpci r0,1
+program(0x2301)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 210L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=22;
+
+# cpci r0,21
+program(0x8015,0x2200)
+
+repeat (2) C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 201S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+
+# cpci r0,0
+program(0x2300)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 201L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=22;
+
+# cpci r0,20
+program(0x8014,0x2200)
+
+repeat (2) C X X X
+
+# expects
+# Carry=0
+# Zero=0
+# Neg=0
+0 0 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 220S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+
+# cpci r0,2
+program(0x2302)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 220L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=22;
+
+# cpci r0,22
+program(0x8016,0x2200)
+
+repeat (2) C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 211S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+
+# cpci r0,1
+program(0x2301)
+
+C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 211L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=22;
+
+# cpci r0,21
+program(0x8015,0x2200)
+
+repeat (2) C X X X
+
+# expects
+# Carry=0
+# Zero=1
+# Neg=0
+0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 230S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=2;
+
+# cpci r0,3
+program(0x2303)
+
+C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 230L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=0;
+init R0=22;
+
+# cpci r0,23
+program(0x8017,0x2200)
+
+repeat (2) C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 221S</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=2;
+
+# cpci r0,2
+program(0x2302)
+
+C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CPCI 221L</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Carry Zero Neg
+
+init Carry=1;
+init R0=22;
+
+# cpci r0,22
+program(0x8016,0x2200)
+
+repeat (2) C X X X
+
+# expects
+# Carry=1
+# Zero=0
+# Neg=1
+0 1 0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRCS jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Carry=1;
+init R0=2;
+
+# brcs end
+#  ldi r0, 1
+# end: nop
+program(0x3401,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRCS skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Carry=0;
+init R0=2;
+
+# brcs end
+#  ldi r0, 1
+# end: nop
+program(0x3401,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRCC jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Carry=0;
+init R0=2;
+
+# brcc end
+#  ldi r0, 1
+# end: nop
+program(0x3701,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRCC skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Carry=1;
+init R0=2;
+
+# brcc end
+#  ldi r0, 1
+# end: nop
+program(0x3701,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRMI jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Neg=1;
+init R0=2;
+
+# brmi end
+#  ldi r0, 1
+# end: nop
+program(0x3601,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRMI skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Neg=0;
+init R0=2;
+
+# brmi end
+#  ldi r0, 1
+# end: nop
+program(0x3601,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRPL jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Neg=0;
+init R0=2;
+
+# brpl end
+#  ldi r0, 1
+# end: nop
+program(0x3901,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRPL skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Neg=1;
+init R0=2;
+
+# brpl end
+#  ldi r0, 1
+# end: nop
+program(0x3901,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BREQ jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Zero=1;
+init R0=2;
+
+# breq end
+#  ldi r0, 1
+# end: nop
+program(0x3501,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BREQ skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Zero=0;
+init R0=2;
+
+# breq end
+#  ldi r0, 1
+# end: nop
+program(0x3501,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRNE jmp</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Zero=0;
+init R0=2;
+
+# brne end
+#  ldi r0, 1
+# end: nop
+program(0x3801,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=2
+0 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="960" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BRNE skip</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R0
+
+init Zero=1;
+init R0=2;
+
+# brne end
+#  ldi r0, 1
+# end: nop
+program(0x3801,0xa01,0x0)
+
+repeat (3) C X
+
+# expects
+# R0=1
+0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>OUT short</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Reg3
+
+init R1=7;
+
+# out 3,R1
+program(0x3f31)
+
+C X
+
+# expects
+# Reg3=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1280" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>OUT long</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Reg32
+
+init R1=7;
+
+# out 32,R1
+program(0x8020,0x3e01)
+
+repeat (2) C X
+
+# expects
+# Reg32=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1440" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>OUTR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk Reg3
+
+init R0=3;
+init R1=7;
+
+# outr [R0],R1
+program(0x4001)
+
+C X
+
+# expects
+# Reg3=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>IN short</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init Reg3=7;
+
+# in R1,3
+program(0x4213)
+
+C X
+
+# expects
+# R1=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>IN long</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init Reg32=7;
+
+# in R1,32
+program(0x8020,0x4110)
+
+repeat (2) C X
+
+# expects
+# R1=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>INR</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString># auto generated, do not modify
+Clk R1
+
+init R0=3;
+init Reg3=7;
+
+# inr R1,[R0]
+program(0x4310)
+
+C X
+
+# expects
+# R1=7
+0 7
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>ProcessorHDL.dig</elementName>
+      <elementAttributes/>
+      <pos x="-460" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>ROM</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>isProgramMemory</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-360" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+      </elementAttributes>
+      <pos x="-340" y="-80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Reset</elementName>
+      <elementAttributes>
+        <entry>
+          <string>invertOutput</string>
+          <boolean>false</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-540" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Driver</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-300" y="20"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="-220" y="40"/>
+      <p2 x="-240" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="20"/>
+      <p2 x="-240" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="60"/>
+      <p2 x="-240" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-240" y="60"/>
+      <p2 x="-220" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-340" y="0"/>
+      <p2 x="-320" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="-480" y="0"/>
+      <p2 x="-460" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="-300" y="0"/>
+      <p2 x="-260" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="-240" y="100"/>
+      <p2 x="-140" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="-240" y="260"/>
+      <p2 x="-140" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="-360" y="-40"/>
+      <p2 x="-320" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="40"/>
+      <p2 x="-180" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="-340" y="40"/>
+      <p2 x="-240" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="-520" y="40"/>
+      <p2 x="-460" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="-180" y="40"/>
+      <p2 x="-140" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="-480" y="200"/>
+      <p2 x="-180" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="-180" y="200"/>
+      <p2 x="-140" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="-360" y="-80"/>
+      <p2 x="-340" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="80"/>
+      <p2 x="-140" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-340" y="80"/>
+      <p2 x="-260" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-260" y="80"/>
+      <p2 x="-240" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="240"/>
+      <p2 x="-140" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="-540" y="20"/>
+      <p2 x="-500" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="20"/>
+      <p2 x="-160" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="-280" y="20"/>
+      <p2 x="-240" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="-340" y="20"/>
+      <p2 x="-320" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="20"/>
+      <p2 x="-140" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="-500" y="20"/>
+      <p2 x="-460" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="180"/>
+      <p2 x="-140" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="-500" y="120"/>
+      <p2 x="-240" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="-480" y="-60"/>
+      <p2 x="-420" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="-200" y="220"/>
+      <p2 x="-140" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="60"/>
+      <p2 x="-200" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="-340" y="60"/>
+      <p2 x="-240" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="-480" y="60"/>
+      <p2 x="-460" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="-540" y="60"/>
+      <p2 x="-520" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="-200" y="60"/>
+      <p2 x="-140" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="-500" y="20"/>
+      <p2 x="-500" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="-260" y="0"/>
+      <p2 x="-260" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="-180" y="40"/>
+      <p2 x="-180" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="-200" y="60"/>
+      <p2 x="-200" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="-520" y="40"/>
+      <p2 x="-520" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="80"/>
+      <p2 x="-220" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="-240" y="100"/>
+      <p2 x="-240" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="-240" y="120"/>
+      <p2 x="-240" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="20"/>
+      <p2 x="-160" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="-480" y="-60"/>
+      <p2 x="-480" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="-480" y="60"/>
+      <p2 x="-480" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="-320" y="-40"/>
+      <p2 x="-320" y="0"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

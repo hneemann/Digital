@@ -64,7 +64,7 @@
           <string>stPC</string>
         </entry>
       </elementAttributes>
-      <pos x="740" y="600"/>
+      <pos x="740" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -74,17 +74,17 @@
           <string>ioR</string>
         </entry>
       </elementAttributes>
-      <pos x="740" y="640"/>
+      <pos x="740" y="680"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="740" y="640"/>
-      <p2 x="780" y="640"/>
-    </wire>
-    <wire>
       <p1 x="740" y="560"/>
       <p2 x="780" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="760" y="640"/>
+      <p2 x="780" y="640"/>
     </wire>
     <wire>
       <p1 x="840" y="580"/>
@@ -99,12 +99,8 @@
       <p2 x="860" y="660"/>
     </wire>
     <wire>
-      <p1 x="760" y="680"/>
+      <p1 x="740" y="680"/>
       <p2 x="780" y="680"/>
-    </wire>
-    <wire>
-      <p1 x="740" y="600"/>
-      <p2 x="760" y="600"/>
     </wire>
     <wire>
       <p1 x="860" y="600"/>
@@ -115,8 +111,16 @@
       <p2 x="780" y="600"/>
     </wire>
     <wire>
+      <p1 x="740" y="620"/>
+      <p2 x="760" y="620"/>
+    </wire>
+    <wire>
       <p1 x="760" y="600"/>
-      <p2 x="760" y="680"/>
+      <p2 x="760" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="760" y="620"/>
+      <p2 x="760" y="640"/>
     </wire>
     <wire>
       <p1 x="860" y="600"/>
