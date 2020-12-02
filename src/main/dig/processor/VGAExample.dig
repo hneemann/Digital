@@ -394,7 +394,7 @@
       <pos x="420" y="320"/>
     </visualElement>
     <visualElement>
-      <elementName>ProcessorMux.dig</elementName>
+      <elementName>ProcessorHDL.dig</elementName>
       <elementAttributes/>
       <pos x="1220" y="340"/>
     </visualElement>
@@ -973,21 +973,21 @@
         </entry>
         <entry>
           <string>Data</string>
-          <data>1400,52c0,8020,1200,5250,8021,1200,52b0,8048,1200,5200,8057,1200,5260,8064,1200,52a0,
-8065,1200,5210,806c,1200,5220,5230,5290,806f,1200,5240,5270,8072,1200,5280,8028,1200,
-141f,1430,4e23,3c20,5e05,80aa,68f0,1831,1801,6ff8,b0cd,1220,1401,1410,80aa,68f0,151d,
-80aa,68f0,1801,8050,3a00,65f6,b0ba,1220,1411,1400,80aa,68f0,804f,1200,80aa,68f0,1811,
-3d1e,65f6,b0c9,1220,1400,1410,80aa,68f0,b0bb,1220,804f,1200,1410,80aa,68f0,b0c8,1220,
-1400,151d,80aa,68f0,b0bc,1220,804f,1200,151d,80aa,68f0,f000,1320,1411,1401,80aa,68f0,
-1821,1801,3d01,65fa,1811,3d11,65f6,7c00,141f,8027,1200,a002,1220,80a1,68f0,20e1,4ce4,
-809a,68f0,4e2e,18e1,80aa,68f0,79a4,56bd,52da,2ba,28b1,5e03,3c11,5e01,2011,2ba,28b2,
-5e03,3c01,5e01,2001,2ba,28b4,5e04,804e,3a00,5e01,1801,2ba,28b8,5fdb,3d1c,5fd9,1811,
-6fd7,14b5,14a0,20a1,65fe,20b1,65fc,6a0f,2a1,48a0,40a0,ea0,8000,17a0,7a4a,74a2,6a0f,
-2a1,48a0,40a0,ea0,8000,17a0,74a2,6a0f</data>
+          <data>a00,2ec0,8020,900,2e50,8021,900,2eb0,8048,900,2e00,8057,900,2e60,8064,900,2ea0,8065,
+900,2e10,806c,900,2e20,2e30,2e90,806f,900,2e40,2e70,8072,900,2e80,8028,900,a1f,a30,
+2c23,2120,3505,80b2,3af0,c31,c01,3df8,b0cd,920,a01,a10,80b2,3af0,801d,910,80b2,3af0,
+c01,8050,2000,38f5,b0ba,920,a11,a00,80b2,3af0,804f,900,80b2,3af0,c11,801e,2010,38f5,
+b0c9,920,a00,a10,80b2,3af0,b0bb,920,804f,900,a10,80b2,3af0,b0c8,920,a00,801d,910,
+80b2,3af0,b0bc,920,804f,900,801d,910,80b2,3af0,f000,921,a11,a01,80b2,3af0,c21,c01,
+8011,2000,38f9,c11,8011,2010,38f4,4400,a1f,8027,900,a002,920,80a9,3af0,10e1,2be4,
+80a2,3af0,2c2e,ce1,80b2,3af0,8014,41a0,30bd,2eda,1ba,15b1,3503,2111,3501,1011,1ba,
+15b2,3503,2101,3501,1001,1ba,15b4,3504,804e,2000,3501,c01,1ba,15b8,35da,801c,2010,
+35d7,c11,3dd5,ab5,aa0,10a1,38fe,10b1,38fc,3b0f,1a1,29a0,25a0,7a0,8000,ba1,434a,40a2,
+3b0f,1a1,29a0,25a0,7a0,8000,ba1,40a2,3b0f</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <string>C:\_daten\daten\Technische_Informatik_I\Labor\VHDL\VGA\test.hex</string>
+          <string>/home/hneemann/Dokumente/Java/digital/src/main/asm/vga.hex</string>
         </entry>
       </elementAttributes>
       <pos x="1300" y="280"/>

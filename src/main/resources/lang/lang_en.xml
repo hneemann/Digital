@@ -555,6 +555,7 @@
     <string name="elem_Register_pin_C">Clock input. A rising edge stores the value at the D pin.</string>
     <string name="elem_Register_pin_en">Enable pin. Storing a value works only if this pin is set high.</string>
     <string name="elem_Register_pin_Q">Returns the stored value.</string>
+
     <string name="elem_ROM">ROM</string>
     <string name="elem_ROM_tt">A non-volatile memory component.
         The stored data can be edited in the attributes dialog.
@@ -562,6 +563,18 @@
     <string name="elem_ROM_pin_A">This pin defines the address of data word to be output.</string>
     <string name="elem_ROM_pin_D">The selected data word if the sel input is high.</string>
     <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
+
+    <string name="elem_ROMDualPort">ROM dual port</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_ROMDualPort_tt">A non-volatile memory component.
+        The stored data can be edited in the attributes dialog.
+    </string>
+    <string name="elem_ROMDualPort_pin_A1">This pin defines the address of data word to be output on D1.</string>
+    <string name="elem_ROMDualPort_pin_D1">The selected data word if the s1 input is high.</string>
+    <string name="elem_ROMDualPort_pin_s1">If the input is high, the output D1 is activated. If it is low, the data output is in high Z state.</string>
+    <string name="elem_ROMDualPort_pin_A2">This pin defines the address of data word to be output on D2.</string>
+    <string name="elem_ROMDualPort_pin_D2">The selected data word if the s2 input is high.</string>
+    <string name="elem_ROMDualPort_pin_s2">If the input is high, the output D2 is activated. If it is low, the data output is in high Z state.</string>
 
     <string name="elem_RAMDualPort">RAM, separated Ports</string>
     <string name="elem_RAMDualPort_short">RAM</string>

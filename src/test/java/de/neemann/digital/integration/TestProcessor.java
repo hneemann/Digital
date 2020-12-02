@@ -41,7 +41,7 @@ public class TestProcessor extends TestCase {
     }
 
     private ToBreakRunner createProcessorMux(String program) throws Exception {
-        ToBreakRunner runner = new ToBreakRunner("../../main/dig/processor/ProcessorMux.dig", false);
+        ToBreakRunner runner = new ToBreakRunner("../../main/dig/processor/ProcessorHDL.dig", false);
         Model model = runner.getModel();
 
         ObservableValue instr = model.getInput("Instr");
@@ -67,7 +67,7 @@ public class TestProcessor extends TestCase {
     public void testFibonacci() throws Exception {
         RAMSinglePort ram =
                 createProcessor("programs/fibonacci.hex")
-                        .runToBreak(98644)
+                        .runToBreak(100616)
                         .getSingleNode(RAMSinglePort.class);
 
         assertEquals(610, ram.getMemory().getDataWord(0));
@@ -85,7 +85,7 @@ public class TestProcessor extends TestCase {
         ToBreakRunner processor = createProcessorMux("programs/fibonacci.hex");
         processor.getModel().getInput("reset").setBool(false);
         RAMDualPort ram = processor
-                .runToBreak(98644)
+                .runToBreak(100616)
                 .getSingleNode(RAMDualPort.class);
 
         assertEquals(610, ram.getMemory().getDataWord(0));
@@ -103,7 +103,7 @@ public class TestProcessor extends TestCase {
     public void testProcessorSelfTest() throws Exception {
         RAMSinglePort ram =
                 createProcessor("programs/selftest.hex")
-                        .runToBreak(700)
+                        .runToBreak(790)
                         .getSingleNode(RAMSinglePort.class);
 
         assertEquals(2, ram.getMemory().getDataWord(256));
@@ -121,7 +121,7 @@ public class TestProcessor extends TestCase {
         ToBreakRunner processor = createProcessorMux("programs/selftest.hex");
         processor.getModel().getInput("reset").setBool(false);
         RAMDualPort ram = processor
-                .runToBreak(700)
+                .runToBreak(790)
                 .getSingleNode(RAMDualPort.class);
 
         assertEquals(2, ram.getMemory().getDataWord(256));

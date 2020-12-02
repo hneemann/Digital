@@ -65,9 +65,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
      */
     public ROM(ElementAttributes attr) {
         dataBits = attr.get(Keys.BITS);
-        output = new ObservableValue("D", dataBits)
-                .setToHighZ()
-                .setPinDescription(DESCRIPTION);
+        output = createOutput1();
         data = attr.get(Keys.DATA);
         addrBits = attr.get(Keys.ADDR_BITS);
         autoLoad = attr.get(Keys.AUTO_RELOAD_ROM);
@@ -78,6 +76,12 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
         } else
             hexFile = null;
         intFormat = attr.get(Keys.INT_FORMAT);
+    }
+
+    ObservableValue createOutput1() {
+        return new ObservableValue("D", dataBits)
+                .setToHighZ()
+                .setPinDescription(DESCRIPTION);
     }
 
     @Override
@@ -100,9 +104,13 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
     @Override
     public void writeOutputs() throws NodeException {
         if (sel)
-            output.setValue(data.getDataWord(addr));
+            output.setValue(getDataWord(addr));
         else
             output.setToHighZ();
+    }
+
+    long getDataWord(int addr) {
+        return data.getDataWord(addr);
     }
 
     @Override

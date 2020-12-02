@@ -429,7 +429,7 @@ end loop
       <pos x="540" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>ProcessorMux.dig</elementName>
+      <elementName>ProcessorHDL.dig</elementName>
       <elementAttributes/>
       <pos x="1020" y="320"/>
     </visualElement>
@@ -462,15 +462,15 @@ end loop
         </entry>
         <entry>
           <string>Data</string>
-          <data>802e,1220,7800,5610,5200,3c00,5e0e,3c10,640c,210,2811,6422,210,2818,6431,210,2812,
-6404,210,2814,640c,6a02,801a,1220,1580,1491,7359,3e90,2081,6402,1580,1491,6fe1,8026,
-1220,1580,8000,1390,7359,4090,2081,6403,1580,8000,1390,6fd4,8032,1220,1491,14a0,7359,
-3ca0,6406,3e90,8000,3b90,65c9,14a1,6fc7,4090,3c91,65c4,14a0,6fc2,8045,1220,1484,9111,
-1290,7359,3e90,2081,6403,1484,9111,1290,6fb5</data>
+          <data>8032,920,4200,3010,2e00,2100,350e,2110,380c,110,1511,3826,110,1518,3835,110,1512,
+3804,110,1514,380e,3b02,801b,920,8010,980,a91,3f59,2490,1081,3803,8010,980,a91,3ddf,
+8029,920,8010,980,8000,991,3f59,2590,1081,3804,8010,980,8000,991,3dd0,8036,920,a91,
+aa0,3f59,21a0,3806,2490,8000,2091,38c5,aa1,3dc3,2590,2191,38c0,aa0,3dbe,8049,920,
+a84,9111,990,3f59,2490,1081,3803,a84,9111,990,3db1</data>
         </entry>
         <entry>
           <string>lastDataFile</string>
-          <string>/home/hneemann/Dokumente/Java/assembler/assembler3/src/main/asm/lightChase.hex</string>
+          <string>/home/hneemann/Dokumente/Java/digital/src/main/asm/HDLExample.hex</string>
         </entry>
       </elementAttributes>
       <pos x="1100" y="260"/>

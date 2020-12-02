@@ -193,6 +193,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                                 .add(EEPROMDualPort.DESCRIPTION))
                         .add(Register.DESCRIPTION)
                         .add(ROM.DESCRIPTION)
+                        .add(ROMDualPort.DESCRIPTION)
                         .add(Counter.DESCRIPTION)
                         .add(CounterPreset.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_arithmetic"))
