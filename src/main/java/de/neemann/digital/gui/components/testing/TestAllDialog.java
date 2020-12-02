@@ -16,6 +16,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -23,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Tests all the files in a given folder
@@ -46,6 +48,9 @@ public class TestAllDialog extends JDialog {
         final FileModel tableModel = new FileModel(folderTestRunner.getFiles());
         JTable table = new JTable(tableModel);
         table.setRowSelectionAllowed(true);
+        TableRowSorter<FileModel> sorter = new TableRowSorter<>(tableModel);
+        sorter.setComparator(1, (Comparator<FolderTestRunner.FileToTest>) (f1, f2) -> -Integer.compare(f1.getStatus().ordinal(), f2.getStatus().ordinal()));
+        table.setRowSorter(sorter);
 
         table.getColumnModel().getColumn(1).setCellRenderer(new StateRenderer());
         getContentPane().add(new JScrollPane(table));
