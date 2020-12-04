@@ -22,9 +22,26 @@ public class SVGExportTest extends TestCase {
         return baos;
     }
 
-    public void testSVGExportLabel() throws Exception {
+    public void testSVGExportInOut() throws Exception {
         ElementAttributes attr = new ElementAttributes()
                 .set(SVGSettings.LATEX, true);
+
+        assertFalse(SVGSettings.PINS_IN_MATH_MODE.getDefault());
+
+        ByteArrayOutputStream baos
+                = export("dig/export/labels.dig",
+                (out) -> new GraphicSVG(out, attr));
+
+        String actual = new String(baos.toByteArray(), StandardCharsets.UTF_8);
+        assertTrue(actual.contains("A"));
+        assertTrue(actual.contains("$Y_n$"));
+    }
+
+    public void testSVGExportInOutMath() throws Exception {
+        ElementAttributes attr = new ElementAttributes()
+                .set(SVGSettings.LATEX, true)
+                .set(SVGSettings.PINS_IN_MATH_MODE, true);
+
         ByteArrayOutputStream baos
                 = export("dig/export/labels.dig",
                 (out) -> new GraphicSVG(out, attr));
@@ -34,7 +51,7 @@ public class SVGExportTest extends TestCase {
         assertTrue(actual.contains("$Y_n$"));
     }
 
-    public void testSVGExportLabel2() throws Exception {
+    public void testSVGExportShapePins() throws Exception {
         ElementAttributes attr = new ElementAttributes()
                 .set(SVGSettings.LATEX, true)
                 .set(SVGSettings.PINS_IN_MATH_MODE, false);
@@ -47,7 +64,7 @@ public class SVGExportTest extends TestCase {
         assertTrue(actual.contains("$Y_n$"));
     }
 
-    public void testSVGExportLabel3() throws Exception {
+    public void testSVGExportShapePinsMath() throws Exception {
         ElementAttributes attr = new ElementAttributes()
                 .set(SVGSettings.LATEX, true)
                 .set(SVGSettings.PINS_IN_MATH_MODE, true);

@@ -75,7 +75,14 @@ public class TextFormatLaTeX implements GraphicSVG.TextStyle {
     public String format(String text, Style style) {
         try {
             Text t = new Parser(text).parse();
-            if (style.getFontStyle() == Font.ITALIC && !(style == Style.INOUT && !pinStyleInMathMode))
+            boolean decorate = style.getFontStyle() == Font.ITALIC;
+
+            if (style == Style.INOUT && !pinStyleInMathMode)
+                decorate = false;
+            else if (style == Style.SHAPE_PIN && pinStyleInMathMode)
+                decorate = true;
+
+            if (decorate)
                 t = Decorate.math(t);
             text = LaTeXFormatter.format(t);
         } catch (ParseException e) {
