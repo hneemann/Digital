@@ -33,7 +33,7 @@ public class SVGExportTest extends TestCase {
                 (out) -> new GraphicSVG(out, attr));
 
         String actual = new String(baos.toByteArray(), StandardCharsets.UTF_8);
-        assertTrue(actual.contains("A"));
+        assertTrue(actual.contains(">A<"));
         assertTrue(actual.contains("$Y_n$"));
     }
 
@@ -60,7 +60,7 @@ public class SVGExportTest extends TestCase {
                 (out) -> new GraphicSVG(out, attr));
 
         String actual = new String(baos.toByteArray(), StandardCharsets.UTF_8);
-        assertFalse(actual.contains("$A$"));
+        assertTrue(actual.contains("{\\scriptsize A}"));
         assertTrue(actual.contains("$Y_n$"));
     }
 
@@ -73,7 +73,7 @@ public class SVGExportTest extends TestCase {
                 (out) -> new GraphicSVG(out, attr));
 
         String actual = new String(baos.toByteArray(), StandardCharsets.UTF_8);
-        assertTrue(actual.contains("$A$"));
+        assertTrue(actual.contains("{\\scriptsize $A$}"));
         assertTrue(actual.contains("$Y_n$"));
     }
 
