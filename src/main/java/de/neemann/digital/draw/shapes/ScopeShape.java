@@ -11,10 +11,7 @@ import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
-import de.neemann.digital.draw.graphics.Graphic;
-import de.neemann.digital.draw.graphics.Polygon;
-import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -24,6 +21,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  */
 public class ScopeShape implements Shape {
 
+    private static final Style TRACE_STYLE = Style.THIN.deriveColor(ColorKey.WIRE_LOW);
     private static final int BORDER = SIZE / 3;
     private static final Polygon OUTER = new Polygon()
             .add(2, SIZE2).add(2, -SIZE * 2).add(SIZE * 4, -SIZE * 2).add(SIZE * 4, SIZE2);
@@ -34,12 +32,12 @@ public class ScopeShape implements Shape {
             .add(SIZE * 3 - BORDER, SIZE2 - BORDER)
             .roundEdges(BORDER * 2);
     private static final Polygon TRACE = new Polygon(false)
-            .add(2 + BORDER, -BORDER)
+            .add(3 + BORDER, -BORDER)
             .add(BORDER + SIZE, -BORDER)
             .add(BORDER + SIZE, -BORDER - SIZE)
             .add(BORDER + SIZE * 2, -BORDER - SIZE)
             .add(BORDER + SIZE * 2, -BORDER)
-            .add(SIZE * 3 - BORDER, -BORDER);
+            .add(SIZE * 3 - BORDER - 1, -BORDER);
 
     private final PinDescription clock;
 
@@ -67,8 +65,8 @@ public class ScopeShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style highLight) {
         graphic.drawPolygon(OUTER, Style.NORMAL);
+        graphic.drawPolygon(TRACE, TRACE_STYLE);
         graphic.drawPolygon(INNER, Style.THIN);
-        graphic.drawPolygon(TRACE, Style.THIN);
     }
 
 }
