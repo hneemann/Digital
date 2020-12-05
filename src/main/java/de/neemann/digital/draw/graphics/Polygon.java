@@ -319,6 +319,55 @@ public class Polygon implements Iterable<Polygon.PathElement> {
     }
 
     /**
+     * Creates a new polygon with rounded edges
+     *
+     * @param rad the radius of the rounding
+     * @return the new polygon
+     */
+    public Polygon roundEdges(int rad) {
+        Polygon newPoly = new Polygon(closed);
+        int len = path.size();
+        if (!closed) len--;
+        for (int i = 0; i < len; i++) {
+            VectorInterface p0 = path.get(i).getPoint();
+            VectorInterface p1 = path.get(wrapIndex(i + 1)).getPoint();
+            VectorInterface p2 = path.get(wrapIndex(i + 2)).getPoint();
+
+            VectorInterface d0 = p1.sub(p0);
+            float l0 = d0.len();
+            VectorInterface d1 = p2.sub(p1);
+            float l1 = d1.len();
+
+            VectorInterface n0 = p0.add(d0.mul(rad / l0));
+            VectorInterface n1 = p0.add(d0.mul((l0 - rad) / l0));
+            VectorInterface n2 = p1.add(d1.mul(rad / l1));
+
+            if (i == 0) {
+                if (closed)
+                    newPoly.add(n0);
+                else
+                    newPoly.add(p0);
+            }
+
+            if (!closed && i == len - 1) {
+                newPoly.add(p1);
+            } else {
+                newPoly.add(n1);
+                newPoly.add(p1, n2);
+            }
+        }
+
+        return newPoly;
+    }
+
+    private int wrapIndex(int i) {
+        if (i >= path.size())
+            return i - path.size();
+        else
+            return i;
+    }
+
+    /**
      * Visitor used to traverse all points
      */
     public interface PointVisitor {

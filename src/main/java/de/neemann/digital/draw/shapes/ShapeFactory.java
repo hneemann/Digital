@@ -31,6 +31,7 @@ import de.neemann.digital.draw.shapes.ieee.IEEENotShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEOrShape;
 import de.neemann.digital.draw.shapes.ieee.IEEEXOrShape;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.gui.components.data.ScopeTrigger;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
 
@@ -119,6 +120,7 @@ public final class ShapeFactory {
         map.put(Out.SEVENHEXDESCRIPTION.getName(), SevenSegHexShape::new);
         map.put(Out.SIXTEENDESCRIPTION.getName(), SixteenShape::new);
         map.put(DummyElement.DATADESCRIPTION.getName(), DataShape::new);
+        map.put(ScopeTrigger.DESCRIPTION.getName(), ScopeShape::new);
         map.put(RotEncoder.DESCRIPTION.getName(), RotEncoderShape::new);
         map.put(StepperMotorUnipolar.DESCRIPTION.getName(), StepperMotorShape::new);
         map.put(StepperMotorBipolar.DESCRIPTION.getName(), StepperMotorShape::new);
