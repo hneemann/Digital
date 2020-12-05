@@ -1588,6 +1588,12 @@
     <string name="key_layoutShapeDelta_tt">Used by the layout shape type. Sets the distance to the previous pin.
     </string>
 
+    <string name="key_trigger">Trigger</string>
+    <string name="key_trigger_tt">Trigger condition for data recording.</string>
+    <string name="key_trigger_rising">rising edge</string>
+    <string name="key_trigger_falling">falling edge</string>
+    <string name="key_trigger_both">both edges</string>
+
     <string name="key_colorScheme">Color scheme</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
     <string name="key_colorScheme_DARK">Dark</string>

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static de.neemann.digital.core.element.PinInfo.input;
+import static de.neemann.digital.gui.components.data.GraphDialog.createColumnsInfo;
 
 /**
  * The ScopeElement
@@ -32,22 +33,42 @@ import static de.neemann.digital.core.element.PinInfo.input;
 public class ScopeTrigger extends Node implements Element {
 
     /**
+     * Trigger mode
+     */
+    public enum Trigger {
+        /**
+         * rising edge
+         */
+        rising,
+        /**
+         * falling edge
+         */
+        falling,
+        /**
+         * both edges
+         */
+        both
+    }
+
+    /**
      * The ScopeElement description
      */
     public static final ElementTypeDescription DESCRIPTION =
             new ElementTypeDescription(ScopeTrigger.class, input("T").setClock())
                     .addAttribute(Keys.LABEL)
+                    .addAttribute(Keys.TRIGGER)
                     .addAttribute(Keys.MAX_STEP_COUNT);
 
     private final int maxSize;
     private final String label;
+    private final Trigger trigger;
     private ObservableValue clockValue;
     private boolean lastClock;
     private ValueTable logData;
     private ArrayList<Signal> signals;
     private Model model;
     private GraphDialog graphDialog;
-    private boolean clockHasChanged;
+    private boolean wasTrigger;
     private ScopeModelStateObserver scopeModelStateObserver;
 
     /**
@@ -58,6 +79,7 @@ public class ScopeTrigger extends Node implements Element {
     public ScopeTrigger(ElementAttributes attr) {
         label = attr.getLabel();
         maxSize = attr.get(Keys.MAX_STEP_COUNT);
+        trigger = attr.get(Keys.TRIGGER);
     }
 
     @Override
@@ -68,8 +90,18 @@ public class ScopeTrigger extends Node implements Element {
     @Override
     public void readInputs() throws NodeException {
         boolean clock = clockValue.getBool();
-        if (clock != lastClock)
-            clockHasChanged = true;
+        if (clock != lastClock) {
+            switch (trigger) {
+                case rising:
+                    wasTrigger = !lastClock & clock;
+                    break;
+                case falling:
+                    wasTrigger = lastClock & !clock;
+                    break;
+                default:
+                    wasTrigger = true;
+            }
+        }
         lastClock = clock;
     }
 
@@ -112,20 +144,22 @@ public class ScopeTrigger extends Node implements Element {
     private final class ScopeModelStateObserver implements ModelStateObserver {
         @Override
         public void handleEvent(ModelEvent event) {
-            if (clockHasChanged && event.getType() == ModelEventType.STEP) {
+            if (wasTrigger && event.getType() == ModelEventType.STEP) {
                 Value[] sample = new Value[logData.getColumns()];
                 for (int i = 0; i < logData.getColumns(); i++)
                     sample[i] = new Value(signals.get(i).getValue());
 
                 logData.add(new TestRow(sample));
-                clockHasChanged = false;
+                wasTrigger = false;
 
                 if (graphDialog == null || !graphDialog.isVisible()) {
                     SwingUtilities.invokeLater(() -> {
                         String title = label;
                         if (title.isEmpty())
                             title = Lang.get("elem_ScopeTrigger_short");
-                        graphDialog = new GraphDialog(model.getWindowPosManager().getMainFrame(), title, logData);
+                        graphDialog = new GraphDialog(model.getWindowPosManager().getMainFrame(), title, logData, model, false)
+                                .setColumnInfo(createColumnsInfo(signals));
+
                         graphDialog.addWindowListener(new WindowAdapter() {
                             @Override
                             public void windowClosed(WindowEvent e) {

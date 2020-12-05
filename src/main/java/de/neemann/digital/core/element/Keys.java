@@ -20,6 +20,7 @@ import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
+import de.neemann.digital.gui.components.data.ScopeTrigger;
 import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.gui.Screen;
 import de.neemann.gui.language.Language;
@@ -875,5 +876,12 @@ public final class Keys {
      */
     public static final Key<TestCaseDescription> TESTDATA =
             new Key<>("Testdata", TestCaseDescription::new);
+
+    /**
+     * The scope trigger mode
+     */
+    public static final Key.KeyEnum<ScopeTrigger.Trigger> TRIGGER =
+            new Key.KeyEnum<>("trigger", ScopeTrigger.Trigger.both, ScopeTrigger.Trigger.values());
+
 
 }

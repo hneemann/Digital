@@ -181,7 +181,7 @@
         die Überschrift.
     </string>
     <string name="elem_Probe">Messwert</string>
-    <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertgraphen bzw. in der Messwertetabelle dargestellt wird.
+    <string name="elem_Probe_tt">Ein Messwert, welcher im Messwertegraphen bzw. in der Messwertetabelle dargestellt wird.
         Dieses Element kann verwendet werden, um auf einfache Weise Werte aus eingebetteten Schaltungen zu beobachten.
         Hat keine weitere Funktion für die Simulation.
     </string>
@@ -238,14 +238,14 @@
         Jedes Bit in diesem Datenwort repräsentiert den Zustand einer Zeile der aktuellen Spalte.
     </string>
     <string name="elem_LedMatrix_pin_c-addr">Die Nummer der aktuellen Spalte, dessen Zustand gerade am anderen Eingang anliegt.</string>
-    <string name="elem_Data">Messwertgraph</string>
-    <string name="elem_Data_tt">Zeigt einen Messwertgraphen innerhalb des Schaltkreisbereichs.
+    <string name="elem_Data">Messwertegraph</string>
+    <string name="elem_Data_tt">Zeigt einen Messwertegraphen innerhalb des Schaltkreisbereichs.
         Es können sowohl komplette Taktschritte als auch einzelne Gatter-Veränderungen angezeigt werden.
         Hat keine weitere Funktion für die Simulation.
     </string>
-    <string name="elem_ScopeTrigger">Getriggerter Messwertgraph</string>
+    <string name="elem_ScopeTrigger">Getriggerter Messwertegraph</string>
     <string name="elem_ScopeTrigger_short">Scope</string>
-    <string name="elem_ScopeTrigger_tt">Zeigt einen Messwertgraph, wobei nur dann Messwerte gespeichert werden,
+    <string name="elem_ScopeTrigger_tt">Zeigt einen Messwertegraph, wobei nur dann Messwerte gespeichert werden,
         wenn sich das Eingangssignal verändert.
         Das Speichern findet statt, wenn sich die Schaltung stabilisiert hat.
         Der Trigger startet nicht die Messung wie bei einem echten Scope, sondern jedes Triggerereignis
@@ -1316,7 +1316,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_runRealTime_tt">Wenn eingeschaltet, wird beim Start der Schaltung der Echtzeittakt gestartet.</string>
     <string name="key_showDataGraph">Zeige Messwertegraph bei Simulationsstart</string>
     <string name="key_showDataGraph_tt">Beim Start der Simulation wird ein Graph mit den Messwerten angezeigt.</string>
-    <string name="key_showDataGraphMicro">Zeige Messwertgraph im Gatterschrittmodus bei Simulationsstart</string>
+    <string name="key_showDataGraphMicro">Zeige Messwertegraph im Gatterschrittmodus bei Simulationsstart</string>
     <string name="key_showDataGraphMicro_tt">Beim Start der Simulation wird ein Graph mit den Messwerten im Gatterschrittmodus
         angezeigt. Dabei werden alle Gatterwechsel angezeigt.</string>
     <string name="key_addValueToGraph">Im Messwertegraph anzeigen</string>
@@ -1601,6 +1601,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_layoutShapeDelta">Pin Abstand</string>
     <string name="key_layoutShapeDelta_tt">Wird vom Layout-Shape verwendet. Legt den Abstand zum vorherigen Pin fest.
     </string>
+
+    <string name="key_trigger">Trigger</string>
+    <string name="key_trigger_tt">Triggerbedingung für die Datenaufzeichnung.</string>
+    <string name="key_trigger_rising">steigende Flanke</string>
+    <string name="key_trigger_falling">fallende Flanke</string>
+    <string name="key_trigger_both">beide Flanken</string>
 
     <string name="key_colorScheme">Farbschema</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
