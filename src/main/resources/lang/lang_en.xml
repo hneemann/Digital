@@ -253,6 +253,8 @@
         the input signal changes. Storing takes place when the circuit has stabilized.
         The trigger does not start the measurement like in a real scope, but each trigger event stores a single
         measurement value for each of the shown signals.
+        As direct input there is only the trigger. The inputs and outputs of the circuit, flip-flops and registers and the
+        probe component can be used as signals. This can be activated in the respective components.
     </string>
     <string name="elem_ScopeTrigger_pin_T">A change at this input causes measured values to be stored.</string>
 
