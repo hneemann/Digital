@@ -682,6 +682,11 @@
       </elementAttributes>
       <pos x="800" y="480"/>
     </visualElement>
+    <visualElement>
+      <elementName>ScopeTrigger</elementName>
+      <elementAttributes/>
+      <pos x="820" y="940"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -939,6 +944,10 @@
     <wire>
       <p1 x="580" y="940"/>
       <p2 x="800" y="940"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="940"/>
+      <p2 x="820" y="940"/>
     </wire>
     <wire>
       <p1 x="280" y="940"/>

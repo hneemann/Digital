@@ -1,0 +1,142 @@
+/*
+ * Copyright (c) 2020 Helmut Neemann.
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
+package de.neemann.digital.gui.components.data;
+
+import de.neemann.digital.core.*;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.data.Value;
+import de.neemann.digital.data.ValueTable;
+import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.gui.Main;
+import de.neemann.digital.gui.components.OrderMerger;
+import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.parser.TestRow;
+
+import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import static de.neemann.digital.core.element.PinInfo.input;
+
+/**
+ * The ScopeElement
+ */
+public class ScopeTrigger extends Node implements Element {
+
+    /**
+     * The ScopeElement description
+     */
+    public static final ElementTypeDescription DESCRIPTION =
+            new ElementTypeDescription(ScopeTrigger.class, input("T").setClock())
+                    .addAttribute(Keys.LABEL)
+                    .addAttribute(Keys.MAX_STEP_COUNT);
+
+    private final int maxSize;
+    private final String label;
+    private ObservableValue clockValue;
+    private boolean lastClock;
+    private ValueTable logData;
+    private ArrayList<Signal> signals;
+    private Model model;
+    private GraphDialog graphDialog;
+    private boolean clockHasChanged;
+    private ScopeModelStateObserver scopeModelStateObserver;
+
+    /**
+     * Creates a new instance
+     *
+     * @param attr the elements attributes
+     */
+    public ScopeTrigger(ElementAttributes attr) {
+        label = attr.getLabel();
+        maxSize = attr.get(Keys.MAX_STEP_COUNT);
+    }
+
+    @Override
+    public void setInputs(ObservableValues inputs) throws NodeException {
+        clockValue = inputs.get(0).checkBits(1, this).addObserverToValue(this);
+    }
+
+    @Override
+    public void readInputs() throws NodeException {
+        boolean clock = clockValue.getBool();
+        if (clock != lastClock)
+            clockHasChanged = true;
+        lastClock = clock;
+    }
+
+    @Override
+    public void writeOutputs() throws NodeException {
+    }
+
+    @Override
+    public ObservableValues getOutputs() throws PinException {
+        return ObservableValues.EMPTY_LIST;
+    }
+
+    @Override
+    public void init(Model model) throws NodeException {
+        signals = model.getSignalsCopy();
+        this.model = model;
+        signals.removeIf(signal -> !signal.isShowInGraph());
+
+        String[] names = new String[signals.size()];
+        for (int i = 0; i < signals.size(); i++)
+            names[i] = signals.get(i).getName();
+
+        JFrame m = model.getWindowPosManager().getMainFrame();
+        if (m instanceof Main) {
+            List<String> ordering = ((Main) m).getCircuitComponent().getCircuit().getMeasurementOrdering();
+            new OrderMerger<String, Signal>(ordering) {
+                @Override
+                public boolean equals(Signal a, String b) {
+                    return a.getName().equals(b);
+                }
+            }.order(signals);
+        }
+
+        this.logData = new ValueTable(names).setMaxSize(maxSize);
+
+        scopeModelStateObserver = new ScopeModelStateObserver();
+        model.addObserver(scopeModelStateObserver, ModelEventType.STEP);
+    }
+
+    private final class ScopeModelStateObserver implements ModelStateObserver {
+        @Override
+        public void handleEvent(ModelEvent event) {
+            if (clockHasChanged && event.getType() == ModelEventType.STEP) {
+                Value[] sample = new Value[logData.getColumns()];
+                for (int i = 0; i < logData.getColumns(); i++)
+                    sample[i] = new Value(signals.get(i).getValue());
+
+                logData.add(new TestRow(sample));
+                clockHasChanged = false;
+
+                if (graphDialog == null || !graphDialog.isVisible()) {
+                    SwingUtilities.invokeLater(() -> {
+                        String title = label;
+                        if (title.isEmpty())
+                            title = Lang.get("elem_ScopeTrigger_short");
+                        graphDialog = new GraphDialog(model.getWindowPosManager().getMainFrame(), title, logData);
+                        graphDialog.addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosed(WindowEvent e) {
+                                model.modify(() -> model.removeObserver(scopeModelStateObserver));
+                            }
+                        });
+                        graphDialog.setVisible(true);
+                        model.getWindowPosManager().register("Scope_" + label, graphDialog);
+                    });
+                }
+            }
+        }
+    }
+}

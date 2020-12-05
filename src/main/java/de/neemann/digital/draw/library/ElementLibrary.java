@@ -27,6 +27,7 @@ import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
+import de.neemann.digital.gui.components.data.ScopeTrigger;
 import de.neemann.digital.gui.components.graphics.GraphicCard;
 import de.neemann.digital.gui.components.graphics.LedMatrix;
 import de.neemann.digital.gui.components.graphics.VGA;
@@ -130,6 +131,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(DummyElement.TEXTDESCRIPTION)
                         .add(Probe.DESCRIPTION)
                         .add(DummyElement.DATADESCRIPTION)
+                        .add(ScopeTrigger.DESCRIPTION)
                         .add(new LibraryNode(Lang.get("lib_displays"))
                                 .add(RGBLED.DESCRIPTION)
                                 .add(Out.POLARITYAWARELEDDESCRIPTION)

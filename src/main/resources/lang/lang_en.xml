@@ -247,6 +247,15 @@
         You can plot complete clock cycles or single gate changes.
         Does not affect the simulation.
     </string>
+    <string name="elem_ScopeTrigger">Triggered Data Graph</string>
+    <string name="elem_ScopeTrigger_short">Scope</string>
+    <string name="elem_ScopeTrigger_tt">Shows a graph of measured values, whereby measured values are only stored if
+        the input signal changes. Storing takes place when the circuit has stabilized.
+        The trigger does not start the measurement like in a real scope, but each trigger event stores a single
+        measurement value for each of the shown signals.
+    </string>
+    <string name="elem_ScopeTrigger_pin_T">A change at this input causes measured values to be stored.</string>
+
     <string name="elem_RotEncoder">Rotary Encoder</string>
     <string name="elem_RotEncoder_tt">Rotary knob with rotary encoder. Used to detect rotational movements.</string>
     <string name="elem_RotEncoder_pin_A">encoder signal A</string>

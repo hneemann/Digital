@@ -243,6 +243,16 @@
         Es können sowohl komplette Taktschritte als auch einzelne Gatter-Veränderungen angezeigt werden.
         Hat keine weitere Funktion für die Simulation.
     </string>
+    <string name="elem_ScopeTrigger">Getriggerter Messwertgraph</string>
+    <string name="elem_ScopeTrigger_short">Scope</string>
+    <string name="elem_ScopeTrigger_tt">Zeigt einen Messwertgraph, wobei nur dann Messwerte gespeichert werden,
+        wenn sich das Eingangssignal verändert.
+        Das Speichern findet statt, wenn sich die Schaltung stabilisiert hat.
+        Der Trigger startet nicht die Messung wie bei einem echten Scope, sondern jedes Triggerereignis
+        speichert einen einzigen Messwert für jedes der angezeigten Signale.
+    </string>
+    <string name="elem_ScopeTrigger_pin_T">Ein Änderung an diesem Eingang veranlasst das Speichern von Messwerten.</string>
+
     <string name="elem_RotEncoder">Drehencoder</string>
     <string name="elem_RotEncoder_tt">Drehknopf mit Drehencoder zur Erfassung einer Drehbewegung.</string>
     <string name="elem_RotEncoder_pin_A">Encodersignal A</string>
