@@ -97,9 +97,11 @@ If you want to know how to create the necessary files yourself, see
 
 ## Comments ##
 
-If you want to send a bug report or feature request please use the GitHub 
-[issue tracker](https://github.com/hneemann/Digital/issues/new). 
-This helps me to improve Digital, so do not hesitate.
+If you want to send a bug report or feature request please use the GitHub
+[issue tracker](https://github.com/hneemann/Digital/issues/new). This helps me to improve Digital, so do not hesitate.
+If you have general questions, you can also use the new
+GitHub [Discussions](https://github.com/hneemann/Digital/discussions)
+to ask your questions without creating an issue.
 
 It's also possible to send a private message to [digital-simulator@web.de](mailto:digital-simulator@web.de).
 
