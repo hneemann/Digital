@@ -45,6 +45,7 @@ public class ElementOrderer<T> extends JDialog {
 
         listModel = new MyListModel<T>(data);
         list = new JList<T>(listModel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         JScrollPane scrollPane = new JScrollPane(list);
         getContentPane().add(scrollPane);
         scrollPane.setPreferredSize(Screen.getInstance().scale(new Dimension(100, 150)));
@@ -54,22 +55,25 @@ public class ElementOrderer<T> extends JDialog {
         buttons.add(new ToolTipAction("\u2191") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int i = list.getSelectedIndex();
-                if (i > 0) {
-                    listModel.swap(i, i - 1);
-                    list.setSelectedIndex(i - 1);
+                int i0 = list.getSelectionModel().getMinSelectionIndex();
+                int i1 = list.getSelectionModel().getMaxSelectionIndex();
+                if (i0 > 0 && i1 > 0) {
+                    for (int i = i0; i <= i1; i++)
+                        listModel.swap(i, i - 1);
+                    list.getSelectionModel().setSelectionInterval(i0 - 1, i1 - 1);
                 }
             }
         }.setToolTip(Lang.get("tt_moveItemUp")).createJButton());
         buttons.add(new ToolTipAction("\u2193") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int i = list.getSelectedIndex();
-                if (i >= 0 && i < data.size() - 1) {
-                    listModel.swap(i, i + 1);
-                    list.setSelectedIndex(i + 1);
+                int i0 = list.getSelectionModel().getMinSelectionIndex();
+                int i1 = list.getSelectionModel().getMaxSelectionIndex();
+                if (i0 >= 0 && i0 < data.size() - 1 && i1 >= 0 && i1 < data.size() - 1) {
+                    for (int i = i1; i >= i0; i--)
+                        listModel.swap(i, i + 1);
+                    list.getSelectionModel().setSelectionInterval(i0 + 1, i1 + 1);
                 }
-
             }
         }.setToolTip(Lang.get("tt_moveItemDown")).createJButton());
         getContentPane().add(buttons, BorderLayout.EAST);
@@ -106,9 +110,12 @@ public class ElementOrderer<T> extends JDialog {
         buttons.add(new ToolTipAction("\u2717") { // 274C is not visible on Windows, 2715,2716,2717,2718 works an linux
             @Override
             public void actionPerformed(ActionEvent e) {
-                int i = list.getSelectedIndex();
-                if (data.size() > minEntries && i >= 0 && i < data.size())
-                    listModel.delete(i);
+                int i0 = list.getSelectionModel().getMinSelectionIndex();
+                int i1 = list.getSelectionModel().getMaxSelectionIndex();
+                int del = i1 - i0 + 1;
+                if (data.size() - del >= minEntries && del > 0)
+                    for (int i = i1; i >= i0; i--)
+                        listModel.delete(i);
                 if (data.size() <= minEntries)
                     setEnabled(false);
             }
