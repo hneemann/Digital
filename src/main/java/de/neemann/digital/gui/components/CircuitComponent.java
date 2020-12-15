@@ -2368,6 +2368,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                         max = mm.getMax();
                     else
                         max = Vector.max(max, mm.getMax());
+                } else if (m instanceof Wire) {
+                    Wire w = (Wire) m;
+                    if (max == null)
+                        max = Vector.max(w.p1, w.p2);
+                    else
+                        max = Vector.max(max, w.p1, w.p2);
                 }
 
             if (max != null) {
