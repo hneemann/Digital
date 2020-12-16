@@ -1635,6 +1635,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
 
         @Override
+        void activate() {
+            super.activate();
+            pos = null;
+        }
+
+        @Override
         void clicked(MouseEvent e) {
             Vector pos = getPosVector(e);
 
@@ -1674,7 +1680,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         @Override
         boolean dragged(MouseEvent e) {
             if (mouse.isPrimaryClick(downButton)) {
-                mouseSelect.activate(pos, getPosVector(e));
+                Vector p = getPosVector(e);
+                if (pos == null)
+                    pos = p;
+                mouseSelect.activate(pos, p);
                 return true;
             }
             return !mouse.isSecondaryClick(downButton);
