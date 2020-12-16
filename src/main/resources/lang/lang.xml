@@ -27,4 +27,5 @@ modified keys.
     <lang name="pt" display="Português" file="Portugues"/>
     <lang name="fr" display="Français" file="Francais"/>
     <lang name="zh" display="简体中文" file="ChineseSimplified"/>
+    <lang name="zh-tw" display="繁體中文" file="ChineseTraditional"/>
 </languages>
