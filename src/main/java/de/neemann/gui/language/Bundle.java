@@ -10,25 +10,15 @@ import de.neemann.digital.XStreamValid;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  */
 public class Bundle {
 
-    private final Map<String, String> languages;
     private final String name;
     private final ArrayList<Language> list;
-
-    private static XStream getxStream() {
-        XStream xStream = new XStreamValid();
-        xStream.alias("languages", Map.class);
-        xStream.registerConverter(new Resources.MapEntryConverter("string"));
-        return xStream;
-    }
 
     /**
      * Creates a new instance
@@ -46,12 +36,9 @@ public class Bundle {
         xStream.aliasAttribute(MyLangEntry.class, "filename", "file");
         xStream.aliasAttribute(MyLangEntry.class, "displayName", "display");
         MyLang l = (MyLang) xStream.fromXML(in);
-        languages = new HashMap<>();
         list = new ArrayList<>();
-        for (MyLangEntry e : l.lang) {
-            languages.put(e.name, e.displayName);
+        for (MyLangEntry e : l.lang)
             list.add(new Language(e.name, e.displayName, e.filename));
-        }
     }
 
     /**
@@ -61,10 +48,23 @@ public class Bundle {
      * @return the resources or null if not available
      */
     public Resources getResources(String lang) {
-        if (!languages.containsKey(lang))
+        String found = null;
+        int bestMatchLen = 0;
+        for (Language l : list) {
+            String n = l.getName();
+            int m = 0;
+            while (m < n.length() && m < lang.length() && n.charAt(m) == lang.charAt(m)) {
+                m++;
+            }
+            if (m > 1 && m > bestMatchLen) {
+                bestMatchLen = m;
+                found = n;
+            }
+        }
+        if (found == null)
             return null;
 
-        InputStream in = getClass().getClassLoader().getResourceAsStream(name + "_" + lang + ".xml");
+        InputStream in = getClass().getClassLoader().getResourceAsStream(name + "_" + found + ".xml");
         if (in == null)
             return null;
 

@@ -88,7 +88,8 @@ public final class Lang {
     private Lang() {
         bundle = new Bundle("lang/lang");
         defaultBundle = bundle.getResources("en");
-        String lang = PREFS.get(LANGUAGE, Locale.getDefault().getLanguage());
+        String def = (Locale.getDefault().getLanguage() + "-" + Locale.getDefault().getCountry()).toLowerCase();
+        String lang = PREFS.get(LANGUAGE, def);
         try {
             localeBundle = bundle.getResources(lang);
         } catch (Exception e) {
