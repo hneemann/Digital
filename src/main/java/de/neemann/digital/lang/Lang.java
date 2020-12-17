@@ -89,17 +89,18 @@ public final class Lang {
         bundle = new Bundle("lang/lang");
         defaultBundle = bundle.getResources("en");
         String def = (Locale.getDefault().getLanguage() + "-" + Locale.getDefault().getCountry()).toLowerCase();
-        String lang = PREFS.get(LANGUAGE, def);
-        try {
-            localeBundle = bundle.getResources(lang);
-        } catch (Exception e) {
-            localeBundle = null;
-            System.err.println("error reading translation for " + lang);
-            e.printStackTrace();
-        }
+        String lang = bundle.findResource(PREFS.get(LANGUAGE, def));
+        if (lang != null)
+            try {
+                localeBundle = bundle.getResources(lang);
+            } catch (Exception e) {
+                localeBundle = null;
+                System.err.println("error reading translation for " + lang);
+                e.printStackTrace();
+            }
 
         if (localeBundle != null)
-            currentLanguage = new Language(localeBundle.getName());
+            currentLanguage = new Language(lang);
         else
             currentLanguage = new Language("en");
     }

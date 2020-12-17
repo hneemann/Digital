@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Provides the list of languages which are supported.
+ * Also contains the code to match certain language code to a resource name.
  */
 public class Bundle {
 
@@ -41,6 +42,42 @@ public class Bundle {
             list.add(new Language(e.name, e.displayName, e.filename));
     }
 
+    private enum Match {NONE, LANG, LANG_COUNTRY}
+
+    /**
+     * Resolves the best matching resource name.
+     *
+     * @param lang name in the form en-us, or de-at
+     * @return the best matching resource name
+     */
+    public String findResource(String lang) {
+        for (Language l : list)
+            if (l.getName().equals(lang))
+                return lang;
+
+        String found = null;
+        Match bestMatch = Match.NONE;
+        for (Language l : list) {
+            String n = l.getName();
+            int m = 0;
+            while (m < n.length() && m < lang.length() && n.charAt(m) == lang.charAt(m)) {
+                m++;
+            }
+            Match match = Match.NONE;
+            if (m == 5)
+                match = Match.LANG_COUNTRY;
+            else if (m == 2 || m == 3)
+                match = Match.LANG;
+
+            if (match.compareTo(bestMatch) > 0) {
+                bestMatch = match;
+                found = n;
+            }
+        }
+
+        return found;
+    }
+
     /**
      * returns the resources for the given language
      *
@@ -48,27 +85,19 @@ public class Bundle {
      * @return the resources or null if not available
      */
     public Resources getResources(String lang) {
-        String found = null;
-        int bestMatchLen = 0;
-        for (Language l : list) {
-            String n = l.getName();
-            int m = 0;
-            while (m < n.length() && m < lang.length() && n.charAt(m) == lang.charAt(m)) {
-                m++;
-            }
-            if (m > 1 && m > bestMatchLen) {
-                bestMatchLen = m;
-                found = n;
-            }
-        }
+        Language found = null;
+        for (Language l : list)
+            if (l.getName().equals(lang))
+                found = l;
+
         if (found == null)
             return null;
 
-        InputStream in = getClass().getClassLoader().getResourceAsStream(name + "_" + found + ".xml");
+        InputStream in = getClass().getClassLoader().getResourceAsStream(name + "_" + lang + ".xml");
         if (in == null)
             return null;
 
-        return new Resources(in, found);
+        return new Resources(in);
     }
 
     /**
