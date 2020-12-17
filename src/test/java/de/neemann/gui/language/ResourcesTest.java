@@ -9,7 +9,9 @@ import junit.framework.TestCase;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
+
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  */
@@ -28,11 +30,11 @@ public class ResourcesTest extends TestCase {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         res.save(baos);
-        assertTrue(Arrays.equals(example.getBytes("utf-8"), baos.toByteArray()));
+        assertArrayEquals(example.getBytes(StandardCharsets.UTF_8), baos.toByteArray());
     }
 
     public void testRead() throws Exception {
-        Resources res = new Resources(new ByteArrayInputStream(example.getBytes("utf-8")));
+        Resources res = new Resources(new ByteArrayInputStream(example.getBytes(StandardCharsets.UTF_8)), "");
 
         assertEquals("\u00D6ffnen", res.get("menu_open"));
         assertEquals("Speichern", res.get("menu_save"));

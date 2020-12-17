@@ -104,7 +104,7 @@ public class TestLang extends TestCase {
             new XMLOutputter(Format.getPrettyFormat()).output(new Document().setRootElement(new Element("resources")), new FileOutputStream(f2));
         }
 
-        de.neemann.gui.language.Resources langResources = new de.neemann.gui.language.Resources(lang);
+        de.neemann.gui.language.Resources langResources = new de.neemann.gui.language.Resources(lang, l.getName());
 
         Set<String> langKeys = langResources.getKeys();
         for (String k : master.getKeys()) {
@@ -136,7 +136,7 @@ public class TestLang extends TestCase {
 
         ArrayList<String> modified = new ArrayList<>();
         de.neemann.gui.language.Resources refResource =
-                new de.neemann.gui.language.Resources(new File(rootFolder, "lang_" + l.getName() + "_ref.xml"));
+                new de.neemann.gui.language.Resources(new File(rootFolder, "lang_" + l.getName() + "_ref.xml"), l.getName());
         for (String k : master.getKeys()) {
             String m = master.get(k);
             String o = refResource.get(k);

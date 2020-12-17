@@ -99,7 +99,7 @@ public final class Lang {
         }
 
         if (localeBundle != null)
-            currentLanguage = new Language(lang);
+            currentLanguage = new Language(localeBundle.getName());
         else
             currentLanguage = new Language("en");
     }

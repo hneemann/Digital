@@ -33,33 +33,37 @@ public class Resources {
         return xStream;
     }
 
+    private final String name;
     private final Map<String, String> resourceMap;
 
     Resources() {
-        this(new HashMap<>());
+        this(new HashMap<>(), "");
     }
 
-    private Resources(Map<String, String> map) {
+    private Resources(Map<String, String> map, String name) {
         resourceMap = map;
+        this.name = name;
     }
 
     /**
      * Reads the resources from the given stream
      *
-     * @param in the input stream
+     * @param in   the input stream
+     * @param name the name of this resources
      */
-    public Resources(InputStream in) {
-        this(loadMap(in));
+    public Resources(InputStream in, String name) {
+        this(loadMap(in), name);
     }
 
     /**
      * Reads the resources from the given file
      *
      * @param file the file to read
+     * @param name the name of this resources
      * @throws FileNotFoundException FileNotFoundException
      */
-    public Resources(File file) throws FileNotFoundException {
-        this(loadMap(new FileInputStream(file)));
+    public Resources(File file, String name) throws FileNotFoundException {
+        this(loadMap(new FileInputStream(file)), name);
     }
 
     private static Map<String, String> loadMap(InputStream in) {
@@ -94,6 +98,13 @@ public class Resources {
      */
     public Set<String> getKeys() {
         return resourceMap.keySet();
+    }
+
+    /**
+     * @return the name og this recourses
+     */
+    public String getName() {
+        return name;
     }
 
     /**

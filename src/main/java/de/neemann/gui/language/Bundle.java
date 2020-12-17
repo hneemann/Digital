@@ -68,7 +68,7 @@ public class Bundle {
         if (in == null)
             return null;
 
-        return new Resources(in);
+        return new Resources(in, found);
     }
 
     /**
