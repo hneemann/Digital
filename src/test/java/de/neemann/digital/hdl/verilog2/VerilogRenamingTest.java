@@ -25,5 +25,7 @@ public class VerilogRenamingTest extends TestCase {
         assertEquals("\\a<b ", r.checkName("a<b"));
         assertEquals("\\a>b ", r.checkName("a>b"));
         assertEquals("\\a=b ", r.checkName("a=b"));
+        assertEquals("a_b", r.checkName("a\\_b"));
+        assertEquals("\\a^b ", r.checkName("a\\^b"));
     }
 }
