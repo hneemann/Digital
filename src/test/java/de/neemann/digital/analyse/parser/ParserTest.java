@@ -27,6 +27,7 @@ public class ParserTest extends TestCase {
     public void testIdent() throws Exception {
         assertEquals(new Variable("C"), createSingle("C"));
         assertEquals(new Variable("A_1"), createSingle("A_1"));
+        assertEquals(new Variable("A\\_1"), createSingle("A\\_1"));
     }
 
     public void testConst() throws Exception {
