@@ -60,7 +60,8 @@ public class WireConsistencyChecker {
                         vertPoints.add(w.p2);
                         break;
                     default:
-                        newWires.add(w);
+                        if (!contains(newWires, w))
+                            newWires.add(w);
                         diagPoints.add(w.p1);
                         diagPoints.add(w.p2);
                         break;
@@ -76,6 +77,13 @@ public class WireConsistencyChecker {
         vert.addTo(newWires);
 
         return newWires;
+    }
+
+    private boolean contains(ArrayList<Wire> list, Wire wire) {
+        for (Wire w : list)
+            if (w.equalsContent(wire))
+                return true;
+        return false;
     }
 
 }
