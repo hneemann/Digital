@@ -19,6 +19,7 @@ import de.neemann.digital.lang.Lang;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -47,7 +48,7 @@ public class Net {
         this.visualElement = visualElement;
         wires = null;            // wires not needed
         pins = new ArrayList<>(toCopy.pins); // Pins are changed so create a deep copy
-        labelSet = new HashSet<>(toCopy.labelSet); //ToDo copy necessary?
+        labelSet = new HashSet<>(toCopy.labelSet); //necessary because of label net merging
         origin = toCopy.origin;
     }
 
@@ -109,6 +110,11 @@ public class Net {
         return points.contains(vector);
     }
 
+    void addPointsTo(HashMap<Vector, Net> set) {
+        for (Vector p : points)
+            set.put(p, this);
+    }
+
     /**
      * Add all wires of the given net to this net
      *
@@ -116,7 +122,8 @@ public class Net {
      */
     void addAllPointsFrom(Net changedNet) {
         points.addAll(changedNet.points);
-        wires.addAll(changedNet.wires);
+        if (wires != null && changedNet.wires != null)
+            wires.addAll(changedNet.wires);
         labelSet.addAll(changedNet.labelSet);
     }
 
@@ -301,4 +308,5 @@ public class Net {
     public HashSet<String> getLabels() {
         return labelSet;
     }
+
 }
