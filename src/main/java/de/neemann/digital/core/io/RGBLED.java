@@ -28,7 +28,8 @@ public class RGBLED implements Element {
             = new ElementTypeDescription(RGBLED.class, input("R"), input("G"), input("B"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
-            .addAttribute(Keys.LABEL);
+            .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.LED_SIZE);
 
     private final int bits;
 
