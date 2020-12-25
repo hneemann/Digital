@@ -22,6 +22,7 @@ public class NetList implements Iterable<Net> {
 
     private final ArrayList<Net> netList;
     private HashMap<Vector, Net> posMap;
+    private HashMap<Pin, Net> pinMap;
 
     /**
      * Creates a net list from the given circuit
@@ -138,6 +139,8 @@ public class NetList implements Iterable<Net> {
      */
     public void add(NetList netList) {
         this.netList.addAll(netList.netList);
+        if (pinMap != null)
+            pinMap.putAll(netList.pinMap);
     }
 
     /**
@@ -198,10 +201,12 @@ public class NetList implements Iterable<Net> {
      * @return the net or null if not found
      */
     public Net getNetOfPin(Pin p) {
-        for (Net n : netList)
-            if (n.containsPin(p))
-                return n;
-        return null;
+        if (pinMap == null) {
+            pinMap = new HashMap<>();
+            for (Net n : netList)
+                n.addPinsTo(pinMap);
+        }
+        return pinMap.get(p);
     }
 
     /**
@@ -233,5 +238,7 @@ public class NetList implements Iterable<Net> {
      */
     public void remove(Net childNet) {
         netList.remove(childNet);
+//        for (Pin p : childNet.getPins())
+//            pinMap.remove(p);
     }
 }

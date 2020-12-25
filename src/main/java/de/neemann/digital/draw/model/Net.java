@@ -36,6 +36,7 @@ public class Net {
     private final HashSet<String> labelSet;
     private File origin;
     private VisualElement visualElement; // only used to create better error messages
+    private HashMap<Pin, Net> pinMap;
 
     /**
      * Creates a copy of the given net
@@ -140,10 +141,13 @@ public class Net {
      * Add all given pins to the net.
      * Used during custom component connection.
      *
-     * @param p the pins
+     * @param pins the pins
      */
-    public void addAll(Collection<Pin> p) {
-        pins.addAll(p);
+    public void addAll(Collection<Pin> pins) {
+        this.pins.addAll(pins);
+        if (pinMap != null)
+            for (Pin p : pins)
+                pinMap.put(p, this);
     }
 
     /**
@@ -153,7 +157,12 @@ public class Net {
      * @param otherNet the other net
      */
     public void addNet(Net otherNet) {
-        pins.addAll(otherNet.getPins());
+        ArrayList<Pin> pins = otherNet.getPins();
+        this.pins.addAll(pins);
+        if (pinMap != null)
+            for (Pin p : pins)
+                pinMap.put(p, this);
+
         if (wires != null && otherNet.getWires() != null)
             wires.addAll(otherNet.getWires());
         labelSet.addAll(otherNet.labelSet);
@@ -247,6 +256,9 @@ public class Net {
      * @throws PinException is thrown if pin is not present
      */
     public void removePin(Pin p) throws PinException {
+        if (pinMap != null)
+            pinMap.remove(p);
+
         if (!pins.remove(p))
             throw new PinException(Lang.get("err_pinNotPresent"), this);
     }
@@ -312,4 +324,9 @@ public class Net {
         return labelSet;
     }
 
+    void addPinsTo(HashMap<Pin, Net> pinMap) {
+        this.pinMap = pinMap;
+        for (Pin p : pins)
+            pinMap.put(p, this);
+    }
 }
