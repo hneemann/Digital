@@ -21,6 +21,7 @@ import java.util.Iterator;
 public class NetList implements Iterable<Net> {
 
     private final ArrayList<Net> netList;
+    private HashMap<Vector, Net> posMap;
 
     /**
      * Creates a net list from the given circuit
@@ -130,7 +131,8 @@ public class NetList implements Iterable<Net> {
     }
 
     /**
-     * Adds a complete net list to this net list
+     * Adds a complete net list to this net list.
+     * Used during custom component connection.
      *
      * @param netList the net list to add
      */
@@ -139,17 +141,18 @@ public class NetList implements Iterable<Net> {
     }
 
     /**
-     * Adds a pin to this net list
-     * Used only during model creation
+     * Adds a pin to this net list.
+     * Used only during model creation.
      *
      * @param pin the pin to add
      */
     public void add(Pin pin) {
-        for (Net net : netList)
-            if (net.contains(pin.getPos())) {
-                net.add(pin);
-                return;
-            }
+        if (posMap == null)
+            posMap = getAllNetPositions();
+
+        Net net = posMap.get(pin.getPos());
+        if (net != null)
+            net.add(pin);
     }
 
     private void add(Wire w) {
@@ -188,7 +191,8 @@ public class NetList implements Iterable<Net> {
     }
 
     /**
-     * Returns the net of the given pin
+     * Returns the net of the given pin.
+     * Used during custom component connection.
      *
      * @param p the pin
      * @return the net or null if not found
@@ -222,7 +226,8 @@ public class NetList implements Iterable<Net> {
     }
 
     /**
-     * Removes a net from this net list
+     * Removes a net from this net list.
+     * Used during custom component connection.
      *
      * @param childNet the net to remove
      */

@@ -137,7 +137,8 @@ public class Net {
     }
 
     /**
-     * Add all given pins to the net
+     * Add all given pins to the net.
+     * Used during custom component connection.
      *
      * @param p the pins
      */
@@ -146,7 +147,8 @@ public class Net {
     }
 
     /**
-     * Add all given pins to the net
+     * Add all given pins to the net.
+     * Used during custom component connection.
      *
      * @param otherNet the other net
      */
@@ -238,7 +240,8 @@ public class Net {
     }
 
     /**
-     * Removes a pin from the net
+     * Removes a pin from the net.
+     * Used during custom component connection.
      *
      * @param p the pin to remove
      * @throws PinException is thrown if pin is not present
