@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.26
+- Performance improvement of the simulation start.
 - Improved the gui to modify the k-map layout.
 - Improved the layout of fsm transitions in the fsm editor.
 - Added French translation. Special thanks to Nicolas Maltais who
