@@ -238,7 +238,8 @@ public class NetList implements Iterable<Net> {
      */
     public void remove(Net childNet) {
         netList.remove(childNet);
-//        for (Pin p : childNet.getPins())
-//            pinMap.remove(p);
+        for (Pin p : childNet.getPins())
+            if (pinMap.get(p) == childNet)
+                pinMap.remove(p);
     }
 }
