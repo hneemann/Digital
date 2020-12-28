@@ -857,7 +857,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
 
             Graphics2D gr2 = buffer.createGraphics();
-            enableAntiAlias(gr2);
+
+            GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / scaleX));
+            gr.enableAntiAlias(antiAlias);
+
             gr2.setColor(ColorScheme.getSelected().getColor(ColorKey.BACKGROUND));
             gr2.fillRect(0, 0, getWidth(), getHeight());
 
@@ -865,8 +868,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 drawGrid(gr2);
 
             gr2.transform(transform);
-
-            GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / scaleX));
 
             long time = System.currentTimeMillis();
             if (shallowCopy != null)
@@ -888,8 +889,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         Graphics2D gr2 = (Graphics2D) g;
         AffineTransform oldTrans = gr2.getTransform();
         gr2.transform(transform);
-        enableAntiAlias(gr2);
         GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / scaleX));
+        gr.enableAntiAlias(activeMouseController.drawables() < 200);
         activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);
     }
@@ -936,18 +937,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         Point p = new Point();
         transform.transform(new Point(pos.x, pos.y), p);
         return p;
-    }
-
-    private void enableAntiAlias(Graphics2D gr2) {
-        if (antiAlias) {
-            gr2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            gr2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            gr2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            gr2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-            gr2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        } else {
-            gr2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-        }
     }
 
     @Override
@@ -1596,6 +1585,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
          */
         boolean dragged(MouseEvent e) {
             return false;
+        }
+
+        public int drawables() {
+            return 0;
         }
 
         public void drawTo(Graphic gr) {
@@ -2350,6 +2343,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
 
         @Override
+        public int drawables() {
+            return elements.getDrawables().size();
+        }
+
+        @Override
         public void drawTo(Graphic gr) {
             for (Drawable m : elements.getDrawables())
                 m.drawTo(gr, Style.HIGHLIGHT);
@@ -2412,6 +2410,13 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
 
         @Override
+        public int drawables() {
+            if (elements == null)
+                return 0;
+            return elements.size();
+        }
+
+        @Override
         public void drawTo(Graphic gr) {
             if (elements != null)
                 for (Movable m : elements)
@@ -2428,12 +2433,14 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         void clicked(MouseEvent e) {
             if (elements != null && mouse.isPrimaryClick(e)) {
                 Modifications.Builder<Circuit> builder = new Modifications.Builder<>(Lang.get("mod_insertCopied"));
+                ArrayList<Wire> wires = new ArrayList<>();
                 for (Movable m : elements) {
                     if (m instanceof Wire)
-                        builder.add(new ModifyInsertWire((Wire) m));
+                        wires.add((Wire) m);
                     if (m instanceof VisualElement)
                         builder.add(new ModifyInsertElement((VisualElement) m));
                 }
+                builder.add(new ModifyInsertWires(wires));
                 modify(builder.build());
             }
             mouseNormal.activate();

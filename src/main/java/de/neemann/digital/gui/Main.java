@@ -1348,7 +1348,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             model = modelCreator.createModel(true);
 
             time = System.currentTimeMillis() - time;
-            LOGGER.debug("model creation: " + time + " ms");
+            LOGGER.debug("model creation: " + time + " ms, " + model.getNodes().size() + " nodes");
 
             model.setWindowPosManager(windowPosManager);
 
