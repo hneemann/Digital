@@ -1784,6 +1784,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Ist kein Break-Element vorhanden, werden die verbleibenden Einzelgatterschritte ausgeführt.</string>
     <string name="menu_synthesise">Synthese</string>
     <string name="menu_synthesise_tt">Erzeugt minimale boolsche Ausdrücke, welche durch eine Wahrheitstabelle beschrieben werden.</string>
+    <string name="menu_scale">Skalierung setzen</string>
     <string name="menu_table_N_variables">{0} Variablen</string>
     <string name="menu_table_create">Erzeugen</string>
     <string name="menu_table_createCUPL_tt">Erzeugt eine CUPL Quelldatei welche die Schaltung beschreibt.</string>

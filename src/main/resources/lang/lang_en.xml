@@ -1768,6 +1768,8 @@
         If there is no break component, the remaining single gate steps are executed.</string>
     <string name="menu_synthesise">Synthesis</string>
     <string name="menu_synthesise_tt">Generates the minimal bool expressions described by a truth table.</string>
+    <string name="menu_scale">Set Scaling</string>
+
     <string name="menu_table_N_variables">{0} variables</string>
     <string name="menu_table_create">Create</string>
     <string name="menu_table_createCUPL_tt">Creates a CUPL source file containing the define circuit.</string>

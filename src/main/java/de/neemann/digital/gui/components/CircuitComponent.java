@@ -116,6 +116,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private final ToolTipAction undoAction;
     private final ToolTipAction redoAction;
     private final UndoManager<Circuit> undoManager;
+    private final Mouse mouse = Mouse.getMouse();
 
     private MouseController activeMouseController;
     private AffineTransform transform = new AffineTransform();
@@ -128,7 +129,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private boolean antiAlias = true;
 
     private Style highLightStyle = Style.HIGHLIGHT;
-    private Mouse mouse = Mouse.getMouse();
     private Circuit shallowCopy;
     private CircuitScrollPanel circuitScrollPanel;
     private TutorialListener tutorialListener;
@@ -951,7 +951,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     private Vector getPosVector(int x, int y) {
         try {
-            Point2D.Double p = new Point2D.Double();
+            Point2D.Float p = new Point2D.Float();
             transform.inverseTransform(new Point(x, y), p);
             return new Vector((int) Math.round(p.getX()), (int) Math.round(p.getY()));
         } catch (NoninvertibleTransformException e1) {
@@ -1040,6 +1040,23 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         transform.translate(dif.x, dif.y);
         transform.scale(f, f);
         transform.translate(-dif.x, -dif.y);
+        isManualScale = true;
+        if (circuitScrollPanel != null)
+            circuitScrollPanel.transformChanged(transform);
+        graphicHasChanged();
+    }
+
+    /**
+     * sets the scale of the circuit
+     *
+     * @param f factor to scale
+     */
+    public void setScale(float f) {
+        Vector origin = getPosVector(getWidth() / 2, getHeight() / 2);
+        transform.setToScale(f, f);
+        VectorInterface tr = new Vector(getWidth() / 2, getHeight() / 2).mul(1 / f).sub(origin);
+        transform.translate(tr.getXFloat(), tr.getYFloat());
+
         isManualScale = true;
         if (circuitScrollPanel != null)
             circuitScrollPanel.transformChanged(transform);

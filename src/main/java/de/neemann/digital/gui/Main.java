@@ -426,11 +426,23 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         toolBar.add(zoomOut.createJButtonNoText());
         toolBar.add(maximize.createJButtonNoText());
 
+        JMenu scaleMenu = new JMenu(Lang.get("menu_scale"));
+        for (int i = 0; i < 10; i++) {
+            int f = (20 + i * 20);
+            scaleMenu.add(new JMenuItem(new AbstractAction(f + "%") {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    getCircuitComponent().setScale(f / 100.0f);
+                }
+            }));
+        }
+
         JMenu view = new JMenu(Lang.get("menu_view"));
         menuBar.add(view);
         view.add(maximize.createJMenuItem());
         view.add(zoomOut.createJMenuItem());
         view.add(zoomIn.createJMenuItem());
+        view.add(scaleMenu);
         view.addSeparator();
         view.add(treeCheckBox);
         view.addSeparator();
