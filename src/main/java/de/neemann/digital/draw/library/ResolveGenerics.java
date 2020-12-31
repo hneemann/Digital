@@ -58,6 +58,7 @@ public class ResolveGenerics {
                     boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
                     Statement genS = getStatement(gen);
                     Context mod = new Context();
+                    mod.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin().getPath());
                     if (isCustom) {
                         mod.declareVar("args", args)
                                 .declareFunc("setCircuit", new SetCircuitFunc(ve));
@@ -96,6 +97,11 @@ public class ResolveGenerics {
             }
         } else {
             context = new Context();
+            try {
+                context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin().getPath());
+            } catch (HGSEvalException e) {
+                throw new NodeException("error setting the base filename", e);
+            }
             List<VisualElement> g = circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
             if (g.size() == 0)
                 throw new NodeException(Lang.get("err_noGenericInitCode"));
