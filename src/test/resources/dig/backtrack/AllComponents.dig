@@ -687,6 +687,16 @@
       <elementAttributes/>
       <pos x="820" y="940"/>
     </visualElement>
+    <visualElement>
+      <elementName>PRNG</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="1080"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -736,6 +746,10 @@
     <wire>
       <p1 x="700" y="520"/>
       <p2 x="800" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="1160"/>
+      <p2 x="420" y="1160"/>
     </wire>
     <wire>
       <p1 x="240" y="780"/>
@@ -1054,6 +1068,10 @@
       <p2 x="240" y="1080"/>
     </wire>
     <wire>
+      <p1 x="380" y="1080"/>
+      <p2 x="420" y="1080"/>
+    </wire>
+    <wire>
       <p1 x="240" y="1080"/>
       <p2 x="260" y="1080"/>
     </wire>
@@ -1168,6 +1186,10 @@
     <wire>
       <p1 x="240" y="1100"/>
       <p2 x="260" y="1100"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="1100"/>
+      <p2 x="420" y="1100"/>
     </wire>
     <wire>
       <p1 x="600" y="720"/>
@@ -1384,6 +1406,10 @@
     <wire>
       <p1 x="1160" y="500"/>
       <p2 x="1200" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="1140"/>
+      <p2 x="420" y="1140"/>
     </wire>
     <wire>
       <p1 x="1080" y="760"/>
@@ -1682,8 +1708,20 @@
       <p2 x="400" y="1020"/>
     </wire>
     <wire>
+      <p1 x="400" y="1020"/>
+      <p2 x="400" y="1100"/>
+    </wire>
+    <wire>
       <p1 x="400" y="580"/>
       <p2 x="400" y="780"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="1100"/>
+      <p2 x="400" y="1140"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="1140"/>
+      <p2 x="400" y="1160"/>
     </wire>
     <wire>
       <p1 x="400" y="220"/>
@@ -2124,6 +2162,10 @@
     <wire>
       <p1 x="380" y="820"/>
       <p2 x="380" y="920"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="920"/>
+      <p2 x="380" y="1080"/>
     </wire>
   </wires>
   <measurementOrdering/>

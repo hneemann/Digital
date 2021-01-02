@@ -89,9 +89,9 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private final HashSet<String> isProgrammable = new HashSet<>();
     private final ArrayList<LibraryListener> listeners = new ArrayList<>();
     private final LibraryNode root;
+    private final ElementLibraryFolder custom;
     private JarComponentManager jarComponentManager;
     private ShapeFactory shapeFactory;
-    private ElementLibraryFolder custom;
     private File rootLibraryPath;
     private Exception exception;
     private long lastRescanTime;
@@ -197,7 +197,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(ROM.DESCRIPTION)
                         .add(ROMDualPort.DESCRIPTION)
                         .add(Counter.DESCRIPTION)
-                        .add(CounterPreset.DESCRIPTION))
+                        .add(CounterPreset.DESCRIPTION)
+                        .add(PRNG.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_arithmetic"))
                         .add(Add.DESCRIPTION)
                         .add(Sub.DESCRIPTION)
@@ -588,7 +589,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
 
-            ElementTypeDescriptionCustom description = createCustomDescription(file, circuit, this);
+            ElementTypeDescriptionCustom description = createCustomDescription(file, circuit);
             description.setShortName(createShortName(file.getName(), circuit.getAttributes().getLabel()));
 
             String descriptionText = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
@@ -620,11 +621,10 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      *
      * @param file    the file
      * @param circuit the circuit
-     * @param library the used library
      * @return the type description
      * @throws PinException PinException
      */
-    public static ElementTypeDescriptionCustom createCustomDescription(File file, Circuit circuit, ElementLibrary library) throws PinException {
+    public static ElementTypeDescriptionCustom createCustomDescription(File file, Circuit circuit) throws PinException {
         ElementTypeDescriptionCustom d = new ElementTypeDescriptionCustom(file, circuit);
         d.setElementFactory(attributes -> new CustomElement(d));
         return d;

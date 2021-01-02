@@ -819,6 +819,19 @@
     <string name="elem_BitCount_pin_in">The input which 1-bits are counted.</string>
     <string name="elem_BitCount_pin_out">Outputs the number of 1-bits.</string>
 
+    <string name="elem_PRNG">Random Nnumber Generator</string>
+    <string name="elem_PRNG_tt">Can be used to generate random numbers.
+        When the simulation is started, the generator is reinitialized so that a new pseudo-random number
+        sequence is generated at each start.
+        The generator can be initialized in the running simulation with a defined seed value to generate
+        a defined pseudo-random number sequence.
+    </string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_PRNG_pin_S">New seed value of the generator.</string>
+    <string name="elem_PRNG_pin_se">If set, the random number generator is reinitialized with the new seed value at the next rising clock edge.</string>
+    <string name="elem_PRNG_pin_ne">If set, a new random number is output at the next rising clock edge.</string>
+    <string name="elem_PRNG_pin_C">The clock input.</string>
+    <string name="elem_PRNG_pin_R">Output of the pseudorandom number.</string>
 
     <!-- Switches -->
 

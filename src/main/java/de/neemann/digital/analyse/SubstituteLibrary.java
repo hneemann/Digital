@@ -144,7 +144,7 @@ public class SubstituteLibrary implements LibraryInterface {
             c.getAttributes().set(Keys.IS_GENERIC, false);
             generify(attr, c);
 
-            return ElementLibrary.createCustomDescription(new File(filename), c, library).isSubstitutedBuiltIn();
+            return ElementLibrary.createCustomDescription(new File(filename), c).isSubstitutedBuiltIn();
         }
 
         private void generify(ElementAttributes attr, Circuit circuit) throws IOException {

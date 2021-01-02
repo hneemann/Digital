@@ -844,6 +844,19 @@
     <string name="elem_BitCount_pin_in">Die 1-Bits in diesem Datenwort werden gezählt.</string>
     <string name="elem_BitCount_pin_out">Ausgang mit der Anzahl der gezählten 1-Bits.</string>
 
+    <string name="elem_PRNG">Zufallszahlengenerator</string>
+    <string name="elem_PRNG_tt">Kann verwendet werden um Zufallszahlen zu erzeugen.
+        Beim Starten der Simulation wird der Generator neu initialisiert, so dass bei jedem Start eine neue
+        Pseudozufallszahlenfolge erzeugt wird.
+        Der Generator kann in der laufenden Simulation mit einem definierten SEED-Wert initialisiert werden,
+        um eine definierte Pseudozufallszahlenfolge erzeugen zu lassen.
+    </string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_PRNG_pin_S">Startwert des Generators</string>
+    <string name="elem_PRNG_pin_se">Wenn gesetzt wird der Zufallsszahlengenerator bei der nächsten steigenden Taktflanke mit dem neuen Startwert reinitialisiert.</string>
+    <string name="elem_PRNG_pin_ne">Wenn gesetzt wird bei der nächsten steigenden Taktflanke eine neue Zufallsszahl ausgegeben.</string>
+    <string name="elem_PRNG_pin_C">Der Takteingang.</string>
+    <string name="elem_PRNG_pin_R">Ausgabe der Pseudozufallszahl.</string>
 
     <!-- Schalter -->
 
