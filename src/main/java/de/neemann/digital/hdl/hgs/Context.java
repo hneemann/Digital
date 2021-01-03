@@ -631,7 +631,7 @@ public class Context implements HGSMap {
             File hexFile = fileLocator.locate();
 
             if (hexFile == null)
-                throw new HGSEvalException("file " + name + " not found!");
+                throw new HGSEvalException("File " + name + " not found! Is circuit saved?");
 
             try {
                 DataField dataField = Importer.read(hexFile, dataBits);

@@ -57,8 +57,7 @@ public class ResolveGenerics {
                 if (!gen.isEmpty()) {
                     boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
                     Statement genS = getStatement(gen);
-                    Context mod = new Context();
-                    mod.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin().getPath());
+                    Context mod = publishCircuitPath(new Context(), circuit);
                     if (isCustom) {
                         mod.declareVar("args", args)
                                 .declareFunc("setCircuit", new SetCircuitFunc(ve));
@@ -79,6 +78,16 @@ public class ResolveGenerics {
         return new CircuitHolder(c, args);
     }
 
+    private Context publishCircuitPath(Context context, Circuit circuit) throws NodeException {
+        try {
+            if (circuit.getOrigin() != null)
+                context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin().getPath());
+            return context;
+        } catch (HGSEvalException e) {
+            throw new NodeException("error setting the base filename", e);
+        }
+    }
+
     private Args createArgs(VisualElement visualElement, Circuit circuit) throws NodeException {
         Context context;
         if (visualElement != null) {
@@ -96,12 +105,7 @@ public class ResolveGenerics {
                 }
             }
         } else {
-            context = new Context();
-            try {
-                context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin().getPath());
-            } catch (HGSEvalException e) {
-                throw new NodeException("error setting the base filename", e);
-            }
+            context = publishCircuitPath(new Context(), circuit);
             List<VisualElement> g = circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
             if (g.size() == 0)
                 throw new NodeException(Lang.get("err_noGenericInitCode"));
