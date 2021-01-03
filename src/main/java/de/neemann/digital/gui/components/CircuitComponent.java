@@ -570,8 +570,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             removeHighLighted();
         }
 
+        Circuit circuit = shallowCopy;
+        if (circuit == null)
+            circuit = getCircuit();
+
         Vector pos = getPosVector(event);
-        VisualElement ve = getCircuit().getElementAt(pos);
+        VisualElement ve = circuit.getElementAt(pos);
         if (ve != null) {
             Pin p = ve.getPinAt(raster(pos));
             if (p != null)
@@ -592,7 +596,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             }
         }
 
-        Wire w = getCircuit().getWireAt(pos, (int) (SIZE2 / transform.getScaleX()));
+        Wire w = circuit.getWireAt(pos, (int) (SIZE2 / transform.getScaleX()));
         if (w != null) {
             ObservableValue v = w.getValue();
             if (v != null)
