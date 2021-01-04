@@ -6,10 +6,7 @@
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementFactory;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -124,7 +121,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
         if (isGeneric()) {
             Circuit c = resolveGenerics.resolveCircuit(containingVisualElement, circuit, library).getCircuit();
 
-            return new ModelCreator(c, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
+            return new ModelCreator(c, library, true, new NetList(new NetList(c), errorVisualElement), subName, depth, errorVisualElement);
         } else
             return new ModelCreator(circuit, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
     }
