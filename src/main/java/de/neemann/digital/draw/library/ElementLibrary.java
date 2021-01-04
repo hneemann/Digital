@@ -340,9 +340,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
         this.shapeFactory = shapeFactory;
     }
 
-    /**
-     * @return the shape factory
-     */
+    @Override
     public ShapeFactory getShapeFactory() {
         return shapeFactory;
     }

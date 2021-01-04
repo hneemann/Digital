@@ -10,16 +10,17 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.elements.Wire;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.InnerFunction;
 import de.neemann.digital.lang.Lang;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 
 /**
  * Resolves a generic circuit and makes it non generic
@@ -48,16 +49,18 @@ public class ResolveGenerics {
      */
     public CircuitHolder resolveCircuit(VisualElement visualElement, Circuit circuit, LibraryInterface library) throws NodeException, ElementNotFoundException {
         this.library = library;
-        final Args args = createArgs(visualElement, circuit);
+        final Circuit c = circuit.createDeepCopy();
+        ArrayList<VisualElement> newComponents = new ArrayList<>();
 
-        Circuit c = circuit.createDeepCopy();
+        final Args args = createArgs(visualElement, c, newComponents);
+
         for (VisualElement ve : c.getElements()) {
             String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();
             try {
                 if (!gen.isEmpty()) {
                     boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
                     Statement genS = getStatement(gen);
-                    Context mod = publishCircuitPath(new Context(), circuit);
+                    Context mod = createContext(c, newComponents);
                     if (isCustom) {
                         mod.declareVar("args", args)
                                 .declareFunc("setCircuit", new SetCircuitFunc(ve));
@@ -75,20 +78,26 @@ public class ResolveGenerics {
                 throw ex;
             }
         }
+        for (VisualElement ve : newComponents)
+            c.add(ve);
+
         return new CircuitHolder(c, args);
     }
 
-    private Context publishCircuitPath(Context context, Circuit circuit) throws NodeException {
+    private Context createContext(Circuit circuit, ArrayList<VisualElement> newComponents) throws NodeException {
         try {
+            Context context = new Context();
             if (circuit.getOrigin() != null)
                 context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin().getPath());
+            context.declareFunc("addWire", new AddWire(circuit));
+            context.declareFunc("addComponent", new AddComponent(newComponents));
             return context;
         } catch (HGSEvalException e) {
             throw new NodeException("error setting the base filename", e);
         }
     }
 
-    private Args createArgs(VisualElement visualElement, Circuit circuit) throws NodeException {
+    private Args createArgs(VisualElement visualElement, Circuit circuit, ArrayList<VisualElement> newComponents) throws NodeException {
         Context context;
         if (visualElement != null) {
             context = visualElement.getGenericArgs();
@@ -96,7 +105,7 @@ public class ResolveGenerics {
                 String argsCode = visualElement.getElementAttributes().get(Keys.GENERIC);
                 try {
                     Statement s = getStatement(argsCode);
-                    context = new Context();
+                    context = createContext(circuit, newComponents);
                     s.execute(context);
                 } catch (HGSEvalException | ParserException | IOException e) {
                     final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", visualElement, argsCode), e);
@@ -105,7 +114,7 @@ public class ResolveGenerics {
                 }
             }
         } else {
-            context = publishCircuitPath(new Context(), circuit);
+            context = createContext(circuit, newComponents);
             List<VisualElement> g = circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
             if (g.size() == 0)
                 throw new NodeException(Lang.get("err_noGenericInitCode"));
@@ -252,17 +261,19 @@ public class ResolveGenerics {
             return;
         }
 
-        contentSet.add(key);
-        sb.append(key).append(":=");
-        if (val instanceof String) {
-            sb.append("\"");
-            escapeString(sb, (String) val);
-            sb.append("\"");
-        } else if (val instanceof Integer)
-            sb.append("int(").append(val).append(")");
-        else
-            sb.append(val);
-        sb.append(";\n");
+        if (!key.equals(Context.BASE_FILE_KEY)) {
+            contentSet.add(key);
+            sb.append(key).append(":=");
+            if (val instanceof String) {
+                sb.append("\"");
+                escapeString(sb, (String) val);
+                sb.append("\"");
+            } else if (val instanceof Integer)
+                sb.append("int(").append(val).append(")");
+            else
+                sb.append(val);
+            sb.append(";\n");
+        }
     }
 
     static void escapeString(StringBuilder sb, String str) {
@@ -314,6 +325,41 @@ public class ResolveGenerics {
         @Override
         public int hashCode() {
             return 0;
+        }
+    }
+
+    private final static class AddWire extends Function {
+        private final Circuit circuit;
+
+        private AddWire(Circuit circuit) {
+            super(4);
+            this.circuit = circuit;
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            Vector p1 = new Vector(Value.toInt(args[0]) * SIZE, Value.toInt(args[1]) * SIZE);
+            Vector p2 = new Vector(Value.toInt(args[2]) * SIZE, Value.toInt(args[3]) * SIZE);
+            circuit.add(new Wire(p1, p2));
+            return null;
+        }
+    }
+
+    private final class AddComponent extends Function {
+        private final ArrayList<VisualElement> newComponents;
+
+        private AddComponent(ArrayList<VisualElement> newComponents) {
+            super(3);
+            this.newComponents = newComponents;
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            String name = args[0].toString();
+            Vector pos = new Vector(Value.toInt(args[1]) * SIZE, Value.toInt(args[2]) * SIZE);
+            VisualElement ve = new VisualElement(name).setPos(pos).setShapeFactory(library.getShapeFactory());
+            newComponents.add(ve);
+            return new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes());
         }
     }
 }

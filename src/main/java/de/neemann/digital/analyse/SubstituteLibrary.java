@@ -15,6 +15,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
@@ -70,6 +71,11 @@ public class SubstituteLibrary implements LibraryInterface {
             }
         }
         return parent.getElementType(elementName, attr);
+    }
+
+    @Override
+    public ShapeFactory getShapeFactory() {
+        return parent.getShapeFactory();
     }
 
     private interface SubstituteInterface {
