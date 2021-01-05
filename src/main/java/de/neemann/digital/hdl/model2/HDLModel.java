@@ -36,7 +36,6 @@ import static de.neemann.digital.draw.model.ModelCreator.fixGenerics;
 public class HDLModel implements Iterable<HDLCircuit> {
     private final ElementLibrary elementLibrary;
     private final HashMap<Circuit, HDLCircuit> circuitMap;
-    private final ResolveGenerics resolveGenerics = new ResolveGenerics();
     private final HashMap<String, GenericsCache> genericInstanceNumbers;
     private HDLCircuit main;
     private Renaming renaming;
@@ -68,7 +67,7 @@ public class HDLModel implements Iterable<HDLCircuit> {
 
                 final Circuit circuit = tdc.getCircuit();
                 if (circuit.getAttributes().get(Keys.IS_GENERIC)) {
-                    ResolveGenerics.CircuitHolder holder = resolveGenerics.resolveCircuit(v, circuit, elementLibrary);
+                    ResolveGenerics.CircuitHolder holder = new ResolveGenerics(circuit, elementLibrary).resolveCircuit(v.getElementAttributes());
 
                     GenericsCache cache = genericInstanceNumbers.computeIfAbsent(v.getElementName(), t -> new GenericsCache());
 

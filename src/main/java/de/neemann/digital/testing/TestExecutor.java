@@ -53,7 +53,7 @@ public class TestExecutor {
     static private Model createModel(Circuit.TestCase testCase, Circuit circuit, ElementLibrary library) throws NodeException, ElementNotFoundException, PinException {
         final Model model;
         if (circuit != null && circuit.getAttributes().get(Keys.IS_GENERIC) && testCase.hasGenericCode()) {
-            Circuit c = new ResolveGenerics().resolveCircuit(testCase.getVisualElement(), circuit, library).getCircuit();
+            Circuit c = new ResolveGenerics(circuit, library).resolveCircuit(testCase.getVisualElement().getElementAttributes()).getCircuit();
             model = new ModelCreator(c, library, false).createModel(false);
         } else
             model = new ModelCreator(circuit, library).createModel(false);

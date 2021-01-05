@@ -33,8 +33,13 @@ public class TextShape implements Shape {
      */
     public TextShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         String text = attr.get(Keys.DESCRIPTION);
-        if (text.length() == 0)
-            text = Lang.get("elem_Text");
+        if (text.length() == 0) {
+            String gen = attr.get(Keys.GENERIC);
+            if (gen.isEmpty())
+                text = Lang.get("elem_Text");
+            else
+                text = gen.replace(" ", "\u00A0");
+        }
         this.text = Lang.evalMultilingualContent(text);
 
         fontSize = attr.get(Keys.FONT_SIZE);

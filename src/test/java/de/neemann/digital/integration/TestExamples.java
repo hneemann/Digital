@@ -23,6 +23,8 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.util.List;
 
+import static de.neemann.digital.draw.library.ResolveGenerics.GEN_ARGS_KEY;
+
 /**
  * Reads all examples and tries to create the model.
  * Makes sure that all examples are creatable (one can build the model)
@@ -31,6 +33,12 @@ import java.util.List;
 public class TestExamples extends TestCase {
 
     private int testCasesInFiles;
+
+
+    public void testDebug() throws Exception {
+        File f = new File("/home/hneemann/Dokumente/Java/digital/src/main/dig/generic/barrelShifter/TestBarrelShifter.dig");
+        check(f);
+    }
 
     /**
      * Tests the examples which are distributed
@@ -123,13 +131,13 @@ public class TestExamples extends TestCase {
 
         VisualElement element = initCodeList.get(0);
 
-        Circuit concreteCircuit = new ResolveGenerics()
-                .resolveCircuit(element, circuit, library)
+        Circuit concreteCircuit = new ResolveGenerics(circuit, library)
+                .resolveCircuit(element.getElementAttributes())
                 .cleanupConcreteCircuit()
                 .getCircuit();
 
         for (VisualElement ve : concreteCircuit.getElements()) {
-            assertNull(ve.getGenericArgs());
+            assertNull(ve.getElementAttributes().getFromCache(GEN_ARGS_KEY));
             assertFalse(ve.equalsDescription(GenericInitCode.DESCRIPTION));
         }
 

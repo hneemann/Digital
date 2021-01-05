@@ -39,7 +39,6 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
     // shapes are recreated if attributes are changed, therefore a factory is necessary and not only a simple shape!
     private transient ShapeFactory shapeFactory;
     private transient Transform transform;
-    private transient Context genericArgs;
 
     // these fields are stored to disk
     private String elementName;
@@ -459,22 +458,6 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      */
     public boolean isInteractive() {
         return interactor != null;
-    }
-
-    /**
-     * Sets the generic arguments for this element
-     *
-     * @param genericArgs the arguments
-     */
-    public void setGenericArgs(Context genericArgs) {
-        this.genericArgs = genericArgs;
-    }
-
-    /**
-     * @return the generic arguments for this element
-     */
-    public Context getGenericArgs() {
-        return genericArgs;
     }
 
     /**

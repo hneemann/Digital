@@ -587,7 +587,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 throw new IOException(Lang.get("err_couldNotFindIncludedFile_N0", file));
             }
 
-            ElementTypeDescriptionCustom description = createCustomDescription(file, circuit);
+            ElementTypeDescriptionCustom description = createCustomDescription(file, circuit, this);
             description.setShortName(createShortName(file.getName(), circuit.getAttributes().getLabel()));
 
             String descriptionText = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
@@ -622,8 +622,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * @return the type description
      * @throws PinException PinException
      */
-    public static ElementTypeDescriptionCustom createCustomDescription(File file, Circuit circuit) throws PinException {
-        ElementTypeDescriptionCustom d = new ElementTypeDescriptionCustom(file, circuit);
+    public static ElementTypeDescriptionCustom createCustomDescription(File file, Circuit circuit, ElementLibrary library) throws PinException {
+        ElementTypeDescriptionCustom d = new ElementTypeDescriptionCustom(file, circuit, library);
         d.setElementFactory(attributes -> new CustomElement(d));
         return d;
     }

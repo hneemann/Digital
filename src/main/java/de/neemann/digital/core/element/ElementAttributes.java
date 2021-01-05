@@ -19,6 +19,7 @@ import java.util.Map;
 public class ElementAttributes implements HGSMap {
     private HashMap<String, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
+    private transient HashMap<String, Object> cache;
 
     /**
      * Creates a new instance
@@ -292,5 +293,17 @@ public class ElementAttributes implements HGSMap {
                 return attributes.get(key);
         } else
             return get(k);
+    }
+
+    public void putToCache(String key, Object value) {
+        if (cache == null)
+            cache = new HashMap<>();
+        cache.put(key, value);
+    }
+
+    public Object getFromCache(String key) {
+        if (cache == null)
+            return null;
+        return cache.get(key);
     }
 }

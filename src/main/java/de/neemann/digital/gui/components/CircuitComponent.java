@@ -1176,8 +1176,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                                     modify(checkNetRename(element, modified, mod));
                                 }
 
-                                Circuit concreteCircuit = new ResolveGenerics()
-                                        .resolveCircuit(element, getCircuit(), library)
+                                Circuit concreteCircuit = new ResolveGenerics(getCircuit(), library)
+                                        .resolveCircuit(element.getElementAttributes())
                                         .cleanupConcreteCircuit()
                                         .getCircuit();
 

@@ -7,6 +7,8 @@ package de.neemann.digital.draw.library;
 
 import de.neemann.digital.analyse.SubstituteLibrary;
 import de.neemann.digital.core.NodeException;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -16,6 +18,8 @@ import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.InnerFunction;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
@@ -26,39 +30,63 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
  * Resolves a generic circuit and makes it non generic
  */
 public class ResolveGenerics {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResolveGenerics.class);
+    private static final Context EMPTY_CONTEXT = new Context();
 
+    public static final String GEN_ARGS_KEY = "genArgs";
     private final HashMap<String, Statement> map;
-    private LibraryInterface library;
+    private final HashMap<Context, CircuitHolder> circuitMap;
+    private final Circuit circuit;
+    private final LibraryInterface library;
 
     /**
      * Creates a new instance
+     *
+     * @param circuit the circuit to resolve
+     * @param library the library to ude
      */
-    public ResolveGenerics() {
+    public ResolveGenerics(Circuit circuit, LibraryInterface library) {
+        this.circuit = circuit;
+        this.library = library;
         map = new HashMap<>();
+        circuitMap = new HashMap<>();
     }
 
     /**
      * Resolves the generics
      *
-     * @param visualElement the visual element
-     * @param circuit       the circuit to resolve
-     * @param library       the library to ude
+     * @param attributes the visual elements attributes
      * @return the resolved circuit
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public CircuitHolder resolveCircuit(VisualElement visualElement, Circuit circuit, LibraryInterface library) throws NodeException, ElementNotFoundException {
-        this.library = library;
+    public CircuitHolder resolveCircuit(ElementAttributes attributes) throws NodeException, ElementNotFoundException {
+        Context context = EMPTY_CONTEXT;
+        if (attributes != null)
+            context = (Context) attributes.getFromCache(GEN_ARGS_KEY);
+
+        CircuitHolder ch = circuitMap.get(context);
+        if (ch == null) {
+            ch = innerResolveCircuit(attributes);
+            circuitMap.put(context, ch);
+        }
+        return ch;
+    }
+
+    public CircuitHolder innerResolveCircuit(ElementAttributes parentAttributes) throws NodeException, ElementNotFoundException {
+        LOGGER.info("create concrete circuit based on " + circuit.getOrigin());
         final Circuit c = circuit.createDeepCopy();
         ArrayList<VisualElement> newComponents = new ArrayList<>();
-
-        final Args args = createArgs(visualElement, c, newComponents);
+        final Args args = createArgs(parentAttributes, c, newComponents);
 
         for (VisualElement ve : c.getElements()) {
-            String gen = ve.getElementAttributes().get(Keys.GENERIC).trim();
+            ElementAttributes elementAttributes = ve.getElementAttributes();
+            String gen = elementAttributes.get(Keys.GENERIC).trim();
             try {
                 if (!gen.isEmpty()) {
-                    boolean isCustom = library.getElementType(ve.getElementName(), ve.getElementAttributes()).isCustom();
+                    ElementTypeDescription elementTypeDescription = library.getElementType(ve.getElementName(), elementAttributes);
+
+                    boolean isCustom = elementTypeDescription instanceof ElementTypeDescriptionCustom;
                     Statement genS = getStatement(gen);
                     Context mod = createContext(c, newComponents);
                     if (isCustom) {
@@ -67,10 +95,10 @@ public class ResolveGenerics {
                         genS.execute(mod);
                     } else {
                         mod.declareVar("args", args)
-                                .declareVar("this", new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes()));
+                                .declareVar("this", new SubstituteLibrary.AllowSetAttributes(elementAttributes));
                         genS.execute(mod);
                     }
-                    ve.setGenericArgs(mod);
+                    elementAttributes.putToCache(GEN_ARGS_KEY, mod);
                 }
             } catch (HGSEvalException | ParserException | IOException e) {
                 final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
@@ -97,18 +125,18 @@ public class ResolveGenerics {
         }
     }
 
-    private Args createArgs(VisualElement visualElement, Circuit circuit, ArrayList<VisualElement> newComponents) throws NodeException {
+    private Args createArgs(ElementAttributes attributes, Circuit circuit, ArrayList<VisualElement> newComponents) throws NodeException {
         Context context;
-        if (visualElement != null) {
-            context = visualElement.getGenericArgs();
+        if (attributes != null) {
+            context = (Context) attributes.getFromCache(GEN_ARGS_KEY);
             if (context == null) {
-                String argsCode = visualElement.getElementAttributes().get(Keys.GENERIC);
+                String argsCode = attributes.get(Keys.GENERIC);
                 try {
                     Statement s = getStatement(argsCode);
                     context = createContext(circuit, newComponents);
                     s.execute(context);
                 } catch (HGSEvalException | ParserException | IOException e) {
-                    final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", visualElement, argsCode), e);
+                    final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", null, argsCode), e);
                     ex.setOrigin(circuit.getOrigin());
                     throw ex;
                 }
@@ -214,16 +242,16 @@ public class ResolveGenerics {
                 circuit.delete(gic);
             for (VisualElement v : circuit.getElements()) {
                 try {
-                    boolean isCustom = library.getElementType(v.getElementName(), v.getElementAttributes()).isCustom();
+                    boolean isCustom = library.getElementType(v.getElementName(), v.getElementAttributes()) instanceof ElementTypeDescriptionCustom;
                     if (isCustom)
-                        v.getElementAttributes().set(Keys.GENERIC, createGenericCode(v.getGenericArgs()));
+                        v.getElementAttributes().set(Keys.GENERIC, createGenericCode((Context) v.getElementAttributes().getFromCache(GEN_ARGS_KEY)));
                     else
                         v.getElementAttributes().set(Keys.GENERIC, "");
                 } catch (ElementNotFoundException e) {
                     // can not happen
                     e.printStackTrace();
                 }
-                v.setGenericArgs(null);
+                v.getElementAttributes().putToCache(GEN_ARGS_KEY, null);
             }
 
             circuit.getAttributes().set(Keys.IS_GENERIC, false);

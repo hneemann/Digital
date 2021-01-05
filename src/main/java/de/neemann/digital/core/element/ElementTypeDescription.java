@@ -254,13 +254,6 @@ public class ElementTypeDescription {
     }
 
     /**
-     * @return true if this is a custom component
-     */
-    public boolean isCustom() {
-        return false;
-    }
-
-    /**
      * @return the class loader, the component is loaded from. Maybe null.
      */
     public ClassLoader getClassLoader() {
