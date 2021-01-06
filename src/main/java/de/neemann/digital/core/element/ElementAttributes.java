@@ -295,12 +295,24 @@ public class ElementAttributes implements HGSMap {
             return get(k);
     }
 
+    /**
+     * Adds a value to the instance specific cache
+     *
+     * @param key   key
+     * @param value value
+     */
     public void putToCache(String key, Object value) {
         if (cache == null)
             cache = new HashMap<>();
         cache.put(key, value);
     }
 
+    /**
+     * Requests a value from the cache
+     *
+     * @param key the key
+     * @return the value
+     */
     public Object getFromCache(String key) {
         if (cache == null)
             return null;

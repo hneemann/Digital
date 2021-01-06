@@ -20,10 +20,7 @@ import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.graphics.Style;
-import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
-import de.neemann.digital.draw.library.GenericInitCode;
-import de.neemann.digital.draw.library.JarComponentManager;
+import de.neemann.digital.draw.library.*;
 import de.neemann.digital.draw.shapes.custom.CustomShape;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.draw.shapes.ieee.IEEEAndShape;
@@ -163,6 +160,7 @@ public final class ShapeFactory {
         map.put(DummyElement.RECTDESCRIPTION.getName(), RectShape::new);
         map.put(TestCaseElement.DESCRIPTION.getName(), TestCaseShape::new);
         map.put(GenericInitCode.DESCRIPTION.getName(), GenericInitCodeShape::new);
+        map.put(GenericCode.DESCRIPTION.getName(), GenericCodeShape::new);
         map.put(AsyncSeq.DESCRIPTION.getName(), AsyncClockShape::new);
 
         map.put(Diode.DESCRIPTION.getName(), DiodeShape::new);

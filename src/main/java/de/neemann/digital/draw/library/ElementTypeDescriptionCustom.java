@@ -35,7 +35,6 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
     private final LibraryInterface library;
     private String description;
     private NetList netList;
-    private boolean isCustom = true;
     private String declarationDefault;
 
     /**
@@ -125,21 +124,6 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
             return new ModelCreator(c, library, true, new NetList(new NetList(c), errorVisualElement), subName, depth, errorVisualElement);
         } else
             return new ModelCreator(circuit, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
-    }
-
-    public boolean isCustom() {
-        return isCustom;
-    }
-
-    /**
-     * Used by element substitution to allow to mark custom circuits which replace a built-in
-     * component to be not custom.
-     *
-     * @return this for chained calls
-     */
-    public ElementTypeDescriptionCustom isSubstitutedBuiltIn() {
-        isCustom = false;
-        return this;
     }
 
     /**

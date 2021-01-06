@@ -11,7 +11,6 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.shapes.Shape;
 import de.neemann.digital.draw.shapes.*;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.gui.Screen;
 
 import javax.swing.*;

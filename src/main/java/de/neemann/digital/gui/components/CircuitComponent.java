@@ -1427,7 +1427,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     private ArrayList<Key> getAttributeList(VisualElement ve) throws ElementNotFoundException {
         ArrayList<Key> list = library.getElementType(ve.getElementName()).getAttributeList();
-        if (getCircuit().getAttributes().get(Keys.IS_GENERIC) && !list.contains(Keys.GENERIC)) {
+        if (getCircuit().getAttributes().get(Keys.IS_GENERIC) && !(list.contains(Keys.GENERIC) || list.contains(Keys.GENERICLARGE))) {
             list = new ArrayList<>(list);
             list.add(Keys.GENERIC);
         }

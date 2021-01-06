@@ -938,6 +938,10 @@
     <string name="elem_GenericInitCode_tt">Code that is executed to start a generic circuit directly.
         If a generic circuit is to be started directly, such a component must be present.
     </string>
+    <string name="elem_GenericCode">Code</string>
+    <string name="elem_GenericCode_tt">Code that is executed when a generic circuit is made concrete.
+        Can be used, for example, to add components or wires to a circuit.
+    </string>
 
     <string name="elem_AsyncSeq">Asynchronous Timing</string>
     <string name="elem_AsyncSeq_tt">Allows configuration of the timing of an asynchronous sequential circuit such as a

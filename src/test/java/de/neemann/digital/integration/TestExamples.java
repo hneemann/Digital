@@ -31,14 +31,7 @@ import static de.neemann.digital.draw.library.ResolveGenerics.GEN_ARGS_KEY;
  * Does not ensure that they work correctly if no tests are present in the circuit!
  */
 public class TestExamples extends TestCase {
-
     private int testCasesInFiles;
-
-
-    public void testDebug() throws Exception {
-        File f = new File("/home/hneemann/Dokumente/Java/digital/src/main/dig/generic/barrelShifter/TestBarrelShifter.dig");
-        check(f);
-    }
 
     /**
      * Tests the examples which are distributed

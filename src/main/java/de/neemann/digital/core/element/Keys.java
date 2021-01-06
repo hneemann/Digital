@@ -831,7 +831,13 @@ public final class Keys {
      * Used to input statements to generify a circuit.
      */
     public static final Key<String> GENERIC =
-            new Key.LongString("generic").allowGroupEdit();
+            new Key.LongString("generic").setLineNumbers(true).allowGroupEdit();
+
+    /**
+     * Used to input statements to generify a circuit.
+     */
+    public static final Key<String> GENERICLARGE =
+            new Key.LongString("generic").setLineNumbers(true).setRows(20).allowGroupEdit();
 
     /**
      * Circuit is generic

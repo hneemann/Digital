@@ -12,6 +12,7 @@ import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.library.GenericCode;
 import de.neemann.digital.draw.library.GenericInitCode;
 import de.neemann.digital.hdl.vhdl2.entities.VHDLTemplate;
 import de.neemann.digital.testing.TestCaseElement;
@@ -45,6 +46,7 @@ public class TestHDLExportFlag extends TestCase {
 
         implicitSupported.add(TestCaseElement.DESCRIPTION);
         implicitSupported.add(GenericInitCode.DESCRIPTION);
+        implicitSupported.add(GenericCode.DESCRIPTION);
     }
 
     public void testHDLExportFlag() {

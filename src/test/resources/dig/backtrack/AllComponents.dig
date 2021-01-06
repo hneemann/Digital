@@ -697,6 +697,11 @@
       </elementAttributes>
       <pos x="420" y="1080"/>
     </visualElement>
+    <visualElement>
+      <elementName>GenericCode</elementName>
+      <elementAttributes/>
+      <pos x="120" y="1120"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

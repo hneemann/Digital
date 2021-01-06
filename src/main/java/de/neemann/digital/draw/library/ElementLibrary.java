@@ -226,6 +226,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                 .add(new LibraryNode(Lang.get("lib_misc"))
                         .add(TestCaseElement.DESCRIPTION)
                         .add(GenericInitCode.DESCRIPTION)
+                        .add(GenericCode.DESCRIPTION)
                         .add(DummyElement.RECTDESCRIPTION)
                         .add(PowerSupply.DESCRIPTION)
                         .add(BusSplitter.DESCRIPTION)
@@ -619,6 +620,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      *
      * @param file    the file
      * @param circuit the circuit
+     * @param library the library
      * @return the type description
      * @throws PinException PinException
      */

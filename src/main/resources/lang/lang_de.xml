@@ -959,6 +959,10 @@
         können.
         Soll eine generische Schaltung direkt gestartet werden, muss eine solche Komponente vorhanden sein.
     </string>
+    <string name="elem_GenericCode">Code</string>
+    <string name="elem_GenericCode_tt">Code der ausgeführt wird, wenn eine generische Schaltung konkretisiert wird.
+        Kann z.B. benutzt werden, um einer Schaltung Komponenten oder Leitungen hinzuzufügen.
+    </string>
 
     <string name="elem_AsyncSeq">Asynchrones Timing</string>
     <string name="elem_AsyncSeq_tt">Erlaubt die Konfiguration des Timings eines asynchronen Automaten wie z.B einer
