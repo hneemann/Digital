@@ -15,6 +15,10 @@
           <string>generic</string>
           <string>bits:=4;</string>
         </entry>
+        <entry>
+          <string>enabled</string>
+          <boolean>false</boolean>
+        </entry>
       </elementAttributes>
       <pos x="-40" y="-100"/>
     </visualElement>
@@ -37,11 +41,7 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>inputs:=6;</string>
-        </entry>
-        <entry>
-          <string>enabled</string>
-          <boolean>false</boolean>
+          <string>bits:=16;</string>
         </entry>
       </elementAttributes>
       <pos x="100" y="-100"/>
