@@ -107,11 +107,19 @@ public class ResolveGenerics {
         } catch (IOException | ParserException | HGSEvalException e) {
             throw new NodeException(Lang.get("err_inGenericInitCode"), e);
         }
+        if (circuit.getOrigin() != null) {
+            try {
+                context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin());
+            } catch (HGSEvalException e) {
+                // impossible
+            }
+        }
+
         return new Args(context);
     }
 
     private CircuitHolder innerResolveCircuit(Args args) throws NodeException, ElementNotFoundException {
-        LOGGER.info("create concrete circuit based on " + circuit.getOrigin());
+        LOGGER.info("create concrete circuit based on " + circuit.getOrigin() + " width: " + args);
         final Circuit c = circuit.createDeepCopy();
         ArrayList<VisualElement> newComponents = new ArrayList<>();
 
@@ -152,7 +160,7 @@ public class ResolveGenerics {
         try {
             Context context = new Context();
             if (circuit.getOrigin() != null)
-                context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin().getPath());
+                context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin());
             context.declareFunc("addWire", new AddWire(circuit));
             context.declareFunc("addComponent", new AddComponent(newComponents));
             return context;
@@ -204,6 +212,11 @@ public class ResolveGenerics {
         @Override
         public int hashCode() {
             return Objects.hash(args);
+        }
+
+        @Override
+        public String toString() {
+            return "[" + args.toStringKeys() + "]";
         }
     }
 

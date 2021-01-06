@@ -227,6 +227,26 @@ public class Context implements HGSMap {
     }
 
     /**
+     * @return a string representation of the contained keys
+     */
+    public String toStringKeys() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, Object> k : map.entrySet()) {
+            sb.append(k.getKey()).append(":");
+            Object val = k.getValue();
+            if (val instanceof Context)
+                sb.append("[").append(((Context) val).toStringKeys()).append("]");
+            else if (val instanceof File)
+                sb.append(".../").append(((File) val).getName());
+            else
+                sb.append(val.toString());
+
+            sb.append("; ");
+        }
+        return sb.toString();
+    }
+
+    /**
      * Clears the output of this context.
      */
     public void clearOutput() {
@@ -627,7 +647,7 @@ public class Context implements HGSMap {
             int dataBits = Value.toInt(args.get(1).value(c));
             FileLocator fileLocator = new FileLocator(name);
             if (c.contains(BASE_FILE_KEY))
-                fileLocator.setBaseFile(new File(c.getVar(BASE_FILE_KEY).toString()));
+                fileLocator.setBaseFile((File) c.getVar(BASE_FILE_KEY));
             File hexFile = fileLocator.locate();
 
             if (hexFile == null)
