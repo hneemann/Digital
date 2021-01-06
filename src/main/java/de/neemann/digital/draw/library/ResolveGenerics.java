@@ -64,7 +64,7 @@ public class ResolveGenerics {
      */
     public CircuitHolder resolveCircuit(ElementAttributes attributes) throws NodeException, ElementNotFoundException {
         Args args;
-        if (attributes == null)
+        if (attributes == null || attributes.get(Keys.GENERIC).isEmpty())
             args = createArgsFromGenericBlock();
         else
             args = createArgsFromParentCircuitEmbedding(attributes);

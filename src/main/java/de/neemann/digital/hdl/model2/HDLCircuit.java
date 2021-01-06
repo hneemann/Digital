@@ -18,6 +18,7 @@ import de.neemann.digital.core.wiring.Break;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.core.wiring.Splitter;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.library.GenericCode;
 import de.neemann.digital.draw.library.GenericInitCode;
 import de.neemann.digital.draw.model.Net;
 import de.neemann.digital.draw.model.NetList;
@@ -237,7 +238,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
                 && !v.equalsDescription(DummyElement.DATADESCRIPTION)
                 && !v.equalsDescription(DummyElement.RECTDESCRIPTION)
                 && !v.equalsDescription(TestCaseElement.DESCRIPTION)
-                && !v.equalsDescription(GenericInitCode.DESCRIPTION);
+                && !v.equalsDescription(GenericInitCode.DESCRIPTION)
+                && !v.equalsDescription(GenericCode.DESCRIPTION);
     }
 
     HDLNet getNetOfPin(Pin pin) {
