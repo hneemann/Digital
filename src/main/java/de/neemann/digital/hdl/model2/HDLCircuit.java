@@ -535,6 +535,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     public HDLCircuit applyDefaultOptimizations() throws HDLException {
         apply(new ReplaceOneToMany());
         apply(new MergeAssignments());
+        apply(new OptimizeExpressions(new ExprNot.OptimizeNotNot()));
         apply(new InlineManyToOne());
         apply(new RemoveConstantSignals());
         apply(new MergeConstants());  // under certain circumstances there are still constants

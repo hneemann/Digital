@@ -53,4 +53,25 @@ public class ExprNot implements Expression {
         visitor.visit(this);
         expr.traverse(visitor);
     }
+
+    @Override
+    public void optimize(ExpressionOptimizer eo) {
+        expr = eo.optimize(expr);
+        expr.optimize(eo);
+    }
+
+    /**
+     * Optimizes not(not a) expressions to a
+     */
+    public static class OptimizeNotNot implements ExpressionOptimizer {
+        @Override
+        public Expression optimize(Expression expression) {
+            if (expression instanceof ExprNot) {
+                ExprNot not = (ExprNot) expression;
+                if (not.expr instanceof ExprNot)
+                    return optimize(((ExprNot) not.expr).expr);
+            }
+            return expression;
+        }
+    }
 }
