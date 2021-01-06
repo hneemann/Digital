@@ -132,14 +132,13 @@ public class ResolveGenerics {
 
                     boolean isCustom = elementTypeDescription instanceof ElementTypeDescriptionCustom;
                     Statement genS = getStatement(gen);
-                    Context mod = createContext(c, newComponents);
+                    Context mod = createContext(c, newComponents)
+                            .declareVar("args", args);
                     if (isCustom) {
-                        mod.declareVar("args", args)
-                                .declareFunc("setCircuit", new SetCircuitFunc(ve));
+                        mod.declareFunc("setCircuit", new SetCircuitFunc(ve));
                         genS.execute(mod);
                     } else {
-                        mod.declareVar("args", args)
-                                .declareVar("this", new SubstituteLibrary.AllowSetAttributes(elementAttributes));
+                        mod.declareVar("this", new SubstituteLibrary.AllowSetAttributes(elementAttributes));
                         genS.execute(mod);
                     }
                     elementAttributes.putToCache(GEN_ARGS_KEY, mod);
