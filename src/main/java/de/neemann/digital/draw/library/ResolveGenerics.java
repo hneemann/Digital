@@ -63,18 +63,23 @@ public class ResolveGenerics {
      * @throws ElementNotFoundException ElementNotFoundException
      */
     public CircuitHolder resolveCircuit(ElementAttributes attributes) throws NodeException, ElementNotFoundException {
-        Args args;
-        if (attributes == null || attributes.get(Keys.GENERIC).isEmpty())
-            args = createArgsFromGenericBlock();
-        else
-            args = createArgsFromParentCircuitEmbedding(attributes);
+        try {
+            Args args;
+            if (attributes == null)
+                args = createArgsFromGenericInitBlock();
+            else
+                args = createArgsFromParentCircuitEmbedding(attributes);
 
-        CircuitHolder ch = circuitMap.get(args);
-        if (ch == null) {
-            ch = innerResolveCircuit(args);
-            circuitMap.put(args, ch);
+            CircuitHolder ch = circuitMap.get(args);
+            if (ch == null) {
+                ch = createResolvedCircuit(args);
+                circuitMap.put(args, ch);
+            }
+            return ch;
+        } catch (NodeException e) {
+            e.setOrigin(circuit.getOrigin());
+            throw e;
         }
-        return ch;
     }
 
     private Args createArgsFromParentCircuitEmbedding(ElementAttributes attributes) throws NodeException {
@@ -86,15 +91,13 @@ public class ResolveGenerics {
                 context = new Context();
                 s.execute(context);
             } catch (HGSEvalException | ParserException | IOException e) {
-                final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", null, argsCode), e);
-                ex.setOrigin(circuit.getOrigin());
-                throw ex;
+                throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", null, argsCode), e);
             }
         }
         return new Args(context);
     }
 
-    private Args createArgsFromGenericBlock() throws NodeException {
+    private Args createArgsFromGenericInitBlock() throws NodeException {
         Context context = new Context();
         List<VisualElement> g = circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
         if (g.size() == 0)
@@ -118,7 +121,7 @@ public class ResolveGenerics {
         return new Args(context);
     }
 
-    private CircuitHolder innerResolveCircuit(Args args) throws NodeException, ElementNotFoundException {
+    private CircuitHolder createResolvedCircuit(Args args) throws NodeException, ElementNotFoundException {
         LOGGER.info("create concrete circuit based on " + circuit.getOrigin() + " width: " + args);
         final Circuit c = circuit.createDeepCopy();
         ArrayList<VisualElement> newComponents = new ArrayList<>();
@@ -144,9 +147,7 @@ public class ResolveGenerics {
                     elementAttributes.putToCache(GEN_ARGS_KEY, mod);
                 }
             } catch (HGSEvalException | ParserException | IOException e) {
-                final NodeException ex = new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
-                ex.setOrigin(circuit.getOrigin());
-                throw ex;
+                throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
             }
         }
         for (VisualElement ve : newComponents)

@@ -189,7 +189,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
             try {
                 Circuit c = resolveGenerics.resolveCircuit(elementAttributes).getCircuit();
                 return new PinDescriptions(c.getInputNames());
-            } catch (ElementNotFoundException | PinException e) {
+            } catch (Exception e) {
                 return super.getInputDescription(elementAttributes);
             }
         } else
@@ -202,7 +202,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
             try {
                 Circuit c = resolveGenerics.resolveCircuit(elementAttributes).getCircuit();
                 return new PinDescriptions(c.getOutputNames());
-            } catch (ElementNotFoundException | PinException | NodeException e) {
+            } catch (Exception e) {
                 return super.getOutputDescriptions(elementAttributes);
             }
         } else
