@@ -30,6 +30,15 @@ public interface Expression extends Printable {
         visitor.visit(this);
     }
 
+
+    /**
+     * Tries to optimize the expression by replacing it by a optimized one.
+     *
+     * @param eo the optimizer
+     */
+    default void optimize(ExpressionOptimizer eo) {
+    }
+
     /**
      * Helper to check if an expression is a net reference
      *

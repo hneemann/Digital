@@ -9,6 +9,7 @@ package de.neemann.digital.hdl.model2;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.hdl.model2.expression.ExprVar;
 import de.neemann.digital.hdl.model2.expression.Expression;
+import de.neemann.digital.hdl.model2.expression.ExpressionOptimizer;
 import de.neemann.digital.hdl.model2.expression.Visitor;
 import de.neemann.digital.hdl.printer.CodePrinter;
 
@@ -80,4 +81,12 @@ public class HDLNodeAssignment extends HDLNode {
         return getOutput().getNet();
     }
 
+    /**
+     * Optimizes the expression
+     *
+     * @param eo the optimizer
+     */
+    public void optimize(ExpressionOptimizer eo) {
+        expression = eo.optimize(expression);
+    }
 }
