@@ -35,34 +35,32 @@
 direction:=&quot;left&quot;;</string>
         </entry>
       </elementAttributes>
-      <pos x="-120" y="-160"/>
+      <pos x="-300" y="20"/>
     </visualElement>
     <visualElement>
       <elementName>GenericCode</elementName>
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>sh:=bitsNeededFor(args.dataBits)-1;
-
-circuit:=&quot;&quot;;
+          <string>shiftCircuit:=&quot;&quot;;
 if (args.direction=&quot;right&quot;) {
-      circuit=&quot;shift-fixed-right-inc.dig&quot;;
+      shiftCircuit=&quot;shift-fixed-right-inc.dig&quot;;
 } else {
       if (args.direction=&quot;arith&quot;) {
-          circuit=&quot;shift-fixed-arith-right-inc.dig&quot;;
+          shiftCircuit=&quot;shift-fixed-arith-right-inc.dig&quot;;
       } else {
           if (args.direction=&quot;left&quot;) {
-              circuit=&quot;shift-fixed-left-inc.dig&quot;;
+              shiftCircuit=&quot;shift-fixed-left-inc.dig&quot;;
           } else {
               panic(&quot;only \&quot;left\&quot;, \&quot;right\&quot; or \&quot;arith\&quot; is allowed as direction, not \&quot;&quot;+args.direction+&quot;\&quot;!&quot;);
           }
       }
 }
 
-
+sh:=bitsNeededFor(args.dataBits)-1;
 for (i:=0;i&lt;sh;i++) {
     x:= i*5+2;
-    s:=addComponent(circuit,x,0);
+    s:=addComponent(shiftCircuit,x,0);
     s.shift:=1&lt;&lt;i;
 
     addWire(x+3,1,x+5,0);
@@ -77,7 +75,7 @@ o.Bits=args.dataBits;
 o.Label=&quot;Out&quot;;</string>
         </entry>
       </elementAttributes>
-      <pos x="-780" y="-40"/>
+      <pos x="-300" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -122,7 +120,7 @@ this.&apos;Output Splitting&apos;=&quot;1*&quot;+sh;</string>
 {{de Ein BarrelShifter implementiert durch Bauteilerzeugung.}}</string>
         </entry>
       </elementAttributes>
-      <pos x="-780" y="-280"/>
+      <pos x="-300" y="-100"/>
     </visualElement>
   </visualElements>
   <wires>
