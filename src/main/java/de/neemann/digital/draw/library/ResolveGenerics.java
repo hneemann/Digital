@@ -135,7 +135,7 @@ public class ResolveGenerics {
 
                     boolean isCustom = elementTypeDescription instanceof ElementTypeDescriptionCustom;
                     Statement genS = getStatement(gen);
-                    Context mod = createContext(c, newComponents)
+                    Context mod = createContext(c, newComponents, args)
                             .declareVar("args", args);
                     if (isCustom) {
                         mod.declareFunc("setCircuit", new SetCircuitFunc(ve));
@@ -156,13 +156,13 @@ public class ResolveGenerics {
         return new CircuitHolder(c, args);
     }
 
-    private Context createContext(Circuit circuit, ArrayList<VisualElement> newComponents) throws NodeException {
+    private Context createContext(Circuit circuit, ArrayList<VisualElement> newComponents, Args args) throws NodeException {
         try {
             Context context = new Context();
             if (circuit.getOrigin() != null)
                 context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin());
             context.declareFunc("addWire", new AddWire(circuit));
-            context.declareFunc("addComponent", new AddComponent(newComponents));
+            context.declareFunc("addComponent", new AddComponent(newComponents, args));
             return context;
         } catch (HGSEvalException e) {
             throw new NodeException("error setting the base filename", e);
@@ -392,10 +392,12 @@ public class ResolveGenerics {
 
     private final class AddComponent extends Function {
         private final ArrayList<VisualElement> newComponents;
+        private final Args args;
 
-        private AddComponent(ArrayList<VisualElement> newComponents) {
+        private AddComponent(ArrayList<VisualElement> newComponents, Args args) {
             super(3);
             this.newComponents = newComponents;
+            this.args = args;
         }
 
         @Override
@@ -404,7 +406,29 @@ public class ResolveGenerics {
             Vector pos = new Vector(Value.toInt(args[1]) * SIZE, Value.toInt(args[2]) * SIZE);
             VisualElement ve = new VisualElement(name).setPos(pos).setShapeFactory(library.getShapeFactory());
             newComponents.add(ve);
-            return new SubstituteLibrary.AllowSetAttributes(ve.getElementAttributes());
+
+            ElementAttributes elementAttributes = ve.getElementAttributes();
+            try {
+                ElementTypeDescription etd = library.getElementType(ve.getElementName(), ve.getElementAttributes());
+                if (etd instanceof ElementTypeDescriptionCustom) {
+                    ElementTypeDescriptionCustom etdc = (ElementTypeDescriptionCustom) etd;
+                    if (etdc.isGeneric()) {
+                        Context c = new Context() {
+                            @Override
+                            public void hgsMapPut(String key, Object val) throws HGSEvalException {
+                                this.declareVar(key, val);
+                            }
+                        }
+                                .declareVar("args", this.args);
+                        elementAttributes.putToCache(GEN_ARGS_KEY, c);
+                        return c;
+                    }
+                }
+            } catch (ElementNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            return new SubstituteLibrary.AllowSetAttributes(elementAttributes);
         }
     }
 }
