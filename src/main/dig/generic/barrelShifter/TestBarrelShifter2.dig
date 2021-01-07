@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^32</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^32_in</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sh^32</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>barrelShifter2.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>32 bit, left</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 32;
+direction := &quot;left&quot;;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^8</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^8_in</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sh^8</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>barrelShifter2.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>8 bit, left</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 8;
+direction := &quot;left&quot;;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>32 bit, left</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>D^32_in sh^32 D^32
+loop(n,32) 
+   1     (n)  (1&lt;&lt;n)
+end loop
+
+loop(n,32) 
+   7     (n)  (7&lt;&lt;n)
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>8 bit, left</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>D^8_in sh^8 D^8
+loop(n,8) 
+   1     (n)  (1&lt;&lt;n)
+end loop
+
+loop(n,8) 
+   7     (n)  (7&lt;&lt;n)
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^8_R</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="680"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^8_inR</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="128" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sh^8_R</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="700"/>
+    </visualElement>
+    <visualElement>
+      <elementName>barrelShifter2.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>8 bit, right</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 8;
+direction := &quot;right&quot;;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>8 bit, right</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>D^8_inR sh^8_R D^8_R
+loop(n,8) 
+   128     (n)  (128&gt;&gt;n)
+end loop
+
+loop(n,8) 
+   192     (n)  (192&gt;&gt;n)
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="740"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^16</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^16_in</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="32768" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sh^16</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>barrelShifter2.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>16 bit, right, arith</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 16;
+direction := &quot;arith&quot;;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>16 bit, right arith</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>D^16_in sh^16 D^16
+loop(n,16) 
+   (1&lt;&lt;14)     (n)  ((1&lt;&lt;14)&gt;&gt;n)
+end loop
+
+loop(n,16) 
+   (1&lt;&lt;15)     (n)  (-1&lt;&lt;(15-n))
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^64</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="-120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D^64_in</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>64</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sh^64</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>6</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>barrelShifter2.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>64 bit, left</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>dataBits := 64;
+direction := &quot;left&quot;;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>64 bit, left</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>D^64_in sh^64 D^64
+loop(n,64) 
+   1     (n)  (1&lt;&lt;n)
+end loop
+
+loop(n,64) 
+   7     (n)  (7&lt;&lt;n)
+end loop</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="-60"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="480" y="960"/>
+      <p2 x="740" y="960"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="160"/>
+      <p2 x="740" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="-100"/>
+      <p2 x="420" y="-100"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="420"/>
+      <p2 x="740" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="680"/>
+      <p2 x="740" y="680"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="-140"/>
+      <p2 x="420" y="-140"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="140"/>
+      <p2 x="420" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="940"/>
+      <p2 x="420" y="940"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="400"/>
+      <p2 x="420" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="180"/>
+      <p2 x="420" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="660"/>
+      <p2 x="420" y="660"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="980"/>
+      <p2 x="420" y="980"/>
+    </wire>
+    <wire>
+      <p1 x="480" y="-120"/>
+      <p2 x="740" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="440"/>
+      <p2 x="420" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="700"/>
+      <p2 x="420" y="700"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
