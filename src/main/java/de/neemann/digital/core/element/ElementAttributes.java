@@ -318,4 +318,16 @@ public class ElementAttributes implements HGSMap {
             return null;
         return cache.get(key);
     }
+
+    /**
+     * Removes an entry from the cache.
+     *
+     * @param key the key to remove
+     * @return the previous value associated with key, or null if there was no mapping for key.
+     */
+    public Object removeFromCache(String key) {
+        if (cache == null)
+            return null;
+        return cache.remove(key);
+    }
 }

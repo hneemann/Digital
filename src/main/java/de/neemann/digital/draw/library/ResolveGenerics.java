@@ -253,7 +253,9 @@ public class ResolveGenerics {
          * @return this for chained calls
          */
         public CircuitHolder cleanupConcreteCircuit() {
-            for (VisualElement gic : circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION)))
+            for (VisualElement gic : circuit.getElements(v ->
+                    v.equalsDescription(GenericInitCode.DESCRIPTION)
+                            || v.equalsDescription(GenericCode.DESCRIPTION)))
                 circuit.delete(gic);
             for (VisualElement v : circuit.getElements()) {
                 try {
@@ -266,7 +268,7 @@ public class ResolveGenerics {
                     // can not happen
                     e.printStackTrace();
                 }
-                v.getElementAttributes().putToCache(GEN_ARGS_KEY, null);
+                v.getElementAttributes().removeFromCache(GEN_ARGS_KEY);
             }
 
             circuit.getAttributes().set(Keys.IS_GENERIC, false);
