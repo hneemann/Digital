@@ -226,9 +226,12 @@ public class ElementHelpDialog extends JDialog {
         if (translatedName.endsWith(".dig"))
             translatedName = new File(translatedName).getName();
         w.append("<h3>").append(escapeHTML(translatedName)).append("</h3>\n");
+
         String descr = et.getDescription(elementAttributes);
+        if (showKeys)
+            descr += " (" + Lang.get("msg_keyAsGenericAttribute", et.getName()) + ")";
         if (!descr.equals(translatedName))
-            w.append("<p>").append(escapeHTML(et.getDescription(elementAttributes))).append("</p>\n");
+            w.append("<p>").append(escapeHTML(descr)).append("</p>\n");
 
         PinDescriptions inputs = et.getInputDescription(elementAttributes);
         if (inputs != null && inputs.size() > 0) {
