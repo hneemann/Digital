@@ -570,9 +570,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             removeHighLighted();
         }
 
-        Circuit circuit = shallowCopy;
-        if (circuit == null)
-            circuit = getCircuit();
+        Circuit circuit = getCircuitOrShallowCopy();
 
         Vector pos = getPosVector(event);
         VisualElement ve = circuit.getElementAt(pos);
@@ -874,10 +872,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             gr2.transform(transform);
 
             long time = System.currentTimeMillis();
-            if (shallowCopy != null)
-                shallowCopy.drawTo(gr, highLighted, highLightStyle, modelSync);
-            else
-                getCircuit().drawTo(gr, highLighted, highLightStyle, modelSync);
+            getCircuitOrShallowCopy().drawTo(gr, highLighted, highLightStyle, modelSync);
             time = System.currentTimeMillis() - time;
 
             if (time > 500) antiAlias = false;
@@ -928,6 +923,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 double yy = p1.getY() + (p2.getY() - p1.getY()) * y / cy - sub;
                 gr2.fill(new Rectangle2D.Double(xx, yy, delta, delta));
             }
+        }
+
+        if (getCircuit().getAttributes().get(Keys.IS_GENERIC)) {
+            double dx = (p2.getX() - p1.getX()) / cx / 2;
+            double dy = (p2.getY() - p1.getY()) / cy / 2;
+
+            Point2D.Double origin = new Point2D.Double();
+            transform.transform(new Point(0, 0), origin);
+            gr2.drawOval((int) (origin.getX() - dy), (int) (origin.getY() - dy), (int) (dx * 2), (int) (dy * 2));
         }
     }
 
@@ -981,6 +985,13 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         return undoManager.getActual();
     }
 
+    private Circuit getCircuitOrShallowCopy() {
+        if (shallowCopy != null)
+            return shallowCopy;
+        else
+            return undoManager.getActual();
+    }
+
     /**
      * Sets a circuit to this component
      *
@@ -1004,7 +1015,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      */
     public void fitCircuit() {
         GraphicMinMax gr = new GraphicMinMax();
-        getCircuit().drawTo(gr);
+        getCircuitOrShallowCopy().drawTo(gr);
 
         AffineTransform newTrans = new AffineTransform();
         if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
@@ -1303,9 +1314,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     public void currentToDefault() {
         if (!isLocked()) {
             Modifications.Builder<Circuit> builder = new Modifications.Builder<>(Lang.get("menu_actualToDefault"));
-            Circuit circuit = shallowCopy;
-            if (circuit == null)
-                circuit = getCircuit();
+
+            Circuit circuit = getCircuitOrShallowCopy();
             for (VisualElement ve : circuit.getElements())
                 if (ve.equalsDescription(In.DESCRIPTION)) {
                     ObservableValue ov = ((InputShape) ve.getShape()).getObservableValue();
@@ -2501,11 +2511,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
 
         private VisualElement getInteractiveElementAt(MouseEvent e) {
-            Circuit circuit;
-            if (shallowCopy != null)
-                circuit = shallowCopy;
-            else
-                circuit = getCircuit();
+            Circuit circuit = getCircuitOrShallowCopy();
             List<VisualElement> elementList = circuit.getElementListAt(getPosVector(e), false);
             for (VisualElement ve : elementList) {
                 if (ve.isInteractive())
