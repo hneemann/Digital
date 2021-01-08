@@ -38,6 +38,7 @@ public class Context implements HGSMap {
         BUILT_IN.put("ceil", new FunctionCeil());
         BUILT_IN.put("floor", new FunctionFloor());
         BUILT_IN.put("round", new FunctionRound());
+        BUILT_IN.put("random", new FunctionRandom());
         BUILT_IN.put("float", new FunctionFloat());
         BUILT_IN.put("int", new FunctionInt());
         BUILT_IN.put("min", new FunctionMin());
@@ -469,6 +470,21 @@ public class Context implements HGSMap {
             if (args[0] instanceof Double)
                 return Math.round((Double) args[0]);
             return Value.toLong(args[0]);
+        }
+    }
+
+    private static final class FunctionRandom extends Function {
+        private final Random rand;
+
+        private FunctionRandom() {
+            super(1);
+            rand = new Random();
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            int bound = Value.toInt(args[0]);
+            return new Long(rand.nextInt(bound));
         }
     }
 

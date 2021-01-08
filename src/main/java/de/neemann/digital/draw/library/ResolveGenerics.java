@@ -125,6 +125,7 @@ public class ResolveGenerics {
         LOGGER.info("create concrete circuit based on " + circuit.getOrigin() + " width: " + args);
         final Circuit c = circuit.createDeepCopy();
         ArrayList<VisualElement> newComponents = new ArrayList<>();
+        ArrayList<Wire> newWires = new ArrayList<>();
 
         for (VisualElement ve : c.getElements()) {
             ElementAttributes elementAttributes = ve.getElementAttributes();
@@ -135,7 +136,7 @@ public class ResolveGenerics {
 
                     boolean isCustom = elementTypeDescription instanceof ElementTypeDescriptionCustom;
                     Statement genS = getStatement(gen);
-                    Context mod = createContext(c, newComponents, args)
+                    Context mod = createContext(c, newComponents, newWires, args)
                             .declareVar("args", args);
                     if (isCustom) {
                         mod.declareFunc("setCircuit", new SetCircuitFunc(ve));
@@ -150,18 +151,19 @@ public class ResolveGenerics {
                 throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
             }
         }
+        c.add(newWires);
         for (VisualElement ve : newComponents)
             c.add(ve);
 
         return new CircuitHolder(c, args);
     }
 
-    private Context createContext(Circuit circuit, ArrayList<VisualElement> newComponents, Args args) throws NodeException {
+    private Context createContext(Circuit circuit, ArrayList<VisualElement> newComponents, ArrayList<Wire> newWires, Args args) throws NodeException {
         try {
             Context context = new Context();
             if (circuit.getOrigin() != null)
                 context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin());
-            context.declareFunc("addWire", new AddWire(circuit));
+            context.declareFunc("addWire", new AddWire(newWires));
             context.declareFunc("addComponent", new AddComponent(newComponents, args));
             return context;
         } catch (HGSEvalException e) {
@@ -374,18 +376,18 @@ public class ResolveGenerics {
     }
 
     private final static class AddWire extends Function {
-        private final Circuit circuit;
+        private final ArrayList<Wire> wires;
 
-        private AddWire(Circuit circuit) {
+        private AddWire(ArrayList<Wire> wires) {
             super(4);
-            this.circuit = circuit;
+            this.wires = wires;
         }
 
         @Override
         protected Object f(Object... args) throws HGSEvalException {
             Vector p1 = new Vector(Value.toInt(args[0]) * SIZE, Value.toInt(args[1]) * SIZE);
             Vector p2 = new Vector(Value.toInt(args[2]) * SIZE, Value.toInt(args[3]) * SIZE);
-            circuit.add(new Wire(p1, p2));
+            wires.add(new Wire(p1, p2));
             return null;
         }
     }

@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.analyse;
 
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -21,6 +18,7 @@ import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -229,6 +227,11 @@ public class SubstituteLibrary implements LibraryInterface {
                 long l = (Long) val;
                 if (l <= Integer.MAX_VALUE && l >= Integer.MIN_VALUE)
                     return (int) l;
+            } else if (expectedClass == Color.class && val instanceof Number) {
+                return new Color(((Number) val).intValue());
+            } else if (expectedClass == Rotation.class && val instanceof Number) {
+                int r = ((Number) val).intValue();
+                return new Rotation(r % 4);
             }
 
             return val;
