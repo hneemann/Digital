@@ -1175,7 +1175,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                         }
                     }.setToolTip(Lang.get("attr_openCircuit_tt")));
                 }
-                if (elementType == GenericInitCode.DESCRIPTION && getCircuit().getAttributes().get(Keys.IS_GENERIC)) {
+                if ((elementType == GenericInitCode.DESCRIPTION || elementType == GenericCode.DESCRIPTION) && getCircuit().getAttributes().get(Keys.IS_GENERIC)) {
                     attributeDialog.addButton(Lang.get("attr_createConcreteCircuitLabel"), new ToolTipAction(Lang.get("attr_createConcreteCircuit")) {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -1187,8 +1187,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                                     modify(checkNetRename(element, modified, mod));
                                 }
 
+                                ElementAttributes attr = null;
+                                if (elementType == GenericInitCode.DESCRIPTION)
+                                    attr = element.getElementAttributes();
+
                                 Circuit concreteCircuit = new ResolveGenerics(getCircuit(), library)
-                                        .resolveCircuit(element.getElementAttributes())
+                                        .resolveCircuit(attr)
                                         .cleanupConcreteCircuit()
                                         .getCircuit();
 
