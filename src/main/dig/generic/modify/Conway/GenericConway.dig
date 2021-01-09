@@ -21,10 +21,10 @@ for (x:=0;x&lt;args.size;x++) {
     yp:=y*dist;
 
     // cell
-    co:=addComponent(&quot;genCell.dig&quot;,xp,yp);
-    co.default:=random(2);
+    cell:=addComponent(&quot;genCell.dig&quot;,xp,yp);
+    cell.default:=random(2);
    
-    // clock
+    // tunnel to clock
     t:=addComponent(&quot;Tunnel&quot;,xp-1,yp+8);
     t.NetName=&quot;clk&quot;;
     t.rotation=2;
@@ -56,17 +56,17 @@ addWire(-dist+3,args.size*dist+4,-dist+3,-dist+4);
 addComponent(&quot;Ground&quot;,-dist+3,-dist+4);</string>
         </entry>
       </elementAttributes>
-      <pos x="-660" y="-20"/>
+      <pos x="-220" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>GenericInitCode</elementName>
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>size := 60;</string>
+          <string>size := 50;</string>
         </entry>
       </elementAttributes>
-      <pos x="-580" y="-120"/>
+      <pos x="-420" y="-40"/>
     </visualElement>
     <visualElement>
       <elementName>Clock</elementName>
@@ -80,7 +80,7 @@ addComponent(&quot;Ground&quot;,-dist+3,-dist+4);</string>
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="-360" y="-120"/>
+      <pos x="-380" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -90,13 +90,13 @@ addComponent(&quot;Ground&quot;,-dist+3,-dist+4);</string>
           <string>clk</string>
         </entry>
       </elementAttributes>
-      <pos x="-340" y="-120"/>
+      <pos x="-360" y="60"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="-360" y="-120"/>
-      <p2 x="-340" y="-120"/>
+      <p1 x="-380" y="60"/>
+      <p2 x="-360" y="60"/>
     </wire>
   </wires>
   <measurementOrdering/>
