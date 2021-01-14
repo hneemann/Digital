@@ -173,7 +173,9 @@
   <string name="elem_LightBulb_pin_B">Connection</string>
   <string name="elem_PolarityAwareLED">LED with two connections.</string>
   <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up,
-        if the anode is connected to high and the cathode is connected to low.</string>
+        if the anode is connected to high and the cathode is connected to low.
+        This LED cannot be used as a pull-down resistor. It acts solely as a display element.
+        The shown resistor is only meant to symbolize the required series resistor to limit the current.</string>
   <string name="elem_PolarityAwareLED_pin_A">The anode connection of the LED.</string>
   <string name="elem_PolarityAwareLED_pin_C">The cathode connection of the LED.</string>
   <string name="elem_Seven-Seg">Seven-Segment Display</string>
@@ -2086,4 +2088,93 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     </string>
     <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
     <string name="menu_table_exportTablePlainText">Export Plain Text</string>
+    <string name="elem_ScopeTrigger">Triggered Data Graph</string>
+    <string name="elem_ScopeTrigger_short">Scope</string>
+    <string name="elem_ScopeTrigger_tt">Shows a graph of measured values, whereby measured values are only stored if
+        the input signal changes. Storing takes place when the circuit has stabilized.
+        The trigger does not start the measurement like in a real scope, but each trigger event stores a single
+        measurement value for each of the shown signals.
+        As direct input there is only the trigger. The inputs and outputs of the circuit, flip-flops and registers and the
+        probe component can be used as signals. This can be activated in the respective components.</string>
+    <string name="elem_ScopeTrigger_pin_T">A change at this input causes measured values to be stored.</string>
+    <string name="elem_NotConnected">Not Connected</string>
+    <string name="elem_NotConnected_tt">This component can be used to set a wire to High-Z.
+        If an input of a logical gate is set to high-Z, the read value is undefined.
+        Note that in reality in many cases excessive current consumption and even damage can
+        occur if a digital input is not set to high or low but remains unconnected.</string>
+    <string name="elem_NotConnected_pin_out">This output always outputs High-Z.</string>
+    <string name="err_notConnectedNotAllowed">The NotConnected symbol is not allowed here!</string>
+    <string name="elem_ROMDualPort">ROM dual port</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_ROMDualPort_tt">A non-volatile memory component.
+        The stored data can be edited in the attributes dialog.</string>
+    <string name="elem_ROMDualPort_pin_A1">This pin defines the address of data word to be output on D1.</string>
+    <string name="elem_ROMDualPort_pin_D1">The selected data word if the s1 input is high.</string>
+    <string name="elem_ROMDualPort_pin_s1">If the input is high, the output D1 is activated. If it is low, the data output is in high Z state.</string>
+    <string name="elem_ROMDualPort_pin_A2">This pin defines the address of data word to be output on D2.</string>
+    <string name="elem_ROMDualPort_pin_D2">The selected data word if the s2 input is high.</string>
+    <string name="elem_ROMDualPort_pin_s2">If the input is high, the output D2 is activated. If it is low, the data output is in high Z state.</string>
+    <string name="elem_PRNG">Random Number Generator</string>
+    <string name="elem_PRNG_tt">Can be used to generate random numbers.
+        When the simulation is started, the generator is reinitialized so that a new pseudo-random number
+        sequence is generated at each start.
+        The generator can be initialized in the running simulation with a defined seed value to generate
+        a defined pseudo-random number sequence.</string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_PRNG_pin_S">New seed value of the generator.</string>
+    <string name="elem_PRNG_pin_se">If set, the random number generator is reinitialized with the new seed value at the next rising clock edge.</string>
+    <string name="elem_PRNG_pin_ne">If set, a new random number is output at the next rising clock edge.</string>
+    <string name="elem_PRNG_pin_C">The clock input.</string>
+    <string name="elem_PRNG_pin_R">Output of the pseudorandom number.</string>
+    <string name="elem_GenericInitCode">Generic Initialization</string>
+    <string name="elem_GenericInitCode_tt">Code that is executed to start a generic circuit directly.
+        If a generic circuit is to be started directly, such a component must be present.</string>
+    <string name="elem_GenericCode">Code</string>
+    <string name="elem_GenericCode_tt">Code that is executed when a generic circuit is made concrete.
+        Can be used, for example, to add components or wires to a circuit.</string>
+    <string name="err_hdlTestCaseHasGenericCode">Test cases with generic parameterization are not supported in HDL
+        export!</string>
+    <string name="err_multipleRomsFound">Multiple program memories found! Only one program memory is allowed.</string>
+    <string name="err_noMemoryFound">No memory "{0}" found in the model!</string>
+    <string name="err_multipleMemoriesFound">Multiple memories "{0}" found in the model!</string>
+    <string name="err_noGenericInitCode">No initialization code for the generic components.
+        A respective component must be added to the circuit in order to start it.</string>
+    <string name="err_multipleGenericInitCodes">Multiple initialization codes for the generic elements.</string>
+    <string name="err_inGenericInitCode">Error in the analysis of the generic initialization code.</string>
+    <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Virtual signal {0} declared twice in line {1}!</string>
+    <string name="key_remainderPositive">Remainder always positive</string>
+    <string name="key_remainderPositive_tt">If set, the remainder of a signed division is always positive.</string>
+    <string name="key_trigger">Trigger</string>
+    <string name="key_trigger_tt">Trigger condition for data recording.</string>
+    <string name="key_trigger_rising">rising edge</string>
+    <string name="key_trigger_falling">falling edge</string>
+    <string name="key_trigger_both">both edges</string>
+    <string name="mod_modifiedByRunningModel">Changes made by the running simulation.</string>
+    <string name="menu_scale">Set Scaling</string>
+    <string name="msg_supportsHDL">Exportable to VHDL/Verilog.</string>
+    <string name="msg_errorSettingModelToTestCase">Error while setting the test case row.</string>
+    <string name="msg_keyAsGenericAttribute">Name to use in generic circuits: {0}</string>
+    <string name="attr_createConcreteCircuitLabel">Create Concrete Circuit</string>
+    <string name="attr_createConcreteCircuit">Create</string>
+    <string name="attr_createConcreteCircuit_tt">Creates a concrete circuit from this generic circuit using the
+        parameters specified in this element.</string>
+    <string name="attr_createConcreteCircuitErr">Error while creating the concrete circuit!</string>
+    <string name="msg_expressionHelp">&lt;p&gt;To define an expression you can use all most common notations:&lt;/p&gt;
+        &lt;p&gt;
+        And: "&amp;", "&amp;&amp;", "*", "∧"&lt;br/&gt;
+        Or: "|", "||", "+", "∨", "#"&lt;br/&gt;
+        XOr: "^", "⊻"&lt;br/&gt;
+        Not: "!", "~", "¬"
+        &lt;/p&gt;
+        &lt;p&gt;As usual AND precedes OR and XOr.&lt;/p&gt;
+        &lt;p&gt;Multiple expressions can be separated by "," or ";".
+        If you want to name the expressions you can use the
+        let command: "let U=A+B, let V=A*B".&lt;/p&gt;</string>
+    <string name="msg_fsm_optimizer">FSM-Optimizer</string>
+    <string name="menu_fsm_optimize_state_numbers">Optimize the State Numbers</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">Optimizes the state numbers so that an implementation has the
+        least possible effort. The runtime increases very quickly with the complexity of the machine. (O(n!))</string>
+    <string name="menu_fsm_optimize_state_numbers_err">Error during optimization!</string>
+    <string name="msg_fsm_optimizer_initial">Initial complexity:</string>
+    <string name="msg_fsm_optimizer_best">Best so far:</string>
 </resources>

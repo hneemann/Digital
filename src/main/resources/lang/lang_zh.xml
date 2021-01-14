@@ -136,7 +136,8 @@
   <string name="elem_LightBulb_pin_A">连接点</string>
   <string name="elem_LightBulb_pin_B">连接点</string>
   <string name="elem_PolarityAwareLED">发光二极管</string>
-  <string name="elem_PolarityAwareLED_tt">LED 区分阴极和阳极，当阳极连接到高电平且阴极连接到低电平时，LED点亮。</string>
+  <string name="elem_PolarityAwareLED_tt">当阳极连接到高电平且阴极连接到低电平时，LED点亮。
+      该LED不能用作下拉电阻。 它仅充当显示元素。图中所示电阻仅表示需要串联一个电阻来限流。</string>
   <string name="elem_PolarityAwareLED_pin_A">阳极</string>
   <string name="elem_PolarityAwareLED_pin_C">阴极</string>
   <string name="elem_Seven-Seg">7段数码管</string>
@@ -839,6 +840,7 @@
   <string name="message"><![CDATA[<h1>Digital</h1>
       <p>一个简单的数字电路仿真器</p>
       <p>作者： H. Neemann  2016-2020</p>
+      <p>翻译： 马新军  <a href="https://github.com/easysoc">https://github.com/easysoc</a></p>
       <p>所用图标来自 <a href="http://tango.freedesktop.org">Tango Desktop Project</a></p>
       <p>在 <a href="https://github.com/hneemann/[[name]]">GitHub</a> 查看该项目，并<a href="https://github.com/hneemann/[[name]]/releases/latest">下载</a>最新的发行版</p>
       <p>可以在这里提交<a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">问题</a>或<a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">建议</a></p>]]></string>
@@ -1214,106 +1216,106 @@
   <string name="msg_testVectorHelp">&lt;html&gt;
     &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
     &lt;body&gt;
-&lt;p&gt;The first line has to contain the names of inputs and outputs.
-The following lines contain the expected values.
-A 'X' represents a don't care, and a 'Z' represents a high Z value.
-If a 'C' is used, at first all other values are set, after that a clock cycle is performed and than the
-values are compared. So it's easier to test sequential logic.
-A line which starts with a number sign ('#') is a comment.&lt;/p&gt;
+    &lt;p&gt;The first line has to contain the names of inputs and outputs.
+    The following lines contain the expected values.
+    A 'X' represents a don't care, and a 'Z' represents a high Z value.
+    If a 'C' is used, at first all other values are set, after that a clock cycle is performed and then the
+    values are compared. So it's easier to test sequential logic.
+    A line which starts with a number sign ('#') is a comment.&lt;/p&gt;
 
-&lt;p&gt;So a test for a 2-bit counter could look like this:&lt;/p&gt;
+    &lt;p&gt;So a test for a 2-bit counter could look like this:&lt;/p&gt;
 
-&lt;pre&gt;
-C Q1 Q0
-0 0  0
-C 0  1
-C 1  0
-C 1  1
-C 0  0
-&lt;/pre&gt;
+    &lt;pre&gt;
+    C Q1 Q0
+    0 0 0
+    C 0 1
+    C 1 0
+    C 1 1
+    C 0 0
+    &lt;/pre&gt;
 
-&lt;p&gt;The tests are executed by Run-&gt;Run Tests.&lt;/p&gt;
-&lt;p&gt;
-To make it easier to create a lot of test vectors there is the 'repeat([n])' statement:
-If a line begins with 'repeat([n])', [n] test lines are generated. The
-Variable 'n' can be used to generate the test data. With 'repeat(16)'
-16 lines are created, where n goes from 0 to 15. If there are multiple bit inputs,
-and these are to be set together to a binary value, this can be done with the
-'bits([bits], [value])' statement. This is used to create [bits] bits of the value [value].&lt;/p&gt;
+    &lt;p&gt;The tests are executed by Run-&gt;Run Tests.&lt;/p&gt;
+    &lt;p&gt;
+    To make it easier to create a lot of test vectors there is the 'repeat([n])' statement:
+    If a line begins with 'repeat([n])', [n] test lines are generated. The
+    variable 'n' can be used to generate the test data. With 'repeat(16)',
+    16 lines are created, where n goes from 0 to 15. If there are multiple bit inputs,
+    and these are to be set together to a binary value, this can be done with the
+    'bits([bits], [value])' statement. This is used to create [bits] bits of the value [value].&lt;/p&gt;
 
-&lt;p&gt;The following is an example that tests a 4-bit adder:&lt;/p&gt;
+    &lt;p&gt;The following is an example that tests a 4-bit adder:&lt;/p&gt;
 
-&lt;pre&gt;
-           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-repeat(256)  0    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15))
-repeat(256)  1    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
-&lt;/pre&gt;
+    &lt;pre&gt;
+    C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+    repeat(256) 0 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15))
+    repeat(256) 1 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+    &lt;/pre&gt;
 
-&lt;p&gt;The input signals are the carry-in (C_i-1) and the eight input bits A_3-A_0 and B_3-B_0.
-The 4 input bits are generated with the 'bits' instruction. The result (C_i, S_3-S_0) is also generated
-by a 'bits' instruction.
-This happens once with C_i-1 = 0 and in the next line with C_i-1 = 1.
-In this way, 512 test rows are generated which cover all possible input configurations.&lt;/p&gt;
-&lt;p&gt;If multiple rows are to be repeated, or if nested loops are required, the loop
-statement can be used. The above example could also be implemented as follows:&lt;/p&gt;
+    &lt;p&gt;The input signals are the carry-in (C_i-1) and the eight input bits A_3-A_0 and B_3-B_0.
+    The 4 input bits are generated with the 'bits' instruction. The result (C_i, S_3-S_0) is also generated
+    by a 'bits' instruction.
+    This happens once with C_i-1 = 0 and in the next line with C_i-1 = 1.
+    In this way, 512 test rows are generated which cover all possible input configurations.&lt;/p&gt;
+    &lt;p&gt;If multiple rows are to be repeated, or if nested loops are required, the loop
+    statement can be used. The above example could also be implemented as follows:&lt;/p&gt;
 
-&lt;pre&gt;
-      C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
-      loop(a,16)
-      loop(b,16)
-      0 bits(4,a) bits(4,b) bits(5,a+b)
-      1 bits(4,a) bits(4,b) bits(5,a+b+1)
-      end loop
-      end loop
-      &lt;/pre&gt;
+    &lt;pre&gt;
+    C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+    loop(a,16)
+    loop(b,16)
+    0 bits(4,a) bits(4,b) bits(5,a+b)
+    1 bits(4,a) bits(4,b) bits(5,a+b+1)
+    end loop
+    end loop
+    &lt;/pre&gt;
 
-      &lt;p&gt;Under certain circumstances it may be necessary to be able to react to the initial
-      state of the circuit. Therefore the signals provided in the circuit can be used within
-      the test case. For example, if a counter that starts in an undefined state is to be
-      tested, it can be clocked to a defined state:&lt;/p&gt;
+    &lt;p&gt;Under certain circumstances it may be necessary to be able to react to the initial
+    state of the circuit. Therefore the signals provided in the circuit can be used within
+    the test case. For example, if a counter that starts in an undefined state is to be
+    tested, it can be clocked to a defined state:&lt;/p&gt;
 
-      &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
+    &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
 
-      # clock counter to 1111
-      while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
-      C x x x x
-      end while
+    # clock counter to 1111
+    while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
+    C x x x x
+    end while
 
-      # start the test execution
-      repeat(16) C bits(4,n)
-      &lt;/pre&gt;
+    # start the test execution
+    repeat(16) C bits(4,n)
+    &lt;/pre&gt;
 
-      &lt;p&gt;It may be helpful to generate random numbers in test cases.
-      These can be created with the function 'random([n])'. The generated number is greater
-      than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
-      a full test can not be performed since it would have 2^32 input combinations.
-      A regression test that multiplies 100000 random numbers might look like this:&lt;/p&gt;
+    &lt;p&gt;It may be helpful to generate random numbers in test cases.
+    These can be created with the function 'random([n])'. The generated number is greater
+    than or equal to zero and less than [n]. Considering a 16-bit multiplier as an example,
+    a full test can not be performed since it would have 2^32 input combinations.
+    A regression test that multiplies 100000 random numbers might look like this:&lt;/p&gt;
 
-      &lt;pre&gt;
-      A B Y
-      loop(i,100000)
-  let a = random(1&amp;lt;&amp;lt;16);
-  let b = random(1&amp;lt;&amp;lt;16);
-  (a)  (b)   (a*b)
-end loop
-&lt;/pre&gt;
+    &lt;pre&gt;
+    A B Y
+    loop(i,100000)
+    let a = random(1&amp;lt;&amp;lt;16);
+    let b = random(1&amp;lt;&amp;lt;16);
+    (a) (b) (a*b)
+    end loop
+    &lt;/pre&gt;
 
-&lt;p&gt;An input that allows high impedance as a value can also be used as a test output.
-In this case, the signal name can be used with a trailing "_out" to read back and check the current value.
-For this, the corresponding input must be set to high impedance ('Z').&lt;/p&gt;
+    &lt;p&gt;An input that allows high impedance as a value can also be used as a test output.
+    In this case, the signal name can be used with a trailing "_out" to read back and check the current value.
+    For this, the corresponding input must be set to high impedance ('Z').&lt;/p&gt;
 
-&lt;pre&gt;OE CLK D D_out
-0   0  0 0
-0   C  1 1
-1   0  z 1
-0   C  0 0
-1   0  z 0
-&lt;/pre&gt;
+    &lt;pre&gt;OE CLK D D_out
+    0   0  0 0
+    0   C  1 1
+    1   0  z 1
+    0   C  0 0
+    1   0  z 0
+    &lt;/pre&gt;
 
-&lt;p&gt;The circuit for this test has only one input 'D', but which can be high impedance state.
-Therefore, the signal 'D_out' is also available to check the value in this case.&lt;/p&gt;
+    &lt;p&gt;The circuit for this test has only one input 'D', but which can be high impedance state.
+    Therefore, the signal 'D_out' is also available to check the value in this case.&lt;/p&gt;
 
-&lt;/body&gt;&lt;/html&gt;</string>
+    &lt;/body&gt;&lt;/html&gt;</string>
   <string name="key_stateValues_tt">定义输出值。简单的如 "A=1, B=0"，多位输出，如 "A=101"。
       未定义的输出状态默认为 0。在状态转换中，为指定的输出保持不变。</string>
   <string name="err_notDeterministic_N">有限状态机 {0} 不确定</string>
@@ -1730,4 +1732,75 @@ Therefore, the signal 'D_out' is also available to check the value in this case.
     <string name="cli_help_stats_csv">CSV 文件名，如果为空，将写入到标准输出。</string>
     <string name="cli_errorCreatingStats">创建统计文件时遇到错误！</string>
     <string name="menu_table_exportTablePlainText">导出纯文本</string>
+    <string name="elem_ScopeTrigger">示波器</string>
+    <string name="elem_ScopeTrigger_short">Scope</string>
+    <string name="elem_ScopeTrigger_tt">显示可测量值的变化图，仅当电路稳定且该组件的输入信号变化时才会对测量数据采样。</string>
+    <string name="elem_ScopeTrigger_pin_T">当输入的信号发生变化时对测量数据采样</string>
+    <string name="elem_NotConnected">无连接</string>
+    <string name="elem_NotConnected_tt">该组件可用于设置导线为高阻态。如果逻辑门的输入被设置为高阻态，则输出随机。
+      请注意，实际中，如果数字输入未设置为高电平或低电平，而是保持未连接状态，则可能会产生过多的电流消耗甚至损坏。</string>
+    <string name="elem_NotConnected_pin_out">输出高阻</string>
+    <string name="err_notConnectedNotAllowed">此处禁止 无连接 符号</string>
+    <string name="elem_ROMDualPort">多端口 ROM</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_ROMDualPort_tt">非易失性存储器，可以在属性对话框编辑存储数据。</string>
+    <string name="elem_ROMDualPort_pin_A1">D1输出端口的地址</string>
+    <string name="elem_ROMDualPort_pin_D1">当 s1 为高电平时，输出 A1 地址的数据</string>
+    <string name="elem_ROMDualPort_pin_s1">如果输入为高电平，D1 输出使能，如果输入为低电平，D1 输出高阻。</string>
+    <string name="elem_ROMDualPort_pin_A2">D2输出端口的地址</string>
+    <string name="elem_ROMDualPort_pin_D2">当 s2 为高电平时，输出 A2 地址的数据</string>
+    <string name="elem_ROMDualPort_pin_s2">如果输入为高电平，D2 输出使能，如果输入为低电平，D2 输出高阻.</string>
+    <string name="elem_PRNG">随机数生成器</string>
+    <string name="elem_PRNG_tt">用于生成随机数。</string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_PRNG_pin_S">随机数种子</string>
+    <string name="elem_PRNG_pin_se">如果为高电平，生成器在下次时钟上升沿初始化。</string>
+    <string name="elem_PRNG_pin_ne">如果为高电平，下次时钟上升沿输出一个新的随机数。</string>
+    <string name="elem_PRNG_pin_C">时钟输入</string>
+    <string name="elem_PRNG_pin_R">随机数输出</string>
+    <string name="elem_GenericInitCode">通用电路初始化</string>
+    <string name="elem_GenericInitCode_tt">用于启动通用电路时执行的代码。如果直接启动通用电路，必须设置。</string>
+    <string name="elem_GenericCode">Code</string>
+    <string name="elem_GenericCode_tt">创建具体电路时执行的代码，例如向电路添加导线或组件。</string>
+    <string name="err_hdlTestCaseHasGenericCode">导出 HDL 时不支持通用参数。</string>
+    <string name="err_multipleRomsFound">存在多个可编程存储器，只允许一个可编程存储器！</string>
+    <string name="err_noMemoryFound">未发现存储器 "{0}"</string>
+    <string name="err_multipleMemoriesFound">存在多个可编程存储器 "{0}"</string>
+    <string name="err_noGenericInitCode">通用组件未设置初始化代码，</string>
+    <string name="err_multipleGenericInitCodes">多个初始化代码！</string>
+    <string name="err_inGenericInitCode">分析初始化代码时遇到错误。</string>
+    <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Virtual signal {0} declared twice in line {1}!</string>
+    <string name="key_remainderPositive">余数始终为正</string>
+    <string name="key_remainderPositive_tt">如果为高电平，符号除法的余数始终为正。</string>
+    <string name="key_trigger">触发</string>
+    <string name="key_trigger_tt">触发条件</string>
+    <string name="key_trigger_rising">上升沿</string>
+    <string name="key_trigger_falling">下降沿</string>
+    <string name="key_trigger_both">上升和下降沿</string>
+    <string name="mod_modifiedByRunningModel">仿真产生的改变</string>
+    <string name="menu_scale">缩放设置</string>
+    <string name="msg_supportsHDL">可以导出为 VHDL/Verilog。</string>
+    <string name="msg_errorSettingModelToTestCase">设置测试用例行时出错。</string>
+    <string name="msg_keyAsGenericAttribute">通用电路 {0} 中使用的名称</string>
+    <string name="attr_createConcreteCircuitLabel">新建具体电路</string>
+    <string name="attr_createConcreteCircuit">新建</string>
+    <string name="attr_createConcreteCircuit_tt">根据输入的参数，从当前通用电路创建一个具体电路。</string>
+    <string name="attr_createConcreteCircuitErr">新建具体电路时出错！</string>
+    <string name="msg_expressionHelp">&lt;p&gt;To define an expression you can use all most common notations:&lt;/p&gt;
+      &lt;p&gt;
+      And: "&amp;", "&amp;&amp;", "*", "∧"&lt;br/&gt;
+      Or: "|", "||", "+", "∨", "#"&lt;br/&gt;
+      XOr: "^", "⊻"&lt;br/&gt;
+      Not: "!", "~", "¬"
+      &lt;/p&gt;
+      &lt;p&gt;As usual AND precedes OR and XOr.&lt;/p&gt;
+      &lt;p&gt;Multiple expressions can be separated by "," or ";".
+      If you want to name the expressions you can use the
+      let command: "let U=A+B, let V=A*B".&lt;/p&gt;</string>
+    <string name="msg_fsm_optimizer">FSM 优化器</string>
+    <string name="menu_fsm_optimize_state_numbers">优化状态数</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">优化状态数，以使实现的工作量最少。</string>
+    <string name="menu_fsm_optimize_state_numbers_err">优化时出错！</string>
+    <string name="msg_fsm_optimizer_initial">初始复杂度：</string>
+    <string name="msg_fsm_optimizer_best">目前最优：</string>
 </resources>
