@@ -819,7 +819,7 @@
     <string name="elem_BitCount_pin_in">The input which 1-bits are counted.</string>
     <string name="elem_BitCount_pin_out">Outputs the number of 1-bits.</string>
 
-    <string name="elem_PRNG">Random Nnumber Generator</string>
+    <string name="elem_PRNG">Random Number Generator</string>
     <string name="elem_PRNG_tt">Can be used to generate random numbers.
         When the simulation is started, the generator is reinitialized so that a new pseudo-random number
         sequence is generated at each start.
