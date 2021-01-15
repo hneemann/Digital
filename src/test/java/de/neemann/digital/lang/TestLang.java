@@ -34,7 +34,7 @@ public class TestLang extends TestCase {
             "      This can be replaced by the correct translation.\n" +
             "      If it seems better that the text should be used in the English original,\n" +
             "      you can simply leave the \"-\", or remove the whole \"key\".\n" +
-            "      Please do not copy&paste the english text!!!\n" +
+            "      Please do not copy&paste the English text!!!\n" +
             "\"modified\" means that the English text has been changed since the last revision of\n" +
             "      the translation. In this case, the new English text and the old translated\n" +
             "      text are shown. Now the old translation can be revised. If it turns out that\n" +
