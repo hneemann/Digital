@@ -2602,7 +2602,7 @@ ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
     <string name="elem_GenericCode_tt">Code qui est exécuté lorsqu'un circuit générique est rendu concret.
         Peut être utilisé, par exemple, pour ajouter des composantes ou des fils au circuit.</string>
     <string name="err_multipleRomsFound">Plusieurs mémoires de programme trouvées! Une seule est permise.</string>
-    <string name="err_noMemoryFound">Aucune mémoire "{0}" n'a été trouvée dans le circuit!</string>
+    <string name="err_noMemoryFound">Aucune mémoire "{0}" n''a été trouvée dans le circuit!</string>
     <string name="err_multipleMemoriesFound">Plusieurs mémoires "{0}" trouvées dans le circuit!</string>
     <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Le signal virtuel {0} est déclaré deux fois sur le ligne {1}!</string>
     <string name="key_trigger">Déclenchement</string>
