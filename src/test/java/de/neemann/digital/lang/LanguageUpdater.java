@@ -7,6 +7,7 @@ package de.neemann.digital.lang;
 
 import de.neemann.digital.integration.Resources;
 import org.jdom2.*;
+import org.jdom2.filter.Filter;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -17,7 +18,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -52,6 +55,8 @@ public class LanguageUpdater {
         checkComment(lang, COMMENT_LANG);
         checkComment(ref, COMMENT_REF);
 
+        cleanup(lang, ref);
+
         for (Element e : dif.getChildren()) {
             String key = e.getAttributeValue("name");
             String type = e.getAttributeValue("type");
@@ -85,6 +90,15 @@ public class LanguageUpdater {
         }
     }
 
+    private void cleanup(Document lang, Document ref) {
+        HashSet<String> langKeys = new HashSet<>();
+        for (Element e : lang.getRootElement().getChildren()) {
+            String key = e.getAttributeValue("name");
+            langKeys.add(key);
+        }
+        ref.getRootElement().getChildren().removeIf(e -> !langKeys.contains(e.getAttributeValue("name")));
+    }
+
     private Element loadDif(File sourceFilename) throws JDOMException, IOException {
         if (sourceFilename.getName().toLowerCase().endsWith(".zip")) {
             ZipFile zip = new ZipFile(sourceFilename);
@@ -94,7 +108,7 @@ public class LanguageUpdater {
                 if (entry.getName().toLowerCase().endsWith(".xml"))
                     return new SAXBuilder().build(zip.getInputStream(entry)).getRootElement();
             }
-            throw new IOException("no dif fiel found in zip");
+            throw new IOException("no diff file found in zip");
         } else
             return new SAXBuilder().build(sourceFilename).getRootElement();
     }
@@ -133,16 +147,16 @@ public class LanguageUpdater {
     }
 
     private void update() throws IOException {
-        if (modified > 0) {
-            Format format = Format.getPrettyFormat()
-                    .setIndent("    ")
-                    .setTextMode(Format.TextMode.PRESERVE);
-            new XMLOutputter(format).output(ref, new FileOutputStream(refFileName));
-            new XMLOutputter(format).output(lang, new FileOutputStream(langFileName));
-            System.out.println(modified + " keys updated!");
-        } else {
-            System.out.println("no modification found!");
-        }
+//        if (modified > 0) {
+        Format format = Format.getPrettyFormat()
+                .setIndent("    ")
+                .setTextMode(Format.TextMode.PRESERVE);
+        new XMLOutputter(format).output(ref, new FileOutputStream(refFileName));
+        new XMLOutputter(format).output(lang, new FileOutputStream(langFileName));
+        System.out.println(modified + " keys updated!");
+//        } else {
+//            System.out.println("no modification found!");
+//        }
     }
 
     public static void main(String[] args) throws JDOMException, IOException {
