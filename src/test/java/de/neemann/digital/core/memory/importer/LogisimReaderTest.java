@@ -98,5 +98,31 @@ public class LogisimReaderTest extends TestCase {
         assertEquals(0xFF, df.getDataWord(16));
     }
 
+    public void testLoadRLEMultiline() throws Exception {
+        String data = "v2.0 raw\n#test1 \n 5*0x0 10*0x10 0xAA 0XFF #test";
+
+        DataField df = new DataField(1024);
+        new LogisimReader(new StringReader(data)).read(new DataFieldValueArray(df, 0));
+
+        assertEquals(17, df.trim());
+        assertEquals(0x00, df.getDataWord(0));
+        assertEquals(0x00, df.getDataWord(1));
+        assertEquals(0x00, df.getDataWord(2));
+        assertEquals(0x00, df.getDataWord(3));
+        assertEquals(0x00, df.getDataWord(4));
+        assertEquals(0x10, df.getDataWord(5));
+        assertEquals(0x10, df.getDataWord(6));
+        assertEquals(0x10, df.getDataWord(7));
+        assertEquals(0x10, df.getDataWord(8));
+        assertEquals(0x10, df.getDataWord(9));
+        assertEquals(0x10, df.getDataWord(10));
+        assertEquals(0x10, df.getDataWord(11));
+        assertEquals(0x10, df.getDataWord(12));
+        assertEquals(0x10, df.getDataWord(13));
+        assertEquals(0x10, df.getDataWord(14));
+        assertEquals(0xAA, df.getDataWord(15));
+        assertEquals(0xFF, df.getDataWord(16));
+    }
+
 
 }

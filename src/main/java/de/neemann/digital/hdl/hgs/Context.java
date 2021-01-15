@@ -5,7 +5,10 @@
  */
 package de.neemann.digital.hdl.hgs;
 
+import de.neemann.digital.FileLocator;
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.hdl.hgs.function.Func;
 import de.neemann.digital.hdl.hgs.function.Function;
 import de.neemann.digital.hdl.hgs.function.InnerFunction;
@@ -13,6 +16,8 @@ import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -23,11 +28,17 @@ public class Context implements HGSMap {
     // declare some functions which are always present
     private static final HashMap<String, InnerFunction> BUILT_IN = new HashMap<>();
 
+    /**
+     * Key used to store the base file name in the context
+     */
+    public static final String BASE_FILE_KEY = "baseFile";
+
     static {
         BUILT_IN.put("bitsNeededFor", new FunctionBitsNeeded());
         BUILT_IN.put("ceil", new FunctionCeil());
         BUILT_IN.put("floor", new FunctionFloor());
         BUILT_IN.put("round", new FunctionRound());
+        BUILT_IN.put("random", new FunctionRandom());
         BUILT_IN.put("float", new FunctionFloat());
         BUILT_IN.put("int", new FunctionInt());
         BUILT_IN.put("min", new FunctionMin());
@@ -43,6 +54,7 @@ public class Context implements HGSMap {
         BUILT_IN.put("output", new FunctionOutput());
         BUILT_IN.put("splitString", new FunctionSplitString());
         BUILT_IN.put("identifier", new FunctionIdentifier());
+        BUILT_IN.put("loadHex", new FunctionLoadHex());
         BUILT_IN.put("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
         BUILT_IN.put("newMap", new Func(0, args -> new HashMap()));
         BUILT_IN.put("newList", new Func(0, args -> new ArrayList()));
@@ -213,6 +225,26 @@ public class Context implements HGSMap {
             return code.toString();
         else
             return parent.toString();
+    }
+
+    /**
+     * @return a string representation of the contained keys
+     */
+    public String toStringKeys() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, Object> k : map.entrySet()) {
+            sb.append(k.getKey()).append(":");
+            Object val = k.getValue();
+            if (val instanceof Context)
+                sb.append("[").append(((Context) val).toStringKeys()).append("]");
+            else if (val instanceof File)
+                sb.append(".../").append(((File) val).getName());
+            else
+                sb.append(val.toString());
+
+            sb.append("; ");
+        }
+        return sb.toString();
     }
 
     /**
@@ -441,6 +473,21 @@ public class Context implements HGSMap {
         }
     }
 
+    private static final class FunctionRandom extends Function {
+        private final Random rand;
+
+        private FunctionRandom() {
+            super(1);
+            rand = new Random();
+        }
+
+        @Override
+        protected Object f(Object... args) throws HGSEvalException {
+            int bound = Value.toInt(args[0]);
+            return new Long(rand.nextInt(bound));
+        }
+    }
+
     private static final class FunctionFloat extends Function {
         private FunctionFloat() {
             super(1);
@@ -602,6 +649,33 @@ public class Context implements HGSMap {
                 return maxD;
             else
                 return maxL;
+        }
+    }
+
+    private static final class FunctionLoadHex extends InnerFunction {
+        private FunctionLoadHex() {
+            super(2);
+        }
+
+        @Override
+        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
+            String name = args.get(0).value(c).toString();
+            int dataBits = Value.toInt(args.get(1).value(c));
+            FileLocator fileLocator = new FileLocator(name);
+            if (c.contains(BASE_FILE_KEY))
+                fileLocator.setBaseFile((File) c.getVar(BASE_FILE_KEY));
+            File hexFile = fileLocator.locate();
+
+            if (hexFile == null)
+                throw new HGSEvalException("File " + name + " not found! Is circuit saved?");
+
+            try {
+                DataField dataField = Importer.read(hexFile, dataBits);
+                dataField.trim();
+                return dataField;
+            } catch (IOException e) {
+                throw new HGSEvalException("error reading the file " + hexFile.getPath(), e);
+            }
         }
     }
 

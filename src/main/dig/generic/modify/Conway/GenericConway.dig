@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>isGeneric</string>
+      <boolean>true</boolean>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>GenericCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>dist:=9;
+
+for (x:=0;x&lt;args.size;x++) {
+  xp:=x*dist;
+  for (y:=0;y&lt;args.size;y++) {
+    yp:=y*dist;
+
+    // cell
+    cell:=addComponent(&quot;genCell.dig&quot;,xp,yp);
+    cell.default:=random(2);
+   
+    // tunnel to clock
+    t:=addComponent(&quot;Tunnel&quot;,xp-1,yp+8);
+    t.NetName=&quot;clk&quot;;
+    t.rotation=2;
+    addWire(xp-1,yp+8,xp,yp+8);
+
+    // led
+    led:=addComponent(&quot;LED&quot;,xp+3,yp+4);
+    led.rotation=2;
+    led.Size=dist-3;
+    led.Color=0x00ff00;
+
+    // connections to neighbors
+    addWire(xp,yp+0,xp+dist+3,yp-dist+4);
+    addWire(xp,yp+1,xp+dist+3,yp+4);
+    addWire(xp,yp+2,xp+dist+3,yp+dist+4);
+    addWire(xp,yp+3,xp-dist+3,yp-dist+4);
+    addWire(xp,yp+4,xp-dist+3,yp+4);
+    addWire(xp,yp+5,xp-dist+3,yp+dist+4);
+    addWire(xp,yp+6,xp+3,yp+dist+4);
+    addWire(xp,yp+7,xp+3,yp-dist+4);
+  }
+}
+
+// border
+addWire(-dist+3,-dist+4, args.size*dist+3,-dist+4);
+addWire(args.size*dist+3,args.size*dist+4,args.size*dist+3,-dist+4);
+addWire(-dist+3,args.size*dist+4,args.size*dist+3,args.size*dist+4);
+addWire(-dist+3,args.size*dist+4,-dist+3,-dist+4);
+addComponent(&quot;Ground&quot;,-dist+3,-dist+4);</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>size := 50;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-420" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Frequency</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-380" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>clk</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-360" y="60"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="-380" y="60"/>
+      <p2 x="-360" y="60"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

@@ -65,7 +65,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
      */
     public static Circuit fixGenerics(Circuit circuit, LibraryInterface library) throws NodeException, ElementNotFoundException {
         if (circuit.getAttributes().get(Keys.IS_GENERIC))
-            return new ResolveGenerics().resolveCircuit(null, circuit, library).getCircuit();
+            return new ResolveGenerics(circuit, library).resolveCircuit(null).getCircuit();
         else
             return circuit;
     }
@@ -170,7 +170,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                             combineNames(subName, me.getVisualElement().getElementAttributes().getLabel()),
                             depth + 1,
                             containingVisualElement != null ? containingVisualElement : me.getVisualElement(),
-                            me.getVisualElement(), library);
+                            me.getVisualElement());
                     modelCreators.add(child);
 
                     HashMap<Net, Net> netMatch = new HashMap<>();

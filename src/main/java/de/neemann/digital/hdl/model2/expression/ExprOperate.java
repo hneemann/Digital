@@ -93,4 +93,13 @@ public class ExprOperate implements Expression {
         for (Expression o : operands)
             o.traverse(visitor);
     }
+
+    @Override
+    public void optimize(ExpressionOptimizer eo) {
+        for (int i = 0; i < operands.size(); i++) {
+            Expression expr = eo.optimize(operands.get(i));
+            expr.optimize(eo);
+            operands.set(i, expr);
+        }
+    }
 }

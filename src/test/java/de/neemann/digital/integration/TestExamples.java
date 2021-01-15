@@ -23,13 +23,14 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.util.List;
 
+import static de.neemann.digital.draw.library.ResolveGenerics.GEN_ARGS_KEY;
+
 /**
  * Reads all examples and tries to create the model.
  * Makes sure that all examples are creatable (one can build the model)
  * Does not ensure that they work correctly if no tests are present in the circuit!
  */
 public class TestExamples extends TestCase {
-
     private int testCasesInFiles;
 
     /**
@@ -39,8 +40,8 @@ public class TestExamples extends TestCase {
      */
     public void testDistExamples() throws Exception {
         File examples = new File(Resources.getRoot().getParentFile().getParentFile(), "/main/dig");
-        assertEquals(303, new FileScanner(this::check).scan(examples));
-        assertEquals(492, testCasesInFiles);
+        assertEquals(315, new FileScanner(this::check).scan(examples));
+        assertEquals(500, testCasesInFiles);
     }
 
     /**
@@ -50,8 +51,8 @@ public class TestExamples extends TestCase {
      */
     public void testTestExamples() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test");
-        assertEquals(196, new FileScanner(this::check).scan(examples));
-        assertEquals(186, testCasesInFiles);
+        assertEquals(206, new FileScanner(this::check).scan(examples));
+        assertEquals(192, testCasesInFiles);
     }
 
     /**
@@ -123,13 +124,13 @@ public class TestExamples extends TestCase {
 
         VisualElement element = initCodeList.get(0);
 
-        Circuit concreteCircuit = new ResolveGenerics()
-                .resolveCircuit(element, circuit, library)
+        Circuit concreteCircuit = new ResolveGenerics(circuit, library)
+                .resolveCircuit(element.getElementAttributes())
                 .cleanupConcreteCircuit()
                 .getCircuit();
 
         for (VisualElement ve : concreteCircuit.getElements()) {
-            assertNull(ve.getGenericArgs());
+            assertNull(ve.getElementAttributes().getFromCache(GEN_ARGS_KEY));
             assertFalse(ve.equalsDescription(GenericInitCode.DESCRIPTION));
         }
 

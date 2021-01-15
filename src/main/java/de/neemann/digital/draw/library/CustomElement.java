@@ -39,14 +39,13 @@ public class CustomElement implements Element {
      * @param depth                   recursion depth, used to detect a circuit which contains itself
      * @param errorVisualElement      visual element used for error indicating
      * @param containingVisualElement the containing visual element
-     * @param library                 the library to use
      * @return the {@link ModelCreator}
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement, LibraryInterface library) throws PinException, NodeException, ElementNotFoundException {
-        return descriptionCustom.getModelCreator(subName, depth, errorVisualElement, containingVisualElement, library);
+    public ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
+        return descriptionCustom.getModelCreator(subName, depth, errorVisualElement, containingVisualElement);
     }
 
     @Override

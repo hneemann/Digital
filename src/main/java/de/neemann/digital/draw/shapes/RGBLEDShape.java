@@ -28,7 +28,6 @@ import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
  * The LED shape
  */
 public class RGBLEDShape implements Shape {
-    private static final int D = SIZE / 3;
     private final String label;
     private final PinDescriptions inputs;
     private final long max;
@@ -90,10 +89,10 @@ public class RGBLEDShape implements Shape {
         Vector rad = new Vector(size - 2, size - 2);
         Vector radL = new Vector(size, size);
 
-        graphic.drawLine(new Vector(0, -SIZE), new Vector(D, -SIZE + D), Style.NORMAL);
-        graphic.drawLine(new Vector(0, SIZE), new Vector(D, SIZE - D), Style.NORMAL);
-
         Vector center = new Vector(1 + size, 0);
+        graphic.drawLine(new Vector(0, -SIZE), center, Style.NORMAL);
+        graphic.drawLine(new Vector(0, SIZE), center, Style.NORMAL);
+
         graphic.drawCircle(center.sub(radL), center.add(radL), Style.FILLED);
         graphic.drawCircle(center.sub(rad), center.add(rad), Style.FILLED.deriveColor(color));
         Vector textPos = new Vector(2 * size + OUT_SIZE, 0);

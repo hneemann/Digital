@@ -290,7 +290,13 @@ public class VHDLCreator {
             out.print(value(constant));
         } else if (expression instanceof ExprNot) {
             out.print("NOT ");
-            printExpression(((ExprNot) expression).getExpression());
+            Expression inner = ((ExprNot) expression).getExpression();
+            if (inner instanceof ExprNot) { // Quartus does not like a NOT NOT
+                out.print("(");
+                printExpression(inner);
+                out.print(")");
+            } else
+                printExpression(inner);
         } else if (expression instanceof ExprOperate) {
             out.print("(");
             boolean first = true;

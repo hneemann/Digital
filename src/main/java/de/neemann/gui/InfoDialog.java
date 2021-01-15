@@ -69,9 +69,6 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
         sb.append(message.replace("\n\n", "<br/><br/>"));
         sb.append("<br/><br/>");
 
-        for (Map.Entry<Object, Object> e : System.getProperties().entrySet())
-            System.out.println(e.getKey() + "=" + e.getValue());
-
         append(sb, "OS", "os.name");
         append(sb, "OS version", "os.version");
         append(sb, "JRE", "java.version");

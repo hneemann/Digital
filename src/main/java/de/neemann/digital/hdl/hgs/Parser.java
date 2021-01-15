@@ -46,7 +46,7 @@ public class Parser {
 
     /**
      * Creates a statement from the jar file using ClassLoader.getSystemResourceAsStream(path).
-     * Throws only a RuntimeExcaption so use with care!
+     * Throws only a RuntimeException so use with care!
      *
      * @param path the path of the file to load
      * @return the statement

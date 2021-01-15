@@ -10,10 +10,7 @@ import de.neemann.gui.language.Bundle;
 import de.neemann.gui.language.Language;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-import org.jdom2.CDATA;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
+import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -21,12 +18,32 @@ import org.jdom2.output.XMLOutputter;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Checks the language files to make sure they are consistent.
  */
 public class TestLang extends TestCase {
     private static final String SOURCEPATH = "/home/hneemann/Dokumente/Java/digital/src/main/java";
+    private static final String COMMENT = " HowTo\n" +
+            "This is a list of all texts that have been added or changed.\n" +
+            "The editing should proceed as follows:\n" +
+            "Each text has a field \"type\". This has the following meaning:\n" +
+            "\"new\" means the text is new. In the respective translation there is only a \"-\". \n" +
+            "      This can be replaced by the correct translation.\n" +
+            "      If it seems better that the text should be used in the English original,\n" +
+            "      you can simply leave the \"-\", or remove the whole \"key\".\n" +
+            "      Please do not copy&paste the english text!!!\n" +
+            "\"modified\" means that the English text has been changed since the last revision of\n" +
+            "      the translation. In this case, the new English text and the old translated\n" +
+            "      text are shown. Now the old translation can be revised. If it turns out that\n" +
+            "      the old translation can be used unchanged, nothing needs to be modified.\n" +
+            "\n" +
+            "If you find an error in the English text, you can correct it. In this case you should\n" +
+            "put a \"typo\" in the \"type\" field (type=\"typo\"). This will give me a hint that\n" +
+            "will allow me to adjust the original English translation as well.\n\n" +
+            "When the editing is finished, the file can be sent to digital-simulator@web.de.";
 
     private HashMap<String, LangSet> map = new HashMap<>();
     private Bundle bundle;
@@ -146,9 +163,10 @@ public class TestLang extends TestCase {
 
         if (!modified.isEmpty()) {
             for (String k : modified)
-                dif.add(new Element("key").setAttribute("name", k).setAttribute("type", "modified")
-                        .addContent(addTextTo(new Element("en"), master.get(k)))
-                        .addContent(addTextTo(new Element(l.getName()), langResources.get(k))));
+                if (!missing.contains(k))
+                    dif.add(new Element("key").setAttribute("name", k).setAttribute("type", "modified")
+                            .addContent(addTextTo(new Element("en"), master.get(k)))
+                            .addContent(addTextTo(new Element(l.getName()), langResources.get(k))));
         }
 
         ArrayList<String> missingInRef = new ArrayList<>();
@@ -169,7 +187,11 @@ public class TestLang extends TestCase {
                 for (Element e : dif)
                     root.addContent(e);
                 Document doc = new Document(root);
-                new XMLOutputter(Format.getPrettyFormat()).output(doc, new FileOutputStream(filename));
+                doc.addContent(0, new Comment(COMMENT));
+                try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(filename + ".zip"))) {
+                    zipOut.putNextEntry(new ZipEntry(filename.getName()));
+                    new XMLOutputter(Format.getPrettyFormat()).output(doc, zipOut);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

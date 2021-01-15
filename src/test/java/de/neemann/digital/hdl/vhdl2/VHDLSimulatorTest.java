@@ -43,8 +43,8 @@ public class VHDLSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(58, tested);
-            assertEquals(52, testBenches);
+            assertEquals(67, tested);
+            assertEquals(57, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }
@@ -54,7 +54,7 @@ public class VHDLSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/hdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(48, tested);
+            assertEquals(51, tested);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }
@@ -179,7 +179,7 @@ public class VHDLSimulatorTest extends TestCase {
     }
 
     private String getTime() {
-        DateFormat f = new SimpleDateFormat("YY-MM-dd_HH-mm_ss");
+        DateFormat f = new SimpleDateFormat("yy-MM-dd_HH-mm_ss");
         return f.format(new Date());
     }
 

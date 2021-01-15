@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>isGeneric</string>
+      <boolean>true</boolean>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits:=4;</string>
+        </entry>
+        <entry>
+          <string>enabled</string>
+          <boolean>false</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-40" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits:=5;</string>
+        </entry>
+        <entry>
+          <string>enabled</string>
+          <boolean>false</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-180" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits:=16;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>in</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Bits=args.bits;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>2</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.&apos;Input Splitting&apos;=&quot;&quot;+args.bits;
+this.&apos;Output Splitting&apos;=&quot;1*&quot;+args.bits;</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>1,1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-60" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>this.Inputs=args.bits;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="20" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>if (args.bits&lt;2) {
+     panic(&quot;needs at least two bits!&quot;);
+}
+
+y:=args.bits/2;
+
+addWire(4,y,7,0);
+
+o:=0;
+for (i:=0;i&lt;args.bits;i++) {
+   if ((i=y) &amp; ((args.bits&amp;1)=0)) {
+     o=1;
+   }
+
+   addWire(-2,i,1,i+o);
+}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="-20"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="-80" y="0"/>
+      <p2 x="-60" y="0"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

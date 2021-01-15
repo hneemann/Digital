@@ -19,6 +19,7 @@ import de.neemann.digital.lang.Lang;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -35,6 +36,7 @@ public class Net {
     private final HashSet<String> labelSet;
     private File origin;
     private VisualElement visualElement; // only used to create better error messages
+    private HashMap<Pin, Net> pinMap;
 
     /**
      * Creates a copy of the given net
@@ -47,7 +49,7 @@ public class Net {
         this.visualElement = visualElement;
         wires = null;            // wires not needed
         pins = new ArrayList<>(toCopy.pins); // Pins are changed so create a deep copy
-        labelSet = new HashSet<>(toCopy.labelSet); //ToDo copy necessary?
+        labelSet = new HashSet<>(toCopy.labelSet); //necessary because of label net merging
         origin = toCopy.origin;
     }
 
@@ -109,6 +111,11 @@ public class Net {
         return points.contains(vector);
     }
 
+    void addPointsTo(HashMap<Vector, Net> set) {
+        for (Vector p : points)
+            set.put(p, this);
+    }
+
     /**
      * Add all wires of the given net to this net
      *
@@ -116,7 +123,8 @@ public class Net {
      */
     void addAllPointsFrom(Net changedNet) {
         points.addAll(changedNet.points);
-        wires.addAll(changedNet.wires);
+        if (wires != null && changedNet.wires != null)
+            wires.addAll(changedNet.wires);
         labelSet.addAll(changedNet.labelSet);
     }
 
@@ -130,21 +138,31 @@ public class Net {
     }
 
     /**
-     * Add all given pins to the net
+     * Add all given pins to the net.
+     * Used during custom component connection.
      *
-     * @param p the pins
+     * @param pins the pins
      */
-    public void addAll(Collection<Pin> p) {
-        pins.addAll(p);
+    public void addAll(Collection<Pin> pins) {
+        this.pins.addAll(pins);
+        if (pinMap != null)
+            for (Pin p : pins)
+                pinMap.put(p, this);
     }
 
     /**
-     * Add all given pins to the net
+     * Add all given pins to the net.
+     * Used during custom component connection.
      *
      * @param otherNet the other net
      */
     public void addNet(Net otherNet) {
-        pins.addAll(otherNet.getPins());
+        ArrayList<Pin> pins = otherNet.getPins();
+        this.pins.addAll(pins);
+        if (pinMap != null)
+            for (Pin p : pins)
+                pinMap.put(p, this);
+
         if (wires != null && otherNet.getWires() != null)
             wires.addAll(otherNet.getWires());
         labelSet.addAll(otherNet.labelSet);
@@ -231,12 +249,16 @@ public class Net {
     }
 
     /**
-     * Removes a pin from the net
+     * Removes a pin from the net.
+     * Used during custom component connection.
      *
      * @param p the pin to remove
      * @throws PinException is thrown if pin is not present
      */
     public void removePin(Pin p) throws PinException {
+        if (pinMap != null)
+            pinMap.remove(p);
+
         if (!pins.remove(p))
             throw new PinException(Lang.get("err_pinNotPresent"), this);
     }
@@ -300,5 +322,11 @@ public class Net {
      */
     public HashSet<String> getLabels() {
         return labelSet;
+    }
+
+    void addPinsTo(HashMap<Pin, Net> pinMap) {
+        this.pinMap = pinMap;
+        for (Pin p : pins)
+            pinMap.put(p, this);
     }
 }

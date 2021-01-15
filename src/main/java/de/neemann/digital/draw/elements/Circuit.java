@@ -311,6 +311,21 @@ public class Circuit implements Copyable<Circuit> {
     }
 
     /**
+     * Adds a a list of wires
+     *
+     * @param newWires the wires to add
+     * @return this for chained calls
+     */
+    public Circuit add(ArrayList<Wire> newWires) {
+        wires.addAll(newWires);
+        WireConsistencyChecker checker = new WireConsistencyChecker(wires);
+        wires = checker.check();
+
+        dotsPresent = false;
+        return this;
+    }
+
+    /**
      * Called if elements are moved
      */
     public void elementsMoved() {

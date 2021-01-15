@@ -214,6 +214,17 @@ direction := &quot;arith&quot;;</string>
       </elementAttributes>
       <pos x="540" y="0"/>
     </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>A BarrelShifter implemented using recursion.
+{{de Ein rekursiv implementierter BarrelShifter.}}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="-100"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

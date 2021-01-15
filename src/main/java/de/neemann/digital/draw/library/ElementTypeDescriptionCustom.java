@@ -6,10 +6,7 @@
 package de.neemann.digital.draw.library;
 
 import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementFactory;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -35,9 +32,9 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
     private final File file;
     private final Circuit circuit;
     private final ResolveGenerics resolveGenerics;
+    private final LibraryInterface library;
     private String description;
     private NetList netList;
-    private boolean isCustom = true;
     private String declarationDefault;
 
     /**
@@ -47,11 +44,12 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
      * @param circuit the circuit
      * @throws PinException PinException
      */
-    ElementTypeDescriptionCustom(File file, Circuit circuit) throws PinException {
+    ElementTypeDescriptionCustom(File file, Circuit circuit, ElementLibrary library) throws PinException {
         super(file.getName(), (ElementFactory) null, circuit.getInputNames());
         this.file = file;
         this.circuit = circuit;
-        resolveGenerics = new ResolveGenerics();
+        this.library = library;
+        resolveGenerics = new ResolveGenerics(circuit, library);
         setShortName(file.getName());
         addAttribute(Keys.ROTATE);
         addAttribute(Keys.LABEL);
@@ -108,13 +106,12 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
      * @param subName                 name of the circuit, used to name unique elements
      * @param depth                   recursion depth, used to detect a circuit which contains itself
      * @param containingVisualElement the containing visual element
-     * @param library                 the library used
      * @return the {@link ModelCreator}
      * @throws PinException             PinException
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement, LibraryInterface library) throws PinException, NodeException, ElementNotFoundException {
+    ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
         if (netList == null)
             netList = new NetList(circuit);
 
@@ -122,27 +119,11 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
             throw new NodeException(Lang.get("err_recursiveNestingAt_N0", circuit.getOrigin()));
 
         if (isGeneric()) {
-            Circuit c = resolveGenerics.resolveCircuit(containingVisualElement, circuit, library).getCircuit();
+            Circuit c = resolveGenerics.resolveCircuit(containingVisualElement.getElementAttributes()).getCircuit();
 
-            return new ModelCreator(c, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
+            return new ModelCreator(c, library, true, new NetList(new NetList(c), errorVisualElement), subName, depth, errorVisualElement);
         } else
             return new ModelCreator(circuit, library, true, new NetList(netList, errorVisualElement), subName, depth, errorVisualElement);
-    }
-
-    @Override
-    public boolean isCustom() {
-        return isCustom;
-    }
-
-    /**
-     * Used by element substitution to allow to mark custom circuits which replace a built-in
-     * component to be not custom.
-     *
-     * @return this for chained calls
-     */
-    public ElementTypeDescriptionCustom isSubstitutedBuiltIn() {
-        isCustom = false;
-        return this;
     }
 
     /**
@@ -200,5 +181,31 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
      */
     public boolean isGeneric() {
         return circuit.getAttributes().get(Keys.IS_GENERIC);
+    }
+
+    @Override
+    public PinDescriptions getInputDescription(ElementAttributes elementAttributes) throws NodeException {
+        if (isGeneric()) {
+            try {
+                Circuit c = resolveGenerics.resolveCircuit(elementAttributes).getCircuit();
+                return new PinDescriptions(c.getInputNames());
+            } catch (Exception e) {
+                return super.getInputDescription(elementAttributes);
+            }
+        } else
+            return super.getInputDescription(elementAttributes);
+    }
+
+    @Override
+    public PinDescriptions getOutputDescriptions(ElementAttributes elementAttributes) throws PinException {
+        if (isGeneric()) {
+            try {
+                Circuit c = resolveGenerics.resolveCircuit(elementAttributes).getCircuit();
+                return new PinDescriptions(c.getOutputNames());
+            } catch (Exception e) {
+                return super.getOutputDescriptions(elementAttributes);
+            }
+        } else
+            return super.getOutputDescriptions(elementAttributes);
     }
 }

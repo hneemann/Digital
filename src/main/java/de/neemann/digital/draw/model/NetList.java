@@ -11,6 +11,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -20,6 +21,8 @@ import java.util.Iterator;
 public class NetList implements Iterable<Net> {
 
     private final ArrayList<Net> netList;
+    private HashMap<Vector, Net> posMap;
+    private HashMap<Pin, Net> pinMap;
 
     /**
      * Creates a net list from the given circuit
@@ -45,9 +48,13 @@ public class NetList implements Iterable<Net> {
                     allPinPositions.add(v);
             }
 
+        HashMap<Vector, Net> allNetPositions = getAllNetPositions();
         for (Vector v : directConnection)
-            if (getNetOfPos(v) == null)
-                netList.add(new Net(v));
+            if (!allNetPositions.containsKey(v)) {
+                Net net = new Net(v);
+                netList.add(net);
+                allNetPositions.put(v, net);
+            }
 
 
         boolean hasLabel = false;
@@ -55,12 +62,7 @@ public class NetList implements Iterable<Net> {
             if (ve.equalsDescription(Tunnel.DESCRIPTION)) {
                 String label = ve.getElementAttributes().get(Keys.NETNAME).trim();
                 if (!label.isEmpty()) {
-                    Vector pos = ve.getPos();
-                    Net found = null;
-                    for (Net n : netList)
-                        if (n.contains(pos))
-                            found = n;
-
+                    Net found = allNetPositions.get(ve.getPos());
                     if (found == null) {
                         final PinException e = new PinException(Lang.get("err_labelNotConnectedToNet_N", label), ve);
                         e.setOrigin(circuit.getOrigin());
@@ -79,23 +81,43 @@ public class NetList implements Iterable<Net> {
             n.setOrigin(circuit.getOrigin());
     }
 
-    //modification of loop variable j is intended!
-    //CHECKSTYLE.OFF: ModifiedControlVariable
     private void mergeLabels() {
-        boolean wasMerge;
-        do {
-            wasMerge = false;
-            for (int i = 0; i < netList.size() - 1; i++)
-                for (int j = i + 1; j < netList.size(); j++)
-                    if (netList.get(i).matchesLabel(netList.get(j))) {
-                        netList.get(i).addAllPointsFrom(netList.get(j));
-                        netList.remove(j);
-                        j--;
-                        wasMerge = true;
+        ArrayList<Net> oldNetList = new ArrayList<>(netList);
+        netList.clear();
+
+        HashMap<String, Net> map = new HashMap<>();
+        for (Net n : oldNetList) {
+            HashSet<String> labels = n.getLabels();
+            switch (labels.size()) {
+                case 0:
+                    netList.add(n);
+                    break;
+                case 1:
+                    String label = labels.iterator().next();
+                    Net net = map.get(label);
+                    if (net == null) {
+                        netList.add(n);
+                        map.put(label, n);
+                    } else {
+                        net.addAllPointsFrom(n);
+                        for (String l : n.getLabels())
+                            map.put(l, net);
                     }
-        } while (wasMerge);
+                    break;
+                default:
+                    for (String la : new ArrayList<>(labels)) {
+                        net = map.get(la);
+                        if (net != null) {
+                            n.addAllPointsFrom(net);
+                            netList.remove(net);
+                        }
+                    }
+                    netList.add(n);
+                    for (String l : n.getLabels())
+                        map.put(l, n);
+            }
+        }
     }
-    //CHECKSTYLE.ON: ModifiedControlVariable
 
     /**
      * Creates a copy of the given net list
@@ -110,25 +132,30 @@ public class NetList implements Iterable<Net> {
     }
 
     /**
-     * Adds a complete net list to this net list
+     * Adds a complete net list to this net list.
+     * Used during custom component connection.
      *
      * @param netList the net list to add
      */
     public void add(NetList netList) {
         this.netList.addAll(netList.netList);
+        if (pinMap != null)
+            pinMap.putAll(netList.pinMap);
     }
 
     /**
-     * Adds a pin to this net list
+     * Adds a pin to this net list.
+     * Used only during model creation.
      *
      * @param pin the pin to add
      */
     public void add(Pin pin) {
-        for (Net net : netList)
-            if (net.contains(pin.getPos())) {
-                net.add(pin);
-                return;
-            }
+        if (posMap == null)
+            posMap = getAllNetPositions();
+
+        Net net = posMap.get(pin.getPos());
+        if (net != null)
+            net.add(pin);
     }
 
     private void add(Wire w) {
@@ -167,20 +194,24 @@ public class NetList implements Iterable<Net> {
     }
 
     /**
-     * Returns the net of the given pin
+     * Returns the net of the given pin.
+     * Used during custom component connection.
      *
      * @param p the pin
      * @return the net or null if not found
      */
     public Net getNetOfPin(Pin p) {
-        for (Net n : netList)
-            if (n.containsPin(p))
-                return n;
-        return null;
+        if (pinMap == null) {
+            pinMap = new HashMap<>();
+            for (Net n : netList)
+                n.addPinsTo(pinMap);
+        }
+        return pinMap.get(p);
     }
 
     /**
-     * Returns the net of the given position
+     * Returns the net of the given position.
+     * Not used during model formation
      *
      * @param pos the position
      * @return the net
@@ -192,12 +223,23 @@ public class NetList implements Iterable<Net> {
         return null;
     }
 
+    private HashMap<Vector, Net> getAllNetPositions() {
+        HashMap<Vector, Net> map = new HashMap<>();
+        for (Net n : netList)
+            n.addPointsTo(map);
+        return map;
+    }
+
     /**
-     * Removes a net from this net list
+     * Removes a net from this net list.
+     * Used during custom component connection.
      *
      * @param childNet the net to remove
      */
     public void remove(Net childNet) {
         netList.remove(childNet);
+        for (Pin p : childNet.getPins())
+            if (pinMap.get(p) == childNet)
+                pinMap.remove(p);
     }
 }

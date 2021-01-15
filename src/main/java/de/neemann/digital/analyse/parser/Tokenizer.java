@@ -17,9 +17,9 @@ public class Tokenizer {
     enum Token {UNKNOWN, IDENT, AND, OR, NOT, XOR, OPEN, CLOSE, ONE, ZERO, EOF, COMMA, EQUAL, NOTEQUAL, POSTNOT}
 
     private final Reader in;
+    private final StringBuilder builder;
     private Token token;
     private boolean isToken;
-    private StringBuilder builder;
     private boolean isUnreadChar = false;
     private int unreadChar;
 
@@ -174,7 +174,7 @@ public class Tokenizer {
     private boolean isIdentChar(int c) {
         return (c >= 'a' && c <= 'z')
                 || (c >= 'A' && c <= 'Z')
-                || (c == '_');
+                || (c == '_') || (c == '\\');
     }
 
     private boolean isNumberChar(int c) {

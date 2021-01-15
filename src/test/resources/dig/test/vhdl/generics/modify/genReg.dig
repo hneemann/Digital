@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes>
+    <entry>
+      <string>isGeneric</string>
+      <boolean>true</boolean>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Bits=args.bits;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>splitterSpreading</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>2</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>1*2</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.&apos;Input Splitting&apos;=&quot;&quot;+args.bits;
+this.&apos;Output Splitting&apos;=&quot;1*&quot;+args.bits;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericInitCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>bits:=3;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="40" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>splitterSpreading</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1*2</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>2</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.&apos;Output Splitting&apos;=&quot;&quot;+args.bits;
+this.&apos;Input Splitting&apos;=&quot;1*&quot;+args.bits;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q</string>
+        </entry>
+        <entry>
+          <string>generic</string>
+          <string>this.Bits=args.bits;</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>en</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="-40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="-80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>GenericCode</elementName>
+      <elementAttributes>
+        <entry>
+          <string>generic</string>
+          <string>for (i:=0;i&lt;args.bits;i++) {
+    y:=i*4;
+    addComponent(&quot;Register&quot;,0,y);
+    addWire(0,y,-3,y);
+    addWire(0,y+1,-1,y+1);
+    addWire(0,y+2,-2,y+2);
+    addWire(3,y+1,5,y+1);
+}
+addWire(-1,-4,-1,args.bits*4-3);
+addWire(-2,-2,-2,args.bits*4-2);</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="-120"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="-120" y="0"/>
+      <p2 x="-80" y="0"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="20"/>
+      <p2 x="160" y="20"/>
+    </wire>
+    <wire>
+      <p1 x="-120" y="-40"/>
+      <p2 x="-40" y="-40"/>
+    </wire>
+    <wire>
+      <p1 x="-120" y="-80"/>
+      <p2 x="-20" y="-80"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

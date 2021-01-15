@@ -5,21 +5,20 @@
  */
 package de.neemann.digital.analyse;
 
-import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.ElementTypeDescription;
-import de.neemann.digital.core.element.Key;
-import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,6 +69,11 @@ public class SubstituteLibrary implements LibraryInterface {
             }
         }
         return parent.getElementType(elementName, attr);
+    }
+
+    @Override
+    public ShapeFactory getShapeFactory() {
+        return parent.getShapeFactory();
     }
 
     private interface SubstituteInterface {
@@ -144,7 +148,7 @@ public class SubstituteLibrary implements LibraryInterface {
             c.getAttributes().set(Keys.IS_GENERIC, false);
             generify(attr, c);
 
-            return ElementLibrary.createCustomDescription(new File(filename), c, library).isSubstitutedBuiltIn();
+            return ElementLibrary.createCustomDescription(new File(filename), c, library);
         }
 
         private void generify(ElementAttributes attr, Circuit circuit) throws IOException {
@@ -223,6 +227,11 @@ public class SubstituteLibrary implements LibraryInterface {
                 long l = (Long) val;
                 if (l <= Integer.MAX_VALUE && l >= Integer.MIN_VALUE)
                     return (int) l;
+            } else if (expectedClass == Color.class && val instanceof Number) {
+                return new Color(((Number) val).intValue());
+            } else if (expectedClass == Rotation.class && val instanceof Number) {
+                int r = ((Number) val).intValue();
+                return new Rotation(r % 4);
             }
 
             return val;

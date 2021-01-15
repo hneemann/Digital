@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.26
+- Performance improvement of the simulation start.
 - Improved the gui to modify the k-map layout.
 - Improved the layout of fsm transitions in the fsm editor.
 - Added French translation. Special thanks to Nicolas Maltais who
@@ -10,12 +11,14 @@ HEAD, planned as v0.26
   is undefined.
 - Improved debugging: It is possible to set the circuit to the
   state of a certain test result, by simply clicking on it.
+- Generic circuits are easier to debug: It is possible now to create
+  a specific, concrete circuit from a generic one.
+- In generic circuits it is now possible to add components and
+  wires to the circuit.
 - It is now possible to use a probe as output in a test case.
 - Adds undo to text fields
 - Fixed a bug in the Demuxer Verilog template that causes problems
   when using multiple demuxers in the same circuit.
-- Generic circuits are easier to debug: It is possible now to create
-  a specific, concrete circuit from a generic one.
 - Fixed a bug in the value editor, which occurs, if high-z is the
   default value of an input.
 - Fixed an issue which avoids to restart a running simulation by just

@@ -6,8 +6,8 @@
 package de.neemann.digital.hdl.verilog2;
 
 import de.neemann.digital.hdl.model2.HDLModel;
-import java.util.Arrays;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -38,17 +38,16 @@ public class VerilogRenaming implements HDLModel.Renaming {
         if (isKeyword(name) || !isFirstCharValid(name))
             // Escaped identifier, the space is part of the identifier.
             return "\\" + name + " ";
-        else {
+        else
             return cleanName(name);
-        }
     }
 
     private boolean isFirstCharValid(String name) {
         char c = name.charAt(0);
 
         return ((c >= 'a' && c <= 'z')
-                 || (c >= 'A' && c <= 'Z')
-                 || (c == '_'));
+                || (c >= 'A' && c <= 'Z')
+                || (c == '_'));
     }
 
     private boolean isKeyword(String str) {
@@ -62,12 +61,14 @@ public class VerilogRenaming implements HDLModel.Renaming {
         for (int i = 0; i < name.length(); i++) {
             char c = name.charAt(i);
             if ((c >= 'a' && c <= 'z')
-                || (c >= 'A' && c <= 'Z')
-                || (c >= '0' && c <= '9')
-                || (c == '_') || (c == '$'))
+                    || (c >= 'A' && c <= 'Z')
+                    || (c >= '0' && c <= '9')
+                    || (c == '_') || (c == '$'))
                 sb.append(c);
             else {
                 switch (c) {
+                    case '\\':
+                        break;
                     case '/':
                     case '!':
                     case '~':
