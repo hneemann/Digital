@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -62,7 +62,7 @@ public class LanguageUpdater {
             final String transText = e.getChild(langName).getText().trim();
             if (!transText.isEmpty() && !transText.equals("-")) {
                 String enText = e.getChild("en").getText();
-                if (enText.trim().equals(transText)) {
+                if (isCopyAndPaste(enText.trim(), transText)) {
                     System.out.println("ignored copy&paste at: " + key);
                 } else {
                     if (type.equals("new")) {
@@ -88,13 +88,29 @@ public class LanguageUpdater {
         }
     }
 
+    private boolean isCopyAndPaste(String a, String b) {
+        return a.equals(b) && a.indexOf(' ') > 0;
+    }
+
     private void cleanup(Document lang, Document ref) {
-        HashSet<String> langKeys = new HashSet<>();
+        HashMap<String, String> langKeys = new HashMap<>();
         for (Element e : lang.getRootElement().getChildren()) {
             String key = e.getAttributeValue("name");
-            langKeys.add(key);
+            langKeys.put(key, e.getText().trim());
         }
-        ref.getRootElement().getChildren().removeIf(e -> !langKeys.contains(e.getAttributeValue("name")));
+        ref.getRootElement().getChildren().removeIf(e -> {
+            String key = e.getAttributeValue("name");
+            if (!langKeys.containsKey(key)) {
+                System.out.println("removed non translated ref key: " + key);
+                return true;
+            }
+            String transText = e.getText().trim();
+            if (isCopyAndPaste(transText, langKeys.get(key))) {
+                System.out.println("removed copy&pasted key '" + key + "' which is '" + transText + "'");
+                return true;
+            }
+            return false;
+        });
     }
 
     private Element loadDif(File sourceFilename) throws JDOMException, IOException {
