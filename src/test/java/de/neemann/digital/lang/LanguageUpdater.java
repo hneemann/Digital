@@ -7,7 +7,6 @@ package de.neemann.digital.lang;
 
 import de.neemann.digital.integration.Resources;
 import org.jdom2.*;
-import org.jdom2.filter.Filter;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -120,7 +118,7 @@ public class LanguageUpdater {
     }
 
     private void add(Document xml, String key, String text) throws IOException {
-        for (Element e : (List<Element>) xml.getRootElement().getChildren()) {
+        for (Element e : xml.getRootElement().getChildren()) {
             String k = e.getAttributeValue("name");
             if (k.equals(key)) {
                 throw new IOException("key " + key + " is already present in " + xml);
@@ -132,7 +130,7 @@ public class LanguageUpdater {
     }
 
     private boolean replace(Document xml, String key, String text) throws IOException {
-        for (Element e : (List<Element>) xml.getRootElement().getChildren()) {
+        for (Element e : xml.getRootElement().getChildren()) {
             String k = e.getAttributeValue("name");
             if (k.equals(key)) {
                 if (e.getText().trim().equals(text.trim())) {
@@ -147,16 +145,16 @@ public class LanguageUpdater {
     }
 
     private void update() throws IOException {
-//        if (modified > 0) {
-        Format format = Format.getPrettyFormat()
-                .setIndent("    ")
-                .setTextMode(Format.TextMode.PRESERVE);
-        new XMLOutputter(format).output(ref, new FileOutputStream(refFileName));
-        new XMLOutputter(format).output(lang, new FileOutputStream(langFileName));
-        System.out.println(modified + " keys updated!");
-//        } else {
-//            System.out.println("no modification found!");
-//        }
+        if (modified > 0) {
+            Format format = Format.getPrettyFormat()
+                    .setIndent("    ")
+                    .setTextMode(Format.TextMode.PRESERVE);
+            new XMLOutputter(format).output(ref, new FileOutputStream(refFileName));
+            new XMLOutputter(format).output(lang, new FileOutputStream(langFileName));
+            System.out.println(modified + " keys updated!");
+        } else {
+            System.out.println("no modification found!");
+        }
     }
 
     public static void main(String[] args) throws JDOMException, IOException {
