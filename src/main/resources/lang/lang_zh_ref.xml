@@ -973,7 +973,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
     <string name="message"><![CDATA[<h1>Digital</h1>
         <p>A simple simulator for digital circuits.</p>
-        <p>Written by H. Neemann in 2016-2020.</p>
+        <p>Written by H. Neemann in 2016-2021.</p>
         <p>The icons are taken from the <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
         <p>Visit the project at <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
         At Github you can also <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>

@@ -2038,7 +2038,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_errorOpeningDocumentation">Erreur lors de l'ouverture du fichier PDF!</string>
     <string name="message"><![CDATA[<h1>Digital</h1>
         <p>Un simulateur simple pour les circuits numériques.</p>
-        <p>Écrit par H. Neemann de 2016-2020.</p>
+        <p>Écrit par H. Neemann de 2016-2021.</p>
         <p>Les icônes ont été prises du <a href="http://tango.freedesktop.org">projet Tango Desktop</a>.</p>
         <p>Visiter le projet sur <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
         Sur GitHub vous pouvez aussi <a href="https://github.com/hneemann/[[name]]/releases/latest">télécharger</a>

@@ -825,7 +825,7 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_errorOpeningDocumentation">打开 PDF 文件时遇到错误！</string>
   <string name="message"><![CDATA[<h1>Digital</h1>
       <p>一个简单的数字电路仿真器</p>
-      <p>作者： H. Neemann  2016-2020</p>
+      <p>作者： H. Neemann  2016-2021</p>
       <p>所用图标来自 <a href="http://tango.freedesktop.org">Tango Desktop Project</a></p>
       <p>在 <a href="https://github.com/hneemann/[[name]]">GitHub</a> 查看该项目，并<a href="https://github.com/hneemann/[[name]]/releases/latest">下载</a>最新的发行版</p>
       <p>可以在这里提交<a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">问题</a>或<a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">建议</a></p>]]></string>
