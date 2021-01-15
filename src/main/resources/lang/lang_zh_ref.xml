@@ -179,7 +179,9 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_LightBulb_pin_B">Connection</string>
   <string name="elem_PolarityAwareLED">LED with two connections.</string>
   <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up,
-        if the anode is connected to high and the cathode is connected to low.</string>
+        if the anode is connected to high and the cathode is connected to low.
+        This LED cannot be used as a pull-down resistor. It acts solely as a display element.
+        The shown resistor is only meant to symbolize the required series resistor to limit the current.</string>
   <string name="elem_PolarityAwareLED_pin_A">The anode connection of the LED.</string>
   <string name="elem_PolarityAwareLED_pin_C">The cathode connection of the LED.</string>
   <string name="elem_Seven-Seg">Seven-Segment Display</string>
@@ -299,7 +301,6 @@ In the file howTo.md you can find more details about translations.
         memory modules in a DIL package, as the implementation of the data bus is simplified.</string>
   <string name="elem_BusSplitter_pin_OE">When set, the value at the common data terminal D is output to the bit
         outputs D[i], if not, the bits D[i] are output to the common output D.</string>
-  <string name="elem_BusSplitter_pin_D">The common data connection.</string>
   <string name="elem_BusSplitter_pin_D_N">The data bit {0} of the bus splitter.</string>
   <string name="elem_PullUp">Pull-Up Resistor</string>
   <string name="elem_PullUp_pin_out">A "weak high".</string>
@@ -1220,7 +1221,6 @@ In the file howTo.md you can find more details about translations.
     <string name="err_pinMap_Pin_N_AssignedTwicePin">Pin {0} assigned twice!</string>
     <string name="err_pinMap_pin_N0_isNotAnInput">Pin {0} is not an input!</string>
     <string name="err_pinMap_pin_N0_isNotAnOutput">Pin {0} is not an output!</string>
-    <string name="err_pinMap_noEqualsfound">No = found!</string>
     <string name="err_pinMap_toMannyInputsDefined">Too many inputs used!</string>
     <string name="err_pinMap_toMannyOutputsDefined">Too many outputs used!</string>
     <string name="err_pinNotPresent">Pin not present</string>
@@ -1232,7 +1232,6 @@ In the file howTo.md you can find more details about translations.
     <string name="err_pin_N_notFound">Pin {0} not found</string>
     <string name="err_customShapeHasNoPin_N">The custom shape does not define a pin {0}</string>
     <string name="err_pin_N_unknown">Pin {0} unknown</string>
-    
     <string name="err_portIsInUse">The remote port is in use! Is there an other instance running?</string>
     <string name="err_selectorInputCountMismatch">Number of inputs does not match selector bit count</string>
     <string name="err_spitterDefSyntaxError">Syntax error in splitter definition {0}</string>
@@ -1252,8 +1251,6 @@ In the file howTo.md you can find more details about translations.
     <string name="err_parserUnexpectedToken_N">Unexpected Token {0}</string>
     <string name="err_parserMissingClosedParenthesis">Missing closed parenthesis</string>
     <string name="err_notANumber_N0_inLine_N1">Value {0} in line {1} is not a number!</string>
-    
-    
     <string name="err_variable_N0_notFound">Variable {0} not found!</string>
     <string name="err_noTestInputSignalsDefined">No input signals defined in test vector!</string>
     <string name="err_noTestOutputSignalsDefined">No output signals defined in test vector!</string>
@@ -1347,10 +1344,7 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_RAMDualAccess_pin_str">If this input is high and when the clock becomes high, the data is
         stored.
     </string>
-  
-  
   <string name="elem_Counter">Counter</string>
-  
   <string name="elem_CounterPreset">Counter with preset</string>
   <string name="key_Closed">Closed</string>
   <string name="key_Closed_tt">Sets the initial state of the switch.</string>
@@ -1370,9 +1364,6 @@ In the file howTo.md you can find more details about translations.
   <string name="key_SVG_pinsInMathMode_tt">For pin labels, use math mode even if no indexes are contained.</string>
   <string name="key_SVG_smallIO">Small Inputs and Outputs</string>
   <string name="key_equalsInsteadOfPlus">Use Equals-Key</string>
-  
-  
-  
   <string name="menu_table_createCUPL_tt">Creates a CUPL source file containing the define circuit.</string>
   <string name="menu_table_createTT2_tt">Creates a file containing the circuit similar to the Berkeley Logic Interchange Format (BLIF).
         After that the Atmel fitter is started to create the JEDEC file.</string>
@@ -1392,7 +1383,6 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_renameNet_N_OLD_NEW">There are {0} more tunnels with the net name ''{1}''.
         Do you want to rename all {0} to ''{2}''?</string>
   <string name="msg_dataWillBeLost_n">Do you really want to discard the changes in the "{0}" field?</string>
-  <string name="stat_clocks">Break after {0} half cycles at break point ''{1}''.</string>
   <string name="win_measures_fullstep">Measurements full clock step</string>
   <string name="win_measures_microstep">Measurements single gate step</string>
     <string name="win_romDialog">Included ROMs</string>
@@ -1416,8 +1406,6 @@ In the file howTo.md you can find more details about translations.
   <string name="err_fsmState_N_notFound">State ''{0}'' not found!</string>
     <string name="err_fsmInvalidOutputAssignment_N">Wrong assignment to output (''{0}'')!</string>
   <string name="err_fsmErrorInCondition_N">Error in condition ''{0}''!</string>
-  
-  
   <string name="elem_GraphicCard">Graphic RAM</string>
   <string name="elem_GraphicCard_short">Gr-RAM</string>
   <string name="elem_GraphicCard_tt">Used to show a bitmap graphic. This element behaves like a RAM. In addition it
@@ -1543,7 +1531,6 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_BitExtender_pin_out">Extended input value.
         The input bit width must be smaller than the output bit width!</string>
   <string name="elem_BitCount">Bit counter</string>
-  <string name="elem_BitCount_short">Bit count</string>
   <string name="elem_BitCount_tt">Returns the number of 1-bits in the input value.</string>
   <string name="elem_BitCount_pin_in">The input which 1-bits are counted.</string>
   <string name="elem_BitCount_pin_out">Outputs the number of 1-bits.</string>
@@ -1733,7 +1720,6 @@ In the file howTo.md you can find more details about translations.
   <string name="err_postProcessErrorIn_N0">Error during execution of "{0}".</string>
   <string name="err_processDoesNotTerminate_N">The process "{0}" does not return!</string>
   <string name="err_processExitedWithError_N1_N2">The process returns the non zero value {0}: {1}</string>
-  <string name="err_errorRunningFitter">Error starting the external fitter!</string>
   <string name="err_noExpressionsAvailable">There are no minimized equations!</string>
     <string name="msg_optimizationInProgress">Equations are being calculated! Please wait a moment!</string>
   <string name="err_varName_N_UsedTwice">The variable {0} is used twice!</string>
@@ -1764,9 +1750,6 @@ In the file howTo.md you can find more details about translations.
   <string name="err_unnamedNet">unnamed net</string>
     <string name="err_toManyVars">Too many variables!</string>
   <string name="err_invalidExpression">Invalid expression!</string>
-  
-  
-  
   <string name="err_Node_N_isAComponent">The name {0} is not a path element.</string>
   <string name="err_loadingLibrary">Error during loading of a library.</string>
   <string name="err_noManifestFound">The JAR file contains no manifest!</string>
@@ -1828,22 +1811,16 @@ In the file howTo.md you can find more details about translations.
     <string name="err_clocksNotAllowedInAsyncMode">Clock elements can not be used in asynchronous mode.</string>
     <string name="err_verilogExporting">Error during export to Verilog.</string>
     <string name="err_noRomFound">No program memory found! The program memory needs to be flagged as such.</string>
-    <string name="err_errorLoadingRomData">Error loading the program memory.</string>
     <string name="err_parsingSVG">Error while reading the SVG file.</string>
     <string name="err_morePinsDefinedInSVGAsNeeded">The SVG file contains pins that do not exist in the circuit.
     </string>
-    
-    
     <string name="err_midiSystemNotAvailable">The MIDI-System is not available.</string>
     <string name="err_midiChannel_N_NotAvailable">The MIDI channel {0} is not available.</string>
     <string name="err_midiInstrument_N_NotAvailable">The MIDI instrument {0} is not available.</string>
     <string name="err_midiInstrumentsNotAvailable">The MIDI instruments are not available.</string>
     <string name="err_whileExecutingTests_N0">During the execution of the tests "{0}" an error has occurred!</string>
-    <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
     <string name="err_thereIsAUnnamedIO">There is a unnamed input or output!</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">The signal name "{0}" is invalid or used multiple times!</string>
-    
-    
     <string name="elem_StepperMotorUnipolar_pin_com">Common center coil connection</string>
     <string name="elem_Stop">Stop</string>
     <string name="elem_Stop_tt">A rising edge at the input stops the simulation.
@@ -1890,7 +1867,6 @@ In the file howTo.md you can find more details about translations.
     </string>
     <string name="cli_help_test_circ">Name of the file to be tested.</string>
     <string name="cli_help_test_tests">Name of a file with test cases.</string>
-    
     <string name="cli_thereAreTestFailures">Tests have failed.</string>
     <string name="cli_errorExecutingTests">An error has occurred during the execution of the tests.</string>
     <string name="cli_help_svg">Can be used to create an SVG file from a circuit.</string>
@@ -1907,4 +1883,81 @@ In the file howTo.md you can find more details about translations.
     </string>
     <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
     <string name="menu_table_exportTablePlainText">Export Plain Text</string>
+    <string name="elem_ScopeTrigger">Triggered Data Graph</string>
+    <string name="elem_ScopeTrigger_short">Scope</string>
+    <string name="elem_ScopeTrigger_tt">Shows a graph of measured values, whereby measured values are only stored if
+        the input signal changes. Storing takes place when the circuit has stabilized.
+        The trigger does not start the measurement like in a real scope, but each trigger event stores a single
+        measurement value for each of the shown signals.
+        As direct input there is only the trigger. The inputs and outputs of the circuit, flip-flops and registers and the
+        probe component can be used as signals. This can be activated in the respective components.</string>
+    <string name="elem_ScopeTrigger_pin_T">A change at this input causes measured values to be stored.</string>
+    <string name="elem_NotConnected">Not Connected</string>
+    <string name="elem_NotConnected_tt">This component can be used to set a wire to High-Z.
+        If an input of a logical gate is set to high-Z, the read value is undefined.
+        Note that in reality in many cases excessive current consumption and even damage can
+        occur if a digital input is not set to high or low but remains unconnected.</string>
+    <string name="elem_NotConnected_pin_out">This output always outputs High-Z.</string>
+    <string name="err_notConnectedNotAllowed">The NotConnected symbol is not allowed here!</string>
+    <string name="elem_ROMDualPort">ROM dual port</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_ROMDualPort_tt">A non-volatile memory component.
+        The stored data can be edited in the attributes dialog.</string>
+    <string name="elem_ROMDualPort_pin_A1">This pin defines the address of data word to be output on D1.</string>
+    <string name="elem_ROMDualPort_pin_D1">The selected data word if the s1 input is high.</string>
+    <string name="elem_ROMDualPort_pin_s1">If the input is high, the output D1 is activated. If it is low, the data output is in high Z state.</string>
+    <string name="elem_ROMDualPort_pin_A2">This pin defines the address of data word to be output on D2.</string>
+    <string name="elem_ROMDualPort_pin_D2">The selected data word if the s2 input is high.</string>
+    <string name="elem_ROMDualPort_pin_s2">If the input is high, the output D2 is activated. If it is low, the data output is in high Z state.</string>
+    <string name="elem_PRNG">Random Number Generator</string>
+    <string name="elem_PRNG_tt">Can be used to generate random numbers.
+        When the simulation is started, the generator is reinitialized so that a new pseudo-random number
+        sequence is generated at each start.
+        The generator can be initialized in the running simulation with a defined seed value to generate
+        a defined pseudo-random number sequence.</string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_PRNG_pin_S">New seed value of the generator.</string>
+    <string name="elem_PRNG_pin_se">If set, the random number generator is reinitialized with the new seed value at the next rising clock edge.</string>
+    <string name="elem_PRNG_pin_ne">If set, a new random number is output at the next rising clock edge.</string>
+    <string name="elem_PRNG_pin_C">The clock input.</string>
+    <string name="elem_PRNG_pin_R">Output of the pseudorandom number.</string>
+    <string name="elem_GenericInitCode">Generic Initialization</string>
+    <string name="elem_GenericInitCode_tt">Code that is executed to start a generic circuit directly.
+        If a generic circuit is to be started directly, such a component must be present.</string>
+    <string name="elem_GenericCode">Code</string>
+    <string name="elem_GenericCode_tt">Code that is executed when a generic circuit is made concrete.
+        Can be used, for example, to add components or wires to a circuit.</string>
+    <string name="err_hdlTestCaseHasGenericCode">Test cases with generic parameterization are not supported in HDL
+        export!</string>
+    <string name="err_multipleRomsFound">Multiple program memories found! Only one program memory is allowed.</string>
+    <string name="err_noMemoryFound">No memory "{0}" found in the model!</string>
+    <string name="err_multipleMemoriesFound">Multiple memories "{0}" found in the model!</string>
+    <string name="err_noGenericInitCode">No initialization code for the generic components.
+        A respective component must be added to the circuit in order to start it.</string>
+    <string name="err_multipleGenericInitCodes">Multiple initialization codes for the generic elements.</string>
+    <string name="err_inGenericInitCode">Error in the analysis of the generic initialization code.</string>
+    <string name="key_remainderPositive">Remainder always positive</string>
+    <string name="key_remainderPositive_tt">If set, the remainder of a signed division is always positive.</string>
+    <string name="key_trigger">Trigger</string>
+    <string name="key_trigger_tt">Trigger condition for data recording.</string>
+    <string name="key_trigger_rising">rising edge</string>
+    <string name="key_trigger_falling">falling edge</string>
+    <string name="key_trigger_both">both edges</string>
+    <string name="mod_modifiedByRunningModel">Changes made by the running simulation.</string>
+    <string name="menu_scale">Set Scaling</string>
+    <string name="msg_supportsHDL">Exportable to VHDL/Verilog.</string>
+    <string name="msg_errorSettingModelToTestCase">Error while setting the test case row.</string>
+    <string name="msg_keyAsGenericAttribute">Name to use in generic circuits: {0}</string>
+    <string name="attr_createConcreteCircuitLabel">Create Concrete Circuit</string>
+    <string name="attr_createConcreteCircuit">Create</string>
+    <string name="attr_createConcreteCircuit_tt">Creates a concrete circuit from this generic circuit using the
+        parameters specified in this element.</string>
+    <string name="attr_createConcreteCircuitErr">Error while creating the concrete circuit!</string>
+    <string name="msg_fsm_optimizer">FSM-Optimizer</string>
+    <string name="menu_fsm_optimize_state_numbers">Optimize the State Numbers</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">Optimizes the state numbers so that an implementation has the
+        least possible effort. The runtime increases very quickly with the complexity of the machine. (O(n!))</string>
+    <string name="menu_fsm_optimize_state_numbers_err">Error during optimization!</string>
+    <string name="msg_fsm_optimizer_initial">Initial complexity:</string>
+    <string name="msg_fsm_optimizer_best">Best so far:</string>
 </resources>

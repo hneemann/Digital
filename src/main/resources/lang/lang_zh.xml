@@ -143,7 +143,8 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_LightBulb_pin_A">连接点</string>
   <string name="elem_LightBulb_pin_B">连接点</string>
   <string name="elem_PolarityAwareLED">发光二极管</string>
-  <string name="elem_PolarityAwareLED_tt">LED 区分阴极和阳极，当阳极连接到高电平且阴极连接到低电平时，LED点亮。</string>
+  <string name="elem_PolarityAwareLED_tt">当阳极连接到高电平且阴极连接到低电平时，LED点亮。
+      该LED不能用作下拉电阻。它仅充当显示元素。图中所示电阻仅表示需要串联一个电阻来限流。</string>
   <string name="elem_PolarityAwareLED_pin_A">阳极</string>
   <string name="elem_PolarityAwareLED_pin_C">阴极</string>
   <string name="elem_Seven-Seg">7段数码管</string>
@@ -245,7 +246,6 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_BusSplitter_tt">可用于数据总线特别是存储器模块的构建</string>
   <string name="elem_BusSplitter_pin_OE">When set, the value at the common data terminal D is output to the bit
       outputs D[i], if not, the bits D[i] are output to the common output D.</string>
-  <string name="elem_BusSplitter_pin_D">The common data connection.</string>
   <string name="elem_BusSplitter_pin_D_N">数据位 {0}</string>
   <string name="elem_PullUp">上拉电阻</string>
   <string name="elem_PullUp_pin_out">弱高电平</string>
@@ -1012,7 +1012,6 @@ In the file howTo.md you can find more details about translations.
   <string name="err_pinMap_Pin_N_AssignedTwicePin">管脚 {0} 重复！</string>
   <string name="err_pinMap_pin_N0_isNotAnInput">管脚 {0} 不是输入！</string>
   <string name="err_pinMap_pin_N0_isNotAnOutput">管脚 {0} 不是输出！</string>
-  <string name="err_pinMap_noEqualsfound">No = found!</string>
   <string name="err_pinMap_toMannyInputsDefined">太多输入！</string>
   <string name="err_pinMap_toMannyOutputsDefined">太多输出！</string>
   <string name="err_pinNotPresent">管脚不存在</string>
@@ -1146,7 +1145,6 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_renameNet">重命名网络</string>
   <string name="msg_renameNet_N_OLD_NEW">还有 {0} 个网络名为 ''{1}'' 的隧道组件，是否重命名所有组件为 ''{2}''？</string>
   <string name="msg_dataWillBeLost_n">确定忽略 "{0}" 字段中的修改？</string>
-  <string name="stat_clocks">Break after {0} half cycles at break point ''{1}''.</string>
   <string name="win_measures_fullstep">全时钟测量</string>
   <string name="win_measures_microstep">单门测量</string>
   <string name="win_romDialog">包含 ROM</string>
@@ -1258,7 +1256,6 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_BitExtender_pin_in">输入值，位宽必须小于输出</string>
   <string name="elem_BitExtender_pin_out">扩展后的输入</string>
   <string name="elem_BitCount">位计数器</string>
-  <string name="elem_BitCount_short">Bit count</string>
   <string name="elem_BitCount_tt">返回输入值中位为 1 的位数</string>
   <string name="elem_BitCount_pin_in">输入</string>
   <string name="elem_BitCount_pin_out">包含 1 的位数</string>
@@ -1374,7 +1371,6 @@ In the file howTo.md you can find more details about translations.
   <string name="err_postProcessErrorIn_N0">执行 "{0}" 时遇到错误</string>
   <string name="err_processDoesNotTerminate_N">进程 "{0}" 无返回内容！</string>
   <string name="err_processExitedWithError_N1_N2">进程返回值非零 {0}: {1}</string>
-  <string name="err_errorRunningFitter">Error starting the external fitter!</string>
   <string name="err_noExpressionsAvailable">找不到最简等式！</string>
   <string name="msg_optimizationInProgress">正在计算，请稍等！</string>
   <string name="err_varName_N_UsedTwice">变量 {0} 重复！</string>
@@ -1444,7 +1440,6 @@ In the file howTo.md you can find more details about translations.
   <string name="err_clocksNotAllowedInAsyncMode">禁止在异步模式使用时钟组件。</string>
   <string name="err_verilogExporting">导出 Verilog 时遇到错误。</string>
   <string name="err_noRomFound">未发现程序存储器！</string>
-  <string name="err_errorLoadingRomData">Error loading the program memory.</string>
   <string name="err_parsingSVG">读取 SVG 文件时遇到错误。</string>
   <string name="err_morePinsDefinedInSVGAsNeeded">SVG 文件包含电路中不存在的管脚。</string>
   <string name="err_midiSystemNotAvailable">MIDI 系统不可用。</string>
@@ -1452,7 +1447,6 @@ In the file howTo.md you can find more details about translations.
     <string name="err_midiInstrument_N_NotAvailable">MIDI 设备 {0} 不可用。</string>
     <string name="err_midiInstrumentsNotAvailable">MIDI 设备不可用</string>
     <string name="err_whileExecutingTests_N0">执行测试 "{0}" 时遇到错误！</string>
-    <string name="err_hdlNotKnown_N">HDL not known: {0}</string>
     <string name="err_thereIsAUnnamedIO">未命名的输入或者输出端口！</string>
     <string name="err_NameOfIOIsInvalidOrNotUnique_N">信号名称 "{0}" 无效或多次使用！</string>
     <string name="elem_StepperMotorUnipolar_pin_com">共中心连接</string>
@@ -1508,4 +1502,63 @@ In the file howTo.md you can find more details about translations.
     <string name="cli_help_stats_csv">CSV 文件名，如果为空，将写入到标准输出。</string>
     <string name="cli_errorCreatingStats">创建统计文件时遇到错误！</string>
     <string name="menu_table_exportTablePlainText">导出纯文本</string>
+    <string name="elem_ScopeTrigger">示波器</string>
+    <string name="elem_ScopeTrigger_short">Scope</string>
+    <string name="elem_ScopeTrigger_tt">显示可测量值的变化图，仅当电路稳定且该组件的输入信号变化时才会对测量数据采样。</string>
+    <string name="elem_ScopeTrigger_pin_T">当输入的信号发生变化时对测量数据采样</string>
+    <string name="elem_NotConnected">无连接</string>
+    <string name="elem_NotConnected_tt">该组件可用于设置导线为高阻态。如果逻辑门的输入被设置为高阻态，则输出随机。
+      请注意，实际中，如果数字输入未设置为高电平或低电平，而是保持未连接状态，则可能会产生过多的电流消耗甚至损坏。</string>
+    <string name="elem_NotConnected_pin_out">输出高阻</string>
+    <string name="err_notConnectedNotAllowed">此处禁止 无连接 符号</string>
+    <string name="elem_ROMDualPort">多端口 ROM</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_ROMDualPort_tt">非易失性存储器，可以在属性对话框编辑存储数据。</string>
+    <string name="elem_ROMDualPort_pin_A1">D1输出端口的地址</string>
+    <string name="elem_ROMDualPort_pin_D1">当 s1 为高电平时，输出 A1 地址的数据</string>
+    <string name="elem_ROMDualPort_pin_s1">如果输入为高电平，D1 输出使能，如果输入为低电平，D1 输出高阻。</string>
+    <string name="elem_ROMDualPort_pin_A2">D2输出端口的地址</string>
+    <string name="elem_ROMDualPort_pin_D2">当 s2 为高电平时，输出 A2 地址的数据</string>
+    <string name="elem_ROMDualPort_pin_s2">如果输入为高电平，D2 输出使能，如果输入为低电平，D2 输出高阻。</string>
+    <string name="elem_PRNG">随机数生成器</string>
+    <string name="elem_PRNG_tt">用于生成随机数。</string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_PRNG_pin_S">随机数种子</string>
+    <string name="elem_PRNG_pin_se">如果为高电平，生成器在下次时钟上升沿初始化。</string>
+    <string name="elem_PRNG_pin_ne">如果为高电平，下次时钟上升沿输出一个新的随机数。</string>
+    <string name="elem_PRNG_pin_C">时钟输入</string>
+    <string name="elem_PRNG_pin_R">随机数输出</string>
+    <string name="elem_GenericInitCode">通用电路初始化</string>
+    <string name="elem_GenericInitCode_tt">用于启动通用电路时执行的代码。如果直接启动通用电路，必须设置。</string>
+    <string name="elem_GenericCode">Code</string>
+    <string name="elem_GenericCode_tt">创建具体电路时执行的代码，例如向电路添加导线或组件。</string>
+    <string name="err_hdlTestCaseHasGenericCode">导出 HDL 时不支持通用参数。</string>
+    <string name="err_multipleRomsFound">存在多个可编程存储器，只允许一个可编程存储器！</string>
+    <string name="err_noMemoryFound">未发现存储器 "{0}"</string>
+    <string name="err_multipleMemoriesFound">存在多个可编程存储器 "{0}"</string>
+    <string name="err_noGenericInitCode">通用组件未设置初始化代码。</string>
+    <string name="err_multipleGenericInitCodes">多个初始化代码！</string>
+    <string name="err_inGenericInitCode">分析初始化代码时遇到错误。</string>
+    <string name="key_remainderPositive">余数始终为正</string>
+    <string name="key_remainderPositive_tt">如果为高电平，符号除法的余数始终为正。</string>
+    <string name="key_trigger">触发</string>
+    <string name="key_trigger_tt">触发条件</string>
+    <string name="key_trigger_rising">上升沿</string>
+    <string name="key_trigger_falling">下降沿</string>
+    <string name="key_trigger_both">上升和下降沿</string>
+    <string name="mod_modifiedByRunningModel">仿真产生的改变</string>
+    <string name="menu_scale">缩放设置</string>
+    <string name="msg_supportsHDL">可以导出为 VHDL/Verilog。</string>
+    <string name="msg_errorSettingModelToTestCase">设置测试用例行时出错。</string>
+    <string name="msg_keyAsGenericAttribute">通用电路 {0} 中使用的名称</string>
+    <string name="attr_createConcreteCircuitLabel">新建具体电路</string>
+    <string name="attr_createConcreteCircuit">新建</string>
+    <string name="attr_createConcreteCircuit_tt">根据输入的参数，从当前通用电路创建一个具体电路。</string>
+    <string name="attr_createConcreteCircuitErr">新建具体电路时出错！</string>
+    <string name="msg_fsm_optimizer">FSM 优化器</string>
+    <string name="menu_fsm_optimize_state_numbers">优化状态数</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">优化状态数，以使实现的工作量最少。</string>
+    <string name="menu_fsm_optimize_state_numbers_err">优化时出错！</string>
+    <string name="msg_fsm_optimizer_initial">初始复杂度：</string>
+    <string name="msg_fsm_optimizer_best">目前最优：</string>
 </resources>

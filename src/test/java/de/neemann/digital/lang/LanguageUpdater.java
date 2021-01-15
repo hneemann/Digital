@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -65,21 +66,26 @@ public class LanguageUpdater {
                 if (isCopyAndPaste(enText.trim(), transText)) {
                     System.out.println("ignored copy&paste at: " + key);
                 } else {
-                    if (type.equals("new")) {
-                        add(ref, key, enText);
-                        add(lang, key, transText);
-                        modified++;
-                    } else if (type.equals("typo")) {
-                        System.out.println("key: " + key);
-                        System.out.println("en:  " + enText);
-                        throw new IOException("There is a typo in the english translation!");
-                    } else {
-                        if (replace(lang, key, transText)) {
-                            replace(ref, key, enText);
+                    switch (type) {
+                        case "new":
+                            add(ref, key, enText);
+                            add(lang, key, transText);
                             modified++;
-                        } else {
-                            System.out.println("ignored unchanged key: " + key);
-                        }
+                            break;
+                        case "typo":
+                            System.out.println("key: " + key);
+                            System.out.println("en:  " + enText);
+                            throw new IOException("There is a typo in the english translation!");
+                        case "modified":
+                            if (replace(lang, key, transText)) {
+                                replace(ref, key, enText);
+                                modified++;
+                            } else {
+                                System.out.println("ignored unchanged key: " + key);
+                            }
+                            break;
+                        default:
+                            throw new IOException("Unknown key type: " + type);
                     }
                 }
             } else {
@@ -98,6 +104,7 @@ public class LanguageUpdater {
             String key = e.getAttributeValue("name");
             langKeys.put(key, e.getText().trim());
         }
+        HashSet<String> removeAlsoFromLang = new HashSet<>();
         ref.getRootElement().getChildren().removeIf(e -> {
             String key = e.getAttributeValue("name");
             if (!langKeys.containsKey(key)) {
@@ -107,10 +114,12 @@ public class LanguageUpdater {
             String transText = e.getText().trim();
             if (isCopyAndPaste(transText, langKeys.get(key))) {
                 System.out.println("removed copy&pasted key '" + key + "' which is '" + transText + "'");
+                removeAlsoFromLang.add(key);
                 return true;
             }
             return false;
         });
+        lang.getRootElement().getChildren().removeIf(e -> removeAlsoFromLang.contains(e.getAttributeValue("name")));
     }
 
     private Element loadDif(File sourceFilename) throws JDOMException, IOException {
@@ -189,6 +198,7 @@ public class LanguageUpdater {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Select the updated diff File");
         fc.addChoosableFileFilter(new FileNameExtensionFilter("xml", "xml"));
+        fc.addChoosableFileFilter(new FileNameExtensionFilter("zip", "zip"));
         if (src != null) {
             final File s = new File(src.getParentFile(), "target/lang_diff_pt.xml");
             fc.setSelectedFile(s);
