@@ -5,8 +5,7 @@ This makes it very difficult for me to continue to maintain the translation.
 The only exception are simple typos.
 Pull requests in which this file is modified beyond simple typos cannot be accepted.
 In the file howTo.md you can find more details about translations.
--->
-<resources>
+--><resources>
     <string name="addr">Adresse</string>
     <string name="tableOfContent">Table des matières</string>
     <string name="general">Général</string>
@@ -215,7 +214,9 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_PolarityAwareLED">DEL avec deux connexions.</string>
     <string name="elem_PolarityAwareLED_tt">DEL avec des connexions pour la cathode et l'anode. La DEL s'allume si
         l'anode est connectée à un signal haut et l'anode à un signal bas.
-    </string>
+        Cette LED ne peut pas être utilisée comme une résistance de tirage. Elle agît comme un élément
+        d'affichage uniquement. La résistance affichée sert seulement à symboliser la résistance qui sert
+        normalement à limiter le courant.</string>
     <string name="elem_PolarityAwareLED_pin_A">La connexion de l'anode pour la DEL.</string>
     <string name="elem_PolarityAwareLED_pin_C">La connexion de la cathode pour la DEL.</string>
     <string name="elem_Seven-Seg">Affichage 7 segments</string>
@@ -966,7 +967,7 @@ In the file howTo.md you can find more details about translations.
         Dans un test, vous pouvez décrire comment le circuit devrait se comporter. Il est ensuite possible de vérifier
         automatiquement si le comportement du circuit correspond réellement à cette description. Si ce n'est pas le
         cas, un message d'erreur est affiché.
-    </string>
+        Un message d'aide dans l'éditeur de test décrit en détail la syntaxe utilisée pour les tests.</string>
     <string name="elem_AsyncSeq">Minuterie asynchrone</string>
     <string name="elem_AsyncSeq_tt">Permet la configuration d'une minuterie d'un circuit séquentiel asynchrone comme un
         pipeline de Muller. Le circuit doit être lancé en mode pas-à-pas et doit être en mesure d'atteindre un état
@@ -2256,6 +2257,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_testVectorHelp">&lt;html&gt;
         &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
         &lt;body&gt;
+        &lt;h3&gt;General&lt;/h3&gt;
         &lt;p&gt;La première ligne doit contenu le nom des entrées et des sorties.
         Les lignes suivantes contiennent les valeurs attendues.
         Un 'X' représente un cas indéfini et un 'Z' représente un état de haute impédance.
@@ -2356,8 +2358,42 @@ In the file howTo.md you can find more details about translations.
         &lt;p&gt;Le circuit pour ce test n'a qu'une seule entrée 'D', qui peut prendre un état de haute impédance.
         Alors, le signal 'D_out' est aussi disponible pour vérifier la valeur dans ce cas.&lt;/p&gt;
 
-        &lt;/body&gt;&lt;/html&gt;
-    </string>
+&lt;p&gt;Dans des cas particuliers, il peut être utile d'utiliser des signaux du circuit pour
+dériver un nouveau signal qui devra être testé. Par exemple, un bus contenant plusieurs bits
+pourrait contenir un seul bit qui doit être testé, alors que les autres bits n'importe pas.
+Dans ce cas, un nouveau signal correspondant à ce bit peut être créé dans le test lui-même&lt;/p&gt;
+&lt;p&gt;Cela peut se faire avec l'énoncé 'declare':&lt;/p&gt;
+&lt;pre&gt;A B Bit
+
+declare Bit = (Bus&gt;&gt;3)&amp;1;
+
+0 0  0
+0 1  0
+1 0  1
+1 1  0
+&lt;/pre&gt;
+&lt;p&gt;Dans cet exemple, le troisième bit du signal 'Bus' est isolé et rendu disponible sous
+le nom de 'Bit' pour le test. Le circuit en tant que tel ne contient pas de sortie 'Bit'.&lt;/p&gt;
+&lt;h3&gt;Processeurs&lt;/h3&gt;
+&lt;p&gt;Si des processeurs doivent être testés, ceux-ci doivent généralement être initialisés.
+Il est possible de le faire dans l'énoncé du test.
+De cette façon, plusieurs tests peuvent se trouver dans un même circuit en ayant chacun leur propre initialisation.
+Il existe trois instructions permettant d'initialiser le processeur:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;L'énoncé 'program' permet de remplacer la mémoire de programme du processeur.
+Par exemple, l'instruction &lt;pre&gt;program(0x8000,0x2d11,0x8000,0x2f21)&lt;/pre&gt; écrit quatre mots au début de la mémoire
+de programme. Tous les autres mots sont mis à zéro.&lt;/li&gt;
+&lt;li&gt;L'énoncé 'memory' permet d'écrire dans une composante de RAM:
+&lt;pre&gt;memory mem(3)=7;&lt;/pre&gt;
+Cette exemple écrit 7 à l'adresse 3 de la mémoire avec l'étiquette 'mem'.&lt;/li&gt;
+&lt;li&gt;La valeur d'un registre avec une étiquette peut être changé avec l'énoncé 'init'.
+&lt;pre&gt;init R0=22;&lt;/pre&gt;
+Cette instruction change la valeur du registre avec l'étiquette 'R0' pour 22.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;À noter que ces instructions d'initialisation ne sont appliqués qu'une seule fois au début du test.
+La ligne qui contient l'énoncé n'a pas d'importance. Toutefois, ils ne doivent pas se situer avant la
+ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
+        &lt;/body&gt;&lt;/html&gt;</string>
     <string name="fsm_title">Automate fini</string>
     <string name="fsm_noMove">Aucun mouvement</string>
     <string name="fsm_moveTrans">Transitions</string>
@@ -2513,7 +2549,8 @@ In the file howTo.md you can find more details about translations.
     <string name="err_hdlTestCaseHasGenericCode">Les tests avec une paramétrisation générique ne sont pas pris en charge
         lors de l'exportation HDL!
     </string>
-    <string name="err_noGenericInitCode">Aucun code d'initialisation trouvé pour les composantes génériques.</string>
+    <string name="err_noGenericInitCode">Aucun code d'initialisation trouvé pour les composantes génériques.
+        Cette composante doit être ajoutée au circuit pour pouvoir le simuler.</string>
     <string name="err_multipleGenericInitCodes">Plusieurs codes d'initialisation ont été trouvés pour les composantes
         génériques, il n'en faut qu'un seul.
     </string>
@@ -2524,4 +2561,63 @@ In the file howTo.md you can find more details about translations.
         les paramètres spécifiés dans cet élément.
     </string>
     <string name="attr_createConcreteCircuitErr">Erreur lors de la création du circuit concret!</string>
+    <string name="elem_ScopeTrigger">Graphique de données avec déclenchement</string>
+    <string name="elem_ScopeTrigger_short">Oscilloscope</string>
+    <string name="elem_ScopeTrigger_tt">Affiche un graphique des valeurs mesurées, excepté que les valeurs sont stockées seulement lorsque
+        le signal d'entrée change. Le stockage prend place lorsque le circuit s'est stabilisé.
+        Le déclenchement ne débute pas les mesures comme un vrai oscilloscope, mais plutôt chaque signal de
+        déclenchement stocke la valeur des signaux affichés à un moment donné.
+        La seule entrée directe est celle du déclenchement. Les entrées les sorties du circuit, les bascules, les
+        registres et les sondes peuvent être utilisés comme signaux. Cela peut être activé dans les paramétres de
+        chacune de ces composantes.</string>
+    <string name="elem_ScopeTrigger_pin_T">Un changement à cette entrée provoque le stockage des valeurs mesurées</string>
+    <string name="elem_NotConnected">Pas connecté</string>
+    <string name="elem_NotConnected_tt">Cette composante peut être utilisée pour mettre un fil en état de haute impédance.
+        Si l'entrée d'une porte logique est mise à haute impédance, la valeur lue est indéfinie.
+        À noter qu'en réalité, dans plusieurs situations, cet état de haute impédance tend à
+        endommager les composantes ou à causer une consommation excessive de courant.</string>
+    <string name="elem_NotConnected_pin_out">Cette sortie émet toujours l'état hi-Z.</string>
+    <string name="err_notConnectedNotAllowed">Le symbole "Pas connecté" n'est pas permis ici!</string>
+    <string name="elem_ROMDualPort">ROM, ports séparés</string>
+    <string name="elem_ROMDualPort_tt">Une composante de mémoire non volatile.
+      Les données stockées peuvent être éditées dans le dialog d'attributs.</string>
+    <string name="elem_ROMDualPort_pin_A1">Cette entrée définie l'adresse du mot qui sera émis sur D1.</string>
+    <string name="elem_ROMDualPort_pin_D1">Le mot sélectionné si l'entrée s1 est haute.</string>
+    <string name="elem_ROMDualPort_pin_s1">Si cette entrée est haute, la sortie D1 est activée. Si elle est basse, la sortie est dans un état de haute impédance.</string>
+    <string name="elem_ROMDualPort_pin_A2">Cette entrée définie l'adresse du mot qui sera émis sur D2.</string>
+    <string name="elem_ROMDualPort_pin_D2">Le mot sélectionné si l'entrée s2 est haute.</string>
+    <string name="elem_ROMDualPort_pin_s2">Si cette entrée est haute, la sortie D2 est activée. Si elle est basse, la sortie est dans un état de haute impédance.</string>
+    <string name="elem_PRNG">Générateur de nombre aléatoire</string>
+    <string name="elem_PRNG_tt">Peut être utilisé pour générer des nombres aléatoires.
+        Lorsque la simulation débute, le générateur est réinitialisé afin que des nombres aléatoires différents
+        soit générés à chaque simulation.
+        Le générateur peut être initialisé durant la simulation pour modifier la graine utilisée pour
+        générer la séquence de nombres pseudo-aléatoires.</string>
+    <string name="elem_PRNG_pin_S">Nouvelle valeur de graine utilisée pour le générateur.</string>
+    <string name="elem_PRNG_pin_se">Si activée, le générateur de nombre aléatoire est réinitialisé avec la nouvelle valeur de graine au prochain
+        front montant de l"horloge.</string>
+    <string name="elem_PRNG_pin_ne">Si activée, une nouveau nombre aléatoire est émis à la sortie au prochain front montant de l'horloge.</string>
+    <string name="elem_PRNG_pin_C">Signal d'horloge</string>
+    <string name="elem_PRNG_pin_R">Émet un nombre pseudo-aléatoire.</string>
+    <string name="elem_GenericCode_tt">Code qui est exécuté lorsqu'un circuit générique est rendu concret.
+        Peut être utilisé, par exemple, pour ajouter des composantes ou des fils au circuit.</string>
+    <string name="err_multipleRomsFound">Plusieurs mémoires de programme trouvées! Une seule est permise.</string>
+    <string name="err_noMemoryFound">Aucune mémoire "{0}" n'a été trouvée dans le circuit!</string>
+    <string name="err_multipleMemoriesFound">Plusieurs mémoires "{0}" trouvées dans le circuit!</string>
+    <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Le signal virtuel {0} est déclaré deux fois sur le ligne {1}!</string>
+    <string name="key_trigger">Déclenchement</string>
+    <string name="key_trigger_tt">Condition de déclenchement pour l'enregistrement des données</string>
+    <string name="key_trigger_rising">front montant</string>
+    <string name="key_trigger_falling">front descendant</string>
+    <string name="key_trigger_both">Les deux fronts</string>
+    <string name="mod_modifiedByRunningModel">Changements effectués par la simulation en cours</string>
+    <string name="menu_scale">Ajuster le zoom</string>
+    <string name="msg_errorSettingModelToTestCase">Une erreur s'est produite en mettant les valeurs de ce test.</string>
+    <string name="msg_fsm_optimizer">Optimisation FSM</string>
+    <string name="menu_fsm_optimize_state_numbers">Optimise les numéros des états</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">Optimise les numéros des états pour que l'implantation soit le plus simple possible.
+        À noter que le temps d'exécution augmente très rapidement avec le nombre d'états. (O(n!))</string>
+    <string name="menu_fsm_optimize_state_numbers_err">Erreur lors de l'optimisation!</string>
+    <string name="msg_fsm_optimizer_initial">Complexité initiale:</string>
+    <string name="msg_fsm_optimizer_best">Meilleur atteint:</string>
 </resources>
