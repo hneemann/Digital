@@ -1231,7 +1231,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
                 ElementAttributes modified = attributeDialog.showDialog();
                 if (elementType == Tunnel.DESCRIPTION) {
-                    if (modified.contains(Keys.NETNAME))
+                    if (modified != null && modified.contains(Keys.NETNAME))
                         lastUsedTunnelName = modified.get(Keys.NETNAME);
                 }
                 if (modified != null && !locked) {
