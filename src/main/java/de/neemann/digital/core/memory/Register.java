@@ -36,12 +36,13 @@ public class Register extends Node implements Element, Countable, ProgramCounter
     private final boolean isProbe;
     private final String label;
     private final boolean isProgramCounter;
+    private final ObservableValue q;
     private ObservableValue dVal;
     private ObservableValue clockVal;
     private ObservableValue enableVal;
-    private ObservableValue q;
     private boolean lastClock;
     private long value;
+    private boolean enable;
 
     /**
      * Creates a new instance
@@ -59,7 +60,7 @@ public class Register extends Node implements Element, Countable, ProgramCounter
 
     @Override
     public void readInputs() throws NodeException {
-        boolean enable = enableVal.getBool();
+        enable = enableVal.getBool();
         boolean clock = clockVal.getBool();
         if (clock && !lastClock && enable)
             value = dVal.getValue();
@@ -87,10 +88,7 @@ public class Register extends Node implements Element, Countable, ProgramCounter
     public void registerNodes(Model model) {
         super.registerNodes(model);
         if (isProbe)
-            model.addSignal(new Signal(label, q, (v, z) -> {
-                value = v;
-                q.setValue(value);
-            }).setTestOutput());
+            model.addSignal(new Signal(label, q, (value, highZ) -> setValue(value)).setTestOutput());
     }
 
     @Override
@@ -108,4 +106,44 @@ public class Register extends Node implements Element, Countable, ProgramCounter
         return bits;
     }
 
+    /**
+     * Returns the stored value.
+     * Used to improve custom testing capabilities.
+     *
+     * @return the stared value
+     */
+    public long getValue() {
+        return value;
+    }
+
+    /**
+     * Sets the stored value.
+     * Used to improve custom testing capabilities.
+     *
+     * @param v the value
+     */
+    public void setValue(long v) {
+        value = v;
+        q.setValue(value);
+    }
+
+    /**
+     * Returns the used label.
+     * Used to improve custom testing capabilities.
+     *
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Returns the enable input value.
+     * Used to improve custom testing capabilities.
+     *
+     * @return true if enable was set at the last clock change.
+     */
+    public boolean isEnabled() {
+        return enable;
+    }
 }
