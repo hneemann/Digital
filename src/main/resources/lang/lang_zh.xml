@@ -233,7 +233,7 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_Const_tt">常量，值在属性对话框设置</string>
   <string name="elem_Const_pin_out">返回常量设置值</string>
   <string name="elem_Tunnel">隧道</string>
-  <string name="elem_Tunnel_tt">不是有导线实现组件连接。所有具有相同名称的隧道网络被认为连接一起。
+  <string name="elem_Tunnel_tt">不使用导线实现组件连接。所有具有相同名称的隧道网络被认为连接一起。
       仅在当前电路有效，不能用于不同电路。没有名称的隧道组件被忽略。</string>
   <string name="elem_Tunnel_pin_in">连接点</string>
   <string name="elem_Splitter">分裂器/合并器</string>
