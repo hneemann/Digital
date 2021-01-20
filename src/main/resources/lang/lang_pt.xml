@@ -139,7 +139,10 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_RGBLED_pin_B">O canal da cor azul.</string>
   <string name="elem_PolarityAwareLED">LED com duas conexões.</string>
   <string name="elem_PolarityAwareLED_tt">LED com conexões para o cátodo e o ânodo. O LED acenderá,
-        se o ânodo estiver ligado ao positivo e o cátodo estiver ligado ao negativo.</string>
+        se o ânodo estiver ligado em nível alto e o cátodo estiver ligado em nível baixo.
+        Esse LED não poderá ser usado como resistor pull-down. Só servirá como elemento para exibição.
+        O resistor representado servirá apenas para simbolizar o equivalente aos necessários resistores em série 
+        usados para limitar a corrente.</string>
   <string name="elem_PolarityAwareLED_pin_A">A conexão do ânodo do LED.</string>
   <string name="elem_PolarityAwareLED_pin_C">A conexão do cátodo do LED.</string>
   <string name="elem_In">Entrada</string>
@@ -148,7 +151,7 @@ In the file howTo.md you can find more details about translations.
         Nesse caso a conexão é bidirecional.
         Também é usado para atribuir um número PIN, se código para CPLD ou FPGA for gerado.</string>
   <string name="elem_In_pin_out">Fornece o valor ao qual está ligada a essa entrada.</string>
-  <string name="elem_DipSwitch">DIP Switch</string>
+  
   <string name="elem_DipSwitch_tt">Chave DIP que pode ter a saída alta ou baixa.</string>
   <string name="elem_DipSwitch_pin_out">O valor da chave de saída.</string>
   <string name="elem_Clock">Entrada do Clock</string>
@@ -727,7 +730,7 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_Testcase">Caso de teste</string>
   <string name="elem_Testcase_tt">Descrever um caso de teste.
         Em um teste de caso será possível descrever o comportamento de um circuito. Isso poderá ser automaticamente verificado, ou seja,
-        se o comportamento realmente corresponde à descrição, ou não, e assim sendo uma mensagem de erro será mostrada.</string>
+        se o comportamento realmente corresponde à descrição, ou não, e assim sendo, uma mensagem de erro será mostrada.</string>
   <string name="elem_AsyncSeq">Temporização assíncrona</string>
   <string name="elem_AsyncSeq_tt">Será permitido a temporização de um circuito sequencial assíncrono, tal como um pipeline de Muller.
         O circuito deverá ser iniciado em modo de passo único e deverá alcançar um estado estável logo ao iniciar-se.
@@ -1422,13 +1425,13 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_terminalDelete">Apagar</string>
   <string name="menu_terminalDelete_tt">Apagar o conteúdo do terminal.</string>
   <string name="menu_view">Visualizar</string>
-  <string name="menu_zoomIn">Zoom In</string>
-  <string name="menu_zoomOut">Zoom Out</string>
+  
+  
   <string name="menu_expression">Expressão</string>
   <string name="menu_expression_tt">Criar circuito dada a expressão.</string>
   <string name="menu_runTests">Executar testes</string>
   <string name="menu_runTests_tt">Executar todos os casos de testes</string>
-  <string name="menu_actualToDefault">Definir entradas</string>
+  <string name="menu_actualToDefault">Definir entradas padrões</string>
   <string name="menu_actualToDefault_tt">Usar os valores atuais das entradas como padrão.</string>
   <string name="menu_restoreAllFuses">Reiniciar diodos e FGFETs</string>
   <string name="menu_restoreAllFuses_tt">Reiniciar todos os diodos (fusíveis) e FGFETs como "não programados". A configuração vigente dos fusíveis será descartada!</string>
@@ -1515,7 +1518,7 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_testResult">Resultado de teste</string>
   <string name="msg_test_N_Passed">{0} com êxito</string>
   <string name="msg_test_N_Failed">{0} com falha</string>
-  <string name="msg_testExp_N0_found_N1">E: {0} / F: {1}</string>
+  
   <string name="msg_creatingHelp">Erro ao criar a ajuda!</string>
   <string name="msg_clipboardContainsNoImportableData">A área de transferência não contém dados para importar!</string>
   <string name="msg_selectAnEmptyFolder">Selecionado arquivo vazio!</string>
@@ -1661,6 +1664,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_testVectorHelp">&lt;html&gt;
         &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
         &lt;body&gt;
+        &lt;h3&gt;Geral&lt;/h3&gt;
         &lt;p&gt;A primeira linha deverá conter os nomes das entradas e das saídas.
         As linhas seguintes deverão conter os valores esperados.
         Um 'X' representará um "don't care", e um 'Z' representará um valor em alta impedância.
@@ -1678,7 +1682,7 @@ In the file howTo.md you can find more details about translations.
         C 1 1
         C 0 0
         &lt;/pre&gt;
-
+       
         &lt;p&gt;Os testes serão executados por Executar-&gt;Testes de execução.&lt;/p&gt;
         &lt;p&gt;
         Para tornar mais fácil a criação de muitos arranjos de testes, há o comando 'repeat([n])':
@@ -1691,35 +1695,56 @@ In the file howTo.md you can find more details about translations.
         &lt;p&gt;A seguir há um exemplo para testar um somador de 4-bits:&lt;/p&gt;
 
         &lt;pre&gt;
-        C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
-        repeat(256) 0 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15))
-        repeat(256) 1 bits(4,n&gt;&gt;4) bits(4,n) bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+                   C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+        repeat(256)  0    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15))
+        repeat(256)  1    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
         &lt;/pre&gt;
 
-        &lt;p&gt;Os sinais de entrada serão o carry-in (C_i-1) e os oito bits de entrada A_3-A_0 e B_3-B_0.
+        &lt;p&gt;
+        Os sinais de entrada serão o carry-in (C_i-1) e os oito bits de entrada A_3-A_0 e B_3-B_0.
         Os 4 bits de entrada serão gerados pela instrução 'bits'. O resultado (C_i, S_3-S_0) também será gerado
         pela mesma instrução.
         Isso irá ocorrer um vez com C_i-1 = 0 e na próxima linha com C_i-1 = 1.
         Dessa forma, 512 linhas de testes serão gerados para cobrir todas as configurações possíveis das entradas.&lt;/p&gt;
         &lt;p&gt;Se múltiplas linhas forem repetidas, ou se repetições aninhadas forem requeridas, o comando de
-        repetição
-        poderá ser usado. O exemplo acima poderia ser implementado como mostrado a seguir:&lt;/p&gt;
+        repetição poderá ser usado. O exemplo acima poderia ser implementado como mostrado a seguir:
+        &lt;/p&gt;
 
         &lt;pre&gt;
-        C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
+                   C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
         loop(a,16)
-        loop(b,16)
-        0 bits(4,a) bits(4,b) bits(5,a+b)
-        1 bits(4,a) bits(4,b) bits(5,a+b+1)
-        end loop
+          loop(b,16)
+                     0    bits(4,a)        bits(4,b)        bits(5,a+b)
+                     1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
+          end loop
         end loop
         &lt;/pre&gt;
 
-        &lt;p&gt;Poderia ser útil para gerar valores aleatórios para casos de testes.
+        &lt;p&gt;
+        Sob certas circunstâncias poderá necessitar se capaz de reagir ao estado inicial do circuito.
+        Portanto, os sinais fornecidos pelo circuito poderão ser usados como caso de teste.
+        Por exemplo, se um contador que for iniciado em um estado indefinido for testado,
+        poderá ser levado a um estado definido na variação do clock:
+        &lt;/p&gt;
+
+        &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
+
+        # clock counter to 1111
+        while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
+        C x x x x
+        end while
+
+        # start the test execution
+        repeat(16) C bits(4,n)
+        &lt;/pre&gt;
+        
+        &lt;p&gt;
+        Poderia ser útil para gerar valores aleatórios para casos de testes.
         Isso poderá ser criado pela função 'random([n])'. O valor gerado será maior ou igual a
         zero e menor que [n]. Considerando um multiplicador de 16-bits como exemplo,
         um teste completo não poderá ser executado pois deveria ter 2^32 combinações das entradas.
-        Um teste de regressão para multiplicar 100000 valores aleatórios poderia se parecer como isso:&lt;/p&gt;
+        Um teste de regressão para multiplicar 100000 valores aleatórios poderia se parecer como isso:
+        &lt;/p&gt;
 
         &lt;pre&gt;
         A B Y
@@ -1730,9 +1755,10 @@ In the file howTo.md you can find more details about translations.
         end loop
         &lt;/pre&gt;
 
-        &lt;p&gt;Uma entrada que permita um valor em alta impedância também poderá ser usada como valor de saída de
+        &lt;p&gt;
+        Uma entrada que permita um valor em alta impedância também poderá ser usada como valor de saída de
         teste.
-        Nesse caso, o nome do sinal poderá ser usado com o sufixo "_out" para ser lido de volta e ter o valor comparado.
+        Nesse caso, o nome do sinal poderá ser usado com o sufixo '_out' para ser lido de volta e ter o valor comparado.
         Para isso, a entrada correspondente deverá ser definida como de alta impedância ('Z').&lt;/p&gt;
 
         &lt;pre&gt;OE CLK D D_out
@@ -1743,12 +1769,72 @@ In the file howTo.md you can find more details about translations.
         1 0 z 0
         &lt;/pre&gt;
 
-        &lt;p&gt;O circuito para esse teste deverá ter apenas uma entrada 'D', a qual poderá estar em estado de alta
+        &lt;p&gt;
+        O circuito para esse teste deverá ter apenas uma entrada 'D', a qual poderá estar em estado de alta
         impedância.
         Portanto, o sinal 'D_out' também será avaliado para se verificar o valor desse caso.&lt;/p&gt;
 
-        &lt;/body&gt;&lt;/html&gt;
-    </string>
+        &lt;p&gt;
+        Em casos especiais, pode ser desejável usar sinais providos pelo circuito,
+        derivar um novo sinal, e então testá-lo. Um exemplo poderá ser o de um barramento
+        de sinal com vários bits, onde apenas um único bit deverá ser testado, enquanto os
+        outros não terão qualquer influência sobre o teste. Nesse caso, um novo sinal poderá
+        ser gerado, no próprio teste, apenas para conter esse bit, de modo que outros testes
+        possam ser definidos para o mesmo.        
+        &lt;/p&gt;
+        
+        &lt;p&gt;Isso poderá ser feito pelo comando 'declare':&lt;/p&gt;
+
+        &lt;pre&gt;A B Bit
+
+        declare Bit = (Bus&gt;&gt;3)&amp;1;
+
+        0 0  0
+        0 1  0
+        1 0  1
+        1 1  0
+        &lt;/pre&gt;
+
+        &lt;p&gt;
+        Nesse exemplo, o terceiro bit será isolado do sinal do barramento ('Bus') e
+        tornado disponível como o sinal 'Bit' para teste. O circuito em si não terá 'Bit' como saída.
+        &lt;/p&gt;
+        
+&lt;h3&gt;Processadores&lt;/h3&gt;
+
+        &lt;p&gt;
+        Se processadores forem testados, normalmente a inicialização de processador será requerida.
+        É possível executar essa inicialização no próprio caso de teste.
+        Dessa forma, vários testes poderão ser acomodados em um circuito e cada teste poderá ter sua prória inicialização.
+        Há três instruções para executar essa inicialização:
+        &lt;/p&gt;
+        
+        &lt;ul&gt;
+        &lt;li&gt;
+        O comando 'program' poderá ser usado para sobrescrever a memória de programa do processador.
+        A instrução &lt;pre&gt;program(0x8000,0x2d11,0x8000,0x2f21)&lt;/pre&gt; colocará quatro palavras no início da
+        memória de programa. Todas as outras palavras serão iguais a zero.
+        &lt;/li&gt;
+        &lt;li&gt;
+        A instrução 'memory' podrá ser usada para guardar valor em componente do tipo RAM:
+        &lt;pre&gt;memory mem(3)=7;&lt;/pre&gt;
+        Esse exemplo guardará o valor 7 na memória identificada por 'mem' no endereço 2.
+        &lt;/li&gt;
+        &lt;li&gt; 
+        Um registrador identificado poderá ser sobrescrito com o comando 'init'.
+        &lt;pre&gt;init R0=22;&lt;/pre&gt;
+        Essa instrução sobrescreverá o registrador identificado por 'R0' com o valor 22.
+        &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;
+        Deve-se notar que todas as inicializações somente serão aplicadas uma única vez
+        antes da execução do teste, independente da linha no caso de teste onde esses comandos
+        possam estar. Contudo, não devem ser usados antes da linha de cabeçalho
+        que relaciona os nomes dos sinais.
+        &lt;/p&gt;
+        
+        &lt;/body&gt;&lt;/html&gt;</string>
   <string name="fsm_title">Máquina de Estados Finitos (FSM)</string>
   <string name="fsm_noMove">Nenhuma transição</string>
   <string name="fsm_moveTrans">Transições</string>
@@ -2131,4 +2217,81 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_StepperMotorBipolar_pin_B+">Bobina B, positivo</string>
     <string name="elem_StepperMotorBipolar_pin_B-">Bobina B, negativo</string>
     <string name="key_colorScheme_DARK">Escuro</string>
+    <string name="elem_ScopeTrigger">Gráficos com dados amostrados</string>
+    <string name="elem_ScopeTrigger_short">Osciloscópio</string>
+    <string name="elem_ScopeTrigger_tt">Mostrará o gráfico de valores amostrados, os quais serão armazenados apenas se houver alteração no sinal de entrada.
+        O armazenamento se dará quando o circuito estiver estabilizado.
+        O gatilho não iniciará a medida como em um osciloscópio real, mas cada evento gatilhado armazenará 
+        um valor de medida apenas, para cada um dos sinais amostrados.
+        Como entrada direta haverá apenas um gatilho. As entradas e saídas do circuito, flip-flops e registradores e
+        o componente amostrador poderão ser usados como sinais. Isso poderá ser ativado nos respectivos componentes.</string>
+    <string name="elem_ScopeTrigger_pin_T">Uma alteração nessa entrada provocará o armazenamento de valores amostrados.</string>
+    <string name="elem_NotConnected">Desconectado</string>
+    <string name="elem_NotConnected_tt">Esse componente poderá ser usado para colocar uma conexão em alta impedância (Z).
+        Se um entrada de uma porta lógica estiver em alta impedância, o valor lido será indefinido.
+        Observa-se que, na realidade, em muitos casos, o consumo excessivo de corrente e até mesmo danos 
+        poderão ocorrer se uma entrada digital não estiver definida como alta ou baixa, 
+        mas permanecer desconectada.</string>
+    <string name="elem_NotConnected_pin_out">Esta saída estará sempre em alta impedância.</string>
+    <string name="err_notConnectedNotAllowed">O símbolo de Desconectado não é permitido aqui!</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_ROMDualPort_tt">Componente de memória não volátil.
+        Os dados armazenados poderão ser editados na caixa de diálogo para atributos.</string>
+    <string name="elem_ROMDualPort_pin_A1">Esse pino definirá o endereço da palavra de dados à saída D1.</string>
+    <string name="elem_ROMDualPort_pin_D1">Palavra de dados selecionada se a entrada s1 estiver em nível alto.</string>
+    <string name="elem_ROMDualPort_pin_s1">Se a entrada estiver em nível alto, a saída D1 estará ativada. Se estiver em nível baixo, a saída estará em alta impedância (Z).</string>
+    <string name="elem_ROMDualPort_pin_A2">Esse pino definirá o endereço da palavrra de dados à saída D2.</string>
+    <string name="elem_ROMDualPort_pin_D2">Palavra de dados selecionada se a entrada s2 estiver em nível alto.</string>
+    <string name="elem_ROMDualPort_pin_s2">Se a entrada estiver em nível alto, a saída D2 estará ativada. Se estiver em nível baixo, a saída estará em alta impedância (Z).</string>
+    <string name="elem_PRNG">Gerador de número aleatório</string>
+    <string name="elem_PRNG_tt">Poderá ser usado para gerar números aleatórios.
+        Quando a simulação for iniciada, o gerador será reiniciado de modo que uma nova sequência de números
+        pseudo-aleatórios seja gerada a cada vez.
+        O gerador poderár ser iniciado durante simulação com um valor definido para semente para que se 
+        possa gerar uma sequência definida de valores pseudo-aleatórios.</string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_PRNG_pin_S">Novo valor para a semente do gerador.</string>
+    <string name="elem_PRNG_pin_se">Se definido, o gerador de número aleatório será reiniciado com uma nova semente na subida do clock.</string>
+    <string name="elem_PRNG_pin_ne">Se definido, um novo número aleatório estará disponível na próxima borda de subida do clock.</string>
+    <string name="elem_PRNG_pin_C">Entrada do clock.</string>
+    <string name="elem_PRNG_pin_R">Saída do número pseudo-aleatório.</string>
+    <string name="elem_GenericInitCode">Inicialização genérica</string>
+    <string name="elem_GenericInitCode_tt">Código a ser executado ao iniciar-se um circuito genérico diretamente.
+        Se um circuito genérico tiver que ser iniciado diretamente, tal componente deverá estar presente.</string>
+    <string name="elem_GenericCode">Código</string>
+    <string name="elem_GenericCode_tt">Código a ser executado quando um circuito genérico for incorporado.
+        Poderá ser usado, por exemplo, para adicionar componentes ou conexões a um circuito.</string>
+    <string name="err_hdlTestCaseHasGenericCode">Casos de testes com parametrização genérica sem suporte na exportação em HDL!</string>
+    <string name="err_multipleRomsFound">Múltiplas memórias de programa encontradas! Somente uma memória de programa é permitida.</string>
+    <string name="err_noMemoryFound">Nenhuma memória "{0}" encontrada no modelo!</string>
+    <string name="err_multipleMemoriesFound">Múltiplas memórias "{0}" encontradas no modelo!</string>
+    <string name="err_noGenericInitCode">Nenhum código de inicialização para componentes genéricos.
+        Um componente correspondente deverá ser acrescido ao circuito a fim de poder ser iniciado.</string>
+    <string name="err_multipleGenericInitCodes">Múltiplos códigos de inicialização para elementos genéricos.</string>
+    <string name="err_inGenericInitCode">Erro na análise do código de inicialização genérico.</string>
+    <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Sinal virtual {0} duplicado na linha {1}!</string>
+    <string name="key_remainderPositive">Resto de divisão sempre positivo</string>
+    <string name="key_remainderPositive_tt">Se definido, o resto de uma divisão com sinal será sempre positivo.</string>
+    <string name="key_trigger">Gatilho</string>
+    <string name="key_trigger_tt">Condição de gatilho para o registro de dados.</string>
+    <string name="key_trigger_rising">borda de subida</string>
+    <string name="key_trigger_falling">borda de descida</string>
+    <string name="key_trigger_both">ambas as bordas</string>
+    <string name="mod_modifiedByRunningModel">Alterações feitas ao se executar a simulação.</string>
+    <string name="menu_scale">Definir escala</string>
+    <string name="msg_supportsHDL">Exportável para VHDL/Verilog.</string>
+    <string name="msg_errorSettingModelToTestCase">Erro ao definir a linha do caso de teste.</string>
+    <string name="msg_keyAsGenericAttribute">Nome a ser usado nos circuitos genéricos: {0}</string>
+    <string name="attr_createConcreteCircuitLabel">Realizar circuito</string>
+    <string name="attr_createConcreteCircuit">Realizar</string>
+    <string name="attr_createConcreteCircuit_tt">Realizar cirucito a partir de descrição genérica usando os 
+        parâmetros especificados nesse elemento.</string>
+    <string name="attr_createConcreteCircuitErr">Erro durante a realização de circuito!</string>
+    <string name="msg_fsm_optimizer">Otimizador de Máquina de Estados Finitos (FSM)</string>
+    <string name="menu_fsm_optimize_state_numbers">Otimizador de Números de Estados</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">Otimizará os números de estados de modo que uma implementação realize o menor esforço possível.
+        O tempo de execução aumentará muito rapidamente com a complexidade da máquina. (O(n!))</string>
+    <string name="menu_fsm_optimize_state_numbers_err">Erro durante a otimização!</string>
+    <string name="msg_fsm_optimizer_initial">Complexidade inicial:</string>
+    <string name="msg_fsm_optimizer_best">Melhor até agora:</string>
 </resources>
