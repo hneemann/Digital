@@ -52,8 +52,8 @@ public class GenericInitCodeShape implements Shape {
         if (!graphic.isFlagSet(Graphic.Flag.hideTest)) {
             Polygon pol = new Polygon(true)
                     .add(SIZE2, SIZE2)
-                    .add(SIZE2 + SIZE * 6, SIZE2)
-                    .add(SIZE2 + SIZE * 6, SIZE * 2 + SIZE2)
+                    .add(SIZE2 + SIZE * 4, SIZE2)
+                    .add(SIZE2 + SIZE * 4, SIZE * 2 + SIZE2)
                     .add(SIZE2, SIZE * 2 + SIZE2);
             Style textStyle = NORMAL;
             if (enabled) {
@@ -64,8 +64,8 @@ public class GenericInitCodeShape implements Shape {
                 textStyle = DISABLED;
             }
 
-            graphic.drawText(new Vector(SIZE2 + SIZE * 3, SIZE + SIZE2), "generic", Orientation.CENTERCENTER, textStyle);
-            graphic.drawText(new Vector(SIZE2 + SIZE * 3, 0), label, Orientation.CENTERBOTTOM, textStyle);
+            graphic.drawText(new Vector(SIZE2 + SIZE * 2, SIZE + SIZE2), "init", Orientation.CENTERCENTER, textStyle);
+            graphic.drawText(new Vector(SIZE2 + SIZE * 2, 0), label, Orientation.CENTERBOTTOM, textStyle);
         }
     }
 }
