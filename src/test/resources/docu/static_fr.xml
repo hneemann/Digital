@@ -479,15 +479,13 @@
             nommé "paramétrisation générique". Dans ce champ, un code de programme peut être entré, celui-ci servant
             à changer les paramètres de la composante. Chaque paramètre a un nom et peut être modifié comme un attribut
             du champ <e>this</e>. Le nom des paramètres peut être trouvé dans le dialogue d'aide de la composante.
-            Pour changer la largeur binaire d'un additionneur, la ligne <e>this.Bits=int(1);</e> peut être utilisée.
-            Les constantes, comme le 1 ici, sont toujours du type <e>long</e>, mais la largeur binaire est un <e>int</e>.
-            Donc, une conversion vers le type <e>int</e> est nécessaire.
+            Pour changer la largeur binaire d'un additionneur, la ligne <e>this.Bits=1;</e> peut être utilisée.
         </par>
         <par>
             Cependant, cela en tant que tel ne permet pas encore de paramétrer le circuit.
             Il encore nécessaire de pouvoir accéder aux paramètres établis lorsque le circuit est utilisé.
             Ceci est fait grâce au champ "args". Si vous voulez accéder à la largeur binaire de l'extérieur, vous pouvez écrire:
-            <e>this.Bits=int(args.largeurBinaire);</e>. Le nom de l'argument, <e>largeurBinaire</e> ici, est arbitraire.
+            <e>this.Bits=args.largeurBinaire;</e>. Le nom de l'argument, <e>largeurBinaire</e> ici, est arbitraire.
             Si le sous-circuit est utilisé, cet argument doit être mis.
         </par>
         <par>

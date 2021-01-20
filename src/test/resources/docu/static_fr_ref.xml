@@ -470,15 +470,13 @@
             parameterization". In this field program code can be entered, which can change the parameters of the
             component. Each parameter has a name and can be modified as an attribute of the field <e>this</e>.
             The names of the parameters can be found in the help dialog of the component.
-            If you want to change the bit width of an adder, the line <e>this.Bits=int(1);</e> can be used.
-            Constants - here the one - are always of type <e>long</e>, but the bit width is an <e>int</e>.
-            Therefore the type conversion to an <e>int</e> is necessary.
+            If you want to change the bit width of an adder, the line <e>this.Bits=1;</e> can be used.
         </par>
         <par>
             In this way, however, it is not yet possible to create a circuit that can be parameterized.
             It is still necessary to access parameters that are set when the circuit is used.
             This is done via the field "args". If you want to set the bit width from outside, you can write:
-            <e>this.Bits=int(args.bitWidth);</e>. The name of the argument - here <e>bitWidth</e> is arbitrary.
+            <e>this.Bits=args.bitWidth;</e>. The name of the argument - here <e>bitWidth</e> is arbitrary.
             If such a subcircuit is used, this argument must be set.
         </par>
         <par>

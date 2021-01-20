@@ -470,15 +470,13 @@
             parameterization". In this field program code can be entered, which can change the parameters of the
             component. Each parameter has a name and can be modified as an attribute of the field <e>this</e>.
             The names of the parameters can be found in the help dialog of the component.
-            If you want to change the bit width of an adder, the line <e>this.Bits=int(1);</e> can be used.
-            Constants - here the one - are always of type <e>long</e>, but the bit width is an <e>int</e>.
-            Therefore the type conversion to an <e>int</e> is necessary.
+            If you want to change the bit width of an adder, the line <e>this.Bits=1;</e> can be used.
         </par>
         <par>
             In this way, however, it is not yet possible to create a circuit that can be parameterized.
             It is still necessary to access parameters that are set when the circuit is used.
             This is done via the field "args". If you want to set the bit width from outside, you can write:
-            <e>this.Bits=int(args.bitWidth);</e>. The name of the argument - here <e>bitWidth</e> is arbitrary.
+            <e>this.Bits=args.bitWidth;</e>. The name of the argument - here <e>bitWidth</e> is arbitrary.
             If such a subcircuit is used, this argument must be set.
         </par>
         <par>
@@ -487,9 +485,32 @@
             <e>bitWidth:=5;</e>.
         </par>
         <par>
-            In this way, no wires or components can be removed or added. Nevertheless, many circuits can be
-            realized with a trick. This is achieved by replacing one circuit with another, depending on the
-            arguments. For this purpose the function <e>setCircuit([Name])</e> is available.
+            If a generic circuit is to be started directly, this is not possible straight away, since the required
+            arguments are missing, which have to be specified when embedding the circuit. These missing arguments
+            would lead to corresponding error messages.
+            Therefore, to simplify the testing of the circuit, the <e>Generic Initialization</e> component can be
+            added to the circuit. In this component you can set the arguments that would come from an embedding circuit.
+            In this way, a generic circuit can also be simulated directly.
+            If the circuit is embedded, this component is ignored.
+            It is only needed for the direct start of the simulation.
+        </par>
+        <par>
+            Under certain circumstances it may be useful not only to change the attributes of the components of a
+            circuit, but to add completely new components and wires depending on the passed arguments.
+            The <e>Code</e> component can be used for this purpose. If it is added to the circuit, the contained
+            Code will be executed when the simulation is started.
+            Here, a wire can be added using the <e>addWire([x1],[y1],[x2],[y2])</e> function, and using the function
+            <e>addComponent([name],[x],[y])</e> a new component <e>[name]</e> can be added at the position ([x],[y]).
+            The return value of the <e>addComponent([Name],[x],[y])</e> function allows to set the parameters of the
+            component.
+        </par>
+        <par>
+            The example circuit <e>examples/generic/modify/Conway/GenericConway.dig</e> shows how a more complex
+            circuit can be assembled in this way.
+        </par>
+        <par>
+            Another way to create a circuit is recursion: it is possible, depending on the arguments, to replace one
+            circuit by another. For this purpose the function <e>setCircuit([Name])</e> is available.
             If it is called in the definition part of a subcircuit, the circuit to be inserted can be replaced
             by another circuit. This allows the recursive definition of a circuit. As in other programming
             languages, a suitable termination condition must be ensured.

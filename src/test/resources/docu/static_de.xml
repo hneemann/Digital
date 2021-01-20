@@ -494,24 +494,22 @@
             Es kommt vor, dass eine Teilschaltung erstellt wurde, und diese soll in
             veschiedenen Varianten verwendet werden. Vorstellbar ist z.B. ein spezieller Zähler, der für verschiedene
             Bitbreiten benötigt wird. Würde man nun je eine Teilschaltung für 4,5 und 6 Bits erstellen, wäre die
-            Pflege der Schaltung in Zukunft schwierig, da man immer mehrere Teilschaltungen bearbeiten muss, die bis auf
-            einen Parameter - die Bitbreite - identisch sind.
+            Pflege der Schaltung in Zukunft schwierig, da bei jeder Änderung mehrere Teilschaltungen zu bearbeiten sind,
+            die bis auf einen Parameter - die Bitbreite - identisch sind.
         </par>
         <par>
             Um dies zu verhindern, kann eine generische Teilschaltung erstellt werden, die sich parametrisieren
             lässt. Dazu muss in den Schaltungseinstellung der Schaltung das Häckchen "Schaltung ist generisch" gesetzt
             werden. Danach enthält der Parameter-Dialog jeder Komponente der Schaltung das zusätzliche Feld
-            "generische Parametrisierung". In diesem Feld kann Programmcode eingegeben werden, welcher die Parameter
+            "generische Parametrisierung". In diesem Feld kann Programmcode angegeben werden, welcher die Parameter
             der Komponente verändern kann. Jeder Parameter hat einen Namen und kann als Attribut des Feldes <e>this</e>
             modifiziert werden. Wie die Parameter benannt sind, kann dem Hilfedialog der Komponente entnommen werden.
-            Möchte man die Bitbreite eines Addierers ändern, kann die Zeile <e>this.Bits=int(1);</e> verwendet werden.
-            Konstanten - hier die Eins - sind immer vom Typ <e>long</e>, die Bitbreite ist aber ein <e>int</e>. Daher
-            ist die Typkonvertierung auf ein <e>int</e> erforderlich.
+            Möchte man die Bitbreite eines Addierers ändern, kann die Zeile <e>this.Bits=1;</e> verwendet werden.
         </par>
         <par>
             Auf diese Weise kann man jedoch noch keine parametrisierbare Schaltung erstellen. Es ist noch erforderlich
             auf Parameter zuzugreifen, die gesetzt werden, wenn die Schaltung verwendet wird. Dies geschieht über das
-            Feld "args". Will man die Bitbreite von außen setzen, kann man schreiben: <e>this.Bits=int(args.bitWidth);</e>.
+            Feld "args". Will man die Bitbreite von außen setzen, kann man schreiben: <e>this.Bits=args.bitWidth;</e>.
             Der Name des Argumentes - hier <e>bitWidth</e> - ist dabei beliebig. Wenn diese Teilschaltung verwendet wird,
             ist dieses Argument zu setzen.
         </par>
@@ -521,10 +519,34 @@
             verwendende Bitbreite gesetzt werden.
         </par>
         <par>
-            Auf diese Weise können keine Leitungen oder Komponenten entfernt oder hinzugefügt werden. Dennoch lassen
-            sich mit einem Trick viele Schaltungen umsetzen. Erreicht wird dies, indem, abhängig von den Argumenten,
-            eine Schaltung durch eine andere ersetzt wird. Zu diesem Zweck steht die Funktion <e>setCircuit([Name])</e>
-            zur Verfügung. Wird sie im Definitionsteil einer Teilschaltung aufgerufen, kann die einzufügende Schaltung
+            Wenn eine generische Schaltung direkt gestartet werden soll, ist das ohne Weiteres nicht möglich, da die
+            erforderlichen Argumente fehlen, die bei der Einbettung der Schaltung angegeben werden müssen.
+            Diese fehlenden Argumente würden zu entsprechenden Fehlermeldungen führen.
+            Um den Test der Schaltung zu vereinfachen, kann daher die
+            Komponente <e>Generische Initialisierung</e> der Schaltung hinzugefügt werden. In dieser Komponente lassen sich
+            die Argumente setzen, die aus einer einbettenden Schaltung kommen würden.
+            Auf diese Weise kann auch eine generische Schaltung direkt simuliert werden, was die Erstellung sehr
+            erleichtert. Wird die Schaltung eingebettet, wird diese Komponente ignoriert.
+            Sie wird nur für den direkten Start der Simulation benötigt.
+        </par>
+        <par>
+            Unter Umständen kann es sinnvoll sein, nicht nur die Attribute der Komponenten einer Schaltung zu verändern,
+            sondern ganz neue Komponenten und Leitungen abhängig von den übergebenen Argumenten hinzuzufügen.
+            Dazu kann die Komponente <e>Code</e> verwendet werden. Wird sie der Schaltung hinzugefügt, wird der enhaltene
+            Code beim Start der Simulation ausgeführt.
+            Hier kann mit der Funktion <e>addWire([x1],[y1],[x2],[y2])</e> eine Leitung hinzugefügt werden und über
+            die Funktionen <e>addComponent([Name],[x],[y])</e> kann eine neue Komponente <e>[Name]</e> an der
+            Position ([x],[y]) hinzugefügt werden. Der Rückgabewert der Funktion <e>addComponent([Name],[x],[y])</e>
+            erlaubt das Setzen der Parameter der Komponente.
+        </par>
+        <par>
+            Die Beispielschaltung <e>examples/generic/modify/Conway/GenericConway.dig</e> zeigt, wie auf diese Weise
+            auch eine komplexere Schaltung zusammengesetzt werden kann.
+        </par>
+        <par>
+            Eine andere Möglichkeit eine Schaltung zu erzeugen ist Rekursion: Es ist möglich, abhängig von den Argumenten,
+            eine Schaltung durch eine andere zu ersetzen. Zu diesem Zweck steht die Funktion <e>setCircuit([Name])</e>
+            zur Verfügung. Wird sie im Definitionsteil einer eingebetteten Schaltung aufgerufen, kann die einzufügende Schaltung
             durch eine andere ersetzt werden. Dies erlaubt die rekursive Definition einer Schaltung. Wie in anderen
             Programmiersprachen auch, ist auf eine geeignete Abbruchbedingung zu achten.
         </par>
