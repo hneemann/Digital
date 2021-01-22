@@ -222,11 +222,15 @@ public final class Bits {
         return val;
     }
 
-    private static long decodeFixed(String str) {
+    private static long decodeFixed(String str) throws NumberFormatException {
         int p = str.indexOf(':');
-        int frac = Integer.parseInt(str.substring(p + 1));
-        double floating = Double.parseDouble(str.substring(0, p));
-        return (long) (floating * (1L << frac));
+        try {
+            int frac = Integer.parseInt(str.substring(p + 1));
+            double floating = Double.parseDouble(str.substring(0, p));
+            return (long) (floating * (1L << frac));
+        } catch (java.lang.NumberFormatException e) {
+            throw new NumberFormatException(str, 0);
+        }
     }
 
     /**
