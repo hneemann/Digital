@@ -20,6 +20,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Arrays;
 
+import static de.neemann.digital.core.IntFormat.*;
+
 /**
  * Dialog to edit a single value.
  * Used to enter a multi bit input value.
@@ -57,19 +59,16 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         }
 
         private static InMode getByFormat(IntFormat format) {
-            switch (format) {
-                case decSigned:
-                case dec:
-                    return SingleValueDialog.InMode.DECIMAL;
-                case oct:
-                    return SingleValueDialog.InMode.OCTAL;
-                case bin:
-                    return SingleValueDialog.InMode.BIN;
-                case ascii:
-                    return SingleValueDialog.InMode.ASCII;
-                default:
-                    return SingleValueDialog.InMode.HEX;
+            if (DEC_SIGNED.equals(format) || DEC.equals(format)) {
+                return InMode.DECIMAL;
+            } else if (OCT.equals(format)) {
+                return InMode.OCTAL;
+            } else if (IntFormat.BIN.equals(format)) {
+                return InMode.BIN;
+            } else if (IntFormat.ASCII.equals(format)) {
+                return InMode.ASCII;
             }
+            return InMode.HEX;
         }
     }
 

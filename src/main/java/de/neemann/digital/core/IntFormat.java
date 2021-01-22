@@ -8,55 +8,83 @@ package de.neemann.digital.core;
 /**
  * The int format used to format numbers
  */
-public enum IntFormat {
+public class IntFormat {
     /**
      * the default format
      */
-    def(v -> {
+    public static final IntFormat DEF = new IntFormat("def", v -> {
         final long value = v.getValue();
         if (value >= 0 && value < 10)
             return Long.toString(value);
         else
             return "0x" + toShortHex(value, true);
-    }, bits -> (bits - 1) / 4 + 3),
+    }, bits -> (bits - 1) / 4 + 3) {
+        @Override
+        public String formatToView(Value inValue) {
+            if (inValue.isHighZ())
+                return inValue.toString();
+            else
+                return toShortHex(inValue.getValue(), false);
+        }
+    };
+
     /**
      * decimal
      */
-    dec(v -> Long.toString(v.getValue()), IntFormat::decStrLen),
+    public static final IntFormat DEC = new IntFormat("dec", v -> Long.toString(v.getValue()), IntFormat::decStrLen);
     /**
      * decimal signed
      */
-    decSigned(v -> Long.toString(v.getValueSigned()), bits -> decStrLen(bits - 1) + 1, true),
+    public static final IntFormat DEC_SIGNED = new IntFormat("decSigned", v -> Long.toString(v.getValueSigned()), bits -> decStrLen(bits - 1) + 1, true);
     /**
      * hexadecimal
      */
-    hex(v -> "0x" + toHex(v), bits -> (bits - 1) / 4 + 3),
+    public static final IntFormat HEX = new IntFormat("hex", v -> "0x" + toHex(v), bits -> (bits - 1) / 4 + 3);
     /**
      * binary
      */
-    bin(v -> "0b" + toBin(v), bits -> bits + 2),
+    public static final IntFormat BIN = new IntFormat("bin", v -> "0b" + toBin(v), bits -> bits + 2);
     /**
      * octal
      */
-    oct(v -> "0" + toOct(v), bits -> (bits - 1) / 3 + 3),
+    public static final IntFormat OCT = new IntFormat("oct", v -> "0" + toOct(v), bits -> (bits - 1) / 3 + 3);
     /**
      * ascii format
      */
-    ascii(v -> "'" + (char) v.getValue() + "'", bits -> 3);
+    public static final IntFormat ASCII = new IntFormat("ascii", v -> "'" + (char) v.getValue() + "'", bits -> 3);
 
+    /**
+     * All the available formats
+     */
+    public static final IntFormat[] VALUES = new IntFormat[]{DEF, DEC, DEC_SIGNED, HEX, BIN, OCT, ASCII};
 
+    private final String name;
     private final EditFormat format;
     private final StrLen strLen;
     private final boolean signed;
 
-    IntFormat(EditFormat format, StrLen strLen) {
-        this(format, strLen, false);
+    IntFormat(String name, EditFormat format, StrLen strLen) {
+        this(name, format, strLen, false);
     }
 
-    IntFormat(EditFormat format, StrLen strLen, boolean signed) {
+    IntFormat(String name, EditFormat format, StrLen strLen, boolean signed) {
+        this.name = name;
         this.format = format;
         this.strLen = strLen;
         this.signed = signed;
+    }
+
+    /**
+     * Returns the format instance matching th given name
+     *
+     * @param name the name of the format
+     * @return the format
+     */
+    public static IntFormat getFromName(String name) {
+        for (IntFormat f : VALUES)
+            if (f.getName().equals(name))
+                return f;
+        return DEF;
     }
 
     /**
@@ -70,11 +98,8 @@ public enum IntFormat {
     public String formatToView(Value inValue) {
         if (inValue.isHighZ())
             return inValue.toString();
-
-        if (this.equals(def))
-            return toShortHex(inValue.getValue(), false);
-
-        return formatToEdit(inValue);
+        else
+            return formatToEdit(inValue);
     }
 
     /**
@@ -100,6 +125,18 @@ public enum IntFormat {
      */
     public int strLen(int bits) {
         return strLen.strLen(bits);
+    }
+
+    /**
+     * @return the name of this format
+     */
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
     private static int decStrLen(int bits) {
@@ -155,7 +192,7 @@ public enum IntFormat {
 
     private static final int BUF = 16;
 
-    private static String toShortHex(long value, boolean omitPrefix) {
+    static String toShortHex(long value, boolean omitPrefix) {
         if (value == 0)
             return "0";
 
@@ -196,6 +233,17 @@ public enum IntFormat {
      */
     public boolean isSigned() {
         return signed;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return o != null && getClass() == o.getClass();
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
     private interface StrLen {

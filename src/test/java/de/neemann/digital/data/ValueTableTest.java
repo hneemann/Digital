@@ -44,9 +44,9 @@ public class ValueTableTest extends TestCase {
     public void testCSV2() throws Exception {
         StringWriter sw = new StringWriter();
         ValueTable.ColumnInfo[] infos = new ValueTable.ColumnInfo[]{
-                new ValueTable.ColumnInfo(IntFormat.hex, 4),
-                new ValueTable.ColumnInfo(IntFormat.oct, 4),
-                new ValueTable.ColumnInfo(IntFormat.bin, 4),
+                new ValueTable.ColumnInfo(IntFormat.HEX, 4),
+                new ValueTable.ColumnInfo(IntFormat.OCT, 4),
+                new ValueTable.ColumnInfo(IntFormat.BIN, 4),
         };
         t.saveCSV(new BufferedWriter(sw), infos);
         assertEquals("\"step\",\"A\",\"B\",\"C\"\n" +

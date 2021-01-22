@@ -31,6 +31,6 @@ public interface RAMInterface extends ProgramMemory, Countable {
      * @return the integer format to be used to visualize the values
      */
     default IntFormat getIntFormat() {
-        return IntFormat.hex;
+        return IntFormat.HEX;
     }
 }

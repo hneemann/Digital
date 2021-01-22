@@ -498,7 +498,7 @@ public final class Keys {
      * output format for numbers
      */
     public static final Key<IntFormat> INT_FORMAT
-            = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values()).setSecondary();
+            = new Key.KeyEnum<>("intFormat", IntFormat.DEF, IntFormat.VALUES).setSecondary();
 
     /**
      * width of the terminal

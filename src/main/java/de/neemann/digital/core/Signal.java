@@ -12,7 +12,7 @@ public final class Signal implements Comparable<Signal> {
     private final String name;
     private final ObservableValue value;
     private final Setter setter;
-    private IntFormat format = IntFormat.def;
+    private IntFormat format = IntFormat.DEF;
     private String pinNumber;
     private ObservableValue bidirectionalReader;
     private boolean showInGraph;

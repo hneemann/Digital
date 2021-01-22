@@ -430,7 +430,7 @@ public class Key<VALUE> {
      *
      * @param <E> the enum type
      */
-    public static final class KeyEnum<E extends Enum> extends Key<E> {
+    public static final class KeyEnum<E> extends Key<E> {
         private final E[] values;
         private final String[] names;
 
@@ -458,7 +458,7 @@ public class Key<VALUE> {
          * @return the language key
          */
         public String getLangKey(E value) {
-            return getLangKey() + "_" + value.name();
+            return getLangKey() + "_" + value.toString();
         }
 
         /**

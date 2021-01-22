@@ -316,9 +316,9 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
          */
         public ColumnInfo(IntFormat format, int bits) {
             if (format == null)
-                format = IntFormat.def;
-            if (format.equals(IntFormat.def) && (bits > 3))
-                format = IntFormat.hex;
+                format = IntFormat.DEF;
+            if (format.equals(IntFormat.DEF) && (bits > 3))
+                format = IntFormat.HEX;
             this.format = format;
             this.bits = bits;
         }

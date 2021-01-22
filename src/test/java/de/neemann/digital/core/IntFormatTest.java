@@ -10,40 +10,40 @@ import junit.framework.TestCase;
 public class IntFormatTest extends TestCase {
 
     public void testHex() throws Exception {
-        assertEquals("0x1", IntFormat.hex.formatToView(new Value(1, 1)));
-        assertEquals("0x1", IntFormat.hex.formatToView(new Value(1, 2)));
-        assertEquals("0x1", IntFormat.hex.formatToView(new Value(1, 3)));
-        assertEquals("0x1", IntFormat.hex.formatToView(new Value(1, 4)));
-        assertEquals("0xF", IntFormat.hex.formatToView(new Value(-1, 4)));
-        assertEquals("0x01", IntFormat.hex.formatToView(new Value(1, 5)));
-        assertEquals("0x1F", IntFormat.hex.formatToView(new Value(-1, 5)));
-        assertEquals("0xFFF", IntFormat.hex.formatToView(new Value(-1, 12)));
-        assertEquals("0x1FFF", IntFormat.hex.formatToView(new Value(-1, 13)));
-        assertEquals("0x3FFF", IntFormat.hex.formatToView(new Value(-1, 14)));
-        assertEquals("0x7FFF", IntFormat.hex.formatToView(new Value(-1, 15)));
-        assertEquals("0xFFFF", IntFormat.hex.formatToView(new Value(-1, 16)));
-        assertEquals("0xFEDCBA9876543210", IntFormat.hex.formatToView(new Value(0xFEDCBA9876543210L, 64)));
+        assertEquals("0x1", IntFormat.HEX.formatToView(new Value(1, 1)));
+        assertEquals("0x1", IntFormat.HEX.formatToView(new Value(1, 2)));
+        assertEquals("0x1", IntFormat.HEX.formatToView(new Value(1, 3)));
+        assertEquals("0x1", IntFormat.HEX.formatToView(new Value(1, 4)));
+        assertEquals("0xF", IntFormat.HEX.formatToView(new Value(-1, 4)));
+        assertEquals("0x01", IntFormat.HEX.formatToView(new Value(1, 5)));
+        assertEquals("0x1F", IntFormat.HEX.formatToView(new Value(-1, 5)));
+        assertEquals("0xFFF", IntFormat.HEX.formatToView(new Value(-1, 12)));
+        assertEquals("0x1FFF", IntFormat.HEX.formatToView(new Value(-1, 13)));
+        assertEquals("0x3FFF", IntFormat.HEX.formatToView(new Value(-1, 14)));
+        assertEquals("0x7FFF", IntFormat.HEX.formatToView(new Value(-1, 15)));
+        assertEquals("0xFFFF", IntFormat.HEX.formatToView(new Value(-1, 16)));
+        assertEquals("0xFEDCBA9876543210", IntFormat.HEX.formatToView(new Value(0xFEDCBA9876543210L, 64)));
     }
 
     public void testBin() {
-        assertEquals("0b1", IntFormat.bin.formatToView(new Value(1, 1)));
-        assertEquals("0b01", IntFormat.bin.formatToView(new Value(1, 2)));
-        assertEquals("0b001", IntFormat.bin.formatToView(new Value(1, 3)));
-        assertEquals("0b111", IntFormat.bin.formatToView(new Value(-1, 3)));
-        assertEquals("0b1111111111111111111111111111111111111111111111111111111111111111", IntFormat.bin.formatToView(new Value(-1, 64)));
-        assertEquals("0b1000111111111111111111111111111111111111111111111111111111111111", IntFormat.bin.formatToView(new Value(0x8fffffffffffffffL, 64)));
+        assertEquals("0b1", IntFormat.BIN.formatToView(new Value(1, 1)));
+        assertEquals("0b01", IntFormat.BIN.formatToView(new Value(1, 2)));
+        assertEquals("0b001", IntFormat.BIN.formatToView(new Value(1, 3)));
+        assertEquals("0b111", IntFormat.BIN.formatToView(new Value(-1, 3)));
+        assertEquals("0b1111111111111111111111111111111111111111111111111111111111111111", IntFormat.BIN.formatToView(new Value(-1, 64)));
+        assertEquals("0b1000111111111111111111111111111111111111111111111111111111111111", IntFormat.BIN.formatToView(new Value(0x8fffffffffffffffL, 64)));
     }
 
     public void testDec() throws Exception {
-        assertEquals("3", IntFormat.dec.formatToView(new Value(-1, 2)));
-        assertEquals("-1", IntFormat.decSigned.formatToView(new Value(-1, 2)));
+        assertEquals("3", IntFormat.DEC.formatToView(new Value(-1, 2)));
+        assertEquals("-1", IntFormat.DEC_SIGNED.formatToView(new Value(-1, 2)));
     }
 
     public void testDef() throws Exception {
-        assertEquals("3", IntFormat.def.formatToView(new Value(3, 64)));
-        assertEquals("0x113", IntFormat.def.formatToView(new Value(0x113, 64)));
-        assertEquals("1A3", IntFormat.def.formatToView(new Value(0x1A3, 64)));
-        assertEquals("FFFFFFFFFFFFFFFF", IntFormat.def.formatToView(new Value(-1, 64)));
+        assertEquals("3", IntFormat.DEF.formatToView(new Value(3, 64)));
+        assertEquals("0x113", IntFormat.DEF.formatToView(new Value(0x113, 64)));
+        assertEquals("1A3", IntFormat.DEF.formatToView(new Value(0x1A3, 64)));
+        assertEquals("FFFFFFFFFFFFFFFF", IntFormat.DEF.formatToView(new Value(-1, 64)));
     }
 
     /**
@@ -51,8 +51,8 @@ public class IntFormatTest extends TestCase {
      * back to the same value by {@link Bits#decode(String)}
      */
     public void testBitDecodeConstraint() throws Bits.NumberFormatException {
-        for (IntFormat f : IntFormat.values()) {
-            if (f == IntFormat.ascii) {
+        for (IntFormat f : IntFormat.VALUES) {
+            if (f == IntFormat.ASCII) {
                 checkConstraint(f, tableAscii); // ascii supports only 16 bit
             } else {
                 checkConstraint(f, table);
@@ -83,45 +83,45 @@ public class IntFormatTest extends TestCase {
         for (Value val : table) {
             final String str = format.formatToEdit(val);
             final Value conv = new Value(Bits.decode(str), val.getBits());
-            assertTrue(format.name() + ":" + val + " != " + conv, val.isEqual(conv));
+            assertTrue(format.getName() + ":" + val + " != " + conv, val.isEqual(conv));
         }
     }
 
     public void testStrLen() {
-        assertEquals(6,IntFormat.hex.strLen(16));
-        assertEquals(6,IntFormat.hex.strLen(15));
-        assertEquals(6,IntFormat.hex.strLen(14));
-        assertEquals(6,IntFormat.hex.strLen(13));
-        assertEquals(5,IntFormat.hex.strLen(12));
+        assertEquals(6, IntFormat.HEX.strLen(16));
+        assertEquals(6, IntFormat.HEX.strLen(15));
+        assertEquals(6, IntFormat.HEX.strLen(14));
+        assertEquals(6, IntFormat.HEX.strLen(13));
+        assertEquals(5, IntFormat.HEX.strLen(12));
 
-        assertEquals(18,IntFormat.bin.strLen(16));
-        assertEquals(17,IntFormat.bin.strLen(15));
-        assertEquals(16,IntFormat.bin.strLen(14));
+        assertEquals(18, IntFormat.BIN.strLen(16));
+        assertEquals(17, IntFormat.BIN.strLen(15));
+        assertEquals(16, IntFormat.BIN.strLen(14));
 
-        assertEquals(3,IntFormat.dec.strLen(8));
-        assertEquals(3,IntFormat.dec.strLen(9));
-        assertEquals(4,IntFormat.dec.strLen(10));
-        assertEquals(19, IntFormat.dec.strLen(60));
-        assertEquals(19, IntFormat.dec.strLen(61));
-        assertEquals(19, IntFormat.dec.strLen(62));
-        assertEquals(19, IntFormat.dec.strLen(63));
-        assertEquals(20, IntFormat.dec.strLen(64));
+        assertEquals(3, IntFormat.DEC.strLen(8));
+        assertEquals(3, IntFormat.DEC.strLen(9));
+        assertEquals(4, IntFormat.DEC.strLen(10));
+        assertEquals(19, IntFormat.DEC.strLen(60));
+        assertEquals(19, IntFormat.DEC.strLen(61));
+        assertEquals(19, IntFormat.DEC.strLen(62));
+        assertEquals(19, IntFormat.DEC.strLen(63));
+        assertEquals(20, IntFormat.DEC.strLen(64));
 
-        assertEquals(4,IntFormat.decSigned.strLen(8));
-        assertEquals(4,IntFormat.decSigned.strLen(9));
-        assertEquals(4,IntFormat.decSigned.strLen(10));
-        assertEquals(5,IntFormat.decSigned.strLen(11));
-        assertEquals(20, IntFormat.decSigned.strLen(62));
-        assertEquals(20, IntFormat.decSigned.strLen(63));
-        assertEquals(20, IntFormat.decSigned.strLen(64));
+        assertEquals(4, IntFormat.DEC_SIGNED.strLen(8));
+        assertEquals(4, IntFormat.DEC_SIGNED.strLen(9));
+        assertEquals(4, IntFormat.DEC_SIGNED.strLen(10));
+        assertEquals(5, IntFormat.DEC_SIGNED.strLen(11));
+        assertEquals(20, IntFormat.DEC_SIGNED.strLen(62));
+        assertEquals(20, IntFormat.DEC_SIGNED.strLen(63));
+        assertEquals(20, IntFormat.DEC_SIGNED.strLen(64));
 
-        assertEquals(4,IntFormat.oct.strLen(4));
-        assertEquals(4,IntFormat.oct.strLen(5));
-        assertEquals(4,IntFormat.oct.strLen(6));
-        assertEquals(5,IntFormat.oct.strLen(7));
-        assertEquals(5,IntFormat.oct.strLen(8));
-        assertEquals(5,IntFormat.oct.strLen(9));
-        assertEquals(6,IntFormat.oct.strLen(10));
+        assertEquals(4, IntFormat.OCT.strLen(4));
+        assertEquals(4, IntFormat.OCT.strLen(5));
+        assertEquals(4, IntFormat.OCT.strLen(6));
+        assertEquals(5, IntFormat.OCT.strLen(7));
+        assertEquals(5, IntFormat.OCT.strLen(8));
+        assertEquals(5, IntFormat.OCT.strLen(9));
+        assertEquals(6, IntFormat.OCT.strLen(10));
 
     }
 }

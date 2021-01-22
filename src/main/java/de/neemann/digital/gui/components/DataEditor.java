@@ -62,8 +62,8 @@ public class DataEditor extends JDialog {
         this.dataBits = dataBits;
         this.addrBits = addrBits;
         dataFormat = intFormat;
-        if (intFormat.equals(IntFormat.ascii) || intFormat.equals(IntFormat.bin))
-            addrFormat = IntFormat.def;
+        if (intFormat.equals(IntFormat.ASCII) || intFormat.equals(IntFormat.BIN))
+            addrFormat = IntFormat.DEF;
         else
             addrFormat = intFormat;
 

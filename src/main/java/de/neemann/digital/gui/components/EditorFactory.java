@@ -97,7 +97,7 @@ public final class EditorFactory {
 
         if (fac == null) {
             if (key instanceof Key.KeyEnum)
-                return new EnumEditor((Enum) value, key);
+                return new EnumEditor(value, key);
             throw new RuntimeException("no editor found for " + key.getValueClass().getSimpleName());
         }
 
@@ -758,19 +758,19 @@ public final class EditorFactory {
         }
     }
 
-    private static class EnumEditor<E extends Enum> extends LabelEditor<E> {
+    private static class EnumEditor<E> extends LabelEditor<E> {
         private final JComboBox comboBox;
         private final E[] values;
         private final String[] names;
 
-        public EnumEditor(Enum value, Key<E> key) {
+        public EnumEditor(E value, Key<E> key) {
             if (!(key instanceof Key.KeyEnum))
                 throw new RuntimeException("wrong enum type");
             this.names = ((Key.KeyEnum<E>) key).getNames();
             this.values = ((Key.KeyEnum<E>) key).getValues();
 
             comboBox = new JComboBox<>(names);
-            comboBox.setSelectedIndex(value.ordinal());
+            comboBox.setSelectedIndex(indexOf(value));
         }
 
         @Override
@@ -785,7 +785,14 @@ public final class EditorFactory {
 
         @Override
         public void setValue(E value) {
-            comboBox.setSelectedIndex(value.ordinal());
+            comboBox.setSelectedIndex(indexOf(value));
+        }
+
+        private int indexOf(E value) {
+            for (int i = 0; i < values.length; i++)
+                if (value == values[i])
+                    return i;
+            return 0;
         }
 
         @Override
