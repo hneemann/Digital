@@ -1295,8 +1295,9 @@
     <string name="key_intFormat_def">Default</string>
     <string name="key_intFormat_hex">Hex</string>
     <string name="key_intFormat_oct">Octal</string>
-    <string name="key_intFormat_fixed">fixed point</string>
-    <string name="key_intFormat_fixedSigned">signed fixed point</string>
+    <string name="key_intFormat_fixed">Fixed Point</string>
+    <string name="key_intFormat_fixedSigned">Signed Fixed Point</string>
+    <string name="key_intFormat_float">Floating Point</string>
     <string name="key_fixedPoint">fixed point digits</string>
     <string name="key_fixedPoint_tt">Number of fractional binary digits</string>
     <string name="key_barrelSigned">shift input has sign</string><!-- BarrelShifter -->

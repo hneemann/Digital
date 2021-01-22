@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.core;
 
+import java.util.Objects;
+
 /**
  * The int format used to format numbers
  */
@@ -52,21 +54,23 @@ public class IntFormat {
      * ascii format
      */
     public static final IntFormat ASCII = new IntFormat("ascii", v -> "'" + (char) v.getValue() + "'", bits -> 3);
-
     /**
-     * ascii format
+     * fixed point format
      */
     public static final IntFormat FIXED_POINT = new IntFormatFixedPoint("fixed", false);
-
     /**
-     * ascii format
+     * signed fixed point format
      */
     public static final IntFormat FIXED_POINT_SIGNED = new IntFormatFixedPoint("fixedSigned", true);
+    /**
+     * float format
+     */
+    public static final IntFormat FLOAT = new IntFormatFloat();
 
     /**
      * All the available formats
      */
-    public static final IntFormat[] VALUES = new IntFormat[]{DEF, DEC, DEC_SIGNED, HEX, BIN, OCT, ASCII, FIXED_POINT, FIXED_POINT_SIGNED};
+    public static final IntFormat[] VALUES = new IntFormat[]{DEF, DEC, DEC_SIGNED, HEX, BIN, OCT, ASCII, FIXED_POINT, FIXED_POINT_SIGNED, FLOAT};
 
     private final String name;
     private final EditFormat format;
@@ -160,7 +164,7 @@ public class IntFormat {
 
     private static final char[] DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-    private static String toHex(Value inValue) {
+    static String toHex(Value inValue) {
         final int bits = inValue.getBits();
         final int numChars = (bits - 1) / 4 + 1;
 
@@ -248,12 +252,14 @@ public class IntFormat {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        return o != null && getClass() == o.getClass();
+        if (o == null || getClass() != o.getClass()) return false;
+        IntFormat intFormat = (IntFormat) o;
+        return name.equals(intFormat.name);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(name);
     }
 
     interface StrLen {

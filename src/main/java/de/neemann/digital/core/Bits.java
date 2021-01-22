@@ -144,6 +144,12 @@ public final class Bits {
 
         if (str.indexOf(':') >= 0)
             return decodeFixed(str);
+        if (str.indexOf('.') > -1) {
+            if (str.endsWith("d") || str.endsWith("D"))
+                return Double.doubleToLongBits(Double.parseDouble(str.substring(0, str.length() - 1)));
+            else
+                return Float.floatToIntBits(Float.parseFloat(str));
+        }
 
         int p = 0;
 

@@ -52,10 +52,12 @@ public class IntFormatTest extends TestCase {
      */
     public void testBitDecodeConstraint() throws Bits.NumberFormatException {
         for (IntFormat f : IntFormat.VALUES) {
-            if (f == IntFormat.ASCII) {
+            if (f.equals(IntFormat.ASCII)) {
                 checkConstraint(f, tableAscii); // ascii supports only 16 bit
             } else if (f instanceof IntFormatFixedPoint) {
-                checkConstraintFixedPoint((IntFormatFixedPoint) f, tableFixedPoint); // ascii supports only 16 bit
+                checkConstraintFixedPoint((IntFormatFixedPoint) f, tableFixedPoint);
+            } else if (f.equals(IntFormat.FLOAT)) {
+                checkConstraint(f, tableFloat);
             } else {
                 checkConstraint(f, table);
             }
@@ -93,9 +95,17 @@ public class IntFormatTest extends TestCase {
             new Value(-1, 64),
     };
 
+    private static final Value[] tableFloat = new Value[]{
+            new Value(1, 2),
+            new Value(Float.floatToIntBits(-1), 32),
+            new Value(Float.floatToIntBits(1.2f), 32),
+            new Value(Double.doubleToLongBits(-1), 64),
+            new Value(Double.doubleToLongBits(1.2f), 64),
+    };
+
     private static final Value[] tableAscii = new Value[]{
             new Value(65, 8),
-            new Value(65, 8),
+            new Value(66, 8),
             new Value(1000, 16),
             new Value(-1, 7),
             new Value(-1, 7),

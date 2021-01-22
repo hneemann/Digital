@@ -1314,6 +1314,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_intFormat_oct">Oktal</string>
     <string name="key_intFormat_fixed">Festkomma</string>
     <string name="key_intFormat_fixedSigned">Festkomma mit Vorzeichen</string>
+    <string name="key_intFormat_float">Fließkomma</string>
     <string name="key_fixedPoint">Festkommastellen</string>
     <string name="key_fixedPoint_tt">Zahl der binären Stellen nach dem Komma.</string>
     <string name="key_barrelSigned">Verschiebeweite hat Vorzeichen</string><!-- BarrelShifter -->
