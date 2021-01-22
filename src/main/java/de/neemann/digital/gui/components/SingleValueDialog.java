@@ -39,11 +39,11 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         FORMATS = f.toArray(new Format[]{});
     }
 
-    private static class Format {
+    private static final class Format {
         private final IntFormat intFormat;
         private final String name;
 
-        public Format(IntFormat intFormat) {
+        private Format(IntFormat intFormat) {
             this.intFormat = intFormat;
             name = Lang.get("key_intFormat_" + intFormat.getName());
         }
