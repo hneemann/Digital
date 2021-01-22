@@ -6,37 +6,58 @@
 package de.neemann.digital.core;
 
 /**
- *
+ * The int format used to format numbers
  */
 public enum IntFormat {
     /**
      * the default format
      */
-    def,
+    def(v -> {
+        final long value = v.getValue();
+        if (value >= 0 && value < 10)
+            return Long.toString(value);
+        else
+            return "0x" + toShortHex(value, true);
+    }, bits -> (bits - 1) / 4 + 3),
     /**
      * decimal
      */
-    dec,
+    dec(v -> Long.toString(v.getValue()), IntFormat::decStrLen),
     /**
      * decimal signed
      */
-    decSigned,
+    decSigned(v -> Long.toString(v.getValueSigned()), bits -> decStrLen(bits - 1) + 1, true),
     /**
      * hexadecimal
      */
-    hex,
+    hex(v -> "0x" + toHex(v), bits -> (bits - 1) / 4 + 3),
     /**
      * binary
      */
-    bin,
+    bin(v -> "0b" + toBin(v), bits -> bits + 2),
     /**
      * octal
      */
-    oct,
+    oct(v -> "0" + toOct(v), bits -> (bits - 1) / 3 + 3),
     /**
      * ascii format
      */
-    ascii;
+    ascii(v -> "'" + (char) v.getValue() + "'", bits -> 3);
+
+
+    private final EditFormat format;
+    private final StrLen strLen;
+    private final boolean signed;
+
+    IntFormat(EditFormat format, StrLen strLen) {
+        this(format, strLen, false);
+    }
+
+    IntFormat(EditFormat format, StrLen strLen, boolean signed) {
+        this.format = format;
+        this.strLen = strLen;
+        this.signed = signed;
+    }
 
     /**
      * Formats the value.
@@ -68,26 +89,7 @@ public enum IntFormat {
         if (inValue.isHighZ())
             return "Z";
 
-        switch (this) {
-            case dec:
-                return Long.toString(inValue.getValue());
-            case decSigned:
-                return Long.toString(inValue.getValueSigned());
-            case hex:
-                return "0x" + toHex(inValue);
-            case bin:
-                return "0b" + toBin(inValue);
-            case oct:
-                return "0" + toOct(inValue);
-            case ascii:
-                return "'" + (char) inValue.getValue() + "'";
-            default:
-                final long value = inValue.getValue();
-                if (value >= 0 && value < 10)
-                    return Long.toString(value);
-                else
-                    return "0x" + toShortHex(value, true);
-        }
+        return format.format(inValue);
     }
 
     /**
@@ -97,25 +99,10 @@ public enum IntFormat {
      * @return the number of characters required
      */
     public int strLen(int bits) {
-        switch (this) {
-            case dec:
-                return decStrLen(bits);
-            case decSigned:
-                return decStrLen(bits - 1) + 1;
-            case hex:
-                return (bits - 1) / 4 + 3;
-            case bin:
-                return bits + 2;
-            case oct:
-                return (bits - 1) / 3 + 3;
-            case ascii:
-                return 3;
-            default:
-                return (bits - 1) / 4 + 3;
-        }
+        return strLen.strLen(bits);
     }
 
-    private int decStrLen(int bits) {
+    private static int decStrLen(int bits) {
         if (bits == 64)
             return 20;
         else if (bits == 63) {
@@ -208,6 +195,14 @@ public enum IntFormat {
      * @return true if the format supports signed values
      */
     public boolean isSigned() {
-        return this.equals(decSigned);
+        return signed;
+    }
+
+    private interface StrLen {
+        int strLen(int bits);
+    }
+
+    private interface EditFormat {
+        String format(Value inValue);
     }
 }
