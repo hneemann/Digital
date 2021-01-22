@@ -54,9 +54,19 @@ public class IntFormat {
     public static final IntFormat ASCII = new IntFormat("ascii", v -> "'" + (char) v.getValue() + "'", bits -> 3);
 
     /**
+     * ascii format
+     */
+    public static final IntFormat FIXED_POINT = new IntFormatFixedPoint("fixed", false);
+
+    /**
+     * ascii format
+     */
+    public static final IntFormat FIXED_POINT_SIGNED = new IntFormatFixedPoint("fixedSigned", true);
+
+    /**
      * All the available formats
      */
-    public static final IntFormat[] VALUES = new IntFormat[]{DEF, DEC, DEC_SIGNED, HEX, BIN, OCT, ASCII};
+    public static final IntFormat[] VALUES = new IntFormat[]{DEF, DEC, DEC_SIGNED, HEX, BIN, OCT, ASCII, FIXED_POINT, FIXED_POINT_SIGNED};
 
     private final String name;
     private final EditFormat format;
@@ -139,7 +149,7 @@ public class IntFormat {
         return getName();
     }
 
-    private static int decStrLen(int bits) {
+    static int decStrLen(int bits) {
         if (bits == 64)
             return 20;
         else if (bits == 63) {
@@ -246,11 +256,11 @@ public class IntFormat {
         return getClass().hashCode();
     }
 
-    private interface StrLen {
+    interface StrLen {
         int strLen(int bits);
     }
 
-    private interface EditFormat {
+    interface EditFormat {
         String format(Value inValue);
     }
 }

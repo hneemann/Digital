@@ -9,7 +9,6 @@ import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
-import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
@@ -42,7 +41,7 @@ public class ProbeShape implements Shape {
         this.inputs = inputs;
         label = attr.getLabel();
         isLabel = label != null && label.length() > 0;
-        this.format = attr.get(Keys.INT_FORMAT);
+        this.format = attr.getIntFormat();
     }
 
     @Override

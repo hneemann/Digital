@@ -60,7 +60,7 @@ public class OutputShape implements Shape {
         else
             this.label = attr.getLabel() + " (" + pinNumber + ")";
 
-        format = attr.get(Keys.INT_FORMAT);
+        format = attr.getIntFormat();
     }
 
     @Override

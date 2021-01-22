@@ -40,7 +40,7 @@ public class Probe implements Element {
      */
     public Probe(ElementAttributes attributes) {
         label = attributes.get(Keys.LABEL);
-        format = attributes.get(Keys.INT_FORMAT);
+        format = attributes.getIntFormat();
         showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 

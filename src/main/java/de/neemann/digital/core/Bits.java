@@ -142,6 +142,9 @@ public final class Bits {
         if (str.length() == 0)
             return 0;
 
+        if (str.indexOf(':') >= 0)
+            return decodeFixed(str);
+
         int p = 0;
 
         boolean neg = false;
@@ -217,6 +220,13 @@ public final class Bits {
             p++;
         }
         return val;
+    }
+
+    private static long decodeFixed(String str) {
+        int p = str.indexOf(':');
+        int frac = Integer.parseInt(str.substring(p + 1));
+        double floating = Double.parseDouble(str.substring(0, p));
+        return (long) (floating * (1L << frac));
     }
 
     /**

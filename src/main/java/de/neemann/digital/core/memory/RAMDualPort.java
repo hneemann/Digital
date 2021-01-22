@@ -66,7 +66,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
         memory = createDataField(attr, size);
         label = attr.getLabel();
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
-        intFormat = attr.get(Keys.INT_FORMAT);
+        intFormat = attr.getIntFormat();
     }
 
     /**

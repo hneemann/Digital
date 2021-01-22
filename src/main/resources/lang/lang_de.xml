@@ -766,7 +766,6 @@
     <string name="elem_CounterPreset_pin_in">Dieses Datenwort wird im Zähler gespeichert, wenn ld=1 gesetzt ist.</string>
 
 
-
     <!--Arithmetik -->
 
     <string name="elem_Add">Addierer</string>
@@ -1313,6 +1312,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_intFormat_def">Vorgabe</string>
     <string name="key_intFormat_hex">Hexadezimal</string>
     <string name="key_intFormat_oct">Oktal</string>
+    <string name="key_intFormat_fixed">Festkomma</string>
+    <string name="key_intFormat_fixedSigned">Festkomma mit Vorzeichen</string>
+    <string name="key_fixedPoint">Festkommastellen</string>
+    <string name="key_fixedPoint_tt">Zahl der binären Stellen nach dem Komma.</string>
     <string name="key_barrelSigned">Verschiebeweite hat Vorzeichen</string><!-- BarrelShifter -->
     <string name="key_barrelSigned_tt">Verschiebeweite verwendet Zweierkomplement</string>
     <string name="key_barrelShifterMode">Modus</string><!-- BarrelShifter -->

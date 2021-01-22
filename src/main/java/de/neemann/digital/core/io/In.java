@@ -71,7 +71,7 @@ public class In implements Element {
             output.setValue(value.getValue());
 
         label = attributes.getLabel();
-        format = attributes.get(Keys.INT_FORMAT);
+        format = attributes.getIntFormat();
         showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 

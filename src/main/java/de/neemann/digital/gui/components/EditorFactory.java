@@ -420,7 +420,7 @@ public final class EditorFactory {
         public void addToPanel(EditorPanel panel, Key<Long> key, ElementAttributes attr, AttributeDialog attributeDialog) {
             if (key.isAdaptiveIntFormat()) {
                 Value value = new Value(attr.get(key), attr.getBits());
-                comboBox.setSelectedItem(attr.get(Keys.INT_FORMAT).formatToEdit(value));
+                comboBox.setSelectedItem(attr.getIntFormat().formatToEdit(value));
             }
             super.addToPanel(panel, key, attr, attributeDialog);
         }
@@ -461,7 +461,7 @@ public final class EditorFactory {
         public void addToPanel(EditorPanel panel, Key<InValue> key, ElementAttributes attr, AttributeDialog attributeDialog) {
             if (key.isAdaptiveIntFormat()) {
                 Value value = new Value(attr.get(key), attr.getBits());
-                comboBox.setSelectedItem(attr.get(Keys.INT_FORMAT).formatToEdit(value));
+                comboBox.setSelectedItem(attr.getIntFormat().formatToEdit(value));
             }
             super.addToPanel(panel, key, attr, attributeDialog);
         }
@@ -640,7 +640,7 @@ public final class EditorFactory {
                         getAttributeDialog().storeEditedValues();
                         int dataBits = attr.get(Keys.BITS);
                         int addrBits = getAddrBits(attr);
-                        DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC, attr.get(Keys.INT_FORMAT));
+                        DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC, attr.getIntFormat());
                         de.setFileName(new FileLocator(attr.getFile(ROM.LAST_DATA_FILE_KEY))
                                 .setupWithMain(getAttributeDialog().getMain())
                                 .locate());

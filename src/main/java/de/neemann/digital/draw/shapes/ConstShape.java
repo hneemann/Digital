@@ -36,7 +36,7 @@ public class ConstShape implements Shape {
     public ConstShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
         int bits = attr.getBits();
-        IntFormat format = attr.get(Keys.INT_FORMAT);
+        IntFormat format = attr.getIntFormat();
         this.value = format.formatToView(new Value(attr.get(Keys.VALUE), bits));
     }
 

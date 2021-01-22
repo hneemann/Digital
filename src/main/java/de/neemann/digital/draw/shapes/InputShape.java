@@ -60,7 +60,7 @@ public class InputShape implements Shape {
         else
             this.label = attr.getLabel() + " (" + pinNumber + ")";
 
-        format = attr.get(Keys.INT_FORMAT);
+        format = attr.getIntFormat();
 
         isHighZ = attr.get(Keys.INPUT_DEFAULT).isHighZ() || attr.get(Keys.IS_HIGH_Z);
 

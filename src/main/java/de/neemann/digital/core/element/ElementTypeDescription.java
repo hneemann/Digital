@@ -155,6 +155,8 @@ public class ElementTypeDescription {
      */
     public <VALUE> ElementTypeDescription addAttribute(Key<VALUE> key) {
         attributeList.add(key);
+        if (key == Keys.INT_FORMAT)
+            attributeList.add(Keys.FIXED_POINT);
         return this;
     }
 

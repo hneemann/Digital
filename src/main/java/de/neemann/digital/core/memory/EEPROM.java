@@ -15,8 +15,6 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.components.CircuitModifier;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
 
-import javax.swing.*;
-
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
@@ -81,7 +79,7 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional();
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
-        intFormat = attr.get(Keys.INT_FORMAT);
+        intFormat = attr.getIntFormat();
     }
 
     @Override

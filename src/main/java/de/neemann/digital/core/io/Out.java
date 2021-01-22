@@ -99,7 +99,7 @@ public class Out implements Element {
         bits = new int[]{attributes.getBits()};
         label = attributes.getLabel();
         pinNumber = attributes.get(Keys.PINNUMBER);
-        format = attributes.get(Keys.INT_FORMAT);
+        format = attributes.getIntFormat();
         showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 

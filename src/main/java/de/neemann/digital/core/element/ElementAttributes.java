@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.core.IntFormat;
+import de.neemann.digital.core.IntFormatFixedPoint;
 import de.neemann.digital.hdl.hgs.HGSMap;
 
 import java.io.File;
@@ -159,6 +161,16 @@ public class ElementAttributes implements HGSMap {
      */
     public String getLabel() {
         return get(Keys.LABEL);
+    }
+
+    /**
+     * @return the int number format
+     */
+    public IntFormat getIntFormat() {
+        IntFormat intFormat = get(Keys.INT_FORMAT);
+        if (intFormat instanceof IntFormatFixedPoint)
+            return ((IntFormatFixedPoint) intFormat).createFixedPoint(get(Keys.FIXED_POINT));
+        return intFormat;
     }
 
     /**

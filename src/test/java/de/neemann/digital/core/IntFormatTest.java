@@ -54,8 +54,21 @@ public class IntFormatTest extends TestCase {
         for (IntFormat f : IntFormat.VALUES) {
             if (f == IntFormat.ASCII) {
                 checkConstraint(f, tableAscii); // ascii supports only 16 bit
+            } else if (f instanceof IntFormatFixedPoint) {
+                checkConstraintFixedPoint((IntFormatFixedPoint) f, tableFixedPoint); // ascii supports only 16 bit
             } else {
                 checkConstraint(f, table);
+            }
+        }
+    }
+
+    private void checkConstraintFixedPoint(IntFormatFixedPoint f, Value[] table) throws Bits.NumberFormatException {
+        for (int digits = 1; digits < 5; digits++) {
+            IntFormat format = f.createFixedPoint(digits);
+            for (Value val : table) {
+                final String str = format.formatToEdit(val);
+                final Value conv = new Value(Bits.decode(str), val.getBits());
+                assertTrue(format.getName() + ":" + val + " != " + conv, val.isEqual(conv));
             }
         }
     }
@@ -69,6 +82,15 @@ public class IntFormatTest extends TestCase {
             new Value(-1, 64),
             new Value(0x4fffffffffffffffL, 63),
             new Value(0x8fffffffffffffffL, 64),
+    };
+
+    private static final Value[] tableFixedPoint = new Value[]{
+            new Value(1, 2),
+            new Value(-1, 2),
+            new Value(1, 64),
+            new Value(10, 8),
+            new Value(17, 8),
+            new Value(-1, 64),
     };
 
     private static final Value[] tableAscii = new Value[]{

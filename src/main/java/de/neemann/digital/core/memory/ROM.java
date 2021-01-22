@@ -75,7 +75,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
             hexFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else
             hexFile = null;
-        intFormat = attr.get(Keys.INT_FORMAT);
+        intFormat = attr.getIntFormat();
     }
 
     ObservableValue createOutput1() {
