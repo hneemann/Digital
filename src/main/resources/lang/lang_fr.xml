@@ -19,12 +19,6 @@ In the file howTo.md you can find more details about translations.
     <string name="attr_openCircuit_tt">Ouvre un circuit dans une nouvelle fenêtre.</string>
     <string name="attr_help">Aide</string>
     <string name="attr_help_tt">Affiche une courte description de cet élément.</string>
-    <string name="attr_dialogHex">Hex</string>
-    <string name="attr_dialogDecimal">Décimal</string>
-    <string name="attr_dialogAscii">ASCII</string>
-    <string name="attr_dialogHighz">Hi-Z</string>
-    <string name="attr_dialogOctal">Octal</string>
-    <string name="attr_dialogBinary">Binaire</string>
     <string name="attr_panel_primary">Base</string>
     <string name="attr_panel_secondary">Avancé</string>
     <string name="btn_discard">Abandonner les modifications</string>

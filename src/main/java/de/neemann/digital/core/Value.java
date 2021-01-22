@@ -20,6 +20,18 @@ public class Value {
     private final long mask;
 
     /**
+     * Creates a new high z Value
+     *
+     * @param bits the number of high z bits
+     */
+    public Value(int bits) {
+        this.bits = bits;
+        this.mask = Bits.mask(bits);
+        this.value = 0;
+        this.highZ = mask;
+    }
+
+    /**
      * Creates a new Value
      *
      * @param value the value
@@ -123,5 +135,14 @@ public class Value {
         long m = ~highZ;
 
         return (value & m) == (other.value & m);
+    }
+
+    /**
+     * Applies the value to the oObservable
+     *
+     * @param val the observable value
+     */
+    public void applyTo(ObservableValue val) {
+        val.set(value, highZ);
     }
 }

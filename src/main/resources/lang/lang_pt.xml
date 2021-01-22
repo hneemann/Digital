@@ -20,12 +20,6 @@ In the file howTo.md you can find more details about translations.
     <string name="attr_openCircuit_tt">Abrir circuito em um nova janela.</string>
     <string name="attr_help">Ajuda</string>
     <string name="attr_help_tt">Mostrar uma breve descrição desse elemento.</string>
-    <string name="attr_dialogHex">Hexadecimal</string>
-    <string name="attr_dialogDecimal">Decimal</string>
-    <string name="attr_dialogAscii">ASCII</string>
-    <string name="attr_dialogHighz">Alta impedância</string>
-    <string name="attr_dialogOctal">Octal</string>
-    <string name="attr_dialogBinary">Binário</string>
     <string name="attr_panel_primary">Básico</string>
     <string name="attr_panel_secondary">Avançado</string>
     <string name="btn_discard">Descartar alterações</string>

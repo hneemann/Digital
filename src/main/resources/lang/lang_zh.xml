@@ -20,12 +20,6 @@ In the file howTo.md you can find more details about translations.
   <string name="attr_openCircuit_tt">在新窗口中打开电路</string>
   <string name="attr_help">帮助</string>
   <string name="attr_help_tt">显示该组件的简介</string>
-  <string name="attr_dialogHex">十六进制</string>
-  <string name="attr_dialogDecimal">十进制</string>
-  <string name="attr_dialogAscii">Ascii码</string>
-  <string name="attr_dialogHighz">高阻</string>
-  <string name="attr_dialogOctal">八进制</string>
-  <string name="attr_dialogBinary">二进制</string>
   <string name="attr_panel_primary">基础设置</string>
   <string name="attr_panel_secondary">高级设置</string>
   <string name="btn_discard">忽略修改</string>
