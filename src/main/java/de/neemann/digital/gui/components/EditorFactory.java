@@ -790,7 +790,7 @@ public final class EditorFactory {
 
         private int indexOf(E value) {
             for (int i = 0; i < values.length; i++)
-                if (value == values[i])
+                if (value.equals(values[i]))
                     return i;
             return 0;
         }
