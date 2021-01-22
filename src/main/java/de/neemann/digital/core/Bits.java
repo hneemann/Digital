@@ -225,9 +225,9 @@ public final class Bits {
     private static long decodeFixed(String str) throws NumberFormatException {
         int p = str.indexOf(':');
         try {
-            int frac = Integer.parseInt(str.substring(p + 1));
+            int frac = Math.abs(Integer.parseInt(str.substring(p + 1)));
             double floating = Double.parseDouble(str.substring(0, p));
-            return (long) (floating * (1L << frac));
+            return Math.round(floating * (1L << frac));
         } catch (java.lang.NumberFormatException e) {
             throw new NumberFormatException(str, 0);
         }
