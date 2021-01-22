@@ -15,6 +15,7 @@ import de.neemann.gui.MyFileChooser;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -35,9 +36,7 @@ import java.util.ArrayList;
  */
 public class DataEditor extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
-    private final IntFormat dataFormat;
     private final IntFormat addrFormat;
-    private final int dataBits;
     private final int addrBits;
     private final DataField localDataField;
     private final JTable table;
@@ -54,18 +53,16 @@ public class DataEditor extends JDialog {
      * @param addrBits       the bit count of the adresses
      * @param modelIsRunning true if model is running
      * @param modelSync      used to access the running model
-     * @param intFormat      the integer format to be used
+     * @param dataFormat     the integer format to be used
      */
-    public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync, IntFormat intFormat) {
+    public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync, IntFormat dataFormat) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.dataBits = dataBits;
         this.addrBits = addrBits;
-        dataFormat = intFormat;
-        if (intFormat.equals(IntFormat.ASCII) || intFormat.equals(IntFormat.BIN))
-            addrFormat = IntFormat.DEF;
+        if (dataFormat.equals(IntFormat.ASCII) || dataFormat.equals(IntFormat.BIN) || dataFormat instanceof IntFormatFixedPoint)
+            addrFormat = IntFormat.HEX;
         else
-            addrFormat = intFormat;
+            addrFormat = dataFormat;
 
         if (modelIsRunning)
             localDataField = dataField;
@@ -87,11 +84,12 @@ public class DataEditor extends JDialog {
             col.setPreferredWidth(widthOfData);
         }
 
-        DefaultTableCellRenderer dataRenderer = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer dataRenderer = new MyRenderer(dataFormat, dataBits);
         dataRenderer.setHorizontalAlignment(JLabel.RIGHT);
-        table.setDefaultRenderer(NumberString.class, dataRenderer);
+        table.setDefaultRenderer(Long.class, dataRenderer);
+        table.setDefaultEditor(Long.class, new MyEditor(dataFormat, dataBits));
 
-        DefaultTableCellRenderer addrRenderer = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer addrRenderer = new MyRenderer(addrFormat, addrBits);
         addrRenderer.setBackground(MYGRAY);
         addrRenderer.setHorizontalAlignment(JLabel.RIGHT);
         TableColumn addrColumn = table.getColumnModel().getColumn(0);
@@ -302,14 +300,14 @@ public class DataEditor extends JDialog {
             if (columnIndex == 0)
                 return Lang.get("addr");
             else if (cols > 1)
-                return addrFormat.formatToEdit(new Value(columnIndex - 1, addrBits));
+                return addrFormat.formatToView(new Value(columnIndex - 1, addrBits));
             else
                 return Lang.get("key_Value");
         }
 
         @Override
         public Class<?> getColumnClass(int columnIndex) {
-            return NumberString.class;
+            return Long.class;
         }
 
         @Override
@@ -320,14 +318,14 @@ public class DataEditor extends JDialog {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (columnIndex == 0)
-                return new NumberString(rowIndex * cols, addrBits, addrFormat);
+                return rowIndex * cols;
             else
-                return new NumberString(dataField.getDataWord(rowIndex * cols + (columnIndex - 1)), dataBits, dataFormat);
+                return dataField.getDataWord(rowIndex * cols + (columnIndex - 1));
         }
 
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            long decode = ((NumberString) aValue).getVal();
+            long decode = (long) aValue;
             modelSync.modify(() -> {
                 int addr = rowIndex * cols + (columnIndex - 1);
                 boolean modified = dataField.setData(addr, decode);
@@ -363,37 +361,66 @@ public class DataEditor extends JDialog {
         }
     }
 
-    /**
-     * Used to represent a number in the table
-     */
-    public static class NumberString {
-        private final String str;
-        private final long val;
+    private static final class MyRenderer extends DefaultTableCellRenderer {
+        private final IntFormat intFormat;
+        private final int bits;
 
-        private NumberString(long val, int bits, IntFormat format) {
-            this.val = val;
-            this.str = format.formatToEdit(new Value(val, bits));
-        }
-
-        /**
-         * Called by JTable to create a new value from an edited string!
-         * In an exception is thrown, the cell is marked with a small red border.
-         *
-         * @param str the string after editing
-         * @throws Bits.NumberFormatException Bits.NumberFormatException
-         */
-        public NumberString(String str) throws Bits.NumberFormatException {
-            this.val = Bits.decode(str);
-            this.str = str;
+        private MyRenderer(IntFormat intFormat, int bits) {
+            this.intFormat = intFormat;
+            this.bits = bits;
         }
 
         @Override
-        public String toString() {
-            return str;
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            long val = ((Number) value).longValue();
+            setText(intFormat.formatToView(new Value(val, bits)));
+            return this;
+        }
+    }
+
+    private static final class MyEditor extends DefaultCellEditor {
+        private final IntFormat intFormat;
+        private final int bits;
+        private long value;
+
+        private static JTextField createTextField() {
+            JTextField tf = new JTextField();
+            tf.setHorizontalAlignment(JTextField.RIGHT);
+            return tf;
         }
 
-        private long getVal() {
-            return val;
+        private MyEditor(IntFormat intFormat, int bits) {
+            super(createTextField());
+            this.intFormat = intFormat;
+            this.bits = bits;
+        }
+
+
+        @Override
+        public Component getTableCellEditorComponent(JTable jTable, Object o, boolean isSelected, int row, int col) {
+            JTextField editor = (JTextField) super.getTableCellEditorComponent(jTable, o, isSelected, row, col);
+            editor.setText(intFormat.formatToEdit(new Value((Long) o, bits)));
+            return editor;
+        }
+
+        @Override
+        public boolean stopCellEditing() {
+            String s = (String) super.getCellEditorValue();
+
+            try {
+                this.value = Bits.decode(s);
+            } catch (Exception e) {
+                ((JComponent) this.getComponent()).setBorder(new LineBorder(Color.red));
+                return false;
+            }
+
+            return super.stopCellEditing();
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return value;
         }
     }
 }
