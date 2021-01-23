@@ -809,7 +809,7 @@ public class TestInGUI extends TestCase {
                 .mouseClick(InputEvent.BUTTON1_DOWN_MASK)
                 .delay(500)
                 .type("0")
-                .press("TAB", 5)
+                .press("TAB", 8)
                 .press("SPACE", "ENTER")
                 .delay(500)
                 .add(new CheckOutputValue(8))
