@@ -70,6 +70,18 @@
           <string>Bits</string>
           <int>20</int>
         </entry>
+        <entry>
+          <string>fixedPoint</string>
+          <int>14</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <de.neemann.digital.core.IntFormatFixedPoint>
+            <name>fixedSigned</name>
+            <signed>true</signed>
+            <fixedPoint>0</fixedPoint>
+          </de.neemann.digital.core.IntFormatFixedPoint>
+        </entry>
       </elementAttributes>
       <pos x="520" y="220"/>
     </visualElement>
@@ -88,6 +100,14 @@
         <entry>
           <string>Bits</string>
           <int>20</int>
+        </entry>
+        <entry>
+          <string>fixedPoint</string>
+          <int>14</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <de.neemann.digital.core.IntFormatFixedPoint reference="../../../../visualElement[6]/elementAttributes/entry[5]/de.neemann.digital.core.IntFormatFixedPoint"/>
         </entry>
       </elementAttributes>
       <pos x="520" y="340"/>

@@ -31,8 +31,20 @@
           <int>20</int>
         </entry>
         <entry>
+          <string>fixedPoint</string>
+          <int>14</int>
+        </entry>
+        <entry>
           <string>intFormat</string>
-          <intFormat>decSigned</intFormat>
+          <de.neemann.digital.core.IntFormatFixedPoint>
+            <name>fixedSigned</name>
+            <signed>true</signed>
+            <fixedPoint>0</fixedPoint>
+          </de.neemann.digital.core.IntFormatFixedPoint>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="6144" z="false"/>
         </entry>
       </elementAttributes>
       <pos x="500" y="200"/>
@@ -54,8 +66,16 @@
           <int>20</int>
         </entry>
         <entry>
+          <string>fixedPoint</string>
+          <int>14</int>
+        </entry>
+        <entry>
           <string>intFormat</string>
-          <intFormat>decSigned</intFormat>
+          <de.neemann.digital.core.IntFormatFixedPoint>
+            <name>fixedSigned</name>
+            <signed>true</signed>
+            <fixedPoint>0</fixedPoint>
+          </de.neemann.digital.core.IntFormatFixedPoint>
         </entry>
         <entry>
           <string>InDefault</string>
@@ -142,6 +162,14 @@
         <entry>
           <string>Bits</string>
           <int>20</int>
+        </entry>
+        <entry>
+          <string>fixedPoint</string>
+          <int>14</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <de.neemann.digital.core.IntFormatFixedPoint reference="../../../../visualElement[3]/elementAttributes/entry[5]/de.neemann.digital.core.IntFormatFixedPoint"/>
         </entry>
       </elementAttributes>
       <pos x="720" y="460"/>
@@ -230,6 +258,42 @@
       </elementAttributes>
       <pos x="840" y="260"/>
     </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>a</string>
+        </entry>
+        <entry>
+          <string>fixedPoint</string>
+          <int>14</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <de.neemann.digital.core.IntFormatFixedPoint reference="../../../../visualElement[3]/elementAttributes/entry[5]/de.neemann.digital.core.IntFormatFixedPoint"/>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>b</string>
+        </entry>
+        <entry>
+          <string>fixedPoint</string>
+          <int>14</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <de.neemann.digital.core.IntFormatFixedPoint reference="../../../../visualElement[3]/elementAttributes/entry[5]/de.neemann.digital.core.IntFormatFixedPoint"/>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="340"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -317,6 +381,10 @@
       <p2 x="1040" y="340"/>
     </wire>
     <wire>
+      <p1 x="1040" y="340"/>
+      <p2 x="1060" y="340"/>
+    </wire>
+    <wire>
       <p1 x="800" y="440"/>
       <p2 x="960" y="440"/>
     </wire>
@@ -347,6 +415,10 @@
     <wire>
       <p1 x="1000" y="220"/>
       <p2 x="1020" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="220"/>
+      <p2 x="1060" y="220"/>
     </wire>
     <wire>
       <p1 x="1040" y="140"/>

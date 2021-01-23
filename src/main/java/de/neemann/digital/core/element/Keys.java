@@ -509,6 +509,7 @@ public final class Keys {
             .setMin(1)
             .setMax(64)
             .setDependsOn(INT_FORMAT, intFormat -> intFormat instanceof IntFormatFixedPoint)
+            .allowGroupEdit()
             .setSecondary();
 
     /**
