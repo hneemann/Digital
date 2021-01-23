@@ -104,6 +104,8 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             setLongToDialog(editValue);
         });
 
+        JPanel checkBoxPanel = createCheckBoxPanel(editValue);
+
         model.modify(() -> model.addObserver(this));
         addWindowListener(new WindowAdapter() {
             @Override
@@ -113,19 +115,12 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         });
 
         JPanel panel = new JPanel(new GridBagLayout());
-        ConstraintsBuilder constr = new ConstraintsBuilder().inset(3).fill();
-        panel.add(formatComboBox, constr);
         JSpinner spinner = new JSpinner(new MySpinnerModel()) {
             @Override
             protected JComponent createEditor(SpinnerModel spinnerModel) {
                 return textField;
             }
         };
-        panel.add(spinner, constr.dynamicWidth().x(1));
-        constr.nextRow();
-        panel.add(new JLabel(Lang.get("key_intFormat_bin")), constr);
-        panel.add(createCheckBoxPanel(editValue), constr.dynamicWidth().x(1));
-        getContentPane().add(panel);
 
         textField.getDocument().addDocumentListener(new MyDocumentListener(() -> setStringToDialog(textField.getText())));
 
@@ -145,13 +140,25 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             }
         };
         JButton applyButton = new JButton(applyAction);
+
+        ConstraintsBuilder constr = new ConstraintsBuilder().inset(3).dynamicWidth().fill();
+        panel.add(new JLabel(Lang.get("win_valueInputTitle_N", label)), constr);
+        panel.add(spinner, constr.x(1));
+        panel.add(applyButton, constr.x(2));
+
+        constr.nextRow();
+        panel.add(new JLabel(Lang.get("key_intFormat")), constr);
+        panel.add(formatComboBox, constr.x(1));
+        panel.add(okButton, constr.x(2));
+
+        constr.nextRow();
+        panel.add(new JLabel(Lang.get("key_intFormat_bin")), constr);
+        panel.add(checkBoxPanel, constr.x(1));
+
+        getContentPane().add(panel);
+
         textField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, KeyEvent.SHIFT_DOWN_MASK, true), applyAction);
         textField.getActionMap().put(applyAction, applyAction);
-
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
-        buttonPanel.add(okButton);
-        buttonPanel.add(applyButton);
-        getContentPane().add(buttonPanel, BorderLayout.EAST);
 
         getRootPane().setDefaultButton(okButton);
         getRootPane().registerKeyboardAction(actionEvent -> dispose(),
