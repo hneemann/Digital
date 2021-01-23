@@ -5,9 +5,9 @@
  */
 package de.neemann.digital.core.memory.rom;
 
-import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.stats.Countable;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
 
 /**
  * Interface implemented by al ROM or EEPROM components
@@ -38,5 +38,5 @@ public interface ROMInterface extends Countable {
     /**
      * @return the integer format to be used to visualize the values
      */
-    IntFormat getIntFormat();
+    ValueFormatter getValueFormatter();
 }

@@ -8,6 +8,7 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.importer.Importer;
+import de.neemann.digital.core.valueFormatter.*;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
  */
 public class DataEditor extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
-    private final IntFormat addrFormat;
+    private final ValueFormatter addrFormat;
     private final int addrBits;
     private final DataField localDataField;
     private final JTable table;
@@ -55,12 +56,12 @@ public class DataEditor extends JDialog {
      * @param modelSync      used to access the running model
      * @param dataFormat     the integer format to be used
      */
-    public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync, IntFormat dataFormat) {
+    public DataEditor(Component parent, DataField dataField, int dataBits, int addrBits, boolean modelIsRunning, SyncAccess modelSync, ValueFormatter dataFormat) {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.addrBits = addrBits;
-        if (dataFormat.equals(IntFormat.ASCII) || dataFormat.equals(IntFormat.BIN) || dataFormat instanceof IntFormatFixedPoint)
-            addrFormat = IntFormat.HEX;
+        if (dataFormat instanceof ValueFormatterAscii || dataFormat instanceof ValueFormatterBinary || dataFormat instanceof ValueFormatterFixedPoint)
+            addrFormat = ValueFormatterHex.INSTANCE;
         else
             addrFormat = dataFormat;
 
@@ -185,7 +186,7 @@ public class DataEditor extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    private int calcCols(int size, int dataBits, IntFormat dataFormat) {
+    private int calcCols(int size, int dataBits, ValueFormatter dataFormat) {
         if (size <= 16) return 1;
 
         int colWidth = dataFormat.strLen(dataBits);
@@ -362,10 +363,10 @@ public class DataEditor extends JDialog {
     }
 
     private static final class MyRenderer extends DefaultTableCellRenderer {
-        private final IntFormat intFormat;
+        private final ValueFormatter intFormat;
         private final int bits;
 
-        private MyRenderer(IntFormat intFormat, int bits) {
+        private MyRenderer(ValueFormatter intFormat, int bits) {
             this.intFormat = intFormat;
             this.bits = bits;
         }
@@ -380,7 +381,7 @@ public class DataEditor extends JDialog {
     }
 
     private static final class MyEditor extends DefaultCellEditor {
-        private final IntFormat intFormat;
+        private final ValueFormatter intFormat;
         private final int bits;
         private long value;
 
@@ -390,7 +391,7 @@ public class DataEditor extends JDialog {
             return tf;
         }
 
-        private MyEditor(IntFormat intFormat, int bits) {
+        private MyEditor(ValueFormatter intFormat, int bits) {
             super(createTextField());
             this.intFormat = intFormat;
             this.bits = bits;

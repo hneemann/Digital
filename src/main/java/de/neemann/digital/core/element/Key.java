@@ -430,7 +430,7 @@ public class Key<VALUE> {
      *
      * @param <E> the enum type
      */
-    public static final class KeyEnum<E> extends Key<E> {
+    public static final class KeyEnum<E extends Enum> extends Key<E> {
         private final E[] values;
         private final String[] names;
 

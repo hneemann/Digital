@@ -6,6 +6,8 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.*;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
+import de.neemann.digital.core.valueFormatter.ValueFormatterDefault;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
 
@@ -32,8 +34,8 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
     static {
         ArrayList<Format> f = new ArrayList<>();
-        for (IntFormat intf : VALUES) {
-            if (!(intf instanceof IntFormatFixedPoint))
+        for (IntFormat intf : IntFormat.values()) {
+            if (!(intf.equals(fixed) || intf.equals(fixedSigned)))
                 f.add(new Format(intf));
         }
         FORMATS = f.toArray(new Format[]{});
@@ -45,7 +47,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         private Format(IntFormat intFormat) {
             this.intFormat = intFormat;
-            name = Lang.get("key_intFormat_" + intFormat.getName());
+            name = Lang.get("key_intFormat_" + intFormat.name());
         }
 
         @Override
@@ -54,9 +56,9 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         }
     }
 
-    private static Format findFormat(IntFormat f) {
+    private static Format findFormat(ValueFormatter f) {
         for (Format ff : FORMATS)
-            if (ff.intFormat.equals(f))
+            if (ff.intFormat.createFormatter(null) == f)
                 return ff;
         return null;
     }
@@ -71,7 +73,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private final long mask;
     private JCheckBox[] checkBoxes;
     private Value editValue;
-    private IntFormat intFormat = DEF;
+    private ValueFormatter valueFormatter = ValueFormatterDefault.INSTANCE;
 
     /**
      * Edits a single value
@@ -100,7 +102,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         formatComboBox.addActionListener(actionEvent -> {
             Format selectedItem = (Format) formatComboBox.getSelectedItem();
             if (selectedItem != null)
-                intFormat = selectedItem.intFormat;
+                valueFormatter = selectedItem.intFormat.createFormatter(null);
             setLongToDialog(editValue);
         });
 
@@ -220,7 +222,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
     private void setLongToDialog(Value editValue) {
         if (!textIsModifying) {
-            textField.setText(intFormat.formatToEdit(editValue));
+            textField.setText(valueFormatter.formatToEdit(editValue));
             textField.requestFocus();
         }
     }
@@ -231,9 +233,9 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
      * @param format the format
      * @return this for chained calls
      */
-    public SingleValueDialog setSelectedFormat(IntFormat format) {
-        intFormat = format;
-        formatComboBox.setSelectedItem(findFormat(intFormat));
+    public SingleValueDialog setSelectedFormat(ValueFormatter format) {
+        valueFormatter = format;
+        formatComboBox.setSelectedItem(findFormat(valueFormatter));
         setLongToDialog(editValue);
         requestFocus();
         return this;

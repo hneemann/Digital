@@ -6,6 +6,7 @@
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.valueFormatter.ValueFormatterDefault;
 
 import static de.neemann.digital.core.ObservableValue.zMaskString;
 
@@ -118,7 +119,7 @@ public class Value {
                 return zMaskString(value, highZ, bits);
             }
         else {
-            return IntFormat.toShortHex(value);
+            return ValueFormatterDefault.toShortHex(value);
         }
     }
 

@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.rom.ROMInterface;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.components.CircuitModifier;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
@@ -46,7 +47,7 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
     private final String label;
     private final ObservableValue dataOut;
     private final boolean isProgramMemory;
-    private final IntFormat intFormat;
+    private final ValueFormatter formatter;
     private DataField memory;
     private ObservableValue addrIn;
     private ObservableValue csIn;
@@ -79,7 +80,7 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional();
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
-        intFormat = attr.getIntFormat();
+        formatter = attr.getValueFormatter();
     }
 
     @Override
@@ -133,8 +134,8 @@ public class EEPROM extends Node implements Element, RAMInterface, ROMInterface 
     }
 
     @Override
-    public IntFormat getIntFormat() {
-        return intFormat;
+    public ValueFormatter getValueFormatter() {
+        return formatter;
     }
 
     @Override

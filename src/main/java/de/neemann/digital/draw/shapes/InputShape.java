@@ -11,6 +11,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.In;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -34,7 +35,7 @@ public class InputShape implements Shape {
 
     private final String label;
     private final PinDescriptions outputs;
-    private final IntFormat format;
+    private final ValueFormatter formatter;
     private final boolean isHighZ;
     private final boolean avoidLow;
     private final long min;
@@ -60,14 +61,14 @@ public class InputShape implements Shape {
         else
             this.label = attr.getLabel() + " (" + pinNumber + ")";
 
-        format = attr.getIntFormat();
+        formatter = attr.getValueFormatter();
 
         isHighZ = attr.get(Keys.INPUT_DEFAULT).isHighZ() || attr.get(Keys.IS_HIGH_Z);
 
         avoidLow = isHighZ && attr.get(Keys.AVOID_ACTIVE_LOW);
 
         bits = attr.getBits();
-        if (format.isSigned()) {
+        if (attr.get(Keys.INT_FORMAT).isSigned()) {
             max = Bits.mask(bits) >>> 1;
             min = -max - 1;
         } else {
@@ -123,7 +124,7 @@ public class InputShape implements Shape {
                     if (inValue != null)
                         v = inValue;
                     Vector textPos = new Vector(-1 - OUT_SIZE, -4 - OUT_SIZE);
-                    graphic.drawText(textPos, format.formatToView(v), Orientation.CENTERBOTTOM, Style.NORMAL);
+                    graphic.drawText(textPos, formatter.formatToView(v), Orientation.CENTERBOTTOM, Style.NORMAL);
                 } else {
                     if (inValue != null && !inValue.isEqual(value))
                         graphic.drawPolygon(box, Style.getWireStyle(inValue));
@@ -166,7 +167,7 @@ public class InputShape implements Shape {
                 if (dialog == null || !dialog.isVisible()) {
                     Model model = ((In) element).getModel();
                     dialog = new SingleValueDialog(model.getWindowPosManager().getMainFrame(), pos, label, value, isHighZ, model)
-                            .setSelectedFormat(format);
+                            .setSelectedFormat(formatter);
                     dialog.setVisible(true);
                 } else
                     dialog.requestFocus();

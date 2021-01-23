@@ -29,7 +29,7 @@ public class TestKeyConsistence extends TestCase {
 
             if (key instanceof Key.KeyEnum) {
                 Key.KeyEnum ke = (Key.KeyEnum) key;
-                for (Object v : ke.getValues())
+                for (Enum v : ke.getValues())
                     checkKey(ke.getLangKey(v));
             }
         }

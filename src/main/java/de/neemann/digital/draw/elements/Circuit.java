@@ -102,7 +102,6 @@ public class Circuit implements Copyable<Circuit> {
         xStream.alias("shapeType", CustomCircuitShapeType.class);
         xStream.alias("transform", TransformHolder.class);
         xStream.registerConverter(new PolygonConverter());
-        xStream.registerConverter(new IntFormatConverter());
         return xStream;
     }
 

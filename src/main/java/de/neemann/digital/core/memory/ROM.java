@@ -12,6 +12,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.core.memory.rom.ROMInterface;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
@@ -45,7 +46,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
             .supportsHDL();
 
     private DataField data;
-    private final IntFormat intFormat;
+    private final ValueFormatter formatter;
     private final ObservableValue output;
     private final int addrBits;
     private final int dataBits;
@@ -75,7 +76,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
             hexFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else
             hexFile = null;
-        intFormat = attr.getIntFormat();
+        formatter = attr.getValueFormatter();
     }
 
     ObservableValue createOutput1() {
@@ -156,8 +157,8 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
     }
 
     @Override
-    public IntFormat getIntFormat() {
-        return intFormat;
+    public ValueFormatter getValueFormatter() {
+        return formatter;
     }
 
     @Override

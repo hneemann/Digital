@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -29,7 +30,7 @@ public class Probe implements Element {
             .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
 
     private final String label;
-    private final IntFormat format;
+    private final ValueFormatter formatter;
     private final boolean showInGraph;
     private ObservableValue value;
 
@@ -40,7 +41,7 @@ public class Probe implements Element {
      */
     public Probe(ElementAttributes attributes) {
         label = attributes.get(Keys.LABEL);
-        format = attributes.getIntFormat();
+        formatter = attributes.getValueFormatter();
         showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
@@ -56,7 +57,7 @@ public class Probe implements Element {
 
     @Override
     public void registerNodes(Model model) {
-        model.addSignal(new Signal(label, value).setShowInGraph(showInGraph).setFormat(format).setTestOutput());
+        model.addSignal(new Signal(label, value).setShowInGraph(showInGraph).setFormat(formatter).setTestOutput());
         model.registerGlobalValue(label, value);
     }
 

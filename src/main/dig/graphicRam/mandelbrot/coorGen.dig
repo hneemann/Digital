@@ -76,11 +76,7 @@
         </entry>
         <entry>
           <string>intFormat</string>
-          <de.neemann.digital.core.IntFormatFixedPoint>
-            <name>fixedSigned</name>
-            <signed>true</signed>
-            <fixedPoint>0</fixedPoint>
-          </de.neemann.digital.core.IntFormatFixedPoint>
+          <intFormat>fixedSigned</intFormat>
         </entry>
       </elementAttributes>
       <pos x="520" y="220"/>
@@ -107,7 +103,7 @@
         </entry>
         <entry>
           <string>intFormat</string>
-          <de.neemann.digital.core.IntFormatFixedPoint reference="../../../../visualElement[6]/elementAttributes/entry[5]/de.neemann.digital.core.IntFormatFixedPoint"/>
+          <intFormat>fixedSigned</intFormat>
         </entry>
       </elementAttributes>
       <pos x="520" y="340"/>

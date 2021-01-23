@@ -97,7 +97,7 @@ public final class EditorFactory {
 
         if (fac == null) {
             if (key instanceof Key.KeyEnum)
-                return new EnumEditor(value, key);
+                return new EnumEditor((Enum) value, key);
             throw new RuntimeException("no editor found for " + key.getValueClass().getSimpleName());
         }
 
@@ -420,7 +420,7 @@ public final class EditorFactory {
         public void addToPanel(EditorPanel panel, Key<Long> key, ElementAttributes attr, AttributeDialog attributeDialog) {
             if (key.isAdaptiveIntFormat()) {
                 Value value = new Value(attr.get(key), attr.getBits());
-                comboBox.setSelectedItem(attr.getIntFormat().formatToEdit(value));
+                comboBox.setSelectedItem(attr.getValueFormatter().formatToEdit(value));
             }
             super.addToPanel(panel, key, attr, attributeDialog);
         }
@@ -461,7 +461,7 @@ public final class EditorFactory {
         public void addToPanel(EditorPanel panel, Key<InValue> key, ElementAttributes attr, AttributeDialog attributeDialog) {
             if (key.isAdaptiveIntFormat()) {
                 Value value = new Value(attr.get(key), attr.getBits());
-                comboBox.setSelectedItem(attr.getIntFormat().formatToEdit(value));
+                comboBox.setSelectedItem(attr.getValueFormatter().formatToEdit(value));
             }
             super.addToPanel(panel, key, attr, attributeDialog);
         }
@@ -640,7 +640,7 @@ public final class EditorFactory {
                         getAttributeDialog().storeEditedValues();
                         int dataBits = attr.get(Keys.BITS);
                         int addrBits = getAddrBits(attr);
-                        DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC, attr.getIntFormat());
+                        DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC, attr.getValueFormatter());
                         de.setFileName(new FileLocator(attr.getFile(ROM.LAST_DATA_FILE_KEY))
                                 .setupWithMain(getAttributeDialog().getMain())
                                 .locate());
@@ -758,7 +758,7 @@ public final class EditorFactory {
         }
     }
 
-    private static class EnumEditor<E> extends LabelEditor<E> {
+    private static class EnumEditor<E extends Enum> extends LabelEditor<E> {
         private final JComboBox comboBox;
         private final E[] values;
         private final String[] names;

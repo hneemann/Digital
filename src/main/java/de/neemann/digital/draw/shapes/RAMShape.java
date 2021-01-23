@@ -73,7 +73,7 @@ public class RAMShape extends GenericShape {
                 if (element instanceof RAMInterface) {
                     RAMInterface ram = (RAMInterface) element;
                     DataField dataField = ram.getMemory();
-                    DataEditor dataEditor = new DataEditor(cc, dataField, dataBits, addrBits, true, modelSync, ram.getIntFormat());
+                    DataEditor dataEditor = new DataEditor(cc, dataField, dataBits, addrBits, true, modelSync, ram.getValueFormatter());
                     if (element instanceof Node)
                         dataEditor.setNode((Node) element);
                     dataEditor.showDialog(dialogTitle, model);

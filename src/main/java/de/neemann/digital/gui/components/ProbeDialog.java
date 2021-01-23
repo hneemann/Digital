@@ -88,7 +88,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
                                     ram.getDataBits(),
                                     ram.getAddrBits(),
                                     true,
-                                    model, ram.getIntFormat())
+                                    model, ram.getValueFormatter())
                                     .setNode(n)
                                     .showDialog(ram.getLabel(), model);
                         }

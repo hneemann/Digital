@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 
@@ -36,7 +37,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
             .supportsHDL();
 
     private DataField memory;
-    private final IntFormat intFormat;
+    private final ValueFormatter formatter;
     private final ObservableValue output;
     private final int addrBits;
     private final int bits;
@@ -66,7 +67,7 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
         memory = createDataField(attr, size);
         label = attr.getLabel();
         isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
-        intFormat = attr.getIntFormat();
+        formatter = attr.getValueFormatter();
     }
 
     /**
@@ -186,8 +187,8 @@ public class RAMDualPort extends Node implements Element, RAMInterface {
     }
 
     @Override
-    public IntFormat getIntFormat() {
-        return intFormat;
+    public ValueFormatter getValueFormatter() {
+        return formatter;
     }
 
     /**

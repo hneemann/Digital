@@ -7,6 +7,7 @@ package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;
@@ -85,7 +86,7 @@ public class Out implements Element {
     private final int[] bits;
     private final String label;
     private final String pinNumber;
-    private final IntFormat format;
+    private final ValueFormatter formatter;
     private final boolean showInGraph;
     private boolean enforceSignal = false;
     private ObservableValue value;
@@ -99,7 +100,7 @@ public class Out implements Element {
         bits = new int[]{attributes.getBits()};
         label = attributes.getLabel();
         pinNumber = attributes.get(Keys.PINNUMBER);
-        format = attributes.getIntFormat();
+        formatter = attributes.getValueFormatter();
         showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
@@ -112,7 +113,7 @@ public class Out implements Element {
         this.bits = bits;
         label = null;
         pinNumber = "";
-        format = null;
+        formatter = null;
         showInGraph = true;
     }
 
@@ -135,7 +136,7 @@ public class Out implements Element {
         final Signal signal = new Signal(label, value)
                 .setPinNumber(pinNumber)
                 .setShowInGraph(showInGraph)
-                .setFormat(format);
+                .setFormat(formatter);
         if (enforceSignal || signal.isValid())
             model.addOutput(signal);
     }

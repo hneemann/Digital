@@ -138,7 +138,7 @@ public class ROMEditorDialog extends JDialog {
         }
 
         public boolean edit(ROMEditorDialog romEditorDialog) {
-            DataEditor de = new DataEditor(romEditorDialog, data, ri.getDataBits(), ri.getAddrBits(), false, SyncAccess.NOSYNC, ri.getIntFormat());
+            DataEditor de = new DataEditor(romEditorDialog, data, ri.getDataBits(), ri.getAddrBits(), false, SyncAccess.NOSYNC, ri.getValueFormatter());
             if (de.showDialog()) {
                 data = de.getModifiedDataField();
                 return true;

@@ -7,7 +7,6 @@ package de.neemann.digital.core.element;
 
 import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.IntFormat;
-import de.neemann.digital.core.IntFormatFixedPoint;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.extern.Application;
@@ -499,7 +498,7 @@ public final class Keys {
      * output format for numbers
      */
     public static final Key<IntFormat> INT_FORMAT
-            = new Key.KeyEnum<>("intFormat", IntFormat.DEF, IntFormat.VALUES).setSecondary();
+            = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values()).setSecondary();
 
     /**
      * fixed point fractional binary digits
@@ -508,7 +507,7 @@ public final class Keys {
             = new Key.KeyInteger("fixedPoint", 4)
             .setMin(1)
             .setMax(64)
-            .setDependsOn(INT_FORMAT, intFormat -> intFormat instanceof IntFormatFixedPoint)
+            .setDependsOn(INT_FORMAT, intFormat -> intFormat.equals(IntFormat.fixed) || intFormat.equals(IntFormat.fixedSigned))
             .allowGroupEdit()
             .setSecondary();
 

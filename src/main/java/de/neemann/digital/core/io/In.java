@@ -10,6 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.valueFormatter.ValueFormatter;
 import de.neemann.digital.lang.Lang;
 
 /**
@@ -45,7 +46,7 @@ public class In implements Element {
     private final ObservableValue output;
     private final String label;
     private final String pinNumber;
-    private final IntFormat format;
+    private final ValueFormatter formatter;
     private final boolean showInGraph;
     private Model model;
     private ObservableValue input;
@@ -71,7 +72,7 @@ public class In implements Element {
             output.setValue(value.getValue());
 
         label = attributes.getLabel();
-        format = attributes.getIntFormat();
+        formatter = attributes.getValueFormatter();
         showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
@@ -92,7 +93,7 @@ public class In implements Element {
                 .setPinNumber(pinNumber)
                 .setBidirectionalReader(input)
                 .setShowInGraph(showInGraph)
-                .setFormat(format));
+                .setFormat(formatter));
         this.model = model;
     }
 
