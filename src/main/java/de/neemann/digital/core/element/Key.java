@@ -458,7 +458,7 @@ public class Key<VALUE> {
          * @return the language key
          */
         public String getLangKey(E value) {
-            return getLangKey() + "_" + value.toString();
+            return getLangKey() + "_" + value.name();
         }
 
         /**

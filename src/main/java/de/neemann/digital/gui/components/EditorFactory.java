@@ -763,14 +763,14 @@ public final class EditorFactory {
         private final E[] values;
         private final String[] names;
 
-        public EnumEditor(E value, Key<E> key) {
+        public EnumEditor(Enum value, Key<E> key) {
             if (!(key instanceof Key.KeyEnum))
                 throw new RuntimeException("wrong enum type");
             this.names = ((Key.KeyEnum<E>) key).getNames();
             this.values = ((Key.KeyEnum<E>) key).getValues();
 
             comboBox = new JComboBox<>(names);
-            comboBox.setSelectedIndex(indexOf(value));
+            comboBox.setSelectedIndex(value.ordinal());
         }
 
         @Override
@@ -785,14 +785,7 @@ public final class EditorFactory {
 
         @Override
         public void setValue(E value) {
-            comboBox.setSelectedIndex(indexOf(value));
-        }
-
-        private int indexOf(E value) {
-            for (int i = 0; i < values.length; i++)
-                if (value.equals(values[i]))
-                    return i;
-            return 0;
+            comboBox.setSelectedIndex(value.ordinal());
         }
 
         @Override
