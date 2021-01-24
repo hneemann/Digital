@@ -6,8 +6,8 @@
 package de.neemann.digital.data;
 
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.valueFormatter.ValueFormatterDefault;
 
 /**
  * A single value to test
@@ -176,7 +176,7 @@ public class Value {
             case CLOCK:
                 return "C";
             default:
-                return ValueFormatterDefault.toShortHex(value);
+                return IntFormat.toShortHex(value);
         }
     }
 

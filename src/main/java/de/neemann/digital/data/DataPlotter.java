@@ -5,8 +5,8 @@
  */
 package de.neemann.digital.data;
 
+import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.SyncAccess;
-import de.neemann.digital.core.valueFormatter.ValueFormatterDefault;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
@@ -182,7 +182,7 @@ public class DataPlotter implements Drawable {
                         last[i].hasChanged = true;
 
                     if (width > 4 && last[i].textWidth == 0 && last[i].hasChanged) {
-                        final String text = ValueFormatterDefault.toShortHex(value);
+                        final String text = IntFormat.toShortHex(value);
                         last[i].textWidth = text.length() * SIZE / 2;
                         if (ry > CENTER)
                             g.drawText(new Vector(x1 + 1, y - SEP2 + 1), text, Orientation.LEFTTOP, Style.SHAPE_PIN);

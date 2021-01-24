@@ -6,8 +6,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.*;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
-import de.neemann.digital.core.valueFormatter.ValueFormatterDefault;
+import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
 
@@ -71,7 +70,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private final long mask;
     private JCheckBox[] checkBoxes;
     private Value editValue;
-    private ValueFormatter valueFormatter = ValueFormatterDefault.INSTANCE;
+    private ValueFormatter valueFormatter = IntFormat.DEFAULT_FORMATTER;
 
     /**
      * Edits a single value

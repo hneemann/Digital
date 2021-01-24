@@ -6,7 +6,6 @@
 package de.neemann.digital.data;
 
 import de.neemann.digital.core.IntFormat;
-import de.neemann.digital.core.valueFormatter.ValueFormatterHex;
 import de.neemann.digital.testing.parser.TestRow;
 import junit.framework.TestCase;
 
@@ -45,7 +44,7 @@ public class ValueTableTest extends TestCase {
     public void testCSV2() throws Exception {
         StringWriter sw = new StringWriter();
         ValueTable.ColumnInfo[] infos = new ValueTable.ColumnInfo[]{
-                new ValueTable.ColumnInfo(ValueFormatterHex.INSTANCE, 4),
+                new ValueTable.ColumnInfo(IntFormat.HEX_FORMATTER, 4),
                 new ValueTable.ColumnInfo(IntFormat.oct.createFormatter(null), 4),
                 new ValueTable.ColumnInfo(IntFormat.bin.createFormatter(null), 4),
         };

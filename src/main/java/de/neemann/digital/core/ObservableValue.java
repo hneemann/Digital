@@ -7,7 +7,6 @@ package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.PinDescription;
-import de.neemann.digital.core.valueFormatter.ValueFormatterDefault;
 import de.neemann.digital.lang.Lang;
 
 import java.util.Random;
@@ -173,7 +172,7 @@ public class ObservableValue extends Observable implements PinDescription {
                 return zMaskString(value, highZ, bits);
             }
         else {
-            return ValueFormatterDefault.toShortHex(value);
+            return IntFormat.toShortHex(value);
         }
     }
 

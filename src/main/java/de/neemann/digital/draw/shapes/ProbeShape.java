@@ -9,7 +9,7 @@ import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
+import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;

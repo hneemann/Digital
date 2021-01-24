@@ -5,7 +5,7 @@
  */
 package de.neemann.digital.core.element;
 
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
+import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.hdl.hgs.HGSMap;
 
 import java.io.File;

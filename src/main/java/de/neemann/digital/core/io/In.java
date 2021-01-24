@@ -10,7 +10,7 @@ import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
+import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.lang.Lang;
 
 /**

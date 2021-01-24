@@ -5,9 +5,6 @@
  */
 package de.neemann.digital.core;
 
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
-import de.neemann.digital.core.valueFormatter.ValueFormatterDefault;
-
 /**
  * A simple storage bean for signals
  */
@@ -15,7 +12,7 @@ public final class Signal implements Comparable<Signal> {
     private final String name;
     private final ObservableValue value;
     private final Setter setter;
-    private ValueFormatter format = ValueFormatterDefault.INSTANCE;
+    private ValueFormatter format = IntFormat.DEFAULT_FORMATTER;
     private String pinNumber;
     private ObservableValue bidirectionalReader;
     private boolean showInGraph;

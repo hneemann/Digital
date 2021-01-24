@@ -7,7 +7,7 @@ package de.neemann.digital.core.memory.rom;
 
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.stats.Countable;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
+import de.neemann.digital.core.ValueFormatter;
 
 /**
  * Interface implemented by al ROM or EEPROM components

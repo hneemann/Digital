@@ -11,7 +11,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.rom.ROMInterface;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
+import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.gui.components.CircuitModifier;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;

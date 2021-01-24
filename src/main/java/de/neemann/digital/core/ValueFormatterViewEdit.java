@@ -3,9 +3,7 @@
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
-package de.neemann.digital.core.valueFormatter;
-
-import de.neemann.digital.core.Value;
+package de.neemann.digital.core;
 
 /**
  * Base class of all formatters where the string to edit and the string to display are the same.
@@ -15,9 +13,9 @@ public abstract class ValueFormatterViewEdit implements ValueFormatter {
     private final boolean suitedForAddresses;
 
     /**
-     * Constructor to configure class
+     * Constructor to configure the instance
      *
-     * @param suitedForAddresses tru if formatter is suited to be used for addresses
+     * @param suitedForAddresses true if formatter is suited to be used for addresses
      * @see ValueFormatter#isSuitedForAddresses()
      */
     public ValueFormatterViewEdit(boolean suitedForAddresses) {

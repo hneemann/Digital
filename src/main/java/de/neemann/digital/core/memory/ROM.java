@@ -12,7 +12,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.core.memory.rom.ROMInterface;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
+import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;

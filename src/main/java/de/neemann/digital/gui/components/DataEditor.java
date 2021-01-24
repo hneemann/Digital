@@ -8,7 +8,6 @@ package de.neemann.digital.gui.components;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.importer.Importer;
-import de.neemann.digital.core.valueFormatter.*;
 import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
@@ -63,7 +62,7 @@ public class DataEditor extends JDialog {
         if (dataFormat.isSuitedForAddresses())
             addrFormat = dataFormat;
         else
-            addrFormat = ValueFormatterHex.INSTANCE;
+            addrFormat = IntFormat.HEX_FORMATTER;
 
         if (modelIsRunning)
             localDataField = dataField;

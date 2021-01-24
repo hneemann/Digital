@@ -7,7 +7,7 @@ package de.neemann.digital.core.io;
 
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
+import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.core.element.PinInfo.input;

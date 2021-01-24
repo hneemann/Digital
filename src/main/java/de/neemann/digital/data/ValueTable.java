@@ -7,9 +7,7 @@ package de.neemann.digital.data;
 
 import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.Observable;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
-import de.neemann.digital.core.valueFormatter.ValueFormatterDefault;
-import de.neemann.digital.core.valueFormatter.ValueFormatterHex;
+import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.testing.parser.TestRow;
 
 import java.io.*;
@@ -319,9 +317,9 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
          */
         public ColumnInfo(ValueFormatter format, int bits) {
             if (format == null)
-                format = ValueFormatterDefault.INSTANCE;
-            if (format.equals(IntFormat.def) && (bits > 3))
-                format = ValueFormatterHex.INSTANCE;
+                format = IntFormat.HEX_FORMATTER;
+            else if (format.equals(IntFormat.DEFAULT_FORMATTER) && (bits > 3))
+                format = IntFormat.HEX_FORMATTER;
             this.format = format;
             this.bits = bits;
         }

@@ -6,8 +6,6 @@
 package de.neemann.digital.core;
 
 import de.neemann.digital.core.io.InValue;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
-import de.neemann.digital.core.valueFormatter.ValueFormatterHex;
 import junit.framework.TestCase;
 
 public class ValueTest extends TestCase {
@@ -22,6 +20,6 @@ public class ValueTest extends TestCase {
     public void testFromInValue() throws Bits.NumberFormatException {
         assertEquals("5", new Value(new InValue("5"), 4).toString());
         assertEquals("Z", new Value(new InValue("z"), 4).toString());
-        assertEquals("Z", ValueFormatterHex.INSTANCE.formatToEdit(new Value(new InValue("z"), 4)));
+        assertEquals("Z", IntFormat.HEX_FORMATTER.formatToEdit(new Value(new InValue("z"), 4)));
     }
 }

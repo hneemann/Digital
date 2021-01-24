@@ -7,25 +7,25 @@ package de.neemann.digital.core;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
-import de.neemann.digital.core.valueFormatter.*;
 import junit.framework.TestCase;
 
 public class IntFormatTest extends TestCase {
 
     public void testHex() {
-        assertEquals("0x1", ValueFormatterHex.INSTANCE.formatToView(new Value(1, 1)));
-        assertEquals("0x1", ValueFormatterHex.INSTANCE.formatToView(new Value(1, 2)));
-        assertEquals("0x1", ValueFormatterHex.INSTANCE.formatToView(new Value(1, 3)));
-        assertEquals("0x1", ValueFormatterHex.INSTANCE.formatToView(new Value(1, 4)));
-        assertEquals("0xF", ValueFormatterHex.INSTANCE.formatToView(new Value(-1, 4)));
-        assertEquals("0x01", ValueFormatterHex.INSTANCE.formatToView(new Value(1, 5)));
-        assertEquals("0x1F", ValueFormatterHex.INSTANCE.formatToView(new Value(-1, 5)));
-        assertEquals("0xFFF", ValueFormatterHex.INSTANCE.formatToView(new Value(-1, 12)));
-        assertEquals("0x1FFF", ValueFormatterHex.INSTANCE.formatToView(new Value(-1, 13)));
-        assertEquals("0x3FFF", ValueFormatterHex.INSTANCE.formatToView(new Value(-1, 14)));
-        assertEquals("0x7FFF", ValueFormatterHex.INSTANCE.formatToView(new Value(-1, 15)));
-        assertEquals("0xFFFF", ValueFormatterHex.INSTANCE.formatToView(new Value(-1, 16)));
-        assertEquals("0xFEDCBA9876543210", ValueFormatterHex.INSTANCE.formatToView(new Value(0xFEDCBA9876543210L, 64)));
+        ValueFormatter vf = IntFormat.HEX_FORMATTER;
+        assertEquals("0x1", vf.formatToView(new Value(1, 1)));
+        assertEquals("0x1", vf.formatToView(new Value(1, 2)));
+        assertEquals("0x1", vf.formatToView(new Value(1, 3)));
+        assertEquals("0x1", vf.formatToView(new Value(1, 4)));
+        assertEquals("0xF", vf.formatToView(new Value(-1, 4)));
+        assertEquals("0x01", vf.formatToView(new Value(1, 5)));
+        assertEquals("0x1F", vf.formatToView(new Value(-1, 5)));
+        assertEquals("0xFFF", vf.formatToView(new Value(-1, 12)));
+        assertEquals("0x1FFF", vf.formatToView(new Value(-1, 13)));
+        assertEquals("0x3FFF", vf.formatToView(new Value(-1, 14)));
+        assertEquals("0x7FFF", vf.formatToView(new Value(-1, 15)));
+        assertEquals("0xFFFF", vf.formatToView(new Value(-1, 16)));
+        assertEquals("0xFEDCBA9876543210", vf.formatToView(new Value(0xFEDCBA9876543210L, 64)));
     }
 
     public void testBin() {
@@ -44,10 +44,11 @@ public class IntFormatTest extends TestCase {
     }
 
     public void testDef() {
-        assertEquals("3", ValueFormatterDefault.INSTANCE.formatToView(new Value(3, 64)));
-        assertEquals("0x113", ValueFormatterDefault.INSTANCE.formatToView(new Value(0x113, 64)));
-        assertEquals("1A3", ValueFormatterDefault.INSTANCE.formatToView(new Value(0x1A3, 64)));
-        assertEquals("FFFFFFFFFFFFFFFF", ValueFormatterDefault.INSTANCE.formatToView(new Value(-1, 64)));
+        ValueFormatter vf = IntFormat.DEFAULT_FORMATTER;
+        assertEquals("3", vf.formatToView(new Value(3, 64)));
+        assertEquals("0x113", vf.formatToView(new Value(0x113, 64)));
+        assertEquals("1A3", vf.formatToView(new Value(0x1A3, 64)));
+        assertEquals("FFFFFFFFFFFFFFFF", vf.formatToView(new Value(-1, 64)));
     }
 
     /**
