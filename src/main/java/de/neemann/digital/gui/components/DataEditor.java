@@ -60,10 +60,10 @@ public class DataEditor extends JDialog {
         super(SwingUtilities.windowForComponent(parent), Lang.get("key_Data"), modelIsRunning ? ModalityType.MODELESS : ModalityType.APPLICATION_MODAL);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.addrBits = addrBits;
-        if (dataFormat instanceof ValueFormatterAscii || dataFormat instanceof ValueFormatterBinary || dataFormat instanceof ValueFormatterFixedPoint)
-            addrFormat = ValueFormatterHex.INSTANCE;
-        else
+        if (dataFormat.isSuitedForAddresses())
             addrFormat = dataFormat;
+        else
+            addrFormat = ValueFormatterHex.INSTANCE;
 
         if (modelIsRunning)
             localDataField = dataField;

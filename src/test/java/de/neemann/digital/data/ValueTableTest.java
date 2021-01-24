@@ -6,10 +6,7 @@
 package de.neemann.digital.data;
 
 import de.neemann.digital.core.IntFormat;
-import de.neemann.digital.core.valueFormatter.ValueFormatter;
-import de.neemann.digital.core.valueFormatter.ValueFormatterBinary;
 import de.neemann.digital.core.valueFormatter.ValueFormatterHex;
-import de.neemann.digital.core.valueFormatter.ValueFormatterOctal;
 import de.neemann.digital.testing.parser.TestRow;
 import junit.framework.TestCase;
 
@@ -49,8 +46,8 @@ public class ValueTableTest extends TestCase {
         StringWriter sw = new StringWriter();
         ValueTable.ColumnInfo[] infos = new ValueTable.ColumnInfo[]{
                 new ValueTable.ColumnInfo(ValueFormatterHex.INSTANCE, 4),
-                new ValueTable.ColumnInfo(ValueFormatterOctal.INSTANCE, 4),
-                new ValueTable.ColumnInfo(ValueFormatterBinary.INSTANCE, 4),
+                new ValueTable.ColumnInfo(IntFormat.oct.createFormatter(null), 4),
+                new ValueTable.ColumnInfo(IntFormat.bin.createFormatter(null), 4),
         };
         t.saveCSV(new BufferedWriter(sw), infos);
         assertEquals("\"step\",\"A\",\"B\",\"C\"\n" +

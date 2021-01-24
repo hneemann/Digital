@@ -39,4 +39,12 @@ public interface ValueFormatter {
      * @return the number of characters required
      */
     int strLen(int bits);
+
+    /**
+     * Returns true if formatter is suited to be used as a formatter for the addresses in a
+     * hex editor like table view.
+     *
+     * @return true if formatter is suited to display addresses
+     */
+    boolean isSuitedForAddresses();
 }

@@ -17,6 +17,7 @@ public final class ValueFormatterHex extends ValueFormatterViewEdit {
     public static final ValueFormatterHex INSTANCE = new ValueFormatterHex();
 
     private ValueFormatterHex() {
+        super(true);
     }
 
     @Override

@@ -22,8 +22,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import static de.neemann.digital.core.IntFormat.*;
-
 /**
  * Dialog to edit a single value.
  * Used to enter a multi bit input value.
@@ -35,7 +33,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     static {
         ArrayList<Format> f = new ArrayList<>();
         for (IntFormat intf : IntFormat.values()) {
-            if (!(intf.equals(fixed) || intf.equals(fixedSigned)))
+            if (!intf.dependsOnAttributes())
                 f.add(new Format(intf));
         }
         FORMATS = f.toArray(new Format[]{});

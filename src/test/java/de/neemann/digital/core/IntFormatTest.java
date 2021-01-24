@@ -29,17 +29,18 @@ public class IntFormatTest extends TestCase {
     }
 
     public void testBin() {
-        assertEquals("0b1", ValueFormatterBinary.INSTANCE.formatToView(new Value(1, 1)));
-        assertEquals("0b01", ValueFormatterBinary.INSTANCE.formatToView(new Value(1, 2)));
-        assertEquals("0b001", ValueFormatterBinary.INSTANCE.formatToView(new Value(1, 3)));
-        assertEquals("0b111", ValueFormatterBinary.INSTANCE.formatToView(new Value(-1, 3)));
-        assertEquals("0b1111111111111111111111111111111111111111111111111111111111111111", ValueFormatterBinary.INSTANCE.formatToView(new Value(-1, 64)));
-        assertEquals("0b1000111111111111111111111111111111111111111111111111111111111111", ValueFormatterBinary.INSTANCE.formatToView(new Value(0x8fffffffffffffffL, 64)));
+        ValueFormatter vf = IntFormat.bin.createFormatter(null);
+        assertEquals("0b1", vf.formatToView(new Value(1, 1)));
+        assertEquals("0b01", vf.formatToView(new Value(1, 2)));
+        assertEquals("0b001", vf.formatToView(new Value(1, 3)));
+        assertEquals("0b111", vf.formatToView(new Value(-1, 3)));
+        assertEquals("0b1111111111111111111111111111111111111111111111111111111111111111", vf.formatToView(new Value(-1, 64)));
+        assertEquals("0b1000111111111111111111111111111111111111111111111111111111111111", vf.formatToView(new Value(0x8fffffffffffffffL, 64)));
     }
 
     public void testDec() {
-        assertEquals("3", ValueFormatterDecimal.UNSIGNED.formatToView(new Value(-1, 2)));
-        assertEquals("-1", ValueFormatterDecimal.SIGNED.formatToView(new Value(-1, 2)));
+        assertEquals("3", IntFormat.dec.createFormatter(null).formatToView(new Value(-1, 2)));
+        assertEquals("-1", IntFormat.decSigned.createFormatter(null).formatToView(new Value(-1, 2)));
     }
 
     public void testDef() {
@@ -123,40 +124,44 @@ public class IntFormatTest extends TestCase {
     }
 
     public void testStrLen() {
-        assertEquals(6, ValueFormatterHex.INSTANCE.strLen(16));
-        assertEquals(6, ValueFormatterHex.INSTANCE.strLen(15));
-        assertEquals(6, ValueFormatterHex.INSTANCE.strLen(14));
-        assertEquals(6, ValueFormatterHex.INSTANCE.strLen(13));
-        assertEquals(5, ValueFormatterHex.INSTANCE.strLen(12));
+        ValueFormatter vf = IntFormat.hex.createFormatter(null);
+        assertEquals(6, vf.strLen(16));
+        assertEquals(6, vf.strLen(15));
+        assertEquals(6, vf.strLen(14));
+        assertEquals(6, vf.strLen(13));
+        assertEquals(5, vf.strLen(12));
 
-        assertEquals(18, ValueFormatterBinary.INSTANCE.strLen(16));
-        assertEquals(17, ValueFormatterBinary.INSTANCE.strLen(15));
-        assertEquals(16, ValueFormatterBinary.INSTANCE.strLen(14));
+        vf = IntFormat.bin.createFormatter(null);
+        assertEquals(18, vf.strLen(16));
+        assertEquals(17, vf.strLen(15));
+        assertEquals(16, vf.strLen(14));
 
-        assertEquals(3, ValueFormatterDecimal.UNSIGNED.strLen(8));
-        assertEquals(3, ValueFormatterDecimal.UNSIGNED.strLen(9));
-        assertEquals(4, ValueFormatterDecimal.UNSIGNED.strLen(10));
-        assertEquals(19, ValueFormatterDecimal.UNSIGNED.strLen(60));
-        assertEquals(19, ValueFormatterDecimal.UNSIGNED.strLen(61));
-        assertEquals(19, ValueFormatterDecimal.UNSIGNED.strLen(62));
-        assertEquals(19, ValueFormatterDecimal.UNSIGNED.strLen(63));
-        assertEquals(20, ValueFormatterDecimal.UNSIGNED.strLen(64));
+        vf = IntFormat.dec.createFormatter(null);
+        assertEquals(3, vf.strLen(8));
+        assertEquals(3, vf.strLen(9));
+        assertEquals(4, vf.strLen(10));
+        assertEquals(19, vf.strLen(60));
+        assertEquals(19, vf.strLen(61));
+        assertEquals(19, vf.strLen(62));
+        assertEquals(19, vf.strLen(63));
+        assertEquals(20, vf.strLen(64));
 
-        assertEquals(4, ValueFormatterDecimal.SIGNED.strLen(8));
-        assertEquals(4, ValueFormatterDecimal.SIGNED.strLen(9));
-        assertEquals(4, ValueFormatterDecimal.SIGNED.strLen(10));
-        assertEquals(5, ValueFormatterDecimal.SIGNED.strLen(11));
-        assertEquals(20, ValueFormatterDecimal.SIGNED.strLen(62));
-        assertEquals(20, ValueFormatterDecimal.SIGNED.strLen(63));
-        assertEquals(20, ValueFormatterDecimal.SIGNED.strLen(64));
+        vf = IntFormat.decSigned.createFormatter(null);
+        assertEquals(4, vf.strLen(8));
+        assertEquals(4, vf.strLen(9));
+        assertEquals(4, vf.strLen(10));
+        assertEquals(5, vf.strLen(11));
+        assertEquals(20, vf.strLen(62));
+        assertEquals(20, vf.strLen(63));
+        assertEquals(20, vf.strLen(64));
 
-        assertEquals(4, ValueFormatterOctal.INSTANCE.strLen(4));
-        assertEquals(4, ValueFormatterOctal.INSTANCE.strLen(5));
-        assertEquals(4, ValueFormatterOctal.INSTANCE.strLen(6));
-        assertEquals(5, ValueFormatterOctal.INSTANCE.strLen(7));
-        assertEquals(5, ValueFormatterOctal.INSTANCE.strLen(8));
-        assertEquals(5, ValueFormatterOctal.INSTANCE.strLen(9));
-        assertEquals(6, ValueFormatterOctal.INSTANCE.strLen(10));
-
+        vf = IntFormat.oct.createFormatter(null);
+        assertEquals(4, vf.strLen(4));
+        assertEquals(4, vf.strLen(5));
+        assertEquals(4, vf.strLen(6));
+        assertEquals(5, vf.strLen(7));
+        assertEquals(5, vf.strLen(8));
+        assertEquals(5, vf.strLen(9));
+        assertEquals(6, vf.strLen(10));
     }
 }

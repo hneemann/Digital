@@ -11,7 +11,10 @@ import de.neemann.digital.core.Value;
  * The default value formatter
  */
 public final class ValueFormatterDefault implements ValueFormatter {
-    static final char[] DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    /**
+     * hex digits
+     */
+    public static final char[] DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
      * the singleton instance
@@ -44,6 +47,11 @@ public final class ValueFormatterDefault implements ValueFormatter {
     @Override
     public int strLen(int bits) {
         return (bits - 1) / 4 + 3;
+    }
+
+    @Override
+    public boolean isSuitedForAddresses() {
+        return false;
     }
 
     /**

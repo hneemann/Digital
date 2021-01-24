@@ -8,9 +8,22 @@ package de.neemann.digital.core.valueFormatter;
 import de.neemann.digital.core.Value;
 
 /**
- * Base class of all formatters where the string to edit and the string to show are the same
+ * Base class of all formatters where the string to edit and the string to display are the same.
  */
 public abstract class ValueFormatterViewEdit implements ValueFormatter {
+
+    private final boolean suitedForAddresses;
+
+    /**
+     * Constructor to configure class
+     *
+     * @param suitedForAddresses tru if formatter is suited to be used for addresses
+     * @see ValueFormatter#isSuitedForAddresses()
+     */
+    public ValueFormatterViewEdit(boolean suitedForAddresses) {
+        this.suitedForAddresses = suitedForAddresses;
+    }
+
     @Override
     public String formatToView(Value inValue) {
         if (inValue.isHighZ())
@@ -25,6 +38,11 @@ public abstract class ValueFormatterViewEdit implements ValueFormatter {
             return "Z";
         else
             return format(inValue);
+    }
+
+    @Override
+    public boolean isSuitedForAddresses() {
+        return suitedForAddresses;
     }
 
     /**
