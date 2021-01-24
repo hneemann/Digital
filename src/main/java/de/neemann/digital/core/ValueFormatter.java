@@ -46,12 +46,12 @@ public interface ValueFormatter {
     boolean isSuitedForAddresses();
 
     /**
-     * If the represented value is proportional to the underlying integer value.
-     * This is not the case at float values.
+     * Moves the given value
      *
-     * @return true if represented valueis proportional to the underlying integer value
+     * @param initial the initial value
+     * @param bits    the bits used of the initial value
+     * @param inc     the increment, is i between -1 and 1
+     * @return the modified value
      */
-    default boolean isProportional() {
-        return true;
-    }
+    long dragValue(long initial, int bits, double inc);
 }

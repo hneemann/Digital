@@ -38,8 +38,6 @@ public class InputShape implements Shape {
     private final ValueFormatter formatter;
     private final boolean isHighZ;
     private final boolean avoidLow;
-    private final long min;
-    private final long max;
     private final int bits;
     private IOState ioState;
     private SingleValueDialog dialog;
@@ -68,13 +66,6 @@ public class InputShape implements Shape {
         avoidLow = isHighZ && attr.get(Keys.AVOID_ACTIVE_LOW);
 
         bits = attr.getBits();
-        if (attr.get(Keys.INT_FORMAT).isSigned()) {
-            max = Bits.mask(bits) >>> 1;
-            min = -max - 1;
-        } else {
-            min = 0;
-            max = Bits.mask(bits);
-        }
     }
 
     @Override
@@ -183,16 +174,15 @@ public class InputShape implements Shape {
         @Override
         public void dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
-            if (bits > 1 && !value.isHighZ() && formatter.isProportional()) {
+            if (bits > 1 && !value.isHighZ()) {
                 if (!isDrag) {
                     isDrag = true;
                     startPos = posOnScreen;
                     startValue = value.getValue();
                     lastValueSet = startValue;
                 } else {
-                    int delta = startPos.y - posOnScreen.y;
-                    long v = startValue + (delta * max) / SLIDER_HEIGHT;
-                    long val = Math.max(min, Math.min(v, max));
+                    double inc = ((double) (startPos.y - posOnScreen.y)) / SLIDER_HEIGHT;
+                    long val = formatter.dragValue(startValue, value.getBits(), inc);
                     if (val != lastValueSet) {
                         modelSync.modify(() -> value.setValue(val));
                         lastValueSet = val;

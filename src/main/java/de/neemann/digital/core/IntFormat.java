@@ -15,43 +15,43 @@ public enum IntFormat {
     /**
      * the default format
      */
-    def(ValueFormatterDefault.INSTANCE, false),
+    def(ValueFormatterDefault.INSTANCE),
     /**
      * decimal
      */
-    dec(new ValueFormatterDecimal(false), false),
+    dec(new ValueFormatterDecimal(false)),
     /**
      * decimal signed
      */
-    decSigned(new ValueFormatterDecimal(true), true),
+    decSigned(new ValueFormatterDecimal(true)),
     /**
      * hex
      */
-    hex(ValueFormatterHex.INSTANCE, false),
+    hex(ValueFormatterHex.INSTANCE),
     /**
      * binary
      */
-    bin(new ValueFormatterBinary(), false),
+    bin(new ValueFormatterBinary()),
     /**
      * octal
      */
-    oct(new ValueFormatterOctal(), false),
+    oct(new ValueFormatterOctal()),
     /**
      * ascii
      */
-    ascii(new ValueFormatterAscii(), false),
+    ascii(new ValueFormatterAscii()),
     /**
      * fixed point
      */
-    fixed(attributes -> new ValueFormatterFixedPoint(attributes, false), false),
+    fixed(attributes -> new ValueFormatterFixedPoint(attributes, false)),
     /**
      * fixed point signed
      */
-    fixedSigned(attributes -> new ValueFormatterFixedPoint(attributes, true), true),
+    fixedSigned(attributes -> new ValueFormatterFixedPoint(attributes, true)),
     /**
      * floating point
      */
-    floating(new ValueFormatterFloat(), true);
+    floating(new ValueFormatterFloat());
 
     /**
      * The default formatter
@@ -63,20 +63,18 @@ public enum IntFormat {
     public static final ValueFormatter HEX_FORMATTER = ValueFormatterHex.INSTANCE;
 
     private final Factory factory;
-    private final boolean signed;
     private final boolean dependsOnAttributes;
 
-    IntFormat(ValueFormatter instance, boolean signed) {
-        this(attributes -> instance, signed, false);
+    IntFormat(ValueFormatter instance) {
+        this(attributes -> instance, false);
     }
 
-    IntFormat(Factory factory, boolean signed) {
-        this(factory, signed, true);
+    IntFormat(Factory factory) {
+        this(factory, true);
     }
 
-    IntFormat(Factory factory, boolean signed, boolean dependsOnAttributes) {
+    IntFormat(Factory factory, boolean dependsOnAttributes) {
         this.factory = factory;
-        this.signed = signed;
         this.dependsOnAttributes = dependsOnAttributes;
     }
 
@@ -88,13 +86,6 @@ public enum IntFormat {
      */
     public ValueFormatter createFormatter(ElementAttributes attributes) {
         return factory.create(attributes);
-    }
-
-    /**
-     * @return true if this formatter takes the sign of the value into account
-     */
-    public boolean isSigned() {
-        return signed;
     }
 
     /**
@@ -145,6 +136,28 @@ public enum IntFormat {
         public boolean isSuitedForAddresses() {
             return false; // difficult to read in a table
         }
+
+        @Override
+        public long dragValue(long initial, int bits, double inc) {
+            return dragValueSigned(initial, bits, inc, false);
+        }
+    }
+
+    private static long dragValueSigned(long initial, int bits, double inc, boolean signed) {
+        long max;
+        long min;
+        if (signed) {
+            long mask = Bits.mask(bits);
+            long signedFlag = Bits.signedFlagMask(bits);
+            if ((initial & signedFlag) != 0) initial |= ~mask;
+
+            max = mask >>> 1;
+            min = -max - 1;
+        } else {
+            max = Bits.mask(bits);
+            min = 0;
+        }
+        return Math.max(min, Math.min(max, initial + Math.round(max * inc)));
     }
 
     /**
@@ -179,6 +192,11 @@ public enum IntFormat {
         }
 
         protected abstract String format(Value value);
+
+        @Override
+        public long dragValue(long initial, int bits, double inc) {
+            return dragValueSigned(initial, bits, inc, false);
+        }
     }
 
     /**
@@ -353,6 +371,11 @@ public enum IntFormat {
             else
                 return Long.toString(value.getValue());
         }
+
+        @Override
+        public long dragValue(long initial, int bits, double inc) {
+            return dragValueSigned(initial, bits, inc, signed);
+        }
     }
 
     private static int decStrLen(int bits) {
@@ -423,6 +446,11 @@ public enum IntFormat {
             else
                 return Double.toString(inValue.getValue() / divisor);
         }
+
+        @Override
+        public long dragValue(long initial, int bits, double inc) {
+            return dragValueSigned(initial, bits, inc, signed);
+        }
     }
 
     /**
@@ -480,8 +508,14 @@ public enum IntFormat {
         }
 
         @Override
-        public boolean isProportional() {
-            return false;
+        public long dragValue(long initial, int bits, double inc) {
+            double dif = Math.signum(inc) * (Math.exp(Math.abs(inc * 10)) - 1);
+            if (bits == 32)
+                return Float.floatToIntBits((float) (Float.intBitsToFloat((int) initial) + dif));
+            else if (bits == 64)
+                return Double.doubleToLongBits(Double.longBitsToDouble(initial) + dif);
+            else
+                return initial;
         }
     }
 
