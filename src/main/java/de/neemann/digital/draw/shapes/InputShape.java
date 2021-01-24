@@ -183,7 +183,7 @@ public class InputShape implements Shape {
         @Override
         public void dragged(CircuitComponent cc, Point posOnScreen, Vector pos, Transform transform, IOState ioState, Element element, SyncAccess modelSync) {
             ObservableValue value = ioState.getOutput(0);
-            if (bits > 1 && !value.isHighZ()) {
+            if (bits > 1 && !value.isHighZ() && formatter.isProportional()) {
                 if (!isDrag) {
                     isDrag = true;
                     startPos = posOnScreen;

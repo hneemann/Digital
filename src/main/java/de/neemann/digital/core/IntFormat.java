@@ -478,6 +478,11 @@ public enum IntFormat {
         public boolean isSuitedForAddresses() {
             return false;
         }
+
+        @Override
+        public boolean isProportional() {
+            return false;
+        }
     }
 
 }

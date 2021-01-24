@@ -44,4 +44,14 @@ public interface ValueFormatter {
      * @return true if formatter is suited to display addresses
      */
     boolean isSuitedForAddresses();
+
+    /**
+     * If the represented value is proportional to the underlying integer value.
+     * This is not the case at float values.
+     *
+     * @return true if represented valueis proportional to the underlying integer value
+     */
+    default boolean isProportional() {
+        return true;
+    }
 }
