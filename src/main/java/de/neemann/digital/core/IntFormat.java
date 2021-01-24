@@ -53,6 +53,15 @@ public enum IntFormat {
      */
     floating(new ValueFormatterFloat(), true);
 
+    /**
+     * The default formatter
+     */
+    public static final ValueFormatter DEFAULT_FORMATTER = ValueFormatterDefault.INSTANCE;
+    /**
+     * The hexadecimal formatter
+     */
+    public static final ValueFormatter HEX_FORMATTER = ValueFormatterHex.INSTANCE;
+
     private final Factory factory;
     private final boolean signed;
     private final boolean dependsOnAttributes;
@@ -98,15 +107,6 @@ public enum IntFormat {
     private interface Factory {
         ValueFormatter create(ElementAttributes attributes);
     }
-
-    /**
-     * The default formatter
-     */
-    public static final ValueFormatter DEFAULT_FORMATTER = ValueFormatterDefault.INSTANCE;
-    /**
-     * The hexadecimal formatter
-     */
-    public static final ValueFormatter HEX_FORMATTER = ValueFormatterHex.INSTANCE;
 
     private static final char[] DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
