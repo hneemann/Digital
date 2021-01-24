@@ -114,7 +114,6 @@ public enum IntFormat {
      * The default value formatter
      */
     private static final class ValueFormatterDefault implements ValueFormatter {
-
         private static final ValueFormatter INSTANCE = new ValueFormatterDefault();
 
         @Override
@@ -149,10 +148,43 @@ public enum IntFormat {
     }
 
     /**
+     * Base class of all formatters where the string to edit and the string to display are the same.
+     */
+    private static abstract class ValueFormatterViewEdit implements ValueFormatter {
+        private final boolean suitedForAddresses;
+
+        private ValueFormatterViewEdit(boolean suitedForAddresses) {
+            this.suitedForAddresses = suitedForAddresses;
+        }
+
+        @Override
+        public String formatToView(Value inValue) {
+            if (inValue.isHighZ())
+                return inValue.toString();
+            else
+                return format(inValue);
+        }
+
+        @Override
+        public String formatToEdit(Value inValue) {
+            if (inValue.isHighZ())
+                return "Z";
+            else
+                return format(inValue);
+        }
+
+        @Override
+        public boolean isSuitedForAddresses() {
+            return suitedForAddresses;
+        }
+
+        protected abstract String format(Value value);
+    }
+
+    /**
      * the hexadecimal formatter
      */
     private static final class ValueFormatterHex extends ValueFormatterViewEdit {
-
         private static final ValueFormatterHex INSTANCE = new ValueFormatterHex();
 
         private ValueFormatterHex() {
