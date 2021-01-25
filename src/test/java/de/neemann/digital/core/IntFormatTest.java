@@ -55,6 +55,48 @@ public class IntFormatTest extends TestCase {
         assertEquals("FFFFFFFFFFFFFFFF", vf.formatToView(new Value(-1, 64)));
     }
 
+    public void testFixedPoint() {
+        ValueFormatter f1 = IntFormat.fixed.createFormatter(new ElementAttributes().set(Keys.FIXED_POINT, 1));
+        ValueFormatter f2 = IntFormat.fixed.createFormatter(new ElementAttributes().set(Keys.FIXED_POINT, 2));
+        ValueFormatter fs1 = IntFormat.fixedSigned.createFormatter(new ElementAttributes().set(Keys.FIXED_POINT, 1));
+        ValueFormatter fs2 = IntFormat.fixedSigned.createFormatter(new ElementAttributes().set(Keys.FIXED_POINT, 2));
+
+        assertEquals("1.5", f1.formatToView(new Value(3, 8)));
+        assertEquals("0.75", f2.formatToView(new Value(3, 8)));
+        assertEquals("-1.5", fs1.formatToView(new Value(-3, 8)));
+        assertEquals("-0.75", fs2.formatToView(new Value(-3, 8)));
+        assertEquals("126.5", f1.formatToView(new Value(-3, 8)));
+        assertEquals("63.25", f2.formatToView(new Value(-3, 8)));
+
+        assertEquals("1.5:1", f1.formatToEdit(new Value(3, 8)));
+        assertEquals("0.75:2", f2.formatToEdit(new Value(3, 8)));
+        assertEquals("-1.5:1", fs1.formatToEdit(new Value(-3, 8)));
+        assertEquals("-0.75:2", fs2.formatToEdit(new Value(-3, 8)));
+        assertEquals("126.5:1", f1.formatToEdit(new Value(-3, 8)));
+        assertEquals("63.25:2", f2.formatToEdit(new Value(-3, 8)));
+
+        assertEquals("Z", f1.formatToView(new Value(8)));
+        assertEquals("Z", f1.formatToEdit(new Value(8)));
+    }
+
+    public void testFloatingPoint() {
+        assertFalse(IntFormat.floating.dependsOnAttributes());
+        ValueFormatter vf = IntFormat.floating.createFormatter(null);
+        Value three32 = new Value(Float.floatToIntBits((float) 3), 32);
+        Value three64 = new Value(Double.doubleToLongBits(3), 64);
+
+        assertEquals("3.0", vf.formatToView(three32));
+        assertEquals("3.0", vf.formatToView(three64));
+
+        assertEquals("3.0", vf.formatToEdit(three32));
+        assertEquals("3.0d", vf.formatToEdit(three64));
+
+        assertEquals("Z", vf.formatToView(new Value(32)));
+        assertEquals("Z", vf.formatToEdit(new Value(32)));
+        assertEquals("Z", vf.formatToView(new Value(64)));
+        assertEquals("Z", vf.formatToEdit(new Value(64)));
+    }
+
     /**
      * Ensures that it is possible to convert a string representation obtained by {@link ValueFormatter#formatToEdit(Value)}
      * back to the same value by {@link Bits#decode(String)}
@@ -171,20 +213,51 @@ public class IntFormatTest extends TestCase {
         assertEquals(6, vf.strLen(10));
     }
 
+    public void testDragInt() {
+        ValueFormatter f = IntFormat.HEX_FORMATTER;
+        checkDragInt(f, 1, 2, 0.004);
+        checkDragInt(f, 2, 3, 0.004);
+        checkDragInt(f, 1, 11, 0.04);
+        checkDragInt(f, 2, 12, 0.04);
+        checkDragInt(f, 1, 103, 0.4);
+        checkDragInt(f, 2, 104, 0.4);
+    }
+
+    public void testDragSigned() {
+        assertFalse(IntFormat.decSigned.dependsOnAttributes());
+        ValueFormatter f = IntFormat.decSigned.createFormatter(null);
+        checkDragInt(f, 1, 2, 0.004);
+        checkDragInt(f, 2, 3, 0.004);
+        checkDragInt(f, 1, 0, -0.004);
+        checkDragInt(f, 2, 1, -0.004);
+    }
+
+    private void checkDragInt(ValueFormatter f, long initial, long expected, double inc) {
+        assertEquals(expected, f.dragValue(initial, 8, inc));
+    }
 
     public void testDragFloat() {
         assertFalse(IntFormat.floating.dependsOnAttributes());
         ValueFormatter f = IntFormat.floating.createFormatter(null);
-        checkFloatDrag(f, 1f, 1.001f, 0.004);
-        checkFloatDrag(f, 1f, 1.002f, 0.04);
-        checkFloatDrag(f, 1f, 1.4f, 0.4);
-        checkFloatDrag(f, 1f, 3000f, 1);
-        checkFloatDrag(f, 1f, -3000f, -1);
+        checkDragFloat(f, 1, 1.001, 0.004);
+        checkDragFloat(f, 2, 2.002, 0.004);
+        checkDragFloat(f, 1, 1.002, 0.04);
+        checkDragFloat(f, 2, 2.004, 0.04);
+        checkDragFloat(f, 1, 1.4, 0.4);
+        checkDragFloat(f, 2, 2.8, 0.4);
+        checkDragFloat(f, 1, 3000, 1);
+        checkDragFloat(f, 2, 7000, 1);
+        checkDragFloat(f, 1, -3000, -1);
+        checkDragFloat(f, 2, -7000, -1);
     }
 
-    private void checkFloatDrag(ValueFormatter f, float initial, float expected, double inc) {
-        long d = f.dragValue(Float.floatToIntBits(initial), 32, inc);
+    private void checkDragFloat(ValueFormatter f, double initial, double expected, double inc) {
+        long d = f.dragValue(Float.floatToIntBits((float) initial), 32, inc);
         float result = Float.intBitsToFloat((int) d);
-        assertEquals(expected, result, 1e-5);
+        assertEquals((float) expected, result, 1e-5);
+
+        d = f.dragValue(Double.doubleToLongBits(initial), 64, inc);
+        double resultd = Double.longBitsToDouble(d);
+        assertEquals(expected, resultd, 1e-5);
     }
 }
