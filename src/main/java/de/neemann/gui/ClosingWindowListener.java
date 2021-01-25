@@ -116,8 +116,10 @@ public class ClosingWindowListener extends WindowAdapter {
             if (r == JOptionPane.YES_OPTION || r == JOptionPane.NO_OPTION) {
                 if (r == JOptionPane.YES_OPTION) {
                     guiCloser.saveChanges();
-                }
-                guiCloser.closeGUI();
+                    if (!guiCloser.isStateChanged())
+                        guiCloser.closeGUI();
+                } else
+                    guiCloser.closeGUI();
             }
         } else {
             guiCloser.closeGUI();
