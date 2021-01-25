@@ -66,16 +66,13 @@ public enum IntFormat {
     private final boolean dependsOnAttributes;
 
     IntFormat(ValueFormatter instance) {
-        this(attributes -> instance, false);
+        this.factory = attributes -> instance;
+        this.dependsOnAttributes = false;
     }
 
     IntFormat(Factory factory) {
-        this(factory, true);
-    }
-
-    IntFormat(Factory factory, boolean dependsOnAttributes) {
         this.factory = factory;
-        this.dependsOnAttributes = dependsOnAttributes;
+        this.dependsOnAttributes = true;
     }
 
     /**
