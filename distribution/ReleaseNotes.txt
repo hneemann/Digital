@@ -1,6 +1,6 @@
 Release Notes
 
-HEAD, planned as v0.26
+v0.26, released on 25. Jan. 2021
 - Performance improvement of the simulation start.
 - Improved the gui to modify the k-map layout.
 - Improved the layout of fsm transitions in the fsm editor.
@@ -14,7 +14,7 @@ HEAD, planned as v0.26
 - Generic circuits are easier to debug: It is possible now to create
   a specific, concrete circuit from a generic one.
 - In generic circuits it is now possible to add components and
-  wires to the circuit.
+  wires to the circuit programmatically.
 - It is now possible to use a probe as output in a test case.
 - Adds undo to text fields
 - Fixed a bug in the Demuxer Verilog template that causes problems
