@@ -181,11 +181,14 @@ public class InputShape implements Shape {
                     startValue = value.getValue();
                     lastValueSet = startValue;
                 } else {
-                    double inc = ((double) (startPos.y - posOnScreen.y)) / SLIDER_HEIGHT;
-                    long val = formatter.dragValue(startValue, value.getBits(), inc);
-                    if (val != lastValueSet) {
-                        modelSync.modify(() -> value.setValue(val));
-                        lastValueSet = val;
+                    int dy = startPos.y - posOnScreen.y;
+                    if (dy != 0) {
+                        double inc = ((double) dy) / SLIDER_HEIGHT;
+                        long val = formatter.dragValue(startValue, value.getBits(), inc);
+                        if (val != lastValueSet) {
+                            modelSync.modify(() -> value.setValue(val));
+                            lastValueSet = val;
+                        }
                     }
                 }
             }

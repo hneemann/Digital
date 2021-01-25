@@ -508,14 +508,27 @@ public enum IntFormat {
         }
 
         @Override
-        public long dragValue(long initial, int bits, double inc) {
-            double dif = Math.signum(inc) * (Math.exp(Math.abs(inc * 10)) - 1);
+        public long dragValue(long initialInt, int bits, double inc) {
+            double initial;
             if (bits == 32)
-                return Float.floatToIntBits((float) (Float.intBitsToFloat((int) initial) + dif));
+                initial = Float.intBitsToFloat((int) initialInt);
             else if (bits == 64)
-                return Double.doubleToLongBits(Double.longBitsToDouble(initial) + dif);
+                initial = Double.longBitsToDouble(initialInt);
             else
-                return initial;
+                return HEX_FORMATTER.dragValue(initialInt, bits, inc);
+
+            if (!Double.isFinite(initial))
+                initial = 0;
+
+            double fac = Math.exp(Math.abs(inc) * 15) / 1000;
+            double delta = Math.abs(initial == 0 ? 1 : initial) * fac * Math.signum(inc);
+            double exp = Math.pow(10, Math.floor(Math.log10(Math.abs(delta))));
+            double val = Math.round((initial + delta) / exp) * exp;
+
+            if (bits == 32)
+                return Float.floatToIntBits((float) val);
+            else
+                return Double.doubleToLongBits(val);
         }
     }
 

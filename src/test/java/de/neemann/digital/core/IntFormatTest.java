@@ -29,6 +29,7 @@ public class IntFormatTest extends TestCase {
     }
 
     public void testBin() {
+        assertFalse(IntFormat.bin.dependsOnAttributes());
         ValueFormatter vf = IntFormat.bin.createFormatter(null);
         assertEquals("0b1", vf.formatToView(new Value(1, 1)));
         assertEquals("0b01", vf.formatToView(new Value(1, 2)));
@@ -39,6 +40,9 @@ public class IntFormatTest extends TestCase {
     }
 
     public void testDec() {
+        assertFalse(IntFormat.dec.dependsOnAttributes());
+        assertFalse(IntFormat.decSigned.dependsOnAttributes());
+
         assertEquals("3", IntFormat.dec.createFormatter(null).formatToView(new Value(-1, 2)));
         assertEquals("-1", IntFormat.decSigned.createFormatter(null).formatToView(new Value(-1, 2)));
     }
@@ -125,6 +129,7 @@ public class IntFormatTest extends TestCase {
     }
 
     public void testStrLen() {
+        assertFalse(IntFormat.hex.dependsOnAttributes());
         ValueFormatter vf = IntFormat.hex.createFormatter(null);
         assertEquals(6, vf.strLen(16));
         assertEquals(6, vf.strLen(15));
@@ -164,5 +169,22 @@ public class IntFormatTest extends TestCase {
         assertEquals(5, vf.strLen(8));
         assertEquals(5, vf.strLen(9));
         assertEquals(6, vf.strLen(10));
+    }
+
+
+    public void testDragFloat() {
+        assertFalse(IntFormat.floating.dependsOnAttributes());
+        ValueFormatter f = IntFormat.floating.createFormatter(null);
+        checkFloatDrag(f, 1f, 1.001f, 0.004);
+        checkFloatDrag(f, 1f, 1.002f, 0.04);
+        checkFloatDrag(f, 1f, 1.4f, 0.4);
+        checkFloatDrag(f, 1f, 3000f, 1);
+        checkFloatDrag(f, 1f, -3000f, -1);
+    }
+
+    private void checkFloatDrag(ValueFormatter f, float initial, float expected, double inc) {
+        long d = f.dragValue(Float.floatToIntBits(initial), 32, inc);
+        float result = Float.intBitsToFloat((int) d);
+        assertEquals(expected, result, 1e-5);
     }
 }
