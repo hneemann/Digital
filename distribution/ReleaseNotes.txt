@@ -1,5 +1,9 @@
 Release Notes
 
+HEAD, planned as v0.27
+
+- Added fixed point and floating point number formats
+
 v0.26, released on 25. Jan. 2021
 - Performance improvement of the simulation start.
 - Improved the gui to modify the k-map layout.
