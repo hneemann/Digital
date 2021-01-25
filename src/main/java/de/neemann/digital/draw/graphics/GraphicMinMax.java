@@ -69,7 +69,7 @@ public class GraphicMinMax extends Graphic {
     }
 
     /**
-     * Checks the given point a makes the bounding box larger if necessary
+     * Checks the given point and makes the bounding box larger if necessary.
      *
      * @param p the point to check
      */

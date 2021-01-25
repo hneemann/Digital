@@ -141,6 +141,8 @@ public final class Lang {
                 String l = text.substring(pos + 2, pos + 4);
                 if (l.equalsIgnoreCase(currentLanguage.getName()))
                     return text.substring(pos + 4, p2).trim();
+                if (l.equalsIgnoreCase("en") && def.isEmpty())
+                    def = text.substring(pos + 4, p2).trim();
 
                 pos = text.indexOf("{{", p2);
             } else

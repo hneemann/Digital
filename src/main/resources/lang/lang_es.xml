@@ -5,8 +5,7 @@ This makes it very difficult for me to continue to maintain the translation.
 The only exception are simple typos.
 Pull requests in which this file is modified beyond simple typos cannot be accepted.
 In the file howTo.md you can find more details about translations.
--->
-<resources>
+--><resources>
     <string name="addr">Dirección</string>
     <string name="tableOfContent">Índice</string>
     <string name="general">General</string>
@@ -162,8 +161,9 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_LightBulb_pin_A">Conector A</string>
   <string name="elem_LightBulb_pin_B">Conector B</string>
   <string name="elem_PolarityAwareLED">LED con dos conexiones</string>
-  <string name="elem_PolarityAwareLED_tt">LED con dos conexiones, una para el ánodo y otra para el cátodo. El LED se enciende
-		si el ánodo está conectado a 1 y el cátodo a 0.</string>
+  <string name="elem_PolarityAwareLED_tt">LED con conexiones para el cátodo y el ánodo. El LED se encienda si el ánodo está conectado a nivel alto y el cátodo a nivel bajo.
+		Este LED no se puede usar como resistencia pull-down. Funciona únicamente como elemento que indica funcionamiento.
+		La resistencia que se ve está destinada a representar la resistencia serie que se precisa para limitar la corriente.</string>
   <string name="elem_PolarityAwareLED_pin_A">Ánodo del LED</string>
   <string name="elem_PolarityAwareLED_pin_C">Cátodo del LED</string>
   <string name="elem_Seven-Seg">Display de 7 segmentos</string>
@@ -708,9 +708,10 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_TransGate_pin_~S">Entrada de control invertida</string>
   <string name="elem_Testcase">Caso de prueba</string>
   <string name="elem_Testcase_tt">Describe un caso de prueba.
-		Aquí puedes indicar el comportamiento de un circuito. Puede ser automáticamente comprobado si el comportamiento
-		del circuito se corresponde con su descripción.
-		Si no es así, se muestra un mensaje de error.</string>
+		En un caso de prueba (test case) de un circuito, se puede describir cómo éste debería comportarse.
+		Podrá entonces automáticamente comprobarse si el comportamiento del circuito corresponde a su descripción.
+		Si no es así, se muestra un mensaje de error.
+		El texto de ayuda del editor de casos de prueba describe detalladamente cómo puede crearse sicho caso de prueba.</string>
   <string name="elem_AsyncSeq">Temporizador asíncrono</string>
   <string name="elem_AsyncSeq_tt">Permite la configuración del temporizado de un circuito secuencial asíncrono, como una tubería de Muller.
 		El circuito debe empezar en un modo de paso de puerta única y debe poder alcanzar un estado estable en el inicio.
@@ -1299,7 +1300,7 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_step_tt">Calcula un paso de puerta simple</string>
   <string name="menu_synthesise">Sintetizar</string>
   <string name="menu_synthesise_tt">Genera la expresión booleana mínima a partir de una tabla de verdad.</string>
-  <string name="menu_table_N_variables">{0} variables</string>
+  
   <string name="menu_table_create">Crear</string>
   <string name="menu_table_createCUPL_tt">Crea un archivo fuente CUPL que contiene al circuito.</string>
   <string name="menu_table_createTT2_tt">Crea un archivo BLIF (Berkeley Logic Interchange Format) que contiene el circuito.
@@ -1357,7 +1358,7 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_expression_tt">Crea un circuito a partir de una expresión.</string>
   <string name="menu_runTests">Ejecuta las pruebas</string>
   <string name="menu_runTests_tt">Ejecuta todos los valores de prueba en el circuito</string>
-  <string name="menu_actualToDefault">Fijar entradas</string>
+  <string name="menu_actualToDefault">Fijar valores de entrada por defecto.</string>
   <string name="menu_actualToDefault_tt">Usar los valores de entrada actuales como nuevos valores por defecto.</string>
   <string name="menu_restoreAllFuses">Reiniciar todos los diodos y FGFETs</string>
   <string name="menu_restoreAllFuses_tt">Reinicia todos los diodos (fusibles) y FGFETs al estado "no programado".</string>
@@ -1440,7 +1441,7 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_frequency_N">La frecuencia máxima es {0} kHz</string>
   <string name="msg_missingShape_N">No se encuentra la forma {0}</string>
   <string name="msg_pins">Asignación de pines</string>
-  <string name="msg_pinMap_pin_N_is_N">Pin {0}: {1}</string>
+  
   <string name="msg_restartNeeded">¡Se necesita reiniciar para que se produzcan los cambios!</string>
   <string name="msg_enterAnExpression">Introduce una expresión:</string>
   <string name="msg_runningTestError">Error al ejecutar las pruebas:</string>
@@ -1450,7 +1451,7 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_test_missingLines">(¡Demasiadas entradas!)</string>
   <string name="msg_test_missingLines_tt">Todos las combinaciones del test se ejecutaron, pero no se muestran los resultados.
 		¡La evaluación del resultado de la prueba es, sin embargo, correcta!</string>
-  <string name="msg_testExp_N0_found_N1">E: {0} / F: {1}</string>
+  
   <string name="msg_creatingHelp">¡Error al crear la ayuda!</string>
   <string name="msg_clipboardContainsNoImportableData">¡El portapapeles no contiene datos importables!</string>
   <string name="msg_selectAnEmptyFolder">¡Selecciona una carpeta vacía!</string>
@@ -1471,7 +1472,7 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_isLocked">La edición del circuito está deshabilitada. Puedes quitar el bloqueo de edición en "{0} -&gt; {1} -&gt; {2}".
 		Sin embargo, la copia de los componentes y la configuración de los diodos y FG-FETS con la tecla [P] es posible en el modo de bloqueo.</string>
   <string name="msg_speedTestError">¡Error durante el test de velocidad!</string>
-  <string name="msg_pin_N">Pin {0}</string>
+  
   <string name="msg_numberingWizard">Asistente de numeración</string>
   <string name="msg_pin_numbering_N">Selecciona el pin {0}:</string>
   <string name="msg_framesWritten_N">Marcos escritos: {0}</string>
@@ -1621,7 +1622,7 @@ In the file howTo.md you can find more details about translations.
       Si una línea comienza con 'repeat([n])', [n] líneas de prueba se generarán.
       La variable 'n' puede usarse para generar los datos de la prueba.
       Con 'repeat(16)', se crearán 16 líneas, donde n va de 0 a 15.
-      Si hay entradas de varios bits y se van a fijar a un valor binario, esto puede hacerse con la instrucción
+      Si hay entradas con múltiples bits y se van a fijar a un valor binario, esto puede hacerse con la instrucción
       'bits([bits], [value])'. Esto se emplea para crear [bits] bits del valor [value].&lt;/p&gt;
 
       &lt;p&gt;El siguiente es un ejemplo de prueba para un sumador de 4 bits:&lt;/p&gt;
@@ -1636,7 +1637,7 @@ repeat(256)  1    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n
 Los 4 bits de entrada se generan con la instrucción 'bits'. El resultado (C_i, S_3-S_0) también se genera con la instrucción 'bits'
 Esto sucede una vez con C_i-1 = 0 y en la siguiente línea con C_i-1 = 1.
 De esta forma, se generan 512 filas de prueba que cubren todas las posibles configuraciones de entrada.&lt;/p&gt;
-&lt;p&gt; Si se van a repetir varias filas, o hay bucles anidados, la instrucción 'loop' puede usarse.
+&lt;p&gt; Si se van a repetir varias filas, o hay bucles anidados, puede usarse la instrucción 'loop'.
 El ejemplo de arriba podría implementarse también así:&lt;/p&gt;
 
       &lt;pre&gt;
@@ -1650,8 +1651,8 @@ El ejemplo de arriba podría implementarse también así:&lt;/p&gt;
       &lt;/pre&gt;
 
       &lt;p&gt;En algunas circunstancias puede ser necesario poder reaccionar al estadio inicial del circuito. Por
-      tanto, las señales proporcionadas en el circuito pueden pueden usarse dentro del caso de prueba. Por ejemplo, si
-      se va a probar un contador que empieza en un estado indefinido, puede ser registrado a un estado definido:&lt;/p&gt;
+      tanto, las señales proporcionadas en el circuito pueden usarse dentro del caso de prueba. Por ejemplo, si
+      se va a probar un contador que empieza en un estado indefinido, puede ser fijado a un estado definido:&lt;/p&gt;
 
       &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
 
@@ -1664,10 +1665,10 @@ El ejemplo de arriba podría implementarse también así:&lt;/p&gt;
       repeat(16) C bits(4,n)
       &lt;/pre&gt;
 
-      &lt;p&gt; Puede ser que tengamos que generar números aleatorios en los tests.
+      &lt;p&gt; Puede ser útil generar números aleatorios en los casos de prueba.
       Esto puede hacerse con la función 'random([n])'. El número generado es mayor o igual que 0 y menor que [n].
-      Si suponemos un multiplicador de 16 bits como ejemplo, un test completo no podría hacerse, porque hay 2^32
-      combinaciones.
+      Si suponemos, por ejemplo, un multiplicador de 16 bits, un test completo no podría hacerse, porque hay 2^32
+      combinaciones de entrada.
       Una prueba de regresión que multiplicara 100000 números aleatorios podría tener este aspecto:&lt;/p&gt;
 
       &lt;pre&gt;
@@ -1693,6 +1694,46 @@ En tal caso, el nombre de la señal puede usarse con un añadido "_out" para lee
 
       &lt;p&gt;El circuito para este test tiene solo una entrada 'D', pero que puede estar en estado de alta impedancia.
       Por tanto, la señal 'D_out' estará también disponible para chequear el valor en este caso.&lt;/p&gt;
+
+&lt;p&gt; En algunos casos, puede que queramos usar las señales proporcionadas por el circuito para producir una nueva señal,
+que es la que se va a comprobar. Un ejemplo podría ser una señal de un bus con varios bits, donde solo deberíamos comprobar un bit,
+mientras que los demás no tienen influencia en la prueba. En este caso, se puede generar una nueva señal dentro de la prueba
+que contenga este solo bit, de modo que las pruebas se puedan definir para este bit.&lt;/p&gt;
+&lt;p&gt;Esto se hace con el comando 'declare':&lt;/p&gt;
+&lt;pre&gt;A B Bit
+
+declare Bit = (Bus&gt;&gt;3)&amp;1;
+
+0 0  0
+0 1  0
+1 0  1
+1 1  0
+&lt;/pre&gt;
+&lt;p&gt;En este ejemplo, el tercer bit está aislado de la señal 'Bus' y se saca como la señal 'Bit' para la prueba.
+El circuito en sí mismo no contiene ninguna salida llamada 'Bit'&lt;/p&gt;
+
+&lt;h3&gt;Procesadores&lt;/h3&gt;
+&lt;p&gt; Si se van a comprobar procesadores, necesitamos una inicialización del procesador.
+Es posible hacer esta inicialización dentro del caso de prueba.
+Así, se pueden aplicar varios casos de prueba en un circuito y cada comprabación puede usarse con su propia inicialización.
+Hay tres instrucciones para llevar a cabo esta inicialización:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;El comando 'program' puede usarse para sobreescribir la memoria de programa del procesador.
+La instrucción &lt;pre&gt;program(0x8000,0x2d11,0x8000,0x2f21)&lt;/pre&gt; escribe cuatro palabras al comienzo de la memoria de programa.
+El resto de palabras valen cero.&lt;/li&gt;.
+&lt;li&gt;La instrucción 'memory' puede emplearse para escribir en un componente de RAM:
+&lt;pre&gt;memory mem(3)=7;&lt;/pre&gt;
+Este ejemplo escribe 7 en la memoria con la etiqueta 'mem' en la dirección 3.&lt;/li&gt;
+&lt;li&gt; Un registro con una determinada etiqueta puede ser sobreescrito con el comando 'init'.
+&lt;pre&gt;init R0=22;&lt;/pre&gt;
+Esta instrucción sobreescribe el registro con la etiqueta 'R0' con el valor 22.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Hay que destacar que todas las inicializaciones empleadas se aplican solo una vez antes de la ejecución de la prueba.
+No importa en qué línea del caso de prueba esté.
+Sin embargo, no se deben usar por encima de la línea del encabezado que contiene la lista de los nombres de las señales.&lt;/p&gt;
+
+
+
 
       &lt;/body&gt;&lt;/html&gt;</string>
   <string name="fsm_title">Máquina de Estados Finitos (FSM)</string>
@@ -1870,7 +1911,7 @@ En tal caso, el nombre de la señal puede usarse con un añadido "_out" para lee
     <string name="elem_VGA_pin_H">Señal de sincronización horizontal</string>
     <string name="elem_VGA_pin_V">Señal de sincronización vertical</string>
     <string name="elem_VGA_pin_C">Reloj de píxel</string>
-    <string name="elem_PinControl">Pin Control</string>
+    
     <string name="elem_PinControl_tt">Lógica de control para un pin bidireccional.
         ¡Se precisa este componente sólo en el contexto de generación de VHDL o Verilog, con el fin de crear un puerto
         HDL bidireccional!
@@ -2073,4 +2114,76 @@ En tal caso, el nombre de la señal puede usarse con un añadido "_out" para lee
     </string>
     <string name="cli_errorCreatingStats">Error al crear el archivo de estadísticas.</string>
     <string name="menu_table_exportTablePlainText">Exporta texto plano</string>
+    <string name="elem_ScopeTrigger">Gráfica de datos activos</string>
+    <string name="elem_ScopeTrigger_short">Rango</string>
+    <string name="elem_ScopeTrigger_tt">Muestra una gráfica de los valores medidos, por lo que los valores medidos se guardan solo si la señal de entrada cambia.
+		El guardado tiene lugar cuando el circuito se ha estabilizado.
+		La activación no comienza la medida en un rango real, pero cada evento de activación almacena un simple valor de medida para cada una de las señales mostradas.
+		Como entrada directa solo está el activador. Las entradas y salidas de los circuitos, flip-flops y registros y el componente sonda pueden usarse como señales.
+		Esto puede activarse en los respectivos componentes.</string>
+    <string name="elem_ScopeTrigger_pin_T">Un cambio en esta entrada provoca el almacenamiento de los valores medidos</string>
+    <string name="elem_NotConnected">No conectado</string>
+    <string name="elem_NotConnected_tt">Este componente puede emplearse para poner un cable en alta impedancia.
+		Si una entrada de una puerta lógica está en alta impedancia, el valor leído en ella estará indeterminado.
+		Observa que en realidad en muchos casos, puede ocurrir un excesivo consumo de corriente e incluso un daño si una entrada no está fijada a alta o baja, sino que permanece desconectada.</string>
+    <string name="elem_NotConnected_pin_out">Esta salida siempre proporciona alta impedancia.</string>
+    <string name="err_notConnectedNotAllowed">¡El símbolo No Conectado no se permmite aquí!</string>
+    <string name="elem_ROMDualPort">Puerto dual ROM</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_ROMDualPort_tt">Componente de memoria no volátil.
+		Los datos almacenados pueden ser editados en el diálogo de propiedades.</string>
+    <string name="elem_ROMDualPort_pin_A1">Este pin define la dirección de la palabra de datos que va a mostrarse en D1.</string>
+    <string name="elem_ROMDualPort_pin_D1">La palabra de datos seleccionada si la entrada s1 está en valor alto.</string>
+    <string name="elem_ROMDualPort_pin_s1">Si la entrada está en alto, la salida D1 está activdada. Si está en bajo, la salida de datos estará en estado de alta impedancia.</string>
+    <string name="elem_ROMDualPort_pin_A2">Este pin define la dirección de la palabra de datos que va a mostrarse en D2.</string>
+    <string name="elem_ROMDualPort_pin_D2">La palabra de datos seleccionada si la entrada s2 está en valor alto.</string>
+    <string name="elem_ROMDualPort_pin_s2">Si la entrada está en alto, la salida D2 estará activada. Si está en bajo, la salida de datos estará en estado de alta impedancia.</string>
+    <string name="elem_PRNG">Generador de números aleatorios</string>
+    <string name="elem_PRNG_tt">Puede emplearse para generar números aleatorios.
+		Cuando se inicia la simulación, el generador se reinicia, de forma que una nueva secuencia de números pseudoaleatorios se genera en cada inicio.
+		El generador puede lanzarse en la simulación en marcha con un valor de inicio para generar una secuencia de números pseudoaleatorios definida.</string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_PRNG_pin_S">Nuevo valor de inicio del generador</string>
+    <string name="elem_PRNG_pin_se">Activo, se reinicia el generador de números aleatorios con el valor de inciio en el siguiente flanco de subida del reloj.</string>
+    <string name="elem_PRNG_pin_ne">Activo, sale un nuevo  número aleatorio en el siguiente flanco de subida del reloj.</string>
+    <string name="elem_PRNG_pin_C">Entrada de reloj.</string>
+    <string name="elem_PRNG_pin_R">Salida del número pseudoaleatorio</string>
+    <string name="elem_GenericInitCode">Inicialización genérica</string>
+    <string name="elem_GenericInitCode_tt">Código que se ejecuta para iniciar un circuito genéico.
+		Si se va a iniciar un circuito genérico, este componente tiene que estar presente.</string>
+    <string name="elem_GenericCode">Código</string>
+    <string name="elem_GenericCode_tt">Código que se ejecuta cuando se concreta un circuito genérico.
+		Puede usarse, por ejemplo, para añadir componentes o cables a un circuito.</string>
+    <string name="err_hdlTestCaseHasGenericCode">¡Casos de prueba con parametrización genérica no están soportados en la exportación a HDL!</string>
+    <string name="err_multipleRomsFound">¡Encontradas varias memorias para programas! Solo se permite una memoria para programa.</string>
+    <string name="err_noMemoryFound">¡No se ha encontrado la memoria "{0}" en este modelo!</string>
+    <string name="err_multipleMemoriesFound">¡Múltiples memorias "{0}" encontradas en el modelo!</string>
+    <string name="err_noGenericInitCode">No hay código de inicialización para los componentes genéricos.
+		Hay que añadir un componente al circuito para que arranque.</string>
+    <string name="err_multipleGenericInitCodes">Múltiples códigos de inicilización para los elementos genéricos.</string>
+    <string name="err_inGenericInitCode">Error en el análisis del código de inicialización genérico.</string>
+    <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">¡Señal virtual {0} declarada dos veces en la línea {1}!</string>
+    <string name="key_remainderPositive">Resto siempre positivo</string>
+    <string name="key_remainderPositive_tt">Si está activado, el resto de una división con signo será siempre positivo.</string>
+    <string name="key_trigger">Disparador</string>
+    <string name="key_trigger_tt">Condición de disparo para la grabación de datos.</string>
+    <string name="key_trigger_rising">flanco de subida</string>
+    <string name="key_trigger_falling">flanco de bajada</string>
+    <string name="key_trigger_both">ambos flancos</string>
+    <string name="mod_modifiedByRunningModel">Cambios hechos por la simulación que está en marcha.</string>
+    <string name="menu_scale">Fijar escalado</string>
+    <string name="msg_supportsHDL">Exportable a VHDL/Verilog.</string>
+    <string name="msg_errorSettingModelToTestCase">Error al fijar la fila del caso de prueba.</string>
+    <string name="msg_keyAsGenericAttribute">Nombre que se va a usar en circuitos genéricos: {0}</string>
+    <string name="attr_createConcreteCircuitLabel">Crear un circuito particular</string>
+    <string name="attr_createConcreteCircuit">Crear</string>
+    <string name="attr_createConcreteCircuit_tt">Crea un circuito particular a partir de este circuito genérico, usando los parámetros indicados en este elemento.</string>
+    <string name="attr_createConcreteCircuitErr">¡Error al crear el circuito particular!</string>
+    <string name="msg_fsm_optimizer">Optimizador de FSM</string>
+    <string name="menu_fsm_optimize_state_numbers">Optimiza los números de los estados</string>
+    <string name="menu_fsm_optimize_state_numbers_tt">Optimiza los números de los estados, de modo que la implementación cueste lo menos posible.
+		El tiempo de ejecución se incremente muy lentamente con la complejidad de la máquina (O(n!)).</string>
+    <string name="menu_fsm_optimize_state_numbers_err">¡Error durante la optimización!</string>
+    <string name="msg_fsm_optimizer_initial">Complejidad inicial:</string>
+    <string name="msg_fsm_optimizer_best">Lo mejor hasta ahora:</string>
 </resources>
