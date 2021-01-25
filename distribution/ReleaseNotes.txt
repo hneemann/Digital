@@ -3,6 +3,7 @@ Release Notes
 v0.26, released on 25. Jan. 2021
 - Performance improvement of the simulation start.
 - Improved the gui to modify the k-map layout.
+- Improved testing of processors.
 - Improved the layout of fsm transitions in the fsm editor.
 - Added French translation. Special thanks to Nicolas Maltais who
   provided the translation.
@@ -17,14 +18,14 @@ v0.26, released on 25. Jan. 2021
   wires to the circuit programmatically.
 - It is now possible to use a probe as output in a test case.
 - Adds undo to text fields
+- If IEEE shapes are selected in the settings, also the CircuitBuilder
+  uses wide shapes in the created circuits.
 - Fixed a bug in the Demuxer Verilog template that causes problems
   when using multiple demuxers in the same circuit.
 - Fixed a bug in the value editor, which occurs, if high-z is the
   default value of an input.
 - Fixed an issue which avoids to restart a running simulation by just
   click on the start button again.
-- If IEEE shapes are selected in the settings, also the CircuitBuilder
-  uses wide shapes in the created circuits.
 - Added IC 74190 to the Library.
 
 v0.25, released on 10. Aug. 2020
