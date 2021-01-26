@@ -5,6 +5,8 @@ HEAD, planned as v0.27
 - Added fixed point and floating point number formats
 - Refactoring of the expression format setting.
   CAUTION: All the general settings are maybe lost at restart!
+  To avoid this, open the .digital.cfg file and remove the <entry>
+  containing the <string>ExpressionFormat</string> if it's present.
 
 v0.26, released on 25. Jan. 2021
 - Performance improvement of the simulation start.
