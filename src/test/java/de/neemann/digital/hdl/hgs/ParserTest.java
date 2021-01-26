@@ -331,6 +331,17 @@ public class ParserTest extends TestCase {
         assertEquals(7L, l.get(1));
     }
 
+    public void testParseTemplateArray2() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("<? a:=newList(1,7); print(a[1], \",\" ,sizeOf(a)); ?>;");
+        assertEquals("7,2;", c.toString());
+        Object lo = c.getVar("a");
+        assertTrue(lo instanceof List);
+        List l = (List) lo;
+        assertEquals(2, l.size());
+        assertEquals(1L, l.get(0));
+        assertEquals(7L, l.get(1));
+    }
+
     public void testParseTemplateMap() throws IOException, ParserException, HGSEvalException {
         Context c = exec("<? m:=newMap(); m.test:=newMap(); m.test.val:=7; print(m.test.val); ?>;");
         assertEquals("7;", c.toString());

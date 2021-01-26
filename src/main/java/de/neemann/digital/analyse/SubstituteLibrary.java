@@ -12,6 +12,7 @@ import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.LibraryInterface;
+import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
@@ -229,6 +230,11 @@ public class SubstituteLibrary implements LibraryInterface {
                     return (int) l;
             } else if (expectedClass == Color.class && val instanceof Number) {
                 return new Color(((Number) val).intValue());
+            } else if (expectedClass == InverterConfig.class && val instanceof java.util.List) {
+                InverterConfig.Builder b = new InverterConfig.Builder();
+                for (Object i : (java.util.List) val)
+                    b.add(i.toString());
+                return b.build();
             } else if (expectedClass == Rotation.class && val instanceof Number) {
                 int r = ((Number) val).intValue();
                 return new Rotation(r % 4);
