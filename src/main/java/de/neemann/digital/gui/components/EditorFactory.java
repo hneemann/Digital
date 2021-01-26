@@ -6,7 +6,7 @@
 package de.neemann.digital.gui.components;
 
 import de.neemann.digital.FileLocator;
-import de.neemann.digital.analyse.expression.format.FormatToExpression;
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.core.extern.Application;
@@ -69,7 +69,6 @@ public final class EditorFactory {
         add(Rotation.class, RotationEditor.class);
         add(Language.class, LanguageEditor.class);
         add(TestCaseDescription.class, TestCaseDescriptionEditor.class);
-        add(FormatToExpression.class, FormatEditor.class);
         add(InverterConfig.class, InverterConfigEditor.class);
         add(ROMManger.class, ROMManagerEditor.class);
         add(Application.Type.class, ApplicationTypeEditor.class);
@@ -875,13 +874,13 @@ public final class EditorFactory {
     }
 
     private static class LanguageEditor extends LabelEditor<Language> {
-        private JComboBox comb;
+        private final JComboBox<Language> comb;
 
-        public LanguageEditor(Language language, Key<Rotation> key) {
+        public LanguageEditor(Language language, Key<Language> key) {
             Bundle b = Lang.getBundle();
             List<Language> supLang = b.getSupportedLanguages();
-            comb = new JComboBox<>(supLang.toArray(new Language[supLang.size()]));
-            comb.setSelectedItem(Lang.currentLanguage());
+            comb = new JComboBox<>(supLang.toArray(new Language[0]));
+            comb.setSelectedItem(language);
         }
 
         @Override
@@ -896,31 +895,6 @@ public final class EditorFactory {
 
         @Override
         public void setValue(Language value) {
-            comb.setSelectedItem(value);
-        }
-    }
-
-    private static class FormatEditor extends LabelEditor<FormatToExpression> {
-        private JComboBox comb;
-
-        public FormatEditor(FormatToExpression format, Key<Rotation> key) {
-            FormatToExpression[] formats = FormatToExpression.getAvailFormats();
-            comb = new JComboBox<>(formats);
-            comb.setSelectedItem(format);
-        }
-
-        @Override
-        protected JComponent getComponent(ElementAttributes elementAttributes) {
-            return comb;
-        }
-
-        @Override
-        public FormatToExpression getValue() {
-            return (FormatToExpression) comb.getSelectedItem();
-        }
-
-        @Override
-        public void setValue(FormatToExpression value) {
             comb.setSelectedItem(value);
         }
     }

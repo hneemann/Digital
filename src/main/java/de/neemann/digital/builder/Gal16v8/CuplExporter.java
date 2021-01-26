@@ -171,7 +171,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
             out.append("\r\n/* sequential logic */\r\n");
             for (Map.Entry<String, Expression> c : builder.getRegistered().entrySet()) {
                 out.append(c.getKey()).append(".D = ");
-                breakLines(out, FormatToExpression.FORMATTER_CUPL.format(c.getValue()));
+                breakLines(out, FormatToExpression.CUPL.format(c.getValue()));
                 out.append(";\r\n");
                 sequentialWritten(out, c.getKey());
             }
@@ -181,7 +181,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
             out.append("\r\n/* combinatorial logic */\r\n");
             for (Map.Entry<String, Expression> c : builder.getCombinatorial().entrySet()) {
                 out.append(c.getKey()).append(" = ");
-                breakLines(out, FormatToExpression.FORMATTER_CUPL.format(c.getValue()));
+                breakLines(out, FormatToExpression.CUPL.format(c.getValue()));
                 out.append(";\r\n");
             }
         }

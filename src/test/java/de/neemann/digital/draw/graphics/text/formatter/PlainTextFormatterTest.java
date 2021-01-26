@@ -13,17 +13,17 @@ import junit.framework.TestCase;
 public class PlainTextFormatterTest extends TestCase {
 
     public void testSimple() throws ParseException {
-        assertEquals("Hello World", PlainTextFormatter.format(new Parser("Hello World").parse(), FormatToExpression.FORMATTER_JAVA));
-        assertEquals("Q", PlainTextFormatter.format(new Parser("Q").parse(), FormatToExpression.FORMATTER_JAVA));
-        assertEquals("Q", PlainTextFormatter.format(new Parser("$Q$").parse(), FormatToExpression.FORMATTER_JAVA));
-        assertEquals("Q0n+1", PlainTextFormatter.format(new Parser("Q_0^{n+1}").parse(), FormatToExpression.FORMATTER_JAVA));
-        assertEquals("Q0n", PlainTextFormatter.format(new Parser("Q_0^n").parse(), FormatToExpression.FORMATTER_JAVA));
-        assertEquals("Q0n", PlainTextFormatter.format(new Parser("Q^n_0").parse(), FormatToExpression.FORMATTER_JAVA));
-        assertEquals("!Q", PlainTextFormatter.format(new Parser("~{Q}").parse(), FormatToExpression.FORMATTER_JAVA));
-        assertEquals("!(A+B)", PlainTextFormatter.format(new Parser("~{A+B}").parse(), FormatToExpression.FORMATTER_JAVA));
-        assertEquals("!(!Q)", PlainTextFormatter.format(new Parser("~{~Q}").parse(), FormatToExpression.FORMATTER_JAVA));
+        assertEquals("Hello World", PlainTextFormatter.format(new Parser("Hello World").parse(), FormatToExpression.JAVA));
+        assertEquals("Q", PlainTextFormatter.format(new Parser("Q").parse(), FormatToExpression.JAVA));
+        assertEquals("Q", PlainTextFormatter.format(new Parser("$Q$").parse(), FormatToExpression.JAVA));
+        assertEquals("Q0n+1", PlainTextFormatter.format(new Parser("Q_0^{n+1}").parse(), FormatToExpression.JAVA));
+        assertEquals("Q0n", PlainTextFormatter.format(new Parser("Q_0^n").parse(), FormatToExpression.JAVA));
+        assertEquals("Q0n", PlainTextFormatter.format(new Parser("Q^n_0").parse(), FormatToExpression.JAVA));
+        assertEquals("!Q", PlainTextFormatter.format(new Parser("~{Q}").parse(), FormatToExpression.JAVA));
+        assertEquals("!(A+B)", PlainTextFormatter.format(new Parser("~{A+B}").parse(), FormatToExpression.JAVA));
+        assertEquals("!(!Q)", PlainTextFormatter.format(new Parser("~{~Q}").parse(), FormatToExpression.JAVA));
 
-        assertEquals("!a0n", PlainTextFormatter.format(new Parser("~{a_0^n}").parse(), FormatToExpression.FORMATTER_JAVA));
+        assertEquals("!a0n", PlainTextFormatter.format(new Parser("~{a_0^n}").parse(), FormatToExpression.JAVA));
     }
 
 }

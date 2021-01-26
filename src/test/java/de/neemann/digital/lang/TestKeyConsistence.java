@@ -16,6 +16,7 @@ import junit.framework.TestCase;
 import java.lang.reflect.Field;
 
 /**
+ *
  */
 public class TestKeyConsistence extends TestCase {
 
@@ -29,8 +30,9 @@ public class TestKeyConsistence extends TestCase {
 
             if (key instanceof Key.KeyEnum) {
                 Key.KeyEnum ke = (Key.KeyEnum) key;
-                for (Enum v : ke.getValues())
-                    checkKey(ke.getLangKey(v));
+                if (!ke.usesToString())
+                    for (Enum v : ke.getValues())
+                        checkKey(ke.getLangKey(v));
             }
         }
     }

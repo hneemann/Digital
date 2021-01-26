@@ -467,8 +467,8 @@ public final class Keys {
     /**
      * The GUI expression string representation
      */
-    public static final Key<FormatToExpression> SETTINGS_EXPRESSION_FORMAT
-            = new Key<>("ExpressionFormat", FormatToExpression.FORMATTER_UNICODE);
+    public static final Key.KeyEnum<FormatToExpression> SETTINGS_EXPRESSION_FORMAT
+            = new Key.KeyEnum<>("ExpressionFormat", FormatToExpression.UNICODE, FormatToExpression.values(), true);
 
     /**
      * enables the grid

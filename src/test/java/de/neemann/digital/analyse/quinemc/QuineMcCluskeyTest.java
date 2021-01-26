@@ -19,7 +19,7 @@ import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
 import static de.neemann.digital.analyse.expression.Operation.or;
 import static de.neemann.digital.analyse.expression.Variable.vars;
-import static de.neemann.digital.analyse.expression.format.FormatToExpression.FORMATTER_UNICODE;
+import static de.neemann.digital.analyse.expression.format.FormatToExpression.UNICODE;
 
 /**
  */
@@ -32,7 +32,7 @@ public class QuineMcCluskeyTest extends TestCase {
                 .simplify()
                 .getExpression();
 
-        assertEquals("!B", FormatToExpression.FORMATTER_JAVA.format(e));
+        assertEquals("!B", FormatToExpression.JAVA.format(e));
     }
 
     public void testGenerator() throws ExpressionException {
@@ -119,12 +119,12 @@ public class QuineMcCluskeyTest extends TestCase {
         assertEquals("-01-,2,3,6,7", primes.get(3).toString());
 
         Expression exp = t.getExpression();
-        assertEquals("(A && C && D) || (!B && !D) || (!B && C) || (!C && !D)", FormatToExpression.FORMATTER_JAVA.format(exp));
+        assertEquals("(A && C && D) || (!B && !D) || (!B && C) || (!C && !D)", FormatToExpression.JAVA.format(exp));
 
         t.simplifyPrimes(new PrimeSelectorDefault());
 
         exp = t.getExpression();
-        assertEquals("(A && C && D) || (!B && C) || (!C && !D)", FormatToExpression.FORMATTER_JAVA.format(exp));
+        assertEquals("(A && C && D) || (!B && C) || (!C && !D)", FormatToExpression.JAVA.format(exp));
     }
 
     public void testSimplify2() throws ExpressionException, FormatterException {
@@ -132,7 +132,7 @@ public class QuineMcCluskeyTest extends TestCase {
         t.fillTableWith(new BoolTableByteArray(new byte[]{1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1}));
         t = t.simplify();
 
-        assertEquals("(!A && !C) || (B && D) || (B && !C)", FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
+        assertEquals("(!A && !C) || (B && D) || (B && !C)", FormatToExpression.JAVA.format(t.getExpression()));
     }
 
     public void testZero() throws Exception {
@@ -211,9 +211,9 @@ public class QuineMcCluskeyTest extends TestCase {
 
                 boolean ok = (c <= cOne) && (c <= cZero);
                 if (!ok) {
-                    System.out.println("\nX: " + FORMATTER_UNICODE.format(e) + ", " + c);
-                    System.out.println("0: " + FORMATTER_UNICODE.format(eZero) + ", " + cZero);
-                    System.out.println("1: " + FORMATTER_UNICODE.format(eOne) + ", " + cOne);
+                    System.out.println("\nX: " + UNICODE.format(e) + ", " + c);
+                    System.out.println("0: " + UNICODE.format(eZero) + ", " + cZero);
+                    System.out.println("1: " + UNICODE.format(eOne) + ", " + cOne);
 
                     assertTrue(false);
                 }

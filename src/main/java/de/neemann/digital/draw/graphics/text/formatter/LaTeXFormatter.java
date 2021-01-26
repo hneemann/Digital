@@ -25,7 +25,7 @@ public final class LaTeXFormatter {
      * @return the formatted string
      */
     public static String format(Expression exp) {
-        return format(new ExpressionToText().createText(exp, FormatToExpression.FORMATTER_LATEX), true);
+        return format(new ExpressionToText().createText(exp, FormatToExpression.LATEX), true);
     }
 
     /**

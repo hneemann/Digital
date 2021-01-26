@@ -57,7 +57,7 @@ public class QuineMcCluskeyRegressionTest extends TestCase {
             t.simplifyStep();
         }
         t.simplifyPrimes(new PrimeSelectorDefault());
-        assertEquals("A || C", FormatToExpression.FORMATTER_JAVA.format(t.getExpression()));
+        assertEquals("A || C", FormatToExpression.JAVA.format(t.getExpression()));
 //        System.out.println("--");
     }
 

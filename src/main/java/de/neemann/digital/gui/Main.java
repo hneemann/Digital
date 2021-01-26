@@ -10,7 +10,6 @@ import de.neemann.digital.analyse.AnalyseException;
 import de.neemann.digital.analyse.ModelAnalyser;
 import de.neemann.digital.analyse.SubstituteLibrary;
 import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
@@ -758,7 +757,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                                 .setDialogTitle(Lang.get("menu_editSettings"))
                                 .showDialog();
                 if (modified != null) {
-                    FormatToExpression.setDefaultFormat(modified.get(Keys.SETTINGS_EXPRESSION_FORMAT));
                     ColorScheme.updateCustomColorScheme(modified);
 
                     if (Settings.getInstance().requiresRestart(modified)) {
@@ -1981,7 +1979,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
         ToolTipManager.sharedInstance().setDismissDelay(10000);
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
-        FormatToExpression.setDefaultFormat(Settings.getInstance().get(Keys.SETTINGS_EXPRESSION_FORMAT));
 
         if (Screen.isMac()) {
             setMacCopyPasteTo(UIManager.get("TextField.focusInputMap"));

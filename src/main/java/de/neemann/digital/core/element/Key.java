@@ -433,6 +433,7 @@ public class Key<VALUE> {
     public static final class KeyEnum<E extends Enum> extends Key<E> {
         private final E[] values;
         private final String[] names;
+        private final boolean toString;
 
         /**
          * Creates a new emum key
@@ -442,12 +443,29 @@ public class Key<VALUE> {
          * @param values the possible values
          */
         public KeyEnum(String key, E def, E[] values) {
+            this(key, def, values, false);
+        }
+
+        /**
+         * Creates a new emum key
+         *
+         * @param key      the key
+         * @param def      the default value
+         * @param values   the possible values
+         * @param toString if true, the names are not taken from the language file but created by calling toString()
+         */
+        public KeyEnum(String key, E def, E[] values, boolean toString) {
             super(key, def);
             this.values = values;
+            this.toString = toString;
 
             names = new String[values.length];
-            for (int i = 0; i < values.length; i++)
-                names[i] = Lang.get(getLangKey(values[i]));
+            if (toString)
+                for (int i = 0; i < values.length; i++)
+                    names[i] = values[i].toString();
+            else
+                for (int i = 0; i < values.length; i++)
+                    names[i] = Lang.get(getLangKey(values[i]));
             allowGroupEdit();
         }
 
@@ -473,6 +491,13 @@ public class Key<VALUE> {
          */
         public String[] getNames() {
             return names;
+        }
+
+        /**
+         * @return true if this enum key uses toString to create the display names
+         */
+        public boolean usesToString() {
+            return toString;
         }
     }
 

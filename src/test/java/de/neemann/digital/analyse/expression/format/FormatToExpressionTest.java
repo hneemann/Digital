@@ -11,7 +11,6 @@ import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.parser.Parser;
 import de.neemann.digital.draw.graphics.text.formatter.LaTeXFormatter;
-import de.neemann.digital.draw.graphics.text.text.ExpressionToText;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -30,12 +29,12 @@ public class FormatToExpressionTest extends TestCase {
         Variable b = v("B");
         Expression e = and(not(or(not(a), not(b))), not(and(not(a), not(b))));
 
-        assertEquals("!(!A || !B) && !(!A && !B)", FormatToExpression.FORMATTER_JAVA.format(e));
-        assertEquals("NOT (NOT A OR NOT B) AND NOT (NOT A AND NOT B)", FormatToExpression.FORMATTER_DERIVE.format(e));
-        assertEquals("~(~A + ~B) ~(~A ~B)", FormatToExpression.FORMATTER_LOGISIM.format(e));
-        assertEquals("¬(¬A ∨ ¬B) ∧ ¬(¬A ∧ ¬B)", FormatToExpression.FORMATTER_UNICODE.format(e));
-        assertEquals("!(!A + !B) * !(!A * !B)", FormatToExpression.FORMATTER_SHORT.format(e));
-        assertEquals("!(!A + !B) !(!A !B)", FormatToExpression.FORMATTER_SHORTER.format(e));
+        assertEquals("!(!A || !B) && !(!A && !B)", FormatToExpression.JAVA.format(e));
+        assertEquals("NOT (NOT A OR NOT B) AND NOT (NOT A AND NOT B)", FormatToExpression.DERIVE.format(e));
+        assertEquals("~(~A + ~B) ~(~A ~B)", FormatToExpression.LOGISIM.format(e));
+        assertEquals("¬(¬A ∨ ¬B) ∧ ¬(¬A ∧ ¬B)", FormatToExpression.UNICODE.format(e));
+        assertEquals("!(!A + !B) * !(!A * !B)", FormatToExpression.SHORT.format(e));
+        assertEquals("!(!A + !B) !(!A !B)", FormatToExpression.SHORTER.format(e));
 
         assertEquals("\\overline{\\overline{A} \\oder \\overline{B}} \\und \\overline{\\overline{A} \\und \\overline{B}}", LaTeXFormatter.format(e));
     }
@@ -46,7 +45,7 @@ public class FormatToExpressionTest extends TestCase {
         Variable c = v("C");
         Expression e = or(and(a, not(b), c), and(a, not(b), not(c)));
 
-        assertEquals("(A !B C) + (A !B !C)", FormatToExpression.FORMATTER_SHORTER.format(e));
+        assertEquals("(A !B C) + (A !B !C)", FormatToExpression.SHORTER.format(e));
     }
 
     public void testFormatNamesExp() throws Exception {
@@ -54,16 +53,16 @@ public class FormatToExpressionTest extends TestCase {
         Variable b = v("B");
         Expression e = and(a, b);
         NamedExpression n = new NamedExpression("U", e);
-        assertEquals("U = A ∧ B", FormatToExpression.FORMATTER_UNICODE.format(n));
+        assertEquals("U = A ∧ B", FormatToExpression.UNICODE.format(n));
         n = new NamedExpression("V", n);
-        assertEquals("V = U = A ∧ B", FormatToExpression.FORMATTER_UNICODE.format(n));
+        assertEquals("V = U = A ∧ B", FormatToExpression.UNICODE.format(n));
     }
 
     public void testFormatExpNot() throws Exception, FormatterException {
         Variable a = new Variable("A");
         Expression e = not(a);
 
-        assertEquals("¬A", FormatToExpression.FORMATTER_UNICODE.format(e));
+        assertEquals("¬A", FormatToExpression.UNICODE.format(e));
     }
 
     public void testFormatExpNot2() throws Exception {
@@ -72,7 +71,7 @@ public class FormatToExpressionTest extends TestCase {
         Variable c = v("C");
         Expression e = or(and(a, b), not(c));
 
-        assertEquals("(A ∧ B) ∨ ¬C", FormatToExpression.FORMATTER_UNICODE.format(e));
+        assertEquals("(A ∧ B) ∨ ¬C", FormatToExpression.UNICODE.format(e));
     }
 
     public void testFormatExpLaTeX() throws Exception {
@@ -112,12 +111,12 @@ public class FormatToExpressionTest extends TestCase {
 
     public void testFormatXOr() throws Exception {
         ArrayList<Expression> e = new Parser("let sum=(A^B)^C, let c = (A B) + ((A^B) C)").parse();
-        assertEquals("sum = (A ⊻ B) ⊻ C", FormatToExpression.FORMATTER_UNICODE.format(e.get(0)));
-        assertEquals("c = (A ∧ B) ∨ ((A ⊻ B) ∧ C)", FormatToExpression.FORMATTER_UNICODE.format(e.get(1)));
+        assertEquals("sum = (A ⊻ B) ⊻ C", FormatToExpression.UNICODE.format(e.get(0)));
+        assertEquals("c = (A ∧ B) ∨ ((A ⊻ B) ∧ C)", FormatToExpression.UNICODE.format(e.get(1)));
         assertEquals("sum &=& (A \\xoder B) \\xoder C", LaTeXFormatter.format(e.get(0)));
-        assertEquals("sum = (A $ B) $ C", FormatToExpression.FORMATTER_CUPL.format(e.get(0)));
-        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.FORMATTER_JAVA.format(e.get(0)));
-        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.FORMATTER_SHORT.format(e.get(0)));
-        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.FORMATTER_SHORTER.format(e.get(0)));
+        assertEquals("sum = (A $ B) $ C", FormatToExpression.CUPL.format(e.get(0)));
+        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.JAVA.format(e.get(0)));
+        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.SHORT.format(e.get(0)));
+        assertEquals("sum = (A ^ B) ^ C", FormatToExpression.SHORTER.format(e.get(0)));
     }
 }

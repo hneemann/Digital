@@ -64,7 +64,7 @@ public class DetermineJKStateMachineTest extends TestCase {
     }
 
     private String toStr(Expression expression) {
-        return FormatToExpression.FORMATTER_UNICODE.format(expression);
+        return FormatToExpression.UNICODE.format(expression);
     }
 
     public void testSimple2() throws Exception {

@@ -26,7 +26,7 @@ public class SimplifyTest extends TestCase {
         Expression e = or(and(a, b), a);
         Expression s = QuineMcCluskey.simplify(e);
 
-        assertEquals("a", FormatToExpression.FORMATTER_UNICODE.format(s));
+        assertEquals("a", FormatToExpression.UNICODE.format(s));
     }
 
     public void testSimplify2() throws Exception, FormatterException {
@@ -35,7 +35,7 @@ public class SimplifyTest extends TestCase {
         Expression e = and(or(a, b), a);
         Expression s = QuineMcCluskey.simplify(e);
 
-        assertEquals("a", FormatToExpression.FORMATTER_UNICODE.format(s));
+        assertEquals("a", FormatToExpression.UNICODE.format(s));
     }
 
     public void testSimplify3() throws Exception {

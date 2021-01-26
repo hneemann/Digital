@@ -49,7 +49,7 @@ public class ScreenShots {
     private static Main mainStatic;
 
     public static void main(String[] args) {
-        FormatToExpression.setDefaultFormat(FormatToExpression.FORMATTER_UNICODE_NOAND);
+        Settings.getInstance().getAttributes().set(Keys.SETTINGS_EXPRESSION_FORMAT, FormatToExpression.UNICODE_NOAND);
         Settings.getInstance().getAttributes().set(Keys.SETTINGS_DEFAULT_TREESELECT, false);
         Settings.getInstance().getAttributes().set(Keys.SETTINGS_GRID, true);
 //        mainScreenShot();
@@ -168,7 +168,7 @@ public class ScreenShots {
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.CloseTopMost())
                 .execute();/**/
-        
+
         File trafficLight = new File(Resources.getRoot(), "../../main/fsm/trafficLightBlink.fsm");
         new GuiTester()
                 .press("F10")
