@@ -8,6 +8,7 @@ package de.neemann.digital.draw.elements;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import de.neemann.digital.XStreamValid;
+import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
@@ -70,6 +71,7 @@ public class Circuit implements Copyable<Circuit> {
         xStream.alias("wire", Wire.class);
         xStream.alias("circuit", Circuit.class);
         xStream.alias("intFormat", IntFormat.class);
+        xStream.alias("exprFormat", FormatToExpression.class);
         xStream.alias("barrelShifterMode", BarrelShifterMode.class);
         xStream.alias("direction", LeftRightFormat.class);
         xStream.alias("rotation", Rotation.class);
