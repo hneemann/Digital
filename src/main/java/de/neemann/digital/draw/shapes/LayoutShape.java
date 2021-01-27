@@ -13,8 +13,9 @@ import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.elements.*;
-import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.library.ElementNotFoundException;
 import de.neemann.digital.draw.library.ElementTypeDescriptionCustom;
 import de.neemann.digital.lang.Lang;
 
@@ -33,8 +34,8 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
  */
 public class LayoutShape implements Shape {
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private final Pins pins;
     private final Color color;
     private final String name;
@@ -48,10 +49,11 @@ public class LayoutShape implements Shape {
      *
      * @param custom            the type description
      * @param elementAttributes the local attributes
-     * @throws NodeException NodeException
-     * @throws PinException  PinException
+     * @throws NodeException            NodeException
+     * @throws PinException             PinException
+     * @throws ElementNotFoundException ElementNotFoundException
      */
-    public LayoutShape(ElementTypeDescriptionCustom custom, ElementAttributes elementAttributes) throws NodeException, PinException {
+    public LayoutShape(ElementTypeDescriptionCustom custom, ElementAttributes elementAttributes) throws NodeException, PinException, ElementNotFoundException {
         String l = elementAttributes.getLabel();
         if (l != null && l.length() > 0)
             name = l;
@@ -63,7 +65,9 @@ public class LayoutShape implements Shape {
         top = new PinList(name, true);
         bottom = new PinList(name, true);
 
-        for (VisualElement ve : custom.getCircuit().getElements()) {
+        Circuit circuit = custom.getResolvedCircuit(elementAttributes);
+
+        for (VisualElement ve : circuit.getElements()) {
             if (ve.equalsDescription(In.DESCRIPTION) || ve.equalsDescription(Clock.DESCRIPTION)) {
                 switch (ve.getRotate()) {
                     case 0:
@@ -113,7 +117,7 @@ public class LayoutShape implements Shape {
         for (PinDescription p : custom.getOutputDescriptions(elementAttributes))
             pins.add(createPin(map, p));
 
-        color = custom.getCircuit().getAttributes().get(Keys.BACKGROUND_COLOR);
+        color = circuit.getAttributes().get(Keys.BACKGROUND_COLOR);
     }
 
     private Pin createPin(HashMap<String, PinPos> map, PinDescription p) throws PinException {

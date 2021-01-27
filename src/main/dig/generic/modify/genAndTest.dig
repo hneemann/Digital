@@ -67,11 +67,15 @@
       <elementName>genAnd.dig</elementName>
       <elementAttributes>
         <entry>
+          <string>shapeType</string>
+          <shapeType>LAYOUT</shapeType>
+        </entry>
+        <entry>
           <string>generic</string>
           <string>inputs := 3;</string>
         </entry>
       </elementAttributes>
-      <pos x="760" y="520"/>
+      <pos x="760" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>

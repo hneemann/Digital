@@ -83,6 +83,21 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
     }
 
     /**
+     * Returns the resolved circuit if it is a generic circuit
+     *
+     * @param attributes the defining attributes
+     * @return the resolved circuit
+     * @throws NodeException            NodeException
+     * @throws ElementNotFoundException ElementNotFoundException
+     */
+    public Circuit getResolvedCircuit(ElementAttributes attributes) throws NodeException, ElementNotFoundException {
+        if (isGeneric())
+            return resolveGenerics.resolveCircuit(attributes).getCircuit();
+        else
+            return circuit;
+    }
+
+    /**
      * Sets a custom description for this field
      *
      * @param description the description
