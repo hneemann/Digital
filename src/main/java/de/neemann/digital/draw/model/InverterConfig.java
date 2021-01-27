@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public final class InverterConfig implements HGSMap {
 
-    private HashSet<String> inputs;
+    private final HashSet<String> inputs;
 
     private InverterConfig(HashSet<String> inputs) {
         this.inputs = inputs;
