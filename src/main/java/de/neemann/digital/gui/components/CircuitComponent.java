@@ -2184,6 +2184,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         private Vector corner1;
         private Vector corner2;
         private boolean wasReleased;
+        private boolean moveOnDragging;
 
         private MouseControllerSelect(Cursor cursor) {
             super(cursor);
@@ -2226,10 +2227,18 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
 
         @Override
+        void pressed(MouseEvent e) {
+            moveOnDragging = mouse.isPrimaryClick(e);
+        }
+
+        @Override
         boolean dragged(MouseEvent e) {
             if (wasReleased) {
-                if (!isLocked())
-                    mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
+                if (moveOnDragging) {
+                    if (!isLocked())
+                        mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
+                } else
+                    return false;
             } else {
                 corner2 = getPosVector(e);
                 if (mouse.isClickModifier(e)) {
@@ -2249,7 +2258,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     }
                     corner2 = corner1.add(dx, dy);
                 }
-
                 updateHighlighting();
             }
             return true;
