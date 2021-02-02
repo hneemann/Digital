@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Digital
+Comment=Easy-to-use digital logic designer and circuit simulator 
+Exec=<EXEC_LOCATION>
+Icon=<ICON_LOCATION>
+Categories=Education;Electronics;
+MimeType=text/x-digital;
+Terminal=false
+Keywords=simulator;digital;circuits;
+
