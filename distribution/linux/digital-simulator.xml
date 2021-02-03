@@ -4,7 +4,7 @@
         <comment>Digital file</comment>
 	    <comment xml:lang="en">Digital Circuit</comment>
 	    <comment xml:lang="de">Digital Schaltung</comment>
-	    <comment xml:lang="es">Archivo Digital</comment>
+	    <comment xml:lang="es">Circuito Digital</comment>
         <glob pattern="*.dig"/>
     </mime-type>
 </mime-info>
