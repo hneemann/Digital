@@ -2,7 +2,8 @@
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
     <mime-type type="text/x-digital">
         <comment>Digital file</comment>
-	    <comment xml:lang="en">Digital file</comment>
+	    <comment xml:lang="en">Digital Circuit</comment>
+	    <comment xml:lang="de">Digital Schaltung</comment>
 	    <comment xml:lang="es">Archivo Digital</comment>
         <glob pattern="*.dig"/>
     </mime-type>
