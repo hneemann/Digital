@@ -138,6 +138,11 @@ public enum IntFormat {
         public long dragValue(long initial, int bits, double inc) {
             return dragValueSigned(initial, bits, inc, false);
         }
+
+        @Override
+        public int[] getSeparatorsPositions(int bits) {
+            return createRegularSeparators(bits, 4);
+        }
     }
 
     private static long dragValueSigned(long initial, int bits, double inc, boolean signed) {
@@ -155,6 +160,17 @@ public enum IntFormat {
             min = 0;
         }
         return Math.max(min, Math.min(max, initial + Math.round(max * inc)));
+    }
+
+    /**
+     * Create regularly spaced array of separator positions for {@link ValueFormatter#getSeparatorsPositions(int)}.
+     */
+    private static int[] createRegularSeparators(int bits, int groupSize) {
+        int[] separators = new int[(bits - 1) / groupSize];
+        for (int i = 1; i <= separators.length; i++) {
+            separators[i - 1] = i * groupSize;
+        }
+        return separators;
     }
 
     /**
@@ -224,6 +240,11 @@ public enum IntFormat {
         public int strLen(int bits) {
             return (bits - 1) / 4 + 3;
         }
+
+        @Override
+        public int[] getSeparatorsPositions(int bits) {
+            return createRegularSeparators(bits, 4);
+        }
     }
 
     /**
@@ -289,6 +310,11 @@ public enum IntFormat {
             }
             return sb.toString();
         }
+
+        @Override
+        public int[] getSeparatorsPositions(int bits) {
+            return createRegularSeparators(bits, 3);
+        }
     }
 
     /**
@@ -320,6 +346,11 @@ public enum IntFormat {
             }
             return "0b" + new String(data);
         }
+
+        @Override
+        public int[] getSeparatorsPositions(int bits) {
+            return new int[]{};
+        }
     }
 
     /**
@@ -339,6 +370,11 @@ public enum IntFormat {
         @Override
         protected String format(Value value) {
             return "'" + ((char) value.getValue()) + "'";
+        }
+
+        @Override
+        public int[] getSeparatorsPositions(int bits) {
+            return new int[]{};
         }
     }
 
@@ -372,6 +408,11 @@ public enum IntFormat {
         @Override
         public long dragValue(long initial, int bits, double inc) {
             return dragValueSigned(initial, bits, inc, signed);
+        }
+
+        @Override
+        public int[] getSeparatorsPositions(int bits) {
+            return new int[]{};
         }
     }
 
@@ -447,6 +488,11 @@ public enum IntFormat {
         @Override
         public long dragValue(long initial, int bits, double inc) {
             return dragValueSigned(initial, bits, inc, signed);
+        }
+
+        @Override
+        public int[] getSeparatorsPositions(int bits) {
+            return new int[]{fixedPoint};
         }
     }
 
@@ -526,6 +572,15 @@ public enum IntFormat {
                 return Float.floatToIntBits((float) val);
             else
                 return Double.doubleToLongBits(val);
+        }
+
+        @Override
+        public int[] getSeparatorsPositions(int bits) {
+            if (bits == 32) {
+                return new int[]{23, 31};
+            } else {
+                return new int[]{52, 63};
+            }
         }
     }
 

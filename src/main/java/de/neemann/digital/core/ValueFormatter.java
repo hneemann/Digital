@@ -54,4 +54,13 @@ public interface ValueFormatter {
      * @return the modified value
      */
     long dragValue(long initial, int bits, double inc);
+
+    /**
+     * Get position of bits after which to add a separator when editing a value of this format.
+     * An empty array can be returned for no separators.
+     *
+     * @param bits the bits in value
+     * @return an array containing position of bits after which to add a separator.
+     */
+    int[] getSeparatorsPositions(int bits);
 }

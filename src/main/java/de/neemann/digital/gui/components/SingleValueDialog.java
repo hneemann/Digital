@@ -11,6 +11,7 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -64,6 +65,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     private final SyncAccess syncAccess;
 
     private final JTextField textField;
+    private final Border separatorBorder;
     private boolean textIsModifying;
     private final boolean supportsHighZ;
     private final JComboBox<Format> formatComboBox;
@@ -101,7 +103,10 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             if (selectedItem != null)
                 valueFormatter = selectedItem.intFormat.createFormatter(null);
             setLongToDialog(editValue);
+            updateCheckBoxSeparators(editValue);
         });
+
+        separatorBorder = BorderFactory.createEmptyBorder(0, 0, 0, 5);
 
         JPanel checkBoxPanel = createCheckBoxPanel(editValue);
 
@@ -208,6 +213,21 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         return p;
     }
 
+    private void updateCheckBoxSeparators(Value value) {
+        int bits = value.getBits();
+        int[] separators = valueFormatter.getSeparatorsPositions(bits);
+        int currentSep = 0;
+        for (int i = 0; i < bits; i++) {
+            if (currentSep < separators.length && i == separators[currentSep]) {
+                checkBoxes[i].setBorder(separatorBorder);
+                currentSep++;
+            } else {
+                checkBoxes[i].setBorder(null);
+            }
+        }
+        pack();
+    }
+
     private void setBit(int bitNum, boolean set) {
         if (set)
             editValue = new Value(editValue.getValue() | 1L << bitNum, editValue.getBits());
@@ -234,6 +254,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
         valueFormatter = format;
         formatComboBox.setSelectedItem(findFormat(valueFormatter));
         setLongToDialog(editValue);
+        updateCheckBoxSeparators(editValue);
         requestFocus();
         return this;
     }
