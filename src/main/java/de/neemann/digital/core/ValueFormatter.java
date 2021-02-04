@@ -54,4 +54,28 @@ public interface ValueFormatter {
      * @return the modified value
      */
     long dragValue(long initial, int bits, double inc);
+
+    /**
+     * Returns the {@link IsSeparator} interface to place separators in the {@link de.neemann.digital.gui.components.SingleValueDialog}
+     * Defaults to no separator at all.
+     *
+     * @param bits the number of bits used
+     * @return the IsSeparator instance
+     */
+    default IsSeparator getSeparators(int bits) {
+        return bit -> false;
+    }
+
+    /**
+     * Interface to define separators
+     */
+    interface IsSeparator {
+        /**
+         * Returns true if there should be a separator in front of the given bit.
+         *
+         * @param bit the bit in question
+         * @return true if there should be a separator in front of the given bit.
+         */
+        boolean isSeparatorInFrontOf(int bit);
+    }
 }

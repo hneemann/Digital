@@ -138,6 +138,11 @@ public enum IntFormat {
         public long dragValue(long initial, int bits, double inc) {
             return dragValueSigned(initial, bits, inc, false);
         }
+
+        @Override
+        public IsSeparator getSeparators(int bits) {
+            return bit -> bit % 4 == 0;
+        }
     }
 
     private static long dragValueSigned(long initial, int bits, double inc, boolean signed) {
@@ -224,6 +229,11 @@ public enum IntFormat {
         public int strLen(int bits) {
             return (bits - 1) / 4 + 3;
         }
+
+        @Override
+        public IsSeparator getSeparators(int bits) {
+            return bit -> bit % 4 == 0;
+        }
     }
 
     /**
@@ -288,6 +298,11 @@ public enum IntFormat {
                 sb.append(DIGITS[c]);
             }
             return sb.toString();
+        }
+
+        @Override
+        public IsSeparator getSeparators(int bits) {
+            return bit -> bit % 3 == 0;
         }
     }
 
@@ -448,6 +463,11 @@ public enum IntFormat {
         public long dragValue(long initial, int bits, double inc) {
             return dragValueSigned(initial, bits, inc, signed);
         }
+
+        @Override
+        public IsSeparator getSeparators(int bits) {
+            return bit -> bit == fixedPoint;
+        }
     }
 
     /**
@@ -526,6 +546,18 @@ public enum IntFormat {
                 return Float.floatToIntBits((float) val);
             else
                 return Double.doubleToLongBits(val);
+        }
+
+        @Override
+        public IsSeparator getSeparators(int bits) {
+            switch (bits) {
+                case 32:
+                    return bit -> bit == 31 || bit == 23;
+                case 64:
+                    return bit -> bit == 63 || bit == 52;
+                default:
+                    return HEX_FORMATTER.getSeparators(bits);
+            }
         }
     }
 
