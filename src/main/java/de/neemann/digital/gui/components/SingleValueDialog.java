@@ -244,9 +244,9 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
     }
 
     private void updateSeparators() {
-        ValueFormatter.IsSeparator s = valueFormatter.getSeparators(editValue.getBits());
+        int bits = editValue.getBits();
         for (int i = 1; i < checkBoxes.length; i++) {
-            if (s.isSeparatorInFrontOf(i))
+            if (valueFormatter.isSeparatorInFrontOf(bits, i))
                 checkBoxes[i].setBorder(SEPARATOR);
             else
                 checkBoxes[i].setBorder(null);

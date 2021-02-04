@@ -140,8 +140,8 @@ public enum IntFormat {
         }
 
         @Override
-        public IsSeparator getSeparators(int bits) {
-            return bit -> bit % 4 == 0;
+        public boolean isSeparatorInFrontOf(int bits, int bit) {
+            return bit % 4 == 0;
         }
     }
 
@@ -231,8 +231,8 @@ public enum IntFormat {
         }
 
         @Override
-        public IsSeparator getSeparators(int bits) {
-            return bit -> bit % 4 == 0;
+        public boolean isSeparatorInFrontOf(int bits, int bit) {
+            return bit % 4 == 0;
         }
     }
 
@@ -301,8 +301,8 @@ public enum IntFormat {
         }
 
         @Override
-        public IsSeparator getSeparators(int bits) {
-            return bit -> bit % 3 == 0;
+        public boolean isSeparatorInFrontOf(int bits, int bit) {
+            return bit % 3 == 0;
         }
     }
 
@@ -465,8 +465,8 @@ public enum IntFormat {
         }
 
         @Override
-        public IsSeparator getSeparators(int bits) {
-            return bit -> bit == fixedPoint;
+        public boolean isSeparatorInFrontOf(int bits, int bit) {
+            return bit == fixedPoint;
         }
     }
 
@@ -549,14 +549,14 @@ public enum IntFormat {
         }
 
         @Override
-        public IsSeparator getSeparators(int bits) {
+        public boolean isSeparatorInFrontOf(int bits, int bit) {
             switch (bits) {
                 case 32:
-                    return bit -> bit == 31 || bit == 23;
+                    return bit == 31 || bit == 23;
                 case 64:
-                    return bit -> bit == 63 || bit == 52;
+                    return bit == 63 || bit == 52;
                 default:
-                    return HEX_FORMATTER.getSeparators(bits);
+                    return HEX_FORMATTER.isSeparatorInFrontOf(bits, bit);
             }
         }
     }
