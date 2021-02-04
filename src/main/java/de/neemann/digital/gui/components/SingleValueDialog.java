@@ -168,7 +168,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_IN_FOCUSED_WINDOW);
 
-        pack();
+        updateSeparators();
         Screen.setLocation(this, pos, true);
         textField.requestFocus();
         textField.select(0, Integer.MAX_VALUE);
@@ -209,7 +209,6 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             checkBoxes[bit].addActionListener(actionEvent -> setBit(bit, checkBoxes[bit].isSelected()));
             p.add(checkBoxes[bit]);
         }
-        updateSeparators();
         return p;
     }
 
