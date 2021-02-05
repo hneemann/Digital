@@ -102,8 +102,8 @@ public class LayoutShape implements Shape {
             }
         }
 
-        height = left.max(right.max(custom.getAttributes().get(Keys.HEIGHT)));
-        width = top.max(bottom.max(custom.getAttributes().get(Keys.WIDTH)));
+        height = left.max(right.max(circuit.getAttributes().get(Keys.HEIGHT)));
+        width = top.max(bottom.max(circuit.getAttributes().get(Keys.WIDTH)));
 
         HashMap<String, PinPos> map = new HashMap<>();
         top.createPosition(map, new Vector(0, 0), width);

@@ -36,6 +36,7 @@ public class ResolveGenerics {
      * Key uses to store the args for the generic circuits
      */
     public static final String GEN_ARGS_KEY = "genArgs";
+    private static final String SETTINGS_KEY = "settings";
     private final HashMap<String, Statement> map;
     private final HashMap<Args, CircuitHolder> circuitMap;
     private final Circuit circuit;
@@ -163,6 +164,7 @@ public class ResolveGenerics {
             Context context = new Context();
             if (circuit.getOrigin() != null)
                 context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin());
+            context.declareVar(SETTINGS_KEY, new SubstituteLibrary.AllowSetAttributes(circuit.getAttributes()));
             context.declareFunc("addWire", new AddWire(newWires));
             context.declareFunc("addComponent", new AddComponent(newComponents, args));
             return context;
@@ -308,7 +310,7 @@ public class ResolveGenerics {
             return;
         }
 
-        if (!key.equals(Context.BASE_FILE_KEY)) {
+        if (!key.equals(Context.BASE_FILE_KEY) && !key.equals(SETTINGS_KEY)) {
             contentSet.add(key);
             sb.append(key).append(":=");
             if (val instanceof String) {
