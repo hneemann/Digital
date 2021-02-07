@@ -1655,6 +1655,7 @@
     <string name="mod_groupEdit">Modified attributes of selected components.</string>
     <string name="mod_splitWire">Splits a single wire into two wires.</string>
     <string name="mod_modifiedByRunningModel">Changes made by the running simulation.</string>
+    <string name="mod_resizeRect">Resizes and moves a rectangle.</string>
 
     <string name="lib_Logic">Logic</string>
     <string name="lib_arithmetic">Arithmetic</string>

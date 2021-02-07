@@ -13,6 +13,7 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.switching.Switch;
 import de.neemann.digital.draw.elements.*;
+import de.neemann.digital.draw.graphics.Polygon;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.library.*;
@@ -23,6 +24,7 @@ import de.neemann.digital.draw.shapes.InputShape;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.gui.Main;
 import de.neemann.digital.gui.Settings;
+import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.modification.*;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
@@ -108,6 +110,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private final MouseControllerMoveSelected mouseMoveSelected;
     private final MouseController mouseRun;
     private final MouseControllerInsertCopied mouseInsertList;
+    private final MouseControllerResizeRect mouseResizeRect;
     private final Cursor moveCursor;
     private final ToolTipAction copyAction;
     private final ToolTipAction cutAction;
@@ -248,6 +251,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         mouseSelect = new MouseControllerSelect(new Cursor(Cursor.CROSSHAIR_CURSOR));
         mouseMoveSelected = new MouseControllerMoveSelected(moveCursor);
         mouseRun = new MouseControllerRun(normalCursor);
+        mouseResizeRect = new MouseControllerResizeRect(normalCursor);
 
         undoManager = new UndoManager<>(new Circuit());
         addListener(this);
@@ -1657,6 +1661,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private final class MouseControllerNormal extends MouseController {
         private Vector pos;
         private MouseEvent downButton;
+        private VisualElement pressedElement;
 
         private MouseControllerNormal(Cursor cursor) {
             super(cursor);
@@ -1703,6 +1708,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         void pressed(MouseEvent e) {
             downButton = e;
             pos = getPosVector(e);
+            pressedElement = getCircuit().getElementAt(pos, false);
+        }
+
+        @Override
+        void released(MouseEvent e) {
+            pressedElement = null;
         }
 
         @Override
@@ -1711,12 +1722,14 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 Vector p = getPosVector(e);
                 if (pos == null)
                     pos = p;
-                mouseSelect.activate(pos, p);
+                if (pressedElement != null && pressedElement.equalsDescription(DummyElement.RECTDESCRIPTION))
+                    mouseResizeRect.activate(pressedElement, pos);
+                else
+                    mouseSelect.activate(pos, p);
                 return true;
             }
             return !mouse.isSecondaryClick(downButton);
         }
-
     }
 
     private final class MouseControllerInsertElement extends MouseController {
@@ -2560,6 +2573,139 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             Point p = new Point(e.getX(), e.getY());
             SwingUtilities.convertPointToScreen(p, CircuitComponent.this);
             actor.interact(CircuitComponent.this, p, getPosVector(e), modelSync);
+        }
+    }
+
+    private final class MouseControllerResizeRect extends MouseController {
+        private VisualElement element;
+        private Vector startPos;
+
+        private int rectX;
+        private int rectY;
+        private int rectWidth;
+        private int rectHeight;
+
+        private boolean changeNorth;
+        private boolean changeSouth;
+        private boolean changeWest;
+        private boolean changeEast;
+
+        private MouseControllerResizeRect(Cursor cursor) {
+            super(cursor);
+        }
+
+        void activate(VisualElement element, Vector pos) {
+            super.activate();
+            this.element = element;
+            this.startPos = raster(pos);
+
+            setCursorForResizingRect(element, pos);
+
+            // Get current rectangle attributes.
+            rectX = element.getPos().x;
+            rectY = element.getPos().y;
+            rectWidth = element.getElementAttributes().get(Keys.RECT_WIDTH) * SIZE;
+            rectHeight = element.getElementAttributes().get(Keys.RECT_HEIGHT) * SIZE;
+
+            // Find which directions are being changed.
+            Vector posInRect = raster(pos.sub(element.getPos()));
+            changeNorth = posInRect.y <= 0;
+            changeSouth = posInRect.y == rectHeight;
+            changeEast = posInRect.x == 0;
+            changeWest = posInRect.x == rectWidth;
+        }
+
+        /**
+         * Updates the cursor for when the mouse hovers nears the border of a rectangle.
+         *
+         * @param rect The rectangle element.
+         * @param pos Current mouse position in circuit coordinates.
+         */
+        public void setCursorForResizingRect(VisualElement rect, Vector pos) {
+            Vector posInRect = raster(pos.sub(rect.getPos()));
+            int width = rect.getElementAttributes().get(Keys.RECT_WIDTH) * SIZE;
+            int height = rect.getElementAttributes().get(Keys.RECT_HEIGHT) * SIZE;
+            int cursor;
+            if (posInRect.x == width) {
+                if (posInRect.y <= 0) {
+                    cursor = Cursor.NE_RESIZE_CURSOR;
+                } else if (posInRect.y == height) {
+                    cursor = Cursor.SE_RESIZE_CURSOR;
+                } else {
+                    cursor = Cursor.E_RESIZE_CURSOR;
+                }
+            } else if (posInRect.x == 0) {
+                if (posInRect.y <= 0) {
+                    cursor = Cursor.NW_RESIZE_CURSOR;
+                } else if (posInRect.y == height) {
+                    cursor = Cursor.SW_RESIZE_CURSOR;
+                } else {
+                    cursor = Cursor.W_RESIZE_CURSOR;
+                }
+            } else if (posInRect.y <= 0) {
+                cursor = Cursor.N_RESIZE_CURSOR;
+            } else {
+                cursor = Cursor.S_RESIZE_CURSOR;
+            }
+            setCursor(new Cursor(cursor));
+        }
+
+        @Override
+        boolean dragged(MouseEvent e) {
+            ElementAttributes attributes = element.getElementAttributes();
+            Vector d = raster(getPosVector(e)).sub(startPos);
+
+            if (changeNorth) {
+                rectY = element.getPos().y + d.y;
+                rectHeight = attributes.get(Keys.RECT_HEIGHT) * SIZE - d.y;
+            } else if (changeSouth) {
+                rectHeight = attributes.get(Keys.RECT_HEIGHT) * SIZE + d.y;
+            }
+            if (changeEast) {
+                rectX = element.getPos().x + d.x;
+                rectWidth = attributes.get(Keys.RECT_WIDTH) * SIZE - d.x;
+            } else if (changeWest) {
+                rectWidth = attributes.get(Keys.RECT_WIDTH) * SIZE + d.x;
+            }
+
+            repaint();
+            return true;
+        }
+
+        @Override
+        void released(MouseEvent e) {
+            // Flip rectangle vertically or horizontally if needed.
+            if (rectWidth < 0) {
+                rectWidth = -rectWidth;
+                rectX -= rectWidth;
+            }
+            if (rectHeight < 0) {
+                rectHeight = -rectHeight;
+                rectY -= rectHeight;
+            }
+
+            // Enforce rectangle min dimensions.
+            rectWidth = Math.max(rectWidth, Keys.RECT_WIDTH.getMin() * SIZE);
+            rectHeight = Math.max(rectHeight, Keys.RECT_HEIGHT.getMin() * SIZE);
+
+            ElementAttributes newAttributes = new ElementAttributes(element.getElementAttributes())
+                    .set(Keys.RECT_WIDTH, rectWidth / SIZE)
+                    .set(Keys.RECT_HEIGHT, rectHeight / SIZE);
+            modify(new Modifications.Builder<Circuit>(Lang.get("mod_resizeRect"))
+                    .add(new ModifyAttributes(element, newAttributes))
+                    .add(new ModifyMoveAndRotElement(element, new Vector(rectX, rectY), element.getRotate()))
+                    .build());
+
+            mouseNormal.activate();
+        }
+
+        @Override
+        public void drawTo(Graphic gr) {
+            gr.drawPolygon(new Polygon(true)
+                    .add(rectX, rectY)
+                    .add(rectX + rectWidth, rectY)
+                    .add(rectX + rectWidth, rectY + rectHeight)
+                    .add(rectX, rectY + rectHeight), Style.HIGHLIGHT);
         }
     }
 
