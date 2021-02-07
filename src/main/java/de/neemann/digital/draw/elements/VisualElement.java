@@ -148,17 +148,15 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      */
     public boolean matches(Vector p, boolean includeText) {
         GraphicMinMax m = getMinMax(includeText);
-        if (getShape().onlyBorderClickable()) {
-            int width = SIZE2;
-            return ((Math.abs(p.x - m.getMin().x) < width || Math.abs(p.x - m.getMax().x) < width)
-                    && (m.getMin().y <= p.y) && (p.y <= m.getMax().y))
-                    || ((Math.abs(p.y - m.getMin().y) < width || Math.abs(p.y - m.getMax().y) < width)
-                    && (m.getMin().x <= p.x) && (p.x <= m.getMax().x));
-        } else
-            return (m.getMin().x <= p.x)
-                    && (m.getMin().y <= p.y)
-                    && (p.x <= m.getMax().x)
-                    && (p.y <= m.getMax().y);
+        boolean inBox = (m.getMin().x - SIZE2 <= p.x)
+                && (m.getMin().y - SIZE2 <= p.y)
+                && (p.x <= m.getMax().x + SIZE2)
+                && (p.y <= m.getMax().y + SIZE2);
+
+        if (inBox && getShape() instanceof ShapeMatch)
+            return ((ShapeMatch) getShape()).matches(getTransform().invert().transform(p));
+
+        return inBox;
     }
 
     /**

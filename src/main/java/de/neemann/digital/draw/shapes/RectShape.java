@@ -14,11 +14,12 @@ import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.lang.Lang;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
+import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 
 /**
- * Simple text
+ * Simple rectangle
  */
-public class RectShape implements Shape {
+public class RectShape implements ShapeMatch {
     private final String label;
     private final int width;
     private final int height;
@@ -89,8 +90,11 @@ public class RectShape implements Shape {
     }
 
     @Override
-    public boolean onlyBorderClickable() {
-        return true;
+    public boolean matches(Vector pos) {
+        return (pos.x > -SIZE2 && pos.x < SIZE2 && pos.y >= 0 && pos.y < height * SIZE)
+                || (pos.x > width * SIZE - SIZE2 && pos.x < width * SIZE + SIZE2 && pos.y >= 0 && pos.y < height * SIZE)
+                || (pos.y > -SIZE2 && pos.y < SIZE2 && pos.x >= 0 && pos.x < width * SIZE)
+                || (pos.y > height * SIZE - SIZE2 && pos.y < height * SIZE + SIZE2 && pos.x >= 0 && pos.x < width * SIZE);
     }
 
 }

@@ -20,7 +20,7 @@ public class TestSelect extends TestCase {
         Circuit c = new ToBreakRunner("dig/selectOuter.dig").getCircuit();
 
         // don't select by clicking in label size bounding box
-        VisualElement el = c.getElementAt(new Vector(65, 15));
+        VisualElement el = c.getElementAt(new Vector(75, 15));
         assertNull(el);
 
         // select by clicking in shape size bounding box
