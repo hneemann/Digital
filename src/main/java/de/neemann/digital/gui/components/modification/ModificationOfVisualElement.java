@@ -41,7 +41,7 @@ public abstract class ModificationOfVisualElement implements Modification<Circui
      * @param ve the element
      * @return translated name
      */
-    static String getToolTipName(VisualElement ve) {
+    public static String getToolTipName(VisualElement ve) {
         String s = Lang.getNull("elem_" + ve.getElementName());
         if (s == null) {
             s = ve.getElementName();

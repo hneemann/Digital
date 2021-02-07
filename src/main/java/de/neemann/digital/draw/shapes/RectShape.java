@@ -91,10 +91,10 @@ public class RectShape implements ShapeMatch {
 
     @Override
     public boolean matches(Vector pos) {
-        return (pos.x > -SIZE2 && pos.x < SIZE2 && pos.y >= 0 && pos.y < height * SIZE)
-                || (pos.x > width * SIZE - SIZE2 && pos.x < width * SIZE + SIZE2 && pos.y >= 0 && pos.y < height * SIZE)
-                || (pos.y > -SIZE2 && pos.y < SIZE2 && pos.x >= 0 && pos.x < width * SIZE)
-                || (pos.y > height * SIZE - SIZE2 && pos.y < height * SIZE + SIZE2 && pos.x >= 0 && pos.x < width * SIZE);
+        return (pos.x > -SIZE2 && pos.x < SIZE2 && pos.y > -SIZE2 && pos.y < height * SIZE + SIZE2)
+                || (pos.x > width * SIZE - SIZE2 && pos.x < width * SIZE + SIZE2 && pos.y > -SIZE2 && pos.y < height * SIZE + SIZE2)
+                || (pos.y > -SIZE2 && pos.y < SIZE2 && pos.x > -SIZE2 && pos.x < width * SIZE + SIZE2)
+                || (pos.y > height * SIZE - SIZE2 && pos.y < height * SIZE + SIZE2 && pos.x > -SIZE2 && pos.x < width * SIZE + SIZE2);
     }
 
 }

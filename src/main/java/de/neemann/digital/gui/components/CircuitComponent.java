@@ -48,6 +48,7 @@ import java.util.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
+import static de.neemann.digital.gui.components.modification.ModificationOfVisualElement.getToolTipName;
 
 /**
  * Component which shows the circuit.
@@ -2529,7 +2530,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         void pressed(MouseEvent e) {
             VisualElement ve = getInteractiveElementAt(e);
             if (ve != null) {
-                interact(e, (cc, pos, posInComponent, modelSync1) -> ve.elementPressed(cc, pos, posInComponent, modelSync1));
+                interact(e, ve::elementPressed);
                 draggedElement = ve;
             } else
                 draggedElement = null;
@@ -2557,7 +2558,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         void clicked(MouseEvent e) {
             VisualElement ve = getInteractiveElementAt(e);
             if (ve != null)
-                interact(e, (cc, pos, posInComponent, modelSync1) -> ve.elementClicked(cc, pos, posInComponent, modelSync1));
+                interact(e, ve::elementClicked);
         }
 
         @Override
@@ -2619,7 +2620,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
          * Updates the cursor for when the mouse hovers nears the border of a rectangle.
          *
          * @param rect The rectangle element.
-         * @param pos Current mouse position in circuit coordinates.
+         * @param pos  Current mouse position in circuit coordinates.
          */
         public void setCursorForResizingRect(VisualElement rect, Vector pos) {
             Vector posInRect = raster(pos.sub(rect.getPos()));
@@ -2691,7 +2692,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             ElementAttributes newAttributes = new ElementAttributes(element.getElementAttributes())
                     .set(Keys.RECT_WIDTH, rectWidth / SIZE)
                     .set(Keys.RECT_HEIGHT, rectHeight / SIZE);
-            modify(new Modifications.Builder<Circuit>(Lang.get("mod_resizeRect"))
+            modify(new Modifications.Builder<Circuit>(Lang.get("mod_setAttributesIn_N", getToolTipName(element)))
                     .add(new ModifyAttributes(element, newAttributes))
                     .add(new ModifyMoveAndRotElement(element, new Vector(rectX, rectY), element.getRotate()))
                     .build());
