@@ -85,7 +85,11 @@ public class DataShape implements Shape {
             }
         }.order(signals);
 
-        ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, maxSize);
+        boolean ms = microStep;
+        if (model.getAsyncInfos() != null)
+            ms = true;
+
+        ValueTableObserver valueTableObserver = new ValueTableObserver(ms, signals, maxSize);
         logDataModel = valueTableObserver.getLogData();
         model.addObserver(valueTableObserver);
     }
