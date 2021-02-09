@@ -31,7 +31,7 @@ public final class BusModelStateObserver implements ModelStateObserverTyped {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event == ModelEvent.STEP && !busList.isEmpty()) {
+        if ((event == ModelEvent.STEP || event == ModelEvent.CHECKBURN) && !busList.isEmpty()) {
             for (AbstractBusHandler bus : busList) {
                 bus.checkBurn();
             }
@@ -42,7 +42,7 @@ public final class BusModelStateObserver implements ModelStateObserverTyped {
 
     @Override
     public ModelEventType[] getEvents() {
-        return new ModelEventType[]{ModelEventType.STEP};
+        return new ModelEventType[]{ModelEventType.STEP, ModelEventType.CHECKBURN};
     }
 
     /**

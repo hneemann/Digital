@@ -48,10 +48,16 @@ public enum ModelEventType {
     EXTERNALCHANGE,
 
     /**
-     * If fired if a micro step is calculated.
+     * Is fired if a micro step is calculated.
      * This means the aktual nodes are calculated, but not the effected nodes.
      */
     MICROSTEP,
+
+    /**
+     * Is fired in case a burn check needs to be done without the change of a gate.
+     * Can happen if inputs are connected directly.
+     */
+    CHECKBURN,
 
     /**
      * Used to notify an error
