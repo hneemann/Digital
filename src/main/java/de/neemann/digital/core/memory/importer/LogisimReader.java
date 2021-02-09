@@ -9,7 +9,8 @@ import de.neemann.digital.core.Bits;
 import de.neemann.digital.lang.Lang;
 
 import java.io.*;
-import java.util.StringTokenizer;
+
+import static java.io.StreamTokenizer.*;
 
 /**
  * Reader to read the original Logisim hex file format
@@ -38,47 +39,55 @@ public class LogisimReader implements ValueArrayReader {
 
     @Override
     public void read(ValueArray valueArray) throws IOException {
-        try (BufferedReader br = new BufferedReader(reader)) {
-            String header = br.readLine();
+        try (BufferedReader bufferedReader = new BufferedReader(reader)) {
+            String header = bufferedReader.readLine();
             if (header == null || !header.equals("v2.0 raw"))
                 throw new IOException(Lang.get("err_invalidFileFormat"));
-            String line;
+
+            StreamTokenizer t = new StreamTokenizer(bufferedReader);
+            t.resetSyntax();
+            t.commentChar('#');
+            t.wordChars('a', 'f');
+            t.wordChars('A', 'F');
+            t.wordChars('x', 'x');
+            t.wordChars('X', 'X');
+            t.wordChars('0', '9');
+            t.whitespaceChars(0, ' ');
+
             int pos = 0;
-            while ((line = br.readLine()) != null) {
+            while (t.nextToken() != TT_EOF) {
                 try {
-                    int p = line.indexOf('#');
-                    if (p >= 0)
-                        line = line.substring(0, p).trim();
-                    else
-                        line = line.trim();
-
-                    StringTokenizer tc = new StringTokenizer(line, " \t");
-                    while (tc.hasMoreTokens()) {
-                        String num = tc.nextToken();
-                        int rle = 1;
-                        p = num.indexOf('*');
-                        if (p > 0) {
-                            rle = Integer.parseInt(num.substring(0, p));
-                            num = num.substring(p + 1).trim();
+                    String vStr = t.sval;
+                    if (vStr == null)
+                        throw new IOException("invalid token in line " + t.lineno());
+                    if (t.nextToken() == '*') {
+                        t.nextToken();
+                        if (t.sval == null)
+                            throw new IOException("invalid token in line " + t.lineno());
+                        long v = getHexLong(t.sval);
+                        int reps = (int) Bits.decode(vStr, 0, 10);
+                        for (int i = 0; i < reps; i++) {
+                            valueArray.set(pos, v);
+                            pos++;
                         }
-
-                        if (num.length() > 2 && num.charAt(0) == '0' && (num.charAt(1) == 'x' || num.charAt(1) == 'X'))
-                            num = num.substring(2);
-
-                        if (num.length() > 0) {
-                            long v = Bits.decode(num, 0, 16);
-                            for (int i = 0; i < rle; i++) {
-                                valueArray.set(pos, v);
-                                pos++;
-                            }
-                        }
+                    } else {
+                        t.pushBack();
+                        valueArray.set(pos, getHexLong(vStr));
+                        pos++;
                     }
-
                 } catch (Bits.NumberFormatException e) {
                     throw new IOException(e);
                 }
             }
         }
+    }
+
+    private long getHexLong(String vStr) throws Bits.NumberFormatException {
+        int p = 0;
+        if (vStr.length() > 2 && vStr.charAt(0) == '0' && (vStr.charAt(1) == 'x' || vStr.charAt(1) == 'X'))
+            p = 2;
+
+        return Bits.decode(vStr, p, 16);
     }
 
 }
