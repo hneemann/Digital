@@ -277,20 +277,27 @@ public class Model implements Iterable<Node>, SyncAccess {
 
     synchronized private void stepWithCondition(boolean noise, StepCondition cond) {
         try {
-            int counter = 0;
-            while (cond.doNextMicroStep() && state != State.CLOSED) {
-                if (counter++ > MAX_LOOP_COUNTER) {
-                    if (oscillatingNodes == null)
-                        oscillatingNodes = new HashSet<>();
-                    if (counter > COLLECTING_LOOP_COUNTER) {
-                        NodeException seemsToOscillate = new NodeException(Lang.get("err_seemsToOscillate")).addNodes(oscillatingNodes);
-                        oscillatingNodes = null;
-                        throw seemsToOscillate;
-                    } else {
-                        oscillatingNodes.addAll(nodesToUpdateNext);
+            if (cond.doNextMicroStep()) {
+                int counter = 0;
+                while (cond.doNextMicroStep() && state != State.CLOSED) {
+                    if (counter++ > MAX_LOOP_COUNTER) {
+                        if (oscillatingNodes == null)
+                            oscillatingNodes = new HashSet<>();
+                        if (counter > COLLECTING_LOOP_COUNTER) {
+                            NodeException seemsToOscillate = new NodeException(Lang.get("err_seemsToOscillate")).addNodes(oscillatingNodes);
+                            oscillatingNodes = null;
+                            throw seemsToOscillate;
+                        } else {
+                            oscillatingNodes.addAll(nodesToUpdateNext);
+                        }
                     }
+                    doMicroStep(noise);
                 }
-                doMicroStep(noise);
+            } else {
+                // if a calculation is initiated but there is nothing to do because there was
+                // no gate input change, perform a burn check to detect short circuits caused by
+                // directly connected inputs.
+                fireEvent(ModelEvent.CHECKBURN);
             }
         } catch (Exception e) {
             errorOccurred(e);
@@ -473,7 +480,7 @@ public class Model implements Iterable<Node>, SyncAccess {
 
     private void addObserverForEvent(ModelStateObserver observer, ModelEventType event) {
         ArrayList<ModelStateObserver> obs = observers;
-        if (event == ModelEventType.STEP) {
+        if (event == ModelEventType.STEP || event == ModelEventType.CHECKBURN) {
             if (observersStep == null)
                 observersStep = new ArrayList<>();
             obs = observersStep;
@@ -529,6 +536,7 @@ public class Model implements Iterable<Node>, SyncAccess {
                     for (ModelStateObserver observer : observersMicroStep)
                         observer.handleEvent(event);
                 break;
+            case CHECKBURN:
             case STEP:
                 if (observersStep != null)
                     for (ModelStateObserver observer : observersStep)

@@ -28,6 +28,10 @@ public class ModelEvent {
      */
     public static final ModelEvent STEP = new ModelEvent(ModelEventType.STEP);
     /**
+     * Shorthand for a ModelEventType.CHECKBURN event
+     */
+    public static final ModelEvent CHECKBURN = new ModelEvent(ModelEventType.CHECKBURN);
+    /**
      * Shorthand for a ModelEventType.MICROSTEP event
      */
     public static final ModelEvent MICROSTEP = new ModelEvent(ModelEventType.MICROSTEP);
