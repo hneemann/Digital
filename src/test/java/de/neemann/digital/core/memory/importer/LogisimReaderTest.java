@@ -99,7 +99,7 @@ public class LogisimReaderTest extends TestCase {
     }
 
     public void testLoadRLEMultiline() throws Exception {
-        String data = "v2.0 raw\n#test1 \n 5*0x0 10*0x10 0xAA 0XFF #test";
+        String data = "v2.0 raw\n#test1 \n 5*0x0 10 * 0x10 0xAA 0XFF #test";
 
         DataField df = new DataField(1024);
         new LogisimReader(new StringReader(data)).read(new DataFieldValueArray(df, 0));
