@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.analyse.quinemc;
 
-
 /**
  * A byte array.
  * Zero and one behave as expected, any other value represents "don't care"
@@ -30,6 +29,32 @@ public class BoolTableByteArray implements BoolTable {
      */
     public BoolTableByteArray(byte[] table) {
         this.table = table;
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param values the int values
+     */
+    public BoolTableByteArray(String values) {
+        this(parseString(values));
+    }
+
+    private static byte[] parseString(String values) {
+        byte[] table = new byte[values.length()];
+        for (int i = 0; i < values.length(); i++) {
+            switch (values.charAt(i)) {
+                case '0':
+                    table[i] = 0;
+                    break;
+                case '1':
+                    table[i] = 1;
+                    break;
+                default:
+                    table[i] = 2;
+            }
+        }
+        return table;
     }
 
     /**
@@ -87,6 +112,24 @@ public class BoolTableByteArray implements BoolTable {
             t.set(i * 2 + 1, v);
         }
         return t;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(table.length);
+        for (byte b : table) {
+            switch (b) {
+                case 0:
+                    sb.append('0');
+                    break;
+                case 1:
+                    sb.append('1');
+                    break;
+                default:
+                    sb.append('X');
+            }
+        }
+        return sb.toString();
     }
 
     /**

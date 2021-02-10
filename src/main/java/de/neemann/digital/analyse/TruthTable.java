@@ -108,6 +108,7 @@ public class TruthTable implements Copyable<TruthTable> {
         xStream.alias("result", Result.class);
         xStream.alias("BoolTable", BoolTableByteArray.class);
         xStream.alias("BoolTableEx", BoolTableExpanded.class);
+        xStream.registerConverter(new TruthTableConverter());
         return xStream;
     }
 
