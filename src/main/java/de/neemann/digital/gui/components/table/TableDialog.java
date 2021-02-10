@@ -60,7 +60,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -453,6 +455,27 @@ public class TableDialog extends JDialog {
             }
         }.setToolTip(Lang.get("menu_table_exportHex_tt")).createJMenuItem());
 
+        fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportTableLogicFriday")) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new MyFileChooser();
+                if (TableDialog.this.filename != null)
+                    fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "csv"));
+                new SaveAsHelper(TableDialog.this, fc, "csv")
+                        .checkOverwrite(file -> {
+                            ExpressionListenerLogicFriday expressionListener = new ExpressionListenerLogicFriday();
+                            try {
+                                lastGeneratedExpressions.replayTo(expressionListener);
+                                expressionListener.close();
+                                try (Writer w = new FileWriter(file)) {
+                                    w.write(expressionListener.toString());
+                                }
+                            } catch (FormatterException | ExpressionException ex) {
+                                throw new IOException(ex);
+                            }
+                        });
+            }
+        }.setToolTip(Lang.get("menu_table_exportTableLogicFriday_tt")).createJMenuItem());
 
         createJK = new JCheckBoxMenuItem(Lang.get("menu_table_JK"));
         createJK.addActionListener(e -> calculateExpressions());
