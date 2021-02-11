@@ -51,7 +51,7 @@
     <string name="elem_Help_inputs">Eingänge</string>
     <string name="elem_Help_outputs">Ausgänge</string>
     <string name="elem_Help_attributes">Veränderbare Attribute</string>
-
+    <string name="msg_search">Suche</string>
 
     <!-- logik -->
 

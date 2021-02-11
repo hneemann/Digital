@@ -63,6 +63,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
@@ -391,7 +393,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (treeCheckBox.isSelected()) {
                 JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
                 treeModel = new LibraryTreeModel(library);
-                split.setLeftComponent(new JScrollPane(new SelectTree(treeModel, circuitComponent, shapeFactory, insertHistory)));
+                split.setLeftComponent(createTreeComponent());
                 split.setRightComponent(circuitScrollPanel);
                 getContentPane().add(split);
                 componentOnPane = split;
@@ -448,6 +450,48 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         view.add(tutorial.createJMenuItem());
         view.addSeparator();
         view.add(viewHelp.createJMenuItem());
+    }
+
+    private JComponent createTreeComponent() {
+        JPanel panel = new JPanel(new BorderLayout());
+        JPanel field = new JPanel(new BorderLayout());
+        JTextField textField = new SearchTextField();
+        field.add(textField);
+        JButton clearButton = new JButton(new AbstractAction("\u2717") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                textField.setText("");
+            }
+        });
+        clearButton.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
+        field.add(clearButton, BorderLayout.EAST);
+        panel.add(field, BorderLayout.NORTH);
+
+        textField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        SelectTree tree = new SelectTree(treeModel, circuitComponent, shapeFactory, insertHistory);
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent documentEvent) {
+                changedUpdate(documentEvent);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent documentEvent) {
+                changedUpdate(documentEvent);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent documentEvent) {
+                String text = textField.getText().trim();
+                if (text.isEmpty())
+                    treeModel = new LibraryTreeModel(library);
+                else
+                    treeModel = new LibraryTreeModel(library, new TextSearchFilter(text));
+                tree.setModel(treeModel);
+            }
+        });
+        panel.add(new JScrollPane(tree));
+        return panel;
     }
 
     private void clearPane() {

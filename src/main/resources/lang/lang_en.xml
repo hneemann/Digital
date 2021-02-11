@@ -51,6 +51,7 @@
     <string name="elem_Help_inputs">Inputs</string>
     <string name="elem_Help_outputs">Outputs</string>
     <string name="elem_Help_attributes">Attributes</string>
+    <string name="msg_search">search</string>
 
 
     <!-- logic -->

@@ -111,6 +111,13 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
         }
     }
 
+    /**
+     * @return true if this model is filtered
+     */
+    public boolean isFiltered() {
+        return filter != null;
+    }
+
     private Container getContainer(LibraryNode libraryNode) {
         Container c = map.get(libraryNode);
         if (c == null) {
