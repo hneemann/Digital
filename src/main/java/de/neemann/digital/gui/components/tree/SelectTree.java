@@ -80,8 +80,9 @@ public class SelectTree extends JTree {
         if (!oldModel.isFiltered() && newModel.isFiltered())
             storedExpanded = getExpandedDescendants(new TreePath(getModel().getRoot()));
 
-        boolean restore = oldModel.isFiltered() && !newModel.isFiltered();
+        oldModel.close();
 
+        boolean restore = oldModel.isFiltered() && !newModel.isFiltered();
         super.setModel(newModel);
         if (restore && storedExpanded != null) {
             while (storedExpanded.hasMoreElements())

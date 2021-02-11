@@ -22,6 +22,7 @@ import java.util.Iterator;
  */
 public class LibraryTreeModel implements TreeModel, LibraryListener {
     private final LibraryNode root;
+    private final ElementLibrary library;
     private final Filter filter;
     private final ArrayList<TreeModelListener> listeners = new ArrayList<>();
     private final HashMap<LibraryNode, Container> map;
@@ -43,9 +44,17 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
      */
     public LibraryTreeModel(ElementLibrary library, Filter filter) {
         root = library.getRoot();
+        this.library = library;
         this.filter = filter;
         map = new HashMap<>();
         library.addListener(this);
+    }
+
+    /**
+     * Called to detach the model from the library
+     */
+    public void close() {
+        library.removeListener(this);
     }
 
     @Override
@@ -89,11 +98,17 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
 
     @Override
     public void libraryChanged(LibraryNode node) {
-        if (map.remove(node) == null)
+        if (node.isLeaf()) {
+            map.remove(node);
+            TreeModelEvent treeModelEvent = new TreeModelEvent(this, new TreePath(node.getPath()));
+            for (TreeModelListener l : listeners)
+                l.treeNodesChanged(treeModelEvent);
+        } else {
             map.clear();
-        final TreeModelEvent treeModelEvent = new TreeModelEvent(this, new TreePath(node.getPath()));
-        for (TreeModelListener l : listeners)
-            l.treeStructureChanged(treeModelEvent);
+            TreeModelEvent treeModelEvent = new TreeModelEvent(this, new TreePath(root.getPath()));
+            for (TreeModelListener l : listeners)
+                l.treeStructureChanged(treeModelEvent);
+        }
     }
 
     /**
@@ -143,8 +158,11 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
                             if (filter.accept(ln))
                                 list.add(ln);
                         } else {
-                            if (getContainer(ln).size() > 0)
+                            Container c = new Container(ln, filter);
+                            if (c.size() > 0) {
                                 list.add(ln);
+                                map.put(ln, c);
+                            }
                         }
                     }
                 }

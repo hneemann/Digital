@@ -399,7 +399,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 componentOnPane = split;
             } else {
                 if (treeModel != null) {
-                    library.removeListener(treeModel);
+                    treeModel.close();
                     treeModel = null;
                 }
                 getContentPane().add(circuitScrollPanel);
