@@ -15,14 +15,16 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * TreeModel based on a {@link ElementLibrary}
  */
 public class LibraryTreeModel implements TreeModel, LibraryListener {
     private final LibraryNode root;
+    private final Filter filter;
     private final ArrayList<TreeModelListener> listeners = new ArrayList<>();
-    private HashMap<LibraryNode, Container> map;
+    private final HashMap<LibraryNode, Container> map;
 
     /**
      * Creates a new library tree model
@@ -30,7 +32,18 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
      * @param library the library
      */
     public LibraryTreeModel(ElementLibrary library) {
+        this(library, null);
+    }
+
+    /**
+     * Creates a new library tree model
+     *
+     * @param library the library
+     * @param filter  used to filter library entries
+     */
+    public LibraryTreeModel(ElementLibrary library, Filter filter) {
         root = library.getRoot();
+        this.filter = filter;
         map = new HashMap<>();
         library.addListener(this);
     }
@@ -84,26 +97,51 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
     }
 
     /**
-     * Same as getRoot() but returns the typed root element
-     *
-     * @return the root LibraryNode
+     * @return the parent of the first leave
      */
-    public LibraryNode getTypedRoot() {
-        return root;
+    public LibraryNode getFirstLeafParent() {
+        Container c = getContainer(root);
+        if (c.size() == 0)
+            return root;
+        while (true) {
+            for (LibraryNode n : c)
+                if (n.isLeaf())
+                    return c.node;
+            c = getContainer(c.getChild(0));
+        }
     }
 
     private Container getContainer(LibraryNode libraryNode) {
-        return map.computeIfAbsent(libraryNode, Container::new);
+        Container c = map.get(libraryNode);
+        if (c == null) {
+            c = new Container(libraryNode, filter);
+            map.put(libraryNode, c);
+        }
+        return c;
     }
 
-    private static final class Container {
+    private final class Container implements Iterable<LibraryNode> {
         private final ArrayList<LibraryNode> list;
+        private final LibraryNode node;
 
-        private Container(LibraryNode libraryNode) {
+        private Container(LibraryNode libraryNode, Filter filter) {
             list = new ArrayList<>(libraryNode.size());
-            for (LibraryNode ln : libraryNode)
-                if (!ln.isHidden())
-                    list.add(ln);
+            node = libraryNode;
+            for (LibraryNode ln : libraryNode) {
+                if (!ln.isHidden()) {
+                    if (filter == null)
+                        list.add(ln);
+                    else {
+                        if (ln.isLeaf()) {
+                            if (filter.accept(ln))
+                                list.add(ln);
+                        } else {
+                            if (getContainer(ln).size() > 0)
+                                list.add(ln);
+                        }
+                    }
+                }
+            }
         }
 
         private LibraryNode getChild(int i) {
@@ -117,7 +155,23 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
         private int indexOf(LibraryNode o1) {
             return list.indexOf(o1);
         }
+
+        @Override
+        public Iterator<LibraryNode> iterator() {
+            return list.iterator();
+        }
     }
 
-
+    /**
+     * filter interface
+     */
+    public interface Filter {
+        /**
+         * Returns true if the node should be shown in the tree
+         *
+         * @param node the node
+         * @return true if visible
+         */
+        boolean accept(LibraryNode node);
+    }
 }

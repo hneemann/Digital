@@ -65,7 +65,7 @@ public class SelectTree extends JTree {
         setToolTipText("");
 
         // open first child
-        expandPath(new TreePath(model.getTypedRoot().getChild(0).getPath()));
+        expandPath(new TreePath(model.getFirstLeafParent().getPath()));
     }
 
     @Override
