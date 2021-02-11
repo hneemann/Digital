@@ -13,6 +13,7 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.External;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
+import de.neemann.digital.core.io.Probe;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.core.wiring.Driver;
 import de.neemann.digital.draw.elements.Circuit;
@@ -169,7 +170,7 @@ public class TestInGUI extends TestCase {
         new GuiTester()
                 .delay(500)
                 .press("F5")
-                .mouseMove(100, 100)
+                .mouseMove(100, 150)
                 .delay(300)
                 .mouseClick(InputEvent.BUTTON1_DOWN_MASK)
                 .delay(200)
@@ -179,6 +180,30 @@ public class TestInGUI extends TestCase {
                 .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
                     Circuit c = main.getCircuitComponent().getCircuit();
                     assertEquals(1, c.getElements().size());
+                }))
+                .execute();
+    }
+
+    public void testTreeViewSearch() {
+        new GuiTester()
+                .delay(500)
+                .press("F5")
+                .mouseMove(100, 75)
+                .delay(300)
+                .mouseClick(InputEvent.BUTTON1_DOWN_MASK)
+                .delay(200)
+                .type("probe")
+                .delay(200)
+                .mouseMove(100, 130)
+                .mouseClick(InputEvent.BUTTON1_DOWN_MASK)
+                .delay(200)
+                .mouseMove(400, 200)
+                .mouseClick(InputEvent.BUTTON1_DOWN_MASK)
+                .delay(500)
+                .add(new GuiTester.WindowCheck<>(Main.class, (gt, main) -> {
+                    Circuit c = main.getCircuitComponent().getCircuit();
+                    assertEquals(1, c.getElements().size());
+                    assertTrue(c.getElements().get(0).equalsDescription(Probe.DESCRIPTION));
                 }))
                 .execute();
     }

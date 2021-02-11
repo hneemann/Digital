@@ -42,6 +42,7 @@ import de.neemann.digital.gui.components.terminal.KeyboardDialog;
 import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.components.tree.LibraryTreeModel;
+import de.neemann.digital.gui.components.tree.SelectSearch;
 import de.neemann.digital.gui.components.tree.SelectTree;
 import de.neemann.digital.gui.release.CheckForNewRelease;
 import de.neemann.digital.gui.remote.DigitalHandler;
@@ -300,6 +301,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         } else
             setLocationRelativeTo(null);
 
+        circuitComponent.requestFocusInWindow();
+
         checkIDEIntegration(builder, menuBar);
     }
 
@@ -391,7 +394,21 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (treeCheckBox.isSelected()) {
                 JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
                 treeModel = new LibraryTreeModel(library);
-                split.setLeftComponent(new JScrollPane(new SelectTree(treeModel, circuitComponent, shapeFactory, insertHistory)));
+                JPanel treePanel = new JPanel(new BorderLayout());
+                SelectTree selectTree = new SelectTree(treeModel, circuitComponent, shapeFactory, insertHistory);
+                SelectSearch selectSearch = new SelectSearch(selectTree, library);
+                selectSearch.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                            selectSearch.setText(null);
+                            circuitComponent.requestFocus();
+                        }
+                    }
+                });
+                treePanel.add(selectSearch, BorderLayout.NORTH);
+                treePanel.add(new JScrollPane(selectTree), BorderLayout.CENTER);
+                split.setLeftComponent(treePanel);
                 split.setRightComponent(circuitScrollPanel);
                 getContentPane().add(split);
                 componentOnPane = split;
@@ -417,8 +434,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_tutorial_tt"));
 
-        if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT))
-            SwingUtilities.invokeLater(treeCheckBox::doClick);
+        if (Settings.getInstance().get(Keys.SETTINGS_DEFAULT_TREESELECT)) {
+            SwingUtilities.invokeLater(() -> {
+                treeCheckBox.doClick();
+                // Avoids focus going straight to search bar on startup.
+                circuitComponent.requestFocus();
+            });
+        }
 
         toolBar.add(viewHelp.createJButtonNoText());
         toolBar.add(zoomIn.createJButtonNoText());

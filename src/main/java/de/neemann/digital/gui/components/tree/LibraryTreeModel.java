@@ -15,6 +15,7 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -50,7 +51,8 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
 
     @Override
     public Object getRoot() {
-        return root;
+        Container c = getContainer(root);
+        return c.size() == 0 ? null : root;
     }
 
     @Override
@@ -109,6 +111,27 @@ public class LibraryTreeModel implements TreeModel, LibraryListener {
                     return c.node;
             c = getContainer(c.getChild(0));
         }
+    }
+
+    /**
+     * Check if any leaf node is visible in the tree.
+     *
+     * @param expandedNodes All currently expanded nodes.
+     * @return whether any leaf node is visible.
+     */
+    public boolean isAnyLeafNodeVisible(HashSet<LibraryNode> expandedNodes) {
+        return isAnyLeafNodeVisible(expandedNodes, root);
+    }
+
+    private boolean isAnyLeafNodeVisible(HashSet<LibraryNode> expandedNodes, LibraryNode node) {
+        if (node.isLeaf())
+            return true;
+        for (LibraryNode child : node) {
+            if (expandedNodes.contains(child) && isAnyLeafNodeVisible(expandedNodes, child)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Container getContainer(LibraryNode libraryNode) {

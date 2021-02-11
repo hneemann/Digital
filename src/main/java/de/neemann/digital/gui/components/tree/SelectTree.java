@@ -16,12 +16,16 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ErrorMessage;
 
 import javax.swing.*;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.HashSet;
 
 /**
  * Tree to select items
@@ -29,6 +33,9 @@ import java.io.IOException;
 public class SelectTree extends JTree {
 
     private final ShapeFactory shapeFactory;
+
+    private final HashSet<TreePath> expandedPaths;
+    private boolean saveExpandedPaths;
 
     /**
      * Create a new instance
@@ -41,6 +48,8 @@ public class SelectTree extends JTree {
     public SelectTree(LibraryTreeModel model, CircuitComponent component, ShapeFactory shapeFactory, InsertHistory insertHistory) {
         super(model);
         this.shapeFactory = shapeFactory;
+        expandedPaths = new HashSet<>();
+        saveExpandedPaths = true;
         setSelectionModel(null);
         addMouseListener(new MouseAdapter() {
             @Override
@@ -61,11 +70,61 @@ public class SelectTree extends JTree {
                 }
             }
         });
+        addTreeExpansionListener(new TreeExpansionListener() {
+            @Override
+            public void treeExpanded(TreeExpansionEvent event) {
+                if (saveExpandedPaths) {
+                    expandedPaths.add(event.getPath());
+                    System.out.println("Added: " + event.getPath());
+                }
+            }
+
+            @Override
+            public void treeCollapsed(TreeExpansionEvent event) {
+                expandedPaths.remove(event.getPath());
+                System.out.println("Removed: " + event.getPath());
+            }
+        });
         setCellRenderer(new MyCellRenderer());
         setToolTipText("");
 
         // open first child
         expandPath(new TreePath(model.getFirstLeafParent().getPath()));
+    }
+
+    /**
+     * Expand a path, but don't restore its expanded state when
+     * {@link SelectTree#setModelAndRestoreExpansion(TreeModel)} is used.
+     *
+     * @param path path to expand.
+     */
+    public void expandPathTemporarily(TreePath path) {
+        saveExpandedPaths = false;
+        expandPath(path);
+        saveExpandedPaths = true;
+    }
+
+    /**
+     * Set a new model and restore previously expanded nodes from previous model.
+     *
+     * @param newModel new model to use.
+     */
+    public void setModelAndRestoreExpansion(TreeModel newModel) {
+        setModel(newModel);
+        for (TreePath path : expandedPaths) {
+            expandPath(path);
+        }
+    }
+
+    /**
+     * @return a set of expanded library nodes, excluding temporarily expanded nodes.
+     */
+    public HashSet<LibraryNode> getExpandedNodes() {
+        HashSet<LibraryNode> expandedNodes = new HashSet<>();
+        for (TreePath path : expandedPaths) {
+            expandedNodes.add((LibraryNode) path.getLastPathComponent());
+        }
+        return expandedNodes;
     }
 
     @Override
@@ -78,6 +137,18 @@ public class SelectTree extends JTree {
             }
         }
         return null;
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        if (getRowCount() == 0) {
+            g.setColor(Color.GRAY);
+            String text = Lang.get("key_search_noResults");
+            g.drawString(text, (getWidth() - g.getFontMetrics().stringWidth(text)) / 2,
+                    Math.min((getHeight() + getFont().getSize()) / 2, 100));
+        }
     }
 
     private class MyCellRenderer extends DefaultTreeCellRenderer {

@@ -1612,6 +1612,9 @@
     <string name="key_trigger_falling">falling edge</string>
     <string name="key_trigger_both">both edges</string>
 
+    <string name="key_search">Search</string>
+    <string name="key_search_noResults">No components found</string>
+
     <string name="key_colorScheme">Color scheme</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
     <string name="key_colorScheme_DARK">Dark</string>
