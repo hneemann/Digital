@@ -443,13 +443,13 @@ public class TableDialog extends JDialog {
 
         JMenu export = new JMenu(Lang.get("menu_export"));
         fileMenu.add(export);
-        export.add(new FileExportAction(Lang.get("menu_table_exportHex"), "hex") {
+        export.add(new FileExportActionConfirm(Lang.get("menu_table_exportHex"), "hex") {
             @Override
             protected String getString() throws FormatterException, ExpressionException {
                 return new TruthTableFormatterHex().format(undoManager.getActual());
             }
         }.setToolTip(Lang.get("menu_table_exportHex_tt")).createJMenuItem());
-        export.add(new FileExportAction(Lang.get("menu_table_exportTableCSVCondensed"), "csv") {
+        export.add(new FileExportAction(Lang.get("menu_table_exportCSVCondensed"), "csv") {
             @Override
             protected String getString() throws FormatterException, ExpressionException {
                 ExpressionListenerCSVCondensed expressionListener = new ExpressionListenerCSVCondensed();
@@ -457,13 +457,13 @@ public class TableDialog extends JDialog {
                 expressionListener.close();
                 return expressionListener.toString();
             }
-        }.setToolTip(Lang.get("menu_table_exportTableCSVCondensed")).createJMenuItem());
-        export.add(new FileExportAction(Lang.get("menu_table_exportTableCSV"), "csv") {
+        }.setToolTip(Lang.get("menu_table_exportCSVCondensed_tt")).createJMenuItem());
+        export.add(new FileExportActionConfirm(Lang.get("menu_table_exportCSV"), "csv") {
             @Override
-            protected String getString() throws FormatterException, ExpressionException {
+            protected String getString() throws ExpressionException {
                 return new TruthTableFormatterCSV().format(undoManager.getActual());
             }
-        }.setToolTip(Lang.get("menu_table_exportTableCSV")).createJMenuItem());
+        }.setToolTip(Lang.get("menu_table_exportCSV_tt")).createJMenuItem());
 
         createJK = new JCheckBoxMenuItem(Lang.get("menu_table_JK"));
         createJK.addActionListener(e -> calculateExpressions());
@@ -1020,22 +1020,44 @@ public class TableDialog extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fc = new MyFileChooser();
-            if (TableDialog.this.filename != null)
-                fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, suffix));
-            new SaveAsHelper(TableDialog.this, fc, suffix)
-                    .checkOverwrite(file -> {
-                        try {
-                            try (Writer w = new FileWriter(file)) {
-                                w.write(getString());
+            if (confirmExport()) {
+                JFileChooser fc = new MyFileChooser();
+                if (TableDialog.this.filename != null)
+                    fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, suffix));
+                new SaveAsHelper(TableDialog.this, fc, suffix)
+                        .checkOverwrite(file -> {
+                            try {
+                                try (Writer w = new FileWriter(file)) {
+                                    w.write(getString());
+                                }
+                            } catch (FormatterException | ExpressionException ex) {
+                                throw new IOException(ex);
                             }
-                        } catch (FormatterException | ExpressionException ex) {
-                            throw new IOException(ex);
-                        }
-                    });
+                        });
+            }
+        }
+
+        protected boolean confirmExport() {
+            return true;
         }
 
         protected abstract String getString() throws FormatterException, ExpressionException;
+    }
+
+    private abstract class FileExportActionConfirm extends FileExportAction {
+
+        private FileExportActionConfirm(String name, String suffix) {
+            super(name, suffix);
+        }
+
+        @Override
+        protected boolean confirmExport() {
+            int res = JOptionPane.OK_OPTION;
+            if (undoManager.getActual().getVars().size() > 20)
+                res = JOptionPane.showConfirmDialog(TableDialog.this, Lang.get("msg_tableHasManyRowsConfirm"));
+            return res == JOptionPane.OK_OPTION;
+        }
+
     }
 
 }

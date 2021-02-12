@@ -1821,8 +1821,12 @@
         purely combinatorial!
     </string>
 
-    <string name="menu_table_exportHex">Export HEX</string>
+    <string name="menu_table_exportHex">HEX</string>
     <string name="menu_table_exportHex_tt">You can load the HEX file to a ROM or a LUT.</string>
+    <string name="menu_table_exportCSV">CSV</string>
+    <string name="menu_table_exportCSV_tt">A CSV file containing the complete truth table.</string>
+    <string name="menu_table_exportCSVCondensed">CSV, prime implicants</string>
+    <string name="menu_table_exportCSVCondensed_tt">A CSV file containing only the prime implicants.</string>
     <string name="menu_table_new">New</string>
     <string name="menu_table_new_combinatorial">Combinatorial</string>
     <string name="menu_table_new_sequential">Sequential</string>

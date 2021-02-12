@@ -1835,8 +1835,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         rein kombinatorisch ist!
     </string>
 
-    <string name="menu_table_exportHex">Erzeuge HEX</string>
+    <string name="menu_table_exportHex">HEX</string>
     <string name="menu_table_exportHex_tt">Die HEX-Datei kann in ein ROM oder eine LUT geladen werden.</string>
+    <string name="menu_table_exportCSV">CSV</string>
+    <string name="menu_table_exportCSV_tt">Eine CSV Datei, welche die komplette Warheitstabelle enthält.</string>
+    <string name="menu_table_exportCSVCondensed">CSV, Primimplikanten</string>
+    <string name="menu_table_exportCSVCondensed_tt">Eine CSV Datei, welche nur die Primimplikanten enthält.</string>
     <string name="menu_table_new">Neu</string>
     <string name="menu_table_new_combinatorial">Kombinatorisch</string>
     <string name="menu_table_new_sequential">Automat</string>
