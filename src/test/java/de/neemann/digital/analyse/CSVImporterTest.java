@@ -55,6 +55,51 @@ public class CSVImporterTest extends TestCase {
         assertEquals(ThreeStateValue.one, tt.getResult(1).get(3));
     }
 
+    public void testDC2() throws IOException {
+        TruthTable tt = CSVImporter.readCSV("A,B,C,,Y\nx,1,x,,1\n");
+        assertNotNull(tt);
+
+        ArrayList<Variable> vars = tt.getVars();
+        assertEquals(3, vars.size());
+        assertEquals("A", vars.get(0).getIdentifier());
+        assertEquals("B", vars.get(1).getIdentifier());
+        assertEquals("C", vars.get(2).getIdentifier());
+        assertEquals(1, tt.getResultCount());
+        assertEquals("Y", tt.getResultName(0));
+
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(0));
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(1));
+        assertEquals(ThreeStateValue.one, tt.getResult(0).get(2));
+        assertEquals(ThreeStateValue.one, tt.getResult(0).get(3));
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(4));
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(5));
+        assertEquals(ThreeStateValue.one, tt.getResult(0).get(6));
+        assertEquals(ThreeStateValue.one, tt.getResult(0).get(7));
+    }
+
+    public void testMultiplePrimeUsages() throws IOException {
+        TruthTable tt = CSVImporter.readCSV("A,B,,Y,X\n1,1,,1,1\n1,0,,0,1\n0,1,,0,1");
+        assertNotNull(tt);
+
+        ArrayList<Variable> vars = tt.getVars();
+        assertEquals(2, vars.size());
+        assertEquals("A", vars.get(0).getIdentifier());
+        assertEquals("B", vars.get(1).getIdentifier());
+        assertEquals(2, tt.getResultCount());
+        assertEquals("Y", tt.getResultName(0));
+        assertEquals("X", tt.getResultName(1));
+
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(0));
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(1));
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(2));
+        assertEquals(ThreeStateValue.one, tt.getResult(0).get(3));
+
+        assertEquals(ThreeStateValue.zero, tt.getResult(1).get(0));
+        assertEquals(ThreeStateValue.one, tt.getResult(1).get(1));
+        assertEquals(ThreeStateValue.one, tt.getResult(1).get(2));
+        assertEquals(ThreeStateValue.one, tt.getResult(1).get(3));
+    }
+
 
     public void testAdder() throws Exception {
         loopTest("A_0,A_1,B_0,B_1,,S_1,S_0,C\n" +
