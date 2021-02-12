@@ -13,7 +13,7 @@ import de.neemann.digital.core.Bits;
 /**
  * Exports a table in LogicFriday format
  */
-public class TruthTableFormatterLogicFriday implements TruthTableFormatter {
+public class TruthTableFormatterCSV implements TruthTableFormatter {
 
     @Override
     public String format(TruthTable truthTable) throws ExpressionException {

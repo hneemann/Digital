@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class ExpressionListenerLogicFriday implements ExpressionListener {
+public class ExpressionListenerCSVCondensed implements ExpressionListener {
     private final ArrayList<Result> results;
     private final HashSet<String> names;
-    private VariableVisitor variables;
+    private final VariableVisitor variables;
     private StringBuilder str;
 
-    public ExpressionListenerLogicFriday() {
+    public ExpressionListenerCSVCondensed() {
         results = new ArrayList<>();
         names = new HashSet<>();
         variables = new VariableVisitor();
@@ -41,7 +41,6 @@ public class ExpressionListenerLogicFriday implements ExpressionListener {
         for (Result r : results)
             str.append(",").append(r.name);
         str.append("\n");
-
 
         for (Result r : results)
             r.createString(str, variables.getVariables(), results.size());
@@ -67,18 +66,43 @@ public class ExpressionListenerLogicFriday implements ExpressionListener {
             if (expression instanceof Operation.Or) {
                 ArrayList<Expression> o = ((Operation.Or) expression).getExpressions();
                 for (Expression e : o)
-                    add(sb, e, variables, results);
-            } else if (expression instanceof Operation.And)
-                add(sb, expression, variables, results);
-            else if (expression instanceof Variable)
-                add(sb, Operation.and(expression), variables, results);
-            else if (expression instanceof Not)
-                add(sb, Operation.and(expression), variables, results);
+                    addPrime(sb, e, variables, results);
+            } else
+                addPrime(sb, expression, variables, results);
+        }
+
+        private void addPrime(StringBuilder sb, Expression and, Collection<Variable> variables, int results) throws ExpressionException {
+            if (and instanceof Operation.And)
+                addAnd(sb, and, variables, results);
+            else if (and instanceof Variable)
+                addVar(sb, ((Variable) and).getIdentifier(), variables, results, false);
+            else if (and instanceof Not && ((Not) and).getExpression() instanceof Variable)
+                addVar(sb, ((Variable) (((Not) and).getExpression())).getIdentifier(), variables, results, true);
             else
                 throw new ExpressionException("invalid expression");
         }
 
-        private void add(StringBuilder sb, Expression and, Collection<Variable> variables, int results) throws ExpressionException {
+        private void addVar(StringBuilder sb, String identifier, Collection<Variable> variables, int results, boolean invert) {
+            for (Variable var : variables) {
+                if (var.getIdentifier().endsWith(identifier)) {
+                    if (invert)
+                        sb.append("0,");
+                    else
+                        sb.append("1,");
+                } else
+                    sb.append("X,");
+            }
+
+            for (int i = 0; i < results; i++) {
+                if (i == number)
+                    sb.append(",1");
+                else
+                    sb.append(",0");
+            }
+            sb.append('\n');
+        }
+
+        private void addAnd(StringBuilder sb, Expression and, Collection<Variable> variables, int results) throws ExpressionException {
             HashSet<String> v = new HashSet<>();
             HashSet<String> nv = new HashSet<>();
             if (and instanceof Operation.And) {
@@ -114,6 +138,5 @@ public class ExpressionListenerLogicFriday implements ExpressionListener {
             }
             sb.append('\n');
         }
-
     }
 }
