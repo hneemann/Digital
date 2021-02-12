@@ -8,6 +8,7 @@ package de.neemann.digital.analyse.format;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.quinemc.ThreeStateValue;
+import de.neemann.digital.lang.Lang;
 
 /**
  * Formats a truth table
@@ -16,6 +17,9 @@ public class TruthTableFormatterHex implements TruthTableFormatter {
 
     @Override
     public String format(TruthTable truthTable) throws ExpressionException {
+        if (truthTable.getResultCount() > 63)
+            throw new ExpressionException(Lang.get("err_tableHasToManyResultColumns"));
+
         StringBuilder sb = new StringBuilder();
         sb.append("v2.0 raw\n");
 

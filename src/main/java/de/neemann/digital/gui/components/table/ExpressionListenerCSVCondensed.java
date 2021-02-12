@@ -12,12 +12,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * Exports a CSV table containing only the prime implicants
+ */
 public class ExpressionListenerCSVCondensed implements ExpressionListener {
     private final ArrayList<Result> results;
     private final HashSet<String> names;
     private final VariableVisitor variables;
     private StringBuilder str;
 
+    /**
+     * Creates a new instance
+     */
     public ExpressionListenerCSVCondensed() {
         results = new ArrayList<>();
         names = new HashSet<>();
@@ -51,12 +57,12 @@ public class ExpressionListenerCSVCondensed implements ExpressionListener {
         return str.toString();
     }
 
-    private static class Result {
+    private static final class Result {
         private final String name;
         private final Expression expression;
         private final int number;
 
-        public Result(String name, Expression expression, int number) {
+        private Result(String name, Expression expression, int number) {
             this.name = name;
             this.expression = expression;
             this.number = number;
@@ -107,7 +113,8 @@ public class ExpressionListenerCSVCondensed implements ExpressionListener {
             HashSet<String> nv = new HashSet<>();
             if (and instanceof Operation.And) {
                 Operation.And a = (Operation.And) and;
-                for (Expression var : a.getExpressions()) {
+                for (Expression va : a.getExpressions()) {
+                    Expression var = va;
                     HashSet<String> map = v;
                     if (var instanceof Not) {
                         map = nv;

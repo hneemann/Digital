@@ -14,8 +14,6 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
-import de.neemann.digital.analyse.quinemc.ThreeStateValue;
-import de.neemann.digital.lang.Lang;
 import de.neemann.digital.undo.Copyable;
 
 import java.io.*;

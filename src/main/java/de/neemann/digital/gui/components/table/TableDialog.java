@@ -445,7 +445,7 @@ public class TableDialog extends JDialog {
         fileMenu.add(export);
         export.add(new FileExportActionConfirm(Lang.get("menu_table_exportHex"), "hex") {
             @Override
-            protected String getString() throws FormatterException, ExpressionException {
+            protected String getString() throws ExpressionException {
                 return new TruthTableFormatterHex().format(undoManager.getActual());
             }
         }.setToolTip(Lang.get("menu_table_exportHex_tt")).createJMenuItem());

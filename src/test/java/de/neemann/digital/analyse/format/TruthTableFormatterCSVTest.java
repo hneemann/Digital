@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2021 Helmut Neemann
+ * Use of this source code is governed by the GPL v3 license
+ * that can be found in the LICENSE file.
+ */
 package de.neemann.digital.analyse.format;
 
 import de.neemann.digital.analyse.TruthTable;
@@ -5,7 +10,7 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import junit.framework.TestCase;
 
-public class TruthTableFormatterLogicCSV extends TestCase {
+public class TruthTableFormatterCSVTest extends TestCase {
 
     public void testSimple() throws ExpressionException {
         TruthTable tt = new TruthTable(2);
