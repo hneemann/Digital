@@ -377,6 +377,7 @@ public class TableDialog extends JDialog {
                 JFileChooser fc = new MyFileChooser();
                 if (TableDialog.this.filename != null)
                     fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "tru"));
+                fc.setFileFilter(new FileNameExtensionFilter(Lang.get("msg_truthTableCSV"), "csv"));
                 fc.setFileFilter(new FileNameExtensionFilter(Lang.get("msg_truthTable"), "tru"));
                 if (fc.showOpenDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
                     try {

@@ -39,9 +39,13 @@ public class TruthTable implements Copyable<TruthTable> {
      * @throws IOException IOException
      */
     public static TruthTable readFromFile(File filename) throws IOException {
-        XStream xStream = getxStream();
-        try (InputStream in = new FileInputStream(filename)) {
-            return (TruthTable) xStream.fromXML(in);
+        if (filename.getName().toLowerCase().endsWith(".csv"))
+            return CSVImporter.readCSV(filename);
+        else {
+            XStream xStream = getxStream();
+            try (InputStream in = new FileInputStream(filename)) {
+                return (TruthTable) xStream.fromXML(in);
+            }
         }
     }
 
