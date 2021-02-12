@@ -1202,6 +1202,11 @@
     <string name="err_ROM_noFileGivenToLoad">There is no file name available for the automatic reload!</string>
     <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Virtual signal {0} declared twice in line {1}!</string>
 
+    <string name="err_csvNoHeaderFound">No header found!</string>
+    <string name="err_csvNoOutputValuesFound">No output values found!</string>
+    <string name="err_csvNotEnoughValues">Not enough values in one line!</string>
+    <string name="err_csvToManyValues">Too many values in one line!</string>
+
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
     <string name="key_Bits">Data Bits</string>

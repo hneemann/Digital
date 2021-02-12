@@ -7,6 +7,7 @@ package de.neemann.digital.analyse;
 
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
+import de.neemann.digital.lang.Lang;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public final class CSVImporter {
         } while (header != null && header.length() == 0);
 
         if (header == null)
-            throw new IOException("no header found");
+            throw new IOException(Lang.get("err_csvNoHeaderFound"));
 
         ArrayList<Variable> vars = new ArrayList<>();
 
@@ -87,11 +88,16 @@ public final class CSVImporter {
 
             }
         }
+
+        if (tt == null || tt.getResultCount() == 0)
+            throw new IOException(Lang.get("err_csvNoOutputValuesFound"));
+
         return tt;
     }
 
     private static void parseLine(TruthTable tt, String line) throws IOException {
-        int mask = 1 << (tt.getVars().size() - 1);
+        int varNum = tt.getVars().size();
+        int mask = 1 << (varNum - 1);
         ArrayList<Integer> dc = new ArrayList<>();
         int row = 0;
         int rCol = 0;
@@ -103,19 +109,25 @@ public final class CSVImporter {
             else {
                 if (generator == null) {
                     if (mask == 0)
-                        throw new IOException("invalid csv format!");
+                        throw new IOException(Lang.get("err_csvToManyValues"));
                     if (e.equals("1"))
                         row |= mask;
                     else if (e.equals("x"))
                         dc.add(mask);
                     mask = mask >> 1;
                 } else {
+                    if (rCol >= varNum)
+                        throw new IOException(Lang.get("err_csvToManyValues"));
                     if (e.equals("1"))
                         generator.addCol(rCol);
                     rCol++;
                 }
             }
         }
+
+        if (mask != 0)
+            throw new IOException(Lang.get("err_csvNotEnoughValues"));
+
         if (generator != null)
             generator.applyTo(tt);
     }

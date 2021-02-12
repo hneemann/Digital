@@ -1216,6 +1216,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_ROM_noFileGivenToLoad">Es ist kein Dateiname für das automatische Neuladen verfügbar!</string>
     <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Virtuelles Signal {0} doppelt definiert in Zeile {1}!</string>
 
+    <string name="err_csvNoHeaderFound">Kein Header gefunden!</string>
+    <string name="err_csvNoOutputValuesFound">Keine Ausganswerte gefunden!</string>
+    <string name="err_csvNotEnoughValues">Nicht genug Werte in einer Zeile!</string>
+    <string name="err_csvToManyValues">Zu viel Werte in einer Zeile!</string>
+
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
     <string name="key_Bits">Daten-Bits</string>

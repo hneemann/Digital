@@ -100,6 +100,51 @@ public class CSVImporterTest extends TestCase {
         assertEquals(ThreeStateValue.one, tt.getResult(1).get(3));
     }
 
+    public void testIncomplete() {
+        try {
+            CSVImporter.readCSV("\n\n");
+            fail();
+        } catch (IOException e) {
+            assertTrue(true);
+        }
+
+        try {
+            CSVImporter.readCSV("A,B,Y,X\n1,");
+            fail();
+        } catch (IOException e) {
+            assertTrue(true);
+        }
+
+        try {
+            CSVImporter.readCSV("A,B,Y,,\n1,");
+            fail();
+        } catch (IOException e) {
+            assertTrue(true);
+        }
+
+        try {
+            CSVImporter.readCSV("A,B,,Y,X\n1,");
+            fail();
+        } catch (IOException e) {
+            assertTrue(true);
+        }
+
+        try {
+            CSVImporter.readCSV("A,B,,Y,X\n1,1,1");
+            fail();
+        } catch (IOException e) {
+            assertTrue(true);
+        }
+
+        try {
+            CSVImporter.readCSV("A,B,,Y,X\n1,1,,1,1,1");
+            fail();
+        } catch (IOException e) {
+            assertTrue(true);
+        }
+
+    }
+
 
     public void testAdder() throws Exception {
         loopTest("A_0,A_1,B_0,B_1,,S_1,S_0,C\n" +
@@ -114,6 +159,13 @@ public class CSVImporterTest extends TestCase {
                 "1,X,1,1,,0,0,1\n" +
                 "1,1,1,X,,0,0,1\n" +
                 "X,1,X,1,,0,0,1\n");
+    }
+
+    public void testAndOr() throws Exception {
+        loopTest("A,B,,X,Y\n" +
+                "1,1,,1,0\n" +
+                "1,X,,0,1\n" +
+                "X,1,,0,1\n");
     }
 
     private void loopTest(String csv) throws Exception {
