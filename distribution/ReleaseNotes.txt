@@ -2,7 +2,9 @@ Release Notes
 
 HEAD, planned as v0.27
 
-- Added fixed point and floating point number formats
+- Added fixed point and floating point number formats.
+- Added a CSV truth table export and import.
+- Added 74299
 - Refactoring of the expression format setting.
   CAUTION: All the general settings are maybe lost at restart!
   To avoid this, open the .digital.cfg file and remove the <entry>
