@@ -146,6 +146,10 @@ end loop
           <appType>IVERILOG</appType>
         </entry>
         <entry>
+          <string>ghdlOptions</string>
+          <string>-g2012</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>add</string>
         </entry>
@@ -191,6 +195,10 @@ endmodule</string>
         <entry>
           <string>applicationType</string>
           <appType>IVERILOG</appType>
+        </entry>
+        <entry>
+          <string>ghdlOptions</string>
+          <string>-g2012</string>
         </entry>
         <entry>
           <string>Label</string>

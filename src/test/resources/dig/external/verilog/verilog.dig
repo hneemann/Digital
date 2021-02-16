@@ -11,6 +11,10 @@
           <appType>IVERILOG</appType>
         </entry>
         <entry>
+          <string>ghdlOptions</string>
+          <string>-g2012</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>add</string>
         </entry>

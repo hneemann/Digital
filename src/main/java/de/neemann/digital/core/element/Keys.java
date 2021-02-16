@@ -738,7 +738,7 @@ public final class Keys {
      * The ghdl options
      */
     public static final Key<String> GHDL_OPTIONS
-            = new Key.LongString("ghdlOptions", "--std=08 --ieee=synopsys").setRows(3).setColumns(30).setPanelId("Options");
+            = new Key.LongString("ghdlOptions", "").setRows(3).setColumns(30).setPanelId("Options");
 
     /**
      * Path to iverilog installation directory

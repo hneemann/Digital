@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.extern;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.handler.ProcessInterface;
 import de.neemann.digital.core.extern.handler.StdIOInterface;
@@ -28,12 +29,18 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
     private String vvp;
     private final boolean hasIverilog;
 
+    private final ElementAttributes attr;
+
     /**
      * Initialize a new instance
+     *
+     * @param attr the elements attributes
      */
-    public ApplicationIVerilog() {
+    public ApplicationIVerilog(ElementAttributes attr) {
         iverilogFolder = "";
         hasIverilog = findIVerilog();
+
+        this.attr = attr;
     }
 
     @Override
@@ -49,7 +56,15 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
 
             file = createVerilogFile(label, code, inputs, outputs);
             String testOutputName = label + ".out";
-            String m1 = ProcessStarter.start(file.getParentFile(), iverilog, "-tvvp", "-o" + testOutputName, file.getName());
+            String m1 = ProcessStarter.start(file.getParentFile(), new Options()
+                .add(iverilog)
+                .add("-tvvp")
+                .add("-o")
+                .add(testOutputName)
+                .add(attr, Keys.GHDL_OPTIONS)
+                .add(file.getName())
+                .getArray()
+                );
             ProcessBuilder pb = new ProcessBuilder(vvp, "-M", ivlModuleDir, testOutputName).redirectErrorStream(true).directory(file.getParentFile());
             return new IVerilogProcessInterface(pb.start(), file.getParentFile());
         } catch (IOException e) {

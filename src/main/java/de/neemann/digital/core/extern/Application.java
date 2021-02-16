@@ -47,7 +47,7 @@ public interface Application {
             case GHDL:
                 return new ApplicationGHDL(attr);
             case IVERILOG:
-                return new ApplicationIVerilog();
+                return new ApplicationIVerilog(attr);
             default:
                 return null;
         }
