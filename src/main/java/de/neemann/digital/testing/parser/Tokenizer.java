@@ -184,7 +184,7 @@ public class Tokenizer {
                     boolean wasChar = true;
                     do {
                         c = readChar();
-                        if (isNumberChar(c) || isHexChar(c) || c == 'x' || c == 'X') {
+                        if (isNumberChar(c) || isHexChar(c) || c == 'x' || c == 'X' || c == ':' || c == '.') {
                             builder.append((char) c);
                         } else {
                             unreadChar(c);
