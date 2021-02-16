@@ -5,7 +5,11 @@
  */
 package de.neemann.digital.draw.graphics.linemerger;
 
-import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Orientation;
+import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.VectorInterface;
 
 /**
  * Filters out all the lines.
@@ -32,6 +36,10 @@ public class GraphicSkipLines extends Graphic {
     @Override
     public void drawPolygon(Polygon p, Style style) {
         delegate.drawPolygon(p, style);
+    }
+
+    @Override
+    public void drawRoundRect(VectorInterface p1, int width, int height, int arcWidth, int arcHeight, Style style) {
     }
 
     @Override

@@ -5,15 +5,21 @@
  */
 package de.neemann.digital.draw.graphics;
 
-import de.neemann.digital.core.element.ElementAttributes;
+import static de.neemann.digital.draw.graphics.GraphicSwing.getMirrorYOrientation;
 
-import java.awt.*;
-import java.io.*;
+import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashSet;
 
-import static de.neemann.digital.draw.graphics.GraphicSwing.getMirrorYOrientation;
+import de.neemann.digital.core.element.ElementAttributes;
 
 /**
  * Used to create a SVG representation of the circuit.
@@ -150,6 +156,27 @@ public class GraphicSVG extends Graphic {
                 w.write(" fill-rule=\"evenodd\"");
 
             if (style.isFilled() && p.isClosed() && !isFlagSet(Flag.noShapeFilling))
+                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" fill-opacity=\"" + getOpacity(style) + "\"/>\n");
+            else {
+                double strokeWidth = getStrokeWidth(style);
+                if (strokeWidth == 0)
+                    strokeWidth = getStrokeWidth(Style.THIN);
+                w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + strokeWidth + "\" fill=\"none\"/>\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void drawRoundRect(VectorInterface p1, int width, int height, int arcWidth, int arcHeight, Style style) {
+        try {
+            w.write("<rect x=\"" + p1.getXFloat() + "\" y=\"" + p1.getYFloat()
+                    + "\" width=\"" + width + "\" height=\"" + height
+                    + "\" rx=\"" + arcWidth + "\" ry=\"" + arcHeight + "\"");
+            addStrokeDash(w, style.getDash());
+
+            if (style.isFilled() && !isFlagSet(Flag.noShapeFilling))
                 w.write(" stroke=\"" + getColor(style) + "\" stroke-width=\"" + getStrokeWidth(style) + "\" fill=\"" + getColor(style) + "\" fill-opacity=\"" + getOpacity(style) + "\"/>\n");
             else {
                 double strokeWidth = getStrokeWidth(style);

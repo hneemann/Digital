@@ -5,17 +5,26 @@
  */
 package de.neemann.digital.gui.components.karnaugh;
 
+import de.neemann.digital.core.*;
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.NamedExpression;
 import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.gui.SaveAsHelper;
+import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.table.ExpressionComponent;
 import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.lang.Lang;
+import de.neemann.gui.MyFileChooser;
+import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -41,6 +50,12 @@ public class KarnaughMapDialog extends JDialog {
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         kvComponent = new KarnaughMapComponent(modifier);
         getContentPane().add(kvComponent);
+
+        JMenuBar bar = new JMenuBar();
+        JMenu file = new JMenu(Lang.get("menu_file"));
+        bar.add(file);
+        file.add(new ExportAction(Lang.get("menu_exportSVG"), GraphicSVG::new).createJMenuItem());
+        setJMenuBar(bar);
 
         combo = new JComboBox<>();
         combo.setRenderer(new MyDefaultListCellRenderer());
@@ -172,5 +187,38 @@ public class KarnaughMapDialog extends JDialog {
             }
             return this;
         }
+    }
+
+    private final class ExportAction extends ToolTipAction {
+        private final ExportFactory factory;
+
+        private ExportAction(String title, ExportFactory factory) {
+            super(title);
+            this.factory = factory;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fileChooser = new MyFileChooser();
+
+            ElementAttributes settings = Settings.getInstance().getAttributes();
+            File exportDir = settings.getFile("exportDirectory");
+            if (exportDir != null)
+                fileChooser.setCurrentDirectory(exportDir);
+
+
+            fileChooser.setFileFilter(new FileNameExtensionFilter("SVG", "svg"));
+            new SaveAsHelper(KarnaughMapDialog.this, fileChooser, "svg")
+                    .checkOverwrite(file -> {
+                        settings.setFile("exportDirectory", file.getParentFile());
+                        try (Graphic gr = factory.create(new FileOutputStream(file))) {
+                            GraphicMinMax minMax = new GraphicMinMax();
+                            kvComponent.drawTo(minMax, null);
+                            gr.setBoundingBox(minMax.getMin(), minMax.getMax());
+                            kvComponent.drawTo(gr, null);
+                        }
+                    });
+        }
+
     }
 }

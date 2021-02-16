@@ -35,6 +35,10 @@ public class GraphicTransform extends Graphic {
     }
 
     @Override
+    public void drawRoundRect(VectorInterface p1, int width, int height, int arcWidth, int arcHeight, Style style) {
+    }
+
+    @Override
     public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
         parent.drawCircle(p1.transform(transform), p2.transform(transform), style);
     }

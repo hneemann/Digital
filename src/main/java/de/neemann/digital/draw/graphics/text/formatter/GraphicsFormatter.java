@@ -5,16 +5,25 @@
  */
 package de.neemann.digital.draw.graphics.text.formatter;
 
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.draw.graphics.text.text.ExpressionToText;
-import de.neemann.digital.draw.graphics.text.ParseException;
-import de.neemann.digital.draw.graphics.text.Parser;
-import de.neemann.digital.draw.graphics.text.text.Character;
-import de.neemann.digital.draw.graphics.text.text.*;
-
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+
+import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.draw.graphics.text.ParseException;
+import de.neemann.digital.draw.graphics.text.Parser;
+import de.neemann.digital.draw.graphics.text.text.Blank;
+import de.neemann.digital.draw.graphics.text.text.Character;
+import de.neemann.digital.draw.graphics.text.text.Decorate;
+import de.neemann.digital.draw.graphics.text.text.ExpressionToText;
+import de.neemann.digital.draw.graphics.text.text.Index;
+import de.neemann.digital.draw.graphics.text.text.Sentence;
+import de.neemann.digital.draw.graphics.text.text.Simple;
+import de.neemann.digital.draw.graphics.text.text.Text;
 
 /**
  * Formatter to draw a text on a {@link Graphics2D} instance.

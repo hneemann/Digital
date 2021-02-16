@@ -71,6 +71,10 @@ public class GraphicLineCollectorTest extends TestCase {
         public void drawPolygon(Polygon p, Style style) {
             poly.add(p);
         }
+        
+        @Override
+        public void drawRoundRect(VectorInterface p1, int width, int height, int arcWidth, int arcHeight, Style style) {
+        }
 
         @Override
         public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {

@@ -5,11 +5,15 @@
  */
 package de.neemann.digital.draw.graphics.linemerger;
 
-import de.neemann.digital.draw.graphics.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Orientation;
+import de.neemann.digital.draw.graphics.Polygon;
+import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.VectorInterface;
 
 /**
  * Merges all single lines which are drawn to polygons.
@@ -38,6 +42,10 @@ public class GraphicLineCollector extends Graphic {
 
     @Override
     public void drawPolygon(Polygon p, Style style) {
+    }
+
+    @Override
+    public void drawRoundRect(VectorInterface p1, int width, int height, int arcWidth, int arcHeight, Style style) {
     }
 
     @Override

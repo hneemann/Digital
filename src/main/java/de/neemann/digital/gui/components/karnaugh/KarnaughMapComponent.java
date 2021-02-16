@@ -5,27 +5,43 @@
  */
 package de.neemann.digital.gui.components.karnaugh;
 
-import de.neemann.digital.analyse.expression.Expression;
-import de.neemann.digital.analyse.expression.Not;
-import de.neemann.digital.analyse.expression.Variable;
-import de.neemann.digital.analyse.quinemc.BoolTable;
-import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
-import de.neemann.digital.lang.Lang;
-import de.neemann.gui.Screen;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
+
+import de.neemann.digital.analyse.expression.Expression;
+import de.neemann.digital.analyse.expression.Not;
+import de.neemann.digital.analyse.expression.Variable;
+import de.neemann.digital.analyse.quinemc.BoolTable;
+import de.neemann.digital.draw.graphics.Graphic;
+import de.neemann.digital.draw.graphics.Orientation;
+import de.neemann.digital.draw.graphics.Style;
+import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
+import de.neemann.digital.draw.shapes.Drawable;
+import de.neemann.digital.lang.Lang;
+import de.neemann.gui.Screen;
+
 /**
  * JComponent to show a kv map.
  */
-public class KarnaughMapComponent extends JComponent {
+public class KarnaughMapComponent extends JComponent implements Drawable {
     private static final int STROKE_WIDTH = 4;
+    private static final int VERTICAL = 0;
+    private static final int HORIZONTAL = 1;
     private static final Color[] COVER_COLORS = new Color[]{
             new Color(255, 0, 0, 128), new Color(0, 255, 0, 128),
             new Color(128, 0, 0, 128), new Color(0, 0, 128, 128),
@@ -220,6 +236,101 @@ public class KarnaughMapComponent extends JComponent {
         }
     }
 
+    @Override
+    public void drawTo(Graphic g, Style highLight) {
+        int width = getWidth();
+        int height = getHeight();
+        Style styleBg = Style.NORMAL.deriveStyle(STROKE_WIDTH, true, Color.WHITE);
+        g.drawRoundRect(new Vector(0, 0), width, height, 0, 0, styleBg);
+
+        if (kv != null) {
+            int kvWidth = kv.getColumns();
+            int kvHeight = kv.getRows();
+            cellSize = (int) Math.min(height / (kvHeight + 2.5f), width / (kvWidth + 2.5f));
+            Font origFont = gr.getFont();
+            Font valuesFont = origFont.deriveFont(cellSize * 0.5f);
+
+            int maxHeaderStrWidth = 0;
+            for (int i = 0; i < vars.size(); i++) {
+                final GraphicsFormatter.Fragment fr = getFragment(i, true);
+                if (fr != null) {
+                    int w = fr.getWidth();
+                    if (w > maxHeaderStrWidth) maxHeaderStrWidth = w;
+                }
+            }
+
+            Style styleCellValue = Style.NORMAL.deriveFontStyle(valuesFont.getSize(), false).deriveColor(Color.BLACK);
+            // fill in bool table content
+            for (KarnaughMap.Cell cell : kv.getCells()) {
+                g.drawText(new Vector((cell.getCol() + 1) * cellSize + cellSize/2, (cell.getRow() + 2) * cellSize - cellSize/2),
+                        boolTable.get(cell.getBoolTableRow()).toString(), Orientation.CENTERCENTER, styleCellValue);
+                g.drawText(new Vector((cell.getCol() + 1) * cellSize + 1, (cell.getRow() + 2) * cellSize - 1),
+                        Integer.toString(cell.getBoolTableRow()), Orientation.LEFTBOTTOM, Style.SHAPE_PIN);
+            }
+
+            // draw the text in the borders
+            drawHeaderTo(g, kv.getHeaderLeft(), VERTICAL, 0);
+            drawHeaderTo(g, kv.getHeaderRight(), VERTICAL, kvWidth + 1);
+            drawHeaderTo(g, kv.getHeaderTop(), HORIZONTAL, 0);
+            drawHeaderTo(g, kv.getHeaderBottom(), HORIZONTAL, kvHeight + 1);
+
+            // draw the covers
+            int color = 0;
+            for (KarnaughMap.Cover c : kv) {
+                Style styleCover = Style.NORMAL.deriveColor(COVER_COLORS[color++]);
+                KarnaughMap.Pos p = c.getPos();
+                int frame = (c.getInset() + 1) * STROKE_WIDTH;
+                int edgesRadius = (cellSize - frame * 2)/2;
+                if (c.isDisconnected()) {
+                    Rectangle clip = gr.getClipBounds();
+                    gr.setClip(cellSize, cellSize, kvWidth * cellSize, kvHeight * cellSize);
+                    if (c.onlyEdges()) {
+                        g.drawRoundRect(new Vector(frame, frame), 2 * cellSize - frame * 2, 2 * cellSize - frame * 2,
+                                edgesRadius, edgesRadius, styleCover);
+                        g.drawRoundRect(new Vector(4 * cellSize + frame, frame), 2 * cellSize - frame * 2, 2 * cellSize - frame * 2,
+                                edgesRadius, edgesRadius, styleCover);
+                        g.drawRoundRect(new Vector(frame, 4 * cellSize + frame), 2 * cellSize - frame * 2, 2 * cellSize - frame * 2,
+                                edgesRadius, edgesRadius, styleCover);
+                        g.drawRoundRect(new Vector(4 * cellSize + frame, 4 * cellSize + frame), 2 * cellSize - frame * 2, 2 * cellSize - frame * 2,
+                                edgesRadius, edgesRadius, styleCover);
+                    } else { // draw the two parts of the cover
+                        int xofs = 0;
+                        int yOfs = 0;
+                        if (c.isVerticalDivided())
+                            xofs = cellSize * 3;
+                        else
+                            yOfs = cellSize * 3;
+
+                        g.drawRoundRect(new Vector((p.getCol() + 1) * cellSize + frame + xofs, (p.getRow() + 1) * cellSize + frame + yOfs),
+                                p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
+                                edgesRadius, edgesRadius, styleCover);
+                        g.drawRoundRect(new Vector((p.getCol() + 1) * cellSize + frame - xofs, (p.getRow() + 1) * cellSize + frame - yOfs),
+                                p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
+                                edgesRadius, edgesRadius, styleCover);
+                    }
+                    gr.setClip(clip.x, clip.y, clip.width, clip.height);
+                } else
+                    g.drawRoundRect(new Vector((p.getCol() + 1) * cellSize + frame, (p.getRow() + 1) * cellSize + frame),
+                            p.getWidth() * cellSize - frame * 2, p.getHeight() * cellSize - frame * 2,
+                            edgesRadius, edgesRadius, styleCover);
+            }
+
+            // draw table
+            Style styleTable = Style.NORMAL.deriveStyle(STROKE_WIDTH / 2, false, Color.GRAY);
+            for (int i = 0; i <= kvWidth; i++) {
+                int dy1 = isNoHeaderLine(kv.getHeaderTop(), i - 1) ? cellSize : 0;
+                int dy2 = isNoHeaderLine(kv.getHeaderBottom(), i - 1) ? cellSize : 0;
+                g.drawLine(new Vector((i + 1) * cellSize, dy1), new Vector((i + 1) * cellSize, (kvHeight + 2) * cellSize - dy2), styleTable);
+            }
+
+            for (int i = 0; i <= kvHeight; i++) {
+                int dx1 = isNoHeaderLine(kv.getHeaderLeft(), i - 1) ? cellSize : 0;
+                int dx2 = isNoHeaderLine(kv.getHeaderRight(), i - 1) ? cellSize : 0;
+                g.drawLine(new Vector(dx1, (i + 1) * cellSize), new Vector((kvWidth + 2) * cellSize - dx2, (i + 1) * cellSize), styleTable);
+            }
+        }
+    }
+
     private boolean isNoHeaderLine(KarnaughMap.Header header, int i) {
         if (header == null) return false;
         if (i < 0 || i >= header.size() - 1) return false;
@@ -252,6 +363,33 @@ public class KarnaughMapComponent extends JComponent {
             int var = header.getVar();
             boolean invert = header.getInvert(i);
             drawFragment(var, invert, pos, i + 1, 0, dy);
+        }
+    }
+
+    private void drawHeaderTo(Graphic g, KarnaughMap.Header header, int dir, int pos) {
+        if (header == null) return;
+        for (int i = 0; i < header.size(); i++) {
+            int d = 0;
+            if (isNoHeaderLine(header, i)) {
+                i++;
+                d = cellSize / 2;
+            }
+            int var = header.getVar();
+            //boolean invert = header.getInvert(i);
+
+            FontMetrics fontMetrics = gr.getFontMetrics();
+            int xPos = (cellSize) / 2;
+            int yPos = cellSize - (cellSize / 2) - fontMetrics.getDescent();
+
+            if (dir == HORIZONTAL) {
+                int xFr = (i + 1) * cellSize + xPos - d;
+                int yFr = pos * cellSize + yPos;
+                g.drawText(new Vector(xFr, yFr), vars.get(var).toString(), Orientation.CENTERCENTER, Style.NORMAL_TEXT);
+            } else {
+                int xFr = pos * cellSize + xPos;
+                int yFr = (i + 1) * cellSize + yPos - d;
+                g.drawText(new Vector(xFr, yFr), vars.get(var).toString(), Orientation.CENTERCENTER, Style.NORMAL_TEXT);
+            }
         }
     }
     //CHECKSTYLE.ON: ModifiedControlVariable

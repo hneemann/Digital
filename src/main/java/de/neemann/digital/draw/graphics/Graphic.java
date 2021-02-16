@@ -51,6 +51,19 @@ public abstract class Graphic implements Closeable {
     public abstract void drawPolygon(Polygon p, Style style);
 
     /**
+     * Draws a round rect
+     *
+     * @param p1        upper left corner of the rectangle to draw
+     * @param width     width of the rectangle to draw
+     * @param height    height of the rectangle to draw
+     * @param arcWidth  the horizontal diameter of the arc at the four corners
+     * @param arcHeight the vertical diameter of the arc at the four corners
+     * @param style     the style
+     *
+     */
+    public abstract void drawRoundRect(VectorInterface p1, int width, int height, int arcWidth, int arcHeight, Style style);
+
+    /**
      * Draws a circle
      *
      * @param p1    upper left corner of outer rectangle containing the circle
@@ -124,6 +137,7 @@ public abstract class Graphic implements Closeable {
      *
      * @throws IOException IOException
      */
+    @Override
     public void close() throws IOException {
     }
 }

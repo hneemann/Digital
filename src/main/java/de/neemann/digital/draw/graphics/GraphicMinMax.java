@@ -5,12 +5,12 @@
  */
 package de.neemann.digital.draw.graphics;
 
-import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
+import static de.neemann.digital.draw.graphics.GraphicSwing.getMirrorYOrientation;
 
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
-import static de.neemann.digital.draw.graphics.GraphicSwing.getMirrorYOrientation;
+import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
 
 /**
  * This class is used to determine the size of shapes or the whole circuit.
@@ -60,6 +60,10 @@ public class GraphicMinMax extends Graphic {
     @Override
     public void drawPolygon(Polygon p, Style style) {
         p.traverse(this::check);
+    }
+
+    @Override
+    public void drawRoundRect(VectorInterface p1, int width, int height, int arcWidth, int arcHeight, Style style) {
     }
 
     @Override

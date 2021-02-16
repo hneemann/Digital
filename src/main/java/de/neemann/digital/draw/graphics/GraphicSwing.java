@@ -5,12 +5,13 @@
  */
 package de.neemann.digital.draw.graphics;
 
-import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
-
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
+
+import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
 
 /**
  * Used to draw on a {@link Graphics2D} instance.
@@ -89,6 +90,10 @@ public class GraphicSwing extends Graphic {
             gr.fill(path);
         if (style.getThickness() > 0)
             gr.draw(path);
+    }
+
+    @Override
+    public void drawRoundRect(VectorInterface p1, int width, int height, int arcWidth, int arcHeight, Style style) {
     }
 
     @Override
