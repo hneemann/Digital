@@ -100,6 +100,18 @@ public class CSVImporterTest extends TestCase {
         assertEquals(ThreeStateValue.one, tt.getResult(1).get(3));
     }
 
+    public void testBug1() throws IOException {
+        TruthTable tt = CSVImporter.readCSV("A,B,,Y,X,Z\n1,1,,1,1,1\n1,0,,0,1,1\n0,1,,0,1,1");
+        assertNotNull(tt);
+
+        try {
+            CSVImporter.readCSV("A,B,,Y,X,Z\n1,1,,1,1,1\n1,0,,0,1,1,1\n0,1,,0,1,1");
+            fail();
+        } catch (IOException e) {
+            assertTrue(true);
+        }
+    }
+
     public void testIncomplete() {
         try {
             CSVImporter.readCSV("\n\n");
@@ -142,7 +154,6 @@ public class CSVImporterTest extends TestCase {
         } catch (IOException e) {
             assertTrue(true);
         }
-
     }
 
 

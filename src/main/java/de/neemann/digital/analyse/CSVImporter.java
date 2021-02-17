@@ -96,6 +96,7 @@ public final class CSVImporter {
     }
 
     private static void parseLine(TruthTable tt, String line) throws IOException {
+        int resNum = tt.getResultCount();
         int varNum = tt.getVars().size();
         int mask = 1 << (varNum - 1);
         ArrayList<Integer> dc = new ArrayList<>();
@@ -116,7 +117,7 @@ public final class CSVImporter {
                         dc.add(mask);
                     mask = mask >> 1;
                 } else {
-                    if (rCol >= varNum)
+                    if (rCol >= resNum)
                         throw new IOException(Lang.get("err_csvToManyValues"));
                     if (e.equals("1"))
                         generator.addCol(rCol);
