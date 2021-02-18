@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.extern;
 
+import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.handler.ProcessInterface;
 import de.neemann.digital.core.extern.handler.StdIOInterface;
@@ -23,15 +24,19 @@ import java.util.LinkedList;
  * See http://iverilog.icarus.com/
  */
 public class ApplicationIVerilog extends ApplicationVerilogStdIO {
+    private final ElementAttributes attr;
+    private final boolean hasIverilog;
     private String iverilogFolder;
     private String iverilog;
     private String vvp;
-    private final boolean hasIverilog;
 
     /**
      * Initialize a new instance
+     *
+     * @param attr the components attributes
      */
-    public ApplicationIVerilog() {
+    public ApplicationIVerilog(ElementAttributes attr) {
+        this.attr = attr;
         iverilogFolder = "";
         hasIverilog = findIVerilog();
     }
@@ -49,7 +54,15 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
 
             file = createVerilogFile(label, code, inputs, outputs);
             String testOutputName = label + ".out";
-            String m1 = ProcessStarter.start(file.getParentFile(), iverilog, "-tvvp", "-o" + testOutputName, file.getName());
+            ProcessStarter.start(file.getParentFile(), new Options()
+                    .add(iverilog)
+                    .add("-tvvp")
+                    .add("-o")
+                    .add(testOutputName)
+                    .add(attr, Keys.IVERILOG_OPTIONS)
+                    .add(file.getName())
+                    .getArray()
+            );
             ProcessBuilder pb = new ProcessBuilder(vvp, "-M", ivlModuleDir, testOutputName).redirectErrorStream(true).directory(file.getParentFile());
             return new IVerilogProcessInterface(pb.start(), file.getParentFile());
         } catch (IOException e) {
@@ -87,7 +100,15 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
             file = createVerilogFile(label, code, inputs, outputs);
             String testOutputName = label + ".out";
 
-            return ProcessStarter.start(file.getParentFile(), iverilog, "-tvvp", "-o" + testOutputName, file.getName());
+            return ProcessStarter.start(file.getParentFile(), new Options()
+                    .add(iverilog)
+                    .add("-tvvp")
+                    .add("-o")
+                    .add(testOutputName)
+                    .add(attr, Keys.IVERILOG_OPTIONS)
+                    .add(file.getName())
+                    .getArray()
+            );
         } catch (IOException e) {
             if (iverilogNotFound(e))
                 throw new IOException(Lang.get("err_iverilogNotInstalled"));

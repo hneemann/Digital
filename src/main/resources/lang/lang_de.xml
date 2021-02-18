@@ -1481,6 +1481,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     </string>
     <string name="key_ghdlOptions">GHDL Optionen</string>
     <string name="key_ghdlOptions_tt">Optionen, die für alle Bearbeitungsschritte durch GHDL verwendet werden.</string>
+    <string name="key_iverilogOptions">IVerilog Optionen</string>
+    <string name="key_iverilogOptions_tt">Optionen, die für alle Bearbeitungsschritte durch IVerilog verwendet werden.</string>
     <string name="key_iverilogPath">IVerilog</string>
     <string name="key_iverilogPath_tt">Pfad zum Icarus-Verilog-Installationsordner. Nur notwendig, wenn Sie iverilog
         verwenden möchten, um mit Verilog definierte Komponenten zu simulieren.

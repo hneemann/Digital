@@ -741,6 +741,12 @@ public final class Keys {
             = new Key.LongString("ghdlOptions", "--std=08 --ieee=synopsys").setRows(3).setColumns(30).setPanelId("Options");
 
     /**
+     * The iverilog options
+     */
+    public static final Key<String> IVERILOG_OPTIONS
+            = new Key.LongString("iverilogOptions", "").setRows(3).setColumns(30).setPanelId("Options");
+
+    /**
      * Path to iverilog installation directory
      */
     public static final Key<File> SETTINGS_IVERILOG_PATH
