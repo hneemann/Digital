@@ -23,6 +23,10 @@
           <appType>GHDL</appType>
         </entry>
         <entry>
+          <string>ghdlOptions</string>
+          <string>--std=08 --ieee=synopsys</string>
+        </entry>
+        <entry>
           <string>externalInputs</string>
           <string>a:4,b:4,c_i</string>
         </entry>

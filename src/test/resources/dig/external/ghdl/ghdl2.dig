@@ -132,6 +132,10 @@ end loop
           <appType>GHDL</appType>
         </entry>
         <entry>
+          <string>ghdlOptions</string>
+          <string>--std=08 --ieee=synopsys</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>add</string>
         </entry>
@@ -198,6 +202,10 @@ end add_arch;</string>
         <entry>
           <string>applicationType</string>
           <appType>GHDL</appType>
+        </entry>
+        <entry>
+          <string>ghdlOptions</string>
+          <string>--std=08 --ieee=synopsys</string>
         </entry>
         <entry>
           <string>Label</string>

@@ -11,6 +11,10 @@
           <appType>GHDL</appType>
         </entry>
         <entry>
+          <string>ghdlOptions</string>
+          <string>--std=08 --ieee=synopsys</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>add</string>
         </entry>
