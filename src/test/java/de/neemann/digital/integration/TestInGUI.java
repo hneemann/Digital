@@ -1195,14 +1195,13 @@ public class TestInGUI extends TestCase {
             xMin -= loc.x + SIZE * 5;
             yMin -= loc.y + SIZE * 2;
 
+            boolean firstWire = true;
             for (Wire w : circuit.getWires()) {
-                guiTester.mouseClickNow(w.p1.x - xMin, w.p1.y - yMin, InputEvent.BUTTON1_DOWN_MASK);
-                if (w.p1.x != w.p2.x && w.p1.y != w.p2.y)
-                    guiTester.typeNow("typed d");
-
-                guiTester.mouseClickNow(w.p2.x - xMin, w.p2.y - yMin, InputEvent.BUTTON1_DOWN_MASK);
-                Thread.sleep(50);
-                guiTester.mouseClickNow(w.p2.x - xMin, w.p2.y - yMin, InputEvent.BUTTON3_DOWN_MASK);
+                if (firstWire) {       // Draw first wire twice! Sometimes the first wire is lost and i can't figure out why!
+                    firstWire = false; // This is a dirty hack!
+                    drawWire(guiTester, xMin, yMin, w);
+                }
+                drawWire(guiTester, xMin, yMin, w);
             }
 
             for (VisualElement v : circuit.getElements()) {
@@ -1214,6 +1213,16 @@ public class TestInGUI extends TestCase {
                 guiTester.mouseClickNow(pos.x - xMin, pos.y - yMin, InputEvent.BUTTON1_DOWN_MASK);
                 Thread.sleep(400);
             }
+        }
+
+        private void drawWire(GuiTester guiTester, int xMin, int yMin, Wire w) throws InterruptedException {
+            guiTester.mouseClickNow(w.p1.x - xMin, w.p1.y - yMin, InputEvent.BUTTON1_DOWN_MASK);
+            if (w.p1.x != w.p2.x && w.p1.y != w.p2.y)
+                guiTester.typeNow("typed d");
+
+            guiTester.mouseClickNow(w.p2.x - xMin, w.p2.y - yMin, InputEvent.BUTTON1_DOWN_MASK);
+            Thread.sleep(50);
+            guiTester.mouseClickNow(w.p2.x - xMin, w.p2.y - yMin, InputEvent.BUTTON3_DOWN_MASK);
         }
     }
 
