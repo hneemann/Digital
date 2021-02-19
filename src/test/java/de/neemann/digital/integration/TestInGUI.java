@@ -170,7 +170,7 @@ public class TestInGUI extends TestCase {
         new GuiTester()
                 .delay(500)
                 .press("F5")
-                .mouseMove(100, 100)
+                .mouseMove(100, 110)
                 .delay(300)
                 .mouseClick(InputEvent.BUTTON1_DOWN_MASK)
                 .delay(200)
