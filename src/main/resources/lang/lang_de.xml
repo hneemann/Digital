@@ -1216,6 +1216,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_ROM_noFileGivenToLoad">Es ist kein Dateiname für das automatische Neuladen verfügbar!</string>
     <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">Virtuelles Signal {0} doppelt definiert in Zeile {1}!</string>
 
+    <string name="err_csvNoHeaderFound">Kein Header gefunden!</string>
+    <string name="err_csvNoOutputValuesFound">Keine Ausganswerte gefunden!</string>
+    <string name="err_csvNotEnoughValues">Nicht genug Werte in einer Zeile!</string>
+    <string name="err_csvToManyValues">Zu viel Werte in einer Zeile!</string>
+
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
     <string name="key_Bits">Daten-Bits</string>
@@ -1835,8 +1840,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         rein kombinatorisch ist!
     </string>
 
-    <string name="menu_table_exportHex">Erzeuge HEX</string>
+    <string name="menu_table_exportHex">HEX</string>
     <string name="menu_table_exportHex_tt">Die HEX-Datei kann in ein ROM oder eine LUT geladen werden.</string>
+    <string name="menu_table_exportCSV">CSV</string>
+    <string name="menu_table_exportCSV_tt">Eine CSV Datei, welche die komplette Warheitstabelle enthält.</string>
+    <string name="menu_table_exportCSVCondensed">CSV, Primimplikanten</string>
+    <string name="menu_table_exportCSVCondensed_tt">Eine CSV Datei, welche nur die Primimplikanten enthält.</string>
     <string name="menu_table_new">Neu</string>
     <string name="menu_table_new_combinatorial">Kombinatorisch</string>
     <string name="menu_table_new_sequential">Automat</string>
@@ -2059,6 +2068,7 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="msg_testPassed_N">{0} Testzeilen überprüft</string>
     <string name="msg_testFile">Testdatei</string>
     <string name="msg_truthTable">Wahrheitstabelle</string>
+    <string name="msg_truthTableCSV">Comma Separated Values, CSV</string>
     <string name="msg_errorImportingSvg">Fehler beim Import der SVG-Datei.</string>
     <string name="msg_errorCreatingSvgTemplate">Fehler beim Erzeugen der SVG-Datei.</string>
     <string name="msg_couldNotCreateStats">Statistik konnte nicht erzeugt werden.</string>

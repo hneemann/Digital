@@ -14,8 +14,6 @@ import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.quinemc.BoolTable;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
-import de.neemann.digital.analyse.quinemc.ThreeStateValue;
-import de.neemann.digital.lang.Lang;
 import de.neemann.digital.undo.Copyable;
 
 import java.io.*;
@@ -41,9 +39,13 @@ public class TruthTable implements Copyable<TruthTable> {
      * @throws IOException IOException
      */
     public static TruthTable readFromFile(File filename) throws IOException {
-        XStream xStream = getxStream();
-        try (InputStream in = new FileInputStream(filename)) {
-            return (TruthTable) xStream.fromXML(in);
+        if (filename.getName().toLowerCase().endsWith(".csv"))
+            return CSVImporter.readCSV(filename);
+        else {
+            XStream xStream = getxStream();
+            try (InputStream in = new FileInputStream(filename)) {
+                return (TruthTable) xStream.fromXML(in);
+            }
         }
     }
 
@@ -60,45 +62,6 @@ public class TruthTable implements Copyable<TruthTable> {
             xStream.marshal(this, new PrettyPrintWriter(out));
         }
     }
-
-    /**
-     * Save the table as hex file to be loaded in a ROM or LUT element.
-     *
-     * @param filename filename
-     * @throws IOException IOException
-     */
-    public void saveHex(File filename) throws IOException {
-        if (results.size() > 63)
-            throw new IOException(Lang.get("err_tableHasToManyResultColumns"));
-
-        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8))) {
-            saveHex(out);
-        }
-    }
-
-    /**
-     * Save the table as hex file to be loaded in a ROM or LUT element.
-     *
-     * @param writer the filename to use
-     * @throws IOException IOException
-     */
-    public void saveHex(Writer writer) throws IOException {
-        writer.write("v2.0 raw\n");
-        int count = results.get(0).getValues().size();
-        for (int i = 0; i < count; i++) {
-            long val = 0;
-            long mask = 1;
-            for (Result r : results) {
-                ThreeStateValue v = r.getValues().get(i);
-                if (v == ThreeStateValue.one)
-                    val |= mask;
-                mask *= 2;
-            }
-            writer.write(Long.toHexString(val));
-            writer.write('\n');
-        }
-    }
-
 
     private static XStream getxStream() {
         XStream xStream = new XStreamValid();

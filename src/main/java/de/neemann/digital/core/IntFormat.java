@@ -499,9 +499,17 @@ public enum IntFormat {
 
             switch (inValue.getBits()) {
                 case 32:
-                    return Float.toString(Float.intBitsToFloat((int) inValue.getValue()));
+                    float f = Float.intBitsToFloat((int) inValue.getValue());
+                    if (Float.isFinite(f))
+                        return Float.toString(f);
+                    else
+                        return HEX_FORMATTER.formatToEdit(inValue);
                 case 64:
-                    return Double.longBitsToDouble(inValue.getValue()) + "d";
+                    double d = Double.longBitsToDouble(inValue.getValue());
+                    if (Double.isFinite(d))
+                        return d + "d";
+                    else
+                        return HEX_FORMATTER.formatToEdit(inValue);
                 default:
                     return HEX_FORMATTER.formatToEdit(inValue);
             }

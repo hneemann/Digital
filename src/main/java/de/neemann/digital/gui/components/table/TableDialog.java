@@ -16,6 +16,8 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.analyse.expression.modify.*;
 import de.neemann.digital.analyse.format.TruthTableFormatter;
+import de.neemann.digital.analyse.format.TruthTableFormatterCSV;
+import de.neemann.digital.analyse.format.TruthTableFormatterHex;
 import de.neemann.digital.analyse.format.TruthTableFormatterTestCase;
 import de.neemann.digital.analyse.quinemc.BoolTableByteArray;
 import de.neemann.digital.builder.ATF150x.ATFDevice;
@@ -60,7 +62,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -373,6 +377,7 @@ public class TableDialog extends JDialog {
                 JFileChooser fc = new MyFileChooser();
                 if (TableDialog.this.filename != null)
                     fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "tru"));
+                fc.setFileFilter(new FileNameExtensionFilter(Lang.get("msg_truthTableCSV"), "csv"));
                 fc.setFileFilter(new FileNameExtensionFilter(Lang.get("msg_truthTable"), "tru"));
                 if (fc.showOpenDialog(TableDialog.this) == JFileChooser.APPROVE_OPTION) {
                     try {
@@ -437,22 +442,29 @@ public class TableDialog extends JDialog {
             }
         }.setToolTip(Lang.get("menu_table_createFunctionFixture_tt")).createJMenuItem());
 
-        fileMenu.add(new ToolTipAction(Lang.get("menu_table_exportHex")) {
+        JMenu export = new JMenu(Lang.get("menu_export"));
+        fileMenu.add(export);
+        export.add(new FileExportActionConfirm(Lang.get("menu_table_exportHex"), "hex") {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                int res = JOptionPane.OK_OPTION;
-                if (undoManager.getActual().getVars().size() > 20)
-                    res = JOptionPane.showConfirmDialog(TableDialog.this, Lang.get("msg_tableHasManyRowsConfirm"));
-                if (res == JOptionPane.OK_OPTION) {
-                    JFileChooser fc = new MyFileChooser();
-                    if (TableDialog.this.filename != null)
-                        fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, "hex"));
-                    new SaveAsHelper(TableDialog.this, fc, "hex")
-                            .checkOverwrite(file -> undoManager.getActual().saveHex(file));
-                }
+            protected String getString() throws ExpressionException {
+                return new TruthTableFormatterHex().format(undoManager.getActual());
             }
         }.setToolTip(Lang.get("menu_table_exportHex_tt")).createJMenuItem());
-
+        export.add(new FileExportAction(Lang.get("menu_table_exportCSVCondensed"), "csv") {
+            @Override
+            protected String getString() throws FormatterException, ExpressionException {
+                ExpressionListenerCSVCondensed expressionListener = new ExpressionListenerCSVCondensed();
+                lastGeneratedExpressions.replayTo(expressionListener);
+                expressionListener.close();
+                return expressionListener.toString();
+            }
+        }.setToolTip(Lang.get("menu_table_exportCSVCondensed_tt")).createJMenuItem());
+        export.add(new FileExportActionConfirm(Lang.get("menu_table_exportCSV"), "csv") {
+            @Override
+            protected String getString() throws ExpressionException {
+                return new TruthTableFormatterCSV().format(undoManager.getActual());
+            }
+        }.setToolTip(Lang.get("menu_table_exportCSV_tt")).createJMenuItem());
 
         createJK = new JCheckBoxMenuItem(Lang.get("menu_table_JK"));
         createJK.addActionListener(e -> calculateExpressions());
@@ -998,4 +1010,55 @@ public class TableDialog extends JDialog {
 
         abstract ExpressionListener createExpressionListener() throws ExpressionException;
     }
+
+    private abstract class FileExportAction extends ToolTipAction {
+        private final String suffix;
+
+        private FileExportAction(String name, String suffix) {
+            super(name);
+            this.suffix = suffix;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (confirmExport()) {
+                JFileChooser fc = new MyFileChooser();
+                if (TableDialog.this.filename != null)
+                    fc.setSelectedFile(SaveAsHelper.checkSuffix(TableDialog.this.filename, suffix));
+                new SaveAsHelper(TableDialog.this, fc, suffix)
+                        .checkOverwrite(file -> {
+                            try {
+                                try (Writer w = new FileWriter(file)) {
+                                    w.write(getString());
+                                }
+                            } catch (FormatterException | ExpressionException ex) {
+                                throw new IOException(ex);
+                            }
+                        });
+            }
+        }
+
+        protected boolean confirmExport() {
+            return true;
+        }
+
+        protected abstract String getString() throws FormatterException, ExpressionException;
+    }
+
+    private abstract class FileExportActionConfirm extends FileExportAction {
+
+        private FileExportActionConfirm(String name, String suffix) {
+            super(name, suffix);
+        }
+
+        @Override
+        protected boolean confirmExport() {
+            int res = JOptionPane.OK_OPTION;
+            if (undoManager.getActual().getVars().size() > 20)
+                res = JOptionPane.showConfirmDialog(TableDialog.this, Lang.get("msg_tableHasManyRowsConfirm"));
+            return res == JOptionPane.OK_OPTION;
+        }
+
+    }
+
 }

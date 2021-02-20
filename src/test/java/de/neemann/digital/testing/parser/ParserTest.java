@@ -50,21 +50,27 @@ public class ParserTest extends TestCase {
     }
 
     public void testHex() throws IOException, ParserException {
-        Parser parser = new Parser("A B\n0 0xff").parse();
-        LineCollector td = new LineCollector(parser);
-        assertEquals(2, td.getNames().size());
-
-        assertEquals(1, td.getLines().size());
-
-        assertEquals(0, td.getLines().get(0).getValue(0).getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(0).getType());
-
-        assertEquals(255, td.getLines().get(0).getValue(1).getValue());
-        assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(1).getType());
+        checkValueParser("A B\n0 0xff", 255);
     }
 
     public void testBin() throws IOException, ParserException {
-        Parser parser = new Parser("A B\n0 0b11111111").parse();
+        checkValueParser("A B\n0 0b11111111", 255);
+    }
+
+    public void testFixed() throws IOException, ParserException {
+        checkValueParser("A B\n0 0.5:4", 8);
+    }
+
+    public void testFloat() throws IOException, ParserException {
+        checkValueParser("A B\n0 0.5", Float.floatToIntBits(0.5f));
+    }
+
+    public void testDouble() throws IOException, ParserException {
+        checkValueParser("A B\n0 0.5d", Double.doubleToLongBits(0.5));
+    }
+
+    void checkValueParser(String s, long val) throws IOException, ParserException {
+        Parser parser = new Parser(s).parse();
         LineCollector td = new LineCollector(parser);
         assertEquals(2, td.getNames().size());
 
@@ -73,7 +79,7 @@ public class ParserTest extends TestCase {
         assertEquals(0, td.getLines().get(0).getValue(0).getValue());
         assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(0).getType());
 
-        assertEquals(255, td.getLines().get(0).getValue(1).getValue());
+        assertEquals(val, td.getLines().get(0).getValue(1).getValue());
         assertEquals(Value.Type.NORMAL, td.getLines().get(0).getValue(1).getType());
     }
 
