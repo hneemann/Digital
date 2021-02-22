@@ -128,35 +128,44 @@ public class ResolveGenerics {
         ArrayList<VisualElement> newComponents = new ArrayList<>();
         ArrayList<Wire> newWires = new ArrayList<>();
 
-        for (VisualElement ve : c.getElements()) {
-            ElementAttributes elementAttributes = ve.getElementAttributes();
-            String gen = elementAttributes.get(Keys.GENERIC).trim();
-            try {
-                if (!gen.isEmpty()) {
-                    ElementTypeDescription elementTypeDescription = library.getElementType(ve.getElementName(), elementAttributes);
+        for (VisualElement ve : c.getElements())
+            if (ve.equalsDescription(GenericCode.DESCRIPTION))
+                handleVisualElement(c, ve, args, newComponents, newWires);
+        args.lock(); // allow write only in code components
+        for (VisualElement ve : c.getElements())
+            if (!ve.equalsDescription(GenericCode.DESCRIPTION))
+                handleVisualElement(c, ve, args, newComponents, newWires);
 
-                    boolean isCustom = elementTypeDescription instanceof ElementTypeDescriptionCustom;
-                    Statement genS = getStatement(gen);
-                    Context mod = createContext(c, newComponents, newWires, args)
-                            .declareVar("args", args);
-                    if (isCustom) {
-                        mod.declareFunc("setCircuit", new SetCircuitFunc(ve));
-                        genS.execute(mod);
-                    } else {
-                        mod.declareVar("this", new SubstituteLibrary.AllowSetAttributes(elementAttributes));
-                        genS.execute(mod);
-                    }
-                    elementAttributes.putToCache(GEN_ARGS_KEY, mod);
-                }
-            } catch (HGSEvalException | ParserException | IOException e) {
-                throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
-            }
-        }
         c.add(newWires);
         for (VisualElement ve : newComponents)
             c.add(ve);
 
         return new CircuitHolder(c, args);
+    }
+
+    private void handleVisualElement(Circuit c, VisualElement ve, Args args, ArrayList<VisualElement> newComponents, ArrayList<Wire> newWires) throws ElementNotFoundException, NodeException {
+        ElementAttributes elementAttributes = ve.getElementAttributes();
+        String gen = elementAttributes.get(Keys.GENERIC).trim();
+        try {
+            if (!gen.isEmpty()) {
+                ElementTypeDescription elementTypeDescription = library.getElementType(ve.getElementName(), elementAttributes);
+
+                boolean isCustom = elementTypeDescription instanceof ElementTypeDescriptionCustom;
+                Statement genS = getStatement(gen);
+                Context mod = createContext(c, newComponents, newWires, args)
+                        .declareVar("args", args);
+                if (isCustom) {
+                    mod.declareFunc("setCircuit", new SetCircuitFunc(ve));
+                    genS.execute(mod);
+                } else {
+                    mod.declareVar("this", new SubstituteLibrary.AllowSetAttributes(elementAttributes));
+                    genS.execute(mod);
+                }
+                elementAttributes.putToCache(GEN_ARGS_KEY, mod);
+            }
+        } catch (HGSEvalException | ParserException | IOException e) {
+            throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
+        }
     }
 
     private Context createContext(Circuit circuit, ArrayList<VisualElement> newComponents, ArrayList<Wire> newWires, Args args) throws NodeException {
@@ -188,9 +197,11 @@ public class ResolveGenerics {
      */
     public static final class Args implements HGSMap {
         private final Context args;
+        private boolean writeEnabled;
 
         private Args(Context args) {
             this.args = args;
+            writeEnabled = true;
         }
 
         @Override
@@ -203,6 +214,18 @@ public class ResolveGenerics {
                 }
             }
             return v;
+        }
+
+        @Override
+        public void hgsMapPut(String key, Object val) throws HGSEvalException {
+            if (writeEnabled)
+                args.declareVar(key, val);
+            else
+                args.hgsMapPut(key, val);
+        }
+
+        private void lock() {
+            writeEnabled = false;
         }
 
         @Override
