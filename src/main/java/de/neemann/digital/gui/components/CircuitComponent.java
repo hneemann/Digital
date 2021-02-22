@@ -131,6 +131,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private boolean hadFocusAtClick = true;
     private boolean lockMessageShown = false;
     private boolean antiAlias = true;
+    private double lastScaleX = 0;
 
     private Style highLightStyle = Style.HIGHLIGHT;
     private Circuit shallowCopy;
@@ -880,10 +881,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             getCircuitOrShallowCopy().drawTo(gr, highLighted, highLightStyle, modelSync);
             time = System.currentTimeMillis() - time;
 
-            if (time > 500) antiAlias = false;
+            boolean scaleHasChanged = lastScaleX != scaleX;
+            if (time > 500 && !scaleHasChanged) antiAlias = false;
             if (time < 50) antiAlias = true;
 
-//            System.out.println("repaint: " + time + "ms");
+            //System.out.println("repaint: " + time + "ms, "+scaleHasChanged);
 
             graphicHasChangedFlag = false;
         }
@@ -897,6 +899,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         gr.enableAntiAlias(activeMouseController.drawables() < 200);
         activeMouseController.drawTo(gr);
         gr2.setTransform(oldTrans);
+
+        lastScaleX = scaleX;
     }
 
     private void drawGrid(Graphics2D gr2) {
