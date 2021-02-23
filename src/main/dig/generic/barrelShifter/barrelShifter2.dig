@@ -69,6 +69,7 @@ for (i:=0;i&lt;sh;i++) {
     addWire(x-1,i+5,x-1,2);
     addWire(x-1,2,x,2);
 }
+global.shift:=sh;
 
 o:=addComponent(&quot;Out&quot;,sh*5+2,0);
 o.Bits=args.dataBits;
@@ -86,7 +87,7 @@ o.Label=&quot;Out&quot;;</string>
         </entry>
         <entry>
           <string>generic</string>
-          <string>this.Bits=bitsNeededFor(args.dataBits)-1;</string>
+          <string>this.Bits=global.shift;</string>
         </entry>
       </elementAttributes>
       <pos x="-60" y="100"/>
@@ -100,9 +101,8 @@ o.Label=&quot;Out&quot;;</string>
         </entry>
         <entry>
           <string>generic</string>
-          <string>sh:=bitsNeededFor(args.dataBits)-1;
-this.&apos;Input Splitting&apos;=&quot;&quot;+sh;
-this.&apos;Output Splitting&apos;=&quot;1*&quot;+sh;</string>
+          <string>this.&apos;Input Splitting&apos;=&quot;&quot;+global.shift;
+this.&apos;Output Splitting&apos;=&quot;1*&quot;+global.shift;</string>
         </entry>
         <entry>
           <string>Output Splitting</string>

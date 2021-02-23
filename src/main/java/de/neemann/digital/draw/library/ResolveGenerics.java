@@ -37,6 +37,7 @@ public class ResolveGenerics {
      */
     public static final String GEN_ARGS_KEY = "genArgs";
     private static final String SETTINGS_KEY = "settings";
+    private static final String GLOBALS_KEY = "global";
     private final HashMap<String, Statement> map;
     private final HashMap<Args, CircuitHolder> circuitMap;
     private final Circuit circuit;
@@ -128,35 +129,48 @@ public class ResolveGenerics {
         ArrayList<VisualElement> newComponents = new ArrayList<>();
         ArrayList<Wire> newWires = new ArrayList<>();
 
-        for (VisualElement ve : c.getElements()) {
-            ElementAttributes elementAttributes = ve.getElementAttributes();
-            String gen = elementAttributes.get(Keys.GENERIC).trim();
-            try {
-                if (!gen.isEmpty()) {
-                    ElementTypeDescription elementTypeDescription = library.getElementType(ve.getElementName(), elementAttributes);
-
-                    boolean isCustom = elementTypeDescription instanceof ElementTypeDescriptionCustom;
-                    Statement genS = getStatement(gen);
-                    Context mod = createContext(c, newComponents, newWires, args)
-                            .declareVar("args", args);
-                    if (isCustom) {
-                        mod.declareFunc("setCircuit", new SetCircuitFunc(ve));
-                        genS.execute(mod);
-                    } else {
-                        mod.declareVar("this", new SubstituteLibrary.AllowSetAttributes(elementAttributes));
-                        genS.execute(mod);
-                    }
-                    elementAttributes.putToCache(GEN_ARGS_KEY, mod);
-                }
-            } catch (HGSEvalException | ParserException | IOException e) {
-                throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
+        Globals globals = new Globals();
+        for (VisualElement ve : c.getElements())
+            if (ve.equalsDescription(GenericCode.DESCRIPTION)) {
+                handleVisualElement(c, ve, args, newComponents, newWires, globals);
+                globals.lock(); // allow write only in first code component
             }
-        }
+        globals.lock(); // allow write only in code components
+        for (VisualElement ve : c.getElements())
+            if (!ve.equalsDescription(GenericCode.DESCRIPTION))
+                handleVisualElement(c, ve, args, newComponents, newWires, globals);
+
         c.add(newWires);
         for (VisualElement ve : newComponents)
             c.add(ve);
 
         return new CircuitHolder(c, args);
+    }
+
+    private void handleVisualElement(Circuit c, VisualElement ve, Args args, ArrayList<VisualElement> newComponents, ArrayList<Wire> newWires, Globals globals) throws ElementNotFoundException, NodeException {
+        ElementAttributes elementAttributes = ve.getElementAttributes();
+        String gen = elementAttributes.get(Keys.GENERIC).trim();
+        try {
+            if (!gen.isEmpty()) {
+                ElementTypeDescription elementTypeDescription = library.getElementType(ve.getElementName(), elementAttributes);
+
+                boolean isCustom = elementTypeDescription instanceof ElementTypeDescriptionCustom;
+                Statement genS = getStatement(gen);
+                Context mod = createContext(c, newComponents, newWires, args)
+                        .declareVar(GLOBALS_KEY, globals)
+                        .declareVar("args", args);
+                if (isCustom) {
+                    mod.declareFunc("setCircuit", new SetCircuitFunc(ve));
+                    genS.execute(mod);
+                } else {
+                    mod.declareVar("this", new SubstituteLibrary.AllowSetAttributes(elementAttributes));
+                    genS.execute(mod);
+                }
+                elementAttributes.putToCache(GEN_ARGS_KEY, mod);
+            }
+        } catch (HGSEvalException | ParserException | IOException e) {
+            throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", ve, gen), e);
+        }
     }
 
     private Context createContext(Circuit circuit, ArrayList<VisualElement> newComponents, ArrayList<Wire> newWires, Args args) throws NodeException {
@@ -310,7 +324,7 @@ public class ResolveGenerics {
             return;
         }
 
-        if (!key.equals(Context.BASE_FILE_KEY) && !key.equals(SETTINGS_KEY)) {
+        if (!key.equals(Context.BASE_FILE_KEY) && !key.equals(SETTINGS_KEY) && !key.equals(GLOBALS_KEY)) {
             contentSet.add(key);
             sb.append(key).append(":=");
             if (val instanceof String) {
@@ -433,6 +447,28 @@ public class ResolveGenerics {
             }
 
             return new SubstituteLibrary.AllowSetAttributes(elementAttributes);
+        }
+    }
+
+    private static final class Globals implements HGSMap {
+        private final HashMap<String, Object> map = new HashMap<>();
+        private boolean writeEnable = true;
+
+        @Override
+        public void hgsMapPut(String key, Object val) throws HGSEvalException {
+            if (writeEnable)
+                map.put(key, val);
+            else
+                throw new HGSEvalException(Lang.get("err_writeInCodeComponentsOnly"));
+        }
+
+        @Override
+        public Object hgsMapGet(String key) throws HGSEvalException {
+            return map.get(key);
+        }
+
+        public void lock() {
+            writeEnable = false;
         }
     }
 }
