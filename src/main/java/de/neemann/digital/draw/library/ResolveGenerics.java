@@ -131,8 +131,10 @@ public class ResolveGenerics {
 
         Globals globals = new Globals();
         for (VisualElement ve : c.getElements())
-            if (ve.equalsDescription(GenericCode.DESCRIPTION))
+            if (ve.equalsDescription(GenericCode.DESCRIPTION)) {
                 handleVisualElement(c, ve, args, newComponents, newWires, globals);
+                globals.lock(); // allow write only in first code component
+            }
         globals.lock(); // allow write only in code components
         for (VisualElement ve : c.getElements())
             if (!ve.equalsDescription(GenericCode.DESCRIPTION))
