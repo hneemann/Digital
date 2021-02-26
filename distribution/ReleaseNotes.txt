@@ -1,7 +1,6 @@
 Release Notes
 
 HEAD, planned as v0.27
-
 - Added fixed point and floating point number formats.
 - Added a CSV truth table export and import.
 - Added a search field to the component tree view.
@@ -10,6 +9,11 @@ HEAD, planned as v0.27
   CAUTION: All the general settings are maybe lost at restart!
   To avoid this, open the .digital.cfg file and remove the <entry>
   containing the <string>ExpressionFormat</string> if it's present.
+
+v0.26.1 released on 26. Feb. 2021
+- fixes a bug that prevents a short from being detected
+  when no component is involved.
+- fixes an issue in the importer of logisim hex files.
 
 v0.26, released on 25. Jan. 2021
 - Performance improvement of the simulation start.
