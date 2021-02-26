@@ -1,5 +1,10 @@
 Release Notes
 
+v0.26.1 bug Fixes
+- fixes a bug bug that prevents a short from being detected
+  when no component is involved.
+- fixes an issue in the importer of logisim hex files.
+
 v0.26, released on 25. Jan. 2021
 - Performance improvement of the simulation start.
 - Improved the gui to modify the k-map layout.
