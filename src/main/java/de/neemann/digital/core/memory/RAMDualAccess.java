@@ -72,7 +72,7 @@ public class RAMDualAccess extends Node implements Element, RAMInterface {
         size = 1 << addrBits;
         memory = new DataField(size);
         label = attr.getLabel();
-        isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
+        isProgramMemory = attr.isProgramMemory();
     }
 
     @Override

@@ -17,37 +17,34 @@ import de.neemann.digital.core.element.Keys;
 import static de.neemann.digital.core.element.PinInfo.input;
 
 /**
- * A synchronized read memory which can be synthesised by using block ram.
+ * A asynchronous memory
  */
-public class BlockRAMDualPort extends Node implements Element, RAMInterface {
+public class RAMAsync extends Node implements Element, RAMInterface {
 
     /**
      * The RAMs {@link ElementTypeDescription}
      */
-    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(BlockRAMDualPort.class,
+    public static final ElementTypeDescription DESCRIPTION = new ElementTypeDescription(RAMAsync.class,
             input("A"),
-            input("Din"),
-            input("str"),
-            input("C").setClock())
+            input("D"),
+            input("we"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
             .addAttribute(Keys.ADDR_BITS)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
-            .addAttribute(Keys.LABEL)
-            .supportsHDL();
+            .addAttribute(Keys.INVERTER_CONFIG)
+            .addAttribute(Keys.LABEL);
 
-    private DataField memory;
+    private final DataField memory;
     private final ObservableValue output;
     private final int addrBits;
     private final int bits;
     private final String label;
     private final int size;
     private final boolean isProgramMemory;
-    private ObservableValue str;
+    private ObservableValue we;
     private ObservableValue addrIn;
     private ObservableValue dataIn;
-    private ObservableValue clkIn;
-    private boolean lastClk = false;
     private long outputVal;
 
     /**
@@ -55,10 +52,10 @@ public class BlockRAMDualPort extends Node implements Element, RAMInterface {
      *
      * @param attr the elements attributes
      */
-    public BlockRAMDualPort(ElementAttributes attr) {
+    public RAMAsync(ElementAttributes attr) {
         super(true);
         bits = attr.get(Keys.BITS);
-        output = new ObservableValue("D", bits).setPinDescription(DESCRIPTION);
+        output = new ObservableValue("Q", bits).setPinDescription(DESCRIPTION);
         addrBits = attr.get(Keys.ADDR_BITS);
         size = 1 << addrBits;
         memory = new DataField(size);
@@ -69,22 +66,17 @@ public class BlockRAMDualPort extends Node implements Element, RAMInterface {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        addrIn = inputs.get(0).checkBits(addrBits, this);
-        dataIn = inputs.get(1).checkBits(bits, this);
-        str = inputs.get(2).checkBits(1, this);
-        clkIn = inputs.get(3).checkBits(1, this).addObserverToValue(this);
+        addrIn = inputs.get(0).checkBits(addrBits, this).addObserverToValue(this);
+        dataIn = inputs.get(1).checkBits(bits, this).addObserverToValue(this);
+        we = inputs.get(2).checkBits(1, this).addObserverToValue(this);
     }
 
     @Override
     public void readInputs() throws NodeException {
-        boolean clk = clkIn.getBool();
-        if (!lastClk && clk) {
-            int addr = (int) addrIn.getValue();
-            outputVal = memory.getDataWord(addr);
-            if (str.getBool())
-                memory.setData(addr, dataIn.getValue());
-        }
-        lastClk = clk;
+        int addr = (int) addrIn.getValue();
+        if (we.getBool())
+            memory.setData(addr, dataIn.getValue());
+        outputVal = memory.getDataWord(addr);
     }
 
     @Override

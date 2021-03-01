@@ -71,7 +71,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
         addrBits = attr.get(Keys.ADDR_BITS);
         autoLoad = attr.get(Keys.AUTO_RELOAD_ROM);
         label = attr.getLabel();
-        isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
+        isProgramMemory = attr.isProgramMemory();
         if (autoLoad) {
             hexFile = attr.getFile(LAST_DATA_FILE_KEY);
         } else

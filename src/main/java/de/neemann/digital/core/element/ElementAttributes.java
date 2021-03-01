@@ -163,6 +163,13 @@ public class ElementAttributes implements HGSMap {
     }
 
     /**
+     * @return true if this is flagged as program memory.
+     */
+    public boolean isProgramMemory() {
+        return getLabel().contains("PROGRAM MEMORY") || get(Keys.IS_PROGRAM_MEMORY);
+    }
+
+    /**
      * @return the int number format
      */
     public ValueFormatter getValueFormatter() {

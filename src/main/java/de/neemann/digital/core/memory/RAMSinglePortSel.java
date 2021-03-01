@@ -71,7 +71,7 @@ public class RAMSinglePortSel extends Node implements Element, RAMInterface {
                 .setToHighZ()
                 .setPinDescription(DESCRIPTION)
                 .setBidirectional();
-        isProgramMemory = attr.get(Keys.IS_PROGRAM_MEMORY);
+        isProgramMemory = attr.isProgramMemory();
     }
 
     @Override

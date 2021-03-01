@@ -691,6 +691,15 @@
         stored.
     </string>
 
+    <string name="elem_RAMAsync">RAM, async.</string>
+    <string name="elem_RAMAsync_tt">As long as we is set, it is stored. Corresponds to a very simple RAM, where the
+        address and data lines are directly connected to the decoders of the memory cells.</string>
+    <string name="elem_RAMAsync_pin_A">The address at which reading or writing takes place.</string>
+    <string name="elem_RAMAsync_pin_D">The data to be stored.</string>
+    <string name="elem_RAMAsync_pin_we">Write enable. As long as this input is set to 1, the value applied to D is
+        stored at the address applied to A whenever A or D is changed.</string>
+    <string name="elem_RAMAsync_pin_Q">Output of the stored data.</string>
+
     <string name="elem_RegisterFile">Register File</string>
     <string name="elem_RegisterFile_short">Register</string>
     <string name="elem_RegisterFile_tt">Memory with one port that allows to write and two ports that allow to read from

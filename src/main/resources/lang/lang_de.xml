@@ -625,6 +625,15 @@
     </string>
     <string name="elem_RAMDualPort_pin_str">Ist diese Leitung high, wird das Datenwort gespeichert, wenn der Takt ansteigt.</string>
 
+    <string name="elem_RAMAsync">RAM, asynchron</string>
+    <string name="elem_RAMAsync_tt">Solange we gesetzt ist, wird gespeichert. Entspricht einem sehr einfachem RAM, bei
+        welchem die Adress- und Datenleitungen direkt mit den Decodern der Speicherzellen verbunden sind.</string>
+    <string name="elem_RAMAsync_pin_A">Die Adresse, an der gelesen bzw. geschrieben wird.</string>
+    <string name="elem_RAMAsync_pin_D">Die Daten, die gespeichert werden sollen.</string>
+    <string name="elem_RAMAsync_pin_we">Schreibfreigabe. Solange hier eine 1 anliegt, wird bei jeder Änderung von A oder D
+        der Wert der an D anliegt an der Adresse gespeichert welche bei A anliegt.</string>
+    <string name="elem_RAMAsync_pin_Q">Ausgabe der gespeicherten Daten.</string>
+
     <string name="elem_BlockRAMDualPort">Block-RAM, getrennte Ports</string>
     <string name="elem_BlockRAMDualPort_short">RAM</string>
     <string name="elem_BlockRAMDualPort_tt">Ein RAM Modul mit getrennten Daten-Anschlüssen für Lesen und Schreiben.
