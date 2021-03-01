@@ -43,8 +43,8 @@ public class VHDLSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(67, tested);
-            assertEquals(57, testBenches);
+            assertEquals(68, tested);
+            assertEquals(58, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }
