@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * Describes one concrete Part.
- * Its a Key value list, which is used to store the diferent elements attributes.
+ * Its a Key value list, which is used to store the different elements attributes.
  */
 public class ElementAttributes implements HGSMap {
     private static final String PROGRAM_MEMORY = "PROGRAM MEMORY";
