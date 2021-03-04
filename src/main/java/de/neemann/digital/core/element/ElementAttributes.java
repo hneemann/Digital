@@ -18,6 +18,8 @@ import java.util.Map;
  * Its a Key value list, which is used to store the diferent elements attributes.
  */
 public class ElementAttributes implements HGSMap {
+    private static final String PROGRAM_MEMORY = "PROGRAM MEMORY";
+
     private HashMap<String, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
     private transient HashMap<String, Object> cache;
@@ -166,7 +168,7 @@ public class ElementAttributes implements HGSMap {
      * @return true if this is flagged as program memory.
      */
     public boolean isProgramMemory() {
-        return getLabel().contains("PROGRAM MEMORY") || get(Keys.IS_PROGRAM_MEMORY);
+        return getLabel().contains(PROGRAM_MEMORY) || get(Keys.IS_PROGRAM_MEMORY);
     }
 
     /**
