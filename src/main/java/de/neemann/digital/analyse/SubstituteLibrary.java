@@ -5,7 +5,10 @@
  */
 package de.neemann.digital.analyse;
 
+import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -16,6 +19,7 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.hdl.hgs.*;
 import de.neemann.digital.lang.Lang;
+import de.neemann.digital.testing.TestCaseDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -223,29 +227,69 @@ public class SubstituteLibrary implements LibraryInterface {
             }
         }
 
-        private Object doImplicitTypeCasts(Class<?> expectedClass, Object val) {
-            if (expectedClass == Integer.class && val instanceof Long) {
-                long l = (Long) val;
-                if (l <= Integer.MAX_VALUE && l >= Integer.MIN_VALUE)
-                    return (int) l;
-            } else if (expectedClass == Color.class && val instanceof Number) {
-                return new Color(((Number) val).intValue());
-            } else if (expectedClass == InverterConfig.class && val instanceof java.util.List) {
-                InverterConfig.Builder b = new InverterConfig.Builder();
-                for (Object i : (java.util.List) val)
-                    b.add(i.toString());
-                return b.build();
-            } else if (expectedClass == Rotation.class && val instanceof Number) {
-                int r = ((Number) val).intValue();
-                return new Rotation(r % 4);
-            }
-
-            return val;
-        }
-
         @Override
         public Object hgsMapGet(String key) {
             return attr.hgsMapGet(key);
         }
     }
+
+    static Object doImplicitTypeCasts(Class<?> expectedClass, Object val) {
+        if (expectedClass == Integer.class && val instanceof Long) {
+            long l = (Long) val;
+            if (l <= Integer.MAX_VALUE && l >= Integer.MIN_VALUE)
+                return (int) l;
+        } else if (expectedClass == Long.class && val instanceof Number) {
+            return ((Number) val).longValue();
+        } else if (expectedClass == Color.class && val instanceof Number) {
+            return new Color(((Number) val).intValue());
+        } else if (expectedClass == Boolean.class && val instanceof Number) {
+            long b = ((Number) val).longValue();
+            return b != 0;
+        } else if (expectedClass == InValue.class) {
+            if (val instanceof Number)
+                return new InValue(((Number) val).longValue());
+            else {
+                try {
+                    return new InValue(val.toString());
+                } catch (Bits.NumberFormatException e) {
+                    return val;
+                }
+            }
+        } else if (expectedClass == InverterConfig.class && val instanceof java.util.List) {
+            InverterConfig.Builder b = new InverterConfig.Builder();
+            for (Object i : (java.util.List) val)
+                b.add(i.toString());
+            return b.build();
+        } else if (expectedClass == DataField.class && val instanceof java.util.List) {
+            java.util.List list = (java.util.List) val;
+            long[] longs = new long[list.size()];
+            for (int i = 0; i < list.size(); i++)
+                if (list.get(i) instanceof Number)
+                    longs[i] = ((Number) list.get(i)).longValue();
+                else
+                    return val;
+            return new DataField(longs);
+        } else if (expectedClass == Rotation.class && val instanceof Number) {
+            int r = ((Number) val).intValue();
+            return new Rotation(r % 4);
+        } else if (expectedClass == File.class && val instanceof String) {
+            return new File(val.toString());
+        } else if (expectedClass == TestCaseDescription.class && val instanceof String) {
+            try {
+                return new TestCaseDescription(val.toString());
+            } catch (Exception e) {
+                return val;
+            }
+        } else if (expectedClass.isEnum() && val instanceof Number) {
+            Class<Enum<?>> e = (Class<Enum<?>>) expectedClass;
+            Object[] values = e.getEnumConstants();
+            int index = ((Number) val).intValue();
+            if (index < 0 || index >= values.length)
+                return values[0];
+            else
+                return values[index];
+        }
+        return val;
+    }
+
 }
