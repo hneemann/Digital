@@ -38,6 +38,7 @@ public class ResolveGenerics {
     public static final String GEN_ARGS_KEY = "genArgs";
     private static final String SETTINGS_KEY = "settings";
     private static final String GLOBALS_KEY = "global";
+    private static final String THIS_KEY = "this";
     private final HashMap<String, Statement> map;
     private final HashMap<Args, CircuitHolder> circuitMap;
     private final Circuit circuit;
@@ -159,13 +160,11 @@ public class ResolveGenerics {
                 Context mod = createContext(c, newComponents, newWires, args)
                         .declareVar(GLOBALS_KEY, globals)
                         .declareVar("args", args);
-                if (isCustom) {
+                if (isCustom)
                     mod.declareFunc("setCircuit", new SetCircuitFunc(ve));
-                    genS.execute(mod);
-                } else {
+                else
                     mod.declareVar("this", new SubstituteLibrary.AllowSetAttributes(elementAttributes));
-                    genS.execute(mod);
-                }
+                genS.execute(mod);
                 elementAttributes.putToCache(GEN_ARGS_KEY, mod);
             }
         } catch (HGSEvalException | ParserException | IOException e) {
@@ -324,7 +323,7 @@ public class ResolveGenerics {
             return;
         }
 
-        if (!key.equals(Context.BASE_FILE_KEY) && !key.equals(SETTINGS_KEY) && !key.equals(GLOBALS_KEY)) {
+        if (!key.equals(Context.BASE_FILE_KEY) && !key.equals(SETTINGS_KEY) && !key.equals(GLOBALS_KEY) && !key.equals(THIS_KEY)) {
             contentSet.add(key);
             sb.append(key).append(":=");
             if (val instanceof String) {
@@ -437,7 +436,8 @@ public class ResolveGenerics {
                                 this.declareVar(key, val);
                             }
                         }
-                                .declareVar("args", this.args);
+                                .declareVar("args", this.args)
+                                .declareVar(THIS_KEY, new SubstituteLibrary.AllowSetAttributes(elementAttributes));
                         elementAttributes.putToCache(GEN_ARGS_KEY, c);
                         return c;
                     }
