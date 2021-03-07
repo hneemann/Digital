@@ -17,15 +17,27 @@ import java.util.ArrayList;
  */
 public class Random extends Function {
 
+    private final java.util.Random rnd;
+
     /**
      * Creates a new function
      */
     public Random() {
         super(1);
+        this.rnd = new java.util.Random();
+    }
+
+    /**
+     * Sets the random seed
+     *
+     * @param seed the seed
+     */
+    public void setSeed(long seed) {
+        rnd.setSeed(seed);
     }
 
     @Override
     public long calcValue(Context c, ArrayList<Expression> args) throws ParserException {
-        return (long) (Math.random() * args.get(0).value(c));
+        return (long) (rnd.nextDouble() * args.get(0).value(c));
     }
 }

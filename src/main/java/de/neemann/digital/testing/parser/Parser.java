@@ -37,6 +37,7 @@ public class Parser {
     private final ArrayList<VirtualSignal> virtualSignals;
     private final Tokenizer tok;
     private final HashMap<String, Function> functions = new HashMap<>();
+    private final Random random;
     private LineEmitter emitter;
 
     /**
@@ -46,7 +47,8 @@ public class Parser {
      */
     public Parser(String data) {
         functions.put("signExt", new SignExtend());
-        functions.put("random", new Random());
+        random = new Random();
+        functions.put("random", random);
         functions.put("ite", new IfThenElse());
         names = new ArrayList<>();
         virtualSignals = new ArrayList<>();
@@ -300,6 +302,13 @@ public class Parser {
      */
     public ModelInitializer getModelInitializer() {
         return modelInit;
+    }
+
+    /**
+     * @return the random function
+     */
+    public Random getRandom() {
+        return random;
     }
 
     /**

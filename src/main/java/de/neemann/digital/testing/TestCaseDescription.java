@@ -7,6 +7,7 @@ package de.neemann.digital.testing;
 
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.parser.*;
+import de.neemann.digital.testing.parser.functions.Random;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class TestCaseDescription {
     private transient ArrayList<String> names;
     private transient ArrayList<VirtualSignal> virtualSignals;
     private transient ModelInitializer modelInitializer;
+    private transient Random random;
+    private transient long seed;
 
 
     /**
@@ -48,6 +51,14 @@ public class TestCaseDescription {
      */
     public TestCaseDescription(TestCaseDescription valueToCopy) {
         this.dataString = valueToCopy.dataString;
+        this.seed = valueToCopy.seed;
+    }
+
+    /**
+     * Creates a new seed value
+     */
+    public void setNewSeed() {
+        seed = 0;
     }
 
     /**
@@ -65,6 +76,9 @@ public class TestCaseDescription {
                 throw new TestingDataException(Lang.get("err_errorParsingTestdata"), e);
             }
         }
+        if (seed == 0)
+            seed = System.currentTimeMillis();
+        random.setSeed(seed);
     }
 
     private void parseDataString() throws IOException, ParserException {
@@ -73,6 +87,7 @@ public class TestCaseDescription {
         names = tdp.getNames();
         virtualSignals = tdp.getVirtualSignals();
         modelInitializer = tdp.getModelInitializer();
+        random = tdp.getRandom();
     }
 
     /**
