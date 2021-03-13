@@ -1542,6 +1542,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
 
         private boolean wasMoved(MouseEvent e) {
+            if (pos == null) // seems to happen in very rare cases
+                return false;
             Vector d = new Vector(e.getX(), e.getY()).sub(pos);
             return Math.abs(d.x) > DRAG_DISTANCE || Math.abs(d.y) > DRAG_DISTANCE;
         }
