@@ -56,7 +56,6 @@ public class Context implements HGSMap {
         BUILT_IN.put("identifier", new FunctionIdentifier());
         BUILT_IN.put("loadHex", new FunctionLoadHex());
         BUILT_IN.put("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
-        BUILT_IN.put("newMap", new Func(0, args -> new HashMap()));
         BUILT_IN.put("newList", new Func(-1, args -> new ArrayList<>(Arrays.asList(args))));
     }
 

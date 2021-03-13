@@ -326,16 +326,44 @@ public class ResolveGenerics {
         if (!key.equals(Context.BASE_FILE_KEY) && !key.equals(SETTINGS_KEY) && !key.equals(GLOBALS_KEY) && !key.equals(THIS_KEY)) {
             contentSet.add(key);
             sb.append(key).append(":=");
-            if (val instanceof String) {
-                sb.append("\"");
-                escapeString(sb, (String) val);
-                sb.append("\"");
-            } else if (val instanceof Integer)
-                sb.append("int(").append(val).append(")");
-            else
-                sb.append(val);
+            addToStringBuilder(sb, val);
             sb.append(";\n");
         }
+    }
+
+    private static void addToStringBuilder(StringBuilder sb, Object val) {
+        if (val instanceof String) {
+            sb.append("\"");
+            escapeString(sb, (String) val);
+            sb.append("\"");
+        } else if (val instanceof Integer)
+            sb.append("int(").append(val).append(")");
+        else if (val instanceof List) {
+            sb.append("newList(");
+            boolean first = true;
+            for (Object o : (List<?>) val) {
+                if (first)
+                    first = false;
+                else
+                    sb.append(",");
+                addToStringBuilder(sb, o);
+            }
+            sb.append(")");
+        } else if (val instanceof Map) {
+            sb.append("{");
+            boolean first = true;
+            for (Map.Entry<?, ?> e : ((Map<?, ?>) val).entrySet()) {
+                if (first)
+                    first = false;
+                else
+                    sb.append(",");
+                sb.append(e.getKey().toString());
+                sb.append(":");
+                addToStringBuilder(sb, e.getValue());
+            }
+            sb.append("}");
+        } else
+            sb.append(val);
     }
 
     static void escapeString(StringBuilder sb, String str) {

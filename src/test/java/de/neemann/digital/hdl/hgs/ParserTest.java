@@ -343,7 +343,17 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseTemplateMap() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? m:=newMap(); m.test:=newMap(); m.test.val:=7; print(m.test.val); ?>;");
+        Context c = exec("<? m:={}; m.test:={}; m.test.val:=7; print(m.test.val); ?>;");
+        assertEquals("7;", c.toString());
+        Object mo = c.getVar("m");
+        assertTrue(mo instanceof Map);
+        mo = ((Map) mo).get("test");
+        assertTrue(mo instanceof Map);
+        assertEquals(7L, ((Map) mo).get("val"));
+    }
+
+    public void testParseTemplateMap2() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("<? m:={test:{val:7}}; print(m.test.val); ?>;");
         assertEquals("7;", c.toString());
         Object mo = c.getVar("m");
         assertTrue(mo instanceof Map);
@@ -442,7 +452,7 @@ public class ParserTest extends TestCase {
         assertEquals("13", exec("<? f:=func(a,b){return a+2*b;};  print(f(1,a*2));?>",
                 new Context().declareVar("a", 3)).toString());
 
-        assertEquals("18", exec("<? m:=newMap(); m.f:=func(a){m:=newMap(); m.v:=a*a+2; return m;};  print(m.f(4).v);?>").toString());
+        assertEquals("18", exec("<? m:={f:func(a){return {v:a*a+2};}};  print(m.f(4).v);?>").toString());
         assertEquals("18", exec("<? m:=newList(); m[0]:=func(a){ l:=newList(); l[0]:=a*a+2; return l;};  print(m[0](4)[0]);?>").toString());
 
         failToEval("<? return 1; ?>", new Context());
