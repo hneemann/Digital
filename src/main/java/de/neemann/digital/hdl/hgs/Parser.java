@@ -548,11 +548,32 @@ public class Parser {
                 return exp;
             case OPENBRACE:
                 return parseStructLiteral();
+            case OPENSQUARE:
+                return parseListLiteral();
             case FUNC:
                 FirstClassFunction func = parseFunction();
                 return c -> new FirstClassFunctionCall(func, c);
             default:
                 throw newUnexpectedToken(t);
+        }
+    }
+
+    private Expression parseListLiteral() throws IOException, ParserException {
+        ArrayList<Expression> al = new ArrayList<>();
+        while (true) {
+            if (tok.peek() == CLOSEDSQUARE) {
+                tok.consume();
+                return c -> {
+                    ArrayList<Object> l = new ArrayList<>();
+                    for (Expression e : al)
+                        l.add(e.value(c));
+                    return l;
+                };
+            } else {
+                al.add(parseExpression());
+                if (tok.peek() == COMMA)
+                    tok.consume();
+            }
         }
     }
 

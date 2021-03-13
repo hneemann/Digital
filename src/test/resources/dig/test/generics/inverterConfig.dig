@@ -33,7 +33,7 @@
       <elementAttributes>
         <entry>
           <string>generic</string>
-          <string>this.inverterConfig=newList(&quot;D&quot;);</string>
+          <string>this.inverterConfig=[&quot;D&quot;];</string>
         </entry>
       </elementAttributes>
       <pos x="0" y="-100"/>

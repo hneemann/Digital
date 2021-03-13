@@ -326,6 +326,6 @@ The following functions are predeclared:
     
 `sizeOf(var)` returns the size of an array or a map.
 
-`newMap()` creates a new empty map.
+`{[key1]:[value1],[key2]:[value2]}` creates a new map.
 
-`newList()` creates a new empty list.          
+`[1,2]` creates a new list.          

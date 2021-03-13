@@ -269,7 +269,7 @@ public class ParserTest extends TestCase {
         assertEquals("Hello 9876543210 World!", c.toString());
 
         c = exec("<? " +
-                "a:=newList(); " +
+                "a:=[];" +
                 "for (i:=0;i<10;i++) a[i]:=i; " +
                 "for (i:=0;i<10;i++) a[i]=9-i; " +
                 "for (i:=0;i<10;i++) print(a[i]); " +
@@ -277,7 +277,7 @@ public class ParserTest extends TestCase {
         assertEquals("9876543210", c.toString());
 
         c = exec("<? " +
-                "a:=newList(); " +
+                "a:=[]; " +
                 "for (i:=0;i<5;i++) {" +
                 "  for (j:=0;j<5;j++) a[i*5+j]:=i*j; " +
                 "}" +
@@ -321,7 +321,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseTemplateArray() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? a:=newList(); a[0]:=1; a[1]:=7; print(a[1], \",\" ,sizeOf(a)); ?>;");
+        Context c = exec("<? a:=[]; a[0]:=1; a[1]:=7; print(a[1], \",\" ,sizeOf(a)); ?>;");
         assertEquals("7,2;", c.toString());
         Object lo = c.getVar("a");
         assertTrue(lo instanceof List);
@@ -332,7 +332,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseTemplateArray2() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? a:=newList(1,7); print(a[1], \",\" ,sizeOf(a)); ?>;");
+        Context c = exec("<? a:=[1,7]; print(a[1], \",\" ,sizeOf(a)); ?>;");
         assertEquals("7,2;", c.toString());
         Object lo = c.getVar("a");
         assertTrue(lo instanceof List);
@@ -453,7 +453,7 @@ public class ParserTest extends TestCase {
                 new Context().declareVar("a", 3)).toString());
 
         assertEquals("18", exec("<? m:={f:func(a){return {v:a*a+2};}};  print(m.f(4).v);?>").toString());
-        assertEquals("18", exec("<? m:=newList(); m[0]:=func(a){ l:=newList(); l[0]:=a*a+2; return l;};  print(m[0](4)[0]);?>").toString());
+        assertEquals("18", exec("<? m:=[func(a){ return [a*a+2];}];  print(m[0](4)[0]);?>").toString());
 
         failToEval("<? return 1; ?>", new Context());
         failToEval("<? f:=func(a){return a;}; f(1)=5; ?>", new Context());

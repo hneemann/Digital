@@ -339,7 +339,7 @@ public class ResolveGenerics {
         } else if (val instanceof Integer)
             sb.append("int(").append(val).append(")");
         else if (val instanceof List) {
-            sb.append("newList(");
+            sb.append("[");
             boolean first = true;
             for (Object o : (List<?>) val) {
                 if (first)
@@ -348,7 +348,7 @@ public class ResolveGenerics {
                     sb.append(",");
                 addToStringBuilder(sb, o);
             }
-            sb.append(")");
+            sb.append("]");
         } else if (val instanceof Map) {
             sb.append("{");
             boolean first = true;
