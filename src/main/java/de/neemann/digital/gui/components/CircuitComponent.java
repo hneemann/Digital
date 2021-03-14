@@ -1524,6 +1524,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private class MouseDispatcher extends MouseAdapter implements MouseMotionListener {
         private Vector pos;
         private boolean isMoved;
+        private int statusX;
+        private int statusY;
 
         @Override
         public void mousePressed(MouseEvent e) {
@@ -1555,6 +1557,18 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 toolTipHighlighted = false;
             }
             lastMousePos = new Vector(e.getX(), e.getY());
+
+            if (getCircuit().getAttributes().get(Keys.IS_GENERIC)) {
+                Vector p = getPosVector(e);
+                int x = Math.round(p.getXFloat() / SIZE);
+                int y = Math.round(p.getYFloat() / SIZE);
+                if (x != statusX || y != statusY) {
+                    getMain().setStatus("pos: " + x + ", " + y);
+                    statusX = x;
+                    statusY = y;
+                }
+            }
+
             activeMouseController.moved(e);
         }
 
