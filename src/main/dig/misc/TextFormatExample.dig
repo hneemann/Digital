@@ -74,7 +74,7 @@ of ~{s_1^{n+1}} in detail.
 von ~{s_1^{n+1}} im Detail erklärt.}}</string>
         </entry>
       </elementAttributes>
-      <pos x="-120" y="400"/>
+      <pos x="-120" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -135,6 +135,36 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
         </entry>
       </elementAttributes>
       <pos x="140" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A\wedge{}B</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-20" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>~{A\vee{}B}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>\neg{}A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="400"/>
     </visualElement>
   </visualElements>
   <wires/>

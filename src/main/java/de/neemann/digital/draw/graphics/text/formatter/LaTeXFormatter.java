@@ -132,6 +132,16 @@ public final class LaTeXFormatter {
                     return "\\prod ";
                 else
                     return "$\\prod$";
+            case '∧':
+                if (inMath)
+                    return "\\wedge ";
+                else
+                    return "$\\wedge$";
+            case '∨':
+                if (inMath)
+                    return "\\vee ";
+                else
+                    return "$\\vee$";
             default:
                 return "" + aChar;
         }

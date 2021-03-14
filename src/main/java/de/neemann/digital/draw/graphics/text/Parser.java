@@ -14,11 +14,14 @@ import java.util.HashMap;
  * The text parser
  */
 public class Parser {
-    private static final HashMap<String, String> COMMANDS = new HashMap<>();
+    private static final HashMap<String, java.lang.Character> COMMANDS = new HashMap<>();
 
     static {
-        COMMANDS.put("sum", "∑");
-        COMMANDS.put("prod", "∏");
+        COMMANDS.put("sum", '∑');
+        COMMANDS.put("prod", '∏');
+        COMMANDS.put("wedge", '∧');
+        COMMANDS.put("vee", '∨');
+        COMMANDS.put("neg", '¬');
     }
 
     private final String text;
@@ -103,6 +106,10 @@ public class Parser {
                     getChar();
                     sentence.getIndex().addSub(parseBrace());
                     break;
+                case '{':
+                    getChar();
+                    expect('}');
+                    break;
                 case '^':
                     getChar();
                     sentence.getIndex().addSuper(parseBrace());
@@ -118,10 +125,11 @@ public class Parser {
                             break;
                         default:
                             String command = readWord();
-                            String t = COMMANDS.get(command);
+                            java.lang.Character t = COMMANDS.get(command);
                             if (t == null)
-                                t = '\\' + command;
-                            sentence.add(new Simple(t).simplify());
+                                sentence.add(new Simple('\\' + command));
+                            else
+                                sentence.add(new Character(t));
                     }
 
                     break;

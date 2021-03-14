@@ -39,5 +39,15 @@ public class LaTeXFormatterTest extends TestCase {
     public void testSumProd() throws ParseException {
         assertEquals("$\\sum ^a_{n=0}$", LaTeXFormatter.format(new Parser("∑_{n=0}^a").parse()));
         assertEquals("$\\prod ^a_{n=0}$", LaTeXFormatter.format(new Parser("∏_{n=0}^a").parse()));
+        assertEquals("$\\sum ^a_{n=0}$", LaTeXFormatter.format(new Parser("\\sum_{n=0}^a").parse()));
+        assertEquals("$\\prod ^a_{n=0}$", LaTeXFormatter.format(new Parser("\\prod_{n=0}^a").parse()));
+    }
+
+    public void testVeeWedge() throws ParseException {
+        assertEquals("A $\\vee$ B", LaTeXFormatter.format(new Parser("A \\vee B").parse()));
+        assertEquals("A $\\vee$ B", LaTeXFormatter.format(new Parser("A ∨ B").parse()));
+        assertEquals("A$\\vee$B", LaTeXFormatter.format(new Parser("A∨B").parse()));
+        assertEquals("$A \\wedge  B$", LaTeXFormatter.format(new Parser("$A \\wedge B$").parse()));
+        assertEquals("$A\\wedge B$", LaTeXFormatter.format(new Parser("$A\\wedge{}B$").parse()));
     }
 }
