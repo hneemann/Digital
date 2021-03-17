@@ -116,13 +116,14 @@ public class ScopeTrigger extends Node implements Element {
 
     @Override
     public void init(Model model) throws NodeException {
-        signals = model.getSignalsCopy();
         this.model = model;
-        signals.removeIf(signal -> !signal.isShowInGraph());
+        scopeModelStateObserver = new ScopeModelStateObserver();
+        model.addObserver(scopeModelStateObserver, ModelEventType.STEP);
+    }
 
-        String[] names = new String[signals.size()];
-        for (int i = 0; i < signals.size(); i++)
-            names[i] = signals.get(i).getName();
+    private ValueTable createLogData() {
+        signals = model.getSignalsCopy();
+        signals.removeIf(signal -> !signal.isShowInGraph());
 
         JFrame m = model.getWindowPosManager().getMainFrame();
         if (m instanceof Main) {
@@ -135,16 +136,19 @@ public class ScopeTrigger extends Node implements Element {
             }.order(signals);
         }
 
-        this.logData = new ValueTable(names).setMaxSize(maxSize);
-
-        scopeModelStateObserver = new ScopeModelStateObserver();
-        model.addObserver(scopeModelStateObserver, ModelEventType.STEP);
+        ArrayList<String> names = new ArrayList<>(signals.size());
+        for (Signal signal : signals) names.add(signal.getName());
+        return new ValueTable(names).setMaxSize(maxSize);
     }
 
     private final class ScopeModelStateObserver implements ModelStateObserver {
         @Override
         public void handleEvent(ModelEvent event) {
             if (wasTrigger && event.getType() == ModelEventType.STEP) {
+
+                if (logData == null)
+                    logData = createLogData();
+
                 Value[] sample = new Value[logData.getColumns()];
                 for (int i = 0; i < logData.getColumns(); i++)
                     sample[i] = new Value(signals.get(i).getValue());
