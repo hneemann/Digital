@@ -37,6 +37,7 @@ import de.neemann.digital.gui.components.expression.ExpressionDialog;
 import de.neemann.digital.gui.components.modification.ModifyAttribute;
 import de.neemann.digital.gui.components.modification.ModifyMeasurementOrdering;
 import de.neemann.digital.gui.components.table.TableDialog;
+import de.neemann.digital.gui.components.table.TestDatasetDialogFactory;
 import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.KeyboardDialog;
 import de.neemann.digital.gui.components.testing.TestAllDialog;
@@ -141,6 +142,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private ToolTipAction runToBreakAction;
     private ToolTipAction showMeasurementDialog;
     private ToolTipAction showMeasurementGraph;
+    private ToolTipAction showTestDatasetDialog;
     private ToolTipAction runTests;
 
     private File baseFilename;
@@ -1130,6 +1132,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_showDataGraph_tt")).setEnabledChain(false);
 
+        showTestDatasetDialog = new ToolTipAction(Lang.get("menu_showTestDataset")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model != null) {
+                    ModelEventType event = ModelEventType.STEP;
+                    if (stateManager.isActive(runModelMicroState))
+                        event = ModelEventType.MICROSTEP;
+                    showTestDatasetDialog(event);
+                }
+            }
+        }.setToolTip(Lang.get("menu_showTestDataset_tt")).setEnabledChain(false).setAccelerator("ctrl T");
+
         circuitComponent.getInputMap().put(KeyStroke.getKeyStroke(' '), KEY_START_STOP_ACTION);
         circuitComponent.getActionMap().put(KEY_START_STOP_ACTION, new AbstractAction() {
             @Override
@@ -1167,6 +1181,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         run.add(doMicroStep.createJMenuItem());
         run.add(runToBreakMicroAction.createJMenuItem());
         run.addSeparator();
+        run.add(showTestDatasetDialog.createJMenuItem());
         run.add(runTests.createJMenuItem());
         run.add(runAllTests.createJMenuItem());
         run.addSeparator();
@@ -1317,6 +1332,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 stoppedState.getAction().setEnabled(false);
                 showMeasurementDialog.setEnabled(false);
                 showMeasurementGraph.setEnabled(false);
+                showTestDatasetDialog.setEnabled(false);
                 runToBreakAction.setEnabled(false);
                 runToBreakMicroAction.setEnabled(false);
                 runTests.setEnabled(true);
@@ -1333,6 +1349,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 super.enter();
                 showMeasurementDialog.setEnabled(true);
                 showMeasurementGraph.setEnabled(true);
+                showTestDatasetDialog.setEnabled(true);
                 stoppedState.getAction().setEnabled(true);
                 runTests.setEnabled(false);
                 createAndStartModel(false, ModelEventType.MICROSTEP, null);
@@ -1371,6 +1388,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             stoppedState.getAction().setEnabled(true);
             showMeasurementDialog.setEnabled(true);
             showMeasurementGraph.setEnabled(true);
+            showTestDatasetDialog.setEnabled(true);
             runTests.setEnabled(false);
             createAndStartModel(runRealTime, ModelEventType.STEP, modelModifier);
         }
@@ -1526,6 +1544,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private void showMeasurementDialog(ModelEventType updateEvent) {
         List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
         windowPosManager.register("probe", new ProbeDialog(this, model, updateEvent, ordering)).setVisible(true);
+    }
+
+    private void showTestDatasetDialog(ModelEventType updateEvent) {
+        List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
+        windowPosManager.register("test_dataset", new TestDatasetDialogFactory(this, model).create()).setVisible(true);
     }
 
     /**
