@@ -1998,6 +1998,8 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_showDataAsGraph_tt">Affiche les données comme un graphique.</string>
     <string name="menu_showDataAsTable">Affiche le tableau</string>
     <string name="menu_showDataAsTable_tt">Affiche les données comme un tableau.</string>
+    <string name="menu_showTestDataset">Jeu de données de test</string>
+    <string name="menu_showTestDataset_tt">Affiche les données de test pour le modèle simulé actuel</string>
     <string name="menu_addPowerSupply">Ajouter une alimentation</string>
     <string name="menu_addPowerSupply_tt">Ajoute une alimentation au circuit.</string>
     <string name="menu_exportVHDL">Exporter en VHDL</string>
@@ -2191,6 +2193,7 @@ In the file howTo.md you can find more details about translations.
     <string name="win_measures">Mesures</string>
     <string name="win_measures_fullstep">Mesures (pas d'horloge complet)</string>
     <string name="win_measures_microstep">Mesures (pas-à-pas)</string>
+    <string name="win_testDatasetDialog">Jeu de données de test</string>
     <string name="win_saveChanges">Enregistrer les modifications?</string>
     <string name="win_stateChanged">État changé!</string>
     <string name="win_table">Table</string>

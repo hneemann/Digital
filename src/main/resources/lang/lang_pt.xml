@@ -1460,6 +1460,8 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_showDataAsGraph_tt">Mostrar os dados em forma gráfica.</string>
   <string name="menu_showDataAsTable">Mostrar tabela</string>
   <string name="menu_showDataAsTable_tt">Mostrar valores com uma tabela.</string>
+    <string name="menu_showTestDataset">Conjunto de dados de teste</string>
+    <string name="menu_showTestDataset_tt">Mostra os dados de teste para o modelo simulado atual</string>
   <string name="menu_addPowerSupply">Adicionar fonte de alimentação</string>
   <string name="menu_addPowerSupply_tt">Adicionar uma fonte de potência para o circuito.</string>
   <string name="menu_exportVHDL">Exportar para VHDL</string>
@@ -1602,6 +1604,7 @@ In the file howTo.md you can find more details about translations.
   <string name="win_measures">Medidas</string>
   <string name="win_measures_fullstep">Medidas na maior velocidade</string>
   <string name="win_measures_microstep">Medidas no modo passo-a-passo</string>
+    <string name="win_testDatasetDialog">Conjunto de dados de teste</string>
   <string name="win_saveChanges">Salvar alterações?</string>
   <string name="win_stateChanged">Estado alterado!</string>
   <string name="win_table">Tabela</string>

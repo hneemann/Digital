@@ -789,6 +789,8 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_showDataAsGraph_tt">以图方式显示数据</string>
   <string name="menu_showDataAsTable">显示表格</string>
   <string name="menu_showDataAsTable_tt">以表格方式显示值数据</string>
+  <string name="menu_showTestDataset">测试数据集</string>
+  <string name="menu_showTestDataset_tt">显示当前模拟模型的测试数据</string>
   <string name="menu_addPowerSupply">添加电源</string>
   <string name="menu_addPowerSupply_tt">为电路添加电源</string>
   <string name="menu_exportVHDL">导出 VHDL</string>
@@ -1141,6 +1143,7 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_dataWillBeLost_n">确定忽略 "{0}" 字段中的修改？</string>
   <string name="win_measures_fullstep">全时钟测量</string>
   <string name="win_measures_microstep">单门测量</string>
+  <string name="win_testDatasetDialog">测试数据集</string>
   <string name="win_romDialog">包含 ROM</string>
   <string name="msg_newRelease_N">&lt;html&gt;
         &lt;h1&gt;新版本 {0} 可用&lt;/h1&gt;

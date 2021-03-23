@@ -1919,7 +1919,7 @@
     <string name="menu_showDataAsTable">Show table</string>
     <string name="menu_showDataAsTable_tt">Shows values as a table.</string>
     <string name="menu_showTestDataset">Test Dataset</string>
-    <string name="menu_showTestDataset_tt">Shows test data for current simuated model</string>
+    <string name="menu_showTestDataset_tt">Shows test data for current simulated model</string>
     <string name="menu_addPowerSupply">Add power supply</string>
     <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
     <string name="menu_exportVHDL">Export to VHDL</string>

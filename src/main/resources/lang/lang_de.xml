@@ -1930,6 +1930,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_showDataAsGraph_tt">Zeigt die Daten als Graph an.</string>
     <string name="menu_showDataAsTable">Zeige Tabelle</string>
     <string name="menu_showDataAsTable_tt">Zeigt die Daten als Tabelle an.</string>
+    <string name="menu_showTestDataset">Testdatensatz</string>
+    <string name="menu_showTestDataset_tt">Zeigt Testdaten für das aktuelle simulierte Modell an</string>
     <string name="menu_addPowerSupply">Spannungsversorung ergänzen</string>
     <string name="menu_addPowerSupply_tt">Erweitert die Schaltung um eine Spannungsversorung.</string>
     <string name="menu_exportVHDL">Export zu VHDL</string>
@@ -2116,6 +2118,7 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="win_measures">Messwerte</string>
     <string name="win_measures_fullstep">Messwerte im Vollschrittmodus</string>
     <string name="win_measures_microstep">Messwerte im Einzelgattermodus</string>
+    <string name="win_testDatasetDialog">Testdatensatz</string>
     <string name="win_saveChanges">Änderungen speichern?</string>
     <string name="win_stateChanged">Die Datei wurde verändert!</string>
     <string name="win_table">Tabelle</string>
