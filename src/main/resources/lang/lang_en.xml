@@ -1918,6 +1918,8 @@
     <string name="menu_showDataAsGraph_tt">Show the data as a Graph.</string>
     <string name="menu_showDataAsTable">Show table</string>
     <string name="menu_showDataAsTable_tt">Shows values as a table.</string>
+    <string name="menu_showTestDataset">Test Dataset</string>
+    <string name="menu_showTestDataset_tt">Shows test data for current simuated model</string>
     <string name="menu_addPowerSupply">Add power supply</string>
     <string name="menu_addPowerSupply_tt">Adds a power supply to the circuit.</string>
     <string name="menu_exportVHDL">Export to VHDL</string>
@@ -2109,6 +2111,7 @@
     <string name="win_measures">Measurements</string>
     <string name="win_measures_fullstep">Measurements full clock step</string>
     <string name="win_measures_microstep">Measurements single gate step</string>
+    <string name="win_testDatasetDialog">Test Dataset</string>
     <string name="win_saveChanges">Save Changes?</string>
     <string name="win_stateChanged">State Changed!</string>
     <string name="win_table">Table</string>
