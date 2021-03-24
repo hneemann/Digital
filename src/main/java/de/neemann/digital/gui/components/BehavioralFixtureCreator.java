@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Helmut Neemann
+ * Copyright (c) 2021 Helmut Neemann
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
@@ -28,7 +28,7 @@ import java.io.IOException;
 /**
  * Dialog used to create a test case
  */
-public class TestCaseCreator extends JDialog implements ModelModifier {
+public class BehavioralFixtureCreator extends JDialog implements ModelModifier {
     private final JLabel frameLabel;
     private final Main main;
     private final ShapeFactory shapeFactory;
@@ -42,7 +42,7 @@ public class TestCaseCreator extends JDialog implements ModelModifier {
      * @param parent       the parent frame
      * @param shapeFactory the shapeFactory used to create the test case component
      */
-    public TestCaseCreator(Main parent, ShapeFactory shapeFactory) {
+    public BehavioralFixtureCreator(Main parent, ShapeFactory shapeFactory) {
         super(parent, Lang.get("menu_createTestCase"), false);
         main = parent;
         this.shapeFactory = shapeFactory;
@@ -60,13 +60,13 @@ public class TestCaseCreator extends JDialog implements ModelModifier {
         buttons.add(new ToolTipAction(Lang.get("btn_createTestLine")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                addLine();
+                addFixture();
             }
         }.setToolTip(Lang.get("btn_createTestLine_tt")).createJButton());
         buttons.add(new ToolTipAction(Lang.get("btn_testComplete")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                close();
+                createTestCase();
             }
         }.setToolTip(Lang.get("btn_testComplete_tt")).createJButton());
 
@@ -78,7 +78,7 @@ public class TestCaseCreator extends JDialog implements ModelModifier {
         setLocation(parent.getLocation());
     }
 
-    private void addLine() {
+    private void addFixture() {
         if (testCase.length() == 0) {
             for (Signal s : model.getInputs()) {
                 if (testCase.length() > 0)
@@ -122,7 +122,7 @@ public class TestCaseCreator extends JDialog implements ModelModifier {
         }
     }
 
-    private void close() {
+    private void createTestCase() {
         try {
             VisualElement tc = new VisualElement(TestCaseElement.DESCRIPTION.getName())
                     .setShapeFactory(shapeFactory)

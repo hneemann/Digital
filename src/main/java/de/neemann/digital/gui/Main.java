@@ -1903,9 +1903,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            TestCaseCreator testCaseCreator = new TestCaseCreator(Main.this, shapeFactory);
+            BehavioralFixtureCreator bfc = new BehavioralFixtureCreator(Main.this, shapeFactory);
             windowPosManager.closeAll();
-            runModelState.enter(false, testCaseCreator);
+            runModelState.enter(false, bfc);
             circuitComponent.graphicHasChanged();
         }
     }

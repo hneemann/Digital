@@ -2,6 +2,7 @@ Release Notes
 
 HEAD, planned as v0.27
 - Added fixed point and floating point number formats.
+- Adds a dialog to create a behavioral fixture.
 - Added a CSV truth table export and import.
 - Added a search field to the component tree view.
 - Added 74299
