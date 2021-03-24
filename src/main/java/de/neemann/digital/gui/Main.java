@@ -874,6 +874,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_labelPins_tt"));
 
+        ToolTipAction createTestCaseAction = new CreateTestCaseAction(Lang.get("menu_createTestCase"))
+                .setToolTip(Lang.get("menu_createTestCase_tt"));
+
         edit.add(circuitComponent.getUndoAction().createJMenuItemNoIcon());
         edit.add(circuitComponent.getRedoAction().createJMenuItemNoIcon());
         edit.addSeparator();
@@ -882,6 +885,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         edit.add(restoreAllFuses.createJMenuItem());
         edit.add(createSpecialEditMenu());
         edit.add(labelPins.createJMenuItem());
+        edit.addSeparator();
+        edit.add(createTestCaseAction.createJMenuItem());
         edit.addSeparator();
         edit.add(orderInputs.createJMenuItem());
         edit.add(orderOutputs.createJMenuItem());
@@ -1887,6 +1892,21 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         circuitComponent.graphicHasChanged();
                     }
             );
+        }
+    }
+
+    private class CreateTestCaseAction extends ToolTipAction {
+
+        CreateTestCaseAction(String name) {
+            super(name);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            TestCaseCreator testCaseCreator = new TestCaseCreator(Main.this, shapeFactory);
+            windowPosManager.closeAll();
+            runModelState.enter(false, testCaseCreator);
+            circuitComponent.graphicHasChanged();
         }
     }
 
