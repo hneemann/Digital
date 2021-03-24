@@ -2084,9 +2084,9 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="msg_errorCreatingSvgTemplate">Fehler beim Erzeugen der SVG-Datei.</string>
     <string name="msg_couldNotCreateStats">Statistik konnte nicht erzeugt werden.</string>
 
-    <string name="menu_createBehavioralFixture">Verhalten fixieren</string>
+    <string name="menu_createBehavioralFixture">Verhalten fixierenden Testfall erstellen</string>
     <string name="menu_createBehavioralFixture_tt">Erzeugt aus der Schaltung eine Verhaltensfixierung.
-        Eine Verhaltensfixierung ist technisch gesehen ein Testfall, der ein bestimmtes, vorhandenes Verhalten fixiert.
+        Eine Verhaltensfixierung ist ein Testfall, der das aktuelle Verhalten der Schaltung fixiert.
     </string>
     <string name="msg_fixesCreated_N">Fixierungen: {0}</string>
     <string name="btn_createTestLine">Fixieren</string>
