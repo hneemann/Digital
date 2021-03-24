@@ -874,8 +874,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_labelPins_tt"));
 
-        ToolTipAction createTestCaseAction = new CreateTestCaseAction(Lang.get("menu_createTestCase"))
-                .setToolTip(Lang.get("menu_createTestCase_tt"));
+        ToolTipAction createTestCaseAction = new CreateTestCaseAction(Lang.get("menu_createBehavioralFixture"))
+                .setToolTip(Lang.get("menu_createBehavioralFixture_tt"));
 
         edit.add(circuitComponent.getUndoAction().createJMenuItemNoIcon());
         edit.add(circuitComponent.getRedoAction().createJMenuItemNoIcon());

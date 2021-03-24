@@ -2084,15 +2084,15 @@ Stellen Sie sicher, dass der Flash-Vorgang abgeschlossen ist, bevor Sie diesen D
     <string name="msg_errorCreatingSvgTemplate">Fehler beim Erzeugen der SVG-Datei.</string>
     <string name="msg_couldNotCreateStats">Statistik konnte nicht erzeugt werden.</string>
 
-    <string name="menu_createTestCase">Verhalten fixieren</string>
-    <string name="menu_createTestCase_tt">Erzeugt aus der Schaltung eine Verhaltensfixierung.
+    <string name="menu_createBehavioralFixture">Verhalten fixieren</string>
+    <string name="menu_createBehavioralFixture_tt">Erzeugt aus der Schaltung eine Verhaltensfixierung.
         Eine Verhaltensfixierung ist technisch gesehen ein Testfall, der ein bestimmtes, vorhandenes Verhalten fixiert.
     </string>
-    <string name="msg_testLinesCreated_N">Fixierungen: {0}</string>
+    <string name="msg_fixesCreated_N">Fixierungen: {0}</string>
     <string name="btn_createTestLine">Fixieren</string>
     <string name="btn_createTestLine_tt">Erzeugt eine neue Zeile im Testfall.</string>
-    <string name="btn_testComplete">Abschließen</string>
-    <string name="btn_testComplete_tt">Erzeugt die Testfall-Komponente</string>
+    <string name="btn_BehavioralFixtureComplete">Abschließen</string>
+    <string name="btn_BehavioralFixtureComplete_tt">Erzeugt die Testfall-Komponente</string>
     <string name="msg_errorCreatingTestCase">Fehler bei der Erzeugung des Testfalles.</string>
 
     <string name="msg_errorReadingToolchainConfig_N">Fehler beim Einladen der Toolchain-Konfiguration {0}</string>

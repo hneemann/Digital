@@ -43,11 +43,11 @@ public class BehavioralFixtureCreator extends JDialog implements ModelModifier {
      * @param shapeFactory the shapeFactory used to create the test case component
      */
     public BehavioralFixtureCreator(Main parent, ShapeFactory shapeFactory) {
-        super(parent, Lang.get("menu_createTestCase"), false);
+        super(parent, Lang.get("menu_createBehavioralFixture"), false);
         main = parent;
         this.shapeFactory = shapeFactory;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        frameLabel = new JLabel(Lang.get("msg_testLinesCreated_N", testLines));
+        frameLabel = new JLabel(Lang.get("msg_fixesCreated_N", testLines));
         frameLabel.setFont(Screen.getInstance().getFont(1.5f));
         frameLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(frameLabel);
@@ -63,12 +63,12 @@ public class BehavioralFixtureCreator extends JDialog implements ModelModifier {
                 addFixture();
             }
         }.setToolTip(Lang.get("btn_createTestLine_tt")).createJButton());
-        buttons.add(new ToolTipAction(Lang.get("btn_testComplete")) {
+        buttons.add(new ToolTipAction(Lang.get("btn_BehavioralFixtureComplete")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 createTestCase();
             }
-        }.setToolTip(Lang.get("btn_testComplete_tt")).createJButton());
+        }.setToolTip(Lang.get("btn_BehavioralFixtureComplete_tt")).createJButton());
 
         getContentPane().add(buttons, BorderLayout.SOUTH);
 
@@ -105,7 +105,7 @@ public class BehavioralFixtureCreator extends JDialog implements ModelModifier {
         testCase.append('\n');
 
         testLines++;
-        frameLabel.setText(Lang.get("msg_testLinesCreated_N", testLines));
+        frameLabel.setText(Lang.get("msg_fixesCreated_N", testLines));
     }
 
     private void addValue(StringBuilder testCase, Signal s) {
