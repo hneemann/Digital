@@ -483,10 +483,16 @@ public class GuiTester {
     }
 
     public final static class WaitFor implements Runnable {
-        private Condition cond;
+        private final int loops;
+        private final Condition cond;
 
         public WaitFor(Condition cond) {
+            this(2000, cond);
+        }
+
+        public WaitFor(int timeinMs, Condition cond) {
             this.cond = cond;
+            this.loops = timeinMs / 100;
         }
 
         @Override
@@ -494,7 +500,7 @@ public class GuiTester {
             int n = 0;
             while (!cond.proceed()) {
                 Thread.sleep(100);
-                if (n++ > 20)
+                if (n++ > loops)
                     throw new RuntimeException("time out!");
             }
         }
