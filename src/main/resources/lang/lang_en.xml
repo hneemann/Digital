@@ -2095,13 +2095,12 @@
 
     <string name="err_vgaModeNotDetected_N">Video mode was not detected ({0})</string>
 
-    <string name="menu_createTestCase">Create Test Case</string>
-    <string name="menu_createTestCase_tt">Creates a test case from the circuit.
-        It must be considered that the test cases generated in this way only test what the
-        circuit does, not what it should do!</string>
-    <string name="msg_testLinesCreated_N">Lines: {0}</string>
-    <string name="btn_createTestLine">Create Line</string>
-    <string name="btn_createTestLine_tt">Creates a new line in the test case.</string>
+    <string name="menu_createTestCase">Fixing Behavior</string>
+    <string name="menu_createTestCase_tt">Creates a behavioral fixture from the circuit.
+        A behavioral fixture is technically a test case that fixes a specific, existing behavior.</string>
+    <string name="msg_testLinesCreated_N">Fixtures: {0}</string>
+    <string name="btn_createTestLine">Create Fixture</string>
+    <string name="btn_createTestLine_tt">Creates a new fixture in the test case.</string>
     <string name="btn_testComplete">Complete</string>
     <string name="btn_testComplete_tt">Creates the test case component</string>
     <string name="msg_errorCreatingTestCase">Error in the creation of the test case.</string>
