@@ -315,10 +315,10 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_StepperMotorUnipolar_pin_S1">Interrupteur de position limite 1, devient 1 lorsque l'angle du
         moteur est de 180°.
     </string>
-    <string name="elem_StepperMotorUnipolar_pin_P0">Phase 0</string>
-    <string name="elem_StepperMotorUnipolar_pin_P1">Phase 1</string>
-    <string name="elem_StepperMotorUnipolar_pin_P2">Phase 2</string>
-    <string name="elem_StepperMotorUnipolar_pin_P3">Phase 3</string>
+    
+    
+    
+    
     <string name="elem_StepperMotorUnipolar_pin_com">Connexion de bobine centrale commune</string>
     <string name="elem_StepperMotorBipolar">Moteur pas-à-pas, bipolaire</string>
     <string name="elem_StepperMotorBipolar_tt">Moteur pas-à-pas bipolaire avec deux interrupteurs de position limite.
@@ -1876,7 +1876,7 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_synthesise">Synthèse</string>
     <string name="menu_synthesise_tt">Génère les expressions booléennes minimales décrites par une table de vérité.
     </string>
-    <string name="menu_table_N_variables">{0} variables</string>
+    
     <string name="menu_table_create">Créer</string>
     <string name="menu_table_createCUPL_tt">Crée un nouveau fichier source CUPL contenant le circuit défini.</string>
     <string name="menu_table_createTT2_tt">Crée un fichier contenant un circuit similaire au format Berkeley Logic
@@ -1920,7 +1920,7 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_table_createFunctionFixture_isSequential">Le test est seulement fonctionnel si le circuit est
         purement combinatoire!
     </string>
-    <string name="menu_table_exportHex">Exporter en HEX</string>
+    <string name="menu_table_exportHex">HEX</string>
     <string name="menu_table_exportHex_tt">Le fichier HEX peut être chargé dans une ROM ou une LUT.</string>
     <string name="menu_table_new">Nouveau</string>
     <string name="menu_table_new_combinatorial">Combinatoire</string>
@@ -2111,7 +2111,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_errGettingPinNames">Impossible de déterminer le nom des broches.</string>
     <string name="msg_errInFile_N">A eu lieu dans le fichier {0}.</string>
     <string name="msg_affectedComponentsAre_N">Les composantes affectées sont: {0}.</string>
-    <string name="msg_signal_N">Signal {0}</string>
+    
     <string name="msg_thereAreMissingPinNumbers">Aucun numéro de broche assigné aux broches {0}!
         Les broches libres sont automatiquement assignées. Ainsi, dans la plupart des cas, le circuit ne peut
         pas être utilisé sur du vrai matériel!
@@ -2614,4 +2614,41 @@ ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
     <string name="menu_fsm_optimize_state_numbers_err">Erreur lors de l'optimisation!</string>
     <string name="msg_fsm_optimizer_initial">Complexité initiale:</string>
     <string name="msg_fsm_optimizer_best">Meilleur atteint:</string>
+    <string name="msg_search">Recherche</string>
+    <string name="elem_ROMDualPort_short">ROM</string>
+    <string name="elem_RAMAsync_tt">Aussi longtemps que WE est actif, les données sont stockées dans la RAM.
+        Correspond à une RAM très simple, où les lignes d'adresse et de données sont connectées
+        directement aux cellules de mémoire.</string>
+    <string name="elem_RAMAsync_pin_A">L'adresse à laquelle lire et écrire.</string>
+    <string name="elem_RAMAsync_pin_D">La valeur à stocker</string>
+    <string name="elem_RAMAsync_pin_we">Si cette entrée est activée, la valeur est écrite à la RAM lorsque A ou D changent.</string>
+    <string name="elem_RAMAsync_pin_Q">La valeur de sortie</string>
+    <string name="elem_PRNG_short">PRNG</string>
+    <string name="elem_GenericCode">Code</string>
+    <string name="err_writeInCodeComponentsOnly">Les variables globales peuvent seulement être écrites dans les composantes Code.</string>
+    <string name="err_csvNoHeaderFound">Pas d'en-tête trouvée!</string>
+    <string name="err_csvNoOutputValuesFound">Aucune valeur de sortie trouvée!</string>
+    <string name="err_csvNotEnoughValues">Pas assez de valeurs sur une des lignes!</string>
+    <string name="err_csvToManyValues">Trop de valeurs sur une des lignes!</string>
+    <string name="key_intFormat_fixed">Virgule fixe</string>
+    <string name="key_intFormat_fixedSigned">Virgule fixe signée</string>
+    <string name="key_intFormat_floating">Virgule flottante</string>
+    <string name="key_fixedPoint">Décimales (virgule fixe)</string>
+    <string name="key_fixedPoint_tt">Nombre de décimales binaires pour le format à virgule fixe.</string>
+    <string name="key_iverilogOptions">Options IVerilog</string>
+    <string name="key_iverilogOptions_tt">Options utilisées pour toutes les étapes de traitement par IVerilog.</string>
+    <string name="menu_table_exportCSV">CSV</string>
+    <string name="menu_table_exportCSV_tt">Un fichier CSV contenant la table de vérité complète.</string>
+    <string name="menu_table_exportCSVCondensed">CSV, implicants premiers</string>
+    <string name="menu_table_exportCSVCondensed_tt">Un fichier CSV contenant uniquement les implicants premiers.</string>
+    <string name="msg_truthTableCSV">CSV, valeurs séparées par des virgules</string>
+    <string name="menu_createBehavioralFixture">Créer un test à partir du comportement courant</string>
+    <string name="menu_createBehavioralFixture_tt">Crée un test de façon interactive à partir du comportement courant du circuit.
+        Ce test permet de s'assurer qu'un comportement ne change pas après une modification.</string>
+    <string name="msg_fixesCreated_N">Cas: {0}</string>
+    <string name="btn_createTestLine">Créer un cas de test</string>
+    <string name="btn_createTestLine_tt">Crée un nouveau cas de test pour l'élément de test.</string>
+    <string name="btn_BehavioralFixtureComplete">Terminer</string>
+    <string name="btn_BehavioralFixtureComplete_tt">Crée l'élément de test à partir des cas</string>
+    <string name="msg_errorCreatingTestCase">Erreur lors de la création du test.</string>
 </resources>
