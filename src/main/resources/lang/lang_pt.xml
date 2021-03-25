@@ -5,8 +5,7 @@ This makes it very difficult for me to continue to maintain the translation.
 The only exception are simple typos.
 Pull requests in which this file is modified beyond simple typos cannot be accepted.
 In the file howTo.md you can find more details about translations.
--->
-<resources>
+--><resources>
     <string name="addr">Endereço</string>
     <string name="tableOfContent">Índice</string>
     <string name="general">Geral</string>
@@ -1393,7 +1392,7 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_table_create_hardware">Dispositivo</string>
   <string name="menu_table_create_jedec_tt">Criar arquivo JEDEC para o dispositivo</string>
   <string name="menu_table_exportTableLaTeX">Exportar LaTeX</string>
-  <string name="menu_table_exportHex">Exportar HEX</string>
+  <string name="menu_table_exportHex">HEX</string>
   <string name="menu_table_exportHex_tt">É possível carregar um arquivo HEX em uma ROM ou em uma LUT.</string>
   <string name="menu_table_new">Novo</string>
   <string name="menu_table_new_combinatorial">Combinacional</string>
@@ -2287,5 +2286,38 @@ In the file howTo.md you can find more details about translations.
         O tempo de execução aumentará muito rapidamente com a complexidade da máquina. (O(n!))</string>
     <string name="menu_fsm_optimize_state_numbers_err">Erro durante a otimização!</string>
     <string name="msg_fsm_optimizer_initial">Complexidade inicial:</string>
-    <string name="msg_fsm_optimizer_best">Melhor até agora:</string>
+    <string name="msg_fsm_optimizer_best">O melhor até agora:</string>
+    <string name="msg_search">procurar</string>
+    <string name="elem_RAMAsync_tt">Uma vez definido, será armazenado. Corresponde a uma RAM simples, onde
+        as linhas de endereços e de dados estão diretamente conectadas aos decodificadores das células de memória.</string>
+    <string name="elem_RAMAsync_pin_A">O endereço onde se fará a leitura ou a escrita.</string>
+    <string name="elem_RAMAsync_pin_D">Os dados a serem armazenados</string>
+    <string name="elem_RAMAsync_pin_we">Habilitar a escrita. Se essa entrada for igual a 1, o valor aplicado em D será
+        armazenado no endereço aplicado em A, quando A ou D forem modificados.</string>
+    <string name="elem_RAMAsync_pin_Q">Saída dos dados armazenados.</string>
+    <string name="err_writeInCodeComponentsOnly">Variáveis globais somente poderão ser escritas em componentes com código.</string>
+    <string name="err_csvNoHeaderFound">Nenhum cabeçalho encontrado!</string>
+    <string name="err_csvNoOutputValuesFound">Nenhum valor de saída encontrado!</string>
+    <string name="err_csvNotEnoughValues">Não há valores suficientes em uma linha!</string>
+    <string name="err_csvToManyValues">Valores em excesso para uma linha!</string>
+    <string name="key_intFormat_fixed">Ponto fixo</string>
+    <string name="key_intFormat_fixedSigned">Ponto fixo com sinal</string>
+    <string name="key_intFormat_floating">Ponto flutuante</string>
+    <string name="key_fixedPoint">dígitos de ponto fixo</string>
+    <string name="key_fixedPoint_tt">Número de dígitos binários na parte fracionária</string>
+    <string name="key_iverilogOptions">Iverilog - Opções</string>
+    <string name="key_iverilogOptions_tt">Opções que serão usadas para todos os passos de processamento pelo Iverilog.</string>
+    <string name="menu_table_exportCSV">CSV</string>
+    <string name="menu_table_exportCSV_tt">Arquivo CSV contendo a tabela-verdade completa.</string>
+    <string name="menu_table_exportCSVCondensed">CSV, primos implicantes</string>
+    <string name="menu_table_exportCSVCondensed_tt">Arquivo CSV contendo apenas os primos implicantes.</string>
+    <string name="menu_createBehavioralFixture">Criar caso de teste para estabelecer comportamento</string>
+    <string name="menu_createBehavioralFixture_tt">Definir comportamento do circuito.
+        Isso definirá um caso de teste que estabelecerá o comportamento atual.</string>
+    <string name="msg_fixesCreated_N">Componentes: {0}</string>
+    <string name="btn_createTestLine">Criar componente</string>
+    <string name="btn_createTestLine_tt">Definir um novo componente no caso de teste.</string>
+    <string name="btn_BehavioralFixtureComplete">Completo</string>
+    <string name="btn_BehavioralFixtureComplete_tt">Criar componente para o caso de teste</string>
+    <string name="msg_errorCreatingTestCase">Erro na criação do caso de teste.</string>
 </resources>
