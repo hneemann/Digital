@@ -80,6 +80,7 @@ public class BehavioralFixtureCreator extends JDialog implements ModelModifier {
 
     private void addFixture() {
         if (testCase.length() == 0) {
+
             for (Signal s : model.getInputs()) {
                 if (testCase.length() > 0)
                     testCase.append(' ');
@@ -138,6 +139,12 @@ public class BehavioralFixtureCreator extends JDialog implements ModelModifier {
     @Override
     public void preInit(Model model) throws NodeException {
         this.model = model;
+
+        if (model.getInputs().isEmpty())
+            throw new NodeException(Lang.get("err_analyseNoInputs"));
+        if (model.getOutputs().isEmpty())
+            throw new NodeException(Lang.get("err_analyseNoOutputs"));
+
         SwingUtilities.invokeLater(() -> setVisible(true));
     }
 
