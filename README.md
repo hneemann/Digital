@@ -12,15 +12,15 @@ Digital is an easy-to-use digital logic designer and circuit simulator designed 
 
 ## [Download](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip) and Installation ##
 
-There is no installation required, just unpack the *Digital.zip* file, which is
-available for [download](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip).
-On Windows machines the EXE file can be executed, on Linux start the shell script
-and on MacOS the JAR file can be started directly.
-A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required
-to run Digital.
+There is no installation required, just unpack the *Digital.zip* file, which is available
+for [download](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip). On Linux start the shell
+script and on Windows and MacOS the JAR file can be started directly.
+A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required to run Digital. On Windows the easiest
+way to get Java is to install the
+[AdoptOpenJDK](https://adoptopenjdk.net/).
 
-If there are any problems starting Digital on your system, please try to
-run Digital from a command line:
+If there are any problems starting Digital on your system, please try to run Digital from a command line within the *
+Digital* folder:
 
 ```
 java -jar Digital.jar
