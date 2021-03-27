@@ -1413,7 +1413,7 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_table_create_hardware">Device</string>
   <string name="menu_table_create_jedec_tt">Creates a JEDEC file for the device</string>
   <string name="menu_table_exportTableLaTeX">Export LaTeX</string>
-  <string name="menu_table_exportHex">Export HEX</string>
+  <string name="menu_table_exportHex">HEX</string>
   <string name="menu_table_exportHex_tt">You can load the HEX file to a ROM or a LUT.</string>
   <string name="menu_table_new">New</string>
   <string name="menu_table_new_combinatorial">Combinatorial</string>
@@ -2278,4 +2278,40 @@ However, they must not be used above the header line listing the signal names.&l
     <string name="menu_fsm_optimize_state_numbers_err">Error during optimization!</string>
     <string name="msg_fsm_optimizer_initial">Initial complexity:</string>
     <string name="msg_fsm_optimizer_best">Best so far:</string>
+    <string name="msg_search">search</string>
+    <string name="elem_PinControl">Pin Control</string>
+    <string name="elem_RAMAsync">RAM, async.</string>
+    <string name="elem_RAMAsync_tt">As long as we is set, it is stored. Corresponds to a very simple RAM, where the
+        address and data lines are directly connected to the decoders of the memory cells.</string>
+    <string name="elem_RAMAsync_pin_A">The address at which reading or writing takes place.</string>
+    <string name="elem_RAMAsync_pin_D">The data to be stored.</string>
+    <string name="elem_RAMAsync_pin_we">Write enable. As long as this input is set to 1, the value applied to D is
+        stored at the address applied to A whenever A or D is changed.</string>
+    <string name="elem_RAMAsync_pin_Q">Output of the stored data.</string>
+    <string name="err_writeInCodeComponentsOnly">Global variables can only be written in code components.</string>
+    <string name="err_csvNoHeaderFound">No header found!</string>
+    <string name="err_csvNoOutputValuesFound">No output values found!</string>
+    <string name="err_csvNotEnoughValues">Not enough values in one line!</string>
+    <string name="err_csvToManyValues">Too many values in one line!</string>
+    <string name="key_intFormat_fixed">Fixed Point</string>
+    <string name="key_intFormat_fixedSigned">Signed Fixed Point</string>
+    <string name="key_intFormat_floating">Floating Point</string>
+    <string name="key_fixedPoint">fixed point digits</string>
+    <string name="key_fixedPoint_tt">Number of fractional binary digits</string>
+    <string name="key_iverilogOptions">IVerilog Options</string>
+    <string name="key_iverilogOptions_tt">Options that are used for all processing steps by IVerilog.</string>
+    <string name="menu_table_exportCSV">CSV</string>
+    <string name="menu_table_exportCSV_tt">A CSV file containing the complete truth table.</string>
+    <string name="menu_table_exportCSVCondensed">CSV, prime implicants</string>
+    <string name="menu_table_exportCSVCondensed_tt">A CSV file containing only the prime implicants.</string>
+    <string name="msg_truthTableCSV">Comma Separated Values, CSV</string>
+    <string name="menu_createBehavioralFixture">Create Behavior Fixing Test Case</string>
+    <string name="menu_createBehavioralFixture_tt">Creates a behavioral fixture from the circuit.
+        A behavioral fixture is a test case that fixes the current behavior.</string>
+    <string name="msg_fixesCreated_N">Fixtures: {0}</string>
+    <string name="btn_createTestLine">Create Fixture</string>
+    <string name="btn_createTestLine_tt">Creates a new fixture in the test case.</string>
+    <string name="btn_BehavioralFixtureComplete">Complete</string>
+    <string name="btn_BehavioralFixtureComplete_tt">Creates the test case component</string>
+    <string name="msg_errorCreatingTestCase">Error in the creation of the test case.</string>
 </resources>

@@ -1326,7 +1326,7 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_table_create_hardware">Dispositivo</string>
   <string name="menu_table_create_jedec_tt">Crea un archivo JEDEC para el dispositivo</string>
   <string name="menu_table_exportTableLaTeX">Exporta a LaTeX</string>
-  <string name="menu_table_exportHex">Exporta a HEX</string>
+  <string name="menu_table_exportHex">HEX</string>
   <string name="menu_table_exportHex_tt">Puedes cargar el archivo HEX a una ROM o a una Tabla de Consulta (LUT).</string>
   <string name="menu_table_new">Nuevo</string>
   <string name="menu_table_new_combinatorial">Combinacional</string>
@@ -2186,4 +2186,40 @@ Sin embargo, no se deben usar por encima de la línea del encabezado que contien
     <string name="menu_fsm_optimize_state_numbers_err">¡Error durante la optimización!</string>
     <string name="msg_fsm_optimizer_initial">Complejidad inicial:</string>
     <string name="msg_fsm_optimizer_best">Lo mejor hasta ahora:</string>
+    <string name="msg_search">búsqueda</string>
+    <string name="elem_PinControl">Control de pin</string>
+    <string name="elem_RAMAsync">RANm asíncrona</string>
+    <string name="elem_RAMAsync_tt">Siempre y cuando se habilite, se almacena. Corresponde a una RAM muy simple, donde las líneas
+		de direcciones y de datos están directamente conectadas a los decodificadores de las celdas de memoria.</string>
+    <string name="elem_RAMAsync_pin_A">Dirección en la que se produce la lectura o la escritura</string>
+    <string name="elem_RAMAsync_pin_D">Datos que se van a almacenar</string>
+    <string name="elem_RAMAsync_pin_we">Habilitación de escritura. Siempre y cuando esta entrada esté a 1, el valor aplicado a D se almacena
+		en la dirección aplicada a A, tanto si A o D han cambiado o no.</string>
+    <string name="elem_RAMAsync_pin_Q">Salida de los datos almacenados</string>
+    <string name="err_writeInCodeComponentsOnly">Las variables globales solo se pueden escribir en componentes de código.</string>
+    <string name="err_csvNoHeaderFound">¡No se ha encontrado encabezado!</string>
+    <string name="err_csvNoOutputValuesFound">¡No se han encontrado valores de salida!</string>
+    <string name="err_csvNotEnoughValues">¡No hay suficientes valores en una línea!</string>
+    <string name="err_csvToManyValues">¡Demasiados valores en una línea!</string>
+    <string name="key_intFormat_fixed">Punto fijo</string>
+    <string name="key_intFormat_fixedSigned">Punto fijo con signo</string>
+    <string name="key_intFormat_floating">Punto flotante</string>
+    <string name="key_fixedPoint">Dígitos de punto fijo</string>
+    <string name="key_fixedPoint_tt">Número de dígitos binarios para fracciones</string>
+    <string name="key_iverilogOptions">Opciones de IVerilog</string>
+    <string name="key_iverilogOptions_tt">Opciones que se usan para todos los pasos de procesamiento con IVerilog.</string>
+    <string name="menu_table_exportCSV">CSV</string>
+    <string name="menu_table_exportCSV_tt">Fichero CSV que contiene la tabla de verdad completa.</string>
+    <string name="menu_table_exportCSVCondensed">CSV, implicantes primos</string>
+    <string name="menu_table_exportCSVCondensed_tt">Fichero CSV que contiene solo los implicantes primos</string>
+    <string name="msg_truthTableCSV">Valores separados por comas, CSV</string>
+    <string name="menu_createBehavioralFixture">Crear caso de prueba para corrección de comportamiento</string>
+    <string name="menu_createBehavioralFixture_tt">Crea un accesorio de comportamiento del circuito.
+		Un accesorio de comportamiento es un caso de prueba que arregla el comportamiento actual.</string>
+    <string name="msg_fixesCreated_N">Accesorios: {0}</string>
+    <string name="btn_createTestLine">Crear accesorio</string>
+    <string name="btn_createTestLine_tt">Crea un nuevo accesorio en el caso de prueba.</string>
+    <string name="btn_BehavioralFixtureComplete">Completo</string>
+    <string name="btn_BehavioralFixtureComplete_tt">Crea el componente "caso de prueba"</string>
+    <string name="msg_errorCreatingTestCase">Error en la creación del caso de prueba.</string>
 </resources>
