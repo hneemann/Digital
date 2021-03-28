@@ -5,8 +5,7 @@ This makes it very difficult for me to continue to maintain the translation.
 The only exception are simple typos.
 Pull requests in which this file is modified beyond simple typos cannot be accepted.
 In the file howTo.md you can find more details about translations.
--->
-<resources>
+--><resources>
   <string name="addr">地址</string>
   <string name="tableOfContent">目录</string>
   <string name="general">一般使用</string>
@@ -238,8 +237,6 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_Splitter_pin_out_one">输出位 {0}</string>
   <string name="elem_BusSplitter">双向分裂器</string>
   <string name="elem_BusSplitter_tt">可用于数据总线特别是存储器模块的构建</string>
-  <string name="elem_BusSplitter_pin_OE">When set, the value at the common data terminal D is output to the bit
-      outputs D[i], if not, the bits D[i] are output to the common output D.</string>
   <string name="elem_BusSplitter_pin_D_N">数据位 {0}</string>
   <string name="elem_PullUp">上拉电阻</string>
   <string name="elem_PullUp_pin_out">弱高电平</string>
@@ -345,7 +342,7 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_PFET">P 沟道场效应晶体管</string>
   <string name="elem_FGNFET">N 沟道浮动门场效应晶体管</string>
   <string name="elem_Testcase">测试用例</string>
-  <string name="elem_Testcase_tt">用于定义测试用例，可用于自动检测电路的行为是否符合该定义。</string>
+  <string name="elem_Testcase_tt">用于定义测试用例，可用于自动检测电路的行为是否符合定义。</string>
   <string name="elem_AsyncSeq">异步时序</string>
   <string name="elem_AsyncSeq_tt">允许设置异步时序电路如Muller流水线的时序。</string>
   <string name="elem_PowerSupply">电源连接器</string>
@@ -1360,7 +1357,6 @@ In the file howTo.md you can find more details about translations.
   <string name="err_openingDocumentation">无法打开浏览器</string>
   <string name="err_couldNotCreateFolder_N0">无法创建文件夹 "{0}"</string>
   <string name="err_switchHasNoNet">不可仅连接输入信号到开关</string>
-  <string name="err_file_N0_ExistsTwiceBelow_N1">The file {0} exists multiple times below {1}.</string>
   <string name="err_couldNotFindIncludedFile_N0">找不到文件 {0}</string>
   <string name="err_postProcessErrorIn_N0">执行 "{0}" 时遇到错误</string>
   <string name="err_processDoesNotTerminate_N">进程 "{0}" 无返回内容！</string>
@@ -1555,4 +1551,62 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_fsm_optimize_state_numbers_err">优化时出错！</string>
     <string name="msg_fsm_optimizer_initial">初始复杂度：</string>
     <string name="msg_fsm_optimizer_best">目前最优：</string>
+    <string name="msg_search">搜索</string>
+    <string name="elem_BusSplitter_pin_D">集合连接</string>
+    <string name="elem_RAMAsync">异步 RAM</string>
+    <string name="elem_RAMAsync_tt">当 we 为高电平时，每当地址或数据改变时，都会存储数据 D 到地址 A</string>
+    <string name="elem_RAMAsync_pin_A">读写地址</string>
+    <string name="elem_RAMAsync_pin_D">待存储数据</string>
+    <string name="elem_RAMAsync_pin_we">写使能</string>
+    <string name="elem_RAMAsync_pin_Q">输出地址 A 存储的数据</string>
+    <string name="elem_RegisterFile_short">Register</string>
+    <string name="elem_Counter_short">计数器</string>
+    <string name="elem_BitCount_short">位计数器</string>
+    <string name="err_exact_N0_valuesNecessaryNot_N1">需要 {0} 个值，而不是 {1}</string>
+    <string name="err_noValueSetFor_N0_atElement_N1">组件 ''{1}'' 的输入端口 ''{0}'' 没有连接到任何地方</string>
+    <string name="err_seemsToOscillate">逻辑看起来产生震荡，你可以通过单步方式运行电路来进行分析。</string>
+    <string name="err_testDataExpected_N0_found_N1_numbersInLine_N2">期待 {0} 个值，但发现 {1} 个，位于行 {2}。</string>
+    <string name="err_unexpectedToken_N0_inLine_N1">未知 token {0}，行 {1}</string>
+    <string name="err_centralDefinedRomsAreNotSupported">不支持设置中定义的 ROMS！</string>
+    <string name="err_errorLoadingRomData">加载编程数据时出错。</string>
+    <string name="err_allMemoriesNeedToHaveTheSameByteWidth">所有待加载数据必须具有相同的位宽</string>
+    <string name="err_ProgMemLabelsNotDifferent">如果要将程序加载到多个RAM中，则所有RAM必须具有不同的名称。</string>
+    <string name="err_hdlNotKnown_N">未知 HDL：{0}</string>
+    <string name="err_substitutingError">替换组件进行分析时出错。</string>
+    <string name="err_writeInCodeComponentsOnly">全局变量只能写在代码组件中</string>
+    <string name="err_virtualSignal_N_DeclaredTwiceInLine_N">信号 {0} 在行 {1} 声明了两次！</string>
+    <string name="err_csvNoHeaderFound">没有表头</string>
+    <string name="err_csvNoOutputValuesFound">没有输出值！</string>
+    <string name="err_csvNotEnoughValues">一行中缺少值</string>
+    <string name="err_csvToManyValues">一行中包含太多的值</string>
+    <string name="key_fixedPoint_tt">小数位数</string>
+    <string name="key_activeLow_tt">如果选中该选项，则该组件处于活动状态时输出为低电平。</string>
+    <string name="key_applicationType_GHDL">GHDL</string>
+    <string name="key_applicationType_IVERILOG">IVerilog</string>
+    <string name="key_iverilogOptions">IVerilog 选项</string>
+    <string name="key_iverilogOptions_tt">IVerilog 选项</string>
+    <string name="key_iverilogPath">IVerilog</string>
+    <string name="key_ATMISP">ATMISP</string>
+    <string name="key_shapeType_SIMPLE">Simple</string>
+    <string name="key_shapeType_DIL">DIL-Chip</string>
+    <string name="key_shapeType_LAYOUT">Layout</string>
+    <string name="lib_ram">RA</string>
+    <string name="lib_eeprom">EEPROM</string>
+    <string name="cli_help_test_allowMissingInputs">允许电路中缺少测试用例中定义的输入。 如果有几种可能的解决方案可能取决于不同的输入，这将很有用。</string>
+    <string name="menu_table_exportCSV">CSV</string>
+    <string name="menu_table_exportCSV_tt">包含完整真值表的 CSV 文件</string>
+    <string name="msg_test_missingLines">太多内容！</string>
+    <string name="msg_fitterResult">来自外部 fitter 的消息</string>
+    <string name="msg_startExternalFitter">执行外部 fitter</string>
+    <string name="msg_truthTableCSV">逗号分割的值</string>
+    <string name="menu_createBehavioralFixture">创建 Fixture 测试用例</string>
+    <string name="menu_createBehavioralFixture_tt">创建 fixture 测试用例修复当前行为</string>
+    <string name="btn_createTestLine">创建 Fixture</string>
+    <string name="btn_createTestLine_tt">在测试用例中创建新的 Fixture</string>
+    <string name="btn_BehavioralFixtureComplete">完成</string>
+    <string name="btn_BehavioralFixtureComplete_tt">创建测试用例组件</string>
+    <string name="msg_errorCreatingTestCase">创建测试用例时产生错误。</string>
+    <string name="fsm_noMove">没有变化</string>
+    <string name="fsm_moveTrans">迁移</string>
+    <string name="fsm_moveStates">迁移 + 状态</string>
 </resources>

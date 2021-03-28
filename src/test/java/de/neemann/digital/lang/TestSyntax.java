@@ -33,8 +33,8 @@ public class TestSyntax extends TestCase {
         for (String key : en.getKeys()) {
             final String en_msg = en.get(key);
             final String de_msg = de.get(key);
-            int paramCount = getParamCount(en_msg);
-            assertEquals(key, paramCount, getParamCount(de_msg));
+            int paramCount = getParamCount(key, en_msg);
+            assertEquals(key, paramCount, getParamCount(key, de_msg));
             checkSingleQuoteRules(en_msg, key, paramCount);
             checkSingleQuoteRules(de_msg, key, paramCount);
 
@@ -42,7 +42,7 @@ public class TestSyntax extends TestCase {
                 final String m = r.get(key);
                 if (m != null) {
                     checkSingleQuoteRules(m, key, paramCount);
-                    assertEquals("Param count does not match: " + key + " " + m, paramCount, getParamCount(m));
+                    assertEquals("Param count does not match: " + key + " " + m, paramCount, getParamCount(key, m));
                 }
             }
         }
@@ -50,14 +50,14 @@ public class TestSyntax extends TestCase {
 
     }
 
-    private int getParamCount(String msg) {
+    private int getParamCount(String key, String msg) {
         HashSet<Integer> numSet = new HashSet<>();
         int pos = 0;
         while (true) {
             pos = msg.indexOf("{", pos);
             if (pos < 0) {
                 for (int i = 0; i < numSet.size(); i++)
-                    assertTrue(numSet.contains(i));
+                    assertTrue(key + ": param " + i + " is missing in " + msg, numSet.contains(i));
 
                 return numSet.size();
             }
