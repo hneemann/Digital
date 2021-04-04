@@ -19,8 +19,8 @@ A [Java Runtime Environment](https://www.java.com/) (at least JRE 8) is required
 way to get Java is to install the
 [AdoptOpenJDK](https://adoptopenjdk.net/).
 
-If there are any problems starting Digital on your system, please try to run Digital from a command line within the *
-Digital* folder:
+If there are any problems starting Digital on your system, please try to run Digital from a command line within the
+*Digital* folder:
 
 ```
 java -jar Digital.jar
