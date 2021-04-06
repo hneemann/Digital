@@ -64,7 +64,8 @@ public class ExportZipAction extends ToolTipAction {
                     addToZip(zip, prog);
                 }
 
-                addToZip(zip, "MANIFEST.TXT", "Main-Circuit: " + origin.getName() + "\n");
+                if (origin != null)
+                    addToZip(zip, "MANIFEST.TXT", "Main-Circuit: " + origin.getName() + "\n");
             } catch (ElementNotFoundException e1) {
                 throw new IOException(Lang.get("err_errorExportingZip"), e1);
             }
@@ -87,12 +88,14 @@ public class ExportZipAction extends ToolTipAction {
     }
 
     private void addToZip(ZipOutputStream zip, File file) throws IOException {
-        zip.putNextEntry(new ZipEntry(file.getName()));
-        try (InputStream in = new FileInputStream(file)) {
-            byte[] buffer = new byte[4096];
-            int len;
-            while ((len = in.read(buffer)) > 0) {
-                zip.write(buffer, 0, len);
+        if (file != null) {
+            zip.putNextEntry(new ZipEntry(file.getName()));
+            try (InputStream in = new FileInputStream(file)) {
+                byte[] buffer = new byte[4096];
+                int len;
+                while ((len = in.read(buffer)) > 0) {
+                    zip.write(buffer, 0, len);
+                }
             }
         }
     }

@@ -123,9 +123,11 @@ public class GraphicSVG extends Graphic {
 
     @Override
     public void close() throws IOException {
-        w.write("</g>\n");
-        w.write("</svg>");
-        w.close();
+        if (w != null) {
+            w.write("</g>\n");
+            w.write("</svg>");
+            w.close();
+        }
     }
 
     @Override

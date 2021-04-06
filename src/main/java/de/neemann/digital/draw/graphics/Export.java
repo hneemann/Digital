@@ -43,13 +43,15 @@ public class Export {
             GraphicMinMax minMax = new GraphicMinMax(gr);
             circuit.drawTo(minMax);
 
-            gr.setBoundingBox(minMax.getMin(), minMax.getMax());
+            if (minMax.isValid()) {
+                gr.setBoundingBox(minMax.getMin(), minMax.getMax());
 
-            GraphicLineCollector glc = new GraphicLineCollector();
-            circuit.drawTo(glc);
-            glc.drawTo(gr);
+                GraphicLineCollector glc = new GraphicLineCollector();
+                circuit.drawTo(glc);
+                glc.drawTo(gr);
 
-            circuit.drawTo(new GraphicSkipLines(gr));
+                circuit.drawTo(new GraphicSkipLines(gr));
+            }
         }
     }
 }
