@@ -17,9 +17,8 @@ import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.graphics.SVGSettings;
 import de.neemann.digital.lang.Lang;
 
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * CLI svg exporter
@@ -56,8 +55,7 @@ public class SVGExport extends BasicCommand {
             else
                 outName = digFile.get() + ".svg";
 
-            OutputStream out = new FileOutputStream(outName);
-            new Export(circuit, o -> new GraphicSVG(o, attr)).export(out);
+            new Export(circuit, o -> new GraphicSVG(o, attr)).export(new File(outName));
         } catch (IOException e) {
             throw new CLIException(Lang.get("cli_errorCreatingSVG"), e);
         }

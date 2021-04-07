@@ -8,7 +8,10 @@ package de.neemann.digital.draw.graphics;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.linemerger.GraphicLineCollector;
 import de.neemann.digital.draw.graphics.linemerger.GraphicSkipLines;
+import de.neemann.digital.lang.Lang;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -35,6 +38,23 @@ public class Export {
     /**
      * Export the file
      *
+     * @param file filename used to write the file to
+     * @throws IOException IOException
+     */
+    public void export(File file) throws IOException {
+        try {
+            try (OutputStream out = new FileOutputStream(file)) {
+                export(out);
+            }
+        } catch (IOException e) {
+            file.delete();
+            throw new IOException(Lang.get("err_errorWritingFile_N", file), e);
+        }
+    }
+
+    /**
+     * Export the file
+     *
      * @param out stream to write the file to
      * @throws IOException IOException
      */
@@ -51,7 +71,8 @@ public class Export {
                 glc.drawTo(gr);
 
                 circuit.drawTo(new GraphicSkipLines(gr));
-            }
+            } else
+                throw new IOException(Lang.get("err_circuitContainsNoComponents"));
         }
     }
 }

@@ -1229,6 +1229,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_csvNoOutputValuesFound">Keine Ausganswerte gefunden!</string>
     <string name="err_csvNotEnoughValues">Nicht genug Werte in einer Zeile!</string>
     <string name="err_csvToManyValues">Zu viel Werte in einer Zeile!</string>
+    <string name="err_errorWritingFile_N">Fehler beim Schreiben der Datei {0}.</string>
+    <string name="err_circuitContainsNoComponents">Die Schaltung enthält keine Bauteile!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>

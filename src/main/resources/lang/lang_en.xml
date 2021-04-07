@@ -1217,6 +1217,8 @@
     <string name="err_csvNoOutputValuesFound">No output values found!</string>
     <string name="err_csvNotEnoughValues">Not enough values in one line!</string>
     <string name="err_csvToManyValues">Too many values in one line!</string>
+    <string name="err_errorWritingFile_N">Error writing file {0}.</string>
+    <string name="err_circuitContainsNoComponents">The circuit contains no components!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
