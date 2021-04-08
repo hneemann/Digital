@@ -209,6 +209,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         circuitComponent.addKeyListener(new ModelKeyListener());
 
         statusLabel = new JLabel(" ");
+        statusLabel.setBorder(BorderFactory.createEmptyBorder(0, Screen.getInstance().getFontSize() * 2 / 3, 0, 0));
         getContentPane().add(statusLabel, BorderLayout.SOUTH);
 
         setupStates();
