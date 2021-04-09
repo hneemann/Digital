@@ -20,6 +20,7 @@ import de.neemann.digital.core.io.Const;
 import de.neemann.digital.core.io.In;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.io.Probe;
+import de.neemann.digital.core.io.CntProbe;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.LookUpTable;
 import de.neemann.digital.core.wiring.Clock;
@@ -636,6 +637,11 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 .setPos(new Vector(splitterXPos, y))
                 .setShapeFactory(shapeFactory));
         circuit.add(new VisualElement(Probe.DESCRIPTION.getName())
+                .setAttribute(Keys.LABEL, name)
+                .setAttribute(Keys.BITS, outputs.size())
+                .setPos(new Vector(splitterXPos + 3 * SIZE, y))
+                .setShapeFactory(shapeFactory));
+        circuit.add(new VisualElement(CntProbe.DESCRIPTION.getName())
                 .setAttribute(Keys.LABEL, name)
                 .setAttribute(Keys.BITS, outputs.size())
                 .setPos(new Vector(splitterXPos + 3 * SIZE, y))

@@ -12,6 +12,7 @@ import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.io.CntProbe;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.graphics.Orientation;
@@ -905,6 +906,12 @@ public final class Keys {
      */
     public static final Key.KeyEnum<ScopeTrigger.Trigger> TRIGGER =
             new Key.KeyEnum<>("trigger", ScopeTrigger.Trigger.both, ScopeTrigger.Trigger.values());
+
+    /**
+     * At which edge the CntProbe should act on
+     */
+   public static final Key<CntProbe.Edges> CNTPROBE_EDGE =
+           new Key.KeyEnum<>("edge", CntProbe.Edges.rising,  CntProbe.Edges.values());
 
 
 }

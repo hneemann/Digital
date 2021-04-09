@@ -130,6 +130,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(DipSwitch.DESCRIPTION)
                         .add(DummyElement.TEXTDESCRIPTION)
                         .add(Probe.DESCRIPTION)
+                        .add(CntProbe.DESCRIPTION)
                         .add(DummyElement.DATADESCRIPTION)
                         .add(ScopeTrigger.DESCRIPTION)
                         .add(new LibraryNode(Lang.get("lib_displays"))
