@@ -12,6 +12,7 @@ import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.io.PortMode;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.graphics.Orientation;
@@ -906,5 +907,17 @@ public final class Keys {
     public static final Key.KeyEnum<ScopeTrigger.Trigger> TRIGGER =
             new Key.KeyEnum<>("trigger", ScopeTrigger.Trigger.both, ScopeTrigger.Trigger.values());
 
+    /**
+     * true if port is to be used with telnet
+     */
+    public static final Key<Boolean> PORT_TELNET =
+            new Key<>("portTelnet", true);
+
+
+   /**
+     * type of Port (serial/parallel)
+     */
+    public static final Key<PortMode> PORT_MODE =
+            new Key.KeyEnum<>("portMode", PortMode.serial, PortMode.values());
 
 }

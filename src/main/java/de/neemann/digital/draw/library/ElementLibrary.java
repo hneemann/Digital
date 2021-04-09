@@ -151,6 +151,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                                 .add(Keyboard.DESCRIPTION)
                                 .add(Terminal.DESCRIPTION)
                                 .add(VGA.DESCRIPTION)
+                                .add(Port.DESCRIPTION)
                                 .add(MIDI.DESCRIPTION)
                         )
                 )
