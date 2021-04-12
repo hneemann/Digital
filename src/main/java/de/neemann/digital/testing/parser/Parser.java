@@ -343,6 +343,18 @@ public class Parser {
         return value;
     }
 
+    private Expression parseExpression() throws IOException, ParserException {
+        return parseExpression(OperatorPrecedence.first());
+    }
+
+    private Expression parseExpression(OperatorPrecedence op) throws IOException, ParserException {
+        OperatorPrecedence pr = op.getPredecessor();
+        if (pr == null)
+            return parseExpression(op, this::parseIdent);
+        else
+            return parseExpression(op, () -> parseExpression(pr));
+    }
+
     private Expression parseExpression(OperatorPrecedence oppr, Next next) throws IOException, ParserException {
         Expression ac = next.next();
         while (tok.peek().getPrecedence() == oppr) {
@@ -352,38 +364,6 @@ public class Parser {
             ac = (c) -> op.op(a.value(c), b.value(c));
         }
         return ac;
-    }
-
-    private Expression parseExpression() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.OR, this::parseXOR);
-    }
-
-    private Expression parseXOR() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.XOR, this::parseAND);
-    }
-
-    private Expression parseAND() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.AND, this::parseEquals);
-    }
-
-    private Expression parseEquals() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.EQUAL, this::parseCompare);
-    }
-
-    private Expression parseCompare() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.COMPARE, this::parseShift);
-    }
-
-    private Expression parseShift() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.SHIFT, this::parseAdd);
-    }
-
-    private Expression parseAdd() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.ADD, this::parseMul);
-    }
-
-    private Expression parseMul() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.MUL, this::parseIdent);
     }
 
     private Expression parseIdent() throws IOException, ParserException {

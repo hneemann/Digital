@@ -12,5 +12,23 @@ public enum OperatorPrecedence {
     /**
      * the operator precedences
      */
-    MUL, ADD, SHIFT, COMPARE, EQUAL, AND, XOR, OR
+    MUL, ADD, SHIFT, COMPARE, EQUAL, AND, XOR, OR;
+
+    /**
+     * @return the OperatorPrecedence to start with
+     */
+    public static OperatorPrecedence first() {
+        return OR;
+    }
+
+    /**
+     * @return the predecessor or null if there is none
+     */
+    public OperatorPrecedence getPredecessor() {
+        if (ordinal() == 0)
+            return null;
+        else
+            return values()[ordinal() - 1];
+    }
+
 }
