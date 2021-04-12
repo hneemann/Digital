@@ -14,10 +14,50 @@ import java.util.HashMap;
  */
 public class Tokenizer {
 
+    interface Binary {
+        long op(long a, long b);
+    }
+
     enum Token {
-        UNKNOWN, IDENT, AND, OR, XOR, BIN_NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
-        ADD, SUB, MUL, GREATER, GREATEREQUAL, SMALER, SMALEREQUAL, DIV, MOD, END, LOOP, REPEAT, BITS, SEMICOLON,
-        LET, LOG_NOT, DECLARE, PROGRAM, INIT, MEMORY, WHILE
+        UNKNOWN, IDENT, BIN_NOT, LOG_NOT, OPEN, CLOSE, NUMBER, EOL, EOF, COMMA,
+        AND(OperatorPrecedence.AND, (a, b) -> a & b),
+        OR(OperatorPrecedence.OR, (a, b) -> a | b),
+        XOR(OperatorPrecedence.XOR, (a, b) -> a ^ b),
+        SHIFT_LEFT(OperatorPrecedence.SHIFT, (a, b) -> a << b),
+        SHIFT_RIGHT(OperatorPrecedence.SHIFT, (a, b) -> a >> b),
+        EQUAL(OperatorPrecedence.EQUAL, (a, b) -> (a == b) ? 1 : 0),
+        NOT_EQUAL(OperatorPrecedence.EQUAL, (a, b) -> (a != b) ? 1 : 0),
+        ADD(OperatorPrecedence.ADD, (a, b) -> a + b),
+        SUB(OperatorPrecedence.ADD, (a, b) -> a - b),
+        MUL(OperatorPrecedence.MUL, (a, b) -> a * b),
+        DIV(OperatorPrecedence.MUL, (a, b) -> a / b),
+        MOD(OperatorPrecedence.MUL, (a, b) -> a % b),
+        GREATER(OperatorPrecedence.COMPARE, (a, b) -> (a > b) ? 1 : 0),
+        GREATER_EQUAL(OperatorPrecedence.COMPARE, (a, b) -> (a >= b) ? 1 : 0),
+        SMALLER(OperatorPrecedence.COMPARE, (a, b) -> (a < b) ? 1 : 0),
+        SMALLER_EQUAL(OperatorPrecedence.COMPARE, (a, b) -> (a <= b) ? 1 : 0),
+        END, LOOP, REPEAT, BITS, SEMICOLON,
+        LET, DECLARE, PROGRAM, INIT, MEMORY, WHILE;
+
+        private final OperatorPrecedence precedence;
+        private final Binary function;
+
+        Token() {
+            this(null, null);
+        }
+
+        Token(OperatorPrecedence precedence, Binary function) {
+            this.precedence = precedence;
+            this.function = function;
+        }
+
+        public OperatorPrecedence getPrecedence() {
+            return precedence;
+        }
+
+        public Binary getFunction() {
+            return function;
+        }
     }
 
     private final static HashMap<String, Token> STATEMENT_MAP = new HashMap<>();
@@ -132,18 +172,18 @@ public class Tokenizer {
                 break;
             case '<':
                 if (isNextChar('<')) {
-                    token = Token.SHIFTLEFT;
+                    token = Token.SHIFT_LEFT;
                 } else if (isNextChar('=')) {
-                    token = Token.SMALEREQUAL;
+                    token = Token.SMALLER_EQUAL;
                 } else {
-                    token = Token.SMALER;
+                    token = Token.SMALLER;
                 }
                 break;
             case '>':
                 if (isNextChar('>')) {
-                    token = Token.SHIFTRIGHT;
+                    token = Token.SHIFT_RIGHT;
                 } else if (isNextChar('=')) {
-                    token = Token.GREATEREQUAL;
+                    token = Token.GREATER_EQUAL;
                 } else {
                     token = Token.GREATER;
                 }
@@ -152,7 +192,11 @@ public class Tokenizer {
                 token = Token.BIN_NOT;
                 break;
             case '!':
-                token = Token.LOG_NOT;
+                if (isNextChar('=')) {
+                    token = Token.NOT_EQUAL;
+                } else {
+                    token = Token.LOG_NOT;
+                }
                 break;
             case ',':
                 token = Token.COMMA;
