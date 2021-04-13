@@ -6,7 +6,6 @@
 package de.neemann.digital.builder.Gal22v10;
 
 import de.neemann.digital.builder.Gal16v8.CuplExporter;
-import de.neemann.digital.builder.PinMap;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -31,9 +30,10 @@ public class Gal22v10CuplExporter extends CuplExporter {
      * @param date     date
      */
     public Gal22v10CuplExporter(String username, Date date) {
-        super(username, date, "g22v10", new PinMap()
+        super(username, date, "g22v10");
+        getPinMapping()
                 .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13)
-                .setAvailOutputs(14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
+                .setAvailOutputs(14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
     }
 
     @Override

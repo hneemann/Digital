@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
 
-    private final BuilderInterface parent;
+    private BuilderInterface parent;
     private final Filter filter;
     private final HashMap<String, String> nameMap;
 
@@ -91,6 +91,15 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
                 return super.assignPin(checkName(name), pin);
             }
         };
+    }
+
+    /**
+     * Sets the parent builder.
+     *
+     * @param parent the parents builder
+     */
+    public void setParent(BuilderInterface parent) {
+        this.parent = parent;
     }
 
     /**

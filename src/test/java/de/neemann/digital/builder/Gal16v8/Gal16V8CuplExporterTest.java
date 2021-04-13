@@ -209,8 +209,32 @@ public class Gal16V8CuplExporterTest extends TestCase {
                 "X = A;\r\n", cupl);
     }
 
+    public void testCuplNames() throws IOException, ElementNotFoundException, PinException, NodeException, AnalyseException, BacktrackException, PinMapException, ExpressionException, FormatterException {
+        String cupl = createCupl("dig/GAL/Names.dig", 1, 2, 3, 4, 5);
+        assertEquals("Name     test ;\r\n" +
+                "PartNo   00 ;\r\n" +
+                "Date     unknownDate ;\r\n" +
+                "Revision 01 ;\r\n" +
+                "Designer nn ;\r\n" +
+                "Company  unknown ;\r\n" +
+                "Assembly None ;\r\n" +
+                "Location unknown ;\r\n" +
+                "Device   g16v8a ;\r\n" +
+                "\r\n" +
+                "/* inputs */\r\n" +
+                "PIN 5 = A;\r\n" +
+                "PIN 2 = A1;\r\n" +
+                "PIN 3 = B2;\r\n" +
+                "PIN 4 = C_2;\r\n" +
+                "\r\n" +
+                "/* outputs */\r\n" +
+                "PIN 1 = Y;\r\n" +
+                "\r\n" +
+                "/* combinatorial logic */\r\n" +
+                "Y = (A & C_2) # (A1 & B2);\r\n", cupl);
+    }
 
-    private String createCupl(String filename) throws IOException, PinException, NodeException, ElementNotFoundException, BacktrackException, AnalyseException, ExpressionException, FormatterException, PinMapException {
+    private String createCupl(String filename, int... pins) throws IOException, PinException, NodeException, ElementNotFoundException, BacktrackException, AnalyseException, ExpressionException, FormatterException, PinMapException {
         File f = new File(Resources.getRoot(), filename);
         ElementLibrary library = new ElementLibrary();
         Circuit c = Circuit.loadCircuit(f, new ShapeFactory(library));
@@ -221,6 +245,7 @@ public class Gal16V8CuplExporterTest extends TestCase {
         new ExpressionCreator(t).create(expressions);
 
         CuplExporter cuplExporter = new CuplExporter("nn", null);
+        cuplExporter.getPinMapping().setAvailBidirectional(pins);
         cuplExporter.setProjectName("test");
         final ModelAnalyserInfo modelAnalyzerInfo = t.getModelAnalyzerInfo();
         if (modelAnalyzerInfo != null)
