@@ -6,25 +6,25 @@
 package de.neemann.digital.testing.parser;
 
 /**
- * Defines the operator precedences
+ * Defines the operator precedence
  */
 public enum OperatorPrecedence {
     /**
-     * the operator precedences
+     * the operator precedence
      */
     MUL, ADD, SHIFT, COMPARE, EQUAL, AND, XOR, OR;
 
     /**
-     * @return the OperatorPrecedence to start with
+     * @return the lowest operator precedence to start evaluation with
      */
-    public static OperatorPrecedence first() {
+    public static OperatorPrecedence lowest() {
         return OR;
     }
 
     /**
      * @return the predecessor or null if there is none
      */
-    public OperatorPrecedence getPredecessor() {
+    public OperatorPrecedence getNextHigherPrecedence() {
         if (ordinal() == 0)
             return null;
         else

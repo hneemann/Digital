@@ -344,26 +344,26 @@ public class Parser {
     }
 
     private Expression parseExpression() throws IOException, ParserException {
-        return parseExpression(OperatorPrecedence.first());
+        return parseExpression(OperatorPrecedence.lowest());
     }
 
     private Expression parseExpression(OperatorPrecedence op) throws IOException, ParserException {
-        OperatorPrecedence pr = op.getPredecessor();
-        if (pr == null)
-            return parseExpression(op, this::parseIdent);
-        else
-            return parseExpression(op, () -> parseExpression(pr));
-    }
-
-    private Expression parseExpression(OperatorPrecedence oppr, Next next) throws IOException, ParserException {
+        Next next = getNextParser(op.getNextHigherPrecedence());
         Expression ac = next.next();
-        while (tok.peek().getPrecedence() == oppr) {
-            Tokenizer.Binary op = tok.next().getFunction();
+        while (tok.peek().getPrecedence() == op) {
+            Tokenizer.Binary function = tok.next().getFunction();
             Expression a = ac;
             Expression b = next.next();
-            ac = (c) -> op.op(a.value(c), b.value(c));
+            ac = (c) -> function.op(a.value(c), b.value(c));
         }
         return ac;
+    }
+
+    private Next getNextParser(OperatorPrecedence pr) {
+        if (pr == null)
+            return this::parseIdent;
+        else
+            return () -> parseExpression(pr);
     }
 
     private Expression parseIdent() throws IOException, ParserException {
