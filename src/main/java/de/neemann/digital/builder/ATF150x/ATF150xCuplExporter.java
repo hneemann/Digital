@@ -6,7 +6,6 @@
 package de.neemann.digital.builder.ATF150x;
 
 import de.neemann.digital.builder.Gal16v8.CuplExporter;
-import de.neemann.digital.builder.PinMap;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -38,8 +37,9 @@ public class ATF150xCuplExporter extends CuplExporter {
      * @param pins     the bidirectional pins
      */
     public ATF150xCuplExporter(String username, Date date, String devName, int clockPin, int[] pins) {
-        super(username, date, devName, new PinMap()
-                .setAvailBidirectional(pins));
+        super(username, date, devName);
+        getPinMapping()
+                .setAvailBidirectional(pins);
         setClockPin(clockPin);
         setCreateNodes(true);
     }

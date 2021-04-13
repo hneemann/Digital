@@ -34,7 +34,7 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
     private final String username;
     private final Date date;
     private final BuilderCollector builder;
-    private final BuilderInterface cleanNameBuilder;
+    private final CleanNameBuilder cleanNameBuilder;
 
     private final PinMap pinMap;
     private final String devName;
@@ -57,9 +57,10 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
      * @param date     date
      */
     public CuplExporter(String username, Date date) {
-        this(username, date, "g16v8a", new PinMap()
+        this(username, date, "g16v8a");
+        getPinMapping()
                 .setAvailInputs(2, 3, 4, 5, 6, 7, 8, 9)
-                .setAvailOutputs(12, 13, 14, 15, 16, 17, 18, 19));
+                .setAvailOutputs(12, 13, 14, 15, 16, 17, 18, 19);
     }
 
     /**
@@ -77,15 +78,15 @@ public class CuplExporter implements ExpressionExporter<CuplExporter> {
      * @param username user name
      * @param date     creation date
      * @param devName  device name
-     * @param pinMap   the pin map to use
      */
-    protected CuplExporter(String username, Date date, String devName, PinMap pinMap) {
+    protected CuplExporter(String username, Date date, String devName) {
         this.username = username;
         this.date = date;
         this.devName = devName;
-        this.pinMap = pinMap;
+        cleanNameBuilder = new CleanNameBuilder(null);
+        this.pinMap = cleanNameBuilder.createPinMap();
         builder = new CuplBuilder(pinMap);
-        cleanNameBuilder = new CleanNameBuilder(builder);
+        cleanNameBuilder.setParent(builder);
     }
 
     /**
