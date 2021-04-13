@@ -52,6 +52,7 @@
     <string name="elem_Help_outputs">Ausgänge</string>
     <string name="elem_Help_attributes">Veränderbare Attribute</string>
     <string name="msg_search">Suche</string>
+    <string name="msg_errorPastingData">Fehler beim Einfügen von Daten!</string>
 
     <!-- logik -->
 

@@ -23,12 +23,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Used to edit ROM data fields.
@@ -175,9 +179,23 @@ public class DataEditor extends JDialog {
 
             menuBar.add(data);
 
-
             setJMenuBar(menuBar);
         }
+
+        AbstractAction pasteAction = new AbstractAction("Paste") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                try {
+                    Object data = clpbrd.getData(DataFlavor.stringFlavor);
+                    new PasteHandler(data.toString(), table).paste();
+                } catch (UnsupportedFlavorException | IOException e1) {
+                    new ErrorMessage(Lang.get("msg_errorPastingData")).addCause(e1).show();
+                }
+            }
+        };
+        table.getInputMap().put(KeyStroke.getKeyStroke("control V"), "myPaste");
+        table.getActionMap().put("myPaste", pasteAction);
 
         pack();
         if (getWidth() < 150)
@@ -423,4 +441,62 @@ public class DataEditor extends JDialog {
             return value;
         }
     }
+
+    private static final class PasteHandler {
+        private final String data;
+        private final int yOrigin;
+        private final int xOrigin;
+        private final MyTableModel model;
+
+        /**
+         * Creates a new Paste handler
+         *
+         * @param data  the datastrin give by the systems clipboard
+         * @param table the tabel to insert the data to
+         */
+        private PasteHandler(String data, JTable table) {
+            this.data = data;
+            xOrigin = table.getSelectedColumn();
+            yOrigin = table.getSelectedRow();
+            model = (MyTableModel) table.getModel();
+        }
+
+        /**
+         * called to handle the paste action
+         */
+        private void paste() {
+            if (xOrigin >= 0 && yOrigin >= 0) {
+                StringTokenizer rows = new StringTokenizer(data, "\n\r");
+                int y = 0;
+                while (rows.hasMoreTokens()) {
+                    String line = rows.nextToken();
+                    StringTokenizer cols = new StringTokenizer(line, "\t");
+                    int x = 0;
+                    while (cols.hasMoreTokens()) {
+                        String cell = cols.nextToken();
+                        setData(xOrigin + x, yOrigin + y, cell.trim());
+                        x++;
+                    }
+                    y++;
+                }
+                model.fireEvent(new TableModelEvent(model));
+            }
+        }
+
+        private void setData(int col, int row, String value) {
+            if (col < model.getColumnCount() && row < model.getRowCount()) {
+                if (model.isCellEditable(row, col)) {
+                    Class<?> type = model.getColumnClass(col);
+                    if (type == Long.class) {
+                        try {
+                            model.setValueAt(Bits.decode(value), row, col);
+                        } catch (Bits.NumberFormatException e) {
+                            // do nothing on error
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
