@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.hdl.hgs;
 
+import de.neemann.digital.testing.parser.OperatorPrecedence;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
@@ -14,36 +16,76 @@ import java.util.HashMap;
  */
 class Tokenizer {
 
-    enum Token {
-        UNKNOWN, IDENT, AND, OR, XOR, NOT, OPEN, CLOSE, NUMBER, EOL, EOF, SHIFTLEFT, SHIFTRIGHT, COMMA, EQUAL,
-        ADD, SUB, MUL, GREATER, LESS, DIV, MOD, END, IF, ELSE, FOR, WHILE, SEMICOLON, NOTEQUAL, STRING,
-        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, FUNC, GREATEREQUAL, LESSEQUAL,
-        REPEAT, RETURN, COLON, UNTIL, DOUBLE, EXPORT, TRUE, FALSE
+    interface Binary {
+        Object op(Object a, Object b) throws HGSEvalException;
     }
 
-    private static HashMap<String, Token> statementMap = new HashMap<>();
+    enum Token {
+        UNKNOWN, IDENT, OPEN, CLOSE, NUMBER, EOL, EOF, COMMA, NOT,
+        OR(OperatorPrecedence.OR, Value::or),
+        XOR(OperatorPrecedence.XOR, Value::xor),
+        AND(OperatorPrecedence.AND, Value::and),
+        EQUAL(OperatorPrecedence.EQUAL, Value::equals),
+        NOTEQUAL(OperatorPrecedence.EQUAL, (a, b) -> !Value.equals(a, b)),
+        ADD(OperatorPrecedence.ADD, Value::add),
+        SUB(OperatorPrecedence.ADD, Value::sub),
+        MUL(OperatorPrecedence.MUL, Value::mul),
+        DIV(OperatorPrecedence.MUL, Value::div),
+        MOD(OperatorPrecedence.MUL, (a, b) -> Value.toLong(a) % Value.toLong(b)),
+        LESS(OperatorPrecedence.COMPARE, Value::less),
+        LESSEQUAL(OperatorPrecedence.COMPARE, Value::lessEqual),
+        GREATER(OperatorPrecedence.COMPARE, (a, b) -> Value.less(b, a)),
+        GREATEREQUAL(OperatorPrecedence.COMPARE, (a, b) -> Value.lessEqual(b, a)),
+        SHIFTLEFT(OperatorPrecedence.SHIFT, (a, b) -> Value.toLong(a) << Value.toLong(b)),
+        SHIFTRIGHT(OperatorPrecedence.SHIFT, (a, b) -> Value.toLong(a) >>> Value.toLong(b)),
+        END, IF, ELSE, FOR, WHILE, SEMICOLON, STRING,
+        OPENBRACE, CLOSEDBRACE, CODEEND, OPENSQUARE, CLOSEDSQUARE, DOT, FUNC,
+        REPEAT, RETURN, COLON, UNTIL, DOUBLE, EXPORT, TRUE, FALSE;
+
+        private final OperatorPrecedence precedence;
+        private final Binary binary;
+
+        Token() {
+            this(null, null);
+        }
+
+        Token(OperatorPrecedence precedence, Binary binary) {
+            this.precedence = precedence;
+            this.binary = binary;
+        }
+
+        public OperatorPrecedence getPrecedence() {
+            return precedence;
+        }
+
+        public Binary getBinary() {
+            return binary;
+        }
+    }
+
+    private static final HashMap<String, Token> STATEMENT_MAP = new HashMap<>();
 
     static {
-        statementMap.put("if", Token.IF);
-        statementMap.put("else", Token.ELSE);
-        statementMap.put("for", Token.FOR);
-        statementMap.put("while", Token.WHILE);
-        statementMap.put("func", Token.FUNC);
-        statementMap.put("repeat", Token.REPEAT);
-        statementMap.put("until", Token.UNTIL);
-        statementMap.put("return", Token.RETURN);
-        statementMap.put("export", Token.EXPORT);
-        statementMap.put("true", Token.TRUE);
-        statementMap.put("false", Token.FALSE);
+        STATEMENT_MAP.put("if", Token.IF);
+        STATEMENT_MAP.put("else", Token.ELSE);
+        STATEMENT_MAP.put("for", Token.FOR);
+        STATEMENT_MAP.put("while", Token.WHILE);
+        STATEMENT_MAP.put("func", Token.FUNC);
+        STATEMENT_MAP.put("repeat", Token.REPEAT);
+        STATEMENT_MAP.put("until", Token.UNTIL);
+        STATEMENT_MAP.put("return", Token.RETURN);
+        STATEMENT_MAP.put("export", Token.EXPORT);
+        STATEMENT_MAP.put("true", Token.TRUE);
+        STATEMENT_MAP.put("false", Token.FALSE);
     }
 
     private final Reader in;
+    private final StringBuilder builder;
+    private final String srcFile;
     private Token token;
     private boolean isToken;
-    private StringBuilder builder;
     private boolean isUnreadChar = false;
     private int unreadChar;
-    private String srcFile;
     private int line = 1;
 
     /**
@@ -301,7 +343,7 @@ class Tokenizer {
                 wasChar = false;
             }
         } while (wasChar);
-        token = statementMap.get(builder.toString());
+        token = STATEMENT_MAP.get(builder.toString());
         if (token == null) token = Token.IDENT;
     }
 
@@ -394,7 +436,7 @@ class Tokenizer {
         isToken = false;
         StringBuilder sb = new StringBuilder();
         int c;
-        while ((c = readChar())>0) {
+        while ((c = readChar()) > 0) {
             if (c == '<' || c == '{') {
                 if (isNextChar('?')) {
                     return sb.toString();

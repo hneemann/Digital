@@ -9,6 +9,7 @@ import de.neemann.digital.core.Bits;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunction;
 import de.neemann.digital.hdl.hgs.function.FirstClassFunctionCall;
 import de.neemann.digital.hdl.hgs.refs.*;
+import de.neemann.digital.testing.parser.OperatorPrecedence;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -337,14 +338,6 @@ public class Parser {
         return false;
     }
 
-    private Tokenizer.Token nextIsIn(Tokenizer.Token... ts) throws IOException {
-        Tokenizer.Token next = tok.peek();
-        for (Tokenizer.Token t : ts)
-            if (next == t)
-                return tok.next();
-        return null;
-    }
-
     private void expect(Tokenizer.Token token) throws IOException, ParserException {
         Tokenizer.Token t = tok.next();
         if (t != token)
@@ -390,128 +383,26 @@ public class Parser {
     }
 
     private Expression parseExpression() throws IOException, ParserException {
-        Expression a = parseOR();
-        Tokenizer.Token t = nextIsIn(LESS, LESSEQUAL, EQUAL, NOTEQUAL, GREATER, GREATEREQUAL);
-        if (t != null) {
-            Expression b = parseOR();
-            switch (t) {
-                case EQUAL:
-                    return c -> Value.equals(a.value(c), b.value(c));
-                case NOTEQUAL:
-                    return c -> !Value.equals(a.value(c), b.value(c));
-                case LESS:
-                    return c -> Value.less(a.value(c), b.value(c));
-                case LESSEQUAL:
-                    return c -> Value.lessEqual(a.value(c), b.value(c));
-                case GREATER:
-                    return c -> Value.less(b.value(c), a.value(c));
-                case GREATEREQUAL:
-                    return c -> Value.lessEqual(b.value(c), a.value(c));
-                default:
-                    throw newUnexpectedToken(t);
-            }
-        } else
-            return a;
+        return parseExpression(OperatorPrecedence.lowest());
     }
 
-    private Expression parseOR() throws IOException, ParserException {
-        Expression ac = parseXOR();
-        while (nextIs(OR)) {
+    private Expression parseExpression(OperatorPrecedence op) throws IOException, ParserException {
+        Next next = getNextParser(op.getNextHigherPrecedence());
+        Expression ac = next.next();
+        while (tok.peek().getPrecedence() == op) {
+            Tokenizer.Binary function = tok.next().getBinary();
             Expression a = ac;
-            Expression b = parseXOR();
-            ac = c -> Value.or(a.value(c), b.value(c));
+            Expression b = next.next();
+            ac = (c) -> function.op(a.value(c), b.value(c));
         }
         return ac;
     }
 
-    private Expression parseXOR() throws IOException, ParserException {
-        Expression ac = parseAND();
-        while (nextIs(XOR)) {
-            Expression a = ac;
-            Expression b = parseAND();
-            ac = c -> Value.xor(a.value(c), b.value(c));
-        }
-        return ac;
-    }
-
-    private Expression parseAND() throws IOException, ParserException {
-        Expression ac = parseShiftRight();
-        while (nextIs(AND)) {
-            Expression a = ac;
-            Expression b = parseShiftRight();
-            ac = c -> Value.and(a.value(c), b.value(c));
-        }
-        return ac;
-    }
-
-    private Expression parseShiftRight() throws IOException, ParserException {
-        Expression ac = parseShiftLeft();
-        while (nextIs(SHIFTRIGHT)) {
-            Expression a = ac;
-            Expression b = parseShiftLeft();
-            ac = c -> Value.toLong(a.value(c)) >>> Value.toLong(b.value(c));
-        }
-        return ac;
-    }
-
-    private Expression parseShiftLeft() throws IOException, ParserException {
-        Expression ac = parseAdd();
-        while (nextIs(SHIFTLEFT)) {
-            Expression a = ac;
-            Expression b = parseAdd();
-            ac = c -> Value.toLong(a.value(c)) << Value.toLong(b.value(c));
-        }
-        return ac;
-    }
-
-    private Expression parseAdd() throws IOException, ParserException {
-        Expression ac = parseSub();
-        while (nextIs(ADD)) {
-            Expression a = ac;
-            Expression b = parseSub();
-            ac = c -> Value.add(a.value(c), b.value(c));
-        }
-        return ac;
-    }
-
-    private Expression parseSub() throws IOException, ParserException {
-        Expression ac = parseMul();
-        while (nextIs(SUB)) {
-            Expression a = ac;
-            Expression b = parseMul();
-            ac = c -> Value.sub(a.value(c), b.value(c));
-        }
-        return ac;
-    }
-
-    private Expression parseMul() throws IOException, ParserException {
-        Expression ac = parseDiv();
-        while (nextIs(MUL)) {
-            Expression a = ac;
-            Expression b = parseDiv();
-            ac = c -> Value.mul(a.value(c), b.value(c));
-        }
-        return ac;
-    }
-
-    private Expression parseDiv() throws IOException, ParserException {
-        Expression ac = parseMod();
-        while (nextIs(DIV)) {
-            Expression a = ac;
-            Expression b = parseMod();
-            ac = c -> Value.div(a.value(c), b.value(c));
-        }
-        return ac;
-    }
-
-    private Expression parseMod() throws IOException, ParserException {
-        Expression ac = parseIdent();
-        while (nextIs(MOD)) {
-            Expression a = ac;
-            Expression b = parseIdent();
-            ac = c -> Value.toLong(a.value(c)) % Value.toLong(b.value(c));
-        }
-        return ac;
+    private Next getNextParser(OperatorPrecedence pr) {
+        if (pr == null)
+            return this::parseIdent;
+        else
+            return () -> parseExpression(pr);
     }
 
     private Expression parseIdent() throws IOException, ParserException {
@@ -600,6 +491,10 @@ public class Parser {
                     throw newUnexpectedToken(t);
             }
         }
+    }
+
+    private interface Next {
+        Expression next() throws IOException, ParserException;
     }
 
     private FirstClassFunction parseFunction() throws IOException, ParserException {
