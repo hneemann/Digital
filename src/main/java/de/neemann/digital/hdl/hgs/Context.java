@@ -7,6 +7,8 @@ package de.neemann.digital.hdl.hgs;
 
 import de.neemann.digital.FileLocator;
 import de.neemann.digital.core.Bits;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.hdl.hgs.function.Func;
@@ -55,6 +57,7 @@ public class Context implements HGSMap {
         BUILT_IN.put("splitString", new FunctionSplitString());
         BUILT_IN.put("identifier", new FunctionIdentifier());
         BUILT_IN.put("loadHex", new FunctionLoadHex());
+        BUILT_IN.put("loadFile", new FunctionLoadFile());
         BUILT_IN.put("sizeOf", new Func(1, args -> Value.toArray(args[0]).hgsArraySize()));
     }
 
@@ -673,6 +676,25 @@ public class Context implements HGSMap {
                 return dataField;
             } catch (IOException e) {
                 throw new HGSEvalException("error reading the file " + hexFile.getPath(), e);
+            }
+        }
+    }
+
+    private static final class FunctionLoadFile extends InnerFunction {
+        private FunctionLoadFile() {
+            super(1);
+        }
+
+        @Override
+        public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
+            File f = new File(args.get(0).value(c).toString());
+            File origin = ((ElementAttributes) c.map.get("elem")).getOrigin();
+            if (origin != null)
+                f = new FileLocator(f).setBaseFile(origin).locate();
+            try {
+                return Application.readCode(f);
+            } catch (IOException e) {
+                throw new HGSEvalException("error reading the file " + f.getPath(), e);
             }
         }
     }

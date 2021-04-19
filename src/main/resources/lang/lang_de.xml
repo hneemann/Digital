@@ -1008,6 +1008,14 @@
         Wird verwendet, um das Verhalten eines Elements mit einer Hardwarebeschreibungssprache wie VHDL oder
         Verilog zu beschreiben. Die eigentliche Simulation des Verhaltens muss mit einem externen Simulator erfolgen.
         Zur Zeit wird nur der VHDL-Simulator ghdl und der Verilog-Simulator Icarus Verilog unterstützt.
+        Das Label der Komponente muss mit dem Namen der Entity bzw. des Moduls übereinstimmen!
+    </string>
+    <string name="elem_ExternalFile">Extern Datei</string>
+    <string name="elem_ExternalFile_tt">Element zur Anbindung von externen Programmen zur Berechnung der Logik.
+        Wird verwendet, um das Verhalten eines Elements mit einer Hardwarebeschreibungssprache wie VHDL oder
+        Verilog zu beschreiben. Die eigentliche Simulation des Verhaltens muss mit einem externen Simulator erfolgen.
+        Zur Zeit wird nur der VHDL-Simulator ghdl und der Verilog-Simulator Icarus Verilog unterstützt.
+        Das Label der Komponente muss mit dem Namen der Entity bzw. des Moduls übereinstimmen!
     </string>
 
     <string name="elem_Diode">Diode</string>
@@ -1182,6 +1190,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_iverilogNotInstalled">
         Der Verilog Simulator Icarus scheint nicht installiert zu sein. Installieren Sie Icarus (http://iverilog.icarus.com/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren iverilog-Datei in den Digital-Einstellungen.
     </string>
+    <string name="err_errorLoadingHDLFile_N">Fehler beim Laden der HDL-Datei {0}</string>
+    <string name="err_emptyLabelIsNotAllowed">Eine leere Bezeichnung is nicht erlaubt!</string>
+
     <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
     <string name="err_lutNeedsALabelToBeExported">Jede LUT braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
@@ -1485,6 +1496,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     </string>
     <string name="key_Code">Programmcode</string>
     <string name="key_Code_tt">Der Programmcode welcher ausgeführt werden soll.</string>
+    <string name="key_CodeFile">Programmcode</string>
+    <string name="key_CodeFile_tt">Datei mit dem Programmcode welcher ausgeführt werden soll.</string>
     <string name="attr_panel_Options">Optionen</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Pfad der ausführbaren ghdl-Datei. Nur wichtig, wenn ghdl zur Interpretation von

@@ -12,6 +12,7 @@ import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.External;
+import de.neemann.digital.core.extern.ExternalFile;
 import de.neemann.digital.core.flipflops.*;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
@@ -236,6 +237,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Stop.DESCRIPTION)
                         .add(AsyncSeq.DESCRIPTION)
                         .add(External.DESCRIPTION)
+                        .add(ExternalFile.DESCRIPTION)
                         .add(PinControl.DESCRIPTION));
 
         addExternalJarComponents(jarFile);

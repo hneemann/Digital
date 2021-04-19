@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.element;
 
+import de.neemann.digital.FileLocator;
 import de.neemann.digital.core.ValueFormatter;
 import de.neemann.digital.hdl.hgs.HGSMap;
 
@@ -23,6 +24,7 @@ public class ElementAttributes implements HGSMap {
     private HashMap<String, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
     private transient HashMap<String, Object> cache;
+    private transient File origin;
 
     /**
      * Creates a new instance
@@ -207,6 +209,19 @@ public class ElementAttributes implements HGSMap {
     }
 
     /**
+     * Gets a file stored in the map
+     *
+     * @param key the file key
+     * @return the file
+     */
+    public File getFile(Key<File> key) {
+        File f = get(key);
+        if (origin != null)
+            f = new FileLocator(f).setBaseFile(origin).locate();
+        return f;
+    }
+
+    /**
      * Gets a file stored directly in the map
      *
      * @param fileKey the file key
@@ -215,8 +230,12 @@ public class ElementAttributes implements HGSMap {
     public File getFile(String fileKey) {
         if (attributes != null) {
             Object f = attributes.get(fileKey);
-            if (f != null)
-                return new File(f.toString().trim());
+            if (f != null) {
+                File file = new File(f.toString().trim());
+                if (origin != null)
+                    file = new FileLocator(file).setBaseFile(origin).locate();
+                return file;
+            }
         }
         return null;
     }
@@ -346,5 +365,21 @@ public class ElementAttributes implements HGSMap {
         if (cache == null)
             return null;
         return cache.remove(key);
+    }
+
+    /**
+     * Sets the origin of this data
+     *
+     * @param filename the file this data comes from
+     */
+    public void setOrigin(File filename) {
+        this.origin = filename;
+    }
+
+    /**
+     * @return the file this data comes from
+     */
+    public File getOrigin() {
+        return origin;
     }
 }

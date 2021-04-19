@@ -727,6 +727,11 @@ public final class Keys {
      */
     public static final Key.LongString EXTERNAL_CODE
             = new Key.LongString("Code").setRows(30).setColumns(80).setLineNumbers(true);
+    /**
+     * The code to be executed by the external process
+     */
+    public static final Key.KeyFile EXTERNAL_CODE_FILE
+            = new Key.KeyFile("CodeFile", new File(""));
 
     /**
      * Path to ghdl

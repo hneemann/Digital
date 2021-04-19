@@ -118,6 +118,8 @@ public class Circuit implements Copyable<Circuit> {
     public static Circuit loadCircuit(File filename, ShapeFactory shapeFactory) throws IOException {
         final Circuit circuit = loadCircuit(new FileInputStream(filename), shapeFactory);
         circuit.origin = filename;
+        for (VisualElement ve : circuit.visualElements)
+            ve.setOrigin(filename);
         return circuit;
     }
 
@@ -162,6 +164,8 @@ public class Circuit implements Copyable<Circuit> {
      */
     public void save(File filename) throws IOException {
         save(new FileOutputStream(filename));
+        for (VisualElement ve : visualElements)
+            ve.setOrigin(filename);
     }
 
     /**

@@ -984,6 +984,14 @@
         Is used to specify the behaviour of a component by VHDL or Verilog.
         The actual simulation of the behavior must be done with an external simulator.
         At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.
+        The label of the component must match the name of the entity or module!
+    </string>
+    <string name="elem_ExternalFile">External File</string>
+    <string name="elem_ExternalFile_tt">Component to execute an external process to calculate the logic function.
+        Is used to specify the behaviour of a component by VHDL or Verilog.
+        The actual simulation of the behavior must be done with an external simulator.
+        At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.
+        The label of the component must match the name of the entity or module!
     </string>
 
     <string name="elem_Diode">Diode</string>
@@ -1171,6 +1179,9 @@
         try again.
         If there are still problems, check the path to the IVerilog executable in the Digital settings.
     </string>
+    <string name="err_errorLoadingHDLFile_N">Error loading the HDL file {0}</string>
+    <string name="err_emptyLabelIsNotAllowed">A empty label is not allowed!</string>
+
     <string name="err_errorAnalysingCircuit_N">Error analysing the circuit: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Every ROM needs a unique label to be exported!</string>
     <string name="err_lutNeedsALabelToBeExported">Every LUT needs a unique label to be exported!</string>
@@ -1477,6 +1488,8 @@
     </string>
     <string name="key_Code">Program code</string>
     <string name="key_Code_tt">The program code to be executed by the external application.</string>
+    <string name="key_CodeFile">Program code</string>
+    <string name="key_CodeFile_tt">The file containing the program code to be executed by the external application.</string>
     <string name="attr_panel_Options">Options</string>
     <string name="key_ghdlPath">GHDL</string>
     <string name="key_ghdlPath_tt">Path to the executable ghdl file. Only necessary if you want to use ghdl to simulate

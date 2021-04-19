@@ -16,6 +16,7 @@ import de.neemann.gui.Screen;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -491,4 +492,12 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
         return null;
     }
 
+    /**
+     * Sets the file this data comes from
+     *
+     * @param filename the origin of this data
+     */
+    public void setOrigin(File filename) {
+        elementAttributes.setOrigin(filename);
+    }
 }

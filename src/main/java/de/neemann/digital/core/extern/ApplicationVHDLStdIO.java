@@ -74,9 +74,9 @@ public abstract class ApplicationVHDLStdIO implements Application {
 
     @Override
     public boolean ensureConsistency(ElementAttributes attributes) {
-        String code = attributes.get(Keys.EXTERNAL_CODE);
-        VHDLTokenizer st = new VHDLTokenizer(new StringReader(code));
         try {
+            String code = Application.getCode(attributes);
+            VHDLTokenizer st = new VHDLTokenizer(new StringReader(code));
             while (!st.value().equalsIgnoreCase("entity"))
                 st.next();
 

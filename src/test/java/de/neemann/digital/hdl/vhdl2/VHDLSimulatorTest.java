@@ -123,7 +123,7 @@ public class VHDLSimulatorTest extends TestCase {
             // check simulation in Digital
             new TestExamples().check(f);
         }).noOutput().scan(source);
-        assertEquals(4, tested);
+        assertEquals(5, tested);
     }
 
 
