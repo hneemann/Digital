@@ -1717,6 +1717,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="lib_more">mehr</string>
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
+    <string name="lib_decoration">Dekoration</string>
+    <string name="lib_generic">Generisch</string>
+    <string name="lib_hdl">VHDL/Verilog</string>
 
     <string name="cli_cli">Steuerung per Kommandozeile</string>
     <string name="cli_nonOptionalArgumentMissing_N">Es fehlt das nicht optionale Argument {0}.</string>

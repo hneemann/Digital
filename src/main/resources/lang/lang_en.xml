@@ -1704,6 +1704,9 @@
     <string name="lib_peripherals">Peripherals</string>
     <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
+    <string name="lib_decoration">Decoration</string>
+    <string name="lib_generic">Generic</string>
+    <string name="lib_hdl">VHDL/Verilog</string>
 
     <string name="cli_cli">Command Line Interface</string>
     <string name="cli_nonOptionalArgumentMissing_N">The non-optional argument {0} is missing.</string>

@@ -129,7 +129,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Clock.DESCRIPTION)
                         .add(Button.DESCRIPTION)
                         .add(DipSwitch.DESCRIPTION)
-                        .add(DummyElement.TEXTDESCRIPTION)
                         .add(Probe.DESCRIPTION)
                         .add(DummyElement.DATADESCRIPTION)
                         .add(ScopeTrigger.DESCRIPTION)
@@ -227,18 +226,22 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(TransGate.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_misc"))
                         .add(TestCaseElement.DESCRIPTION)
-                        .add(GenericInitCode.DESCRIPTION)
-                        .add(GenericCode.DESCRIPTION)
-                        .add(DummyElement.RECTDESCRIPTION)
+                        .add(new LibraryNode(Lang.get("lib_decoration"))
+                                .add(DummyElement.TEXTDESCRIPTION)
+                                .add(DummyElement.RECTDESCRIPTION))
+                        .add(new LibraryNode(Lang.get("lib_generic"))
+                                .add(GenericInitCode.DESCRIPTION)
+                                .add(GenericCode.DESCRIPTION))
+                        .add(new LibraryNode(Lang.get("lib_hdl"))
+                                .add(External.DESCRIPTION)
+                                .add(ExternalFile.DESCRIPTION)
+                                .add(PinControl.DESCRIPTION))
                         .add(PowerSupply.DESCRIPTION)
                         .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)
                         .add(Break.DESCRIPTION)
                         .add(Stop.DESCRIPTION)
-                        .add(AsyncSeq.DESCRIPTION)
-                        .add(External.DESCRIPTION)
-                        .add(ExternalFile.DESCRIPTION)
-                        .add(PinControl.DESCRIPTION));
+                        .add(AsyncSeq.DESCRIPTION));
 
         addExternalJarComponents(jarFile);
 
