@@ -2305,6 +2305,18 @@ declare Bit = (Bus>>3)&1;
 </pre>
 <p>In this example, the 3rd bit is isolated from the 'Bus' signal and made available as
 the 'Bit' signal for the test. The circuit itself contains no output 'Bit'.</p>
+<h3>Functions</h3>
+<p>Available functions are:
+<dl>
+<dt>signExt([bits],[value])</dt>
+<dd>Extends the value [value] while preserving the sign to [bits] bits.</dd>
+<dt>random([max])</dt>
+<dd>Returns an integer random number. The maximum value is specified with [max].</dd>
+<dt>ite([cond],[then],[else])</dt>
+<dd>If the condition [cond] is true, the value [then] is returned, otherwise the value [else].</dd>
+</dl>
+</p>
+
 <h3>Processors</h3>
 <p>If processors are to be tested, an initialization of the processor is usually required.
 It is possible to perform this initialization within the test case.

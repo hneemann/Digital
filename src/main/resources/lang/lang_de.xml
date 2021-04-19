@@ -2329,6 +2329,17 @@ declare Bit = (Bus>>3)&1;
 </pre>
 <p>In diesem Beispiel wird aus dem Signal 'Bus' das 3. Bit isoliert und als Signal 'Bit' für den
 Test zur Verfügung gestellt. Die Schaltung selbst enthält keinen Ausgang 'Bit'.</p>
+<h3>Funktionen</h3>
+<p>Unterstützte Funktionen sind:
+<dl>
+<dt>signExt([bits],[value])</dt>
+<dd>Erweitert den Wert [value] unter Erhaltung des Vorzeichens auf [bits] Bits.</dd>
+<dt>random([max])</dt>
+<dd>Liefert eine ganze Zufallszahl. Mit [max] wird der Maximalwert angegeben.</dd>
+<dt>ite([cond],[then],[else])</dt>
+<dd>Ist die Bedingung [cond] wahr, wird der Wert [then] zurückgegeben, andernfalls der Wert [else].</dd>
+</dl>
+</p>
 <h3>Prozessoren</h3>
 <p>Wenn Prozessoren getestet werden sollen, ist in der Regel eine Initialisierung des Prozessors erforderlich.
 Es ist möglich, diese Initialisierung innhalb des Testfalls vorzunehmen.
