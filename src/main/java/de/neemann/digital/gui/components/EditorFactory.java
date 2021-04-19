@@ -821,9 +821,9 @@ public final class EditorFactory {
                                 PortDefinition ins = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_INPUTS));
                                 PortDefinition outs = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
                                 String label = elementAttributes.getLabel();
-                                String code = elementAttributes.get(Keys.EXTERNAL_CODE);
-
                                 try {
+                                    String code = Application.getCode(elementAttributes);
+
                                     String message = app.checkCode(label, code, ins, outs);
                                     if (message != null && !message.isEmpty()) {
                                         createError(consistent, Lang.get("msg_checkResult") + "\n\n" + message).show(getAttributeDialog());

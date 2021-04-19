@@ -6,14 +6,48 @@
 package de.neemann.digital.core.extern;
 
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.handler.ProcessInterface;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 /**
  * Represents an application
  */
 public interface Application {
+
+    /**
+     * Extract the code from the attributes.
+     * The code is either stored directly or there is a file given.
+     *
+     * @param attr the attributes
+     * @return the code
+     * @throws IOException IOException
+     */
+    static String getCode(ElementAttributes attr) throws IOException {
+        if (attr.contains(Keys.EXTERNAL_CODE))
+            return attr.get(Keys.EXTERNAL_CODE);
+
+        if (attr.contains(Keys.EXTERNAL_CODE_FILE))
+            return readCode(attr.getFile(Keys.EXTERNAL_CODE_FILE));
+
+        return "";
+    }
+
+    /**
+     * Reads the code from a file
+     *
+     * @param file the file
+     * @return the code
+     * @throws IOException IOException
+     */
+    static String readCode(File file) throws IOException {
+        byte[] data = Files.readAllBytes(file.toPath());
+        return new String(data, StandardCharsets.UTF_8);
+    }
 
     /**
      * The available types of applications

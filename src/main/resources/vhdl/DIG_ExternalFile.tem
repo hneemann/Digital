@@ -1,0 +1,8 @@
+<?=loadFile(elem.CodeFile);
+
+  entityName:=elem.Label;
+
+  if (elem.applicationType!="GHDL")
+    panic("err_canOnlyExportExternalVHDL");
+
+?>

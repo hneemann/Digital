@@ -129,7 +129,7 @@ public class VerilogSimulatorTest extends TestCase {
                 // check simulation in Digital
                 new TestExamples().check(f);
             }).scan(source);
-            assertEquals(4, tested);
+            assertEquals(5, tested);
         }
     }
 

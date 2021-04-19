@@ -82,10 +82,10 @@ public abstract class ApplicationVerilogStdIO implements Application {
 
     @Override
     public boolean ensureConsistency(ElementAttributes attributes) {
-        String code = attributes.get(Keys.EXTERNAL_CODE);
-        VerilogTokenizer st = new VerilogTokenizer(new StringReader(code));
-
         try {
+            String code = Application.getCode(attributes);
+            VerilogTokenizer st = new VerilogTokenizer(new StringReader(code));
+
             PortDefinition in;
             PortDefinition out;
             String label;
