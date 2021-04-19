@@ -182,7 +182,7 @@ public class DataEditor extends JDialog {
             setJMenuBar(menuBar);
         }
 
-        AbstractAction pasteAction = new AbstractAction("Paste") {
+        new ToolTipAction(Lang.get("menu_paste")) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -193,9 +193,7 @@ public class DataEditor extends JDialog {
                     new ErrorMessage(Lang.get("msg_errorPastingData")).addCause(e1).show();
                 }
             }
-        };
-        table.getInputMap().put(KeyStroke.getKeyStroke("control V"), "myPaste");
-        table.getActionMap().put("myPaste", pasteAction);
+        }.setAcceleratorCTRLplus('V').enableAcceleratorIn(table);
 
         pack();
         if (getWidth() < 150)
