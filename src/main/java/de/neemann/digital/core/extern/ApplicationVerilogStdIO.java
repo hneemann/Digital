@@ -8,6 +8,7 @@ package de.neemann.digital.core.extern;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.VerilogTokenizer.Token;
+import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Parser;
@@ -81,9 +82,9 @@ public abstract class ApplicationVerilogStdIO implements Application {
     }
 
     @Override
-    public boolean ensureConsistency(ElementAttributes attributes) {
+    public boolean ensureConsistency(ElementAttributes attributes, AttributeDialog dialog) {
         try {
-            String code = Application.getCode(attributes);
+            String code = Application.getCode(attributes, dialog);
             VerilogTokenizer st = new VerilogTokenizer(new StringReader(code));
 
             PortDefinition in;

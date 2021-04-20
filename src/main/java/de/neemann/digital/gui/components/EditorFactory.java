@@ -814,7 +814,7 @@ public final class EditorFactory {
                         if (app != null) {
                             try {
                                 getAttributeDialog().storeEditedValues();
-                                final boolean consistent = app.ensureConsistency(elementAttributes);
+                                final boolean consistent = app.ensureConsistency(elementAttributes, getAttributeDialog());
                                 if (consistent)
                                     getAttributeDialog().updateEditedValues();
 
@@ -822,7 +822,7 @@ public final class EditorFactory {
                                 PortDefinition outs = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
                                 String label = elementAttributes.getLabel();
                                 try {
-                                    String code = Application.getCode(elementAttributes);
+                                    String code = Application.getCode(elementAttributes, getAttributeDialog());
 
                                     String message = app.checkCode(label, code, ins, outs);
                                     if (message != null && !message.isEmpty()) {

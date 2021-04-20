@@ -7,6 +7,7 @@ package de.neemann.digital.core.extern;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.gui.components.AttributeDialog;
 import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Parser;
@@ -73,9 +74,9 @@ public abstract class ApplicationVHDLStdIO implements Application {
     }
 
     @Override
-    public boolean ensureConsistency(ElementAttributes attributes) {
+    public boolean ensureConsistency(ElementAttributes attributes, AttributeDialog dialog) {
         try {
-            String code = Application.getCode(attributes);
+            String code = Application.getCode(attributes, dialog);
             VHDLTokenizer st = new VHDLTokenizer(new StringReader(code));
             while (!st.value().equalsIgnoreCase("entity"))
                 st.next();

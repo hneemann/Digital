@@ -245,7 +245,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
         TestApp ta = new TestApp();
         ElementAttributes attr = new ElementAttributes();
         attr.set(Keys.EXTERNAL_CODE, code);
-        assertEquals(workExpected, ta.ensureConsistency(attr));
+        assertEquals(workExpected, ta.ensureConsistency(attr, null));
         return attr;
     }
 }

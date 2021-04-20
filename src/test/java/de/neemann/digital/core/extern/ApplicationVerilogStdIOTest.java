@@ -94,7 +94,7 @@ public class ApplicationVerilogStdIOTest extends TestCase {
         TestApp ta = new TestApp();
         ElementAttributes attr = new ElementAttributes();
         attr.set(Keys.EXTERNAL_CODE, code);
-        assertTrue(ta.ensureConsistency(attr));
+        assertTrue(ta.ensureConsistency(attr, null));
         return attr;
     }
 

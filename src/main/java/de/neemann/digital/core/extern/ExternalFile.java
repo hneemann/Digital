@@ -57,7 +57,7 @@ public class ExternalFile extends External {
     @Override
     public void init(Model model) throws NodeException {
         try {
-            setCode(Application.readCode(file));
+            setCode(Application.readCode(file, this.getOrigin()));
         } catch (IOException e) {
             throw new NodeException(Lang.get("err_errorLoadingHDLFile_N", file));
         }

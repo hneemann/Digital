@@ -8,6 +8,7 @@ package de.neemann.digital.core.extern;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.handler.ProcessInterface;
+import de.neemann.digital.gui.components.AttributeDialog;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,30 @@ import java.nio.file.Files;
  * Represents an application
  */
 public interface Application {
+    /**
+     * Extract the code from the attributes.
+     * The code is either stored directly or there is a file given.
+     * The AttributeDialog can be used to resolve relative path
+     *
+     * @param attr   the attributes
+     * @param dialog the attribute dialog
+     * @return the code
+     * @throws IOException IOException
+     */
+    static String getCode(ElementAttributes attr, AttributeDialog dialog) throws IOException {
+        if (attr.contains(Keys.EXTERNAL_CODE))
+            return attr.get(Keys.EXTERNAL_CODE);
+
+        if (attr.contains(Keys.EXTERNAL_CODE_FILE)) {
+            if (dialog == null) {
+                return readCode(attr.getFile(Keys.EXTERNAL_CODE_FILE));
+            } else {
+                return readCode(attr.getFile(Keys.EXTERNAL_CODE_FILE), dialog.getMain().getBaseFileName());
+            }
+        }
+
+        return "";
+    }
 
     /**
      * Extract the code from the attributes.
@@ -28,13 +53,7 @@ public interface Application {
      * @throws IOException IOException
      */
     static String getCode(ElementAttributes attr) throws IOException {
-        if (attr.contains(Keys.EXTERNAL_CODE))
-            return attr.get(Keys.EXTERNAL_CODE);
-
-        if (attr.contains(Keys.EXTERNAL_CODE_FILE))
-            return readCode(attr.getFile(Keys.EXTERNAL_CODE_FILE));
-
-        return "";
+        return getCode(attr, null);
     }
 
     /**
@@ -45,6 +64,24 @@ public interface Application {
      * @throws IOException IOException
      */
     static String readCode(File file) throws IOException {
+        return readCode(file, null);
+    }
+
+    /**
+     * Reads the code from a file.
+     * Origin path can be used to resolve relative paths
+     *
+     * @param file          the file
+     * @param circuitOrigin the origin file
+     * @return the code
+     * @throws IOException IOException
+     */
+    static String readCode(File file, File circuitOrigin) throws IOException {
+        if (!file.exists() && circuitOrigin != null) {
+            // Attempt to resolve file from circuit folder
+            file = new File(circuitOrigin.getParentFile(), file.getName());
+        }
+
         byte[] data = Files.readAllBytes(file.toPath());
         return new String(data, StandardCharsets.UTF_8);
     }
@@ -107,9 +144,10 @@ public interface Application {
      * If this is not supported, nothing is done.
      *
      * @param attributes the attributed of this component
+     * @param dialog     the attribute dialog to resolve relative path
      * @return true if attributes are modified
      */
-    default boolean ensureConsistency(ElementAttributes attributes) {
+    default boolean ensureConsistency(ElementAttributes attributes, AttributeDialog dialog) {
         return false;
     }
 
