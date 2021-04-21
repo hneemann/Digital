@@ -30,7 +30,7 @@ public class VHDLSimulatorTest extends TestCase {
     private static final String GHDL = System.getProperty("ghdl", "ghdl");
     private int testBenches;
 
-    // *
+    /*
     public void testDebug() throws Exception {
         File file = new File(Resources.getRoot(), "dig/external/ghdl/ghdlFile.dig");
 
