@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.memory;
 
+import de.neemann.digital.FileLocator;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
@@ -120,7 +121,8 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
             if (hexFile == null)
                 throw new NodeException(Lang.get("err_ROM_noFileGivenToLoad"), this, -1, null);
             try {
-                data = Importer.read(hexFile, dataBits);
+                File f = new FileLocator(hexFile).setLibraryRoot(model.getRootPath()).locate();
+                data = Importer.read(f, dataBits);
             } catch (IOException e) {
                 throw new NodeException(e.getMessage(), this, -1, null);
             }
