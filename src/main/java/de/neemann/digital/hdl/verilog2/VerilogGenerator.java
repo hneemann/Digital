@@ -89,7 +89,7 @@ public class VerilogGenerator implements Closeable {
 
             String topModuleName = vrename.checkName(tokens[0]);
 
-            new VerilogCreator(out, library).printHDLCircuit(model.getMain(), topModuleName);
+            new VerilogCreator(out, library).printHDLCircuit(model.getMain(), topModuleName, model.getRoot());
 
             File outFile = out.getFile();
             if (outFile != null) {

@@ -91,7 +91,7 @@ public class ResolveGenerics {
             String argsCode = attributes.get(Keys.GENERIC);
             try {
                 Statement s = getStatement(argsCode);
-                context = new Context();
+                context = new Context(circuit.getOrigin());
                 s.execute(context);
             } catch (HGSEvalException | ParserException | IOException e) {
                 throw new NodeException(Lang.get("err_evaluatingGenericsCode_N_N", null, argsCode), e);
@@ -101,7 +101,7 @@ public class ResolveGenerics {
     }
 
     private Args createArgsFromGenericInitBlock() throws NodeException {
-        Context context = new Context();
+        Context context = new Context(circuit.getOrigin());
         List<VisualElement> g = circuit.getElements(v -> v.equalsDescription(GenericInitCode.DESCRIPTION) && v.getElementAttributes().get(Keys.ENABLED));
         if (g.size() == 0)
             throw new NodeException(Lang.get("err_noGenericInitCode"));
@@ -174,7 +174,7 @@ public class ResolveGenerics {
 
     private Context createContext(Circuit circuit, ArrayList<VisualElement> newComponents, ArrayList<Wire> newWires, Args args) throws NodeException {
         try {
-            Context context = new Context();
+            Context context = new Context(circuit.getOrigin());
             if (circuit.getOrigin() != null)
                 context.declareVar(Context.BASE_FILE_KEY, circuit.getOrigin());
             context.declareVar(SETTINGS_KEY, new SubstituteLibrary.AllowSetAttributes(circuit.getAttributes()));
@@ -458,7 +458,7 @@ public class ResolveGenerics {
                 if (etd instanceof ElementTypeDescriptionCustom) {
                     ElementTypeDescriptionCustom etdc = (ElementTypeDescriptionCustom) etd;
                     if (etdc.isGeneric()) {
-                        Context c = new Context() {
+                        Context c = new Context(circuit.getOrigin()) {
                             @Override
                             public void hgsMapPut(String key, Object val) throws HGSEvalException {
                                 this.declareVar(key, val);

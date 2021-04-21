@@ -22,7 +22,7 @@ public class DescriptionTest extends TestCase {
                 0, null)
                 .applyDefaultOptimizations();
         CodePrinterStr out = new CodePrinterStr();
-        new VHDLCreator(out, br.getLibrary()).printHDLCircuit(circuit);
+        new VHDLCreator(out, br.getLibrary()).printHDLCircuit(circuit, null);
 
         assertEquals("\n" +
                 "LIBRARY ieee;\n" +

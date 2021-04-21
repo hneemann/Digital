@@ -42,7 +42,7 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
     }
 
     @Override
-    public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException {
         File file = null;
 
         if (!hasIverilog) {
@@ -52,7 +52,7 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
         try {
             String ivlModuleDir = iverilogFolder + File.separator + "lib" + File.separator + "ivl";
 
-            file = createVerilogFile(label, code, inputs, outputs);
+            file = createVerilogFile(label, code, inputs, outputs, root);
             String testOutputName = label + ".out";
             ProcessStarter.start(file.getParentFile(), new Options()
                     .add(iverilog)
@@ -90,14 +90,14 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
     }
 
     @Override
-    public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException {
         File file = null;
 
         if (!hasIverilog) {
             throw new IOException(Lang.get("err_iverilogNotInstalled"));
         }
         try {
-            file = createVerilogFile(label, code, inputs, outputs);
+            file = createVerilogFile(label, code, inputs, outputs, root);
             String testOutputName = label + ".out";
 
             return ProcessStarter.start(file.getParentFile(), new Options()

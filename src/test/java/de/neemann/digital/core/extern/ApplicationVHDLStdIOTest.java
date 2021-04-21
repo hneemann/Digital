@@ -11,14 +11,15 @@ import de.neemann.digital.core.extern.handler.ProcessInterface;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import junit.framework.TestCase;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ApplicationVHDLStdIOTest extends TestCase {
 
-    private class TestApp extends ApplicationVHDLStdIO {
+    private static class TestApp extends ApplicationVHDLStdIO {
 
         @Override
-        public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+        public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) {
             return null;
         }
 
@@ -28,7 +29,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
         }
 
         @Override
-        public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+        public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) {
             return null;
         }
     }
@@ -38,7 +39,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
                 .createVHDL("add",
                         "code",
                         new PortDefinition("a:4,b:4,c_i"),
-                        new PortDefinition("s:4,c_o"));
+                        new PortDefinition("s:4,c_o"), null);
 
         assertEquals("code\n\nlibrary IEEE;\n" +
                 "use IEEE.std_logic_1164.all;\n" +
@@ -135,7 +136,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
                 "\t\tend loop;\n" +
                 "\t\twait;\n" +
                 "\tend process;\n" +
-                "end;",code);
+                "end;", code);
     }
 
 
@@ -207,7 +208,7 @@ public class ApplicationVHDLStdIOTest extends TestCase {
     }
 
     public void testExtractionComment() {
-        ElementAttributes attr = extractParameters("-- comment at start\n"+
+        ElementAttributes attr = extractParameters("-- comment at start\n" +
                 "library IEEE;\n" +
                 "use IEEE.std_logic_1164.all;\n" +
                 "use IEEE.numeric_std.all;\n" +
@@ -240,12 +241,11 @@ public class ApplicationVHDLStdIOTest extends TestCase {
                 "end nBitZaehler;\n", false);
     }
 
-
     public ElementAttributes extractParameters(String code, boolean workExpected) {
         TestApp ta = new TestApp();
         ElementAttributes attr = new ElementAttributes();
         attr.set(Keys.EXTERNAL_CODE, code);
-        assertEquals(workExpected, ta.ensureConsistency(attr));
+        assertEquals(workExpected, ta.ensureConsistency(attr, null));
         return attr;
     }
 }

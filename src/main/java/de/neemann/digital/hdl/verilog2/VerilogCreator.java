@@ -17,6 +17,7 @@ import de.neemann.digital.hdl.verilog2.lib.VerilogElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 
@@ -98,15 +99,15 @@ public class VerilogCreator {
         return (bits + "'b" + s);
     }
 
-    private void printNodeBuiltIn(HDLNodeBuildIn node) throws HDLException, IOException, HGSEvalException {
+    private void printNodeBuiltIn(HDLNodeBuildIn node, File root) throws HDLException, IOException, HGSEvalException {
         VerilogElement elem = library.getVerilogElement(node);
-        String hdlEntityName = elem.print(out, node);
+        String hdlEntityName = elem.print(out, node, root);
         node.setHdlEntityName(hdlEntityName);
     }
 
-    private void printNodeCustom(HDLNodeCustom node) throws HDLException, IOException, HGSEvalException {
+    private void printNodeCustom(HDLNodeCustom node, File root) throws HDLException, IOException, HGSEvalException {
         if (!customPrinted.contains(node.getElementName())) {
-            printHDLCircuit(node.getCircuit(), node.getHdlEntityName());
+            printHDLCircuit(node.getCircuit(), node.getHdlEntityName(), root);
             customPrinted.add(node.getElementName());
         }
     }
@@ -117,17 +118,18 @@ public class VerilogCreator {
      *
      * @param circuit    the circuit to print
      * @param moduleName the module name
+     * @param root       the projects main folder
      * @throws IOException      IOException
      * @throws HDLException     HDLException
      * @throws HGSEvalException HGSEvalException
      */
-    public void printHDLCircuit(HDLCircuit circuit, String moduleName) throws IOException, HDLException, HGSEvalException {
+    public void printHDLCircuit(HDLCircuit circuit, String moduleName, File root) throws IOException, HDLException, HGSEvalException {
         // at first print all used entities to maintain the correct order
         for (HDLNode node : circuit)
             if (node instanceof HDLNodeCustom)
-                printNodeCustom((HDLNodeCustom) node);
+                printNodeCustom((HDLNodeCustom) node, root);
             else if (node instanceof HDLNodeBuildIn)
-                printNodeBuiltIn((HDLNodeBuildIn) node);
+                printNodeBuiltIn((HDLNodeBuildIn) node, root);
 
         LOGGER.info("export " + moduleName);
 
@@ -157,7 +159,7 @@ public class VerilogCreator {
             if (node instanceof HDLNodeAssignment)
                 printExpression((HDLNodeAssignment) node);
             else if (node instanceof HDLNodeBuildIn)
-                printModuleInstantiation((HDLNodeBuildIn) node, num++);
+                printModuleInstantiation((HDLNodeBuildIn) node, num++, root);
             else if (node instanceof HDLNodeSplitterOneToMany)
                 printOneToMany((HDLNodeSplitterOneToMany) node);
             else if (node instanceof HDLNodeSplitterManyToOne)
@@ -233,7 +235,7 @@ public class VerilogCreator {
         }
     }
 
-    private void printModuleInstantiation(HDLNodeBuildIn node, int num) throws IOException, HDLException {
+    private void printModuleInstantiation(HDLNodeBuildIn node, int num, File root) throws IOException, HDLException {
         String entityName = node.getHdlEntityName();
 
         final String label = node.getElementAttributes().getLabel();
@@ -243,7 +245,7 @@ public class VerilogCreator {
         out.print(entityName).print(" ");
 
         if (!(node instanceof HDLNodeCustom)) {
-            library.getVerilogElement(node).writeGenericMap(out, node);
+            library.getVerilogElement(node).writeGenericMap(out, node, root);
         }
 
         // entityName can have an space at the end if the identifier is escaped

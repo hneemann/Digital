@@ -42,7 +42,7 @@ public class ExternalFile extends External {
             .addAttribute(Keys.IVERILOG_OPTIONS)
             .supportsHDL();
 
-    private final File file;
+    private final ElementAttributes attr;
 
     /**
      * Creates a new instance
@@ -51,11 +51,12 @@ public class ExternalFile extends External {
      */
     public ExternalFile(ElementAttributes attr) {
         super(attr);
-        file = attr.getFile(Keys.EXTERNAL_CODE_FILE);
+        this.attr = attr;
     }
 
     @Override
     public void init(Model model) throws NodeException {
+        File file = attr.getFile(Keys.EXTERNAL_CODE_FILE, model.getRootPath());
         try {
             setCode(Application.readCode(file));
         } catch (IOException e) {

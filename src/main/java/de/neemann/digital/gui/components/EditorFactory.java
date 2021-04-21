@@ -814,7 +814,11 @@ public final class EditorFactory {
                         if (app != null) {
                             try {
                                 getAttributeDialog().storeEditedValues();
-                                final boolean consistent = app.ensureConsistency(elementAttributes);
+                                File root = null;
+                                Main main = getAttributeDialog().getMain();
+                                if (main != null)
+                                    root = main.getLibrary().getRootFilePath();
+                                final boolean consistent = app.ensureConsistency(elementAttributes, root);
                                 if (consistent)
                                     getAttributeDialog().updateEditedValues();
 
@@ -822,9 +826,9 @@ public final class EditorFactory {
                                 PortDefinition outs = new PortDefinition(elementAttributes.get(Keys.EXTERNAL_OUTPUTS));
                                 String label = elementAttributes.getLabel();
                                 try {
-                                    String code = Application.getCode(elementAttributes);
+                                    String code = Application.getCode(elementAttributes, root);
 
-                                    String message = app.checkCode(label, code, ins, outs);
+                                    String message = app.checkCode(label, code, ins, outs, root);
                                     if (message != null && !message.isEmpty()) {
                                         createError(consistent, Lang.get("msg_checkResult") + "\n\n" + message).show(getAttributeDialog());
                                     }

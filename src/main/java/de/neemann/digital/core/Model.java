@@ -16,6 +16,7 @@ import de.neemann.digital.lang.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -78,6 +79,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     private AsyncSeq asyncInfos;
     private boolean asyncMode = false;
     private boolean allowGlobalValues = false;
+    private File rootPath;
 
     private final ArrayList<ModelStateObserver> observers;
     private ArrayList<ModelStateObserver> observersStep;
@@ -876,6 +878,29 @@ public class Model implements Iterable<Node>, SyncAccess {
      */
     public AsyncSeq getAsyncInfos() {
         return asyncInfos;
+    }
+
+    /**
+     * Sets the root path of this model.
+     * If the given file is a file instead of a directory, the parent directory is used.
+     *
+     * @param rootPath the root path
+     * @return this for chained calls;
+     */
+
+    public Model setRootPath(File rootPath) {
+        if (rootPath != null && rootPath.isFile())
+            this.rootPath = rootPath.getParentFile();
+        else
+            this.rootPath = rootPath;
+        return this;
+    }
+
+    /**
+     * @return the models root path
+     */
+    public File getRootPath() {
+        return rootPath;
     }
 
     @Override

@@ -23,6 +23,7 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.hdl.model2.clock.HDLClockIntegrator;
 import de.neemann.digital.hdl.model2.expression.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -242,6 +243,13 @@ public class HDLModel implements Iterable<HDLCircuit> {
      */
     public Renaming getRenaming() {
         return renaming;
+    }
+
+    /**
+     * @return the model root path
+     */
+    public File getRoot() {
+        return elementLibrary.getRootFilePath();
     }
 
     /**

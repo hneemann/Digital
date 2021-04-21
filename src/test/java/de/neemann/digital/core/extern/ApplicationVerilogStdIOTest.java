@@ -8,14 +8,17 @@ package de.neemann.digital.core.extern;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.handler.ProcessInterface;
+import de.neemann.digital.hdl.hgs.Context;
 import junit.framework.TestCase;
+
+import java.io.File;
 
 public class ApplicationVerilogStdIOTest extends TestCase {
 
     private class TestApp extends ApplicationVerilogStdIO {
 
         @Override
-        public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs) {
+        public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) {
             return null;
         }
 
@@ -25,7 +28,7 @@ public class ApplicationVerilogStdIOTest extends TestCase {
         }
 
         @Override
-        public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs) {
+        public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) {
             return null;
         }
     }
@@ -94,7 +97,7 @@ public class ApplicationVerilogStdIOTest extends TestCase {
         TestApp ta = new TestApp();
         ElementAttributes attr = new ElementAttributes();
         attr.set(Keys.EXTERNAL_CODE, code);
-        assertTrue(ta.ensureConsistency(attr));
+        assertTrue(ta.ensureConsistency(attr, null));
         return attr;
     }
 

@@ -187,7 +187,7 @@ public final class Configuration {
     }
 
     private Context createContext(File fileToExecute, HDLModel hdlModel, Command command) throws HGSEvalException {
-        final Context context = new Context()
+        final Context context = new Context(hdlModel == null ? null : hdlModel.getRoot())
                 .declareVar("path", fileToExecute.getPath())
                 .declareVar("dir", fileToExecute.getParentFile())
                 .declareVar("name", fileToExecute.getName())

@@ -24,7 +24,6 @@ public class ElementAttributes implements HGSMap {
     private HashMap<String, Object> attributes;
     private transient ArrayList<AttributeListener> listeners;
     private transient HashMap<String, Object> cache;
-    private transient File origin;
 
     /**
      * Creates a new instance
@@ -211,18 +210,21 @@ public class ElementAttributes implements HGSMap {
     /**
      * Gets a file stored in the map
      *
-     * @param key the file key
+     * @param key  the file key
+     * @param root the projects main folder
      * @return the file
      */
-    public File getFile(Key<File> key) {
+    public File getFile(Key<File> key, File root) {
         File f = get(key);
-        if (origin != null)
-            f = new FileLocator(f).setBaseFile(origin).locate();
+        if (root != null)
+            f = new FileLocator(f).setLibraryRoot(root).locate();
         return f;
     }
 
     /**
-     * Gets a file stored directly in the map
+     * Gets a file stored directly in the map.
+     * Intended to be used as a convenient function in the gui context.
+     * Not intended to be used in the model creation context.
      *
      * @param fileKey the file key
      * @return the file
@@ -230,12 +232,8 @@ public class ElementAttributes implements HGSMap {
     public File getFile(String fileKey) {
         if (attributes != null) {
             Object f = attributes.get(fileKey);
-            if (f != null) {
-                File file = new File(f.toString().trim());
-                if (origin != null)
-                    file = new FileLocator(file).setBaseFile(origin).locate();
-                return file;
-            }
+            if (f != null)
+                return new File(f.toString().trim());
         }
         return null;
     }
@@ -367,19 +365,4 @@ public class ElementAttributes implements HGSMap {
         return cache.remove(key);
     }
 
-    /**
-     * Sets the origin of this data
-     *
-     * @param filename the file this data comes from
-     */
-    public void setOrigin(File filename) {
-        this.origin = filename;
-    }
-
-    /**
-     * @return the file this data comes from
-     */
-    public File getOrigin() {
-        return origin;
-    }
 }

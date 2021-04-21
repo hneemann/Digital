@@ -12,6 +12,7 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl2.Separator;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,8 +69,8 @@ public class VerilogTemplate implements VerilogElement {
     }
 
     @Override
-    public String print(CodePrinter out, HDLNode node) throws HGSEvalException, IOException {
-        Module m = getModule(node);
+    public String print(CodePrinter out, HDLNode node, File root) throws HGSEvalException, IOException {
+        Module m = getModule(node, root);
 
         if (!m.isWritten) {
             out.println(m.code);
@@ -80,9 +81,9 @@ public class VerilogTemplate implements VerilogElement {
     }
 
     @Override
-    public void writeGenericMap(CodePrinter out, HDLNode node) throws IOException {
+    public void writeGenericMap(CodePrinter out, HDLNode node, File root) throws IOException {
         try {
-            Module m = getModule(node);
+            Module m = getModule(node, root);
 
             List generics = m.getGenerics();
 
@@ -118,8 +119,8 @@ public class VerilogTemplate implements VerilogElement {
         }
     }
 
-    private Module getModule(HDLNode node) throws HGSEvalException {
-        Module genModule = new Module(node, moduleBaseName);
+    private Module getModule(HDLNode node, File root) throws HGSEvalException {
+        Module genModule = new Module(node, moduleBaseName, root);
 
         Module e = modules.get(genModule.name);
         if (e == null) {
@@ -139,9 +140,9 @@ public class VerilogTemplate implements VerilogElement {
         private final List generics;
         private boolean isWritten = false;
 
-        private Module(HDLNode node, String name) throws HGSEvalException {
+        private Module(HDLNode node, String name, File root) throws HGSEvalException {
             this.name = name;
-            final Context ctx = createRuntimeContext(node);
+            final Context ctx = createRuntimeContext(node, root);
 
             try {
                 statements.execute(ctx);
@@ -157,8 +158,8 @@ public class VerilogTemplate implements VerilogElement {
             generics = (List) ctx.getVar("generics");
         }
 
-        private Context createRuntimeContext(HDLNode node) throws HGSEvalException {
-            Context ctx = new Context();
+        private Context createRuntimeContext(HDLNode node, File root) throws HGSEvalException {
+            Context ctx = new Context(root);
 
             ctx.declareVar("moduleName", name);
             ctx.declareVar("generics", new ArrayList<>());

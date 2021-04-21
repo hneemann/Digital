@@ -184,7 +184,7 @@ public class SubstituteLibrary implements LibraryInterface {
                     s = new Parser(gen).parse(false);
                     map.put(gen, s);
                 }
-                Context context = new Context()
+                Context context = new Context((File) null)
                         .declareVar("orig", sourceAttributes)
                         .declareVar("this", new AllowSetAttributes(nodeAttributes));
                 s.execute(context);

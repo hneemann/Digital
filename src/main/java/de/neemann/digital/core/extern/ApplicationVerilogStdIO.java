@@ -35,16 +35,17 @@ public abstract class ApplicationVerilogStdIO implements Application {
      * @param code    the verilog code
      * @param inputs  the inputs
      * @param outputs the outputs
+     * @param root    the projects main folder
      * @return the verilog file
      * @throws IOException IOException
      */
-    public File createVerilogFile(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    public File createVerilogFile(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException {
         File dir = Files.createTempDirectory("digital_verilog_").toFile();
 
         File file = new File(dir, label + ".v");
 
         try (Writer w = new FileWriter(file)) {
-            w.write(createVerilog(label, code, inputs, outputs));
+            w.write(createVerilog(label, code, inputs, outputs, root));
         } catch (HGSEvalException e) {
             throw new IOException("error evaluating the template", e);
         }
@@ -59,11 +60,12 @@ public abstract class ApplicationVerilogStdIO implements Application {
      * @param code    the verilog code
      * @param inputs  the inputs
      * @param outputs the outputs
+     * @param root    the projects main folder
      * @return the verilog code
      * @throws HGSEvalException HGSEvalException
      */
-    public String createVerilog(String label, String code, PortDefinition inputs, PortDefinition outputs) throws HGSEvalException {
-        Context context = new Context()
+    public String createVerilog(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws HGSEvalException {
+        Context context = new Context(root)
                 .declareVar("moduleName", label)
                 .declareVar("code", code)
                 .declareVar("inputs", inputs)
@@ -81,9 +83,9 @@ public abstract class ApplicationVerilogStdIO implements Application {
     }
 
     @Override
-    public boolean ensureConsistency(ElementAttributes attributes) {
+    public boolean ensureConsistency(ElementAttributes attributes, File root) {
         try {
-            String code = Application.getCode(attributes);
+            String code = Application.getCode(attributes, root);
             VerilogTokenizer st = new VerilogTokenizer(new StringReader(code));
 
             PortDefinition in;

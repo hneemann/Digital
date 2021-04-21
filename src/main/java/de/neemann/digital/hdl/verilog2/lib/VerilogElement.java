@@ -8,6 +8,8 @@ package de.neemann.digital.hdl.verilog2.lib;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.model2.HDLNode;
 import de.neemann.digital.hdl.printer.CodePrinter;
+
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -21,18 +23,20 @@ public interface VerilogElement {
      *
      * @param out  the output to print the code to
      * @param node the node to print
+     * @param root the projects root folder
      * @return the verilog name of the node
      * @throws HGSEvalException HGSEvalException
      * @throws IOException      IOException
      */
-    String print(CodePrinter out, HDLNode node) throws HGSEvalException, IOException;
+    String print(CodePrinter out, HDLNode node, File root) throws HGSEvalException, IOException;
 
     /**
      * Write the generic map of this node
      *
      * @param out  the output to write to
+     * @param root the projects main folder
      * @param node the node
      * @throws IOException IOException
      */
-    void writeGenericMap(CodePrinter out, HDLNode node) throws IOException;
+    void writeGenericMap(CodePrinter out, HDLNode node, File root) throws IOException;
 }

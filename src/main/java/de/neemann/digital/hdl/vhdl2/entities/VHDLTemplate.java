@@ -13,6 +13,7 @@ import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.hdl.vhdl2.Separator;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -77,8 +78,8 @@ public class VHDLTemplate implements VHDLEntity {
     }
 
     @Override
-    public String print(CodePrinter out, HDLNode node) throws HGSEvalException, IOException {
-        Entity e = getEntity(node);
+    public String print(CodePrinter out, HDLNode node, File root) throws HGSEvalException, IOException {
+        Entity e = getEntity(node, root);
         if (!e.isWritten()) {
             out.println().println(Value.trimRight(e.getCode())).println();
             e.setWritten();
@@ -87,9 +88,9 @@ public class VHDLTemplate implements VHDLEntity {
     }
 
     @Override
-    public void writeGenericMap(CodePrinter out, HDLNode node) throws IOException {
+    public void writeGenericMap(CodePrinter out, HDLNode node, File root) throws IOException {
         try {
-            final Entity e = getEntity(node);
+            final Entity e = getEntity(node, root);
             if (!e.getGenerics().isEmpty()) {
                 out.println("generic map (").inc();
                 Separator semic = new Separator(out, ",\n");
@@ -105,8 +106,8 @@ public class VHDLTemplate implements VHDLEntity {
         }
     }
 
-    private Entity getEntity(HDLNode node) throws HGSEvalException {
-        Entity newGenerated = new Entity(node, entityName);
+    private Entity getEntity(HDLNode node, File root) throws HGSEvalException {
+        Entity newGenerated = new Entity(node, entityName, root);
 
         Entity e = entities.get(newGenerated.name);
         if (e == null) {
@@ -126,9 +127,9 @@ public class VHDLTemplate implements VHDLEntity {
         private final VHDLTemplateFunctions helper;
         private boolean isWritten = false;
 
-        private Entity(HDLNode node, String name) throws HGSEvalException {
+        private Entity(HDLNode node, String name, File root) throws HGSEvalException {
             helper = new VHDLTemplateFunctions();
-            final Context c = new Context()
+            final Context c = new Context(root)
                     .declareVar("elem", node.getElementAttributes())
                     .declareVar("vhdl", TEMP_FUNCTIONS_CLASS.createMap(helper));
 

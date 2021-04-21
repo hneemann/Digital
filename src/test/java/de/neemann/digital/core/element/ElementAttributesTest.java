@@ -12,6 +12,7 @@ import de.neemann.digital.hdl.hgs.Parser;
 import de.neemann.digital.hdl.hgs.ParserException;
 import junit.framework.TestCase;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ElementAttributesTest extends TestCase {
@@ -21,7 +22,7 @@ public class ElementAttributesTest extends TestCase {
      */
     public void testElementAttibutes() throws IOException, ParserException, HGSEvalException {
         ElementAttributes attr = new ElementAttributes().set(Keys.BITS, 5);
-        final Context c = new Context().declareVar("elem", attr);
+        final Context c = new Context((File) null).declareVar("elem", attr);
         new Parser("bits=<?=elem.Bits?>;").parse().execute(c);
         assertEquals("bits=5;", c.toString());
     }
@@ -36,7 +37,7 @@ public class ElementAttributesTest extends TestCase {
         d.setData(2, 4);
         d.setData(3, 8);
         d.setData(4, 2);
-        Context c = new Context().declareVar("d", d);
+        Context c = new Context((File) null).declareVar("d", d);
         new Parser("(<? for(i:=0;i<sizeOf(d);i++) { if (i>0) print(\"-\"); print(d[i]);} ?>)").parse().execute(c);
         assertEquals("(1-7-4-8-2)", c.toString());
     }

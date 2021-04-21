@@ -121,7 +121,7 @@ public class ClockTest extends TestCase {
         c.applyDefaultOptimizations();
 
         CodePrinter out = new CodePrinterStr();
-        new VHDLCreator(out, br.getLibrary()).printHDLCircuit(c);
+        new VHDLCreator(out, br.getLibrary()).printHDLCircuit(c, null);
 
         return out.toString();
     }

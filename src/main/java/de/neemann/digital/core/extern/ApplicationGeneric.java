@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class ApplicationGeneric implements Application {
     @Override
-    public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException {
         String[] args = code.split(" ");
         ProcessBuilder pb = new ProcessBuilder(args).redirectErrorStream(true);
         return new StdIOInterface(pb.start());
@@ -29,7 +29,7 @@ public class ApplicationGeneric implements Application {
     }
 
     @Override
-    public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException {
         String[] args = code.split(" ");
         if (args.length == 0)
             return Lang.get("msg_applicationFileNotFound", code);

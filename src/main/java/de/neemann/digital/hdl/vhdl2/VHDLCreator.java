@@ -16,6 +16,7 @@ import de.neemann.digital.hdl.vhdl2.entities.VHDLEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 
@@ -86,15 +87,15 @@ public class VHDLCreator {
         return s;
     }
 
-    private void printNodeBuiltIn(HDLNodeBuildIn node) throws HDLException, IOException, HGSEvalException {
+    private void printNodeBuiltIn(HDLNodeBuildIn node, File root) throws HDLException, IOException, HGSEvalException {
         VHDLEntity entity = library.getEntity(node);
-        String hdlEntityName = entity.print(out, node);
+        String hdlEntityName = entity.print(out, node, root);
         node.setHdlEntityName(hdlEntityName);
     }
 
-    private void printNodeCustom(HDLNodeCustom node) throws HDLException, IOException, HGSEvalException {
+    private void printNodeCustom(HDLNodeCustom node, File root) throws HDLException, IOException, HGSEvalException {
         if (!customPrinted.contains(node.getElementName())) {
-            printHDLCircuit(node.getCircuit());
+            printHDLCircuit(node.getCircuit(), root);
             customPrinted.add(node.getElementName());
         }
     }
@@ -104,17 +105,18 @@ public class VHDLCreator {
      * Also all needed entities are printed.
      *
      * @param circuit the circuit to print
+     * @param root    the projects main folder
      * @throws IOException      IOException
      * @throws HDLException     HDLException
      * @throws HGSEvalException HGSEvalException
      */
-    public void printHDLCircuit(HDLCircuit circuit) throws IOException, HDLException, HGSEvalException {
+    public void printHDLCircuit(HDLCircuit circuit, File root) throws IOException, HDLException, HGSEvalException {
         // at first print all used entities to maintain the correct order
         for (HDLNode node : circuit)
             if (node instanceof HDLNodeCustom)
-                printNodeCustom((HDLNodeCustom) node);
+                printNodeCustom((HDLNodeCustom) node, root);
             else if (node instanceof HDLNodeBuildIn)
-                printNodeBuiltIn((HDLNodeBuildIn) node);
+                printNodeBuiltIn((HDLNodeBuildIn) node, root);
 
         LOGGER.info("export " + circuit.getElementName());
 
@@ -147,7 +149,7 @@ public class VHDLCreator {
             if (node instanceof HDLNodeAssignment)
                 printExpression((HDLNodeAssignment) node);
             else if (node instanceof HDLNodeBuildIn)
-                printEntityInstantiation((HDLNodeBuildIn) node, num++);
+                printEntityInstantiation((HDLNodeBuildIn) node, num++, root);
             else if (node instanceof HDLNodeSplitterOneToMany)
                 printOneToMany((HDLNodeSplitterOneToMany) node);
             else if (node instanceof HDLNodeSplitterManyToOne)
@@ -233,7 +235,7 @@ public class VHDLCreator {
         }
     }
 
-    private void printEntityInstantiation(HDLNodeBuildIn node, int num) throws IOException, HDLException {
+    private void printEntityInstantiation(HDLNodeBuildIn node, int num, File root) throws IOException, HDLException {
         String entityName = node.getHdlEntityName();
 
         out.print("gate").print(num).print(": entity work.").print(entityName);
@@ -244,7 +246,7 @@ public class VHDLCreator {
 
         out.println().inc();
         if (!(node instanceof HDLNodeCustom))
-            library.getEntity(node).writeGenericMap(out, node);
+            library.getEntity(node).writeGenericMap(out, node, root);
         out.println("port map (").inc();
         Separator sep = new Separator(out, ",\n");
         for (HDLNodeBuildIn.InputAssignment i : node) {

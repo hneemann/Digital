@@ -19,8 +19,12 @@ import java.util.Map;
 
 public class ParserTest extends TestCase {
 
+    public static Context newContext() {
+        return new Context((File) null);
+    }
+
     private Context exec(String code) throws IOException, ParserException, HGSEvalException {
-        return exec(code, new Context());
+        return exec(code, newContext());
     }
 
     private Context exec(String code, Context c) throws IOException, ParserException, HGSEvalException {
@@ -29,7 +33,7 @@ public class ParserTest extends TestCase {
     }
 
     private Context exec(Statement s) throws HGSEvalException {
-        return exec(s, new Context());
+        return exec(s, newContext());
     }
 
     private Context exec(Statement s, Context c) throws HGSEvalException {
@@ -57,114 +61,114 @@ public class ParserTest extends TestCase {
 
 
     public void testParseExpArith() throws IOException, ParserException, HGSEvalException {
-        assertEquals(3L, new Parser("1+2").parseExp().value(new Context()));
-        assertEquals("HelloWorld", new Parser("\"Hello\"+\"World\"").parseExp().value(new Context()));
-        assertEquals(3L, new Parser("5-2").parseExp().value(new Context()));
-        assertEquals(10L, new Parser("5*2").parseExp().value(new Context()));
-        assertEquals(2L, new Parser("6/3").parseExp().value(new Context()));
-        assertEquals(8L, new Parser("1<<3").parseExp().value(new Context()));
-        assertEquals(2L, new Parser("16>>3").parseExp().value(new Context()));
-        assertEquals(4L, new Parser("9%5").parseExp().value(new Context()));
+        assertEquals(3L, new Parser("1+2").parseExp().value(newContext()));
+        assertEquals("HelloWorld", new Parser("\"Hello\"+\"World\"").parseExp().value(newContext()));
+        assertEquals(3L, new Parser("5-2").parseExp().value(newContext()));
+        assertEquals(10L, new Parser("5*2").parseExp().value(newContext()));
+        assertEquals(2L, new Parser("6/3").parseExp().value(newContext()));
+        assertEquals(8L, new Parser("1<<3").parseExp().value(newContext()));
+        assertEquals(2L, new Parser("16>>3").parseExp().value(newContext()));
+        assertEquals(4L, new Parser("9%5").parseExp().value(newContext()));
 
-        assertEquals(100L, new Parser("20/2*10").parseExp().value(new Context()));
-        assertEquals(20L, new Parser("20*10/10").parseExp().value(new Context()));
-        assertEquals(10L, new Parser("200/2/10").parseExp().value(new Context()));
-        assertEquals(10.0, new Parser("200/2.0/10").parseExp().value(new Context()));
+        assertEquals(100L, new Parser("20/2*10").parseExp().value(newContext()));
+        assertEquals(20L, new Parser("20*10/10").parseExp().value(newContext()));
+        assertEquals(10L, new Parser("200/2/10").parseExp().value(newContext()));
+        assertEquals(10.0, new Parser("200/2.0/10").parseExp().value(newContext()));
 
-        assertEquals(-5L, new Parser("-5").parseExp().value(new Context()));
-        assertEquals(6L, new Parser("2*(1+2)").parseExp().value(new Context()));
-        assertEquals(5L, new Parser("2*2+1").parseExp().value(new Context()));
-        assertEquals(5L, new Parser("1+2*2").parseExp().value(new Context()));
-        assertEquals(2L, new Parser("2/2+1").parseExp().value(new Context()));
-        assertEquals(2L, new Parser("1+2/2").parseExp().value(new Context()));
-        assertEquals(1L, new Parser("--1").parseExp().value(new Context()));
+        assertEquals(-5L, new Parser("-5").parseExp().value(newContext()));
+        assertEquals(6L, new Parser("2*(1+2)").parseExp().value(newContext()));
+        assertEquals(5L, new Parser("2*2+1").parseExp().value(newContext()));
+        assertEquals(5L, new Parser("1+2*2").parseExp().value(newContext()));
+        assertEquals(2L, new Parser("2/2+1").parseExp().value(newContext()));
+        assertEquals(2L, new Parser("1+2/2").parseExp().value(newContext()));
+        assertEquals(1L, new Parser("--1").parseExp().value(newContext()));
 
         failToParseExp("1+");
         failToParseExp("1+(a");
 
-        assertEquals("Hallo4", new Parser("\"Hallo\" + (2*2)").parseExp().value(new Context()));
-        assertEquals("Hallo_true", new Parser("\"Hallo_\" + (1<2)").parseExp().value(new Context()));
+        assertEquals("Hallo4", new Parser("\"Hallo\" + (2*2)").parseExp().value(newContext()));
+        assertEquals("Hallo_true", new Parser("\"Hallo_\" + (1<2)").parseExp().value(newContext()));
     }
 
     public void testParseExpArithDouble() throws IOException, ParserException, HGSEvalException {
-        assertEquals(4.0, new Parser("1.5+2.5").parseExp().value(new Context()));
-        assertEquals(0.5, new Parser("1.5-1").parseExp().value(new Context()));
-        assertEquals(3.0, new Parser("1.5*2").parseExp().value(new Context()));
-        assertEquals(3.0, new Parser("2*1.5").parseExp().value(new Context()));
-        assertEquals(1L, new Parser("3/2").parseExp().value(new Context()));
-        assertEquals(1.5, new Parser("3.0/2").parseExp().value(new Context()));
-        assertEquals(1.5, new Parser("3/2.0").parseExp().value(new Context()));
-        assertEquals(1.5, new Parser("3.0/2.0").parseExp().value(new Context()));
-        assertEquals(true, new Parser("1.0001>1").parseExp().value(new Context()));
-        assertEquals(false, new Parser("1>1.0001").parseExp().value(new Context()));
-        assertEquals(false, new Parser("1.0001<1").parseExp().value(new Context()));
-        assertEquals(true, new Parser("1<1.0001").parseExp().value(new Context()));
+        assertEquals(4.0, new Parser("1.5+2.5").parseExp().value(newContext()));
+        assertEquals(0.5, new Parser("1.5-1").parseExp().value(newContext()));
+        assertEquals(3.0, new Parser("1.5*2").parseExp().value(newContext()));
+        assertEquals(3.0, new Parser("2*1.5").parseExp().value(newContext()));
+        assertEquals(1L, new Parser("3/2").parseExp().value(newContext()));
+        assertEquals(1.5, new Parser("3.0/2").parseExp().value(newContext()));
+        assertEquals(1.5, new Parser("3/2.0").parseExp().value(newContext()));
+        assertEquals(1.5, new Parser("3.0/2.0").parseExp().value(newContext()));
+        assertEquals(true, new Parser("1.0001>1").parseExp().value(newContext()));
+        assertEquals(false, new Parser("1>1.0001").parseExp().value(newContext()));
+        assertEquals(false, new Parser("1.0001<1").parseExp().value(newContext()));
+        assertEquals(true, new Parser("1<1.0001").parseExp().value(newContext()));
 
-        assertEquals(2L, new Parser("floor(2.5)").parseExp().value(new Context()));
-        assertEquals(3L, new Parser("ceil(2.5)").parseExp().value(new Context()));
-        assertEquals(3L, new Parser("round(2.8)").parseExp().value(new Context()));
-        assertEquals(4.0, new Parser("float(4)").parseExp().value(new Context()));
+        assertEquals(2L, new Parser("floor(2.5)").parseExp().value(newContext()));
+        assertEquals(3L, new Parser("ceil(2.5)").parseExp().value(newContext()));
+        assertEquals(3L, new Parser("round(2.8)").parseExp().value(newContext()));
+        assertEquals(4.0, new Parser("float(4)").parseExp().value(newContext()));
 
-        assertEquals(2L, new Parser("min(2,3)").parseExp().value(new Context()));
-        assertEquals(2.5, new Parser("min(2.5,3)").parseExp().value(new Context()));
-        assertEquals(2.5, new Parser("min(2.5,3.5)").parseExp().value(new Context()));
-        assertEquals(3L, new Parser("max(2,3)").parseExp().value(new Context()));
-        assertEquals(3.0, new Parser("max(2.5,3)").parseExp().value(new Context()));
-        assertEquals(3.5, new Parser("max(2.5,3.5)").parseExp().value(new Context()));
+        assertEquals(2L, new Parser("min(2,3)").parseExp().value(newContext()));
+        assertEquals(2.5, new Parser("min(2.5,3)").parseExp().value(newContext()));
+        assertEquals(2.5, new Parser("min(2.5,3.5)").parseExp().value(newContext()));
+        assertEquals(3L, new Parser("max(2,3)").parseExp().value(newContext()));
+        assertEquals(3.0, new Parser("max(2.5,3)").parseExp().value(newContext()));
+        assertEquals(3.5, new Parser("max(2.5,3.5)").parseExp().value(newContext()));
 
-        assertEquals(3.5, new Parser("abs(3.5)").parseExp().value(new Context()));
-        assertEquals(3.5, new Parser("abs(-3.5)").parseExp().value(new Context()));
-        assertEquals(3L, new Parser("abs(3)").parseExp().value(new Context()));
-        assertEquals(3L, new Parser("abs(-3)").parseExp().value(new Context()));
+        assertEquals(3.5, new Parser("abs(3.5)").parseExp().value(newContext()));
+        assertEquals(3.5, new Parser("abs(-3.5)").parseExp().value(newContext()));
+        assertEquals(3L, new Parser("abs(3)").parseExp().value(newContext()));
+        assertEquals(3L, new Parser("abs(-3)").parseExp().value(newContext()));
     }
 
     public void testParseExpCompare() throws IOException, ParserException, HGSEvalException {
-        assertEquals(true, new Parser("5=5").parseExp().value(new Context()));
-        assertEquals(true, new Parser("\"Hello\"=\"Hello\"").parseExp().value(new Context()));
-        assertEquals(false, new Parser("\"Hello\"=\"World\"").parseExp().value(new Context()));
-        assertEquals(false, new Parser("5!=5").parseExp().value(new Context()));
-        assertEquals(false, new Parser("\"Hello\"!=\"Hello\"").parseExp().value(new Context()));
-        assertEquals(true, new Parser("\"Hello\"!=\"World\"").parseExp().value(new Context()));
-        assertEquals(true, new Parser("\"a\"<\"b\"").parseExp().value(new Context()));
-        assertEquals(false, new Parser("\"b\"<\"a\"").parseExp().value(new Context()));
-        assertEquals(false, new Parser("\"a\">\"b\"").parseExp().value(new Context()));
-        assertEquals(true, new Parser("\"b\">\"a\"").parseExp().value(new Context()));
+        assertEquals(true, new Parser("5=5").parseExp().value(newContext()));
+        assertEquals(true, new Parser("\"Hello\"=\"Hello\"").parseExp().value(newContext()));
+        assertEquals(false, new Parser("\"Hello\"=\"World\"").parseExp().value(newContext()));
+        assertEquals(false, new Parser("5!=5").parseExp().value(newContext()));
+        assertEquals(false, new Parser("\"Hello\"!=\"Hello\"").parseExp().value(newContext()));
+        assertEquals(true, new Parser("\"Hello\"!=\"World\"").parseExp().value(newContext()));
+        assertEquals(true, new Parser("\"a\"<\"b\"").parseExp().value(newContext()));
+        assertEquals(false, new Parser("\"b\"<\"a\"").parseExp().value(newContext()));
+        assertEquals(false, new Parser("\"a\">\"b\"").parseExp().value(newContext()));
+        assertEquals(true, new Parser("\"b\">\"a\"").parseExp().value(newContext()));
 
-        assertEquals(false, new Parser("5<5").parseExp().value(new Context()));
-        assertEquals(true, new Parser("4<5").parseExp().value(new Context()));
-        assertEquals(false, new Parser("5>5").parseExp().value(new Context()));
-        assertEquals(false, new Parser("4>5").parseExp().value(new Context()));
+        assertEquals(false, new Parser("5<5").parseExp().value(newContext()));
+        assertEquals(true, new Parser("4<5").parseExp().value(newContext()));
+        assertEquals(false, new Parser("5>5").parseExp().value(newContext()));
+        assertEquals(false, new Parser("4>5").parseExp().value(newContext()));
 
-        assertEquals(false, new Parser("4>=5").parseExp().value(new Context()));
-        assertEquals(true, new Parser("5>=5").parseExp().value(new Context()));
-        assertEquals(true, new Parser("6>=5").parseExp().value(new Context()));
+        assertEquals(false, new Parser("4>=5").parseExp().value(newContext()));
+        assertEquals(true, new Parser("5>=5").parseExp().value(newContext()));
+        assertEquals(true, new Parser("6>=5").parseExp().value(newContext()));
 
-        assertEquals(true, new Parser("4<=5").parseExp().value(new Context()));
-        assertEquals(true, new Parser("5<=5").parseExp().value(new Context()));
-        assertEquals(false, new Parser("6<=5").parseExp().value(new Context()));
+        assertEquals(true, new Parser("4<=5").parseExp().value(newContext()));
+        assertEquals(true, new Parser("5<=5").parseExp().value(newContext()));
+        assertEquals(false, new Parser("6<=5").parseExp().value(newContext()));
     }
 
 
     public void testParseExpBool() throws IOException, ParserException, HGSEvalException {
-        assertEquals(3L, new Parser("1|2").parseExp().value(new Context()));
+        assertEquals(3L, new Parser("1|2").parseExp().value(newContext()));
         assertEquals(true, new Parser("a|b").parseExp()
-                .value(new Context()
+                .value(newContext()
                         .declareVar("a", true)
                         .declareVar("b", false)));
-        assertEquals(0L, new Parser("1&2").parseExp().value(new Context()));
+        assertEquals(0L, new Parser("1&2").parseExp().value(newContext()));
         assertEquals(false, new Parser("a&b").parseExp()
-                .value(new Context()
+                .value(newContext()
                         .declareVar("a", true)
                         .declareVar("b", false)));
         assertEquals(3L, new Parser("1^2").parseExp()
-                .value(new Context()));
+                .value(newContext()));
         assertEquals(true, new Parser("a^b").parseExp()
-                .value(new Context()
+                .value(newContext()
                         .declareVar("a", true)
                         .declareVar("b", false)));
-        assertEquals(-2L, new Parser("~1").parseExp().value(new Context()));
+        assertEquals(-2L, new Parser("~1").parseExp().value(newContext()));
         assertEquals(false, new Parser("~a").parseExp()
-                .value(new Context()
+                .value(newContext()
                         .declareVar("a", true)));
 
         assertEquals("true", exec("<? if (1) print(\"true\"); ?>").toString());
@@ -176,7 +180,7 @@ public class ParserTest extends TestCase {
     }
 
     public void testStructLiteral() throws ParserException, IOException, HGSEvalException {
-        Object str = new Parser("{a:1, b:2, c:{d:3+4}}").parseExp().value(new Context());
+        Object str = new Parser("{a:1, b:2, c:{d:3+4}}").parseExp().value(newContext());
         Map<String, Object> m = (Map<String, Object>) str;
         assertEquals(3, m.size());
         assertEquals(1L, m.get("a"));
@@ -185,7 +189,7 @@ public class ParserTest extends TestCase {
         assertEquals(1, c.size());
         assertEquals(7L, c.get("d"));
 
-        str = new Parser("{a:{}}").parseExp().value(new Context());
+        str = new Parser("{a:{}}").parseExp().value(newContext());
         m = (Map<String, Object>) str;
         assertEquals(1, m.size());
         Map<String, Object> a = (Map<String, Object>) m.get("a");
@@ -193,16 +197,16 @@ public class ParserTest extends TestCase {
     }
 
     public void testTypeChecking() throws IOException, ParserException, HGSEvalException {
-        assertEquals("5.0", exec("<? a:=4.0; a=5.0; print(a); ?>", new Context()).toString());
-        assertEquals("u", exec("<? a:=\"zz\"; a=\"u\"; print(a); ?>", new Context()).toString());
+        assertEquals("5.0", exec("<? a:=4.0; a=5.0; print(a); ?>", newContext()).toString());
+        assertEquals("u", exec("<? a:=\"zz\"; a=\"u\"; print(a); ?>", newContext()).toString());
 
-        failToEval("<? a:=\"zz\"; a=5; print(a); ?>", new Context());
-        failToEval("<? a:=5; a=5.0; print(a); ?>", new Context());
-        failToEval("<? a:=5.0; a=5; print(a); ?>", new Context());
+        failToEval("<? a:=\"zz\"; a=5; print(a); ?>", newContext());
+        failToEval("<? a:=5; a=5.0; print(a); ?>", newContext());
+        failToEval("<? a:=5.0; a=5; print(a); ?>", newContext());
     }
 
     public void testParseTemplateSimple() throws IOException, ParserException, HGSEvalException {
-        assertEquals("Hello World!", exec("Hello World!", new Context()).toString());
+        assertEquals("Hello World!", exec("Hello World!", newContext()).toString());
     }
 
     public void testParseTemplateTextOnly() throws IOException, ParserException, HGSEvalException {
@@ -212,25 +216,25 @@ public class ParserTest extends TestCase {
 
     public void testParseCommandsOnly() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("a:=2; b:=a*a;").parse(false);
-        Context context = new Context();
+        Context context = newContext();
         s.execute(context);
         assertEquals(4L, context.getVar("b"));
     }
 
     public void testParseTemplateVariable() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? =a ?> World!", new Context().declareVar("a", "My"));
+        Context c = exec("Hello <? =a ?> World!", newContext().declareVar("a", "My"));
         assertEquals("Hello My World!", c.toString());
     }
 
     public void testParseTemplateVariableEscape() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("Hello <? ='a a' ?> World!", new Context().declareVar("a a", "My"));
+        Context c = exec("Hello <? ='a a' ?> World!", newContext().declareVar("a a", "My"));
         assertEquals("Hello My World!", c.toString());
     }
 
     public void testParseTemplateCodeOnly() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? =a ?>", new Context().declareVar("a", "My"));
+        Context c = exec("<? =a ?>", newContext().declareVar("a", "My"));
         assertEquals("My", c.toString());
-        c = exec("{? =a ?}", new Context().declareVar("a", "My"));
+        c = exec("{? =a ?}", newContext().declareVar("a", "My"));
         assertEquals("My", c.toString());
     }
 
@@ -240,7 +244,7 @@ public class ParserTest extends TestCase {
         c = exec("Hello {? print(\"My\"); ?} World!");
         assertEquals("Hello My World!", c.toString());
 
-        failToEval("Hello <? a=print(\"My\"); ?> World!", new Context());
+        failToEval("Hello <? a=print(\"My\"); ?> World!", newContext());
     }
 
     public void testParseTemplatePrintf() throws IOException, ParserException, HGSEvalException {
@@ -251,11 +255,11 @@ public class ParserTest extends TestCase {
     //   if statement
 
     public void testParseTemplateIf() throws IOException, ParserException, HGSEvalException {
-        Context c = exec("<? b:=9; if (a<1) b=0; else b=1; print(b);?>", new Context().declareVar("a", 0));
+        Context c = exec("<? b:=9; if (a<1) b=0; else b=1; print(b);?>", newContext().declareVar("a", 0));
         assertEquals("0", c.toString());
         assertTrue(c.contains("b"));
 
-        c = exec("<? if (a<1) export b:=0; else export b:=1; print(b);?>", new Context().declareVar("a", 0));
+        c = exec("<? if (a<1) export b:=0; else export b:=1; print(b);?>", newContext().declareVar("a", 0));
         assertEquals("0", c.toString());
         assertTrue(c.contains("b"));
     }
@@ -363,23 +367,23 @@ public class ParserTest extends TestCase {
     }
 
     public void testParseWrongAssignments() throws IOException, ParserException {
-        failToEval("<? m=1; ?>;", new Context());
-        failToEval("<? m:=1; m.test:=2; ?>;", new Context());
-        failToEval("<? m:=1; m[0]:=2; ?>;", new Context());
+        failToEval("<? m=1; ?>;", newContext());
+        failToEval("<? m:=1; m.test:=2; ?>;", newContext());
+        failToEval("<? m:=1; m[0]:=2; ?>;", newContext());
     }
 
     public void testParseTemplateIsSet() throws IOException, ParserException, HGSEvalException {
         Statement t = new Parser("<? if (isPresent(m)) print(m); else print(\"false\"); ?>;").parse();
         assertEquals("false;", exec(t).toString());
-        assertEquals("4;", exec(t, new Context().declareVar("m", 4)).toString());
+        assertEquals("4;", exec(t, newContext().declareVar("m", 4)).toString());
     }
 
     public void testParseTemplateFormat() throws IOException, ParserException, HGSEvalException {
-        Context c = new Context().declareVar("Bits", 17);
+        Context c = newContext().declareVar("Bits", 17);
         exec("<? a:=format(\"hex=%x;\",Bits); print(a);?>", c);
         assertEquals("hex=11;", c.toString());
 
-        c = new Context().declareVar("freq", Math.PI * 100);
+        c = newContext().declareVar("freq", Math.PI * 100);
         exec("<? a:=format(\"f=%.2f;\",freq); print(a);?>", c);
         assertEquals("f=314.16;", c.toString());
     }
@@ -400,18 +404,18 @@ public class ParserTest extends TestCase {
         String code = "?>Test:<? print(n); str:=output();";
         Statement s = new Parser(code).parse(false);
 
-        Context c = new Context().declareVar("n", 3);
+        Context c = newContext().declareVar("n", 3);
         s.execute(c);
         assertEquals("Test:3", c.getVar("str"));
 
-        c = new Context().declareVar("n", 12);
+        c = newContext().declareVar("n", 12);
         s.execute(c);
         assertEquals("Test:12", c.getVar("str"));
     }
 
     public void testAddFunction() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("a : in <?=type(Bits)?>;").parse();
-        Context funcs = new Context().declareVar("type", new Function(1) {
+        Context funcs = newContext().declareVar("type", new Function(1) {
             @Override
             protected Object f(Object... args) throws HGSEvalException {
                 int n = Value.toInt(args[0]);
@@ -435,7 +439,7 @@ public class ParserTest extends TestCase {
         flag = 0;
         Statement s = new Parser("a : in <? type(7); ?>;").parse();
 
-        Context c = new Context().declareFunc("type", new Function(1) {
+        Context c = newContext().declareFunc("type", new Function(1) {
             @Override
             protected Object f(Object... args) throws HGSEvalException {
                 flag = Value.toInt(args[0]);
@@ -450,13 +454,13 @@ public class ParserTest extends TestCase {
         assertEquals("18", exec("<? f:=func(a){return a*a+2;};  print(f(4));?>").toString());
         assertEquals("5", exec("<? f:=func(a,b){return a+2*b;};  print(f(1,2));?>").toString());
         assertEquals("13", exec("<? f:=func(a,b){return a+2*b;};  print(f(1,a*2));?>",
-                new Context().declareVar("a", 3)).toString());
+                newContext().declareVar("a", 3)).toString());
 
         assertEquals("18", exec("<? m:={f:func(a){return {v:a*a+2};}};  print(m.f(4).v);?>").toString());
         assertEquals("18", exec("<? m:=[func(a){ return [a*a+2];}];  print(m[0](4)[0]);?>").toString());
 
-        failToEval("<? return 1; ?>", new Context());
-        failToEval("<? f:=func(a){return a;}; f(1)=5; ?>", new Context());
+        failToEval("<? return 1; ?>", newContext());
+        failToEval("<? f:=func(a){return a;}; f(1)=5; ?>", newContext());
     }
 
     public void testFunctionOutput() throws IOException, ParserException, HGSEvalException {
@@ -587,25 +591,25 @@ public class ParserTest extends TestCase {
         JavaClass<TestClass> jc = new JavaClass<>(TestClass.class);
         TestClass t = new TestClass();
         exec("<? z.add(6);z.sub(3); ?>",
-                new Context().declareVar("z", jc.createMap(t)));
+                newContext().declareVar("z", jc.createMap(t)));
         assertEquals(3L, t.inner);
 
         JavaClass<TestClassStatic> jcs = new JavaClass<>(TestClassStatic.class);
         exec("<? z.set(0);z.add(6);z.sub(3); ?>",
-                new Context().declareVar("z", jcs.createMap(null)));
+                newContext().declareVar("z", jcs.createMap(null)));
         assertEquals(3L, TestClassStatic.inner);
 
 
         Context c = exec("<? print(z.concat(\"a\"), z.concat(\"a\",\"b\"), z.concat(\"a\",\"b\",\"c\")); ?>",
-                new Context().declareVar("z", jcs.createMap(null)));
+                newContext().declareVar("z", jcs.createMap(null)));
         assertEquals("aababc", c.toString());
 
         c = exec("<? print(z.mean(1),\",\",z.mean(3,5),\",\",z.mean(3,4,5)); ?>",
-                new Context().declareVar("z", jcs.createMap(null)));
+                newContext().declareVar("z", jcs.createMap(null)));
         assertEquals("1,4,4", c.toString());
 
         c = exec("Hello <? print(z.zzz(\"World \",5,7,9)); ?>",
-                new Context().declareVar("z", jcs.createMap(null)));
+                newContext().declareVar("z", jcs.createMap(null)));
         assertEquals("Hello Hello World 7", c.toString());
     }
 
@@ -613,11 +617,11 @@ public class ParserTest extends TestCase {
     public void testPanic() throws IOException, ParserException, HGSEvalException {
         Statement s = new Parser("<? if (i>1) panic(\"myError\"); ?>").parse();
 
-        exec(s, new Context().declareVar("i", 0));
-        exec(s, new Context().declareVar("i", 1));
+        exec(s, newContext().declareVar("i", 0));
+        exec(s, newContext().declareVar("i", 1));
 
         try {
-            exec(s, new Context().declareVar("i", 2));
+            exec(s, newContext().declareVar("i", 2));
             fail();
         } catch (HGSEvalException e) {
             assertEquals("myError; line 1", e.getMessage());

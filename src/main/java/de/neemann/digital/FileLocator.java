@@ -23,7 +23,7 @@ public class FileLocator {
     private final String filename;
     private File file;
     private FileHistory history;
-    private ElementLibrary library;
+    private File libraryRoot;
     private File baseFile;
     private int fileCounter;
 
@@ -66,7 +66,18 @@ public class FileLocator {
      * @return this for chained calls
      */
     public FileLocator setLibrary(ElementLibrary library) {
-        this.library = library;
+        this.libraryRoot = library.getRootFilePath();
+        return this;
+    }
+
+    /**
+     * Sets the projects root folder
+     *
+     * @param libraryRoot the folder
+     * @return this for chained calls
+     */
+    public FileLocator setLibraryRoot(File libraryRoot) {
+        this.libraryRoot = libraryRoot;
         return this;
     }
 
@@ -126,16 +137,13 @@ public class FileLocator {
             }
         }
 
-        if (library != null) {
-            final File rootFilePath = library.getRootFilePath();
-            if (rootFilePath != null) {
-                LOGGER.debug(filename + ": start library folder lookup");
-                fileCounter = 0;
-                File f = search(rootFilePath);
-                if (f != null) {
-                    LOGGER.debug(filename + " found in library folder");
-                    return f;
-                }
+        if (libraryRoot != null) {
+            LOGGER.debug(filename + ": start library folder lookup");
+            fileCounter = 0;
+            File f = search(libraryRoot);
+            if (f != null) {
+                LOGGER.debug(filename + " found in library folder");
+                return f;
             }
         }
 

@@ -111,7 +111,7 @@ public class External extends Node implements Element {
             if (app == null)
                 throw new NodeException(Lang.get("err_errorCreatingProcess"), this, -1, null);
 
-            processInterface = app.start(label, code, ins, outs);
+            processInterface = app.start(label, code, ins, outs, model.getRootPath());
         } catch (IOException e) {
             throw new NodeException(Lang.get("err_errorCreatingProcess"), this, -1, null, e);
         }

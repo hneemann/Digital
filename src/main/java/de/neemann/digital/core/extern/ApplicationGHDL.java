@@ -34,12 +34,12 @@ public class ApplicationGHDL extends ApplicationVHDLStdIO {
     }
 
     @Override
-    public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    public ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException {
         File file = null;
         try {
             String ghdl = getGhdlPath().getPath();
 
-            file = createVHDLFile(label, code, inputs, outputs);
+            file = createVHDLFile(label, code, inputs, outputs, root);
             ProcessStarter.start(file.getParentFile(), new Options()
                     .add(ghdl)
                     .add("-a")
@@ -85,12 +85,12 @@ public class ApplicationGHDL extends ApplicationVHDLStdIO {
     }
 
     @Override
-    public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    public String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException {
         File file = null;
         try {
             String ghdl = getGhdlPath().getPath();
 
-            file = createVHDLFile(label, code, inputs, outputs);
+            file = createVHDLFile(label, code, inputs, outputs, root);
             String m1 = ProcessStarter.start(file.getParentFile(), new Options()
                     .add(ghdl)
                     .add("-a")

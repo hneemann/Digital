@@ -24,15 +24,16 @@ public interface Application {
      * The code is either stored directly or there is a file given.
      *
      * @param attr the attributes
+     * @param root the projects main folder
      * @return the code
      * @throws IOException IOException
      */
-    static String getCode(ElementAttributes attr) throws IOException {
+    static String getCode(ElementAttributes attr, File root) throws IOException {
         if (attr.contains(Keys.EXTERNAL_CODE))
             return attr.get(Keys.EXTERNAL_CODE);
 
         if (attr.contains(Keys.EXTERNAL_CODE_FILE))
-            return readCode(attr.getFile(Keys.EXTERNAL_CODE_FILE));
+            return readCode(attr.getFile(Keys.EXTERNAL_CODE_FILE, root));
 
         return "";
     }
@@ -96,10 +97,11 @@ public interface Application {
      * @param code    the code itself
      * @param inputs  the inputs expected by Digital
      * @param outputs the outputs expected by Digital
+     * @param root    the projects main folder
      * @return the ProcessInterface
      * @throws IOException IOException
      */
-    ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException;
+    ProcessInterface start(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException;
 
     /**
      * Used to make the component consistent.
@@ -107,9 +109,10 @@ public interface Application {
      * If this is not supported, nothing is done.
      *
      * @param attributes the attributed of this component
+     * @param root       the projects main folder
      * @return true if attributes are modified
      */
-    default boolean ensureConsistency(ElementAttributes attributes) {
+    default boolean ensureConsistency(ElementAttributes attributes, File root) {
         return false;
     }
 
@@ -128,10 +131,11 @@ public interface Application {
      * @param code    the code itself
      * @param inputs  the inputs expected by Digital
      * @param outputs the outputs expected by Digital
+     * @param root    the projects main folder
      * @return the applications message, maybe null
      * @throws IOException IOException
      */
-    default String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs) throws IOException {
+    default String checkCode(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws IOException {
         return null;
     }
 }
