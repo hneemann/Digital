@@ -1,5 +1,8 @@
 Release Notes
 
+HEAD, planned as v0.28
+- adds paste functionality to ROM data editor.
+
 v0.27, released on 9. Apr. 2021
 - Added fixed point and floating point number formats.
 - Adds a dialog to create a behavioral fixture.
