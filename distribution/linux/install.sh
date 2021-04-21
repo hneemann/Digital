@@ -11,13 +11,13 @@ cd "${SCRIPT_PATH}"
 TMP_DIR=`mktemp --directory`
 
 sed -e "s,<EXEC_LOCATION>,${SCRIPT_PATH}/Digital.sh,g" \
-    -e "s,<ICON_LOCATION>,${SCRIPT_PATH}/icon.svg,g" "${SCRIPT_PATH}/linux/desktop.template" > "${TMP_DIR}/${RESOURCE_NAME}.desktop"
+    -e "s,<ICON_LOCATION>,${SCRIPT_PATH}/icon.svg,g" "${SCRIPT_PATH}/desktop.template" > "${TMP_DIR}/${RESOURCE_NAME}.desktop"
     
 mkdir -p "${HOME}/.local/share/applications"
 cp "${TMP_DIR}/${RESOURCE_NAME}.desktop" "${HOME}/.local/share/applications/"
 
 mkdir -p "${HOME}/.local/share/mime/packages"
-cp "${SCRIPT_PATH}/linux/${RESOURCE_NAME}.xml" "${HOME}/.local/share/mime/packages"
+cp "${SCRIPT_PATH}/${RESOURCE_NAME}.xml" "${HOME}/.local/share/mime/packages"
 
 rm "${TMP_DIR}/${RESOURCE_NAME}.desktop"
 rmdir "${TMP_DIR}"
