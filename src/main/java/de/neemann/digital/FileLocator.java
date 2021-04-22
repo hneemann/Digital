@@ -78,7 +78,10 @@ public class FileLocator {
      * @return this for chained calls
      */
     public FileLocator setLibraryRoot(File libraryRoot) {
-        this.libraryRoot = libraryRoot;
+        if (libraryRoot.isFile())
+            this.libraryRoot = libraryRoot.getParentFile();
+        else
+            this.libraryRoot = libraryRoot;
         return this;
     }
 
@@ -156,9 +159,6 @@ public class FileLocator {
     }
 
     private int search(File path, ArrayList<File> foundFiles, int fileCounter) throws IOException {
-        if (fileCounter < 0)
-            throw new IOException("to many files");
-
         File[] list = path.listFiles();
         if (list != null) {
             for (File f : list) {
@@ -168,6 +168,8 @@ public class FileLocator {
                         throw new IOException("multiple matching files: " + foundFiles);
                 }
                 fileCounter--;
+                if (fileCounter < 0)
+                    throw new IOException("to many files");
             }
             for (File f : list)
                 if (f.isDirectory() && !f.getName().startsWith("."))
