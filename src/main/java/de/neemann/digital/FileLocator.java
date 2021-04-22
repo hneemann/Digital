@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Helper to find a file if only the filename is known.
@@ -25,7 +27,6 @@ public class FileLocator {
     private FileHistory history;
     private File libraryRoot;
     private File baseFile;
-    private int fileCounter;
 
 
     /**
@@ -139,38 +140,40 @@ public class FileLocator {
 
         if (libraryRoot != null) {
             LOGGER.debug(filename + ": start library folder lookup");
-            fileCounter = 0;
-            File f = search(libraryRoot);
-            if (f != null) {
-                LOGGER.debug(filename + " found in library folder");
-                return f;
+            ArrayList<File> foundFiles = new ArrayList<>();
+            try {
+                search(libraryRoot, foundFiles, MAX_FILE_COUNTER);
+                if (foundFiles.size() == 1) {
+                    LOGGER.debug(filename + " found in library folder");
+                    return foundFiles.get(0);
+                }
+            } catch (IOException e) {
+                LOGGER.debug(filename + ": " + e.getMessage());
             }
         }
-
         LOGGER.debug(filename + " not found");
         return file;
     }
 
-    private File search(File path) {
-        if (fileCounter > MAX_FILE_COUNTER)
-            return null;
+    private int search(File path, ArrayList<File> foundFiles, int fileCounter) throws IOException {
+        if (fileCounter < 0)
+            throw new IOException("to many files");
 
         File[] list = path.listFiles();
         if (list != null) {
             for (File f : list) {
-                if (f.isFile() && f.getName().equals(filename))
-                    return f;
-                fileCounter++;
-            }
-            for (File f : list) {
-                if (f.isDirectory() && !f.getName().startsWith(".")) {
-                    File af = search(f);
-                    if (af != null)
-                        return af;
+                if (f.isFile() && f.getName().equals(filename)) {
+                    foundFiles.add(f);
+                    if (foundFiles.size() > 1)
+                        throw new IOException("multiple matching files: " + foundFiles);
                 }
+                fileCounter--;
             }
+            for (File f : list)
+                if (f.isDirectory() && !f.getName().startsWith("."))
+                    fileCounter = search(f, foundFiles, fileCounter);
         }
-        return null;
+        return fileCounter;
     }
 
 }
