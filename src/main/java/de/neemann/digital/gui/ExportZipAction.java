@@ -5,9 +5,9 @@
  */
 package de.neemann.digital.gui;
 
-import de.neemann.digital.FileLocator;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
+import de.neemann.digital.core.element.Key;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -21,6 +21,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -30,8 +32,10 @@ import java.util.zip.ZipOutputStream;
  */
 public class ExportZipAction extends ToolTipAction {
     private final Main main;
+    private final ArrayList<Key<File>> fileKeyList;
     private ElementLibrary lib;
     private HashSet<String> elementSet;
+    private File origin;
 
     /**
      * creates a new instance
@@ -42,6 +46,11 @@ public class ExportZipAction extends ToolTipAction {
         super(Lang.get("menu_exportZIP"));
         this.main = main;
         setToolTip(Lang.get("menu_exportZIP_tt"));
+
+        fileKeyList = new ArrayList<>();
+        for (Key<?> k : Keys.getKeys())
+            if (k instanceof Key.KeyFile)
+                fileKeyList.add((Key.KeyFile) k);
     }
 
     @Override
@@ -52,17 +61,11 @@ public class ExportZipAction extends ToolTipAction {
             try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
                 Circuit circuit = main.getCircuitComponent().getCircuit();
                 lib = main.getCircuitComponent().getLibrary();
-                File origin = circuit.getOrigin();
+                origin = circuit.getOrigin();
                 elementSet = new HashSet<>();
                 addFile(zip, origin, circuit);
 
-                ElementAttributes settings = circuit.getAttributes();
-                if (settings.get(Keys.PRELOAD_PROGRAM)) {
-                    File prog = new FileLocator(settings.get(Keys.PROGRAM_TO_PRELOAD))
-                            .setupWithMain(main)
-                            .locate();
-                    addToZip(zip, prog);
-                }
+                addFilesInAttributes(zip, circuit.getAttributes());
 
                 if (origin != null)
                     addToZip(zip, "MANIFEST.TXT", "Main-Circuit: " + origin.getName() + "\n");
@@ -83,6 +86,17 @@ public class ExportZipAction extends ToolTipAction {
                     ElementTypeDescriptionCustom custom = (ElementTypeDescriptionCustom) desc;
                     addFile(zip, custom.getFile(), custom.getCircuit());
                 }
+
+                addFilesInAttributes(zip, ve.getElementAttributes());
+            }
+        }
+    }
+
+    private void addFilesInAttributes(ZipOutputStream zip, ElementAttributes attr) throws IOException {
+        for (Key<File> k : fileKeyList) {
+            if (attr.contains(k)) {
+                File f = attr.getFile(k, origin);
+                addToZip(zip, f);
             }
         }
     }
@@ -102,6 +116,6 @@ public class ExportZipAction extends ToolTipAction {
 
     private void addToZip(ZipOutputStream zip, String name, String content) throws IOException {
         zip.putNextEntry(new ZipEntry(name));
-        zip.write(content.getBytes("utf-8"));
+        zip.write(content.getBytes(StandardCharsets.UTF_8));
     }
 }
