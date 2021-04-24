@@ -7,8 +7,13 @@ package de.neemann.digital.analyse;
 
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.flipflops.FlipflopJK;
+import de.neemann.digital.core.flipflops.FlipflopT;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.memory.Counter;
+import de.neemann.digital.core.memory.CounterPreset;
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.core.memory.Register;
 import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -40,14 +45,14 @@ public class SubstituteLibrary implements LibraryInterface {
     private static final Map<String, SubstituteInterface> MAP = new HashMap<>();
 
     static {
-        MAP.put("JK_FF", new SubstituteGenericHGSParser("JK_FF.dig"));
-        MAP.put("T_FF", new SubstituteMatching()
+        MAP.put(FlipflopJK.DESCRIPTION.getName(), new SubstituteGenericHGSParser("JK_FF.dig"));
+        MAP.put(FlipflopT.DESCRIPTION.getName(), new SubstituteMatching()
                 .add(attr -> attr.get(Keys.WITH_ENABLE), new SubstituteGenericHGSParser("T_FF_EN.dig"))
                 .add(attr -> true, new SubstituteGenericHGSParser("T_FF.dig"))
         );
-        MAP.put("Counter", new SubstituteGenericHGSParser("Counter.dig"));
-        MAP.put("CounterPreset", new SubstituteGenericHGSParser("CounterPreset.dig"));
-        MAP.put("Register", new SubstituteGenericHGSParser("Register.dig"));
+        MAP.put(Counter.DESCRIPTION.getName(), new SubstituteGenericHGSParser("Counter.dig"));
+        MAP.put(CounterPreset.DESCRIPTION.getName(), new SubstituteGenericHGSParser("CounterPreset.dig"));
+        MAP.put(Register.DESCRIPTION.getName(), new SubstituteGenericHGSParser("Register.dig"));
     }
 
     private final ElementLibrary parent;
