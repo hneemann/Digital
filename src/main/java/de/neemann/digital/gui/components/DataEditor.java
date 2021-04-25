@@ -40,6 +40,7 @@ import java.util.StringTokenizer;
  */
 public class DataEditor extends JDialog {
     private static final Color MYGRAY = new Color(230, 230, 230);
+    private static File lastUsedFileName;
     private final ValueFormatter addrFormat;
     private final int addrBits;
     private final DataField localDataField;
@@ -144,11 +145,10 @@ public class DataEditor extends JDialog {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser();
-                    if (fileName != null)
-                        fc.setSelectedFile(fileName);
+                    setFileNameTo(fc);
                     fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
                     if (fc.showOpenDialog(DataEditor.this) == JFileChooser.APPROVE_OPTION) {
-                        fileName = fc.getSelectedFile();
+                        setFileName(fc.getSelectedFile());
                         try {
                             DataField dataRead = Importer.read(fc.getSelectedFile(), dataBits)
                                     .trimValues(addrBits, dataBits);
@@ -164,12 +164,11 @@ public class DataEditor extends JDialog {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser();
-                    if (fileName != null)
-                        fc.setSelectedFile(fileName);
+                    setFileNameTo(fc);
                     fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
                     new SaveAsHelper(DataEditor.this, fc, "hex").checkOverwrite(
                             file -> {
-                                fileName = fc.getSelectedFile();
+                                setFileName(file);
                                 localDataField.saveTo(file);
                             }
                     );
@@ -266,14 +265,17 @@ public class DataEditor extends JDialog {
      * @param fileName the filename
      */
     public void setFileName(File fileName) {
-        this.fileName = fileName;
+        if (fileName.exists()) {
+            this.fileName = fileName;
+            lastUsedFileName = fileName;
+        }
     }
 
-    /**
-     * @return the file name last used
-     */
-    public File getFileName() {
-        return fileName;
+    private void setFileNameTo(JFileChooser fc) {
+        if (fileName != null)
+            fc.setSelectedFile(fileName);
+        else if (lastUsedFileName != null)
+            fc.setSelectedFile(lastUsedFileName);
     }
 
     /**

@@ -25,10 +25,7 @@ In the file howTo.md you can find more details about translations.
   <string name="btn_edit">编辑</string>
   <string name="btn_editFurther">继续编辑</string>
   <string name="btn_load">载入</string>
-  <string name="btn_reload">重新载入</string>
-  <string name="btn_reload_tt">重新载入最后使用的十六进制文件</string>
   <string name="btn_save">保存</string>
-  <string name="btn_saveAsHex_tt">另存为十六进制文件</string>
   <string name="btn_create">创建</string>
   <string name="btn_create_tt">在新窗口中创建电路</string>
   <string name="btn_editDetached">分离编辑</string>

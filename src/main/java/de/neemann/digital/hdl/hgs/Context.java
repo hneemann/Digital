@@ -681,14 +681,11 @@ public class Context implements HGSMap {
 
         @Override
         public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
-            String name = args.get(0).value(c).toString();
+            File name = new File(args.get(0).value(c).toString());
             int dataBits = Value.toInt(args.get(1).value(c));
-            FileLocator fileLocator = new FileLocator(name);
-            if (c.contains(BASE_FILE_KEY))
-                fileLocator.setBaseFile((File) c.getVar(BASE_FILE_KEY));
-            File hexFile = fileLocator.locate();
+            File hexFile = new FileLocator(name).setLibraryRoot(c.getRootPath()).locate();
 
-            if (hexFile == null)
+            if (hexFile == null || !hexFile.exists())
                 throw new HGSEvalException("File " + name + " not found! Is circuit saved?");
 
             try {
@@ -709,9 +706,7 @@ public class Context implements HGSMap {
         @Override
         public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
             File f = new File(args.get(0).value(c).toString());
-            File root = c.getRootPath();
-            if (root != null)
-                f = new FileLocator(f).setLibraryRoot(root).locate();
+            f = new FileLocator(f).setLibraryRoot(c.getRootPath()).locate();
             try {
                 return Application.readCode(f);
             } catch (IOException e) {

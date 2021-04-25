@@ -19,10 +19,7 @@
     <string name="btn_edit">Edit</string>
     <string name="btn_editFurther">Continue editing</string>
     <string name="btn_load">Load</string>
-    <string name="btn_reload">Reload</string>
-    <string name="btn_reload_tt">Reload last HEX file</string>
     <string name="btn_save">Save</string>
-    <string name="btn_saveAsHex_tt">Save as HEX file.</string>
     <string name="btn_create">Create</string>
     <string name="btn_create_tt">Create a circuit in a separate window</string>
     <string name="btn_editDetached">Edit detached</string>
@@ -1304,6 +1301,8 @@
     <string name="key_Height_tt">Height of symbol if this circuit is used as an component in an other circuit.</string>
     <string name="key_autoReload">Reload at model start</string><!-- ROM -->
     <string name="key_autoReload_tt">Reloads the HEX file every time the model is started.</string>
+    <string name="key_lastDataFile">File</string>
+    <string name="key_lastDataFile_tt">File to be loaded into the ROM.</string>
     <string name="key_flipSelPos">Flip selector position
     </string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->
     <string name="key_flipSelPos_tt">This option allows you to move te selector pin to the opposite side of the

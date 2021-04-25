@@ -19,10 +19,7 @@
     <string name="btn_edit">Bearbeiten</string>
     <string name="btn_editFurther">Weiter bearbeiten</string>
     <string name="btn_load">Laden</string>
-    <string name="btn_reload">Neu Laden</string>
-    <string name="btn_reload_tt">Letzte Datei noch einmal laden</string>
     <string name="btn_save">Speichern</string>
-    <string name="btn_saveAsHex_tt">Als HEX-Datei speichern.</string>
     <string name="btn_create">Erzeugen</string>
     <string name="btn_create_tt">Erzeugt eine Schaltung in einem eigenen Fenster.</string>
     <string name="btn_editDetached">Permanent Bearbeiten</string>
@@ -1323,6 +1320,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_Height_tt">Höhe des Symbols, wenn diese Schaltung in eine andere eingefügt wird.</string>
     <string name="key_autoReload">Bei jedem Start automatisch neu laden.</string><!-- ROM -->
     <string name="key_autoReload_tt">Lädt das HEX-File bei jedem Modelstart neu.</string>
+    <string name="key_lastDataFile">Datei</string>
+    <string name="key_lastDataFile_tt">Datei die in das ROM geladen wird!</string>
     <string name="key_flipSelPos">Tausche Selektorposition</string><!-- Driver, DriverInvSel, Multiplexer, Demultiplexer, Decoder -->
     <string name="key_flipSelPos_tt">Mit dieser Option kann der Anschluss des Selektors auf die andere Seite des Multiplexers verschoben werden.</string>
     <string name="key_intFormat">Zahlenformat</string><!-- Probe -->

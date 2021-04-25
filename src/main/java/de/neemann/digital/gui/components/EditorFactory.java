@@ -5,7 +5,6 @@
  */
 package de.neemann.digital.gui.components;
 
-import de.neemann.digital.FileLocator;
 import de.neemann.digital.core.Bits;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
@@ -14,8 +13,6 @@ import de.neemann.digital.core.extern.PortDefinition;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.MIDIHelper;
 import de.neemann.digital.core.memory.DataField;
-import de.neemann.digital.core.memory.ROM;
-import de.neemann.digital.core.memory.importer.Importer;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
@@ -25,7 +22,6 @@ import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.model.ModelCreator;
 import de.neemann.digital.draw.shapes.custom.CustomShapeDescription;
 import de.neemann.digital.gui.Main;
-import de.neemann.digital.gui.SaveAsHelper;
 import de.neemann.digital.gui.components.table.ShowStringDialog;
 import de.neemann.digital.gui.components.testing.TestCaseDescriptionEditor;
 import de.neemann.digital.lang.Lang;
@@ -640,62 +636,19 @@ public final class EditorFactory {
                         int dataBits = attr.get(Keys.BITS);
                         int addrBits = getAddrBits(attr);
                         DataEditor de = new DataEditor(panel, data, dataBits, addrBits, false, SyncAccess.NOSYNC, attr.getValueFormatter());
-                        de.setFileName(new FileLocator(attr.getFile(ROM.LAST_DATA_FILE_KEY))
-                                .setupWithMain(getAttributeDialog().getMain())
-                                .locate());
+                        if (attr.get(Keys.AUTO_RELOAD_ROM))
+                            de.setFileName(attr.getFile(Keys.LAST_DATA_FILE, getAttributeDialog().getRootFile()));
                         if (de.showDialog()) {
                             DataField mod = de.getModifiedDataField();
                             if (!data.equals(mod))
                                 majorModification = true;
                             data = mod;
-                            attr.setFile(ROM.LAST_DATA_FILE_KEY, de.getFileName());
                         }
                     } catch (EditorParseException e1) {
                         new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
                     }
                 }
             }.createJButton());
-            panel.add(new ToolTipAction(Lang.get("btn_reload")) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            try {
-                                getAttributeDialog().storeEditedValues();
-                                int dataBits = attr.get(Keys.BITS);
-                                data = Importer.read(new FileLocator(attr.getFile(ROM.LAST_DATA_FILE_KEY))
-                                        .setupWithMain(getAttributeDialog().getMain())
-                                        .locate(), dataBits)
-                                        .trimValues(getAddrBits(attr), dataBits);
-                            } catch (IOException e1) {
-                                new ErrorMessage(Lang.get("msg_errorReadingFile")).addCause(e1).show(panel);
-                            } catch (EditorParseException e1) {
-                                new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
-                            }
-                        }
-                    }
-                            .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
-                            .setToolTip(Lang.get("btn_reload_tt"))
-                            .createJButton()
-            );
-            panel.add(new ToolTipAction(Lang.get("btn_save")) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            try {
-                                getAttributeDialog().storeEditedValues();
-                                final File file = new FileLocator(attr.getFile(ROM.LAST_DATA_FILE_KEY))
-                                        .setupWithMain(getAttributeDialog().getMain())
-                                        .locate();
-                                data.saveTo(SaveAsHelper.checkSuffix(file, "hex"));
-                            } catch (IOException e1) {
-                                new ErrorMessage(Lang.get("msg_errorWritingFile")).addCause(e1).show(panel);
-                            } catch (EditorParseException e1) {
-                                new ErrorMessage(Lang.get("msg_invalidEditorValue")).addCause(e1).show(panel);
-                            }
-                        }
-                    }
-                            .setEnabledChain(attr.getFile(ROM.LAST_DATA_FILE_KEY) != null)
-                            .setToolTip(Lang.get("btn_saveAsHex_tt"))
-                            .createJButton()
-            );
             return panel;
         }
 
@@ -814,10 +767,7 @@ public final class EditorFactory {
                         if (app != null) {
                             try {
                                 getAttributeDialog().storeEditedValues();
-                                File root = null;
-                                Main main = getAttributeDialog().getMain();
-                                if (main != null)
-                                    root = main.getLibrary().getRootFilePath();
+                                File root = getAttributeDialog().getRootFile();
                                 final boolean consistent = app.ensureConsistency(elementAttributes, root);
                                 if (consistent)
                                     getAttributeDialog().updateEditedValues();

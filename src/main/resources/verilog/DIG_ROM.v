@@ -3,7 +3,11 @@
         panic("err_romNeedsALabelToBeExported");
 
     romMaxSize := 1 << elem.AddrBits;
-    romSize := sizeOf(elem.Data);
+    data:=elem.Data;
+    if (elem.autoReload) {
+        data=loadHex(elem.lastDataFile, elem.Bits);
+    }
+    romSize := sizeOf(data);
     moduleName = format("%s_%dX%d_%s", moduleName, romMaxSize, elem.Bits, identifier(elem.Label));
     dBitRange := format("[%d:0]", elem.Bits - 1);
     aBitRange := format("[%d:0]", elem.AddrBits - 1);
@@ -30,7 +34,7 @@
     initial begin<?
 
     for (i := 0; i < romSize; i++) { ?>
-        my_rom[<?= i ?>] = <?= format("%d'h%x", elem.Bits, elem.Data[i]) ?>;<?
+        my_rom[<?= i ?>] = <?= format("%d'h%x", elem.Bits, data[i]) ?>;<?
     } ?>
     end
 endmodule

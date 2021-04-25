@@ -25,10 +25,7 @@ In the file howTo.md you can find more details about translations.
     <string name="btn_edit">Editar</string>
     <string name="btn_editFurther">Continuar edição</string>
     <string name="btn_load">Carregar</string>
-    <string name="btn_reload">Recarregar</string>
-    <string name="btn_reload_tt">Recarregar último arquivo em hexadecimal</string>
     <string name="btn_save">Salvar</string>
-    <string name="btn_saveAsHex_tt">Salvar como arquivo HEX.</string>
     <string name="btn_create">Criar</string>
     <string name="btn_create_tt">Criar circuito em janela separada</string>
     <string name="btn_editDetached">Editar em separado</string>

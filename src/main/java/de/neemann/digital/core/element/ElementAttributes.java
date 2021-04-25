@@ -73,6 +73,13 @@ public class ElementAttributes implements HGSMap {
                 value = (VALUE) value.toString();
                 attributes.put(key.getKey(), value);
             }
+
+            // needed to fix files with int pin numbers!
+            if (key == Keys.LAST_DATA_FILE && value instanceof String) {
+                value = (VALUE) new File(value.toString());
+                attributes.put(key.getKey(), value);
+            }
+
             return value;
         }
     }

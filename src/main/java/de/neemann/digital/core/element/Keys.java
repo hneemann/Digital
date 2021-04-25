@@ -382,6 +382,12 @@ public final class Keys {
             = new Key<>("autoReload", false).setSecondary();
 
     /**
+     * The last used ROM data file
+     */
+    public static final Key<File> LAST_DATA_FILE
+            = new Key.KeyFile("lastDataFile", new File("")).setDependsOn(AUTO_RELOAD_ROM).setSecondary();
+
+    /**
      * flag to show the data table window
      */
     public static final Key<Boolean> SHOW_DATA_TABLE
