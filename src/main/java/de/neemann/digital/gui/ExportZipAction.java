@@ -35,6 +35,7 @@ public class ExportZipAction extends ToolTipAction {
     private final ArrayList<Key<File>> fileKeyList;
     private ElementLibrary lib;
     private HashSet<String> elementSet;
+    private HashSet<File> addedFiles;
     private File origin;
 
     /**
@@ -63,7 +64,8 @@ public class ExportZipAction extends ToolTipAction {
                 lib = main.getCircuitComponent().getLibrary();
                 origin = circuit.getOrigin();
                 elementSet = new HashSet<>();
-                addFile(zip, origin, circuit);
+                addedFiles = new HashSet<>();
+                addCircuitFile(zip, origin, circuit);
 
                 addFilesInAttributes(zip, circuit.getAttributes());
 
@@ -75,7 +77,7 @@ public class ExportZipAction extends ToolTipAction {
         });
     }
 
-    private void addFile(ZipOutputStream zip, File file, Circuit circuit) throws ElementNotFoundException, IOException {
+    private void addCircuitFile(ZipOutputStream zip, File file, Circuit circuit) throws ElementNotFoundException, IOException {
         addToZip(zip, file);
         for (VisualElement ve : circuit.getElements()) {
             String name = ve.getElementName();
@@ -84,7 +86,7 @@ public class ExportZipAction extends ToolTipAction {
                 ElementTypeDescription desc = lib.getElementType(name);
                 if (desc instanceof ElementTypeDescriptionCustom) {
                     ElementTypeDescriptionCustom custom = (ElementTypeDescriptionCustom) desc;
-                    addFile(zip, custom.getFile(), custom.getCircuit());
+                    addCircuitFile(zip, custom.getFile(), custom.getCircuit());
                 }
 
                 addFilesInAttributes(zip, ve.getElementAttributes());
@@ -102,7 +104,7 @@ public class ExportZipAction extends ToolTipAction {
     }
 
     private void addToZip(ZipOutputStream zip, File file) throws IOException {
-        if (file != null) {
+        if (file != null && !addedFiles.contains(file)) {
             zip.putNextEntry(new ZipEntry(file.getName()));
             try (InputStream in = new FileInputStream(file)) {
                 byte[] buffer = new byte[4096];
@@ -111,6 +113,7 @@ public class ExportZipAction extends ToolTipAction {
                     zip.write(buffer, 0, len);
                 }
             }
+            addedFiles.add(file);
         }
     }
 
