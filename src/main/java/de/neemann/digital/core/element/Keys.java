@@ -923,5 +923,17 @@ public final class Keys {
     public static final Key.KeyEnum<ScopeTrigger.Trigger> TRIGGER =
             new Key.KeyEnum<>("trigger", ScopeTrigger.Trigger.both, ScopeTrigger.Trigger.values());
 
+    /**
+     * Selects the telnet port
+     */
+    public static final Key.KeyInteger PORT =
+            new Key.KeyInteger("port", 23)
+                    .setMin(1)
+                    .setMax((1 << 16) - 1);
+    /**
+     * Telnet escape
+     */
+    public static final Key<Boolean> TELNET_ESCAPE =
+            new Key<>("telnetEscape", true).allowGroupEdit();
 
 }

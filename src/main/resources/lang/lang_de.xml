@@ -280,6 +280,16 @@
     </string>
     <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
+    <string name="elem_Telnet">Telnet</string>
+    <string name="elem_Telnet_tt">Erlaubt eine Telnet-Verbindung zur Schaltung.
+        Es können per Telnet Zeichen empfangen und gesendet werden.</string>
+    <string name="elem_Telnet_pin_out">Datenausgabe</string>
+    <string name="elem_Telnet_pin_av">Gibt eine Eins aus, wenn Daten vorhanden sind.</string>
+    <string name="elem_Telnet_pin_in">Die zu sendenden Daten.</string>
+    <string name="elem_Telnet_pin_C">Takteingang.</string>
+    <string name="elem_Telnet_pin_wr">Wenn gesetzt, wird das Eingangsdatenbyte gesendet.</string>
+    <string name="elem_Telnet_pin_rd">Wenn gesetzt, wird ein empfangenes Byte ausgegeben.</string>
+
     <string name="elem_VGA">VGA Bildschirm</string>
     <string name="elem_VGA_tt">Analysiert die eingehenden Video-Signale und zeigt die entsprechende Grafik an.
         Da die Simulation nicht in Echtzeit laufen kann, wird zusätzlich zu den Videosignalen der Pixeltakt benötigt.</string>
@@ -1240,6 +1250,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_csvToManyValues">Zu viel Werte in einer Zeile!</string>
     <string name="err_errorWritingFile_N">Fehler beim Schreiben der Datei {0}.</string>
     <string name="err_circuitContainsNoComponents">Die Schaltung enthält keine Bauteile!</string>
+    <string name="err_couldNotCreateServer">Der Server konnte nicht gestartet werden!</string>
 
     <string name="key_AddrBits">Adress-Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Anzahl der Adress-Bits, die verwendet werden.</string>
@@ -1663,6 +1674,14 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_probeMode_UP">Zähle steigende Flanken</string>
     <string name="key_probeMode_DOWN">Zähle fallende Flanken</string>
     <string name="key_probeMode_BOTH">Zähle beide Flanken</string>
+
+    <string name="key_telnetEscape">Steuercodes</string>
+    <string name="key_telnetEscape_tt">Wenn gesetzt, werden die Telnet Steuerkommandos gefiltert.
+        Zusätzlich werden vom Server die Kommandos SGA uch ECHO gesendet.
+        Wird diese Option deaktiviert, handelt es sich um einen einfachen TCP server.
+    </string>
+    <string name="key_port">Port</string>
+    <string name="key_port_tt">Der vom Server zu öffnende Port.</string>
 
     <string name="key_colorScheme">Farbschema</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
