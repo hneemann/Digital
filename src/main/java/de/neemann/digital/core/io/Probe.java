@@ -27,11 +27,13 @@ public class Probe implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.INT_FORMAT)
+            .addAttribute(Keys.PROBE_MODE)
             .addAttribute(Keys.ADD_VALUE_TO_GRAPH);
 
     private final String label;
     private final ValueFormatter formatter;
     private final boolean showInGraph;
+    private final ProbeMode mode;
     private ObservableValue value;
 
     /**
@@ -43,11 +45,22 @@ public class Probe implements Element {
         label = attributes.get(Keys.LABEL);
         formatter = attributes.getValueFormatter();
         showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
+        mode = attributes.get(Keys.PROBE_MODE);
     }
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        value = inputs.get(0);
+        if (mode == ProbeMode.VALUE)
+            value = inputs.get(0);
+        else
+            value = new Counter(label, inputs.get(0).checkBits(1, null, 0), mode).value;
+    }
+
+    /**
+     * @return the value to show
+     */
+    public ObservableValue getValue() {
+        return value;
     }
 
     @Override
@@ -61,4 +74,39 @@ public class Probe implements Element {
         model.registerGlobalValue(label, value);
     }
 
+    private static final class Counter implements Observer {
+        private final ObservableValue in;
+        private final ObservableValue value;
+        private final ProbeMode mode;
+        private boolean last = false;
+        private long counter;
+
+        private Counter(String label, ObservableValue value, ProbeMode mode) {
+            this.in = value;
+            this.value = new ObservableValue(label, 64);
+            value.addObserver(this);
+            this.mode = mode;
+        }
+
+        @Override
+        public void hasChanged() {
+            boolean now = in.getBool();
+            boolean inc = false;
+            switch (mode) {
+                case UP:
+                    inc = !last & now;
+                    break;
+                case DOWN:
+                    inc = last & !now;
+                    break;
+                case BOTH:
+                    inc = last != now;
+                    break;
+            }
+            last = now;
+            if (inc)
+                value.setValue(++counter);
+        }
+
+    }
 }

@@ -12,6 +12,7 @@ import de.neemann.digital.core.arithmetic.LeftRightFormat;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.io.ProbeMode;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.graphics.Orientation;
@@ -506,6 +507,11 @@ public final class Keys {
     public static final Key<IntFormat> INT_FORMAT
             = new Key.KeyEnum<>("intFormat", IntFormat.def, IntFormat.values()).setSecondary();
 
+    /**
+     * output format for numbers
+     */
+    public static final Key<ProbeMode> PROBE_MODE
+            = new Key.KeyEnum<>("probeMode", ProbeMode.VALUE, ProbeMode.values());
     /**
      * fixed point fractional binary digits
      */

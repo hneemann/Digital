@@ -16,6 +16,7 @@ import de.neemann.digital.core.element.Rotation;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
+import de.neemann.digital.core.io.ProbeMode;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManger;
 import de.neemann.digital.draw.graphics.Orientation;
@@ -70,6 +71,7 @@ public class SubstituteLibraryTest extends TestCase {
         check(CommonConnectionType.anode, doImplicitTypeCasts(CommonConnectionType.class, 1));
         check(FormatToExpression.DERIVE, doImplicitTypeCasts(FormatToExpression.class, 1));
         check(ScopeTrigger.Trigger.falling, doImplicitTypeCasts(ScopeTrigger.Trigger.class, 1));
+        check(ProbeMode.VALUE, doImplicitTypeCasts(ProbeMode.class, 0));
 
         check(new Color(0xf0, 0xf0, 0xf0), doImplicitTypeCasts(Color.class, 0xf0f0f0));
         check(new Rotation(2), doImplicitTypeCasts(Rotation.class, 2));

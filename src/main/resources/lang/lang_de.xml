@@ -1657,6 +1657,13 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_trigger_falling">fallende Flanke</string>
     <string name="key_trigger_both">beide Flanken</string>
 
+    <string name="key_probeMode">Anzeigemodus</string>
+    <string name="key_probeMode_tt">Legt fest, ob der Wert oder ein Zähler angezeigt werden soll.</string>
+    <string name="key_probeMode_VALUE">zeige Wert</string>
+    <string name="key_probeMode_UP">Zähle steigende Flanken</string>
+    <string name="key_probeMode_DOWN">Zähle fallende Flanken</string>
+    <string name="key_probeMode_BOTH">Zähle beide Flanken</string>
+
     <string name="key_colorScheme">Farbschema</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
     <string name="key_colorScheme_DARK">Dunkel</string>

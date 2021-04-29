@@ -10,6 +10,7 @@ import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.ValueFormatter;
+import de.neemann.digital.core.io.Probe;
 import de.neemann.digital.draw.elements.IOState;
 import de.neemann.digital.draw.elements.Pin;
 import de.neemann.digital.draw.elements.Pins;
@@ -51,7 +52,7 @@ public class ProbeShape implements Shape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState) {
-        inValue = ioState.getInput(0);
+        inValue = ((Probe) ioState.getElement()).getValue();
         return null;
     }
 

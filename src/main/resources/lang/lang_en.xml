@@ -1644,6 +1644,13 @@
     <string name="key_trigger_falling">falling edge</string>
     <string name="key_trigger_both">both edges</string>
 
+    <string name="key_probeMode">Display Mode</string>
+    <string name="key_probeMode_tt">Defines whether the value or a counter is to be displayed.</string>
+    <string name="key_probeMode_VALUE">Show Value</string>
+    <string name="key_probeMode_UP">Count on Rising Edge</string>
+    <string name="key_probeMode_DOWN">Count on Falling Edge</string>
+    <string name="key_probeMode_BOTH">Count both Edges</string>
+
     <string name="key_colorScheme">Color scheme</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
     <string name="key_colorScheme_DARK">Dark</string>
