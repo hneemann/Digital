@@ -19,6 +19,7 @@
 ./expicon.sh View-zoom-out
 ./expicon.sh edit-redo
 ./expicon.sh edit-undo
+./expicon.sh edit-copy
 ./expicon.sh measurement-graph
 ./expicon.sh dialog-error
 

@@ -1752,6 +1752,7 @@
     <string name="menu_analyse_tt">Analyses the current circuit</string>
     <string name="menu_cut">Cut</string>
     <string name="menu_copy">Copy</string>
+    <string name="menu_copy_tt">Copy to clipboard</string>
     <string name="menu_custom">Custom</string>
     <string name="menu_library">Library</string>
     <string name="menu_delete">Delete components</string>

@@ -23,10 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.datatransfer.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -205,7 +202,7 @@ public class DataEditor extends JDialog {
                 int[] rows = table.getSelectedRows();
                 if (rows.length > 0) {
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                    clipboard.setContents(new DataTransferable(((MyTableModel) table.getModel()).toString(rows)), null);
+                    clipboard.setContents(new StringSelection(((MyTableModel) table.getModel()).toString(rows)), null);
                 }
             }
         }.setAcceleratorCTRLplus('C').enableAcceleratorIn(table);
@@ -526,32 +523,6 @@ public class DataEditor extends JDialog {
                     }
                 }
             }
-        }
-    }
-
-    private static final class DataTransferable implements Transferable {
-        private final String data;
-
-        private DataTransferable(String data) {
-            this.data = data;
-        }
-
-        @Override
-        public DataFlavor[] getTransferDataFlavors() {
-            return new DataFlavor[]{DataFlavor.stringFlavor};
-        }
-
-        @Override
-        public boolean isDataFlavorSupported(DataFlavor flavor) {
-            return flavor == DataFlavor.stringFlavor;
-        }
-
-        @Override
-        public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
-            if (!isDataFlavorSupported(flavor))
-                throw new UnsupportedFlavorException(flavor);
-
-            return data;
         }
     }
 

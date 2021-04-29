@@ -1767,6 +1767,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_analyse_tt">Analyse der aktuellen Schaltung</string>
     <string name="menu_cut">Ausschneiden</string>
     <string name="menu_copy">Kopieren</string>
+    <string name="menu_copy_tt">In die Zwischenablage kopieren</string>
     <string name="menu_custom">Benutzerdefiniert</string>
     <string name="menu_library">Bibliothek</string>
     <string name="menu_delete">Löschen</string>

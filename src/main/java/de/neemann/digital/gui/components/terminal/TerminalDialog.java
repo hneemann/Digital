@@ -9,13 +9,14 @@ import de.neemann.digital.core.Model;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.gui.components.CircuitComponent;
-import de.neemann.digital.gui.components.graphics.MoveFocusTo;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.Screen;
 import de.neemann.gui.ToolTipAction;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 
 import static de.neemann.digital.gui.components.terminal.ConsoleTerminal.MAX_TERMINAL_STORED;
@@ -58,6 +59,7 @@ public final class TerminalDialog extends JDialog {
         width = attr.get(Keys.TERM_WIDTH);
         textArea = new JTextArea(attr.get(Keys.TERM_HEIGHT), width);
         textArea.setFont(new Font("monospaced", Font.PLAIN, Screen.getInstance().getFontSize()));
+        textArea.setEditable(false);
         getContentPane().add(new JScrollPane(textArea));
 
         JToolBar toolBar = new JToolBar();
@@ -67,13 +69,20 @@ public final class TerminalDialog extends JDialog {
                 textArea.setText("");
             }
         }.setToolTip(Lang.get("menu_terminalDelete_tt")).createJButtonNoText());
+        ToolTipAction copyAction = new ToolTipAction(Lang.get("menu_copy"), CircuitComponent.ICON_COPY) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(new StringSelection(textArea.getText()), null);
+            }
+        }.setToolTip(Lang.get("menu_copy_tt")).setAcceleratorCTRLplus('C');
+        toolBar.add(copyAction.createJButtonNoText());
+        copyAction.enableAcceleratorIn(textArea);
         getContentPane().add(toolBar, BorderLayout.NORTH);
 
         pack();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
         setVisible(true);
-
-        addWindowFocusListener(new MoveFocusTo(parent));
     }
 
     /**

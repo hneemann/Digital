@@ -60,6 +60,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * The delete icon, also used from {@link de.neemann.digital.gui.components.terminal.TerminalDialog}
      */
     public static final Icon ICON_DELETE = IconCreator.create("delete.png");
+    /**
+     * The copy icon, also used from {@link de.neemann.digital.gui.components.terminal.TerminalDialog}
+     */
+    public static final Icon ICON_COPY = IconCreator.create("edit-copy.png");
     private static final Icon ICON_UNDO = IconCreator.create("edit-undo.png");
     private static final Icon ICON_REDO = IconCreator.create("edit-redo.png");
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
@@ -431,7 +435,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private ToolTipAction createCopyAction(ShapeFactory shapeFactory) {
-        return new ToolTipAction(Lang.get("menu_copy")) {
+        return new ToolTipAction(Lang.get("menu_copy"), ICON_COPY) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Movable> elements = getSelectedElements(shapeFactory);

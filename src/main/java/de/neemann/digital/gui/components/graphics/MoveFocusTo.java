@@ -12,6 +12,11 @@ import java.awt.event.WindowFocusListener;
 
 /**
  * If added to a window, the focus is transferred to the given window.
+ * <p>
+ * Should be attached to dialogs which offer no user interaction at all.
+ * In other words, all windows that exclusively display something.
+ * As soon as there are menus, buttons or similar, this listener should
+ * no longer be used.
  */
 public class MoveFocusTo implements WindowFocusListener {
     private final Window parent;
