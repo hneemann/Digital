@@ -1677,8 +1677,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="key_telnetEscape">Steuercodes</string>
     <string name="key_telnetEscape_tt">Wenn gesetzt, werden die Telnet Steuerkommandos gefiltert.
-        Zusätzlich werden vom Server die Kommandos SGA uch ECHO gesendet.
-        Wird diese Option deaktiviert, handelt es sich um einen einfachen TCP server.
+        Zusätzlich werden vom Server die Kommandos SGA und ECHO gesendet.
+        Wird diese Option deaktiviert, handelt es sich um einen einfachen TCP-Server.
     </string>
     <string name="key_port">Port</string>
     <string name="key_port_tt">Der vom Server zu öffnende Port.</string>
