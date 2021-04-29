@@ -19,6 +19,7 @@ import java.net.Socket;
 public class Server {
     private final ServerSocket serverSocket;
     private final ByteBuffer buffer;
+    private final ServerThread serverThread;
     private boolean telnetEscape;
     private ClientThread client;
     private Observer notify;
@@ -26,8 +27,8 @@ public class Server {
     Server(int port) throws IOException {
         buffer = new ByteBuffer(1024);
         serverSocket = new ServerSocket(port);
-        ServerThread listener = new ServerThread();
-        listener.start();
+        serverThread = new ServerThread();
+        serverThread.start();
     }
 
     void send(int value) {
@@ -39,8 +40,12 @@ public class Server {
         return buffer.peek();
     }
 
-    void delete() {
+    void deleteOldest() {
         buffer.delete();
+    }
+
+    void deleteAll() {
+        buffer.deleteAll();
     }
 
     void setNotify(Observer notify) {
@@ -63,6 +68,10 @@ public class Server {
         buffer.put((byte) data);
         if (notify != null)
             notify.hasChanged();
+    }
+
+    boolean isDead() {
+        return !serverThread.isAlive();
     }
 
     private final class ServerThread extends Thread {
@@ -124,6 +133,8 @@ public class Server {
             try {
                 while (true) {
                     int data = in.read();
+                    if (data < 0)
+                        break;
                     if (data == IAC && server.telnetEscape) {
                         int command = in.read();
                         int option = in.read();

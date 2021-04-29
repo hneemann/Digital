@@ -57,6 +57,15 @@ public class ByteBuffer {
     }
 
     /**
+     * deletes all buffered data
+     */
+    synchronized public void deleteAll() {
+        oldest = 0;
+        newest = 0;
+        inBuffer = 0;
+    }
+
+    /**
      * @return true if there is data available
      */
     synchronized public boolean hasData() {

@@ -34,10 +34,11 @@ public final class ServerHolder {
      */
     public Server getServer(int port) throws IOException {
         Server server = serverMap.get(port);
-        if (server == null) {
+        if (server == null || server.isDead()) {
             server = new Server(port);
             serverMap.put(port, server);
-        }
+        } else
+            server.deleteAll();
         return server;
     }
 }

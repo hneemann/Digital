@@ -75,7 +75,7 @@ public class Telnet extends Node implements Element {
             if (writeEnable.getBool())
                 server.send((int) dataIn.getValue());
             if (readEnable)
-                server.delete();
+                server.deleteOldest();
         }
         lastClock = clock;
     }
