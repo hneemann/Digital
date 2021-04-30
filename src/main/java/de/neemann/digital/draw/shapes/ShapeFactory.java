@@ -12,6 +12,7 @@ import de.neemann.digital.core.element.ElementTypeDescription;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.extern.External;
+import de.neemann.digital.core.extern.ExternalFile;
 import de.neemann.digital.core.io.*;
 import de.neemann.digital.core.memory.*;
 import de.neemann.digital.core.pld.*;
@@ -172,15 +173,8 @@ public final class ShapeFactory {
         map.put(PinControl.DESCRIPTION.getName(), PinControlShape::new);
 
         // disables string formatting for external components, see #272
-        map.put(External.DESCRIPTION.getName(),
-                (attributes, inputs, outputs) ->
-                        new GenericShape(External.DESCRIPTION.getShortName(), inputs, outputs,
-                                attributes.getLabel(), true, attributes.get(Keys.WIDTH)) {
-                            @Override
-                            public String format(String s) {
-                                return s.replace("_", "\\_");
-                            }
-                        });
+        map.put(External.DESCRIPTION.getName(), new ExternCreator(External.DESCRIPTION));
+        map.put(ExternalFile.DESCRIPTION.getName(), new ExternCreator(ExternalFile.DESCRIPTION));
 
         final JarComponentManager jcm = library.getJarComponentManager();
         if (jcm != null)
@@ -297,6 +291,25 @@ public final class ShapeFactory {
                     .invert(invers)
                     .setWide(attributes.get(Keys.WIDE_SHAPE))
                     .setInverterConfig(attributes.get(Keys.INVERTER_CONFIG));
+        }
+    }
+
+    private static final class ExternCreator implements Creator {
+        private final ElementTypeDescription description;
+
+        private ExternCreator(ElementTypeDescription description) {
+            this.description = description;
+        }
+
+        @Override
+        public Shape create(ElementAttributes attributes, PinDescriptions inputs, PinDescriptions outputs) throws NodeException, PinException {
+            return new GenericShape(description.getShortName(), inputs, outputs,
+                    attributes.getLabel(), true, attributes.get(Keys.WIDTH)) {
+                @Override
+                public String format(String s) {
+                    return s.replace("_", "\\_");
+                }
+            };
         }
     }
 }
