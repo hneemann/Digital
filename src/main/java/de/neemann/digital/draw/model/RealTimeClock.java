@@ -46,6 +46,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
         if (f < 1) f = 1;
         this.frequency = f;
         this.output = clock.getClockOutput();
+        model.addObserver(this);
     }
 
     @Override
