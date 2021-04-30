@@ -144,7 +144,7 @@ public class AttributeDialog extends JDialog {
                 topMostTextComponent = ((EditorFactory.StringEditor) e).getTextComponent();
 
             final Key dependsOn = key.getDependsOn();
-            if (dependsOn != null) {
+            if (dependsOn != null && !addCheckBoxes) {
                 for (EditorHolder ed : editors) {
                     if (ed.key.getKey().equals(dependsOn.getKey())) {
                         ed.setDependantEditor(e, key.getCheckEnabled());

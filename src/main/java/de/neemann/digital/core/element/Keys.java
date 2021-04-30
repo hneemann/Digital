@@ -596,7 +596,7 @@ public final class Keys {
      * Used to enable the storage of the last state in the Seven Seg display.
      */
     public static final Key<Boolean> LED_PERSISTENCE
-            = new Key<>("ledPersistence", false).allowGroupEdit();
+            = new Key<>("ledPersistence", false).allowGroupEdit().setDependsOn(COMMON_CONNECTION);
 
     /**
      * Fitter for the atf15xx
