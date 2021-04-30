@@ -1392,10 +1392,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         try {
             circuitComponent.removeHighLighted();
 
-            long time = System.currentTimeMillis();
-
-            modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
-
             if (model != null) {
                 ModelClosedObserver mco = model.getObserver(ModelClosedObserver.class);
                 if (mco != null) mco.setClosedByRestart(true);
@@ -1404,6 +1400,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 model = null;
             }
 
+            long time = System.currentTimeMillis();
+            modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
             model = modelCreator.createModel(true);
 
             time = System.currentTimeMillis() - time;
@@ -1421,7 +1419,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     int frequency = c.getFrequency();
                     if (frequency > 0) {
                         final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this);
-                        model.addObserver(realTimeClock);
                         if (realTimeClock.isThreadRunner()) threadRunnerCount++;
                         realTimeClockRunning = true;
                     }
