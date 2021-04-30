@@ -52,8 +52,10 @@ public class ByteBuffer {
      * deletes a byte from the tail of the buffer
      */
     synchronized public void delete() {
-        oldest = inc(oldest);
-        inBuffer--;
+        if (inBuffer > 0) {
+            oldest = inc(oldest);
+            inBuffer--;
+        }
     }
 
     /**
