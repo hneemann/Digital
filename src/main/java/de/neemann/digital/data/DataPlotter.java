@@ -34,7 +34,8 @@ public class DataPlotter implements Drawable {
     /**
      * Creates a new instance
      *
-     * @param data the signals used to collect DataSamples
+     * @param data      the signals used to collect DataSamples
+     * @param modelSync used to access the model
      */
     public DataPlotter(ValueTable data, SyncAccess modelSync) {
         this.dataOriginal = data;
