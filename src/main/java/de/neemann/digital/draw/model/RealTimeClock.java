@@ -97,7 +97,6 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 frequencyCalculator = null;
             timer = executor.scheduleAtFixedRate(() -> {
                 model.modify(() -> output.setValue(1 - output.getValue()));
-                model.doStep();
                 if (frequencyCalculator != null)
                     frequencyCalculator.calc();
             }, delay, delay, TimeUnit.MICROSECONDS);
@@ -123,7 +122,6 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 FrequencyCalculator frequencyCalculator = new FrequencyCalculator(status, frequency);
                 while (!Thread.interrupted()) {
                     model.modify(() -> output.setValue(1 - output.getValue()));
-                    model.doStep();
                     frequencyCalculator.calc();
                 }
             });

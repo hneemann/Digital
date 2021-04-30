@@ -43,11 +43,6 @@ public enum ModelEventType {
     BREAK,
 
     /**
-     * Here was a manual change to the model by the user.
-     */
-    EXTERNALCHANGE,
-
-    /**
      * Is fired if a micro step is calculated.
      * This means the aktual nodes are calculated, but not the effected nodes.
      */

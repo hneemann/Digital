@@ -8,6 +8,10 @@
 {{de 4-Bit Ripple-Carry addierer bestehend aus vier 
 Volladdierern.}}</string>
     </entry>
+    <entry>
+      <string>showDataGraphMicro</string>
+      <boolean>true</boolean>
+    </entry>
   </attributes>
   <visualElements>
     <visualElement>
@@ -692,4 +696,20 @@ end loop</dataString>
       <p2 x="140" y="0"/>
     </wire>
   </wires>
+  <measurementOrdering>
+    <string>C_-1</string>
+    <string>A_0</string>
+    <string>A_1</string>
+    <string>A_2</string>
+    <string>A_3</string>
+    <string>B_0</string>
+    <string>B_1</string>
+    <string>B_2</string>
+    <string>B_3</string>
+    <string>S_0</string>
+    <string>S_1</string>
+    <string>S_2</string>
+    <string>S_3</string>
+    <string>C_3</string>
+  </measurementOrdering>
 </circuit>

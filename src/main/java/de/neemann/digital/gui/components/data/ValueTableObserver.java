@@ -24,8 +24,6 @@ public class ValueTableObserver implements ModelStateObserverTyped {
     private final ModelEventType type;
     private final ArrayList<Signal> signals;
 
-    private Value[] manualSample;
-
     /**
      * Creates a new instance
      *
@@ -51,18 +49,7 @@ public class ValueTableObserver implements ModelStateObserverTyped {
         if (event == ModelEvent.STARTED)
             logData.clear();
 
-        if (event == ModelEvent.EXTERNALCHANGE && type == ModelEventType.MICROSTEP) {
-            if (manualSample == null)
-                manualSample = new Value[logData.getColumns()];
-            for (int i = 0; i < logData.getColumns(); i++)
-                manualSample[i] = new Value(signals.get(i).getValue());
-        }
-
         if (event.getType() == type) {
-            if (manualSample != null) {
-                logData.add(new TestRow(manualSample));
-                manualSample = null;
-            }
             Value[] row = new Value[logData.getColumns()];
             for (int i = 0; i < logData.getColumns(); i++)
                 row[i] = new Value(signals.get(i).getValue());
@@ -72,7 +59,7 @@ public class ValueTableObserver implements ModelStateObserverTyped {
 
     @Override
     public ModelEventType[] getEvents() {
-        return new ModelEventType[]{type, ModelEventType.STARTED, ModelEventType.EXTERNALCHANGE};
+        return new ModelEventType[]{type, ModelEventType.STARTED};
     }
 
     /**

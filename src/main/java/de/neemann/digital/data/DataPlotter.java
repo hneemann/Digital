@@ -57,7 +57,7 @@ public class DataPlotter implements Drawable {
      * Fits the data in the visible area
      */
     public void fitInside() {
-        modelSync.modify(() -> size = ((double) (width - textWidth)) / dataOriginal.getRows());
+        modelSync.read(() -> size = ((double) (width - textWidth)) / dataOriginal.getRows());
         offset = 0;
         manualScaling = false;
     }

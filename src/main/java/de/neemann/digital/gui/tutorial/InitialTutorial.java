@@ -228,12 +228,12 @@ public class InitialTutorial extends JDialog implements CircuitComponent.Tutoria
 
     @Override
     public ModelEventType[] getEvents() {
-        return new ModelEventType[]{ModelEventType.EXTERNALCHANGE};
+        return new ModelEventType[]{ModelEventType.STEP};
     }
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event == ModelEvent.EXTERNALCHANGE)
+        if (event == ModelEvent.STEP)
             modified(null);
     }
 

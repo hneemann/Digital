@@ -43,10 +43,6 @@ public class ModelEvent {
      * Shorthand for a ModelEventType.BREAK event
      */
     public static final ModelEvent BREAK = new ModelEvent(ModelEventType.BREAK);
-    /**
-     * Shorthand for a ModelEventType.EXTERNALCHANGE event
-     */
-    public static final ModelEvent EXTERNALCHANGE = new ModelEvent(ModelEventType.EXTERNALCHANGE);
 
     private final ModelEventType type;
     private Exception cause;
