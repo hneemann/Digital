@@ -1748,6 +1748,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Testfall definiert sind. Dies kann sinnvoll sein, wenn es mehrere mögliche Lösungen gibt, die von
         verschiedenen Eingängen abhängig sein können.
     </string>
+    <string name="cli_help_test_verbose">Wenn gesetzt, wird im Fehlerfall die Wertetabelle ausgegeben.</string>
     <string name="cli_thereAreTestFailures">Es sind Tests fehlgeschlagen.</string>
     <string name="cli_errorExecutingTests">Es ist ein Fehler bei der Ausführung der Tests aufgetreten.</string>
 

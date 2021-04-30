@@ -1735,6 +1735,7 @@
         defined in the test case. This can be useful if there are several possible solutions which may
         depend on different inputs.
     </string>
+    <string name="cli_help_test_verbose">If set, the value table is output in case of an error.</string>
     <string name="cli_thereAreTestFailures">Tests have failed.</string>
     <string name="cli_errorExecutingTests">An error has occurred during the execution of the tests.</string>
 
