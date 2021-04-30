@@ -23,11 +23,11 @@ import javax.swing.*;
 public class DataPlotter implements Drawable {
     private final ValueTable dataOriginal;
     private final int textWidth;
+    private final SyncAccess modelSync;
     private double size = SIZE;
     private int offset = 0;
     private int width = 0;
     private boolean manualScaling = false;
-    private SyncAccess modelSync = SyncAccess.NOSYNC;
     private JScrollBar scrollBar;
     private int autoScaleOffset;
 
@@ -36,8 +36,9 @@ public class DataPlotter implements Drawable {
      *
      * @param data the signals used to collect DataSamples
      */
-    public DataPlotter(ValueTable data) {
+    public DataPlotter(ValueTable data, SyncAccess modelSync) {
         this.dataOriginal = data;
+        this.modelSync = modelSync;
         int tl = 0;
         for (int i = 0; i < data.getColumns(); i++) {
             String text = data.getColumnName(i);
@@ -237,17 +238,6 @@ public class DataPlotter implements Drawable {
                 r = DataPlotter.this.textWidth + (int) ((dataOriginal.getRows() + 1) * size);
             }
         }).r;
-    }
-
-    /**
-     * Sets lock to access the data
-     *
-     * @param modelSync the lock
-     * @return this for chained calls
-     */
-    public DataPlotter setModelSync(SyncAccess modelSync) {
-        this.modelSync = modelSync;
-        return this;
     }
 
     /**

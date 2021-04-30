@@ -7,6 +7,7 @@ package de.neemann.digital.draw.shapes;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Signal;
+import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -34,6 +35,7 @@ public class DataShape implements Shape {
     private final int maxSize;
     private ValueTable logDataModel;
     private ValueTable logData;
+    private SyncAccess modelSync = SyncAccess.NOSYNC;
 
     /**
      * Creates a new instance
@@ -71,11 +73,12 @@ public class DataShape implements Shape {
                     .add(new TestRow(new Value(0), new Value(0), new Value(0)))
                     .add(new TestRow(new Value(0), new Value(1), new Value(0)));
         }
-        new DataPlotter(logData).drawTo(graphic, null);
+        new DataPlotter(logData, modelSync).drawTo(graphic, null);
     }
 
     @Override
     public void registerModel(ModelCreator modelCreator, Model model, ModelEntry element) {
+        modelSync = model;
         ArrayList<Signal> signals = model.getSignalsCopy();
         signals.removeIf(signal -> !signal.isShowInGraph());
         new OrderMerger<String, Signal>(modelCreator.getCircuit().getMeasurementOrdering()) {
