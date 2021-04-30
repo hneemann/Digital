@@ -1490,12 +1490,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             if (updateEvent == ModelEventType.MICROSTEP) {
                 checkMicroStepActions(this.model);
-                this.model.addObserver(new UpdateViewMicroStepObserver(this.model, modelCreator));
+                this.model.addObserver(new UpdateViewMicroStep(this.model, modelCreator));
             } else if (updateEvent == ModelEventType.STEP) {
                 if (maxFrequency <= 50)
-                    this.model.addObserver(new UpdateViewAtEventObserver());
+                    this.model.addObserver(new UpdateViewAtEvent());
                 else
-                    this.model.addObserver(new UpdateViewPeriodicObserver());
+                    this.model.addObserver(new UpdateViewPeriodic());
             }
 
             this.model.addObserver(new ModelClosedObserver());
@@ -1735,8 +1735,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * Updates the graphic at every modification.
      */
-    private class UpdateViewAtEventObserver implements ModelStateObserverTyped {
-        UpdateViewAtEventObserver() {
+    private class UpdateViewAtEvent implements ModelStateObserverTyped {
+        UpdateViewAtEvent() {
         }
 
         @Override
@@ -1759,10 +1759,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * Updates the graphic at every 100ms
      */
-    private final class UpdateViewPeriodicObserver implements ModelStateObserverTyped {
+    private final class UpdateViewPeriodic implements ModelStateObserverTyped {
         private final Timer timer;
 
-        private UpdateViewPeriodicObserver() {
+        private UpdateViewPeriodic() {
             timer = new Timer(100, actionEvent -> circuitComponent.graphicHasChanged());
         }
 
@@ -1789,11 +1789,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * Updates the graphic at every micro step
      */
-    private final class UpdateViewMicroStepObserver implements ModelStateObserverTyped {
+    private final class UpdateViewMicroStep implements ModelStateObserverTyped {
         private final Model model;
         private final ModelCreator modelCreator;
 
-        private UpdateViewMicroStepObserver(Model model, ModelCreator modelCreator) {
+        private UpdateViewMicroStep(Model model, ModelCreator modelCreator) {
             this.model = model;
             this.modelCreator = modelCreator;
         }
