@@ -103,7 +103,7 @@ public class Telnet extends Node implements Element {
             throw new NodeException(Lang.get("err_couldNotCreateServer"), e);
         }
         server.setTelnetEscape(telnetEscape);
-        server.setNotify(() -> model.modify(Telnet.this::hasChanged));
+        server.setTelnetNode(this, model);
     }
 
 }

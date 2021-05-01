@@ -5,7 +5,7 @@
  */
 package de.neemann.digital.core.io.telnet;
 
-import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.SyncAccess;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +22,8 @@ public class Server {
     private final ServerThread serverThread;
     private boolean telnetEscape;
     private ClientThread client;
-    private Observer notify;
+    private Telnet telnet;
+    private SyncAccess syncAccess;
 
     Server(int port) throws IOException {
         buffer = new ByteBuffer(1024);
@@ -48,8 +49,15 @@ public class Server {
         buffer.deleteAll();
     }
 
-    void setNotify(Observer notify) {
-        this.notify = notify;
+    /**
+     * Connects the server with the telnet node
+     *
+     * @param telnet     the telnet node
+     * @param syncAccess used to access the model
+     */
+    public void setTelnetNode(Telnet telnet, SyncAccess syncAccess) {
+        this.telnet = telnet;
+        this.syncAccess = syncAccess;
     }
 
     boolean hasData() {
@@ -65,9 +73,11 @@ public class Server {
     }
 
     private void dataReceived(int data) {
-        buffer.put((byte) data);
-        if (notify != null)
-            notify.hasChanged();
+        if (syncAccess != null)
+            syncAccess.modify(() -> {
+                buffer.put((byte) data);
+                telnet.hasChanged();
+            });
     }
 
     boolean isDead() {
