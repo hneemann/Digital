@@ -5,8 +5,9 @@
  */
 package de.neemann.digital.draw.shapes;
 
+import de.neemann.digital.core.ObservableValue;
 import de.neemann.digital.core.ObservableValues;
-import de.neemann.digital.core.Value;
+import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -28,11 +29,9 @@ public class SevenSegShape extends SevenShape {
     private final PinDescriptions inputPins;
     private final boolean commonConnection;
     private final boolean persistence;
-    private final boolean[] data;
     private final boolean anode;
-    private ObservableValues inputValues;
-    private Value[] inputs = new Value[8];
-    private Value ccin;
+    private LEDState[] ledStates;
+    private final boolean[] displayStates;
     private Pins pins;
 
     /**
@@ -48,7 +47,7 @@ public class SevenSegShape extends SevenShape {
         commonConnection = attr.get(Keys.COMMON_CONNECTION);
         anode = attr.get(Keys.COMMON_CONNECTION_TYPE).equals(CommonConnectionType.anode);
         persistence = attr.get(Keys.LED_PERSISTENCE);
-        data = new boolean[8];
+        displayStates = new boolean[8];
     }
 
     @Override
@@ -71,8 +70,22 @@ public class SevenSegShape extends SevenShape {
 
     @Override
     public Interactor applyStateMonitor(IOState ioState) {
-        inputValues = ioState.getInputs();
+        ledStates = new LEDState[8];
+        for (int i = 0; i < 8; i++)
+            ledStates[i] = createLEDState(i, ioState.getInputs());
         return null;
+    }
+
+    private LEDState createLEDState(int i, ObservableValues inputs) {
+        if (commonConnection) {
+            if (persistence)
+                return new CommonConnectionPersist(inputs.get(i), inputs.get(8));
+            else
+                return new CommonConnection(inputs.get(i), inputs.get(8));
+        } else {
+            ObservableValue in = inputs.get(i);
+            return () -> !in.isHighZ() && in.getBool();
+        }
     }
 
     @Override
@@ -86,31 +99,66 @@ public class SevenSegShape extends SevenShape {
 
     @Override
     public void readObservableValues() {
-        if (inputValues != null) {
+        if (ledStates != null)
             for (int i = 0; i < 8; i++)
-                inputs[i] = inputValues.get(i).getCopy();
-            if (commonConnection)
-                ccin = inputValues.get(8).getCopy();
-        }
+                displayStates[i] = ledStates[i].getState();
     }
 
     @Override
     protected boolean getStyle(int i) {
-        if (inputValues == null)
+        if (ledStates == null)
             return true;
-
-        if (commonConnection) {
-            boolean isHighZ = inputs[i].isHighZ() || ccin.isHighZ();
-            boolean on = (inputs[i].getBool() != ccin.getBool()) && (inputs[i].getBool() ^ anode);
-            if (persistence) {
-                if (!isHighZ)
-                    data[i] = on;
-                return data[i];
-            } else
-                return !isHighZ && on;
-        } else
-            return !inputs[i].isHighZ() && inputs[i].getBool();
-
+        else
+            return displayStates[i];
     }
 
+    interface LEDState {
+        boolean getState();
+    }
+
+    //CHECKSTYLE.OFF: FinalClass
+    private class CommonConnection implements LEDState {
+        private final ObservableValue led;
+        private final ObservableValue cc;
+
+        private CommonConnection(ObservableValue led, ObservableValue cc) {
+            this.led = led;
+            this.cc = cc;
+        }
+
+        protected boolean isOn() {
+            return (led.getBool() != cc.getBool()) && (led.getBool() ^ anode);
+        }
+
+        protected boolean isHighZ() {
+            return led.isHighZ() || cc.isHighZ();
+        }
+
+        @Override
+        public boolean getState() {
+            return !isHighZ() && isOn();
+        }
+    }
+    //CHECKSTYLE.ON: FinalClass
+
+    private final class CommonConnectionPersist extends CommonConnection implements Observer {
+        private boolean led;
+
+        private CommonConnectionPersist(ObservableValue led, ObservableValue cc) {
+            super(led, cc);
+            led.addObserver(this);
+            cc.addObserver(this);
+        }
+
+        @Override
+        public void hasChanged() {
+            if (!isHighZ())
+                led = isOn();
+        }
+
+        @Override
+        public boolean getState() {
+            return led;
+        }
+    }
 }

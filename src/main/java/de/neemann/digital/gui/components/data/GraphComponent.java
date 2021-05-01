@@ -31,7 +31,7 @@ public class GraphComponent extends JComponent {
      * @param modelSync lock to access the model
      */
     GraphComponent(ValueTable dataSet, SyncAccess modelSync) {
-        plotter = new DataPlotter(dataSet).setModelSync(modelSync);
+        plotter = new DataPlotter(dataSet, modelSync);
         addMouseWheelListener(e -> {
             double f = Math.pow(0.9, e.getWheelRotation());
             scale(f, e.getX());

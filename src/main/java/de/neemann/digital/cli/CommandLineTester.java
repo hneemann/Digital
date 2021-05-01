@@ -28,6 +28,7 @@ public class CommandLineTester {
     private List<Circuit.TestCase> testCases;
     private int testsPassed;
     private boolean allowMissingInputs;
+    private boolean verbose;
 
     /**
      * Creates a new instance.
@@ -90,6 +91,10 @@ public class CommandLineTester {
                         else
                             message += " (" + tr.failedPercent() + "%)";
                         out.println(message);
+
+                        if (verbose)
+                            out.println(tr.getValueTable());
+
                         errorCount++;
                     }
                     errorDetector.check();
@@ -116,12 +121,24 @@ public class CommandLineTester {
     }
 
     /**
+     * Sets verbose mode
+     *
+     * @param verbose true if verbose mode is set
+     * @return this for chained calls
+     */
+    public CommandLineTester setVerbose(boolean verbose) {
+        this.verbose = verbose;
+        return this;
+    }
+
+    /**
      * The test command
      */
     public static class TestCommand extends BasicCommand {
         private final Argument<String> circ;
         private final Argument<String> tests;
         private final Argument<Boolean> allowMissingInputs;
+        private final Argument<Boolean> verbose;
         private int testsPassed;
 
         /**
@@ -132,12 +149,15 @@ public class CommandLineTester {
             circ = addArgument(new Argument<>("circ", "", false));
             tests = addArgument(new Argument<>("tests", "", true));
             allowMissingInputs = addArgument(new Argument<>("allowMissingInputs", false, true));
+            verbose = addArgument(new Argument<>("verbose", false, true));
         }
 
         @Override
         protected void execute() throws CLIException {
             try {
-                CommandLineTester clt = new CommandLineTester(new File(circ.get())).setAllowMissingInputs(allowMissingInputs.get());
+                CommandLineTester clt = new CommandLineTester(new File(circ.get()))
+                        .setVerbose(verbose.get())
+                        .setAllowMissingInputs(allowMissingInputs.get());
                 if (tests.isSet())
                     clt.useTestCasesFrom(new File(tests.get()));
                 int errors = clt.execute(System.out);

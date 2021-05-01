@@ -167,7 +167,7 @@ public class ScopeTrigger extends Node implements Element {
                         graphDialog.addWindowListener(new WindowAdapter() {
                             @Override
                             public void windowClosed(WindowEvent e) {
-                                model.modify(() -> model.removeObserver(scopeModelStateObserver));
+                                model.removeObserver(scopeModelStateObserver);
                             }
                         });
                         graphDialog.setVisible(true);

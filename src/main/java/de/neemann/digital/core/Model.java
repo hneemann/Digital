@@ -209,7 +209,7 @@ public class Model implements Iterable<Node>, SyncAccess {
      * Closes the model.
      * A STOPPED event is fired.
      */
-    public void close() {
+    public synchronized void close() {
         if (state != State.CLOSED) {
             state = State.CLOSED;
             int obs = observers.size();
@@ -463,7 +463,7 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @param event    the mandatory event
      * @param events   more optional events
      */
-    public void addObserver(ModelStateObserver observer, ModelEventType event, ModelEventType... events) {
+    public synchronized void addObserver(ModelStateObserver observer, ModelEventType event, ModelEventType... events) {
         addObserverForEvent(observer, event);
         for (ModelEventType ev : events)
             addObserverForEvent(observer, ev);
@@ -474,13 +474,12 @@ public class Model implements Iterable<Node>, SyncAccess {
      *
      * @param observer the observer to add
      */
-    public void addObserver(ModelStateObserverTyped observer) {
+    public synchronized void addObserver(ModelStateObserverTyped observer) {
         for (ModelEventType ev : observer.getEvents())
             addObserverForEvent(observer, ev);
     }
 
-
-    private void addObserverForEvent(ModelStateObserver observer, ModelEventType event) {
+    private synchronized void addObserverForEvent(ModelStateObserver observer, ModelEventType event) {
         ArrayList<ModelStateObserver> obs = observers;
         if (event == ModelEventType.STEP || event == ModelEventType.CHECKBURN) {
             if (observersStep == null)
@@ -501,7 +500,7 @@ public class Model implements Iterable<Node>, SyncAccess {
      *
      * @param observer the observer to remove
      */
-    public void removeObserver(ModelStateObserver observer) {
+    public synchronized void removeObserver(ModelStateObserver observer) {
         observers.remove(observer);
         if (observersStep != null)
             observersStep.remove(observer);
@@ -516,7 +515,7 @@ public class Model implements Iterable<Node>, SyncAccess {
      * @param <T>           the type of the observer
      * @return the found observer or null if not present
      */
-    public <T extends ModelStateObserver> T getObserver(Class<T> observerClass) {
+    public synchronized <T extends ModelStateObserver> T getObserver(Class<T> observerClass) {
         for (ModelStateObserver mso : observers)
             if (mso.getClass() == observerClass)
                 return (T) mso;
@@ -908,9 +907,39 @@ public class Model implements Iterable<Node>, SyncAccess {
         synchronized (this) {
             run.run();
         }
-        fireEvent(ModelEvent.EXTERNALCHANGE);
+        fireEvent(ModelEvent.MICROSTEP);  // record the external modification as a micro step!
+        doStep();
         return run;
     }
+
+    /**
+     * Creates a {@link SyncAccess} instance to access the model.
+     * If microStep is true, there is no foll step performed, in case of a user interaction.
+     *
+     * @param microStep if true no full step is calculated at a user interaction
+     * @return the instance
+     */
+    public SyncAccess createSync(boolean microStep) {
+        if (microStep) {
+            return new SyncAccess() {
+                @Override
+                public <A extends Runnable> A modify(A run) {
+                    synchronized (this) {
+                        run.run();
+                    }
+                    fireEvent(ModelEvent.MICROSTEP);  // record the external modification as a micro step!
+                    return run;
+                }
+
+                @Override
+                public <A extends Runnable> A read(A run) {
+                    return Model.this.read(run);
+                }
+            };
+        } else
+            return this;
+    }
+
 
     @Override
     public <A extends Runnable> A read(A run) {

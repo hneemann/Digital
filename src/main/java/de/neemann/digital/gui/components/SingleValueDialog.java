@@ -109,11 +109,11 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
 
         JPanel checkBoxPanel = createCheckBoxPanel(editValue);
 
-        model.modify(() -> model.addObserver(this));
+        model.addObserver(this);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-                model.modify(() -> model.removeObserver(SingleValueDialog.this));
+                model.removeObserver(SingleValueDialog.this);
             }
         });
 

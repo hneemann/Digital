@@ -105,6 +105,15 @@ public final class Keys {
             .setComboBoxValues(2, 3, 4, 5)
             .setMin(2);
 
+    /**
+     * number of inputs in the LUT
+     */
+    public static final Key.KeyInteger LUT_INPUT_COUNT
+            = new Key.KeyInteger("Inputs", 6)
+            .setComboBoxValues(2, 3, 4, 5, 6)
+            .setMax(20)
+            .setMin(2);
+
 
     /**
      * The counter max value
@@ -587,7 +596,7 @@ public final class Keys {
      * Used to enable the storage of the last state in the Seven Seg display.
      */
     public static final Key<Boolean> LED_PERSISTENCE
-            = new Key<>("ledPersistence", false).allowGroupEdit();
+            = new Key<>("ledPersistence", false).allowGroupEdit().setDependsOn(COMMON_CONNECTION);
 
     /**
      * Fitter for the atf15xx

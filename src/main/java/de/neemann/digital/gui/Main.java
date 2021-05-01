@@ -1382,7 +1382,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private void clearModelDescription() {
         if (model != null)
-            model.modify(() -> model.close());
+            model.close();
 
         modelCreator = null;
         model = null;
@@ -1392,20 +1392,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         try {
             circuitComponent.removeHighLighted();
 
-            long time = System.currentTimeMillis();
-
-            modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
-
             if (model != null) {
-                model.modify(() -> {
-                    ModelClosedObserver mco = model.getObserver(ModelClosedObserver.class);
-                    if (mco != null) mco.setClosedByRestart(true);
-                    model.close();
-                });
+                ModelClosedObserver mco = model.getObserver(ModelClosedObserver.class);
+                if (mco != null) mco.setClosedByRestart(true);
+                model.close();
                 circuitComponent.getCircuit().clearState();
                 model = null;
             }
 
+            long time = System.currentTimeMillis();
+            modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
             model = modelCreator.createModel(true);
 
             time = System.currentTimeMillis() - time;
@@ -1423,7 +1419,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     int frequency = c.getFrequency();
                     if (frequency > 0) {
                         final RealTimeClock realTimeClock = new RealTimeClock(model, c, timerExecutor, this);
-                        model.addObserver(realTimeClock);
                         if (realTimeClock.isThreadRunner()) threadRunnerCount++;
                         realTimeClockRunning = true;
                     }
@@ -1448,7 +1443,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
             }
 
-            circuitComponent.setModeAndReset(true, model);
+            circuitComponent.setModeAndReset(true,
+                    model.createSync(updateEvent == ModelEventType.MICROSTEP));
             if (circuitComponent.getCircuit().getAttributes().get(Keys.IS_GENERIC))
                 circuitComponent.setCopy(modelCreator.getCircuit());
 
@@ -1456,12 +1452,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             CircuitModifierPostClosed cmpc = new CircuitModifierPostClosed(
                     modification -> SwingUtilities.invokeLater(() -> circuitComponent.modify(modification)));
             modelCreator.connectToGui(cmpc);
-            model.addObserver(cmpc);
+            this.model.addObserver(cmpc);
 
             handleKeyboardComponents();
 
             doMicroStep.setEnabled(false);
-            if (!realTimeClockRunning && model.isRunToBreakAllowed()) {
+            if (!realTimeClockRunning && this.model.isRunToBreakAllowed()) {
                 if (updateEvent == ModelEventType.MICROSTEP)
                     runToBreakMicroAction.setEnabled(true);
                 else
@@ -1478,30 +1474,30 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 showMeasurementGraph(ModelEventType.MICROSTEP);
 
             if (modelModifier != null)
-                modelModifier.preInit(model);
+                modelModifier.preInit(this.model);
             else {
                 if (settings.get(Keys.PRELOAD_PROGRAM)) {
                     File romHex = new FileLocator(settings.get(Keys.PROGRAM_TO_PRELOAD))
                             .setupWithMain(this)
                             .locate();
                     new ProgramMemoryLoader(romHex)
-                            .preInit(model);
+                            .preInit(this.model);
                 }
             }
 
             if (updateEvent == ModelEventType.MICROSTEP) {
-                checkMicroStepActions(model);
-                model.addObserver(new MicroStepObserver(model, modelCreator));
+                checkMicroStepActions(this.model);
+                this.model.addObserver(new UpdateViewMicroStep(this.model, modelCreator));
             } else if (updateEvent == ModelEventType.STEP) {
                 if (maxFrequency <= 50)
-                    model.addObserver(new FullStepObserver(model));
+                    this.model.addObserver(new UpdateViewAtEvent());
                 else
-                    model.addObserver(new FastObserver());
+                    this.model.addObserver(new UpdateViewPeriodic());
             }
 
-            model.addObserver(new ModelClosedObserver());
+            this.model.addObserver(new ModelClosedObserver());
 
-            model.init();
+            this.model.init();
 
         } catch (NodeException | PinException | RuntimeException | ElementNotFoundException e) {
             if (model != null)
@@ -1736,20 +1732,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * Updates the graphic at every modification.
      */
-    private class FullStepObserver implements ModelStateObserverTyped {
-        private final Model model;
-
-        FullStepObserver(Model model) {
-            this.model = model;
+    private class UpdateViewAtEvent implements ModelStateObserverTyped {
+        UpdateViewAtEvent() {
         }
 
         @Override
         public void handleEvent(ModelEvent event) {
             switch (event.getType()) {
-                case EXTERNALCHANGE:
-                    model.doStep();
-                    circuitComponent.graphicHasChanged();
-                    break;
+                case CHECKBURN:
+                case STEP:
                 case BREAK:
                     circuitComponent.graphicHasChanged();
                     break;
@@ -1758,17 +1749,17 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public ModelEventType[] getEvents() {
-            return new ModelEventType[]{ModelEventType.EXTERNALCHANGE, ModelEventType.BREAK};
+            return new ModelEventType[]{ModelEventType.CHECKBURN, ModelEventType.STEP, ModelEventType.BREAK};
         }
     }
 
     /**
      * Updates the graphic at every 100ms
      */
-    private final class FastObserver implements ModelStateObserverTyped {
+    private final class UpdateViewPeriodic implements ModelStateObserverTyped {
         private final Timer timer;
 
-        private FastObserver() {
+        private UpdateViewPeriodic() {
             timer = new Timer(100, actionEvent -> circuitComponent.graphicHasChanged());
         }
 
@@ -1795,11 +1786,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     /**
      * Updates the graphic at every micro step
      */
-    private final class MicroStepObserver implements ModelStateObserverTyped {
+    private final class UpdateViewMicroStep implements ModelStateObserverTyped {
         private final Model model;
         private final ModelCreator modelCreator;
 
-        private MicroStepObserver(Model model, ModelCreator modelCreator) {
+        private UpdateViewMicroStep(Model model, ModelCreator modelCreator) {
             this.model = model;
             this.modelCreator = modelCreator;
         }
@@ -1807,7 +1798,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         @Override
         public void handleEvent(ModelEvent event) {
             switch (event.getType()) {
-                case EXTERNALCHANGE:
+                case CHECKBURN:
                 case MICROSTEP:
                 case BREAK:
                     if (!realTimeClockRunning) {
@@ -1823,7 +1814,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
         @Override
         public ModelEventType[] getEvents() {
-            return new ModelEventType[]{ModelEventType.EXTERNALCHANGE, ModelEventType.MICROSTEP, ModelEventType.BREAK};
+            return new ModelEventType[]{ModelEventType.CHECKBURN, ModelEventType.MICROSTEP, ModelEventType.BREAK};
         }
     }
 
@@ -1961,12 +1952,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     if (cl.size() == 1) {
                         ObservableValue clkVal = cl.get(0).getClockOutput();
                         model.modify(() -> clkVal.setBool(!clkVal.getBool()));
-                        model.doStep();
                         if (model != null) {
-                            if (clkVal.getBool() && model.isRunning()) {
+                            if (clkVal.getBool() && model.isRunning())
                                 model.modify(() -> clkVal.setBool(!clkVal.getBool()));
-                                model.doStep();
-                            }
                             addressPicker.getProgramROMAddress(model);
                         }
                     }

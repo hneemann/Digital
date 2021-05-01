@@ -21,10 +21,9 @@ import java.util.ArrayList;
 public class ValueTableObserver implements ModelStateObserverTyped {
 
     private final ValueTable logData;
-    private final ModelEventType type;
+    private final Condition condition;
+    private final ModelEventType[] events;
     private final ArrayList<Signal> signals;
-
-    private Value[] manualSample;
 
     /**
      * Creates a new instance
@@ -35,10 +34,13 @@ public class ValueTableObserver implements ModelStateObserverTyped {
      */
     public ValueTableObserver(boolean microStep, ArrayList<Signal> signals, int maxSize) {
         this.signals = signals;
-        if (microStep)
-            this.type = ModelEventType.MICROSTEP;
-        else
-            this.type = ModelEventType.STEP;
+        if (microStep) {
+            condition = type -> type == ModelEventType.MICROSTEP;
+            events = new ModelEventType[]{ModelEventType.MICROSTEP};
+        } else {
+            condition = type -> type == ModelEventType.STEP || type == ModelEventType.CHECKBURN;
+            events = new ModelEventType[]{ModelEventType.STEP, ModelEventType.CHECKBURN};
+        }
 
         String[] names = new String[signals.size()];
         for (int i = 0; i < signals.size(); i++)
@@ -51,18 +53,7 @@ public class ValueTableObserver implements ModelStateObserverTyped {
         if (event == ModelEvent.STARTED)
             logData.clear();
 
-        if (event == ModelEvent.EXTERNALCHANGE && type == ModelEventType.MICROSTEP) {
-            if (manualSample == null)
-                manualSample = new Value[logData.getColumns()];
-            for (int i = 0; i < logData.getColumns(); i++)
-                manualSample[i] = new Value(signals.get(i).getValue());
-        }
-
-        if (event.getType() == type) {
-            if (manualSample != null) {
-                logData.add(new TestRow(manualSample));
-                manualSample = null;
-            }
+        if (condition.accept(event.getType())) {
             Value[] row = new Value[logData.getColumns()];
             for (int i = 0; i < logData.getColumns(); i++)
                 row[i] = new Value(signals.get(i).getValue());
@@ -72,7 +63,7 @@ public class ValueTableObserver implements ModelStateObserverTyped {
 
     @Override
     public ModelEventType[] getEvents() {
-        return new ModelEventType[]{type, ModelEventType.STARTED, ModelEventType.EXTERNALCHANGE};
+        return events;
     }
 
     /**
@@ -80,5 +71,9 @@ public class ValueTableObserver implements ModelStateObserverTyped {
      */
     public ValueTable getLogData() {
         return logData;
+    }
+
+    private interface Condition {
+        boolean accept(ModelEventType type);
     }
 }

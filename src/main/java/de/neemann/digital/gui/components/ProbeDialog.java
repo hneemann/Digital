@@ -60,12 +60,12 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                model.modify(() -> model.addObserver(ProbeDialog.this));
+                model.addObserver(ProbeDialog.this);
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                model.modify(() -> model.removeObserver(ProbeDialog.this));
+                model.removeObserver(ProbeDialog.this);
             }
         });
 
@@ -109,7 +109,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     @Override
     public void handleEvent(ModelEvent event) {
-        if (event.getType() == type || event == ModelEvent.EXTERNALCHANGE) {
+        if (event.getType() == type || event == ModelEvent.CHECKBURN) {
             if (tableUpdateEnable) {
                 if (paintPending.compareAndSet(false, true)) {
                     SwingUtilities.invokeLater(() -> {
@@ -133,7 +133,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     @Override
     public ModelEventType[] getEvents() {
-        return new ModelEventType[]{type, ModelEventType.EXTERNALCHANGE, ModelEventType.FASTRUN, ModelEventType.BREAK, ModelEventType.CLOSED};
+        return new ModelEventType[]{type, ModelEventType.CHECKBURN, ModelEventType.FASTRUN, ModelEventType.BREAK, ModelEventType.CLOSED};
     }
 
     private static class SignalTableModel implements TableModel {
