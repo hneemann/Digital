@@ -61,7 +61,7 @@ public final class IconCreator {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Image " + name + " not found");
+            throw new RuntimeException("Image " + name + " not found", e);
         }
     }
 
