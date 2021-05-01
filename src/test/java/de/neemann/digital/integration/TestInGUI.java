@@ -41,6 +41,7 @@ import de.neemann.digital.gui.components.table.ExpressionListenerStore;
 import de.neemann.digital.gui.components.table.TableDialog;
 import de.neemann.digital.gui.components.terminal.KeyboardDialog;
 import de.neemann.digital.gui.components.terminal.Terminal;
+import de.neemann.digital.gui.components.terminal.TerminalDialog;
 import de.neemann.digital.gui.components.testing.TestAllDialog;
 import de.neemann.digital.gui.components.testing.ValueTableDialog;
 import de.neemann.digital.gui.remote.RemoteException;
@@ -545,7 +546,7 @@ public class TestInGUI extends TestCase {
                         (gt, kb) -> keyboard = kb))
                 .press("ENTER")
                 .delay(200)
-                .add(new GuiTester.WindowCheck<>(Main.class,
+                .add(new GuiTester.WindowCheck<>(TerminalDialog.class,
                         (gt, td) -> keyboard.toFront()))
                 .delay(200)
                 .type("Hello World!")
