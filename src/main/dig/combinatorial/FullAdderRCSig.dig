@@ -8,10 +8,6 @@
 {{de 4-Bit Ripple-Carry addierer bestehend aus vier 
 Volladdierern.}}</string>
     </entry>
-    <entry>
-      <string>showDataGraphMicro</string>
-      <boolean>true</boolean>
-    </entry>
   </attributes>
   <visualElements>
     <visualElement>
