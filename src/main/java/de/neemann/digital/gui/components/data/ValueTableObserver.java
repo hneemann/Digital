@@ -58,7 +58,7 @@ public class ValueTableObserver implements ModelStateObserverTyped {
     }
 
     @Override
-    public ModelEventType[] getEvents() {
+    public ModelEventType[] getEvents() { // missing of ModelEventType.CHECKBURN is intended!
         return new ModelEventType[]{type, ModelEventType.STARTED};
     }
 
