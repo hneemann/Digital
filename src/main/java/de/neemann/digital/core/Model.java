@@ -924,7 +924,7 @@ public class Model implements Iterable<Node>, SyncAccess {
             return new SyncAccess() {
                 @Override
                 public <A extends Runnable> A modify(A run) {
-                    synchronized (this) {
+                    synchronized (Model.this) {
                         run.run();
                     }
                     fireEvent(ModelEvent.MICROSTEP);  // record the external modification as a micro step!
