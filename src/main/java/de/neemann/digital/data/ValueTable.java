@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.data;
 
+import de.neemann.digital.StringList;
 import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.Observable;
 import de.neemann.digital.core.ValueFormatter;
@@ -282,20 +283,23 @@ public class ValueTable extends Observable implements Iterable<TestRow> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        StringList sl = new StringList(sb);
         for (String n : names)
-            sb.append(n).append(" ");
+            sl.add(n);
         sb.append("\n");
 
         if (tableRowIndex == null)
             for (TestRow row : values) {
+                sl = new StringList(sb);
                 for (Value v : row.getValues())
-                    sb.append(v.toString()).append(" ");
+                    sl.add(v.toString());
                 sb.append("\n");
             }
         else
             for (int i : tableRowIndex) {
+                sl = new StringList(sb);
                 for (Value v : values.get(i).getValues())
-                    sb.append(v.toString()).append(" ");
+                    sl.add(v.toString());
                 sb.append("\n");
             }
 

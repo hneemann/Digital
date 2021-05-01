@@ -49,7 +49,7 @@ public class ValueTableObserver implements ModelStateObserverTyped {
         if (event == ModelEvent.STARTED)
             logData.clear();
 
-        if (event.getType() == type) {
+        if (event.getType() == type || event.getType() == ModelEventType.CHECKBURN) {
             Value[] row = new Value[logData.getColumns()];
             for (int i = 0; i < logData.getColumns(); i++)
                 row[i] = new Value(signals.get(i).getValue());
