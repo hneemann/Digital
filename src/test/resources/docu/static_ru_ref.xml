@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <chapter heading="Digital">
+        <subchapter heading="Introduction">
+            <par>
+                Digital is a simple simulator used to simulate digital circuits. The logic gates are connected
+                to each other by wires and the behavior of the overall circuit can be simulated.
+                The user can interact with the simulation by either pressing buttons or setting
+                values to the inputs of the circuit.
+            </par>
+            <par>
+                In this way, most of the basic circuits used in digital electronics can be built and simulated.
+                In the folder <e>examples</e>, users can browse for examples that includes a functional
+                16-bit single-cycle Harvard processor.
+            </par>
+            <par>
+                The simulator has two modes of operation: Editing and Simulation mode.
+                In the editing mode, modifications to the circuit can be performed. Users can add or connect components.
+                In this mode, simulation is disabled.
+                The simulation mode is activated by pressing the <e>Start</e> button in the toolbar.
+                While starting the simulation the circuit is checked for consistency.
+                If there are errors in the circuit an appropriate message is shown and
+                the affected components or wires are highlighted. If the circuit is error free, the simulation is
+                enabled. Now you can interact with the running simulation.
+                In the simulation mode it is not possible to modify the circuit. To do so you have to activate the
+                editing mode again by stopping the simulation.
+            </par>
+        </subchapter>
+        <subchapter heading="First Steps">
+            <par><image src="scr00.png"/></par>
+            <par>
+                As a first example, a circuit is to be constructed with an Exclusive-Or gate.
+                From the main window, the <e>Components</e> menu allows you to select the various components.
+                Then they are placed on the drawing panel. This process can be canceled by pressing the ESC key at any
+                time. Start by selecting an input component.
+                This can later be controlled interactively by using the mouse.
+            <par><image src="scr01.png"/></par>
+            <par>
+                After selection, the first input can be placed on the drawing panel.
+                The red dot on the input component symbol is a connection point between the component and a wire, which will be
+                connected later on.
+                The red color indicates an output. This means that the port defines a signal value or can drive a wire.
+            </par>
+            <par><image src="scr02.png"/></par>
+            <par>
+                In the same way, a second input is added. It is best to place it directly below the first input.
+            </par><image src="scr03.png"/></par>
+            <par>
+                After adding the inputs, the Exclusive-Or gate is selected. This gate represents the actual logical
+                function.
+            </par>
+            <par><image src="scr04.png"/></par>
+            <par>
+                This gate can now also be added to the circuit. It is best to place it in a way that the subsequent
+                wiring is made as simple as possible. The blue dots indicate the input terminals of the gate.
+            </par>
+            <par><image src="scr05.png"/></par>
+            <par>
+                Now, select an output which could be used to display a signal state or to later pass signals to
+                an embedding circuit.
+            </par>
+            <par><image src="scr06.png"/></par>
+            <par>
+                This is placed in a way that it can be wired easily.
+                The output has a blue dot, which indicates an input terminal.
+                Here you can feed in the value which is then exported.
+            </par>
+            <par><image src="scr07.png"/></par>
+            <par>
+                After all components are selected and in place, use the mouse to wire a connection between the blue and
+                red dots. Make sure that exactly one red dot is connected to any number of blue dots.
+                Only the usage of three-state outputs makes it possible to deviate from this rule and to interconnect
+                several red dots.
+                If all wires have been drawn, the circuit is complete.
+            </par>
+            <par><image src="scr08.png"/></par>
+            <par>
+                Interaction with the circuit is possible when simulation is started.
+                This is done by clicking on the play button located in the toolbar.
+                After starting the simulation, the color of the wires changes and the
+                inputs and outputs are now filled. Bright green indicates a logical '1' and dark green a logical '0'.
+                In the figure above, all wires have a '0' value.
+            </par>
+            <par><image src="scr09.png"/></par>
+            <par>
+                By clicking with the mouse, the inputs can be switched. Since the simulation is now active, the
+                output changes according to the current input states. The circuit behaves like an
+                Exclusive-Or gate as expected .
+            </par>
+            <par><image src="scr10.png"/></par>
+            <par>
+                To further process the circuit, the simulation must first be stopped. The easiest way to do this is
+                with the Stop button in the tool bar. Clicking on a component with the right mouse button
+                (control-click on macOS) opens a dialog which shows the component's properties. The label 'A' can
+                be defined for the first input via this dialog.
+            </par>
+            <par><image src="scr11.png"/></par>
+            <par>
+                In the same way, the labels for the remaining inputs and outputs can be defined. The menu item
+                <e>Analysis</e> also contains a menu item <e>Analysis</e>. This function performs an analysis of
+                the current circuit. However, this is only possible if all inputs and outputs are labeled properly.
+            </par>
+            <par><image src="scr12.png"/></par>
+            <par>
+                The truth table of the simulated circuit appears in a new window. Below the table you can find the
+                algebraic expression associated with the circuit. If there are several possible algebraic
+                expressions, a separate window will open, showing all possible expressions.
+            </par>
+            <par><image src="scr13.png"/></par>
+            <par>
+                The table dialog has the menu entry <e>K-Map</e> in its main menu. This allows to display the truth
+                table in the form of a K-map.
+            </par>
+            <par><image src="scr14.png"/></par>
+            <par>
+                At the top of this dialog there is a drop-down list which allows the selection of the desired
+                expression in the K-map. In this way you can, for example, illustrate how several equivalent
+                algebraic expressions can result. However, in this example, there is only one minimal expression.
+                The truth table can also be modified by clicking the K-map.
+            </par>
+        </subchapter>
+        <subchapter heading="Wires">
+            <par>
+                All components must be connected via wires. It is not possible to connect two components
+                by placing them directly next to each other.
+            </par>
+            <par>
+                In addition, there are only connections between an endpoint of a wire and a component.
+                If a pin of a component is placed in the middle of a wire, no connection is made between the component
+                and the wire.
+                Therefore, a wire must actually terminate at each pin which is to be connected.
+                Even if the tunnel component is used, there must be a wire between the pin and the tunnel element.
+            </par>
+            <par>
+                The component needs to be selected using the rectangular selection tool in order to be moved
+                along with the connected wires. For moving a component without the connected wires,
+                select the component using a mouse click.
+            </par>
+            <par>
+                With CTRL-Click a single wire section can be selected to move or delete it.
+                If the D key is pressed while drawing a wire, a diagonal wire can be drawn.
+                The key S allows the splitting of a line segment into two segments.
+            </par>
+        </subchapter>
+        <subchapter heading="Hierarchical Design">
+            <par>
+                If a complex circuit is built up, this can quickly become very confusing. To keep track here,
+                the different parts of a circuit can be stored in different files. This mechanism also makes it
+                possible to use a subcircuit, which has been created once, several times in a further circuit.
+                This approach also offers the advantage that the files can be stored independently of each other in a
+                version control system and changes can be tracked.
+            </par>
+            <par><image src="scr20.png"/></par>
+            <par>
+                As an example, consider a 4-bit adder: First, we built a simple half-adder. This consists of an
+                XOR gate and an AND gate. The sum of the two bits 'A' and 'B' is given to the outputs 'S' and 'C'.
+                This circuit is stored in the file <e>halfAdder.dig</e>.
+            </par>
+            <par><image src="scr21.png"/></par>
+            <par>
+                From two half adders a full adder can now be built. To do this, create a new empty file and save the
+                empty file as <e>fullAdder.dig</e> in the same folder as the half adder. Then the
+                half adder can be added to the new circuit via the <e>Components</e><arrow/><e>Custom</e> menu.
+                The order of the pins at the package of the half-adder can be rearranged from the half adder in the
+                menu <e>Edit</e><arrow/><e>Order inputs</e> or <e>Edit</e><arrow/><e>Order outputs</e>.
+                The full adder adds the three bits 'A', 'B' and 'Ci' and gives the sum to the outputs 'S' and 'Co'.
+            </par>
+            <par><image src="scr22.png"/></par>
+            <par>
+                In order to check the correct function of the full adder, a test case should be added. In the test case,
+                the truth table is stored, which should fulfill the circuit. In this way it can be automatically
+                checked whether this is the case.
+            </par>
+            <par><image src="scr23.png"/></par>
+            <par>
+                The tests can be executed via the test case editor or the test button in the toolbar.
+                The table cells highlighted in green indicate that the output of the circuit matches
+                the truth table given in the test case.
+            </par>
+            <par><image src="scr24.png"/></par>
+            <par>
+                Now the full adders can be put together to form a so-called ripple-carry adder.
+                In this case, the carry output of an addition is forwarded as a carry input to the addition of the
+                next higher-order bit, just as is usual in pencil-and-paper addition.
+                This 4-bit adder should be tested for correct function. For this purpose a test case was inserted.
+            </par>
+            <par><image src="scr25.png"/></par>
+            <par>
+                This test case performs a 100% test, which is possible only with relatively simple circuits: all
+                possible 512 input combinations are applied to the circuit, and it is checked whether the output
+                of the circuit is correct.
+                The first line lists the input and output signals. Below this, the input values to be applied and
+                the output values to be checked are specified in a row, as in a truth table.
+                In this example, however, 512 lines are required. Entering this would be a tedious and error-prone task.
+                It is easier and more reliable to automatically generate the required lines.
+                For this purpose, the variables <e>A</e> and <e>B</e> are each traversed
+                from 0 to 15. The respective values of <e>A</e> and <e>B</e> are then assigned to inputs 'A[n]' and 'B[n]'.
+                Then it is checked whether the circuit outputs the value <e>A+B</e>. Then it is checked again with
+                the carry bit set, in which case <e>A+B+1</e> must result.
+                The details of the test syntax are provided by the help dialog.
+            </par>
+            <par>
+                If a circuit is embedded in an other circuit, only the file name of the subcircuit is stored in a
+                circuit, not the embedded circuit itself.
+                The corresponding files of
+                the embedded subcircuits must therefore be found in the file system at runtime of the simulation.
+                In order to support the various work methods of the users as best as possible and still to avoid a
+                complex administration of import paths, etc., a somewhat unusual import strategy is implemented.
+            </par>
+            <par>
+                Only the file names of the embedded circuits are stored in a circuits file, not the full path.
+                If a file needs to be opened, all subfolders are searched for a file of the corresponding name.
+                If a suitable file is found, it is imported. This process only depends on the file name of the file to
+                be read, not on its path. Correspondingly, an error message is generated if there are several files of
+                the same name in different subfolders, since ambiguities then arise.
+            </par>
+            <par>
+                A suitable project structure therefore looks as follows: The root circuit is located in a separate
+                folder.
+                All imported circuits must be in the same folder or subfolders. All circuits must have different names,
+                so it must not happen that there are circuits of the same name in different folders.
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="Simulation">
+        <subchapter heading="Propagation Delay">
+            <par>
+                During the simulation every logic gate has a propagation delay. Every component found in the library
+                has the same propagation delay regardless of its complexity.
+                The AND gate thus has the same propagation delay as the multiplier.
+                The only exceptions are diodes, switches and splitters which are used to create data buses.
+                These components have no propagation delay at all.
+            </par>
+            <par>
+                If it's necessary to simulate a gate - e.g. the multiplier - with a longer propagation delay, a delay
+                gate must be inserted in the circuit right behind the output of the multiplier.
+            </par>
+            <par>
+                If a circuit is included in another parent circuit, the included circuit keeps its timing behaviour.
+                So if you include a complex circuit which has a large propagation delay because the input signals
+                has to pass three gates until it reaches the output, this behaviour is conserved while including this
+                circuit.
+                There are no additional delays introduced as a result of including a circuit. If not all outputs of a
+                circuit have
+                the same propagation delay, then this is also the case if it is included in a parent circuit.
+                In general, including a circuit into an other circuit does not modify its timing behaviour at all. An
+                included circuit behaves exactly the same way as if all components had been inserted at the same circuit
+                level.
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="Analysis">
+        <subchapter heading="Circuit Analysis and Synthesis">
+            <par>
+                A circuit can be analyzed via the menu entry <e>Analysis</e>. A truth table is generated for purely
+                combinatorial circuits. This truth table can be edited as desired.
+                A new circuit can be generated from this truth table after editing.
+            </par>
+            <par>
+                In addition to purely combinatorial circuits, it is also possible to analyze or generate sequential
+                circuits.
+                Instead of a simple truth table a so-called state transition table is created.
+                Each flip-flop thereby appears on the input side and the output side of the state transition table.
+            In this table, on the right-hand side, you can find the next state, which will
+            occur after the next clock signal. This next state depends on the current state of the flip-flops as found
+            at the left-hand side of the table.
+            For an analysis to be possible, the flip-flops must be named.
+        </par>
+        <par>
+            The following naming convention applies: The following next state of a bit on the right side of the table
+            is indicated by a lowercase 'n+1'. The corresponding current state is indicated by an appended 'n'.
+            If there is a state variable 'A', 'An' indicates the current state and 'An+1' indicates the next state.
+            If, in the truth table on the left and right side, signals are present, which correspond to this pattern
+            it is assumed that the table is a state transition table, and a sequential circuit is generated instead of
+            a combinatorial circuit.
+        </par>
+            <par>
+                It should be noted that the circuit to be analyzed may contain only purely combinatorial elements in
+                addition to the built-in D and JK flip-flops. If a flip-flop is e.g. made from Nor gates, this
+                circuit is not recognized as a flip-flop and therefore it is not possible to analyse such a circuit.
+            </par>
+        </subchapter>
+        <subchapter heading="Expression">
+            <par>
+                Via the menu item <e>Expression</e> it is possible to enter a boolean function from which a
+                circuit can then be generated.
+            </par>
+        </subchapter>
+        <subchapter heading="State charts">
+            <par>
+                An editor for state charts is available via the menu item <e>Finite State Machine</e>.
+                It allows the graphical creation of state machines by drawing states and state transitions.
+                Thereby different outputs can be set in the different states.
+                By providing transitions with conditions, input signals can be generated.
+                By setting output values at transitions, Mealy automata can also be defined.
+            </par>
+            <par>
+                The state machine defined in this way can then be automatically transferred to a state transition table,
+                from which, in a further step, a circuit implementing the initial state machine can be generated.
+                If the simulation of this circuit is then started, the current state can also be followed in the
+                state chart.
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="Hardware">
+        <subchapter heading="GAL16v8 and GAL22v10">
+            <par>
+                In the circuit generation menu in the truth table there are also functions to generate so-called
+                JEDEC files. This is a special file format that describes the fuse map of a PLD.
+                This JEDEC file can be written into a corresponding PLD using a special programmer.
+                At the moment, circuits of the type <e>GAL16v8</e> and <e>GAL22v10</e> or fuse map compatible
+                devices are supported.
+            </par>
+        </subchapter>
+        <subchapter heading="ATF150xAS">
+            <par>
+                The chips in the
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
+                </a>
+                family are simple CPLDs with up to 128 macrocells. They are available in a
+                PLCC package, which makes them suitable for laboratory exercises: If an IC is destroyed during exercises,
+                it can simply be replaced. In addition, with the
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/hardware/atdh1150usb">
+                    <e>ATDH1150USB</e>
+                </a>
+                an easy to use, low-cost programmer is available. This programmer is able to program the
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
+                </a>
+                chips in system using a JTAG interface.
+                A suitable evaluation board
+                <a href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATF15XX-DK3-U">
+                    (<e>ATF15XX-DK3-U</e>)
+                </a>
+                is also available.
+                The software
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
+                    <e>ATMISP</e>
+                </a>, 
+                which is available on the ATMEL/Microchip website, is required for programming the chips.
+            </par>
+            <par>
+                Unfortunately, the fuse map details are not publicly available so that no suitable fitter for this chip
+                can be integrated in Digital, as is possible with the <e>GAL16v8</e> and <e>GAL22v10</e> chips.
+            </par>
+            <par>
+                Therefore, the fitters <e>fit150[x].exe</e> provided by ATMEL must be used. These programs create a
+                <e>JEDEC</e> file from a suitable <e>TT2</e> file which can then be programmed on the chip. Digital
+                starts the fitter automatically every time a <e>TT2</e> file is created. For this purpose, the path to the
+                <e>fit150[n].exe</e> fitters must be specified in the settings.
+                The created <e>JEDEC</e> file can then be opened and programmed directly with
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
+                    <e>ATMISP</e>
+                </a>.
+            </par>
+            <par>
+                For legal reasons the fitter <e>fit1502.exe</e> can not be distributed with Digital. However, it can be
+                found in the folder <e>WinCupl\Fitters</e> after installing
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
+                    <e>WinCupl</e>
+                </a>.
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
+                    <e>WinCupl</e>
+                </a>
+                is available on the ATMEL/Microchip website.
+                On Linux systems, the fitters can also be executed by Digital if <e>wine</e> is installed.
+            </par>
+        </subchapter>
+        <subchapter heading="Export to VHDL or Verilog">
+            <par>
+                A circuit can be exported to VHDL or Verilog. A file is generated which contains the complete description
+                of the circuit. The generated VHDL code was tested with
+                <a href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
+                and the open source VHDL simulator <a href="http://ghdl.free.fr/">ghdl</a>.
+                The Verilog code is tested with the Verilog simulator <a href="http://iverilog.icarus.com/">Icarus Verilog</a>.
+            </par>
+            <par>
+                If a circuit contains test cases, the test data is used to generate a HDL test bench. This can be used
+                to check the correct function of the circuit in a HDL simulation.
+            </par>
+            <par>
+                Additional files which are needed by special boards can be created. At present only the
+                <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a>
+                board and the Mimas boards <a href="https://numato.com/product/mimas-spartan-6-fpga-development-board">Mimas</a>
+                and <a href="https://numato.com/product/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram">Mimas V2</a>
+                are supported.
+                A constraints file is created, which contains the assignment of the pins. The description of the pins can
+                be found in the boards data sheet, and must be entered as a pin number for the inputs and outputs.
+            </par>
+            <par>
+                For a BASYS3 board, if the circuit clock frequency is low, a frequency divider is integrated into the HDL
+                code to divide the board clock accordingly.
+                If the clock frequency selected in the circuit exceeds 4.7MHz, the MMCM unit of the
+                Artix-7 is used for clock generation.
+                This ensures that the FPGA resources provided for the clock distribution are used.
+                This allows the included example processor to run at 20MHz, and if you can do without the
+                multiplier, 30HMz is also possible.
+            </par>
+            <!--par>
+                Also at the Mimas-Boards the Spartan 6 DCM is utilized for the clock generation.
+            </par-->
+            <par>
+                If a circuit is to run on a BASYS3 board, a new project can be created in Vivado.
+                The generated VHDL file and the constraints file must be added to the project.
+                Once the project has been created, the bitstream can be generated and the Hardware-Manager can be used
+                to program a BASYS3 board.
+            </par>
+            <par>
+                In order to create the required constraints file in addition to the HDL file, the corresponding board
+                must be configured in the settings. In the field "Toolchain Configuration" the corresponding XML file
+                can be selected.
+                The available configurations can be found in the folder <e>examples/hdl</e> and have the file
+                extension <e>.config</e>.
+                If the configuration was successfully integrated, a further menu appears, which makes the board
+                specific functions accessible.
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="Custom Shapes">
+        <par>
+            Although Digital has some options that determine the appearance of a circuit when it is embedded in
+            another, in some cases it may be useful to use a very special shape for a subcircuit. An example is
+            the representation of the ALU in the processor included in the examples. This chapter explains how to
+            define such a special shape for a circuit.
+        </par>
+        <par>
+            Digital does not provide an editor for creating a special shape. Instead, a small detour is required
+            for creating circuit shapes: First, the circuit which is to be represented by a special shape is opened.
+            Then an SVG template is created for this circuit. In this template, the circuit is represented by a
+            simple rectangle. It also contains all the pins of the circuit, represented by blue (inputs) and
+            red (outputs) circles. To see which circle belongs to which pin, you can look at the ID of the
+            circle in the object properties. This ID has the form <e>pin:[name]</e> or <e>pin+:[name]</e>.
+            In the latter variant, the pin is provided with a label if reimported to digital.
+            If you do not want such a label, the <e>+</e> can be removed.
+        </par>
+        <par>
+            This SVG file can now be edited. The most suitable is the open source program
+            <a href="https://inkscape.org/en/">Inkscape</a> which is available for free.
+            The pins can be moved freely, but are moved to the next grid point during the reimport.
+        </par>
+        <par>
+            If existing SVG files are to be used, it is easiest to open the created template and paste the
+            existing graphic into the template via Copy&amp;Paste.
+        </par>
+        <par>
+            If the file was saved, it can be imported with Digital. The file is read in and all necessary
+            information is extracted and stored in the circuit. For further use of the circuit, the SVG
+            file is no longer required.
+        </par>
+        <par>
+            A final remark: SVG is a very powerful and flexible file format.
+            It can be used to describe extremely complex graphics. The Digital importer is not able to import all
+            possible SVG files without errors. If a file can not be imported, or does not appear as expected,
+            some experimentation may be required before the desired result is achieved.
+        </par>
+    </chapter>
+    <chapter heading="Generic Circuits">
+        <par>
+            It happens that a subcircuit has been created, and is to be used in different variants.
+            For example, you can imagine a special counter that is needed for different bit widths.
+            If one would create a subcircuit for 4, 5 and 6 bits each, the maintenance of the circuit
+            would be difficult in the future, since one must always work on several subcircuits, which are
+            identical except for one parameter, the bit width.
+        </par>
+        <par>
+            To prevent this, a generic subcircuit which can be parameterized can be created.
+            For this purpose, the checkbox "Circuit is generic" must be set in the circuit specific settings.
+            Then the parameter dialog of each component in that circuit contains the additional field "generic
+            parameterization". In this field program code can be entered, which can change the parameters of the
+            component. Each parameter has a name and can be modified as an attribute of the field <e>this</e>.
+            The names of the parameters can be found in the help dialog of the component.
+            If you want to change the bit width of an adder, the line <e>this.Bits=1;</e> can be used.
+        </par>
+        <par>
+            In this way, however, it is not yet possible to create a circuit that can be parameterized.
+            It is still necessary to access parameters that are set when the circuit is used.
+            This is done via the field "args". If you want to set the bit width from outside, you can write:
+            <e>this.Bits=args.bitWidth;</e>. The name of the argument - here <e>bitWidth</e> is arbitrary.
+            If such a subcircuit is used, this argument must be set.
+        </par>
+        <par>
+            If the circuit is used and the parameter dialog of the embedded circuit is opened, it also has a
+            field "generic parameterization". Here the bit width to be used can be set with the instruction
+            <e>bitWidth:=5;</e>.
+        </par>
+        <par>
+            If a generic circuit is to be started directly, this is not possible straight away, since the required
+            arguments are missing, which have to be specified when embedding the circuit. These missing arguments
+            would lead to corresponding error messages.
+            Therefore, to simplify the testing of the circuit, the <e>Generic Initialization</e> component can be
+            added to the circuit. In this component you can set the arguments that would come from an embedding circuit.
+            In this way, a generic circuit can also be simulated directly.
+            If the circuit is embedded, this component is ignored.
+            It is only needed for the direct start of the simulation.
+        </par>
+        <par>
+            Under certain circumstances it may be useful not only to change the attributes of the components of a
+            circuit, but to add completely new components and wires depending on the passed arguments.
+            The <e>Code</e> component can be used for this purpose. If it is added to the circuit, the contained
+            Code will be executed when the simulation is started.
+            Here, a wire can be added using the <e>addWire([x1],[y1],[x2],[y2])</e> function, and using the function
+            <e>addComponent([name],[x],[y])</e> a new component <e>[name]</e> can be added at the position ([x],[y]).
+            The return value of the <e>addComponent([Name],[x],[y])</e> function allows to set the parameters of the
+            component.
+        </par>
+        <par>
+            The example circuit <e>examples/generic/modify/Conway/GenericConway.dig</e> shows how a more complex
+            circuit can be assembled in this way.
+        </par>
+        <par>
+            Another way to create a circuit is recursion: it is possible, depending on the arguments, to replace one
+            circuit by another. For this purpose the function <e>setCircuit([Name])</e> is available.
+            If it is called in the definition part of a subcircuit, the circuit to be inserted can be replaced
+            by another circuit. This allows the recursive definition of a circuit. As in other programming
+            languages, a suitable termination condition must be ensured.
+        </par>
+        <par>
+            The <e>examples/generic</e> folder contains an example of a Gray code counter whose bit width can
+            be configured. Here a Gray code counter is constructed by recursively adding further bits to an
+            initial circuit until the required number of bits of the counter is reached.
+        </par>
+    </chapter>
+    <chapter heading="Script-controlled testing">
+        <par>
+            If students are to complete exercises with Digital, it can be helpful if the circuits submitted by the
+            students can be checked in an automatic process. To perform this check, Digital can be started
+            from the command line. The call is done as follows:
+        </par>
+        <par>
+            <code>
+                java -cp Digital.jar CLI test [file to test] [-tests [optional file with
+                test cases]]
+            </code>
+        </par>
+        <par>
+            If only the file to be tested is specified, the test cases in that file are executed. In this way, the
+            test cases created by the students themselves can be executed.
+        </par>
+        <par>
+            If a second file name is specified, the test cases are taken from the second file and the first circuit
+            is checked with these test cases. The second file will therefore usually contain the sample solution
+            whose test cases are complete and correct. The circuit contained in the second file is ignored.
+            Only the test cases are taken from it.
+        </par>
+        <par>
+            In order to test a submitted circuit against a sample solution, the signal names of the inputs and
+            outputs in both circuits must match.
+        </par>
+    </chapter>
+    <chapter heading="Frequently asked Questions">
+        <faq>
+            <question>How to move a wire?</question>
+            <answer>Select one of the end points with the rectangular selection. Then move this point using the mouse.
+                You can also select a wire with CTRL + mouse button.
+            </answer>
+        </faq>
+        <faq>
+            <question>How to delete a wire?</question>
+            <answer>Select one of the end points and press <e>DEL</e> or click on the trashcan.
+                You can also select a wire with CTRL + mouse button.
+            </answer>
+        </faq>
+        <faq>
+            <question>How to move a component including all the connected wires?</question>
+            <answer>Select the component with the rectangular selection. The selection must include the entire
+                component.
+                Then move the component including the wires using the mouse.
+            </answer>
+        </faq>
+        <faq>
+            <question>There is a component not connected to a wire, even though the pins are on the wire.</question>
+            <answer>A pin is only connected to a wire if the wire has an endpoint at the pin.</answer>
+        </faq>
+        <faq>
+            <question>If the names of the pins in a circuit are long, the names are no longer readable when
+                the circuit is embedded. What can I do?</question>
+            <answer>The width of the block can be increased using the menu item
+                <e>Edit<arrow/>Circuit specific settings</e>.</answer>
+        </faq>
+        <faq>
+            <question>The pins in an embedded circuit have an non-optimal order. How can this be changed?</question>
+            <answer>The sequence can be changed using the menu entry <e>Edit<arrow/>Order inputs</e> or
+                <e>Edit<arrow/>Order outputs</e>.</answer>
+        </faq>
+
+        <faq>
+            <question>When the simulation is started, a wire becomes gray. What does that mean?</question>
+            <answer>The colors light green and dark green are used to represent high and low state.
+                Gray means the wire is in high Z state.
+            </answer>
+        </faq>
+        <faq>
+            <question>I have a truth table. How to calculate the minimized boolean equations?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Synthesise</e>. Then enter the truth table.
+                At the bottom of the window you can find the matching boolean equation. If you enter more than one
+                dependent variable, a new window opens in which all boolean equations are shown.
+            </answer>
+        </faq>
+        <faq>
+            <question>I have entered a truth table, but there is more than one boolean equation shown.
+                Which of them is the correct one?
+            </question>
+            <answer>Minimizing a boolean equation can result in many equations describing the same function.
+                Digital shows all of them and they all create the same truth table.
+                There may be differences depending on the "don't cares" in the truth table.
+            </answer>
+        </faq>
+        <faq>
+            <question>I have a truth table. How to create a circuit representing the truth table?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Synthesise</e>. Then enter the truth table.
+                You can edit the table using the <e>New</e> or <e>Edit</e> menus.
+                In the menu <e>Create</e>, you can create a circuit using the <e>Circuit</e> item.
+            </answer>
+        </faq>
+        <faq>
+            <question>How to edit a signal's name in the truth table?</question>
+            <answer>Right click on the name in the table header to edit the name.</answer>
+        </faq>
+        <faq>
+            <question>I have a boolean equation. How to create a circuit?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the equation.
+            </answer>
+        </faq>
+        <faq>
+            <question>How to create a truth table from a boolean equation?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Expression</e>. Then enter the expression.
+                Then create a circuit and in the menu <e>Analysis</e> use the entry <e>Analysis</e> to create the truth
+                table.
+            </answer>
+        </faq>
+        <faq>
+            <question>How to create a JEDEC file from a given circuit?</question>
+            <answer>In the menu <e>Analysis</e> select the entry <e>Analysis</e>. Then in the menu <e>Create</e> in the
+                new
+                window choose the correct device in the sub menu <e>Device</e>.
+            </answer>
+        </faq>
+        <faq>
+            <question>When creating a JEDEC file: How to assign a pin number to a certain signal?</question>
+            <answer>At the corresponding inputs and outputs you can enter a pin number in the settings dialog of the
+                pin.
+            </answer>
+        </faq>
+        <faq>
+            <question>I have created a JEDEC file. How to program it to a <e>GAL16v8</e> or <e>GAL22v10</e>?
+            </question>
+            <answer>To program such a chip a special programmer hardware is necessary.</answer>
+        </faq>
+        <faq>
+            <question>I have created a circuit that I want to use in many other circuits.
+                How can I do this without copying the file over and over again into the appropriate folders?
+            </question>
+            <answer>The circuit can be saved in the "lib" folder. Then it is available in all other circuits.
+            </answer>
+        </faq>
+    </chapter>
+    <chapter heading="Keyboard Shortcuts" newpage="true">
+        <shortcuts>
+            <shortcut key="Space">Starts or stops the simulation.</shortcut>
+            <shortcut key="F6">Opens the measurement table dialog.</shortcut>
+            <shortcut key="F7">Run to Break.</shortcut>
+            <shortcut key="F8">Execute test cases.</shortcut>
+            <shortcut key="C">A single clock step (Works only in a running simulation and only if there is a single
+                clock component).
+            </shortcut>
+            <shortcut key="V">Execute a single gate step.</shortcut>
+            <shortcut key="B">Execute all single gate steps until the circuit has stabilized or,
+                if a break component is present, until the break.</shortcut>
+            <shortcut key="F9">Analysis of the circuit.</shortcut>
+            <shortcut key="CTRL-A">Select all.</shortcut>
+            <shortcut key="CTRL-X">Cuts the selected components to the clipboard.</shortcut>
+            <shortcut key="CTRL-C">Copys the selected components to the clipboard.</shortcut>
+            <shortcut key="CTRL-V">Inserts the components from the clipboard.</shortcut>
+            <shortcut key="CTRL-D">Duplicate the current selection without modifying the clipboard.</shortcut>
+            <shortcut key="R">While inserting this rotates the components.</shortcut>
+            <shortcut key="L">Inserts the last inserted component again.</shortcut>
+            <shortcut key="T">Inserts a new tunnel.</shortcut>
+            <shortcut key="CTRL-N">New circuit.</shortcut>
+            <shortcut key="CTRL-O">Open circuit.</shortcut>
+            <shortcut key="CTRL-S">Save the circuit.</shortcut>
+            <shortcut key="CTRL-Z">Undo last modification.</shortcut>
+            <shortcut key="CTRL-Y">Redo the last undone modification.</shortcut>
+            <shortcut key="P">Programs a diode or a FGFET.</shortcut>
+            <shortcut key="D">While drawing a wire switches to the diagonal mode.</shortcut>
+            <shortcut key="F">While drawing a line flips the orientation.</shortcut>
+            <shortcut key="S">Splits a single wire into two wires.</shortcut>
+            <shortcut key="ESC">Abort the current action.</shortcut>
+            <shortcut key="Del">Removes the selected components.</shortcut>
+            <shortcut key="Backspace">Removes the selected components.</shortcut>
+            <shortcut key="+">Increases the number of inputs at the component the mouse points to. If it is used with
+                constants, the value is increased.
+            </shortcut>
+            <shortcut key="-">Decreases the number of inputs at the component the mouse points to. If it is used with
+                constants, the value is decreased.
+            </shortcut>
+            <shortcut key="CTRL +">Zoom In.</shortcut>
+            <shortcut key="CTRL -">Zoom Out.</shortcut>
+            <shortcut key="F1">Fit to size.</shortcut>
+            <shortcut key="F5">Show or hide the components tree view.</shortcut>
+        </shortcuts>
+    </chapter>
+</root>
