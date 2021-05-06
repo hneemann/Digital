@@ -6,7 +6,9 @@
 package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.core.SyncAccess;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.*;
+import de.neemann.digital.core.io.Const;
 import de.neemann.digital.draw.graphics.*;
 import de.neemann.digital.draw.shapes.Shape;
 import de.neemann.digital.draw.shapes.*;
@@ -18,7 +20,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
-import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 import static de.neemann.digital.gui.components.CircuitComponent.raster;
 
 /**
@@ -143,20 +144,18 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
      * Checks if the given point is within the bounding box of the shape of this element.
      *
      * @param p           a position
-     * @param includeText true if a click on a text also selectes the element
+     * @param includeText true if a click on a text also selects the element
      * @return true if p is inside the bounding box of the shape of this element.
      */
     public boolean matches(Vector p, boolean includeText) {
+        if (getShape() instanceof ShapeSpecificMatch)
+            return ((ShapeSpecificMatch) getShape()).matches(getTransform().invert().transform(p));
+
         GraphicMinMax m = getMinMax(includeText);
-        boolean inBox = (m.getMin().x - SIZE2 <= p.x)
-                && (m.getMin().y - SIZE2 <= p.y)
-                && (p.x <= m.getMax().x + SIZE2)
-                && (p.y <= m.getMax().y + SIZE2);
-
-        if (inBox && getShape() instanceof ShapeMatch)
-            return ((ShapeMatch) getShape()).matches(getTransform().invert().transform(p));
-
-        return inBox;
+        return (m.getMin().x <= p.x)
+                && (m.getMin().y <= p.y)
+                && (p.x <= m.getMax().x)
+                && (p.y <= m.getMax().y);
     }
 
     /**
@@ -391,11 +390,19 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
 
     @Override
     public String toString() {
-        String lab = elementAttributes.getLabel();
-        if (lab != null && lab.length() > 0)
-            return elementName + " (" + lab + ")";
-        else
-            return elementName;
+        if (elementName.equals(Const.DESCRIPTION.getName())) {
+            return elementName + " ("
+                    + elementAttributes.getValueFormatter().formatToView(
+                    new Value(elementAttributes.get(Keys.VALUE), elementAttributes.getBits())) + ")";
+        } else if (elementName.equals(Tunnel.DESCRIPTION.getName())) {
+            return elementName + " (" + elementAttributes.get(Keys.NETNAME) + ")";
+        } else {
+            String label = elementAttributes.getLabel();
+            if (label.isEmpty()) {
+                return elementName;
+            } else
+                return elementName + " (" + label + ")";
+        }
     }
 
     /**

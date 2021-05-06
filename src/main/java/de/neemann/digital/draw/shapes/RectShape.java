@@ -19,7 +19,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 /**
  * Simple rectangle
  */
-public class RectShape implements ShapeMatch {
+public class RectShape implements ShapeSpecificMatch {
     private final String label;
     private final int width;
     private final int height;
