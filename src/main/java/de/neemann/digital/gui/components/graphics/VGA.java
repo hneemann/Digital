@@ -39,6 +39,7 @@ public class VGA extends Node implements Element {
         vm(new VideoMode(85, 36, 640, 56, 56, 80, 480, 1, 3, 25, true, true));
         vm(new VideoMode(100, 43.16, 640, 40, 64, 104, 480, 1, 3, 25, true, false));
         vm(new VideoMode(85, 35.5, 720, 36, 72, 108, 400, 1, 3, 42, true, false));
+        vm(new VideoMode(60, 27, 720, 16, 62, 60, 480, 9, 6, 30, true, true));
         vm(new VideoMode(60, 34.96, 768, 24, 80, 104, 576, 1, 3, 17, true, false));
         vm(new VideoMode(72, 42.93, 768, 32, 80, 112, 576, 1, 3, 21, true, false));
         vm(new VideoMode(75, 45.51, 768, 40, 80, 120, 576, 1, 3, 22, true, false));
@@ -60,6 +61,7 @@ public class VGA extends Node implements Element {
         vm(new VideoMode(85, 119.65, 1152, 72, 128, 200, 864, 1, 3, 39, true, false));
         vm(new VideoMode(100, 143.47, 1152, 80, 128, 208, 864, 1, 3, 47, true, false));
         vm(new VideoMode(60, 81.62, 1152, 64, 120, 184, 864, 1, 3, 27, true, false));
+        vm(new VideoMode(60, 72.25, 1280, 110, 40, 220, 720, 5, 5, 20, false, false));
         vm(new VideoMode(60, 108, 1280, 48, 112, 248, 1024, 1, 3, 38, false, false));
         vm(new VideoMode(75, 135, 1280, 16, 144, 248, 1024, 1, 3, 38, false, false));
         vm(new VideoMode(85, 157.5, 1280, 64, 160, 224, 1024, 1, 3, 44, false, false));
@@ -84,6 +86,7 @@ public class VGA extends Node implements Element {
         vm(new VideoMode(75, 261, 1792, 96, 216, 352, 1344, 1, 3, 69, true, false));
         vm(new VideoMode(60, 218.3, 1856, 96, 224, 352, 1392, 1, 3, 43, true, false));
         vm(new VideoMode(75, 288, 1856, 128, 224, 352, 1392, 1, 3, 104, true, false));
+        vm(new VideoMode(60, 148.5, 1920, 88, 44, 148, 1080, 4, 4, 37, true, true));
         vm(new VideoMode(60, 193.16, 1920, 128, 208, 336, 1200, 1, 3, 38, true, false));
         vm(new VideoMode(60, 234, 1920, 128, 208, 344, 1440, 1, 3, 56, true, false));
         vm(new VideoMode(75, 297, 1920, 144, 224, 352, 1440, 1, 3, 56, true, false));
