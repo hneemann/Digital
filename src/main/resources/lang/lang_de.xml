@@ -1675,8 +1675,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_probeMode_DOWN">Zähle fallende Flanken</string>
     <string name="key_probeMode_BOTH">Zähle beide Flanken</string>
 
-    <string name="key_telnetEscape">Steuercodes</string>
-    <string name="key_telnetEscape_tt">Wenn gesetzt, werden die Telnet Steuerkommandos gefiltert.
+    <string name="key_telnetEscape">Telnet-Modus</string>
+    <string name="key_telnetEscape_tt">Wenn gesetzt, werden die Telnet Steuerkommandos ausgewertet.
         Zusätzlich werden vom Server die Kommandos SGA und ECHO gesendet.
         Wird diese Option deaktiviert, handelt es sich um einen einfachen TCP-Server.
     </string>

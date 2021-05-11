@@ -1662,8 +1662,8 @@
     <string name="key_probeMode_DOWN">Count on Falling Edge</string>
     <string name="key_probeMode_BOTH">Count both Edges</string>
 
-    <string name="key_telnetEscape">Commands</string>
-    <string name="key_telnetEscape_tt">If set, the Telnet control commands are filtered.
+    <string name="key_telnetEscape">Telnet mode</string>
+    <string name="key_telnetEscape_tt">If set, the Telnet control commands are evaluated.
         In addition, the server sends the SGA and ECHO commands. If this option is disabled,
         the server is a simple TCP server.</string>
     <string name="key_port">Port</string>
