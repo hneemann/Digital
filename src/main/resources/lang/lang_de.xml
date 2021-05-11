@@ -281,6 +281,7 @@
     <string name="elem_Terminal_pin_en">Ein High an diesem Eingang aktiviert den Takteingang.</string>
 
     <string name="elem_VGA">VGA Bildschirm</string>
+    <string name="elem_VGA_short">VGA</string>
     <string name="elem_VGA_tt">Analysiert die eingehenden Video-Signale und zeigt die entsprechende Grafik an.
         Da die Simulation nicht in Echtzeit laufen kann, wird zusätzlich zu den Videosignalen der Pixeltakt benötigt.</string>
     <string name="elem_VGA_pin_R">Der rote Farbanteil</string>
