@@ -11,7 +11,7 @@ import de.neemann.digital.draw.graphics.Vector;
  * A shape where the clickable area is not simply the bounding box, but
  * defined by the shape itself.
  */
-public interface ShapeMatch extends Shape {
+public interface ShapeSpecificMatch extends Shape {
 
     /**
      * Checks is the given position matches the shape
