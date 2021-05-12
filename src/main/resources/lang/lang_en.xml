@@ -280,6 +280,16 @@
     <string name="elem_Terminal_pin_D">The data to write to the terminal</string>
     <string name="elem_Terminal_pin_en">A high at this input enables the clock input.</string>
 
+    <string name="elem_Telnet">Telnet</string>
+    <string name="elem_Telnet_tt">Allows a Telnet connection to the circuit.
+        It is possible to receive and send characters via Telnet.</string>
+    <string name="elem_Telnet_pin_out">Data output</string>
+    <string name="elem_Telnet_pin_av">Outputs a one if data is present.</string>
+    <string name="elem_Telnet_pin_in">The data to be sent.</string>
+    <string name="elem_Telnet_pin_C">Clock input</string>
+    <string name="elem_Telnet_pin_wr">If set, the input data byte is sent.</string>
+    <string name="elem_Telnet_pin_rd">If set, a received byte is output.</string>
+
     <string name="elem_VGA">VGA Monitor</string>
     <string name="elem_VGA_short">VGA</string>
     <string name="elem_VGA_tt">Analyzes the incoming video signals and displays the corresponding graphic.
@@ -1228,6 +1238,7 @@
     <string name="err_csvToManyValues">Too many values in one line!</string>
     <string name="err_errorWritingFile_N">Error writing file {0}.</string>
     <string name="err_circuitContainsNoComponents">The circuit contains no components!</string>
+    <string name="err_couldNotCreateServer">Could not start the server!</string>
 
     <string name="key_AddrBits">Address Bits</string><!-- ROM, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM -->
     <string name="key_AddrBits_tt">Number of address bits used.</string>
@@ -1651,6 +1662,13 @@
     <string name="key_probeMode_UP">Count on Rising Edge</string>
     <string name="key_probeMode_DOWN">Count on Falling Edge</string>
     <string name="key_probeMode_BOTH">Count both Edges</string>
+
+    <string name="key_telnetEscape">Telnet mode</string>
+    <string name="key_telnetEscape_tt">If set, the Telnet control commands are evaluated.
+        In addition, the server sends the SGA and ECHO commands. If this option is disabled,
+        the server is a simple TCP server.</string>
+    <string name="key_port">Port</string>
+    <string name="key_port_tt">The port to be opened by the server.</string>
 
     <string name="key_colorScheme">Color scheme</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
