@@ -1008,7 +1008,7 @@ In the file howTo.md you can find more details about translations.
     <string name = "err_aSingleClockNecessary">Необходим единственный компонент часов. Все триггеры должны использовать этот тактовый сигнал.</string>
     <string name = "err_analyseNoInputs">Схема не имеет помеченных входов</string>
     <string name = "err_analyseNoOutputs">Схема не имеет маркированных выходов</string>
-    <string name = "err_breakTimeOut"> Не обнаружено перерывов после {0} циклов в точке останова '' {1} ''.
+    <string name = "err_breakTimeOut"> Не обнаружено перерывов после {0} циклов в точке останова ''{1}''.
         Возможно, следует увеличить количество циклов тайм-аута в компоненте прерывания.
     </string>
     <string name = "err_builder_exprNotSupported">Выражение {0} не поддерживается</string>
@@ -1032,7 +1032,7 @@ In the file howTo.md you can find more details about translations.
     <string name = "err_noClockFound">В логике не найдено часов</string>
     <string name = "err_noInputsAvailable">Нет доступных входов для установки</string>
     <string name = "err_noShapeFoundFor_N">Не найдена фигура для компонента {0}</string>
-    <string name = "err_noValueSetFor_N0_atElement_N1">Ничего не связано с входом '' {0} '' в компоненте '' {1} ''. Открытые вводы не допускаются.</string>
+    <string name = "err_noValueSetFor_N0_atElement_N1">Ничего не связано с входом ''{0}'' в компоненте ''{1}''. Открытые вводы не допускаются.</string>
     <string name = "err_notAllOutputsSameBits">Не все подключенные выходы имеют одинаковое количество битов</string>
     <string name = "err_notAllOutputsSupportHighZ"> Если несколько выходов соединены вместе, все они должны быть
         выходы с тремя состояниями.
@@ -1676,14 +1676,14 @@ In the file howTo.md you can find more details about translations.
 
     <string name = "mod_insertWire">Вставленный провод.</string>
     <string name = "mod_insertCopied">Вставить из буфера обмена.</string>
-    <string name = "mod_setKey_N0_in_element_N1">Значение '' {0} '' в компоненте '' {1} '' изменено.</string>
-    <string name = "mod_setAttributesIn_N">Атрибуты компонента '' {0} '' изменены.</string>
+    <string name = "mod_setKey_N0_in_element_N1">Значение ''{0}'' в компоненте ''{1}'' изменено.</string>
+    <string name = "mod_setAttributesIn_N">Атрибуты компонента ''{0}'' изменены.</string>
     <string name = "mod_wireDeleted">Провод удален.</string>
-    <string name = "mod_movedOrRotatedElement_N">Компонент '' {0} '' перемещен или повернут.</string>
+    <string name = "mod_movedOrRotatedElement_N">Компонент ''{0}'' перемещен или повернут.</string>
     <string name = "mod_movedWire">Провод перемещен.</string>
     <string name = "mod_deletedSelection">Выделение удалено.</string>
-    <string name = "mod_insertedElement_N">Компонент '' {0} '' вставлен.</string>
-    <string name = "mod_deletedElement_N">Компонент '' {0} '' удален.</string>
+    <string name = "mod_insertedElement_N">Компонент ''{0}'' вставлен.</string>
+    <string name = "mod_deletedElement_N">Компонент ''{0}'' удален.</string>
     <string name = "mod_insertedWire">Провод вставлен.</string>
     <string name = "mod_movedSelected">Выделение перемещено.</string>
     <string name = "mod_undo_N">Отменить: {0}</string>
@@ -2107,7 +2107,7 @@ In the file howTo.md you can find more details about translations.
 <string name = "msg_commandEnded_N">Команда "{0}" выполнена!</string>
 
 <string name = "msg_renameNet">Переименовать сеть</string>
-<string name = "msg_renameNet_N_OLD_NEW"> Есть еще {0} туннелей с сетевым именем '' {1} ''.
+<string name = "msg_renameNet_N_OLD_NEW"> Есть еще {0} туннелей с сетевым именем ''{1}''.
 Вы хотите переименовать все {0} в "{2}"?
 </string>
 
@@ -2119,7 +2119,7 @@ In the file howTo.md you can find more details about translations.
 <string name = "err_vgaModeNotDetected_N">Режим видео не обнаружен ({0})</string>
 
 <string name = "menu_createBehavioralFixture">Создать тестовый набор для исправления поведения</string>
-<string name = "menu_createBehavioralFixture_tt"> Создает поведенческий прибор из схемы.
+<string name = "menu_createBehavioralFixture_tt">Создает поведенческий прибор из схемы.
 Поведенческий прибор - это тестовый пример, который фиксирует текущее поведение. </string>
 <string name = "msg_fixesCreated_N">Исправления: {0}</string>
 <string name = "btn_createTestLine">Создать приспособление</string>
@@ -2133,7 +2133,7 @@ In the file howTo.md you can find more details about translations.
 <string name = "rot_180">180 °</string>
 <string name = "rot_270">270 °</string>
 <string name = "rot_90">90 °</string>
-<string name = "stat_clocks">Разрыв после {0} полупериодов в точке останова '' {1} ''.</string>
+<string name = "stat_clocks">Разрыв после {0} полупериодов в точке останова ''{1}''.</string>
 <string name = "tt_deleteItem">Удаляет выбранный элемент</string>
 <string name = "tt_moveItemDown">Переместить элемент вниз</string>
 <string name = "tt_moveItemUp">Переместить элемент вверх</string>
@@ -2357,7 +2357,7 @@ In the file howTo.md you can find more details about translations.
         <p> Следует отметить, что все использованные инициализации применяются только один раз перед
             выполнение теста. Не имеет значения, в какой строке тестового примера находятся эти операторы.
             Однако их нельзя использовать над строкой заголовка, в которой перечислены имена сигналов. </p>.
-    </body></html>fastennable></string>
+    </body></html>]]></string>
 
 <string name = "fsm_title">Конечный автомат</string>
 <string name = "fsm_noMove">Нет движения</string>
@@ -2374,9 +2374,9 @@ In the file howTo.md you can find more details about translations.
 <string name = "err_notDeterministic_N">FSM не является детерминированным: {0}</string>
 <string name = "err_fsmNumberUsedTwice_N">Номер состояния {0} используется дважды.</string>
 <string name = "err_fsmNoInitialState">Нет начального состояния (нулевой номер состояния).</string>
-<string name = "err_fsmState_N_notFound">Состояние '' {0} '' не найдено!</string>
-<string name = "err_fsmInvalidOutputAssignment_N">Неправильное назначение для вывода ('' {0} '')!</string>
-<string name = "err_fsmErrorInCondition_N">Ошибка в условии '' {0} ''!</string>
+<string name = "err_fsmState_N_notFound">Состояние ''{0}'' не найдено!</string>
+<string name = "err_fsmInvalidOutputAssignment_N">Неправильное назначение для вывода (''{0}'')!</string>
+<string name = "err_fsmErrorInCondition_N">Ошибка в условии ''{0}''!</string>
 <string name = "key_stateNum">Номер состояния</string>
 <string name = "key_stateNum_tt">Число, которое представляет это состояние.</string>
 <string name = "key_isInitialState">Начальное состояние</string>

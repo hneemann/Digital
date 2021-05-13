@@ -81,6 +81,8 @@ the location of this file.
         <!-- auto-detect fonts -->
         <auto-detect/>
 
+        <directory recursive="true">fonts</directory>
+
       </fonts>
 
       <!-- This option lets you specify additional options on an XML handler -->

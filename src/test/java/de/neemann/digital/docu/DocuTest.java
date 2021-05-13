@@ -50,6 +50,13 @@ public class DocuTest extends TestCase {
     private void writeXML(Writer w, File images, String language, File libFile) throws IOException, NodeException, PinException {
         w.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         w.append("<?xml-stylesheet type=\"text/xsl\" href=\"elem2html.xslt\"?>\n");
+
+        String fontFamily = "SansSerif";
+        if (language.equals("zh"))
+            fontFamily = "SansSerif,SimSun";
+        else if (language.equals("ru"))
+            fontFamily = "SansSerif,Anonymous Pro";
+
         w.append("<root titel=\"")
                 .append(Lang.get("digital"))
                 .append("\" titleImage=\"")
@@ -61,7 +68,7 @@ public class DocuTest extends TestCase {
                 .append("\" lang=\"")
                 .append(language)
                 .append("\" fontFamily=\"")
-                .append(language.equals("zh") ? "SansSerif,SimSun" : "SansSerif,Arial")
+                .append(fontFamily)
                 .append("\" rev=\"")
                 .append(System.getProperty("buildnumber"))
                 .append("\" revt=\"")
@@ -169,7 +176,7 @@ public class DocuTest extends TestCase {
 
     private void writeSVG(File imageFile, VisualElement ve) throws IOException {
         try (FileOutputStream out = new FileOutputStream(imageFile)) {
-            try (GraphicSVG svg = new GraphicSVG(out,null, 20)) {
+            try (GraphicSVG svg = new GraphicSVG(out, null, 20)) {
                 GraphicMinMax minMax = new GraphicMinMax(true, svg);
                 ve.drawTo(minMax, null);
                 svg.setBoundingBox(minMax.getMin(), minMax.getMax());
