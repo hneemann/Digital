@@ -523,6 +523,18 @@ public class TestInGUI extends TestCase {
                 .execute();
     }
 
+    public void testClickOnTight() {
+        new GuiTester("dig/manualError/tight.dig")
+                .press("control typed -", 20)
+                .delay(100)
+                .add(new SetMouseToElement(v -> v.getElementAttributes().get(Keys.VALUE) == 0))
+                .delay(100)
+                .mouseClick(InputEvent.BUTTON3_DOWN_MASK)
+                .add(new GuiTester.WindowCheck<>(AttributeDialog.class))
+                .add(new GuiTester.CloseTopMost())
+                .execute();
+    }
+
     public void testKeyboard() {
         new GuiTester("dig/io/keyboard.dig")
                 .press("SPACE")
