@@ -391,6 +391,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             getContentPane().remove(componentOnPane);
             if (treeCheckBox.isSelected()) {
                 JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+                split.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+                        .put(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0), "digNone");
                 treeModel = new LibraryTreeModel(library);
                 split.setLeftComponent(createTreeComponent());
                 split.setRightComponent(circuitScrollPanel);
