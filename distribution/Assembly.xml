@@ -35,6 +35,18 @@
             <outputDirectory>/linux/</outputDirectory>
         </file>
         <file>
+            <source>${basedir}/distribution/macosx/Digital-background.png</source>
+            <outputDirectory>/macosx/</outputDirectory>
+        </file>
+        <file>
+            <source>${basedir}/distribution/macosx/Digital.icns</source>
+            <outputDirectory>/macosx/</outputDirectory>
+        </file>
+        <file>
+            <source>${basedir}/distribution/makeDigitalMacApp.sh</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+        <file>
             <source>${basedir}/src/main/svg/icon.svg</source>
             <outputDirectory>/</outputDirectory>
         </file>
