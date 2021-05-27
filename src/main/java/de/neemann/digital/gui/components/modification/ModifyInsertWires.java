@@ -32,7 +32,10 @@ public class ModifyInsertWires implements Modification<Circuit> {
 
     @Override
     public void modify(Circuit circuit) {
-        circuit.add(wires);
+        ArrayList<Wire> wl = new ArrayList<>(wires.size());
+        for (Wire w : wires)
+            wl.add(new Wire(w));
+        circuit.add(wl);
     }
 
     @Override
