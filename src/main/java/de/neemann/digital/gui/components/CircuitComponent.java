@@ -2530,7 +2530,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     if (m instanceof VisualElement)
                         builder.add(new ModifyInsertElement((VisualElement) m));
                 }
-                builder.add(new ModifyInsertWires(wires));
+                builder.add(ModifyInsertWires.create(wires));
                 modify(builder.build());
             }
             mouseNormal.activate();
