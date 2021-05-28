@@ -1278,6 +1278,8 @@
     <string name="key_Label_tt">The name of this element.</string>
     <string name="key_Size">Size</string><!-- LED, SevenSeg -->
     <string name="key_Size_tt">The size of the shape in the circuit.</string>
+    <string name="key_small">Small Shape</string>
+    <string name="key_small_tt">If selected, a smaller shape will be used.</string>
     <string name="key_Language">Language</string>
     <string name="key_Language_tt">Language of the GUI. Will only take effect after a restart.</string>
     <string name="key_NetName">Net name</string><!-- Tunnel -->

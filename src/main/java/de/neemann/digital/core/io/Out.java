@@ -38,6 +38,7 @@ public class Out implements Element {
             .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.PINNUMBER)
             .addAttribute(Keys.ADD_VALUE_TO_GRAPH)
+            .addAttribute(Keys.IN_OUT_SMALL)
             .supportsHDL();
 
     /**

@@ -234,6 +234,11 @@ public final class Keys {
             .setMax(10)
             .setSecondary();
 
+    /**
+     * flag to select small inputs and outputs
+     */
+    public static final Key<Boolean> IN_OUT_SMALL
+            = new Key<>("small", false).allowGroupEdit().setSecondary();
 
     /**
      * flag to enable realtime mode at a clock

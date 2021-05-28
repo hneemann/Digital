@@ -24,7 +24,7 @@ import de.neemann.gui.Screen;
 import java.awt.*;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-import static de.neemann.digital.draw.shapes.OutputShape.*;
+import static de.neemann.digital.draw.shapes.OutputShape.LATEX_RAD;
 
 /**
  * The input shape
@@ -39,6 +39,7 @@ public class InputShape implements Shape {
     private final boolean isHighZ;
     private final boolean avoidLow;
     private final int bits;
+    private final boolean small;
     private IOState ioState;
     private SingleValueDialog dialog;
     private Value value;
@@ -66,6 +67,7 @@ public class InputShape implements Shape {
         avoidLow = isHighZ && attr.get(Keys.AVOID_ACTIVE_LOW);
 
         bits = attr.getBits();
+        small = attr.get(Keys.IN_OUT_SMALL);
     }
 
     @Override
@@ -106,15 +108,16 @@ public class InputShape implements Shape {
             Vector textPos = new Vector(-SIZE2 - LATEX_RAD.x, 0);
             graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.INOUT);
         } else {
-            Style style = Style.NORMAL;
-            final Polygon box = new Polygon(true).add(-OUT_SIZE * 2 - 1, -OUT_SIZE).add(-1, -OUT_SIZE).add(-1, OUT_SIZE).add(-OUT_SIZE * 2 - 1, OUT_SIZE);
+            int outSize = OutputShape.getOutSize(small);
+            Style style = OutputShape.getOutStyle(small);
+            final Polygon box = new Polygon(true).add(-outSize * 2 - 1, -outSize).add(-1, -outSize).add(-1, outSize).add(-outSize * 2 - 1, outSize);
             if (value != null) {
                 style = Style.getWireStyle(value);
                 if (value.getBits() > 1) {
                     Value v = value;
                     if (inValue != null)
                         v = inValue;
-                    Vector textPos = new Vector(-1 - OUT_SIZE, -4 - OUT_SIZE);
+                    Vector textPos = new Vector(-1 - outSize, -4 - outSize);
                     graphic.drawText(textPos, formatter.formatToView(v), Orientation.CENTERBOTTOM, Style.NORMAL);
                 } else {
                     if (inValue != null && !inValue.isEqual(value))
@@ -124,10 +127,11 @@ public class InputShape implements Shape {
 
             graphic.drawPolygon(box, Style.NORMAL);
 
-            Vector center = new Vector(-1 - OUT_SIZE, 0);
-            graphic.drawCircle(center.sub(RAD), center.add(RAD), style);
+            Vector center = new Vector(-1 - outSize, 0);
+            Vector rad = OutputShape.getOutRad(small);
+            graphic.drawCircle(center.sub(rad), center.add(rad), style);
 
-            Vector textPos = new Vector(-OUT_SIZE * 3, 0);
+            Vector textPos = new Vector(-outSize * 3, 0);
             graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.INOUT);
         }
     }
