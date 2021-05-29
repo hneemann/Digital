@@ -18,7 +18,7 @@ import java.awt.event.WindowFocusListener;
  * As soon as there are menus, buttons or similar, this listener should
  * no longer be used.
  */
-public class MoveFocusTo implements WindowFocusListener {
+public final class MoveFocusTo implements WindowFocusListener {
 
     /**
      * Adds the listener to the given child dialog and moves the focus to the given parent
