@@ -19,21 +19,33 @@ import java.awt.event.WindowFocusListener;
  * no longer be used.
  */
 public class MoveFocusTo implements WindowFocusListener {
-    private final Window parent;
 
     /**
-     * Creates a new instance
+     * Adds the listener to the given child dialog and moves the focus to the given parent
      *
-     * @param parent the window which should keep the focus
+     * @param child  the child dialog
+     * @param parent the parent window
      */
-    public MoveFocusTo(Window parent) {
+    public static void addListener(Dialog child, Window parent) {
+        child.setAlwaysOnTop(true);
+        child.addWindowFocusListener(new MoveFocusTo(child, parent));
+    }
+
+    private final Window child;
+    private final Window parent;
+
+    private MoveFocusTo(Window child, Window parent) {
+        this.child = child;
         this.parent = parent;
     }
 
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
         if (parent != null)
-            SwingUtilities.invokeLater(parent::requestFocus);
+            SwingUtilities.invokeLater(() -> {
+                child.removeWindowFocusListener(this);
+                parent.requestFocus();
+            });
     }
 
     @Override
