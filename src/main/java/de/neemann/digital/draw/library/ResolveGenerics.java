@@ -125,7 +125,7 @@ public class ResolveGenerics {
     }
 
     private CircuitHolder createResolvedCircuit(Args args) throws NodeException, ElementNotFoundException {
-        LOGGER.info("create concrete circuit based on " + circuit.getOrigin() + " width: " + args);
+        LOGGER.debug("create concrete circuit based on " + circuit.getOrigin() + " width: " + args);
         final Circuit c = circuit.createDeepCopy();
         ArrayList<VisualElement> newComponents = new ArrayList<>();
         ArrayList<Wire> newWires = new ArrayList<>();
