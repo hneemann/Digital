@@ -148,7 +148,7 @@
         </fileSet>
         <fileSet>
             <directory>${basedir}/target/docu</directory>
-            <outputDirectory>/Contents/SharedSupport/docu/</outputDirectory>
+            <outputDirectory>/Contents/SharedSupport/Documentation/</outputDirectory>
             <includes>
                 <include>*.pdf</include>
             </includes>
