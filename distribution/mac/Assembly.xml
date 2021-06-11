@@ -8,52 +8,52 @@
     <files>
         <file>
             <source>${basedir}/target/Digital.jar</source>
-            <outputDirectory>/Contents/Java</outputDirectory>
+            <outputDirectory>/Digital.app/Contents/Java</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/mac/Info.plist</source>
-            <outputDirectory>/Contents</outputDirectory>
+            <outputDirectory>/Digital.app/Contents</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/mac/JavaAppLauncher</source>
-            <outputDirectory>/Contents/MacOS</outputDirectory>
+            <outputDirectory>/Digital.app/Contents/MacOS</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/mac/Digital.icns</source>
-            <outputDirectory>/Contents/Resources</outputDirectory>
+            <outputDirectory>/Digital.app/Contents/Resources</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/mac/Localizable.strings</source>
-            <outputDirectory>/Contents/Resources/en.lproj</outputDirectory>
+            <outputDirectory>/Digital.app/Contents/Resources/en.lproj</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/ReleaseNotes.txt</source>
-           <outputDirectory>/Contents/SharedSupport</outputDirectory>
+           <outputDirectory>/</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/Version.txt</source>
-           <outputDirectory>/Contents/SharedSupport</outputDirectory>
+           <outputDirectory>/Digital.app/Contents/SharedSupport</outputDirectory>
             <filtered>true</filtered>
         </file>
     </files>
     <fileSets>
         <fileSet>
             <directory>${basedir}/src/main/dig/combinatorial</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/combinatorial/</outputDirectory>
+            <outputDirectory>/Examples/combinatorial/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/74xx</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/74xx/</outputDirectory>
+            <outputDirectory>/Examples/74xx/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/lib</directory>
-            <outputDirectory>/Contents/Java/lib/</outputDirectory>
+            <outputDirectory>/Digital.app/Contents/Java/lib/</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
                 <include>**/*.txt</include>
@@ -61,14 +61,14 @@
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/sequential</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/sequential/</outputDirectory>
+            <outputDirectory>/Examples/sequential/</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/processor</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/processor/</outputDirectory>
+            <outputDirectory>/Examples/processor/</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
                 <include>**/*.svg</include>
@@ -76,56 +76,56 @@
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/hazard</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/hazard/</outputDirectory>
+            <outputDirectory>/Examples/hazard/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/pld</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/pld/</outputDirectory>
+            <outputDirectory>/Examples/pld/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/cmos</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/cmos/</outputDirectory>
+            <outputDirectory>/Examples/cmos/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/nmos</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/nmos/</outputDirectory>
+            <outputDirectory>/Examples/nmos/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/graphicRam</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/graphicRam/</outputDirectory>
+            <outputDirectory>/Examples/graphicRam/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/generic</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/generic/</outputDirectory>
+            <outputDirectory>/Examples/generic/</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/misc</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/misc/</outputDirectory>
+            <outputDirectory>/Examples/misc/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/hdl</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/hdl/</outputDirectory>
+            <outputDirectory>/Examples/hdl/</outputDirectory>
             <includes>
                 <include>*.dig</include>
                 <include>*.config</include>
@@ -134,25 +134,24 @@
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/test/resources/dig/hdl_distributable</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/hdl/</outputDirectory>
+            <outputDirectory>/Examples/hdl/</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/fsm</directory>
-            <outputDirectory>/Contents/SharedSupport/examples/fsm/</outputDirectory>
+            <outputDirectory>/Examples/fsm/</outputDirectory>
             <includes>
                 <include>*.fsm</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/target/docu</directory>
-            <outputDirectory>/Contents/SharedSupport/Documentation/</outputDirectory>
+            <outputDirectory>/Documentation/</outputDirectory>
             <includes>
                 <include>*.pdf</include>
             </includes>
         </fileSet>
     </fileSets>
 </assembly>
-

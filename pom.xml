@@ -231,7 +231,7 @@
                         <id>make-distribution-mac</id>
                         <phase>install</phase>
                         <configuration>
-                            <finalName>Digital.app</finalName>
+                            <finalName>Digital_MacOS</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptor>distribution/mac/Assembly.xml</descriptor>
                         </configuration>
