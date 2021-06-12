@@ -5,7 +5,9 @@
  */
 package de.neemann.digital.draw.graphics;
 
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.draw.graphics.text.formatter.GraphicsFormatter;
+import de.neemann.digital.gui.Settings;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -21,6 +23,8 @@ public class GraphicSwing extends Graphic {
     private final int pixelSize;
     private Style lastStyle;
     private Graphics2D gr;
+    private int rasterWidth;
+    private int rasterHeight;
 
     /**
      * Creates a new instance
@@ -73,9 +77,31 @@ public class GraphicSwing extends Graphic {
         }
     }
 
+    /**
+     * Set the width of the raster that is being drawn on, in real screen pixels.
+     * @param rasterWidth width
+     */
+    public void setRasterWidth(int rasterWidth) {
+        this.rasterWidth = rasterWidth;
+    }
+
+    /**
+     * Set the height of the raster that is being drawn on, in real screen pixels.
+     * @param rasterHeight height
+     */
+    public void setRasterHeight(int rasterHeight) {
+        this.rasterHeight = rasterHeight;
+    }
+
     @Override
     public void drawLine(VectorInterface p1, VectorInterface p2, Style style) {
         applyStyle(style);
+
+        if (rasterWidth > 0 && rasterHeight > 0 && Settings.getInstance().get(Keys.SETTINGS_ONLY_DRAW_VISIBLE)
+                && !VisibilityCalculator.isLineVisible(p1, p2, gr, rasterWidth, rasterHeight)) {
+            return;
+        }
+
         gr.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 

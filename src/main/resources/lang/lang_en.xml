@@ -1532,6 +1532,8 @@
     <string name="key_tunnelRenameDialog">Show dialog for automatic renaming of tunnels.</string>
     <string name="key_tunnelRenameDialog_tt">If set, a dialog for automatically renaming all tunnels of the same name is displayed after a
         tunnel has been renamed.</string>
+    <string name="key_onlyDrawVisible">Only draw visible elements</string>
+    <string name="key_onlyDrawVisible_tt">If set, check whether an element should be drawn before drawing it.</string>
 
     <string name="key_ATMISP">ATMISP</string>
     <string name="key_ATMISP_tt">Path to the executable file ATMISP.exe. If set, the ATMISP software can be started automatically!</string>

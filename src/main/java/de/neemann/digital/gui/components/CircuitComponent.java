@@ -855,9 +855,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        int width = getWidth();
+        int height = getHeight();
         boolean newBufferRequired = buffer == null
-                || getWidth() != buffer.getWidth()
-                || getHeight() != buffer.getHeight();
+                || width != buffer.getWidth()
+                || height != buffer.getHeight();
 
         if (newBufferRequired && !isManualScale)
             fitCircuit();
@@ -866,15 +868,17 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         if (graphicHasChangedFlag || newBufferRequired) {
 
             if (newBufferRequired)
-                buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(getWidth(), getHeight());
+                buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(width, height);
 
             Graphics2D gr2 = buffer.createGraphics();
 
             GraphicSwing gr = new GraphicSwing(gr2, (int) (2 / scaleX));
             gr.enableAntiAlias(antiAlias);
+            gr.setRasterWidth(width);
+            gr.setRasterHeight(height);
 
             gr2.setColor(ColorScheme.getSelected().getColor(ColorKey.BACKGROUND));
-            gr2.fillRect(0, 0, getWidth(), getHeight());
+            gr2.fillRect(0, 0, width, height);
 
             if (scaleX > 0.3 && Settings.getInstance().get(Keys.SETTINGS_GRID))
                 drawGrid(gr2);

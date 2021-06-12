@@ -61,6 +61,7 @@ public final class Settings extends SettingsBase {
         intList.add(Keys.SETTINGS_MAC_MOUSE);
         intList.add(Keys.SETTINGS_USE_EQUALS_KEY);
         intList.add(Keys.SETTINGS_SHOW_TUNNEL_RENAME_DIALOG);
+        intList.add(Keys.SETTINGS_ONLY_DRAW_VISIBLE);
 
         return Collections.unmodifiableList(intList);
     }

@@ -516,6 +516,12 @@ public final class Keys {
             = new Key<>("tunnelRenameDialog", true).setSecondary();
 
     /**
+     * only draw elements that are visible on screen
+     */
+    public static final Key<Boolean> SETTINGS_ONLY_DRAW_VISIBLE
+            = new Key<>("onlyDrawVisible", false).setRequiresRepaint();
+
+    /**
      * output format for numbers
      */
     public static final Key<IntFormat> INT_FORMAT
