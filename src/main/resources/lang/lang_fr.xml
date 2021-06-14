@@ -1026,7 +1026,7 @@ In the file howTo.md you can find more details about translations.
     </string>
     <string name="err_cannotAnalyse_N">Impossible d''analyser le noeud {0}</string>
     <string name="err_containsVarAndNotVar">Contient [var] et [non var]</string>
-    <string name="err_duplicatePinLabel">La broche {0} dans la composante {1} existe à deux reprises</string>
+    <string name="err_duplicatePinLabel">La broche ''{0}'' dans la composante ''{1}'' existe à deux reprises.</string>
     <string name="err_element_N_notFound">La composante {0} n''a pas été trouvée</string>
     <string name="err_exact_N0_valuesNecessaryNot_N1">Des valeurs {0} exactes sont nécessaires, pas {1}</string>
     <string name="err_ffNeedsToBeConnectedToClock">La bascule doit être connectée à l'horloge.</string>

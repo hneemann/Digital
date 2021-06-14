@@ -753,7 +753,7 @@ In the file howTo.md you can find more details about translations.
   <string name="err_pullUpAndDown">No se puede conectar una resistencia pull-up y otra pull-down en la misma red.</string>
   <string name="err_cannotAnalyse_N">No se puede analizar el Nodo {0}</string>
   <string name="err_containsVarAndNotVar">Contiene [var] y [not var]</string>
-  <string name="err_duplicatePinLabel">Pin {0} del componente {1} duplicado.</string>
+  <string name="err_duplicatePinLabel">Pin ''{0}'' del componente ''{1}'' duplicado.</string>
   <string name="err_element_N_notFound">Componente {0} no encontrado</string>
   <string name="err_exact_N0_valuesNecessaryNot_N1">Se necesita valor {0} exacto, no {1}</string>
   <string name="err_ffNeedsToBeConnectedToClock">El flip-flop tiene que conectarse al reloj.</string>

@@ -363,7 +363,7 @@ In the file howTo.md you can find more details about translations.
   <string name="err_pullUpAndDown">不能将上拉和下拉电阻连接到同一网络</string>
   <string name="err_cannotAnalyse_N">不能分析结点 {0}</string>
   <string name="err_containsVarAndNotVar">包含 [var] 和 [not var]</string>
-  <string name="err_duplicatePinLabel">管脚 {0} 在组件 {1} 中重复</string>
+  <string name="err_duplicatePinLabel">管脚 ''{0}'' 在组件 ''{1}'' 中重复</string>
   <string name="err_element_N_notFound">未发现组件 {0}</string>
   <string name="err_ffNeedsToBeConnectedToClock">触发器必须连接到时钟信号</string>
   <string name="err_invalidFileFormat">文件格式无效</string>

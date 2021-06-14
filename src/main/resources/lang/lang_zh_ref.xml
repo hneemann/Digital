@@ -457,7 +457,7 @@ In the file howTo.md you can find more details about translations.
   <string name="err_pullUpAndDown">It is not allowed to connect a pull-up and pull-down resistor to the same net.</string>
   <string name="err_cannotAnalyse_N">Cannot analyse Node {0}</string>
   <string name="err_containsVarAndNotVar">Contains [var] and [not var]</string>
-  <string name="err_duplicatePinLabel">Pin {0} in component {1} exists twice</string>
+  <string name="err_duplicatePinLabel">Pin ''{0}'' in component ''{1}'' exists twice.</string>
   <string name="err_element_N_notFound">Component {0} not found</string>
     
   <string name="err_ffNeedsToBeConnectedToClock">Flip-flop needs to be connected to the clock.</string>

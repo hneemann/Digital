@@ -1047,7 +1047,7 @@
     <string name="err_pullUpAndDown">Ein Pull-Up- und Pull-Down-Widerstand in einem Netz ist nicht erlaubt.</string>
     <string name="err_cannotAnalyse_N">Element {0} kann nicht analysiert werden.</string>
     <string name="err_containsVarAndNotVar">Enthält [var] und [nicht var]</string>
-    <string name="err_duplicatePinLabel">Pin {0} in Element {1} existiert mehrfach</string>
+    <string name="err_duplicatePinLabel">Pin ''{0}'' in Element ''{1}'' existiert mehrfach.</string>
     <string name="err_element_N_notFound">Element {0} nicht gefunden</string>
     <string name="err_exact_N0_valuesNecessaryNot_N1">Es sind {0} Werte erforderlich, nicht {1}</string>
     <string name="err_ffNeedsToBeConnectedToClock">Flipflops müssen direkt mit dem Takt verbunden sein.</string>
