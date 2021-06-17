@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.28
+- Inputs and outputs can have a smaller shape.
 - adds paste functionality to ROM data editor.
 - adds some more ATF150x devices
 - Probe is able to count edges.

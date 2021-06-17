@@ -28,10 +28,9 @@ import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
  * The Clock shape
  */
 public class ClockShape implements Shape {
-    private static final int WI = OUT_SIZE / 3;
-
     private final String label;
     private final PinDescriptions outputs;
+    private final boolean small;
 
     /**
      * Creates a new instance
@@ -47,6 +46,8 @@ public class ClockShape implements Shape {
             this.label = attr.getLabel();
         else
             this.label = attr.getLabel() + " (" + pinNumber + ")";
+
+        small = attr.get(Keys.IN_OUT_SMALL);
     }
 
     @Override
@@ -69,31 +70,35 @@ public class ClockShape implements Shape {
     @Override
     public void drawTo(Graphic graphic, Style heighLight) {
         Vector wavePos;
+        int waveSize = OUT_SIZE / 3;
         if (graphic.isFlagSet(Graphic.Flag.smallIO)) {
             Vector center = new Vector(-LATEX_RAD.x, 0);
             graphic.drawCircle(center.sub(LATEX_RAD), center.add(LATEX_RAD), Style.NORMAL);
             Vector textPos = new Vector(-SIZE2 - LATEX_RAD.x, 0);
             graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.INOUT);
-            wavePos = center.sub(new Vector(2 * WI, LATEX_RAD.y + WI + 1));
+            wavePos = center.sub(new Vector(2 * waveSize, LATEX_RAD.y + waveSize + 1));
         } else {
+            int outSize = OutputShape.getOutSize(small);
+            waveSize = outSize / 3;
             graphic.drawPolygon(new Polygon(true)
-                    .add(-OUT_SIZE * 2 - 1, -OUT_SIZE)
-                    .add(-1, -OUT_SIZE)
-                    .add(-1, OUT_SIZE)
-                    .add(-OUT_SIZE * 2 - 1, OUT_SIZE), Style.NORMAL);
+                    .add(-outSize * 2 - 1, -outSize)
+                    .add(-1, -outSize)
+                    .add(-1, outSize)
+                    .add(-outSize * 2 - 1, outSize), Style.NORMAL);
 
-            Vector textPos = new Vector(-OUT_SIZE * 3, 0);
-            graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.NORMAL);
-            wavePos = new Vector(-OUT_SIZE - WI * 2, WI);
+            Vector textPos = new Vector(-outSize * 3, 0);
+            graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.INOUT);
+
+            wavePos = new Vector(-outSize - waveSize * 2, waveSize);
         }
         graphic.drawPolygon(new Polygon(false)
                 .add(wavePos)
-                .add(wavePos.add(WI, 0))
-                .add(wavePos.add(WI, -WI * 2))
-                .add(wavePos.add(2 * WI, -WI * 2))
-                .add(wavePos.add(2 * WI, 0))
-                .add(wavePos.add(3 * WI, 0))
-                .add(wavePos.add(3 * WI, -WI * 2))
-                .add(wavePos.add(4 * WI, -WI * 2)), Style.THIN);
+                .add(wavePos.add(waveSize, 0))
+                .add(wavePos.add(waveSize, -waveSize * 2))
+                .add(wavePos.add(2 * waveSize, -waveSize * 2))
+                .add(wavePos.add(2 * waveSize, 0))
+                .add(wavePos.add(3 * waveSize, 0))
+                .add(wavePos.add(3 * waveSize, -waveSize * 2))
+                .add(wavePos.add(4 * waveSize, -waveSize * 2)), Style.THIN);
     }
 }
