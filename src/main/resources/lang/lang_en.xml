@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="addr">Address</string>
     <string name="tableOfContent">Table of Contents</string>
@@ -90,10 +90,9 @@
     </string>
     <string name="elem_XNOr">XNOr</string>
     <string name="elem_XNOr_tt">A combination of XOR and NOT. The inputs are combined with the XOR operation.
-        The result of this operation than is inverted.
+        The result of this operation is then inverted.
         It is also possible to use buses with several bits per input. In this case, the operation is applied to each
-        bit of the inputs.
-    </string>
+        bit of the inputs.</string>
     <string name="elem_Not">Not</string>
     <string name="elem_Not_tt">Inverts the input value. A 1 becomes a 0 and a 0 becomes 1.
         It is also possible to use a bus with several bits per input. In this case, the operation is applied to each
@@ -125,8 +124,7 @@
     <string name="elem_Out_tt">Can be used to display an output signal in a circuit.
         This element is also used to connect a circuit to an embedding circuit.
         In this case the connection is bidirectional.
-        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
-    </string>
+        Is also used to assign a pin number, if the code for a CPLD or FPGA is generated.</string>
     <string name="elem_Out_pin_in">This value is used for the output connection.</string>
     <string name="elem_LED">LED</string>
     <string name="elem_LED_tt">A LED can be used to visualize an output value. Accepts a single bit.
@@ -141,7 +139,7 @@
     <string name="elem_RGBLED_pin_B">The blue color channel.</string>
 
     <string name="elem_PolarityAwareLED">LED with two connections.</string>
-    <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up,
+    <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up
         if the anode is connected to high and the cathode is connected to low.
         This LED cannot be used as a pull-down resistor. It acts solely as a display element.
         The shown resistor is only meant to symbolize the required series resistor to limit the current.</string>
@@ -161,13 +159,12 @@
     <string name="elem_DipSwitch_pin_out">The output value of the switch.</string>
 
     <string name="elem_Clock">Clock Input</string>
-    <string name="elem_Clock_tt">A clock signal. Its possible to control it by a real-time clock.
+    <string name="elem_Clock_tt">A clock signal. It's possible to control it by a real-time clock.
         Depending on the complexity of the circuit, the clock frequency achieved may be less than the selected value.
         If the frequency is greater than 50Hz, the graphic representation of the circuit will no longer be updated at
         every clock cycle so that the wire colors will no longer be updated.
         If the real-time clock is not activated, the clock can be controlled by mouse clicks.
-        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
-    </string>
+        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.</string>
     <string name="elem_Clock_pin_C">Switches between 0 and 1 with the selected clock frequency.</string>
     <string name="elem_Button">Button</string>
     <string name="elem_Button_tt">A simple push button which goes back to its original state when it is released.</string>
@@ -261,9 +258,8 @@
         A separate window is opened for the text input.
     </string>
     <string name="elem_Keyboard_pin_C">Clock. A rising edge removes the oldest character from the buffer.</string>
-    <string name="elem_Keyboard_pin_en">If high the output D is active and one character is output.
-        It also enables the clock input.
-    </string>
+    <string name="elem_Keyboard_pin_en">If high, the output D is active and one character is output.
+        It also enables the clock input.</string>
     <string name="elem_Keyboard_pin_D">The last typed character, or zero if no character is available.
         Output is the 16 bit Java char value.
     </string>
@@ -809,8 +805,8 @@
     <string name="elem_Comparator_pin_a">Input a to compare.</string>
     <string name="elem_Comparator_pin_b">Input b to compare.</string>
     <string name="elem_Comparator_pin_=">Output is 1 if input a equals input b</string>
-    <string name="elem_Comparator_pin_&gt;">Output is 1 if input a is greater then input b</string>
-    <string name="elem_Comparator_pin_&lt;">Output is 1 if input a is less then input b</string>
+    <string name="elem_Comparator_pin_&gt;">Output is 1 if input a is greater than input b</string>
+    <string name="elem_Comparator_pin_&lt;">Output is 1 if input a is less than input b</string>
     <string name="elem_Neg">Negation</string>
     <string name="elem_Neg_short">Neg</string>
     <string name="elem_Neg_tt">Negation in the 2th complement</string>
@@ -1093,12 +1089,12 @@
     <string name="err_noTestData">No test data found.</string>
     <string name="err_pullUpAndDownNotAllowed">It's not allowed to connect a pull up and a pull down resistor to a single wire.</string>
     <string name="err_openingDocumentation">Could not open the browser.</string>
-    <string name="err_couldNotCreateFolder_N0">Could not create folder &quot;{0}&quot;!</string>
+    <string name="err_couldNotCreateFolder_N0">Could not create folder "{0}"!</string>
     <string name="err_switchHasNoNet">It is not allowed to connect only inputs to a switch.</string>
     <string name="err_file_N0_ExistsTwiceBelow_N1">The file {0} exists multiple times under {1}.</string>
     <string name="err_couldNotFindIncludedFile_N0">Could not find the file {0}.</string>
-    <string name="err_postProcessErrorIn_N0">Error during execution of &quot;{0}&quot;.</string>
-    <string name="err_processDoesNotTerminate_N">The process &quot;{0}&quot; does not return!</string>
+    <string name="err_postProcessErrorIn_N0">Error during execution of "{0}".</string>
+    <string name="err_processDoesNotTerminate_N">The process "{0}" does not return!</string>
     <string name="err_processExitedWithError_N1_N2">The process returns the non zero value {0}: {1}</string>
     <string name="err_errorRunningFitter">Error starting the external fitter!</string>
     <string name="err_noExpressionsAvailable">There are no minimized equations!</string>
@@ -1146,7 +1142,7 @@
     <string name="err_notMoreOutBitsThanInBits">There must be more input bits than output bits!</string>
     <string name="err_constantsNotAllowed">It is not possible to set physical pins to constant values!</string>
     <string name="err_invalidNumberFormat_N_N">The string {0} is not a valid number (pos {1})!</string>
-    <string name="err_invalidPinName_N">The name &quot;{0}&quot; is not allowed!</string>
+    <string name="err_invalidPinName_N">The name "{0}" is not allowed!</string>
     <string name="err_whiteSpaceNotAllowedInTT2Name">No white space is allowed in the name of the TT2 file!</string>
     <string name="err_tableHasToManyResultColumns">The table has too many columns!</string>
     <string name="err_errorExportingZip">Error writing the ZIP file.</string>
@@ -2061,7 +2057,7 @@
     <string name="msg_test_missingLines_tt">All test cases are executed, but not all results are shown.
         The evaluation of the test result is nevertheless correct!</string>
     <string name="msg_isLocked">The editing of the circuit is disabled. You can remove the lock at
-        "{0} -> {1} -> {2}".
+        "{0} -&gt; {1} -&gt; {2}".
         However, copying of components and the configuration of diodes and FGFETs with the [P] key is also possible in
         the locked mode.
     </string>
