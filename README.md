@@ -204,9 +204,9 @@ which makes it difficult to use bidirectional pins.
 
 If a complete processor is simulated, it is possible to calculate the simulation without an update of the 
 graphical representation.
-A simple processor (see example) can be simulated with a 120kHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz),
-which is suitable also for more complex assembly exercises like Conway's Game of Live.
-There is a break gate having a single input. If this input changes from low to high this quick run is stopped.
+A simple processor (see example) can be simulated with a 120kHz clock (Intel® Core ™ i5-3230M CPU @ 2.60GHz), which is
+suitable also for more complex assembly exercises like Conway's Game of Life. There is a break gate having a single
+input. If this input changes from low to high this quick run is stopped.
 This way, an assembler instruction BRK can be implemented, which then can be used to insert break points
 in assembly language programs. So the debugging of assembly programs becomes very simple.
 
