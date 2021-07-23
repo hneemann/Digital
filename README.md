@@ -77,23 +77,21 @@ All other tests, including the HDL tests, were executed without errors.
 
 ## Documentation ##
 
-The [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English, 
-German, Spanish, Portuguese, French and simplified Chinese.
-It is still very incomplete but it contains a chapter "First Steps" which explains the basic usage of Digital.
-The documentation also contains a list of available 74xx chips and a list of available keyboard shortcuts. 
+The [documentation](https://github.com/hneemann/Digital/releases/latest) is available in English, German, Spanish,
+Portuguese, French, Italian and simplified Chinese. It is still very incomplete but it contains a chapter "First Steps"
+which explains the basic usage of Digital. The documentation also contains a list of available 74xx chips and a list of
+available keyboard shortcuts.
 
 ## Translations ##
 
-So far Digital is available in English, German, Spanish, Portuguese, French and simplified Chinese. 
-If someone wants to add a 
-new translation, please let me [know](mailto:digital-simulator@web.de).
-I can provide you with a special file for translation. This file is much easier to 
-translate than the [files](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang) 
-used directly by Digital. So you don't have to deal with GitHub or the 
-Java source code. Simply add the respective translation of the English 
-text to this file and send it back to [me](mailto:digital-simulator@web.de). 
-If you want to know how to create the necessary files yourself, see 
-[here](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang/howTo.md). 
+So far Digital is available in English, German, Spanish, Portuguese, French, Italian and simplified Chinese. If someone
+wants to add a new translation, please let me [know](mailto:digital-simulator@web.de). I can provide you with a special
+file for translation. This file is much easier to translate than
+the [files](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang)
+used directly by Digital. So you don't have to deal with GitHub or the Java source code. Simply add the respective
+translation of the English text to this file and send it back to [me](mailto:digital-simulator@web.de). If you want to
+know how to create the necessary files yourself, see
+[here](https://github.com/hneemann/Digital/blob/master/src/main/resources/lang/howTo.md).
 
 ## Comments ##
 
