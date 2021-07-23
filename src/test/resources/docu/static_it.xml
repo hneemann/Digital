@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <chapter heading="Digital">
+        <subchapter heading="Introduzione">
+            <par>
+                Digital è un semplice simulatore utilizzato per simulare circuiti digitali. Le porte logiche
+                sono connesse tra di loro da cavi e il comportamento complessivo del circuito può essere simulato.
+                L'utente può interagire con la simulazione o premendo i bottoni o impostando i valori degli
+                ingressi del circuito.
+            </par>
+            <par>
+                In questo modo, la maggior parte dei circuiti di base utilizzati nell'elettronica digitale può essere costruita e simulata.
+                Nella cartella <e>examples</e>, gli utenti possono sfogliare gli esempi che includono anche un processore Harvard funzionale a ciclo
+                singolo a 16 bit.
+            </par>
+            <par>
+                Il simulatore ha due modalità di funzionamento: modifica e simulazione.
+                Nella modalità di modifica, si può apportare modifiche al circuito. Gli utenti possono aggiungere o connettere componenti.
+                In questa modalità, la simulazione è disabilitata.
+                La modalità simulazione invece è attivata premendo il tasto <e>Avvia</e> nella barra degli strumenti.
+                Se ci sono errori nel circuito, un messaggio appropriato è mostrato e i componenti o cavi affetti da problemi sono evidenziati.
+                Se il circuito non ha errori, la simulazione è abilitata. Ora si può interagire con l'esecuzione della simulazione.
+                Nella modalità simulazione non è possibile modificare il circuito. Per far ciò, bisogna attivare la modalità di modifica ancora,
+                fermando prima la simulazione.
+            </par>
+        </subchapter>
+        <subchapter heading="Primi Passi">
+            <par><image src="scr00.png"/></par>
+            <par>
+                Come primo esempio, un circuito è costruito con una porta XOR.
+                Dalla finestra principale, il menù <e>Componenti</e> consente di selezionarne vari.
+                Possono essere poi piazzati nel pannello di disegno/progettazione. Questo processo può essere cancellato premendo
+                il tasto ESC in qualsiasi momento.
+                Inizia selezionando un componente di ingresso.
+                Questo può essere controllato interattivamente più tardi utilizzando il mouse.
+            <par><image src="scr01.png"/></par>
+            <par>
+                Dopo la selezione, il primo ingresso può essere posizionato nel pannello di progettazione.
+                Il pallino rosso sul simbolo del componente di ingresso è un punto di connessione tra il componente ed il cavo,
+                che sarà connesso più avanti.
+                Il colore rosso indica un'uscita. Questo significa che la porta definisce un valore di segnale in uscita che può
+                pilotare un cavo.
+            </par>
+            <par><image src="scr02.png"/></par>
+            <par>
+                Nella stessa maniera, un secondo ingresso è aggiunto. Si ritiene buona pratica posizionarlo direttamente sotto il primo ingresso.
+            </par><image src="scr03.png"/></par>
+            <par>
+                Dopo aver aggiunto tutti gli ingressi, la porta XOR è selezionata. Questa porta rappresenta la funzione logica.
+            </par>
+            <par><image src="scr04.png"/></par>
+            <par>
+                Anche questa porta può essere aggiunta al circuito. Si ritiene buona pratica posizionarla in maniera tale che
+                tutto il cablaggio successivo è reso più semplice possibile. I pallini blu indicano i terminali di ingresso della porta.
+            </par>
+            <par><image src="scr05.png"/></par>
+            <par>
+                Ora, seleziona un'uscita che può essere utilizzata per visualizzare lo stato del segnale o per successivamente passare i segnali ad un
+                circuito incorporato.
+            </par>
+            <par><image src="scr06.png"/></par>
+            <par>
+                Questo è posizionato in un modo tale da essere cablato con facilità.
+                L'uscita ha un pallino blu, che indica un terminale di ingresso.
+                Qui puoi fornire il valore che è poi esportato.
+            </par>
+            <par><image src="scr07.png"/></par>
+            <par>
+                Dopo che tutti i componenti sono stati selezionati e posizionati, utilizza il mouse per creare una connessione tra i pallini
+                blu e rosso. Assicurati che esattamente un pallino rosso è connesso ad un certo numero di pallini blu.
+                Solo l'uso di uscite a tre stati rende possibile deviare da questa regola e connettere più pallini rossi.
+                Se tutti i cavi sono stati posizionati, il circuito è completo.
+            </par>
+            <par><image src="scr08.png"/></par>
+            <par>
+                L'interazione con il circuito è possibile quando la simulazione è stata avviata.
+                Questo si effettua premendo il bottone di avvio localizzato nella barra degli strumenti.
+                Dopo aver avviato la simulazione, il colore dei cavi cambia e gli ingressi ed uscite sono ora calcolati.
+                Verde chiaro indica un valore logico "1", mentre invece verde scuro indica un valore logico "0".
+                Nella figura di sopra, tutti i cavi hanno un valore "0".
+            </par>
+            <par><image src="scr09.png"/></par>
+            <par>
+                Premendo il bottone del mouse, il valore degli ingressi può essere invertito. Visto che la simulazione è ora attiva,
+                l'uscita cambia a seconda degli stati attuali di ingresso. Il circuito si comporta come una porta XOR come ci
+                si aspettava.
+            </par>
+            <par><image src="scr10.png"/></par>
+            <par>
+                Per un ulteriore cambiamento del circuito, la simulazione va prima fermata. Il modo più facile di fare ciò
+                è con il bottone di stop nella barra degli strumenti. Premendo il bottone del mouse su un componente con il tasto destro
+                (control-click su macOS) apre una finestra di dialogo che mostra le proprietà del componente. L'etichetta "A"
+                può essere definita per il primo ingresso tramite questo dialogo.
+            </par>
+            <par><image src="scr11.png"/></par>
+            <par>
+                Nello stesso modo, le etichette per i rimanenti ingressi ed uscite possono essere definite. L'opzione nel menù
+                <e>Analisi</e> contiene una funzionalità di <e>Analisi</e>. Questa funzione effettua un'analisi del circuito attuale.
+                Questo rimane comunque possibile se tutti gli ingressi ed uscite sono stati etichettati appropriatamente.
+            </par>
+            <par><image src="scr12.png"/></par>
+            <par>
+                La tabella di verità del circuito simulato appare in una nuova finestra. Sotto la tabella si possono trovare
+                le espressioni algebriche associate al circuito. Se ci sono più possibili espressioni algebriche, una finestra
+                separata si aprirà, mostrando tutte le possibili espressioni.
+            </par>
+            <par><image src="scr13.png"/></par>
+            <par>
+                La finestra di dialogo contenente la tabella ha una opzione nel menù principale chiamata <e>K-Map</e>. Questa consente la
+                visualizzazione della tabella di verità con una mappa di Karnaugh.
+            </par>
+            <par><image src="scr14.png"/></par>
+            <par>
+                Nella parte superiore di questa finestra di dialogo c'è una lista che consente la selezione dell'espressione
+                desiderata da visualizzare nella mappa di Karnaugh. In questo modo è possibile, per esempio, illustrare come
+                alcune espressioni algebriche equivalenti possono risultare. In questo esempio però c'è una sola espressione
+                minimizzata. La tabella di verità può anche essere modificata cliccando sulla mappa di Karnaugh.
+            </par>
+        </subchapter>
+        <subchapter heading="Cavi">
+            <par>
+                Tutti i componenti devono essere connessi tramite cavi. Non è possibile connettere due componenti
+                posizionandoli direttamente l'uno vicino all'altro.
+            </par>
+            <par>
+                In aggiunta, ci sono soltanto connessioni tra un punto terminale di un cavo ed un componente.
+                Se un pin di un componente è posizionato nel mezzo di un cavo, nessuna connessione è creata tra il componente
+                ed il cavo. Il cavo quindi deve terminare su ogni pin al quale lo si vuole connettere. Anche se il componente
+                tunnel è utilizzato, ci deve essere un cavo tra il pin ed il componente tunnel.
+            </par>
+            <par>
+                Il componente deve essere selezionato usando lo strumento di selezione rettangolare per spostarlo assieme ai
+                cavi collegati. Per spostare un componente senza i cavi collegati, seleziona il componente con un click del mouse.
+            </par>
+            <par>
+                Con ctrl+click un singolo cavo può essere selezionato per spostarlo o eliminarlo.
+                Se il tasto D è premuto mentre si disegna un cavo, un cavo diagonale può essere posizionato.
+                Il tasto S invece consente la divisione di un segmento in due segmenti rispettivi.
+            </par>
+        </subchapter>
+        <subchapter heading="Progettazione Gerarchica">
+            <par>
+                Se un circuito complesso viene costruito, questo può velocemente causare confusione. Per tenerne traccia,
+                le differenti parti del circuito possono essere memorizzate in file separati. Questo meccanismo rende possibile
+                utilizzare quella sezione separata come un sottocircuito, che è stato creato una sola volta ma può essere
+                riutilizzato numerose volte in altri circuiti. Questo approccio offre anche il vantaggio che i file possono
+                essere memorizzati indipendentemente l'uno rispetto all'altro in un sistema di controllo delle revisioni e quindi
+                i cambiamenti possono essere tracciati.
+            </par>
+            <par><image src="scr20.png"/></par>
+            <par>
+                A titolo di esempio, si consideri un sommatore a 4 bit: prima si costruisce un semplice half-adder. Questo
+                consiste in una porta XOR ed una AND. La somma dei due bit "A" e "B" è data nelle uscite "S" e "C".
+                Il circuito è memorizzato nel file <e>halfAdder.dig</e>.
+            </par>
+            <par><image src="scr21.png"/></par>
+            <par>
+                Da due half-adder, un full-adder può essere ora costruito. Per fare ciò, si crea un nuovo file e lo si
+                salva come <e>fullAdder.dig</e> nella stessa cartella dove si trova l'half-adder. Successivamente, l'half-adder
+                può essere aggiunto nel circuito tramite il menù <e>Componenti<arrow/>Personalizzati</e>.
+                L'ordine dei pin nel package dell'half-adder può essere cambiato dall'half-adder nel menù <e>Modifica<arrow/>Ordina ingressi</e>
+                oppure <e>Modifica<arrow/>Ordina uscite</e>.
+                Il sommatore aggiunge i tre bit "A", "B" e "Ci" e restituisce la somma nelle uscite "S" e "Co".
+            </par>
+            <par><image src="scr22.png"/></par>
+            <par>
+                Per verificare la corretta funzionalità del sommatore, un test case dovrebbe essere aggiunto. In un test case,
+                la tabella di verità viene specificata, che dovrebbe rispecchiare quella del circuito. In questo modo è
+                automaticamente possibile verificare la corrispondenza.
+            </par>
+            <par><image src="scr23.png"/></par>
+            <par>
+                I test possono essere eseguiti nella schermata di modifica del test case oppure con il rispettivo bottone
+                nella barra degli strumenti. Le celle della tabella evidenziate in verte indicano che le uscite del circuito
+                corrispondono alla tabella di verità costruita dal circuito.
+            </par>
+            <par><image src="scr24.png"/></par>
+            <par>
+                Ora i sommatori possono essere composti insieme per creare un ripple-adder.
+                In questo caso, il riporto in uscita di una addizione è inviato come riporto in ingresso all'addizione
+                successiva del bit un ordine più alto, come si usa fare nella somma su carta.
+                Questo sommatore a 4 bit può essere testato. A questo scopo, un test case è stato inserito.
+            </par>
+            <par><image src="scr25.png"/></par>
+            <par>
+                Questo test case effettua un test al 100%, che è possibile soltanto con circuiti relativamente semplici: tutte le
+                512 combinazioni degli ingressi sono applicate al circuito e il risultato viene controllato.
+                La prima lina elenca i segnali di ingresso ed uscita. Sotto di essa, i valori di ingresso da applicare e i valori di uscita
+                da controllare sono specificati in una riga, come in una tabella di verità.
+                In questo esempio però, 512 righe sono richieste. Inserire queste righe sarebbe un processo tedioso e potrebbe
+                portare ad errori. Risulta più facile ed affidabile generare automaticamente queste linee.
+                A questo scopo, le variabili <e>A</e> e <e>B</e> sono entrambe fatte iterare da 0 a 15. I rispettivi valori sono poi
+                assegnati agli ingressi "A[n]" e "B[n]". Si controlla poi l'uscita del circuito corrispondente ad <e>A+B</e>.
+                Si controlla anche se il bit di riporto è stato impostato, ovvero se <e>A+B+1</e> è risultato.
+                I dettagli della sintassi del test case sono forniti dalla finestra di dialogo dell'aiuto.
+            </par>
+            <par>
+                Se un circuito è incorporato all'interno di un altro, soltanto il nome del file del sottocircuito è memorizzato nel circuito,
+                non lo stesso circuito incorporato. Di conseguenza, durante la simulazione i file dei sottocircuiti devono essere localizzabili
+                dal simulatore. Per evitare problemi di amministrazione dei percorsi importati, una insolita strategia è stata adottata.
+            </par>
+            <par>
+                Solo i nomi del file di un circuito incorporato sono memorizzati all'interno di un file di circuito, non il
+                percorso completo. Se un file deve essere aperto, tutte le sottocartelle vengono esplorate alla ricerca di quel file.
+                Se un file compatibile viene trovato, esso è importato. Questo processo dipende solamente dal nome del file da leggere,
+                non dal suo percorso. Nella stessa maniera, un errore è generato se ci sono più file con lo stesso nome in
+                diverse sottocartelle, visto che potrebbero nascere delle ambiguità.
+            </par>
+            <par>
+                Una struttura del progetto adeguata può essere quindi costruita così: il circuito principale è localizzato
+                in una cartella separata. Tutti i circuiti da importare sono nella stessa cartella o sottocartelle. Tutti i circuiti
+                devono avere nomi differenti, quindi non ci devono essere circuiti con lo stesso nome in sottocartelle diverse.
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="Simulazione">
+        <subchapter heading="Ritardo di Propagazione">
+            <par>
+                Durante la simulazione ogni porta logica ha un ritardo di propagazione. Ogni componente trovato nella libreria ha lo stesso
+                ritardo di propagazione indipendentemente dalla sua complessità.
+                La porta AND ha quindi lo stesso ritardo di un moltiplicatore.
+                Le uniche eccezioni sono i diodi, interruttori e splitter che sono usati per creare bus dati.
+                Questi componenti non hanno alcun ritardo di propagazione.
+            </par>
+            <par>
+                Se è necessario simulare una porta - per esempio il moltiplicatore - con un ritardo più lungo, una porta di
+                ritardo deve essere inserita esattamente prima dell'uscita del moltiplicatore.
+            </par>
+            <par>
+                Se un circuito viene incluso in un altro circuito padre, il circuito incluso mantiene il suo comportamento temporale.
+                Quindi se si include un circuito che ha un lungo tempo di propagazione perché i segnali di ingresso devono passare
+                all'interno di molte porte prima di raggiungere l'uscita, questo comportamento è conservato dopo l'inclusione del circuito.
+                Non ci sono ritardi aggiuntivi introdotti dall'inclusione di un circuito. Se non tutte le uscite del circuito hanno
+                lo stesso ritardo di propagazione, allora questo lo si vede anche nel circuito incluso.
+                In generale, includere un circuito in un altro si comporta nello stesso modo in cui si comporta un circuito con tutti gli stessi
+                componenti interni aggiunti a mano.
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="Analisi">
+        <subchapter heading="Analisi e Sintesi dei Circuiti">
+            <par>
+                Un circuito può essere analizzato tramite la voce di menù <e>Analisi</e>. Una tabella di verità è generata
+                per circuiti puramente combinatori. Questa tabella di verità può essere modificata a piacere. Un nuovo circuito
+                può essere generato a partire da questa tabella di verità modificata.
+            </par>
+            <par>
+                In aggiunta a circuiti puramente combinatori, è anche possibile analizzare o generare circuiti sequenziali.
+                Anziché una semplice tabella di verità, una tabella di transizione di stato è creata.
+                Ogni flip-flop quindi appare nel lato degli ingressi e uscite della tabella di transizione degli stati.
+                In questa tabella, nel lato destro si trovano gli stati successivi, a cui si effettuerà la transizione al
+                prossimo segnale di clock. Lo stato successivo dipende dallo stato corrente del flip-flop, come specificato
+                nel lato sinistro della tabella. Per rendere possibile l'analisi, ciascun flip-flop deve avere un nome.
+            </par>
+            <par>
+                La seguente convenzione di nomenclatura si applica: lo stato successivo di un bit nel lato destro della tabella
+                è indicato come "n+1". Il corrispondente stato corrente è indicato con un suffisso "n". Se c'è una variabile
+                di stato "A", "An" indica lo stato corrente e "An+1" indica lo stato successivo.
+                Se, nella tabella di verità sul lato destro e sinistro, sono presenti dei segnali che corrispondono a questa
+                descrizione, si assume che la tabella di verità sia una tabella di transizione e quindi un circuito sequenziale
+                è generato al posto di uno combinatorio.
+            </par>
+            <par>
+                Si noti che il circuito da analizzare potrebbe contenere elementi puramente combinatori in aggiunta ai
+                flip-flop JK e D. Se un flip-flop è, per esempio, fatto da porte NOR, questo circuito non è riconosciuto
+                come un flip-flop e quindi non è possibile analizzarlo.
+            </par>
+        </subchapter>
+        <subchapter heading="Espressione">
+            <par>
+                Tramite la voce di menù <e>Espressione</e> è possibile inserire una funzione booleana dalla quale generare
+                poi un circuito.
+            </par>
+        </subchapter>
+        <subchapter heading="Grafici di Stato">
+            <par>
+                Un editor per i grafici di stato è disponibile tramite la voce di menù <e>Macchina a Stati Finiti</e>.
+                Consente la creazione garfica di macchine a stati disegnando stati e transizioni. Di conseguenza, uscite
+                differenti possono essere impostate in stati differenti.
+                Fornendo le transizioni con condizioni, i segnali di ingresso possono essere generati. Impostando i
+                valori di uscita nelle transizioni, un automa di Mealy può essere definito.
+            </par>
+            <par>
+                La macchina a stati definita in questo modo può essere quindi automaticamente trasferita in una tabella
+                di transizione dalla quale, in un passo successivo, un circuito che implementa la macchina a stati
+                iniziale può essere generato. Se la simulazione di questo circuito è avviata, lo stato corrente può anche
+                essere visualizzato dal grafico degli stati.
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="Hardware">
+        <subchapter heading="GAL16v8 e GAL22v10">
+            <par>
+                Nel menù di generazione del circuito nella tabella di verità ci sono anche funzioni per generare i 
+                cosiddetti file JEDEC. Questo è un formato speciale che descrive la mappa dei fusibili di un PLD.
+                Questo file JEDEC può essere scritto in un corrispondente PLD utilizzando un programmatore speciale.
+                Al momento, circuiti del tipo <e>GAL16v8</e> e <e>GAL22v10</e> o compatibili con dispositivi a mappa di fusibili
+                sono supportati.
+            </par>
+        </subchapter>
+        <subchapter heading="ATF150xAS">
+            <par>
+                I circuiti nella famiglia
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
+                </a>
+                sono semplici CPLD con al massimo 128 macrocelle. Sono disponibili in un package PLCC, che li rende utili
+                per esercizi di laboratorio: se un circuito integrato viene distrutto durante gli esercizi, può essere
+                semplicemente sostituito. In aggiunta, con 
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/hardware/atdh1150usb">
+                    <e>ATDH1150USB</e>
+                </a>
+                un programmatore a basso costo e semplice da utilizzare è disponibile. Questo programmatore è in grado di
+                programmare i chip
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
+                    <e>ATF150x</e>
+                </a>
+                nel sistema utilizzando una interfaccia JTAG. Una scheda di valutazione compatibile
+                <a href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATF15XX-DK3-U">
+                    (<e>ATF15XX-DK3-U</e>)
+                </a>
+                è disponibile. Il software
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
+                    <e>ATMISP</e>
+                </a>, 
+                che è disponibile nel sito di ATMEL/Microchip è richiesto per programmare i circuiti.
+            </par>
+            <par>
+                Sfortunatamente, i dettagli della mappa a fusibili non sono pubblicamente disponibili quindi nessun
+                fitter per questo circuito può essere integrato in Digital, come è possibile con circuiti <e>GAL16v8</e> and <e>GAL22v10</e>.
+            </par>
+            <par>
+                Quindi, i fitter <e>fit150[x].exe</e> forniti da ATMEL devono essere utilizzati. Questi programmi creano un file
+                <e>JEDEC</e> da un file <e>TT2</e> compatibile, che può essere quindi programmato sul chip. Digital avvia il
+                fitter automaticamente ogni volta che un file <e>TT2</e> viene creato. A questo scopo, il percorso di <e>fit150[n].exe</e>
+                deve essere specificato nelle impostazioni. Il file <e>JEDEC</e> creato può poi essere aperto e programmato
+                direttamente con 
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/atmisp">
+                    <e>ATMISP</e>
+                </a>.
+            </par>
+            <par>
+                Per motivi legali, il fitter <e>fit1502.exe</e> non può essere distribuito con Digital. Può però essere trovato nella cartella
+                <e>WinCupl\Fitters</e> dopo aver installato
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
+                    <e>WinCupl</e>
+                </a>.
+                <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/tools/software/wincupl">
+                    <e>WinCupl</e>
+                </a>
+                è disponibile dal sito ATMEL/Microchip. Sui sistemi Linux, i fitter possono essere eseguiti da Digital se <e>wine</e> è installato.
+            </par>
+        </subchapter>
+        <subchapter heading="Esportare a VHDL o Verilog">
+            <par>
+                Un circuito può essere esportato in VHDL o Verilog. Un file viene generato e contiene la descrizione completa del
+                circuito. Il codice VHDL generato è stato testato con <a
+                    href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
+                e il simulatore VHDL open-source <a href="http://ghdl.free.fr/">ghdl</a>. Il codice Verilog è invece stato testato
+                con il simulatore Verilog <a href="http://iverilog.icarus.com/">Icarus Verilog</a>.
+            </par>
+            <par>
+                Se un circuito contiene dei test case, i dati di test possono essere usati per generare una test bench HDL. Questa
+                può essere usata per verificare la corretta funzionalità del circuito nella simulazione HDL.
+            </par>
+            <par>
+                File aggiuntivi che sono richiesti da schede specifiche possono essere creati. Attualmente, soltanto la scheda
+                <a href="https://reference.digilentinc.com/reference/programmable-logic/basys-3/start">BASYS3</a> e le schede
+                <a href="https://numato.com/product/mimas-spartan-6-fpga-development-board">Mimas</a>
+                e <a
+                    href="https://numato.com/product/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram">Mimas V2</a>
+                sono supportate. Un file di vincoli è creato, che contiene gli assegnamenti dei pin. La descrizione dei pin
+                può essere trovata nel datasheet della scheda e deve essere inserito come un numero di pin per gli ingressi
+                e le uscite.
+            </par>
+            <par>
+                Per una scheda BASYS3, se la frequenza di clock del circuito è bassa, un divisore di frequenza è integrato
+                all'interno del codice HDL per dividere il clock della scheda correttamente.
+                Se la frequenza selezionata supera i 4.7MHz, l'unità MMCM dell'Artix-7 è utilizzata per la generazione
+                del clock. Questo fa sì che le risorse FPGA fornite per la distribuzione del clock siano utilizzate.
+                Questo consente al processore di esempio incluso di eseguire a 20MHz; se si riesce a farlo senza il
+                moltiplicatore si raggiungono anche i 30MHz.
+            </par>
+            <!--par>
+                Also at the Mimas-Boards the Spartan 6 DCM is utilized for the clock generation.
+            </par-->
+            <par>
+                Se un circuito viene fatto eseguire su una scheda BASYS3, un nuovo progetto può essere creato in Vivado.
+                Il file VHDL generato e i file dei vincoli devono essere aggiunti al progetto.
+                Una volta che il progetto è stato creato, il bitstream può essere generato e l'hardware manager può
+                essere utilizzato per programmare la scheda.
+            </par>
+            <par>
+                Per poter creare il file dei vincoli richiesto in aggiunta al file HDL, la scheda corrispondente deve
+                essere configurata nelle impostazioni. Nel campo "Configurazione della Toolchain", il file XML corrispondente
+                può essere selezionato.
+                Le configurazioni disponibili possono essere trovate nella cartella <e>examples/hdl</e> e hanno l'estensione
+                file <e>.config</e>. Se la configurazione viene integrata con successo, un menù aggiuntivo compare, che rende
+                disponibili le funzionalità specifiche della scheda.
+            </par>
+        </subchapter>
+    </chapter>
+    <chapter heading="Figure Personalizzate">
+        <par>
+            Anche se Digital ha alcune opzioni che modificano l'aspetto di un circuito quando viene incorporato in un altro,
+            in alcuni casi è utile utilizzare una figura specifica per un particolare sottocircuito. Un esempio è la
+            rappresentazione dell'ALU nel processore incluso negli esempi. Questo capitolo spiega come definire queste
+            figure speciali per un circuito.
+        </par>
+        <par>
+            Digital non fornisce un editor per creare una figura. Anzi, una piccoola digressione è richiesta per capire come
+            creare le figure del circuito: prima di tutto, il circuito che deve essere rappresentato da una figura particolare
+            deve essere aperti. Successivamente un template SVG viene creato per questo circuito. Nel template, il circuito
+            è rappresentato da un semplice rettangolo. Questo contiene anche tutti i pin del circuito, rappresentati dai
+            pallini blu (ingressi) e da quelli rossi (uscite). Per vedere quale pallino appartiene a quale pin, bisogna guardare
+            all'ID del pallino nelle proprietà dell'oggetto. Questo ID ha la forma <e>pin:[nome]</e> o <e>pin+:[nome]</e>.
+            Nella seconda variante, il pin è fornito con un'etichetta se reimportato all'interno di Digital.
+            Se non si vuole tale etichetta, il segno <e>+</e> può essere rimosso.
+        </par>
+        <par>
+            Il file SVG può ora essere modificato. Il programma open-source più utile e compatibile è
+            <a href="https://inkscape.org/en/">Inkscape</a> che è disponibile in forma gratuita. I pin possono essere
+            spostati liberamente, ma sono mossi nel punto della griglia successivo durante la reimportazione.
+        </par>
+        <par>
+            Se un file SVG preesistente deve essere utilizzato, è più facile aprire il template creato e incollare la grafica
+            esistente all'interno del template con copia-incolla.
+        </par>
+        <par>
+            Se il file è stato salvato, può essere importato con Digital. Il file viene letto e tutte le informazioni necessarie
+            sono estratte e memorizzate nel circuito. Per un uso successivo del circuito, il file SVG non è più richiesto.
+        </par>
+        <par>
+            Una importante nota: SVG è un format molto potente e flessibile. Questo può essere utilizzato per descrivere grafiche estremamente
+            complesse. L'importazione in Digital non sarà in grado di riconoscere tutti i tipi di grafica SVG senza errori. Se un file non può
+            essere importato, è utile fare un po' di sperimentazione per capire quale componente grafico possa causare dei problemi.
+        </par>
+    </chapter>
+    <chapter heading="Circuiti Generici">
+        <par>
+            Si consideri un circuito che vada incorporato all'interno di un altro ed utilizzato in vari modi.
+            Per esempio, si può immaginare un particolare contatore che è necessario abbia differente numero di bit.
+            Se uno deve creare un circuito per 4, 5 e 6 bit ciascuno, la manutenzione del circuito diventa molto
+            difficile nel futuro mano a mano che nuove configurazioni sono aggiunte.
+        </par>
+        <par>
+            Per prevenire ciò, un sottocircuito generico può essere parametrizzato e creato.
+            A questo scopo, la spunta "Il circuito è generico" deve essere impostata nelle impostazioni specifiche del
+            circuito stesso. Come conseguenza, ogni finestra di dialogo per le proprietà di un compoente del circuito
+            conterrà il campo aggiuntivo "parametrizzazione generica". In questo campo si può inserire del codice che cambia i
+            parametri del componente. Ogni parametro ha un nome e può essere modificato come un attibuto del campo
+            <e>this</e>. Ogni parametro può essere individuato nella finestra di dialogo di aiuto per quanto riguarda
+            il componente.
+            Se si vuole cambiare la larghezza di bit di un sommatore, per esempio, la linea <e>this.Bits=1;</e> può essere usata.
+        </par>
+        <par>
+            In questo modo, comunque, non è ancora possibile creare un circuito che può essere parametrizzato.
+            Bisogna necessariamente accedere ai parametri che sono impostati quando il circuito viene usato. Questo è 
+            fatto tramite il campo "args". Se si vuole impostare la larghezza di bit dall'esterno, si può scrivere:
+            <e>this.Bits=args.bitWidth;</e>. Il nome dell'argomento - qui <e>bitWidth</e> - è arbitrario.
+            Se un sottocircuito è utilizzato, questo argomento va impostato.
+        </par>
+        <par>
+            Se il circuito è utilizzato e il dialogo dei parametri del circuito incorporato viene aperto, questo ha anche
+            il campo "parametrizzazione generica". Qui la larghezza di bit da utilizzare può essere impostata con
+            l'istruzione <e>bitWidth:=5;</e>.
+        </par>
+        <par>
+            Non è possibile avviare direttamente un circuito generico visto che gli argomenti richiesti sono mancanti;
+            devono essere specificati nel circuito incorporante. Questi argomenti mancanti porterebbero ad errori.
+            Per semplificare la verifica del circuito quindi, il componente <e>Inizializzazione Generica</e> può essere
+            aggiunto al circuito. In questo componente si possono impostare gli argomenti generici che dovrebbero
+            provenire dal circuito incorporante. In questo modo, un circuito generico può essere simulato direttamente.
+            Se il circuito è incorporato, il componente è ignorato.
+            Questo è necessario soltanto per l'avvio diretto della simulazione.
+        </par>
+        <par>
+            Sotto determinate circostanze, potrebbe essere utile non solo cambiare gli attributi dei componenti di un circuito
+            ma anche aggiungere componenti totalmente nuovi e cavi a seconda degli argomenti ricevuti.
+            Il componente <e>Codice</e> può essere usato per questo scopo. Se aggiunto al circuito, il codice contenuto sarà
+            eseguito durante l'avvio della simulazione. Qui, un cavo può essere aggiunto con la funzione
+            <e>addWire([x1],[y1],[x2],[y2])</e>; con <e>addComponent([nome],[x],[y])</e> invece si aggiunge un nuovo componente
+            <e>[nome]</e> nella posizione specificata. Il valore di ritorno di questa ultima funzione consente di impostare
+            i parametri del componente.
+        </par>
+        <par>
+            Il circuito di esempio <e>examples/generic/modify/Conway/GenericConway.dig</e> mostra come un circuito complesso
+            possa essere assemblato in questo modo.
+        </par>
+        <par>
+            Un altro modo di creare un circuito è la ricorsione: è possibile, a seconda degli argomenti, rimpiazzare un
+            circuito con un altro. A questo scopo la funzione <e>setCircuit([nome])</e> è disponibile. Se chiamata
+            nella parte di definizione di un sottocircuito, il circuito da inserire può essere sostituito con un altro
+            circuito. Questo consente la definizione ricorsiva di un circuito. Come negli altri linguaggi di programmazione,
+            una condizione di fine della ricorsione deve essere specificata.
+        </par>
+        <par>
+            La cartella <e>examples/generic</e> contiene un esempio di un contatore Gray code dove il numero di bit
+            può essere configurato. Qui questo contatore è istruito all'aggiunta ricorsiva di più bit ad un circuito
+            iniziale fino a quando il numero richiesto di bit del contatore è raggiunto.
+        </par>
+    </chapter>
+    <chapter heading="Verifica Controllata da Script">
+        <par>
+            Se gli strudenti devono completare esercizi con Digital, potrebbe essere utile verificare i circuiti consegnati
+            dagli studenti tramite un processo automatico. Per effettuare questa verifica, Digital può essere avviato dalla
+            linea di comando. La chiamata funziona in questo modo:
+        </par>
+        <par>
+            <code>
+                java -cp Digital.jar CLI test [file da verificare] [-tests [file opzionale con i test case]]
+            </code>
+        </par>
+        <par>
+            Se solo il file con il test è specificato, i test case contenuti in esso sono eseguiti. In questo modo, i test case
+            creati dagli studenti stessi possono essere verificati.
+        </par>
+        <par>
+            Se un secondo file è specificato, i test case sono presi da questo secondo file e vengono controllati rispetto ai
+            test case del file del circuito. Il secondo file contiene quindi di solito una soluzione di esempio i cui test
+            case sonno completi e corretti. Il circuito contenuto nel secondo file è ignorato. Soltanto i test case vengono
+            presi da esso.
+        </par>
+        <par>
+            Per verificare un circuito con una soluzione di esempio, il nome dei segnali di ingresso e uscita devono corrispondere
+            in entrambi i circuiti.
+        </par>
+    </chapter>
+    <chapter heading="FAQ">
+        <faq>
+            <question>Come spostare un cavo?</question>
+            <answer>Seleziona uno dei terminali con la selezione rettangolare. Sposta poi il punto utilizzando il mouse.
+                Puoi anche selezionare un cavo con ctrl+click.
+            </answer>
+        </faq>
+        <faq>
+            <question>Come eliminare un cavo?</question>
+            <answer>Seleziona uno dei terminali e premi <e>DEL</e> o clicca sul cestino. Puoi anche selezionare un cavo con ctrl+click.
+            </answer>
+        </faq>
+        <faq>
+            <question>Come spostare un componente inclusi tutti i cavi connessi?</question>
+            <answer>Seleziona il componente con la selezione rettangolare. Questa selezione deve includere l'intero componente.
+                Sposta ora il componente con il mouse e i cavi saranno anch'essi spostati.
+            </answer>
+        </faq>
+        <faq>
+            <question>C'è un componente non connesso da un cavo, anche se i pin sono sul cavo.</question>
+            <answer>Un pin è connesso al cavo solo se il cavo ha un terminale al pin.</answer>
+        </faq>
+        <faq>
+            <question>Se il nome dei pin in un circuito sono lunghi, i nomi non sono più leggibili quando il circuito
+                diventa incorporato. Cosa posso fare?</question>
+            <answer>La larghezza del blocco può essere aumentata con la voce del menù<e>Modifica<arrow/>Impostazioni specifiche del circuito</e>.</answer>
+        </faq>
+        <faq>
+            <question>I pin nel circuito non hanno un ordine ottimale. Come posso cambiarlo?</question>
+            <answer>La sequenza può essere cambiata utilizzando la voce del menù <e>Modifica<arrow/>Ordina ingressi</e> o
+                <e>Modifica<arrow/>Ordina uscite</e>.</answer>
+        </faq>
+
+        <faq>
+            <question>Quando la simulazione è avviata, un cavo diventa grigio. Che cosa significa?</question>
+            <answer>I colori verde chiaro e scure indicano gli stati alto e basso. Il cavo grigio indica alta impedenza.
+            </answer>
+        </faq>
+        <faq>
+            <question>Ho una tabella di verità. Come calcolo le equazioni booleane minimizzate?</question>
+            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Sintesi</e>. Inserisci quindi la tabella di verità. Nella parte
+            in basse della finestra puoi trovare le equazioni booleane. Se inserisci più di una variabile dipendente, una nuova
+            finestra si apre per mostrare tutte le equazioni.
+            </answer>
+        </faq>
+        <faq>
+            <question>Ho inserito una tabella di verità, ma ci sono più equazioni mostrate. Quale di esse è corretta?
+            </question>
+            <answer>Minimizzare un'equazione booleana può risultare in molte equazioni che descrivono la stessa funzione. Digital le mostra tutte
+                visto che creano la stessa tabella di verità. Ci potrebbero essere delle differenze a seconda dei "don't care" nella tabella di verità.
+            </answer>
+        </faq>
+        <faq>
+            <question>Ho una tabella di verità. Come creo il circuito corrispondente?</question>
+            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Sintesi</e>. Inserisci quindi la tabella di verità. Puoi modificare la tabella usando i menù <e>Nuovo</e> o <e>Modifica</e>.
+                Nel menù <e>Crea</e>, puoi creare un circuito utilizzando la voce <e>Circuito</e>.
+            </answer>
+        </faq>
+        <faq>
+            <question>Come modificare un nome di un segnale nella tabella di verità?</question>
+            <answer>Click destro nell'intestazione della tabella per modificare il nome.</answer>
+        </faq>
+        <faq>
+            <question>Ho un'equazione booleana. Come creo il circuito corrispondente?</question>
+            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Espressione</e>. Inserisci poi l'equazione.
+            </answer>
+        </faq>
+        <faq>
+            <question>Come creare una tabella di verità da un'espressione booleana?</question>
+            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Espressioni</e>. Inserisci poi l'espressione.
+                Crea quindi il circuito e nel menù <e>Analisi</e> usa la voce <e>Analisi</e> per creare la tabella di verità.
+            </answer>
+        </faq>
+        <faq>
+            <question>Come creare un file JEDEC dal circuito dato?</question>
+            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Analisi</e>. Successivamente nel menù <e>Crea</e> nella nuova finestra
+            seleziona il dispositivo corretto nel sottomenù <e>Dispositivo</e>.
+            </answer>
+        </faq>
+        <faq>
+            <question>Quando creo un file JEDEC, come faccio ad assegnare un numero di pin ad un certo segnale?</question>
+            <answer>Nei corrispondenti ingressi ed uscite puoi inserire un numero di pin nella finestra di dialogo delle impostazioni del pin.</answer>
+        </faq>
+        <faq>
+            <question>Ho creato un file JEDEC. Come faccio a programmarlo in un <e>GAL16v8</e> o <e>GAL22v10</e>?
+            </question>
+            <answer>Per programmare un chip di quel tipo è necessario uno specifico programmatore hardware.</answer>
+        </faq>
+        <faq>
+            <question>Ho creato un circuito che voglio utilizzare in molti altri circuiti. Come posso farlo evitando di copiare 
+                il file nelle altre cartelle appropriate ripetutamente?
+            </question>
+            <answer>Il circuito può essere salvato nella cartella "lib". Sarà poi disponibile in tutti gli altri circuiti.
+            </answer>
+        </faq>
+    </chapter>
+    <chapter heading="Comandi da Tastiera" newpage="true">
+        <shortcuts>
+            <shortcut key="Spazio">Avvia o ferma la simulazione</shortcut>
+            <shortcut key="F6">Apre il dialogo della tabella di misurazione.</shortcut>
+            <shortcut key="F7">Esegui fino all'interruzione..</shortcut>
+            <shortcut key="F8">Esegui i test case.</shortcut>
+            <shortcut key="C">Esegui un singolo ciclo di clock (funziona solamente se c'è una simulazione in corso e c'è
+                un componente di clock).
+            </shortcut>
+            <shortcut key="V">Esegue un singolo passo di porta.</shortcut>
+            <shortcut key="B">Esegue tutti i singoli passi di porta fino a quando il circuito si è stabilizzato o alternativamente,
+                se c'è un componente di interruzione, fino a quando la si raggiunge.</shortcut>
+            <shortcut key="F9">Analisi del circuito.</shortcut>
+            <shortcut key="CTRL-A">Seleziona tutto.</shortcut>
+            <shortcut key="CTRL-X">Taglia i componenti selezionati nella clipboard.</shortcut>
+            <shortcut key="CTRL-C">Copia i componenti selezionati nella clipboard.</shortcut>
+            <shortcut key="CTRL-V">Inserisce i componenti dalla clipboard.</shortcut>
+            <shortcut key="CTRL-D">Duplica la selezione corrente senza modificare la clipboard.</shortcut>
+            <shortcut key="R">Quando si sta inserendo, ruota il componente.</shortcut>
+            <shortcut key="L">Inserisce l'ultimo componente inserito un'altra volta.</shortcut>
+            <shortcut key="T">Inserisce un tunnel.</shortcut>
+            <shortcut key="CTRL-N">Nuovo circuito.</shortcut>
+            <shortcut key="CTRL-O">Apri un circuito.</shortcut>
+            <shortcut key="CTRL-S">Salva il circuito.</shortcut>
+            <shortcut key="CTRL-Z">Annulla l'ultima modifica.</shortcut>
+            <shortcut key="CTRL-Y">Rifai l'ultima modifica annullata.</shortcut>
+            <shortcut key="P">Programma un diodo o FGFET.</shortcut>
+            <shortcut key="D">Mentre si disegna un cavo, cambia alla modalità diagonale.</shortcut>
+            <shortcut key="F">Mentre si disegna una linea, inverte l'orientazione.</shortcut>
+            <shortcut key="S">Divide un cavo in due cavi.</shortcut>
+            <shortcut key="Esc">Interrompe l'azione corrente.</shortcut>
+            <shortcut key="Canc">Rimuove il componente selezionato.</shortcut>
+            <shortcut key="Backspace">Rimuove i componenti selezionati.</shortcut>
+            <shortcut key="+">Aumenta il numero di ingressi nel componente su cui il cursore è sopra. Se utilizzato con delle costanti,
+                il valore è incrementato.
+            </shortcut>
+            <shortcut key="-">Diminuisce il numero di ingressi nel componente su cui il cursore è sopra. Se utilizzato con delle costanti,
+                il valore è decrementato.
+            </shortcut>
+            <shortcut key="CTRL +">Incrementa lo zoom.</shortcut>
+            <shortcut key="CTRL -">Decrementa lo zoom.</shortcut>
+            <shortcut key="F1">Adatta la visuale alla dimensione del circuito.</shortcut>
+            <shortcut key="F5">Mostra o nascondi la vista dell'albero dei componenti.</shortcut>
+        </shortcuts>
+    </chapter>
+</root>

@@ -104,6 +104,13 @@ public class ScreenShots {
                 .set(Keys.SETTINGS_IEEE_SHAPES, true);
         firstSteps();
         hierarchicalDesign();
+
+        // Italian
+        Lang.setActualRuntimeLanguage(new Language("it"));
+        Settings.getInstance().getAttributes()
+                .set(Keys.SETTINGS_IEEE_SHAPES, true);
+        firstSteps();
+        hierarchicalDesign();
     }
 
     private static void mainScreenShot() {

@@ -97,10 +97,9 @@ In the file howTo.md you can find more details about translations.
     </string>
     <string name="elem_XNOr">XNOr</string>
     <string name="elem_XNOr_tt">A combination of XOR and NOT. The inputs are combined with the XOR operation.
-        The result of this operation than is inverted.
+        The result of this operation is then inverted.
         It is also possible to use buses with several bits per input. In this case, the operation is applied to each
-        bit of the inputs.
-    </string>
+        bit of the inputs.</string>
     <string name="elem_Not">Not</string>
     <string name="elem_Not_tt">Inverts the input value. A 1 becomes a 0 and a 0 becomes 1.
         It is also possible to use a bus with several bits per input. In this case, the operation is applied to each
@@ -129,8 +128,7 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_Out_tt">Can be used to display an output signal in a circuit.
         This element is also used to connect a circuit to an embedding circuit.
         In this case the connection is bidirectional.
-        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
-    </string>
+        Is also used to assign a pin number, if the code for a CPLD or FPGA is generated.</string>
     <string name="elem_Out_pin_in">This value is used for the output connection.</string>
     <string name="elem_LED">LED</string>
     <string name="elem_LED_tt">A LED can be used to visualize an output value. Accepts a single bit.
@@ -155,13 +153,12 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_DipSwitch_tt">Simple DIP switch that can output either high or low.</string>
     <string name="elem_DipSwitch_pin_out">The output value of the switch.</string>
     <string name="elem_Clock">Clock Input</string>
-    <string name="elem_Clock_tt">A clock signal. Its possible to control it by a real-time clock.
+    <string name="elem_Clock_tt">A clock signal. It's possible to control it by a real-time clock.
         Depending on the complexity of the circuit, the clock frequency achieved may be less than the selected value.
         If the frequency is greater than 50Hz, the graphic representation of the circuit will no longer be updated at
         every clock cycle so that the wire colors will no longer be updated.
         If the real-time clock is not activated, the clock can be controlled by mouse clicks.
-        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.
-    </string>
+        Is also used to assign an pin number, if code for a CPLD or FPGA is generated.</string>
     <string name="elem_Clock_pin_C">Switches between 0 and 1 with the selected clock frequency.</string>
     <string name="elem_Button">Button</string>
     <string name="elem_Button_tt">A simple push button which goes back to its original state when it is released.
@@ -196,7 +193,7 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_LightBulb_pin_A">Connection</string>
     <string name="elem_LightBulb_pin_B">Connection</string>
     <string name="elem_PolarityAwareLED">LED with two connections.</string>
-    <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up,
+    <string name="elem_PolarityAwareLED_tt">LED with connections for the cathode and the anode. The LED lights up
         if the anode is connected to high and the cathode is connected to low.
         This LED cannot be used as a pull-down resistor. It acts solely as a display element.
         The shown resistor is only meant to symbolize the required series resistor to limit the current.</string>
@@ -251,9 +248,8 @@ In the file howTo.md you can find more details about translations.
         A separate window is opened for the text input.
     </string>
     <string name="elem_Keyboard_pin_C">Clock. A rising edge removes the oldest character from the buffer.</string>
-    <string name="elem_Keyboard_pin_en">If high the output D is active and one character is output.
-        It also enables the clock input.
-    </string>
+    <string name="elem_Keyboard_pin_en">If high, the output D is active and one character is output.
+        It also enables the clock input.</string>
     <string name="elem_Keyboard_pin_D">The last typed character, or zero if no character is available.
         Output is the 16 bit Java char value.
     </string>
@@ -770,8 +766,8 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_Comparator_pin_a">Input a to compare.</string>
     <string name="elem_Comparator_pin_b">Input b to compare.</string>
     <string name="elem_Comparator_pin_=">Output is 1 if input a equals input b</string>
-    <string name="elem_Comparator_pin_&gt;">Output is 1 if input a is greater then input b</string>
-    <string name="elem_Comparator_pin_&lt;">Output is 1 if input a is less then input b</string>
+    <string name="elem_Comparator_pin_&gt;">Output is 1 if input a is greater than input b</string>
+    <string name="elem_Comparator_pin_&lt;">Output is 1 if input a is less than input b</string>
     <string name="elem_Neg">Negation</string>
     <string name="elem_Neg_short">Neg</string>
     <string name="elem_Neg_pin_in">Input of the data word to be negated in 2th complement</string>
