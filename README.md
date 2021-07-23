@@ -276,6 +276,7 @@ Many thanks to the following persons for their help:
   has provided the Spanish translation.
 * XinJun Ma ([@itviewer](https://github.com/itviewer)) has provided the Chinese translation.
 * Nicolas Maltais ([@maltaisn](https://github.com/maltaisn)) has provided the French translation.
+* Luca Cavallari ([@psiwray](https://github.com/psiwray)) has provided the Italian translation.
 
 ## Additional Screenshots
 
