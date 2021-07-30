@@ -54,7 +54,17 @@ public class VGADialog extends JDialog {
 
         @Override
         protected void paintComponent(Graphics g) {
-            g.drawImage(image, 0, 0, null);
+            double sx = ((double) getWidth()) / image.getWidth();
+            double sy = ((double) getHeight()) / image.getHeight();
+
+            double s = Math.min(sx, sy);
+            int w = (int) Math.floor(image.getWidth() * s);
+            int h = (int) Math.floor(image.getHeight() * s);
+
+            int x = (getWidth() - w) / 2;
+            int y = (getHeight() - h) / 2;
+
+            g.drawImage(image, x, y, w, h, 0, 0, image.getWidth(), image.getHeight(), null);
         }
     }
 }
