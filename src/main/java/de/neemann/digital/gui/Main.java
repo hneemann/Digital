@@ -1061,7 +1061,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         runToBreakAction = new ToolTipAction(Lang.get("menu_fast"), ICON_FAST) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new RunToBreakRunnable());
+                SwingUtilities.invokeLater(new RunToBreakRunnable(model, statusLabel));
             }
         }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false).setAccelerator("F7");
 
@@ -2221,14 +2221,29 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         void advance(Model model) throws Exception;
     }
 
-    private class RunToBreakRunnable implements Runnable {
+    private static class RunToBreakRunnable implements Runnable {
+        private final Model model;
+        private final JLabel statusLabel;
+        private int steps;
+
+        public RunToBreakRunnable(Model model, JLabel statusLabel) {
+            this.model = model;
+            this.statusLabel = statusLabel;
+            steps = 10000;
+        }
+
         @Override
         public void run() {
-            if (model != null && model.isRunning()) {
-                Model.BreakInfo info = model.runToBreak(100000);
+            if (model.isRunning()) {
+                long time = System.currentTimeMillis();
+                Model.BreakInfo info = model.runToBreak(steps);
+                time = System.currentTimeMillis() - time;
+                int newSteps = (int) (steps * 250 / time);
+                steps = (steps + newSteps) / 2;
+
                 if (info != null) {
-                    if (info.isTimeout() && model != null && model.isRunning())
-                        SwingUtilities.invokeLater(new RunToBreakRunnable());
+                    if (info.isTimeout() && model.isRunning())
+                        SwingUtilities.invokeLater(this);
                     else
                         statusLabel.setText(Lang.get("stat_clocks", info.getSteps(), info.getLabel()));
                 }
