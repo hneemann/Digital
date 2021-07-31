@@ -2221,12 +2221,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         void advance(Model model) throws Exception;
     }
 
-    private static class RunToBreakRunnable implements Runnable {
+    private static final class RunToBreakRunnable implements Runnable {
         private final Model model;
         private final JLabel statusLabel;
         private int steps;
 
-        public RunToBreakRunnable(Model model, JLabel statusLabel) {
+        private RunToBreakRunnable(Model model, JLabel statusLabel) {
             this.model = model;
             this.statusLabel = statusLabel;
             steps = 10000;
