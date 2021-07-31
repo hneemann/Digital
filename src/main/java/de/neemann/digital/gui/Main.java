@@ -1061,9 +1061,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         runToBreakAction = new ToolTipAction(Lang.get("menu_fast"), ICON_FAST) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Model.BreakInfo info = model.runToBreak();
-                if (info != null)
-                    statusLabel.setText(Lang.get("stat_clocks", info.getSteps(), info.getLabel()));
+                SwingUtilities.invokeLater(new RunToBreakRunnable());
             }
         }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false).setAccelerator("F7");
 
@@ -2221,5 +2219,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
          * @throws Exception Exception
          */
         void advance(Model model) throws Exception;
+    }
+
+    private class RunToBreakRunnable implements Runnable {
+        @Override
+        public void run() {
+            if (model != null && model.isRunning()) {
+                Model.BreakInfo info = model.runToBreak(100000);
+                if (info != null) {
+                    if (info.isTimeout() && model != null && model.isRunning())
+                        SwingUtilities.invokeLater(new RunToBreakRunnable());
+                    else
+                        statusLabel.setText(Lang.get("stat_clocks", info.getSteps(), info.getLabel()));
+                }
+            }
+        }
     }
 }

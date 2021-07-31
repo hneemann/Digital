@@ -54,6 +54,7 @@ public class Model implements Iterable<Node>, SyncAccess {
      */
     private static final int MAX_LOOP_COUNTER = 1000;
     private static final int COLLECTING_LOOP_COUNTER = MAX_LOOP_COUNTER + 100;
+    private ArrayList<BreakDetector> brVal;
 
     private enum State {BUILDING, INITIALIZING, RUNNING, CLOSED}
 
@@ -352,18 +353,32 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
-     * Runs the model until a positive edge at the break element is detected.
+     * Runs the model until a positive edge at a break element is detected.
      *
-     * @return The number of clock cycles necessary to get the positive edge
+     * @return The {@link BreakInfo} containig the number of clock cycles necessary to get the positive edge.
      */
     public BreakInfo runToBreak() {
-        ArrayList<BreakDetector> brVal = new ArrayList<>();
-        for (Break b : breaks)
-            brVal.add(new BreakDetector(b));
+        return runToBreak(-1);
+    }
+
+    /**
+     * Runs the model until a positive edge at a break element is detected.
+     * If timeout half cycles are executed with no break detected the method returns
+     * with a {@link BreakInfo} in timeout state.
+     *
+     * @param timeout the timeout half cycle count, -1 means infinite
+     * @return The number of clock cycles necessary to get the positive edge
+     */
+    public BreakInfo runToBreak(int timeout) {
+        if (brVal == null) {
+            brVal = new ArrayList<>();
+            for (Break b : breaks)
+                brVal.add(new BreakDetector(b));
+            fireEvent(ModelEvent.FASTRUN);
+        }
 
         ObservableValue clkVal = clocks.get(0).getClockOutput();
 
-        fireEvent(ModelEvent.FASTRUN);
         try {
             while (state != State.CLOSED) {
                 clkVal.setBool(!clkVal.getBool());
@@ -371,8 +386,15 @@ public class Model implements Iterable<Node>, SyncAccess {
                 for (BreakDetector bd : brVal)
                     if (bd.detected()) {
                         fireEvent(ModelEvent.BREAK);
+                        brVal = null;
                         return bd.createInfo();
                     }
+
+                if (timeout > 0) {
+                    timeout--;
+                    if (timeout == 0)
+                        return new BreakInfo(timeout);
+                }
             }
         } catch (Exception e) {
             errorOccurred(e);
@@ -953,12 +975,21 @@ public class Model implements Iterable<Node>, SyncAccess {
      * Used to return the break info
      */
     public static final class BreakInfo {
+        private final boolean timeout;
         private final int steps;
         private final String label;
+
+        private BreakInfo(int steps) {
+            this.steps = steps;
+            this.label = null;
+            this.timeout = true;
+
+        }
 
         private BreakInfo(int steps, String label) {
             this.steps = steps;
             this.label = label;
+            this.timeout = false;
         }
 
         /**
@@ -973,6 +1004,13 @@ public class Model implements Iterable<Node>, SyncAccess {
          */
         public String getLabel() {
             return label;
+        }
+
+        /**
+         * @return true if timeout occurred
+         */
+        public boolean isTimeout() {
+            return timeout;
         }
     }
 
