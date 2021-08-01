@@ -1980,17 +1980,46 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     @Override
     public String runToBreak() throws RemoteException {
-        try {
-            AddressPicker addressPicker = new AddressPicker();
-            SwingUtilities.invokeAndWait(() -> {
-                if (model != null && model.isRunToBreakAllowed() && !realTimeClockRunning) {
-                    runToBreakAction.actionPerformed(null);
-                    addressPicker.getProgramROMAddress(model);
-                }
+        AddressPicker addressPicker = new AddressPicker();
+        if (model != null && model.isRunToBreakAllowed() && !realTimeClockRunning) {
+            WaitForBreak waitForBreak = new WaitForBreak();
+            SwingUtilities.invokeLater(() -> {
+                model.addObserver(waitForBreak);
+                new RunToBreakRunnable(model, statusLabel).run();
             });
-            return addressPicker.getAddressString();
-        } catch (InterruptedException | InvocationTargetException e) {
-            throw new RemoteException("error performing a run to break " + e.getMessage());
+            waitForBreak.waitForBreak();
+            SwingUtilities.invokeLater(() -> model.removeObserver(waitForBreak));
+            addressPicker.getProgramROMAddress(model);
+        }
+        return addressPicker.getAddressString();
+    }
+
+    private static final class WaitForBreak implements ModelStateObserverTyped {
+        private boolean wasBreak = false;
+
+        @Override
+        public void handleEvent(ModelEvent event) {
+            if (event.getType() == ModelEventType.BREAK
+                    || event.getType() == ModelEventType.CLOSED) {
+                synchronized (this) {
+                    wasBreak = true;
+                    notify();
+                }
+            }
+        }
+
+        @Override
+        public ModelEventType[] getEvents() {
+            return new ModelEventType[]{ModelEventType.BREAK, ModelEventType.CLOSED};
+        }
+
+        private synchronized void waitForBreak() {
+            try {
+                while (!wasBreak)
+                    wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -2249,7 +2278,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 long time = System.currentTimeMillis();
                 Model.BreakInfo info = model.runToBreak(steps);
                 time = System.currentTimeMillis() - time;
-                System.out.println(time + ", " + steps);
                 if (time > 0) {
                     int newSteps = (int) (steps * 250 / time);
                     steps = (steps + newSteps) / 2;
