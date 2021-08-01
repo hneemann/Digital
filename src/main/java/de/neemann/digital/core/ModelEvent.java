@@ -36,9 +36,13 @@ public class ModelEvent {
      */
     public static final ModelEvent MICROSTEP = new ModelEvent(ModelEventType.MICROSTEP);
     /**
-     * Shorthand for a ModelEventType.FASTRUN event
+     * Shorthand for a ModelEventType.RUN_TO_BREAK event
      */
-    public static final ModelEvent FASTRUN = new ModelEvent(ModelEventType.FASTRUN);
+    public static final ModelEvent RUN_TO_BREAK = new ModelEvent(ModelEventType.RUN_TO_BREAK);
+    /**
+     * Shorthand for a ModelEventType.RUN_TO_BREAK_TIMEOUT event
+     */
+    public static final ModelEvent RUN_TO_BREAK_TIMEOUT = new ModelEvent(ModelEventType.RUN_TO_BREAK_TIMEOUT);
     /**
      * Shorthand for a ModelEventType.BREAK event
      */

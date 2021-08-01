@@ -374,7 +374,7 @@ public class Model implements Iterable<Node>, SyncAccess {
             brVal = new ArrayList<>();
             for (Break b : breaks)
                 brVal.add(new BreakDetector(b));
-            fireEvent(ModelEvent.FASTRUN);
+            fireEvent(ModelEvent.RUN_TO_BREAK);
         }
 
         ObservableValue clkVal = clocks.get(0).getClockOutput();
@@ -392,8 +392,10 @@ public class Model implements Iterable<Node>, SyncAccess {
 
                 if (timeout > 0) {
                     timeout--;
-                    if (timeout == 0)
+                    if (timeout == 0) {
+                        fireEvent(ModelEvent.RUN_TO_BREAK_TIMEOUT);
                         return new BreakInfo(timeout);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -418,7 +420,7 @@ public class Model implements Iterable<Node>, SyncAccess {
             if (clocks.size() == 1)
                 clkVal = clocks.get(0).getClockOutput();
 
-            fireEvent(ModelEvent.FASTRUN);
+            fireEvent(ModelEvent.RUN_TO_BREAK);
             final boolean[] wasBreak = {false};
             while (!wasBreak[0] && state != State.CLOSED) {
                 if (!needsUpdate()) {

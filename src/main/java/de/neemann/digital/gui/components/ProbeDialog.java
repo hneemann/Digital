@@ -120,7 +120,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
             }
         }
         switch (event.getType()) {
-            case FASTRUN:
+            case RUN_TO_BREAK:
                 tableUpdateEnable = false;
                 break;
             case BREAK:
@@ -133,7 +133,7 @@ public class ProbeDialog extends JDialog implements ModelStateObserverTyped {
 
     @Override
     public ModelEventType[] getEvents() {
-        return new ModelEventType[]{type, ModelEventType.CHECKBURN, ModelEventType.FASTRUN, ModelEventType.BREAK, ModelEventType.CLOSED};
+        return new ModelEventType[]{type, ModelEventType.CHECKBURN, ModelEventType.RUN_TO_BREAK, ModelEventType.BREAK, ModelEventType.CLOSED};
     }
 
     private static class SignalTableModel implements TableModel {

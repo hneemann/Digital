@@ -35,7 +35,12 @@ public enum ModelEventType {
     /**
      * Fast run is started.
      */
-    FASTRUN,
+    RUN_TO_BREAK,
+
+    /**
+     * Fast run timeout has occurred.
+     */
+    RUN_TO_BREAK_TIMEOUT,
 
     /**
      * A break is detected.
@@ -58,5 +63,4 @@ public enum ModelEventType {
      * Used to notify an error
      */
     ERROR_OCCURRED
-
 }

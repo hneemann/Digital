@@ -1202,7 +1202,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 tc.getTestCaseDescription().setNewSeed();
 
             windowPosManager.register("testResult", new ValueTableDialog(Main.this, Lang.get("msg_testResult"))
-                    .addTestResult(tsl, circuitComponent.getCircuit(), library))
+                            .addTestResult(tsl, circuitComponent.getCircuit(), library))
                     .setVisible(true);
 
             ensureModelIsStopped();
@@ -1733,15 +1733,26 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      * Updates the graphic at every modification.
      */
     private class UpdateViewAtEvent implements ModelStateObserverTyped {
+        private boolean stepUpdateEnabled;
+
         UpdateViewAtEvent() {
+            stepUpdateEnabled = true;
         }
 
         @Override
         public void handleEvent(ModelEvent event) {
             switch (event.getType()) {
+                case RUN_TO_BREAK:
+                    stepUpdateEnabled = false;
+                    break;
                 case CHECKBURN:
-                case STEP:
                 case BREAK:
+                    stepUpdateEnabled = true;
+                case STEP:
+                    if (stepUpdateEnabled)
+                        circuitComponent.graphicHasChanged();
+                    break;
+                case RUN_TO_BREAK_TIMEOUT:
                     circuitComponent.graphicHasChanged();
                     break;
             }
@@ -2238,8 +2249,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 long time = System.currentTimeMillis();
                 Model.BreakInfo info = model.runToBreak(steps);
                 time = System.currentTimeMillis() - time;
-                int newSteps = (int) (steps * 250 / time);
-                steps = (steps + newSteps) / 2;
+                System.out.println(time + ", " + steps);
+                if (time > 0) {
+                    int newSteps = (int) (steps * 250 / time);
+                    steps = (steps + newSteps) / 2;
+                }
 
                 if (info != null) {
                     if (info.isTimeout() && model.isRunning())
