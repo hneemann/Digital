@@ -2262,6 +2262,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private static final class RunToBreakRunnable implements Runnable {
+        private static final int RUN_TIME_MS = 250;
         private final Model model;
         private final JLabel statusLabel;
         private int steps;
@@ -2279,7 +2280,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 Model.BreakInfo info = model.runToBreak(steps);
                 time = System.currentTimeMillis() - time;
                 if (time > 0) {
-                    int newSteps = (int) (steps * 250 / time);
+                    int newSteps = (int) (steps * RUN_TIME_MS / time);
                     steps = (steps + newSteps) / 2;
                 }
 
