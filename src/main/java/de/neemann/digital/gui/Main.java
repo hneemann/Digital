@@ -2264,7 +2264,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private static final class RunToBreakRunnable implements Runnable {
         private static final int DEFAULT_TARGET_TIME_MS = 250;
         private final RunModel runModel;
-        private final int targetTime_ms;
+        private final int targetTimeMs;
         private final Model model;
         private final JLabel statusLabel;
         private int steps;
@@ -2273,11 +2273,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             this(model, statusLabel, runModel, DEFAULT_TARGET_TIME_MS);
         }
 
-        private RunToBreakRunnable(Model model, JLabel statusLabel, RunModel runModel, int targetTime_ms) {
+        private RunToBreakRunnable(Model model, JLabel statusLabel, RunModel runModel, int targetTimeMs) {
             this.model = model;
             this.statusLabel = statusLabel;
             this.runModel = runModel;
-            this.targetTime_ms = targetTime_ms;
+            this.targetTimeMs = targetTimeMs;
             steps = 10000;
         }
 
@@ -2291,7 +2291,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 if (info != null) {
                     if (info.isTimeout() && model.isRunning()) {
                         if (time > 0) {
-                            int newSteps = (int) (steps * targetTime_ms / time);
+                            int newSteps = (int) (steps * targetTimeMs / time);
                             steps = (steps + newSteps) / 2;
                         }
                         SwingUtilities.invokeLater(this);

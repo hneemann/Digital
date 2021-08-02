@@ -406,11 +406,19 @@ public class Model implements Iterable<Node>, SyncAccess {
 
     /**
      * Runs the model until a positive edge at the break element is detected in micro step mode.
+     *
+     * @return The number of clock cycles necessary to get the positive edge
      */
     public BreakInfo runToBreakMicro() {
         return runToBreakMicro(-1);
     }
 
+    /**
+     * Runs the model until a positive edge at the break element is detected in micro step mode.
+     *
+     * @param timeout the timeout half cycle count, -1 means infinite
+     * @return The number of clock cycles necessary to get the positive edge
+     */
     public BreakInfo runToBreakMicro(int timeout) {
         if (brVal == null) {
             brVal = new ArrayList<>();
