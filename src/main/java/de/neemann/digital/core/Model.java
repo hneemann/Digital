@@ -407,10 +407,18 @@ public class Model implements Iterable<Node>, SyncAccess {
     /**
      * Runs the model until a positive edge at the break element is detected in micro step mode.
      */
-    public void runToBreakMicro() {
-        ArrayList<BreakDetector> brVal = new ArrayList<>();
-        for (Break b : breaks)
-            brVal.add(new BreakDetector(b));
+    public BreakInfo runToBreakMicro() {
+        return runToBreakMicro(-1);
+    }
+
+    public BreakInfo runToBreakMicro(int timeout) {
+        if (brVal == null) {
+            brVal = new ArrayList<>();
+            for (Break b : breaks)
+                brVal.add(new BreakDetector(b));
+            if (!brVal.isEmpty())
+                fireEvent(ModelEvent.RUN_TO_BREAK);
+        }
 
         if (brVal.isEmpty()) {
             // simply stabilize the circuit
@@ -420,25 +428,38 @@ public class Model implements Iterable<Node>, SyncAccess {
             if (clocks.size() == 1)
                 clkVal = clocks.get(0).getClockOutput();
 
-            fireEvent(ModelEvent.RUN_TO_BREAK);
-            final boolean[] wasBreak = {false};
-            while (!wasBreak[0] && state != State.CLOSED) {
+            while (state != State.CLOSED) {
                 if (!needsUpdate()) {
                     if (clkVal != null)
                         clkVal.setBool(!clkVal.getBool());
                     else
                         break;
                 }
+                final BreakDetector[] wasBreak = {null};
                 stepWithCondition(false, () -> {
                     for (BreakDetector bd : brVal)
                         if (bd.detected()) {
                             fireEvent(ModelEvent.BREAK);
-                            wasBreak[0] = true;
+                            wasBreak[0] = bd;
                         }
-                    return needsUpdate() && !wasBreak[0];
+                    return needsUpdate() && wasBreak[0] == null;
                 });
+
+                if (wasBreak[0] != null) {
+                    brVal = null;
+                    return wasBreak[0].createInfo();
+                }
+
+                if (timeout > 0) {
+                    timeout--;
+                    if (timeout == 0) {
+                        fireEvent(ModelEvent.RUN_TO_BREAK_TIMEOUT);
+                        return new BreakInfo(timeout);
+                    }
+                }
             }
         }
+        return null;
     }
 
     /**

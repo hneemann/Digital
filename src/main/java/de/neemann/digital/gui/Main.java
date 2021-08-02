@@ -1050,7 +1050,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         runToBreakMicroAction = new ToolTipAction(Lang.get("menu_runToBreakMicro"), ICON_STEP_FINISH) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.runToBreakMicro();
+                new RunToBreakRunnable(model, statusLabel, Model::runToBreakMicro).run();
             }
         }.setToolTip(Lang.get("menu_runToBreakMicro_tt")).setAccelerator("B").setEnabledChain(false);
 
@@ -1061,7 +1061,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         runToBreakAction = new ToolTipAction(Lang.get("menu_fast"), ICON_FAST) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RunToBreakRunnable(model, statusLabel).run();
+                new RunToBreakRunnable(model, statusLabel, Model::runToBreak).run();
             }
         }.setToolTip(Lang.get("menu_fast_tt")).setEnabledChain(false).setAccelerator("F7");
 
@@ -1985,7 +1985,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             WaitForBreak waitForBreak = new WaitForBreak();
             SwingUtilities.invokeLater(() -> {
                 model.addObserver(waitForBreak);
-                new RunToBreakRunnable(model, statusLabel).run();
+                new RunToBreakRunnable(model, statusLabel, Model::runToBreak).run();
             });
             waitForBreak.waitForBreak();
             SwingUtilities.invokeLater(() -> model.removeObserver(waitForBreak));
@@ -2262,14 +2262,22 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private static final class RunToBreakRunnable implements Runnable {
-        private static final int RUN_TIME_MS = 250;
+        private static final int DEFAULT_TARGET_TIME_MS = 250;
+        private final RunModel runModel;
+        private final int targetTime_ms;
         private final Model model;
         private final JLabel statusLabel;
         private int steps;
 
-        private RunToBreakRunnable(Model model, JLabel statusLabel) {
+        private RunToBreakRunnable(Model model, JLabel statusLabel, RunModel runModel) {
+            this(model, statusLabel, runModel, DEFAULT_TARGET_TIME_MS);
+        }
+
+        private RunToBreakRunnable(Model model, JLabel statusLabel, RunModel runModel, int targetTime_ms) {
             this.model = model;
             this.statusLabel = statusLabel;
+            this.runModel = runModel;
+            this.targetTime_ms = targetTime_ms;
             steps = 10000;
         }
 
@@ -2277,13 +2285,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         public void run() {
             if (model.isRunning()) {
                 long time = System.currentTimeMillis();
-                Model.BreakInfo info = model.runToBreak(steps);
+                Model.BreakInfo info = runModel.runModel(model, steps);
                 time = System.currentTimeMillis() - time;
 
                 if (info != null) {
                     if (info.isTimeout() && model.isRunning()) {
                         if (time > 0) {
-                            int newSteps = (int) (steps * RUN_TIME_MS / time);
+                            int newSteps = (int) (steps * targetTime_ms / time);
                             steps = (steps + newSteps) / 2;
                         }
                         SwingUtilities.invokeLater(this);
@@ -2292,5 +2300,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
             }
         }
+    }
+
+    private interface RunModel {
+        Model.BreakInfo runModel(Model model, int steps);
     }
 }
