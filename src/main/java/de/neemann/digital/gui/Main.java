@@ -2262,7 +2262,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private static final class RunToBreakRunnable implements Runnable {
-        private static final int DEFAULT_TARGET_TIME_MS = 250;
+        private static final int DEFAULT_TARGET_TIME_MS = 100;
         private final RunModel runModel;
         private final int targetTimeMs;
         private final Model model;
