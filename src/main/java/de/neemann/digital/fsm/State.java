@@ -283,10 +283,18 @@ public class State extends Movable<State> {
         };
     }
 
+    /**
+     * @return the "default is don't care" flag
+     */
     public boolean isDefaultDC() {
         return defaultDC;
     }
 
+    /**
+     * Sets the "default is don't care" flag.
+     *
+     * @param defaultDC the value to set
+     */
     public void setDefaultDC(boolean defaultDC) {
         this.defaultDC = defaultDC;
     }
