@@ -2426,6 +2426,8 @@ Sie dürfen jedoch nicht oberhalb der Kopfzeile mit den Signalnamen verwendet we
     <string name="key_isInitialState_tt">Wenn gesetzt, ist dies der Initialzustand, in welchem der Automat gestartet
         wird.
     </string>
+    <string name="key_defaultsDC">Nicht definierte Werte auf DC setzen</string>
+    <string name="key_defaultsDC_tt">Setzt alle nicht definierten Werte (Folgezustand und Ausgänge) auf "Don't care"</string>
     <string name="key_stateValues">Ausgänge</string>
     <string name="key_stateValues_tt">Legt Ausgangswerte fest.
         Mit einfachen Zuweisungen wie "A=1, B=0" können Ausgänge gesetzt werden.

@@ -115,8 +115,9 @@ public class TransitionTableCreator {
             int row = s.getNumber();
             int col = stateBits * 2;
             for (String name : results) {
+                int def = s.isDefaultDC() ? 2 : 0;
                 Integer val = getValues(s).get(name);
-                int v = val == null ? 0 : val;
+                int v = val == null ? def : val;
                 truthTable.setValue(row, col, v);
                 col++;
             }
@@ -129,7 +130,10 @@ public class TransitionTableCreator {
             int m = row;
             for (int j = 0; j < stateBits; j++) {
                 c--;
-                truthTable.setValue(row, c, m & 1);
+                int aValue = 2;
+                if (!s.isDefaultDC())
+                    aValue = m & 1;
+                truthTable.setValue(row, c, aValue);
                 m >>= 1;
             }
         }

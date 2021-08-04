@@ -28,6 +28,7 @@ public class State extends Movable<State> {
     private int radius;
     private boolean isInitial;
     private int initialAngle = 12;
+    private boolean defaultDC;
 
     /**
      * Creates a new state
@@ -46,6 +47,7 @@ public class State extends Movable<State> {
         this.number = other.number;
         this.isInitial = other.isInitial;
         this.initialAngle = other.initialAngle;
+        this.defaultDC = other.defaultDC;
         setValues(other.getValues());
         setPos(other.getPos());
     }
@@ -276,5 +278,13 @@ public class State extends Movable<State> {
             public void setPos(VectorFloat pos) {
             }
         };
+    }
+
+    public boolean isDefaultDC() {
+        return defaultDC;
+    }
+
+    public void setDefaultDC(boolean defaultDC) {
+        this.defaultDC = defaultDC;
     }
 }

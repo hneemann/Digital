@@ -31,6 +31,7 @@ import static de.neemann.digital.gui.components.CircuitComponent.ICON_DELETE;
 public class FSMComponent extends JComponent {
     private static final Key<Integer> KEY_NUMBER = new Key.KeyInteger("stateNum", 0);
     private static final Key<Boolean> KEY_INITIAL = new Key<>("isInitialState", false);
+    private static final Key<Boolean> KEY_DEFAULT_DC = new Key<>("defaultsDC", false);
     private static final Key<String> KEY_VALUES = new Key<>("stateValues", "");
     private static final Key<String> KEY_CONDITION = new Key<>("transCond", "");
     private static final Key<Integer> KEY_RADIUS = new Key.KeyInteger("transRad", 70)
@@ -179,7 +180,7 @@ public class FSMComponent extends JComponent {
         setPreferredSize(new Dimension(600, 600));
     }
 
-    private static final Key<?>[] STATE_EDIT_KEYS = {Keys.LABEL, KEY_NUMBER, KEY_INITIAL, KEY_VALUES, KEY_RADIUS};
+    private static final Key<?>[] STATE_EDIT_KEYS = {Keys.LABEL, KEY_NUMBER, KEY_INITIAL, KEY_VALUES, KEY_RADIUS, KEY_DEFAULT_DC};
 
     private void createNewState(Vector posVector, Point point) {
         ElementAttributes attr = new ElementAttributes();
@@ -207,6 +208,7 @@ public class FSMComponent extends JComponent {
         ElementAttributes attr = new ElementAttributes()
                 .set(KEY_NUMBER, state.getNumber())
                 .set(KEY_INITIAL, state.isInitial())
+                .set(KEY_DEFAULT_DC, state.isDefaultDC())
                 .set(KEY_VALUES, state.getValues())
                 .set(KEY_RADIUS, state.getVisualRadius())
                 .set(Keys.LABEL, state.getName());
@@ -218,6 +220,7 @@ public class FSMComponent extends JComponent {
         if (newAttr != null) {
             state.setNumber(newAttr.get(KEY_NUMBER));
             state.setInitial(newAttr.get(KEY_INITIAL));
+            state.setDefaultDC(newAttr.get(KEY_DEFAULT_DC));
             state.setValues(newAttr.get(KEY_VALUES));
             state.setRadius(newAttr.get(KEY_RADIUS));
             state.setName(newAttr.get(Keys.LABEL));
