@@ -122,7 +122,10 @@ public class State extends Movable<State> {
         Vector delta = new Vector(0, Style.NORMAL.getFontSize());
         VectorFloat pos = getPos().add(delta.mul(-1));
 
-        gr.drawText(pos, Integer.toString(number), Orientation.CENTERCENTER, Style.NORMAL);
+        String text = Integer.toString(number);
+        if (defaultDC)
+            text += " DC";
+        gr.drawText(pos, text, Orientation.CENTERCENTER, Style.NORMAL);
         pos = pos.add(delta);
         gr.drawText(pos, name, Orientation.CENTERCENTER, Style.NORMAL);
 
