@@ -92,7 +92,7 @@ public final class CircuitLoader {
     }
 
     /**
-     * Creates a mode from the loaded circuit.
+     * Creates a model from the loaded circuit.
      *
      * @return the model
      * @throws ElementNotFoundException ElementNotFoundException
