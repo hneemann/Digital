@@ -7,11 +7,18 @@ package de.neemann.digital.core.stats;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.element.Element;
+import de.neemann.digital.core.element.PinDescription;
+import de.neemann.digital.core.wiring.bus.CommonBusValue;
+import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.TreeMap;
 
@@ -25,14 +32,30 @@ public class Statistics {
      * Creates a new statistics.
      *
      * @param model the model to count.
+     * @throws PinException PinException
      */
-    public Statistics(Model model) {
+    public Statistics(Model model) throws PinException {
+        HashSet<CommonBusValue> cbvs = new HashSet<>();
         map = new TreeMap<>();
         for (Node n : model) {
             if (n instanceof Countable) {
                 count(new Index((Countable) n));
             } else
                 count(new Index(n.getClass().getSimpleName()));
+
+            if (n instanceof Element) {
+                for (ObservableValue ov : ((Element) n).getOutputs()) {
+                    for (Observer o : ov.getObservers()) {
+                        if (o instanceof CommonBusValue)
+                            cbvs.add((CommonBusValue) o);
+                    }
+                }
+            }
+        }
+        for (CommonBusValue cbv : cbvs) {
+            PinDescription.PullResistor r = cbv.getResistor();
+            if (r == PinDescription.PullResistor.pullDown || r == PinDescription.PullResistor.pullUp)
+                count(new Index(r.name(), cbv.getBits()));
         }
     }
 
@@ -55,6 +78,13 @@ public class Statistics {
         private final int bits;
         private final int inputs;
         private final int addrBits;
+
+        private Index(String name, int bits) {
+            this.name = name;
+            this.bits = bits;
+            this.inputs = 0;
+            this.addrBits = 0;
+        }
 
         private Index(String name) {
             this.name = name;
