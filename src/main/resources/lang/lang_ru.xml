@@ -28,7 +28,7 @@ In the file howTo.md you can find more details about translations.
     <string name = "btn_save">Сохранить</string>
     <string name = "btn_create">Создать</string>
     <string name = "btn_create_tt">Создать схему в отдельном окне</string>
-    <string name = "btn_editDetached">Изменить отключенный</string>
+    <string name = "btn_editDetached">Изменить (отдельное окно)</string>
     <string name = "btn_editDetached_tt">Открывает диалог как немодальный диалог</string>
     <string name = "btn_openInBrowser">Браузер</string>
     <string name = "btn_openInBrowser_tt">Открывает текст справки в браузере. Позволяет распечатать текст.</string>

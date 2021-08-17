@@ -529,8 +529,8 @@
 	    </par>
 	    <par>
 	        <code>
-	            java -cp Digital.jar CLI test [файл для тестирования] [-tests [необязательный файл с
-	            тестовыми примерами]]
+                java -cp Digital.jar CLI test [file to test] [-tests [optional file with
+                test cases]]
 	        </code>
 	    </par>
 	    <par>

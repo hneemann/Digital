@@ -61,7 +61,7 @@ public class DocuTest extends TestCase {
                 .append("\" lang=\"")
                 .append(language)
                 .append("\" fontFamily=\"")
-                .append(language.equals("zh") ? "SansSerif,SimSun" : "SansSerif,Arial")
+                .append(getFontFamily(language))
                 .append("\" rev=\"")
                 .append(System.getProperty("buildnumber"))
                 .append("\" revt=\"")
@@ -140,6 +140,14 @@ public class DocuTest extends TestCase {
         }
         w.append("  </lib>\n");
         w.append("</root>");
+    }
+
+    private String getFontFamily(String language) {
+        switch (language) {
+            case "zh" : return "SansSerif,SimSun";
+            case "ru" : return "Liberation Serif";
+            default: return "SansSerif";
+        }
     }
 
     private void writeCLIDescription(Writer w) throws IOException {
