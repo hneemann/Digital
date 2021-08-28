@@ -440,6 +440,15 @@ public final class Keys {
             .setMin(5);
 
     /**
+     * the max number of samples in the default data view
+     */
+    public static final Key<Integer> SETTINGS_MAX_STEP_COUNT
+            = new Key.KeyInteger("maxStepCount", 1000)
+            .setComboBoxValues(500, 1000, 5000, 10000)
+            .setMin(500)
+            .setSecondary();
+
+    /**
      * flag to enable high z mode at an input
      */
     public static final Key<Boolean> IS_HIGH_Z

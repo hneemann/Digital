@@ -1519,8 +1519,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private void showMeasurementGraph(ModelEventType updateEvent) {
-        List<String> ordering = circuitComponent.getCircuit().getMeasurementOrdering();
-        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEventType.MICROSTEP, ordering)).setVisible(true);
+        Circuit circuit = circuitComponent.getCircuit();
+        List<String> ordering = circuit.getMeasurementOrdering();
+        int sampleSize = circuit.getAttributes().get(Keys.SETTINGS_MAX_STEP_COUNT);
+        windowPosManager.register("dataSet", GraphDialog.createLiveDialog(this, model, updateEvent == ModelEventType.MICROSTEP, ordering, sampleSize)).setVisible(true);
     }
 
     private void showMeasurementDialog(ModelEventType updateEvent) {

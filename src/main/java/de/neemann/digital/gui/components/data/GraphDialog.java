@@ -34,7 +34,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * The Dialog which shows the data to plot.
  */
 public class GraphDialog extends JDialog implements Observer {
-    private static final int MAX_SAMPLE_SIZE = 1000;
     private final GraphComponent graphComponent;
     private final ToolTipAction showTable;
 
@@ -47,13 +46,14 @@ public class GraphDialog extends JDialog implements Observer {
     /**
      * Creates a instance prepared for "live logging"
      *
-     * @param owner     the parent frame
-     * @param model     the model
-     * @param microStep stepping mode
-     * @param ordering  the ordering to use
+     * @param owner      the parent frame
+     * @param model      the model
+     * @param microStep  stepping mode
+     * @param ordering   the ordering to use
+     * @param sampleSize the number of samples
      * @return the created instance
      */
-    public static GraphDialog createLiveDialog(JFrame owner, Model model, boolean microStep, List<String> ordering) {
+    public static GraphDialog createLiveDialog(JFrame owner, Model model, boolean microStep, List<String> ordering, int sampleSize) {
         String title;
         if (microStep)
             title = Lang.get("win_measures_microstep");
@@ -70,7 +70,7 @@ public class GraphDialog extends JDialog implements Observer {
         }.order(signals);
 
 
-        ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, MAX_SAMPLE_SIZE);
+        ValueTableObserver valueTableObserver = new ValueTableObserver(microStep, signals, sampleSize);
 
         GraphDialog graphDialog = new GraphDialog(owner, title, valueTableObserver.getLogData(), model, true)
                 .setColumnInfo(createColumnsInfo(signals));
