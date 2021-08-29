@@ -1668,6 +1668,11 @@
     <string name="key_port">Port</string>
     <string name="key_port_tt">The port to be opened by the server.</string>
 
+    <string name="key_skipHDL">Skip in Verilog/VHDL export</string>
+    <string name="key_skipHDL_tt">Skips generating the internals of the circuit in Verilog/VHDL
+        export. The references to the circuit are kept, making it possible to override the
+        implementation.</string>
+
     <string name="key_colorScheme">Color scheme</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
     <string name="key_colorScheme_DARK">Dark</string>

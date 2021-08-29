@@ -959,4 +959,9 @@ public final class Keys {
     public static final Key<Boolean> TELNET_ESCAPE =
             new Key<>("telnetEscape", true).allowGroupEdit();
 
+    /**
+     * Skips HDL output for this circuit
+     */
+    public static final Key<Boolean> SKIP_HDL =
+            new Key<>("skipHDL", false).setSecondary();
 }

@@ -124,6 +124,11 @@ public class VerilogCreator {
      * @throws HGSEvalException HGSEvalException
      */
     public void printHDLCircuit(HDLCircuit circuit, String moduleName, File root) throws IOException, HDLException, HGSEvalException {
+        // skip the HDL export and any dependant circuits
+        if (circuit.shouldSkipHDLExport()) {
+            return;
+        }
+
         // at first print all used entities to maintain the correct order
         for (HDLNode node : circuit)
             if (node instanceof HDLNodeCustom)

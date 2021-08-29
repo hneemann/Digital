@@ -50,6 +50,7 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
     private final String description;
     private final File origin;
     private final ArrayList<HDLNode> nodes;
+    private final boolean skipHDL;
     private ArrayList<HDLPort> ports;
     private NetList netList;
     private HashMap<Net, HDLNet> nets;
@@ -100,6 +101,8 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
         netList = new NetList(circuit);
         description = Lang.evalMultilingualContent(circuit.getAttributes().get(Keys.DESCRIPTION));
         this.origin = circuit.getOrigin();
+
+        this.skipHDL = circuit.getAttributes().get(Keys.SKIP_HDL);
 
         ArrayList<ClockInfo> clocks = new ArrayList<>();
 
@@ -474,6 +477,13 @@ public class HDLCircuit implements Iterable<HDLNode>, HDLModel.BitProvider, Prin
      */
     public boolean hasDescription() {
         return description != null && description.trim().length() > 0;
+    }
+
+    /**
+     * @return true if HDL export should be skipped for this circuit
+     */
+    public boolean shouldSkipHDLExport() {
+        return this.skipHDL;
     }
 
     /**
