@@ -85,8 +85,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         ATTR_LIST.add(Keys.SETTINGS_MAX_STEP_COUNT);
         ATTR_LIST.add(Keys.PRELOAD_PROGRAM);
         ATTR_LIST.add(Keys.PROGRAM_TO_PRELOAD);
-        ATTR_LIST.add(Keys.IS_GENERIC);
         ATTR_LIST.add(Keys.SKIP_HDL);
+        ATTR_LIST.add(Keys.IS_GENERIC);
     }
 
     /**

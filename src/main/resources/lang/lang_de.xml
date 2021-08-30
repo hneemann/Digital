@@ -1686,11 +1686,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_port">Port</string>
     <string name="key_port_tt">Der vom Server zu öffnende Port.</string>
 
-    <!-- TODO: Just run through google translate, needs proper translation: -->
-    <string name="key_skipHDL">Verilog/VHDL-Export überspringen</string>
-    <string name="key_skipHDL_tt">Überspringt die Generierung der Interna der Schaltung beim
-        Verilog/VHDL-Export. Die Verweise auf die Schaltung werden beibehalten, sodass die
-        Implementierung überschrieben werden kann.</string>
+    <string name="key_skipHDL">In Verilog/VHDL-Export auslassen</string>
+    <string name="key_skipHDL_tt">Wenn gesetzt wird diese Schaltung bei der Generierung von
+        Verilog/VHDL ausgelassen. Die Verweise auf die Schaltung werden beibehalten, sodass eine eigene
+        Implementierung verwendet werden kann.</string>
 
     <string name="key_colorScheme">Farbschema</string>
     <string name="key_colorScheme_DEFAULT">Normal</string>
