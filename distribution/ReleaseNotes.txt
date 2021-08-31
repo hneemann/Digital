@@ -9,7 +9,10 @@ HEAD, planned as v0.28
 - adds a external component that is based on a file instead
   of storing the code in the component itself.
 - Fixed an issue with clicking on tightly placed components.
-- Variable sample size in default data graph.
+- Allows variable sample size in default data graph.
+- Added an option to skip certain sub-circuits in HDL creation.
+  This allows the user to use a handwritten HDL implementation
+  of the sub-circuit.
 
 v0.27, released on 9. Apr. 2021
 - Added fixed point and floating point number formats.
