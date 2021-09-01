@@ -231,7 +231,7 @@ public final class Keys {
             = new Key.KeyInteger("splitterSpreading", 1)
             .setComboBoxValues(1, 2, 3, 4)
             .setMin(1)
-            .setMax(10)
+            .setMax(20)
             .setSecondary();
 
     /**
