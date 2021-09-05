@@ -997,11 +997,10 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_Stop_pin_stop">Un front montant arrête la simulation.</string>
     <string name="elem_External">Externe</string>
     <string name="elem_External_tt">Une composante qui exécute un processus externe pour calculer la fonction logique.
-        Peut être utilisé pour spécifier le comportement d'une composante avec VHDL ou Verilog.
+        Peut être utilisé pour spécifier le comportement d'une composante en VHDL ou en Verilog.
         La simulation du comportement en tant que telle doit être faite avec un simulateur externe.
-        À l'heure actuelle, seuls le simulateur de VHDL ghdl et le simulateur de Verilog Icarus Verilog sont pris en
-        charge.
-    </string>
+        À l'heure actuelle, seuls le simulateur de VHDL ghdl et le simulateur de Verilog Icarus Verilog sont pris en charge.
+        L'étiquette de la composante doit correspondre au nom de l'entité ou du module!</string>
     <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Une diode bidirectionnelle simplifiée. Peut être utilisée pour implanter un ET câblé ou
         un OU câblé.
@@ -2365,6 +2364,18 @@ declare Bit = (Bus&gt;&gt;3)&amp;1;
 &lt;/pre&gt;
 &lt;p&gt;Dans cet exemple, le troisième bit du signal 'Bus' est isolé et rendu disponible sous
 le nom de 'Bit' pour le test. Le circuit en tant que tel ne contient pas de sortie 'Bit'.&lt;/p&gt;
+&lt;h3&gt;Fonctions&lt;/h3&gt;
+&lt;p&gt;Les fonctions disponibles sont:
+&lt;dl&gt;
+&lt;dt&gt;signExt([bits],[valeur])&lt;/dt&gt;
+&lt;dd&gt;Étend la valeur [valeur] en préservant le bit de signe pour les nouveaux bits.&lt;/dd&gt;
+&lt;dt&gt;random([max])&lt;/dt&gt;
+&lt;dd&gt;Retourne un nombre entier aléatoire. La valeur maximale est spécifiée avec [max].&lt;/dd&gt;
+&lt;dt&gt;ite([cond],[then],[else])&lt;/dt&gt;
+&lt;dd&gt;Si la condition [cond] est vraie, alors la valeur [then] est retournée, sinon la valeur [else] est retournée.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/p&gt;
+
 &lt;h3&gt;Processeurs&lt;/h3&gt;
 &lt;p&gt;Si des processeurs doivent être testés, ceux-ci doivent généralement être initialisés.
 Il est possible de le faire dans l'énoncé du test.
@@ -2648,4 +2659,55 @@ ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
     <string name="btn_BehavioralFixtureComplete">Terminer</string>
     <string name="btn_BehavioralFixtureComplete_tt">Crée l'élément de test à partir des cas</string>
     <string name="msg_errorCreatingTestCase">Erreur lors de la création du test.</string>
+    <string name="msg_errorPastingData">Erreur lors du collage des données!</string>
+    <string name="elem_Telnet">Telnet</string>
+    <string name="elem_Telnet_tt">Permet une connexion Telnet au circuit.
+        Il est possible de recevoir et de transmettre des charactères via Telnet.</string>
+    <string name="elem_Telnet_pin_out">Valeur de sortie</string>
+    <string name="elem_Telnet_pin_av">Cette sortie indique que des données sont présentes lorsqu'elle est haute.</string>
+    <string name="elem_Telnet_pin_in">Les données à transmettre</string>
+    <string name="elem_Telnet_pin_C">Signal d'horloge</string>
+    <string name="elem_Telnet_pin_wr">Si cette entrée est active, l'octet d'entrée est transmis.</string>
+    <string name="elem_Telnet_pin_rd">Si cette entrée est active, l'octet reçu est émis.</string>
+    <string name="elem_VGA_short">VGA</string>
+    <string name="elem_ExternalFile">Fichier externe</string>
+    <string name="elem_ExternalFile_tt">Une composante qui exécute un processus externe pour calculer la fonction logique.
+        Peut être utilisé pour spécifier le comportement d'une composante en VHDL ou en Verilog.
+        La simulation du comportement en tant que telle doit être faite avec un simulateur externe.
+        À l'heure actuelle, seuls le simulateur de VHDL ghdl et le simulateur de Verilog Icarus Verilog sont pris en charge.
+        L'étiquette de la composante doit correspondre au nom de l'entité ou du module!</string>
+    <string name="err_errorLoadingHDLFile_N">Erreur lors du chargement du fichier HDL {0}</string>
+    <string name="err_emptyLabelIsNotAllowed">Une étiquette vide n'est pas permise!</string>
+    <string name="err_errorWritingFile_N">Erreur lors de l''écriture du fichier {0}</string>
+    <string name="err_circuitContainsNoComponents">Ce circuit ne contient aucune composante!</string>
+    <string name="err_couldNotCreateServer">Impossible de lancer le serveur!</string>
+    <string name="key_small">Forme petite</string>
+    <string name="key_small_tt">Si coché, une forme plus petite sera utilisée.</string>
+    <string name="key_lastDataFile">Fichier</string>
+    <string name="key_lastDataFile_tt">Fichier à charger dans la ROM.</string>
+    <string name="key_CodeFile">Code du programme</string>
+    <string name="key_CodeFile_tt">Le fichier contenant le code du programme à exécuter par l'application externe</string>
+    <string name="key_probeMode">Mode d'affichage</string>
+    <string name="key_probeMode_tt">Définit si la valeur ou un compteur doit être affiché.</string>
+    <string name="key_probeMode_VALUE">Afficher la valeur</string>
+    <string name="key_probeMode_UP">Compter sur le front montant</string>
+    <string name="key_probeMode_DOWN">Compter sur le front descendant</string>
+    <string name="key_probeMode_BOTH">Compter sur les deux fronts</string>
+    <string name="key_telnetEscape">Mode Telnet</string>
+    <string name="key_telnetEscape_tt">Si activé, les commandes de contrôle Telnet sont évaluées.
+        De plus, le serveur envoie les commandes SGA et ECHO. Si cette option est désactivée,
+        le serveur est un simple serveur TCP.</string>
+    <string name="key_port">Port</string>
+    <string name="key_port_tt">Le port ouvert par le serveur.</string>
+    <string name="key_skipHDL">Ignorer lors de l'exportation en Verilog/VHDL</string>
+    <string name="key_skipHDL_tt">Ignore la génération des composants internes au circuit lors de l'exportation en
+        Verilog ou VHDL. Les références au circuit sont gardées, permettant de fournir une
+        implémentation différente.</string>
+    <string name="lib_decoration">Décoration</string>
+    <string name="lib_generic">Générique</string>
+    <string name="lib_hdl">VHDL/Verilog</string>
+    <string name="cli_help_test_verbose">Si activé, la table des valeurs est émise en cas d'erreur.</string>
+    <string name="menu_copy_tt">Copier vers le presse-papier</string>
+    <string name="key_defaultsDC">Mettre les valeurs indéfinies à X</string>
+    <string name="key_defaultsDC_tt">Mets les valeurs indéfinies (suivant les états et les sorties) à "peu importe".</string>
 </resources>
