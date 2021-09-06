@@ -289,8 +289,7 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_BusSplitter">Bidirectional Splitter</string>
   <string name="elem_BusSplitter_tt">Can be used for data buses and simplifies especially the construction of
         memory modules in a DIL package, as the implementation of the data bus is simplified.</string>
-  <string name="elem_BusSplitter_pin_OE">When set, the value at the common data terminal D is output to the bit
-        outputs D[i], if not, the bits D[i] are output to the common output D.</string>
+  
   <string name="elem_BusSplitter_pin_D_N">The data bit {0} of the bus splitter.</string>
   <string name="elem_PullUp">Pull-Up Resistor</string>
   <string name="elem_PullUp_pin_out">A "weak high".</string>
@@ -442,7 +441,8 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_External_tt">Component to execute an external process to calculate the logic function.
         Is used to specify the behaviour of a component by VHDL or Verilog.
         The actual simulation of the behavior must be done with an external simulator.
-        At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.</string>
+        At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.
+        The label of the component must match the name of the entity or module!</string>
   <string name="elem_Diode">Diode</string>
   <string name="error">Error</string>
   <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>
@@ -1706,7 +1706,7 @@ In the file howTo.md you can find more details about translations.
   <string name="err_openingDocumentation">Could not open the browser.</string>
   <string name="err_couldNotCreateFolder_N0">Could not create folder "{0}"!</string>
   <string name="err_switchHasNoNet">It is not allowed to connect only inputs to a switch.</string>
-    <string name="err_file_N0_ExistsTwiceBelow_N1">The file {0} exists multiple times under {1}.</string>
+    
   <string name="err_couldNotFindIncludedFile_N0">Could not find the file {0}.</string>
   <string name="err_postProcessErrorIn_N0">Error during execution of "{0}".</string>
   <string name="err_processDoesNotTerminate_N">The process "{0}" does not return!</string>
@@ -1964,8 +1964,7 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_RegisterFile_short">Register</string>
     <string name="elem_Counter_short">Counter</string>
     <string name="elem_BitCount_short">Bit count</string>
-    <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.
-        Possibly the number of timeout cycles in the break component should be increased.</string>
+    
     <string name="err_exact_N0_valuesNecessaryNot_N1">Exact {0} values necessary, not {1}</string>
     <string name="err_noValueSetFor_N0_atElement_N1">Nothing connected to input ''{0}'' at component ''{1}''. Open inputs are not allowed.</string>
     <string name="err_seemsToOscillate">Logic seems to oscillate.
@@ -1985,12 +1984,12 @@ In the file howTo.md you can find more details about translations.
     <string name="err_csvNoOutputValuesFound">No output values found!</string>
     <string name="err_csvNotEnoughValues">Not enough values in one line!</string>
     <string name="err_csvToManyValues">Too many values in one line!</string>
-    <string name="key_intFormat_ascii">ASCII</string>
-    <string name="key_intFormat_bin">Bin</string>
-    <string name="key_intFormat_dec">Decimal</string>
-    <string name="key_intFormat_def">Default</string>
-    <string name="key_intFormat_hex">Hex</string>
-    <string name="key_intFormat_oct">Octal</string>
+    
+    
+    
+    
+    
+    
     <string name="key_fixedPoint_tt">Number of fractional binary digits</string>
     <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
     <string name="key_applicationType_GHDL">GHDL</string>
@@ -2009,7 +2008,7 @@ In the file howTo.md you can find more details about translations.
         depend on different inputs.</string>
     <string name="menu_table_exportCSV">CSV</string>
     <string name="menu_table_exportCSV_tt">A CSV file containing the complete truth table.</string>
-    <string name="menu_table_exportCSVCondensed_tt">A CSV file containing only the prime implicants.</string>
+    
     <string name="msg_test_missingLines">(Too many entries!)</string>
     <string name="msg_fitterResult">Message from the external fitter</string>
     <string name="msg_startExternalFitter">Execution of external fitter</string>
@@ -2025,4 +2024,112 @@ In the file howTo.md you can find more details about translations.
     <string name="fsm_noMove">No movement</string>
     <string name="fsm_moveTrans">Transitions</string>
     <string name="fsm_moveStates">Transitions+States</string>
+    <string name="msg_errorPastingData">Error at pasting data!</string>
+    <string name="elem_Telnet">Telnet</string>
+    <string name="elem_Telnet_tt">Allows a Telnet connection to the circuit.
+        It is possible to receive and send characters via Telnet.</string>
+    <string name="elem_Telnet_pin_out">Data output</string>
+    <string name="elem_Telnet_pin_in">The data to be sent.</string>
+    <string name="elem_Telnet_pin_C">Clock input</string>
+    <string name="elem_Telnet_pin_wr">If set, the input data byte is sent.</string>
+    <string name="elem_Telnet_pin_rd">If set, a received byte is output.</string>
+    <string name="elem_VGA_short">VGA</string>
+    <string name="elem_BusSplitter_pin_OE">When set, the value at the common data terminal D is output to the bit
+        outputs D[i], if not, the bits D[i] are output to the common output D.</string>
+    <string name="elem_ExternalFile">External File</string>
+    <string name="elem_ExternalFile_tt">Component to execute an external process to calculate the logic function.
+        Is used to specify the behaviour of a component by VHDL or Verilog.
+        The actual simulation of the behavior must be done with an external simulator.
+        At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.
+        The label of the component must match the name of the entity or module!</string>
+    <string name="err_errorRunningFitter">Error starting the external fitter!</string>
+    <string name="err_function_N0_notFoundInLine_N1">Function {0} not found in line {1}!</string>
+    <string name="err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3">Number of arguments in function {0} in line {1} not correct (found {2}, expected {3})!</string>
+    <string name="err_invalidValue_N0_inFunction_N1">Invalid value {0} in function {1}!</string>
+    <string name="err_errorLoadingHDLFile_N">Error loading the HDL file {0}</string>
+    <string name="err_emptyLabelIsNotAllowed">A empty label is not allowed!</string>
+    <string name="err_evaluatingGenericsCode_N_N">Error in the evaluation of the generic code of the circuit. Code
+        {1}
+        at Component: {0}</string>
+    <string name="err_errorWritingFile_N">Error writing file {0}.</string>
+    <string name="err_circuitContainsNoComponents">The circuit contains no components!</string>
+    <string name="err_couldNotCreateServer">Could not start the server!</string>
+    <string name="key_small">Small Shape</string>
+    <string name="key_small_tt">If selected, a smaller shape will be used.</string>
+    <string name="key_lastDataFile">File</string>
+    <string name="key_lastDataFile_tt">File to be loaded into the ROM.</string>
+    <string name="key_intFormat_ascii">ASCII</string>
+    <string name="key_intFormat_bin">Bin</string>
+    <string name="key_intFormat_dec">Decimal</string>
+    <string name="key_intFormat_def">Default</string>
+    <string name="key_intFormat_hex">Hex</string>
+    <string name="key_intFormat_oct">Octal</string>
+    <string name="key_activeLow">Active Low</string>
+    <string name="key_CodeFile">Program code</string>
+    <string name="key_CodeFile_tt">The file containing the program code to be executed by the external application.</string>
+    <string name="key_equalsInsteadOfPlus_tt">Use the equal key instead of the plus key.
+        This is always useful if the plus character is not a primary key, but the second assignment of the
+        equals character, e.g. for an American or French keyboard layout.</string>
+    <string name="key_probeMode">Display Mode</string>
+    <string name="key_probeMode_tt">Defines whether the value or a counter is to be displayed.</string>
+    <string name="key_probeMode_VALUE">Show Value</string>
+    <string name="key_probeMode_UP">Count on Rising Edge</string>
+    <string name="key_probeMode_DOWN">Count on Falling Edge</string>
+    <string name="key_probeMode_BOTH">Count both Edges</string>
+    <string name="key_telnetEscape">Telnet mode</string>
+    <string name="key_telnetEscape_tt">If set, the Telnet control commands are evaluated.
+        In addition, the server sends the SGA and ECHO commands. If this option is disabled,
+        the server is a simple TCP server.</string>
+    <string name="key_port">Port</string>
+    <string name="key_port_tt">The port to be opened by the server.</string>
+    <string name="key_skipHDL">Skip in Verilog/VHDL export</string>
+    <string name="key_skipHDL_tt">Skips generating the internals of the circuit in Verilog/VHDL
+        export. The references to the circuit are kept, making it possible to override the
+        implementation.</string>
+    <string name="lib_decoration">Decoration</string>
+    <string name="lib_generic">Generic</string>
+    <string name="lib_hdl">VHDL/Verilog</string>
+    <string name="cli_help_test_verbose">If set, the value table is output in case of an error.</string>
+    <string name="menu_copy_tt">Copy to clipboard</string>
+    <string name="menu_table_exportCSVCondensed">CSV, prime implicants</string>
+    <string name="menu_table_exportCSVCondensed_tt">A CSV file containing only the prime implicants.</string>
+    <string name="stat_clocks">Break after {0} half cycles at break point ''{1}''.</string>
+    <string name="msg_romDialogHelp">&lt;html&gt;
+        &lt;h3&gt;Motivation&lt;/h3&gt;
+        When a circuit containing a ROM component is embedded multiple times, the contents of the ROM
+        is normally used for each instance of that circuit. Under certain circumstances,
+        however, it may be desirable for such a circuit to be embedded multiple times,
+        but different ROM contents are used for each instance.&lt;br/&gt;
+        This problem occurs e.g. if a 74xx ROM is used multiple times but with different
+        memory contents.&lt;br/&gt;
+        &lt;h3&gt;Function&lt;/h3&gt;
+        At this location, therefore, contents can be defined for all ROMs in the circuit.
+        When the simulation model is generated, every ROM is initialized with the contents stored
+        directly in the respective ROM. Then it is checked whether an alternative content is
+        defined here. If this is the case, the content defined here is loaded into the corresponding ROM.
+        &lt;h3&gt;Usage&lt;/h3&gt;
+        It should be noted that each ROM requires a unique name used to identify the ROM.
+        To do this, use the asterisk ('*') in the label of the ROM. The asterisk is then replaced by the complete
+        path constructed from the names of the embedded circuits.
+        If a circuit contains only one ROM component, it is sufficient to use only the asterisk as a label for it.
+        All embedded circuits must be named so that a unique name can be formed for each ROM component.
+        &lt;/html&gt;</string>
+    <string name="key_defaultsDC">Set undefined values to DC</string>
+    <string name="key_defaultsDC_tt">Sets all undefined values (following state and outputs) to "Don't Care".</string>
+    <string name="msg_graphHelp">&lt;html&gt;&lt;body&gt;
+        &lt;h3&gt;What can be seen in the graph?&lt;/h3&gt;
+        Unlike a real logic analyzer, the X-axis of the measurement graph does not show the time.
+        Instead a counter is displayed which counts the changes of state in the circuit.
+        Whenever there is a change in the circuit, the counter is incremented and the new state is displayed.&lt;br/&gt;
+        You can also think of it as a classic logic analyzer, which does not save any data for optimization
+        if nothing has changed in the circuit.
+        However, this also means that it is not possible to read from the graph whether a lot or little time has
+        passed between two changes in the circuit.&lt;br/&gt;
+        This behavior is caused by the nature of the simulation: The simulation of the circuit does not know the
+        concept of time. A change is made to the circuit, and the change in the circuit state is calculated, until
+        the circuit has stabilized again. Then the next change is made, the effect of which is also is calculated
+        and so on. These changes are counted and the counter value is displayed on the X-axis of the graph.&lt;br/&gt;
+        Among other things, this also means that a circuit cannot be overclocked, since the effects of the falling
+		edge of the clock are not calculated until the circuit has stabilized after the previous rising edge.
+        &lt;/body&gt;&lt;/html&gt;</string>
 </resources>

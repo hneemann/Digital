@@ -349,7 +349,8 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_Break_pin_brk">如果检测到上升沿则停止仿真</string>
   <string name="elem_External">External</string>
   <string name="elem_External_tt">通过执行外部程序计算逻辑值。用于通过 VHDL 或 Verilog 定义组件行为。
-      实际的仿真行为由外部仿真器完成。目前支持 VHDL 仿真器 ghdl 和 verilog 仿真器 Icarus Verilog。</string>
+      实际的仿真行为由外部仿真器完成。目前支持 VHDL 仿真器 ghdl 和 verilog 仿真器 Icarus Verilog。
+      组件的名称必须和模块名称一致！</string>
   <string name="elem_Diode">二极管</string>
   <string name="error">错误</string>
   <string name="err_N_isNotInputOrOutput">组件 {1} 的管脚 {0} 不是输入或输出</string>
@@ -1606,4 +1607,77 @@ In the file howTo.md you can find more details about translations.
     <string name="fsm_noMove">没有变化</string>
     <string name="fsm_moveTrans">迁移</string>
     <string name="fsm_moveStates">迁移 + 状态</string>
+    <string name="msg_errorPastingData">粘贴数据时发生错误！</string>
+    <string name="elem_Telnet">Telnet</string>
+    <string name="elem_Telnet_tt">允许通过 Telnet 协议连接到电路，可以通过 Telnet 发送或接收字符。</string>
+    <string name="elem_Telnet_pin_out">数据输出</string>
+    <string name="elem_Telnet_pin_in">待发送数据</string>
+    <string name="elem_Telnet_pin_C">时钟输入</string>
+    <string name="elem_Telnet_pin_wr">如果置位，发送输入字节数据。</string>
+    <string name="elem_Telnet_pin_rd">如果置位，输出接收到的字节数据。</string>
+    <string name="elem_VGA_short">VGA</string>
+    <string name="elem_BusSplitter_pin_OE">如果置位，位于管脚 D 的值分别输出到 D[i]，否则，D[i] 汇聚输出到 D</string>
+    <string name="elem_ExternalFile">外部文件</string>
+    <string name="elem_ExternalFile_tt">通过执行外部程序计算逻辑值。用于通过 VHDL 或 Verilog 定义组件行为。
+      实际的仿真行为由外部仿真器完成。目前支持 VHDL 仿真器 ghdl 和 verilog 仿真器 Icarus Verilog。
+      组件的名称必须和模块名称一致！</string>
+    <string name="err_errorRunningFitter">启动外部 fitter 时遇到错误！</string>
+    <string name="err_function_N0_notFoundInLine_N1">行 {1} 处未发现函数 {0}！</string>
+    <string name="err_wrongNumOfArgsIn_N0_InLine_N1_found_N2_expected_N3">位于行 {1} 的函数 {0} 参数个数不正确（期望 {3} 个，发现 {2} 个）</string>
+    <string name="err_invalidValue_N0_inFunction_N1">函数 {1} 中发现无效的值 {0}！</string>
+    <string name="err_errorLoadingHDLFile_N">载入 HDL 文件 {0} 时遇到错误！</string>
+    <string name="err_emptyLabelIsNotAllowed">名称不能为空！</string>
+    <string name="err_evaluatingGenericsCode_N_N">运行通用代码时遇到错误，组件 {0} 代码 {1}</string>
+    <string name="err_errorWritingFile_N">写文件 {0} 时发生错误。</string>
+    <string name="err_circuitContainsNoComponents">电路没有任何组件！</string>
+    <string name="err_couldNotCreateServer">未能启动服务器！</string>
+    <string name="key_small">较小符号</string>
+    <string name="key_small_tt">如果选中，将使用较小的符号形状。</string>
+    <string name="key_lastDataFile">文件</string>
+    <string name="key_lastDataFile_tt">载入 ROM 数据的文件</string>
+    <string name="key_intFormat_ascii">ASCII</string>
+    <string name="key_intFormat_bin">Bin</string>
+    <string name="key_intFormat_dec">Decimal</string>
+    <string name="key_intFormat_def">Default</string>
+    <string name="key_intFormat_hex">Hex</string>
+    <string name="key_intFormat_oct">Octal</string>
+    <string name="key_activeLow">低电平有效</string>
+    <string name="key_CodeFile">程序代码</string>
+    <string name="key_CodeFile_tt">通过外部应用执行的代码文件。</string>
+    <string name="key_equalsInsteadOfPlus_tt">使用等号键而不是加号键。如果加号字符不是主键，而是等号字符的第二个赋值，这总是有用的，例如 用于美式或法式键盘布局。</string>
+    <string name="key_probeMode">显示模式</string>
+    <string name="key_probeMode_tt">定义是否显示值或者计数器。</string>
+    <string name="key_probeMode_VALUE">显示值</string>
+    <string name="key_probeMode_UP">上升沿计数</string>
+    <string name="key_probeMode_DOWN">下降沿计数</string>
+    <string name="key_probeMode_BOTH">上升和下降沿计数</string>
+    <string name="key_telnetEscape">Telnet 模式</string>
+    <string name="key_telnetEscape_tt">如果置位，Telnet 控制命令将会被执行。另外，服务器会发送 SGA 和 ECHO 命令。如果禁用该选项，服务器工作为简单的 TCP 服务器。</string>
+    <string name="key_port">端口</string>
+    <string name="key_port_tt">服务器端口</string>
+    <string name="key_skipHDL">导出 Verilog/VHDL 时忽略</string>
+    <string name="key_skipHDL_tt">当导出 Verilog/VHDL 时，忽略内部实现，保留对电路的引用，以实现手动编写电路实现。</string>
+    <string name="lib_decoration">Decoration</string>
+    <string name="lib_generic">Generic</string>
+    <string name="lib_hdl">VHDL/Verilog</string>
+    <string name="cli_help_test_verbose">如果设置，当发生错误时，输出相关值的表格。</string>
+    <string name="menu_copy_tt">复制到剪贴板</string>
+    <string name="menu_table_exportCSVCondensed">紧凑 CSV</string>
+    <string name="menu_table_exportCSVCondensed_tt">只包含关键数据的 CSV 文件</string>
+    <string name="stat_clocks">{0} 个半周期后终止于断点 ''{1}''</string>
+    <string name="msg_romDialogHelp">&lt;html&gt;
+        &lt;h3&gt;动机&lt;/h3&gt;
+        当包含 ROM 组件的电路被多次嵌入时，ROM 的内容通常用于该电路的每个实例。 然而，在某些情况下，可能需要多次嵌入这样的电路，但每个实例使用不同的 ROM 内容。&lt;br/&gt;
+        例如，多次使用 74xx ROM 但存储器内容不同&lt;br/&gt;
+        &lt;h3&gt;功能&lt;/h3&gt;
+        通过该处，可以为电路中的所有 ROM 定义内容。 生成仿真模型时，每个 ROM 都会使用直接存储在相应 ROM 中的内容进行初始化。 然后检查此处是否定义了替代内容。 如果是，则将此处定义的内容加载到相应的 ROM 中。
+        &lt;h3&gt;使用&lt;/h3&gt;
+        需要注意的是，每个 ROM 都需要一个唯一的名称来标识 ROM。 为此，请在 ROM 的标签中使用星号 ('*')。 然后，星号被替换为由嵌入式电路的名称构成的完整路径。 如果电路仅包含一个 ROM 组件，则仅使用星号作为其标签就足够了。 所有嵌入式电路都必须命名，以便为每个 ROM 组件形成一个唯一的名称。
+        &lt;/html&gt;</string>
+    <string name="key_defaultsDC">设置 DC 为未定义</string>
+    <string name="key_defaultsDC_tt">设置所有未定义值为 "Don't Care"</string>
+    <string name="msg_graphHelp">&lt;html&gt;&lt;body&gt;
+        &lt;h3&gt;在图中可以看到什么？&lt;/h3&gt;
+        与真正的逻辑分析仪不同，测量图的 X 轴不显示时间。而是显示一个计数器，用于计算电路中状态的变化。每当电路发生变化时，计数器就会递增并显示新状态。&lt;br/&gt;您也可以将其视为经典的逻辑分析仪，如果电路中没有任何变化，它不会保存任何数据进行电路优化。但是，这也意味着无法从图中读取电路中两次更改之间经过的时间是长还是短。&lt;br/&gt; 这种行为是由模拟的性质引起的：电路的模拟不知道时间的概念。对电路进行更改，并计算电路状态的变化，直到电路再次稳定。然后进行下一个更改，其效果也是计算等等。对这些变化进行计数，并将计数器值显示在图表的 X 轴上。&lt;br/&gt; 此外，这也意味着电路不能超频，因为直到电路在前一个上升沿后稳定后才计算时钟下降沿的影响。
+        &lt;/body&gt;&lt;/html&gt;</string>
 </resources>
