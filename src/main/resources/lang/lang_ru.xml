@@ -556,7 +556,7 @@ In the file howTo.md you can find more details about translations.
 
     <!-- Память -->
 
-    <string name = "elem_Register">Зарегистрироваться</string>
+    <string name = "elem_Register">Регистр</string>
     <string name = "elem_Register_short">Рег</string>
     <string name = "elem_Register_tt"> Компонент для хранения значений. Можно выбрать разрядность слова данных.
         В отличие от D-триггера, регистр обеспечивает вход, который включает часы. </string>
@@ -573,7 +573,7 @@ In the file howTo.md you can find more details about translations.
     <string name = "elem_ROM_pin_D">Выбранное слово данных, если вход sel высокий.</string>
     <string name = "elem_ROM_pin_sel">Если вход высокий, выход активируется. Если он низкий, выходные данные находятся в состоянии высокого Z.</string>
 
-    <string name = "elem_ROMDualPort">Двойной порт ПЗУ</string>
+    <string name = "elem_ROMDualPort">Двухпортовое ПЗУ</string>
     <string name = "elem_ROMDualPort_short">ПЗУ</string>
     <string name = "elem_ROMDualPort_tt"> Компонент энергонезависимой памяти.
         Сохраненные данные можно редактировать в диалоговом окне атрибутов.
@@ -703,8 +703,8 @@ In the file howTo.md you can find more details about translations.
         сохраняется по адресу, применяемому к A при изменении A или D. </string>
     <string name = "elem_RAMAsync_pin_Q">Вывод сохраненных данных.</string>
 
-    <string name = "elem_RegisterFile">Файл регистрации</string>
-    <string name = "elem_RegisterFile_short">Зарегистрироваться</string>
+    <string name = "elem_RegisterFile">Файл регистра</string>
+    <string name = "elem_RegisterFile_short">Регистр</string>
     <string name = "elem_RegisterFile_tt"> Память с одним портом для записи и двумя портами для чтения из
         память одновременно. Может использоваться для реализации регистров процессора.
         Два регистра могут быть прочитаны одновременно, а третий может быть записан. </string>
@@ -877,7 +877,7 @@ In the file howTo.md you can find more details about translations.
     <string name = "elem_Fuse_pin_out1">Одно из соединений предохранителя.</string>
     <string name = "elem_Fuse_pin_out2">Одно из соединений предохранителя.</string>
     <string name = "elem_Relay">Реле</string>
-    <string name = "elem_Relay_tt"> Реле - это переключатель, которым можно управлять с помощью катушки.
+    <string name = "elem_Relay_tt">Реле - это переключатель, которым можно управлять с помощью катушки.
         Если через катушку протекает ток, переключатель замыкается или размыкается.
         Обратного диода нет, поэтому направление тока не имеет значения.
         Переключатель срабатывает, если входы имеют разные значения.
@@ -894,22 +894,22 @@ In the file howTo.md you can find more details about translations.
     </string>
     <string name = "elem_RelayDT_pin_in1">Один из входов для управления реле.</string>
     <string name = "elem_RelayDT_pin_in2">Один из входов для управления реле.</string>
-    <string name = "elem_PFET">П-канальный полевой транзистор</string>
-    <string name = "elem_PFET_tt"> P-канальный полевой транзистор.
+    <string name = "elem_PFET">P-канальный полевой транзистор</string>
+    <string name = "elem_PFET_tt">P-канальный полевой транзистор.
         Основная часть подключается к поз. Шина напряжения и транзистор моделируются без основного диода.
     </string>
     <string name = "elem_PFET_pin_G">Ворота</string>
     <string name = "elem_PFET_pin_S">Источник</string>
     <string name = "elem_PFET_pin_D">Слив</string>
     <string name = "elem_NFET">N-канальный полевой транзистор</string>
-    <string name = "elem_NFET_tt"> N-канальный полевой транзистор.
+    <string name = "elem_NFET_tt">N-канальный полевой транзистор.
         Основная часть соединена с землей, и транзистор моделируется без внутреннего диода.
     </string>
     <string name = "elem_NFET_pin_G">Ворота</string>
     <string name = "elem_NFET_pin_S">Источник</string>
     <string name = "elem_NFET_pin_D">Слив</string>
-    <string name = "elem_FGPFET">П-канальный полевой транзистор с плавающим затвором</string>
-    <string name = "elem_FGPFET_tt"> P-канальный полевой транзистор с плавающим затвором.
+    <string name = "elem_FGPFET">P-канальный полевой транзистор с плавающим затвором</string>
+    <string name = "elem_FGPFET_tt">P-канальный полевой транзистор с плавающим затвором.
         Основная часть соединена с землей, и транзистор моделируется без внутреннего диода.
         Если в плавающем затворе хранится заряд, он не проводит ток, даже если затвор низкий.
     </string>
@@ -2222,27 +2222,27 @@ In the file howTo.md you can find more details about translations.
         <pre>
             C Q1 Q0
             0 0 0
-            С 0 1
-            С 1 0
-            С 1 1
-            С 0 0
+            C 0 1
+            C 1 0
+            C 1 1
+            C 0 0
         </pre>
 
         <p>Тесты выполняются с помощью Run-> Run Tests.</p>
         <p>
             Чтобы упростить создание большого количества тестовых векторов, есть инструкция 'repeat ([n])':
-            Если строка начинается с 'repeat ([n])', создается [n] тестовых строк. В
-            переменная n может использоваться для генерации тестовых данных. С помощью 'repeat (16)',
-            Создается 16 строк, где n изменяется от 0 до 15. Если имеется несколько битовых входов,
+            Если строка начинается с 'repeat ([n])', создается [n] тестовых строк.
+            Переменная n может использоваться для генерации тестовых данных. С помощью 'repeat (16)',
+            создается 16 строк, где n изменяется от 0 до 15. Если имеется несколько битовых входов,
             и они должны быть установлены вместе в двоичное значение, это можно сделать с помощью
-            Оператор "биты ([биты], [значение])". Используется для создания [битов] битов значения [значение]. </p>
+            оператора "bits([биты], [значение])". Используется для создания [биты] битов значения [значение]. </p>
 
         <p>Ниже приведен пример проверки 4-битного сумматора:</p>
 
         <pre>
-            C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
-            повторить (256) 0 бит (4, n >> 4) бит (4, n) бит (5, (n >> 4) + (n и 15))
-            повторить (256) 1 бит (4, n >> 4) бит (4, n) бит (5, (n >> 4) + (n & 15) +1)
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+        repeat(256)  0    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15))
+        repeat(256)  1    bits(4,n>>4)     bits(4,n)        bits(5,(n>>4)+(n&15)+1)
         </pre>
 
         <p> Входными сигналами являются входной сигнал (C_i-1) и восемь входных битов A_3-A_0 и B_3-B_0.
@@ -2254,13 +2254,13 @@ In the file howTo.md you can find more details about translations.
             заявление можно использовать. Приведенный выше пример также можно реализовать следующим образом: </p>
 
         <pre>
-            C_i-1 A_3 A_2 A_1 A_0 B_3 B_2 B_1 B_0 C_i S_3 S_2 S_1 S_0
-            петля (а, 16)
-            петля (б, 16)
-            0 бит (4, a) бит (4, b) бит (5, a + b)
-            1 биты (4, a) биты (4, b) биты (5, a + b + 1)
-            конец цикла
-            конец цикла
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+        loop(a,16)
+            loop(b,16)
+             0    bits(4,a)        bits(4,b)        bits(5,a+b)
+             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
+            end loop
+        end loop
         </pre>
 
         <p> При определенных обстоятельствах может возникнуть необходимость отреагировать на первоначальный
@@ -2271,12 +2271,12 @@ In the file howTo.md you can find more details about translations.
         <pre> C Q_3 Q_2 Q_1 Q_0
 
             # счетчик часов до 1111
-            в то время как (! (Q_3 & Q_2 & Q_1 & Q_0))
-            С х х х х
-            конец пока
+            while(!(Q_3 & Q_2 & Q_1 & Q_0))
+            C x x x x
+            end while
 
             # запускаем выполнение теста
-            повторить (16) C бит (4, n)
+            repeat(16) C bits(4,n)
         </pre>
 
         <p> В тестовых случаях может быть полезно генерировать случайные числа.
@@ -2286,12 +2286,12 @@ In the file howTo.md you can find more details about translations.
             Регрессионный тест, который умножает 100000 случайных чисел, может выглядеть так: </p>
 
         <pre>
-            А Б Y
-            цикл (я, 100000)
-            пусть a = random(1&lt;&lt;16);
-            пусть b = random(1&lt;&lt;16);
-            (а) (б) (а * б)
-            конец цикла
+            A    B      Y
+        loop(i,100000)
+            let a = random(1&lt;&lt;16);
+            let b = random(1&lt;&lt;16);
+            (a)  (b)   (a*b)
+        end loop
         </pre>
 
         <p> Вход, допускающий высокое сопротивление в качестве значения, также можно использовать в качестве тестового выхода.
@@ -2317,12 +2317,12 @@ In the file howTo.md you can find more details about translations.
         <p>Это делается с помощью оператора declare:</p>
         <pre> A B Bit
 
-            объявить Bit = (Bus >> 3) & 1;
+            declare Bit = (Bus>>3)&1;;
 
-            0 0 0
-            0 1 0
-            1 0 1
-            1 1 0
+            0 0  0
+            0 1  0
+            1 0  1
+            1 1  0
         </pre>
         <p> В этом примере 3-й бит изолирован от сигнала шины и доступен как
             битовый сигнал для теста. Сама схема не содержит выходного «Бита». </p>
@@ -2345,19 +2345,19 @@ In the file howTo.md you can find more details about translations.
             Для выполнения этой инициализации есть три инструкции: </p>
         <ul>
             <li> Оператор 'program' может использоваться для перезаписи программной памяти процессора.
-                Инструкция <pre>program (0x8000,0x2d11,0x8000,0x2f21)</pre> записывает четыре слова в начало
+                Инструкция <pre>program(0x8000,0x2d11,0x8000,0x2f21)</pre> записывает четыре слова в начало
                 программной памяти. Все остальные слова обнулены. </li>.
             <li> Инструкцию memory можно использовать для записи в компонент RAM:
-                <pre>memory mem (3) = 7;</pre>
+                <pre>memory mem(3) = 7;</pre>
                 В этом примере 7 записывается в память с меткой «mem» по адресу 3. </li>
             <li> Помеченный регистр можно перезаписать с помощью оператора init.
-                <pre>init R0 = 22;</pre>
+                <pre>init R0=22;</pre>
                 Эта инструкция перезаписывает регистр меткой 'R0' со значением 22. </li>
         </ul>
         <p> Следует отметить, что все использованные инициализации применяются только один раз перед
             выполнение теста. Не имеет значения, в какой строке тестового примера находятся эти операторы.
             Однако их нельзя использовать над строкой заголовка, в которой перечислены имена сигналов. </p>.
-    </body></html>fastennable></string>
+    </body></html></string>
 
 <string name = "fsm_title">Конечный автомат</string>
 <string name = "fsm_noMove">Нет движения</string>
@@ -2442,7 +2442,7 @@ In the file howTo.md you can find more details about translations.
         условие выполнено.
         Если нет безусловного перехода из состояния, конечный автомат останется в этом состоянии, если нет других
         условие перехода выполнено.
-    </body></html>fastennable></string>
+    </body></html></string>
 
 <string name = "msg_graphHelpTitle">График измерений</string>
 <string name = "msg_graphHelp"> <![CDATA[
