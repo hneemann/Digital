@@ -10,14 +10,15 @@ import de.neemann.gui.language.Language;
 import de.neemann.gui.language.Resources;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class TestSyntax extends TestCase {
 
     public void testSyntax() {
         Bundle bundle = new Bundle("lang/lang");
-        ArrayList<Resources> list = new ArrayList<>();
+        HashMap<String, Resources> list = new HashMap<>();
         Resources en = null;
         Resources de = null;
         for (Language l : bundle.getSupportedLanguages()) {
@@ -27,42 +28,59 @@ public class TestSyntax extends TestCase {
             else if (l.getName().equals("de"))
                 de = resources;
             else
-                list.add(resources);
+                list.put(l.getName(), resources);
         }
 
+        boolean error = false;
         for (String key : en.getKeys()) {
             final String en_msg = en.get(key);
             final String de_msg = de.get(key);
-            int paramCount = getParamCount(key, en_msg);
-            assertEquals(key, paramCount, getParamCount(key, de_msg));
+            int paramCount = getParamCount(key, en_msg, "en");
+            assertTrue(paramCount >= 0);
+            assertEquals(key, paramCount, getParamCount(key, de_msg, "de"));
             checkSingleQuoteRules(en_msg, key, paramCount);
             checkSingleQuoteRules(de_msg, key, paramCount);
 
-            for (Resources r : list) {
+            for (Map.Entry<String, Resources> e : list.entrySet()) {
+                Resources r = e.getValue();
                 final String m = r.get(key);
                 if (m != null) {
                     checkSingleQuoteRules(m, key, paramCount);
-                    assertEquals("Param count does not match: " + key + " " + m, paramCount, getParamCount(key, m));
+                    int pc = getParamCount(key, m, e.getKey());
+                    if (pc < 0)
+                        error = true;
+                    else if (pc != paramCount) {
+                        System.out.println(e.getKey() + ": Param count does not match: " + key + "=\"" + m + "\", expected: " + paramCount + ", found " + pc);
+                        error = true;
+                    }
                 }
             }
         }
 
-
+        assertFalse("Param errors detected!", error);
     }
 
-    private int getParamCount(String key, String msg) {
+    private int getParamCount(String key, String msg, String lang) {
         HashSet<Integer> numSet = new HashSet<>();
         int pos = 0;
         while (true) {
             pos = msg.indexOf("{", pos);
             if (pos < 0) {
-                for (int i = 0; i < numSet.size(); i++)
-                    assertTrue(key + ": param " + i + " is missing in " + msg, numSet.contains(i));
+                for (int i = 0; i < numSet.size(); i++) {
+                    if (!numSet.contains(i)) {
+                        System.out.println(lang + ": Param " + i + " is missing in: " + key + "=\"" + msg + "\"");
+                        return -1;
+                    }
+                }
 
                 return numSet.size();
             }
             int p = pos + 1;
-            while (msg.charAt(p) != '}') p++;
+            while (msg.length() > p && msg.charAt(p) != '}') p++;
+            if (p >= msg.length()) {
+                System.out.println(lang + ": Missing closing '}': " + key + "=\"" + msg + "\"");
+                return -1;
+            }
             String numStr = msg.substring(pos + 1, p);
             if (!numStr.contains("background-color:")) {
                 int num = Integer.parseInt(numStr);
