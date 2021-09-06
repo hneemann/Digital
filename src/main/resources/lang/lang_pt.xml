@@ -748,8 +748,8 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_External">Externo</string>
   <string name="elem_External_tt">Componente que executará um processo externo para calcular uma função lógica.
         Será usado para especificar o comportamento de um componente mediante VHDL ou Verilog.
-        A simulação real do comportamento deverá ser provida por meio de um simulador externo.
-        Até o momento apenas os simuladores ghdl (VHDL) e Icarus Verilog têm suporte.</string>
+        Até o momento apenas os simuladores ghdl (VHDL) e Icarus Verilog têm suporte.
+        A identificação do componente deverá coincidir com o nome da entidade ou módulo!</string>
   <string name="elem_Diode">Diodo</string>
   <string name="elem_Diode_tt">Diodo bidirecional simples. Servirá para implementar uma AND ou OR em fios.
         Corresponderá a um diodo ideal. não haverá queda de tensão caso o diodo estiver diretamente polarizado.</string>
@@ -1665,12 +1665,12 @@ In the file howTo.md you can find more details about translations.
         &lt;p&gt;Dessa forma um teste para um contador de 2-bits poderia se parecer com isso:&lt;/p&gt;
 
         &lt;pre&gt;
-        C Q1 Q0
-        0 0 0
-        C 0 1
-        C 1 0
-        C 1 1
-        C 0 0
+        C  Q1 Q0
+        0  0  0
+        C  0  1
+        C  1  0
+        C  1  1
+        C  0  0
         &lt;/pre&gt;
        
         &lt;p&gt;Os testes serão executados por Executar-&gt;Testes de execução.&lt;/p&gt;
@@ -1695,7 +1695,7 @@ In the file howTo.md you can find more details about translations.
         Os 4 bits de entrada serão gerados pela instrução 'bits'. O resultado (C_i, S_3-S_0) também será gerado
         pela mesma instrução.
         Isso irá ocorrer um vez com C_i-1 = 0 e na próxima linha com C_i-1 = 1.
-        Dessa forma, 512 linhas de testes serão gerados para cobrir todas as configurações possíveis das entradas.&lt;/p&gt;
+        Dessa forma, 512 linhas de testes serão geradas para cobrir todas as configurações possíveis das entradas.&lt;/p&gt;
         &lt;p&gt;Se múltiplas linhas forem repetidas, ou se repetições aninhadas forem requeridas, o comando de
         repetição poderá ser usado. O exemplo acima poderia ser implementado como mostrado a seguir:
         &lt;/p&gt;
@@ -1711,7 +1711,7 @@ In the file howTo.md you can find more details about translations.
         &lt;/pre&gt;
 
         &lt;p&gt;
-        Sob certas circunstâncias poderá necessitar se capaz de reagir ao estado inicial do circuito.
+        Sob certas circunstâncias poderá necessitar ser capaz de reagir ao estado inicial do circuito.
         Portanto, os sinais fornecidos pelo circuito poderão ser usados como caso de teste.
         Por exemplo, se um contador que for iniciado em um estado indefinido for testado,
         poderá ser levado a um estado definido na variação do clock:
@@ -1729,7 +1729,7 @@ In the file howTo.md you can find more details about translations.
         &lt;/pre&gt;
         
         &lt;p&gt;
-        Poderia ser útil para gerar valores aleatórios para casos de testes.
+        Poderá ser útil para gerar valores aleatórios para casos de testes.
         Isso poderá ser criado pela função 'random([n])'. O valor gerado será maior ou igual a
         zero e menor que [n]. Considerando um multiplicador de 16-bits como exemplo,
         um teste completo não poderá ser executado pois deveria ter 2^32 combinações das entradas.
@@ -1746,17 +1746,18 @@ In the file howTo.md you can find more details about translations.
         &lt;/pre&gt;
 
         &lt;p&gt;
-        Uma entrada que permita um valor em alta impedância também poderá ser usada como valor de saída de
+        Uma entrada que permita um valor em alta impedância também poderá ser usada como valor de saída para
         teste.
         Nesse caso, o nome do sinal poderá ser usado com o sufixo '_out' para ser lido de volta e ter o valor comparado.
         Para isso, a entrada correspondente deverá ser definida como de alta impedância ('Z').&lt;/p&gt;
 
-        &lt;pre&gt;OE CLK D D_out
-        0 0 0 0
-        0 C 1 1
-        1 0 z 1
-        0 C 0 0
-        1 0 z 0
+        &lt;pre&gt;
+        OE CLK D D_out
+        0  0   0 0
+        0  C   1 1
+        1  0   z 1
+        0  C   0 0
+        1  0   z 0
         &lt;/pre&gt;
 
         &lt;p&gt;
@@ -1789,6 +1790,19 @@ In the file howTo.md you can find more details about translations.
         Nesse exemplo, o terceiro bit será isolado do sinal do barramento ('Bus') e
         tornado disponível como o sinal 'Bit' para teste. O circuito em si não terá 'Bit' como saída.
         &lt;/p&gt;
+
+        &lt;h3&gt;Funções&lt;/h3&gt;
+        &lt;p&gt;As funções disponíveis são:
+        &lt;dl&gt;
+        &lt;dt&gt;signExt([bits],[value])&lt;/dt&gt;
+        &lt;dd&gt;Extender o valor [value] preservando o sinal em [bits] bits.&lt;/dd&gt;
+        &lt;dt&gt;random([max])&lt;/dt&gt;
+        &lt;dd&gt;Retornar um valor inteiro aleatório. O valor máximo será especificado por [max].&lt;/dd&gt;
+        &lt;dt&gt;ite([cond],[then],[else])&lt;/dt&gt;
+        &lt;dd&gt;Se a condição [cond] for verdadeira, o valor [then] será retornado; caso contrário, será o valor [else].&lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;/p&gt;
+
         
 &lt;h3&gt;Processadores&lt;/h3&gt;
 
@@ -1808,7 +1822,7 @@ In the file howTo.md you can find more details about translations.
         &lt;li&gt;
         A instrução 'memory' podrá ser usada para guardar valor em componente do tipo RAM:
         &lt;pre&gt;memory mem(3)=7;&lt;/pre&gt;
-        Esse exemplo guardará o valor 7 na memória identificada por 'mem' no endereço 2.
+        Esse exemplo guardará o valor 7 na memória identificada por 'mem' no endereço 3.
         &lt;/li&gt;
         &lt;li&gt; 
         Um registrador identificado poderá ser sobrescrito com o comando 'init'.
@@ -2317,4 +2331,55 @@ In the file howTo.md you can find more details about translations.
     <string name="btn_BehavioralFixtureComplete">Completo</string>
     <string name="btn_BehavioralFixtureComplete_tt">Criar componente para o caso de teste</string>
     <string name="msg_errorCreatingTestCase">Erro na criação do caso de teste.</string>
+    <string name="msg_errorPastingData">Erro ao incluir dados!</string>
+    <string name="elem_Telnet">Telnet</string>
+    <string name="elem_Telnet_tt">Permitir uma conexão Telnet ao circuito
+        É possível receber e enviar caracteres via Telnet.</string>
+    <string name="elem_Telnet_pin_out">Saída de dados</string>
+    <string name="elem_Telnet_pin_av">Emitir um dado, se existir.</string>
+    <string name="elem_Telnet_pin_in">Dado a ser enviado.</string>
+    <string name="elem_Telnet_pin_C">Entrada de clock</string>
+    <string name="elem_Telnet_pin_wr">Se definido, o byte de dado à entrada será enviado.</string>
+    <string name="elem_Telnet_pin_rd">Se definido, um byte recebido será emitido.</string>
+    <string name="elem_VGA_short">VGA</string>
+    <string name="elem_RAMAsync">RAM, assíncrona</string>
+    <string name="elem_ExternalFile">Arquivo externo</string>
+    <string name="elem_ExternalFile_tt">Componente que executará um processo externo para calcular uma função lógica.
+        Será usado para especificar o comportamento de um componente mediante VHDL ou Verilog.
+        A simulação real do comportamento deverá ser feita por meio de um simulador externo.
+        A identificação do componente deverá coincidir com o nome da entidade ou módulo!</string>
+    <string name="err_errorLoadingHDLFile_N">Erro ao carregar o arquivo HDL {0}</string>
+    <string name="err_emptyLabelIsNotAllowed">Uma identificação vazia não é permitida!</string>
+    <string name="err_errorWritingFile_N">Erro ao gravar arquivo {0}</string>
+    <string name="err_circuitContainsNoComponents">O circuito não contém componentes!</string>
+    <string name="err_couldNotCreateServer">Impossível iniciar o servidor!</string>
+    <string name="key_small">Forma pequena</string>
+    <string name="key_small_tt">Se selecionada, uma forma pequena será usada.</string>
+    <string name="key_lastDataFile">Arquivo</string>
+    <string name="key_lastDataFile_tt">Arquivo a ser carregado em ROM.</string>
+    <string name="key_CodeFile">Código de programa</string>
+    <string name="key_CodeFile_tt">O arquivo contendo o código de programa a ser executado pela aplicação externa.</string>
+    <string name="key_probeMode">Modo de exibição</string>
+    <string name="key_probeMode_tt">Definir se o valor ou um contador deverá ser exibido.</string>
+    <string name="key_probeMode_VALUE">Mostrar valor</string>
+    <string name="key_probeMode_UP">Contar na subida de borda</string>
+    <string name="key_probeMode_DOWN">Contar na descida de borda</string>
+    <string name="key_probeMode_BOTH">Contar em ambas as bordas</string>
+    <string name="key_telnetEscape">Modo Telnet</string>
+    <string name="key_telnetEscape_tt">Se definido, os comandos de controle Telnet serão avaliados.
+        Além disso, o servidor enviará os comandos SGA e ECHO. Se essa opção for desabilitada,
+        irá tornar-se um simples servidor TCP.</string>
+    <string name="key_port">Porta</string>
+    <string name="key_port_tt">Porta a ser aberta pelo servidor.</string>
+    <string name="key_skipHDL">Dispensar a exportação em Verilog/VHDL</string>
+    <string name="key_skipHDL_tt">Dispensar a geração interna exportada pelo circuito em Verilog/VHDL
+        As referências ao circuito serão mantidas, tornando possível sobrepor sua implementação.</string>
+    <string name="lib_decoration">Decoração</string>
+    <string name="lib_generic">Genérico</string>
+    <string name="lib_hdl">VHDL/Verilog</string>
+    <string name="cli_help_test_verbose">Se definido, a tabela de valores será exibida em caso de erro.</string>
+    <string name="menu_copy_tt">Copiar para a área de transferência</string>
+    <string name="msg_truthTableCSV">CSV, "Comma Separated Values"</string>
+    <string name="key_defaultsDC">Valores não definidos serão "Don't Care"</string>
+    <string name="key_defaultsDC_tt">Todos os valores não definidos (estados e saídas) deverão ser tomados como "Don't Care".</string>
 </resources>

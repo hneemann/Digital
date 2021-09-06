@@ -779,7 +779,8 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_External_tt">Component to execute an external process to calculate the logic function.
         Is used to specify the behaviour of a component by VHDL or Verilog.
         The actual simulation of the behavior must be done with an external simulator.
-        At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.</string>
+        At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.
+        The label of the component must match the name of the entity or module!</string>
   <string name="elem_Diode">Diode</string>
     <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR.
         This is a ideal diode: There is no voltage drop across a forward-biased diode.
@@ -1857,6 +1858,18 @@ declare Bit = (Bus&gt;&gt;3)&amp;1;
 &lt;/pre&gt;
 &lt;p&gt;In this example, the 3rd bit is isolated from the 'Bus' signal and made available as
 the 'Bit' signal for the test. The circuit itself contains no output 'Bit'.&lt;/p&gt;
+&lt;h3&gt;Functions&lt;/h3&gt;
+&lt;p&gt;Available functions are:
+&lt;dl&gt;
+&lt;dt&gt;signExt([bits],[value])&lt;/dt&gt;
+&lt;dd&gt;Extends the value [value] while preserving the sign to [bits] bits.&lt;/dd&gt;
+&lt;dt&gt;random([max])&lt;/dt&gt;
+&lt;dd&gt;Returns an integer random number. The maximum value is specified with [max].&lt;/dd&gt;
+&lt;dt&gt;ite([cond],[then],[else])&lt;/dt&gt;
+&lt;dd&gt;If the condition [cond] is true, the value [then] is returned, otherwise the value [else].&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/p&gt;
+
 &lt;h3&gt;Processors&lt;/h3&gt;
 &lt;p&gt;If processors are to be tested, an initialization of the processor is usually required.
 It is possible to perform this initialization within the test case.
@@ -2360,4 +2373,57 @@ However, they must not be used above the header line listing the signal names.&l
     <string name="btn_BehavioralFixtureComplete">Complete</string>
     <string name="btn_BehavioralFixtureComplete_tt">Creates the test case component</string>
     <string name="msg_errorCreatingTestCase">Error in the creation of the test case.</string>
+    <string name="msg_errorPastingData">Error at pasting data!</string>
+    <string name="elem_Telnet">Telnet</string>
+    <string name="elem_Telnet_tt">Allows a Telnet connection to the circuit.
+        It is possible to receive and send characters via Telnet.</string>
+    <string name="elem_Telnet_pin_out">Data output</string>
+    <string name="elem_Telnet_pin_av">Outputs a one if data is present.</string>
+    <string name="elem_Telnet_pin_in">The data to be sent.</string>
+    <string name="elem_Telnet_pin_C">Clock input</string>
+    <string name="elem_Telnet_pin_wr">If set, the input data byte is sent.</string>
+    <string name="elem_Telnet_pin_rd">If set, a received byte is output.</string>
+    <string name="elem_VGA_short">VGA</string>
+    <string name="elem_RAMAsync">RAM, async.</string>
+    <string name="elem_ExternalFile">External File</string>
+    <string name="elem_ExternalFile_tt">Component to execute an external process to calculate the logic function.
+        Is used to specify the behaviour of a component by VHDL or Verilog.
+        The actual simulation of the behavior must be done with an external simulator.
+        At present only the VHDL simulator ghdl and the verilog simulator Icarus Verilog are supported.
+        The label of the component must match the name of the entity or module!</string>
+    <string name="err_errorLoadingHDLFile_N">Error loading the HDL file {0}</string>
+    <string name="err_emptyLabelIsNotAllowed">A empty label is not allowed!</string>
+    <string name="err_errorWritingFile_N">Error writing file {0}.</string>
+    <string name="err_circuitContainsNoComponents">The circuit contains no components!</string>
+    <string name="err_couldNotCreateServer">Could not start the server!</string>
+    <string name="key_small">Small Shape</string>
+    <string name="key_small_tt">If selected, a smaller shape will be used.</string>
+    <string name="key_lastDataFile">File</string>
+    <string name="key_lastDataFile_tt">File to be loaded into the ROM.</string>
+    <string name="key_CodeFile">Program code</string>
+    <string name="key_CodeFile_tt">The file containing the program code to be executed by the external application.</string>
+    <string name="key_probeMode">Display Mode</string>
+    <string name="key_probeMode_tt">Defines whether the value or a counter is to be displayed.</string>
+    <string name="key_probeMode_VALUE">Show Value</string>
+    <string name="key_probeMode_UP">Count on Rising Edge</string>
+    <string name="key_probeMode_DOWN">Count on Falling Edge</string>
+    <string name="key_probeMode_BOTH">Count both Edges</string>
+    <string name="key_telnetEscape">Telnet mode</string>
+    <string name="key_telnetEscape_tt">If set, the Telnet control commands are evaluated.
+        In addition, the server sends the SGA and ECHO commands. If this option is disabled,
+        the server is a simple TCP server.</string>
+    <string name="key_port">Port</string>
+    <string name="key_port_tt">The port to be opened by the server.</string>
+    <string name="key_skipHDL">Skip in Verilog/VHDL export</string>
+    <string name="key_skipHDL_tt">Skips generating the internals of the circuit in Verilog/VHDL
+        export. The references to the circuit are kept, making it possible to override the
+        implementation.</string>
+    <string name="lib_decoration">Decoration</string>
+    <string name="lib_generic">Generic</string>
+    <string name="lib_hdl">VHDL/Verilog</string>
+    <string name="cli_help_test_verbose">If set, the value table is output in case of an error.</string>
+    <string name="menu_copy_tt">Copy to clipboard</string>
+    <string name="msg_truthTableCSV">Comma Separated Values, CSV</string>
+    <string name="key_defaultsDC">Set undefined values to DC</string>
+    <string name="key_defaultsDC_tt">Sets all undefined values (following state and outputs) to "Don't Care".</string>
 </resources>
