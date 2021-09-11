@@ -732,10 +732,11 @@ In the file howTo.md you can find more details about translations.
 		También se puede implementar un comando BRK ensamblador. Esto permite ejecutar un programa hasta el siguiente comando BRK
 		Esta función sólo se puede usar si se desactiva el reloj en tiempo real.</string>
   <string name="elem_External">Externo</string>
-  <string name="elem_External_tt">Componente que ejecuta un proceso externo para calcular una función lógica.
+  <string name="elem_External_tt">Componente para ejecutar un proceso externo para calcular la función lógica.
 		Se usa para especificar el comportamiento de un componente con VHDL o Verilog.
 		La simulación real del comportamiento debe hacerse con un simulador externo.
-		De momento sólo el simulador GHDL para VHDL, e Icarus Verilog para Verilog son soportados.</string>
+		De momento sólo están soportados el simulador GHDL para VHDL, e Icarus Verilog para Verilog.
+		¡La etiqueta del componente debe coincidir con el nombre de la entidad o módulo!</string>
   <string name="elem_Diode">Diodo</string>
   <string name="elem_Diode_tt">Diodo bidireccional simplificado Se usa para implementar una puerta AND o una OR.
 		Es un diodo ideal: no hay pérdida de voltaje en la polarización directa.</string>
@@ -1692,7 +1693,7 @@ En tal caso, el nombre de la señal puede usarse con un añadido "_out" para lee
       &lt;p&gt;El circuito para este test tiene solo una entrada 'D', pero que puede estar en estado de alta impedancia.
       Por tanto, la señal 'D_out' estará también disponible para chequear el valor en este caso.&lt;/p&gt;
 
-&lt;p&gt; En algunos casos, puede que queramos usar las señales proporcionadas por el circuito para producir una nueva señal,
+&lt;p&gt; En casos especiales, puede que queramos usar las señales proporcionadas por el circuito para producir una nueva señal,
 que es la que se va a comprobar. Un ejemplo podría ser una señal de un bus con varios bits, donde solo deberíamos comprobar un bit,
 mientras que los demás no tienen influencia en la prueba. En este caso, se puede generar una nueva señal dentro de la prueba
 que contenga este solo bit, de modo que las pruebas se puedan definir para este bit.&lt;/p&gt;
@@ -1708,6 +1709,18 @@ declare Bit = (Bus&gt;&gt;3)&amp;1;
 &lt;/pre&gt;
 &lt;p&gt;En este ejemplo, el tercer bit está aislado de la señal 'Bus' y se saca como la señal 'Bit' para la prueba.
 El circuito en sí mismo no contiene ninguna salida llamada 'Bit'&lt;/p&gt;
+
+&lt;p&gt;Las funciones disponibles son:
+&lt;dl&gt;
+&lt;dt&gt;signExt([bits],[value])&lt;/dt&gt;
+&lt;dd&gt;Extiende el valor [value] y conserva el signo en [bits] bits.&lt;/dd&gt;
+&lt;dt&gt;random([max])&lt;/dt&gt;
+&lt;dd&gt;Devuelve un número entero aleatorio. El valor máximo se especifica con [max].&lt;/dd&gt;
+&lt;dt&gt;ite([cond],[then],[else])&lt;/dt&gt;
+&lt;dd&gt;Si se cumple la condición [cond], se devuelve el valor [then]. En caso contrario, el valor [else].&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/p&gt;
+
 
 &lt;h3&gt;Procesadores&lt;/h3&gt;
 &lt;p&gt; Si se van a comprobar procesadores, necesitamos una inicialización del procesador.
@@ -2219,4 +2232,54 @@ Sin embargo, no se deben usar por encima de la línea del encabezado que contien
     <string name="btn_BehavioralFixtureComplete">Completo</string>
     <string name="btn_BehavioralFixtureComplete_tt">Crea el componente "caso de prueba"</string>
     <string name="msg_errorCreatingTestCase">Error en la creación del caso de prueba.</string>
+    <string name="msg_errorPastingData">¡Error al pegar los datos!</string>
+    <string name="elem_Telnet">Telnet</string>
+    <string name="elem_Telnet_tt">Permite una conexión Telnet al circuito.
+		Es posible recibir y enviar caracteres vía Telnet.</string>
+    <string name="elem_Telnet_pin_out">Salida de datos</string>
+    <string name="elem_Telnet_pin_av">Muestra un 1 si hay algún dato presente.</string>
+    <string name="elem_Telnet_pin_in">El dato que se va a enviar.</string>
+    <string name="elem_Telnet_pin_C">Entrada de reloj.</string>
+    <string name="elem_Telnet_pin_wr">Si se activa, se envía el byte de datos de entrada.</string>
+    <string name="elem_Telnet_pin_rd">Si se activa, se muestra un byte recibido.</string>
+    <string name="elem_VGA_short">VGA</string>
+    <string name="elem_ExternalFile">Archivo externo</string>
+    <string name="elem_ExternalFile_tt">Componente para ejecutar un proceso externo para calcular la función lógica.
+		Se usa para especificar el comportamiento de un componente en VHDL o en Verilog.
+		La simulación real del comportamiento debe hacerse con un simulador externo.
+		De momento, sólo están soportados el simulador ghdl para VHDL y el Icarus Verilog para Verilog.
+		¡La etiqueta del componente debe coincidir con el nombre de la entidad o módulo!</string>
+    <string name="err_errorLoadingHDLFile_N">Error cargando el archivo HDL {0}</string>
+    <string name="err_emptyLabelIsNotAllowed">¡No está permitida una etiqueta vacía!</string>
+    <string name="err_errorWritingFile_N">Error escribiendo archivo {0}</string>
+    <string name="err_circuitContainsNoComponents">¡El circuito no contiene componentes!</string>
+    <string name="err_couldNotCreateServer">¡No se pudo iniciar el servidor!</string>
+    <string name="key_small">Forma pequeña</string>
+    <string name="key_small_tt">Si se selecciona, se usará una forma más pequeña.</string>
+    <string name="key_lastDataFile">Archivo</string>
+    <string name="key_lastDataFile_tt">Archivo a cargar en la ROM.</string>
+    <string name="key_CodeFile">Código del programa</string>
+    <string name="key_CodeFile_tt">El archivo que contiene el código del programa a ejecutar por la aplicación externa.</string>
+    <string name="key_probeMode">Modo display</string>
+    <string name="key_probeMode_tt">Define si se muestra el valor o un contador.</string>
+    <string name="key_probeMode_VALUE">Muestra valor</string>
+    <string name="key_probeMode_UP">Cuenta en flanco de subida</string>
+    <string name="key_probeMode_DOWN">Cuenta en flanco de bajada</string>
+    <string name="key_probeMode_BOTH">Cuenta ambos flancos</string>
+    <string name="key_telnetEscape">Modo Telnet</string>
+    <string name="key_telnetEscape_tt">Si se activa, se evalúan los comandos de control Telnet.
+		Además, el servidor envía los comandos SGA y ECHO. Si esta opción se desactiva,
+		el servidor es un simple servidor TCP.</string>
+    <string name="key_port">Puerto</string>
+    <string name="key_port_tt">Puerto que va a ser abierto por el servidor.</string>
+    <string name="key_skipHDL">Saltar la exportación en Verilog/VHDL</string>
+    <string name="key_skipHDL_tt">Se salta la generación del interior del circuito en la exportación a Verilog/VHDL.
+		Se mantienen las referencias al circuito, haciendo posible anular la implementación.</string>
+    <string name="lib_decoration">Decoración</string>
+    <string name="lib_generic">Genérica</string>
+    <string name="lib_hdl">VHDL/Verilog</string>
+    <string name="cli_help_test_verbose">Si se activa, en caso de error se muestra el valor de la tabla.</string>
+    <string name="menu_copy_tt">Copiar al portapapeles</string>
+    <string name="key_defaultsDC">Fijar los valores no definidos a "X"</string>
+    <string name="key_defaultsDC_tt">Pone todos los valores indefinidos (siguiente estado y salidas) como "Indiferente"</string>
 </resources>
