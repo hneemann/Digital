@@ -10,6 +10,7 @@ import de.neemann.digital.XStreamValid;
 import junit.framework.TestCase;
 
 /**
+ *
  */
 public class DataFieldConverterTest extends TestCase {
 
@@ -21,7 +22,7 @@ public class DataFieldConverterTest extends TestCase {
         return xStream;
     }
 
-    public void testMarshal() throws Exception {
+    public void testMarshal() {
         DataField d = new DataField(1000);
         for (int i = 0; i < 10; i++)
             d.setData(i, i);
@@ -32,7 +33,7 @@ public class DataFieldConverterTest extends TestCase {
         assertEquals("<?xml version=\"1.0\" ?><dataField>0,1,2,3,4,5,6,7,8,9</dataField>", xml);
     }
 
-    public void testUnmarshal() throws Exception {
+    public void testUnmarshal() {
         XStream xStream = getxStream();
 
         DataField df = (DataField) xStream.fromXML("<dataField size=\"1000\">0,1,2,3,4,5,6,7,8,9</dataField>");
@@ -43,8 +44,8 @@ public class DataFieldConverterTest extends TestCase {
     }
 
     private static class Test {
-        private DataField d1;
-        private DataField d2;
+        private final DataField d1;
+        private final DataField d2;
 
         public Test(DataField d1, DataField d2) {
             this.d1 = d1;
@@ -52,7 +53,7 @@ public class DataFieldConverterTest extends TestCase {
         }
     }
 
-    public void testMarshalObj() throws Exception {
+    public void testMarshalObj() {
         final DataField d1 = new DataField(20);
         d1.setData(0, 1);
         d1.setData(5, 2);
@@ -60,22 +61,52 @@ public class DataFieldConverterTest extends TestCase {
         final DataField d2 = new DataField(20);
         d2.setData(0, 3);
         d2.setData(8, 4);
-        Test t = new Test(d1, d2);
 
         XStream xs = getxStream();
-        String xml = xs.toXML(t);
+        String xml = xs.toXML(new Test(d1, d2));
         assertEquals("<?xml version=\"1.0\" ?><test>" +
-                "<d1>1,0,0,0,0,2</d1>" +
-                "<d2>3,0,0,0,0,0,0,0,4</d2>" +
+                "<d1>1,4*0,2</d1>" +
+                "<d2>3,7*0,4</d2>" +
                 "</test>", xml);
-
     }
 
-    public void testUnarshalObj() throws Exception {
+    public void testMarshalObj2() {
+        final DataField d1 = new DataField(20);
+        d1.setData(5, 2);
+
+        final DataField d2 = new DataField(20);
+        d2.setData(8, 4);
+
+        XStream xs = getxStream();
+        String xml = xs.toXML(new Test(d1, d2));
+        assertEquals("<?xml version=\"1.0\" ?><test>" +
+                "<d1>5*0,2</d1>" +
+                "<d2>8*0,4</d2>" +
+                "</test>", xml);
+    }
+
+    public void testMarshalObj3() {
+        final DataField d1 = new DataField(20);
+        for (int i = 0; i < 11; i++)
+            d1.setData(i, 2);
+
+        final DataField d2 = new DataField(20);
+        for (int i = 0; i < 11; i++)
+            d2.setData(i, 11);
+
+        XStream xs = getxStream();
+        String xml = xs.toXML(new Test(d1, d2));
+        assertEquals("<?xml version=\"1.0\" ?><test>" +
+                "<d1>11*2</d1>" +
+                "<d2>11*b</d2>" +
+                "</test>", xml);
+    }
+
+    public void testUnmarshalObj() {
         XStream xs = getxStream();
         Test t = (Test) xs.fromXML("<test>\n" +
-                "  <d1>1,0,0,0,0,2</d1>\n" +
-                "  <d2>3,0,0,0,0,0,0,0,4</d2>\n" +
+                "  <d1>1,4*0,2</d1>\n" +
+                "  <d2>3,7*0,4</d2>\n" +
                 "</test>");
 
         assertEquals(6, t.d1.getData().length);
@@ -86,8 +117,29 @@ public class DataFieldConverterTest extends TestCase {
         assertEquals(4, t.d2.getDataWord(8));
     }
 
+    public void testUnmarshalObj2() {
+        XStream xs = getxStream();
+        Test t = (Test) xs.fromXML("<test>\n" +
+                "  <d1>1,10*a,2</d1>\n" +
+                "  <d2>3,11*b,4</d2>\n" +
+                "</test>");
 
-    public void testMarshalMuch() throws Exception {
+        assertEquals(12, t.d1.getData().length);
+        assertEquals(1, t.d1.getDataWord(0));
+        assertEquals(10, t.d1.getDataWord(1));
+        assertEquals(10, t.d1.getDataWord(2));
+        assertEquals(10, t.d1.getDataWord(3));
+        assertEquals(2, t.d1.getDataWord(11));
+        assertEquals(13, t.d2.getData().length);
+        assertEquals(3, t.d2.getDataWord(0));
+        assertEquals(11, t.d2.getDataWord(1));
+        assertEquals(11, t.d2.getDataWord(2));
+        assertEquals(11, t.d2.getDataWord(11));
+        assertEquals(4, t.d2.getDataWord(12));
+    }
+
+
+    public void testMarshalMuch() {
         DataField d = new DataField(1000);
         for (int i = 0; i < 100; i++)
             d.setData(i, i);
@@ -95,13 +147,14 @@ public class DataFieldConverterTest extends TestCase {
         XStream xStream = getxStream();
 
         String xml = xStream.toXML(d);
-        assertEquals("<?xml version=\"1.0\" ?><dataField>0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20,\n" +
-                "21,22,23,24,25,26,27,28,29,2a,2b,2c,2d,2e,2f,30,31,32,33,34,35,36,37,38,39,3a,3b,\n" +
-                "3c,3d,3e,3f,40,41,42,43,44,45,46,47,48,49,4a,4b,4c,4d,4e,4f,50,51,52,53,54,55,56,\n" +
-                "57,58,59,5a,5b,5c,5d,5e,5f,60,61,62,63</dataField>", xml);
+        assertEquals("<?xml version=\"1.0\" ?><dataField>0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19\n" +
+                ",1a,1b,1c,1d,1e,1f,20,21,22,23,24,25,26,27,28,29,2a,2b,2c,2d,2e\n" +
+                ",2f,30,31,32,33,34,35,36,37,38,39,3a,3b,3c,3d,3e,3f,40,41,42,43\n" +
+                ",44,45,46,47,48,49,4a,4b,4c,4d,4e,4f,50,51,52,53,54,55,56,57,58\n" +
+                ",59,5a,5b,5c,5d,5e,5f,60,61,62,63</dataField>", xml);
     }
 
-    public void testUnmarshalMuch() throws Exception {
+    public void testUnmarshalMuch() {
         XStream xStream = getxStream();
 
         DataField df = (DataField) xStream.fromXML("<dataField>0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20,\n" +
