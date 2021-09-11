@@ -16,7 +16,6 @@ import java.util.StringTokenizer;
 
 /**
  * Optimized converter for data fields
- * <p>
  */
 public class DataFieldConverter implements Converter {
     @Override
@@ -28,24 +27,46 @@ public class DataFieldConverter implements Converter {
     public void marshal(Object o, HierarchicalStreamWriter writer, MarshallingContext marshallingContext) {
         DataField df = (DataField) o;
         df.trim();
-        StringBuilder data = new StringBuilder();
+        StringBuilder dataStr = new StringBuilder();
+        long[] data = df.getData();
         int pos = 0;
-        for (long d : df.getData()) {
-            if (data.length() > 0) {
-                data.append(",");
-                pos++;
-            }
+        if (data.length > 0) {
+            long akt = data[0];
+            int count = 1;
+            for (int i = 1; i < data.length; i++) {
+                if (dataStr.length() - pos > 60) {
+                    dataStr.append("\n");
+                    pos = dataStr.length();
+                }
 
-            if (pos > 80) {
-                data.append("\n");
-                pos = 0;
+                final long now = data[i];
+                if (now == akt)
+                    count++;
+                else {
+                    writeChunk(dataStr, akt, count);
+                    akt = now;
+                    count = 1;
+                }
             }
-
-            final String s = Long.toHexString(d);
-            data.append(s);
-            pos += s.length();
+            writeChunk(dataStr, akt, count);
         }
-        writer.setValue(data.toString());
+        writer.setValue(dataStr.toString());
+    }
+
+    private void writeChunk(StringBuilder w, long data, int count) {
+        if (count < 4) {
+            for (int j = 0; j < count; j++) {
+                if (w.length() > 0)
+                    w.append(",");
+                w.append(Long.toHexString(data));
+            }
+        } else {
+            if (w.length() > 0)
+                w.append(",");
+            w.append(count);
+            w.append('*');
+            w.append(Long.toHexString(data));
+        }
     }
 
     @Override
@@ -70,8 +91,19 @@ public class DataFieldConverter implements Converter {
                 StringTokenizer st = new StringTokenizer(reader.getValue(), ",");
                 int i = 0;
                 while (st.hasMoreTokens()) {
-                    df.setData(i, Bits.decode(st.nextToken().trim(), 0, 16));
-                    i++;
+                    String val = st.nextToken().trim();
+                    int p = val.indexOf("*");
+                    if (p < 0) {
+                        df.setData(i, Bits.decode(val, 0, 16));
+                        i++;
+                    } else {
+                        int count = Integer.parseInt(val.substring(0, p));
+                        long v = Bits.decode(val.substring(p + 1), 0, 16);
+                        for (int j = 0; j < count; j++) {
+                            df.setData(i, v);
+                            i++;
+                        }
+                    }
                 }
                 df.trim();
                 return df;
