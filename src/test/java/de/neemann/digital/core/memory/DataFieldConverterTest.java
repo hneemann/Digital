@@ -91,14 +91,15 @@ public class DataFieldConverterTest extends TestCase {
             d1.setData(i, 2);
 
         final DataField d2 = new DataField(20);
-        for (int i = 0; i < 11; i++)
-            d2.setData(i, 11);
+        for (int j = 0; j < 11; j++)
+            for (int i = 0; i < 11; i++)
+                d2.setData(i + j * 11, j + 1);
 
         XStream xs = getxStream();
         String xml = xs.toXML(new Test(d1, d2));
         assertEquals("<?xml version=\"1.0\" ?><test>" +
                 "<d1>11*2</d1>" +
-                "<d2>11*b</d2>" +
+                "<d2>11*1,11*2,11*3,11*4,11*5,11*6,11*7,11*8,11*9,11*a,11*b</d2>" +
                 "</test>", xml);
     }
 
@@ -106,15 +107,16 @@ public class DataFieldConverterTest extends TestCase {
         XStream xs = getxStream();
         Test t = (Test) xs.fromXML("<test>\n" +
                 "  <d1>1,4*0,2</d1>\n" +
-                "  <d2>3,7*0,4</d2>\n" +
+                "  <d2>7*5</d2>\n" +
                 "</test>");
 
         assertEquals(6, t.d1.getData().length);
         assertEquals(1, t.d1.getDataWord(0));
         assertEquals(2, t.d1.getDataWord(5));
-        assertEquals(9, t.d2.getData().length);
-        assertEquals(3, t.d2.getDataWord(0));
-        assertEquals(4, t.d2.getDataWord(8));
+        assertEquals(7, t.d2.getData().length);
+        assertEquals(5, t.d2.getDataWord(0));
+        assertEquals(5, t.d2.getDataWord(6));
+        assertEquals(0, t.d2.getDataWord(7));
     }
 
     public void testUnmarshalObj2() {
