@@ -449,7 +449,7 @@ In the file howTo.md you can find more details about translations.
         The stored data can be edited in the attributes dialog.</string>
     <string name="elem_ROM_pin_A">This pin defines the address of data word to be output.</string>
     <string name="elem_ROM_pin_D">The selected data word if the sel input is high.</string>
-    <string name="elem_ROM_pin_sel">If the sel input is high, the output is activated. If it is low, the data output is in high Z state.</string>
+    <string name="elem_ROM_pin_sel">If the input is high, the output is activated. If it is low, the data output is in high Z state.</string>
     <string name="elem_ROMDualPort">ROM dual port</string>
     <string name="elem_ROMDualPort_tt">A non-volatile memory component.
         The stored data can be edited in the attributes dialog.</string>
@@ -2127,4 +2127,26 @@ However, they must not be used above the header line listing the signal names.&l
     <string name="tutorial11">Label all inputs and outputs.</string>
     <string name="tutorialUniqueIdents">Inputs and outputs should always be uniquely named.</string>
     <string name="tutorialNotNeeded">Skip Tutorial</string>
+    <string name="elem_LookUpTable_short">LUT</string>
+    <string name="elem_Splitter">Splitter/Merger</string>
+    <string name="elem_RS_FF_AS">RS-Flip-flop</string>
+    <string name="elem_JK_FF">JK-Flip-flop</string>
+    <string name="elem_D_FF">D-Flip-flop</string>
+    <string name="elem_T_FF">T-Flip-Flop</string>
+    <string name="elem_GraphicCard_short">Gr-RAM</string>
+    <string name="err_noRomFound">No program memory found! The program memory needs to be flagged as such.</string>
+    <string name="err_multipleRomsFound">Multiple program memories found! Only one program memory is allowed.</string>
+    <string name="key_Bits_tt">Number of data bits used.</string>
+    <string name="key_OutputSplitting">Output splitting</string>
+    <string name="key_splitterSpreading">Spreading</string>
+    <string name="key_skipHDL">Skip in Verilog/VHDL export</string>
+    <string name="key_skipHDL_tt">Skips generating the internals of the circuit in Verilog/VHDL
+        export. The references to the circuit are kept, making it possible to override the
+        implementation.</string>
+    <string name="menu_colorSchemePreset">Preset</string>
+    <string name="colorName_TESTCASE">Test case</string>
+    <string name="menu_karnaughMap">K-Map</string>
+    <string name="btn_copyToClipboard">Clipboard</string>
+    <string name="key_defaultsDC">Set undefined values to DC</string>
+    <string name="key_defaultsDC_tt">Sets all undefined values (following state and outputs) to "Don't Care".</string>
 </resources>
