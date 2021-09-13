@@ -463,8 +463,9 @@ public class TestInGUI extends TestCase {
                 .press("ENTER")
                 .press("control typed a")
                 .typeTempFile("test")
-                .press("ENTER")
-                .delay(600)
+                .press("TAB", 2)
+                .press("SPACE")
+                .delay(1000)
                 .add(new GuiTester.WaitFor(4000, () -> {
                     Window activeWindow = FocusManager.getCurrentManager().getActiveWindow();
                     return !(activeWindow instanceof Main || activeWindow instanceof TableDialog);
