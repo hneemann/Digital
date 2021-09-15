@@ -583,6 +583,26 @@ public class Model implements Iterable<Node>, SyncAccess {
         return null;
     }
 
+    /**
+     * Gets an observer of the given class.
+     * If no observer is available the factory is used to create and register one.
+     *
+     * @param observerClass the observers class
+     * @param factory       the factory to create an instance if necessary
+     * @param <T>           the type of the observer
+     * @return the already present or newly created observer; never null
+     */
+    public synchronized <T extends ModelStateObserverTyped> T getOrCreateObserver(Class<T> observerClass, ObserverFactory<T> factory) {
+        T o = getObserver(observerClass);
+        if (o == null) {
+            o = factory.create();
+            if (o == null)
+                throw new NullPointerException("no observer created!");
+            addObserver(o);
+        }
+        return o;
+    }
+
     private void fireEvent(ModelEvent event) {
         switch (event.getType()) {
             case MICROSTEP:
@@ -1082,5 +1102,17 @@ public class Model implements Iterable<Node>, SyncAccess {
 
     private interface StepCondition {
         boolean doNextMicroStep() throws NodeException;
+    }
+
+    /**
+     * Factory used to create a {@link ModelStateObserverTyped}
+     *
+     * @param <T> the type of the observer
+     */
+    public interface ObserverFactory<T extends ModelStateObserverTyped> {
+        /**
+         * @return the created observer
+         */
+        T create();
     }
 }

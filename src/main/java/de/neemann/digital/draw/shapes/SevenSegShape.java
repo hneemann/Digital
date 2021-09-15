@@ -5,9 +5,7 @@
  */
 package de.neemann.digital.draw.shapes;
 
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
-import de.neemann.digital.core.Observer;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
@@ -18,6 +16,10 @@ import de.neemann.digital.draw.elements.Pins;
 import de.neemann.digital.draw.graphics.Graphic;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
+import de.neemann.digital.draw.model.ModelCreator;
+import de.neemann.digital.draw.model.ModelEntry;
+
+import java.util.ArrayList;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
@@ -33,6 +35,7 @@ public class SevenSegShape extends SevenShape {
     private LEDState[] ledStates;
     private final boolean[] displayStates;
     private Pins pins;
+    private SegmentUpdater segmentUpdater;
 
     /**
      * Creates a new instance
@@ -76,11 +79,17 @@ public class SevenSegShape extends SevenShape {
         return null;
     }
 
+    @Override
+    public void registerModel(ModelCreator modelCreator, Model model, ModelEntry element) {
+        if (commonConnection && persistence)
+            segmentUpdater = model.getOrCreateObserver(SegmentUpdater.class, SegmentUpdater::new);
+    }
+
     private LEDState createLEDState(int i, ObservableValues inputs) {
         if (commonConnection) {
-            if (persistence)
-                return new CommonConnectionPersist(inputs.get(i), inputs.get(8));
-            else
+            if (persistence) {
+                return new CommonConnectionPersist(inputs.get(i), inputs.get(8), segmentUpdater);
+            } else
                 return new CommonConnection(inputs.get(i), inputs.get(8));
         } else {
             ObservableValue in = inputs.get(i);
@@ -141,24 +150,46 @@ public class SevenSegShape extends SevenShape {
     }
     //CHECKSTYLE.ON: FinalClass
 
-    private final class CommonConnectionPersist extends CommonConnection implements Observer {
+    private final class CommonConnectionPersist extends CommonConnection {
         private boolean led;
 
-        private CommonConnectionPersist(ObservableValue led, ObservableValue cc) {
+        private CommonConnectionPersist(ObservableValue led, ObservableValue cc, SegmentUpdater segmentUpdater) {
             super(led, cc);
-            led.addObserver(this);
-            cc.addObserver(this);
-        }
-
-        @Override
-        public void hasChanged() {
-            if (!isHighZ())
-                led = isOn();
+            segmentUpdater.add(this);
         }
 
         @Override
         public boolean getState() {
             return led;
+        }
+
+        public void updateState() {
+            if (!isHighZ())
+                led = isOn();
+        }
+    }
+
+    private static final class SegmentUpdater implements ModelStateObserverTyped {
+        private final ArrayList<CommonConnectionPersist> segments;
+
+        private SegmentUpdater() {
+            segments = new ArrayList<>();
+        }
+
+        @Override
+        public void handleEvent(ModelEvent event) {
+            if (event.getType() == ModelEventType.STEP)
+                for (CommonConnectionPersist c : segments)
+                    c.updateState();
+        }
+
+        @Override
+        public ModelEventType[] getEvents() {
+            return new ModelEventType[]{ModelEventType.STEP};
+        }
+
+        public void add(CommonConnectionPersist commonConnectionPersist) {
+            segments.add(commonConnectionPersist);
         }
     }
 }

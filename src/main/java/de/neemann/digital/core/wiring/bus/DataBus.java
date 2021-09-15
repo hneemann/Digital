@@ -80,11 +80,7 @@ public class DataBus {
             }
         }
 
-        BusModelStateObserver obs = model.getObserver(BusModelStateObserver.class);
-        if (obs == null) {
-            obs = new BusModelStateObserver();
-            model.addObserver(obs);
-        }
+        BusModelStateObserver obs = model.getOrCreateObserver(BusModelStateObserver.class, BusModelStateObserver::new);
 
         commonBusValue = new CommonBusValue(bits, obs, resistor, outputs, net == null ? null : net.getOrigin());
         for (ObservableValue p : outputs)
