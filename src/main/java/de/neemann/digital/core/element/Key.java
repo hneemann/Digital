@@ -17,7 +17,7 @@ import java.io.File;
 public class Key<VALUE> {
     private final String key;
     private final DefaultFactory<VALUE> defFactory;
-    private final String langKey;
+    private String langKey;
     private boolean groupEditAllowed = false;
     private Key dependsOn;
     private CheckEnabled checkEnabled;
@@ -58,6 +58,17 @@ public class Key<VALUE> {
         if (defFactory == null)
             throw new NullPointerException();
         this.defFactory = defFactory;
+    }
+
+    /**
+     * Allows to shate translations between keys
+     *
+     * @param key the key which translation is to share
+     * @return this for chained calls
+     */
+    Key<VALUE> useTranslationOf(Key key) {
+        langKey = key.langKey;
+        return this;
     }
 
     /**

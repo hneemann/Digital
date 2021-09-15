@@ -35,12 +35,12 @@ public class GenericShape implements Shape {
     private int width;
     private final boolean symmetric;
     private final String label;
+    private final boolean showPinLabels;
 
     private boolean invert = false;
     private Color color = Color.WHITE;
 
     private Pins pins;
-    private boolean showPinLabels;
     private InverterConfig inverterConfig;
     private int topBottomBorder = SIZE2;
 

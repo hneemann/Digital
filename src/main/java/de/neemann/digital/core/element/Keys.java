@@ -47,7 +47,12 @@ public final class Keys {
                 if (Modifier.isStatic(k.getModifiers()) && Key.class.isAssignableFrom(k.getType())) {
                     try {
                         Key key = (Key) k.get(null);
-                        map.put(key.getKey(), key);
+                        String keyName = key.getKey();
+                        // Generic code generation can cause problems, if
+                        // two keys are equal and don't use the same default value!
+                        if (map.containsKey(keyName) && !map.get(keyName).getDefault().equals(key.getDefault()))
+                            throw new RuntimeException("duplicate key with different default: " + keyName);
+                        map.put(keyName, key);
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException("error accessing the Keys");
                     }
@@ -109,11 +114,10 @@ public final class Keys {
      * number of inputs in the LUT
      */
     public static final Key.KeyInteger LUT_INPUT_COUNT
-            = new Key.KeyInteger("Inputs", 6)
+            = new Key.KeyInteger("Inputs", 2)
             .setComboBoxValues(2, 3, 4, 5, 6)
             .setMax(20)
             .setMin(2);
-
 
     /**
      * The counter max value
@@ -176,10 +180,11 @@ public final class Keys {
      * The size of a seven seg display
      */
     public static final Key<Integer> SEVEN_SEG_SIZE
-            = new Key.KeyInteger("Size", 2)
+            = new Key.KeyInteger("segSize", 2)
             .setComboBoxValues(0, 1, 2, 3, 4, 5)
             .setMin(0)
-            .allowGroupEdit();
+            .allowGroupEdit()
+            .useTranslationOf(LED_SIZE);
 
     /**
      * The value of constants
@@ -443,10 +448,11 @@ public final class Keys {
      * the max number of samples in the default data view
      */
     public static final Key<Integer> SETTINGS_MAX_STEP_COUNT
-            = new Key.KeyInteger("maxStepCount", 1000)
+            = new Key.KeyInteger("settingsMaxStepCount", 1000)
             .setComboBoxValues(500, 1000, 5000, 10000)
             .setMin(500)
-            .setSecondary();
+            .setSecondary()
+            .useTranslationOf(MAX_STEP_COUNT);
 
     /**
      * flag to enable high z mode at an input
