@@ -30,12 +30,12 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
 public class SevenSegShape extends SevenShape {
     private final PinDescriptions inputPins;
     private final boolean commonConnection;
-    private final boolean persistence;
+    private final int persistenceTime;
     private final boolean anode;
     private LEDState[] ledStates;
     private final boolean[] displayStates;
     private Pins pins;
-    private SegmentUpdater segmentUpdater;
+    private PersistenceHandler persistenceHandler;
 
     /**
      * Creates a new instance
@@ -49,7 +49,7 @@ public class SevenSegShape extends SevenShape {
         this.inputPins = inputs;
         commonConnection = attr.get(Keys.COMMON_CONNECTION);
         anode = attr.get(Keys.COMMON_CONNECTION_TYPE).equals(CommonConnectionType.anode);
-        persistence = attr.get(Keys.LED_PERSISTENCE);
+        persistenceTime = attr.get(Keys.LED_PERSIST_TIME);
         displayStates = new boolean[8];
     }
 
@@ -74,23 +74,25 @@ public class SevenSegShape extends SevenShape {
     @Override
     public Interactor applyStateMonitor(IOState ioState) {
         ledStates = new LEDState[8];
-        for (int i = 0; i < 8; i++)
-            ledStates[i] = createLEDState(i, ioState.getInputs());
+        for (int i = 0; i < 8; i++) {
+            LEDState ledState = createLEDState(i, ioState.getInputs());
+            if (persistenceTime == 0)
+                ledStates[i] = ledState;
+            else
+                ledStates[i] = persistenceHandler.persist(ledState, persistenceTime);
+        }
         return null;
     }
 
     @Override
     public void registerModel(ModelCreator modelCreator, Model model, ModelEntry element) {
-        if (commonConnection && persistence)
-            segmentUpdater = model.getOrCreateObserver(SegmentUpdater.class, SegmentUpdater::new);
+        if (persistenceTime > 0)
+            persistenceHandler = model.getOrCreateObserver(PersistenceHandler.class, PersistenceHandler::new);
     }
 
     private LEDState createLEDState(int i, ObservableValues inputs) {
         if (commonConnection) {
-            if (persistence) {
-                return new CommonConnectionPersist(inputs.get(i), inputs.get(8), segmentUpdater);
-            } else
-                return new CommonConnection(inputs.get(i), inputs.get(8));
+            return new CommonConnection(inputs.get(i), inputs.get(8), anode);
         } else {
             ObservableValue in = inputs.get(i);
             return () -> !in.isHighZ() && in.getBool();
@@ -125,71 +127,71 @@ public class SevenSegShape extends SevenShape {
         boolean getState();
     }
 
-    //CHECKSTYLE.OFF: FinalClass
-    private class CommonConnection implements LEDState {
+    private static final class CommonConnection implements LEDState {
         private final ObservableValue led;
         private final ObservableValue cc;
+        private final boolean anode;
 
-        private CommonConnection(ObservableValue led, ObservableValue cc) {
+        private CommonConnection(ObservableValue led, ObservableValue cc, boolean anode) {
             this.led = led;
             this.cc = cc;
-        }
-
-        protected boolean isOn() {
-            return (led.getBool() != cc.getBool()) && (led.getBool() ^ anode);
-        }
-
-        protected boolean isHighZ() {
-            return led.isHighZ() || cc.isHighZ();
+            this.anode = anode;
         }
 
         @Override
         public boolean getState() {
-            return !isHighZ() && isOn();
+            boolean highZ = led.isHighZ() || cc.isHighZ();
+            boolean on = (led.getBool() != cc.getBool()) && (led.getBool() ^ anode);
+            return !highZ && on;
         }
     }
-    //CHECKSTYLE.ON: FinalClass
 
-    private final class CommonConnectionPersist extends CommonConnection {
-        private boolean led;
+    private static final class PersistenceOfVision implements LEDState {
+        private final LEDState parent;
+        private final int persistenceTime;
+        private int timeVisible;
 
-        private CommonConnectionPersist(ObservableValue led, ObservableValue cc, SegmentUpdater segmentUpdater) {
-            super(led, cc);
-            segmentUpdater.add(this);
+        private PersistenceOfVision(LEDState parent, int persistenceTime) {
+            this.parent = parent;
+            this.persistenceTime = persistenceTime;
         }
 
         @Override
         public boolean getState() {
-            return led;
+            return timeVisible > 0;
         }
 
-        public void updateState() {
-            if (!isHighZ())
-                led = isOn();
+        public void check() {
+            if (parent.getState())
+                timeVisible = persistenceTime;
+            if (timeVisible > 0)
+                timeVisible--;
         }
     }
 
-    private static final class SegmentUpdater implements ModelStateObserverTyped {
-        private final ArrayList<CommonConnectionPersist> segments;
+    private static final class PersistenceHandler implements ModelStateObserverTyped {
+        private final ArrayList<PersistenceOfVision> segments;
 
-        private SegmentUpdater() {
+        private PersistenceHandler() {
             segments = new ArrayList<>();
         }
 
         @Override
         public void handleEvent(ModelEvent event) {
-            if (event.getType() == ModelEventType.STEP)
-                for (CommonConnectionPersist c : segments)
-                    c.updateState();
+            if (event.getType() == ModelEventType.STEP || event.getType() == ModelEventType.CHECKBURN)
+                for (PersistenceOfVision ag : segments)
+                    ag.check();
         }
 
         @Override
         public ModelEventType[] getEvents() {
-            return new ModelEventType[]{ModelEventType.STEP};
+            return new ModelEventType[]{ModelEventType.STEP, ModelEventType.CHECKBURN};
         }
 
-        public void add(CommonConnectionPersist commonConnectionPersist) {
-            segments.add(commonConnectionPersist);
+        public PersistenceOfVision persist(LEDState state, int persistenceTime) {
+            PersistenceOfVision ag = new PersistenceOfVision(state, persistenceTime);
+            segments.add(ag);
+            return ag;
         }
     }
 }

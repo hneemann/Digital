@@ -158,7 +158,7 @@ public class Out implements Element {
             addAttribute(Keys.COLOR);
             addAttribute(Keys.COMMON_CONNECTION);
             addAttribute(Keys.COMMON_CONNECTION_TYPE);
-            addAttribute(Keys.LED_PERSISTENCE);
+            addAttribute(Keys.LED_PERSIST_TIME);
         }
 
         @Override

@@ -619,6 +619,14 @@ public final class Keys {
             = new Key<>("ledPersistence", false).allowGroupEdit().setDependsOn(COMMON_CONNECTION);
 
     /**
+     * Used to enable the storage of the last state in the Seven Seg display.
+     */
+    public static final Key<Integer> LED_PERSIST_TIME
+            = new Key.KeyInteger("persistTime", 0)
+            .setMin(0)
+            .allowGroupEdit();
+
+    /**
      * Fitter for the atf15xx
      */
     public static final Key<File> SETTINGS_ATF1502_FITTER

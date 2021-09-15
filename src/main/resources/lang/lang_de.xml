@@ -1678,6 +1678,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_probeMode_DOWN">Zähle fallende Flanken</string>
     <string name="key_probeMode_BOTH">Zähle beide Flanken</string>
 
+    <string name="key_persistTime">Nachleuchten</string>
+    <string name="key_persistTime_tt">Gibt die Dauer des Nachleuchtens an. Je größer der Wert, je länger die Nachleuchtdauer.</string>
+
     <string name="key_telnetEscape">Telnet-Modus</string>
     <string name="key_telnetEscape_tt">Wenn gesetzt, werden die Telnet Steuerkommandos ausgewertet.
         Zusätzlich werden vom Server die Kommandos SGA und ECHO gesendet.
