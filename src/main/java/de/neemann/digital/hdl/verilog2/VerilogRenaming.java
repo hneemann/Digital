@@ -37,9 +37,15 @@ public class VerilogRenaming implements HDLModel.Renaming {
     public String checkName(String name) {
         if (isKeyword(name) || !isFirstCharValid(name))
             // Escaped identifier, the space is part of the identifier.
-            return "\\" + name + " ";
+            return "\\" + replaceWhitespace(name) + " ";
         else
             return cleanName(name);
+    }
+
+    private String replaceWhitespace(String name) {
+        return name
+                .replace(' ', '_')
+                .replace('\t', '_');
     }
 
     private boolean isFirstCharValid(String name) {
@@ -68,6 +74,10 @@ public class VerilogRenaming implements HDLModel.Renaming {
             else {
                 switch (c) {
                     case '\\':
+                        break;
+                    case '\t':
+                    case ' ':
+                        sb.append("_");
                         break;
                     case '/':
                     case '!':
