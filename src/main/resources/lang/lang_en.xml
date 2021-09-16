@@ -1664,6 +1664,10 @@
     <string name="key_persistTime">Persistence Of Vision</string>
     <string name="key_persistTime_tt">Specifies the duration of the afterglow. The larger the value, the longer the afterglow duration.</string>
 
+    <string name="key_oscillationDetectionCounter">Oscillation detection</string>
+    <string name="key_oscillationDetectionCounter_tt">Number of gate propagation times at which a oscillation is
+        detected if the circuit has not stabilized by then.</string>
+
     <string name="key_telnetEscape">Telnet mode</string>
     <string name="key_telnetEscape_tt">If set, the Telnet control commands are evaluated.
         In addition, the server sends the SGA and ECHO commands. If this option is disabled,

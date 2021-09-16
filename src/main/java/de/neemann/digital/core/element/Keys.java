@@ -531,6 +531,15 @@ public final class Keys {
             = new Key<>("tunnelRenameDialog", true).setSecondary();
 
     /**
+     * Counter used to detect oscillations
+     */
+    public static final Key<Integer> OSCILLATION_DETECTION_COUNTER =
+            new Key.KeyInteger("oscillationDetectionCounter", 1000)
+                    .setComboBoxValues(1000, 5000, 10000)
+                    .setMin(1000)
+                    .setMax(100000);
+
+    /**
      * output format for numbers
      */
     public static final Key<IntFormat> INT_FORMAT

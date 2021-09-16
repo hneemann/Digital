@@ -291,7 +291,8 @@ public class ModelCreator implements Iterable<ModelEntry> {
     public Model createModel(boolean attachWires) throws PinException, NodeException {
         Model m = new Model()
                 .setRootPath(circuit.getOrigin())
-                .setAllowGlobalValues(attachWires);
+                .setAllowGlobalValues(attachWires)
+                .setOscillationDetectionCounter(circuit.getAttributes().get(Keys.OSCILLATION_DETECTION_COUNTER));
 
         for (Net n : netList)
             n.interconnect(m, attachWires);

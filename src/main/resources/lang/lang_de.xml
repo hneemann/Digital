@@ -1681,6 +1681,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_persistTime">Nachleuchten</string>
     <string name="key_persistTime_tt">Gibt die Dauer des Nachleuchtens an. Je größer der Wert, je länger die Nachleuchtdauer.</string>
 
+    <string name="key_oscillationDetectionCounter">Oszillationserkennung</string>
+    <string name="key_oscillationDetectionCounter_tt">Anzahl der Gatterlaufzeiten, bei der eine Oszillation erkannt
+        wird, wenn sich die Schaltung bis dahin noch nicht stabilisiert hat.</string>
+
     <string name="key_telnetEscape">Telnet-Modus</string>
     <string name="key_telnetEscape_tt">Wenn gesetzt, werden die Telnet Steuerkommandos ausgewertet.
         Zusätzlich werden vom Server die Kommandos SGA und ECHO gesendet.

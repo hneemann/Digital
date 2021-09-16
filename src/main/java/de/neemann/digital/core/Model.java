@@ -52,9 +52,9 @@ public class Model implements Iterable<Node>, SyncAccess {
     /**
      * Maximal number of calculation loops before oscillating behaviour is detected
      */
-    private static final int MAX_LOOP_COUNTER = 1000;
-    private static final int COLLECTING_LOOP_COUNTER = MAX_LOOP_COUNTER + 100;
+    private static final int COLLECTING_LOOP_COUNTER_OFFS = 100;
     private ArrayList<BreakDetector> brVal;
+    private int oscillationDetectionCounter = 1000;
 
     private enum State {BUILDING, INITIALIZING, RUNNING, CLOSED}
 
@@ -102,6 +102,17 @@ public class Model implements Iterable<Node>, SyncAccess {
         this.nodesToUpdateAct = new ArrayList<>();
         this.nodesToUpdateNext = new ArrayList<>();
         this.observers = new ArrayList<>();
+    }
+
+    /**
+     * Sets the number of gate delays at which an oscillation is detected.
+     *
+     * @param oscillationDetectionCounter number of steps
+     * @return this for chained calls
+     */
+    public Model setOscillationDetectionCounter(int oscillationDetectionCounter) {
+        this.oscillationDetectionCounter = oscillationDetectionCounter;
+        return this;
     }
 
     /**
@@ -283,10 +294,10 @@ public class Model implements Iterable<Node>, SyncAccess {
             if (cond.doNextMicroStep()) {
                 int counter = 0;
                 while (cond.doNextMicroStep() && state != State.CLOSED) {
-                    if (counter++ > MAX_LOOP_COUNTER) {
+                    if (counter++ > oscillationDetectionCounter) {
                         if (oscillatingNodes == null)
                             oscillatingNodes = new HashSet<>();
-                        if (counter > COLLECTING_LOOP_COUNTER) {
+                        if (counter > oscillationDetectionCounter + COLLECTING_LOOP_COUNTER_OFFS) {
                             NodeException seemsToOscillate = new NodeException(Lang.get("err_seemsToOscillate")).addNodes(oscillatingNodes);
                             oscillatingNodes = null;
                             throw seemsToOscillate;
