@@ -1158,6 +1158,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_stats_tt"));
 
+        ToolTipAction pathLen = new ToolTipAction(Lang.get("menu_calcMaxPathLen")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    Model model = new ModelCreator(getCircuitComponent().getCircuit(), library).createModel(false);
+                    ModelAnalyser ma = new ModelAnalyser(model);
+                    int depth = ma.calcMaxPathLen();
+                    JOptionPane.showMessageDialog(Main.this, Lang.get("msg_maxPathLen", depth));
+                } catch (ElementNotFoundException | PinException | NodeException | AnalyseException | BacktrackException e) {
+                    new ErrorMessage(Lang.get("msg_couldNotCalculateMaxPathLen")).addCause(e).show(Main.this);
+                }
+            }
+        }.setToolTip(Lang.get("menu_calcMaxPathLen_tt"));
+
         JMenu run = new JMenu(Lang.get("menu_sim"));
         menuBar.add(run);
         run.add(showMeasurementDialog.createJMenuItem());
@@ -1176,6 +1190,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         run.addSeparator();
         run.add(speedTest.createJMenuItem());
         run.add(stats.createJMenuItem());
+        run.add(pathLen.createJMenuItem());
 
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
         toolBar.add(runToBreakAction.createJButtonNoText());

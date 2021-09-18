@@ -2023,6 +2023,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Adr. Bits</string>
 
+    <string name="menu_calcMaxPathLen">Maximale Pfadlänge</string>
+    <string name="menu_calcMaxPathLen_tt">Die maximale Pfadlänge ist der längste Pfad zwischen einem der Eingänge und einem der Ausgänge.</string>
+    <string name="msg_maxPathLen">Der längste Pfad besteht aus {0} Gattern.</string>
+    <string name="msg_couldNotCalculateMaxPathLen">Die Pfadlänge konnte nicht berechnet werden.</string>
+
     <string name="msg_errorOpeningDocumentation">Fehler beim Öffnen einer PDF-Datei!</string>
 
     <string name="message"><![CDATA[<h1>Digital</h1>

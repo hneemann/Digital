@@ -2004,6 +2004,11 @@
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Addr. Bits</string>
 
+    <string name="menu_calcMaxPathLen">Maximum Path Length</string>
+    <string name="menu_calcMaxPathLen_tt">The maximum path length is the longest path between one of the inputs and one of the outputs.</string>
+    <string name="msg_maxPathLen">The longest path consists of {0} gates.</string>
+    <string name="msg_couldNotCalculateMaxPathLen">The path length could not be calculated.</string>
+
     <string name="msg_keyAsGenericAttribute">Name to use in generic circuits: {0}</string>
     <string name="attr_createConcreteCircuitLabel">Create Concrete Circuit</string>
     <string name="attr_createConcreteCircuit">Create</string>

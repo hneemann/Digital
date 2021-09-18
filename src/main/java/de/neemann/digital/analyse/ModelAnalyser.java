@@ -309,6 +309,26 @@ public class ModelAnalyser {
     }
 
     /**
+     * Calculates the max depth of the circuit.
+     * The max path length is the max number of gates in between any of the inputs and
+     * any of the outputs.
+     *
+     * @return the maximum path len
+     * @throws PinException       PinException
+     * @throws BacktrackException BacktrackException
+     * @throws AnalyseException   AnalyseException
+     */
+    public int calcMaxPathLen() throws PinException, BacktrackException, AnalyseException {
+        LOGGER.debug("start to calculate the depth of the model...");
+
+        if (!Main.isExperimentalMode() && !modelContainsSwitches())
+            CycleDetector.checkForCycles(inputs);
+
+        DependencyAnalyser da = new DependencyAnalyser(this);
+        return da.getMaxPathLen();
+    }
+
+    /**
      * Analyses the circuit
      *
      * @return the generated truth table
