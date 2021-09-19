@@ -1,5 +1,13 @@
 Release Notes
 
+HEAD, planned as v0.29
+- Fixed a bug in the LUT component that caused difficulties
+  when generic code was executed.
+- Fixed an issue in the seven segment persistence of vision
+  implementation.
+- Fixed a Verilog generation issue when using filenames that
+  contain spaces.
+
 v0.28, released on 13. September 2021
 - Inputs and outputs can have a smaller shape.
 - Added paste functionality to ROM data editor.
