@@ -48,6 +48,8 @@ public class ParserTest extends TestCase {
 
         assertEquals("A=∑ b", new Parser("A=\\sum b").parse().toString());
         assertEquals("A=∑^{m}_{n=0}", new Parser("A=\\sum_{n=0}^m").parse().toString());
+        assertEquals("Y=A⊕B", new Parser("Y=A\\oplus{}B").parse().toString());
+        assertEquals("Y=A⊙B", new Parser("Y=A\\odot{}B").parse().toString());
     }
 
 }

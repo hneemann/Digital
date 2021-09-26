@@ -22,6 +22,14 @@ public class Parser {
         COMMANDS.put("wedge", '∧');
         COMMANDS.put("vee", '∨');
         COMMANDS.put("neg", '¬');
+        COMMANDS.put("oplus", '⊕');
+        COMMANDS.put("odot", '⊙');
+        COMMANDS.put("pm", '±');
+        COMMANDS.put("mp", '∓');
+        COMMANDS.put("div", '÷');
+        COMMANDS.put("cdot", '·');
+        COMMANDS.put("times", '×');
+        COMMANDS.put("otimes", '⊗');
     }
 
     private final String text;
