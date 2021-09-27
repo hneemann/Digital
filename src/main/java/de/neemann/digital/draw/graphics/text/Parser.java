@@ -136,8 +136,11 @@ public class Parser {
                             java.lang.Character t = COMMANDS.get(command);
                             if (t == null)
                                 sentence.add(new Simple('\\' + command));
-                            else
+                            else {
                                 sentence.add(new Character(t));
+                                if (peekChar() == ' ')
+                                    getChar();
+                            }
                     }
 
                     break;
