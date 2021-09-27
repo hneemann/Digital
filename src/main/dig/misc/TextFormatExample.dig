@@ -141,7 +141,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>A\wedge{}B</string>
+          <string>A\wedge B</string>
         </entry>
       </elementAttributes>
       <pos x="-280" y="280"/>
@@ -151,7 +151,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>~{A\vee{}B}</string>
+          <string>~{A\vee B}</string>
         </entry>
       </elementAttributes>
       <pos x="-120" y="280"/>
@@ -161,7 +161,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>\neg{}A</string>
+          <string>\neg A</string>
         </entry>
       </elementAttributes>
       <pos x="40" y="280"/>
@@ -197,7 +197,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A\oplus{}B$</string>
+          <string>$A\oplus B$</string>
         </entry>
       </elementAttributes>
       <pos x="-280" y="340"/>
@@ -207,7 +207,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A\odot{}B$</string>
+          <string>$A\odot B$</string>
         </entry>
       </elementAttributes>
       <pos x="-120" y="340"/>
@@ -217,7 +217,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A\pm{}B$</string>
+          <string>$A\pm B$</string>
         </entry>
       </elementAttributes>
       <pos x="-280" y="400"/>
@@ -227,7 +227,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A\mp{}B$</string>
+          <string>$A\mp B$</string>
         </entry>
       </elementAttributes>
       <pos x="-120" y="400"/>
@@ -237,7 +237,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A\div{}B$</string>
+          <string>$A\div B$</string>
         </entry>
       </elementAttributes>
       <pos x="40" y="340"/>
@@ -247,7 +247,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A\times{}B$</string>
+          <string>$A\times B$</string>
         </entry>
       </elementAttributes>
       <pos x="40" y="400"/>
@@ -257,7 +257,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A\cdot{}B$</string>
+          <string>$A\cdot B$</string>
         </entry>
       </elementAttributes>
       <pos x="-280" y="460"/>
@@ -267,7 +267,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>$A\otimes{}B$</string>
+          <string>$A\otimes B$</string>
         </entry>
       </elementAttributes>
       <pos x="-120" y="460"/>
