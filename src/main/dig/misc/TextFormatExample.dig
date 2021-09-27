@@ -11,7 +11,7 @@
           <string>~A</string>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="160"/>
+      <pos x="-280" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -21,7 +21,7 @@
           <string>~{A&lt;B}</string>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="220"/>
+      <pos x="-280" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -31,7 +31,7 @@
           <string>s_1^n</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="160"/>
+      <pos x="40" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -41,7 +41,7 @@
           <string>s_1^{n+1}</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="220"/>
+      <pos x="40" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -51,7 +51,7 @@
           <string>~s_1^{n+1}</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="280"/>
+      <pos x="40" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -61,7 +61,7 @@
           <string>~{s_1^{n+1}}</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="340"/>
+      <pos x="40" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Text</elementName>
@@ -74,7 +74,7 @@ of ~{s_1^{n+1}} in detail.
 von ~{s_1^{n+1}} im Detail erklärt.}}</string>
         </entry>
       </elementAttributes>
-      <pos x="-120" y="440"/>
+      <pos x="-320" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -84,7 +84,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>~ABC</string>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="280"/>
+      <pos x="-280" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -94,7 +94,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>~{A}BC</string>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="340"/>
+      <pos x="-280" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -104,7 +104,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>~{A}~{B}~{C}</string>
         </entry>
       </elementAttributes>
-      <pos x="140" y="160"/>
+      <pos x="-120" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -114,7 +114,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>A\_B</string>
         </entry>
       </elementAttributes>
-      <pos x="140" y="220"/>
+      <pos x="-120" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -124,7 +124,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>A\\B</string>
         </entry>
       </elementAttributes>
-      <pos x="140" y="280"/>
+      <pos x="-120" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -134,7 +134,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>\foo</string>
         </entry>
       </elementAttributes>
-      <pos x="140" y="340"/>
+      <pos x="-120" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -144,7 +144,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>A\wedge{}B</string>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="400"/>
+      <pos x="-280" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -154,7 +154,7 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>~{A\vee{}B}</string>
         </entry>
       </elementAttributes>
-      <pos x="140" y="400"/>
+      <pos x="-120" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -164,7 +164,113 @@ von ~{s_1^{n+1}} im Detail erklärt.}}</string>
           <string>\neg{}A</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="400"/>
+      <pos x="40" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Sum of Products:
+\sum$m(0,1,3)$
+{{de Summe von Produkten:
+\sum$m(0,1,3)$}}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="20"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Product of Sums:
+\prod$M(0,1,3)$
+{{de Produkt von Summen:
+\prod$M(0,1,3)$}}</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>$A\oplus{}B$</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-280" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>$A\odot{}B$</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>$A\pm{}B$</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-280" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>$A\mp{}B$</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>$A\div{}B$</string>
+        </entry>
+      </elementAttributes>
+      <pos x="40" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>$A\times{}B$</string>
+        </entry>
+      </elementAttributes>
+      <pos x="40" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>$A\cdot{}B$</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-280" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>$A\otimes{}B$</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="460"/>
     </visualElement>
   </visualElements>
   <wires/>
