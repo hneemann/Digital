@@ -59,6 +59,7 @@ public class GraphComponent extends JComponent {
             @Override
             public void componentResized(ComponentEvent componentEvent) {
                 plotter.setWidth(getWidth());
+                plotter.setHeight(getHeight());
             }
         });
     }
@@ -108,12 +109,20 @@ public class GraphComponent extends JComponent {
     /**
      * Sets the scroll bar to use
      *
-     * @param scrollBar the scroll bar
+     * @param horizontalScrollBar the scroll bar
      */
-    void setScrollBar(JScrollBar scrollBar) {
-        plotter.setScrollBar(scrollBar);
-        scrollBar.addAdjustmentListener(adjustmentEvent -> {
-            if (plotter.setNewOffset(adjustmentEvent.getValue()))
+    void setHorizontalScrollBar(JScrollBar horizontalScrollBar) {
+        plotter.setHorizontalScrollBar(horizontalScrollBar);
+        horizontalScrollBar.addAdjustmentListener(adjustmentEvent -> {
+            if (plotter.setNewXOffset(adjustmentEvent.getValue()))
+                repaint();
+        });
+    }
+
+    void setVerticalScrollBar(JScrollBar verticalScrollBar) {
+        plotter.setVerticalScrollBar(verticalScrollBar);
+        verticalScrollBar.addAdjustmentListener(adjustmentEvent -> {
+            if (plotter.setNewYOffset(adjustmentEvent.getValue()))
                 repaint();
         });
     }

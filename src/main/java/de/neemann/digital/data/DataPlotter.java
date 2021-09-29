@@ -25,11 +25,14 @@ public class DataPlotter implements Drawable {
     private final int textWidth;
     private final SyncAccess modelSync;
     private double size = SIZE;
-    private int offset = 0;
+    private int xOffset = 0;
+    private int yOffset;
     private int width = 0;
+    private int height = 0;
     private boolean manualScaling = false;
-    private JScrollBar scrollBar;
+    private JScrollBar horizontalScrollBar;
     private int autoScaleOffset;
+    private JScrollBar verticalScrollBar;
 
     /**
      * Creates a new instance
@@ -60,7 +63,7 @@ public class DataPlotter implements Drawable {
      */
     public void fitInside() {
         modelSync.read(() -> size = ((double) (width - textWidth)) / dataOriginal.getRows());
-        offset = 0;
+        xOffset = 0;
         manualScaling = false;
     }
 
@@ -71,13 +74,13 @@ public class DataPlotter implements Drawable {
      * @param xPos actual mouse position
      */
     public void scale(double f, int xPos) {
-        double p = (xPos - textWidth + offset) / size;
+        double p = (xPos - textWidth + xOffset) / size;
 
         size *= f;
         if (size < Style.NORMAL.getThickness()) size = Style.NORMAL.getThickness();
         if (size > SIZE * 6) size = SIZE * 6;
 
-        offset = (int) (p * size - xPos + textWidth);
+        xOffset = (int) (p * size - xPos + textWidth);
 
         manualScaling = true;
     }
@@ -88,8 +91,8 @@ public class DataPlotter implements Drawable {
      * @param dx the displacement
      */
     public void move(int dx) {
-        offset -= dx;
-        manualScaling = dx >= 0 || offset < autoScaleOffset;
+        xOffset -= dx;
+        manualScaling = dx >= 0 || xOffset < autoScaleOffset;
     }
 
     @Override
@@ -114,25 +117,33 @@ public class DataPlotter implements Drawable {
 
         autoScaleOffset = preferredDataWidth - availDataWidth + 2;
         if (!manualScaling && width > 0 && !staticData && autoScaleOffset > 0)
-            offset = autoScaleOffset;
+            xOffset = autoScaleOffset;
 
-        if (scrollBar != null)
-            scrollBar.setValues(offset, availDataWidth, 0, preferredDataWidth);
+        int signals = data.getColumns();
+        if (horizontalScrollBar != null)
+            horizontalScrollBar.setValues(xOffset, availDataWidth, 0, preferredDataWidth);
+
+        if (signals * (SIZE + SEP) + BORDER * 2 - yOffset < height) {
+            yOffset = signals * (SIZE + SEP) + BORDER * 2 - height;
+            if (yOffset < 0) yOffset = 0;
+        }
+
+        if (verticalScrollBar != null)
+            verticalScrollBar.setValues(yOffset, height, 0, signals * (SIZE + SEP) + BORDER * 2);
 
         int dataAreaWidth = availDataWidth;
         // if no width is given, plot all the data
         if (width == 0)
-            dataAreaWidth = preferredDataWidth - offset;
+            dataAreaWidth = preferredDataWidth - xOffset;
 
-        int yOffs = SIZE / 2;
-        int y = BORDER;
-        int signals = data.getColumns();
+        int yTextOffs = SIZE / 2;
+        int y = BORDER - yOffset;
         int textPos = textWidth;
-        if (offset < 0)
-            textPos = textWidth - offset;
+        if (xOffset < 0)
+            textPos = textWidth - xOffset;
         for (int i = 0; i < signals; i++) {
             String text = data.getColumnName(i);
-            g.drawText(new Vector(textPos - 2, y + yOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
+            g.drawText(new Vector(textPos - 2, y + yTextOffs), text, Orientation.RIGHTCENTER, Style.NORMAL);
             g.drawLine(new Vector(textPos, y - SEP2), new Vector(textWidth + dataAreaWidth, y - SEP2), Style.DASH);
             y += SIZE + SEP;
         }
@@ -145,8 +156,8 @@ public class DataPlotter implements Drawable {
         boolean first = true;
         double pos = 0;
         for (TestRow s : data) {
-            int x1 = (int) (pos + textWidth - offset);
-            int x2 = (int) (pos + textWidth - offset + size);
+            int x1 = (int) (pos + textWidth - xOffset);
+            int x2 = (int) (pos + textWidth - xOffset + size);
 
             if (x2 > textWidth && x1 < textWidth + dataAreaWidth) {
                 if (x1 < textWidth)
@@ -154,8 +165,8 @@ public class DataPlotter implements Drawable {
                 if (x2 > textWidth + dataAreaWidth)
                     x2 = textWidth + dataAreaWidth;
 
-                g.drawLine(new Vector(x1, BORDER - SEP2), new Vector(x1, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
-                y = BORDER;
+                g.drawLine(new Vector(x1, BORDER - SEP2 - yOffset), new Vector(x1, (SIZE + SEP) * signals + BORDER - SEP2 - yOffset), Style.DASH);
+                y = BORDER - yOffset;
                 for (int i = 0; i < signals; i++) {
                     Style style;
                     switch (s.getValue(i).getState()) {
@@ -217,7 +228,7 @@ public class DataPlotter implements Drawable {
             pos += size;
 
         }
-        g.drawLine(new Vector(textWidth + dataAreaWidth, BORDER - SEP2), new Vector(textWidth + dataAreaWidth, (SIZE + SEP) * signals + BORDER - SEP2), Style.DASH);
+        g.drawLine(new Vector(textWidth + dataAreaWidth, BORDER - SEP2 - yOffset), new Vector(textWidth + dataAreaWidth, (SIZE + SEP) * signals + BORDER - SEP2 - yOffset), Style.DASH);
     }
 
     /**
@@ -248,8 +259,19 @@ public class DataPlotter implements Drawable {
      */
     public void setWidth(int width) {
         this.width = width;
-        if (scrollBar != null)
-            scrollBar.setVisibleAmount(width - textWidth);
+        if (horizontalScrollBar != null)
+            horizontalScrollBar.setVisibleAmount(width - textWidth);
+    }
+
+    /**
+     * Sets the height of the parents container
+     *
+     * @param height the component width
+     */
+    public void setHeight(int height) {
+        this.height = height;
+        if (verticalScrollBar != null)
+            verticalScrollBar.setVisibleAmount(height);
     }
 
     /**
@@ -257,9 +279,19 @@ public class DataPlotter implements Drawable {
      *
      * @param scrollBar the scroll bar
      */
-    public void setScrollBar(JScrollBar scrollBar) {
-        this.scrollBar = scrollBar;
+    public void setHorizontalScrollBar(JScrollBar scrollBar) {
+        this.horizontalScrollBar = scrollBar;
     }
+
+    /**
+     * Sets the scroll bar to use
+     *
+     * @param scrollBar the scroll bar
+     */
+    public void setVerticalScrollBar(JScrollBar scrollBar) {
+        this.verticalScrollBar = scrollBar;
+    }
+
 
     /**
      * Sets the new offset.
@@ -268,10 +300,18 @@ public class DataPlotter implements Drawable {
      * @param value the new offset
      * @return true if there was a change
      */
-    public boolean setNewOffset(int value) {
-        if (offset != value) {
-            offset = value;
-            manualScaling = scrollBar == null || scrollBar.getMaximum() - scrollBar.getVisibleAmount() != offset;
+    public boolean setNewXOffset(int value) {
+        if (xOffset != value) {
+            xOffset = value;
+            manualScaling = horizontalScrollBar == null || horizontalScrollBar.getMaximum() - horizontalScrollBar.getVisibleAmount() != xOffset;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean setNewYOffset(int value) {
+        if (yOffset != value) {
+            yOffset = value;
             return true;
         }
         return false;
