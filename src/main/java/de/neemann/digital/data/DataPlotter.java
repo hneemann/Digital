@@ -88,7 +88,8 @@ public class DataPlotter implements Drawable {
     /**
      * Moves the plot
      *
-     * @param dx the displacement
+     * @param dx the x displacement
+     * @param dy the y displacement
      */
     public void move(int dx, int dy) {
         xOffset -= dx;
@@ -297,8 +298,8 @@ public class DataPlotter implements Drawable {
 
 
     /**
-     * Sets the new offset.
-     * Is called by the scrollbar.
+     * Sets the new x offset.
+     * Is called by the horizontal scrollbar.
      *
      * @param value the new offset
      * @return true if there was a change
@@ -312,6 +313,13 @@ public class DataPlotter implements Drawable {
         return false;
     }
 
+    /**
+     * Sets the new y offset.
+     * Is called by the vertical scrollbar.
+     *
+     * @param value the new offset
+     * @return true if there was a change
+     */
     public boolean setNewYOffset(int value) {
         if (yOffset != value) {
             yOffset = value;
