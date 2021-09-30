@@ -90,9 +90,12 @@ public class DataPlotter implements Drawable {
      *
      * @param dx the displacement
      */
-    public void move(int dx) {
+    public void move(int dx, int dy) {
         xOffset -= dx;
         manualScaling = dx >= 0 || xOffset < autoScaleOffset;
+        yOffset -= dy;
+        if (yOffset < 0)
+            yOffset = 0;
     }
 
     @Override

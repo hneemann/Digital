@@ -38,18 +38,22 @@ public class GraphComponent extends JComponent {
         });
 
         addMouseMotionListener(new MouseAdapter() {
-            private int lastPos;
+            private int lastxPos;
+            private int lastyPos;
 
             @Override
             public void mouseMoved(MouseEvent mouseEvent) {
-                lastPos = mouseEvent.getX();
+                lastxPos = mouseEvent.getX();
+                lastyPos = mouseEvent.getY();
             }
 
             @Override
             public void mouseDragged(MouseEvent mouseEvent) {
-                int pos = mouseEvent.getX();
-                plotter.move(pos - lastPos);
-                lastPos = pos;
+                int xPos = mouseEvent.getX();
+                int yPos = mouseEvent.getY();
+                plotter.move(xPos - lastxPos, yPos - lastyPos);
+                lastxPos = xPos;
+                lastyPos = yPos;
                 repaint();
             }
 
