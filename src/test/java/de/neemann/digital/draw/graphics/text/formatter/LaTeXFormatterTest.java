@@ -44,10 +44,10 @@ public class LaTeXFormatterTest extends TestCase {
     }
 
     public void testVeeWedge() throws ParseException {
-        assertEquals("A $\\vee$ B", LaTeXFormatter.format(new Parser("A \\vee B").parse()));
+        assertEquals("A $\\vee$ B", LaTeXFormatter.format(new Parser("A \\vee  B").parse()));
         assertEquals("A $\\vee$ B", LaTeXFormatter.format(new Parser("A ∨ B").parse()));
         assertEquals("A$\\vee$B", LaTeXFormatter.format(new Parser("A∨B").parse()));
-        assertEquals("$A \\wedge  B$", LaTeXFormatter.format(new Parser("$A \\wedge B$").parse()));
+        assertEquals("$A \\wedge B$", LaTeXFormatter.format(new Parser("$A \\wedge B$").parse()));
         assertEquals("$A\\wedge B$", LaTeXFormatter.format(new Parser("$A\\wedge{}B$").parse()));
     }
 }
