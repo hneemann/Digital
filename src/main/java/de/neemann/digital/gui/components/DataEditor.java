@@ -147,12 +147,15 @@ public class DataEditor extends JDialog {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser();
+                    JCheckBox bigEndian = new JCheckBox("BigEndian");
+                    bigEndian.setToolTipText(Lang.get("key_bigEndian_tt"));
+                    fc.setAccessory(bigEndian);
                     setFileNameTo(fc);
                     fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
                     if (fc.showOpenDialog(DataEditor.this) == JFileChooser.APPROVE_OPTION) {
                         setFileName(fc.getSelectedFile());
                         try {
-                            DataField dataRead = Importer.read(fc.getSelectedFile(), dataBits)
+                            DataField dataRead = Importer.read(fc.getSelectedFile(), dataBits, bigEndian.isSelected())
                                     .trimValues(addrBits, dataBits);
                             localDataField.setDataFrom(dataRead);
                             dm.fireEvent(new TableModelEvent(dm));

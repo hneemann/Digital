@@ -25,36 +25,38 @@ public final class Importer {
     /**
      * Reads the given file to a single data field.
      *
-     * @param hexFile  the file to read
-     * @param dataBits the bits used in the data field
+     * @param hexFile   the file to read
+     * @param dataBits  the bits used in the data field
+     * @param bigEndian uses big endian at import
      * @return the data field
      * @throws IOException IOException
      */
-    public static DataField read(File hexFile, int dataBits) throws IOException {
+    public static DataField read(File hexFile, int dataBits, boolean bigEndian) throws IOException {
         DataField df = new DataField(1024);
-        read(hexFile, new DataFieldValueArray(df, dataBits));
+        read(hexFile, new DataFieldValueArray(df, dataBits), bigEndian);
         return df;
     }
 
     /**
      * Reads a file to the given ValueArray
      *
-     * @param file   the file to read
-     * @param values the data destination
+     * @param file      the file to read
+     * @param values    the data destination
+     * @param bigEndian uses big endian at import
      * @throws IOException IOException
      */
-    public static void read(File file, ValueArray values) throws IOException {
+    public static void read(File file, ValueArray values, boolean bigEndian) throws IOException {
         String name = file.getName().toLowerCase();
         if (name.endsWith(".hex")) {
             try {
                 new LogisimReader(file).read(values);
             } catch (IOException e) {
                 LOGGER.info(file + ": could not read native hex, try intel hex");
-                new IntelHexReader(file).read(new ByteArrayFromValueArray(values));
+                new IntelHexReader(file).read(new ByteArrayFromValueArray(values, bigEndian));
             }
         } else {
             LOGGER.info(file + ": read as binary");
-            new BinReader(file).read(new ByteArrayFromValueArray(values));
+            new BinReader(file).read(new ByteArrayFromValueArray(values, bigEndian));
         }
     }
 }

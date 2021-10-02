@@ -53,10 +53,10 @@ public class DigitalHandler implements HandlerInterface {
             case "step":
                 return digitalRemoteInterface.doSingleStep();
             case "start":
-                digitalRemoteInterface.start(new File(args));
+                digitalRemoteInterface.start(new File(args), false);
                 return null;
             case "debug":
-                digitalRemoteInterface.debug(new File(args));
+                digitalRemoteInterface.debug(new File(args), false);
                 return null;
             case "run":
                 return digitalRemoteInterface.runToBreak();

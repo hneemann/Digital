@@ -34,7 +34,9 @@ public class ROMDualPort extends ROM {
             .addAttribute(Keys.DATA)
             .addAttribute(Keys.INT_FORMAT)
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
-            .addAttribute(Keys.AUTO_RELOAD_ROM);
+            .addAttribute(Keys.AUTO_RELOAD_ROM)
+            .addAttribute(Keys.LAST_DATA_FILE)
+            .addAttribute(Keys.BIG_ENDIAN);
 
     private final ObservableValue output2;
     private ObservableValue addrIn2;

@@ -24,7 +24,7 @@ public class UnitTestTest extends TestCase {
                 "programs/fibonacci.hex");
 
         // import the hex file
-        DataField program = Importer.read(hexFile, 16);
+        DataField program = Importer.read(hexFile, 16, false);
 
         // run the program
         RAMInterface ram = new UnitTester(processor)    // load processor

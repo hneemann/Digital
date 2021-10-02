@@ -40,6 +40,7 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
             .addAttribute(Keys.IS_PROGRAM_MEMORY)
             .addAttribute(Keys.AUTO_RELOAD_ROM)
             .addAttribute(Keys.LAST_DATA_FILE)
+            .addAttribute(Keys.BIG_ENDIAN)
             .supportsHDL();
 
     private DataField data;
@@ -118,7 +119,8 @@ public class ROM extends Node implements Element, ROMInterface, ProgramMemory {
                 throw new NodeException(Lang.get("err_ROM_noFileGivenToLoad"), this, -1, null);
             try {
                 File f = attr.getFile(Keys.LAST_DATA_FILE, model.getRootPath());
-                data = Importer.read(f, dataBits);
+                boolean bigEndian = attr.get(Keys.BIG_ENDIAN);
+                data = Importer.read(f, dataBits, bigEndian);
             } catch (IOException e) {
                 throw new NodeException(e.getMessage(), this, -1, null);
             }

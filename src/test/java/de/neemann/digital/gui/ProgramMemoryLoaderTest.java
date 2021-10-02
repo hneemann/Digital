@@ -21,7 +21,7 @@ public class ProgramMemoryLoaderTest extends TestCase {
         ToBreakRunner runner = new ToBreakRunner("dig/testProgLoader.dig", false);
         Model model = runner.getModel();
         File romHex = new File(Resources.getRoot(), "dig/testProgLoader.hex");
-        new ProgramMemoryLoader(romHex).preInit(model);
+        new ProgramMemoryLoader(romHex, false).preInit(model);
         model.init();
 
         List<RAMDualPort> ramList = model.findNode(RAMDualPort.class);
@@ -38,7 +38,7 @@ public class ProgramMemoryLoaderTest extends TestCase {
         ToBreakRunner runner = new ToBreakRunner("dig/testProgLoaderSplit.dig", false);
         Model model = runner.getModel();
         File romHex = new File(Resources.getRoot(), "dig/testProgLoader.hex");
-        new ProgramMemoryLoader(romHex).preInit(model);
+        new ProgramMemoryLoader(romHex, false).preInit(model);
         model.init();
 
         List<RAMDualPort> ramList = model.findNode(RAMDualPort.class);
@@ -61,7 +61,7 @@ public class ProgramMemoryLoaderTest extends TestCase {
         File romHex = new File(Resources.getRoot(), "dig/testProgLoader.hex");
 
         try {
-            new ProgramMemoryLoader(romHex).preInit(model);
+            new ProgramMemoryLoader(romHex, false).preInit(model);
             fail();
         } catch (NodeException e) {
             assertTrue(true);

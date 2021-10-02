@@ -676,20 +676,23 @@ public class Context implements HGSMap {
 
     private static final class FunctionLoadHex extends InnerFunction {
         private FunctionLoadHex() {
-            super(2);
+            super(-1);
         }
 
         @Override
         public Object call(Context c, ArrayList<Expression> args) throws HGSEvalException {
             File name = new File(args.get(0).value(c).toString());
             int dataBits = Value.toInt(args.get(1).value(c));
+            boolean bigEndian = false;
+            if (args.size() > 2)
+                bigEndian = Value.toBool(args.get(2).value(c));
             File hexFile = new FileLocator(name).setLibraryRoot(c.getRootPath()).locate();
 
             if (hexFile == null || !hexFile.exists())
                 throw new HGSEvalException("File " + name + " not found! Is circuit saved?");
 
             try {
-                DataField dataField = Importer.read(hexFile, dataBits);
+                DataField dataField = Importer.read(hexFile, dataBits, bigEndian);
                 dataField.trim();
                 return dataField;
             } catch (IOException e) {

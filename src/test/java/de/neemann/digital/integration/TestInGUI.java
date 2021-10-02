@@ -1141,7 +1141,7 @@ public class TestInGUI extends TestCase {
         DigitalRemoteInterface ri = m;
 
         Thread.sleep(1000);
-        ri.start(null);
+        ri.start(null, false);
         Thread.sleep(1000);
         String json = ri.measure();
         assertEquals("{\"Q\":0,\"C\":0}", json);

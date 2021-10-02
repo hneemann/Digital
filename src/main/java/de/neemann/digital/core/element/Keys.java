@@ -836,10 +836,22 @@ public final class Keys {
             = new Key<>("preloadProgram", false).setSecondary();
 
     /**
+     * Uses big endian at file import
+     */
+    public static final Key<Boolean> BIG_ENDIAN =
+            new Key<>("bigEndian", false).setSecondary().setDependsOn(AUTO_RELOAD_ROM);
+
+    /**
      * The file to preload as a program at startup
      */
     public static final Key<File> PROGRAM_TO_PRELOAD
             = new Key.KeyFile("preloadProgramFile", new File("")).setSecondary().setDependsOn(PRELOAD_PROGRAM);
+
+    /**
+     * Uses big endian at file import
+     */
+    public static final Key<Boolean> BIG_ENDIAN_SETTING =
+            new Key<>("bigEndianSetting", false).setSecondary().useTranslationOf(BIG_ENDIAN).setDependsOn(PRELOAD_PROGRAM);
 
     /**
      * Selects a wide shape

@@ -26,14 +26,16 @@ import java.util.Map;
  */
 public class ProgramMemoryLoader implements ModelModifier {
     private final File romHex;
+    private final boolean bigEndian;
 
     /**
      * Creates a new rom modifier
      *
      * @param romHex the file to load
      */
-    ProgramMemoryLoader(File romHex) {
+    ProgramMemoryLoader(File romHex, boolean bigEndian) {
         this.romHex = romHex;
+        this.bigEndian = bigEndian;
     }
 
     @Override
@@ -46,7 +48,7 @@ public class ProgramMemoryLoader implements ModelModifier {
                     throw new NodeException(Lang.get("err_noRomFound"));
                 case 1:
                     final ProgramMemory memory = (ProgramMemory) progMem.get(0);
-                    memory.setProgramMemory(Importer.read(romHex, memory.getDataBits()));
+                    memory.setProgramMemory(Importer.read(romHex, memory.getDataBits(), bigEndian));
                 default:
                     final Comparator<Node> comparator = Comparator.comparing(n -> ((ProgramMemory) n).getLabel());
 
@@ -64,7 +66,7 @@ public class ProgramMemoryLoader implements ModelModifier {
                         builder.add(df, mem.getDataBits());
                         memMap.put(mem, df);
                     }
-                    Importer.read(romHex, builder.build());
+                    Importer.read(romHex, builder.build(), bigEndian);
                     for (Map.Entry<ProgramMemory, DataField> e : memMap.entrySet())
                         e.getKey().setProgramMemory(e.getValue());
             }

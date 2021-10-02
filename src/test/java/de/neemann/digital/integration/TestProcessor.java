@@ -34,7 +34,7 @@ public class TestProcessor extends TestCase {
         }
         assertNotNull(rom);
 
-        rom.setData(Importer.read(new File(Resources.getRoot(), program), rom.getDataBits()));
+        rom.setData(Importer.read(new File(Resources.getRoot(), program), rom.getDataBits(), false));
 
         runner.getModel().init(true);
         return runner;
@@ -49,7 +49,7 @@ public class TestProcessor extends TestCase {
         assertNotNull(instr);
         assertNotNull(pc);
 
-        DataField data = Importer.read(new File(Resources.getRoot(), program), 16);
+        DataField data = Importer.read(new File(Resources.getRoot(), program), 16, false);
         pc.addObserverToValue(() -> instr.setValue(data.getDataWord((int) pc.getValue()))).fireHasChanged();
 
         runner.getModel().init(true);

@@ -6,11 +6,10 @@
 package de.neemann.digital.core.memory.importer;
 
 import de.neemann.digital.core.memory.DataField;
+import de.neemann.digital.integration.Resources;
 import junit.framework.TestCase;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class IntegrationTest extends TestCase {
 
@@ -39,4 +38,37 @@ public class IntegrationTest extends TestCase {
         long value = (byte) str.charAt(0) | (((byte) str.charAt(1)) << 8);
         assertEquals(value, dataField.getDataWord(addr));
     }
+
+    public void testLittleEndianHex16() throws IOException {
+        File f = new File(Resources.getRoot(), "endianness/test.hex");
+        DataField data = Importer.read(f, 16, false);
+        assertEquals(0x940c, data.getDataWord(0));
+        assertEquals(0x38, data.getDataWord(1));
+        assertEquals(0x940c, data.getDataWord(2));
+    }
+
+    public void testBigEndianHex16() throws IOException {
+        File f = new File(Resources.getRoot(), "endianness/test.hex");
+        DataField data = Importer.read(f, 16, true);
+        assertEquals(0x0c94, data.getDataWord(0));
+        assertEquals(0x3800, data.getDataWord(1));
+        assertEquals(0x0c94, data.getDataWord(2));
+    }
+
+    public void testLittleEndianHex32() throws IOException {
+        File f = new File(Resources.getRoot(), "endianness/test.hex");
+        DataField data = Importer.read(f, 32, false);
+        assertEquals(0x38940c, data.getDataWord(0));
+        assertEquals(0x42940c, data.getDataWord(1));
+        assertEquals(0x42940c, data.getDataWord(2));
+    }
+
+    public void testBigEndianHex32() throws IOException {
+        File f = new File(Resources.getRoot(), "endianness/test.hex");
+        DataField data = Importer.read(f, 32, true);
+        assertEquals(0x0c943800, data.getDataWord(0));
+        assertEquals(0x0c944200, data.getDataWord(1));
+        assertEquals(0x0c944200, data.getDataWord(2));
+    }
+
 }

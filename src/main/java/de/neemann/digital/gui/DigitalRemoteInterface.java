@@ -19,18 +19,20 @@ public interface DigitalRemoteInterface {
     /**
      * Starts the model
      *
-     * @param file the file to load to program rom
+     * @param file      the file to load to program rom
+     * @param bigEndian use bigEndian at import
      * @throws RemoteException RemoteException
      */
-    void start(File file) throws RemoteException;
+    void start(File file, boolean bigEndian) throws RemoteException;
 
     /**
      * Starts the model in debug mode
      *
-     * @param file the file to load to program rom
+     * @param file      the file to load to program rom
+     * @param bigEndian use bigEndian at import
      * @throws RemoteException RemoteException
      */
-    void debug(File file) throws RemoteException;
+    void debug(File file, boolean bigEndian) throws RemoteException;
 
     /**
      * performs a single step

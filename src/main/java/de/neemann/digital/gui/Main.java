@@ -1495,7 +1495,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     File romHex = new FileLocator(settings.get(Keys.PROGRAM_TO_PRELOAD))
                             .setupWithMain(this)
                             .locate();
-                    new ProgramMemoryLoader(romHex)
+                    new ProgramMemoryLoader(romHex, settings.get(Keys.BIG_ENDIAN_SETTING))
                             .preInit(this.model);
                 }
             }
@@ -1950,20 +1950,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     @Override
-    public void start(File romHex) {
+    public void start(File romHex, boolean bigEndian) {
         SwingUtilities.invokeLater(() -> {
             ProgramMemoryLoader modelModifier = null;
             if (romHex != null)
-                modelModifier = new ProgramMemoryLoader(romHex);
+                modelModifier = new ProgramMemoryLoader(romHex, bigEndian);
             runModelState.enter(true, modelModifier);
             circuitComponent.graphicHasChanged();
         });
     }
 
     @Override
-    public void debug(File romHex) {
+    public void debug(File romHex, boolean bigEndian) {
         SwingUtilities.invokeLater(() -> {
-            runModelState.enter(false, new ProgramMemoryLoader(romHex));
+            runModelState.enter(false, new ProgramMemoryLoader(romHex, bigEndian));
             circuitComponent.graphicHasChanged();
             if (model != null)
                 showMeasurementDialog(ModelEventType.STEP);
