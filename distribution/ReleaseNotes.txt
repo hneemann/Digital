@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.29
+- Allows loading byte base files in big-endian format.
 - Fixed a bug in the LUT component that caused difficulties
   when generic code was executed.
 - Fixed an issue in the seven segment persistence of vision
