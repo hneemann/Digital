@@ -147,7 +147,7 @@ public class DataEditor extends JDialog {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser();
-                    JCheckBox bigEndian = new JCheckBox("BigEndian");
+                    JCheckBox bigEndian = new JCheckBox(Lang.get("msg_bigEndian"));
                     if (dataBits > 8) {
                         bigEndian.setToolTipText(Lang.get("key_bigEndian_tt"));
                         fc.setAccessory(bigEndian);

@@ -1680,6 +1680,7 @@
         export. The references to the circuit are kept, making it possible to override the
         implementation.</string>
 
+    <string name="msg_bigEndian">Big-Endian</string>
     <string name="key_bigEndian">Use big endian at import.</string>
     <string name="key_bigEndian_tt">Use big endian byte order at import.</string>
 

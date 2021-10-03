@@ -1698,6 +1698,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Verilog/VHDL ausgelassen. Die Verweise auf die Schaltung werden beibehalten, sodass eine eigene
         Implementierung verwendet werden kann.</string>
 
+    <string name="msg_bigEndian">Big-Endian</string>
     <string name="key_bigEndian">Beim Import BigEndian verwenden.</string>
     <string name="key_bigEndian_tt">Beim Import BigEndian Bytereihenfolge verwenden.</string>
 
