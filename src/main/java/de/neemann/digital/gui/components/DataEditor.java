@@ -148,8 +148,10 @@ public class DataEditor extends JDialog {
                 public void actionPerformed(ActionEvent e) {
                     JFileChooser fc = new MyFileChooser();
                     JCheckBox bigEndian = new JCheckBox("BigEndian");
-                    bigEndian.setToolTipText(Lang.get("key_bigEndian_tt"));
-                    fc.setAccessory(bigEndian);
+                    if (dataBits > 8) {
+                        bigEndian.setToolTipText(Lang.get("key_bigEndian_tt"));
+                        fc.setAccessory(bigEndian);
+                    }
                     setFileNameTo(fc);
                     fc.setFileFilter(new FileNameExtensionFilter("hex", "hex"));
                     if (fc.showOpenDialog(DataEditor.this) == JFileChooser.APPROVE_OPTION) {
