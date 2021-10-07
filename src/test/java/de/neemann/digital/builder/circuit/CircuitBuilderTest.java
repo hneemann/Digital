@@ -38,6 +38,8 @@ import junit.framework.TestCase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static de.neemann.digital.analyse.expression.Not.not;
 import static de.neemann.digital.analyse.expression.Operation.and;
@@ -226,10 +228,20 @@ public class CircuitBuilderTest extends TestCase {
         // check
         List<VisualElement> in = circuit.getElements(v -> v.equalsDescription(In.DESCRIPTION));
         assertEquals(2, in.size());
+        Collections.sort(in, new Comparator<VisualElement>() {
+            public int compare(VisualElement a, VisualElement b) {
+                return a.getElementAttributes().getLabel().compareTo(b.getElementAttributes().getLabel());
+            }
+        });
         checkPin(in.get(0), "A", "1,2,3,4");
         checkPin(in.get(1), "B", "5,6,7,8");
 
         List<VisualElement> out = circuit.getElements(v -> v.equalsDescription(Out.DESCRIPTION));
+        Collections.sort(out, new Comparator<VisualElement>() {
+            public int compare(VisualElement a, VisualElement b) {
+                return a.getElementAttributes().getLabel().compareTo(b.getElementAttributes().getLabel());
+            }
+        });
         assertEquals(2, out.size());
         checkPin(out.get(0), "S", "9,10,11,12");
         checkPin(out.get(1), "U", "13,14,15,16");
