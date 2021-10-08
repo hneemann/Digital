@@ -517,10 +517,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private void checkForInputBus(Collection<Variable> variables, int splitterXPos, Circuit circuit) {
         StringBuilder pinString = new StringBuilder();
         int y = 0;
-        for (Map.Entry<String, ArrayList<String>> e : mai.getInputBusMap().entrySet()) {
+        for (ModelAnalyserInfo.Bus b : mai.getInputBusList()) {
             pinString.setLength(0);
             int found = 0;
-            final ArrayList<String> inputs = e.getValue();
+            final ArrayList<String> inputs = b.getSignalNames();
             for (String n : inputs) {
                 if (variables.contains(new Variable(n))) {
                     found++;
@@ -541,7 +541,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                         .setPos(new Vector(splitterXPos, y))
                         .setShapeFactory(shapeFactory));
                 circuit.add(new VisualElement(In.DESCRIPTION.getName())
-                        .setAttribute(Keys.LABEL, e.getKey())
+                        .setAttribute(Keys.LABEL, b.getBusName())
                         .setAttribute(Keys.BITS, inputs.size())
                         .setAttribute(Keys.PINNUMBER, pinString.toString())
                         .setPos(new Vector(splitterXPos - 2 * SIZE, y))
@@ -570,10 +570,10 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private int checkForOutputBus(int splitterXPos, Circuit circuit) {
         StringBuilder pinString = new StringBuilder();
         int y = 0;
-        for (Map.Entry<String, ArrayList<String>> e : mai.getOutputBusMap().entrySet()) {
+        for (ModelAnalyserInfo.Bus b : mai.getOutputBusList()) {
             pinString.setLength(0);
             int found = 0;
-            final ArrayList<String> outputs = e.getValue();
+            final ArrayList<String> outputs = b.getSignalNames();
             for (String n : outputs) {
                 if (combinatorialOutputs.containsKey(n)) {
                     found++;
@@ -593,7 +593,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                         .setPos(new Vector(splitterXPos, y))
                         .setShapeFactory(shapeFactory));
                 circuit.add(new VisualElement(Out.DESCRIPTION.getName())
-                        .setAttribute(Keys.LABEL, e.getKey())
+                        .setAttribute(Keys.LABEL, b.getBusName())
                         .setAttribute(Keys.BITS, outputs.size())
                         .setAttribute(Keys.PINNUMBER, pinString.toString())
                         .setPos(new Vector(splitterXPos + 3 * SIZE, y))

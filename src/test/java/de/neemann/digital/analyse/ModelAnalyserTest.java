@@ -24,13 +24,13 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 import static de.neemann.digital.analyse.quinemc.ThreeStateValue.one;
 import static de.neemann.digital.analyse.quinemc.ThreeStateValue.zero;
 
 /**
+ *
  */
 public class ModelAnalyserTest extends TestCase {
 
@@ -161,25 +161,25 @@ public class ModelAnalyserTest extends TestCase {
     public void testAnalyzerUniqueNames2() throws Exception {
         Model model = createModel("dig/analyze/uniqueNames2.dig");
         ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
-        assertEquals(2,ins.size());
-        assertEquals("Q_0n",ins.get(0).getName());
-        assertEquals("Q_01n",ins.get(1).getName());
+        assertEquals(2, ins.size());
+        assertEquals("Q_0n", ins.get(0).getName());
+        assertEquals("Q_01n", ins.get(1).getName());
     }
 
     public void testAnalyzerUniqueNames3() throws Exception {
         Model model = createModel("dig/analyze/uniqueNames3.dig");
         ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
-        assertEquals(2,ins.size());
-        assertEquals("Z^n",ins.get(0).getName());
-        assertEquals("Z_1^n",ins.get(1).getName());
+        assertEquals(2, ins.size());
+        assertEquals("Z^n", ins.get(0).getName());
+        assertEquals("Z_1^n", ins.get(1).getName());
     }
 
     public void testAnalyzerUniqueNames4() throws Exception {
         Model model = createModel("dig/analyze/uniqueNames4.dig");
         ArrayList<Signal> ins = new ModelAnalyser(model).getInputs();
-        assertEquals(2,ins.size());
-        assertEquals("B^n",ins.get(0).getName());
-        assertEquals("A^n",ins.get(1).getName());
+        assertEquals(2, ins.size());
+        assertEquals("B^n", ins.get(0).getName());
+        assertEquals("A^n", ins.get(1).getName());
     }
 
     public void testAnalyzerMultiBit() throws Exception {
@@ -269,20 +269,19 @@ public class ModelAnalyserTest extends TestCase {
         Model model = createModel("dig/analyze/multiBitInOutXOr.dig");
         ModelAnalyserInfo mai = new ModelAnalyser(model).analyse().getModelAnalyzerInfo();
 
-        assertEquals(2, mai.getInputBusMap().size());
-        checkBus(mai.getInputBusMap(), "A", "A_0", "A_1", "A_2", "A_3");
-        checkBus(mai.getInputBusMap(), "B", "B_0", "B_1", "B_2", "B_3");
+        assertEquals(2, mai.getInputBusList().size());
+        checkBus(mai.getInputBusList().get(0), "A", "A_0", "A_1", "A_2", "A_3");
+        checkBus(mai.getInputBusList().get(1), "B", "B_0", "B_1", "B_2", "B_3");
 
-        assertEquals(1, mai.getOutputBusMap().size());
-        checkBus(mai.getOutputBusMap(), "S", "S_0", "S_1", "S_2", "S_3");
+        assertEquals(1, mai.getOutputBusList().size());
+        checkBus(mai.getOutputBusList().get(0), "S", "S_0", "S_1", "S_2", "S_3");
     }
 
-    private void checkBus(HashMap<String, ArrayList<String>> busMap, String name, String... names) {
-        ArrayList<String> n = busMap.get(name);
-        assertNotNull(n);
-        assertEquals(names.length, n.size());
+    private void checkBus(ModelAnalyserInfo.Bus bus, String name, String... names) {
+        assertEquals(name, bus.getBusName());
+        assertEquals(names.length, bus.getSignalNames().size());
         for (int i = 0; i < names.length; i++)
-            assertEquals(names[i], n.get(i));
+            assertEquals(names[i], bus.getSignalNames().get(i));
     }
 
 }

@@ -18,8 +18,8 @@ import java.util.TreeMap;
  */
 public class ModelAnalyserInfo {
     private final String clockPin;
-    private final HashMap<String, ArrayList<String>> inputBusMap;
-    private final HashMap<String, ArrayList<String>> outputBusMap;
+    private final ArrayList<Bus> inputBusList;
+    private final ArrayList<Bus> outputBusList;
     private final HashMap<String, Long> initValueMap;
     private final boolean isSequential;
     private TreeMap<String, String> pins;
@@ -41,8 +41,8 @@ public class ModelAnalyserInfo {
 
         isSequential = model != null && !model.findNode(Node::hasState).isEmpty();
 
-        inputBusMap = new HashMap<>();
-        outputBusMap = new HashMap<>();
+        inputBusList = new ArrayList<>();
+        outputBusList = new ArrayList<>();
 
         initValueMap = new HashMap<>();
     }
@@ -108,7 +108,7 @@ public class ModelAnalyserInfo {
     }
 
     void addInputBus(String name, ArrayList<String> names) {
-        inputBusMap.put(name, names);
+        inputBusList.add(new Bus(name, names));
     }
 
     /**
@@ -118,21 +118,21 @@ public class ModelAnalyserInfo {
      * @param names the individual names in the truth table
      */
     public void addOutputBus(String name, ArrayList<String> names) {
-        outputBusMap.put(name, names);
+        outputBusList.add(new Bus(name, names));
     }
 
     /**
      * @return input bus map
      */
-    public HashMap<String, ArrayList<String>> getInputBusMap() {
-        return inputBusMap;
+    public ArrayList<Bus> getInputBusList() {
+        return inputBusList;
     }
 
     /**
      * @return output bus map
      */
-    public HashMap<String, ArrayList<String>> getOutputBusMap() {
-        return outputBusMap;
+    public ArrayList<Bus> getOutputBusList() {
+        return outputBusList;
     }
 
     /**
@@ -179,5 +179,32 @@ public class ModelAnalyserInfo {
      */
     public void setStateSignalName(String stateSignalName) {
         this.stateSignalName = stateSignalName;
+    }
+
+    /**
+     * Description of a bus used as input or output of the circuit
+     */
+    public static final class Bus {
+        private final String busName;
+        private final ArrayList<String> signalNames;
+
+        private Bus(String busName, ArrayList<String> signalNames) {
+            this.busName = busName;
+            this.signalNames = signalNames;
+        }
+
+        /**
+         * @return the name of the bus
+         */
+        public String getBusName() {
+            return busName;
+        }
+
+        /**
+         * @return list of names of the signals the bus is made of
+         */
+        public ArrayList<String> getSignalNames() {
+            return signalNames;
+        }
     }
 }

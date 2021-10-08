@@ -14,7 +14,6 @@ import de.neemann.digital.analyse.quinemc.ThreeStateValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Creates a test case which represents the truth table
@@ -22,8 +21,8 @@ import java.util.Map;
 public class TruthTableFormatterTestCase implements TruthTableFormatter {
     private enum Type {NORMAL, FIRSTBIN, BIN}
 
-    private final HashMap<String, ArrayList<String>> inputBusMap;
-    private final HashMap<String, ArrayList<String>> outputBusMap;
+    private final ArrayList<ModelAnalyserInfo.Bus> inputBusList;
+    private final ArrayList<ModelAnalyserInfo.Bus> outputBusList;
 
     /**
      * Creates a new instance.
@@ -32,11 +31,11 @@ public class TruthTableFormatterTestCase implements TruthTableFormatter {
      */
     public TruthTableFormatterTestCase(ModelAnalyserInfo modelAnalyzerInfo) {
         if (modelAnalyzerInfo == null) {
-            inputBusMap = new HashMap<>();
-            outputBusMap = new HashMap<>();
+            inputBusList = new ArrayList<>();
+            outputBusList = new ArrayList<>();
         } else {
-            inputBusMap = modelAnalyzerInfo.getInputBusMap();
-            outputBusMap = modelAnalyzerInfo.getOutputBusMap();
+            inputBusList = modelAnalyzerInfo.getInputBusList();
+            outputBusList = modelAnalyzerInfo.getOutputBusList();
         }
     }
 
@@ -47,12 +46,12 @@ public class TruthTableFormatterTestCase implements TruthTableFormatter {
         ArrayList<String> inputs = new ArrayList<>();
         for (Variable v : truthTable.getVars())
             inputs.add(v.getIdentifier());
-        ArrayList<Type> inputOutType = outVars(sb, inputs, inputBusMap);
+        ArrayList<Type> inputOutType = outVars(sb, inputs, inputBusList);
 
         ArrayList<String> outputs = new ArrayList<>();
         for (int i = 0; i < truthTable.getResultCount(); i++)
             outputs.add(truthTable.getResultName(i));
-        ArrayList<Type> outputOutType = outVars(sb, outputs, outputBusMap);
+        ArrayList<Type> outputOutType = outVars(sb, outputs, outputBusList);
 
         sb.append("\n\n");
 
@@ -86,16 +85,16 @@ public class TruthTableFormatterTestCase implements TruthTableFormatter {
 
     }
 
-    private ArrayList<Type> outVars(StringBuilder sb, ArrayList<String> vars, HashMap<String, ArrayList<String>> busMap) {
+    private ArrayList<Type> outVars(StringBuilder sb, ArrayList<String> vars, ArrayList<ModelAnalyserInfo.Bus> busList) {
         ArrayList<Type> types = new ArrayList<>(vars.size());
         HashMap<String, String> map = new HashMap<>();
-        for (Map.Entry<String, ArrayList<String>> e : busMap.entrySet()) {
+        for (ModelAnalyserInfo.Bus b : busList) {
             String last = null;
-            for (String s : e.getValue()) {
+            for (String s : b.getSignalNames()) {
                 map.put(s, "");
                 last = s;
             }
-            map.put(last, e.getKey());
+            map.put(last, b.getBusName());
         }
         for (String n : vars) {
             String r = map.get(n);

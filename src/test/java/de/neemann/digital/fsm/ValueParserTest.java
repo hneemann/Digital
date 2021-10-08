@@ -9,7 +9,6 @@ import de.neemann.digital.analyse.ModelAnalyserInfo;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class ValueParserTest extends TestCase {
@@ -38,10 +37,11 @@ public class ValueParserTest extends TestCase {
         ModelAnalyserInfo mai = new ModelAnalyserInfo(null);
         TreeMap<String, Integer> v = new ValueParser("A=1101").setModelAnalyzerInfo(mai).parse();
         assertEquals(4, v.size());
-        HashMap<String, ArrayList<String>> om = mai.getOutputBusMap();
+        ArrayList<ModelAnalyserInfo.Bus> om = mai.getOutputBusList();
         assertEquals(1, om.size());
-        ArrayList<String> list = om.get("A");
-        assertNotNull(list);
+        ModelAnalyserInfo.Bus bus = om.get(0);
+        assertEquals("A", bus.getBusName());
+        ArrayList<String> list = bus.getSignalNames();
         assertEquals(4, list.size());
         assertEquals("A0", list.get(0));
         assertEquals("A1", list.get(1));
