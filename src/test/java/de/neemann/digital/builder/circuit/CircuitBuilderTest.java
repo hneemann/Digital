@@ -206,22 +206,7 @@ public class CircuitBuilderTest extends TestCase {
     }
 
     public void testBus() throws Exception {
-        final ToBreakRunner runner = new ToBreakRunner("dig/circuitBuilder/busTest.dig", false);
-        // create truth table incl. ModelAnalyzerInfo
-        TruthTable tt = new ModelAnalyser(runner.getModel()).analyse();
-
-        assertEquals(8, tt.getVars().size());
-        assertEquals(8, tt.getResultCount());
-
-        // create expressions based on truth table
-        ExpressionListenerStore expr = new ExpressionListenerStore(null);
-        new ExpressionCreator(tt).create(expr);
-
-        // build a new circuit
-        CircuitBuilder circuitBuilder = new CircuitBuilder(runner.getLibrary().getShapeFactory(), tt.getVars())
-                .setModelAnalyzerInfo(tt.getModelAnalyzerInfo());
-        new BuilderExpressionCreator(circuitBuilder).create(expr);
-        Circuit circuit = circuitBuilder.createCircuit();
+        Circuit circuit = getCircuitFromCircuitAnalysis("dig/circuitBuilder/busTest.dig");
 
         // check
         List<VisualElement> in = circuit.getElements(v -> v.equalsDescription(In.DESCRIPTION));
@@ -234,6 +219,39 @@ public class CircuitBuilderTest extends TestCase {
         checkPin(out.get(0), "S", "9,10,11,12");
         checkPin(out.get(1), "U", "13,14,15,16");
     }
+
+    private Circuit getCircuitFromCircuitAnalysis(String name) throws Exception {
+        final ToBreakRunner runner = new ToBreakRunner(name, false);
+        // create truth table incl. ModelAnalyzerInfo
+        TruthTable tt = new ModelAnalyser(runner.getModel()).analyse();
+
+        // create expressions based on truth table
+        ExpressionListenerStore expr = new ExpressionListenerStore(null);
+        new ExpressionCreator(tt).create(expr);
+
+        // build a new circuit
+        CircuitBuilder circuitBuilder = new CircuitBuilder(runner.getLibrary().getShapeFactory(), tt.getVars())
+                .setModelAnalyzerInfo(tt.getModelAnalyzerInfo());
+        new BuilderExpressionCreator(circuitBuilder).create(expr);
+        return circuitBuilder.createCircuit();
+    }
+
+    public void testBus2() throws Exception {
+        Circuit circuit = getCircuitFromCircuitAnalysis("dig/circuitBuilder/busTest2.dig");
+
+        List<VisualElement> in = circuit.getElements(v -> v.equalsDescription(In.DESCRIPTION));
+        assertEquals(24, in.size());
+        for (int i = 0; i < 12; i++) {
+            int n = 2 * i;
+            assertEquals("A" + i, in.get(n).getElementAttributes().getLabel());
+            assertEquals("B" + i, in.get(n + 1).getElementAttributes().getLabel());
+        }
+        List<VisualElement> out = circuit.getElements(v -> v.equalsDescription(Out.DESCRIPTION));
+        assertEquals(12, out.size());
+        for (int i = 0; i < 12; i++)
+            assertEquals("S" + i, out.get(i).getElementAttributes().getLabel());
+    }
+
 
     private void checkPin(VisualElement e, String label, String pins) {
         assertEquals(label, e.getElementAttributes().getLabel());
