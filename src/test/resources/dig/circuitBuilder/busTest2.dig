@@ -8,14 +8,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S0</string>
+          <string>S2</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="20"/>
+      <pos x="20" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -46,28 +46,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B0</string>
+          <string>B11</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="40"/>
+      <pos x="-100" y="920"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S1</string>
+          <string>S3</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="100"/>
+      <pos x="20" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -98,28 +98,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B1</string>
+          <string>B10</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="120"/>
+      <pos x="-100" y="840"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S2</string>
+          <string>S4</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="180"/>
+      <pos x="20" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -150,28 +150,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B2</string>
+          <string>B9</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="200"/>
+      <pos x="-100" y="760"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S3</string>
+          <string>S5</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="260"/>
+      <pos x="20" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -202,28 +202,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B3</string>
+          <string>B8</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="280"/>
+      <pos x="-100" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S4</string>
+          <string>S6</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="340"/>
+      <pos x="20" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -254,28 +254,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B4</string>
+          <string>B7</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="360"/>
+      <pos x="-100" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S5</string>
+          <string>S7</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="420"/>
+      <pos x="20" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -306,28 +306,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B5</string>
+          <string>B6</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="440"/>
+      <pos x="-100" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S6</string>
+          <string>S8</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="500"/>
+      <pos x="20" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -358,28 +358,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B6</string>
+          <string>B5</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="520"/>
+      <pos x="-100" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S7</string>
+          <string>S9</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="580"/>
+      <pos x="20" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -410,28 +410,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B7</string>
+          <string>B4</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="600"/>
+      <pos x="-100" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S8</string>
+          <string>S10</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="660"/>
+      <pos x="20" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -462,28 +462,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B8</string>
+          <string>B3</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="680"/>
+      <pos x="-100" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S9</string>
+          <string>S11</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="740"/>
+      <pos x="20" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -514,28 +514,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B9</string>
+          <string>B2</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="760"/>
+      <pos x="-100" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S10</string>
+          <string>S0</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="820"/>
+      <pos x="20" y="20"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -566,28 +566,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B10</string>
+          <string>B1</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="840"/>
+      <pos x="-100" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S11</string>
+          <string>S1</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="900"/>
+      <pos x="20" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -618,14 +618,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B11</string>
+          <string>B0</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>2</int>
         </entry>
       </elementAttributes>
-      <pos x="-100" y="920"/>
+      <pos x="-100" y="40"/>
     </visualElement>
   </visualElements>
   <wires>

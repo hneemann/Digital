@@ -244,12 +244,14 @@ public class CircuitBuilderTest extends TestCase {
         for (int i = 0; i < 12; i++) {
             int n = 2 * i;
             assertEquals("A" + i, in.get(n).getElementAttributes().getLabel());
-            assertEquals("B" + i, in.get(n + 1).getElementAttributes().getLabel());
+            assertEquals("B" + (11 - i), in.get(n + 1).getElementAttributes().getLabel());
         }
         List<VisualElement> out = circuit.getElements(v -> v.equalsDescription(Out.DESCRIPTION));
         assertEquals(12, out.size());
-        for (int i = 0; i < 12; i++)
-            assertEquals("S" + i, out.get(i).getElementAttributes().getLabel());
+        for (int i = 0; i < 12; i++) {
+            int n = (i + 2) % 12;
+            assertEquals("S" + n, out.get(i).getElementAttributes().getLabel());
+        }
     }
 
 
