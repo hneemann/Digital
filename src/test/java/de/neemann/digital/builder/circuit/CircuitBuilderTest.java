@@ -236,7 +236,7 @@ public class CircuitBuilderTest extends TestCase {
         return circuitBuilder.createCircuit();
     }
 
-    public void testBus2() throws Exception {
+    public void testBusFix858() throws Exception {
         Circuit circuit = getCircuitFromCircuitAnalysis("dig/circuitBuilder/busTest2.dig");
 
         List<VisualElement> in = circuit.getElements(v -> v.equalsDescription(In.DESCRIPTION));
