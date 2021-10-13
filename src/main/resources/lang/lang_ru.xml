@@ -1264,8 +1264,8 @@ In the file howTo.md you can find more details about translations.
     <string name = "key_Description_tt">Краткое описание этого элемента и его использования.</string>
     <string name = "key_Frequency">Частота/Гц</string><!-- Часы -->
     <string name = "key_Frequency_tt">Частота реального времени, используемая для часов реального времени</string>
-    <string name = "key_IEEEShapes">Используйте формы IEEE 91-1984</string>
-    <string name = "key_IEEEShapes_tt">Используйте формы IEEE 91-1984 вместо прямоугольных</string>
+    <string name = "key_IEEEShapes">Использовать графические обозначения IEEE 91-1984</string>
+    <string name = "key_IEEEShapes_tt">Использовать графические обозначения IEEE 91-1984 вместо прямоугольных IEC</string>
     <string name = "key_Inputs">Количество входов </string><!-- И, NAnd, Or, NOr, XOr, XNOr, LookUpTable -->
     <string name = "key_Inputs_tt">Количество используемых входов. Каждый вход должен быть подключен.</string>
     <string name = "key_Label">Метка </string><!-- Выход, светодиод, вход, часы, кнопка, зонд, лампочка, LedMatrix, RotEncoder, клавиатура, терминал, RS_FF, JK_FF, D_FF, T_FF, JK_FF_AS, D_FF_AS , Регистр, ПЗУ, RAMDualPort, RAMSinglePort, RAMSinglePortSel, EEPROM, GraphicCard, Counter, Add, Sub, Mul, BarrelShifter, Comparator, Switch, Relay, PFET, NFET, FGPFET, FGNFET, Testcase, PowerSupply, Reset, Break -->
