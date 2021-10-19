@@ -8,7 +8,7 @@ package de.neemann.digital.core.memory;
 import com.thoughtworks.xstream.XStream;
 import de.neemann.digital.XStreamValid;
 import junit.framework.TestCase;
-
+import java.util.*;
 /**
  *
  */
