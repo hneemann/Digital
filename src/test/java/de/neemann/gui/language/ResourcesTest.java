@@ -20,6 +20,13 @@ public class ResourcesTest extends TestCase {
             "  <string name=\"menu_save\">Speichern</string>\n" +
             "  <string name=\"menu_open\">\u00D6ffnen</string>\n" +
             "</resources>";
+            
+    private static final String example2
+            = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                        "<resources>\n" +
+                        "  <string name=\"menu_open\">\u00D6ffnen</string>\n" +
+                        "  <string name=\"menu_save\">Speichern</string>\n" +
+                        "</resources>";
 
     public void testWrite() throws Exception {
         Resources res = new Resources();
