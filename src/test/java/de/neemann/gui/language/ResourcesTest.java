@@ -28,7 +28,7 @@ public class ResourcesTest extends TestCase {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         res.save(baos);
-        assertTrue(Arrays.equals(example.getBytes("utf-8"), baos.toByteArray()));
+        assertTrue(Arrays.equals(example.getBytes("utf-8"), baos.toByteArray()) || Arrays.equals(example2.getBytes("utf-8"), baos.toByteArray()));
     }
 
     public void testRead() throws Exception {
