@@ -64,10 +64,15 @@ public class DataFieldConverterTest extends TestCase {
 
         XStream xs = getxStream();
         String xml = xs.toXML(new Test(d1, d2));
-        assertEquals("<?xml version=\"1.0\" ?><test>" +
-                "<d1>1,4*0,2</d1>" +
-                "<d2>3,7*0,4</d2>" +
-                "</test>", xml);
+        String expected1 = "<?xml version=\"1.0\" ?><test>" +
+        "<d1>1,4*0,2</d1>" +
+        "<d2>3,7*0,4</d2>" +
+        "</test>";
+        String expected2 = "<?xml version=\"1.0\" ?><test>" +
+        "<d2>3,7*0,4</d2>" +
+        "<d1>1,4*0,2</d1>" +
+        "</test>";
+        assertTrue(xml.equals(expected1) || xml.equals(expected2));
     }
 
     public void testMarshalObj2() {
