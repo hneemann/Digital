@@ -522,7 +522,7 @@ public final class Keys {
      * enables the MAC mouse mode
      */
     public static final Key<Boolean> SETTINGS_MAC_MOUSE
-            = new Key<>("macMouse", Screen.isMac()).setRequiresRestart().setSecondary();
+            = new Key<>("macMouse", false).setRequiresRestart().setSecondary();
 
     /**
      * enables tunnel rename dialog
