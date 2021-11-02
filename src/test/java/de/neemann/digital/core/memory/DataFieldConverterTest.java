@@ -8,6 +8,7 @@ package de.neemann.digital.core.memory;
 import com.thoughtworks.xstream.XStream;
 import de.neemann.digital.XStreamValid;
 import junit.framework.TestCase;
+
 /**
  *
  */
@@ -52,10 +53,12 @@ public class DataFieldConverterTest extends TestCase {
         }
     }
 
-    void checkEquals(String prefix, String d1, String d2, String suffix, String xml) {
-         String case1 = prefix + d1 + d2 + suffix;
-         String case2 = prefix + d2 + d1 + suffix;
-         assertTrue(case1.equals(xml) || case2.equals(xml));
+    void checkEquals(String d1, String d2, String xml) {
+        String prefix = "<?xml version=\"1.0\" ?><test>";
+        String suffix = "</test>";
+        String case1 = prefix + d1 + d2 + suffix;
+        String case2 = prefix + d2 + d1 + suffix;
+        assertTrue(case1.equals(xml) || case2.equals(xml));
     }
 
     public void testMarshalObj() {
@@ -70,12 +73,10 @@ public class DataFieldConverterTest extends TestCase {
         XStream xs = getxStream();
         String xml = xs.toXML(new Test(d1, d2));
         
-        String prefix = "<?xml version=\"1.0\" ?><test>";
+        
         String d1_str = "<d1>1,4*0,2</d1>";
         String d2_str = "<d2>3,7*0,4</d2>";
-        String suffix = "</test>";
-
-        checkEquals(prefix, d1_str, d2_str, suffix, xml);
+        checkEquals(d1_str, d2_str, xml);
     }
 
     public void testMarshalObj2() {
@@ -88,12 +89,9 @@ public class DataFieldConverterTest extends TestCase {
         XStream xs = getxStream();
         String xml = xs.toXML(new Test(d1, d2));
 
-        String prefix = "<?xml version=\"1.0\" ?><test>";
         String d1_str = "<d1>5*0,2</d1>";
         String d2_str = "<d2>8*0,4</d2>";
-        String suffix = "</test>";
-
-        checkEquals(prefix, d1_str, d2_str, suffix, xml);
+        checkEquals(d1_str, d2_str, xml);
     }
 
     public void testMarshalObj3() {
@@ -109,12 +107,9 @@ public class DataFieldConverterTest extends TestCase {
         XStream xs = getxStream();
         String xml = xs.toXML(new Test(d1, d2));
         
-        String prefix = "<?xml version=\"1.0\" ?><test>";
         String d1_str = "<d1>11*2</d1>";
         String d2_str = "<d2>11*1,11*2,11*3,11*4,11*5,11*6,11*7,11*8,11*9,11*a,11*b</d2>";
-        String suffix = "</test>";
-
-        checkEquals(prefix, d1_str, d2_str, suffix, xml);
+        checkEquals(d1_str, d2_str, xml);
     }
 
     public void testUnmarshalObj() {
