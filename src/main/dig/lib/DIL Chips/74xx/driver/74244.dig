@@ -57,19 +57,15 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
           <string>Label</string>
-          <string>1~G</string>
+          <string>1A2</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>1</string>
+          <string>4</string>
         </entry>
       </elementAttributes>
-      <pos x="300" y="160"/>
+      <pos x="280" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
@@ -95,14 +91,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>1A2</string>
+          <string>1A3</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>4</string>
+          <string>6</string>
         </entry>
       </elementAttributes>
-      <pos x="280" y="280"/>
+      <pos x="280" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
@@ -128,14 +124,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>1A3</string>
+          <string>1A4</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>6</string>
+          <string>8</string>
         </entry>
       </elementAttributes>
-      <pos x="280" y="340"/>
+      <pos x="280" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
@@ -160,15 +156,19 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
           <string>Label</string>
-          <string>1A4</string>
+          <string>1~G</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>8</string>
+          <string>1</string>
         </entry>
       </elementAttributes>
-      <pos x="280" y="400"/>
+      <pos x="300" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
@@ -207,19 +207,15 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
           <string>Label</string>
-          <string>2~G</string>
+          <string>2A2</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>19</string>
+          <string>13</string>
         </entry>
       </elementAttributes>
-      <pos x="820" y="160"/>
+      <pos x="800" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
@@ -245,14 +241,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2A2</string>
+          <string>2A3</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>13</string>
+          <string>15</string>
         </entry>
       </elementAttributes>
-      <pos x="800" y="280"/>
+      <pos x="800" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
@@ -278,14 +274,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2A3</string>
+          <string>2A4</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>15</string>
+          <string>17</string>
         </entry>
       </elementAttributes>
-      <pos x="800" y="340"/>
+      <pos x="800" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>DriverInvSel</elementName>
@@ -310,15 +306,19 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
           <string>Label</string>
-          <string>2A4</string>
+          <string>2~G</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>17</string>
+          <string>19</string>
         </entry>
       </elementAttributes>
-      <pos x="800" y="400"/>
+      <pos x="820" y="160"/>
     </visualElement>
     <visualElement>
       <elementName>PowerSupply</elementName>
@@ -536,4 +536,5 @@
       <p2 x="620" y="100"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
