@@ -29,7 +29,7 @@
         </entry>
         <entry>
           <string>Default</string>
-          <int>1</int>
+          <long>1</long>
         </entry>
       </elementAttributes>
       <pos x="420" y="160"/>
@@ -67,20 +67,6 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <string>3</string>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="380"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
           <string>B</string>
         </entry>
         <entry>
@@ -89,6 +75,20 @@
         </entry>
       </elementAttributes>
       <pos x="300" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -441,4 +441,5 @@
       <p2 x="220" y="300"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
