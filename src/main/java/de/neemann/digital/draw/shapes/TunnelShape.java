@@ -5,6 +5,8 @@
  */
 package de.neemann.digital.draw.shapes;
 
+import de.neemann.digital.core.ObservableValue;
+import de.neemann.digital.core.Value;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescription;
@@ -23,9 +25,15 @@ public class TunnelShape implements Shape {
 
     private static final int HEIGHT = SIZE2 - 2;
     private static final int WIDTH = (int) Math.round(HEIGHT * Math.sqrt(3));
+    private static final Polygon POLYGON = new Polygon(true)
+            .add(0, 0)
+            .add(WIDTH, HEIGHT)
+            .add(WIDTH, -HEIGHT);
 
     private final PinDescription input;
     private final String label;
+    private ObservableValue inputValueObserver;
+    private Value inputValue;
 
     /**
      * Creates a new instance
@@ -46,15 +54,24 @@ public class TunnelShape implements Shape {
 
     @Override
     public InteractorInterface applyStateMonitor(IOState ioState) {
+        inputValueObserver = ioState.getInput(0);
+        if (inputValueObserver.getBits() > 1)
+            inputValueObserver = null;
         return null;
     }
 
     @Override
+    public void readObservableValues() {
+        if (inputValueObserver != null)
+            inputValue = inputValueObserver.getCopy();
+    }
+
+    @Override
     public void drawTo(Graphic gr, Style highLight) {
-        gr.drawPolygon(new Polygon(true)
-                .add(0, 0)
-                .add(WIDTH, HEIGHT)
-                .add(WIDTH, -HEIGHT), Style.NORMAL);
+        if (inputValue != null)
+            gr.drawPolygon(POLYGON, Style.getWireStyle(inputValue));
+
+        gr.drawPolygon(POLYGON, Style.NORMAL);
         Vector pos = new Vector(WIDTH + SIZE2 / 2, 0);
         gr.drawText(pos, label, Orientation.LEFTCENTER, Style.SHAPE_PIN);
     }
