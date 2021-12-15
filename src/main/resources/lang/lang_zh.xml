@@ -1588,7 +1588,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_shapeType_SIMPLE">Simple</string>
     <string name="key_shapeType_DIL">DIL-Chip</string>
     <string name="key_shapeType_LAYOUT">Layout</string>
-    <string name="lib_ram">RA</string>
+    <string name="lib_ram">RAM</string>
     <string name="lib_eeprom">EEPROM</string>
     <string name="cli_help_test_allowMissingInputs">允许电路中缺少测试用例中定义的输入。 如果有几种可能的解决方案可能取决于不同的输入，这将很有用。</string>
     <string name="menu_table_exportCSV">CSV</string>
