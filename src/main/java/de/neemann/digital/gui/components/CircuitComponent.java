@@ -996,13 +996,18 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     /**
-     * @return the circuit shown
+     * @return the circuit used
      */
     public Circuit getCircuit() {
         return undoManager.getActual();
     }
 
-    private Circuit getCircuitOrShallowCopy() {
+    /**
+     * Returns the used circuit or the shallow copy if available
+     *
+     * @return the circuit shown
+     */
+    public Circuit getCircuitOrShallowCopy() {
         if (shallowCopy != null)
             return shallowCopy;
         else
