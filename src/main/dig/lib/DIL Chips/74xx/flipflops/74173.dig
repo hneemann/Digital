@@ -25,6 +25,25 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
+          <string>D0</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>14</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-60" y="0"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PowerSupply</elementName>
+      <elementAttributes/>
+      <pos x="20" y="-200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
           <string>VCC</string>
         </entry>
         <entry>
@@ -39,11 +58,6 @@
       <pos x="-20" y="-200"/>
     </visualElement>
     <visualElement>
-      <elementName>PowerSupply</elementName>
-      <elementAttributes/>
-      <pos x="20" y="-200"/>
-    </visualElement>
-    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -56,24 +70,6 @@
         </entry>
       </elementAttributes>
       <pos x="-20" y="-160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>RES</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <string>15</string>
-        </entry>
-        <entry>
-          <string>InDefault</string>
-          <value v="1" z="false"/>
-        </entry>
-      </elementAttributes>
-      <pos x="-60" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
@@ -100,14 +96,18 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>D0</string>
+          <string>RES</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>14</string>
+          <string>15</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="0"/>
+      <pos x="-60" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
