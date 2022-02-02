@@ -1873,7 +1873,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             new SaveAsHelper(Main.this, fc, suffix).checkOverwrite(
                     file -> {
                         settings.setFile("exportDirectory", file.getParentFile());
-                        new Export(circuitComponent.getCircuit(), exportFactory).export(file);
+                        new Export(circuitComponent.getCircuitOrShallowCopy(), exportFactory).export(file);
                     }
             );
         }
