@@ -66,6 +66,8 @@ public class TestResultTest extends TestCase {
         assertEquals(true, ((MatchedValue) valueTable.getValue(1, 2)).isPassed());
         assertEquals(true, ((MatchedValue) valueTable.getValue(2, 2)).isPassed());
         assertEquals(false, ((MatchedValue) valueTable.getValue(3, 2)).isPassed());
+
+        assertEquals(25, tr.failedPercent());
     }
 
     public void testResultDontCare() throws Exception {

@@ -106,7 +106,7 @@ public class TestResult implements TestResultListener {
     public int failedPercent() {
         if (passedCount == 0)
             return 100;
-        int p = 100 * failedCount / passedCount;
+        int p = (100 * failedCount) / (failedCount + passedCount);
         if (p == 0 && failedCount > 0)
             p = 1;
         return p;
