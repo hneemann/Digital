@@ -2121,7 +2121,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (file != null)
                 builder.setFileToOpen(file);
             SwingUtilities.invokeLater(() -> {
-                final boolean tutorial = Settings.getInstance().getAttributes().get(Keys.SETTINGS_SHOW_TUTORIAL);
+                final boolean tutorial = (builder.fileToOpen == null) && Settings.getInstance().getAttributes().get(Keys.SETTINGS_SHOW_TUTORIAL);
                 if (tutorial) {
                     LOGGER.debug("set empty circuit to start tutorial");
                     builder.setCircuit(new Circuit());
