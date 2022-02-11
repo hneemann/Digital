@@ -187,7 +187,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         circuitComponent = new CircuitComponent(this, library, shapeFactory);
         circuitComponent.addListener(this);
         if (builder.circuit != null) {
-            LOGGER.debug("create with given circuit");
+            LOGGER.debug("create with given circuit: " + builder.circuit.getOrigin());
             SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(builder.circuit));
             setFilename(builder.fileToOpen, false);
         } else {
@@ -2121,8 +2121,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 builder.setFileToOpen(file);
             SwingUtilities.invokeLater(() -> {
                 final boolean tutorial = Settings.getInstance().getAttributes().get(Keys.SETTINGS_SHOW_TUTORIAL);
-                if (tutorial)
+                if (tutorial) {
+                    LOGGER.debug("set empty circuit to start tutorial");
                     builder.setCircuit(new Circuit());
+                }
 
                 Main main = builder.build();
                 try {
@@ -2132,8 +2134,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
                 main.setVisible(true);
 
-                if (tutorial)
+                if (tutorial) {
+                    LOGGER.debug("open tutorial dialog");
                     new InitialTutorial(main).setVisible(true);
+                }
 
                 CheckForNewRelease.showReleaseDialog(main);
             });
