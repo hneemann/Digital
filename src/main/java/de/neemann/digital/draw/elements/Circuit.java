@@ -119,7 +119,7 @@ public class Circuit implements Copyable<Circuit> {
      * @throws IOException IOException
      */
     public static Circuit loadCircuit(File filename, ShapeFactory shapeFactory) throws IOException {
-        LOGGER.info("load " + filename);
+        LOGGER.debug("load " + filename);
         final Circuit circuit = loadCircuit(new FileInputStream(filename), shapeFactory);
         circuit.origin = filename;
         return circuit;
@@ -134,7 +134,7 @@ public class Circuit implements Copyable<Circuit> {
      * @throws IOException IOException
      */
     public static Circuit loadCircuit(InputStream in, ShapeFactory shapeFactory) throws IOException {
-        LOGGER.info("load stream");
+        LOGGER.debug("load stream");
         try {
             XStream xStream = getxStream();
             Circuit circuit = (Circuit) xStream.fromXML(in);

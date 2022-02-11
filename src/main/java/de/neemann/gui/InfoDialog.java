@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.jar.JarFile;
 import java.util.prefs.Preferences;
@@ -187,7 +188,7 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
         private Manifest(URL url) throws IOException {
             this.url = url;
             manifest = new HashMap<>();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     int p = line.indexOf(':');

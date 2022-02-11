@@ -187,13 +187,16 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         circuitComponent = new CircuitComponent(this, library, shapeFactory);
         circuitComponent.addListener(this);
         if (builder.circuit != null) {
+            LOGGER.debug("create with given circuit");
             SwingUtilities.invokeLater(() -> circuitComponent.setCircuit(builder.circuit));
             setFilename(builder.fileToOpen, false);
         } else {
             if (builder.fileToOpen != null) {
+                LOGGER.debug("create with given file " + builder.fileToOpen);
                 SwingUtilities.invokeLater(() -> loadFile(builder.fileToOpen, builder.library == null, builder.library == null));
             } else {
                 File name = fileHistory.getMostRecent();
+                LOGGER.debug("create with history file " + name);
                 if (name != null) {
                     SwingUtilities.invokeLater(() -> loadFile(name, true, false));
                 }
@@ -1618,8 +1621,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     private void loadFile(File filename, boolean setLibraryRoot, boolean toPref) {
+        LOGGER.debug("loadFile: " + filename);
         try {
             if (setLibraryRoot) {
+                LOGGER.debug("set library root: " + filename);
                 library.setRootFilePath(filename.getParentFile());
                 if (library.getWarningMessage() != null)
                     SwingUtilities.invokeLater(new ErrorMessage(library.getWarningMessage().toString()).setComponent(this));
@@ -2074,6 +2079,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
      */
     public static void main(String[] args) {
         Thread.setDefaultUncaughtExceptionHandler(new DigitalUncaughtExceptionHandler());
+
+        LOGGER.info(InfoDialog.getInstance().getRevision());
 
         /*
         The Apple look an feel, which can be enabled by choosing the UIManager.getSystemLookAndFeelClassName()
