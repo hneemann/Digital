@@ -11,6 +11,8 @@ import de.neemann.digital.core.element.AttributeListener;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Key;
 import de.neemann.digital.draw.elements.Circuit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -20,6 +22,7 @@ import java.util.List;
  * Base class for Settings
  */
 public class SettingsBase implements AttributeListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SettingsBase.class);
 
     private final ElementAttributes attributes;
     private final File filename;
@@ -44,10 +47,12 @@ public class SettingsBase implements AttributeListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            LOGGER.debug("no settings file: " + filename);
         }
 
         if (attr == null) {
-            System.out.println("Use default settings!");
+            LOGGER.debug("Use default settings!");
             attributes = new ElementAttributes();
         } else
             attributes = attr;
@@ -76,6 +81,8 @@ public class SettingsBase implements AttributeListener {
 
     @Override
     public void attributeChanged() {
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("write settings " + filename);
         XStream xStream = Circuit.getxStream();
         try (Writer out = new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8)) {
             out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");

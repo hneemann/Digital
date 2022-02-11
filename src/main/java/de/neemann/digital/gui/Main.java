@@ -2080,7 +2080,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     public static void main(String[] args) {
         Thread.setDefaultUncaughtExceptionHandler(new DigitalUncaughtExceptionHandler());
 
-        LOGGER.info(InfoDialog.getInstance().getRevision());
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug(InfoDialog.getInstance().getRevision());
 
         /*
         The Apple look an feel, which can be enabled by choosing the UIManager.getSystemLookAndFeelClassName()
