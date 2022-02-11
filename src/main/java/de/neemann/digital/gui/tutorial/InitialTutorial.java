@@ -191,7 +191,7 @@ public class InitialTutorial extends JDialog implements CircuitComponent.Tutoria
         pack();
 
         final Point ml = main.getLocation();
-        setLocation(ml.x - getWidth(), ml.y);
+        setLocation(Math.max(0, ml.x - getWidth()), ml.y);
 
         stepIndex = -1;
         incIndex();
