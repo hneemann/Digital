@@ -35,6 +35,8 @@ import de.neemann.digital.testing.TestCaseDescription;
 import de.neemann.digital.testing.TestCaseElement;
 import de.neemann.digital.undo.Copyable;
 import de.neemann.gui.language.Language;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -49,6 +51,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
  * This class is also serialized to store a circuit on disk.
  */
 public class Circuit implements Copyable<Circuit> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Circuit.class);
     private static final Set<Drawable> EMPTY_SET = Collections.emptySet();
 
     private int version = 1;
@@ -116,6 +119,7 @@ public class Circuit implements Copyable<Circuit> {
      * @throws IOException IOException
      */
     public static Circuit loadCircuit(File filename, ShapeFactory shapeFactory) throws IOException {
+        LOGGER.info("load " + filename);
         final Circuit circuit = loadCircuit(new FileInputStream(filename), shapeFactory);
         circuit.origin = filename;
         return circuit;
@@ -130,6 +134,7 @@ public class Circuit implements Copyable<Circuit> {
      * @throws IOException IOException
      */
     public static Circuit loadCircuit(InputStream in, ShapeFactory shapeFactory) throws IOException {
+        LOGGER.info("load stream");
         try {
             XStream xStream = getxStream();
             Circuit circuit = (Circuit) xStream.fromXML(in);

@@ -6,8 +6,11 @@
 package de.neemann.digital.gui;
 
 import de.neemann.gui.InfoDialog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,14 +21,16 @@ import java.util.Map;
  * Handler for exceptions which are occurred and not shown to the user.
  */
 public class DigitalUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
-    private DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+    private static final Logger LOGGER = LoggerFactory.getLogger(DigitalUncaughtExceptionHandler.class);
+    private final DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
         throwable.printStackTrace();
         File home = new File(System.getProperty("user.home"));
         File log = new File(home, "Digital_" + formatDate.format(new Date()) + ".log");
-        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(log), "utf-8"))) {
+        LOGGER.info("uncaught exception log written to " + log);
+        try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(log), StandardCharsets.UTF_8))) {
             writeLog(w, thread, throwable);
         } catch (IOException e) {
             e.printStackTrace();

@@ -7,6 +7,8 @@ package de.neemann.gui;
 
 import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.lang.Lang;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +19,7 @@ import java.awt.event.ActionEvent;
  * Implements runnable so you can apply this class directly to {@link SwingUtilities#invokeLater(Runnable)}
  */
 public class ErrorMessage implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorMessage.class);
 
     private final StringBuilder message;
     private Component component;
@@ -35,6 +38,7 @@ public class ErrorMessage implements Runnable {
      */
     public ErrorMessage(String message) {
         this.message = new StringBuilder(message);
+        LOGGER.info("error message: " + message);
     }
 
     /**
@@ -44,7 +48,7 @@ public class ErrorMessage implements Runnable {
      * @return this for call chaining
      */
     public ErrorMessage addCause(Throwable e) {
-        e.printStackTrace();
+        LOGGER.info("throwable error cause", e);
 
         if (message.length() > 0)
             message.append('\n');
