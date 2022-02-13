@@ -426,7 +426,7 @@
           <string>DSR</string>
         </entry>
       </elementAttributes>
-      <pos x="1280" y="60"/>
+      <pos x="380" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -479,10 +479,10 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>Q3</string>
+          <string>Q2</string>
         </entry>
       </elementAttributes>
-      <pos x="980" y="60"/>
+      <pos x="1280" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -496,7 +496,7 @@
           <string>Q2</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="60"/>
+      <pos x="680" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -510,7 +510,7 @@
           <string>Q1</string>
         </entry>
       </elementAttributes>
-      <pos x="380" y="60"/>
+      <pos x="380" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -772,15 +772,15 @@
           <testData>
             <dataString>CLK ~MR S1 S0 DSR D3 D2 D1 D0 DSL Q3 Q2 Q1 Q0
  c   0   x  x  1   1  1  1  1  1   0  0  0  0
- c   1   0  1  1   0  0  0  0  0   1  0  0  0
- c   1   0  1  0   0  0  0  0  1   0  1  0  0
+ c   1   0  1  1   0  0  0  0  0   0  0  0  1
  c   1   0  1  0   0  0  0  0  1   0  0  1  0
- c   1   0  1  0   0  0  0  0  1   0  0  0  1
- c   1   0  1  0   0  0  0  0  1   0  0  0  0
- c   1   1  0  0   0  0  0  0  1   0  0  0  1
- c   1   1  0  1   0  0  0  0  0   0  0  1  0
+ c   1   0  1  0   0  0  0  0  1   0  1  0  0
+ c   1   0  1  0   0  0  0  0  1   1  0  0  0
+ c   1   1  1  0   0  0  0  0  1   0  0  0  0
+ c   1   1  0  0   0  0  0  0  1   1  0  0  0
  c   1   1  0  1   0  0  0  0  0   0  1  0  0
- c   1   1  0  1   0  0  0  0  0   1  0  0  0
+ c   1   1  0  1   0  0  0  0  0   0  0  1  0
+ c   1   1  0  1   0  0  0  0  0   0  0  0  1
  c   1   1  0  1   0  0  0  0  0   0  0  0  0
 loop(i,16)
  c   1   1  1  1   bits(4,i)   1   bits(4,i) 
@@ -805,21 +805,7 @@ end loop</dataString>
           <string>Q1</string>
         </entry>
       </elementAttributes>
-      <pos x="980" y="80"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>Q2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1280" y="80"/>
+      <pos x="980" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -833,7 +819,7 @@ end loop</dataString>
           <string>Q0</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="80"/>
+      <pos x="680" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -857,7 +843,21 @@ end loop</dataString>
           <string>DSL</string>
         </entry>
       </elementAttributes>
-      <pos x="380" y="80"/>
+      <pos x="1280" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>Q3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="980" y="80"/>
     </visualElement>
   </visualElements>
   <wires>
