@@ -68,7 +68,7 @@
           <value v="1" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="240" y="-60"/>
+      <pos x="240" y="-20"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -105,7 +105,7 @@
           <value v="1" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="240" y="-20"/>
+      <pos x="240" y="-60"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -119,7 +119,7 @@
           <string>7</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="80"/>
+      <pos x="240" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
@@ -153,7 +153,7 @@
           <string>2</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="40"/>
+      <pos x="240" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
@@ -409,7 +409,7 @@
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>DSR</string>
+          <string>DSL</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="40"/>
@@ -423,7 +423,7 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>DSR</string>
+          <string>DSL</string>
         </entry>
       </elementAttributes>
       <pos x="1280" y="60"/>
@@ -768,19 +768,23 @@
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
+          <string>Label</string>
+          <string>coreidcc</string>
+        </entry>
+        <entry>
           <string>Testdata</string>
           <testData>
             <dataString>CLK ~MR S1 S0 DSR D3 D2 D1 D0 DSL Q3 Q2 Q1 Q0
  c   0   x  x  1   1  1  1  1  1   0  0  0  0
- c   1   0  1  1   0  0  0  0  0   1  0  0  0
- c   1   0  1  0   0  0  0  0  1   0  1  0  0
+ c   1   0  1  1   0  0  0  0  0   0  0  0  1
  c   1   0  1  0   0  0  0  0  1   0  0  1  0
- c   1   0  1  0   0  0  0  0  1   0  0  0  1
- c   1   0  1  0   0  0  0  0  1   0  0  0  0
- c   1   1  0  0   0  0  0  0  1   0  0  0  1
- c   1   1  0  1   0  0  0  0  0   0  0  1  0
+ c   1   0  1  0   0  0  0  0  1   0  1  0  0
+ c   1   0  1  0   0  0  0  0  1   1  0  0  0
+ c   1   1  1  0   0  0  0  0  1   0  0  0  0
+ c   1   1  0  0   0  0  0  0  1   1  0  0  0
  c   1   1  0  1   0  0  0  0  0   0  1  0  0
- c   1   1  0  1   0  0  0  0  0   1  0  0  0
+ c   1   1  0  1   0  0  0  0  0   0  0  1  0
+ c   1   1  0  1   0  0  0  0  0   0  0  0  1
  c   1   1  0  1   0  0  0  0  0   0  0  0  0
 loop(i,16)
  c   1   1  1  1   bits(4,i)   1   bits(4,i) 
@@ -840,7 +844,7 @@ end loop</dataString>
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>DSL</string>
+          <string>DSR</string>
         </entry>
       </elementAttributes>
       <pos x="260" y="80"/>
@@ -854,10 +858,58 @@ end loop</dataString>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>DSL</string>
+          <string>DSR</string>
         </entry>
       </elementAttributes>
       <pos x="380" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Datasheet</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>~MR S1 S0 CLK DSL DSR D0 D1 D2 D3 Q0 Q1 Q2 Q3
+ 0  x  x   x   x   x  x  x  x  x  0  0  0  0 
+ 1  x  x   0   x   x  x  x  x  x  0  0  0  0
+loop (n,16)
+ 1  1  1   c   x   x  bits(4,n)   bits(4,n)
+ 1  0  1   c   0   1  bits(4,n)   bits(4,(n&gt;&gt;1)|8)
+ 1  1  1   c   x   x  bits(4,n)   bits(4,n)
+ 1  0  1   c   1   1  bits(4,n)   bits(4,(n&gt;&gt;1)|8)
+
+ 1  1  1   c   x   x  bits(4,n)   bits(4,n)
+ 1  0  1   c   0   0  bits(4,n)   bits(4,(n&gt;&gt;1))
+ 1  1  1   c   x   x  bits(4,n)   bits(4,n)
+ 1  0  1   c   1   0  bits(4,n)   bits(4,(n&gt;&gt;1))
+end loop
+
+loop (n,16)
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  1  0   c   1   0  bits(4,n)   bits(4,(n&lt;&lt;1)|1)
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  1  0   c   1   1  bits(4,n)   bits(4,(n&lt;&lt;1)|1)
+
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  1  0   c   0   0  bits(4,n)   bits(4,(n&lt;&lt;1))
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  1  0   c   0   1  bits(4,n)   bits(4,(n&lt;&lt;1))
+end loop
+
+loop (n,16)
+ 1  1  1   0   0   0  bits(4,n)   x  x  x  x
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  0  0   x   x   x  x  x  x  x  bits(4,n)
+end loop
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="-360"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -950,8 +1002,8 @@ end loop</dataString>
       <p2 x="260" y="-300"/>
     </wire>
     <wire>
-      <p1 x="240" y="400"/>
-      <p2 x="320" y="400"/>
+      <p1 x="240" y="80"/>
+      <p2 x="260" y="80"/>
     </wire>
     <wire>
       <p1 x="740" y="80"/>
@@ -982,12 +1034,12 @@ end loop</dataString>
       <p2 x="1300" y="80"/>
     </wire>
     <wire>
-      <p1 x="240" y="80"/>
-      <p2 x="260" y="80"/>
-    </wire>
-    <wire>
       <p1 x="380" y="80"/>
       <p2 x="400" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="400"/>
+      <p2 x="320" y="400"/>
     </wire>
     <wire>
       <p1 x="240" y="240"/>
@@ -998,16 +1050,16 @@ end loop</dataString>
       <p2 x="280" y="-340"/>
     </wire>
     <wire>
-      <p1 x="240" y="-20"/>
-      <p2 x="260" y="-20"/>
-    </wire>
-    <wire>
       <p1 x="860" y="-180"/>
       <p2 x="900" y="-180"/>
     </wire>
     <wire>
       <p1 x="900" y="-180"/>
       <p2 x="1540" y="-180"/>
+    </wire>
+    <wire>
+      <p1 x="240" y="-20"/>
+      <p2 x="260" y="-20"/>
     </wire>
     <wire>
       <p1 x="1320" y="20"/>
