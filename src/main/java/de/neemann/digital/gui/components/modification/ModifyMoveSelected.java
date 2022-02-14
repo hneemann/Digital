@@ -95,23 +95,6 @@ public class ModifyMoveSelected implements Modification<Circuit> {
         }
     }
 
-    /**
-     * reverts an already made modification
-     *
-     * @param elements the lements modified
-     */
-    public void revert(ArrayList<Movable> elements) {
-        int rot = 4 - (this.accumulatedRotate % 4);
-        if (rot == 4) rot = 0;
-
-        for (int i = 0; i < rot; i++)
-            rotateElements(elements, center);
-
-        final Vector delta = this.accumulatedDelta.mul(-1);
-        for (Movable m : elements)
-            m.move(delta);
-    }
-
     @Override
     public String toString() {
         return Lang.get("mod_movedSelected");
