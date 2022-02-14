@@ -761,31 +761,36 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction orderInputs = new ToolTipAction(Lang.get("menu_orderInputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementOrder o = new ElementOrder(circuitComponent,
-                        element -> element.equalsDescription(In.DESCRIPTION)
-                                || element.equalsDescription(Clock.DESCRIPTION),
-                        Lang.get("menu_orderInputs"));
-                if (new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).addOkButton().showDialog())
-                    circuitComponent.modify(o.getModifications());
+                if (!getCircuitComponent().isLocked()) {
+                    ElementOrder o = new ElementOrder(circuitComponent,
+                            element -> element.equalsDescription(In.DESCRIPTION)
+                                    || element.equalsDescription(Clock.DESCRIPTION),
+                            Lang.get("menu_orderInputs"));
+                    if (new ElementOrderer<>(Main.this, Lang.get("menu_orderInputs"), o).addOkButton().showDialog())
+                        circuitComponent.modify(o.getModifications());
+                }
             }
         }.setToolTip(Lang.get("menu_orderInputs_tt"));
 
         ToolTipAction orderOutputs = new ToolTipAction(Lang.get("menu_orderOutputs")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ElementOrder o = new ElementOrder(circuitComponent,
-                        element -> element.equalsDescription(Out.DESCRIPTION)
-                                || element.equalsDescription(Out.LEDDESCRIPTION),
-                        Lang.get("menu_orderOutputs"));
-                if (new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).addOkButton().showDialog())
-                    circuitComponent.modify(o.getModifications());
+                if (!getCircuitComponent().isLocked()) {
+                    ElementOrder o = new ElementOrder(circuitComponent,
+                            element -> element.equalsDescription(Out.DESCRIPTION)
+                                    || element.equalsDescription(Out.LEDDESCRIPTION),
+                            Lang.get("menu_orderOutputs"));
+                    if (new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).addOkButton().showDialog())
+                        circuitComponent.modify(o.getModifications());
+                }
             }
         }.setToolTip(Lang.get("menu_orderOutputs_tt"));
 
         ToolTipAction orderMeasurements = new ToolTipAction(Lang.get("menu_orderMeasurements")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                orderMeasurements();
+                if (!getCircuitComponent().isLocked())
+                    orderMeasurements();
             }
         }.setToolTip(Lang.get("menu_orderMeasurements_tt"));
 
@@ -823,8 +828,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction actualToDefault = new ToolTipAction(Lang.get("menu_actualToDefault")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                circuitComponent.currentToDefault();
-                ensureModelIsStopped();
+                if (!getCircuitComponent().isLocked()) {
+                    circuitComponent.currentToDefault();
+                    ensureModelIsStopped();
+                }
             }
         }.setToolTip(Lang.get("menu_actualToDefault_tt"));
 
