@@ -44,32 +44,28 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>VCC</string>
+          <string>D1</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>16</string>
-        </entry>
-        <entry>
-          <string>InDefault</string>
-          <value v="1" z="false"/>
+          <string>13</string>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="-200"/>
+      <pos x="-60" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>GND</string>
+          <string>D2</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>8</string>
+          <string>12</string>
         </entry>
       </elementAttributes>
-      <pos x="-20" y="-160"/>
+      <pos x="-60" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
@@ -96,18 +92,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>RES</string>
+          <string>D3</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>15</string>
-        </entry>
-        <entry>
-          <string>InDefault</string>
-          <value v="1" z="false"/>
+          <string>11</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="860"/>
+      <pos x="-60" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -148,14 +140,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>D1</string>
+          <string>CLK</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>13</string>
+          <string>7</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="200"/>
+      <pos x="-60" y="800"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
@@ -216,14 +208,18 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>D2</string>
+          <string>RES</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>12</string>
+          <string>15</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="400"/>
+      <pos x="-60" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
@@ -284,14 +280,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>D3</string>
+          <string>DE1</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>11</string>
+          <string>9</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="580"/>
+      <pos x="-60" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF_AS</elementName>
@@ -352,14 +348,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>CLK</string>
+          <string>DE2</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>7</string>
+          <string>10</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="800"/>
+      <pos x="-60" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
@@ -370,34 +366,6 @@
       <elementName>Or</elementName>
       <elementAttributes/>
       <pos x="-40" y="660"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>DE1</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <string>9</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-60" y="660"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>DE2</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <string>10</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-60" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -426,6 +394,38 @@
         </entry>
       </elementAttributes>
       <pos x="-60" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>VCC</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>16</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="-20" y="-200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>GND</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>8</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-20" y="-160"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
