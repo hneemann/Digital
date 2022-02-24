@@ -83,7 +83,9 @@ public class DataEditor extends JDialog {
         int tableWidth = 0;
         MyTableModel dm = new MyTableModel(this.localDataField, cols, rows, modelSync);
         table = new JTable(dm);
-        int widthOfZero = table.getFontMetrics(table.getFont()).stringWidth("00000000") / 8;
+        final FontMetrics fontMetrics = table.getFontMetrics(table.getFont());
+        table.setRowHeight(fontMetrics.getHeight() * 9 / 8);
+        int widthOfZero = fontMetrics.stringWidth("00000000") / 8;
         int widthOfData = widthOfZero * (dataFormat.strLen(dataBits) + 1);
         for (int c = 1; c < table.getColumnModel().getColumnCount(); c++) {
             tableWidth += widthOfData;
