@@ -1693,6 +1693,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_port">Port</string>
     <string name="key_port_tt">Der vom Server zu öffnende Port.</string>
 
+    <string name="key_openRemotePort">Remote-Verbindung zulassen</string>
+    <string name="key_openRemotePort_tt">Wenn gesetzt, wird ein TCP/IP Port geöffnet, über welchen die Steuerung
+        des Simulators möglich ist.</string>
+    <string name="key_remotePort">Port-Nummer</string>
+    <string name="key_remotePort_tt">Der Port, auf welchem der Remote-Server geöffnet wird.</string>
+
     <string name="key_skipHDL">In Verilog/VHDL-Export auslassen</string>
     <string name="key_skipHDL_tt">Wenn gesetzt wird diese Schaltung bei der Generierung von
         Verilog/VHDL ausgelassen. Die Verweise auf die Schaltung werden beibehalten, sodass eine eigene

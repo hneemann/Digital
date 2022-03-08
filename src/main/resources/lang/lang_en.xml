@@ -1675,6 +1675,12 @@
     <string name="key_port">Port</string>
     <string name="key_port_tt">The port to be opened by the server.</string>
 
+    <string name="key_openRemotePort">Allow remote connection</string>
+    <string name="key_openRemotePort_tt">If set, a TCP/IP port is opened, through which the control of the
+        simulator is possible.</string>
+    <string name="key_remotePort">Port number</string>
+    <string name="key_remotePort_tt">The port on which the remote server is opened.</string>
+
     <string name="key_skipHDL">Skip in Verilog/VHDL export</string>
     <string name="key_skipHDL_tt">Skips generating the internals of the circuit in Verilog/VHDL
         export. The references to the circuit are kept, making it possible to override the

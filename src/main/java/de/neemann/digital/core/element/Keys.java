@@ -528,7 +528,24 @@ public final class Keys {
      * enables tunnel rename dialog
      */
     public static final Key<Boolean> SETTINGS_SHOW_TUNNEL_RENAME_DIALOG
-            = new Key<>("tunnelRenameDialog", true).setSecondary();
+            = new Key<>("tunnelRenameDialog", true);
+
+    /**
+     * enables remote port
+     */
+    public static final Key<Boolean> SETTINGS_OPEN_REMOTE_PORT
+            = new Key<>("openRemotePort", false).setSecondary().setRequiresRestart();
+    /**
+     * remote port
+     */
+    public static final Key<Integer> SETTINGS_REMOTE_PORT
+            = new Key.KeyInteger("remotePort", 41114)
+            .setMin(0)
+            .setMax(0xffff)
+            .setComboBoxValues(41114)
+            .setSecondary()
+            .setRequiresRestart()
+            .setDependsOn(SETTINGS_OPEN_REMOTE_PORT);
 
     /**
      * Counter used to detect oscillations

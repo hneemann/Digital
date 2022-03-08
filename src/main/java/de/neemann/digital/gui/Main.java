@@ -2135,10 +2135,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
 
                 Main main = builder.build();
-                try {
-                    new RemoteSever(new DigitalHandler(main)).start(41114);
-                } catch (IOException e) {
-                    SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
+                if (Settings.getInstance().get(Keys.SETTINGS_OPEN_REMOTE_PORT)) {
+                    final int port = Settings.getInstance().get(Keys.SETTINGS_REMOTE_PORT);
+                    LOGGER.info("open remote port " + port);
+                    try {
+                        new RemoteSever(new DigitalHandler(main)).start(port);
+                    } catch (IOException e) {
+                        SwingUtilities.invokeLater(() -> main.statusLabel.setText(Lang.get("err_portIsInUse")));
+                    }
                 }
                 main.setVisible(true);
 
