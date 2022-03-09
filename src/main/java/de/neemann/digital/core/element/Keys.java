@@ -14,7 +14,7 @@ import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.ProbeMode;
 import de.neemann.digital.core.memory.DataField;
-import de.neemann.digital.core.memory.rom.ROMManger;
+import de.neemann.digital.core.memory.rom.ROMManagerFile;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -778,8 +778,8 @@ public final class Keys {
     /**
      * The manager which contains all the roms data
      */
-    public static final Key<ROMManger> ROMMANAGER
-            = new Key<>("romContent", ROMManger::new).setSecondary();
+    public static final Key<ROMManagerFile> ROMMANAGER
+            = new Key<>("romContent", ROMManagerFile::new).setSecondary();
 
 
     /**

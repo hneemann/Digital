@@ -2130,7 +2130,12 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 Soll dennoch exportiert werden?</string>
     <string name="msg_circuitIsRequired">Um eine Hardwarebeschreibung zu erzeugen, muss zuvor eine Schaltung erstellt
         und analysiert werden. Aus nur einer Wahrheitstabelle kann keine Hardwarebeschreibung erzeugt werden.</string>
+
     <string name="msg_noData">keine Daten</string>
+    <string name="key_source">Datenquelle</string>
+    <string name="key_source_noData">keine Daten laden</string>
+    <string name="key_source_file">Datei</string>
+    <string name="key_source_dataField">gespeicherte Daten</string>
 
     <string name="msg_errorClosingExternalProcess">Konnte externen Prozess nicht beenden!</string>
     <string name="msg_checkResult">Ergebnis der Überprüfung:</string>

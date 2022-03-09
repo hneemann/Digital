@@ -20,7 +20,8 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.Out;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
-import de.neemann.digital.core.memory.rom.ROMManger;
+import de.neemann.digital.core.memory.rom.ROMManager;
+import de.neemann.digital.core.memory.rom.ROMManagerFile;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.*;
@@ -54,7 +55,7 @@ public class Circuit implements Copyable<Circuit> {
     private static final Logger LOGGER = LoggerFactory.getLogger(Circuit.class);
     private static final Set<Drawable> EMPTY_SET = Collections.emptySet();
 
-    private int version = 1;
+    private int version = 2;
     private ElementAttributes attributes;
     private final ArrayList<VisualElement> visualElements;
     private ArrayList<Wire> wires;
@@ -93,8 +94,9 @@ public class Circuit implements Copyable<Circuit> {
         xStream.alias("testData", TestCaseDescription.class);
         xStream.alias("inverterConfig", InverterConfig.class);
         xStream.addImplicitCollection(InverterConfig.class, "inputs");
-        xStream.alias("storedRoms", ROMManger.class);
-        xStream.addImplicitCollection(ROMManger.class, "roms");
+        xStream.alias("storedRoms", ROMManager.class);
+        xStream.addImplicitCollection(ROMManager.class, "roms");
+        xStream.alias("romList", ROMManagerFile.class);
         xStream.alias("appType", Application.Type.class);
         xStream.ignoreUnknownElements();
         xStream.alias("shape", CustomShapeDescription.class);
@@ -150,6 +152,13 @@ public class Circuit implements Copyable<Circuit> {
                 for (VisualElement e : circuit.getElements())
                     e.setPos(e.getPos().mul(2));
                 circuit.version = 1;
+            }
+            if (circuit.version < 2) {
+                Object rm = circuit.getAttributes().get(Keys.ROMMANAGER);
+                if (rm instanceof ROMManager) {
+                    circuit.getAttributes().set(Keys.ROMMANAGER, new ROMManagerFile((ROMManager) rm));
+                }
+                circuit.version = 2;
             }
             return circuit;
         } catch (RuntimeException e) {
@@ -211,7 +220,7 @@ public class Circuit implements Copyable<Circuit> {
 
         origin = original.origin;
 
-        version = 1;
+        version = 2;
     }
 
     @Override

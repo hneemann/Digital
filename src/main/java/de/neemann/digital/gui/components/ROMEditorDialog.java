@@ -7,10 +7,12 @@ package de.neemann.digital.gui.components;
 
 import de.neemann.digital.core.Model;
 import de.neemann.digital.core.Node;
-import de.neemann.digital.core.SyncAccess;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Key;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMInterface;
-import de.neemann.digital.core.memory.rom.ROMManger;
+import de.neemann.digital.core.memory.rom.ROMManagerFile;
 import de.neemann.digital.lang.Lang;
 import de.neemann.gui.ToolTipAction;
 
@@ -21,15 +23,34 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * The editor to edit the roms
  */
 public class ROMEditorDialog extends JDialog {
+    private static final Key.KeyEnum<RomHolder.State> SOURCE = new Key.KeyEnum<>("source", RomHolder.State.noData, RomHolder.State.values());
+    private static final Key<DataField> DATA = new Key<>("Data", DataField::new)
+            .setDependsOn(SOURCE, anEnum -> anEnum.equals(RomHolder.State.dataField));
+    private static final Key<File> DATA_FILE = new Key.KeyFile("lastDataFile", new File(""))
+            .setDependsOn(SOURCE, anEnum -> anEnum.equals(RomHolder.State.file));
+    private static final Key<Boolean> BIG_ENDIAN = new Key<>("bigEndian", false).setSecondary()
+            .setDependsOn(SOURCE, anEnum -> anEnum.equals(RomHolder.State.file));
+
+    private static final List<Key> KEY_ARRAY_LIST = new ArrayList<>();
+
     private final ROMModel romModel;
     private boolean ok = false;
+
+    static {
+        KEY_ARRAY_LIST.add(SOURCE);
+        KEY_ARRAY_LIST.add(DATA);
+        KEY_ARRAY_LIST.add(DATA_FILE);
+        KEY_ARRAY_LIST.add(BIG_ENDIAN);
+    }
 
     /**
      * Creates a new instance
@@ -38,7 +59,7 @@ public class ROMEditorDialog extends JDialog {
      * @param model      the mode touse
      * @param romManager the rom manager
      */
-    public ROMEditorDialog(JDialog parent, Model model, ROMManger romManager) {
+    public ROMEditorDialog(JDialog parent, Model model, ROMManagerFile romManager) {
         super(parent, Lang.get("win_romDialog"), true);
 
         romModel = new ROMModel();
@@ -46,8 +67,7 @@ public class ROMEditorDialog extends JDialog {
             final ROMInterface ri = (ROMInterface) n;
             final String label = ri.getLabel().trim();
             if (label.length() > 0) {
-                DataField df = romManager.getRom(label);
-                if (df == null) df = new DataField(0);
+                ROMManagerFile.RomContainer df = romManager.getRomContainer(label);
                 romModel.add(new RomHolder(ri, df));
             }
         }
@@ -112,38 +132,93 @@ public class ROMEditorDialog extends JDialog {
     /**
      * @return returns the modified content
      */
-    public ROMManger getROMManager() {
+    public ROMManagerFile getROMManager() {
         return romModel.createRomManager();
     }
 
     private static final class RomHolder {
+        enum State {noData, file, dataField}
+
         private final ROMInterface ri;
+        private boolean bigEndian;
+        private State state;
+        private File file;
         private DataField data;
 
-        private RomHolder(ROMInterface ri, DataField data) {
+        private RomHolder(ROMInterface ri, ROMManagerFile.RomContainer data) {
             this.ri = ri;
-            this.data = data;
+            if (data instanceof ROMManagerFile.RomContainerFile) {
+                this.state = State.file;
+                this.data = new DataField(0);
+                this.file = ((ROMManagerFile.RomContainerFile) data).getFile();
+                this.bigEndian = ((ROMManagerFile.RomContainerFile) data).isBigEndian();
+            } else if (data instanceof ROMManagerFile.RomContainerDataField) {
+                this.state = State.dataField;
+                this.data = ((ROMManagerFile.RomContainerDataField) data).getDataField(0);
+                this.file = new File("");
+                this.bigEndian = false;
+            } else {
+                this.state = State.noData;
+                this.data = new DataField(0);
+                this.file = new File("");
+                this.bigEndian = false;
+            }
         }
 
         @Override
         public String toString() {
-            if (!hasData())
-                return ri.getLabel() + " (" + Lang.get("msg_noData") + ")";
-            else
-                return ri.getLabel();
-        }
-
-        boolean hasData() {
-            return data.getData().length > 0;
+            switch (state) {
+                case dataField:
+                    return ri.getLabel() + " (" + Lang.get("key_source_dataField") + ")";
+                case file:
+                    return ri.getLabel() + " (" + file + ")";
+                default:
+                    return ri.getLabel() + " (" + Lang.get("msg_noData") + ")";
+            }
         }
 
         public boolean edit(ROMEditorDialog romEditorDialog) {
-            DataEditor de = new DataEditor(romEditorDialog, data, ri.getDataBits(), ri.getAddrBits(), false, SyncAccess.NOSYNC, ri.getValueFormatter());
-            if (de.showDialog()) {
-                data = de.getModifiedDataField();
+            ElementAttributes attr = new ElementAttributes()
+                    .set(BIG_ENDIAN, bigEndian)
+                    .set(DATA, data)
+                    .set(SOURCE, state)
+                    .set(Keys.ADDR_BITS, ri.getAddrBits())
+                    .set(Keys.BITS, ri.getDataBits())
+                    .set(DATA_FILE, file);
+
+            AttributeDialog ad = new AttributeDialog(romEditorDialog, KEY_ARRAY_LIST, attr);
+            ElementAttributes mod = ad.showDialog();
+            if (mod != null) {
+                data = mod.get(DATA);
+                data.trim();
+                file = mod.get(DATA_FILE);
+                bigEndian = mod.get(BIG_ENDIAN);
+                state = mod.get(SOURCE);
                 return true;
-            } else
+            } else {
                 return false;
+            }
+        }
+
+
+//        public boolean edit(ROMEditorDialog romEditorDialog) {
+//            DataEditor de = new DataEditor(romEditorDialog, data, ri.getDataBits(), ri.getAddrBits(), false, SyncAccess.NOSYNC, ri.getValueFormatter());
+//            if (de.showDialog()) {
+//                data = de.getModifiedDataField();
+//                return true;
+//            } else
+//                return false;
+//        }
+
+        public ROMManagerFile.RomContainer getRomContainer() {
+            switch (state) {
+                case file:
+                    return new ROMManagerFile.RomContainerFile(file, bigEndian);
+                case dataField:
+                    return new ROMManagerFile.RomContainerDataField(data);
+                default:
+                    return null;
+            }
         }
     }
 
@@ -200,11 +275,14 @@ public class ROMEditorDialog extends JDialog {
                 l.contentsChanged(ev);
         }
 
-        private ROMManger createRomManager() {
-            ROMManger rm = new ROMManger();
+        private ROMManagerFile createRomManager() {
+            ROMManagerFile rm = new ROMManagerFile();
 
-            for (RomHolder rh : romlist)
-                rm.addRom(rh.ri.getLabel(), rh.data);
+            for (RomHolder rh : romlist) {
+                final ROMManagerFile.RomContainer romContainer = rh.getRomContainer();
+                if (romContainer != null)
+                    rm.addContainer(rh.ri.getLabel(), romContainer);
+            }
 
             return rm;
         }

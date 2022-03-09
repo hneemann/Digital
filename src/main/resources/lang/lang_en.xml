@@ -2116,7 +2116,12 @@
     <string name="msg_circuitIsRequired">To create a hardware description, a circuit must first be created and analyzed.
         A standalone truth table can not be used to generate a hardware description.</string>
     <string name="win_romDialog">Included ROMs</string>
+
     <string name="msg_noData">no data</string>
+    <string name="key_source">Data Source</string>
+    <string name="key_source_noData">load no data at all</string>
+    <string name="key_source_file">file</string>
+    <string name="key_source_dataField">stored data</string>
 
     <string name="msg_errorClosingExternalProcess">Could not close external process!</string>
 
