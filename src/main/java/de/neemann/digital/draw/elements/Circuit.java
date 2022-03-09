@@ -97,6 +97,8 @@ public class Circuit implements Copyable<Circuit> {
         xStream.alias("storedRoms", ROMManager.class);
         xStream.addImplicitCollection(ROMManager.class, "roms");
         xStream.alias("romList", ROMManagerFile.class);
+        xStream.alias("romFile", ROMManagerFile.RomContainerFile.class);
+        xStream.alias("romData", ROMManagerFile.RomContainerDataField.class);
         xStream.alias("appType", Application.Type.class);
         xStream.ignoreUnknownElements();
         xStream.alias("shape", CustomShapeDescription.class);

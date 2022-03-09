@@ -8,17 +8,17 @@
         <roms>
           <entry>
             <string>A</string>
-            <de.neemann.digital.core.memory.rom.ROMManagerFile_-RomContainerFile>
-              <romData>/home/sula/Dokumente/Digital/dig/ModelInit/rom_A.hex</romData>
+            <romFile>
+              <romFile>/home/sula/Dokumente/Digital/dig/ModelInit/rom_A.hex</romFile>
               <bigEndian>false</bigEndian>
-            </de.neemann.digital.core.memory.rom.ROMManagerFile_-RomContainerFile>
+            </romFile>
           </entry>
           <entry>
             <string>B</string>
-            <de.neemann.digital.core.memory.rom.ROMManagerFile_-RomContainerFile>
-              <romData>rom_B.hex</romData>
+            <romFile>
+              <romFile>rom_B.hex</romFile>
               <bigEndian>false</bigEndian>
-            </de.neemann.digital.core.memory.rom.ROMManagerFile_-RomContainerFile>
+            </romFile>
           </entry>
         </roms>
       </romList>
@@ -129,7 +129,7 @@
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="280" y="100"/>
+      <pos x="260" y="80"/>
     </visualElement>
   </visualElements>
   <wires>

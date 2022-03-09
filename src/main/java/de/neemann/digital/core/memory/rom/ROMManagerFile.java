@@ -120,7 +120,7 @@ public class ROMManagerFile extends ROMMangerBase {
      * The file based container
      */
     public static final class RomContainerFile implements RomContainer {
-        private final File romData;
+        private final File romFile;
         private final boolean bigEndian;
 
         /**
@@ -130,13 +130,13 @@ public class ROMManagerFile extends ROMMangerBase {
          * @param bigEndian the big endian load mode
          */
         public RomContainerFile(File romData, boolean bigEndian) {
-            this.romData = romData;
+            this.romFile = romData;
             this.bigEndian = bigEndian;
         }
 
         @Override
         public DataField getDataField(int dataBits, File origin) throws IOException {
-            return Importer.read(new FileLocator(romData).setBaseFile(origin).locate(),
+            return Importer.read(new FileLocator(romFile).setBaseFile(origin).locate(),
                     dataBits, bigEndian);
         }
 
@@ -144,7 +144,7 @@ public class ROMManagerFile extends ROMMangerBase {
          * @return the file which holds the data
          */
         public File getFile() {
-            return romData;
+            return romFile;
         }
 
         /**
