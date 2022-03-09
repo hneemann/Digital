@@ -32,13 +32,13 @@ import java.util.List;
  * The editor to edit the roms
  */
 public class ROMEditorDialog extends JDialog {
-    private static final Key.KeyEnum<RomHolder.State> SOURCE = new Key.KeyEnum<>("source", RomHolder.State.noData, RomHolder.State.values());
+    private static final Key.KeyEnum<RomHolder.Source> SOURCE = new Key.KeyEnum<>("source", RomHolder.Source.noData, RomHolder.Source.values());
     private static final Key<DataField> DATA = new Key<>("Data", DataField::new)
-            .setDependsOn(SOURCE, anEnum -> anEnum.equals(RomHolder.State.dataField));
+            .setDependsOn(SOURCE, source -> source.equals(RomHolder.Source.dataField));
     private static final Key<File> DATA_FILE = new Key.KeyFile("lastDataFile", new File(""))
-            .setDependsOn(SOURCE, anEnum -> anEnum.equals(RomHolder.State.file));
+            .setDependsOn(SOURCE, source -> source.equals(RomHolder.Source.file));
     private static final Key<Boolean> BIG_ENDIAN = new Key<>("bigEndian", false).setSecondary()
-            .setDependsOn(SOURCE, anEnum -> anEnum.equals(RomHolder.State.file));
+            .setDependsOn(SOURCE, source -> source.equals(RomHolder.Source.file));
 
     private static final List<Key> KEY_ARRAY_LIST = new ArrayList<>();
 
@@ -137,28 +137,28 @@ public class ROMEditorDialog extends JDialog {
     }
 
     private static final class RomHolder {
-        enum State {noData, file, dataField}
+        enum Source {noData, file, dataField}
 
         private final ROMInterface ri;
         private boolean bigEndian;
-        private State state;
+        private Source source;
         private File file;
         private DataField data;
 
         private RomHolder(ROMInterface ri, ROMManagerFile.RomContainer data) {
             this.ri = ri;
             if (data instanceof ROMManagerFile.RomContainerFile) {
-                this.state = State.file;
+                this.source = Source.file;
                 this.data = new DataField(0);
                 this.file = ((ROMManagerFile.RomContainerFile) data).getFile();
                 this.bigEndian = ((ROMManagerFile.RomContainerFile) data).isBigEndian();
             } else if (data instanceof ROMManagerFile.RomContainerDataField) {
-                this.state = State.dataField;
+                this.source = Source.dataField;
                 this.data = ((ROMManagerFile.RomContainerDataField) data).getDataField(0, null);
                 this.file = new File("");
                 this.bigEndian = false;
             } else {
-                this.state = State.noData;
+                this.source = Source.noData;
                 this.data = new DataField(0);
                 this.file = new File("");
                 this.bigEndian = false;
@@ -167,7 +167,7 @@ public class ROMEditorDialog extends JDialog {
 
         @Override
         public String toString() {
-            switch (state) {
+            switch (source) {
                 case dataField:
                     return ri.getLabel() + " (" + Lang.get("key_source_dataField") + ")";
                 case file:
@@ -181,7 +181,7 @@ public class ROMEditorDialog extends JDialog {
             ElementAttributes attr = new ElementAttributes()
                     .set(BIG_ENDIAN, bigEndian)
                     .set(DATA, data)
-                    .set(SOURCE, state)
+                    .set(SOURCE, source)
                     .set(Keys.ADDR_BITS, ri.getAddrBits())
                     .set(Keys.BITS, ri.getDataBits())
                     .set(DATA_FILE, file);
@@ -193,25 +193,15 @@ public class ROMEditorDialog extends JDialog {
                 data.trim();
                 file = mod.get(DATA_FILE);
                 bigEndian = mod.get(BIG_ENDIAN);
-                state = mod.get(SOURCE);
+                source = mod.get(SOURCE);
                 return true;
             } else {
                 return false;
             }
         }
 
-
-//        public boolean edit(ROMEditorDialog romEditorDialog) {
-//            DataEditor de = new DataEditor(romEditorDialog, data, ri.getDataBits(), ri.getAddrBits(), false, SyncAccess.NOSYNC, ri.getValueFormatter());
-//            if (de.showDialog()) {
-//                data = de.getModifiedDataField();
-//                return true;
-//            } else
-//                return false;
-//        }
-
         public ROMManagerFile.RomContainer getRomContainer() {
-            switch (state) {
+            switch (source) {
                 case file:
                     return new ROMManagerFile.RomContainerFile(file, bigEndian);
                 case dataField:
@@ -259,7 +249,7 @@ public class ROMEditorDialog extends JDialog {
         }
 
         public void delete(int i) {
-            romlist.get(i).state = RomHolder.State.noData;
+            romlist.get(i).source = RomHolder.Source.noData;
             fireChanged(i);
         }
 
