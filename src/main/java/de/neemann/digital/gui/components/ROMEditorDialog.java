@@ -259,7 +259,7 @@ public class ROMEditorDialog extends JDialog {
         }
 
         public void delete(int i) {
-            romlist.get(i).data = new DataField(0);
+            romlist.get(i).state = RomHolder.State.noData;
             fireChanged(i);
         }
 
