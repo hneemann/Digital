@@ -154,7 +154,7 @@ public class ROMEditorDialog extends JDialog {
                 this.bigEndian = ((ROMManagerFile.RomContainerFile) data).isBigEndian();
             } else if (data instanceof ROMManagerFile.RomContainerDataField) {
                 this.state = State.dataField;
-                this.data = ((ROMManagerFile.RomContainerDataField) data).getDataField(0);
+                this.data = ((ROMManagerFile.RomContainerDataField) data).getDataField(0, null);
                 this.file = new File("");
                 this.bigEndian = false;
             } else {

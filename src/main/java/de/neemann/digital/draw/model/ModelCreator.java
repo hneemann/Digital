@@ -309,7 +309,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
         }
 
         ROMManagerFile romManager = circuit.getAttributes().get(Keys.ROMMANAGER);
-        romManager.applyTo(m);
+        romManager.applyTo(m, circuit.getOrigin());
 
         return m;
     }

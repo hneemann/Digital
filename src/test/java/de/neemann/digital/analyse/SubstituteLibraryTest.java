@@ -19,6 +19,7 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.ProbeMode;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManager;
+import de.neemann.digital.core.memory.rom.ROMManagerFile;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
@@ -45,7 +46,7 @@ public class SubstituteLibraryTest extends TestCase {
         for (Key<?> k : Keys.getKeys()) {
             Class<?> aClass = k.getDefault().getClass();
             // ignore settings
-            if (aClass == ROMManager.class
+            if (aClass == ROMManagerFile.class
                     || aClass == CustomShapeDescription.class
                     || aClass == Language.class)
                 continue;

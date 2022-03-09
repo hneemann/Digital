@@ -5,6 +5,7 @@
  */
 package de.neemann.digital.core.memory.rom;
 
+import de.neemann.digital.FileLocator;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.importer.Importer;
 import org.slf4j.Logger;
@@ -48,13 +49,13 @@ public class ROMManagerFile extends ROMMangerBase {
     }
 
     @Override
-    public DataField getRom(String label, int dataBits) throws IOException {
+    public DataField getRom(String label, int dataBits, File origin) throws IOException {
         if (roms == null)
             return null;
         final RomContainer rc = roms.get(label);
         if (rc == null)
             return null;
-        return rc.getDataField(dataBits);
+        return rc.getDataField(dataBits, origin);
     }
 
     /**
@@ -86,10 +87,11 @@ public class ROMManagerFile extends ROMMangerBase {
          * returns the data filed to init the rom
          *
          * @param dataBits the data bit used
+         * @param origin   the file origin
          * @return the data field
          * @throws IOException IOException
          */
-        DataField getDataField(int dataBits) throws IOException;
+        DataField getDataField(int dataBits, File origin) throws IOException;
     }
 
     /**
@@ -109,7 +111,7 @@ public class ROMManagerFile extends ROMMangerBase {
         }
 
         @Override
-        public DataField getDataField(int dataBits) {
+        public DataField getDataField(int dataBits, File origin) {
             return dataField;
         }
     }
@@ -133,8 +135,9 @@ public class ROMManagerFile extends ROMMangerBase {
         }
 
         @Override
-        public DataField getDataField(int dataBits) throws IOException {
-            return Importer.read(romData, dataBits, bigEndian);
+        public DataField getDataField(int dataBits, File origin) throws IOException {
+            return Importer.read(new FileLocator(romData).setBaseFile(origin).locate(),
+                    dataBits, bigEndian);
         }
 
         /**

@@ -11,6 +11,7 @@ import de.neemann.digital.core.NodeException;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.lang.Lang;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -21,17 +22,18 @@ public abstract class ROMMangerBase {
     /**
      * Applies the available roms to the model
      *
-     * @param model the mode to use
+     * @param model  the mode to use
+     * @param origin the file origin
      * @throws NodeException NodeException
      */
-    public void applyTo(Model model) throws NodeException {
+    public void applyTo(Model model, File origin) throws NodeException {
         if (isEmpty())
             return;
         for (Node n : model.findNode(n -> n instanceof ROMInterface)) {
             ROMInterface rom = (ROMInterface) n;
             DataField data;
             try {
-                data = getRom(rom.getLabel(), rom.getDataBits());
+                data = getRom(rom.getLabel(), rom.getDataBits(), origin);
             } catch (IOException e) {
                 throw new NodeException(Lang.get("err_could_not_load_rom"), e);
             }
@@ -50,9 +52,10 @@ public abstract class ROMMangerBase {
      *
      * @param label    the roms label
      * @param dataBits the data bit needed
+     * @param origin   the file origin
      * @return the stored data
      * @throws IOException IOException
      */
-    public abstract DataField getRom(String label, int dataBits) throws IOException;
+    public abstract DataField getRom(String label, int dataBits, File origin) throws IOException;
 
 }

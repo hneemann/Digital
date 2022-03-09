@@ -7,6 +7,7 @@ package de.neemann.digital.core.memory.rom;
 
 import de.neemann.digital.core.memory.DataField;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class ROMManager extends ROMMangerBase {
     }
 
     @Override
-    public DataField getRom(String label, int dataBits) throws IOException {
+    public DataField getRom(String label, int dataBits, File origin) throws IOException {
         return roms.get(label);
     }
 

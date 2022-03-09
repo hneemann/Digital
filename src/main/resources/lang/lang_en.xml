@@ -2122,6 +2122,7 @@
     <string name="key_source_noData">load no data at all</string>
     <string name="key_source_file">file</string>
     <string name="key_source_dataField">stored data</string>
+    <string name="err_could_not_load_rom">Could not load ROM data!</string>
 
     <string name="msg_errorClosingExternalProcess">Could not close external process!</string>
 

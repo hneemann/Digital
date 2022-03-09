@@ -2136,6 +2136,7 @@ Soll dennoch exportiert werden?</string>
     <string name="key_source_noData">keine Daten laden</string>
     <string name="key_source_file">Datei</string>
     <string name="key_source_dataField">gespeicherte Daten</string>
+    <string name="err_could_not_load_rom">ROM-Daten konnten nicht geladen werden!</string>
 
     <string name="msg_errorClosingExternalProcess">Konnte externen Prozess nicht beenden!</string>
     <string name="msg_checkResult">Ergebnis der Überprüfung:</string>
