@@ -95,29 +95,6 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Data Input 0</string>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>D0</string>
-        </entry>
-        <entry>
-          <string>pinNumber</string>
-          <string>15</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="380" y="300"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Description</string>
           <string>Down Count</string>
         </entry>
         <entry>
@@ -130,6 +107,29 @@
         </entry>
       </elementAttributes>
       <pos x="340" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="380" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Up Count</string>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>UP</string>
+        </entry>
+        <entry>
+          <string>pinNumber</string>
+          <string>5</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -156,18 +156,18 @@
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Up Count</string>
+          <string>Data Input 0</string>
         </entry>
         <entry>
           <string>Label</string>
-          <string>UP</string>
+          <string>D0</string>
         </entry>
         <entry>
           <string>pinNumber</string>
-          <string>5</string>
+          <string>15</string>
         </entry>
       </elementAttributes>
-      <pos x="340" y="500"/>
+      <pos x="340" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>NAnd</elementName>
