@@ -1504,7 +1504,7 @@ In the file howTo.md you can find more details about translations.
         <p>Written by H. Neemann in 2016-2021.</p>
         <p>The icons are taken from the <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
         <p>Visit the project at <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
-        At Github you can also <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>
+        At GitHub you can also <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>
         the latest release.</p>
         <p>There you also can file an <a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">issue</a>
         or suggest
