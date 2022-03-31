@@ -226,7 +226,7 @@ public final class InfoDialog implements Iterable<InfoDialog.Manifest> {
             p = path.lastIndexOf('/');
             sb.append("<p>");
             sb.append(path.substring(p + 1)).append("<br/>");
-            sb.append("Build git-Revision").append(": ");
+            sb.append("Build Git-Revision").append(": ");
             sb.append(get(REVISION)).append("<br/>");
             sb.append("Build Time").append(": ");
             sb.append(get(TIME)).append("<br/></p>");

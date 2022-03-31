@@ -1597,7 +1597,7 @@ In the file howTo.md you can find more details about translations.
         &lt;p&gt;Scritto da H. Neemann nel 2016-2021.&lt;/p&gt;
         &lt;p&gt;Le icone sono prese dal &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.&lt;/p&gt;
         &lt;p&gt;Visita il progetto su &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
-        Su Github puoi anche &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;scaricare&lt;/a&gt;
+        Su GitHub puoi anche &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;scaricare&lt;/a&gt;
         l'ultima versione.&lt;/p&gt;
         &lt;p&gt;Puoi anche inviare un &lt;a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&amp;labels=bug"&gt;problema&lt;/a&gt;
         o suggerire
