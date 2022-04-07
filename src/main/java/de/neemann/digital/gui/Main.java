@@ -2115,7 +2115,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             else if (s.trim().length() > 0) {
                 File f = new File(s);
                 if (f.exists())
-                    file = f;
+                    file = f.getAbsoluteFile();
             }
         }
 
