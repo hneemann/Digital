@@ -1209,9 +1209,6 @@ In the file howTo.md you can find more details about translations.
   <string name="key_dipDefault_tt">Valor padrão de saída de um DIP switch quando a simulação iniciar.</string>
   <string name="key_macMouse">Usar clicks do mouse MacOS.</string>
   <string name="key_macMouse_tt">Usar CTRL-click em lugar de botão direito.</string>
-  <string name="key_noComponentToolTips">Sem dicas de ferramentas para os componentes no painel principal.</string>
-  <string name="key_noComponentToolTips_tt">Se definido, nenhuma dica sobre ferramentas para os componentes no painel principal será exibida.
-        Especialmente no caso de apresentações, essas dicas de ferramentas poderão ser omitidas.</string>
   <string name="key_ATMISP">ATMISP</string>
   <string name="key_ATMISP_tt">Caminho para o arquivo executável ATMISP.exe. Se definido, o software ATMISP poderá ser ativado automaticamente!</string>
   <string name="key_customShape">Formato customizado</string>

@@ -413,6 +413,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         });
         treeCheckBox.setAccelerator(KeyStroke.getKeyStroke("F5"));
 
+        JCheckBoxMenuItem presentingMode = new JCheckBoxMenuItem(Lang.get("menu_presentingMode"));
+        presentingMode.setToolTipText(Lang.get("menu_presentingMode_tt"));
+        presentingMode.addActionListener(actionEvent -> circuitComponent.setPresentingMode(presentingMode.isSelected()));
+        presentingMode.setAccelerator(KeyStroke.getKeyStroke("F4"));
+
         ToolTipAction tutorial = new ToolTipAction(Lang.get("menu_tutorial")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -450,6 +455,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         view.add(scaleMenu);
         view.addSeparator();
         view.add(treeCheckBox);
+        view.add(presentingMode);
         view.addSeparator();
         view.add(tutorial.createJMenuItem());
         view.addSeparator();
@@ -1885,7 +1891,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             new SaveAsHelper(Main.this, fc, suffix).checkOverwrite(
                     file -> {
                         settings.setFile("exportDirectory", file.getParentFile());
-                        new Export(circuitComponent.getCircuitOrShallowCopy(), exportFactory).export(file);
+                        new Export(circuitComponent.getCircuitOrShallowCopy(), exportFactory,
+                                circuitComponent.getPresentingMode()).export(file);
                     }
             );
         }

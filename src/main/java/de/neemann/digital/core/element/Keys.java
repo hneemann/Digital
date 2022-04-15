@@ -736,7 +736,7 @@ public final class Keys {
     static {
         String language = Locale.getDefault().getLanguage();
         SETTINGS_USE_EQUALS_KEY = new Key<>("equalsInsteadOfPlus",
-                language.equals("en") || language.equals("fr")).setSecondary();
+                language.equals("en") || language.equals("fr"));
     }
 
     /**
@@ -831,12 +831,6 @@ public final class Keys {
      */
     public static final Key<File> SETTINGS_IVERILOG_PATH
             = new Key.KeyFile("iverilogPath", new File("iverilog")).setSecondary();
-
-    /**
-     * Avoid component tooltips in the main panel
-     */
-    public static final Key<Boolean> SETTINGS_NOTOOLTIPS =
-            new Key<>("noComponentToolTips", false);
 
     /**
      * Shape used to represent a visual element

@@ -1227,10 +1227,6 @@ In the file howTo.md you can find more details about translations.
     <string name="key_dipDefault_tt">The default output value of the DIP switch when the simulation starts.</string>
     <string name="key_macMouse">Use macOS mouse clicks.</string>
     <string name="key_macMouse_tt">Uses CTRL-click instead of right-click.</string>
-    <string name="key_noComponentToolTips">No tool tips for components on the main panel.</string>
-    <string name="key_noComponentToolTips_tt">If set, no tool tips for the components on the main panel are displayed.
-        Especially in a presentation, these tool tips can be very annoying.
-    </string>
     <string name="key_ATMISP">ATMISP</string>
   <string name="key_ATMISP_tt">Path to the executable file ATMISP.exe. If set, the ATMISP software can be started automatically!</string>
   <string name="key_customShape">Custom Shape</string>

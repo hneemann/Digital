@@ -1522,9 +1522,6 @@
 
     <string name="key_macMouse">Use macOS mouse clicks.</string>
     <string name="key_macMouse_tt">Uses CTRL-click instead of right-click.</string>
-    <string name="key_noComponentToolTips">No tool tips for components on the main panel.</string>
-    <string name="key_noComponentToolTips_tt">If set, no tool tips for the components on the main panel are displayed.
-        Especially in a presentation, these tool tips can be very annoying.</string>
     <string name="key_tunnelRenameDialog">Show dialog for automatic renaming of tunnels.</string>
     <string name="key_tunnelRenameDialog_tt">If set, a dialog for automatically renaming all tunnels of the same name is displayed after a
         tunnel has been renamed.</string>
@@ -1959,6 +1956,9 @@
     <string name="menu_probe_memory_tt">Shows the content of memory components.</string>
     <string name="menu_treeSelect">Component Tree View</string>
     <string name="menu_treeSelect_tt">Shows a tree view of available components at the left side.</string>
+    <string name="menu_presentingMode">Presentation mode</string>
+    <string name="menu_presentingMode_tt">A simplified view that, for example, omits the test cases, which can be useful for presentations.</string>
+
     <string name="menu_karnaughMap">K-Map</string>
     <string name="menu_karnaughMap_tt">Shows a K-map representation of the table!</string>
 

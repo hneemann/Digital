@@ -1192,9 +1192,6 @@ In the file howTo.md you can find more details about translations.
     <string name="key_dipDefault_tt">Il valore d'uscita predefinito di un interruttore DIP quando la simulazione parte.</string>
     <string name="key_macMouse">Utilizza il click del mouse di macOS.</string>
     <string name="key_macMouse_tt">Utilizza Ctrl+Click anziché il click destro.</string>
-    <string name="key_noComponentToolTips">Nessun suggerimento mostrato per i componenti nel pannello principale</string>
-    <string name="key_noComponentToolTips_tt">Se impostato, nessun suggerimento è mostrato per i componenti nel pannello principale.
-        Specialmente in una presentazione, questi suggerimenti possono risultare noiosi.</string>
     <string name="key_tunnelRenameDialog">Mostra il dialogo per rinominare automaticamente i tunnel.</string>
     <string name="key_tunnelRenameDialog_tt">Se impostato, una finestra di dialogo viene mostrata per rinominare automaticamente i tunnel con lo stesso nome
         dopo aver rinominato un tunnel.</string>

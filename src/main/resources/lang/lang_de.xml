@@ -1534,9 +1534,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters, wenn die Simulation gestartet wird.</string>
     <string name="key_macMouse">Die MacOS Mausklicks verwenden.</string>
     <string name="key_macMouse_tt">Das unter MacOS übliche STRG-Klick anstelle von Rechtsklick verwenden.</string>
-    <string name="key_noComponentToolTips">Keine ToolTips für Bauteile auf der Arbeitsfläche.</string>
-    <string name="key_noComponentToolTips_tt">Wenn gesetzt, werden keine ToolTips für die Bauteile auf der Arbeitsfläche angezeigt.
-        Vor allem in einer Präsentation können diese ToolTips sehr störend sein.</string>
     <string name="key_tunnelRenameDialog">Dialog zum automatischen umbenennen von Tunneln anzeigen</string>
     <string name="key_tunnelRenameDialog_tt">Wenn gesetzt, wird nach dem Umbenennen eines Tunnels ein Dialog für automatisches Umbenennen
         aller gleichnamigen Tunnel angezeigt.</string>
@@ -1978,6 +1975,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_insertAsNew_tt">Der Inhalt der Zwischenablage wird in einem neuen Fenster geöffnet.</string>
     <string name="menu_treeSelect">Baumansicht der Bauteile</string>
     <string name="menu_treeSelect_tt">Zeigt am linken Rand des Fensters eine Baumansicht der verfügbaren Bauteile.</string>
+    <string name="menu_presentingMode">Präsentationsmodus</string>
+    <string name="menu_presentingMode_tt">Eine vereinfachte Darstellung, die z.B. die Testfälle auslässt, was für Präsentationen hilfreich sein kann.</string>
 
     <string name="menu_special">Sonderfunktionen 74xx</string>
     <string name="menu_addPrefix">IO-Präfix anfügen</string>

@@ -23,6 +23,7 @@ public class Export {
 
     private final Circuit circuit;
     private final ExportFactory factory;
+    private final boolean hideTests;
 
     /**
      * Creates a new instance
@@ -31,8 +32,20 @@ public class Export {
      * @param factory the factory to create the graphics instance
      */
     public Export(Circuit circuit, ExportFactory factory) {
+        this(circuit, factory, false);
+    }
+
+    /**
+     * Creates a new instance
+     *
+     * @param circuit   the circuit to export
+     * @param factory   the factory to create the graphics instance
+     * @param hideTests if true tests are hidden
+     */
+    public Export(Circuit circuit, ExportFactory factory, boolean hideTests) {
         this.circuit = circuit;
         this.factory = factory;
+        this.hideTests = hideTests;
     }
 
     /**
@@ -61,16 +74,16 @@ public class Export {
     public void export(OutputStream out) throws IOException {
         try (Graphic gr = factory.create(out)) {
             GraphicMinMax minMax = new GraphicMinMax(gr);
-            circuit.drawTo(minMax);
+            circuit.drawTo(minMax, hideTests);
 
             if (minMax.isValid()) {
                 gr.setBoundingBox(minMax.getMin(), minMax.getMax());
 
                 GraphicLineCollector glc = new GraphicLineCollector();
-                circuit.drawTo(glc);
+                circuit.drawTo(glc, hideTests);
                 glc.drawTo(gr);
 
-                circuit.drawTo(new GraphicSkipLines(gr));
+                circuit.drawTo(new GraphicSkipLines(gr), hideTests);
             } else
                 throw new IOException(Lang.get("err_circuitContainsNoComponents"));
         }

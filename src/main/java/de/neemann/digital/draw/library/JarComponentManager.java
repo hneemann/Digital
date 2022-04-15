@@ -23,8 +23,8 @@ import java.util.jar.Manifest;
  * Used to attach custom components
  */
 public class JarComponentManager implements ComponentManager, Iterable<JarComponentManager.AdditionalShape> {
-    private ElementLibrary library;
-    private ArrayList<AdditionalShape> additionalShapes;
+    private final ElementLibrary library;
+    private final ArrayList<AdditionalShape> additionalShapes;
 
     JarComponentManager(ElementLibrary library) {
         this.library = library;

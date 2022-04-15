@@ -527,8 +527,6 @@ In the file howTo.md you can find more details about translations.
   <string name="key_dipDefault_tt">默认输出</string>
   <string name="key_macMouse">使用 MacOS 鼠标单击</string>
   <string name="key_macMouse_tt">使用 CTRL+左键 代替右键单击。</string>
-  <string name="key_noComponentToolTips">在主面板中不显示工具提示</string>
-  <string name="key_noComponentToolTips_tt">如果选中，将不会在主面板中显示组件的工具提示。</string>
   <string name="key_tunnelRenameDialog">显示自动重命名隧道组件对话框</string>
   <string name="key_tunnelRenameDialog_tt">如果选中，当一个隧道组件被重命名后，将会显示为同名隧道组件自动重命名的对话框。</string>
   <string name="key_ATMISP_tt">可执行文件ATMISP.exe的路径。设置后，ATMISP 软件可以被自动启动！</string>

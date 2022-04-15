@@ -1583,11 +1583,6 @@ In the file howTo.md you can find more details about translations.
     <string name="key_dipDefault_tt">La valeur par défaut de l'interrupteur DIP lorsque la simulation débute.</string>
     <string name="key_macMouse">Utiliser les clics de souris macOS.</string>
     <string name="key_macMouse_tt">Utiliser Ctrl+Clic au lieu du clic droit.</string>
-    <string name="key_noComponentToolTips">Pas d'infobulles pour les composantes du volet principal.</string>
-    <string name="key_noComponentToolTips_tt">Si coché, aucune infobulle pour les composantes dans le volet principal ne
-        sera affichée.
-        Les infobulles peuvent être dérangeantes, surtout dans une présentation.
-    </string>
     <string name="key_tunnelRenameDialog">Afficher le dialogue pour renommer automatiquement les tunnels.</string>
     <string name="key_tunnelRenameDialog_tt">Si coché, un dialogue pour renommer automatiquement les tunnels du même nom
         sera affiché après

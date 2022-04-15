@@ -257,7 +257,7 @@ public class Circuit implements Copyable<Circuit> {
     }
 
     /**
-     * Draws tis circuit using the given graphic instance
+     * Draws this circuit using the given graphic instance
      *
      * @param graphic the graphic instance used
      */
@@ -268,12 +268,36 @@ public class Circuit implements Copyable<Circuit> {
     /**
      * Draws this circuit using the given graphic instance
      *
+     * @param graphic        the graphic instance used
+     * @param presentingMode if true the test cases are not drawn
+     */
+    public void drawTo(Graphic graphic, boolean presentingMode) {
+        drawTo(graphic, EMPTY_SET, null, SyncAccess.NOSYNC, presentingMode);
+    }
+
+
+    /**
+     * Draws this circuit using the given graphic instance
+     *
      * @param graphic     the graphic instance used
      * @param highLighted a list of Drawables to highlight
      * @param highlight   style used to draw the highlighted elements
      * @param modelSync   sync interface to access the model. Is locked while drawing circuit
      */
     public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, SyncAccess modelSync) {
+        drawTo(graphic, highLighted, highlight, modelSync, false);
+    }
+
+    /**
+     * Draws this circuit using the given graphic instance
+     *
+     * @param graphic        the graphic instance used
+     * @param highLighted    a list of Drawables to highlight
+     * @param highlight      style used to draw the highlighted elements
+     * @param modelSync      sync interface to access the model. Is locked while drawing circuit
+     * @param presentingMode if true the test cases are omitted
+     */
+    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, SyncAccess modelSync, boolean presentingMode) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
             dotsPresent = true;
@@ -293,9 +317,11 @@ public class Circuit implements Copyable<Circuit> {
             w.drawTo(graphic, highLighted.contains(w) ? highlight : null);
         graphic.closeGroup();
         for (VisualElement p : visualElements) {
-            graphic.openGroup();
-            p.drawTo(graphic, highLighted.contains(p) ? highlight : null);
-            graphic.closeGroup();
+            if (!presentingMode || !p.equalsDescription(TestCaseElement.DESCRIPTION)) {
+                graphic.openGroup();
+                p.drawTo(graphic, highLighted.contains(p) ? highlight : null);
+                graphic.closeGroup();
+            }
         }
     }
 

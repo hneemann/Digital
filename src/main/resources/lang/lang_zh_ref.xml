@@ -653,9 +653,6 @@ In the file howTo.md you can find more details about translations.
   <string name="key_dipDefault_tt">The default output value of the DIP switch when the simulation starts.</string>
     <string name="key_macMouse">Use macOS mouse clicks.</string>
   <string name="key_macMouse_tt">Uses CTRL-click instead of right-click.</string>
-  <string name="key_noComponentToolTips">No tool tips for components on the main panel.</string>
-  <string name="key_noComponentToolTips_tt">If set, no tool tips for the components on the main panel are displayed.
-        Especially in a presentation, these tool tips can be very annoying.</string>
   <string name="key_tunnelRenameDialog">Show dialog for automatic renaming of tunnels.</string>
   <string name="key_tunnelRenameDialog_tt">If set, a dialog for automatically renaming all tunnels of the same name is displayed after a
         tunnel has been renamed.</string>
