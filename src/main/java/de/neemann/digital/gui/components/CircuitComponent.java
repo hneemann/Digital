@@ -885,6 +885,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             if (scaleX > 0.3 && Settings.getInstance().get(Keys.SETTINGS_GRID) && !presentingMode)
                 drawGrid(gr2);
 
+            if (presentingMode) {
+                gr2.setColor(Color.LIGHT_GRAY);
+                gr2.drawString(Lang.get("menu_presentingMode"), 4, getHeight() - 4);
+            }
+
             gr2.transform(transform);
 
             long time = System.currentTimeMillis();

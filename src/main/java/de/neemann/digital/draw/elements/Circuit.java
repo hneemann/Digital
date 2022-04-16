@@ -22,9 +22,11 @@ import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.DataFieldConverter;
 import de.neemann.digital.core.memory.rom.ROMManager;
 import de.neemann.digital.core.memory.rom.ROMManagerFile;
+import de.neemann.digital.core.wiring.AsyncSeq;
 import de.neemann.digital.core.wiring.Clock;
 import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.graphics.*;
+import de.neemann.digital.draw.library.GenericInitCode;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
 import de.neemann.digital.draw.shapes.Drawable;
@@ -316,13 +318,19 @@ public class Circuit implements Copyable<Circuit> {
         for (Wire w : wires)
             w.drawTo(graphic, highLighted.contains(w) ? highlight : null);
         graphic.closeGroup();
-        for (VisualElement p : visualElements) {
-            if (!presentingMode || !p.equalsDescription(TestCaseElement.DESCRIPTION)) {
+        for (VisualElement ve : visualElements) {
+            if (!presentingMode || !hideInPresentationMode(ve)) {
                 graphic.openGroup();
-                p.drawTo(graphic, highLighted.contains(p) ? highlight : null);
+                ve.drawTo(graphic, highLighted.contains(ve) ? highlight : null);
                 graphic.closeGroup();
             }
         }
+    }
+
+    private boolean hideInPresentationMode(VisualElement ve) {
+        return ve.equalsDescription(TestCaseElement.DESCRIPTION)
+                || ve.equalsDescription(GenericInitCode.DESCRIPTION)
+                || ve.equalsDescription(AsyncSeq.DESCRIPTION);
     }
 
     /**
