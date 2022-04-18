@@ -413,10 +413,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         });
         treeCheckBox.setAccelerator(KeyStroke.getKeyStroke("F5"));
 
-        JCheckBoxMenuItem presentingMode = new JCheckBoxMenuItem(Lang.get("menu_presentingMode"));
-        presentingMode.setToolTipText(Lang.get("menu_presentingMode_tt"));
-        presentingMode.addActionListener(actionEvent -> circuitComponent.setPresentingMode(presentingMode.isSelected()));
-        presentingMode.setAccelerator(KeyStroke.getKeyStroke("F4"));
+        JCheckBoxMenuItem presentationMode = new JCheckBoxMenuItem(Lang.get("menu_presentationMode"));
+        presentationMode.setToolTipText(Lang.get("menu_presentationMode_tt"));
+        presentationMode.addActionListener(actionEvent -> circuitComponent.setPresentationMode(presentationMode.isSelected()));
+        presentationMode.setAccelerator(KeyStroke.getKeyStroke("F4"));
 
         ToolTipAction tutorial = new ToolTipAction(Lang.get("menu_tutorial")) {
             @Override
@@ -455,7 +455,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         view.add(scaleMenu);
         view.addSeparator();
         view.add(treeCheckBox);
-        view.add(presentingMode);
+        view.add(presentationMode);
         view.addSeparator();
         view.add(tutorial.createJMenuItem());
         view.addSeparator();
@@ -1892,7 +1892,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     file -> {
                         settings.setFile("exportDirectory", file.getParentFile());
                         new Export(circuitComponent.getCircuitOrShallowCopy(), exportFactory,
-                                circuitComponent.getPresentingMode()).export(file);
+                                circuitComponent.getPresentationMode()).export(file);
                     }
             );
         }

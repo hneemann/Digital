@@ -293,13 +293,13 @@ public class Circuit implements Copyable<Circuit> {
     /**
      * Draws this circuit using the given graphic instance
      *
-     * @param graphic        the graphic instance used
-     * @param highLighted    a list of Drawables to highlight
-     * @param highlight      style used to draw the highlighted elements
-     * @param modelSync      sync interface to access the model. Is locked while drawing circuit
-     * @param presentingMode if true the test cases are omitted
+     * @param graphic          the graphic instance used
+     * @param highLighted      a list of Drawables to highlight
+     * @param highlight        style used to draw the highlighted elements
+     * @param modelSync        sync interface to access the model. Is locked while drawing circuit
+     * @param presentationMode if true the test cases are omitted
      */
-    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, SyncAccess modelSync, boolean presentingMode) {
+    public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, SyncAccess modelSync, boolean presentationMode) {
         if (!dotsPresent) {
             new DotCreator(wires).applyDots();
             dotsPresent = true;
@@ -319,7 +319,7 @@ public class Circuit implements Copyable<Circuit> {
             w.drawTo(graphic, highLighted.contains(w) ? highlight : null);
         graphic.closeGroup();
         for (VisualElement ve : visualElements) {
-            if (!presentingMode || !hideInPresentationMode(ve)) {
+            if (!presentationMode || !hideInPresentationMode(ve)) {
                 graphic.openGroup();
                 ve.drawTo(graphic, highLighted.contains(ve) ? highlight : null);
                 graphic.closeGroup();

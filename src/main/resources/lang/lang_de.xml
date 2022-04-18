@@ -1975,8 +1975,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_insertAsNew_tt">Der Inhalt der Zwischenablage wird in einem neuen Fenster geöffnet.</string>
     <string name="menu_treeSelect">Baumansicht der Bauteile</string>
     <string name="menu_treeSelect_tt">Zeigt am linken Rand des Fensters eine Baumansicht der verfügbaren Bauteile.</string>
-    <string name="menu_presentingMode">Präsentationsmodus</string>
-    <string name="menu_presentingMode_tt">Eine vereinfachte Darstellung, die z.B. die Testfälle auslässt, was für Präsentationen hilfreich sein kann.</string>
+    <string name="menu_presentationMode">Präsentationsmodus</string>
+    <string name="menu_presentationMode_tt">Eine vereinfachte Darstellung, die z.B. die Testfälle auslässt, was für Präsentationen hilfreich sein kann.</string>
 
     <string name="menu_special">Sonderfunktionen 74xx</string>
     <string name="menu_addPrefix">IO-Präfix anfügen</string>

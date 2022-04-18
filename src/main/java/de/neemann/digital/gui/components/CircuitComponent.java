@@ -149,7 +149,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private boolean toolTipHighlighted = false;
     private NetList toolTipNetList;
     private String lastUsedTunnelName;
-    private boolean presentingMode;
+    private boolean presentationMode;
 
     /**
      * Creates a new instance
@@ -591,7 +591,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         Vector pos = getPosVector(event);
         VisualElement ve = circuit.getElementAt(pos);
         if (ve != null) {
-            if (presentingMode)
+            if (presentationMode)
                 return null;
 
             Pin p = ve.getPinAt(raster(pos));
@@ -882,18 +882,18 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             gr2.setColor(ColorScheme.getSelected().getColor(ColorKey.BACKGROUND));
             gr2.fillRect(0, 0, getWidth(), getHeight());
 
-            if (scaleX > 0.3 && Settings.getInstance().get(Keys.SETTINGS_GRID) && !presentingMode)
+            if (scaleX > 0.3 && Settings.getInstance().get(Keys.SETTINGS_GRID) && !presentationMode)
                 drawGrid(gr2);
 
-            if (presentingMode) {
+            if (presentationMode) {
                 gr2.setColor(Color.LIGHT_GRAY);
-                gr2.drawString(Lang.get("menu_presentingMode"), 4, getHeight() - 4);
+                gr2.drawString(Lang.get("menu_presentationMode"), 4, getHeight() - 4);
             }
 
             gr2.transform(transform);
 
             long time = System.currentTimeMillis();
-            getCircuitOrShallowCopy().drawTo(gr, highLighted, highLightStyle, modelSync, presentingMode);
+            getCircuitOrShallowCopy().drawTo(gr, highLighted, highLightStyle, modelSync, presentationMode);
             time = System.currentTimeMillis() - time;
 
             boolean scaleHasChanged = lastScaleX != scaleX;
@@ -1044,7 +1044,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      */
     public void fitCircuit() {
         GraphicMinMax gr = new GraphicMinMax();
-        getCircuitOrShallowCopy().drawTo(gr, presentingMode);
+        getCircuitOrShallowCopy().drawTo(gr, presentationMode);
 
         AffineTransform newTrans = new AffineTransform();
         if (gr.getMin() != null && getWidth() != 0 && getHeight() != 0) {
@@ -1513,18 +1513,18 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     /**
      * Sets the hide tests flag
      *
-     * @param presentingMode if true, tests are hidden
+     * @param presentationMode if true, tests are hidden
      */
-    public void setPresentingMode(boolean presentingMode) {
-        this.presentingMode = presentingMode;
+    public void setPresentationMode(boolean presentationMode) {
+        this.presentationMode = presentationMode;
         graphicHasChanged();
     }
 
     /**
      * @return the "tests are hidden" flag
      */
-    public boolean getPresentingMode() {
-        return presentingMode;
+    public boolean getPresentationMode() {
+        return presentationMode;
     }
 
     private final class PlusMinusAction extends ToolTipAction {

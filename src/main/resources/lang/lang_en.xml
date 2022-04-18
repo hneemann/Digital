@@ -1956,8 +1956,8 @@
     <string name="menu_probe_memory_tt">Shows the content of memory components.</string>
     <string name="menu_treeSelect">Component Tree View</string>
     <string name="menu_treeSelect_tt">Shows a tree view of available components at the left side.</string>
-    <string name="menu_presentingMode">Presentation Mode</string>
-    <string name="menu_presentingMode_tt">A simplified view that, for example, omits the test cases, which can be useful for presentations.</string>
+    <string name="menu_presentationMode">Presentation Mode</string>
+    <string name="menu_presentationMode_tt">A simplified view that, for example, omits the test cases, which can be useful for presentations.</string>
 
     <string name="menu_karnaughMap">K-Map</string>
     <string name="menu_karnaughMap_tt">Shows a K-map representation of the table!</string>
