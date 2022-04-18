@@ -970,7 +970,12 @@ public class TestInGUI extends TestCase {
                         b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
                 .press("SPACE")
                 .delay(100)
+                .press("TAB")
+                .press("SPACE")
+                .delay(100)
                 .add(new GuiTester.WindowCheck<>(DataEditor.class))
+                .add(new GuiTester.CloseTopMost())
+                .delay(100)
                 .add(new GuiTester.CloseTopMost())
                 .add(new GuiTester.SetFocusTo<>(ROMEditorDialog.class,
                         b -> b instanceof JButton && Lang.get("btn_clearData").equals(((JButton) b).getText())))
@@ -980,16 +985,12 @@ public class TestInGUI extends TestCase {
                         b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
                 .press("SPACE")
                 .delay(100)
-                .add(new GuiTester.ComponentTraverse<DataEditor>(DataEditor.class) {
+                .add(new GuiTester.ComponentTraverse<AttributeDialog>(AttributeDialog.class) {
                     @Override
                     public void visit(Component component) {
-                        if (component instanceof JTable) {
-                            TableModel model = ((JTable) component).getModel();
-                            assertEquals(4, model.getRowCount());
-                            for (int i = 0; i < 4; i++) {
-                                final Object valueAt = model.getValueAt(i, 1);
-                                assertEquals("0", valueAt.toString());
-                            }
+                        if (component instanceof JComboBox) {
+                            JComboBox box = (JComboBox) component;
+                            assertEquals(0, box.getSelectedIndex());
                             found();
                         }
                     }
