@@ -108,6 +108,9 @@ public class ModelAnalyserInfo {
     }
 
     void addInputBus(String name, ArrayList<String> names) {
+        for (Bus b : inputBusList)
+            if (b.getBusName().equals(name))
+                return;
         inputBusList.add(new Bus(name, names));
     }
 
@@ -118,6 +121,9 @@ public class ModelAnalyserInfo {
      * @param names the individual names in the truth table
      */
     public void addOutputBus(String name, ArrayList<String> names) {
+        for (Bus b : outputBusList)
+            if (b.getBusName().equals(name))
+                return;
         outputBusList.add(new Bus(name, names));
     }
 
