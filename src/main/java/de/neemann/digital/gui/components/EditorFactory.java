@@ -332,9 +332,39 @@ public final class EditorFactory {
             }
             if (selects == null)
                 selects = DEFAULTS;
+
+            if (key instanceof Key.KeyInteger) {
+                selects = cleanupSelects((Key.KeyInteger) key, selects);
+            }
+
             comboBox = new JComboBox<>(selects);
             comboBox.setEditable(true);
             comboBox.setSelectedItem(new IntegerValue(value));
+        }
+
+        private static IntegerValue[] cleanupSelects(Key.KeyInteger key, IntegerValue[] selects) {
+            if (!key.isMinOrMaxSet())
+                return selects;
+
+            ArrayList<IntegerValue> allowed = new ArrayList<>(selects.length);
+            boolean minAdded = false;
+            boolean maxAdded = false;
+            for (IntegerValue iv : selects) {
+                int v = iv.value;
+                if (v <= key.getMin()) {
+                    if (!minAdded) {
+                        allowed.add(new IntegerValue(key.getMin()));
+                        minAdded = true;
+                    }
+                } else if (v >= key.getMax()) {
+                    if (!maxAdded) {
+                        allowed.add(new IntegerValue(key.getMax()));
+                        maxAdded = true;
+                    }
+                } else
+                    allowed.add(iv);
+            }
+            return allowed.toArray(new IntegerValue[0]);
         }
 
         @Override

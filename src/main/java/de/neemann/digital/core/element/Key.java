@@ -376,6 +376,13 @@ public class Key<VALUE> {
         public int getMax() {
             return max;
         }
+
+        /**
+         * @return true if either min or max is set
+         */
+        public boolean isMinOrMaxSet() {
+            return max != Integer.MAX_VALUE || min != Integer.MIN_VALUE;
+        }
     }
 
     /**
