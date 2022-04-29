@@ -1073,7 +1073,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         ToolTipAction runModelAction = runModelState.createToolTipAction(Lang.get("menu_run"), ICON_RUN)
                 .setToolTip(Lang.get("menu_run_tt"));
         ToolTipAction runModelMicroAction = runModelMicroState.createToolTipAction(Lang.get("menu_micro"), ICON_MICRO)
-                .setToolTip(Lang.get("menu_micro_tt"));
+                .setToolTip(Lang.get("menu_micro_tt")).setAccelerator("G");
         runToBreakAction = new ToolTipAction(Lang.get("menu_fast"), ICON_FAST) {
             @Override
             public void actionPerformed(ActionEvent e) {
