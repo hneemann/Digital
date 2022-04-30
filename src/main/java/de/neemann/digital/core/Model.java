@@ -997,6 +997,22 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
+     * Modifies the model without performing a step calculation.
+     * Usage makes only sense in micro step simulation mode!
+     *
+     * @param run the modification to apply
+     * @param <A> the type of the modification
+     * @return the applied modification
+     */
+    public <A extends Runnable> A modifyWithoutDoStep(A run) {
+        synchronized (this) {
+            run.run();
+        }
+        fireEvent(ModelEvent.MICROSTEP);  // record the external modification as a micro step!
+        return run;
+    }
+
+    /**
      * Creates a {@link SyncAccess} instance to access the model.
      * If microStep is true, there is no foll step performed, in case of a user interaction.
      *

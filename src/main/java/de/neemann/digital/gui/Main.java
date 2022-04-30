@@ -333,12 +333,26 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (model != null && !realTimeClockRunning) {
-                    ArrayList<Clock> cl = model.getClocks();
-                    if (cl.size() == 1) {
-                        model.modify(() -> {
-                            ObservableValue clkVal = cl.get(0).getClockOutput();
-                            clkVal.setBool(!clkVal.getBool());
-                        });
+                    if (stateManager.isActive(runModelMicroState)) {
+                        if (doMicroStep.isEnabled()) {
+                            model.doMicroStep(false);
+                        } else {
+                            ArrayList<Clock> cl = model.getClocks();
+                            if (cl.size() == 1) {
+                                model.modifyWithoutDoStep(() -> {
+                                    ObservableValue clkVal = cl.get(0).getClockOutput();
+                                    clkVal.setBool(!clkVal.getBool());
+                                });
+                            }
+                        }
+                    } else {
+                        ArrayList<Clock> cl = model.getClocks();
+                        if (cl.size() == 1) {
+                            model.modify(() -> {
+                                ObservableValue clkVal = cl.get(0).getClockOutput();
+                                clkVal.setBool(!clkVal.getBool());
+                            });
+                        }
                     }
                 }
             }
