@@ -124,15 +124,14 @@ public class BehavioralFixtureCreator extends JDialog implements ModelModifier {
     }
 
     private void createTestCase() {
+        dispose();
         try {
             VisualElement tc = new VisualElement(TestCaseElement.DESCRIPTION.getName())
                     .setShapeFactory(shapeFactory)
                     .setAttribute(Keys.TESTDATA, new TestCaseDescription(testCase.toString()));
-            main.getCircuitComponent().setPartToInsert(tc);
+            SwingUtilities.invokeLater(() -> main.getCircuitComponent().setPartToInsert(tc));
         } catch (IOException | ParserException e) {
             SwingUtilities.invokeLater(new ErrorMessage(Lang.get("msg_errorCreatingTestCase")).addCause(e));
-        } finally {
-            dispose();
         }
     }
 
