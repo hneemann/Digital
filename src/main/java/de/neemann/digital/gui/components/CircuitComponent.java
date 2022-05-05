@@ -1199,6 +1199,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                                     .setFileToOpen(((ElementTypeDescriptionCustom) elementType).getFile())
                                     .setLibrary(library)
                                     .denyMostFileActions()
+                                    .setPresentationMode(presentationMode)
                                     .keepPrefMainFile()
                                     .openLater();
                         }

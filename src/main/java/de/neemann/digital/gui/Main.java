@@ -224,7 +224,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         toolBar.addSeparator();
 
         createEditMenu(menuBar);
-        createViewMenu(menuBar, toolBar);
+        createViewMenu(menuBar, toolBar, builder.presentationMode);
+        circuitComponent.setPresentationMode(builder.presentationMode);
 
         toolBar.addSeparator();
 
@@ -359,7 +360,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }.setAccelerator("C").enableAcceleratorIn(circuitComponent);
     }
 
-    private void createViewMenu(JMenuBar menuBar, JToolBar toolBar) {
+    private void createViewMenu(JMenuBar menuBar, JToolBar toolBar, boolean presentationModeDefault) {
         ToolTipAction maximize = new ToolTipAction(Lang.get("menu_maximize"), ICON_EXPAND) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -428,6 +429,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         treeCheckBox.setAccelerator(KeyStroke.getKeyStroke("F5"));
 
         JCheckBoxMenuItem presentationMode = new JCheckBoxMenuItem(Lang.get("menu_presentationMode"));
+        presentationMode.setSelected(presentationModeDefault);
         presentationMode.setToolTipText(Lang.get("menu_presentationMode_tt"));
         presentationMode.addActionListener(actionEvent -> circuitComponent.setPresentationMode(presentationMode.isSelected()));
         presentationMode.setAccelerator(KeyStroke.getKeyStroke("F4"));
@@ -2198,6 +2200,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         private File baseFileName;
         private boolean keepPrefMainFile;
         private boolean mainFrame = false;
+        private boolean presentationMode;
 
         /**
          * @param fileToOpen the file to open
@@ -2224,6 +2227,15 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
          */
         public MainBuilder setParent(Window parent) {
             this.parent = parent;
+            return this;
+        }
+
+        /**
+         * @param presentationMode presentation mode
+         * @return this for chained calls
+         */
+        public MainBuilder setPresentationMode(boolean presentationMode) {
+            this.presentationMode = presentationMode;
             return this;
         }
 
