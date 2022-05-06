@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-  <version>1</version>
+  <version>2</version>
   <attributes>
     <entry>
       <string>Description</string>
@@ -234,10 +234,10 @@ Volladdierern.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>C_3</string>
+          <string>S_3</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="-600"/>
+      <pos x="120" y="-440"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -277,10 +277,10 @@ Volladdierern.}}</string>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>S_3</string>
+          <string>C_3</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="-440"/>
+      <pos x="120" y="-600"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
