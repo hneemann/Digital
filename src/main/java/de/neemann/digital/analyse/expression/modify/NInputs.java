@@ -35,12 +35,9 @@ public class NInputs implements ExpressionModifier {
                     return generate(op.getExpressions(), Operation::andNoMerge);
                 else if (expression instanceof Operation.Or)
                     return generate(op.getExpressions(), Operation::orNoMerge);
-                else
-                    throw new RuntimeException("operation not supported: " + expression.getClass().getSimpleName());
-            } else
-                return expression;
-        } else
-            return expression;
+            }
+        }
+        return expression;
     }
 
     private interface OpGen {
