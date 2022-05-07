@@ -362,6 +362,7 @@ public class TestInGUI extends TestCase {
                 .press("F10")
                 .press("RIGHT", 3)
                 .press("DOWN", 2)
+                .press("RIGHT", 1)
                 .press("ENTER")
                 .delay(500)
                 .use(createCheck4BitCounterCircuit())
@@ -445,7 +446,11 @@ public class TestInGUI extends TestCase {
 
     public void testHardware() {
         new GuiTester("dig/manualError/16_hardware.dig")
-                .press("F9")
+                .delay(500)
+                .press("F10")
+                .press("RIGHT", 4)
+                .press("DOWN", 1)
+                .press("ENTER")
                 .delay(500)
                 .add(new GuiTester.WindowCheck<>(Window.class, (gt, w) -> {
                     if (w instanceof AllSolutionsDialog) w.getParent().requestFocus();
@@ -453,7 +458,7 @@ public class TestInGUI extends TestCase {
                 .delay(500)
                 .press("F10")
                 .press("RIGHT", 3)
-                .press("DOWN", 7)
+                .press("DOWN", 3)
                 .press("RIGHT")
                 .press("DOWN", 2)
                 .press("RIGHT")
