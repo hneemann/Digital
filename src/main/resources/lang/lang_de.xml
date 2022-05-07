@@ -1891,7 +1891,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Danach wird der Atmel-Fitter gestartet, um daraus die JEDEC Datei zu erzeugen.</string>
     <string name="menu_table_createCircuit">Schaltung</string>
     <string name="menu_table_createCircuit_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht.</string>
-    <string name="menu_table_createCircuitMore">weitere Schaltungen</string>
+    <string name="menu_table_createCircuitMore">Schaltungsvarianten</string>
     <string name="menu_table_maxInputs_N">Verwende Gatter mit maximal {0} Eingängen</string>
     <string name="menu_table_createCircuitJK">Schaltung mit JK Flipflops</string>
     <string name="menu_table_createCircuitJK_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht. Verwendet JK-Flipflops.</string>

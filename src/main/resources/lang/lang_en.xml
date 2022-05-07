@@ -1872,7 +1872,7 @@
     <string name="menu_table_createTT2_tt">Creates a file containing the circuit similar to the Berkeley Logic Interchange Format (BLIF).
         After that the Atmel fitter is started to create the JEDEC file. </string>
     <string name="menu_table_createCircuit">Circuit</string>
-    <string name="menu_table_createCircuitMore">more Circuits</string>
+    <string name="menu_table_createCircuitMore">Circuit Variants</string>
     <string name="menu_table_maxInputs_N">Use gates with at most {0} inputs</string>
     <string name="menu_table_createCircuit_tt">Creates a circuit which reproduces the truth table.</string>
     <string name="menu_table_createCircuitJK">Circuit with JK flip-flops</string>
