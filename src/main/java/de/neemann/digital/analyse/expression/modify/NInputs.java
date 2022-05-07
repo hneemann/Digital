@@ -7,7 +7,6 @@ package de.neemann.digital.analyse.expression.modify;
 
 import de.neemann.digital.analyse.expression.Expression;
 import de.neemann.digital.analyse.expression.Operation;
-import de.neemann.digital.builder.BuilderException;
 
 import java.util.ArrayList;
 
