@@ -1891,6 +1891,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Danach wird der Atmel-Fitter gestartet, um daraus die JEDEC Datei zu erzeugen.</string>
     <string name="menu_table_createCircuit">Schaltung</string>
     <string name="menu_table_createCircuit_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht.</string>
+    <string name="menu_table_createCircuitMore">weitere Schaltungen</string>
+    <string name="menu_table_maxInputs_N">Verwende Gatter mit maximal {0} Eingängen</string>
     <string name="menu_table_createCircuitJK">Schaltung mit JK Flipflops</string>
     <string name="menu_table_createCircuitJK_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht. Verwendet JK-Flipflops.</string>
     <string name="menu_table_createCircuitLUT">Schaltung mit LUTs</string>
@@ -1903,10 +1905,6 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_table_createNOrTwo">Schaltung mit NOr-Gattern mit zwei Eingängen</string>
     <string name="menu_table_createNOrTwo_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht nur mit NOr-Gattern mit zwei Eingängen.</string>
     <string name="menu_table_createNOr_tt">Erzeugt eine Schaltung, welche der Wahrheitstabelle entspricht nur mit NOr-Gattern.</string>
-    <string name="menu_table_createTwo">Schaltung mit Gattern mit zwei Eingängen</string>
-    <string name="menu_table_createTwo_tt">Erzeugt eine Schaltung und verwendet nur Gatter mit zwei Eingängen.</string>
-    <string name="menu_table_createThree">Schaltung mit Gattern mit drei Eingängen</string>
-    <string name="menu_table_createThree_tt">Erzeugt eine Schaltung und verwendet nur Gatter mit maximal drei Eingängen.</string>
     <string name="menu_table_create_hardware">Bausteine</string>
     <string name="menu_table_create_jedec_tt">Erzeugt eine JEDEC Datei für den Baustein</string>
     <string name="menu_table_exportTableLaTeX">Erzeuge LaTeX</string>

@@ -851,10 +851,6 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_table_createNOrTwo">Circuit with NOr gates with two inputs</string>
   <string name="menu_table_createNOrTwo_tt">Use only NOr gates with two inputs.</string>
   <string name="menu_table_createNOr_tt">Creates a circuit which reproduces the truth table only with NOr gates.</string>
-  <string name="menu_table_createTwo">Circuit with two input gates</string>
-    <string name="menu_table_createTwo_tt">Create circuit, use only gates with two inputs</string>
-  <string name="menu_table_createThree">Circuit with three input gates</string>
-    <string name="menu_table_createThree_tt">Create circuit, use only gates with a maximum of three inputs</string>
   <string name="menu_table_create_hardware">Device</string>
   <string name="menu_table_create_jedec_tt">Creates a JEDEC file for the device</string>
   <string name="menu_table_exportTableLaTeX">Export LaTeX</string>

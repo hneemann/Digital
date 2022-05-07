@@ -1872,6 +1872,8 @@
     <string name="menu_table_createTT2_tt">Creates a file containing the circuit similar to the Berkeley Logic Interchange Format (BLIF).
         After that the Atmel fitter is started to create the JEDEC file. </string>
     <string name="menu_table_createCircuit">Circuit</string>
+    <string name="menu_table_createCircuitMore">more Circuits</string>
+    <string name="menu_table_maxInputs_N">Use gates with at most {0} inputs</string>
     <string name="menu_table_createCircuit_tt">Creates a circuit which reproduces the truth table.</string>
     <string name="menu_table_createCircuitJK">Circuit with JK flip-flops</string>
     <string name="menu_table_createCircuitJK_tt">Creates a circuit which reproduces the truth table. Uses JK flip-flops.</string>
@@ -1885,10 +1887,6 @@
     <string name="menu_table_createNOrTwo">Circuit with NOr gates with two inputs</string>
     <string name="menu_table_createNOrTwo_tt">Use only NOr gates with two inputs.</string>
     <string name="menu_table_createNOr_tt">Creates a circuit which reproduces the truth table only with NOr gates.</string>
-    <string name="menu_table_createTwo">Circuit with two input gates</string>
-    <string name="menu_table_createTwo_tt">Create circuit, use only gates with two inputs</string>
-    <string name="menu_table_createThree">Circuit with three input gates</string>
-    <string name="menu_table_createThree_tt">Create circuit, use only gates with a maximum of three inputs</string>
     <string name="menu_table_create_hardware">Device</string>
     <string name="menu_table_create_jedec_tt">Creates a JEDEC file for the device</string>
     <string name="menu_table_exportTableLaTeX">Export LaTeX</string>

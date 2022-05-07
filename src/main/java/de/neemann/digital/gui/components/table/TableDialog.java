@@ -533,64 +533,63 @@ public class TableDialog extends JDialog {
             }
         }.setToolTip(Lang.get("menu_table_createCircuit_tt")).setAccelerator("F2").enableAcceleratorIn(table).createJMenuItem());
 
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitJK")) {
+        JMenu createSpecial = new JMenu(Lang.get("menu_table_createCircuitMore"));
+        createSpecial.add(new ToolTipAction(Lang.get("menu_table_createCircuitJK")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 createCircuit(true, false, ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_createCircuitJK_tt")).createJMenuItem());
 
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_createCircuitLUT")) {
+        createSpecial.add(new ToolTipAction(Lang.get("menu_table_createCircuitLUT")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 createCircuit(false, true, ExpressionModifier.IDENTITY);
             }
         }.setToolTip(Lang.get("menu_table_createCircuitLUT_tt")).createJMenuItem());
 
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_createTwo")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCircuit(new TwoInputs());
-            }
-        }.setToolTip(Lang.get("menu_table_createTwo_tt")).createJMenuItem());
-
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_createThree")) {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                createCircuit(new ThreeInputs());
-            }
-        }.setToolTip(Lang.get("menu_table_createThree_tt")).createJMenuItem());
-
-        createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
+        createSpecial.add(new ToolTipAction(Lang.get("menu_table_createNAnd")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 createCircuit(new NAnd());
             }
         }.setToolTip(Lang.get("menu_table_createNAnd_tt")).createJMenuItem());
 
-        if (Main.isExperimentalMode()) {
-            createMenu.add(new ToolTipAction(Lang.get("menu_table_createNAndTwo")) {
+        for (int i = 2; i < 7; i++) {
+            final int ii = i;
+            createSpecial.add(new ToolTipAction(Lang.get("menu_table_maxInputs_N", ii)) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    createCircuit(new TwoInputs(), new NAnd());
+                    createCircuit(new NInputs(ii));
                 }
-            }.setToolTip(Lang.get("menu_table_createNAndTwo_tt")).createJMenuItem());
+            }.createJMenuItem());
+        }
 
-            createMenu.add(new ToolTipAction(Lang.get("menu_table_createNOr")) {
+        if (Main.isExperimentalMode()) {
+            createSpecial.add(new ToolTipAction(Lang.get("menu_table_createNOr")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     createCircuit(new NOr());
                 }
             }.setToolTip(Lang.get("menu_table_createNOr_tt")).createJMenuItem());
 
-            createMenu.add(new ToolTipAction(Lang.get("menu_table_createNOrTwo")) {
+            createSpecial.add(new ToolTipAction(Lang.get("menu_table_createNAndTwo")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    createCircuit(new TwoInputs(), new NOr());
+                    createCircuit(new NInputs(2), new NAnd());
+                }
+            }.setToolTip(Lang.get("menu_table_createNAndTwo_tt")).createJMenuItem());
+
+
+            createSpecial.add(new ToolTipAction(Lang.get("menu_table_createNOrTwo")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    createCircuit(new NInputs(2), new NOr());
                 }
             }.setToolTip(Lang.get("menu_table_createNOrTwo_tt")).createJMenuItem());
 
         }
+        createMenu.add(createSpecial);
 
         JMenu hardware = new JMenu(Lang.get("menu_table_create_hardware"));
         register(hardware, new GenerateCUPL(CuplExporter::new, "GAL16v8/CUPL"));

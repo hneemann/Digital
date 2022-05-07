@@ -708,10 +708,6 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_table_createNOrTwo">基于2输入或非门的电路</string>
   <string name="menu_table_createNOrTwo_tt">仅使用2输入或非门创建电路</string>
   <string name="menu_table_createNOr_tt">仅使用或非门电路表示真值表</string>
-  <string name="menu_table_createTwo">基于2输入门的电路</string>
-  <string name="menu_table_createTwo_tt">仅使用2输入门创建电路</string>
-  <string name="menu_table_createThree">基于3输入门的电路</string>
-  <string name="menu_table_createThree_tt">仅使用最多3输入的门创建电路</string>
   <string name="menu_table_create_hardware">器件</string>
   <string name="menu_table_create_jedec_tt">为器件创建 JEDEC 文件</string>
   <string name="menu_table_exportTableLaTeX">导出 LaTeX</string>

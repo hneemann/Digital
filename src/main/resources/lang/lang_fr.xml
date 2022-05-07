@@ -1896,10 +1896,6 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_table_createNOr_tt">Crée un circuit qui reproduit la table de vérité avec seulement des portes
         Non-Ou.
     </string>
-    <string name="menu_table_createTwo">Circuit avec portes à deux entrées</string>
-    <string name="menu_table_createTwo_tt">Crée un circuit avec seulement des portes à deux entrées</string>
-    <string name="menu_table_createThree">Circuit avec portes à trois entrées</string>
-    <string name="menu_table_createThree_tt">Crée un circuit avec des portes a trois entrées maximum</string>
     <string name="menu_table_create_hardware">Périphérique</string>
     <string name="menu_table_create_jedec_tt">Crée un fichier JEDEC pour le périphérique</string>
     <string name="menu_table_exportTableLaTeX">Exporter en LaTeX</string>

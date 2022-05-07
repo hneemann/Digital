@@ -1476,10 +1476,6 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_table_createNOrTwo">Circuito con porte NOR con due ingressi</string>
     <string name="menu_table_createNOrTwo_tt">Utilizza soltanto porte NOR con due ingressi.</string>
     <string name="menu_table_createNOr_tt">Crea un circuito che riproduce le tabelle di verità utilizzando soltanto porte NOR.</string>
-    <string name="menu_table_createTwo">Circuito con due porte di ingresso</string>
-    <string name="menu_table_createTwo_tt">Crea un circuito utilizzando soltanto porte con due ingresssi</string>
-    <string name="menu_table_createThree">Circuito con porte a tre ingressi</string>
-    <string name="menu_table_createThree_tt">Crea un circuito utilizzando soltanto porte con tre ingressi</string>
     <string name="menu_table_create_hardware">Dispositivo</string>
     <string name="menu_table_create_jedec_tt">Crea un file JEDEC per il dispositivo</string>
     <string name="menu_table_exportTableLaTeX">Esporta LaTeX</string>
