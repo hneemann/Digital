@@ -1,60 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-  <version>1</version>
+  <version>2</version>
+  <attributes/>
   <visualElements>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="160" y="80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="160" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Not</elementName>
       <elementAttributes/>
       <pos x="180" y="180"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="260" y="100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="260" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="400" y="80"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes/>
       <pos x="400" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="500" y="100"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>NOr</elementName>
       <elementAttributes/>
       <pos x="500" y="220"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -65,7 +57,6 @@
         </entry>
       </elementAttributes>
       <pos x="620" y="120"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -76,7 +67,6 @@
         </entry>
       </elementAttributes>
       <pos x="620" y="240"/>
-      <rotate>0</rotate>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -86,14 +76,7 @@
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="60" y="180"/>
-      <rotate>0</rotate>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="80" y="180"/>
-      <rotate>0</rotate>
+      <pos x="100" y="180"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -162,16 +145,12 @@
       <p2 x="500" y="100"/>
     </wire>
     <wire>
-      <p1 x="120" y="180"/>
+      <p1 x="100" y="180"/>
       <p2 x="140" y="180"/>
     </wire>
     <wire>
       <p1 x="220" y="180"/>
       <p2 x="380" y="180"/>
-    </wire>
-    <wire>
-      <p1 x="60" y="180"/>
-      <p2 x="80" y="180"/>
     </wire>
     <wire>
       <p1 x="140" y="180"/>
