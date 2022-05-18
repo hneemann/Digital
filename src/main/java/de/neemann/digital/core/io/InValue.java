@@ -54,7 +54,7 @@ public class InValue {
             this.value = 0;
         } else {
             this.highZ = false;
-            this.value = Bits.decode(value.trim());
+            this.value = Bits.decode(value.trim(), true);
         }
 
     }

@@ -260,7 +260,7 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
             editValue = new Value(editValue.getBits());
         else {
             try {
-                editValue = new Value(Bits.decode(text), editValue.getBits());
+                editValue = new Value(Bits.decode(text, true), editValue.getBits());
             } catch (Bits.NumberFormatException e) {
                 // do nothing on error
             }

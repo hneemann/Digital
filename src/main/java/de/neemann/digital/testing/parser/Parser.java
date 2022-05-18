@@ -266,7 +266,7 @@ public class Parser {
 
     private long convToLong(String num) throws ParserException {
         try {
-            return Bits.decode(num);
+            return Bits.decode(num, true);
         } catch (Bits.NumberFormatException e) {
             throw new ParserException(Lang.get("err_notANumber_N0_inLine_N1", tok.getIdent(), tok.getLine()));
         }

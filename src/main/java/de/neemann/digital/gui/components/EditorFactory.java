@@ -458,7 +458,7 @@ public final class EditorFactory {
                 value = ((Number) item).longValue();
             else {
                 try {
-                    value = Bits.decode(item.toString());
+                    value = Bits.decode(item.toString(), true);
                 } catch (Bits.NumberFormatException e) {
                     throw new EditorParseException(e);
                 }

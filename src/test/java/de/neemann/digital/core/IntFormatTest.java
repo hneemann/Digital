@@ -104,13 +104,13 @@ public class IntFormatTest extends TestCase {
     public void testBitDecodeConstraint() throws Bits.NumberFormatException {
         for (IntFormat f : IntFormat.values()) {
             if (f.equals(IntFormat.ascii)) {
-                checkConstraint(f, tableAscii); // ascii supports only 16 bit
+                checkConstraint(f, tableAscii, false); // ascii supports only 16 bit
             } else if (f.equals(IntFormat.fixed) || f.equals(IntFormat.fixedSigned)) {
                 checkConstraintFixedPoint(f, tableFixedPoint);
             } else if (f.equals(IntFormat.floating)) {
-                checkConstraint(f, tableFloat);
+                checkConstraint(f, tableFloat, true);
             } else {
-                checkConstraint(f, table);
+                checkConstraint(f, table, false);
             }
         }
     }
@@ -162,10 +162,10 @@ public class IntFormatTest extends TestCase {
             new Value(-1, 7),
     };
 
-    private void checkConstraint(IntFormat format, Value[] table) throws Bits.NumberFormatException {
+    private void checkConstraint(IntFormat format, Value[] table, boolean parseFloat) throws Bits.NumberFormatException {
         for (Value val : table) {
             final String str = format.createFormatter(null).formatToEdit(val);
-            final Value conv = new Value(Bits.decode(str), val.getBits());
+            final Value conv = new Value(Bits.decode(str, parseFloat), val.getBits());
             assertTrue(format.getClass().getSimpleName() + ":" + val + " != " + conv, val.isEqual(conv));
         }
     }

@@ -134,6 +134,19 @@ public final class Bits {
      * @throws NumberFormatException invalid string
      */
     public static long decode(String str) throws NumberFormatException {
+        return decode(str, false);
+    }
+
+    /**
+     * Decodes a string to a long.
+     * Supports decimal, octal, hex, binary and ascii
+     *
+     * @param str         the string
+     * @param parseFloats if true also floats are parsed
+     * @return the long value
+     * @throws NumberFormatException invalid string
+     */
+    public static long decode(String str, boolean parseFloats) throws NumberFormatException {
         if (str == null)
             return 0;
 
@@ -144,7 +157,7 @@ public final class Bits {
 
         if (str.indexOf(':') >= 0)
             return decodeFixed(str);
-        if (str.indexOf('.') > -1) {
+        if (parseFloats && str.indexOf('.') > -1) {
             try {
                 if (str.endsWith("d") || str.endsWith("D"))
                     return Double.doubleToLongBits(Double.parseDouble(str.substring(0, str.length() - 1)));
