@@ -187,6 +187,7 @@ public class DataPlotter implements Drawable {
                     long width = data.getMax(i);
                     if (width == 0) width = 1;
                     long value = s.getValue(i).getValue();
+                    boolean isHighZ = s.getValue(i).isHighZ();
                     int ry;
                     long sWidth = (width >>> 32);
                     if (sWidth == 0) {
@@ -211,7 +212,7 @@ public class DataPlotter implements Drawable {
                     if (!s.getValue(i).getType().equals(Value.Type.HIGHZ))
                         g.drawLine(new Vector(x1, y + ry), new Vector(x2, y + ry), style);
 
-                    if (!first && ry != last[i].y)
+                    if (!first && ry != last[i].y && !isHighZ && !last[i].isHighZ)
                         g.drawLine(new Vector(x1, y + last[i].y), new Vector(x1, y + ry), style);
 
                     if (!first && value != last[i].value && Math.abs(ry - last[i].y) < SEP2)
@@ -219,6 +220,7 @@ public class DataPlotter implements Drawable {
 
                     last[i].y = ry;
                     last[i].value = value;
+                    last[i].isHighZ = isHighZ;
                     last[i].decTextWidth(x2 - x1);
 
                     y += SIZE + SEP;
@@ -330,6 +332,7 @@ public class DataPlotter implements Drawable {
 
     private static final class LastState {
         private long value;
+        private boolean isHighZ;
         private int y;
         private int textWidth;
         private boolean hasChanged = true;
