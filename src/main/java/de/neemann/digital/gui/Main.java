@@ -2031,6 +2031,26 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     @Override
+    public String doClock() throws RemoteException {
+        if (model != null && !realTimeClockRunning) {
+            try {
+                AddressPicker addressPicker = new AddressPicker();
+                SwingUtilities.invokeAndWait(() -> {
+                    ArrayList<Clock> cl = model.getClocks();
+                    if (cl.size() == 1) {
+                        ObservableValue clkVal = cl.get(0).getClockOutput();
+                        model.modify(() -> clkVal.setBool(!clkVal.getBool()));
+                    }
+                });
+                return addressPicker.getAddressString();
+            } catch (InterruptedException | InvocationTargetException e) {
+                throw new RemoteException("error performing a clock change " + e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    @Override
     public String runToBreak() throws RemoteException {
         AddressPicker addressPicker = new AddressPicker();
         if (model != null && model.isRunToBreakAllowed() && !realTimeClockRunning) {

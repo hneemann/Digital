@@ -52,6 +52,8 @@ public class DigitalHandler implements HandlerInterface {
         switch (command) {
             case "step":
                 return digitalRemoteInterface.doSingleStep();
+            case "clock":
+                return digitalRemoteInterface.doClock();
             case "start":
                 digitalRemoteInterface.start(new File(args), false);
                 return null;

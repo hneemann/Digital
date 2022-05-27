@@ -43,6 +43,14 @@ public interface DigitalRemoteInterface {
     String doSingleStep() throws RemoteException;
 
     /**
+     * changes the clock
+     *
+     * @return actual position
+     * @throws RemoteException RemoteException
+     */
+    String doClock() throws RemoteException;
+
+    /**
      * runs model to the next BRK instruction
      *
      * @return actual position

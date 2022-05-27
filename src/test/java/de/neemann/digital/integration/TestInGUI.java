@@ -1161,6 +1161,34 @@ public class TestInGUI extends TestCase {
         m.dispose();
     }
 
+    public void testRemoteInterface2() throws InterruptedException, RemoteException {
+        Main m = new Main.MainBuilder()
+                .setFileToOpen(new File(Resources.getRoot(), "dig/remoteInterface/measure.dig"))
+                .build();
+
+        SwingUtilities.invokeLater(() -> m.setVisible(true));
+        DigitalRemoteInterface ri = m;
+
+        Thread.sleep(1000);
+        ri.start(null, false);
+        Thread.sleep(1000);
+        String json = ri.measure();
+        assertEquals("{\"Q\":0,\"C\":0}", json);
+        Thread.sleep(1000);
+        ri.doClock();
+        Thread.sleep(1000);
+        json = ri.measure();
+        assertEquals("{\"Q\":1,\"C\":1}", json);
+        Thread.sleep(1000);
+        ri.doClock();
+        Thread.sleep(1000);
+        json = ri.measure();
+        assertEquals("{\"Q\":1,\"C\":0}", json);
+        Thread.sleep(1000);
+        ri.stop();
+        m.dispose();
+    }
+
     public static class CheckErrorDialog extends GuiTester.WindowCheck<ErrorMessage.ErrorDialog> {
         private final String[] expected;
 
