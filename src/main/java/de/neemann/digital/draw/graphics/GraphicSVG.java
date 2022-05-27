@@ -23,10 +23,10 @@ public class GraphicSVG extends Graphic {
     private final OutputStream out;
     private final File source;
     private final int svgScale;
+    private final HashSet<Flag> flags = new HashSet<>();
     private BufferedWriter w;
     private TextStyle textStyle = new TextFormatSVG();
     private ColorStyle colorStyle = Style::getColor;
-    private HashSet<Flag> flags = new HashSet<>();
 
     /**
      * Creates a new instance.
