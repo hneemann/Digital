@@ -10,6 +10,7 @@
 ./expicon.sh media-playback-start-2
 ./expicon.sh media-playback-start
 ./expicon.sh media-playback-start-T
+./expicon.sh media-playback-pause
 ./expicon.sh media-playback-stop
 ./expicon.sh media-seek-forward
 ./expicon.sh media-seek-forward-f

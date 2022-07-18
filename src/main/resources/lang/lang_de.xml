@@ -1870,6 +1870,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_sim">Simulation</string>
     <string name="menu_run">Start der Simulation</string>
     <string name="menu_run_tt">Startet die Simulation der Schaltung</string>
+    <string name="menu_pause">Pause</string>
+    <string name="menu_pause_tt">Pausiert die Taktelemente in der Schaltung.</string>
     <string name="menu_save">Speichern</string>
     <string name="menu_saveAs">Speichern unter</string>
     <string name="menu_saveData">Daten speichern</string>

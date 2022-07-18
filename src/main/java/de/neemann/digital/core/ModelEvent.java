@@ -47,6 +47,14 @@ public class ModelEvent {
      * Shorthand for a ModelEventType.BREAK event
      */
     public static final ModelEvent BREAK = new ModelEvent(ModelEventType.BREAK);
+    /**
+     * Shorthand for a ModelEventType.PAUSE event
+     */
+    public static final ModelEvent PAUSE = new ModelEvent(ModelEventType.PAUSE);
+    /**
+     * Shorthand for a ModelEventType.RESUME event
+     */
+    public static final ModelEvent RESUME = new ModelEvent(ModelEventType.RESUME);
 
     private final ModelEventType type;
     private Exception cause;

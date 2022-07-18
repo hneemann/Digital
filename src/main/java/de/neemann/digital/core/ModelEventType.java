@@ -60,6 +60,16 @@ public enum ModelEventType {
     CHECKBURN,
 
     /**
+     * Used to pause the clocks
+     */
+    PAUSE,
+
+    /**
+     * Used to resume the clocks
+     */
+    RESUME,
+
+    /**
      * Used to notify an error
      */
     ERROR_OCCURRED

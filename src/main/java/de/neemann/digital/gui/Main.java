@@ -104,6 +104,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
     private static final String MESSAGE = Lang.get("message");
     private static final Icon ICON_RUN = IconCreator.create("media-playback-start.png");
+    private static final Icon ICON_PAUSE = IconCreator.create("media-playback-pause.png");
     private static final Icon ICON_MICRO = IconCreator.create("media-playback-start-2.png");
     private static final Icon ICON_TEST = IconCreator.create("media-playback-start-T.png");
     private static final Icon ICON_STEP = IconCreator.create("media-seek-forward.png");
@@ -140,6 +141,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private ToolTipAction showMeasurementDialog;
     private ToolTipAction showMeasurementGraph;
     private ToolTipAction runTests;
+    private ToolTipAction pauseAction;
 
     private File baseFilename;
     private File filename;
@@ -1142,6 +1144,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }.setToolTip(Lang.get("menu_speedTest_tt"));
 
+        pauseAction = new ToolTipAction(Lang.get("menu_pause"), ICON_PAUSE) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (model != null)
+                    model.pause();
+            }
+        }.setToolTip(Lang.get("menu_pause_tt")).setEnabledChain(false);
+
         showMeasurementDialog = new ToolTipAction(Lang.get("menu_showDataTable")) {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -1210,6 +1220,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         run.add(showMeasurementGraph.createJMenuItem());
         run.addSeparator();
         run.add(runModelAction.createJMenuItem());
+        run.add(pauseAction.createJMenuItem());
         run.add(runToBreakAction.createJMenuItem());
         run.add(stoppedStateAction.createJMenuItem());
         run.addSeparator();
@@ -1225,6 +1236,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         run.add(pathLen.createJMenuItem());
 
         toolBar.add(runModelState.setIndicator(runModelAction.createJButtonNoText()));
+        toolBar.add(pauseAction.createJButtonNoText());
         toolBar.add(runToBreakAction.createJButtonNoText());
         toolBar.add(stoppedStateAction.createJButtonNoText());
         toolBar.addSeparator();
@@ -1370,6 +1382,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 showMeasurementGraph.setEnabled(false);
                 runToBreakAction.setEnabled(false);
                 runToBreakMicroAction.setEnabled(false);
+                pauseAction.setEnabled(false);
                 runTests.setEnabled(true);
                 // keep errors
                 if (circuitComponent.getHighLightStyle() != Style.ERROR)
@@ -1510,6 +1523,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     runToBreakAction.setEnabled(true);
             }
+            if (realTimeClockRunning)
+                pauseAction.setEnabled(true);
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
             if (settings.get(Keys.SHOW_DATA_TABLE) || windowPosManager.isVisible("probe"))

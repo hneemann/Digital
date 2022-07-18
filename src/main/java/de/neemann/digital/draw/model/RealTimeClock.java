@@ -59,16 +59,26 @@ public class RealTimeClock implements ModelStateObserverTyped {
                 else
                     runner = new RealTimeRunner(delayMuS);
                 break;
-            case CLOSED:
+            case PAUSE:
                 if (runner != null)
+                    runner.pause();
+                break;
+            case RESUME:
+                if (runner != null)
+                    runner.resume();
+                break;
+            case CLOSED:
+                if (runner != null) {
                     runner.stop();
+                    runner = null;
+                }
                 break;
         }
     }
 
     @Override
     public ModelEventType[] getEvents() {
-        return new ModelEventType[]{ModelEventType.STARTED, ModelEventType.CLOSED};
+        return new ModelEventType[]{ModelEventType.STARTED, ModelEventType.CLOSED, ModelEventType.PAUSE, ModelEventType.RESUME};
     }
 
     /**
@@ -81,6 +91,10 @@ public class RealTimeClock implements ModelStateObserverTyped {
 
     interface Runner {
         void stop();
+
+        void pause();
+
+        void resume();
     }
 
     /**
@@ -88,25 +102,38 @@ public class RealTimeClock implements ModelStateObserverTyped {
      */
     private class RealTimeRunner implements Runner {
 
-        private final ScheduledFuture<?> timer;
+        private final FrequencyCalculator frequencyCalculator;
+        private final int delay;
+
+        private ScheduledFuture<?> timer;
 
         RealTimeRunner(int delay) {
-            FrequencyCalculator frequencyCalculator;
+            this.delay = delay;
             if (frequency > 2000)
                 frequencyCalculator = new FrequencyCalculator(status, frequency);
             else
                 frequencyCalculator = null;
-            timer = executor.scheduleAtFixedRate(() -> {
-                model.modify(() -> output.setValue(1 - output.getValue()));
-                if (frequencyCalculator != null)
-                    frequencyCalculator.calc();
-            }, delay, delay, TimeUnit.MICROSECONDS);
+            resume();
         }
 
         @Override
         public void stop() {
             if (timer != null)
                 timer.cancel(false);
+        }
+
+        @Override
+        public void pause() {
+            stop();
+        }
+
+        @Override
+        public void resume() {
+            timer = executor.scheduleAtFixedRate(() -> {
+                model.modify(() -> output.setValue(1 - output.getValue()));
+                if (frequencyCalculator != null)
+                    frequencyCalculator.calc();
+            }, delay, delay, TimeUnit.MICROSECONDS);
         }
     }
 
@@ -115,9 +142,24 @@ public class RealTimeClock implements ModelStateObserverTyped {
      */
     private class ThreadRunner implements Runner {
 
-        private final Thread thread;
+        private Thread thread;
 
         ThreadRunner() {
+            resume();
+        }
+
+        @Override
+        public void stop() {
+            thread.interrupt();
+        }
+
+        @Override
+        public void pause() {
+            stop();
+        }
+
+        @Override
+        public void resume() {
             thread = new Thread(() -> {
                 LOGGER.debug("thread start");
                 FrequencyCalculator frequencyCalculator = new FrequencyCalculator(status, frequency);
@@ -128,11 +170,6 @@ public class RealTimeClock implements ModelStateObserverTyped {
             });
             thread.setDaemon(true);
             thread.start();
-        }
-
-        @Override
-        public void stop() {
-            thread.interrupt();
         }
     }
 

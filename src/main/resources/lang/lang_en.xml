@@ -1851,6 +1851,8 @@
     <string name="menu_sim">Simulation</string>
     <string name="menu_run">Start of Simulation</string>
     <string name="menu_run_tt">Starts the simulation of the circuit.</string>
+    <string name="menu_pause">Pause</string>
+    <string name="menu_pause_tt">Pauses the clock components in the circuit.</string>
     <string name="menu_save">Save</string>
     <string name="menu_saveAs">Save As</string>
     <string name="menu_saveData">Save Data</string>
