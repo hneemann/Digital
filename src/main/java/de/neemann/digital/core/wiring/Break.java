@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.core.wiring;
 
-import de.neemann.digital.core.Model;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -19,7 +16,7 @@ import static de.neemann.digital.core.element.PinInfo.input;
 /**
  * The Break element
  */
-public class Break implements Element {
+public class Break extends Node implements Element {
 
     /**
      * The Break description
@@ -34,6 +31,7 @@ public class Break implements Element {
     private final String label;
     private final boolean enabled;
     private ObservableValue input;
+    private boolean lastBrk;
 
     /**
      * Creates a new instance
@@ -48,7 +46,20 @@ public class Break implements Element {
 
     @Override
     public void setInputs(ObservableValues inputs) throws NodeException {
-        input = inputs.get(0).checkBits(1, null);
+        input = inputs.get(0).addObserverToValue(this).checkBits(1, null);
+    }
+
+    @Override
+    public void readInputs() throws NodeException {
+        boolean brk = input.getBool();
+        if (brk && !lastBrk) {
+            getModel().breakDetected();
+        }
+        lastBrk = brk;
+    }
+
+    @Override
+    public void writeOutputs() throws NodeException {
     }
 
     /**
@@ -72,6 +83,7 @@ public class Break implements Element {
 
     @Override
     public void registerNodes(Model model) {
+        super.registerNodes(model);
         model.addBreak(this);
     }
 

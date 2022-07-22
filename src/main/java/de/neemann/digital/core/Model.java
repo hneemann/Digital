@@ -561,6 +561,14 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
+     * Break is detected in running model
+     */
+    public synchronized void breakDetected() {
+        if (!paused)
+            pause();
+    }
+
+    /**
      * used to pause and resume the clocks in the model
      */
     public synchronized void pause() {
