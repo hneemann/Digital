@@ -654,6 +654,11 @@ public class ParserTest extends TestCase {
         assertEquals("5", exec("<??>\n\n  <?- print(5);-?>\n\n").toString());
     }
 
+    public void testStartsWith() throws IOException, ParserException, HGSEvalException {
+        assertEquals("true", exec("<? if ( startsWith(\"foobar\", \"foo\") ) { print(\"true\"); } -?> ").toString());
+        assertEquals("", exec("<? if ( startsWith(\"foobar\", \"bar\") ) { print(\"true\"); } -?> ").toString());
+    }
+
     // checks the available VHDL templates
     public void testVHDLTemplates() throws Exception {
         final File path = new File(Resources.getRoot(), "../../main/resources/vhdl");
