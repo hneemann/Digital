@@ -105,6 +105,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private static final String MESSAGE = Lang.get("message");
     private static final Icon ICON_RUN = IconCreator.create("media-playback-start.png");
     private static final Icon ICON_PAUSE = IconCreator.create("media-playback-pause.png");
+    private static final Icon ICON_PAUSE_EN = IconCreator.create("media-playback-pause-en.png");
     private static final Icon ICON_MICRO = IconCreator.create("media-playback-start-2.png");
     private static final Icon ICON_TEST = IconCreator.create("media-playback-start-T.png");
     private static final Icon ICON_STEP = IconCreator.create("media-seek-forward.png");
@@ -1383,6 +1384,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 runToBreakAction.setEnabled(false);
                 runToBreakMicroAction.setEnabled(false);
                 pauseAction.setEnabled(false);
+                pauseAction.setIcon(ICON_PAUSE);
                 runTests.setEnabled(true);
                 // keep errors
                 if (circuitComponent.getHighLightStyle() != Style.ERROR)
@@ -1523,8 +1525,19 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     runToBreakAction.setEnabled(true);
             }
-            if (realTimeClockRunning)
+            if (realTimeClockRunning) {
                 pauseAction.setEnabled(true);
+                model.addObserver(event -> {
+                    if ((model != null)
+                            && (event.getType() == ModelEventType.PAUSE || event.getType() == ModelEventType.RESUME)) {
+                        if (model.isPaused())
+                            SwingUtilities.invokeLater(() -> pauseAction.setIcon(ICON_PAUSE_EN));
+                        else
+                            SwingUtilities.invokeLater(() -> pauseAction.setIcon(ICON_PAUSE));
+                    }
+
+                }, ModelEventType.PAUSE, ModelEventType.RESUME);
+            }
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
             if (settings.get(Keys.SHOW_DATA_TABLE) || windowPosManager.isVisible("probe"))

@@ -573,12 +573,19 @@ public class Model implements Iterable<Node>, SyncAccess {
      */
     public synchronized void pause() {
         if (paused) {
-            fireEvent(ModelEvent.RESUME);
             paused = false;
+            fireEvent(ModelEvent.RESUME);
         } else {
-            fireEvent(ModelEvent.PAUSE);
             paused = true;
+            fireEvent(ModelEvent.PAUSE);
         }
+    }
+
+    /**
+     * @return the pause state
+     */
+    public boolean isPaused() {
+        return paused;
     }
 
     /**
