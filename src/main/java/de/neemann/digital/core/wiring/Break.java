@@ -52,7 +52,7 @@ public class Break extends Node implements Element {
     @Override
     public void readInputs() throws NodeException {
         boolean brk = input.getBool();
-        if (brk && !lastBrk) {
+        if (enabled && brk && !lastBrk) {
             getModel().breakDetected();
         }
         lastBrk = brk;
