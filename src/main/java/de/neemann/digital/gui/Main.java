@@ -1527,6 +1527,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
             if (realTimeClockRunning) {
                 pauseAction.setEnabled(true);
+                pauseAction.setIcon(ICON_PAUSE);
                 model.addObserver(event -> {
                     if ((model != null)
                             && (event.getType() == ModelEventType.PAUSE || event.getType() == ModelEventType.RESUME)) {
