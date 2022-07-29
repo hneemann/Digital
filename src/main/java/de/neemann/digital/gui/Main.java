@@ -1384,7 +1384,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 runToBreakAction.setEnabled(false);
                 runToBreakMicroAction.setEnabled(false);
                 pauseAction.setEnabled(false);
-                pauseAction.setIcon(ICON_PAUSE);
                 runTests.setEnabled(true);
                 // keep errors
                 if (circuitComponent.getHighLightStyle() != Style.ERROR)
@@ -1525,9 +1524,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 else
                     runToBreakAction.setEnabled(true);
             }
-            if (realTimeClockRunning) {
-                pauseAction.setEnabled(true);
-                pauseAction.setIcon(ICON_PAUSE);
+            pauseAction.setEnabled(realTimeClockRunning);
+            pauseAction.setIcon(ICON_PAUSE);
+            if (realTimeClockRunning)
                 model.addObserver(event -> {
                     if ((model != null)
                             && (event.getType() == ModelEventType.PAUSE || event.getType() == ModelEventType.RESUME)) {
@@ -1536,9 +1535,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         else
                             SwingUtilities.invokeLater(() -> pauseAction.setIcon(ICON_PAUSE));
                     }
-
                 }, ModelEventType.PAUSE, ModelEventType.RESUME);
-            }
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
             if (settings.get(Keys.SHOW_DATA_TABLE) || windowPosManager.isVisible("probe"))
