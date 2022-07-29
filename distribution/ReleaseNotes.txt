@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.30
+- Adds a Pause button.
 - Adds a presentation mode.
 - The remote server is now disabled by default.
   It must be enabled in the settings.
