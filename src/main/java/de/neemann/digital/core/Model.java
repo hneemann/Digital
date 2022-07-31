@@ -56,6 +56,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     private ArrayList<BreakDetector> brVal;
     private int oscillationDetectionCounter = 1000;
     private boolean paused;
+    private boolean pauseEnabled;
 
     private enum State {BUILDING, INITIALIZING, RUNNING, CLOSED}
 
@@ -560,6 +561,14 @@ public class Model implements Iterable<Node>, SyncAccess {
             obs.add(observer);
     }
 
+
+    /**
+     * enables pause functions
+     */
+    public void enablePause() {
+        pauseEnabled = true;
+    }
+
     /**
      * Break is detected in running model
      */
@@ -572,12 +581,14 @@ public class Model implements Iterable<Node>, SyncAccess {
      * used to pause and resume the clocks in the model
      */
     public synchronized void pause() {
-        if (paused) {
-            paused = false;
-            fireEvent(ModelEvent.RESUME);
-        } else {
-            paused = true;
-            fireEvent(ModelEvent.PAUSE);
+        if (pauseEnabled) {
+            if (paused) {
+                paused = false;
+                fireEvent(ModelEvent.RESUME);
+            } else {
+                paused = true;
+                fireEvent(ModelEvent.PAUSE);
+            }
         }
     }
 

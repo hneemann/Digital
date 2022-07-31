@@ -1526,7 +1526,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
             pauseAction.setEnabled(realTimeClockRunning);
             pauseAction.setIcon(ICON_PAUSE);
-            if (realTimeClockRunning)
+            if (realTimeClockRunning) {
+                model.enablePause();
                 model.addObserver(event -> {
                     if ((model != null)
                             && (event.getType() == ModelEventType.PAUSE || event.getType() == ModelEventType.RESUME)) {
@@ -1536,6 +1537,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                             SwingUtilities.invokeLater(() -> pauseAction.setIcon(ICON_PAUSE));
                     }
                 }, ModelEventType.PAUSE, ModelEventType.RESUME);
+            }
 
             ElementAttributes settings = circuitComponent.getCircuit().getAttributes();
             if (settings.get(Keys.SHOW_DATA_TABLE) || windowPosManager.isVisible("probe"))

@@ -43,7 +43,7 @@ public enum ModelEventType {
     RUN_TO_BREAK_TIMEOUT,
 
     /**
-     * A break is detected.
+     * A break is detected, fired by runToBreak methods.
      */
     BREAK,
 
