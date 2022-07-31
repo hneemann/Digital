@@ -84,7 +84,7 @@ public class TestExecutor {
      */
     public TestExecutor(String label, TestCaseDescription testCase, Model model) throws TestingDataException {
         this.label = label;
-        names = testCase.getNames();
+        names = checkForPinNumbers(testCase.getNames(), model);
         this.model = model;
         lines = testCase.getLines();
 
@@ -154,6 +154,31 @@ public class TestExecutor {
             if (event.getType() == ModelEventType.ERROR_OCCURRED)
                 errorOccurred = true;
         }, ModelEventType.ERROR_OCCURRED);
+    }
+
+    private ArrayList<String> checkForPinNumbers(ArrayList<String> names, Model model) {
+        ArrayList<String> returnNames = new ArrayList<>();
+        for (String n : names)
+            if (n.startsWith("/")) {
+                String pin = n.substring(1).trim();
+                String found = null;
+                for (Signal s : model.getSignals()) {
+                    if (pin.equals(s.getPinNumber()))
+                        found = s.getName();
+                }
+                if (found == null) {
+                    for (Clock s : model.getClocks()) {
+                        if (pin.equals(s.getClockPin()))
+                            found = s.getLabel();
+                    }
+                }
+                if (found == null)
+                    returnNames.add(n);
+                else
+                    returnNames.add(found);
+            } else
+                returnNames.add(n);
+        return returnNames;
     }
 
     /**
