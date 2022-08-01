@@ -2019,6 +2019,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_labelPins">Ein- und Ausgänge benennen</string>
     <string name="menu_labelPins_tt">Für alle unbenannten Ein- und Ausgänge eine Bezeichnung setzen.</string>
 
+    <string name="menu_find">Suchen</string>
+    <string name="menu_find_tt">Durchsucht Bezeichnungen, Netznamen und Pinnummern.</string>
+
     <string name="menu_tutorial">Tutorial starten</string>
     <string name="menu_tutorial_tt">Startet das Anfänger-Tutorial.</string>
 

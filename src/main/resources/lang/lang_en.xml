@@ -2001,6 +2001,9 @@
     <string name="menu_labelPins">Label Inputs and Outputs</string>
     <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
 
+    <string name="menu_find">Find</string>
+    <string name="menu_find_tt">Finds labels, net names and pin numbers.</string>
+
     <string name="menu_tutorial">Start Tutorial</string>
     <string name="menu_tutorial_tt">Starts the beginner tutorial.</string>
 
