@@ -20,7 +20,6 @@ import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.graphics.Vector;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
-import static de.neemann.digital.draw.shapes.OutputShape.OUT_SIZE;
 
 /**
  * The shape used for the button combined with a LED.
@@ -45,6 +44,7 @@ public class ButtonLEDShape extends ButtonShape {
         input = inputs.get(0);
         output = outputs.get(0);
         color = Style.NORMAL.deriveStyle(0, true, attr.get(Keys.COLOR));
+        setCenterLabel(false);
     }
 
     @Override
@@ -74,14 +74,11 @@ public class ButtonLEDShape extends ButtonShape {
         boolean ledOn = ledValue == null || (ledValue.getBool() & !ledValue.isHighZ());
         boolean pressed = button != null && button.isPressed();
 
-        Vector center;
-        if (pressed) {
-            center = new Vector(-OUT_SIZE - 1, 0);
-        } else
-            center = new Vector(-OUT_SIZE - 1 - ButtonShape.HEIGHT, -ButtonShape.HEIGHT);
+        Vector center = getButtonCenter(pressed);
 
         if (ledOn)
             graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), color);
         graphic.drawCircle(center.add(-SIZE2, -SIZE2), center.add(SIZE2, SIZE2), Style.THIN);
     }
+
 }
