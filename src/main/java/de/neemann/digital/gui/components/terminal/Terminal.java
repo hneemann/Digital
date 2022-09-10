@@ -91,4 +91,13 @@ public class Terminal extends Node implements Element {
     public TerminalInterface getTerminalInterface() {
         return terminal;
     }
+
+    /**
+     * sets the terminal interface
+     *
+     * @param terminal the terminal interface for this terminal to use
+     */
+    public void setTerminalInterface(TerminalInterface terminal) {
+        this.terminal = terminal;
+    }
 }
