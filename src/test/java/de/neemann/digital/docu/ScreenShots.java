@@ -45,7 +45,7 @@ public class ScreenShots {
 
     private static final int WIN_DX = 850;
     private static final int WIN_DY = 500;
-    private static GraphicDialog graphic;
+    // private static GraphicDialog graphic;
     private static Main mainStatic;
 
     public static void main(String[] args) {

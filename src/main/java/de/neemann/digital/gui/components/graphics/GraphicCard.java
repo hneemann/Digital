@@ -158,12 +158,15 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     private void updateGraphic(boolean bank) {
         if (paintPending.compareAndSet(false, true)) {
             SwingUtilities.invokeLater(() -> {
-                if (graphicDialog == null || !graphicDialog.isVisible()) {
+                if ((graphicDialog == null || !graphicDialog.isVisible()) && getModel().runningInMainFrame()) {
                     graphicDialog = new GraphicDialog(getModel().getWindowPosManager().getMainFrame(), width, height);
                     getModel().getWindowPosManager().register("GraphicCard_" + label, graphicDialog);
                 }
                 paintPending.set(false);
-                graphicDialog.updateGraphic(memory, bank);
+
+                if (graphicDialog != null) {
+                    graphicDialog.updateGraphic(memory, bank);
+                }
             });
         }
     }
