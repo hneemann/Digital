@@ -35,6 +35,7 @@ public class Terminal extends Node implements Element {
             .addAttribute(Keys.LABEL);
 
     private final ElementAttributes attr;
+    private final String label;
     private TerminalInterface terminal;
     private ObservableValue data;
     private ObservableValue clock;
@@ -48,6 +49,7 @@ public class Terminal extends Node implements Element {
      */
     public Terminal(ElementAttributes attributes) {
         attr = attributes;
+        label = attributes.getLabel();
     }
 
     @Override
@@ -90,5 +92,21 @@ public class Terminal extends Node implements Element {
      */
     public TerminalInterface getTerminalInterface() {
         return terminal;
+    }
+
+    /**
+     * sets the terminal interface
+     *
+     * @param terminal the terminal interface for this terminal to use
+     */
+    public void setTerminalInterface(TerminalInterface terminal) {
+        this.terminal = terminal;
+    }
+
+    /**
+     * @return the terminal label
+     */
+    public String getLabel() {
+        return label;
     }
 }
