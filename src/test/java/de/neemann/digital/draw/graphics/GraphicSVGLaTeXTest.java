@@ -5,11 +5,19 @@
  */
 package de.neemann.digital.draw.graphics;
 
+import de.neemann.digital.core.basic.And;
+import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.VisualElement;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
+ *
  */
 public class GraphicSVGLaTeXTest extends TestCase {
     public void testFormatText() throws Exception {
@@ -44,4 +52,26 @@ public class GraphicSVGLaTeXTest extends TestCase {
         GraphicSVG.TextStyle gs = new TextFormatLaTeX(false);
         assertEquals(LaTeX, gs.format(orig, Style.NORMAL));
     }
+
+    private ByteArrayOutputStream createSVG(ElementAttributes a) throws IOException {
+        Circuit c = new Circuit();
+        ElementLibrary el = new ElementLibrary();
+        ShapeFactory sf = new ShapeFactory(el, false);
+        c.add(new VisualElement(And.DESCRIPTION.getName()).setShapeFactory(sf));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        GraphicSVG gr = new GraphicSVG(baos, a);
+        gr.setBoundingBox(new Vector(-20, -20), new Vector(20, 20));
+        c.drawTo(gr);
+        gr.close();
+        return baos;
+    }
+
+    public void testAmpersand() throws IOException {
+        ByteArrayOutputStream baos = createSVG(new ElementAttributes().set(SVGSettings.LATEX, false));
+        assertTrue(baos.toString().contains(">&amp;<"));
+
+        baos = createSVG(new ElementAttributes().set(SVGSettings.LATEX, true));
+        assertTrue(baos.toString().contains(">\\&amp;<"));
+    }
+
 }
