@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>Demultiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+        <entry>
+          <string>Default</string>
+          <long>3</long>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>S</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Y</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Z</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>U</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>V</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>S D Y Z U V 
+
+ 0b00 0b000 0b000 0b011 0b011 0b011
+ 0b00 0b001 0b001 0b011 0b011 0b011
+ 0b00 0b010 0b010 0b011 0b011 0b011
+ 0b00 0b011 0b011 0b011 0b011 0b011
+ 0b00 0b100 0b100 0b011 0b011 0b011
+ 0b00 0b101 0b101 0b011 0b011 0b011
+ 0b00 0b110 0b110 0b011 0b011 0b011
+ 0b00 0b111 0b111 0b011 0b011 0b011
+ 0b01 0b000 0b011 0b000 0b011 0b011
+ 0b01 0b001 0b011 0b001 0b011 0b011
+ 0b01 0b010 0b011 0b010 0b011 0b011
+ 0b01 0b011 0b011 0b011 0b011 0b011
+ 0b01 0b100 0b011 0b100 0b011 0b011
+ 0b01 0b101 0b011 0b101 0b011 0b011
+ 0b01 0b110 0b011 0b110 0b011 0b011
+ 0b01 0b111 0b011 0b111 0b011 0b011
+ 0b10 0b000 0b011 0b011 0b000 0b011
+ 0b10 0b001 0b011 0b011 0b001 0b011
+ 0b10 0b010 0b011 0b011 0b010 0b011
+ 0b10 0b011 0b011 0b011 0b011 0b011
+ 0b10 0b100 0b011 0b011 0b100 0b011
+ 0b10 0b101 0b011 0b011 0b101 0b011
+ 0b10 0b110 0b011 0b011 0b110 0b011
+ 0b10 0b111 0b011 0b011 0b111 0b011
+ 0b11 0b000 0b011 0b011 0b011 0b000
+ 0b11 0b001 0b011 0b011 0b011 0b001
+ 0b11 0b010 0b011 0b011 0b011 0b010
+ 0b11 0b011 0b011 0b011 0b011 0b011
+ 0b11 0b100 0b011 0b011 0b011 0b100
+ 0b11 0b101 0b011 0b011 0b011 0b101
+ 0b11 0b110 0b011 0b011 0b011 0b110
+ 0b11 0b111 0b011 0b011 0b011 0b111
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="240"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="340" y="160"/>
+      <p2 x="360" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="160"/>
+      <p2 x="420" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="180"/>
+      <p2 x="480" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="120"/>
+      <p2 x="420" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="140"/>
+      <p2 x="480" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="220"/>
+      <p2 x="380" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="380" y="200"/>
+      <p2 x="380" y="220"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
