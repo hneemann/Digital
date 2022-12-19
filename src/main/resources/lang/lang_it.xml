@@ -975,7 +975,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_Frequency_tt">La frequenza in tempo reale utilizzata per questo clock.</string>
     <string name="key_IEEEShapes">Utilizza forme IEEE 91-1984</string>
     <string name="key_IEEEShapes_tt">Utilizza forme IEEE 91-1984 anziché forme rettangolari</string>
-    <string name="key_Inputs">Numero delle uscite</string>
+    <string name="key_Inputs">Numero di ingressi</string>
     <string name="key_Inputs_tt">Numero di ingressi utilizzati. Ogni ingresso deve essere connesso.</string>
     <string name="key_Label">Etichetta</string>
     <string name="key_Label_tt">Il nome di questo elemento.</string>
