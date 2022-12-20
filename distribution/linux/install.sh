@@ -3,9 +3,6 @@
 # This script adds a menu item, icons and mime type for Digital for the current
 # user. Based on Arduino install script.
 
-# exit when any command fails
-set -e
-
 echo "Installation starting..."
 
 RESOURCE_NAME=digital-simulator
