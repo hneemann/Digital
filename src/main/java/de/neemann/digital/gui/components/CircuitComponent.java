@@ -1889,7 +1889,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 modify(new ModifyInsertElement(element));
                 insertWires(element);
             }
-            mouseNormal.activate();
+            if (!mouse.isClickModifier(e))
+                mouseNormal.activate();
         }
 
         @Override

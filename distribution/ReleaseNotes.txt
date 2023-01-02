@@ -7,6 +7,8 @@ HEAD, planned as v0.30
   pointer is hovering over.
 - The remote server is now disabled by default.
   It must be enabled in the settings.
+- When a new component has been placed with CRTL click,
+  you can place another one.
 - Fixes the ignored default value in demuxer HDL export.
 
 v0.29, released on 11. February 2022
