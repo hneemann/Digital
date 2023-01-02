@@ -1862,7 +1862,10 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 modify(new ModifyInsertElement(element));
                 insertWires(element);
             }
-            mouseNormal.activate();
+            // Let shift clicking be used to easily place multiple elements.
+            if (!e.isShiftDown()) {
+                mouseNormal.activate();
+            }
         }
 
         @Override
@@ -1959,7 +1962,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     insertWires(visualElement);
                 }
             }
-            mouseNormal.activate();
+            if (e.isShiftDown()) {
+                // Let shift clicking be used to continue placing copies of the element.
+                setPartToInsert(new VisualElement(visualElement));
+            } else {
+                mouseNormal.activate();
+            }
         }
 
         @Override
