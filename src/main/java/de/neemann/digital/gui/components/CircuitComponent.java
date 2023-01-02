@@ -322,7 +322,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
     }
 
-    private void createAdditionalShortcuts(ShapeFactory shapeFactory) {
+    private void createAdditionalShortcuts(final ShapeFactory shapeFactory) {
         new ToolTipAction("diagWire") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -376,6 +376,33 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 }
             }
         }.setAccelerator("T").enableAcceleratorIn(this);
+
+        new ToolTipAction("pipette") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (activeMouseController == mouseNormal) {
+                    VisualElement ve = getActualVisualElement();
+                    if (ve != null) {
+                        // Insert the element using default attributes.
+                        VisualElement insert = new VisualElement(ve.getElementName()).setShapeFactory(shapeFactory);
+                        setPartToInsert(insert);
+                    }
+                }
+            }
+        }.setAccelerator("Q").enableAcceleratorIn(this);
+
+        new ToolTipAction("pipetteCopy") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (activeMouseController == mouseNormal) {
+                    VisualElement ve = getActualVisualElement();
+                    if (ve != null) {
+                        // Insert a copy of the element, retaining the attributes.
+                        setPartToInsert(new VisualElement(ve));
+                    }
+                }
+            }
+        }.setAccelerator(KeyStroke.getKeyStroke('Q', InputEvent.SHIFT_DOWN_MASK)).enableAcceleratorIn(this);
 
         ToolTipAction plus = new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), plus);
