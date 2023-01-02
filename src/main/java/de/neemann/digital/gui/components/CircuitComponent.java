@@ -322,7 +322,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         }
     }
 
-    private void createAdditionalShortcuts(final ShapeFactory shapeFactory) {
+    private void createAdditionalShortcuts(ShapeFactory shapeFactory) {
         new ToolTipAction("diagWire") {
             @Override
             public void actionPerformed(ActionEvent e) {
