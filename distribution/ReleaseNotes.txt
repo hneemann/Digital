@@ -3,6 +3,8 @@ Release Notes
 HEAD, planned as v0.30
 - Added a search function
 - Added a presentation mode.
+- Adds Q and CTRL-Q hotkeys to copy the component the mouse
+  pointer is hovering over.
 - The remote server is now disabled by default.
   It must be enabled in the settings.
 - Fixes the ignored default value in demuxer HDL export.
