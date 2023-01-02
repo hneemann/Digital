@@ -389,7 +389,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     }
                 }
             }
-        }.setAccelerator("Q").enableAcceleratorIn(this);
+        }.setAccelerator(KeyStroke.getKeyStroke('Q', InputEvent.SHIFT_DOWN_MASK)).enableAcceleratorIn(this);
 
         new ToolTipAction("pipetteCopy") {
             @Override
@@ -402,7 +402,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     }
                 }
             }
-        }.setAccelerator(KeyStroke.getKeyStroke('Q', InputEvent.SHIFT_DOWN_MASK)).enableAcceleratorIn(this);
+        }.setAccelerator("Q").enableAcceleratorIn(this);
 
         ToolTipAction plus = new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), plus);
