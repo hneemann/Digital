@@ -2375,4 +2375,33 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_truthTableCSV">CSV, "Comma Separated Values"</string>
     <string name="key_defaultsDC">Valores não definidos serão "Don't Care"</string>
     <string name="key_defaultsDC_tt">Todos os valores não definidos (estados e saídas) deverão ser tomados como "Don't Care".</string>
+    <string name="elem_ROMDualPort">ROM com porta dupla</string>
+    <string name="key_persistTime">Persistência da visualização</string>
+    <string name="key_persistTime_tt">Especificar a duração de brilho. Quanto maior o valor, maior a duração do brilho.</string>
+    <string name="key_oscillationDetectionCounter">Detecção de oscilação</string>
+    <string name="key_oscillationDetectionCounter_tt">Número de ciclos de propagação para se detectar uma oscilação
+        se o circuito não estiver estabilizado até então.</string>
+    <string name="key_openRemotePort">Permitir conexão remota</string>
+    <string name="key_openRemotePort_tt">Se definido, uma porta TCP/IP será aberta e através da qual o controle
+        do simulador será possível.</string>
+    <string name="key_remotePort">Número da porta</string>
+    <string name="key_remotePort_tt">Porta na qual o servidor remoto estará aberto.</string>
+    <string name="msg_bigEndian">Big-Endian</string>
+    <string name="key_bigEndian">Usar Big-Endian ao importar.</string>
+    <string name="key_bigEndian_tt">Usar byte em representação Big-Endian ao importar.</string>
+    <string name="menu_table_createCircuitMore">Variantes de circuito</string>
+    <string name="menu_table_maxInputs_N">Usar portas lógicas com no máximo {0} entradas}-</string>
+    <string name="menu_presentationMode">Modo de apresentação</string>
+    <string name="menu_presentationMode_tt">Uma visão simplificada que, por exemplo, omitirá os casos de testes, o que poderá ser útil em caso de apresentações.</string>
+    <string name="menu_find">Procurar</string>
+    <string name="menu_find_tt">Procurar por rótulos, identificações de grupos de nomes e de pinos</string>
+    <string name="menu_calcMaxPathLen">Tamanho máximo da rota</string>
+    <string name="menu_calcMaxPathLen_tt">Tamanho máximo da rota será o mais longo entre uma das entradas e a saída mais distante.</string>
+    <string name="msg_maxPathLen">A rota mais longa consiste de {0} portas.}-</string>
+    <string name="msg_couldNotCalculateMaxPathLen">O tamanho da rota não pode ser calculado.</string>
+    <string name="key_source">Fonte de dados</string>
+    <string name="key_source_noData">Não carregar qualquer dado</string>
+    <string name="key_source_file">arquivo</string>
+    <string name="key_source_dataField">dados armazenados</string>
+    <string name="err_could_not_load_rom">Impossível carregar dados da ROM!</string>
 </resources>
