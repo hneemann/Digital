@@ -1470,7 +1470,7 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_labelPins_tt">Definir rótulo para entradas e saídas que não tiverem algum.</string>
     <string name="message"><![CDATA[<h1>Digital</h1>
       <p>Um simulator simples para circuitos digitais.</p>
-      <p>Elaborado por H. Neemann em 2016-2021.</p>
+      <p>Elaborado por H. Neemann em 2016-2023.</p>
       <p>Os ícones foram tomados de <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
       <p>Para conhecer melhor o projeto, visitar <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
       Última versão disponível em <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>.</p>

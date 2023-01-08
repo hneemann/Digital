@@ -2042,7 +2042,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
 
     <string name="message"><![CDATA[<h1>Digital</h1>
         <p>Ein einfacher Simulator für digitale Schaltkreise.</p>
-        <p>Geschrieben von H. Neemann 2016-2021</p>
+        <p>Geschrieben von H. Neemann 2016-2023</p>
         <p>Die Icons stammen aus dem <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
         <p>Besuche das Projekt auf <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
         Die jeweils neueste Version steht dort ebenfalls zum
