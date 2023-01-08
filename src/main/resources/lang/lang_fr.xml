@@ -2701,4 +2701,31 @@ ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
     <string name="menu_copy_tt">Copier vers le presse-papier</string>
     <string name="key_defaultsDC">Mettre les valeurs indéfinies à X</string>
     <string name="key_defaultsDC_tt">Mets les valeurs indéfinies (suivant les états et les sorties) à "peu importe".</string>
+    <string name="key_persistTime">Durée de rémanence</string>
+    <string name="key_persistTime_tt">Spécifie la durée de la lumière rémanente. Plus la valeur est élevée, plus la rémanence est longue.</string>
+    <string name="key_oscillationDetectionCounter">Détection d'oscillation</string>
+    <string name="key_oscillationDetectionCounter_tt">Nombre de délais équivalents au temps de propagation d'une porte logique à partir
+      duquel une oscillation est détectée si le circuit n'est pas encore stable.</string>
+    <string name="key_openRemotePort">Permettre la connexion à distance</string>
+    <string name="key_openRemotePort_tt">Si coché, un port TCP/IP est ouvert, à travers lequel le contrôle du simulateur est possible.</string>
+    <string name="key_remotePort">Numéro de port</string>
+    <string name="key_remotePort_tt">Le port sur lequel le serveur à distance est ouvert.</string>
+    <string name="msg_bigEndian">Big endian</string>
+    <string name="key_bigEndian">Utiliser big endian lors de l'importation</string>
+    <string name="key_bigEndian_tt">Utiliser l'ordre des octets big endian ("gros-boutiste") lors de l'importation</string>
+    <string name="menu_table_createCircuitMore">Circuits équivalents</string>
+    <string name="menu_table_maxInputs_N">À l''aide de portes avec au plus {0} entrées</string>
+    <string name="menu_presentationMode">Mode présentation</string>
+    <string name="menu_presentationMode_tt">Un affichage simplifié utile lors de présentation, cachant notamment les tests.</string>
+    <string name="menu_find">Rechercher</string>
+    <string name="menu_find_tt">Recherche parmi les étiquettes, les noms et les numéros de broche.</string>
+    <string name="menu_calcMaxPathLen">Calculer le délai maximal</string>
+    <string name="menu_calcMaxPathLen_tt">Le délai maximal est celle du chemin le plus long entre une entrée et une sortie, en nombre de portes logiques.</string>
+    <string name="msg_maxPathLen">Le délai maximal est de {0} portes logiques.</string>
+    <string name="msg_couldNotCalculateMaxPathLen">Le délai maximal n'a pas pu être calculé.</string>
+    <string name="key_source">Source</string>
+    <string name="key_source_noData">aucune données</string>
+    <string name="key_source_file">fichier</string>
+    <string name="key_source_dataField">données stockées</string>
+    <string name="err_could_not_load_rom">Impossible de charger les données de la ROM!</string>
 </resources>
