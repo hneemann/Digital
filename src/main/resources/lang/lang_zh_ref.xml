@@ -859,7 +859,7 @@ In the file howTo.md you can find more details about translations.
         case.</string>
   <string name="menu_table_createFunctionFixture_isSequential">The test case is only functional if the circuit is
         purely combinatorial!</string>
-  <string name="menu_table_exportHex">Export HEX</string>
+  <string name="menu_table_exportHex">HEX</string>
   <string name="menu_table_exportHex_tt">You can load the HEX file to a ROM or a LUT.</string>
   <string name="menu_table_new">New</string>
   <string name="menu_table_new_combinatorial">Combinatorial</string>
@@ -2125,4 +2125,42 @@ In the file howTo.md you can find more details about translations.
         Among other things, this also means that a circuit cannot be overclocked, since the effects of the falling
 		edge of the clock are not calculated until the circuit has stabilized after the previous rising edge.
         &lt;/body&gt;&lt;/html&gt;</string>
+    <string name="elem_Telnet_pin_av">Outputs a one if data is present.</string>
+    <string name="err_breakTimeOut">No break detected after {0} cycles at break point ''{1}''.
+        Possibly the number of timeout cycles in the break component should be increased.</string>
+    <string name="err_file_N0_ExistsTwiceBelow_N1">The file {0} exists multiple times under {1}.</string>
+    <string name="key_intFormat_decSigned">Signed decimal</string>
+    <string name="key_intFormat_fixed">Fixed Point</string>
+    <string name="key_intFormat_fixedSigned">Signed Fixed Point</string>
+    <string name="key_intFormat_floating">Floating Point</string>
+    <string name="key_fixedPoint">fixed point digits</string>
+    <string name="key_persistTime">Persistence Of Vision</string>
+    <string name="key_persistTime_tt">Specifies the duration of the afterglow. The larger the value, the longer the afterglow duration.</string>
+    <string name="key_oscillationDetectionCounter">Oscillation detection</string>
+    <string name="key_oscillationDetectionCounter_tt">Number of gate propagation times at which a oscillation is
+        detected if the circuit has not stabilized by then.</string>
+    <string name="key_openRemotePort">Allow remote connection</string>
+    <string name="key_openRemotePort_tt">If set, a TCP/IP port is opened, through which the control of the
+        simulator is possible.</string>
+    <string name="key_remotePort">Port number</string>
+    <string name="key_remotePort_tt">The port on which the remote server is opened.</string>
+    <string name="msg_bigEndian">Big-Endian</string>
+    <string name="key_bigEndian">Use big endian at import.</string>
+    <string name="key_bigEndian_tt">Use big endian byte order at import.</string>
+    <string name="menu_table_createCircuitMore">Circuit Variants</string>
+    <string name="menu_table_maxInputs_N">Use gates with at most {0} inputs</string>
+    <string name="menu_presentationMode">Presentation Mode</string>
+    <string name="menu_presentationMode_tt">A simplified view that, for example, omits the test cases, which can be useful for presentations.</string>
+    <string name="menu_find">Find</string>
+    <string name="menu_find_tt">Finds labels, net names and pin numbers.</string>
+    <string name="menu_calcMaxPathLen">Maximum Path Length</string>
+    <string name="menu_calcMaxPathLen_tt">The maximum path length is the longest path between one of the inputs and one of the outputs.</string>
+    <string name="msg_maxPathLen">The longest path consists of {0} gates.</string>
+    <string name="msg_couldNotCalculateMaxPathLen">The path length could not be calculated.</string>
+    <string name="key_source">Data Source</string>
+    <string name="key_source_noData">load no data at all</string>
+    <string name="key_source_file">file</string>
+    <string name="key_source_dataField">stored data</string>
+    <string name="err_could_not_load_rom">Could not load ROM data!</string>
+    <string name="msg_fixesCreated_N">Fixtures: {0}</string>
 </resources>
