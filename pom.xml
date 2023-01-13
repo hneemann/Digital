@@ -12,7 +12,8 @@
 
     <properties>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+        <buildTimestamp>${maven.build.timestamp}</buildTimestamp> <!-- cmdline-overridable timestamp for use within pom.xml -->
+        <build.timestamp>${buildTimestamp}</build.timestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.org.slf4j>1.7.24</version.org.slf4j>
     </properties>
@@ -120,7 +121,7 @@
                         </property>
                         <property>
                             <name>buildtime</name>
-                            <value>${maven.build.timestamp}</value>
+                            <value>${buildTimestamp}</value>
                         </property>
                     </systemProperties>
                 </configuration>
@@ -138,7 +139,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-SCM-Revision>${git.commit.id.describe}</Build-SCM-Revision>
-                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <Build-Time>${buildTimestamp}</Build-Time>
                             <SplashScreen-Image>icons/splash.png</SplashScreen-Image>
                         </manifestEntries>
                     </archive>
@@ -203,7 +204,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-SCM-Revision>${git.commit.id.describe}</Build-SCM-Revision>
-                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <Build-Time>${buildTimestamp}</Build-Time>
                             <SplashScreen-Image>icons/splash.png</SplashScreen-Image>
                         </manifestEntries>
                     </archive>
