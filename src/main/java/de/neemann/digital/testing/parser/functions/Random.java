@@ -38,6 +38,8 @@ public class Random extends Function {
 
     @Override
     public long calcValue(Context c, ArrayList<Expression> args) throws ParserException {
-        return (long) (rnd.nextDouble() * args.get(0).value(c));
+        final long value = Math.abs(rnd.nextLong());
+        final long max = args.get(0).value(c);
+        return value % max;
     }
 }
