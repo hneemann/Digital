@@ -962,7 +962,7 @@ In the file howTo.md you can find more details about translations.
   <string name="key_Frequency_tt">Frequência em tempo real a ser usada no clock de tempo real</string>
   <string name="key_IEEEShapes">Usar formatos IEEE 91-1984</string>
   <string name="key_IEEEShapes_tt">Usar formatos IEEE 91-1984 em lugar dos retangulares</string>
-  <string name="key_Inputs">Número de entradass</string>
+  <string name="key_Inputs">Número de entradas</string>
   <!-- And, NAnd, Or, NOr, XOr, XNOr, LookUpTable -->
   <string name="key_Inputs_tt">Número de entradas usado. Cada entrada necessitará estar contectada.</string>
   <string name="key_Label">Rótulo</string>
