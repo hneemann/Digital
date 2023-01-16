@@ -194,7 +194,7 @@ In the file howTo.md you can find more details about translations.
   <string name="elem_SixteenSeg_pin_led">Barramento de 16-bits para controlar os LEDs.</string>
   <string name="elem_SixteenSeg_pin_dp">Essa entrada controlará o ponto decimal.</string>
   <string name="elem_LedMatrix">Matriz de LEDs</string>
-  <string name="elem_LedMatrix_tt">A matrixz de LEDs. Os LEDs serão exibidos em uma janela em separado.
+  <string name="elem_LedMatrix_tt">A matriz de LEDs. Os LEDs serão exibidos em uma janela em separado.
         Os LEDs de uma coluna do display serão controlados por uma palavra de controle. Em outra entrada, a coluna corrente será
       selecionada. Dessa forma um display multiplexado será obtido.
       Os LEDs são capazes de se manter acesos indefinidamente durante a simulação para evitar que o display fique
