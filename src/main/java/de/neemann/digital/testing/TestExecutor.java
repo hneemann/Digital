@@ -124,7 +124,7 @@ public class TestExecutor {
             }
         }
 
-        context = new Context().setModel(model);
+        context = new Context().setModel(model).setSeedReset(testCase::resetSeed);
 
         for (VirtualSignal s : testCase.getVirtualSignals()) {
             final int index = getIndexOf(s.getName());

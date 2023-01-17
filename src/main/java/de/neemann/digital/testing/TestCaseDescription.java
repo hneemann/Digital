@@ -81,6 +81,13 @@ public class TestCaseDescription {
         random.setSeed(seed);
     }
 
+    /**
+     * Resets the seed value used by the random function in test code.
+     */
+    public void resetSeed() {
+        random.setSeed(seed);
+    }
+
     private void parseDataString() throws IOException, ParserException {
         Parser tdp = new Parser(dataString).parse();
         lines = tdp.getLines();

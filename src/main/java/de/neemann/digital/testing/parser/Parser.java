@@ -166,6 +166,11 @@ public class Parser {
                     expect(Tokenizer.Token.SEMICOLON);
                     list.add((listener, context) -> context.setVar(varName, intValue.value(context)));
                     break;
+                case RESETRANDOM:
+                    tok.consume();
+                    expect(Tokenizer.Token.SEMICOLON);
+                    list.add((listener, context) -> context.resetRandom());
+                    break;
                 case REPEAT:
                     tok.consume();
                     expect(Tokenizer.Token.OPEN);
