@@ -82,7 +82,7 @@ let d = random(256);
 1 (a) (d) (d)
 end loop
 
-rndReset;
+resetRandom;
 
 loop(a,256)
 let d = random(256);

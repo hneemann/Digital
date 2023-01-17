@@ -5,8 +5,8 @@ HEAD, planned as v0.30
 - Added a presentation mode.
 - Adds Q and CTRL-Q hotkeys to copy the component the mouse
   pointer is hovering over.
-- Now there is rndReset method available in the test code to
-  reset the random number generator used in the random function.
+- Now there is resetRandom method available in the test code to
+  reset the random number generator used by the random function.
 - The remote server is now disabled by default.
   It must be enabled in the settings.
 - When a new component has been placed with CRTL click,

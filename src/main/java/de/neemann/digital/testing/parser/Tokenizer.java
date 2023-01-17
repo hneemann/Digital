@@ -68,7 +68,7 @@ public class Tokenizer {
         STATEMENT_MAP.put("repeat", Token.REPEAT);
         STATEMENT_MAP.put("bits", Token.BITS);
         STATEMENT_MAP.put("let", Token.LET);
-        STATEMENT_MAP.put("rndReset", Token.RESETRANDOM);
+        STATEMENT_MAP.put("resetRandom", Token.RESETRANDOM);
         STATEMENT_MAP.put("while", Token.WHILE);
         STATEMENT_MAP.put("declare", Token.DECLARE);
         STATEMENT_MAP.put("program", Token.PROGRAM);
