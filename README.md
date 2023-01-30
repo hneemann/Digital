@@ -108,14 +108,14 @@ Unfortunately, the development of Toves was discontinued at a very early stage.
 In 2014, Carl Burch finally [discontinued](http://www.cburch.com/logisim/retire-note.html) the development of
 Logisim. Since Logisim was released as open source, there are a number of forks to continue the work on Logisim:
 
-- [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution) by people of a group of swiss institutes
+- [Logisim-evolution](https://github.com/logisim-evolution/logisim-evolution) by people of a group of swiss institutes
   (Haute École Spécialisée Bernoise, Haute École du paysage, d'ingénierie et d'architecture de Genève, and Haute École d'Ingénierie et de Gestion du Canton de Vaud)
 - [Logisim](https://github.com/lawrancej/logisim) by Joseph Lawrance at Wentworth Institute of Technology, Boston, MA 
 - [Logisim-iitd](https://code.google.com/archive/p/logisim-iitd/) from the Indian Institute of Technology Delhi
 - [Logisim](http://www.cs.cornell.edu/courses/cs3410/2015sp/) from the CS3410 course of the Cornell University
 
 But as far as I know, these projects do not work on solving the architectural difficulties. 
-They are more about adding features and fixing bugs. In [Logisim-Evolution](https://github.com/reds-heig/logisim-evolution), 
+They are more about adding features and fixing bugs. In [Logisim-evolution](https://github.com/logisim-evolution/logisim-evolution), 
 for example, a VHDL/Verilog export and a really nice FPGA board integration was added.
 
 So I also decided to implement a new simulator completely from scratch and started the implementation of Digital in March 2016.
