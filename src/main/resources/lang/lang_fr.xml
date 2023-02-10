@@ -2689,7 +2689,11 @@ ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
         De plus, le serveur envoie les commandes SGA et ECHO. Si cette option est désactivée,
         le serveur est un simple serveur TCP.</string>
     <string name="key_port">Port</string>
-    <string name="key_port_tt">Le port ouvert par le serveur.</string>
+    <string name="key_port_tt">Le port d'écoute du serveur.</string>
+    <string name="key_telnetBufferSize">Taille du tampon</string>
+    <string name="key_telnetBufferSize_tt">La taille (en octets) du tampon pour les données reçues.
+        Si les données sont reçues plus rapidement qu'elles ne sont traitées, le tampon se remplira.
+        Si le tampon est plein, les données reçues peuvent être perdues.</string>
     <string name="key_skipHDL">Ignorer lors de l'exportation en Verilog/VHDL</string>
     <string name="key_skipHDL_tt">Ignore la génération des composants internes au circuit lors de l'exportation en
         Verilog ou VHDL. Les références au circuit sont gardées, permettant de fournir une
