@@ -2516,6 +2516,10 @@ However, they must not be used above the header line listing the signal names.&l
         the server is a simple TCP server.</string>
     <string name="key_port">Port</string>
     <string name="key_port_tt">The port to be opened by the server.</string>
+    <string name="key_telnetBufferSize">Buffer size</string>
+    <string name="key_telnetBufferSize_tt">The size (in bytes) of the buffer for the received data.
+        If data is received faster than it can be processed, the buffer can become full.
+        If the buffer is full, incoming data can be lost.</string>
     <string name="key_skipHDL">Skip in Verilog/VHDL export</string>
     <string name="key_skipHDL_tt">Skips generating the internals of the circuit in Verilog/VHDL
         export. The references to the circuit are kept, making it possible to override the
