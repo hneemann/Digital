@@ -68,6 +68,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private static final Icon ICON_REDO = IconCreator.create("edit-redo.png");
     private static final ArrayList<Key> ATTR_LIST = new ArrayList<>();
 
+    private static final double MAX_SCALE = 50;
+    private static final double MIN_SCALE = 0.01;
+
     static {
         ATTR_LIST.add(Keys.LABEL);
         ATTR_LIST.add(Keys.WIDTH);
@@ -231,15 +234,17 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         setFocusable(true);
 
         addMouseWheelListener(e -> {
-            Vector pos = getPosVector(e);
             double f = Math.pow(0.9, e.getWheelRotation());
-            transform.translate(pos.x, pos.y);
-            transform.scale(f, f);
-            transform.translate(-pos.x, -pos.y);
-            isManualScale = true;
-            if (circuitScrollPanel != null)
-                circuitScrollPanel.transformChanged(transform);
-            graphicHasChanged();
+            if (scalingValid(f)) {
+                Vector pos = getPosVector(e);
+                transform.translate(pos.x, pos.y);
+                transform.scale(f, f);
+                transform.translate(-pos.x, -pos.y);
+                isManualScale = true;
+                if (circuitScrollPanel != null)
+                    circuitScrollPanel.transformChanged(transform);
+                graphicHasChanged();
+            }
         });
 
         addComponentListener(new ComponentAdapter() {
@@ -371,6 +376,33 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 }
             }
         }.setAccelerator("T").enableAcceleratorIn(this);
+
+        new ToolTipAction("pipetteCopy") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (activeMouseController == mouseNormal) {
+                    VisualElement ve = getActualVisualElement();
+                    if (ve != null) {
+                        // Insert a copy of the element, retaining the attributes.
+                        setPartToInsert(new VisualElement(ve));
+                    }
+                }
+            }
+        }.setAccelerator("Q").enableAcceleratorIn(this);
+
+        new ToolTipAction("pipette") {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (activeMouseController == mouseNormal) {
+                    VisualElement ve = getActualVisualElement();
+                    if (ve != null) {
+                        // Insert the element using default attributes.
+                        VisualElement insert = new VisualElement(ve.getElementName()).setShapeFactory(shapeFactory);
+                        setPartToInsert(insert);
+                    }
+                }
+            }
+        }.setAcceleratorCTRLplus("Q").enableAcceleratorIn(this);
 
         ToolTipAction plus = new PlusMinusAction(1).setAccelerator("PLUS").enableAcceleratorIn(this);
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), plus);
@@ -1080,14 +1112,24 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
      * @param f factor to scale
      */
     public void scaleCircuit(double f) {
-        Vector dif = getPosVector(getWidth() / 2, getHeight() / 2);
-        transform.translate(dif.x, dif.y);
-        transform.scale(f, f);
-        transform.translate(-dif.x, -dif.y);
-        isManualScale = true;
-        if (circuitScrollPanel != null)
-            circuitScrollPanel.transformChanged(transform);
-        graphicHasChanged();
+        if (scalingValid(f)) {
+            Vector dif = getPosVector(getWidth() / 2, getHeight() / 2);
+            transform.translate(dif.x, dif.y);
+            transform.scale(f, f);
+            transform.translate(-dif.x, -dif.y);
+            isManualScale = true;
+            if (circuitScrollPanel != null)
+                circuitScrollPanel.transformChanged(transform);
+            graphicHasChanged();
+        }
+    }
+
+    private boolean scalingValid(double f) {
+        if (transform.getScaleX() > MAX_SCALE && f > 1)
+            return false;
+        if (transform.getScaleX() < MIN_SCALE && f < 1)
+            return false;
+        return true;
     }
 
     /**
@@ -1847,7 +1889,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 modify(new ModifyInsertElement(element));
                 insertWires(element);
             }
-            mouseNormal.activate();
+            if (!mouse.isClickModifier(e))
+                mouseNormal.activate();
         }
 
         @Override

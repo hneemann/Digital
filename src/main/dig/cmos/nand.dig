@@ -1,7 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-  <version>1</version>
-  <attributes/>
+  <version>2</version>
+  <attributes>
+    <entry>
+      <string>shapeType</string>
+      <shapeType>CUSTOM</shapeType>
+    </entry>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
+    </entry>
+    <entry>
+      <string>customShape</string>
+      <shape>
+        <pins>
+          <entry>
+            <string>A</string>
+            <pin>
+              <pos x="0" y="0"/>
+              <showLabel>false</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>B</string>
+            <pin>
+              <pos x="0" y="40"/>
+              <showLabel>false</showLabel>
+            </pin>
+          </entry>
+          <entry>
+            <string>Y</string>
+            <pin>
+              <pos x="100" y="20"/>
+              <showLabel>false</showLabel>
+            </pin>
+          </entry>
+        </pins>
+        <drawables>
+          <poly>
+            <poly path="M 49.579712,49.78235 L 0.5797119,49.78235 L 0.5797119,-10.217651 L 49.579712,-10.217651 C 59.579712,-10.217651 79.57971,-0.21765137 78.57971,19.782349 C 78.57971,39.78235 59.579712,49.78235 49.579712,49.78235 Z" evenOdd="false"/>
+            <thickness>4</thickness>
+            <filled>false</filled>
+            <color>
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+              <alpha>255</alpha>
+            </color>
+          </poly>
+          <circle>
+            <p1 x="81" y="11"/>
+            <p2 x="99" y="29"/>
+            <thickness>4</thickness>
+            <color>
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+              <alpha>255</alpha>
+            </color>
+            <filled>false</filled>
+          </circle>
+        </drawables>
+        <label>
+          <p1 x="52" y="-20"/>
+          <p2 x="53" y="-20"/>
+          <text></text>
+          <orientation>CENTERBOTTOM</orientation>
+          <size>24</size>
+          <color>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+            <alpha>255</alpha>
+          </color>
+        </label>
+      </shape>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>VDD</elementName>
@@ -238,4 +315,5 @@
       <p2 x="220" y="260"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>

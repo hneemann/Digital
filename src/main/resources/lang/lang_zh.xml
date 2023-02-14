@@ -714,7 +714,7 @@ In the file howTo.md you can find more details about translations.
   <string name="menu_table_createFunctionFixture">导出测试用例</string>
   <string name="menu_table_createFunctionFixture_tt">创建用于测试用例的描述</string>
   <string name="menu_table_createFunctionFixture_isSequential">测试用例仅在电路为纯组合电路时可用</string>
-  <string name="menu_table_exportHex">导出十六进制文件</string>
+  <string name="menu_table_exportHex">十六进制</string>
   <string name="menu_table_exportHex_tt">可用将十六进制文件载入 ROM 或查找表</string>
   <string name="menu_table_new">新建</string>
   <string name="menu_table_new_combinatorial">组合电路</string>
@@ -808,7 +808,7 @@ In the file howTo.md you can find more details about translations.
   <string name="msg_errorOpeningDocumentation">打开 PDF 文件时遇到错误！</string>
   <string name="message"><![CDATA[<h1>Digital</h1>
       <p>一个简单的数字电路仿真器</p>
-      <p>作者： H. Neemann  2016-2021</p>
+      <p>作者： H. Neemann  2016-2023</p>
       <p>所用图标来自 <a href="http://tango.freedesktop.org">Tango Desktop Project</a></p>
       <p>在 <a href="https://github.com/hneemann/[[name]]">GitHub</a> 查看该项目，并<a href="https://github.com/hneemann/[[name]]/releases/latest">下载</a>最新的发行版</p>
       <p>可以在这里提交<a href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">问题</a>或<a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">建议</a></p>]]></string>
@@ -1674,4 +1674,39 @@ In the file howTo.md you can find more details about translations.
         &lt;h3&gt;在图中可以看到什么？&lt;/h3&gt;
         与真正的逻辑分析仪不同，测量图的 X 轴不显示时间。而是显示一个计数器，用于计算电路中状态的变化。每当电路发生变化时，计数器就会递增并显示新状态。&lt;br/&gt;您也可以将其视为经典的逻辑分析仪，如果电路中没有任何变化，它不会保存任何数据进行电路优化。但是，这也意味着无法从图中读取电路中两次更改之间经过的时间是长还是短。&lt;br/&gt; 这种行为是由模拟的性质引起的：电路的模拟不知道时间的概念。对电路进行更改，并计算电路状态的变化，直到电路再次稳定。然后进行下一个更改，其效果也是计算等等。对这些变化进行计数，并将计数器值显示在图表的 X 轴上。&lt;br/&gt; 此外，这也意味着电路不能超频，因为直到电路在前一个上升沿后稳定后才计算时钟下降沿的影响。
         &lt;/body&gt;&lt;/html&gt;</string>
+    <string name="elem_Telnet_pin_av">如果数据存在则输出 1</string>
+    <string name="err_breakTimeOut">经过 {0} 个周期未在断点 ''{1}'' 处检测到中断，或许需要在中断组件中增加超时的周期数。</string>
+    <string name="err_file_N0_ExistsTwiceBelow_N1">{1} 中，文件 {0} 出现多次</string>
+    <string name="key_intFormat_decSigned">有符号十进制</string>
+    <string name="key_intFormat_fixed">定点</string>
+    <string name="key_intFormat_fixedSigned">-有符号定点</string>
+    <string name="key_intFormat_floating">浮点</string>
+    <string name="key_fixedPoint">定点数</string>
+    <string name="key_persistTime">视觉暂留</string>
+    <string name="key_persistTime_tt">设置余辉的持续时间。 数值越大，余辉持续时间越长。</string>
+    <string name="key_oscillationDetectionCounter">振荡检测</string>
+    <string name="key_oscillationDetectionCounter_tt">如果电路尚未稳定，则检测到振荡的门传播次数。</string>
+    <string name="key_openRemotePort">允许远程连接</string>
+    <string name="key_openRemotePort_tt">-如果开启，会打开一个 TCP 端口，可以通过该端口控制仿真器。</string>
+    <string name="key_remotePort">端口号</string>
+    <string name="key_remotePort_tt">远程控制服务的端口</string>
+    <string name="msg_bigEndian">大端</string>
+    <string name="key_bigEndian">导入时使用大端对齐</string>
+    <string name="key_bigEndian_tt">导入时使用大端对齐</string>
+    <string name="menu_table_createCircuitMore">其它电路</string>
+    <string name="menu_table_maxInputs_N">最多允许 {0} 个输入</string>
+    <string name="menu_presentationMode">演示模式</string>
+    <string name="menu_presentationMode_tt">简单的视图用于演示</string>
+    <string name="menu_find">查找</string>
+    <string name="menu_find_tt">查找标签、网络名和管脚编号</string>
+    <string name="menu_calcMaxPathLen">最长路径</string>
+    <string name="menu_calcMaxPathLen_tt">输入端口和输出端口间的最长路径</string>
+    <string name="msg_maxPathLen">最长路径包含 {0} 个门电路</string>
+    <string name="msg_couldNotCalculateMaxPathLen">未能计算出最长路径</string>
+    <string name="key_source">数据源</string>
+    <string name="key_source_noData">未载入数据</string>
+    <string name="key_source_file">文件</string>
+    <string name="key_source_dataField">存储数据</string>
+    <string name="err_could_not_load_rom">未能载入 ROM 数据</string>
+    <string name="msg_fixesCreated_N">修正: {0}</string>
 </resources>

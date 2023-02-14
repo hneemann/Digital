@@ -37,7 +37,7 @@ public class Tokenizer {
         SMALLER(OperatorPrecedence.COMPARE, (a, b) -> (a < b) ? 1 : 0),
         SMALLER_EQUAL(OperatorPrecedence.COMPARE, (a, b) -> (a <= b) ? 1 : 0),
         END, LOOP, REPEAT, BITS, SEMICOLON,
-        LET, DECLARE, PROGRAM, INIT, MEMORY, WHILE;
+        LET, DECLARE, PROGRAM, INIT, MEMORY, WHILE, RESETRANDOM;
 
         private final OperatorPrecedence precedence;
         private final Binary function;
@@ -68,6 +68,7 @@ public class Tokenizer {
         STATEMENT_MAP.put("repeat", Token.REPEAT);
         STATEMENT_MAP.put("bits", Token.BITS);
         STATEMENT_MAP.put("let", Token.LET);
+        STATEMENT_MAP.put("resetRandom", Token.RESETRANDOM);
         STATEMENT_MAP.put("while", Token.WHILE);
         STATEMENT_MAP.put("declare", Token.DECLARE);
         STATEMENT_MAP.put("program", Token.PROGRAM);

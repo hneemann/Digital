@@ -753,6 +753,8 @@
             <shortcut key="D">Beim Ziehen einer rechteckigen Leitung in den Diagonalmodus wechseln</shortcut>
             <shortcut key="F">Beim Ziehen einer rechteckigen Leitung die Orientierung wechseln</shortcut>
             <shortcut key="S">Leitung in zwei Leitungen teilen</shortcut>
+            <shortcut key="Q">Bauteil unter der Maus kopieren</shortcut>
+            <shortcut key="STRG-Q">Bauteil unter der Maus mit Default-Werten kopieren</shortcut>
             <shortcut key="ESC">Abbrechen der aktuellen Aktion</shortcut>
             <shortcut key="Entfernen">Löschen der selektierten Elemente</shortcut>
             <shortcut key="Rückschritt">Löschen der selektierten Elemente</shortcut>

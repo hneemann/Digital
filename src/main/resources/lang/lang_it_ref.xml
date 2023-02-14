@@ -974,7 +974,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_errParsingGenerics">Error while parsing generics code.</string>
     <string name="err_noGenericInitCode">No initialization code for the generic components.
         A respective component must be added to the circuit in order to start it.</string>
-    <string name="err_multipleGenericInitCodes">Multiple initialization codes for the generic components.</string>
+    <string name="err_multipleGenericInitCodes">Multiple initialization codes for the generic elements.</string>
     <string name="err_inGenericInitCode">Error in the analysis of the generic initialization code.</string>
     <string name="err_writeInCodeComponentsOnly">Global variables can only be written in code components.</string>
     <string name="err_vgaModeNotDetected_N">Video mode was not detected ({0})</string>
@@ -1494,7 +1494,7 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_paste">Paste</string>
     <string name="menu_rotate">Rotate</string>
     <string name="menu_sim">Simulation</string>
-    <string name="menu_run">Start Simulation</string>
+    <string name="menu_run">Start of Simulation</string>
     <string name="menu_run_tt">Starts the simulation of the circuit.</string>
     <string name="menu_save">Save</string>
     <string name="menu_saveAs">Save As</string>
@@ -1642,7 +1642,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_errorOpeningDocumentation">Error opening a PDF file!</string>
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;
         &lt;p&gt;A simple simulator for digital circuits.&lt;/p&gt;
-        &lt;p&gt;Written by H. Neemann in 2016-2021.&lt;/p&gt;
+        &lt;p&gt;Written by H. Neemann in 2016-2023.&lt;/p&gt;
         &lt;p&gt;The icons are taken from the &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.&lt;/p&gt;
         &lt;p&gt;Visit the project at &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
         At GitHub you can also &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;download&lt;/a&gt;
@@ -2142,4 +2142,36 @@ However, they must not be used above the header line listing the signal names.&l
     <string name="btn_copyToClipboard">Clipboard</string>
     <string name="key_defaultsDC">Set undefined values to DC</string>
     <string name="key_defaultsDC_tt">Sets all undefined values (following state and outputs) to "Don't Care".</string>
+    <string name="btn_openInBrowser">Browser</string>
+    <string name="btn_saveTemplate">Template</string>
+    <string name="elem_BitExtender_short">SignEx</string>
+    <string name="elem_BitCount_short">Bit count</string>
+    <string name="elem_TransGate">Transmission-Gate</string>
+    <string name="key_persistTime">Persistence Of Vision</string>
+    <string name="key_persistTime_tt">Specifies the duration of the afterglow. The larger the value, the longer the afterglow duration.</string>
+    <string name="key_oscillationDetectionCounter">Oscillation detection</string>
+    <string name="key_oscillationDetectionCounter_tt">Number of gate propagation times at which a oscillation is
+        detected if the circuit has not stabilized by then.</string>
+    <string name="key_openRemotePort">Allow remote connection</string>
+    <string name="key_openRemotePort_tt">If set, a TCP/IP port is opened, through which the control of the
+        simulator is possible.</string>
+    <string name="key_remotePort">Port number</string>
+    <string name="key_remotePort_tt">The port on which the remote server is opened.</string>
+    <string name="msg_bigEndian">Big-Endian</string>
+    <string name="key_bigEndian">Use big endian at import.</string>
+    <string name="key_bigEndian_tt">Use big endian byte order at import.</string>
+    <string name="menu_table_createCircuitMore">Circuit Variants</string>
+    <string name="menu_table_maxInputs_N">Use gates with at most {0} inputs</string>
+    <string name="menu_presentationMode">Presentation Mode</string>
+    <string name="menu_presentationMode_tt">A simplified view that, for example, omits the test cases, which can be useful for presentations.</string>
+    <string name="menu_find">Find</string>
+    <string name="menu_find_tt">Finds labels, net names and pin numbers.</string>
+    <string name="menu_calcMaxPathLen">Maximum Path Length</string>
+    <string name="menu_calcMaxPathLen_tt">The maximum path length is the longest path between one of the inputs and one of the outputs.</string>
+    <string name="msg_maxPathLen">The longest path consists of {0} gates.</string>
+    <string name="msg_couldNotCalculateMaxPathLen">The path length could not be calculated.</string>
+    <string name="key_source">Data Source</string>
+    <string name="key_source_noData">load no data at all</string>
+    <string name="key_source_dataField">stored data</string>
+    <string name="err_could_not_load_rom">Could not load ROM data!</string>
 </resources>

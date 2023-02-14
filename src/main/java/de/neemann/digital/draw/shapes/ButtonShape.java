@@ -8,6 +8,7 @@ package de.neemann.digital.draw.shapes;
 import de.neemann.digital.core.SyncAccess;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
+import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.io.Button;
 import de.neemann.digital.draw.elements.IOState;
@@ -30,6 +31,7 @@ public class ButtonShape implements Shape {
 
     private final String label;
     private final PinDescriptions outputs;
+    private boolean centerLabel;
     private Button button;
 
     /**
@@ -42,6 +44,16 @@ public class ButtonShape implements Shape {
     public ButtonShape(ElementAttributes attr, PinDescriptions inputs, PinDescriptions outputs) {
         this.outputs = outputs;
         this.label = attr.getLabel();
+        setCenterLabel(attr.get(Keys.MAP_TO_KEY) && label.length() == 1);
+    }
+
+    /**
+     * Enables centering of the label
+     *
+     * @param center true if label is to center
+     */
+    protected void setCenterLabel(boolean center) {
+        centerLabel = center;
     }
 
     @Override
@@ -100,7 +112,27 @@ public class ButtonShape implements Shape {
             graphic.drawLine(new Vector(-1 - HEIGHT, OUT_SIZE - HEIGHT), new Vector(-1 - t, OUT_SIZE - t), Style.NORMAL);
         }
 
-        Vector textPos = new Vector(-OUT_SIZE * 3, -4);
-        graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.NORMAL);
+        if (centerLabel) {
+            Vector center = getButtonCenter(isPressed);
+            graphic.drawText(center, label, Orientation.CENTERCENTER, Style.NORMAL);
+        } else {
+            Vector textPos = new Vector(-OUT_SIZE * 3, -4);
+            graphic.drawText(textPos, label, Orientation.RIGHTCENTER, Style.NORMAL);
+        }
+    }
+
+    /**
+     * Calculates the center of the button depending on pressed state
+     *
+     * @param pressed the pressed state
+     * @return the center of the button
+     */
+    protected Vector getButtonCenter(boolean pressed) {
+        Vector center;
+        if (pressed) {
+            center = new Vector(-OUT_SIZE - 1, 0);
+        } else
+            center = new Vector(-OUT_SIZE - 1 - ButtonShape.HEIGHT, -ButtonShape.HEIGHT);
+        return center;
     }
 }

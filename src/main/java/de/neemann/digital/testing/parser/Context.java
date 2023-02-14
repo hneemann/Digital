@@ -19,6 +19,7 @@ public class Context {
     private final Context parent;
     private HashMap<String, Long> map;
     private Model model;
+    private SeedReset seedReset;
 
     /**
      * Creates an empty context
@@ -96,7 +97,7 @@ public class Context {
     }
 
     /**
-     * Sets the model where tis context is used with.
+     * Sets the model where this context is used with.
      *
      * @param model the model
      * @return this for chained calls
@@ -104,5 +105,33 @@ public class Context {
     public Context setModel(Model model) {
         this.model = model;
         return this;
+    }
+
+    /**
+     * Called from the test code to reset the seed value.
+     */
+    public void resetRandom() {
+        seedReset.resetSeed();
+    }
+
+    /**
+     * Sets the seedReset interface.
+     *
+     * @param seedReset Used to reset the seed value
+     * @return this for chained calls
+     */
+    public Context setSeedReset(SeedReset seedReset) {
+        this.seedReset = seedReset;
+        return this;
+    }
+
+    /**
+     * Interface used to reset the seed value
+     */
+    public interface SeedReset {
+        /**
+         * resets the seed value
+         */
+        void resetSeed();
     }
 }

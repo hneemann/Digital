@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-  <version>1</version>
+  <version>2</version>
   <attributes>
     <entry>
       <string>shapeType</string>
@@ -9,6 +9,12 @@
     <entry>
       <string>Description</string>
       <string>4-Bit Bidirectional Universal Shift Register</string>
+    </entry>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
     </entry>
     <entry>
       <string>lockedMode</string>
@@ -795,7 +801,7 @@ end loop</dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="520" y="-360"/>
+      <pos x="380" y="-360"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -909,7 +915,65 @@ end loop
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="660" y="-360"/>
+      <pos x="520" y="-360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Datasheet Pins</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>/1 /10 /9 /11 /7 /2 /3 /4 /5 /6 /15 /14 /13 /12
+ 0  x  x   x   x   x  x  x  x  x  0  0  0  0 
+ 1  x  x   0   x   x  x  x  x  x  0  0  0  0
+loop (n,16)
+ 1  1  1   c   x   x  bits(4,n)   bits(4,n)
+ 1  0  1   c   0   1  bits(4,n)   bits(4,(n&gt;&gt;1)|8)
+ 1  1  1   c   x   x  bits(4,n)   bits(4,n)
+ 1  0  1   c   1   1  bits(4,n)   bits(4,(n&gt;&gt;1)|8)
+
+ 1  1  1   c   x   x  bits(4,n)   bits(4,n)
+ 1  0  1   c   0   0  bits(4,n)   bits(4,(n&gt;&gt;1))
+ 1  1  1   c   x   x  bits(4,n)   bits(4,n)
+ 1  0  1   c   1   0  bits(4,n)   bits(4,(n&gt;&gt;1))
+end loop
+
+loop (n,16)
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  1  0   c   1   0  bits(4,n)   bits(4,(n&lt;&lt;1)|1)
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  1  0   c   1   1  bits(4,n)   bits(4,(n&lt;&lt;1)|1)
+
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  1  0   c   0   0  bits(4,n)   bits(4,(n&lt;&lt;1))
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  1  0   c   0   1  bits(4,n)   bits(4,(n&lt;&lt;1))
+end loop
+
+loop (n,16)
+ 1  1  1   0   0   0  bits(4,n)   x  x  x  x
+ 1  1  1   c   0   0  bits(4,n)   bits(4,n)
+ 1  0  0   x   x   x  x  x  x  x  bits(4,n)
+end loop
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="-360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>&quot;Datasheet Pins&quot; test is taken from the &quot;real&quot; implementation 74194real</string>
+        </entry>
+      </elementAttributes>
+      <pos x="700" y="-420"/>
     </visualElement>
   </visualElements>
   <wires>

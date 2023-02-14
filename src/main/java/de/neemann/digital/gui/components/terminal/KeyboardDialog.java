@@ -42,9 +42,31 @@ public class KeyboardDialog extends JDialog implements Keyboard.KeyboardInterfac
         textLabel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
+                appendChar(e.getKeyChar());
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_UP:
+                        appendChar((char) 17);
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        appendChar((char) 18);
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        appendChar((char) 19);
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        appendChar((char) 20);
+                        break;
+                }
+            }
+
+            private void appendChar(char c) {
                 String t;
                 synchronized (textLock) {
-                    text += e.getKeyChar();
+                    text += c;
                     t = text;
                 }
                 modelSync.modify(keyboard::hasChanged);

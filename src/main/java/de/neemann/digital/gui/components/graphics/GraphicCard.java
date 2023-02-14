@@ -5,10 +5,7 @@
  */
 package de.neemann.digital.gui.components.graphics;
 
-import de.neemann.digital.core.Node;
-import de.neemann.digital.core.NodeException;
-import de.neemann.digital.core.ObservableValue;
-import de.neemann.digital.core.ObservableValues;
+import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.Element;
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.ElementTypeDescription;
@@ -66,6 +63,7 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     private boolean ld;
     private int addr;
     private boolean lastBank;
+    private boolean runningInMainFrame;
 
     /**
      * Creates a new Graphics instance
@@ -149,6 +147,11 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     }
 
     @Override
+    public void init(Model model) throws NodeException {
+        model.addObserver(event -> runningInMainFrame = model.runningInMainFrame(), ModelEventType.STARTED);
+    }
+
+    @Override
     public DataField getMemory() {
         return memory;
     }
@@ -156,15 +159,17 @@ public class GraphicCard extends Node implements Element, RAMInterface {
     private final AtomicBoolean paintPending = new AtomicBoolean();
 
     private void updateGraphic(boolean bank) {
-        if (paintPending.compareAndSet(false, true)) {
-            SwingUtilities.invokeLater(() -> {
-                if (graphicDialog == null || !graphicDialog.isVisible()) {
-                    graphicDialog = new GraphicDialog(getModel().getWindowPosManager().getMainFrame(), width, height);
-                    getModel().getWindowPosManager().register("GraphicCard_" + label, graphicDialog);
-                }
-                paintPending.set(false);
-                graphicDialog.updateGraphic(memory, bank);
-            });
+        if (runningInMainFrame) {
+            if (paintPending.compareAndSet(false, true)) {
+                SwingUtilities.invokeLater(() -> {
+                    if (graphicDialog == null || !graphicDialog.isVisible()) {
+                        graphicDialog = new GraphicDialog(getModel().getWindowPosManager().getMainFrame(), width, height);
+                        getModel().getWindowPosManager().register("GraphicCard_" + label, graphicDialog);
+                    }
+                    paintPending.set(false);
+                    graphicDialog.updateGraphic(memory, bank);
+                });
+            }
         }
     }
 

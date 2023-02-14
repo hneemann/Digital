@@ -411,8 +411,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
 
         try {
             String root = rootLibraryPath.getCanonicalPath();
-            String path = file.getParentFile().getCanonicalPath();
-            return path.startsWith(root);
+            return file.getParentFile().getCanonicalFile().toPath().startsWith(root);
         } catch (IOException e) {
             return false;
         }

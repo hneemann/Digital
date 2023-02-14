@@ -1,10 +1,17 @@
 Release Notes
 
-HEAD, planned as v0.30
-- Adds a Pause button.
-- Adds a presentation mode.
+v0.30, released on 3. February 2023
+- Added a search function
+- Added a presentation mode.
+- Adds Q and CTRL-Q hotkeys to copy the component the mouse
+  pointer is hovering over.
+- Now there is resetRandom method available in the test code to
+  reset the random number generator used by the random function.
 - The remote server is now disabled by default.
   It must be enabled in the settings.
+- When a new component has been placed with CRTL click,
+  you can place another one.
+- Fixes the ignored default value in demuxer HDL export.
 
 v0.29, released on 11. February 2022
 - Allows loading byte base files in big-endian format.

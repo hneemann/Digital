@@ -933,7 +933,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_errParsingGenerics">Errore durante l'interpretazione del codice generico-</string>
     <string name="err_noGenericInitCode">Nessuna inizializzazione del codice per i componenti generici è stata trovata.
         Un rispettivo componente deve essere aggiunto al circuito per farlo partire.</string>
-    <string name="err_multipleGenericInitCodes">Più codici di inizializzazione per componenti generici sono stati trovati.</string>
+    <string name="err_multipleGenericInitCodes">Più codici di inizializzazione per i componenti generici.</string>
     <string name="err_inGenericInitCode">Errore durante l'analisi del codice generico di inizializzazione.</string>
     <string name="err_writeInCodeComponentsOnly">Le variabili globali possono essere dichiarate soltanto nel codice dei componenti.</string>
     <string name="err_vgaModeNotDetected_N">La modalità video non è stata rilevata ({0})</string>
@@ -975,7 +975,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_Frequency_tt">La frequenza in tempo reale utilizzata per questo clock.</string>
     <string name="key_IEEEShapes">Utilizza forme IEEE 91-1984</string>
     <string name="key_IEEEShapes_tt">Utilizza forme IEEE 91-1984 anziché forme rettangolari</string>
-    <string name="key_Inputs">Numero delle uscite</string>
+    <string name="key_Inputs">Numero di ingressi</string>
     <string name="key_Inputs_tt">Numero di ingressi utilizzati. Ogni ingresso deve essere connesso.</string>
     <string name="key_Label">Etichetta</string>
     <string name="key_Label_tt">Il nome di questo elemento.</string>
@@ -1441,7 +1441,7 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_paste">Incolla</string>
     <string name="menu_rotate">Ruota</string>
     <string name="menu_sim">Simulazione</string>
-    <string name="menu_run">Avvia la Simulazione</string>
+    <string name="menu_run">Avvio della Simulazione</string>
     <string name="menu_run_tt">Avvia la simulazione del circuito.</string>
     <string name="menu_save">Salva</string>
     <string name="menu_saveAs">Salva Come</string>
@@ -1587,7 +1587,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_errorOpeningDocumentation">Errore durante l'apertura del file PDF!</string>
     <string name="message">&lt;h1&gt;Digital&lt;/h1&gt;
         &lt;p&gt;Un semplice simulatore per circuiti digitali.&lt;/p&gt;
-        &lt;p&gt;Scritto da H. Neemann nel 2016-2021.&lt;/p&gt;
+        &lt;p&gt;Scritto da H. Neemann nel 2016-2023.&lt;/p&gt;
         &lt;p&gt;Le icone sono prese dal &lt;a href="http://tango.freedesktop.org"&gt;Tango Desktop Project&lt;/a&gt;.&lt;/p&gt;
         &lt;p&gt;Visita il progetto su &lt;a href="https://github.com/hneemann/[[name]]"&gt;GitHub&lt;/a&gt;.
         Su GitHub puoi anche &lt;a href="https://github.com/hneemann/[[name]]/releases/latest"&gt;scaricare&lt;/a&gt;
@@ -2088,4 +2088,34 @@ Comunque, non devono trovarsi sopra la riga di intestazione che elenca i nomi de
     <string name="btn_copyToClipboard">Appunti</string>
     <string name="key_defaultsDC">Imposta i valori non definiti a DC</string>
     <string name="key_defaultsDC_tt">Imposta tutti i valori non definiti (seguendo gli stati e le uscite) a "Non importa".</string>
+    <string name="btn_openInBrowser">Apri nel browser</string>
+    <string name="btn_saveTemplate">Salva template</string>
+    <string name="elem_BitExtender_short">Estenditore del segno</string>
+    <string name="elem_BitCount_short">Contatore di bit</string>
+    <string name="elem_TransGate">Transmission gate</string>
+    <string name="key_persistTime">Persistenza della visione</string>
+    <string name="key_persistTime_tt">Specifica la durata dell'afterglow. Più grande il valore, più lunga la durata dell'effetto.</string>
+    <string name="key_oscillationDetectionCounter">Identificazione dell'oscillazione</string>
+    <string name="key_oscillationDetectionCounter_tt">Numero di propagazioni oltre il quale un'oscillazione viene identificata se il circuito non si è ancora stabilizzato.</string>
+    <string name="key_openRemotePort">Consenti la connessione remota</string>
+    <string name="key_openRemotePort_tt">Se impostato, una porta TCP/IP viene aperta, attraverso la quale è possibile il controllo del simulatore.</string>
+    <string name="key_remotePort">Numero della porta</string>
+    <string name="key_remotePort_tt">La porta sulla quale il server remoto viene aperto.</string>
+    <string name="msg_bigEndian">Big endian</string>
+    <string name="key_bigEndian">Usa il big endian durante l'importazione.</string>
+    <string name="key_bigEndian_tt">Utilizza l'ordinamento dei byte "big endian" durante l'importazione.</string>
+    <string name="menu_table_createCircuitMore">Varianti del Circuito</string>
+    <string name="menu_table_maxInputs_N">Utilizza porte con al massimo {0} ingressi</string>
+    <string name="menu_presentationMode">Modalità Presentazione</string>
+    <string name="menu_presentationMode_tt">Una vista semplificata dove, per esempio, sono omessi i test case, che può essere utile per presentazioni.</string>
+    <string name="menu_find">Cerca</string>
+    <string name="menu_find_tt">Trova etichette, nomi di reti e numeri di pin</string>
+    <string name="menu_calcMaxPathLen">Percorso più Lungo</string>
+    <string name="menu_calcMaxPathLen_tt">La lunghezza massima del percorso è il percorso più lungo tra uno degli ingressi ed una delle uscite.</string>
+    <string name="msg_maxPathLen">Il percorso più lungo consiste di {0} porte.</string>
+    <string name="msg_couldNotCalculateMaxPathLen">Impossibile calcolare il percorso più lungo.</string>
+    <string name="key_source">Sorgente di Dati</string>
+    <string name="key_source_noData">non caricare nessun dato</string>
+    <string name="key_source_dataField">dati salvati</string>
+    <string name="err_could_not_load_rom">Impossibile caricare i dati della ROM!</string>
 </resources>

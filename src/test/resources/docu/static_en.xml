@@ -685,6 +685,9 @@
             <shortcut key="D">While drawing a wire switches to the diagonal mode.</shortcut>
             <shortcut key="F">While drawing a line flips the orientation.</shortcut>
             <shortcut key="S">Splits a single wire into two wires.</shortcut>
+            <shortcut key="Q">Copy the component the mouse pointer is hovering over.</shortcut>
+            <shortcut
+                    key="CTRL-Q">Copy the component the mouse pointer is hovering over with default settings.</shortcut>
             <shortcut key="ESC">Abort the current action.</shortcut>
             <shortcut key="Del">Removes the selected components.</shortcut>
             <shortcut key="Backspace">Removes the selected components.</shortcut>

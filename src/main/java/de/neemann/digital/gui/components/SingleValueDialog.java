@@ -83,12 +83,13 @@ public final class SingleValueDialog extends JDialog implements ModelStateObserv
      * @param value         the value to edit
      * @param supportsHighZ true is high z is supported
      * @param model         the model
+     * @param syncAccess    used to apply the value to the running model
      */
-    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, boolean supportsHighZ, Model model) {
+    public SingleValueDialog(JFrame parent, Point pos, String label, ObservableValue value, boolean supportsHighZ, Model model, SyncAccess syncAccess) {
         super(parent, Lang.get("win_valueInputTitle_N", label), false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.value = value;
-        this.syncAccess = model;
+        this.syncAccess = syncAccess;
 
         editValue = value.getCopy();
         this.supportsHighZ = supportsHighZ;

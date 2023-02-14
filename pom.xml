@@ -12,7 +12,8 @@
 
     <properties>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+        <buildTimestamp>${maven.build.timestamp}</buildTimestamp> <!-- cmdline-overridable timestamp for use within pom.xml -->
+        <build.timestamp>${buildTimestamp}</build.timestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.org.slf4j>1.7.24</version.org.slf4j>
     </properties>
@@ -120,7 +121,7 @@
                         </property>
                         <property>
                             <name>buildtime</name>
-                            <value>${maven.build.timestamp}</value>
+                            <value>${buildTimestamp}</value>
                         </property>
                     </systemProperties>
                 </configuration>
@@ -129,7 +130,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.5</version>
+                <version>3.2.0</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -138,7 +139,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-SCM-Revision>${git.commit.id.describe}</Build-SCM-Revision>
-                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <Build-Time>${buildTimestamp}</Build-Time>
                             <SplashScreen-Image>icons/splash.png</SplashScreen-Image>
                         </manifestEntries>
                     </archive>
@@ -188,6 +189,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.2.0</version>
                 <configuration>
                     <finalName>Digital</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
@@ -202,7 +204,7 @@
                         </manifest>
                         <manifestEntries>
                             <Build-SCM-Revision>${git.commit.id.describe}</Build-SCM-Revision>
-                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                            <Build-Time>${buildTimestamp}</Build-Time>
                             <SplashScreen-Image>icons/splash.png</SplashScreen-Image>
                         </manifestEntries>
                     </archive>
@@ -220,7 +222,9 @@
                         <id>make-dstribution</id>
                         <phase>install</phase>
                         <configuration>
-                            <descriptor>distribution/Assembly.xml</descriptor>
+                            <descriptors>
+                                <descriptor>distribution/Assembly.xml</descriptor>
+                            </descriptors>
                         </configuration>
                         <goals>
                             <goal>single</goal>
@@ -304,7 +308,7 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.19</version>
+            <version>1.4.20</version>
         </dependency>
 
         <dependency>
@@ -323,7 +327,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20171018</version>
+            <version>20220924</version>
         </dependency>
 
         <dependency>
@@ -332,19 +336,11 @@
             <version>${version.org.slf4j}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/xalan/xalan -->
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <version>2.7.2</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop -->
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>fop</artifactId>
-            <version>2.1</version>
+            <version>2.2</version>
             <scope>test</scope>
         </dependency>
 

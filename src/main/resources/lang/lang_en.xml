@@ -2003,6 +2003,9 @@
     <string name="menu_labelPins">Label Inputs and Outputs</string>
     <string name="menu_labelPins_tt">Set a label to all inputs and outputs without a label.</string>
 
+    <string name="menu_find">Find</string>
+    <string name="menu_find_tt">Finds labels, net names and pin numbers.</string>
+
     <string name="menu_tutorial">Start Tutorial</string>
     <string name="menu_tutorial_tt">Starts the beginner tutorial.</string>
 
@@ -2029,7 +2032,7 @@
 
     <string name="message"><![CDATA[<h1>Digital</h1>
         <p>A simple simulator for digital circuits.</p>
-        <p>Written by H. Neemann in 2016-2021.</p>
+        <p>Written by H. Neemann in 2016-2023.</p>
         <p>The icons are taken from the <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
         <p>Visit the project at <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
         At GitHub you can also <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>
