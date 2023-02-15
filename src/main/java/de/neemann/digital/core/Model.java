@@ -573,7 +573,7 @@ public class Model implements Iterable<Node>, SyncAccess {
      * Break is detected in running model
      */
     public synchronized void breakDetected() {
-        if (!paused)
+        if (!paused && state != State.INITIALIZING)
             pause();
     }
 
