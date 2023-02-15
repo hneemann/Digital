@@ -245,7 +245,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
-     * Called if a error has occurred during model execution.
+     * Called if an error has occurred during model execution.
      * Also closes the model.
      *
      * @param cause the cause
@@ -281,7 +281,7 @@ public class Model implements Iterable<Node>, SyncAccess {
 
     /**
      * Performs a step.
-     * This means all nodes which needs a update are updated, and all further nodes to
+     * This means all nodes which needs an update are updated, and all further nodes to
      * update are also updated until there is no further node to update.
      * So this method propagates a value change through the whole model.
      *
@@ -368,7 +368,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     /**
      * Runs the model until a positive edge at a break element is detected.
      *
-     * @return The {@link BreakInfo} containig the number of clock cycles necessary to get the positive edge.
+     * @return The {@link BreakInfo} containing the number of clock cycles necessary to get the positive edge.
      */
     public BreakInfo runToBreak() {
         return runToBreak(-1);
@@ -753,7 +753,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
-     * Registers a output to the model.
+     * Registers an output to the model.
      *
      * @param signal the signal
      */
@@ -791,7 +791,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
-     * @return the models outputs
+     * @return the models test outputs
      */
     public ArrayList<Signal> getTestOutputs() {
         return testOutputs;
@@ -833,7 +833,7 @@ public class Model implements Iterable<Node>, SyncAccess {
 
     /**
      * Returns all nodes of the given class.
-     * A filter can be used to narrow down the amount of nodes found.
+     * A filter can be used to narrow down the amount of found nodes.
      *
      * @param nodeClass the class
      * @param filter    filter to filter the nodes
@@ -873,7 +873,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
-     * Gets the button which matches a givrn key
+     * Gets the button which matches a given key
      *
      * @param keyCode the key
      * @return the button or null if not present
@@ -912,7 +912,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     }
 
     /**
-     * replaces a node by an other node
+     * replaces a node by another node
      *
      * @param oldNode old node
      * @param newNode new node
