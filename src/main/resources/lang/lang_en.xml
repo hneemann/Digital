@@ -470,7 +470,7 @@
     <string name="elem_RS_FF_AS_short">RS</string>
     <string name="elem_RS_FF_AS_tt">A component to store a single bit.
         Provides the functions "set" and "reset" to set or reset the stored bit.
-        If both inputs are switched to one, both outputs also output a one.
+        If both inputs are switched to one, both outputs also output a zero.
         If both inputs switch back to zero at the same time, the final state is random.
     </string>
     <string name="elem_RS_FF_AS_pin_S">The set input.</string>
