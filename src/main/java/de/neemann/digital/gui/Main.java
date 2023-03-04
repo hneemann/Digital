@@ -1769,15 +1769,17 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private class ModelClosedObserver implements ModelStateObserverTyped {
 
         private boolean closedByRestart = false;
+        private boolean errorDialogIsOpened = true;
 
         @Override
         public void handleEvent(ModelEvent event) {
             switch (event.getType()) {
                 case ERROR_OCCURRED:
                     SwingUtilities.invokeLater(() -> showError(Lang.get("msg_errorCalculatingStep"), event.getCause()));
+                    errorDialogIsOpened = true;
                     break;
                 case CLOSED:
-                    if (!closedByRestart)
+                    if (!errorDialogIsOpened && !closedByRestart)
                         SwingUtilities.invokeLater(Main.this::ensureModelIsStopped);
                     break;
             }
