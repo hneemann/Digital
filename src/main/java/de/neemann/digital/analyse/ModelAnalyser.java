@@ -54,7 +54,7 @@ public class ModelAnalyser {
         modelAnalyzerInfo.setInOut(inputs, outputs);
 
         for (Node n : model)
-            if (n.hasState() && !(n instanceof FlipflopD))
+            if (n.hasState() && !(n.getClass() == FlipflopD.class))
                 throw new AnalyseException(Lang.get("err_cannotAnalyse_N", n.getClass().getSimpleName()));
 
         int i = 0;
