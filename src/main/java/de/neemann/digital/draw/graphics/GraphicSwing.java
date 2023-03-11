@@ -21,6 +21,7 @@ public class GraphicSwing extends Graphic {
     private final int pixelSize;
     private Style lastStyle;
     private Graphics2D gr;
+    private Style highlightSmall;
 
     /**
      * Creates a new instance
@@ -41,6 +42,7 @@ public class GraphicSwing extends Graphic {
         this.gr = gr;
         this.pixelSize = pixelSize;
         this.minFontSize = pixelSize * 3;
+        highlightSmall = Style.HIGHLIGHT.deriveStyle(pixelSize * 3, false, Style.HIGHLIGHT.getColor());
     }
 
     /**
@@ -94,7 +96,20 @@ public class GraphicSwing extends Graphic {
     @Override
     public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
         Vector w = Vector.width(p1, p2);
-        if (w.x > pixelSize || w.y > pixelSize) {
+        if (style == Style.HIGHLIGHT) {
+            if (style.getThickness() < highlightSmall.getThickness())
+                applyStyle(highlightSmall);
+            else
+                applyStyle(style);
+            Vector p = Vector.min(p1, p2);
+            if (w.x < pixelSize * 8 || w.y < pixelSize * 8) {
+                VectorInterface c = p1.add(p2).div(2);
+                VectorInterface r = new Vector(pixelSize * 4, pixelSize * 4);
+                p = c.sub(r).round();
+                w = r.mul(2).round();
+            }
+            gr.drawOval(p.x, p.y, w.x, w.y);
+        } else if (w.x > pixelSize || w.y > pixelSize) {
             applyStyle(style);
             Vector p = Vector.min(p1, p2);
             if (style.isFilled())
