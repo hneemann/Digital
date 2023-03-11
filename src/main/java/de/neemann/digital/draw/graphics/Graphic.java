@@ -60,6 +60,17 @@ public abstract class Graphic implements Closeable {
     public abstract void drawCircle(VectorInterface p1, VectorInterface p2, Style style);
 
     /**
+     * Draws a circle for highlighting
+     *
+     * @param p1    upper left corner of outer rectangle containing the circle
+     * @param p2    lower right corner of outer rectangle containing the circle
+     * @param style the style
+     */
+    public void drawCircleHighlight(VectorInterface p1, VectorInterface p2, Style style) {
+        drawCircle(p1, p2, style);
+    }
+
+    /**
      * Draws text
      *
      * @param p1          point to draw the text

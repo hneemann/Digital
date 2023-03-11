@@ -90,7 +90,7 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
         if (highLight == Style.ERROR && graphic.isFlagSet(Graphic.Flag.tiny)) {
             Vector min = Vector.min(p1, p2).add(-SIZE, -SIZE);
             Vector max = Vector.max(p1, p2).add(SIZE, SIZE);
-            graphic.drawCircle(min, max, highLight);
+            graphic.drawCircleHighlight(min, max, highLight);
         }
 
         if (value != null)

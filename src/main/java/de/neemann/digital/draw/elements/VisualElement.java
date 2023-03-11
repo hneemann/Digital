@@ -203,7 +203,7 @@ public class VisualElement implements Drawable, Movable, AttributeListener {
             GraphicMinMax mm = getMinMax(false);
             Vector delta = mm.getMax().sub(mm.getMin()).add(SIZE, SIZE).div(2);
             Vector pos = mm.getMax().add(mm.getMin()).div(2);
-            graphic.drawCircle(pos.sub(delta), pos.add(delta), highLight);
+            graphic.drawCircleHighlight(pos.sub(delta), pos.add(delta), highLight);
         }
     }
 

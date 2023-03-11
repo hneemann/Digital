@@ -19,9 +19,9 @@ public class GraphicSwing extends Graphic {
 
     private final int minFontSize;
     private final int pixelSize;
+    private final Style highlightSmall;
     private Style lastStyle;
     private Graphics2D gr;
-    private Style highlightSmall;
 
     /**
      * Creates a new instance
@@ -96,20 +96,7 @@ public class GraphicSwing extends Graphic {
     @Override
     public void drawCircle(VectorInterface p1, VectorInterface p2, Style style) {
         Vector w = Vector.width(p1, p2);
-        if (style == Style.HIGHLIGHT) {
-            if (style.getThickness() < highlightSmall.getThickness())
-                applyStyle(highlightSmall);
-            else
-                applyStyle(style);
-            Vector p = Vector.min(p1, p2);
-            if (w.x < pixelSize * 8 || w.y < pixelSize * 8) {
-                VectorInterface c = p1.add(p2).div(2);
-                VectorInterface r = new Vector(pixelSize * 4, pixelSize * 4);
-                p = c.sub(r).round();
-                w = r.mul(2).round();
-            }
-            gr.drawOval(p.x, p.y, w.x, w.y);
-        } else if (w.x > pixelSize || w.y > pixelSize) {
+        if (w.x > pixelSize || w.y > pixelSize) {
             applyStyle(style);
             Vector p = Vector.min(p1, p2);
             if (style.isFilled())
@@ -117,6 +104,29 @@ public class GraphicSwing extends Graphic {
             else
                 gr.drawOval(p.x, p.y, w.x, w.y);
         }
+    }
+
+    @Override
+    public void drawCircleHighlight(VectorInterface p1, VectorInterface p2, Style style) {
+        if (style.getThickness() < highlightSmall.getThickness()) {
+            if (style == Style.HIGHLIGHT)
+                applyStyle(highlightSmall);
+            else {
+                applyStyle(style);
+                gr.setStroke(highlightSmall.getStroke());
+                lastStyle = null;
+            }
+        } else
+            applyStyle(style);
+        Vector w = Vector.width(p1, p2);
+        Vector p = Vector.min(p1, p2);
+        final int minSize = pixelSize * 8;
+        if (w.x < minSize || w.y < minSize) {
+            VectorInterface c = p1.add(p2).div(2);
+            w = new Vector(Math.max(minSize, w.x), Math.max(minSize, w.y));
+            p = c.sub(w.div(2)).round();
+        }
+        gr.drawOval(p.x, p.y, w.x, w.y);
     }
 
     private void applyStyle(Style style) {
