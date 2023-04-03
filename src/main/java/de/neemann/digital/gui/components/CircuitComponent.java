@@ -881,7 +881,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             else
                 pos = getPosVector(0, 0);
         }
-        elements = new CopiedElementLabelRenamer(getCircuit(), elements).rename();
+        if (Settings.getInstance().get(Keys.SETTINGS_RENAME_LABELS))
+            elements = new CopiedElementLabelRenamer(getCircuit(), elements).rename();
         mouseInsertList.activate(elements, pos);
         graphicHasChanged();
     }

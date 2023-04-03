@@ -1200,7 +1200,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
         Der Verilog Simulator Icarus scheint nicht installiert zu sein. Installieren Sie Icarus (http://iverilog.icarus.com/) und versuchen Sie es erneut. Sollte es immer noch Probleme geben, überprüfen Sie den Pfad zur ausfühbaren iverilog-Datei in den Digital-Einstellungen.
     </string>
     <string name="err_errorLoadingHDLFile_N">Fehler beim Laden der HDL-Datei {0}</string>
-    <string name="err_emptyLabelIsNotAllowed">Eine leere Bezeichnung is nicht erlaubt!</string>
+    <string name="err_emptyLabelIsNotAllowed">Eine leerer Bezeichner ist nicht erlaubt!</string>
 
     <string name="err_errorAnalysingCircuit_N">Fehler bei der Analyse der Schaltung: {0}</string>
     <string name="err_romNeedsALabelToBeExported">Jedes ROM braucht eine eindeutige Bezeichnung um exportiert zu werden!</string>
@@ -1537,6 +1537,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_tunnelRenameDialog">Dialog zum automatischen umbenennen von Tunneln anzeigen</string>
     <string name="key_tunnelRenameDialog_tt">Wenn gesetzt, wird nach dem Umbenennen eines Tunnels ein Dialog für automatisches Umbenennen
         aller gleichnamigen Tunnel angezeigt.</string>
+    <string name="key_renameLabels">Nummern in Bezeichnern beim Kopieren erhöhen.</string>
+    <string name="key_renameLabels_tt">Wenn gesetzt, wird in Elementen, deren Bezeichner mit einer Nummer endet, diese Nummer beim Kopieren erhöht.</string>
 
     <string name="key_ATMISP">ATMISP</string>
     <string name="key_ATMISP_tt">Pfad zur ausführbaren Datei ATMISP.exe. Wenn gesetzt, kann die Software ATMISP automatisch gestartet werden!</string>

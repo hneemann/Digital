@@ -1525,6 +1525,8 @@
     <string name="key_tunnelRenameDialog">Show dialog for automatic renaming of tunnels.</string>
     <string name="key_tunnelRenameDialog_tt">If set, a dialog for automatically renaming all tunnels of the same name is displayed after a
         tunnel has been renamed.</string>
+    <string name="key_renameLabels">Increase numbers in identifiers when copying.</string>
+    <string name="key_renameLabels_tt">If set, in components whose label ends with a number, this number is incremented when copying.</string>
 
     <string name="key_ATMISP">ATMISP</string>
     <string name="key_ATMISP_tt">Path to the executable file ATMISP.exe. If set, the ATMISP software can be started automatically!</string>

@@ -531,6 +531,12 @@ public final class Keys {
             = new Key<>("tunnelRenameDialog", true);
 
     /**
+     * enables renaming of labels ending with numbers while copying
+     */
+    public static final Key<Boolean> SETTINGS_RENAME_LABELS
+            = new Key<>("renameLabels", true);
+
+    /**
      * enables remote port
      */
     public static final Key<Boolean> SETTINGS_OPEN_REMOTE_PORT
