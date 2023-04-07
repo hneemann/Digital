@@ -273,15 +273,4 @@ public class PinMap extends ClockPinManager{
         return sb.toString();
     }
 
-    /**
-     * Sets the clock pin
-     *
-     * @param clockPin the clock pin
-     * @return this for chained calls
-     */
-    public void setClockPin(int clockPin) {
-        if (clockPin > 0)
-            this.setClockPin(clockPin);
-
-    }
 }

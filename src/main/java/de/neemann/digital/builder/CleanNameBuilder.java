@@ -124,8 +124,8 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
         /**
          * Creates a SimpleFilter instance with a predefined set of character filters.
          */
-        public SimpleFilter() {
-            filters = new CharacterFilter[]{ // <--
+         SimpleFilter() {
+            filters = new CharacterFilter[]{
                     new RangeCharacterFilter('A', 'Z'),
                     new RangeCharacterFilter('a', 'z'),
                     new RangeCharacterFilter('0', '9'),
@@ -144,8 +144,8 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < name.length(); i++) {
                 char c = name.charAt(i);
-                for (CharacterFilter filter : filters) { // <--
-                    if (filter.accept(c)) { // <--
+                for (CharacterFilter filter : filters) {
+                    if (filter.accept(c)) {
                         sb.append(c);
                         break;
                     }
@@ -181,7 +181,7 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
              * @param min the minimum character in the range (inclusive)
              * @param max the maximum character in the range (inclusive)
              */
-            public RangeCharacterFilter(char min, char max) {
+            RangeCharacterFilter(char min, char max) {
                 this.min = min;
                 this.max = max;
             }
@@ -209,7 +209,7 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
              *
              * @param target the character to accept
              */
-            public SingleCharacterFilter(char target) {
+            SingleCharacterFilter(char target) {
                 this.target = target;
             }
 
