@@ -115,9 +115,15 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
         String filter(String name);
     }
 
+    /**
+     * The SimpleFilter class applies multiple CharacterFilter instances to filter the input string.
+     */
     private static final class SimpleFilter implements Filter {
         private final CharacterFilter[] filters;
 
+        /**
+         * Creates a SimpleFilter instance with a predefined set of character filters.
+         */
         public SimpleFilter() {
             filters = new CharacterFilter[]{ // <--
                     new RangeCharacterFilter('A', 'Z'),
@@ -126,6 +132,13 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
                     new SingleCharacterFilter('_')
             };
         }
+
+        /**
+         * Filters the input string by applying the CharacterFilter instances.
+         *
+         * @param name the input string to filter
+         * @return the filtered string containing only accepted characters
+         */
         @Override
         public String filter(String name) {
             StringBuilder sb = new StringBuilder();
@@ -142,32 +155,70 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
             return sb.toString();
         }
 
+        /**
+         * The CharacterFilter interface defines a method to check if a character is accepted by the filter.
+         */
         private interface CharacterFilter {
+            /**
+             * Checks if the given character is accepted by the filter.
+             *
+             * @param c the character to check
+             * @return true if the character is accepted, false otherwise
+             */
             boolean accept(char c);
         }
 
+        /**
+         * The RangeCharacterFilter class accepts characters within a specified range.
+         */
         private static class RangeCharacterFilter implements CharacterFilter {
             private final char min;
             private final char max;
 
+            /**
+             * Creates a RangeCharacterFilter instance with a specified character range.
+             *
+             * @param min the minimum character in the range (inclusive)
+             * @param max the maximum character in the range (inclusive)
+             */
             public RangeCharacterFilter(char min, char max) {
                 this.min = min;
                 this.max = max;
             }
 
+            /**
+             * Checks if the given character is within the specified range.
+             *
+             * @param c the character to check
+             * @return true if the character is within the range, false otherwise
+             */
             @Override
             public boolean accept(char c) {
                 return c >= min && c <= max;
             }
         }
 
+        /**
+         * The SingleCharacterFilter class accepts a single specified character.
+         */
         private static class SingleCharacterFilter implements CharacterFilter {
             private final char target;
 
+            /**
+             * Creates a SingleCharacterFilter instance with a specified character to accept.
+             *
+             * @param target the character to accept
+             */
             public SingleCharacterFilter(char target) {
                 this.target = target;
             }
 
+            /**
+             * Checks if the given character is equal to the specified target character.
+             *
+             * @param c the character to check
+             * @return true if the character is equal to the target character, false otherwise
+             */
             @Override
             public boolean accept(char c) {
                 return c == target;
