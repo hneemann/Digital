@@ -59,7 +59,6 @@ public class FragmentExpression implements Fragment {
             fragments.add(new FragmentHolder(fr));
     }
 
-    //decomposed conditional in doLayoutNormal to new calculateMergerPositionY for improved readability
     private int calculateMergerPositionY(int centerIndex) {
         int y;
         boolean isEvenNumberOfInputs = (fragments.size() & 1) == 0;
@@ -75,7 +74,6 @@ public class FragmentExpression implements Fragment {
     private Box doLayoutNormal() {
         ArrayList<ConstExpression> constExpr = new ArrayList<>();
         int height = 0;
-        //Renamed variable width to maxWidth for better readability //rename variable
         int maxWidth = 0;
         for (FragmentHolder fr : fragments) {
             fr.fragment.setPos(new Vector(0, height));
@@ -104,7 +102,6 @@ public class FragmentExpression implements Fragment {
             ce.setXPos(maxWidth);
 
         int centerIndex = fragments.size() / 2;
-        //decomposed conditional
         int mergerPosY = calculateMergerPositionY(centerIndex);
         merger.setPos(new Vector(maxWidth, mergerPosY));
 
@@ -128,11 +125,10 @@ public class FragmentExpression implements Fragment {
 
 
         Box mergerBox = merger.doLayout();
-        //introduced explaining variable
+
         int mergerPosX = xPos;
         Vector mergerPos = new Vector(mergerPosX, 0);
         merger.setPos(mergerPos);
-       // merger.setPos(new Vector(xPos, 0));
 
         Iterator<Vector> in = merger.getInputs().iterator();
         for (FragmentHolder fr : fragments) {
@@ -143,7 +139,6 @@ public class FragmentExpression implements Fragment {
         return new Box(mergerBox.getWidth() + SIZE, mergerBox.getHeight());
     }
 
-    //Extract Method
     private boolean containsNonVariableFragments() {
         for (FragmentHolder fr : fragments) {
             if (!(fr.fragment instanceof FragmentVariable)) {
