@@ -116,19 +116,63 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
     }
 
     private static final class SimpleFilter implements Filter {
+        private final CharacterFilter[] filters;
+
+        public SimpleFilter() {
+            filters = new CharacterFilter[]{ // <--
+                    new RangeCharacterFilter('A', 'Z'),
+                    new RangeCharacterFilter('a', 'z'),
+                    new RangeCharacterFilter('0', '9'),
+                    new SingleCharacterFilter('_')
+            };
+        }
         @Override
         public String filter(String name) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < name.length(); i++) {
                 char c = name.charAt(i);
-                if ((c >= 'A' && c <= 'Z')
-                        || (c >= 'a' && c <= 'z')
-                        || (c >= '0' && c <= '9')
-                        || c == '_')
-                    sb.append(c);
+                for (CharacterFilter filter : filters) { // <--
+                    if (filter.accept(c)) { // <--
+                        sb.append(c);
+                        break;
+                    }
+                }
             }
 
             return sb.toString();
         }
+
+        private interface CharacterFilter {
+            boolean accept(char c);
+        }
+
+        private static class RangeCharacterFilter implements CharacterFilter {
+            private final char min;
+            private final char max;
+
+            public RangeCharacterFilter(char min, char max) {
+                this.min = min;
+                this.max = max;
+            }
+
+            @Override
+            public boolean accept(char c) {
+                return c >= min && c <= max;
+            }
+        }
+
+        private static class SingleCharacterFilter implements CharacterFilter {
+            private final char target;
+
+            public SingleCharacterFilter(char target) {
+                this.target = target;
+            }
+
+            @Override
+            public boolean accept(char c) {
+                return c == target;
+            }
+        }
+
     }
 }
