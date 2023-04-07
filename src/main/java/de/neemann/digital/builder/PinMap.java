@@ -16,11 +16,11 @@ import java.util.*;
  * A PinMap.
  * Used to assign a symbolic name to a pin number
  */
-public class PinMap {
+public class PinMap extends ClockPinManager{
     private final HashMap<String, Integer> pinMap;
     private final ArrayList<Pin> availPins;
     private ArrayList<HashSet<String>> alias;
-    private int clockPin;
+
 
     /**
      * Creates a new instance
@@ -176,10 +176,10 @@ public class PinMap {
 
     private Integer searchFirstFreePin(PinDescription.Direction direction, String name) {
         for (Pin pin : availPins) {
-            if (!pinMap.containsValue(pin.num))
-                if (pin.direction.equals(direction) || pin.direction.equals(PinDescription.Direction.both)) {
-                    pinMap.put(name, pin.num);
-                    return pin.num;
+            if (!pinMap.containsValue(pin.getNum()))
+                if (pin.getDirection().equals(direction) || pin.getDirection().equals(PinDescription.Direction.both)) {
+                    pinMap.put(name, pin.getNum());
+                    return pin.getNum();
                 }
         }
         return null;
@@ -187,8 +187,8 @@ public class PinMap {
 
     private boolean isAvailable(PinDescription.Direction direction, int p) {
         for (Pin pin : availPins)
-            if (pin.num == p)
-                return (pin.direction.equals(direction) || pin.direction.equals(PinDescription.Direction.both));
+            if (pin.getNum() == p)
+                return (pin.getDirection().equals(direction) || pin.getDirection().equals(PinDescription.Direction.both));
         return false;
     }
 
@@ -274,31 +274,14 @@ public class PinMap {
     }
 
     /**
-     * @return the clock pin
-     */
-    public int getClockPin() {
-        return clockPin;
-    }
-
-    /**
      * Sets the clock pin
      *
      * @param clockPin the clock pin
      * @return this for chained calls
      */
-    public PinMap setClockPin(int clockPin) {
+    public void setClockPin(int clockPin) {
         if (clockPin > 0)
-            this.clockPin = clockPin;
-        return this;
-    }
+            this.setClockPin(clockPin);
 
-    private static final class Pin {
-        private final int num;
-        private final PinDescription.Direction direction;
-
-        private Pin(int num, PinDescription.Direction direction) {
-            this.num = num;
-            this.direction = direction;
-        }
     }
 }
