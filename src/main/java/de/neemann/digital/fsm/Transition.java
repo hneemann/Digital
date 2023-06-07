@@ -126,6 +126,12 @@ public class Transition extends Movable<Transition> {
      * @param gr the Graphic instance to draw to
      */
     public void drawTo(Graphic gr) {
+        Style style = Style.SHAPE_PIN;
+        if (getFsm() != null)
+            if (getFsm().getActiveTransition() == this)
+                style = Style.HIGHLIGHT;
+
+
         final VectorFloat start;
         final VectorFloat anchor;
         final VectorFloat end;
@@ -159,7 +165,7 @@ public class Transition extends Movable<Transition> {
             anchor0 = null;
         }
 
-        drawArrow(gr, start, anchor0, anchor, end);
+        drawArrow(gr, start, anchor0, anchor, end, style);
 
         // text
         ArrayList<String> strings = new ArrayList<>();
@@ -189,9 +195,7 @@ public class Transition extends Movable<Transition> {
         }
     }
 
-    static void drawArrow(Graphic gr, VectorInterface start, VectorInterface anchor0, VectorInterface anchor, VectorInterface end) {
-        final Style arrowStyle = Style.SHAPE_PIN;
-
+    static void drawArrow(Graphic gr, VectorInterface start, VectorInterface anchor0, VectorInterface anchor, VectorInterface end, Style arrowStyle) {
         if (anchor == null)
             anchor = start.add(end).div(2);
 

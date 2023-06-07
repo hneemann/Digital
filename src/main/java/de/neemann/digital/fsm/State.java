@@ -103,7 +103,7 @@ public class State extends Movable<State> {
     public void drawTo(Graphic gr) {
         Style style = Style.NORMAL;
         if (getFsm() != null)
-            if (getFsm().getActiveState() == number)
+            if (getFsm().getActiveState() == this)
                 style = Style.HIGHLIGHT;
 
         VectorInterface rad = new Vector(radius, radius);
@@ -116,7 +116,7 @@ public class State extends Movable<State> {
             VectorInterface delta = getPos().sub(pos).norm();
             VectorInterface a0 = pos.add(delta.mul(INIT_RAD + Style.FILLED.getThickness()));
             VectorInterface a1 = getPos().sub(delta.mul(radius + Style.FILLED.getThickness()));
-            Transition.drawArrow(gr, a0, null, null, a1);
+            Transition.drawArrow(gr, a0, null, null, a1, Style.SHAPE_PIN);
         }
 
         Vector delta = new Vector(0, Style.NORMAL.getFontSize());

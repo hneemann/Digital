@@ -406,7 +406,21 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             });
         }
 
-        if (Main.isExperimentalMode())
+        if (Main.isExperimentalMode()) {
+            create.add(new ToolTipAction(Lang.get("menu_fsm_oneBitPerState")) {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    java.util.List<State> states = fsm.getStates();
+                    if (states.size() < 32) {
+                        int mask = 1;
+                        for (State s : states) {
+                            s.setNumber(mask);
+                            mask *= 2;
+                        }
+                        fsmComponent.repaint();
+                    }
+                }
+            }.setToolTip(Lang.get("menu_fsm_oneBitPerState_tt")).createJMenuItem());
             create.add(new ToolTipAction(Lang.get("menu_fsm_optimize_state_numbers")) {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
@@ -419,6 +433,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
                     }
                 }
             }.setToolTip(Lang.get("menu_fsm_optimize_state_numbers_tt")).createJMenuItem());
+        }
     }
 
     /**
@@ -490,7 +505,7 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
     }
 
     private void setActiveState(long value) {
-        if (fsm.setActiveState((int) value))
+        if (fsm.setActiveStateTransition((int) value))
             SwingUtilities.invokeLater(fsmComponent::repaint);
     }
 

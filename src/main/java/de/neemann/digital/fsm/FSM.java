@@ -47,9 +47,10 @@ public class FSM {
     private ArrayList<Transition> transitions;
     private transient boolean modified;
     private transient ModifiedListener modifiedListener;
-    private transient int activeState = -1;
+    private transient int activeStateTransition = -1;
     private transient File file;
     private transient MovingState state = MovingState.STOP;
+    private transient CircuitRepresentation circuitRepresentation;
 
     /**
      * Creates a proper configured XStream instance
@@ -99,7 +100,7 @@ public class FSM {
             for (State s : fsm.states)
                 s.setFSM(fsm);
             fsm.modified = false;
-            fsm.activeState = -1;
+            fsm.activeStateTransition = -1;
             return fsm;
         } catch (RuntimeException e) {
             throw new IOException(Lang.get("err_invalidFileFormat"), e);
@@ -505,14 +506,24 @@ public class FSM {
     }
 
     /**
-     * Used to set the active state
+     * Sets the information required to determine the current state and transition based on the
+     * vale obtained by the running fsm in the simulator.
      *
-     * @param value the state number
+     * @param circuitRepresentation the circuit information
+     */
+    public void setCircuitRepresentation(CircuitRepresentation circuitRepresentation) {
+        this.circuitRepresentation = circuitRepresentation;
+    }
+
+    /**
+     * Used to set the active state and transition
+     *
+     * @param value the circuits output value
      * @return true if state has changed
      */
-    public boolean setActiveState(int value) {
-        if (activeState != value) {
-            activeState = value;
+    public boolean setActiveStateTransition(int value) {
+        if (activeStateTransition != value) {
+            activeStateTransition = value;
             return true;
         } else
             return false;
@@ -521,8 +532,21 @@ public class FSM {
     /**
      * @return the active state
      */
-    int getActiveState() {
-        return activeState;
+    State getActiveState() {
+        if (circuitRepresentation != null)
+            return circuitRepresentation.getActiveState(activeStateTransition);
+        else
+            return null;
+    }
+
+    /**
+     * @return the active transition
+     */
+    Transition getActiveTransition() {
+        if (circuitRepresentation != null)
+            return circuitRepresentation.getActiveTransition(activeStateTransition);
+        else
+            return null;
     }
 
     /**

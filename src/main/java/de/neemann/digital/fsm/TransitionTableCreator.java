@@ -34,6 +34,7 @@ public class TransitionTableCreator {
     private int stateBits;
     private boolean[] transitionSet;
     private ModelAnalyserInfo modelAnalyserInfo;
+    private CircuitRepresentation cr;
 
     /**
      * Creates a new instance
@@ -54,6 +55,8 @@ public class TransitionTableCreator {
         this.states = fsm.getStates();
         this.transitions = fsm.getTransitions();
         this.initState = fsm.getInitState();
+        cr = new CircuitRepresentation();
+        fsm.setCircuitRepresentation(cr);
         outputValues = new HashMap<>();
         modelAnalyserInfo = new ModelAnalyserInfo(null);
         modelAnalyserInfo.setStateSignalName(stateSignalName);
@@ -79,11 +82,14 @@ public class TransitionTableCreator {
      */
     public TruthTable create() throws FiniteStateMachineException, ExpressionException {
         stateBits = getStateVarBits();
+        cr.setStateVarBits(stateBits);
 
         // create state variables
         ArrayList<Variable> vars = new ArrayList<>();
+        ArrayList<String> maiNames = new ArrayList<>();
         for (int i = stateBits - 1; i >= 0; i--) {
             final Variable var = new Variable(STATE_VAR + "_" + i + "^n");
+            maiNames.add(0, var.getIdentifier());
             vars.add(var);
             boolean initVal = (initState & (1 << i)) != 0;
             modelAnalyserInfo.setSequentialInitValue(var.getIdentifier(), initVal ? 1 : 0);
@@ -113,6 +119,7 @@ public class TransitionTableCreator {
         // set state output variables
         for (State s : states) {
             int row = s.getNumber();
+            cr.addState(row, s);
             int col = stateBits * 2;
             for (String name : results) {
                 int def = s.isDefaultDC() ? 2 : 0;
@@ -148,6 +155,7 @@ public class TransitionTableCreator {
         for (Variable v : inVars) {
             truthTable.addVariable(v);
             inputSignals.add(new Signal(v.getIdentifier(), null));
+            maiNames.add(v.getIdentifier());
         }
 
         rowsPerState = 1 << inVars.size();
@@ -167,6 +175,7 @@ public class TransitionTableCreator {
                 fillInTransition(t, results);
 
         modelAnalyserInfo.setInOut(inputSignals, outputSignals);
+        modelAnalyserInfo.setStateSignalBitNames(maiNames);
         truthTable.setModelAnalyzerInfo(modelAnalyserInfo);
         return truthTable;
     }
@@ -176,12 +185,21 @@ public class TransitionTableCreator {
         int startRow = startState * rowsPerState;
         ContextMap c = new ContextMap();
         for (int r = 0; r < rowsPerState; r++) {
+            int transVal = 0;
+            int transValMask = 1;
             int m = 1 << (inVars.size() - 1);
             for (Variable v : inVars) {
-                c.set(v, (r & m) != 0);
+                final boolean b = (r & m) != 0;
+                c.set(v, b);
+                if (b) transVal |= transValMask;
                 m >>= 1;
+                transValMask <<= 1;
             }
             if (!t.hasCondition() || t.getConditionExpression().calculate(c)) {
+                int n = t.getStartState().getNumber();
+                n |= (transVal << stateBits);
+                cr.addTransition(n, t);
+
                 int col = stateBits * 2 + inVars.size();
                 int row = startRow + r;
 

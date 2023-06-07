@@ -2464,6 +2464,8 @@ However, they must not be used above the header line listing the signal names.</
         least possible effort. The runtime increases very quickly with the complexity of the machine. (O(n!))
     </string>
     <string name="menu_fsm_optimize_state_numbers_err">Error during optimization!</string>
+    <string name="menu_fsm_oneBitPerState">One bit per state</string>
+    <string name="menu_fsm_oneBitPerState_tt">A state is represented by a single bit or flip-flop</string>
     <string name="msg_fsm_optimizer_initial">Initial complexity:</string>
     <string name="msg_fsm_optimizer_best">Best so far:</string>
 

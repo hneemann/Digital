@@ -394,6 +394,15 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                         .set(Keys.ROTATE, new Rotation(3))
                         .set(Keys.LABEL, v.getIdentifier());
                 checkPinNumber(visualElement);
+
+                if (mai != null && mai.getStateSignalBitNames() != null && mai.getStateSignalBitNames().contains(v.getIdentifier())) {
+                    VisualElement ve = new VisualElement(Tunnel.DESCRIPTION.getName()).setShapeFactory(shapeFactory);
+                    ve.getElementAttributes()
+                            .set(Keys.ROTATE, new Rotation(3))
+                            .set(Keys.NETNAME, v.getIdentifier());
+                    ve.setPos(new Vector(dx, pos));
+                    circuit.add(ve);
+                }
             }
             visualElement.setPos(new Vector(dx, -SIZE * 5));
             circuit.add(visualElement);
@@ -500,7 +509,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (mai != null) {
             final String stateVariableName = mai.getStateSignalName();
             if (stateVariableName != null)
-                outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, stateVariableName);
+                outSplitterY = createStateVar(maxWidth + SIZE * 15, outSplitterY, circuit, stateVariableName, mai.getStateSignalBitNames());
         }
 
         return circuit;
@@ -626,18 +635,15 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         return y;
     }
 
-    private int createStateVar(int splitterXPos, int y, Circuit circuit, String name) {
-        ArrayList<Variable> outputs = sequentialVars;
-        outputs.sort(Comparator.comparing(Variable::getIdentifier));
-
+    private int createStateVar(int splitterXPos, int y, Circuit circuit, String name, ArrayList<String> bitNames) {
         circuit.add(new VisualElement(Splitter.DESCRIPTION.getName())
-                .setAttribute(Keys.OUTPUT_SPLIT, "" + outputs.size())
-                .setAttribute(Keys.INPUT_SPLIT, "1*" + outputs.size())
+                .setAttribute(Keys.OUTPUT_SPLIT, "" + bitNames.size())
+                .setAttribute(Keys.INPUT_SPLIT, "1*" + bitNames.size())
                 .setPos(new Vector(splitterXPos, y))
                 .setShapeFactory(shapeFactory));
         circuit.add(new VisualElement(Probe.DESCRIPTION.getName())
                 .setAttribute(Keys.LABEL, name)
-                .setAttribute(Keys.BITS, outputs.size())
+                .setAttribute(Keys.BITS, bitNames.size())
                 .setPos(new Vector(splitterXPos + 3 * SIZE, y))
                 .setShapeFactory(shapeFactory));
         circuit.add(new Wire(
@@ -645,9 +651,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 new Vector(splitterXPos + SIZE, y)
         ));
 
-        for (int i = 0; i < outputs.size(); i++) {
+        for (int i = 0; i < bitNames.size(); i++) {
             circuit.add(new VisualElement(Tunnel.DESCRIPTION.getName())
-                    .setAttribute(Keys.NETNAME, outputs.get(i).getIdentifier())
+                    .setAttribute(Keys.NETNAME, bitNames.get(i))
                     .setRotation(2)
                     .setPos(new Vector(splitterXPos - SIZE, y + i * SIZE))
                     .setShapeFactory(shapeFactory));
@@ -657,7 +663,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             ));
         }
 
-        y += (outputs.size() + 2) * SIZE;
+        y += (bitNames.size() + 2) * SIZE;
 
         return y;
     }

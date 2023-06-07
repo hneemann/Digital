@@ -27,6 +27,7 @@ public class ModelAnalyserInfo {
     private ArrayList<Signal> outputs;
     private ArrayList<String> pinsWithoutNumber;
     private String stateSignalName;
+    private ArrayList<String> stateSignalBitNames;
 
     /**
      * creates a new instance
@@ -185,6 +186,24 @@ public class ModelAnalyserInfo {
      */
     public void setStateSignalName(String stateSignalName) {
         this.stateSignalName = stateSignalName;
+    }
+
+    /**
+     * Sets the state bit names in correct order
+     *
+     * @param stateSignalBitName the state bit names
+     */
+    public void setStateSignalBitNames(ArrayList<String> stateSignalBitName) {
+        this.stateSignalBitNames = stateSignalBitName;
+    }
+
+    /**
+     * Returns the state bit names in correct order
+     *
+     * @return the list of signals required by the FSM gui to show the active state and transition.
+     */
+    public ArrayList<String> getStateSignalBitNames() {
+        return stateSignalBitNames;
     }
 
     /**
