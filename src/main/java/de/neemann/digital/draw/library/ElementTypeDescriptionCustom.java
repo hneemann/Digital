@@ -126,7 +126,7 @@ public final class ElementTypeDescriptionCustom extends ElementTypeDescription {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
+    ModelCreator getModelCreator(LibraryInterface library, String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
         if (netList == null)
             netList = new NetList(circuit);
 

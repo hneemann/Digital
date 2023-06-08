@@ -35,6 +35,7 @@ public class CustomElement implements Element {
      * Gets a {@link ModelCreator} of this circuit.
      * Every time this method is called a new {@link ModelCreator} is created.
      *
+     * @param library                 the element library
      * @param subName                 name of the circuit, used to name unique elements
      * @param depth                   recursion depth, used to detect a circuit which contains itself
      * @param errorVisualElement      visual element used for error indicating
@@ -44,8 +45,8 @@ public class CustomElement implements Element {
      * @throws NodeException            NodeException
      * @throws ElementNotFoundException ElementNotFoundException
      */
-    public ModelCreator getModelCreator(String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
-        return descriptionCustom.getModelCreator(subName, depth, errorVisualElement, containingVisualElement);
+    public ModelCreator getModelCreator(LibraryInterface library, String subName, int depth, VisualElement errorVisualElement, VisualElement containingVisualElement) throws PinException, NodeException, ElementNotFoundException {
+        return descriptionCustom.getModelCreator(library, subName, depth, errorVisualElement, containingVisualElement);
     }
 
     @Override

@@ -83,6 +83,12 @@ public class ModelAnalyserTest extends TestCase {
         check2BitCounter(tt);
     }
 
+    public void testAnalyzerJKFFNested() throws Exception {
+        Model model = createModel("dig/analyze/analyzeTestJKFFNested.dig");
+        TruthTable tt = new ModelAnalyser(model).analyse();
+        check2BitCounter(tt);
+    }
+
     public void testAnalyzerJKFFInvInput() throws Exception {
         Model model = createModel("dig/analyze/analyzeTestJKFFInvIn.dig");
         TruthTable tt = new ModelAnalyser(model).analyse();
