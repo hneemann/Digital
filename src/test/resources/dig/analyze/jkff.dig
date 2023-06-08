@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>JK_FF</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>*</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>J</string>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>C</string>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>K</string>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>~Q</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="320"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="420" y="320"/>
+      <p2 x="440" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="320"/>
+      <p2 x="540" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="260"/>
+      <p2 x="420" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="340"/>
+      <p2 x="420" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="280"/>
+      <p2 x="440" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="280"/>
+      <p2 x="540" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="300"/>
+      <p2 x="440" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="300"/>
+      <p2 x="520" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="260"/>
+      <p2 x="420" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="320"/>
+      <p2 x="420" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="300"/>
+      <p2 x="520" y="320"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

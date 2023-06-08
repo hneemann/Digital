@@ -166,7 +166,7 @@ public class ModelCreator implements Iterable<ModelEntry> {
                 if (me.getElement() instanceof CustomElement) {        // at first look for custom elements
 
                     CustomElement ce = (CustomElement) me.getElement();
-                    ModelCreator child = ce.getModelCreator(
+                    ModelCreator child = ce.getModelCreator(library,
                             combineNames(subName, me.getVisualElement().getElementAttributes().getLabel()),
                             depth + 1,
                             containingVisualElement != null ? containingVisualElement : me.getVisualElement(),
