@@ -2495,8 +2495,8 @@ Sie dürfen jedoch nicht oberhalb der Kopfzeile mit den Signalnamen verwendet we
         (O(n!))
     </string>
     <string name="menu_fsm_optimize_state_numbers_err">Fehler wärend der Optimierung!</string>
-    <string name="menu_fsm_oneBitPerState">Ein Bit pro zustand</string>
-    <string name="menu_fsm_oneBitPerState_tt">Jeder Zustand wird durch ein Bit repräsentiert</string>
+    <string name="menu_fsm_oneBitPerState">Ein Bit pro Zustand</string>
+    <string name="menu_fsm_oneBitPerState_tt">Jeder Zustand wird durch ein Bit repräsentiert.</string>
     <string name="msg_fsm_optimizer_initial">Startkomplexität:</string>
     <string name="msg_fsm_optimizer_best">Beste bisher:</string>
 
