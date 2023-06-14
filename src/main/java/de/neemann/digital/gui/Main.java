@@ -567,8 +567,20 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 if (ClosingWindowListener.checkForSave(Main.this, Main.this)) {
                     JFileChooser fc = getJFileChooser(baseFilename);
+                    fc.addChoosableFileFilter(new FileNameExtensionFilter("FSM", "fsm"));
+                    fc.addChoosableFileFilter(new FileNameExtensionFilter(Lang.get("msg_truthTable"), "tru"));
                     if (fc.showOpenDialog(Main.this) == JFileChooser.APPROVE_OPTION) {
-                        loadFile(fc.getSelectedFile(), true, true);
+                        File file = fc.getSelectedFile();
+                        if (file.getName().endsWith(".fsm")) {
+                            new FSMFrame(Main.this, library, file).setVisible(true);
+                        } else if (file.getName().endsWith(".tru")) {
+                            try {
+                                new TableDialog(Main.this, TruthTable.readFromFile(file), library, filename).setVisible(true);
+                            } catch (IOException ex) {
+                                new ErrorMessage().addCause(ex).show(Main.this);
+                            }
+                        } else
+                            loadFile(file, true, true);
                     }
                 }
             }

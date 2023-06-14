@@ -81,7 +81,14 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
         this(parent, library, null);
     }
 
-    private FSMFrame(JFrame parent, ElementLibrary library, File filename) {
+    /**
+     * Creates a new instance
+     *
+     * @param parent   the parents frame
+     * @param library  the library used to show the table
+     * @param filename the file to open
+     */
+    public FSMFrame(JFrame parent, ElementLibrary library, File filename) {
         super(Lang.get("fsm_title"));
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
