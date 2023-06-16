@@ -78,11 +78,12 @@ public class Probe implements Element {
         private final ObservableValue in;
         private final ObservableValue value;
         private final ProbeMode mode;
-        private boolean last = false;
+        private boolean last;
         private long counter;
 
         private Counter(String label, ObservableValue value, ProbeMode mode) {
             this.in = value;
+            this.last = in.getBool();
             this.value = new ObservableValue(label, 64);
             value.addObserver(this);
             this.mode = mode;
