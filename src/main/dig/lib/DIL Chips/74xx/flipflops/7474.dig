@@ -39,7 +39,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>1~Q</string>
+          <string>~1Q</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -53,7 +53,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>1~SD</string>
+          <string>~1SD</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -99,7 +99,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>1~RD</string>
+          <string>~1RD</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -131,7 +131,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2~Q</string>
+          <string>~2Q</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -145,7 +145,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2~SD</string>
+          <string>~2SD</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -191,7 +191,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>2~RD</string>
+          <string>~2RD</string>
         </entry>
         <entry>
           <string>pinNumber</string>
@@ -227,7 +227,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>1~SD 1~RD 1CP 1D 1Q 1~Q
+            <dataString>~1SD ~1RD 1CP 1D 1Q ~1Q
 0 1 X X 1 0
 1 0 X X 0 1
 0 0 X X 1 1
@@ -302,7 +302,7 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>2~SD 2~RD 2CP 2D 2Q 2~Q
+            <dataString>~2SD ~2RD 2CP 2D 2Q ~2Q
 0 1 X X 1 0
 1 0 X X 0 1
 0 0 X X 1 1
