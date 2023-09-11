@@ -13,8 +13,20 @@ import de.neemann.digital.hdl.hgs.HGSMap;
  */
 public class Port implements HGSMap {
     private final int bits;
-    private final String name;
+    private String name;
+    private boolean bidirectional = false;
 
+    /**
+     * Creates a new port
+     *
+     * @param name the name
+     * @param bidirectional is Port are bidirectional
+     * @param bits the number of bits
+     */
+    public Port(String name, int bits, boolean bidirectional) {
+        this(name, bits);
+        this.bidirectional = bidirectional;
+    }
 
     /**
      * Creates a new port
@@ -47,6 +59,10 @@ public class Port implements HGSMap {
             }
             bits = b;
         }
+        if (name.startsWith("+")) {
+            bidirectional = true;
+            name = name.substring(1);
+        }
     }
 
     /**
@@ -63,14 +79,20 @@ public class Port implements HGSMap {
         return name;
     }
 
+    /**
+     * @return is port are bidirectional
+     */
+    public boolean isBidirectional() {
+        return bidirectional;
+    }
+
     @Override
     public String toString() {
         if (bits == 1)
-            return name;
+            return (bidirectional ? "+" : "") + name;
         else
-            return name + ":" + bits;
+            return (bidirectional ? "+" : "") + name + ":" + bits;
     }
-
     @Override
     public Object hgsMapGet(String key) {
         switch (key) {

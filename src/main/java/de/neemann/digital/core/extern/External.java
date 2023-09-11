@@ -74,7 +74,18 @@ public class External extends Node implements Element {
     public void setInputs(ObservableValues inputs) throws NodeException {
         this.inputs = inputs;
         for (int i = 0; i < inputs.size(); i++)
-            inputs.get(i).checkBits(ins.getPort(i).getBits(), this, i).addObserverToValue(this);
+            if (i < ins.size())
+                inputs.get(i).checkBits(ins.getPort(i).getBits(), this, i).addObserverToValue(this);
+            else {
+                StringBuilder inoutDef=new StringBuilder();
+                outs.iterator().forEachRemaining(port -> {
+                    if (port.isBidirectional()) {
+                        inoutDef.append(inoutDef.length() == 0 ? "" : ",").append(port.getName());
+                    }
+                });
+                PortDefinition inouts=new PortDefinition(inoutDef.toString());
+                inputs.get(i).checkBits(inouts.getPort(i - ins.size()).getBits(), this, i).addObserverToValue(this);
+            }
     }
 
 

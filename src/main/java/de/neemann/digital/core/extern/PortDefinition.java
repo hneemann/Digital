@@ -41,8 +41,13 @@ public class PortDefinition implements Iterable<Port>, HGSArray {
      */
     public ObservableValues createOutputs() {
         ObservableValues.Builder builder = new ObservableValues.Builder();
-        for (Port p : ports)
-            builder.add(new ObservableValue(p.getName(), p.getBits()));
+        for (Port p : ports) {
+            ObservableValue value = new ObservableValue(p.getName(), p.getBits());
+            if (p.isBidirectional()) {
+                value.setBidirectional();
+            }
+            builder.add(value);
+        }
         return builder.build();
     }
 
@@ -92,6 +97,16 @@ public class PortDefinition implements Iterable<Port>, HGSArray {
      */
     public void addPort(String name, int bits) {
         ports.add(new Port(name, bits));
+    }
+
+    /**
+     * Adds a bidirectional port to this description
+     *
+     * @param name the name
+     * @param bits the number of bits
+     */
+    public void addBidirectionalPort(String name, int bits) {
+        ports.add(new Port(name, bits, true));
     }
 
     /**

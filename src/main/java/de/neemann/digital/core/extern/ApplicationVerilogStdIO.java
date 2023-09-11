@@ -64,11 +64,19 @@ public abstract class ApplicationVerilogStdIO implements Application {
      * @return the verilog code
      * @throws HGSEvalException HGSEvalException
      */
-    public String createVerilog(String label, String code, PortDefinition inputs, PortDefinition outputs, File root) throws HGSEvalException {
+    public String createVerilog(String label, String code, PortDefinition inputs, PortDefinition outputs,  File root) throws HGSEvalException {
+        StringBuilder inoutDef=new StringBuilder();
+        outputs.iterator().forEachRemaining(port -> {
+            if (port.isBidirectional()) {
+                inoutDef.append(inoutDef.length() == 0 ? "" : ",").append(port.getName());
+            }
+        });
+        PortDefinition inouts=new PortDefinition(inoutDef.toString());
         Context context = new Context(root)
                 .declareVar("moduleName", label)
                 .declareVar("code", code)
                 .declareVar("inputs", inputs)
+                .declareVar("inouts", inouts)
                 .declareVar("outputs", outputs);
 
         TEMPLATE.execute(context);
@@ -107,7 +115,7 @@ public abstract class ApplicationVerilogStdIO implements Application {
                 if (in.size() == 0 && out.size() == 0) {
                     do {
                         currToken = st.nextToken();
-                        if (currToken == Token.INPUT || currToken == Token.OUTPUT)
+                        if (currToken == Token.INPUT || currToken == Token.OUTPUT || currToken == Token.INOUT)
                             scanPort(st, in, out);
                     } while ((currToken != Token.ENDMODULE) && (currToken != Token.EOF));
                 }
@@ -136,6 +144,7 @@ public abstract class ApplicationVerilogStdIO implements Application {
                     break;
                 case INPUT:
                 case OUTPUT:
+                case INOUT:
                     scanPort(st, in, out);
                     break;
                 case CLOSEPAR:
@@ -151,18 +160,16 @@ public abstract class ApplicationVerilogStdIO implements Application {
     }
 
     private void scanPort(VerilogTokenizer st, PortDefinition in, PortDefinition out) throws ParseException, IOException, VerilogTokenizer.TokenizerException {
-        boolean isInput;
-
+        Token type=currToken;
         switch (currToken) {
             case INPUT:
-                isInput = true;
+            case INOUT:
                 currToken = st.nextToken();
                 if (currToken == Token.WIRE) {
                     currToken = st.nextToken();
                 }
                 break;
             case OUTPUT:
-                isInput = false;
                 currToken = st.nextToken();
                 if (currToken == Token.WIRE
                         || currToken == Token.REG) {
@@ -186,11 +193,16 @@ public abstract class ApplicationVerilogStdIO implements Application {
         }
         String name = st.value();
         match(Token.IDENT, "identifier", st);
-
-        if (isInput) {
-            in.addPort(name, bits);
-        } else {
-            out.addPort(name, bits);
+        switch (type) {
+            case INPUT:
+                in.addPort(name, bits);
+                break;
+            case OUTPUT:
+                out.addPort(name, bits);
+                break;
+            case INOUT:
+                out.addBidirectionalPort(name, bits);
+                break;
         }
 
         while (currToken == Token.COMMA) {
@@ -199,11 +211,16 @@ public abstract class ApplicationVerilogStdIO implements Application {
                 return;
             name = st.value();
             match(Token.IDENT, "identifier", st);
-
-            if (isInput) {
-                in.addPort(name, bits);
-            } else {
-                out.addPort(name, bits);
+            switch (type) {
+                case INPUT:
+                    in.addPort(name, bits);
+                    break;
+                case OUTPUT:
+                    out.addPort(name, bits);
+                    break;
+                case INOUT:
+                    out.addBidirectionalPort(name, bits);
+                    break;
             }
         }
     }

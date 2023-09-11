@@ -46,6 +46,18 @@ public class ApplicationVerilogStdIOTest extends TestCase {
         assertEquals("a,b", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("y", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
+    public void testInOutSupport() {
+        ElementAttributes attr = extractParameters("module test(inout wire out, input wire write, input wire read);\n"+
+               "reg data=1;\n" +
+               "always @(posedge write)\n" +
+               " begin\n" +
+               "  data=out;\n" + "\tend\n" +
+               "assign out=read?data:'bz;\n" +
+               "endmodule");
+        assertEquals("test", attr.getLabel());
+        assertEquals("write,read", attr.get(Keys.EXTERNAL_INPUTS));
+        assertEquals("+out", attr.get(Keys.EXTERNAL_OUTPUTS));
+    }
 
     public void testEnsureConsistencyDirect2() {
         ElementAttributes attr = extractParameters("module test(input[4:0] a,b,output[4:0] y);\n" +

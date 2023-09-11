@@ -38,7 +38,7 @@
         }
     }
 
-    inBits := bitSum(inputs);
+    inBits := bitSum(inputs)+bitSum(inouts);
     outBits := bitSum(outputs);
 
     if (inBits > 1)
@@ -57,10 +57,20 @@ module stdIOInterface;
 <?
 
     pos := 0;
+    inSize := 0;
     if (inBits > 1) {
         for (i:=0; i<sizeOf(inputs); i++) {
             print("    wire ", rangeDecl(inputs[i].bits), "in_", inputs[i].name, " = ", getSliceExpr("mainIn", pos, inputs[i].bits), ";\n");
             pos = pos + inputs[i].bits;
+        }
+        inSize=pos;
+        for (i:=0; i<sizeOf(inouts); i++) {
+	    if (outBits > 1) {
+                    print("    wire ", rangeDecl(inputs[i].bits), "out_", inouts[i].name, " = ", getSliceExpr("mainIn", pos, inouts[i].bits), ";\n");
+	    } else {
+                    print("    assign ", rangeDecl(inputs[i].bits), "mainOut = ", getSliceExpr("mainIn", pos, inouts[i].bits), ";\n");
+	    }
+            pos = pos + inouts[i].bits;
         }
     }
 
@@ -107,8 +117,15 @@ module stdIOInterface;
         while (exit == 0)
         begin
             res = $fscanf('h8000_0000, "%b", mainIn);
-            #1;
-
+            #1
+<? if (sizeOf(inouts)>0) {
+        pos=inSize;
+        for (i:=0; i<sizeOf(inouts); i++) {
+        	print("            ", getSliceExpr("mainIn", pos, inouts[i].bits), "=",inouts[i].bits,"'bz;\n");
+        	pos=pos+inouts[i].bits;
+        }
+        print("            #1\n");
+}?>
             if (res == 1) begin
                 $display("Digital:%b", mainOut);
                 $fflush('h8000_0001);

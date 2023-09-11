@@ -53,6 +53,9 @@ public class Pin extends PinInfo {
      */
     public void setValue(ObservableValue value) {
         this.value = value;
+        if (getDirection().equals(Direction.output)) {
+            setDirection(value.getDirection());
+        }
     }
 
     /**
