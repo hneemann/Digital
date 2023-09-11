@@ -66,7 +66,7 @@ module stdIOInterface;
         inSize=pos;
         for (i:=0; i<sizeOf(inouts); i++) {
 	    if (outBits > 1) {
-                    print("    wire ", rangeDecl(inputs[i].bits), "out_", inouts[i].name, " = ", getSliceExpr("mainIn", pos, inouts[i].bits), ";\n");
+                    print("    assign ", rangeDecl(inputs[i].bits), "out_", inouts[i].name, " = ", getSliceExpr("mainIn", pos, inouts[i].bits), ";\n");
 	    } else {
                     print("    assign ", rangeDecl(inputs[i].bits), "mainOut = ", getSliceExpr("mainIn", pos, inouts[i].bits), ";\n");
 	    }

@@ -80,7 +80,7 @@ public class External extends Node implements Element {
                 StringBuilder inoutDef=new StringBuilder();
                 outs.iterator().forEachRemaining(port -> {
                     if (port.isBidirectional()) {
-                        inoutDef.append(inoutDef.length() == 0 ? "" : ",").append(port.getName());
+                        inoutDef.append(inoutDef.length() == 0 ? "" : ",").append(port.getName()).append(port.getBits() > 1 ? ":" + port.getBits() : "");
                     }
                 });
                 PortDefinition inouts=new PortDefinition(inoutDef.toString());

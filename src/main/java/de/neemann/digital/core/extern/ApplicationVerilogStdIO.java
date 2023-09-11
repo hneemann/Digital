@@ -68,7 +68,7 @@ public abstract class ApplicationVerilogStdIO implements Application {
         StringBuilder inoutDef=new StringBuilder();
         outputs.iterator().forEachRemaining(port -> {
             if (port.isBidirectional()) {
-                inoutDef.append(inoutDef.length() == 0 ? "" : ",").append(port.getName());
+                inoutDef.append(inoutDef.length() == 0 ? "" : ",").append(port.getName()).append(port.getBits() > 1 ? ":" + port.getBits() : "");
             }
         });
         PortDefinition inouts=new PortDefinition(inoutDef.toString());
