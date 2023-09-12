@@ -4,7 +4,6 @@
  * that can be found in the LICENSE file.
  */
 package de.neemann.digital.hdl.verilog2;
-
 import de.neemann.digital.core.ExceptionWithOrigin;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.ProcessStarter;
@@ -72,8 +71,9 @@ public class VerilogSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/pinControl");
         try {
             int tested = new FileScanner(f -> {
-                if (!f.getName().equals("uniTest.dig"))
+                if (!f.getName().equals("uniTest.dig")) {
                     checkVerilogExport(f);
+                }
             }).noOutput().scan(examples);
             assertEquals(2, tested);
             assertEquals(1, testBenches);
@@ -81,7 +81,6 @@ public class VerilogSimulatorTest extends TestCase {
             // if iverilog is not installed its also ok
         }
     }
-
 
     public void testDistributedInSimulator() throws Exception {
         File examples = new File(Resources.getRoot(), "../../main/dig/hdl");
@@ -121,26 +120,23 @@ public class VerilogSimulatorTest extends TestCase {
     public void testIVERILOGInSimulator() throws Exception {
         if (foundIVerilog) {
             Settings.getInstance().getAttributes().set(Keys.SETTINGS_IVERILOG_PATH, new File(IVERILOG));
-
             File source = new File(Resources.getRoot(), "dig/external/verilog");
-
             int tested = new FileScanner(f -> {
-                checkVerilogExport(f);
+                if (!f.getName().toLowerCase().contains("noexport")) {
+                    checkVerilogExport(f);
+                }
                 // check simulation in Digital
                 new TestExamples().check(f);
             }).scan(source);
-            assertEquals(5, tested);
+            assertEquals(6, tested);
         }
     }
-
 
     private void checkVerilogExport(File file) throws Exception {
         ToBreakRunner br = new ToBreakRunner(file);
         File dir = Files.createTempDirectory("digital_verilog_" + getTime() + "_").toFile();
         try {
-            File srcFile = new File(dir, file.getName()
-                    .replace('.', '_')
-                    .replace('-', '_') + ".v");
+            File srcFile = new File(dir, file.getName().replace('.', '_').replace('-', '_') + ".v");
             CodePrinter out = new CodePrinter(srcFile);
             try (VerilogGenerator gen = new VerilogGenerator(br.getLibrary(), out)) {
                 gen.export(br.getCircuit());
@@ -160,12 +156,11 @@ public class VerilogSimulatorTest extends TestCase {
             String name = testbench.getName();
             String module = name.substring(0, name.length() - 2);
             String testOutputName = module + ".out";
-
             checkWarn(testbench, startProcess(sourceFile.getParentFile(), IVERILOG, "-tvvp", "-o" + testOutputName, sourceFile.getName(), name));
-
             String result = startProcess(sourceFile.getParentFile(), VVP, "-M", ivlModuleDir, testOutputName);
-            if (result.contains("(assertion error)"))
+            if (result.contains("(assertion error)")) {
                 throw new HDLException("test bench " + name + " failed:\n" + result);
+            }
             checkWarn(testbench, result);
             testBenches++;
         }
@@ -182,7 +177,9 @@ public class VerilogSimulatorTest extends TestCase {
         try {
             return ProcessStarter.start(dir, args);
         } catch (ProcessStarter.CouldNotStartProcessException e) {
-            throw new FileScanner.SkipAllException("iverilog (https://github.com/steveicarus/iverilog) is not installed! Add iverilog binary to the system path or set system property 'iverilog' to iverilog binary");
+            throw new FileScanner.SkipAllException(
+                    "iverilog (https://github.com/steveicarus/iverilog) is not installed! Add iverilog binary to the system path or set system property 'iverilog'" +
+                            " to iverilog binary");
         }
     }
 
@@ -193,10 +190,8 @@ public class VerilogSimulatorTest extends TestCase {
 
     private static boolean findIVerilogDir() {
         Path ivp = null;
-
         if (!IVERILOG.isEmpty()) {
             Path p = Paths.get(IVERILOG);
-
             if (Files.isExecutable(p)) {
                 ivp = p;
                 if (Files.isSymbolicLink(p)) {
@@ -209,14 +204,11 @@ public class VerilogSimulatorTest extends TestCase {
                 }
             }
         }
-
         if (ivp == null) {
             // Let's try to find iverilog in the system path
             String[] strPaths = System.getenv("PATH").split(File.pathSeparator);
-
             for (String sp : strPaths) {
                 Path p = Paths.get(sp, "iverilog");
-
                 if (Files.isExecutable(p)) {
                     ivp = p;
                     if (Files.isSymbolicLink(p)) {
@@ -231,12 +223,11 @@ public class VerilogSimulatorTest extends TestCase {
                 }
             }
         }
-
         if (ivp != null) {
             IVERILOG_DIR = ivp.getParent().getParent().toString();
-            IVERILOG = ivp.getParent().resolve("iverilog").toString();
-            VVP = ivp.getParent().resolve("vvp").toString();
-
+            String extension = (System.getProperty("os.name").toLowerCase().contains("win")) ? ".exe" : "";
+            IVERILOG = ivp.getParent().resolve("iverilog" + extension).toString();
+            VVP = ivp.getParent().resolve("vvp" + extension).toString();
             return true;
         } else {
             return false;
