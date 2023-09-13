@@ -4,5 +4,5 @@ always @(posedge write)
 	begin
 		data=out;
 	end
-assign out=read?data:'hz;
+assign out=read?data:'bz;
 endmodule

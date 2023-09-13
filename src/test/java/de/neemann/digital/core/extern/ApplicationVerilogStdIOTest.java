@@ -59,6 +59,21 @@ public class ApplicationVerilogStdIOTest extends TestCase {
         assertEquals("+out", attr.get(Keys.EXTERNAL_OUTPUTS));
     }
 
+    public void testMultiBiteInOutSupport() {
+        ElementAttributes attr = extractParameters(
+                "module test(inout wire [7:0]out, input wire write, input wire read);\n" +
+                        "reg [7:0] data='hFF;\n" +
+                        "always @(posedge write)\n" +
+                        "	begin\n" +
+                        "		data=out;\n" +
+                        "	end\n" +
+                        "assign out=read?data:'hz;\n" +
+                        "endmodule");
+        assertEquals("test", attr.getLabel());
+        assertEquals("write,read", attr.get(Keys.EXTERNAL_INPUTS));
+        assertEquals("+out:8", attr.get(Keys.EXTERNAL_OUTPUTS));
+    }
+
     public void testEnsureConsistencyDirect2() {
         ElementAttributes attr = extractParameters("module test(input[4:0] a,b,output[4:0] y);\n" +
                 "  assign y = a & b;\n" +
