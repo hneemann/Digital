@@ -20,7 +20,7 @@
         </entry>
         <entry>
           <string>externalOutputs</string>
-          <string>+out:8</string>
+          <string>+out</string>
         </entry>
         <entry>
           <string>Width</string>
@@ -28,7 +28,7 @@
         </entry>
         <entry>
           <string>CodeFile</string>
-          <file>D:\soft_a\verilog\Digital\src\Digital\src\test\resources\dig\external\verilog\multiBiteinOutTest.v</file>
+          <file>inOutTest.v</file>
         </entry>
       </elementAttributes>
       <pos x="460" y="440"/>
@@ -58,26 +58,18 @@
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation rotation="3"/>
+          <rotation rotation="2"/>
         </entry>
         <entry>
           <string>Label</string>
           <string>IO</string>
         </entry>
         <entry>
-          <string>Bits</string>
-          <int>8</int>
-        </entry>
-        <entry>
-          <string>intFormat</string>
-          <intFormat>hex</intFormat>
-        </entry>
-        <entry>
           <string>isHighZ</string>
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="600" y="440"/>
+      <pos x="620" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -85,56 +77,69 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>W R IO WO
-0 0 Z Z
-0 1 Z 255
-0 0 Z Z
-0 0 0 0
-0 0 1 1
-1 0 0 0
-0 1 Z 0
-0 0 Z Z
-1 0 1 1
-0 1 Z 1
-0 0 Z Z
+            <dataString>W R IO IE WO
+0 0 Z  1  Z
+0 1 Z  0  1
+0 0 Z  1  Z
+0 0 0  1  0
+0 0 1  1  1
+0 0 0  1  0
+1 0 0  1  0
+0 1 Z  0  0
+0 0 Z  1  Z
+0 0 1  1  1
+1 0 1  1  1
+0 1 Z  0  1
+0 0 Z  1  Z 
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="240" y="400"/>
+      <pos x="380" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>WO</string>
         </entry>
+      </elementAttributes>
+      <pos x="580" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PinControl</elementName>
+      <elementAttributes>
         <entry>
-          <string>Bits</string>
-          <int>8</int>
+          <string>mirror</string>
+          <boolean>true</boolean>
         </entry>
         <entry>
-          <string>intFormat</string>
-          <intFormat>hex</intFormat>
+          <string>rotation</string>
+          <rotation rotation="2"/>
         </entry>
       </elementAttributes>
-      <pos x="600" y="500"/>
+      <pos x="620" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>IE</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+      </elementAttributes>
+      <pos x="600" y="440"/>
     </visualElement>
   </visualElements>
-  <wires>
-    <wire>
-      <p1 x="560" y="460"/>
-      <p2 x="600" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="440"/>
-      <p2 x="600" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="460"/>
-      <p2 x="600" y="500"/>
-    </wire>
-  </wires>
+  <wires/>
   <measurementOrdering/>
 </circuit>
