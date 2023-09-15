@@ -5,6 +5,11 @@
     else {
         export bitRange := "";
     }
-?>module <?= moduleName ?>(output <?= bitRange ?>out);
-pulldown(out);
+?>module <?= moduleName ?><?
+                          if (elem.Bits > 1) { ?>
+                          #(
+                              parameter Bits = <?=elem.Bits?>
+                          )
+                          <? } ?>(output <?= bitRange ?>out);
+pulldown p<?= bitRange ?>(out);
 endmodule
