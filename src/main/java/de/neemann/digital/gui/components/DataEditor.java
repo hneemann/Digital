@@ -425,7 +425,9 @@ public class DataEditor extends JDialog {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            long val = ((Number) value).longValue();
+            long val = 0;
+            if (value != null)
+                val = ((Number) value).longValue();
             setText(intFormat.formatToView(new Value(val, bits)));
             return this;
         }
