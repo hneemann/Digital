@@ -11,11 +11,11 @@
             <outputDirectory>/</outputDirectory>
         </file>
         <file>
-            <source>${basedir}/distribution/Digital.exe</source>
+            <source>${basedir}/target/Digital.exe</source>
             <outputDirectory>/</outputDirectory>
         </file>
         <file>
-            <source>${basedir}/distribution/Digital_noD3D.exe</source>
+            <source>${basedir}/target/Digital_noD3D.exe</source>
             <outputDirectory>/</outputDirectory>
         </file>
         <file>
