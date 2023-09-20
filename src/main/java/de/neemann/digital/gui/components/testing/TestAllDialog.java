@@ -177,25 +177,27 @@ public class TestAllDialog extends JDialog {
             final JLabel tc = (JLabel) super.getTableCellRendererComponent(jTable, o, sel, b1, row, i1);
 
             FolderTestRunner.FileToTest f = (FolderTestRunner.FileToTest) o;
-            Color color;
-            switch (f.getStatus()) {
-                case error:
-                    color = Color.LIGHT_GRAY;
-                    break;
-                case passed:
-                    color = ValueTableDialog.PASSED_COLOR;
-                    break;
-                case failed:
-                    color = ValueTableDialog.FAILED_COLOR;
-                    break;
-                default:
-                    color = Color.WHITE;
-                    break;
+            if (f != null) {
+                Color color;
+                switch (f.getStatus()) {
+                    case error:
+                        color = Color.LIGHT_GRAY;
+                        break;
+                    case passed:
+                        color = ValueTableDialog.PASSED_COLOR;
+                        break;
+                    case failed:
+                        color = ValueTableDialog.FAILED_COLOR;
+                        break;
+                    default:
+                        color = Color.WHITE;
+                        break;
+                }
+                if (sel)
+                    color = color.darker();
+                tc.setBackground(color);
+                tc.setText(f.getMessage());
             }
-            if (sel)
-                color = color.darker();
-            tc.setBackground(color);
-            tc.setText(f.getMessage());
 
             return tc;
         }
