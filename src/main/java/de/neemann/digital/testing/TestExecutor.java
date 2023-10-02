@@ -234,7 +234,7 @@ public class TestExecutor {
             return lineListener;
         } catch (RuntimeException re) {
             errorOccurred = true;
-            throw new TestingDataException(Lang.get("err_whileExecutingTests_N0", label, re));
+            throw new TestingDataException(Lang.get("err_whileExecutingTests_N0", label), re);
         } finally {
             if (closeModel)
                 model.close();
