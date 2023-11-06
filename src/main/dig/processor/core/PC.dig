@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-  <version>1</version>
+  <version>2</version>
   <attributes>
     <entry>
       <string>Description</string>
@@ -54,8 +54,10 @@ dem Takt weiter geschaltet wird.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>current ALU output
-{{de Aktuelle ALU Ausgabe}}</string>
+          <string>Current ALU output, this value is used as address in case 
+of a in case of a jump or added to the current address.
+{{de Aktuelle ALU Ausgabe, dieser Wert wird im Falle 
+eines Sprunges als Adresse übernommen oder zur aktuellen Adresse addiert.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -107,8 +109,11 @@ dem Takt weiter geschaltet wird.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Address of the next instruction to execute.
-{{de Adresse des nächsten auszuführenden Befehls.}}</string>
+          <string>Address of the next command to be executed. Can be 
+used as a return address to implement a call instruction.
+{{de Adresse des nächsten auszuführenden Befehls. 
+Kann als Rücksprungadresse verwendet werden, um 
+einen Call-Befehl zu implementieren.}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -126,8 +131,8 @@ dem Takt weiter geschaltet wird.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Programm Counter
-{{de Programmzähler}}</string>
+          <string>the current program counter
+{{de der aktuelle Programmzähler}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -204,7 +209,9 @@ dem Takt weiter geschaltet wird.}}</string>
         <entry>
           <string>Description</string>
           <string>Triggers a absolute jump.
-{{de absoluten Sprung auslösen}}</string>
+The value of the ALU input is used as the new address.
+{{de Absoluten Sprung auslösen. Der Wert des ALU 
+Eingangs wird als neue Adresse verwendet.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -232,8 +239,10 @@ dem Takt weiter geschaltet wird.}}</string>
       <elementAttributes>
         <entry>
           <string>Description</string>
-          <string>Triggers a relative jump.
-{{de relativen Spung auslösen}}</string>
+          <string>Triggers a relative jump. The value of the ALU 
+input is added to the current address.
+{{de relativen Spung auslösen. Der Wert des ALU 
+Eingangs wird zur aktuellen Adresse addiert.}}</string>
         </entry>
         <entry>
           <string>rotation</string>
@@ -373,4 +382,5 @@ dem Takt weiter geschaltet wird.}}</string>
       <p2 x="540" y="320"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
