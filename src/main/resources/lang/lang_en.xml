@@ -1574,6 +1574,7 @@
     <string name="key_shapeType_DIL">DIL-Chip</string>
     <string name="key_shapeType_LAYOUT">Layout</string>
     <string name="key_shapeType_CUSTOM">User defined</string>
+    <string name="key_shapeType_MINIMIZED">Downsized Circuit</string>
 
     <string name="key_textOrientation">Orientation</string>
     <string name="key_textOrientation_tt">Position of the coordinate relative to the text.</string>

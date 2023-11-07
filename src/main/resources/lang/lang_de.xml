@@ -1585,6 +1585,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_shapeType_DIL">DIL-Gehäuse</string>
     <string name="key_shapeType_LAYOUT">Layout</string>
     <string name="key_shapeType_CUSTOM">Benutzerdefiniert</string>
+    <string name="key_shapeType_MINIMIZED">verkleinerte Schaltung</string>
 
     <string name="key_textOrientation">Ausrichtung</string>
     <string name="key_textOrientation_tt">Lage der Koordinate relativ zum Text.</string>

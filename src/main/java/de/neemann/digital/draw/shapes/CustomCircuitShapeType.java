@@ -30,6 +30,11 @@ public enum CustomCircuitShapeType {
     LAYOUT,
 
     /**
+     * The shape is a minified version of the circuit
+     */
+    MINIMIZED,
+
+    /**
      * Shape is defined in the circuit itself.
      */
     CUSTOM
