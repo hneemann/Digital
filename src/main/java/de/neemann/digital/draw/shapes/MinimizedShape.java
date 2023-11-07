@@ -95,12 +95,10 @@ public class MinimizedShape implements Shape {
         min = new Vector(minX, minY);
 
         pins = new Pins();
-        for (PinDescription p : custom.getInputDescription(elementAttributes)) {
+        for (PinDescription p : custom.getInputDescription(elementAttributes))
             pins.add(new Pin(toGrid(pinMap.get(p.getName())), p));
-        }
-        for (PinDescription p : custom.getOutputDescriptions(elementAttributes)) {
+        for (PinDescription p : custom.getOutputDescriptions(elementAttributes))
             pins.add(new Pin(toGrid(pinMap.get(p.getName())), p));
-        }
 
         GraphicMinMax minMax = new GraphicMinMax();
         drawCircuitTo(minMax);
@@ -113,10 +111,9 @@ public class MinimizedShape implements Shape {
                 .add(new Vector(minMax.getMax().x, minMax.getMax().y + SIZE2))
                 .add(new Vector(minMax.getMax().x, minMax.getMin().y - SIZE2));
 
-        Vector size = minMax.getMax().sub(minMax.getMin()).div(2);
-
-        labelPos = new Vector(size.x / 2, -SIZE);
-        textPos = new Vector(size.x / 2, size.y + SIZE2);
+        final int x = (minMax.getMin().x + minMax.getMax().x) / 2;
+        labelPos = new Vector(x, minMax.getMin().y - SIZE2).sub(min).div(2).add(0, -SIZE2 / 2);
+        textPos = new Vector(x, minMax.getMax().y + SIZE2).sub(min).div(2).add(0, SIZE2 / 2);
     }
 
     private void addToMap(HashMap<String, Vector> pinMap, VisualElement ve) throws PinException {
@@ -167,9 +164,8 @@ public class MinimizedShape implements Shape {
         for (Wire w : circuit.getWires())
             gr.drawLine(w.p1, w.p2, Style.THIN);
         for (VisualElement ve : circuit.getElements())
-            if (!IGNORE_SET.contains(ve.getElementName())) {
+            if (!IGNORE_SET.contains(ve.getElementName()))
                 ve.drawTo(gr, null);
-            }
     }
 
     @Override
