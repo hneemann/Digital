@@ -16,5 +16,5 @@ end <?=entityName?>;
 
 architecture Behavioral of <?=entityName?> is
 begin
-  p_out <= p_in when sel = '1' else <? if (elem.Bits=1) { ?>'Z'<?} else {?>(others => 'Z')<? } ?>;
+  p_out <= <? if (elem.invertDriverOutput) { ?>NOT <? } ?>p_in when sel = '1' else <? if (elem.Bits=1) { ?>'Z'<?} else {?>(others => 'Z')<? } ?>;
 end Behavioral;

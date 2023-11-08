@@ -11,6 +11,7 @@ import de.neemann.digital.core.extern.ProcessStarter;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.hdl.model2.HDLException;
 import de.neemann.digital.hdl.printer.CodePrinter;
+import de.neemann.digital.hdl.printer.CodePrinterStr;
 import de.neemann.digital.integration.FileScanner;
 import de.neemann.digital.integration.Resources;
 import de.neemann.digital.integration.TestExamples;
@@ -39,7 +40,7 @@ public class VerilogSimulatorTest extends TestCase {
 
     /*
     public void testDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "/dig/test/vhdl/pinControl/simple.dig");
+        File file = new File(Resources.getRoot(), "/dig/test/vhdl/driver1inv.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VerilogGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
@@ -51,8 +52,8 @@ public class VerilogSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::checkVerilogExport).noOutput().scan(examples);
-            assertEquals(68, tested);
-            assertEquals(58, testBenches);
+            assertEquals(70, tested);
+            assertEquals(60, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if iverilog is not installed its also ok
         }

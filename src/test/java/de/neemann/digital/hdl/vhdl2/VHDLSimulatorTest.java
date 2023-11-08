@@ -32,7 +32,7 @@ public class VHDLSimulatorTest extends TestCase {
 
     /*
     public void testDebug() throws Exception {
-        File file = new File(Resources.getRoot(), "dig/external/ghdl/ghdlFile.dig");
+        File file = new File(Resources.getRoot(), "/dig/test/vhdl/driver2inv.dig");
 
         ToBreakRunner br = new ToBreakRunner(file);
         System.out.println(new VHDLGenerator(br.getLibrary(), new CodePrinterStr(true)).export(br.getCircuit()));
@@ -44,8 +44,8 @@ public class VHDLSimulatorTest extends TestCase {
         File examples = new File(Resources.getRoot(), "/dig/test/vhdl");
         try {
             int tested = new FileScanner(this::checkVHDLExport).noOutput().scan(examples);
-            assertEquals(68, tested);
-            assertEquals(58, testBenches);
+            assertEquals(70, tested);
+            assertEquals(60, testBenches);
         } catch (FileScanner.SkipAllException e) {
             // if ghdl is not installed its also ok
         }

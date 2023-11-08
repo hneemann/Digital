@@ -30,11 +30,13 @@ public class Driver extends Node implements Element, Countable {
             input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
+            .addAttribute(Keys.INVERT_DRIVER_OUTPUT)
             .addAttribute(Keys.FLIP_SEL_POSITON)
             .supportsHDL();
 
     private final ObservableValue output;
     private final int bits;
+    private final boolean invertOut;
     private ObservableValue input;
     private ObservableValue selIn;
     private long value;
@@ -50,6 +52,7 @@ public class Driver extends Node implements Element, Countable {
         output = new ObservableValue("out", bits)
                 .setToHighZ()
                 .setPinDescription(DESCRIPTION);
+        invertOut = attributes.get(Keys.INVERT_DRIVER_OUTPUT);
     }
 
     @Override
@@ -62,8 +65,12 @@ public class Driver extends Node implements Element, Countable {
     public void writeOutputs() throws NodeException {
         if (isOutHighZ(sel))
             output.setToHighZ();
-        else
-            output.setValue(value);
+        else {
+            if (invertOut)
+                output.setValue(~value);
+            else
+                output.setValue(value);
+        }
     }
 
     /**

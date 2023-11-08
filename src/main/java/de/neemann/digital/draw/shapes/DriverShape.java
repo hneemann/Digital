@@ -27,6 +27,7 @@ public class DriverShape implements Shape {
     private final boolean invertedInput;
     private final PinDescriptions inputs;
     private final PinDescriptions outputs;
+    private final boolean invertedOutput;
     private Pins pins;
 
     /**
@@ -53,6 +54,7 @@ public class DriverShape implements Shape {
         this.outputs = outputs;
         this.bottom = attr.get(Keys.FLIP_SEL_POSITON);
         this.invertedInput = invertedInput;
+        this.invertedOutput = attr.get(Keys.INVERT_DRIVER_OUTPUT);
     }
 
     @Override
@@ -61,7 +63,10 @@ public class DriverShape implements Shape {
             pins = new Pins();
             pins.add(new Pin(new Vector(-SIZE, 0), inputs.get(0)));
             pins.add(new Pin(new Vector(0, bottom ? SIZE : -SIZE), inputs.get(1)));
-            pins.add(new Pin(new Vector(SIZE, 0), outputs.get(0)));
+            if (invertedOutput)
+                pins.add(new Pin(new Vector(SIZE * 2, 0), outputs.get(0)));
+            else
+                pins.add(new Pin(new Vector(SIZE, 0), outputs.get(0)));
         }
         return pins;
     }
@@ -89,6 +94,12 @@ public class DriverShape implements Shape {
                 graphic.drawCircle(new Vector(-SIZE2 + 4, -SIZE), new Vector(SIZE2 - 4, -8), Style.NORMAL);
             else
                 graphic.drawLine(new Vector(0, -SIZE), new Vector(0, -7), Style.NORMAL);
+        }
+
+        if (invertedOutput) {
+            graphic.drawCircle(new Vector(SIZE + 1, 4 - SIZE2),
+                    new Vector(SIZE + 1 + (SIZE2 - 4) * 2, SIZE2 - 4), Style.NORMAL);
+            graphic.drawLine(new Vector(SIZE + 1 + (SIZE2 - 4) * 2, 0), new Vector(SIZE * 2, 0), Style.NORMAL);
         }
     }
 }

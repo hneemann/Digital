@@ -21,5 +21,5 @@ module <?= moduleName ?>
     input sel,
     output <?= bitRange ?>out
 );
-    assign out = (sel == 1'b1)? in : <?= zval ?>;
+    assign out = (sel == 1'b1)? <? if (elem.invertDriverOutput) { ?>~ <?- } ?>in : <?= zval ?>;
 endmodule

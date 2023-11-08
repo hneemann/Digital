@@ -24,6 +24,7 @@ public class DriverInvSel extends Driver {
             input("sel"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.BITS)
+            .addAttribute(Keys.INVERT_DRIVER_OUTPUT)
             .addAttribute(Keys.FLIP_SEL_POSITON)
             .supportsHDL();
 

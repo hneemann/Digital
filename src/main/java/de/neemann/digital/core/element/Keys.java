@@ -258,6 +258,12 @@ public final class Keys {
             = new Key<>("invertOutput", true);
 
     /**
+     * inverts the output of an inverter
+     */
+    public static final Key<Boolean> INVERT_DRIVER_OUTPUT
+            = new Key<>("invertDriverOutput", false).useTranslationOf(INVERT_OUTPUT).allowGroupEdit();
+
+    /**
      * The real time frequency of the clock
      */
     public static final Key<Integer> FREQUENCY
