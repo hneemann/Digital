@@ -1930,9 +1930,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         if (getCircuit().getAttributes().get(Keys.SHAPE_TYPE) != CustomCircuitShapeType.MINIMIZED)
             return false;
 
-        return element.equalsDescription(In.DESCRIPTION) ||
-                element.equalsDescription(Out.DESCRIPTION) ||
-                element.equalsDescription(Clock.DESCRIPTION);
+        return element.equalsDescription(In.DESCRIPTION)
+                || element.equalsDescription(Out.DESCRIPTION)
+                || element.equalsDescription(Clock.DESCRIPTION);
     }
 
     private void insertWires(VisualElement element) {
