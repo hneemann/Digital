@@ -1,6 +1,7 @@
 Release Notes
 
 HEAD, planned as v0.31
+- Added a run command to the cli to run circuit headless
 - Main open dialog is able to open FSM and Truth Tables
 - FSM editor highlights the current transition
 - Adds drivers with inverted output

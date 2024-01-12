@@ -31,9 +31,10 @@ public class ProgramMemoryLoader implements ModelModifier {
     /**
      * Creates a new rom modifier
      *
-     * @param romHex the file to load
+     * @param romHex    the file to load
+     * @param bigEndian reads the file in big endian mode
      */
-    ProgramMemoryLoader(File romHex, boolean bigEndian) {
+    public ProgramMemoryLoader(File romHex, boolean bigEndian) {
         this.romHex = romHex;
         this.bigEndian = bigEndian;
     }

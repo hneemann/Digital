@@ -1813,6 +1813,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     </string>
     <string name="cli_errorCreatingStats">Fehler bei der Erzeugung der CSV Datei!</string>
 
+    <string name="cli_run_noClock">Kein aktivierter Takt in der Schaltung gefunden!</string>
+    <string name="cli_errorRunningCircuit">Fehler beim Starten der Schaltung!</string>
+    <string name="cli_help_run">Start eine Schaltung headless.</string>
+    <string name="cli_help_run_dig">Der Dateiname der Schaltung.</string>
+
     <string name="menu_window">Fenster</string>
     <string name="menu_about">Über Digital</string>
     <string name="menu_analyse">Analyse</string>

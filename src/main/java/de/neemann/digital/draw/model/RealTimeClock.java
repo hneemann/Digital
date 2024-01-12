@@ -92,7 +92,7 @@ public class RealTimeClock implements ModelStateObserverTyped {
 
         RealTimeRunner(int delay) {
             FrequencyCalculator frequencyCalculator;
-            if (frequency > 2000)
+            if (frequency > 2000 && status != null)
                 frequencyCalculator = new FrequencyCalculator(status, frequency);
             else
                 frequencyCalculator = null;
@@ -120,10 +120,13 @@ public class RealTimeClock implements ModelStateObserverTyped {
         ThreadRunner() {
             thread = new Thread(() -> {
                 LOGGER.debug("thread start");
-                FrequencyCalculator frequencyCalculator = new FrequencyCalculator(status, frequency);
+                FrequencyCalculator frequencyCalculator = null;
+                if (status != null)
+                    frequencyCalculator = new FrequencyCalculator(status, frequency);
                 while (!Thread.interrupted()) {
                     model.modify(() -> output.setValue(1 - output.getValue()));
-                    frequencyCalculator.calc();
+                    if (frequencyCalculator != null)
+                        frequencyCalculator.calc();
                 }
             });
             thread.setDaemon(true);

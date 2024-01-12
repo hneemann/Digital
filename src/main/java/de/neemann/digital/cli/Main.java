@@ -20,6 +20,7 @@ public class Main extends Muxer {
         addCommand(new CommandLineTester.TestCommand());
         addCommand(new SVGExport());
         addCommand(new StatsExport());
+        addCommand(new Runner());
     }
 
     /**
