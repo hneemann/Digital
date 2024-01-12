@@ -811,8 +811,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             public void actionPerformed(ActionEvent e) {
                 if (!getCircuitComponent().isLocked()) {
                     ElementOrder o = new ElementOrder(circuitComponent,
-                            element -> element.equalsDescription(Out.DESCRIPTION)
-                                    || element.equalsDescription(Out.LEDDESCRIPTION),
+                            element -> element.equalsDescription(Out.DESCRIPTION),
                             Lang.get("menu_orderOutputs"));
                     if (new ElementOrderer<>(Main.this, Lang.get("menu_orderOutputs"), o).addOkButton().showDialog())
                         circuitComponent.modify(o.getModifications());
