@@ -37,7 +37,11 @@ public class SettingsBase implements AttributeListener {
     protected SettingsBase(List<Key> settingsKeys, String name) {
         this.settingsKeys = settingsKeys;
 
-        filename = new File(new File(System.getProperty("user.home")), name);
+        String settingsDir = System.getenv("XDG_CONFIG_HOME");
+        if (settingsDir == null) {
+            settingsDir = System.getProperty("user.home");
+        }
+        filename = new File(new File(settingsDir), name);
 
         ElementAttributes attr = null;
         if (filename.exists()) {
