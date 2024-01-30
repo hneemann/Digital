@@ -1684,6 +1684,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_oscillationDetectionCounter">Oszillationserkennung</string>
     <string name="key_oscillationDetectionCounter_tt">Anzahl der Gatterlaufzeiten, bei der eine Oszillation erkannt
         wird, wenn sich die Schaltung bis dahin noch nicht stabilisiert hat.</string>
+    <string name="key_recoverFromOscillation">Bei Oszillationen mit Zufallswerten weitermachen.</string>
+    <string name="key_recoverFromOscillation_tt">Wird diese Option gesetzt, wird das Verhalten der Simulation im Falle einer Oszillation unvorhersehbar und zudem extrem langsam!</string>
 
     <string name="key_telnetEscape">Telnet-Modus</string>
     <string name="key_telnetEscape_tt">Wenn gesetzt, werden die Telnet Steuerkommandos ausgewertet.

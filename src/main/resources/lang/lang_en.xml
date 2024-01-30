@@ -1667,6 +1667,8 @@
     <string name="key_oscillationDetectionCounter">Oscillation detection</string>
     <string name="key_oscillationDetectionCounter_tt">Number of gate propagation times at which a oscillation is
         detected if the circuit has not stabilized by then.</string>
+    <string name="key_recoverFromOscillation">In case of oscillations, continue with random values.</string>
+    <string name="key_recoverFromOscillation_tt">If this option is set, the behavior of the simulation becomes unpredictable and extremely slow if there is an oscillation!</string>
 
     <string name="key_telnetEscape">Telnet mode</string>
     <string name="key_telnetEscape_tt">If set, the Telnet control commands are evaluated.

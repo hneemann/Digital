@@ -82,7 +82,6 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         ATTR_LIST.add(Keys.PINCOUNT);
         ATTR_LIST.add(Keys.BACKGROUND_COLOR);
         ATTR_LIST.add(Keys.DESCRIPTION);
-        ATTR_LIST.add(Keys.OSCILLATION_DETECTION_COUNTER);
         ATTR_LIST.add(Keys.LOCKED_MODE);
         ATTR_LIST.add(Keys.ROMMANAGER);
         ATTR_LIST.add(Keys.SHOW_DATA_TABLE);
@@ -94,6 +93,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         ATTR_LIST.add(Keys.BIG_ENDIAN_SETTING);
         ATTR_LIST.add(Keys.SKIP_HDL);
         ATTR_LIST.add(Keys.IS_GENERIC);
+        ATTR_LIST.add(Keys.OSCILLATION_DETECTION_COUNTER);
+        ATTR_LIST.add(Keys.RECOVER_FROM_OSCILLATION);
     }
 
 

@@ -80,6 +80,7 @@ public class Model implements Iterable<Node>, SyncAccess {
     private AsyncSeq asyncInfos;
     private boolean asyncMode = false;
     private boolean allowGlobalValues = false;
+    private boolean recoverFromOscillation = false;
     private File rootPath;
 
     private final ArrayList<ModelStateObserver> observers;
@@ -293,19 +294,20 @@ public class Model implements Iterable<Node>, SyncAccess {
         try {
             if (cond.doNextMicroStep()) {
                 int counter = 0;
+                oscillatingNodes = null;
                 while (cond.doNextMicroStep() && state != State.CLOSED) {
                     if (counter++ > oscillationDetectionCounter) {
                         if (oscillatingNodes == null)
                             oscillatingNodes = new HashSet<>();
                         if (counter > oscillationDetectionCounter + COLLECTING_LOOP_COUNTER_OFFS) {
-                            NodeException seemsToOscillate = new NodeException(Lang.get("err_seemsToOscillate")).addNodes(oscillatingNodes);
-                            oscillatingNodes = null;
-                            throw seemsToOscillate;
+                            throw new NodeException(Lang.get("err_seemsToOscillate")).addNodes(oscillatingNodes);
                         } else {
                             oscillatingNodes.addAll(nodesToUpdateNext);
                         }
+                        doMicroStep(noise || recoverFromOscillation);
+                    } else {
+                        doMicroStep(noise);
                     }
-                    doMicroStep(noise);
                 }
             } else {
                 // if a calculation is initiated but there is nothing to do because there was
@@ -944,6 +946,20 @@ public class Model implements Iterable<Node>, SyncAccess {
      */
     public Model setAllowGlobalValues(boolean allowGlobalValues) {
         this.allowGlobalValues = allowGlobalValues;
+        return this;
+    }
+
+    /**
+     * I set, the model tries to recover from oszillation by introducing noise
+     * to the model execution.
+     * Use with extreme care because is covers bugs in the simulation that lead
+     * to an unpredictable behaviour and makes the simulation very slow!
+     *
+     * @param recoverFromOscillation if true, the model tries to recover from an oszillation
+     * @return this for chained calls
+     */
+    public Model setRecoverFromOscillation(boolean recoverFromOscillation) {
+        this.recoverFromOscillation = recoverFromOscillation;
         return this;
     }
 

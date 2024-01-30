@@ -1475,6 +1475,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             modelCreator = new ModelCreator(circuitComponent.getCircuit(), library);
             model = modelCreator.createModel(true);
 
+            model.setRecoverFromOscillation(circuitComponent.getCircuit().getAttributes().get(Keys.RECOVER_FROM_OSCILLATION));
+
             time = System.currentTimeMillis() - time;
             LOGGER.debug("model creation: " + time + " ms, " + model.getNodes().size() + " nodes");
 

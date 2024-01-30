@@ -566,7 +566,13 @@ public final class Keys {
             new Key.KeyInteger("oscillationDetectionCounter", 1000)
                     .setComboBoxValues(1000, 5000, 10000)
                     .setMin(1000)
-                    .setMax(100000);
+                    .setMax(100000).setSecondary();
+
+    /**
+     * Counter used to detect oscillations
+     */
+    public static final Key<Boolean> RECOVER_FROM_OSCILLATION =
+            new Key<>("recoverFromOscillation", false).setSecondary();
 
     /**
      * output format for numbers
