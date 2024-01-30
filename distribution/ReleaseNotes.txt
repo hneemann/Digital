@@ -7,6 +7,7 @@ HEAD, planned as v0.31
 - Adds drivers with inverted output
 - Adds a minified circuit as a new shape for embedded circuits
 - Allows recovering from oscillations.
+- Supports XDG_CONFIG_HOME environment variable
 
 v0.30, released on 3. February 2023
 - Added a search function
