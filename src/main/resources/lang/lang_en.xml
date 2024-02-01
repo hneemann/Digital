@@ -1674,6 +1674,10 @@
         the server is a simple TCP server.</string>
     <string name="key_port">Port</string>
     <string name="key_port_tt">The port to be opened by the server.</string>
+    <string name="key_telnetBufferSize">Buffer size</string>
+    <string name="key_telnetBufferSize_tt">The size (in bytes) of the buffer for the received data.
+        If data is received faster than it can be processed, the buffer can become full.
+        If the buffer is full, incoming data can be lost.</string>
 
     <string name="key_openRemotePort">Allow remote connection</string>
     <string name="key_openRemotePort_tt">If set, a TCP/IP port is opened, through which the control of the
