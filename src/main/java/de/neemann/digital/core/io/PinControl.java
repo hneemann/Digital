@@ -39,6 +39,8 @@ public class PinControl extends Node implements Element {
     private long wr;
     private boolean oe;
     private long outRead;
+    private long outHighZ;
+    private long wrHighZ;
 
     /**
      * Creates a new instance
@@ -61,19 +63,20 @@ public class PinControl extends Node implements Element {
     @Override
     public void readInputs() throws NodeException {
         wr = wrValue.getValue();
+        wrHighZ=wrValue.getHighZ();
         oe = oeValue.getBool();
         outRead = outReadValue.getValue();
+        outHighZ = outReadValue.getHighZ();
     }
 
     @Override
     public void writeOutputs() throws NodeException {
         if (oe) {
-            outWriteValue.setValue(wr);
-            rdValue.setValue(wr);
+            outWriteValue.set(wr, wrHighZ);
         } else {
             outWriteValue.setToHighZ();
-            rdValue.setValue(outRead);
         }
+        rdValue.set(outRead, outHighZ);
     }
 
 

@@ -126,11 +126,13 @@ public class VerilogSimulatorTest extends TestCase {
             File source = new File(Resources.getRoot(), "dig/external/verilog");
 
             int tested = new FileScanner(f -> {
-                checkVerilogExport(f);
+                if (!f.getName().toLowerCase().contains("noexport")) {
+                    checkVerilogExport(f);
+                }
                 // check simulation in Digital
                 new TestExamples().check(f);
             }).scan(source);
-            assertEquals(5, tested);
+            assertEquals(7, tested);
         }
     }
 
@@ -235,9 +237,9 @@ public class VerilogSimulatorTest extends TestCase {
 
         if (ivp != null) {
             IVERILOG_DIR = ivp.getParent().getParent().toString();
-            IVERILOG = ivp.getParent().resolve("iverilog").toString();
-            VVP = ivp.getParent().resolve("vvp").toString();
-
+            String extension = (System.getProperty("os.name").toLowerCase().contains("win")) ? ".exe" : "";
+            IVERILOG = ivp.getParent().resolve("iverilog" + extension).toString();
+            VVP = ivp.getParent().resolve("vvp" + extension).toString();
             return true;
         } else {
             return false;
