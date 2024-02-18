@@ -1460,7 +1460,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             mouseNormal.activate();
 
         VisualElement ve = null;
-        if (activeMouseController instanceof MouseControllerNormal) {
+        if (activeMouseController instanceof MouseControllerNormal && lastMousePos != null) {
             Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
             ve = getCircuit().getElementAt(pos);
             if (ve == null)
