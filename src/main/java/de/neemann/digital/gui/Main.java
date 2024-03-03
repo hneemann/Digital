@@ -71,6 +71,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.event.*;
+import java.awt.im.InputContext;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -306,6 +307,25 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             setLocationRelativeTo(null);
 
         checkIDEIntegration(builder, menuBar);
+
+        // Removes unexpected layout change
+        // https://github.com/hneemann/Digital/issues/709
+        // https://stackoverflow.com/questions/9667947/preserving-keyboard-layout-in-swing-app
+        AWTEventListener awtWindowListener = event -> {
+            if (event instanceof WindowEvent) {
+                if (WindowEvent.WINDOW_CLOSED == event.getID()
+                        || WindowEvent.WINDOW_CLOSING == event.getID()) {
+                    Window child = ((WindowEvent) event).getWindow();
+                    Window parent = SwingUtilities.getWindowAncestor(child);
+                    if (parent == null) return;
+                    InputContext childIC = child.getInputContext();
+                    parent.getInputContext().selectInputMethod(childIC.getLocale());
+                }
+            }
+
+        };
+
+        Toolkit.getDefaultToolkit().addAWTEventListener(awtWindowListener, AWTEvent.WINDOW_EVENT_MASK);
     }
 
     private void checkIDEIntegration(MainBuilder builder, JMenuBar menuBar) {
