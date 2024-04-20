@@ -564,12 +564,12 @@ public final class Keys {
      */
     public static final Key<Integer> OSCILLATION_DETECTION_COUNTER =
             new Key.KeyInteger("oscillationDetectionCounter", 1000)
-                    .setComboBoxValues(1000, 5000, 10000)
-                    .setMin(1000)
+                    .setComboBoxValues(100, 1000, 5000, 10000)
+                    .setMin(100)
                     .setMax(100000).setSecondary();
 
     /**
-     * Counter used to detect oscillations
+     * Flag to enable recovery from oscillations
      */
     public static final Key<Boolean> RECOVER_FROM_OSCILLATION =
             new Key<>("recoverFromOscillation", false).setSecondary();
