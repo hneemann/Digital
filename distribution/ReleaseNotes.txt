@@ -4,6 +4,7 @@ HEAD, planned as v0.31
 - Added a run command to the cli to run circuit headless
 - Main open dialog is able to open FSM and Truth Tables
 - FSM editor highlights the current transition
+- Allows disabling LED's in the measurement graph
 - Adds drivers with inverted output
 - Adds a minified circuit as a new shape for embedded circuits
 - Allows recovering from oscillations.

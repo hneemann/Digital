@@ -159,7 +159,7 @@ public final class Signal implements Comparable<Signal> {
 
     /**
      * Returns true if this signal is a valid signal.
-     * Valid means there is a name and the value is non null
+     * Valid means there is a name and the value is not null
      *
      * @return true if signal is valid
      */

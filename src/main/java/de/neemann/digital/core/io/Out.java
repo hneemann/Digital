@@ -49,6 +49,7 @@ public class Out implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.LED_SIZE)
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH)
             .addAttribute(Keys.COLOR);
 
     /**
@@ -56,9 +57,10 @@ public class Out implements Element {
      */
     public static final ElementTypeDescription POLARITYAWARELEDDESCRIPTION
             = new ElementTypeDescription("PolarityAwareLED",
-            attributes -> new Out(1, 1), input("A"), input("C"))
+            attributes -> new Out(attributes, 1, 1), input("A"), input("C"))
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
+            .addAttribute(Keys.ADD_VALUE_TO_GRAPH)
             .addAttribute(Keys.COLOR);
 
     /**
@@ -71,7 +73,7 @@ public class Out implements Element {
      */
     public static final ElementTypeDescription SEVENHEXDESCRIPTION
             = new ElementTypeDescription("Seven-Seg-Hex",
-            attributes -> new Out(4, 1), input("d"), input("dp"))
+            attributes -> new Out(attributes, 4, 1), input("d"), input("dp"))
             .addAttribute(Keys.COLOR)
             .addAttribute(Keys.SEVEN_SEG_SIZE);
 
@@ -80,7 +82,7 @@ public class Out implements Element {
      */
     public static final ElementTypeDescription SIXTEENDESCRIPTION
             = new ElementTypeDescription("SixteenSeg",
-            attributes -> new Out(16, 1), input("led"), input("dp"))
+            attributes -> new Out(attributes, 16, 1), input("led"), input("dp"))
             .addAttribute(Keys.COLOR)
             .addAttribute(Keys.SEVEN_SEG_SIZE);
 
@@ -108,14 +110,15 @@ public class Out implements Element {
     /**
      * Creates a new instance
      *
-     * @param bits the bitcount of the different inputs
+     * @param attributes the attributes
+     * @param bits       the bitcount of the different inputs
      */
-    public Out(int... bits) {
+    public Out(ElementAttributes attributes, int... bits) {
         this.bits = bits;
-        label = null;
+        label = attributes.getLabel();
         pinNumber = "";
         formatter = null;
-        showInGraph = true;
+        showInGraph = attributes.get(Keys.ADD_VALUE_TO_GRAPH);
     }
 
     @Override
@@ -151,9 +154,9 @@ public class Out implements Element {
         private SevenSegTypeDescription() {
             super("Seven-Seg", attributes -> {
                 if (attributes.get(Keys.COMMON_CONNECTION))
-                    return new Out(1, 1, 1, 1, 1, 1, 1, 1, 1);
+                    return new Out(attributes, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                 else
-                    return new Out(1, 1, 1, 1, 1, 1, 1, 1);
+                    return new Out(attributes, 1, 1, 1, 1, 1, 1, 1, 1);
             });
             addAttribute(Keys.COLOR);
             addAttribute(Keys.COMMON_CONNECTION);
