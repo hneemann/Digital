@@ -87,9 +87,10 @@ public class VerilogGenerator implements Closeable {
             String fileName = out.getFile() != null ? out.getFile().getName() : circuit.getOrigin().getName();
             String[] tokens = fileName.split("(?=(\\.[^\\.]+)$)"); // The power of regex :)
 
-            String topModuleName = vrename.checkName(tokens[0]);
+            String topModuleName = tokens[0];
+            String checkedTopModuleName = vrename.checkName(topModuleName);
 
-            new VerilogCreator(out, library).printHDLCircuit(model.getMain(), topModuleName, model.getRoot());
+            new VerilogCreator(out, library).printHDLCircuit(model.getMain(), checkedTopModuleName, model.getRoot());
 
             File outFile = out.getFile();
             if (outFile != null) {
