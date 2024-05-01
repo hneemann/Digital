@@ -69,6 +69,16 @@ public class VerilogSimulatorTest extends TestCase {
         }
     }
 
+    public void testInSimulatorNames() throws Exception {
+        File examples = new File(Resources.getRoot(), "/dig/hdl_names");
+        try {
+            int tested = new FileScanner(this::checkVerilogExport).noOutput().scan(examples);
+            assertEquals(3, tested);
+        } catch (FileScanner.SkipAllException e) {
+            // if iverilog is not installed its also ok
+        }
+    }
+
     public void testInSimulatorInOut() throws Exception {
         File examples = new File(Resources.getRoot(), "/dig/test/pinControl");
         try {

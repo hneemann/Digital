@@ -6,8 +6,17 @@
 package de.neemann.digital.hdl.verilog2;
 
 import de.neemann.digital.hdl.printer.CodePrinterStr;
+import de.neemann.digital.core.extern.ProcessStarter;
+import de.neemann.digital.hdl.printer.CodePrinter;
 import de.neemann.digital.integration.ToBreakRunner;
 import junit.framework.TestCase;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class VerilogGeneratorTest extends TestCase {
 
@@ -202,4 +211,64 @@ public class VerilogGeneratorTest extends TestCase {
                 "endmodule\n", out.toString());
     }
 
+    public void testTestCaseNames() throws Exception {
+        DateFormat f = new SimpleDateFormat("yy-MM-dd_HH-mm_ss");
+        String time = f.format(new Date());
+
+        ToBreakRunner br = new ToBreakRunner("dig/hdl_names/a-b.dig");
+        File dir = Files.createTempDirectory("digital_verilog_testcase_" + time + "_").toFile();
+        File srcFile = new File(dir, "a-b.dig");
+        CodePrinter out = new CodePrinter(srcFile);
+        VerilogGenerator generator = new VerilogGenerator(br.getLibrary(), out).export(br.getCircuit());
+        ArrayList<File> testbenches = generator.getTestBenches();
+        assertEquals(testbenches.size(), 1);
+
+        File test_file = testbenches.get(0);
+        assertEquals(test_file.getName(), "a-b_tb.v");
+
+        assertEquals("//  A testbench for a-b_tb\n" +
+                "`timescale 1us/1ns\n" +
+                "\n" +
+                "module \\a-b_tb ;\n" +
+                "    reg A;\n" +
+                "    reg B;\n" +
+                "    wire Y;\n" +
+                "\n" +
+                "  \\a-b  \\a-b0  (\n" +
+                "    .A(A),\n" +
+                "    .B(B),\n" +
+                "    .Y(Y)\n" +
+                "  );\n" +
+                "\n" +
+                "    reg [2:0] patterns[0:3];\n" +
+                "    integer i;\n" +
+                "\n" +
+                "    initial begin\n" +
+                "      patterns[0] = 3'b0_0_0;\n" +
+                "      patterns[1] = 3'b0_1_0;\n" +
+                "      patterns[2] = 3'b1_0_0;\n" +
+                "      patterns[3] = 3'b1_1_1;\n" +
+                "\n" +
+                "      for (i = 0; i < 4; i = i + 1)\n" +
+                "      begin\n" +
+                "        A = patterns[i][2];\n" +
+                "        B = patterns[i][1];\n" +
+                "        #10;\n" +
+                "        if (patterns[i][0] !== 1'hx)\n" +
+                "        begin\n" +
+                "          if (Y !== patterns[i][0])\n" +
+                "          begin\n" +
+                "            $display(\"%d:Y: (assertion error). Expected %h, found %h\", i, patterns[i][0], Y);\n" +
+                "            $finish;\n" +
+                "          end\n" +
+                "        end\n" +
+                "      end\n" +
+                "\n" +
+                "      $display(\"All tests passed.\");\n" +
+                "    end\n" +
+                "    endmodule\n",
+                new String(Files.readAllBytes(test_file.toPath())));
+
+        ProcessStarter.removeFolder(dir);
+    }
 }
