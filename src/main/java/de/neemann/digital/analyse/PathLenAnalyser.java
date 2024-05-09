@@ -9,8 +9,6 @@ import de.neemann.digital.core.Observer;
 import de.neemann.digital.core.*;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -19,7 +17,6 @@ import java.util.*;
  * This means the max number of gates between on of the inputs and one of the outputs.
  */
 public class PathLenAnalyser {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PathLenAnalyser.class);
     private int maxDepth;
 
     /**
