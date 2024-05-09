@@ -9,8 +9,6 @@ import de.neemann.digital.core.*;
 import de.neemann.digital.core.Observer;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.lang.Lang;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -20,9 +18,7 @@ import java.util.*;
  * really depends on.
  */
 public class DependencyAnalyser {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DependencyAnalyser.class);
     private final HashMap<Signal, Set<ObservableValue>> dependencyMap;
-    private int maxDepth;
 
     /**
      * Creates a new instance
@@ -35,10 +31,9 @@ public class DependencyAnalyser {
         dependencyMap = new HashMap<>();
         for (Signal s : modelAnalyser.getInputs()) {
             Set<ObservableValue> effected = new HashSet<>();
-            backtracking(s.getValue(), effected, 0);
+            backtracking(s.getValue(), effected);
             dependencyMap.put(s, effected);
         }
-        LOGGER.info("circuit max depth: " + getMaxPathLen());
     }
 
     /**
@@ -71,31 +66,18 @@ public class DependencyAnalyser {
         return num;
     }
 
-    private void backtracking(ObservableValue value, Set<ObservableValue> effected, int depth) throws PinException, BacktrackException {
-        if (depth > maxDepth)
-            maxDepth = depth;
+    private void backtracking(ObservableValue value, Set<ObservableValue> effected) throws PinException, BacktrackException {
         if (!effected.contains(value)) {
             effected.add(value);
 
             for (Observer o : value.getObservers()) {
                 if ((o instanceof NodeInterface)) {
                     ObservableValues outputs = ((NodeInterface) o).getOutputs();
-                    int d = depth;
-                    if (!(o instanceof NodeWithoutDelay)) d++;
                     for (ObservableValue co : outputs)
-                        backtracking(co, effected, d);
+                        backtracking(co, effected);
                 } else
                     throw new BacktrackException(Lang.get("err_backtrackOf_N_isImpossible", o.getClass().getSimpleName()));
             }
         }
-    }
-
-    /**
-     * Returns the max depth of the circuit.
-     *
-     * @return the max depth of the circuit
-     */
-    public int getMaxPathLen() {
-        return maxDepth;
     }
 }

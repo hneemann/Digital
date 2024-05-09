@@ -324,7 +324,7 @@ public class ModelAnalyser {
         if (!Main.isExperimentalMode() && !modelContainsSwitches())
             CycleDetector.checkForCycles(inputs);
 
-        DependencyAnalyser da = new DependencyAnalyser(this);
+        PathLenAnalyser da = new PathLenAnalyser(this);
         return da.getMaxPathLen();
     }
 
