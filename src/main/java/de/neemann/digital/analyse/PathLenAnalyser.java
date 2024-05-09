@@ -31,7 +31,6 @@ public class PathLenAnalyser {
      */
     public PathLenAnalyser(ModelAnalyser modelAnalyser) throws BacktrackException, PinException {
         for (Signal s : modelAnalyser.getInputs()) {
-            LOGGER.debug(s.getName());
             HashMap<ObservableValue, Integer> found = new HashMap<>();
             backtracking(s.getValue(), found, 0);
         }
@@ -46,7 +45,6 @@ public class PathLenAnalyser {
                 maxDepth = depth;
             for (Observer o : value.getObservers()) {
                 if ((o instanceof NodeInterface)) {
-                    LOGGER.debug(o.toString());
                     ObservableValues outputs = ((NodeInterface) o).getOutputs();
                     int de = depth;
                     if (!(o instanceof NodeWithoutDelay)) de++;
