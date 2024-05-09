@@ -319,11 +319,8 @@ public class ModelAnalyser {
      * @throws AnalyseException   AnalyseException
      */
     public int calcMaxPathLen() throws PinException, BacktrackException, AnalyseException {
-        LOGGER.debug("start to calculate the depth of the model...");
-
-        if (!Main.isExperimentalMode() && !modelContainsSwitches())
-            CycleDetector.checkForCycles(inputs);
-
+        LOGGER.debug("start to calculate the max path len of the model...");
+        CycleDetector.checkForCycles(inputs);
         PathLenAnalyser da = new PathLenAnalyser(this);
         return da.getMaxPathLen();
     }

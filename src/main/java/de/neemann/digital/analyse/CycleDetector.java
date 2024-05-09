@@ -48,7 +48,7 @@ public final class CycleDetector {
             traverse(root, s.getValue(), nodes, visited);
         }
 
-        // Turned of for now because if it is used you can build circuits with a state
+        // Turned off for now because if it is used you can build circuits with a cycle
         // which are not detected as such.
         //removeSwitchCycles(nodes.values());
 
