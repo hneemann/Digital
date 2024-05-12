@@ -34,6 +34,7 @@ public class VGA extends Node implements Element {
         vm(new VideoMode(70, 25.175, 640, 16, 96, 48, 400, 12, 2, 35, true, false));
         vm(new VideoMode(85, 31.5, 640, 32, 64, 96, 400, 1, 3, 41, true, false));
         vm(new VideoMode(60, 25.175, 640, 16, 96, 48, 480, 10, 2, 33, true, true));
+        vm(new VideoMode(60, 25, 640, 16, 96, 48, 480, 10, 8, 23, true, true)); // gigatron
         vm(new VideoMode(73, 31.5, 640, 24, 40, 128, 480, 9, 2, 29, true, true));
         vm(new VideoMode(75, 31.5, 640, 16, 64, 120, 480, 1, 3, 16, true, true));
         vm(new VideoMode(85, 36, 640, 56, 56, 80, 480, 1, 3, 25, true, true));
