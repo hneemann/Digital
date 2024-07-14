@@ -8,7 +8,7 @@
     </entry>
     <entry>
       <string>Description</string>
-      <string>quad 2-input XNOR gate with open collector outputs</string>
+      <string>quad 2-input XNOR gate</string>
     </entry>
     <entry>
       <string>romContent</string>
@@ -66,7 +66,7 @@
           <string>3</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="200"/>
+      <pos x="480" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -108,7 +108,7 @@
           <string>4</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="280"/>
+      <pos x="480" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -150,7 +150,7 @@
           <string>10</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="360"/>
+      <pos x="480" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -192,7 +192,7 @@
           <string>11</string>
         </entry>
       </elementAttributes>
-      <pos x="460" y="440"/>
+      <pos x="480" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>PowerSupply</elementName>
@@ -232,74 +232,54 @@
       <pos x="300" y="600"/>
     </visualElement>
     <visualElement>
-      <elementName>XOr</elementName>
-      <elementAttributes/>
+      <elementName>XNOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="340" y="220"/>
     </visualElement>
     <visualElement>
-      <elementName>NFET</elementName>
-      <elementAttributes/>
-      <pos x="420" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="440" y="260"/>
-    </visualElement>
-    <visualElement>
-      <elementName>XOr</elementName>
-      <elementAttributes/>
+      <elementName>XNOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="340" y="300"/>
     </visualElement>
     <visualElement>
-      <elementName>XOr</elementName>
-      <elementAttributes/>
+      <elementName>XNOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="340" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>XOr</elementName>
-      <elementAttributes/>
+      <elementName>XNOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
       <pos x="340" y="460"/>
-    </visualElement>
-    <visualElement>
-      <elementName>NFET</elementName>
-      <elementAttributes/>
-      <pos x="420" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="440" y="340"/>
-    </visualElement>
-    <visualElement>
-      <elementName>NFET</elementName>
-      <elementAttributes/>
-      <pos x="420" y="360"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="440" y="420"/>
-    </visualElement>
-    <visualElement>
-      <elementName>NFET</elementName>
-      <elementAttributes/>
-      <pos x="420" y="440"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="440" y="500"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="400" y="320"/>
-      <p2 x="420" y="320"/>
+      <p1 x="440" y="320"/>
+      <p2 x="480" y="320"/>
     </wire>
     <wire>
-      <p1 x="400" y="480"/>
-      <p2 x="420" y="480"/>
+      <p1 x="440" y="480"/>
+      <p2 x="480" y="480"/>
     </wire>
     <wire>
       <p1 x="300" y="260"/>
@@ -314,14 +294,6 @@
       <p2 x="340" y="580"/>
     </wire>
     <wire>
-      <p1 x="440" y="200"/>
-      <p2 x="460" y="200"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="360"/>
-      <p2 x="460" y="360"/>
-    </wire>
-    <wire>
       <p1 x="300" y="300"/>
       <p2 x="340" y="300"/>
     </wire>
@@ -330,16 +302,16 @@
       <p2 x="340" y="460"/>
     </wire>
     <wire>
-      <p1 x="400" y="240"/>
-      <p2 x="420" y="240"/>
+      <p1 x="440" y="240"/>
+      <p2 x="480" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="400"/>
+      <p2 x="480" y="400"/>
     </wire>
     <wire>
       <p1 x="300" y="560"/>
       <p2 x="340" y="560"/>
-    </wire>
-    <wire>
-      <p1 x="400" y="400"/>
-      <p2 x="420" y="400"/>
     </wire>
     <wire>
       <p1 x="300" y="340"/>
@@ -348,14 +320,6 @@
     <wire>
       <p1 x="300" y="500"/>
       <p2 x="340" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="280"/>
-      <p2 x="460" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="440"/>
-      <p2 x="460" y="440"/>
     </wire>
     <wire>
       <p1 x="300" y="600"/>
@@ -372,22 +336,6 @@
     <wire>
       <p1 x="320" y="580"/>
       <p2 x="320" y="600"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="240"/>
-      <p2 x="440" y="260"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="320"/>
-      <p2 x="440" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="400"/>
-      <p2 x="440" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="440" y="480"/>
-      <p2 x="440" y="500"/>
     </wire>
   </wires>
   <measurementOrdering/>
