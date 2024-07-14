@@ -7,6 +7,8 @@ HEAD, planned as v0.31
 - Allows disabling LED's in the measurement graph
 - Adds drivers with inverted output
 - Adds a minified circuit as a new shape for embedded circuits
+- Highlights the input connection port in the multiplexer when the
+  input is selected.
 - Allows recovering from oscillations.
 - Supports XDG_CONFIG_HOME environment variable
 - Fixes a bug in max path len calculation
