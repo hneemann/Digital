@@ -963,7 +963,7 @@ public class TestInGUI extends TestCase {
                 .press("RIGHT", 1)
                 .press("DOWN", 1)
                 .press("ENTER", 1)
-                .press("control TAB", 8)
+                .press("control TAB", 7)
                 .press("RIGHT", 1)
                 .add(new GuiTester.SetFocusTo<>(AttributeDialog.class,
                         b -> b instanceof JButton && Lang.get("btn_edit").equals(((JButton) b).getText())))
