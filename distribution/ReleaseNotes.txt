@@ -1,6 +1,6 @@
 Release Notes
 
-HEAD, planned as v0.31
+v0.31, released on 3. September 2024
 - Added a run command to the cli to run circuit headless
 - Main open dialog is able to open FSM and Truth Tables
 - FSM editor highlights the current transition
