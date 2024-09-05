@@ -1525,6 +1525,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_iverilogPath_tt">Pfad zum Icarus-Verilog-Installationsordner. Nur notwendig, wenn Sie iverilog
         verwenden möchten, um mit Verilog definierte Komponenten zu simulieren.
     </string>
+    <string name="key_verilogLib">Verilog external code library path</string>
+    <string name="key_verilogLib_tt">Used to configure the dependency library path for Verilog code, which will automatically search for dependency code during simulation
+    </string>
     <string name="key_maxValue">Maximalwert</string>
     <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits
         sind Eins).

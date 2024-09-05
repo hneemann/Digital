@@ -16,6 +16,8 @@ import de.neemann.digital.hdl.hgs.Statement;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.NoSuchElementException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -206,6 +208,30 @@ public abstract class ApplicationVerilogStdIO implements Application {
                 out.addPort(name, bits);
             }
         }
+    }
+
+    /**
+     * replace env string in options
+     * @param input option string
+     * @return replace every ${xx} env vars
+     */
+    public static String replaceEnvVars(String input) {
+        Pattern pattern = Pattern.compile("(?<!\\\\)\\$\\{([^}]+)\\}");
+        Matcher matcher = pattern.matcher(input);
+        StringBuffer result = new StringBuffer();
+
+        while (matcher.find()) {
+            String varName = matcher.group(1);
+            String envValue = System.getenv(varName);
+            if (envValue == null) {
+                envValue = "";
+            }
+            matcher.appendReplacement(result, envValue);
+        }
+
+        matcher.appendTail(result);
+
+        return result.toString().replace("\\$", "$").replace("\\", "\\\\");
     }
 
     private static final class ParseException extends Exception {
