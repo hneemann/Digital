@@ -266,8 +266,9 @@ public class Parser {
                 expect(CLOSE);
                 inner = parseStatement();
                 return c -> {
-                    Context iC = new Context(c, false);
-                    while ((boolean) whileCond.value(iC)) inner.execute(iC);
+                    while ((boolean) whileCond.value(c)) {
+                        inner.execute(new Context(c, false));
+                    }
                 };
             case REPEAT:
                 final Statement repeatInner = parseStatement();
@@ -275,10 +276,9 @@ public class Parser {
                 final Expression repeatCond = toBool(parseExpression());
                 if (isRealStatement) expect(SEMICOLON);
                 return c -> {
-                    Context iC = new Context(c, false);
                     do {
-                        repeatInner.execute(iC);
-                    } while (!(boolean) repeatCond.value(iC));
+                        repeatInner.execute(new Context(c, false));
+                    } while (!(boolean) repeatCond.value(c));
                 };
             case OPENBRACE:
                 Statements s = new Statements();

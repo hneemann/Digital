@@ -319,9 +319,19 @@ public class ParserTest extends TestCase {
         assertEquals("Hello 0123456789 World!", c.toString());
     }
 
+    public void testParseTemplateWhile2() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("Hello <? n:=0;i:=1; while (i<=9) { a:=i*2; n=n+a; i++; } print(n); ?> World!");
+        assertEquals("Hello 90 World!", c.toString());
+    }
+
     public void testParseTemplateRepeat() throws IOException, ParserException, HGSEvalException {
         Context c = exec("Hello <? i:=0; repeat { =i; i++; } until i=10; ?> World!");
         assertEquals("Hello 0123456789 World!", c.toString());
+    }
+
+    public void testParseTemplateRepeat2() throws IOException, ParserException, HGSEvalException {
+        Context c = exec("Hello <? n:=0;i:=1; repeat { a:=i*2;n=n+a; i++; } until i=10; print(n); ?> World!");
+        assertEquals("Hello 90 World!", c.toString());
     }
 
     public void testParseTemplateArray() throws IOException, ParserException, HGSEvalException {
