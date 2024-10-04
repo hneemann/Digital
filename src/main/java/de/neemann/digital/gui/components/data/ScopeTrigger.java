@@ -23,6 +23,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static de.neemann.digital.core.element.PinInfo.input;
 import static de.neemann.digital.gui.components.data.GraphDialog.createColumnsInfo;
@@ -141,6 +142,8 @@ public class ScopeTrigger extends Node implements Element {
         return new ValueTable(names).setMaxSize(maxSize);
     }
 
+    private final AtomicBoolean openPending = new AtomicBoolean();
+
     private final class ScopeModelStateObserver implements ModelStateObserver {
         @Override
         public void handleEvent(ModelEvent event) {
@@ -157,22 +160,27 @@ public class ScopeTrigger extends Node implements Element {
                 wasTrigger = false;
 
                 if (graphDialog == null || !graphDialog.isVisible()) {
-                    SwingUtilities.invokeLater(() -> {
-                        String title = label;
-                        if (title.isEmpty())
-                            title = Lang.get("elem_ScopeTrigger_short");
-                        graphDialog = new GraphDialog(model.getWindowPosManager().getMainFrame(), title, logData, model, false)
-                                .setColumnInfo(createColumnsInfo(signals));
+                    if (openPending.compareAndSet(false, true)) {
+                        SwingUtilities.invokeLater(() -> {
+                            String title = label;
+                            if (title.isEmpty())
+                                title = Lang.get("elem_ScopeTrigger_short");
+                            GraphDialog gd = new GraphDialog(model.getWindowPosManager().getMainFrame(), title, logData, model, false)
+                                    .setColumnInfo(createColumnsInfo(signals));
 
-                        graphDialog.addWindowListener(new WindowAdapter() {
-                            @Override
-                            public void windowClosed(WindowEvent e) {
-                                model.removeObserver(scopeModelStateObserver);
-                            }
+                            gd.addWindowListener(new WindowAdapter() {
+                                @Override
+                                public void windowClosed(WindowEvent e) {
+                                    model.removeObserver(scopeModelStateObserver);
+                                }
+                            });
+                            gd.setVisible(true);
+                            model.getWindowPosManager().register("Scope_" + label, gd);
+
+                            graphDialog = gd;
+                            openPending.set(false);
                         });
-                        graphDialog.setVisible(true);
-                        model.getWindowPosManager().register("Scope_" + label, graphDialog);
-                    });
+                    }
                 }
             }
         }
