@@ -2163,4 +2163,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_source_dataField">stored data</string>
     <string name="err_could_not_load_rom">Could not load ROM data!</string>
     <string name="msg_fixesCreated_N">Fixtures: {0}</string>
+    <string name="key_verilogLib">Verilog external code library path</string>
+    <string name="key_verilogLib_tt">Used to configure the dependency library path for Verilog code, which will automatically search for dependency code during simulation
+    </string>
 </resources>

@@ -1709,4 +1709,6 @@ In the file howTo.md you can find more details about translations.
     <string name="key_source_dataField">存储数据</string>
     <string name="err_could_not_load_rom">未能载入 ROM 数据</string>
     <string name="msg_fixesCreated_N">修正: {0}</string>
+    <string name="key_verilogLib">Verilog 代码库路径</string>
+    <string name="key_verilogLib_tt">用于配置verilog代码的依赖库路径，在运行仿真时会自动从这个路径查找依赖代码</string>
 </resources>
