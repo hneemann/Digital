@@ -136,10 +136,10 @@ public final class CSVImporter {
     }
 
     private static final class ColHolder {
-        int rCol;
-        int val;
+        private final int rCol;
+        private final int val;
 
-        public ColHolder(int rCol, int val) {
+        private ColHolder(int rCol, int val) {
             this.rCol = rCol;
             this.val = val;
         }
