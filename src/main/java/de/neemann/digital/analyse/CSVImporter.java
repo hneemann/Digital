@@ -120,7 +120,9 @@ public final class CSVImporter {
                     if (rCol >= resNum)
                         throw new IOException(Lang.get("err_csvToManyValues"));
                     if (e.equals("1"))
-                        generator.addCol(rCol);
+                        generator.addCol(rCol, 1);
+                    else if (e.equals("x"))
+                        generator.addCol(rCol, 2);
                     rCol++;
                 }
             }
@@ -133,10 +135,20 @@ public final class CSVImporter {
             generator.applyTo(tt);
     }
 
+    private static final class ColHolder {
+        int rCol;
+        int val;
+
+        public ColHolder(int rCol, int val) {
+            this.rCol = rCol;
+            this.val = val;
+        }
+    }
+
     private static final class Generator {
         private final int row;
         private final ArrayList<Integer> dc;
-        private final ArrayList<Integer> cols;
+        private final ArrayList<ColHolder> cols;
 
         private Generator(int row, ArrayList<Integer> dc) {
             this.row = row;
@@ -144,8 +156,8 @@ public final class CSVImporter {
             cols = new ArrayList<>();
         }
 
-        public void addCol(int rCol) {
-            cols.add(rCol);
+        public void addCol(int rCol, int val) {
+            cols.add(new ColHolder(rCol, val));
         }
 
         public void applyTo(TruthTable tt) {
@@ -155,8 +167,8 @@ public final class CSVImporter {
             int vars = tt.getVars().size();
 
             if (dc.isEmpty())
-                for (int col : cols)
-                    tt.setValue(row, vars + col, 1);
+                for (ColHolder col : cols)
+                    tt.setValue(row, vars + col.rCol, col.val);
             else {
                 int dcRows = 1 << dc.size();
                 for (int i = 0; i < dcRows; i++) {
@@ -168,8 +180,8 @@ public final class CSVImporter {
                         bitMask *= 2;
                     }
 
-                    for (int col : cols)
-                        tt.setValue(r, vars + col, 1);
+                    for (ColHolder col : cols)
+                        tt.setValue(r, vars + col.rCol, col.val);
 
                 }
             }

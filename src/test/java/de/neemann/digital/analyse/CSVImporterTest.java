@@ -32,6 +32,23 @@ public class CSVImporterTest extends TestCase {
         assertEquals(ThreeStateValue.one, tt.getResult(0).get(3));
     }
 
+    public void testSimpleDC() throws IOException {
+        TruthTable tt = CSVImporter.readCSV("A,B,,Y\n0,0,,0\n0,1,,0\n1,0,,1\n1,1,,x");
+        assertNotNull(tt);
+
+        ArrayList<Variable> vars = tt.getVars();
+        assertEquals(2, vars.size());
+        assertEquals("A", vars.get(0).getIdentifier());
+        assertEquals("B", vars.get(1).getIdentifier());
+        assertEquals(1, tt.getResultCount());
+        assertEquals("Y", tt.getResultName(0));
+
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(0));
+        assertEquals(ThreeStateValue.zero, tt.getResult(0).get(1));
+        assertEquals(ThreeStateValue.one, tt.getResult(0).get(2));
+        assertEquals(ThreeStateValue.dontCare, tt.getResult(0).get(3));
+    }
+
     public void testDC() throws IOException {
         TruthTable tt = CSVImporter.readCSV("A,B,,Y,X\nx,x,,1,0\n1,x,,0,1");
         assertNotNull(tt);
