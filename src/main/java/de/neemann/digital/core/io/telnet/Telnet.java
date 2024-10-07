@@ -30,12 +30,14 @@ public class Telnet extends Node implements Element {
             .addAttribute(Keys.ROTATE)
             .addAttribute(Keys.LABEL)
             .addAttribute(Keys.TELNET_ESCAPE)
-            .addAttribute(Keys.PORT);
+            .addAttribute(Keys.PORT)
+            .addAttribute(Keys.TELNET_BUFFER_SIZE);
 
     private final ObservableValue dataOut;
     private final ObservableValue dataAvail;
     private final int port;
     private final boolean telnetEscape;
+    private final int bufferSize;
     private ObservableValue dataIn;
     private ObservableValue clockValue;
     private ObservableValue writeEnable;
@@ -57,6 +59,7 @@ public class Telnet extends Node implements Element {
                 .setPinDescription(DESCRIPTION);
         port = attributes.get(Keys.PORT);
         telnetEscape = attributes.get(Keys.TELNET_ESCAPE);
+        bufferSize = attributes.get(Keys.TELNET_BUFFER_SIZE);
     }
 
     @Override
@@ -103,6 +106,7 @@ public class Telnet extends Node implements Element {
             throw new NodeException(Lang.get("err_couldNotCreateServer"), e);
         }
         server.setTelnetEscape(telnetEscape);
+        server.setBufferSize(bufferSize);
         server.setTelnetNode(this, model);
     }
 
