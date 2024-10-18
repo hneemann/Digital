@@ -1987,6 +1987,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_activeLow_tt">If selected the output is low if the component is active.</string>
     <string name="key_applicationType_GHDL">GHDL</string>
     <string name="key_applicationType_IVERILOG">IVerilog</string>
+    <string name="key_applicationType_Socket">Socket</string>
     <string name="key_iverilogOptions">IVerilog Options</string>
     <string name="key_iverilogOptions_tt">Options that are used for all processing steps by IVerilog.</string>
     <string name="key_iverilogPath">IVerilog</string>

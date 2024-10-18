@@ -1212,6 +1212,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_applicationType">Application</string>
     <string name="key_applicationType_tt">Defines which application to use.</string>
     <string name="key_applicationType_Generic">Generic</string>
+    <string name="key_applicationType_Socket">Socket</string>
     <string name="key_externalInputs">Inputs</string>
     <string name="key_externalInputs_tt">The inputs of the external process.
         It is a comma-separated list of signal names. For each signal name, a number of bits separated by a colon

@@ -512,6 +512,7 @@ In the file howTo.md you can find more details about translations.
   <string name="key_applicationType">应用</string>
   <string name="key_applicationType_tt">定义使用哪个应用</string>
   <string name="key_applicationType_Generic">通用</string>
+  <string name="key_applicationType_Socket">Socket</string>
   <string name="key_externalInputs">输入</string>
   <string name="key_externalOutputs">输出</string>
   <string name="key_Code">程序代码</string>

@@ -1498,6 +1498,7 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_applicationType_Generic">Generisch</string>
     <string name="key_applicationType_GHDL">GHDL</string>
     <string name="key_applicationType_IVERILOG">IVerilog</string>
+    <string name="key_applicationType_Socket">Socket</string>
     <string name="key_externalInputs">Eingänge</string>
     <string name="key_externalInputs_tt">Die Eingänge des externen Prozesses. Es handelt sich um eine kommaseparierte
         Liste mit Signalnamen. Bei jedem Signalnamen kann, mit einem Doppelpunkt getrennt, eine Bitanzahl angegeben werden.
