@@ -16,14 +16,17 @@ import java.util.HashSet;
  */
 public class WireConsistencyChecker {
     private ArrayList<Wire> wires;
+    private ArrayList<VisualElement> elements;
 
     /**
      * Creates a new instance
      *
-     * @param wires the wires to check
+     * @param wires    the wires to check
+     * @param elements the VisualElements which may have a connection to the wires
      */
-    public WireConsistencyChecker(ArrayList<Wire> wires) {
+    public WireConsistencyChecker(ArrayList<Wire> wires, ArrayList<VisualElement> elements) {
         this.wires = wires;
+        this.elements = elements;
     }
 
     /**
@@ -41,6 +44,11 @@ public class WireConsistencyChecker {
         HashSet<Vector> horiPoints = new HashSet<>();
         HashSet<Vector> vertPoints = new HashSet<>();
         HashSet<Vector> diagPoints = new HashSet<>();
+        HashSet<Vector> allElemPoints = new HashSet<>();
+        for (VisualElement e : elements)
+            for (Pin p : e.getPins())
+                allElemPoints.add(p.getPos());
+        HashSet<Vector> elemPoints = new HashSet<>();
 
         ArrayList<Wire> newWires = new ArrayList<>();
         WireMerger hori = new WireMerger(Wire.Orientation.horizontal);
@@ -68,10 +76,18 @@ public class WireConsistencyChecker {
                 }
         }
 
+        elemPoints.addAll(diagPoints);
+        elemPoints.addAll(vertPoints);
+        elemPoints.addAll(horiPoints);
+        elemPoints.retainAll(allElemPoints);
+
+
         hori.protectPoints(diagPoints);
         hori.protectPoints(vertPoints);
+        hori.protectPoints(elemPoints);
         vert.protectPoints(diagPoints);
         vert.protectPoints(horiPoints);
+        vert.protectPoints(elemPoints);
 
         hori.addTo(newWires);
         vert.addTo(newWires);
