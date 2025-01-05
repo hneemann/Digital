@@ -170,7 +170,7 @@ public class SendToJutge {
             vlog.export(circuitComponent.getCircuit());
         } catch (IOException e1) {
             e1.printStackTrace();
-            JOptionPane.showMessageDialog(circuitComponent, "Error while exporting. Check your circuit and try again.",
+            JOptionPane.showMessageDialog(circuitComponent, "Error while exporting to verilog.\nCheck your circuit labels and connections and try again.",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -179,7 +179,7 @@ public class SendToJutge {
         try {
             verilogProgram = Files.readAllBytes(outputFile.toPath());
         } catch (IOException e1) {
-            System.out.println("Error on reading verilog file");
+            System.out.println("Error on reading verilog file.");
             System.out.println(outputFile.toPath());
             return;
         }
