@@ -2072,7 +2072,7 @@ Comunque, non devono trovarsi sopra la riga di intestazione che elenca i nomi de
     <string name="elem_RS_FF_AS">Flip-flop RS</string>
     <string name="elem_JK_FF">Flip-flop JK</string>
     <string name="elem_D_FF">Flip-flop D</string>
-    <string name="elem_T_FF">Flip-flop D</string>
+    <string name="elem_T_FF">Flip-flop T</string>
     <string name="elem_GraphicCard_short">Memoria RAM grafica</string>
     <string name="err_noRomFound">Nessuna memoria del programma trovata! La memoria del programma deve essere etichettata come tale.</string>
     <string name="err_multipleRomsFound">Più di una memoria del programma trovata! Solo la presenza di una memoria è consentita.</string>
