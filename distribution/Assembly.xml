@@ -8,68 +8,63 @@
     <files>
         <file>
             <source>${basedir}/target/Digital.jar</source>
-            <outputDirectory>/</outputDirectory>
         </file>
         <file>
-            <source>${basedir}/distribution/Digital.exe</source>
-            <outputDirectory>/</outputDirectory>
+            <source>${basedir}/target/Digital.exe</source>
         </file>
         <file>
-            <source>${basedir}/distribution/Digital_noD3D.exe</source>
-            <outputDirectory>/</outputDirectory>
+            <source>${basedir}/target/Digital_noD3D.exe</source>
         </file>
         <file>
             <source>${basedir}/distribution/linux/Digital.sh</source>
-            <outputDirectory>/</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/linux/install.sh</source>
-            <outputDirectory>/</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/linux/desktop.template</source>
-            <outputDirectory>/linux/</outputDirectory>
+            <outputDirectory>linux</outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/linux/digital-simulator.xml</source>
-            <outputDirectory>/linux/</outputDirectory>
+            <outputDirectory>linux</outputDirectory>
         </file>
         <file>
             <source>${basedir}/src/main/svg/icon.svg</source>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory></outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/ReleaseNotes.txt</source>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory></outputDirectory>
         </file>
         <file>
             <source>${basedir}/distribution/Version.txt</source>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory></outputDirectory>
             <filtered>true</filtered>
         </file>
         <file>
             <source>${basedir}/distribution/Windows_Read.me</source>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory></outputDirectory>
         </file>
     </files>
     <fileSets>
         <fileSet>
             <directory>${basedir}/src/main/dig/combinatorial</directory>
-            <outputDirectory>/examples/combinatorial/</outputDirectory>
+            <outputDirectory>examples/combinatorial</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/74xx</directory>
-            <outputDirectory>/examples/74xx/</outputDirectory>
+            <outputDirectory>examples/74xx</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/lib</directory>
-            <outputDirectory>/lib/</outputDirectory>
+            <outputDirectory>lib</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
                 <include>**/*.txt</include>
@@ -77,14 +72,14 @@
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/sequential</directory>
-            <outputDirectory>/examples/sequential/</outputDirectory>
+            <outputDirectory>examples/sequential</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/processor</directory>
-            <outputDirectory>/examples/processor/</outputDirectory>
+            <outputDirectory>examples/processor</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
                 <include>**/*.svg</include>
@@ -92,56 +87,56 @@
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/hazard</directory>
-            <outputDirectory>/examples/hazard/</outputDirectory>
+            <outputDirectory>examples/hazard</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/pld</directory>
-            <outputDirectory>/examples/pld/</outputDirectory>
+            <outputDirectory>examples/pld</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/cmos</directory>
-            <outputDirectory>/examples/cmos/</outputDirectory>
+            <outputDirectory>examples/cmos</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/nmos</directory>
-            <outputDirectory>/examples/nmos/</outputDirectory>
+            <outputDirectory>examples/nmos</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/graphicRam</directory>
-            <outputDirectory>/examples/graphicRam/</outputDirectory>
+            <outputDirectory>examples/graphicRam</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/generic</directory>
-            <outputDirectory>/examples/generic/</outputDirectory>
+            <outputDirectory>examples/generic</outputDirectory>
             <includes>
                 <include>**/*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/misc</directory>
-            <outputDirectory>/examples/misc/</outputDirectory>
+            <outputDirectory>examples/misc</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/dig/hdl</directory>
-            <outputDirectory>/examples/hdl/</outputDirectory>
+            <outputDirectory>examples/hdl</outputDirectory>
             <includes>
                 <include>*.dig</include>
                 <include>*.config</include>
@@ -150,21 +145,21 @@
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/test/resources/dig/hdl_distributable</directory>
-            <outputDirectory>/examples/hdl/</outputDirectory>
+            <outputDirectory>examples/hdl</outputDirectory>
             <includes>
                 <include>*.dig</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/src/main/fsm</directory>
-            <outputDirectory>/examples/fsm/</outputDirectory>
+            <outputDirectory>examples/fsm</outputDirectory>
             <includes>
                 <include>*.fsm</include>
             </includes>
         </fileSet>
         <fileSet>
             <directory>${basedir}/target/docu</directory>
-            <outputDirectory>/docu/</outputDirectory>
+            <outputDirectory>docu</outputDirectory>
             <includes>
                 <include>*.pdf</include>
             </includes>
