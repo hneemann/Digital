@@ -28,4 +28,5 @@ modified keys.
     <lang name="fr" display="Français" file="Francais"/>
     <lang name="it" display="Italiano" file="Italian"/>
     <lang name="zh" display="简体中文" file="ChineseSimplified"/>
+    <lang name="zh" display="繁體中文(臺灣)" file="TradionnalChineseTaiwan"/>
 </languages>
