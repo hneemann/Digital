@@ -1942,7 +1942,7 @@ Comunque, non devono trovarsi sopra la riga di intestazione che elenca i nomi de
     <string name="fsm_noMove">Nessun movimento</string>
     <string name="fsm_moveTrans">Transizioni</string>
     <string name="fsm_moveStates">Transizioni e Stati</string>
-    <string name="fsm_set_N">insieme {0}</string>
+    <string name="fsm_set_N">imposta {0}</string>
     <string name="menu_fsm">Macchina a Stati Finiti</string>
     <string name="menu_fsm_tt">Apre una finestra di dialogo per modificare una macchina a stati finiti.</string>
     <string name="menu_fsm_create">Crea</string>
