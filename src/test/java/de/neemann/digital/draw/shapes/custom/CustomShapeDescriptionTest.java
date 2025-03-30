@@ -13,6 +13,8 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
+import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.shapes.ShapeFactory;
 import de.neemann.digital.draw.shapes.custom.svg.SvgException;
 import de.neemann.digital.draw.shapes.custom.svg.SvgImporter;
 import junit.framework.TestCase;
@@ -37,8 +39,10 @@ public class CustomShapeDescriptionTest extends TestCase {
 
     public void testCheckCompatibilityOk() throws PinException {
         Circuit circuit = new Circuit()
-                .add(new VisualElement(In.DESCRIPTION.getName()).setPos(vec(0, 0)).setAttribute(Keys.LABEL, "in"))
-                .add(new VisualElement(Out.DESCRIPTION.getName()).setPos(vec(20, 0)).setAttribute(Keys.LABEL, "out"))
+                .add(new VisualElement(In.DESCRIPTION.getName()).setPos(vec(0, 0)).setAttribute(Keys.LABEL, "in")
+                        .setShapeFactory(new ShapeFactory(new ElementLibrary())))
+                .add(new VisualElement(Out.DESCRIPTION.getName()).setPos(vec(20, 0)).setAttribute(Keys.LABEL, "out")
+                        .setShapeFactory(new ShapeFactory(new ElementLibrary())))
                 .add(new Wire(vec(0, 0), vec(20, 0)));
 
         custom.checkCompatibility(circuit);
@@ -46,8 +50,10 @@ public class CustomShapeDescriptionTest extends TestCase {
 
     public void testCheckCompatibilityClock() throws PinException {
         Circuit circuit = new Circuit()
-                .add(new VisualElement(Clock.DESCRIPTION.getName()).setPos(vec(0, 0)).setAttribute(Keys.LABEL, "in"))
-                .add(new VisualElement(Out.DESCRIPTION.getName()).setPos(vec(20, 0)).setAttribute(Keys.LABEL, "out"))
+                .add(new VisualElement(Clock.DESCRIPTION.getName()).setPos(vec(0, 0)).setAttribute(Keys.LABEL, "in")
+                        .setShapeFactory(new ShapeFactory(new ElementLibrary())))
+                .add(new VisualElement(Out.DESCRIPTION.getName()).setPos(vec(20, 0)).setAttribute(Keys.LABEL, "out")
+                        .setShapeFactory(new ShapeFactory(new ElementLibrary())))
                 .add(new Wire(vec(0, 0), vec(20, 0)));
 
         custom.checkCompatibility(circuit);
