@@ -128,7 +128,7 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
                     sb.append(c);
             }
 
-            return sb.toString();
+            return sb.toString().toLowerCase();
         }
     }
 }

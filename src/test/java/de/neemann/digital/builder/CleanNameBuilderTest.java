@@ -46,6 +46,7 @@ public class CleanNameBuilderTest extends TestCase {
         assertEquals("or(z_0n,z_1n)", comb.get("z_1n").toString());
     }
 
+
     public void testEmpty() throws BuilderException {
         BuilderCollector bc = new BuilderCollector();
         CleanNameBuilder cnb = new CleanNameBuilder(bc, name -> null);
@@ -58,8 +59,8 @@ public class CleanNameBuilderTest extends TestCase {
 
         Map<String, Expression> comb = bc.getCombinatorial();
         assertEquals(2, comb.size());
-        assertEquals("and(X,X1)", comb.get("X").toString());
-        assertEquals("or(X,X1)", comb.get("X1").toString());
+        assertEquals("and(x,x1)", comb.get("x").toString());
+        assertEquals("or(x,x1)", comb.get("x1").toString());
     }
 
     public void testSequential() throws BuilderException {
@@ -77,4 +78,21 @@ public class CleanNameBuilderTest extends TestCase {
         assertEquals("and(z_0n,z_1n)", reg.get("z_0n1").toString());
         assertEquals("or(z_0n,z_1n)", reg.get("z_1n1").toString());
     }
+
+    public void testSimpleCase() throws BuilderException {
+        BuilderCollector bc = new BuilderCollector();
+        CleanNameBuilder cnb = new CleanNameBuilder(bc);
+
+        String n0 = "a^n";
+        String n1 = "A^n";
+
+        cnb.addCombinatorial(n0, Operation.and(new Variable(n0), new Variable(n1)));
+        cnb.addCombinatorial(n1, Operation.or(new Variable(n0), new Variable(n1)));
+
+        Map<String, Expression> comb = bc.getCombinatorial();
+        assertEquals(2, comb.size());
+        assertEquals("and(an1,an)", comb.get("an").toString());
+        assertEquals("or(an1,an)", comb.get("an1").toString());
+    }
+
 }
