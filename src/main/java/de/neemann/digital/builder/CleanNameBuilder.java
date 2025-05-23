@@ -10,6 +10,7 @@ import de.neemann.digital.analyse.expression.Variable;
 import de.neemann.digital.analyse.expression.modify.ExpressionModifier;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Builder which performs a name cleanup
@@ -19,6 +20,7 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
     private BuilderInterface parent;
     private final Filter filter;
     private final HashMap<String, String> nameMap;
+    private final HashSet<String> namesUsedLower;
 
     /**
      * Creates a new instance which allows only characters, numbers and the the underscore.
@@ -39,6 +41,7 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
         this.parent = parent;
         this.filter = filter;
         nameMap = new HashMap<>();
+        namesUsedLower = new HashSet<>();
     }
 
     @Override
@@ -68,13 +71,15 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
             n = filter.filter(name);
             if (n == null || n.isEmpty())
                 n = "X";
-            if (nameMap.containsValue(n)) {
+            String ln = n.toLowerCase();
+            if (namesUsedLower.contains(ln)) {
                 int num = 1;
-                while (nameMap.containsValue(n + num))
+                while (namesUsedLower.contains(ln + num))
                     num++;
                 n = n + num;
             }
             nameMap.put(name, n);
+            namesUsedLower.add(n.toLowerCase());
         }
         return n;
     }
@@ -128,7 +133,7 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
                     sb.append(c);
             }
 
-            return sb.toString().toLowerCase();
+            return sb.toString();
         }
     }
 }

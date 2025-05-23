@@ -59,8 +59,8 @@ public class CleanNameBuilderTest extends TestCase {
 
         Map<String, Expression> comb = bc.getCombinatorial();
         assertEquals(2, comb.size());
-        assertEquals("and(x,x1)", comb.get("x").toString());
-        assertEquals("or(x,x1)", comb.get("x1").toString());
+        assertEquals("and(X,X1)", comb.get("X").toString());
+        assertEquals("or(X,X1)", comb.get("X1").toString());
     }
 
     public void testSequential() throws BuilderException {
@@ -91,8 +91,8 @@ public class CleanNameBuilderTest extends TestCase {
 
         Map<String, Expression> comb = bc.getCombinatorial();
         assertEquals(2, comb.size());
-        assertEquals("and(an1,an)", comb.get("an").toString());
-        assertEquals("or(an1,an)", comb.get("an1").toString());
+        assertEquals("and(An1,an)", comb.get("an").toString());
+        assertEquals("or(An1,an)", comb.get("An1").toString());
     }
 
 }
