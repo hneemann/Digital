@@ -184,7 +184,7 @@ public class CircuitBuilderTest extends TestCase {
                 .createCircuit();
 
         final ArrayList<VisualElement> el = circuit.getElements();
-        assertEquals(8, el.size());
+        assertEquals(10, el.size());
         assertEquals(4, el.stream().filter(visualElement -> visualElement.equalsDescription(Tunnel.DESCRIPTION)).count());
         assertEquals(2, el.stream().filter(visualElement -> visualElement.equalsDescription(Const.DESCRIPTION)).count());
         assertEquals(2, el.stream().filter(visualElement -> visualElement.equalsDescription(Out.DESCRIPTION)).count());
@@ -199,7 +199,7 @@ public class CircuitBuilderTest extends TestCase {
                 .createCircuit();
 
         final ArrayList<VisualElement> el = circuit.getElements();
-        assertEquals(8, el.size());
+        assertEquals(10, el.size());
         assertEquals(4, el.stream().filter(visualElement -> visualElement.equalsDescription(Tunnel.DESCRIPTION)).count());
         assertEquals(2, el.stream().filter(visualElement -> visualElement.equalsDescription(Const.DESCRIPTION)).count());
         assertEquals(2, el.stream().filter(visualElement -> visualElement.equalsDescription(Out.DESCRIPTION)).count());

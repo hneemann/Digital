@@ -58,6 +58,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private int pos;
     private boolean useLUT;
     private boolean useJKff;
+    private boolean useDWithConst;
     private ModelAnalyserInfo mai;
     private int lutNumber;
     private boolean resolveLocalVars;
@@ -82,6 +83,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     public CircuitBuilder(ShapeFactory shapeFactory, ArrayList<Variable> varOrdering) {
         this.shapeFactory = shapeFactory;
         this.useJKff = false;
+        this.useDWithConst = false;
         this.useLUT = false;
         desiredVarOrdering = varOrdering;
         variableVisitor = new VariableVisitor();
@@ -226,9 +228,11 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         if (useDff) {
             Fragment fr = createFragment(expression);
             Fragment fe;
-            if (expression instanceof Constant)
+            if (expression instanceof Constant && ((((Constant) expression).getValue() ? 1 : 0) == initValue))
                 fe = new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name);
             else {
+                if (expression instanceof Constant)
+                    useDWithConst = true;
                 FragmentVisualElement ff = new FragmentVisualElement(FlipflopD.DESCRIPTION, shapeFactory)
                         .setAttr(Keys.LABEL, name)
                         .setAttr(Keys.DEFAULT, initValue);
@@ -698,7 +702,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
             if (p.y > yMax) yMax = p.y;
         }
         x -= SIZE;
-        if (useJKff) x -= SIZE;
+        if (useJKff || useDWithConst) x -= SIZE;
 
         int yPos = yMin - SIZE * 3;
         if (useJKff) yPos = -SIZE;
