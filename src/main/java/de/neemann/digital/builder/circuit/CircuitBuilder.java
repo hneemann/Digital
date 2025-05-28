@@ -48,7 +48,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     private final VariableVisitor variableVisitor;
     private final ShapeFactory shapeFactory;
     private final ArrayList<FragmentVariable> fragmentVariables;
-    private final ArrayList<Fragment> fragments;
+    private final ArrayList<Fragment> seqFragments;
+    private final ArrayList<Fragment> combFragments;
     private final HashMap<String, FragmentVisualElement> combinatorialOutputs;
     private final ArrayList<Variable> sequentialVars;
     private final ArrayList<FragmentVisualElement> flipflops;
@@ -88,7 +89,8 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
         desiredVarOrdering = varOrdering;
         variableVisitor = new VariableVisitor();
         fragmentVariables = new ArrayList<>();
-        fragments = new ArrayList<>();
+        seqFragments = new ArrayList<>();
+        combFragments = new ArrayList<>();
         flipflops = new ArrayList<>();
         combinatorialOutputs = new HashMap<>();
         sequentialVars = new ArrayList<>();
@@ -165,7 +167,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
 
         combinatorialOutputs.put(name, frag);
 
-        fragments.add(new FragmentExpression(fr, frag));
+        combFragments.add(new FragmentExpression(fr, frag));
         expression.traverse(variableVisitor);
         return this;
     }
@@ -209,7 +211,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                         flipflops.add(ff);
                         FragmentSameInValue fsv = new FragmentSameInValue(ff);
                         FragmentExpression fe = new FragmentExpression(fsv, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
-                        fragments.add(new FragmentExpression(frJ, fe));
+                        seqFragments.add(new FragmentExpression(frJ, fe));
                     } else {
                         Fragment frK = createFragment(jk.getSimplifiedK());
                         FragmentVisualElement ff = new FragmentVisualElement(FlipflopJK.DESCRIPTION, shapeFactory)
@@ -218,7 +220,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                                 .setAttr(Keys.DEFAULT, initValue);
                         flipflops.add(ff);
                         FragmentExpression fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
-                        fragments.add(new FragmentExpression(Arrays.asList(frJ, frK), fe));
+                        seqFragments.add(new FragmentExpression(Arrays.asList(frJ, frK), fe));
                     }
                 }
             } catch (ExpressionException e) {
@@ -239,7 +241,7 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
                 flipflops.add(ff);
                 fe = new FragmentExpression(ff, new FragmentVisualElement(Tunnel.DESCRIPTION, shapeFactory).setAttr(Keys.NETNAME, name));
             }
-            fragments.add(new FragmentExpression(fr, fe));
+            seqFragments.add(new FragmentExpression(fr, fe));
         }
 
         checkForLocalVars(expression);
@@ -464,6 +466,9 @@ public class CircuitBuilder implements BuilderInterface<CircuitBuilder> {
     public Circuit createCircuit() {
         if (resolveLocalVars)
             resolveLocalVars();
+
+        ArrayList<Fragment> fragments = new ArrayList<>(seqFragments);
+        fragments.addAll(combFragments);
 
         // determine maximum width
         int maxWidth = 0;

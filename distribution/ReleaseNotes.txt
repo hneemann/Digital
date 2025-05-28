@@ -1,5 +1,8 @@
 Release Notes
 
+HEAD, planned as v0.32
+- Fixed some bugs in the creation of circuits.
+
 v0.31, released on 3. September 2024
 - Added a run command to the cli to run circuit headless
 - Main open dialog is able to open FSM and Truth Tables
