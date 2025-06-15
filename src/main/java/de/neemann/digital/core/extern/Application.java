@@ -65,7 +65,11 @@ public interface Application {
         /**
          * Icarus verilog interpreter
          */
-        IVERILOG
+        IVERILOG,
+        /**
+         * extern socket app interpreter
+         */
+        Socket
     }
 
     /**
@@ -83,6 +87,8 @@ public interface Application {
                 return new ApplicationGHDL(attr);
             case IVERILOG:
                 return new ApplicationIVerilog(attr);
+            case Socket:
+                return new ApplicationSocket();
             default:
                 return null;
         }
