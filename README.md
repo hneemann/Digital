@@ -62,9 +62,6 @@ These are the main features of Digital:
 
 The latest changes that have not yet been released are listed in the
 [release notes](distribution/ReleaseNotes.txt).
-You can find the latest pre-release builds [here](https://infdigital.dhbw-mosbach.de/). 
-In the pre release builds the automated GUI tests are usually not executed. 
-All other tests, including the HDL tests, were executed without errors.
 
 ## Documentation ##
 
