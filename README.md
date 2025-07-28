@@ -1,6 +1,5 @@
 [![Download](distribution/Download.svg)](https://github.com/hneemann/Digital/releases/latest/download/Digital.zip)
 
-![Build Status](https://travis-ci.com/hneemann/Digital.svg?branch=master)
 [![codecov](https://codecov.io/gh/hneemann/Digital/branch/master/graph/badge.svg)](https://codecov.io/gh/hneemann/Digital)
 
 # Digital #
