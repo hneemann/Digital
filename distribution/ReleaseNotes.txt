@@ -2,6 +2,8 @@ Release Notes
 
 HEAD, planned as v0.32
 - Fixed some bugs in the creation of circuits.
+- Fixed an Intel Hex import error that occurred when
+  files contained more than 64 kBytes of data.
 
 v0.31, released on 3. September 2024
 - Added a run command to the cli to run circuit headless

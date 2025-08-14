@@ -40,18 +40,26 @@ public class IntelHexReader implements ByteArrayReader {
                     case 0:
                         readData(payload, byteArray);
                         break;
-                    case 2:
-                        readDataSegment(payload);
+                    case 1:
+                        // eof
                         break;
+                    case 2:
+                        readDataSegment(payload, 4);
+                        break;
+                    case 4:
+                        readDataSegment(payload, 16);
+                        break;
+                    default:
+                        throw new IOException("Intel-Hex Record Type " + data[3] + " not supported");
                 }
             }
         }
     }
 
-    private void readDataSegment(int len) throws IOException {
+    private void readDataSegment(int len, int shift) throws IOException {
         if (len != 2)
             throw new IOException("invalid segment address");
-        segment = ((data[4] << 8) + data[5]) << 4;
+        segment = ((data[4] << 8) + data[5]) << shift;
     }
 
     private void readData(int len, ByteArray byteArray) {
