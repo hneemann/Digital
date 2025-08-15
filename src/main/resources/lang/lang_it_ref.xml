@@ -1212,6 +1212,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_applicationType">Application</string>
     <string name="key_applicationType_tt">Defines which application to use.</string>
     <string name="key_applicationType_Generic">Generic</string>
+    <string name="key_applicationType_Socket">Socket</string>
     <string name="key_externalInputs">Inputs</string>
     <string name="key_externalInputs_tt">The inputs of the external process.
         It is a comma-separated list of signal names. For each signal name, a number of bits separated by a colon
@@ -1234,6 +1235,9 @@ In the file howTo.md you can find more details about translations.
     <string name="key_iverilogPath_tt">Path to the Icarus Verilog installation folder. Only necessary if you want to use
         iverilog to simulate
         components defined with Verilog.</string>
+    <string name="key_verilogLib">Verilog external code library path</string>
+    <string name="key_verilogLib_tt">Used to configure the dependency library path for Verilog code, which will automatically search for dependency code during simulation
+    </string>
     <string name="key_maxValue">Maximum Value</string>
     <string name="key_maxValue_tt">If a zero is entered, the maximum possible value is used (all bits are one).</string>
     <string name="key_dipDefault">Output is High</string>
