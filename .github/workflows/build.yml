@@ -1,0 +1,110 @@
+name: Build and Package
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build
+      run: mvn -B install --file pom.xml
+    - name: Generate Code Coverage Report
+      run: mvn -B jacoco:report -Dcode-coverage-format=xml --file pom.xml
+    - name: Upload Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: target/Digital.zip
+    - name: Upload Docs
+      uses: actions/upload-artifact@v3
+      with:
+        name: docs
+        path: target/docuDist/Doc_*.pdf
+  macos-dmg:
+    name: Create macOS DMG
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: Install svg2png
+        run: brew install --formula svg2png
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+      - name: Unzip Build Artifacts
+        run: unzip Digital.zip
+      # Derived from https://github.com/magnusviri/svg2icns/blob/main/svg2icns
+      - name: Create ICNS File
+        run: |
+          ICONSET="icon.iconset"
+
+          SMALL_SIZES="
+          16,16x16
+          32,16x16@2x
+          32,32x32
+          64,32x32@2x
+          "
+          
+          SIZES="
+          128,128x128
+          256,128x128@2x
+          256,256x256
+          512,256x256@2x
+          512,512x512
+          1024,512x512@2x
+          "
+
+          mkdir -p "$ICONSET"
+  
+          for PARAMS in $SMALL_SIZES; do
+            SIZE=$(echo $PARAMS | cut -d, -f1)
+            LABEL=$(echo $PARAMS | cut -d, -f2)
+            svg2png -w "$SIZE" -h "$SIZE" Digital/iconSmall.svg "$ICONSET/icon_$LABEL.png"
+          done
+
+          for PARAMS in $SIZES; do
+            SIZE=$(echo $PARAMS | cut -d, -f1)
+            LABEL=$(echo $PARAMS | cut -d, -f2)
+            svg2png -w "$SIZE" -h "$SIZE" Digital/icon.svg "$ICONSET/icon_$LABEL.png"
+          done
+
+          iconutil -c icns "$ICONSET"
+      - name: Build DMG
+        run: |
+          jpackage \
+            --type dmg \
+            --input Digital \
+            --main-jar Digital.jar \
+            --name Digital \
+            --description 'A digital logic designer and circuit simulator.' \
+            --vendor 'Helmut Neemann' \
+            --app-version "$(sed -n -E 's/^Build Git Version: *v([.0-9]*)-.*$/\1/p' Digital/Version.txt)" \
+            --copyright 'TODO' \
+            --icon icon.icns \
+            --mac-package-identifier 'de.neemann.digital' \
+            --mac-package-name Digital
+      - name: Upload DMG
+        uses: actions/upload-artifact@v3
+        with:
+          name: dmg
+          path: Digital-*.dmg
