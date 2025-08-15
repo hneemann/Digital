@@ -105,9 +105,11 @@ public class VerilogTestBenchCreator {
     }
 
     private void writeTestBench(CodePrinter out, String moduleName, String testName, Circuit.TestCase tc) throws IOException, HDLException, TestingDataException, ParserException {
+        HDLModel.Renaming vrename = new VerilogRenaming();
+
         out.print("//  A testbench for ").println(testName);
         out.println("`timescale 1us/1ns").println();
-        out.print("module ").print(testName).println(";");
+        out.print("module ").print(vrename.checkName(testName)).println(";");
 
         // Write local port declaration
         out.inc();
@@ -117,7 +119,8 @@ public class VerilogTestBenchCreator {
         }
 
         out.println();
-        out.print(moduleName).print(" ").print(moduleName).print("0 (").println();
+        out.print(vrename.checkName(moduleName)).print(" ").print(vrename.checkName(moduleName + "0")).print(" (")
+                .println();
         out.inc();
 
         Separator comma = new Separator(out, ",\n");
