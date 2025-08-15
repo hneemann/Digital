@@ -19,11 +19,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Abstraction of the iverilog Application.
  * See http://iverilog.icarus.com/
  */
 public class ApplicationIVerilog extends ApplicationVerilogStdIO {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationIVerilog.class);
+
     private final ElementAttributes attr;
     private final boolean hasIverilog;
     private String iverilogFolder;
@@ -131,8 +136,16 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
                 ivp = p;
                 if (Files.isSymbolicLink(p)) {
                     try {
-                        ivp = Files.readSymbolicLink(ivp);
+                        Path resolvedLink = Files.readSymbolicLink(p);
+
+                        // Resolve relative symbolic links to absolute paths
+                        if (!resolvedLink.isAbsolute()) {
+                            resolvedLink = p.getParent().resolve(resolvedLink).normalize();
+                        }
+
+                        ivp = resolvedLink;
                     } catch (IOException ex) {
+                        LOGGER.error("Failed to resolve symbolic link: {}", p, ex);
                         return false;
                     }
                 }
@@ -140,18 +153,27 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
         }
 
         if (ivp == null) {
-            // Let's try to find iverilog in the system path
+            // Try to find iverilog in the system path
             String[] strPaths = System.getenv("PATH").split(File.pathSeparator);
 
             for (String sp : strPaths) {
                 Path p = Paths.get(sp, "iverilog");
+                LOGGER.debug("Checking path: {}", p); // Debugging output
 
                 if (Files.isExecutable(p)) {
                     ivp = p;
                     if (Files.isSymbolicLink(p)) {
                         try {
-                            ivp = Files.readSymbolicLink(ivp);
+                            Path resolvedLink = Files.readSymbolicLink(p);
+
+                            // Resolve relative symbolic links to absolute paths
+                            if (!resolvedLink.isAbsolute()) {
+                                resolvedLink = p.getParent().resolve(resolvedLink).normalize();
+                            }
+
+                            ivp = resolvedLink;
                         } catch (IOException ex) {
+                            LOGGER.error("Failed to resolve symbolic link: {}", p, ex);
                             return false;
                         }
                     }
@@ -161,12 +183,15 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
         }
 
         if (ivp != null) {
+            // Set paths for iverilog and vvp
             iverilogFolder = ivp.getParent().getParent().toString();
             iverilog = ivp.getParent().resolve("iverilog").toString();
             vvp = ivp.getParent().resolve("vvp").toString();
 
+            LOGGER.info("Found iverilog: {}", iverilog);
             return true;
         } else {
+            LOGGER.error("iverilog not found");
             return false;
         }
     }
