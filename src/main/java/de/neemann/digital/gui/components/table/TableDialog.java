@@ -57,7 +57,6 @@ import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellEditor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -312,11 +311,20 @@ public class TableDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
+    /**
+     * Sets a {@link TruthTable} to compare with
+     *
+     * @param truthTable the {@link TruthTable} to compare with.
+     * @return this
+     */
     public TableDialog setOriginal(TruthTable truthTable) {
         model.setOriginal(truthTable);
         return this;
     }
 
+    /**
+     * @return the {@link TruthTable} to compare with.
+     */
     public TruthTable getOriginal() {
         return model.getOriginal();
     }

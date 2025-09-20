@@ -169,28 +169,52 @@ public class TruthTableTableModel implements TableModel {
         return undoManager.getActual();
     }
 
+    /**
+     * Sets a second {@link TruthTable} used to compare this one and mark differences.
+     *
+     * @param truthTable The {@link TruthTable} to compare with.
+     * @return this
+     */
     public TruthTableTableModel setOriginal(TruthTable truthTable) {
         original = truthTable;
         return this;
     }
 
+    /**
+     * @return the {@link TruthTable} to compare with
+     */
     public TruthTable getOriginal() {
         return original;
     }
 
+    /**
+     * A {@link TruthTable} entry with its modification status.
+     */
     public static final class BitModified {
         private final int value;
         private final boolean modified;
 
+        /**
+         * Creates a new instance.
+         *
+         * @param value    the value
+         * @param modified true if modified
+         */
         public BitModified(int value, boolean modified) {
             this.value = value;
             this.modified = modified;
         }
 
+        /**
+         * @return the value
+         */
         public int getValue() {
             return value;
         }
 
+        /**
+         * @return true if modified
+         */
         public boolean isModified() {
             return modified;
         }
