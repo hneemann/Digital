@@ -57,6 +57,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellEditor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -221,6 +222,7 @@ public class TableDialog extends JDialog {
                                 throw new ModifyException("failed to reorder", ex);
                             }
                         });
+                        model.setOriginal(null);
                         tableChanged();
                     } catch (ModifyException e1) {
                         new ErrorMessage().addCause(e1).show(TableDialog.this);
@@ -234,6 +236,7 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     undoManager.apply(TruthTable::addVariable);
+                    model.setOriginal(null);
                     tableChanged();
                 } catch (ModifyException e) {
                     new ErrorMessage().addCause(e).show(TableDialog.this);
@@ -257,6 +260,7 @@ public class TableDialog extends JDialog {
                                 throw new ModifyException("failed to reorder", ex);
                             }
                         });
+                        model.setOriginal(null);
                         tableChanged();
                     } catch (ModifyException e1) {
                         new ErrorMessage().addCause(e1).show(TableDialog.this);
@@ -270,6 +274,7 @@ public class TableDialog extends JDialog {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     undoManager.apply(TruthTable::addResult);
+                    model.setOriginal(null);
                     tableChanged();
                 } catch (ModifyException e) {
                     new ErrorMessage().addCause(e).show(TableDialog.this);
@@ -305,6 +310,15 @@ public class TableDialog extends JDialog {
         getContentPane().add(statusBar, BorderLayout.SOUTH);
         pack();
         setLocationRelativeTo(parent);
+    }
+
+    public TableDialog setOriginal(TruthTable truthTable) {
+        model.setOriginal(truthTable);
+        return this;
+    }
+
+    public TruthTable getOriginal() {
+        return model.getOriginal();
     }
 
     private void addUndoRedo(JMenu edit) {
@@ -384,6 +398,7 @@ public class TableDialog extends JDialog {
                         File file = fc.getSelectedFile();
                         TruthTable truthTable = TruthTable.readFromFile(file);
                         undoManager.setInitial(truthTable);
+                        model.setOriginal(null);
                         tableChanged();
                         TableDialog.this.filename = file;
                     } catch (IOException e1) {
@@ -786,6 +801,7 @@ public class TableDialog extends JDialog {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             undoManager.setInitial(new TruthTable(n).addResult());
+            model.setOriginal(null);
             tableChanged();
         }
     }
@@ -815,6 +831,7 @@ public class TableDialog extends JDialog {
             }
 
             undoManager.setInitial(truthTable);
+            model.setOriginal(null);
             tableChanged();
         }
     }
@@ -849,11 +866,14 @@ public class TableDialog extends JDialog {
             }
 
             undoManager.setInitial(truthTable);
+            model.setOriginal(null);
             tableChanged();
         }
     }
 
     private final class CenterDefaultTableCellRenderer extends DefaultTableCellRenderer {
+
+        private final Color red = new Color(220, 0, 0);
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -869,10 +889,19 @@ public class TableDialog extends JDialog {
                     label.setBackground(ODDWHITE);
             }
 
-            if (value instanceof Integer) {
-                int v = (int) value;
+            if (value instanceof TruthTableTableModel.BitModified) {
+                TruthTableTableModel.BitModified bitMod = (TruthTableTableModel.BitModified) value;
+                final int v = bitMod.getValue();
                 if (v > 1)
                     label.setText("x");
+                else
+                    label.setText("" + v);
+
+                if (bitMod.isModified()) {
+                    label.setForeground(red);
+                } else {
+                    label.setForeground(Color.BLACK);
+                }
             }
 
             return label;
@@ -1059,5 +1088,4 @@ public class TableDialog extends JDialog {
         }
 
     }
-
 }

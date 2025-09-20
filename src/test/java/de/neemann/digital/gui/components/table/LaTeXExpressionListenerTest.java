@@ -6,7 +6,6 @@
 package de.neemann.digital.gui.components.table;
 
 import de.neemann.digital.analyse.TruthTable;
-import de.neemann.digital.analyse.TruthTableTableModel;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.Not;
 import de.neemann.digital.analyse.expression.Operation;

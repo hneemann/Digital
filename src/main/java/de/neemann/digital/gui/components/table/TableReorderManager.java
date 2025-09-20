@@ -70,6 +70,10 @@ class TableReorderManager {
                     tableDialog.getUndoManager().apply(tt -> {
                         try {
                             new ReorderInputs(tt, vars).reorder();
+                            TruthTable o = tableDialog.getOriginal();
+                            if (o != null) {
+                                new ReorderInputs(o, vars).reorder();
+                            }
                         } catch (ExpressionException e) {
                             // can't happen because no columns are removed
                             e.printStackTrace();
@@ -80,14 +84,20 @@ class TableReorderManager {
                     tableDialog.getUndoManager().apply(tt -> {
                         try {
                             new ReorderOutputs(tt, results).reorder();
+                            TruthTable o = tableDialog.getOriginal();
+                            if (o != null) {
+                                new ReorderOutputs(o, results).reorder();
+                            }
                         } catch (ExpressionException e) {
                             // can't happen because no columns are removed
                             e.printStackTrace();
                         }
                     });
                     tableDialog.tableChanged();
-                } else
+                } else {
+                    tableDialog.setOriginal(null);
                     tableDialog.tableChanged();
+                }
             } catch (ModifyException e) {
                 e.printStackTrace();
             }

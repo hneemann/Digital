@@ -27,6 +27,7 @@ public class TruthTableTableModel implements TableModel {
 
     private final ArrayList<TableModelListener> listeners = new ArrayList<>();
     private final UndoManager<TruthTable> undoManager;
+    private TruthTable original;
 
     /**
      * Creates a new instance
@@ -64,7 +65,12 @@ public class TruthTableTableModel implements TableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return undoManager.getActual().getValue(rowIndex, columnIndex);
+        int bit = undoManager.getActual().getValue(rowIndex, columnIndex);
+        if (original != null) {
+            int b = original.getValue(rowIndex, columnIndex);
+            return new BitModified(bit, b != bit);
+        }
+        return new BitModified(bit, false);
     }
 
     @Override
@@ -161,5 +167,44 @@ public class TruthTableTableModel implements TableModel {
      */
     public TruthTable getTable() {
         return undoManager.getActual();
+    }
+
+    public TruthTableTableModel setOriginal(TruthTable truthTable) {
+        original = truthTable;
+        return this;
+    }
+
+    public TruthTable getOriginal() {
+        return original;
+    }
+
+    public static final class BitModified {
+        private final int value;
+        private final boolean modified;
+
+        public BitModified(int value, boolean modified) {
+            this.value = value;
+            this.modified = modified;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public boolean isModified() {
+            return modified;
+        }
+
+        @Override
+        public String toString() {
+            switch (value) {
+                case 0:
+                    return "0";
+                case 1:
+                    return "1";
+                default:
+                    return "X";
+            }
+        }
     }
 }

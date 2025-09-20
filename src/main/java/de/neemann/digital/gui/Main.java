@@ -1241,10 +1241,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     Model model = new ModelCreator(circuitComponent.getCircuit(), new SubstituteLibrary(library)).createModel(false);
                     try {
                         model.checkForInvalidSignals();
+                        final TruthTable tt = new ModelAnalyser(model).analyse();
                         new TableDialog(Main.this,
-                                new ModelAnalyser(model).analyse(),
+                                tt,
                                 library,
                                 getBaseFileName())
+                                .setOriginal(tt)
                                 .setVisible(true);
                         ensureModelIsStopped();
                     } finally {

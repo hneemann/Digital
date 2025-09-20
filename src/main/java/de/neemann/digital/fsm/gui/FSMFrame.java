@@ -6,6 +6,7 @@
 package de.neemann.digital.fsm.gui;
 
 import de.neemann.digital.FileLocator;
+import de.neemann.digital.analyse.TruthTable;
 import de.neemann.digital.analyse.expression.ExpressionException;
 import de.neemann.digital.analyse.expression.format.FormatterException;
 import de.neemann.digital.core.*;
@@ -391,7 +392,8 @@ public class FSMFrame extends JFrame implements ClosingWindowListener.ConfirmSav
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    new TableDialog(FSMFrame.this, fsm.createTruthTable(getStateSignalName()), library, filename).setVisible(true);
+                    final TruthTable truthTable = fsm.createTruthTable(getStateSignalName());
+                    new TableDialog(FSMFrame.this, truthTable, library, filename).setOriginal(truthTable).setVisible(true);
                 } catch (Exception e) {
                     new ErrorMessage(Lang.get("msg_fsmCantCreateTable")).addCause(e).show(FSMFrame.this);
                 }
