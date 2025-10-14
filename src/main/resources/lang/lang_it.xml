@@ -1388,6 +1388,9 @@ In the file howTo.md you can find more details about translations.
     <string name="cli_help_stats_dig">Nome del file del circuito.</string>
     <string name="cli_help_stats_csv">Nome del file CSV da creare. Se questa opzione manca, la tabella è scritta nello standard output.</string>
     <string name="cli_errorCreatingStats">Errore durante la creazione dei file di statistica!</string>
+    <string name="cli_help_length">Stampa la lunghezza del cammino critico del circuito.</string>
+    <string name="cli_help_length_dig">Nome del file del circuito.</string>
+    <string name="cli_errorComputingCriticalPath">Errore durante il calcolo della lunghezza del cammino critico!</string>
     <string name="menu_window">Finestre</string>
     <string name="menu_about">Informazioni su</string>
     <string name="menu_analyse">Analisi</string>

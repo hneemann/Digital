@@ -1789,6 +1789,9 @@ In the file howTo.md you can find more details about translations.
         Si cette option est manque, la table de vérité est écrite à la sortie standard.
     </string>
     <string name="cli_errorCreatingStats">Erreur lors de la création du fichier de statistiques!</string>
+    <string name="cli_help_length">Imprime la longueur du chemin critique du circuit.</string>
+    <string name="cli_help_length_dig">Nom de fichier du circuit.</string>
+    <string name="cli_errorComputingCriticalPath">Erreur lors du calcul de la longueur du chemin critique!</string>
     <string name="menu_window">Fenêtre</string>
     <string name="menu_about">À propos</string>
     <string name="menu_analyse">Analyse</string>
