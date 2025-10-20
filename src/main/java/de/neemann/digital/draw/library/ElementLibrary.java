@@ -124,7 +124,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Not.DESCRIPTION, "N")
                         .add(LookUpTable.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_io"))
-                        .add(Out.DESCRIPTION, "O")
+                        .add(Out.DESCRIPTION)
                         .add(Out.LEDDESCRIPTION, "L")
                         .add(In.DESCRIPTION, "I")
                         .add(Clock.DESCRIPTION, "C")

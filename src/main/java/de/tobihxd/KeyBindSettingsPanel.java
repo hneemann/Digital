@@ -18,6 +18,7 @@ public class KeyBindSettingsPanel extends JPanel {
     private final LinkedHashMap<String, String> keyBinds = new LinkedHashMap<>();
     private final Map<String, JTextField> fieldMap = new LinkedHashMap<>();
     private final Map<String, JCheckBox> shiftMap = new LinkedHashMap<>();
+
     private final ObjectMapper mapper = new ObjectMapper();
     private Path localFile;
 
@@ -167,5 +168,8 @@ public class KeyBindSettingsPanel extends JPanel {
     /** Prüft, ob der Key nur eine normale Taste ist (ohne Modifier) */
     private boolean isValidKey(String key) {
         return key.matches("[A-Z0-9]|F[1-9]|F1[0-2]|ENTER");
+    }
+    public LinkedHashMap<String, String> getKeyBinds() {
+        return keyBinds;
     }
 }
