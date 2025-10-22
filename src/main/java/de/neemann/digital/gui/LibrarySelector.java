@@ -27,7 +27,7 @@ public class LibrarySelector implements LibraryListener {
     private JMenu componentsMenu;
     private InsertHistory insertHistory;
     private CircuitComponent circuitComponent;
-    private Main main;
+    private final Main main;
 
     /**
      * Creates a new library selector.
@@ -70,8 +70,7 @@ public class LibrarySelector implements LibraryListener {
 
         if (library.getCustomNode() != null) {
             JMenuItem m = componentsMenu.getItem(componentsMenu.getItemCount() - 1);
-            if (m instanceof JMenu) {
-                JMenu menu = (JMenu) m;
+            if (m instanceof JMenu menu) {
                 menu.addSeparator();
                 menu.add(new ToolTipAction(Lang.get("menu_update")) {
                     @Override
@@ -99,12 +98,10 @@ public class LibrarySelector implements LibraryListener {
                         String modifier = node.getModifier();
 
                         switch (modifier) {
-                            case "SHIFT":
-                                insertAction.setAcceleratorSHIFTplus(node.getKey()).enableAcceleratorIn(main.getCircuitComponent());
-                                break;
-                            case "CTRL":
-                                insertAction.setAcceleratorCTRLplus(node.getKey()).enableAcceleratorIn(main.getCircuitComponent());
-                                break;
+                            case "SHIFT" ->
+                                    insertAction.setAcceleratorSHIFTplus(node.getKey()).enableAcceleratorIn(main.getCircuitComponent());
+                            case "CTRL" ->
+                                    insertAction.setAcceleratorCTRLplus(node.getKey()).enableAcceleratorIn(main.getCircuitComponent());
                         }
                     } else {
                         insertAction.setAccelerator(node.getKey()).enableAcceleratorIn(main.getCircuitComponent());

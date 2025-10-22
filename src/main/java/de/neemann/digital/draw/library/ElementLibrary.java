@@ -107,7 +107,6 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      */
     public ElementLibrary() {
         this(null);
-        keyBinds = KeybindManager.getInstance().getKeyBinds();
     }
 
     /**
@@ -116,10 +115,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * @param jarFile the jar file to load
      */
     public ElementLibrary(File jarFile) {
-        if (keyBinds == null) {
-            KeybindManager.createInstance(this);
-            keyBinds = KeybindManager.getInstance().getKeyBinds();
-        }
+        KeybindManager.createInstance(this);
+        keyBinds = KeybindManager.getInstance().getKeyBinds();
         root = new LibraryNode(Lang.get("menu_elements"))
                 .setLibrary(this)
                 .add(new LibraryNode(Lang.get("lib_Logic"))

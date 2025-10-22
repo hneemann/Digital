@@ -3,7 +3,6 @@ package de.tobihxd;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neemann.digital.draw.library.ElementLibrary;
-import de.neemann.digital.draw.library.LibraryNode;
 import de.neemann.digital.gui.InsertAction;
 import de.neemann.digital.gui.LibrarySelector;
 
@@ -15,7 +14,6 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.EventListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -64,7 +62,8 @@ public class KeybindManager {
         try {
             if (Files.exists(localFile)) {
                 try (InputStream in = Files.newInputStream(localFile)) {
-                    Map<String, String> loaded = mapper.readValue(in, new TypeReference<Map<String, String>>() {});
+                    Map<String, String> loaded = mapper.readValue(in, new TypeReference<>() {
+                    });
                     keyBinds.clear();
                     keyBinds.putAll(loaded);
                     return;
@@ -75,7 +74,8 @@ public class KeybindManager {
             if (resource != null) {
                 try (InputStream in = getClass().getClassLoader().getResourceAsStream("keybinds/kb.json")) {
                     if (in != null) {
-                        Map<String, String> defaults = mapper.readValue(in, new TypeReference<Map<String, String>>() {});
+                        Map<String, String> defaults = mapper.readValue(in, new TypeReference<>() {
+                        });
                         keyBinds.clear();
                         keyBinds.putAll(defaults);
                         save(); // lokale Kopie anlegen
@@ -119,8 +119,7 @@ public class KeybindManager {
             JMenuItem instance = component.getItem(i);
             if (instance.getText().equals(name))
                 return instance;
-            if (instance instanceof JMenu){
-                JMenu sub = (JMenu) instance;
+            if (instance instanceof JMenu sub){
                 return getJMenuByName(name, sub);
             }
         }
