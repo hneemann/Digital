@@ -120,4 +120,12 @@ public class LibrarySelector implements LibraryListener {
             parts.add(subMenu);
         }
     }
+
+    public JMenu getComponentsMenu() {
+        return componentsMenu;
+    }
+
+    public Main getMain() {
+        return main;
+    }
 }

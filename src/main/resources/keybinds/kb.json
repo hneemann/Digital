@@ -6,7 +6,7 @@
   "XOR": "X",
   "XNOR": "Shift+X",
   "NOT": "N",
-  "Output": "O",
+  "Output": "U",
   "LED": "L",
   "Input": "I",
   "Clock": "C",
@@ -21,5 +21,5 @@
   "Async D-FlipFlop": "Shift+D",
   "T-FlipFlop": "T",
   "MonoFlop": "M",
-  "Run": "SHIFT+ENTER"
+  "Run": "Shift+ENTER"
 }

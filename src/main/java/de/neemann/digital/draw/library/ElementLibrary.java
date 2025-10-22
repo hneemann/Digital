@@ -27,6 +27,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.elements.PinException;
 import de.neemann.digital.draw.elements.Tunnel;
 import de.neemann.digital.draw.shapes.ShapeFactory;
+import de.neemann.digital.gui.LibrarySelector;
 import de.neemann.digital.gui.Settings;
 import de.neemann.digital.gui.components.data.DummyElement;
 import de.neemann.digital.gui.components.data.ScopeTrigger;
@@ -37,6 +38,7 @@ import de.neemann.digital.gui.components.terminal.Keyboard;
 import de.neemann.digital.gui.components.terminal.Terminal;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.testing.TestCaseElement;
+import de.tobihxd.KeybindManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,12 +100,14 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     private Exception exception;
     private long lastRescanTime;
     private StringBuilder warningMessage;
+    private LinkedHashMap<String, String> keyBinds;
 
     /**
      * Creates a new instance.
      */
     public ElementLibrary() {
         this(null);
+        keyBinds = KeybindManager.getInstance().getKeyBinds();
     }
 
     /**
@@ -112,23 +116,27 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      * @param jarFile the jar file to load
      */
     public ElementLibrary(File jarFile) {
+        if (keyBinds == null) {
+            KeybindManager.createInstance(this);
+            keyBinds = KeybindManager.getInstance().getKeyBinds();
+        }
         root = new LibraryNode(Lang.get("menu_elements"))
                 .setLibrary(this)
                 .add(new LibraryNode(Lang.get("lib_Logic"))
-                        .add(And.DESCRIPTION, "A")
-                        .add(NAnd.DESCRIPTION, "A", "SHIFT")
-                        .add(Or.DESCRIPTION, "O")
-                        .add(NOr.DESCRIPTION, "O", "SHIFT")
-                        .add(XOr.DESCRIPTION, "X")
-                        .add(XNOr.DESCRIPTION, "X", "SHIFT")
-                        .add(Not.DESCRIPTION, "N")
+                        .add(And.DESCRIPTION, keyBinds.get("AND"))
+                        .add(NAnd.DESCRIPTION, keyBinds.get("NAND"))
+                        .add(Or.DESCRIPTION, keyBinds.get("OR"))
+                        .add(NOr.DESCRIPTION, keyBinds.get("NOR"))
+                        .add(XOr.DESCRIPTION, keyBinds.get("XOR"))
+                        .add(XNOr.DESCRIPTION, keyBinds.get("XNOR"))
+                        .add(Not.DESCRIPTION, keyBinds.get("NOT"))
                         .add(LookUpTable.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_io"))
-                        .add(Out.DESCRIPTION)
-                        .add(Out.LEDDESCRIPTION, "L")
-                        .add(In.DESCRIPTION, "I")
-                        .add(Clock.DESCRIPTION, "C")
-                        .add(Button.DESCRIPTION, "B")
+                        .add(Out.DESCRIPTION, keyBinds.get("Output"))
+                        .add(Out.LEDDESCRIPTION, keyBinds.get("LED"))
+                        .add(In.DESCRIPTION, keyBinds.get("Input"))
+                        .add(Clock.DESCRIPTION, keyBinds.get("Clock"))
+                        .add(Button.DESCRIPTION, keyBinds.get("Button"))
                         .add(DipSwitch.DESCRIPTION)
                         .add(Probe.DESCRIPTION)
                         .add(DummyElement.DATADESCRIPTION)
@@ -165,8 +173,8 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(Driver.DESCRIPTION)
                         .add(DriverInvSel.DESCRIPTION)
                         .add(Delay.DESCRIPTION)
-                        .add(PullUp.DESCRIPTION, "P", "SHIFT")
-                        .add(PullDown.DESCRIPTION, "P")
+                        .add(PullUp.DESCRIPTION, keyBinds.get("PullUp"))
+                        .add(PullDown.DESCRIPTION, keyBinds.get("PullDown"))
                         .add(NotConnected.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_mux"))
                         .add(Multiplexer.DESCRIPTION)
@@ -175,14 +183,14 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                         .add(BitSelector.DESCRIPTION)
                         .add(PriorityEncoder.DESCRIPTION))
                 .add(new LibraryNode(Lang.get("lib_flipFlops"))
-                        .add(FlipflopRSAsync.DESCRIPTION, "R", "SHIFT")
-                        .add(FlipflopRS.DESCRIPTION, "R")
-                        .add(FlipflopJK.DESCRIPTION, "J")
-                        .add(FlipflopD.DESCRIPTION, "D")
-                        .add(FlipflopT.DESCRIPTION, "T")
-                        .add(FlipflopJKAsync.DESCRIPTION, "J", "SHIFT")
-                        .add(FlipflopDAsync.DESCRIPTION, "D", "SHIFT")
-                        .add(Monoflop.DESCRIPTION), "M")
+                        .add(FlipflopRSAsync.DESCRIPTION, keyBinds.get("Async Rs-FlipFlop"))
+                        .add(FlipflopRS.DESCRIPTION, keyBinds.get("RS-FlipFlop"))
+                        .add(FlipflopJK.DESCRIPTION, keyBinds.get("JK-FlipFlop"))
+                        .add(FlipflopD.DESCRIPTION, keyBinds.get("D-FlipFlop"))
+                        .add(FlipflopT.DESCRIPTION, keyBinds.get("T-FlipFlop"))
+                        .add(FlipflopJKAsync.DESCRIPTION, keyBinds.get("Async JK-FlipFlop"))
+                        .add(FlipflopDAsync.DESCRIPTION, keyBinds.get("Async D-FlipFlop"))
+                        .add(Monoflop.DESCRIPTION), keyBinds.get("MonoFlop"))
                 .add(new LibraryNode(Lang.get("lib_memory"))
                         .add(new LibraryNode(Lang.get("lib_ram"))
                                 .add(RAMDualPort.DESCRIPTION)
@@ -491,7 +499,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
      *
      * @param node the node changed
      */
-    void fireLibraryChanged(LibraryNode node) {
+    public void fireLibraryChanged(LibraryNode node) {
         for (LibraryListener l : listeners)
             l.libraryChanged(node);
     }
@@ -504,6 +512,14 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
     public void addListener(LibraryListener listener) {
         listeners.add(listener);
         LOGGER.debug("added library listener " + listener.getClass().getSimpleName() + ", listeners: " + listeners.size());
+    }
+
+    public LibrarySelector getLibraryListener(){
+        for (LibraryListener listener: listeners){
+            if (listener instanceof LibrarySelector)
+                return (LibrarySelector) listener;
+        }
+        return null;
     }
 
     /**

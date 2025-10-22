@@ -110,18 +110,13 @@ public class LibraryNode implements Iterable<LibraryNode> {
         return this;
     }
 
-    LibraryNode add(LibraryNode node, String key) {
+    public LibraryNode add(LibraryNode node, String key) {
+        boolean shiftUsed = key.startsWith("Shift+");
+        if (shiftUsed)
+            node.modifier = "SHIFT";
+        String keyOnly = shiftUsed ? key.substring(6) : key;
         children.add(node);
-        node.key = key;
-        node.parent = this;
-        node.setLibrary(library);
-        return this;
-    }
-
-    LibraryNode add(LibraryNode node, String key, String modifier) {
-        children.add(node);
-        node.key = key;
-        node.modifier = modifier;
+        node.key = keyOnly;
         node.parent = this;
         node.setLibrary(library);
         return this;
@@ -132,13 +127,8 @@ public class LibraryNode implements Iterable<LibraryNode> {
         return this;
     }
 
-    LibraryNode add(ElementTypeDescription node, String key) {
+    public LibraryNode add(ElementTypeDescription node, String key) {
         add(new LibraryNode(node), key);
-        return this;
-    }
-
-    LibraryNode add(ElementTypeDescription node, String key, String modifier) {
-        add(new LibraryNode(node), key, modifier);
         return this;
     }
 
@@ -156,6 +146,10 @@ public class LibraryNode implements Iterable<LibraryNode> {
      */
     public String getKey() {
         return this.key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     /**

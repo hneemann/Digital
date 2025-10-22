@@ -59,6 +59,7 @@ import de.neemann.digital.toolchain.Configuration;
 import de.neemann.digital.undo.ChangedListener;
 import de.neemann.digital.undo.Modifications;
 import de.neemann.gui.*;
+import de.tobihxd.KeybindManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

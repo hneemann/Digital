@@ -170,6 +170,14 @@ public abstract class ToolTipAction extends AbstractAction {
         return this;
     }
 
+    public ToolTipAction disableAcceleratorIn(JComponent component) {
+        if (accelerator == null)
+            throw new RuntimeException("no accelerator given");
+        component.getInputMap().put(accelerator, this);
+        component.getActionMap().put(this, this);
+        return this;
+    }
+
     /**
      * Sets the activated state for this action
      *
