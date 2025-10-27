@@ -111,7 +111,9 @@ public class LibraryNode implements Iterable<LibraryNode> {
     }
 
     public LibraryNode add(LibraryNode node, String key) {
-        boolean shiftUsed = key.startsWith("Shift+");
+        boolean shiftUsed = false;
+        if (key != null)
+            shiftUsed = key.startsWith("Shift+");
         if (shiftUsed)
             node.modifier = "SHIFT";
         String keyOnly = shiftUsed ? key.substring(6) : key;

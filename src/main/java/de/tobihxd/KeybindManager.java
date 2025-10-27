@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neemann.digital.draw.library.ElementLibrary;
 import de.neemann.digital.gui.InsertAction;
 import de.neemann.digital.gui.LibrarySelector;
+import de.neemann.digital.lang.Lang;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,7 +21,7 @@ import java.util.Map;
 
 public class KeybindManager {
     private static KeybindManager instance;
-    private final LinkedHashMap<String, String> keyBinds = new LinkedHashMap<>();
+    private LinkedHashMap<String, String> keyBinds = new LinkedHashMap<>();
     private final ObjectMapper mapper = new ObjectMapper();
     private ElementLibrary library;
     private Path localFile;
@@ -78,7 +80,7 @@ public class KeybindManager {
                         });
                         keyBinds.clear();
                         keyBinds.putAll(defaults);
-                        save(); // lokale Kopie anlegen
+                        save(null); // lokale Kopie anlegen
                     }
                 }
             }
@@ -87,40 +89,55 @@ public class KeybindManager {
         }
     }
 
-    public void save() {
+    public void save(LinkedHashMap<String, String> newKeyBinds) {
         try (OutputStream out = Files.newOutputStream(localFile)) {
+            if (keyBinds != null) {
+                updateLibraryKeybinds(newKeyBinds);
+                keyBinds = newKeyBinds;
+            }
             mapper.writerWithDefaultPrettyPrinter().writeValue(out, keyBinds);
-            updateLibraryKeybinds();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void updateLibraryKeybinds() {
-        //library.getRoot().getChild(0).getChild(0).setKey("Q");
-        //library.fireLibraryChanged(library.getRoot().getChild(0).getChild(0));
-        LibrarySelector selector = library.getLibraryListener();
-        if (selector == null)
-            return;
-        JMenu componentsMenu = selector.getComponentsMenu();
-        JMenuItem menuComponent = getJMenuByName("Und", componentsMenu);
-        //menuComponent.setAccelerator(KeyStroke.getKeyStroke("Z"));
-        ActionListener[] actions = menuComponent.getListeners(ActionListener.class);
-        for (ActionListener action: actions) {
-            //action.disableAcceleratorIn(selector.getMain().getCircuitComponent());
-            ((InsertAction)action).setAccelerator("Q").enableAcceleratorIn(selector.getMain().getCircuitComponent());
-            selector.getMain().getCircuitComponent().getInputMap().remove(KeyStroke.getKeyStroke("A"));
+    private void updateLibraryKeybinds(LinkedHashMap<String, String> newKeyBinds) {
+        for (Map.Entry<String, String> entry : keyBinds.entrySet()) {
+            String name = Lang.get("elem_"+entry.getKey());
+            String newKey = newKeyBinds.get(entry.getKey());
+            boolean shiftUsed = newKey.startsWith("Shift+");
+            if (shiftUsed)
+                newKey = newKey.substring(6);
+            KeyStroke keyStroke = KeyStroke.getKeyStroke(newKey);
+            keyStroke = shiftUsed ? KeyStroke.getKeyStroke(keyStroke.getKeyCode(), InputEvent.SHIFT_DOWN_MASK): keyStroke;
+
+            LibrarySelector selector = library.getLibraryListener();
+            if (selector == null)
+                return;
+            JMenu componentsMenu = selector.getComponentsMenu();
+            JMenuItem menuComponent = getJMenuByName(name, componentsMenu);
+            if (menuComponent == null)
+                return;
+            KeyStroke oldKey = KeyStroke.getKeyStroke(entry.getValue());
+            ActionListener[] actions = menuComponent.getListeners(ActionListener.class);
+            for (ActionListener action : actions) {
+                selector.getMain().getCircuitComponent().getInputMap().remove(oldKey);
+                ((InsertAction) action).setAccelerator(keyStroke).enableAcceleratorIn(selector.getMain().getCircuitComponent());
+            }
         }
     }
 
     private JMenuItem getJMenuByName(String name, JMenu component){
+        JMenuItem result = null;
         System.out.println(component.getText());
         for (int i = 0; i < component.getItemCount(); i++) {
             JMenuItem instance = component.getItem(i);
             if (instance.getText().equals(name))
                 return instance;
             if (instance instanceof JMenu sub){
-                return getJMenuByName(name, sub);
+                JMenuItem tempResult = getJMenuByName(name, sub);
+                if (tempResult != null)
+                    return tempResult;
             }
         }
         return null;

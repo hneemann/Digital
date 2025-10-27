@@ -66,6 +66,7 @@ public class KeyBindSettingsPanel extends JPanel {
 
     /** Speichert Keybinds mit Validierung über den Manager */
     private void saveKeybinds() {
+        final LinkedHashMap<String, String> keyBinds = new LinkedHashMap<>(manager.getKeyBinds());
         boolean allValid = true;
 
         for (Map.Entry<String, JTextField> entry : fieldMap.entrySet()) {
@@ -78,12 +79,14 @@ public class KeyBindSettingsPanel extends JPanel {
             } else {
                 entry.getValue().setBackground(Color.WHITE);
                 String finalKey = (shiftBox.isSelected() ? "Shift+" : "") + key;
-                manager.setKeyBind(entry.getKey(), finalKey);
+                if (manager.isValidKey(key)) {
+                    keyBinds.put(entry.getKey(), finalKey);
+                }
             }
         }
 
         if (allValid) {
-            manager.save();
+            manager.save(keyBinds);
 
             JOptionPane.showMessageDialog(this, "Keybinds gespeichert!");
         } else {
