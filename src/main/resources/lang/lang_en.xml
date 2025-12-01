@@ -2585,4 +2585,13 @@ However, they must not be used above the header line listing the signal names.</
     <string name="tutorialNotNeeded">
         Skip Tutorial
     </string>
+
+    <string name="key_showValue">Show Value</string>
+    <string name="key_showValue_tt">Show the signal value text below the tunnel.</string>
+
+    <string name="key_valPos">Value Position</string>
+    <string name="key_valPos_LEFT">Left</string>
+    <string name="key_valPos_RIGHT">Right</string>
+    <string name="key_valPos_TOP">Top</string>
+    <string name="key_valPos_BOTTOM">Bottom</string>
 </resources>
