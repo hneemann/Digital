@@ -1483,8 +1483,16 @@ In the file howTo.md you can find more details about translations.
     <string name="cli_help_stats_dig">电路文件名</string>
     <string name="cli_help_stats_csv">CSV 文件名，如果为空，将写入到标准输出。</string>
 
-    <string name ="cli_help_hello"> Prints a greeting message. </string>
-    <string name ="cli_help_hello_name"> The name to greet </string>
+    <string name ="cli_help_hello"> TODO: Needs to be translated </string>
+    <string name ="cli_help_hello_name"> TODO: Needs to be translated </string>
+    <string name ="cli_help_export"> TODO: Needs to be translated </string>    
+    <string name ="cli_help_export_dig">TODO: Needs to be translated</string>
+    <string name ="cli_help_export_hdl">TODO: Needs to be translated</string>
+    <string name ="cli_help_export_language">TODO: Needs to be translated</string>
+    <string name ="cli_errorLanguageInvalid">TODO: Needs to be translated</string>
+    <string name ="cli_errorDigFileNotFound">TODO: Needs to be translated</string>
+    <string name ="cli_errorExportFailed">TODO: Needs to be translated</string>
+
 
     <string name="cli_errorCreatingStats">创建统计文件时遇到错误！</string>
     <string name="menu_table_exportTablePlainText">导出纯文本</string>

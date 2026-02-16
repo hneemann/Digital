@@ -1802,6 +1802,14 @@
 
     <string name ="cli_help_hello"> Prints a greeting message. </string>
     <string name ="cli_help_hello_name"> The name to greet </string>
+    
+    <string name ="cli_help_export"> Exports a dig design to an HDL file </string>
+    <string name ="cli_help_export_dig"> The file path of the circuit. </string>
+    <string name ="cli_help_export_hdl"> Filepath for the exported HDL file, defaults to circuit filepath</string>
+    <string name ="cli_help_export_language"> Choose Verilog or VHDL </string>
+    <string name ="cli_errorLanguageInvalid"> Error in language selection! </string>
+    <string name ="cli_errorDigFileNotFound"> Error dig file not found!</string>
+    <string name ="cli_errorExportFailed"> Error Export Failed! </string>
 
     <string name="menu_window">Windows</string>
     <string name="menu_about">About</string>

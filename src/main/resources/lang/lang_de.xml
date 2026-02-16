@@ -1820,8 +1820,16 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="cli_help_run">Start eine Schaltung headless.</string>
     <string name="cli_help_run_dig">Der Dateiname der Schaltung.</string>
 
-    <string name ="cli_help_hello"> Prints a greeting message. </string>
-    <string name ="cli_help_hello_name"> The name to greet </string>
+    <string name ="cli_help_hello"> TODO: Needs to be translated </string>
+    <string name ="cli_help_hello_name"> TODO: Needs to be translated </string>
+    <string name ="cli_help_export"> TODO: Needs to be translated </string>    
+    <string name ="cli_help_export_dig">TODO: Needs to be translated</string>
+    <string name ="cli_help_export_hdl">TODO: Needs to be translated</string>
+    <string name ="cli_help_export_language">TODO: Needs to be translated</string>
+    <string name ="cli_errorLanguageInvalid">TODO: Needs to be translated</string>
+    <string name ="cli_errorDigFileNotFound">TODO: Needs to be translated</string>
+    <string name ="cli_errorExportFailed">TODO: Needs to be translated</string>
+
 
     <string name="menu_window">Fenster</string>
     <string name="menu_about">Über Digital</string>
