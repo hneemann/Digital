@@ -1800,6 +1800,9 @@
     <string name="cli_help_run">Runs a circuit headless.</string>
     <string name="cli_help_run_dig">File name of the circuit.</string>
 
+    <string name ="cli_help_hello"> Prints a greeting message. </string>
+    <string name ="cli_help_hello_name"> The name to greet </string>
+
     <string name="menu_window">Windows</string>
     <string name="menu_about">About</string>
     <string name="menu_analyse">Analysis</string>

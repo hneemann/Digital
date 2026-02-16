@@ -1865,6 +1865,10 @@ In the file howTo.md you can find more details about translations.
     <string name="cli_help_stats_csv">Name of the CSV file to be created.
         If this option is missing, the table is written to stdout.
     </string>
+
+    <string name ="cli_help_hello"> Prints a greeting message. </string>
+    <string name ="cli_help_hello_name"> The name to greet </string>
+
     <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
     <string name="menu_table_exportTablePlainText">Export Plain Text</string>
     <string name="elem_ScopeTrigger">Triggered Data Graph</string>

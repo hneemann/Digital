@@ -1387,6 +1387,10 @@ In the file howTo.md you can find more details about translations.
         Tutti i componenti sono elencati nel file CSV.</string>
     <string name="cli_help_stats_dig">Nome del file del circuito.</string>
     <string name="cli_help_stats_csv">Nome del file CSV da creare. Se questa opzione manca, la tabella è scritta nello standard output.</string>
+
+    <string name ="cli_help_hello"> Prints a greeting message. </string>
+    <string name ="cli_help_hello_name"> The name to greet </string>
+    
     <string name="cli_errorCreatingStats">Errore durante la creazione dei file di statistica!</string>
     <string name="menu_window">Finestre</string>
     <string name="menu_about">Informazioni su</string>

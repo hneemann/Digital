@@ -2115,6 +2115,10 @@ Sin embargo, no se deben usar por encima de la línea del encabezado que contien
     <string name="cli_help_stats_csv">Nombre del archivo CSV que se va a crear.
         Si no está indicada esta opción, se escribe la tabla en stdout.
     </string>
+
+    <string name ="cli_help_hello"> Prints a greeting message. </string>
+    <string name ="cli_help_hello_name"> The name to greet </string>
+
     <string name="cli_errorCreatingStats">Error al crear el archivo de estadísticas.</string>
     <string name="menu_table_exportTablePlainText">Exporta texto plano</string>
     <string name="elem_ScopeTrigger">Gráfica de datos activos</string>
